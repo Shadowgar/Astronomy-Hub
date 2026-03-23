@@ -51,7 +51,7 @@ export default function Conditions({ locationQuery = '' }) {
     return () => {
       cancelled = true
     }
-  }, [locationQuery])
+  }, [locationQuery]);
 
   const handleRetry = useCallback(() => {
     // trigger a re-fetch by toggling loading and calling effect logic
@@ -99,15 +99,7 @@ export default function Conditions({ locationQuery = '' }) {
   }
 
   // Render exactly the fields from the Conditions contract
-  const {
-    location_label,
-    cloud_cover_pct,
-    moon_phase,
-    darkness_window,
-    observing_score,
-    summary,
-    last_updated,
-  } = data
+  const { location_label, cloud_cover_pct, moon_phase, darkness_window, observing_score, summary, last_updated } = data
 
   const isStale = Boolean(data && data.meta && data.meta.partial)
 
@@ -124,10 +116,10 @@ export default function Conditions({ locationQuery = '' }) {
         <dd>{moon_phase}</dd>
 
         <dt>darkness_window.start</dt>
-        <dd>{darkness_window?.start}</dd>
+        <dd>{darkness_window && darkness_window.start}</dd>
 
         <dt>darkness_window.end</dt>
-        <dd>{darkness_window?.end}</dd>
+        <dd>{darkness_window && darkness_window.end}</dd>
 
         <dt>observing_score</dt>
         <dd>{observing_score}</dd>
