@@ -143,78 +143,92 @@ class SimpleHandler(BaseHTTPRequestHandler):
                     raise
 
             if parsed.path == "/api/conditions":
-                # Use short TTL in-process cache for conditions responses only.
-                # Cache key incorporates whether this is ORAS or a custom location
-                # so we don't mix responses across locations.
+                # Per-module isolation guard: ensure failures in assembling
+                # the conditions payload don't take down other endpoints.
                 try:
-                    _ensure_cache()
-                except Exception:
-                    logger.exception(f"req={request_id} cache.init.fail")
+                    # Use short TTL in-process cache for conditions responses only.
+                    try:
+                        _ensure_cache()
+                    except Exception:
+                        logger.exception(f"req={request_id} cache.init.fail")
 
-                if parsed_location is None:
-                    cache_key = "conditions:oras"
-                else:
-                    # include numeric coords to distinguish custom locations
-                    lat = parsed_location.get('latitude')
-                    lon = parsed_location.get('longitude')
-                    elev = parsed_location.get('elevation_ft')
-                    cache_key = f"conditions:custom:{lat}:{lon}:{elev}"
-
-                cached_resp = _simple_cache.get(cache_key) if _simple_cache is not None else None
-                if cached_resp is not None:
-                    # Return cached payload but append non-invasive meta fields
-                    from copy import deepcopy
-                    resp = deepcopy(cached_resp)
-                    resp['meta'] = {
-                        'cached': True,
-                        'cached_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
-                    }
-                    logger.info(f"req={request_id} cache.hit key={cache_key}")
-                    self._send_json(resp)
-                    status = 200
-                else:
-                    # Build fresh response and populate cache after normalization
-                    from copy import deepcopy
-                    resp = deepcopy(MOCK_CONDITIONS)
                     if parsed_location is None:
-                        resp['location_label'] = 'ORAS Observatory'
+                        cache_key = "conditions:oras"
                     else:
-                        resp['location_label'] = 'Custom Location'
+                        # include numeric coords to distinguish custom locations
+                        lat = parsed_location.get('latitude')
+                        lon = parsed_location.get('longitude')
+                        elev = parsed_location.get('elevation_ft')
+                        cache_key = f"conditions:custom:{lat}:{lon}:{elev}"
 
-                    # Attempt to normalize through the normalizer stub, but
-                    # fall back to the original mock on any error.
-                    try:
-                        from backend.normalizers.conditions_normalizer import normalize_to_contract
+                    cached_resp = _simple_cache.get(cache_key) if _simple_cache is not None else None
+                    if cached_resp is not None:
+                        # Return cached payload but append non-invasive meta fields
+                        from copy import deepcopy
+                        resp = deepcopy(cached_resp)
+                        resp['meta'] = {
+                            'cached': True,
+                            'cached_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+                        }
+                        logger.info(f"req={request_id} cache.hit key={cache_key}")
+                        self._send_json(resp)
+                        status = 200
+                    else:
+                        # Build fresh response and populate cache after normalization
+                        from copy import deepcopy
+                        resp = deepcopy(MOCK_CONDITIONS)
+                        if parsed_location is None:
+                            resp['location_label'] = 'ORAS Observatory'
+                        else:
+                            resp['location_label'] = 'Custom Location'
+
+                        # Attempt to normalize through the normalizer stub, but
+                        # fall back to the original mock on any error.
                         try:
-                            normalized = normalize_to_contract(resp)
-                            if isinstance(normalized, dict):
-                                resp = normalized
-                                logger.info(f"req={request_id} normalize=ok")
-                            else:
-                                logger.info(f"req={request_id} normalize=skip type={type(normalized)}")
+                            # Minimal simulation hook for verification only:
+                            if os.environ.get('SIMULATE_NORMALIZER_FAIL') == 'conditions':
+                                raise RuntimeError('simulated normalization failure')
+
+                            from backend.normalizers.conditions_normalizer import normalize_to_contract
+                            try:
+                                normalized = normalize_to_contract(resp)
+                                if isinstance(normalized, dict):
+                                    resp = normalized
+                                    logger.info(f"req={request_id} normalize=ok")
+                                else:
+                                    logger.info(f"req={request_id} normalize=skip type={type(normalized)}")
+                            except Exception:
+                                logger.exception(f"req={request_id} normalize.fail")
                         except Exception:
-                            logger.exception(f"req={request_id} normalize.fail")
-                    except Exception:
-                        # Import failure or other issue importing normalizer; continue with mock
-                        logger.info(f"req={request_id} normalize=not-available")
+                            # Normalization failure should be treated as a module-level
+                            # assembly error: surface a controlled error for this module.
+                            logger.exception(f"req={request_id} module.conditions.assembly.fail")
+                            self._send_json({'error': 'module_error', 'module': 'conditions', 'message': 'failed to assemble conditions payload'}, status=500)
+                            status = 500
+                            return
 
-                    # Cache the response (without meta) for a short TTL
-                    try:
-                        cache_payload = deepcopy(resp)
-                        if 'meta' in cache_payload:
-                            cache_payload.pop('meta', None)
-                        if _simple_cache is not None:
-                            _simple_cache.set(cache_key, cache_payload, ttl=5)
-                    except Exception:
-                        logger.exception(f"req={request_id} cache.set.fail key={cache_key}")
+                        # Cache the response (without meta) for a short TTL
+                        try:
+                            cache_payload = deepcopy(resp)
+                            if 'meta' in cache_payload:
+                                cache_payload.pop('meta', None)
+                            if _simple_cache is not None:
+                                _simple_cache.set(cache_key, cache_payload, ttl=5)
+                        except Exception:
+                            logger.exception(f"req={request_id} cache.set.fail key={cache_key}")
 
-                    # Return the fresh response and include meta indicating not-cached
-                    resp['meta'] = {
-                        'cached': False,
-                        'cached_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
-                    }
-                    self._send_json(resp)
-                    status = 200
+                        # Return the fresh response and include meta indicating not-cached
+                        resp['meta'] = {
+                            'cached': False,
+                            'cached_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+                        }
+                        self._send_json(resp)
+                        status = 200
+                except Exception:
+                    # Module-level assembly failure: return a standard error contract
+                    logger.exception(f"req={request_id} module.conditions.unhandled")
+                    self._send_json({'error': 'module_error', 'module': 'conditions', 'message': 'internal error assembling module'}, status=500)
+                    status = 500
             elif parsed.path == "/api/targets":
                 # Accept optional location params but return static mock targets for now
                 self._send_json(MOCK_TARGETS)
