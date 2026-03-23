@@ -71,11 +71,18 @@ def _validate_suggestions(matches):
 
 
 class SimpleHandler(BaseHTTPRequestHandler):
-    def _send_json(self, obj, status=200):
+    def _send_json(self, obj, status=200, extra_headers=None):
         payload = json.dumps(obj, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(payload)))
+        if extra_headers:
+            for k, v in extra_headers.items():
+                try:
+                    self.send_header(str(k), str(v))
+                except Exception:
+                    # headers are best-effort; do not fail the request on header issues
+                    logger.exception(f"failed to set header {k}")
         self.end_headers()
         self.wfile.write(payload)
 
@@ -240,7 +247,12 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         cached = _simple_cache.get(cache_key) if _simple_cache is not None else None
                         if cached is not None:
                             logger.info(f"req={request_id} cache.hit key={cache_key}")
-                            self._send_json(cached)
+                            # Return cached payload but signal non-invasively via headers
+                            headers = {
+                                'X-Cache-Hit': 'true',
+                                'X-Cache-At': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+                            }
+                            self._send_json(cached, extra_headers=headers)
                             status = 200
                             return
 
@@ -253,13 +265,17 @@ class SimpleHandler(BaseHTTPRequestHandler):
                             status = 400
                             return
 
-                        # successful response: cache it briefly and return
+                        # successful response: cache it briefly and return (signal via headers)
                         try:
                             _simple_cache.set(cache_key, matches, ttl=5)
                         except Exception:
                             logger.exception(f"req={request_id} cache.set.fail key={cache_key}")
 
-                        self._send_json(matches)
+                        headers = {
+                            'X-Cache-Hit': 'false',
+                            'X-Cache-At': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+                        }
+                        self._send_json(matches, extra_headers=headers)
                         status = 200
                     except Exception:
                         logger.exception(f"req={request_id} location.search.load.fail")
