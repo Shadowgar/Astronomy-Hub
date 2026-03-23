@@ -1,0 +1,26 @@
+.inline-expansion {
+  margin: 0.25rem 0;
+}
+.inline-expansion__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  font: inherit;
+  cursor: pointer;
+}
+.inline-expansion__summary {
+  flex: 1 1 auto;
+  text-align: left;
+}
+.inline-expansion__chev {
+  margin-left: 0.5rem;
+  color: var(--muted-text, #666);
+}
+.inline-expansion__content {
+  padding: 0.5rem 0.75rem;
+  border-left: 2px solid rgba(0,0,0,0.05);
+}
