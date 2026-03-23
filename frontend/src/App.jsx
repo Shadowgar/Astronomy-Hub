@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import logFetch from './lib/logFetch'
 import Conditions from './components/Conditions'
 import RecommendedTargets from './components/RecommendedTargets'
 import AlertsEvents from './components/AlertsEvents'
@@ -23,11 +22,7 @@ export default function App() {
     }
   }, [mode])
 
-  // Minimal dev-only demonstration of logFetch usage (does not change app behavior)
-  useEffect(() => {
-    // fire-and-forget; logFetch will behave exactly like fetch in prod/when disabled
-    logFetch('/api/conditions').catch(() => {})
-  }, [])
+  
 
   // Active Observing Location (Phase 1 - frontend-only, session state)
   const ORAS = {

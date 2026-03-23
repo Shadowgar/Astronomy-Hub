@@ -10,7 +10,8 @@ export default async function logFetch(input, init) {
   const requestId = `req-${Date.now()}-${Math.floor(Math.random() * 90000 + 10000)}`
 
   try {
-    logger.info('api', 'request', { method, url, requestId })
+    // requestId must be a top-level field in the logger entry (passed as last arg)
+    logger.info('api', 'request', { method, url }, requestId)
   } catch (e) {
     // ignore logger failures
   }
@@ -20,13 +21,13 @@ export default async function logFetch(input, init) {
     const resp = await fetch(input, init)
     const duration = Math.round(((typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now()) - start)
     try {
-      logger.info('api', 'response', { requestId, status: resp.status, duration })
+      logger.info('api', 'response', { status: resp.status, duration }, requestId)
     } catch (e) {}
     return resp
   } catch (err) {
     const duration = Math.round(((typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now()) - start)
     try {
-      logger.error('api', 'error', { requestId, message: err && err.message, duration })
+      logger.error('api', 'error', { message: err && err.message, duration }, requestId)
     } catch (e) {}
     throw err
   }

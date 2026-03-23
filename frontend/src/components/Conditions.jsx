@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
+import logFetch from '../lib/logFetch'
 
 export default function Conditions({ locationQuery = '' }) {
   const [loading, setLoading] = useState(true)
@@ -11,7 +12,7 @@ export default function Conditions({ locationQuery = '' }) {
     setLoading(true)
     setError(null)
 
-    fetch(`/api/conditions${locationQuery}`)
+    logFetch(`/api/conditions${locationQuery}`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         return res.json()
