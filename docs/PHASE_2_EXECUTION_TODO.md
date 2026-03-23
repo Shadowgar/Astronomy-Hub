@@ -26,7 +26,7 @@ Step 2A.A1
 2. Step name: Create contracts index (empty)
 3. REQUIRED
 4. Files to modify:
-   - docs/contracts/index.json (new)
+   - docs/contracts/index.json (new — `docs/contracts/` directory will be created if missing)
 5. Goal: Add an index file that lists contract schema filenames (empty array is acceptable initially).
 6. Verification:
    - `ls docs/contracts`
@@ -39,7 +39,7 @@ Step 2A.A2
 2. Step name: Add error schema and sample
 3. REQUIRED
 4. Files to modify:
-   - docs/contracts/error.schema.json (new)
+   - docs/contracts/error.schema.json (new — `docs/contracts/` directory will be created if missing)
    - docs/contracts/sample_error.json (new)
 5. Goal: Create a strict JSON Schema for the error contract and a small example payload.
 6. Verification:
@@ -80,7 +80,7 @@ Step 2B.B1
 2. Step name: Add normalizers package (stubs)
 3. REQUIRED
 4. Files to modify:
-   - backend/normalizers/__init__.py (new)
+   - backend/normalizers/__init__.py (new — `backend/normalizers/` directory will be created if missing; file must be named `__init__.py`)
    - backend/normalizers/conditions_normalizer.py (new, stub)
 5. Goal: Provide importable stubs for normalizers with `normalize_to_contract(payload)` signature; stubs may return the input unchanged.
 6. Verification:
@@ -94,7 +94,7 @@ Step 2B.B2
 3. REQUIRED
 4. Files to modify:
    - backend/normalizers/validator.py (new)
-   - backend/tests/test_validator.py (new, minimal)
+   - backend/tests/test_validator.py (new, minimal — `backend/tests/` directory will be created if missing)
 5. Goal: Provide a small test-only utility that can validate JSON payloads against schemas in `docs/contracts/`.
 6. Verification:
    - `python3 -m pytest backend/tests/test_validator.py -q` (test imports validator and loads `error.schema.json`)
@@ -119,7 +119,7 @@ Step 2B.B4
 2. Step name: Add normalization unit test for Conditions
 3. REQUIRED
 4. Files to modify:
-   - backend/tests/test_normalizers_conditions.py (new)
+   - backend/tests/test_normalizers_conditions.py (new — `backend/tests/` directory will be created if missing)
 5. Goal: Test that `conditions_data` can be fed to the normalizer and validated via validator utility.
 6. Verification:
    - `python3 -m pytest backend/tests/test_normalizers_conditions.py -q` passes locally.
@@ -131,7 +131,7 @@ Step 2B.B5
 2. Step name: Document unknown-field policy
 3. REQUIRED
 4. Files to modify:
-   - backend/normalizers/README.md (new)
+   - backend/normalizers/README.md (new — `backend/normalizers/` directory will be created if missing)
 5. Goal: Add a short note documenting that unknown provider fields must not be forwarded and default policy is to drop unknowns.
 6. Verification:
    - `cat backend/normalizers/README.md` shows the policy.
@@ -145,7 +145,7 @@ Step 2C.C1
 2. Step name: Add Conditions adapter skeleton
 3. REQUIRED
 4. Files to modify:
-   - frontend/src/lib/adapters/conditionsAdapter.js (new)
+   - frontend/src/lib/adapters/conditionsAdapter.js (new — `frontend/src/lib/adapters/` directory will be created if missing)
 5. Goal: Add small adapter skeleton `toUi(payload)` returning payload unchanged and logging validation warnings to existing logger.
 6. Verification:
    - `npm run dev` (or bundle) should not error due to missing file import if temporarily imported; otherwise, import check in editor.
@@ -157,7 +157,7 @@ Step 2C.C2
 2. Step name: Add InlineExpansion component skeleton
 3. REQUIRED
 4. Files to modify:
-   - frontend/src/components/common/InlineExpansion.jsx (new)
+   - frontend/src/components/common/InlineExpansion.jsx (new — `frontend/src/components/common/` directory will be created if missing)
    - frontend/src/components/common/InlineExpansion.css (new)
 5. Goal: Provide an accessible expansion component skeleton to be reused by module rows.
 6. Verification:
@@ -198,7 +198,7 @@ Step 2C.C5
 2. Step name: Add basic detail-view test scaffold (OPTIONAL)
 3. OPTIONAL
 4. Files to modify:
-   - frontend/tests/test_detail_views.test.js (new)
+   - frontend/tests/test_detail_views.test.js (new — `frontend/tests/` directory will be created if missing)
 5. Goal: Add small tests asserting default collapsed detail sections and density constraints.
 6. Verification:
    - `npm test -- --testPathPattern=test_detail_views` executes the test.
@@ -226,7 +226,7 @@ Step 2D.D2
 2. Step name: Add LocationSelector component (skeleton)
 3. REQUIRED
 4. Files to modify:
-   - frontend/src/components/LocationSelector/LocationSelector.jsx (new)
+   - frontend/src/components/LocationSelector/LocationSelector.jsx (new — `frontend/src/components/LocationSelector/` will be created if missing)
    - frontend/src/components/LocationSelector/locationSelector.css (new)
 5. Goal: Input + suggestion list + explicit `Apply` button; do not replace App's existing inputs.
 6. Verification:
@@ -239,7 +239,7 @@ Step 2D.D3
 2. Step name: Add minimal pending/apply state module and wire optional mount
 3. REQUIRED
 4. Files to modify:
-   - frontend/src/state/locationState.js (new)
+   - frontend/src/state/locationState.js (new — `frontend/src/state/` will be created if missing)
    - frontend/src/App.jsx (small, optional mount behind flag)
 5. Goal: Provide `pendingLocation` in-memory and ensure `Apply` sets pending without auto-applying.
 6. Verification:
@@ -266,7 +266,7 @@ Step 2E.E1
 2. Step name: Add simple in-process cache utility
 3. REQUIRED
 4. Files to modify:
-   - backend/cache/simple_cache.py (new)
+   - backend/cache/simple_cache.py (new — `backend/cache/` directory already exists)
 5. Goal: Implement minimal `SimpleCache` with `get/set` and TTL in-process (small, documented).
 6. Verification:
    - `python3 -c "from backend.cache.simple_cache import SimpleCache; c=SimpleCache(); c.set('k',1,ttl=1); print(c.get('k'))"`
@@ -316,7 +316,7 @@ Step 2F.F2
 2. Step name: Add ModuleShell wrapper and integrate into Conditions only
 3. REQUIRED
 4. Files to modify:
-   - frontend/src/components/ModuleShell.jsx (new)
+   - frontend/src/components/ModuleShell.jsx (new — create in `frontend/src/components/`)
    - frontend/src/components/Conditions.jsx (small modification to render via ModuleShell)
 5. Goal: Provide minimal UI wrapper for partial/stale display and retry action for Conditions module without wide UI changes.
 6. Verification:
@@ -329,8 +329,8 @@ Step 2F.F3
 2. Step name: Add small degraded-mode tests (OPTIONAL)
 3. OPTIONAL
 4. Files to modify:
-   - backend/tests/test_degraded_mode.py (new)
-   - frontend/tests/test_degraded_ui.test.js (new)
+   - backend/tests/test_degraded_mode.py (new — `backend/tests/` will be created if missing)
+   - frontend/tests/test_degraded_ui.test.js (new — `frontend/tests/` will be created if missing)
 5. Goal: Add tests that assert server returns error contract on per-module failure and UI renders stale/partial states without crashing.
 6. Verification:
    - `python3 -m pytest backend/tests -q` and `npm test -- --testPathPattern=test_degraded_ui`
@@ -343,7 +343,7 @@ Step 2F.F4
 3. REQUIRED
 4. Files to modify:
    - backend/logging_config.py (small comment additions only)
-   - backend/monitoring/metrics.md (new)
+   - backend/monitoring/metrics.md (new — `backend/monitoring/` will be created if missing)
 5. Goal: Add brief documentation of log keys to look for (cache hit/miss, normalize.fail, module.error) and example messages.
 6. Verification:
    - `cat backend/monitoring/metrics.md` and inspect comments in `backend/logging_config.py`.
