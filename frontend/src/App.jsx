@@ -22,12 +22,86 @@ export default function App() {
     }
   }, [mode])
 
+  // Active Observing Location (Phase 1 - frontend-only, session state)
+  const ORAS = {
+    label: 'ORAS Observatory',
+    latitude: 41.321903,
+    longitude: -79.585394,
+    elevation_ft: 1420,
+  }
+
+  const [activeLocation, setActiveLocation] = useState(ORAS)
+  const [latInput, setLatInput] = useState('')
+  const [lonInput, setLonInput] = useState('')
+  const [elevInput, setElevInput] = useState('')
+  const [locError, setLocError] = useState('')
+
   return (
     <div className={`app-shell mode-${mode.toLowerCase()}`}>
       <header className="app-header">
         <h1>Astronomy Hub</h1>
         <div className="header-controls">
-          <span className="location-label">Location: Oil City, PA</span>
+          <div className="location-section">
+            <span className="location-label">Location: {activeLocation === ORAS ? ORAS.label : `Custom Location (${activeLocation.latitude.toFixed(5)}, ${activeLocation.longitude.toFixed(5)})`}</span>
+
+            <div className="location-inputs" style={{display: 'inline-block', marginLeft: 12}}>
+              <input
+                aria-label="Latitude"
+                placeholder="lat"
+                value={latInput}
+                onChange={(e) => setLatInput(e.target.value)}
+                style={{width: 90, marginRight: 6}}
+              />
+              <input
+                aria-label="Longitude"
+                placeholder="lon"
+                value={lonInput}
+                onChange={(e) => setLonInput(e.target.value)}
+                style={{width: 100, marginRight: 6}}
+              />
+              <input
+                aria-label="Elevation feet (optional)"
+                placeholder="elev ft"
+                value={elevInput}
+                onChange={(e) => setElevInput(e.target.value)}
+                style={{width: 90, marginRight: 6}}
+              />
+              <button
+                onClick={() => {
+                  // validate inputs
+                  setLocError('')
+                  const lat = Number.parseFloat(latInput)
+                  const lon = Number.parseFloat(lonInput)
+                  const elev = elevInput === '' ? undefined : Number(elevInput)
+                  if (!Number.isFinite(lat) || lat < -90 || lat > 90) {
+                    setLocError('Latitude must be a number between -90 and 90')
+                    return
+                  }
+                  if (!Number.isFinite(lon) || lon < -180 || lon > 180) {
+                    setLocError('Longitude must be a number between -180 and 180')
+                    return
+                  }
+                  if (elev !== undefined && !Number.isFinite(elev)) {
+                    setLocError('Elevation must be a number')
+                    return
+                  }
+                  // apply for session only
+                  setActiveLocation({ label: 'Custom Location', latitude: lat, longitude: lon, elevation_ft: elev })
+                }}
+                style={{marginRight: 6}}
+              >Apply for session</button>
+              <button
+                onClick={() => {
+                  setLocError('')
+                  setActiveLocation(ORAS)
+                  setLatInput('')
+                  setLonInput('')
+                  setElevInput('')
+                }}
+              >Reset to ORAS</button>
+              {locError && <div style={{color: '#ffb3b3', marginTop: 6}} role="alert">{locError}</div>}
+            </div>
+          </div>
           <span className="mode-control">
             Mode:
             <select
