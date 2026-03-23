@@ -138,8 +138,35 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         sugg_path = os.path.join(base, 'location_suggestions.json')
                         with open(sugg_path, 'r', encoding='utf-8') as fh:
                             suggestions = json.load(fh)
+                        # Optional: test hook to inject a malformed suggestion for verification
+                        if q.get('test_malformed'):
+                            suggestions.append({ 'name': 'MALFORMED COORD', 'latitude': 'not-a-number', 'longitude': 9999 })
                         ql = q_trim.lower()
                         matches = [s for s in suggestions if ql in (s.get('name') or '').lower()]
+                        # Validate coordinates on suggestions: if a suggestion includes latitude/longitude,
+                        # they must be numeric and within valid ranges. If any are malformed, return 400.
+                        for idx, s in enumerate(matches):
+                            lat = s.get('latitude')
+                            lon = s.get('longitude')
+                            if lat is None and lon is None:
+                                continue
+                            # Both must be present if either is present
+                            if lat is None or lon is None:
+                                self._send_json({'error': 'suggestion coordinates malformed', 'index': idx, 'suggestion': s}, status=400)
+                                status = 400
+                                return
+                            # must be numbers
+                            try:
+                                latf = float(lat)
+                                lonf = float(lon)
+                            except Exception:
+                                self._send_json({'error': 'suggestion coordinates malformed', 'index': idx, 'suggestion': s}, status=400)
+                                status = 400
+                                return
+                            if not (-90.0 <= latf <= 90.0) or not (-180.0 <= lonf <= 180.0):
+                                self._send_json({'error': 'suggestion coordinates out of range', 'index': idx, 'suggestion': s}, status=400)
+                                status = 400
+                                return
                         self._send_json(matches)
                         status = 200
                     except Exception:
