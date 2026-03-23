@@ -512,6 +512,77 @@ All endpoints must define:
 }
 ```
 
+
+### Module Contract Examples
+
+Each module must publish a clear, minimal contract for both summary and detail shapes. Example detail shapes (illustrative only):
+
+#### Target (Detail Example)
+
+```
+{
+  id: string,
+  name: string,
+  type: "galaxy" | "nebula" | "cluster" | "planet",
+  visibility: {
+    start: ISO,
+    peak: ISO,
+    end: ISO
+  },
+  magnitude: number,
+  notes: string
+}
+```
+
+#### Pass (Detail Example)
+
+```
+{
+  id: string,
+  start_time: ISO,
+  end_time: ISO,
+  peak_altitude: number,
+  brightness: number,
+  direction_start: string,
+  direction_end: string
+}
+```
+
+#### Event (Detail Example)
+
+```
+{
+  id: string,
+  name: string,
+  start_time: ISO,
+  end_time: ISO,
+  description: string,
+  visibility_likelihood: number
+}
+```
+
+### UI Consistency Rules
+
+- All modules must use consistent labeling terminology.
+- Similar data types must be displayed in the same format across modules.
+- Time values must follow a single system-wide format (ISO + local display rules).
+- Units must not change between summary, expanded, and detail views.
+- No module may introduce unique UI patterns not used elsewhere (controls, affordances, or verbs).
+
+### Transparency Rules
+
+- All displayed values must be explainable and traceable to input fields or documented derivations.
+- No hidden scoring systems or opaque heuristics without a short explanation visible to the user.
+- Derived values must include their basis (inputs and timestamp) in the detail view metadata.
+- System must not make unexplained recommendations; any ranking or prioritization must be surfaced with reasoning.
+
+### Regression Protection
+
+- All Phase 1 module outputs must remain valid and renderable by the dashboard.
+- Existing API shapes must not break without explicit versioning and documented migration steps.
+- Any behavior change that affects Phase 1 workflows must be documented and approved prior to rollout.
+- Automated or manual tests must include at least one check per Phase 1 module verifying parity of core outputs.
+
 ---
 
 ## 12. Normalization Rules
