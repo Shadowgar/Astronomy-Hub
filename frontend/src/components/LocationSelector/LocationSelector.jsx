@@ -6,6 +6,7 @@ export default function LocationSelector({ onApply } = {}) {
   const [suggestions, setSuggestions] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [selectedSuggestion, setSelectedSuggestion] = useState(null)
   const mounted = useRef(true)
 
   useEffect(() => {
