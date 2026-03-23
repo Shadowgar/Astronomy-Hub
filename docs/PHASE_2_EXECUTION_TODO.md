@@ -26,7 +26,8 @@ Step 2A.A1
 2. Step name: Create contracts index (empty)
 3. REQUIRED
 4. Files to modify:
-   - docs/contracts/index.json (new — `docs/contracts/` directory will be created if missing)
+   - docs/contracts/index.json (new)
+   - Create directory if missing: `mkdir -p docs/contracts`
 5. Goal: Add an index file that lists contract schema filenames (empty array is acceptable initially).
 6. Verification:
    - `ls docs/contracts`
@@ -39,11 +40,13 @@ Step 2A.A2
 2. Step name: Add error schema and sample
 3. REQUIRED
 4. Files to modify:
-   - docs/contracts/error.schema.json (new — `docs/contracts/` directory will be created if missing)
+   - docs/contracts/error.schema.json (new)
    - docs/contracts/sample_error.json (new)
+   - Create directory if missing: `mkdir -p docs/contracts`
 5. Goal: Create a strict JSON Schema for the error contract and a small example payload.
 6. Verification:
-   - `npx ajv validate -s docs/contracts/error.schema.json -d docs/contracts/sample_error.json`
+   - If `ajv` is available: `npx ajv validate -s docs/contracts/error.schema.json -d docs/contracts/sample_error.json`
+   - Otherwise verify JSON syntax: `python3 -c "import json; json.load(open('docs/contracts/error.schema.json')); json.load(open('docs/contracts/sample_error.json')); print('ok')"`
 7. Suggested commit message: "2A.A2: docs(contracts): add error.schema.json and example"
 8. Rollback: remove the two files or revert the commit.
 
@@ -80,8 +83,9 @@ Step 2B.B1
 2. Step name: Add normalizers package (stubs)
 3. REQUIRED
 4. Files to modify:
-   - backend/normalizers/__init__.py (new — `backend/normalizers/` directory will be created if missing; file must be named `__init__.py`)
+   - backend/normalizers/__init__.py (new — file must be named `__init__.py`)
    - backend/normalizers/conditions_normalizer.py (new, stub)
+   - Create directory if missing: `mkdir -p backend/normalizers`
 5. Goal: Provide importable stubs for normalizers with `normalize_to_contract(payload)` signature; stubs may return the input unchanged.
 6. Verification:
    - `python3 -c "import backend.normalizers.conditions_normalizer; print('ok')"` prints `ok`.
@@ -94,7 +98,8 @@ Step 2B.B2
 3. REQUIRED
 4. Files to modify:
    - backend/normalizers/validator.py (new)
-   - backend/tests/test_validator.py (new, minimal — `backend/tests/` directory will be created if missing)
+   - backend/tests/test_validator.py (new, minimal)
+   - Create directory if missing: `mkdir -p backend/tests`
 5. Goal: Provide a small test-only utility that can validate JSON payloads against schemas in `docs/contracts/`.
 6. Verification:
    - `python3 -m pytest backend/tests/test_validator.py -q` (test imports validator and loads `error.schema.json`)
@@ -109,8 +114,9 @@ Step 2B.B3
    - backend/server.py (modify small callpoints to invoke stubs inside try/except)
 5. Goal: Ensure `backend.normalizers.conditions_normalizer.normalize_to_contract` is called before returning mock payloads but fall back to original mock on any error.
 6. Verification:
-   - Start server and `curl http://localhost:8000/api/conditions` returns same payload as before.
-   - Server logs show normalization attempt.
+   - Start server in one terminal: `python3 backend/server.py`
+   - In another terminal: `curl http://localhost:8000/api/conditions` and confirm HTTP 200 and JSON response.
+   - Observe server terminal stdout for normalization log lines (look for `req=` or `normalize` entries emitted by `logging_config`).
 7. Suggested commit message: "2B.B3: backend(server): call normalizer stubs with safe fallback"
 8. Rollback: revert `backend/server.py` to prior version.
 
@@ -119,10 +125,12 @@ Step 2B.B4
 2. Step name: Add normalization unit test for Conditions
 3. REQUIRED
 4. Files to modify:
-   - backend/tests/test_normalizers_conditions.py (new — `backend/tests/` directory will be created if missing)
+   - backend/tests/test_normalizers_conditions.py (new)
+   - Create directory if missing: `mkdir -p backend/tests`
 5. Goal: Test that `conditions_data` can be fed to the normalizer and validated via validator utility.
 6. Verification:
-   - `python3 -m pytest backend/tests/test_normalizers_conditions.py -q` passes locally.
+   - If `pytest` is available: `python3 -m pytest backend/tests/test_normalizers_conditions.py -q`
+   - Otherwise, run an import check: `python3 -c "import sys; sys.path.insert(0, '.'); from backend.normalizers.conditions_normalizer import normalize_to_contract; print('ok')"`
 7. Suggested commit message: "2B.B4: tests(normalizers): add conditions normalizer test"
 8. Rollback: remove test or revert.
 
@@ -131,7 +139,8 @@ Step 2B.B5
 2. Step name: Document unknown-field policy
 3. REQUIRED
 4. Files to modify:
-   - backend/normalizers/README.md (new — `backend/normalizers/` directory will be created if missing)
+   - backend/normalizers/README.md (new)
+   - Create directory if missing: `mkdir -p backend/normalizers`
 5. Goal: Add a short note documenting that unknown provider fields must not be forwarded and default policy is to drop unknowns.
 6. Verification:
    - `cat backend/normalizers/README.md` shows the policy.
@@ -145,10 +154,12 @@ Step 2C.C1
 2. Step name: Add Conditions adapter skeleton
 3. REQUIRED
 4. Files to modify:
-   - frontend/src/lib/adapters/conditionsAdapter.js (new — `frontend/src/lib/adapters/` directory will be created if missing)
-5. Goal: Add small adapter skeleton `toUi(payload)` returning payload unchanged and logging validation warnings to existing logger.
+   - frontend/src/lib/adapters/conditionsAdapter.js (new)
+   - Create directory if missing: `mkdir -p frontend/src/lib/adapters`
+5. Goal: Add small adapter skeleton `toUi(payload)` returning payload unchanged and logging validation warnings to existing frontend logger (`frontend/src/lib/logger.js`).
 6. Verification:
    - `npm run dev` (or bundle) should not error due to missing file import if temporarily imported; otherwise, import check in editor.
+   - To inspect logger output in the browser, enable dev logger by adding `?devlog=1` to the app URL or setting `localStorage['astroHub.devLog']='1'`, then check browser console for single-line JSON log entries.
 7. Suggested commit message: "2C.C1: frontend(adapters): add conditionsAdapter skeleton"
 8. Rollback: remove file or revert.
 
@@ -157,8 +168,9 @@ Step 2C.C2
 2. Step name: Add InlineExpansion component skeleton
 3. REQUIRED
 4. Files to modify:
-   - frontend/src/components/common/InlineExpansion.jsx (new — `frontend/src/components/common/` directory will be created if missing)
+   - frontend/src/components/common/InlineExpansion.jsx (new)
    - frontend/src/components/common/InlineExpansion.css (new)
+   - Create directory if missing: `mkdir -p frontend/src/components/common`
 5. Goal: Provide an accessible expansion component skeleton to be reused by module rows.
 6. Verification:
    - Temporary import into an existing component to ensure build succeeds; inspect in dev server.
@@ -198,7 +210,8 @@ Step 2C.C5
 2. Step name: Add basic detail-view test scaffold (OPTIONAL)
 3. OPTIONAL
 4. Files to modify:
-   - frontend/tests/test_detail_views.test.js (new — `frontend/tests/` directory will be created if missing)
+   - frontend/tests/test_detail_views.test.js (new)
+   - Create directory if missing: `mkdir -p frontend/tests`
 5. Goal: Add small tests asserting default collapsed detail sections and density constraints.
 6. Verification:
    - `npm test -- --testPathPattern=test_detail_views` executes the test.
@@ -226,8 +239,9 @@ Step 2D.D2
 2. Step name: Add LocationSelector component (skeleton)
 3. REQUIRED
 4. Files to modify:
-   - frontend/src/components/LocationSelector/LocationSelector.jsx (new — `frontend/src/components/LocationSelector/` will be created if missing)
+   - frontend/src/components/LocationSelector/LocationSelector.jsx (new)
    - frontend/src/components/LocationSelector/locationSelector.css (new)
+   - Create directory if missing: `mkdir -p frontend/src/components/LocationSelector`
 5. Goal: Input + suggestion list + explicit `Apply` button; do not replace App's existing inputs.
 6. Verification:
    - Mount behind a feature flag or temporary import; typing >=3 chars shows suggestions from backend.
@@ -239,11 +253,13 @@ Step 2D.D3
 2. Step name: Add minimal pending/apply state module and wire optional mount
 3. REQUIRED
 4. Files to modify:
-   - frontend/src/state/locationState.js (new — `frontend/src/state/` will be created if missing)
+   - frontend/src/state/locationState.js (new)
    - frontend/src/App.jsx (small, optional mount behind flag)
+   - Create directory if missing: `mkdir -p frontend/src/state`
 5. Goal: Provide `pendingLocation` in-memory and ensure `Apply` sets pending without auto-applying.
 6. Verification:
-   - Select suggestion and press Apply; confirm `activeLocation` unchanged until explicit confirm and logger shows action.
+   - Select suggestion and press Apply; confirm `activeLocation` unchanged until explicit confirm.
+   - To observe the dev logger: open the app with `?devlog=1` and check browser console for a JSON log entry indicating the pending/apply action (entries are single-line JSON from `frontend/src/lib/logger.js`).
 7. Suggested commit message: "2D.D3: frontend(location): add pending location state and optional mount"
 8. Rollback: revert App.jsx and delete state file.
 
@@ -320,7 +336,8 @@ Step 2F.F2
    - frontend/src/components/Conditions.jsx (small modification to render via ModuleShell)
 5. Goal: Provide minimal UI wrapper for partial/stale display and retry action for Conditions module without wide UI changes.
 6. Verification:
-   - Simulate partial payloads and confirm ModuleShell displays a `stale` badge and retry triggers a re-fetch or logger entry.
+   - Simulate partial payloads and confirm ModuleShell displays a visible `stale` badge in the DOM and that a `retry` action triggers either a re-fetch or emits a dev-log entry.
+   - If using dev logger, open app with `?devlog=1` and check browser console for a single-line JSON entry when retry is used.
 7. Suggested commit message: "2F.F2: frontend(ui): add ModuleShell and integrate into Conditions"
 8. Rollback: revert Conditions.jsx and remove ModuleShell.jsx.
 
@@ -329,11 +346,16 @@ Step 2F.F3
 2. Step name: Add small degraded-mode tests (OPTIONAL)
 3. OPTIONAL
 4. Files to modify:
-   - backend/tests/test_degraded_mode.py (new — `backend/tests/` will be created if missing)
-   - frontend/tests/test_degraded_ui.test.js (new — `frontend/tests/` will be created if missing)
+   - backend/tests/test_degraded_mode.py (new)
+   - frontend/tests/test_degraded_ui.test.js (new)
+   - Create directories if missing: `mkdir -p backend/tests` and `mkdir -p frontend/tests`
 5. Goal: Add tests that assert server returns error contract on per-module failure and UI renders stale/partial states without crashing.
 6. Verification:
-   - `python3 -m pytest backend/tests -q` and `npm test -- --testPathPattern=test_degraded_ui`
+   - If `pytest` is available: `python3 -m pytest backend/tests -q`
+   - If `npm test` is available: `npm test -- --testPathPattern=test_degraded_ui`
+   - Otherwise perform manual import/build checks:
+      - `python3 -c "import sys; sys.path.insert(0, '.'); print('ok')"`
+      - `npm run build` (or `npm run dev`) to ensure frontend compiles
 7. Suggested commit message: "2F.F3: tests: add degraded-mode tests (small)"
 8. Rollback: remove tests or revert.
 
@@ -343,7 +365,8 @@ Step 2F.F4
 3. REQUIRED
 4. Files to modify:
    - backend/logging_config.py (small comment additions only)
-   - backend/monitoring/metrics.md (new — `backend/monitoring/` will be created if missing)
+   - backend/monitoring/metrics.md (new)
+   - Create directory if missing: `mkdir -p backend/monitoring`
 5. Goal: Add brief documentation of log keys to look for (cache hit/miss, normalize.fail, module.error) and example messages.
 6. Verification:
    - `cat backend/monitoring/metrics.md` and inspect comments in `backend/logging_config.py`.
