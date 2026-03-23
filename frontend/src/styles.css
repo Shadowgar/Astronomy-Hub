@@ -58,6 +58,15 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
   color: #a02828; /* primary red text for general content */
 }
 
+/* Ensure top-level elements do not flash white when red mode is active */
+.mode-red html,
+.mode-red body,
+.mode-red #root,
+.mode-red .app-shell {
+  background: #000000 !important;
+  color: #a02828 !important;
+}
+
 .mode-red .dashboard .module {
   /* very dark panels for red mode */
   background: #080000; /* panel background */
@@ -79,6 +88,7 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
   background: #080000; /* control background matches panels */
   color: #a02828; /* primary red for inputs/buttons */
   border: 1px solid #240000;
+  box-shadow: none;
 }
 
 .mode-red select {
@@ -94,11 +104,60 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 
 .mode-red input:focus,
 .mode-red select:focus,
+.mode-red textarea:focus,
 .mode-red button:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(160,40,40,0.12);
+  /* subtle red glow for focus without bright blue */
+  box-shadow: 0 0 0 2px rgba(160,40,40,0.08);
   border-color: #240000;
 }
+
+/* Placeholder, selection, and disabled states */
+.mode-red ::placeholder {
+  color: #3f0a0a; /* very dark placeholder */
+  opacity: 1;
+}
+.mode-red ::-webkit-input-placeholder { color: #3f0a0a; }
+.mode-red ::-moz-placeholder { color: #3f0a0a; }
+.mode-red ::-ms-input-placeholder { color: #3f0a0a; }
+
+.mode-red ::selection {
+  background: rgba(160,40,40,0.14);
+  color: #7a1d1d;
+}
+
+.mode-red input[disabled],
+.mode-red textarea[disabled],
+.mode-red select[disabled],
+.mode-red button[disabled] {
+  opacity: 0.6;
+  filter: none;
+  background: #070000;
+  color: #5a1414;
+  border-color: #1a0000;
+}
+
+/* Horizontal rules and native controls */
+.mode-red hr {
+  border: none;
+  height: 1px;
+  background: #240000;
+}
+
+/* Remove bright shadows, ensure hover/active are low-luminance */
+.mode-red button:hover,
+.mode-red input:hover,
+.mode-red select:hover,
+.mode-red textarea:hover {
+  filter: brightness(0.95);
+}
+.mode-red button:active { transform: translateY(0.5px); }
+
+/* Scrollbar styling (WebKit + Firefox fallback) */
+.mode-red ::-webkit-scrollbar { width: 10px; height: 10px; }
+.mode-red ::-webkit-scrollbar-track { background: #030000; }
+.mode-red ::-webkit-scrollbar-thumb { background: #240000; border-radius: 6px; }
+/* scrollbar-color applied via ::-webkit and Firefox rules above */
 
 /* Links and small text */
 .mode-red a,
