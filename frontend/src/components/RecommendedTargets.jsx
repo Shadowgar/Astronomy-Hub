@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
+import TargetRow from './TargetRow'
 
 // Render up to 5 targets per UI density rules
 const MAX_TARGETS = 5
@@ -45,19 +46,7 @@ export default function RecommendedTargets({ locationQuery = '' }) {
         <ul>
           {targets.length === 0 && <li>No targets available</li>}
           {targets.map((t, idx) => (
-            <li key={t.name || idx} className="target-item">
-              <strong>{t.name}</strong>
-              <div className="small">
-                <span>category: {t.category}</span> · <span>direction: {t.direction}</span>
-              </div>
-              <div className="small">
-                <span>elevation_band: {t.elevation_band}</span> · <span>best_time: {t.best_time}</span>
-              </div>
-              <div className="small">
-                <span>difficulty: {t.difficulty}</span>
-              </div>
-              <p>{t.reason}</p>
-            </li>
+            <TargetRow key={t.name || idx} target={t} />
           ))}
         </ul>
       )}
