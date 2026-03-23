@@ -30,7 +30,7 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 .mode-red .app-footer {
   /* very dark maroon surfaces for header/footer (astronomy-safe) */
   background: #040000; /* header/footer background */
-  color: #a02828; /* primary red text */
+  color: #7a1d1d; /* primary red text (reduced intensity) */
   border-color: #240000; /* divider/border color */
 }
 
@@ -55,7 +55,7 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 .mode-red {
   /* Astronomy-safe red mode: near-black page background */
   background: #000000; /* page background */
-  color: #a02828; /* primary red text for general content */
+  color: #7a1d1d; /* primary red text for general content (reduced intensity) */
 }
 
 /* Ensure top-level elements do not flash white when red mode is active */
@@ -77,7 +77,7 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 .mode-red .dashboard .module h2,
 .mode-red .dashboard .module h3,
 .mode-red .app-header h1 {
-  color: #a02828; /* headings use primary red */
+  color: #7a1d1d; /* headings use slightly dimmer primary red */
 }
 
 /* Controls in red mode: inputs, selects, buttons */
@@ -106,10 +106,17 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 .mode-red select:focus,
 .mode-red textarea:focus,
 .mode-red button:focus {
+  /* remove bright focus styling; visible-only-for-keyboard handled below */
   outline: none;
-  /* subtle red glow for focus without bright blue */
-  box-shadow: 0 0 0 2px rgba(160,40,40,0.08);
+  box-shadow: none;
   border-color: #240000;
+}
+
+/* Focus visible: subtle, low-luminance outline for keyboard navigation */
+.mode-red :focus-visible {
+  outline: 1px solid rgba(112,35,35,0.20);
+  box-shadow: 0 0 0 1px rgba(112,35,35,0.04);
+  border-color: rgba(112,35,35,0.22);
 }
 
 /* Placeholder, selection, and disabled states */
@@ -166,3 +173,27 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 }
 
 /* Ensure footer and header separators are subdued (handled above) */
+
+/* ===== .mode-red HARDENING: autofill, scrollbars, edge-case box-shadows ===== */
+/* Autofill: remove yellow/white glow and force dark background/text */
+.mode-red input:-webkit-autofill,
+.mode-red textarea:-webkit-autofill,
+.mode-red select:-webkit-autofill,
+.mode-red input:-webkit-autofill:focus,
+.mode-red textarea:-webkit-autofill:focus,
+.mode-red select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #070000 inset !important;
+  box-shadow: 0 0 0 1000px #070000 inset !important;
+  -webkit-text-fill-color: #6f1c1c !important;
+  caret-color: #7a1d1d !important;
+}
+
+/* Firefox scrollbar safety */
+.mode-red { scrollbar-color: #240000 #030000; }
+
+/* Remove bright box-shadows in red mode (edge-case sweep) */
+.mode-red * { box-shadow: none !important; }
+
+/* Ensure selection remains low-luminance (reaffirm) */
+.mode-red ::selection { background: rgba(112,35,35,0.12); color: #6b1a1a; }
+
