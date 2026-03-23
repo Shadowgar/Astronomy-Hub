@@ -97,6 +97,23 @@ class SimpleHandler(BaseHTTPRequestHandler):
                     resp['location_label'] = 'ORAS Observatory'
                 else:
                     resp['location_label'] = 'Custom Location'
+                # Attempt to normalize through the normalizer stub, but
+                # fall back to the original mock on any error.
+                try:
+                    from backend.normalizers.conditions_normalizer import normalize_to_contract
+                    try:
+                        normalized = normalize_to_contract(resp)
+                        if isinstance(normalized, dict):
+                            resp = normalized
+                            logger.info(f"req={request_id} normalize=ok")
+                        else:
+                            logger.info(f"req={request_id} normalize=skip type={type(normalized)}")
+                    except Exception:
+                        logger.exception(f"req={request_id} normalize.fail")
+                except Exception:
+                    # Import failure or other issue importing normalizer; continue with mock
+                    logger.info(f"req={request_id} normalize=not-available")
+
                 self._send_json(resp)
                 status = 200
             elif parsed.path == "/api/targets":
