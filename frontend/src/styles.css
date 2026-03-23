@@ -10,3 +10,49 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 .targets-module, .alerts-module, .passes-module{margin-bottom:var(--gap)}
 .moon-module{min-width:220px}
 .app-footer{padding:8px;text-align:center;background:#fafafa;border-top:1px solid #eee}
+
+/* Mode theming (simple, Phase 1) */
+.mode-day .app-header,
+.mode-day .app-footer {
+  background: #f6f8fa;
+  color: #111;
+}
+
+.mode-night .app-header,
+.mode-night .app-footer {
+  background: #0b1220;
+  color: #e6eef8;
+}
+
+.mode-red .app-header,
+.mode-red .app-footer {
+  background: #2b0a0a;
+  color: #ffdede;
+}
+
+/* Body/background per mode */
+.mode-day {
+  background: #ffffff;
+  color: #111;
+}
+
+.mode-night {
+  background: #071024;
+  color: #dfeffc;
+}
+
+.mode-red {
+  background: #1b0b0b;
+  color: #ffdede;
+}
+
+.mode-night .dashboard .module,
+.mode-red .dashboard .module {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.mode-day .dashboard .module {
+  background: #ffffff;
+  border: 1px solid #e6e9ec;
+}
