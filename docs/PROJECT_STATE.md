@@ -26,6 +26,25 @@ This is a **decision-support system**, not a data dump.
 
 ---
 
+## Active Observing Location (LOCKED REFINEMENT)
+
+Phase 1 uses a single concept called the "Active Observing Location" to determine what is shown across the dashboard. This refinement is locked for Phase 1 and defines a default site and allowed user override.
+
+- Default: ORAS Observatory (used when the user does not provide manual coordinates)
+- Manual override: user may enter latitude/longitude to temporarily override the default for the current session
+- Not allowed in Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, accounts or preferences
+
+Default ORAS Observatory (Phase 1 default values):
+- label: ORAS Observatory
+- address: 4249 Camp Coffman Road, Cranberry, PA 16319
+- latitude: 41.321903
+- longitude: -79.585394
+- elevation_ft: 1420
+
+The Active Observing Location is defined as a minimal object with fields: `label`, `latitude`, `longitude`, and optional `elevation_ft` (the ORAS default populates elevation_ft).
+
+---
+
 ## Current Phase
 
 Phase 1 — Local Sky MVP
@@ -59,6 +78,7 @@ The following are explicitly NOT allowed in Phase 1:
 - database systems (Postgres/PostGIS)
 - real-time streaming systems
 - AI-driven recommendation engines
+ - real external APIs (Phase 1 is mock-first)
 
 ---
 

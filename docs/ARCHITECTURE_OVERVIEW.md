@@ -33,6 +33,18 @@ Mocked / later real data sources
 - Consume API endpoints
 - Apply UI modes (Day / Night / Red)
 
+Active Observing Location handling (Phase 1 refinement):
+- Frontend displays the Active Observing Location label (default ORAS Observatory) in the header.
+- Frontend may offer a simple manual latitude/longitude override input that applies for the current session only. No browser geolocation or map picker will be used in Phase 1.
+- Backend endpoints should default to the ORAS Observatory values when no override is provided.
+
+Default ORAS Observatory (Phase 1 default values):
+- label: ORAS Observatory
+- address: 4249 Camp Coffman Road, Cranberry, PA 16319
+- latitude: 41.321903
+- longitude: -79.585394
+- elevation_ft: 1420
+
 ---
 
 ## Backend Responsibilities

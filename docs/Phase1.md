@@ -60,6 +60,12 @@ Phase 1 is successful if a member can use it in the field or at home and answer 
 * simple “open detail” drill-down cards
 * lightweight backend cache/API
 
+### Active Observing Location (Phase 1 refinement)
+
+Phase 1 introduces a single, locked concept: the Active Observing Location. The system defaults to the ORAS Observatory (see documentation for coordinates). A user may optionally enter manual latitude/longitude coordinates to override the active location for the current session. The following are explicitly NOT allowed in Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, account-based preferences, or a location database.
+
+Implementations should surface the Active Observing Location label in the dashboard header and use it when requesting data from backend endpoints. Do not add a new endpoint for locations in Phase 1 — the backend should accept a manual coordinate override parameter (if needed) but may also default to ORAS Observatory when none is provided.
+
 ### Excluded from Phase 1
 
 * full globe satellite tracker
@@ -258,16 +264,20 @@ This page is also a natural extension of the existing ORAS tools/resources appro
 ## 9. Exact Phase 1 feature list
 
 ## 9.1 Location model
+Phase 1 introduces a single, locked concept: the Active Observing Location. Implementations MUST follow this refinement for Phase 1.
 
-Phase 1 needs three location modes:
+- Default behavior: the system uses the ORAS Observatory as the Active Observing Location when the user does not provide an override.
+- Manual override: the user may optionally enter latitude/longitude coordinates (simple numeric inputs) to temporarily override the Active Observing Location for the current session only.
+- Disallowed in Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, account-based preferences, and any location database.
 
-* **ORAS Observatory preset**
-* **Use my current location**
-* **Saved custom location**
+Default ORAS Observatory (Phase 1 default values):
+- label: ORAS Observatory
+- address: 4249 Camp Coffman Road, Cranberry, PA 16319
+- latitude: 41.321903
+- longitude: -79.585394
+- elevation_ft: 1420
 
-Why:
-
-* observatory use is central to the ORAS mission and current tools already center on the observatory site for local charts and weather context.
+Implementations should surface the Active Observing Location label in the dashboard header and use it when requesting data from backend endpoints. Do not add a new endpoint for locations in Phase 1 — the backend may accept an optional manual coordinate override parameter but must default to ORAS Observatory when none is provided.
 
 ## 9.2 Conditions summary card
 
