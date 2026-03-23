@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "invalid_request",
+    "message": "Query parameter 'q' must be at least 3 characters",
+    "details": [
+      { "field": "q", "reason": "too_short" }
+    ]
+  }
+}
