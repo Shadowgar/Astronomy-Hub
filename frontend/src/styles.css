@@ -1,0 +1,12 @@
+:root{
+  --gap: 12px;
+}
+body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
+.app-shell{display:flex;flex-direction:column;min-height:100vh}
+.app-header{padding:16px;background:#f5f5f5;border-bottom:1px solid #ddd}
+.dashboard{display:grid;grid-template-columns:2fr 1fr;gap:var(--gap);padding:16px;flex:1}
+.dashboard .module{background:#fff;border:1px solid #e6e6e6;padding:12px;border-radius:6px}
+.dashboard .module h2{margin-top:0}
+.targets-module, .alerts-module, .passes-module{margin-bottom:var(--gap)}
+.moon-module{min-width:220px}
+.app-footer{padding:8px;text-align:center;background:#fafafa;border-top:1px solid #eee}
