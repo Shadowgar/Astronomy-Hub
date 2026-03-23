@@ -625,3 +625,194 @@ That means:
 * then visual drill-down
 
 That will make it far more practical for ORAS members in the field and at home.
+
+---
+
+# 21. Core Interaction Loop (ADDED — LOCKED)
+
+All Phase 1 features must support this loop:
+
+1. User opens Astronomy Hub  
+2. Confirms or selects location  
+3. Immediately sees observing conditions  
+4. Sees top recommended targets  
+5. Sees upcoming passes and alerts  
+6. Optionally drills into deeper pages  
+
+If a feature does NOT support this loop, it does NOT belong in Phase 1.
+
+---
+
+# 22. UI Density Constraints (ADDED — CRITICAL)
+
+To prevent overload (major Phase 1 risk), the following limits are enforced:
+
+- Max 5 targets shown on dashboard  
+- Max 5 satellite passes shown  
+- Max 3 alerts shown  
+- No scroll-heavy modules on first screen  
+
+All additional data must be accessed via drill-down pages.
+
+---
+
+# 23. Time Context System (ADDED — GLOBAL BEHAVIOR)
+
+All data must be interpreted through a selectable time context:
+
+- Now  
+- Tonight  
+- Next 24 Hours  
+
+All modules must respect this context consistently.
+
+This prevents confusion and ensures relevance.
+
+---
+
+# 24. Guided Action System (ADDED)
+
+The dashboard must include a primary action:
+
+[ Show Me What To Look At ]
+
+This action returns:
+- Top 3–5 prioritized targets
+- Based on conditions + visibility + timing
+
+Purpose:
+- Help beginners
+- Reduce decision friction
+- Reinforce “decision-support” design
+
+---
+
+# 25. Expanded Target Data Requirements (ADDED)
+
+Each target should now include:
+
+- name  
+- category  
+- best viewing time  
+- reason it matters  
+
+PLUS:
+
+- direction (N, NE, etc.)  
+- elevation band (low / mid / high)  
+- difficulty (beginner / intermediate / advanced)  
+
+This improves real-world usability in the field.
+
+---
+
+# 26. UI Mode System (ADDED — CRITICAL FOR FIELD USE)
+
+The system must support:
+
+- Day Mode  
+- Night Mode  
+- Red Mode  
+
+Red Mode requirements:
+- red-only color palette  
+- reduced brightness  
+- no white/blue light  
+- optimized for dark adaptation  
+
+This is essential for telescope use.
+
+---
+
+# 27. Backend Failure Handling (ADDED)
+
+Backend must never break the UI.
+
+If data fails:
+- return cached data  
+- show last updated timestamp  
+- degrade gracefully  
+
+Frontend must always render something usable.
+
+---
+
+# 28. Mock-First Rule (ADDED — HARD RULE)
+
+Before any real API integration:
+
+- All endpoints must return mocked JSON  
+- Frontend must fully work with mock data  
+- Contracts must be validated first  
+
+No real data sources allowed until Phase 1 UI is complete.
+
+---
+
+# 29. Strict Phase Boundary Enforcement (ADDED)
+
+The following are explicitly forbidden in Phase 1 (re-emphasized):
+
+- globe visualization  
+- Cesium / 3D Earth  
+- aircraft tracking  
+- AR features  
+- global satellite systems  
+- advanced astrophotography planning  
+- database systems  
+- real-time streaming  
+
+If introduced → Phase violation.
+
+---
+
+# 30. Contract Integrity Rule (ADDED)
+
+All backend responses must:
+
+- match defined schemas exactly  
+- not add or remove fields without updating contracts  
+- use ISO timestamps  
+- remain consistent across endpoints  
+
+Frontend must rely ONLY on these contracts.
+
+---
+
+# 31. Build Discipline Rule (ADDED)
+
+Phase 1 must be built in strict order:
+
+1. data contracts  
+2. mocked endpoints  
+3. UI shell  
+4. conditions module  
+5. targets module  
+6. passes module  
+7. alerts module  
+8. validation  
+
+No skipping ahead.
+
+---
+
+# 32. Final Reinforcement
+
+Phase 1 is NOT:
+
+- a prototype  
+- a rough draft  
+- something to rebuild later  
+
+Phase 1 is the **foundation**.
+
+If Phase 1 is done correctly:
+- future phases become easier  
+- UI remains stable  
+- backend scales cleanly  
+- token cost stays low  
+
+If Phase 1 is done poorly:
+- everything becomes harder  
+
+---
