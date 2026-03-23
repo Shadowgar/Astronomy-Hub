@@ -1,15 +1,21 @@
 :root{
-  --gap: 12px;
+  --gap: 16px;
+  --container-max-width: 1100px;
+  --module-padding: 16px;
+  --module-radius: 8px;
+  --page-padding: 16px;
+  --base-font-size: 15px;
+  --base-line-height: 1.45;
 }
-body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
+body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(--base-font-size);line-height:var(--base-line-height);color:var(--body-color, #111)}
 .app-shell{display:flex;flex-direction:column;min-height:100vh}
-.app-header{padding:16px;background:#f5f5f5;border-bottom:1px solid #ddd}
-.dashboard{display:grid;grid-template-columns:2fr 1fr;gap:var(--gap);padding:16px;flex:1}
-.dashboard .module{background:#fff;border:1px solid #e6e6e6;padding:12px;border-radius:6px}
-.dashboard .module h2{margin-top:0}
-.targets-module, .alerts-module, .passes-module{margin-bottom:var(--gap)}
+.app-header{padding:12px var(--page-padding);background:#f5f5f5;border-bottom:1px solid #ddd}
+.dashboard{display:grid;grid-template-columns:2fr 1fr;gap:var(--gap);padding:var(--page-padding);flex:1;max-width:var(--container-max-width);margin:0 auto;box-sizing:border-box}
+.dashboard .module{background:#fff;border:1px solid #e6e6e6;padding:var(--module-padding);border-radius:var(--module-radius);box-sizing:border-box}
+.dashboard .module h2{margin-top:0;margin-bottom:8px;font-size:18px}
+.targets-module, .alerts-module, .passes-module{margin-bottom:0}
 .moon-module{min-width:220px}
-.app-footer{padding:8px;text-align:center;background:#fafafa;border-top:1px solid #eee}
+.app-footer{padding:10px var(--page-padding);text-align:center;background:#fafafa;border-top:1px solid #eee}
 
 /* Mode theming (simple, Phase 1) */
 .mode-day .app-header,
@@ -89,6 +95,9 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
   color: #a02828; /* primary red for inputs/buttons */
   border: 1px solid #240000;
   box-shadow: none;
+  height: 36px;
+  padding: 6px 8px;
+  font-size: 14px;
 }
 
 .mode-red select {
@@ -192,7 +201,39 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 .mode-red { scrollbar-color: #240000 #030000; }
 
 /* Remove bright box-shadows in red mode (edge-case sweep) */
+/* NOTE: keep broad sweep for Phase 1 to avoid stray bright glows from third-party elements */
 .mode-red * { box-shadow: none !important; }
+
+/* --- Layout & Typography polish additions --- */
+/* Rhythm: use consistent vertical spacing scale */
+.dashboard .module { display: flex; flex-direction: column; }
+.dashboard .module > h2, .dashboard .module h2 { font-size: 18px; line-height: 1.2; }
+.dashboard .module p, .dashboard .module dd, .dashboard .module li { margin-top: 0; margin-bottom: 12px; }
+.dashboard .module dl { margin: 0; }
+.dashboard .module dt { font-weight: 600; margin-top: 12px; margin-bottom: 4px; }
+.dashboard .module dd { margin: 0 0 12px 8px; }
+
+/* Header controls: make compact and baseline-aligned */
+.header-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.header-controls .location-section { display: flex; align-items: center; gap: 12px; }
+.location-inputs { display: flex; align-items: center; gap: 8px; }
+input, select, button { font-family: inherit; font-size: 14px; }
+input[type="text"], input[type="number"], select, button { height: 36px; padding: 6px 8px; }
+
+/* Buttons: consistent padding */
+.dashboard .module button, .header-controls button { padding: 6px 10px; border-radius: 4px; }
+
+/* Responsive: stack modules cleanly on narrow viewports */
+@media (max-width: 900px) {
+  .dashboard { grid-template-columns: 1fr; padding: 12px; gap: 12px; }
+  .moon-module { min-width: auto; }
+  .app-header { padding-left: 12px; padding-right: 12px; }
+}
+
+/* Constrain very long content for readability on wide screens */
+@media (min-width: 1200px) {
+  .dashboard { max-width: 1200px; }
+}
 
 /* Ensure selection remains low-luminance (reaffirm) */
 .mode-red ::selection { background: rgba(112,35,35,0.12); color: #6b1a1a; }
