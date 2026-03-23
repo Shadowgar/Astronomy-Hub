@@ -20,16 +20,18 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 
 .mode-night .app-header,
 .mode-night .app-footer {
-  background: #0b1220;
-  color: #e6eef8;
+  /* dark muted header for night mode */
+  background: #071020;
+  color: #cfe8ff; /* soft light heading */
+  border-color: #0f2436;
 }
 
 .mode-red .app-header,
 .mode-red .app-footer {
-  /* very dark maroon surfaces for header/footer */
-  background: #200707; /* dark maroon */
-  color: #8b2b2b; /* dim red text */
-  border-color: #3a0d0d;
+  /* very dark maroon surfaces for header/footer (astronomy-safe) */
+  background: #040000; /* header/footer background */
+  color: #a02828; /* primary red text */
+  border-color: #240000; /* divider/border color */
 }
 
 /* Body/background per mode */
@@ -39,27 +41,34 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 }
 
 .mode-night {
-  background: #071024;
-  color: #dfeffc;
+  background: #02061a;
+  color: #cfe8ff;
+}
+
+/* Night mode: dark panels and subtle borders */
+.mode-night .dashboard .module {
+  background: #071428; /* dark blue-gray panel */
+  border: 1px solid #0f2436; /* subtle dark border */
+  color: #cfe8ff; /* soft light text */
 }
 
 .mode-red {
   /* Astronomy-safe red mode: near-black page background */
-  background: #000000;
-  color: #8b2b2b; /* dim red text for general content */
+  background: #000000; /* page background */
+  color: #a02828; /* primary red text for general content */
 }
 
 .mode-red .dashboard .module {
-  /* very dark maroon panels */
-  background: #120606; /* near-black maroon */
-  border: 1px solid #3a0d0d; /* subdued dark-red border */
-  color: #8b2b2b;
+  /* very dark panels for red mode */
+  background: #080000; /* panel background */
+  border: 1px solid #240000; /* borders/dividers */
+  color: #a02828; /* primary red text */
 }
 
 .mode-red .dashboard .module h2,
 .mode-red .dashboard .module h3,
 .mode-red .app-header h1 {
-  color: #b13b3b; /* slightly brighter heading color, still red-muted */
+  color: #a02828; /* headings use primary red */
 }
 
 /* Controls in red mode: inputs, selects, buttons */
@@ -67,9 +76,9 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 .mode-red select,
 .mode-red textarea,
 .mode-red button {
-  background: #170606; /* dark control background */
-  color: #8b2b2b; /* dim red text */
-  border: 1px solid #3a0d0d;
+  background: #080000; /* control background matches panels */
+  color: #a02828; /* primary red for inputs/buttons */
+  border: 1px solid #240000;
 }
 
 .mode-red select {
@@ -79,22 +88,22 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 }
 
 .mode-red select option {
-  background: #170606;
-  color: #8b2b2b;
+  background: #080000;
+  color: #7a1d1d; /* dimmer secondary red for options */
 }
 
 .mode-red input:focus,
 .mode-red select:focus,
 .mode-red button:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(139,43,43,0.12);
-  border-color: #5a1212;
+  box-shadow: 0 0 0 2px rgba(160,40,40,0.12);
+  border-color: #240000;
 }
 
 /* Links and small text */
 .mode-red a,
 .mode-red .small {
-  color: #9b2f2f;
+  color: #7a1d1d; /* secondary/dimmer red */
 }
 
 /* Ensure footer and header separators are subdued (handled above) */

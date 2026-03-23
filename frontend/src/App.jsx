@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Conditions from './components/Conditions'
 import RecommendedTargets from './components/RecommendedTargets'
 import AlertsEvents from './components/AlertsEvents'
@@ -8,7 +8,19 @@ import MoonSummary from './components/MoonSummary'
 const MODES = ['Day', 'Night', 'Red']
 
 export default function App() {
-  const [mode, setMode] = useState('Day')
+  const [mode, setMode] = useState(() => {
+    if (typeof globalThis !== 'undefined' && globalThis.localStorage) {
+      const stored = globalThis.localStorage.getItem('astronomyHub.mode')
+      return MODES.includes(stored) ? stored : 'Day'
+    }
+    return 'Day'
+  })
+
+  useEffect(() => {
+    if (typeof globalThis !== 'undefined' && globalThis.localStorage) {
+      globalThis.localStorage.setItem('astronomyHub.mode', mode)
+    }
+  }, [mode])
 
   return (
     <div className={`app-shell mode-${mode.toLowerCase()}`}>
@@ -21,7 +33,10 @@ export default function App() {
             <select
               aria-label="Display mode"
               value={mode}
-              onChange={(e) => setMode(e.target.value)}
+              onChange={(e) => {
+                const v = e.target.value
+                if (MODES.includes(v)) setMode(v)
+              }}
             >
               {MODES.map((m) => (
                 <option key={m} value={m}>
