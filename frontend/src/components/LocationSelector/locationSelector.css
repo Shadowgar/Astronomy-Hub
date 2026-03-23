@@ -1,0 +1,18 @@
+.location-selector {
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 6px;
+  max-width: 420px;
+  font-family: system-ui, Arial, sans-serif;
+}
+.ls-row { display: flex; gap: 8px; align-items: center; }
+.ls-input { flex: 1; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; }
+.ls-apply { padding: 6px 10px; background: #0366d6; color: white; border: none; border-radius: 4px; cursor: pointer; }
+.ls-apply:disabled { opacity: 0.6; cursor: default }
+.ls-suggestions { margin-top: 8px; }
+.ls-suggestion { padding: 6px 8px; border-bottom: 1px solid #f0f0f0; }
+.ls-suggestion-name { font-weight: 600 }
+.ls-suggestion-coords { font-size: 0.85em; color: #666 }
+.ls-loading { color: #555 }
+.ls-error { color: #b00020 }
+.ls-none { color: #555 }
