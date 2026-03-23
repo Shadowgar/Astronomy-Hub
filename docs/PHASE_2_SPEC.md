@@ -1,439 +1,494 @@
-# 🌌 ASTRONOMY HUB — PHASE 2 EXPANDED SPEC
-
-**Phase Name:** Data Expansion & System Foundation
-**Primary Objective:** Expand Astronomy Hub from a local decision dashboard into a **structured, scalable astronomy data platform**, while preserving clarity, performance, and usability.
+# Phase 2 — Structured Data, Drill-Down Depth, and Location Intelligence
 
 ---
 
-# 1. Purpose of Phase 2
+## 1. Purpose
 
-Phase 2 builds on Phase 1 by:
+Phase 2 transforms Astronomy Hub from a **mock-driven decision interface** into a **structured, data-backed system with controlled depth**, while preserving the Phase 1 core:
 
-* expanding the depth of data
-* strengthening backend structure
-* improving data accuracy and richness
-* enabling more detailed exploration without overwhelming the user
+> “What should I know about the sky right now from where I am, and what should I look at?”
 
-Phase 2 is NOT about becoming a global system yet.
+Phase 2 is NOT about adding more data.
 
 Phase 2 is about:
 
-> “Making the system smarter, richer, and more reliable while staying local-first.”
+* **making data reliable**
+* **making depth available on demand**
+* **keeping the surface calm and actionable**
 
 ---
 
-## 1.1 Relationship to Phase 1
+## 2. Phase Identity (Critical)
 
-Phase 1:
+Phase 2 is:
 
-* answers “what should I look at tonight?”
+> **Structured depth + controlled expansion + location intelligence**
 
-Phase 2:
+Phase 2 is NOT:
 
-* answers:
-
-  * “what exactly is this object?”
-  * “how does it move over time?”
-  * “what more can I explore from here?”
+* a visualization system (Phase 3)
+* a global system (Phase 4)
+* a platform or ecosystem (Phase 5)
 
 ---
 
-# 2. What Phase 2 is trying to solve
+## 3. Relationship to Phase 1
 
-Phase 1 provides:
+### Phase 1 Remains Authoritative For:
 
-* summaries
-* recommendations
-* quick decisions
+* Dashboard layout
+* Module purpose
+* Decision-support philosophy
+* Active Observing Location model
+* Mode system (Day/Night/Red)
+* Query param override behavior
 
-But lacks:
+### Phase 2 Extends:
 
-* deeper object data
-* structured satellite information
-* expandable event intelligence
-* backend consistency for scaling
-
-Phase 2 solves:
-
-* shallow data → structured data
-* static summaries → expandable insight
-* simple endpoints → scalable architecture
+* Data depth
+* Data correctness
+* Drill-down capability
+* Location selection UX
+* Backend structure
 
 ---
 
-# 3. Phase 2 success definition
+## 4. Non-Negotiable Constraints
 
-Phase 2 is successful if:
+Phase 2 MUST:
 
-* users can drill deeper into any item (target, pass, event)
-* data feels richer and more informative
-* backend supports multiple data sources cleanly
-* frontend remains simple and non-overwhelming
-* performance remains fast
-
----
-
-# 4. Phase 2 scope boundaries
-
-## Included in Phase 2
-
-* structured backend architecture
-* multiple data source ingestion (limited set)
-* richer object detail views
-* expanded satellite information
-* improved event system
-* improved conditions modeling
-* basic persistence layer (lightweight storage)
+* Preserve **summary-first UX**
+* Preserve **low cognitive load**
+* Maintain **deterministic behavior**
+* Follow **contract-first design**
+* Avoid **data dumping**
+* Avoid **visual clutter**
+* Avoid **implicit behavior changes**
 
 ---
 
-## Excluded from Phase 2 (LOCKED)
+## 5. Phase 2 Success Definition
 
-* global real-time map
-* 3D Earth visualization
-* AR features
-* aircraft tracking
-* massive distributed ingestion
-* real-time streaming systems
-* AI-driven recommendations
-* public-scale infrastructure
+Phase 2 is complete when:
 
----
-
-# 5. Phase 2 user experience goals
-
-The system must remain:
-
-* calm
-* structured
-* non-overwhelming
-* fast
-
-Even though data increases, **complexity must not increase at the surface level**.
+* Dashboard still answers the core question instantly
+* Every dashboard item can be explored deeper without confusion
+* Data is structured, normalized, and predictable
+* Failures degrade gracefully
+* Location selection is intuitive and reliable
+* No Phase 1 behavior regresses
 
 ---
 
-# 6. UX philosophy for Phase 2
+## 6. Core Interaction Model (Expanded)
 
-### Phase 2 rule:
+### Phase 1 Loop (unchanged)
 
-> “More depth on demand, not more noise by default”
+1. Open dashboard
+2. Understand conditions
+3. Identify opportunity
 
-### UI principles
+### Phase 2 Extended Loop
 
-* deeper data is hidden behind interaction
-* dashboard remains simple
-* detail views become richer
-* navigation becomes more meaningful, not more crowded
-
----
-
-# 7. Phase 2 page evolution
-
-## 7.1 Dashboard (unchanged philosophy)
-
-* remains summary-focused
-* no new clutter added
-* continues to answer “what matters now”
+4. Select item (target/pass/event)
+5. Inspect deeper information
+6. Understand *why it matters*
+7. Return to summary OR continue exploration
 
 ---
 
-## 7.2 Enhanced drill-down pages
+## 7. Information Architecture
 
-Each page gains depth:
+## 7.1 Dashboard (UNCHANGED STRUCTURE)
 
-### Sky Tonight (expanded)
+Modules:
 
-Add:
+* Conditions
+* Targets
+* Alerts
+* Passes
+* Moon Summary
 
-* object descriptions
-* visibility timelines
-* better classification (galaxy, nebula, cluster, etc.)
-* observational notes
+### Phase 2 Rule:
 
----
-
-### Satellites (expanded)
-
-Add:
-
-* object type (ISS, Starlink, debris, etc.)
-* mission/operator
-* brightness classification
-* pass quality scoring
+> No new modules are added in Phase 2.
 
 ---
 
-### Events (expanded)
+## 7.2 Drill-Down Architecture (NEW DEFINITION)
 
-Add:
+Each module supports:
 
-* event duration
-* peak timing
-* visibility conditions
-* historical context (optional)
+### Level 1 — Summary (Dashboard)
 
----
+* Minimal, decision-focused
 
-### Conditions (expanded)
+### Level 2 — Expanded Row / Inline Detail
 
-Add:
+* Quick context expansion
+* No navigation required
 
-* more refined observing score
-* optional:
+### Level 3 — Full Detail View
 
-  * seeing
-  * transparency modeling
-* light pollution integration (basic)
+* Structured, scrollable, organized
 
 ---
 
-### Moon & Planets (expanded)
-
-Add:
-
-* phase visualization logic
-* planet visibility scoring
-* “best target tonight” indicators
+## 8. Module Expansion Specifications
 
 ---
 
-# 8. Backend architecture evolution
+## 8.1 Targets
 
-Phase 1 backend:
+### Summary (existing)
 
-* simple
-* mocked
-* stateless
+* Name
+* Type
+* Visibility score
 
-Phase 2 backend becomes:
+### Expanded (NEW)
 
-* structured
-* modular
-* ingestion-aware
-* cache-driven
+* Visibility window
+* Direction (general)
+* Quick notes
+
+### Full Detail (NEW)
+
+* Description (plain-language)
+* Visibility timeline
+* Best viewing time
+* Magnitude (normalized)
+* Classification (enum)
+* Observational notes
+* Equipment suggestion (simple)
+
+### Density Rule:
+
+* Max 5 visible sections before collapse
 
 ---
 
-## 8.1 Phase 2 backend responsibilities
+## 8.2 Passes (ISS / Satellites)
 
-* ingest selected external data sources
-* normalize into internal schema
-* cache results
-* serve stable API responses
+### Summary
+
+* Time
+* Duration
+* Brightness
+
+### Expanded
+
+* Start/end direction
+* Peak altitude
+* Visibility quality
+
+### Full Detail
+
+* Trajectory summary (textual)
+* Brightness curve (optional numeric, not graph)
+* Viewing conditions interaction
 
 ---
 
-## 8.2 Updated architecture
+## 8.3 Events
 
-```text
-External APIs
-   ↓
-Ingestion Jobs
-   ↓
-Normalization Layer
-   ↓
-Cache / Storage
-   ↓
-API Layer
-   ↓
-Frontend
+### Summary
+
+* Event name
+* Time window
+
+### Expanded
+
+* Visibility likelihood
+* Conditions impact
+
+### Full Detail
+
+* Description
+* Viewing instructions
+* Required conditions
+* Risk factors (clouds, light pollution)
+
+---
+
+## 8.4 Conditions
+
+### Summary
+
+* Cloud cover
+* Seeing
+* Transparency
+
+### Expanded
+
+* Hourly trend (textual)
+* Stability indicator
+
+### Full Detail
+
+* Breakdown by factor
+* Interpretation (plain language)
+
+---
+
+## 8.5 Moon
+
+### Summary
+
+* Phase
+* Illumination %
+
+### Expanded
+
+* Rise/set
+
+### Full Detail
+
+* Impact on observing
+* Best/poor target types
+
+---
+
+# 9. Location Intelligence (CRITICAL ADDITION)
+
+---
+
+## 9.1 Purpose
+
+Replace manual lat/lon entry with:
+
+> **Human-friendly location selection → reliable coordinates**
+
+---
+
+## 9.2 UX Flow
+
+1. User opens location selector
+2. Types address/place
+3. Suggestions appear (debounced)
+4. User selects result
+5. System resolves coordinates
+6. User confirms apply
+7. Dashboard updates
+
+---
+
+## 9.3 Rules
+
+* No auto-apply
+* Selection required
+* Reset to ORAS always available
+* Current location always visible
+
+---
+
+## 9.4 Failure Handling
+
+| Scenario     | Behavior            |
+| ------------ | ------------------- |
+| No results   | Show message        |
+| API error    | No state change     |
+| Timeout      | Retry option        |
+| Rate limit   | Disable temporarily |
+| Invalid data | Reject              |
+
+---
+
+## 9.5 Validation
+
+* Minimum 3 characters
+* Trim whitespace
+* Validate lat/lon range
+* Reject malformed responses
+
+---
+
+## 9.6 Architecture Decision (LOCKED)
+
+> Geocoding is **backend-mediated**
+
+Frontend:
+
+* calls `/api/location/search`
+
+Backend:
+
+* calls provider
+* normalizes response
+* enforces contract
+
+---
+
+## 10. Backend Architecture (EXPANDED)
+
+Backend responsibilities:
+
+* Data ingestion
+* Normalization
+* Contract enforcement
+* Geocoding proxy
+* Caching
+* Failure shielding
+
+---
+
+## 11. Data Contracts (REQUIRED)
+
+All endpoints must define:
+
+### 11.1 Standard Object Rules
+
+* predictable fields
+* no provider leakage
+* no dynamic keys
+
+---
+
+### 11.2 Example: Target Detail
+
+```
+{
+  id: string,
+  name: string,
+  type: "galaxy" | "nebula" | "cluster" | "planet",
+  visibility: {
+    start: ISO,
+    peak: ISO,
+    end: ISO
+  },
+  magnitude: number,
+  notes: string
+}
 ```
 
 ---
 
-# 9. Data ingestion strategy (Phase 2)
+### 11.3 Error Contract
 
-Phase 2 introduces **controlled ingestion**, not massive scale.
-
-## Rules:
-
-* start with small number of trusted sources
-* normalize everything
-* never expose raw external data directly
-
----
-
-## Example categories:
-
-* satellite TLE / pass data
-* astronomical object catalogs (limited subset)
-* event feeds
-* weather / observing conditions
+```
+{
+  error: {
+    code: string,
+    message: string
+  }
+}
+```
 
 ---
 
-# 10. Data persistence (NEW)
+## 12. Normalization Rules
 
-Phase 2 may introduce lightweight storage:
-
-Options:
-
-* file-based cache
-* simple local database (SQLite)
-
-Purpose:
-
-* store normalized data
-* reduce repeated fetches
-* improve performance
+* Units standardized (degrees, magnitude)
+* Enum-controlled types
+* Unknown values → null, not omitted
+* Source precedence defined
+* No raw provider fields
 
 ---
 
-# 11. API expansion (Phase 2)
+## 13. Caching Strategy
 
-Existing endpoints:
+### Categories
 
-* `/api/conditions`
-* `/api/targets`
-* `/api/passes`
-* `/api/alerts`
-
-Expanded endpoints:
-
-* `/api/targets/:id`
-* `/api/passes/:id`
-* `/api/events`
-* `/api/moon`
-* `/api/planets`
+| Type       | Freshness |
+| ---------- | --------- |
+| Conditions | Short     |
+| Passes     | Medium    |
+| Events     | Medium    |
+| Targets    | Long      |
 
 ---
 
-# 12. Data contract evolution
+## 14. Persistence (STRICTLY LIMITED)
 
-Contracts must:
+Allowed:
 
-* remain stable
-* extend carefully
-* never break existing frontend behavior
+* normalized data cache
 
-All new fields must be additive only.
+Not allowed:
 
----
-
-# 13. Recommendation engine evolution
-
-Still NOT AI.
-
-Expanded deterministic logic:
-
-* better weighting
-* more factors
-* improved prioritization
+* user accounts
+* saved locations
+* analytics storage
 
 ---
 
-# 14. Performance requirements
+## 15. Failure & Degraded Mode
 
-* must remain fast on local systems
-* must remain Pi-compatible later
-* no heavy computation per request
+System MUST:
 
----
-
-# 15. ORAS integration (expanded)
-
-Phase 2 strengthens:
-
-* curated targets
-* ORAS recommendations
-* educational overlays
+* never crash UI
+* show partial data when possible
+* label stale data
+* preserve dashboard usability
 
 ---
 
-# 16. Risks
+## 16. Performance Constraints
 
-## Risk 1: Data explosion
-
-Mitigation:
-
-* limit ingestion sources
-* normalize aggressively
+* debounce search
+* cancel in-flight requests
+* cap results (max 8)
+* prevent duplicate calls
 
 ---
 
-## Risk 2: UI overload
+## 17. UX Density Rules (CRITICAL)
 
-Mitigation:
-
-* keep dashboard unchanged
-* hide depth behind interaction
-
----
-
-## Risk 3: backend complexity creep
-
-Mitigation:
-
-* modular design
-* no overengineering
+* No more than 5 visible sections per detail view
+* No raw data tables
+* No multi-column overload
+* Mobile-first readability enforced
 
 ---
 
-## Risk 4: performance degradation
+## 18. Compatibility Rules
 
-Mitigation:
-
-* caching
-* limited fetch frequency
+* Phase 1 API behavior remains valid
+* Query param override still works
+* Mode system unchanged
+* No breaking changes without contract update
 
 ---
 
-# 17. Phase 2 validation checklist
+## 19. Risks & Mitigations
+
+| Risk            | Mitigation           |
+| --------------- | -------------------- |
+| Data overload   | Density rules        |
+| API instability | Backend shielding    |
+| Schema drift    | Contract enforcement |
+| Slow UI         | caching              |
+
+---
+
+## 20. Validation Checklist
+
+* Dashboard clarity unchanged
+* Drill-down adds value, not noise
+* Location search reliable
+* Failures handled cleanly
+* Contracts enforced
+* No Phase 1 regression
+
+---
+
+## 21. Implementation Order (FOR LATER)
+
+1. Contracts
+2. Backend normalization
+3. Drill-down UI
+4. Location search
+5. Caching
+6. Failure handling
+
+---
+
+## 22. Final Definition
 
 Phase 2 is complete when:
 
-* deeper object views work
-* satellite detail works
-* events are richer
-* backend ingestion works reliably
-* UI remains clean
-* performance remains fast
-
----
-
-# 18. Documentation requirements
-
-Add:
-
-* PHASE_2_SPEC.md (this file)
-* BACKEND_DATA_MODEL.md
-* INGESTION_RULES.md
-* API_EXPANSION_PLAN.md
-
----
-
-# 19. Phase 2 build order
-
-1. backend structure refactor
-2. ingestion system (limited sources)
-3. data normalization layer
-4. caching system
-5. expanded endpoints
-6. detail UI views
-7. validation
-
----
-
-# 20. Final Phase 2 statement
-
-Phase 2 should feel like:
-
-> “The same clean dashboard—but now every item can be explored in meaningful depth.”
-
----
-
-# 🔥 KEY DIFFERENCE FROM PHASE 1
-
-Phase 1 = decision support
-Phase 2 = structured knowledge expansion
-
----
-
-# 🚀 WHERE THIS LEADS
-
-Phase 2 sets up:
-
-* Phase 3 → advanced exploration
-* Phase 4 → global systems
-* Phase 5 → full astronomy intelligence platform
+> The user can go from **“What should I look at?”**
+> to
+> **“I understand exactly why and how to observe it”**
+> without ever feeling overwhelmed.
