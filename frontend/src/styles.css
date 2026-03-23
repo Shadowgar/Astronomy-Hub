@@ -11,8 +11,6 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 .app-shell{display:flex;flex-direction:column;min-height:100vh}
 .app-header{padding:12px var(--page-padding);background:#f5f5f5;border-bottom:1px solid #ddd}
 .dashboard{display:grid;grid-template-columns:2fr 1fr;gap:var(--gap);padding:var(--page-padding);flex:1;max-width:var(--container-max-width);margin:0 auto;box-sizing:border-box}
-.dashboard .module{background:#fff;border:1px solid #e6e6e6;padding:var(--module-padding);border-radius:var(--module-radius);box-sizing:border-box}
-.dashboard .module h2{margin-top:0;margin-bottom:8px;font-size:18px}
 .targets-module, .alerts-module, .passes-module{margin-bottom:0}
 .moon-module{min-width:220px}
 .app-footer{padding:10px var(--page-padding);text-align:center;background:#fafafa;border-top:1px solid #eee}
@@ -137,10 +135,7 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 .mode-red ::-moz-placeholder { color: #3f0a0a; }
 .mode-red ::-ms-input-placeholder { color: #3f0a0a; }
 
-.mode-red ::selection {
-  background: rgba(160,40,40,0.14);
-  color: #7a1d1d;
-}
+/* consolidated later: keep single, lower-luminance ::selection */
 
 .mode-red input[disabled],
 .mode-red textarea[disabled],
@@ -202,11 +197,17 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 
 /* Remove bright box-shadows in red mode (edge-case sweep) */
 /* NOTE: keep broad sweep for Phase 1 to avoid stray bright glows from third-party elements */
-.mode-red * { box-shadow: none !important; }
+.mode-red button,
+.mode-red input,
+.mode-red select,
+.mode-red textarea,
+.mode-red .dashboard .module {
+  box-shadow: none;
+}
 
 /* --- Layout & Typography polish additions --- */
 /* Rhythm: use consistent vertical spacing scale */
-.dashboard .module { display: flex; flex-direction: column; }
+.dashboard .module { background:#fff;border:1px solid #e6e6e6;padding:var(--module-padding);border-radius:var(--module-radius);box-sizing:border-box;display:flex;flex-direction:column }
 .dashboard .module > h2, .dashboard .module h2 { font-size: 18px; line-height: 1.2; }
 .dashboard .module p, .dashboard .module dd, .dashboard .module li { margin-top: 0; margin-bottom: 12px; }
 .dashboard .module dl { margin: 0; }
