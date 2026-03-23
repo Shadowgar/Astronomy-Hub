@@ -13,21 +13,18 @@ export default function Conditions({ locationQuery = '' }) {
     let cancelled = false
     setLoading(true)
     setError(null)
-    let reload = 0
 
-    const doFetch = () => {
-      logFetch(`/api/conditions${locationQuery}`)
-      .then((res) => {
+    async function doFetch() {
+      try {
+        const res = await logFetch(`/api/conditions${locationQuery}`)
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json()
-      })
-      .then((json) => {
+        const json = await res.json()
+
         // Support a simple client-side simulation of a partial payload
         // when the URL contains `?simulate_partial=1` (dev-only).
         try {
           const params = new URLSearchParams(window.location.search)
           if (params.get('simulate_partial') === '1') {
-            // drop one field to simulate partial payload and mark as partial
             if (json && typeof json === 'object') {
               delete json.summary
               json.meta = Object.assign({}, json.meta || {}, { partial: true })
@@ -38,15 +35,14 @@ export default function Conditions({ locationQuery = '' }) {
         }
 
         if (!cancelled) setData(json)
-      })
-      .catch((err) => {
+      } catch (err) {
         if (!cancelled) setError(err.message || 'Unknown error')
-      })
-      .finally(() => {
+      } finally {
         if (!cancelled) setLoading(false)
-      })
+      }
+    }
 
-    doFetch()
+    void doFetch()
 
     return () => {
       cancelled = true
