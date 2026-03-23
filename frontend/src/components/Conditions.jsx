@@ -8,6 +8,15 @@ export default function Conditions({ locationQuery = '' }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState(null)
+  let simulatePartial = false
+  try {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      simulatePartial = params.get('simulate_partial') === '1'
+    }
+  } catch (e) {
+    simulatePartial = false
+  }
 
   useEffect(() => {
     let cancelled = false
@@ -36,7 +45,23 @@ export default function Conditions({ locationQuery = '' }) {
 
         if (!cancelled) setData(json)
       } catch (err) {
-        if (!cancelled) setError(err.message || 'Unknown error')
+        if (!cancelled) {
+          if (simulatePartial) {
+            // Populate minimal partial payload for dev simulation so stale badge shows
+            setData({
+              location_label: 'Simulated Location',
+              cloud_cover_pct: null,
+              moon_phase: null,
+              darkness_window: { start: null, end: null },
+              observing_score: null,
+              summary: null,
+              last_updated: new Date().toISOString(),
+              meta: { partial: true },
+            })
+          } else {
+            setError(err.message || 'Unknown error')
+          }
+        }
       } finally {
         if (!cancelled) setLoading(false)
       }
@@ -98,9 +123,11 @@ export default function Conditions({ locationQuery = '' }) {
   const { location_label, cloud_cover_pct, moon_phase, darkness_window, observing_score, summary, last_updated } = data
 
   const isStale = Boolean(data && data.meta && data.meta.partial)
+  // Dev-only: allow forcing the stale/degraded badge via URL param (computed above)
+  const staleProp = Boolean(isStale || simulatePartial)
 
   return (
-    <ModuleShell title="Conditions" stale={isStale} onRetry={handleRetry}>
+    <ModuleShell title="Conditions" stale={staleProp} onRetry={handleRetry}>
       <dl>
         <dt>location_label</dt>
         <dd>{location_label}</dd>
