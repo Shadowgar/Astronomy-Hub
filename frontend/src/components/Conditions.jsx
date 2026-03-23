@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import logFetch from '../lib/logFetch'
+import ModuleShell from './ModuleShell'
+import logger from '../lib/logger'
 
 export default function Conditions({ locationQuery = '' }) {
   const [loading, setLoading] = useState(true)
@@ -11,13 +13,30 @@ export default function Conditions({ locationQuery = '' }) {
     let cancelled = false
     setLoading(true)
     setError(null)
+    let reload = 0
 
-    logFetch(`/api/conditions${locationQuery}`)
+    const doFetch = () => {
+      logFetch(`/api/conditions${locationQuery}`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         return res.json()
       })
       .then((json) => {
+        // Support a simple client-side simulation of a partial payload
+        // when the URL contains `?simulate_partial=1` (dev-only).
+        try {
+          const params = new URLSearchParams(window.location.search)
+          if (params.get('simulate_partial') === '1') {
+            // drop one field to simulate partial payload and mark as partial
+            if (json && typeof json === 'object') {
+              delete json.summary
+              json.meta = Object.assign({}, json.meta || {}, { partial: true })
+            }
+          }
+        } catch (e) {
+          // ignore any simulation errors
+        }
+
         if (!cancelled) setData(json)
       })
       .catch((err) => {
@@ -27,35 +46,55 @@ export default function Conditions({ locationQuery = '' }) {
         if (!cancelled) setLoading(false)
       })
 
+    doFetch()
+
     return () => {
       cancelled = true
     }
   }, [locationQuery])
 
+  const handleRetry = useCallback(() => {
+    // trigger a re-fetch by toggling loading and calling effect logic
+    setLoading(true)
+    setError(null)
+    // emit dev-log entry
+    try {
+      logger.info('module', 'retry', { module: 'conditions' })
+    } catch (e) {
+      // ignore
+    }
+    // perform fetch
+    logFetch(`/api/conditions${locationQuery}`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return res.json()
+      })
+      .then((json) => setData(json))
+      .catch((err) => setError(err.message || 'Unknown error'))
+      .finally(() => setLoading(false))
+  }, [locationQuery])
+
   if (loading) {
     return (
-      <div className="component conditions">
-        <h2>Conditions</h2>
+      <ModuleShell title="Conditions" stale={false} onRetry={handleRetry}>
         <p className="loading">Loading conditions…</p>
-      </div>
+      </ModuleShell>
     )
   }
 
   if (error) {
     return (
-      <div className="component conditions">
-        <h2>Conditions</h2>
+      <ModuleShell title="Conditions" stale={false} onRetry={handleRetry}>
         <p className="error">Error loading conditions: {error}</p>
-      </div>
+      </ModuleShell>
     )
   }
 
   if (!data) {
     return (
-      <div className="component conditions">
-        <h2>Conditions</h2>
+      <ModuleShell title="Conditions" stale={false} onRetry={handleRetry}>
         <p>No data available</p>
-      </div>
+      </ModuleShell>
     )
   }
 
@@ -70,9 +109,10 @@ export default function Conditions({ locationQuery = '' }) {
     last_updated,
   } = data
 
+  const isStale = Boolean(data && data.meta && data.meta.partial)
+
   return (
-    <div className="component conditions">
-      <h2>Conditions</h2>
+    <ModuleShell title="Conditions" stale={isStale} onRetry={handleRetry}>
       <dl>
         <dt>location_label</dt>
         <dd>{location_label}</dd>
@@ -98,6 +138,6 @@ export default function Conditions({ locationQuery = '' }) {
         <dt>last_updated</dt>
         <dd>{last_updated}</dd>
       </dl>
-    </div>
+    </ModuleShell>
   )
 }
