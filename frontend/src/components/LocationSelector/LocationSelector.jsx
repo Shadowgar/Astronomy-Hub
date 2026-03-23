@@ -42,9 +42,9 @@ export default function LocationSelector({ onApply } = {}) {
   }, [query])
 
   const handleApply = () => {
-    const first = suggestions && suggestions.length ? suggestions[0] : null
-    if (onApply) onApply(first)
-    else console.log('Apply location', first)
+    const chosen = selectedSuggestion || (suggestions && suggestions.length ? suggestions[0] : null)
+    if (onApply) onApply(chosen)
+    else console.log('Apply location', chosen)
   }
 
   return (
@@ -70,7 +70,13 @@ export default function LocationSelector({ onApply } = {}) {
         {!loading && !error && suggestions && suggestions.length > 0 && (
           <ul>
             {suggestions.map((s, idx) => (
-              <li key={s.name || idx} className="ls-suggestion">
+              <li
+                key={s.name || idx}
+                className={`ls-suggestion ${selectedSuggestion && selectedSuggestion.name === s.name ? 'selected' : ''}`}
+                onClick={() => setSelectedSuggestion(s)}
+                role="button"
+                tabIndex={0}
+              >
                 <div className="ls-suggestion-name">{s.name}</div>
                 {s.latitude != null && s.longitude != null && (
                   <div className="ls-suggestion-coords">{s.latitude}, {s.longitude}</div>
