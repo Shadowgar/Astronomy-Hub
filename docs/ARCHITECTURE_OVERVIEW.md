@@ -35,8 +35,14 @@ Mocked / later real data sources
 
 Active Observing Location handling (Phase 1 refinement):
 - Frontend displays the Active Observing Location label (default ORAS Observatory) in the header.
-- Frontend may offer a simple manual latitude/longitude override input that applies for the current session only. No browser geolocation or map picker will be used in Phase 1.
+- Frontend offers a simple manual numeric `latitude` and `longitude` override (both required for an override) and optional `elevation_ft`. No custom freeform label is provided in Phase 1. The override applies for the current session only.
+- Phase 1 exclusions: no browser geolocation, no map picker, no reverse geocoding, no saved locations, no account/preferences, no address lookup/autocomplete, and no external geocoding APIs.
 - Backend endpoints should default to the ORAS Observatory values when no override is provided.
+
+#### Deferred Feature — Address Search & Geocoded Location Selection (Phase 2 candidate)
+
+- Intent: preserve the concept of allowing users to type an address, view autocomplete suggestions, select a result, and have the system resolve that address to coordinates used as the Active Observing Location.
+- Note: This is explicitly NOT part of Phase 1 and should be scoped and implemented in Phase 2 or later.
 
 Default ORAS Observatory (Phase 1 default values):
 - label: ORAS Observatory

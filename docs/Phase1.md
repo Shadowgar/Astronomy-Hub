@@ -263,12 +263,16 @@ This page is also a natural extension of the existing ORAS tools/resources appro
 
 ## 9. Exact Phase 1 feature list
 
-## 9.1 Location model
+### 9.1 Location model
 Phase 1 introduces a single, locked concept: the Active Observing Location. Implementations MUST follow this refinement for Phase 1.
 
 - Default behavior: the system uses the ORAS Observatory as the Active Observing Location when the user does not provide an override.
-- Manual override: the user may optionally enter latitude/longitude coordinates (simple numeric inputs) to temporarily override the Active Observing Location for the current session only.
-- Disallowed in Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, account-based preferences, and any location database.
+- Manual override: the user may optionally enter numeric latitude/longitude coordinates to temporarily override the Active Observing Location for the current session only. Functional inputs for the manual override are:
+  - `latitude` (required)
+  - `longitude` (required)
+  - `elevation_ft` (optional)
+- Phase 1 does NOT include a custom freeform label input for the user. The Active Observing Location label is a UI surface only and should reflect ORAS defaults or the session override coordinates.
+- Disallowed in Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, account-based preferences, any location database, address lookup/autocomplete, and external geocoding APIs.
 
 Default ORAS Observatory (Phase 1 default values):
 - label: ORAS Observatory
@@ -278,6 +282,14 @@ Default ORAS Observatory (Phase 1 default values):
 - elevation_ft: 1420
 
 Implementations should surface the Active Observing Location label in the dashboard header and use it when requesting data from backend endpoints. Do not add a new endpoint for locations in Phase 1 — the backend may accept an optional manual coordinate override parameter but must default to ORAS Observatory when none is provided.
+
+#### Deferred: Address Search & Geocoded Location Selection (Phase 2 candidate)
+
+This feature is intentionally deferred and must NOT be implemented in Phase 1. The idea is preserved here for Phase 2 planning:
+
+- Feature intent: user begins typing an address, autocomplete suggestions appear, user selects a result, system resolves that address to coordinates, and the resolved coordinates become the Active Observing Location.
+- Elevation may remain optional/manual unless a later phase adds geodata support.
+- Phase 1 impact: none — explicitly excluded from Phase 1 acceptance criteria.
 
 ## 9.2 Conditions summary card
 

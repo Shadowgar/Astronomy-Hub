@@ -14,7 +14,9 @@ Provide a clean, non-overwhelming interface.
 - Action button
 - Navigation tabs
 
-Note: The header must display the current Active Observing Location's `label` (default: ORAS Observatory). The UI should provide a minimal manual-coordinate override control (latitude/longitude input) — this is a simple text input, not a map picker, and replaces the active location only for the current session.
+Note: The header must display the current Active Observing Location's `label` (default: ORAS Observatory). The UI should provide a minimal manual-coordinate override control — numeric `latitude` and `longitude` inputs (required for an override) and optional `elevation_ft`. This is a simple text/number input, not a map picker, and replaces the active location only for the current session.
+
+Important: Phase 1 must not include address autocomplete, address lookup, or any external geocoding APIs. Those capabilities are deferred to a later phase.
 
 Default ORAS Observatory (Phase 1 default values):
 - label: ORAS Observatory

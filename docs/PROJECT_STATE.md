@@ -32,7 +32,11 @@ Phase 1 uses a single concept called the "Active Observing Location" to determin
 
 - Default: ORAS Observatory (used when the user does not provide manual coordinates)
 - Manual override: user may enter latitude/longitude to temporarily override the default for the current session
-- Not allowed in Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, accounts or preferences
+   - Functional inputs for manual override (Phase 1):
+      - `latitude` (required)
+      - `longitude` (required)
+      - `elevation_ft` (optional)
+   - Not allowed in Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, accounts or preferences, freeform custom label entry, address lookup/autocomplete, or external geocoding APIs
 
 Default ORAS Observatory (Phase 1 default values):
 - label: ORAS Observatory
@@ -42,6 +46,16 @@ Default ORAS Observatory (Phase 1 default values):
 - elevation_ft: 1420
 
 The Active Observing Location is defined as a minimal object with fields: `label`, `latitude`, `longitude`, and optional `elevation_ft` (the ORAS default populates elevation_ft).
+
+---
+
+## Deferred Feature (Roadmap)
+
+Address Search & Geocoded Location Selection (DEFERRED — Phase 2 recommendation)
+
+- Summary: preserve the idea of an address autocomplete + geocoding flow for a later phase. Not part of Phase 1. See Phase 2 roadmap.
+- Intent: allow users to type an address and select an autocomplete suggestion that resolves to coordinates used as the Active Observing Location.
+- Phase 1 status: explicitly excluded from Phase 1 (no address autocomplete or external geocoding APIs allowed).
 
 ---
 

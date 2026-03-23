@@ -37,5 +37,8 @@ Prevent AI drift and overengineering.
 - Default observing location: ORAS Observatory (locked default). Use the coordinates and label defined in PROJECT_STATE.md.
 - Allow a minimal, manual latitude/longitude override from the UI for the active session only.
 - Disallow browser geolocation, map pickers, reverse geocoding, saved locations, accounts/preferences, and any location database in Phase 1.
+ - Default observing location: ORAS Observatory (locked default). Use the coordinates and label defined in PROJECT_STATE.md.
+ - Allow a minimal, manual latitude/longitude override from the UI for the active session only. Functional inputs for the override: `latitude` (required), `longitude` (required), `elevation_ft` (optional).
+ - Disallow browser geolocation, map pickers, reverse geocoding, saved locations, accounts/preferences, freeform custom labels, address lookup/autocomplete, and any external geocoding APIs in Phase 1.
  - Default ORAS Observatory values (for reference): label `ORAS Observatory`, address `4249 Camp Coffman Road, Cranberry, PA 16319`, latitude `41.321903`, longitude `-79.585394`, elevation_ft `1420`.
  - Phase 1 is mock-first: do not call real external APIs for location or observability data during Phase 1 development. Use mocked or local data sources only.

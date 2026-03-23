@@ -13,6 +13,8 @@ Phase 1 is complete only when all of the following are true.
 - User may optionally enter manual latitude/longitude coordinates to override the Active Observing Location for the current session only
 - Disallowed for Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, account-based preferences, or a location database
 - Location state (default or manual override) updates the displayed dashboard data
+ - Functional inputs for manual override (Phase 1): `latitude` (required), `longitude` (required), `elevation_ft` (optional)
+ - Phase 1 explicitly excludes address search/autocomplete and external geocoding APIs (these are deferred to a later phase)
 
 ## Dashboard Behavior
 - Dashboard loads without overwhelming the user
