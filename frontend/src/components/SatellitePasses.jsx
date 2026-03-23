@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 
 const MAX_PASSES = 5
 
-export default function SatellitePasses() {
+export default function SatellitePasses({ locationQuery = '' }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [passes, setPasses] = useState([])
@@ -12,7 +13,7 @@ export default function SatellitePasses() {
     setLoading(true)
     setError(null)
 
-    fetch('/api/passes')
+    fetch(`/api/passes${locationQuery}`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         return res.json()
@@ -30,7 +31,7 @@ export default function SatellitePasses() {
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [locationQuery])
 
   return (
     <div className="component satellite-passes">

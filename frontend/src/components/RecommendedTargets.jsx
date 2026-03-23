@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 
 // Render up to 5 targets per UI density rules
 const MAX_TARGETS = 5
 
-export default function RecommendedTargets() {
+export default function RecommendedTargets({ locationQuery = '' }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [targets, setTargets] = useState([])
@@ -13,7 +14,7 @@ export default function RecommendedTargets() {
     setLoading(true)
     setError(null)
 
-    fetch('/api/targets')
+    fetch(`/api/targets${locationQuery}`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         return res.json()
@@ -31,7 +32,7 @@ export default function RecommendedTargets() {
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [locationQuery])
 
   return (
     <div className="component recommended-targets">

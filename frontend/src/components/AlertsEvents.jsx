@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 
 const MAX_ALERTS = 3
 
-export default function AlertsEvents() {
+export default function AlertsEvents({ locationQuery = '' }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [alerts, setAlerts] = useState([])
@@ -12,7 +13,7 @@ export default function AlertsEvents() {
     setLoading(true)
     setError(null)
 
-    fetch('/api/alerts')
+    fetch(`/api/alerts${locationQuery}`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         return res.json()
@@ -30,7 +31,7 @@ export default function AlertsEvents() {
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [locationQuery])
 
   return (
     <div className="component alerts-events">

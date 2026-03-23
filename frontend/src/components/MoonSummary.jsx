@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 
-export default function MoonSummary() {
+export default function MoonSummary({ locationQuery = '' }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState(null)
@@ -10,7 +11,7 @@ export default function MoonSummary() {
     setLoading(true)
     setError(null)
 
-    fetch('/api/conditions')
+    fetch(`/api/conditions${locationQuery}`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         return res.json()
@@ -28,7 +29,7 @@ export default function MoonSummary() {
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [locationQuery])
 
   if (loading) {
     return (

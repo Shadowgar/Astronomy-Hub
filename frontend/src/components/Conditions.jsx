@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 
-export default function Conditions() {
+export default function Conditions({ locationQuery = '' }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState(null)
@@ -10,7 +11,7 @@ export default function Conditions() {
     setLoading(true)
     setError(null)
 
-    fetch('/api/conditions')
+    fetch(`/api/conditions${locationQuery}`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         return res.json()
@@ -28,7 +29,7 @@ export default function Conditions() {
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [locationQuery])
 
   if (loading) {
     return (

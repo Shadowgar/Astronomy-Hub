@@ -36,6 +36,17 @@ export default function App() {
   const [elevInput, setElevInput] = useState('')
   const [locError, setLocError] = useState('')
 
+  // build location query string for children when activeLocation is custom
+  let locationQuery = ''
+  if (activeLocation !== ORAS) {
+    const lat = encodeURIComponent(activeLocation.latitude)
+    const lon = encodeURIComponent(activeLocation.longitude)
+    locationQuery = `?lat=${lat}&lon=${lon}`
+    if (activeLocation.elevation_ft !== undefined && activeLocation.elevation_ft !== null) {
+      locationQuery += `&elevation_ft=${encodeURIComponent(activeLocation.elevation_ft)}`
+    }
+  }
+
   return (
     <div className={`app-shell mode-${mode.toLowerCase()}`}>
       <header className="app-header">
@@ -125,23 +136,23 @@ export default function App() {
       <main className="dashboard">
         {/* Module order locked by UI Information Architecture */}
         <section className="module conditions-module">
-          <Conditions />
+          <Conditions locationQuery={locationQuery} />
         </section>
 
         <section className="module targets-module">
-          <RecommendedTargets />
+          <RecommendedTargets locationQuery={locationQuery} />
         </section>
 
         <section className="module alerts-module">
-          <AlertsEvents />
+          <AlertsEvents locationQuery={locationQuery} />
         </section>
 
         <section className="module passes-module">
-          <SatellitePasses />
+          <SatellitePasses locationQuery={locationQuery} />
         </section>
 
         <aside className="module moon-module">
-          <MoonSummary />
+          <MoonSummary locationQuery={locationQuery} />
         </aside>
       </main>
 
