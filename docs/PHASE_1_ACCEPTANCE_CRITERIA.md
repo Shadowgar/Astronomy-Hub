@@ -8,10 +8,11 @@ Phase 1 is complete only when all of the following are true.
 - The app runs locally without requiring Raspberry Pi deployment
 
 ## Location
-- User can choose ORAS Observatory preset
-- User can use current location
-- User can save or enter a custom location
-- Location state updates the displayed dashboard data
+## Location
+- Default: the system uses the ORAS Observatory preset when no override is provided
+- User may optionally enter manual latitude/longitude coordinates to override the Active Observing Location for the current session only
+- Disallowed for Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, account-based preferences, or a location database
+- Location state (default or manual override) updates the displayed dashboard data
 
 ## Dashboard Behavior
 - Dashboard loads without overwhelming the user
