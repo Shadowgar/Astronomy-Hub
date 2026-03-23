@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import './locationSelector.css'
 
-export default function LocationSelector({ onApply } = {}) {
+export default function LocationSelector({ onApply, onConfirm, onCancel } = {}) {
   const [query, setQuery] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const [loading, setLoading] = useState(false)
@@ -48,6 +48,16 @@ export default function LocationSelector({ onApply } = {}) {
     else console.log('Apply location', chosen)
   }
 
+  const handleConfirm = () => {
+    if (onConfirm) onConfirm()
+    else console.log('Confirm pending (no handler)')
+  }
+
+  const handleCancel = () => {
+    if (onCancel) onCancel()
+    else console.log('Clear pending (no handler)')
+  }
+
   return (
     <div className="location-selector component">
       <label className="ls-label">Location</label>
@@ -60,6 +70,8 @@ export default function LocationSelector({ onApply } = {}) {
           aria-label="Location input"
         />
         <button className="ls-apply" onClick={handleApply}>Apply</button>
+        <button className="ls-confirm" onClick={handleConfirm}>Confirm</button>
+        <button className="ls-cancel" onClick={handleCancel}>Cancel</button>
       </div>
 
       <div className="ls-suggestions">

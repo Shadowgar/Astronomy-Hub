@@ -9,6 +9,8 @@
 .ls-input { flex: 1; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; }
 .ls-apply { padding: 6px 10px; background: #0366d6; color: white; border: none; border-radius: 4px; cursor: pointer; }
 .ls-apply:disabled { opacity: 0.6; cursor: default }
+.ls-confirm { padding: 6px 10px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
+.ls-cancel { padding: 6px 10px; background: #d9534f; color: white; border: none; border-radius: 4px; cursor: pointer; }
 .ls-suggestions { margin-top: 8px; }
 .ls-suggestion { padding: 6px 8px; border-bottom: 1px solid #f0f0f0; }
 .ls-suggestion-name { font-weight: 600 }
