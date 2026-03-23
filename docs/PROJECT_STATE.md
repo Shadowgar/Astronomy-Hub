@@ -65,6 +65,25 @@ Phase 1 — Local Sky MVP
 
 ---
 
+## CURRENT IMPLEMENTATION STATUS
+
+The Phase 1 MVP features below reflect the code and documentation currently implemented in this workspace. Marked items are COMPLETE for Phase 1.
+
+- **Backend endpoints (mock)**: COMPLETE — `/api/conditions`, `/api/targets`, `/api/passes`, `/api/alerts` return mocked JSON.
+- **Frontend dashboard shell**: COMPLETE — Vite + React app with dashboard layout.
+- **Conditions module**: COMPLETE — fetches `/api/conditions` and renders contract fields.
+- **Targets module**: COMPLETE — fetches `/api/targets` and renders recommended targets.
+- **Alerts module**: COMPLETE — fetches `/api/alerts` and renders alerts/events.
+- **Passes module**: COMPLETE — fetches `/api/passes` and renders upcoming satellite passes.
+- **Moon Summary (derived)**: COMPLETE — `MoonSummary` fetches `/api/conditions` and renders moon-related fields.
+- **Mode system (Day/Night/Red)**: COMPLETE — app-level mode state and CSS theming implemented.
+- **Mode persistence (localStorage)**: COMPLETE — selected mode persists across refresh in `localStorage`.
+- **Active Observing Location (default ORAS + manual override)**: COMPLETE — App UI supports ORAS default and session-only numeric lat/lon/elev override.
+- **Backend query param support (lat/lon/elevation_ft)**: COMPLETE — backend accepts and validates `lat`, `lon`, and optional `elevation_ft` and returns 400 JSON on invalid params.
+- **Frontend query param wiring**: COMPLETE — frontend app appends `lat`, `lon`, and optional `elevation_ft` query params to module requests when a manual override is active.
+
+---
+
 ## Phase 1 Objective
 
 Deliver a clean, usable dashboard that provides:
@@ -109,6 +128,7 @@ The following are explicitly NOT allowed in Phase 1:
   - Night mode
   - Red mode
   - Time context (Now / Tonight / 24h)
+ - Location-aware request handling: frontend appends optional `lat`/`lon`/`elevation_ft` when a session override is active
 
 ---
 
@@ -121,6 +141,8 @@ The following are explicitly NOT allowed in Phase 1:
   - normalization
   - caching (conceptually)
   - stable data contracts
+
+- Location-aware query handling: endpoints accept optional `lat`, `lon`, and `elevation_ft` query params (validated); responses remain mocked and contract shapes unchanged.
 
 No database in Phase 1.
 
@@ -136,6 +158,31 @@ No database in Phase 1.
 6. Drills deeper if needed
 
 Any feature outside this loop is not part of Phase 1.
+
+---
+
+## KNOWN LIMITATIONS (Phase 1)
+
+- Mock data only: No real astronomy calculations or live data sources yet.
+- Address autocomplete / geocoding: DEFERRED to Phase 2; explicitly excluded from Phase 1.
+- No browser geolocation: Phase 1 does not use device geolocation.
+- No saved locations: session-only manual override only; no account-based persistence.
+- No telemetry: no frontend telemetry/analytics in Phase 1.
+- Logging: backend-only, minimal request logging; no frontend telemetry layer yet.
+
+---
+
+## NEXT PHASE ENTRY POINT (Phase 2 candidate work)
+
+Recommended next development steps when moving to Phase 2:
+
+- Improve Red mode visual accuracy and final polish.
+- Add a frontend developer logging layer (dev-only) to aid debugging and usage telemetry during development.
+- Introduce real data sources and replace mock endpoints with normalized ingestion pipelines.
+- Implement Address Search & Geocoded Location Selection (autocomplete + geocoding) using a vetted external provider; ensure privacy and API usage policies are defined.
+- Improve UI polish, responsiveness, and layout refinements across modules.
+
+---
 
 ---
 
