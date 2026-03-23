@@ -11,6 +11,9 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from urllib.parse import urlparse
 from conditions_data import MOCK_CONDITIONS
+from targets_data import MOCK_TARGETS
+from passes_data import MOCK_PASSES
+from alerts_data import MOCK_ALERTS
 
 
 class SimpleHandler(BaseHTTPRequestHandler):
@@ -27,6 +30,15 @@ class SimpleHandler(BaseHTTPRequestHandler):
         if parsed.path == "/api/conditions":
             # Return the static mock data exactly matching the contract
             self._send_json(MOCK_CONDITIONS)
+        elif parsed.path == "/api/targets":
+            # Return list of target objects
+            self._send_json(MOCK_TARGETS)
+        elif parsed.path == "/api/passes":
+            # Return list of upcoming passes
+            self._send_json(MOCK_PASSES)
+        elif parsed.path == "/api/alerts":
+            # Return list of alerts
+            self._send_json(MOCK_ALERTS)
         else:
             # Only /api/conditions is allowed in Phase 1 for this task
             self.send_error(404, "Not Found")
