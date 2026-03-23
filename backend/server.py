@@ -11,6 +11,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import time
 import uuid
+import os
 from urllib.parse import urlparse, parse_qs
 
 from logging_config import get_logger
@@ -120,6 +121,31 @@ class SimpleHandler(BaseHTTPRequestHandler):
                 # Accept optional location params but return static mock targets for now
                 self._send_json(MOCK_TARGETS)
                 status = 200
+            elif parsed.path == "/api/location/search":
+                # Minimal mock search: require `q` param of length >= 3
+                q_param = q.get('q', '') if q else ''
+                if q_param is None:
+                    q_param = ''
+                q_trim = str(q_param).strip()
+                if len(q_trim) < 3:
+                    # follow the same error contract pattern used elsewhere
+                    self._send_json({'error': 'q must be at least 3 characters'}, status=400)
+                    status = 400
+                else:
+                    # load suggestions from backend/location_suggestions.json and filter
+                    try:
+                        base = os.path.dirname(__file__)
+                        sugg_path = os.path.join(base, 'location_suggestions.json')
+                        with open(sugg_path, 'r', encoding='utf-8') as fh:
+                            suggestions = json.load(fh)
+                        ql = q_trim.lower()
+                        matches = [s for s in suggestions if ql in (s.get('name') or '').lower()]
+                        self._send_json(matches)
+                        status = 200
+                    except Exception:
+                        logger.exception(f"req={request_id} location.search.load.fail")
+                        self._send_json({'error': 'failed to load suggestions'}, status=500)
+                        status = 500
             elif parsed.path == "/api/passes":
                 # Accept optional location params but return static mock passes for now
                 self._send_json(MOCK_PASSES)
