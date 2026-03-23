@@ -26,8 +26,10 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 
 .mode-red .app-header,
 .mode-red .app-footer {
-  background: #2b0a0a;
-  color: #ffdede;
+  /* very dark maroon surfaces for header/footer */
+  background: #200707; /* dark maroon */
+  color: #8b2b2b; /* dim red text */
+  border-color: #3a0d0d;
 }
 
 /* Body/background per mode */
@@ -42,17 +44,57 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0}
 }
 
 .mode-red {
-  background: #1b0b0b;
-  color: #ffdede;
+  /* Astronomy-safe red mode: near-black page background */
+  background: #000000;
+  color: #8b2b2b; /* dim red text for general content */
 }
 
-.mode-night .dashboard .module,
 .mode-red .dashboard .module {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
+  /* very dark maroon panels */
+  background: #120606; /* near-black maroon */
+  border: 1px solid #3a0d0d; /* subdued dark-red border */
+  color: #8b2b2b;
 }
 
-.mode-day .dashboard .module {
-  background: #ffffff;
-  border: 1px solid #e6e9ec;
+.mode-red .dashboard .module h2,
+.mode-red .dashboard .module h3,
+.mode-red .app-header h1 {
+  color: #b13b3b; /* slightly brighter heading color, still red-muted */
 }
+
+/* Controls in red mode: inputs, selects, buttons */
+.mode-red input,
+.mode-red select,
+.mode-red textarea,
+.mode-red button {
+  background: #170606; /* dark control background */
+  color: #8b2b2b; /* dim red text */
+  border: 1px solid #3a0d0d;
+}
+
+.mode-red select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.mode-red select option {
+  background: #170606;
+  color: #8b2b2b;
+}
+
+.mode-red input:focus,
+.mode-red select:focus,
+.mode-red button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(139,43,43,0.12);
+  border-color: #5a1212;
+}
+
+/* Links and small text */
+.mode-red a,
+.mode-red .small {
+  color: #9b2f2f;
+}
+
+/* Ensure footer and header separators are subdued (handled above) */
