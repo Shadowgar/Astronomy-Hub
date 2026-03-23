@@ -2,6 +2,27 @@
 
 ---
 
+## Implementation Order (With Rationale)
+
+1. Data Contracts
+  → Prevent schema drift
+
+2. Backend Normalization
+  → Ensure consistent structure
+
+3. Drill-Down UI
+  → Validate UX before complexity
+
+4. Location Search
+  → Integrate into stable system
+
+5. Caching Layer
+  → Improve performance after correctness
+
+6. Failure Handling
+  → Harden system last
+
+
 ## 1. Purpose
 
 Phase 2 transforms Astronomy Hub from a **mock-driven decision interface** into a **structured, data-backed system with controlled depth**, while preserving the Phase 1 core:
@@ -18,11 +39,35 @@ Phase 2 is about:
 
 ---
 
+### Phase 2 Preservation Rules
+
+Phase 2 MUST preserve all Phase 1 behavioral guarantees:
+
+* The dashboard remains the primary entry point
+* The system remains decision-support first
+* Summary modules remain minimal and readable
+* No Phase 2 feature may increase initial cognitive load
+* No Phase 2 feature may introduce required interaction before insight
+
+Phase 2 adds depth **only after user intent is expressed**.
+
+
 ## 2. Phase Identity (Critical)
 
 Phase 2 is:
 
 > **Structured depth + controlled expansion + location intelligence**
+
+
+## 11.4 Contract Enforcement Rules
+
+All Phase 2 data must follow strict contract rules:
+
+* All responses must match defined schema exactly
+* Unknown fields must be ignored
+* Missing required fields must result in rejection of that object
+* No dynamic or inferred fields
+* All schema changes must be documented before use
 
 Phase 2 is NOT:
 
@@ -67,6 +112,30 @@ Phase 2 MUST:
 
 ---
 
+### Phase 2 Scope Enforcement
+
+The following rules define the boundary of Phase 2:
+
+Allowed in Phase 2:
+
+* richer structured data
+* drill-down depth
+* normalized backend data
+* controlled ingestion
+* location selection via address search
+* caching and freshness awareness
+
+Not allowed in Phase 2:
+
+* interactive sky maps (Phase 3)
+* time scrubbing / time navigation (Phase 3)
+* multi-location comparison (Phase 4)
+* saved user locations (Phase 4+)
+* global awareness systems (Phase 4)
+* plugin systems or extensibility layers (Phase 5)
+* AI-driven recommendations (Phase 5)
+
+
 ## 5. Phase 2 Success Definition
 
 Phase 2 is complete when:
@@ -94,6 +163,18 @@ Phase 2 is complete when:
 5. Inspect deeper information
 6. Understand *why it matters*
 7. Return to summary OR continue exploration
+
+## Phase 2 Core Interaction Model (Extended)
+
+Phase 2 extends the Phase 1 interaction loop into an explicit observable model that must be preserved by implementations. This model defines intent, action, and response semantics for all added behaviors in Phase 2:
+
+1. User intent is explicit (selection, apply location, or refresh)
+2. System validates intent and requests minimal enrichment
+3. System surfaces structured detail; heavy enrichment is loaded on demand
+4. User may act on insight but no write actions are introduced in Phase 2
+5. System returns to the user with clear affordances for next steps
+
+All Phase 2 features must reinforce this loop and must not introduce implicit behavior that changes the user's mental model.
 
 ---
 
@@ -249,6 +330,31 @@ Each module supports:
 
 ---
 
+## Detail View Behavior Rules
+
+All drill-down views must follow strict structure rules:
+
+* Sections must appear in a consistent order
+* Maximum of 5 visible sections at once
+* Additional sections must be collapsed by default
+* No horizontal scrolling
+* No nested scroll regions
+* No tab-based navigation in Phase 2
+* No graphs or charts (reserved for Phase 3)
+* Every detail view must have a clear return path
+
+Detail views must **explain**, not overwhelm.
+
+## State Management Rules
+
+Phase 2 introduces additional state and must remain deterministic:
+
+* Active Observing Location changes ONLY on explicit confirmation
+* Pending selections must never affect system data
+* Failed requests must NOT change system state
+* Partial data must NOT overwrite complete data
+* Cached data must NOT silently override fresh data
+
 # 9. Location Intelligence (CRITICAL ADDITION)
 
 ---
@@ -319,6 +425,29 @@ Backend:
 
 ---
 
+## Location Selection — Extended Rules
+
+### Application Rules
+
+* Selecting a suggestion does NOT update location
+* Resolving coordinates does NOT update location
+* ONLY explicit “Apply” updates Active Observing Location
+
+### Refresh Behavior
+
+* Applying a new location triggers full module refresh
+* Refresh must be atomic (no mixed-location state)
+* If refresh fails:
+
+  * system reverts to previous valid state
+
+### Edge Cases
+
+* Selecting the same location results in no update
+* Invalid coordinates must be rejected
+* Partial failures must not corrupt active state
+
+
 ## 10. Backend Architecture (EXPANDED)
 
 Backend responsibilities:
@@ -331,6 +460,15 @@ Backend responsibilities:
 * Failure shielding
 
 ---
+
+## 10.1 Normalization Enforcement
+
+* All external data must be normalized before exposure
+* No raw provider data may reach frontend
+* Units must be standardized
+* Enums must be controlled and documented
+* Unknown values must be represented as null (not omitted)
+
 
 ## 11. Data Contracts (REQUIRED)
 
@@ -399,6 +537,34 @@ All endpoints must define:
 
 ---
 
+## 13.1 Caching Behavior Rules
+
+* Caching must never alter correctness
+* Cached data must be clearly replaceable by fresh data
+* Cache expiration must align with data type
+* Cache must not introduce stale-first rendering
+
+
+## Data Freshness & Trust Rules
+
+Phase 2 introduces real or structured data and must maintain user trust:
+
+* All datasets must include a timestamp
+* Stale data must be indicated (subtle, non-intrusive)
+* System must never present stale data as current without marking
+* No aggressive warnings or alerts
+* Freshness indicators must not clutter UI
+
+## Module Isolation Rules
+
+Each module must function independently:
+
+* A failure in one module must not block others
+* No shared blocking requests across modules
+* No global failure state unless system-wide
+* Modules must render with partial data when necessary
+
+
 ## 14. Persistence (STRICTLY LIMITED)
 
 Allowed:
@@ -423,6 +589,32 @@ System MUST:
 * preserve dashboard usability
 
 ---
+
+## Failure & Degraded Mode Rules (Expanded)
+
+System behavior under failure must follow:
+
+* UI must never crash
+* Partial data must render where possible
+* Missing detail must collapse cleanly
+* Summary must remain available even if detail fails
+* Errors must be contained and not cascade
+
+## Anti-Patterns (Strictly Prohibited)
+
+The following must NOT be introduced in Phase 2:
+
+* New dashboard modules
+* Raw provider/API data exposure
+* Graphs, charts, or visual plotting
+* Time navigation controls
+* Auto-applied location changes
+* Saved or favorite locations
+* Multi-location comparisons
+* Sorting/filtering systems
+* Background refresh that alters context unexpectedly
+* UI density increases beyond defined limits
+
 
 ## 16. Performance Constraints
 
