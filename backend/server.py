@@ -23,6 +23,28 @@ from alerts_data import MOCK_ALERTS
 
 logger = get_logger("backend.server")
 
+# Lazy cache reference; initialize on first use to be compatible with both
+# `python3 backend/server.py` and package-based execution.
+_simple_cache = None
+
+
+def _ensure_cache():
+    global _simple_cache
+    if _simple_cache is not None:
+        return
+    try:
+        from backend.cache.simple_cache import SimpleCache
+    except Exception:
+        # When running as a script, sys.path[0] may be the backend/ dir.
+        # Prepend the repository root to sys.path so package imports resolve.
+        import sys
+        repo_root = os.path.dirname(os.path.dirname(__file__))
+        if repo_root not in sys.path:
+            sys.path.insert(0, repo_root)
+        from backend.cache.simple_cache import SimpleCache
+
+    _simple_cache = SimpleCache()
+
 
 def _validate_suggestions(matches):
     """Validate suggestion coordinate values.
@@ -114,33 +136,78 @@ class SimpleHandler(BaseHTTPRequestHandler):
                     raise
 
             if parsed.path == "/api/conditions":
-                # Return the static mock data exactly matching the contract
-                # but reflect whether this response is for ORAS or a Custom Location
-                from copy import deepcopy
-                resp = deepcopy(MOCK_CONDITIONS)
-                if parsed_location is None:
-                    resp['location_label'] = 'ORAS Observatory'
-                else:
-                    resp['location_label'] = 'Custom Location'
-                # Attempt to normalize through the normalizer stub, but
-                # fall back to the original mock on any error.
+                # Use short TTL in-process cache for conditions responses only.
+                # Cache key incorporates whether this is ORAS or a custom location
+                # so we don't mix responses across locations.
                 try:
-                    from backend.normalizers.conditions_normalizer import normalize_to_contract
-                    try:
-                        normalized = normalize_to_contract(resp)
-                        if isinstance(normalized, dict):
-                            resp = normalized
-                            logger.info(f"req={request_id} normalize=ok")
-                        else:
-                            logger.info(f"req={request_id} normalize=skip type={type(normalized)}")
-                    except Exception:
-                        logger.exception(f"req={request_id} normalize.fail")
+                    _ensure_cache()
                 except Exception:
-                    # Import failure or other issue importing normalizer; continue with mock
-                    logger.info(f"req={request_id} normalize=not-available")
+                    logger.exception(f"req={request_id} cache.init.fail")
 
-                self._send_json(resp)
-                status = 200
+                if parsed_location is None:
+                    cache_key = "conditions:oras"
+                else:
+                    # include numeric coords to distinguish custom locations
+                    lat = parsed_location.get('latitude')
+                    lon = parsed_location.get('longitude')
+                    elev = parsed_location.get('elevation_ft')
+                    cache_key = f"conditions:custom:{lat}:{lon}:{elev}"
+
+                cached_resp = _simple_cache.get(cache_key) if _simple_cache is not None else None
+                if cached_resp is not None:
+                    # Return cached payload but append non-invasive meta fields
+                    from copy import deepcopy
+                    resp = deepcopy(cached_resp)
+                    resp['meta'] = {
+                        'cached': True,
+                        'cached_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+                    }
+                    logger.info(f"req={request_id} cache.hit key={cache_key}")
+                    self._send_json(resp)
+                    status = 200
+                else:
+                    # Build fresh response and populate cache after normalization
+                    from copy import deepcopy
+                    resp = deepcopy(MOCK_CONDITIONS)
+                    if parsed_location is None:
+                        resp['location_label'] = 'ORAS Observatory'
+                    else:
+                        resp['location_label'] = 'Custom Location'
+
+                    # Attempt to normalize through the normalizer stub, but
+                    # fall back to the original mock on any error.
+                    try:
+                        from backend.normalizers.conditions_normalizer import normalize_to_contract
+                        try:
+                            normalized = normalize_to_contract(resp)
+                            if isinstance(normalized, dict):
+                                resp = normalized
+                                logger.info(f"req={request_id} normalize=ok")
+                            else:
+                                logger.info(f"req={request_id} normalize=skip type={type(normalized)}")
+                        except Exception:
+                            logger.exception(f"req={request_id} normalize.fail")
+                    except Exception:
+                        # Import failure or other issue importing normalizer; continue with mock
+                        logger.info(f"req={request_id} normalize=not-available")
+
+                    # Cache the response (without meta) for a short TTL
+                    try:
+                        cache_payload = deepcopy(resp)
+                        if 'meta' in cache_payload:
+                            cache_payload.pop('meta', None)
+                        if _simple_cache is not None:
+                            _simple_cache.set(cache_key, cache_payload, ttl=5)
+                    except Exception:
+                        logger.exception(f"req={request_id} cache.set.fail key={cache_key}")
+
+                    # Return the fresh response and include meta indicating not-cached
+                    resp['meta'] = {
+                        'cached': False,
+                        'cached_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+                    }
+                    self._send_json(resp)
+                    status = 200
             elif parsed.path == "/api/targets":
                 # Accept optional location params but return static mock targets for now
                 self._send_json(MOCK_TARGETS)
@@ -162,6 +229,21 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         sugg_path = os.path.join(base, 'location_suggestions.json')
                         with open(sugg_path, 'r', encoding='utf-8') as fh:
                             suggestions = json.load(fh)
+
+                        # cache key based on trimmed query
+                        cache_key = f"location_search:{q_trim}"
+                        # ensure cache is initialized in current execution mode
+                        try:
+                            _ensure_cache()
+                        except Exception:
+                            logger.exception(f"req={request_id} cache.init.fail")
+                        cached = _simple_cache.get(cache_key) if _simple_cache is not None else None
+                        if cached is not None:
+                            logger.info(f"req={request_id} cache.hit key={cache_key}")
+                            self._send_json(cached)
+                            status = 200
+                            return
+
                         ql = q_trim.lower()
                         matches = [s for s in suggestions if ql in (s.get('name') or '').lower()]
                         # Validate coordinates on matched suggestions and return 400 on error
@@ -170,6 +252,13 @@ class SimpleHandler(BaseHTTPRequestHandler):
                             self._send_json(v_err, status=400)
                             status = 400
                             return
+
+                        # successful response: cache it briefly and return
+                        try:
+                            _simple_cache.set(cache_key, matches, ttl=5)
+                        except Exception:
+                            logger.exception(f"req={request_id} cache.set.fail key={cache_key}")
+
                         self._send_json(matches)
                         status = 200
                     except Exception:
