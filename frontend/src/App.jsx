@@ -4,6 +4,8 @@ import RecommendedTargets from './components/RecommendedTargets'
 import AlertsEvents from './components/AlertsEvents'
 import SatellitePasses from './components/SatellitePasses'
 import MoonSummary from './components/MoonSummary'
+import LocationSelector from './components/LocationSelector/LocationSelector'
+import useLocationState from './state/locationState'
 
 const MODES = ['Day', 'Night', 'Red']
 
@@ -32,7 +34,15 @@ export default function App() {
     elevation_ft: 1420,
   }
 
-  const [activeLocation, setActiveLocation] = useState(ORAS)
+  // replace single-state with useLocationState to provide `pendingLocation` for Step 2D.D3
+  const {
+    activeLocation,
+    setActiveLocation,
+    pendingLocation,
+    setPending,
+    confirmPending,
+    clearPending,
+  } = useLocationState(ORAS)
   const [latInput, setLatInput] = useState('')
   const [lonInput, setLonInput] = useState('')
   const [elevInput, setElevInput] = useState('')
@@ -112,6 +122,33 @@ export default function App() {
                   setElevInput('')
                 }}
               >Reset to ORAS</button>
+              {/* Optional dev mount for the LocationSelector used by Step 2D.D3. Enable with ?mountLocationSelector=1 */}
+              {typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('mountLocationSelector') === '1' && (
+                <div style={{display: 'inline-block', marginLeft: 12}}>
+                  <LocationSelector
+                    onApply={(v) => {
+                      setPending(v)
+                      if (new URLSearchParams(window.location.search).get('devlog') === '1') {
+                        // single-line JSON log for dev observation
+                        try { console.log(JSON.stringify({ event: 'pending_set', pending: v })) } catch (e) { /* noop */ }
+                      }
+                    }}
+                  />
+                </div>
+              )}
+              {/* Show pending location and confirm control when set */}
+              {pendingLocation && (
+                <div style={{display: 'inline-block', marginLeft: 12}}>
+                  <span style={{marginRight: 8}}>Pending: {pendingLocation.name || (pendingLocation.latitude && `${pendingLocation.latitude.toFixed(3)}, ${pendingLocation.longitude.toFixed(3)}`)}</span>
+                  <button onClick={() => {
+                    confirmPending()
+                    if (new URLSearchParams(window.location.search).get('devlog') === '1') {
+                      try { console.log(JSON.stringify({ event: 'pending_confirm', confirmed: pendingLocation })) } catch (e) {}
+                    }
+                  }}>Confirm pending</button>
+                  <button onClick={() => clearPending()} style={{marginLeft: 8}}>Clear pending</button>
+                </div>
+              )}
               {locError && <div style={{color: '#ffb3b3', marginTop: 6}} role="alert">{locError}</div>}
             </div>
           </div>
