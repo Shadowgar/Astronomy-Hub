@@ -116,20 +116,25 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 .app-shell.mode-dark .primary-decision-panel .pdp-status { background: rgba(35,136,255,0.06); color: var(--text-primary) }
 
 .app-shell.mode-red {
-  /* RED: low-luminance observing instrument theme */
-  --page-bg: #020101; /* near-black canvas */
-  --header-bg: #030101; /* slightly lifted header */
-  --hero-surface-bg: #040101; /* PDP / hero surface */
-  --surface-bg: #030101; /* module surface */
-  --surface-border: #240000; /* deep maroon border */
-  --divider: rgba(160,40,40,0.06);
-  --text-primary: #6b1a1a; /* dim/muted red for all primary text (no white) */
-  --text-muted: #4d1414; /* darker muted red for less prominent text */
-  --accent-red: #8a2222; /* restrained accent used sparingly */
-  --button-bg: #120505; /* very dark maroon button surface */
-  --button-fg: var(--text-primary); /* ensure button text is muted red, not white */
+  --page-bg: #020101;
+  --header-bg: #030101;
+  --hero-surface-bg: #050101;
+  --surface-bg: #040101;
+  --surface-border: #240000;
+  --divider: rgba(120,20,20,0.18);
+  --text-primary: #7a1f1f;
+  --text-muted: #5a1414;
+  --button-bg: #120303;
+  --button-fg: #8a2222;
   --input-bg: #030101;
   --input-border: #240000;
+  --heading-color: #8a2222;
+  --status-bg: rgba(160,40,40,0.08);
+  --status-fg: #8a2222;
+  --button-border: rgba(120,20,20,0.18);
+  --stale-bg: rgba(90,20,20,0.10);
+  --stale-fg: #7a1f1f;
+  --loc-error: #8a2222;
   background: var(--page-bg);
   color: var(--text-primary);
 }
