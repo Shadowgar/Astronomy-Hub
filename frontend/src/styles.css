@@ -87,18 +87,18 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 
 .app-shell.mode-red {
   /* RED: low-luminance observing instrument theme */
-  --page-bg: #030202; /* near-black canvas */
-  --header-bg: #040202; /* slightly lifted header */
-  --hero-surface-bg: #060303; /* PDP / hero surface */
-  --surface-bg: #050303; /* module surface */
+  --page-bg: #020101; /* near-black canvas */
+  --header-bg: #030101; /* slightly lifted header */
+  --hero-surface-bg: #040101; /* PDP / hero surface */
+  --surface-bg: #030101; /* module surface */
   --surface-border: #240000; /* deep maroon border */
-  --divider: rgba(180,60,60,0.06);
-  --text-primary: #e6dcd9; /* warm, readable text */
-  --text-muted: #b58f8f; /* muted red-tinted text */
-  --accent-red: #a02828; /* restrained accent */
-  --button-bg: #3b1b1b;
-  --button-fg: #e6dcd9;
-  --input-bg: #040202;
+  --divider: rgba(160,40,40,0.06);
+  --text-primary: #6b1a1a; /* dim/muted red for all primary text (no white) */
+  --text-muted: #4d1414; /* darker muted red for less prominent text */
+  --accent-red: #8a2222; /* restrained accent used sparingly */
+  --button-bg: #120505; /* very dark maroon button surface */
+  --button-fg: var(--text-primary); /* ensure button text is muted red, not white */
+  --input-bg: #030101;
   --input-border: #240000;
   background: var(--page-bg);
   color: var(--text-primary);
@@ -109,6 +109,10 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 .app-shell.mode-red input, .app-shell.mode-red select, .app-shell.mode-red textarea, .app-shell.mode-red button { background: var(--input-bg); color: var(--text-primary); border: 1px solid var(--input-border) }
 .app-shell.mode-red .pdp-cta { background: var(--button-bg); color: var(--button-fg) }
 .app-shell.mode-red .primary-decision-panel .pdp-status { background: rgba(160,40,40,0.06); color: var(--accent-red) }
+/* Red-mode specific adjustments for other UI bits to preserve dark adaptation */
+.app-shell.mode-red .stale-badge { background: rgba(160,40,40,0.06); color: var(--text-primary) }
+.app-shell.mode-red .module-retry { background: transparent; color: var(--text-primary); border: 1px solid rgba(160,40,40,0.06) }
+.app-shell.mode-red .pdp-summary, .app-shell.mode-red .pdp-target-sentence, .app-shell.mode-red .pdp-no-target { color: var(--text-muted) }
 
   /* --- Layout & Typography polish additions --- */
   /* Rhythm: use consistent vertical spacing scale */
