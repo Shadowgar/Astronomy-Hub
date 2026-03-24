@@ -173,7 +173,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="dashboard">
+      <main className="dashboard tight-layout">
         {/* Primary Decision Panel: Phase B transformation — prominent, above modules */}
         <PrimaryDecisionPanel locationQuery={locationQuery} />
 

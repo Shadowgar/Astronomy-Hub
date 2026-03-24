@@ -18,95 +18,60 @@ export default function Conditions({ locationQuery = '' }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [data, setData] = useState(null)
-  let simulatePartial = false
-  try {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search)
-      simulatePartial = params.get('simulate_partial') === '1'
-    }
-  } catch (e) {
-    simulatePartial = false
-  }
 
-  useEffect(() => {
-    let cancelled = false
+  const simulatePartial = (() => {
+    try {
+      if (typeof window === 'undefined') return false
+      const params = new URLSearchParams(window.location.search)
+      return params.get('simulate_partial') === '1'
+    } catch (e) {
+      return false
+    }
+  })()
+
+  const fetchData = useCallback(async () => {
     setLoading(true)
     setError(null)
 
-    async function doFetch() {
-      try {
-        const res = await logFetch(`/api/conditions${locationQuery}`)
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        const json = await res.json()
-
-        // Support a simple client-side simulation of a partial payload
-        // when the URL contains `?simulate_partial=1` (dev-only).
-        try {
-          const params = new URLSearchParams(window.location.search)
-          if (params.get('simulate_partial') === '1') {
-            if (json && typeof json === 'object') {
-              delete json.summary
-              json.meta = Object.assign({}, json.meta || {}, { partial: true })
-            }
-          }
-        } catch (e) {
-          // ignore any simulation errors
-        }
-
-        if (!cancelled) setData(json)
-      } catch (err) {
-        if (!cancelled) {
-          if (simulatePartial) {
-            // Populate minimal partial payload for dev simulation so stale badge shows
-            setData({
-              location_label: 'Simulated Location',
-              cloud_cover_pct: null,
-              moon_phase: null,
-              darkness_window: { start: null, end: null },
-              observing_score: null,
-              summary: null,
-              last_updated: new Date().toISOString(),
-              meta: { partial: true },
-            })
-          // Compact signal-style rendering for quick scan
-          const cloudText = typeof cloud_cover_pct === 'number' ? `${Math.round(cloud_cover_pct)}%` : 'N/A'
-          const moonText = moon_phase || 'N/A'
-          const darknessText = darkness_window?.start && darkness_window?.end
-            ? `${fmtTimeShort(darkness_window.start)} – ${fmtTimeShort(darkness_window.end)}`
-            : 'Not available'
-
-          return (
-            <ModuleShell title="Conditions" stale={staleProp} onRetry={handleRetry}>
-              <div className="conditions-body">
-                <div className="cond-row"><strong>{location_label || 'Unknown location'}</strong></div>
-
-                <div className="cond-row small" style={{display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap'}}>
-                  <span style={{padding: '6px 8px', borderRadius: 6, background: 'transparent', fontWeight: 600}}>{`Cloud ${cloudText}`}</span>
-                  <span style={{padding: '6px 8px', borderRadius: 6, color: 'var(--text-muted)'}}>{`Moon ${moonText}`}</span>
-                  <span style={{padding: '6px 8px', borderRadius: 6, color: 'var(--text-muted)'}}>{`Darkness ${darknessText}`}</span>
-                </div>
-
-                {summary ? (
-                  <div className="cond-row small" style={{marginTop: 6, color: 'var(--text-muted)'}}>{summary}</div>
-                ) : null}
-              </div>
-            </ModuleShell>
-          )
     try {
-      logger.info('module', 'retry', { module: 'conditions' })
-    } catch (e) {
-      // ignore
+      const res = await logFetch(`/api/conditions${locationQuery}`)
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const json = await res.json()
+
+      // Dev-only: allow simulating a partial payload via URL param
+      if (simulatePartial && json && typeof json === 'object') {
+        const patched = Object.assign({}, json)
+        delete patched.summary
+        patched.meta = Object.assign({}, patched.meta || {}, { partial: true })
+        setData(patched)
+      } else {
+        setData(json)
+      }
+    } catch (err) {
+      logger?.info?.('module', 'conditions:fetch:error', { err: err && err.message })
+      if (simulatePartial) {
+        setData({
+          location_label: 'Simulated Location',
+          cloud_cover_pct: null,
+          moon_phase: null,
+          darkness_window: { start: null, end: null },
+          summary: null,
+          last_updated: new Date().toISOString(),
+          meta: { partial: true },
+        })
+      } else {
+        setError(err.message || 'Unknown error')
+      }
+    } finally {
+      setLoading(false)
     }
-    // perform fetch
-    logFetch(`/api/conditions${locationQuery}`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json()
-      })
-      .then((json) => setData(json))
-      .catch((err) => setError(err.message || 'Unknown error'))
-      .finally(() => setLoading(false))
-  }, [locationQuery])
+  }, [locationQuery, simulatePartial])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
+
+  const handleRetry = () => fetchData()
 
   if (loading) {
     return (
@@ -132,23 +97,34 @@ export default function Conditions({ locationQuery = '' }) {
     )
   }
 
-  // Render user-friendly summary of conditions
   const { location_label, cloud_cover_pct, moon_phase, darkness_window, summary } = data
 
   const isStale = Boolean(data?.meta?.partial)
-  // Dev-only: allow forcing the stale/degraded badge via URL param (computed above)
   const staleProp = Boolean(isStale || simulatePartial)
 
+  const cloudText = typeof cloud_cover_pct === 'number' ? `${Math.round(cloud_cover_pct)}%` : 'N/A'
+  const moonText = moon_phase || 'N/A'
+  const darknessText = darkness_window?.start && darkness_window?.end
+    ? `${fmtTimeShort(darkness_window.start)} – ${fmtTimeShort(darkness_window.end)}`
+    : 'Not available'
+
+  // Compact, chip-style signal rows for quick scanning
   return (
     <ModuleShell title="Conditions" stale={staleProp} onRetry={handleRetry}>
-      <div className="conditions-body">
-        <div className="cond-row"><strong>Location:</strong> {location_label || 'Unknown'}</div>
-        <div className="cond-row small"><strong>Cloud cover:</strong> {typeof cloud_cover_pct === 'number' ? `${Math.round(cloud_cover_pct)}%` : 'N/A'}</div>
-        <div className="cond-row small"><strong>Moon:</strong> {moon_phase || 'N/A'}</div>
+      <div className="conditions-body" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <strong style={{ fontSize: '1rem' }}>{location_label || 'Unknown location'}</strong>
+          <small style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{data?.last_updated ? fmtTimeShort(data.last_updated) : ''}</small>
+        </div>
 
-        <div className="cond-row"><strong>Best darkness:</strong> {darkness_window?.start && darkness_window?.end ? `${fmtTimeShort(darkness_window.start)} – ${fmtTimeShort(darkness_window.end)}` : 'Not available'}</div>
-
-        <div className="cond-row"><strong>Summary:</strong> {summary ? <span className="cond-summary">{summary}</span> : <span className="cond-summary muted">No short summary available.</span>}</div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+          <span style={{ padding: '6px 10px', borderRadius: 999, background: 'var(--surface-muted)', fontWeight: 700 }}>{cloudText}</span>
+          <span style={{ padding: '6px 10px', borderRadius: 999, background: 'transparent', color: 'var(--text-muted)' }}>{moonText}</span>
+          <span style={{ padding: '6px 10px', borderRadius: 999, background: 'transparent', color: 'var(--text-muted)' }}>{darknessText}</span>
+          {typeof data?.observing_score === 'number' ? (
+            <span style={{ marginLeft: 6, padding: '4px 8px', borderRadius: 6, background: 'var(--accent)', color: 'white', fontWeight: 700 }}>{Math.round(data.observing_score)}</span>
+          ) : null}
+        </div>
       </div>
     </ModuleShell>
   )
