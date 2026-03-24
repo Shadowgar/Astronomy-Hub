@@ -222,12 +222,16 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 .app-shell .primary-decision-panel { display:flex; gap:24px; align-items:center; padding:20px; border-radius:10px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); border:1px solid var(--surface-border); }
 .app-shell .primary-decision-panel .pdp-left { min-width:160px; display:flex; align-items:center; justify-content:flex-start }
 .app-shell .primary-decision-panel .pdp-status { font-size:18px; font-weight:800; padding:8px 12px; border-radius:8px }
+.app-shell .primary-decision-panel .pdp-status-pill { display:inline-block; font-size:14px; font-weight:800; padding:8px 12px; border-radius:18px; background:var(--status-bg); color:var(--status-fg); border:1px solid var(--button-border) }
 .app-shell .primary-decision-panel .pdp-center { flex:1 }
 .app-shell .primary-decision-panel .pdp-center h2 { font-size:20px; margin:0 0 6px 0 }
-.app-shell .primary-decision-panel .pdp-summary { margin:0 0 6px 0 }
-.app-shell .primary-decision-panel .pdp-right { min-width:220px; display:flex; flex-direction:column; gap:10px; align-items:flex-end }
+.app-shell .primary-decision-panel .pdp-main-row { display:flex; gap:18px; align-items:center }
+.app-shell .primary-decision-panel .pdp-summary { margin:0; flex:1; color:var(--text-muted) }
+.app-shell .primary-decision-panel .pdp-darkness { color:var(--text-muted); white-space:nowrap }
+.app-shell .primary-decision-panel .pdp-right { min-width:220px; display:flex; flex-direction:row; gap:12px; align-items:center; justify-content:flex-end }
+.app-shell .primary-decision-panel .pdp-right-row { display:flex; gap:12px; align-items:center }
 .app-shell .primary-decision-panel .pdp-top-target { text-align:right }
-.app-shell .primary-decision-panel .pdp-cta { padding:8px 12px }
+.app-shell .primary-decision-panel .pdp-cta { padding:8px 14px; border-radius:8px; font-weight:700; border:1px solid var(--button-border); box-shadow: 0 4px 10px rgba(0,0,0,0.06) }
 
 /* ModuleShell header/body rhythm */
 .app-shell .module-shell { padding:12px; border-radius:8px; box-shadow: none }

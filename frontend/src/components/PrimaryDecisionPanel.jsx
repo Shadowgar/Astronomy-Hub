@@ -67,36 +67,41 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
   return (
     <section className="primary-decision-panel" aria-labelledby="pdp-heading">
       <div className="pdp-left">
-        <div className="pdp-status">{loading ? 'Loading…' : statusText}</div>
+        <span className="pdp-status-pill">{loading ? 'Loading…' : statusText}</span>
       </div>
 
       <div className="pdp-center">
         <h2 id="pdp-heading">Tonight’s Observing Plan</h2>
-        <p className="pdp-summary">{summary || (loading ? 'Loading conditions…' : 'No concise summary available.')}</p>
-        <div className="pdp-darkness">
-          <strong>Best window:</strong>{' '}
-          {darknessStart && darknessEnd ? `${darknessStart} – ${darknessEnd}` : (loading ? '…' : 'Not available')}
+        <div className="pdp-main-row">
+          <p className="pdp-summary">{summary || (loading ? 'Loading conditions…' : 'No concise summary available.')}</p>
+          <div className="pdp-darkness">
+            <strong>Best window:</strong>{' '}
+            {darknessStart && darknessEnd ? `${darknessStart} – ${darknessEnd}` : (loading ? '…' : 'Not available')}
+          </div>
         </div>
       </div>
 
       <div className="pdp-right">
-        <div className="pdp-top-target">
-          {top ? (
-            <p className="pdp-target-sentence">Start with {top.name} in the {top.direction?.toLowerCase()}</p>
-          ) : (
-            <div className="pdp-no-target">No recommended target</div>
-          )}
-        </div>
+        <div className="pdp-right-row">
+          <div className="pdp-top-target">
+            {top ? (
+              <p className="pdp-target-sentence">Start with <strong>{top.name}</strong> · {top.direction?.toUpperCase()}</p>
+            ) : (
+              <div className="pdp-no-target">No recommended target</div>
+            )}
+          </div>
 
-        <button
-          className="pdp-cta"
-          onClick={() => {
-            const el = document.querySelector('.targets-module') || document.querySelector('.recommended-targets')
-            if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-          }}
-        >
-          Show Me What To Look At
-        </button>
+          <button
+            type="button"
+            className="pdp-cta"
+            onClick={() => {
+              const el = document.querySelector('.targets-module') || document.querySelector('.recommended-targets')
+              el?.scrollIntoView?.({ behavior: 'smooth', block: 'start' })
+            }}
+          >
+            Show Me What To Look At
+          </button>
+        </div>
       </div>
     </section>
   )
