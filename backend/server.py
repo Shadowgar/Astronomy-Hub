@@ -185,10 +185,6 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         # Attempt to normalize through the normalizer stub, but
                         # fall back to the original mock on any error.
                         try:
-                            # Minimal simulation hook for verification only:
-                            if os.environ.get('SIMULATE_NORMALIZER_FAIL') == 'conditions':
-                                raise RuntimeError('simulated normalization failure')
-
                             from backend.normalizers.conditions_normalizer import normalize_to_contract
                             try:
                                 normalized = normalize_to_contract(resp)
