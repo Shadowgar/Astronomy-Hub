@@ -4,6 +4,7 @@ import RecommendedTargets from './components/RecommendedTargets'
 import AlertsEvents from './components/AlertsEvents'
 import SatellitePasses from './components/SatellitePasses'
 import MoonSummary from './components/MoonSummary'
+import PrimaryDecisionPanel from './components/PrimaryDecisionPanel'
 import LocationSelector from './components/LocationSelector/LocationSelector'
 import useLocationState from './state/locationState'
 
@@ -173,6 +174,8 @@ export default function App() {
       </header>
 
       <main className="dashboard">
+        {/* Primary Decision Panel: Phase B transformation — prominent, above modules */}
+        <PrimaryDecisionPanel locationQuery={locationQuery} />
         {/* Module order locked by UI Information Architecture */}
         <section className="module conditions-module">
           <Conditions locationQuery={locationQuery} />

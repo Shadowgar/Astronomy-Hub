@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Primary Decision Panel Preview</title>
+  <style>
+    body{font-family: Arial, Helvetica, sans-serif;padding:20px;background:#f4f6f8}
+    .primary-decision-panel { grid-column: 1 / -1; display:flex; gap:20px; align-items:center; padding:20px; margin-bottom:12px; border-radius:12px; background: linear-gradient(180deg, #ffffff, #fbfdff); box-shadow: 0 6px 18px rgba(16,24,40,0.06); }
+    .primary-decision-panel .pdp-left { min-width:120px; text-align:center }
+    .primary-decision-panel .pdp-status { font-size:20px; font-weight:700; margin-bottom:6px }
+    .primary-decision-panel .pdp-score { color:#666; font-size:13px }
+    .primary-decision-panel .pdp-center { flex:1 }
+    .primary-decision-panel .pdp-center h2 { margin:0 0 6px 0; font-size:20px }
+    .primary-decision-panel .pdp-summary { margin:0 0 8px 0; font-size:15px }
+    .primary-decision-panel .pdp-darkness { color:#444 }
+    .primary-decision-panel .pdp-right { min-width:220px; display:flex; flex-direction:column; gap:8px; align-items:flex-end }
+    .primary-decision-panel .pdp-target-label { color:#666; font-size:12px }
+    .primary-decision-panel .pdp-target-name { text-align:right }
+    .primary-decision-panel .pdp-cta { background:#0b6cff; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer }
+    .primary-decision-panel .pdp-cta:hover { filter:brightness(0.95) }
+  </style>
+</head>
+<body>
+  <section class="primary-decision-panel">
+    <div class="pdp-left">
+      <div class="pdp-status">Good</div>
+      <div class="pdp-score">Score: 68</div>
+    </div>
+
+    <div class="pdp-center">
+      <h2>What to observe right now</h2>
+      <p class="pdp-summary">Clear skies near zenith; scattered cirrus to the west.</p>
+      <div class="pdp-darkness"><strong>Best window:</strong> 20:12 — 23:44</div>
+    </div>
+
+    <div class="pdp-right">
+      <div class="pdp-top-target">
+        <div class="pdp-target-label">Top pick</div>
+        <div class="pdp-target-name"><strong>M31</strong><div class="small">Galaxy · West</div></div>
+      </div>
+
+      <button class="pdp-cta">Show Me What To Look At</button>
+    </div>
+  </section>
+</body>
+</html>
