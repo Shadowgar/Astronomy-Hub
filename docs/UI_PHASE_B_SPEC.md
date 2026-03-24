@@ -3,6 +3,9 @@
 ## Objective
 Prepare and begin the polish of the Phase 1 UI while introducing lightweight, local design primitives to make future work easier.
 
+## Status
+- **UI Phase B:** ACTIVE (Product UI Transformation)
+
 ## Scope (non-blocking for Phase A)
 - Introduce design tokens (colors, spacing, typography scale) as a small module
 - Create simple, reusable `Card` and `SectionHeader` components

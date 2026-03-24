@@ -1,6 +1,6 @@
-# Phase 2 — Execution TODO (Bitfrog-ready)
+# Phase 2 — Execution HISTORY (COMPLETED)
 
-This TODO file breaks the Phase 2 Implementation Plan into very small, execution-safe steps. Each step is intended to be one Bitfrog execution pass (one commit). Do NOT run or implement code as part of these steps until you're ready to execute the corresponding change.
+This file records the Phase 2 execution steps for historical reference. Phase 2 execution is COMPLETE; the entries below remain for traceability only and are not an active TODO list.
 
 Rules enforced here:
 - Contracts first, backend before frontend, location after base UI/data shape is stable, caching after correctness, failure handling last.

@@ -3,6 +3,9 @@
 ## Objective
 Deliver a calm, mobile-friendly dashboard that implements the Phase 1 information architecture with clear hierarchy and drill-down affordances.
 
+## Status
+- **UI Phase A:** COMPLETE
+
 ## Scope (Phase 1 alignment)
 - Dashboard page with header (location + mode) and module grid
 - Modules: Conditions, Recommended Targets, Alerts/Events, Satellite Passes, Moon Summary

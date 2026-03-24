@@ -19,6 +19,10 @@ Treat the UI as a first-class, phased track that follows and supports the system
 - UI Phase C: Interactive exploration UI (rich drill-down pages, richer satellite/target detail)
 - UI Phase D/E: Advanced visualization, analytics, deployment hardening (listed here for roadmap continuity only)
 
+## Status
+- **UI Phase A:** COMPLETE
+- **UI Phase B:** ACTIVE (Product UI Transformation)
+
 ## Deliverables per phase (high level)
 - Phase A: Dashboard shell, header with location & mode controls, module cards (Conditions, Targets, Alerts, Passes, Moon Summary), mobile-friendly layout, red/night/day modes, mock-data compatibility.
 - Phase B: Design tokens, reusable Card/Section components, refined typography, color system, improved accessibility, polished responsive behavior, visual QA.
