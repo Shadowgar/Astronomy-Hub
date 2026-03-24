@@ -14,9 +14,9 @@ export default function App() {
   const [mode, setMode] = useState(() => {
     if (typeof globalThis !== 'undefined' && globalThis.localStorage) {
       const stored = globalThis.localStorage.getItem('astronomyHub.mode')
-      return MODES.includes(stored) ? stored : 'Day'
+      return MODES.includes(stored) ? stored : 'Night'
     }
-    return 'Day'
+    return 'Night'
   })
 
   useEffect(() => {

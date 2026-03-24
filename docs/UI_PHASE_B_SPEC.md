@@ -52,6 +52,37 @@ UI Phase B uses a hybrid design approach:
 
 Goal: Ensure all future UI work follows a consistent, modern, product-level design language.
 
+## Desktop Layout Width & Mode Behavior (LOCKED)
+
+1. Desktop Width
+- UI Phase B must not use a narrow center-column layout on desktop.
+- On large screens, the main content area should expand to a wider max width so the interface feels like a command center, not a blog page.
+- Side gutters should exist, but must be controlled and intentional.
+- Hero and section layouts should visibly use desktop real estate.
+
+2. Section Width
+- The Primary Decision Panel should span a wide desktop width.
+- Two-column supporting sections must feel balanced and substantial, not compressed into a narrow center strip.
+- Main content should scale cleanly from laptop to large monitor.
+
+3. Mode Behavior
+- Day mode: clear, usable, high-contrast, professional.
+- Night mode: primary visual mode; GitHub-style dark + slight mission-control feel.
+- Red mode: purpose-built observing mode, not just a red recolor of day/night.
+
+4. Density Rules
+- Avoid oversized empty margins on widescreen displays.
+- Avoid thin central content stacks.
+- Support modules must remain readable while filling the workspace appropriately.
+
+5. Constraints
+- Do not change information architecture.
+- Do not add new features.
+- This section defines visual layout behavior only.
+
+Goal:
+Make future UI Phase B implementation account for real desktop screenshots, desktop width usage, and coherent day/night/red behavior.
+
 ## Scope (non-blocking for Phase A)
 - Introduce design tokens (colors, spacing, typography scale) as a small module
 - Create simple, reusable `Card` and `SectionHeader` components

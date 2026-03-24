@@ -82,7 +82,7 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
       <div className="pdp-right">
         <div className="pdp-top-target">
           {top ? (
-            <p className="pdp-target-sentence">Start with {top.name} ({top.category}) in the {top.direction}</p>
+            <p className="pdp-target-sentence">Start with {top.name} in the {top.direction?.toLowerCase()}</p>
           ) : (
             <div className="pdp-no-target">No recommended target</div>
           )}
