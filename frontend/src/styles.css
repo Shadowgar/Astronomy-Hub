@@ -62,26 +62,53 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 .app-shell.mode-light .pdp-cta { background:#0969da; color:#fff }
 
 .app-shell.mode-dark {
-  /* DARK */
-  background: #0d1117;
-  color: #cfe8ff;
+  /* DARK: GitHub-inspired dark product UI (surface hierarchy via vars) */
+  --page-bg: #0b1116; /* deep page canvas */
+  --header-bg: #071018; /* header surface */
+  --hero-surface-bg: #071520; /* hero / PDP surface */
+  --surface-bg: #07131a; /* module surface */
+  --surface-border: rgba(255,255,255,0.04);
+  --divider: rgba(255,255,255,0.04);
+  --text-primary: #cfe8ff;
+  --text-muted: #9fb1c8;
+  --button-bg: #2388ff;
+  --button-fg: #06121a;
+  --input-bg: transparent;
+  --input-border: rgba(255,255,255,0.06);
+  background: var(--page-bg);
+  color: var(--text-primary);
 }
-.app-shell.mode-dark .app-header { background: #071020; color: #cfe8ff; border-bottom: 1px solid #0f2436 }
-.app-shell.mode-dark .primary-decision-panel { background: transparent; border-bottom: 1px solid #30363d }
-.app-shell.mode-dark .dashboard .module { background: #071428; border: 1px solid #0f2436; color: #cfe8ff }
-.app-shell.mode-dark input, .app-shell.mode-dark select, .app-shell.mode-dark textarea, .app-shell.mode-dark button { background: transparent; color: #cfe8ff; border: 1px solid #30363d }
-.app-shell.mode-dark .pdp-cta { background:#2388ff; color:#fff }
+.app-shell.mode-dark .app-header { background: var(--header-bg); color: var(--text-primary); border-bottom: 1px solid var(--divider) }
+.app-shell.mode-dark .primary-decision-panel { background: var(--hero-surface-bg); border-bottom: 1px solid var(--surface-border) }
+.app-shell.mode-dark .dashboard .module { background: var(--surface-bg); border: 1px solid var(--surface-border); color: var(--text-primary) }
+.app-shell.mode-dark input, .app-shell.mode-dark select, .app-shell.mode-dark textarea, .app-shell.mode-dark button { background: var(--input-bg); color: var(--text-primary); border: 1px solid var(--input-border) }
+.app-shell.mode-dark .pdp-cta { background: var(--button-bg); color: var(--button-fg) }
+.app-shell.mode-dark .primary-decision-panel .pdp-status { background: rgba(35,136,255,0.06); color: var(--text-primary) }
 
 .app-shell.mode-red {
-  /* RED (astronomy observing mode) */
-  background: #000000;
-  color: #a02828;
+  /* RED: low-luminance observing instrument theme */
+  --page-bg: #030202; /* near-black canvas */
+  --header-bg: #040202; /* slightly lifted header */
+  --hero-surface-bg: #060303; /* PDP / hero surface */
+  --surface-bg: #050303; /* module surface */
+  --surface-border: #240000; /* deep maroon border */
+  --divider: rgba(180,60,60,0.06);
+  --text-primary: #e6dcd9; /* warm, readable text */
+  --text-muted: #b58f8f; /* muted red-tinted text */
+  --accent-red: #a02828; /* restrained accent */
+  --button-bg: #3b1b1b;
+  --button-fg: #e6dcd9;
+  --input-bg: #040202;
+  --input-border: #240000;
+  background: var(--page-bg);
+  color: var(--text-primary);
 }
-.app-shell.mode-red .app-header { background: #040000; color: #a02828; border-bottom: 1px solid #240000 }
-.app-shell.mode-red .primary-decision-panel { background: #080000; border-bottom: 1px solid #240000 }
-.app-shell.mode-red .dashboard .module { background: #080000; border: 1px solid #240000; color: #a02828 }
-.app-shell.mode-red input, .app-shell.mode-red select, .app-shell.mode-red textarea, .app-shell.mode-red button { background: #070000; color: #a02828; border: 1px solid #240000 }
-.app-shell.mode-red .pdp-cta { background:#3b1b1b; color:#a02828 }
+.app-shell.mode-red .app-header { background: var(--header-bg); color: var(--text-primary); border-bottom: 1px solid var(--surface-border) }
+.app-shell.mode-red .primary-decision-panel { background: var(--hero-surface-bg); border-bottom: 1px solid var(--surface-border) }
+.app-shell.mode-red .dashboard .module { background: var(--surface-bg); border: 1px solid var(--surface-border); color: var(--text-primary) }
+.app-shell.mode-red input, .app-shell.mode-red select, .app-shell.mode-red textarea, .app-shell.mode-red button { background: var(--input-bg); color: var(--text-primary); border: 1px solid var(--input-border) }
+.app-shell.mode-red .pdp-cta { background: var(--button-bg); color: var(--button-fg) }
+.app-shell.mode-red .primary-decision-panel .pdp-status { background: rgba(160,40,40,0.06); color: var(--accent-red) }
 
   /* --- Layout & Typography polish additions --- */
   /* Rhythm: use consistent vertical spacing scale */
@@ -135,7 +162,7 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
   }
 
   /* Ensure selection remains low-luminance (reaffirm) */
-  .app-shell.mode-red ::selection { background: rgba(112,35,35,0.12); color: #6b1a1a; }
+  .app-shell.mode-red ::selection { background: rgba(160,40,40,0.12); color: var(--text-primary); }
 
   /* Conditions component micro-styles */
   .conditions-body { display:flex; flex-direction:column; gap:8px; }
