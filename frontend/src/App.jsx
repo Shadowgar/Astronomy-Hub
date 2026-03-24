@@ -8,15 +8,15 @@ import PrimaryDecisionPanel from './components/PrimaryDecisionPanel'
 import LocationSelector from './components/LocationSelector/LocationSelector'
 import useLocationState from './state/locationState'
 
-const MODES = ['Light', 'Light HC', 'Dark', 'Dark HC', 'Red']
+const MODES = ['Day', 'Night', 'Red']
 
 export default function App() {
   const [mode, setMode] = useState(() => {
     if (typeof globalThis !== 'undefined' && globalThis.localStorage) {
       const stored = globalThis.localStorage.getItem('astronomyHub.mode')
-      return MODES.includes(stored) ? stored : 'Light'
+      return MODES.includes(stored) ? stored : 'Day'
     }
-    return 'Light'
+    return 'Day'
   })
 
   useEffect(() => {
@@ -60,10 +60,8 @@ export default function App() {
     }
   }
 
-  const modeClass = `mode-${mode.toLowerCase().replace(/\s+/g, '-')}`
-
   return (
-    <div className={`app-shell ${modeClass}`}>
+    <div className={`app-shell mode-${mode.toLowerCase()}`}>
       <header className="app-header" role="banner">
         <h1>Astronomy Hub</h1>
         <div className="header-controls">
