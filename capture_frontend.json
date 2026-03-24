@@ -1,0 +1,17 @@
+/home/rocco/Astronomy-Hub/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Connection.js:42
+    #error = new Errors_js_1.ProtocolError();
+             ^
+
+ProtocolError: Emulation.setTouchEmulationEnabled timed out. Increase the 'protocolTimeout' setting in launch/connect calls for a higher timeout if needed.
+    at <instance_members_initializer> (/home/rocco/Astronomy-Hub/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Connection.js:42:14)
+    at new Callback (/home/rocco/Astronomy-Hub/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Connection.js:46:16)
+    at CallbackRegistry.create (/home/rocco/Astronomy-Hub/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Connection.js:86:26)
+    at Connection._rawSend (/home/rocco/Astronomy-Hub/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Connection.js:208:26)
+    at CdpCDPSession.send (/home/rocco/Astronomy-Hub/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/CDPSession.js:61:33)
+    at #applyViewport (/home/rocco/Astronomy-Hub/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/EmulationManager.js:129:32)
+    at EmulatedState.<anonymous> (/home/rocco/Astronomy-Hub/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/util/decorators.js:100:23)
+    at /home/rocco/Astronomy-Hub/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/EmulationManager.js:66:33
+    at Array.map (<anonymous>)
+    at EmulatedState.sync (/home/rocco/Astronomy-Hub/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/EmulationManager.js:65:58)
+
+Node.js v22.22.0

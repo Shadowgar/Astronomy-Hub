@@ -155,6 +155,19 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
   animation: star-twinkle 8s linear infinite, star-drift 40s linear infinite;
 }
 
+/* PERF TEST: temporarily disable heavy decorative dark-mode layers to diagnose lag.
+   This removes large radial-gradients, blend-modes, filters and animations so
+   we can measure responsiveness without them. Revert after testing. */
+.app-shell.mode-dark::before,
+.app-shell.mode-dark::after {
+  background-image: none !important;
+  animation: none !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 @keyframes star-twinkle {
   0% { opacity: 0.45 }
   50% { opacity: 0.6 }
@@ -218,6 +231,51 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 .app-shell.mode-red .stale-badge { background: rgba(160,40,40,0.06); color: var(--text-primary) }
 .app-shell.mode-red .module-retry { background: transparent; color: var(--text-primary); border: 1px solid rgba(160,40,40,0.06) }
 .app-shell.mode-red .pdp-summary, .app-shell.mode-red .pdp-target-sentence, .app-shell.mode-red .pdp-no-target { color: var(--text-muted) }
+
+/* Subtle soft-edge lighting for panels and hero (very low opacity accent lines) */
+.dashboard .module,
+.primary-decision-panel,
+.panel {
+  position: relative;
+}
+
+/* Top and bottom hairlines using the GitHub accent blue at very low opacity */
+.dashboard .module::before,
+.primary-decision-panel::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 6px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(47,129,247,0.06), rgba(47,129,247,0.02));
+  pointer-events: none;
+  border-radius: 999px;
+  mix-blend-mode: screen;
+  opacity: 0.95;
+}
+.dashboard .module::after,
+.primary-decision-panel::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 6px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(47,129,247,0.04), rgba(47,129,247,0.015));
+  pointer-events: none;
+  border-radius: 999px;
+  mix-blend-mode: screen;
+  opacity: 0.95;
+}
+
+/* Very faint blue ambient glow to lift the hero slightly—kept extremely subtle */
+.primary-decision-panel {
+  box-shadow: 0 6px 18px rgba(47,129,247,0.02), inset 0 -1px 0 rgba(47,129,247,0.01);
+}
+.dashboard .module {
+  box-shadow: 0 4px 10px rgba(47,129,247,0.01), inset 0 -1px 0 rgba(47,129,247,0.008);
+}
 
   /* --- Layout & Typography polish additions --- */
   /* Rhythm: use consistent vertical spacing scale */
@@ -289,18 +347,31 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 .app-shell .section { padding: 6px 0 10px 0 }
 
 /* Hero: stronger command block styling */
-.app-shell .primary-decision-panel { display:flex; gap:16px; align-items:center; padding:16px; border-radius:8px; box-shadow: 0 6px 18px rgba(0,0,0,0.04); border:1px solid var(--surface-border); }
-.app-shell .primary-decision-panel .pdp-left { min-width:160px; display:flex; align-items:center; justify-content:flex-start }
+.app-shell .primary-decision-panel {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding: 18px 22px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  border: 1px solid var(--surface-border);
+}
+.app-shell .primary-decision-panel .pdp-left {
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
 .app-shell .primary-decision-panel .pdp-status { font-size:18px; font-weight:800; padding:8px 12px; border-radius:8px }
 .app-shell .primary-decision-panel .pdp-status-pill { display:inline-block; font-size:14px; font-weight:800; padding:8px 12px; border-radius:18px; background:var(--status-bg); color:var(--status-fg); border:1px solid var(--button-border) }
-.app-shell .primary-decision-panel .pdp-center { flex:1 }
-.app-shell .primary-decision-panel .pdp-center h2 { font-size:20px; margin:0 0 6px 0 }
-.app-shell .primary-decision-panel .pdp-main-row { display:flex; gap:18px; align-items:center }
-.app-shell .primary-decision-panel .pdp-summary { margin:0; flex:1; color:var(--text-muted) }
-.app-shell .primary-decision-panel .pdp-darkness { color:var(--text-muted); white-space:nowrap }
-.app-shell .primary-decision-panel .pdp-right { min-width:220px; display:flex; flex-direction:row; gap:12px; align-items:center; justify-content:flex-end }
-.app-shell .primary-decision-panel .pdp-right-row { display:flex; gap:12px; align-items:center }
-.app-shell .primary-decision-panel .pdp-top-target { text-align:right }
+.app-shell .primary-decision-panel .pdp-center { flex: 1; min-width: 360px; display:flex; align-items:center; justify-content:center }
+.app-shell .primary-decision-panel .pdp-center h2 { font-size:20px; margin:0 }
+.app-shell .primary-decision-panel .pdp-message { display:flex; gap:14px; align-items:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+.app-shell .primary-decision-panel .pdp-summary { overflow: hidden; text-overflow: ellipsis; color: var(--text-muted) }
+.app-shell .primary-decision-panel .pdp-top-target-inline { color: var(--text-muted); font-size: 13px }
+.app-shell .primary-decision-panel .pdp-darkness { color:var(--text-muted); font-size:13px }
+.app-shell .primary-decision-panel .pdp-right { min-width:220px; display:flex; align-items:center; justify-content:flex-end }
 .app-shell .primary-decision-panel .pdp-cta { padding:8px 14px; border-radius:8px; font-weight:700; border:1px solid var(--button-border); box-shadow: 0 4px 10px rgba(0,0,0,0.06) }
 
 /* ModuleShell header/body rhythm */
@@ -308,12 +379,84 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 .app-shell .module-shell-header { padding-bottom:6px; border-bottom:1px solid transparent }
 .app-shell .module-shell .module-shell-body { padding-top:8px }
 
+/* --- Dark-mode Glass Panel System ---
+   Applies only when `.app-shell.mode-dark` is active. These rules convert
+   the main panels into subtle glass surfaces while preserving layout and
+   JSX structure. */
+.app-shell.mode-dark .dashboard .module,
+.app-shell.mode-dark .panel,
+.app-shell.mode-dark .primary-decision-panel,
+.app-shell.mode-dark .module-shell {
+  background: rgba(255,255,255,0.03) !important;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.02) !important;
+  border-radius: 8px !important;
+}
+
+/* Remove any solid border-bottom inside module-shell that would conflict */
+.app-shell.mode-dark .module-shell { border-bottom: none !important }
+
+/* Keep headers and other controls visually above the glass surface */
+.app-shell.mode-dark .module-shell-header,
+.app-shell.mode-dark .primary-decision-panel .pdp-center,
+.app-shell.mode-dark .primary-decision-panel .pdp-left,
+.app-shell.mode-dark .primary-decision-panel .pdp-right {
+  position: relative; z-index: 2;
+}
+
+/* Ensure inner content remains readable on the subtle glass background */
+.app-shell.mode-dark .dashboard .module,
+.app-shell.mode-dark .panel {
+  color: var(--text-primary);
+}
+
+
 /* Make module lists feel compact and operational */
 .app-shell .component ul, .app-shell .component ol { margin:0; padding-left:18px }
 .app-shell .component li { margin-bottom:10px }
 
 /* Slightly stronger headings inside panels */
 .app-shell .panel h2 { margin:0 0 6px 0; font-size:15px }
+
+/* Target row interactive styles */
+.target-row { list-style: none; margin: 0; }
+.target-row + .target-row { margin-top: 8px; }
+.target-row__container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--surface-border);
+  background: var(--surface-bg);
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+.target-row__left { flex: 0 0 44px; display:flex; align-items:center; justify-content:center }
+.target-row__icon { width:36px; height:36px; border-radius:8px; background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); box-shadow: inset 0 1px 0 rgba(255,255,255,0.02); }
+.target-row__content { flex: 1; min-width: 0 }
+.target-row__meta { display:flex; flex-direction:column; gap:4px }
+.target-row__title { font-size:15px; font-weight:600; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+.target-row__subtitle { font-size:13px; color:var(--text-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+.target-row__chev { margin-left:12px; color:var(--text-muted); font-size:18px }
+
+/* Hover / focus effect to feel interactive */
+.target-row__container:hover, .target-row__container:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(2,6,23,0.6), 0 0 10px rgba(255,255,255,0.02);
+  border-color: rgba(255,255,255,0.08);
+}
+
+/* Glass look in dark mode */
+.app-shell.mode-dark .target-row__container {
+  background: rgba(255,255,255,0.02);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.01);
+}
+
 
 /* Tight-layout modifier applied via App.jsx */
 .dashboard.tight-layout { padding: 12px 12px; gap: 10px }

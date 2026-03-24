@@ -20,18 +20,37 @@ function expandDirection(dir) {
 
 export default function TargetRow({ target }) {
   const summary = (
-    <div style={{display: 'flex', flexDirection: 'column', gap: '4px'}}>
-      <strong style={{fontSize: 15, display: 'block'}}>{target.name}</strong>
-      <div style={{fontSize: 13, color: 'var(--text-muted)'}}>{target.category} · {expandDirection(target.direction)}</div>
+    <div className="target-row__meta">
+      <strong className="target-row__title">{target.name}</strong>
+      <div className="target-row__subtitle">{target.category} · {expandDirection(target.direction)}</div>
     </div>
   )
 
   return (
-    <li style={{listStyle: 'none', margin: '0'}}>
-      <div style={{border: '1px solid var(--surface-border)', borderRadius: 8, padding: 8, marginBottom: 10, background: 'var(--surface-bg)'}}>
-        <InlineExpansion summary={summary} defaultCollapsed={true}>
-          <TargetDetail target={target} />
-        </InlineExpansion>
+    <li className="target-row">
+      <div className="target-row__container">
+        <div className="target-row__left" aria-hidden>
+          <div className="target-row__icon">
+            {target.imageUrl ? (
+              <img
+                src={target.imageUrl}
+                alt={`${target.name} thumbnail`}
+                onError={(e) => { e.currentTarget.style.display = 'none' }}
+                style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 6 }}
+              />
+            ) : (
+              <div />
+            )}
+          </div>
+        </div>
+
+        <div className="target-row__content">
+          <InlineExpansion summary={summary} defaultCollapsed={true}>
+            <TargetDetail target={target} />
+          </InlineExpansion>
+        </div>
+
+        <div className="target-row__chev" aria-hidden>›</div>
       </div>
     </li>
   )

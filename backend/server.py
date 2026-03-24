@@ -244,8 +244,25 @@ class SimpleHandler(BaseHTTPRequestHandler):
                     self._send_json(err_payload, status=500)
                     status = 500
             elif parsed.path == "/api/targets":
-                # Accept optional location params but return static mock targets for now
-                self._send_json(MOCK_TARGETS)
+                # Return mock targets enriched with images when available.
+                try:
+                    try:
+                        from backend.targets_data import get_targets
+                    except Exception:
+                        # when running as script, adjust path and retry
+                        import sys, os
+                        repo_root = os.path.dirname(os.path.dirname(__file__))
+                        if repo_root not in sys.path:
+                            sys.path.insert(0, repo_root)
+                        from backend.targets_data import get_targets
+
+                    targets_payload = get_targets(with_images=True)
+                except Exception:
+                    # on any failure, fall back to static mock targets
+                    logger.exception(f"req={request_id} targets.enrich.fail")
+                    targets_payload = MOCK_TARGETS
+
+                self._send_json(targets_payload)
                 status = 200
             elif parsed.path == "/api/location/search":
                 # Minimal mock search: require `q` param of length >= 3
