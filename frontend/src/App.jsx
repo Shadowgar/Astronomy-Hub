@@ -180,10 +180,10 @@ export default function App() {
         {/* Section: Targets + Conditions (2-column) */}
         <section className="section section-top">
           <div className="section-grid two-col">
-            <div className="module conditions-module">
+            <div className="module conditions-module panel">
               <Conditions locationQuery={locationQuery} />
             </div>
-            <div className="module targets-module">
+            <div className="module targets-module panel">
               <RecommendedTargets locationQuery={locationQuery} />
             </div>
           </div>
@@ -192,10 +192,10 @@ export default function App() {
         {/* Section: Alerts + Passes (2-column) */}
         <section className="section section-middle">
           <div className="section-grid two-col">
-            <div className="module alerts-module">
+            <div className="module alerts-module panel">
               <AlertsEvents locationQuery={locationQuery} />
             </div>
-            <div className="module passes-module">
+            <div className="module passes-module panel">
               <SatellitePasses locationQuery={locationQuery} />
             </div>
           </div>
@@ -203,7 +203,7 @@ export default function App() {
 
         {/* Section: Moon summary (full width) */}
         <section className="section section-bottom">
-          <div className="module moon-module">
+          <div className="module moon-module panel small-panel">
             <MoonSummary locationQuery={locationQuery} />
           </div>
         </section>

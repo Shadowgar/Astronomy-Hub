@@ -13,7 +13,7 @@ export default function ModuleShell({ title, stale, onRetry, children }) {
   }
 
   return (
-    <div className="module-shell component">
+    <div className="module-shell component panel">
       <div className="module-shell-header">
         <h2>{title}</h2>
         <div className="module-shell-controls">

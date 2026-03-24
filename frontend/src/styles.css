@@ -210,4 +210,36 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
   .cond-summary { margin-top:6px; color: inherit }
   .cond-summary.muted { color: var(--text-muted) }
 
+/* Command-center / panel visuals */
+.app-shell .panel { background: var(--surface-bg); border: 1px solid var(--surface-border); padding: 14px; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.04); }
+.app-shell .panel.small-panel { padding: 10px; }
+
+/* Tighter, denser rhythm for operational layout */
+.app-shell .dashboard { gap: 14px }
+.app-shell .section { padding: 6px 0 12px 0 }
+
+/* Hero: stronger command block styling */
+.app-shell .primary-decision-panel { display:flex; gap:24px; align-items:center; padding:20px; border-radius:10px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); border:1px solid var(--surface-border); }
+.app-shell .primary-decision-panel .pdp-left { min-width:160px; display:flex; align-items:center; justify-content:flex-start }
+.app-shell .primary-decision-panel .pdp-status { font-size:18px; font-weight:800; padding:8px 12px; border-radius:8px }
+.app-shell .primary-decision-panel .pdp-center { flex:1 }
+.app-shell .primary-decision-panel .pdp-center h2 { font-size:20px; margin:0 0 6px 0 }
+.app-shell .primary-decision-panel .pdp-summary { margin:0 0 6px 0 }
+.app-shell .primary-decision-panel .pdp-right { min-width:220px; display:flex; flex-direction:column; gap:10px; align-items:flex-end }
+.app-shell .primary-decision-panel .pdp-top-target { text-align:right }
+.app-shell .primary-decision-panel .pdp-cta { padding:8px 12px }
+
+/* ModuleShell header/body rhythm */
+.app-shell .module-shell { padding:12px; border-radius:8px; box-shadow: none }
+.app-shell .module-shell-header { padding-bottom:8px; border-bottom:1px solid transparent }
+.app-shell .module-shell .module-shell-body { padding-top:10px }
+
+/* Make module lists feel compact and operational */
+.app-shell .component ul, .app-shell .component ol { margin:0; padding-left:18px }
+.app-shell .component li { margin-bottom:10px }
+
+/* Slightly stronger headings inside panels */
+.app-shell .panel h2 { margin:0 0 8px 0; font-size:16px }
+
+
 
