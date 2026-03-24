@@ -133,11 +133,51 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
   filter: blur(0.2px) saturate(0.9);
 }
 
+/* Sparse, slightly larger stars with a gentle twinkle animation (optional enhancement) */
+.app-shell.mode-dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  /* Sparse stars created with multiple radial-gradients for variety */
+  background-image:
+    radial-gradient(rgba(220,230,255,0.08) 1px, rgba(0,0,0,0) 2px),
+    radial-gradient(rgba(200,220,255,0.06) 1px, rgba(0,0,0,0) 3px),
+    radial-gradient(rgba(200,220,255,0.04) 1px, rgba(0,0,0,0) 4px);
+  background-size: 120px 120px, 200px 200px, 340px 340px;
+  background-position: 10px 20px, 80px 140px, 200px 60px;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+
+  /* Very slow subtle motion to imply depth (translate on Y by a few pixels) */
+  animation: star-twinkle 8s linear infinite, star-drift 40s linear infinite;
+}
+
+@keyframes star-twinkle {
+  0% { opacity: 0.45 }
+  50% { opacity: 0.6 }
+  100% { opacity: 0.45 }
+}
+
+@keyframes star-drift {
+  0% { transform: translateY(0px) }
+  50% { transform: translateY(-2px) }
+  100% { transform: translateY(0px) }
+}
+
 /* Ensure page content renders above the subtle star layer */
 .app-shell.mode-dark > * { position: relative; z-index: 1 }
 
 /* Reduce any accidental bright highlights inside modules in dark mode */
 .app-shell.mode-dark .panel, .app-shell.mode-dark .primary-decision-panel { background-blend-mode: multiply; }
+
+/* Canvas overlays for starfield/nebula. Placed beneath content and shown only in dark mode. */
+.starfield-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: none; pointer-events: none; z-index: 0 }
+.app-shell.mode-dark .starfield-canvas { display: block }
+.nebula-canvas { mix-blend-mode: screen; opacity: 0.75 }
+.star-canvas { mix-blend-mode: screen; opacity: 0.9 }
 .app-shell.mode-dark .app-header { background: var(--header-bg); color: var(--text-primary); border-bottom: 1px solid var(--divider) }
 .app-shell.mode-dark .primary-decision-panel { background: var(--hero-surface-bg); border-bottom: 1px solid var(--surface-border) }
 .app-shell.mode-dark .dashboard .module { background: var(--surface-bg); border: 1px solid var(--surface-border); color: var(--text-primary) }
