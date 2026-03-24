@@ -8,6 +8,9 @@ import PrimaryDecisionPanel from './components/PrimaryDecisionPanel'
 import LocationSelector from './components/LocationSelector/LocationSelector'
 import useLocationState from './state/locationState'
 import Starfield from './components/Starfield'
+import AppShell from "./components/layout/AppShell"
+import TopBar from "./components/layout/TopBar"
+import ContentGrid from "./components/layout/ContentGrid"
 
 const MODES = ['Light', 'Dark', 'Red']
 
@@ -110,9 +113,11 @@ export default function App() {
   }
 
   return (
-    <div className={`app-shell mode-${mode.toLowerCase()}`}>
-      <Starfield />
-      <header className="app-header" role="banner">
+    <AppShell>
+      <div className={`app-shell mode-${mode.toLowerCase()}`}>
+        <Starfield />
+        <TopBar />
+        <header className="app-header" role="banner">
         <h1>Astronomy Hub</h1>
         <div className="header-controls">
           <div className="location-section">
@@ -221,9 +226,10 @@ export default function App() {
             </select>
           </span>
         </div>
-      </header>
+        </header>
 
-      <main className="dashboard tight-layout">
+        <ContentGrid>
+          <main className="dashboard tight-layout">
         {/* Primary Decision Panel: Phase B transformation — prominent, above modules */}
         <PrimaryDecisionPanel locationQuery={locationQuery} />
 
@@ -257,9 +263,11 @@ export default function App() {
             <MoonSummary locationQuery={locationQuery} />
           </div>
         </section>
-      </main>
+          </main>
+        </ContentGrid>
 
-      <footer className="app-footer">Astronomy Hub — Observing Tools</footer>
-    </div>
+        <footer className="app-footer">Astronomy Hub — Observing Tools</footer>
+      </div>
+    </AppShell>
   )
 }
