@@ -83,18 +83,22 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 
 .app-shell.mode-dark {
   /* DARK: GitHub Dark Default — explicit visual tokens (page, surfaces, borders, text, controls) */
-  --page-bg: #0d1117;        /* page canvas */
-  --header-bg: #071018;      /* header surface */
-  --hero-surface-bg: #071520;/* hero / PDP surface */
-  --surface-bg: #07131a;     /* module / panel surface */
-  --surface-border: #30363d; /* subtle gray border used across panels */
-  --divider: #30363d;       /* section dividers */
-  --text-primary: #cfe8ff;  /* primary text (light gray) */
-  --text-muted: #9fb1c8;    /* muted / secondary text */
-  --button-bg: #2388ff;     /* GitHub blue for primary actions */
-  --button-fg: #ffffff;     /* white button text */
-  --input-bg: #07131a;      /* dark input surface */
-  --input-border: #30363d;  /* input borders consistent with surfaces */
+  --page-bg: #0d1117;
+  --header-bg: #010409;
+  --hero-surface-bg: #161b22;
+  --surface-bg: #161b22;
+  --surface-border: #30363d;
+  --divider: #30363d;
+  --text-primary: #e6edf3;
+  --text-muted: #8b949e;
+  --button-bg: #2f81f7;
+  --button-fg: #ffffff;
+  --input-bg: #0d1117;
+  --input-border: #30363d;
+  --heading-color: #e6edf3;
+  --status-bg: rgba(47,129,247,0.15);
+  --status-fg: #e6edf3;
+  --button-border: #30363d;
   background: var(--page-bg);
   color: var(--text-primary);
 }
