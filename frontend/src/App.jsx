@@ -12,17 +12,65 @@ import Starfield from './components/Starfield'
 const MODES = ['Light', 'Dark', 'Red']
 
 export default function App() {
+  const MODE_OPTIONS = ['Light', 'Dark', 'Red']
+  const THEME_CLASSES = ['theme-light', 'theme-light-hc', 'theme-dark', 'theme-dark-hc', 'theme-red']
+
+  const mapModeToThemeClass = (m) => {
+    if (m === 'Light') return 'theme-light'
+    if (m === 'Dark') return 'theme-dark'
+    if (m === 'Red') return 'theme-red'
+    return 'theme-light'
+  }
+
+  const mapThemeClassToBase = (tc) => {
+    if (!tc) return 'Light'
+    if (tc === 'theme-red') return 'Red'
+    if (tc.startsWith('theme-light')) return 'Light'
+    if (tc.startsWith('theme-dark')) return 'Dark'
+    return 'Light'
+  }
+
   const [mode, setMode] = useState(() => {
     if (typeof globalThis !== 'undefined' && globalThis.localStorage) {
       const stored = globalThis.localStorage.getItem('astronomyHub.mode')
-      return MODES.includes(stored) ? stored : 'Light'
+      // legacy values
+      if (MODE_OPTIONS.includes(stored)) return stored
+      // stored might be a theme class — map to base for UI controls
+      if (typeof stored === 'string') {
+        return mapThemeClassToBase(stored)
+      }
+      return 'Light'
     }
     return 'Light'
   })
 
   useEffect(() => {
     if (typeof globalThis !== 'undefined' && globalThis.localStorage) {
-      globalThis.localStorage.setItem('astronomyHub.mode', mode)
+      const currentStored = globalThis.localStorage.getItem('astronomyHub.mode')
+      // If the stored value is a theme class and it maps to the same base mode,
+      // avoid overwriting it on initial mount so manual theme-class values are preserved.
+      if (!(THEME_CLASSES.includes(currentStored) && mapThemeClassToBase(currentStored) === mode)) {
+        globalThis.localStorage.setItem('astronomyHub.mode', mode)
+      }
+    }
+  }, [mode])
+
+  useEffect(() => {
+    // Determine which theme-class to apply to the root element:
+    // prefer an explicit theme-class stored in localStorage if present,
+    // otherwise map the current base `mode` to its theme-class.
+    let themeClass = mapModeToThemeClass(mode)
+    if (typeof globalThis !== 'undefined' && globalThis.localStorage) {
+      const stored = globalThis.localStorage.getItem('astronomyHub.mode')
+      if (THEME_CLASSES.includes(stored)) {
+        themeClass = stored
+      }
+    }
+
+    const root = (typeof document !== 'undefined' && (document.documentElement || document.body))
+    if (root) {
+      THEME_CLASSES.forEach((c) => root.classList.remove(c))
+      root.classList.add(themeClass)
     }
   }, [mode])
 
