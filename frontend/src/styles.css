@@ -7,130 +7,117 @@
   --page-padding: 22px;
   --base-font-size: 15px;
   --base-line-height: 1.45;
+
+  /* THEME TOKENS (Light = default) */
+  --page-bg: #ffffff;
+  --header-bg: #f6f8fa;
+  --hero-surface-bg: #ffffff;
+  --surface-bg: #fbfcfd;
+  --surface-border: #e6edf3;
+  --divider: #dfe6eb;
+  --text-primary: #111827; /* primary text on light */
+  --text-muted: #6b7280;
+  --accent-blue: #0969da; /* GitHub interactive blue */
+  --success: #22863a;
+  --button-bg: var(--accent-blue);
+  --button-fg: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #d0d7de;
+  --input-text: #111827;
 }
 .app-shell{display:flex;flex-direction:column;min-height:100vh}
-.app-header{padding:12px var(--page-padding);background:#0b1220;border-bottom:1px solid #30363d;color:#cfe8ff}
-body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(--base-font-size);line-height:var(--base-line-height);color:#cfe8ff;background:#0d1117}
+.app-header{padding:12px var(--page-padding);background:var(--header-bg);border-bottom:1px solid var(--divider);color:var(--text-primary)}
+body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(--base-font-size);line-height:var(--base-line-height);color:var(--text-primary);background:var(--page-bg)}
 .dashboard{display:flex;flex-direction:column;gap:var(--gap);padding:var(--page-padding);flex:1;max-width:var(--container-max-width);margin:0 auto;box-sizing:border-box}
-.primary-decision-panel { grid-column: 1 / -1; display:flex; gap:32px; align-items:center; padding:44px 22px; margin-bottom:8px; background: transparent; border-bottom:1px solid #30363d }
+.primary-decision-panel { grid-column: 1 / -1; display:flex; gap:32px; align-items:center; padding:44px 22px; margin-bottom:8px; background: var(--hero-surface-bg); border-bottom:1px solid var(--divider) }
 .primary-decision-panel .pdp-left { min-width:160px; text-align:left }
-.primary-decision-panel .pdp-status { display:inline-block; font-size:20px; font-weight:900; margin-bottom:0; color:#cfe8ff; background: rgba(88,166,255,0.08); padding:6px 10px; border-radius:6px }
+.primary-decision-panel .pdp-status { display:inline-block; font-size:20px; font-weight:900; margin-bottom:0; color:var(--text-primary); background: rgba(9,105,218,0.08); padding:6px 10px; border-radius:6px }
 .primary-decision-panel .pdp-center { flex:2; min-width:480px }
-.primary-decision-panel .pdp-center h2 { margin:0 0 8px 0; font-size:26px; font-weight:700; color:#cfe8ff }
-.primary-decision-panel .pdp-summary { margin:0 0 10px 0; font-size:15px; color:#c9d6e7 }
-.primary-decision-panel .pdp-darkness { color:#9fb1c8; font-size:14px }
+.primary-decision-panel .pdp-center h2 { margin:0 0 8px 0; font-size:26px; font-weight:700; color:var(--text-primary) }
+.primary-decision-panel .pdp-summary { margin:0 0 10px 0; font-size:15px; color:var(--text-muted) }
+.primary-decision-panel .pdp-darkness { color:var(--text-muted); font-size:14px }
 .primary-decision-panel .pdp-right { min-width:260px; display:flex; flex-direction:column; gap:8px; align-items:flex-end }
 .primary-decision-panel .pdp-top-target { text-align:right }
-.primary-decision-panel .pdp-target-sentence { margin:0; font-size:15px; color:#cfe8ff }
-.primary-decision-panel .pdp-no-target { color:#8b949e }
-.primary-decision-panel .pdp-cta { background:#2388ff; color:#fff; border:1px solid rgba(0,0,0,0.15); padding:8px 14px; border-radius:6px; cursor:pointer; font-weight:600 }
+.primary-decision-panel .pdp-target-sentence { margin:0; font-size:15px; color:var(--text-primary) }
+.primary-decision-panel .pdp-no-target { color:var(--text-muted) }
+.primary-decision-panel .pdp-cta { background:var(--button-bg); color:var(--button-fg); border:1px solid rgba(0,0,0,0.08); padding:8px 14px; border-radius:6px; cursor:pointer; font-weight:600 }
 .primary-decision-panel .pdp-cta:hover { filter:brightness(0.95) }
 .targets-module, .alerts-module, .passes-module{margin-bottom:0}
 .moon-module{min-width:220px}
-.app-footer{padding:10px var(--page-padding);text-align:center;background:#fafafa;border-top:1px solid #eee}
+.app-footer{padding:10px var(--page-padding);text-align:center;background:var(--surface-bg);border-top:1px solid var(--divider);color:var(--text-primary)}
 
 /* Mode theming (simple, Phase 1) */
-.mode-day .app-header,
-.mode-day .app-footer {
-  background: #f6f8fa;
-  color: #111;
-}
 
-.mode-night .app-header,
-.mode-night .app-footer {
-  /* dark muted header for night mode */
-  background: #071020;
-  color: #cfe8ff; /* soft light heading */
-  border-color: #0f2436;
+/* MODE OVERRIDES: Light HC, Dark, Dark HC, Red */
+.mode-light { /* default: GitHub Light */ }
+.mode-dark { /* GitHub Dark Default */
+  --page-bg: #02061a;
+  --header-bg: #071020;
+  --hero-surface-bg: transparent;
+  --surface-bg: transparent;
+  --surface-border: #30363d;
+  --divider: #30363d;
+  --text-primary: #cfe8ff;
+  --text-muted: #9fb1c8;
+  --accent-blue: #58a6ff;
+  --success: #2ea44f;
+  --button-bg: #2388ff;
+  --button-fg: #ffffff;
+  --input-bg: transparent;
+  --input-border: #30363d;
+  --input-text: #cfe8ff;
 }
-
-.mode-red .app-header,
-.mode-red .app-footer {
-  /* very dark maroon surfaces for header/footer (astronomy-safe) */
-  background: #040000; /* header/footer background */
-  color: #7a1d1d; /* primary red text (reduced intensity) */
-  border-color: #240000; /* divider/border color */
+.mode-dark-hc { /* GitHub Dark High Contrast */
+  --page-bg: #000812;
+  --header-bg: #06080e;
+  --hero-surface-bg: #020417;
+  --surface-bg: #020417;
+  --surface-border: #1f2a34;
+  --divider: #1f2a34;
+  --text-primary: #e6f0ff;
+  --text-muted: #9fb1c8;
+  --accent-blue: #58a6ff;
+  --success: #2ea44f;
+  --button-bg: #2f8bff;
+  --button-fg: #ffffff;
+  --input-bg: #020417;
+  --input-border: #1f2a34;
+  --input-text: #e6f0ff;
 }
-
-/* Body/background per mode */
-.mode-day {
-  background: #ffffff;
-  color: #111;
+.mode-light-hc {
+  --page-bg: #ffffff;
+  --header-bg: #f6f8fa;
+  --hero-surface-bg: #ffffff;
+  --surface-bg: #ffffff;
+  --surface-border: #c9d1d9;
+  --divider: #c9d1d9;
+  --text-primary: #0b1220;
+  --text-muted: #42526e;
+  --accent-blue: #0969da;
+  --success: #0a7f3b;
+  --button-bg: #0969da;
+  --button-fg: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #9aa4b2;
+  --input-text: #0b1220;
 }
-
-.mode-night {
-  background: #02061a;
-  color: #cfe8ff;
-}
-
-/* Night mode: dark panels and subtle borders */
-.mode-night .dashboard .module {
-  background: transparent;
-  border: none;
-  color: #cfe8ff; /* soft light text */
-}
-
 .mode-red {
-  /* Astronomy-safe red mode: near-black page background */
-  background: #000000; /* page background */
-  color: #7a1d1d; /* primary red text for general content (reduced intensity) */
-}
-
-/* Ensure top-level elements do not flash white when red mode is active */
-.mode-red html,
-.mode-red body,
-.mode-red #root,
-.mode-red .app-shell {
-  background: #000000 !important;
-  color: #a02828 !important;
-}
-
-.mode-red .dashboard .module {
-  /* very dark panels for red mode */
-  background: #080000; /* panel background */
-  border: 1px solid #240000; /* borders/dividers */
-  color: #a02828; /* primary red text */
-}
-
-.mode-red .dashboard .module h2,
-.mode-red .dashboard .module h3,
-.mode-red .app-header h1 {
-  color: #7a1d1d; /* headings use slightly dimmer primary red */
-}
-
-/* Controls in red mode: inputs, selects, buttons */
-.mode-red input,
-.mode-red select,
-.mode-red textarea,
-.mode-red button {
-  background: #080000; /* control background matches panels */
-  color: #a02828; /* primary red for inputs/buttons */
-  border: 1px solid #240000;
-  box-shadow: none;
-  height: 36px;
-  padding: 6px 8px;
-  font-size: 14px;
-}
-
-.mode-red select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.mode-red select option {
-  background: #080000;
-  color: #7a1d1d; /* dimmer secondary red for options */
-}
-
-.mode-red input:focus,
-.mode-red select:focus,
-.mode-red textarea:focus,
-.mode-red button:focus {
-  /* remove bright focus styling; visible-only-for-keyboard handled below */
-  outline: none;
-  box-shadow: none;
-  border-color: #240000;
+  /* Custom astronomy red mode — purpose-built */
+  --page-bg: #000000;
+  --header-bg: #040000;
+  --hero-surface-bg: #080000;
+  --surface-bg: #080000;
+  --surface-border: #240000;
+  --divider: #240000;
+  --text-primary: #a02828;
+  --text-muted: #5a1414;
+  --accent-blue: #3b3b3b; /* muted in red mode */
+  --success: #284f28;
+  --button-bg: #2a0d0d;
+  --button-fg: #a02828;
+  --input-bg: #070000;
+  --input-border: #1a0000;
+  --input-text: #5a1414;
 }
 
 /* Focus visible: subtle, low-luminance outline for keyboard navigation */
@@ -206,7 +193,7 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
   caret-color: #7a1d1d !important;
 }
 
-/* Firefox scrollbar safety */
+/* Firefox scrollbar safety (no-op here; handled by webkit rules above) */
 .mode-red { scrollbar-color: #240000 #030000; }
 
 /* Remove bright box-shadows in red mode (edge-case sweep) */
@@ -221,7 +208,7 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 
 /* --- Layout & Typography polish additions --- */
 /* Rhythm: use consistent vertical spacing scale */
-.section { padding: 10px 0 18px 0; border-bottom: 1px solid #30363d }
+.section { padding: 10px 0 18px 0; border-bottom: 1px solid var(--divider) }
 .section-grid.two-col { display:grid; grid-template-columns: minmax(420px, 1fr) minmax(380px, 1fr); gap:var(--gap); align-items:start }
 .dashboard .module { padding:var(--module-padding) 0; box-sizing:border-box; display:flex; flex-direction:column }
 .dashboard .module > h2, .dashboard .module h2 { font-size: 18px; line-height: 1.2; }
@@ -243,16 +230,16 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 .input-lat { width: 90px; }
 .input-lon { width: 100px; }
 .input-elev { width: 90px; }
-input, select, button { font-family: inherit; font-size: 14px; }
+input, select, button { font-family: inherit; font-size: 14px; background: var(--input-bg); color: var(--input-text); border: 1px solid var(--input-border); }
 input[type="text"], input[type="number"], select, button { height: 36px; padding: 6px 8px; }
 
 /* Buttons: consistent padding */
-.dashboard .module button, .header-controls button { padding: 6px 10px; border-radius: 4px; }
+.dashboard .module button, .header-controls button { padding: 6px 10px; border-radius: 4px; background: var(--button-bg); color: var(--button-fg); border: 1px solid rgba(0,0,0,0.06); }
 
 /* ModuleShell specific adjustments */
-.module-shell { display:flex; flex-direction:column; padding:14px 0 18px 0; border-bottom:1px solid #30363d }
+.module-shell { display:flex; flex-direction:column; padding:14px 0 18px 0; border-bottom:1px solid var(--surface-border) }
 .module-shell-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px }
-.module-shell-header h2 { margin:0; font-size:18px; color:#cfe8ff }
+.module-shell-header h2 { margin:0; font-size:18px; color:var(--text-primary) }
 .module-shell .module-shell-body { padding-top:8px }
 .module-shell-controls { display:flex; gap:8px; align-items:center }
 .stale-badge { background:#ffdca8; color:#663c00; padding:4px 8px; border-radius:12px; font-size:12px }
@@ -271,13 +258,13 @@ input[type="text"], input[type="number"], select, button { height: 36px; padding
 }
 
 /* Ensure selection remains low-luminance (reaffirm) */
-.mode-red ::selection { background: rgba(112,35,35,0.12); color: #6b1a1a; }
+.mode-red ::selection { background: rgba(112,35,35,0.12); color: var(--text-primary); }
 
 /* Conditions component micro-styles */
 .conditions-body { display:flex; flex-direction:column; gap:8px; }
-.cond-row { font-size:14px; color: #c9d6e7 }
-.cond-row.small { font-size:13px; color: #9fb1c8 }
-.cond-summary { margin-top:6px; color: #cfe8ff }
-.cond-summary.muted { color: #8b949e }
+.cond-row { font-size:14px; color: var(--text-muted) }
+.cond-row.small { font-size:13px; color: var(--text-muted) }
+.cond-summary { margin-top:6px; color: var(--text-primary) }
+.cond-summary.muted { color: var(--text-muted) }
 
 
