@@ -15,7 +15,21 @@ Treat the UI as a first-class, phased track that follows and supports the system
 
 ## UI Phases
 - UI Phase A: Information architecture and MVP shell (dashboard layout, mode system, mock-first modules)
-- UI Phase B: Polished dashboard, design tokens, responsive refinements, accessibility improvements
+
+UI Phase B — Product UI System & Design Foundation
+
+This phase transforms the application from a functional dashboard into a structured product interface.
+
+It establishes the foundational UI system used by all future development.
+
+Core responsibilities:
+
+* Build the design token system (spacing, typography, depth, motion)
+* Implement the multi-mode theme engine:
+
+	* light
+	* light high con
+
 - UI Phase C: Interactive exploration UI (rich drill-down pages, richer satellite/target detail)
 - UI Phase D/E: Advanced visualization, analytics, deployment hardening (listed here for roadmap continuity only)
 
