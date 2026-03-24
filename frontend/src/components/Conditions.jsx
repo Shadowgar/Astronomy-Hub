@@ -4,6 +4,16 @@ import logFetch from '../lib/logFetch'
 import ModuleShell from './ModuleShell'
 import logger from '../lib/logger'
 
+function fmtTimeShort(iso) {
+  try {
+    if (!iso) return 'N/A'
+    const d = new Date(iso)
+    return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })
+  } catch (e) {
+    return 'N/A'
+  }
+}
+
 export default function Conditions({ locationQuery = '' }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -119,40 +129,32 @@ export default function Conditions({ locationQuery = '' }) {
     )
   }
 
-  // Render exactly the fields from the Conditions contract
-  const { location_label, cloud_cover_pct, moon_phase, darkness_window, observing_score, summary, last_updated } = data
+  // Render user-friendly summary of conditions
+  const { location_label, cloud_cover_pct, moon_phase, darkness_window, summary } = data
 
-  const isStale = Boolean(data && data.meta && data.meta.partial)
+  const isStale = Boolean(data?.meta?.partial)
   // Dev-only: allow forcing the stale/degraded badge via URL param (computed above)
   const staleProp = Boolean(isStale || simulatePartial)
 
   return (
     <ModuleShell title="Conditions" stale={staleProp} onRetry={handleRetry}>
-      <dl>
-        <dt>location_label</dt>
-        <dd>{location_label}</dd>
+      <div className="conditions-body">
+        <div className="cond-row">
+          <strong>{location_label}</strong>
+        </div>
+        <div className="cond-row small">
+          {typeof cloud_cover_pct === 'number' ? `Cloud cover: ${Math.round(cloud_cover_pct)}%` : 'Cloud cover: N/A'}
+          {' · '}
+          {moon_phase ? `Moon: ${moon_phase}` : 'Moon: N/A'}
+        </div>
 
-        <dt>cloud_cover_pct</dt>
-        <dd>{String(cloud_cover_pct)}</dd>
+        <div className="cond-row">
+          <strong>Darkness:</strong>{' '}
+          {darkness_window?.start && darkness_window?.end ? `${fmtTimeShort(darkness_window.start)} – ${fmtTimeShort(darkness_window.end)}` : 'Not available'}
+        </div>
 
-        <dt>moon_phase</dt>
-        <dd>{moon_phase}</dd>
-
-        <dt>darkness_window.start</dt>
-        <dd>{darkness_window && darkness_window.start}</dd>
-
-        <dt>darkness_window.end</dt>
-        <dd>{darkness_window && darkness_window.end}</dd>
-
-        <dt>observing_score</dt>
-        <dd>{observing_score}</dd>
-
-        <dt>summary</dt>
-        <dd>{summary}</dd>
-
-        <dt>last_updated</dt>
-        <dd>{last_updated}</dd>
-      </dl>
+        {summary ? <p className="cond-summary">{summary}</p> : <p className="cond-summary muted">No short summary available.</p>}
+      </div>
     </ModuleShell>
   )
 }

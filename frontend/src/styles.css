@@ -1,28 +1,29 @@
 :root{
-  --gap: 16px;
-  --container-max-width: 1100px;
+  --gap: 20px;
+  /* Widen desktop command-center feel */
+  --container-max-width: 1600px;
   --module-padding: 16px;
   --module-radius: 8px;
-  --page-padding: 16px;
+  --page-padding: 22px;
   --base-font-size: 15px;
   --base-line-height: 1.45;
 }
-body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(--base-font-size);line-height:var(--base-line-height);color:var(--body-color, #111)}
 .app-shell{display:flex;flex-direction:column;min-height:100vh}
-.app-header{padding:12px var(--page-padding);background:#f5f5f5;border-bottom:1px solid #ddd}
+.app-header{padding:12px var(--page-padding);background:#0b1220;border-bottom:1px solid #30363d;color:#cfe8ff}
+body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(--base-font-size);line-height:var(--base-line-height);color:#cfe8ff;background:#0d1117}
 .dashboard{display:flex;flex-direction:column;gap:var(--gap);padding:var(--page-padding);flex:1;max-width:var(--container-max-width);margin:0 auto;box-sizing:border-box}
-.primary-decision-panel { grid-column: 1 / -1; display:flex; gap:28px; align-items:center; padding:28px 18px; margin-bottom:18px; border-radius:8px; background: transparent; border-bottom:1px solid #e6eef9 }
-.primary-decision-panel .pdp-left { min-width:140px; text-align:left }
-.primary-decision-panel .pdp-status { font-size:22px; font-weight:800; margin-bottom:0; color:#0b6cff }
-.primary-decision-panel .pdp-center { flex:1 }
-.primary-decision-panel .pdp-center h2 { margin:0 0 8px 0; font-size:22px; font-weight:700 }
-.primary-decision-panel .pdp-summary { margin:0 0 10px 0; font-size:15px; color:#222 }
-.primary-decision-panel .pdp-darkness { color:#444; font-size:14px }
+.primary-decision-panel { grid-column: 1 / -1; display:flex; gap:32px; align-items:center; padding:44px 22px; margin-bottom:8px; background: transparent; border-bottom:1px solid #30363d }
+.primary-decision-panel .pdp-left { min-width:160px; text-align:left }
+.primary-decision-panel .pdp-status { display:inline-block; font-size:20px; font-weight:900; margin-bottom:0; color:#cfe8ff; background: rgba(88,166,255,0.08); padding:6px 10px; border-radius:6px }
+.primary-decision-panel .pdp-center { flex:2; min-width:480px }
+.primary-decision-panel .pdp-center h2 { margin:0 0 8px 0; font-size:26px; font-weight:700; color:#cfe8ff }
+.primary-decision-panel .pdp-summary { margin:0 0 10px 0; font-size:15px; color:#c9d6e7 }
+.primary-decision-panel .pdp-darkness { color:#9fb1c8; font-size:14px }
 .primary-decision-panel .pdp-right { min-width:260px; display:flex; flex-direction:column; gap:8px; align-items:flex-end }
 .primary-decision-panel .pdp-top-target { text-align:right }
-.primary-decision-panel .pdp-target-sentence { margin:0; font-size:15px }
-.primary-decision-panel .pdp-no-target { color:#666 }
-.primary-decision-panel .pdp-cta { background:#0b6cff; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer }
+.primary-decision-panel .pdp-target-sentence { margin:0; font-size:15px; color:#cfe8ff }
+.primary-decision-panel .pdp-no-target { color:#8b949e }
+.primary-decision-panel .pdp-cta { background:#2388ff; color:#fff; border:1px solid rgba(0,0,0,0.15); padding:8px 14px; border-radius:6px; cursor:pointer; font-weight:600 }
 .primary-decision-panel .pdp-cta:hover { filter:brightness(0.95) }
 .targets-module, .alerts-module, .passes-module{margin-bottom:0}
 .moon-module{min-width:220px}
@@ -64,8 +65,8 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 
 /* Night mode: dark panels and subtle borders */
 .mode-night .dashboard .module {
-  background: #071428; /* dark blue-gray panel */
-  border: 1px solid #0f2436; /* subtle dark border */
+  background: transparent;
+  border: none;
   color: #cfe8ff; /* soft light text */
 }
 
@@ -220,8 +221,8 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 
 /* --- Layout & Typography polish additions --- */
 /* Rhythm: use consistent vertical spacing scale */
-.section { padding: 8px 0 20px 0; border-bottom: 1px solid #e6e6e6; }
-.section-grid.two-col { display:grid; grid-template-columns: 1fr 1fr; gap:var(--gap); align-items:start }
+.section { padding: 10px 0 18px 0; border-bottom: 1px solid #30363d }
+.section-grid.two-col { display:grid; grid-template-columns: minmax(420px, 1fr) minmax(380px, 1fr); gap:var(--gap); align-items:start }
 .dashboard .module { padding:var(--module-padding) 0; box-sizing:border-box; display:flex; flex-direction:column }
 .dashboard .module > h2, .dashboard .module h2 { font-size: 18px; line-height: 1.2; }
 .dashboard .module p, .dashboard .module dd, .dashboard .module li { margin-top: 0; margin-bottom: 12px; }
@@ -249,9 +250,10 @@ input[type="text"], input[type="number"], select, button { height: 36px; padding
 .dashboard .module button, .header-controls button { padding: 6px 10px; border-radius: 4px; }
 
 /* ModuleShell specific adjustments */
-.module-shell { display:flex; flex-direction:column; padding-bottom:12px; border-bottom:1px solid #e6e6e6 }
+.module-shell { display:flex; flex-direction:column; padding:14px 0 18px 0; border-bottom:1px solid #30363d }
 .module-shell-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px }
-.module-shell-header h2 { margin:0; font-size:18px }
+.module-shell-header h2 { margin:0; font-size:18px; color:#cfe8ff }
+.module-shell .module-shell-body { padding-top:8px }
 .module-shell-controls { display:flex; gap:8px; align-items:center }
 .stale-badge { background:#ffdca8; color:#663c00; padding:4px 8px; border-radius:12px; font-size:12px }
 .module-retry { padding:6px 8px }
@@ -270,4 +272,12 @@ input[type="text"], input[type="number"], select, button { height: 36px; padding
 
 /* Ensure selection remains low-luminance (reaffirm) */
 .mode-red ::selection { background: rgba(112,35,35,0.12); color: #6b1a1a; }
+
+/* Conditions component micro-styles */
+.conditions-body { display:flex; flex-direction:column; gap:8px; }
+.cond-row { font-size:14px; color: #c9d6e7 }
+.cond-row.small { font-size:13px; color: #9fb1c8 }
+.cond-summary { margin-top:6px; color: #cfe8ff }
+.cond-summary.muted { color: #8b949e }
+
 
