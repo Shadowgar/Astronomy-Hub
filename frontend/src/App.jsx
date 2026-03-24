@@ -176,26 +176,37 @@ export default function App() {
       <main className="dashboard">
         {/* Primary Decision Panel: Phase B transformation — prominent, above modules */}
         <PrimaryDecisionPanel locationQuery={locationQuery} />
-        {/* Module order locked by UI Information Architecture */}
-        <section className="module conditions-module">
-          <Conditions locationQuery={locationQuery} />
+
+        {/* Section: Targets + Conditions (2-column) */}
+        <section className="section section-top">
+          <div className="section-grid two-col">
+            <div className="module conditions-module">
+              <Conditions locationQuery={locationQuery} />
+            </div>
+            <div className="module targets-module">
+              <RecommendedTargets locationQuery={locationQuery} />
+            </div>
+          </div>
         </section>
 
-        <section className="module targets-module">
-          <RecommendedTargets locationQuery={locationQuery} />
+        {/* Section: Alerts + Passes (2-column) */}
+        <section className="section section-middle">
+          <div className="section-grid two-col">
+            <div className="module alerts-module">
+              <AlertsEvents locationQuery={locationQuery} />
+            </div>
+            <div className="module passes-module">
+              <SatellitePasses locationQuery={locationQuery} />
+            </div>
+          </div>
         </section>
 
-        <section className="module alerts-module">
-          <AlertsEvents locationQuery={locationQuery} />
+        {/* Section: Moon summary (full width) */}
+        <section className="section section-bottom">
+          <div className="module moon-module">
+            <MoonSummary locationQuery={locationQuery} />
+          </div>
         </section>
-
-        <section className="module passes-module">
-          <SatellitePasses locationQuery={locationQuery} />
-        </section>
-
-        <aside className="module moon-module">
-          <MoonSummary locationQuery={locationQuery} />
-        </aside>
       </main>
 
       <footer className="app-footer">Astronomy Hub — Phase 1 (Dashboard Shell)</footer>
