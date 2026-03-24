@@ -60,7 +60,6 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
   const observingScore = conds && typeof conds.observing_score === 'number' ? conds.observing_score : null
   const status = observingLabel(observingScore)
   const statusText = `Tonight: ${status.toUpperCase()}`
-  const summary = conds && conds.summary ? conds.summary : null
   const darknessStart = conds && conds.darkness_window && conds.darkness_window.start ? fmtTime(conds.darkness_window.start) : null
   const darknessEnd = conds && conds.darkness_window && conds.darkness_window.end ? fmtTime(conds.darkness_window.end) : null
 
@@ -74,7 +73,7 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
       <div className="pdp-center">
         <h2 id="pdp-heading" className="sr-only">Tonight’s Observing Plan</h2>
         <div className="pdp-message">
-          <span className="pdp-summary">{summary || (loading ? 'Loading conditions…' : 'No concise summary available.')}</span>
+          <span className="pdp-summary">{loading ? 'Loading conditions…' : 'No concise summary available.'}</span>
           {top ? (
             <span className="pdp-top-target-inline">Start with <strong>{top.name}</strong> · {top.direction?.toUpperCase()}</span>
           ) : null}

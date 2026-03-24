@@ -117,6 +117,10 @@ export default function Conditions({ locationQuery = '' }) {
           <small style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{data?.last_updated ? fmtTimeShort(data.last_updated) : ''}</small>
         </div>
 
+        {summary && (
+          <div style={{ marginTop: 'var(--space-3)', color: 'var(--text-main)' }}>{summary}</div>
+        )}
+
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
           <span style={{ padding: '6px 10px', borderRadius: 999, background: 'var(--surface-muted)', fontWeight: 700 }}>{cloudText}</span>
           <span style={{ padding: '6px 10px', borderRadius: 999, background: 'transparent', color: 'var(--text-muted)' }}>{moonText}</span>
