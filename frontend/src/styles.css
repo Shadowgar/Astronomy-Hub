@@ -48,229 +48,40 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 
 /* Mode theming (simple, Phase 1) */
 
-/* MODE OVERRIDES: Light HC, Dark, Dark HC, Red */
-.mode-light { /* default: GitHub Light */ }
-.mode-dark { /* GitHub Dark Default */
-  :root{
-    --gap: 16px;
-    --container-max-width: 1100px;
-    --module-padding: 16px;
-    --module-radius: 8px;
-    --page-padding: 16px;
-    --base-font-size: 15px;
-    --base-line-height: 1.45;
-  }
-  body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(--base-font-size);line-height:var(--base-line-height);color:var(--body-color, #111)}
-  .app-shell{display:flex;flex-direction:column;min-height:100vh}
-  .app-header{padding:12px var(--page-padding);background:#f5f5f5;border-bottom:1px solid #ddd}
-  .dashboard{display:flex;flex-direction:column;gap:var(--gap);padding:var(--page-padding);flex:1;max-width:var(--container-max-width);margin:0 auto;box-sizing:border-box}
-  .primary-decision-panel { grid-column: 1 / -1; display:flex; gap:28px; align-items:center; padding:28px 18px; margin-bottom:18px; border-radius:8px; background: transparent; border-bottom:1px solid #e6eef9 }
-  .primary-decision-panel .pdp-left { min-width:140px; text-align:left }
-  .primary-decision-panel .pdp-status { font-size:22px; font-weight:800; margin-bottom:0; color:#0b6cff }
-  .primary-decision-panel .pdp-center { flex:1 }
-  .primary-decision-panel .pdp-center h2 { margin:0 0 8px 0; font-size:22px; font-weight:700 }
-  .primary-decision-panel .pdp-summary { margin:0 0 10px 0; font-size:15px; color:#222 }
-  .primary-decision-panel .pdp-darkness { color:#444; font-size:14px }
-  .primary-decision-panel .pdp-right { min-width:260px; display:flex; flex-direction:column; gap:8px; align-items:flex-end }
-  .primary-decision-panel .pdp-top-target { text-align:right }
-  .primary-decision-panel .pdp-target-sentence { margin:0; font-size:15px }
-  .primary-decision-panel .pdp-no-target { color:#666 }
-  .primary-decision-panel .pdp-cta { background:#0b6cff; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer }
-  .primary-decision-panel .pdp-cta:hover { filter:brightness(0.95) }
-  .targets-module, .alerts-module, .passes-module{margin-bottom:0}
-  .moon-module{min-width:220px}
-  .app-footer{padding:10px var(--page-padding);text-align:center;background:#fafafa;border-top:1px solid #eee}
+/* Clear, flattened mode styles for Light (default), Dark, and Red */
 
-  /* Mode theming (simple, Phase 1) */
-  .mode-light .app-header,
-  .mode-light .app-footer {
-    background: #f6f8fa;
-    color: #111;
-  }
+.app-shell.mode-light {
+  /* LIGHT (default) */
+  background: #f6f8fa;
+  color: #111;
+}
+.app-shell.mode-light .app-header { background: #f5f5f5; color: #111; border-bottom: 1px solid #e6eef9 }
+.app-shell.mode-light .primary-decision-panel { background: #ffffff; border-bottom: 1px solid #e6eef9 }
+.app-shell.mode-light .dashboard .module { background: #ffffff; border: 1px solid #e6eef9; color: #111 }
+.app-shell.mode-light input, .app-shell.mode-light select, .app-shell.mode-light textarea, .app-shell.mode-light button { background: #ffffff; color: #111; border: 1px solid #d0d7de }
+.app-shell.mode-light .pdp-cta { background:#0969da; color:#fff }
 
-  .mode-dark .app-header,
-  .mode-dark .app-footer {
-    /* dark muted header for dark mode */
-    background: #071020;
-    color: #cfe8ff; /* soft light heading */
-    border-color: #0f2436;
-  }
+.app-shell.mode-dark {
+  /* DARK */
+  background: #0d1117;
+  color: #cfe8ff;
+}
+.app-shell.mode-dark .app-header { background: #071020; color: #cfe8ff; border-bottom: 1px solid #0f2436 }
+.app-shell.mode-dark .primary-decision-panel { background: transparent; border-bottom: 1px solid #30363d }
+.app-shell.mode-dark .dashboard .module { background: #071428; border: 1px solid #0f2436; color: #cfe8ff }
+.app-shell.mode-dark input, .app-shell.mode-dark select, .app-shell.mode-dark textarea, .app-shell.mode-dark button { background: transparent; color: #cfe8ff; border: 1px solid #30363d }
+.app-shell.mode-dark .pdp-cta { background:#2388ff; color:#fff }
 
-  .mode-red .app-header,
-  .mode-red .app-footer {
-    /* very dark maroon surfaces for header/footer (astronomy-safe) */
-    background: #040000; /* header/footer background */
-    color: #7a1d1d; /* primary red text (reduced intensity) */
-    border-color: #240000; /* divider/border color */
-  }
-
-  /* Body/background per mode */
-
-  .mode-light {
-    background: #ffffff;
-    color: #111;
-  }
-
-  .mode-dark {
-    background: #02061a;
-    color: #cfe8ff;
-  }
-
-  /* Night mode: dark panels and subtle borders */
-  .mode-dark .dashboard .module {
-    background: #071428; /* dark blue-gray panel */
-    border: 1px solid #0f2436; /* subtle dark border */
-    color: #cfe8ff; /* soft light text */
-  }
-
-  .mode-red {
-    /* Astronomy-safe red mode: near-black page background */
-    background: #000000; /* page background */
-    color: #7a1d1d; /* primary red text for general content (reduced intensity) */
-  }
-
-  /* Ensure top-level elements do not flash white when red mode is active */
-  .mode-red html,
-  .mode-red body,
-  .mode-red #root,
-  .mode-red .app-shell {
-    background: #000000 !important;
-    color: #a02828 !important;
-  }
-
-  .mode-red .dashboard .module {
-    /* very dark panels for red mode */
-    background: #080000; /* panel background */
-    border: 1px solid #240000; /* borders/dividers */
-    color: #a02828; /* primary red text */
-  }
-
-  .mode-red .dashboard .module h2,
-  .mode-red .dashboard .module h3,
-  .mode-red .app-header h1 {
-    color: #7a1d1d; /* headings use slightly dimmer primary red */
-  }
-
-  /* Controls in red mode: inputs, selects, buttons */
-  .mode-red input,
-  .mode-red select,
-  .mode-red textarea,
-  .mode-red button {
-    background: #080000; /* control background matches panels */
-    color: #a02828; /* primary red for inputs/buttons */
-    border: 1px solid #240000;
-    box-shadow: none;
-    height: 36px;
-    padding: 6px 8px;
-    font-size: 14px;
-  }
-
-  .mode-red select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-
-  .mode-red select option {
-    background: #080000;
-    color: #7a1d1d; /* dimmer secondary red for options */
-  }
-
-  .mode-red input:focus,
-  .mode-red select:focus,
-  .mode-red textarea:focus,
-  .mode-red button:focus {
-    /* remove bright focus styling; visible-only-for-keyboard handled below */
-    outline: none;
-    box-shadow: none;
-    border-color: #240000;
-  }
-
-  /* Focus visible: subtle, low-luminance outline for keyboard navigation */
-  .mode-red :focus-visible {
-    outline: 1px solid rgba(112,35,35,0.20);
-    box-shadow: 0 0 0 1px rgba(112,35,35,0.04);
-    border-color: rgba(112,35,35,0.22);
-  }
-
-  /* Placeholder, selection, and disabled states */
-  .mode-red ::placeholder {
-    color: #3f0a0a; /* very dark placeholder */
-    opacity: 1;
-  }
-  .mode-red ::-webkit-input-placeholder { color: #3f0a0a; }
-  .mode-red ::-moz-placeholder { color: #3f0a0a; }
-  .mode-red ::-ms-input-placeholder { color: #3f0a0a; }
-
-  /* consolidated later: keep single, lower-luminance ::selection */
-
-  .mode-red input[disabled],
-  .mode-red textarea[disabled],
-  .mode-red select[disabled],
-  .mode-red button[disabled] {
-    opacity: 0.6;
-    filter: none;
-    background: #070000;
-    color: #5a1414;
-    border-color: #1a0000;
-  }
-
-  /* Horizontal rules and native controls */
-  .mode-red hr {
-    border: none;
-    height: 1px;
-    background: #240000;
-  }
-
-  /* Remove bright shadows, ensure hover/active are low-luminance */
-  .mode-red button:hover,
-  .mode-red input:hover,
-  .mode-red select:hover,
-  .mode-red textarea:hover {
-    filter: brightness(0.95);
-  }
-  .mode-red button:active { transform: translateY(0.5px); }
-
-  /* Scrollbar styling (WebKit + Firefox fallback) */
-  .mode-red ::-webkit-scrollbar { width: 10px; height: 10px; }
-  .mode-red ::-webkit-scrollbar-track { background: #030000; }
-  .mode-red ::-webkit-scrollbar-thumb { background: #240000; border-radius: 6px; }
-  /* scrollbar-color applied via ::-webkit and Firefox rules above */
-
-  /* Links and small text */
-  .mode-red a,
-  .mode-red .small {
-    color: #7a1d1d; /* secondary/dimmer red */
-  }
-
-  /* Ensure footer and header separators are subdued (handled above) */
-
-  /* ===== .mode-red HARDENING: autofill, scrollbars, edge-case box-shadows ===== */
-  /* Autofill: remove yellow/white glow and force dark background/text */
-  .mode-red input:-webkit-autofill,
-  .mode-red textarea:-webkit-autofill,
-  .mode-red select:-webkit-autofill,
-  .mode-red input:-webkit-autofill:focus,
-  .mode-red textarea:-webkit-autofill:focus,
-  .mode-red select:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 1000px #070000 inset !important;
-    box-shadow: 0 0 0 1000px #070000 inset !important;
-    -webkit-text-fill-color: #6f1c1c !important;
-    caret-color: #7a1d1d !important;
-  }
-
-  /* Firefox scrollbar safety */
-  .mode-red { scrollbar-color: #240000 #030000; }
-
-  /* Remove bright box-shadows in red mode (edge-case sweep) */
-  /* NOTE: keep broad sweep for Phase 1 to avoid stray bright glows from third-party elements */
-  .mode-red button,
-  .mode-red input,
-  .mode-red select,
-  .mode-red textarea,
-  .mode-red .dashboard .module {
-    box-shadow: none;
-  }
+.app-shell.mode-red {
+  /* RED (astronomy observing mode) */
+  background: #000000;
+  color: #a02828;
+}
+.app-shell.mode-red .app-header { background: #040000; color: #a02828; border-bottom: 1px solid #240000 }
+.app-shell.mode-red .primary-decision-panel { background: #080000; border-bottom: 1px solid #240000 }
+.app-shell.mode-red .dashboard .module { background: #080000; border: 1px solid #240000; color: #a02828 }
+.app-shell.mode-red input, .app-shell.mode-red select, .app-shell.mode-red textarea, .app-shell.mode-red button { background: #070000; color: #a02828; border: 1px solid #240000 }
+.app-shell.mode-red .pdp-cta { background:#3b1b1b; color:#a02828 }
 
   /* --- Layout & Typography polish additions --- */
   /* Rhythm: use consistent vertical spacing scale */
@@ -305,7 +116,7 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
   /* ModuleShell specific adjustments */
   .module-shell { display:flex; flex-direction:column; padding:14px 0 18px 0; border-bottom:1px solid #30363d }
   .module-shell-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px }
-  .module-shell-header h2 { margin:0; font-size:18px; color:#cfe8ff }
+  .module-shell-header h2 { margin:0; font-size:18px; color: inherit }
   .module-shell .module-shell-body { padding-top:8px }
   .module-shell-controls { display:flex; gap:8px; align-items:center }
   .stale-badge { background:#ffdca8; color:#663c00; padding:4px 8px; border-radius:12px; font-size:12px }
@@ -324,13 +135,13 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
   }
 
   /* Ensure selection remains low-luminance (reaffirm) */
-  .mode-red ::selection { background: rgba(112,35,35,0.12); color: #6b1a1a; }
+  .app-shell.mode-red ::selection { background: rgba(112,35,35,0.12); color: #6b1a1a; }
 
   /* Conditions component micro-styles */
   .conditions-body { display:flex; flex-direction:column; gap:8px; }
-  .cond-row { font-size:14px; color: #c9d6e7 }
-  .cond-row.small { font-size:13px; color: #9fb1c8 }
-  .cond-summary { margin-top:6px; color: #cfe8ff }
-  .cond-summary.muted { color: #8b949e }
+  .cond-row { font-size:14px; color: inherit }
+  .cond-row.small { font-size:13px; color: inherit }
+  .cond-summary { margin-top:6px; color: inherit }
+  .cond-summary.muted { color: var(--text-muted) }
 
 
