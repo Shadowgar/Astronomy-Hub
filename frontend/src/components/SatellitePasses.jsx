@@ -46,9 +46,9 @@ export default function SatellitePasses({ locationQuery = '' }) {
           {passes.map((p, idx) => (
             <li key={(p.object_name || '') + (p.start_time || '') || idx} className="pass-item">
               <strong>{p.object_name}</strong>
-              <div className="small">start_time: {p.start_time} · visibility: {p.visibility}</div>
-              <div className="small">max_elevation_deg: {p.max_elevation_deg}</div>
-              <div className="small">start_direction: {p.start_direction} · end_direction: {p.end_direction}</div>
+              <div className="small">Visible: {p.visibility}</div>
+              <div className="small">Peak elevation: {p.max_elevation_deg}{p.max_elevation_deg ? '°' : ''}</div>
+              <div className="small">Path: {p.start_direction} → {p.end_direction}</div>
             </li>
           ))}
         </ul>

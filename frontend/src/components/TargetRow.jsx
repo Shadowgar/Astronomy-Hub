@@ -8,7 +8,7 @@ export default function TargetRow({ target }) {
     <div className="target-summary">
       <strong>{target.name}</strong>
       <div className="small">
-        <span>category: {target.category}</span> · <span>direction: {target.direction}</span>
+        {target.category} · {target.direction}
       </div>
     </div>
   )

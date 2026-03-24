@@ -209,7 +209,7 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="app-footer">Astronomy Hub — Phase 1 (Dashboard Shell)</footer>
+      <footer className="app-footer">Astronomy Hub — Observing Tools</footer>
     </div>
   )
 }
