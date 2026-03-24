@@ -58,20 +58,26 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 /* Clear, flattened mode styles for Light (default), Dark, and Red */
 
 .app-shell.mode-light {
-  /* LIGHT (default) variables — shared rules will consume these */
-  --page-bg: #f6f8fa;
-  --header-bg: #f5f5f5;
+  /* LIGHT (default) variables — explicit GitHub Light tokens */
+  --page-bg: #ffffff;
+  --header-bg: #f6f8fa;
   --hero-surface-bg: #ffffff;
   --surface-bg: #ffffff;
-  --surface-border: #e6eef9;
-  --divider: #e6eef9;
-  --text-primary: #111827;
-  --text-muted: #6b7280;
-  --button-bg: var(--accent-blue);
+  --surface-border: #d0d7de;
+  --divider: #d8dee4;
+  --text-primary: #1f2328;
+  --text-muted: #656d76;
+  --button-bg: #1f883d;
   --button-fg: #ffffff;
   --input-bg: #ffffff;
   --input-border: #d0d7de;
-  --heading-color: #111827;
+  --heading-color: #1f2328;
+  --status-bg: rgba(9,105,218,0.10);
+  --status-fg: #1f2328;
+  --button-border: rgba(31,35,40,0.15);
+  --stale-bg: #fff8c5;
+  --stale-fg: #4d2d00;
+  --loc-error: #b42318;
   background: var(--page-bg);
   color: var(--text-primary);
 }
