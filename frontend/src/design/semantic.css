@@ -1,0 +1,21 @@
+:root {
+
+/* SURFACES */
+--surface-base: var(--bg-base);
+--surface-panel: var(--panel-bg);
+--surface-border: var(--panel-border);
+
+/* TEXT */
+--text-main: var(--text-primary);
+--text-sub: var(--text-secondary);
+
+/* ACTION */
+--action-primary-bg: var(--accent);
+
+/* STATUS */
+--status-good-bg: var(--success);
+
+/* EFFECTS */
+--effect-glow-soft: var(--glow-soft);
+
+}
