@@ -61,33 +61,33 @@ export default function App() {
 
   return (
     <div className={`app-shell mode-${mode.toLowerCase()}`}>
-      <header className="app-header">
+      <header className="app-header" role="banner">
         <h1>Astronomy Hub</h1>
         <div className="header-controls">
           <div className="location-section">
             <span className="location-label">Location: {activeLocation === ORAS ? ORAS.label : `Custom Location (${activeLocation.latitude.toFixed(5)}, ${activeLocation.longitude.toFixed(5)})`}</span>
 
-            <div className="location-inputs" style={{display: 'inline-block', marginLeft: 12}}>
+            <div className="location-inputs">
               <input
                 aria-label="Latitude"
                 placeholder="lat"
                 value={latInput}
                 onChange={(e) => setLatInput(e.target.value)}
-                style={{width: 90, marginRight: 6}}
+                className="input-lat"
               />
               <input
                 aria-label="Longitude"
                 placeholder="lon"
                 value={lonInput}
                 onChange={(e) => setLonInput(e.target.value)}
-                style={{width: 100, marginRight: 6}}
+                className="input-lon"
               />
               <input
                 aria-label="Elevation feet (optional)"
                 placeholder="elev ft"
                 value={elevInput}
                 onChange={(e) => setElevInput(e.target.value)}
-                style={{width: 90, marginRight: 6}}
+                className="input-elev"
               />
               <button
                 onClick={() => {
@@ -111,7 +111,7 @@ export default function App() {
                   // apply for session only
                   setActiveLocation({ label: 'Custom Location', latitude: lat, longitude: lon, elevation_ft: elev })
                 }}
-                style={{marginRight: 6}}
+                className="location-actions"
               >Apply for session</button>
               <button
                 onClick={() => {
@@ -124,7 +124,7 @@ export default function App() {
               >Reset to ORAS</button>
               {/* Optional dev mount for the LocationSelector used by Step 2D.D3. Enable with ?mountLocationSelector=1 */}
               {typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('mountLocationSelector') === '1' && (
-                <div style={{display: 'inline-block', marginLeft: 12}}>
+                <div className="pending-location">
                   <LocationSelector
                     onApply={(v) => {
                       setPending(v)
@@ -138,18 +138,18 @@ export default function App() {
               )}
               {/* Show pending location and confirm control when set */}
               {pendingLocation && (
-                <div style={{display: 'inline-block', marginLeft: 12}}>
-                  <span style={{marginRight: 8}}>Pending: {pendingLocation.name || (pendingLocation.latitude && `${pendingLocation.latitude.toFixed(3)}, ${pendingLocation.longitude.toFixed(3)}`)}</span>
+                <div className="pending-location">
+                  <span className="pending-text">Pending: {pendingLocation.name || (pendingLocation.latitude && `${pendingLocation.latitude.toFixed(3)}, ${pendingLocation.longitude.toFixed(3)}`)}</span>
                   <button onClick={() => {
                     confirmPending()
                     if (new URLSearchParams(window.location.search).get('devlog') === '1') {
                       try { console.log(JSON.stringify({ event: 'pending_confirm', confirmed: pendingLocation })) } catch (e) {}
                     }
                   }}>Confirm pending</button>
-                  <button onClick={() => clearPending()} style={{marginLeft: 8}}>Clear pending</button>
+                  <button onClick={() => clearPending()} className="clear-pending">Clear pending</button>
                 </div>
               )}
-              {locError && <div style={{color: '#ffb3b3', marginTop: 6}} role="alert">{locError}</div>}
+              {locError && <div className="loc-error" role="alert">{locError}</div>}
             </div>
           </div>
           <span className="mode-control">

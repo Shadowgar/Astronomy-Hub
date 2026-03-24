@@ -218,11 +218,28 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
 .header-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .header-controls .location-section { display: flex; align-items: center; gap: 12px; }
 .location-inputs { display: flex; align-items: center; gap: 8px; }
+.location-actions { display: inline-flex; align-items: center; gap: 8px; }
+.pending-location { display: inline-flex; align-items: center; gap: 8px; margin-left: 12px; }
+.pending-text { margin-right: 8px; }
+.clear-pending { margin-left: 8px; }
+.loc-error { color: #ffb3b3; margin-top: 6px; }
+/* input sizing moved from inline styles to classes for Phase A polish */
+.input-lat { width: 90px; }
+.input-lon { width: 100px; }
+.input-elev { width: 90px; }
 input, select, button { font-family: inherit; font-size: 14px; }
 input[type="text"], input[type="number"], select, button { height: 36px; padding: 6px 8px; }
 
 /* Buttons: consistent padding */
 .dashboard .module button, .header-controls button { padding: 6px 10px; border-radius: 4px; }
+
+/* ModuleShell specific adjustments */
+.module-shell { display:flex; flex-direction:column }
+.module-shell-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px }
+.module-shell-header h2 { margin:0; font-size:18px }
+.module-shell-controls { display:flex; gap:8px; align-items:center }
+.stale-badge { background:#ffdca8; color:#663c00; padding:4px 8px; border-radius:12px; font-size:12px }
+.module-retry { padding:6px 8px }
 
 /* Responsive: stack modules cleanly on narrow viewports */
 @media (max-width: 900px) {
