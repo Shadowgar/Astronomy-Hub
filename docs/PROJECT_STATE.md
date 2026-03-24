@@ -72,11 +72,11 @@ This project has completed Phase 1 and Phase 2.
 Current execution is UI Phase B.
 
 The authoritative Phase B documents are:
-- docs/UI_PHASE_B_SPEC.md
-- docs/PHASE_B_EXECUTION_TODO.md
-- docs/UI_VISUAL_CALIBRATION.md
-- docs/UI_MODULE_TRANSFORMS.md
-- docs/UI_VALIDATION_RULES.md
+* docs/UI_PHASE_B_SPEC.md
+* docs/PHASE_B_EXECUTION_TODO.md
+* docs/UI_VISUAL_CALIBRATION.md
+* docs/UI_MODULE_TRANSFORMS.md
+* docs/UI_VALIDATION_RULES.md
 
 ---
 
