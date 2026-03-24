@@ -118,11 +118,11 @@ export default function Conditions({ locationQuery = '' }) {
         </div>
 
         {summary && (
-          <div style={{ marginTop: 'var(--space-3)', color: 'var(--text-main)' }}>{summary}</div>
+          <div className="conditions-summary" style={{ marginTop: 'var(--space-3)' }}>{summary}</div>
         )}
 
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-          <span style={{ padding: '6px 10px', borderRadius: 999, background: 'var(--surface-muted)', fontWeight: 700 }}>{cloudText}</span>
+          <span style={{ padding: '6px 10px', borderRadius: 999, background: 'var(--surface-panel)', fontWeight: 700 }}>{cloudText}</span>
           <span style={{ padding: '6px 10px', borderRadius: 999, background: 'transparent', color: 'var(--text-muted)' }}>{moonText}</span>
           <span style={{ padding: '6px 10px', borderRadius: 999, background: 'transparent', color: 'var(--text-muted)' }}>{darknessText}</span>
           {typeof data?.observing_score === 'number' ? (

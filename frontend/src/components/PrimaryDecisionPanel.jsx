@@ -73,7 +73,6 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
       <div className="pdp-center">
         <h2 id="pdp-heading" className="sr-only">Tonight’s Observing Plan</h2>
         <div className="pdp-message">
-          <span className="pdp-summary">{loading ? 'Loading conditions…' : (conds && conds.summary ? conds.summary : null)}</span>
           {top ? (
             <span className="pdp-top-target-inline">Start with <strong>{top.name}</strong> · {top.direction?.toUpperCase()}</span>
           ) : null}
