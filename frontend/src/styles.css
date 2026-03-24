@@ -167,8 +167,8 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
   100% { transform: translateY(0px) }
 }
 
-/* Ensure page content renders above the subtle star layer */
-.app-shell.mode-dark > * { position: relative; z-index: 1 }
+/* Ensure page content renders above the subtle star layer; exclude starfield canvases so they remain behind content */
+.app-shell.mode-dark > :not(.starfield-canvas) { position: relative; z-index: 1 }
 
 /* Reduce any accidental bright highlights inside modules in dark mode */
 .app-shell.mode-dark .panel, .app-shell.mode-dark .primary-decision-panel { background-blend-mode: multiply; }
