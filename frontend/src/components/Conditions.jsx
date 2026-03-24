@@ -68,27 +68,30 @@ export default function Conditions({ locationQuery = '' }) {
               last_updated: new Date().toISOString(),
               meta: { partial: true },
             })
-          } else {
-            setError(err.message || 'Unknown error')
-          }
-        }
-      } finally {
-        if (!cancelled) setLoading(false)
-      }
-    }
+          // Compact signal-style rendering for quick scan
+          const cloudText = typeof cloud_cover_pct === 'number' ? `${Math.round(cloud_cover_pct)}%` : 'N/A'
+          const moonText = moon_phase || 'N/A'
+          const darknessText = darkness_window?.start && darkness_window?.end
+            ? `${fmtTimeShort(darkness_window.start)} – ${fmtTimeShort(darkness_window.end)}`
+            : 'Not available'
 
-    void doFetch()
+          return (
+            <ModuleShell title="Conditions" stale={staleProp} onRetry={handleRetry}>
+              <div className="conditions-body">
+                <div className="cond-row"><strong>{location_label || 'Unknown location'}</strong></div>
 
-    return () => {
-      cancelled = true
-    }
-  }, [locationQuery]);
+                <div className="cond-row small" style={{display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap'}}>
+                  <span style={{padding: '6px 8px', borderRadius: 6, background: 'transparent', fontWeight: 600}}>{`Cloud ${cloudText}`}</span>
+                  <span style={{padding: '6px 8px', borderRadius: 6, color: 'var(--text-muted)'}}>{`Moon ${moonText}`}</span>
+                  <span style={{padding: '6px 8px', borderRadius: 6, color: 'var(--text-muted)'}}>{`Darkness ${darknessText}`}</span>
+                </div>
 
-  const handleRetry = useCallback(() => {
-    // trigger a re-fetch by toggling loading and calling effect logic
-    setLoading(true)
-    setError(null)
-    // emit dev-log entry
+                {summary ? (
+                  <div className="cond-row small" style={{marginTop: 6, color: 'var(--text-muted)'}}>{summary}</div>
+                ) : null}
+              </div>
+            </ModuleShell>
+          )
     try {
       logger.info('module', 'retry', { module: 'conditions' })
     } catch (e) {
