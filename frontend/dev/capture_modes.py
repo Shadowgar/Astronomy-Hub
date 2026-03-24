@@ -6,17 +6,19 @@ OUT_DIR = 'frontend/dev/screenshots'
 if not os.path.exists(OUT_DIR):
     os.makedirs(OUT_DIR, exist_ok=True)
 
-MODES = ['Night', 'Day', 'Red']
+MODES = ['Light', 'Light HC', 'Dark', 'Dark HC', 'Red']
+
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     for mode in MODES:
         page = browser.new_page(viewport={"width": 1400, "height": 1000})
-        # open blank then set localStorage so app reads mode on startup
-        page.goto('about:blank')
-        page.evaluate(f"localStorage.setItem('astronomyHub.mode', '{mode}')")
+        # Open the app first, then set localStorage and reload so the app picks up the mode
         page.goto(HOST)
+        page.wait_for_timeout(200)
+        page.evaluate(f"localStorage.setItem('astronomyHub.mode', '{mode}')")
+        page.reload()
         page.wait_for_timeout(800)
-        out_path = os.path.join(OUT_DIR, f'mode-{mode.lower()}.png')
+        out_path = os.path.join(OUT_DIR, f'mode-{mode.lower().replace(' ', '-')}.png')
         page.screenshot(path=out_path, full_page=True)
         print('saved', out_path)
         page.close()
