@@ -11,6 +11,7 @@ import Starfield from './components/Starfield'
 import AppShell from "./components/layout/AppShell"
 import TopBar from "./components/layout/TopBar"
 import ContentGrid from "./components/layout/ContentGrid"
+import ObservingHero from "./components/hero/ObservingHero"
 
 const MODES = ['Light', 'Dark', 'Red']
 
@@ -117,6 +118,7 @@ export default function App() {
       <div className={`app-shell mode-${mode.toLowerCase()}`}>
         <Starfield />
         <TopBar />
+        <ObservingHero />
         <header className="app-header" role="banner">
         <h1>Astronomy Hub</h1>
         <div className="header-controls">
