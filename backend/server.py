@@ -23,6 +23,9 @@ from alerts_data import MOCK_ALERTS
 
 logger = get_logger("backend.server")
 
+# Constants
+SUGGESTION_COORD_MALFORMED = 'suggestion coordinates malformed'
+
 # Lazy cache reference; initialize on first use to be compatible with both
 # `python3 backend/server.py` and package-based execution.
 _simple_cache = None
@@ -59,12 +62,12 @@ def _validate_suggestions(matches):
             continue
         # Both must be present if either is present
         if lat is None or lon is None:
-            return {'error': 'suggestion coordinates malformed', 'index': idx, 'suggestion': s}
+            return {'error': SUGGESTION_COORD_MALFORMED, 'index': idx, 'suggestion': s}
         try:
             latf = float(lat)
             lonf = float(lon)
         except Exception:
-            return {'error': 'suggestion coordinates malformed', 'index': idx, 'suggestion': s}
+            return {'error': SUGGESTION_COORD_MALFORMED, 'index': idx, 'suggestion': s}
         if not (-90.0 <= latf <= 90.0) or not (-180.0 <= lonf <= 180.0):
             return {'error': 'suggestion coordinates out of range', 'index': idx, 'suggestion': s}
     return None
@@ -93,6 +96,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
         # shallow query params
         q = {k: v if len(v) > 1 else v[0] for k, v in parse_qs(parsed.query).items()}
         logger.info(f"req={request_id} START {self.command} {parsed.path} q={q}")
+        status = 200
         try:
             # Parse optional location override params for all API endpoints.
             # Expected params: lat, lon, elevation_ft (optional)
@@ -136,7 +140,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
             except ValueError as ve:
                 # Invalid parameters: return 400 JSON error for API paths
                 if parsed.path.startswith('/api/'):
-                    self._send_json({'error': str(ve)}, status=400)
+                    self._send_json({'error': {'code': 'invalid_parameters', 'message': str(ve)}}, status=400)
                     status = 400
                     return
                 else:
@@ -199,7 +203,14 @@ class SimpleHandler(BaseHTTPRequestHandler):
                             # Normalization failure should be treated as a module-level
                             # assembly error: surface a controlled error for this module.
                             logger.exception(f"req={request_id} module.conditions.assembly.fail")
-                            self._send_json({'error': 'module_error', 'module': 'conditions', 'message': 'failed to assemble conditions payload'}, status=500)
+                            err_payload = {
+                                'error': {
+                                    'code': 'module_error',
+                                    'message': 'failed to assemble conditions payload',
+                                    'details': [ { 'module': 'conditions' } ]
+                                }
+                            }
+                            self._send_json(err_payload, status=500)
                             status = 500
                             return
 
@@ -223,7 +234,14 @@ class SimpleHandler(BaseHTTPRequestHandler):
                 except Exception:
                     # Module-level assembly failure: return a standard error contract
                     logger.exception(f"req={request_id} module.conditions.unhandled")
-                    self._send_json({'error': 'module_error', 'module': 'conditions', 'message': 'internal error assembling module'}, status=500)
+                    err_payload = {
+                        'error': {
+                            'code': 'module_error',
+                            'message': 'internal error assembling module',
+                            'details': [ { 'module': 'conditions' } ]
+                        }
+                    }
+                    self._send_json(err_payload, status=500)
                     status = 500
             elif parsed.path == "/api/targets":
                 # Accept optional location params but return static mock targets for now
@@ -237,7 +255,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
                 q_trim = str(q_param).strip()
                 if len(q_trim) < 3:
                     # follow the same error contract pattern used elsewhere
-                    self._send_json({'error': 'q must be at least 3 characters'}, status=400)
+                    self._send_json({'error': {'code': 'invalid_request', 'message': 'q must be at least 3 characters', 'details': [ { 'field': 'q', 'reason': 'too_short' } ] }}, status=400)
                     status = 400
                 else:
                     # load suggestions from backend/location_suggestions.json and filter
@@ -271,13 +289,21 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         # Validate coordinates on matched suggestions and return 400 on error
                         v_err = _validate_suggestions(matches)
                         if v_err:
-                            self._send_json(v_err, status=400)
+                            err_payload = {
+                                'error': {
+                                    'code': 'invalid_suggestion',
+                                    'message': v_err.get('error', SUGGESTION_COORD_MALFORMED),
+                                    'details': [ { 'index': v_err.get('index'), 'suggestion': v_err.get('suggestion') } ]
+                                }
+                            }
+                            self._send_json(err_payload, status=400)
                             status = 400
                             return
 
                         # successful response: cache it briefly and return (signal via headers)
                         try:
-                            _simple_cache.set(cache_key, matches, ttl=5)
+                            if _simple_cache is not None:
+                                _simple_cache.set(cache_key, matches, ttl=5)
                         except Exception:
                             logger.exception(f"req={request_id} cache.set.fail key={cache_key}")
 
@@ -289,7 +315,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         status = 200
                     except Exception:
                         logger.exception(f"req={request_id} location.search.load.fail")
-                        self._send_json({'error': 'failed to load suggestions'}, status=500)
+                        self._send_json({'error': {'code': 'load_failed', 'message': 'failed to load suggestions'}}, status=500)
                         status = 500
             elif parsed.path == "/api/passes":
                 # Accept optional location params but return static mock passes for now
@@ -328,4 +354,9 @@ def run(host="127.0.0.1", port=8000):
 
 
 if __name__ == "__main__":
-    run()
+    # Allow overriding the bind port via the PORT env var for local testing.
+    try:
+        port = int(os.environ.get('PORT', '8000'))
+    except Exception:
+        port = 8000
+    run(port=port)
