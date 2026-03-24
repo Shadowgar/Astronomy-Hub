@@ -139,21 +139,13 @@ export default function Conditions({ locationQuery = '' }) {
   return (
     <ModuleShell title="Conditions" stale={staleProp} onRetry={handleRetry}>
       <div className="conditions-body">
-        <div className="cond-row">
-          <strong>{location_label}</strong>
-        </div>
-        <div className="cond-row small">
-          {typeof cloud_cover_pct === 'number' ? `Cloud cover: ${Math.round(cloud_cover_pct)}%` : 'Cloud cover: N/A'}
-          {' · '}
-          {moon_phase ? `Moon: ${moon_phase}` : 'Moon: N/A'}
-        </div>
+        <div className="cond-row"><strong>Location:</strong> {location_label || 'Unknown'}</div>
+        <div className="cond-row small"><strong>Cloud cover:</strong> {typeof cloud_cover_pct === 'number' ? `${Math.round(cloud_cover_pct)}%` : 'N/A'}</div>
+        <div className="cond-row small"><strong>Moon:</strong> {moon_phase || 'N/A'}</div>
 
-        <div className="cond-row">
-          <strong>Darkness:</strong>{' '}
-          {darkness_window?.start && darkness_window?.end ? `${fmtTimeShort(darkness_window.start)} – ${fmtTimeShort(darkness_window.end)}` : 'Not available'}
-        </div>
+        <div className="cond-row"><strong>Best darkness:</strong> {darkness_window?.start && darkness_window?.end ? `${fmtTimeShort(darkness_window.start)} – ${fmtTimeShort(darkness_window.end)}` : 'Not available'}</div>
 
-        {summary ? <p className="cond-summary">{summary}</p> : <p className="cond-summary muted">No short summary available.</p>}
+        <div className="cond-row"><strong>Summary:</strong> {summary ? <span className="cond-summary">{summary}</span> : <span className="cond-summary muted">No short summary available.</span>}</div>
       </div>
     </ModuleShell>
   )

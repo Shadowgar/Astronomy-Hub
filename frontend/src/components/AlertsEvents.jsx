@@ -46,7 +46,7 @@ export default function AlertsEvents({ locationQuery = '' }) {
           {alerts.map((a, idx) => (
             <li key={a.title || idx} className="alert-item">
               <strong>{a.title}</strong>
-              <div className="small muted-meta">{a.category} · {a.relevance} · {a.priority}</div>
+              <div className="small muted-meta">{a.category} · Relevance: {a.relevance} · Priority: {a.priority}</div>
               <p>{a.summary}</p>
             </li>
           ))}
