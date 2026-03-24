@@ -8,15 +8,15 @@ import PrimaryDecisionPanel from './components/PrimaryDecisionPanel'
 import LocationSelector from './components/LocationSelector/LocationSelector'
 import useLocationState from './state/locationState'
 
-const MODES = ['Day', 'Night', 'Red']
+const MODES = ['Light', 'Dark', 'Red']
 
 export default function App() {
   const [mode, setMode] = useState(() => {
     if (typeof globalThis !== 'undefined' && globalThis.localStorage) {
       const stored = globalThis.localStorage.getItem('astronomyHub.mode')
-      return MODES.includes(stored) ? stored : 'Day'
+      return MODES.includes(stored) ? stored : 'Light'
     }
-    return 'Day'
+    return 'Light'
   })
 
   useEffect(() => {

@@ -82,15 +82,15 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
   .app-footer{padding:10px var(--page-padding);text-align:center;background:#fafafa;border-top:1px solid #eee}
 
   /* Mode theming (simple, Phase 1) */
-  .mode-day .app-header,
-  .mode-day .app-footer {
+  .mode-light .app-header,
+  .mode-light .app-footer {
     background: #f6f8fa;
     color: #111;
   }
 
-  .mode-night .app-header,
-  .mode-night .app-footer {
-    /* dark muted header for night mode */
+  .mode-dark .app-header,
+  .mode-dark .app-footer {
+    /* dark muted header for dark mode */
     background: #071020;
     color: #cfe8ff; /* soft light heading */
     border-color: #0f2436;
@@ -105,18 +105,19 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
   }
 
   /* Body/background per mode */
-  .mode-day {
+
+  .mode-light {
     background: #ffffff;
     color: #111;
   }
 
-  .mode-night {
+  .mode-dark {
     background: #02061a;
     color: #cfe8ff;
   }
 
   /* Night mode: dark panels and subtle borders */
-  .mode-night .dashboard .module {
+  .mode-dark .dashboard .module {
     background: #071428; /* dark blue-gray panel */
     border: 1px solid #0f2436; /* subtle dark border */
     color: #cfe8ff; /* soft light text */
