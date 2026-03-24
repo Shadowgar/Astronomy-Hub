@@ -232,8 +232,7 @@ export default function App() {
 
         <ContentGrid>
           <main className="dashboard tight-layout">
-        {/* Primary Decision Panel: Phase B transformation — prominent, above modules */}
-        <PrimaryDecisionPanel locationQuery={locationQuery} />
+        {/* Primary Decision Panel removed in Phase B: ObservingHero replaces PDP */}
 
         {/* Section: Targets + Conditions (2-column) */}
         <section className="section section-top">
