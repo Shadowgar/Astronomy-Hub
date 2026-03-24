@@ -16,7 +16,8 @@ This document locks the external theme references and rules for UI Phase B. All 
 
 ## 2. LOCKED MODE MAPPING
 
-- Light mode = GitHub Light High Contrast
+- Light mode = GitHub Light
+- Light HC Mode = GitHub Light High Contrast
 - Dark mode = GitHub Dark Default
 - Dark HC mode = GitHub Dark High Contrast
 - Red mode = custom astronomy observing mode (non-GitHub, astronomy-specific)
