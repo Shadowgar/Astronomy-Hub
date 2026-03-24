@@ -22,9 +22,23 @@ export default function TopBar({
   MODES,
 }) {
   return (
-    <header className="app-header" role="banner">
-      <h1>Astronomy Hub</h1>
-      <div className="header-controls">
+    <header
+      className="app-header"
+      role="banner"
+      style={{ marginBottom: 'var(--space-6)', color: 'var(--text-main)' }}
+    >
+      <h1
+        style={{
+          fontSize: 'var(--font-6)',
+          fontWeight: 'var(--weight-semibold)',
+          color: 'var(--text-main)',
+          margin: 0,
+          marginBottom: 'var(--space-4)'
+        }}
+      >
+        Astronomy Hub
+      </h1>
+      <div className="header-controls topbar-controls" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--space-3)', color: 'var(--text-main)' }}>
         <div className="location-section">
           <span className="location-label">Location: {activeLocation === ORAS ? ORAS.label : `Custom Location (${activeLocation.latitude.toFixed(5)}, ${activeLocation.longitude.toFixed(5)})`}</span>
 
@@ -106,7 +120,7 @@ export default function TopBar({
                 <button onClick={() => clearPending()} className="clear-pending">Clear pending</button>
               </div>
             )}
-            {locError && <div className="loc-error" role="alert">{locError}</div>}
+            {locError && <div className="loc-error" role="alert" style={{ color: 'var(--text-main)' }}>{locError}</div>}
           </div>
         </div>
         <span className="mode-control">
