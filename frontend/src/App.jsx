@@ -7,6 +7,7 @@ import MoonSummary from './components/MoonSummary'
 import PrimaryDecisionPanel from './components/PrimaryDecisionPanel'
 import LocationSelector from './components/LocationSelector/LocationSelector'
 import useLocationState from './state/locationState'
+import Starfield from './components/Starfield'
 
 const MODES = ['Light', 'Dark', 'Red']
 
@@ -62,6 +63,7 @@ export default function App() {
 
   return (
     <div className={`app-shell mode-${mode.toLowerCase()}`}>
+      <Starfield />
       <header className="app-header" role="banner">
         <h1>Astronomy Hub</h1>
         <div className="header-controls">

@@ -6,6 +6,10 @@ const fs = require('fs')
   page.setViewport({ width: 1200, height: 900 })
   await page.goto('http://localhost:5173/', { waitUntil: 'networkidle2', timeout: 60000 })
 
+  // Force Dark mode for consistent dark-mode screenshot
+  await page.evaluate(() => localStorage.setItem('astronomyHub.mode', 'Dark'))
+  await page.reload({ waitUntil: 'networkidle2' })
+
   // Wait for conditions module to render (look for its title text)
   await page.waitForSelector('text/Conditions', { timeout: 10000 }).catch(() => {})
   // Give app a moment to settle
