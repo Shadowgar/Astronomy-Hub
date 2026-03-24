@@ -43,12 +43,14 @@ export default function RecommendedTargets({ locationQuery = '' }) {
       {error && <p className="error">Error loading targets: {error}</p>}
 
       {!loading && !error && (
-        <ul>
-          {targets.length === 0 && <li>No targets available</li>}
-          {targets.map((t, idx) => (
-            <TargetRow key={t.name || idx} target={t} />
-          ))}
-        </ul>
+        <div style={{padding: 0}}>
+          {targets.length === 0 && <div>No targets available</div>}
+          <ul style={{margin: 0, padding: 0}}>
+            {targets.map((t, idx) => (
+              <TargetRow key={t.name || idx} target={t} />
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   )
