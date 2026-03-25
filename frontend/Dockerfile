@@ -2,11 +2,12 @@ FROM node:18-alpine AS build
 WORKDIR /app
 
 # Install dependencies
-COPY frontend/package*.json ./
+# When Compose builds with context `./frontend`, package files are at the context root
+COPY package*.json ./
 RUN npm ci --silent
 
-# Copy source and build
-COPY frontend/ .
+# Copy source and build (context is frontend/)
+COPY . .
 RUN npm run build
 
 FROM node:18-alpine

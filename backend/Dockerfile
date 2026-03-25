@@ -2,8 +2,10 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Copy only backend sources; image runs the existing backend script as-is
-COPY backend/ ./backend/
+# Copy only backend sources; Compose builds from ./backend so the context root
+# already contains the backend files. Place them under /app/backend to preserve
+# the current runtime path `backend/server.py` used by the repository.
+COPY . ./backend/
 
 ENV PYTHONUNBUFFERED=1
 

@@ -27,13 +27,14 @@ services:
       - .env
     environment:
       - NODE_ENV=${NODE_ENV:-development}
-      - API_URL=${API_URL:-http://127.0.0.1:8000}
+      # Default API_URL for container-to-container should use the backend service name
+      - API_URL=${API_URL:-http://backend:${BACKEND_PORT:-8000}}
       - FRONTEND_PORT=${FRONTEND_PORT:-4173}
     depends_on:
       - backend
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "node -e \"const net=require('net');const s=new net.Socket();s.setTimeout(1000);s.on('error',()=>process.exit(1));s.connect(${FRONTEND_PORT:-4173},'127.0.0.1',()=>process.exit(0));\""]
+      test: ["CMD-SHELL", "node -e \"const net=require('net');const s=new net.Socket();s.setTimeout(1000);s.on('error',()=>process.exit(1));s.connect(process.env.FRONTEND_PORT||${FRONTEND_PORT:-4173},'127.0.0.1',()=>process.exit(0));\""]
       interval: 30s
       timeout: 5s
       retries: 3
