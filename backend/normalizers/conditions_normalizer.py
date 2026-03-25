@@ -14,8 +14,19 @@ This module intentionally contains no runtime wiring or registration.
 
 from typing import Any, Dict
 
-from backend.normalizers.base import NormalizationError
-from backend.schemas.conditions import Conditions
+# Import compatibility: prefer local package imports when running as a
+# script (where `sys.path[0]` may be `backend/` and packages are
+# available as `normalizers`/`schemas`), otherwise fall back to
+# package-prefixed imports.
+try:
+    from normalizers.base import NormalizationError
+except Exception:
+    from backend.normalizers.base import NormalizationError
+
+try:
+    from schemas.conditions import Conditions
+except Exception:
+    from backend.schemas.conditions import Conditions
 
 
 def normalize(payload: Any) -> Dict[str, Any]:
