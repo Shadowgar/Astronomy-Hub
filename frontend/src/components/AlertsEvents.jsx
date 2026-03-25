@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
+import GlassPanel from './components/ui/GlassPanel'
+import SectionHeader from './components/ui/SectionHeader'
 
 const MAX_ALERTS = 3
 
@@ -34,8 +36,8 @@ export default function AlertsEvents({ locationQuery = '' }) {
   }, [locationQuery])
 
   return (
-    <div className="component alerts-events">
-      <h2>Alerts / Events</h2>
+    <GlassPanel className="component alerts-events">
+      <SectionHeader title="Alerts / Events" />
 
       {loading && <p className="loading">Loading alerts…</p>}
       {error && <p className="error">Error loading alerts: {error}</p>}
@@ -52,6 +54,6 @@ export default function AlertsEvents({ locationQuery = '' }) {
           ))}
         </ol>
       )}
-    </div>
+    </GlassPanel>
   )
 }
