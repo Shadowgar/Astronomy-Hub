@@ -12,11 +12,9 @@ from typing import Callable, Dict
 # mode) and when running scripts with CWD set to the repo root (script
 # mode where `sys.path[0]` may be `backend/`).
 try:
-    # script execution mode: `backend/` may be the package root
-    from conditions_normalizer import normalize as _conditions_normalize
-    class _CondModule:
-        normalize = staticmethod(_conditions_normalize)
-    conditions_normalizer = _CondModule
+    # script execution mode: `backend/` may be the package root, and the
+    # normalizers package will be available as `normalizers`.
+    from normalizers import conditions_normalizer
 except Exception:
     # package execution mode
     from backend.normalizers import conditions_normalizer
