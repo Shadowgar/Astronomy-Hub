@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import GlassPanel from './ui/GlassPanel'
 import SectionHeader from './ui/SectionHeader'
+import RowItem from './ui/RowItem'
 
 const MAX_PASSES = 5
 
@@ -46,11 +47,17 @@ export default function SatellitePasses({ locationQuery = '' }) {
         <ul>
           {passes.length === 0 && <li>No upcoming passes</li>}
           {passes.map((p, idx) => (
-            <li key={(p.object_name || '') + (p.start_time || '') || idx} className="pass-item">
-              <strong>{p.object_name}</strong>
-              <div className="small">Visible: {p.visibility}</div>
-              <div className="small">Peak elevation: {p.max_elevation_deg}{p.max_elevation_deg ? '°' : ''}</div>
-              <div className="small">Path: {p.start_direction} → {p.end_direction}</div>
+            <li key={(p.object_name || '') + (p.start_time || '') || idx} style={{ listStyle: 'none' }}>
+              <RowItem
+                left={(
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                    <div><strong>{p.object_name}</strong></div>
+                    <div className="small">Visible: {p.visibility}</div>
+                    <div className="small">Peak elevation: {p.max_elevation_deg}{p.max_elevation_deg ? '°' : ''}</div>
+                    <div className="small">Path: {p.start_direction} → {p.end_direction}</div>
+                  </div>
+                )}
+              />
             </li>
           ))}
         </ul>
