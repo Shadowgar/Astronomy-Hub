@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
-import TargetRow from './TargetRow'
 import GlassPanel from './ui/GlassPanel'
 import SectionHeader from './ui/SectionHeader'
 import RowItem from './ui/RowItem'

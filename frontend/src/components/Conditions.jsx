@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useCallback } from 'react'
 import logFetch from '../lib/logFetch'
-import ModuleShell from './ModuleShell'
 import GlassPanel from './ui/GlassPanel'
 import SectionHeader from './ui/SectionHeader'
 import logger from '../lib/logger'
