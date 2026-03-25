@@ -9,7 +9,7 @@ COPY . ./backend/
 
 # Install runtime dependencies from requirements.txt
 RUN python3 -m pip install --upgrade pip && \
-	python3 -m pip install --no-cache-dir -r backend/requirements.txt
+	python3 -m pip install --no-cache-dir -r /app/backend/requirements.txt
 
 ENV PYTHONUNBUFFERED=1
 
