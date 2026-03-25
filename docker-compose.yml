@@ -1,40 +1,41 @@
 version: "3.8"
+
 services:
   backend:
     build:
       context: ./backend
-    ports:
-      - "${BACKEND_PORT:-8000}:${BACKEND_PORT:-8000}"
     env_file:
       - .env
     environment:
-      - PORT=${BACKEND_PORT:-8000}
-      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      HOST: 0.0.0.0
+      PORT: ${BACKEND_PORT:-8000}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    ports:
+      - "${BACKEND_PORT:-8000}:${BACKEND_PORT:-8000}"
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "python3 -c \"import socket,sys;s=socket.socket();s.settimeout(1);sys.exit(0) if s.connect_ex(('127.0.0.1', int(${BACKEND_PORT:-8000})))==0 else sys.exit(1)\""]
-      interval: 30s
+      test: ["CMD-SHELL", "python3 -c \"import socket,sys;s=socket.socket();s.settimeout(1);sys.exit(0) if s.connect_ex(('127.0.0.1', int('${BACKEND_PORT:-8000}')))==0 else sys.exit(1)\""]
+      interval: 20s
       timeout: 5s
-      retries: 3
+      retries: 5
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    ports:
-      - "${FRONTEND_PORT:-4173}:${FRONTEND_PORT:-4173}"
     env_file:
       - .env
     environment:
-      - NODE_ENV=${NODE_ENV:-development}
-      # Default API_URL for container-to-container should use the backend service name
-      - API_URL=${API_URL:-http://backend:${BACKEND_PORT:-8000}}
-      - FRONTEND_PORT=${FRONTEND_PORT:-4173}
+      NODE_ENV: ${NODE_ENV:-development}
+      FRONTEND_PORT: ${FRONTEND_PORT:-4173}
+      VITE_DEV_PROXY_TARGET: http://backend:${BACKEND_PORT:-8000}
+    ports:
+      - "${FRONTEND_PORT:-4173}:${FRONTEND_PORT:-4173}"
     depends_on:
       - backend
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "node -e \"const net=require('net');const s=new net.Socket();s.setTimeout(1000);s.on('error',()=>process.exit(1));s.connect(process.env.FRONTEND_PORT||${FRONTEND_PORT:-4173},'127.0.0.1',()=>process.exit(0));\""]
-      interval: 30s
+      test: ["CMD-SHELL", "node -e \"const http=require('http');http.get('http://127.0.0.1:'+(process.env.FRONTEND_PORT||4173),res=>process.exit(res.statusCode<500?0:1)).on('error',()=>process.exit(1))\""]
+      interval: 20s
       timeout: 5s
-      retries: 3
+      retries: 5

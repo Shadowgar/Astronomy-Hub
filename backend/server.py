@@ -451,8 +451,12 @@ def run(host="127.0.0.1", port=8000):
 
 if __name__ == "__main__":
     # Allow overriding the bind port via the PORT env var for local testing.
+    # Allow overriding the bind host/port via the HOST and PORT env vars for
+    # Docker and local testing. HOST must be a plain host (e.g. 0.0.0.0), not
+    # a URL.
+    host = os.environ.get('HOST', '127.0.0.1')
     try:
         port = int(os.environ.get('PORT', '8000'))
     except Exception:
         port = 8000
-    run(port=port)
+    run(host=host, port=port)
