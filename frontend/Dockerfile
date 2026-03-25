@@ -4,7 +4,8 @@ WORKDIR /app
 # Install dependencies
 # When Compose builds with context `./frontend`, package files are at the context root
 COPY package*.json ./
-RUN npm ci --silent
+# Use error loglevel to surface install errors during Docker build
+RUN npm ci --loglevel=error
 
 # Copy source and build (context is frontend/)
 COPY . .
