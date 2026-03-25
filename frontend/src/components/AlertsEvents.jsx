@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
-import GlassPanel from './components/ui/GlassPanel'
-import SectionHeader from './components/ui/SectionHeader'
+import React, { useEffect, useState } from "react";
+import GlassPanel from "./ui/GlassPanel";
+import SectionHeader from "./ui/SectionHeader";
 
 const MAX_ALERTS = 3
 
