@@ -59,7 +59,7 @@ export default function RecommendedTargets({ locationQuery = '' }) {
               )
 
               const left = (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                   <div className="target-row__icon" aria-hidden>
                     {t.imageUrl ? (
                       <img
@@ -73,7 +73,7 @@ export default function RecommendedTargets({ locationQuery = '' }) {
                     )}
                   </div>
 
-                  <div className="target-row__content">
+                  <div className="target-row__content" style={{ minWidth: 0 }}>
                     <InlineExpansion summary={summary} defaultCollapsed={true}>
                       <TargetDetail target={t} />
                     </InlineExpansion>
