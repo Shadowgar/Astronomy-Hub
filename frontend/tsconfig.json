@@ -4,6 +4,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
     "baseUrl": "./src"
