@@ -20,6 +20,9 @@ from conditions_data import MOCK_CONDITIONS
 from targets_data import MOCK_TARGETS
 from passes_data import MOCK_PASSES
 from alerts_data import MOCK_ALERTS
+from backend.normalizers import registry
+from backend.normalizers.base import NormalizationError
+from backend.schemas.response_envelope import ResponseEnvelope
 
 logger = get_logger("backend.server")
 
@@ -88,6 +91,21 @@ class SimpleHandler(BaseHTTPRequestHandler):
                     logger.exception(f"failed to set header {k}")
         self.end_headers()
         self.wfile.write(payload)
+
+    def _build_envelope(self, status_str, data=None, meta=None, error=None):
+        """Build and validate a ResponseEnvelope, returning a plain dict.
+
+        Raises Exception when the envelope cannot be validated.
+        """
+        env = {
+            "status": status_str,
+            "data": data if data is not None else None,
+            "meta": meta if meta is not None else {},
+            "error": error if error is not None else None,
+        }
+        # Validate with authoritative model
+        validated = ResponseEnvelope.parse_obj(env)
+        return validated.dict()
 
     def do_GET(self):
         start = time.time()
@@ -186,31 +204,62 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         else:
                             resp['location_label'] = 'Custom Location'
 
-                        # Attempt to normalize through the normalizer stub, but
-                        # fall back to the original mock on any error.
+
+                        # Use the Package 2 registry to discover the Conditions
+                        # normalizer and apply it. Treat missing registration or
+                        # normalization errors as module assembly failures.
                         try:
-                            from backend.normalizers.conditions_normalizer import normalize_to_contract
-                            try:
-                                normalized = normalize_to_contract(resp)
-                                if isinstance(normalized, dict):
-                                    resp = normalized
-                                    logger.info(f"req={request_id} normalize=ok")
-                                else:
-                                    logger.info(f"req={request_id} normalize=skip type={type(normalized)}")
-                            except Exception:
-                                logger.exception(f"req={request_id} normalize.fail")
+                            norm = registry.get("conditions")
+                        except KeyError:
+                            logger.exception(f"req={request_id} module.conditions.registry.miss")
+                            err_env = self._build_envelope(
+                                "error",
+                                data=None,
+                                meta={},
+                                error={
+                                    'code': 'module_error',
+                                    'message': 'no normalizer registered for conditions',
+                                    'details': [ { 'module': 'conditions' } ]
+                                }
+                            )
+                            self._send_json(err_env, status=500)
+                            status = 500
+                            return
+
+                        try:
+                            normalized = norm(resp)
+                            if isinstance(normalized, dict):
+                                resp = normalized
+                                logger.info(f"req={request_id} normalize=ok")
+                            else:
+                                logger.info(f"req={request_id} normalize=skip type={type(normalized)}")
+                        except (NormalizationError, KeyError, TypeError) as e:
+                            logger.exception(f"req={request_id} normalize.fail")
+                            err_env = self._build_envelope(
+                                "error",
+                                data=None,
+                                meta={},
+                                error={
+                                    'code': 'normalization_error',
+                                    'message': str(e),
+                                }
+                            )
+                            self._send_json(err_env, status=500)
+                            status = 500
+                            return
                         except Exception:
-                            # Normalization failure should be treated as a module-level
-                            # assembly error: surface a controlled error for this module.
                             logger.exception(f"req={request_id} module.conditions.assembly.fail")
-                            err_payload = {
-                                'error': {
+                            err_env = self._build_envelope(
+                                "error",
+                                data=None,
+                                meta={},
+                                error={
                                     'code': 'module_error',
                                     'message': 'failed to assemble conditions payload',
                                     'details': [ { 'module': 'conditions' } ]
                                 }
-                            }
-                            self._send_json(err_payload, status=500)
+                            )
+                            self._send_json(err_env, status=500)
                             status = 500
                             return
 
@@ -224,12 +273,29 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         except Exception:
                             logger.exception(f"req={request_id} cache.set.fail key={cache_key}")
 
-                        # Return the fresh response and include meta indicating not-cached
-                        resp['meta'] = {
+                        # Return the fresh response wrapped in the ResponseEnvelope
+                        meta = {
                             'cached': False,
                             'cached_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
                         }
-                        self._send_json(resp)
+                        try:
+                            envelope = self._build_envelope("ok", data=resp, meta=meta, error=None)
+                        except Exception:
+                            logger.exception(f"req={request_id} envelope.validation.fail")
+                            err_env = self._build_envelope(
+                                "error",
+                                data=None,
+                                meta={},
+                                error={
+                                    'code': 'envelope_validation_failed',
+                                    'message': 'response envelope validation failed'
+                                }
+                            )
+                            self._send_json(err_env, status=500)
+                            status = 500
+                            return
+
+                        self._send_json(envelope)
                         status = 200
                 except Exception:
                     # Module-level assembly failure: return a standard error contract
