@@ -7,6 +7,10 @@ WORKDIR /app
 # the current runtime path `backend/server.py` used by the repository.
 COPY . ./backend/
 
+# Install runtime dependencies from requirements.txt
+RUN python3 -m pip install --upgrade pip && \
+	if [ -f backend/requirements.txt ]; then python3 -m pip install --no-cache-dir -r backend/requirements.txt; fi
+
 ENV PYTHONUNBUFFERED=1
 
 # Expose default port used by the backend (server.py reads PORT env var)
