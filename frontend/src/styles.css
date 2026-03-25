@@ -105,7 +105,7 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
   --status-bg: rgba(47,129,247,0.15);
   --status-fg: #e6edf3;
   --button-border: #30363d;
-.  background: var(--page-bg);
+  background: var(--page-bg);
   /* Deep-space backdrop: subtle radial nebula + near-black field */
   background-image: radial-gradient(circle at 15% 10%, rgba(10,30,60,1) 0%, rgba(6,12,24,1) 35%, #04050a 70%, #010409 100%);
   background-blend-mode: overlay;
