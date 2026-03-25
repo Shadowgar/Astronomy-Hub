@@ -8,7 +8,6 @@ import MoonSummary from './components/MoonSummary'
 import useLocationState from './state/locationState'
 import Starfield from './components/Starfield'
 import AppShell from "./components/layout/AppShell"
-import LocationSelector from './components/LocationSelector/LocationSelector'
 import ContentGrid from "./components/layout/ContentGrid"
 import ObservingHero from "./components/hero/ObservingHero"
 
@@ -226,7 +225,6 @@ export default function App() {
           </span>
         </div>
         </header>
-        <ObservingHero />
         
 
         <ContentGrid>
