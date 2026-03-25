@@ -2,6 +2,8 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import logFetch from '../lib/logFetch'
 import ModuleShell from './ModuleShell'
+import GlassPanel from './ui/GlassPanel'
+import SectionHeader from './ui/SectionHeader'
 import logger from '../lib/logger'
 
 function fmtTimeShort(iso) {
@@ -75,25 +77,28 @@ export default function Conditions({ locationQuery = '' }) {
 
   if (loading) {
     return (
-      <ModuleShell title="Conditions" stale={false} onRetry={handleRetry}>
+      <GlassPanel className="module conditions-module panel">
+        <SectionHeader title="Conditions" />
         <p className="loading">Loading conditions…</p>
-      </ModuleShell>
+      </GlassPanel>
     )
   }
 
   if (error) {
     return (
-      <ModuleShell title="Conditions" stale={false} onRetry={handleRetry}>
+      <GlassPanel className="module conditions-module panel">
+        <SectionHeader title="Conditions" action={<button onClick={handleRetry}>Retry</button>} />
         <p className="error">Error loading conditions: {error}</p>
-      </ModuleShell>
+      </GlassPanel>
     )
   }
 
   if (!data) {
     return (
-      <ModuleShell title="Conditions" stale={false} onRetry={handleRetry}>
+      <GlassPanel className="module conditions-module panel">
+        <SectionHeader title="Conditions" action={<button onClick={handleRetry}>Retry</button>} />
         <p>No data available</p>
-      </ModuleShell>
+      </GlassPanel>
     )
   }
 
@@ -110,7 +115,8 @@ export default function Conditions({ locationQuery = '' }) {
 
   // Compact, chip-style signal rows for quick scanning
   return (
-    <ModuleShell title="Conditions" stale={staleProp} onRetry={handleRetry}>
+    <GlassPanel className="module conditions-module panel">
+      <SectionHeader title="Conditions" subtitle={staleProp ? 'Partial data' : undefined} />
       <div className="conditions-body" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <strong style={{ fontSize: '1rem' }}>{location_label || 'Unknown location'}</strong>
@@ -130,6 +136,6 @@ export default function Conditions({ locationQuery = '' }) {
           ) : null}
         </div>
       </div>
-    </ModuleShell>
+    </GlassPanel>
   )
 }
