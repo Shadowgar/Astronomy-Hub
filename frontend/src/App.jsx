@@ -100,7 +100,18 @@ export default function App() {
 
   // build location query string for children when activeLocation is custom
   let locationQuery = ''
-  if (activeLocation !== ORAS) {
+  const isOrasLocation = (() => {
+    if (!activeLocation) return false
+    const aLat = Number(activeLocation.latitude)
+    const aLon = Number(activeLocation.longitude)
+    const aElev = activeLocation.elevation_ft === undefined || activeLocation.elevation_ft === null ? null : Number(activeLocation.elevation_ft)
+    const oLat = Number(ORAS.latitude)
+    const oLon = Number(ORAS.longitude)
+    const oElev = ORAS.elevation_ft === undefined || ORAS.elevation_ft === null ? null : Number(ORAS.elevation_ft)
+    return aLat === oLat && aLon === oLon && aElev === oElev
+  })()
+
+  if (!isOrasLocation) {
     const lat = encodeURIComponent(activeLocation.latitude)
     const lon = encodeURIComponent(activeLocation.longitude)
     locationQuery = `?lat=${lat}&lon=${lon}`
@@ -116,7 +127,7 @@ export default function App() {
         <h1>Astronomy Hub</h1>
         <div className="header-controls">
           <div className="location-section">
-            <span className="location-label">Location: {activeLocation === ORAS ? ORAS.label : `Custom Location (${activeLocation.latitude.toFixed(5)}, ${activeLocation.longitude.toFixed(5)})`}</span>
+            <span className="location-label">Location: {isOrasLocation ? ORAS.label : `Custom Location (${activeLocation.latitude.toFixed(5)}, ${activeLocation.longitude.toFixed(5)})`}</span>
 
             <div className="location-inputs">
               <input
