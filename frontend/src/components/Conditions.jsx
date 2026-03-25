@@ -5,6 +5,11 @@ import GlassPanel from './ui/GlassPanel'
 import SectionHeader from './ui/SectionHeader'
 import logger from '../lib/logger'
 
+/**
+ * @typedef {import('../types/conditions').Conditions} Conditions
+ * @typedef {import('../types/conditions').DarknessWindow} DarknessWindow
+ */
+
 function fmtTimeShort(iso) {
   try {
     if (!iso) return 'N/A'
@@ -15,10 +20,14 @@ function fmtTimeShort(iso) {
   }
 }
 
+/**
+ * @param {{locationQuery?: string}} props
+ * @returns {JSX.Element}
+ */
 export default function Conditions({ locationQuery = '' }) {
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [data, setData] = useState(null)
+  const [error, setError] = useState(/** @type {string | null} */ (null))
+  const [data, setData] = useState(/** @type {Conditions | null} */ (null))
 
   const simulatePartial = (() => {
     try {
