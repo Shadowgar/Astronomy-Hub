@@ -25,4 +25,6 @@ Acceptance checklist (must pass to close Step 2)
 - A clear rollout boundary paragraph exists that limits implementation to token files + single root import (Step 3) and defers component changes.
 - No component markup changes, no Tailwind files, and no large CSS rewrites were committed as part of Step 2.
 
+Canonical token file (Step 3): `frontend/src/styles/tokens.css` will serve as the minimal, canonical token bridge imported at app root.
+
 End of decision.
