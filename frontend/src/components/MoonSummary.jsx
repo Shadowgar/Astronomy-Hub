@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
+import GlassPanel from './ui/GlassPanel'
+import SectionHeader from './ui/SectionHeader'
 
 function fmtTimeShort(iso) {
   try {
@@ -43,28 +45,28 @@ export default function MoonSummary({ locationQuery = '' }) {
 
   if (loading) {
     return (
-      <div className="component moon-summary">
-        <h3>Moon Summary</h3>
+      <GlassPanel className="component moon-summary">
+        <SectionHeader title="Moon Summary" />
         <p className="loading">Loading moon summary…</p>
-      </div>
+      </GlassPanel>
     )
   }
 
   if (error) {
     return (
-      <div className="component moon-summary">
-        <h3>Moon Summary</h3>
+      <GlassPanel className="component moon-summary">
+        <SectionHeader title="Moon Summary" />
         <p className="error">Error loading moon summary: {error}</p>
-      </div>
+      </GlassPanel>
     )
   }
 
   if (!data) {
     return (
-      <div className="component moon-summary">
-        <h3>Moon Summary</h3>
+      <GlassPanel className="component moon-summary">
+        <SectionHeader title="Moon Summary" />
         <p>No data available</p>
-      </div>
+      </GlassPanel>
     )
   }
 
@@ -77,9 +79,9 @@ export default function MoonSummary({ locationQuery = '' }) {
   const note = summary ? ` Notes: ${summary}` : ''
 
   return (
-    <div className="component moon-summary">
-      <h3>Moon Summary</h3>
+    <GlassPanel className="component moon-summary">
+      <SectionHeader title="Moon Summary" />
       <p className="moon-line"><strong>{moon_phase || 'Unknown'}</strong> — Peak darkness {darknessText}.{note}</p>
-    </div>
+    </GlassPanel>
   )
 }
