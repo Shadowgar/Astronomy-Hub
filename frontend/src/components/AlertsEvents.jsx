@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GlassPanel from "./ui/GlassPanel";
 import SectionHeader from "./ui/SectionHeader";
+import RowItem from './ui/RowItem'
 
 const MAX_ALERTS = 3
 
@@ -45,10 +46,18 @@ export default function AlertsEvents({ locationQuery = '' }) {
         <ol>
           {alerts.length === 0 && <li>No alerts</li>}
           {alerts.map((a, idx) => (
-            <li key={a.title || idx} className="alert-item">
-              <strong>{a.title}</strong>
-              <div className="small muted-meta">{a.category} · Relevance: {a.relevance} · Priority: {a.priority}</div>
-              <p>{a.summary}</p>
+            <li key={a.title || idx} style={{ listStyle: 'none' }}>
+              <RowItem
+                left={(
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                    <div>
+                      <strong>{a.title}</strong>
+                    </div>
+                    <div className="small muted-meta">{a.category} · Relevance: {a.relevance} · Priority: {a.priority}</div>
+                    <div style={{ marginTop: 'var(--space-2)' }}>{a.summary}</div>
+                  </div>
+                )}
+              />
             </li>
           ))}
         </ol>
