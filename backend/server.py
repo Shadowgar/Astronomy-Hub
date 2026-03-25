@@ -20,9 +20,22 @@ from conditions_data import MOCK_CONDITIONS
 from targets_data import MOCK_TARGETS
 from passes_data import MOCK_PASSES
 from alerts_data import MOCK_ALERTS
-from backend.normalizers import registry
-from backend.normalizers.base import NormalizationError
-from backend.schemas.response_envelope import ResponseEnvelope
+
+# Normalizer imports: prefer local-module import when running the script
+# (sys.path[0] may be backend/) but fall back to package-style imports.
+try:
+    from normalizers import registry
+    from normalizers.base import NormalizationError
+except Exception:
+    from backend.normalizers import registry
+    from backend.normalizers.base import NormalizationError
+
+# Response envelope import: prefer `schemas.response_envelope` when
+# running as a script, otherwise use package-prefixed import.
+try:
+    from schemas.response_envelope import ResponseEnvelope
+except Exception:
+    from backend.schemas.response_envelope import ResponseEnvelope
 
 logger = get_logger("backend.server")
 
