@@ -33,3 +33,9 @@ If Compose is not available in your environment, you can run the backend directl
 ```bash
 python3 backend/server.py
 ```
+
+Note: An additive FastAPI entrypoint now exists at `backend/app/main.py`.
+It exposes the minimalist endpoints `/`, `/health`, and `/api/conditions` for
+incremental migration and smoke-testing. The legacy runtime (`backend/server.py`)
+is still the primary runtime for Phase 2.5 — FastAPI is being introduced
+incrementally and does not replace the existing server yet.
