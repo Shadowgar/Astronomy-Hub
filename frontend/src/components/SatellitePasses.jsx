@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
+import GlassPanel from './ui/GlassPanel'
+import SectionHeader from './ui/SectionHeader'
 
 const MAX_PASSES = 5
 
@@ -34,8 +36,8 @@ export default function SatellitePasses({ locationQuery = '' }) {
   }, [locationQuery])
 
   return (
-    <div className="component satellite-passes">
-      <h2>Satellite Passes</h2>
+    <GlassPanel className="component satellite-passes">
+      <SectionHeader title="Satellite Passes" />
 
       {loading && <p className="loading">Loading passes…</p>}
       {error && <p className="error">Error loading passes: {error}</p>}
@@ -53,6 +55,6 @@ export default function SatellitePasses({ locationQuery = '' }) {
           ))}
         </ul>
       )}
-    </div>
+    </GlassPanel>
   )
 }
