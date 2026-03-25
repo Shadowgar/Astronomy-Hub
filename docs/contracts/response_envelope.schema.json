@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Response Envelope",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": { "type": ["object", "null"], "additionalProperties": true },
+    "meta": { "type": ["object", "null"], "additionalProperties": true },
+    "error": { "type": ["object", "null"], "additionalProperties": true }
+  },
+  "required": ["status"],
+  "additionalProperties": false
+}
