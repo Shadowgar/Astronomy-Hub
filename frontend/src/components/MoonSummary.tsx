@@ -49,7 +49,6 @@ export default function MoonSummary({ locationQuery = '' }: MoonSummaryProps) {
   if (loading) {
     return (
       <GlassPanel className="component moon-summary">
-        {/* @ts-ignore allow missing optional props on JS component */}
         <SectionHeader title="Moon Summary" />
         <p className="loading">Loading moon summary…</p>
       </GlassPanel>
@@ -59,7 +58,6 @@ export default function MoonSummary({ locationQuery = '' }: MoonSummaryProps) {
   if (error) {
     return (
       <GlassPanel className="component moon-summary">
-        {/* @ts-ignore allow missing optional props on JS component */}
         <SectionHeader title="Moon Summary" />
         <p className="error">Error loading moon summary: {error}</p>
       </GlassPanel>
@@ -69,7 +67,6 @@ export default function MoonSummary({ locationQuery = '' }: MoonSummaryProps) {
   if (!data) {
     return (
       <GlassPanel className="component moon-summary">
-        {/* @ts-ignore allow missing optional props on JS component */}
         <SectionHeader title="Moon Summary" />
         <p>No data available</p>
       </GlassPanel>
@@ -86,7 +83,6 @@ export default function MoonSummary({ locationQuery = '' }: MoonSummaryProps) {
 
   return (
     <GlassPanel className="component moon-summary">
-      {/* @ts-ignore allow missing optional props on JS component */}
       <SectionHeader title="Moon Summary" />
       <div className="moon-line" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-3)' }}>
