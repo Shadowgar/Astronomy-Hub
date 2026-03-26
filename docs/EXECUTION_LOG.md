@@ -128,6 +128,50 @@ Aligned with:
 PASS
 
 
+## Step 9 — CHANGELOG Page: Step 9 (Basic Styling Pass)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Apply a minimal styling pass to the Progress page: spacing, typography hierarchy, and light card grouping to improve readability without redesigning the page.
+
+### Files Changed
+
+* frontend/src/pages/Progress.jsx
+
+### What Was Done
+
+* Added container constraints (max-width, centered layout), a system font stack, adjusted `h1`/`h2` sizes and colors, and slightly increased item title sizes across sections. Changes are inline and minimal.
+
+### Why It Was Done
+
+To implement `CHANGELOG_PAGE_TODO.md` Step 9 with a minimal visual improvement pass that preserves layout and content while improving readability on mobile and desktop.
+
+### Verification
+
+* Commands run:
+
+```bash
+cd /home/rocco/Astronomy-Hub
+docker compose build frontend
+docker compose up -d frontend
+node frontend/scripts/inspect_progress_text.js http://localhost:4173/progress
+```
+
+* Observed results:
+
+  - Frontend container rebuilt and restarted.
+  - Inspector output showed headings and section titles present; item titles appear with slightly larger text in the page output.
+  - Raw JSON remains rendered for verification.
+
+### Result
+
+PASS
+
+
 ## Step 8 — CHANGELOG Page: Step 8 (Roadmap Section)
 
 ### Phase
