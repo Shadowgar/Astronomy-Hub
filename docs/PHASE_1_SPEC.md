@@ -72,7 +72,6 @@ Must display:
   * satellites
   * planets
   * deep sky objects
-  * flights
 
 ---
 
@@ -152,7 +151,6 @@ Must support:
 * satellite
 * planet
 * deep sky object
-* flight
 
 ---
 
@@ -196,13 +194,7 @@ Phase 1 uses **limited filters from each engine**:
 
 ---
 
-## 5.4 Flight Engine
-
-* above-horizon flights only
-
----
-
-## 5.5 Earth Engine
+## 5.4 Earth Engine
 
 * observing conditions only:
 
@@ -214,6 +206,8 @@ Phase 1 uses **limited filters from each engine**:
 
 ## ❗ NOT INCLUDED IN PHASE 1
 
+* flight engine
+* flights / aircraft tracking
 * full Earth map
 * solar engine
 * full solar system view
@@ -410,7 +404,7 @@ After Phase 1:
 This is where we expand into:
 
 * full engine exploration
-* Earth / Sun / Satellite systems
+* Earth / Sun / Satellite / Flight systems
 * filter expansion
 * real visual systems
 

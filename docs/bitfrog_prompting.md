@@ -35,7 +35,7 @@ docs/DOCUMENT_INDEX.md
 
 4. Then load execution + validation:
 
-* docs/PHASE_2_EXECUTION_TODO.md
+* docs/PHASE_1_BUILD_SEQUENCE.md
 * docs/VALIDATION_CHECKLIST.md
 * docs/env_setup.md
 
@@ -43,8 +43,8 @@ docs/DOCUMENT_INDEX.md
 
 # 📍 CURRENT PROJECT STATE (MANDATORY)
 
-* Active Phase: **Phase 2.5 — Backend Stabilization**
-* Current Workstream: **Phase 2.5C — FastAPI Migration**
+* Active Phase: **Phase 1 — Command Center (RESTARTED)**
+* Current Workstream: **Phase 1 — Sequenced Rebuild**
 
 ---
 
@@ -71,7 +71,7 @@ You MUST NOT:
 
 # ⚙️ EXECUTION RULES
 
-* Follow PHASE_2_EXECUTION_TODO.md EXACTLY
+* Follow PHASE_1_BUILD_SEQUENCE.md EXACTLY
 * Perform ONE step at a time
 * Use minimal diffs only
 * Verify after every step
@@ -104,7 +104,7 @@ Scope → Engine → Filter → Scene → Object → Detail
 
 You MUST:
 
-1. State which step from PHASE_2_EXECUTION_TODO.md you are executing
+1. State which step from PHASE_1_BUILD_SEQUENCE.md you are executing
 2. Explain the minimal change you will make
 3. Confirm it does not violate any rules
 
@@ -163,7 +163,12 @@ or
 * Forces BitFrog to load ALL critical docs
 * Prevents it from skipping architecture
 * Prevents feature creep
-* Keeps it inside Phase 2.5
+* Keeps it inside Phase 1
 * Keeps changes small and controlled
+
+---
+
+Flights are excluded from Phase 1.
+The Flight Engine first appears in Phase 2.
 
 ---

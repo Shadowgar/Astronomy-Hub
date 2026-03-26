@@ -56,6 +56,7 @@ The following documents are considered authoritative and must be followed:
 * `docs/DATA_CONTRACTS.md`
 * `docs/INGESTION_STRATEGY.md`
 * `docs/PHASE_1_SPEC.md`
+* `docs/PHASE_1_BUILD_SEQUENCE.md`
 * `docs/PHASE_2_SPEC.md`
 * `docs/PHASE_2_5_SPEC.md`
 * `docs/PHASE_3_SPEC.md`
@@ -114,11 +115,8 @@ That means the immediate goal is:
 ## 6. CURRENT NEXT STEP
 
 ```text id="sstate005"
-Next practical step: audit the current codebase against rewritten Phase 1 requirements
-and determine:
-- what can be reused
-- what must be rewritten
-- what must be removed
+Next practical step: execute PHASE_1_BUILD_SEQUENCE.md beginning at Step 1
+and verify each step before continuing.
 ```
 
 ---

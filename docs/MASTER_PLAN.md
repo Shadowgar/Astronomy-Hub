@@ -114,7 +114,6 @@ Includes:
 * satellites
 * planets
 * deep sky (visible)
-* flights
 * basic conditions
 
 Outcome:
@@ -134,7 +133,7 @@ Includes:
 * Earth engine
 * Solar engine
 * Satellite engine
-* Flight engine
+* Flight engine (first introduced here)
 * Solar system (basic)
 * Deep sky (basic)
 

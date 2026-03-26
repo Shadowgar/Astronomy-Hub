@@ -64,10 +64,13 @@ Above Me       (Phase 1 retained)
 Earth          (NEW)
 Sun            (NEW)
 Satellites     (NEW)
-Flights        (NEW)
+Flights        (NEW - first introduced in Phase 2)
 Solar System   (NEW - simplified)
 Deep Sky       (NEW - limited)
 ```
+
+Flight tracking is excluded from Phase 1.
+It enters the product for the first time in the dedicated Flights scope in Phase 2.
 
 ---
 

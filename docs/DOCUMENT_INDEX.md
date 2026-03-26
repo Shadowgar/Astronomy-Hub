@@ -92,12 +92,14 @@ Defines how work is done and verified.
 ### Required
 
 * `PHASE_1_SPEC.md`
+* `PHASE_1_BUILD_SEQUENCE.md`
 * `PHASE_2_SPEC.md`
 * `PHASE_2_5_SPEC.md`
 * `PHASE_3_SPEC.md`
 * `PHASE_4_SPEC.md`
 * `PHASE_5_SPEC.md`
 * `PHASE_2_EXECUTION_TODO.md`
+* `PHASE_2_5_EXECUTION_TODO.md`
 * `VALIDATION_CHECKLIST.md`
 * `env_setup.md`
 
@@ -165,7 +167,9 @@ Read:
 
 ## Step 3 — Execute
 
-* follow PHASE_2_EXECUTION_TODO.md
+* follow the active phase execution document
+* use `PHASE_1_BUILD_SEQUENCE.md` when Phase 1 is active
+* use `PHASE_2_5_EXECUTION_TODO.md` when Phase 2.5 is active
 * perform minimal diffs
 * verify each step
 

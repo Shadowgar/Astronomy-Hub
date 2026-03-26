@@ -182,6 +182,7 @@ Rebuild Phase 1 implementation to match rewritten system architecture and UI des
 * correct scene rendering
 * correct interaction model
 * correct UI hierarchy
+* no Phase 2 flight scope leakage
 
 ---
 
@@ -189,28 +190,19 @@ Rebuild Phase 1 implementation to match rewritten system architecture and UI des
 
 ---
 
-## Phase 1 — Implementation Audit + Realignment
+## Phase 1 — Sequenced Rebuild
 
 ---
 
 ### Immediate Task
 
 ```text
-Audit existing codebase against:
-- PHASE_1_SPEC.md
-- ARCHITECTURE_OVERVIEW.md
-- ENGINE_SPEC.md
-- OBJECT_MODEL.md
-- UI_INFORMATION_ARCHITECTURE.md
+Execute PHASE_1_BUILD_SEQUENCE.md starting at Step 1.
 ```
 
----
-
-### Determine
-
-* what can be reused
-* what must be modified
-* what must be removed
+The implementation audit is complete.
+The current task is to rebuild Phase 1 in the defined order,
+verifying each step before proceeding.
 
 ---
 

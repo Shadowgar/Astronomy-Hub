@@ -42,7 +42,7 @@ All work must follow:
 ## Active Phase
 
 ```text
-Phase 2.5 — Backend Stabilization
+Phase 1 — Command Center (RESTARTED)
 ```
 
 ---
@@ -50,7 +50,7 @@ Phase 2.5 — Backend Stabilization
 ## Current Workstream
 
 ```text
-Phase 2.5C — FastAPI Migration
+Phase 1 — Sequenced Rebuild
 ```
 
 ---
@@ -62,6 +62,7 @@ Phase 2.5C — FastAPI Migration
 * frontend + backend run
 * architecture has been rewritten
 * data contracts are defined
+* Phase 1 audit has been completed
 
 ---
 
@@ -72,14 +73,15 @@ Phase 2.5C — FastAPI Migration
 * contracts not enforced
 * UI is misaligned with architecture
 * frontend compensates for backend
+* authoritative docs previously disagreed on current phase and flight scope
 
 ---
 
 # 3. 🎯 CURRENT OBJECTIVE
 
 ```text
-Stabilize the backend into a contract-driven FastAPI system
-WITHOUT introducing new features
+Rebuild the Phase 1 command center in a controlled order
+without Phase 2 leakage
 ```
 
 ---
@@ -90,20 +92,20 @@ WITHOUT introducing new features
 
 ## Backend
 
-* introduce FastAPI structure
-* refactor existing endpoints
-* implement normalization layer
-* enforce data contracts
-* implement caching
-* stabilize APIs
+* implement the canonical Phase 1 scene endpoint
+* implement the canonical Phase 1 object detail endpoint
+* normalize limited Phase 1 engine outputs
+* enforce data contracts for Phase 1
+* keep backend as the data authority
 
 ---
 
 ## Frontend
 
-* make minimal adjustments required to support backend
-* remove data patching logic
-* align with contracts
+* build the Phase 1 command-center shell
+* render the Above Me scene from backend-owned data
+* implement object detail flow
+* align UI behavior with the Phase 1 information architecture
 
 ---
 
@@ -112,6 +114,7 @@ WITHOUT introducing new features
 * improve reliability
 * improve consistency
 * reduce ambiguity
+* execute `PHASE_1_BUILD_SEQUENCE.md` one step at a time
 
 ---
 
@@ -122,12 +125,10 @@ WITHOUT introducing new features
 ## Strictly Forbidden
 
 * adding new features
-* adding new engines
-* adding new scopes
-* implementing Phase 3+ functionality
-* redesigning UI
-* introducing visualization upgrades
-* expanding product scope
+* adding Phase 2 scopes
+* introducing flight tracking in Phase 1
+* implementing Phase 2+ functionality
+* expanding product scope beyond Phase 1
 
 ---
 
@@ -195,10 +196,11 @@ All data must conform to DATA_CONTRACTS.md
 
 ```text
 1. Read relevant document(s)
-2. Plan minimal change
-3. Implement small step
-4. Verify result
-5. Report outcome
+2. Check PHASE_1_BUILD_SEQUENCE.md
+3. Plan minimal change
+4. Implement one step
+5. Verify result
+6. Report outcome
 ```
 
 ---
@@ -222,8 +224,9 @@ If unsure:
 Check:
 1. PROJECT_STATE.md
 2. MASTER_PLAN.md
-3. ARCHITECTURE_OVERVIEW.md
-4. DATA_CONTRACTS.md
+3. PHASE_1_BUILD_SEQUENCE.md
+4. ARCHITECTURE_OVERVIEW.md
+5. DATA_CONTRACTS.md
 ```
 
 ---
