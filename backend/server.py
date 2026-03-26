@@ -89,6 +89,63 @@ def _validate_suggestions(matches):
     return None
 
 
+def _slugify(name: str) -> str:
+    # minimal slug helper for ids
+    try:
+        s = str(name).strip().lower()
+        return s.replace(' ', '-').replace('/', '-').replace("'", '')
+    except Exception:
+        return str(uuid.uuid4())
+
+
+def _build_scene_from_targets(parsed_location=None):
+    """Construct a minimal SceneContract-compatible payload from targets."""
+    from datetime import datetime
+    try:
+        try:
+            from backend.targets_data import get_targets
+        except Exception:
+            # running as script fallback
+            import sys, os
+            repo_root = os.path.dirname(os.path.dirname(__file__))
+            if repo_root not in sys.path:
+                sys.path.insert(0, repo_root)
+            from backend.targets_data import get_targets
+
+        targets = get_targets(with_images=False)
+    except Exception:
+        targets = []
+
+    objects = []
+    for t in targets:
+        # Map available fields into the SceneObjectSummary shape
+        name = t.get('name') or 'unknown'
+        category = t.get('category')
+        # Only allow Phase 1 types
+        if category not in ('planet', 'deep_sky', 'satellite'):
+            # skip unknown categories in scene assembly
+            continue
+        obj = {
+            'id': _slugify(name),
+            'name': name,
+            'type': category,
+            'engine': 'mock',
+            'summary': t.get('reason') or t.get('summary') or '',
+            'position': None,
+            'visibility': None,
+        }
+        objects.append(obj)
+
+    scene = {
+        'scope': 'above_me',
+        'engine': 'mock',
+        'filter': 'default',
+        'timestamp': datetime.utcnow().isoformat() + 'Z',
+        'objects': objects,
+    }
+    return scene
+
+
 class SimpleHandler(BaseHTTPRequestHandler):
     def _send_json(self, obj, status=200, extra_headers=None):
         payload = json.dumps(obj, ensure_ascii=False).encode("utf-8")
@@ -322,6 +379,82 @@ class SimpleHandler(BaseHTTPRequestHandler):
                     }
                     self._send_json(err_payload, status=500)
                     status = 500
+            elif parsed.path == "/api/scene/above-me":
+                # Minimal Phase 1 scene assembly from mock targets
+                try:
+                    scene = _build_scene_from_targets(parsed_location)
+                    # Wrap in ResponseEnvelope
+                    try:
+                        envelope = self._build_envelope("ok", data=scene, meta={}, error=None)
+                    except Exception:
+                        logger.exception(f"req={request_id} scene.envelope.validation.fail")
+                        err_env = self._build_envelope(
+                            "error",
+                            data=None,
+                            meta={},
+                            error={'code': 'envelope_validation_failed', 'message': 'scene response invalid'}
+                        )
+                        self._send_json(err_env, status=500)
+                        status = 500
+                        return
+
+                    self._send_json(envelope)
+                    status = 200
+                except Exception:
+                    logger.exception(f"req={request_id} scene.assembly.fail")
+                    self._send_json({'error': {'code': 'module_error', 'message': 'failed to assemble scene'}} , status=500)
+                    status = 500
+
+            elif parsed.path.startswith("/api/object/"):
+                # Minimal object detail resolver: look up by slug id from targets-derived scene
+                try:
+                    obj_id = parsed.path[len("/api/object/"):].strip()
+                    if not obj_id:
+                        self._send_json({'error': {'code': 'invalid_request', 'message': 'missing object id'}}, status=400)
+                        status = 400
+                        return
+
+                    scene = _build_scene_from_targets(parsed_location)
+                    found = None
+                    for o in scene.get('objects', []):
+                        if o.get('id') == obj_id:
+                            found = o
+                            break
+
+                    if not found:
+                        self._send_json({'error': {'code': 'not_found', 'message': 'object not found'}}, status=404)
+                        status = 404
+                        return
+
+                    # Build a minimal ObjectDetail payload
+                    detail = {
+                        'id': found.get('id'),
+                        'name': found.get('name'),
+                        'type': found.get('type'),
+                        'engine': found.get('engine'),
+                        'summary': found.get('summary') or '',
+                        'description': found.get('summary') or '',
+                        'position': found.get('position'),
+                        'visibility': found.get('visibility'),
+                        'media': [],
+                        'related_objects': [],
+                    }
+                    try:
+                        env = self._build_envelope('ok', data=detail, meta={}, error=None)
+                    except Exception:
+                        logger.exception(f"req={request_id} object.envelope.validation.fail")
+                        err_env = self._build_envelope('error', data=None, meta={}, error={'code': 'envelope_validation_failed', 'message': 'object response invalid'})
+                        self._send_json(err_env, status=500)
+                        status = 500
+                        return
+
+                    self._send_json(env)
+                    status = 200
+                except Exception:
+                    logger.exception(f"req={request_id} object.detail.fail")
+                    self._send_json({'error': {'code': 'module_error', 'message': 'failed to assemble object detail'}}, status=500)
+                    status = 500
+
             elif parsed.path == "/api/targets":
                 # Return mock targets enriched with images when available.
                 try:
