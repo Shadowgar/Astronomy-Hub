@@ -210,6 +210,42 @@ You MUST:
 3. Confirm rule compliance
 
 ---
+## 🐳 DOCKER RUNTIME RULES (CRITICAL)
+
+Astronomy Hub may be running inside Docker.
+
+Before verifying frontend or backend behavior, you MUST determine:
+
+### 1. Runtime source
+
+- Is the app running via:
+  - local dev server (npm run dev)?
+  - OR Docker container?
+
+---
+
+### 2. If running in Docker
+
+You MUST check:
+
+- Does docker-compose use a bind mount for source code?
+
+IF NO (source is baked into image):
+→ Any source code change REQUIRES rebuild
+
+---
+
+### 3. Frontend rebuild rule
+
+If frontend is served via Docker and source is NOT bind-mounted:
+
+You MUST run:
+
+```bash
+docker compose build frontend
+docker compose up -d frontend
+```
+---
 
 # 🧾 CHANGELOG SYSTEM (EXECUTE + DEBUG ONLY)
 
