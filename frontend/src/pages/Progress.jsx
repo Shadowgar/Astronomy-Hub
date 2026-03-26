@@ -98,7 +98,7 @@ export default function Progress() {
         )}
       </section>
 
-      <pre style={{whiteSpace: 'pre-wrap', wordBreak: 'break-word', marginTop: 16}}>{JSON.stringify(publicChangelog, null, 2)}</pre>
+      {/* Raw JSON dump removed after verification */}
     </div>
   )
 }
