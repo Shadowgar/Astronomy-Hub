@@ -128,6 +128,50 @@ Aligned with:
 PASS
 
 
+## Step 4 — CHANGELOG Page: Step 4 (Current Focus Section)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Render the `currentFocus[]` list on the Progress page as a minimal bullet list.
+
+### Files Changed
+
+* frontend/src/pages/Progress.jsx
+
+### What Was Done
+
+* Added a `Current Focus` section rendering `publicChangelog.currentFocus` as a simple unordered list beneath the hero card.
+* Preserved raw JSON rendering for verification and kept styling minimal and inline.
+
+### Why It Was Done
+
+To implement `CHANGELOG_PAGE_TODO.md` Step 4 with a minimal, verifiable block that shows the current focus items.
+
+### Verification
+
+* Commands run:
+
+```bash
+cd /home/rocco/Astronomy-Hub
+docker compose build frontend
+docker compose up -d frontend
+node frontend/scripts/inspect_progress_text.js http://localhost:4173/progress
+```
+
+* Observed results:
+
+  - Frontend container rebuilt and restarted successfully.
+  - Inspector output included the `Current Focus` section listing the three focus items from `publicChangelog.json`.
+
+### Result
+
+PASS
+
+
 ## Step 3c — CHANGELOG Page: Step 3 (Current Status Section — Hero)
 
 ### Phase

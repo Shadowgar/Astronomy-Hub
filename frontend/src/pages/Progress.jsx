@@ -17,6 +17,20 @@ export default function Progress() {
         <div style={{marginTop: 8}}><strong>Note:</strong> {publicChangelog && publicChangelog.currentStatus && publicChangelog.currentStatus.note ? publicChangelog.currentStatus.note : '—'}</div>
       </section>
 
+      {/* Step 4 — Current Focus Section: minimal bullet list */}
+      <section className="changelog-focus" style={{marginTop: 16}}>
+        <h2 style={{marginTop: 0}}>Current Focus</h2>
+        <ul>
+          {publicChangelog && publicChangelog.currentFocus && publicChangelog.currentFocus.length > 0 ? (
+            publicChangelog.currentFocus.map((f, i) => (
+              <li key={i}>{f}</li>
+            ))
+          ) : (
+            <li>—</li>
+          )}
+        </ul>
+      </section>
+
       <pre style={{whiteSpace: 'pre-wrap', wordBreak: 'break-word', marginTop: 16}}>{JSON.stringify(publicChangelog, null, 2)}</pre>
     </div>
   )

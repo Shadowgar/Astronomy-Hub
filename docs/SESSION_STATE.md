@@ -115,9 +115,9 @@ That means the immediate goal is:
 ## 6. CURRENT NEXT STEP
 
 ```text id="sstate005"
-Last completed step: CHANGELOG Page — Step 3 (Current Status Section — Hero)
-Current step: CHANGELOG Page — Step 4 (Current Focus Section)
-Next step: Continue PHASE_1_BUILD_SEQUENCE.md; proceed to CHANGELOG Page Step 4 when ready.
+Last completed step: CHANGELOG Page — Step 4 (Current Focus Section)
+Current step: CHANGELOG Page — Step 5 (Recent Progress Section)
+Next step: Continue PHASE_1_BUILD_SEQUENCE.md; proceed to CHANGELOG Page Step 5 when ready.
 ```
 
 ---
