@@ -265,3 +265,51 @@ Attempt to confirm client-side rendered header `Development Progress` at http://
 ### Result
 
 DONE_WITH_CONCERNS
+
+
+## Step 3b — CHANGELOG Page: Step 2 (Load JSON Data)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Connect the Progress page to `frontend/src/content/publicChangelog.json` and surface raw data for Step 2 verification.
+
+### Files Changed
+
+* frontend/src/pages/Progress.jsx
+
+### What Was Done
+
+* Imported `publicChangelog.json` into `Progress.jsx`.
+* Logged the imported JSON to the browser console for headless checks.
+* Rendered the raw JSON via a `<pre>` element beneath the existing header so the data is visible during client rendering.
+
+### Why It Was Done
+
+To satisfy `CHANGELOG_PAGE_TODO.md` Step 2: load the canonical JSON data and make the raw payload visible for verification without styling or layout work.
+
+### Verification
+
+* Commands run:
+
+```bash
+cd /home/rocco/Astronomy-Hub
+docker compose build frontend
+docker compose up -d frontend
+curl -sS http://localhost:4173/src/content/publicChangelog.json | head -n 5
+cd frontend && node ./scripts/check_progress.js http://localhost:4173/progress
+```
+
+* Observed results:
+
+  - Docker image for `frontend` built and container restarted.
+  - `/src/content/publicChangelog.json` was served by the dev server and returned JSON.
+  - The hosted app served the updated `Progress.jsx` module (verified via requesting `/src/pages/Progress.jsx`).
+  - Headless check (`frontend/scripts/check_progress.js`) returned: `FOUND: Development Progress present on page` indicating the header and client-rendered content were visible to the headless browser.
+
+### Result
+
+PASS

@@ -115,8 +115,9 @@ That means the immediate goal is:
 ## 6. CURRENT NEXT STEP
 
 ```text id="sstate005"
-Next practical step: execute PHASE_1_BUILD_SEQUENCE.md beginning at Step 1
-and verify each step before continuing.
+Last completed step: CHANGELOG Page — Step 2 (Load JSON Data)
+Current step: CHANGELOG Page — Step 3 (Current Status Section — Hero)
+Next step: Continue PHASE_1_BUILD_SEQUENCE.md; proceed to CHANGELOG Page Step 3 when ready.
 ```
 
 ---
