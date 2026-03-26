@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 from .routes import health
 from .routes import conditions
+from .routes import scene
 
 
 app = FastAPI(title="astronomy-hub-backend")
@@ -21,3 +22,4 @@ async def root():
 # register isolated routers (additive; routes are intentionally minimal)
 app.include_router(health.router)
 app.include_router(conditions.router)
+app.include_router(scene.router)
