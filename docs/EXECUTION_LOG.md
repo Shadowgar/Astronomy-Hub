@@ -171,6 +171,50 @@ node frontend/scripts/inspect_progress_text.js http://localhost:4173/progress
 PASS
 
 
+## Step 6 — CHANGELOG Page: Step 6 (In Progress Section)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Render the `inProgress[]` items on the Progress page; each item should show a title and summary.
+
+### Files Changed
+
+* frontend/src/pages/Progress.jsx
+
+### What Was Done
+
+* Added an `In Progress` section rendering `publicChangelog.inProgress` as minimal titled entries (title + summary), matching the style of Recent Progress.
+
+### Why It Was Done
+
+To implement `CHANGELOG_PAGE_TODO.md` Step 6 with a minimal, verifiable block that lists in-progress items without adding new components or styling systems.
+
+### Verification
+
+* Commands run:
+
+```bash
+cd /home/rocco/Astronomy-Hub
+docker compose build frontend
+docker compose up -d frontend
+node frontend/scripts/inspect_progress_text.js http://localhost:4173/progress
+```
+
+* Observed results:
+
+  - Frontend container rebuilt and restarted.
+  - Inspector output included the `In Progress` section with the `Above Me scene endpoint` entry and its summary from `publicChangelog.json`.
+  - Raw JSON remains rendered for verification.
+
+### Result
+
+PASS
+
+
 ## Step 4 — CHANGELOG Page: Step 4 (Current Focus Section)
 
 ### Phase

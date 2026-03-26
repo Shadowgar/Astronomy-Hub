@@ -48,6 +48,23 @@ export default function Progress() {
         )}
       </section>
 
+      {/* Step 6 — In Progress Section: minimal list of in-progress items */}
+      <section className="changelog-inprogress" style={{marginTop: 16}}>
+        <h2 style={{marginTop: 0}}>In Progress</h2>
+        {publicChangelog && publicChangelog.inProgress && publicChangelog.inProgress.length > 0 ? (
+          <div>
+            {publicChangelog.inProgress.map((item, i) => (
+              <div key={i} style={{marginBottom: 12}}>
+                <div style={{fontWeight: 600}}>{item.title}</div>
+                <div style={{marginTop: 4}}>{item.summary}</div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div>—</div>
+        )}
+      </section>
+
       <pre style={{whiteSpace: 'pre-wrap', wordBreak: 'break-word', marginTop: 16}}>{JSON.stringify(publicChangelog, null, 2)}</pre>
     </div>
   )
