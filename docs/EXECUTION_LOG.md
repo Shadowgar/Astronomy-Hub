@@ -128,6 +128,51 @@ Aligned with:
 PASS
 
 
+## Step 10 — CHANGELOG Page: Step 10 (Navigation Integration)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Integrate the Progress page into the app navigation so users can reach `/progress` from the header.
+
+### Files Changed
+
+* frontend/src/App.jsx
+
+### What Was Done
+
+* Added a minimal navigation link in the header that points to `/progress`. This relies on the existing opt-in path handling in `App.jsx` which renders the `Progress` page when the pathname is `/progress`.
+
+### Why It Was Done
+
+To implement `CHANGELOG_PAGE_TODO.md` Step 10 with a minimal, non-invasive navigation entry that requires no routing library or UI redesign.
+
+### Verification
+
+* Commands run:
+
+```bash
+cd /home/rocco/Astronomy-Hub
+docker compose build frontend
+docker compose up -d frontend
+node frontend/scripts/inspect_progress_text.js http://localhost:4173/
+node frontend/scripts/inspect_progress_text.js http://localhost:4173/progress
+```
+
+* Observed results:
+
+  - Frontend container rebuilt and restarted.
+  - Root path (`/`) returned the dashboard shell with H1 `Astronomy Hub` and header present.
+  - `/progress` returned the Progress page content as before; the header `Progress` link is present in the app header markup and navigating to `/progress` renders the page.
+
+### Result
+
+PASS
+
+
 ## Step 9 — CHANGELOG Page: Step 9 (Basic Styling Pass)
 
 ### Phase

@@ -138,6 +138,9 @@ export default function App() {
       <Starfield />
       <header className="app-header" role="banner">
         <h1>Astronomy Hub</h1>
+        <nav aria-label="Primary" style={{marginLeft: 12}}>
+          <a href="/progress" style={{color: '#0b6fa0', textDecoration: 'none', fontSize: '14px'}}>Progress</a>
+        </nav>
         <div className="header-controls">
           <div className="location-section">
             <span className="location-label">Location: {isOrasLocation ? ORAS.label : `Custom Location (${activeLocation.latitude.toFixed(5)}, ${activeLocation.longitude.toFixed(5)})`}</span>
