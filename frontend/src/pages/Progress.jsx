@@ -7,7 +7,6 @@ export default function Progress() {
   return (
     <div className="progress-page" style={{padding: '24px'}}>
       <h1>Development Progress</h1>
-      <p>Page shell only — no data is loaded in Step 1.</p>
 
       {/* Step 3 — Current Status (Hero) — minimal card showing phase, summary, note */}
       <section className="changelog-hero" style={{border: '1px solid #e0e0e0', padding: 12, borderRadius: 6, background: '#fafafa', marginTop: 16}}>
