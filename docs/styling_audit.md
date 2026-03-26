@@ -1,68 +1,441 @@
-# Styling Audit — Evidence (Phase 2.5 Package 5 Step 1)
+# 🌌 ASTRONOMY HUB — STYLING AUDIT (AUTHORITATIVE)
 
-This file records factual observations about the current frontend styling surface to inform a later styling decision. No recommendations or decisions are included here — only repo-based evidence.
+---
 
-Files inspected (primary):
-- `frontend/src/styles.css`
-- `frontend/src/design/tokens.css`
-- `frontend/src/design/themes.css`
-- `frontend/src/design/semantic.css`
-- `frontend/src/main.jsx` (root imports)
-- `frontend/index.html` (app entry)
-- a sample of component files using inline styles: `frontend/src/components/Conditions.jsx`, `frontend/src/components/AlertsEvents.jsx`, `frontend/src/components/MoonSummary.jsx`, `frontend/src/components/SatellitePasses.jsx`, `frontend/src/components/ui/RowItem.jsx`, `frontend/src/components/ui/SectionHeader.jsx`
-- compiled artifact (read-only): `frontend/dist/assets/index-*.css` (seen in repo)
+# 0. PURPOSE
 
-Main CSS / style entry points
-- `frontend/src/main.jsx` imports the primary style modules in this order:
-  - `./design/tokens.css`
-  - `./design/themes.css`
-  - `./design/semantic.css`
-  - `./styles.css`
-- `frontend/src/styles.css` appears to be the main global stylesheet containing many layout rules, component-level selectors, and mode-specific variables and rules.
-- `frontend/src/design/tokens.css` defines a dedicated set of CSS custom properties (spacing, radii, font sizes, durations, etc.).
-- `frontend/src/design/themes.css` contains theme-specific CSS variables (multiple themes) and appears to define color tokens per theme.
-- `frontend/src/design/semantic.css` is present and imported at root (not inspected in detail here; included in root imports).
-- Compiled bundle `frontend/dist/assets/index-*.css` exists and mirrors many of the same variables and rules (evidence of a build output containing flattened tokens).
+This document defines:
 
-Token-like variables detected
-- `frontend/src/styles.css` defines a large `:root` with many CSS variables (examples): `--gap`, `--container-max-width`, `--module-padding`, `--base-font-size`, `--page-bg`, `--text-primary`, `--accent-blue`, `--stale-bg`, etc.
-- `frontend/src/design/tokens.css` defines a clear token system for spacing and typography: `--space-1` .. `--space-9`, `--radius-xs` .. `--radius-pill`, `--font-1` .. `--font-7`, `--weight-regular` etc.
-- `frontend/src/design/themes.css` defines theme-specific variables (repeated sections with `--bg-base`, `--panel-bg`, `--text-primary`, `--accent`, `--success`, etc.) for several theme variants.
+> **How to evaluate, detect, and correct styling issues in Astronomy Hub**
 
-One-off color / spacing patterns (examples)
-- Inline hard-coded colors appear in CSS rules (e.g., `background-image: radial-gradient(...)`, `box-shadow: 0 6px 18px rgba(47,129,247,0.02)`), which are present in `styles.css` and theme sections.
-- Some components still use inline style objects in JSX with string values or `var(--...)` references, for example:
-  - `frontend/src/components/Conditions.jsx` uses inline style objects and `style={{ padding: '6px 10px', borderRadius: 999, ... }}`
-  - `frontend/src/components/AlertsEvents.jsx`, `MoonSummary.jsx`, `SatellitePasses.jsx` show inline style usage with `gap: 'var(--space-2)'` etc.
-- There are mixed spacing variables: `styles.css` uses `--gap` and `--module-padding`, while `design/tokens.css` uses `--space-*` token names; both sets are in use.
+It ensures:
 
-Component-local styling hotspots (observed)
-- `frontend/src/components/Conditions.jsx` — several inline `style={{ ... }}` uses and conditional rendering relying on CSS classes defined in `styles.css`.
-- `frontend/src/components/AlertsEvents.jsx` — inline layout styles (`display: 'flex'`, `gap: 'var(--space-2)'`).
-- `frontend/src/components/MoonSummary.jsx` — inline layout and color usage referencing CSS variables.
-- `frontend/src/components/ui/RowItem.jsx`, `SectionHeader.jsx` — inline style objects referencing `var(--space-2)` and `var(--font-4)`.
-- Many components use a mix of named CSS classes (from `styles.css`) and inline style objects; this creates multiple places to update when tokens change.
+* the UI follows `styling_decision.md`
+* all 5 visual modes are correctly implemented
+* no visual drift occurs over time
+* inconsistencies are identified and corrected
 
-Tailwind presence
-- No Tailwind configuration or obvious Tailwind utility classes detected in repository checks:
-  - No `tailwind.config.*` file found.
-  - No `@tailwind` usage found in inspected CSS files.
-  - Package.json does not declare `tailwindcss` as a dependency.
-- Conclusion: Tailwind is absent from the current repo.
+---
 
-Root/global style import points
-- Primary root import is `frontend/src/main.jsx`, which imports token and theme CSS prior to `styles.css` (see list above). This means the token and theme variables are available globally for component styles that render after root import.
-- `index.html` loads the module `src/main.jsx` as the boot entry, so the single import point is `src/main.jsx`.
+# 1. 🧠 CORE RULE
 
-Likely migration risk areas (factual)
-- Dual token systems: presence of both `styles.css` `--*` variables and `design/tokens.css` `--space-*` variables suggests overlapping token namespaces; migration must reconcile these to avoid duplication.
-- Inline styles in many components are a risk: they must be audited when tokens are standardized because they are spread across JSX files (component-local hotspots above).
-- Complex dark-mode decorative rules in `styles.css` (starfield layers, radial-gradient heavy rules, animations) may be performance-sensitive and require special handling during migration.
-- Compiled `dist` CSS duplicates many styles; build artifacts should not be the primary source of truth but indicate what has been emitted historically.
-- `design/themes.css` contains multiple theme variants; ensure chosen system accommodates theme switching without duplicating tokens in multiple places.
+```text id="q8k3m1"
+Styling must be verified, not assumed.
 
-Notes (constraints for later steps)
-- This audit is evidence-only. Do not treat any item here as a recommendation — it is a factual inventory to support the subsequent styling decision.
-- Do not perform any component markup edits or bulk CSS rewrites in Step 1; this document intentionally avoids proposing the decision.
+If it is not audited, it is not correct.
+```
 
-End of audit.
+---
+
+# 2. 🎯 AUDIT OBJECTIVES
+
+Every audit must verify:
+
+* visual mode system integrity
+* token usage compliance
+* component consistency
+* hierarchy clarity
+* accessibility compliance
+* red mode safety
+
+---
+
+# 3. 🔍 AUDIT CATEGORIES
+
+---
+
+## 3.1 Mode System Audit
+
+Verify:
+
+* all 5 modes exist:
+
+  * Light
+  * Light High Contrast
+  * Dark
+  * Dark High Contrast
+  * Red Mode
+
+---
+
+### Must Pass
+
+* mode switching works instantly
+* no visual glitches during switch
+* all UI regions update correctly
+
+---
+
+### Failure if:
+
+* any mode missing
+* partial mode implementation
+* inconsistent rendering across modes
+
+---
+
+---
+
+## 3.2 Token System Audit
+
+---
+
+### Verify
+
+* all colors use semantic tokens
+* no hardcoded colors
+* tokens are consistently applied
+
+---
+
+### Must Pass
+
+* components use:
+
+  * `--background`
+  * `--surface`
+  * `--text-primary`
+  * `--accent`
+  * etc.
+
+---
+
+### Failure if:
+
+```text id="k9x2v7"
+Any hardcoded color value exists
+```
+
+---
+
+---
+
+## 3.3 Layout Consistency Audit
+
+---
+
+### Verify
+
+* layout does NOT change between modes
+* spacing is consistent
+* hierarchy is preserved
+
+---
+
+### Must Pass
+
+* same layout in all modes
+* same component positioning
+
+---
+
+### Failure if:
+
+* layout shifts between modes
+* spacing changes
+* panels move or resize incorrectly
+
+---
+
+---
+
+## 3.4 Component Consistency Audit
+
+---
+
+### Verify
+
+* components behave identically across modes
+* states are consistent:
+
+  * default
+  * hover
+  * active
+  * selected
+
+---
+
+### Must Pass
+
+* interaction is predictable
+* no mode-specific behavior differences
+
+---
+
+### Failure if:
+
+* button behaves differently per mode
+* interaction states missing
+
+---
+
+---
+
+## 3.5 Hierarchy Audit
+
+---
+
+### Verify
+
+* scene is dominant
+* selected object is clear
+* panels are secondary
+
+---
+
+### Must Pass
+
+* visual priority is consistent
+* important elements stand out
+
+---
+
+### Failure if:
+
+* panels compete with scene
+* user cannot identify focus
+
+---
+
+---
+
+## 3.6 Readability Audit
+
+---
+
+### Verify
+
+* text is readable in all modes
+* contrast is appropriate
+
+---
+
+### Must Pass
+
+* no low-contrast text
+* no blending into background
+
+---
+
+### Failure if:
+
+* text becomes hard to read
+* contrast too weak or too harsh
+
+---
+
+---
+
+## 3.7 Red Mode Audit (CRITICAL)
+
+---
+
+### Verify
+
+* only red tones used
+* no blue light
+* no white light
+
+---
+
+### Must Pass
+
+* usable in real dark environment
+* low brightness
+* no eye strain
+
+---
+
+### Automatic Failure if:
+
+```text id="r3p9x2"
+ANY white, blue, or bright light appears
+```
+
+---
+
+---
+
+## 3.8 Accessibility Audit
+
+---
+
+### Verify
+
+* high contrast modes improve readability
+* UI supports visual impairments
+
+---
+
+### Must Pass
+
+* text is clear
+* controls are distinguishable
+
+---
+
+### Failure if:
+
+* high contrast modes ineffective
+* accessibility degraded
+
+---
+
+---
+
+## 3.9 Motion Audit (Phase C+)
+
+---
+
+### Verify
+
+* motion supports clarity
+* transitions are smooth
+
+---
+
+### Must Pass
+
+* no distracting animations
+* no performance issues
+
+---
+
+### Failure if:
+
+* motion causes confusion
+* animation feels excessive
+
+---
+
+---
+
+# 4. 🧪 AUDIT PROCESS
+
+---
+
+## Step-by-Step
+
+```text id="m7p4k1"
+1. Load application
+2. Switch through all 5 modes
+3. Inspect each UI region:
+   - command bar
+   - scene
+   - panels
+   - detail view
+4. Interact with components
+5. Check for token violations
+6. Test readability
+7. Test red mode in dark environment
+```
+
+---
+
+# 5. 📊 AUDIT REPORT FORMAT
+
+Each audit must produce:
+
+---
+
+## Summary
+
+* Pass / Fail
+* number of issues
+
+---
+
+## Issues List
+
+For each issue:
+
+* location
+* description
+* severity
+* recommended fix
+
+---
+
+## Severity Levels
+
+* Critical → breaks system (must fix immediately)
+* Major → degrades usability
+* Minor → cosmetic
+
+---
+
+# 6. 🚫 AUTOMATIC FAILURE CONDITIONS
+
+---
+
+System automatically FAILS audit if:
+
+* any mode missing
+* hardcoded colors exist
+* red mode compromised
+* layout inconsistent across modes
+* unreadable text present
+
+---
+
+# 7. 🔄 CONTINUOUS AUDIT RULE
+
+```text id="t2q9x4"
+Styling audit must be performed:
+- after major UI changes
+- before phase completion
+```
+
+---
+
+# 8. 🎯 FIX PRIORITY RULE
+
+---
+
+## Fix Order
+
+1. Critical issues
+2. Major issues
+3. Minor issues
+
+---
+
+## Rule
+
+```text id="v6k3p8"
+Do not introduce new features before fixing audit failures
+```
+
+---
+
+# 9. 🔥 FINAL STATEMENT
+
+```text id="c8m2q7"
+If styling is not audited,
+the UI will drift.
+
+If the UI drifts,
+the system fails.
+```
+
+---
+
+## Where you are now
+
+You now have:
+
+* styling system defined
+* styling rules locked
+* audit system enforcing it
+
+---
+
+## Final remaining UI doc (optional but strong)
+
+👉 `UI_DESIGN_PRINCIPLES.md` (tighten to match everything)
+
+After that:
+
+You are **fully locked and ready to build without drift**.
+
+---

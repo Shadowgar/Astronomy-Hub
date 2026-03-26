@@ -1,840 +1,417 @@
-# ASTRONOMY HUB — PHASE 1 EXPANDED SPEC
+# 📄 `PHASE_1_SPEC.md`
 
-**Phase Name:** Local Sky MVP
-**Primary Objective:** Give an ORAS member a calm, useful, location-aware “what’s happening above me right now / tonight” experience inside the ORAS ecosystem, without overwhelming them.
+This is no longer a “minimal MVP.”
 
-## 1. Purpose of Phase 1
+This defines a **real, usable product slice** that delivers immediate value and aligns with the full system vision.
 
-Phase 1 is not the full command center.
+---
 
-Phase 1 is the **first practical field-ready layer**:
+# 🌌 ASTRONOMY HUB — PHASE 1 SPEC (AUTHORITATIVE)
 
-* A member opens the ORAS member area
-* Clicks **Astronomy Hub**
-* Sees a clean dashboard
-* Enters or confirms location
-* Immediately gets:
+---
 
-  * what is visible tonight
-  * notable objects/events
-  * upcoming satellite passes
-  * observing conditions
-  * a simple drill-down into more detail
+# 0. PURPOSE
 
-This fits the current ORAS direction because the site already surfaces separate astronomy resources such as observing tools, Astro News, beginner material, weather links, light-pollution tools, and sky-chart references. Phase 1 consolidates the most useful “tonight / here / now” pieces into one guided experience instead of sending members to many separate links.
+Phase 1 delivers the first **complete, usable product experience**:
 
-## 2. What Phase 1 is trying to solve
+> A **Live Astronomy Command Center** answering:
+> “What is happening above me right now, and what should I look at?”
 
-Right now, ORAS resources are useful but fragmented:
+---
 
-* the Tools page links to weather, AstroViewer sky charts, light-pollution information, and space-weather resources
-* the Resources page links to Astro News, beginner guidance, print resources, and educational content
+# 1. 🎯 PHASE GOAL
 
-Phase 1 solves that by creating a **single entry point** for the member’s most immediate question:
+Deliver a system where a user can:
 
-> “What should I know before I observe tonight from where I am?”
+* open the app
+* immediately understand the sky above them
+* identify objects in the sky
+* click any object and understand what it is
+* receive actionable observing guidance
 
-## 3. Phase 1 success definition
+---
 
-Phase 1 is successful if a member can use it in the field or at home and answer these questions in under a minute:
+# 2. 🧠 CORE EXPERIENCE
 
-* Is tonight worth observing?
-* What are the top things to look at?
-* What satellites or ISS-like passes are coming soon?
-* What is the Moon doing?
-* Are there any important alerts or special events?
-* Where should I click next if I want more detail?
+---
 
-## 4. Phase 1 scope boundaries
-
-### Included in Phase 1
-
-* ORAS member-facing dashboard page
-* location input / saved site preset
-* local observing conditions summary
-* tonight’s highlights
-* simple visible satellite pass list
-* notable sky objects / categories
-* moon summary
-* event feed for major nearby-relevant astronomy items
-* simple “open detail” drill-down cards
-* lightweight backend cache/API
-
-### Active Observing Location (Phase 1 refinement)
-
-Phase 1 introduces a single, locked concept: the Active Observing Location. The system defaults to the ORAS Observatory (see documentation for coordinates). A user may optionally enter manual latitude/longitude coordinates to override the active location for the current session. The following are explicitly NOT allowed in Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, account-based preferences, or a location database.
-
-Implementations should surface the Active Observing Location label in the dashboard header and use it when requesting data from backend endpoints. Do not add a new endpoint for locations in Phase 1 — the backend should accept a manual coordinate override parameter (if needed) but may also default to ORAS Observatory when none is provided.
-
-### Excluded from Phase 1
-
-* full globe satellite tracker
-* real-time 3D Earth visualization
-* full global observatory intelligence
-* plane tracking
-* solar deep dashboard
-* AR mode
-* advanced astrophotography planning engine
-* heavy PostGIS-driven global geospatial system
-* public-scale distributed ingest architecture
-
-Those belong later.
-
-## 5. Phase 1 user types
-
-Phase 1 should support three users from day one:
-
-### 5.1 Casual ORAS Member
-
-Needs simple answers:
-
-* what is worth seeing tonight
-* when to go outside
-* quick sky awareness
-
-### 5.2 ORAS Field Observer
-
-Needs:
-
-* timing
-* moon conditions
-* cloud/clarity awareness
-* quick satellite pass awareness
-* what objects are relevant now
-
-### 5.3 Beginner / Public Night Visitor
-
-Needs:
-
-* low jargon
-* obvious navigation
-* guided recommendations
-* reassurance they are looking at the right things
-
-## 6. UX philosophy for Phase 1
-
-You were right to worry about overload.
-
-Phase 1 must feel like a **mission control home screen with restraint**.
-
-### UI principles
-
-* show only the most actionable information first
-* rank by usefulness, not by completeness
-* allow drill-down instead of dumping everything at once
-* avoid giant maps on first load
-* avoid complex controls on entry
-* always answer “what matters now?”
-
-## 7. Phase 1 page structure
-
-## 7.1 Entry point
-
-Inside ORAS member dashboard:
-
-* new navigation item: **Astronomy Hub**
-
-Could later also appear on public pages in reduced mode, but Phase 1 should assume member context.
-
-## 7.2 First-load screen layout
+## 2.1 Primary Mode
 
 ```text
-+--------------------------------------------------------------------------------+
-| ORAS Astronomy Hub                                                             |
-| Tonight at [Oil City, PA / My Location]                          [Change]      |
-+--------------------------------------------------------------------------------+
-| Conditions Now      | Tonight's Best Targets      | Alerts / Notable Events    |
-|---------------------|-----------------------------|-----------------------------|
-| Cloud cover         | Moon                        | Meteor shower peak          |
-| Transparency        | Planets                     | ISS visible pass            |
-| Moon phase          | Bright deep-sky picks       | Space weather note          |
-| Darkness window     | Beginner-friendly picks     | Special ORAS recommendation |
-+--------------------------------------------------------------------------------+
-| Upcoming Passes                 | Sky Snapshot                                  |
-|---------------------------------|-----------------------------------------------|
-| ISS / bright satellites         | Simple local sky view                         |
-| Time / direction / elevation    | Compass-based, low-clutter                    |
-| [View all satellites]           | [Open Sky View]                               |
-+--------------------------------------------------------------------------------+
-| Explore More                                                                   |
-| [Sky Tonight] [Satellites] [Conditions] [Events] [Moon & Planets] [Learn More]|
-+--------------------------------------------------------------------------------+
+Scope: Above Me
+Engine: Unified Main
+Filter: Visible Sky Objects
 ```
 
-That is the right Phase 1 shape: calm, ranked, useful.
+---
 
-## 8. Phase 1 information architecture
+## 2.2 User Journey
 
-Phase 1 should be divided into **one dashboard plus five drill-down pages**.
+```text
+Open app
+  → See sky-based command center
+    → See objects above them
+      → Click object
+        → Learn everything about it
+```
 
-## 8.1 Dashboard
+---
 
-Purpose:
+# 3. 🖥️ MAIN SCREEN REQUIREMENTS
 
-* summary only
-* immediate decisions
-* no overload
+---
 
-Modules:
+## 3.1 Primary Scene (MANDATORY)
 
-* observing conditions
-* tonight’s best targets
-* alerts/notable events
-* upcoming passes
-* mini sky snapshot
+Must display:
 
-## 8.2 Sky Tonight
+* sky-relative object visualization
+* objects above horizon only
+* categorized objects:
 
-Purpose:
+  * satellites
+  * planets
+  * deep sky objects
+  * flights
 
-* what’s visible and notable in the member’s local sky
+---
 
-Content:
+## 3.2 Object Representation
 
-* top recommended objects
-* moon info
-* planets visible
-* notable constellations / star regions
-* “best viewing window” timing
+Each object must include:
 
-## 8.3 Satellites
-
-Purpose:
-
-* practical local pass awareness
-
-Content:
-
-* next visible passes
-* object name
-* pass time
-* direction
-* max elevation
-* brightness/importance if available
-* simple detail drawer for mission/owner/type
-
-## 8.4 Conditions
-
-Purpose:
-
-* should I observe tonight?
-
-Content:
-
-* cloud cover
-* transparency / seeing if available
-* light pollution reference
-* darkness window
-* moon interference summary
-* quick “recommended / marginal / poor” observing score
-
-This aligns well with the ORAS tools page, which already highlights the importance of weather, light pollution, and space weather for observing.
-
-## 8.5 Events
-
-Purpose:
-
-* current / upcoming astronomy happenings
-
-Content:
-
-* meteor showers
-* conjunctions
-* eclipses if relevant
-* comet / asteroid visibility items
-* ORAS-curated special notices
-* significant space-weather alerts
-
-## 8.6 Moon & Planets
-
-Purpose:
-
-* quick-access planetary and lunar overview
-
-Content:
-
-* moon phase
-* rise/set
-* illumination
-* visible planets tonight
-* simple “good target tonight?” labels
-
-This page is also a natural extension of the existing ORAS tools/resources approach, where planets and lunar/observing aids are already broken out into separate references.
-
-## 9. Exact Phase 1 feature list
-
-### 9.1 Location model
-Phase 1 introduces a single, locked concept: the Active Observing Location. Implementations MUST follow this refinement for Phase 1.
-
-- Default behavior: the system uses the ORAS Observatory as the Active Observing Location when the user does not provide an override.
-- Manual override: the user may optionally enter numeric latitude/longitude coordinates to temporarily override the Active Observing Location for the current session only. Functional inputs for the manual override are:
-  - `latitude` (required)
-  - `longitude` (required)
-  - `elevation_ft` (optional)
-- Phase 1 does NOT include a custom freeform label input for the user. The Active Observing Location label is a UI surface only and should reflect ORAS defaults or the session override coordinates.
-- Disallowed in Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, account-based preferences, any location database, address lookup/autocomplete, and external geocoding APIs.
-
-Default ORAS Observatory (Phase 1 default values):
-- label: ORAS Observatory
-- address: 4249 Camp Coffman Road, Cranberry, PA 16319
-- latitude: 41.321903
-- longitude: -79.585394
-- elevation_ft: 1420
-
-Implementations should surface the Active Observing Location label in the dashboard header and use it when requesting data from backend endpoints. Do not add a new endpoint for locations in Phase 1 — the backend may accept an optional manual coordinate override parameter but must default to ORAS Observatory when none is provided.
-
-#### Deferred: Address Search & Geocoded Location Selection (Phase 2 candidate)
-
-This feature is intentionally deferred and must NOT be implemented in Phase 1. The idea is preserved here for Phase 2 planning:
-
-- Feature intent: user begins typing an address, autocomplete suggestions appear, user selects a result, system resolves that address to coordinates, and the resolved coordinates become the Active Observing Location.
-- Elevation may remain optional/manual unless a later phase adds geodata support.
-- Phase 1 impact: none — explicitly excluded from Phase 1 acceptance criteria.
-
-## 9.2 Conditions summary card
-
-Show:
-
-* cloud cover
-* darkness / sunset / sunrise / astronomical twilight
-* moon phase and moon brightness impact
-* observing recommendation:
-
-  * Good
-  * Fair
-  * Poor
-
-## 9.3 Tonight’s best targets card
-
-Start very simple. Do not over-engineer in Phase 1.
-
-Buckets:
-
-* Moon
-* Planets
-* Bright deep-sky objects
-* Beginner-friendly picks
-* ORAS featured target
-
-Each item should show:
-
+* icon/type
 * name
-* category
-* when best viewed tonight
-* why it matters
+* position (approximate)
+* visibility indicator
+* click interaction
 
-## 9.4 Upcoming passes card
+---
 
-Show top 3–5 passes only.
+## 3.3 Live Briefing Panel
 
-Each row:
+Must display:
 
-* object name
-* time
-* start direction
-* max elevation
-* end direction
-* visible/notable flag
+* observing score (simple)
+* top recommended target
+* next major event (e.g., satellite pass)
+* moon impact
+* current sky condition summary
 
-Then:
+---
 
-* button to open full satellite page
+## 3.4 “Now Above Me” Panel
 
-## 9.5 Alerts / notable events card
+Must include:
 
-A Crucix-style pattern is still useful here: not a giant news feed, but a ranked, normalized alert area. Crucix’s publicly described model is a scheduled-ingestion, normalized-feed architecture, which is a good pattern for your event card even though your domain is different.
+* list of visible objects
+* categorized
+* sorted by relevance
 
-Types:
+---
 
-* major astronomy event
-* observing-impact event
-* satellite pass of interest
-* ORAS announcement/manual notice
-* space weather alert
+## 3.5 Events Panel
 
-## 9.6 Mini sky snapshot
+Must include:
 
-Not a full advanced map yet.
+* active or near-term events:
 
-Just:
+  * satellite passes
+  * meteor activity
+  * notable alignments
 
-* compass-aware local sky orientation
-* cardinal directions
-* a few highlighted items
-* click to open Sky Tonight page
+---
 
-## 10. Backend strategy for Phase 1
+## 3.6 News Panel (Light)
 
-## 10.1 Goal
+Must include:
 
-Keep Raspberry Pi responsibilities small:
+* 3–5 curated items
+* tied to objects or events
 
-* scheduled fetch
-* normalize
-* cache
-* serve JSON
+---
 
-No heavy live calculations on every user request unless necessary.
+# 4. 🔍 OBJECT INTERACTION (MANDATORY)
 
-## 10.2 Phase 1 backend responsibilities
+---
 
-* fetch selected astronomy/conditions/satellite data on interval
-* normalize to one internal schema
-* cache results for local use
-* expose lightweight endpoints for the WordPress frontend
+## 4.1 Click Behavior
 
-## 10.3 Phase 1 architectural pattern
+Clicking any object must:
 
 ```text
-External Sources
-   ↓
-Scheduled Fetch Jobs
-   ↓
-Normalization Layer
-   ↓
-Cache / Simple Persistence
-   ↓
-REST JSON Endpoints
-   ↓
-WordPress Member Hub UI
+Route → owning engine → load detail view
 ```
 
-This is broadly similar to the ingestion/normalization/API pattern associated with Crucix, but scaled down and made more local-first for astronomy use.
+---
 
-## 11. Frontend strategy for Phase 1
+## 4.2 Required Object Types
 
-## 11.1 WordPress integration model
+Must support:
 
-For Phase 1, the safest route is:
+* satellite
+* planet
+* deep sky object
+* flight
 
-* add Astronomy Hub as part of the member dashboard experience
-* render the UI inside a controlled plugin/module
-* keep frontend app modular so it can later be split out if needed
+---
 
-That matches your current ORAS direction better than launching a disconnected separate system.
+## 4.3 Detail View Requirements
 
-## 11.2 UI stack expectations
+Each object must show:
 
-Phase 1 UI should prioritize:
+* name and type
+* explanation (plain language)
+* why it matters now
+* visibility guidance
+* basic data
+* at least one image
+* related news (if available)
 
-* fast load
-* mobile usability
-* low clutter
-* reusable components
-* easy future migration into richer frontend tech later
+---
 
-## 11.3 Components needed
+# 5. 🔗 ENGINE INTEGRATION (PHASE 1 LIMIT)
 
-* location selector
-* summary cards
-* condition badge
-* alert list
-* pass list
-* object cards
-* mini sky view container
-* tab/page navigation shell
+---
 
-## 12. Phase 1 data categories
+Phase 1 uses **limited filters from each engine**:
 
-Do not start with hundreds of sources.
+---
 
-Phase 1 should use only the minimum categories needed for value:
+## 5.1 Satellite Engine
 
-### Required categories
+* visible passes filter only
 
-* local observing conditions
-* moon data
-* visible satellite pass data
-* basic astronomical event data
-* local sky target recommendations
+---
 
-### Optional if easy
+## 5.2 Solar System Engine
 
-* space weather summary
-* ORAS manual announcements
-* beginner-help content links
+* visible planets only
 
-## 13. Phase 1 output schemas
+---
 
-Mini needs explicit contracts, so each module should have a stable response contract.
+## 5.3 Deep Sky Engine
 
-Examples:
+* visible tonight filter only
 
-### Conditions contract
+---
 
-```json
-{
-  "location_label": "Oil City, PA",
-  "cloud_cover_pct": 22,
-  "moon_phase": "Waxing Crescent",
-  "darkness_window": {
-    "start": "2026-03-22T21:14:00-04:00",
-    "end": "2026-03-23T05:33:00-04:00"
-  },
-  "observing_score": "good",
-  "summary": "Mostly clear with favorable darkness after moonset."
-}
+## 5.4 Flight Engine
+
+* above-horizon flights only
+
+---
+
+## 5.5 Earth Engine
+
+* observing conditions only:
+
+  * cloud cover (simplified)
+  * moon phase
+  * basic visibility impact
+
+---
+
+## ❗ NOT INCLUDED IN PHASE 1
+
+* full Earth map
+* solar engine
+* full solar system view
+* deep data exploration
+* multi-filter systems
+* global scope
+
+---
+
+# 6. 🧠 SCENE RULES
+
+---
+
+## 6.1 Scope Constraint
+
+```text
+Only Above Me scope exists in Phase 1
 ```
 
-### Satellite pass contract
+---
 
-```json
-{
-  "object_name": "ISS",
-  "start_time": "2026-03-22T21:43:00-04:00",
-  "max_elevation_deg": 61,
-  "start_direction": "NW",
-  "end_direction": "SE",
-  "visibility": "high"
-}
+## 6.2 Filter Constraint
+
+```text
+Each engine contributes only one filter
 ```
 
-### Alert contract
+---
 
-```json
-{
-  "priority": "major",
-  "category": "meteor_shower",
-  "title": "Peak activity tonight",
-  "summary": "Best viewing after midnight under darker skies.",
-  "relevance": "local_tonight"
-}
+## 6.3 Scene Constraint
+
+* only above-horizon objects
+* limited object count
+* ranked by relevance
+
+---
+
+# 7. ⚙️ BACKEND REQUIREMENTS
+
+---
+
+Backend must:
+
+* provide a unified scene endpoint:
+
+  ```text
+  /api/scene/above-me
+  ```
+* normalize all engine outputs
+* merge data into a single scene contract
+* provide object detail endpoints:
+
+  ```text
+  /api/object/{id}
+  ```
+
+---
+
+## Backend MUST NOT:
+
+* expose raw APIs
+* compute unnecessary data
+* return full datasets
+
+---
+
+# 8. 🖥️ FRONTEND REQUIREMENTS
+
+---
+
+Frontend must:
+
+* render sky-based scene
+* handle object interaction
+* display panels (briefing, events, news)
+* manage state (scope, filter)
+* progressively load object details
+
+---
+
+## Rendering Requirements
+
+* simple sky layout (no full 3D required yet)
+* directional hints acceptable
+* approximate positioning acceptable
+
+---
+
+# 9. 📊 DATA REQUIREMENTS
+
+---
+
+Must include:
+
+* object ID
+* name
+* type
+* engine
+* visibility
+* position (approximate)
+* summary
+
+---
+
+Detail must include:
+
+* explanation
+* media
+* related data
+
+---
+
+# 10. 🧪 VALIDATION CRITERIA (STRICT)
+
+---
+
+Phase 1 is complete ONLY IF:
+
+---
+
+## 10.1 Core Functionality
+
+* app loads without errors
+* scene renders objects above user
+* objects are clickable
+* detail pages load
+
+---
+
+## 10.2 Product Experience
+
+* user can identify objects in the sky
+* user understands what they are seeing
+* user can decide what to observe
+
+---
+
+## 10.3 Performance
+
+* fast load (<2–3 seconds)
+* no excessive data load
+* responsive interaction
+
+---
+
+## 10.4 UI Quality
+
+* no blank screens
+* no placeholder-only components
+* no debug UI
+* clear hierarchy
+
+---
+
+# 11. 🚫 FAILURE CONDITIONS
+
+---
+
+Phase 1 is NOT complete if:
+
+* UI is empty or minimal
+* objects cannot be identified
+* detail views are missing
+* data is inconsistent
+* system behaves like a mock/demo
+
+---
+
+# 12. 🔥 FINAL STATEMENT
+
+```text
+Phase 1 delivers a real, usable astronomy command center
+focused on “What is above me right now”
+with full object interaction and meaningful output.
 ```
 
-## 14. Phase 1 recommendation engine
+---
 
-Not AI. Just rules.
+# ✔️ OUTCOME
 
-That is the right call for this phase.
+After Phase 1:
 
-Use deterministic scoring:
-
-* darkness
-* moon interference
-* cloud cover
-* event timing
-* visibility window
-* object prominence
-
-Output:
-
-* top 3 to 7 recommended things for tonight
-
-This gives a smart feel without token cost or Pi-side inference.
-
-## 15. What to borrow conceptually from current ORAS pages
-
-From **Tools**:
-
-* weather-at-a-glance usefulness
-* current sky orientation usefulness
-* space weather relevance
-* light pollution relevance
-
-From **Resources**:
-
-* educational support
-* beginner guidance
-* ORAS-curated trust layer
-* not everything has to be live data; some things can be guided knowledge resources
-
-That means the hub should not just be “data.”
-It should be **data + ORAS curation**.
-
-## 16. Phase 1 risks
-
-### Risk 1: Too much on first page
-
-Mitigation:
-
-* strict summary-only homepage
-* cap modules
-* cap rows per module
-
-### Risk 2: Backend drift into Phase 2 complexity
-
-Mitigation:
-
-* no globe
-* no 3D Earth
-* no global tracking in Phase 1
-
-### Risk 3: Weak usefulness
-
-Mitigation:
-
-* prioritize actionable items over completeness
-* ask: “does this help someone decide what to do tonight?”
-
-### Risk 4: Mini model drift
-
-Mitigation:
-
-* explicit contracts
-* explicit file boundaries
-* phase-only docs
-* validation checklist
-
-## 17. Phase 1 validation checklist
-
-Phase 1 is done when all are true:
-
-* member can load Astronomy Hub from ORAS member area
-* observatory preset works
-* custom/current location works
-* dashboard loads summary data successfully
-* top recommended targets display properly
-* next satellite passes display properly
-* alerts render without clutter
-* conditions card is understandable to a beginner
-* mobile layout is usable
-* frontend works from cached backend responses
-* no module feels like a data dump
-
-## 18. What documentation Phase 1 needs before coding
-
-Before Mini starts coding, these docs should exist:
-
-* `MASTER_PLAN.md`
-* `PHASE_1_SPEC.md`
-* `PHASE_1_ACCEPTANCE_CRITERIA.md`
-* `ARCHITECTURE_OVERVIEW.md`
-* `DATA_CONTRACTS.md`
-* `UI_INFORMATION_ARCHITECTURE.md`
-* `CODING_GUARDRAILS.md`
-* `VALIDATION_CHECKLIST.md`
-* `SESSION_CONTINUITY_BRIEF.md`
-
-## 19. Recommendation on Phase 1 priority order
-
-Build in this order:
-
-1. information architecture
-2. data contracts
-3. mocked JSON responses
-4. dashboard UI shell
-5. conditions card
-6. tonight’s targets card
-7. passes card
-8. alerts card
-9. mini sky snapshot container
-10. live backend hookup
-11. acceptance testing
-
-That order keeps Mini from wandering into backend complexity before the UI contract is stable.
-
-## 20. Final Phase 1 statement
-
-Phase 1 should feel like this:
-
-> “An ORAS member opens one page and immediately understands whether tonight is worth observing, what is most worth looking at, and what near-term sky events matter from their location.”
-
-If it does that well, Phase 1 succeeds.
+* the system is useful
+* the system is understandable
+* the system reflects the final vision
+* the system has a stable foundation
 
 ---
 
-The biggest adjustment I would make to the earlier master plan is this:
+## Next Step
 
-**Phase 1 should not be “basic sky map first.”**
-It should be **decision support first**.
+👉 `PHASE_2_SPEC.md`
 
-That means:
+This is where we expand into:
 
-* conditions
-* recommendations
-* passes
-* alerts
-* then visual drill-down
-
-That will make it far more practical for ORAS members in the field and at home.
-
----
-
-# 21. Core Interaction Loop (ADDED — LOCKED)
-
-All Phase 1 features must support this loop:
-
-1. User opens Astronomy Hub  
-2. Confirms or selects location  
-3. Immediately sees observing conditions  
-4. Sees top recommended targets  
-5. Sees upcoming passes and alerts  
-6. Optionally drills into deeper pages  
-
-If a feature does NOT support this loop, it does NOT belong in Phase 1.
-
----
-
-# 22. UI Density Constraints (ADDED — CRITICAL)
-
-To prevent overload (major Phase 1 risk), the following limits are enforced:
-
-- Max 5 targets shown on dashboard  
-- Max 5 satellite passes shown  
-- Max 3 alerts shown  
-- No scroll-heavy modules on first screen  
-
-All additional data must be accessed via drill-down pages.
-
----
-
-# 23. Time Context System (ADDED — GLOBAL BEHAVIOR)
-
-All data must be interpreted through a selectable time context:
-
-- Now  
-- Tonight  
-- Next 24 Hours  
-
-All modules must respect this context consistently.
-
-This prevents confusion and ensures relevance.
-
----
-
-# 24. Guided Action System (ADDED)
-
-The dashboard must include a primary action:
-
-[ Show Me What To Look At ]
-
-This action returns:
-- Top 3–5 prioritized targets
-- Based on conditions + visibility + timing
-
-Purpose:
-- Help beginners
-- Reduce decision friction
-- Reinforce “decision-support” design
-
----
-
-# 25. Expanded Target Data Requirements (ADDED)
-
-Each target should now include:
-
-- name  
-- category  
-- best viewing time  
-- reason it matters  
-
-PLUS:
-
-- direction (N, NE, etc.)  
-- elevation band (low / mid / high)  
-- difficulty (beginner / intermediate / advanced)  
-
-This improves real-world usability in the field.
-
----
-
-# 26. UI Mode System (ADDED — CRITICAL FOR FIELD USE)
-
-The system must support:
-
-- Day Mode  
-- Night Mode  
-- Red Mode  
-
-Red Mode requirements:
-- red-only color palette  
-- reduced brightness  
-- no white/blue light  
-- optimized for dark adaptation  
-
-This is essential for telescope use.
-
----
-
-# 27. Backend Failure Handling (ADDED)
-
-Backend must never break the UI.
-
-If data fails:
-- return cached data  
-- show last updated timestamp  
-- degrade gracefully  
-
-Frontend must always render something usable.
-
----
-
-# 28. Mock-First Rule (ADDED — HARD RULE)
-
-Before any real API integration:
-
-- All endpoints must return mocked JSON  
-- Frontend must fully work with mock data  
-- Contracts must be validated first  
-
-No real data sources allowed until Phase 1 UI is complete.
-
----
-
-# 29. Strict Phase Boundary Enforcement (ADDED)
-
-The following are explicitly forbidden in Phase 1 (re-emphasized):
-
-- globe visualization  
-- Cesium / 3D Earth  
-- aircraft tracking  
-- AR features  
-- global satellite systems  
-- advanced astrophotography planning  
-- database systems  
-- real-time streaming  
-
-If introduced → Phase violation.
-
----
-
-# 30. Contract Integrity Rule (ADDED)
-
-All backend responses must:
-
-- match defined schemas exactly  
-- not add or remove fields without updating contracts  
-- use ISO timestamps  
-- remain consistent across endpoints  
-
-Frontend must rely ONLY on these contracts.
-
----
-
-# 31. Build Discipline Rule (ADDED)
-
-Phase 1 must be built in strict order:
-
-1. data contracts  
-2. mocked endpoints  
-3. UI shell  
-4. conditions module  
-5. targets module  
-6. passes module  
-7. alerts module  
-8. validation  
-
-No skipping ahead.
-
----
-
-# 32. Final Reinforcement
-
-Phase 1 is NOT:
-
-- a prototype  
-- a rough draft  
-- something to rebuild later  
-
-Phase 1 is the **foundation**.
-
-If Phase 1 is done correctly:
-- future phases become easier  
-- UI remains stable  
-- backend scales cleanly  
-- token cost stays low  
-
-If Phase 1 is done poorly:
-- everything becomes harder  
+* full engine exploration
+* Earth / Sun / Satellite systems
+* filter expansion
+* real visual systems
 
 ---

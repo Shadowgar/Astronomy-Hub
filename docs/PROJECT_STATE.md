@@ -1,248 +1,358 @@
-# Astronomy Hub — Project State
-
-## Purpose
-
-This file preserves the current state of the project so that any new AI session can resume work without losing context.
-
-The assistant must treat this file as authoritative context before taking any action.
+# 📄 FULL REWRITE — `PROJECT_STATE.md` (AUTHORITATIVE — CORRECTED)
 
 ---
 
-## Project Name
-
-Astronomy Hub
+# 🌌 ASTRONOMY HUB — PROJECT STATE (AUTHORITATIVE)
 
 ---
 
-## Vision
+# 0. PURPOSE
 
-Astronomy Hub is a unified, field-ready astronomy dashboard for the Oil Region Astronomical Society (ORAS).
+This document defines:
 
-It answers:
+> **The current, factual execution state of the project**
 
-> What should I know about the sky right now from where I am, and what should I look at?
+It is the **single source of truth** for:
 
-This is a **decision-support system**, not a data dump.
-
----
-
-## Active Observing Location (LOCKED REFINEMENT)
-
-Phase 1 uses a single concept called the "Active Observing Location" to determine what is shown across the dashboard. This refinement is locked for Phase 1 and defines a default site and allowed user override.
-
-- Default: ORAS Observatory (used when the user does not provide manual coordinates)
-- Manual override: user may enter latitude/longitude to temporarily override the default for the current session
-   - Functional inputs for manual override (Phase 1):
-      - `latitude` (required)
-      - `longitude` (required)
-      - `elevation_ft` (optional)
-   - Not allowed in Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, accounts or preferences, freeform custom label entry, address lookup/autocomplete, or external geocoding APIs
-
-Default ORAS Observatory (Phase 1 default values):
-- label: ORAS Observatory
-- address: 4249 Camp Coffman Road, Cranberry, PA 16319
-- latitude: 41.321903
-- longitude: -79.585394
-- elevation_ft: 1420
-
-The Active Observing Location is defined as a minimal object with fields: `label`, `latitude`, `longitude`, and optional `elevation_ft` (the ORAS default populates elevation_ft).
+* what phase we are executing
+* what is considered complete
+* how existing code should be treated
+* what is allowed next
 
 ---
 
-## Deferred Feature (Roadmap)
-
-Address Search & Geocoded Location Selection (DEFERRED — Phase 2 recommendation)
-
-- Summary: preserve the idea of an address autocomplete + geocoding flow for a later phase. Not part of Phase 1. See Phase 2 roadmap.
-- Intent: allow users to type an address and select an autocomplete suggestion that resolves to coordinates used as the Active Observing Location.
-- Phase 1 status: explicitly excluded from Phase 1 (no address autocomplete or external geocoding APIs allowed).
-
----
-
-## Current Phase
-
-UI Phase B — Product UI Transformation (ACTIVE)
-
-## Phase Completion Summary
-
-- **Phase 1:** COMPLETE
-- **Phase 2:** COMPLETE (execution-level; scaffolding implemented)
- 
-This project has completed Phase 1 and Phase 2.
-Current execution is UI Phase B.
-
-The authoritative Phase B documents are:
-* docs/UI_PHASE_B_SPEC.md
-* docs/PHASE_B_EXECUTION_TODO.md
-* docs/UI_VISUAL_CALIBRATION.md
-* docs/UI_MODULE_TRANSFORMS.md
-* docs/UI_VALIDATION_RULES.md
-
----
-
-## CURRENT IMPLEMENTATION STATUS
-
-The Phase 1 MVP features below reflect the code and documentation currently implemented in this workspace. Marked items are COMPLETE for Phase 1.
-
-- **Backend endpoints (mock)**: COMPLETE — `/api/conditions`, `/api/targets`, `/api/passes`, `/api/alerts` return mocked JSON.
-- **Frontend dashboard shell**: COMPLETE — Vite + React app with dashboard layout.
-- **Conditions module**: COMPLETE — fetches `/api/conditions` and renders contract fields.
-- **Targets module**: COMPLETE — fetches `/api/targets` and renders recommended targets.
-- **Alerts module**: COMPLETE — fetches `/api/alerts` and renders alerts/events.
-- **Passes module**: COMPLETE — fetches `/api/passes` and renders upcoming satellite passes.
-- **Moon Summary (derived)**: COMPLETE — `MoonSummary` fetches `/api/conditions` and renders moon-related fields.
-- **Mode system (Day/Night/Red)**: COMPLETE — app-level mode state and CSS theming implemented.
-- **Mode persistence (localStorage)**: COMPLETE — selected mode persists across refresh in `localStorage`.
-- **Active Observing Location (default ORAS + manual override)**: COMPLETE — App UI supports ORAS default and session-only numeric lat/lon/elev override.
-- **Backend query param support (lat/lon/elevation_ft)**: COMPLETE — backend accepts and validates `lat`, `lon`, and optional `elevation_ft` and returns 400 JSON on invalid params.
-- **Frontend query param wiring**: COMPLETE — frontend app appends `lat`, `lon`, and optional `elevation_ft` query params to module requests when a manual override is active.
-
----
-
-## Phase 1 Objective
-
-Deliver a clean, usable dashboard that provides:
-
-- observing conditions
-- recommended targets
-- upcoming satellite passes
-- alerts / notable events
-- moon summary
-- simple drill-down pages
-
----
-
-## Phase 1 Constraints
-
-The following are explicitly NOT allowed in Phase 1:
-
-- globe view
-- 3D Earth visualization
-- aircraft tracking
-- AR features
-- global observatory systems
-- advanced astrophotography tools
-- heavy backend architecture
-- database systems (Postgres/PostGIS)
-- real-time streaming systems
-- AI-driven recommendation engines
- - real external APIs (Phase 1 is mock-first)
-
----
-
-## Architecture
-
-### Frontend
-
-- Runs locally during development
-- Renders dashboard UI
-- Uses modular components
-- Consumes backend JSON
-- Supports:
-  - Day mode
-  - Night mode
-  - Red mode
-  - Time context (Now / Tonight / 24h)
- - Location-aware request handling: frontend appends optional `lat`/`lon`/`elevation_ft` when a session override is active
-
----
-
-### Backend
-
-- Runs locally during Phase 1
-- Provides REST endpoints
-- Returns mocked JSON initially
-- Responsible for:
-  - normalization
-  - caching (conceptually)
-  - stable data contracts
-
-- Location-aware query handling: endpoints accept optional `lat`, `lon`, and `elevation_ft` query params (validated); responses remain mocked and contract shapes unchanged.
-
-No database in Phase 1.
-
----
-
-## Core System Loop (LOCKED)
-
-1. User opens Astronomy Hub
-2. Confirms location
-3. Sees observing conditions
-4. Sees recommended targets
-5. Sees passes and alerts
-6. Drills deeper if needed
-
-Any feature outside this loop is not part of Phase 1.
-
----
-
-## KNOWN LIMITATIONS (Phase 1)
-
-- Mock data only: No real astronomy calculations or live data sources yet.
-- Address autocomplete / geocoding: DEFERRED to Phase 2; explicitly excluded from Phase 1.
-- No browser geolocation: Phase 1 does not use device geolocation.
-- No saved locations: session-only manual override only; no account-based persistence.
-- No telemetry: no frontend telemetry/analytics in Phase 1.
-- Logging: backend-only, minimal request logging; no frontend telemetry layer yet.
-
----
-
-## NEXT PHASE ENTRY POINT (Phase 2 candidate work)
-
-Recommended next development steps when moving to Phase 2:
-
-- Improve Red mode visual accuracy and final polish.
-- Add a frontend developer logging layer (dev-only) to aid debugging and usage telemetry during development.
-- Introduce real data sources and replace mock endpoints with normalized ingestion pipelines.
-- Implement Address Search & Geocoded Location Selection (autocomplete + geocoding) using a vetted external provider; ensure privacy and API usage policies are defined.
-- Improve UI polish, responsiveness, and layout refinements across modules.
-
----
-
----
-
-## Data Contracts (Summary)
-
-All backend responses must follow strict schemas.
-
-Core endpoints:
-
-- `/api/conditions`
-- `/api/targets`
-- `/api/passes`
-- `/api/alerts`
-
-Frontend must rely ONLY on these contracts.
-
----
-
-## Development Rules
-
-1. MOCK FIRST  
-   No real APIs until UI is complete
-
-2. CONTRACT FIRST  
-   Do not change response shapes mid-build
-
-3. NO SCOPE CREEP  
-   Do not implement Phase 2 features
-
-4. ONE MODULE AT A TIME  
-   Build, validate, then move on
-
-5. SIMPLE FIRST  
-   Deterministic logic only
-
----
-
-## Current Repository Structure
+# 1. 🧠 AUTHORITATIVE RULE
 
 ```text
-Astronomy-Hub/
-  docs/
-  frontend/
-  backend/
-    docs/
-    api/
-    cache/
-    scripts/
+This document overrides assumptions, memory, and prior implementation.
+
+If it is not stated here, it is not considered current system reality.
+```
+
+---
+
+# 2. 📍 CURRENT EXECUTION PHASE
+
+```text
+ACTIVE PHASE: Phase 1 — Command Center (RESTARTED)
+```
+
+---
+
+# 3. 🔄 EXECUTION STRATEGY (CRITICAL)
+
+```text
+Execution has been intentionally restarted from Phase 1
+after a full documentation rewrite.
+```
+
+---
+
+## Interpretation
+
+* The project previously progressed through Phase 2 / 2.5 partially
+* The implementation diverged from the intended system
+* Documentation has now been rewritten and aligned
+
+Therefore:
+
+```text
+All implementation must now be validated or rebuilt starting from Phase 1
+```
+
+---
+
+# 4. 🧱 CURRENT SYSTEM REALITY
+
+---
+
+## 4.1 Documentation State
+
+The documentation system has been rewritten and is now authoritative.
+
+Includes:
+
+* architecture
+* engine model
+* object model
+* ingestion strategy
+* UI structure and phases
+* styling system
+* execution control
+* validation system
+
+---
+
+## 4.2 Codebase State
+
+The repository currently contains:
+
+* frontend implementation
+* backend implementation
+* Docker setup
+* partial API structure
+* partial UI system
+
+However:
+
+```text
+The existing codebase is NOT considered authoritative.
+```
+
+It must be treated as:
+
+* reference implementation
+* reusable where valid
+* discardable where misaligned
+
+---
+
+# 5. ✅ WHAT IS CONSIDERED COMPLETE
+
+---
+
+## Documentation
+
+* Core architecture defined
+* Phase system defined
+* UI system defined
+* Styling system defined
+* Execution model defined
+* Validation model defined
+
+---
+
+## Infrastructure
+
+* Docker environment works
+* frontend and backend run
+* proxy exists
+* environment configuration exists
+
+---
+
+# 6. ❌ WHAT IS NOT CONSIDERED COMPLETE
+
+---
+
+## Phase 1 Implementation (REQUIRED REBUILD)
+
+Even though a version exists, Phase 1 is NOT considered complete because:
+
+* UI does not meet design principles
+* system lacks clarity and hierarchy
+* object interaction is inconsistent
+* backend does not enforce contracts
+* architecture is not properly realized
+
+---
+
+## Backend
+
+* not contract-driven
+* normalization not enforced
+* validation not enforced
+* engine boundaries not implemented
+* ingestion system not structured
+
+---
+
+## Frontend
+
+* not aligned with command-center design
+* hierarchy weak
+* scene not dominant
+* panels not properly structured
+* detail flow incomplete
+
+---
+
+# 7. 🎯 CURRENT OBJECTIVE
+
+```text
+Rebuild Phase 1 implementation to match rewritten system architecture and UI design.
+```
+
+---
+
+## Phase 1 Must Deliver
+
+* functional “Above Me” command center
+* correct object model usage
+* correct scene rendering
+* correct interaction model
+* correct UI hierarchy
+
+---
+
+# 8. 🚧 CURRENT WORKSTREAM
+
+---
+
+## Phase 1 — Implementation Audit + Realignment
+
+---
+
+### Immediate Task
+
+```text
+Audit existing codebase against:
+- PHASE_1_SPEC.md
+- ARCHITECTURE_OVERVIEW.md
+- ENGINE_SPEC.md
+- OBJECT_MODEL.md
+- UI_INFORMATION_ARCHITECTURE.md
+```
+
+---
+
+### Determine
+
+* what can be reused
+* what must be modified
+* what must be removed
+
+---
+
+# 9. ⚠️ ACTIVE CONSTRAINTS
+
+---
+
+## MUST
+
+* follow rewritten documents
+* treat Phase 1 as execution start
+* validate all reused code
+* enforce architecture
+* enforce object model
+* enforce UI structure
+
+---
+
+## MUST NOT
+
+* continue old implementation blindly
+* skip to Phase 2 or 2.5
+* introduce new features outside Phase 1
+* rely on old assumptions
+* accept UI that violates design principles
+
+---
+
+# 10. 🚫 CURRENTLY FORBIDDEN
+
+---
+
+* Phase 2+ features
+* advanced visualization (Phase 3)
+* knowledge graph (Phase 4)
+* prediction system (Phase 5)
+* backend scaling optimizations (Phase 2.5 full scope)
+
+---
+
+# 11. 🧪 DEFINITION OF PHASE 1 COMPLETE
+
+---
+
+Phase 1 is complete ONLY IF:
+
+---
+
+## Backend
+
+* scene endpoint behaves correctly
+* object summaries consistent
+* object detail works
+* data follows contracts
+
+---
+
+## Frontend
+
+* scene is dominant
+* objects are interactive
+* panels are structured correctly
+* hierarchy is clear
+
+---
+
+## UX
+
+* user understands system instantly
+* user can identify what to observe
+* user can navigate without confusion
+
+---
+
+# 12. 🔄 NEXT PHASE (LOCKED)
+
+```text
+NEXT PHASE: Phase 2 — Engine Exploration
+```
+
+---
+
+## Entry Condition
+
+Phase 1 must be fully validated before proceeding.
+
+---
+
+# 13. ⚠️ CURRENT RISKS
+
+---
+
+## 13.1 Legacy Code Contamination
+
+Old code may:
+
+* conflict with new architecture
+* violate object model
+* bypass contracts
+
+---
+
+## 13.2 False Completion
+
+System may:
+
+* appear functional
+* but fail validation criteria
+
+---
+
+## 13.3 UI Misalignment
+
+UI may:
+
+* render data
+* but fail to guide user
+
+---
+
+# 14. 🔥 FINAL STATEMENT
+
+```text
+We are not continuing from previous implementation.
+
+We are rebuilding Phase 1 correctly using the rewritten system as law.
+
+If code and documentation conflict,
+documentation wins.
+```
+
+---
+
+## ✅ Where you are now
+
+Now everything is aligned:
+
+* SESSION_STATE → Phase 1 restart
+* PROJECT_STATE → Phase 1 restart
+* MASTER_PLAN → execution control
+* DOCUMENT_INDEX → discovery
+* ENGINE + OBJECT + INGESTION → backend law
+* UI + STYLING → frontend law
+
+---

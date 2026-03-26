@@ -1,396 +1,499 @@
-# 🌌 ASTRONOMY HUB — MASTER SYSTEM PLAN
+Below is the **final, fully re-rewritten** version of your master plan—now incorporating:
 
-**Goal:** Build a lightweight, web-based, location-aware astronomy intelligence hub that aggregates *everything happening in space and sky* into a single unified interface.
+* engine-based architecture
+* filter model (not layers)
+* scope system
+* scene instancing (your Guild Wars 2 insight)
+* client-heavy rendering + Pi backend reality
+* full dream-level capability without breaking feasibility
+
+This is now your **authoritative vision document**.
+
+---
+
+# 🌌 ASTRONOMY HUB — MASTER SYSTEM PLAN (AUTHORITATIVE)
+
+---
+
+# 0. CORE IDENTITY
+
+Astronomy Hub is a **real-time, multi-engine astronomy intelligence system**.
+
+It is a **command center for Earth, sky, and space** that allows a user to:
+
+* understand what is happening **above them right now**
+* explore **Earth, Sun, satellites, and the solar system**
+* investigate **any object or event in detail**
+* navigate across **scales of reality** (local → global → cosmic)
 
 ---
 
 # 1. 🧭 SYSTEM VISION
 
-A user opens the ORAS website → enters location → instantly sees:
+A user opens Astronomy Hub and can instantly:
 
-* What’s above them **right now**
-* What’s coming **tonight / this week**
-* What’s happening **globally in space**
-* Alerts for **major events**
-* Ability to explore:
-
-  * Satellites
-  * Solar activity
-  * Astronomical events
-  * Earth-space interactions
-
-**Design Philosophy:**
-
-* Lightweight (Raspberry Pi capable backend)
-* Client-heavy rendering (browser/WebGL)
-* Modular (feature-based expansion)
-* API-first aggregation (no heavy computation locally)
+* see what is above them in the sky
+* understand what is happening on Earth
+* observe solar activity in real time
+* explore satellites and flights around the planet
+* navigate the solar system in 3D
+* investigate deep space objects like M13
+* access images, research, and news tied to any object
 
 ---
 
-# 2. 🧱 CORE ARCHITECTURE
+## The system answers:
 
-## 2.1 Frontend (User Interface)
+> “What is happening right now — and what does it mean?”
 
-* WordPress Plugin (primary portal)
-* Optional standalone web app (future)
-* Tech:
+And allows the user to expand that into:
 
-  * Vanilla JS or React (lightweight)
-  * WebGL via **CesiumJS** or **Three.js**
-  * Mobile-first responsive UI
+> “Show me everything about it.”
 
 ---
 
-## 2.2 Backend (Lightweight Aggregator)
-
-* Hosted on Raspberry Pi / Ubuntu server
-* Responsibilities:
-
-  * Fetch + cache data (cron jobs)
-  * Normalize API responses
-  * Serve lightweight JSON
+# 2. 🧠 CORE PHILOSOPHY
 
 ---
 
-## 2.3 Data Flow
+## 2.1 Power with Control
 
-```
-External APIs → Pi Aggregator → Cached JSON → WordPress Plugin → Browser Rendering
-```
+* The system is **extremely powerful**
+* The system is **never overwhelming**
 
----
+Rule:
 
-# 3. 📡 DATA SOURCES (CORE INTELLIGENCE LAYER)
-
-## 3.1 Satellite Tracking
-
-* TLE Data (Celestrak, Space-Track)
-* Satellite metadata:
-
-  * Name, NORAD ID
-  * Orbit type (LEO, GEO)
-  * Purpose (communications, military, science)
+> Everything exists. Only what matters is shown.
 
 ---
 
-## 3.2 Astronomy Events
+## 2.2 Engine-Based Architecture
 
-* NASA / JPL APIs
-* Minor Planet Center (comets, asteroids)
-* Meteor showers database
-* Eclipse databases
+Astronomy Hub is built as a federation of **independent intelligence engines**.
 
----
+Each engine:
 
-## 3.3 Space Weather / Solar
-
-* NOAA SWPC
-* NASA Solar Dynamics Observatory
-* Data:
-
-  * Solar flares
-  * CMEs
-  * Sunspots
-  * Geomagnetic storms
+* owns a domain
+* ingests its own data
+* structures its knowledge
+* exposes filtered outputs
 
 ---
 
-## 3.4 Earth + Observation Conditions
+## 2.3 Filter-Based Interaction Model
 
-* Weather APIs (cloud cover, visibility)
-* Light pollution maps
-* Atmospheric seeing conditions (future)
+Each engine contains **filters**, not layers.
 
----
+A filter:
 
-## 3.5 Alerts / Transients
+* defines what subset of the engine is active
+* determines what data is processed
+* determines what is rendered
 
-* Gamma-ray burst feeds
-* Supernova alerts
-* Astronomical Telegram feeds (if accessible)
+Rule:
 
----
-
-## 3.6 Earth Observation Imagery (Optional)
-
-* Sentinel Hub
-* Landsat (delayed imagery)
+> Only the active filter drives computation and display.
 
 ---
 
-# 4. 🧠 CORE FEATURE MODULES
+## 2.4 Scene-Based Instancing (CRITICAL)
+
+The system behaves like an **instanced environment**:
+
+* only the current scene is active
+* only relevant data is processed
+* only visible objects are rendered
+
+Rule:
+
+> The system computes only what the user is currently looking at.
 
 ---
 
-## 4.1 LOCAL SKY ENGINE (FOUNDATION)
+## 2.5 Client-Heavy Rendering
 
-User inputs location → system calculates:
+* Browser handles:
 
-* Visible satellites (next passes + times)
-* Visible planets
-* Moon phase + position
-* Current constellations
-* Upcoming events (next 24–72 hrs)
+  * 3D rendering
+  * map/globe visualization
+  * object interaction
+  * scene transitions
 
-**Output:**
+* Backend handles:
 
-* Timeline
-* Sky map
-* “Look here” guidance
-
----
-
-## 4.2 SATELLITE INTELLIGENCE SYSTEM
-
-Features:
-
-* Real-time satellite positions (approximate via TLE)
-* Satellite passes (ISS, Starlink, etc.)
-* Satellite detail view:
-
-  * Owner
-  * Mission
-  * Orbit path
-* Filtering:
-
-  * Visible only
-  * Brightest passes
-  * Specific satellite groups
+  * aggregation
+  * normalization
+  * caching
+  * distribution
 
 ---
 
-## 4.3 GLOBAL SPACE MAP
+## 2.6 Deterministic Core
 
-Interactive globe showing:
-
-* Satellite orbits
-* Eclipse paths
-* Meteor impacts (if available)
-* Solar storm effects (aurora zones)
-
-Zoom levels:
-
-* Local → Regional → Global
+* No AI dependency for system truth
+* All outputs must be explainable
+* AI is optional and additive only
 
 ---
 
-## 4.4 EVENT FEED (CRUCIX-STYLE)
-
-Feed system:
-
-* Priority-based events
-* Categories:
-
-  * 🚨 Major (solar storm, comet, eclipse)
-  * 🌠 Observational (meteor shower peak)
-  * 🛰 Satellite events
-* Sorting:
-
-  * Relevance to user location
-  * Severity / importance
+# 3. 🌍 SYSTEM STRUCTURE
 
 ---
 
-## 4.5 SOLAR DASHBOARD
+## Key Concepts
 
-Dedicated “Sun” tab:
+### Engine
 
-* Live solar imagery (if available)
-* Flare tracking
-* CME direction
-* Impact predictions (Earth-facing events)
+A domain authority (Earth, Sun, Satellites, etc.)
 
----
+### Filter
 
-## 4.6 AUGMENTED SKY GUIDE (KEY FEATURE)
+The active data focus inside an engine
 
-User taps **“Guide Me”**:
+### Scene
 
-* Phone orientation used (future: sensors)
-* Displays:
+What is currently being rendered
 
-  * “Look 45° NE”
-  * “Object located near Orion”
-* Optional:
+### Scope
 
-  * AR overlay (future phase)
+The scale of the system:
 
----
+* Above Me
+* Earth
+* Sun
+* Solar System
+* Galaxy (future)
 
-## 4.7 OBSERVATORY & SCIENCE LAYER (ADVANCED)
+### Object
 
-* Show major observatories:
+A clickable entity:
 
-  * Location
-  * What they’re observing (if public)
-* Integration with:
-
-  * Citizen science (future)
-
----
-
-## 4.8 HISTORICAL + REPLAY MODE
-
-* Past satellite paths
-* Past sky conditions
-* Replay:
-
-  * “What did the sky look like last night?”
+* satellite
+* planet
+* earthquake
+* sunspot
+* flight
+* deep sky object
 
 ---
 
-## 4.9 USER CUSTOMIZATION
-
-* Alerts:
-
-  * ISS passes
-  * Meteor showers
-  * Solar storms
-* Saved locations
-* Preferences:
-
-  * Visual complexity
-  * Notification thresholds
+# 4. 🧠 ENGINE SYSTEM (AUTHORITATIVE)
 
 ---
 
-# 5. 🗺️ VISUALIZATION STRATEGY
+## 🌍 4.1 EARTH ENGINE
+
+Earth as a dynamic system.
+
+### Filters:
+
+* weather
+* cloud cover
+* earthquakes
+* volcanic activity
+* meteor/fireball events
+* radiation
+* geomagnetic field
+* aurora zones
+* light pollution
+
+### Visualization:
+
+* 2D map
+* 3D globe
+
+### Purpose:
+
+Understand what is happening on Earth and how it affects observation.
 
 ---
 
-## 5.1 SKY VIEW (PRIMARY)
+## ☀️ 4.2 SOLAR ENGINE
 
-* Dome-style sky projection
-* Objects plotted:
+Live solar intelligence.
 
-  * Stars
-  * Satellites
-  * Events
-* Minimal GPU usage
+### Filters:
 
----
+* sunspots
+* solar flares
+* CMEs
+* magnetic activity
+* solar imagery
 
-## 5.2 3D SPACE VIEW (OPTIONAL MODE)
+### Visualization:
 
-* Simplified orbit visualization
-* Toggle:
-
-  * “Performance Mode”
-  * “Enhanced Mode”
+* solar map
+* rotating solar globe
 
 ---
 
-## 5.3 EARTH GLOBE VIEW
+## 🛰️ 4.3 SATELLITE ENGINE
 
-* CesiumJS lightweight globe
-* Overlays:
+Orbital intelligence.
 
-  * Satellite paths
-  * Event zones
+### Filters:
 
----
+* visible passes
+* Starlink
+* communication satellites
+* science satellites
+* Lagrange / deep space assets
 
-# 6. ⚙️ PHASED DEVELOPMENT PLAN
+### Data:
 
----
-
-## 🔹 PHASE 1 — FOUNDATION (MVP)
-
-**Goal:** Local sky awareness
-
-* Location input
-* Basic satellite passes
-* Basic astronomy events
-* Simple sky map
-* WordPress plugin UI
-* Backend cache system
+* orbit
+* ownership
+* mission
+* brightness
+* position
 
 ---
 
-## 🔹 PHASE 2 — GLOBAL CONTEXT
+## ✈️ 4.4 FLIGHT ENGINE
 
-* Globe view
-* Event feed system
-* Satellite filtering
-* Multi-location support
+Atmospheric tracking.
 
----
+### Filters:
 
-## 🔹 PHASE 3 — INTELLIGENCE LAYER
+* all flights
+* above-horizon flights
+* high altitude flights
 
-* Satellite metadata enrichment
-* Solar data integration
-* Weather + visibility layer
-* Alerts system
+### Purpose:
+
+Differentiate aircraft from space objects.
 
 ---
 
-## 🔹 PHASE 4 — IMMERSIVE EXPERIENCE
+## 🪐 4.5 SOLAR SYSTEM ENGINE
 
-* “Guide Me” directional system
-* Advanced sky rendering
-* Mobile optimization
+3D planetary system.
 
----
+### Filters:
 
-## 🔹 PHASE 5 — ADVANCED DATA + SCIENCE
+* planets
+* moons
+* comets
+* asteroids
+* NEOs
+* spacecraft
+* orbital alignment
 
-* Observatory integrations
-* Transient events (supernova, GRB)
-* Historical replay
+### Features:
 
----
-
-## 🔹 PHASE 6 — POLISH + PUBLIC RELEASE
-
-* Performance optimization (Pi-ready)
-* UI/UX refinement
-* Accessibility modes
-* Documentation + onboarding
+* real-time 3D system
+* zoom into planets
+* object-level exploration
 
 ---
 
-# 7. 🧮 PERFORMANCE STRATEGY (CRITICAL)
+## 🌌 4.6 DEEP SKY ENGINE
 
-To stay Raspberry Pi compatible:
+Galactic objects.
 
-* Pre-cache all data (cron jobs)
-* No real-time heavy calculations
-* Limit satellites per query (filtering)
-* Use simplified math (SGP4 libraries lightweight)
-* Lazy-load visual layers
+### Filters:
 
----
+* galaxies
+* nebulae
+* clusters
+* visible tonight
+* telescope targets
 
-# 8. 🚀 EXPANSION IDEAS (FUTURE)
+### Data:
 
-* AI assistant (“What should I look at tonight?”)
-* Voice interaction
-* Astrophotography planner
-* Telescope integration
-* Live sky camera feeds
-* Community reports
+* imagery
+* research
+* observation data
 
 ---
 
-# 9. 🧠 KEY INSIGHT (IMPORTANT)
+## 📰 4.7 NEWS & KNOWLEDGE ENGINE
 
-This system is **NOT one app**
-It is a **data orchestration engine + visualization layer**
+Cross-domain intelligence.
 
-You are building:
+### Organized by engine:
 
-> “A civilian space awareness command center”
+* Earth news
+* solar activity news
+* satellite launches
+* planetary missions
+* scientific discoveries
 
 ---
 
-# 10. 📌 FINAL BUILD STRATEGY
+# 5. 🎛️ MAIN ENGINE (UNIFIED SYSTEM)
 
-Start with:
+---
 
-> Local Sky → Then Expand Outward
+## 5.1 Scope Selection
 
-NOT:
+User selects:
 
-> Global → Then Try to Personalize
+* Above Me
+* Earth
+* Sun
+* Satellites
+* Flights
+* Solar System
+* Deep Sky
+
+---
+
+## 5.2 “WHAT’S ABOVE ME” MODE
+
+This is the core experience.
+
+The system merges:
+
+* visible satellites
+* visible planets
+* deep sky objects
+* flights
+* events
+
+Filtered by:
+
+* location
+* time
+* horizon
+* visibility
+
+---
+
+## 5.3 Object Interaction
+
+User clicks any object:
+
+System routes to correct engine:
+
+* satellite → Satellite Engine
+* planet → Solar System Engine
+* M13 → Deep Sky Engine
+
+Then displays:
+
+* images
+* data
+* news
+* research
+* related events
+
+---
+
+# 6. ⚙️ ARCHITECTURE
+
+---
+
+## Backend (Raspberry Pi)
+
+* FastAPI runtime
+* PostgreSQL + PostGIS
+* Redis (cache + queue)
+* scheduled ingestion
+* normalized contracts
+
+Responsibilities:
+
+* fetch
+* normalize
+* cache
+* serve
+
+---
+
+## Frontend (Browser)
+
+* React-based UI
+* WebGL (Three.js / CesiumJS)
+* scene rendering
+* object interaction
+* dynamic loading
+
+Responsibilities:
+
+* render scenes
+* manage filters
+* handle exploration
+
+---
+
+## Data Strategy
+
+* ingest minimal authoritative sources
+* normalize aggressively
+* cache results
+* precompute summaries
+
+---
+
+# 7. 🚀 PERFORMANCE MODEL
+
+---
+
+## Core Rule
+
+> The system does not compute the universe.
+> It computes the current scene.
+
+---
+
+## Constraints
+
+* only active engine runs
+* only active filter is processed
+* only visible objects are rendered
+* detail loads on demand
+
+---
+
+## Result
+
+* scalable system
+* responsive UI
+* realistic backend load
+
+---
+
+# 8. 🌐 LONG-TERM VISION
+
+Astronomy Hub evolves into:
+
+* a global astronomy intelligence platform
+* a research exploration system
+* a public-facing space awareness tool
+* a community-driven ecosystem
+
+Future possibilities:
+
+* plugins
+* AI-assisted insights
+* historical replay
+* predictive modeling
+
+---
+
+# 9. 🔥 FINAL STATEMENT
+
+> Astronomy Hub is a unified command center for Earth, sky, and space—allowing users to explore reality from their location to the structure of the cosmos.
+
+It begins with:
+
+> “What is above me right now?”
+
+And expands into:
+
+> “Show me everything.”
+
+---
+
+# ✔️ What This Version Achieves
+
+This version:
+
+* restores your original vision
+* introduces engine architecture
+* introduces filters (correct model)
+* introduces instanced scene computation
+* keeps system technically feasible
+* aligns with Raspberry Pi + browser reality
+* prevents future drift

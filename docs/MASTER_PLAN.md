@@ -1,194 +1,371 @@
-# Astronomy Hub — Master Plan
+### ✅ `MASTER_PLAN.md` = **The Controlled Reality Plan**
 
-## Vision
+* what is being built *right now*
+* how phases connect
+* what is in vs out
+* prevents scope creep
+* aligns coding AI
 
-Astronomy Hub is a unified, field-ready astronomy intelligence interface for ORAS members. It is designed to answer the most practical question first:
-
-> What should I know about the sky right now, from where I am, and what should I look at next?
-
-The system is intended to begin as a calm, local, decision-support dashboard and later expand into a broader astronomy intelligence platform that can surface satellites, celestial events, observing conditions, space weather, and curated ORAS knowledge.
-
-This is not intended to begin as a giant global command center. It begins as a practical observing assistant and grows outward in phases.
+👉 This is your **execution governor**
 
 ---
 
-## Product Goals
+## ⚠️ Why you absolutely need both
 
-- Give members a simple, useful astronomy dashboard
-- Prioritize field usability over raw data volume
-- Support both beginners and experienced observers
-- Keep the backend lightweight and deployable later to Raspberry Pi
-- Keep the frontend visually modern, clean, and expandable
-- Use deterministic logic first, not AI-first design
-- Build in strict phases to reduce drift and token waste
+Without `MASTER_PLAN.md`:
 
----
+* AI will drift back into “dream mode”
+* phases will get polluted with future ideas
+* implementation will become inconsistent
+* you’ll repeat what already happened
 
-## Core Product Principles
+Without `ASTRONOMY_HUB_MASTER_PLAN.md`:
 
-- Decision support first
-- Local sky first
-- Drill-down over overload
-- Curated ORAS value over raw feed dumping
-- Mock-first development
-- Stable data contracts before live integrations
-- Frontend and backend separation of concerns
-- Build locally first, deploy later
+* system becomes small and uninspired
+* long-term direction is lost
 
 ---
 
-## Phase Overview
+## 🧭 Correct relationship
 
-### Phase 1 — Local Sky MVP
-Deliver a practical local observing dashboard:
-- observing conditions
-- recommended targets
-- upcoming visible satellite passes
-- alerts / notable events
-- moon summary
-- local drill-down pages
+```text
+ASTRONOMY_HUB_MASTER_PLAN.md → defines EVERYTHING the system could be
 
-Phase 1 is the foundation for all future phases.
-
-### Phase 2 — Data and System Expansion
-Expand backend shape and data breadth:
-- stronger backend structure
-- more robust endpoint planning
-- broader local astronomy data coverage
-- first expansion beyond basic local summary
-
-### Phase 3 — Richer Exploration
-Add deeper exploration tools:
-- richer target detail
-- more advanced satellite detail
-- stronger event exploration
-- more refined user controls
-
-### Phase 4 — Global and Advanced Views
-Move beyond strictly local dashboards:
-- wider regional/global context
-- more advanced visualization layers
-- more dynamic exploration patterns
-
-### Phase 5 — Specialized Astronomy Intelligence
-Potential later additions:
-- solar/space weather deep views
-- observatory-related layers
-- astrophotography-support features
-- historical replay / trend analysis
-
-### Phase 6 — Public-Ready / Production Hardening
-- deployment architecture
-- caching strategy hardening
-- performance tuning
-- reliability and failure handling
-- public-safe exposure model
+MASTER_PLAN.md → defines what we are building NOW and NEXT
+```
 
 ---
 
-## Phase 1 Priority
+## ✅ So yes—you need it
 
-Phase 1 is the most important phase.
+But it must be:
 
-If Phase 1 is weak:
-- future phases become harder to integrate
-- UI becomes harder to fix
-- data contracts drift
-- token cost rises
-
-Therefore Phase 1 must be treated as the execution foundation, not a prototype to throw away.
+* short
+* strict
+* phase-aligned
+* non-duplicative
 
 ---
 
-## Technical Direction
+# 📄 FULL REWRITE — `MASTER_PLAN.md`
 
-### Frontend
-Initially built locally inside the main Astronomy-Hub workspace.
-
-Responsibilities:
-- render the dashboard
-- present clean module-based UI
-- consume mocked and later live backend endpoints
-- support Day / Night / Red modes
-- support responsive/mobile-friendly layout
-
-### Backend
-Initially built locally inside the same workspace.
-
-Responsibilities:
-- provide mock and later live JSON endpoints
-- normalize incoming data shapes
-- cache data
-- serve simple API responses
-- stay lightweight enough for later Raspberry Pi deployment
-
-### Deployment Strategy
-Do not optimize for remote deployment yet.
-
-Current strategy:
-- build locally
-- validate locally
-- harden Phase 1 locally
-- move backend to Raspberry Pi only after Phase 1 stabilizes
+Paste this directly into your repo.
 
 ---
 
-## Documentation Strategy
-
-The docs folder is the source of truth.
-
-Required documents:
-- `MASTER_PLAN.md`
-- `PHASE_1_SPEC.md`
-- `PHASE_1_ACCEPTANCE_CRITERIA.md`
-- `ARCHITECTURE_OVERVIEW.md`
-- `DATA_CONTRACTS.md`
-- `UI_INFORMATION_ARCHITECTURE.md`
-- `CODING_GUARDRAILS.md`
-- `VALIDATION_CHECKLIST.md`
-- `SESSION_CONTINUITY_BRIEF.md`
-
-Backend-specific docs:
-- `backend/docs/BACKEND_ARCHITECTURE.md`
-- `backend/docs/API_ENDPOINT_PLAN.md`
-- `backend/docs/CACHE_STRATEGY.md`
-- `backend/docs/INGESTION_PLAN.md`
+# 🌌 ASTRONOMY HUB — MASTER PLAN (AUTHORITATIVE)
 
 ---
 
-## Build Order
+# 0. PURPOSE
 
-1. Lock docs
-2. Lock Phase 1 scope
-3. Lock data contracts
-4. Create mocked backend responses
-5. Build frontend shell
-6. Wire local backend endpoints
-7. Validate Phase 1 locally
-8. Only then discuss Pi deployment
+This document defines:
+
+> **What is being built right now, and how the system progresses phase by phase**
+
+This is the **execution control document**.
 
 ---
 
-## Non-Goals Right Now
-
-Not part of the immediate build:
-- globe view
-- global satellite map
-- Cesium / heavy 3D rendering
-- AR mode
-- aircraft layers
-- large-scale distributed ingestion
-- AI assistant features
-- public internet exposure of backend
+# 1. 🧠 RELATION TO MASTER VISION
 
 ---
 
-## Definition of Success
+## Rule
 
-Astronomy Hub succeeds when an ORAS member can open one page and quickly understand:
+```text
+ASTRONOMY_HUB_MASTER_PLAN.md defines the full vision
 
-- whether tonight is good for observing
-- what to look at
-- when to look
-- what nearby-relevant events matter
-- where to go next for more detail
+THIS document defines what is allowed to be built now
+```
+
+---
+
+## Constraint
+
+```text
+No feature may be built unless it exists in the current phase scope
+```
+
+---
+
+# 2. 🎯 SYSTEM OBJECTIVE (CURRENT)
+
+The system is being built toward:
+
+> A multi-engine astronomy command center
+
+But development proceeds in **controlled phases**, not full-system implementation.
+
+---
+
+# 3. 🧱 PHASE MODEL (LOCKED)
+
+---
+
+## Phase 1 — Command Center (Above Me)
+
+Focus:
+
+* what is above the user right now
+
+Includes:
+
+* satellites
+* planets
+* deep sky (visible)
+* flights
+* basic conditions
+
+Outcome:
+
+* user can identify and understand the sky
+
+---
+
+## Phase 2 — Engine Exploration
+
+Focus:
+
+* individual systems
+
+Includes:
+
+* Earth engine
+* Solar engine
+* Satellite engine
+* Flight engine
+* Solar system (basic)
+* Deep sky (basic)
+
+Outcome:
+
+* user can explore each domain independently
+
+---
+
+## Phase 2.5 — Backend Stabilization
+
+Focus:
+
+* system integrity
+
+Includes:
+
+* FastAPI runtime
+* contract enforcement
+* normalization
+* caching
+
+Outcome:
+
+* backend becomes authoritative
+
+---
+
+## Phase 3 — Visual System
+
+Focus:
+
+* spatial understanding
+
+Includes:
+
+* 2D maps
+* 3D globes
+* sky view
+* solar system visualization
+
+Outcome:
+
+* user explores visually
+
+---
+
+## Phase 4 — Knowledge System
+
+Focus:
+
+* connections
+
+Includes:
+
+* object relationships
+* cross-engine linking
+* discovery system
+
+Outcome:
+
+* system becomes intelligent
+
+---
+
+## Phase 5 — Prediction System
+
+Focus:
+
+* future awareness
+
+Includes:
+
+* timeline
+* forecasts
+* alerts
+* personalization
+
+Outcome:
+
+* system becomes proactive
+
+---
+
+# 4. ⚙️ BUILD ORDER RULES
+
+---
+
+## Rule 1 — No Phase Skipping
+
+```text
+You must fully complete a phase before expanding into the next
+```
+
+---
+
+## Rule 2 — No Future Leakage
+
+```text
+Future-phase features must not appear in current phase implementation
+```
+
+---
+
+## Rule 3 — Minimal Valid System
+
+Each phase must produce:
+
+* a usable system
+* not a placeholder
+* not a mock-only UI
+
+---
+
+## Rule 4 — Architecture First
+
+```text
+All implementation must follow:
+- ARCHITECTURE_OVERVIEW.md
+- DATA_CONTRACTS.md
+```
+
+---
+
+# 5. 🧠 SYSTEM CONSTRAINTS
+
+---
+
+## Must Always Be True
+
+* one active scene
+* one active filter
+* scoped computation only
+* backend normalized data
+* frontend renders only
+
+---
+
+## Must Never Happen
+
+* full-system computation
+* raw API exposure
+* mixed engine logic
+* UI without context
+
+---
+
+# 6. 🎛️ UI ALIGNMENT RULE
+
+---
+
+## Rule
+
+```text
+UI must reflect:
+Scope → Engine → Filter → Scene → Object → Detail
+```
+
+---
+
+## Constraint
+
+UI must not:
+
+* behave like a dashboard
+* behave like a data table
+* lose hierarchy
+
+---
+
+# 7. 📊 COMPLETION RULE
+
+---
+
+A phase is complete ONLY IF:
+
+* it works end-to-end
+* user can use it without explanation
+* data is consistent
+* UI is stable
+* no placeholder behavior
+
+---
+
+# 8. 🚫 FAILURE CONDITIONS
+
+---
+
+Development is considered off-track if:
+
+* features from future phases appear early
+* UI becomes cluttered
+* backend becomes inconsistent
+* system behaves like a demo
+
+---
+
+# 9. 🔥 FINAL STATEMENT
+
+```text
+This document controls execution.
+
+ASTRONOMY_HUB_MASTER_PLAN defines the dream.
+
+This document defines reality.
+```
+
+---
+
+## Where you are now
+
+You now have:
+
+* **Vision (locked)**
+* **Architecture (locked)**
+* **Phases (locked)**
+* **Execution control (this doc)**
+
+---
+
+## Next move (don’t skip this)
+
+Now we fix the **repo truth layer**:
+
+👉 Next doc:
+**`PROJECT_STATE.md`**
+
+This is what prevents:
+
+* confusion
+* drift
+* “what phase are we in?” problems
+
+---
