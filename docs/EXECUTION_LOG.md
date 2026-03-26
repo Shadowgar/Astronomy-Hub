@@ -128,6 +128,50 @@ Aligned with:
 PASS
 
 
+## Step 7 — CHANGELOG Page: Step 7 (Coming Next Section)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Render the `comingNext[]` items on the Progress page; each item should show a title and summary.
+
+### Files Changed
+
+* frontend/src/pages/Progress.jsx
+
+### What Was Done
+
+* Added a `Coming Next` section rendering `publicChangelog.comingNext` as minimal titled entries (title + summary), matching the style of Recent Progress and In Progress.
+
+### Why It Was Done
+
+To implement `CHANGELOG_PAGE_TODO.md` Step 7 with a minimal, verifiable block that lists forward-looking items without adding new components or styling systems.
+
+### Verification
+
+* Commands run:
+
+```bash
+cd /home/rocco/Astronomy-Hub
+docker compose build frontend
+docker compose up -d frontend
+node frontend/scripts/inspect_progress_text.js http://localhost:4173/progress
+```
+
+* Observed results:
+
+  - Frontend container rebuilt and restarted.
+  - Inspector output included the `Coming Next` section with the three entries from `publicChangelog.json` and their summaries.
+  - Raw JSON remains rendered for verification.
+
+### Result
+
+PASS
+
+
 ## Step 5 — CHANGELOG Page: Step 5 (Recent Progress Section)
 
 ### Phase
