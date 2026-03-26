@@ -488,7 +488,7 @@ PASS
 
 ---
 
-## Step 2 — Scene Endpoint Skeleton (IN PROGRESS)
+## Step 2 — Backend Endpoint Skeleton
 
 ### Phase
 
@@ -496,12 +496,40 @@ Phase 1
 
 ### Description
 
-Introduce canonical `/api/scene/above-me` endpoint (stub)
+Expose canonical `/api/scene/above-me` and `/api/object/{id}` routes in the authoritative backend runtime (minimal, contract-correct handlers).
 
-### Status
+### Files Changed
 
-IN PROGRESS
+* backend/server.py
 
+### What Was Done
+
+* Added minimal `GET /api/scene/above-me` handler assembling a Phase 1–compatible scene from `get_targets()` and `_slugify()`.
+* Added minimal `GET /api/object/{id}` handler resolving objects by id and returning a minimal `ObjectDetail` payload.
+* Responses wrapped and validated using the existing `ResponseEnvelope` model to ensure contract shape.
+
+### Why It Was Done
+
+To implement `PHASE_1_BUILD_SEQUENCE.md` Step 2: expose minimal, contract-correct endpoints so frontend and tests can consume a stable Above Me scene and object detail.
+
+### Verification
+
+* Commands run:
+
+  - `docker compose build backend`
+  - `docker compose up -d backend`
+  - `curl -sS http://127.0.0.1:8000/api/scene/above-me` (inspected JSON)
+  - `curl -sS http://127.0.0.1:8000/api/object/jupiter` (inspected JSON)
+
+* Observed results:
+
+  - `/api/scene/above-me` returned a `ResponseEnvelope` with `"status": "ok"`, `data.scope == "above_me"`, and `data.objects` array (2 objects present).
+  - `/api/object/jupiter` returned a `ResponseEnvelope` with `"status": "ok"`, `data.id == "jupiter"`, `data.type == "planet"`.
+  - Existing `/api/targets` continues to return mock targets (2 entries).
+
+### Result
+
+PASS
 ---
 
 ## Step 3 — CHANGELOG Page: Step 1 (Create Page Route + Shell)
