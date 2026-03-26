@@ -128,6 +128,50 @@ Aligned with:
 PASS
 
 
+## Step 8 — CHANGELOG Page: Step 8 (Roadmap Section)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Render the `roadmap[]` items on the Progress page; each item should show `phase`, `title`, and `summary`.
+
+### Files Changed
+
+* frontend/src/pages/Progress.jsx
+
+### What Was Done
+
+* Added a `Roadmap` section rendering `publicChangelog.roadmap` as minimal entries showing `phase`, `title`, and `summary`, matching the style of prior sections.
+
+### Why It Was Done
+
+To implement `CHANGELOG_PAGE_TODO.md` Step 8 with a minimal, verifiable block that lists roadmap entries without adding new components or styling systems.
+
+### Verification
+
+* Commands run:
+
+```bash
+cd /home/rocco/Astronomy-Hub
+docker compose build frontend
+docker compose up -d frontend
+node frontend/scripts/inspect_progress_text.js http://localhost:4173/progress
+```
+
+* Observed results:
+
+  - Frontend container rebuilt and restarted.
+  - Inspector output included the `Roadmap` section with the Phase 1..Phase 5 items from `publicChangelog.json` and their summaries.
+  - Raw JSON remains rendered for verification.
+
+### Result
+
+PASS
+
+
 ## Step 7 — CHANGELOG Page: Step 7 (Coming Next Section)
 
 ### Phase
