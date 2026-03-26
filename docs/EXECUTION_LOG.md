@@ -127,6 +127,57 @@ Aligned with:
 
 PASS
 
+
+## Step 3c — CHANGELOG Page: Step 3 (Current Status Section — Hero)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Render the `currentStatus` hero on the Progress page showing `phase`, `summary`, and `note` as a minimal top card.
+
+### Files Changed
+
+* frontend/src/pages/Progress.jsx
+
+### What Was Done
+
+* Added a minimal hero section to `Progress.jsx` that reads `publicChangelog.currentStatus` and displays `phase`, `summary`, and `note` with light inline styling.
+* Kept the raw JSON `<pre>` rendering below for verification.
+
+### Why It Was Done
+
+To implement `CHANGELOG_PAGE_TODO.md` Step 3 (Current Status Section) as a minimal, verifiable UI element without adding styling systems or additional components.
+
+### Verification
+
+* Commands run:
+
+```bash
+cd /home/rocco/Astronomy-Hub
+docker compose build frontend
+docker compose up -d frontend
+node frontend/scripts/inspect_progress_text.js http://localhost:4173/progress
+```
+
+* Observed results:
+
+  - Frontend image rebuilt and container restarted.
+  - `inspect_progress_text.js` output included the hero block text:
+
+    Current Status
+    Phase: Phase 1 — Command Center Rebuild
+    Summary: Astronomy Hub is being rebuilt from the ground up as a real astronomy command center.
+    Note: The project is now following the rewritten architecture, object model, UI system, and execution plan.
+
+  - Raw JSON remains rendered in the page.
+
+### Result
+
+PASS
+
 ---
 
 ## Step 2 — Scene Endpoint Skeleton (IN PROGRESS)
