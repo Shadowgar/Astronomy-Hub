@@ -128,6 +128,49 @@ Aligned with:
 PASS
 
 
+## Step 5 — CHANGELOG Page: Step 5 (Recent Progress Section)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Render the `recentProgress[]` items on the Progress page; each item should show a title and summary.
+
+### Files Changed
+
+* frontend/src/pages/Progress.jsx
+
+### What Was Done
+
+* Added a `Recent Progress` section rendering `publicChangelog.recentProgress` as minimal titled entries (title + summary), preserving raw JSON rendering for verification.
+
+### Why It Was Done
+
+To implement `CHANGELOG_PAGE_TODO.md` Step 5 with a minimal, verifiable block that lists recent progress items.
+
+### Verification
+
+* Commands run:
+
+```bash
+cd /home/rocco/Astronomy-Hub
+docker compose build frontend
+docker compose up -d frontend
+node frontend/scripts/inspect_progress_text.js http://localhost:4173/progress
+```
+
+* Observed results:
+
+  - Frontend container rebuilt and restarted.
+  - Inspector output included the `Recent Progress` section with the three entries from `publicChangelog.json` and their summaries.
+
+### Result
+
+PASS
+
+
 ## Step 4 — CHANGELOG Page: Step 4 (Current Focus Section)
 
 ### Phase
