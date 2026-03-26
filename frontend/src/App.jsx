@@ -123,10 +123,12 @@ export default function App() {
 
   // Minimal, opt-in route handling for the Progress page. This is intentionally
   // simple and avoids adding a routing dependency: if the path is /Progress
-  // or /progress render the Progress page shell only.
+  // or /progress render the Progress page shell only. Normalize the path to
+  // handle case and trailing-slash variations.
   if (typeof window !== 'undefined') {
-    const p = window.location && window.location.pathname
-    if (p === '/Progress' || p === '/progress') {
+    const pRaw = (window.location && window.location.pathname) || ''
+    const p = (pRaw || '').replace(/\/+$/, '').toLowerCase()
+    if (p === '/progress') {
       return <Progress />
     }
   }

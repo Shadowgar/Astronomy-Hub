@@ -209,3 +209,59 @@ This is the execution memory of the system.
 SESSION_STATE = where we are  
 EXECUTION_LOG = how we got here
 ```
+
+---
+
+## Step 3a — CHANGELOG Page: Step 1 Playwright Verification Attempt
+
+### Phase
+
+Phase 1
+
+### Description
+
+Attempt to confirm client-side rendered header `Development Progress` at http://localhost:4173/progress using a local Playwright run.
+
+### Files Changed / Created
+
+- frontend/scripts/check_progress.js (new helper script to run Playwright)
+- frontend/dist (rebuilt via `npm run build` during verification)
+- docs/EXECUTION_LOG.md (this appended entry)
+
+### What Was Done
+
+- Ensured preview serving on port 4173 (restarted preview bound to 4173).
+- Rebuilt the frontend: `npm run build`.
+- Installed Playwright locally in `frontend` and added `frontend/scripts/check_progress.js` to perform a headless DOM inspection.
+- Ran the Playwright script to navigate to `/progress` and check for visible text `Development Progress`.
+
+### Verification
+
+* Commands executed (excerpt):
+
+  - `npm run build`
+  - `nohup npm run preview -- --port 4173 &` (preview restarted on 4173)
+  - `npm install --no-audit --no-fund playwright@latest`
+  - `node frontend/scripts/check_progress.js`
+
+* Observed results:
+
+  - Frontend build: SUCCESS (dist updated).
+  - Preview: server responded on http://localhost:4173 (index HTML served).
+  - Playwright script output: NOT_FOUND — `Development Progress` not present.
+  - Debug output from the headless run:
+
+    - PAGE URL: http://localhost:4173/progress
+    - window.location.pathname: /progress
+    - H1s found in DOM: [ 'Astronomy Hub' ]
+    - Page body snapshot (truncated): "Astronomy Hub\nLocation: ORAS Observatory\nApply for session\n..."
+
+* Notes:
+
+  - `frontend/src/pages/Progress.jsx` contains `<h1>Development Progress</h1>` in source.
+  - Despite path and URL matching `/progress`, the served app rendered the main dashboard header instead of the Progress page shell.
+  - Possible causes: built bundle path/entry behavior, client-side branch not executing as expected in the preview environment, or an environmental caching/serve discrepancy. Further investigation required.
+
+### Result
+
+DONE_WITH_CONCERNS
