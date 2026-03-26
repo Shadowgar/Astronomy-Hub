@@ -8,6 +8,7 @@ import PrimaryDecisionPanel from './components/PrimaryDecisionPanel'
 import LocationSelector from './components/LocationSelector/LocationSelector'
 import useLocationState from './state/locationState'
 import Starfield from './components/Starfield'
+import Progress from './pages/Progress'
 
 const MODES = ['Light', 'Dark', 'Red']
 
@@ -117,6 +118,16 @@ export default function App() {
     locationQuery = `?lat=${lat}&lon=${lon}`
     if (activeLocation.elevation_ft !== undefined && activeLocation.elevation_ft !== null) {
       locationQuery += `&elevation_ft=${encodeURIComponent(activeLocation.elevation_ft)}`
+    }
+  }
+
+  // Minimal, opt-in route handling for the Progress page. This is intentionally
+  // simple and avoids adding a routing dependency: if the path is /Progress
+  // or /progress render the Progress page shell only.
+  if (typeof window !== 'undefined') {
+    const p = window.location && window.location.pathname
+    if (p === '/Progress' || p === '/progress') {
+      return <Progress />
     }
   }
 
