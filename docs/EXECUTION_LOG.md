@@ -128,6 +128,50 @@ Aligned with:
 PASS
 
 
+## Step 7 — Interaction And Detail Flow
+
+### Phase
+
+Phase 1
+
+### Description
+
+Enable object interaction from both the scene (when present) and panel lists so users can open object detail without losing the Above Me scene context.
+
+### Files Changed
+
+* frontend/src/components/ObjectDetail.jsx
+* frontend/src/components/SatellitePasses.jsx
+
+### What Was Done
+
+* Added `ObjectDetail.jsx` — a minimal detail fetcher that requests `/api/object/{id}` and renders `name`, `summary`, `description`, and a representative image when available.
+* Updated `SatellitePasses.jsx` to make pass rows expandable using `InlineExpansion` and show the canonical object detail inline via `ObjectDetail` so panel objects open detail without navigating away.
+
+### Why It Was Done
+
+To satisfy Step 7 from `PHASE_1_BUILD_SEQUENCE.md`: make panel objects clickable, open canonical detail payloads from the backend, and preserve the scene state while viewing details.
+
+### Verification
+
+* Commands run:
+
+```bash
+docker compose build frontend
+docker compose up -d frontend
+curl -sS http://localhost:4173/src/components/SatellitePasses.jsx | sed -n '1,160p'
+curl -sS http://localhost:4173/src/components/ObjectDetail.jsx | sed -n '1,160p'
+```
+
+* Observed results (selected):
+
+  - The dev server served the transformed module sources for `SatellitePasses.jsx` and the new `ObjectDetail.jsx` (HTTP 200). The `SatellitePasses` module includes `InlineExpansion` and references `ObjectDetail`, confirming the UI is wired for inline detail expansion.
+
+### Result
+
+PASS
+
+
 ## Step 6 — Frontend Command Center Shell
 
 ### Phase

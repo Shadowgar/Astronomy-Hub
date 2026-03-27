@@ -42,6 +42,10 @@ We are rebuilding Astronomy Hub from the ground up to create a true real-time as
 
 * The frontend command-center shell is now available. It renders the Above Me briefing panel, recommended targets, upcoming passes, alerts and the supporting panels from backend-owned data — forming the app's primary command surface.
 
+### 🎯 Interaction & Detail Flow
+
+* Panel entries for targets and passes are now interactive: users can open canonical object detail views directly from panel entries without losing the Above Me scene context. This enables quick exploration of what to observe and why.
+
 ---
 
 ## 🔄 IN PROGRESS
