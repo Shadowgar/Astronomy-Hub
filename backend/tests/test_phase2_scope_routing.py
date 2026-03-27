@@ -199,3 +199,108 @@ def test_registry_consistency_across_all_canonical_engines():
     finally:
         server.shutdown()
         server.server_close()
+
+
+def test_valid_filter_selection_returns_engine_and_filter_metadata():
+    port = _free_port()
+    server = _start_server(port)
+    time.sleep(0.1)
+
+    try:
+        status, payload = _request_json(
+            f"http://127.0.0.1:{port}/api/scopes?scope=sky&engine=deep_sky&filter=naked_eye"
+        )
+    finally:
+        server.shutdown()
+        server.server_close()
+
+    assert status == 200
+    assert payload.get("engine") == "deep_sky"
+    assert payload.get("scope") == "sky"
+    assert payload.get("filter") == "naked_eye"
+    assert payload.get("default_filter") == "visible_now"
+    assert payload.get("filter_source") == "requested"
+    assert payload.get("allowed_filters") == ["visible_now", "bright_only", "naked_eye"]
+
+
+def test_omitted_filter_returns_default_filter_metadata():
+    port = _free_port()
+    server = _start_server(port)
+    time.sleep(0.1)
+
+    try:
+        status, payload = _request_json(
+            f"http://127.0.0.1:{port}/api/scopes?scope=solar_system&engine=moon"
+        )
+    finally:
+        server.shutdown()
+        server.server_close()
+
+    assert status == 200
+    assert payload.get("engine") == "moon"
+    assert payload.get("scope") == "solar_system"
+    assert payload.get("filter") == "visible_now"
+    assert payload.get("default_filter") == "visible_now"
+    assert payload.get("filter_source") == "default"
+    assert payload.get("allowed_filters") == ["visible_now", "high_altitude"]
+
+
+def test_invalid_filter_slug_returns_json_400_with_stable_error_code():
+    port = _free_port()
+    server = _start_server(port)
+    time.sleep(0.1)
+
+    try:
+        status, payload = _request_json(
+            f"http://127.0.0.1:{port}/api/scopes?scope=sky&engine=above_me&filter=not_real"
+        )
+    finally:
+        server.shutdown()
+        server.server_close()
+
+    assert status == 400
+    err = payload.get("error")
+    assert isinstance(err, dict)
+    assert err.get("code") == "invalid_filter"
+
+
+def test_disallowed_filter_for_engine_returns_json_400_with_stable_error_code():
+    port = _free_port()
+    server = _start_server(port)
+    time.sleep(0.1)
+
+    try:
+        status, payload = _request_json(
+            f"http://127.0.0.1:{port}/api/scopes?scope=solar_system&engine=moon&filter=bright_only"
+        )
+    finally:
+        server.shutdown()
+        server.server_close()
+
+    assert status == 400
+    err = payload.get("error")
+    assert isinstance(err, dict)
+    assert err.get("code") == "invalid_filter"
+    details = err.get("details") or []
+    assert isinstance(details, list)
+    assert details and details[0].get("allowed_filters") == ["visible_now", "high_altitude"]
+
+
+def test_filter_without_engine_is_rejected_with_missing_engine_error():
+    port = _free_port()
+    server = _start_server(port)
+    time.sleep(0.1)
+
+    try:
+        status1, payload1 = _request_json(f"http://127.0.0.1:{port}/api/scopes?filter=visible_now")
+        status2, payload2 = _request_json(
+            f"http://127.0.0.1:{port}/api/scopes?scope=sky&filter=visible_now"
+        )
+    finally:
+        server.shutdown()
+        server.server_close()
+
+    assert status1 == 400
+    assert status2 == 400
+    assert payload1.get("error", {}).get("code") == "missing_engine"
+    assert payload2.get("error", {}).get("code") == "missing_engine"

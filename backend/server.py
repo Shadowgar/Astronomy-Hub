@@ -43,13 +43,50 @@ logger = get_logger("backend.server")
 # Constants
 SUGGESTION_COORD_MALFORMED = 'suggestion coordinates malformed'
 PHASE2_SCOPES = ("sky", "solar_system", "earth")
+PHASE2_FILTERS = (
+    "visible_now",
+    "bright_only",
+    "high_altitude",
+    "short_window",
+    "naked_eye",
+)
 PHASE2_ENGINE_REGISTRY = {
-    "above_me": {"scope": "sky", "optional": False},
-    "deep_sky": {"scope": "sky", "optional": False},
-    "planets": {"scope": "solar_system", "optional": False},
-    "moon": {"scope": "solar_system", "optional": False},
-    "satellites": {"scope": "earth", "optional": False},
-    "flights": {"scope": "earth", "optional": True},
+    "above_me": {
+        "scope": "sky",
+        "optional": False,
+        "allowed_filters": ["visible_now", "high_altitude", "short_window"],
+        "default_filter": "visible_now",
+    },
+    "deep_sky": {
+        "scope": "sky",
+        "optional": False,
+        "allowed_filters": ["visible_now", "bright_only", "naked_eye"],
+        "default_filter": "visible_now",
+    },
+    "planets": {
+        "scope": "solar_system",
+        "optional": False,
+        "allowed_filters": ["visible_now", "bright_only", "high_altitude"],
+        "default_filter": "visible_now",
+    },
+    "moon": {
+        "scope": "solar_system",
+        "optional": False,
+        "allowed_filters": ["visible_now", "high_altitude"],
+        "default_filter": "visible_now",
+    },
+    "satellites": {
+        "scope": "earth",
+        "optional": False,
+        "allowed_filters": ["visible_now", "high_altitude", "short_window"],
+        "default_filter": "visible_now",
+    },
+    "flights": {
+        "scope": "earth",
+        "optional": True,
+        "allowed_filters": ["visible_now", "high_altitude", "short_window"],
+        "default_filter": "visible_now",
+    },
 }
 
 # Lazy cache reference; initialize on first use to be compatible with both
@@ -132,12 +169,16 @@ def _build_phase2_scope_entry(scope_slug: str):
     }
 
 
-def _build_phase2_engine_entry(engine_slug: str):
+def _build_phase2_engine_entry(engine_slug: str, selected_filter=None, filter_source=None):
     meta = PHASE2_ENGINE_REGISTRY.get(engine_slug, {})
     return {
         "engine": engine_slug,
         "scope": meta.get("scope"),
         "optional": bool(meta.get("optional")),
+        "allowed_filters": list(meta.get("allowed_filters") or []),
+        "default_filter": meta.get("default_filter"),
+        "filter": selected_filter,
+        "filter_source": filter_source,
     }
 
 
@@ -581,10 +622,23 @@ class SimpleHandler(BaseHTTPRequestHandler):
             if parsed.path == "/api/scopes":
                 scope_query = q.get("scope")
                 engine_query = q.get("engine")
+                filter_query = q.get("filter")
                 has_scope = scope_query is not None and str(scope_query).strip() != ""
                 has_engine = engine_query is not None and str(engine_query).strip() != ""
+                has_filter = filter_query is not None and str(filter_query).strip() != ""
 
-                if not has_scope and has_engine:
+                if not has_scope and has_filter and not has_engine:
+                    self._send_json(
+                        {
+                            "error": {
+                                "code": "missing_engine",
+                                "message": "engine is required when filter is provided",
+                            }
+                        },
+                        status=400,
+                    )
+                    status = 400
+                elif not has_scope and has_engine:
                     self._send_json(
                         {
                             "error": {
@@ -660,11 +714,57 @@ class SimpleHandler(BaseHTTPRequestHandler):
                             )
                             status = 400
                         else:
-                            self._send_json(_build_phase2_engine_entry(engine_slug))
+                            allowed_filters = list(engine_meta.get("allowed_filters") or [])
+                            default_filter = engine_meta.get("default_filter")
+                            if has_filter:
+                                selected_filter = str(filter_query).strip()
+                                if selected_filter not in PHASE2_FILTERS or selected_filter not in allowed_filters:
+                                    self._send_json(
+                                        {
+                                            "error": {
+                                                "code": "invalid_filter",
+                                                "message": f"invalid filter for engine {engine_slug}: {selected_filter}",
+                                                "details": [
+                                                    {
+                                                        "scope": scope_slug,
+                                                        "engine": engine_slug,
+                                                        "filter": selected_filter,
+                                                        "allowed_filters": allowed_filters,
+                                                    }
+                                                ],
+                                            }
+                                        },
+                                        status=400,
+                                    )
+                                    status = 400
+                                    return
+                                filter_source = "requested"
+                            else:
+                                selected_filter = default_filter
+                                filter_source = "default"
+                            self._send_json(
+                                _build_phase2_engine_entry(
+                                    engine_slug,
+                                    selected_filter=selected_filter,
+                                    filter_source=filter_source,
+                                )
+                            )
                             status = 200
                     else:
-                        self._send_json(_build_phase2_scope_entry(scope_slug))
-                        status = 200
+                        if has_filter:
+                            self._send_json(
+                                {
+                                    "error": {
+                                        "code": "missing_engine",
+                                        "message": "engine is required when filter is provided",
+                                    }
+                                },
+                                status=400,
+                            )
+                            status = 400
+                        else:
+                            self._send_json(_build_phase2_scope_entry(scope_slug))
+                            status = 200
             elif parsed.path == "/api/conditions":
                 # Per-module isolation guard: ensure failures in assembling
                 # the conditions payload don't take down other endpoints.
