@@ -2,11 +2,11 @@
   "currentStatus": {
     "phase": "Phase 1 — Command Center (Post-Audit Baseline)",
     "summary": "Phase 1 backend foundation and command-center baseline are in place with canonical scene/detail routes and a stable mounted frontend surface.",
-    "note": "The mounted Phase 1 UI remains ObservingHero + operational modules, and backend tests are passing in project runtime."
+    "note": "The mounted Phase 1 UI remains the command-center module grid shell, and backend tests are passing in project runtime."
   },
   "currentFocus": [
     "Maintaining the verified Phase 1 baseline after audit fixes",
-    "Keeping the primary mounted command-center surface (ObservingHero + operational modules) aligned with canonical scene-backed data",
+    "Keeping the primary mounted command-center module grid shell aligned with canonical scene-backed data",
     "Preparing Phase 2 documentation/checklist readiness while keeping Phase 1 runtime behavior stable"
   ],
   "recentProgress": [
@@ -20,7 +20,7 @@
     },
     {
       "title": "Command-center mounted surface confirmed",
-      "summary": "Phase 1 mounted UI truth is now documented and enforced as ObservingHero + operational modules fed by canonical scene-backed data."
+      "summary": "Phase 1 mounted UI truth is now documented and enforced as the command-center module grid shell fed by canonical scene-backed data."
     },
     {
       "title": "Backend test suite passing",
@@ -32,7 +32,7 @@
     },
     {
       "title": "Frontend command-center shell available",
-      "summary": "The app now exposes a command-center shell that renders the Above Me briefing panel, recommended targets, passes, and supporting panels from backend-owned data."
+      "summary": "The app now exposes a command-center shell that renders the mounted module grid (conditions, recommended targets, alerts/events, passes, moon/news) from backend-owned data."
     },
     {
       "title": "Interactive panel details",

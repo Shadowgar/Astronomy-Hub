@@ -73,6 +73,60 @@ PASS / FAIL
 
 ---
 
+## Step 11 — Final Phase 1 Mounted-Truth Reconciliation (Option A)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Corrected documentation/changelog language so mounted Phase 1 truth matches implementation: the command-center module grid shell is mounted by default; `ObservingHero` is non-default/non-mounted in current runtime.
+
+### Files Changed
+
+* docs/PHASE_1_SPEC.md
+* docs/PHASE_1_ACCEPTANCE_CRITERIA.md
+* docs/UI_PHASE_A_SPEC.md
+* docs/UI_INFORMATION_ARCHITECTURE.md
+* docs/PUBLIC_CHANGELOG.md
+* frontend/src/content/publicChangelog.json
+* docs/EXECUTION_LOG.md
+
+### What Was Done
+
+* Rewrote Phase 1/UI/changelog claims that previously stated `ObservingHero` is part of the mounted primary surface.
+* Replaced those claims with mounted command-center module-grid truth while preserving architecture intent.
+* Kept canonical backend authority explicit: `/api/scene/above-me` scene source and `/api/object/{id}` detail flow.
+* Updated references so `ObservingHero` is described as optional/non-default (not currently mounted by default).
+
+### Why It Was Done
+
+To close the final Phase 1 audit mismatch where docs/changelog were ahead of runtime implementation.
+
+### Verification
+
+* Commands run:
+
+```bash
+rg -n "ObservingHero \\+ operational modules|ObservingHero\\s*\\+\\s*module grid" docs/PHASE_1_SPEC.md docs/PHASE_1_ACCEPTANCE_CRITERIA.md docs/UI_PHASE_A_SPEC.md docs/UI_INFORMATION_ARCHITECTURE.md docs/PUBLIC_CHANGELOG.md frontend/src/content/publicChangelog.json
+rg -n "command-center module grid shell|/api/scene/above-me|/api/object/\\{id\\}" docs/PHASE_1_SPEC.md docs/PHASE_1_ACCEPTANCE_CRITERIA.md docs/UI_PHASE_A_SPEC.md docs/UI_INFORMATION_ARCHITECTURE.md docs/PUBLIC_CHANGELOG.md frontend/src/content/publicChangelog.json
+.venv/bin/python -m json.tool frontend/src/content/publicChangelog.json > /dev/null
+```
+
+* Observed results:
+
+  - No remaining mounted-surface claims of `ObservingHero + ...` in corrected docs/changelog files.
+  - Mounted surface wording now consistently references the command-center module grid shell.
+  - Canonical route/detail truth remains explicitly documented.
+  - `publicChangelog.json` remains valid JSON.
+
+### Result
+
+PASS
+
+---
+
 ## Step 10 — Changelog System Synchronization (Phase 1 Post-Audit)
 
 ### Phase
@@ -92,7 +146,7 @@ Applied a minimal synchronization pass so public changelog status/focus text mat
 ### What Was Done
 
 * Updated public status text from “rebuild” framing to a factual post-audit Phase 1 baseline framing.
-* Kept required implemented truths explicit: primary mounted UI is `ObservingHero` + operational modules, canonical routes `/api/scene/above-me` and `/api/object/{id}` exist, backend tests are passing in project runtime.
+* Kept required implemented truths explicit: primary mounted UI is the command-center module grid shell, canonical routes `/api/scene/above-me` and `/api/object/{id}` exist, backend tests are passing in project runtime.
 * Removed one stale `comingNext` item that duplicated already-established Phase 1 stability checks.
 * Preserved existing tone and structure while only changing contradictory/stale phrasing.
 * Reviewed `docs/PHASE_1_SPEC.md`, `docs/UI_PHASE_A_SPEC.md`, and `docs/PHASE_1_ACCEPTANCE_CRITERIA.md`; no edits were required because they already match current implementation truths.
@@ -147,7 +201,7 @@ Synchronized public/internal changelog state with current repository truth after
 ### What Was Done
 
 * Updated public changelog sections (`CURRENT FOCUS`, `IN PROGRESS`, `COMING NEXT`) to remove stale claims that were already implemented.
-* Reworded public progress text to match mounted Phase 1 UI truth (ObservingHero + operational modules) while preserving canonical backend scene authority.
+* Reworded public progress text to match mounted Phase 1 UI truth (command-center module grid shell) while preserving canonical backend scene authority.
 * Added explicit factual note that canonical Phase 1 routes exist (`/api/scene/above-me`, `/api/object/{id}`).
 * Added explicit factual note that backend tests are passing in project runtime.
 * Updated UI changelog JSON with equivalent corrections so the rendered progress page and markdown source stay aligned.

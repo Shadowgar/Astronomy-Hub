@@ -17,7 +17,7 @@ Phase 1 backend foundation and command-center baseline are in place with canonic
 ## 🔧 CURRENT FOCUS
 
 * Maintaining the verified Phase 1 baseline after audit fixes
-* Keeping the primary mounted command-center surface (**ObservingHero + operational modules**) aligned with canonical scene-backed data
+* Keeping the primary mounted command-center module grid shell aligned with canonical scene-backed data
 * Preparing Phase 2 documentation/checklist readiness while keeping Phase 1 runtime behavior stable
 
 ---
@@ -34,7 +34,7 @@ Phase 1 backend foundation and command-center baseline are in place with canonic
 
 ### 🌠 Command-Center Mounted Surface Confirmed
 
-* Phase 1 now reflects the mounted UI truth: **ObservingHero + operational modules** are the primary surface, fed by canonical scene-backed backend data.
+* Phase 1 now reflects the mounted UI truth: the command-center module grid shell is the primary surface, fed by canonical scene-backed backend data.
 
 ### 🛰️ Object Detail Coverage Completed
 
@@ -60,7 +60,7 @@ Phase 1 backend foundation and command-center baseline are in place with canonic
 
 ### 🖥️ Frontend Command Center Shell
 
-* The frontend command-center shell is now available. It renders the Above Me briefing panel, recommended targets, upcoming passes, alerts and the supporting panels from backend-owned data — forming the app's primary command surface.
+* The frontend command-center shell is now available. It renders the mounted module grid (conditions, recommended targets, upcoming passes, alerts/events, moon/news) from backend-owned data — forming the app's primary command surface.
 
 ### 🎯 Interaction & Detail Flow
 

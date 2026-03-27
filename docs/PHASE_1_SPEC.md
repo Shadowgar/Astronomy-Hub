@@ -65,7 +65,7 @@ Open app
 
 Must display:
 
-* command-center shell as the primary mounted surface (ObservingHero + operational modules)
+* command-center module grid shell as the primary mounted surface (conditions, targets, alerts/events, passes, moon/news)
 * scene-backed sky context from the canonical Above Me scene source
 * objects above horizon only
 * categorized objects:
@@ -257,7 +257,7 @@ Backend must:
   ```text
   /api/scene/above-me
   ```
-* treat `/api/scene/above-me` as the canonical scene source that feeds the frontend hero/modules surface
+* treat `/api/scene/above-me` as the canonical scene source that feeds the frontend mounted module-grid shell
 * normalize all engine outputs
 * merge data into a single scene contract
 * provide object detail endpoints:
@@ -282,7 +282,7 @@ Backend must:
 
 Frontend must:
 
-* render the command-center primary surface (ObservingHero + operational modules)
+* render the command-center primary surface (mounted module grid shell)
 * consume scene-backed data from `/api/scene/above-me`
 * handle object interaction
 * display panels (briefing, events, news)

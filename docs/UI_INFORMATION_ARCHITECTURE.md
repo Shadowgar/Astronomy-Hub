@@ -84,7 +84,7 @@ Global control of system context.
 
 ### Purpose
 
-The **core mounted product surface** of the system in Phase 1 (ObservingHero + operations grid).
+The **core mounted product surface** of the system in Phase 1 (command-center module grid shell).
 
 ---
 
@@ -109,9 +109,9 @@ Changes based on:
 
 ### Examples
 
-* ObservingHero status surface
 * operations modules (conditions, targets, alerts/events, passes, moon/news)
 * scene-backed object context for Above Me
+* ObservingHero (optional/non-default; not mounted in the current default Phase 1 runtime)
 
 ---
 

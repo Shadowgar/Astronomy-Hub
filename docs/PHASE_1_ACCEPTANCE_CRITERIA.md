@@ -17,7 +17,7 @@ Phase 1 is complete only when all of the following are true.
 
 ## Dashboard Behavior
 - Dashboard loads without overwhelming the user
-- Primary mounted Phase 1 surface is `ObservingHero` + module grid (`AboveMeScene` is non-primary in this phase)
+- Primary mounted Phase 1 surface is the command-center module grid shell (`ObservingHero` and `AboveMeScene` are non-default/non-mounted in the current Phase 1 runtime)
 - Dashboard clearly shows:
   - observing conditions
   - recommended targets
