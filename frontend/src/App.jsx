@@ -7,12 +7,11 @@ import MoonSummary from './components/MoonSummary'
 import SkyNews from './components/SkyNews'
 import LocationSelector from './components/LocationSelector/LocationSelector'
 import Progress from './pages/Progress'
-// PrimaryDecisionPanel moved to ObservingHero; LocationSelector used inside TopBar
+// LocationSelector is mounted inside the top controls.
 import useLocationState from './state/locationState'
 import Starfield from './components/Starfield'
 import AppShell from "./components/layout/AppShell"
 import ContentGrid from "./components/layout/ContentGrid"
-import ObservingHero from "./components/hero/ObservingHero"
 
 const MODES = ['Light', 'Dark', 'Red']
 
@@ -258,7 +257,7 @@ export default function App() {
 
         <ContentGrid>
           <main className="dashboard tight-layout">
-        {/* Primary Decision Panel removed in Phase B: ObservingHero replaces PDP */}
+        {/* Primary mounted Phase 1 surface: command-center module grid shell */}
 
         {/* Section: Targets + Conditions (2-column) */}
         <section className="section section-top">
