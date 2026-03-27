@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 function _slugify(name) {
   try {
-    return String(name).trim().toLowerCase().replace(/\s+/g, '-').replace(/\//g, '-').replace("'", '')
+    return String(name).trim().toLowerCase().split(/\s+/).join('-').split('/').join('-').split("'").join('')
   } catch (e) {
     return String(name || '')
   }

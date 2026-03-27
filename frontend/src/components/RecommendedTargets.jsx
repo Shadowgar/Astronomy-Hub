@@ -4,7 +4,7 @@ import GlassPanel from './ui/GlassPanel'
 import SectionHeader from './ui/SectionHeader'
 import RowItem from './ui/RowItem'
 import InlineExpansion from './common/InlineExpansion'
-import TargetDetail from './TargetDetail'
+import ObjectDetail from './ObjectDetail'
 
 // Render up to 5 targets per UI density rules
 const MAX_TARGETS = 5
@@ -54,9 +54,18 @@ export default function RecommendedTargets({ locationQuery = '' }) {
               const summary = (
                 <div className="target-row__meta">
                   <strong className="target-row__title">{t.name}</strong>
-                  <div className="target-row__subtitle">{t.category}{t.direction ? ` · ${t.direction}` : ''}</div>
+                  <div className="target-row__subtitle">{(t.type || t.category)}{t.direction ? ` · ${t.direction}` : ''}</div>
                 </div>
               )
+
+              const computedId = t.id || (t.name || '')
+                .toLowerCase()
+                .split(/\s+/)
+                .join('-')
+                .split('/')
+                .join('-')
+                .split("'")
+                .join('')
 
               const left = (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
@@ -75,7 +84,7 @@ export default function RecommendedTargets({ locationQuery = '' }) {
 
                   <div className="target-row__content" style={{ minWidth: 0 }}>
                     <InlineExpansion summary={summary} defaultCollapsed={true}>
-                      <TargetDetail target={t} />
+                      <ObjectDetail objectId={computedId} objectName={t.name} />
                     </InlineExpansion>
                   </div>
                 </div>

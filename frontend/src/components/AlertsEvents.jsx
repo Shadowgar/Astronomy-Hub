@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import GlassPanel from "./ui/GlassPanel";
 import SectionHeader from "./ui/SectionHeader";
-import RowItem from './ui/RowItem'
+import InlineExpansion from './common/InlineExpansion'
+import ObjectDetail from './ObjectDetail'
 
 const MAX_ALERTS = 3
 
@@ -45,23 +47,48 @@ export default function AlertsEvents({ locationQuery = '' }) {
       {!loading && !error && (
         <ol>
           {alerts.length === 0 && <li>No alerts</li>}
-          {alerts.map((a, idx) => (
-            <li key={a.title || idx} style={{ listStyle: 'none' }}>
-              <RowItem
-                left={(
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                    <div>
-                      <strong>{a.title}</strong>
-                    </div>
-                    <div className="small muted-meta">{a.category} · Relevance: {a.relevance} · Priority: {a.priority}</div>
-                    <div style={{ marginTop: 'var(--space-2)' }}>{a.summary}</div>
-                  </div>
-                )}
-              />
-            </li>
-          ))}
+          {alerts.map((a, idx) => {
+            const key = a.title || idx
+            const summary = (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                <div>
+                  <strong>{a.title}</strong>
+                </div>
+                <div className="small muted-meta">{a.category} · Relevance: {a.relevance} · Priority: {a.priority}</div>
+                <div style={{ marginTop: 'var(--space-2)' }}>{a.summary}</div>
+              </div>
+            )
+
+            // If the alert references an object by name, allow inline detail expansion
+            const relatedName = a.object_name || a.related_object || a.related_object_name || null
+            const objectId = relatedName
+              ? (relatedName || '')
+                  .toLowerCase()
+                  .split(/\s+/)
+                  .join('-')
+                  .split('/')
+                  .join('-')
+                  .split("'")
+                  .join('')
+              : null
+
+            return (
+              <li key={key} style={{ listStyle: 'none' }}>
+                <InlineExpansion summary={summary} defaultCollapsed={true}>
+                  {objectId ? (
+                    <ObjectDetail objectId={objectId} objectName={relatedName} />
+                  ) : (
+                    // No object referenced; repeat summary for expanded view
+                    <div style={{ paddingTop: 'var(--space-2)' }}>{a.summary}</div>
+                  )}
+                </InlineExpansion>
+              </li>
+            )
+          })}
         </ol>
       )}
     </GlassPanel>
   )
 }
+
+// prop-types disabled for simplicity (consistent with other components)

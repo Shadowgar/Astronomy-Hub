@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import GlassPanel from './ui/GlassPanel'
 import SectionHeader from './ui/SectionHeader'
-import RowItem from './ui/RowItem'
+// RowItem not used in this component
 import InlineExpansion from './common/InlineExpansion'
 import ObjectDetail from './ObjectDetail'
 
@@ -65,7 +65,14 @@ export default function SatellitePasses({ locationQuery = '' }) {
               </div>
             )
 
-            const objectId = (p.object_name || '').toLowerCase().replace(/\s+/g, '-').replace(/\//g, '-').replace("'", '')
+            const objectId = (p.object_name || '')
+              .toLowerCase()
+              .split(/\s+/)
+              .join('-')
+              .split('/')
+              .join('-')
+              .split("'")
+              .join('')
 
             return (
               <li key={key} style={{ listStyle: 'none' }}>
