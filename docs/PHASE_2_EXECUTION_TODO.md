@@ -1,564 +1,299 @@
-# 🌌 ASTRONOMY HUB — PHASE 2 EXECUTION TODO (AUTHORITATIVE)
+# PHASE 2 — EXECUTION TODO
 
----
-
-# 0. PURPOSE
-
-This document defines:
-
-> **Exactly how to execute Phase 2.5 (Backend Stabilization) step-by-step**
-
-It translates:
-
-* architecture
-* contracts
-* phase rules
-
-into **safe, controlled implementation steps**
-
----
-
-# 1. 🧠 CORE RULE
-
-```text id="q8x3m2"
-Execute ONE step at a time.
-Verify before continuing.
-Do NOT batch steps.
-```
-
----
-
-# 2. 📍 CURRENT TARGET
-
-```text id="m2p9x7"
-PHASE: 2.5C — Backend Framework Migration (FastAPI)
-```
-
----
-
-# 3. ⚠️ HARD CONSTRAINTS
-
----
-
-## MUST NOT
-
-* add features
-* change UI behavior
-* introduce new engines
-* redesign architecture
-* break existing endpoints
-
----
-
-## MUST
-
-* keep system running
-* maintain compatibility
-* use minimal diffs
-* verify each step
-
----
-
-# 4. 🧱 TARGET BACKEND STRUCTURE
-
----
-
-## Goal Structure
-
-```text id="p7k3x9"
-backend/
-  app/
-    main.py
-    api/
-    engines/
-    contracts/
-    services/
-    cache/
-```
-
----
-
-## Rule
-
-```text id="x4m8p2"
-Do NOT move everything at once.
-Migrate incrementally.
-```
-
----
-
-# 5. 🔄 EXECUTION PHASES
-
----
-
-# ✅ STEP 1 — Introduce FastAPI Skeleton
-
----
-
-## Goal
-
-Add FastAPI WITHOUT breaking existing system.
-
----
-
-## Actions
-
-* create:
-
-```text
-backend/app/main.py
-```
-
-* initialize FastAPI app
-* add basic health endpoint
-
----
-
-## Verify
-
-* FastAPI server runs
-* `/health` returns success
-* existing system still runs
-
----
-
-## Done when
-
-* FastAPI is live alongside existing backend
-
----
-
----
-
-# ✅ STEP 2 — Wire Docker to FastAPI
-
----
-
-## Goal
-
-Switch backend container to FastAPI entry.
-
----
-
-## Actions
-
-* update Dockerfile
-* update docker-compose command
-* point to `app/main.py`
-
----
-
-## Verify
-
-* container starts
-* FastAPI is reachable
-* no crashes
-
----
-
-## Done when
-
-* FastAPI is official runtime
-
----
-
----
-
-# ✅ STEP 3 — Add `/api/scene` Route (Wrapper Only)
-
----
-
-## Goal
-
-Introduce canonical route WITHOUT rewriting logic.
-
----
-
-## Actions
-
-* create:
-
-```text
-backend/app/api/scene.py
-```
-
-* route:
-
-```text
-GET /api/scene/{scope}
-```
-
-* internally call existing logic
-
----
-
-## Verify
-
-* response matches existing output
-* no frontend break
-
----
+## 1. Execution Rules
 
-## Done when
+- Execute ONE step at a time
+- Do NOT batch steps
+- Do NOT skip steps
+- Do NOT invent steps
+- Do NOT expand scope
+- Minimal diffs only
+- Verify each step before continuing
 
-* new route works identically
+If a step fails:
+- STOP
+- use debug mode
+- fix only the failure
+- resume execution
 
 ---
 
----
-
-# ✅ STEP 4 — Add `/api/object` Route
-
----
-
-## Goal
-
-Introduce object detail endpoint.
-
----
-
-## Actions
-
-* create:
-
-```text
-backend/app/api/object.py
-```
-
-* route:
-
-```text
-GET /api/object/{id}
-```
-
-* return stub if needed
-
----
-
-## Verify
-
-* endpoint responds
-* no system break
-
----
-
-## Done when
-
-* endpoint exists and stable
-
----
-
----
-
-# ✅ STEP 5 — Introduce Normalization Layer
-
----
-
-## Goal
-
-Start enforcing contracts.
-
----
-
-## Actions
-
-* create:
-
-```text
-backend/app/services/normalizer.py
-```
-
-* wrap scene response
-* map fields to contract format
-
----
-
-## Verify
-
-* response structure consistent
-* no missing fields
-
----
-
-## Done when
-
-* normalization applied to scene
-
----
-
----
-
-# ✅ STEP 6 — Introduce Validator
-
----
+## 2. Phase Objective
 
-## Goal
+Implement:
 
-Ensure contract compliance.
+User → Scope → Engine → Filter → Scene → Object → Detail
 
----
-
-## Actions
-
-* reuse or move validator
-* validate responses before return
-
----
-
-## Verify
-
-* invalid data rejected
-* valid data passes
-
----
-
-## Done when
-
-* contract enforcement active
-
----
+Without breaking Phase 1.
 
 ---
 
-# ✅ STEP 7 — Introduce Caching Layer
+## 3. Execution Sequence
 
 ---
 
-## Goal
+## STEP 1 — Lock Phase 2 Spec
 
-Prevent repeated computation.
+### Goal
+Ensure Phase 2 specification is authoritative and complete.
 
----
-
-## Actions
-
-* move simple_cache into new structure
-* wrap scene endpoint
-
----
-
-## Verify
+### Tasks
+- [ ] Verify `docs/PHASE_2_SPEC.md` exists
+- [ ] Verify scopes are defined
+- [ ] Verify engines are defined
+- [ ] Verify filters are defined
+- [ ] Verify system pipeline is defined
+- [ ] Verify anti-scope rules are present
 
-* repeated calls faster
-* no stale data issues
+### Verification
+- No ambiguity in scope/engine/filter definitions
+- No missing sections
+- No conflicting statements
 
 ---
 
-## Done when
+## STEP 2 — Backend Scope Routing
 
-* caching active
-
----
-
----
-
-# ✅ STEP 8 — Migrate One Engine (Pilot)
-
----
+### Goal
+Introduce scope-level control in backend.
 
-## Goal
+### Tasks
+- [ ] Define scope list in backend
+- [ ] Map scopes → allowed engines
+- [ ] Add routing entry for scope selection
 
-Test engine-based structure.
+### Verification
+- Invalid scopes are rejected
+- Each scope returns correct engines
+- No frontend dependency
 
 ---
 
-## Actions
+## STEP 3 — Backend Engine Routing
 
-* create:
+### Goal
+Introduce engine-level control.
 
-```text
-backend/app/engines/conditions/
-```
+### Tasks
+- [ ] Define engine registry
+- [ ] Map engines to scopes
+- [ ] Add engine selection handling
 
-* move logic into engine
-* connect to scene route
+### Verification
+- Engines cannot be accessed outside scope
+- Invalid engine requests fail cleanly
+- No duplicated logic between engines
 
 ---
 
-## Verify
+## STEP 4 — Backend Filter Layer
 
-* output unchanged
-* logic isolated
+### Goal
+Introduce controlled filtering per engine.
 
----
-
-## Done when
-
-* one engine fully migrated
+### Tasks
+- [ ] Define allowed filters per engine
+- [ ] Implement filter validation
+- [ ] Attach filters to engine execution path
 
----
+### Verification
+- Invalid filters are rejected
+- Filters do not bypass engine logic
+- Filters affect object selection
 
 ---
 
-# ✅ STEP 9 — Remove Direct Data Files (Gradual)
+## STEP 5 — Engine Scene Generation (Core)
 
----
+### Goal
+Enable engines to generate scenes.
 
-## Goal
+### Tasks
+- [ ] Implement deep_sky engine scene output
+- [ ] Implement planets engine scene output
+- [ ] Implement moon engine scene output
+- [ ] Implement satellites engine scene output
 
-Eliminate mock-style architecture.
+### Verification
+Each engine must:
+- return structured scene output
+- include grouped objects
+- include reasoning
+- avoid raw lists
 
 ---
-
-## Actions
 
-* replace direct imports
-* route through engine
+## STEP 6 — Align Existing Above Me Engine
 
----
+### Goal
+Bring Phase 1 engine into Phase 2 structure.
 
-## Verify
+### Tasks
+- [ ] Ensure above_me follows engine routing
+- [ ] Ensure it supports filter path (if applicable)
+- [ ] Ensure output aligns with Phase 2 expectations
 
-* no direct data usage
-* system still works
+### Verification
+- No regression in existing behavior
+- Output remains stable
+- Fully compatible with new pipeline
 
 ---
 
-## Done when
+## STEP 7 — Object Resolution Integrity
 
-* engine owns data
-
----
+### Goal
+Ensure all scene objects resolve correctly.
 
----
+### Tasks
+- [ ] Verify all objects include valid IDs
+- [ ] Ensure `/api/object/{id}` works for all engines
+- [ ] Add missing metadata if required
 
-# ✅ STEP 10 — Expand Engine Migration
+### Verification
+- No broken object links
+- No duplicated detail data in scenes
+- Detail endpoint remains authoritative
 
 ---
-
-## Goal
 
-Apply pattern to all engines.
+## STEP 8 — Scene Endpoint Exposure
 
----
+### Goal
+Expose controlled endpoints for Phase 2.
 
-## Engines
+### Tasks
+- [ ] Implement scope-based endpoint entry
+- [ ] Implement engine-based endpoint handling
+- [ ] Ensure filters are passed through correctly
 
-* satellites
-* targets
-* passes
-* alerts
+### Verification
+- Requests follow:
+  scope → engine → filter
+- Invalid combinations fail cleanly
+- Output is consistent
 
 ---
-
-## Verify
 
-* each engine isolated
-* outputs consistent
+## STEP 9 — Frontend Scope Selection
 
----
+### Goal
+Allow user to select scope.
 
-## Done when
+### Tasks
+- [ ] Add scope selector UI
+- [ ] Connect to backend scope routing
 
-* all engines migrated
-
----
+### Verification
+- Scope changes correctly update available engines
+- No UI logic duplication
 
 ---
 
-# 6. 🧪 VERIFICATION AFTER EACH STEP
+## STEP 10 — Frontend Engine Selection
 
----
+### Goal
+Allow user to select engine.
 
-## Must Check
+### Tasks
+- [ ] Add engine selector
+- [ ] Connect to backend engine routing
 
-```text id="v3k7p2"
-- system runs
-- no crashes
-- API responds
-- frontend still works
-```
+### Verification
+- Engine switching loads correct scene
+- No frontend filtering logic
 
 ---
 
-## If ANY fail
+## STEP 11 — Frontend Filter Controls
 
-```text id="x8p2m4"
-STOP
-ROLL BACK
-FIX
-RETEST
-```
+### Goal
+Expose filters safely.
 
----
+### Tasks
+- [ ] Add filter controls per engine
+- [ ] Send filter selection to backend
 
-# 7. 🚫 AUTOMATIC STOP CONDITIONS
+### Verification
+- Filters affect results
+- Invalid filters cannot be selected
 
 ---
-
-Stop immediately if:
-
-* frontend breaks
-* API shape changes unexpectedly
-* contracts violated
-* system crashes
 
----
+## STEP 12 — Scene Rendering Alignment
 
-# 8. 🎯 DEFINITION OF COMPLETE
+### Goal
+Render all engine outputs consistently.
 
----
+### Tasks
+- [ ] Ensure shared scene rendering
+- [ ] Render grouped objects
+- [ ] Render decision reasoning
 
-Phase 2.5 is complete ONLY IF:
+### Verification
+- No custom UI per engine
+- Scenes feel consistent
+- No data dumping
 
 ---
-
-## Backend
 
-* FastAPI fully active
-* all routes stable
-* normalization enforced
-* validation enforced
-* caching active
+## STEP 13 — Object Detail Flow
 
----
+### Goal
+Preserve Phase 1 interaction.
 
-## Architecture
+### Tasks
+- [ ] Ensure object click opens detail view
+- [ ] Ensure return to scene works
 
-* engines isolated
-* no direct data files
-* no mock-style responses
+### Verification
+- No regression
+- Navigation is stable
 
 ---
-
-## Frontend
 
-* no data patching
-* stable rendering
+## STEP 14 — Full System Validation
 
----
+### Goal
+Verify Phase 2 integrity.
 
-# 9. 🔥 FINAL RULE
+### Tasks
+- [ ] Test all scopes
+- [ ] Test all engines
+- [ ] Test all filters
+- [ ] Test object resolution
 
-```text id="k9p3x7"
-Do not move to Phase 3
-until ALL steps are verified complete.
-```
+### Verification
+- System follows full pipeline
+- No broken paths
+- No duplicated logic
 
 ---
 
-# 10. 🔥 FINAL STATEMENT
+## STEP 15 — Anti-Scope Validation
 
-```text id="m4q8p2"
-This document controls execution.
+### Goal
+Ensure Phase 2 boundaries are respected.
 
-Follow it exactly.
+### Tasks
+- [ ] Confirm no UI redesign work
+- [ ] Confirm no visualization systems
+- [ ] Confirm no AI/prediction logic
+- [ ] Confirm no timeline simulation
 
-No shortcuts.
-No assumptions.
-No skipping.
-```
+### Verification
+- System remains Phase 2 compliant
 
 ---
 
-## Where you are now
+## 4. Completion Rule
 
-You now have:
+Phase 2 is COMPLETE only when:
 
-* full architecture
-* full UI system
-* full styling system
-* full validation
-* full execution plan
+- full pipeline works end-to-end
+- all required engines are functional
+- scenes remain decision-driven
+- backend authority is preserved
+- no scope drift has occurred
 
----
+Do not mark complete early.
