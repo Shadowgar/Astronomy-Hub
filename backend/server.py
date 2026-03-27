@@ -350,6 +350,197 @@ def _rank_scene_objects(objects):
         return objects
 
 
+def _phase2_timestamp():
+    from datetime import datetime, timezone
+
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _build_phase2_observing_context(parsed_location=None):
+    conditions = _build_earth_engine_slice(parsed_location)
+    return {
+        "location_label": conditions.get("location_label"),
+        "observing_score": conditions.get("observing_score"),
+        "moon_phase": conditions.get("moon_phase"),
+        "summary": conditions.get("summary"),
+    }
+
+
+def _to_phase2_scene_objects(raw_objects, engine_slug):
+    scene_objects = []
+    for obj in raw_objects:
+        if not isinstance(obj, dict):
+            continue
+        reason = obj.get("reason") or obj.get("summary") or f"Selected by {engine_slug} engine"
+        scene_objects.append(
+            {
+                "id": obj.get("id"),
+                "name": obj.get("name"),
+                "type": obj.get("type"),
+                "engine": engine_slug,
+                "summary": obj.get("summary") or "",
+                "reason": reason,
+                "position": obj.get("position"),
+                "visibility": obj.get("visibility"),
+            }
+        )
+    return scene_objects
+
+
+def _build_phase2_scene_group(title, reason, objects):
+    return {
+        "title": title,
+        "reason": reason,
+        "objects": objects,
+    }
+
+
+def _build_phase2_deep_sky_scene(filter_slug, parsed_location=None):
+    objects = _to_phase2_scene_objects(_build_deep_sky_engine_slice(), "deep_sky")
+    scene_summary = "Deep-sky targets that are currently practical to observe."
+    if filter_slug == "naked_eye":
+        scene_summary = "Deep-sky targets surfaced for easier visual observing context."
+    groups = [
+        _build_phase2_scene_group(
+            "Deep Sky Targets",
+            "Targets grouped for current deep-sky observing opportunities.",
+            objects,
+        )
+    ]
+    return {
+        "scope": "sky",
+        "engine": "deep_sky",
+        "filter": filter_slug,
+        "timestamp": _phase2_timestamp(),
+        "title": "Deep Sky Scene",
+        "summary": scene_summary,
+        "groups": groups,
+        "observing_context": _build_phase2_observing_context(parsed_location),
+    }
+
+
+def _build_phase2_planets_scene(filter_slug, parsed_location=None):
+    objects = _to_phase2_scene_objects(_build_solar_system_engine_slice(), "planets")
+    groups = [
+        _build_phase2_scene_group(
+            "Planets Visible",
+            "Planet targets grouped for immediate observing decisions.",
+            objects,
+        )
+    ]
+    return {
+        "scope": "solar_system",
+        "engine": "planets",
+        "filter": filter_slug,
+        "timestamp": _phase2_timestamp(),
+        "title": "Planets Scene",
+        "summary": "Planets that are currently available in the observing window.",
+        "groups": groups,
+        "observing_context": _build_phase2_observing_context(parsed_location),
+    }
+
+
+def _build_phase2_moon_scene(filter_slug, parsed_location=None):
+    conditions = _build_earth_engine_slice(parsed_location)
+    moon_phase = conditions.get("moon_phase") or "Unknown"
+    moon_summary = f"Moon phase tonight: {moon_phase}"
+    moon_object = {
+        "id": "moon",
+        "name": "Moon",
+        "type": "planet",
+        "engine": "moon",
+        "summary": moon_summary,
+        "reason": "Moon is always relevant for observing quality and lunar viewing.",
+        "position": None,
+        "visibility": {"is_visible": True},
+    }
+    groups = [
+        _build_phase2_scene_group(
+            "Moon Conditions",
+            "Moon phase and observing impact grouped for quick planning.",
+            [moon_object],
+        )
+    ]
+    return {
+        "scope": "solar_system",
+        "engine": "moon",
+        "filter": filter_slug,
+        "timestamp": _phase2_timestamp(),
+        "title": "Moon Scene",
+        "summary": "Current lunar context for observing decisions.",
+        "groups": groups,
+        "observing_context": _build_phase2_observing_context(parsed_location),
+    }
+
+
+def _build_phase2_satellites_scene(filter_slug, parsed_location=None):
+    objects = _to_phase2_scene_objects(_build_satellite_engine_slice(), "satellites")
+    high_priority = []
+    secondary = []
+    for obj in objects:
+        if (obj.get("summary") or "").lower().find("visible pass") >= 0:
+            high_priority.append(obj)
+        else:
+            secondary.append(obj)
+    groups = []
+    if high_priority:
+        groups.append(
+            _build_phase2_scene_group(
+                "Upcoming Passes",
+                "Passes surfaced as immediate opportunities.",
+                high_priority,
+            )
+        )
+    if secondary:
+        groups.append(
+            _build_phase2_scene_group(
+                "Additional Passes",
+                "Secondary passes that may still be observable.",
+                secondary,
+            )
+        )
+    if not groups:
+        groups = [
+            _build_phase2_scene_group(
+                "Satellite Passes",
+                "No pass data available, but the scene structure remains consistent.",
+                [],
+            )
+        ]
+    return {
+        "scope": "earth",
+        "engine": "satellites",
+        "filter": filter_slug,
+        "timestamp": _phase2_timestamp(),
+        "title": "Satellites Scene",
+        "summary": "Near-term satellite pass opportunities.",
+        "groups": groups,
+        "observing_context": _build_phase2_observing_context(parsed_location),
+    }
+
+
+def _build_phase2_scene(scope_slug, engine_slug, filter_slug, parsed_location=None):
+    engine_meta = PHASE2_ENGINE_REGISTRY.get(engine_slug)
+    if engine_meta is None:
+        raise ValueError("invalid_engine")
+    if engine_meta.get("scope") != scope_slug:
+        raise ValueError("engine_out_of_scope")
+    allowed_filters = list(engine_meta.get("allowed_filters") or [])
+    if filter_slug not in PHASE2_FILTERS or filter_slug not in allowed_filters:
+        raise ValueError("invalid_filter")
+
+    builders = {
+        "deep_sky": _build_phase2_deep_sky_scene,
+        "planets": _build_phase2_planets_scene,
+        "moon": _build_phase2_moon_scene,
+        "satellites": _build_phase2_satellites_scene,
+    }
+    builder = builders.get(engine_slug)
+    if builder is None:
+        raise ValueError("scene_builder_not_available")
+    return builder(filter_slug=filter_slug, parsed_location=parsed_location)
+
+
 def _build_phase1_scene_state(parsed_location=None):
     """Assemble the unified backend-owned Phase 1 scene state."""
     from datetime import datetime
