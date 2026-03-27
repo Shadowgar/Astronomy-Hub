@@ -78,20 +78,21 @@ Global control of system context.
 
 ---
 
-## 2.2 Primary Scene (Center — Dominant Region)
+## 2.2 Primary Command-Center Surface (Center — Dominant Region in Phase 1)
 
 ---
 
 ### Purpose
 
-The **core visual representation** of the system.
+The **core mounted product surface** of the system in Phase 1 (ObservingHero + operations grid).
 
 ---
 
 ### Rule
 
 ```text id="h1q3zp"
-The scene is always the most important element on screen.
+In Phase 1, the mounted command-center surface is the most important element on screen.
+It is fed by canonical scene-backed data.
 ```
 
 ---
@@ -108,20 +109,18 @@ Changes based on:
 
 ### Examples
 
-* sky view (Above Me)
-* Earth map / globe
-* solar surface
-* satellite orbit map
-* solar system view
+* ObservingHero status surface
+* operations modules (conditions, targets, alerts/events, passes, moon/news)
+* scene-backed object context for Above Me
 
 ---
 
 ### Requirements
 
 * must be interactive
-* must contain objects
-* must reflect real data
-* must never be empty
+* must expose object-focused context
+* must reflect real scene-backed data
+* must never present competing product truths outside the canonical scene-backed source
 
 ---
 
@@ -200,7 +199,8 @@ Provide structured supporting information.
 ### Rule
 
 ```text id="5q8rzt"
-Bottom panels support the scene.
+Bottom panels support the command-center context.
+They are fed by scene-backed data, not separate product truths.
 They must never compete with it.
 ```
 
@@ -412,7 +412,7 @@ Only objects above horizon are shown
 
 ## Priority Order
 
-1. Scene
+1. Command-Center Primary Surface
 2. Selected Object
 3. Live Intelligence Panel
 4. Context Panels
@@ -435,7 +435,7 @@ If everything is important, nothing is important.
 ## Desktop
 
 * full layout visible
-* scene dominant
+* command-center surface dominant
 * panels visible
 
 ---
@@ -443,14 +443,14 @@ If everything is important, nothing is important.
 ## Tablet
 
 * panels compress or stack
-* scene remains dominant
+* command-center surface remains dominant
 
 ---
 
 ## Mobile
 
 * stacked layout
-* scene first
+* command-center primary surface first
 * panels below
 * command bar collapses
 
@@ -487,7 +487,7 @@ UI Information Architecture is correct ONLY IF:
 
 * user understands navigation immediately
 * user can switch scope/engine/filter
-* scene updates correctly
+* scene-backed command-center data updates correctly
 * objects are interactive
 * detail views work consistently
 * layout remains stable

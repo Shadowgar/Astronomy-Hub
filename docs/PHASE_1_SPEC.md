@@ -61,11 +61,12 @@ Open app
 
 ---
 
-## 3.1 Primary Scene (MANDATORY)
+## 3.1 Primary Mounted Surface (MANDATORY)
 
 Must display:
 
-* sky-relative object visualization
+* command-center shell as the primary mounted surface (ObservingHero + operational modules)
+* scene-backed sky context from the canonical Above Me scene source
 * objects above horizon only
 * categorized objects:
 
@@ -256,6 +257,7 @@ Backend must:
   ```text
   /api/scene/above-me
   ```
+* treat `/api/scene/above-me` as the canonical scene source that feeds the frontend hero/modules surface
 * normalize all engine outputs
 * merge data into a single scene contract
 * provide object detail endpoints:
@@ -280,7 +282,8 @@ Backend must:
 
 Frontend must:
 
-* render sky-based scene
+* render the command-center primary surface (ObservingHero + operational modules)
+* consume scene-backed data from `/api/scene/above-me`
 * handle object interaction
 * display panels (briefing, events, news)
 * manage state (scope, filter)
@@ -331,7 +334,7 @@ Phase 1 is complete ONLY IF:
 ## 10.1 Core Functionality
 
 * app loads without errors
-* scene renders objects above user
+* primary mounted surface reflects objects above user from scene-backed data
 * objects are clickable
 * detail pages load
 

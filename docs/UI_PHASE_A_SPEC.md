@@ -8,6 +8,8 @@ Deliver a calm, mobile-friendly dashboard that implements the Phase 1 informatio
 
 ## Scope (Phase 1 alignment)
 - Dashboard page with header (location + mode) and module grid
+- Phase 1 primary mount is `ObservingHero` + module grid
+- `AboveMeScene` exists but is not the default primary mount in Phase 1
 - Modules: Conditions, Recommended Targets, Alerts/Events, Satellite Passes, Moon Summary
 - Manual coordinate override (session-only)
 - Mode system: Day, Night, Red (frontend-only) with localStorage persistence
@@ -31,5 +33,4 @@ Deliver a calm, mobile-friendly dashboard that implements the Phase 1 informatio
 ## Accessibility
 - Color contrasts checked for Day/Night modes; Red mode uses only low-luminance reds
 - Inputs and controls must be keyboard accessible and fully labeled
-
 
