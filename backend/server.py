@@ -519,6 +519,32 @@ def _build_phase2_satellites_scene(filter_slug, parsed_location=None):
     }
 
 
+def _build_phase2_above_me_scene(filter_slug, parsed_location=None):
+    phase1_state = _build_phase1_scene_state(parsed_location)
+    phase1_scene = phase1_state.get("scene") or {}
+    phase1_objects = phase1_scene.get("objects") or []
+    objects = _to_phase2_scene_objects(phase1_objects, "above_me")
+
+    groups = [
+        _build_phase2_scene_group(
+            "Above Me Now",
+            "Validated Phase 1 scene objects grouped for Phase 2 pipeline compatibility.",
+            objects,
+        )
+    ]
+
+    return {
+        "scope": "sky",
+        "engine": "above_me",
+        "filter": filter_slug,
+        "timestamp": phase1_scene.get("timestamp") or _phase2_timestamp(),
+        "title": "Above Me Scene",
+        "summary": "Current observing surface aligned with the Phase 2 engine pipeline.",
+        "groups": groups,
+        "observing_context": _build_phase2_observing_context(parsed_location),
+    }
+
+
 def _build_phase2_scene(scope_slug, engine_slug, filter_slug, parsed_location=None):
     engine_meta = PHASE2_ENGINE_REGISTRY.get(engine_slug)
     if engine_meta is None:
@@ -530,6 +556,7 @@ def _build_phase2_scene(scope_slug, engine_slug, filter_slug, parsed_location=No
         raise ValueError("invalid_filter")
 
     builders = {
+        "above_me": _build_phase2_above_me_scene,
         "deep_sky": _build_phase2_deep_sky_scene,
         "planets": _build_phase2_planets_scene,
         "moon": _build_phase2_moon_scene,

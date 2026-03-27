@@ -42,6 +42,7 @@ def _assert_structured_scene(scene, expected_scope, expected_engine, expected_fi
 @pytest.mark.parametrize(
     "scope_slug,engine_slug,filter_slug",
     [
+        ("sky", "above_me", "visible_now"),
         ("sky", "deep_sky", "visible_now"),
         ("solar_system", "planets", "visible_now"),
         ("solar_system", "moon", "high_altitude"),
