@@ -237,7 +237,7 @@ Before choosing Tailwind, audit what the current UI already uses and what UI Pha
 4. ensure module hierarchy and spacing rules survive
 5. reduce one-off styling drift
 
-See `docs/styling_decision.md` for the formal decision memo produced in Package 5 Step 2.
+See `docs/STYLING_DECISION.md` for the formal decision memo produced in Package 5 Step 2.
 
 ### Review criteria
 A reviewer can look at the frontend and clearly describe its design system approach.

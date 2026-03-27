@@ -12,7 +12,7 @@ async def get_conditions():
     """Return a safe, lightweight conditions payload.
 
     This handler intentionally avoids embedding business logic. It returns
-    a shallow deepcopy of the existing mock payload so the FastAPI
+    a deep copy of the existing mock payload so the FastAPI
     runtime can serve a representative response without migrating logic.
     """
     resp = deepcopy(MOCK_CONDITIONS)

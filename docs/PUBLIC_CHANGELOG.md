@@ -159,8 +159,6 @@ Then we’ll:
 
 ---
 
-If you want later, I can help you:
+Next milestone:
 
-👉 turn `PUBLIC_CHANGELOG.md` into a **live UI page inside your app**
-
-That’s where this really starts to feel like a product.
+Turn `PUBLIC_CHANGELOG.md` into a live in-app progress page backed by `frontend/src/content/publicChangelog.json`.

@@ -42,7 +42,7 @@ Purpose: capture the current runtime truth from repository inspection only. Do n
 - `backend/logging_config.py` reads `LOG_LEVEL` from environment (default `INFO`).
 - Tests set `SIMULATE_NORMALIZER_FAIL` (see `backend/tests/test_degraded_mode.py`).
 - `vite.config.mjs` proxies `/api` to `http://127.0.0.1:8000` for local development (frontend expects backend on 127.0.0.1:8000).
-- `.gitignore` includes `.env` entries, but there is no `.env` or `.env.example` present in the repo.
+- `.gitignore` includes `.env` entries; repository state now includes `.env.example` and `docker-compose.yml` for environment/bootstrap guidance.
 
 ## 7) Current test command(s) that appear to exist
 - Repository contains Python `pytest` tests under `backend/tests/`.
@@ -55,10 +55,10 @@ Purpose: capture the current runtime truth from repository inspection only. Do n
 - There is an existing `backend/normalizers` module and JSON schema files that tests load; tests assert the normalizer and validator utilities can be invoked.
 
 ## 9) Known unknowns (require later confirmation or runtime checks)
-- Is there an intended canonical production startup path (e.g., a FastAPI + Uvicorn entrypoint) already present but not yet discovered in non-obvious location? (No FastAPI app file was found in the inspected files; confirm globally.)
-- Are there environment variables used in production that are documented elsewhere (no `.env.example` present in repo)?
+- FastAPI app presence is now confirmed in `backend/app/main.py` (additive runtime path present).
+- Environment variable documentation completeness remains unresolved: `.env.example` is present, but production-complete coverage still needs explicit confirmation.
 - Frontend dev server port at runtime: `vite.config.mjs` does not declare `server.port` here; the actual dev port used on contributors' machines may differ (not asserted in repo files).
-- Any Docker / Compose files or infra startup scripts: none observed in repo root (no `docker-compose.yml` or `Dockerfile` inspected in this step); confirm if present elsewhere before Package 1.
+- Docker/Compose presence is now confirmed via `docker-compose.yml` in repo root.
 
 ---
 

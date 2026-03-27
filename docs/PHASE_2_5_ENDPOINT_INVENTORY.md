@@ -1,6 +1,6 @@
 # Phase 2.5 — Endpoint Inventory
 
-Source: repository inspection of `backend/server.py` and backend test files.
+Source: repository inspection of `backend/server.py`, `backend/app/main.py`, and backend test files.
 
 Observable endpoints (repo-backed)
 
@@ -9,6 +9,18 @@ Observable endpoints (repo-backed)
   - Implementing file/module: `backend/server.py` (uses `MOCK_CONDITIONS` from `backend/conditions_data.py` and may call `backend.normalizers.conditions_normalizer.normalize_to_contract`)
   - Current response shape summary: returns a JSON object based on `MOCK_CONDITIONS` with added `location_label` and `meta` fields; expected fields include summary, last_updated, darkness_window, cloud metrics (see `docs/contracts/conditions.schema.json` for intended schema).
   - Degraded/error behavior: if normalization fails the server returns a 500 JSON error payload with `error: { code: 'module_error', ... }`; invalid location params return 400 with `error.code: 'invalid_parameters'`; cached responses are returned with meta indicating cached status.
+
+- Path: `/api/scene/above-me`
+  - Method: GET
+  - Implementing file/module: legacy path in `backend/server.py`; FastAPI path in `backend/app/routes/scene.py` registered by `backend/app/main.py`.
+  - Current response shape summary: scene payload for Above Me with scope/engine/filter/timestamp plus object summaries.
+  - Degraded/error behavior: legacy `server.py` route has envelope/error handling; FastAPI route currently serves a minimal contract-valid scene stub.
+
+- Path: `/api/object/{id}`
+  - Method: GET
+  - Implementing file/module: `backend/server.py` (legacy runtime).
+  - Current response shape summary: object-detail payload resolved by object id.
+  - Degraded/error behavior: returns 400 for missing object id and 404 when object is not found.
 
 - Path: `/api/targets`
   - Method: GET
@@ -36,5 +48,6 @@ Observable endpoints (repo-backed)
 
 Other notes and unknowns
 
-- The above list is derived solely from `backend/server.py` and backend tests. There may be other backend entrypoints or routes that are not implemented in `server.py` or are present elsewhere; those are unknown from this inspection.
+- The list is anchored to `backend/server.py` as the current legacy runtime while also noting additive FastAPI routes registered in `backend/app/main.py`.
+- Additional routes may exist outside these files and should be confirmed during runtime verification.
 - Methods other than GET are not observed for these paths (server.py implements GET handlers only). If additional methods exist for any path they are unknown.

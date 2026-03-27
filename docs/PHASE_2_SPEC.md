@@ -69,6 +69,18 @@ Solar System   (NEW - simplified)
 Deep Sky       (NEW - limited)
 ```
 
+Canonical scope and engine identifiers:
+
+| Display Scope | Scope Slug | Engine Name |
+| --- | --- | --- |
+| Above Me | `above_me` | `above_me_engine` |
+| Earth | `earth` | `earth_engine` |
+| Sun | `sun` | `solar_engine` |
+| Satellites | `satellites` | `satellite_engine` |
+| Flights | `flights` | `flight_engine` |
+| Solar System | `solar_system` | `solar_system_engine` |
+| Deep Sky | `deep_sky` | `deep_sky_engine` |
+
 Flight tracking is excluded from Phase 1.
 It enters the product for the first time in the dedicated Flights scope in Phase 2.
 
@@ -124,7 +136,7 @@ but only one filter is active at a time
 
 ---
 
-### Earth Engine
+### Earth Engine (`scope=earth`, `engine=earth_engine`)
 
 Must support:
 
@@ -135,7 +147,7 @@ Must support:
 
 ---
 
-### Solar Engine
+### Solar Engine (`scope=sun`, `engine=solar_engine`)
 
 Must support:
 
@@ -145,7 +157,7 @@ Must support:
 
 ---
 
-### Satellite Engine
+### Satellite Engine (`scope=satellites`, `engine=satellite_engine`)
 
 Must support:
 
@@ -155,7 +167,7 @@ Must support:
 
 ---
 
-### Flight Engine
+### Flight Engine (`scope=flights`, `engine=flight_engine`)
 
 Must support:
 
@@ -164,7 +176,7 @@ Must support:
 
 ---
 
-### Solar System Engine (Phase 2 Limited)
+### Solar System Engine (Phase 2 Limited) (`scope=solar_system`, `engine=solar_system_engine`)
 
 Must support:
 
@@ -173,7 +185,7 @@ Must support:
 
 ---
 
-### Deep Sky Engine (Phase 2 Limited)
+### Deep Sky Engine (Phase 2 Limited) (`scope=deep_sky`, `engine=deep_sky_engine`)
 
 Must support:
 
@@ -309,10 +321,12 @@ Objects must be linkable across engines
 Must support:
 
 ```text id="v1x0na"
-/api/scene/{scope}
-/api/engine/{engine}?filter={filter}
+/api/scene/{scope_slug}
+/api/engine/{engine_slug}?filter={filter_slug}
 /api/object/{id}
 ```
+
+`scope_slug` and `engine_slug` must use the canonical identifiers in Section 3.1.
 
 ---
 

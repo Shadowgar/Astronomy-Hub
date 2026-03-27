@@ -504,25 +504,3 @@ the system is considered broken.
 ```
 
 ---
-
-## Where you are now
-
-You have now locked:
-
-* UI structure
-* navigation model
-* interaction system
-
----
-
-## Next (very important)
-
-Now we fix the biggest weak point you identified earlier:
-
-👉 **UI_PHASE_B_SPEC.md (FULL — not shortened)**
-
-This is the one that went from ~900 lines → 15.
-
-We fix that properly next.
-
----

@@ -232,7 +232,7 @@ The page must prioritize information in this order:
 5. Coming Next
 6. Roadmap
 
-### Rule
+## Rule
 
 ```text id="chgpage10"
 The page must communicate current reality before future ambition.
@@ -256,12 +256,12 @@ It must NOT be:
 * exaggerated
 * vague marketing fluff
 
-### Allowed
+## Allowed
 
 * “New object detail system is being built”
 * “The Above Me view is now being implemented”
 
-### Not allowed
+## Not allowed
 
 * “Canonical SceneContract added with strict field validation”
 * “Refactored Pydantic schema ownership boundaries”
@@ -272,7 +272,7 @@ It must NOT be:
 
 The page should use a small set of repeatable components.
 
-### Recommended components
+## Recommended components
 
 * Hero status card
 * Section heading
@@ -280,12 +280,12 @@ The page should use a small set of repeatable components.
 * Milestone / roadmap card
 * Status badge
 
-### Optional
+## Optional
 
 * simple timeline layout
 * collapsible roadmap sections
 
-### Rule
+## Rule
 
 ```text id="chgpage11"
 The page should feel structured and calm, not busy.
@@ -302,7 +302,7 @@ Allowed status states:
 * Coming Next
 * Planned
 
-### Rule
+## Rule
 
 ```text id="chgpage12"
 Status badges must be consistent across the page.
@@ -330,7 +330,7 @@ Status badges must be consistent across the page.
 * hero remains prominent
 * roadmap becomes single-column
 
-### Rule
+## Rule
 
 ```text id="chgpage13"
 The page must remain readable and uncluttered on mobile.
@@ -347,7 +347,7 @@ This page is updated indirectly by changing:
 
 The page itself must not require manual layout changes for normal update cycles.
 
-### Rule
+## Rule
 
 ```text id="chgpage14"
 Normal progress updates should be content-only, not code-heavy.

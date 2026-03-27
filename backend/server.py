@@ -557,15 +557,16 @@ class SimpleHandler(BaseHTTPRequestHandler):
 
                     cached_resp = _simple_cache.get(cache_key) if _simple_cache is not None else None
                     if cached_resp is not None:
-                        # Return cached payload but append non-invasive meta fields
+                        # Return cached payload wrapped in the same envelope shape as misses.
                         from copy import deepcopy
                         resp = deepcopy(cached_resp)
-                        resp['meta'] = {
+                        meta = {
                             'cached': True,
                             'cached_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
                         }
+                        envelope = self._build_envelope("ok", data=resp, meta=meta, error=None)
                         logger.info(f"req={request_id} cache.hit key={cache_key}")
-                        self._send_json(resp)
+                        self._send_json(envelope)
                         status = 200
                     else:
                         # Build fresh response and populate cache after normalization

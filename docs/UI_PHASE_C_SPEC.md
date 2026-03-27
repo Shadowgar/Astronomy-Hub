@@ -530,7 +530,7 @@ are all properly defined.
 
 ## Next (critical for your requirement)
 
-👉 `styling_decision.md`
+👉 `STYLING_DECISION.md`
 
 This is where we **lock your 5-mode system correctly**, including:
 

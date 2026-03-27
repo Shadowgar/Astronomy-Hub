@@ -449,8 +449,8 @@ Every object must be routable to exactly one detail authority.
 This means:
 
 * `id` must resolve uniquely
-* owning engine must resolve uniquely
-* detail route must know where to fetch the object
+* owning engine must be uniquely identifiable
+* detail route must specify the fetch location for the object
 
 Canonical conceptual route:
 
