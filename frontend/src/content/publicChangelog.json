@@ -1,78 +1,50 @@
 {
   "currentStatus": {
-    "phase": "Phase 1 — Command Center (Post-Audit Baseline)",
-    "summary": "Phase 1 backend foundation and command-center baseline are in place with canonical scene/detail routes and a stable mounted frontend surface.",
-    "note": "The mounted Phase 1 UI remains the command-center module grid shell, and backend tests are passing in project runtime."
+    "phase": "Phase 2 — Backend Foundation Through Step 7",
+    "summary": "Phase 1 remains stable, and Phase 2 backend Steps 1–7 are complete (scope/engine/filter routing, internal scene generation, above_me alignment, and cross-engine object resolution).",
+    "note": "Step 8 endpoint exposure and frontend Phase 2 controls are not complete yet."
   },
   "currentFocus": [
-    "Maintaining the verified Phase 1 baseline after audit fixes",
-    "Keeping the primary mounted command-center module grid shell aligned with canonical scene-backed data",
-    "Preparing Phase 2 documentation/checklist readiness while keeping Phase 1 runtime behavior stable"
+    "Implementing Phase 2 Step 8 controlled endpoint exposure (scope -> engine -> filter) without breaking the existing pipeline",
+    "Keeping Phase 1 runtime behavior and mounted command-center shell stable while backend expansion continues",
+    "Keeping public/internal status records synchronized with verified Step 1–7 backend reality"
   ],
   "recentProgress": [
     {
-      "title": "Phase 1 validation pass completed",
-      "summary": "Phase 1 checks were re-run end-to-end (scene, detail, location override, degraded handling, and responsiveness)."
+      "title": "Phase 2 Step 1 completed (spec lock)",
+      "summary": "Scopes, engines, filters, and anti-drift rules are now explicit and locked in the Phase 2 specification."
     },
     {
-      "title": "Interaction flow confirmed",
-      "summary": "Canonical object detail interaction is available from mounted command-center modules (targets, passes, alerts) while preserving context."
+      "title": "Phase 2 Steps 2-4 completed (routing layer)",
+      "summary": "Backend now enforces scope routing, engine routing, and filter validation through '/api/scopes' with stable JSON 400 failures for invalid combinations."
     },
     {
-      "title": "Command-center mounted surface confirmed",
-      "summary": "Phase 1 mounted UI truth is now documented and enforced as the command-center module grid shell fed by canonical scene-backed data."
+      "title": "Phase 2 Steps 5-6 completed (internal scene pipeline)",
+      "summary": "Required engines generate structured internal scenes with grouped reasoning, and 'above_me' is aligned into the same Phase 2 pipeline while '/api/scene/above-me' remains stable."
+    },
+    {
+      "title": "Phase 2 Step 7 completed (object resolution integrity)",
+      "summary": "Cross-engine objects now resolve through '/api/object/{id}' for required engines while scene objects remain summary-level and do not duplicate detail payload fields."
     },
     {
       "title": "Backend test suite passing",
-      "summary": "Backend tests are currently passing in the project runtime (`.venv/bin/python -m pytest backend/tests -q`)."
-    },
-    {
-      "title": "Phase 1 object detail coverage completed",
-      "summary": "Object detail now resolves across satellites, planets, and deep-sky objects with visibility guidance, representative media, and related observing context."
-    },
-    {
-      "title": "Frontend command-center shell available",
-      "summary": "The app now exposes a command-center shell that renders the mounted module grid (conditions, recommended targets, alerts/events, passes, moon/news) from backend-owned data."
-    },
-    {
-      "title": "Interactive panel details",
-      "summary": "Panel entries (targets, passes, & alerts) now open canonical object detail views inline without losing scene context."
-    },
-    {
-      "title": "Object detail payloads available",
-      "summary": "Canonical object detail responses are now available at '/api/object/{id}', including explanatory text and representative images."
-    },
-    {
-      "title": "Above Me scene endpoint available",
-      "summary": "The canonical backend route '/api/scene/above-me' now returns a contract-valid Phase 1 scene combining normalized targets and visible passes."
-    },
-    {
-      "title": "Project documentation system rebuilt",
-      "summary": "Core architecture, phases, UI structure, object model, ingestion strategy, and execution controls were rewritten and aligned."
-    },
-    {
-      "title": "Phase 1 restart locked in",
-      "summary": "The project state and session state were corrected so execution now properly starts from Phase 1 again."
-    },
-    {
-      "title": "Phase 1 contract layer added",
-      "summary": "Canonical Phase 1 contract models and validation tests were added for scene and object data."
+      "summary": "Backend tests are currently passing in project runtime ('.venv/bin/python -m pytest backend/tests -q')."
     }
   ],
   "inProgress": [
     {
-      "title": "Phase 1 stability guardrails",
-      "summary": "Public/internal progress records are being kept synchronized with verified repository state while Phase 1 behavior remains stable."
+      "title": "Phase 2 Step 8 preparation",
+      "summary": "Preparing controlled endpoint exposure work while preserving the scope -> engine -> filter pipeline and Phase 1 runtime stability."
     }
   ],
   "comingNext": [
     {
-      "title": "Phase 2 execution readiness review",
-      "summary": "Validate Phase 2 execution readiness against updated specs and checklists without changing Phase 1 runtime behavior."
+      "title": "Phase 2 Step 8 endpoint exposure",
+      "summary": "Expose controlled backend endpoints for scope/engine/filter-driven scene retrieval without introducing frontend-owned logic."
     },
     {
-      "title": "Controlled planning updates",
-      "summary": "Keep execution and changelog records current as the project transitions from the Phase 1 baseline to Phase 2 planning."
+      "title": "Phase 2 frontend controls after backend exposure",
+      "summary": "Begin Step 9+ frontend scope/engine/filter controls only after Step 8 backend exposure is complete."
     }
   ],
   "roadmap": [

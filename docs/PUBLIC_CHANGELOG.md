@@ -8,79 +8,59 @@
 
 ## 🚀 CURRENT STATUS
 
-**Phase 1 — Command Center (Post-Audit Baseline)**
+**Phase 2 — Backend Foundation Through Step 7**
 
-Phase 1 backend foundation and command-center baseline are in place with canonical scene/detail routes and a stable mounted frontend surface.
+Phase 1 remains stable, and Phase 2 backend Steps 1–7 are complete (scope/engine/filter routing, internal scene generation, above_me alignment, and cross-engine object resolution).
 
 ---
 
 ## 🔧 CURRENT FOCUS
 
-* Maintaining the verified Phase 1 baseline after audit fixes
-* Keeping the primary mounted command-center module grid shell aligned with canonical scene-backed data
-* Preparing Phase 2 documentation/checklist readiness while keeping Phase 1 runtime behavior stable
+* Implementing Phase 2 Step 8 controlled endpoint exposure (scope → engine → filter) without breaking the existing pipeline
+* Keeping Phase 1 runtime behavior and mounted command-center shell stable while backend expansion continues
+* Keeping public/internal status records synchronized with verified Step 1–7 backend reality
 
 ---
 
 ## 🆕 RECENT PROGRESS
 
-### ✅ Phase 1 Validation Pass Completed
+### ✅ Phase 2 Step 1 Completed — Spec Lock
 
-* Phase 1 command-center checks were re-run end-to-end (scene, detail, location overrides, degraded backend handling, and responsiveness).
+* Scopes, engines, filters, and anti-drift rules are now explicit and locked in `PHASE_2_SPEC.md`.
 
-### 🧭 Interaction Flow Confirmed
+### ✅ Phase 2 Steps 2–4 Completed — Routing Layer
 
-* Canonical object detail interaction is available from mounted command-center modules (targets, passes, alerts) with quick return to the same context.
+* Backend now enforces scope routing, engine routing, and filter validation via `/api/scopes` with clean JSON 400 errors for invalid combinations.
 
-### 🌠 Command-Center Mounted Surface Confirmed
+### ✅ Phase 2 Steps 5–6 Completed — Internal Scene Pipeline
 
-* Phase 1 now reflects the mounted UI truth: the command-center module grid shell is the primary surface, fed by canonical scene-backed backend data.
+* Required engines (`deep_sky`, `planets`, `moon`, `satellites`) generate structured internal scenes with groups and reasoning.
+* Existing `above_me` is aligned into the same internal Phase 2 pipeline while `/api/scene/above-me` remains stable.
 
-### 🛰️ Object Detail Coverage Completed
+### ✅ Phase 2 Step 7 Completed — Object Resolution Integrity
 
-* Object detail now resolves consistently for the full Phase 1 object set (satellites, planets, and deep sky objects), with visibility guidance, at least one image, and related observing context.
-
-### 🧱 Foundation Established
-
-* Core data contracts implemented
-* Object model standardized
-* Backend structure aligned with long-term architecture
+* `/api/object/{id}` now resolves representative objects across required engines (`above_me`, `deep_sky`, `planets`, `moon`, `satellites`) while keeping detail authority in the endpoint.
+* Scene objects remain summary-level and do not duplicate detail payload fields.
 
 ### ✅ Backend Test Suite Passing
 
-* The backend test suite is currently passing in the project runtime (`.venv/bin/python -m pytest backend/tests -q`).
-
-### 🌌 Above Me Scene Assembled
-
-* The canonical `/api/scene/above-me` route is now available and returns a contract-valid Phase 1 scene combining normalized targets and visible passes. This provides the backend-owned answer to “what is above me right now?”
-
-### 📘 Object Details Available
-
-* The backend now provides canonical object detail payloads at `/api/object/{id}` for Phase 1 objects (planets, deep-sky, satellites), including explanatory text and representative images to help users understand why an object matters now.
-
-### 🖥️ Frontend Command Center Shell
-
-* The frontend command-center shell is now available. It renders the mounted module grid (conditions, recommended targets, upcoming passes, alerts/events, moon/news) from backend-owned data — forming the app's primary command surface.
-
-### 🎯 Interaction & Detail Flow
-
-* Panel entries for targets, passes, and alerts are now interactive: users can open canonical object detail views directly from panel entries without losing the Above Me scene context. This enables quick exploration of what to observe and why.
+* Backend tests are currently passing in project runtime (`.venv/bin/python -m pytest backend/tests -q`).
 
 ---
 
 ## 🔄 IN PROGRESS
 
-### 🧪 Phase 1 Stability Guardrails
+### 🧪 Phase 2 Step 8 Preparation
 
-* Keeping public/internal progress records synchronized with verified repository state
-* Holding Phase 1 behavior stable while preparing controlled Phase 2 execution
+* Preparing controlled endpoint exposure for Phase 2 without bypassing the scope → engine → filter pipeline
+* Holding Phase 1 runtime behavior stable while backend exposure work begins
 
 ---
 
 ## 🔜 COMING NEXT
 
-* Phase 2 execution readiness review against updated specs/checklists
-* Controlled Phase 2 planning updates that do not alter Phase 1 runtime behavior
+* Phase 2 Step 8 — Scene endpoint exposure (backend)
+* Phase 2 Step 9+ frontend controls (scope/engine/filter) after backend exposure is complete
 
 ---
 
@@ -152,8 +132,8 @@ Now:
 
 Then we’ll:
 
-* maintain Phase 1 stability
-* prepare controlled Phase 2 execution
+* complete Phase 2 Step 8 endpoint exposure
+* keep Phase 1 stability intact
 * keep changelog outputs factual and current
 
 ---
