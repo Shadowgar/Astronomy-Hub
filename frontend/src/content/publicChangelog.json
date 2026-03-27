@@ -11,6 +11,10 @@
   ],
   "recentProgress": [
     {
+      "title": "Above Me scene endpoint available",
+      "summary": "The canonical backend route '/api/scene/above-me' now returns a contract-valid Phase 1 scene combining normalized targets and visible passes."
+    },
+    {
       "title": "Project documentation system rebuilt",
       "summary": "Core architecture, phases, UI structure, object model, ingestion strategy, and execution controls were rewritten and aligned."
     },

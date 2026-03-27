@@ -30,6 +30,10 @@ We are rebuilding Astronomy Hub from the ground up to create a true real-time as
 * Object model standardized
 * Backend structure aligned with long-term architecture
 
+### 🌌 Above Me Scene Assembled
+
+* The canonical `/api/scene/above-me` route is now available and returns a contract-valid Phase 1 scene combining normalized targets and visible passes. This provides the backend-owned answer to “what is above me right now?”
+
 ---
 
 ## 🔄 IN PROGRESS

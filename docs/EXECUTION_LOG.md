@@ -398,6 +398,54 @@ PASS
 
 Phase 1
 
+
+## Step 4 — Above Me Scene Assembly
+
+### Phase
+
+Phase 1
+
+### Description
+
+Assemble a unified Above Me scene from normalized Phase 1 engine slices and expose it via `/api/scene/above-me`.
+
+### Files Changed
+
+* backend/server.py
+
+### What Was Done
+
+* Implemented scene assembly in `_build_scene_from_targets` to prefer registered normalizers, rank results by `relevance_score`, limit the result set, and perform a best-effort SceneContract validation.
+* Ensured `/api/scene/above-me` wraps the scene in the authoritative `ResponseEnvelope` and returns a contract-shaped payload.
+
+### Why It Was Done
+
+To complete Step 4 in `PHASE_1_BUILD_SEQUENCE.md`: merge engine slices into a single, limited, ranked Above Me scene payload that answers "what is above me right now".
+
+### Verification
+
+* Commands run:
+
+```bash
+docker compose build backend
+docker compose up -d backend
+curl -sS http://localhost:8000/api/scene/above-me
+curl -sS http://localhost:8000/api/targets
+curl -sS http://localhost:8000/api/passes
+curl -sS http://localhost:8000/api/object/jupiter
+```
+
+* Observed results (selected):
+
+  - `/api/scene/above-me` returned an `ok` ResponseEnvelope with a `data` SceneContract containing `objects` with ids `jupiter` and `m13` (Phase 1 types only), limited in count and ordered.
+  - `/api/targets` returned normalized `SceneObjectSummary` items (e.g., `jupiter`, `m13`).
+  - `/api/passes` returned normalized visible passes (ISS, Starlink-1234) as a cleaned list.
+  - `/api/object/jupiter` returned an `ok` ResponseEnvelope with a contract-shaped `ObjectDetail` for `jupiter`.
+
+### Result
+
+PASS
+
 ### Description
 
 Render the `currentFocus[]` list on the Progress page as a minimal bullet list.
