@@ -11,6 +11,10 @@
   ],
   "recentProgress": [
     {
+      "title": "Object detail payloads available",
+      "summary": "Canonical object detail responses are now available at '/api/object/{id}', including explanatory text and representative images."
+    },
+    {
       "title": "Above Me scene endpoint available",
       "summary": "The canonical backend route '/api/scene/above-me' now returns a contract-valid Phase 1 scene combining normalized targets and visible passes."
     },

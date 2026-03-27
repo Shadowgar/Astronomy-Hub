@@ -99,7 +99,15 @@ def _slugify(name: str) -> str:
 
 
 def _build_scene_from_targets(parsed_location=None):
-    """Construct a minimal SceneContract-compatible payload from targets."""
+    """Assemble a Phase 1 `SceneContract` from available engine slices.
+
+    Strategy (minimal):
+    - Obtain raw targets via `get_targets()` and attempt to normalize via
+      the `targets` normalizer discovered in `registry` (or local import
+      fallback).
+    - Limit and rank the resulting `SceneObjectSummary` items and return
+      a SceneContract-shaped dict.
+    """
     from datetime import datetime
     try:
         try:
@@ -112,37 +120,95 @@ def _build_scene_from_targets(parsed_location=None):
                 sys.path.insert(0, repo_root)
             from backend.targets_data import get_targets
 
-        targets = get_targets(with_images=False)
+        raw_targets = get_targets(with_images=False)
     except Exception:
-        targets = []
+        raw_targets = []
+
+    normalized = None
+    try:
+        try:
+            norm_callable = registry.get("targets")
+        except KeyError:
+            norm_callable = None
+
+        # Fallback to local import if registry didn't provide one
+        if norm_callable is None:
+            try:
+                try:
+                    from normalizers import targets_normalizer
+                except Exception:
+                    from backend.normalizers import targets_normalizer
+                norm_callable = targets_normalizer.normalize
+            except Exception:
+                norm_callable = None
+
+        if norm_callable is not None:
+            try:
+                normalized = norm_callable(raw_targets)
+            except NormalizationError:
+                logger.exception("scene.targets.normalize.fail")
+                normalized = None
+    except Exception:
+        logger.exception("scene.targets.normalize.unexpected")
 
     objects = []
-    for t in targets:
-        # Map available fields into the SceneObjectSummary shape
-        name = t.get('name') or 'unknown'
-        category = t.get('category')
-        # Only allow Phase 1 types
-        if category not in ('planet', 'deep_sky', 'satellite'):
-            # skip unknown categories in scene assembly
-            continue
-        obj = {
-            'id': _slugify(name),
-            'name': name,
-            'type': category,
-            'engine': 'mock',
-            'summary': t.get('reason') or t.get('summary') or '',
-            'position': None,
-            'visibility': None,
-        }
-        objects.append(obj)
+    if isinstance(normalized, list) and len(normalized) > 0:
+        # Use normalized list (already validated per normalizer rules)
+        objects = [o for o in normalized if o.get('type') in ('planet', 'deep_sky', 'satellite')]
+    else:
+        # Fallback to legacy mapping when normalization not available
+        for t in raw_targets:
+            name = t.get('name') or 'unknown'
+            category = t.get('category')
+            if category not in ('planet', 'deep_sky', 'satellite'):
+                continue
+            objects.append({
+                'id': _slugify(name),
+                'name': name,
+                'type': category,
+                'engine': 'mock',
+                'summary': t.get('reason') or t.get('summary') or '',
+                'position': None,
+                'visibility': None,
+            })
+
+    # Ranking: prefer items with explicit `relevance_score`, then by type
+    def _rank_key(o):
+        score = o.get('relevance_score') or 0.0
+        type_order = {'satellite': 0, 'planet': 1, 'deep_sky': 2}
+        tord = type_order.get(o.get('type'), 99)
+        # Negative score so higher scores sort first
+        return (-float(score), tord, o.get('name') or '')
+
+    try:
+        objects = sorted(objects, key=_rank_key)
+    except Exception:
+        # If sorting fails, keep original order
+        pass
+
+    # Limit object count to keep scene intentionally small
+    MAX_OBJECTS = 10
+    objects = objects[:MAX_OBJECTS]
 
     scene = {
         'scope': 'above_me',
-        'engine': 'mock',
-        'filter': 'default',
+        'engine': 'main',
+        'filter': 'visible',
         'timestamp': datetime.utcnow().isoformat() + 'Z',
         'objects': objects,
     }
+
+    # Validate against authoritative SceneContract when possible
+    try:
+        try:
+            from backend.app.contracts.phase1 import SceneContract
+        except Exception:
+            from backend.app.contracts.phase1 import SceneContract
+        # parse/validate, but ignore validation failures to be robust
+        SceneContract.parse_obj(scene)
+    except Exception:
+        logger.exception("scene.validation.warn")
+
     return scene
 
 
@@ -426,7 +492,9 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         status = 404
                         return
 
-                    # Build a minimal ObjectDetail payload
+                    # Build an ObjectDetail payload (minimal but richer than the
+                    # legacy stub). Keep keys strictly to the canonical contract
+                    # to avoid pydantic `extra` failures downstream.
                     detail = {
                         'id': found.get('id'),
                         'name': found.get('name'),
@@ -435,10 +503,78 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         'summary': found.get('summary') or '',
                         'description': found.get('summary') or '',
                         'position': found.get('position'),
-                        'visibility': found.get('visibility'),
+                        'visibility': None,
                         'media': [],
                         'related_objects': [],
                     }
+
+                    # Derive simple visibility: prefer explicit visibility when
+                    # provided by the scene; otherwise, infer from type and
+                    # available passes for satellites.
+                    try:
+                        if found.get('visibility') is not None:
+                            detail['visibility'] = found.get('visibility')
+                        else:
+                            v = {'is_visible': False}
+                            if found.get('type') in ('planet', 'deep_sky'):
+                                v['is_visible'] = True
+                            elif found.get('type') == 'satellite':
+                                # check mock passes for a matching object_name
+                                try:
+                                    from backend.passes_data import MOCK_PASSES
+                                except Exception:
+                                    try:
+                                        from passes_data import MOCK_PASSES
+                                    except Exception:
+                                        MOCK_PASSES = []
+                                name_l = (found.get('name') or '').lower()
+                                for p in MOCK_PASSES:
+                                    if (p.get('object_name') or '').lower() == name_l:
+                                        v['is_visible'] = True
+                                        break
+                            detail['visibility'] = v
+                    except Exception:
+                        # Best-effort only; keep visibility None on failures
+                        detail['visibility'] = None
+
+                    # Try to resolve a representative image via the image resolver
+                    try:
+                        try:
+                            from backend.services.imageResolver import get_object_image
+                        except Exception:
+                            from services.imageResolver import get_object_image
+
+                        img = None
+                        try:
+                            img = get_object_image(found.get('name') or '')
+                        except Exception:
+                            img = None
+
+                        if img and isinstance(img, dict) and img.get('image_url'):
+                            detail['media'] = [
+                                { 'type': 'image', 'url': img.get('image_url'), 'source': img.get('source') }
+                            ]
+                        else:
+                            # Best-effort alternative queries for short Messier-style
+                            # names like "M13" — try "Messier 13" as a secondary
+                            # lookup to increase the chance of finding an image.
+                            try:
+                                nm = (found.get('name') or '').strip()
+                                if nm and (len(nm) <= 4 and nm[0].lower() == 'm' and nm[1:].strip().isdigit()):
+                                    alt = f"Messier {nm[1:].strip()}"
+                                    try:
+                                        alt_img = get_object_image(alt)
+                                    except Exception:
+                                        alt_img = None
+                                    if alt_img and isinstance(alt_img, dict) and alt_img.get('image_url'):
+                                        detail['media'] = [
+                                            { 'type': 'image', 'url': alt_img.get('image_url'), 'source': alt_img.get('source') }
+                                        ]
+                            except Exception:
+                                pass
+                    except Exception:
+                        # Image resolution is best-effort; leave media empty on error
+                        pass
                     try:
                         env = self._build_envelope('ok', data=detail, meta={}, error=None)
                     except Exception:

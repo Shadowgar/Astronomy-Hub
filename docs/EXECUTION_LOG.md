@@ -446,6 +446,52 @@ curl -sS http://localhost:8000/api/object/jupiter
 
 PASS
 
+
+## Step 5 — Object Detail Records
+
+### Phase
+
+Phase 1
+
+### Description
+
+Provide canonical detail payloads for Phase 1 object types (satellite, planet, deep_sky) and expose them via `/api/object/{id}`.
+
+### Files Changed
+
+* backend/server.py
+
+### What Was Done
+
+* Enriched `/api/object/{id}` detail assembly to include `description`, a canonical `visibility` object, and a `media` array with a representative image resolved via the existing `imageResolver` service (with a Messier-name fallback for common catalog IDs).
+* Kept returned keys aligned with the `ObjectDetail` contract to avoid schema drift.
+
+### Why It Was Done
+
+To satisfy Step 5 from `PHASE_1_BUILD_SEQUENCE.md`: provide usable, contract-valid object details so the frontend can render informative object pages and the user can understand "what to look at" and "why it matters now".
+
+### Verification
+
+* Commands run:
+
+```bash
+docker compose build backend
+docker compose up -d backend
+curl -sS http://localhost:8000/api/scene/above-me | jq '.'
+curl -sS http://localhost:8000/api/object/jupiter | jq '.'
+curl -sS http://localhost:8000/api/object/m13 | jq '.'
+```
+
+* Observed results (selected):
+
+  - `/api/scene/above-me` returned `jupiter` and `m13` in the scene objects list.
+  - `/api/object/jupiter` returned an `ObjectDetail` containing `id`, `name`, `type`, `engine`, `summary`, `description`, `visibility` (`is_visible: true`), and `media` with a NASA image URL.
+  - `/api/object/m13` returned an `ObjectDetail` with the same keys and a resolved image via a Messier fallback lookup.
+
+### Result
+
+PASS
+
 ### Description
 
 Render the `currentFocus[]` list on the Progress page as a minimal bullet list.

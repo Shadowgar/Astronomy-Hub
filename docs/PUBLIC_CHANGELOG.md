@@ -34,6 +34,10 @@ We are rebuilding Astronomy Hub from the ground up to create a true real-time as
 
 * The canonical `/api/scene/above-me` route is now available and returns a contract-valid Phase 1 scene combining normalized targets and visible passes. This provides the backend-owned answer to “what is above me right now?”
 
+### 📘 Object Details Available
+
+* The backend now provides canonical object detail payloads at `/api/object/{id}` for Phase 1 objects (planets, deep-sky, satellites), including explanatory text and representative images to help users understand why an object matters now.
+
 ---
 
 ## 🔄 IN PROGRESS
