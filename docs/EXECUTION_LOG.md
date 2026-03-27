@@ -530,6 +530,57 @@ To implement `PHASE_1_BUILD_SEQUENCE.md` Step 2: expose minimal, contract-correc
 ### Result
 
 PASS
+
+
+## Step 3 — Limited Engine Slice Normalization
+
+### Phase
+
+Phase 1
+
+### Description
+
+Implement minimal normalization slices for Phase 1 engines so backend outputs are contract-shaped and limited to Phase 1 scope.
+
+### Files Changed
+
+* backend/normalizers/targets_normalizer.py
+* backend/normalizers/passes_normalizer.py
+* backend/normalizers/registry.py
+* backend/server.py
+
+### What Was Done
+
+* Added `targets_normalizer` to map mock `targets` into `SceneObjectSummary`-compatible dicts and validate each item.
+* Added `passes_normalizer` to filter and clean mock `passes` (visible-only slice).
+* Registered new normalizers in `backend/normalizers/registry.py` (best-effort registration pattern).
+* Applied normalization at the HTTP layer in `backend/server.py` for `/api/targets` and `/api/passes`, using registry discovery with a local-import fallback.
+
+### Why It Was Done
+
+To satisfy `PHASE_1_BUILD_SEQUENCE.md` Step 3: produce normalized Phase 1 data for the engines participating in the Above Me scene while keeping changes minimal and defensive.
+
+### Verification
+
+* Commands run:
+
+  - `docker compose build backend`
+  - `docker compose up -d backend`
+  - `curl -sS http://127.0.0.1:8000/api/scene/above-me` (inspected JSON)
+  - `curl -sS http://127.0.0.1:8000/api/object/jupiter` (inspected JSON)
+  - `curl -sS http://127.0.0.1:8000/api/targets` (inspected JSON — normalized list)
+  - `curl -sS http://127.0.0.1:8000/api/passes` (inspected JSON — filtered/cleaned list)
+
+* Observed results:
+
+  - `/api/scene/above-me` continues to return a contract-wrapped scene (`status: ok`, `data.scope == "above_me"`) with objects.
+  - `/api/object/jupiter` continues to return a contract-wrapped object detail (`status: ok`, `data.id == "jupiter"`).
+  - `/api/targets` now returns a list of normalized `SceneObjectSummary` items (first object keys include `id,name,type,engine,summary,position,visibility`).
+  - `/api/passes` returns a cleaned list of visible passes (fields: `object_name,start_time,max_elevation_deg,start_direction,end_direction,visibility`).
+
+### Result
+
+PASS
 ---
 
 ## Step 3 — CHANGELOG Page: Step 1 (Create Page Route + Shell)

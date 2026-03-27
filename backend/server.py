@@ -469,6 +469,38 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         from backend.targets_data import get_targets
 
                     targets_payload = get_targets(with_images=True)
+                    # Attempt to normalize targets via registry if available
+                    logger.info(f"req={request_id} registry.keys={list(getattr(registry, '_REGISTRY', {}).keys())}")
+                    try:
+                        try:
+                            norm_targets = registry.get("targets")
+                        except KeyError:
+                            norm_targets = None
+
+                        # If registry doesn't expose a targets normalizer, try a local import
+                        if norm_targets is None:
+                            try:
+                                try:
+                                    from normalizers import targets_normalizer
+                                except Exception:
+                                    from backend.normalizers import targets_normalizer
+                                norm_targets = targets_normalizer.normalize
+                                logger.info(f"req={request_id} targets.normalize.fallback=imported")
+                            except Exception:
+                                norm_targets = None
+
+                        if norm_targets is not None:
+                            try:
+                                normalized_targets = norm_targets(targets_payload)
+                                if isinstance(normalized_targets, list):
+                                    targets_payload = normalized_targets
+                                    logger.info(f"req={request_id} targets.normalize=ok count={len(targets_payload)}")
+                                else:
+                                    logger.info(f"req={request_id} targets.normalize=skip type={type(normalized_targets)}")
+                            except NormalizationError:
+                                logger.exception(f"req={request_id} targets.normalize.fail")
+                    except Exception:
+                        logger.exception(f"req={request_id} targets.normalize.unexpected")
                 except Exception:
                     # on any failure, fall back to static mock targets
                     logger.exception(f"req={request_id} targets.enrich.fail")
@@ -548,8 +580,33 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         status = 500
             elif parsed.path == "/api/passes":
                 # Accept optional location params but return static mock passes for now
-                self._send_json(MOCK_PASSES)
-                status = 200
+                try:
+                    # Prefer a registered normalizer to filter/clean passes
+                    try:
+                        norm_passes = registry.get("passes")
+                    except KeyError:
+                        norm_passes = None
+
+                    if norm_passes is not None:
+                        try:
+                            normalized_passes = norm_passes(MOCK_PASSES)
+                            if isinstance(normalized_passes, list):
+                                self._send_json(normalized_passes)
+                                status = 200
+                            else:
+                                self._send_json(MOCK_PASSES)
+                                status = 200
+                        except NormalizationError:
+                            logger.exception(f"req={request_id} passes.normalize.fail")
+                            self._send_json(MOCK_PASSES)
+                            status = 200
+                    else:
+                        self._send_json(MOCK_PASSES)
+                        status = 200
+                except Exception:
+                    logger.exception(f"req={request_id} passes.unhandled")
+                    self._send_json({'error': {'code': 'module_error', 'message': 'failed to load passes'}}, status=500)
+                    status = 500
             elif parsed.path == "/api/alerts":
                 # Accept optional location params but return static mock alerts for now
                 self._send_json(MOCK_ALERTS)

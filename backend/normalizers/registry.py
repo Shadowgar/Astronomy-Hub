@@ -45,3 +45,23 @@ def get(domain_name: str) -> Callable:
 
 # Register the existing Conditions normalizer so it is discoverable.
 register("conditions", conditions_normalizer.normalize)
+
+# Register Phase 1 engine normalizers (targets, passes) where available.
+try:
+    try:
+        from normalizers import targets_normalizer
+    except Exception:
+        from backend.normalizers import targets_normalizer
+    register("targets", targets_normalizer.normalize)
+except Exception:
+    # best-effort: registry remains usable even if optional normalizers fail
+    pass
+
+try:
+    try:
+        from normalizers import passes_normalizer
+    except Exception:
+        from backend.normalizers import passes_normalizer
+    register("passes", passes_normalizer.normalize)
+except Exception:
+    pass

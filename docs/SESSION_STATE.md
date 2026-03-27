@@ -115,9 +115,9 @@ That means the immediate goal is:
 ## 6. CURRENT NEXT STEP
 
 ```text id="sstate005"
-Last completed step: Step 2 — Backend Endpoint Skeleton
-Current step: Ready for Step 3 — Limited Engine Slice Normalization
-Next step: Step 3 — Limited Engine Slice Normalization
+Last completed step: Step 3 — Limited Engine Slice Normalization
+Current step: Ready for Step 4 — Above Me Scene Assembly
+Next step: Step 4 — Above Me Scene Assembly
 ```
 
 ---
