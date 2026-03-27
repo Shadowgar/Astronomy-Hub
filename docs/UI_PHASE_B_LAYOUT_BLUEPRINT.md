@@ -114,3 +114,12 @@ Implementation hints for an AI renderer
 - For empty-state panels, show 1–2 muted placeholder signal lines instead of blank space.
 
 This blueprint should enable a deterministic visual reconstruction of Phase B's command-center UI.
+
+6) KNOWN ISSUE TO FIX (PHASE B UI INTEGRITY)
+- Issue: Alerts / Events and Satellite Passes rows can render overlapping text in the current branch.
+- Observed impact: row content stacks incorrectly, reducing scanability and violating the compact row model defined above.
+- Root cause reference: `frontend/src/components/common/InlineExpansion.jsx` wraps `summary` with an inline `<span>`, while `frontend/src/components/AlertsEvents.jsx` and `frontend/src/components/SatellitePasses.jsx` pass block-level summary content.
+- Required fix outcome:
+  - summary container must support block content safely (no inline/block invalid nesting),
+  - alerts/passes row text must render in a single readable flow with preserved spacing,
+  - no layout redesign beyond restoring the specified compact panel behavior.

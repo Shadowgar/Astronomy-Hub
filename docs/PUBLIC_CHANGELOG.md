@@ -8,17 +8,17 @@
 
 ## 🚀 CURRENT STATUS
 
-**Phase 1 — Command Center Rebuild**
+**Phase 1 — Command Center (Post-Audit Baseline)**
 
-We are rebuilding Astronomy Hub from the ground up to create a true real-time astronomy command center.
+Phase 1 backend foundation and command-center baseline are in place with canonical scene/detail routes and a stable mounted frontend surface.
 
 ---
 
 ## 🔧 CURRENT FOCUS
 
-* Keeping Phase 1 stable and internally consistent after audit fixes
-* Maintaining the primary mounted command-center surface (**ObservingHero + operational modules**) with scene-backed data
-* Preparing Phase 2 execution planning without changing Phase 1 behavior
+* Maintaining the verified Phase 1 baseline after audit fixes
+* Keeping the primary mounted command-center surface (**ObservingHero + operational modules**) aligned with canonical scene-backed data
+* Preparing Phase 2 documentation/checklist readiness while keeping Phase 1 runtime behavior stable
 
 ---
 
@@ -80,8 +80,7 @@ We are rebuilding Astronomy Hub from the ground up to create a true real-time as
 ## 🔜 COMING NEXT
 
 * Phase 2 execution readiness review against updated specs/checklists
-* Continued stability verification for canonical Phase 1 endpoints and tests
-* Incremental planning updates that do not alter Phase 1 runtime behavior
+* Controlled Phase 2 planning updates that do not alter Phase 1 runtime behavior
 
 ---
 

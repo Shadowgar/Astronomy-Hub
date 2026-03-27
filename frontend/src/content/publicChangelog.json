@@ -1,13 +1,13 @@
 {
   "currentStatus": {
-    "phase": "Phase 1 — Command Center Rebuild",
-    "summary": "Astronomy Hub is being rebuilt from the ground up as a real astronomy command center.",
-    "note": "The project is now following the rewritten architecture, object model, UI system, and execution plan."
+    "phase": "Phase 1 — Command Center (Post-Audit Baseline)",
+    "summary": "Phase 1 backend foundation and command-center baseline are in place with canonical scene/detail routes and a stable mounted frontend surface.",
+    "note": "The mounted Phase 1 UI remains ObservingHero + operational modules, and backend tests are passing in project runtime."
   },
   "currentFocus": [
-    "Keeping Phase 1 stable and internally consistent after audit fixes",
-    "Maintaining the primary mounted command-center surface (ObservingHero + operational modules) with scene-backed data",
-    "Preparing Phase 2 execution planning without changing Phase 1 behavior"
+    "Maintaining the verified Phase 1 baseline after audit fixes",
+    "Keeping the primary mounted command-center surface (ObservingHero + operational modules) aligned with canonical scene-backed data",
+    "Preparing Phase 2 documentation/checklist readiness while keeping Phase 1 runtime behavior stable"
   ],
   "recentProgress": [
     {
@@ -71,12 +71,8 @@
       "summary": "Validate Phase 2 execution readiness against updated specs and checklists without changing Phase 1 runtime behavior."
     },
     {
-      "title": "Ongoing Phase 1 endpoint stability checks",
-      "summary": "Continue verifying canonical '/api/scene/above-me' and '/api/object/{id}' behavior alongside backend test pass status."
-    },
-    {
       "title": "Controlled planning updates",
-      "summary": "Keep execution and changelog records current as the project transitions from Phase 1 closure to Phase 2 planning."
+      "summary": "Keep execution and changelog records current as the project transitions from the Phase 1 baseline to Phase 2 planning."
     }
   ],
   "roadmap": [
