@@ -4,13 +4,12 @@ import RecommendedTargets from './components/RecommendedTargets'
 import AlertsEvents from './components/AlertsEvents'
 import SatellitePasses from './components/SatellitePasses'
 import MoonSummary from './components/MoonSummary'
-import PrimaryDecisionPanel from './components/PrimaryDecisionPanel'
-import LocationSelector from './components/LocationSelector/LocationSelector'
+// PrimaryDecisionPanel moved to ObservingHero; LocationSelector used inside TopBar
 import useLocationState from './state/locationState'
 import Starfield from './components/Starfield'
-import AboveMeScene from './components/AboveMeScene'
-import SkyNews from './components/SkyNews'
-import Progress from './pages/Progress'
+import AppShell from "./components/layout/AppShell"
+import ContentGrid from "./components/layout/ContentGrid"
+import ObservingHero from "./components/hero/ObservingHero"
 
 const MODES = ['Light', 'Dark', 'Red']
 
@@ -136,9 +135,10 @@ export default function App() {
   }
 
   return (
-    <div className={`app-shell mode-${mode.toLowerCase()}`}>
-      <Starfield />
-      <header className="app-header" role="banner">
+    <AppShell>
+      <div className="app-shell">
+        <Starfield />
+        <header className="app-header" role="banner">
         <h1>Astronomy Hub</h1>
         <nav aria-label="Primary" style={{marginLeft: 12}}>
           <a href="/progress" style={{color: '#0b6fa0', textDecoration: 'none', fontSize: '14px'}}>Progress</a>
@@ -250,16 +250,12 @@ export default function App() {
             </select>
           </span>
         </div>
-      </header>
+        </header>
+        
 
-      <main className="dashboard tight-layout">
-        {/* Dominant backend-owned scene */}
-        <section className="section section-scene">
-          <AboveMeScene locationQuery={locationQuery} />
-        </section>
-
-        {/* Primary Decision Panel: Phase B transformation — prominent, above modules */}
-        <PrimaryDecisionPanel locationQuery={locationQuery} />
+        <ContentGrid>
+          <main className="dashboard tight-layout">
+        {/* Primary Decision Panel removed in Phase B: ObservingHero replaces PDP */}
 
         {/* Section: Targets + Conditions (2-column) */}
         <section className="section section-top">
@@ -296,9 +292,11 @@ export default function App() {
             </div>
           </div>
         </section>
-      </main>
+          </main>
+        </ContentGrid>
 
-      <footer className="app-footer">Astronomy Hub — Observing Tools</footer>
-    </div>
+        <footer className="app-footer">Astronomy Hub — Observing Tools</footer>
+      </div>
+    </AppShell>
   )
 }
