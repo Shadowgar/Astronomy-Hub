@@ -8,7 +8,6 @@ Phase 1 is complete only when all of the following are true.
 - The app runs locally without requiring Raspberry Pi deployment
 
 ## Location
-## Location
 - Default: the system uses the ORAS Observatory preset when no override is provided
 - User may optionally enter manual latitude/longitude coordinates to override the Active Observing Location for the current session only
 - Disallowed for Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, account-based preferences, or a location database
@@ -21,7 +20,7 @@ Phase 1 is complete only when all of the following are true.
 - Dashboard clearly shows:
   - observing conditions
   - recommended targets
-  - upcoming passes
+  - upcoming satellite passes
   - alerts / notable events
 - Dashboard remains understandable within about 10 seconds of viewing
 
@@ -36,7 +35,7 @@ Phase 1 is complete only when all of the following are true.
 - Targets are ranked, not dumped unordered
 
 ## Passes
-- Upcoming pass list renders correctly
+- Upcoming satellite pass list renders correctly
 - Pass count is limited
 - Each pass includes time and directional usefulness
 
@@ -62,6 +61,7 @@ Phase 1 is complete only when all of the following are true.
 - No globe view is introduced
 - No heavy 3D Earth rendering is introduced
 - No aircraft tracking is introduced
+- Flight engine behavior is deferred to Phase 2
 - No Phase 2+ features are mixed into Phase 1
 
 ## Final Product Test

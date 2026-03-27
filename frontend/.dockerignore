@@ -1,0 +1,7 @@
+# Ignore local node modules and some artifacts to keep Docker build context small
+node_modules
+.git
+.env
+.DS_Store
+npm-debug.log
+

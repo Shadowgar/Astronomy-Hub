@@ -1,0 +1,96 @@
+import React, { useEffect, useState } from 'react'
+import GlassPanel from './ui/GlassPanel'
+import SectionHeader from './ui/SectionHeader'
+
+function fmtTimeShort(iso: string | null | undefined): string {
+  try {
+    if (!iso) return 'N/A'
+    const d = new Date(iso)
+    return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })
+  } catch (e) {
+    return 'N/A'
+  }
+}
+
+interface MoonSummaryProps {
+  locationQuery?: string
+}
+
+export default function MoonSummary({ locationQuery = '' }: MoonSummaryProps) {
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+  const [data, setData] = useState<any | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    setLoading(true)
+    setError(null)
+
+    fetch(`/api/conditions${locationQuery}`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return res.json()
+      })
+      .then((json) => {
+        if (!cancelled) setData((json && json.data) || json)
+      })
+      .catch((err) => {
+        if (!cancelled) setError(err.message || 'Unknown error')
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [locationQuery])
+
+  if (loading) {
+    return (
+      <GlassPanel className="component moon-summary">
+        <SectionHeader title="Moon Summary" />
+        <p className="loading">Loading moon summary…</p>
+      </GlassPanel>
+    )
+  }
+
+  if (error) {
+    return (
+      <GlassPanel className="component moon-summary">
+        <SectionHeader title="Moon Summary" />
+        <p className="error">Error loading moon summary: {error}</p>
+      </GlassPanel>
+    )
+  }
+
+  if (!data) {
+    return (
+      <GlassPanel className="component moon-summary">
+        <SectionHeader title="Moon Summary" />
+        <p>No data available</p>
+      </GlassPanel>
+    )
+  }
+
+  const { moon_phase, darkness_window, summary } = data
+
+  const darknessText = darkness_window?.start && darkness_window?.end
+    ? `${fmtTimeShort(darkness_window.start)} – ${fmtTimeShort(darkness_window.end)}`
+    : 'Not available'
+
+  const noteText = summary ? `Notes: ${summary}` : ''
+
+  return (
+    <GlassPanel className="component moon-summary">
+      <SectionHeader title="Moon Summary" />
+      <div className="moon-line" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-3)' }}>
+          <strong>{moon_phase || 'Unknown'}</strong>
+          <span>— Peak darkness {darknessText}.</span>
+        </div>
+        {noteText && <div style={{ color: 'var(--text-sub)' }}>{noteText}</div>}
+      </div>
+    </GlassPanel>
+  )
+}

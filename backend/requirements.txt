@@ -1,0 +1,5 @@
+# Minimal backend dependencies required for Phase 2.5 runtime verification
+# Only include packages necessary for the Python backend runtime path.
+pydantic>=1.10,<2.0
+fastapi>=0.95,<0.100
+httpx>=0.24,<0.28

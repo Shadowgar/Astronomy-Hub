@@ -1,132 +1,549 @@
-# Astronomy Hub — Architecture Overview
+# 📄 `ARCHITECTURE_OVERVIEW.md`
 
-## Overview
-
-Astronomy Hub is a two-layer system:
-
-- Frontend (UI + interaction layer)
-- Backend (data aggregation + normalization + API layer)
-
-For Phase 1, both run locally.
+This document defines the **non-negotiable system structure** for Astronomy Hub.
 
 ---
 
-## High-Level Architecture
-
-Frontend
-↓
-Local API (backend)
-↓
-Mocked / later real data sources
+# 🌌 ASTRONOMY HUB — ARCHITECTURE OVERVIEW (AUTHORITATIVE)
 
 ---
 
-## Frontend Responsibilities
+# 0. PURPOSE
 
-- Render dashboard and pages
-- Handle user input (location, mode, time context)
-- Display modules:
-  - conditions
-  - targets
-  - passes
-  - alerts
-- Consume API endpoints
-- Apply UI modes (Day / Night / Red)
+This document defines the **core architecture** of Astronomy Hub.
 
-Active Observing Location handling (Phase 1 refinement):
-- Frontend displays the Active Observing Location label (default ORAS Observatory) in the header.
-- Frontend offers a simple manual numeric `latitude` and `longitude` override (both required for an override) and optional `elevation_ft`. No custom freeform label is provided in Phase 1. The override applies for the current session only.
-- Phase 1 exclusions: no browser geolocation, no map picker, no reverse geocoding, no saved locations, no account/preferences, no address lookup/autocomplete, and no external geocoding APIs.
-- Backend endpoints should default to the ORAS Observatory values when no override is provided.
+It establishes:
 
-#### Deferred Feature — Address Search & Geocoded Location Selection (Phase 2 candidate)
+* system structure
+* engine model
+* filter model
+* scope model
+* scene instancing rules
+* frontend vs backend responsibilities
 
-- Intent: preserve the concept of allowing users to type an address, view autocomplete suggestions, select a result, and have the system resolve that address to coordinates used as the Active Observing Location.
-- Note: This is explicitly NOT part of Phase 1 and should be scoped and implemented in Phase 2 or later.
+This is a **system law document**.
 
-Default ORAS Observatory (Phase 1 default values):
-- label: ORAS Observatory
-- address: 4249 Camp Coffman Road, Cranberry, PA 16319
-- latitude: 41.321903
-- longitude: -79.585394
-- elevation_ft: 1420
+All implementation must conform to this.
 
 ---
 
-## Backend Responsibilities
+# 1. 🧠 SYSTEM MODEL
 
-- Provide JSON endpoints
-- Normalize all data into stable schemas
-- Cache responses
-- Provide deterministic outputs (no AI)
+Astronomy Hub is a:
 
----
-
-## Phase 1 Backend Scope
-
-Backend must support:
-
-- `/api/conditions`
-- `/api/targets`
-- `/api/passes`
-- `/api/alerts`
-
-These can initially return mocked data.
+> **Multi-engine, filter-driven, scene-instanced intelligence system**
 
 ---
 
-## Data Flow
+## 1.1 Core Structure
 
-1. Frontend requests data from API
-2. Backend returns normalized JSON
-3. Frontend renders modules
-4. User interacts with UI
-
----
-
-## Key Design Rules
-
-- Frontend must never depend on raw external APIs
-- Backend must always normalize data
-- UI must not break if backend fails
-- Backend must be stateless for Phase 1
-- All responses must match defined contracts
+```text
+User → Scope → Engine → Filter → Scene → Object → Detail View
+```
 
 ---
 
-## Failure Strategy
+## 1.2 Definitions
 
-If backend fails:
-- return cached data
-- return last-known-good response
-- frontend displays “last updated”
+### Engine
 
----
+A domain authority responsible for:
 
-## Phase Separation
+* data ingestion
+* normalization
+* structured output
 
-Phase 1:
-- local backend
-- mock-first approach
+Examples:
 
-Phase 2+:
-- real ingestion
-- expanded endpoints
-- stronger backend architecture
-
----
-
-## Deployment Strategy (Future)
-
-- Backend runs on Raspberry Pi
-- Frontend served via ORAS site
-- Backend accessed through controlled endpoint (not direct exposure)
+* Earth Engine
+* Solar Engine
+* Satellite Engine
+* Flight Engine
+* Solar System Engine
+* Deep Sky Engine
+* News Engine
 
 ---
 
-## Non-Goals (Phase 1)
+### Filter
 
-- no database required yet
-- no distributed systems
-- no real-time streaming
-- no WebSockets required
+A scoped data view inside an engine.
+
+A filter defines:
+
+* what data subset is active
+* what data is processed
+* what visualization is used
+
+Example:
+
+```text
+Earth Engine → Earthquake Filter
+Solar Engine → Sunspot Filter
+Satellite Engine → Visible Passes Filter
+```
+
+---
+
+### Scope
+
+Defines the scale of the system:
+
+* Above Me
+* Earth
+* Sun
+* Satellites
+* Flights
+* Solar System
+* Deep Sky / Galaxy (future)
+
+---
+
+### Scene
+
+The currently rendered environment.
+
+A scene is:
+
+* scope-bound
+* engine-bound
+* filter-driven
+
+---
+
+### Object
+
+A selectable entity within a scene.
+
+Examples:
+
+* satellite
+* planet
+* flight
+* earthquake
+* sunspot region
+* deep sky object
+
+---
+
+### Detail View
+
+A full information panel for any object.
+
+---
+
+# 2. 🧠 ENGINE ARCHITECTURE
+
+---
+
+## 2.1 Engine Responsibilities
+
+Each engine must:
+
+* ingest external data
+* normalize to system contracts
+* expose filter-based outputs
+* support object-level detail retrieval
+
+---
+
+## 2.2 Engine Independence Rule
+
+> Engines must operate independently and must not depend on each other for core functionality.
+
+Cross-engine relationships are handled by:
+
+* the Main Engine
+* the Knowledge / Linking system
+
+---
+
+## 2.3 Engine List (Authoritative)
+
+### Earth Engine
+
+* weather
+* earthquakes
+* aurora
+* radiation
+* meteor events
+* light pollution
+
+---
+
+### Solar Engine
+
+* sunspots
+* flares
+* CMEs
+* magnetic activity
+* solar imagery
+
+---
+
+### Satellite Engine
+
+* visible passes
+* Starlink
+* communications
+* science missions
+* deep-space assets
+
+---
+
+### Flight Engine
+
+* global flights
+* above-horizon flights
+
+---
+
+### Solar System Engine
+
+* planets
+* moons
+* comets
+* asteroids
+* spacecraft
+
+---
+
+### Deep Sky Engine
+
+* galaxies
+* nebulae
+* clusters
+* visible objects
+
+---
+
+### News Engine
+
+* cross-domain news
+* research linking
+* media linking
+
+---
+
+# 3. 🔍 FILTER MODEL (CRITICAL)
+
+---
+
+## 3.1 Filter Rule
+
+> Only the active filter drives computation and rendering.
+
+---
+
+## 3.2 Filter Behavior
+
+When a filter is selected:
+
+* only relevant data is fetched
+* only relevant objects are processed
+* only relevant visualization is rendered
+
+---
+
+## 3.3 No Multi-Filter Default
+
+> Engines must not activate multiple filters simultaneously by default.
+
+Multi-filter stacking must be:
+
+* explicit
+* controlled
+* limited
+
+---
+
+# 4. 🎛️ SCOPE MODEL
+
+---
+
+## 4.1 Scope Rule
+
+> Scope determines which engine and scene are active.
+
+---
+
+## 4.2 Scope Mapping
+
+```text
+Above Me       → Unified Multi-Engine Scene
+Earth          → Earth Engine
+Sun            → Solar Engine
+Satellites     → Satellite Engine
+Flights        → Flight Engine
+Solar System   → Solar System Engine
+Deep Sky       → Deep Sky Engine
+```
+
+---
+
+# 5. 🔄 SCENE INSTANCING (CRITICAL)
+
+---
+
+## 5.1 Instancing Rule
+
+> The system must only compute and render the active scene.
+
+---
+
+## 5.2 Scene Constraints
+
+Every scene must be limited by:
+
+* user location
+* time
+* viewport
+* selected filter
+* relevance ranking
+
+---
+
+## 5.3 No Global Computation
+
+> The system must never compute all engines or all data globally in real time.
+
+---
+
+## 5.4 Progressive Loading
+
+Scenes must:
+
+* load summary first
+* load detail on demand
+* load media lazily
+
+---
+
+# 6. 🌌 “ABOVE ME” MERGE SYSTEM
+
+---
+
+## 6.1 Purpose
+
+Provide a unified view of everything visible in the sky.
+
+---
+
+## 6.2 Merge Rule
+
+> Each engine contributes only its sky-relevant filtered output.
+
+---
+
+## 6.3 Engine Contributions
+
+```text
+Satellite Engine → visible objects above horizon
+Flight Engine    → aircraft above horizon
+Solar System     → visible planets
+Deep Sky Engine  → visible objects
+Event System     → sky-relevant events
+Earth Engine     → observing conditions
+```
+
+---
+
+## 6.4 Output
+
+* ranked objects
+* filtered by visibility
+* limited to relevance
+
+---
+
+# 7. 🖥️ FRONTEND ARCHITECTURE
+
+---
+
+## 7.1 Responsibilities
+
+The frontend is responsible for:
+
+* rendering scenes
+* handling user interaction
+* managing scope / engine / filter
+* rendering 2D / 3D environments
+* managing state
+
+---
+
+## 7.2 Rendering
+
+Frontend must support:
+
+* 2D maps (Earth)
+* 3D globes (Earth / Sun)
+* 3D solar system
+* sky visualization
+* object overlays
+
+---
+
+## 7.3 Data Handling
+
+Frontend must:
+
+* request scoped data only
+* avoid full dataset requests
+* progressively load detail
+
+---
+
+# 8. ⚙️ BACKEND ARCHITECTURE
+
+---
+
+## 8.1 Responsibilities
+
+Backend is responsible for:
+
+* data ingestion
+* normalization
+* caching
+* API exposure
+* scene-scoped query handling
+
+---
+
+## 8.2 Backend Constraints
+
+> Backend must remain lightweight.
+
+It must NOT:
+
+* perform heavy rendering
+* perform full global computation
+* expose raw external APIs
+
+---
+
+## 8.3 Data Flow
+
+```text
+External APIs → Ingestion → Normalization → Cache → API → Frontend
+```
+
+---
+
+# 9. 📡 DATA STRATEGY
+
+---
+
+## 9.1 Source Strategy
+
+* use authoritative sources only
+* minimize unnecessary APIs
+* expand gradually
+
+---
+
+## 9.2 Normalization Rule
+
+> All data must conform to internal contracts before use.
+
+---
+
+## 9.3 Caching
+
+* cache frequently accessed data
+* avoid repeated API calls
+* support scheduled refresh
+
+---
+
+# 10. 🔗 OBJECT ROUTING
+
+---
+
+## 10.1 Rule
+
+> Every object belongs to exactly one engine.
+
+---
+
+## 10.2 Routing
+
+```text
+Click Object → Identify Engine → Load Engine Detail View
+```
+
+---
+
+## 10.3 Shared Layout
+
+All detail views share:
+
+* layout
+* interaction model
+
+Content is engine-specific.
+
+---
+
+# 11. 🚀 PERFORMANCE MODEL
+
+---
+
+## 11.1 Core Rule
+
+> The system computes only what the user is looking at.
+
+---
+
+## 11.2 Constraints
+
+* one active scene
+* one active filter
+* limited object count
+* progressive loading
+
+---
+
+## 11.3 Result
+
+* scalable system
+* low backend load
+* responsive UI
+
+---
+
+# 12. ⚠️ FORBIDDEN PATTERNS
+
+---
+
+The system must NOT:
+
+* compute all engines at once
+* load all filters simultaneously
+* expose raw data dumps
+* create UI without scope awareness
+* allow uncontrolled API expansion
+
+---
+
+# 13. 🔥 FINAL ARCHITECTURE STATEMENT
+
+```text
+Astronomy Hub is a multi-engine, filter-driven, scene-instanced system
+that computes only the active user context and renders only what is relevant.
+```
+
+---
+
+# ✔️ Outcome
+
+This document ensures:
+
+* no architectural drift
+* scalable system design
+* alignment with Raspberry Pi backend
+* alignment with browser-heavy rendering
+* clean engine separation
+* predictable system behavior
+
+---

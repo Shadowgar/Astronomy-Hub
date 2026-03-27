@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
+import GlassPanel from './ui/GlassPanel'
+import SectionHeader from './ui/SectionHeader'
 
 function fmtTimeShort(iso) {
   try {
@@ -27,7 +29,7 @@ export default function MoonSummary({ locationQuery = '' }) {
         return res.json()
       })
       .then((json) => {
-        if (!cancelled) setData(json)
+        if (!cancelled) setData((json && json.data) || json)
       })
       .catch((err) => {
         if (!cancelled) setError(err.message || 'Unknown error')
@@ -43,28 +45,28 @@ export default function MoonSummary({ locationQuery = '' }) {
 
   if (loading) {
     return (
-      <div className="component moon-summary">
-        <h3>Moon Summary</h3>
+      <GlassPanel className="component moon-summary">
+        <SectionHeader title="Moon Summary" />
         <p className="loading">Loading moon summary…</p>
-      </div>
+      </GlassPanel>
     )
   }
 
   if (error) {
     return (
-      <div className="component moon-summary">
-        <h3>Moon Summary</h3>
+      <GlassPanel className="component moon-summary">
+        <SectionHeader title="Moon Summary" />
         <p className="error">Error loading moon summary: {error}</p>
-      </div>
+      </GlassPanel>
     )
   }
 
   if (!data) {
     return (
-      <div className="component moon-summary">
-        <h3>Moon Summary</h3>
+      <GlassPanel className="component moon-summary">
+        <SectionHeader title="Moon Summary" />
         <p>No data available</p>
-      </div>
+      </GlassPanel>
     )
   }
 
@@ -74,12 +76,18 @@ export default function MoonSummary({ locationQuery = '' }) {
     ? `${fmtTimeShort(darkness_window.start)} – ${fmtTimeShort(darkness_window.end)}`
     : 'Not available'
 
-  const note = summary ? ` Notes: ${summary}` : ''
+  const noteText = summary ? `Notes: ${summary}` : ''
 
   return (
-    <div className="component moon-summary">
-      <h3>Moon Summary</h3>
-      <p className="moon-line"><strong>{moon_phase || 'Unknown'}</strong> — Peak darkness {darknessText}.{note}</p>
-    </div>
+    <GlassPanel className="component moon-summary">
+      <SectionHeader title="Moon Summary" />
+      <div className="moon-line" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-3)' }}>
+          <strong>{moon_phase || 'Unknown'}</strong>
+          <span>— Peak darkness {darknessText}.</span>
+        </div>
+        {noteText && <div style={{ color: 'var(--text-sub)' }}>{noteText}</div>}
+      </div>
+    </GlassPanel>
   )
 }

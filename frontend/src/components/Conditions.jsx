@@ -1,8 +1,14 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useCallback } from 'react'
 import logFetch from '../lib/logFetch'
-import ModuleShell from './ModuleShell'
+import GlassPanel from './ui/GlassPanel'
+import SectionHeader from './ui/SectionHeader'
 import logger from '../lib/logger'
+
+/**
+ * @typedef {import('../types/conditions').Conditions} Conditions
+ * @typedef {import('../types/conditions').DarknessWindow} DarknessWindow
+ */
 
 function fmtTimeShort(iso) {
   try {
@@ -14,10 +20,14 @@ function fmtTimeShort(iso) {
   }
 }
 
+/**
+ * @param {{locationQuery?: string}} props
+ * @returns {JSX.Element}
+ */
 export default function Conditions({ locationQuery = '' }) {
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [data, setData] = useState(null)
+  const [error, setError] = useState(/** @type {string | null} */ (null))
+  const [data, setData] = useState(/** @type {Conditions | null} */ (null))
 
   const simulatePartial = (() => {
     try {
@@ -45,7 +55,7 @@ export default function Conditions({ locationQuery = '' }) {
         patched.meta = Object.assign({}, patched.meta || {}, { partial: true })
         setData(patched)
       } else {
-        setData(json)
+        setData((json && json.data) || json)
       }
     } catch (err) {
       logger?.info?.('module', 'conditions:fetch:error', { err: err && err.message })
@@ -75,25 +85,28 @@ export default function Conditions({ locationQuery = '' }) {
 
   if (loading) {
     return (
-      <ModuleShell title="Conditions" stale={false} onRetry={handleRetry}>
+      <GlassPanel className="module conditions-module panel">
+        <SectionHeader title="Conditions" />
         <p className="loading">Loading conditions…</p>
-      </ModuleShell>
+      </GlassPanel>
     )
   }
 
   if (error) {
     return (
-      <ModuleShell title="Conditions" stale={false} onRetry={handleRetry}>
+      <GlassPanel className="module conditions-module panel">
+        <SectionHeader title="Conditions" action={<button onClick={handleRetry}>Retry</button>} />
         <p className="error">Error loading conditions: {error}</p>
-      </ModuleShell>
+      </GlassPanel>
     )
   }
 
   if (!data) {
     return (
-      <ModuleShell title="Conditions" stale={false} onRetry={handleRetry}>
+      <GlassPanel className="module conditions-module panel">
+        <SectionHeader title="Conditions" action={<button onClick={handleRetry}>Retry</button>} />
         <p>No data available</p>
-      </ModuleShell>
+      </GlassPanel>
     )
   }
 
@@ -110,7 +123,8 @@ export default function Conditions({ locationQuery = '' }) {
 
   // Compact, chip-style signal rows for quick scanning
   return (
-    <ModuleShell title="Conditions" stale={staleProp} onRetry={handleRetry}>
+    <GlassPanel className="module conditions-module panel">
+      <SectionHeader title="Conditions" subtitle={staleProp ? 'Partial data' : undefined} />
       <div className="conditions-body" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <strong style={{ fontSize: '1rem' }}>{location_label || 'Unknown location'}</strong>
@@ -128,8 +142,11 @@ export default function Conditions({ locationQuery = '' }) {
           {typeof data?.observing_score === 'number' ? (
             <span style={{ marginLeft: 6, padding: '4px 8px', borderRadius: 6, background: 'var(--accent)', color: 'white', fontWeight: 700 }}>{Math.round(data.observing_score)}</span>
           ) : null}
+          {typeof data?.observing_score === 'string' ? (
+            <span style={{ marginLeft: 6, padding: '4px 8px', borderRadius: 6, background: 'var(--accent)', color: 'white', fontWeight: 700 }}>{data.observing_score.toUpperCase()}</span>
+          ) : null}
         </div>
       </div>
-    </ModuleShell>
+    </GlassPanel>
   )
 }

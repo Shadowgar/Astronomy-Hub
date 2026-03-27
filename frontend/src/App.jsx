@@ -102,12 +102,35 @@ export default function App() {
 
   // build location query string for children when activeLocation is custom
   let locationQuery = ''
-  if (activeLocation !== ORAS) {
+  const isOrasLocation = (() => {
+    if (!activeLocation) return false
+    const aLat = Number(activeLocation.latitude)
+    const aLon = Number(activeLocation.longitude)
+    const aElev = activeLocation.elevation_ft === undefined || activeLocation.elevation_ft === null ? null : Number(activeLocation.elevation_ft)
+    const oLat = Number(ORAS.latitude)
+    const oLon = Number(ORAS.longitude)
+    const oElev = ORAS.elevation_ft === undefined || ORAS.elevation_ft === null ? null : Number(ORAS.elevation_ft)
+    return aLat === oLat && aLon === oLon && aElev === oElev
+  })()
+
+  if (!isOrasLocation) {
     const lat = encodeURIComponent(activeLocation.latitude)
     const lon = encodeURIComponent(activeLocation.longitude)
     locationQuery = `?lat=${lat}&lon=${lon}`
     if (activeLocation.elevation_ft !== undefined && activeLocation.elevation_ft !== null) {
       locationQuery += `&elevation_ft=${encodeURIComponent(activeLocation.elevation_ft)}`
+    }
+  }
+
+  // Minimal, opt-in route handling for the Progress page. This is intentionally
+  // simple and avoids adding a routing dependency: if the path is /Progress
+  // or /progress render the Progress page shell only. Normalize the path to
+  // handle case and trailing-slash variations.
+  if (typeof window !== 'undefined') {
+    const pRaw = (window.location && window.location.pathname) || ''
+    const p = (pRaw || '').replace(/\/+$/, '').toLowerCase()
+    if (p === '/progress') {
+      return <Progress />
     }
   }
 
@@ -117,9 +140,12 @@ export default function App() {
         <Starfield />
         <header className="app-header" role="banner">
         <h1>Astronomy Hub</h1>
+        <nav aria-label="Primary" style={{marginLeft: 12}}>
+          <a href="/progress" style={{color: '#0b6fa0', textDecoration: 'none', fontSize: '14px'}}>Progress</a>
+        </nav>
         <div className="header-controls">
           <div className="location-section">
-            <span className="location-label">Location: {activeLocation === ORAS ? ORAS.label : `Custom Location (${activeLocation.latitude.toFixed(5)}, ${activeLocation.longitude.toFixed(5)})`}</span>
+            <span className="location-label">Location: {isOrasLocation ? ORAS.label : `Custom Location (${activeLocation.latitude.toFixed(5)}, ${activeLocation.longitude.toFixed(5)})`}</span>
 
             <div className="location-inputs">
               <input
@@ -255,10 +281,15 @@ export default function App() {
           </div>
         </section>
 
-        {/* Section: Moon summary (full width) */}
+        {/* Section: Moon summary + light news */}
         <section className="section section-bottom">
-          <div className="module moon-module panel small-panel">
-            <MoonSummary locationQuery={locationQuery} />
+          <div className="section-grid two-col">
+            <div className="module moon-module panel small-panel">
+              <MoonSummary locationQuery={locationQuery} />
+            </div>
+            <div className="module panel">
+              <SkyNews locationQuery={locationQuery} />
+            </div>
           </div>
         </section>
           </main>

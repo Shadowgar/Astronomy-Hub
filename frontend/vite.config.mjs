@@ -1,14 +1,24 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// Minimal Vite config for React
+const frontendPort = Number(process.env.FRONTEND_PORT || 4173)
+
+const proxyTarget =
+  process.env.VITE_DEV_PROXY_TARGET ||
+  process.env.API_URL ||
+  'http://backend:8000'
+
 export default defineConfig({
   plugins: [react()],
-  root: '.',
   server: {
-    // Proxy /api requests to local backend to avoid CORS during development
+    host: '0.0.0.0',
+    port: frontendPort,
     proxy: {
-      '/api': 'http://127.0.0.1:8000'
+      '/api': {
+        target: proxyTarget,
+        changeOrigin: true,
+        secure: false
+      }
     }
   }
 })
