@@ -115,9 +115,9 @@ That means the immediate goal is:
 ## 6. CURRENT NEXT STEP
 
 ```text id="sstate005"
-Last completed step: Step 7 — Interaction And Detail Flow
-Current step: Ready for Step 8 — Validation And Hardening
-Next step: Step 8 — Validation And Hardening
+Last completed step: Step 8 — Validation And Hardening
+Current step: Ready for Step 9 — CHANGELOG Page tasks
+Next step: Step 9 — CHANGELOG Page: Basic Styling Pass
 ```
 
 ---

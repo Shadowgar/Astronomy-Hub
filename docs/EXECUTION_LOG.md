@@ -128,6 +128,62 @@ Aligned with:
 PASS
 
 
+---
+
+## Step 8 — Validation And Hardening
+
+### Phase
+
+Phase 1
+
+### Description
+
+Run Phase 1 validation and hardening checks to confirm the command-center is stable, contract-correct, and degrades gracefully.
+
+### Files Changed
+
+* docs/EXECUTION_LOG.md
+* docs/SESSION_STATE.md
+
+### What Was Done
+
+* Brought up the frontend and backend containers.
+* Verified canonical endpoints respond with contract-correct payloads and required fields (`/api/scene/above-me`, `/api/object/{id}`, `/api/conditions`, `/api/targets`, `/api/passes`).
+* Confirmed ORAS default location is used when no override is provided and that manual coordinate overrides (`lat`, `lon`, `elevation_ft`) change the result.
+* Performed a degraded-backend test by stopping the backend briefly and confirming the frontend remains served while API calls fail gracefully; backend was restarted and recovered.
+
+### Verification
+
+* Commands run (selected):
+
+```bash
+docker compose up -d backend frontend
+curl -sS http://localhost:4173/ | sed -n '1,12p'
+curl -sS http://localhost:8000/api/scene/above-me | python3 -c "import sys,json; r=json.load(sys.stdin); d=r.get('data') or r; print('OBJECT_COUNT='+str(len(d.get('objects',[])))); print('FIRST_ID=' + (d.get('objects')[0].get('id') if d.get('objects') else ''))"
+curl -sS http://localhost:8000/api/object/<first-id> | python3 -m json.tool
+curl -sS http://localhost:8000/api/conditions
+curl -sS "http://localhost:8000/api/conditions?lat=42&lon=-70"
+curl -sS http://localhost:8000/api/targets
+docker compose stop backend   # degraded-backend test
+curl -sS http://localhost:4173/api/conditions -m 5 || true
+docker compose up -d backend
+```
+
+* Observed results (selected):
+
+  - Frontend index served (HTTP 200).
+  - `/api/scene/above-me` returned objects (OBJECT_COUNT=2 in this run) and the first object's id `jupiter`.
+  - `/api/object/jupiter` returned a canonical detail payload including `id`, `name`, `type`, `summary`, `visibility`, and `media` when available.
+  - `/api/conditions` returned `location_label: ORAS Observatory` by default and `Custom Location` when `lat`/`lon` override provided.
+  - `/api/targets` returned a small normalized list of targets.
+  - During the degraded-backend test the frontend remained served (index HTTP 200) while proxied API calls timed out or errored; backend restarted and API responses recovered.
+
+### Result
+
+PASS
+
+
+
 ## Step 7 — Interaction And Detail Flow
 
 ### Phase
