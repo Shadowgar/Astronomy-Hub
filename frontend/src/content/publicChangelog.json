@@ -5,22 +5,26 @@
     "note": "The project is now following the rewritten architecture, object model, UI system, and execution plan."
   },
   "currentFocus": [
-    "Building the new 'Above Me' scene system",
-    "Establishing canonical object and scene contracts",
-    "Replacing the old dashboard-first prototype structure with a scene → object → detail flow"
+    "Keeping Phase 1 stable and internally consistent after audit fixes",
+    "Maintaining the primary mounted command-center surface (ObservingHero + operational modules) with scene-backed data",
+    "Preparing Phase 2 execution planning without changing Phase 1 behavior"
   ],
   "recentProgress": [
     {
       "title": "Phase 1 validation pass completed",
-      "summary": "Phase 1 checks were re-run end-to-end (scene, detail, location override, degraded handling, and responsiveness). The branch is now audit-ready before push."
+      "summary": "Phase 1 checks were re-run end-to-end (scene, detail, location override, degraded handling, and responsiveness)."
     },
     {
-      "title": "Scene objects are now interactive",
-      "summary": "Objects in the Above Me Scene are now clickable and open canonical detail inline without losing scene context."
+      "title": "Interaction flow confirmed",
+      "summary": "Canonical object detail interaction is available from mounted command-center modules (targets, passes, alerts) while preserving context."
     },
     {
-      "title": "Scene-first command center shell live",
-      "summary": "A dominant Above Me Scene panel now renders from canonical backend data, with live briefing context and a new light Sky News panel."
+      "title": "Command-center mounted surface confirmed",
+      "summary": "Phase 1 mounted UI truth is now documented and enforced as ObservingHero + operational modules fed by canonical scene-backed data."
+    },
+    {
+      "title": "Backend test suite passing",
+      "summary": "Backend tests are currently passing in the project runtime (`.venv/bin/python -m pytest backend/tests -q`)."
     },
     {
       "title": "Phase 1 object detail coverage completed",
@@ -57,22 +61,22 @@
   ],
   "inProgress": [
     {
-      "title": "Phase 1 audit review",
-      "summary": "Implementation is complete and waiting for audit approval before any push."
+      "title": "Phase 1 stability guardrails",
+      "summary": "Public/internal progress records are being kept synchronized with verified repository state while Phase 1 behavior remains stable."
     }
   ],
   "comingNext": [
     {
-      "title": "Scene endpoint goes live",
-      "summary": "The first contract-valid '/api/scene/above-me' route will provide the new Phase 1 scene payload."
+      "title": "Phase 2 execution readiness review",
+      "summary": "Validate Phase 2 execution readiness against updated specs and checklists without changing Phase 1 runtime behavior."
     },
     {
-      "title": "Object detail route",
-      "summary": "A canonical object detail flow will replace inline expansion patterns from the old prototype."
+      "title": "Ongoing Phase 1 endpoint stability checks",
+      "summary": "Continue verifying canonical '/api/scene/above-me' and '/api/object/{id}' behavior alongside backend test pass status."
     },
     {
-      "title": "Frontend command center realignment",
-      "summary": "The UI will be rebuilt around the new scene-first architecture."
+      "title": "Controlled planning updates",
+      "summary": "Keep execution and changelog records current as the project transitions from Phase 1 closure to Phase 2 planning."
     }
   ],
   "roadmap": [

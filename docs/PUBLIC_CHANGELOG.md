@@ -16,9 +16,9 @@ We are rebuilding Astronomy Hub from the ground up to create a true real-time as
 
 ## 🔧 CURRENT FOCUS
 
-* Building the **“Above Me” sky view**
-* Establishing the **core object system**
-* Creating a clean, structured backend
+* Keeping Phase 1 stable and internally consistent after audit fixes
+* Maintaining the primary mounted command-center surface (**ObservingHero + operational modules**) with scene-backed data
+* Preparing Phase 2 execution planning without changing Phase 1 behavior
 
 ---
 
@@ -26,15 +26,15 @@ We are rebuilding Astronomy Hub from the ground up to create a true real-time as
 
 ### ✅ Phase 1 Validation Pass Completed
 
-* Phase 1 command-center checks were re-run end-to-end (scene, detail, location overrides, degraded backend handling, and responsiveness). The branch is now in **audit-ready** state before any push.
+* Phase 1 command-center checks were re-run end-to-end (scene, detail, location overrides, degraded backend handling, and responsiveness).
 
-### 🧭 Scene Interaction Completed
+### 🧭 Interaction Flow Confirmed
 
-* Objects in the **Above Me Scene** are now clickable and open canonical detail inline, with a quick return path that preserves your current scene context.
+* Canonical object detail interaction is available from mounted command-center modules (targets, passes, alerts) with quick return to the same context.
 
-### 🌠 Scene-First Command Center Shell
+### 🌠 Command-Center Mounted Surface Confirmed
 
-* The command center now renders a dominant **Above Me Scene** panel from canonical backend data, with a live briefing strip and a new light **Sky News** panel for observing context.
+* Phase 1 now reflects the mounted UI truth: **ObservingHero + operational modules** are the primary surface, fed by canonical scene-backed backend data.
 
 ### 🛰️ Object Detail Coverage Completed
 
@@ -45,6 +45,10 @@ We are rebuilding Astronomy Hub from the ground up to create a true real-time as
 * Core data contracts implemented
 * Object model standardized
 * Backend structure aligned with long-term architecture
+
+### ✅ Backend Test Suite Passing
+
+* The backend test suite is currently passing in the project runtime (`.venv/bin/python -m pytest backend/tests -q`).
 
 ### 🌌 Above Me Scene Assembled
 
@@ -66,22 +70,18 @@ We are rebuilding Astronomy Hub from the ground up to create a true real-time as
 
 ## 🔄 IN PROGRESS
 
-### 🌌 “Above Me” View
+### 🧪 Phase 1 Stability Guardrails
 
-* New scene system being built
-* Will show:
-
-  * visible satellites
-  * planets
-  * deep sky objects
+* Keeping public/internal progress records synchronized with verified repository state
+* Holding Phase 1 behavior stable while preparing controlled Phase 2 execution
 
 ---
 
 ## 🔜 COMING NEXT
 
-* Interactive sky scene
-* Clickable objects with detailed information
-* First version of object detail pages
+* Phase 2 execution readiness review against updated specs/checklists
+* Continued stability verification for canonical Phase 1 endpoints and tests
+* Incremental planning updates that do not alter Phase 1 runtime behavior
 
 ---
 
@@ -149,13 +149,13 @@ Now you have:
 
 Now:
 
-👉 run Step 2 (scene endpoint)
+👉 keep execution state and public progress synced with verified repository truth
 
 Then we’ll:
 
-* update EXECUTION_LOG
-* update PUBLIC_CHANGELOG
-* keep everything synced
+* maintain Phase 1 stability
+* prepare controlled Phase 2 execution
+* keep changelog outputs factual and current
 
 ---
 

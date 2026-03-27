@@ -17,6 +17,7 @@ Phase 1 is complete only when all of the following are true.
 
 ## Dashboard Behavior
 - Dashboard loads without overwhelming the user
+- Primary mounted Phase 1 surface is `ObservingHero` + module grid (`AboveMeScene` is non-primary in this phase)
 - Dashboard clearly shows:
   - observing conditions
   - recommended targets
@@ -54,6 +55,8 @@ Phase 1 is complete only when all of the following are true.
 ## Data / Backend
 - Frontend works against mocked responses first
 - Backend endpoints can return stable JSON contracts
+- Canonical Phase 1 routes exist and respond: `/api/scene/above-me` and `/api/object/{id}`
+- Backend test suite passes in project runtime (`.venv/bin/python -m pytest backend/tests -q`)
 - Failures do not fully break the UI
 - Cached/fallback behavior is planned
 

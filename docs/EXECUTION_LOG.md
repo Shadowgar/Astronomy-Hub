@@ -73,6 +73,57 @@ PASS / FAIL
 
 ---
 
+## Step 9 — Changelog Reality Synchronization (Post-Audit)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Synchronized public/internal changelog state with current repository truth after Phase 1 audit fixes, removing stale “coming next” claims and aligning current focus language to implemented behavior.
+
+### Files Changed
+
+* docs/PUBLIC_CHANGELOG.md
+* frontend/src/content/publicChangelog.json
+* docs/PHASE_1_ACCEPTANCE_CRITERIA.md
+* docs/EXECUTION_LOG.md
+
+### What Was Done
+
+* Updated public changelog sections (`CURRENT FOCUS`, `IN PROGRESS`, `COMING NEXT`) to remove stale claims that were already implemented.
+* Reworded public progress text to match mounted Phase 1 UI truth (ObservingHero + operational modules) while preserving canonical backend scene authority.
+* Added explicit factual note that canonical Phase 1 routes exist (`/api/scene/above-me`, `/api/object/{id}`).
+* Added explicit factual note that backend tests are passing in project runtime.
+* Updated UI changelog JSON with equivalent corrections so the rendered progress page and markdown source stay aligned.
+
+### Why It Was Done
+
+To keep user-facing progress reporting and internal execution memory consistent with verified repository state and avoid contradictory Phase 1 status messaging.
+
+### Verification
+
+* Commands run:
+
+```bash
+.venv/bin/python -m pytest backend/tests -q
+.venv/bin/python -m json.tool frontend/src/content/publicChangelog.json > /dev/null
+rg -n "COMING NEXT|CURRENT FOCUS|IN PROGRESS|/api/scene/above-me|/api/object/{id}|ObservingHero" docs/PUBLIC_CHANGELOG.md frontend/src/content/publicChangelog.json docs/PHASE_1_ACCEPTANCE_CRITERIA.md
+```
+
+* Observed results:
+
+  - Backend tests passed (`22 passed`).
+  - `publicChangelog.json` validated as well-formed JSON.
+  - Updated public/internal changelog entries now reference implemented Phase 1 truths and no longer list completed items as upcoming.
+
+### Result
+
+PASS
+
+---
+
 ## Step 8 — Validation And Hardening (Reconciliation Pass)
 
 ### Phase
