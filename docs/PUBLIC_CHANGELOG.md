@@ -38,6 +38,10 @@ We are rebuilding Astronomy Hub from the ground up to create a true real-time as
 
 * The backend now provides canonical object detail payloads at `/api/object/{id}` for Phase 1 objects (planets, deep-sky, satellites), including explanatory text and representative images to help users understand why an object matters now.
 
+### 🖥️ Frontend Command Center Shell
+
+* The frontend command-center shell is now available. It renders the Above Me briefing panel, recommended targets, upcoming passes, alerts and the supporting panels from backend-owned data — forming the app's primary command surface.
+
 ---
 
 ## 🔄 IN PROGRESS

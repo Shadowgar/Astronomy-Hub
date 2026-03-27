@@ -115,9 +115,9 @@ That means the immediate goal is:
 ## 6. CURRENT NEXT STEP
 
 ```text id="sstate005"
-Last completed step: Step 5 — Object Detail Records
-Current step: Ready for Step 6 — Frontend Command Center Shell
-Next step: Step 6 — Frontend Command Center Shell
+Last completed step: Step 6 — Frontend Command Center Shell
+Current step: Ready for Step 7 — Interaction And Detail Flow
+Next step: Step 7 — Interaction And Detail Flow
 ```
 
 ---

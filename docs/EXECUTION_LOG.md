@@ -128,6 +128,54 @@ Aligned with:
 PASS
 
 
+## Step 6 — Frontend Command Center Shell
+
+### Phase
+
+Phase 1
+
+### Description
+
+Bring up the frontend command-center shell that renders the Above Me scene, briefing panel, and supporting modules from backend-owned data.
+
+### Files Changed
+
+* frontend/src/content/publicChangelog.json
+* docs/PUBLIC_CHANGELOG.md
+
+### What Was Done
+
+* No code changes to rendering components were required — the existing `App.jsx` already composes the command-center shell (`PrimaryDecisionPanel`, `Conditions`, `RecommendedTargets`, `SatellitePasses`, `AlertsEvents`, `MoonSummary`, and `Starfield`).
+* Updated the public changelog files to reflect that the frontend command-center shell is available as a visible milestone.
+
+### Why It Was Done
+
+To complete Step 6 in `PHASE_1_BUILD_SEQUENCE.md`: present the frontend command-center shell so users can view the Above Me scene and supporting panels.
+
+### Verification
+
+* Commands run:
+
+```bash
+docker compose build frontend
+docker compose up -d frontend
+curl -sS http://localhost:4173/ | head -n 40
+curl -sS http://localhost:4173/src/main.jsx | sed -n '1,120p'
+curl -sS http://localhost:4173/src/App.jsx | sed -n '1,240p'
+curl -sS http://localhost:4173/progress | head -n 20
+```
+
+* Observed results (selected):
+
+  - Dev server served `index.html` (HTTP 200) and the `/src` module files for `main.jsx` and `App.jsx` were accessible, confirming the dev server is serving the app source for the command-center shell.
+  - `App.jsx` includes composition of `PrimaryDecisionPanel`, `Conditions`, `RecommendedTargets`, `SatellitePasses`, `AlertsEvents`, `MoonSummary`, and `Starfield`, confirming the shell structure is present.
+  - `/progress` returned the Progress page HTML (dev server serves the same index entry for the route).
+
+### Result
+
+PASS
+
+
 ## Step 10 — CHANGELOG Page: Step 10 (Navigation Integration)
 
 ### Phase

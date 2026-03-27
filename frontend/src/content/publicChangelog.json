@@ -11,6 +11,10 @@
   ],
   "recentProgress": [
     {
+      "title": "Frontend command-center shell available",
+      "summary": "The app now exposes a command-center shell that renders the Above Me briefing panel, recommended targets, passes, and supporting panels from backend-owned data."
+    },
+    {
       "title": "Object detail payloads available",
       "summary": "Canonical object detail responses are now available at '/api/object/{id}', including explanatory text and representative images."
     },
