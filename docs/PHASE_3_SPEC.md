@@ -1,204 +1,414 @@
-# 🌌 ASTRONOMY HUB — PHASE 3 EXPANDED SPEC
+# 📄 `PHASE_3_SPEC.md`
 
-**Phase Name:** Advanced Exploration & Visualization
-**Primary Objective:** Transform Astronomy Hub from a structured data system into a **powerful exploration environment** while preserving clarity and usability.
-
----
-
-# 1. Purpose of Phase 3
-
-Phase 3 introduces:
-
-* interactive exploration
-* visual understanding of space relationships
-* time-based navigation of the sky
-
-This is the first phase where the system begins to feel like:
-
-> “I can explore the sky—not just read about it.”
+Phase 3 is where Astronomy Hub transforms from a functional system into a **true exploration experience** with immersive visualization and deeper interaction.
 
 ---
 
-## 1.1 Relationship to Phase 2
-
-Phase 2:
-
-* structured data
-* detailed objects
-* stable backend
-
-Phase 3:
-
-* visual interaction
-* spatial awareness
-* time navigation
+# 🌌 ASTRONOMY HUB — PHASE 3 SPEC (AUTHORITATIVE)
 
 ---
 
-# 2. What Phase 3 is trying to solve
+# 0. PURPOSE
 
-Previous phases answer:
+Phase 3 evolves the system from:
 
-* what should I look at?
-* what is this object?
+> multi-engine exploration
 
-Phase 3 answers:
+into:
 
-* where is everything relative to me?
-* how does it move over time?
-* what happens if I change time/location?
+> a **visual, immersive, interactive space exploration platform**
 
 ---
 
-# 3. Phase 3 success definition
+# 1. 🎯 PHASE GOAL
 
-Phase 3 is successful if:
+Deliver a system where a user can:
 
-* users can visually explore the sky
-* time-based changes are intuitive
-* data remains understandable
-* UI does not become overwhelming
-
----
-
-# 4. Phase 3 scope boundaries
-
-## Included
-
-* interactive sky visualization (local sky)
-* time slider / time navigation
-* object highlighting
-* satellite path visualization (local scope)
-* layered data visualization (controlled)
+* visually explore Earth, Sun, and space in 2D/3D
+* move through environments (globe, sky, solar system)
+* zoom, pan, and interact naturally
+* experience spatial context, not just lists
 
 ---
 
-## Excluded (LOCKED)
-
-* full global Earth visualization
-* real-time global tracking
-* AR mode
-* massive real-time simulation
-* global satellite control views
+# 2. 🧠 CORE SHIFT
 
 ---
 
-# 5. UX philosophy
+## Before Phase 3
 
-> “Exploration without chaos”
-
-Rules:
-
-* visuals must simplify—not overwhelm
-* user always knows what they are looking at
-* controls must remain minimal
+* scenes are functional
+* visuals are basic
+* interaction is list + click driven
 
 ---
 
-# 6. Core features
+## After Phase 3
 
-## 6.1 Interactive Sky View
-
-* local sky rendering
-* compass-based orientation
-* visible objects highlighted
-* click-to-select objects
+* scenes are immersive
+* visuals are spatial
+* interaction is exploratory
 
 ---
 
-## 6.2 Time Navigation
-
-* slider:
-
-  * now → tonight → future hours
-* updates:
-
-  * object positions
-  * satellite paths
-  * visibility windows
+# 3. 🖥️ VISUAL SYSTEM UPGRADE (MANDATORY)
 
 ---
 
-## 6.3 Object Highlighting
+## 3.1 Rule
 
-* selected objects:
-
-  * emphasized visually
-  * linked to detail panel
-
----
-
-## 6.4 Satellite Path Visualization
-
-* simple arc paths
-* time-based movement
-* limited to visible passes
+```text id="v9z3x1"
+All major engines must support spatial visualization
+```
 
 ---
 
-## 6.5 Layer Control System
+## 3.2 Supported Visual Types
 
-Users can toggle:
+Must support:
 
-* targets
-* satellites
-* constellations (optional)
-* events (optional)
-
----
-
-# 7. Backend evolution
-
-Backend must now support:
-
-* positional data
-* time-based queries
-* lightweight calculations
-
-Still:
-
-* no heavy real-time compute
-* no full simulation engines
+* 2D maps (Earth)
+* 3D globes (Earth, Sun)
+* sky dome / sky map
+* solar system 3D scene
 
 ---
 
-# 8. Performance constraints
+## 3.3 Rendering Technology
 
-* must run on typical devices
-* must remain Pi-compatible backend
-* heavy rendering must be client-side
+Frontend must support:
 
----
-
-# 9. Risks
-
-## Risk: visual overload
-
-Mitigation:
-
-* strict layer control
-* default minimal view
+* WebGL-based rendering
+* smooth interaction (pan, zoom, rotate)
+* layered object overlays
 
 ---
 
-## Risk: performance issues
+# 4. 🌍 EARTH ENGINE — VISUAL EXPANSION
 
-Mitigation:
+---
+
+## 4.1 Requirements
+
+Must support:
+
+* interactive 3D globe
+* toggle between 2D and 3D
+* filter-based overlays
+
+---
+
+## 4.2 Supported Filters (Expanded)
+
+* weather
+* earthquakes
+* aurora
+* radiation
+* meteor events
+
+---
+
+## 4.3 Interaction
+
+User must be able to:
+
+* rotate globe
+* zoom to region
+* click events
+
+---
+
+# 5. ☀️ SOLAR ENGINE — VISUAL EXPANSION
+
+---
+
+## 5.1 Requirements
+
+Must support:
+
+* solar globe visualization
+* rotating Sun model
+* active region highlighting
+
+---
+
+## 5.2 Interaction
+
+User must be able to:
+
+* rotate Sun
+* select sunspot regions
+* view solar events in context
+
+---
+
+# 6. 🛰️ SATELLITE ENGINE — VISUAL EXPANSION
+
+---
+
+## 6.1 Requirements
+
+Must support:
+
+* Earth globe with orbit paths
+* satellite position overlays
+* optional orbital tracks
+
+---
+
+## 6.2 Interaction
+
+User must be able to:
+
+* track satellites visually
+* select orbiting objects
+* switch filters
+
+---
+
+# 7. ✈️ FLIGHT ENGINE — VISUAL EXPANSION
+
+---
+
+## 7.1 Requirements
+
+Must support:
+
+* map or globe-based flight visualization
+* live aircraft positions
+
+---
+
+## 7.2 Interaction
+
+User must be able to:
+
+* select flights
+* view trajectory
+
+---
+
+# 8. 🪐 SOLAR SYSTEM ENGINE — MAJOR EXPANSION
+
+---
+
+## 8.1 Requirements
+
+Must support:
+
+* 3D solar system model
+* real-time planetary positions
+* orbital paths
+
+---
+
+## 8.2 Interaction
+
+User must be able to:
+
+* zoom into planets
+* rotate system
+* follow orbital paths
+
+---
+
+## 8.3 Planet Detail Transition
+
+```text id="k9f3d2"
+Click planet → zoom transition → planet detail view
+```
+
+---
+
+# 9. 🌌 DEEP SKY ENGINE — VISUAL EXPANSION
+
+---
+
+## 9.1 Requirements
+
+Must support:
+
+* sky map or celestial sphere
+* object overlays
+
+---
+
+## 9.2 Interaction
+
+User must be able to:
+
+* explore sky
+* select deep sky objects
+* filter visible objects
+
+---
+
+# 10. 🎛️ NAVIGATION MODEL (UPGRADE)
+
+---
+
+## 10.1 Rule
+
+```text id="u1p9r4"
+Navigation must feel spatial, not list-based
+```
+
+---
+
+## 10.2 Required Controls
+
+* zoom
+* pan
+* rotate
+* reset view
+
+---
+
+## 10.3 Scene Transitions
+
+Must support:
+
+* smooth transitions between views
+* zoom-in to object
+* zoom-out to system
+
+---
+
+# 11. 🔍 OBJECT INTERACTION (ENHANCED)
+
+---
+
+## 11.1 Rule
+
+Objects must now be:
+
+* visually anchored in space
+* selectable in 3D or map context
+
+---
+
+## 11.2 Detail View Integration
+
+Clicking object must:
+
+* maintain spatial context
+* allow return to exact position
+
+---
+
+# 12. ⚙️ PERFORMANCE MODEL
+
+---
+
+## 12.1 Rule
+
+```text id="p7x4c9"
+Only render what is visible in the viewport
+```
+
+---
+
+## 12.2 Constraints
 
 * limit object count
-* simplify rendering
+* progressive loading
+* level-of-detail rendering
 
 ---
 
-# 10. Phase 3 validation
+## 12.3 Backend Impact
 
-* sky view works smoothly
-* time slider behaves correctly
-* users understand what they see
-* UI remains clean
+Backend must:
+
+* remain lightweight
+* serve precomputed data
+* avoid real-time heavy computation
 
 ---
 
-# 11. Final Phase 3 statement
+# 13. 🧪 VALIDATION CRITERIA (STRICT)
 
-> “Users can now explore the sky visually and understand movement over time.”
+---
+
+Phase 3 is complete ONLY IF:
+
+---
+
+## 13.1 Visual Systems
+
+* all major engines support spatial views
+* rendering is smooth
+* interaction is intuitive
+
+---
+
+## 13.2 Navigation
+
+* user can move freely
+* transitions are smooth
+* no disorientation
+
+---
+
+## 13.3 Object Interaction
+
+* objects are clickable in space
+* detail views load correctly
+* return to scene works
+
+---
+
+## 13.4 Performance
+
+* no lag or freezing
+* efficient rendering
+* minimal backend load
+
+---
+
+# 14. 🚫 FAILURE CONDITIONS
+
+---
+
+Phase 3 is NOT complete if:
+
+* visuals are static
+* interaction is clunky
+* scenes are overloaded
+* performance is poor
+
+---
+
+# 15. 🔥 FINAL STATEMENT
+
+```text id="z2m8q1"
+Phase 3 transforms Astronomy Hub into a spatial,
+interactive exploration system where users navigate
+Earth, sky, and space visually.
+```
+
+---
+
+# ✔️ OUTCOME
+
+After Phase 3:
+
+* system feels immersive
+* exploration is natural
+* visual understanding is strong
+* foundation for advanced features is established
+
+---
+
+## Next Step
+
+👉 `PHASE_4_SPEC.md`
+
+This is where we expand into:
+
+* advanced intelligence
+* predictive systems
+* deeper data linking
+* enhanced discovery
+
+---

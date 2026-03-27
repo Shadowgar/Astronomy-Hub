@@ -10,11 +10,12 @@ export default function RowItem({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: "var(--space-3) 0",
+        padding: "var(--space-2) 0",
+        width: '100%'
       }}
     >
-      <div>{left}</div>
-      {right && <div>{right}</div>}
+      <div style={{ flex: 1, minWidth: 0 }}>{left}</div>
+      {right && <div style={{ marginLeft: 'var(--space-3)', flex: '0 0 auto' }}>{right}</div>}
     </div>
   );
 }

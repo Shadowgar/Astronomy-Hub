@@ -1,0 +1,105 @@
+{
+  "currentStatus": {
+    "phase": "Phase 1 — Command Center Rebuild",
+    "summary": "Astronomy Hub is being rebuilt from the ground up as a real astronomy command center.",
+    "note": "The project is now following the rewritten architecture, object model, UI system, and execution plan."
+  },
+  "currentFocus": [
+    "Building the new 'Above Me' scene system",
+    "Establishing canonical object and scene contracts",
+    "Replacing the old dashboard-first prototype structure with a scene → object → detail flow"
+  ],
+  "recentProgress": [
+    {
+      "title": "Phase 1 validation pass completed",
+      "summary": "Phase 1 checks were re-run end-to-end (scene, detail, location override, degraded handling, and responsiveness). The branch is now audit-ready before push."
+    },
+    {
+      "title": "Scene objects are now interactive",
+      "summary": "Objects in the Above Me Scene are now clickable and open canonical detail inline without losing scene context."
+    },
+    {
+      "title": "Scene-first command center shell live",
+      "summary": "A dominant Above Me Scene panel now renders from canonical backend data, with live briefing context and a new light Sky News panel."
+    },
+    {
+      "title": "Phase 1 object detail coverage completed",
+      "summary": "Object detail now resolves across satellites, planets, and deep-sky objects with visibility guidance, representative media, and related observing context."
+    },
+    {
+      "title": "Frontend command-center shell available",
+      "summary": "The app now exposes a command-center shell that renders the Above Me briefing panel, recommended targets, passes, and supporting panels from backend-owned data."
+    },
+    {
+      "title": "Interactive panel details",
+      "summary": "Panel entries (targets, passes, & alerts) now open canonical object detail views inline without losing scene context."
+    },
+    {
+      "title": "Object detail payloads available",
+      "summary": "Canonical object detail responses are now available at '/api/object/{id}', including explanatory text and representative images."
+    },
+    {
+      "title": "Above Me scene endpoint available",
+      "summary": "The canonical backend route '/api/scene/above-me' now returns a contract-valid Phase 1 scene combining normalized targets and visible passes."
+    },
+    {
+      "title": "Project documentation system rebuilt",
+      "summary": "Core architecture, phases, UI structure, object model, ingestion strategy, and execution controls were rewritten and aligned."
+    },
+    {
+      "title": "Phase 1 restart locked in",
+      "summary": "The project state and session state were corrected so execution now properly starts from Phase 1 again."
+    },
+    {
+      "title": "Phase 1 contract layer added",
+      "summary": "Canonical Phase 1 contract models and validation tests were added for scene and object data."
+    }
+  ],
+  "inProgress": [
+    {
+      "title": "Phase 1 audit review",
+      "summary": "Implementation is complete and waiting for audit approval before any push."
+    }
+  ],
+  "comingNext": [
+    {
+      "title": "Scene endpoint goes live",
+      "summary": "The first contract-valid '/api/scene/above-me' route will provide the new Phase 1 scene payload."
+    },
+    {
+      "title": "Object detail route",
+      "summary": "A canonical object detail flow will replace inline expansion patterns from the old prototype."
+    },
+    {
+      "title": "Frontend command center realignment",
+      "summary": "The UI will be rebuilt around the new scene-first architecture."
+    }
+  ],
+  "roadmap": [
+    {
+      "phase": "Phase 1",
+      "title": "Command Center",
+      "summary": "Build the Above Me experience with clear scene, object interaction, and detail views."
+    },
+    {
+      "phase": "Phase 2",
+      "title": "Engine Exploration",
+      "summary": "Expand into Earth, Sun, Satellite, Solar System, and Deep Sky exploration."
+    },
+    {
+      "phase": "Phase 3",
+      "title": "Visual System",
+      "summary": "Add immersive spatial exploration with maps, globes, and 3D views."
+    },
+    {
+      "phase": "Phase 4",
+      "title": "Knowledge System",
+      "summary": "Connect objects, research, missions, media, and events into a discovery layer."
+    },
+    {
+      "phase": "Phase 5",
+      "title": "Prediction System",
+      "summary": "Add forecasting, alerts, timelines, and personalized recommendations."
+    }
+  ]
+}

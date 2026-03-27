@@ -1,0 +1,23 @@
+/* Canonical token bridge (Phase 2.5 Package 5 Step 3)
+   This file defines a minimal, canonical set of tokens that bridge
+   existing `design/tokens.css` and `styles.css` during migration.
+   Keep this file deliberately small — it establishes the single
+   token import point for Step 3 only.
+*/
+:root {
+  /* spacing (map to existing tokens if present, with safe fallbacks) */
+  --token-space-1: var(--space-1, 4px);
+  --token-space-2: var(--space-2, 8px);
+  --token-space-3: var(--space-3, 12px);
+
+  /* radii */
+  --token-radius-sm: var(--radius-sm, 8px);
+  --token-radius-md: var(--radius-md, 12px);
+
+  /* typography */
+  --token-font-base: var(--font-3, 16px);
+
+  /* colors */
+  --token-text-primary: var(--text-primary, #111827);
+  --token-accent: var(--accent, var(--accent-blue, #0969da));
+}
