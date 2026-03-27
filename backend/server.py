@@ -92,6 +92,8 @@ PHASE2_ENGINE_REGISTRY = {
 # Lazy cache reference; initialize on first use to be compatible with both
 # `python3 backend/server.py` and package-based execution.
 _simple_cache = None
+_phase2_object_lookup_cache = {}
+_PHASE2_OBJECT_LOOKUP_TTL_SECONDS = 5
 
 
 def _ensure_cache():
@@ -631,6 +633,32 @@ def _build_phase2_object_lookup(parsed_location=None):
             normalized["id"] = object_id
             lookup.setdefault(object_id, normalized)
 
+    return lookup
+
+
+def _phase2_object_lookup_cache_key(parsed_location=None):
+    if not isinstance(parsed_location, dict):
+        return "oras"
+
+    return (
+        parsed_location.get("latitude"),
+        parsed_location.get("longitude"),
+        parsed_location.get("elevation_ft"),
+    )
+
+
+def _get_phase2_object_lookup(parsed_location=None):
+    cache_key = _phase2_object_lookup_cache_key(parsed_location)
+    now = time.time()
+    cached = _phase2_object_lookup_cache.get(cache_key)
+    if isinstance(cached, dict) and cached.get("expires_at", 0) > now:
+        return cached.get("lookup") or {}
+
+    lookup = _build_phase2_object_lookup(parsed_location=parsed_location)
+    _phase2_object_lookup_cache[cache_key] = {
+        "lookup": lookup,
+        "expires_at": now + _PHASE2_OBJECT_LOOKUP_TTL_SECONDS,
+    }
     return lookup
 
 
@@ -1238,7 +1266,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         status = 400
                         return
 
-                    object_lookup = _build_phase2_object_lookup(parsed_location=parsed_location)
+                    object_lookup = _get_phase2_object_lookup(parsed_location=parsed_location)
                     found = object_lookup.get(obj_id)
 
                     if not found:

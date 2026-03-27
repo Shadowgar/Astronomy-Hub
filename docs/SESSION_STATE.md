@@ -115,9 +115,9 @@ That means the immediate goal is:
 ## 6. CURRENT NEXT STEP
 
 ```text id="sstate005"
-Last completed step: Phase 2 Step 1 — Lock Phase 2 Spec
-Current step: Phase 2 Step 2 — Backend Scope Routing
-Next step: Implement scope list, scope→engine mapping, and scope routing entry
+Last completed step: Phase 2 Step 7 — Object Resolution Integrity
+Current step: Phase 2 Step 8 — Scene Endpoint Exposure
+Next step: Implement controlled scope/engine/filter endpoint exposure without bypassing pipeline order
 ```
 
 ---

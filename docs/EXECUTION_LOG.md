@@ -129,6 +129,230 @@ PASS
 
 ---
 
+## Step 2 — Backend Scope Routing
+
+### Phase
+
+Phase 2
+
+### Description
+
+Implemented backend scope authority and scope-to-engine routing at `/api/scopes`.
+
+### Files Changed
+
+* backend/server.py
+* backend/tests/test_phase2_scope_routing.py
+
+### What Was Done
+
+* Added canonical scopes: `sky`, `solar_system`, `earth`.
+* Added scope→engine mappings and optional-engine metadata (`flights` optional).
+* Added scope listing, valid scope lookup, and invalid scope rejection (`400 invalid_scope`).
+
+### Why It Was Done
+
+To satisfy Phase 2 Step 2 and enforce scope-first pipeline authority in backend.
+
+### Verification
+
+* `.venv/bin/python -m pytest backend/tests/test_phase2_scope_routing.py -q`
+* Result: pass.
+
+### Result
+
+PASS
+
+---
+
+## Step 3 — Backend Engine Routing
+
+### Phase
+
+Phase 2
+
+### Description
+
+Extended `/api/scopes` to include engine selection with strict scope ownership enforcement.
+
+### Files Changed
+
+* backend/server.py
+* backend/tests/test_phase2_scope_routing.py
+
+### What Was Done
+
+* Added canonical engine registry with owning scope and optional flag.
+* Added scope+engine handling for valid engine metadata responses.
+* Added clean rejection for invalid and out-of-scope engines.
+
+### Why It Was Done
+
+To satisfy Phase 2 Step 3 and prevent engine access outside scope.
+
+### Verification
+
+* `.venv/bin/python -m pytest backend/tests/test_phase2_scope_routing.py -q`
+* Result: pass.
+
+### Result
+
+PASS
+
+---
+
+## Step 4 — Backend Filter Routing/Validation
+
+### Phase
+
+Phase 2
+
+### Description
+
+Implemented canonical engine-filter validation and default filter behavior in backend routing.
+
+### Files Changed
+
+* backend/server.py
+* backend/tests/test_phase2_scope_routing.py
+
+### What Was Done
+
+* Added `allowed_filters` and `default_filter` per engine in registry.
+* Added `scope+engine+filter` request handling and `invalid_filter` rejection.
+* Enforced missing-engine rejection when filter is provided without engine.
+
+### Why It Was Done
+
+To satisfy Phase 2 Step 4 and keep filter control inside backend authority.
+
+### Verification
+
+* `.venv/bin/python -m pytest backend/tests/test_phase2_scope_routing.py -q`
+* Result: pass.
+
+### Result
+
+PASS
+
+---
+
+## Step 5 — Engine Scene Generation (Core)
+
+### Phase
+
+Phase 2
+
+### Description
+
+Added internal Phase 2 scene generation for required non-optional engines.
+
+### Files Changed
+
+* backend/server.py
+* backend/tests/test_phase2_engine_scene_generation.py
+
+### What Was Done
+
+* Added internal scene dispatcher and scene builders for `deep_sky`, `planets`, `moon`, `satellites`.
+* Returned structured scene outputs with metadata, grouped objects, and reasoning.
+* Preserved internal-only scope (no new scene endpoint exposure).
+
+### Why It Was Done
+
+To satisfy Phase 2 Step 5 and establish core engine scene generation.
+
+### Verification
+
+* `.venv/bin/python -m pytest backend/tests/test_phase2_engine_scene_generation.py -q`
+* Result: pass.
+
+### Result
+
+PASS
+
+---
+
+## Step 6 — Align Existing Above Me Engine
+
+### Phase
+
+Phase 2
+
+### Description
+
+Aligned existing `above_me` behavior to internal Phase 2 scene pipeline without route contract regression.
+
+### Files Changed
+
+* backend/server.py
+* backend/tests/test_phase2_engine_scene_generation.py
+
+### What Was Done
+
+* Added internal `above_me` Phase 2 builder reusing Phase 1 scene state source.
+* Included `above_me` in internal Phase 2 dispatcher for `scope=sky`.
+* Kept `/api/scene/above-me` response behavior unchanged.
+
+### Why It Was Done
+
+To satisfy Phase 2 Step 6 while preserving Phase 1 route stability.
+
+### Verification
+
+* `.venv/bin/python -m pytest backend/tests/test_phase2_engine_scene_generation.py -q`
+* `.venv/bin/python -m pytest backend/tests/test_phase1_scene_assembly.py -q`
+* `.venv/bin/python -m pytest backend/tests/test_api_scene_above_me.py -q`
+* Result: pass.
+
+### Result
+
+PASS
+
+---
+
+## Step 7 — Object Resolution Integrity
+
+### Phase
+
+Phase 2
+
+### Description
+
+Completed cross-engine object resolution integrity for `/api/object/{id}` and fixed Step 7 timeout risk.
+
+### Files Changed
+
+* backend/server.py
+* backend/tests/test_phase2_object_resolution.py
+
+### What Was Done
+
+* Added aggregated Phase 2 grouped-object lookup across required engines (`above_me`, `deep_sky`, `planets`, `moon`, `satellites`).
+* Added object-id sanity helper so surfaced objects always resolve with valid non-empty IDs.
+* Updated `/api/object/{id}` lookup source to aggregated Phase 2 object surface while keeping existing endpoint contract and detail formatter.
+* Fixed timeout risk by caching aggregated object lookup for short TTL instead of rebuilding full Phase 2 scenes on every object-detail request.
+* Added Step 7 tests for representative cross-engine resolution, unknown ID 404 behavior, and no scene detail-payload leakage.
+
+### Why It Was Done
+
+To satisfy Phase 2 Step 7 object-resolution requirements and stabilize detail-path latency under repeated representative lookups.
+
+### Verification
+
+* `.venv/bin/python -m pytest backend/tests/test_phase2_object_resolution.py -q` → `4 passed`
+* `.venv/bin/python -m pytest backend/tests/test_phase2_engine_scene_generation.py -q` → `5 passed`
+* `.venv/bin/python -m pytest backend/tests/test_phase2_scope_routing.py -q` → `13 passed`
+* `.venv/bin/python -m pytest backend/tests/test_phase1_scene_assembly.py -q` → `1 passed`
+* `.venv/bin/python -m pytest backend/tests/test_api_scene_above_me.py -q` → `1 passed`
+* `.venv/bin/python -m pytest backend/tests -q` → `44 passed`
+
+### Result
+
+PASS
+
+---
+
 ## Step 11 — Final Phase 1 Mounted-Truth Reconciliation (Option A)
 
 ### Phase

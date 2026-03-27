@@ -128,3 +128,27 @@ def test_unknown_object_id_returns_404():
     err = payload.get("error")
     assert isinstance(err, dict)
     assert err.get("code") == "not_found"
+
+
+def test_object_resolution_is_stable_across_repeated_requests():
+    representative_ids = []
+    for scope_slug, engine_slug in REQUIRED_ENGINE_SCENES:
+        scene = _build_required_scene(scope_slug, engine_slug)
+        representative_ids.append(_first_scene_object_id(scene))
+
+    port = _free_port()
+    srv = _start_server(port)
+    time.sleep(0.1)
+
+    try:
+        for _ in range(2):
+            for object_id in representative_ids:
+                status, payload = _request_json(
+                    f"http://127.0.0.1:{port}/api/object/{quote(object_id, safe='')}"
+                )
+                assert status == 200
+                assert payload.get("status") == "ok"
+                assert (payload.get("data") or {}).get("id") == object_id
+    finally:
+        srv.shutdown()
+        srv.server_close()

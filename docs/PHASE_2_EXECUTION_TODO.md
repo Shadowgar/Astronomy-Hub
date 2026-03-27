@@ -58,9 +58,9 @@ Ensure Phase 2 specification is authoritative and complete.
 Introduce scope-level control in backend.
 
 ### Tasks
-- [ ] Define scope list in backend
-- [ ] Map scopes → allowed engines
-- [ ] Add routing entry for scope selection
+- [x] Define scope list in backend
+- [x] Map scopes → allowed engines
+- [x] Add routing entry for scope selection
 
 ### Verification
 - Invalid scopes are rejected
@@ -75,9 +75,9 @@ Introduce scope-level control in backend.
 Introduce engine-level control.
 
 ### Tasks
-- [ ] Define engine registry
-- [ ] Map engines to scopes
-- [ ] Add engine selection handling
+- [x] Define engine registry
+- [x] Map engines to scopes
+- [x] Add engine selection handling
 
 ### Verification
 - Engines cannot be accessed outside scope
@@ -92,9 +92,9 @@ Introduce engine-level control.
 Introduce controlled filtering per engine.
 
 ### Tasks
-- [ ] Define allowed filters per engine
-- [ ] Implement filter validation
-- [ ] Attach filters to engine execution path
+- [x] Define allowed filters per engine
+- [x] Implement filter validation
+- [x] Attach filters to engine execution path
 
 ### Verification
 - Invalid filters are rejected
@@ -109,10 +109,10 @@ Introduce controlled filtering per engine.
 Enable engines to generate scenes.
 
 ### Tasks
-- [ ] Implement deep_sky engine scene output
-- [ ] Implement planets engine scene output
-- [ ] Implement moon engine scene output
-- [ ] Implement satellites engine scene output
+- [x] Implement deep_sky engine scene output
+- [x] Implement planets engine scene output
+- [x] Implement moon engine scene output
+- [x] Implement satellites engine scene output
 
 ### Verification
 Each engine must:
@@ -129,9 +129,9 @@ Each engine must:
 Bring Phase 1 engine into Phase 2 structure.
 
 ### Tasks
-- [ ] Ensure above_me follows engine routing
-- [ ] Ensure it supports filter path (if applicable)
-- [ ] Ensure output aligns with Phase 2 expectations
+- [x] Ensure above_me follows engine routing
+- [x] Ensure it supports filter path (if applicable)
+- [x] Ensure output aligns with Phase 2 expectations
 
 ### Verification
 - No regression in existing behavior
@@ -146,9 +146,9 @@ Bring Phase 1 engine into Phase 2 structure.
 Ensure all scene objects resolve correctly.
 
 ### Tasks
-- [ ] Verify all objects include valid IDs
-- [ ] Ensure `/api/object/{id}` works for all engines
-- [ ] Add missing metadata if required
+- [x] Verify all objects include valid IDs
+- [x] Ensure `/api/object/{id}` works for all engines
+- [x] Add missing metadata if required
 
 ### Verification
 - No broken object links
