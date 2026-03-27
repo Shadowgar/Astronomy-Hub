@@ -169,7 +169,9 @@ curl -sS http://localhost:4173/src/components/ObjectDetail.jsx | sed -n '1,160p'
 
 ### Result
 
-PASS
+PARTIAL
+
+> Note: This verification confirmed inline detail expansion for satellite passes only. Recommended targets and alerts/events were not wired to the canonical `ObjectDetail` at the time and required a correction pass.
 
 
 ## Step 6 — Frontend Command Center Shell
@@ -218,6 +220,63 @@ curl -sS http://localhost:4173/progress | head -n 20
 ### Result
 
 PASS
+
+
+---
+
+## Step 7 — Interaction And Detail Flow (Correction Pass)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Correction pass to complete the panel interaction wiring for canonical object detail across Recommended Targets, Satellite Passes, and Alerts/Events.
+
+### Files Changed
+
+* frontend/src/components/ObjectDetail.jsx
+* frontend/src/components/SatellitePasses.jsx
+* frontend/src/components/RecommendedTargets.jsx
+* frontend/src/components/AlertsEvents.jsx
+
+### What Was Done
+
+* Wired `RecommendedTargets.jsx` to use the canonical `ObjectDetail` via `InlineExpansion` (use computed slug `objectId`).
+* Extended `AlertsEvents.jsx` to provide inline expansion and render `ObjectDetail` when an alert references an object name.
+* Normalized slugify logic across components to avoid fragile `replace` chains.
+
+### Why It Was Done
+
+To complete Step 7 from `PHASE_1_BUILD_SEQUENCE.md`: ensure panel entries (targets, passes, alerts) open canonical detail without navigating away from the scene.
+
+### Verification
+
+* Commands run:
+
+```bash
+docker compose build frontend
+docker compose up -d frontend
+curl -sS http://localhost:4173/ | sed -n '1,40p'
+curl -sS http://localhost:4173/src/components/RecommendedTargets.jsx | sed -n '1,240p'
+curl -sS http://localhost:4173/src/components/SatellitePasses.jsx | sed -n '1,240p'
+curl -sS http://localhost:4173/src/components/AlertsEvents.jsx | sed -n '1,240p'
+curl -sS http://localhost:4173/src/components/ObjectDetail.jsx | sed -n '1,240p'
+```
+
+* Observed results (selected):
+
+  - Dev server served `index.html` (HTTP 200).
+  - `/src/components/RecommendedTargets.jsx` includes an `InlineExpansion` that renders `ObjectDetail` (import and usage present).
+  - `/src/components/SatellitePasses.jsx` includes `InlineExpansion` rendering `ObjectDetail` (verified earlier).
+  - `/src/components/AlertsEvents.jsx` now conditionally expands to `ObjectDetail` when alerts reference an object name.
+  - A scan of the served modules showed no navigation calls (`window.location`, `history.push`, `location.href`, etc.), confirming inline expansion does not navigate away from the page context.
+
+### Result
+
+PASS
+
 
 
 ## Step 10 — CHANGELOG Page: Step 10 (Navigation Integration)

@@ -16,7 +16,7 @@
     },
     {
       "title": "Interactive panel details",
-      "summary": "Panel entries (targets & passes) now open canonical object detail views inline without losing scene context."
+      "summary": "Panel entries (targets, passes, & alerts) now open canonical object detail views inline without losing scene context."
     },
     {
       "title": "Object detail payloads available",
