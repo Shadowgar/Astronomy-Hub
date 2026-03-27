@@ -38,12 +38,12 @@ Without breaking Phase 1.
 Ensure Phase 2 specification is authoritative and complete.
 
 ### Tasks
-- [ ] Verify `docs/PHASE_2_SPEC.md` exists
-- [ ] Verify scopes are defined
-- [ ] Verify engines are defined
-- [ ] Verify filters are defined
-- [ ] Verify system pipeline is defined
-- [ ] Verify anti-scope rules are present
+- [x] Verify `docs/PHASE_2_SPEC.md` exists
+- [x] Verify scopes are defined
+- [x] Verify engines are defined
+- [x] Verify filters are defined
+- [x] Verify system pipeline is defined
+- [x] Verify anti-scope rules are present
 
 ### Verification
 - No ambiguity in scope/engine/filter definitions

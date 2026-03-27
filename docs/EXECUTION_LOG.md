@@ -73,6 +73,62 @@ PASS / FAIL
 
 ---
 
+## Step 1 — Phase 2 Spec Lock
+
+### Phase
+
+Phase 2
+
+### Description
+
+Locked Phase 2 contract language by replacing filter examples with a canonical engine-to-filter model and completed Step 1 execution bookkeeping.
+
+### Files Changed
+
+* docs/PHASE_2_SPEC.md
+* docs/PHASE_2_EXECUTION_TODO.md
+* docs/EXECUTION_LOG.md
+* docs/SESSION_STATE.md
+
+### What Was Done
+
+* Converted Phase 2 filters from example-only text to an authoritative model.
+* Added a canonical mapping: `engine -> allowed filters -> default filter` using only `visible_now`, `bright_only`, `high_altitude`, `short_window`, `naked_eye`.
+* Kept allowed scopes and required engines unchanged.
+* Kept `flights` explicitly optional.
+* Added anti-drift rule: new filters require explicit Phase 2 spec change.
+* Marked Step 1 complete in `PHASE_2_EXECUTION_TODO.md`.
+* Updated `SESSION_STATE.md` to mark Step 1 complete and set Step 2 as current.
+
+### Why It Was Done
+
+To satisfy Phase 2 Step 1 requirements: remove filter ambiguity before backend scope/engine routing begins.
+
+### Verification
+
+* Commands run:
+
+```bash
+rg -n "^### 4\\.1 Allowed Scopes|^- sky$|^- solar_system$|^- earth$|^#### Sky Scope|^#### Solar System Scope|^#### Earth Scope|above_me|deep_sky|planets|moon|satellites|flights \\(if implemented, optional\\)|User → Scope → Engine → Filter → Scene → Object → Detail|Anti-Scope Rules|6\\.2 Authoritative Engine" docs/PHASE_2_SPEC.md docs/PHASE_2_IMPLEMENTATION_PLAN.md docs/PHASE_2_EXECUTION_TODO.md docs/PHASE_2_VALIDATION_CHECKLIST.md -S
+rg -n "visible_now|bright_only|high_altitude|short_window|naked_eye|New filters are not allowed implicitly|explicit update to this Phase 2 specification" docs/PHASE_2_SPEC.md -S
+git status --short
+```
+
+* Observed results:
+
+  - Scopes remained fixed: `sky`, `solar_system`, `earth`.
+  - Engines remained fixed: `above_me`, `deep_sky`, `planets`, `moon`, `satellites`; `flights` remained optional.
+  - Filter model is explicit and non-ambiguous with authoritative mapping and defaults.
+  - Pipeline statement remained exact: `User → Scope → Engine → Filter → Scene → Object → Detail`.
+  - No contradictions detected across `PHASE_2_SPEC.md`, `PHASE_2_IMPLEMENTATION_PLAN.md`, `PHASE_2_EXECUTION_TODO.md`, and `PHASE_2_VALIDATION_CHECKLIST.md`.
+  - No runtime code changed (only docs in the four listed files were modified).
+
+### Result
+
+PASS
+
+---
+
 ## Step 11 — Final Phase 1 Mounted-Truth Reconciliation (Option A)
 
 ### Phase

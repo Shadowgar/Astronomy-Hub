@@ -138,7 +138,7 @@ Each engine MUST NOT:
 
 Filters are introduced in Phase 2 as controlled constraints.
 
-### 6.1 Examples
+### 6.1 Canonical Filter Slugs
 
 - visible_now
 - bright_only
@@ -146,7 +146,20 @@ Filters are introduced in Phase 2 as controlled constraints.
 - short_window
 - naked_eye
 
-### 6.2 Rules
+### 6.2 Authoritative Engine → Allowed Filters → Default Filter
+
+| Engine      | Allowed Filters                                | Default Filter |
+| ----------- | ---------------------------------------------- | -------------- |
+| above_me    | visible_now, high_altitude, short_window       | visible_now    |
+| deep_sky    | visible_now, bright_only, naked_eye            | visible_now    |
+| planets     | visible_now, bright_only, high_altitude        | visible_now    |
+| moon        | visible_now, high_altitude                     | visible_now    |
+| satellites  | visible_now, high_altitude, short_window       | visible_now    |
+| flights*    | visible_now, high_altitude, short_window       | visible_now    |
+
+\* `flights` remains optional as defined in Section 5.1.
+
+### 6.3 Rules
 
 Filters MUST:
 
@@ -158,6 +171,12 @@ Filters MUST NOT:
 
 - create new scene types
 - bypass engine logic
+
+### 6.4 Anti-Drift Rule
+
+New filters are not allowed implicitly.
+
+Any new filter slug requires an explicit update to this Phase 2 specification before implementation.
 
 ---
 

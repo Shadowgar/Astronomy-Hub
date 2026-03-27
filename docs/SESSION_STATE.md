@@ -18,7 +18,7 @@ It exists to:
 ## 1. CURRENT EXECUTION POSITION
 
 ```text id="sstate001"
-ACTIVE EXECUTION START POINT: Phase 1
+ACTIVE EXECUTION START POINT: Phase 2 (from validated Phase 1 baseline)
 ```
 
 ---
@@ -29,7 +29,7 @@ ACTIVE EXECUTION START POINT: Phase 1
 The project has older code and older partial implementation work,
 but the authoritative documentation has been rewritten.
 
-Execution is restarting from Phase 1 using the rewritten system documents.
+Execution is now in Phase 2 using a validated Phase 1 baseline and rewritten system documents.
 ```
 
 This means:
@@ -101,23 +101,23 @@ reference implementation material, not final truth
 ## 5. ACTIVE EXECUTION STRATEGY
 
 ```text id="sstate004"
-We are restarting execution from Phase 1.
+We are executing Phase 2 from a validated Phase 1 baseline.
 ```
 
 That means the immediate goal is:
 
-* rebuild or realign the implementation to match the rewritten Phase 1 definition
-* validate the system against current architecture and contracts
-* avoid assuming older code is acceptable without review
+* lock Phase 2 contracts and routing rules before backend expansion
+* execute `PHASE_2_EXECUTION_TODO.md` one step at a time
+* preserve validated Phase 1 behavior while adding Phase 2 structure
 
 ---
 
 ## 6. CURRENT NEXT STEP
 
 ```text id="sstate005"
-Last completed step: Step 8 — Validation And Hardening (Reconciliation Pass)
-Current step: Phase 1 complete (awaiting audit; no push)
-Next step: Audit gate only; Phase 2 remains locked until audit approval
+Last completed step: Phase 2 Step 1 — Lock Phase 2 Spec
+Current step: Phase 2 Step 2 — Backend Scope Routing
+Next step: Implement scope list, scope→engine mapping, and scope routing entry
 ```
 
 ---
@@ -127,7 +127,8 @@ Next step: Audit gate only; Phase 2 remains locked until audit approval
 ### MUST
 
 * follow rewritten docs
-* treat Phase 1 as the execution start
+* treat Phase 2 as the active execution phase
+* preserve validated Phase 1 behavior as baseline
 * make minimal, controlled changes
 * verify behavior against current specs
 * preserve useful existing work only if it aligns
@@ -135,7 +136,8 @@ Next step: Audit gate only; Phase 2 remains locked until audit approval
 ### MUST NOT
 
 * assume old code is correct because it exists
-* jump ahead to Phase 2, 2.5, 3, 4, or 5 features
+* skip ahead to later Phase 2 steps without verification
+* introduce Phase 2.5/3/4/5 features
 * introduce architecture drift
 * reintroduce old simplified doctrine
 * skip validation
@@ -162,10 +164,10 @@ The roadmap still contains Phases 1–5 and Phase 2.5.
 Execution is now considered restarted from:
 
 ```text id="sstate006"
-Phase 1
+Phase 2
 ```
 
-This is not because later phases disappeared, but because we are choosing to rebuild from the proper foundation.
+This is not because Phase 1 changed, but because the audited Phase 1 baseline is complete and Phase 2 execution has begun.
 
 ---
 
@@ -173,7 +175,7 @@ This is not because later phases disappeared, but because we are choosing to reb
 
 The project is correctly aligned only if:
 
-* implementation work starts from rewritten Phase 1
+* implementation work follows locked Phase 2 sequence from a validated Phase 1 baseline
 * old code is audited against current docs
 * no step is accepted merely because it worked before
 * every reused part is explicitly validated
@@ -186,8 +188,8 @@ Stop immediately if:
 
 * someone tries to resume old implementation blindly
 * a change contradicts rewritten docs
-* future-phase features leak into the restart
-* the code diverges from the current Phase 1 spec
+* future-phase features leak into Phase 2 execution
+* the code diverges from active Phase 2 specs and constraints
 
 ---
 
@@ -207,5 +209,5 @@ This file must be updated whenever:
 ```text id="sstate008"
 We are not continuing from old assumptions.
 
-We are rebuilding correctly from Phase 1 using the rewritten documentation as law.
+We are executing Phase 2 in strict sequence using the rewritten documentation as law.
 ```
