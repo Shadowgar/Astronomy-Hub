@@ -145,6 +145,21 @@ def _slugify(name: str) -> str:
         return str(uuid.uuid4())
 
 
+def _ensure_object_id(obj):
+    if not isinstance(obj, dict):
+        return None
+
+    existing = obj.get("id")
+    if isinstance(existing, str) and existing.strip():
+        return existing.strip()
+
+    name = obj.get("name")
+    if isinstance(name, str) and name.strip():
+        return _slugify(name)
+
+    return None
+
+
 def _build_phase2_scope_maps():
     scope_to_engines = {scope: [] for scope in PHASE2_SCOPES}
     optional_engines = {scope: [] for scope in PHASE2_SCOPES}
@@ -371,10 +386,13 @@ def _to_phase2_scene_objects(raw_objects, engine_slug):
     for obj in raw_objects:
         if not isinstance(obj, dict):
             continue
+        object_id = _ensure_object_id(obj)
+        if not object_id:
+            continue
         reason = obj.get("reason") or obj.get("summary") or f"Selected by {engine_slug} engine"
         scene_objects.append(
             {
-                "id": obj.get("id"),
+                "id": object_id,
                 "name": obj.get("name"),
                 "type": obj.get("type"),
                 "engine": engine_slug,
@@ -566,6 +584,54 @@ def _build_phase2_scene(scope_slug, engine_slug, filter_slug, parsed_location=No
     if builder is None:
         raise ValueError("scene_builder_not_available")
     return builder(filter_slug=filter_slug, parsed_location=parsed_location)
+
+
+def _iter_phase2_grouped_objects(scene):
+    groups = scene.get("groups") if isinstance(scene, dict) else None
+    if not isinstance(groups, list):
+        return
+    for group in groups:
+        if not isinstance(group, dict):
+            continue
+        objects = group.get("objects")
+        if not isinstance(objects, list):
+            continue
+        for obj in objects:
+            if isinstance(obj, dict):
+                yield obj
+
+
+def _build_phase2_object_lookup(parsed_location=None):
+    required_engines = ("above_me", "deep_sky", "planets", "moon", "satellites")
+    lookup = {}
+
+    for engine_slug in required_engines:
+        engine_meta = PHASE2_ENGINE_REGISTRY.get(engine_slug) or {}
+        scope_slug = engine_meta.get("scope")
+        default_filter = engine_meta.get("default_filter")
+        if not scope_slug or not default_filter:
+            continue
+
+        try:
+            scene = _build_phase2_scene(
+                scope_slug,
+                engine_slug,
+                default_filter,
+                parsed_location=parsed_location,
+            )
+        except Exception:
+            logger.exception(f"phase2.object.lookup.scene.failed engine={engine_slug}")
+            continue
+
+        for scene_obj in _iter_phase2_grouped_objects(scene):
+            object_id = _ensure_object_id(scene_obj)
+            if not object_id:
+                continue
+            normalized = dict(scene_obj)
+            normalized["id"] = object_id
+            lookup.setdefault(object_id, normalized)
+
+    return lookup
 
 
 def _build_phase1_scene_state(parsed_location=None):
@@ -1164,7 +1230,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
                     status = 500
 
             elif parsed.path.startswith("/api/object/"):
-                # Minimal object detail resolver: look up by slug id from targets-derived scene
+                # Authoritative object detail resolver over the aggregated Phase 2 scene surface.
                 try:
                     obj_id = parsed.path[len("/api/object/"):].strip()
                     if not obj_id:
@@ -1172,20 +1238,15 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         status = 400
                         return
 
-                    scene_state = _build_phase1_scene_state(parsed_location)
-                    scene = scene_state.get('scene') or _build_scene_from_targets(parsed_location)
-                    found = None
-                    for o in scene.get('objects', []):
-                        if o.get('id') == obj_id:
-                            found = o
-                            break
+                    object_lookup = _build_phase2_object_lookup(parsed_location=parsed_location)
+                    found = object_lookup.get(obj_id)
 
                     if not found:
                         self._send_json({'error': {'code': 'not_found', 'message': 'object not found'}}, status=404)
                         status = 404
                         return
 
-                    detail = _build_phase1_object_detail(found, scene_objects=scene.get('objects', []))
+                    detail = _build_phase1_object_detail(found, scene_objects=list(object_lookup.values()))
                     try:
                         env = self._build_envelope('ok', data=detail, meta={}, error=None)
                     except Exception:
