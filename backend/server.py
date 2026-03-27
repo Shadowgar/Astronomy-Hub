@@ -540,6 +540,9 @@ class SimpleHandler(BaseHTTPRequestHandler):
                 # Per-module isolation guard: ensure failures in assembling
                 # the conditions payload don't take down other endpoints.
                 try:
+                    simulate_normalizer_fail = str(os.environ.get("SIMULATE_NORMALIZER_FAIL", "")).strip().lower()
+                    simulate_conditions_fail = simulate_normalizer_fail in ("conditions", "all", "1", "true", "yes")
+
                     # Use short TTL in-process cache for conditions responses only.
                     try:
                         _ensure_cache()
@@ -555,7 +558,9 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         elev = parsed_location.get('elevation_ft')
                         cache_key = f"conditions:custom:{lat}:{lon}:{elev}"
 
-                    cached_resp = _simple_cache.get(cache_key) if _simple_cache is not None else None
+                    # When degraded-mode simulation is enabled, bypass cache so
+                    # we exercise the normalization/error path deterministically.
+                    cached_resp = None if simulate_conditions_fail else (_simple_cache.get(cache_key) if _simple_cache is not None else None)
                     if cached_resp is not None:
                         # Return cached payload wrapped in the same envelope shape as misses.
                         from copy import deepcopy
@@ -600,6 +605,8 @@ class SimpleHandler(BaseHTTPRequestHandler):
                             return
 
                         try:
+                            if simulate_conditions_fail:
+                                raise RuntimeError("simulated normalizer failure for conditions")
                             normalized = norm(resp)
                             if isinstance(normalized, dict):
                                 resp = normalized

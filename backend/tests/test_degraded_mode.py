@@ -57,4 +57,6 @@ def test_conditions_module_failure_returns_error_contract():
     # Expect a 500 module-level error contract JSON when normalization fails
     assert status == 500, f"expected status 500, got {status} body={body}"
     assert isinstance(data, dict), f"expected JSON dict body, got: {body}"
-    assert data.get('module') == 'conditions' or data.get('error') == 'module_error'
+    err = data.get('error')
+    err_code = err.get('code') if isinstance(err, dict) else err
+    assert data.get('module') == 'conditions' or err_code == 'module_error'

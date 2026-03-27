@@ -72,3 +72,7 @@ def normalize(payload: Any) -> Dict[str, Any]:
     # Return a plain dict (not a Pydantic object).
     return model.dict()
 
+
+def normalize_to_contract(payload: Any) -> Dict[str, Any]:
+    """Backward-compatible alias used by legacy tests/callers."""
+    return normalize(payload)
