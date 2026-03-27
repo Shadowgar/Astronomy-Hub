@@ -43,15 +43,13 @@ logger = get_logger("backend.server")
 # Constants
 SUGGESTION_COORD_MALFORMED = 'suggestion coordinates malformed'
 PHASE2_SCOPES = ("sky", "solar_system", "earth")
-PHASE2_SCOPE_TO_ENGINES = {
-    "sky": ["above_me", "deep_sky"],
-    "solar_system": ["planets", "moon"],
-    "earth": ["satellites", "flights"],
-}
-PHASE2_OPTIONAL_ENGINES = {
-    "sky": [],
-    "solar_system": [],
-    "earth": ["flights"],
+PHASE2_ENGINE_REGISTRY = {
+    "above_me": {"scope": "sky", "optional": False},
+    "deep_sky": {"scope": "sky", "optional": False},
+    "planets": {"scope": "solar_system", "optional": False},
+    "moon": {"scope": "solar_system", "optional": False},
+    "satellites": {"scope": "earth", "optional": False},
+    "flights": {"scope": "earth", "optional": True},
 }
 
 # Lazy cache reference; initialize on first use to be compatible with both
@@ -110,11 +108,36 @@ def _slugify(name: str) -> str:
         return str(uuid.uuid4())
 
 
+def _build_phase2_scope_maps():
+    scope_to_engines = {scope: [] for scope in PHASE2_SCOPES}
+    optional_engines = {scope: [] for scope in PHASE2_SCOPES}
+    for engine_slug, meta in PHASE2_ENGINE_REGISTRY.items():
+        scope_slug = meta.get("scope")
+        if scope_slug not in scope_to_engines:
+            continue
+        scope_to_engines[scope_slug].append(engine_slug)
+        if bool(meta.get("optional")):
+            optional_engines[scope_slug].append(engine_slug)
+    return scope_to_engines, optional_engines
+
+
+PHASE2_SCOPE_TO_ENGINES, PHASE2_OPTIONAL_ENGINES = _build_phase2_scope_maps()
+
+
 def _build_phase2_scope_entry(scope_slug: str):
     return {
         "scope": scope_slug,
         "engines": list(PHASE2_SCOPE_TO_ENGINES.get(scope_slug, [])),
         "optional_engines": list(PHASE2_OPTIONAL_ENGINES.get(scope_slug, [])),
+    }
+
+
+def _build_phase2_engine_entry(engine_slug: str):
+    meta = PHASE2_ENGINE_REGISTRY.get(engine_slug, {})
+    return {
+        "engine": engine_slug,
+        "scope": meta.get("scope"),
+        "optional": bool(meta.get("optional")),
     }
 
 
@@ -557,7 +580,23 @@ class SimpleHandler(BaseHTTPRequestHandler):
 
             if parsed.path == "/api/scopes":
                 scope_query = q.get("scope")
-                if scope_query is None or str(scope_query).strip() == "":
+                engine_query = q.get("engine")
+                has_scope = scope_query is not None and str(scope_query).strip() != ""
+                has_engine = engine_query is not None and str(engine_query).strip() != ""
+
+                if not has_scope and has_engine:
+                    self._send_json(
+                        {
+                            "error": {
+                                "code": "missing_scope",
+                                "message": "scope is required when engine is provided",
+                                "details": [{"allowed_scopes": list(PHASE2_SCOPES)}],
+                            }
+                        },
+                        status=400,
+                    )
+                    status = 400
+                elif not has_scope:
                     payload = {
                         "scopes": [_build_phase2_scope_entry(s) for s in PHASE2_SCOPES]
                     }
@@ -582,6 +621,47 @@ class SimpleHandler(BaseHTTPRequestHandler):
                             status=400,
                         )
                         status = 400
+                    elif has_engine:
+                        engine_slug = str(engine_query).strip()
+                        engine_meta = PHASE2_ENGINE_REGISTRY.get(engine_slug)
+                        if engine_meta is None:
+                            self._send_json(
+                                {
+                                    "error": {
+                                        "code": "invalid_engine",
+                                        "message": f"invalid engine: {engine_slug}",
+                                        "details": [
+                                            {
+                                                "engine": engine_slug,
+                                                "allowed_engines": list(PHASE2_ENGINE_REGISTRY.keys()),
+                                            }
+                                        ],
+                                    }
+                                },
+                                status=400,
+                            )
+                            status = 400
+                        elif engine_meta.get("scope") != scope_slug:
+                            self._send_json(
+                                {
+                                    "error": {
+                                        "code": "engine_out_of_scope",
+                                        "message": f"engine {engine_slug} is not allowed in scope {scope_slug}",
+                                        "details": [
+                                            {
+                                                "scope": scope_slug,
+                                                "engine": engine_slug,
+                                                "allowed_engines": list(PHASE2_SCOPE_TO_ENGINES.get(scope_slug, [])),
+                                            }
+                                        ],
+                                    }
+                                },
+                                status=400,
+                            )
+                            status = 400
+                        else:
+                            self._send_json(_build_phase2_engine_entry(engine_slug))
+                            status = 200
                     else:
                         self._send_json(_build_phase2_scope_entry(scope_slug))
                         status = 200
