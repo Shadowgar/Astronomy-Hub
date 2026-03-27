@@ -11,6 +11,22 @@
   ],
   "recentProgress": [
     {
+      "title": "Phase 1 validation pass completed",
+      "summary": "Phase 1 checks were re-run end-to-end (scene, detail, location override, degraded handling, and responsiveness). The branch is now audit-ready before push."
+    },
+    {
+      "title": "Scene objects are now interactive",
+      "summary": "Objects in the Above Me Scene are now clickable and open canonical detail inline without losing scene context."
+    },
+    {
+      "title": "Scene-first command center shell live",
+      "summary": "A dominant Above Me Scene panel now renders from canonical backend data, with live briefing context and a new light Sky News panel."
+    },
+    {
+      "title": "Phase 1 object detail coverage completed",
+      "summary": "Object detail now resolves across satellites, planets, and deep-sky objects with visibility guidance, representative media, and related observing context."
+    },
+    {
       "title": "Frontend command-center shell available",
       "summary": "The app now exposes a command-center shell that renders the Above Me briefing panel, recommended targets, passes, and supporting panels from backend-owned data."
     },
@@ -41,8 +57,8 @@
   ],
   "inProgress": [
     {
-      "title": "Above Me scene endpoint",
-      "summary": "The new canonical backend route for the Phase 1 scene is the current implementation target."
+      "title": "Phase 1 audit review",
+      "summary": "Implementation is complete and waiting for audit approval before any push."
     }
   ],
   "comingNext": [

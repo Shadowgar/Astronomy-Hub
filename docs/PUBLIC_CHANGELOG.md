@@ -24,6 +24,22 @@ We are rebuilding Astronomy Hub from the ground up to create a true real-time as
 
 ## 🆕 RECENT PROGRESS
 
+### ✅ Phase 1 Validation Pass Completed
+
+* Phase 1 command-center checks were re-run end-to-end (scene, detail, location overrides, degraded backend handling, and responsiveness). The branch is now in **audit-ready** state before any push.
+
+### 🧭 Scene Interaction Completed
+
+* Objects in the **Above Me Scene** are now clickable and open canonical detail inline, with a quick return path that preserves your current scene context.
+
+### 🌠 Scene-First Command Center Shell
+
+* The command center now renders a dominant **Above Me Scene** panel from canonical backend data, with a live briefing strip and a new light **Sky News** panel for observing context.
+
+### 🛰️ Object Detail Coverage Completed
+
+* Object detail now resolves consistently for the full Phase 1 object set (satellites, planets, and deep sky objects), with visibility guidance, at least one image, and related observing context.
+
 ### 🧱 Foundation Established
 
 * Core data contracts implemented

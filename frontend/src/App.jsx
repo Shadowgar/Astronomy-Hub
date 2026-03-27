@@ -8,6 +8,8 @@ import PrimaryDecisionPanel from './components/PrimaryDecisionPanel'
 import LocationSelector from './components/LocationSelector/LocationSelector'
 import useLocationState from './state/locationState'
 import Starfield from './components/Starfield'
+import AboveMeScene from './components/AboveMeScene'
+import SkyNews from './components/SkyNews'
 import Progress from './pages/Progress'
 
 const MODES = ['Light', 'Dark', 'Red']
@@ -251,6 +253,11 @@ export default function App() {
       </header>
 
       <main className="dashboard tight-layout">
+        {/* Dominant backend-owned scene */}
+        <section className="section section-scene">
+          <AboveMeScene locationQuery={locationQuery} />
+        </section>
+
         {/* Primary Decision Panel: Phase B transformation — prominent, above modules */}
         <PrimaryDecisionPanel locationQuery={locationQuery} />
 
@@ -278,10 +285,15 @@ export default function App() {
           </div>
         </section>
 
-        {/* Section: Moon summary (full width) */}
+        {/* Section: Moon summary + light news */}
         <section className="section section-bottom">
-          <div className="module moon-module panel small-panel">
-            <MoonSummary locationQuery={locationQuery} />
+          <div className="section-grid two-col">
+            <div className="module moon-module panel small-panel">
+              <MoonSummary locationQuery={locationQuery} />
+            </div>
+            <div className="module panel">
+              <SkyNews locationQuery={locationQuery} />
+            </div>
           </div>
         </section>
       </main>

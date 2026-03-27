@@ -115,9 +115,9 @@ That means the immediate goal is:
 ## 6. CURRENT NEXT STEP
 
 ```text id="sstate005"
-Last completed step: Step 8 — Validation And Hardening
-Current step: Ready for Step 9 — CHANGELOG Page tasks
-Next step: Step 9 — CHANGELOG Page: Basic Styling Pass
+Last completed step: Step 8 — Validation And Hardening (Reconciliation Pass)
+Current step: Phase 1 complete (awaiting audit; no push)
+Next step: Audit gate only; Phase 2 remains locked until audit approval
 ```
 
 ---

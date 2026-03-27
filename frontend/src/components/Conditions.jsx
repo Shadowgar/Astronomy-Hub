@@ -55,7 +55,7 @@ export default function Conditions({ locationQuery = '' }) {
         patched.meta = Object.assign({}, patched.meta || {}, { partial: true })
         setData(patched)
       } else {
-        setData(json)
+        setData((json && json.data) || json)
       }
     } catch (err) {
       logger?.info?.('module', 'conditions:fetch:error', { err: err && err.message })
@@ -141,6 +141,9 @@ export default function Conditions({ locationQuery = '' }) {
           <span style={{ padding: '6px 10px', borderRadius: 999, background: 'transparent', color: 'var(--text-muted)' }}>{darknessText}</span>
           {typeof data?.observing_score === 'number' ? (
             <span style={{ marginLeft: 6, padding: '4px 8px', borderRadius: 6, background: 'var(--accent)', color: 'white', fontWeight: 700 }}>{Math.round(data.observing_score)}</span>
+          ) : null}
+          {typeof data?.observing_score === 'string' ? (
+            <span style={{ marginLeft: 6, padding: '4px 8px', borderRadius: 6, background: 'var(--accent)', color: 'white', fontWeight: 700 }}>{data.observing_score.toUpperCase()}</span>
           ) : null}
         </div>
       </div>

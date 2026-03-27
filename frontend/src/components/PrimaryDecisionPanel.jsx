@@ -14,6 +14,13 @@ function fmtTime(iso) {
 
 function observingLabel(score) {
   if (score === null || score === undefined) return 'Unknown'
+  if (typeof score === 'string') {
+    const s = score.trim().toLowerCase()
+    if (s === 'excellent' || s === 'good' || s === 'fair' || s === 'poor') {
+      return s[0].toUpperCase() + s.slice(1)
+    }
+    return 'Unknown'
+  }
   if (score >= 75) return 'Excellent'
   if (score >= 50) return 'Good'
   if (score >= 25) return 'Fair'
@@ -35,7 +42,7 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
     ])
       .then(([c, t]) => {
         if (!cancelled) {
-          setConds(c)
+          setConds((c && c.data) || c)
           setTargets(Array.isArray(t) ? t : [])
         }
       })
@@ -57,7 +64,7 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
 
   const top = targets && targets.length > 0 ? targets[0] : null
 
-  const observingScore = conds && typeof conds.observing_score === 'number' ? conds.observing_score : null
+  const observingScore = conds && (typeof conds.observing_score === 'number' || typeof conds.observing_score === 'string') ? conds.observing_score : null
   const status = observingLabel(observingScore)
   const statusText = `Tonight: ${status.toUpperCase()}`
   const darknessStart = conds && conds.darkness_window && conds.darkness_window.start ? fmtTime(conds.darkness_window.start) : null

@@ -73,6 +73,525 @@ PASS / FAIL
 
 ---
 
+## Step 8 — Validation And Hardening (Reconciliation Pass)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Executed Phase 1 validation gates end-to-end, including API/data checks, location override checks, degraded backend behavior, responsiveness checks, and a frontend hardening fix for string-based observing scores.
+
+### Files Changed
+
+* frontend/scripts/check_conditions_score_handling.js
+* frontend/src/components/PrimaryDecisionPanel.jsx
+* frontend/src/components/Conditions.jsx
+* frontend/src/components/MoonSummary.jsx
+* frontend/src/components/MoonSummary.tsx
+* docs/EXECUTION_LOG.md
+* docs/SESSION_STATE.md
+* docs/PUBLIC_CHANGELOG.md
+* frontend/src/content/publicChangelog.json
+
+### What Was Done
+
+* Ran validation/hardening checks against:
+
+  * scene contract integrity
+  * object detail completeness for satellite/planet/deep_sky
+  * ORAS default + manual coordinate override behavior
+  * degraded backend behavior through frontend proxy
+  * endpoint responsiveness timings
+* Added frontend hardening for conditions payload handling:
+
+  * robust envelope unwrapping (`json.data || json`) in conditions consumers
+  * string observing-score handling (`good/fair/poor`) in primary decision + conditions display
+* Rebuilt/restarted containers as required after source changes and re-ran checks.
+
+### Why It Was Done
+
+To satisfy Step 8 from `PHASE_1_BUILD_SEQUENCE.md` and prove Phase 1 completion readiness before any Phase 2 work.
+
+### Verification
+
+* Commands run:
+
+```bash
+docker compose up -d backend frontend
+node frontend/scripts/check_above_me_scene_shell.js
+node frontend/scripts/check_scene_interaction_flow.js
+.venv/bin/python - <<'PY'
+import json, urllib.request
+base='http://localhost:8000'
+scene=json.load(urllib.request.urlopen(base+'/api/scene/above-me'))
+d=scene.get('data') or scene
+objs=d.get('objects') or []
+print('SCENE_OK='+str(scene.get('status')=='ok'))
+print('SCENE_COUNT='+str(len(objs)))
+print('NO_FLIGHT='+str(all(o.get('type')!='flight' for o in objs)))
+print('REQ_FIELDS='+str(all(all(k in o for k in ('id','name','type','engine','summary')) for o in objs)))
+for t in ('satellite','planet','deep_sky'):
+    o=next(x for x in objs if x.get('type')==t)
+    detail=json.load(urllib.request.urlopen(base+'/api/object/'+o['id']))
+    dd=detail.get('data') or detail
+    print(f'DETAIL_{t.upper()}='+str(bool(dd.get('id') and dd.get('summary') and dd.get('description') and isinstance(dd.get('media'),list) and len(dd.get('media'))>=1 and isinstance(dd.get('visibility'),dict))))
+PY
+.venv/bin/python - <<'PY'
+import json, urllib.request
+base='http://localhost:8000'
+def get(url):
+    return json.load(urllib.request.urlopen(url))
+def unwrap(x):
+    return x.get('data') or x
+c_default=unwrap(get(base+'/api/conditions'))
+c_custom=unwrap(get(base+'/api/conditions?lat=42&lon=-70&elevation_ft=100'))
+print('ORAS_DEFAULT='+str(c_default.get('location_label')=='ORAS Observatory'))
+print('CUSTOM_OVERRIDE='+str(c_custom.get('location_label')=='Custom Location'))
+PY
+bash -lc 'T1=$(curl -sS -o /dev/null -w "%{time_total}" http://localhost:8000/api/scene/above-me); T2=$(curl -sS -o /dev/null -w "%{time_total}" http://localhost:8000/api/object/jupiter); T3=$(curl -sS -o /dev/null -w "%{time_total}" http://localhost:4173/api/scene/above-me); echo SCENE_TIME=$T1; echo OBJECT_TIME=$T2; echo FRONT_PROXY_SCENE_TIME=$T3'
+docker compose stop backend
+curl -sS -o /dev/null -w "FRONTEND_HTTP=%{http_code}\n" http://localhost:4173/ || true
+curl -sS -m 5 -o /dev/null -w "API_PROXY_HTTP=%{http_code}\n" http://localhost:4173/api/conditions || true
+docker compose up -d backend
+curl -sS http://localhost:8000/api/scene/above-me | .venv/bin/python -c "import sys,json; r=json.load(sys.stdin); print('RECOVERED=' + str(r.get('status')=='ok'))"
+
+node frontend/scripts/check_conditions_score_handling.js
+docker compose build frontend
+docker compose up -d --force-recreate frontend
+curl -sS http://localhost:4173/src/components/PrimaryDecisionPanel.jsx | rg -n "c\\.data|typeof score"
+curl -sS http://localhost:4173/src/components/Conditions.jsx | rg -n "json\\.data|observing_score"
+curl -sS http://localhost:4173/api/conditions | .venv/bin/python -c "import sys,json; r=json.load(sys.stdin); d=r.get('data') or r; print('CONDITIONS_SCORE='+str(d.get('observing_score'))); print('LOCATION='+str(d.get('location_label')));"
+```
+
+* Observed results:
+
+  - Functional/data checks passed (`SCENE_OK=True`, `NO_FLIGHT=True`, all detail checks true).
+  - Location checks passed (`ORAS_DEFAULT=True`, `CUSTOM_OVERRIDE=True`).
+  - Degraded mode behaved correctly (`FRONTEND_HTTP=200`, proxied API timeout/000 while backend stopped, then `RECOVERED=True` after restart).
+  - Response times stayed low (`SCENE_TIME=0.006018`, `OBJECT_TIME=0.003216`, `FRONT_PROXY_SCENE_TIME=0.017732`).
+  - Conditions hardening checks passed (`OK: string observing score handling present`).
+
+### Result
+
+PASS
+
+
+---
+
+## Step 7 — Interaction And Detail Flow (Reconciliation Pass)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Completed scene-object interaction so users can open canonical object detail from the Above Me scene while preserving scene context.
+
+### Files Changed
+
+* frontend/src/components/AboveMeScene.jsx
+* frontend/src/styles.css
+* frontend/scripts/check_scene_interaction_flow.js
+* docs/EXECUTION_LOG.md
+* docs/SESSION_STATE.md
+* docs/PUBLIC_CHANGELOG.md
+* frontend/src/content/publicChangelog.json
+
+### What Was Done
+
+* Made Above Me scene objects clickable in `AboveMeScene.jsx`.
+* Added selected-object state and inline `ObjectDetail` rendering in the scene shell.
+* Added explicit close action to return to prior scene context without route navigation.
+* Kept existing panel interaction flows intact for targets, passes, and alerts.
+* Added Step 7 verification script `frontend/scripts/check_scene_interaction_flow.js`.
+
+### Why It Was Done
+
+To complete Step 7 from `PHASE_1_BUILD_SEQUENCE.md`: detail opens from both scene and panel entries, and returning preserves Above Me context.
+
+### Verification
+
+* Commands run:
+
+```bash
+node frontend/scripts/check_scene_interaction_flow.js
+node frontend/scripts/check_above_me_scene_shell.js
+docker compose build frontend
+docker compose up -d --force-recreate frontend
+curl -sS http://localhost:4173/src/components/AboveMeScene.jsx | rg -n "ObjectDetail|selectedObjectId|onClick|Close"
+curl -sS http://localhost:4173/src/components/RecommendedTargets.jsx | rg -n "InlineExpansion|ObjectDetail|/api/targets"
+curl -sS http://localhost:4173/src/components/SatellitePasses.jsx | rg -n "InlineExpansion|ObjectDetail|/api/passes"
+curl -sS http://localhost:4173/src/components/AlertsEvents.jsx | rg -n "InlineExpansion|ObjectDetail|/api/alerts"
+curl -sS http://localhost:4173/src/components/AboveMeScene.jsx | rg -n "location.href|window.location|history.push|navigate\\(" || echo "NO_NAVIGATION_CALLS"
+```
+
+* Observed results:
+
+  - Interaction script passed: `OK: scene interaction flow wiring present`.
+  - Scene component serves `ObjectDetail` wiring, selection state, and click handlers.
+  - Panel components still serve inline `ObjectDetail` expansion wiring.
+  - `NO_NAVIGATION_CALLS` confirmed scene detail opens inline without route jump.
+
+### Result
+
+PASS
+
+
+---
+
+## Step 6 — Frontend Command Center Shell (Reconciliation Pass)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Implemented a scene-first command-center shell driven by canonical backend data, including a dominant Above Me scene panel and a light sky-news panel.
+
+### Files Changed
+
+* frontend/src/components/AboveMeScene.jsx
+* frontend/src/components/SkyNews.jsx
+* frontend/src/App.jsx
+* frontend/src/styles.css
+* frontend/scripts/check_above_me_scene_shell.js
+* docs/EXECUTION_LOG.md
+* docs/SESSION_STATE.md
+* docs/PUBLIC_CHANGELOG.md
+* frontend/src/content/publicChangelog.json
+
+### What Was Done
+
+* Added `AboveMeScene.jsx` to fetch `/api/scene/above-me` and render:
+
+  * dominant sky scene area
+  * live briefing row
+  * visible object set from backend-owned scene data
+* Added `SkyNews.jsx` as a light supporting news panel sourced from `/api/alerts`.
+* Wired both components into `App.jsx` so the scene appears first and remains dominant in the command-center structure.
+* Added Step 6 verification script `frontend/scripts/check_above_me_scene_shell.js`.
+* Added responsive styles for the Above Me scene and briefing layout.
+
+### Why It Was Done
+
+To complete Step 6 from `PHASE_1_BUILD_SEQUENCE.md`: render a scene-first command-center shell from canonical backend data with clear hierarchy and supporting panels.
+
+### Verification
+
+* Commands run:
+
+```bash
+node frontend/scripts/check_above_me_scene_shell.js
+docker compose build frontend
+docker compose up -d --force-recreate frontend
+curl -sS http://localhost:4173/src/App.jsx | rg -n "AboveMeScene|SkyNews|section-scene"
+curl -sS http://localhost:4173/src/components/AboveMeScene.jsx | rg -n "/api/scene/above-me|Above Me Scene|above-me-scene__sky"
+curl -sS http://localhost:4173/src/styles.css | rg -n "above-me-scene|section-scene"
+curl -sS http://localhost:4173/api/scene/above-me | .venv/bin/python -c "import sys,json; r=json.load(sys.stdin); d=r.get('data') or r; print('STATUS='+str(r.get('status',''))); print('COUNT='+str(len(d.get('objects',[])))); print('TYPES='+','.join(sorted({o.get('type') for o in d.get('objects',[])})));"
+```
+
+* Observed results:
+
+  - Shell wiring check passed: `OK: Above Me scene shell wiring present`.
+  - Served `App.jsx` includes `AboveMeScene` and `SkyNews` imports/usages.
+  - Served `AboveMeScene.jsx` fetches `/api/scene/above-me`.
+  - Proxied scene endpoint returned `STATUS=ok`, `COUNT=4`, `TYPES=deep_sky,planet,satellite`.
+
+### Result
+
+PASS
+
+
+---
+
+## Step 5 — Object Detail Records (Reconciliation Pass)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Completed canonical Phase 1 object-detail records for satellite, planet, and deep-sky objects with consistent detail fields, visibility guidance, media coverage, and related observing context.
+
+### Files Changed
+
+* backend/server.py
+* backend/tests/test_phase1_object_detail_records.py
+* docs/EXECUTION_LOG.md
+* docs/SESSION_STATE.md
+* docs/PUBLIC_CHANGELOG.md
+* frontend/src/content/publicChangelog.json
+
+### What Was Done
+
+* Added `_build_phase1_object_detail()` to produce contract-aligned detail payloads for all Phase 1 object types.
+* Wired `/api/object/{id}` to use the canonical detail builder.
+* Added deterministic media fallback per object type to ensure each detail payload includes at least one image.
+* Added related observing context entries derived from current alerts.
+* Added test coverage requiring detail records for `satellite`, `planet`, and `deep_sky`.
+
+### Why It Was Done
+
+To satisfy Step 5 from `PHASE_1_BUILD_SEQUENCE.md`: every scene object resolves through `/api/object/{id}` with usable explanatory detail payloads.
+
+### Verification
+
+* Commands run:
+
+```bash
+.venv/bin/python -m pytest -q backend/tests/test_phase1_object_detail_records.py
+.venv/bin/python -m pytest -q backend/tests/test_phase1_scene_assembly.py backend/tests/test_phase1_engine_slices.py backend/tests/test_contracts_phase1.py
+docker compose build backend
+docker compose up -d --force-recreate backend
+.venv/bin/python - <<'PY'
+import json, urllib.request
+base='http://localhost:8000'
+scene=json.load(urllib.request.urlopen(base+'/api/scene/above-me'))
+objs=(scene.get('data') or scene).get('objects') or []
+by_type={}
+for o in objs:
+    by_type.setdefault(o.get('type'), o)
+for t in ('satellite','planet','deep_sky'):
+    o=by_type[t]
+    d=json.load(urllib.request.urlopen(base+'/api/object/'+o['id']))
+    detail=d.get('data') or d
+    print(f'TYPE={t};ID={detail.get(\"id\")};MEDIA={len(detail.get(\"media\") or [])};VIS={bool(detail.get(\"visibility\") and detail.get(\"visibility\",{}).get(\"is_visible\") is True)};REL={len(detail.get(\"related_objects\") or [])};DESC={bool(detail.get(\"description\"))}')
+PY
+```
+
+* Observed results:
+
+  - Object-detail test passed (`1 passed`), with regression suite still green (`6 passed`).
+  - Runtime checks confirmed all three Phase 1 object types resolve via `/api/object/{id}`.
+  - For each type: `MEDIA=1`, `VIS=True`, `REL=2`, `DESC=True`.
+
+### Result
+
+PASS
+
+
+---
+
+## Step 4 — Above Me Scene Assembly (Reconciliation Pass)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Assembled unified Above Me scene state from Phase 1 engine slices and derived supporting panel payloads from that same backend-owned state.
+
+### Files Changed
+
+* backend/server.py
+* backend/tests/test_phase1_scene_assembly.py
+* docs/EXECUTION_LOG.md
+* docs/SESSION_STATE.md
+
+### What Was Done
+
+* Added `_build_phase1_scene_state()` to merge:
+
+  * satellite slice
+  * solar-system slice
+  * deep-sky slice
+* Applied above-horizon filtering, relevance ranking, and object-count limit (10 max).
+* Kept `/api/scene/above-me` contract-shaped while deriving briefing/events/supporting payloads from the same assembled state.
+* Updated `/api/targets`, `/api/passes`, and `/api/alerts` to source payloads from the unified scene state.
+* Added scene assembly test coverage (`test_phase1_scene_assembly.py`).
+* During verification, identified runtime still serving old image; force-recreated backend container and re-ran checks on fresh runtime.
+
+### Why It Was Done
+
+To complete Step 4 from `PHASE_1_BUILD_SEQUENCE.md`: one coherent Above Me scene with ranked limited objects and backend-owned supporting state without flight leakage.
+
+### Verification
+
+* Commands run:
+
+```bash
+.venv/bin/python -m pytest -q backend/tests/test_phase1_scene_assembly.py backend/tests/test_phase1_engine_slices.py
+.venv/bin/python -m pytest -q backend/tests/test_contracts_phase1.py
+docker compose build backend
+docker compose up -d --force-recreate backend
+.venv/bin/python - <<'PY'
+import json, urllib.request
+base='http://localhost:8000'
+scene=json.load(urllib.request.urlopen(base+'/api/scene/above-me'))
+d=scene.get('data') or scene
+objs=d.get('objects') or []
+obj_names={o.get('name') for o in objs}
+print('SCENE_STATUS='+str(scene.get('status')))
+print('SCENE_COUNT='+str(len(objs)))
+print('SCENE_TYPES='+','.join(sorted({o.get('type') for o in objs})))
+print('HAS_FLIGHT='+str(any(o.get('type')=='flight' for o in objs)))
+targets=json.load(urllib.request.urlopen(base+'/api/targets'))
+passes=json.load(urllib.request.urlopen(base+'/api/passes'))
+alerts=json.load(urllib.request.urlopen(base+'/api/alerts'))
+print('TARGETS_COUNT='+str(len(targets)))
+print('PASSES_COUNT='+str(len(passes)))
+print('ALERTS_COUNT='+str(len(alerts)))
+print('TARGET_NAMES_IN_SCENE='+str(all(t.get('name') in obj_names for t in targets)))
+print('PASSES_NAMES_IN_SCENE='+str(all(p.get('object_name') in obj_names for p in passes)))
+PY
+```
+
+* Observed results:
+
+  - Tests passed: scene assembly + slice tests (`2 passed`), contracts (`4 passed`).
+  - Runtime: `SCENE_STATUS=ok`, `SCENE_TYPES=deep_sky,planet,satellite`, `HAS_FLIGHT=False`.
+  - Supporting payload coherence: targets/passes names all present in scene object set.
+
+### Result
+
+PASS
+
+
+---
+
+## Step 3 — Limited Engine Slice Normalization (Reconciliation Pass)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Implemented explicit Phase 1 engine slice helpers (satellite, solar-system, deep-sky, earth conditions) with independent test coverage.
+
+### Files Changed
+
+* backend/server.py
+* backend/tests/test_phase1_engine_slices.py
+* docs/EXECUTION_LOG.md
+* docs/SESSION_STATE.md
+
+### What Was Done
+
+* Added Phase 1 slice helpers in `backend/server.py`:
+
+  * `_build_satellite_engine_slice()` (visible passes only)
+  * `_build_solar_system_engine_slice()` (visible planets only)
+  * `_build_deep_sky_engine_slice()` (visible deep-sky only)
+  * `_build_earth_engine_slice()` (observing conditions only)
+* Added `_get_normalized_targets()` helper to normalize target objects before slice filtering.
+* Added `backend/tests/test_phase1_engine_slices.py` to verify slices are independently testable, normalized, and exclude `flight`.
+* Ran red/green test cycle for the new test file before and after implementation.
+
+### Why It Was Done
+
+To complete Step 3 from `PHASE_1_BUILD_SEQUENCE.md` by producing limited, normalized Phase 1 engine slices without Phase 2 leakage.
+
+### Verification
+
+* Commands run:
+
+```bash
+.venv/bin/python -m pytest -q backend/tests/test_phase1_engine_slices.py
+.venv/bin/python -m pytest -q backend/tests/test_contracts_phase1.py backend/tests/test_phase1_engine_slices.py
+.venv/bin/python - <<'PY'
+import os,sys
+root='/home/rocco/Astronomy-Hub'
+backend_dir=os.path.join(root,'backend')
+if backend_dir not in sys.path:
+    sys.path.insert(0, backend_dir)
+import server
+sat=server._build_satellite_engine_slice()
+pl=server._build_solar_system_engine_slice()
+ds=server._build_deep_sky_engine_slice()
+co=server._build_earth_engine_slice()
+all_objs=sat+pl+ds
+print('SAT_COUNT='+str(len(sat)))
+print('PLANET_COUNT='+str(len(pl)))
+print('DEEP_SKY_COUNT='+str(len(ds)))
+print('HAS_FLIGHT='+str(any(o.get('type')=='flight' for o in all_objs)))
+print('CONDITIONS_KEYS=' + ','.join(sorted(k for k in co.keys() if k in ('location_label','observing_score','summary','darkness_window'))))
+PY
+```
+
+* Observed results:
+
+  - Red test failure confirmed first (`AttributeError` for missing slice helper) before implementation.
+  - Green results after implementation: `1 passed` for `test_phase1_engine_slices.py`; combined contract + slice tests `5 passed`.
+  - Slice probe output: `SAT_COUNT=2`, `PLANET_COUNT=1`, `DEEP_SKY_COUNT=1`, `HAS_FLIGHT=False`.
+
+### Result
+
+PASS
+
+
+---
+
+## Step 2 — Backend Endpoint Skeleton (Reconciliation Pass)
+
+### Phase
+
+Phase 1
+
+### Description
+
+Re-validated the canonical Phase 1 endpoint skeleton in the current branch runtime and reset execution continuity away from CHANGELOG-side work.
+
+### Files Changed
+
+* docs/EXECUTION_LOG.md
+* docs/SESSION_STATE.md
+
+### What Was Done
+
+* Verified the actual backend runtime (`backend/server.py` in Docker) responds on:
+
+  * `GET /api/scene/above-me`
+  * `GET /api/object/{id}`
+* Confirmed both responses are stable in shape and contract-oriented (`status=ok`, `data` payload, required scene/detail fields).
+* Confirmed endpoint skeleton behavior without introducing unrelated route migrations in this step.
+
+### Why It Was Done
+
+To complete Step 2 from `PHASE_1_BUILD_SEQUENCE.md` using current-branch runtime evidence (not prior completion claims).
+
+### Verification
+
+* Commands run:
+
+```bash
+docker compose up -d backend
+curl -sS http://localhost:8000/api/scene/above-me | python3 -c "import sys,json; r=json.load(sys.stdin); d=r.get('data') or r; print('STATUS='+str(r.get('status',''))); print('SCOPE='+str(d.get('scope',''))); print('COUNT='+str(len(d.get('objects',[])))); print('TYPES='+','.join(sorted(set((o.get('type') or '') for o in d.get('objects',[]))))); print('FIRST='+str((d.get('objects') or [{}])[0].get('id','')))"
+OBJ=$(curl -sS http://localhost:8000/api/scene/above-me | python3 -c "import sys,json; r=json.load(sys.stdin); d=r.get('data') or r; o=d.get('objects') or []; print(o[0].get('id','') if o else '')")
+curl -sS http://localhost:8000/api/object/$OBJ | python3 -c "import sys,json; r=json.load(sys.stdin); d=r.get('data') or r; print('STATUS='+str(r.get('status',''))); print('ID='+str(d.get('id',''))); print('TYPE='+str(d.get('type',''))); print('ENGINE='+str(d.get('engine',''))); print('HAS_SUMMARY='+str(bool(d.get('summary')))); print('HAS_DESC='+str(bool(d.get('description') is not None))); print('HAS_VIS='+str(d.get('visibility') is not None));"
+curl -sS http://localhost:8000/api/scene/above-me > /tmp/scene_step2.json
+curl -sS http://localhost:8000/api/scene/above-me > /tmp/scene_step2_repeat.json
+python3 - <<'PY'
+import json
+from pathlib import Path
+a=json.loads(Path('/tmp/scene_step2.json').read_text())
+b=json.loads(Path('/tmp/scene_step2_repeat.json').read_text())
+for x in (a,b):
+    if 'data' in x and isinstance(x['data'], dict):
+        x['data']['timestamp']='__ts__'
+print('SHAPE_STABLE='+str(sorted(a.keys())==sorted(b.keys()) and sorted((a.get('data') or {}).keys())==sorted((b.get('data') or {}).keys())))
+PY
+```
+
+* Observed results:
+
+  - `STATUS=ok`, `SCOPE=above_me`, `COUNT=2`, `TYPES=deep_sky,planet`.
+  - `/api/object/{id}` returned `STATUS=ok` and populated `id`, `type`, `engine`, `summary`, `description`, and `visibility`.
+  - `SHAPE_STABLE=True` across repeated scene responses (timestamp excluded).
+
+### Result
+
+PASS
+
+
+---
+
 ## Step 1 — Phase 1 Contracts
 
 ### Phase

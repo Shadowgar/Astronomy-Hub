@@ -32,7 +32,7 @@ export default function MoonSummary({ locationQuery = '' }: MoonSummaryProps) {
         return res.json()
       })
       .then((json) => {
-        if (!cancelled) setData(json)
+        if (!cancelled) setData((json && json.data) || json)
       })
       .catch((err) => {
         if (!cancelled) setError(err.message || 'Unknown error')
