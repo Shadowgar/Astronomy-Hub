@@ -42,6 +42,17 @@ logger = get_logger("backend.server")
 
 # Constants
 SUGGESTION_COORD_MALFORMED = 'suggestion coordinates malformed'
+PHASE2_SCOPES = ("sky", "solar_system", "earth")
+PHASE2_SCOPE_TO_ENGINES = {
+    "sky": ["above_me", "deep_sky"],
+    "solar_system": ["planets", "moon"],
+    "earth": ["satellites", "flights"],
+}
+PHASE2_OPTIONAL_ENGINES = {
+    "sky": [],
+    "solar_system": [],
+    "earth": ["flights"],
+}
 
 # Lazy cache reference; initialize on first use to be compatible with both
 # `python3 backend/server.py` and package-based execution.
@@ -97,6 +108,14 @@ def _slugify(name: str) -> str:
         return s.replace(' ', '-').replace('/', '-').replace("'", '')
     except Exception:
         return str(uuid.uuid4())
+
+
+def _build_phase2_scope_entry(scope_slug: str):
+    return {
+        "scope": scope_slug,
+        "engines": list(PHASE2_SCOPE_TO_ENGINES.get(scope_slug, [])),
+        "optional_engines": list(PHASE2_OPTIONAL_ENGINES.get(scope_slug, [])),
+    }
 
 
 def _get_normalized_targets():
@@ -536,7 +555,37 @@ class SimpleHandler(BaseHTTPRequestHandler):
                 else:
                     raise
 
-            if parsed.path == "/api/conditions":
+            if parsed.path == "/api/scopes":
+                scope_query = q.get("scope")
+                if scope_query is None or str(scope_query).strip() == "":
+                    payload = {
+                        "scopes": [_build_phase2_scope_entry(s) for s in PHASE2_SCOPES]
+                    }
+                    self._send_json(payload)
+                    status = 200
+                else:
+                    scope_slug = str(scope_query).strip()
+                    if scope_slug not in PHASE2_SCOPE_TO_ENGINES:
+                        self._send_json(
+                            {
+                                "error": {
+                                    "code": "invalid_scope",
+                                    "message": f"invalid scope: {scope_slug}",
+                                    "details": [
+                                        {
+                                            "scope": scope_slug,
+                                            "allowed_scopes": list(PHASE2_SCOPES),
+                                        }
+                                    ],
+                                }
+                            },
+                            status=400,
+                        )
+                        status = 400
+                    else:
+                        self._send_json(_build_phase2_scope_entry(scope_slug))
+                        status = 200
+            elif parsed.path == "/api/conditions":
                 # Per-module isolation guard: ensure failures in assembling
                 # the conditions payload don't take down other endpoints.
                 try:
