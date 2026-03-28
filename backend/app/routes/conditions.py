@@ -1,11 +1,8 @@
-import os
-from copy import deepcopy
-
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
-from backend.conditions_data import MOCK_CONDITIONS
 from backend.app.schemas.conditions import ConditionsResponse
+from backend.app.services.conditions_service import build_conditions_response
 
 router = APIRouter()
 
@@ -18,20 +15,7 @@ async def get_conditions():
     Failure simulation path returns a 500 module_error contract when
     SIMULATE_NORMALIZER_FAIL=conditions.
     """
-    simulate = os.environ.get("SIMULATE_NORMALIZER_FAIL", "").strip().lower()
-
-    if simulate == "conditions":
-        return JSONResponse(
-            status_code=500,
-            content={
-                "module": "conditions",
-                "error": {
-                    "code": "module_error",
-                    "message": "failed to assemble conditions payload",
-                    "details": [{"module": "conditions"}],
-                },
-            },
-        )
-
-    resp = deepcopy(MOCK_CONDITIONS)
-    return {"status": "ok", "data": resp}
+    status_code, payload = build_conditions_response()
+    if status_code != 200:
+        return JSONResponse(status_code=status_code, content=payload)
+    return payload
