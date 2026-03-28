@@ -8,7 +8,7 @@ from backend.app.contracts.phase1 import (
 router = APIRouter()
 
 
-@router.get("/api/scene/above-me", response_model=SceneContract)
+@router.get("/scene/above-me", response_model=SceneContract)
 async def above_me_scene():
     """Return a minimal, contract-valid stub for the Above Me scene.
 
@@ -51,5 +51,4 @@ async def above_me_scene():
         "objects": objects,
     }
 
-    # Pydantic validation occurs via response_model
     return payload

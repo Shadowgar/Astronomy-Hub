@@ -1,9 +1,3 @@
-# 📄 FULL REWRITE — `env_setup.md`
-
-Paste this directly.
-
----
-
 # 🌌 ASTRONOMY HUB — ENVIRONMENT SETUP (AUTHORITATIVE)
 
 ---
@@ -384,15 +378,5 @@ You now have:
 * execution rules
 * validation system
 * environment control
-
----
-
-## What’s left (final step)
-
-Now we clean up the last **UI + styling docs** that were weak earlier.
-
-👉 Next:
-
-**Rewrite UI_INFORMATION_ARCHITECTURE.md (properly, not compressed)**
 
 ---

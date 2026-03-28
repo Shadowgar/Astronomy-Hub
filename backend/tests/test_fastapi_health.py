@@ -16,7 +16,7 @@ def test_root_ok():
 
 
 def test_health_ok():
-    resp = client.get("/health")
+    resp = client.get("api/v1/health")
     assert resp.status_code == 200
     body = resp.json()
     assert body.get("status") == "healthy"

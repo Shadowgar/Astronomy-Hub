@@ -1,62 +1,24 @@
 import os
-import sys
-import threading
-import time
-import json
-from http.server import HTTPServer
-from urllib.request import urlopen, Request
-from urllib.error import HTTPError
 
-# Ensure backend/ logging_config.py can be imported as a top-level module
-root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-backend_dir = os.path.join(root, 'backend')
-if backend_dir not in sys.path:
-    sys.path.insert(0, backend_dir)
+from fastapi.testclient import TestClient
 
-from backend.server import SimpleHandler
+from backend.app.main import app
 
 
-def start_server(port=8050):
-    # Enable simulated normalizer failure for conditions module
-    os.environ['SIMULATE_NORMALIZER_FAIL'] = 'conditions'
-    server = HTTPServer(('127.0.0.1', port), SimpleHandler)
-    t = threading.Thread(target=server.serve_forever, daemon=True)
-    t.start()
-    return server, t
+client = TestClient(app)
 
 
-def test_conditions_module_failure_returns_error_contract():
-    port = 8050
-    server, _ = start_server(port)
-    # give server time to start
-    time.sleep(0.15)
+def test_conditions_module_failure_returns_error_contract(monkeypatch):
+    monkeypatch.setenv("SIMULATE_NORMALIZER_FAIL", "conditions")
 
-    url = f'http://127.0.0.1:{port}/api/conditions'
-    try:
-        req = Request(url, headers={'User-Agent': 'pytest'})
-        with urlopen(req, timeout=5) as resp:
-            body = resp.read().decode('utf-8')
-            status = resp.getcode()
-    except HTTPError as he:
-        status = he.code
-        body = he.read().decode('utf-8')
+    resp = client.get("/api/v1/conditions", headers={"User-Agent": "pytest"})
 
-    # Shutdown server
-    try:
-        server.shutdown()
-        server.server_close()
-    except Exception:
-        pass
+    assert resp.status_code == 500, f"expected status 500, got {resp.status_code} body={resp.text}"
 
-    # Parse JSON body
-    try:
-        data = json.loads(body)
-    except Exception:
-        data = None
+    data = resp.json()
+    assert isinstance(data, dict), f"expected JSON dict body, got: {resp.text}"
 
-    # Expect a 500 module-level error contract JSON when normalization fails
-    assert status == 500, f"expected status 500, got {status} body={body}"
-    assert isinstance(data, dict), f"expected JSON dict body, got: {body}"
-    err = data.get('error')
-    err_code = err.get('code') if isinstance(err, dict) else err
-    assert data.get('module') == 'conditions' or err_code == 'module_error'
+    err = data.get("error")
+    err_code = err.get("code") if isinstance(err, dict) else err
+
+    assert data.get("module") == "conditions" or err_code == "module_error"

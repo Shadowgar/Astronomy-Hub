@@ -8,7 +8,7 @@ client = TestClient(app)
 
 
 def test_conditions_response_parses():
-    resp = client.get("/api/conditions")
+    resp = client.get("/api/v1/conditions")
     assert resp.status_code == 200
     body = resp.json()
     # minimal parse: ensure the canonical conditions response model accepts it

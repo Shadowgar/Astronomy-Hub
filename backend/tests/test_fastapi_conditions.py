@@ -7,7 +7,7 @@ client = TestClient(app)
 
 
 def test_conditions_minimal_contract():
-    resp = client.get("/api/conditions")
+    resp = client.get("/api/v1/conditions")
     assert resp.status_code == 200
     body = resp.json()
     # Minimal stable contract checks

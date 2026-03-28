@@ -8,7 +8,7 @@ client = TestClient(app)
 
 
 def test_get_above_me_scene_contract():
-    resp = client.get("/api/scene/above-me")
+    resp = client.get("/api/v1/scene/above-me")
     assert resp.status_code == 200
     payload = resp.json()
 

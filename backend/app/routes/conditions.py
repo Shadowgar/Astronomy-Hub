@@ -1,20 +1,37 @@
-from fastapi import APIRouter
-from backend.conditions_data import MOCK_CONDITIONS
+import os
 from copy import deepcopy
 
+from fastapi import APIRouter
+from fastapi.responses import JSONResponse
+
+from backend.conditions_data import MOCK_CONDITIONS
 from backend.app.schemas.conditions import ConditionsResponse
 
 router = APIRouter()
 
 
-@router.get("/api/conditions", response_model=ConditionsResponse)
+@router.get("/conditions", response_model=ConditionsResponse)
 async def get_conditions():
-    """Return a safe, lightweight conditions payload.
+    """Return conditions payload, with degraded-mode simulation support.
 
-    This handler intentionally avoids embedding business logic. It returns
-    a deep copy of the existing mock payload so the FastAPI
-    runtime can serve a representative response without migrating logic.
+    Success path returns the normal mock payload.
+    Failure simulation path returns a 500 module_error contract when
+    SIMULATE_NORMALIZER_FAIL=conditions.
     """
+    simulate = os.environ.get("SIMULATE_NORMALIZER_FAIL", "").strip().lower()
+
+    if simulate == "conditions":
+        return JSONResponse(
+            status_code=500,
+            content={
+                "module": "conditions",
+                "error": {
+                    "code": "module_error",
+                    "message": "failed to assemble conditions payload",
+                    "details": [{"module": "conditions"}],
+                },
+            },
+        )
+
     resp = deepcopy(MOCK_CONDITIONS)
-    # signal minimal metadata to show parity with existing runtime
     return {"status": "ok", "data": resp}
