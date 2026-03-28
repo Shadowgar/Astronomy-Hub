@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from .routes import alerts, conditions, health, objects, passes, scene, scopes, targets
+from .routes import alerts, conditions, health, location, objects, passes, scene, scopes, targets
 
 
 app = FastAPI(title="astronomy-hub-backend")
@@ -19,3 +19,4 @@ app.include_router(objects.router, prefix="/api/v1")
 app.include_router(targets.router, prefix="/api/v1")
 app.include_router(passes.router, prefix="/api/v1")
 app.include_router(alerts.router, prefix="/api/v1")
+app.include_router(location.router, prefix="/api/v1")
