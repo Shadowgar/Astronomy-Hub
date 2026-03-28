@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi import Request
+from fastapi.responses import JSONResponse
 import logging
 import time
 import uuid
@@ -6,8 +8,10 @@ import uuid
 from .core.logging import (
     clear_request_id,
     configure_logging,
+    get_request_id,
     get_logger,
     log_event,
+    log_exception,
     set_request_id,
 )
 
@@ -57,6 +61,30 @@ async def request_logging_middleware(request, call_next):
 @app.get("/")
 async def root():
     return {"status": "ok", "service": "astronomy-hub-backend"}
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    request_id = get_request_id()
+    log_exception(
+        logger,
+        "request.exception",
+        route=request.url.path,
+        method=request.method,
+        request_id=request_id,
+    )
+    return JSONResponse(
+        status_code=500,
+        content={
+            "data": None,
+            "error": {
+                "code": "internal_error",
+                "message": "internal server error",
+                "request_id": request_id,
+            },
+            "meta": {},
+        },
+    )
 
 
 app.include_router(health.router, prefix="/api/v1")

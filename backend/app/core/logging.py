@@ -50,3 +50,7 @@ def get_logger(name: str) -> logging.Logger:
 
 def log_event(logger: logging.Logger, level: int, event: str, **fields) -> None:
     logger.log(level, event, extra={"extra_fields": fields})
+
+
+def log_exception(logger: logging.Logger, event: str, **fields) -> None:
+    logger.exception(event, extra={"extra_fields": fields})
