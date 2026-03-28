@@ -1,58 +1,17 @@
-import json
-import os
-import socket
-import sys
-import threading
-import time
-from http.server import HTTPServer
-from urllib.error import HTTPError
-from urllib.request import Request, urlopen
+from fastapi.testclient import TestClient
+
+from backend.app.main import app
+
+client = TestClient(app)
 
 
-root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-backend_dir = os.path.join(root, "backend")
-if backend_dir not in sys.path:
-    sys.path.insert(0, backend_dir)
-
-from backend.server import SimpleHandler
-
-
-def _free_port():
-    s = socket.socket()
-    s.bind(("127.0.0.1", 0))
-    port = s.getsockname()[1]
-    s.close()
-    return port
-
-
-def _start_server(port):
-    server = HTTPServer(("127.0.0.1", port), SimpleHandler)
-    t = threading.Thread(target=server.serve_forever, daemon=True)
-    t.start()
-    return server
-
-
-def _request_json(url):
-    req = Request(url, headers={"User-Agent": "pytest"})
-    try:
-        with urlopen(req, timeout=5) as resp:
-            body = resp.read().decode("utf-8")
-            return resp.getcode(), json.loads(body)
-    except HTTPError as he:
-        body = he.read().decode("utf-8")
-        return he.code, json.loads(body)
+def _request_json(path):
+    resp = client.get(path, headers={"User-Agent": "pytest"})
+    return resp.status_code, resp.json()
 
 
 def test_scope_listing_returns_all_scope_mappings_with_optional_metadata():
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        status, payload = _request_json(f"http://127.0.0.1:{port}/api/scopes")
-    finally:
-        server.shutdown()
-        server.server_close()
+    status, payload = _request_json("/api/v1/scopes")
 
     assert status == 200
     assert isinstance(payload, dict)
@@ -68,15 +27,7 @@ def test_scope_listing_returns_all_scope_mappings_with_optional_metadata():
 
 
 def test_valid_single_scope_lookup_returns_correct_engine_mapping():
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        status, payload = _request_json(f"http://127.0.0.1:{port}/api/scopes?scope=sky")
-    finally:
-        server.shutdown()
-        server.server_close()
+    status, payload = _request_json("/api/v1/scopes?scope=sky")
 
     assert status == 200
     assert payload.get("scope") == "sky"
@@ -85,15 +36,7 @@ def test_valid_single_scope_lookup_returns_correct_engine_mapping():
 
 
 def test_invalid_scope_returns_json_400_with_stable_error_code():
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        status, payload = _request_json(f"http://127.0.0.1:{port}/api/scopes?scope=invalid_scope")
-    finally:
-        server.shutdown()
-        server.server_close()
+    status, payload = _request_json("/api/v1/scopes?scope=invalid_scope")
 
     assert status == 400
     assert isinstance(payload, dict)
@@ -106,15 +49,7 @@ def test_invalid_scope_returns_json_400_with_stable_error_code():
 
 
 def test_engine_only_request_is_rejected_to_preserve_scope_first_pipeline():
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        status, payload = _request_json(f"http://127.0.0.1:{port}/api/scopes?engine=above_me")
-    finally:
-        server.shutdown()
-        server.server_close()
+    status, payload = _request_json("/api/v1/scopes?engine=above_me")
 
     assert status == 400
     err = payload.get("error")
@@ -123,15 +58,7 @@ def test_engine_only_request_is_rejected_to_preserve_scope_first_pipeline():
 
 
 def test_valid_engine_selection_inside_scope_returns_engine_metadata():
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        status, payload = _request_json(f"http://127.0.0.1:{port}/api/scopes?scope=earth&engine=flights")
-    finally:
-        server.shutdown()
-        server.server_close()
+    status, payload = _request_json("/api/v1/scopes?scope=earth&engine=flights")
 
     assert status == 200
     assert payload.get("engine") == "flights"
@@ -140,15 +67,7 @@ def test_valid_engine_selection_inside_scope_returns_engine_metadata():
 
 
 def test_invalid_engine_slug_returns_json_400_with_stable_error_code():
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        status, payload = _request_json(f"http://127.0.0.1:{port}/api/scopes?scope=sky&engine=not_real")
-    finally:
-        server.shutdown()
-        server.server_close()
+    status, payload = _request_json("/api/v1/scopes?scope=sky&engine=not_real")
 
     assert status == 400
     err = payload.get("error")
@@ -157,15 +76,7 @@ def test_invalid_engine_slug_returns_json_400_with_stable_error_code():
 
 
 def test_engine_outside_selected_scope_returns_json_400_with_stable_error_code():
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        status, payload = _request_json(f"http://127.0.0.1:{port}/api/scopes?scope=sky&engine=moon")
-    finally:
-        server.shutdown()
-        server.server_close()
+    status, payload = _request_json("/api/v1/scopes?scope=sky&engine=moon")
 
     assert status == 400
     err = payload.get("error")
@@ -183,36 +94,16 @@ def test_registry_consistency_across_all_canonical_engines():
         "flights": ("earth", True),
     }
 
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        for engine_slug, (scope_slug, is_optional) in expected.items():
-            status, payload = _request_json(
-                f"http://127.0.0.1:{port}/api/scopes?scope={scope_slug}&engine={engine_slug}"
-            )
-            assert status == 200
-            assert payload.get("engine") == engine_slug
-            assert payload.get("scope") == scope_slug
-            assert payload.get("optional") is is_optional
-    finally:
-        server.shutdown()
-        server.server_close()
+    for engine_slug, (scope_slug, is_optional) in expected.items():
+        status, payload = _request_json(f"/api/v1/scopes?scope={scope_slug}&engine={engine_slug}")
+        assert status == 200
+        assert payload.get("engine") == engine_slug
+        assert payload.get("scope") == scope_slug
+        assert payload.get("optional") is is_optional
 
 
 def test_valid_filter_selection_returns_engine_and_filter_metadata():
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        status, payload = _request_json(
-            f"http://127.0.0.1:{port}/api/scopes?scope=sky&engine=deep_sky&filter=naked_eye"
-        )
-    finally:
-        server.shutdown()
-        server.server_close()
+    status, payload = _request_json("/api/v1/scopes?scope=sky&engine=deep_sky&filter=naked_eye")
 
     assert status == 200
     assert payload.get("engine") == "deep_sky"
@@ -224,17 +115,7 @@ def test_valid_filter_selection_returns_engine_and_filter_metadata():
 
 
 def test_omitted_filter_returns_default_filter_metadata():
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        status, payload = _request_json(
-            f"http://127.0.0.1:{port}/api/scopes?scope=solar_system&engine=moon"
-        )
-    finally:
-        server.shutdown()
-        server.server_close()
+    status, payload = _request_json("/api/v1/scopes?scope=solar_system&engine=moon")
 
     assert status == 200
     assert payload.get("engine") == "moon"
@@ -246,17 +127,7 @@ def test_omitted_filter_returns_default_filter_metadata():
 
 
 def test_invalid_filter_slug_returns_json_400_with_stable_error_code():
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        status, payload = _request_json(
-            f"http://127.0.0.1:{port}/api/scopes?scope=sky&engine=above_me&filter=not_real"
-        )
-    finally:
-        server.shutdown()
-        server.server_close()
+    status, payload = _request_json("/api/v1/scopes?scope=sky&engine=above_me&filter=not_real")
 
     assert status == 400
     err = payload.get("error")
@@ -265,17 +136,7 @@ def test_invalid_filter_slug_returns_json_400_with_stable_error_code():
 
 
 def test_disallowed_filter_for_engine_returns_json_400_with_stable_error_code():
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        status, payload = _request_json(
-            f"http://127.0.0.1:{port}/api/scopes?scope=solar_system&engine=moon&filter=bright_only"
-        )
-    finally:
-        server.shutdown()
-        server.server_close()
+    status, payload = _request_json("/api/v1/scopes?scope=solar_system&engine=moon&filter=bright_only")
 
     assert status == 400
     err = payload.get("error")
@@ -287,18 +148,8 @@ def test_disallowed_filter_for_engine_returns_json_400_with_stable_error_code():
 
 
 def test_filter_without_engine_is_rejected_with_missing_engine_error():
-    port = _free_port()
-    server = _start_server(port)
-    time.sleep(0.1)
-
-    try:
-        status1, payload1 = _request_json(f"http://127.0.0.1:{port}/api/scopes?filter=visible_now")
-        status2, payload2 = _request_json(
-            f"http://127.0.0.1:{port}/api/scopes?scope=sky&filter=visible_now"
-        )
-    finally:
-        server.shutdown()
-        server.server_close()
+    status1, payload1 = _request_json("/api/v1/scopes?filter=visible_now")
+    status2, payload2 = _request_json("/api/v1/scopes?scope=sky&filter=visible_now")
 
     assert status1 == 400
     assert status2 == 400
