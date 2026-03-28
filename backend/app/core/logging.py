@@ -17,6 +17,9 @@ class JsonFormatter(logging.Formatter):
             "logger": record.name,
             "request_id": get_request_id(),
         }
+        extra = getattr(record, "extra_fields", None)
+        if isinstance(extra, dict):
+            payload.update(extra)
         return json.dumps(payload, ensure_ascii=False)
 
 
@@ -44,3 +47,6 @@ def clear_request_id() -> None:
 def get_logger(name: str) -> logging.Logger:
     return logging.getLogger(name)
 
+
+def log_event(logger: logging.Logger, level: int, event: str, **fields) -> None:
+    logger.log(level, event, extra={"extra_fields": fields})

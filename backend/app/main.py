@@ -1,9 +1,57 @@
 from fastapi import FastAPI
+import logging
+import time
+import uuid
+
+from .core.logging import (
+    clear_request_id,
+    configure_logging,
+    get_logger,
+    log_event,
+    set_request_id,
+)
 
 from .routes import alerts, conditions, health, location, objects, passes, scene, scopes, targets
 
 
 app = FastAPI(title="astronomy-hub-backend")
+configure_logging()
+logger = get_logger("backend.app")
+
+
+@app.middleware("http")
+async def request_logging_middleware(request, call_next):
+    request_id = str(uuid.uuid4())
+    set_request_id(request_id)
+    route = request.url.path
+    method = request.method
+    start = time.perf_counter()
+
+    log_event(
+        logger,
+        logging.INFO,
+        "request.start",
+        route=route,
+        method=method,
+        request_id=request_id,
+    )
+
+    try:
+        response = await call_next(request)
+        duration_ms = int((time.perf_counter() - start) * 1000)
+        log_event(
+            logger,
+            logging.INFO,
+            "request.end",
+            route=route,
+            method=method,
+            status_code=response.status_code,
+            duration_ms=duration_ms,
+            request_id=request_id,
+        )
+        return response
+    finally:
+        clear_request_id()
 
 
 @app.get("/")
