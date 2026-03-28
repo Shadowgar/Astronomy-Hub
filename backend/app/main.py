@@ -1,8 +1,6 @@
 from fastapi import FastAPI
 
-from .routes import health
-from .routes import conditions
-from .routes import scene
+from .routes import conditions, health, scene
 
 
 app = FastAPI(title="astronomy-hub-backend")
