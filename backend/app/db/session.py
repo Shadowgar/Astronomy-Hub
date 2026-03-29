@@ -16,6 +16,18 @@ def get_session_factory(database_url: str = DEFAULT_DATABASE_URL):
     return sessionmaker(bind=engine, autoflush=False, autocommit=False, expire_on_commit=False)
 
 
+def build_nearby_spatial_features_query(
+    longitude: float, latitude: float, radius_meters: float
+):
+    """Build a minimal location-based query shape for spatial foundation checks."""
+    from sqlalchemy import func, select
+
+    from .models import SpatialFeature
+
+    point = func.ST_SetSRID(func.ST_MakePoint(longitude, latitude), 4326)
+    return select(SpatialFeature).where(func.ST_DWithin(SpatialFeature.location, point, radius_meters))
+
+
 @contextmanager
 def session_scope(database_url: str = DEFAULT_DATABASE_URL):
     """Provide a transactional scope around a series of operations."""
