@@ -1,4 +1,39 @@
 :root {
+  /* canonical raw token definitions (base scale) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  --font-1: 12px;
+  --font-2: 14px;
+  --font-3: 16px;
+  --font-4: 18px;
+  --font-5: 22px;
+  --font-6: 28px;
+  --font-7: 36px;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --ease-standard: ease;
+
   /* spacing */
   --token-space-1: var(--space-1, 4px);
   --token-space-2: var(--space-2, 8px);
@@ -78,4 +113,5 @@
   --token-badge-padding-x: var(--token-space-2);
   --token-location-selector-max-width: 420px;
   --token-app-max-width: 1400px;
+  --token-inline-expansion-max-height: 800px;
 }

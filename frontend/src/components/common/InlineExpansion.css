@@ -41,7 +41,7 @@
     padding var(--token-motion-base) var(--token-ease-standard);
 }
 .inline-expansion--open .inline-expansion__content {
-  max-height: 800px;
+  max-height: var(--token-inline-expansion-max-height);
   opacity: 1;
   padding: 0.5rem 0.75rem;
 }
