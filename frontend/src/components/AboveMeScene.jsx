@@ -51,7 +51,10 @@ export default function AboveMeScene({ locationQuery = '' }) {
 
   return (
     <Panel className="module panel above-me-scene">
-      <SectionHeader title="Sky context" subtitle="What is above you right now" />
+      <SectionHeader
+        title="Sky context"
+        subtitle="What is above you right now — select an object to open details"
+      />
 
       {loading && <LoadingState message="Loading scene…" />}
       {error && <ErrorState message={`Error loading scene: ${error}`} />}

@@ -144,7 +144,7 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
             el?.scrollIntoView?.({ behavior: 'smooth', block: 'start' })
           }}
         >
-          Show what to look at
+          Jump to recommended targets
         </AppButton>
       </div>
     </section>
