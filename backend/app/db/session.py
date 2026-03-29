@@ -1,6 +1,6 @@
 from contextlib import contextmanager
 
-from .init import DEFAULT_DATABASE_URL, create_engine_from_url
+from . import DEFAULT_DATABASE_URL, create_engine_from_url
 
 
 def get_session_factory(database_url: str = DEFAULT_DATABASE_URL):
@@ -24,4 +24,3 @@ def session_scope(database_url: str = DEFAULT_DATABASE_URL):
         raise
     finally:
         session.close()
-
