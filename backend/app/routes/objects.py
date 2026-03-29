@@ -32,4 +32,13 @@ async def get_object_detail(
             status_code=status_code,
             content={"error": {"code": "invalid_request", "message": "invalid request"}},
         )
-    return payload
+    if (
+        isinstance(payload, dict)
+        and payload.get("status") == "ok"
+        and isinstance(payload.get("data"), dict)
+    ):
+        return payload
+    return JSONResponse(
+        status_code=500,
+        content={"error": {"code": "module_error", "message": "failed to assemble object detail"}},
+    )
