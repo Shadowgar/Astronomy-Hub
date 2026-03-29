@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import GlassPanel from './ui/GlassPanel'
 import SectionHeader from './ui/SectionHeader'
 import ObjectDetail from './ObjectDetail'
 import { useConditionsQuery } from '../features/conditions/queries'
 import { useSceneAboveMeQuery } from '../features/scene/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
+import useGlobalUiState from '../state/globalUiState'
 
 function labelForType(type) {
   if (type === 'satellite') return 'Satellite'
@@ -26,11 +27,23 @@ export default function AboveMeScene({ locationQuery = '' }) {
       : null
   const scene = (sceneQuery.data && sceneQuery.data.data) || sceneQuery.data || null
   const conditions = (conditionsQuery.data && conditionsQuery.data.data) || conditionsQuery.data || null
-  const [selectedObjectId, setSelectedObjectId] = useState(null)
+  const { selectedObjectId, setSelectedObjectId, setActiveSceneState } = useGlobalUiState()
 
   const objects = useMemo(() => (scene && Array.isArray(scene.objects) ? scene.objects : []), [scene])
   const topTarget = useMemo(() => objects.find((o) => o.type === 'planet' || o.type === 'deep_sky') || null, [objects])
   const nextPass = useMemo(() => objects.find((o) => o.type === 'satellite') || null, [objects])
+
+  useEffect(() => {
+    if (loading) {
+      setActiveSceneState({ status: 'loading' })
+      return
+    }
+    if (error) {
+      setActiveSceneState({ status: 'error' })
+      return
+    }
+    setActiveSceneState({ status: 'ready' })
+  }, [loading, error, setActiveSceneState])
 
   return (
     <GlassPanel className="module panel above-me-scene">
