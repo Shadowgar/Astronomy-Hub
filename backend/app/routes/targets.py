@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
-from backend.app.services.targets_service import build_targets_response
+from backend.app.services.targets_service import get_targets_payload
 
 router = APIRouter()
 
@@ -13,15 +13,16 @@ async def get_targets(
     elevation_ft: str | None = None,
 ):
     """Return targets via a thin adapter over legacy helpers."""
-    status_code, payload = build_targets_response(lat=lat, lon=lon, elevation_ft=elevation_ft)
-    if status_code != 200:
-        if status_code >= 500:
-            return JSONResponse(
-                status_code=status_code,
-                content={"error": {"code": "module_error", "message": "failed to assemble targets"}},
-            )
+    try:
+        payload = get_targets_payload(lat=lat, lon=lon, elevation_ft=elevation_ft)
+        return payload
+    except ValueError:
         return JSONResponse(
-            status_code=status_code,
+            status_code=400,
             content={"error": {"code": "invalid_parameters", "message": "invalid parameters"}},
         )
-    return payload
+    except Exception:
+        return JSONResponse(
+            status_code=500,
+            content={"error": {"code": "module_error", "message": "failed to assemble targets"}},
+        )

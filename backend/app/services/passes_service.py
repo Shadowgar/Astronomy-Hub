@@ -63,3 +63,17 @@ def build_passes_response(
     except Exception:
         return (500, {"error": {"code": "module_error", "message": "failed to assemble passes"}})
 
+
+def get_passes_payload(
+    lat: str | None = None,
+    lon: str | None = None,
+    elevation_ft: str | None = None,
+) -> list:
+    """Return passes payload only; raise on invalid params or assembly failure."""
+    parsed_location = _parse_location_override(lat, lon, elevation_ft)
+    legacy_server = _legacy_server_module()
+    scene_state = legacy_server._build_phase1_scene_state(parsed_location)
+    passes_payload = scene_state.get("supporting", {}).get("passes", [])
+    if not isinstance(passes_payload, list):
+        raise RuntimeError("invalid passes payload")
+    return passes_payload

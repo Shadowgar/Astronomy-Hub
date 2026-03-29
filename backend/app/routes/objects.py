@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
-from backend.app.services.objects_service import build_object_detail_response
+from backend.app.services.objects_service import get_object_detail_payload
 
 router = APIRouter()
 
@@ -14,31 +14,23 @@ async def get_object_detail(
     elevation_ft: str | None = None,
 ):
     """Return object detail via a thin adapter over legacy helpers."""
-    status_code, payload = build_object_detail_response(
-        object_id, lat=lat, lon=lon, elevation_ft=elevation_ft
-    )
-    if status_code != 200:
-        if status_code == 404:
-            return JSONResponse(
-                status_code=status_code,
-                content={"error": {"code": "not_found", "message": "object not found"}},
-            )
-        if status_code >= 500:
-            return JSONResponse(
-                status_code=status_code,
-                content={"error": {"code": "module_error", "message": "failed to assemble object detail"}},
-            )
+    try:
+        payload = get_object_detail_payload(
+            object_id, lat=lat, lon=lon, elevation_ft=elevation_ft
+        )
+        return payload
+    except LookupError:
         return JSONResponse(
-            status_code=status_code,
+            status_code=404,
+            content={"error": {"code": "not_found", "message": "object not found"}},
+        )
+    except ValueError:
+        return JSONResponse(
+            status_code=400,
             content={"error": {"code": "invalid_request", "message": "invalid request"}},
         )
-    if (
-        isinstance(payload, dict)
-        and payload.get("status") == "ok"
-        and isinstance(payload.get("data"), dict)
-    ):
-        return payload
-    return JSONResponse(
-        status_code=500,
-        content={"error": {"code": "module_error", "message": "failed to assemble object detail"}},
-    )
+    except Exception:
+        return JSONResponse(
+            status_code=500,
+            content={"error": {"code": "module_error", "message": "failed to assemble object detail"}},
+        )

@@ -85,3 +85,39 @@ def build_object_detail_response(
             {"error": {"code": "module_error", "message": "failed to assemble object detail"}},
         )
 
+
+def get_object_detail_payload(
+    object_id: str,
+    lat: str | None = None,
+    lon: str | None = None,
+    elevation_ft: str | None = None,
+) -> dict:
+    """Return object-detail payload only; raise on invalid input or lookup/assembly failures."""
+    parsed_location = _parse_location_override(lat, lon, elevation_ft)
+    obj_id = (object_id or "").strip()
+    if not obj_id:
+        raise ValueError("missing object id")
+
+    legacy_server = _legacy_server_module()
+    object_lookup = legacy_server._get_phase2_object_lookup(parsed_location=parsed_location)
+    found = object_lookup.get(obj_id)
+    if not found:
+        raise LookupError("object not found")
+
+    detail = legacy_server._build_phase1_object_detail(
+        found, scene_objects=list(object_lookup.values())
+    )
+    envelope = ResponseEnvelope(
+        status="ok",
+        data=detail,
+        meta={},
+        error=None,
+    )
+    payload = envelope.dict()
+    if not (
+        isinstance(payload, dict)
+        and payload.get("status") == "ok"
+        and isinstance(payload.get("data"), dict)
+    ):
+        raise RuntimeError("invalid object payload")
+    return payload
