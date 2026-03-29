@@ -14,4 +14,5 @@ __all__ = [
     "passes",
     "alerts",
     "location",
+    "assets",
 ]
