@@ -1,21 +1,21 @@
 :root {
 
 /* SURFACES */
---surface-base: var(--bg-base);
---surface-panel: var(--panel-bg);
---surface-border: var(--panel-border);
+--surface-base: var(--theme-surface-base, var(--bg-base));
+--surface-panel: var(--theme-surface-panel, var(--panel-bg));
+--surface-border: var(--theme-surface-border, var(--panel-border));
 
 /* TEXT */
---text-main: var(--text-primary);
---text-sub: var(--text-secondary);
+--text-main: var(--theme-text-main, var(--text-primary));
+--text-sub: var(--theme-text-sub, var(--text-secondary));
 
 /* ACTION */
---action-primary-bg: var(--accent);
+--action-primary-bg: var(--theme-action-primary-bg, var(--accent));
 
 /* STATUS */
---status-good-bg: var(--success);
+--status-good-bg: var(--theme-status-good-bg, var(--success));
 
 /* EFFECTS */
---effect-glow-soft: var(--glow-soft);
+--effect-glow-soft: var(--theme-effect-glow-soft, var(--glow-soft));
 
 }
