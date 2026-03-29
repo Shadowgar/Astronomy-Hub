@@ -29,6 +29,8 @@
   --weight-medium: 500;
   --weight-semibold: 600;
   --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
 
   --dur-fast: 120ms;
   --dur-base: 180ms;
@@ -55,6 +57,8 @@
   --token-font-weight-medium: var(--weight-medium, 500);
   --token-font-weight-semibold: var(--weight-semibold, 600);
   --token-font-weight-bold: var(--weight-bold, 700);
+  --token-font-weight-extrabold: var(--weight-extrabold, 800);
+  --token-font-weight-black: var(--weight-black, 900);
 
   /* color */
   --token-color-text-primary: var(--text-main, var(--text-primary, #111827));
@@ -196,4 +200,30 @@
   --token-alpha-white-0_08: rgba(255, 255, 255, 0.08);
   --token-alpha-white-0_14: rgba(255, 255, 255, 0.14);
   --token-alpha-dark-scene-chip: rgba(7, 15, 28, 0.65);
+
+  /* typography scale details */
+  --token-line-height-base: 1.45;
+  --token-line-height-tight: 1.2;
+  --token-line-height-compact: 1.1;
+
+  /* opacity scale */
+  --token-opacity-0: 0;
+  --token-opacity-45: 0.45;
+  --token-opacity-55: 0.55;
+  --token-opacity-60: 0.6;
+  --token-opacity-65: 0.65;
+  --token-opacity-75: 0.75;
+  --token-opacity-85: 0.85;
+  --token-opacity-90: 0.9;
+  --token-opacity-95: 0.95;
+  --token-opacity-100: 1;
+
+  /* layout pattern tokens */
+  --token-flex-main: 1;
+  --token-flex-emphasis: 2;
+  --token-grid-cols-main: 1fr 1fr;
+  --token-grid-cols-section-two-col: 1.2fr 0.8fr;
+  --token-grid-cols-single: 1fr;
+  --token-grid-cols-briefing: repeat(4, minmax(0, 1fr));
+  --token-grid-cols-briefing-mobile: repeat(2, minmax(0, 1fr));
 }

@@ -26,7 +26,18 @@
 --layout-container-max-width: var(--token-size-1600);
 --layout-base-font-size: var(--token-size-15);
 --layout-base-line-height: 1.45;
+--layout-heading-line-height: var(--token-line-height-tight);
+--layout-compact-line-height: var(--token-line-height-compact);
 --layout-header-utility-gap: var(--token-size-10);
+--layout-grid-main-columns: var(--token-grid-cols-main);
+--layout-grid-section-two-col: var(--token-grid-cols-section-two-col);
+--layout-grid-single: var(--token-grid-cols-single);
+--layout-grid-briefing: var(--token-grid-cols-briefing);
+--layout-grid-briefing-mobile: var(--token-grid-cols-briefing-mobile);
+--layout-flex-main: var(--token-flex-main);
+--layout-flex-emphasis: var(--token-flex-emphasis);
+--layout-breakpoint-tablet: var(--token-size-900);
+--layout-breakpoint-desktop: var(--token-size-1200);
 
 /* APP SURFACE SEMANTICS */
 --app-page-bg: var(--theme-page-bg, var(--surface-base));
@@ -85,6 +96,14 @@
 --effect-star-grid-pos-ey: var(--token-size-60);
 --effect-star-layer-opacity-1: 0.85;
 --effect-star-layer-opacity-2: 0.55;
+--effect-opacity-95: var(--token-opacity-95);
+--effect-opacity-90: var(--token-opacity-90);
+--effect-opacity-85: var(--token-opacity-85);
+--effect-opacity-75: var(--token-opacity-75);
+--effect-opacity-65: var(--token-opacity-65);
+--effect-opacity-60: var(--token-opacity-60);
+--effect-opacity-45: var(--token-opacity-45);
+--effect-opacity-100: var(--token-opacity-100);
 --effect-star-layer-blur: var(--token-blur-point-2);
 --effect-star-layer-saturation: 0.9;
 --effect-star-layer-twinkle-duration: var(--token-motion-duration-8s);
