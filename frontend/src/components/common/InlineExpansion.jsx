@@ -7,7 +7,7 @@ export default function InlineExpansion({summary, children, defaultCollapsed = t
   const toggle = () => setOpen(v => !v)
 
   return (
-    <div className={`inline-expansion ${className}`}>
+    <div className={`inline-expansion ${open ? 'inline-expansion--open' : ''} ${className}`.trim()}>
       <button
         className="inline-expansion__toggle"
         aria-expanded={open}
@@ -20,7 +20,6 @@ export default function InlineExpansion({summary, children, defaultCollapsed = t
         className="inline-expansion__content"
         role="region"
         aria-hidden={!open}
-        style={{display: open ? 'block' : 'none'}}
       >
         {children}
       </div>
