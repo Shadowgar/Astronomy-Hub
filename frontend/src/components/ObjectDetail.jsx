@@ -26,16 +26,16 @@ export default function ObjectDetail({ objectId, objectName }) {
 
   return (
     <div className="object-detail">
-      <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+      <div className="object-detail-header">
         {detail.media && detail.media.length > 0 ? (
-          <img src={detail.media[0].url} alt={detail.name} style={{ width: 96, height: 64, objectFit: 'cover', borderRadius: 6 }} />
+          <img src={detail.media[0].url} alt={detail.name} className="object-detail-thumb" />
         ) : null}
         <div>
           <div><strong>{detail.name}</strong> · <span className="small muted-meta">{detail.type}</span></div>
           <div className="small">{detail.summary}</div>
         </div>
       </div>
-      <p style={{ marginTop: 'var(--space-2)' }}>{detail.description}</p>
+      <p className="object-detail-description">{detail.description}</p>
     </div>
   )
 }

@@ -9,26 +9,23 @@ export default function AppButton({
 }) {
   const isPrimary = variant === "primary";
   const isDisabled = disabled || loading;
+  const classNames = [
+    "ui-app-button",
+    isPrimary ? "ui-app-button-primary" : "ui-app-button-secondary",
+    isDisabled ? "ui-app-button-disabled" : "",
+    buttonProps.className || "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const { className: _ignoredClassName, ...restButtonProps } = buttonProps;
 
   return (
     <button
       type="button"
       disabled={isDisabled}
       aria-busy={loading || undefined}
-      style={{
-        padding: "var(--space-3) var(--space-5)",
-        borderRadius: "var(--radius-md)",
-        fontSize: "var(--font-3)",
-        cursor: isDisabled ? "not-allowed" : "pointer",
-        border: "none",
-        background: isPrimary
-          ? "var(--action-primary-bg)"
-          : "var(--surface-panel)",
-        color: "var(--text-main)",
-        opacity: isDisabled ? 0.65 : 1,
-        transition: "opacity var(--token-motion-fast) var(--token-ease-standard), transform var(--token-motion-fast) var(--token-ease-standard)",
-      }}
-      {...buttonProps}
+      className={classNames}
+      {...restButtonProps}
     >
       {children} </button>
   );

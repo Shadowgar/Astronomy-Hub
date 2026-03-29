@@ -25,22 +25,15 @@ export default function TopBar({
 }) {
   return (
     <header
-      className="app-header"
+      className="app-header topbar-header"
       role="banner"
-      style={{ marginBottom: 'var(--space-6)', color: 'var(--text-main)' }}
     >
       <h1
-        style={{
-          fontSize: 'var(--font-6)',
-          fontWeight: 'var(--weight-semibold)',
-          color: 'var(--text-main)',
-          margin: 0,
-          marginBottom: 'var(--space-4)'
-        }}
+        className="app-header-title"
       >
         Astronomy Hub
       </h1>
-      <div className="header-controls topbar-controls" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--space-3)', color: 'var(--text-main)' }}>
+      <div className="header-controls topbar-controls">
         <div className="location-section">
           <span className="location-label">Location: {activeLocation === ORAS ? ORAS.label : `Custom Location (${activeLocation.latitude.toFixed(5)}, ${activeLocation.longitude.toFixed(5)})`}</span>
 
@@ -136,7 +129,7 @@ export default function TopBar({
                 </CommandBar>
               </div>
             )}
-            {locError && <div className="loc-error" role="alert" style={{ color: 'var(--text-main)' }}>{locError}</div>}
+            {locError && <div className="loc-error topbar-loc-error" role="alert">{locError}</div>}
           </div>
         </div>
         <span className="mode-control">

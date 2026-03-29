@@ -33,9 +33,9 @@ export default function RecommendedTargets({ locationQuery = '' }) {
       {error && <ErrorState message={`Error loading targets: ${error}`} />}
 
       {!loading && !error && (
-        <div style={{ padding: 0 }}>
+        <div className="recommended-targets-body">
           {targets.length === 0 && <EmptyState message="No targets available" />}
-          <ul style={{ margin: 0, padding: 0 }}>
+          <ul className="recommended-targets-list">
             {targets.map((t, idx) => {
               const summary = (
                 <div className="target-row__meta">
@@ -54,21 +54,21 @@ export default function RecommendedTargets({ locationQuery = '' }) {
                 .join('')
 
               const left = (
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                <div className="target-row-inline">
                   <div className="target-row__icon" aria-hidden>
                     {t.imageUrl ? (
                       <img
                         src={t.imageUrl}
                         alt={`${t.name} thumbnail`}
                         onError={(e) => { e.currentTarget.style.display = 'none' }}
-                        style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 6 }}
+                        className="target-thumb"
                       />
                     ) : (
                       <div />
                     )}
                   </div>
 
-                  <div className="target-row__content" style={{ minWidth: 0 }}>
+                  <div className="target-row__content target-row-content-inline">
                     <div
                       onClickCapture={() => setSelectedObjectId(computedId)}
                     >
@@ -77,7 +77,7 @@ export default function RecommendedTargets({ locationQuery = '' }) {
                       </InlineExpansion>
                     </div>
                     {selectedObjectId === computedId ? (
-                      <div className="small muted-meta" style={{ marginTop: 'var(--space-1)' }}>
+                      <div className="small muted-meta selected-flow-note">
                         Selected in decision flow
                       </div>
                     ) : null}
@@ -88,7 +88,7 @@ export default function RecommendedTargets({ locationQuery = '' }) {
               const right = (<div className="target-row__chev" aria-hidden>›</div>)
 
               return (
-                <li key={t.name || idx} style={{ listStyle: 'none' }}>
+                <li key={t.name || idx} className="recommended-target-item">
                   <DataRow left={left} right={right} />
                 </li>
               )

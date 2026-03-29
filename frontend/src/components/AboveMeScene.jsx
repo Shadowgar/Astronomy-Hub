@@ -68,14 +68,12 @@ export default function AboveMeScene({ locationQuery = '' }) {
           <div className="above-me-scene__sky" aria-label="Sky scene">
             {objects.length === 0 && <div className="above-me-scene__empty"><EmptyState message="No objects currently above horizon." /></div>}
             {objects.map((obj, idx) => {
-              const fallbackLeft = 10 + (idx % 5) * 18
-              const fallbackTop = 18 + Math.floor(idx / 5) * 24
+              const positionClass = `above-me-scene__pos-${idx % 15}`
               return (
                 <button
                   key={obj.id || `${obj.name}-${idx}`}
                   type="button"
-                  className={`above-me-scene__object above-me-scene__object--${obj.type || 'unknown'}`}
-                  style={{ left: `${fallbackLeft}%`, top: `${fallbackTop}%` }}
+                  className={`above-me-scene__object above-me-scene__object--${obj.type || 'unknown'} ${positionClass}`}
                   onClick={() => setSelectedObjectId((prev) => (prev === obj.id ? null : obj.id))}
                 >
                   <span className="above-me-scene__object-name">{obj.name}</span>

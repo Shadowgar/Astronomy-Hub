@@ -66,12 +66,12 @@ export default function MoonSummary({ locationQuery = '' }: MoonSummaryProps) {
   return (
     <GlassPanel className="component moon-summary">
       <SectionHeader title="Moon Summary" />
-      <div className="moon-line" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-3)' }}>
+      <div className="moon-line moon-line-stack">
+        <div className="moon-line-main">
           <strong>{moon_phase || 'Unknown'}</strong>
           <span>— Peak darkness {darknessText}.</span>
         </div>
-        {noteText && <div style={{ color: 'var(--text-sub)' }}>{noteText}</div>}
+        {noteText && <div className="moon-note">{noteText}</div>}
       </div>
     </GlassPanel>
   )

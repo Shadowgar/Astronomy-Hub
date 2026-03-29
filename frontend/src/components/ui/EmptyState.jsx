@@ -5,14 +5,9 @@ export default function EmptyState({
   action = null,
 }) {
   return (
-    <div
-      style={{
-        color: "var(--text-sub)",
-        padding: "var(--space-3) 0",
-      }}
-    >
+    <div className="ui-empty-state">
       <div>{message}</div>
-      {action ? <div style={{ marginTop: "var(--space-2)" }}>{action}</div> : null}
+      {action ? <div className="ui-empty-state-action">{action}</div> : null}
     </div>
   );
 }

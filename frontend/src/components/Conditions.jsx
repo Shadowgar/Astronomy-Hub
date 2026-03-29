@@ -119,25 +119,25 @@ export default function Conditions({ locationQuery = '' }) {
   return (
     <Panel className="module conditions-module panel">
       <SectionHeader title="Conditions" subtitle={staleProp ? 'Partial data' : undefined} />
-      <div className="conditions-body" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--token-space-2)' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <strong style={{ fontSize: '1rem' }}>{location_label || 'Unknown location'}</strong>
-          <small style={{ color: 'var(--token-color-text-secondary)', fontSize: '0.85rem' }}>{effectiveData?.last_updated ? fmtTimeShort(effectiveData.last_updated) : ''}</small>
+      <div className="conditions-body conditions-stack">
+        <div className="conditions-head-row">
+          <strong className="conditions-location-name">{location_label || 'Unknown location'}</strong>
+          <small className="conditions-updated-at">{effectiveData?.last_updated ? fmtTimeShort(effectiveData.last_updated) : ''}</small>
         </div>
 
         {summary && (
-          <div className="conditions-summary" style={{ marginTop: 'var(--space-3)' }}>{summary}</div>
+          <div className="conditions-summary conditions-summary-spaced">{summary}</div>
         )}
 
-        <div style={{ display: 'flex', gap: 'var(--token-space-2)', flexWrap: 'wrap', alignItems: 'center' }}>
-          <span style={{ padding: 'var(--token-chip-padding-y) var(--token-chip-padding-x)', borderRadius: 'var(--token-radius-pill)', background: 'var(--token-color-surface-panel)', fontWeight: 'var(--token-font-weight-bold)' }}>{cloudText}</span>
-          <span style={{ padding: 'var(--token-chip-padding-y) var(--token-chip-padding-x)', borderRadius: 'var(--token-radius-pill)', background: 'transparent', color: 'var(--token-color-text-secondary)' }}>{moonText}</span>
-          <span style={{ padding: 'var(--token-chip-padding-y) var(--token-chip-padding-x)', borderRadius: 'var(--token-radius-pill)', background: 'transparent', color: 'var(--token-color-text-secondary)' }}>{darknessText}</span>
+        <div className="conditions-chip-row">
+          <span className="conditions-chip conditions-chip-primary">{cloudText}</span>
+          <span className="conditions-chip conditions-chip-secondary">{moonText}</span>
+          <span className="conditions-chip conditions-chip-secondary">{darknessText}</span>
           {typeof effectiveData?.observing_score === 'number' ? (
-            <span style={{ marginLeft: 'var(--token-space-1)', padding: 'var(--token-badge-padding-y) var(--token-badge-padding-x)', borderRadius: 'var(--token-radius-xs)', background: 'var(--token-color-action-primary)', color: 'var(--token-color-white)', fontWeight: 'var(--token-font-weight-bold)' }}>{Math.round(effectiveData.observing_score)}</span>
+            <span className="conditions-score-badge">{Math.round(effectiveData.observing_score)}</span>
           ) : null}
           {typeof effectiveData?.observing_score === 'string' ? (
-            <span style={{ marginLeft: 'var(--token-space-1)', padding: 'var(--token-badge-padding-y) var(--token-badge-padding-x)', borderRadius: 'var(--token-radius-xs)', background: 'var(--token-color-action-primary)', color: 'var(--token-color-white)', fontWeight: 'var(--token-font-weight-bold)' }}>{effectiveData.observing_score.toUpperCase()}</span>
+            <span className="conditions-score-badge">{effectiveData.observing_score.toUpperCase()}</span>
           ) : null}
         </div>
       </div>

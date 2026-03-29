@@ -33,8 +33,14 @@
   --button-border: rgba(0,0,0,0.08);
 }
 .app-shell{display:flex;flex-direction:column;min-height:100vh}
+.app-shell-root{min-height:100vh;background:var(--surface-base);padding:var(--space-6)}
+.app-shell-inner{max-width:var(--token-app-max-width);margin:0 auto}
 .app-header{padding:12px var(--page-padding);background:var(--header-bg);border-bottom:1px solid var(--divider);color:var(--text-primary)}
 .app-header-utility{padding-bottom:10px}
+.topbar-header{margin-bottom:var(--space-6);color:var(--text-main)}
+.app-header-title{font-size:var(--font-6);font-weight:var(--weight-semibold);color:var(--text-main);margin:0;margin-bottom:var(--space-4)}
+.topbar-controls{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3);color:var(--text-main)}
+.topbar-loc-error{color:var(--text-main)}
 .progress-nav{margin-left:var(--token-space-3)}
 .progress-link{color:var(--token-color-action-primary);text-decoration:none;font-size:var(--token-font-2)}
 .app-main-flow{margin-top:var(--gap)}
@@ -556,3 +562,153 @@ body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(
   }
 }
 .compact-module { padding: 6px !important }
+
+/* UI primitives (moved from inline styles) */
+.ui-loading-state,
+.ui-empty-state { color: var(--text-sub); padding: var(--space-3) 0; }
+.ui-empty-state-action,
+.ui-error-state-action { margin-top: var(--space-2); }
+.ui-error-state { color: var(--token-color-danger); padding: var(--space-3) 0; }
+.ui-status-badge {
+  padding: var(--token-badge-padding-y) var(--token-badge-padding-x);
+  border-radius: var(--token-radius-pill);
+  font-size: var(--token-font-2);
+  background: var(--surface-panel);
+  color: var(--text-main);
+  display: inline-block;
+}
+.ui-status-badge-good { background: var(--status-good-bg); color: var(--text-main); }
+.ui-glass-panel {
+  background: var(--surface-panel);
+  border: var(--token-border-subtle);
+  box-shadow: var(--token-shadow-lg);
+  transition: all var(--token-motion-base) var(--token-ease-standard);
+}
+.ui-glass-panel-standard { border-radius: var(--radius-lg); padding: var(--space-6); }
+.ui-glass-panel-hero { border-radius: var(--radius-xl); padding: var(--space-7); }
+.ui-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+.ui-section-header-title { font-size: var(--font-4); font-weight: var(--weight-semibold); color: var(--text-main); }
+.ui-section-header-subtitle { font-size: var(--font-2); color: var(--text-sub); }
+.ui-row-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) 0;
+  width: 100%;
+}
+.ui-row-item-left { flex: 1; min-width: 0; }
+.ui-row-item-right { margin-left: var(--space-3); flex: 0 0 auto; }
+.ui-command-bar { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) 0; }
+.ui-app-button {
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  font-size: var(--font-3);
+  border: none;
+  color: var(--text-main);
+  opacity: 1;
+  transition: opacity var(--token-motion-fast) var(--token-ease-standard), transform var(--token-motion-fast) var(--token-ease-standard);
+  cursor: pointer;
+}
+.ui-app-button-primary { background: var(--action-primary-bg); }
+.ui-app-button-secondary { background: var(--surface-panel); }
+.ui-app-button-disabled { cursor: not-allowed; opacity: 0.65; }
+
+/* Component inline-style replacements */
+.object-detail-header { display: flex; gap: var(--space-3); }
+.object-detail-thumb { width: 96px; height: 64px; object-fit: cover; border-radius: var(--radius-xs); }
+.object-detail-description { margin-top: var(--space-2); }
+
+.alerts-summary { display: flex; flex-direction: column; gap: var(--space-2); }
+.alerts-summary-body { margin-top: var(--space-2); }
+.alerts-list-item { list-style: none; }
+.alerts-summary-expanded { padding-top: var(--space-2); }
+
+.recommended-targets-body { padding: 0; }
+.recommended-targets-list { margin: 0; padding: 0; }
+.recommended-target-item { list-style: none; }
+.target-row-inline { display: flex; align-items: center; gap: var(--space-3); }
+.target-row-content-inline { min-width: 0; }
+.selected-flow-note { margin-top: var(--space-1); }
+.target-thumb { width: 48px; height: 48px; object-fit: cover; border-radius: var(--radius-xs); }
+
+.passes-summary { display: flex; flex-direction: column; gap: var(--space-2); }
+.passes-summary-row { display: flex; align-items: center; gap: var(--space-3); }
+.passes-summary-content { min-width: 0; flex: 1; }
+.passes-list-item { list-style: none; }
+
+.moon-line-stack { display: flex; flex-direction: column; gap: var(--space-2); }
+.moon-line-main { display: flex; align-items: baseline; gap: var(--space-3); }
+.moon-note { color: var(--text-sub); }
+
+.conditions-stack { display: flex; flex-direction: column; gap: var(--token-space-2); }
+.conditions-head-row { display: flex; justify-content: space-between; align-items: center; }
+.conditions-location-name { font-size: var(--font-3); }
+.conditions-updated-at { color: var(--token-color-text-secondary); font-size: var(--font-2); }
+.conditions-summary-spaced { margin-top: var(--space-3); }
+.conditions-chip-row { display: flex; gap: var(--token-space-2); flex-wrap: wrap; align-items: center; }
+.conditions-chip {
+  padding: var(--token-chip-padding-y) var(--token-chip-padding-x);
+  border-radius: var(--token-radius-pill);
+}
+.conditions-chip-primary { background: var(--token-color-surface-panel); font-weight: var(--token-font-weight-bold); }
+.conditions-chip-secondary { background: transparent; color: var(--token-color-text-secondary); }
+.conditions-score-badge {
+  margin-left: var(--token-space-1);
+  padding: var(--token-badge-padding-y) var(--token-badge-padding-x);
+  border-radius: var(--token-radius-xs);
+  background: var(--token-color-action-primary);
+  color: var(--token-color-white);
+  font-weight: var(--token-font-weight-bold);
+}
+
+.observing-hero-stack { display: flex; flex-direction: column; gap: var(--space-3); }
+.observing-hero-topline { display: flex; align-items: center; gap: var(--space-3); }
+.observing-hero-kicker { font-size: var(--font-2); color: var(--text-sub); }
+.observing-hero-title { margin: 0; font-size: var(--font-6); font-weight: var(--weight-semibold); color: var(--text-main); }
+.observing-hero-summary { margin: 0; font-size: var(--font-3); color: var(--text-sub); }
+
+/* Progress page (moved from inline styles) */
+.progress-page {
+  padding: var(--space-6);
+  max-width: 920px;
+  margin: 0 auto;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-main);
+  line-height: var(--base-line-height);
+}
+.progress-title { font-size: var(--font-6); margin: 0 0 var(--space-2) 0; }
+.progress-card {
+  border: 1px solid var(--surface-border);
+  padding: var(--space-3);
+  border-radius: var(--radius-xs);
+  background: var(--surface-bg);
+  margin-top: var(--space-4);
+}
+.progress-section { margin-top: var(--space-4); }
+.progress-section-title { margin-top: 0; font-size: var(--font-4); color: var(--text-main); }
+.progress-row-gap { margin-top: var(--space-2); }
+.progress-item { margin-bottom: var(--space-3); }
+.progress-item-title { font-weight: var(--weight-semibold); font-size: var(--font-3); }
+.progress-item-summary { margin-top: var(--space-1); }
+
+/* Above-me scene object placement classes (replace inline left/top styles) */
+.above-me-scene__pos-0 { left: 10%; top: 18%; }
+.above-me-scene__pos-1 { left: 28%; top: 18%; }
+.above-me-scene__pos-2 { left: 46%; top: 18%; }
+.above-me-scene__pos-3 { left: 64%; top: 18%; }
+.above-me-scene__pos-4 { left: 82%; top: 18%; }
+.above-me-scene__pos-5 { left: 10%; top: 42%; }
+.above-me-scene__pos-6 { left: 28%; top: 42%; }
+.above-me-scene__pos-7 { left: 46%; top: 42%; }
+.above-me-scene__pos-8 { left: 64%; top: 42%; }
+.above-me-scene__pos-9 { left: 82%; top: 42%; }
+.above-me-scene__pos-10 { left: 10%; top: 66%; }
+.above-me-scene__pos-11 { left: 28%; top: 66%; }
+.above-me-scene__pos-12 { left: 46%; top: 66%; }
+.above-me-scene__pos-13 { left: 64%; top: 66%; }
+.above-me-scene__pos-14 { left: 82%; top: 66%; }

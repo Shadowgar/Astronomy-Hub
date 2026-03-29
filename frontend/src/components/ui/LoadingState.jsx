@@ -4,12 +4,7 @@ export default function LoadingState({
   message = "Loading…",
 }) {
   return (
-    <div
-      style={{
-        color: "var(--text-sub)",
-        padding: "var(--space-3) 0",
-      }}
-    >
+    <div className="ui-loading-state">
       {message}
     </div>
   );

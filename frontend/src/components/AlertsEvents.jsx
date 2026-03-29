@@ -34,12 +34,12 @@ export default function AlertsEvents({ locationQuery = '' }) {
           {alerts.map((a, idx) => {
             const key = a.title || idx
             const summary = (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+              <div className="alerts-summary">
                 <div>
                   <strong>{a.title}</strong>
                 </div>
                 <div className="small muted-meta">{a.category} · Relevance: {a.relevance} · Priority: {a.priority}</div>
-                <div style={{ marginTop: 'var(--space-2)' }}>{a.summary}</div>
+                <div className="alerts-summary-body">{a.summary}</div>
               </div>
             )
 
@@ -57,13 +57,13 @@ export default function AlertsEvents({ locationQuery = '' }) {
               : null
 
             return (
-              <li key={key} style={{ listStyle: 'none' }}>
+              <li key={key} className="alerts-list-item">
                 <InlineExpansion summary={summary} defaultCollapsed={true}>
                   {objectId ? (
                     <ObjectDetail objectId={objectId} objectName={relatedName} />
                   ) : (
                     // No object referenced; repeat summary for expanded view
-                    <div style={{ paddingTop: 'var(--space-2)' }}>{a.summary}</div>
+                    <div className="alerts-summary-expanded">{a.summary}</div>
                   )}
                 </InlineExpansion>
               </li>

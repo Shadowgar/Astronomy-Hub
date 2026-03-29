@@ -6,19 +6,12 @@ export default function GlassPanel({
   variant = "standard",
 }) {
   const isHero = variant === "hero";
+  const classes = ["ui-glass-panel", isHero ? "ui-glass-panel-hero" : "ui-glass-panel-standard", className]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <div
-      className={className}
-      style={{
-        background: "var(--surface-panel)",
-        border: "var(--token-border-subtle)",
-        borderRadius: isHero ? "var(--radius-xl)" : "var(--radius-lg)",
-        padding: isHero ? "var(--space-7)" : "var(--space-6)",
-        boxShadow: "var(--token-shadow-lg)",
-        transition: "all var(--token-motion-base) var(--token-ease-standard)",
-      }}
-    >
+    <div className={classes}>
       {children} </div>
   );
 }

@@ -35,7 +35,7 @@ export default function SatellitePasses({ locationQuery = '' }) {
           {passes.map((p, idx) => {
             const key = (p.object_name || '') + (p.start_time || '') || idx
             const summary = (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+              <div className="passes-summary">
                 <div><strong>{p.object_name}</strong></div>
                 <div className="small">Visible: {p.visibility}</div>
                 <div className="small">Peak elevation: {p.max_elevation_deg}{p.max_elevation_deg ? '°' : ''}</div>
@@ -44,8 +44,8 @@ export default function SatellitePasses({ locationQuery = '' }) {
             )
 
             const left = (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-                <div style={{ minWidth: 0, flex: 1 }}>{summary}</div>
+              <div className="passes-summary-row">
+                <div className="passes-summary-content">{summary}</div>
               </div>
             )
 
@@ -59,7 +59,7 @@ export default function SatellitePasses({ locationQuery = '' }) {
               .join('')
 
             return (
-              <li key={key} style={{ listStyle: 'none' }}>
+              <li key={key} className="passes-list-item">
                 <InlineExpansion summary={left} defaultCollapsed={true}>
                   <ObjectDetail objectId={objectId} objectName={p.object_name} />
                 </InlineExpansion>

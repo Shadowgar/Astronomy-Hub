@@ -36,7 +36,7 @@ export default function TargetRow({ target }) {
                 src={target.imageUrl}
                 alt={`${target.name} thumbnail`}
                 onError={(e) => { e.currentTarget.style.display = 'none' }}
-                style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 6 }}
+                className="target-thumb"
               />
             ) : (
               <div />

@@ -4,16 +4,9 @@ export default function CommandBar({
   children,
   className = "",
 }) {
+  const classes = ["ui-command-bar", className].filter(Boolean).join(" ");
   return (
-    <div
-      className={className}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "var(--space-3)",
-        padding: "var(--space-2) 0",
-      }}
-    >
+    <div className={classes}>
       {children}
     </div>
   );

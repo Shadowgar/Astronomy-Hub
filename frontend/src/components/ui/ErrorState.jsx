@@ -5,15 +5,9 @@ export default function ErrorState({
   action = null,
 }) {
   return (
-    <div
-      role="alert"
-      style={{
-        color: "var(--token-color-danger)",
-        padding: "var(--space-3) 0",
-      }}
-    >
+    <div role="alert" className="ui-error-state">
       <div>{message}</div>
-      {action ? <div style={{ marginTop: "var(--space-2)" }}>{action}</div> : null}
+      {action ? <div className="ui-error-state-action">{action}</div> : null}
     </div>
   );
 }
