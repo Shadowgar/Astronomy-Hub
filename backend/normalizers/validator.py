@@ -13,7 +13,16 @@ SCHEMA_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', '..'
 
 def load_schema(name):
     """Load and return a JSON schema dict by filename from the contracts dir."""
-    path = os.path.join(SCHEMA_DIR, name)
+    if not isinstance(name, str) or not name:
+        raise ValueError("schema name must be a non-empty string")
+
+    # Prevent path traversal by resolving inside the contracts directory only.
+    candidate = os.path.abspath(os.path.join(SCHEMA_DIR, name))
+    schema_root = os.path.abspath(SCHEMA_DIR)
+    if not candidate.startswith(schema_root + os.sep):
+        raise ValueError("invalid schema path")
+
+    path = candidate
     with open(path, 'r', encoding='utf-8') as fh:
         return json.load(fh)
 

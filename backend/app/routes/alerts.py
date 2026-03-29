@@ -15,6 +15,13 @@ async def get_alerts(
     """Return alerts via a thin adapter over legacy helpers."""
     status_code, payload = build_alerts_response(lat=lat, lon=lon, elevation_ft=elevation_ft)
     if status_code != 200:
-        return JSONResponse(status_code=status_code, content=payload)
+        if status_code >= 500:
+            return JSONResponse(
+                status_code=status_code,
+                content={"error": {"code": "module_error", "message": "failed to assemble alerts"}},
+            )
+        return JSONResponse(
+            status_code=status_code,
+            content={"error": {"code": "invalid_parameters", "message": "invalid parameters"}},
+        )
     return payload
-
