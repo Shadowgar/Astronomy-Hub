@@ -3,11 +3,16 @@ from contextlib import contextmanager
 from . import DEFAULT_DATABASE_URL, create_engine_from_url
 
 
+def get_engine(database_url: str = DEFAULT_DATABASE_URL):
+    """Return the canonical SQLAlchemy engine for DB sessions."""
+    return create_engine_from_url(database_url)
+
+
 def get_session_factory(database_url: str = DEFAULT_DATABASE_URL):
     """Return a SQLAlchemy sessionmaker bound to the engine."""
     from sqlalchemy.orm import sessionmaker
 
-    engine = create_engine_from_url(database_url)
+    engine = get_engine(database_url)
     return sessionmaker(bind=engine, autoflush=False, autocommit=False, expire_on_commit=False)
 
 

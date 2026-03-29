@@ -14,6 +14,11 @@ if config.config_file_name is not None:
 
 from backend.app.db.models import Base  # noqa: E402
 
+try:  # noqa: F401
+    import geoalchemy2  # ensure spatial types are available during migration autogenerate
+except Exception:
+    geoalchemy2 = None  # type: ignore[assignment]
+
 target_metadata = Base.metadata if hasattr(Base, "metadata") else None
 
 
