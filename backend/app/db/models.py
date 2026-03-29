@@ -1,4 +1,4 @@
-"""Minimal declarative + spatial model foundation for BE7.2."""
+"""Minimal declarative + spatial + asset model foundation."""
 
 from sqlalchemy import Integer, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -32,3 +32,14 @@ class SpatialFeature(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(128), nullable=False, default="feature")
     location: Mapped[object] = mapped_column(Geometry("POINT", srid=4326), nullable=False)
+
+
+class AssetMetadata(Base):
+    """Minimal canonical asset metadata model foundation."""
+
+    __tablename__ = "asset_metadata"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    asset_key: Mapped[str] = mapped_column(String(128), nullable=False, unique=True, index=True)
+    asset_type: Mapped[str] = mapped_column(String(64), nullable=False, default="unknown")
+    source_url: Mapped[str | None] = mapped_column(String(512), nullable=True)
