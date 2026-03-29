@@ -12,6 +12,8 @@ import useDisplayModeState from './state/displayModeState'
 import Starfield from './components/Starfield'
 import AppShell from "./components/layout/AppShell"
 import ContentGrid from "./components/layout/ContentGrid"
+import AppButton from './components/ui/AppButton'
+import CommandBar from './components/ui/CommandBar'
 
 export default function App() {
   const { mode, setMode, MODES } = useDisplayModeState()
@@ -106,39 +108,45 @@ export default function App() {
                 onChange={(e) => setElevInput(e.target.value)}
                 className="input-elev"
               />
-              <button
-                onClick={() => {
-                  // validate inputs
-                  setLocError('')
-                  const lat = Number.parseFloat(latInput)
-                  const lon = Number.parseFloat(lonInput)
-                  const elev = elevInput === '' ? undefined : Number(elevInput)
-                  if (!Number.isFinite(lat) || lat < -90 || lat > 90) {
-                    setLocError('Latitude must be a number between -90 and 90')
-                    return
-                  }
-                  if (!Number.isFinite(lon) || lon < -180 || lon > 180) {
-                    setLocError('Longitude must be a number between -180 and 180')
-                    return
-                  }
-                  if (elev !== undefined && !Number.isFinite(elev)) {
-                    setLocError('Elevation must be a number')
-                    return
-                  }
-                  // apply for session only
-                  setActiveLocation({ label: 'Custom Location', latitude: lat, longitude: lon, elevation_ft: elev })
-                }}
-                className="location-actions"
-              >Apply for session</button>
-              <button
-                onClick={() => {
-                  setLocError('')
-                  setActiveLocation(ORAS)
-                  setLatInput('')
-                  setLonInput('')
-                  setElevInput('')
-                }}
-              >Reset to ORAS</button>
+              <CommandBar className="location-actions">
+                <AppButton
+                  onClick={() => {
+                    // validate inputs
+                    setLocError('')
+                    const lat = Number.parseFloat(latInput)
+                    const lon = Number.parseFloat(lonInput)
+                    const elev = elevInput === '' ? undefined : Number(elevInput)
+                    if (!Number.isFinite(lat) || lat < -90 || lat > 90) {
+                      setLocError('Latitude must be a number between -90 and 90')
+                      return
+                    }
+                    if (!Number.isFinite(lon) || lon < -180 || lon > 180) {
+                      setLocError('Longitude must be a number between -180 and 180')
+                      return
+                    }
+                    if (elev !== undefined && !Number.isFinite(elev)) {
+                      setLocError('Elevation must be a number')
+                      return
+                    }
+                    // apply for session only
+                    setActiveLocation({ label: 'Custom Location', latitude: lat, longitude: lon, elevation_ft: elev })
+                  }}
+                >
+                  Apply for session
+                </AppButton>
+                <AppButton
+                  variant="secondary"
+                  onClick={() => {
+                    setLocError('')
+                    setActiveLocation(ORAS)
+                    setLatInput('')
+                    setLonInput('')
+                    setElevInput('')
+                  }}
+                >
+                  Reset to ORAS
+                </AppButton>
+              </CommandBar>
               {/* Optional dev mount for the LocationSelector used by Step 2D.D3. Enable with ?mountLocationSelector=1 */}
               {typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('mountLocationSelector') === '1' && (
                 <div className="pending-location">
@@ -157,13 +165,21 @@ export default function App() {
               {pendingLocation && (
                 <div className="pending-location">
                   <span className="pending-text">Pending: {pendingLocation.name || (pendingLocation.latitude && `${pendingLocation.latitude.toFixed(3)}, ${pendingLocation.longitude.toFixed(3)}`)}</span>
-                  <button onClick={() => {
-                    confirmPending()
-                    if (new URLSearchParams(window.location.search).get('devlog') === '1') {
-                      try { console.log(JSON.stringify({ event: 'pending_confirm', confirmed: pendingLocation })) } catch (e) {}
-                    }
-                  }}>Confirm pending</button>
-                  <button onClick={() => clearPending()} className="clear-pending">Clear pending</button>
+                  <CommandBar>
+                    <AppButton
+                      onClick={() => {
+                        confirmPending()
+                        if (new URLSearchParams(window.location.search).get('devlog') === '1') {
+                          try { console.log(JSON.stringify({ event: 'pending_confirm', confirmed: pendingLocation })) } catch (e) {}
+                        }
+                      }}
+                    >
+                      Confirm pending
+                    </AppButton>
+                    <AppButton variant="secondary" onClick={() => clearPending()} className="clear-pending">
+                      Clear pending
+                    </AppButton>
+                  </CommandBar>
                 </div>
               )}
               {locError && <div className="loc-error" role="alert">{locError}</div>}

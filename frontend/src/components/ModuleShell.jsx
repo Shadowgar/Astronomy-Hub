@@ -1,7 +1,10 @@
 import React from 'react'
 import logger from '../lib/logger'
+import AppButton from './ui/AppButton'
 
 export default function ModuleShell({ title, stale, onRetry, children }) {
+  const [retrying, setRetrying] = React.useState(false)
+
   const handleRetry = () => {
     // Emit dev-log entry and call onRetry if provided
     try {
@@ -9,7 +12,12 @@ export default function ModuleShell({ title, stale, onRetry, children }) {
     } catch (e) {
       // ignore logger issues
     }
-    if (typeof onRetry === 'function') onRetry()
+    if (typeof onRetry !== 'function') return
+    const result = onRetry()
+    if (result && typeof result.then === 'function') {
+      setRetrying(true)
+      Promise.resolve(result).finally(() => setRetrying(false))
+    }
   }
 
   return (
@@ -18,9 +26,15 @@ export default function ModuleShell({ title, stale, onRetry, children }) {
         <h2>{title}</h2>
         <div className="module-shell-controls">
           {stale ? <span className="stale-badge">stale</span> : null}
-          <button className="module-retry" onClick={handleRetry} aria-label={`Retry ${title}`}>
+          <AppButton
+            className="module-retry"
+            variant="secondary"
+            onClick={handleRetry}
+            aria-label={`Retry ${title}`}
+            loading={retrying}
+          >
             Retry
-          </button>
+          </AppButton>
         </div>
       </div>
       <div className="module-shell-body">{children}</div>

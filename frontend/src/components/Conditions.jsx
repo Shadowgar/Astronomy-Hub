@@ -89,7 +89,7 @@ export default function Conditions({ locationQuery = '' }) {
     logger?.info?.('module', 'conditions:fetch:error', { err: error })
     return (
       <Panel className="module conditions-module panel">
-        <SectionHeader title="Conditions" action={<AppButton onClick={handleRetry}>Retry</AppButton>} />
+        <SectionHeader title="Conditions" action={<AppButton onClick={handleRetry} loading={conditionsQuery.isFetching}>Retry</AppButton>} />
         <ErrorState message={`Error loading conditions: ${error}`} />
       </Panel>
     )
@@ -98,7 +98,7 @@ export default function Conditions({ locationQuery = '' }) {
   if (!effectiveData) {
     return (
       <Panel className="module conditions-module panel">
-        <SectionHeader title="Conditions" action={<AppButton onClick={handleRetry}>Retry</AppButton>} />
+        <SectionHeader title="Conditions" action={<AppButton onClick={handleRetry} loading={conditionsQuery.isFetching}>Retry</AppButton>} />
         <EmptyState message="No data available" />
       </Panel>
     )

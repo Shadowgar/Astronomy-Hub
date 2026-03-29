@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import './locationSelector.css'
 import { useLocationSearchQuery } from '../../features/location/queries'
+import AppButton from '../ui/AppButton'
+import CommandBar from '../ui/CommandBar'
 
 export default function LocationSelector({ onApply, onConfirm, onCancel } = {}) {
   const [query, setQuery] = useState('')
@@ -45,9 +47,17 @@ export default function LocationSelector({ onApply, onConfirm, onCancel } = {}) 
           placeholder="Type a place (>=3 chars)"
           aria-label="Location input"
         />
-        <button className="ls-apply" onClick={handleApply}>Apply</button>
-        <button className="ls-confirm" onClick={handleConfirm}>Confirm</button>
-        <button className="ls-cancel" onClick={handleCancel}>Cancel</button>
+        <CommandBar>
+          <AppButton className="ls-apply" onClick={handleApply} disabled={!selectedSuggestion && suggestions.length === 0}>
+            Apply
+          </AppButton>
+          <AppButton className="ls-confirm" onClick={handleConfirm} variant="secondary">
+            Confirm
+          </AppButton>
+          <AppButton className="ls-cancel" onClick={handleCancel} variant="secondary">
+            Cancel
+          </AppButton>
+        </CommandBar>
       </div>
 
       <div className="ls-suggestions">
