@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { useQueries } from '@tanstack/react-query'
-import { conditionsKeys, fetchConditions } from '../features/conditions/queries'
-import { targetsKeys, fetchTargets } from '../features/targets/queries'
+import { useConditionsQuery } from '../features/conditions/queries'
+import { useAlertsQuery } from '../features/alerts/queries'
+import { usePassesQuery } from '../features/passes/queries'
+import { useTargetsQuery } from '../features/targets/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
 import AppButton from './ui/AppButton'
 import useGlobalUiState from '../state/globalUiState'
@@ -49,22 +50,16 @@ function targetIdFor(target) {
 export default function PrimaryDecisionPanel({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
   const { selectedObjectId } = useGlobalUiState()
-  const [conditionsQuery, targetsQuery] = useQueries({
-    queries: [
-      {
-        queryKey: conditionsKeys.list(queryParams),
-        queryFn: () => fetchConditions(queryParams),
-      },
-      {
-        queryKey: targetsKeys.list(queryParams),
-        queryFn: () => fetchTargets(queryParams),
-      },
-    ],
-  })
+  const conditionsQuery = useConditionsQuery(queryParams)
+  const targetsQuery = useTargetsQuery(queryParams)
+  const alertsQuery = useAlertsQuery(queryParams)
+  const passesQuery = usePassesQuery(queryParams)
 
   const conds = (conditionsQuery.data && conditionsQuery.data.data) || conditionsQuery.data || null
   const targets = Array.isArray(targetsQuery.data) ? targetsQuery.data : []
-  const loading = conditionsQuery.isLoading || targetsQuery.isLoading
+  const alerts = Array.isArray(alertsQuery.data) ? alertsQuery.data : []
+  const passes = Array.isArray(passesQuery.data) ? passesQuery.data : []
+  const loading = conditionsQuery.isLoading || targetsQuery.isLoading || alertsQuery.isLoading || passesQuery.isLoading
   const hasError = conditionsQuery.isError || targetsQuery.isError
   const errorMessage =
     (conditionsQuery.error && conditionsQuery.error.message) ||
@@ -79,6 +74,31 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
   const statusText = `Tonight: ${status.toUpperCase()}`
   const darknessStart = conds && conds.darkness_window && conds.darkness_window.start ? fmtTime(conds.darkness_window.start) : null
   const darknessEnd = conds && conds.darkness_window && conds.darkness_window.end ? fmtTime(conds.darkness_window.end) : null
+  const cloudCover = conds && typeof conds.cloud_cover_pct === 'number' ? Math.round(conds.cloud_cover_pct) : null
+  const blockingAlerts = alerts.filter((a) => {
+    const priority = String(a && a.priority ? a.priority : '').toLowerCase()
+    return priority === 'high' || priority === 'critical' || priority === 'urgent' || priority === '1' || priority === '2'
+  })
+  const reasonLines = []
+  if (conds) {
+    if (cloudCover !== null) {
+      reasonLines.push(`Cloud cover is ${cloudCover}%, supporting a ${status.toLowerCase()} observing outlook.`)
+    } else if (observingScore !== null) {
+      reasonLines.push(`Current observing outlook is ${status.toLowerCase()}.`)
+    }
+  }
+  if (selectedTarget || top) {
+    const recommended = selectedTarget || top
+    reasonLines.push(`${selectedTarget ? 'Selected' : 'Top'} target ${recommended.name} is currently prioritized${recommended.direction ? ` toward ${String(recommended.direction).toUpperCase()}` : ''}.`)
+  }
+  if (blockingAlerts.length > 0) {
+    reasonLines.push(`${blockingAlerts.length} high-priority alert${blockingAlerts.length > 1 ? 's are' : ' is'} active, so plan with caution.`)
+  } else if (alerts.length > 0) {
+    reasonLines.push('No major alerts are currently interfering with the plan.')
+  }
+  if (passes.length > 0) {
+    reasonLines.push(`${passes.length} upcoming pass${passes.length > 1 ? 'es' : ''} add timing context for observing windows.`)
+  }
 
   return (
     <section className="primary-decision-panel" aria-labelledby="pdp-heading">
@@ -102,6 +122,13 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
             <span>No observing plan available</span>
           )}
         </div>
+        {!loading && !hasError && reasonLines.length > 0 ? (
+          <ul className="small" style={{ marginTop: 'var(--space-2)', marginBottom: 0, paddingLeft: 'var(--space-4)' }}>
+            {reasonLines.slice(0, 3).map((line, idx) => (
+              <li key={`${line}-${idx}`}>{line}</li>
+            ))}
+          </ul>
+        ) : null}
       </div>
 
       <div className="pdp-right">
