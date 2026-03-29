@@ -13,6 +13,27 @@ services:
       - postgres
       - redis
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      FRONTEND_PORT: ${FRONTEND_PORT:-4173}
+      VITE_DEV_PROXY_TARGET: http://backend:${BACKEND_PORT:-8000}
+    ports:
+      - "${FRONTEND_PORT:-4173}:${FRONTEND_PORT:-4173}"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"const http=require('http');http.get('http://127.0.0.1:'+(process.env.FRONTEND_PORT||4173),res=>process.exit(res.statusCode<500?0:1)).on('error',()=>process.exit(1))\""]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+
   postgres:
     image: postgis/postgis:16-3.4
     environment:
