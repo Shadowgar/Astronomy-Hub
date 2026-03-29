@@ -236,26 +236,26 @@ export default function App() {
           </div>
         </section>
 
-        {/* Supporting context: conditions + alerts */}
+        {/* Supporting context: immediate sky conditions */}
         <section className="section section-supporting-top">
           <div className="section-grid two-col">
             <div className="module conditions-module panel">
               <Conditions locationQuery={locationQuery} />
             </div>
-            <div className="module alerts-module panel">
-              <AlertsEvents locationQuery={locationQuery} />
+            <div className="module moon-module panel small-panel">
+              <MoonSummary locationQuery={locationQuery} />
             </div>
           </div>
         </section>
 
-        {/* Supporting context: passes + moon/news */}
+        {/* Supporting context: timing and alerts */}
         <section className="section section-middle">
           <div className="section-grid two-col">
+            <div className="module alerts-module panel">
+              <AlertsEvents locationQuery={locationQuery} />
+            </div>
             <div className="module passes-module panel">
               <SatellitePasses locationQuery={locationQuery} />
-            </div>
-            <div className="module moon-module panel small-panel">
-              <MoonSummary locationQuery={locationQuery} />
             </div>
           </div>
         </section>
