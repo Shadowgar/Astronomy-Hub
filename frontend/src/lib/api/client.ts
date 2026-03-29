@@ -6,7 +6,7 @@ function resolveApiBaseUrl(): string {
     typeof window !== 'undefined'
       ? (window as Window & { __API_BASE_URL__?: string }).__API_BASE_URL__
       : undefined
-  return (fromWindow || '/api').replace(/\/+$/, '')
+  return (fromWindow || '/api/v1').replace(/\/+$/, '')
 }
 
 export const API_BASE_URL = resolveApiBaseUrl()
