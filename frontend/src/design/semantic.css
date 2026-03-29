@@ -18,4 +18,77 @@
 /* EFFECTS */
 --effect-glow-soft: var(--theme-effect-glow-soft, var(--glow-soft));
 
+/* APP CHROME */
+--layout-gap: var(--token-space-3);
+--layout-page-padding: var(--token-space-4);
+--layout-module-padding: var(--token-space-3);
+--layout-module-radius: var(--token-radius-sm);
+--layout-container-max-width: var(--token-size-1600);
+--layout-base-font-size: var(--token-size-15);
+--layout-base-line-height: 1.45;
+--layout-header-utility-gap: var(--token-size-10);
+
+/* APP SURFACE SEMANTICS */
+--app-page-bg: var(--theme-page-bg, var(--surface-base));
+--app-header-bg: var(--theme-header-bg, var(--surface-panel));
+--app-hero-surface-bg: var(--theme-hero-surface-bg, var(--surface-panel));
+--app-surface-bg: var(--theme-surface-bg, var(--surface-panel));
+--app-surface-border: var(--theme-surface-border-strong, var(--surface-border));
+--app-divider: var(--theme-divider, var(--surface-border));
+--app-text-primary: var(--theme-text-primary, var(--text-main));
+--app-text-muted: var(--theme-text-muted, var(--text-sub));
+--app-heading-color: var(--theme-heading-color, var(--text-main));
+--app-button-bg: var(--theme-button-bg, var(--action-primary-bg));
+--app-button-fg: var(--theme-button-fg, var(--token-color-white));
+--app-input-bg: var(--theme-input-bg, var(--surface-panel));
+--app-input-border: var(--theme-input-border, var(--surface-border));
+--app-button-border: var(--theme-button-border, var(--surface-border));
+--app-status-bg: var(--theme-status-bg, var(--effect-glow-soft));
+--app-status-fg: var(--theme-status-fg, var(--text-main));
+--app-stale-bg: var(--theme-stale-bg, var(--surface-panel));
+--app-stale-fg: var(--theme-stale-fg, var(--text-main));
+--app-location-error: var(--theme-location-error, var(--token-color-danger));
+
+/* SPECIAL VISUALS */
+--effect-dark-page-gradient: var(--token-gradient-dark-page);
+--effect-panel-hairline-strong: var(--token-gradient-panel-hairline-strong);
+--effect-panel-hairline-soft: var(--token-gradient-panel-hairline-soft);
+--effect-target-icon-gradient: var(--token-gradient-target-icon);
+--effect-scene-sky-gradient: var(--token-gradient-scene-sky);
+--effect-panel-shadow-soft: var(--token-shadow-panel-soft);
+--effect-hero-shadow-soft: var(--token-shadow-hero-soft);
+--effect-cta-shadow-soft: var(--token-shadow-cta-soft);
+--effect-target-hover-shadow: var(--token-shadow-target-hover);
+--effect-glass-ring: var(--token-shadow-glass-ring);
+--effect-glass-ring-subtle: var(--token-shadow-glass-ring-subtle);
+
+/* STARFIELD EFFECTS */
+--effect-star-dot-a: rgba(200, 220, 255, 0.045);
+--effect-star-dot-b: rgba(200, 220, 255, 0.02);
+--effect-star-dot-c: rgba(220, 230, 255, 0.08);
+--effect-star-dot-d: rgba(200, 220, 255, 0.06);
+--effect-star-dot-e: rgba(200, 220, 255, 0.04);
+--effect-star-grid-size-a: var(--token-size-2);
+--effect-star-grid-size-b: var(--token-size-6);
+--effect-star-grid-size-c: var(--token-size-120);
+--effect-star-grid-size-d: var(--token-size-200);
+--effect-star-grid-size-e: var(--token-size-340);
+--effect-star-grid-pos-ax: var(--token-size-0);
+--effect-star-grid-pos-ay: var(--token-size-0);
+--effect-star-grid-pos-bx: var(--token-size-20);
+--effect-star-grid-pos-by: var(--token-size-30);
+--effect-star-grid-pos-cx: var(--token-size-10);
+--effect-star-grid-pos-cy: var(--token-size-20);
+--effect-star-grid-pos-dx: var(--token-size-80);
+--effect-star-grid-pos-dy: var(--token-size-140);
+--effect-star-grid-pos-ex: var(--token-size-200);
+--effect-star-grid-pos-ey: var(--token-size-60);
+--effect-star-layer-opacity-1: 0.85;
+--effect-star-layer-opacity-2: 0.55;
+--effect-star-layer-blur: var(--token-blur-point-2);
+--effect-star-layer-saturation: 0.9;
+--effect-star-layer-twinkle-duration: var(--token-motion-duration-8s);
+--effect-star-layer-drift-duration: var(--token-motion-duration-40s);
+--effect-star-drift-distance: var(--token-size-2);
+
 }

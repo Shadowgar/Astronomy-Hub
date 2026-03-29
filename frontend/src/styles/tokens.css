@@ -114,4 +114,86 @@
   --token-location-selector-max-width: 420px;
   --token-app-max-width: 1400px;
   --token-inline-expansion-max-height: 800px;
+
+  /* legacy sizing scale used in styles.css */
+  --token-size-0: 0;
+  --token-size-1: 1px;
+  --token-size-2: 2px;
+  --token-size-3: 3px;
+  --token-size-4: 4px;
+  --token-size-6: 6px;
+  --token-size-8: 8px;
+  --token-size-10: 10px;
+  --token-size-11: 11px;
+  --token-size-12: 12px;
+  --token-size-13: 13px;
+  --token-size-14: 14px;
+  --token-size-15: 15px;
+  --token-size-16: 16px;
+  --token-size-18: 18px;
+  --token-size-20: 20px;
+  --token-size-22: 22px;
+  --token-size-24: 24px;
+  --token-size-26: 26px;
+  --token-size-28: 28px;
+  --token-size-30: 30px;
+  --token-size-36: 36px;
+  --token-size-44: 44px;
+  --token-size-48: 48px;
+  --token-size-60: 60px;
+  --token-size-64: 64px;
+  --token-size-80: 80px;
+  --token-size-90: 90px;
+  --token-size-96: 96px;
+  --token-size-98: 98px;
+  --token-size-100: 100px;
+  --token-size-120: 120px;
+  --token-size-140: 140px;
+  --token-size-160: 160px;
+  --token-size-200: 200px;
+  --token-size-220: 220px;
+  --token-size-260: 260px;
+  --token-size-340: 340px;
+  --token-size-360: 360px;
+  --token-size-480: 480px;
+  --token-size-900: 900px;
+  --token-size-920: 920px;
+  --token-size-1200: 1200px;
+  --token-size-1600: 1600px;
+  --token-size-999: 999px;
+
+  /* motion and visual effects */
+  --token-motion-duration-8s: 8s;
+  --token-motion-duration-40s: 40s;
+  --token-motion-duration-140ms: 140ms;
+  --token-blur-12: 12px;
+  --token-blur-8: 8px;
+  --token-blur-point-2: 0.2px;
+  --token-shadow-panel-soft: 0 6px 12px rgba(0, 0, 0, 0.03);
+  --token-shadow-hero-soft: 0 6px 18px rgba(0, 0, 0, 0.04);
+  --token-shadow-cta-soft: 0 4px 10px rgba(0, 0, 0, 0.06);
+  --token-shadow-target-hover: 0 10px 30px rgba(2, 6, 23, 0.6), 0 0 10px rgba(255, 255, 255, 0.02);
+  --token-shadow-glass-ring: 0 0 0 1px rgba(255, 255, 255, 0.02);
+  --token-shadow-glass-ring-subtle: 0 0 0 1px rgba(255, 255, 255, 0.01);
+  --token-gradient-dark-page: radial-gradient(circle at 15% 10%, rgba(10, 30, 60, 1) 0%, rgba(6, 12, 24, 1) 35%, #04050a 70%, #010409 100%);
+  --token-gradient-panel-hairline-strong: linear-gradient(90deg, rgba(47, 129, 247, 0.06), rgba(47, 129, 247, 0.02));
+  --token-gradient-panel-hairline-soft: linear-gradient(90deg, rgba(47, 129, 247, 0.04), rgba(47, 129, 247, 0.015));
+  --token-gradient-target-icon: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  --token-gradient-scene-sky: radial-gradient(circle at 50% 20%, rgba(80, 120, 180, 0.18), rgba(10, 20, 35, 0.88));
+
+  /* alpha colors for cross-theme visual layers */
+  --token-alpha-transparent: rgba(0, 0, 0, 0);
+  --token-alpha-black-0_03: rgba(0, 0, 0, 0.03);
+  --token-alpha-red-0_06: rgba(160, 40, 40, 0.06);
+  --token-alpha-red-0_08: rgba(160, 40, 40, 0.08);
+  --token-alpha-red-0_10: rgba(90, 20, 20, 0.1);
+  --token-alpha-red-0_12: rgba(160, 40, 40, 0.12);
+  --token-alpha-white-0_01: rgba(255, 255, 255, 0.01);
+  --token-alpha-white-0_02: rgba(255, 255, 255, 0.02);
+  --token-alpha-white-0_03: rgba(255, 255, 255, 0.03);
+  --token-alpha-white-0_04: rgba(255, 255, 255, 0.04);
+  --token-alpha-white-0_06: rgba(255, 255, 255, 0.06);
+  --token-alpha-white-0_08: rgba(255, 255, 255, 0.08);
+  --token-alpha-white-0_14: rgba(255, 255, 255, 0.14);
+  --token-alpha-dark-scene-chip: rgba(7, 15, 28, 0.65);
 }

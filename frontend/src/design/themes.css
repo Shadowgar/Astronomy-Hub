@@ -20,6 +20,25 @@
 --theme-action-primary-bg: #4fd1ff;
 --theme-status-good-bg: #22c55e;
 --theme-effect-glow-soft: rgba(80,160,255,0.08);
+--theme-page-bg: #0d1117;
+--theme-header-bg: #010409;
+--theme-hero-surface-bg: #161b22;
+--theme-surface-bg: #161b22;
+--theme-surface-border-strong: #30363d;
+--theme-divider: #30363d;
+--theme-text-primary: #e6edf3;
+--theme-text-muted: #8b949e;
+--theme-button-bg: #2f81f7;
+--theme-button-fg: #ffffff;
+--theme-input-bg: #0d1117;
+--theme-input-border: #30363d;
+--theme-heading-color: #e6edf3;
+--theme-status-bg: rgba(47,129,247,0.15);
+--theme-status-fg: #e6edf3;
+--theme-button-border: #30363d;
+--theme-stale-bg: #161b22;
+--theme-stale-fg: #e6edf3;
+--theme-location-error: #ffb3b3;
 }
 
 .theme-light {
@@ -44,6 +63,25 @@
 --theme-action-primary-bg: #2563eb;
 --theme-status-good-bg: #16a34a;
 --theme-effect-glow-soft: rgba(37,99,235,0.08);
+--theme-page-bg: #ffffff;
+--theme-header-bg: #f6f8fa;
+--theme-hero-surface-bg: #ffffff;
+--theme-surface-bg: #ffffff;
+--theme-surface-border-strong: #d0d7de;
+--theme-divider: #d8dee4;
+--theme-text-primary: #1f2328;
+--theme-text-muted: #656d76;
+--theme-button-bg: #1f883d;
+--theme-button-fg: #ffffff;
+--theme-input-bg: #ffffff;
+--theme-input-border: #d0d7de;
+--theme-heading-color: #1f2328;
+--theme-status-bg: rgba(9,105,218,0.1);
+--theme-status-fg: #1f2328;
+--theme-button-border: rgba(31,35,40,0.15);
+--theme-stale-bg: #fff8c5;
+--theme-stale-fg: #4d2d00;
+--theme-location-error: #b42318;
 }
 
 .theme-dark-hc {
@@ -96,4 +134,23 @@
 --theme-action-primary-bg: #ff4d4d;
 --theme-status-good-bg: #ff6666;
 --theme-effect-glow-soft: rgba(255,80,80,0.12);
+--theme-page-bg: #020101;
+--theme-header-bg: #030101;
+--theme-hero-surface-bg: #050101;
+--theme-surface-bg: #040101;
+--theme-surface-border-strong: #240000;
+--theme-divider: rgba(120,20,20,0.18);
+--theme-text-primary: #7a1f1f;
+--theme-text-muted: #5a1414;
+--theme-button-bg: #120303;
+--theme-button-fg: #8a2222;
+--theme-input-bg: #030101;
+--theme-input-border: #240000;
+--theme-heading-color: #8a2222;
+--theme-status-bg: rgba(160,40,40,0.08);
+--theme-status-fg: #8a2222;
+--theme-button-border: rgba(120,20,20,0.18);
+--theme-stale-bg: rgba(90,20,20,0.1);
+--theme-stale-fg: #7a1f1f;
+--theme-location-error: #8a2222;
 }
