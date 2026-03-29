@@ -18,6 +18,18 @@ async def get_object_detail(
         object_id, lat=lat, lon=lon, elevation_ft=elevation_ft
     )
     if status_code != 200:
-        return JSONResponse(status_code=status_code, content=payload)
+        if status_code == 404:
+            return JSONResponse(
+                status_code=status_code,
+                content={"error": {"code": "not_found", "message": "object not found"}},
+            )
+        if status_code >= 500:
+            return JSONResponse(
+                status_code=status_code,
+                content={"error": {"code": "module_error", "message": "failed to assemble object detail"}},
+            )
+        return JSONResponse(
+            status_code=status_code,
+            content={"error": {"code": "invalid_request", "message": "invalid request"}},
+        )
     return payload
-
