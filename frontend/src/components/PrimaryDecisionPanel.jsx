@@ -1,5 +1,9 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useQueries } from '@tanstack/react-query'
+import { conditionsKeys, fetchConditions } from '../features/conditions/queries'
+import { targetsKeys, fetchTargets } from '../features/targets/queries'
+import { parseLocationQuery } from '../features/shared/locationQuery'
 
 function fmtTime(iso) {
   try {
@@ -28,39 +32,23 @@ function observingLabel(score) {
 }
 
 export default function PrimaryDecisionPanel({ locationQuery = '' }) {
-  const [conds, setConds] = useState(null)
-  const [targets, setTargets] = useState([])
-  const [loading, setLoading] = useState(true)
+  const queryParams = parseLocationQuery(locationQuery)
+  const [conditionsQuery, targetsQuery] = useQueries({
+    queries: [
+      {
+        queryKey: conditionsKeys.list(queryParams),
+        queryFn: () => fetchConditions(queryParams),
+      },
+      {
+        queryKey: targetsKeys.list(queryParams),
+        queryFn: () => fetchTargets(queryParams),
+      },
+    ],
+  })
 
-  useEffect(() => {
-    let cancelled = false
-    setLoading(true)
-
-    Promise.all([
-      fetch(`/api/conditions${locationQuery}`).then((r) => (r.ok ? r.json() : Promise.reject(r.status))),
-      fetch(`/api/targets${locationQuery}`).then((r) => (r.ok ? r.json() : Promise.reject(r.status))),
-    ])
-      .then(([c, t]) => {
-        if (!cancelled) {
-          setConds((c && c.data) || c)
-          setTargets(Array.isArray(t) ? t : [])
-        }
-      })
-      .catch(() => {
-        if (!cancelled) {
-          // keep minimal UX on errors — leave panels empty
-          setConds(null)
-          setTargets([])
-        }
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [locationQuery])
+  const conds = (conditionsQuery.data && conditionsQuery.data.data) || conditionsQuery.data || null
+  const targets = Array.isArray(targetsQuery.data) ? targetsQuery.data : []
+  const loading = conditionsQuery.isLoading || targetsQuery.isLoading
 
   const top = targets && targets.length > 0 ? targets[0] : null
 

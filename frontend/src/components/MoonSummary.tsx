@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import GlassPanel from './ui/GlassPanel'
 import SectionHeader from './ui/SectionHeader'
+import { useConditionsQuery } from '../features/conditions/queries'
+import { parseLocationQuery } from '../features/shared/locationQuery'
 
 function fmtTimeShort(iso: string | null | undefined): string {
   try {
@@ -17,34 +19,14 @@ interface MoonSummaryProps {
 }
 
 export default function MoonSummary({ locationQuery = '' }: MoonSummaryProps) {
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>(null)
-  const [data, setData] = useState<any | null>(null)
-
-  useEffect(() => {
-    let cancelled = false
-    setLoading(true)
-    setError(null)
-
-    fetch(`/api/conditions${locationQuery}`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json()
-      })
-      .then((json) => {
-        if (!cancelled) setData((json && json.data) || json)
-      })
-      .catch((err) => {
-        if (!cancelled) setError(err.message || 'Unknown error')
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [locationQuery])
+  const queryParams = parseLocationQuery(locationQuery)
+  const conditionsQuery = useConditionsQuery(queryParams)
+  const loading = conditionsQuery.isLoading
+  const error = conditionsQuery.isError
+    ? (conditionsQuery.error && conditionsQuery.error.message) || 'Unknown error'
+    : null
+  const rawData = conditionsQuery.data as any
+  const data = (rawData && rawData.data) || rawData
 
   if (loading) {
     return (

@@ -1,43 +1,24 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import GlassPanel from './ui/GlassPanel'
 import SectionHeader from './ui/SectionHeader'
 import RowItem from './ui/RowItem'
 import InlineExpansion from './common/InlineExpansion'
 import ObjectDetail from './ObjectDetail'
+import { useTargetsQuery } from '../features/targets/queries'
+import { parseLocationQuery } from '../features/shared/locationQuery'
 
 // Render up to 5 targets per UI density rules
 const MAX_TARGETS = 5
 
 export default function RecommendedTargets({ locationQuery = '' }) {
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [targets, setTargets] = useState([])
-
-  useEffect(() => {
-    let cancelled = false
-    setLoading(true)
-    setError(null)
-
-    fetch(`/api/targets${locationQuery}`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json()
-      })
-      .then((json) => {
-        if (!cancelled && Array.isArray(json)) setTargets(json.slice(0, MAX_TARGETS))
-      })
-      .catch((err) => {
-        if (!cancelled) setError(err.message || 'Unknown error')
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [locationQuery])
+  const queryParams = parseLocationQuery(locationQuery)
+  const targetsQuery = useTargetsQuery(queryParams)
+  const loading = targetsQuery.isLoading
+  const error = targetsQuery.isError
+    ? (targetsQuery.error && targetsQuery.error.message) || 'Unknown error'
+    : null
+  const targets = Array.isArray(targetsQuery.data) ? targetsQuery.data.slice(0, MAX_TARGETS) : []
 
   return (
     <GlassPanel className="component recommended-targets">

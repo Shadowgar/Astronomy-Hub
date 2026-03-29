@@ -1,36 +1,20 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import GlassPanel from './ui/GlassPanel'
 import SectionHeader from './ui/SectionHeader'
+import { useAlertsQuery } from '../features/alerts/queries'
+import { parseLocationQuery } from '../features/shared/locationQuery'
 
 const MAX_NEWS = 3
 
 export default function SkyNews({ locationQuery = '' }) {
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [items, setItems] = useState([])
-
-  useEffect(() => {
-    let cancelled = false
-    setLoading(true)
-    setError(null)
-
-    fetch(`/api/alerts${locationQuery}`)
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`HTTP ${res.status}`))))
-      .then((json) => {
-        if (!cancelled) setItems(Array.isArray(json) ? json.slice(0, MAX_NEWS) : [])
-      })
-      .catch((err) => {
-        if (!cancelled) setError(err.message || 'Unknown error')
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [locationQuery])
+  const queryParams = parseLocationQuery(locationQuery)
+  const alertsQuery = useAlertsQuery(queryParams)
+  const loading = alertsQuery.isLoading
+  const error = alertsQuery.isError
+    ? (alertsQuery.error && alertsQuery.error.message) || 'Unknown error'
+    : null
+  const items = Array.isArray(alertsQuery.data) ? alertsQuery.data.slice(0, MAX_NEWS) : []
 
   return (
     <GlassPanel className="module panel sky-news">

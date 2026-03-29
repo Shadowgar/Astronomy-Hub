@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useObjectDetailQuery } from '../features/objects/queries'
 
 function _slugify(name) {
   try {
@@ -10,33 +11,11 @@ function _slugify(name) {
 }
 
 export default function ObjectDetail({ objectId, objectName }) {
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [detail, setDetail] = useState(null)
-
-  useEffect(() => {
-    let cancelled = false
-    setLoading(true)
-    setError(null)
-    setDetail(null)
-
-    const id = objectId || _slugify(objectName)
-    fetch(`/api/object/${encodeURIComponent(id)}`)
-      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((json) => {
-        if (!cancelled && json && json.data) setDetail(json.data)
-      })
-      .catch((err) => {
-        if (!cancelled) setError(String(err || 'error'))
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [objectId, objectName])
+  const id = objectId || _slugify(objectName)
+  const detailQuery = useObjectDetailQuery(id)
+  const loading = detailQuery.isLoading
+  const error = detailQuery.isError ? String((detailQuery.error && detailQuery.error.message) || 'error') : null
+  const detail = (detailQuery.data && detailQuery.data.data) || null
 
   if (loading) return <div className="small">Loading detail…</div>
   if (error) return <div className="small error">Error loading detail: {error}</div>

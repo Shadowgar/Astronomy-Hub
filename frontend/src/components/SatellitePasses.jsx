@@ -1,42 +1,23 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import GlassPanel from './ui/GlassPanel'
 import SectionHeader from './ui/SectionHeader'
 // RowItem not used in this component
 import InlineExpansion from './common/InlineExpansion'
 import ObjectDetail from './ObjectDetail'
+import { usePassesQuery } from '../features/passes/queries'
+import { parseLocationQuery } from '../features/shared/locationQuery'
 
 const MAX_PASSES = 5
 
 export default function SatellitePasses({ locationQuery = '' }) {
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [passes, setPasses] = useState([])
-
-  useEffect(() => {
-    let cancelled = false
-    setLoading(true)
-    setError(null)
-
-    fetch(`/api/passes${locationQuery}`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json()
-      })
-      .then((json) => {
-        if (!cancelled && Array.isArray(json)) setPasses(json.slice(0, MAX_PASSES))
-      })
-      .catch((err) => {
-        if (!cancelled) setError(err.message || 'Unknown error')
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [locationQuery])
+  const queryParams = parseLocationQuery(locationQuery)
+  const passesQuery = usePassesQuery(queryParams)
+  const loading = passesQuery.isLoading
+  const error = passesQuery.isError
+    ? (passesQuery.error && passesQuery.error.message) || 'Unknown error'
+    : null
+  const passes = Array.isArray(passesQuery.data) ? passesQuery.data.slice(0, MAX_PASSES) : []
 
   return (
     <GlassPanel className="component satellite-passes">

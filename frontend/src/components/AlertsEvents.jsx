@@ -1,41 +1,22 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import GlassPanel from "./ui/GlassPanel";
 import SectionHeader from "./ui/SectionHeader";
 import InlineExpansion from './common/InlineExpansion'
 import ObjectDetail from './ObjectDetail'
+import { useAlertsQuery } from '../features/alerts/queries'
+import { parseLocationQuery } from '../features/shared/locationQuery'
 
 const MAX_ALERTS = 3
 
 export default function AlertsEvents({ locationQuery = '' }) {
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [alerts, setAlerts] = useState([])
-
-  useEffect(() => {
-    let cancelled = false
-    setLoading(true)
-    setError(null)
-
-    fetch(`/api/alerts${locationQuery}`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json()
-      })
-      .then((json) => {
-        if (!cancelled && Array.isArray(json)) setAlerts(json.slice(0, MAX_ALERTS))
-      })
-      .catch((err) => {
-        if (!cancelled) setError(err.message || 'Unknown error')
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [locationQuery])
+  const queryParams = parseLocationQuery(locationQuery)
+  const alertsQuery = useAlertsQuery(queryParams)
+  const loading = alertsQuery.isLoading
+  const error = alertsQuery.isError
+    ? (alertsQuery.error && alertsQuery.error.message) || 'Unknown error'
+    : null
+  const alerts = Array.isArray(alertsQuery.data) ? alertsQuery.data.slice(0, MAX_ALERTS) : []
 
   return (
     <GlassPanel className="component alerts-events">

@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import GlassPanel from './ui/GlassPanel'
 import SectionHeader from './ui/SectionHeader'
 import ObjectDetail from './ObjectDetail'
+import { useConditionsQuery } from '../features/conditions/queries'
+import { useSceneAboveMeQuery } from '../features/scene/queries'
+import { parseLocationQuery } from '../features/shared/locationQuery'
 
 function labelForType(type) {
   if (type === 'satellite') return 'Satellite'
@@ -12,37 +15,18 @@ function labelForType(type) {
 }
 
 export default function AboveMeScene({ locationQuery = '' }) {
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [scene, setScene] = useState(null)
-  const [conditions, setConditions] = useState(null)
+  const queryParams = parseLocationQuery(locationQuery)
+  const sceneQuery = useSceneAboveMeQuery(queryParams)
+  const conditionsQuery = useConditionsQuery(queryParams)
+  const loading = sceneQuery.isLoading || conditionsQuery.isLoading
+  const error = sceneQuery.isError
+    ? (sceneQuery.error && sceneQuery.error.message) || 'Failed to load scene'
+    : conditionsQuery.isError
+      ? (conditionsQuery.error && conditionsQuery.error.message) || 'Failed to load conditions'
+      : null
+  const scene = (sceneQuery.data && sceneQuery.data.data) || sceneQuery.data || null
+  const conditions = (conditionsQuery.data && conditionsQuery.data.data) || conditionsQuery.data || null
   const [selectedObjectId, setSelectedObjectId] = useState(null)
-
-  useEffect(() => {
-    let cancelled = false
-    setLoading(true)
-    setError(null)
-
-    Promise.all([
-      fetch(`/api/scene/above-me${locationQuery}`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(`scene ${r.status}`)))),
-      fetch(`/api/conditions${locationQuery}`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(`conditions ${r.status}`)))),
-    ])
-      .then(([sceneResp, conditionsResp]) => {
-        if (cancelled) return
-        setScene((sceneResp && sceneResp.data) || sceneResp || null)
-        setConditions((conditionsResp && conditionsResp.data) || conditionsResp || null)
-      })
-      .catch((err) => {
-        if (!cancelled) setError(err.message || 'Failed to load scene')
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [locationQuery])
 
   const objects = useMemo(() => (scene && Array.isArray(scene.objects) ? scene.objects : []), [scene])
   const topTarget = useMemo(() => objects.find((o) => o.type === 'planet' || o.type === 'deep_sky') || null, [objects])

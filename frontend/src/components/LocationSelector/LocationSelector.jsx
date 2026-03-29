@@ -1,46 +1,22 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState } from 'react'
 import './locationSelector.css'
+import { useLocationSearchQuery } from '../../features/location/queries'
 
 export default function LocationSelector({ onApply, onConfirm, onCancel } = {}) {
   const [query, setQuery] = useState('')
-  const [suggestions, setSuggestions] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
   const [selectedSuggestion, setSelectedSuggestion] = useState(null)
-  const mounted = useRef(true)
 
-  useEffect(() => {
-    mounted.current = true
-    return () => { mounted.current = false }
-  }, [])
-
-  useEffect(() => {
-    let cancelled = false
-    if (query.trim().length < 3) {
-      setSuggestions([])
-      setError(null)
-      setLoading(false)
-      return
-    }
-
-    setLoading(true)
-    setError(null)
-    const q = encodeURIComponent(query.trim())
-    fetch(`/api/location/search?q=${q}`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json()
-      })
-      .then((json) => {
-        if (!cancelled && mounted.current) setSuggestions(Array.isArray(json) ? json : [])
-      })
-      .catch((err) => {
-        if (!cancelled && mounted.current) setError(err.message || 'Unknown error')
-      })
-      .finally(() => { if (!cancelled && mounted.current) setLoading(false) })
-
-    return () => { cancelled = true }
-  }, [query])
+  const searchQuery = useLocationSearchQuery(query)
+  const loading = searchQuery.isFetching
+  const error = searchQuery.isError
+    ? (searchQuery.error && searchQuery.error.message) || 'Unknown error'
+    : null
+  const suggestions =
+    query.trim().length < 3
+      ? []
+      : Array.isArray(searchQuery.data)
+        ? searchQuery.data
+        : []
 
   const handleApply = () => {
     const chosen = selectedSuggestion || (suggestions && suggestions.length ? suggestions[0] : null)
