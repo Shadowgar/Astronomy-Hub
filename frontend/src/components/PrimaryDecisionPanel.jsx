@@ -49,6 +49,11 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
   const conds = (conditionsQuery.data && conditionsQuery.data.data) || conditionsQuery.data || null
   const targets = Array.isArray(targetsQuery.data) ? targetsQuery.data : []
   const loading = conditionsQuery.isLoading || targetsQuery.isLoading
+  const hasError = conditionsQuery.isError || targetsQuery.isError
+  const errorMessage =
+    (conditionsQuery.error && conditionsQuery.error.message) ||
+    (targetsQuery.error && targetsQuery.error.message) ||
+    null
 
   const top = targets && targets.length > 0 ? targets[0] : null
 
@@ -61,16 +66,22 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
   return (
     <section className="primary-decision-panel" aria-labelledby="pdp-heading">
       <div className="pdp-left">
-        <span className="pdp-status-pill">{loading ? 'Loading…' : statusText}</span>
-        <div className="pdp-darkness small">{darknessStart && darknessEnd ? `Best: ${darknessStart} – ${darknessEnd}` : (loading ? '…' : 'Not available')}</div>
+        <span className="pdp-status-pill">{loading ? 'Loading…' : hasError ? 'Error' : statusText}</span>
+        <div className="pdp-darkness small">{darknessStart && darknessEnd ? `Best: ${darknessStart} – ${darknessEnd}` : (loading ? '…' : hasError ? 'Unavailable' : 'Not available')}</div>
       </div>
 
       <div className="pdp-center">
         <h2 id="pdp-heading" className="sr-only">Tonight’s Observing Plan</h2>
         <div className="pdp-message">
-          {top ? (
+          {loading ? (
+            <span>Loading observing plan…</span>
+          ) : hasError ? (
+            <span className="error">Error loading observing plan{errorMessage ? `: ${errorMessage}` : ''}</span>
+          ) : top ? (
             <span className="pdp-top-target-inline">Start with <strong>{top.name}</strong> · {top.direction?.toUpperCase()}</span>
-          ) : null}
+          ) : (
+            <span>No observing plan available</span>
+          )}
         </div>
       </div>
 
