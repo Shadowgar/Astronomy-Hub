@@ -11,7 +11,7 @@ export default function AppShell({ children }) {
     >
       <div
         style={{
-          maxWidth: "1400px",
+          maxWidth: "var(--token-app-max-width)",
           margin: "0 auto",
         }}
       >

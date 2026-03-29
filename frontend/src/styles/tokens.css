@@ -1,23 +1,81 @@
-/* Canonical token bridge (Phase 2.5 Package 5 Step 3)
-   This file defines a minimal, canonical set of tokens that bridge
-   existing `design/tokens.css` and `styles.css` during migration.
-   Keep this file deliberately small — it establishes the single
-   token import point for Step 3 only.
-*/
 :root {
-  /* spacing (map to existing tokens if present, with safe fallbacks) */
+  /* spacing */
   --token-space-1: var(--space-1, 4px);
   --token-space-2: var(--space-2, 8px);
   --token-space-3: var(--space-3, 12px);
-
-  /* radii */
-  --token-radius-sm: var(--radius-sm, 8px);
-  --token-radius-md: var(--radius-md, 12px);
+  --token-space-4: var(--space-4, 16px);
+  --token-space-5: var(--space-5, 20px);
+  --token-space-6: var(--space-6, 24px);
+  --token-space-7: var(--space-7, 32px);
+  --token-space-8: var(--space-8, 40px);
 
   /* typography */
-  --token-font-base: var(--font-3, 16px);
+  --token-font-1: var(--font-1, 12px);
+  --token-font-2: var(--font-2, 14px);
+  --token-font-3: var(--font-3, 16px);
+  --token-font-4: var(--font-4, 18px);
+  --token-font-5: var(--font-5, 22px);
+  --token-font-base: var(--token-font-3);
+  --token-font-weight-regular: var(--weight-regular, 400);
+  --token-font-weight-medium: var(--weight-medium, 500);
+  --token-font-weight-semibold: var(--weight-semibold, 600);
+  --token-font-weight-bold: var(--weight-bold, 700);
 
-  /* colors */
-  --token-text-primary: var(--text-primary, #111827);
-  --token-accent: var(--accent, var(--accent-blue, #0969da));
+  /* color */
+  --token-color-text-primary: var(--text-main, var(--text-primary, #111827));
+  --token-color-text-secondary: var(--text-sub, var(--text-secondary, #6b7280));
+  --token-color-surface-base: var(--surface-base, var(--bg-base, #ffffff));
+  --token-color-surface-panel: var(--surface-panel, var(--panel-bg, #ffffff));
+  --token-color-surface-border: var(--surface-border, var(--panel-border, #d0d7de));
+  --token-color-action-primary: var(--action-primary-bg, var(--accent, #0969da));
+  --token-color-status-good: var(--status-good-bg, var(--success, #22863a));
+  --token-color-white: #ffffff;
+  --token-color-danger: #b00020;
+
+  /* radius */
+  --token-radius-xs: var(--radius-xs, 6px);
+  --token-radius-sm: var(--radius-sm, 8px);
+  --token-radius-md: var(--radius-md, 12px);
+  --token-radius-lg: var(--radius-lg, 16px);
+  --token-radius-xl: var(--radius-xl, 20px);
+  --token-radius-pill: var(--radius-pill, 999px);
+
+  /* border */
+  --token-border-width-thin: 1px;
+  --token-border-width-medium: 2px;
+  --token-border-style: solid;
+  --token-border-subtle: var(--token-border-width-thin) var(--token-border-style) var(--token-color-surface-border);
+
+  /* depth / shadow */
+  --token-shadow-sm: 0 4px 10px var(--effect-glow-soft, rgba(47, 129, 247, 0.08));
+  --token-shadow-md: 0 6px 18px var(--effect-glow-soft, rgba(47, 129, 247, 0.1));
+  --token-shadow-lg: 0 10px 30px var(--effect-glow-soft, rgba(47, 129, 247, 0.12));
+
+  /* z-index */
+  --token-z-base: 0;
+  --token-z-content: 1;
+  --token-z-overlay: 10;
+  --token-z-modal: 100;
+  --token-z-toast: 1000;
+
+  /* motion duration */
+  --token-motion-fast: var(--dur-fast, 120ms);
+  --token-motion-base: var(--dur-base, 180ms);
+  --token-motion-slow: 280ms;
+  --token-ease-standard: var(--ease-standard, ease);
+
+  /* density */
+  --token-density-compact: 0.9;
+  --token-density-comfortable: 1;
+  --token-density-spacious: 1.1;
+
+  /* component-level token aliases used by current UI */
+  --token-control-padding-y: var(--token-space-2);
+  --token-control-padding-x: var(--token-space-3);
+  --token-chip-padding-y: var(--token-space-2);
+  --token-chip-padding-x: var(--token-space-3);
+  --token-badge-padding-y: var(--token-space-1);
+  --token-badge-padding-x: var(--token-space-2);
+  --token-location-selector-max-width: 420px;
+  --token-app-max-width: 1400px;
 }

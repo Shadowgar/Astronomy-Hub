@@ -15,9 +15,9 @@ export default function StatusBadge({
   return (
     <span
       style={{
-        padding: "4px 10px",
-        borderRadius: "var(--radius-pill)",
-        fontSize: "var(--font-2)",
+        padding: "var(--token-badge-padding-y) var(--token-badge-padding-x)",
+        borderRadius: "var(--token-radius-pill)",
+        fontSize: "var(--token-font-2)",
         background: bg,
         color: color,
         display: "inline-block",

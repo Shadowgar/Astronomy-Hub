@@ -18,9 +18,9 @@
 }
 .inline-expansion__chev {
   margin-left: 0.5rem;
-  color: var(--muted-text, #666);
+  color: var(--text-muted, var(--token-color-text-secondary));
 }
 .inline-expansion__content {
   padding: 0.5rem 0.75rem;
-  border-left: 2px solid rgba(0,0,0,0.05);
+  border-left: var(--token-border-width-medium) var(--token-border-style) var(--token-color-surface-border);
 }

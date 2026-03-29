@@ -12,11 +12,11 @@ export default function GlassPanel({
       className={className}
       style={{
         background: "var(--surface-panel)",
-        border: "1px solid var(--surface-border)",
+        border: "var(--token-border-subtle)",
         borderRadius: isHero ? "var(--radius-xl)" : "var(--radius-lg)",
         padding: isHero ? "var(--space-7)" : "var(--space-6)",
-        boxShadow: "0 10px 30px var(--effect-glow-soft)",
-        transition: "all var(--dur-base) var(--ease-standard)",
+        boxShadow: "var(--token-shadow-lg)",
+        transition: "all var(--token-motion-base) var(--token-ease-standard)",
       }}
     >
       {children} </div>

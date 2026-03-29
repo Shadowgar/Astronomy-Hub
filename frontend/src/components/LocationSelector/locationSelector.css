@@ -1,20 +1,20 @@
 .location-selector {
-  border: 1px solid #ddd;
-  padding: 8px;
-  border-radius: 6px;
-  max-width: 420px;
+  border: var(--token-border-subtle);
+  padding: var(--token-space-2);
+  border-radius: var(--token-radius-xs);
+  max-width: var(--token-location-selector-max-width);
   font-family: system-ui, Arial, sans-serif;
 }
-.ls-row { display: flex; gap: 8px; align-items: center; }
-.ls-input { flex: 1; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; }
-.ls-apply { padding: 6px 10px; background: #0366d6; color: white; border: none; border-radius: 4px; cursor: pointer; }
+.ls-row { display: flex; gap: var(--token-space-2); align-items: center; }
+.ls-input { flex: 1; padding: var(--token-control-padding-y) var(--token-control-padding-x); border: var(--token-border-subtle); border-radius: var(--token-radius-xs); }
+.ls-apply { padding: var(--token-control-padding-y) var(--token-control-padding-x); background: var(--token-color-action-primary); color: var(--token-color-white); border: none; border-radius: var(--token-radius-xs); cursor: pointer; }
 .ls-apply:disabled { opacity: 0.6; cursor: default }
-.ls-confirm { padding: 6px 10px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
-.ls-cancel { padding: 6px 10px; background: #d9534f; color: white; border: none; border-radius: 4px; cursor: pointer; }
-.ls-suggestions { margin-top: 8px; }
-.ls-suggestion { padding: 6px 8px; border-bottom: 1px solid #f0f0f0; }
+.ls-confirm { padding: var(--token-control-padding-y) var(--token-control-padding-x); background: var(--token-color-status-good); color: var(--token-color-white); border: none; border-radius: var(--token-radius-xs); cursor: pointer; }
+.ls-cancel { padding: var(--token-control-padding-y) var(--token-control-padding-x); background: var(--token-color-danger); color: var(--token-color-white); border: none; border-radius: var(--token-radius-xs); cursor: pointer; }
+.ls-suggestions { margin-top: var(--token-space-2); }
+.ls-suggestion { padding: var(--token-control-padding-y) var(--token-control-padding-x); border-bottom: var(--token-border-subtle); }
 .ls-suggestion-name { font-weight: 600 }
-.ls-suggestion-coords { font-size: 0.85em; color: #666 }
-.ls-loading { color: #555 }
-.ls-error { color: #b00020 }
-.ls-none { color: #555 }
+.ls-suggestion-coords { font-size: 0.85em; color: var(--token-color-text-secondary) }
+.ls-loading { color: var(--token-color-text-secondary) }
+.ls-error { color: var(--token-color-danger) }
+.ls-none { color: var(--token-color-text-secondary) }
