@@ -6,7 +6,6 @@ import SatellitePasses from './components/SatellitePasses'
 import MoonSummary from './components/MoonSummary'
 import SkyNews from './components/SkyNews'
 import LocationSelector from './components/LocationSelector/LocationSelector'
-import Progress from './pages/Progress'
 // LocationSelector is mounted inside the top controls.
 import useLocationState from './state/locationState'
 import Starfield from './components/Starfield'
@@ -121,18 +120,6 @@ export default function App() {
     locationQuery = `?lat=${lat}&lon=${lon}`
     if (activeLocation.elevation_ft !== undefined && activeLocation.elevation_ft !== null) {
       locationQuery += `&elevation_ft=${encodeURIComponent(activeLocation.elevation_ft)}`
-    }
-  }
-
-  // Minimal, opt-in route handling for the Progress page. This is intentionally
-  // simple and avoids adding a routing dependency: if the path is /Progress
-  // or /progress render the Progress page shell only. Normalize the path to
-  // handle case and trailing-slash variations.
-  if (typeof window !== 'undefined') {
-    const pRaw = (window.location && window.location.pathname) || ''
-    const p = (pRaw || '').replace(/\/+$/, '').toLowerCase()
-    if (p === '/progress') {
-      return <Progress />
     }
   }
 
