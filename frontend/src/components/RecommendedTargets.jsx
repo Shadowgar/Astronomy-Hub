@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import GlassPanel from './ui/GlassPanel'
+import Panel from './ui/Panel'
 import SectionHeader from './ui/SectionHeader'
-import RowItem from './ui/RowItem'
+import DataRow from './ui/DataRow'
+import LoadingState from './ui/LoadingState'
+import ErrorState from './ui/ErrorState'
+import EmptyState from './ui/EmptyState'
 import InlineExpansion from './common/InlineExpansion'
 import ObjectDetail from './ObjectDetail'
 import { useTargetsQuery } from '../features/targets/queries'
@@ -21,15 +24,15 @@ export default function RecommendedTargets({ locationQuery = '' }) {
   const targets = Array.isArray(targetsQuery.data) ? targetsQuery.data.slice(0, MAX_TARGETS) : []
 
   return (
-    <GlassPanel className="component recommended-targets">
+    <Panel className="component recommended-targets">
       <SectionHeader title="Recommended Targets" />
 
-      {loading && <p className="loading">Loading targets…</p>}
-      {error && <p className="error">Error loading targets: {error}</p>}
+      {loading && <LoadingState message="Loading targets…" />}
+      {error && <ErrorState message={`Error loading targets: ${error}`} />}
 
       {!loading && !error && (
         <div style={{ padding: 0 }}>
-          {targets.length === 0 && <div>No targets available</div>}
+          {targets.length === 0 && <EmptyState message="No targets available" />}
           <ul style={{ margin: 0, padding: 0 }}>
             {targets.map((t, idx) => {
               const summary = (
@@ -75,13 +78,13 @@ export default function RecommendedTargets({ locationQuery = '' }) {
 
               return (
                 <li key={t.name || idx} style={{ listStyle: 'none' }}>
-                  <RowItem left={left} right={right} />
+                  <DataRow left={left} right={right} />
                 </li>
               )
             })}
           </ul>
         </div>
       )}
-    </GlassPanel>
+    </Panel>
   )
 }

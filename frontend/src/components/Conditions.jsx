@@ -1,7 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import GlassPanel from './ui/GlassPanel'
+import Panel from './ui/Panel'
 import SectionHeader from './ui/SectionHeader'
+import AppButton from './ui/AppButton'
+import LoadingState from './ui/LoadingState'
+import ErrorState from './ui/ErrorState'
+import EmptyState from './ui/EmptyState'
 import logger from '../lib/logger'
 import { useConditionsQuery } from '../features/conditions/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
@@ -74,29 +78,29 @@ export default function Conditions({ locationQuery = '' }) {
 
   if (loading) {
     return (
-      <GlassPanel className="module conditions-module panel">
+      <Panel className="module conditions-module panel">
         <SectionHeader title="Conditions" />
-        <p className="loading">Loading conditions…</p>
-      </GlassPanel>
+        <LoadingState message="Loading conditions…" />
+      </Panel>
     )
   }
 
   if (error && !simulatePartial) {
     logger?.info?.('module', 'conditions:fetch:error', { err: error })
     return (
-      <GlassPanel className="module conditions-module panel">
-        <SectionHeader title="Conditions" action={<button onClick={handleRetry}>Retry</button>} />
-        <p className="error">Error loading conditions: {error}</p>
-      </GlassPanel>
+      <Panel className="module conditions-module panel">
+        <SectionHeader title="Conditions" action={<AppButton onClick={handleRetry}>Retry</AppButton>} />
+        <ErrorState message={`Error loading conditions: ${error}`} />
+      </Panel>
     )
   }
 
   if (!effectiveData) {
     return (
-      <GlassPanel className="module conditions-module panel">
-        <SectionHeader title="Conditions" action={<button onClick={handleRetry}>Retry</button>} />
-        <p>No data available</p>
-      </GlassPanel>
+      <Panel className="module conditions-module panel">
+        <SectionHeader title="Conditions" action={<AppButton onClick={handleRetry}>Retry</AppButton>} />
+        <EmptyState message="No data available" />
+      </Panel>
     )
   }
 
@@ -113,7 +117,7 @@ export default function Conditions({ locationQuery = '' }) {
 
   // Compact, chip-style signal rows for quick scanning
   return (
-    <GlassPanel className="module conditions-module panel">
+    <Panel className="module conditions-module panel">
       <SectionHeader title="Conditions" subtitle={staleProp ? 'Partial data' : undefined} />
       <div className="conditions-body" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--token-space-2)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -137,6 +141,6 @@ export default function Conditions({ locationQuery = '' }) {
           ) : null}
         </div>
       </div>
-    </GlassPanel>
+    </Panel>
   )
 }

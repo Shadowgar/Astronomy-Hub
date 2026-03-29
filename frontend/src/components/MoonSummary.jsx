@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import GlassPanel from './ui/GlassPanel'
+import Panel from './ui/Panel'
 import SectionHeader from './ui/SectionHeader'
+import LoadingState from './ui/LoadingState'
+import ErrorState from './ui/ErrorState'
+import EmptyState from './ui/EmptyState'
 import { useConditionsQuery } from '../features/conditions/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
 
@@ -27,28 +30,28 @@ export default function MoonSummary({ locationQuery = '' }) {
 
   if (loading) {
     return (
-      <GlassPanel className="component moon-summary">
+      <Panel className="component moon-summary">
         <SectionHeader title="Moon Summary" />
-        <p className="loading">Loading moon summary…</p>
-      </GlassPanel>
+        <LoadingState message="Loading moon summary…" />
+      </Panel>
     )
   }
 
   if (error) {
     return (
-      <GlassPanel className="component moon-summary">
+      <Panel className="component moon-summary">
         <SectionHeader title="Moon Summary" />
-        <p className="error">Error loading moon summary: {error}</p>
-      </GlassPanel>
+        <ErrorState message={`Error loading moon summary: ${error}`} />
+      </Panel>
     )
   }
 
   if (!data) {
     return (
-      <GlassPanel className="component moon-summary">
+      <Panel className="component moon-summary">
         <SectionHeader title="Moon Summary" />
-        <p>No data available</p>
-      </GlassPanel>
+        <EmptyState message="No data available" />
+      </Panel>
     )
   }
 
@@ -61,7 +64,7 @@ export default function MoonSummary({ locationQuery = '' }) {
   const noteText = summary ? `Notes: ${summary}` : ''
 
   return (
-    <GlassPanel className="component moon-summary">
+    <Panel className="component moon-summary">
       <SectionHeader title="Moon Summary" />
       <div className="moon-line" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-3)' }}>
@@ -70,6 +73,6 @@ export default function MoonSummary({ locationQuery = '' }) {
         </div>
         {noteText && <div style={{ color: 'var(--text-sub)' }}>{noteText}</div>}
       </div>
-    </GlassPanel>
+    </Panel>
   )
 }

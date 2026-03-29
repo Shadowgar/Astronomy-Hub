@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import GlassPanel from "./ui/GlassPanel";
+import Panel from "./ui/Panel";
 import SectionHeader from "./ui/SectionHeader";
+import LoadingState from "./ui/LoadingState";
+import ErrorState from "./ui/ErrorState";
+import EmptyState from "./ui/EmptyState";
 import InlineExpansion from './common/InlineExpansion'
 import ObjectDetail from './ObjectDetail'
 import { useAlertsQuery } from '../features/alerts/queries'
@@ -19,15 +22,15 @@ export default function AlertsEvents({ locationQuery = '' }) {
   const alerts = Array.isArray(alertsQuery.data) ? alertsQuery.data.slice(0, MAX_ALERTS) : []
 
   return (
-    <GlassPanel className="component alerts-events">
+    <Panel className="component alerts-events">
       <SectionHeader title="Alerts / Events" />
 
-      {loading && <p className="loading">Loading alerts…</p>}
-      {error && <p className="error">Error loading alerts: {error}</p>}
+      {loading && <LoadingState message="Loading alerts…" />}
+      {error && <ErrorState message={`Error loading alerts: ${error}`} />}
 
       {!loading && !error && (
         <ol>
-          {alerts.length === 0 && <li>No alerts</li>}
+          {alerts.length === 0 && <li><EmptyState message="No alerts" /></li>}
           {alerts.map((a, idx) => {
             const key = a.title || idx
             const summary = (
@@ -68,7 +71,7 @@ export default function AlertsEvents({ locationQuery = '' }) {
           })}
         </ol>
       )}
-    </GlassPanel>
+    </Panel>
   )
 }
 

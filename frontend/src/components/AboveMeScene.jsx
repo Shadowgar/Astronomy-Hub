@@ -1,7 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useMemo } from 'react'
-import GlassPanel from './ui/GlassPanel'
+import Panel from './ui/Panel'
 import SectionHeader from './ui/SectionHeader'
+import AppButton from './ui/AppButton'
+import LoadingState from './ui/LoadingState'
+import ErrorState from './ui/ErrorState'
+import EmptyState from './ui/EmptyState'
 import ObjectDetail from './ObjectDetail'
 import { useConditionsQuery } from '../features/conditions/queries'
 import { useSceneAboveMeQuery } from '../features/scene/queries'
@@ -46,11 +50,11 @@ export default function AboveMeScene({ locationQuery = '' }) {
   }, [loading, error, setActiveSceneState])
 
   return (
-    <GlassPanel className="module panel above-me-scene">
+    <Panel className="module panel above-me-scene">
       <SectionHeader title="Above Me Scene" subtitle="Backend-owned live scene" />
 
-      {loading && <p className="loading">Loading scene…</p>}
-      {error && <p className="error">Error loading scene: {error}</p>}
+      {loading && <LoadingState message="Loading scene…" />}
+      {error && <ErrorState message={`Error loading scene: ${error}`} />}
 
       {!loading && !error && (
         <div className="above-me-scene__content">
@@ -62,7 +66,7 @@ export default function AboveMeScene({ locationQuery = '' }) {
           </div>
 
           <div className="above-me-scene__sky" aria-label="Sky scene">
-            {objects.length === 0 && <div className="above-me-scene__empty">No objects currently above horizon.</div>}
+            {objects.length === 0 && <div className="above-me-scene__empty"><EmptyState message="No objects currently above horizon." /></div>}
             {objects.map((obj, idx) => {
               const fallbackLeft = 10 + (idx % 5) * 18
               const fallbackTop = 18 + Math.floor(idx / 5) * 24
@@ -85,13 +89,13 @@ export default function AboveMeScene({ locationQuery = '' }) {
             <div className="above-me-scene__detail">
               <div className="above-me-scene__detail-header">
                 <strong>Selected object detail</strong>
-                <button type="button" onClick={() => setSelectedObjectId(null)}>Close</button>
+                <AppButton onClick={() => setSelectedObjectId(null)}>Close</AppButton>
               </div>
               <ObjectDetail objectId={selectedObjectId} />
             </div>
           )}
         </div>
       )}
-    </GlassPanel>
+    </Panel>
   )
 }

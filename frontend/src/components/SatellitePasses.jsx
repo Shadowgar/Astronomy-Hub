@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import GlassPanel from './ui/GlassPanel'
+import Panel from './ui/Panel'
 import SectionHeader from './ui/SectionHeader'
+import LoadingState from './ui/LoadingState'
+import ErrorState from './ui/ErrorState'
+import EmptyState from './ui/EmptyState'
 // RowItem not used in this component
 import InlineExpansion from './common/InlineExpansion'
 import ObjectDetail from './ObjectDetail'
@@ -20,15 +23,15 @@ export default function SatellitePasses({ locationQuery = '' }) {
   const passes = Array.isArray(passesQuery.data) ? passesQuery.data.slice(0, MAX_PASSES) : []
 
   return (
-    <GlassPanel className="component satellite-passes">
+    <Panel className="component satellite-passes">
       <SectionHeader title="Satellite Passes" />
 
-      {loading && <p className="loading">Loading passes…</p>}
-      {error && <p className="error">Error loading passes: {error}</p>}
+      {loading && <LoadingState message="Loading passes…" />}
+      {error && <ErrorState message={`Error loading passes: ${error}`} />}
 
       {!loading && !error && (
         <ul>
-          {passes.length === 0 && <li>No upcoming passes</li>}
+          {passes.length === 0 && <li><EmptyState message="No upcoming passes" /></li>}
           {passes.map((p, idx) => {
             const key = (p.object_name || '') + (p.start_time || '') || idx
             const summary = (
@@ -65,6 +68,6 @@ export default function SatellitePasses({ locationQuery = '' }) {
           })}
         </ul>
       )}
-    </GlassPanel>
+    </Panel>
   )
 }
