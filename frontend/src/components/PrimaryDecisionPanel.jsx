@@ -60,10 +60,12 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
   const alerts = Array.isArray(alertsQuery.data) ? alertsQuery.data : []
   const passes = Array.isArray(passesQuery.data) ? passesQuery.data : []
   const loading = conditionsQuery.isLoading || targetsQuery.isLoading || alertsQuery.isLoading || passesQuery.isLoading
-  const hasError = conditionsQuery.isError || targetsQuery.isError
+  const hasError = conditionsQuery.isError || targetsQuery.isError || alertsQuery.isError || passesQuery.isError
   const errorMessage =
     (conditionsQuery.error && conditionsQuery.error.message) ||
     (targetsQuery.error && targetsQuery.error.message) ||
+    (alertsQuery.error && alertsQuery.error.message) ||
+    (passesQuery.error && passesQuery.error.message) ||
     null
 
   const top = targets && targets.length > 0 ? targets[0] : null
@@ -95,6 +97,8 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
     reasonLines.push(`${blockingAlerts.length} high-priority alert${blockingAlerts.length > 1 ? 's are' : ' is'} active, so plan with caution.`)
   } else if (alerts.length > 0) {
     reasonLines.push('No major alerts are currently interfering with the plan.')
+  } else {
+    reasonLines.push('No alerts are currently affecting the plan.')
   }
   if (passes.length > 0) {
     reasonLines.push(`${passes.length} upcoming pass${passes.length > 1 ? 'es' : ''} add timing context for observing windows.`)
@@ -123,7 +127,7 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
           )}
         </div>
         {!loading && !hasError && reasonLines.length > 0 ? (
-          <ul className="small" style={{ marginTop: 'var(--space-2)', marginBottom: 0, paddingLeft: 'var(--space-4)' }}>
+          <ul className="small pdp-reasoning-list">
             {reasonLines.slice(0, 3).map((line, idx) => (
               <li key={`${line}-${idx}`}>{line}</li>
             ))}
