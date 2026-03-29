@@ -27,7 +27,7 @@ export default function RecommendedTargets({ locationQuery = '' }) {
 
   return (
     <Panel className="component recommended-targets">
-      <SectionHeader title="Recommended Targets" />
+      <SectionHeader title="What to look at next" />
 
       {loading && <LoadingState message="Loading targets…" />}
       {error && <ErrorState message={`Error loading targets: ${error}`} />}

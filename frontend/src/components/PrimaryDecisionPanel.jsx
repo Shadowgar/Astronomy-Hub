@@ -123,7 +123,7 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
           ) : top ? (
             <span className="pdp-top-target-inline">Start with <strong>{top.name}</strong> · {top.direction?.toUpperCase()}</span>
           ) : (
-            <span>No observing plan available</span>
+            <span>No clear observing plan yet</span>
           )}
         </div>
         {!loading && !hasError && reasonLines.length > 0 ? (
@@ -144,7 +144,7 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
             el?.scrollIntoView?.({ behavior: 'smooth', block: 'start' })
           }}
         >
-          Show Me What To Look At
+          Show what to look at
         </AppButton>
       </div>
     </section>

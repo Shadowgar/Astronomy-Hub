@@ -51,7 +51,7 @@ export default function AboveMeScene({ locationQuery = '' }) {
 
   return (
     <Panel className="module panel above-me-scene">
-      <SectionHeader title="Above Me Scene" subtitle="Backend-owned live scene" />
+      <SectionHeader title="Sky context" subtitle="What is above you right now" />
 
       {loading && <LoadingState message="Loading scene…" />}
       {error && <ErrorState message={`Error loading scene: ${error}`} />}
@@ -59,10 +59,10 @@ export default function AboveMeScene({ locationQuery = '' }) {
       {!loading && !error && (
         <div className="above-me-scene__content">
           <div className="above-me-scene__briefing">
-            <div className="above-me-scene__briefing-item"><strong>Observing score:</strong> {conditions?.observing_score ?? 'N/A'}</div>
-            <div className="above-me-scene__briefing-item"><strong>Top target:</strong> {topTarget?.name || 'None'}</div>
-            <div className="above-me-scene__briefing-item"><strong>Next pass:</strong> {nextPass?.name || 'None'}</div>
-            <div className="above-me-scene__briefing-item"><strong>Objects above now:</strong> {objects.length}</div>
+            <div className="above-me-scene__briefing-item"><strong>Conditions now:</strong> {conditions?.observing_score ?? 'N/A'}</div>
+            <div className="above-me-scene__briefing-item"><strong>Best target now:</strong> {topTarget?.name || 'None'}</div>
+            <div className="above-me-scene__briefing-item"><strong>Next pass window:</strong> {nextPass?.name || 'None'}</div>
+            <div className="above-me-scene__briefing-item"><strong>Visible now:</strong> {objects.length}</div>
           </div>
 
           <div className="above-me-scene__sky" aria-label="Sky scene">
@@ -86,7 +86,7 @@ export default function AboveMeScene({ locationQuery = '' }) {
           {selectedObjectId && (
             <div className="above-me-scene__detail">
               <div className="above-me-scene__detail-header">
-                <strong>Selected object detail</strong>
+                <strong>Selected target details</strong>
                 <AppButton onClick={() => setSelectedObjectId(null)}>Close</AppButton>
               </div>
               <ObjectDetail objectId={selectedObjectId} />
