@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { createStore } from 'zustand/vanilla'
+import { useStore } from 'zustand'
 
 const MODE_OPTIONS = ['Light', 'Dark', 'Red']
 const THEME_CLASSES = ['theme-light', 'theme-light-hc', 'theme-dark', 'theme-dark-hc', 'theme-red']
@@ -18,15 +20,23 @@ function mapThemeClassToBase(themeClass) {
   return 'Light'
 }
 
+function resolveInitialMode() {
+  if (typeof globalThis !== 'undefined' && globalThis.localStorage) {
+    const stored = globalThis.localStorage.getItem('astronomyHub.mode')
+    if (MODE_OPTIONS.includes(stored)) return stored
+    if (typeof stored === 'string') return mapThemeClassToBase(stored)
+  }
+  return 'Light'
+}
+
+const displayModeStore = createStore((set) => ({
+  mode: resolveInitialMode(),
+  setMode: (mode) => set({ mode }),
+}))
+
 export function useDisplayModeState() {
-  const [mode, setMode] = useState(() => {
-    if (typeof globalThis !== 'undefined' && globalThis.localStorage) {
-      const stored = globalThis.localStorage.getItem('astronomyHub.mode')
-      if (MODE_OPTIONS.includes(stored)) return stored
-      if (typeof stored === 'string') return mapThemeClassToBase(stored)
-    }
-    return 'Light'
-  })
+  const mode = useStore(displayModeStore, (s) => s.mode)
+  const setMode = useStore(displayModeStore, (s) => s.setMode)
 
   useEffect(() => {
     if (typeof globalThis !== 'undefined' && globalThis.localStorage) {
