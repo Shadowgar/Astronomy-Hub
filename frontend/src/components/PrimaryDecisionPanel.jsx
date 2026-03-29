@@ -5,6 +5,7 @@ import { conditionsKeys, fetchConditions } from '../features/conditions/queries'
 import { targetsKeys, fetchTargets } from '../features/targets/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
 import AppButton from './ui/AppButton'
+import useGlobalUiState from '../state/globalUiState'
 
 function fmtTime(iso) {
   try {
@@ -32,8 +33,22 @@ function observingLabel(score) {
   return 'Poor'
 }
 
+function targetIdFor(target) {
+  if (!target) return null
+  if (target.id) return target.id
+  return (target.name || '')
+    .toLowerCase()
+    .split(/\s+/)
+    .join('-')
+    .split('/')
+    .join('-')
+    .split("'")
+    .join('')
+}
+
 export default function PrimaryDecisionPanel({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
+  const { selectedObjectId } = useGlobalUiState()
   const [conditionsQuery, targetsQuery] = useQueries({
     queries: [
       {
@@ -57,6 +72,7 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
     null
 
   const top = targets && targets.length > 0 ? targets[0] : null
+  const selectedTarget = targets.find((t) => targetIdFor(t) === selectedObjectId) || null
 
   const observingScore = conds && (typeof conds.observing_score === 'number' || typeof conds.observing_score === 'string') ? conds.observing_score : null
   const status = observingLabel(observingScore)
@@ -78,6 +94,8 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
             <span>Loading observing plan…</span>
           ) : hasError ? (
             <span className="error">Error loading observing plan{errorMessage ? `: ${errorMessage}` : ''}</span>
+          ) : selectedTarget ? (
+            <span className="pdp-top-target-inline">Selected target: <strong>{selectedTarget.name}</strong> · {selectedTarget.direction?.toUpperCase()}</span>
           ) : top ? (
             <span className="pdp-top-target-inline">Start with <strong>{top.name}</strong> · {top.direction?.toUpperCase()}</span>
           ) : (
@@ -91,7 +109,7 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
           type="button"
           className="pdp-cta"
           onClick={() => {
-            const el = document.querySelector('.targets-module') || document.querySelector('.recommended-targets')
+            const el = document.getElementById('recommended-targets-panel') || document.querySelector('.targets-module') || document.querySelector('.recommended-targets')
             el?.scrollIntoView?.({ behavior: 'smooth', block: 'start' })
           }}
         >

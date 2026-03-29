@@ -10,6 +10,7 @@ import InlineExpansion from './common/InlineExpansion'
 import ObjectDetail from './ObjectDetail'
 import { useTargetsQuery } from '../features/targets/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
+import useGlobalUiState from '../state/globalUiState'
 
 // Render up to 5 targets per UI density rules
 const MAX_TARGETS = 5
@@ -17,6 +18,7 @@ const MAX_TARGETS = 5
 export default function RecommendedTargets({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
   const targetsQuery = useTargetsQuery(queryParams)
+  const { selectedObjectId, setSelectedObjectId } = useGlobalUiState()
   const loading = targetsQuery.isLoading
   const error = targetsQuery.isError
     ? (targetsQuery.error && targetsQuery.error.message) || 'Unknown error'
@@ -67,9 +69,18 @@ export default function RecommendedTargets({ locationQuery = '' }) {
                   </div>
 
                   <div className="target-row__content" style={{ minWidth: 0 }}>
-                    <InlineExpansion summary={summary} defaultCollapsed={true}>
-                      <ObjectDetail objectId={computedId} objectName={t.name} />
-                    </InlineExpansion>
+                    <div
+                      onClickCapture={() => setSelectedObjectId(computedId)}
+                    >
+                      <InlineExpansion summary={summary} defaultCollapsed={true}>
+                        <ObjectDetail objectId={computedId} objectName={t.name} />
+                      </InlineExpansion>
+                    </div>
+                    {selectedObjectId === computedId ? (
+                      <div className="small muted-meta" style={{ marginTop: 'var(--space-1)' }}>
+                        Selected in decision flow
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               )

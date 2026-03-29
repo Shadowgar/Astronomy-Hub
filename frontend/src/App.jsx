@@ -225,7 +225,7 @@ export default function App() {
             <div className="module conditions-module panel">
               <Conditions locationQuery={locationQuery} />
             </div>
-            <div className="module targets-module panel">
+            <div className="module targets-module panel" id="recommended-targets-panel">
               <RecommendedTargets locationQuery={locationQuery} />
             </div>
           </div>
