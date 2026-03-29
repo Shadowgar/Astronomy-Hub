@@ -29,7 +29,7 @@ export default function RecommendedTargets({ locationQuery = '' }) {
     <Panel className="component recommended-targets">
       <SectionHeader
         title="What to look at next"
-        subtitle="Select a target to open details and set it as your active target"
+        subtitle="Select a target for details and make it active"
       />
 
       {loading && <LoadingState message="Loading targets…" />}
@@ -81,7 +81,7 @@ export default function RecommendedTargets({ locationQuery = '' }) {
                     </div>
                     {selectedObjectId === computedId ? (
                       <div className="small muted-meta selected-flow-note">
-                        Selected in decision flow
+                        Selected in plan
                       </div>
                     ) : null}
                   </div>

@@ -53,7 +53,7 @@ export default function AboveMeScene({ locationQuery = '' }) {
     <Panel className="module panel above-me-scene">
       <SectionHeader
         title="Sky context"
-        subtitle="What is above you right now — select an object to open details"
+        subtitle="What is above you now. Select an object for details"
       />
 
       {loading && <LoadingState message="Loading scene…" />}
@@ -62,10 +62,10 @@ export default function AboveMeScene({ locationQuery = '' }) {
       {!loading && !error && (
         <div className="above-me-scene__content">
           <div className="above-me-scene__briefing">
-            <div className="above-me-scene__briefing-item"><strong>Conditions now:</strong> {conditions?.observing_score ?? 'N/A'}</div>
-            <div className="above-me-scene__briefing-item"><strong>Best target now:</strong> {topTarget?.name || 'None'}</div>
-            <div className="above-me-scene__briefing-item"><strong>Next pass window:</strong> {nextPass?.name || 'None'}</div>
-            <div className="above-me-scene__briefing-item"><strong>Visible now:</strong> {objects.length}</div>
+            <div className="above-me-scene__briefing-item"><strong>Conditions:</strong> {conditions?.observing_score ?? 'N/A'}</div>
+            <div className="above-me-scene__briefing-item"><strong>Top target:</strong> {topTarget?.name || 'None'}</div>
+            <div className="above-me-scene__briefing-item"><strong>Next pass:</strong> {nextPass?.name || 'None'}</div>
+            <div className="above-me-scene__briefing-item"><strong>Visible:</strong> {objects.length}</div>
           </div>
 
           <div className="above-me-scene__sky" aria-label="Sky scene">

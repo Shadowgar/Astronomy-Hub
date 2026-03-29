@@ -119,11 +119,11 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
           ) : hasError ? (
             <span className="error">Error loading observing plan{errorMessage ? `: ${errorMessage}` : ''}</span>
           ) : selectedTarget ? (
-            <span className="pdp-top-target-inline">Selected target: <strong>{selectedTarget.name}</strong> · {selectedTarget.direction?.toUpperCase()}</span>
+            <span className="pdp-top-target-inline">Selected: <strong>{selectedTarget.name}</strong> · {selectedTarget.direction?.toUpperCase()}</span>
           ) : top ? (
             <span className="pdp-top-target-inline">Start with <strong>{top.name}</strong> · {top.direction?.toUpperCase()}</span>
           ) : (
-            <span>No clear observing plan yet</span>
+            <span>No clear plan yet</span>
           )}
         </div>
         {!loading && !hasError && reasonLines.length > 0 ? (
