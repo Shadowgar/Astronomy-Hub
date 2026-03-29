@@ -25,7 +25,7 @@
 --layout-module-radius: var(--token-radius-sm);
 --layout-container-max-width: var(--token-size-1600);
 --layout-base-font-size: var(--token-size-15);
---layout-base-line-height: 1.45;
+--layout-base-line-height: var(--token-line-height-base);
 --layout-heading-line-height: var(--token-line-height-tight);
 --layout-compact-line-height: var(--token-line-height-compact);
 --layout-header-utility-gap: var(--token-size-10);
@@ -74,11 +74,11 @@
 --effect-glass-ring-subtle: var(--token-shadow-glass-ring-subtle);
 
 /* STARFIELD EFFECTS */
---effect-star-dot-a: rgba(200, 220, 255, 0.045);
---effect-star-dot-b: rgba(200, 220, 255, 0.02);
---effect-star-dot-c: rgba(220, 230, 255, 0.08);
---effect-star-dot-d: rgba(200, 220, 255, 0.06);
---effect-star-dot-e: rgba(200, 220, 255, 0.04);
+--effect-star-dot-a: var(--token-alpha-star-dot-a);
+--effect-star-dot-b: var(--token-alpha-star-dot-b);
+--effect-star-dot-c: var(--token-alpha-star-dot-c);
+--effect-star-dot-d: var(--token-alpha-star-dot-d);
+--effect-star-dot-e: var(--token-alpha-star-dot-e);
 --effect-star-grid-size-a: var(--token-size-2);
 --effect-star-grid-size-b: var(--token-size-6);
 --effect-star-grid-size-c: var(--token-size-120);
@@ -94,8 +94,8 @@
 --effect-star-grid-pos-dy: var(--token-size-140);
 --effect-star-grid-pos-ex: var(--token-size-200);
 --effect-star-grid-pos-ey: var(--token-size-60);
---effect-star-layer-opacity-1: 0.85;
---effect-star-layer-opacity-2: 0.55;
+--effect-star-layer-opacity-1: var(--token-opacity-85);
+--effect-star-layer-opacity-2: var(--token-opacity-55);
 --effect-opacity-95: var(--token-opacity-95);
 --effect-opacity-90: var(--token-opacity-90);
 --effect-opacity-85: var(--token-opacity-85);
@@ -105,7 +105,7 @@
 --effect-opacity-45: var(--token-opacity-45);
 --effect-opacity-100: var(--token-opacity-100);
 --effect-star-layer-blur: var(--token-blur-point-2);
---effect-star-layer-saturation: 0.9;
+--effect-star-layer-saturation: var(--token-saturation-90);
 --effect-star-layer-twinkle-duration: var(--token-motion-duration-8s);
 --effect-star-layer-drift-duration: var(--token-motion-duration-40s);
 --effect-star-drift-distance: var(--token-size-2);

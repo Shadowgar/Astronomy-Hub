@@ -232,6 +232,12 @@ export default function App() {
           </div>
         </section>
 
+        <section className="section section-supporting-context-intro" aria-label="Supporting context">
+          <div className="section-grid one-col">
+            <p>Supporting Context</p>
+          </div>
+        </section>
+
         {/* Supporting context: immediate sky conditions */}
         <section className="section section-supporting-top">
           <div className="section-grid two-col">
