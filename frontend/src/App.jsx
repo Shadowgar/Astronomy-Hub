@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Conditions from './components/Conditions'
 import PrimaryDecisionPanel from './components/PrimaryDecisionPanel'
 import RecommendedTargets from './components/RecommendedTargets'
+import AboveMeScene from './components/AboveMeScene'
 import AlertsEvents from './components/AlertsEvents'
 import SatellitePasses from './components/SatellitePasses'
 import MoonSummary from './components/MoonSummary'
@@ -217,38 +218,51 @@ export default function App() {
           </div>
         </section>
 
-        {/* Primary mounted Phase 1 surface: command-center module grid shell */}
-
-        {/* Section: Targets + Conditions (2-column) */}
+        {/* Guided step: recommended action target */}
         <section className="section section-top">
-          <div className="section-grid two-col">
-            <div className="module conditions-module panel">
-              <Conditions locationQuery={locationQuery} />
-            </div>
+          <div className="section-grid one-col">
             <div className="module targets-module panel" id="recommended-targets-panel">
               <RecommendedTargets locationQuery={locationQuery} />
             </div>
           </div>
         </section>
 
-        {/* Section: Alerts + Passes (2-column) */}
-        <section className="section section-middle">
-          <div className="section-grid two-col">
-            <div className="module alerts-module panel">
-              <AlertsEvents locationQuery={locationQuery} />
-            </div>
-            <div className="module passes-module panel">
-              <SatellitePasses locationQuery={locationQuery} />
+        {/* Guided step: object/sky context for selected target */}
+        <section className="section section-scene">
+          <div className="section-grid one-col">
+            <div className="module scene-module panel">
+              <AboveMeScene locationQuery={locationQuery} />
             </div>
           </div>
         </section>
 
-        {/* Section: Moon summary + light news */}
-        <section className="section section-bottom">
+        {/* Supporting context: conditions + alerts */}
+        <section className="section section-supporting-top">
           <div className="section-grid two-col">
+            <div className="module conditions-module panel">
+              <Conditions locationQuery={locationQuery} />
+            </div>
+            <div className="module alerts-module panel">
+              <AlertsEvents locationQuery={locationQuery} />
+            </div>
+          </div>
+        </section>
+
+        {/* Supporting context: passes + moon/news */}
+        <section className="section section-middle">
+          <div className="section-grid two-col">
+            <div className="module passes-module panel">
+              <SatellitePasses locationQuery={locationQuery} />
+            </div>
             <div className="module moon-module panel small-panel">
               <MoonSummary locationQuery={locationQuery} />
             </div>
+          </div>
+        </section>
+
+        {/* Supporting context: additional news */}
+        <section className="section section-bottom">
+          <div className="section-grid one-col">
             <div className="module panel">
               <SkyNews locationQuery={locationQuery} />
             </div>
