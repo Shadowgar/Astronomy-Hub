@@ -63,6 +63,12 @@ export default function LocationSelector({ onApply, onConfirm, onCancel } = {}) 
                 key={s.name || idx}
                 className={`ls-suggestion ${selectedSuggestion && selectedSuggestion.name === s.name ? 'selected' : ''}`}
                 onClick={() => setSelectedSuggestion(s)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    setSelectedSuggestion(s)
+                  }
+                }}
                 role="button"
                 tabIndex={0}
               >

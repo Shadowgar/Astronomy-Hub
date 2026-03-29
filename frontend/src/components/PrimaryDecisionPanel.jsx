@@ -4,6 +4,7 @@ import { useQueries } from '@tanstack/react-query'
 import { conditionsKeys, fetchConditions } from '../features/conditions/queries'
 import { targetsKeys, fetchTargets } from '../features/targets/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
+import AppButton from './ui/AppButton'
 
 function fmtTime(iso) {
   try {
@@ -86,7 +87,7 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
       </div>
 
       <div className="pdp-right">
-        <button
+        <AppButton
           type="button"
           className="pdp-cta"
           onClick={() => {
@@ -95,7 +96,7 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
           }}
         >
           Show Me What To Look At
-        </button>
+        </AppButton>
       </div>
     </section>
   )
