@@ -1,14 +1,9 @@
 import React from "react";
 
-export default function ContentGrid({ children }) {
+export default function ContentGrid({ children, className = "" }) {
+  const classes = ["content-grid", className].filter(Boolean).join(" ");
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: "var(--space-6)",
-      }}
-    >
+    <div className={classes}>
       {children} </div>
   );
 }

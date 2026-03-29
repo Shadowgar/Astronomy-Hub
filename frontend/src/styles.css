@@ -34,6 +34,11 @@
 }
 .app-shell{display:flex;flex-direction:column;min-height:100vh}
 .app-header{padding:12px var(--page-padding);background:var(--header-bg);border-bottom:1px solid var(--divider);color:var(--text-primary)}
+.app-header-utility{padding-bottom:10px}
+.progress-nav{margin-left:var(--token-space-3)}
+.progress-link{color:var(--token-color-action-primary);text-decoration:none;font-size:var(--token-font-2)}
+.app-main-flow{margin-top:var(--gap)}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
 body{font-family: Arial, Helvetica, sans-serif;margin:0;padding:0;font-size:var(--base-font-size);line-height:var(--base-line-height);color:var(--text-primary);background:var(--page-bg)}
 .dashboard{display:flex;flex-direction:column;gap:var(--gap);padding:var(--page-padding);flex:1;max-width:var(--container-max-width);margin:0 auto;box-sizing:border-box}
 .primary-decision-panel { grid-column: 1 / -1; display:flex; gap:20px; align-items:center; padding:28px 16px; margin-bottom:8px; background: var(--hero-surface-bg); border-bottom:1px solid var(--divider) }

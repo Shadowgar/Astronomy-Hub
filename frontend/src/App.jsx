@@ -70,16 +70,12 @@ export default function App() {
     <AppShell>
       <div className="app-shell">
         <Starfield />
-        <header className="app-header" role="banner">
+        <header className="app-header app-header-utility" role="banner">
         <h1>Astronomy Hub</h1>
-        <nav aria-label="Primary" style={{ marginLeft: 'var(--token-space-3)' }}>
+        <nav aria-label="Primary" className="progress-nav">
           <a
             href="/progress"
-            style={{
-              color: 'var(--token-color-action-primary)',
-              textDecoration: 'none',
-              fontSize: 'var(--token-font-2)',
-            }}
+            className="progress-link"
           >
             Progress
           </a>
@@ -208,7 +204,7 @@ export default function App() {
         </header>
         
 
-        <ContentGrid>
+        <ContentGrid className="app-main-flow">
           <main className="dashboard tight-layout">
         <section className="section section-primary">
           <div className="section-grid one-col">
