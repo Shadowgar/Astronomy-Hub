@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Conditions from './components/Conditions'
+import PrimaryDecisionPanel from './components/PrimaryDecisionPanel'
 import RecommendedTargets from './components/RecommendedTargets'
 import AlertsEvents from './components/AlertsEvents'
 import SatellitePasses from './components/SatellitePasses'
@@ -208,6 +209,14 @@ export default function App() {
 
         <ContentGrid>
           <main className="dashboard tight-layout">
+        <section className="section section-primary">
+          <div className="section-grid one-col">
+            <div className="module panel primary-decision-module">
+              <PrimaryDecisionPanel locationQuery={locationQuery} />
+            </div>
+          </div>
+        </section>
+
         {/* Primary mounted Phase 1 surface: command-center module grid shell */}
 
         {/* Section: Targets + Conditions (2-column) */}
