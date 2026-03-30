@@ -8,19 +8,19 @@ import EmptyState from './ui/EmptyState'
 // RowItem not used in this component
 import InlineExpansion from './common/InlineExpansion'
 import ObjectDetail from './ObjectDetail'
-import { usePassesQuery } from '../features/passes/queries'
+import { usePassesListQuery } from '../features/passes/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
 
 const MAX_PASSES = 5
 
 export default function SatellitePasses({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
-  const passesQuery = usePassesQuery(queryParams)
+  const passesQuery = usePassesListQuery(queryParams)
   const loading = passesQuery.isLoading
   const error = passesQuery.isError
     ? (passesQuery.error && passesQuery.error.message) || 'Unknown error'
     : null
-  const passes = Array.isArray(passesQuery.data) ? passesQuery.data.slice(0, MAX_PASSES) : []
+  const passes = passesQuery.data.slice(0, MAX_PASSES)
 
   return (
     <Panel className="component satellite-passes">
