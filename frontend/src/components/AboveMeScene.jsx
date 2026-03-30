@@ -79,7 +79,7 @@ export default function AboveMeScene({ locationQuery = '' }) {
                   key={obj.id || `${obj.name}-${idx}`}
                   type="button"
                   className={`above-me-scene__object above-me-scene__object--${obj.type || 'unknown'} ${positionClass}`}
-                  onClick={() => setSelectedObjectId((prev) => (prev === obj.id ? null : obj.id))}
+                  onClick={() => setSelectedObjectId(selectedObjectId === obj.id ? null : obj.id)}
                 >
                   <span className="above-me-scene__object-name">{obj.name}</span>
                   <span className="above-me-scene__object-type">{labelForType(obj.type)}</span>
