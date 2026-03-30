@@ -19,3 +19,12 @@ test('navigates from command center to progress route', async ({ page }) => {
   await expect(page).toHaveURL(/\/progress$/)
   await expect(page.getByRole('heading', { name: 'Development Progress' })).toBeVisible()
 })
+
+test('wildcard route redirects to command center root', async ({ page }) => {
+  await page.route('**/api/v1/**', async (route) => jsonResponse(route, { data: null }))
+
+  await page.goto('/not-a-real-route')
+
+  await expect(page).toHaveURL(/\/$/)
+  await expect(page.locator('.above-me-scene')).toBeVisible()
+})
