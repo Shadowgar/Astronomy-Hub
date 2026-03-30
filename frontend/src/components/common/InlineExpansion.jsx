@@ -21,7 +21,7 @@ export default function InlineExpansion({summary, children, defaultCollapsed = t
         role="region"
         aria-hidden={!open}
       >
-        {children}
+        {open ? children : null}
       </div>
     </div>
   )
