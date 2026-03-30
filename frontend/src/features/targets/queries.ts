@@ -29,9 +29,26 @@ export async function fetchTargets(params?: TargetsQueryParams) {
   return apiGet<unknown>(TARGETS_PATH, { query: toQueryParams(params) })
 }
 
+export function normalizeTargetsPayload(payload: unknown): unknown[] {
+  const unwrapped =
+    payload && typeof payload === 'object'
+      ? ((payload as { data?: unknown }).data || payload)
+      : payload
+  return Array.isArray(unwrapped) ? unwrapped : []
+}
+
 export function useTargetsQuery(params?: TargetsQueryParams) {
   return useQuery({
     queryKey: targetsKeys.list(params),
     queryFn: () => fetchTargets(params),
+  })
+}
+
+export function useTargetsListQuery(params?: TargetsQueryParams) {
+  return useQuery({
+    queryKey: targetsKeys.list(params),
+    queryFn: () => fetchTargets(params),
+    select: normalizeTargetsPayload,
+    placeholderData: [],
   })
 }

@@ -8,7 +8,7 @@ import ErrorState from './ui/ErrorState'
 import EmptyState from './ui/EmptyState'
 import InlineExpansion from './common/InlineExpansion'
 import ObjectDetail from './ObjectDetail'
-import { useTargetsQuery } from '../features/targets/queries'
+import { useTargetsListQuery } from '../features/targets/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
 import useGlobalUiState from '../state/globalUiState'
 
@@ -17,13 +17,13 @@ const MAX_TARGETS = 5
 
 export default function RecommendedTargets({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
-  const targetsQuery = useTargetsQuery(queryParams)
+  const targetsQuery = useTargetsListQuery(queryParams)
   const { selectedObjectId, setSelectedObjectId } = useGlobalUiState()
   const loading = targetsQuery.isLoading
   const error = targetsQuery.isError
     ? (targetsQuery.error && targetsQuery.error.message) || 'Unknown error'
     : null
-  const targets = Array.isArray(targetsQuery.data) ? targetsQuery.data.slice(0, MAX_TARGETS) : []
+  const targets = targetsQuery.data.slice(0, MAX_TARGETS)
 
   return (
     <Panel className="component recommended-targets">
