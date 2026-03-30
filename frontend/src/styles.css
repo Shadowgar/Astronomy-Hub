@@ -62,182 +62,7 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .moon-module{min-width:var(--token-size-220)}
 .app-footer{padding:var(--token-size-10) var(--page-padding);text-align:center;background:var(--surface-bg);border-top:var(--token-border-width-thin) solid var(--divider);color:var(--text-primary)}
 
-/* Mode theming (simple, Phase 1) */
-
-/* Clear, flattened mode styles for Light (default), Dark, and Red */
-
-.app-shell.mode-light {
-  --page-bg: var(--app-page-bg);
-  --header-bg: var(--app-header-bg);
-  --hero-surface-bg: var(--app-hero-surface-bg);
-  --surface-bg: var(--app-surface-bg);
-  --surface-border: var(--app-surface-border);
-  --divider: var(--app-divider);
-  --text-primary: var(--app-text-primary);
-  --text-muted: var(--app-text-muted);
-  --button-bg: var(--app-button-bg);
-  --button-fg: var(--app-button-fg);
-  --input-bg: var(--app-input-bg);
-  --input-border: var(--app-input-border);
-  --heading-color: var(--app-heading-color);
-  --status-bg: var(--app-status-bg);
-  --status-fg: var(--app-status-fg);
-  --button-border: var(--app-button-border);
-  --stale-bg: var(--app-stale-bg);
-  --stale-fg: var(--app-stale-fg);
-  --loc-error: var(--app-location-error);
-  background: var(--page-bg);
-  color: var(--text-primary);
-}
-.app-shell.mode-light .app-header { background: var(--header-bg); color: var(--text-primary); border-bottom: var(--token-border-width-thin) solid var(--divider) }
-.app-shell.mode-light .primary-decision-panel { background: var(--hero-surface-bg); border-bottom: var(--token-border-width-thin) solid var(--surface-border) }
-.app-shell.mode-light .dashboard .module { background: var(--surface-bg); border: var(--token-border-width-thin) solid var(--surface-border); color: var(--text-primary) }
-.app-shell.mode-light input, .app-shell.mode-light select, .app-shell.mode-light textarea, .app-shell.mode-light button { background: var(--input-bg); color: var(--text-primary); border: var(--token-border-width-thin) solid var(--input-border) }
-.app-shell.mode-light .pdp-cta { background:var(--button-bg); color:var(--button-fg) }
-
-.app-shell.mode-dark {
-  --page-bg: var(--app-page-bg);
-  --header-bg: var(--app-header-bg);
-  --hero-surface-bg: var(--app-hero-surface-bg);
-  --surface-bg: var(--app-surface-bg);
-  --surface-border: var(--app-surface-border);
-  --divider: var(--app-divider);
-  --text-primary: var(--app-text-primary);
-  --text-muted: var(--app-text-muted);
-  --button-bg: var(--app-button-bg);
-  --button-fg: var(--app-button-fg);
-  --input-bg: var(--app-input-bg);
-  --input-border: var(--app-input-border);
-  --heading-color: var(--app-heading-color);
-  --status-bg: var(--app-status-bg);
-  --status-fg: var(--app-status-fg);
-  --button-border: var(--app-button-border);
-  background: var(--page-bg);
-  /* Deep-space backdrop: subtle radial nebula + near-black field */
-  background-image: var(--effect-dark-page-gradient);
-  background-blend-mode: overlay;
-  position: relative; /* create stacking context for star layer */
-  color: var(--text-primary);
-}
-/* (starfield and layering rules follow) */
-
-/* Starfield layer for dark mode only. Kept very subtle to avoid bright whites. */
-.app-shell.mode-dark::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-
-  /* Two-layered subtle stars: fine grain + sparse slightly larger stars */
-  background-image:
-    radial-gradient(var(--effect-star-dot-a) var(--token-size-1), var(--token-alpha-transparent) var(--token-size-1)),
-    radial-gradient(var(--effect-star-dot-b) var(--token-size-1), var(--token-alpha-transparent) var(--token-size-1));
-  background-size: var(--effect-star-grid-size-a) var(--effect-star-grid-size-a), var(--effect-star-grid-size-b) var(--effect-star-grid-size-b);
-  background-position: var(--effect-star-grid-pos-ax) var(--effect-star-grid-pos-ay), var(--effect-star-grid-pos-bx) var(--effect-star-grid-pos-by);
-  opacity: var(--effect-star-layer-opacity-1);
-  mix-blend-mode: screen;
-  filter: blur(var(--effect-star-layer-blur)) saturate(var(--effect-star-layer-saturation));
-}
-
-/* Sparse, slightly larger stars with a gentle twinkle animation (optional enhancement) */
-.app-shell.mode-dark::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-
-  /* Sparse stars created with multiple radial-gradients for variety */
-  background-image:
-    radial-gradient(var(--effect-star-dot-c) var(--token-size-1), var(--token-alpha-transparent) var(--token-size-2)),
-    radial-gradient(var(--effect-star-dot-d) var(--token-size-1), var(--token-alpha-transparent) var(--token-size-3)),
-    radial-gradient(var(--effect-star-dot-e) var(--token-size-1), var(--token-alpha-transparent) var(--token-size-4));
-  background-size: var(--effect-star-grid-size-c) var(--effect-star-grid-size-c), var(--effect-star-grid-size-d) var(--effect-star-grid-size-d), var(--effect-star-grid-size-e) var(--effect-star-grid-size-e);
-  background-position: var(--effect-star-grid-pos-cx) var(--effect-star-grid-pos-cy), var(--effect-star-grid-pos-dx) var(--effect-star-grid-pos-dy), var(--effect-star-grid-pos-ex) var(--effect-star-grid-pos-ey);
-  opacity: var(--effect-star-layer-opacity-2);
-  mix-blend-mode: screen;
-
-  /* Very slow subtle motion to imply depth (translate on Y by a few pixels) */
-  animation: star-twinkle var(--effect-star-layer-twinkle-duration) linear infinite, star-drift var(--effect-star-layer-drift-duration) linear infinite;
-}
-
-/* PERF TEST: temporarily disable heavy decorative dark-mode layers to diagnose lag.
-   This removes large radial-gradients, blend-modes, filters and animations so
-   we can measure responsiveness without them. Revert after testing. */
-.app-shell.mode-dark::before,
-.app-shell.mode-dark::after {
-  background-image: none !important;
-  animation: none !important;
-  filter: none !important;
-  mix-blend-mode: normal !important;
-  opacity: var(--token-opacity-0) !important;
-  pointer-events: none !important;
-}
-
-@keyframes star-twinkle {
-  0% { opacity: var(--effect-opacity-45) }
-  50% { opacity: var(--effect-opacity-60) }
-  100% { opacity: var(--effect-opacity-45) }
-}
-
-@keyframes star-drift {
-  0% { transform: translateY(var(--token-size-0)) }
-  50% { transform: translateY(calc(-1 * var(--token-size-2))) }
-  100% { transform: translateY(var(--token-size-0)) }
-}
-
-/* Ensure page content renders above the subtle star layer; exclude starfield canvases so they remain behind content */
-.app-shell.mode-dark > :not(.starfield-canvas) { position: relative; z-index: 1 }
-
-/* Reduce any accidental bright highlights inside modules in dark mode */
-.app-shell.mode-dark .panel, .app-shell.mode-dark .primary-decision-panel { background-blend-mode: multiply; }
-
-/* Canvas overlays for starfield/nebula. Placed beneath content and shown only in dark mode. */
-.starfield-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: none; pointer-events: none; z-index: 0 }
-.app-shell.mode-dark .starfield-canvas { display: block }
-.nebula-canvas { mix-blend-mode: screen; opacity: var(--effect-opacity-75) }
-.star-canvas { mix-blend-mode: screen; opacity: var(--effect-opacity-90) }
-.app-shell.mode-dark .app-header { background: var(--header-bg); color: var(--text-primary); border-bottom: var(--token-border-width-thin) solid var(--divider) }
-.app-shell.mode-dark .primary-decision-panel { background: var(--hero-surface-bg); border-bottom: var(--token-border-width-thin) solid var(--surface-border) }
-.app-shell.mode-dark .dashboard .module { background: var(--surface-bg); border: var(--token-border-width-thin) solid var(--surface-border); color: var(--text-primary) }
-.app-shell.mode-dark input, .app-shell.mode-dark select, .app-shell.mode-dark textarea, .app-shell.mode-dark button { background: var(--input-bg); color: var(--text-primary); border: var(--token-border-width-thin) solid var(--input-border) }
-.app-shell.mode-dark .pdp-cta { background: var(--button-bg); color: var(--button-fg) }
-.app-shell.mode-dark .primary-decision-panel .pdp-status { background: var(--token-alpha-white-0_06); color: var(--text-primary) }
-
-.app-shell.mode-red {
-  --page-bg: var(--app-page-bg);
-  --header-bg: var(--app-header-bg);
-  --hero-surface-bg: var(--app-hero-surface-bg);
-  --surface-bg: var(--app-surface-bg);
-  --surface-border: var(--app-surface-border);
-  --divider: var(--app-divider);
-  --text-primary: var(--app-text-primary);
-  --text-muted: var(--app-text-muted);
-  --button-bg: var(--app-button-bg);
-  --button-fg: var(--app-button-fg);
-  --input-bg: var(--app-input-bg);
-  --input-border: var(--app-input-border);
-  --heading-color: var(--app-heading-color);
-  --status-bg: var(--app-status-bg);
-  --status-fg: var(--app-status-fg);
-  --button-border: var(--app-button-border);
-  --stale-bg: var(--app-stale-bg);
-  --stale-fg: var(--app-stale-fg);
-  --loc-error: var(--app-location-error);
-  background: var(--page-bg);
-  color: var(--text-primary);
-}
-.app-shell.mode-red .app-header { background: var(--header-bg); color: var(--text-primary); border-bottom: var(--token-border-width-thin) solid var(--surface-border) }
-.app-shell.mode-red .primary-decision-panel { background: var(--hero-surface-bg); border-bottom: var(--token-border-width-thin) solid var(--surface-border) }
-.app-shell.mode-red .dashboard .module { background: var(--surface-bg); border: var(--token-border-width-thin) solid var(--surface-border); color: var(--text-primary) }
-.app-shell.mode-red input, .app-shell.mode-red select, .app-shell.mode-red textarea, .app-shell.mode-red button { background: var(--input-bg); color: var(--text-primary); border: var(--token-border-width-thin) solid var(--input-border) }
-.app-shell.mode-red .pdp-cta { background: var(--button-bg); color: var(--button-fg) }
-.app-shell.mode-red .primary-decision-panel .pdp-status { background: var(--token-alpha-red-0_06); color: var(--text-primary) }
-/* Red-mode specific adjustments for other UI bits to preserve dark adaptation */
-.app-shell.mode-red .stale-badge { background: var(--token-alpha-red-0_06); color: var(--text-primary) }
-.app-shell.mode-red .module-retry { background: transparent; color: var(--text-primary); border: var(--token-border-width-thin) solid var(--token-alpha-red-0_06) }
-.app-shell.mode-red .pdp-summary, .app-shell.mode-red .pdp-target-sentence, .app-shell.mode-red .pdp-no-target { color: var(--text-muted) }
+/* Theme classes are applied at the document root via displayModeState. */
 
 /* Subtle soft-edge lighting for panels and hero (very low opacity accent lines) */
 .dashboard .module,
@@ -335,9 +160,6 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
     .dashboard { max-width: var(--container-max-width); }
   }
 
-  /* Ensure selection remains low-luminance (reaffirm) */
-  .app-shell.mode-red ::selection { background: var(--token-alpha-red-0_12); color: var(--text-primary); }
-
   /* Conditions component micro-styles */
   .conditions-body { display:flex; flex-direction:column; gap:var(--token-size-8); }
   .cond-row { font-size:var(--token-size-14); color: inherit }
@@ -387,40 +209,6 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .app-shell .module-shell-header { padding-bottom:var(--token-size-6); border-bottom:var(--token-border-width-thin) solid transparent }
 .app-shell .module-shell .module-shell-body { padding-top:var(--token-size-8) }
 
-/* --- Dark-mode Glass Panel System ---
-   Applies only when `.app-shell.mode-dark` is active. These rules convert
-   the main panels into subtle glass surfaces while preserving layout and
-   JSX structure. */
-.app-shell.mode-dark .dashboard .module,
-.app-shell.mode-dark .panel,
-.app-shell.mode-dark .primary-decision-panel,
-.app-shell.mode-dark .module-shell {
-  background: var(--token-alpha-white-0_03) !important;
-  -webkit-backdrop-filter: blur(var(--token-blur-12));
-  backdrop-filter: blur(var(--token-blur-12));
-  border: var(--token-border-width-thin) solid var(--token-alpha-white-0_08) !important;
-  box-shadow: var(--effect-glass-ring) !important;
-  border-radius: var(--token-size-8) !important;
-}
-
-/* Remove any solid border-bottom inside module-shell that would conflict */
-.app-shell.mode-dark .module-shell { border-bottom: none !important }
-
-/* Keep headers and other controls visually above the glass surface */
-.app-shell.mode-dark .module-shell-header,
-.app-shell.mode-dark .primary-decision-panel .pdp-center,
-.app-shell.mode-dark .primary-decision-panel .pdp-left,
-.app-shell.mode-dark .primary-decision-panel .pdp-right {
-  position: relative; z-index: 2;
-}
-
-/* Ensure inner content remains readable on the subtle glass background */
-.app-shell.mode-dark .dashboard .module,
-.app-shell.mode-dark .panel {
-  color: var(--text-primary);
-}
-
-
 /* Make module lists feel compact and operational */
 .app-shell .component ul, .app-shell .component ol { margin:var(--token-size-0); padding-left:var(--token-size-18) }
 .app-shell .component li { margin-bottom:var(--token-size-10) }
@@ -455,16 +243,6 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   box-shadow: var(--effect-target-hover-shadow);
   border-color: var(--token-alpha-white-0_08);
 }
-
-/* Glass look in dark mode */
-.app-shell.mode-dark .target-row__container {
-  background: var(--token-alpha-white-0_02);
-  -webkit-backdrop-filter: blur(var(--token-blur-8));
-  backdrop-filter: blur(var(--token-blur-8));
-  border: var(--token-border-width-thin) solid var(--token-alpha-white-0_06);
-  box-shadow: var(--effect-glass-ring-subtle);
-}
-
 
 /* Tight-layout modifier applied via App.jsx */
 .dashboard.tight-layout { padding: var(--token-size-12) var(--token-size-12); gap: var(--token-size-10) }
