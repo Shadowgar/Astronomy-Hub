@@ -2,6 +2,27 @@
 
 ---
 
+# 🚧 CORRECTIVE CLOSEOUT CONTINUITY ADDENDUM (2026-03-30)
+
+This addendum supersedes conflicting "Phase 1 restarted" instructions below.
+
+Current session baseline:
+
+* Backend corrective stabilization: complete at corrective-exit level.
+* Frontend corrective work: materially complete at corrective-exit level.
+* FE7 / FE8 / FE9 / FE10: satisfied at corrective-exit level.
+* Execution state: corrective-exit handoff and documentation reconciliation.
+
+During this closeout state:
+
+* Do not introduce new feature scope.
+* Do not restart Phase 1 blindly from stale instructions.
+* Reconcile authoritative docs to verified implementation reality.
+* Move remaining non-blocking items to a post-corrective hardening backlog.
+* Return to master-plan execution only by explicit handoff.
+
+---
+
 # 0. PURPOSE
 
 This document ensures:

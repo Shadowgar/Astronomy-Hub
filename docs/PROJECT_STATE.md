@@ -6,6 +6,43 @@
 
 ---
 
+# 🚧 CORRECTIVE CLOSEOUT RECONCILIATION ADDENDUM (2026-03-30)
+
+This addendum supersedes conflicting statements below that describe a Phase 1 restart as current execution.
+
+Current execution reality:
+
+* Corrective backend stabilization is completed at corrective-exit level.
+* Frontend corrective work is materially completed at corrective-exit level.
+* FE7 / FE8 / FE9 / FE10 are satisfied at corrective-exit level.
+* Corrective mode is in explicit handoff preparation, not active feature implementation.
+
+Current mode:
+
+```text
+ACTIVE MODE: Corrective Exit Handoff
+ACTIVE IMPLEMENTATION PHASE: None (closeout reconciliation only)
+```
+
+What is complete now (corrective-exit level):
+
+* canonical backend runtime and API baseline are stable for frontend consumption
+* frontend command-center hierarchy and scene/object/detail loop are materially corrected
+* frontend query-boundary normalization and verification lanes are operational
+
+Deferred to post-corrective hardening backlog (non-blocking for closeout):
+
+* deeper FE9 media hardening beyond minimal foundation
+* deeper Cesium-path verification coverage
+* ongoing bundle/performance hardening
+* cleanup of residual dev-toggle pathways from corrective work
+
+Handoff requirement:
+
+* Resume master-plan execution only by explicit handoff, not implicit transition.
+
+---
+
 # 0. PURPOSE
 
 This document defines:
