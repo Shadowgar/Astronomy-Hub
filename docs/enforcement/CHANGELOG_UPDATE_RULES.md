@@ -1,196 +1,161 @@
-# 🌌 ASTRONOMY HUB — CHANGELOG UPDATE RULES (AUTHORITATIVE)
+````markdown
+# CHANGELOG UPDATE RULES — ASTRONOMY HUB (AUTHORITATIVE)
 
-## 0. PURPOSE
+---
+
+# 1. PURPOSE
 
 This document defines:
 
-> how execution history, session state, public progress, and UI changelog data must be updated after implementation work
+- when the changelog must be updated
+- how updates must be written
+- what proof is required
 
-It ensures:
-
-- progress is never lost
-- AI sessions resume correctly
-- internal history stays technical
-- public progress stays readable
-- the UI changelog page stays in sync
+The changelog is a **validation artifact**, not a narrative log.
 
 ---
 
-## 1. CORE RULE
+# 2. CORE RULE
 
-If a step is implemented and verified, the documentation must be updated immediately after that step is completed.
+```text
+If a change is not recorded, it does not exist.
+````
 
-The following files are part of the changelog/update system:
+All system changes MUST be:
 
-- `docs/EXECUTION_LOG.md`
-- `docs/SESSION_STATE.md`
-- `docs/PUBLIC_CHANGELOG.md`
-- `frontend/src/content/publicChangelog.json`
-
----
-
-## 2. UPDATE ORDER (MANDATORY)
-
-After a step is completed and verified, update files in this order:
-
-1. `docs/EXECUTION_LOG.md`
-2. `docs/SESSION_STATE.md`
-3. `docs/PUBLIC_CHANGELOG.md`
-4. `frontend/src/content/publicChangelog.json`
-
-Do not update these files before verification is complete.
+* documented
+* verifiable
+* traceable to execution
 
 ---
 
-## 3. EXECUTION_LOG RULES
+# 3. WHEN TO UPDATE
 
-`docs/EXECUTION_LOG.md` is the technical implementation history.
+The changelog MUST be updated when:
 
-It must include:
-- step number / name
-- phase
-- exact files changed
-- exact work performed
-- why the work was done
-- verification commands
-- verification result
-- final status (PASS / FAIL)
-
-This file is for:
-- the developer
-- future AI sessions
-- technical traceability
-
-This file must NOT:
-- hide failures
-- omit verification
-- use vague language like “fixed stuff”
-- act like a public marketing log
+* a task is completed
+* a document is rewritten
+* a system rule changes
+* validation status changes
+* execution state changes
 
 ---
 
-## 4. SESSION_STATE RULES
+# 4. WHAT MUST BE INCLUDED
 
-`docs/SESSION_STATE.md` is the live current-state save file.
+Each entry MUST include:
 
-It must reflect:
-- active execution phase
-- current workstream
-- current step
-- last completed step
-- next step
-- active constraints
+### 1. Change Type
 
-After each completed step:
-- move the completed step into “last completed”
-- advance the current step
-- update the next step if needed
-
-This file must always reflect the current truth of the project.
+* docs
+* backend
+* frontend
+* validation
+* system
 
 ---
 
-## 5. PUBLIC_CHANGELOG RULES
+### 2. Files Affected
 
-`docs/PUBLIC_CHANGELOG.md` is the user-facing progress summary.
-
-It must be:
-- plain language
-- concise
-- understandable to non-developers
-- focused on visible progress and meaningful milestones
-
-It may include:
-- new features completed
-- current area of work
-- what is coming next
-- milestone progress
-
-It must NOT include:
-- low-level contract changes
-- schema internals
-- refactor jargon
-- debugging noise
-- failed experiments unless intentionally shared
+Exact file paths
 
 ---
 
-## 6. UI CHANGELOG JSON RULES
+### 3. Description
 
-`frontend/src/content/publicChangelog.json` is the UI-ready structured version of the public changelog.
-
-It must mirror `docs/PUBLIC_CHANGELOG.md` closely enough that the UI and the public document do not drift apart.
-
-It should contain structured fields such as:
-- currentStatus
-- currentFocus
-- recentProgress[]
-- inProgress[]
-- comingNext[]
-- roadmap[]
-
-This file is for rendering in the app UI.
-
-It must NOT contain internal-only technical details.
+* what changed
+* why it changed
+* what problem it resolves
 
 ---
 
-## 7. SOURCE OF TRUTH RELATIONSHIP
+### 4. Validation Impact
 
-The relationship is:
-
-- `EXECUTION_LOG.md` → technical truth
-- `SESSION_STATE.md` → current truth
-- `PUBLIC_CHANGELOG.md` → public summary
-- `publicChangelog.json` → UI rendering source
-
-These files serve different audiences and must not be merged into one file.
+* what validation rule is affected
+* proof of correctness (if applicable)
 
 ---
 
-## 8. WHEN TO UPDATE
+### 5. Execution Context
 
-Update all four files when:
-- a step is fully implemented
-- verification has run
-- result is known
-
-Do NOT update them when:
-- work is only planned
-- code is half-finished
-- verification has not been performed
-- the result is uncertain
+* execution mode (from LIVE_SESSION_BRIEF.md)
+* active task
 
 ---
 
-## 9. FAILURE RULE
+# 5. FORMAT (REQUIRED)
 
-If a step fails verification:
+```text
+[DATE] — [CHANGE TYPE]
 
-- record the attempt in `EXECUTION_LOG.md`
-- mark result as FAIL
-- do not present it as completed in `PUBLIC_CHANGELOG.md`
-- do not advance `SESSION_STATE.md` as if it succeeded
-- do not add it to `publicChangelog.json` as finished progress
+FILES:
+- path/to/file
 
----
+DESCRIPTION:
+- ...
 
-## 10. AI EXECUTION RULE
+VALIDATION:
+- ...
 
-Any AI working on the repo must:
-
-Before coding:
-- read `docs/EXECUTION_LOG.md`
-- read `docs/SESSION_STATE.md`
-- read `docs/PUBLIC_CHANGELOG.md`
-- read this file
-
-After a verified step:
-- update all four files
-- show the exact diffs before finalizing if requested
+CONTEXT:
+- mode: ...
+- task: ...
+```
 
 ---
 
-## 11. FINAL RULE
+# 6. PROHIBITIONS
 
-If implementation changes but the changelog system is not updated, the project state is considered out of sync.
+* Do NOT write vague summaries
+* Do NOT omit affected files
+* Do NOT log unverified changes
+* Do NOT log planned work
+* Do NOT use narrative or commentary
+
+---
+
+# 7. VALIDATION REQUIREMENT
+
+A changelog entry is VALID only if:
+
+* the change exists in the system
+* the change can be verified
+* the change aligns with validation rules
+
+If proof cannot be provided → INVALID ENTRY
+
+---
+
+# 8. RELATION TO SESSION SYSTEM
+
+* LIVE_SESSION_BRIEF.md defines current task and mode
+* Changelog reflects completed, verified steps only
+* SESSION_STATE.md tracks execution flow
+* Changelog records permanent system changes
+
+---
+
+# 9. FAILURE CONDITIONS
+
+Execution MUST STOP if:
+
+* a change is made without a changelog entry
+* a changelog entry lacks required fields
+* a change cannot be validated
+* changelog contradicts system reality
+
+---
+
+# FINAL RULE
+
+```text
+The changelog is a record of verified truth.
+
+If it is not verifiable, it must not be recorded.
+```
+
+---
+
+```
+
+---

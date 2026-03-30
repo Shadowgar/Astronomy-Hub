@@ -1,49 +1,184 @@
-# Astronomy Hub Documentation System
-
-This file is the single entry point for humans and automated agents to understand the project's documentation authority and where to look first.
-
-## Where to Start (reading order)
-1. `docs/ASTRONOMY_HUB_MASTER_PLAN.md`
-2. `docs/PROJECT_STATE.md`
-3. `docs/SESSION_CONTINUITY_BRIEF.md`
-4. Relevant `PHASE_X_SPEC.md` for the active phase (e.g., `PHASE_1_SPEC.md`)
-5. `docs/UI_MASTER_PLAN.md`
-6. `docs/DATA_CONTRACTS.md` and `docs/contracts/`
-
-## Authority Levels
-
-**AUTHORITATIVE**
-- `ASTRONOMY_HUB_MASTER_PLAN.md` (master vision)
-- `PROJECT_STATE.md` (current project snapshot)
-- `SESSION_CONTINUITY_BRIEF.md` (continuity + next actions)
-- `PHASE_*.md` files (per‑phase specs)
-- `UI_MASTER_PLAN.md` (UI roadmap)
-- `DATA_CONTRACTS.md` and `docs/contracts/*` (data schema truth)
-
-**SUPPORTING**
-- Per‑phase UI specs (`UI_PHASE_A_SPEC.md`, `UI_PHASE_B_SPEC.md`, ...)
-- `ARCHITECTURE_OVERVIEW.md`
-- `VALIDATION_CHECKLIST.md`
-- `UI_DESIGN_PRINCIPLES.md` and other design/docs
-
-**HISTORICAL / ARCHIVE**
-- `PHASE_2_EXECUTION_TODO.md` (execution history; not an active TODO)
-- `UI_GAP_ANALYSIS.md` (audit snapshot)
-
-## Current Project State (locked snapshot)
-- Phase 1: COMPLETE
-- Phase 2: COMPLETE
-- UI Phase A: COMPLETE
-- UI Phase B: ACTIVE
-
-## Rules for Future AI and Contributors
-- Always read `ASTRONOMY_HUB_MASTER_PLAN.md` first for vision and phase context.
-- Always check `PROJECT_STATE.md` second to learn what is complete and what is active.
-- Treat `PHASE_*.md` files as the authoritative definition of each phase's scope.
-- Never treat documents in the **HISTORICAL / ARCHIVE** section as active plans; do not implement their TODOs without confirmation.
-- Do not create new top-level docs in `docs/` without a clear purpose and cross-link from this README.
-- When in doubt, prefer conservative changes and update `PROJECT_STATE.md` to reflect any phase transition.
+````
+# 🌌 Astronomy Hub — Documentation System
 
 ---
 
-This file is intentionally minimal. Follow the reading order and authority map above to avoid drift.
+## 1. PURPOSE
+
+This directory contains the authoritative documentation system for Astronomy Hub.
+
+It defines:
+
+- how the system works
+- how execution is controlled
+- how validation is enforced
+- how context is loaded
+
+This is NOT a general documentation folder.
+
+It is a **controlled system**.
+
+---
+
+## 2. CORE RULE
+
+```text
+If it cannot be proven, it is NOT complete.
+````
+
+All work must be:
+
+* implemented
+* verified
+* validated
+* aligned with system laws
+
+---
+
+## 3. SYSTEM STRUCTURE
+
+Astronomy Hub follows a strict architecture:
+
+```
+Scope → Engine → Filter → Scene → Object → Detail
+```
+
+Rules:
+
+* Scene is the ONLY visible surface
+* Objects MUST originate from Scene
+* Detail MUST resolve from Object identity
+* UI MUST NOT interpret raw data
+* All data MUST be normalized before UI
+
+---
+
+## 4. DOCUMENT SYSTEM
+
+This system is controlled by two components:
+
+### 1. CONTEXT_MANIFEST.yaml (AUTHORITATIVE)
+
+Defines:
+
+* what documents are allowed to be loaded
+* what context is required per task
+
+This controls execution.
+
+---
+
+### 2. DOCUMENT_INDEX.md
+
+Defines:
+
+* what documents exist
+* how they relate to each other
+* human-readable system structure
+
+This explains the system.
+
+---
+
+## RULE
+
+```text
+The manifest controls behavior.
+The index explains the system.
+```
+
+---
+
+## 5. AUTHORITY HIERARCHY
+
+All decisions must follow:
+
+1. SYSTEM_VALIDATION_SPEC.md
+2. CORE_CONTEXT.md
+3. LIVE_SESSION_BRIEF.md
+4. DOCUMENT_INDEX.md
+5. PROJECT_STATE.md
+6. ASTRONOMY_HUB_MASTER_PLAN.md
+7. Phase / execution / UI documents
+
+---
+
+## 6. EXECUTION MODEL
+
+* Work is phase-controlled
+* Only one task may be active
+* Each step must be verified before proceeding
+* No assumptions are allowed
+
+---
+
+## 7. PROHIBITIONS
+
+* Do NOT scan /docs directory
+* Do NOT load documents outside CONTEXT_MANIFEST.yaml
+* Do NOT assume completion
+* Do NOT bypass validation
+* Do NOT mix phase scopes
+
+---
+
+## 8. CURRENT STATE
+
+* Backend: stable (FastAPI, services, tests)
+* Frontend: normalized (no fallback logic)
+* Runtime: Docker functional
+
+System status:
+
+* Phase 1: UNVERIFIED
+* Phase 2: BLOCKED
+
+---
+
+## 9. CURRENT OBJECTIVE
+
+We are building:
+
+* context system
+* validation system
+
+We are NOT:
+
+* building features
+* expanding backend
+* redesigning UI
+
+---
+
+## 10. HOW TO USE THIS SYSTEM
+
+In any session:
+
+1. Load required context using CONTEXT_MANIFEST.yaml
+2. Confirm execution mode from LIVE_SESSION_BRIEF.md
+3. Follow authority hierarchy
+4. Execute ONE task at a time
+5. Provide proof for all claims
+
+---
+
+## 11. FAILURE CONDITIONS
+
+Execution must STOP if:
+
+* documents conflict
+* required context is missing
+* validation cannot be proven
+* scope is violated
+
+---
+
+## FINAL RULE
+
+```text
+If something cannot be proven, it does not exist.
+```
+
+---
+
+```

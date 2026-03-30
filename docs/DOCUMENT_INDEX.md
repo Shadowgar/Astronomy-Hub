@@ -1,3 +1,4 @@
+````markdown
 # 🌌 ASTRONOMY HUB — DOCUMENT INDEX (AUTHORITATIVE)
 
 ---
@@ -6,196 +7,225 @@
 
 This document defines:
 
-> **The complete list of authoritative documents and how they must be used**
+- what documents exist
+- how they relate to each other
+- how they should be interpreted
 
-It ensures:
-
-* AI reads the correct documents
-* no document is ignored
-* no outdated document is followed
-* system remains aligned
+It is a **human-readable map of the system**.
 
 ---
 
-# 1. 🧠 CORE RULE
+# 🚨 CORE RULE
 
 ```text
-If a document is not listed here,
-it is NOT authoritative.
+This document DOES NOT control execution.
+
+CONTEXT_MANIFEST.yaml controls what is loaded.
+````
+
+If this document conflicts with:
+
+* SYSTEM_VALIDATION_SPEC.md
+* CORE_CONTEXT.md
+* LIVE_SESSION_BRIEF.md
+
+👉 THIS DOCUMENT IS WRONG
+
+---
+
+# 1. AUTHORITY HIERARCHY (CANONICAL)
+
+All decisions must follow this order:
+
+1. docs/validation/SYSTEM_VALIDATION_SPEC.md
+2. docs/context/CORE_CONTEXT.md
+3. docs/context/LIVE_SESSION_BRIEF.md
+4. docs/DOCUMENT_INDEX.md
+5. docs/execution/PROJECT_STATE.md
+6. docs/product/ASTRONOMY_HUB_MASTER_PLAN.md
+7. phase / execution / UI documents
+
+---
+
+# 2. DOCUMENT SYSTEM MODEL
+
+The documentation system is composed of:
+
+---
+
+## A. EXECUTION CONTROL (MACHINE-ENFORCED)
+
+### CONTEXT_MANIFEST.yaml
+
+Defines:
+
+* what documents are allowed to be loaded
+* what context is required per task
+
+Rules:
+
+* ONLY documents in the manifest may be loaded
+* /docs directory MUST NOT be scanned
+* CORE_CONTEXT.md and LIVE_SESSION_BRIEF.md are ALWAYS required
+
+---
+
+## B. SYSTEM RULES (NON-NEGOTIABLE)
+
+### CORE_CONTEXT.md
+
+Defines:
+
+* architecture law
+* runtime law
+* data law
+* execution law
+
+---
+
+### SYSTEM_VALIDATION_SPEC.md
+
+Defines:
+
+* what is considered complete
+* how correctness is proven
+* all failure conditions
+
+This is the **highest authority**.
+
+---
+
+## C. SESSION CONTROL
+
+### LIVE_SESSION_BRIEF.md
+
+Defines:
+
+* current execution mode
+* current task
+* allowed/disallowed actions
+* next required step
+
+This is the **single source of truth for current work**.
+
+---
+
+## D. SYSTEM STATE
+
+### PROJECT_STATE.md
+
+Defines:
+
+* what is actually implemented
+* what is verified
+* current system reality
+
+---
+
+## E. PRODUCT VISION
+
+### ASTRONOMY_HUB_MASTER_PLAN.md
+
+Defines:
+
+* long-term product vision
+* conceptual direction
+
+⚠️ This document does NOT authorize implementation
+
+---
+
+## F. EXECUTION & PHASE DOCUMENTS
+
+Examples:
+
+* PHASE_1_SPEC.md
+* PHASE_1_BUILD_SEQUENCE.md
+* PHASE_2_SPEC.md
+* PHASE_2_5_SPEC.md
+* execution TODO documents
+
+Defines:
+
+* scoped work per phase
+* requirements
+* acceptance criteria
+
+---
+
+## G. SUPPORTING DOCUMENTS (LOW AUTHORITY)
+
+Examples:
+
+* README.md
+* CHANGELOG.md
+
+Used for:
+
+* navigation
+* explanation
+* summaries
+
+They do NOT control execution.
+
+---
+
+# 3. CONTEXT LOADING RULE
+
+```text
+DO NOT use this document to decide what to load.
+
+ONLY use CONTEXT_MANIFEST.yaml.
 ```
 
 ---
 
-# 2. 📚 DOCUMENT HIERARCHY
+# 4. CONFLICT RESOLUTION
 
-Documents are divided into **layers of authority**.
+If documents conflict:
 
----
-
-## 🧱 LAYER 1 — SYSTEM FOUNDATION (HIGHEST AUTHORITY)
-
-These define the system itself.
-
-AI MUST ALWAYS READ THESE FIRST.
+1. SYSTEM_VALIDATION_SPEC.md wins
+2. CORE_CONTEXT.md wins over all non-validation docs
+3. LIVE_SESSION_BRIEF.md defines current task truth
+4. DOCUMENT_INDEX.md must be corrected
 
 ---
 
-### Required Reading Order
+# 5. DRIFT PREVENTION
 
-1. `ASTRONOMY_HUB_MASTER_PLAN.md` → full vision
-2. `MASTER_PLAN.md` → execution control
-3. `PROJECT_STATE.md` → current reality
-4. `SESSION_CONTINUITY_BRIEF.md` → session rules
+Execution MUST STOP if:
 
----
-
-## 🧠 LAYER 2 — ARCHITECTURE
-
-Defines how the system works internally.
-
----
-
-### Required
-
-* `ARCHITECTURE_OVERVIEW.md`
-* `ENGINE_SPEC.md`
-* `OBJECT_MODEL.md`
-* `DATA_CONTRACTS.md`
-* `INGESTION_STRATEGY.md`
-
----
-
-## 🎨 LAYER 3 — UI & DESIGN SYSTEM
-
-Defines how the system is presented.
-
----
-
-### Required
-
-* `UI_INFORMATION_ARCHITECTURE.md`
-* `UI_PHASE_A_SPEC.md`
-* `UI_PHASE_B_SPEC.md`
-* `UI_PHASE_C_SPEC.md`
-* `UI_DESIGN_PRINCIPLES.md`
-* `styling_decision.md`
-* `styling_audit.md`
-
----
-
-## ⚙️ LAYER 4 — EXECUTION & VALIDATION
-
-Defines how work is done and verified.
-
----
-
-### Required
-
-* `PHASE_1_SPEC.md`
-* `PHASE_1_BUILD_SEQUENCE.md`
-* `PHASE_2_SPEC.md`
-* `PHASE_2_5_SPEC.md`
-* `PHASE_3_SPEC.md`
-* `PHASE_4_SPEC.md`
-* `PHASE_5_SPEC.md`
-* `PHASE_2_EXECUTION_TODO.md`
-* `PHASE_2_5_EXECUTION_TODO.md`
-* `VALIDATION_CHECKLIST.md`
-* `env_setup.md`
-
----
-
-## 📊 LAYER 5 — SUPPORTING DOCUMENTS
-
-Lower authority, supporting only.
-
----
-
-### Examples
-
-* `README.md`
-* `CHANGELOG.md`
-* `PROJECT_STATE_HISTORY.md`
-
----
-
----
-
-# 3. 🚫 NON-AUTHORITATIVE DOCUMENTS
-
-These must NOT influence development:
-
-* brainstorm notes
-* temp plans
-* old specs
-* archived docs
-
----
-
-## Rule
-
-```text
-If a document conflicts with this index,
-the index wins.
-```
-
----
-
-# 4. 🧠 AI EXECUTION RULE
-
-When working on this project, the AI must:
-
----
-
-## Step 1 — Load Context
-
-Read:
-
-* Layer 1 (ALL)
-* Relevant Layer 2 docs
-* Relevant Layer 3 docs (if UI work)
-
----
-
-## Step 2 — Follow Constraints
-
-* obey MASTER_PLAN.md
-* obey PROJECT_STATE.md
-* obey DATA_CONTRACTS.md
-
----
-
-## Step 3 — Execute
-
-* follow the active phase execution document
-* use `PHASE_1_BUILD_SEQUENCE.md` when Phase 1 is active
-* use `PHASE_2_5_EXECUTION_TODO.md` when Phase 2.5 is active
-* perform minimal diffs
-* verify each step
-
----
-
----
-
-# 5. ⚠️ DRIFT PREVENTION RULE
-
-AI must STOP if:
-
-* a required document is missing
+* required documents are missing
+* context is not declared
 * instructions conflict
-* a request violates phase rules
+* phase boundaries are violated
 
 ---
 
+# 6. REMOVALS / CORRECTIONS
+
+This document intentionally removes:
+
+* layer-based loading system ❌
+* SESSION_CONTINUITY_BRIEF.md ❌
+* implicit document authority ❌
+
+Replaced with:
+
+* manifest-driven loading ✅
+* explicit authority hierarchy ✅
+* session-controlled execution ✅
+
 ---
 
-# 6. 🔥 FINAL STATEMENT
+# FINAL RULE
 
 ```text
-This document controls which documents matter.
+This document explains the system.
 
-If this is ignored,
-the system will drift again.
+It does NOT control the system.
 ```
 
 ---
+
+```

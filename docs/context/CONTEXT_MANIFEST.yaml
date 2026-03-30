@@ -1,8 +1,10 @@
 # CONTEXT MANIFEST — ASTRONOMY HUB (AUTHORITATIVE)
 
 # This file defines EXACT document loading rules.
+# This file CONTROLS execution behavior.
 # No document outside this manifest may be loaded unless explicitly approved.
 
+# CORE REQUIREMENT (NON-NEGOTIABLE)
 # ALL tasks MUST load:
 # - CORE_CONTEXT.md
 # - LIVE_SESSION_BRIEF.md
@@ -14,10 +16,29 @@ global:
 
 tasks:
 
+  # ----------------------------------------
+  # DOCUMENT RECONCILIATION / SYSTEM WORK
+  # ----------------------------------------
+  docs_change:
+    load:
+    - docs/context/CORE_CONTEXT.md
+    - docs/context/LIVE_SESSION_BRIEF.md
+
+    - docs/validation/SYSTEM_VALIDATION_SPEC.md
+
+    - docs/DOCUMENT_INDEX.md
+    - docs/execution/MASTER_PLAN.md
+    - docs/execution/PROJECT_STATE.md
+
+  # ----------------------------------------
+  # BACKEND WORK (FUTURE — PHASE CONTROLLED)
+  # ----------------------------------------
   backend_change:
     load:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+
+    - docs/validation/SYSTEM_VALIDATION_SPEC.md
 
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
@@ -27,33 +48,28 @@ tasks:
     - docs/execution/STACK_OVERVIEW.md
     - docs/execution/env_setup.md
 
-    - docs/validation/SYSTEM_VALIDATION_SPEC.md
-
     - docs/execution/backend/PHASE_BE_EXECUTION.md
 
+  # ----------------------------------------
+  # FRONTEND WORK (FUTURE — PHASE CONTROLLED)
+  # ----------------------------------------
   frontend_change:
     load:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+
+    - docs/validation/SYSTEM_VALIDATION_SPEC.md
 
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/DATA_CONTRACTS.md
 
     - docs/execution/STACK_OVERVIEW.md
 
-    - docs/validation/SYSTEM_VALIDATION_SPEC.md
-
     - docs/execution/frontend/PHASE_FE_EXECUTION.md
 
-  docs_change:
-    load:
-    - docs/context/CORE_CONTEXT.md
-    - docs/context/LIVE_SESSION_BRIEF.md
-
-    - docs/DOCUMENT_INDEX.md
-    - docs/execution/MASTER_PLAN.md
-    - docs/execution/PROJECT_STATE.md
-
+  # ----------------------------------------
+  # VALIDATION (PHASE VERIFICATION)
+  # ----------------------------------------
   validation:
     load:
     - docs/context/CORE_CONTEXT.md
@@ -65,11 +81,19 @@ tasks:
     - docs/phases/PHASE_1_ACCEPTANCE.md
     - docs/phases/PHASE_1_BUILD_SEQUENCE.md
 
+# ----------------------------------------
+# ENFORCEMENT RULES (NON-NEGOTIABLE)
+# ----------------------------------------
+
 rules:
 - do_not_load_unlisted_documents: true
 - do_not_scan_docs_directory: true
 - must_declare_loaded_documents: true
 - must_match_task_context: true
+
+# ----------------------------------------
+# FAILURE CONDITIONS (EXECUTION BLOCK)
+# ----------------------------------------
 
 failure_conditions:
 - loading_docs_outside_manifest
