@@ -13,10 +13,26 @@ export async function fetchObjectDetail(objectId: string) {
   return apiGet<unknown>(`${OBJECTS_PATH}/${encodeURIComponent(objectId)}`)
 }
 
+export function normalizeObjectDetailPayload(payload: unknown): unknown {
+  if (payload && typeof payload === 'object') {
+    return ((payload as { data?: unknown }).data || payload)
+  }
+  return payload
+}
+
 export function useObjectDetailQuery(objectId?: string) {
   return useQuery({
     queryKey: objectsKeys.detail(objectId),
     enabled: Boolean(objectId),
     queryFn: () => fetchObjectDetail(objectId as string),
+  })
+}
+
+export function useObjectDetailDataQuery(objectId?: string) {
+  return useQuery({
+    queryKey: objectsKeys.detail(objectId),
+    enabled: Boolean(objectId),
+    queryFn: () => fetchObjectDetail(objectId as string),
+    select: normalizeObjectDetailPayload,
   })
 }

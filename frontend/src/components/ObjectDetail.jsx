@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { useObjectDetailQuery } from '../features/objects/queries'
+import { useObjectDetailDataQuery } from '../features/objects/queries'
 import LoadingState from './ui/LoadingState'
 import ErrorState from './ui/ErrorState'
 import EmptyState from './ui/EmptyState'
@@ -15,10 +15,10 @@ function _slugify(name) {
 
 export default function ObjectDetail({ objectId, objectName }) {
   const id = objectId || _slugify(objectName)
-  const detailQuery = useObjectDetailQuery(id)
+  const detailQuery = useObjectDetailDataQuery(id)
   const loading = detailQuery.isLoading
   const error = detailQuery.isError ? String((detailQuery.error && detailQuery.error.message) || 'error') : null
-  const detail = (detailQuery.data && detailQuery.data.data) || null
+  const detail = detailQuery.data || null
 
   if (loading) return <LoadingState message="Loading detail…" />
   if (error) return <ErrorState message={`Error loading detail: ${error}`} />
