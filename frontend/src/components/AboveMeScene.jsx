@@ -7,8 +7,8 @@ import LoadingState from './ui/LoadingState'
 import ErrorState from './ui/ErrorState'
 import EmptyState from './ui/EmptyState'
 import ObjectDetail from './ObjectDetail'
-import { useConditionsQuery } from '../features/conditions/queries'
-import { useSceneAboveMeQuery } from '../features/scene/queries'
+import { useConditionsDataQuery } from '../features/conditions/queries'
+import { useSceneAboveMeDataQuery } from '../features/scene/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
 import useGlobalUiState from '../state/globalUiState'
 
@@ -21,16 +21,16 @@ function labelForType(type) {
 
 export default function AboveMeScene({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
-  const sceneQuery = useSceneAboveMeQuery(queryParams)
-  const conditionsQuery = useConditionsQuery(queryParams)
+  const sceneQuery = useSceneAboveMeDataQuery(queryParams)
+  const conditionsQuery = useConditionsDataQuery(queryParams)
   const loading = sceneQuery.isLoading || conditionsQuery.isLoading
   const error = sceneQuery.isError
     ? (sceneQuery.error && sceneQuery.error.message) || 'Failed to load scene'
     : conditionsQuery.isError
       ? (conditionsQuery.error && conditionsQuery.error.message) || 'Failed to load conditions'
       : null
-  const scene = (sceneQuery.data && sceneQuery.data.data) || sceneQuery.data || null
-  const conditions = (conditionsQuery.data && conditionsQuery.data.data) || conditionsQuery.data || null
+  const scene = sceneQuery.data || null
+  const conditions = conditionsQuery.data || null
   const { selectedObjectId, setSelectedObjectId, setActiveSceneState } = useGlobalUiState()
 
   const objects = useMemo(() => (scene && Array.isArray(scene.objects) ? scene.objects : []), [scene])

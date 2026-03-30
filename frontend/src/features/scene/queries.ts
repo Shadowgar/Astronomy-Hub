@@ -29,9 +29,24 @@ export async function fetchSceneAboveMe(params?: SceneQueryParams) {
   return apiGet<unknown>(SCENE_ABOVE_ME_PATH, { query: toQueryParams(params) })
 }
 
+export function normalizeScenePayload(payload: unknown): unknown {
+  if (payload && typeof payload === 'object') {
+    return ((payload as { data?: unknown }).data || payload)
+  }
+  return payload
+}
+
 export function useSceneAboveMeQuery(params?: SceneQueryParams) {
   return useQuery({
     queryKey: sceneKeys.aboveMe(params),
     queryFn: () => fetchSceneAboveMe(params),
+  })
+}
+
+export function useSceneAboveMeDataQuery(params?: SceneQueryParams) {
+  return useQuery({
+    queryKey: sceneKeys.aboveMe(params),
+    queryFn: () => fetchSceneAboveMe(params),
+    select: normalizeScenePayload,
   })
 }
