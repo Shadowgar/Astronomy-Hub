@@ -15,6 +15,9 @@ def sample_satellite():
         "type": "satellite",
         "engine": "satellite",
         "summary": "A test satellite visible now.",
+        "time_relevance": "window_start:2026-03-26T20:00:00Z",
+        "reason_for_inclusion": "Visible now above horizon.",
+        "detail_route": "/object/sat-123",
         "position": {"azimuth": 120.5, "elevation": 45.0},
         "visibility": {"is_visible": True, "visibility_window_start": "2026-03-26T20:00:00Z"},
     }
@@ -27,6 +30,9 @@ def sample_planet():
         "type": "planet",
         "engine": "solar_system",
         "summary": "Bright planet visible in the west.",
+        "time_relevance": "currently_visible",
+        "reason_for_inclusion": "Primary visible planet for tonight.",
+        "detail_route": "/object/mars",
         "position": {"azimuth": 270.0, "elevation": 15.0},
         "visibility": {"is_visible": True},
     }
@@ -39,6 +45,9 @@ def sample_deep_sky():
         "type": "deep_sky",
         "engine": "deep_sky",
         "summary": "Globular cluster in Hercules.",
+        "time_relevance": "currently_visible",
+        "reason_for_inclusion": "High-altitude deep sky target.",
+        "detail_route": "/object/m13",
     }
 
 
@@ -70,7 +79,18 @@ def test_valid_scene_and_objects():
 
 
 def test_object_detail_model():
-    detail = ObjectDetail(**sample_planet())
+    source = sample_planet()
+    detail = ObjectDetail(
+        **{
+            "id": source["id"],
+            "name": source["name"],
+            "type": source["type"],
+            "engine": source["engine"],
+            "summary": source["summary"],
+            "position": source["position"],
+            "visibility": source["visibility"],
+        }
+    )
     assert detail.id == "mars"
     assert detail.engine == "solar_system"
 
