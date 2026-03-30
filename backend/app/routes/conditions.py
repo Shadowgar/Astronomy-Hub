@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
+from backend.app.routes._contract import attach_request_id_to_error_payload
 from backend.app.schemas.conditions import ConditionsResponse
 from backend.app.services.conditions_service import build_conditions_response
 
@@ -23,5 +24,8 @@ async def get_conditions(
         lat=lat, lon=lon, elevation_ft=elevation_ft
     )
     if status_code != 200:
-        return JSONResponse(status_code=status_code, content=payload)
+        return JSONResponse(
+            status_code=status_code,
+            content=attach_request_id_to_error_payload(payload),
+        )
     return payload

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from fastapi.responses import JSONResponse
 
+from backend.app.routes._contract import error_response
 from backend.app.services.passes_service import get_passes_payload
 
 router = APIRouter()
@@ -17,12 +17,14 @@ async def get_passes(
         payload = get_passes_payload(lat=lat, lon=lon, elevation_ft=elevation_ft)
         return payload
     except ValueError:
-        return JSONResponse(
+        return error_response(
             status_code=400,
-            content={"error": {"code": "invalid_parameters", "message": "invalid parameters"}},
+            code="invalid_parameters",
+            message="invalid parameters",
         )
     except Exception:
-        return JSONResponse(
+        return error_response(
             status_code=500,
-            content={"error": {"code": "module_error", "message": "failed to assemble passes"}},
+            code="module_error",
+            message="failed to assemble passes",
         )

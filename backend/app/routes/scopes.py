@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
+from backend.app.routes._contract import attach_request_id_to_error_payload
 from backend.app.services.scopes_service import build_scopes_response
 
 router = APIRouter()
@@ -11,6 +12,8 @@ async def get_scopes(scope: str | None = None, engine: str | None = None, filter
     """Return scope/engine/filter metadata using legacy scopes decision logic."""
     status_code, payload = build_scopes_response(scope, engine, filter)
     if status_code != 200:
-        return JSONResponse(status_code=status_code, content=payload)
+        return JSONResponse(
+            status_code=status_code,
+            content=attach_request_id_to_error_payload(payload),
+        )
     return payload
-
