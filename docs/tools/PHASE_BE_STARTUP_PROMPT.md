@@ -12,10 +12,10 @@ You are executing inside a **strict, deterministic, phase-driven system**.
 
 You MUST load the following documents FIRST:
 
-docs/STACK_OVERVIEW.md
+docs/execution/STACK_OVERVIEW.md
 docs/PHASE_STRUCTURE.md
-docs/PHASE_BE_EXECUTION.md
-docs/PHASE_FE_EXECUTION.md
+docs/execution/backend/PHASE_BE_EXECUTION.md
+docs/execution/frontend/PHASE_FE_EXECUTION.md
 
 These are the ONLY authoritative documents.
 

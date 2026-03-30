@@ -1,231 +1,129 @@
-````markdown
-# 🌌 ASTRONOMY HUB — DOCUMENT INDEX (AUTHORITATIVE)
+# ASTRONOMY HUB — DOCUMENT INDEX (AUTHORITATIVE MAP)
 
----
+## 0. Purpose
+This document is a human-readable map of the documentation system.
 
-# 0. PURPOSE
+It explains document roles and relationships.
+It does not control context loading or execution.
 
-This document defines:
+## 1. Control Rules (Non-Negotiable)
+- Validation overrides all other documentation.
+- `docs/context/CONTEXT_MANIFEST.yaml` controls what can be loaded for a task.
+- Phase documents control execution scope.
+- UI documents enforce behavior inside phase scope.
+- UI documents do not define a competing roadmap authority.
+- Recovery protocol and state transitions are subordinate extensions.
+- Recovery may respond to failures only and may not define system truth.
 
-- what documents exist
-- how they relate to each other
-- how they should be interpreted
+## 2. Authority Order
+Use this order when documents conflict:
+1. `docs/validation/SYSTEM_VALIDATION_SPEC.md`
+2. `docs/context/CORE_CONTEXT.md`
+3. `docs/context/LIVE_SESSION_BRIEF.md`
+4. `docs/context/CONTEXT_MANIFEST.yaml`
+5. `docs/execution/PROJECT_STATE.md`
+6. `docs/execution/MASTER_PLAN.md`
+7. Phase execution documents under `docs/phases/`
+8. Architecture and contracts docs under `docs/architecture/` and `docs/contracts/`
+9. UI enforcement/support docs under `docs/product/ui/`
+10. `docs/product/ASTRONOMY_HUB_MASTER_PLAN.md` (vision only)
 
-It is a **human-readable map of the system**.
+## 3. Document System Structure
 
----
+### A) System Control Docs
+- `docs/validation/SYSTEM_VALIDATION_SPEC.md`
+- `docs/context/CORE_CONTEXT.md`
+- `docs/context/LIVE_SESSION_BRIEF.md`
+- `docs/context/CONTEXT_MANIFEST.yaml`
+- `docs/execution/PROJECT_STATE.md`
+- `docs/execution/MASTER_PLAN.md`
 
-# 🚨 CORE RULE
+Purpose:
+- define truth, constraints, active execution state, load boundaries, and current reality
 
-```text
-This document DOES NOT control execution.
+### A.1) Authoritative Recovery Extensions (Subordinate)
+- `docs/enforcement/FAILURE_RECOVERY_PROTOCOL.md`
+- `docs/execution/STATE_TRANSITIONS.md`
 
-CONTEXT_MANIFEST.yaml controls what is loaded.
-````
+Purpose:
+- define bounded post-stop recovery and legal execution-state movement under existing authority
 
-If this document conflicts with:
+Constraint:
+- these documents are subordinate and cannot override validation, context, or phase authority
 
-* SYSTEM_VALIDATION_SPEC.md
-* CORE_CONTEXT.md
-* LIVE_SESSION_BRIEF.md
+### B) Phase Execution Docs (Execution Authority)
+Each phase is authoritative only through its Spec + Build Sequence + Acceptance Criteria.
 
-👉 THIS DOCUMENT IS WRONG
+Phase 1 — Command Center (Above Me only)
+- `docs/phases/PHASE_1_SPEC.md`
+- `docs/phases/PHASE_1_BUILD_SEQUENCE.md`
+- `docs/phases/PHASE_1_ACCEPTANCE_CRITERIA.md`
 
----
+Phase 2 — Engine System (Scope -> Engine -> Filter -> Scene)
+- `docs/phases/PHASE_2_SPEC.md`
+- `docs/phases/PHASE_2_BUILD_SEQUENCE.md`
+- `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md`
 
-# 1. AUTHORITY HIERARCHY (CANONICAL)
+Phase 3 — Spatial / Immersive System (coexists with command center)
+- `docs/phases/PHASE_3_SPEC.md`
+- `docs/phases/PHASE_3_BUILD_SEQUENCE.md`
+- `docs/phases/PHASE_3_ACCEPTANCE_CRITERIA.md`
 
-All decisions must follow this order:
+Phase 4 — Knowledge Graph / Relationship System
+- `docs/phases/PHASE_4_SPEC.md`
+- `docs/phases/PHASE_4_BUILD_SEQUENCE.md`
+- `docs/phases/PHASE_4_ACCEPTANCE_CRITERIA.md`
 
-1. docs/validation/SYSTEM_VALIDATION_SPEC.md
-2. docs/context/CORE_CONTEXT.md
-3. docs/context/LIVE_SESSION_BRIEF.md
-4. docs/DOCUMENT_INDEX.md
-5. docs/execution/PROJECT_STATE.md
-6. docs/product/ASTRONOMY_HUB_MASTER_PLAN.md
-7. phase / execution / UI documents
+Phase 5 — Prediction / Personalization System
+- `docs/phases/PHASE_5_SPEC.md`
+- `docs/phases/PHASE_5_BUILD_SEQUENCE.md`
+- `docs/phases/PHASE_5_ACCEPTANCE_CRITERIA.md`
 
----
+### C) UI Enforcement Docs (Support Layer, Not Parallel Roadmap)
+Global UI enforcement:
+- `docs/product/ui/UI_DESIGN_PRINCIPLES.md`
+- `docs/product/ui/UI_INFORMATION_ARCHITECTURE.md`
+- `docs/product/ui/UI_VALIDATION_RULES.md`
 
-# 2. DOCUMENT SYSTEM MODEL
+Phase-support UI docs:
+- Phase 1/2 support (command-center behavior and structure):
+  - `docs/product/ui/UI_PHASE_B_SPEC.md`
+  - `docs/product/ui/UI_PHASE_B_LAYOUT_BLUEPRINT.md`
+  - `docs/product/ui/UI_PHASE_B_VISUAL_MODEL.md`
+  - `docs/product/ui/UI_MODULE_TRANSFORMS.md`
+  - `docs/product/ui/UI_VISUAL_CALIBRATION.md`
+  - `docs/product/ui/UI_THEME_REFERENCES.md`
+  - `docs/product/ui/STYLING_DECISION.md`
+- Phase 3 support (spatial/immersive behavior):
+  - `docs/product/ui/UI_PHASE_C_SPEC.md`
 
-The documentation system is composed of:
+UI roadmap note:
+- `docs/product/ui/UI_MASTER_PLAN.md` is supporting roadmap context.
+- It does not override phase execution authority.
 
----
-
-## A. EXECUTION CONTROL (MACHINE-ENFORCED)
-
-### CONTEXT_MANIFEST.yaml
-
-Defines:
-
-* what documents are allowed to be loaded
-* what context is required per task
-
-Rules:
-
-* ONLY documents in the manifest may be loaded
-* /docs directory MUST NOT be scanned
-* CORE_CONTEXT.md and LIVE_SESSION_BRIEF.md are ALWAYS required
-
----
-
-## B. SYSTEM RULES (NON-NEGOTIABLE)
-
-### CORE_CONTEXT.md
-
-Defines:
-
-* architecture law
-* runtime law
-* data law
-* execution law
-
----
-
-### SYSTEM_VALIDATION_SPEC.md
-
-Defines:
-
-* what is considered complete
-* how correctness is proven
-* all failure conditions
-
-This is the **highest authority**.
-
----
-
-## C. SESSION CONTROL
-
-### LIVE_SESSION_BRIEF.md
-
-Defines:
-
-* current execution mode
-* current task
-* allowed/disallowed actions
-* next required step
-
-This is the **single source of truth for current work**.
-
----
-
-## D. SYSTEM STATE
-
-### PROJECT_STATE.md
-
-Defines:
-
-* what is actually implemented
-* what is verified
-* current system reality
-
----
-
-## E. PRODUCT VISION
-
-### ASTRONOMY_HUB_MASTER_PLAN.md
-
-Defines:
-
-* long-term product vision
-* conceptual direction
-
-⚠️ This document does NOT authorize implementation
-
----
-
-## F. EXECUTION & PHASE DOCUMENTS
-
+### D) Supporting / Reference Docs
 Examples:
+- `docs/README.md`
+- `docs/runtime/PUBLIC_CHANGELOG.md`
+- `docs/enforcement/CHANGELOG_UPDATE_RULES.md`
+- `docs/tools/PHASE_BE_STARTUP_PROMPT.md`
+- `docs/runtime/EXECUTION_LOG.md`
+- `docs/runtime/FAILURE_PATTERNS.md` (support memory only; non-authoritative)
+- `docs/archive/` contents
 
-* PHASE_1_SPEC.md
-* PHASE_1_BUILD_SEQUENCE.md
-* PHASE_2_SPEC.md
-* PHASE_2_5_SPEC.md
-* execution TODO documents
+These assist navigation, operations, or history.
+They do not override system control or phase authority.
 
-Defines:
+## 4. Phase Boundary Rules
+- Phase 1 does not expose scope/engine/filter controls.
+- Phase 2 introduces user-controlled scope/engine/filter.
+- Phase 3 adds immersive/spatial mode as explicit coexistence; command center remains default primary surface.
+- Phase 4 introduces graph-backed relationships only.
+- Phase 5 introduces prediction/personalization with deterministic, explainable behavior.
 
-* scoped work per phase
-* requirements
-* acceptance criteria
+## 5. Context Loading Rule
+Do not decide load scope from this index.
+Use `docs/context/CONTEXT_MANIFEST.yaml` only.
 
----
-
-## G. SUPPORTING DOCUMENTS (LOW AUTHORITY)
-
-Examples:
-
-* README.md
-* CHANGELOG.md
-
-Used for:
-
-* navigation
-* explanation
-* summaries
-
-They do NOT control execution.
-
----
-
-# 3. CONTEXT LOADING RULE
-
-```text
-DO NOT use this document to decide what to load.
-
-ONLY use CONTEXT_MANIFEST.yaml.
-```
-
----
-
-# 4. CONFLICT RESOLUTION
-
-If documents conflict:
-
-1. SYSTEM_VALIDATION_SPEC.md wins
-2. CORE_CONTEXT.md wins over all non-validation docs
-3. LIVE_SESSION_BRIEF.md defines current task truth
-4. DOCUMENT_INDEX.md must be corrected
-
----
-
-# 5. DRIFT PREVENTION
-
-Execution MUST STOP if:
-
-* required documents are missing
-* context is not declared
-* instructions conflict
-* phase boundaries are violated
-
----
-
-# 6. REMOVALS / CORRECTIONS
-
-This document intentionally removes:
-
-* layer-based loading system ❌
-* SESSION_CONTINUITY_BRIEF.md ❌
-* implicit document authority ❌
-
-Replaced with:
-
-* manifest-driven loading ✅
-* explicit authority hierarchy ✅
-* session-controlled execution ✅
-
----
-
-# FINAL RULE
-
-```text
-This document explains the system.
-
-It does NOT control the system.
-```
-
----
-
-```
+## 6. Drift Rule
+If this file conflicts with higher-authority docs, this file must be corrected.

@@ -173,6 +173,23 @@ Execution must STOP if:
 
 ---
 
+## 12. CONTROLLED RECOVERY LAYER
+
+Recovery in Astronomy Hub is controlled response behavior, not autonomous behavior.
+
+Recovery is invoked only after a valid stop condition is triggered by existing authority docs.
+
+Recovery references:
+
+* `docs/enforcement/FAILURE_RECOVERY_PROTOCOL.md` (authoritative extension, subordinate)
+* `docs/execution/STATE_TRANSITIONS.md` (authoritative extension, subordinate)
+* `docs/runtime/FAILURE_PATTERNS.md` (support memory only, non-authoritative)
+
+Recovery does NOT create a parallel execution mode.
+Recovery does NOT bypass validation or context law.
+
+---
+
 ## FINAL RULE
 
 ```text

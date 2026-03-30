@@ -1,6 +1,5 @@
-Good—this is the most important UI document, and you were right to call it out.
-
-This version is **full, detailed, execution-grade**, and aligned with everything you’ve locked so far.
+This document defines the authoritative Phase B UI specification.
+It is written for execution and enforcement within the existing phase system.
 
 ---
 
@@ -99,6 +98,16 @@ The Primary Scene must dominate the interface.
 * Engine selector
 * Filter selector
 * Location indicator
+
+[PHASE GATING NOTE]
+
+Scope, engine, and filter controls are Phase 2+ features.
+
+In Phase 1:
+- these controls must NOT be exposed
+- UI should display context only (location, mode)
+
+Interpret this section as Phase 2+ behavior unless explicitly overridden.
 
 ---
 

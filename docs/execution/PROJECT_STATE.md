@@ -115,3 +115,23 @@ Corrective exit is finalized only when:
 Return to master-plan execution from an explicit approved phase gate.
 No implicit transition is allowed.
 ```
+
+---
+
+## 9. EXECUTION STATE TRANSITION ALIGNMENT
+
+Execution state movement must follow:
+
+* `docs/execution/STATE_TRANSITIONS.md`
+
+Current alignment:
+
+* active operational state: `ACTIVE` (documentation reconciliation in progress)
+* blocked transitions are not auto-resolved
+* resume requires validated proof
+
+Rules:
+
+* `BLOCKED` may transition only through controlled recovery
+* `RECONCILING` is bounded to one remediation task per cycle
+* `COMPLETE` is legal only after `VERIFIED` proof exists

@@ -1,387 +1,406 @@
-# 📄 `PHASE_5_SPEC.md`
-
-Phase 5 is the transition from an intelligent system into a **predictive, personalized, and forward-looking platform**.
-
----
-
-# 🌌 ASTRONOMY HUB — PHASE 5 SPEC (AUTHORITATIVE)
+````markdown
+# 🌌 PHASE 5 — PREDICTION / PERSONALIZATION SYSTEM (AUTHORITATIVE — MASTER PLAN ALIGNED)
 
 ---
 
 # 0. PURPOSE
 
-Phase 5 evolves the system from:
+This document defines:
 
-> connected intelligence
+```text
+The introduction of prediction, alerting, and personalization systems
+that transform Astronomy Hub into a proactive intelligence platform.
+````
+
+Phase 5 transforms the system from:
+
+```text
+Reactive exploration (Phases 1–4)
+```
 
 into:
 
-> a **predictive, adaptive, and personalized astronomy platform**
-
----
-
-# 1. 🎯 PHASE GOAL
-
-Deliver a system where a user can:
-
-* see what will happen **before it happens**
-* receive **personalized recommendations**
-* plan observations in advance
-* track objects and events over time
-* understand trends across Earth, Sun, and space
-
----
-
-# 2. 🧠 CORE SHIFT
-
----
-
-## Before Phase 5
-
-* system explains current state
-* system enables exploration
-* system links knowledge
-
----
-
-## After Phase 5
-
-* system predicts future state
-* system adapts to user behavior
-* system assists planning and decision-making
-
----
-
-# 3. 🔮 PREDICTION SYSTEM (MANDATORY)
-
----
-
-## 3.1 Purpose
-
-Forecast future events and visibility.
-
----
-
-## 3.2 Capabilities
-
-Must support:
-
-* satellite pass prediction
-* planetary visibility forecasts
-* meteor shower peak timing
-* solar activity trends (basic)
-* observing condition forecasts
-
----
-
-## 3.3 Rule
-
 ```text
-Predictions must be deterministic and data-driven
+Proactive guidance + user-specific intelligence
 ```
 
 ---
 
-# 4. 🗓️ TIMELINE SYSTEM (MANDATORY)
-
----
-
-## 4.1 Purpose
-
-Allow users to move through time.
-
----
-
-## 4.2 Features
-
-Must support:
-
-* future timeline (hours → days → weeks)
-* rewind capability (limited history)
-* time-based scene updates
-
----
-
-## 4.3 Interaction
-
-User must be able to:
-
-* scrub timeline
-* jump to event
-* preview future sky
-
----
-
-# 5. 🎯 PERSONALIZATION SYSTEM (NEW)
-
----
-
-## 5.1 Purpose
-
-Adapt system to user needs.
-
----
-
-## 5.2 User Profiles
-
-Must support:
-
-* location
-* observing preferences
-* equipment level (optional)
-* interests (planets, satellites, deep sky, etc.)
-
----
-
-## 5.3 Behavior
-
-System must:
-
-* prioritize relevant objects
-* tailor recommendations
-* adjust difficulty level
-
----
-
-# 6. ⭐ WATCHLIST SYSTEM (NEW)
-
----
-
-## 6.1 Purpose
-
-Allow users to track objects.
-
----
-
-## 6.2 Features
-
-Must support:
-
-* add/remove objects
-* track visibility over time
-* alert on upcoming events
-
----
-
-## 6.3 Examples
-
-* track ISS
-* track Jupiter
-* track specific satellite
-
----
-
-# 7. 🚨 ALERT SYSTEM (NEW)
-
----
-
-## 7.1 Purpose
-
-Notify users of important events.
-
----
-
-## 7.2 Types
-
-Must support:
-
-* upcoming satellite passes
-* meteor showers
-* solar activity
-* rare alignments
-
----
-
-## 7.3 Rule
+# 1. SYSTEM LAW (NON-NEGOTIABLE)
 
 ```text
-Alerts must be relevant and limited
+Scope → Engine → Filter → Scene → Object → Detail
 ```
 
 ---
 
-# 8. 📊 TREND & ANALYSIS SYSTEM
-
----
-
-## 8.1 Purpose
-
-Show patterns over time.
-
----
-
-## 8.2 Features
-
-Must support:
-
-* solar activity trends
-* Earth condition trends
-* event frequency
-
----
-
-## 8.3 Visualization
-
-* simple charts
-* timelines
-
----
-
-# 9. 🔗 CROSS-PHASE INTEGRATION
-
----
-
-Phase 5 builds on all prior phases:
-
-* Phase 1 → command center
-* Phase 2 → engine exploration
-* Phase 3 → visualization
-* Phase 4 → knowledge graph
-
----
-
-## Rule
+## HARD RULE
 
 ```text
-All prediction and personalization must integrate with existing systems
+Prediction and personalization MUST extend the pipeline,
+not replace it.
 ```
 
 ---
 
-# 10. ⚙️ BACKEND REQUIREMENTS
+# 2. PHASE 5 OBJECTIVE
+
+The system MUST:
+
+* anticipate important events
+* notify the user proactively
+* adapt to user preferences
+* maintain deterministic reasoning
 
 ---
 
-## 10.1 Must Support
-
-* time-based queries
-* prediction calculations
-* user preference storage
-* watchlist tracking
-
----
-
-## 10.2 New Endpoints
+## RESULT
 
 ```text
-/api/predictions
-/api/timeline
-/api/user/profile
-/api/watchlist
-/api/alerts
+The system tells the user what will matter,
+before it happens.
 ```
 
 ---
 
-## 10.3 Constraints
-
-* predictions must be efficient
-* avoid heavy real-time computation
-* use precomputed or cached results
+# 3. PREDICTION SYSTEM
 
 ---
 
-# 11. 🖥️ FRONTEND REQUIREMENTS
+## REQUIRED
+
+The system MUST generate:
+
+* upcoming events
+* observing opportunities
+* time-based changes
+* environmental impacts
 
 ---
 
-## 11.1 Must Support
+## RULES
 
-* timeline controls
-* prediction overlays
-* watchlist UI
-* alerts UI
-
----
-
-## 11.2 Interaction
-
-User must be able to:
-
-* switch between present and future
-* view predictions visually
-* manage watchlist
-* respond to alerts
+* predictions MUST be data-driven
+* predictions MUST be explainable
+* predictions MUST be bounded in time
 
 ---
 
-# 12. 🧪 VALIDATION CRITERIA (STRICT)
+## OUTPUT TYPES
+
+* alerts (immediate)
+* upcoming events (short-term)
+* scheduled phenomena (long-term)
 
 ---
 
-Phase 5 is complete ONLY IF:
+## FAILURE
+
+* speculative predictions
+* unexplained forecasts
+* inconsistent results
 
 ---
 
-## 12.1 Prediction
-
-* future events are accurate
-* predictions are useful
+# 4. ALERT SYSTEM
 
 ---
 
-## 12.2 Personalization
+## REQUIRED
 
-* system adapts to user
-* recommendations improve relevance
+The system MUST support:
 
----
-
-## 12.3 Timeline
-
-* time navigation works
-* scenes update correctly
+* real-time alerts
+* upcoming alerts
+* priority-based alerts
 
 ---
 
-## 12.4 Alerts
+## RULES
 
-* alerts are timely
-* alerts are relevant
-
----
-
-# 13. 🚫 FAILURE CONDITIONS
+* alerts MUST be relevant
+* alerts MUST be explainable
+* alerts MUST NOT be noisy
 
 ---
 
-Phase 5 is NOT complete if:
+## PRIORITY LEVELS
 
-* predictions are inaccurate
-* personalization is weak
-* alerts are spammy
-* timeline is confusing
+* critical
+* important
+* informational
 
 ---
 
-# 14. 🔥 FINAL STATEMENT
+## FAILURE
+
+* alert spam
+* irrelevant alerts
+* missing critical alerts
+
+---
+
+# 5. TIMELINE SYSTEM
+
+---
+
+## REQUIRED
+
+The system MUST support:
+
+* future timeline of events
+* time navigation
+* event sequencing
+
+---
+
+## RULES
 
 ```text
-Phase 5 transforms Astronomy Hub into a predictive,
-personalized system that helps users understand
-what will happen and what to do next.
+Timeline must extend the scene, not replace it.
 ```
 
 ---
 
-# ✔️ OUTCOME
+## FAILURE
 
-After Phase 5:
-
-* system anticipates user needs
-* system supports planning
-* system becomes highly valuable daily
-* system feels intelligent and adaptive
+* timeline disconnected from scene
+* timeline overload
 
 ---
 
-## Next Step (Beyond Phase 5)
-
-Future expansion may include:
-
-* AI-assisted explanations
-* simulation systems
-* community features
-* advanced research tools
+# 6. PERSONALIZATION SYSTEM
 
 ---
+
+## REQUIRED
+
+System MUST support user preferences:
+
+* interests (planets, satellites, etc.)
+* location preferences
+* notification preferences
+* observation goals
+
+---
+
+## RULE
+
+```text
+Personalization influences prioritization,
+NOT truth.
+```
+
+---
+
+## FAILURE
+
+* system changes factual data
+* hidden logic
+* unpredictable behavior
+
+---
+
+# 7. USER SYSTEM
+
+---
+
+## REQUIRED
+
+User system MUST support:
+
+* user profiles
+* saved preferences
+* persistent settings
+* optional authentication
+
+---
+
+## RULES
+
+* system MUST function without login
+* personalization enhances, not blocks usage
+
+---
+
+## FAILURE
+
+* login required for basic use
+* broken persistence
+
+---
+
+# 8. WATCHLIST SYSTEM
+
+---
+
+## REQUIRED
+
+Users MUST be able to:
+
+* track objects
+* track events
+* track missions
+
+---
+
+## RULES
+
+* watchlist MUST integrate with alerts
+* watchlist MUST affect prioritization
+
+---
+
+## FAILURE
+
+* disconnected watchlist
+* no alert integration
+
+---
+
+# 9. ADAPTIVE PRIORITIZATION
+
+---
+
+## REQUIRED
+
+System MUST adjust:
+
+* object ranking
+* alert priority
+* scene emphasis
+
+Based on:
+
+* user preferences
+* current conditions
+* predictions
+
+---
+
+## RULE
+
+```text
+Adaptation must remain deterministic.
+```
+
+---
+
+## FAILURE
+
+* random prioritization
+* hidden weighting logic
+
+---
+
+# 10. DATA LAW (EXTENDED)
+
+---
+
+## REQUIRED
+
+* backend generates predictions
+* backend generates alerts
+* backend controls prioritization
+* frontend displays only
+
+---
+
+## FAILURE
+
+* frontend computes predictions
+* frontend changes ranking
+
+---
+
+# 11. PERFORMANCE MODEL
+
+---
+
+## REQUIRED
+
+* predictions computed efficiently
+* alerts delivered quickly
+* timeline loads fast
+
+---
+
+## FAILURE
+
+* slow updates
+* delayed alerts
+* heavy computation
+
+---
+
+# 12. UI SYSTEM (PHASE 5 INTEGRATION)
+
+---
+
+## REQUIRED UI ADDITIONS
+
+* alert panel
+* timeline panel
+* watchlist panel
+* personalization settings
+
+---
+
+## RULE
+
+```text
+UI must surface intelligence without overwhelming the user.
+```
+
+---
+
+# 13. TESTING
+
+---
+
+## REQUIRED
+
+* predictions correct
+* alerts triggered correctly
+* personalization applied correctly
+* timeline accurate
+* no performance degradation
+
+---
+
+# 14. ANTI-SCOPE
+
+---
+
+## NOT ALLOWED
+
+* black-box AI decisions
+* unexplainable predictions
+* uncontrolled recommendation systems
+
+---
+
+# 15. COMPLETION RULE
+
+Phase 5 COMPLETE ONLY IF:
+
+```text
+- prediction system works
+- alerts work
+- personalization works
+- user system works
+- prioritization remains deterministic
+- system remains explainable
+```
+
+---
+
+# FINAL STATEMENT
+
+```text
+Phase 5 transforms Astronomy Hub into a proactive intelligence system
+that predicts, prioritizes, and personalizes
+while remaining fully explainable and deterministic.
+```
+
+```

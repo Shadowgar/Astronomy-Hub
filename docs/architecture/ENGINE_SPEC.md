@@ -574,7 +574,7 @@ Only limited filter slices from multiple engines are used in “Above Me” mode
 
 Engines become directly explorable.
 
-### Phase 2.5
+### Phase 2
 
 Backend must be restructured so engines become real runtime authorities.
 

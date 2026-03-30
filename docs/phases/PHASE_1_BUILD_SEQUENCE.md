@@ -1,4 +1,5 @@
-# 🌌 PHASE 1 BUILD SEQUENCE (AUTHORITATIVE — VERIFY-FIRST EXECUTION)
+````markdown
+# 🌌 PHASE 1 BUILD SEQUENCE (AUTHORITATIVE — MASTER PLAN ALIGNED)
 
 ---
 
@@ -8,523 +9,753 @@ This document defines:
 
 ```text
 The exact execution procedure for Phase 1.
-```
+````
 
 Phase 1 MUST be executed as:
 
 ```text
-VERIFY → ACCEPT or REBUILD → VERIFY → LOCK
+VERIFY → ACCEPT or REBUILD → RE-VERIFY → LOCK
 ```
+
+This document is not advisory.
+
+It is the required execution path for Phase 1.
 
 ---
 
-# 🚨 GLOBAL RULE (NON-NEGOTIABLE)
+# 1. EXECUTION LAW
+
+Each step MUST follow this procedure:
 
 ```text
-NO component may be rebuilt if it already satisfies Phase 1 Spec + Acceptance.
-```
+1. VERIFY against:
+   - PHASE_1_SPEC.md
+   - PHASE_1_ACCEPTANCE_CRITERIA.md
+   - SYSTEM_VALIDATION_SPEC.md
 
-```text
-ALL components MUST be verified before any rebuild is allowed.
-```
+2. IF VALID:
+   - mark COMPLETE
+   - do NOT modify
 
----
+3. IF INVALID:
+   - rebuild minimally
+   - fix only the failing requirement
 
-# EXECUTION MODE
-
-Each step MUST follow:
-
-```text
-1. VERIFY (against Phase 1 Spec + Acceptance)
-2. IF VALID → MARK COMPLETE (no changes)
-3. IF INVALID → REBUILD MINIMALLY
 4. RE-VERIFY
-5. LOCK STEP
+
+5. LOCK the step
 ```
 
 ---
 
-# FAILURE RULE
+# 2. GLOBAL RULES (NON-NEGOTIABLE)
 
 ```text
-If verification cannot prove correctness → treat as INVALID → rebuild.
+NO step may be skipped.
+NO step may be batched.
+NO valid system may be rebuilt.
+NO Phase 2+ work may be introduced.
 ```
 
 ---
 
-# STEP 1 — CANONICAL RUNTIME (DOCKER)
+## FAILURE RULE
+
+```text
+If correctness cannot be proven, the step is INVALID.
+```
+
+---
+
+# 3. PHASE 1 EXECUTION GOAL
+
+Phase 1 must produce:
+
+```text
+A deterministic, scene-first command center
+for the Above Me scope only.
+```
+
+The result must answer:
+
+* Is observing worthwhile?
+* What should I look at?
+* What matters right now?
+* What needs attention soon?
+
+---
+
+# STEP 1 — AUTHORITATIVE RUNTIME
 
 ---
 
 ## VERIFY
 
-* Docker Compose starts:
+Confirm the system runs in the canonical runtime:
 
-  * frontend
-  * backend (FastAPI)
-  * postgres/postgis
-  * redis
+* Docker Compose starts successfully
+* frontend starts
+* backend starts
+* supporting services required by runtime start
 * frontend is reachable
-* backend API responds
+* backend responds
+
+Confirm runtime law:
+
+* Docker is the authoritative runtime
+* system is not dependent on ad hoc local-only execution
 
 ---
 
 ## IF VALID
 
 ```text
-Mark COMPLETE — DO NOT MODIFY
+LOCK STEP 1 — DO NOT MODIFY
 ```
 
 ---
 
 ## IF INVALID
 
-* Fix Docker configuration
-* Ensure services connect
-* Re-test runtime
+Fix only:
+
+* Docker configuration
+* service startup wiring
+* runtime connectivity
+
+Do NOT expand architecture.
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-System runs fully via Docker
+Phase 1 runs through Docker as the canonical runtime.
 ```
 
 ---
 
-# STEP 2 — BACKEND PIPELINE (CRITICAL)
+# STEP 2 — PIPELINE ENFORCEMENT
 
 ---
 
 ## VERIFY
 
-* System follows:
+Confirm the system follows:
 
 ```text
 Scope → Engine → Filter → Scene → Object → Detail
 ```
 
-Check:
+For Phase 1 specifically verify:
 
-* engines return structured data only
-* scene assembled in backend
-* filters applied before scene output
-* scene is merged (multi-engine)
-* scene is ranked
-
----
-
-## IF VALID
-
-```text
-Mark COMPLETE — DO NOT MODIFY
-```
-
----
-
-## IF INVALID
-
-* Extract or fix services
-* enforce engine boundaries
-* enforce scene assembly
-
----
-
-## LOCK CONDITION
-
-```text
-Backend fully enforces pipeline
-```
-
----
-
-# STEP 3 — API CONTRACTS
-
----
-
-## VERIFY
-
-* endpoints exist:
-
-  * `/api/v1/scene/above-me`
-  * `/api/v1/object/{id}`
-* responses are stable JSON
-* no raw provider data leaks
-* contract shape consistent
+* active scope is Above Me only
+* participating engines exist internally
+* filters exist internally
+* scene is assembled before frontend rendering
+* objects come from scene
+* detail resolves from object identity
 
 ---
 
 ## IF VALID
 
 ```text
-Mark COMPLETE — DO NOT MODIFY
+LOCK STEP 2 — DO NOT MODIFY
 ```
 
 ---
 
 ## IF INVALID
 
-* normalize responses
-* fix schema inconsistencies
+Fix only:
+
+* missing engine boundaries
+* missing internal filtering
+* scene assembly violations
+* object/detail ownership violations
+
+Do NOT expose Phase 2 controls.
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-Contracts stable and deterministic
+Phase 1 pipeline is enforced end-to-end without bypass.
 ```
 
 ---
 
-# STEP 4 — SCENE MODEL
+# STEP 3 — SCOPE DISCIPLINE
 
 ---
 
 ## VERIFY
 
-* scene contains:
+Confirm:
 
-  * mixed engine objects
-  * above-horizon objects only
-  * ranked results
-* objects include:
-
-  * id, type, engine, summary, position
+* Above Me is the only active scope
+* scope is not user-selectable
+* no alternate scope UI exists
+* no multi-scope routing is exposed in the Phase 1 surface
 
 ---
 
 ## IF VALID
 
 ```text
-Mark COMPLETE — DO NOT MODIFY
+LOCK STEP 3 — DO NOT MODIFY
 ```
 
 ---
 
 ## IF INVALID
 
-* fix merge logic
-* enforce filtering
-* enforce ranking
+Fix only:
+
+* exposed scope switching
+* alternate scope entry points
+* scope leakage from future phases
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-Scene is correct and constrained
+Phase 1 exposes Above Me only.
 ```
 
 ---
 
-# STEP 5 — FRONTEND DATA LAYER (FE2)
+# STEP 4 — ENGINE PARTICIPATION
 
 ---
 
 ## VERIFY
 
-* ALL data via TanStack Query
-* normalization exists in:
+Confirm the Phase 1 scene is internally supported by the required engine participation:
 
-  * `features/*/queries.ts`
-* NO component contains:
+* Satellite Engine
+* Solar System Engine (planets only)
+* Deep Sky Engine
+* Event / Alert Engine
+* Earth Conditions Engine
 
-  * payload.data fallback
-  * raw parsing
+Verify:
+
+* engines are independent
+* engines return structured outputs only
+* engines do not render UI directly
+* engines do not overlap domain authority improperly
 
 ---
 
 ## IF VALID
 
 ```text
-Mark COMPLETE — DO NOT MODIFY
+LOCK STEP 4 — DO NOT MODIFY
 ```
 
 ---
 
 ## IF INVALID
 
-* move normalization to query layer
-* remove fallback logic from components
+Fix only:
+
+* missing engine ownership
+* mixed engine responsibilities
+* raw engine payload exposure
+* UI-coupled engine behavior
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-UI consumes normalized data only
+All required Phase 1 engines participate correctly in the Above Me scene.
 ```
 
 ---
 
-# STEP 6 — STATE MANAGEMENT (FE3)
+# STEP 5 — INTERNAL FILTER ENFORCEMENT
 
 ---
 
 ## VERIFY
 
-* Zustand used for UI/global state
-* Query used for server data
-* React state used locally only
+Confirm internal filters exist and operate before scene output.
+
+At minimum verify filtering for:
+
+* above horizon
+* observing relevance
+* time relevance
+* event activity
+
+Also verify:
+
+* filters are not exposed to the user in Phase 1
+* unfiltered datasets do not reach the scene
+* filters constrain inclusion, not just presentation
 
 ---
 
 ## IF VALID
 
 ```text
-Mark COMPLETE — DO NOT MODIFY
+LOCK STEP 5 — DO NOT MODIFY
 ```
 
 ---
 
 ## IF INVALID
 
-* refactor state ownership
-* remove duplication
+Fix only:
+
+* missing internal filter application
+* unfiltered object inclusion
+* Phase 2-style exposed filters
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-State ownership is correct and isolated
+Only filtered, decision-relevant objects reach the Phase 1 scene.
 ```
 
 ---
 
-# STEP 7 — UI STRUCTURE (COMMAND CENTER)
+# STEP 6 — SCENE AUTHORITY
 
 ---
 
 ## VERIFY
 
-UI layout follows:
+Confirm the scene is the only visible decision surface.
+
+Verify the scene:
+
+* merges engine outputs
+* limits surfaced objects
+* ranks surfaced objects
+* provides meaning, not raw data
+* exists before frontend interpretation
+
+Verify the frontend does NOT:
+
+* assemble the scene
+* rank objects independently
+* generate reasoning
+
+---
+
+## IF VALID
+
+```text
+LOCK STEP 6 — DO NOT MODIFY
+```
+
+---
+
+## IF INVALID
+
+Fix only:
+
+* frontend scene assembly
+* missing backend merge logic
+* missing scene ranking
+* raw list output
+
+---
+
+## LOCK CONDITION
+
+```text
+Scene is authoritative and is the only visible decision surface.
+```
+
+---
+
+# STEP 7 — OBJECT CONTRACT INTEGRITY
+
+---
+
+## VERIFY
+
+Confirm every surfaced object includes the required Phase 1 fields:
+
+* id
+* name
+* type
+* engine owner
+* summary
+* position context
+* time relevance
+* reason for inclusion
+* detail route
+
+Verify:
+
+* objects are actionable
+* objects do not include full detail payloads
+* object identity is stable
+
+---
+
+## IF VALID
+
+```text
+LOCK STEP 7 — DO NOT MODIFY
+```
+
+---
+
+## IF INVALID
+
+Fix only:
+
+* missing required fields
+* unstable object identity
+* detail duplication inside scene objects
+
+---
+
+## LOCK CONDITION
+
+```text
+Every surfaced object is complete, actionable, and detail-compatible.
+```
+
+---
+
+# STEP 8 — DECISION SYSTEM
+
+---
+
+## VERIFY
+
+Confirm the Phase 1 surface explicitly guides the user.
+
+Required outputs must exist and be usable:
+
+* observing score
+* best target
+* immediate opportunities
+* time-sensitive events
+
+Verify:
+
+* each surfaced item explains why it matters
+* user does not need to interpret raw astronomy data
+* system behavior is decision-oriented, not dashboard-like
+
+---
+
+## IF VALID
+
+```text
+LOCK STEP 8 — DO NOT MODIFY
+```
+
+---
+
+## IF INVALID
+
+Fix only:
+
+* missing decision outputs
+* missing reasoning
+* dashboard-style undifferentiated information display
+
+---
+
+## LOCK CONDITION
+
+```text
+The system actively guides user attention and answers what matters now.
+```
+
+---
+
+# STEP 9 — UI HIERARCHY
+
+---
+
+## VERIFY
+
+Confirm the UI follows the command-center structure:
 
 ```text
 Command Bar
-Primary Scene (dominant)
-Live Decision Panel
+Primary Scene
+Decision Panel
 Supporting Panels
 ```
 
-Check:
+Verify:
 
 * scene is visually dominant
-* no equal-weight grid
-* decision panel exists
+* no equal-weight grid controls the experience
 * panels are subordinate
+* hierarchy is understandable quickly
 
 ---
 
 ## IF VALID
 
 ```text
-Mark COMPLETE — DO NOT MODIFY
+LOCK STEP 9 — DO NOT MODIFY
 ```
 
 ---
 
 ## IF INVALID
 
-* restructure layout
-* remove grid-based layout
-* enforce hierarchy
+Fix only:
+
+* equal-weight dashboard layout
+* poor hierarchy
+* dominant secondary panels
+* scene underemphasis
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-UI matches command-center architecture
+UI behaves as a guided command center, not a dashboard.
 ```
 
 ---
 
-# STEP 8 — SCENE INTERACTION
+# STEP 10 — INTERACTION LOOP
 
 ---
 
 ## VERIFY
 
-* objects clickable
-* detail loads via API
-* return restores state
+Confirm the required loop works:
+
+```text
+Scene → Object → Detail → Return
+```
+
+Verify:
+
+* surfaced objects are clickable
+* detail resolves through backend authority
+* return restores prior scene state
+* navigation is stable and deterministic
 
 ---
 
 ## IF VALID
 
 ```text
-Mark COMPLETE — DO NOT MODIFY
+LOCK STEP 10 — DO NOT MODIFY
 ```
 
 ---
 
 ## IF INVALID
 
-* fix routing
-* fix state persistence
+Fix only:
+
+* broken object clicks
+* broken detail routing
+* broken return flow
+* lost scene state
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-Scene → object → detail loop works
+The full scene-to-detail loop works without ambiguity.
 ```
 
 ---
 
-# STEP 9 — MEDIA SYSTEM (FE9)
+# STEP 11 — DATA BOUNDARY ENFORCEMENT
 
 ---
 
 ## VERIFY
 
-* `AssetImage` exists
-* media rendering centralized
-* no direct `<img>` in core flows
+Confirm all Phase 1 data obeys data law:
+
+* backend assembles scene
+* frontend receives normalized data only
+* no raw provider payloads reach UI
+* no component-level fallback parsing exists
+* no frontend-generated ranking or reasoning exists
 
 ---
 
 ## IF VALID
 
 ```text
-Mark COMPLETE — DO NOT MODIFY
+LOCK STEP 11 — DO NOT MODIFY
 ```
 
 ---
 
 ## IF INVALID
 
-* introduce wrapper
-* refactor usage
+Fix only:
+
+* raw provider data leakage
+* component-level data shaping
+* frontend ranking/reasoning logic
+* fallback parsing in components
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-Media standardized
+Frontend consumes normalized, backend-authored meaning only.
 ```
 
 ---
 
-# STEP 10 — VISUAL FOUNDATIONS (FE7 + FE8)
+# STEP 12 — PERFORMANCE DISCIPLINE
 
 ---
 
 ## VERIFY
 
-* Three.js starfield exists and bounded
-* Cesium component exists and isolated
+Confirm the Phase 1 runtime obeys scene-instancing discipline:
+
+* only the active scene is computed
+* surfaced object count is limited
+* full datasets are not rendered
+* detail loads on demand
+* no Phase 3-style heavy visualization is driving the runtime
 
 ---
 
 ## IF VALID
 
 ```text
-Mark COMPLETE — DO NOT MODIFY
+LOCK STEP 12 — DO NOT MODIFY
 ```
 
 ---
 
 ## IF INVALID
 
-* implement minimal foundation only
-* DO NOT integrate deeply
+Fix only:
+
+* uncontrolled object volume
+* unnecessary full-dataset rendering
+* premature heavy visualization coupling
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-Foundations present but non-invasive
+Phase 1 computes the active decision scene only.
 ```
 
 ---
 
-# STEP 11 — TESTING (FE10)
+# STEP 13 — TESTING AND VERIFICATION
 
 ---
 
 ## VERIFY
 
-* passes:
+Run and confirm required verification paths succeed.
 
-  * `npm run test`
-  * `npm run build`
-  * `npm run type-check`
-  * `npm run test:e2e`
+Backend:
 
-* coverage includes:
+* project runtime backend tests pass
 
-  * scene load
-  * object detail
-  * navigation
-  * responsive layout
-  * error fallback
+Frontend:
+
+* tests pass
+* type checks pass
+* build passes
+
+Verify coverage of core Phase 1 flows:
+
+* scene load
+* decision surface rendering
+* object detail flow
+* return navigation
+* responsive behavior
 
 ---
 
 ## IF VALID
 
 ```text
-Mark COMPLETE — DO NOT MODIFY
+LOCK STEP 13 — DO NOT MODIFY
 ```
 
 ---
 
 ## IF INVALID
 
-* add minimal tests
-* verify core flows only
+Fix only:
+
+* failing core tests
+* missing verification for core Phase 1 flows
+* broken build or type state
+
+Do NOT add speculative tests outside the phase.
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-Core flows verified
+Phase 1 core flows are provably verified.
 ```
 
 ---
 
-# STEP 12 — SCOPE DISCIPLINE
+# STEP 14 — ANTI-SCOPE ENFORCEMENT
 
 ---
 
 ## VERIFY
 
-System does NOT include:
+Confirm the Phase 1 system does NOT include:
 
-* globe UI
-* aircraft tracking
-* Phase 2 features
-* predictive systems
+* scope switching
+* engine selection UI
+* exposed filters UI
+* 3D globe systems
+* timeline systems
+* prediction systems
+* personalization
+* Phase 2+ exploration controls
 
 ---
 
 ## IF VALID
 
 ```text
-Mark COMPLETE — DO NOT MODIFY
+LOCK STEP 14 — DO NOT MODIFY
 ```
 
 ---
 
 ## IF INVALID
 
-* remove violating features
+Remove only the violating additions.
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-Phase 1 scope clean
+Phase 1 scope is clean and future-phase leakage is absent.
 ```
 
 ---
@@ -536,16 +767,20 @@ Phase 1 scope clean
 Phase 1 is COMPLETE ONLY IF:
 
 ```text
-ALL steps are LOCKED
-NO step required rebuild OR all rebuilds passed re-verification
+ALL steps are locked
+ALL verification is proven
+ALL required decision behaviors exist
+NO future-phase scope has entered the system
 ```
 
 ---
 
-# 🚨 FINAL RULE
+# FINAL RULE
 
 ```text
 Do NOT proceed to Phase 2 unless Phase 1 is fully verified and locked.
 ```
 
 ---
+
+```

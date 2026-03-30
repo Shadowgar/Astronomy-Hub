@@ -60,7 +60,7 @@ This JSON is the UI-ready source of truth for the page.
 
 It should be kept in sync with:
 
-* `docs/PUBLIC_CHANGELOG.md`
+* `docs/runtime/PUBLIC_CHANGELOG.md`
 
 ---
 
@@ -342,7 +342,7 @@ The page must remain readable and uncluttered on mobile.
 
 This page is updated indirectly by changing:
 
-* `docs/PUBLIC_CHANGELOG.md`
+* `docs/runtime/PUBLIC_CHANGELOG.md`
 * `frontend/src/content/publicChangelog.json`
 
 The page itself must not require manual layout changes for normal update cycles.

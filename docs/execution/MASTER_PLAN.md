@@ -88,7 +88,7 @@ Outcome:
 
 ---
 
-## Phase 2.5 — Backend Stabilization
+## Backend Stabilization (Phase 2)
 
 Focus:
 

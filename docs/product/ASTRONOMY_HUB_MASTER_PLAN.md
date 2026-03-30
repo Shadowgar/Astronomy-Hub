@@ -472,6 +472,19 @@ Future possibilities:
 
 ---
 
+## 8.1 EXECUTION PHASE MAPPING (REFERENCE)
+
+This section maps the execution phase system to the vision above.
+It clarifies alignment only and does not replace phase authority documents.
+
+* Phase 1 — Command Center (Above Me): single mounted command-center surface for immediate sky decisions.
+* Phase 2 — Engine System: user-controlled Scope → Engine → Filter expansion across supported domains.
+* Phase 3 — Spatial / Immersive System: immersive mode coexists with command center; command center remains default primary surface.
+* Phase 4 — Knowledge Graph / Relationship System: canonical graph-backed, typed, cross-engine relationship navigation.
+* Phase 5 — Prediction / Personalization System: deterministic, explainable prediction, alerts, timeline, and optional user personalization.
+
+---
+
 # 9. 🔥 FINAL STATEMENT
 
 > Astronomy Hub is a unified command center for Earth, sky, and space—allowing users to explore reality from their location to the structure of the cosmos.

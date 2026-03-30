@@ -192,7 +192,7 @@ These must pass in **every phase**.
 
 ---
 
-## 4.3 Phase 2.5 — Backend Stabilization
+## 4.3 Phase 2 — Backend Stabilization
 
 ---
 

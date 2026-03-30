@@ -67,6 +67,16 @@ Global control of system context.
 * Location indicator
 * Global actions (settings, profile, help)
 
+[PHASE GATING NOTE]
+
+Scope, engine, and filter controls are Phase 2+ features.
+
+In Phase 1:
+- these controls must NOT be exposed
+- UI should display context only (location, mode)
+
+Interpret this section as Phase 2+ behavior unless explicitly overridden.
+
 ---
 
 ### Behavior

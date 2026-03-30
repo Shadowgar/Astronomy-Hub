@@ -1,75 +1,146 @@
-# Phase 1 Acceptance Criteria
+```markdown
+# 🌌 PHASE 1 ACCEPTANCE CRITERIA (AUTHORITATIVE — RECONCILED)
 
-Phase 1 is complete only when all of the following are true.
+---
 
-## Core Access
-- Astronomy Hub can be opened from the intended local project environment
-- Phase 1 docs exist and match implemented behavior
-- The app runs locally without requiring Raspberry Pi deployment
+# CORE RULE
 
-## Location
-- Default: the system uses the ORAS Observatory preset when no override is provided
-- User may optionally enter manual latitude/longitude coordinates to override the Active Observing Location for the current session only
-- Disallowed for Phase 1: browser geolocation, map pickers, reverse geocoding, saved locations, account-based preferences, or a location database
-- Location state (default or manual override) updates the displayed dashboard data
- - Functional inputs for manual override (Phase 1): `latitude` (required), `longitude` (required), `elevation_ft` (optional)
- - Phase 1 explicitly excludes address search/autocomplete and external geocoding APIs (these are deferred to a later phase)
+```text
+If any condition cannot be proven → Phase 1 is NOT complete.
+````
 
-## Dashboard Behavior
-- Dashboard loads without overwhelming the user
-- Primary mounted Phase 1 surface is the command-center module grid shell (`ObservingHero` and `AboveMeScene` are non-default/non-mounted in the current Phase 1 runtime)
-- Dashboard clearly shows:
-  - observing conditions
-  - recommended targets
-  - upcoming satellite passes
-  - alerts / notable events
-- Dashboard remains understandable within about 10 seconds of viewing
+---
 
-## Conditions
-- Conditions card renders successfully
-- Conditions include observing score
-- Conditions explain why the score is Good, Fair, or Poor
+# 1. RUNTIME
 
-## Targets
-- Recommended targets render correctly
-- Each target includes enough context to be useful
-- Targets are ranked, not dumped unordered
+* [ ] Runs via Docker
+* [ ] frontend reachable
+* [ ] backend responds
 
-## Passes
-- Upcoming satellite pass list renders correctly
-- Pass count is limited
-- Each pass includes time and directional usefulness
+---
 
-## Alerts
-- Alerts are relevant and limited
-- Alerts do not overload the page
-- Alerts are clearly distinct from targets and passes
+# 2. PIPELINE
 
-## UX / UI
-- UI supports a clear hierarchy
-- UI works on mobile-sized layouts
-- UI supports Day / Night / Red mode design intent
-- No module becomes a scrolling clutter block
-- Time context is clear
+* [ ] Scope → Engine → Filter → Scene → Object → Detail enforced
+* [ ] Scene built before UI
 
-## Data / Backend
-- Frontend works against mocked responses first
-- Backend endpoints can return stable JSON contracts
-- Canonical Phase 1 routes exist and respond: `/api/scene/above-me` and `/api/object/{id}`
-- Backend test suite passes in project runtime (`.venv/bin/python -m pytest backend/tests -q`)
-- Failures do not fully break the UI
-- Cached/fallback behavior is planned
+---
 
-## Scope Discipline
-- No globe view is introduced
-- No heavy 3D Earth rendering is introduced
-- No aircraft tracking is introduced
-- Flight engine behavior is deferred to Phase 2
-- No Phase 2+ features are mixed into Phase 1
+# 3. SCOPE
 
-## Final Product Test
-A user should be able to answer:
-- Is tonight worth observing?
-- What should I look at?
-- When should I look?
-- Are there any important events or passes?
+* [ ] Only Above Me exists
+* [ ] No scope switching UI
+
+---
+
+# 4. ENGINES
+
+* [ ] All required engines participate
+* [ ] No UI rendering from engines
+
+---
+
+# 5. FILTERS
+
+* [ ] Filters applied internally
+* [ ] No filter UI exposed
+
+---
+
+# 6. SCENE
+
+* [ ] Scene is only visible data surface
+* [ ] Scene ranks objects
+* [ ] Scene provides reasoning
+
+---
+
+# 7. UI SURFACE
+
+* [ ] Command-center layout is primary
+* [ ] Not a dashboard grid
+* [ ] Not spatial explorer
+
+---
+
+# 8. COMMAND BAR
+
+* [ ] Only location + mode visible
+* [ ] No scope/engine/filter controls active
+
+---
+
+# 9. OBJECTS
+
+* [ ] All required fields exist
+* [ ] Objects actionable
+* [ ] Stable IDs
+
+---
+
+# 10. DECISION SYSTEM
+
+* [ ] Observing score exists
+* [ ] Best target exists
+* [ ] Opportunities exist
+* [ ] Events exist
+* [ ] Each object explains “why”
+
+---
+
+# 11. INTERACTION
+
+* [ ] Scene → Object → Detail → Return works
+* [ ] Scene state preserved
+
+---
+
+# 12. DATA LAW
+
+* [ ] No raw API data in UI
+* [ ] No frontend reasoning
+* [ ] No fallback parsing
+
+---
+
+# 13. PERFORMANCE
+
+* [ ] Only active scene computed
+* [ ] Limited object count
+
+---
+
+# 14. TESTING
+
+* [ ] Backend tests pass
+* [ ] Frontend tests pass
+* [ ] Build passes
+
+---
+
+# 15. ANTI-SCOPE
+
+* [ ] No Phase 2+ features present
+
+---
+
+# 16. USER VALIDATION
+
+User can answer quickly:
+
+* [ ] Is observing worthwhile?
+* [ ] What should I look at?
+* [ ] What matters now?
+* [ ] What needs attention?
+
+---
+
+# FINAL RULE
+
+```text
+ALL checks must pass.
+No interpretation allowed.
+```
+
+```
+

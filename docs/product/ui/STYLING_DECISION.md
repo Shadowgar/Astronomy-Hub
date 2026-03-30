@@ -7,7 +7,7 @@ Decision (canonical system)
 
 Rationale (evidence + fit for current phase)
 - The codebase already emits and consumes CSS custom properties extensively (`frontend/src/styles.css`, `frontend/src/design/tokens.css`, `frontend/src/design/themes.css`, and the compiled `frontend/dist` bundle).
-- A token/CSS continuation minimizes risk and scope for Phase 2.5: it avoids adding build/config changes (Tailwind) and lets us stabilize a single source-of-truth before undertaking larger refactors.
+- A token/CSS continuation minimizes risk and scope for Phase 2: it avoids adding build/config changes (Tailwind) and lets us stabilize a single source-of-truth before undertaking larger refactors.
 - The audit (2.5F Step 1) found tokens and theme maps already in place and a small token bridge file (`frontend/src/styles/tokens.css`), making token-based standardization the least disruptive path.
 
 Authoritative styling surfaces (single-source-of-truth)
@@ -34,7 +34,7 @@ Legacy (unchanged for now)
 - The existing `frontend/src/styles/tokens.css` bridge file and any component-local CSS discovered in the audit remain as legacy artifacts. They will be evaluated during Step 3 (scaffold & migration) but are not changed now.
 
 Acceptance criteria for 2.5F (decision gate)
-- `docs/STYLING_DECISION.md` exists in the repository and documents the canonical choice.
+- `docs/product/ui/STYLING_DECISION.md` exists in the repository and documents the canonical choice.
 - A corresponding developer-facing guide (`frontend/README-STYLE.md`) is present.
 - The anti-hybrid rule is explicit and unambiguous in both docs.
 - No build, runtime, CSS, component, or config changes were introduced in this step.

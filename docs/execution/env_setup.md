@@ -13,7 +13,7 @@ It ensures:
 * consistent setup across machines
 * reproducible builds
 * stable backend/frontend interaction
-* alignment with Phase 2.5 (Docker + FastAPI)
+* alignment with Phase 2 (Docker + FastAPI)
 
 ---
 
@@ -207,7 +207,7 @@ docker compose up --build
 ## Must:
 
 * run inside Docker
-* use FastAPI (Phase 2.5+)
+* use FastAPI (Phase 2+)
 * expose API on configured port
 * use `.env` variables
 

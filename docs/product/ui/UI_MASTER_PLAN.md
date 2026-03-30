@@ -1,5 +1,13 @@
 # UI Master Plan
 
+[AUTHORITATIVE CLARIFICATION]
+
+UI phase documents (A–E) are NOT an execution roadmap.
+They define UI behavior and capabilities that are activated within core system phases.
+
+Core execution authority is defined by Phase 1–5.
+UI phases must be interpreted as support layers within those phases.
+
 This document defines the UI track for Astronomy Hub and aligns the UI roadmap with the project Master Plan and Phase 1 objectives.
 
 ## Purpose
@@ -49,6 +57,5 @@ Core responsibilities:
 
 ## Ownership
 - UI track is the responsibility of the frontend engineer(s) working from the docs in `/docs` and the mock endpoints in `/backend`.
-
 
 

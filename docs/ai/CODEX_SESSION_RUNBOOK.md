@@ -19,18 +19,18 @@ This repository is document-driven.
 
 Use this authority order:
 
-1. docs/Document_Index.md
-2. docs/ASTRONOMY_HUB_MASTER_PLAN.md
-3. docs/MASTER_PLAN.md
-4. docs/PROJECT_STATE.md
-5. docs/SESSION_CONTINUITY_BRIEF.md
+1. docs/DOCUMENT_INDEX.md
+2. docs/product/ASTRONOMY_HUB_MASTER_PLAN.md
+3. docs/execution/MASTER_PLAN.md
+4. docs/execution/PROJECT_STATE.md
+5. docs/context/LIVE_SESSION_BRIEF.md
 
 Corrective implementation work is governed by:
 
-1. docs/STACK_OVERVIEW.md
-2. docs/PHASE_FE_EXECUTION.md or docs/PHASE_BE_EXECUTION.md
+1. docs/execution/STACK_OVERVIEW.md
+2. docs/execution/frontend/PHASE_FE_EXECUTION.md or docs/execution/backend/PHASE_BE_EXECUTION.md
 3. docs/PHASE_STRUCTURE.md
-4. docs/CORRECTIVE_TRACK.md
+4. docs/corrective/CORRECTIVE_TRACK.md
 
 If a document is not authoritative under the document index, do not treat it as governing truth.
 

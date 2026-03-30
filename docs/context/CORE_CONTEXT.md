@@ -92,4 +92,23 @@ If it cannot be proven, it is NOT complete.
 
 ---
 
+# 9. CONTROLLED RECOVERY LAW
+
+- Recovery is controlled and authority-bound
+- Recovery may start only after a valid stop condition
+- Recovery is subordinate to validation law and context law
+- Recovery must execute exactly one remediation task per cycle
+- Resume is illegal without validation proof
+
+State transitions are mandatory:
+
+- execution must follow `docs/execution/STATE_TRANSITIONS.md`
+
+Failure pattern memory is non-authoritative:
+
+- `docs/runtime/FAILURE_PATTERNS.md` may inform prevention checks
+- it must never define truth or authorize execution
+
+---
+
 # END

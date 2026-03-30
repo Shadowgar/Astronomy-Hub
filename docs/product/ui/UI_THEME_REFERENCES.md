@@ -86,8 +86,8 @@ The app MUST derive styling from the following categories (apply Primer/Theme to
 
 All UI Phase B implementation MUST:
 
-- Read this file (`docs/UI_THEME_REFERENCES.md`).
-- Read `docs/UI_PHASE_B_SPEC.md`.
+- Read this file (`docs/product/ui/UI_THEME_REFERENCES.md`).
+- Read `docs/product/ui/UI_PHASE_B_SPEC.md`.
 - Inspect the referenced `theme.js` when needed to match visual intent.
 - Use Primer colors when exact values are unclear; document choices.
 

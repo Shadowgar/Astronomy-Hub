@@ -229,4 +229,29 @@ If something cannot be proven, it is NOT complete.
 
 ---
 
+# 14. RECOVERY VALIDATION LAW
+
+Controlled recovery is allowed only as a response to an existing stop condition.
+
+Recovery constraints:
+
+- recovery must follow `docs/enforcement/FAILURE_RECOVERY_PROTOCOL.md`
+- recovery state movement must follow `docs/execution/STATE_TRANSITIONS.md`
+- one remediation task per recovery cycle
+- remediation output must be validated before resume
+
+Resume fail conditions:
+
+- remediation without proof
+- resume attempt from `BLOCKED` without reconciliation
+- resume attempt that bypasses `VALIDATING -> VERIFIED`
+
+If any resume fail condition occurs:
+
+- execution MUST return to `BLOCKED`
+- remediation scope MUST be redefined
+- validation MUST be rerun
+
+---
+
 # END

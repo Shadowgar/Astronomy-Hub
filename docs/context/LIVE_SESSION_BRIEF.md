@@ -99,6 +99,23 @@ Scope:
 - Do NOT proceed without validation
 - All changes must be provable
 - CONTEXT_MANIFEST.yaml controls document loading
+- If a stop condition is triggered, enter controlled recovery before any resume
+- State transitions must follow docs/execution/STATE_TRANSITIONS.md
+- FAILURE_PATTERNS.md is optional support memory only in debug/review/reconciliation/planning contexts
+
+---
+
+# 10. CONTROLLED RECOVERY INVOCATION
+
+If execution enters `BLOCKED`:
+
+1. invoke `docs/enforcement/FAILURE_RECOVERY_PROTOCOL.md`
+2. classify one failure
+3. execute one remediation task
+4. validate remediation proof
+5. resume only through legal state transition
+
+Recovery cannot bypass validation law or context law.
 
 ---
 

@@ -1,4 +1,5 @@
-# 🌌 PHASE 1 SPEC — COMMAND CENTER (AUTHORITATIVE — DIAGRAM ENFORCED)
+````markdown
+# 🌌 PHASE 1 — COMMAND CENTER (AUTHORITATIVE — RECONCILED)
 
 ---
 
@@ -7,18 +8,21 @@
 This document defines:
 
 ```text
-The exact system behavior, structure, and constraints for Phase 1.
+The minimum complete, deterministic product surface of Astronomy Hub.
+````
+
+Phase 1 delivers:
+
+```text
+A real-time, decision-support command center
+for “Above Me” only.
 ```
-
-Phase 1 defines the **minimum complete product surface** of Astronomy Hub.
-
-This document is **authoritative**.
 
 ---
 
 # 1. SYSTEM LAW (NON-NEGOTIABLE)
 
-The system MUST operate through:
+The system MUST follow:
 
 ```text
 Scope → Engine → Filter → Scene → Object → Detail
@@ -34,297 +38,296 @@ If any implementation bypasses this pipeline → INVALID SYSTEM
 
 ---
 
-# 2. PHASE 1 OBJECTIVE
+# 2. PHASE 1 POSITION IN MASTER PLAN
 
-Phase 1 MUST deliver:
+Phase 1 implements:
 
 ```text
-A scene-first command center answering:
-“What is above me right now, and what should I look at?”
+Single Scope + Multi-Engine Merge (Above Me)
+```
+
+Internally:
+
+* engines exist
+* filters exist
+* scene instancing exists
+
+Externally:
+
+```text
+ONLY ONE scene is exposed
 ```
 
 ---
 
-## REQUIRED OUTCOME
+# 3. CORE OBJECTIVE
 
-User MUST be able to determine:
+The system MUST allow the user to determine:
 
 * Is observing worthwhile?
-* What objects are visible?
-* What should be prioritized?
-* What events/passes matter now?
+* What should I look at?
+* What matters right now?
+* What requires immediate attention?
 
 ---
 
 ## FAILURE CONDITION
 
-* System behaves like a data dashboard → INVALID
-
----
-
-# 3. CANONICAL RUNTIME (LOCKED)
-
----
-
-## REQUIRED
-
-The system MUST run via:
-
 ```text
-Docker Compose
+If the system behaves like a data dashboard → INVALID
 ```
 
 ---
 
-## REQUIRED SERVICES
-
-* frontend (React/Vite/TypeScript)
-* backend (FastAPI)
-* postgres/postgis
-* redis
-
----
-
-## RULE
-
-```text
-Docker runtime is the ONLY authoritative runtime.
-```
-
----
-
-## FAILURE CONDITIONS
-
-* system cannot run in Docker → INVALID
-* system only works outside Docker → INVALID
-
----
-
-# 4. SCOPE MODEL (PHASE 1)
+# 4. SCOPE MODEL
 
 ---
 
 ## ACTIVE SCOPE
 
 ```text
-Above Me (DEFAULT AND ONLY ACTIVE PHASE 1 SCOPE)
+Above Me (ONLY)
 ```
 
 ---
 
 ## RULES
 
-* Scope MUST always be active
-* Scope determines engine participation
-* Phase 1 MUST NOT expose multi-scope UI switching
+* Scope is NOT user-selectable
+* Scope is ALWAYS active
+* Scope defines participating engines
 
 ---
 
-## FAILURE CONDITIONS
+## FAILURE
 
 * multiple scopes exposed → INVALID
 
 ---
 
-# 5. ENGINE MODEL (PHASE 1)
+# 5. ENGINE MODEL
 
 ---
 
-## ACTIVE ENGINES (PHASE 1)
-
-Allowed engines:
+## REQUIRED ENGINES
 
 * Satellite Engine
 * Solar System Engine (planets only)
-* Deep Sky Engine (visible targets only)
-* Event/Alert Engine
+* Deep Sky Engine
+* Event / Alert Engine
 * Earth Conditions Engine
 
 ---
 
-## ENGINE RULES
+## RULES
 
 * engines MUST NOT render UI
 * engines MUST return structured data only
 * engines MUST be independent
-* engines MUST NOT overlap domains
 
 ---
 
-## FAILURE CONDITIONS
+## CRITICAL RULE
 
-* engine controls UI → INVALID
-* engine returns mixed-domain data → INVALID
+```text
+Engines provide data.
+Scene provides meaning.
+```
 
 ---
 
-# 6. FILTER MODEL (PHASE 1)
+# 6. FILTER MODEL
 
 ---
 
 ## REQUIRED
 
-Filters MUST:
+Filters MUST exist internally and control:
 
-* operate within engine or scene assembly
-* restrict data (never full dataset)
-* be deterministic
-
----
-
-## PHASE 1 FILTERS
-
-* above horizon
-* visible tonight
-* active events
+* visibility
 * observing relevance
+* time relevance
+* event activity
 
 ---
 
-## FAILURE CONDITIONS
+## RULE
 
-* unfiltered datasets returned → INVALID
-
----
-
-# 7. SCENE MODEL (CORE SYSTEM)
+```text
+Filters are NOT exposed in Phase 1.
+```
 
 ---
 
-## REQUIRED
+## FAILURE
 
-The Scene is the ONLY visible data surface.
-
-Scene MUST:
-
-* be assembled by backend
-* merge multiple engines
-* be ranked
-* contain limited objects only
+* unfiltered data → INVALID
 
 ---
 
-## SCENE STRUCTURE
+# 7. SCENE MODEL
+
+---
+
+## RULE
+
+```text
+Scene is the ONLY visible data authority.
+```
+
+---
+
+## SCENE MUST
+
+* merge engine outputs
+* filter results
+* rank objects
+* limit objects
+* provide reasoning
+
+---
+
+## SCENE MUST ANSWER
+
+```text
+“What matters right now?”
+```
+
+---
+
+## FAILURE
+
+* raw lists
+* no ranking
+* no reasoning
+
+---
+
+# 8. UI SURFACE (CRITICAL RECONCILIATION)
+
+---
+
+## RULE
+
+```text
+Phase 1 mounts a command-center surface,
+NOT a spatial exploration interface.
+```
+
+---
+
+## DEFAULT SURFACE
+
+* command-center module system
+* scene-backed modules
+* decision-first layout
+
+---
+
+## IMPORTANT
+
+Spatial / immersive systems:
+
+* MAY exist internally
+* MUST NOT be the primary Phase 1 surface
+
+---
+
+# 9. UI AUTHORITY BINDING
+
+---
+
+Phase 1 UI MUST follow:
+
+* UI Design Principles 
+* UI Information Architecture 
+* UI Phase B visual model 
+
+---
+
+## RULE
+
+```text
+If UI behavior conflicts with Phase 1 scope → Phase 1 wins.
+```
+
+---
+
+# 10. COMMAND BAR (RESOLVED)
+
+---
+
+## VISIBLE IN PHASE 1
+
+* location
+* mode (light/dark/red)
+* current context display
+
+---
+
+## RESERVED (NOT EXPOSED)
+
+* scope switching
+* engine selection
+* filter selection
+* time controls
+
+---
+
+## RULE
+
+```text
+Future controls may exist structurally but must not be active.
+```
+
+---
+
+# 11. OBJECT CONTRACT
 
 Each object MUST include:
 
 * id
 * name
 * type
-* engine
+* engine owner
 * summary
 * position context
+* time relevance
+* reason for inclusion
 * detail route
 
 ---
 
-## FAILURE CONDITIONS
-
-* UI builds scene → INVALID
-* scene is not merged → INVALID
-* scene not ranked → INVALID
-
----
-
-# 8. “ABOVE ME” MERGE (CRITICAL)
-
----
-
-## REQUIRED PROCESS
+## RULE
 
 ```text
-Engine outputs → Filter → Merge → Rank → Annotate → Scene
+Objects must be actionable.
 ```
 
 ---
 
-## REQUIRED BEHAVIOR
-
-Scene MUST:
-
-* include multiple engine types
-* include ONLY above-horizon objects
-* rank by relevance
-* attach metadata and routing
+# 12. DECISION SYSTEM
 
 ---
 
-## FAILURE CONDITIONS
-
-* single-engine scene → INVALID
-* raw engine output exposed → INVALID
-
----
-
-# 9. UI ARCHITECTURE (COMMAND CENTER)
-
----
-
-## REQUIRED LAYOUT (STRICT)
-
-The main screen MUST contain:
-
-```text
-1. Command Bar
-2. Primary Scene (dominant)
-3. Live Decision Panel (right-side or secondary)
-4. Supporting Panels
-```
-
----
-
-## REQUIRED COMPONENTS
-
-### Command Bar
-
-* scope indicator (Above Me)
-* time selector (Now)
-* location indicator (ORAS/default or override)
-* command actions
-
----
-
-### Primary Scene
-
-* AboveMeScene
-* clickable objects
-* visually dominant
-
----
-
-### Live Decision Panel
+## REQUIRED OUTPUTS
 
 * observing score
 * best target
-* next pass/event
-* short summary
+* immediate opportunities
+* time-sensitive events
 
 ---
 
-### Supporting Panels
+## RULE
 
-* visible objects list
-* events/alerts
-* conditions
-
----
-
-## UI RULES
-
-* equal-weight grid is FORBIDDEN
-* scene MUST dominate visually
-* panels MUST be subordinate
+```text
+Every object answers: “why should I care?”
+```
 
 ---
 
-## FAILURE CONDITIONS
-
-* grid layout exists → INVALID
-* scene not dominant → INVALID
-
----
-
-# 10. INTERACTION FLOW
+# 13. INTERACTION MODEL
 
 ---
 
@@ -338,252 +341,85 @@ Scene → Object → Detail → Return
 
 ## RULES
 
-* object MUST be clickable
-* detail MUST load deterministically
-* return MUST restore state
+* object clickable
+* detail backend-driven
+* return restores state
 
 ---
 
-## FAILURE CONDITIONS
-
-* detail breaks scene → INVALID
+# 14. DATA LAW
 
 ---
 
-# 11. OBJECT OWNERSHIP
+* backend builds scene
+* frontend receives normalized data
+* frontend does NOT interpret data
 
 ---
 
-## REQUIRED
+## FAILURE
 
-Every object MUST include:
-
-* engine owner
-* detail route
+* UI logic shaping meaning → INVALID
 
 ---
 
-## RULE
+# 15. PERFORMANCE LAW
+
+---
 
 ```text
-Detail MUST be resolved through owning engine.
+Only the active scene is computed.
 ```
 
 ---
 
-## FAILURE CONDITIONS
-
-* object has no owner → INVALID
-* routing ambiguous → INVALID
+# 16. TESTING
 
 ---
-
-# 12. DATA LAYER (FE2 ENFORCED)
-
----
-
-## REQUIRED
-
-* TanStack Query ONLY
-* centralized API layer
-* no direct fetch in UI
-
----
-
-## STRICT RULE
-
-```text
-UI MUST NOT perform:
-- payload.data fallback
-- raw response parsing
-```
-
----
-
-## FAILURE CONDITIONS
-
-* fallback logic in component → INVALID
-
----
-
-# 13. STATE LAYER (FE3 ENFORCED)
-
----
-
-## REQUIRED
-
-* Zustand = UI/global state
-* Query = server data
-* React = local state
-
----
-
-## FAILURE CONDITIONS
-
-* mixed ownership → INVALID
-
----
-
-# 14. VISUAL SYSTEM (FE4–FE5)
-
----
-
-## REQUIRED
-
-* token-based styling
-* theme system (light/dark/red)
-* responsive hierarchy
-
----
-
-## RULE
-
-```text
-UI must guide attention, not present equal choices.
-```
-
----
-
-## FAILURE CONDITIONS
-
-* hardcoded styling dominates → INVALID
-
----
-
-# 15. THREE.JS FOUNDATION (FE7)
-
----
-
-## REQUIRED
-
-* bounded starfield / sky rendering
-* isolated rendering boundary
-
----
-
-## FAILURE CONDITIONS
-
-* rendering leaks into UI → INVALID
-
----
-
-# 16. CESIUM FOUNDATION (FE8)
-
----
-
-## REQUIRED
-
-* bounded Cesium component exists
-* not driving main UI
-
----
-
-## FAILURE CONDITIONS
-
-* Cesium controls command center → INVALID
-
----
-
-# 17. MEDIA SYSTEM (FE9)
-
----
-
-## REQUIRED
-
-* AssetImage exists
-* standardized media handling
-
----
-
-## FAILURE CONDITIONS
-
-* direct `<img>` scattered → INVALID
-
----
-
-# 18. TESTING (FE10)
-
----
-
-## REQUIRED
 
 Must pass:
 
-```bash
-npm run test
-npm run build
-npm run type-check
-npm run test:e2e
-```
+* backend tests
+* frontend tests
+* build
+* type checks
 
 ---
 
-## REQUIRED COVERAGE
+# 17. ANTI-SCOPE
 
-* scene load
-* object detail flow
-* navigation
-* responsive layout
-* error fallback
+Phase 1 MUST NOT include:
 
----
-
-## FAILURE CONDITIONS
-
-* missing E2E → INVALID
+* scope switching
+* filters UI
+* engine selection
+* timeline
+* prediction
+* spatial exploration UI
 
 ---
 
-# 19. BACKEND REQUIREMENTS (BE-ALIGNED)
-
----
-
-## REQUIRED
-
-* FastAPI only runtime
-* routes under `/api/v1`
-* services extracted
-* contracts stable
-
----
-
-## REQUIRED ENDPOINTS
-
-* `/api/v1/scene/above-me`
-* `/api/v1/object/{id}`
-
----
-
-## FAILURE CONDITIONS
-
-* server.py used → INVALID
-
----
-
-# 20. FINAL COMPLETION RULE
-
----
+# 18. COMPLETION RULE
 
 Phase 1 is COMPLETE ONLY IF:
 
 ```text
-- Docker runtime works
-- pipeline is enforced
-- scene is dominant
-- scene → object → detail works
-- contracts enforced
-- FE + BE align with execution docs
-- testing verifies core flows
+- pipeline enforced
+- scene authoritative
+- decision system works
+- UI is command center
+- no Phase 2 leakage
+- tests pass
 ```
 
 ---
 
-# 🔥 FINAL STATEMENT
+# FINAL STATEMENT
 
 ```text
-Phase 1 delivers a deterministic, scene-first astronomy system
-built on a strict pipeline, with clear object interaction and zero ambiguity.
+Phase 1 is a deterministic command center,
+not a dashboard,
+not an explorer.
 ```
 
----
-
+````

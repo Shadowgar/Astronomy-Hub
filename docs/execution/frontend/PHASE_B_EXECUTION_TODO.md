@@ -51,7 +51,7 @@ Each step must include:
 2. **Step name:** Replace UI Phase B spec with grand design execution spec  
 3. **REQUIRED**  
 4. **Files to modify:**  
-   - `docs/UI_PHASE_B_SPEC.md`  
+   - `docs/product/ui/UI_PHASE_B_SPEC.md`  
 5. **Goal:** Replace the existing Phase B spec so the repository no longer points to the outdated dashboard-polish direction.  
 6. **Why now:** This prevents future AI sessions and contributors from drifting back to the previous visual target.  
 7. **Implementation notes:**  
@@ -59,7 +59,7 @@ Each step must include:
    - Replace the contents rather than creating a competing spec file.
    - The final doc should define one design system with five supported modes and a hero-first command-surface hierarchy.
 8. **Verification:**  
-   - `cat docs/UI_PHASE_B_SPEC.md`  
+   - `cat docs/product/ui/UI_PHASE_B_SPEC.md`  
    - Confirm the file clearly states that it supersedes the earlier GitHub-style dashboard direction.
 9. **Suggested commit message:**  
    - `B0.A1: docs(ui): replace UI Phase B spec with grand design execution spec`
@@ -71,7 +71,7 @@ Each step must include:
 2. **Step name:** Create active Phase B execution rail  
 3. **REQUIRED**  
 4. **Files to modify:**  
-   - `docs/PHASE_B_EXECUTION_TODO.md` (new)  
+   - `docs/execution/frontend/PHASE_B_EXECUTION_TODO.md` (new)  
 5. **Goal:** Create the active procedural rail for UI Phase B implementation.  
 6. **Why now:** The Phase 2 execution file is historical only and should not be reused as an active UI implementation rail. The repo README explicitly calls the Phase 2 execution file historical rather than active. citeturn351042view0turn232743view0  
 7. **Implementation notes:**  
@@ -79,7 +79,7 @@ Each step must include:
    - It should use the same numbered, exact-path format used in prior execution rails.
 8. **Verification:**  
    - `ls docs`
-   - `cat docs/PHASE_B_EXECUTION_TODO.md`
+   - `cat docs/execution/frontend/PHASE_B_EXECUTION_TODO.md`
 9. **Suggested commit message:**  
    - `B0.A2: docs(ui): add Phase B execution TODO rail`
 10. **Rollback:**  
@@ -90,14 +90,14 @@ Each step must include:
 2. **Step name:** Update project state to reference Phase B rebaseline  
 3. **REQUIRED**  
 4. **Files to modify:**  
-   - `docs/PROJECT_STATE.md`  
+   - `docs/execution/PROJECT_STATE.md`  
 5. **Goal:** Make current project state explicitly acknowledge that UI Phase B is active under the new grand design rebaseline.  
 6. **Why now:** The project state file is authoritative context for new sessions and should identify the active UI direction clearly. The current project state already says UI Phase B is active and should now point to the redefined track. citeturn232743view1  
 7. **Implementation notes:**  
    - Keep all existing phase-completion truth intact.
    - Add or update a short section clarifying the Phase B mission: theming engine, layout engine, shared UI primitives, and hero-first transformation.
 8. **Verification:**  
-   - `cat docs/PROJECT_STATE.md`
+   - `cat docs/execution/PROJECT_STATE.md`
    - Confirm Phase B language now references the design-system rebaseline.
 9. **Suggested commit message:**  
    - `B0.A3: docs(state): clarify active UI Phase B rebaseline`
@@ -109,14 +109,14 @@ Each step must include:
 2. **Step name:** Update UI master plan to align Phase B summary  
 3. **REQUIRED**  
 4. **Files to modify:**  
-   - `docs/UI_MASTER_PLAN.md`  
+   - `docs/product/ui/UI_MASTER_PLAN.md`  
 5. **Goal:** Revise the Phase B summary so it no longer reads like simple dashboard polish.  
 6. **Why now:** The UI master plan currently describes Phase B in a lighter, high-level way; it should stay high-level but must align to the new Phase B mission. citeturn232743view2  
 7. **Implementation notes:**  
    - Keep the UI master plan concise.
    - Update the Phase B deliverables line to reference theme architecture, layout system, shared primitives, responsive hierarchy, and accessibility.
 8. **Verification:**  
-   - `cat docs/UI_MASTER_PLAN.md`
+   - `cat docs/product/ui/UI_MASTER_PLAN.md`
 9. **Suggested commit message:**  
    - `B0.A4: docs(ui): align UI master plan with Phase B rebaseline`
 10. **Rollback:**  
@@ -743,7 +743,7 @@ Do not mark UI Phase B complete until all REQUIRED steps are done and the follow
 
 ## Notes for BitFrog / coding-agent execution
 
-- Read `docs/UI_PHASE_B_SPEC.md` before touching frontend styling.
+- Read `docs/product/ui/UI_PHASE_B_SPEC.md` before touching frontend styling.
 - Execute one step per request unless the architect explicitly bundles two tiny adjacent steps.
 - Do not invent extra files unless necessary.
 - Do not replace feature logic while doing presentation steps.
