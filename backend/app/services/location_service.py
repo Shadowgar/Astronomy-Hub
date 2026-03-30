@@ -1,17 +1,14 @@
 import os
-import sys
 import time
 import json
 
+from backend.cache.simple_cache import SimpleCache
+from backend.app.services._legacy_scene_logic import (
+    SUGGESTION_COORD_MALFORMED,
+    validate_suggestions,
+)
 
-def _legacy_server_module():
-    """Import legacy backend.server with script-compatible path handling."""
-    backend_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-    if backend_dir not in sys.path:
-        sys.path.insert(0, backend_dir)
-    import backend.server as legacy_server
-
-    return legacy_server
+_location_search_cache = SimpleCache()
 
 
 def build_location_search_response(q: str | None) -> tuple[int, dict | list, dict]:
@@ -32,23 +29,13 @@ def build_location_search_response(q: str | None) -> tuple[int, dict | list, dic
         )
 
     try:
-        legacy_server = _legacy_server_module()
-        base = os.path.dirname(legacy_server.__file__)
-        sugg_path = os.path.join(base, "location_suggestions.json")
+        backend_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+        sugg_path = os.path.join(backend_dir, "location_suggestions.json")
         with open(sugg_path, "r", encoding="utf-8") as fh:
             suggestions = json.load(fh)
 
         cache_key = f"location_search:{q_trim}"
-        try:
-            legacy_server._ensure_cache()
-        except Exception:
-            pass
-
-        cached = (
-            legacy_server._simple_cache.get(cache_key)
-            if getattr(legacy_server, "_simple_cache", None) is not None
-            else None
-        )
+        cached = _location_search_cache.get(cache_key)
         if cached is not None:
             headers = {
                 "X-Cache-Hit": "true",
@@ -58,14 +45,14 @@ def build_location_search_response(q: str | None) -> tuple[int, dict | list, dic
 
         q_lower = q_trim.lower()
         matches = [s for s in suggestions if q_lower in (s.get("name") or "").lower()]
-        v_err = legacy_server._validate_suggestions(matches)
+        v_err = validate_suggestions(matches)
         if v_err:
             return (
                 400,
                 {
                     "error": {
                         "code": "invalid_suggestion",
-                        "message": v_err.get("error", legacy_server.SUGGESTION_COORD_MALFORMED),
+                        "message": v_err.get("error", SUGGESTION_COORD_MALFORMED),
                         "details": [{"index": v_err.get("index"), "suggestion": v_err.get("suggestion")}],
                     }
                 },
@@ -73,8 +60,7 @@ def build_location_search_response(q: str | None) -> tuple[int, dict | list, dic
             )
 
         try:
-            if getattr(legacy_server, "_simple_cache", None) is not None:
-                legacy_server._simple_cache.set(cache_key, matches, ttl=5)
+            _location_search_cache.set(cache_key, matches, ttl=5)
         except Exception:
             pass
 
@@ -85,4 +71,3 @@ def build_location_search_response(q: str | None) -> tuple[int, dict | list, dic
         return (200, matches, headers)
     except Exception:
         return (500, {"error": {"code": "load_failed", "message": "failed to load suggestions"}}, {})
-
