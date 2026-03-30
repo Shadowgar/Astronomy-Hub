@@ -4,6 +4,7 @@ import { useObjectDetailDataQuery } from '../features/objects/queries'
 import LoadingState from './ui/LoadingState'
 import ErrorState from './ui/ErrorState'
 import EmptyState from './ui/EmptyState'
+import AssetImage from './media/AssetImage'
 
 function _slugify(name) {
   try {
@@ -28,7 +29,7 @@ export default function ObjectDetail({ objectId, objectName }) {
     <div className="object-detail">
       <div className="object-detail-header">
         {detail.media && detail.media.length > 0 ? (
-          <img src={detail.media[0].url} alt={detail.name} className="object-detail-thumb" />
+          <AssetImage src={detail.media[0].url} alt={detail.name} className="object-detail-thumb" />
         ) : null}
         <div>
           <div><strong>{detail.name}</strong> · <span className="small muted-meta">{detail.type}</span></div>
