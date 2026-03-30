@@ -7,6 +7,7 @@ import AlertsEvents from './components/AlertsEvents'
 import SatellitePasses from './components/SatellitePasses'
 import MoonSummary from './components/MoonSummary.jsx'
 import SkyNews from './components/SkyNews'
+import CesiumFoundation from './components/CesiumFoundation'
 import useLocationState from './state/locationState'
 import useDisplayModeState from './state/displayModeState'
 import AppShell from "./components/layout/AppShell"
@@ -62,6 +63,9 @@ export default function App() {
     }
   }
 
+  const mountCesiumFoundation = typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).get('mountCesiumFoundation') === '1'
+
   return (
     <AppShell>
       <div className="app-shell">
@@ -86,6 +90,8 @@ export default function App() {
           setMode={setMode}
           MODES={MODES}
         />
+
+        <CesiumFoundation enabled={mountCesiumFoundation} />
         
 
         <ContentGrid className="app-main-flow">
