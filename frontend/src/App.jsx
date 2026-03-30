@@ -9,7 +9,6 @@ import MoonSummary from './components/MoonSummary.jsx'
 import SkyNews from './components/SkyNews'
 import useLocationState from './state/locationState'
 import useDisplayModeState from './state/displayModeState'
-import Starfield from './components/Starfield'
 import AppShell from "./components/layout/AppShell"
 import ContentGrid from "./components/layout/ContentGrid"
 import CommandCenterHeader from './components/layout/CommandCenterHeader'
@@ -66,7 +65,6 @@ export default function App() {
   return (
     <AppShell>
       <div className="app-shell">
-        <Starfield />
         <CommandCenterHeader
           isOrasLocation={isOrasLocation}
           ORAS={ORAS}

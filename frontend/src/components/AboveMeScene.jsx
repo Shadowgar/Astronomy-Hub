@@ -7,6 +7,7 @@ import LoadingState from './ui/LoadingState'
 import ErrorState from './ui/ErrorState'
 import EmptyState from './ui/EmptyState'
 import ObjectDetail from './ObjectDetail'
+import Starfield from './Starfield'
 import { useConditionsDataQuery } from '../features/conditions/queries'
 import { useSceneAboveMeDataQuery } from '../features/scene/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
@@ -69,6 +70,7 @@ export default function AboveMeScene({ locationQuery = '' }) {
           </div>
 
           <div className="above-me-scene__sky" aria-label="Sky scene">
+            <Starfield className="above-me-scene__starfield" />
             {objects.length === 0 && <div className="above-me-scene__empty"><EmptyState message="No objects currently above horizon." /></div>}
             {objects.map((obj, idx) => {
               const positionClass = `above-me-scene__pos-${idx % 15}`
