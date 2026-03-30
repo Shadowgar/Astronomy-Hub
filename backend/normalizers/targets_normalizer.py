@@ -52,6 +52,9 @@ def normalize(payload: Any) -> List[Dict[str, Any]]:
             'summary': t.get('reason') or t.get('summary') or '',
             'position': None,
             'visibility': None,
+            'time_relevance': 'currently_visible',
+            'reason_for_inclusion': t.get('reason') or t.get('summary') or '',
+            'detail_route': f"/object/{_slugify(name)}",
         }
 
         try:
