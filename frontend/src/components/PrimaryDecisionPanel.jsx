@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { useConditionsQuery } from '../features/conditions/queries'
+import { useConditionsDataQuery } from '../features/conditions/queries'
 import { useAlertsQuery } from '../features/alerts/queries'
 import { usePassesQuery } from '../features/passes/queries'
 import { useTargetsQuery } from '../features/targets/queries'
@@ -50,12 +50,12 @@ function targetIdFor(target) {
 export default function PrimaryDecisionPanel({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
   const { selectedObjectId } = useGlobalUiState()
-  const conditionsQuery = useConditionsQuery(queryParams)
+  const conditionsQuery = useConditionsDataQuery(queryParams)
   const targetsQuery = useTargetsQuery(queryParams)
   const alertsQuery = useAlertsQuery(queryParams)
   const passesQuery = usePassesQuery(queryParams)
 
-  const conds = (conditionsQuery.data && conditionsQuery.data.data) || conditionsQuery.data || null
+  const conds = conditionsQuery.data || null
   const targets = Array.isArray(targetsQuery.data) ? targetsQuery.data : []
   const alerts = Array.isArray(alertsQuery.data) ? alertsQuery.data : []
   const passes = Array.isArray(passesQuery.data) ? passesQuery.data : []
