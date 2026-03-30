@@ -206,6 +206,16 @@ export default function App() {
 
         <ContentGrid className="app-main-flow">
           <main className="dashboard tight-layout">
+        {/* Primary command surface: scene-first hierarchy */}
+        <section className="section section-scene">
+          <div className="section-grid one-col">
+            <div className="module scene-module panel">
+              <AboveMeScene locationQuery={locationQuery} />
+            </div>
+          </div>
+        </section>
+
+        {/* Supporting decision intelligence after the primary scene */}
         <section className="section section-primary">
           <div className="section-grid one-col">
             <div className="module panel primary-decision-module">
@@ -219,15 +229,6 @@ export default function App() {
           <div className="section-grid one-col">
             <div className="module targets-module panel" id="recommended-targets-panel">
               <RecommendedTargets locationQuery={locationQuery} />
-            </div>
-          </div>
-        </section>
-
-        {/* Guided step: object/sky context for selected target */}
-        <section className="section section-scene">
-          <div className="section-grid one-col">
-            <div className="module scene-module panel">
-              <AboveMeScene locationQuery={locationQuery} />
             </div>
           </div>
         </section>
