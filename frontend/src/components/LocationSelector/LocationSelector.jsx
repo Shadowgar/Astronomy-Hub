@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './locationSelector.css'
-import { useLocationSearchQuery } from '../../features/location/queries'
+import { useLocationSearchListQuery } from '../../features/location/queries'
 import AppButton from '../ui/AppButton'
 import CommandBar from '../ui/CommandBar'
 
@@ -8,7 +8,7 @@ export default function LocationSelector({ onApply, onConfirm, onCancel } = {}) 
   const [query, setQuery] = useState('')
   const [selectedSuggestion, setSelectedSuggestion] = useState(null)
 
-  const searchQuery = useLocationSearchQuery(query)
+  const searchQuery = useLocationSearchListQuery(query)
   const loading = searchQuery.isFetching
   const error = searchQuery.isError
     ? (searchQuery.error && searchQuery.error.message) || 'Unknown error'
@@ -16,9 +16,7 @@ export default function LocationSelector({ onApply, onConfirm, onCancel } = {}) 
   const suggestions =
     query.trim().length < 3
       ? []
-      : Array.isArray(searchQuery.data)
-        ? searchQuery.data
-        : []
+      : searchQuery.data
 
   const handleApply = () => {
     const chosen = selectedSuggestion || (suggestions && suggestions.length ? suggestions[0] : null)
