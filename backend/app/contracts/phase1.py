@@ -35,6 +35,9 @@ class SceneObjectSummary(BaseModel):
     type: Phase1Type
     engine: str
     summary: str
+    time_relevance: str
+    reason_for_inclusion: str
+    detail_route: str
     position: Optional[Position] = None
     visibility: Optional[Visibility] = None
     relevance_score: Optional[float] = Field(None, ge=0.0)

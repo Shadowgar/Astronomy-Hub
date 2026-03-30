@@ -312,6 +312,32 @@ def _rank_scene_objects(objects):
         return objects
 
 
+def _derive_time_relevance(obj):
+    visibility = obj.get("visibility") if isinstance(obj, dict) else None
+    if isinstance(visibility, dict):
+        window_start = visibility.get("visibility_window_start")
+        if window_start:
+            return f"window_start:{window_start}"
+    return "currently_visible"
+
+
+def _enforce_phase1_object_contract(obj):
+    """Ensure surfaced scene objects carry the full Phase 1 contract fields."""
+    normalized = dict(obj)
+    object_id = _ensure_object_id(normalized)
+    if object_id:
+        normalized["id"] = object_id
+    normalized["reason_for_inclusion"] = (
+        normalized.get("reason_for_inclusion")
+        or normalized.get("reason")
+        or normalized.get("summary")
+        or ""
+    )
+    normalized["time_relevance"] = normalized.get("time_relevance") or _derive_time_relevance(normalized)
+    normalized["detail_route"] = normalized.get("detail_route") or f"/object/{normalized.get('id', '')}"
+    return normalized
+
+
 def _phase2_timestamp() -> str:
     from datetime import datetime, timezone
 
@@ -623,6 +649,7 @@ def build_phase1_scene_state(parsed_location=None):
     objects = [obj for obj in objects if _is_above_horizon(obj)]
     objects = _rank_scene_objects(objects)
     objects = objects[:10]
+    objects = [_enforce_phase1_object_contract(obj) for obj in objects]
 
     scene = {
         "scope": "above_me",
