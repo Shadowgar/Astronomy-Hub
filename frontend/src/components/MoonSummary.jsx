@@ -5,7 +5,7 @@ import SectionHeader from './ui/SectionHeader'
 import LoadingState from './ui/LoadingState'
 import ErrorState from './ui/ErrorState'
 import EmptyState from './ui/EmptyState'
-import { useConditionsQuery } from '../features/conditions/queries'
+import { useConditionsDataQuery } from '../features/conditions/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
 
 function fmtTimeShort(iso) {
@@ -20,13 +20,12 @@ function fmtTimeShort(iso) {
 
 export default function MoonSummary({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
-  const conditionsQuery = useConditionsQuery(queryParams)
+  const conditionsQuery = useConditionsDataQuery(queryParams)
   const loading = conditionsQuery.isLoading
   const error = conditionsQuery.isError
     ? (conditionsQuery.error && conditionsQuery.error.message) || 'Unknown error'
     : null
-  const rawData = conditionsQuery.data
-  const data = (rawData && rawData.data) || rawData
+  const data = conditionsQuery.data
 
   if (loading) {
     return (

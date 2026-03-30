@@ -29,9 +29,24 @@ export async function fetchConditions(params?: ConditionsQueryParams) {
   return apiGet<unknown>(CONDITIONS_PATH, { query: toQueryParams(params) })
 }
 
+export function normalizeConditionsPayload(payload: unknown): unknown {
+  if (payload && typeof payload === 'object') {
+    return ((payload as { data?: unknown }).data || payload)
+  }
+  return payload
+}
+
 export function useConditionsQuery(params?: ConditionsQueryParams) {
   return useQuery({
     queryKey: conditionsKeys.list(params),
     queryFn: () => fetchConditions(params),
+  })
+}
+
+export function useConditionsDataQuery(params?: ConditionsQueryParams) {
+  return useQuery({
+    queryKey: conditionsKeys.list(params),
+    queryFn: () => fetchConditions(params),
+    select: normalizeConditionsPayload,
   })
 }
