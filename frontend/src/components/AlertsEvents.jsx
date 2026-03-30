@@ -7,19 +7,19 @@ import ErrorState from "./ui/ErrorState";
 import EmptyState from "./ui/EmptyState";
 import InlineExpansion from './common/InlineExpansion'
 import ObjectDetail from './ObjectDetail'
-import { useAlertsQuery } from '../features/alerts/queries'
+import { useAlertsListQuery } from '../features/alerts/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
 
 const MAX_ALERTS = 3
 
 export default function AlertsEvents({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
-  const alertsQuery = useAlertsQuery(queryParams)
+  const alertsQuery = useAlertsListQuery(queryParams)
   const loading = alertsQuery.isLoading
   const error = alertsQuery.isError
     ? (alertsQuery.error && alertsQuery.error.message) || 'Unknown error'
     : null
-  const alerts = Array.isArray(alertsQuery.data) ? alertsQuery.data.slice(0, MAX_ALERTS) : []
+  const alerts = alertsQuery.data.slice(0, MAX_ALERTS)
 
   return (
     <Panel className="component alerts-events">
