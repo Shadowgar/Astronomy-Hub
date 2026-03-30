@@ -10,6 +10,11 @@ const proxyTarget =
 
 export default defineConfig({
   plugins: [react()],
+  test: {
+    environment: 'node',
+    globals: true,
+    include: ['tests/**/*.test.js'],
+  },
   server: {
     host: '0.0.0.0',
     port: frontendPort,
