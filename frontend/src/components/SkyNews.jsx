@@ -5,19 +5,19 @@ import SectionHeader from './ui/SectionHeader'
 import LoadingState from './ui/LoadingState'
 import ErrorState from './ui/ErrorState'
 import EmptyState from './ui/EmptyState'
-import { useAlertsQuery } from '../features/alerts/queries'
+import { useAlertsListQuery } from '../features/alerts/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
 
 const MAX_NEWS = 3
 
 export default function SkyNews({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
-  const alertsQuery = useAlertsQuery(queryParams)
+  const alertsQuery = useAlertsListQuery(queryParams)
   const loading = alertsQuery.isLoading
   const error = alertsQuery.isError
     ? (alertsQuery.error && alertsQuery.error.message) || 'Unknown error'
     : null
-  const items = Array.isArray(alertsQuery.data) ? alertsQuery.data.slice(0, MAX_NEWS) : []
+  const items = alertsQuery.data.slice(0, MAX_NEWS)
 
   return (
     <Panel className="module panel sky-news">
