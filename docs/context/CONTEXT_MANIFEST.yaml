@@ -1,0 +1,81 @@
+# CONTEXT MANIFEST — ASTRONOMY HUB (AUTHORITATIVE)
+
+# This file defines EXACT document loading rules.
+# No document outside this manifest may be loaded unless explicitly approved.
+
+# ALL tasks MUST load:
+# - CORE_CONTEXT.md
+# - LIVE_SESSION_BRIEF.md
+
+global:
+  always:
+  - docs/context/CORE_CONTEXT.md
+  - docs/context/LIVE_SESSION_BRIEF.md
+
+tasks:
+
+  backend_change:
+    load:
+    - docs/context/CORE_CONTEXT.md
+    - docs/context/LIVE_SESSION_BRIEF.md
+
+    - docs/architecture/ARCHITECTURE_OVERVIEW.md
+    - docs/architecture/ENGINE_SPEC.md
+    - docs/architecture/INGESTION_STRATEGY.md
+    - docs/architecture/DATA_CONTRACTS.md
+
+    - docs/execution/STACK_OVERVIEW.md
+    - docs/execution/env_setup.md
+
+    - docs/validation/SYSTEM_VALIDATION_SPEC.md
+
+    - docs/phases/PHASE_BE_EXECUTION.md
+
+  frontend_change:
+    load:
+    - docs/context/CORE_CONTEXT.md
+    - docs/context/LIVE_SESSION_BRIEF.md
+
+    - docs/architecture/ARCHITECTURE_OVERVIEW.md
+    - docs/architecture/DATA_CONTRACTS.md
+
+    - docs/execution/STACK_OVERVIEW.md
+
+    - docs/validation/SYSTEM_VALIDATION_SPEC.md
+
+    - docs/phases/PHASE_FE_EXECUTION.md
+
+  docs_change:
+    load:
+    - docs/context/CORE_CONTEXT.md
+    - docs/context/LIVE_SESSION_BRIEF.md
+
+    - docs/DOCUMENT_INDEX.md
+    - docs/execution/MASTER_PLAN.md
+    - docs/execution/PROJECT_STATE.md
+
+  validation:
+    load:
+    - docs/context/CORE_CONTEXT.md
+    - docs/context/LIVE_SESSION_BRIEF.md
+
+    - docs/validation/SYSTEM_VALIDATION_SPEC.md
+
+    - docs/phases/PHASE_1_SPEC.md
+    - docs/phases/PHASE_1_ACCEPTANCE.md
+    - docs/phases/PHASE_1_BUILD_SEQUENCE.md
+
+rules:
+- do_not_load_unlisted_documents: true
+- do_not_scan_docs_directory: true
+- must_declare_loaded_documents: true
+- must_match_task_context: true
+
+failure_conditions:
+- loading_docs_outside_manifest
+- scanning_full_docs_directory
+- missing_core_context
+- missing_session_brief
+- undeclared_context
+
+# END
