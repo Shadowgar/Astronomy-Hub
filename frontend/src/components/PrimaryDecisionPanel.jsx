@@ -76,33 +76,12 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
   const statusText = `Tonight: ${status.toUpperCase()}`
   const darknessStart = conds && conds.darkness_window && conds.darkness_window.start ? fmtTime(conds.darkness_window.start) : null
   const darknessEnd = conds && conds.darkness_window && conds.darkness_window.end ? fmtTime(conds.darkness_window.end) : null
-  const cloudCover = conds && typeof conds.cloud_cover_pct === 'number' ? Math.round(conds.cloud_cover_pct) : null
-  const blockingAlerts = alerts.filter((a) => {
-    const priority = String(a && a.priority ? a.priority : '').toLowerCase()
-    return priority === 'high' || priority === 'critical' || priority === 'urgent' || priority === '1' || priority === '2'
-  })
-  const reasonLines = []
-  if (conds) {
-    if (cloudCover !== null) {
-      reasonLines.push(`Cloud cover is ${cloudCover}%, supporting a ${status.toLowerCase()} observing outlook.`)
-    } else if (observingScore !== null) {
-      reasonLines.push(`Current observing outlook is ${status.toLowerCase()}.`)
-    }
-  }
-  if (selectedTarget || top) {
-    const recommended = selectedTarget || top
-    reasonLines.push(`${selectedTarget ? 'Selected' : 'Top'} target ${recommended.name} is currently prioritized${recommended.direction ? ` toward ${String(recommended.direction).toUpperCase()}` : ''}.`)
-  }
-  if (blockingAlerts.length > 0) {
-    reasonLines.push(`${blockingAlerts.length} high-priority alert${blockingAlerts.length > 1 ? 's are' : ' is'} active, so plan with caution.`)
-  } else if (alerts.length > 0) {
-    reasonLines.push('No major alerts are currently interfering with the plan.')
-  } else {
-    reasonLines.push('No alerts are currently affecting the plan.')
-  }
-  if (passes.length > 0) {
-    reasonLines.push(`${passes.length} upcoming pass${passes.length > 1 ? 'es' : ''} add timing context for observing windows.`)
-  }
+  const recommended = selectedTarget || top || null
+  const contextLines = [
+    conds && conds.summary ? conds.summary : null,
+    recommended && recommended.reason ? recommended.reason : null,
+    alerts.length > 0 && alerts[0] && alerts[0].summary ? alerts[0].summary : null,
+  ].filter(Boolean)
 
   return (
     <section className="primary-decision-panel" aria-labelledby="pdp-heading">
@@ -126,9 +105,9 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
             <span>No clear plan yet</span>
           )}
         </div>
-        {!loading && !hasError && reasonLines.length > 0 ? (
+        {!loading && !hasError && contextLines.length > 0 ? (
           <ul className="small pdp-reasoning-list">
-            {reasonLines.slice(0, 3).map((line, idx) => (
+            {contextLines.slice(0, 3).map((line, idx) => (
               <li key={`${line}-${idx}`}>{line}</li>
             ))}
           </ul>
