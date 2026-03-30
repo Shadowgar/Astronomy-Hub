@@ -6,16 +6,9 @@ import ErrorState from './ui/ErrorState'
 import EmptyState from './ui/EmptyState'
 import AssetImage from './media/AssetImage'
 
-function _slugify(name) {
-  try {
-    return String(name).trim().toLowerCase().split(/\s+/).join('-').split('/').join('-').split("'").join('')
-  } catch (e) {
-    return String(name || '')
-  }
-}
-
 export default function ObjectDetail({ objectId, objectName }) {
-  const id = objectId || _slugify(objectName)
+  const id = objectId || null
+  if (!id) return <EmptyState message="No detail available" />
   const detailQuery = useObjectDetailDataQuery(id)
   const loading = detailQuery.isLoading
   const error = detailQuery.isError ? String((detailQuery.error && detailQuery.error.message) || 'error') : null

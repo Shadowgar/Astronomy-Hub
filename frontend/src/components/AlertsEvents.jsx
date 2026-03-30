@@ -43,18 +43,9 @@ export default function AlertsEvents({ locationQuery = '' }) {
               </div>
             )
 
-            // If the alert references an object by name, allow inline detail expansion
+            // Use backend-provided object identity only; do not derive ids in component.
             const relatedName = a.object_name || a.related_object || a.related_object_name || null
-            const objectId = relatedName
-              ? (relatedName || '')
-                  .toLowerCase()
-                  .split(/\s+/)
-                  .join('-')
-                  .split('/')
-                  .join('-')
-                  .split("'")
-                  .join('')
-              : null
+            const objectId = a.object_id || null
 
             return (
               <li key={key} className="alerts-list-item">

@@ -22,29 +22,15 @@ function fmtTime(iso) {
 function observingLabel(score) {
   if (score === null || score === undefined) return 'Unknown'
   if (typeof score === 'string') {
-    const s = score.trim().toLowerCase()
-    if (s === 'excellent' || s === 'good' || s === 'fair' || s === 'poor') {
-      return s[0].toUpperCase() + s.slice(1)
-    }
-    return 'Unknown'
+    return score.trim() || 'Unknown'
   }
-  if (score >= 75) return 'Excellent'
-  if (score >= 50) return 'Good'
-  if (score >= 25) return 'Fair'
-  return 'Poor'
+  if (typeof score === 'number') return String(Math.round(score))
+  return 'Unknown'
 }
 
 function targetIdFor(target) {
   if (!target) return null
-  if (target.id) return target.id
-  return (target.name || '')
-    .toLowerCase()
-    .split(/\s+/)
-    .join('-')
-    .split('/')
-    .join('-')
-    .split("'")
-    .join('')
+  return target.id || null
 }
 
 export default function PrimaryDecisionPanel({ locationQuery = '' }) {

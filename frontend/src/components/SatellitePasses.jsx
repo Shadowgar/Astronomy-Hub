@@ -49,19 +49,16 @@ export default function SatellitePasses({ locationQuery = '' }) {
               </div>
             )
 
-            const objectId = (p.object_name || '')
-              .toLowerCase()
-              .split(/\s+/)
-              .join('-')
-              .split('/')
-              .join('-')
-              .split("'")
-              .join('')
+            const objectId = p.object_id || null
 
             return (
               <li key={key} className="passes-list-item">
                 <InlineExpansion summary={left} defaultCollapsed={true}>
-                  <ObjectDetail objectId={objectId} objectName={p.object_name} />
+                  {objectId ? (
+                    <ObjectDetail objectId={objectId} objectName={p.object_name} />
+                  ) : (
+                    <div className="passes-summary-expanded">{p.object_name || 'Unknown object'}</div>
+                  )}
                 </InlineExpansion>
               </li>
             )

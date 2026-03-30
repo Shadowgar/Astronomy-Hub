@@ -716,6 +716,7 @@ def build_phase1_scene_state(parsed_location=None):
             visibility = obj.get("visibility") if isinstance(obj.get("visibility"), dict) else {}
             supporting_passes.append(
                 {
+                    "object_id": obj.get("id"),
                     "object_name": obj.get("name"),
                     "start_time": visibility.get("visibility_window_start"),
                     "max_elevation_deg": position.get("elevation"),

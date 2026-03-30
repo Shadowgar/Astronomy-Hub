@@ -32,44 +32,12 @@ function fmtTimeShort(iso) {
 export default function Conditions({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
 
-  const simulatePartial = (() => {
-    try {
-      if (typeof window === 'undefined') return false
-      const params = new URLSearchParams(window.location.search)
-      return params.get('simulate_partial') === '1'
-    } catch (e) {
-      return false
-    }
-  })()
-
   const conditionsQuery = useConditionsDataQuery(queryParams)
   const loading = conditionsQuery.isLoading
   const error = conditionsQuery.isError
     ? (conditionsQuery.error && conditionsQuery.error.message) || 'Unknown error'
     : null
   const data = conditionsQuery.data
-
-  const fallbackPartialData = {
-    location_label: 'Simulated Location',
-    cloud_cover_pct: null,
-    moon_phase: null,
-    darkness_window: { start: null, end: null },
-    summary: null,
-    last_updated: new Date().toISOString(),
-    meta: { partial: true },
-  }
-
-  const effectiveData =
-    simulatePartial && (error || !data)
-      ? fallbackPartialData
-      : simulatePartial && data && typeof data === 'object'
-        ? (() => {
-            const patched = Object.assign({}, data)
-            delete patched.summary
-            patched.meta = Object.assign({}, patched.meta || {}, { partial: true })
-            return patched
-          })()
-        : data
 
   const handleRetry = () => {
     conditionsQuery.refetch()
@@ -84,7 +52,7 @@ export default function Conditions({ locationQuery = '' }) {
     )
   }
 
-  if (error && !simulatePartial) {
+  if (error) {
     logger?.info?.('module', 'conditions:fetch:error', { err: error })
     return (
       <Panel className="module conditions-module panel">
@@ -94,7 +62,7 @@ export default function Conditions({ locationQuery = '' }) {
     )
   }
 
-  if (!effectiveData) {
+  if (!data) {
     return (
       <Panel className="module conditions-module panel">
         <SectionHeader title="Conditions" action={<AppButton onClick={handleRetry} loading={conditionsQuery.isFetching}>Retry</AppButton>} />
@@ -103,10 +71,9 @@ export default function Conditions({ locationQuery = '' }) {
     )
   }
 
-  const { location_label, cloud_cover_pct, moon_phase, darkness_window, summary } = effectiveData
+  const { location_label, cloud_cover_pct, moon_phase, darkness_window, summary } = data
 
-  const isStale = Boolean(effectiveData?.meta?.partial)
-  const staleProp = Boolean(isStale || simulatePartial)
+  const staleProp = Boolean(data?.meta?.partial)
 
   const cloudText = typeof cloud_cover_pct === 'number' ? `${Math.round(cloud_cover_pct)}%` : 'N/A'
   const moonText = moon_phase || 'N/A'
@@ -121,7 +88,7 @@ export default function Conditions({ locationQuery = '' }) {
       <div className="conditions-body conditions-stack">
         <div className="conditions-head-row">
           <strong className="conditions-location-name">{location_label || 'Unknown location'}</strong>
-          <small className="conditions-updated-at">{effectiveData?.last_updated ? fmtTimeShort(effectiveData.last_updated) : ''}</small>
+          <small className="conditions-updated-at">{data?.last_updated ? fmtTimeShort(data.last_updated) : ''}</small>
         </div>
 
         {summary && (
@@ -132,11 +99,11 @@ export default function Conditions({ locationQuery = '' }) {
           <span className="conditions-chip conditions-chip-primary">{cloudText}</span>
           <span className="conditions-chip conditions-chip-secondary">{moonText}</span>
           <span className="conditions-chip conditions-chip-secondary">{darknessText}</span>
-          {typeof effectiveData?.observing_score === 'number' ? (
-            <span className="conditions-score-badge">{Math.round(effectiveData.observing_score)}</span>
+          {typeof data?.observing_score === 'number' ? (
+            <span className="conditions-score-badge">{Math.round(data.observing_score)}</span>
           ) : null}
-          {typeof effectiveData?.observing_score === 'string' ? (
-            <span className="conditions-score-badge">{effectiveData.observing_score.toUpperCase()}</span>
+          {typeof data?.observing_score === 'string' ? (
+            <span className="conditions-score-badge">{data.observing_score.toUpperCase()}</span>
           ) : null}
         </div>
       </div>

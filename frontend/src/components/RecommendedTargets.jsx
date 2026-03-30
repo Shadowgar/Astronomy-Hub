@@ -47,14 +47,7 @@ export default function RecommendedTargets({ locationQuery = '' }) {
                 </div>
               )
 
-              const computedId = t.id || (t.name || '')
-                .toLowerCase()
-                .split(/\s+/)
-                .join('-')
-                .split('/')
-                .join('-')
-                .split("'")
-                .join('')
+              const computedId = t.id || null
 
               const left = (
                 <div className="target-row-inline">
@@ -73,7 +66,9 @@ export default function RecommendedTargets({ locationQuery = '' }) {
 
                   <div className="target-row__content target-row-content-inline">
                     <div
-                      onClickCapture={() => setSelectedObjectId(computedId)}
+                      onClickCapture={() => {
+                        if (computedId) setSelectedObjectId(computedId)
+                      }}
                     >
                       <InlineExpansion summary={summary} defaultCollapsed={true}>
                         <ObjectDetail objectId={computedId} objectName={t.name} />
