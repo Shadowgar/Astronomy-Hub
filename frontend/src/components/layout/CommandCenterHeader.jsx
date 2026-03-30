@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import LocationSelector from '../LocationSelector/LocationSelector'
 import AppButton from '../ui/AppButton'
 import CommandBar from '../ui/CommandBar'
@@ -28,12 +29,9 @@ export default function CommandCenterHeader({
     <header className="app-header app-header-utility" role="banner">
       <h1>Astronomy Hub</h1>
       <nav aria-label="Primary" className="progress-nav">
-        <a
-          href="/progress"
-          className="progress-link"
-        >
+        <Link to="/progress" className="progress-link">
           Progress
-        </a>
+        </Link>
       </nav>
       <div className="header-controls">
         <div className="location-section">
