@@ -38,6 +38,7 @@ logs/
 .env.*.local
 .env.local
 .code-workspace
+AGENTS.md
 
 # Node
 node_modules/
@@ -55,6 +56,7 @@ out/
 *.iml
 *.sublime-project
 *.sublime-workspace
+.agents
 
 # OS artifacts
 .DS_Store
