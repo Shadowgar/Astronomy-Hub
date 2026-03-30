@@ -29,7 +29,7 @@ tasks:
 
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
 
-    - docs/phases/PHASE_BE_EXECUTION.md
+    - docs/execution/backend/PHASE_BE_EXECUTION.md
 
   frontend_change:
     load:
@@ -43,7 +43,7 @@ tasks:
 
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
 
-    - docs/phases/PHASE_FE_EXECUTION.md
+    - docs/execution/frontend/PHASE_FE_EXECUTION.md
 
   docs_change:
     load:
