@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { useConditionsDataQuery } from '../features/conditions/queries'
-import { useAlertsQuery } from '../features/alerts/queries'
-import { usePassesQuery } from '../features/passes/queries'
-import { useTargetsQuery } from '../features/targets/queries'
+import { useAlertsListQuery } from '../features/alerts/queries'
+import { usePassesListQuery } from '../features/passes/queries'
+import { useTargetsListQuery } from '../features/targets/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
 import AppButton from './ui/AppButton'
 import useGlobalUiState from '../state/globalUiState'
@@ -51,14 +51,14 @@ export default function PrimaryDecisionPanel({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
   const { selectedObjectId } = useGlobalUiState()
   const conditionsQuery = useConditionsDataQuery(queryParams)
-  const targetsQuery = useTargetsQuery(queryParams)
-  const alertsQuery = useAlertsQuery(queryParams)
-  const passesQuery = usePassesQuery(queryParams)
+  const targetsQuery = useTargetsListQuery(queryParams)
+  const alertsQuery = useAlertsListQuery(queryParams)
+  const passesQuery = usePassesListQuery(queryParams)
 
   const conds = conditionsQuery.data || null
-  const targets = Array.isArray(targetsQuery.data) ? targetsQuery.data : []
-  const alerts = Array.isArray(alertsQuery.data) ? alertsQuery.data : []
-  const passes = Array.isArray(passesQuery.data) ? passesQuery.data : []
+  const targets = targetsQuery.data
+  const alerts = alertsQuery.data
+  const passes = passesQuery.data
   const loading = conditionsQuery.isLoading || targetsQuery.isLoading || alertsQuery.isLoading || passesQuery.isLoading
   const hasError = conditionsQuery.isError || targetsQuery.isError || alertsQuery.isError || passesQuery.isError
   const errorMessage =
