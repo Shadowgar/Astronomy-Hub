@@ -51,8 +51,8 @@ It does NOT:
 
 ## CURRENT POSITION
 
-* current task: PHASE 1 AUTHORITATIVE CLOSEOUT PASS
-* current step: FINAL PHASE LOCK RECONCILIATION (COMPLETE)
+* current task: PHASE 2 EXECUTION
+* current step: STEP 1 — STATE FOUNDATION (COMPLETE / LOCKED)
 
 ---
 
@@ -114,11 +114,15 @@ It does NOT:
   * result: LOCKED
   * validation: no mounted scope/engine/filter selectors or Phase 2+ controls; no mounted 3D globe/timeline/prediction/personalization surfaces.
 
+* step: PHASE 2 STEP 1 — STATE FOUNDATION
+  * result: LOCKED
+  * validation: `frontend/src/state/globalUiState.js` tracks `activeScope`, `activeEngine`, `activeFilter`, `selectedObjectId`, `activeSceneState`; Docker runtime reload proof (Playwright) shows `selectedObjectId` and `activeSceneState` restored from `astronomyHub.globalUiState`; deterministic state behavior re-verified with `npm --prefix frontend run test`, `npm --prefix frontend run type-check`, and `npm --prefix frontend run build`.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: hold at Phase 1 lock boundary and wait for explicit approval before Phase 2 execution.
+* next step: execute PHASE 2 STEP 2 — SCOPE SYSTEM (verify first, fix minimally only if invalid).
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

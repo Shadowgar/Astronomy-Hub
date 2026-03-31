@@ -86,14 +86,15 @@ Scope:
 - docs/execution/SESSION_STATE.md populated with Phase 1 step lock records
 - final Phase 1 lock re-evaluated against runtime + tests + authority docs
 - Phase 1 status updated to LOCKED
+- Phase 2 STEP 1 (STATE FOUNDATION) locked with implementation + tracking proof
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- begin Phase 2 build-sequence execution at STEP 1
-- verify current repo state against the Phase 2 STEP 1 requirement before making changes
-- update authoritative tracking when STEP 1 is locked
+- execute Phase 2 STEP 2 (SCOPE SYSTEM)
+- verify current repo state against the Phase 2 STEP 2 requirement before making changes
+- update authoritative tracking when STEP 2 is locked
 
 ---
 

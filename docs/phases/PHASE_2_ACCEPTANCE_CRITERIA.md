@@ -17,7 +17,7 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [ ] System tracks:
+* [x] System tracks:
 
   * active scope
   * active engine
@@ -25,9 +25,9 @@ If any condition cannot be proven → Phase 2 is NOT complete.
   * current scene
   * selected object
 
-* [ ] State is deterministic (same inputs → same outputs)
+* [x] State is deterministic (same inputs → same outputs)
 
-* [ ] State is restorable (reload preserves context)
+* [x] State is restorable (reload preserves context)
 
 ---
 
@@ -374,4 +374,3 @@ No interpretation allowed.
 ```
 
 ```
-
