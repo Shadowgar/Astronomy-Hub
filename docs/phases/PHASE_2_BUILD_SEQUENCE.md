@@ -383,7 +383,16 @@ Phase 2 scope is clean.
 * provider baseline is wired and traceable in runtime:
 
   * Open-Meteo (conditions)
-  * CelesTrak (satellites)
+  * Satellite provider chain is active and traceable with deterministic fallback order:
+
+    1. Space-Track (credentialed primary)
+    2. CelesTrak
+    3. SatNOGS
+    4. N2YO (credentialed, location-aware)
+    5. TLE API (`tle.ivanstanojevic.me`)
+    6. g7vrd pass API (location-aware pass candidates)
+    7. WhereTheISS (ISS-only last resort)
+
   * OpenSky Network (flights)
   * JPL/NASA ephemeris (Sun/planet/moon positions)
   * NOAA SWPC (space-weather/alerts)

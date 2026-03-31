@@ -31,7 +31,7 @@ def test_pipeline_normalizes_and_whitelists_provider_data(monkeypatch):
     monkeypatch.setattr(
         live_ingestion,
         "fetch_celestrak_active",
-        lambda limit=400: [{"id": "25544", "name": "ISS", "OBJECT_TYPE": "PAYLOAD"}],
+        lambda limit=400, **kwargs: [{"id": "25544", "name": "ISS", "OBJECT_TYPE": "PAYLOAD"}],
     )
     monkeypatch.setattr(
         live_ingestion,
@@ -88,7 +88,7 @@ def test_stale_conditions_are_rejected_and_degraded(monkeypatch):
             "last_updated": "2026-03-30T00:00:00Z",
         },
     )
-    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400: [])
+    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
     monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
     monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None: [])
     monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
@@ -119,7 +119,7 @@ def test_pipeline_cache_prevents_refetch_for_same_context(monkeypatch):
         }
 
     monkeypatch.setattr(live_ingestion, "fetch_open_meteo_conditions", _conditions)
-    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400: [])
+    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
     monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
     monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None: [])
     monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
@@ -154,7 +154,7 @@ def test_pipeline_cache_refreshes_after_ttl_expiry(monkeypatch):
         }
 
     monkeypatch.setattr(live_ingestion, "fetch_open_meteo_conditions", _conditions)
-    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400: [])
+    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
     monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
     monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None: [])
     monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])

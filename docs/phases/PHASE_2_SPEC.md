@@ -346,11 +346,23 @@ for the active location and current time context.
 ## PROVIDER BASELINE (PHASE 2)
 
 * Open-Meteo — observing conditions input
-* CelesTrak — satellite TLE/orbital input
+* Satellite provider chain (authoritative order):
+
+  * Space-Track — primary satellite orbital catalog when credentials are configured
+  * CelesTrak — public satellite TLE/orbital baseline
+  * SatNOGS — public alive-satellite catalog fallback
+  * N2YO — location-aware satellite-above fallback when API key is configured
+  * TLE API (`tle.ivanstanojevic.me`) — public catalog fallback
+  * g7vrd pass API — location-aware pass-candidate fallback
+  * WhereTheISS — last-resort ISS-only fallback
+
 * OpenSky Network — flight tracking input
 * JPL/NASA ephemeris data — Sun/planet/moon positional input
 * NOAA SWPC — space-weather/alert input
 * NASA Images API — media enrichment only (not scene truth authority)
+
+Satellite objects must expose `provider_source` matching the active source path
+(for example: `space_track`, `celestrak`, `satnogs`, `n2yo`, `tle_api`, `g7vrd`, `wheretheiss`).
 
 ---
 
@@ -503,13 +515,28 @@ Used for:
 * visibility-related conditions where available
 * general weather context used by Above Me / Earth decision surfaces
 
-## 18.2 CelesTrak
+## 18.2 Satellite Provider Chain (Authoritative Order)
 
 Used for:
 
 * satellite TLE / orbital source data
 * visible pass candidate generation input
-* satellite identity baseline where appropriate
+* satellite identity baseline and fallback continuity
+
+Execution order:
+
+1. Space-Track (if credentials available)
+2. CelesTrak
+3. SatNOGS
+4. N2YO (if API key available and location provided)
+5. TLE API (`tle.ivanstanojevic.me`)
+6. g7vrd pass API (location-aware pass candidates)
+7. WhereTheISS (ISS-only last resort)
+
+Credential gates:
+
+* Space-Track requires `SPACE_TRACK_IDENTITY` (or `SPACE_TRACK_USERNAME`) and `SPACE_TRACK_PASSWORD`
+* N2YO requires `N2YO_API_KEY`
 
 ## 18.3 OpenSky Network
 

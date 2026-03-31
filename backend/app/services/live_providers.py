@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 import math
+import os
 import threading
 import time
 from typing import Any
@@ -16,6 +17,12 @@ PROVIDER_CACHE_TTL_SECONDS: dict[str, int] = {
     "open_meteo": 300,
     "opensky": 90,
     "celestrak": 3600,
+    "space_track": 1800,
+    "satnogs": 3600,
+    "n2yo": 300,
+    "tle_api": 3600,
+    "g7vrd": 300,
+    "wheretheiss": 60,
     "jpl_ephemeris": 1800,
     "noaa_swpc": 3600,
 }
@@ -156,20 +163,28 @@ def fetch_opensky_nearby(lat: float, lon: float, *, radius_km: float = 350.0, li
     return result
 
 
-def fetch_celestrak_active(*, limit: int = 500) -> list[dict[str, Any]]:
+def fetch_celestrak_active(*, limit: int = 500, lat: float | None = None, lon: float | None = None) -> list[dict[str, Any]]:
+    # Prefer Space-Track when credentials are configured.
+    space_track_active = fetch_space_track_active(limit=limit)
+    if space_track_active:
+        return space_track_active
+
     now_hour = datetime.now(timezone.utc).strftime("%Y%m%d%H")
     cache_key = f"celestrak:active:{limit}:{now_hour}"
     cached = _cache_get(cache_key)
     if isinstance(cached, list):
         return cached
 
-    payload = _http_get_json(
-        "https://celestrak.org/NORAD/elements/gp.php",
-        params={"GROUP": "active", "FORMAT": "json"},
-        timeout_s=4.0,
-    )
+    try:
+        payload = _http_get_json(
+            "https://celestrak.org/NORAD/elements/gp.php",
+            params={"GROUP": "active", "FORMAT": "json"},
+            timeout_s=4.0,
+        )
+    except Exception:
+        payload = []
     if not isinstance(payload, list):
-        return []
+        payload = []
     out: list[dict[str, Any]] = []
     for entry in payload[: max(0, int(limit))]:
         if not isinstance(entry, dict):
@@ -181,9 +196,267 @@ def fetch_celestrak_active(*, limit: int = 500) -> list[dict[str, Any]]:
             {
                 "id": str(entry.get("NORAD_CAT_ID") or name).strip().lower(),
                 "name": name,
+                "source": "celestrak",
             }
         )
-    _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["celestrak"])
+    if out:
+        _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["celestrak"])
+        return out
+
+    satnogs_active = fetch_satnogs_active(limit=limit)
+    if satnogs_active:
+        return satnogs_active
+
+    if lat is not None and lon is not None:
+        n2yo_active = fetch_n2yo_above(lat, lon, limit=min(limit, 100))
+        if n2yo_active:
+            return n2yo_active
+
+    tle_api_active = fetch_tle_api_active(limit=limit)
+    if tle_api_active:
+        return tle_api_active
+
+    if lat is not None and lon is not None:
+        g7vrd_candidates = fetch_g7vrd_pass_candidates(lat, lon, limit=min(limit, 12))
+        if g7vrd_candidates:
+            return g7vrd_candidates
+
+    # Last-resort fallback returns ISS only.
+    return fetch_wheretheiss_active(limit=limit)
+
+
+def fetch_space_track_active(*, limit: int = 500) -> list[dict[str, Any]]:
+    identity = os.getenv("SPACE_TRACK_IDENTITY") or os.getenv("SPACE_TRACK_USERNAME")
+    password = os.getenv("SPACE_TRACK_PASSWORD")
+    if not identity or not password:
+        return []
+
+    now_hour = datetime.now(timezone.utc).strftime("%Y%m%d%H")
+    cache_key = f"space_track:gp:{limit}:{now_hour}"
+    cached = _cache_get(cache_key)
+    if isinstance(cached, list):
+        return cached
+
+    try:
+        with httpx.Client(timeout=6.0, headers={"User-Agent": "astronomy-hub/live-providers"}) as client:
+            login = client.post(
+                "https://www.space-track.org/ajaxauth/login",
+                data={"identity": identity, "password": password},
+            )
+            login.raise_for_status()
+            response = client.get(
+                "https://www.space-track.org/basicspacedata/query/class/gp/"
+                "decay_date/null-val/epoch/%3Enow-30/orderby/NORAD_CAT_ID/"
+                f"limit/{max(1, int(limit))}/format/json"
+            )
+            response.raise_for_status()
+            payload = response.json()
+    except Exception:
+        return []
+
+    if not isinstance(payload, list):
+        return []
+
+    out: list[dict[str, Any]] = []
+    for entry in payload:
+        if not isinstance(entry, dict):
+            continue
+        sat_id = str(entry.get("NORAD_CAT_ID") or entry.get("norad_cat_id") or "").strip()
+        name = str(entry.get("OBJECT_NAME") or entry.get("object_name") or "").strip()
+        if not sat_id or not name:
+            continue
+        out.append({"id": sat_id.lower(), "name": name, "source": "space_track"})
+
+    if out:
+        _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["space_track"])
+    return out
+
+
+def fetch_satnogs_active(*, limit: int = 500) -> list[dict[str, Any]]:
+    now_hour = datetime.now(timezone.utc).strftime("%Y%m%d%H")
+    cache_key = f"satnogs:active:{limit}:{now_hour}"
+    cached = _cache_get(cache_key)
+    if isinstance(cached, list):
+        return cached
+
+    try:
+        payload = _http_get_json(
+            "https://db.satnogs.org/api/satellites/",
+            params={"format": "json", "status": "alive"},
+            timeout_s=6.0,
+        )
+    except Exception:
+        payload = []
+    if not isinstance(payload, list):
+        return []
+
+    out: list[dict[str, Any]] = []
+    for entry in payload:
+        if not isinstance(entry, dict):
+            continue
+        name = str(entry.get("name") or "").strip()
+        norad = entry.get("norad_cat_id")
+        sat_id = str(norad if norad not in (None, "") else entry.get("sat_id") or "").strip()
+        if not name or not sat_id:
+            continue
+        out.append({"id": sat_id.lower(), "name": name, "source": "satnogs"})
+        if len(out) >= max(1, int(limit)):
+            break
+
+    if out:
+        _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["satnogs"])
+    return out
+
+
+def fetch_n2yo_above(lat: float, lon: float, *, limit: int = 100, radius_km: int = 70) -> list[dict[str, Any]]:
+    api_key = os.getenv("N2YO_API_KEY")
+    if not api_key:
+        return []
+
+    now_bucket = datetime.now(timezone.utc).strftime("%Y%m%d%H%M")[:-1]  # 10-minute cache bucket
+    cache_key = f"n2yo:above:{round(lat, 2)}:{round(lon, 2)}:{radius_km}:{limit}:{now_bucket}"
+    cached = _cache_get(cache_key)
+    if isinstance(cached, list):
+        return cached
+
+    try:
+        payload = _http_get_json(
+            (
+                "https://api.n2yo.com/rest/v1/satellite/above/"
+                f"{lat:.4f}/{lon:.4f}/0/{max(1, int(radius_km))}/0/&apiKey={api_key}"
+            ),
+            timeout_s=5.0,
+        )
+    except Exception:
+        return []
+
+    items = payload.get("above") if isinstance(payload, dict) else None
+    if not isinstance(items, list):
+        return []
+
+    out: list[dict[str, Any]] = []
+    for entry in items:
+        if not isinstance(entry, dict):
+            continue
+        sat_id = str(entry.get("satid") or "").strip()
+        name = str(entry.get("satname") or "").strip()
+        if not sat_id or not name:
+            continue
+        out.append({"id": sat_id.lower(), "name": name, "source": "n2yo"})
+        if len(out) >= max(1, int(limit)):
+            break
+
+    if out:
+        _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["n2yo"])
+    return out
+
+
+def fetch_tle_api_active(*, limit: int = 500) -> list[dict[str, Any]]:
+    now_hour = datetime.now(timezone.utc).strftime("%Y%m%d%H")
+    cache_key = f"tle_api:active:{limit}:{now_hour}"
+    cached = _cache_get(cache_key)
+    if isinstance(cached, list):
+        return cached
+
+    try:
+        payload = _http_get_json(
+            "https://tle.ivanstanojevic.me/api/tle/",
+            params={"format": "json"},
+            timeout_s=6.0,
+        )
+    except Exception:
+        return []
+
+    if isinstance(payload, dict):
+        items = payload.get("member")
+    elif isinstance(payload, list):
+        items = payload
+    else:
+        items = None
+    if not isinstance(items, list):
+        return []
+
+    out: list[dict[str, Any]] = []
+    for entry in items:
+        if not isinstance(entry, dict):
+            continue
+        sat_id = str(entry.get("satelliteId") or entry.get("satellite_id") or "").strip()
+        name = str(entry.get("name") or "").strip()
+        if not sat_id or not name:
+            continue
+        out.append({"id": sat_id.lower(), "name": name, "source": "tle_api"})
+        if len(out) >= max(1, int(limit)):
+            break
+
+    if out:
+        _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["tle_api"])
+    return out
+
+
+def fetch_g7vrd_pass_candidates(lat: float, lon: float, *, limit: int = 12, hours: int = 12) -> list[dict[str, Any]]:
+    now_bucket = datetime.now(timezone.utc).strftime("%Y%m%d%H%M")[:-1]  # 10-minute cache bucket
+    cache_key = f"g7vrd:passes:{round(lat, 2)}:{round(lon, 2)}:{hours}:{limit}:{now_bucket}"
+    cached = _cache_get(cache_key)
+    if isinstance(cached, list):
+        return cached
+
+    # Small, stable set of commonly observed objects for deterministic pass-candidate fallback.
+    candidate_ids = (
+        ("25544", "ISS"),
+        ("20580", "HST"),
+        ("48274", "TIANGONG"),
+        ("25338", "NOAA 15"),
+        ("28654", "NOAA 18"),
+        ("33591", "NOAA 19"),
+    )
+
+    out: list[dict[str, Any]] = []
+    for sat_id, default_name in candidate_ids:
+        try:
+            payload = _http_get_json(
+                f"https://api.g7vrd.co.uk/v1/satellite-passes/{sat_id}/{lat:.4f}/{lon:.4f}.json",
+                params={"minelevation": 12, "hours": max(1, int(hours))},
+                timeout_s=4.0,
+            )
+        except Exception:
+            continue
+        passes = payload.get("passes") if isinstance(payload, dict) else None
+        if not isinstance(passes, list) or not passes:
+            continue
+        sat_name = str(payload.get("satellite_name") or default_name).strip() or default_name
+        out.append({"id": sat_id, "name": sat_name, "source": "g7vrd"})
+        if len(out) >= max(1, int(limit)):
+            break
+
+    if out:
+        _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["g7vrd"])
+    return out
+
+
+def fetch_wheretheiss_active(*, limit: int = 500) -> list[dict[str, Any]]:
+    if int(limit) <= 0:
+        return []
+
+    now_minute = datetime.now(timezone.utc).strftime("%Y%m%d%H%M")
+    cache_key = f"wheretheiss:25544:{now_minute}"
+    cached = _cache_get(cache_key)
+    if isinstance(cached, list):
+        return cached
+
+    try:
+        payload = _http_get_json("https://api.wheretheiss.at/v1/satellites/25544", timeout_s=4.0)
+    except Exception:
+        return []
+    if not isinstance(payload, dict):
+        return []
+
+    sat_id = str(payload.get("id") or "25544").strip()
+    sat_name = str(payload.get("name") or "ISS").strip().upper()
+    if not sat_id:
+        return []
+
+    out = [{"id": sat_id.lower(), "name": sat_name, "source": "wheretheiss"}]
+    _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["wheretheiss"])
     return out
 
 

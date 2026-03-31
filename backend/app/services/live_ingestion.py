@@ -88,7 +88,8 @@ def _adapt_sats(raw: Any) -> list[dict[str, Any]]:
         name = str(item.get("name") or "").strip()
         if not sat_id or not name:
             continue
-        out.append({"id": sat_id, "name": name})
+        source = str(item.get("source") or "celestrak").strip().lower()
+        out.append({"id": sat_id, "name": name, "source": source})
     return out
 
 
@@ -274,7 +275,7 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
     except Exception:
         raw_conditions = None
     try:
-        raw_sats = fetch_celestrak_active(limit=400)
+        raw_sats = fetch_celestrak_active(limit=400, lat=lat, lon=lon)
     except Exception:
         raw_sats = None
     try:
@@ -297,7 +298,21 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
     adapted_alerts = _adapt_alerts(raw_alerts)
 
     norm_conditions = _normalize_conditions(adapted_conditions)
-    norm_sats = _normalize_list(adapted_sats, "celestrak", ("id", "name"))
+    norm_sats = []
+    for sat in adapted_sats:
+        if not isinstance(sat, dict):
+            continue
+        sat_id = str(sat.get("id") or "").strip()
+        name = str(sat.get("name") or "").strip()
+        if not sat_id or not name:
+            continue
+        norm_sats.append(
+            {
+                "id": sat_id,
+                "name": name,
+                "source": str(sat.get("source") or "celestrak").strip().lower(),
+            }
+        )
     norm_flights = _normalize_list(
         adapted_flights,
         "opensky",
@@ -308,6 +323,9 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
 
     cond_ok, cond_reason = _validate_conditions(norm_conditions, now)
     sat_ok, sat_reason = _validate_list(norm_sats, ("id", "name"))
+    if sat_ok and not norm_sats:
+        sat_ok = False
+        sat_reason = "no_data"
     flight_ok, flight_reason = _validate_list(
         norm_flights,
         ("id", "name", "distance_km", "elevation", "longitude", "latitude"),
@@ -315,9 +333,15 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
     eph_ok, eph_reason = _validate_list(norm_ephemeris, ("id", "name", "azimuth", "elevation"))
     alert_ok, alert_reason = _validate_list(norm_alerts, ("priority", "category", "title", "summary", "relevance"))
 
+    sat_reason_effective = sat_reason
+    if sat_ok and norm_sats:
+        sat_source = str((norm_sats[0] or {}).get("source") or "").strip().lower()
+        if sat_source and sat_source != "celestrak":
+            sat_reason_effective = f"fallback:{sat_source}"
+
     providers = {
         "open_meteo": _provider_status(cond_ok, cond_reason, "miss"),
-        "celestrak": _provider_status(sat_ok, sat_reason, "miss"),
+        "celestrak": _provider_status(sat_ok, sat_reason_effective, "miss"),
         "opensky": _provider_status(flight_ok, flight_reason, "miss"),
         "jpl_ephemeris": _provider_status(eph_ok, eph_reason, "miss"),
         "noaa_swpc": _provider_status(alert_ok, alert_reason, "miss"),

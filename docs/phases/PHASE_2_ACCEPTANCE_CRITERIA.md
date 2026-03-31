@@ -379,6 +379,20 @@ User MUST be able to:
 * [x] Time affects scene output
 * [x] Provider degradation is explicit
 * [x] Provider baseline implemented and traceable
+* [x] Satellite provider chain is documented, implemented, and traceable by `provider_source`:
+
+  1. `space_track` (credentialed primary)
+  2. `celestrak`
+  3. `satnogs`
+  4. `n2yo` (credentialed, location-aware)
+  5. `tle_api`
+  6. `g7vrd` (location-aware pass candidates)
+  7. `wheretheiss` (ISS-only last resort)
+
+* [x] Credential-gated providers are explicit:
+
+  * Space-Track requires `SPACE_TRACK_IDENTITY` (or `SPACE_TRACK_USERNAME`) + `SPACE_TRACK_PASSWORD`
+  * N2YO requires `N2YO_API_KEY`
 
 ---
 

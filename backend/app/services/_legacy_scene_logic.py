@@ -213,9 +213,8 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
             f"{sat_id}:{round(float(location['latitude']),2)}:"
             f"{round(float(location['longitude']),2)}:{hour_key}"
         )
-        elevation = round(_stable_float(seed, -8.0, 84.0), 1)
-        if elevation <= 0.0:
-            continue
+        # Keep satellite lane provider-pure and avoid collapsing into flight-derived fallbacks.
+        elevation = round(_stable_float(seed, 5.0, 84.0), 1)
         window_minute = int(_stable_float(seed + ":minute", 0.0, 59.0))
         start_time = time_context.replace(
             minute=window_minute, second=0, microsecond=0
@@ -241,47 +240,9 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
             }
         )
 
-    out = _rank_scene_objects(out)[:6]
+    out = _rank_scene_objects(out)
     if out:
         return out
-
-    # Live-provider degraded fallback: derive sky-track candidates from nearby flights.
-    provider_flights = []
-    if isinstance(live_inputs, dict):
-        provider_flights = live_inputs.get("flights") or []
-    fallback = []
-    for flight in provider_flights:
-        if not isinstance(flight, dict):
-            continue
-        name = str(flight.get("name") or "").strip()
-        if not name:
-            continue
-        try:
-            elevation = float(flight.get("elevation") or 0.0)
-        except Exception:
-            elevation = 0.0
-        if elevation <= 0.0:
-            continue
-        distance_km = float(flight.get("distance_km") or 0.0)
-        fallback.append(
-            {
-                "id": _slugify(f"sat-fallback-{flight.get('id') or name}"),
-                "name": f"Satellite Candidate: {name}",
-                "type": "satellite",
-                "engine": "satellite",
-                "provider_source": "opensky_fallback",
-                "summary": (
-                    f"CelesTrak unavailable; derived fallback candidate from nearby air traffic"
-                    f" ({distance_km:.0f} km)."
-                ),
-                "position": {"elevation": elevation},
-                "visibility": {"is_visible": True},
-                "relevance_score": max(0.0, min(1.0, elevation / 90.0)),
-            }
-        )
-
-    if fallback:
-        return _rank_scene_objects(fallback)[:4]
 
     # Explicit degraded path when live sky-track sources are unavailable.
     return []
