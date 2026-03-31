@@ -76,7 +76,7 @@ These items are explicitly deferred and do not block corrective exit.
 ## 5. CURRENT OBJECTIVE
 
 ```text
-Execute Phase 2 STEP 17 (engine input refactor)
+Execute Phase 2 STEP 18 (remove mock data)
 before any Phase 2 relock attempt.
 ```
 

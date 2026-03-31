@@ -36,7 +36,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Step 14 through Step 16 are now proven; phase remains unlocked pending Step 17+ completion.
+- condition: Step 14 through Step 17 are now proven; phase remains unlocked pending Step 18+ completion.
 
 Phase 3:
 - status: NOT STARTED
@@ -55,7 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 17 (ENGINE INPUT REFACTOR)
+- execute Phase 2 STEP 18 (REMOVE MOCK DATA)
 - preserve command-center integrity and backend-authoritative Scene → Object → Detail behavior
 
 SECONDARY:
@@ -103,13 +103,14 @@ Scope:
 - Phase 2 STEP 14 (LIVE DATA & LOCATION-TIME AUTHORITY) locked with provider-backed runtime proof, explicit degraded-mode proof, and acceptance tracking updates.
 - Phase 2 STEP 15 (DATA INGESTION SYSTEM) locked with Provider → Adapter → Normalizer → Validator → Cache → Engine Input implementation proof and ingestion-pipeline test coverage.
 - Phase 2 STEP 16 (CACHE SYSTEM) locked with provider-specific TTL proof, stale-input detection proof, cache refresh proof, and runtime freshness-trace exposure.
+- Phase 2 STEP 17 (ENGINE INPUT REFACTOR) locked with provider-backed engine-input enforcement in legacy scene assembly, removal of `get_targets`/`MOCK_ALERTS` runtime dependencies, and runtime proof of no `engine=mock` scene objects.
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 17 — ENGINE INPUT REFACTOR
-- verify engines consume only normalized provider-backed inputs before proceeding
+- execute Phase 2 STEP 18 — REMOVE MOCK DATA
+- verify runtime `MOCK_*` usage is removed and no static success fallback remains before proceeding
 
 ---
 

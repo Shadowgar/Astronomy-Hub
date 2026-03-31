@@ -4,10 +4,8 @@ from copy import deepcopy
 from datetime import datetime, timezone
 import hashlib
 
-from backend.alerts_data import MOCK_ALERTS
 from backend.normalizers import registry
 from backend.app.services.live_ingestion import fetch_normalized_live_inputs
-from backend.targets_data import get_targets
 
 
 logger = logging.getLogger("backend.app.services.legacy_scene_logic")
@@ -193,50 +191,6 @@ def _ensure_object_id(obj):
     return None
 
 
-def _get_normalized_targets():
-    """Return Phase 1 target summaries normalized to SceneObjectSummary shape."""
-    try:
-        raw_targets = get_targets(with_images=False)
-    except Exception:
-        raw_targets = []
-
-    normalized = None
-    try:
-        try:
-            norm_callable = registry.get("targets")
-        except KeyError:
-            norm_callable = None
-
-        if norm_callable is not None:
-            normalized = norm_callable(raw_targets)
-    except Exception:
-        normalized = None
-
-    if isinstance(normalized, list):
-        return normalized
-
-    out = []
-    for target in raw_targets:
-        if not isinstance(target, dict):
-            continue
-        category = target.get("category")
-        if category not in ("planet", "deep_sky", "satellite"):
-            continue
-        out.append(
-            {
-                "id": _slugify(target.get("name") or "unknown"),
-                "name": target.get("name") or "unknown",
-                "type": category,
-                "engine": "mock",
-                "summary": target.get("reason") or target.get("summary") or "",
-                "position": None,
-                "visibility": None,
-                "relevance_score": None,
-            }
-        )
-    return out
-
-
 def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_inputs=None):
     """Provider-backed satellite slice with deterministic location/time influence."""
     location = _resolve_location(parsed_location)
@@ -366,33 +320,43 @@ def _build_solar_system_engine_slice(parsed_location=None, time_context=None, li
 
     if out:
         return _rank_scene_objects(out)[:4]
-
-    # Degraded fallback to normalized local targets if ephemeris is unavailable.
-    fallback = []
-    for target in _get_normalized_targets():
-        if target.get("type") != "planet":
-            continue
-        candidate = dict(target)
-        candidate["engine"] = "solar_system"
-        candidate["summary"] = candidate.get("summary") or "Degraded fallback planet context."
-        if candidate.get("relevance_score") is None:
-            candidate["relevance_score"] = 0.7
-        fallback.append(candidate)
-    return fallback[:3]
+    return []
 
 
-def _build_deep_sky_engine_slice():
-    """Phase 1 Deep Sky slice: visible tonight only."""
+def _build_deep_sky_engine_slice(live_inputs=None):
+    """Provider-backed deep-sky context derived from live alert inputs."""
+    alerts = []
+    if isinstance(live_inputs, dict):
+        alerts = live_inputs.get("alerts") or []
+
     out = []
-    for target in _get_normalized_targets():
-        if target.get("type") != "deep_sky":
+    for index, alert in enumerate(alerts):
+        if not isinstance(alert, dict):
             continue
-        candidate = dict(target)
-        candidate["engine"] = "deep_sky"
-        if candidate.get("relevance_score") is None:
-            candidate["relevance_score"] = 0.6
-        out.append(candidate)
-    return out
+        title = str(alert.get("title") or "").strip()
+        summary = str(alert.get("summary") or "").strip()
+        relevance = str(alert.get("relevance") or "low").strip().lower()
+        if not title:
+            continue
+        if relevance == "high":
+            score = 0.85
+        elif relevance == "medium":
+            score = 0.65
+        else:
+            score = 0.45
+        out.append(
+            {
+                "id": _slugify(f"deep-sky-{index}-{title}"),
+                "name": title,
+                "type": "deep_sky",
+                "engine": "deep_sky",
+                "summary": summary or "Provider-backed deep-sky context.",
+                "position": None,
+                "visibility": {"is_visible": True},
+                "relevance_score": score,
+            }
+        )
+    return _rank_scene_objects(out)[:4]
 
 
 def _build_earth_engine_slice(parsed_location=None, live_inputs=None):
@@ -545,7 +509,13 @@ def _build_phase2_scene_group(title, reason, objects):
 
 
 def _build_phase2_deep_sky_scene(filter_slug, parsed_location=None):
-    objects = _to_phase2_scene_objects(_build_deep_sky_engine_slice(), "deep_sky")
+    location = _resolve_location(parsed_location)
+    time_context = _resolve_time_context()
+    live_inputs = _fetch_live_inputs(location, time_context)
+    objects = _to_phase2_scene_objects(
+        _build_deep_sky_engine_slice(live_inputs=live_inputs),
+        "deep_sky",
+    )
     scene_summary = "Deep-sky targets that are currently practical to observe."
     if filter_slug == "naked_eye":
         scene_summary = "Deep-sky targets surfaced for easier visual observing context."
@@ -569,8 +539,15 @@ def _build_phase2_deep_sky_scene(filter_slug, parsed_location=None):
 
 
 def _build_phase2_planets_scene(filter_slug, parsed_location=None):
+    location = _resolve_location(parsed_location)
+    time_context = _resolve_time_context()
+    live_inputs = _fetch_live_inputs(location, time_context)
     objects = _to_phase2_scene_objects(
-        _build_solar_system_engine_slice(parsed_location=parsed_location),
+        _build_solar_system_engine_slice(
+            parsed_location=parsed_location,
+            time_context=time_context,
+            live_inputs=live_inputs,
+        ),
         "planets",
     )
     groups = [
@@ -593,24 +570,25 @@ def _build_phase2_planets_scene(filter_slug, parsed_location=None):
 
 
 def _build_phase2_moon_scene(filter_slug, parsed_location=None):
-    conditions = _build_earth_engine_slice(parsed_location)
-    moon_phase = conditions.get("moon_phase") or "Unknown"
-    moon_summary = f"Moon phase tonight: {moon_phase}"
-    moon_object = {
-        "id": "moon",
-        "name": "Moon",
-        "type": "planet",
-        "engine": "moon",
-        "summary": moon_summary,
-        "reason": "Moon is always relevant for observing quality and lunar viewing.",
-        "position": None,
-        "visibility": {"is_visible": True},
-    }
+    location = _resolve_location(parsed_location)
+    time_context = _resolve_time_context()
+    live_inputs = _fetch_live_inputs(location, time_context)
+    solar_objects = _build_solar_system_engine_slice(
+        parsed_location=parsed_location,
+        time_context=time_context,
+        live_inputs=live_inputs,
+    )
+    moon_object = next((obj for obj in solar_objects if str(obj.get("id") or "") == "moon"), None)
+    moon_scene_object = (
+        _to_phase2_scene_objects([moon_object], "moon")[0]
+        if isinstance(moon_object, dict)
+        else None
+    )
     groups = [
         _build_phase2_scene_group(
             "Moon Conditions",
             "Moon phase and observing impact grouped for quick planning.",
-            [moon_object],
+            [moon_scene_object] if isinstance(moon_scene_object, dict) else [],
         )
     ]
     return {
@@ -626,8 +604,15 @@ def _build_phase2_moon_scene(filter_slug, parsed_location=None):
 
 
 def _build_phase2_satellites_scene(filter_slug, parsed_location=None):
+    location = _resolve_location(parsed_location)
+    time_context = _resolve_time_context()
+    live_inputs = _fetch_live_inputs(location, time_context)
     objects = _to_phase2_scene_objects(
-        _build_satellite_engine_slice(parsed_location=parsed_location),
+        _build_satellite_engine_slice(
+            parsed_location=parsed_location,
+            time_context=time_context,
+            live_inputs=live_inputs,
+        ),
         "satellites",
     )
     high_priority = []
@@ -813,7 +798,7 @@ def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
         time_context=time_context,
         live_inputs=live_inputs,
     )
-    deep_sky_objects = _build_deep_sky_engine_slice()
+    deep_sky_objects = _build_deep_sky_engine_slice(live_inputs=live_inputs)
 
     objects = [
         obj
@@ -985,20 +970,25 @@ def build_phase1_object_detail(found, scene_objects=None):
     if not isinstance(detail.get("visibility"), dict):
         detail["visibility"] = {"is_visible": True}
 
-    related_news = []
-    for alert in MOCK_ALERTS:
-        if not isinstance(alert, dict):
+    related = []
+    for candidate in scene_objects:
+        if not isinstance(candidate, dict):
             continue
-        related_news.append(
+        candidate_id = candidate.get("id")
+        if candidate_id == found.get("id"):
+            continue
+        related.append(
             {
-                "id": _slugify(alert.get("title") or "alert"),
-                "type": "news",
-                "title": alert.get("title"),
-                "summary": alert.get("summary"),
-                "relevance": alert.get("relevance"),
+                "id": _slugify(candidate_id or candidate.get("name") or "related"),
+                "type": "object",
+                "title": candidate.get("name") or "Related Object",
+                "summary": candidate.get("summary") or "",
+                "relevance": "medium",
             }
         )
-    detail["related_objects"] = related_news
+        if len(related) >= 3:
+            break
+    detail["related_objects"] = related
 
     try:
         from backend.services.imageResolver import get_object_image

@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 17 — ENGINE INPUT REFACTOR (IN PROGRESS)
+* current step: PHASE 2 STEP 18 — REMOVE MOCK DATA (IN PROGRESS)
 
 ---
 
@@ -190,11 +190,15 @@ It does NOT:
   * result: LOCKED
   * validation: provider-specific TTL controls are explicit and enforced in `backend/app/services/live_providers.py` via `PROVIDER_CACHE_TTL_SECONDS` (`open_meteo=300`, `opensky=90`, `celestrak=3600`, `jpl_ephemeris=1800`, `noaa_swpc=3600`); ingestion cache freshness metadata is exposed in `backend/app/services/live_ingestion.py` under `provider_trace.freshness` with cache state + TTL map; stale-input detection remains enforced (`open_meteo` stale rejection) and cache refresh behavior is proven by `.venv/bin/pytest -q backend/tests/test_phase2_data_ingestion_pipeline.py backend/tests/test_phase2_provider_cache_ttl.py` (5 passed) plus regression suite `.venv/bin/pytest -q backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_object_resolution.py` (12 passed) and Docker runtime `/api/v1/scene` proof showing first-call `ingestion_cache.state=miss`, second-call `ingestion_cache.state=hit`, and provider cache-stage hits.
 
+* step: PHASE 2 STEP 17 — ENGINE INPUT REFACTOR
+  * result: LOCKED
+  * validation: runtime static-engine dependencies were removed from `backend/app/services/_legacy_scene_logic.py` (`get_targets` and `MOCK_ALERTS` no longer used in scene/detail assembly); deep-sky/solar-system engine inputs now resolve from provider-backed ingestion (`live_inputs.alerts` and `live_inputs.ephemeris`) with no static target dataset fallback; object detail related entries now derive from scene objects instead of static alert mocks; proof includes `.venv/bin/pytest -q backend/tests/test_phase2_engine_input_refactor.py backend/tests/test_phase2_data_ingestion_pipeline.py backend/tests/test_phase2_provider_cache_ttl.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_object_resolution.py backend/tests/test_api_scene_above_me.py` (20 passed), and Docker runtime check showing no `engine=mock` scene objects and object-detail `related_objects` typed as scene-linked `object`.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute Phase 2 STEP 17 verify-first flow and lock only with implementation + tracking proof.
+* next step: execute Phase 2 STEP 18 verify-first flow and lock only with implementation + tracking proof.
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

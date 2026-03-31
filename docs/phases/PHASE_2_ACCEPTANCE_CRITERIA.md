@@ -413,9 +413,9 @@ User MUST be able to:
 
 ## REQUIRED
 
-* [ ] Engines DO NOT create data
-* [ ] Engines ONLY transform provider-backed inputs
-* [ ] No synthetic runtime datasets
+* [x] Engines DO NOT create data
+* [x] Engines ONLY transform provider-backed inputs
+* [x] No synthetic runtime datasets
 
 ---
 
