@@ -554,7 +554,7 @@ User MUST be able to:
 
 ## REQUIRED
 
-* [ ] no runtime MOCK_* usage
+* [x] no runtime MOCK_* usage
 
 ---
 

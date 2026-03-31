@@ -14,12 +14,7 @@ async def get_conditions(
     lon: str | None = None,
     elevation_ft: str | None = None,
 ):
-    """Return conditions payload, with degraded-mode simulation support.
-
-    Success path returns the normal mock payload.
-    Failure simulation path returns a 500 module_error contract when
-    SIMULATE_NORMALIZER_FAIL=conditions.
-    """
+    """Return provider-backed conditions payload, with degraded-mode simulation support."""
     status_code, payload = build_conditions_response(
         lat=lat, lon=lon, elevation_ft=elevation_ft
     )

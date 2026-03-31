@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 18 — REMOVE MOCK DATA (IN PROGRESS)
+* current step: PHASE 2 STEP 19 — ABOVE ME ORCHESTRATION (IN PROGRESS)
 
 ---
 
@@ -194,11 +194,15 @@ It does NOT:
   * result: LOCKED
   * validation: runtime static-engine dependencies were removed from `backend/app/services/_legacy_scene_logic.py` (`get_targets` and `MOCK_ALERTS` no longer used in scene/detail assembly); deep-sky/solar-system engine inputs now resolve from provider-backed ingestion (`live_inputs.alerts` and `live_inputs.ephemeris`) with no static target dataset fallback; object detail related entries now derive from scene objects instead of static alert mocks; proof includes `.venv/bin/pytest -q backend/tests/test_phase2_engine_input_refactor.py backend/tests/test_phase2_data_ingestion_pipeline.py backend/tests/test_phase2_provider_cache_ttl.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_object_resolution.py backend/tests/test_api_scene_above_me.py` (20 passed), and Docker runtime check showing no `engine=mock` scene objects and object-detail `related_objects` typed as scene-linked `object`.
 
+* step: PHASE 2 STEP 18 — REMOVE MOCK DATA
+  * result: LOCKED
+  * validation: remaining FastAPI runtime mock dependency was removed from `backend/app/services/conditions_service.py` (`backend.conditions_data.MOCK_CONDITIONS` import deleted) and replaced with provider-backed ingestion (`fetch_normalized_live_inputs`) with explicit degraded payloads when live inputs are unavailable; route contract remains stable in `backend/app/routes/conditions.py` with no static mock success path; proof includes `.venv/bin/pytest -q backend/tests/test_phase2_mock_data_removal.py backend/tests/test_conditions_cache_integration.py backend/tests/test_fastapi_conditions.py backend/tests/test_degraded_mode.py` (8 passed), regression suite `.venv/bin/pytest -q backend/tests/test_phase2_engine_input_refactor.py backend/tests/test_phase2_data_ingestion_pipeline.py backend/tests/test_phase2_provider_cache_ttl.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_object_resolution.py backend/tests/test_api_scene_above_me.py` (20 passed), `docker compose up -d --build backend`, runtime `/api/v1/conditions` showing provider-backed source + degraded fields, and `rg -n "MOCK_" backend/app` returning no matches.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute Phase 2 STEP 18 verify-first flow and lock only with implementation + tracking proof.
+* next step: execute Phase 2 STEP 19 verify-first flow and lock only with implementation + tracking proof.
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

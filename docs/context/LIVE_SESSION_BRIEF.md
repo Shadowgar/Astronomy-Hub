@@ -36,7 +36,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Step 14 through Step 17 are now proven; phase remains unlocked pending Step 18+ completion.
+- condition: Step 14 through Step 18 are now proven; phase remains unlocked pending Step 19+ completion.
 
 Phase 3:
 - status: NOT STARTED
@@ -55,7 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 18 (REMOVE MOCK DATA)
+- execute Phase 2 STEP 19 (ABOVE ME ORCHESTRATION)
 - preserve command-center integrity and backend-authoritative Scene → Object → Detail behavior
 
 SECONDARY:
@@ -104,20 +104,21 @@ Scope:
 - Phase 2 STEP 15 (DATA INGESTION SYSTEM) locked with Provider → Adapter → Normalizer → Validator → Cache → Engine Input implementation proof and ingestion-pipeline test coverage.
 - Phase 2 STEP 16 (CACHE SYSTEM) locked with provider-specific TTL proof, stale-input detection proof, cache refresh proof, and runtime freshness-trace exposure.
 - Phase 2 STEP 17 (ENGINE INPUT REFACTOR) locked with provider-backed engine-input enforcement in legacy scene assembly, removal of `get_targets`/`MOCK_ALERTS` runtime dependencies, and runtime proof of no `engine=mock` scene objects.
+- Phase 2 STEP 18 (REMOVE MOCK DATA) locked with runtime `MOCK_*` removal from FastAPI services (`conditions_service`), provider-backed `/api/v1/conditions` payload assembly, and explicit degraded-mode signaling with no static success fallback.
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 18 — REMOVE MOCK DATA
-- verify runtime `MOCK_*` usage is removed and no static success fallback remains before proceeding
+- execute Phase 2 STEP 19 — ABOVE ME ORCHESTRATION
+- verify Above Me cross-engine merge/filter/ranking orchestration behavior before proceeding
 
 ---
 
 # 7. BLOCKERS
 
 - no Phase 1 blockers
-- Phase 2 lock is blocked by unproven Section 18+ checks in `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md`
+- Phase 2 lock is blocked by unproven Section 19+ checks in `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md`
 - Phase 3+ remains blocked by phase-gate law
 
 ---
