@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: STEP 11 — PERFORMANCE CONTROL (COMPLETE / LOCKED)
+* current step: STEP 12 — TESTING (COMPLETE / LOCKED)
 
 ---
 
@@ -158,11 +158,15 @@ It does NOT:
   * result: LOCKED
   * validation: frontend issues only active-scope scene requests in runtime (`/api/v1/scene?scope=deep_sky...` then `/api/v1/scene?scope=earth...`) with no all-scope preloading; backend scene route computes one requested scope/engine/filter payload per request (`backend/app/routes/scene.py`, `backend/app/services/scene_service.py`); scene payload sizes remain bounded across all valid scope/engine defaults (max observed objects = 4, below Phase 1 cap), and backend determinism/limited scene assembly checks pass (`pytest -q backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase1_scene_assembly.py`).
 
+* step: PHASE 2 STEP 12 — TESTING
+  * result: LOCKED
+  * validation: scope/engine/filter/scene/object-detail verification suite passes (`pytest -q backend/tests/test_phase2_scope_routing.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_object_resolution.py` => 25 passed); frontend validation lane passes (`npm --prefix frontend run test -- --run`, `npm --prefix frontend run type-check`, `npm --prefix frontend run build`); Docker runtime Playwright flow verifies transitions and detail resolution across contexts with successful network traces (`/api/v1/scene` for scope/engine/filter changes and `/api/v1/object/iss`, `/api/v1/object/m13` detail fetches).
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute PHASE 2 STEP 12 — TESTING (verify first, fix minimally only if invalid).
+* next step: execute PHASE 2 STEP 13 — ANTI-SCOPE (verify first, fix minimally only if invalid).
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

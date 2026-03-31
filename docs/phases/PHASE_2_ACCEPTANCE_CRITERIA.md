@@ -308,11 +308,11 @@ Produces:
 
 ## REQUIRED
 
-* [ ] Scope switching works
-* [ ] Engine switching works
-* [ ] Filter switching works
-* [ ] Scene updates correctly
-* [ ] Object detail works across all contexts
+* [x] Scope switching works
+* [x] Engine switching works
+* [x] Filter switching works
+* [x] Scene updates correctly
+* [x] Object detail works across all contexts
 
 ---
 

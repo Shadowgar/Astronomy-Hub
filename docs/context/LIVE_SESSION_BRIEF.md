@@ -97,14 +97,15 @@ Scope:
 - Phase 2 STEP 9 (OBJECT SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 10 (DATA BOUNDARY ENFORCEMENT) locked with implementation + tracking proof
 - Phase 2 STEP 11 (PERFORMANCE CONTROL) locked with implementation + tracking proof
+- Phase 2 STEP 12 (TESTING) locked with implementation + tracking proof
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 12 (TESTING)
-- verify current repo state against the Phase 2 STEP 12 requirement before making changes
-- update authoritative tracking when STEP 12 is locked
+- execute Phase 2 STEP 13 (ANTI-SCOPE)
+- verify current repo state against the Phase 2 STEP 13 requirement before making changes
+- update authoritative tracking when STEP 13 is locked
 
 ---
 
