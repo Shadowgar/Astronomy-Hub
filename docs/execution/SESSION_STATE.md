@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: STEP 5 — SCENE GENERATION (COMPLETE / LOCKED)
+* current step: STEP 6 — ABOVE ME MERGE MODE (COMPLETE / LOCKED)
 
 ---
 
@@ -134,11 +134,15 @@ It does NOT:
   * result: LOCKED
   * validation: scene payload is produced by backend from the scope/engine/filter pipeline in `backend/app/routes/scene.py` + `backend/app/services/scene_service.py`; identical inputs now return identical payloads (`test_same_scope_engine_filter_returns_identical_scene_payload`) and non-pipeline query deltas do not change scene output (`test_non_pipeline_query_params_do_not_change_scene_payload`) in `backend/tests/test_phase2_scene_scope_switch.py`; Docker runtime re-check confirms deterministic payload equality and filter-bound output differences.
 
+* step: PHASE 2 STEP 6 — ABOVE ME MERGE MODE
+  * result: LOCKED
+  * validation: Above Me returns one scene payload from backend (`/api/v1/scene?scope=above_me&engine=above_me&filter=...`) with merged object types (`planet`, `satellite`, `deep_sky`) under `visible_now`; Above Me filtering remains active (`short_window` narrows to satellite subset); runtime payload checks confirm merged multi-engine behavior and single-scene output.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute PHASE 2 STEP 6 — ABOVE ME MERGE MODE (verify first, fix minimally only if invalid).
+* next step: execute PHASE 2 STEP 7 — COMMAND BAR ACTIVATION (verify first, fix minimally only if invalid).
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

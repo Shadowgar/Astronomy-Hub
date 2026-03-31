@@ -160,9 +160,9 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [ ] Above Me merges multiple engines
+* [x] Above Me merges multiple engines
 
-* [ ] Above Me still:
+* [x] Above Me still:
 
   * applies filters
   * produces ONE scene

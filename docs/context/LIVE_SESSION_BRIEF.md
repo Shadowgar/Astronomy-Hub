@@ -91,14 +91,15 @@ Scope:
 - Phase 2 STEP 3 (ENGINE SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 4 (FILTER SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 5 (SCENE GENERATION) locked with implementation + tracking proof
+- Phase 2 STEP 6 (ABOVE ME MERGE MODE) locked with implementation + tracking proof
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 6 (ABOVE ME MERGE MODE)
-- verify current repo state against the Phase 2 STEP 6 requirement before making changes
-- update authoritative tracking when STEP 6 is locked
+- execute Phase 2 STEP 7 (COMMAND BAR ACTIVATION)
+- verify current repo state against the Phase 2 STEP 7 requirement before making changes
+- update authoritative tracking when STEP 7 is locked
 
 ---
 
