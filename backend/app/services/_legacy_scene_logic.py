@@ -6,13 +6,7 @@ import hashlib
 
 from backend.alerts_data import MOCK_ALERTS
 from backend.normalizers import registry
-from backend.app.services.live_providers import (
-    fetch_celestrak_active,
-    fetch_jpl_ephemeris,
-    fetch_open_meteo_conditions,
-    fetch_opensky_nearby,
-    fetch_swpc_alerts,
-)
+from backend.app.services.live_ingestion import fetch_normalized_live_inputs
 from backend.targets_data import get_targets
 
 
@@ -150,82 +144,7 @@ def _stable_float(seed: str, minimum: float, maximum: float) -> float:
 
 
 def _fetch_live_inputs(location: dict, time_context: datetime) -> dict:
-    lat = float(location.get("latitude"))
-    lon = float(location.get("longitude"))
-    elevation_ft = float(location.get("elevation_ft") or 0.0)
-
-    providers: dict[str, dict] = {
-        "open_meteo": {"ok": False, "reason": "not_fetched"},
-        "celestrak": {"ok": False, "reason": "not_fetched"},
-        "opensky": {"ok": False, "reason": "not_fetched"},
-        "jpl_ephemeris": {"ok": False, "reason": "not_fetched"},
-        "noaa_swpc": {"ok": False, "reason": "not_fetched"},
-    }
-    inputs: dict[str, object] = {}
-
-    try:
-        conditions = fetch_open_meteo_conditions(lat, lon)
-        if isinstance(conditions, dict):
-            inputs["conditions"] = conditions
-            providers["open_meteo"] = {"ok": True, "reason": "live"}
-        else:
-            providers["open_meteo"] = {"ok": False, "reason": "empty"}
-    except Exception as exc:
-        providers["open_meteo"] = {"ok": False, "reason": f"error:{exc.__class__.__name__}"}
-
-    try:
-        satellites = fetch_celestrak_active(limit=400)
-        if isinstance(satellites, list):
-            inputs["satellites"] = satellites
-            providers["celestrak"] = {"ok": bool(satellites), "reason": "live" if satellites else "empty"}
-        else:
-            providers["celestrak"] = {"ok": False, "reason": "empty"}
-    except Exception as exc:
-        providers["celestrak"] = {"ok": False, "reason": f"error:{exc.__class__.__name__}"}
-
-    try:
-        flights = fetch_opensky_nearby(lat, lon, radius_km=450.0, limit=6)
-        if isinstance(flights, list):
-            inputs["flights"] = flights
-            providers["opensky"] = {"ok": True, "reason": "live"}
-        else:
-            providers["opensky"] = {"ok": False, "reason": "empty"}
-    except Exception as exc:
-        providers["opensky"] = {"ok": False, "reason": f"error:{exc.__class__.__name__}"}
-
-    try:
-        ephemeris = fetch_jpl_ephemeris(lat, lon, elevation_ft=elevation_ft)
-        if isinstance(ephemeris, list):
-            inputs["ephemeris"] = ephemeris
-            providers["jpl_ephemeris"] = {"ok": bool(ephemeris), "reason": "live" if ephemeris else "empty"}
-        else:
-            providers["jpl_ephemeris"] = {"ok": False, "reason": "empty"}
-    except Exception as exc:
-        providers["jpl_ephemeris"] = {"ok": False, "reason": f"error:{exc.__class__.__name__}"}
-
-    try:
-        swpc_alerts = fetch_swpc_alerts(limit=3)
-        if isinstance(swpc_alerts, list):
-            inputs["alerts"] = swpc_alerts
-            providers["noaa_swpc"] = {"ok": True, "reason": "live"}
-        else:
-            providers["noaa_swpc"] = {"ok": False, "reason": "empty"}
-    except Exception as exc:
-        providers["noaa_swpc"] = {"ok": False, "reason": f"error:{exc.__class__.__name__}"}
-
-    missing_sources = [name for name, status in providers.items() if not bool(status.get("ok"))]
-    inputs["provider_trace"] = {
-        "timestamp_utc": time_context.isoformat(),
-        "location": {
-            "latitude": lat,
-            "longitude": lon,
-            "elevation_ft": elevation_ft,
-        },
-        "providers": providers,
-        "degraded": bool(missing_sources),
-        "missing_sources": missing_sources,
-    }
-    return inputs
+    return fetch_normalized_live_inputs(location, time_context)
 
 
 def validate_suggestions(matches):

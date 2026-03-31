@@ -36,7 +36,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Step 14 live-data/location-time authority is now proven; phase remains unlocked pending Step 15+ completion.
+- condition: Step 14 through Step 16 are now proven; phase remains unlocked pending Step 17+ completion.
 
 Phase 3:
 - status: NOT STARTED
@@ -55,7 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 15 (DATA INGESTION SYSTEM)
+- execute Phase 2 STEP 17 (ENGINE INPUT REFACTOR)
 - preserve command-center integrity and backend-authoritative Scene → Object → Detail behavior
 
 SECONDARY:
@@ -101,20 +101,22 @@ Scope:
 - Phase 2 final lock evaluation executed: LOCKED (Section 14 user-validation criteria proven in runtime and acceptance tracking updated).
 - Phase 2 reopened: new authoritative Step 14 (live data/location-time authority) added to spec/build/acceptance and remains unproven.
 - Phase 2 STEP 14 (LIVE DATA & LOCATION-TIME AUTHORITY) locked with provider-backed runtime proof, explicit degraded-mode proof, and acceptance tracking updates.
+- Phase 2 STEP 15 (DATA INGESTION SYSTEM) locked with Provider → Adapter → Normalizer → Validator → Cache → Engine Input implementation proof and ingestion-pipeline test coverage.
+- Phase 2 STEP 16 (CACHE SYSTEM) locked with provider-specific TTL proof, stale-input detection proof, cache refresh proof, and runtime freshness-trace exposure.
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 15 — DATA INGESTION SYSTEM
-- verify provider → adapter → normalizer → validator → cache pipeline law before proceeding
+- execute Phase 2 STEP 17 — ENGINE INPUT REFACTOR
+- verify engines consume only normalized provider-backed inputs before proceeding
 
 ---
 
 # 7. BLOCKERS
 
 - no Phase 1 blockers
-- Phase 2 lock is blocked by unproven Section 16+ checks in `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md`
+- Phase 2 lock is blocked by unproven Section 18+ checks in `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md`
 - Phase 3+ remains blocked by phase-gate law
 
 ---

@@ -395,9 +395,9 @@ User MUST be able to:
 
 ## REQUIRED
 
-* [ ] Provider → Adapter → Normalizer → Validator → Cache pipeline exists
-* [ ] Raw provider data never reaches engines
-* [ ] Normalized contracts are enforced
+* [x] Provider → Adapter → Normalizer → Validator → Cache pipeline exists
+* [x] Raw provider data never reaches engines
+* [x] Normalized contracts are enforced
 
 ---
 
@@ -520,9 +520,9 @@ User MUST be able to:
 
 ## REQUIRED
 
-* [ ] TTL exists
-* [ ] stale data detectable
-* [ ] freshness exposed
+* [x] TTL exists
+* [x] stale data detectable
+* [x] freshness exposed
 
 ---
 

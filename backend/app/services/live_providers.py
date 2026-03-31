@@ -12,6 +12,14 @@ import httpx
 _CACHE_LOCK = threading.Lock()
 _CACHE: dict[str, tuple[float, Any]] = {}
 
+PROVIDER_CACHE_TTL_SECONDS: dict[str, int] = {
+    "open_meteo": 300,
+    "opensky": 90,
+    "celestrak": 3600,
+    "jpl_ephemeris": 1800,
+    "noaa_swpc": 3600,
+}
+
 
 def _cache_get(key: str) -> Any | None:
     now = time.time()
@@ -93,7 +101,7 @@ def fetch_open_meteo_conditions(lat: float, lon: float) -> dict[str, Any] | None
         "summary": f"Live weather: cloud {cloud_cover}% visibility {visibility_m}m temp {temperature_c:.1f}C",
         "last_updated": current.get("time") or datetime.now(timezone.utc).isoformat(),
     }
-    _cache_set(cache_key, result, ttl_seconds=300)
+    _cache_set(cache_key, result, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["open_meteo"])
     return result
 
 
@@ -144,7 +152,7 @@ def fetch_opensky_nearby(lat: float, lon: float, *, radius_km: float = 350.0, li
 
     nearby.sort(key=lambda entry: (entry["distance_km"], entry["name"]))
     result = nearby[: max(0, int(limit))]
-    _cache_set(cache_key, result, ttl_seconds=90)
+    _cache_set(cache_key, result, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["opensky"])
     return result
 
 
@@ -175,7 +183,7 @@ def fetch_celestrak_active(*, limit: int = 500) -> list[dict[str, Any]]:
                 "name": name,
             }
         )
-    _cache_set(cache_key, out, ttl_seconds=3600)
+    _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["celestrak"])
     return out
 
 
@@ -247,7 +255,7 @@ def fetch_jpl_ephemeris(lat: float, lon: float, elevation_ft: float | None = Non
         except Exception:
             continue
 
-    _cache_set(cache_key, out, ttl_seconds=1800)
+    _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["jpl_ephemeris"])
     return out
 
 
@@ -296,5 +304,5 @@ def fetch_swpc_alerts(limit: int = 3) -> list[dict[str, Any]]:
             }
         )
 
-    _cache_set(cache_key, alerts, ttl_seconds=3600)
+    _cache_set(cache_key, alerts, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["noaa_swpc"])
     return alerts

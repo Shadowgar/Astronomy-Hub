@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 15 — DATA INGESTION SYSTEM (IN PROGRESS)
+* current step: PHASE 2 STEP 17 — ENGINE INPUT REFACTOR (IN PROGRESS)
 
 ---
 
@@ -182,11 +182,19 @@ It does NOT:
   * result: LOCKED
   * validation: Above Me scene runtime path now uses provider-backed backend inputs (`backend/app/services/live_providers.py`, `backend/app/services/_legacy_scene_logic.py`, `backend/app/services/scene_service.py`, `backend/app/routes/scene.py`) with explicit provider trace + degraded-mode signaling in `/api/v1/scene`; materially different location/time context produces different scene outputs (`backend/tests/test_phase2_scene_scope_switch.py::test_location_and_time_context_change_scene_payload` + Docker runtime curls on `lat=10,lon=20,at=2026-03-31T00:00:00Z` vs `lat=33,lon=-70,at=2026-03-31T12:00:00Z`); regression lanes pass with `.venv/bin/pytest -q backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_object_resolution.py` and `.venv/bin/pytest -q backend/tests/test_api_scene_above_me.py backend/tests/test_phase1_scene_assembly.py backend/tests/test_contracts_phase1.py`.
 
+* step: PHASE 2 STEP 15 — DATA INGESTION SYSTEM
+  * result: LOCKED
+  * validation: ingestion boundary is now explicit in `backend/app/services/live_ingestion.py` as `Provider -> Adapter -> Normalizer -> Validator -> Cache -> Engine Input`; scene assembly consumes only normalized ingestion outputs via `backend/app/services/_legacy_scene_logic.py::_fetch_live_inputs` and no direct provider/raw payloads; ingestion pipeline proofs pass in `.venv/bin/pytest -q backend/tests/test_phase2_data_ingestion_pipeline.py` (whitelisting/normalization, stale rejection, cache-hit behavior) plus regression suites `.venv/bin/pytest -q backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_object_resolution.py` and Docker runtime `/api/v1/scene` provider-trace stage checks.
+
+* step: PHASE 2 STEP 16 — CACHE SYSTEM
+  * result: LOCKED
+  * validation: provider-specific TTL controls are explicit and enforced in `backend/app/services/live_providers.py` via `PROVIDER_CACHE_TTL_SECONDS` (`open_meteo=300`, `opensky=90`, `celestrak=3600`, `jpl_ephemeris=1800`, `noaa_swpc=3600`); ingestion cache freshness metadata is exposed in `backend/app/services/live_ingestion.py` under `provider_trace.freshness` with cache state + TTL map; stale-input detection remains enforced (`open_meteo` stale rejection) and cache refresh behavior is proven by `.venv/bin/pytest -q backend/tests/test_phase2_data_ingestion_pipeline.py backend/tests/test_phase2_provider_cache_ttl.py` (5 passed) plus regression suite `.venv/bin/pytest -q backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_object_resolution.py` (12 passed) and Docker runtime `/api/v1/scene` proof showing first-call `ingestion_cache.state=miss`, second-call `ingestion_cache.state=hit`, and provider cache-stage hits.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute Phase 2 STEP 15 verify-first flow and lock only with implementation + tracking proof.
+* next step: execute Phase 2 STEP 17 verify-first flow and lock only with implementation + tracking proof.
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict
