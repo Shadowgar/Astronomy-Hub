@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: STEP 10 — DATA BOUNDARY ENFORCEMENT (COMPLETE / LOCKED)
+* current step: STEP 11 — PERFORMANCE CONTROL (COMPLETE / LOCKED)
 
 ---
 
@@ -154,11 +154,15 @@ It does NOT:
   * result: LOCKED
   * validation: backend remains sole scene assembly source in `backend/app/routes/scene.py` + `backend/app/services/scene_service.py`; frontend consumes normalized scene/detail payloads through query-boundary selectors (`frontend/src/features/scene/queries.ts`, `frontend/src/features/objects/queries.ts`) with no component-level envelope parsing; minimal fix removed frontend scene-object filtering for briefing meaning in `frontend/src/components/AboveMeScene.jsx` (no `objects.find/filter/sort/reduce`); Docker runtime re-check confirms command-center rendering and object detail routing remain valid after rebuild.
 
+* step: PHASE 2 STEP 11 — PERFORMANCE CONTROL
+  * result: LOCKED
+  * validation: frontend issues only active-scope scene requests in runtime (`/api/v1/scene?scope=deep_sky...` then `/api/v1/scene?scope=earth...`) with no all-scope preloading; backend scene route computes one requested scope/engine/filter payload per request (`backend/app/routes/scene.py`, `backend/app/services/scene_service.py`); scene payload sizes remain bounded across all valid scope/engine defaults (max observed objects = 4, below Phase 1 cap), and backend determinism/limited scene assembly checks pass (`pytest -q backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase1_scene_assembly.py`).
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute PHASE 2 STEP 11 — PERFORMANCE CONTROL (verify first, fix minimally only if invalid).
+* next step: execute PHASE 2 STEP 12 — TESTING (verify first, fix minimally only if invalid).
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

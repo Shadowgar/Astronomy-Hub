@@ -287,11 +287,11 @@ Produces:
 
 ## REQUIRED
 
-* [ ] Only active scene computed
+* [x] Only active scene computed
 
-* [ ] No preloading all scopes
+* [x] No preloading all scopes
 
-* [ ] No full dataset rendering
+* [x] No full dataset rendering
 
 ---
 
