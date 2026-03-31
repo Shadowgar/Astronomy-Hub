@@ -211,7 +211,7 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [ ] Changing:
+* [x] Changing:
 
   * scope
   * engine
@@ -219,9 +219,9 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 Produces:
 
-* [ ] full scene refresh
-* [ ] no stale data
-* [ ] no partial updates
+* [x] full scene refresh
+* [x] no stale data
+* [x] no partial updates
 
 ---
 

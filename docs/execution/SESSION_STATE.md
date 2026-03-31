@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: STEP 7 — COMMAND BAR ACTIVATION (COMPLETE / LOCKED)
+* current step: STEP 8 — SCENE TRANSITIONS (COMPLETE / LOCKED)
 
 ---
 
@@ -142,11 +142,15 @@ It does NOT:
   * result: LOCKED
   * validation: command bar now includes scope (`Scope selector`), engine (`Engine selector`), filter (`Filter selector`), location controls (`Latitude`/`Longitude` + apply), and mode (`Display mode`) in `frontend/src/components/layout/CommandCenterHeader.jsx`; runtime Playwright proof confirms each control updates state and triggers scene rebuild requests (`/api/v1/scene` transitions through scope/engine/filter/location updates plus mode-triggered refetch via query invalidation).
 
+* step: PHASE 2 STEP 8 — SCENE TRANSITIONS
+  * result: LOCKED
+  * validation: sequential scope/engine/filter transitions in Docker runtime (Playwright) produce clean scene refreshes with matching context (`deep_sky` -> `earth`, `satellites` -> `flights`, `visible_now` -> `short_window`); transition network trace shows fresh `/api/v1/scene` requests for each state change; control state and scene state remain synchronized (no stale scope/engine/filter carry-over).
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute PHASE 2 STEP 8 — SCENE TRANSITIONS (verify first, fix minimally only if invalid).
+* next step: execute PHASE 2 STEP 9 — OBJECT SYSTEM (verify first, fix minimally only if invalid).
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict
