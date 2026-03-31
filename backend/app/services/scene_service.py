@@ -91,7 +91,11 @@ def _resolve_filter(engine: str, requested_filter: str | None) -> str:
     return resolved_filter
 
 
-def _objects_for_engine(objects: list[dict], engine: str) -> list[dict]:
+def _objects_for_engine(
+    objects: list[dict],
+    engine: str,
+    phase1_state: dict | None = None,
+) -> list[dict]:
     if engine == "above_me":
         return list(objects)
     if engine == "deep_sky":
@@ -101,10 +105,11 @@ def _objects_for_engine(objects: list[dict], engine: str) -> list[dict]:
     if engine == "satellites":
         return [obj for obj in objects if obj.get("type") == "satellite"]
     if engine == "flights":
-        satellite_objects = [obj for obj in objects if obj.get("type") == "satellite"]
-        if len(satellite_objects) <= 1:
-            return []
-        return satellite_objects[1:]
+        supporting = phase1_state.get("supporting") if isinstance(phase1_state, dict) else {}
+        flights = supporting.get("flights") if isinstance(supporting, dict) else None
+        if isinstance(flights, list):
+            return [deepcopy(obj) for obj in flights if isinstance(obj, dict)]
+        return []
     return []
 
 
@@ -169,7 +174,7 @@ def build_phase2_scope_scene_payload_with_context(
         phase1_scene = build_above_me_scene_payload(parsed_location=parsed_location, as_of=as_of)
 
     scene_objects = _extract_scene_objects(phase1_scene)
-    engine_objects = _objects_for_engine(scene_objects, resolved_engine)
+    engine_objects = _objects_for_engine(scene_objects, resolved_engine, phase1_state=phase1_state)
     ordered_objects = _sorted_objects(engine_objects)
     filtered_objects = _apply_filter(ordered_objects, resolved_filter, resolved_engine)
 

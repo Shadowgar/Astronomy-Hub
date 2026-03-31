@@ -265,12 +265,15 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
         distance_km = float(flight.get("distance_km") or 0.0)
         fallback.append(
             {
-                "id": _slugify(f"flight-{flight.get('id') or name}"),
-                "name": name,
+                "id": _slugify(f"sat-fallback-{flight.get('id') or name}"),
+                "name": f"Satellite Candidate: {name}",
                 "type": "satellite",
                 "engine": "satellite",
-                "provider_source": flight.get("source") or "opensky",
-                "summary": f"Nearby live air-track candidate ({distance_km:.0f} km)",
+                "provider_source": "opensky_fallback",
+                "summary": (
+                    f"CelesTrak unavailable; derived fallback candidate from nearby air traffic"
+                    f" ({distance_km:.0f} km)."
+                ),
                 "position": {"elevation": elevation},
                 "visibility": {"is_visible": True},
                 "relevance_score": max(0.0, min(1.0, elevation / 90.0)),
@@ -361,6 +364,49 @@ def _build_deep_sky_engine_slice(live_inputs=None):
             }
         )
     return _rank_scene_objects(out)[:4]
+
+
+def _build_flights_engine_slice(live_inputs=None):
+    """Provider-backed flight slice derived from live OpenSky inputs."""
+    flights = []
+    if isinstance(live_inputs, dict):
+        flights = live_inputs.get("flights") or []
+
+    out = []
+    for flight in flights:
+        if not isinstance(flight, dict):
+            continue
+        flight_id = str(flight.get("id") or "").strip()
+        name = str(flight.get("name") or "").strip()
+        if not flight_id or not name:
+            continue
+        try:
+            elevation = float(flight.get("elevation") or 0.0)
+        except Exception:
+            elevation = 0.0
+        if elevation <= 0.0:
+            continue
+        distance_km = float(flight.get("distance_km") or 0.0)
+        lat = flight.get("latitude")
+        lon = flight.get("longitude")
+        out.append(
+            {
+                "id": _slugify(f"flight-{flight_id}"),
+                "name": name,
+                "type": "satellite",
+                "engine": "flight",
+                "provider_source": flight.get("source") or "opensky",
+                "summary": f"Live flight track ({distance_km:.0f} km)",
+                "position": {
+                    "elevation": elevation,
+                    "lat": float(lat) if lat is not None else None,
+                    "lon": float(lon) if lon is not None else None,
+                },
+                "visibility": {"is_visible": True},
+                "relevance_score": max(0.0, min(1.0, elevation / 90.0)),
+            }
+        )
+    return _rank_scene_objects(out)[:6]
 
 
 def _build_earth_engine_slice(parsed_location=None, live_inputs=None):
@@ -680,6 +726,33 @@ def _build_phase2_satellites_scene(filter_slug, parsed_location=None):
     }
 
 
+def _build_phase2_flights_scene(filter_slug, parsed_location=None):
+    location = _resolve_location(parsed_location)
+    time_context = _resolve_time_context()
+    live_inputs = _fetch_live_inputs(location, time_context)
+    objects = _to_phase2_scene_objects(
+        _build_flights_engine_slice(live_inputs=live_inputs),
+        "flights",
+    )
+    groups = [
+        _build_phase2_scene_group(
+            "Flights Nearby",
+            "Live flights grouped as air-traffic context.",
+            objects,
+        )
+    ]
+    return {
+        "scope": "earth",
+        "engine": "flights",
+        "filter": filter_slug,
+        "timestamp": _phase2_timestamp(),
+        "title": "Flights Scene",
+        "summary": "Nearby live flight tracks for air-traffic context.",
+        "groups": groups,
+        "observing_context": _build_phase2_observing_context(parsed_location),
+    }
+
+
 def _build_phase2_above_me_scene(filter_slug, parsed_location=None):
     phase1_state = build_phase1_scene_state(parsed_location)
     phase1_scene = phase1_state.get("scene") or {}
@@ -722,6 +795,7 @@ def _build_phase2_scene(scope_slug, engine_slug, filter_slug, parsed_location=No
         "planets": _build_phase2_planets_scene,
         "moon": _build_phase2_moon_scene,
         "satellites": _build_phase2_satellites_scene,
+        "flights": _build_phase2_flights_scene,
     }
     builder = builders.get(engine_slug)
     if builder is None:
@@ -745,7 +819,7 @@ def _iter_phase2_grouped_objects(scene):
 
 
 def _build_phase2_object_lookup(parsed_location=None):
-    required_engines = ("above_me", "deep_sky", "planets", "moon", "satellites")
+    required_engines = ("above_me", "deep_sky", "planets", "moon", "satellites", "flights")
     lookup = {}
 
     for engine_slug in required_engines:
@@ -906,6 +980,9 @@ def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
                 }
             )
 
+    supporting_flights = _build_flights_engine_slice(live_inputs=live_inputs)
+    supporting_flights = [_enforce_phase1_object_contract(obj) for obj in supporting_flights]
+
     supporting_alerts = live_inputs.get("alerts") if isinstance(live_inputs, dict) else None
     if not isinstance(supporting_alerts, list) or not supporting_alerts:
         supporting_alerts = [
@@ -940,6 +1017,7 @@ def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
         "supporting": {
             "targets": supporting_targets,
             "passes": supporting_passes,
+            "flights": supporting_flights,
             "alerts": supporting_alerts,
             "conditions": conditions,
             "provider_trace": provider_trace,
