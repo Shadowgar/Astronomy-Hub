@@ -36,7 +36,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Step 14 through Step 19 are now proven; phase remains unlocked pending Step 20+ completion.
+- condition: Step 14 through Step 20 are now proven; phase remains unlocked pending Step 21+ completion.
 
 Phase 3:
 - status: NOT STARTED
@@ -55,7 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 20 (SCENE AUTHORITY ENFORCEMENT)
+- execute Phase 2 STEP 21 (TRACEABILITY SYSTEM)
 - preserve command-center integrity and backend-authoritative Scene → Object → Detail behavior
 
 SECONDARY:
@@ -106,13 +106,14 @@ Scope:
 - Phase 2 STEP 17 (ENGINE INPUT REFACTOR) locked with provider-backed engine-input enforcement in legacy scene assembly, removal of `get_targets`/`MOCK_ALERTS` runtime dependencies, and runtime proof of no `engine=mock` scene objects.
 - Phase 2 STEP 18 (REMOVE MOCK DATA) locked with runtime `MOCK_*` removal from FastAPI services (`conditions_service`), provider-backed `/api/v1/conditions` payload assembly, and explicit degraded-mode signaling with no static success fallback.
 - Phase 2 STEP 19 (ABOVE ME ORCHESTRATION) locked with runtime proof that Above Me merges multiple engine outputs into one scene, applies global visibility/time-oriented filters (`visible_now` vs `short_window`), and preserves deterministic relevance-based ordering.
+- Phase 2 STEP 20 (SCENE AUTHORITY ENFORCEMENT) locked with proof that surfaced objects are scene-derived (`/api/v1/scene` object IDs are authoritative source for `/api/v1/targets` and `/api/v1/passes` supporting outputs) and mounted scene rendering in `AboveMeScene` is sourced from `scene.objects` with object detail resolved via `/api/v1/object/{id}`.
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 20 — SCENE AUTHORITY ENFORCEMENT
-- verify all surfaced objects originate from Scene and no engine → UI bypass exists before proceeding
+- execute Phase 2 STEP 21 — TRACEABILITY SYSTEM
+- verify provider source metadata, timestamps, and degraded-state trace coverage before proceeding
 
 ---
 

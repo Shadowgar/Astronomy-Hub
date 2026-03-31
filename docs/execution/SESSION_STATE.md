@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 20 — SCENE AUTHORITY ENFORCEMENT (IN PROGRESS)
+* current step: PHASE 2 STEP 21 — TRACEABILITY SYSTEM (IN PROGRESS)
 
 ---
 
@@ -202,11 +202,15 @@ It does NOT:
   * result: LOCKED
   * validation: Above Me orchestration behavior is already valid in runtime with no implementation changes required; proof includes `.venv/bin/pytest -q backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_api_scene_above_me.py` (9 passed), runtime `/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now` showing merged multi-engine object output (`engine` set includes `deep_sky` and `satellite`) in a single scene, `/api/v1/scene?...&filter=short_window` showing time-oriented narrowing to satellite subset (`short_count=2`, `short_all_satellite=True`), relevance ordering check (`sorted_desc=True`), and visibility enforcement check (`visibility_violations=[]`).
 
+* step: PHASE 2 STEP 20 — SCENE AUTHORITY ENFORCEMENT
+  * result: LOCKED
+  * validation: scene authority behavior is already valid in runtime with no implementation changes required; proof includes `.venv/bin/pytest -q backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_api_scene_above_me.py` (9 passed), runtime cross-endpoint check for `lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z` showing `/api/v1/targets` IDs and `/api/v1/passes` object_ids are subsets of `/api/v1/scene` object IDs (`targets_subset_scene=True`, `passes_subset_scene=True`), object detail resolution from scene ID via `/api/v1/object/{id}` (`status=ok`, matching `data.id`), and frontend-mounted scene rendering in `frontend/src/components/AboveMeScene.jsx` consuming `scene.objects` from `useSceneByScopeDataQuery` with no component-level object assembly.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute Phase 2 STEP 20 verify-first flow and lock only with implementation + tracking proof.
+* next step: execute Phase 2 STEP 21 verify-first flow and lock only with implementation + tracking proof.
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

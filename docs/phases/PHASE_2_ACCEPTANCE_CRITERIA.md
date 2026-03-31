@@ -431,8 +431,8 @@ User MUST be able to:
 
 ## REQUIRED
 
-* [ ] ALL objects originate from Scene
-* [ ] No engine → UI bypass
+* [x] ALL objects originate from Scene
+* [x] No engine → UI bypass
 
 ---
 

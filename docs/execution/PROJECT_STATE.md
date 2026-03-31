@@ -76,7 +76,7 @@ These items are explicitly deferred and do not block corrective exit.
 ## 5. CURRENT OBJECTIVE
 
 ```text
-Execute Phase 2 STEP 20 (scene authority enforcement)
+Execute Phase 2 STEP 21 (traceability system)
 before any Phase 2 relock attempt.
 ```
 
