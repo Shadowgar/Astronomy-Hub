@@ -47,3 +47,24 @@ def test_invalid_scope_returns_stable_json_400():
         "solar_system",
         "deep_sky",
     ]
+
+
+def test_same_scope_engine_filter_returns_identical_scene_payload():
+    path = "/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now"
+    status1, payload1 = _request_json(path)
+    status2, payload2 = _request_json(path)
+
+    assert status1 == 200
+    assert status2 == 200
+    assert payload1 == payload2
+
+
+def test_non_pipeline_query_params_do_not_change_scene_payload():
+    path_a = "/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now&lat=10&lon=20"
+    path_b = "/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now&lat=33&lon=-70"
+    status_a, payload_a = _request_json(path_a)
+    status_b, payload_b = _request_json(path_b)
+
+    assert status_a == 200
+    assert status_b == 200
+    assert payload_a == payload_b

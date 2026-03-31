@@ -133,16 +133,16 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [ ] Scene is generated ONLY from:
+* [x] Scene is generated ONLY from:
   Scope + Engine + Filter
 
-* [ ] Scene is:
+* [x] Scene is:
 
   * deterministic
   * reproducible
   * backend-generated
 
-* [ ] Same inputs → identical scene
+* [x] Same inputs → identical scene
 
 ---
 

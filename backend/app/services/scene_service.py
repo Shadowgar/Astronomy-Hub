@@ -1,5 +1,4 @@
 from copy import deepcopy
-from datetime import datetime
 
 from backend.app.services._legacy_scene_logic import build_phase1_scene_state
 from backend.app.services.scopes_service import (
@@ -144,10 +143,13 @@ def build_phase2_scope_scene_payload_with_context(
     ordered_objects = _sorted_objects(engine_objects)
     filtered_objects = _apply_filter(ordered_objects, resolved_filter, resolved_engine)
 
+    # Phase 2 Step 5 requires reproducible scene payloads for identical inputs.
+    deterministic_timestamp = f"phase2:{scope}:{resolved_engine}:{resolved_filter}"
+
     return {
         "scope": scope,
         "engine": resolved_engine,
         "filter": resolved_filter,
-        "timestamp": phase1_scene.get("timestamp") or datetime.utcnow().isoformat() + "Z",
+        "timestamp": deterministic_timestamp,
         "objects": filtered_objects,
     }
