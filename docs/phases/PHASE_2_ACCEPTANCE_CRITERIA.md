@@ -239,9 +239,9 @@ Produces:
 
 ## REQUIRED
 
-* [ ] Objects originate ONLY from scene
+* [x] Objects originate ONLY from scene
 
-* [ ] Objects:
+* [x] Objects:
 
   * maintain identity across transitions
   * support detail routing
