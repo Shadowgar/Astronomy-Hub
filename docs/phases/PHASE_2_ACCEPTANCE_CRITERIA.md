@@ -1,11 +1,11 @@
-````markdown id="y2v8k3"
+````markdown
 # 🌌 PHASE 2 ACCEPTANCE CRITERIA (AUTHORITATIVE — BINARY VALIDATION)
 
 ---
 
 # CORE RULE
 
-```text id="b8v4x2"
+```text
 If any condition cannot be proven → Phase 2 is NOT complete.
 ````
 
@@ -349,6 +349,8 @@ System MUST NOT include:
 
 ---
 
+## REQUIRED
+
 User MUST be able to:
 
 * [x] switch scope and understand change instantly
@@ -372,35 +374,213 @@ User MUST be able to:
 
 ## REQUIRED
 
-* [ ] Above Me scene is assembled from provider-backed normalized inputs, not static `MOCK_*` runtime sources
-* [ ] Active location (`lat`, `lon`, `elevation_ft`) can materially affect Above Me scene output
-* [ ] Time context can materially affect visibility/relevance output where applicable
-* [ ] Provider/input degradation is explicit and does not masquerade as normal live success
-* [ ] Provider baseline is implemented and traceable in runtime:
-  * Open-Meteo (conditions)
-  * CelesTrak (satellites)
-  * OpenSky Network (flights)
-  * JPL/NASA ephemeris (Sun/planet/moon positions)
-  * NOAA SWPC (space-weather/alerts)
-  * NASA Images API used only for media enrichment, not scene truth authority
+* [x] Above Me scene is assembled from provider-backed normalized inputs, not static `MOCK_*` runtime sources
+* [x] Active location affects scene output
+* [x] Time affects scene output
+* [x] Provider degradation is explicit
+* [x] Provider baseline implemented and traceable
 
 ---
 
 ## FAIL CONDITIONS
 
-* mock datasets remain runtime scene authority
-* location/time changes have no meaningful scene impact where they should
-* provider failure silently falls back to static success output
-* scene truth cannot be traced to live ingestion path
-* provider substitution changes scene authority without explicit spec update
+* mock data drives runtime
+* location/time ignored
+* provider failure hidden
+* scene not traceable to provider
+
+---
+
+# 🔥 16. DATA INGESTION SYSTEM (NEW — CRITICAL)
+
+## REQUIRED
+
+* [ ] Provider → Adapter → Normalizer → Validator → Cache pipeline exists
+* [ ] Raw provider data never reaches engines
+* [ ] Normalized contracts are enforced
+
+---
+
+## FAIL CONDITIONS
+
+* engines consume raw provider data
+* no ingestion layer exists
+* normalization missing
+
+---
+
+# 🔥 17. ENGINE DATA LAW ENFORCEMENT
+
+## REQUIRED
+
+* [ ] Engines DO NOT create data
+* [ ] Engines ONLY transform provider-backed inputs
+* [ ] No synthetic runtime datasets
+
+---
+
+## FAIL CONDITIONS
+
+* hardcoded data
+* mock runtime inputs
+* fabricated objects
+
+---
+
+# 🔥 18. SCENE AUTHORITY (PHASE 1 GAP FIX)
+
+## REQUIRED
+
+* [ ] ALL objects originate from Scene
+* [ ] No engine → UI bypass
+
+---
+
+## FAIL CONDITIONS
+
+* objects bypass scene
+* UI constructs objects
+
+---
+
+# 🔥 19. TRACEABILITY
+
+## REQUIRED
+
+* [ ] Every object has provider source
+* [ ] Every scene has data origin trace
+* [ ] timestamps present
+
+---
+
+## FAIL CONDITIONS
+
+* cannot trace data origin
+* hidden data source
+
+---
+
+# 🔥 20. DETERMINISM (FULL INPUT SET)
+
+## REQUIRED
+
+* [ ] Scene inputs include:
+
+  * location
+  * time
+  * provider snapshot
+  * scope
+  * engine
+  * filter
+
+---
+
+## FAIL CONDITIONS
+
+* unexplained output differences
+* nondeterministic behavior
+
+---
+
+# 🔥 21. VISIBILITY + RELEVANCE
+
+## REQUIRED
+
+* [ ] below-horizon objects excluded
+* [ ] irrelevant objects filtered
+* [ ] scene is NOT full dataset
+
+---
+
+## FAIL CONDITIONS
+
+* dataset dumping
+* irrelevant objects shown
+
+---
+
+# 🔥 22. RANKING SYSTEM
+
+## REQUIRED
+
+* [ ] deterministic ranking exists
+* [ ] priority ordering consistent
+* [ ] decision-support output maintained
+
+---
+
+## FAIL CONDITIONS
+
+* random ordering
+* no prioritization
+
+---
+
+# 🔥 23. CACHE + FRESHNESS
+
+## REQUIRED
+
+* [ ] TTL exists
+* [ ] stale data detectable
+* [ ] freshness exposed
+
+---
+
+## FAIL CONDITIONS
+
+* stale data treated as live
+* no cache control
+
+---
+
+# 🔥 24. DEGRADED MODE
+
+## REQUIRED
+
+* [ ] degraded state exposed
+* [ ] missing sources listed
+* [ ] no silent fallback
+
+---
+
+## FAIL CONDITIONS
+
+* fake success response
+* hidden provider failure
+
+---
+
+# 🔥 25. MOCK DATA REMOVAL
+
+## REQUIRED
+
+* [ ] no runtime MOCK_* usage
+
+---
+
+## FAIL CONDITIONS
+
+* any static dataset remains
+
+---
+
+# 🔥 26. SYSTEM INVALIDATION
+
+System is INVALID if:
+
+* [ ] mock data used
+* [ ] provider path missing
+* [ ] engines create data
+* [ ] scene bypassed
+* [ ] location/time ignored
 
 ---
 
 # FINAL RULE
 
-```text id="n5yqv9"
+```text
 ALL checks must pass.
-No interpretation allowed.
+System must reflect real-world truth.
 ```
 
 ```

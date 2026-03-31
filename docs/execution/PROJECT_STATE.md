@@ -28,13 +28,13 @@ this document is authoritative.
 
 ```text
 ACTIVE MODE: Phase 2 Execution
-ACTIVE IMPLEMENTATION PHASE: Phase 2 (completed; locked)
+ACTIVE IMPLEMENTATION PHASE: Phase 2 (in progress; unlocked)
 ```
 
 Current phase status:
 
 * Phase 1: COMPLETED (LOCKED)
-* Phase 2: COMPLETED (LOCKED)
+* Phase 2: ACTIVE (UNLOCKED)
 
 ---
 
@@ -76,8 +76,8 @@ These items are explicitly deferred and do not block corrective exit.
 ## 5. CURRENT OBJECTIVE
 
 ```text
-Phase 2 is fully locked.
-Await explicit phase-gate authorization before starting Phase 3.
+Execute Phase 2 STEP 15 (data ingestion system)
+before any Phase 2 relock attempt.
 ```
 
 ---
@@ -125,7 +125,7 @@ Execution state movement must follow:
 
 Current alignment:
 
-* active operational state: `COMPLETE` (Phase 2 locked; awaiting explicit next phase gate)
+* active operational state: `ACTIVE` (Phase 2 execution in progress)
 * blocked transitions are not auto-resolved
 * resume requires validated proof
 

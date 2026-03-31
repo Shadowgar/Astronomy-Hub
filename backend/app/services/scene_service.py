@@ -1,6 +1,9 @@
 from copy import deepcopy
 
-from backend.app.services._legacy_scene_logic import build_phase1_scene_state
+from backend.app.services._legacy_scene_logic import (
+    build_phase1_scene_state,
+    parse_location_override,
+)
 from backend.app.services.scopes_service import (
     PHASE2_ENGINE_REGISTRY,
     PHASE2_SCOPES,
@@ -28,9 +31,12 @@ _PHASE2_DEFAULT_ENGINE = {
 }
 
 
-def build_above_me_scene_payload() -> dict:
+def build_above_me_scene_payload(
+    parsed_location: dict | None = None,
+    as_of: str | None = None,
+) -> dict:
     """Return backend-authored Phase 1 scene payload for the Above Me surface."""
-    state = build_phase1_scene_state(parsed_location=None)
+    state = build_phase1_scene_state(parsed_location=parsed_location, as_of=as_of)
     scene = state.get("scene") if isinstance(state, dict) else None
     if isinstance(scene, dict):
         return scene
@@ -46,7 +52,15 @@ def build_above_me_scene_payload() -> dict:
 
 
 def build_phase2_scope_scene_payload(scope: str) -> dict:
-    return build_phase2_scope_scene_payload_with_context(scope, engine=None, filter_slug=None)
+    return build_phase2_scope_scene_payload_with_context(
+        scope,
+        engine=None,
+        filter_slug=None,
+        lat=None,
+        lon=None,
+        elevation_ft=None,
+        as_of=None,
+    )
 
 
 def _extract_scene_objects(scene: dict) -> list[dict]:
@@ -133,28 +147,61 @@ def _apply_filter(objects: list[dict], filter_slug: str, engine: str) -> list[di
 
 
 def build_phase2_scope_scene_payload_with_context(
-    scope: str, engine: str | None, filter_slug: str | None
+    scope: str,
+    engine: str | None,
+    filter_slug: str | None,
+    lat: str | None = None,
+    lon: str | None = None,
+    elevation_ft: str | None = None,
+    as_of: str | None = None,
 ) -> dict:
     """Return deterministic scope/engine/filter scene payload with backend-executed filtering."""
     if scope not in PHASE2_SCOPES:
         raise ValueError("invalid_scope")
 
+    parsed_location = parse_location_override(lat, lon, elevation_ft)
     resolved_engine = _resolve_engine(scope, engine)
     resolved_filter = _resolve_filter(resolved_engine, filter_slug)
 
-    phase1_scene = build_above_me_scene_payload()
+    phase1_state = build_phase1_scene_state(parsed_location=parsed_location, as_of=as_of)
+    phase1_scene = phase1_state.get("scene") if isinstance(phase1_state, dict) else None
+    if not isinstance(phase1_scene, dict):
+        phase1_scene = build_above_me_scene_payload(parsed_location=parsed_location, as_of=as_of)
+
     scene_objects = _extract_scene_objects(phase1_scene)
     engine_objects = _objects_for_engine(scene_objects, resolved_engine)
     ordered_objects = _sorted_objects(engine_objects)
     filtered_objects = _apply_filter(ordered_objects, resolved_filter, resolved_engine)
 
-    # Phase 2 Step 5 requires reproducible scene payloads for identical inputs.
-    deterministic_timestamp = f"phase2:{scope}:{resolved_engine}:{resolved_filter}"
+    provider_trace = phase1_state.get("provider_trace") if isinstance(phase1_state, dict) else {}
+    if not isinstance(provider_trace, dict):
+        provider_trace = {}
+    location_key = (
+        f"{parsed_location.get('latitude')}:{parsed_location.get('longitude')}"
+        if isinstance(parsed_location, dict)
+        else "default"
+    )
+    time_key = str((as_of or "").strip() or "runtime_now")
+    deterministic_timestamp = (
+        f"phase2:{scope}:{resolved_engine}:{resolved_filter}:{location_key}:{time_key}"
+    )
 
-    return {
+    payload = {
         "scope": scope,
         "engine": resolved_engine,
         "filter": resolved_filter,
         "timestamp": deterministic_timestamp,
         "objects": filtered_objects,
+        "degraded": bool(provider_trace.get("degraded")),
+        "missing_sources": list(provider_trace.get("missing_sources") or []),
+        "provider_trace": provider_trace,
+        "input_context": {
+            "lat": parsed_location.get("latitude") if isinstance(parsed_location, dict) else None,
+            "lon": parsed_location.get("longitude") if isinstance(parsed_location, dict) else None,
+            "elevation_ft": (
+                parsed_location.get("elevation_ft") if isinstance(parsed_location, dict) else None
+            ),
+            "as_of": as_of,
+        },
     }
+    return payload

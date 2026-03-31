@@ -59,15 +59,23 @@ def test_same_scope_engine_filter_returns_identical_scene_payload():
     assert payload1 == payload2
 
 
-def test_non_pipeline_query_params_do_not_change_scene_payload():
-    path_a = "/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now&lat=10&lon=20"
-    path_b = "/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now&lat=33&lon=-70"
+def test_location_and_time_context_change_scene_payload():
+    path_a = (
+        "/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now"
+        "&lat=10&lon=20&at=2026-03-31T00:00:00Z"
+    )
+    path_b = (
+        "/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now"
+        "&lat=33&lon=-70&at=2026-03-31T12:00:00Z"
+    )
     status_a, payload_a = _request_json(path_a)
     status_b, payload_b = _request_json(path_b)
 
     assert status_a == 200
     assert status_b == 200
-    assert payload_a == payload_b
+    assert payload_a != payload_b
+    assert (payload_a.get("input_context") or {}).get("lat") == 10.0
+    assert (payload_b.get("input_context") or {}).get("lat") == 33.0
 
 
 def test_earth_scope_engines_produce_distinct_scene_outputs():

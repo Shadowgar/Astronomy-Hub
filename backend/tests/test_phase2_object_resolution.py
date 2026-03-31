@@ -1,24 +1,15 @@
-import os
-import sys
 from urllib.parse import quote
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
 
-root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-backend_dir = os.path.join(root, "backend")
-if backend_dir not in sys.path:
-    sys.path.insert(0, backend_dir)
-
-import server
-
 client = TestClient(app)
 
 REQUIRED_ENGINE_SCENES = (
-    ("sky", "above_me"),
-    ("sky", "deep_sky"),
+    ("above_me", "above_me"),
+    ("deep_sky", "deep_sky"),
     ("solar_system", "planets"),
-    ("solar_system", "moon"),
+    ("sun", "moon"),
     ("earth", "satellites"),
 )
 DETAIL_FIELDS = ("description", "media", "related_objects")
@@ -30,8 +21,20 @@ def _request_json(path):
 
 
 def _build_required_scene(scope_slug, engine_slug):
-    filter_slug = server.PHASE2_ENGINE_REGISTRY[engine_slug]["default_filter"]
-    return server._build_phase2_scene(scope_slug, engine_slug, filter_slug)
+    status, payload = _request_json(
+        "/api/v1/scene"
+        f"?scope={scope_slug}&engine={engine_slug}&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+    assert status == 200
+    scene = {
+        "groups": [
+            {
+                "objects": payload.get("objects") or [],
+            }
+        ]
+    }
+    return scene
 
 
 def _first_scene_object_id(scene):
@@ -62,7 +65,9 @@ def test_object_endpoint_resolves_representative_ids_from_all_required_engines()
         representative_ids[engine_slug] = _first_scene_object_id(scene)
 
     for engine_slug, object_id in representative_ids.items():
-        status, payload = _request_json(f"/api/v1/object/{quote(object_id, safe='')}")
+        status, payload = _request_json(
+            f"/api/v1/object/{quote(object_id, safe='')}?lat=40.0&lon=-75.0"
+        )
         assert status == 200
         assert payload.get("status") == "ok"
         data = payload.get("data") or {}
@@ -92,7 +97,9 @@ def test_object_resolution_is_stable_across_repeated_requests():
 
     for _ in range(2):
         for object_id in representative_ids:
-            status, payload = _request_json(f"/api/v1/object/{quote(object_id, safe='')}")
+            status, payload = _request_json(
+                f"/api/v1/object/{quote(object_id, safe='')}?lat=40.0&lon=-75.0"
+            )
             assert status == 200
             assert payload.get("status") == "ok"
             assert (payload.get("data") or {}).get("id") == object_id

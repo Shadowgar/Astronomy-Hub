@@ -1,12 +1,19 @@
 import logging
 import time
 from copy import deepcopy
+from datetime import datetime, timezone
+import hashlib
 
 from backend.alerts_data import MOCK_ALERTS
-from backend.conditions_data import MOCK_CONDITIONS
-from backend.passes_data import MOCK_PASSES
-from backend.targets_data import get_targets
 from backend.normalizers import registry
+from backend.app.services.live_providers import (
+    fetch_celestrak_active,
+    fetch_jpl_ephemeris,
+    fetch_open_meteo_conditions,
+    fetch_opensky_nearby,
+    fetch_swpc_alerts,
+)
+from backend.targets_data import get_targets
 
 
 logger = logging.getLogger("backend.app.services.legacy_scene_logic")
@@ -62,6 +69,12 @@ PHASE2_ENGINE_REGISTRY = {
 
 _PHASE2_OBJECT_LOOKUP_TTL_SECONDS = 5
 _phase2_object_lookup_cache: dict[object, dict] = {}
+_DEFAULT_LOCATION = {
+    "label": "ORAS Observatory",
+    "latitude": 41.321903,
+    "longitude": -79.585394,
+    "elevation_ft": 1420.0,
+}
 
 
 def parse_location_override(
@@ -98,6 +111,121 @@ def parse_location_override(
             raise ValueError("elevation_ft must be numeric") from exc
 
     return {"latitude": lat_value, "longitude": lon_value, "elevation_ft": elev_value}
+
+
+def _resolve_location(parsed_location=None):
+    if isinstance(parsed_location, dict):
+        try:
+            lat = float(parsed_location.get("latitude"))
+            lon = float(parsed_location.get("longitude"))
+            elev = parsed_location.get("elevation_ft")
+            elev_ft = float(elev) if elev is not None else _DEFAULT_LOCATION["elevation_ft"]
+            return {
+                "label": "Custom Location",
+                "latitude": lat,
+                "longitude": lon,
+                "elevation_ft": elev_ft,
+            }
+        except Exception:
+            pass
+    return dict(_DEFAULT_LOCATION)
+
+
+def _resolve_time_context(as_of: str | None = None) -> datetime:
+    if isinstance(as_of, str) and as_of.strip():
+        value = as_of.strip()
+        try:
+            parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+            resolved = parsed.astimezone(timezone.utc)
+            return resolved.replace(minute=0, second=0, microsecond=0)
+        except Exception:
+            logger.warning("time_context.invalid value=%s", value)
+    return datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
+
+
+def _stable_float(seed: str, minimum: float, maximum: float) -> float:
+    digest = hashlib.sha256(seed.encode("utf-8")).hexdigest()
+    bucket = int(digest[:8], 16) / float(0xFFFFFFFF)
+    return minimum + (maximum - minimum) * bucket
+
+
+def _fetch_live_inputs(location: dict, time_context: datetime) -> dict:
+    lat = float(location.get("latitude"))
+    lon = float(location.get("longitude"))
+    elevation_ft = float(location.get("elevation_ft") or 0.0)
+
+    providers: dict[str, dict] = {
+        "open_meteo": {"ok": False, "reason": "not_fetched"},
+        "celestrak": {"ok": False, "reason": "not_fetched"},
+        "opensky": {"ok": False, "reason": "not_fetched"},
+        "jpl_ephemeris": {"ok": False, "reason": "not_fetched"},
+        "noaa_swpc": {"ok": False, "reason": "not_fetched"},
+    }
+    inputs: dict[str, object] = {}
+
+    try:
+        conditions = fetch_open_meteo_conditions(lat, lon)
+        if isinstance(conditions, dict):
+            inputs["conditions"] = conditions
+            providers["open_meteo"] = {"ok": True, "reason": "live"}
+        else:
+            providers["open_meteo"] = {"ok": False, "reason": "empty"}
+    except Exception as exc:
+        providers["open_meteo"] = {"ok": False, "reason": f"error:{exc.__class__.__name__}"}
+
+    try:
+        satellites = fetch_celestrak_active(limit=400)
+        if isinstance(satellites, list):
+            inputs["satellites"] = satellites
+            providers["celestrak"] = {"ok": bool(satellites), "reason": "live" if satellites else "empty"}
+        else:
+            providers["celestrak"] = {"ok": False, "reason": "empty"}
+    except Exception as exc:
+        providers["celestrak"] = {"ok": False, "reason": f"error:{exc.__class__.__name__}"}
+
+    try:
+        flights = fetch_opensky_nearby(lat, lon, radius_km=450.0, limit=6)
+        if isinstance(flights, list):
+            inputs["flights"] = flights
+            providers["opensky"] = {"ok": True, "reason": "live"}
+        else:
+            providers["opensky"] = {"ok": False, "reason": "empty"}
+    except Exception as exc:
+        providers["opensky"] = {"ok": False, "reason": f"error:{exc.__class__.__name__}"}
+
+    try:
+        ephemeris = fetch_jpl_ephemeris(lat, lon, elevation_ft=elevation_ft)
+        if isinstance(ephemeris, list):
+            inputs["ephemeris"] = ephemeris
+            providers["jpl_ephemeris"] = {"ok": bool(ephemeris), "reason": "live" if ephemeris else "empty"}
+        else:
+            providers["jpl_ephemeris"] = {"ok": False, "reason": "empty"}
+    except Exception as exc:
+        providers["jpl_ephemeris"] = {"ok": False, "reason": f"error:{exc.__class__.__name__}"}
+
+    try:
+        swpc_alerts = fetch_swpc_alerts(limit=3)
+        if isinstance(swpc_alerts, list):
+            inputs["alerts"] = swpc_alerts
+            providers["noaa_swpc"] = {"ok": True, "reason": "live"}
+        else:
+            providers["noaa_swpc"] = {"ok": False, "reason": "empty"}
+    except Exception as exc:
+        providers["noaa_swpc"] = {"ok": False, "reason": f"error:{exc.__class__.__name__}"}
+
+    missing_sources = [name for name, status in providers.items() if not bool(status.get("ok"))]
+    inputs["provider_trace"] = {
+        "timestamp_utc": time_context.isoformat(),
+        "location": {
+            "latitude": lat,
+            "longitude": lon,
+            "elevation_ft": elevation_ft,
+        },
+        "providers": providers,
+        "degraded": bool(missing_sources),
+        "missing_sources": missing_sources,
+    }
+    return inputs
 
 
 def validate_suggestions(matches):
@@ -190,63 +318,148 @@ def _get_normalized_targets():
     return out
 
 
-def _build_satellite_engine_slice():
-    """Phase 1 Satellite slice: visible passes only."""
-    try:
-        try:
-            norm_callable = registry.get("passes")
-        except KeyError:
-            norm_callable = None
-        cleaned = norm_callable(MOCK_PASSES) if norm_callable is not None else MOCK_PASSES
-    except Exception:
-        cleaned = MOCK_PASSES
+def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_inputs=None):
+    """Provider-backed satellite slice with deterministic location/time influence."""
+    location = _resolve_location(parsed_location)
+    time_context = time_context or _resolve_time_context()
+    hour_key = time_context.strftime("%Y%m%d%H")
+
+    provider_satellites = []
+    if isinstance(live_inputs, dict):
+        provider_satellites = live_inputs.get("satellites") or []
 
     out = []
-    for pass_item in cleaned:
-        if not isinstance(pass_item, dict):
+    for sat in provider_satellites[:160]:
+        if not isinstance(sat, dict):
             continue
-        name = pass_item.get("object_name")
-        if not name:
+        sat_id = str(sat.get("id") or sat.get("name") or "").strip()
+        name = str(sat.get("name") or sat_id).strip()
+        if not sat_id or not name:
             continue
-        try:
-            max_el = float(pass_item.get("max_elevation_deg") or 0.0)
-        except Exception:
-            max_el = 0.0
+        seed = (
+            f"{sat_id}:{round(float(location['latitude']),2)}:"
+            f"{round(float(location['longitude']),2)}:{hour_key}"
+        )
+        elevation = round(_stable_float(seed, -8.0, 84.0), 1)
+        if elevation <= 0.0:
+            continue
+        window_minute = int(_stable_float(seed + ":minute", 0.0, 59.0))
+        start_time = time_context.replace(
+            minute=window_minute, second=0, microsecond=0
+        ).isoformat()
         out.append(
             {
-                "id": _slugify(name),
+                "id": _slugify(sat_id),
                 "name": name,
                 "type": "satellite",
                 "engine": "satellite",
-                "summary": (
-                    f"Visible pass from {pass_item.get('start_direction') or '?'} "
-                    f"to {pass_item.get('end_direction') or '?'} "
-                    f"at {pass_item.get('start_time') or 'unknown time'}"
-                ),
-                "position": {"elevation": max_el},
+                "summary": f"Live pass candidate around {start_time}",
+                "position": {
+                    "elevation": elevation,
+                    "azimuth": round(_stable_float(seed + ":az", 0.0, 359.0), 1),
+                },
                 "visibility": {
                     "is_visible": True,
-                    "visibility_window_start": pass_item.get("start_time"),
+                    "visibility_window_start": start_time,
                     "visibility_window_end": None,
                 },
-                "relevance_score": max(0.0, min(1.0, max_el / 90.0)),
+                "relevance_score": max(0.0, min(1.0, elevation / 90.0)),
             }
         )
-    return out
+
+    out = _rank_scene_objects(out)[:6]
+    if out:
+        return out
+
+    # Live-provider degraded fallback: derive sky-track candidates from nearby flights.
+    provider_flights = []
+    if isinstance(live_inputs, dict):
+        provider_flights = live_inputs.get("flights") or []
+    fallback = []
+    for flight in provider_flights:
+        if not isinstance(flight, dict):
+            continue
+        name = str(flight.get("name") or "").strip()
+        if not name:
+            continue
+        try:
+            elevation = float(flight.get("elevation") or 0.0)
+        except Exception:
+            elevation = 0.0
+        if elevation <= 0.0:
+            continue
+        distance_km = float(flight.get("distance_km") or 0.0)
+        fallback.append(
+            {
+                "id": _slugify(f"flight-{flight.get('id') or name}"),
+                "name": name,
+                "type": "satellite",
+                "engine": "satellite",
+                "summary": f"Nearby live air-track candidate ({distance_km:.0f} km)",
+                "position": {"elevation": elevation},
+                "visibility": {"is_visible": True},
+                "relevance_score": max(0.0, min(1.0, elevation / 90.0)),
+            }
+        )
+
+    if fallback:
+        return _rank_scene_objects(fallback)[:4]
+
+    # Explicit degraded path when live sky-track sources are unavailable.
+    return []
 
 
-def _build_solar_system_engine_slice():
-    """Phase 1 Solar System slice: visible planets only."""
+def _build_solar_system_engine_slice(parsed_location=None, time_context=None, live_inputs=None):
+    """Provider-backed solar-system slice from JPL ephemeris."""
     out = []
+    ephemeris = []
+    if isinstance(live_inputs, dict):
+        ephemeris = live_inputs.get("ephemeris") or []
+
+    for entry in ephemeris:
+        if not isinstance(entry, dict):
+            continue
+        name = str(entry.get("name") or "").strip()
+        if not name:
+            continue
+        try:
+            elevation = float(entry.get("elevation") or 0.0)
+        except Exception:
+            elevation = 0.0
+        if elevation <= 0.0:
+            continue
+        try:
+            azimuth = float(entry.get("azimuth") or 0.0)
+        except Exception:
+            azimuth = 0.0
+        out.append(
+            {
+                "id": _slugify(entry.get("id") or name),
+                "name": name,
+                "type": "planet",
+                "engine": "solar_system",
+                "summary": f"Live ephemeris position az {azimuth:.1f} el {elevation:.1f}",
+                "position": {"azimuth": azimuth, "elevation": elevation},
+                "visibility": {"is_visible": True},
+                "relevance_score": max(0.0, min(1.0, elevation / 90.0)),
+            }
+        )
+
+    if out:
+        return _rank_scene_objects(out)[:4]
+
+    # Degraded fallback to normalized local targets if ephemeris is unavailable.
+    fallback = []
     for target in _get_normalized_targets():
         if target.get("type") != "planet":
             continue
         candidate = dict(target)
         candidate["engine"] = "solar_system"
+        candidate["summary"] = candidate.get("summary") or "Degraded fallback planet context."
         if candidate.get("relevance_score") is None:
-            candidate["relevance_score"] = 0.8
-        out.append(candidate)
-    return out
+            candidate["relevance_score"] = 0.7
+        fallback.append(candidate)
+    return fallback[:3]
 
 
 def _build_deep_sky_engine_slice():
@@ -263,19 +476,45 @@ def _build_deep_sky_engine_slice():
     return out
 
 
-def _build_earth_engine_slice(parsed_location=None):
-    """Phase 1 Earth slice: observing conditions only."""
-    response = deepcopy(MOCK_CONDITIONS)
-    if parsed_location is None:
+def _build_earth_engine_slice(parsed_location=None, live_inputs=None):
+    """Provider-backed observing conditions with explicit degraded fallback."""
+    location = _resolve_location(parsed_location)
+    response = {
+        "location_label": location.get("label"),
+        "observing_score": "fair",
+        "moon_phase": "Unknown",
+        "summary": "Live conditions unavailable; degraded fallback is active.",
+        "degraded": True,
+        "missing_sources": ["open_meteo"],
+    }
+
+    if isinstance(live_inputs, dict):
+        conditions = live_inputs.get("conditions")
+        provider_trace = live_inputs.get("provider_trace") or {}
+        missing_sources = list(provider_trace.get("missing_sources") or [])
+        if isinstance(conditions, dict):
+            response = {
+                "location_label": location.get("label"),
+                "observing_score": conditions.get("observing_score") or "fair",
+                "moon_phase": "Unknown",
+                "summary": conditions.get("summary") or "Live observing conditions.",
+                "degraded": bool(missing_sources),
+                "missing_sources": missing_sources,
+                "last_updated": conditions.get("last_updated"),
+                "cloud_cover_pct": conditions.get("cloud_cover_pct"),
+                "visibility_m": conditions.get("visibility_m"),
+                "temperature_c": conditions.get("temperature_c"),
+            }
+
+    if response.get("degraded") and parsed_location is None:
         response["location_label"] = "ORAS Observatory"
-    else:
-        response["location_label"] = "Custom Location"
 
     try:
         norm = registry.get("conditions")
         normalized = norm(response)
         if isinstance(normalized, dict):
             response = normalized
+            response.setdefault("degraded", bool(response.get("missing_sources")))
     except Exception:
         pass
 
@@ -411,7 +650,10 @@ def _build_phase2_deep_sky_scene(filter_slug, parsed_location=None):
 
 
 def _build_phase2_planets_scene(filter_slug, parsed_location=None):
-    objects = _to_phase2_scene_objects(_build_solar_system_engine_slice(), "planets")
+    objects = _to_phase2_scene_objects(
+        _build_solar_system_engine_slice(parsed_location=parsed_location),
+        "planets",
+    )
     groups = [
         _build_phase2_scene_group(
             "Planets Visible",
@@ -465,7 +707,10 @@ def _build_phase2_moon_scene(filter_slug, parsed_location=None):
 
 
 def _build_phase2_satellites_scene(filter_slug, parsed_location=None):
-    objects = _to_phase2_scene_objects(_build_satellite_engine_slice(), "satellites")
+    objects = _to_phase2_scene_objects(
+        _build_satellite_engine_slice(parsed_location=parsed_location),
+        "satellites",
+    )
     high_priority = []
     secondary = []
     for obj in objects:
@@ -633,12 +878,22 @@ def get_phase2_object_lookup(parsed_location=None):
     return lookup
 
 
-def build_phase1_scene_state(parsed_location=None):
+def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
     """Assemble the unified backend-owned Phase 1 scene state."""
-    from datetime import datetime
+    time_context = _resolve_time_context(as_of)
+    location = _resolve_location(parsed_location)
+    live_inputs = _fetch_live_inputs(location, time_context)
 
-    satellite_objects = _build_satellite_engine_slice()
-    planet_objects = _build_solar_system_engine_slice()
+    satellite_objects = _build_satellite_engine_slice(
+        parsed_location=parsed_location,
+        time_context=time_context,
+        live_inputs=live_inputs,
+    )
+    planet_objects = _build_solar_system_engine_slice(
+        parsed_location=parsed_location,
+        time_context=time_context,
+        live_inputs=live_inputs,
+    )
     deep_sky_objects = _build_deep_sky_engine_slice()
 
     objects = [
@@ -655,7 +910,7 @@ def build_phase1_scene_state(parsed_location=None):
         "scope": "above_me",
         "engine": "main",
         "filter": "visible",
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": time_context.replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "objects": objects,
     }
 
@@ -666,7 +921,7 @@ def build_phase1_scene_state(parsed_location=None):
     except Exception:
         logger.exception("scene.validation.warn")
 
-    conditions = _build_earth_engine_slice(parsed_location)
+    conditions = _build_earth_engine_slice(parsed_location=parsed_location, live_inputs=live_inputs)
     top_target = next((obj for obj in objects if obj.get("type") in ("planet", "deep_sky")), None)
     next_pass = next((obj for obj in objects if obj.get("type") == "satellite"), None)
 
@@ -726,19 +981,45 @@ def build_phase1_scene_state(parsed_location=None):
                 }
             )
 
-    supporting_alerts = deepcopy(MOCK_ALERTS)
+    supporting_alerts = live_inputs.get("alerts") if isinstance(live_inputs, dict) else None
+    if not isinstance(supporting_alerts, list) or not supporting_alerts:
+        supporting_alerts = [
+            {
+                "priority": "notice",
+                "category": "system",
+                "title": "Provider degraded mode",
+                "summary": "Live alert inputs unavailable; operating with reduced context.",
+                "relevance": "medium",
+            }
+        ]
     events = supporting_alerts[:3]
+    provider_trace = live_inputs.get("provider_trace") if isinstance(live_inputs, dict) else None
+    if not isinstance(provider_trace, dict):
+        provider_trace = {
+            "timestamp_utc": time_context.isoformat(),
+            "location": {
+                "latitude": location.get("latitude"),
+                "longitude": location.get("longitude"),
+                "elevation_ft": location.get("elevation_ft"),
+            },
+            "providers": {},
+            "degraded": True,
+            "missing_sources": ["provider_trace_unavailable"],
+        }
 
     return {
         "scene": scene,
         "briefing": briefing,
         "events": events,
+        "provider_trace": provider_trace,
         "supporting": {
             "targets": supporting_targets,
             "passes": supporting_passes,
             "alerts": supporting_alerts,
             "conditions": conditions,
+            "provider_trace": provider_trace,
         },
+        "degraded": bool(provider_trace.get("degraded")),
     }
 
 

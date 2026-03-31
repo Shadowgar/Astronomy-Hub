@@ -381,6 +381,7 @@ Phase 2 scope is clean.
 * materially different valid location/time context can produce different Above Me scene output where conditions differ
 * provider/input degradation is explicit and does not silently return static success payloads
 * provider baseline is wired and traceable in runtime:
+
   * Open-Meteo (conditions)
   * CelesTrak (satellites)
   * OpenSky Network (flights)
@@ -398,6 +399,234 @@ Above Me truth is live, location/time-aware, and provable.
 
 ---
 
+# 🔥 STEP 15 — DATA INGESTION SYSTEM (CRITICAL GAP FIX)
+
+---
+
+## VERIFY
+
+System implements:
+
+```text
+Provider → Adapter → Normalizer → Validator → Cache → Engine Input
+```
+
+---
+
+## VERIFY
+
+* provider clients exist per domain
+* adapter layer converts raw payloads
+* normalization produces canonical contracts
+* validation rejects invalid/stale data
+
+---
+
+## LOCK CONDITION
+
+```text
+No raw provider data reaches engines or scenes.
+```
+
+---
+
+# 🔥 STEP 16 — CACHE SYSTEM
+
+---
+
+## VERIFY
+
+* provider-specific TTL exists
+* stale detection exists
+* refresh logic exists
+
+---
+
+## LOCK CONDITION
+
+```text
+Cache preserves performance without corrupting truth.
+```
+
+---
+
+# 🔥 STEP 17 — ENGINE INPUT REFACTOR
+
+---
+
+## VERIFY
+
+* engines consume ONLY normalized provider data
+* no static datasets remain
+* no mock runtime sources
+
+---
+
+## LOCK CONDITION
+
+```text
+Engines transform truth, not create it.
+```
+
+---
+
+# 🔥 STEP 18 — REMOVE MOCK DATA
+
+---
+
+## VERIFY
+
+* all runtime MOCK_* removed
+* no fallback static success responses
+
+---
+
+## LOCK CONDITION
+
+```text
+System fails or degrades visibly — never fakes success.
+```
+
+---
+
+# 🔥 STEP 19 — ABOVE ME ORCHESTRATION (CORRECTED)
+
+---
+
+## VERIFY
+
+* Above Me merges multiple engines
+* applies global visibility + time filters
+* ranks cross-engine outputs
+
+---
+
+## LOCK CONDITION
+
+```text
+Above Me is an orchestrator, not an engine.
+```
+
+---
+
+# 🔥 STEP 20 — SCENE AUTHORITY ENFORCEMENT
+
+---
+
+## VERIFY
+
+* no engine → UI bypass
+* all objects originate from scene
+
+---
+
+## LOCK CONDITION
+
+```text
+Scene is the ONLY source of surfaced objects.
+```
+
+---
+
+# 🔥 STEP 21 — TRACEABILITY SYSTEM
+
+---
+
+## VERIFY
+
+* provider source included in outputs
+* timestamps included
+* degraded state exposed
+
+---
+
+## LOCK CONDITION
+
+```text
+Every scene can be traced to provider inputs.
+```
+
+---
+
+# 🔥 STEP 22 — LOCATION / TIME VALIDATION
+
+---
+
+## VERIFY
+
+* changing location changes output
+* changing time changes output
+
+---
+
+## LOCK CONDITION
+
+```text
+Scene reflects real-world context.
+```
+
+---
+
+# 🔥 STEP 23 — VISIBILITY + RANKING
+
+---
+
+## VERIFY
+
+* altitude filtering applied
+* relevance filtering applied
+* deterministic ranking applied
+
+---
+
+## LOCK CONDITION
+
+```text
+Only relevant objects are surfaced.
+```
+
+---
+
+# 🔥 STEP 24 — DEGRADED MODE
+
+---
+
+## VERIFY
+
+* provider failure detected
+* degraded state exposed
+* no silent fallback
+
+---
+
+## LOCK CONDITION
+
+```text
+System truth is transparent.
+```
+
+---
+
+# 🔥 STEP 25 — FINAL REALITY VALIDATION
+
+---
+
+## VERIFY
+
+* outputs match real-world expectations
+* provider data drives all scenes
+* no synthetic truth remains
+
+---
+
+## LOCK CONDITION
+
+```text
+System is reality-backed.
+```
+
+---
+
 # FINAL PHASE LOCK
 
 ---
@@ -408,7 +637,9 @@ Phase 2 COMPLETE ONLY IF:
 ALL steps locked
 ALL transitions deterministic
 ALL state controlled
-NO leakage from future phases
+ALL data provider-backed
+NO mock runtime data
+NO pipeline violations
 ```
 
 ---
@@ -416,9 +647,7 @@ NO leakage from future phases
 # FINAL RULE
 
 ```text
-Do NOT proceed to Phase 3 unless Phase 2 is fully locked.
+Do NOT proceed to Phase 3 unless Phase 2 is fully locked and reality-backed.
 ```
-
----
 
 ```

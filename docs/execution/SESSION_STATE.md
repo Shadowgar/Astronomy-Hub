@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 FINAL PHASE LOCK EVALUATION (LOCKED)
+* current step: PHASE 2 STEP 15 — DATA INGESTION SYSTEM (IN PROGRESS)
 
 ---
 
@@ -174,11 +174,19 @@ It does NOT:
   * result: LOCKED
   * validation: Section 14 user-validation criteria are now proven with runtime evidence (scope subtitle/object change on scope switch, distinct Earth engine outputs, visible filter impact, and confusion-free detail/navigation flow); acceptance checks reconciled to `[x]` in `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md`; regression proof includes `.venv/bin/pytest -q backend/tests/test_phase2_scope_routing.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_scene_scope_switch.py`, `npm --prefix frontend run build`, and Docker runtime checks via `/api/v1/scene`.
 
+* step: PHASE 2 REOPEN — STEP 14 AUTHORITY EXTENSION
+  * result: NOT LOCKED
+  * validation: Phase 2 docs now include explicit live-data/location-time/provider-baseline requirements (`docs/phases/PHASE_2_SPEC.md` section 11, `docs/phases/PHASE_2_BUILD_SEQUENCE.md` step 14, `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md` section 15); implementation proof for these new checks is pending.
+
+* step: PHASE 2 STEP 14 — LIVE DATA & LOCATION-TIME AUTHORITY
+  * result: LOCKED
+  * validation: Above Me scene runtime path now uses provider-backed backend inputs (`backend/app/services/live_providers.py`, `backend/app/services/_legacy_scene_logic.py`, `backend/app/services/scene_service.py`, `backend/app/routes/scene.py`) with explicit provider trace + degraded-mode signaling in `/api/v1/scene`; materially different location/time context produces different scene outputs (`backend/tests/test_phase2_scene_scope_switch.py::test_location_and_time_context_change_scene_payload` + Docker runtime curls on `lat=10,lon=20,at=2026-03-31T00:00:00Z` vs `lat=33,lon=-70,at=2026-03-31T12:00:00Z`); regression lanes pass with `.venv/bin/pytest -q backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_object_resolution.py` and `.venv/bin/pytest -q backend/tests/test_api_scene_above_me.py backend/tests/test_phase1_scene_assembly.py backend/tests/test_contracts_phase1.py`.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: hold at Phase 2 completion and await explicit authorization before Phase 3.
+* next step: execute Phase 2 STEP 15 verify-first flow and lock only with implementation + tracking proof.
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

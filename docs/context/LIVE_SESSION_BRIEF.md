@@ -35,8 +35,8 @@ Phase 1:
 - condition: Step 1–14 proofs are established and reconciled in authoritative tracking.
 
 Phase 2:
-- status: COMPLETED (LOCKED)
-- condition: Final lock is proven with implementation/runtime evidence and authoritative tracking reconciliation, including Section 14 user-validation checks.
+- status: ACTIVE (UNLOCKED)
+- condition: Step 14 live-data/location-time authority is now proven; phase remains unlocked pending Step 15+ completion.
 
 Phase 3:
 - status: NOT STARTED
@@ -55,7 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- maintain Phase 2 locked state with implementation truth and tracking truth aligned
+- execute Phase 2 STEP 15 (DATA INGESTION SYSTEM)
 - preserve command-center integrity and backend-authoritative Scene → Object → Detail behavior
 
 SECONDARY:
@@ -67,11 +67,13 @@ SECONDARY:
 # 4. ACTIVE TASK
 
 TASK:
-- PHASE 2 LOCKED HOLD
+- PHASE 2 EXECUTION
 
 Scope:
-- preserve locked state
-- block Phase 3 start until explicitly authorized
+- execute one Phase 2 build-sequence step at a time
+- verify before changing anything
+- fix minimally when invalid
+- update authoritative tracking after each locked step
 
 ---
 
@@ -97,19 +99,22 @@ Scope:
 - Phase 2 STEP 12 (TESTING) locked with implementation + tracking proof
 - Phase 2 STEP 13 (ANTI-SCOPE) locked with implementation + tracking proof
 - Phase 2 final lock evaluation executed: LOCKED (Section 14 user-validation criteria proven in runtime and acceptance tracking updated).
+- Phase 2 reopened: new authoritative Step 14 (live data/location-time authority) added to spec/build/acceptance and remains unproven.
+- Phase 2 STEP 14 (LIVE DATA & LOCATION-TIME AUTHORITY) locked with provider-backed runtime proof, explicit degraded-mode proof, and acceptance tracking updates.
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- hold at Phase 2 completion state
-- do not start Phase 3 until explicitly authorized
+- execute Phase 2 STEP 15 — DATA INGESTION SYSTEM
+- verify provider → adapter → normalizer → validator → cache pipeline law before proceeding
 
 ---
 
 # 7. BLOCKERS
 
 - no Phase 1 blockers
+- Phase 2 lock is blocked by unproven Section 16+ checks in `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md`
 - Phase 3+ remains blocked by phase-gate law
 
 ---
