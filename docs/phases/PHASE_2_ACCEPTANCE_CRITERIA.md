@@ -262,9 +262,9 @@ Produces:
 
 ## REQUIRED
 
-* [ ] Backend assembles scene
+* [x] Backend assembles scene
 
-* [ ] Frontend:
+* [x] Frontend:
 
   * receives normalized data only
   * does NOT filter data

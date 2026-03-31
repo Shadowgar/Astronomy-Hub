@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: STEP 9 — OBJECT SYSTEM (COMPLETE / LOCKED)
+* current step: STEP 10 — DATA BOUNDARY ENFORCEMENT (COMPLETE / LOCKED)
 
 ---
 
@@ -150,11 +150,15 @@ It does NOT:
   * result: LOCKED
   * validation: object IDs and detail routes are scene-derived and stable in backend contract tests (`pytest -q backend/tests/test_phase2_object_resolution.py`); Docker runtime API checks across valid scope/engine pairs confirm scene object IDs map deterministically to `/object/{id}` and resolve via `/api/v1/object/{id}`; Playwright runtime proof confirms object selection routing remains valid across context transitions (`earth/flights` -> `earth/satellites` -> `deep_sky/deep_sky`) with successful detail fetches (`/api/v1/object/iss`, `/api/v1/object/m13`).
 
+* step: PHASE 2 STEP 10 — DATA BOUNDARY ENFORCEMENT
+  * result: LOCKED
+  * validation: backend remains sole scene assembly source in `backend/app/routes/scene.py` + `backend/app/services/scene_service.py`; frontend consumes normalized scene/detail payloads through query-boundary selectors (`frontend/src/features/scene/queries.ts`, `frontend/src/features/objects/queries.ts`) with no component-level envelope parsing; minimal fix removed frontend scene-object filtering for briefing meaning in `frontend/src/components/AboveMeScene.jsx` (no `objects.find/filter/sort/reduce`); Docker runtime re-check confirms command-center rendering and object detail routing remain valid after rebuild.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute PHASE 2 STEP 10 — DATA BOUNDARY ENFORCEMENT (verify first, fix minimally only if invalid).
+* next step: execute PHASE 2 STEP 11 — PERFORMANCE CONTROL (verify first, fix minimally only if invalid).
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

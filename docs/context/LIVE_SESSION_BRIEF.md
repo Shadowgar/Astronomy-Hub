@@ -95,14 +95,15 @@ Scope:
 - Phase 2 STEP 7 (COMMAND BAR ACTIVATION) locked with implementation + tracking proof
 - Phase 2 STEP 8 (SCENE TRANSITIONS) locked with implementation + tracking proof
 - Phase 2 STEP 9 (OBJECT SYSTEM) locked with implementation + tracking proof
+- Phase 2 STEP 10 (DATA BOUNDARY ENFORCEMENT) locked with implementation + tracking proof
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 10 (DATA BOUNDARY ENFORCEMENT)
-- verify current repo state against the Phase 2 STEP 10 requirement before making changes
-- update authoritative tracking when STEP 10 is locked
+- execute Phase 2 STEP 11 (PERFORMANCE CONTROL)
+- verify current repo state against the Phase 2 STEP 11 requirement before making changes
+- update authoritative tracking when STEP 11 is locked
 
 ---
 

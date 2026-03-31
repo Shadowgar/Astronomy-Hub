@@ -75,8 +75,18 @@ export default function AboveMeScene({ locationQuery = '' }) {
   const conditions = conditionsQuery.data || null
 
   const objects = useMemo(() => (scene && Array.isArray(scene.objects) ? scene.objects : []), [scene])
-  const topTarget = useMemo(() => objects.find((o) => o.type === 'planet' || o.type === 'deep_sky') || null, [objects])
-  const nextPass = useMemo(() => objects.find((o) => o.type === 'satellite') || null, [objects])
+  const topTargetName =
+    typeof scene?.top_target_name === 'string'
+      ? scene.top_target_name
+      : typeof scene?.top_target?.name === 'string'
+        ? scene.top_target.name
+        : 'None'
+  const nextPassName =
+    typeof scene?.next_pass_name === 'string'
+      ? scene.next_pass_name
+      : typeof scene?.next_pass?.name === 'string'
+        ? scene.next_pass.name
+        : 'None'
 
   useEffect(() => {
     if (!activeEngine && engine) {
@@ -139,8 +149,8 @@ export default function AboveMeScene({ locationQuery = '' }) {
         <div className="above-me-scene__content">
           <div className="above-me-scene__briefing">
             <div className="above-me-scene__briefing-item"><strong>Conditions:</strong> {conditions?.observing_score ?? 'N/A'}</div>
-            <div className="above-me-scene__briefing-item"><strong>Top target:</strong> {topTarget?.name || 'None'}</div>
-            <div className="above-me-scene__briefing-item"><strong>Next pass:</strong> {nextPass?.name || 'None'}</div>
+            <div className="above-me-scene__briefing-item"><strong>Top target:</strong> {topTargetName}</div>
+            <div className="above-me-scene__briefing-item"><strong>Next pass:</strong> {nextPassName}</div>
             <div className="above-me-scene__briefing-item"><strong>Visible:</strong> {objects.length}</div>
           </div>
 
