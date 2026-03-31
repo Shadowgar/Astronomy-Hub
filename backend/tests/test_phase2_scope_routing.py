@@ -87,6 +87,15 @@ def test_valid_engine_selection_inside_scope_returns_engine_metadata():
     assert payload.get("optional") is True
 
 
+def test_composite_scope_supports_single_engine_selection():
+    status, payload = _request_json("/api/v1/scopes?scope=earth&engine=satellites")
+
+    assert status == 200
+    assert payload.get("engine") == "satellites"
+    assert payload.get("scope") == "satellites"
+    assert payload.get("optional") is False
+
+
 def test_invalid_engine_slug_returns_json_400_with_stable_error_code():
     status, payload = _request_json("/api/v1/scopes?scope=above_me&engine=not_real")
 

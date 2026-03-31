@@ -168,7 +168,8 @@ def build_scopes_response(
                 },
             )
 
-        if engine_meta.get("scope") != scope_slug:
+        allowed_engines_for_scope = list(PHASE2_SCOPE_TO_ENGINES.get(scope_slug, []))
+        if engine_slug not in allowed_engines_for_scope:
             return (
                 400,
                 {
@@ -179,7 +180,7 @@ def build_scopes_response(
                             {
                                 "scope": scope_slug,
                                 "engine": engine_slug,
-                                "allowed_engines": list(PHASE2_SCOPE_TO_ENGINES.get(scope_slug, [])),
+                                "allowed_engines": allowed_engines_for_scope,
                             }
                         ],
                     }

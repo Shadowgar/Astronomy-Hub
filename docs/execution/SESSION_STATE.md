@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: STEP 2 — SCOPE SYSTEM (COMPLETE / LOCKED)
+* current step: STEP 3 — ENGINE SYSTEM (COMPLETE / LOCKED)
 
 ---
 
@@ -122,11 +122,15 @@ It does NOT:
   * result: LOCKED
   * validation: `GET /api/v1/scopes` now exposes required scopes (`above_me`, `earth`, `sun`, `satellites`, `flights`, `solar_system`, `deep_sky`); `setActiveScope` resets `activeEngine`, `activeFilter`, and `selectedObjectId`; Docker runtime Playwright proof shows scope selector updates context and triggers scene regeneration (`/api/v1/scene?scope=...`) with visible scene output changes.
 
+* step: PHASE 2 STEP 3 — ENGINE SYSTEM
+  * result: LOCKED
+  * validation: scope-engine routing is deterministic and single-engine (`/api/v1/scopes?scope=...&engine=...` returns one engine record with `allowed_filters`); out-of-scope engines return stable `engine_out_of_scope` JSON 400; composite `earth` scope now resolves valid single-engine selection (`engine=satellites`) in both local tests and Docker runtime; `activeEngine` remains single-value state in `frontend/src/state/globalUiState.js`.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute PHASE 2 STEP 3 — ENGINE SYSTEM (verify first, fix minimally only if invalid).
+* next step: execute PHASE 2 STEP 4 — FILTER SYSTEM (verify first, fix minimally only if invalid).
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

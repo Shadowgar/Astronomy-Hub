@@ -79,16 +79,16 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [ ] Only ONE engine active at a time
+* [x] Only ONE engine active at a time
   (except Above Me merge mode)
 
-* [ ] Engines:
+* [x] Engines:
 
   * are independent
   * return structured data only
   * do NOT render UI
 
-* [ ] Each engine defines:
+* [x] Each engine defines:
 
   * dataset
   * valid filters

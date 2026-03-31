@@ -88,14 +88,15 @@ Scope:
 - Phase 1 status updated to LOCKED
 - Phase 2 STEP 1 (STATE FOUNDATION) locked with implementation + tracking proof
 - Phase 2 STEP 2 (SCOPE SYSTEM) locked with implementation + tracking proof
+- Phase 2 STEP 3 (ENGINE SYSTEM) locked with implementation + tracking proof
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 3 (ENGINE SYSTEM)
-- verify current repo state against the Phase 2 STEP 3 requirement before making changes
-- update authoritative tracking when STEP 3 is locked
+- execute Phase 2 STEP 4 (FILTER SYSTEM)
+- verify current repo state against the Phase 2 STEP 4 requirement before making changes
+- update authoritative tracking when STEP 4 is locked
 
 ---
 
