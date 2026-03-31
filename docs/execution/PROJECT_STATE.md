@@ -76,7 +76,7 @@ These items are explicitly deferred and do not block corrective exit.
 ## 5. CURRENT OBJECTIVE
 
 ```text
-Execute Phase 2 STEP 19 (Above Me orchestration)
+Execute Phase 2 STEP 20 (scene authority enforcement)
 before any Phase 2 relock attempt.
 ```
 

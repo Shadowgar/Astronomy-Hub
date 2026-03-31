@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 19 — ABOVE ME ORCHESTRATION (IN PROGRESS)
+* current step: PHASE 2 STEP 20 — SCENE AUTHORITY ENFORCEMENT (IN PROGRESS)
 
 ---
 
@@ -198,11 +198,15 @@ It does NOT:
   * result: LOCKED
   * validation: remaining FastAPI runtime mock dependency was removed from `backend/app/services/conditions_service.py` (`backend.conditions_data.MOCK_CONDITIONS` import deleted) and replaced with provider-backed ingestion (`fetch_normalized_live_inputs`) with explicit degraded payloads when live inputs are unavailable; route contract remains stable in `backend/app/routes/conditions.py` with no static mock success path; proof includes `.venv/bin/pytest -q backend/tests/test_phase2_mock_data_removal.py backend/tests/test_conditions_cache_integration.py backend/tests/test_fastapi_conditions.py backend/tests/test_degraded_mode.py` (8 passed), regression suite `.venv/bin/pytest -q backend/tests/test_phase2_engine_input_refactor.py backend/tests/test_phase2_data_ingestion_pipeline.py backend/tests/test_phase2_provider_cache_ttl.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_object_resolution.py backend/tests/test_api_scene_above_me.py` (20 passed), `docker compose up -d --build backend`, runtime `/api/v1/conditions` showing provider-backed source + degraded fields, and `rg -n "MOCK_" backend/app` returning no matches.
 
+* step: PHASE 2 STEP 19 — ABOVE ME ORCHESTRATION
+  * result: LOCKED
+  * validation: Above Me orchestration behavior is already valid in runtime with no implementation changes required; proof includes `.venv/bin/pytest -q backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_api_scene_above_me.py` (9 passed), runtime `/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now` showing merged multi-engine object output (`engine` set includes `deep_sky` and `satellite`) in a single scene, `/api/v1/scene?...&filter=short_window` showing time-oriented narrowing to satellite subset (`short_count=2`, `short_all_satellite=True`), relevance ordering check (`sorted_desc=True`), and visibility enforcement check (`visibility_violations=[]`).
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute Phase 2 STEP 19 verify-first flow and lock only with implementation + tracking proof.
+* next step: execute Phase 2 STEP 20 verify-first flow and lock only with implementation + tracking proof.
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict
