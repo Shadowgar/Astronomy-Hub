@@ -2,6 +2,7 @@ import { createStore } from 'zustand/vanilla'
 import { useStore } from 'zustand'
 
 const UI_STATE_STORAGE_KEY = 'astronomyHub.globalUiState'
+const DEFAULT_SCOPE = 'above_me'
 
 function readPersistedUiState() {
   if (typeof globalThis === 'undefined' || !globalThis.localStorage) return {}
@@ -11,7 +12,7 @@ function readPersistedUiState() {
     const parsed = JSON.parse(raw)
     if (!parsed || typeof parsed !== 'object') return {}
     return {
-      activeScope: parsed.activeScope ?? null,
+      activeScope: parsed.activeScope ?? DEFAULT_SCOPE,
       activeEngine: parsed.activeEngine ?? null,
       activeFilter: parsed.activeFilter ?? null,
       selectedObjectId: parsed.selectedObjectId ?? null,
@@ -41,13 +42,20 @@ function persistUiState(state) {
 const persistedState = readPersistedUiState()
 
 const globalUiStore = createStore((set) => ({
-  activeScope: persistedState.activeScope ?? null,
+  activeScope: persistedState.activeScope ?? DEFAULT_SCOPE,
   activeEngine: persistedState.activeEngine ?? null,
   activeFilter: persistedState.activeFilter ?? null,
   selectedObjectId: persistedState.selectedObjectId ?? null,
   activeSceneState: persistedState.activeSceneState ?? { status: 'idle' },
   uiToggles: {},
-  setActiveScope: (activeScope) => set({ activeScope }),
+  setActiveScope: (activeScope) =>
+    set(() => ({
+      activeScope,
+      activeEngine: null,
+      activeFilter: null,
+      selectedObjectId: null,
+      activeSceneState: { status: 'loading', scope: activeScope },
+    })),
   setActiveEngine: (activeEngine) => set({ activeEngine }),
   setActiveFilter: (activeFilter) => set({ activeFilter }),
   setSelectedObjectId: (selectedObjectId) => set({ selectedObjectId }),

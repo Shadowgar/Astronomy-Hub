@@ -19,19 +19,32 @@ def test_scope_listing_returns_all_scope_mappings_with_optional_metadata():
     assert isinstance(scopes, list)
 
     by_scope = {entry.get("scope"): entry for entry in scopes if isinstance(entry, dict)}
-    assert set(by_scope.keys()) == {"sky", "solar_system", "earth"}
-    assert by_scope["sky"].get("engines") == ["above_me", "deep_sky"]
-    assert by_scope["solar_system"].get("engines") == ["planets", "moon"]
+    assert set(by_scope.keys()) == {
+        "above_me",
+        "earth",
+        "sun",
+        "satellites",
+        "flights",
+        "solar_system",
+        "deep_sky",
+    }
+    assert by_scope["above_me"].get("engines") == ["above_me"]
+    assert by_scope["deep_sky"].get("engines") == ["deep_sky"]
+    assert by_scope["solar_system"].get("engines") == ["planets"]
     assert by_scope["earth"].get("engines") == ["satellites", "flights"]
+    assert by_scope["sun"].get("engines") == ["moon"]
+    assert by_scope["satellites"].get("engines") == ["satellites"]
+    assert by_scope["flights"].get("engines") == ["flights"]
     assert by_scope["earth"].get("optional_engines") == ["flights"]
+    assert by_scope["flights"].get("optional_engines") == ["flights"]
 
 
 def test_valid_single_scope_lookup_returns_correct_engine_mapping():
-    status, payload = _request_json("/api/v1/scopes?scope=sky")
+    status, payload = _request_json("/api/v1/scopes?scope=above_me")
 
     assert status == 200
-    assert payload.get("scope") == "sky"
-    assert payload.get("engines") == ["above_me", "deep_sky"]
+    assert payload.get("scope") == "above_me"
+    assert payload.get("engines") == ["above_me"]
     assert payload.get("optional_engines") == []
 
 
@@ -45,7 +58,15 @@ def test_invalid_scope_returns_json_400_with_stable_error_code():
     assert err.get("code") == "invalid_scope"
     details = err.get("details") or []
     assert isinstance(details, list)
-    assert details and details[0].get("allowed_scopes") == ["sky", "solar_system", "earth"]
+    assert details and details[0].get("allowed_scopes") == [
+        "above_me",
+        "earth",
+        "sun",
+        "satellites",
+        "flights",
+        "solar_system",
+        "deep_sky",
+    ]
 
 
 def test_engine_only_request_is_rejected_to_preserve_scope_first_pipeline():
@@ -58,16 +79,16 @@ def test_engine_only_request_is_rejected_to_preserve_scope_first_pipeline():
 
 
 def test_valid_engine_selection_inside_scope_returns_engine_metadata():
-    status, payload = _request_json("/api/v1/scopes?scope=earth&engine=flights")
+    status, payload = _request_json("/api/v1/scopes?scope=flights&engine=flights")
 
     assert status == 200
     assert payload.get("engine") == "flights"
-    assert payload.get("scope") == "earth"
+    assert payload.get("scope") == "flights"
     assert payload.get("optional") is True
 
 
 def test_invalid_engine_slug_returns_json_400_with_stable_error_code():
-    status, payload = _request_json("/api/v1/scopes?scope=sky&engine=not_real")
+    status, payload = _request_json("/api/v1/scopes?scope=above_me&engine=not_real")
 
     assert status == 400
     err = payload.get("error")
@@ -76,7 +97,7 @@ def test_invalid_engine_slug_returns_json_400_with_stable_error_code():
 
 
 def test_engine_outside_selected_scope_returns_json_400_with_stable_error_code():
-    status, payload = _request_json("/api/v1/scopes?scope=sky&engine=moon")
+    status, payload = _request_json("/api/v1/scopes?scope=deep_sky&engine=moon")
 
     assert status == 400
     err = payload.get("error")
@@ -86,12 +107,12 @@ def test_engine_outside_selected_scope_returns_json_400_with_stable_error_code()
 
 def test_registry_consistency_across_all_canonical_engines():
     expected = {
-        "above_me": ("sky", False),
-        "deep_sky": ("sky", False),
+        "above_me": ("above_me", False),
+        "deep_sky": ("deep_sky", False),
         "planets": ("solar_system", False),
-        "moon": ("solar_system", False),
-        "satellites": ("earth", False),
-        "flights": ("earth", True),
+        "moon": ("sun", False),
+        "satellites": ("satellites", False),
+        "flights": ("flights", True),
     }
 
     for engine_slug, (scope_slug, is_optional) in expected.items():
@@ -103,11 +124,11 @@ def test_registry_consistency_across_all_canonical_engines():
 
 
 def test_valid_filter_selection_returns_engine_and_filter_metadata():
-    status, payload = _request_json("/api/v1/scopes?scope=sky&engine=deep_sky&filter=naked_eye")
+    status, payload = _request_json("/api/v1/scopes?scope=deep_sky&engine=deep_sky&filter=naked_eye")
 
     assert status == 200
     assert payload.get("engine") == "deep_sky"
-    assert payload.get("scope") == "sky"
+    assert payload.get("scope") == "deep_sky"
     assert payload.get("filter") == "naked_eye"
     assert payload.get("default_filter") == "visible_now"
     assert payload.get("filter_source") == "requested"
@@ -115,11 +136,11 @@ def test_valid_filter_selection_returns_engine_and_filter_metadata():
 
 
 def test_omitted_filter_returns_default_filter_metadata():
-    status, payload = _request_json("/api/v1/scopes?scope=solar_system&engine=moon")
+    status, payload = _request_json("/api/v1/scopes?scope=sun&engine=moon")
 
     assert status == 200
     assert payload.get("engine") == "moon"
-    assert payload.get("scope") == "solar_system"
+    assert payload.get("scope") == "sun"
     assert payload.get("filter") == "visible_now"
     assert payload.get("default_filter") == "visible_now"
     assert payload.get("filter_source") == "default"
@@ -127,7 +148,7 @@ def test_omitted_filter_returns_default_filter_metadata():
 
 
 def test_invalid_filter_slug_returns_json_400_with_stable_error_code():
-    status, payload = _request_json("/api/v1/scopes?scope=sky&engine=above_me&filter=not_real")
+    status, payload = _request_json("/api/v1/scopes?scope=above_me&engine=above_me&filter=not_real")
 
     assert status == 400
     err = payload.get("error")
@@ -136,7 +157,7 @@ def test_invalid_filter_slug_returns_json_400_with_stable_error_code():
 
 
 def test_disallowed_filter_for_engine_returns_json_400_with_stable_error_code():
-    status, payload = _request_json("/api/v1/scopes?scope=solar_system&engine=moon&filter=bright_only")
+    status, payload = _request_json("/api/v1/scopes?scope=sun&engine=moon&filter=bright_only")
 
     assert status == 400
     err = payload.get("error")
@@ -149,7 +170,7 @@ def test_disallowed_filter_for_engine_returns_json_400_with_stable_error_code():
 
 def test_filter_without_engine_is_rejected_with_missing_engine_error():
     status1, payload1 = _request_json("/api/v1/scopes?filter=visible_now")
-    status2, payload2 = _request_json("/api/v1/scopes?scope=sky&filter=visible_now")
+    status2, payload2 = _request_json("/api/v1/scopes?scope=above_me&filter=visible_now")
 
     assert status1 == 400
     assert status2 == 400

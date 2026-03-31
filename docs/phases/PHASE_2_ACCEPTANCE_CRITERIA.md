@@ -45,7 +45,7 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [ ] All scopes exist:
+* [x] All scopes exist:
 
   * Above Me
   * Earth
@@ -55,13 +55,13 @@ If any condition cannot be proven → Phase 2 is NOT complete.
   * Solar System
   * Deep Sky
 
-* [ ] Scope switching:
+* [x] Scope switching:
 
   * resets engine
   * resets filter
   * regenerates scene
 
-* [ ] Scope visibly changes system output
+* [x] Scope visibly changes system output
 
 ---
 

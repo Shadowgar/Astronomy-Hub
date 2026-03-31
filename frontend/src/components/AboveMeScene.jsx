@@ -9,9 +9,19 @@ import EmptyState from './ui/EmptyState'
 import ObjectDetail from './ObjectDetail'
 import Starfield from './Starfield'
 import { useConditionsDataQuery } from '../features/conditions/queries'
-import { useSceneAboveMeDataQuery } from '../features/scene/queries'
+import { useSceneByScopeDataQuery } from '../features/scene/queries'
 import { parseLocationQuery } from '../features/shared/locationQuery'
 import useGlobalUiState from '../state/globalUiState'
+
+const SCOPE_LABELS = {
+  above_me: 'Above Me',
+  earth: 'Earth',
+  sun: 'Sun',
+  satellites: 'Satellites',
+  flights: 'Flights',
+  solar_system: 'Solar System',
+  deep_sky: 'Deep Sky',
+}
 
 function labelForType(type) {
   if (type === 'satellite') return 'Satellite'
@@ -22,7 +32,11 @@ function labelForType(type) {
 
 export default function AboveMeScene({ locationQuery = '' }) {
   const queryParams = parseLocationQuery(locationQuery)
-  const sceneQuery = useSceneAboveMeDataQuery(queryParams)
+  const { activeScope, selectedObjectId, setSelectedObjectId, setActiveSceneState } = useGlobalUiState()
+  const scope = activeScope || 'above_me'
+  const scopeLabel = SCOPE_LABELS[scope] || 'Above Me'
+
+  const sceneQuery = useSceneByScopeDataQuery({ ...queryParams, scope })
   const conditionsQuery = useConditionsDataQuery(queryParams)
   const loading = sceneQuery.isLoading || conditionsQuery.isLoading
   const error = sceneQuery.isError
@@ -32,7 +46,6 @@ export default function AboveMeScene({ locationQuery = '' }) {
       : null
   const scene = sceneQuery.data || null
   const conditions = conditionsQuery.data || null
-  const { selectedObjectId, setSelectedObjectId, setActiveSceneState } = useGlobalUiState()
 
   const objects = useMemo(() => (scene && Array.isArray(scene.objects) ? scene.objects : []), [scene])
   const topTarget = useMemo(() => objects.find((o) => o.type === 'planet' || o.type === 'deep_sky') || null, [objects])
@@ -53,8 +66,8 @@ export default function AboveMeScene({ locationQuery = '' }) {
   return (
     <Panel className="module panel above-me-scene">
       <SectionHeader
-        title="Sky context"
-        subtitle="What is above you now. Select an object for details"
+        title={`${scopeLabel} context`}
+        subtitle={`Scope: ${scopeLabel}. Select an object for details`}
       />
 
       {loading && <LoadingState message="Loading scene…" />}
@@ -71,7 +84,11 @@ export default function AboveMeScene({ locationQuery = '' }) {
 
           <div className="above-me-scene__sky" aria-label="Sky scene">
             <Starfield className="above-me-scene__starfield" />
-            {objects.length === 0 && <div className="above-me-scene__empty"><EmptyState message="No objects currently above horizon." /></div>}
+            {objects.length === 0 && (
+              <div className="above-me-scene__empty">
+                <EmptyState message={`No objects currently available for ${scopeLabel}.`} />
+              </div>
+            )}
             {objects.map((obj, idx) => {
               const positionClass = `above-me-scene__pos-${idx % 15}`
               return (

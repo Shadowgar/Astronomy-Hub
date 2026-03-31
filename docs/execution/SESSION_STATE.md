@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: STEP 1 — STATE FOUNDATION (COMPLETE / LOCKED)
+* current step: STEP 2 — SCOPE SYSTEM (COMPLETE / LOCKED)
 
 ---
 
@@ -118,11 +118,15 @@ It does NOT:
   * result: LOCKED
   * validation: `frontend/src/state/globalUiState.js` tracks `activeScope`, `activeEngine`, `activeFilter`, `selectedObjectId`, `activeSceneState`; Docker runtime reload proof (Playwright) shows `selectedObjectId` and `activeSceneState` restored from `astronomyHub.globalUiState`; deterministic state behavior re-verified with `npm --prefix frontend run test`, `npm --prefix frontend run type-check`, and `npm --prefix frontend run build`.
 
+* step: PHASE 2 STEP 2 — SCOPE SYSTEM
+  * result: LOCKED
+  * validation: `GET /api/v1/scopes` now exposes required scopes (`above_me`, `earth`, `sun`, `satellites`, `flights`, `solar_system`, `deep_sky`); `setActiveScope` resets `activeEngine`, `activeFilter`, and `selectedObjectId`; Docker runtime Playwright proof shows scope selector updates context and triggers scene regeneration (`/api/v1/scene?scope=...`) with visible scene output changes.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute PHASE 2 STEP 2 — SCOPE SYSTEM (verify first, fix minimally only if invalid).
+* next step: execute PHASE 2 STEP 3 — ENGINE SYSTEM (verify first, fix minimally only if invalid).
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

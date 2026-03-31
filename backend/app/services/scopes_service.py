@@ -1,4 +1,12 @@
-PHASE2_SCOPES = ("sky", "solar_system", "earth")
+PHASE2_SCOPES = (
+    "above_me",
+    "earth",
+    "sun",
+    "satellites",
+    "flights",
+    "solar_system",
+    "deep_sky",
+)
 PHASE2_FILTERS = (
     "visible_now",
     "bright_only",
@@ -8,13 +16,13 @@ PHASE2_FILTERS = (
 )
 PHASE2_ENGINE_REGISTRY = {
     "above_me": {
-        "scope": "sky",
+        "scope": "above_me",
         "optional": False,
         "allowed_filters": ["visible_now", "high_altitude", "short_window"],
         "default_filter": "visible_now",
     },
     "deep_sky": {
-        "scope": "sky",
+        "scope": "deep_sky",
         "optional": False,
         "allowed_filters": ["visible_now", "bright_only", "naked_eye"],
         "default_filter": "visible_now",
@@ -26,19 +34,19 @@ PHASE2_ENGINE_REGISTRY = {
         "default_filter": "visible_now",
     },
     "moon": {
-        "scope": "solar_system",
+        "scope": "sun",
         "optional": False,
         "allowed_filters": ["visible_now", "high_altitude"],
         "default_filter": "visible_now",
     },
     "satellites": {
-        "scope": "earth",
+        "scope": "satellites",
         "optional": False,
         "allowed_filters": ["visible_now", "high_altitude", "short_window"],
         "default_filter": "visible_now",
     },
     "flights": {
-        "scope": "earth",
+        "scope": "flights",
         "optional": True,
         "allowed_filters": ["visible_now", "high_altitude", "short_window"],
         "default_filter": "visible_now",
@@ -49,6 +57,9 @@ PHASE2_ENGINE_REGISTRY = {
 def _build_phase2_scope_maps():
     scope_to_engines = {scope: [] for scope in PHASE2_SCOPES}
     optional_engines = {scope: [] for scope in PHASE2_SCOPES}
+    # Composite scope keeps grouped Earth context while preserving explicit Satellites/Flights scopes.
+    scope_to_engines["earth"] = ["satellites", "flights"]
+    optional_engines["earth"] = ["flights"]
     for engine_slug, meta in PHASE2_ENGINE_REGISTRY.items():
         scope_slug = meta.get("scope")
         if scope_slug not in scope_to_engines:
@@ -221,4 +232,3 @@ def build_scopes_response(
         )
 
     return (200, _build_phase2_scope_entry(scope_slug))
-

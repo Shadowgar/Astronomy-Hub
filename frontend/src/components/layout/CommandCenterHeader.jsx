@@ -3,6 +3,17 @@ import { Link } from 'react-router-dom'
 import LocationSelector from '../LocationSelector/LocationSelector'
 import AppButton from '../ui/AppButton'
 import CommandBar from '../ui/CommandBar'
+import useGlobalUiState from '../../state/globalUiState'
+
+const PHASE2_SCOPE_OPTIONS = [
+  { value: 'above_me', label: 'Above Me' },
+  { value: 'earth', label: 'Earth' },
+  { value: 'sun', label: 'Sun' },
+  { value: 'satellites', label: 'Satellites' },
+  { value: 'flights', label: 'Flights' },
+  { value: 'solar_system', label: 'Solar System' },
+  { value: 'deep_sky', label: 'Deep Sky' },
+]
 
 export default function CommandCenterHeader({
   isOrasLocation,
@@ -25,6 +36,8 @@ export default function CommandCenterHeader({
   setMode,
   MODES,
 }) {
+  const { activeScope, setActiveScope } = useGlobalUiState()
+
   return (
     <header className="app-header app-header-utility" role="banner">
       <h1>Astronomy Hub</h1>
@@ -136,6 +149,20 @@ export default function CommandCenterHeader({
             {locError && <div className="loc-error" role="alert">{locError}</div>}
           </div>
         </div>
+        <span className="mode-control">
+          Scope:
+          <select
+            aria-label="Scope selector"
+            value={activeScope || 'above_me'}
+            onChange={(e) => setActiveScope(e.target.value)}
+          >
+            {PHASE2_SCOPE_OPTIONS.map((scope) => (
+              <option key={scope.value} value={scope.value}>
+                {scope.label}
+              </option>
+            ))}
+          </select>
+        </span>
         <span className="mode-control">
           Mode:
           <select

@@ -87,14 +87,15 @@ Scope:
 - final Phase 1 lock re-evaluated against runtime + tests + authority docs
 - Phase 1 status updated to LOCKED
 - Phase 2 STEP 1 (STATE FOUNDATION) locked with implementation + tracking proof
+- Phase 2 STEP 2 (SCOPE SYSTEM) locked with implementation + tracking proof
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 2 (SCOPE SYSTEM)
-- verify current repo state against the Phase 2 STEP 2 requirement before making changes
-- update authoritative tracking when STEP 2 is locked
+- execute Phase 2 STEP 3 (ENGINE SYSTEM)
+- verify current repo state against the Phase 2 STEP 3 requirement before making changes
+- update authoritative tracking when STEP 3 is locked
 
 ---
 
