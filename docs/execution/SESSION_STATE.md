@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: STEP 6 — ABOVE ME MERGE MODE (COMPLETE / LOCKED)
+* current step: STEP 7 — COMMAND BAR ACTIVATION (COMPLETE / LOCKED)
 
 ---
 
@@ -138,11 +138,15 @@ It does NOT:
   * result: LOCKED
   * validation: Above Me returns one scene payload from backend (`/api/v1/scene?scope=above_me&engine=above_me&filter=...`) with merged object types (`planet`, `satellite`, `deep_sky`) under `visible_now`; Above Me filtering remains active (`short_window` narrows to satellite subset); runtime payload checks confirm merged multi-engine behavior and single-scene output.
 
+* step: PHASE 2 STEP 7 — COMMAND BAR ACTIVATION
+  * result: LOCKED
+  * validation: command bar now includes scope (`Scope selector`), engine (`Engine selector`), filter (`Filter selector`), location controls (`Latitude`/`Longitude` + apply), and mode (`Display mode`) in `frontend/src/components/layout/CommandCenterHeader.jsx`; runtime Playwright proof confirms each control updates state and triggers scene rebuild requests (`/api/v1/scene` transitions through scope/engine/filter/location updates plus mode-triggered refetch via query invalidation).
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute PHASE 2 STEP 7 — COMMAND BAR ACTIVATION (verify first, fix minimally only if invalid).
+* next step: execute PHASE 2 STEP 8 — SCENE TRANSITIONS (verify first, fix minimally only if invalid).
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

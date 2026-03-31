@@ -182,7 +182,7 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [ ] Command bar includes:
+* [x] Command bar includes:
 
   * scope selector
   * engine selector
@@ -190,7 +190,7 @@ If any condition cannot be proven → Phase 2 is NOT complete.
   * location
   * mode
 
-* [ ] Each control:
+* [x] Each control:
 
   * updates system state
   * triggers scene rebuild

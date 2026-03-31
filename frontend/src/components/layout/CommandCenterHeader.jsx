@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Link } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 import LocationSelector from '../LocationSelector/LocationSelector'
 import AppButton from '../ui/AppButton'
 import CommandBar from '../ui/CommandBar'
 import useGlobalUiState from '../../state/globalUiState'
+import { useScopesQuery } from '../../features/scopes/queries'
 
 const PHASE2_SCOPE_OPTIONS = [
   { value: 'above_me', label: 'Above Me' },
@@ -14,6 +16,16 @@ const PHASE2_SCOPE_OPTIONS = [
   { value: 'solar_system', label: 'Solar System' },
   { value: 'deep_sky', label: 'Deep Sky' },
 ]
+
+const DEFAULT_SCOPE_ENGINE = {
+  above_me: 'above_me',
+  earth: 'satellites',
+  sun: 'moon',
+  satellites: 'satellites',
+  flights: 'flights',
+  solar_system: 'planets',
+  deep_sky: 'deep_sky',
+}
 
 export default function CommandCenterHeader({
   isOrasLocation,
@@ -36,7 +48,35 @@ export default function CommandCenterHeader({
   setMode,
   MODES,
 }) {
-  const { activeScope, setActiveScope } = useGlobalUiState()
+  const queryClient = useQueryClient()
+  const {
+    activeScope,
+    activeEngine,
+    activeFilter,
+    setActiveScope,
+    setActiveEngine,
+    setActiveFilter,
+    setSelectedObjectId,
+    setActiveSceneState,
+  } = useGlobalUiState()
+  const scope = activeScope || 'above_me'
+
+  const scopeMetaQuery = useScopesQuery({ scope })
+  const scopeMeta = scopeMetaQuery.data || {}
+  const scopeEngines = Array.isArray(scopeMeta.engines) ? scopeMeta.engines : []
+  const fallbackEngine = DEFAULT_SCOPE_ENGINE[scope] || scopeEngines[0] || 'above_me'
+  const resolvedEngine = activeEngine && scopeEngines.includes(activeEngine) ? activeEngine : fallbackEngine
+
+  const engineMetaQuery = useScopesQuery({ scope, engine: resolvedEngine })
+  const engineMeta = engineMetaQuery.data || {}
+  const allowedFilters = Array.isArray(engineMeta.allowed_filters) ? engineMeta.allowed_filters : []
+  const defaultFilter = typeof engineMeta.default_filter === 'string' ? engineMeta.default_filter : 'visible_now'
+  const resolvedFilter = allowedFilters.includes(activeFilter) ? activeFilter : defaultFilter
+
+  const normalizedEngineOptions = useMemo(
+    () => (scopeEngines.length > 0 ? scopeEngines : [fallbackEngine]).filter(Boolean),
+    [scopeEngines, fallbackEngine]
+  )
 
   return (
     <header className="app-header app-header-utility" role="banner">
@@ -153,12 +193,49 @@ export default function CommandCenterHeader({
           Scope:
           <select
             aria-label="Scope selector"
-            value={activeScope || 'above_me'}
+            value={scope}
             onChange={(e) => setActiveScope(e.target.value)}
           >
             {PHASE2_SCOPE_OPTIONS.map((scope) => (
               <option key={scope.value} value={scope.value}>
                 {scope.label}
+              </option>
+            ))}
+          </select>
+        </span>
+        <span className="mode-control">
+          Engine:
+          <select
+            aria-label="Engine selector"
+            value={resolvedEngine}
+            onChange={(e) => {
+              setActiveEngine(e.target.value)
+              setActiveFilter(null)
+              setSelectedObjectId(null)
+              setActiveSceneState({ status: 'loading', reason: 'engine_changed' })
+            }}
+          >
+            {normalizedEngineOptions.map((engineSlug) => (
+              <option key={engineSlug} value={engineSlug}>
+                {engineSlug}
+              </option>
+            ))}
+          </select>
+        </span>
+        <span className="mode-control">
+          Filter:
+          <select
+            aria-label="Filter selector"
+            value={resolvedFilter}
+            onChange={(e) => {
+              setActiveFilter(e.target.value)
+              setSelectedObjectId(null)
+              setActiveSceneState({ status: 'loading', reason: 'filter_changed' })
+            }}
+          >
+            {(allowedFilters.length > 0 ? allowedFilters : [resolvedFilter]).map((filterSlug) => (
+              <option key={filterSlug} value={filterSlug}>
+                {filterSlug}
               </option>
             ))}
           </select>
@@ -170,7 +247,10 @@ export default function CommandCenterHeader({
             value={mode}
             onChange={(e) => {
               const v = e.target.value
-              if (MODES.includes(v)) setMode(v)
+              if (MODES.includes(v)) {
+                setMode(v)
+                queryClient.invalidateQueries({ queryKey: ['scene'] })
+              }
             }}
           >
             {MODES.map((m) => (
