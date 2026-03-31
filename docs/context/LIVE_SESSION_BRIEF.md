@@ -98,14 +98,15 @@ Scope:
 - Phase 2 STEP 10 (DATA BOUNDARY ENFORCEMENT) locked with implementation + tracking proof
 - Phase 2 STEP 11 (PERFORMANCE CONTROL) locked with implementation + tracking proof
 - Phase 2 STEP 12 (TESTING) locked with implementation + tracking proof
+- Phase 2 STEP 13 (ANTI-SCOPE) locked with implementation + tracking proof
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 13 (ANTI-SCOPE)
-- verify current repo state against the Phase 2 STEP 13 requirement before making changes
-- update authoritative tracking when STEP 13 is locked
+- execute Phase 2 FINAL PHASE LOCK evaluation
+- verify all Phase 2 steps are locked and no future-phase leakage exists
+- update authoritative tracking when final Phase 2 lock is proven
 
 ---
 

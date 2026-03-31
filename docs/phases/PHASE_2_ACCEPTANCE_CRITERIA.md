@@ -332,10 +332,10 @@ Produces:
 
 System MUST NOT include:
 
-* [ ] spatial UI (Phase 3)
-* [ ] prediction (Phase 5)
-* [ ] personalization (Phase 5)
-* [ ] knowledge graph (Phase 4)
+* [x] spatial UI (Phase 3)
+* [x] prediction (Phase 5)
+* [x] personalization (Phase 5)
+* [x] knowledge graph (Phase 4)
 
 ---
 

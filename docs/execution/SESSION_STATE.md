@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: STEP 12 — TESTING (COMPLETE / LOCKED)
+* current step: STEP 13 — ANTI-SCOPE (COMPLETE / LOCKED)
 
 ---
 
@@ -162,11 +162,15 @@ It does NOT:
   * result: LOCKED
   * validation: scope/engine/filter/scene/object-detail verification suite passes (`pytest -q backend/tests/test_phase2_scope_routing.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_object_resolution.py` => 25 passed); frontend validation lane passes (`npm --prefix frontend run test -- --run`, `npm --prefix frontend run type-check`, `npm --prefix frontend run build`); Docker runtime Playwright flow verifies transitions and detail resolution across contexts with successful network traces (`/api/v1/scene` for scope/engine/filter changes and `/api/v1/object/iss`, `/api/v1/object/m13` detail fetches).
 
+* step: PHASE 2 STEP 13 — ANTI-SCOPE
+  * result: LOCKED
+  * validation: backend API surface includes no Phase 3+/4+/5+ endpoints (`backend/app/main.py` router list and `backend/app/routes/*`); frontend runtime route surface is limited to `/` and `/progress` (`frontend/src/routes/AppRouter.tsx`) with no mounted spatial/graph/prediction/personalization controls; Cesium foundation component exists only as unmounted foundation helper (`frontend/src/components/CesiumFoundation.jsx` with no imports/usages); Docker runtime Playwright check on `/` confirms no Cesium surface and no spatial/graph/prediction/personalization/watchlist/timeline controls.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute PHASE 2 STEP 13 — ANTI-SCOPE (verify first, fix minimally only if invalid).
+* next step: execute Phase 2 FINAL PHASE LOCK evaluation (verify first, fix minimally only if invalid).
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict
