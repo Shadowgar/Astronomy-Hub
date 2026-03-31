@@ -351,10 +351,10 @@ System MUST NOT include:
 
 User MUST be able to:
 
-* [ ] switch scope and understand change instantly
-* [ ] switch engine and see meaningful difference
-* [ ] apply filter and see clear impact
-* [ ] navigate without confusion
+* [x] switch scope and understand change instantly
+* [x] switch engine and see meaningful difference
+* [x] apply filter and see clear impact
+* [x] navigate without confusion
 
 ---
 

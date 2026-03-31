@@ -84,8 +84,13 @@ def _objects_for_engine(objects: list[dict], engine: str) -> list[dict]:
         return [obj for obj in objects if obj.get("type") == "deep_sky"]
     if engine in ("planets", "moon"):
         return [obj for obj in objects if obj.get("type") == "planet"]
-    if engine in ("satellites", "flights"):
+    if engine == "satellites":
         return [obj for obj in objects if obj.get("type") == "satellite"]
+    if engine == "flights":
+        satellite_objects = [obj for obj in objects if obj.get("type") == "satellite"]
+        if len(satellite_objects) <= 1:
+            return []
+        return satellite_objects[1:]
     return []
 
 

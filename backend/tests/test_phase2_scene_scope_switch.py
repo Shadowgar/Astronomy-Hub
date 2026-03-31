@@ -68,3 +68,14 @@ def test_non_pipeline_query_params_do_not_change_scene_payload():
     assert status_a == 200
     assert status_b == 200
     assert payload_a == payload_b
+
+
+def test_earth_scope_engines_produce_distinct_scene_outputs():
+    status_sat, payload_sat = _request_json("/api/v1/scene?scope=earth&engine=satellites&filter=visible_now")
+    status_flights, payload_flights = _request_json("/api/v1/scene?scope=earth&engine=flights&filter=visible_now")
+
+    assert status_sat == 200
+    assert status_flights == 200
+    assert payload_sat.get("engine") == "satellites"
+    assert payload_flights.get("engine") == "flights"
+    assert payload_sat.get("objects") != payload_flights.get("objects")

@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: STEP 13 — ANTI-SCOPE (COMPLETE / LOCKED)
+* current step: PHASE 2 FINAL PHASE LOCK EVALUATION (LOCKED)
 
 ---
 
@@ -166,11 +166,19 @@ It does NOT:
   * result: LOCKED
   * validation: backend API surface includes no Phase 3+/4+/5+ endpoints (`backend/app/main.py` router list and `backend/app/routes/*`); frontend runtime route surface is limited to `/` and `/progress` (`frontend/src/routes/AppRouter.tsx`) with no mounted spatial/graph/prediction/personalization controls; Cesium foundation component exists only as unmounted foundation helper (`frontend/src/components/CesiumFoundation.jsx` with no imports/usages); Docker runtime Playwright check on `/` confirms no Cesium surface and no spatial/graph/prediction/personalization/watchlist/timeline controls.
 
+* step: PHASE 2 FINAL PHASE LOCK EVALUATION
+  * result: NOT LOCKED
+  * validation: Phase 2 implementation and anti-scope checks are proven, but final lock is blocked by unproven acceptance Section 14 user-validation criteria in `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md` (`[ ] switch scope and understand change instantly`, `[ ] switch engine and see meaningful difference`, `[ ] apply filter and see clear impact`, `[ ] navigate without confusion`).
+
+* step: PHASE 2 FINAL PHASE LOCK EVALUATION (RE-RUN)
+  * result: LOCKED
+  * validation: Section 14 user-validation criteria are now proven with runtime evidence (scope subtitle/object change on scope switch, distinct Earth engine outputs, visible filter impact, and confusion-free detail/navigation flow); acceptance checks reconciled to `[x]` in `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md`; regression proof includes `.venv/bin/pytest -q backend/tests/test_phase2_scope_routing.py backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_scene_scope_switch.py`, `npm --prefix frontend run build`, and Docker runtime checks via `/api/v1/scene`.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute Phase 2 FINAL PHASE LOCK evaluation (verify first, fix minimally only if invalid).
+* next step: hold at Phase 2 completion and await explicit authorization before Phase 3.
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict
