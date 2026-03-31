@@ -87,3 +87,32 @@ def test_earth_scope_engines_produce_distinct_scene_outputs():
     assert payload_sat.get("engine") == "satellites"
     assert payload_flights.get("engine") == "flights"
     assert payload_sat.get("objects") != payload_flights.get("objects")
+
+
+def test_above_me_scene_exposes_traceability_metadata():
+    status, payload = _request_json(
+        "/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+
+    assert status == 200
+    assert isinstance(payload.get("timestamp"), str) and payload.get("timestamp")
+    assert isinstance(payload.get("degraded"), bool)
+    assert isinstance(payload.get("missing_sources"), list)
+    provider_trace = payload.get("provider_trace") or {}
+    assert isinstance(provider_trace, dict)
+    assert isinstance(provider_trace.get("timestamp_utc"), str) and provider_trace.get("timestamp_utc")
+
+
+def test_scene_objects_include_provider_source():
+    status, payload = _request_json(
+        "/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+
+    assert status == 200
+    objects = payload.get("objects") or []
+    assert objects
+    for obj in objects:
+        assert isinstance(obj.get("provider_source"), str)
+        assert obj.get("provider_source")

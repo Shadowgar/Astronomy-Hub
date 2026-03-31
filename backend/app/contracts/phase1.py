@@ -34,6 +34,7 @@ class SceneObjectSummary(BaseModel):
     name: str
     type: Phase1Type
     engine: str
+    provider_source: str
     summary: str
     time_relevance: str
     reason_for_inclusion: str
@@ -51,6 +52,7 @@ class ObjectDetail(BaseModel):
     name: str
     type: Phase1Type
     engine: str
+    provider_source: str
     summary: str
     description: Optional[str] = None
     position: Optional[Position] = None

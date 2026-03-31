@@ -76,7 +76,7 @@ These items are explicitly deferred and do not block corrective exit.
 ## 5. CURRENT OBJECTIVE
 
 ```text
-Execute Phase 2 STEP 21 (traceability system)
+Execute Phase 2 STEP 22 (location/time validation)
 before any Phase 2 relock attempt.
 ```
 

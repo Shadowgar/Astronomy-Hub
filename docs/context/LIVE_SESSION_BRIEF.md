@@ -36,7 +36,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Step 14 through Step 20 are now proven; phase remains unlocked pending Step 21+ completion.
+- condition: Step 14 through Step 21 are now proven; phase remains unlocked pending Step 22+ completion.
 
 Phase 3:
 - status: NOT STARTED
@@ -55,7 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 21 (TRACEABILITY SYSTEM)
+- execute Phase 2 STEP 22 (LOCATION / TIME VALIDATION)
 - preserve command-center integrity and backend-authoritative Scene → Object → Detail behavior
 
 SECONDARY:
@@ -107,20 +107,21 @@ Scope:
 - Phase 2 STEP 18 (REMOVE MOCK DATA) locked with runtime `MOCK_*` removal from FastAPI services (`conditions_service`), provider-backed `/api/v1/conditions` payload assembly, and explicit degraded-mode signaling with no static success fallback.
 - Phase 2 STEP 19 (ABOVE ME ORCHESTRATION) locked with runtime proof that Above Me merges multiple engine outputs into one scene, applies global visibility/time-oriented filters (`visible_now` vs `short_window`), and preserves deterministic relevance-based ordering.
 - Phase 2 STEP 20 (SCENE AUTHORITY ENFORCEMENT) locked with proof that surfaced objects are scene-derived (`/api/v1/scene` object IDs are authoritative source for `/api/v1/targets` and `/api/v1/passes` supporting outputs) and mounted scene rendering in `AboveMeScene` is sourced from `scene.objects` with object detail resolved via `/api/v1/object/{id}`.
+- Phase 2 STEP 21 (TRACEABILITY SYSTEM) locked with contract-level provider-source enforcement (`SceneObjectSummary.provider_source`, `ObjectDetail.provider_source`), scene assembly propagation of provider source across satellite/solar-system/deep-sky paths, and runtime/test proof that scene payloads include provider trace timestamps/degraded state while every surfaced object and resolved detail exposes provider source.
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 21 — TRACEABILITY SYSTEM
-- verify provider source metadata, timestamps, and degraded-state trace coverage before proceeding
+- execute Phase 2 STEP 22 — LOCATION / TIME VALIDATION
+- verify location/time-driven scene output deltas and keep provider-backed traceability intact
 
 ---
 
 # 7. BLOCKERS
 
 - no Phase 1 blockers
-- Phase 2 lock is blocked by unproven Section 19+ checks in `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md`
+- Phase 2 lock is blocked by unproven Section 20+ checks in `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md`
 - Phase 3+ remains blocked by phase-gate law
 
 ---

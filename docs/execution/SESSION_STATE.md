@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 21 — TRACEABILITY SYSTEM (IN PROGRESS)
+* current step: PHASE 2 STEP 22 — LOCATION / TIME VALIDATION (IN PROGRESS)
 
 ---
 
@@ -206,11 +206,15 @@ It does NOT:
   * result: LOCKED
   * validation: scene authority behavior is already valid in runtime with no implementation changes required; proof includes `.venv/bin/pytest -q backend/tests/test_phase2_filter_system.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_api_scene_above_me.py` (9 passed), runtime cross-endpoint check for `lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z` showing `/api/v1/targets` IDs and `/api/v1/passes` object_ids are subsets of `/api/v1/scene` object IDs (`targets_subset_scene=True`, `passes_subset_scene=True`), object detail resolution from scene ID via `/api/v1/object/{id}` (`status=ok`, matching `data.id`), and frontend-mounted scene rendering in `frontend/src/components/AboveMeScene.jsx` consuming `scene.objects` from `useSceneByScopeDataQuery` with no component-level object assembly.
 
+* step: PHASE 2 STEP 21 — TRACEABILITY SYSTEM
+  * result: LOCKED
+  * validation: provider-source traceability is now enforced in contracts (`backend/app/contracts/phase1.py`) and scene/detail assembly (`backend/app/services/_legacy_scene_logic.py`); object-level source proof plus scene-level timestamp/degraded trace proof pass via `.venv/bin/pytest -q backend/tests/test_contracts_phase1.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_object_resolution.py backend/tests/test_api_scene_above_me.py backend/tests/test_phase2_filter_system.py` (19 passed); runtime check on `/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now&lat=40&lon=-75&at=2026-03-31T12:00:00Z` confirms `provider_trace.timestamp_utc`, degraded/missing-source exposure, and `all_objects_have_provider_source=True`, with `/api/v1/object/{id}` returning matching `provider_source`.
+
 ---
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute Phase 2 STEP 21 verify-first flow and lock only with implementation + tracking proof.
+* next step: execute Phase 2 STEP 22 verify-first flow and lock only with implementation + tracking proof.
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

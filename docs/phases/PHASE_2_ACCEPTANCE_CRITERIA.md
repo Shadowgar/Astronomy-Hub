@@ -447,9 +447,9 @@ User MUST be able to:
 
 ## REQUIRED
 
-* [ ] Every object has provider source
-* [ ] Every scene has data origin trace
-* [ ] timestamps present
+* [x] Every object has provider source
+* [x] Every scene has data origin trace
+* [x] timestamps present
 
 ---
 

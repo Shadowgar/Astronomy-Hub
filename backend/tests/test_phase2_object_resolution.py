@@ -54,6 +54,8 @@ def test_all_required_engine_scene_objects_have_valid_ids_without_detail_payload
                 object_id = obj.get("id")
                 assert isinstance(object_id, str)
                 assert object_id.strip()
+                assert isinstance(obj.get("provider_source"), str)
+                assert obj.get("provider_source")
                 for field in DETAIL_FIELDS:
                     assert field not in obj
 
@@ -78,6 +80,7 @@ def test_object_endpoint_resolves_representative_ids_from_all_required_engines()
         assert data.get("id") == object_id
         assert isinstance(data.get("name"), str) and data.get("name")
         assert isinstance(data.get("type"), str) and data.get("type")
+        assert isinstance(data.get("provider_source"), str) and data.get("provider_source")
         assert isinstance(data.get("summary"), str)
         assert "description" in data
         assert "media" in data

@@ -226,6 +226,7 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
                 "name": name,
                 "type": "satellite",
                 "engine": "satellite",
+                "provider_source": sat.get("source") or "celestrak",
                 "summary": f"Live pass candidate around {start_time}",
                 "position": {
                     "elevation": elevation,
@@ -268,6 +269,7 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
                 "name": name,
                 "type": "satellite",
                 "engine": "satellite",
+                "provider_source": flight.get("source") or "opensky",
                 "summary": f"Nearby live air-track candidate ({distance_km:.0f} km)",
                 "position": {"elevation": elevation},
                 "visibility": {"is_visible": True},
@@ -311,6 +313,7 @@ def _build_solar_system_engine_slice(parsed_location=None, time_context=None, li
                 "name": name,
                 "type": "planet",
                 "engine": "solar_system",
+                "provider_source": entry.get("source") or "jpl_ephemeris",
                 "summary": f"Live ephemeris position az {azimuth:.1f} el {elevation:.1f}",
                 "position": {"azimuth": azimuth, "elevation": elevation},
                 "visibility": {"is_visible": True},
@@ -350,6 +353,7 @@ def _build_deep_sky_engine_slice(live_inputs=None):
                 "name": title,
                 "type": "deep_sky",
                 "engine": "deep_sky",
+                "provider_source": alert.get("source") or "noaa_swpc",
                 "summary": summary or "Provider-backed deep-sky context.",
                 "position": None,
                 "visibility": {"is_visible": True},
@@ -443,6 +447,21 @@ def _derive_time_relevance(obj):
     return "currently_visible"
 
 
+def _derive_provider_source(obj):
+    source = obj.get("provider_source") if isinstance(obj, dict) else None
+    if isinstance(source, str) and source.strip():
+        return source.strip()
+
+    engine = str(obj.get("engine") or "").strip().lower() if isinstance(obj, dict) else ""
+    if engine in ("satellite", "satellites"):
+        return "celestrak"
+    if engine in ("solar_system", "planets", "moon"):
+        return "jpl_ephemeris"
+    if engine == "deep_sky":
+        return "noaa_swpc"
+    return "unknown"
+
+
 def _enforce_phase1_object_contract(obj):
     """Ensure surfaced scene objects carry the full Phase 1 contract fields."""
     normalized = dict(obj)
@@ -456,6 +475,7 @@ def _enforce_phase1_object_contract(obj):
         or ""
     )
     normalized["time_relevance"] = normalized.get("time_relevance") or _derive_time_relevance(normalized)
+    normalized["provider_source"] = normalized.get("provider_source") or _derive_provider_source(normalized)
     normalized["detail_route"] = normalized.get("detail_route") or f"/object/{normalized.get('id', '')}"
     return normalized
 
@@ -491,6 +511,7 @@ def _to_phase2_scene_objects(raw_objects, engine_slug):
                 "name": obj.get("name"),
                 "type": obj.get("type"),
                 "engine": engine_slug,
+                "provider_source": obj.get("provider_source") or _derive_provider_source(obj),
                 "summary": obj.get("summary") or "",
                 "reason": reason,
                 "position": obj.get("position"),
@@ -957,6 +978,7 @@ def build_phase1_object_detail(found, scene_objects=None):
         "name": found.get("name"),
         "type": found.get("type"),
         "engine": found.get("engine"),
+        "provider_source": found.get("provider_source") or _derive_provider_source(found),
         "summary": summary,
         "description": (
             f"{summary} This matters now because it is currently visible in your Above Me scene."
