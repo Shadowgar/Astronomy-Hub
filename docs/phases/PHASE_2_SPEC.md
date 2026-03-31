@@ -321,7 +321,48 @@ State must be deterministic and restorable.
 
 ---
 
-# 11. PERFORMANCE MODEL
+# 11. LIVE DATA & LOCATION-TIME AUTHORITY
+
+---
+
+## RULE
+
+```text
+Above Me scene truth MUST come from live provider-backed, normalized backend data
+for the active location and current time context.
+```
+
+---
+
+## REQUIRED
+
+* scene/object outputs are assembled from provider-ingested backend data, not static `MOCK_*` datasets
+* active location (`lat`, `lon`, `elevation_ft`) is a real scene input for Above Me
+* time context affects visibility/relevance decisions where applicable
+* degraded mode is explicit when provider-backed inputs are unavailable
+
+---
+
+## PROVIDER BASELINE (PHASE 2)
+
+* Open-Meteo — observing conditions input
+* CelesTrak — satellite TLE/orbital input
+* OpenSky Network — flight tracking input
+* JPL/NASA ephemeris data — Sun/planet/moon positional input
+* NOAA SWPC — space-weather/alert input
+* NASA Images API — media enrichment only (not scene truth authority)
+
+---
+
+## FAILURE
+
+* static mock datasets remain authoritative scene truth in runtime
+* Above Me output is effectively location/time-insensitive
+* provider failure silently returns static success payloads
+
+---
+
+# 12. PERFORMANCE MODEL
 
 ---
 
@@ -340,7 +381,7 @@ State must be deterministic and restorable.
 
 ---
 
-# 12. TESTING
+# 13. TESTING
 
 ---
 
@@ -355,7 +396,7 @@ State must be deterministic and restorable.
 
 ---
 
-# 13. ANTI-SCOPE
+# 14. ANTI-SCOPE
 
 Phase 2 MUST NOT include:
 
@@ -366,7 +407,7 @@ Phase 2 MUST NOT include:
 
 ---
 
-# 14. COMPLETION RULE
+# 15. COMPLETION RULE
 
 Phase 2 is COMPLETE ONLY IF:
 

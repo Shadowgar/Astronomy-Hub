@@ -370,6 +370,34 @@ Phase 2 scope is clean.
 
 ---
 
+# STEP 14 — LIVE DATA & LOCATION-TIME AUTHORITY
+
+---
+
+## VERIFY
+
+* Above Me scene runtime path does not use static `MOCK_*` datasets as authoritative scene truth
+* provider-backed normalized backend inputs drive Above Me object selection
+* materially different valid location/time context can produce different Above Me scene output where conditions differ
+* provider/input degradation is explicit and does not silently return static success payloads
+* provider baseline is wired and traceable in runtime:
+  * Open-Meteo (conditions)
+  * CelesTrak (satellites)
+  * OpenSky Network (flights)
+  * JPL/NASA ephemeris (Sun/planet/moon positions)
+  * NOAA SWPC (space-weather/alerts)
+  * NASA Images API (media enrichment only; not scene truth authority)
+
+---
+
+## LOCK CONDITION
+
+```text
+Above Me truth is live, location/time-aware, and provable.
+```
+
+---
+
 # FINAL PHASE LOCK
 
 ---

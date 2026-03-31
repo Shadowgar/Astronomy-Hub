@@ -366,6 +366,36 @@ User MUST be able to:
 
 ---
 
+# 15. LIVE DATA & LOCATION-TIME AUTHORITY
+
+---
+
+## REQUIRED
+
+* [ ] Above Me scene is assembled from provider-backed normalized inputs, not static `MOCK_*` runtime sources
+* [ ] Active location (`lat`, `lon`, `elevation_ft`) can materially affect Above Me scene output
+* [ ] Time context can materially affect visibility/relevance output where applicable
+* [ ] Provider/input degradation is explicit and does not masquerade as normal live success
+* [ ] Provider baseline is implemented and traceable in runtime:
+  * Open-Meteo (conditions)
+  * CelesTrak (satellites)
+  * OpenSky Network (flights)
+  * JPL/NASA ephemeris (Sun/planet/moon positions)
+  * NOAA SWPC (space-weather/alerts)
+  * NASA Images API used only for media enrichment, not scene truth authority
+
+---
+
+## FAIL CONDITIONS
+
+* mock datasets remain runtime scene authority
+* location/time changes have no meaningful scene impact where they should
+* provider failure silently falls back to static success output
+* scene truth cannot be traced to live ingestion path
+* provider substitution changes scene authority without explicit spec update
+
+---
+
 # FINAL RULE
 
 ```text id="n5yqv9"
