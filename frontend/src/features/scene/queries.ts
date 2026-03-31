@@ -5,6 +5,8 @@ import type { QueryParams } from '../../lib/api/types'
 
 export interface SceneQueryParams {
   scope?: string
+  engine?: string
+  filter?: string
   lat?: string | number
   lon?: string | number
   elevation_ft?: string | number
@@ -23,6 +25,8 @@ function toQueryParams(params?: SceneQueryParams): QueryParams | undefined {
   if (!params) return undefined
   return {
     scope: params.scope,
+    engine: params.engine,
+    filter: params.filter,
     lat: params.lat,
     lon: params.lon,
     elevation_ft: params.elevation_ft,

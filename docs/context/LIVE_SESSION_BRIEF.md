@@ -89,14 +89,15 @@ Scope:
 - Phase 2 STEP 1 (STATE FOUNDATION) locked with implementation + tracking proof
 - Phase 2 STEP 2 (SCOPE SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 3 (ENGINE SYSTEM) locked with implementation + tracking proof
+- Phase 2 STEP 4 (FILTER SYSTEM) locked with implementation + tracking proof
 
 ---
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 4 (FILTER SYSTEM)
-- verify current repo state against the Phase 2 STEP 4 requirement before making changes
-- update authoritative tracking when STEP 4 is locked
+- execute Phase 2 STEP 5 (SCENE GENERATION)
+- verify current repo state against the Phase 2 STEP 5 requirement before making changes
+- update authoritative tracking when STEP 5 is locked
 
 ---
 

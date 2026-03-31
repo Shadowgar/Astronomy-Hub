@@ -7,7 +7,7 @@ from backend.app.contracts.phase1 import (
 from backend.app.services.scene_service import (
     PHASE2_SCOPES,
     build_above_me_scene_payload,
-    build_phase2_scope_scene_payload,
+    build_phase2_scope_scene_payload_with_context,
 )
 
 router = APIRouter()
@@ -24,18 +24,38 @@ async def above_me_scene():
 
 
 @router.get("/scene")
-async def scene_by_scope(scope: str = "above_me"):
+async def scene_by_scope(
+    scope: str = "above_me",
+    engine: str | None = None,
+    filter: str | None = None,
+):
     """Return deterministic scope-bound scene payload for Phase 2 scope switching."""
     scope_slug = str(scope or "").strip()
-    if scope_slug not in PHASE2_SCOPES:
+    engine_slug = str(engine).strip() if engine is not None else None
+    filter_slug = str(filter).strip() if filter is not None else None
+
+    try:
+        return build_phase2_scope_scene_payload_with_context(
+            scope_slug,
+            engine=engine_slug,
+            filter_slug=filter_slug,
+        )
+    except ValueError as exc:
+        code = str(exc)
+        details = {"scope": scope_slug}
+        if engine_slug:
+            details["engine"] = engine_slug
+        if filter_slug:
+            details["filter"] = filter_slug
+        if code == "invalid_scope":
+            details["allowed_scopes"] = list(PHASE2_SCOPES)
         return JSONResponse(
             status_code=400,
             content={
                 "error": {
-                    "code": "invalid_scope",
-                    "message": f"invalid scope: {scope_slug}",
-                    "details": [{"scope": scope_slug, "allowed_scopes": list(PHASE2_SCOPES)}],
+                    "code": code,
+                    "message": f"{code}: invalid scope/engine/filter combination",
+                    "details": [details],
                 }
             },
         )
-    return build_phase2_scope_scene_payload(scope_slug)

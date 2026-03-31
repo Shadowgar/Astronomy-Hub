@@ -109,9 +109,9 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [ ] Only ONE filter active per engine
+* [x] Only ONE filter active per engine
 
-* [ ] Filters:
+* [x] Filters:
 
   * visibly affect scene
   * execute in backend
