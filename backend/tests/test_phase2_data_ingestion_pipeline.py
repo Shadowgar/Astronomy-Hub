@@ -31,7 +31,17 @@ def test_pipeline_normalizes_and_whitelists_provider_data(monkeypatch):
     monkeypatch.setattr(
         live_ingestion,
         "fetch_celestrak_active",
-        lambda limit=400, **kwargs: [{"id": "25544", "name": "ISS", "OBJECT_TYPE": "PAYLOAD"}],
+        lambda limit=400, **kwargs: [
+            {
+                "id": "25544",
+                "name": "ISS",
+                "OBJECT_TYPE": "PAYLOAD",
+                "pass_start": "2026-03-31T15:42:02.578Z",
+                "max_elevation_deg": 24.0,
+                "tle_line1": "1 25544U 98067A   26091.50000000  .00001234  00000-0  10270-4 0  9991",
+                "tle_line2": "2 25544  51.6433 123.4567 0003642 278.1234 123.9876 15.49812345678901",
+            }
+        ],
     )
     monkeypatch.setattr(
         live_ingestion,
@@ -65,7 +75,13 @@ def test_pipeline_normalizes_and_whitelists_provider_data(monkeypatch):
     assert payload["provider_trace"]["pipeline"] == "Provider->Adapter->Normalizer->Validator->Cache->EngineInput"
     assert payload["conditions"]["source"] == "open_meteo"
     assert "raw_field" not in payload["conditions"]
-    assert payload["satellites"][0] == {"id": "25544", "name": "ISS", "source": "celestrak"}
+    assert payload["satellites"][0]["id"] == "25544"
+    assert payload["satellites"][0]["name"] == "ISS"
+    assert payload["satellites"][0]["source"] == "celestrak"
+    assert payload["satellites"][0]["pass_start"] == "2026-03-31T15:42:02.578Z"
+    assert payload["satellites"][0]["max_elevation_deg"] == 24.0
+    assert payload["satellites"][0]["tle_line1"]
+    assert payload["satellites"][0]["tle_line2"]
     assert payload["flights"][0]["source"] == "opensky"
     assert "provider_extra" not in payload["flights"][0]
     assert payload["ephemeris"][0]["source"] == "jpl_ephemeris"

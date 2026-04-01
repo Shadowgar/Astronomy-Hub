@@ -213,12 +213,34 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
             f"{sat_id}:{round(float(location['latitude']),2)}:"
             f"{round(float(location['longitude']),2)}:{hour_key}"
         )
-        # Keep satellite lane provider-pure and avoid collapsing into flight-derived fallbacks.
-        elevation = round(_stable_float(seed, 5.0, 84.0), 1)
-        window_minute = int(_stable_float(seed + ":minute", 0.0, 59.0))
-        start_time = time_context.replace(
-            minute=window_minute, second=0, microsecond=0
-        ).isoformat()
+        # Prefer provider-derived pass windows when available.
+        pass_start = str(sat.get("pass_start") or "").strip() or None
+        try:
+            max_elevation = float(sat.get("max_elevation_deg"))
+            if max_elevation <= 0.0:
+                max_elevation = None
+        except Exception:
+            max_elevation = None
+
+        if pass_start and max_elevation is not None:
+            start_time = pass_start
+            elevation = round(max(5.0, min(84.0, max_elevation)), 1)
+            summary = f"Live predicted pass around {start_time}"
+        else:
+            # Keep satellite lane provider-pure and avoid collapsing into flight-derived fallbacks.
+            elevation = round(_stable_float(seed, 5.0, 84.0), 1)
+            window_minute = int(_stable_float(seed + ":minute", 0.0, 59.0))
+            start_time = time_context.replace(
+                minute=window_minute, second=0, microsecond=0
+            ).isoformat()
+            has_tle = bool(
+                str(sat.get("tle_line1") or "").strip()
+                and str(sat.get("tle_line2") or "").strip()
+            )
+            if has_tle:
+                summary = f"TLE track available; pass candidate around {start_time}"
+            else:
+                summary = f"Live pass candidate around {start_time}"
         out.append(
             {
                 "id": _slugify(sat_id),
@@ -226,7 +248,7 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
                 "type": "satellite",
                 "engine": "satellite",
                 "provider_source": sat.get("source") or "celestrak",
-                "summary": f"Live pass candidate around {start_time}",
+                "summary": summary,
                 "position": {
                     "elevation": elevation,
                     "azimuth": round(_stable_float(seed + ":az", 0.0, 359.0), 1),

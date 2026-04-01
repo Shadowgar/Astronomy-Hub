@@ -36,7 +36,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK), Step 1 (UI LAYOUT FOUNDATION), Step 2 (UI STANDARDIZATION), Step 3 (DETAIL PANEL SYSTEM — UI ONLY), and Step 4 (DATA PIPELINE — FOUNDATION) are locked. Effective current step is Phase 2 STEP 5 — CONDITIONS ENGINE (FIRST ENGINE).
+- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK), Step 1 (UI LAYOUT FOUNDATION), Step 2 (UI STANDARDIZATION), Step 3 (DETAIL PANEL SYSTEM — UI ONLY), Step 4 (DATA PIPELINE — FOUNDATION), and Step 5 (CONDITIONS ENGINE — FIRST ENGINE) are locked. Effective current step is Phase 2 STEP 6 — SATELLITE ENGINE.
 
 Phase 3:
 - status: NOT STARTED
@@ -55,7 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 5 — CONDITIONS ENGINE (FIRST ENGINE)
+- execute Phase 2 STEP 6 — SATELLITE ENGINE
 - preserve command-center integrity and backend-authoritative Scene → Object → Detail behavior
 
 SECONDARY:
@@ -90,6 +90,7 @@ Scope:
 - Rebased Phase 2 STEP 2 (UI STANDARDIZATION) locked
 - Rebased Phase 2 STEP 3 (DETAIL PANEL SYSTEM — UI ONLY) locked
 - Rebased Phase 2 STEP 4 (DATA PIPELINE — FOUNDATION) locked
+- Rebased Phase 2 STEP 5 (CONDITIONS ENGINE — FIRST ENGINE) locked
 - Phase 2 STEP 1 (STATE FOUNDATION) locked with implementation + tracking proof
 - Phase 2 STEP 2 (SCOPE SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 3 (ENGINE SYSTEM) locked with implementation + tracking proof
@@ -118,15 +119,15 @@ Scope:
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 5 — CONDITIONS ENGINE (FIRST ENGINE)
-- implement conditions engine behavior on top of the locked Provider → Adapter → Normalizer → Validator → Cache foundation
+- execute Phase 2 STEP 6 — SATELLITE ENGINE
+- implement satellite engine behavior on top of the locked Provider → Adapter → Normalizer → Validator → Cache foundation
 
 ---
 
 # 7. BLOCKERS
 
 - no Phase 1 blockers
-- no blockers for Phase 2 STEP 5 execution start
+- no blockers for Phase 2 STEP 6 execution start
 - Phase 3+ remains blocked by phase-gate law
 
 ---

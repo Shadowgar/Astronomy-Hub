@@ -89,7 +89,22 @@ def _adapt_sats(raw: Any) -> list[dict[str, Any]]:
         if not sat_id or not name:
             continue
         source = str(item.get("source") or "celestrak").strip().lower()
-        out.append({"id": sat_id, "name": name, "source": source})
+        adapted = {"id": sat_id, "name": name, "source": source}
+        pass_start = str(item.get("pass_start") or item.get("start_time") or "").strip()
+        if pass_start:
+            adapted["pass_start"] = pass_start
+        try:
+            max_elevation = float(item.get("max_elevation_deg") or item.get("max_elevation") or 0.0)
+            if max_elevation > 0.0:
+                adapted["max_elevation_deg"] = max_elevation
+        except Exception:
+            pass
+        tle_line1 = str(item.get("tle_line1") or item.get("line1") or "").strip()
+        tle_line2 = str(item.get("tle_line2") or item.get("line2") or "").strip()
+        if tle_line1 and tle_line2:
+            adapted["tle_line1"] = tle_line1
+            adapted["tle_line2"] = tle_line2
+        out.append(adapted)
     return out
 
 
@@ -306,11 +321,22 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
         name = str(sat.get("name") or "").strip()
         if not sat_id or not name:
             continue
+        pass_start = str(sat.get("pass_start") or "").strip() or None
+        max_elevation_deg = None
+        if sat.get("max_elevation_deg") not in (None, ""):
+            try:
+                max_elevation_deg = float(sat.get("max_elevation_deg"))
+            except Exception:
+                max_elevation_deg = None
         norm_sats.append(
             {
                 "id": sat_id,
                 "name": name,
                 "source": str(sat.get("source") or "celestrak").strip().lower(),
+                "pass_start": pass_start,
+                "max_elevation_deg": max_elevation_deg,
+                "tle_line1": str(sat.get("tle_line1") or "").strip() or None,
+                "tle_line2": str(sat.get("tle_line2") or "").strip() or None,
             }
         )
     norm_flights = _normalize_list(

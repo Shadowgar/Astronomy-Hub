@@ -192,12 +192,18 @@ def fetch_celestrak_active(*, limit: int = 500, lat: float | None = None, lon: f
         name = str(entry.get("OBJECT_NAME") or "").strip()
         if not name:
             continue
+        sat = {
+            "id": str(entry.get("NORAD_CAT_ID") or name).strip().lower(),
+            "name": name,
+            "source": "celestrak",
+        }
+        tle_line1 = str(entry.get("TLE_LINE1") or "").strip()
+        tle_line2 = str(entry.get("TLE_LINE2") or "").strip()
+        if tle_line1 and tle_line2:
+            sat["tle_line1"] = tle_line1
+            sat["tle_line2"] = tle_line2
         out.append(
-            {
-                "id": str(entry.get("NORAD_CAT_ID") or name).strip().lower(),
-                "name": name,
-                "source": "celestrak",
-            }
+            sat
         )
     if out:
         _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["celestrak"])
@@ -265,7 +271,23 @@ def fetch_space_track_active(*, limit: int = 500) -> list[dict[str, Any]]:
         name = str(entry.get("OBJECT_NAME") or entry.get("object_name") or "").strip()
         if not sat_id or not name:
             continue
-        out.append({"id": sat_id.lower(), "name": name, "source": "space_track"})
+        sat = {"id": sat_id.lower(), "name": name, "source": "space_track"}
+        tle_line1 = str(
+            entry.get("TLE_LINE1")
+            or entry.get("tle_line1")
+            or entry.get("line1")
+            or ""
+        ).strip()
+        tle_line2 = str(
+            entry.get("TLE_LINE2")
+            or entry.get("tle_line2")
+            or entry.get("line2")
+            or ""
+        ).strip()
+        if tle_line1 and tle_line2:
+            sat["tle_line1"] = tle_line1
+            sat["tle_line2"] = tle_line2
+        out.append(sat)
 
     if out:
         _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["space_track"])
@@ -384,7 +406,13 @@ def fetch_tle_api_active(*, limit: int = 500) -> list[dict[str, Any]]:
         name = str(entry.get("name") or "").strip()
         if not sat_id or not name:
             continue
-        out.append({"id": sat_id.lower(), "name": name, "source": "tle_api"})
+        sat = {"id": sat_id.lower(), "name": name, "source": "tle_api"}
+        tle_line1 = str(entry.get("line1") or entry.get("tle_line1") or "").strip()
+        tle_line2 = str(entry.get("line2") or entry.get("tle_line2") or "").strip()
+        if tle_line1 and tle_line2:
+            sat["tle_line1"] = tle_line1
+            sat["tle_line2"] = tle_line2
+        out.append(sat)
         if len(out) >= max(1, int(limit)):
             break
 
@@ -424,7 +452,17 @@ def fetch_g7vrd_pass_candidates(lat: float, lon: float, *, limit: int = 12, hour
         if not isinstance(passes, list) or not passes:
             continue
         sat_name = str(payload.get("satellite_name") or default_name).strip() or default_name
-        out.append({"id": sat_id, "name": sat_name, "source": "g7vrd"})
+        sat = {"id": sat_id, "name": sat_name, "source": "g7vrd"}
+        first_pass = passes[0] if isinstance(passes[0], dict) else None
+        if isinstance(first_pass, dict):
+            pass_start = str(first_pass.get("start") or first_pass.get("start_time") or "").strip()
+            if pass_start:
+                sat["pass_start"] = pass_start
+            try:
+                sat["max_elevation_deg"] = float(first_pass.get("max_elevation") or 0.0)
+            except Exception:
+                pass
+        out.append(sat)
         if len(out) >= max(1, int(limit)):
             break
 
