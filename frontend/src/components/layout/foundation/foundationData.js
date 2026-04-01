@@ -38,12 +38,61 @@ export const rightContextSections = [
   },
 ]
 
+export const liveBriefingItems = [
+  { name: 'Observing score', reason: 'GOOD' },
+  { name: 'Best target now', reason: 'M13' },
+  { name: 'Next satellite pass', reason: 'ISS in 12 min' },
+  { name: 'Moon impact', reason: 'Moderate' },
+  { name: 'Active solar status', reason: 'Quiet' },
+  { name: 'Above-horizon flights', reason: '2' },
+]
+
+export const liveBriefingActions = ['Open full briefing', 'Open news digest']
+
 export const nowAboveMeItems = [
   { name: 'ISS', reason: 'Overhead in short window, very bright track.' },
   { name: 'Jupiter', reason: 'High in SE with stable visibility.' },
   { name: 'M13', reason: 'Excellent contrast in current dark sector.' },
   { name: 'UAL 2401', reason: 'Above-horizon pass with low visual interference.' },
   { name: 'Mars', reason: 'Visible low east; useful comparison target.' },
+]
+
+export const eventsAlertsItems = [
+  { name: 'Meteor shower peak', reason: 'High activity expected in late window.' },
+  { name: 'ISS bright pass', reason: 'Visible path with strong brightness score.' },
+  { name: 'Geomagnetic activity', reason: 'Minor activity; monitor aurora chance.' },
+]
+
+export const newsDigestItems = [
+  { name: 'New active solar region', reason: 'Sun engine flagged elevated watch region.' },
+  { name: 'Falcon 9 launch', reason: 'New payload impacts satellite tracking lists.' },
+  { name: 'New Mars image', reason: 'Solar-system context media update available.' },
+  { name: 'New exoplanet research', reason: 'Deep-sky knowledge stream updated.' },
+]
+
+export const engineQuickEntryItems = [
+  { name: 'Conditions Engine', reason: 'Open observing-state module.' },
+  { name: 'Satellite Engine', reason: 'Open visible passes and satellite tracks.' },
+  { name: 'Solar System Engine', reason: 'Open planets and moon context.' },
+  { name: 'Deep Sky Engine', reason: 'Open ranked telescope targets.' },
+  { name: 'Sun Engine', reason: 'Open solar activity and event state.' },
+  { name: 'Flight Engine', reason: 'Open above-horizon air traffic context.' },
+  { name: 'Events Engine', reason: 'Open transient alerts and event windows.' },
+]
+
+export const activeFiltersItems = [
+  { name: 'visible satellites', reason: 'Only above-horizon satellite passes.' },
+  { name: 'visible planets', reason: 'Planets with active sky visibility.' },
+  { name: 'visible deep sky', reason: 'Targets within observing viability window.' },
+  { name: 'above-horizon flights', reason: 'Flights intersecting current sky view.' },
+  { name: 'active events', reason: 'Current relevance-window event subset.' },
+]
+
+export const quickToolsItems = [
+  { name: 'Identify object in sky', reason: 'Resolve selected object context quickly.' },
+  { name: 'Point telescope helper', reason: 'Use direction guidance placeholders.' },
+  { name: 'Switch to red mode', reason: 'Night-adapted visual mode placeholder.' },
+  { name: 'Track this object', reason: 'Save object follow-up placeholder.' },
 ]
 
 export const engineModules = [

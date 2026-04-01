@@ -1,21 +1,26 @@
 import React from 'react'
 import PanelSection from './PanelSection'
 import PlaceholderItemRow from './PlaceholderItemRow'
-import { rightContextSections } from './foundationData'
+import { liveBriefingActions, liveBriefingItems } from './foundationData'
 
 export default function ContextPanel() {
   return (
     <aside className="module panel" aria-label="Right context panel">
-      <h2>Right Context Panel</h2>
-      {rightContextSections.map((section) => (
-        <PanelSection key={section.title} title={section.title}>
-          <ul className="foundation-list">
-            {section.items.map((item) => (
-              <PlaceholderItemRow key={`${section.title}-${item.name}`} name={item.name} reason={item.reason} />
-            ))}
-          </ul>
-        </PanelSection>
-      ))}
+      <h2>Right-Side Live Briefing</h2>
+      <PanelSection title="Tonight / Now Summary" badge={null}>
+        <ul className="foundation-list">
+          {liveBriefingItems.map((item) => (
+            <PlaceholderItemRow key={item.name} name={item.name} reason={item.reason} marker="Live" />
+          ))}
+        </ul>
+      </PanelSection>
+      <div className="foundation-context-actions">
+        {liveBriefingActions.map((action) => (
+          <button key={action} type="button" disabled>
+            {action}
+          </button>
+        ))}
+      </div>
     </aside>
   )
 }

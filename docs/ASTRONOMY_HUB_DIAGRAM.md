@@ -1,7 +1,3 @@
-Yes. Here is a clean architectural mockup of the **main screen**, the **navigation flow**, and the **engine routing model**.
-
----
-
 # Main Screen — Command Center Home
 
 ```text
