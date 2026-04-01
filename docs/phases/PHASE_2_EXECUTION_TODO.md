@@ -100,12 +100,12 @@ No further structural changes without explicit revision.
 Build command center layout
 
 ## Tasks
-- [ ] Top control bar
-- [ ] Main scene area
-- [ ] Right context panel
-- [ ] Now Above Me section
-- [ ] Engine module grid
-- [ ] Detail panel placeholder
+- [x] Top control bar
+- [x] Main scene area
+- [x] Right context panel
+- [x] Now Above Me section
+- [x] Engine module grid
+- [x] Detail panel placeholder
 
 ## Constraints
 - NO logic
@@ -114,7 +114,7 @@ Build command center layout
 
 ## LOCK CONDITION
 
-UI matches system diagram
+UI matches system diagram of astronomy_hub_diagram.md
 
 ---
 

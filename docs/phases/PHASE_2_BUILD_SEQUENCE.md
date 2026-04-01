@@ -60,6 +60,7 @@ All engines MUST follow their spec documents
 ## VERIFY
 
 UI matches UI_SPEC.md:
+UI matches ASTRONOMY_HUB_DIAGRAM.md:
 
 * top control bar
 * main scene area

@@ -374,30 +374,30 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 }
 .compact-module { padding: var(--token-size-6) !important }
 
-/* Phase 2 Step 1 foundation: static-only layout standardization */
-.phase2-step1-foundation .phase2-foundation-scene-body {
+/* Command-center foundation: static-only layout standardization */
+.command-center-foundation .foundation-scene-body {
   display: flex;
   flex-direction: column;
   gap: var(--token-size-8);
 }
 
-.phase2-step1-foundation .phase2-foundation-grid {
+.command-center-foundation .foundation-module-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--token-size-220), 1fr));
   gap: var(--token-size-10);
 }
 
-.phase2-step1-foundation .phase2-foundation-module {
+.command-center-foundation .foundation-module-card {
   padding: 0;
 }
 
-.phase2-step1-foundation .phase2-foundation-module .module-shell {
+.command-center-foundation .foundation-module-card .module-shell {
   margin: 0;
   padding: var(--token-size-10);
   border-bottom: 0;
 }
 
-.phase2-step1-foundation .phase2-foundation-list {
+.command-center-foundation .foundation-list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -406,7 +406,7 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   gap: var(--token-size-6);
 }
 
-.phase2-step1-foundation .phase2-foundation-row {
+.command-center-foundation .foundation-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -418,76 +418,76 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   font-size: var(--token-size-13);
 }
 
-.phase2-step1-foundation .phase2-foundation-row-marker {
+.command-center-foundation .foundation-row-marker {
   color: var(--text-muted);
   font-size: var(--token-size-12);
   white-space: nowrap;
 }
 
-.phase2-step1-foundation .phase2-foundation-badge {
+.command-center-foundation .foundation-badge {
   color: var(--text-muted);
   font-size: var(--token-size-12);
 }
 
-.phase2-step1-foundation .phase2-detail-panel {
+.command-center-foundation .detail-panel-shell {
   margin-top: var(--token-size-10);
 }
 
-.phase2-step1-foundation .phase2-detail-panel__header {
+.command-center-foundation .detail-panel-shell__header {
   align-items: flex-start;
 }
 
-.phase2-step1-foundation .phase2-detail-panel__identity {
+.command-center-foundation .detail-panel-shell__identity {
   display: flex;
   flex-direction: column;
   gap: var(--token-size-4);
 }
 
-.phase2-step1-foundation .phase2-detail-panel__object-name,
-.phase2-step1-foundation .phase2-detail-panel__object-meta {
+.command-center-foundation .detail-panel-shell__object-name,
+.command-center-foundation .detail-panel-shell__object-meta {
   margin: 0;
   font-size: var(--token-size-13);
 }
 
-.phase2-step1-foundation .phase2-detail-panel__object-meta {
+.command-center-foundation .detail-panel-shell__object-meta {
   color: var(--text-muted);
 }
 
-.phase2-step1-foundation .phase2-detail-panel__back {
+.command-center-foundation .detail-panel-shell__back {
   padding: var(--token-size-6) var(--token-size-10);
 }
 
-.phase2-step1-foundation .phase2-detail-panel__body {
+.command-center-foundation .detail-panel-shell__body {
   display: flex;
   flex-direction: column;
   gap: var(--token-size-10);
 }
 
-.phase2-step1-foundation .phase2-detail-panel__why,
-.phase2-step1-foundation .phase2-detail-panel__section {
+.command-center-foundation .detail-panel-shell__why,
+.command-center-foundation .detail-panel-shell__section {
   border: var(--token-border-width-thin) solid var(--surface-border);
   border-radius: var(--token-size-8);
   padding: var(--token-size-10);
   background: var(--surface-bg);
 }
 
-.phase2-step1-foundation .phase2-detail-panel__why h4,
-.phase2-step1-foundation .phase2-detail-panel__section h4 {
+.command-center-foundation .detail-panel-shell__why h4,
+.command-center-foundation .detail-panel-shell__section h4 {
   margin: 0 0 var(--token-size-8) 0;
   font-size: var(--token-size-14);
 }
 
-.phase2-step1-foundation .phase2-detail-panel__why p {
+.command-center-foundation .detail-panel-shell__why p {
   margin: 0;
 }
 
-.phase2-step1-foundation .phase2-detail-panel__tabs {
+.command-center-foundation .detail-panel-shell__tabs {
   display: flex;
   flex-wrap: wrap;
   gap: var(--token-size-6);
 }
 
-.phase2-step1-foundation .phase2-detail-panel__tab {
+.command-center-foundation .detail-panel-shell__tab {
   border: var(--token-border-width-thin) solid var(--surface-border);
   border-radius: var(--token-size-999);
   padding: var(--token-size-4) var(--token-size-10);
@@ -495,7 +495,7 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   color: var(--text-muted);
 }
 
-.phase2-step1-foundation .phase2-detail-panel__sections {
+.command-center-foundation .detail-panel-shell__sections {
   display: flex;
   flex-direction: column;
   gap: var(--token-size-8);

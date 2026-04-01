@@ -36,7 +36,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK), Step 1 (UI LAYOUT FOUNDATION), Step 2 (UI STANDARDIZATION), Step 3 (DETAIL PANEL SYSTEM — UI ONLY), Step 4 (DATA PIPELINE — FOUNDATION), and Step 5 (CONDITIONS ENGINE — FIRST ENGINE) are locked. Effective current step is Phase 2 STEP 6 — SATELLITE ENGINE.
+- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK) and Step 1 (UI LAYOUT FOUNDATION) are locked. Effective current step is Phase 2 STEP 2 — UI STANDARDIZATION.
 
 Phase 3:
 - status: NOT STARTED
@@ -55,12 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 6 — SATELLITE ENGINE
-- preserve command-center integrity and backend-authoritative Scene → Object → Detail behavior
-
-SECONDARY:
-- prevent Phase 3+ leakage
-- preserve backend authority and deterministic scene generation
+- execute Phase 2 STEP 2
 
 ---
 
@@ -86,12 +81,8 @@ Scope:
 - final Phase 1 lock re-evaluated against runtime + tests + authority docs
 - Phase 1 status updated to LOCKED
 - Rebased Phase 2 STEP 0 (CONTRACT LOCK) locked
-- Rebased Phase 2 STEP 1 (UI LAYOUT FOUNDATION) locked
-- Rebased Phase 2 STEP 2 (UI STANDARDIZATION) locked
-- Rebased Phase 2 STEP 3 (DETAIL PANEL SYSTEM — UI ONLY) locked
-- Rebased Phase 2 STEP 4 (DATA PIPELINE — FOUNDATION) locked
-- Rebased Phase 2 STEP 5 (CONDITIONS ENGINE — FIRST ENGINE) locked
-- Phase 2 STEP 1 (STATE FOUNDATION) locked with implementation + tracking proof
+- Rebased Phase 2 STEP 1 (UI LAYOUT FOUNDATION) locked with static command-center foundation proof (`frontend/src/components/layout/foundation/*`, `frontend/src/App.jsx`) and no API/data wiring.
+- Reconciliation note: legacy Phase 2 lock entries below were recorded under the pre-rebase sequence and are retained as history only; Step 2+ must be revalidated in the rebased sequence.
 - Phase 2 STEP 2 (SCOPE SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 3 (ENGINE SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 4 (FILTER SYSTEM) locked with implementation + tracking proof
@@ -119,15 +110,15 @@ Scope:
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 6 — SATELLITE ENGINE
-- implement satellite engine behavior on top of the locked Provider → Adapter → Normalizer → Validator → Cache foundation
+- execute Phase 2 STEP 2 — UI STANDARDIZATION
+- standardize module/grid/spacing structure across the Step 1 command-center foundation
 
 ---
 
 # 7. BLOCKERS
 
 - no Phase 1 blockers
-- no blockers for Phase 2 STEP 6 execution start
+- no blockers for Phase 2 STEP 2 execution start
 - Phase 3+ remains blocked by phase-gate law
 
 ---
