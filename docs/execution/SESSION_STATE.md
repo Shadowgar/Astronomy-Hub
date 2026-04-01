@@ -52,13 +52,13 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY)
+* current step: PHASE 2 STEP 4 — DATA PIPELINE (FOUNDATION)
 
 Rebase note:
 * Phase 2 step sequence has been restructured.
 * Prior tracked progress was recorded under the legacy step order.
 * Prior progress is not discarded, but must be revalidated against the rebased execution model.
-* Rebased Step 0, Step 1, and Step 2 are locked.
+* Rebased Step 0, Step 1, Step 2, and Step 3 are locked.
 
 ---
 
@@ -75,6 +75,10 @@ Rebase note:
 * step: PHASE 2 STEP 2 — UI STANDARDIZATION (REBASED)
   * result: LOCKED
   * validation: foundation modules standardized to a reusable static structure with consistent container/header/body/list patterns.
+
+* step: PHASE 2 STEP 3 — DETAIL PANEL SYSTEM (REBASED)
+  * result: LOCKED
+  * validation: reusable static detail panel shell implemented on the isolated Step 1/2 foundation path with header identity placeholders, “Why it matters”, tab/section placeholders (`Overview`, `Sky Position`, `Images`, `Data`), and no backend/data wiring.
 
 * step: STEP 1 — AUTHORITATIVE RUNTIME
   * result: LOCKED
@@ -232,7 +236,7 @@ Rebase note:
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute Phase 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY); after lock, proceed to Phase 2 STEP 4.
+* next step: execute Phase 2 STEP 4 — DATA PIPELINE (FOUNDATION).
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

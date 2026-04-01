@@ -36,7 +36,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK), Step 1 (UI LAYOUT FOUNDATION), and Step 2 (UI STANDARDIZATION) are locked. Effective current step is Phase 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY).
+- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK), Step 1 (UI LAYOUT FOUNDATION), Step 2 (UI STANDARDIZATION), and Step 3 (DETAIL PANEL SYSTEM — UI ONLY) are locked. Effective current step is Phase 2 STEP 4 — DATA PIPELINE (FOUNDATION).
 
 Phase 3:
 - status: NOT STARTED
@@ -55,7 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY)
+- execute Phase 2 STEP 4 — DATA PIPELINE (FOUNDATION)
 - preserve command-center integrity and backend-authoritative Scene → Object → Detail behavior
 
 SECONDARY:
@@ -88,6 +88,7 @@ Scope:
 - Rebased Phase 2 STEP 0 (CONTRACT LOCK) locked
 - Rebased Phase 2 STEP 1 (UI LAYOUT FOUNDATION) locked
 - Rebased Phase 2 STEP 2 (UI STANDARDIZATION) locked
+- Rebased Phase 2 STEP 3 (DETAIL PANEL SYSTEM — UI ONLY) locked
 - Phase 2 STEP 1 (STATE FOUNDATION) locked with implementation + tracking proof
 - Phase 2 STEP 2 (SCOPE SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 3 (ENGINE SYSTEM) locked with implementation + tracking proof
@@ -116,15 +117,15 @@ Scope:
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY)
-- keep execution on the isolated Phase 2 foundation path and preserve default runtime behavior
+- execute Phase 2 STEP 4 — DATA PIPELINE (FOUNDATION)
+- establish backend Provider → Adapter → Normalizer → Validator → Cache foundation without broad provider overbuild
 
 ---
 
 # 7. BLOCKERS
 
 - no Phase 1 blockers
-- no blockers for Phase 2 STEP 3 execution start
+- no blockers for Phase 2 STEP 4 execution start
 - Phase 3+ remains blocked by phase-gate law
 
 ---
@@ -151,6 +152,7 @@ Scope:
   2. authoritative tracking documents are updated
 - If a stop condition is triggered, enter controlled recovery before any resume
 - State transitions must follow docs/execution/STATE_TRANSITIONS.md
+- Future successful step completions should update authority state docs in the same turn when the step is verified and ready to lock.
 - FAILURE_PATTERNS.md is optional support memory only in debug/review/reconciliation/planning contexts
 - Phase 2 must preserve:
   - command-center primary surface
