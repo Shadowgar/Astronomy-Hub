@@ -39,6 +39,10 @@ def test_solar_system_slice_filters_below_horizon_and_keeps_provider_source():
     assert objects[0]["id"] == "mars"
     assert objects[0]["engine"] == "solar_system"
     assert objects[0]["provider_source"] == "jpl_ephemeris"
+    visibility = objects[0].get("visibility") or {}
+    assert isinstance(visibility.get("visibility_window_start"), str) and visibility.get("visibility_window_start")
+    assert isinstance(visibility.get("visibility_window_end"), str) and visibility.get("visibility_window_end")
+    assert "best viewing around" in (objects[0].get("summary") or "").lower()
 
 
 def test_jpl_ephemeris_same_inputs_same_output(monkeypatch):
@@ -87,3 +91,20 @@ def test_jpl_ephemeris_uses_explicit_as_of_in_query_window(monkeypatch):
 
     assert seen_start_times
     assert all("'2026-03-31 19:00'" == value for value in seen_start_times)
+
+
+def test_solar_system_slice_time_context_changes_viewing_window():
+    payload = {
+        "ephemeris": [
+            {"id": "mars", "name": "Mars", "azimuth": 220.0, "elevation": 35.0, "source": "jpl_ephemeris"},
+        ]
+    }
+    t1 = datetime(2026, 3, 31, 12, 0, tzinfo=timezone.utc)
+    t2 = datetime(2026, 3, 31, 13, 0, tzinfo=timezone.utc)
+
+    objects_1 = _build_solar_system_engine_slice(time_context=t1, live_inputs=payload)
+    objects_2 = _build_solar_system_engine_slice(time_context=t2, live_inputs=payload)
+
+    start_1 = ((objects_1[0].get("visibility") or {}).get("visibility_window_start"))
+    start_2 = ((objects_2[0].get("visibility") or {}).get("visibility_window_start"))
+    assert start_1 != start_2

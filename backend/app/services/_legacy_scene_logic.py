@@ -1,7 +1,7 @@
 import logging
 import time
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import hashlib
 
 from backend.normalizers import registry
@@ -272,6 +272,9 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
 
 def _build_solar_system_engine_slice(parsed_location=None, time_context=None, live_inputs=None):
     """Provider-backed solar-system slice from JPL ephemeris."""
+    time_context = time_context or _resolve_time_context()
+    window_start = time_context.replace(microsecond=0).isoformat()
+    window_end = (time_context.replace(microsecond=0) + timedelta(hours=2)).isoformat()
     out = []
     ephemeris = []
     if isinstance(live_inputs, dict):
@@ -300,9 +303,16 @@ def _build_solar_system_engine_slice(parsed_location=None, time_context=None, li
                 "type": "planet",
                 "engine": "solar_system",
                 "provider_source": entry.get("source") or "jpl_ephemeris",
-                "summary": f"Live ephemeris position az {azimuth:.1f} el {elevation:.1f}",
+                "summary": (
+                    f"Live ephemeris position az {azimuth:.1f} el {elevation:.1f}; "
+                    f"best viewing around {window_start}"
+                ),
                 "position": {"azimuth": azimuth, "elevation": elevation},
-                "visibility": {"is_visible": True},
+                "visibility": {
+                    "is_visible": True,
+                    "visibility_window_start": window_start,
+                    "visibility_window_end": window_end,
+                },
                 "relevance_score": max(0.0, min(1.0, elevation / 90.0)),
             }
         )
