@@ -36,7 +36,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded, but must be revalidated against the rebased execution model. Effective current step is Phase 2 STEP 0 — CONTRACT LOCK (REVALIDATION REQUIRED).
+- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK), Step 1 (UI LAYOUT FOUNDATION), and Step 2 (UI STANDARDIZATION) are locked. Effective current step is Phase 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY).
 
 Phase 3:
 - status: NOT STARTED
@@ -55,7 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 0 — CONTRACT LOCK (REVALIDATION REQUIRED)
+- execute Phase 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY)
 - preserve command-center integrity and backend-authoritative Scene → Object → Detail behavior
 
 SECONDARY:
@@ -85,6 +85,9 @@ Scope:
 - docs/execution/SESSION_STATE.md populated with Phase 1 step lock records
 - final Phase 1 lock re-evaluated against runtime + tests + authority docs
 - Phase 1 status updated to LOCKED
+- Rebased Phase 2 STEP 0 (CONTRACT LOCK) locked
+- Rebased Phase 2 STEP 1 (UI LAYOUT FOUNDATION) locked
+- Rebased Phase 2 STEP 2 (UI STANDARDIZATION) locked
 - Phase 2 STEP 1 (STATE FOUNDATION) locked with implementation + tracking proof
 - Phase 2 STEP 2 (SCOPE SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 3 (ENGINE SYSTEM) locked with implementation + tracking proof
@@ -113,15 +116,15 @@ Scope:
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 0 — CONTRACT LOCK (REVALIDATION REQUIRED)
-- verify rebased phase contract inputs (scope/engine/filter/scene model and engine spec presence) before proceeding to later rebased steps
+- execute Phase 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY)
+- keep execution on the isolated Phase 2 foundation path and preserve default runtime behavior
 
 ---
 
 # 7. BLOCKERS
 
 - no Phase 1 blockers
-- Phase 2 lock is blocked by unproven Section 20+ checks in `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md`
+- no blockers for Phase 2 STEP 3 execution start
 - Phase 3+ remains blocked by phase-gate law
 
 ---

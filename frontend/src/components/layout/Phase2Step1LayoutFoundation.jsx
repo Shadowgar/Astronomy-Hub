@@ -32,6 +32,25 @@ const ENGINE_MODULES = [
   },
 ]
 
+const DETAIL_SECTIONS = [
+  {
+    name: 'Overview',
+    rows: ['Summary placeholder', 'Observing note placeholder'],
+  },
+  {
+    name: 'Sky Position',
+    rows: ['Azimuth placeholder', 'Elevation placeholder'],
+  },
+  {
+    name: 'Images',
+    rows: ['Primary image placeholder', 'Secondary image placeholder'],
+  },
+  {
+    name: 'Data',
+    rows: ['Contract fields placeholder', 'Trace metadata placeholder'],
+  },
+]
+
 function FoundationRows({ rows }) {
   return (
     <ul className="phase2-foundation-list">
@@ -58,6 +77,47 @@ function FoundationModule({ title, rows }) {
         </div>
       </section>
     </article>
+  )
+}
+
+function DetailPanelShell() {
+  return (
+    <section className="module-shell phase2-detail-panel">
+      <div className="module-shell-header phase2-detail-panel__header">
+        <div className="phase2-detail-panel__identity">
+          <h3>Detail Panel</h3>
+          <p className="phase2-detail-panel__object-name">Object: Placeholder Target</p>
+          <p className="phase2-detail-panel__object-meta">Type: Placeholder Type · Status: Placeholder Status</p>
+        </div>
+        <button type="button" className="phase2-detail-panel__back" disabled>
+          Back
+        </button>
+      </div>
+
+      <div className="module-shell-body phase2-detail-panel__body">
+        <section className="phase2-detail-panel__why">
+          <h4>Why it matters</h4>
+          <p>Static explanation placeholder for decision relevance near top of detail context.</p>
+        </section>
+
+        <nav className="phase2-detail-panel__tabs" aria-label="Detail sections placeholder">
+          {DETAIL_SECTIONS.map((section) => (
+            <span key={section.name} className="phase2-detail-panel__tab">
+              {section.name}
+            </span>
+          ))}
+        </nav>
+
+        <div className="phase2-detail-panel__sections">
+          {DETAIL_SECTIONS.map((section) => (
+            <section key={section.name} className="phase2-detail-panel__section">
+              <h4>{section.name}</h4>
+              <FoundationRows rows={section.rows} />
+            </section>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -122,15 +182,7 @@ export default function Phase2Step1LayoutFoundation() {
                   </div>
                 </section>
 
-                <section className="module-shell">
-                  <div className="module-shell-header">
-                    <h3>Detail Panel (Reserved)</h3>
-                    <span className="phase2-foundation-badge">Step 3</span>
-                  </div>
-                  <div className="module-shell-body">
-                    <FoundationRows rows={['Object detail header placeholder', 'Object detail body placeholder']} />
-                  </div>
-                </section>
+                <DetailPanelShell />
               </aside>
             </div>
           </section>

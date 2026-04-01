@@ -52,16 +52,29 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 0 — CONTRACT LOCK (REVALIDATION REQUIRED)
+* current step: PHASE 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY)
 
 Rebase note:
 * Phase 2 step sequence has been restructured.
 * Prior tracked progress was recorded under the legacy step order.
 * Prior progress is not discarded, but must be revalidated against the rebased execution model.
+* Rebased Step 0, Step 1, and Step 2 are locked.
 
 ---
 
 ## COMPLETED STEPS
+
+* step: PHASE 2 STEP 0 — CONTRACT LOCK (REBASED)
+  * result: LOCKED
+  * validation: rebased scope/engine/filter/scene contract inputs reconciled and engine-spec placeholders established.
+
+* step: PHASE 2 STEP 1 — UI LAYOUT FOUNDATION (REBASED)
+  * result: LOCKED
+  * validation: non-destructive static command-center foundation implemented behind `?phase2Step1Layout=1` with default runtime path preserved.
+
+* step: PHASE 2 STEP 2 — UI STANDARDIZATION (REBASED)
+  * result: LOCKED
+  * validation: foundation modules standardized to a reusable static structure with consistent container/header/body/list patterns.
 
 * step: STEP 1 — AUTHORITATIVE RUNTIME
   * result: LOCKED
@@ -219,7 +232,7 @@ Rebase note:
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: complete Phase 2 STEP 0 contract-lock audit and mark STEP 0 locked before proceeding to Phase 2 STEP 1.
+* next step: execute Phase 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY); after lock, proceed to Phase 2 STEP 4.
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

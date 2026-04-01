@@ -429,6 +429,78 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   font-size: var(--token-size-12);
 }
 
+.phase2-step1-foundation .phase2-detail-panel {
+  margin-top: var(--token-size-10);
+}
+
+.phase2-step1-foundation .phase2-detail-panel__header {
+  align-items: flex-start;
+}
+
+.phase2-step1-foundation .phase2-detail-panel__identity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-size-4);
+}
+
+.phase2-step1-foundation .phase2-detail-panel__object-name,
+.phase2-step1-foundation .phase2-detail-panel__object-meta {
+  margin: 0;
+  font-size: var(--token-size-13);
+}
+
+.phase2-step1-foundation .phase2-detail-panel__object-meta {
+  color: var(--text-muted);
+}
+
+.phase2-step1-foundation .phase2-detail-panel__back {
+  padding: var(--token-size-6) var(--token-size-10);
+}
+
+.phase2-step1-foundation .phase2-detail-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-size-10);
+}
+
+.phase2-step1-foundation .phase2-detail-panel__why,
+.phase2-step1-foundation .phase2-detail-panel__section {
+  border: var(--token-border-width-thin) solid var(--surface-border);
+  border-radius: var(--token-size-8);
+  padding: var(--token-size-10);
+  background: var(--surface-bg);
+}
+
+.phase2-step1-foundation .phase2-detail-panel__why h4,
+.phase2-step1-foundation .phase2-detail-panel__section h4 {
+  margin: 0 0 var(--token-size-8) 0;
+  font-size: var(--token-size-14);
+}
+
+.phase2-step1-foundation .phase2-detail-panel__why p {
+  margin: 0;
+}
+
+.phase2-step1-foundation .phase2-detail-panel__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--token-size-6);
+}
+
+.phase2-step1-foundation .phase2-detail-panel__tab {
+  border: var(--token-border-width-thin) solid var(--surface-border);
+  border-radius: var(--token-size-999);
+  padding: var(--token-size-4) var(--token-size-10);
+  font-size: var(--token-size-12);
+  color: var(--text-muted);
+}
+
+.phase2-step1-foundation .phase2-detail-panel__sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-size-8);
+}
+
 /* UI primitives (moved from inline styles) */
 .ui-loading-state,
 .ui-empty-state { color: var(--text-sub); padding: var(--space-3) 0; }
