@@ -409,7 +409,7 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .command-center-foundation .foundation-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--token-size-8);
   padding: var(--token-size-8) var(--token-size-10);
   border: var(--token-border-width-thin) solid var(--surface-border);
@@ -418,10 +418,31 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   font-size: var(--token-size-13);
 }
 
+.command-center-foundation .foundation-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-size-2);
+  min-width: 0;
+}
+
+.command-center-foundation .foundation-row-name {
+  font-weight: var(--token-font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.command-center-foundation .foundation-row-reason {
+  color: var(--text-muted);
+  font-size: var(--token-size-12);
+}
+
 .command-center-foundation .foundation-row-marker {
   color: var(--text-muted);
   font-size: var(--token-size-12);
   white-space: nowrap;
+}
+
+.command-center-foundation .foundation-now-above-me .foundation-row-marker {
+  color: var(--status-fg);
 }
 
 .command-center-foundation .foundation-badge {

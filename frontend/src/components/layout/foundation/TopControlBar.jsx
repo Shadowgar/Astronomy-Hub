@@ -1,4 +1,5 @@
 import React from 'react'
+import { topBar } from './foundationData'
 
 export default function TopControlBar() {
   return (
@@ -8,46 +9,42 @@ export default function TopControlBar() {
         <span className="mode-control">
           Scope:
           <select aria-label="Scope selector (placeholder)" defaultValue="above_me" disabled>
-            <option value="above_me">Above Me</option>
+            <option value="above_me">{topBar.scope}</option>
           </select>
         </span>
         <span className="mode-control">
           Engine:
           <select aria-label="Engine selector (placeholder)" defaultValue="conditions" disabled>
-            <option value="conditions">Conditions</option>
+            <option value="conditions">{topBar.engine}</option>
           </select>
         </span>
         <span className="mode-control">
           Filter:
           <select aria-label="Filter selector (placeholder)" defaultValue="visible_now" disabled>
-            <option value="visible_now">visible_now</option>
+            <option value="visible_now">{topBar.filter}</option>
           </select>
         </span>
-        <span className="mode-control">Location: ORAS Observatory (placeholder)</span>
+        <span className="mode-control">
+          Time:
+          <select aria-label="Time selector (placeholder)" defaultValue="now" disabled>
+            <option value="now">{topBar.time}</option>
+          </select>
+        </span>
+        <span className="mode-control">Location: {topBar.location}</span>
         <span className="mode-control">
           Mode:
           <select aria-label="Display mode (placeholder)" defaultValue="light" disabled>
-            <option value="light">light</option>
+            <option value="light">{topBar.mode}</option>
           </select>
         </span>
       </div>
       <div className="header-controls" aria-label="Command bar placeholder">
         <strong>Command Bar</strong>
-        <button type="button" disabled>
-          What&apos;s above me now?
-        </button>
-        <button type="button" disabled>
-          Show satellites
-        </button>
-        <button type="button" disabled>
-          Show planets
-        </button>
-        <button type="button" disabled>
-          Earth events
-        </button>
-        <button type="button" disabled>
-          Solar
-        </button>
+        {topBar.commands.map((command) => (
+          <button key={command} type="button" disabled>
+            {command}
+          </button>
+        ))}
       </div>
     </header>
   )

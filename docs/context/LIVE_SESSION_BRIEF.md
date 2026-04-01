@@ -36,7 +36,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK) and Step 1 (UI LAYOUT FOUNDATION) are locked. Effective current step is Phase 2 STEP 2 — UI STANDARDIZATION.
+- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK), Step 1 (UI LAYOUT FOUNDATION), and Step 2 (UI STANDARDIZATION) are locked. Effective current step is Phase 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY).
 
 Phase 3:
 - status: NOT STARTED
@@ -55,7 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 2
+- execute Phase 2 STEP 3
 
 ---
 
@@ -82,6 +82,7 @@ Scope:
 - Phase 1 status updated to LOCKED
 - Rebased Phase 2 STEP 0 (CONTRACT LOCK) locked
 - Rebased Phase 2 STEP 1 (UI LAYOUT FOUNDATION) locked with static command-center foundation proof (`frontend/src/components/layout/foundation/*`, `frontend/src/App.jsx`) and no API/data wiring.
+- Rebased Phase 2 STEP 2 (UI STANDARDIZATION) locked with standardized command-center UI primitives and centralized placeholder data (`frontend/src/components/layout/foundation/foundationData.js`, `PanelSection.jsx`, shared item-row/module/detail shell structure), including consistent item+reason presentation across Now Above Me, right context, engine modules, and detail shell.
 - Reconciliation note: legacy Phase 2 lock entries below were recorded under the pre-rebase sequence and are retained as history only; Step 2+ must be revalidated in the rebased sequence.
 - Phase 2 STEP 2 (SCOPE SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 3 (ENGINE SYSTEM) locked with implementation + tracking proof
@@ -110,15 +111,15 @@ Scope:
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 2 — UI STANDARDIZATION
-- standardize module/grid/spacing structure across the Step 1 command-center foundation
+- execute Phase 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY)
+- verify reusable detail panel shell behavior with hub-visible interaction model and no backend/data wiring
 
 ---
 
 # 7. BLOCKERS
 
 - no Phase 1 blockers
-- no blockers for Phase 2 STEP 2 execution start
+- no blockers for Phase 2 STEP 3 execution start
 - Phase 3+ remains blocked by phase-gate law
 
 ---

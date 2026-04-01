@@ -1,22 +1,23 @@
 import React from 'react'
 import PlaceholderItemRow from './PlaceholderItemRow'
-
-const ROWS = ['Immediate sky summary placeholder', 'Current attention cue placeholder']
+import PanelSection from './PanelSection'
+import { nowAboveMeItems } from './foundationData'
 
 export default function NowAboveMePanel() {
   return (
-    <section className="module-shell">
-      <div className="module-shell-header">
-        <h3>Now Above Me</h3>
-        <span className="foundation-badge">Placeholder</span>
-      </div>
-      <div className="module-shell-body">
+    <PanelSection title="Now Above Me">
+      <div className="foundation-now-above-me">
         <ul className="foundation-list">
-          {ROWS.map((row) => (
-            <PlaceholderItemRow key={row} text={row} />
+          {nowAboveMeItems.map((item, index) => (
+            <PlaceholderItemRow
+              key={item.name}
+              name={`${index + 1}. ${item.name}`}
+              reason={item.reason}
+              marker="Ranked"
+            />
           ))}
         </ul>
       </div>
-    </section>
+    </PanelSection>
   )
 }

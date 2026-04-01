@@ -52,13 +52,13 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 2 — UI STANDARDIZATION
+* current step: PHASE 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY)
 
 Rebase note:
 * Phase 2 step sequence has been restructured.
 * Prior tracked progress was recorded under the legacy step order.
 * Prior progress is not discarded, but must be revalidated against the rebased execution model.
-* Rebased Step 0 and Step 1 are locked.
+* Rebased Step 0, Step 1, and Step 2 are locked.
 
 ---
 
@@ -75,8 +75,8 @@ Rebase note:
 * note: legacy Phase 2 entries below were recorded under a pre-rebase sequence and are retained as history only; Step 2+ must be revalidated in the rebased sequence.
 
 * step: PHASE 2 STEP 2 — UI STANDARDIZATION (REBASED)
-  * result: LEGACY HISTORY (REVALIDATION REQUIRED)
-  * validation: foundation modules standardized to a reusable static structure with consistent container/header/body/list patterns.
+  * result: LOCKED
+  * validation: command-center foundation is standardized using shared, phase-agnostic UI primitives and centralized placeholder data (`frontend/src/components/layout/foundation/foundationData.js`, `PanelSection.jsx`); module/grid/item presentation is consistent across all required engine modules and right-context/Now-Above-Me/detail shell sections with item+reason rows.
 
 * step: PHASE 2 STEP 3 — DETAIL PANEL SYSTEM (REBASED)
   * result: LEGACY HISTORY (REVALIDATION REQUIRED)
@@ -246,7 +246,7 @@ Rebase note:
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute Phase 2 STEP 2 — UI STANDARDIZATION.
+* next step: execute Phase 2 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY).
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict
