@@ -27,6 +27,15 @@ PROVIDER_CACHE_TTL_SECONDS: dict[str, int] = {
     "noaa_swpc": 3600,
 }
 
+JPL_EPHEMERIS_BODIES: tuple[tuple[str, str], ...] = (
+    ("301", "Moon"),
+    ("199", "Mercury"),
+    ("299", "Venus"),
+    ("499", "Mars"),
+    ("599", "Jupiter"),
+    ("699", "Saturn"),
+)
+
 
 def _cache_get(key: str) -> Any | None:
     now = time.time()
@@ -530,10 +539,9 @@ def fetch_jpl_ephemeris(lat: float, lon: float, elevation_ft: float | None = Non
     start = now.strftime("%Y-%m-%d %H:%M")
     stop = (now + timedelta(hours=1)).strftime("%Y-%m-%d %H:%M")
     site_coord = f"{lon:.6f},{lat:.6f},{elev_km:.6f}"
-    bodies = [("301", "Moon"), ("499", "Mars")]
     out: list[dict[str, Any]] = []
 
-    for body_id, body_name in bodies:
+    for body_id, body_name in JPL_EPHEMERIS_BODIES:
         try:
             payload = _http_get_json(
                 "https://ssd.jpl.nasa.gov/api/horizons.api",
