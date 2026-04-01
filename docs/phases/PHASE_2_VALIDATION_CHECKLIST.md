@@ -1,34 +1,42 @@
-# PHASE 2 — VALIDATION CHECKLIST
+# 📄 ✅ **PHASE 2 — VALIDATION CHECKLIST (REWRITE — ENGINE + DATA + UI ALIGNED)**
 
-## 1. Purpose
+```markdown
+# 🌌 PHASE 2 — VALIDATION CHECKLIST (AUTHORITATIVE — ENGINE + DATA ALIGNED)
+
+---
+
+# 1. PURPOSE
 
 This document defines the **mandatory validation criteria** for Phase 2.
 
-Phase 2 is NOT complete until all checks pass.
+Phase 2 is NOT complete until ALL checks pass.
 
 This checklist enforces:
 
 - architectural integrity
 - decision-support behavior
 - backend authority
+- provider-backed truth
+- engine specification compliance
+- UI system integrity
 - anti-scope compliance
 
 ---
 
-## 2. Validation Rules
+# 2. VALIDATION RULES
 
 - Every check must be explicitly verified
 - No assumptions allowed
-- If any item fails:
+- If ANY item fails:
   - STOP
   - fix the issue
   - revalidate before continuing
 
 ---
 
-## 3. System Pipeline Validation
+# 3. SYSTEM PIPELINE VALIDATION
 
-### 3.1 Core Flow
+## 3.1 Core Flow
 
 - [ ] System follows:
   Scope → Engine → Filter → Scene → Object → Detail
@@ -37,54 +45,127 @@ This checklist enforces:
 
 - [ ] All navigation paths are consistent
 
+- [ ] Scene is the ONLY source of surfaced objects
+
 ---
 
-## 4. Scope Validation
+# 4. STATE VALIDATION
 
-- [ ] All defined scopes exist (sky, solar_system, earth)
+- [ ] System tracks:
+  - active scope
+  - active engine
+  - active filter
+  - current scene
+  - selected object
 
-- [ ] Each scope exposes correct engines
+- [ ] State is deterministic
+
+- [ ] State is restorable
+
+---
+
+# 5. SCOPE VALIDATION
+
+- [ ] All required scopes exist:
+  - above_me
+  - solar_system
+  - deep_sky
+  - satellites
+  - flights
+  - sun
+  - earth (if applicable)
+
+- [ ] Scope switching:
+  - resets engine
+  - resets filter
+  - regenerates scene
 
 - [ ] Invalid scope requests are rejected
 
-- [ ] Scope switching updates available engines correctly
-
 ---
 
-## 5. Engine Validation
+# 6. ENGINE VALIDATION (SPEC-DRIVEN)
 
 - [ ] All required engines exist:
-  - above_me
-  - deep_sky
-  - planets
-  - moon
-  - satellites
 
-- [ ] Engines are only accessible within valid scopes
-
-- [ ] Each engine produces a valid scene
-
-- [ ] No engine returns raw data
+  - Conditions Engine
+  - Satellite Engine
+  - Solar System Engine
+  - Deep Sky Engine
+  - Sun Engine
+  - Flight Engine
+  - Transient Events Engine
 
 ---
 
-## 6. Filter Validation
+## 6.1 Engine Spec Compliance
+
+For EACH engine:
+
+- [ ] follows its specification document
+- [ ] uses defined data sources
+- [ ] implements defined computation model
+- [ ] produces defined output contract
+- [ ] includes “why it matters”
+- [ ] does NOT expose raw provider data
+- [ ] does NOT fabricate data
+
+---
+
+## 6.2 Engine Behavior
+
+- [ ] engines are isolated
+- [ ] only one engine active (except Above Me)
+- [ ] engines return structured scene-ready data
+
+---
+
+# 7. PROVIDER + DATA VALIDATION
+
+---
+
+## 7.1 Provider Pipeline
+
+- [ ] System implements:
+
+  Provider → Adapter → Normalizer → Validator → Cache → Engine
+
+- [ ] No raw provider data reaches engines
+
+---
+
+## 7.2 Provider Authority
+
+- [ ] All runtime data is provider-backed or computed from provider data
+- [ ] No mock data used as runtime truth
+- [ ] All outputs traceable to provider inputs
+
+---
+
+## 7.3 Data Integrity
+
+- [ ] stale data is detected
+- [ ] invalid data is rejected
+- [ ] degraded state is visible
+
+---
+
+# 8. FILTER VALIDATION
 
 - [ ] Filters are defined per engine
-
-- [ ] Invalid filters are rejected
-
+- [ ] One filter active at a time
 - [ ] Filters affect object selection
-
 - [ ] Filters do not bypass engine logic
-
-- [ ] No freeform or uncontrolled filters exist
+- [ ] Invalid filters are rejected
+- [ ] No uncontrolled filters exist
 
 ---
 
-## 7. Scene Validation
+# 9. SCENE VALIDATION
 
-### 7.1 Structural Integrity
+---
+
+## 9.1 Structural Integrity
 
 - [ ] Every scene includes:
   - title
@@ -94,94 +175,94 @@ This checklist enforces:
   - time context
   - conditions context
 
-- [ ] No scene returns an unstructured list
+- [ ] No unstructured lists returned
 
 ---
 
-### 7.2 Decision Behavior
+## 9.2 Decision Behavior
 
-- [ ] Each scene answers a clear question
-
-- [ ] Scene summary explains what matters now
-
-- [ ] Scene can be understood without opening object detail
+- [ ] Scene answers a clear question
+- [ ] Scene summary explains what matters NOW
+- [ ] Scene usable without opening detail panel
 
 ---
 
-### 7.3 Grouping
+## 9.3 Grouping
 
-- [ ] Objects are grouped meaningfully
-
-- [ ] Each group has a purpose
-
-- [ ] Groups are not arbitrary or duplicated
+- [ ] Objects grouped meaningfully
+- [ ] Groups have purpose
+- [ ] No duplicate or arbitrary groups
 
 ---
 
-### 7.4 Reasoning
+## 9.4 Reasoning
 
 - [ ] Every object includes a reason
-
-- [ ] Reasons are human-understandable
-
-- [ ] Reasons reflect time and conditions
+- [ ] Reasons are human-readable
+- [ ] Reasons reflect:
+  - time
+  - conditions
+  - visibility
 
 ---
 
-### 7.5 Time Context
+## 9.5 Time Context
 
-- [ ] Scenes reflect:
+- [ ] Scene reflects:
   - now
-  - soon (if applicable)
-  - best window (if applicable)
-
-- [ ] Time relevance is clear to user
+  - soon (if relevant)
+  - best window
 
 ---
 
-### 7.6 Conditions
+## 9.6 Conditions Integration
 
-- [ ] Scenes include observing context
+- [ ] Conditions influence:
+  - object selection
+  - ranking
+  - reasoning
 
-- [ ] Conditions influence object selection
-
-- [ ] Conditions influence reasoning
-
----
-
-## 8. Object Validation
-
-- [ ] All objects include valid IDs
-
-- [ ] All objects resolve via `/api/object/{id}`
-
-- [ ] No object includes full detail payload
-
-- [ ] No object appears without reason
-
-- [ ] Objects are relevant to the scene
+- [ ] Observing score present and believable
 
 ---
 
-## 9. Object Detail Validation
+# 10. OBJECT VALIDATION
 
-- [ ] Object detail endpoint works for all objects
+- [ ] Objects include valid IDs
+- [ ] Objects resolve via `/api/object/{id}`
+- [ ] Objects contain NO full detail payload
+- [ ] Objects are relevant to scene
+- [ ] Objects include reasoning
 
-- [ ] No duplication of detail data in scenes
+---
 
-- [ ] Scene → object → detail flow is intact
+# 11. OBJECT DETAIL VALIDATION
 
+- [ ] Detail panel loads for all objects
+- [ ] No duplication of detail in scene
+- [ ] Scene → object → detail flow intact
+- [ ] Panel updates without breaking hub
 - [ ] Return to scene works correctly
 
 ---
 
-## 10. Backend Authority Validation
+# 12. ABOVE ME VALIDATION
+
+- [ ] Above Me merges multiple engines
+- [ ] Applies visibility filtering
+- [ ] Applies ranking across engines
+- [ ] Produces a single decision scene
+- [ ] Output is coherent and useful
+
+---
+
+# 13. BACKEND AUTHORITY VALIDATION
 
 - [ ] Backend controls:
-  - object inclusion
+  - inclusion
   - grouping
   - reasoning
-  - prioritization
+  - ranking
 
 - [ ] Frontend does NOT:
   - reorder objects
@@ -190,72 +271,126 @@ This checklist enforces:
 
 ---
 
-## 11. Frontend Behavior Validation
-
-- [ ] User can select scope
-
-- [ ] User can select engine
-
-- [ ] User can select filters (where allowed)
-
-- [ ] Scene renders consistently across engines
-
-- [ ] No custom UI logic per engine
-
-- [ ] No UI-driven ranking logic
+# 14. FRONTEND / UI VALIDATION
 
 ---
 
-## 12. Phase 1 Integrity Validation
+## 14.1 Layout
 
-- [ ] Existing "Above Me" still works
-
-- [ ] No regression in Phase 1 behavior
-
-- [ ] Existing endpoints remain functional
-
-- [ ] Existing UI flow is preserved
+- [ ] UI matches system diagram
+- [ ] All modules exist:
+  - solar system
+  - deep sky
+  - satellites
+  - sun
+  - flights
+  - conditions
+  - events
 
 ---
 
-## 13. Anti-Scope Validation
+## 14.2 Behavior
+
+- [ ] User can:
+  - select scope
+  - select engine
+  - select filters
+
+- [ ] UI does NOT:
+  - compute logic
+  - rank objects
+  - alter data
+
+---
+
+## 14.3 Detail Panel
+
+- [ ] panel opens on click
+- [ ] panel updates on new selection
+- [ ] hub remains visible
+
+---
+
+# 15. PERFORMANCE VALIDATION
+
+- [ ] only active scene computed
+- [ ] no full dataset rendering
+- [ ] system remains responsive
+
+---
+
+# 16. PHASE 1 INTEGRITY
+
+- [ ] Above Me still works
+- [ ] no regression
+- [ ] endpoints remain functional
+
+---
+
+# 17. ANTI-SCOPE VALIDATION
 
 The following MUST NOT exist:
 
-- [ ] UI redesign work
-- [ ] 3D sky systems
-- [ ] charts or graphs
+- [ ] UI redesign beyond defined spec
+- [ ] 3D systems
+- [ ] charts/graphs
 - [ ] timeline scrubbing
-- [ ] predictive recommendations
-- [ ] AI assistant logic
-- [ ] personalization systems
-- [ ] free search functionality
+- [ ] predictive AI
+- [ ] personalization
+- [ ] search engine
 
-If any exist → Phase 2 is invalid
+IF ANY EXIST → PHASE INVALID
 
 ---
 
-## 14. System Behavior Validation
+# 18. SYSTEM BEHAVIOR VALIDATION
 
-- [ ] Different engines produce meaningfully different scenes
-
-- [ ] System does not behave like a data dashboard
-
-- [ ] System answers:
+- [ ] engines produce DIFFERENT outputs
+- [ ] system is NOT a data dashboard
+- [ ] system answers:
   “What should I look at right now?”
-
-- [ ] Scenes guide decisions, not just display information
+- [ ] output supports decision making
 
 ---
 
-## 15. Completion Gate
+# 19. DEGRADED MODE VALIDATION
 
-Phase 2 is COMPLETE only if:
+- [ ] provider failure detected
+- [ ] degraded state exposed
+- [ ] no silent fallback
+- [ ] no fake success responses
 
-- all validation checks pass
-- system follows full pipeline
-- no scope drift occurred
-- architecture remains intact
-- system is clearly more capable than Phase 1
+---
 
-Do NOT mark complete early.
+# 20. FINAL REALITY VALIDATION
+
+- [ ] outputs match real-world expectations
+- [ ] planets match sky
+- [ ] satellites accurate
+- [ ] conditions believable
+- [ ] events timely
+
+---
+
+# 21. COMPLETION GATE
+
+Phase 2 is COMPLETE ONLY IF:
+
+- [ ] ALL checks pass
+- [ ] ALL engines spec-compliant
+- [ ] ALL data provider-backed
+- [ ] NO mock runtime data
+- [ ] NO pipeline violations
+- [ ] system is deterministic
+- [ ] system is trustworthy
+
+---
+
+# FINAL RULE
+
+Do NOT mark Phase 2 complete early.
+
+A system that looks correct but is not reality-backed is INVALID.
+```
+
+---

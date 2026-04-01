@@ -1,6 +1,11 @@
-# PHASE 2 — EXECUTION TODO
+# 📄 ✅ **PHASE 2 — EXECUTION TODO (FINAL — PRESERVED + CORRECTED)**
 
-## 1. Execution Rules
+```markdown
+# 🌌 PHASE 2 — EXECUTION TODO (AUTHORITATIVE — PRESERVED + CORRECTED)
+
+---
+
+# 1. EXECUTION RULES
 
 - Execute ONE step at a time
 - Do NOT batch steps
@@ -10,290 +15,459 @@
 - Minimal diffs only
 - Verify each step before continuing
 
-If a step fails:
+IF A STEP FAILS:
+
 - STOP
-- use debug mode
-- fix only the failure
-- resume execution
+- fix ONLY the failure
+- re-verify
+- resume
 
 ---
 
-## 2. Phase Objective
+# 2. PHASE MODE (CRITICAL)
+
+Phase 2 includes TWO MODES:
+
+## 2.1 Exploration Mode (EARLY PHASE)
+
+- validate engine concepts
+- refine filters
+- refine scene structure
+- confirm system behavior
+
+## 2.2 Implementation Mode (LOCKED PHASE)
+
+- follow engine specs
+- enforce contracts
+- build final system
+
+---
+
+## RULE
+
+No engine may enter full implementation until:
+
+- scope model is fixed
+- engine model is fixed
+- filter model is defined
+- scene structure is defined
+
+---
+
+# 3. PHASE OBJECTIVE
 
 Implement:
 
 User → Scope → Engine → Filter → Scene → Object → Detail
 
-Without breaking Phase 1.
+WITH:
+
+- backend authority
+- deterministic outputs
+- provider-backed data (when required)
+- preserved object detail flow
+
+WITHOUT:
+
+- breaking Phase 1
+- introducing Phase 3 features
+- introducing frontend logic
 
 ---
 
-## 3. Execution Sequence
+# 4. EXECUTION SEQUENCE
 
 ---
 
-## STEP 1 — Lock Phase 2 Spec
+# 🔴 STEP 0 — CONTRACT LOCK (RESTORED — CRITICAL)
 
-### Goal
-Ensure Phase 2 specification is authoritative and complete.
+## VERIFY
 
-### Tasks
-- [x] Verify `docs/PHASE_2_SPEC.md` exists
-- [x] Verify scopes are defined
-- [x] Verify engines are defined
-- [x] Verify filters are defined
-- [x] Verify system pipeline is defined
-- [x] Verify anti-scope rules are present
+- scope list finalized
+- engine list agreed
+- filter model defined
+- scene structure defined
 
-### Verification
-- No ambiguity in scope/engine/filter definitions
-- No missing sections
-- No conflicting statements
+## LOCK CONDITION
+
+No further structural changes without explicit revision.
 
 ---
 
-## STEP 2 — Backend Scope Routing
+# 🔴 STEP 1 — UI LAYOUT FOUNDATION
 
-### Goal
-Introduce scope-level control in backend.
+## Goal
+Build command center layout
 
-### Tasks
-- [x] Define scope list in backend
-- [x] Map scopes → allowed engines
-- [x] Add routing entry for scope selection
+## Tasks
+- [ ] Top control bar
+- [ ] Main scene area
+- [ ] Right context panel
+- [ ] Now Above Me section
+- [ ] Engine module grid
+- [ ] Detail panel placeholder
 
-### Verification
-- Invalid scopes are rejected
-- Each scope returns correct engines
-- No frontend dependency
+## Constraints
+- NO logic
+- NO APIs
+- static data only
 
----
+## LOCK CONDITION
 
-## STEP 3 — Backend Engine Routing
-
-### Goal
-Introduce engine-level control.
-
-### Tasks
-- [x] Define engine registry
-- [x] Map engines to scopes
-- [x] Add engine selection handling
-
-### Verification
-- Engines cannot be accessed outside scope
-- Invalid engine requests fail cleanly
-- No duplicated logic between engines
+UI matches system diagram
 
 ---
 
-## STEP 4 — Backend Filter Layer
+# 🔴 STEP 2 — UI STANDARDIZATION
 
-### Goal
-Introduce controlled filtering per engine.
+## VERIFY
 
-### Tasks
-- [x] Define allowed filters per engine
-- [x] Implement filter validation
-- [x] Attach filters to engine execution path
+- module consistency
+- grid consistency
+- spacing/typography consistency
 
-### Verification
-- Invalid filters are rejected
-- Filters do not bypass engine logic
-- Filters affect object selection
+## LOCK CONDITION
+
+UI structure unified
 
 ---
 
-## STEP 5 — Engine Scene Generation (Core)
+# 🔴 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY)
 
-### Goal
-Enable engines to generate scenes.
+## VERIFY
 
-### Tasks
-- [x] Implement deep_sky engine scene output
-- [x] Implement planets engine scene output
-- [x] Implement moon engine scene output
-- [x] Implement satellites engine scene output
+- panel exists
+- reusable layout
+- hub remains visible
 
-### Verification
-Each engine must:
-- return structured scene output
-- include grouped objects
-- include reasoning
-- avoid raw lists
+## LOCK CONDITION
+
+Panel stable and reusable
 
 ---
 
-## STEP 6 — Align Existing Above Me Engine
+# 🔴 STEP 4 — DATA PIPELINE (FOUNDATION)
 
-### Goal
-Bring Phase 1 engine into Phase 2 structure.
+## VERIFY
 
-### Tasks
-- [x] Ensure above_me follows engine routing
-- [x] Ensure it supports filter path (if applicable)
-- [x] Ensure output aligns with Phase 2 expectations
+System supports:
 
-### Verification
-- No regression in existing behavior
-- Output remains stable
-- Fully compatible with new pipeline
+Provider → Adapter → Normalizer → Validator → Cache
+
+## LOCK CONDITION
+
+No raw data reaches engines
 
 ---
 
-## STEP 7 — Object Resolution Integrity
+# 🔴 STEP 5 — CONDITIONS ENGINE (FIRST ENGINE)
 
-### Goal
-Ensure all scene objects resolve correctly.
+SPEC: CONDITIONS_SPEC.md
 
-### Tasks
-- [x] Verify all objects include valid IDs
-- [x] Ensure `/api/object/{id}` works for all engines
-- [x] Add missing metadata if required
+## VERIFY
 
-### Verification
-- No broken object links
-- No duplicated detail data in scenes
-- Detail endpoint remains authoritative
+- ingestion works
+- score computed
+- summary generated
 
----
+## LOCK CONDITION
 
-## STEP 8 — Scene Endpoint Exposure
-
-### Goal
-Expose controlled endpoints for Phase 2.
-
-### Tasks
-- [ ] Implement scope-based endpoint entry
-- [ ] Implement engine-based endpoint handling
-- [ ] Ensure filters are passed through correctly
-
-### Verification
-- Requests follow:
-  scope → engine → filter
-- Invalid combinations fail cleanly
-- Output is consistent
+Conditions drive system behavior
 
 ---
 
-## STEP 9 — Frontend Scope Selection
+# 🔴 STEP 6 — SATELLITE ENGINE
 
-### Goal
-Allow user to select scope.
+SPEC: SATELLITE_ENGINE_SPEC.md
 
-### Tasks
-- [ ] Add scope selector UI
-- [ ] Connect to backend scope routing
+## VERIFY
 
-### Verification
-- Scope changes correctly update available engines
-- No UI logic duplication
+- TLE ingestion
+- propagation
+- pass computation
 
----
+## LOCK CONDITION
 
-## STEP 10 — Frontend Engine Selection
-
-### Goal
-Allow user to select engine.
-
-### Tasks
-- [ ] Add engine selector
-- [ ] Connect to backend engine routing
-
-### Verification
-- Engine switching loads correct scene
-- No frontend filtering logic
+Satellite output matches reality
 
 ---
 
-## STEP 11 — Frontend Filter Controls
+# 🔴 STEP 7 — SOLAR SYSTEM ENGINE
 
-### Goal
-Expose filters safely.
+SPEC: SOLAR_SYSTEM_ENGINE_SPEC.md
 
-### Tasks
-- [ ] Add filter controls per engine
-- [ ] Send filter selection to backend
+## VERIFY
 
-### Verification
-- Filters affect results
-- Invalid filters cannot be selected
+- ephemeris integration
+- correct positioning
 
----
+## LOCK CONDITION
 
-## STEP 12 — Scene Rendering Alignment
-
-### Goal
-Render all engine outputs consistently.
-
-### Tasks
-- [ ] Ensure shared scene rendering
-- [ ] Render grouped objects
-- [ ] Render decision reasoning
-
-### Verification
-- No custom UI per engine
-- Scenes feel consistent
-- No data dumping
+Planets match real sky
 
 ---
 
-## STEP 13 — Object Detail Flow
+# 🔴 STEP 8 — DEEP SKY ENGINE
 
-### Goal
-Preserve Phase 1 interaction.
+SPEC: DEEP_SKY_ENGINE_SPEC.md
 
-### Tasks
-- [ ] Ensure object click opens detail view
-- [ ] Ensure return to scene works
+## VERIFY
 
-### Verification
-- No regression
-- Navigation is stable
+- catalog loaded
+- visibility computed
+- ranking applied
 
----
+## LOCK CONDITION
 
-## STEP 14 — Full System Validation
-
-### Goal
-Verify Phase 2 integrity.
-
-### Tasks
-- [ ] Test all scopes
-- [ ] Test all engines
-- [ ] Test all filters
-- [ ] Test object resolution
-
-### Verification
-- System follows full pipeline
-- No broken paths
-- No duplicated logic
+Targets are valid and useful
 
 ---
 
-## STEP 15 — Anti-Scope Validation
+# 🔴 STEP 9 — SUN ENGINE
 
-### Goal
-Ensure Phase 2 boundaries are respected.
+SPEC: SUN_ENGINE_SPEC.md
 
-### Tasks
-- [ ] Confirm no UI redesign work
-- [ ] Confirm no visualization systems
-- [ ] Confirm no AI/prediction logic
-- [ ] Confirm no timeline simulation
+## VERIFY
 
-### Verification
-- System remains Phase 2 compliant
+- events ingested
+- activity classification correct
+
+## LOCK CONDITION
+
+Solar data accurate
 
 ---
 
-## 4. Completion Rule
+# 🟡 STEP 10 — EVENTS ENGINE
 
-Phase 2 is COMPLETE only when:
+SPEC: TRANSIENT_EVENTS_ENGINE_SPEC.md
 
-- full pipeline works end-to-end
-- all required engines are functional
-- scenes remain decision-driven
-- backend authority is preserved
-- no scope drift has occurred
+## VERIFY
 
-Do not mark complete early.
+- time filtering
+- relevance
+
+## LOCK CONDITION
+
+Events meaningful
+
+---
+
+# 🟡 STEP 11 — FLIGHT ENGINE
+
+SPEC: FLIGHT_ENGINE_SPEC.md
+
+## VERIFY
+
+- filtered aircraft only
+
+## LOCK CONDITION
+
+No UI clutter
+
+---
+
+# 🔴 STEP 12 — ABOVE ME ORCHESTRATION
+
+## VERIFY
+
+- merges engines
+- applies ranking
+
+## LOCK CONDITION
+
+Produces single decision scene
+
+---
+
+# 🔴 STEP 13 — STATE SYSTEM
+
+## VERIFY
+
+- deterministic state
+- restorable state
+
+## LOCK CONDITION
+
+State stable
+
+---
+
+# 🔴 STEP 14 — SCOPE SYSTEM
+
+## VERIFY
+
+- scope controls context
+- resets correctly
+
+## LOCK CONDITION
+
+Scope authoritative
+
+---
+
+# 🔴 STEP 15 — ENGINE ROUTING
+
+## VERIFY
+
+- valid engine access
+- invalid rejected
+
+## LOCK CONDITION
+
+Engines isolated
+
+---
+
+# 🔴 STEP 16 — FILTER SYSTEM
+
+## VERIFY
+
+- filters affect output
+- backend execution
+
+## LOCK CONDITION
+
+Filtering deterministic
+
+---
+
+# 🔴 STEP 17 — SCENE GENERATION
+
+## VERIFY
+
+- built from:
+  scope + engine + filter + time + location
+
+## LOCK CONDITION
+
+Scene deterministic
+
+---
+
+# 🔴 STEP 18 — OBJECT SYSTEM
+
+## VERIFY
+
+- stable IDs
+- scene-only origin
+
+## LOCK CONDITION
+
+Object integrity maintained
+
+---
+
+# 🔴 STEP 19 — OBJECT DETAIL FLOW
+
+## VERIFY
+
+- detail panel works
+- no duplication
+
+## LOCK CONDITION
+
+Flow intact
+
+---
+
+# 🔴 STEP 20 — PHASE 1 PRESERVATION (RESTORED)
+
+## VERIFY
+
+- Above Me still works
+- no regression
+- no rewrites
+
+## LOCK CONDITION
+
+Phase 1 intact
+
+---
+
+# 🔴 STEP 21 — DATA LAW ENFORCEMENT
+
+## VERIFY
+
+- no mock runtime data
+- provider-backed or computed only
+
+## LOCK CONDITION
+
+System truth enforced
+
+---
+
+# 🔴 STEP 22 — DEGRADED MODE
+
+## VERIFY
+
+- failure detected
+- state exposed
+
+## LOCK CONDITION
+
+No hidden failures
+
+---
+
+# 🔴 STEP 23 — REALITY VALIDATION
+
+## VERIFY
+
+- outputs match real world
+- engines accurate
+
+## LOCK CONDITION
+
+System trustworthy
+
+---
+
+# 🔴 STEP 24 — ANTI-SCOPE VALIDATION
+
+## VERIFY
+
+- no Phase 3 features
+
+## LOCK CONDITION
+
+Scope preserved
+
+---
+
+# 🔴 STEP 25 — FINAL SYSTEM VALIDATION
+
+## VERIFY
+
+System answers:
+
+“What should I look at right now?”
+
+## LOCK CONDITION
+
+Decision-support achieved
+
+---
+
+# 5. COMPLETION RULE
+
+Phase 2 is COMPLETE ONLY IF:
+
+- ALL steps locked
+- ALL engines spec-compliant
+- ALL outputs reality-backed
+- NO mock runtime data
+- NO pipeline violations
+- Phase 1 preserved
+
+---
+
+# FINAL RULE
+
+Do NOT mark complete early.
+
+Correctness > progress.
+```
+
+---

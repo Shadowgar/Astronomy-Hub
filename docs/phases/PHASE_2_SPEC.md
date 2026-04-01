@@ -40,7 +40,32 @@ Scope → Engine → Filter → Scene → Object → Detail
 Every scene MUST be produced through this pipeline.
 No shortcuts allowed.
 ```
+--- ENGINE SPECIFICATION AUTHORITY (NEW) ---
 
+Each engine listed in Phase 2 MUST be governed by its corresponding specification document.
+
+Required engine specs:
+
+- docs/phases/engines/CONDITIONS_SPEC.md
+- docs/phases/engines/SATELLITE_ENGINE_SPEC.md
+- docs/phases/engines/SOLAR_SYSTEM_ENGINE_SPEC.md
+- docs/phases/engines/DEEP_SKY_ENGINE_SPEC.md
+- docs/phases/engines/SUN_ENGINE_SPEC.md
+- docs/phases/engines/FLIGHT_ENGINE_SPEC.md
+- docs/phases/engines/TRANSIENT_EVENTS_ENGINE_SPEC.md
+
+RULE:
+
+Engine behavior, data sources, computation logic, ranking, and output contracts
+are defined ONLY in their respective spec files.
+
+Phase 2 implementation MUST follow these specs exactly.
+
+FAILURE:
+
+- engine behavior diverges from spec
+- undocumented logic exists outside spec
+- spec and runtime differ
 ---
 
 # 2. PHASE 2 OBJECTIVE
@@ -111,12 +136,13 @@ Only ONE engine active at a time
 
 ## REQUIRED ENGINES
 
+* Conditions Engine
 * Satellite Engine
 * Solar System Engine
 * Deep Sky Engine
-* Event / Alert Engine
-* Earth Engine
-* Solar Engine
+* Sun Engine
+* Flight Engine
+* Transient Events Engine
 
 ---
 
@@ -505,6 +531,37 @@ Engines MUST consume normalized provider-backed inputs only.
 # 18. PROVIDER RESPONSIBILITY MAP (AUTHORITATIVE)
 
 The following provider-to-domain mapping is mandatory for Phase 2 baseline implementation.
+
+--- ENGINE → PROVIDER BINDING (NEW) ---
+
+Conditions Engine:
+- Open-Meteo (primary)
+- NOAA (context)
+- Moon data (Solar System Engine dependency)
+
+Satellite Engine:
+- Space-Track (primary if available)
+- CelesTrak (baseline)
+- SatNOGS / N2YO / fallbacks
+
+Solar System Engine:
+- JPL / NASA Ephemeris (authoritative)
+
+Deep Sky Engine:
+- Local catalog (Messier Phase 2)
+- Computation-based (no provider authority)
+
+Sun Engine:
+- NASA DONKI (events)
+- NOAA SWPC (alerts)
+- Helioviewer (imagery)
+
+Flight Engine:
+- OpenSky Network (primary)
+
+Transient Events Engine:
+- static datasets (Phase 2)
+- NeoWs (Phase 3+)
 
 ## 18.1 Open-Meteo
 
@@ -1318,6 +1375,9 @@ In addition to all earlier completion requirements, Phase 2 is COMPLETE ONLY IF:
 - degraded mode is explicit
 - frontend does not reinterpret backend truth
 - all surfaced objects still originate from scene
+- all engines implemented according to their specification documents
+- all engine outputs conform to defined output contracts
+- no engine operates without a spec-backed implementation
 - scenes remain decision-support surfaces rather than dataset browsers
 ```
 

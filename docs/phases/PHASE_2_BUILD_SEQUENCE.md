@@ -1,5 +1,7 @@
+# 📄 ✅ **PHASE 2 BUILD SEQUENCE (REWRITE — ENGINE + UI ALIGNED)**
+
 ````markdown
-# 🌌 PHASE 2 BUILD SEQUENCE (AUTHORITATIVE — MASTER PLAN ALIGNED)
+# 🌌 PHASE 2 BUILD SEQUENCE (AUTHORITATIVE — ENGINE + UI ALIGNED)
 
 ---
 
@@ -27,6 +29,7 @@ For EVERY step:
 
    * PHASE_2_SPEC.md
    * SYSTEM_VALIDATION_SPEC.md
+   * ENGINE SPEC (if applicable)
 
 2. IF VALID → LOCK
 
@@ -45,11 +48,270 @@ No batching
 No skipping
 No Phase 3 features
 No UI-side logic
+All engines MUST follow their spec documents
 ```
 
 ---
 
-# STEP 1 — STATE FOUNDATION
+# 🔴 STEP 1 — UI LAYOUT FOUNDATION (NEW FIRST STEP)
+
+---
+
+## VERIFY
+
+UI matches UI_SPEC.md:
+
+* top control bar
+* main scene area
+* right context panel
+* now above me section
+* engine module grid
+* detail panel placeholder
+
+NO logic
+NO APIs
+Static/mock data only
+
+---
+
+## LOCK CONDITION
+
+```text
+UI visually matches system diagram.
+```
+
+---
+
+# 🔴 STEP 2 — UI STANDARDIZATION
+
+---
+
+## VERIFY
+
+* module structure consistent
+* grid system consistent
+* item layout consistent
+* typography + spacing consistent
+
+---
+
+## LOCK CONDITION
+
+```text
+All modules follow identical structure.
+```
+
+---
+
+# 🔴 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY)
+
+---
+
+## VERIFY
+
+* right-side panel exists
+* shared layout for all objects
+* no data wiring yet
+
+---
+
+## LOCK CONDITION
+
+```text
+Detail panel structure is complete and reusable.
+```
+
+---
+
+# 🔥 STEP 4 — DATA INGESTION SYSTEM
+
+---
+
+## VERIFY
+
+System implements:
+
+```text
+Provider → Adapter → Normalizer → Validator → Cache → Engine Input
+```
+
+---
+
+## VERIFY
+
+* provider clients exist
+* adapter transforms raw payloads
+* normalization produces contracts
+* validation rejects bad data
+
+---
+
+## LOCK CONDITION
+
+```text
+No raw provider data reaches engines.
+```
+
+---
+
+# 🔴 STEP 5 — CONDITIONS ENGINE
+
+SPEC: CONDITIONS_SPEC.md
+
+---
+
+## VERIFY
+
+* Open-Meteo ingestion working
+* observing score computed
+* summary generated
+* output matches spec contract
+
+---
+
+## LOCK CONDITION
+
+```text
+Conditions engine produces believable decision output.
+```
+
+---
+
+# 🔴 STEP 6 — SATELLITE ENGINE
+
+SPEC: SATELLITE_ENGINE_SPEC.md
+
+---
+
+## VERIFY
+
+* TLE ingestion working
+* propagation implemented
+* pass computation accurate
+* above-me detection correct
+
+---
+
+## LOCK CONDITION
+
+```text
+Satellite passes match real-world behavior.
+```
+
+---
+
+# 🔴 STEP 7 — SOLAR SYSTEM ENGINE
+
+SPEC: SOLAR_SYSTEM_ENGINE_SPEC.md
+
+---
+
+## VERIFY
+
+* JPL Horizons integration working
+* planet positions accurate
+* visibility filtering correct
+
+---
+
+## LOCK CONDITION
+
+```text
+Planets match real sky positions.
+```
+
+---
+
+# 🔴 STEP 8 — DEEP SKY ENGINE
+
+SPEC: DEEP_SKY_ENGINE_SPEC.md
+
+---
+
+## VERIFY
+
+* Messier catalog loaded
+* RA/Dec conversion correct
+* visibility computed
+* ranking applied
+
+---
+
+## LOCK CONDITION
+
+```text
+Deep sky targets are realistic and useful.
+```
+
+---
+
+# 🔴 STEP 9 — SUN ENGINE
+
+SPEC: SUN_ENGINE_SPEC.md
+
+---
+
+## VERIFY
+
+* DONKI ingestion working
+* SWPC integration working
+* solar activity classification correct
+
+---
+
+## LOCK CONDITION
+
+```text
+Solar activity reflects real conditions.
+```
+
+---
+
+# 🟡 STEP 10 — TRANSIENT EVENTS ENGINE
+
+SPEC: TRANSIENT_EVENTS_ENGINE_SPEC.md
+
+---
+
+## VERIFY
+
+* meteor dataset loaded
+* time filtering working
+* ranking applied
+
+---
+
+## LOCK CONDITION
+
+```text
+Events are timely and relevant.
+```
+
+---
+
+# 🟡 STEP 11 — FLIGHT ENGINE
+
+SPEC: FLIGHT_ENGINE_SPEC.md
+
+---
+
+## VERIFY
+
+* OpenSky ingestion working
+* filtering applied
+* only relevant aircraft shown
+
+---
+
+## LOCK CONDITION
+
+```text
+Flight engine is lightweight and non-intrusive.
+```
+
+---
+
+# 🔴 STEP 12 — STATE FOUNDATION
 
 ---
 
@@ -78,222 +340,120 @@ All context state exists and is stable.
 
 ---
 
-# STEP 2 — SCOPE SYSTEM
+# 🔴 STEP 13 — SCOPE SYSTEM
 
 ---
 
 ## VERIFY
 
-* All required scopes exist:
-
-  * Above Me
-  * Earth
-  * Sun
-  * Satellites
-  * Flights
-  * Solar System
-  * Deep Sky
-
-* Scope switching:
-
-  * resets engine
-  * resets filter
-  * regenerates scene
+* all required scopes exist
+* switching resets engine + filter
+* regenerates scene
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-Scope fully controls system context.
+Scope fully controls context.
 ```
 
 ---
 
-# STEP 3 — ENGINE SYSTEM
+# 🔴 STEP 14 — ENGINE SYSTEM VALIDATION
 
 ---
 
 ## VERIFY
-
-* Engines exist independently
-* Only ONE engine active (except Above Me)
 
 Each engine:
 
-* defines its dataset
-* defines valid filters
-* returns structured data only
+* follows its spec
+* uses correct providers
+* outputs structured data only
+* does not invent truth
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-Engine system is isolated and deterministic.
+All engines are spec-compliant.
 ```
 
 ---
 
-# STEP 4 — FILTER SYSTEM
+# 🔴 STEP 15 — FILTER SYSTEM
 
 ---
 
 ## VERIFY
 
-* One filter active per engine
-* Filters visibly affect scene
-* Filters execute in backend
+* one filter active
+* filters affect output
+* filters executed in backend
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-Filters deterministically modify scene output.
+Filters modify scene deterministically.
 ```
 
 ---
 
-# STEP 5 — SCENE GENERATION
+# 🔴 STEP 16 — SCENE GENERATION
 
 ---
 
 ## VERIFY
 
-Scene is generated ONLY from:
+Scene generated from:
 
 ```text
 Scope + Engine + Filter
 ```
 
-Scene must:
-
-* be deterministic
-* be reproducible
-* be backend-generated
-
 ---
 
 ## LOCK CONDITION
 
 ```text
-Scene is fully controlled by pipeline inputs.
+Scene fully controlled by pipeline.
 ```
 
 ---
 
-# STEP 6 — ABOVE ME MERGE MODE
+# 🔴 STEP 17 — ABOVE ME ORCHESTRATION
 
 ---
 
 ## VERIFY
-
-Above Me:
 
 * merges multiple engines
-* applies filters
-* outputs ONE scene
+* applies visibility rules
+* applies ranking
+* produces one scene
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-Above Me behaves as multi-engine merge system.
+Above Me is a true orchestrator.
 ```
 
 ---
 
-# STEP 7 — COMMAND BAR ACTIVATION
+# 🔴 STEP 18 — DATA BOUNDARY ENFORCEMENT
 
 ---
 
 ## VERIFY
 
-Command bar now includes:
-
-* scope selector
-* engine selector
-* filter selector
-* location
-* mode
-
-Verify:
-
-* each control updates state
-* triggers scene rebuild
-
----
-
-## LOCK CONDITION
-
-```text
-UI controls context, not data logic.
-```
-
----
-
-# STEP 8 — SCENE TRANSITIONS
-
----
-
-## VERIFY
-
-Changing:
-
-* scope
-* engine
-* filter
-
-Produces:
-
-* full scene refresh
-* no stale data
-* no partial updates
-
----
-
-## LOCK CONDITION
-
-```text
-All transitions are clean and deterministic.
-```
-
----
-
-# STEP 9 — OBJECT SYSTEM
-
----
-
-## VERIFY
-
-Objects:
-
-* come ONLY from scene
-* maintain identity across changes
-* support detail routing
-
----
-
-## LOCK CONDITION
-
-```text
-Object system is stable across all contexts.
-```
-
----
-
-# STEP 10 — DATA BOUNDARY ENFORCEMENT
-
----
-
-## VERIFY
-
-* frontend receives normalized scene only
 * no raw data in UI
-* no UI filtering
-* no UI ranking
+* frontend does not filter or rank
 
 ---
 
@@ -305,266 +465,34 @@ Backend owns all meaning.
 
 ---
 
-# STEP 11 — PERFORMANCE CONTROL
+# 🔴 STEP 19 — TRACEABILITY
 
 ---
 
 ## VERIFY
 
-* only active scene computed
-* no multi-scope preloading
-* no full dataset rendering
+* provider source tracked
+* timestamps present
+* degraded state visible
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-System scales without performance degradation.
+All outputs traceable to provider.
 ```
 
 ---
 
-# STEP 12 — TESTING
+# 🔴 STEP 20 — LOCATION / TIME VALIDATION
 
 ---
 
 ## VERIFY
 
-* scope switching works
-* engine switching works
-* filter switching works
-* scene updates correctly
-* object detail works everywhere
-
----
-
-## LOCK CONDITION
-
-```text
-All system transitions are verified.
-```
-
----
-
-# STEP 13 — ANTI-SCOPE
-
----
-
-## VERIFY
-
-System does NOT include:
-
-* spatial UI
-* prediction
-* personalization
-* knowledge graph
-
----
-
-## LOCK CONDITION
-
-```text
-Phase 2 scope is clean.
-```
-
----
-
-# STEP 14 — LIVE DATA & LOCATION-TIME AUTHORITY
-
----
-
-## VERIFY
-
-* Above Me scene runtime path does not use static `MOCK_*` datasets as authoritative scene truth
-* provider-backed normalized backend inputs drive Above Me object selection
-* materially different valid location/time context can produce different Above Me scene output where conditions differ
-* provider/input degradation is explicit and does not silently return static success payloads
-* provider baseline is wired and traceable in runtime:
-
-  * Open-Meteo (conditions)
-  * Satellite provider chain is active and traceable with deterministic fallback order:
-
-    1. Space-Track (credentialed primary)
-    2. CelesTrak
-    3. SatNOGS
-    4. N2YO (credentialed, location-aware)
-    5. TLE API (`tle.ivanstanojevic.me`)
-    6. g7vrd pass API (location-aware pass candidates)
-    7. WhereTheISS (ISS-only last resort)
-
-  * OpenSky Network (flights)
-  * JPL/NASA ephemeris (Sun/planet/moon positions)
-  * NOAA SWPC (space-weather/alerts)
-  * NASA Images API (media enrichment only; not scene truth authority)
-
----
-
-## LOCK CONDITION
-
-```text
-Above Me truth is live, location/time-aware, and provable.
-```
-
----
-
-# 🔥 STEP 15 — DATA INGESTION SYSTEM (CRITICAL GAP FIX)
-
----
-
-## VERIFY
-
-System implements:
-
-```text
-Provider → Adapter → Normalizer → Validator → Cache → Engine Input
-```
-
----
-
-## VERIFY
-
-* provider clients exist per domain
-* adapter layer converts raw payloads
-* normalization produces canonical contracts
-* validation rejects invalid/stale data
-
----
-
-## LOCK CONDITION
-
-```text
-No raw provider data reaches engines or scenes.
-```
-
----
-
-# 🔥 STEP 16 — CACHE SYSTEM
-
----
-
-## VERIFY
-
-* provider-specific TTL exists
-* stale detection exists
-* refresh logic exists
-
----
-
-## LOCK CONDITION
-
-```text
-Cache preserves performance without corrupting truth.
-```
-
----
-
-# 🔥 STEP 17 — ENGINE INPUT REFACTOR
-
----
-
-## VERIFY
-
-* engines consume ONLY normalized provider data
-* no static datasets remain
-* no mock runtime sources
-
----
-
-## LOCK CONDITION
-
-```text
-Engines transform truth, not create it.
-```
-
----
-
-# 🔥 STEP 18 — REMOVE MOCK DATA
-
----
-
-## VERIFY
-
-* all runtime MOCK_* removed
-* no fallback static success responses
-
----
-
-## LOCK CONDITION
-
-```text
-System fails or degrades visibly — never fakes success.
-```
-
----
-
-# 🔥 STEP 19 — ABOVE ME ORCHESTRATION (CORRECTED)
-
----
-
-## VERIFY
-
-* Above Me merges multiple engines
-* applies global visibility + time filters
-* ranks cross-engine outputs
-
----
-
-## LOCK CONDITION
-
-```text
-Above Me is an orchestrator, not an engine.
-```
-
----
-
-# 🔥 STEP 20 — SCENE AUTHORITY ENFORCEMENT
-
----
-
-## VERIFY
-
-* no engine → UI bypass
-* all objects originate from scene
-
----
-
-## LOCK CONDITION
-
-```text
-Scene is the ONLY source of surfaced objects.
-```
-
----
-
-# 🔥 STEP 21 — TRACEABILITY SYSTEM
-
----
-
-## VERIFY
-
-* provider source included in outputs
-* timestamps included
-* degraded state exposed
-
----
-
-## LOCK CONDITION
-
-```text
-Every scene can be traced to provider inputs.
-```
-
----
-
-# 🔥 STEP 22 — LOCATION / TIME VALIDATION
-
----
-
-## VERIFY
-
-* changing location changes output
-* changing time changes output
+* location affects output
+* time affects output
 
 ---
 
@@ -576,7 +504,7 @@ Scene reflects real-world context.
 
 ---
 
-# 🔥 STEP 23 — VISIBILITY + RANKING
+# 🔴 STEP 21 — VISIBILITY + RANKING
 
 ---
 
@@ -584,25 +512,25 @@ Scene reflects real-world context.
 
 * altitude filtering applied
 * relevance filtering applied
-* deterministic ranking applied
+* ranking deterministic
 
 ---
 
 ## LOCK CONDITION
 
 ```text
-Only relevant objects are surfaced.
+Only meaningful objects surfaced.
 ```
 
 ---
 
-# 🔥 STEP 24 — DEGRADED MODE
+# 🔴 STEP 22 — DEGRADED MODE
 
 ---
 
 ## VERIFY
 
-* provider failure detected
+* failures detected
 * degraded state exposed
 * no silent fallback
 
@@ -616,15 +544,15 @@ System truth is transparent.
 
 ---
 
-# 🔥 STEP 25 — FINAL REALITY VALIDATION
+# 🔴 STEP 23 — FINAL REALITY VALIDATION
 
 ---
 
 ## VERIFY
 
-* outputs match real-world expectations
-* provider data drives all scenes
-* no synthetic truth remains
+* outputs match real world
+* no synthetic data
+* engines behave correctly
 
 ---
 
@@ -644,8 +572,7 @@ Phase 2 COMPLETE ONLY IF:
 
 ```text
 ALL steps locked
-ALL transitions deterministic
-ALL state controlled
+ALL engines spec-compliant
 ALL data provider-backed
 NO mock runtime data
 NO pipeline violations
@@ -658,5 +585,4 @@ NO pipeline violations
 ```text
 Do NOT proceed to Phase 3 unless Phase 2 is fully locked and reality-backed.
 ```
-
-```
+----

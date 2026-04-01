@@ -52,7 +52,12 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 22 — LOCATION / TIME VALIDATION (IN PROGRESS)
+* current step: PHASE 2 STEP 0 — CONTRACT LOCK (REVALIDATION REQUIRED)
+
+Rebase note:
+* Phase 2 step sequence has been restructured.
+* Prior tracked progress was recorded under the legacy step order.
+* Prior progress is not discarded, but must be revalidated against the rebased execution model.
 
 ---
 
@@ -214,7 +219,7 @@ It does NOT:
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute Phase 2 STEP 22 verify-first flow and lock only with implementation + tracking proof.
+* next step: complete Phase 2 STEP 0 contract-lock audit and mark STEP 0 locked before proceeding to Phase 2 STEP 1.
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

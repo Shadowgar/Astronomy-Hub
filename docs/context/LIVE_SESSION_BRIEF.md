@@ -36,7 +36,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Step 14 through Step 21 are now proven; phase remains unlocked pending Step 22+ completion.
+- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded, but must be revalidated against the rebased execution model. Effective current step is Phase 2 STEP 0 — CONTRACT LOCK (REVALIDATION REQUIRED).
 
 Phase 3:
 - status: NOT STARTED
@@ -55,7 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 22 (LOCATION / TIME VALIDATION)
+- execute Phase 2 STEP 0 — CONTRACT LOCK (REVALIDATION REQUIRED)
 - preserve command-center integrity and backend-authoritative Scene → Object → Detail behavior
 
 SECONDARY:
@@ -113,8 +113,8 @@ Scope:
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 22 — LOCATION / TIME VALIDATION
-- verify location/time-driven scene output deltas and keep provider-backed traceability intact
+- execute Phase 2 STEP 0 — CONTRACT LOCK (REVALIDATION REQUIRED)
+- verify rebased phase contract inputs (scope/engine/filter/scene model and engine spec presence) before proceeding to later rebased steps
 
 ---
 

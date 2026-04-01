@@ -1,3 +1,5 @@
+# 📄 ✅ **PHASE 2 ACCEPTANCE CRITERIA (REWRITE — ENGINE + DATA + UI ALIGNED)**
+
 ````markdown
 # 🌌 PHASE 2 ACCEPTANCE CRITERIA (AUTHORITATIVE — BINARY VALIDATION)
 
@@ -6,8 +8,17 @@
 # CORE RULE
 
 ```text
-If any condition cannot be proven → Phase 2 is NOT complete.
+If any condition cannot be PROVEN → Phase 2 is NOT complete.
 ````
+
+This is NOT subjective validation.
+
+Everything must be:
+
+* observable
+* testable
+* reproducible
+* traceable to real-world data
 
 ---
 
@@ -17,7 +28,7 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [x] System tracks:
+* [ ] System tracks:
 
   * active scope
   * active engine
@@ -25,9 +36,11 @@ If any condition cannot be proven → Phase 2 is NOT complete.
   * current scene
   * selected object
 
-* [x] State is deterministic (same inputs → same outputs)
+* [ ] State is deterministic
+  (same inputs → same outputs)
 
-* [x] State is restorable (reload preserves context)
+* [ ] State is restorable
+  (reload preserves context)
 
 ---
 
@@ -45,23 +58,23 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [x] All scopes exist:
+* [ ] All scopes exist:
 
-  * Above Me
-  * Earth
-  * Sun
-  * Satellites
-  * Flights
-  * Solar System
-  * Deep Sky
+  * above_me
+  * solar_system
+  * deep_sky
+  * satellites
+  * flights
+  * sun
+  * earth
 
-* [x] Scope switching:
+* [ ] Scope switching:
 
   * resets engine
   * resets filter
   * regenerates scene
 
-* [x] Scope visibly changes system output
+* [ ] Scope visibly changes system output
 
 ---
 
@@ -79,26 +92,35 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [x] Only ONE engine active at a time
-  (except Above Me merge mode)
+* [ ] Only ONE engine active at a time
+  (except Above Me)
 
-* [x] Engines:
+* [ ] Engines:
 
   * are independent
+  * follow their specification documents
   * return structured data only
   * do NOT render UI
+  * do NOT expose raw provider data
 
-* [x] Each engine defines:
+---
 
-  * dataset
-  * valid filters
+## ENGINE SPEC COMPLIANCE
+
+For EACH engine:
+
+* [ ] matches its spec file exactly
+* [ ] uses correct providers
+* [ ] implements defined computation
+* [ ] outputs match contract
+* [ ] includes “why it matters”
 
 ---
 
 ## FAIL CONDITIONS
 
-* multiple engines active improperly
 * engines overlap responsibility
+* engine logic differs from spec
 * UI logic inside engines
 
 ---
@@ -109,9 +131,9 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [x] Only ONE filter active per engine
+* [ ] Only ONE filter active per engine
 
-* [x] Filters:
+* [ ] Filters:
 
   * visibly affect scene
   * execute in backend
@@ -123,7 +145,7 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 * filter has no effect
 * filter logic in UI
-* multiple conflicting filters
+* conflicting filters
 
 ---
 
@@ -133,23 +155,22 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [x] Scene is generated ONLY from:
-  Scope + Engine + Filter
+* [ ] Scene generated ONLY from:
 
-* [x] Scene is:
+  Scope + Engine + Filter + Location + Time
+
+* [ ] Scene is:
 
   * deterministic
   * reproducible
   * backend-generated
-
-* [x] Same inputs → identical scene
 
 ---
 
 ## FAIL CONDITIONS
 
 * inconsistent scenes
-* scene built in UI
+* UI-built scenes
 * filters ignored
 
 ---
@@ -160,19 +181,20 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [x] Above Me merges multiple engines
+* [ ] Above Me:
 
-* [x] Above Me still:
-
-  * applies filters
-  * produces ONE scene
+  * merges multiple engines
+  * applies visibility filtering
+  * applies ranking
+  * outputs ONE coherent scene
 
 ---
 
 ## FAIL CONDITIONS
 
-* Above Me behaves like single engine
-* inconsistent merge behavior
+* behaves like single engine
+* inconsistent merging
+* no cross-engine ranking
 
 ---
 
@@ -182,7 +204,7 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [x] Command bar includes:
+* [ ] Command bar includes:
 
   * scope selector
   * engine selector
@@ -190,9 +212,9 @@ If any condition cannot be proven → Phase 2 is NOT complete.
   * location
   * mode
 
-* [x] Each control:
+* [ ] Each control:
 
-  * updates system state
+  * updates state
   * triggers scene rebuild
 
 ---
@@ -200,8 +222,8 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 ## FAIL CONDITIONS
 
 * controls do not update state
-* controls do not trigger scene update
-* UI logic modifies data
+* controls do not trigger scene rebuild
+* UI modifies data logic
 
 ---
 
@@ -211,17 +233,17 @@ If any condition cannot be proven → Phase 2 is NOT complete.
 
 ## REQUIRED
 
-* [x] Changing:
+Changing:
 
-  * scope
-  * engine
-  * filter
+* scope
+* engine
+* filter
 
 Produces:
 
-* [x] full scene refresh
-* [x] no stale data
-* [x] no partial updates
+* [ ] full scene refresh
+* [ ] no stale data
+* [ ] no partial updates
 
 ---
 
@@ -239,9 +261,9 @@ Produces:
 
 ## REQUIRED
 
-* [x] Objects originate ONLY from scene
+* [ ] Objects originate ONLY from scene
 
-* [x] Objects:
+* [ ] Objects:
 
   * maintain identity across transitions
   * support detail routing
@@ -252,23 +274,55 @@ Produces:
 
 * objects exist outside scene
 * IDs change unexpectedly
-* detail breaks across contexts
+* broken detail routing
 
 ---
 
-# 10. DATA LAW
+# 10. OBJECT DETAIL SYSTEM (NEW)
 
 ---
 
 ## REQUIRED
 
-* [x] Backend assembles scene
+* [ ] Clicking object opens detail panel
 
-* [x] Frontend:
+* [ ] Panel updates when selecting new object
+
+* [ ] Hub remains visible
+
+* [ ] No full page navigation
+
+* [ ] Detail includes:
+
+  * overview
+  * sky position
+  * images (if available)
+  * data
+  * reasoning
+
+---
+
+## FAIL CONDITIONS
+
+* navigation replaces hub
+* panel breaks context
+* detail duplicated in scene
+
+---
+
+# 11. DATA LAW
+
+---
+
+## REQUIRED
+
+* [ ] Backend assembles scene
+
+* [ ] Frontend:
 
   * receives normalized data only
-  * does NOT filter data
-  * does NOT rank data
+  * does NOT filter
+  * does NOT rank
   * does NOT generate reasoning
 
 ---
@@ -276,55 +330,56 @@ Produces:
 ## FAIL CONDITIONS
 
 * raw API data in UI
-* frontend logic affecting meaning
-* fallback parsing in components
+* frontend logic affects meaning
 
 ---
 
-# 11. PERFORMANCE
+# 12. PROVIDER + DATA VALIDATION
 
 ---
 
 ## REQUIRED
 
-* [x] Only active scene computed
+* [ ] All runtime data is provider-backed
+* [ ] No MOCK_* runtime data
+* [ ] Provider pipeline exists:
 
-* [x] No preloading all scopes
+```text
+Provider → Adapter → Normalizer → Validator → Cache → Engine
+```
 
-* [x] No full dataset rendering
+* [ ] All outputs traceable to provider
 
 ---
 
 ## FAIL CONDITIONS
 
-* performance degradation on switching
+* mock data used
+* provider path missing
+* raw data reaches engines
+
+---
+
+# 13. PERFORMANCE
+
+---
+
+## REQUIRED
+
+* [ ] Only active scene computed
+* [ ] No full dataset rendering
+* [ ] System responsive
+
+---
+
+## FAIL CONDITIONS
+
+* performance degradation
 * unnecessary computation
 
 ---
 
-# 12. TESTING
-
----
-
-## REQUIRED
-
-* [x] Scope switching works
-* [x] Engine switching works
-* [x] Filter switching works
-* [x] Scene updates correctly
-* [x] Object detail works across all contexts
-
----
-
-## FAIL CONDITIONS
-
-* broken transitions
-* inconsistent behavior
-* failing tests
-
----
-
-# 13. ANTI-SCOPE
+# 14. ANTI-SCOPE
 
 ---
 
@@ -332,10 +387,12 @@ Produces:
 
 System MUST NOT include:
 
-* [x] spatial UI (Phase 3)
-* [x] prediction (Phase 5)
-* [x] personalization (Phase 5)
-* [x] knowledge graph (Phase 4)
+* [ ] 3D systems
+* [ ] advanced visualization
+* [ ] prediction systems
+* [ ] personalization
+* [ ] AI assistant
+* [ ] search engine
 
 ---
 
@@ -345,7 +402,7 @@ System MUST NOT include:
 
 ---
 
-# 14. USER VALIDATION
+# 15. USER VALIDATION
 
 ---
 
@@ -353,156 +410,48 @@ System MUST NOT include:
 
 User MUST be able to:
 
-* [x] switch scope and understand change instantly
-* [x] switch engine and see meaningful difference
-* [x] apply filter and see clear impact
-* [x] navigate without confusion
+* [ ] understand scene instantly
+* [ ] see difference between engines
+* [ ] understand “why it matters”
+* [ ] navigate without confusion
 
 ---
 
 ## FAIL CONDITIONS
 
-* user cannot understand changes
-* system feels inconsistent
-* system behaves unpredictably
+* system unclear
+* system feels like data dump
 
 ---
 
-# 15. LIVE DATA & LOCATION-TIME AUTHORITY
+# 16. LOCATION / TIME AUTHORITY
 
 ---
 
 ## REQUIRED
 
-* [x] Above Me scene is assembled from provider-backed normalized inputs, not static `MOCK_*` runtime sources
-* [x] Active location affects scene output
-* [x] Time affects scene output
-* [x] Provider degradation is explicit
-* [x] Provider baseline implemented and traceable
-* [x] Satellite provider chain is documented, implemented, and traceable by `provider_source`:
-
-  1. `space_track` (credentialed primary)
-  2. `celestrak`
-  3. `satnogs`
-  4. `n2yo` (credentialed, location-aware)
-  5. `tle_api`
-  6. `g7vrd` (location-aware pass candidates)
-  7. `wheretheiss` (ISS-only last resort)
-
-* [x] Credential-gated providers are explicit:
-
-  * Space-Track requires `SPACE_TRACK_IDENTITY` (or `SPACE_TRACK_USERNAME`) + `SPACE_TRACK_PASSWORD`
-  * N2YO requires `N2YO_API_KEY`
+* [ ] Location affects output
+* [ ] Time affects output
+* [ ] Different inputs produce different scenes
 
 ---
 
 ## FAIL CONDITIONS
 
-* mock data drives runtime
-* location/time ignored
-* provider failure hidden
-* scene not traceable to provider
+* static output
+* ignored context
 
 ---
 
-# 🔥 16. DATA INGESTION SYSTEM (NEW — CRITICAL)
-
-## REQUIRED
-
-* [x] Provider → Adapter → Normalizer → Validator → Cache pipeline exists
-* [x] Raw provider data never reaches engines
-* [x] Normalized contracts are enforced
+# 17. VISIBILITY + RELEVANCE
 
 ---
-
-## FAIL CONDITIONS
-
-* engines consume raw provider data
-* no ingestion layer exists
-* normalization missing
-
----
-
-# 🔥 17. ENGINE DATA LAW ENFORCEMENT
-
-## REQUIRED
-
-* [x] Engines DO NOT create data
-* [x] Engines ONLY transform provider-backed inputs
-* [x] No synthetic runtime datasets
-
----
-
-## FAIL CONDITIONS
-
-* hardcoded data
-* mock runtime inputs
-* fabricated objects
-
----
-
-# 🔥 18. SCENE AUTHORITY (PHASE 1 GAP FIX)
-
-## REQUIRED
-
-* [x] ALL objects originate from Scene
-* [x] No engine → UI bypass
-
----
-
-## FAIL CONDITIONS
-
-* objects bypass scene
-* UI constructs objects
-
----
-
-# 🔥 19. TRACEABILITY
-
-## REQUIRED
-
-* [x] Every object has provider source
-* [x] Every scene has data origin trace
-* [x] timestamps present
-
----
-
-## FAIL CONDITIONS
-
-* cannot trace data origin
-* hidden data source
-
----
-
-# 🔥 20. DETERMINISM (FULL INPUT SET)
-
-## REQUIRED
-
-* [ ] Scene inputs include:
-
-  * location
-  * time
-  * provider snapshot
-  * scope
-  * engine
-  * filter
-
----
-
-## FAIL CONDITIONS
-
-* unexplained output differences
-* nondeterministic behavior
-
----
-
-# 🔥 21. VISIBILITY + RELEVANCE
 
 ## REQUIRED
 
 * [ ] below-horizon objects excluded
 * [ ] irrelevant objects filtered
-* [ ] scene is NOT full dataset
+* [ ] scene NOT full dataset
 
 ---
 
@@ -513,7 +462,9 @@ User MUST be able to:
 
 ---
 
-# 🔥 22. RANKING SYSTEM
+# 18. RANKING SYSTEM
+
+---
 
 ## REQUIRED
 
@@ -530,13 +481,15 @@ User MUST be able to:
 
 ---
 
-# 🔥 23. CACHE + FRESHNESS
+# 19. CACHE + FRESHNESS
+
+---
 
 ## REQUIRED
 
-* [x] TTL exists
-* [x] stale data detectable
-* [x] freshness exposed
+* [ ] TTL exists
+* [ ] stale detection exists
+* [ ] freshness exposed
 
 ---
 
@@ -547,40 +500,42 @@ User MUST be able to:
 
 ---
 
-# 🔥 24. DEGRADED MODE
+# 20. DEGRADED MODE
+
+---
 
 ## REQUIRED
 
+* [ ] provider failure detected
 * [ ] degraded state exposed
-* [ ] missing sources listed
 * [ ] no silent fallback
 
 ---
 
 ## FAIL CONDITIONS
 
-* fake success response
-* hidden provider failure
+* fake success
+* hidden failure
 
 ---
 
-# 🔥 25. MOCK DATA REMOVAL
+# 21. FINAL REALITY VALIDATION
+
+---
 
 ## REQUIRED
 
-* [x] no runtime MOCK_* usage
+* [ ] outputs match real-world expectations
+* [ ] satellites accurate
+* [ ] planets accurate
+* [ ] conditions believable
+* [ ] events timely
 
 ---
 
-## FAIL CONDITIONS
+# 22. SYSTEM INVALIDATION
 
-* any static dataset remains
-
----
-
-# 🔥 26. SYSTEM INVALIDATION
-
-System is INVALID if:
+System is INVALID if ANY:
 
 * [ ] mock data used
 * [ ] provider path missing
@@ -598,3 +553,5 @@ System must reflect real-world truth.
 ```
 
 ```
+
+---

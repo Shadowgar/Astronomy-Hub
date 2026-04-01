@@ -76,9 +76,14 @@ These items are explicitly deferred and do not block corrective exit.
 ## 5. CURRENT OBJECTIVE
 
 ```text
-Execute Phase 2 STEP 22 (location/time validation)
-before any Phase 2 relock attempt.
+Execute Phase 2 STEP 0 — CONTRACT LOCK (REVALIDATION REQUIRED)
+before proceeding with rebased Phase 2 execution.
 ```
+
+Rebase note:
+* Phase 2 step sequence has been restructured.
+* Previous tracked progress was recorded under the legacy step order.
+* That progress is not discarded, but must be revalidated against the rebased execution model.
 
 ---
 
