@@ -298,7 +298,7 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
     except Exception:
         raw_flights = None
     try:
-        raw_ephemeris = fetch_jpl_ephemeris(lat, lon, elevation_ft=elevation_ft)
+        raw_ephemeris = fetch_jpl_ephemeris(lat, lon, elevation_ft=elevation_ft, as_of=now)
     except Exception:
         raw_ephemeris = None
     try:

@@ -61,7 +61,7 @@ def test_pipeline_normalizes_and_whitelists_provider_data(monkeypatch):
     monkeypatch.setattr(
         live_ingestion,
         "fetch_jpl_ephemeris",
-        lambda lat, lon, elevation_ft=None: [{"id": "mars", "name": "Mars", "azimuth": 200.0, "elevation": 45.0}],
+        lambda lat, lon, elevation_ft=None, as_of=None: [{"id": "mars", "name": "Mars", "azimuth": 200.0, "elevation": 45.0}],
     )
     monkeypatch.setattr(
         live_ingestion,
@@ -106,7 +106,7 @@ def test_stale_conditions_are_rejected_and_degraded(monkeypatch):
     )
     monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
     monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
-    monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None: [])
+    monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None, as_of=None: [])
     monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
 
     payload = live_ingestion.fetch_normalized_live_inputs(_loc(), _now())
@@ -137,7 +137,7 @@ def test_pipeline_cache_prevents_refetch_for_same_context(monkeypatch):
     monkeypatch.setattr(live_ingestion, "fetch_open_meteo_conditions", _conditions)
     monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
     monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
-    monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None: [])
+    monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None, as_of=None: [])
     monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
 
     first = live_ingestion.fetch_normalized_live_inputs(_loc(), _now())
@@ -172,7 +172,7 @@ def test_pipeline_cache_refreshes_after_ttl_expiry(monkeypatch):
     monkeypatch.setattr(live_ingestion, "fetch_open_meteo_conditions", _conditions)
     monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
     monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
-    monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None: [])
+    monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None, as_of=None: [])
     monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
 
     first = live_ingestion.fetch_normalized_live_inputs(_loc(), _now())
@@ -183,3 +183,39 @@ def test_pipeline_cache_refreshes_after_ttl_expiry(monkeypatch):
     assert first["conditions"] == second["conditions"]
     assert first["provider_trace"]["freshness"]["ingestion_cache"]["state"] == "miss"
     assert second["provider_trace"]["freshness"]["ingestion_cache"]["state"] == "miss"
+
+
+def test_pipeline_ephemeris_changes_with_scene_time_context(monkeypatch):
+    live_ingestion._clear_ingestion_cache_for_tests()
+
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_open_meteo_conditions",
+        lambda lat, lon: {
+            "cloud_cover_pct": 10,
+            "visibility_m": 12000,
+            "temperature_c": 5.0,
+            "weather_code": 1,
+            "observing_score": "excellent",
+            "summary": "great",
+            "last_updated": "2026-03-31T11:50:00Z",
+        },
+    )
+    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
+    monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
+    monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
+
+    def _ephemeris(lat, lon, elevation_ft=None, as_of=None):
+        hour = int(as_of.hour) if as_of is not None else 0
+        return [{"id": "mars", "name": "Mars", "azimuth": float(hour), "elevation": 40.0}]
+
+    monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", _ephemeris)
+
+    t1 = datetime(2026, 3, 31, 12, 0, tzinfo=timezone.utc)
+    t2 = datetime(2026, 3, 31, 13, 0, tzinfo=timezone.utc)
+    payload1 = live_ingestion.fetch_normalized_live_inputs(_loc(), t1)
+    payload2 = live_ingestion.fetch_normalized_live_inputs(_loc(), t2)
+
+    assert payload1["ephemeris"] != payload2["ephemeris"]
+    assert payload1["ephemeris"][0]["azimuth"] == 12.0
+    assert payload2["ephemeris"][0]["azimuth"] == 13.0

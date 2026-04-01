@@ -527,8 +527,16 @@ def _parse_horizons_first_row(result_text: str) -> tuple[float, float] | None:
     return None
 
 
-def fetch_jpl_ephemeris(lat: float, lon: float, elevation_ft: float | None = None) -> list[dict[str, Any]]:
-    now = datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
+def fetch_jpl_ephemeris(
+    lat: float,
+    lon: float,
+    elevation_ft: float | None = None,
+    as_of: datetime | None = None,
+) -> list[dict[str, Any]]:
+    if isinstance(as_of, datetime):
+        now = as_of.astimezone(timezone.utc).replace(minute=0, second=0, microsecond=0)
+    else:
+        now = datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
     now_hour = now.strftime("%Y%m%d%H")
     cache_key = f"jpl:{round(lat, 3)}:{round(lon, 3)}:{elevation_ft or 0}:{now_hour}"
     cached = _cache_get(cache_key)
