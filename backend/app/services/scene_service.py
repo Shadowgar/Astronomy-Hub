@@ -100,8 +100,14 @@ def _objects_for_engine(
         return list(objects)
     if engine == "deep_sky":
         return [obj for obj in objects if obj.get("type") == "deep_sky"]
-    if engine in ("planets", "moon"):
+    if engine == "planets":
         return [obj for obj in objects if obj.get("type") == "planet"]
+    if engine == "moon":
+        return [
+            obj
+            for obj in objects
+            if obj.get("type") == "planet" and str(obj.get("id") or "").strip().lower() == "moon"
+        ]
     if engine == "satellites":
         return [obj for obj in objects if obj.get("type") == "satellite"]
     if engine == "flights":

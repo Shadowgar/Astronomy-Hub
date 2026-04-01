@@ -256,3 +256,81 @@ def test_satellites_scene_identical_for_identical_inputs(monkeypatch):
     assert status_1 == 200
     assert status_2 == 200
     assert payload_1 == payload_2
+
+
+def test_moon_engine_returns_only_moon_object(monkeypatch):
+    live_ingestion._clear_ingestion_cache_for_tests()
+
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_open_meteo_conditions",
+        lambda lat, lon: {
+            "cloud_cover_pct": 12,
+            "visibility_m": 14000,
+            "temperature_c": 6.0,
+            "weather_code": 1,
+            "observing_score": "excellent",
+            "summary": "clear",
+            "last_updated": "2026-03-31T11:50:00Z",
+        },
+    )
+    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
+    monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
+    monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_jpl_ephemeris",
+        lambda lat, lon, elevation_ft=None, as_of=None: [
+            {"id": "moon", "name": "Moon", "azimuth": 180.0, "elevation": 45.0},
+            {"id": "mars", "name": "Mars", "azimuth": 200.0, "elevation": 35.0},
+        ],
+    )
+
+    status, payload = _request_json(
+        "/api/v1/scene?scope=sun&engine=moon&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+    assert status == 200
+    assert payload.get("engine") == "moon"
+    objects = payload.get("objects") or []
+    assert len(objects) == 1
+    assert objects[0].get("id") == "moon"
+
+
+def test_moon_engine_identical_for_identical_inputs(monkeypatch):
+    live_ingestion._clear_ingestion_cache_for_tests()
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_open_meteo_conditions",
+        lambda lat, lon: {
+            "cloud_cover_pct": 12,
+            "visibility_m": 14000,
+            "temperature_c": 6.0,
+            "weather_code": 1,
+            "observing_score": "excellent",
+            "summary": "clear",
+            "last_updated": "2026-03-31T11:50:00Z",
+        },
+    )
+    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
+    monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
+    monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_jpl_ephemeris",
+        lambda lat, lon, elevation_ft=None, as_of=None: [
+            {"id": "moon", "name": "Moon", "azimuth": 180.0, "elevation": 45.0},
+            {"id": "mars", "name": "Mars", "azimuth": 200.0, "elevation": 35.0},
+        ],
+    )
+
+    path = (
+        "/api/v1/scene?scope=sun&engine=moon&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+    _request_json(path)
+    status_1, payload_1 = _request_json(path)
+    status_2, payload_2 = _request_json(path)
+    assert status_1 == 200
+    assert status_2 == 200
+    assert payload_1 == payload_2
