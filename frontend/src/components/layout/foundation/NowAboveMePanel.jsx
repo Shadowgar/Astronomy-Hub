@@ -8,12 +8,11 @@ export default function NowAboveMePanel() {
     <PanelSection title="Now Above Me">
       <div className="foundation-now-above-me">
         <ul className="foundation-list">
-          {nowAboveMeItems.map((item, index) => (
+          {nowAboveMeItems.map((item) => (
             <PlaceholderItemRow
               key={item.name}
-              name={`${index + 1}. ${item.name}`}
+              name={item.name}
               reason={item.reason}
-              marker="Ranked"
             />
           ))}
         </ul>

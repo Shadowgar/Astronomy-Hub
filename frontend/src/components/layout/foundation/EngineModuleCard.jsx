@@ -2,7 +2,7 @@ import React from 'react'
 import PlaceholderItemRow from './PlaceholderItemRow'
 import PanelSection from './PanelSection'
 
-export default function EngineModuleCard({ title, items, marker = 'Static', footerAction = null }) {
+export default function EngineModuleCard({ title, items, marker = null, footerAction = null }) {
   return (
     <article className="module panel foundation-module-card">
       <PanelSection title={title}>

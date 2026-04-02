@@ -46,8 +46,6 @@ export default function CommandCenterFoundationView() {
           </section>
         </main>
       </ContentGrid>
-
-      <footer className="app-footer">Astronomy Hub — Command Center Layout Foundation</footer>
     </>
   )
 }

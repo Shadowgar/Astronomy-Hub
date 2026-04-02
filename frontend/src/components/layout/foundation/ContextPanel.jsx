@@ -10,7 +10,7 @@ export default function ContextPanel() {
       <PanelSection title="Tonight / Now Summary" badge={null}>
         <ul className="foundation-list">
           {liveBriefingItems.map((item) => (
-            <PlaceholderItemRow key={item.name} name={item.name} reason={item.reason} marker="Live" />
+            <PlaceholderItemRow key={item.name} name={item.name} reason={item.reason} />
           ))}
         </ul>
       </PanelSection>

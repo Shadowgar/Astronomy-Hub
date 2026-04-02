@@ -50,24 +50,23 @@ export const liveBriefingItems = [
 export const liveBriefingActions = ['Open full briefing', 'Open news digest']
 
 export const nowAboveMeItems = [
-  { name: 'ISS', reason: 'Overhead in short window, very bright track.' },
-  { name: 'Jupiter', reason: 'High in SE with stable visibility.' },
-  { name: 'M13', reason: 'Excellent contrast in current dark sector.' },
-  { name: 'UAL 2401', reason: 'Above-horizon pass with low visual interference.' },
-  { name: 'Mars', reason: 'Visible low east; useful comparison target.' },
+  { name: '[Sat] ISS', reason: 'Overhead in short window, very bright track.' },
+  { name: '[Planet] Jupiter', reason: 'High in SE with stable visibility.' },
+  { name: '[DSO] M13', reason: 'Excellent contrast in current dark sector.' },
+  { name: '[Flight] UAL 2401', reason: 'Above-horizon pass with low visual interference.' },
 ]
 
 export const eventsAlertsItems = [
-  { name: 'Meteor shower peak', reason: 'High activity expected in late window.' },
-  { name: 'ISS bright pass', reason: 'Visible path with strong brightness score.' },
-  { name: 'Geomagnetic activity', reason: 'Minor activity; monitor aurora chance.' },
+  { name: '[Event] Meteor shower peak', reason: 'High activity expected in late window.' },
+  { name: '[Event] ISS bright pass', reason: 'Visible path with strong brightness score.' },
+  { name: '[Solar] Geomagnetic activity', reason: 'Minor activity; monitor aurora chance.' },
 ]
 
 export const newsDigestItems = [
-  { name: 'New active solar region', reason: 'Sun engine flagged elevated watch region.' },
-  { name: 'Falcon 9 launch', reason: 'New payload impacts satellite tracking lists.' },
-  { name: 'New Mars image', reason: 'Solar-system context media update available.' },
-  { name: 'New exoplanet research', reason: 'Deep-sky knowledge stream updated.' },
+  { name: '[Solar] New active solar region', reason: 'Sun engine flagged elevated watch region.' },
+  { name: '[Launch] Falcon 9 launch', reason: 'New payload impacts satellite tracking lists.' },
+  { name: '[Planetary] New Mars image', reason: 'Solar-system context media update available.' },
+  { name: '[Research] New exoplanet research', reason: 'Deep-sky knowledge stream updated.' },
 ]
 
 export const engineQuickEntryItems = [
