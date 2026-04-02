@@ -95,13 +95,18 @@ export default function ContextPanel() {
     : []
   const activeRadarUrl = radarFrameUrls[radarFrameIndex] || radarImageUrl
   const radarCenter = useMemo(() => {
+    const conditionLat = Number(conditions?.location?.latitude)
+    const conditionLon = Number(conditions?.location?.longitude)
+    if (Number.isFinite(conditionLat) && Number.isFinite(conditionLon)) {
+      return { lat: conditionLat, lon: conditionLon }
+    }
     const lat = Number(queryParams.lat)
     const lon = Number(queryParams.lon)
     if (Number.isFinite(lat) && Number.isFinite(lon)) {
       return { lat, lon }
     }
     return { lat: 41.321903, lon: -79.585394 }
-  }, [queryParams.lat, queryParams.lon])
+  }, [conditions?.location?.latitude, conditions?.location?.longitude, queryParams.lat, queryParams.lon])
   const radarSource = typeof conditions?.radar_source === 'string' ? conditions.radar_source : ''
   const radarGeneratedAt = formatUpdatedAt(conditions?.radar_generated_at)
   const radarFrameStepMinutes = Number.isFinite(conditions?.radar_frame_step_minutes)
@@ -214,7 +219,14 @@ export default function ContextPanel() {
               {activeRadarUrl ? (
                 <section className="foundation-modal-radar">
                   <h4>Local radar</h4>
-                  <RadarMapPreview imageUrl={activeRadarUrl} center={radarCenter} />
+                  <RadarMapPreview
+                    imageUrl={activeRadarUrl}
+                    center={radarCenter}
+                    frameIndex={radarFrameIndex}
+                    frameCount={radarFrameUrls.length}
+                    frameStepMinutes={radarFrameStepMinutes}
+                    generatedAt={conditions?.radar_generated_at}
+                  />
                   {radarFrameUrls.length > 1 ? (
                     <div className="foundation-modal-radar-controls">
                       <button

@@ -175,6 +175,11 @@ def build_conditions_response(
             "radar_frame_step_minutes": _RADAR_FRAME_STEP_MINUTES,
             "radar_source": "noaa_nws_eventdriven",
             "radar_generated_at": now.isoformat(),
+            "location": {
+                "latitude": float(location["latitude"]),
+                "longitude": float(location["longitude"]),
+                "elevation_ft": float(location["elevation_ft"]),
+            },
         }
     else:
         data = _build_degraded_conditions_data(
@@ -187,6 +192,11 @@ def build_conditions_response(
         data["radar_frame_step_minutes"] = _RADAR_FRAME_STEP_MINUTES
         data["radar_source"] = "noaa_nws_eventdriven"
         data["radar_generated_at"] = now.isoformat()
+        data["location"] = {
+            "latitude": float(location["latitude"]),
+            "longitude": float(location["longitude"]),
+            "elevation_ft": float(location["elevation_ft"]),
+        }
 
     payload = {"status": "ok", "data": data}
     try:
