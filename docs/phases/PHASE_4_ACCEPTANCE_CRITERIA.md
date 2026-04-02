@@ -438,3 +438,79 @@ Relationships must be explainable, deterministic, and consistent.
 
 ```
 
+
+---
+
+# NOAA RADAR INGESTION ADDENDUM ACCEPTANCE
+
+This addendum is additive and does not remove or invalidate the canonical relationship-system acceptance criteria above.
+
+## A1. NOAA PROVIDER INGESTION
+
+### REQUIRED
+
+* [ ] Backend can fetch NOAA NEXRAD Level III radar metadata/assets
+* [ ] Provider failures return controlled degraded behavior
+
+### FAIL CONDITIONS
+
+* provider path missing
+* unhandled provider failure
+
+---
+
+## A2. ADAPTER / NORMALIZER / VALIDATOR
+
+### REQUIRED
+
+* [ ] Raw NOAA fields are adapted before use
+* [ ] Normalized radar contract is emitted with stable keys
+* [ ] Invalid NOAA payloads are rejected/degraded safely
+
+### FAIL CONDITIONS
+
+* raw NOAA payload appears in response contracts
+* unstable or missing normalized fields
+
+---
+
+## A3. CACHE + FRESHNESS
+
+### REQUIRED
+
+* [ ] Radar cache behavior is explicit and tested
+* [ ] Freshness/staleness signal is exposed
+* [ ] Identical inputs produce deterministic payloads
+
+### FAIL CONDITIONS
+
+* no cache control
+* nondeterministic payload shape for identical inputs
+
+---
+
+## A4. CONDITIONS INTEGRATION
+
+### REQUIRED
+
+* [ ] Conditions payload includes radar block from backend
+* [ ] Radar degraded mode is explicit when unavailable
+
+### FAIL CONDITIONS
+
+* radar is frontend-owned
+* conditions contract omits radar status when provider fails
+
+---
+
+## A5. UI BOUNDARY ENFORCEMENT
+
+### REQUIRED
+
+* [ ] UI uses backend radar contract only
+* [ ] UI does not own NOAA endpoint/path construction
+
+### FAIL CONDITIONS
+
+* frontend-owned provider logic
+* frontend-owned fallback policy

@@ -146,7 +146,7 @@ Panel stable and reusable
 
 ---
 
-# 🔴 STEP 4 — DATA PIPELINE (FOUNDATION, ACTIVE)
+# ✅ STEP 4 — DATA PIPELINE (FOUNDATION, LOCKED)
 
 ## VERIFY
 
@@ -160,9 +160,9 @@ No raw data reaches engines
 
 ---
 
-# 🔴 STEP 5 — CONDITIONS ENGINE (FIRST ENGINE)
+# ✅ STEP 5 — CONDITIONS ENGINE (FIRST ENGINE, LOCKED)
 
-SPEC: CONDITIONS_SPEC.md
+SPEC: docs/architecture/CONDITIONS_ENGINE_SPEC.md
 
 ## VERIFY
 
@@ -176,9 +176,9 @@ Conditions drive system behavior
 
 ---
 
-# 🔴 STEP 6 — SATELLITE ENGINE
+# 🔴 STEP 6 — SATELLITE ENGINE (ACTIVE)
 
-SPEC: SATELLITE_ENGINE_SPEC.md
+SPEC: docs/architecture/SATELLITE_ENGINE_SPEC.md
 
 ## VERIFY
 
@@ -194,7 +194,7 @@ Satellite output matches reality
 
 # 🔴 STEP 7 — SOLAR SYSTEM ENGINE
 
-SPEC: SOLAR_SYSTEM_ENGINE_SPEC.md
+SPEC: docs/architecture/SOLAR_SYSTEM_ENGINE_SPEC.md
 
 ## VERIFY
 
@@ -209,7 +209,7 @@ Planets match real sky
 
 # 🔴 STEP 8 — DEEP SKY ENGINE
 
-SPEC: DEEP_SKY_ENGINE_SPEC.md
+SPEC: docs/architecture/DEEP_SKY_ENGINE_SPEC.md
 
 ## VERIFY
 
@@ -225,7 +225,7 @@ Targets are valid and useful
 
 # 🔴 STEP 9 — SUN ENGINE
 
-SPEC: SUN_ENGINE_SPEC.md
+SPEC: docs/architecture/SUN_ENGINE_SPEC.md
 
 ## VERIFY
 
@@ -240,7 +240,7 @@ Solar data accurate
 
 # 🟡 STEP 10 — EVENTS ENGINE
 
-SPEC: TRANSIENT_EVENTS_ENGINE_SPEC.md
+SPEC: docs/architecture/TRANSIENT_EVENTS_ENGINE_SPEC.md
 
 ## VERIFY
 
@@ -255,7 +255,7 @@ Events meaningful
 
 # 🟡 STEP 11 — FLIGHT ENGINE
 
-SPEC: FLIGHT_ENGINE_SPEC.md
+SPEC: docs/architecture/FLIGHT_ENGINE_SPEC.md
 
 ## VERIFY
 

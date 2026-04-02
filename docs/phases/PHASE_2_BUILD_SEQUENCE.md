@@ -157,7 +157,7 @@ No raw provider data reaches engines.
 
 # 🔴 STEP 5 — CONDITIONS ENGINE
 
-SPEC: CONDITIONS_SPEC.md
+SPEC: docs/architecture/CONDITIONS_ENGINE_SPEC.md
 
 ---
 
@@ -180,7 +180,7 @@ Conditions engine produces believable decision output.
 
 # 🔴 STEP 6 — SATELLITE ENGINE
 
-SPEC: SATELLITE_ENGINE_SPEC.md
+SPEC: docs/architecture/SATELLITE_ENGINE_SPEC.md
 
 ---
 
@@ -203,7 +203,7 @@ Satellite passes match real-world behavior.
 
 # 🔴 STEP 7 — SOLAR SYSTEM ENGINE
 
-SPEC: SOLAR_SYSTEM_ENGINE_SPEC.md
+SPEC: docs/architecture/SOLAR_SYSTEM_ENGINE_SPEC.md
 
 ---
 
@@ -225,7 +225,7 @@ Planets match real sky positions.
 
 # 🔴 STEP 8 — DEEP SKY ENGINE
 
-SPEC: DEEP_SKY_ENGINE_SPEC.md
+SPEC: docs/architecture/DEEP_SKY_ENGINE_SPEC.md
 
 ---
 
@@ -248,7 +248,7 @@ Deep sky targets are realistic and useful.
 
 # 🔴 STEP 9 — SUN ENGINE
 
-SPEC: SUN_ENGINE_SPEC.md
+SPEC: docs/architecture/SUN_ENGINE_SPEC.md
 
 ---
 
@@ -270,7 +270,7 @@ Solar activity reflects real conditions.
 
 # 🟡 STEP 10 — TRANSIENT EVENTS ENGINE
 
-SPEC: TRANSIENT_EVENTS_ENGINE_SPEC.md
+SPEC: docs/architecture/TRANSIENT_EVENTS_ENGINE_SPEC.md
 
 ---
 
@@ -292,7 +292,7 @@ Events are timely and relevant.
 
 # 🟡 STEP 11 — FLIGHT ENGINE
 
-SPEC: FLIGHT_ENGINE_SPEC.md
+SPEC: docs/architecture/FLIGHT_ENGINE_SPEC.md
 
 ---
 

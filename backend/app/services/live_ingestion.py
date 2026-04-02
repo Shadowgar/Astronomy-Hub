@@ -93,10 +93,19 @@ def _adapt_sats(raw: Any) -> list[dict[str, Any]]:
         pass_start = str(item.get("pass_start") or item.get("start_time") or "").strip()
         if pass_start:
             adapted["pass_start"] = pass_start
+        pass_end = str(item.get("pass_end") or item.get("end_time") or "").strip()
+        if pass_end:
+            adapted["pass_end"] = pass_end
         try:
             max_elevation = float(item.get("max_elevation_deg") or item.get("max_elevation") or 0.0)
             if max_elevation > 0.0:
                 adapted["max_elevation_deg"] = max_elevation
+        except Exception:
+            pass
+        try:
+            duration_sec = int(float(item.get("duration_sec") or item.get("duration") or 0.0))
+            if duration_sec > 0:
+                adapted["duration_sec"] = duration_sec
         except Exception:
             pass
         tle_line1 = str(item.get("tle_line1") or item.get("line1") or "").strip()
@@ -328,13 +337,23 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
                 max_elevation_deg = float(sat.get("max_elevation_deg"))
             except Exception:
                 max_elevation_deg = None
+        duration_sec = None
+        if sat.get("duration_sec") not in (None, ""):
+            try:
+                parsed_duration = int(float(sat.get("duration_sec")))
+                if parsed_duration > 0:
+                    duration_sec = parsed_duration
+            except Exception:
+                duration_sec = None
         norm_sats.append(
             {
                 "id": sat_id,
                 "name": name,
                 "source": str(sat.get("source") or "celestrak").strip().lower(),
                 "pass_start": pass_start,
+                "pass_end": str(sat.get("pass_end") or "").strip() or None,
                 "max_elevation_deg": max_elevation_deg,
+                "duration_sec": duration_sec,
                 "tle_line1": str(sat.get("tle_line1") or "").strip() or None,
                 "tle_line2": str(sat.get("tle_line2") or "").strip() or None,
             }

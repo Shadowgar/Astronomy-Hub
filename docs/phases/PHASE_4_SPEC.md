@@ -494,3 +494,74 @@ where objects, events, missions, news, and research
 are linked through a canonical, explainable relationship graph.
 ```
 
+
+---
+
+# 17. NOAA RADAR INGESTION ADDENDUM (AUTHORIZED TRACK)
+
+This addendum is explicitly authorized and additive.
+
+Rule:
+
+```text
+This addendum does NOT delete or invalidate the canonical Phase 4 relationship-system doctrine.
+It defines an authorized NOAA radar ingestion implementation track that must stay backend-authoritative.
+```
+
+## 17.1 Purpose
+
+Introduce a backend-owned radar capability using NOAA NEXRAD Level III ingestion, normalized for UI consumption.
+
+## 17.2 Pipeline Requirement
+
+Radar ingestion must follow:
+
+```text
+Provider -> Adapter -> Normalizer -> Validator -> Cache -> Conditions/API contract
+```
+
+Frontend must render only normalized backend contracts.
+
+## 17.3 Source Authority
+
+Primary radar source for this track:
+
+* NOAA NEXRAD Level III
+
+Disallowed for provider ownership:
+
+* frontend-owned RainViewer provider logic
+* frontend-owned AtmosWeather provider logic
+
+## 17.4 Minimum Normalized Radar Contract
+
+Radar payloads surfaced by backend should include at least:
+
+* `source`
+* `station_id` (or explicit unknown marker)
+* `product`
+* `observed_at_utc`
+* `age_seconds` or staleness marker
+* `asset_ref`
+* `coverage_note`
+* `status` (`ok` | `degraded`)
+* `summary`
+
+## 17.5 Scope Limits
+
+This addendum does not authorize a full weather platform.
+
+Out of scope unless later authorized:
+
+* full Level II processing pipeline
+* broad forecasting suite
+* advanced animation authoring UX
+
+## 17.6 Compatibility Rule
+
+Knowledge-graph work and NOAA radar track work must both preserve:
+
+* backend authority
+* normalized contracts
+* deterministic behavior
+* Scope -> Engine -> Filter -> Scene -> Object -> Detail law

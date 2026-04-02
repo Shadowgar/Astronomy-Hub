@@ -463,3 +463,82 @@ Performance controlled
 ```text
 Do NOT proceed to Phase 5 unless Phase 4 is fully locked.
 ```
+---
+
+# NOAA RADAR INGESTION ADDENDUM (AUTHORIZED TRACK)
+
+This addendum is additive and does not remove or invalidate the canonical relationship-system sequence above.
+
+## ADDENDUM STEP A1 — NOAA PROVIDER FOUNDATION
+
+### VERIFY
+
+* NOAA NEXRAD Level III fetch path exists in backend provider layer
+* provider failures are handled safely
+
+### LOCK CONDITION
+
+```text
+Backend can fetch NOAA radar source metadata/assets reliably.
+```
+
+---
+
+## ADDENDUM STEP A2 — ADAPTER / NORMALIZER / VALIDATOR
+
+### VERIFY
+
+* raw NOAA payload is transformed to internal radar model
+* normalized radar contract fields are stable
+* invalid payloads are rejected/degraded safely
+
+### LOCK CONDITION
+
+```text
+No raw NOAA payload reaches engine/response contracts.
+```
+
+---
+
+## ADDENDUM STEP A3 — CACHE + FRESHNESS
+
+### VERIFY
+
+* radar payloads are cached with explicit TTL behavior
+* freshness/staleness status is exposed deterministically
+
+### LOCK CONDITION
+
+```text
+Radar responses are stable and freshness-aware.
+```
+
+---
+
+## ADDENDUM STEP A4 — CONDITIONS CONTRACT INTEGRATION
+
+### VERIFY
+
+* conditions payload includes normalized radar block
+* degraded mode is explicit when radar is unavailable
+
+### LOCK CONDITION
+
+```text
+Radar is backend-authoritative within Conditions contract.
+```
+
+---
+
+## ADDENDUM STEP A5 — API SURFACE VERIFICATION
+
+### VERIFY
+
+* radar contract is available through conditions/scene API path
+* response shape is deterministic for identical inputs
+
+### LOCK CONDITION
+
+```text
+Radar contract is consumable by frontend with no provider logic.
+```

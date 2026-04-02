@@ -46,13 +46,13 @@ Each engine listed in Phase 2 MUST be governed by its corresponding specificatio
 
 Required engine specs:
 
-- docs/phases/engines/CONDITIONS_SPEC.md
-- docs/phases/engines/SATELLITE_ENGINE_SPEC.md
-- docs/phases/engines/SOLAR_SYSTEM_ENGINE_SPEC.md
-- docs/phases/engines/DEEP_SKY_ENGINE_SPEC.md
-- docs/phases/engines/SUN_ENGINE_SPEC.md
-- docs/phases/engines/FLIGHT_ENGINE_SPEC.md
-- docs/phases/engines/TRANSIENT_EVENTS_ENGINE_SPEC.md
+- docs/architecture/CONDITIONS_ENGINE_SPEC.md
+- docs/architecture/SATELLITE_ENGINE_SPEC.md
+- docs/architecture/SOLAR_SYSTEM_ENGINE_SPEC.md
+- docs/architecture/DEEP_SKY_ENGINE_SPEC.md
+- docs/architecture/SUN_ENGINE_SPEC.md
+- docs/architecture/FLIGHT_ENGINE_SPEC.md
+- docs/architecture/TRANSIENT_EVENTS_ENGINE_SPEC.md
 
 RULE:
 

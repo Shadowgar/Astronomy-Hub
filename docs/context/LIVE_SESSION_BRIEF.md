@@ -17,6 +17,7 @@ Allowed:
 - Phase 2 verification
 - Phase 2 tracking/state reconciliation
 - minimal fixes required to satisfy Phase 2 build-sequence steps
+- explicit Phase 4 NOAA radar track reconciliation/execution when directly authorized
 
 Disallowed:
 - Phase 3 execution
@@ -43,8 +44,8 @@ Phase 3:
 - condition: Awaiting explicit authorization to begin.
 
 Phase 4:
-- status: NOT STARTED
-- condition: Blocked until Phase 3 is fully locked.
+- status: AUTHORIZED TRACK (UNLOCKED BY EXPLICIT USER DIRECTIVE)
+- condition: Phase 4 is rebased to NOAA radar ingestion; this track is authorized when explicitly requested and does not change the active Phase 2 execution step.
 
 Phase 5:
 - status: NOT STARTED
@@ -123,7 +124,7 @@ Scope:
 
 - no Phase 1 blockers
 - no blockers for Phase 2 STEP 6 execution start
-- Phase 3+ remains blocked by phase-gate law
+- Phase 3+ remains blocked by phase-gate law, except explicitly authorized Phase 4 NOAA radar track execution
 
 ---
 

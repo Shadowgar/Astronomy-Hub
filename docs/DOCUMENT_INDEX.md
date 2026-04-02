@@ -73,6 +73,8 @@ Phase 4 — Knowledge Graph / Relationship System
 - `docs/phases/PHASE_4_SPEC.md`
 - `docs/phases/PHASE_4_BUILD_SEQUENCE.md`
 - `docs/phases/PHASE_4_ACCEPTANCE_CRITERIA.md`
+- Addendum execution track reference:
+- `docs/phases/PHASE_4_EXECUTION_TODO.md`
 
 Phase 5 — Prediction / Personalization System
 - `docs/phases/PHASE_5_SPEC.md`

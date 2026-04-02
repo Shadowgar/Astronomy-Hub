@@ -36,6 +36,7 @@ Current phase status:
 * Phase 1: COMPLETED (LOCKED)
 * Phase 2: ACTIVE (UNLOCKED)
 * Rebased step status: Step 0 (CONTRACT LOCK) LOCKED; Step 1 (UI LAYOUT FOUNDATION) LOCKED; Step 2 (UI STANDARDIZATION) LOCKED; Step 3 (DETAIL PANEL SYSTEM — UI ONLY) LOCKED; Step 4 (DATA PIPELINE — FOUNDATION) LOCKED; Step 5 (CONDITIONS ENGINE) LOCKED; Step 6 (SATELLITE ENGINE) ACTIVE.
+* Phase 4 NOAA radar ingestion track: AUTHORIZED when explicitly requested; does not override current active Phase 2 step.
 
 ---
 

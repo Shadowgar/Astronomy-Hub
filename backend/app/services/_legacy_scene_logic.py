@@ -135,6 +135,15 @@ def _resolve_time_context(as_of: str | None = None) -> datetime:
     return datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
 
 
+def _parse_iso_utc(value: str | None) -> datetime | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
+    except Exception:
+        return None
+
+
 def _stable_float(seed: str, minimum: float, maximum: float) -> float:
     digest = hashlib.sha256(seed.encode("utf-8")).hexdigest()
     bucket = int(digest[:8], 16) / float(0xFFFFFFFF)
@@ -223,24 +232,55 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
             max_elevation = None
 
         if pass_start and max_elevation is not None:
+            pass_start_dt = _parse_iso_utc(pass_start)
+            duration_sec = 360
+            try:
+                candidate_duration = int(float(sat.get("duration_sec") or 0.0))
+                if candidate_duration > 0:
+                    duration_sec = candidate_duration
+            except Exception:
+                duration_sec = 360
+            pass_end_dt = _parse_iso_utc(str(sat.get("pass_end") or "").strip())
+            if pass_start_dt is not None and pass_end_dt is None:
+                pass_end_dt = pass_start_dt + timedelta(seconds=duration_sec)
             start_time = pass_start
+            end_time = (
+                str(sat.get("pass_end") or "").strip()
+                or (pass_end_dt.isoformat() if pass_end_dt is not None else None)
+            )
             elevation = round(max(5.0, min(84.0, max_elevation)), 1)
-            summary = f"Live predicted pass around {start_time}"
+            is_visible_now = bool(
+                pass_start_dt is not None
+                and pass_end_dt is not None
+                and pass_start_dt <= time_context <= pass_end_dt
+                and elevation >= 10.0
+            )
+            if is_visible_now:
+                summary = f"Visible pass in progress (peak {elevation:.1f} deg)"
+            else:
+                summary = f"Predicted pass window starts at {start_time}"
+            relevance_score = max(0.0, min(1.0, elevation / 90.0))
         else:
             # Keep satellite lane provider-pure and avoid collapsing into flight-derived fallbacks.
-            elevation = round(_stable_float(seed, 5.0, 84.0), 1)
+            elevation = round(_stable_float(seed, 12.0, 84.0), 1)
             window_minute = int(_stable_float(seed + ":minute", 0.0, 59.0))
-            start_time = time_context.replace(
+            start_dt = time_context.replace(
                 minute=window_minute, second=0, microsecond=0
-            ).isoformat()
+            )
+            start_time = start_dt.isoformat()
+            end_time = (start_dt + timedelta(minutes=6)).isoformat()
             has_tle = bool(
                 str(sat.get("tle_line1") or "").strip()
                 and str(sat.get("tle_line2") or "").strip()
             )
             if has_tle:
-                summary = f"TLE track available; pass candidate around {start_time}"
+                summary = f"TLE track available; pass window around {start_time}"
             else:
                 summary = f"Live pass candidate around {start_time}"
+            is_visible_now = True
+            relevance_score = max(0.0, min(1.0, elevation / 90.0))
+        if elevation < 10.0:
+            continue
         out.append(
             {
                 "id": _slugify(sat_id),
@@ -256,9 +296,9 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
                 "visibility": {
                     "is_visible": True,
                     "visibility_window_start": start_time,
-                    "visibility_window_end": None,
+                    "visibility_window_end": end_time,
                 },
-                "relevance_score": max(0.0, min(1.0, elevation / 90.0)),
+                "relevance_score": relevance_score,
             }
         )
 

@@ -471,8 +471,17 @@ def fetch_g7vrd_pass_candidates(lat: float, lon: float, *, limit: int = 12, hour
             pass_start = str(first_pass.get("start") or first_pass.get("start_time") or "").strip()
             if pass_start:
                 sat["pass_start"] = pass_start
+            pass_end = str(first_pass.get("end") or first_pass.get("end_time") or "").strip()
+            if pass_end:
+                sat["pass_end"] = pass_end
             try:
                 sat["max_elevation_deg"] = float(first_pass.get("max_elevation") or 0.0)
+            except Exception:
+                pass
+            try:
+                duration_sec = int(float(first_pass.get("duration_sec") or first_pass.get("duration") or 0.0))
+                if duration_sec > 0:
+                    sat["duration_sec"] = duration_sec
             except Exception:
                 pass
         out.append(sat)
