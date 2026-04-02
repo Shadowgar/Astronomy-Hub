@@ -691,6 +691,17 @@ def _build_phase2_observing_context(parsed_location=None):
 
 def _to_phase2_scene_objects(raw_objects, engine_slug):
     scene_objects = []
+    satellite_detail_keys = (
+        "satellite_status",
+        "satellite_operator",
+        "satellite_countries",
+        "satellite_website",
+        "satellite_launched",
+        "satellite_deployed",
+        "satellite_citation",
+        "satellite_image_url",
+        "satellite_norad_id",
+    )
     for obj in raw_objects:
         if not isinstance(obj, dict):
             continue
@@ -711,6 +722,10 @@ def _to_phase2_scene_objects(raw_objects, engine_slug):
                 "visibility": obj.get("visibility"),
             }
         )
+        for key in satellite_detail_keys:
+            value = obj.get(key)
+            if value not in (None, ""):
+                scene_objects[-1][key] = value
     return scene_objects
 
 
@@ -720,6 +735,46 @@ def _build_phase2_scene_group(title, reason, objects):
         "reason": reason,
         "objects": objects,
     }
+
+
+def _build_satellite_meta_lookup(live_inputs):
+    lookup = {}
+    satellites = (live_inputs.get("satellites") or []) if isinstance(live_inputs, dict) else []
+    for sat in satellites:
+        if not isinstance(sat, dict):
+            continue
+        sat_id = str(sat.get("id") or sat.get("norad_cat_id") or sat.get("name") or "").strip()
+        if not sat_id:
+            continue
+        lookup[_slugify(sat_id)] = sat
+    return lookup
+
+
+def _apply_satellite_metadata(objects, satellite_meta_by_id):
+    if not isinstance(objects, list) or not isinstance(satellite_meta_by_id, dict):
+        return
+    for obj in objects:
+        sat_meta = satellite_meta_by_id.get(str(obj.get("id") or "").strip().lower()) or {}
+        if not isinstance(sat_meta, dict):
+            continue
+        if sat_meta.get("status") not in (None, ""):
+            obj["satellite_status"] = sat_meta.get("status")
+        if sat_meta.get("operator") not in (None, ""):
+            obj["satellite_operator"] = sat_meta.get("operator")
+        if sat_meta.get("countries") not in (None, ""):
+            obj["satellite_countries"] = sat_meta.get("countries")
+        if sat_meta.get("website") not in (None, ""):
+            obj["satellite_website"] = sat_meta.get("website")
+        if sat_meta.get("launched") not in (None, ""):
+            obj["satellite_launched"] = sat_meta.get("launched")
+        if sat_meta.get("deployed") not in (None, ""):
+            obj["satellite_deployed"] = sat_meta.get("deployed")
+        if sat_meta.get("citation") not in (None, ""):
+            obj["satellite_citation"] = sat_meta.get("citation")
+        if sat_meta.get("image_url") not in (None, ""):
+            obj["satellite_image_url"] = sat_meta.get("image_url")
+        if sat_meta.get("norad_cat_id") not in (None, ""):
+            obj["satellite_norad_id"] = sat_meta.get("norad_cat_id")
 
 
 def _build_phase2_deep_sky_scene(filter_slug, parsed_location=None):
@@ -829,6 +884,8 @@ def _build_phase2_satellites_scene(filter_slug, parsed_location=None):
         ),
         "satellites",
     )
+    _apply_satellite_metadata(objects, _build_satellite_meta_lookup(live_inputs))
+
     high_priority = []
     secondary = []
     for obj in objects:
@@ -905,6 +962,10 @@ def _build_phase2_above_me_scene(filter_slug, parsed_location=None):
     phase1_scene = phase1_state.get("scene") or {}
     phase1_objects = phase1_scene.get("objects") or []
     objects = _to_phase2_scene_objects(phase1_objects, "above_me")
+    location = _resolve_location(parsed_location)
+    time_context = _resolve_time_context(phase1_scene.get("timestamp"))
+    live_inputs = _fetch_live_inputs(location, time_context)
+    _apply_satellite_metadata(objects, _build_satellite_meta_lookup(live_inputs))
 
     groups = [
         _build_phase2_scene_group(
@@ -1178,8 +1239,8 @@ def _fallback_media_for_type(obj_type):
     if obj_type == "satellite":
         return {
             "type": "image",
-            "url": "https://images-assets.nasa.gov/image/iss071e099123/iss071e099123~small.jpg",
-            "source": "NASA",
+            "url": "https://db-satnogs.freetls.fastly.net/media/satellites/ISS.jpg",
+            "source": "satnogs",
         }
     if obj_type == "planet":
         return {
@@ -1192,6 +1253,18 @@ def _fallback_media_for_type(obj_type):
         "url": "https://images-assets.nasa.gov/image/heic0710a/heic0710a~small.jpg",
         "source": "NASA",
     }
+
+
+def _is_blocked_image_url(url):
+    if not isinstance(url, str):
+        return True
+    value = url.strip().lower()
+    if not value:
+        return True
+    # Known source that currently returns AccessDenied for public browser loads.
+    if "images-assets.nasa.gov" in value:
+        return True
+    return False
 
 
 def build_phase1_object_detail(found, scene_objects=None):
@@ -1218,6 +1291,38 @@ def build_phase1_object_detail(found, scene_objects=None):
         detail["visibility"] = {"is_visible": True}
 
     related = []
+    if detail.get("type") == "satellite":
+        metadata_rows = [
+            ("Status", found.get("satellite_status")),
+            ("Operator / company", found.get("satellite_operator")),
+            ("Countries", found.get("satellite_countries")),
+            ("NORAD catalog ID", found.get("satellite_norad_id")),
+            ("Launched", found.get("satellite_launched")),
+            ("Deployed", found.get("satellite_deployed")),
+            ("Mission / purpose", found.get("satellite_citation")),
+            ("Website", found.get("satellite_website")),
+        ]
+        metadata_descriptions = []
+        for title, value in metadata_rows:
+            metadata_value = str(value or "").strip()
+            if not metadata_value or metadata_value.lower() in ("none", "null", "n/a", "unknown"):
+                metadata_value = "Classified"
+            else:
+                metadata_descriptions.append(f"{title}: {metadata_value}")
+            related.append(
+                {
+                    "id": _slugify(f"{found.get('id')}-{title}"),
+                    "type": "object",
+                    "title": title,
+                    "summary": metadata_value,
+                    "relevance": "high",
+                }
+            )
+        if metadata_descriptions:
+            detail["description"] = f"Satellite context: {'; '.join(metadata_descriptions)}."
+        else:
+            detail["description"] = "Satellite context: key metadata is classified."
+
     for candidate in scene_objects:
         if not isinstance(candidate, dict):
             continue
@@ -1237,11 +1342,26 @@ def build_phase1_object_detail(found, scene_objects=None):
             break
     detail["related_objects"] = related
 
+    satellite_image_url = str(found.get("satellite_image_url") or "").strip()
+    if satellite_image_url and not _is_blocked_image_url(satellite_image_url):
+        detail["media"] = [
+            {
+                "type": "image",
+                "url": satellite_image_url,
+                "source": found.get("provider_source") or "satnogs",
+            }
+        ]
+
     try:
         from backend.services.imageResolver import get_object_image
 
-        image = get_object_image(found.get("name") or "")
-        if image and isinstance(image, dict) and image.get("image_url"):
+        image = None if detail.get("media") else get_object_image(found.get("name") or "")
+        if (
+            image
+            and isinstance(image, dict)
+            and image.get("image_url")
+            and not _is_blocked_image_url(image.get("image_url"))
+        ):
             detail["media"] = [
                 {"type": "image", "url": image.get("image_url"), "source": image.get("source")}
             ]
@@ -1250,7 +1370,12 @@ def build_phase1_object_detail(found, scene_objects=None):
             if name and (len(name) <= 4 and name[0].lower() == "m" and name[1:].strip().isdigit()):
                 alternate = f"Messier {name[1:].strip()}"
                 alt_image = get_object_image(alternate)
-                if alt_image and isinstance(alt_image, dict) and alt_image.get("image_url"):
+                if (
+                    alt_image
+                    and isinstance(alt_image, dict)
+                    and alt_image.get("image_url")
+                    and not _is_blocked_image_url(alt_image.get("image_url"))
+                ):
                     detail["media"] = [
                         {
                             "type": "image",

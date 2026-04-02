@@ -1,6 +1,9 @@
 from datetime import datetime, timezone
 
-from backend.app.services._legacy_scene_logic import _build_satellite_engine_slice
+from backend.app.services._legacy_scene_logic import (
+    _build_satellite_engine_slice,
+    build_phase1_object_detail,
+)
 
 
 def test_satellite_slice_prefers_provider_pass_metadata():
@@ -161,3 +164,51 @@ def test_satellite_slice_excludes_sub_horizon_provider_passes():
     )
 
     assert objects == []
+
+
+def test_satellite_detail_enriches_metadata_and_uses_image_url():
+    payload = {
+        "satellites": [
+            {
+                "id": "25544",
+                "name": "ISS",
+                "source": "satnogs",
+                "pass_start": "2026-03-31T15:42:00Z",
+                "max_elevation_deg": 32.0,
+                "status": "alive",
+                "operator": "NASA / Roscosmos",
+                "countries": "RU,US",
+                "website": "https://www.nasa.gov/mission_pages/station/main/index.html",
+                "launched": "1998-11-20T00:00:00Z",
+                "image_url": "https://db-satnogs.freetls.fastly.net/media/satellites/ISS.jpg",
+                "norad_cat_id": "25544",
+            }
+        ]
+    }
+    objects = _build_satellite_engine_slice(
+        parsed_location={"latitude": 40.0, "longitude": -75.0, "elevation_ft": 100.0},
+        time_context=datetime(2026, 3, 31, 15, 45, tzinfo=timezone.utc),
+        live_inputs=payload,
+    )
+
+    assert objects
+    satellite_object = dict(objects[0])
+    satellite_object.update(
+        {
+            "satellite_status": "alive",
+            "satellite_operator": "NASA / Roscosmos",
+            "satellite_countries": "RU,US",
+            "satellite_website": "https://www.nasa.gov/mission_pages/station/main/index.html",
+            "satellite_launched": "1998-11-20T00:00:00Z",
+            "satellite_image_url": "https://db-satnogs.freetls.fastly.net/media/satellites/ISS.jpg",
+            "satellite_norad_id": "25544",
+        }
+    )
+    detail = build_phase1_object_detail(satellite_object, scene_objects=[satellite_object])
+    assert "Operator / company: NASA / Roscosmos" in (detail.get("description") or "")
+    related_titles = [item.get("title") for item in detail.get("related_objects") or []]
+    assert "Status" in related_titles
+    assert "Operator / company" in related_titles
+    media = detail.get("media") or []
+    assert media
+    assert media[0].get("url") == "https://db-satnogs.freetls.fastly.net/media/satellites/ISS.jpg"

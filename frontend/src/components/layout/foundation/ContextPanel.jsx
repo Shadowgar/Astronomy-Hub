@@ -2,8 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react'
 import PanelSection from './PanelSection'
 import PlaceholderItemRow from './PlaceholderItemRow'
 import RadarMapPreview from './RadarMapPreview'
-import { liveBriefingActions, liveBriefingItems } from './foundationData'
 import { useConditionsDataQuery } from '../../../features/conditions/queries'
+import { useAlertsListQuery } from '../../../features/alerts/queries'
+import { usePassesListQuery } from '../../../features/passes/queries'
 import { parseLocationQuery } from '../../../features/shared/locationQuery'
 import useGlobalUiState from '../../../state/globalUiState'
 
@@ -34,11 +35,24 @@ function formatTemperatureCF(value) {
   return `${c.toFixed(1)}C / ${f.toFixed(1)}F`
 }
 
+function formatPassStart(value) {
+  if (typeof value !== 'string' || !value.trim()) return 'Unknown'
+  try {
+    return new Date(value).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })
+  } catch (error) {
+    return value
+  }
+}
+
 export default function ContextPanel() {
   const locationQuery = typeof window !== 'undefined' ? window.location.search : ''
   const queryParams = parseLocationQuery(locationQuery)
   const conditionsQuery = useConditionsDataQuery(queryParams)
+  const alertsQuery = useAlertsListQuery(queryParams)
+  const passesQuery = usePassesListQuery(queryParams)
   const conditions = conditionsQuery.data && typeof conditionsQuery.data === 'object' ? conditionsQuery.data : null
+  const alerts = Array.isArray(alertsQuery.data) ? alertsQuery.data : []
+  const passes = Array.isArray(passesQuery.data) ? passesQuery.data : []
   const loading = conditionsQuery.isLoading
   const hasError = conditionsQuery.isError
   const { uiToggles, setUiToggle } = useGlobalUiState()
@@ -63,25 +77,48 @@ export default function ContextPanel() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [isConditionsModalOpen])
 
-  const dynamicConditionRows = []
-  if (conditions && Array.isArray(conditions.missing_sources) && conditions.missing_sources.length > 0) {
-      dynamicConditionRows.push({
-        name: 'Missing sources',
-        reason: conditions.missing_sources.join(', '),
-        marker: 'Degraded',
-      })
-  } else if (loading) {
-    // Keep briefing focused on decision-support rows while loading.
-  } else if (hasError) {
-    dynamicConditionRows.push({
-      name: 'Conditions',
-      reason: 'Conditions unavailable; keeping fallback briefing.',
-      marker: 'Error',
-    })
-  }
-
-  const fallbackRows = liveBriefingItems.filter((item) => item.name !== 'Observing score')
-  const briefingRows = [...dynamicConditionRows, ...fallbackRows]
+  const topAlert = alerts[0] || null
+  const nextPass = passes[0] || null
+  const briefingRows = [
+    {
+      name: 'Observing score',
+      reason: formatConditionsScore(conditions?.observing_score),
+      marker: conditions?.degraded ? 'Degraded' : 'Live',
+    },
+    {
+      name: 'Temperature',
+      reason: formatTemperatureCF(conditions?.temperature_c),
+      marker: 'Live',
+    },
+    {
+      name: 'Cloud / Visibility',
+      reason: `${conditions?.cloud_cover_pct ?? 'N/A'}% · ${conditions?.visibility_m ?? 'N/A'}m`,
+      marker: 'Live',
+    },
+    nextPass
+      ? {
+        name: 'Next satellite pass',
+        reason: `${nextPass.object_name || 'Satellite'} at ${formatPassStart(nextPass.start_time)}`,
+        marker: nextPass.visibility || 'Live',
+      }
+      : {
+        name: 'Next satellite pass',
+        reason: 'No pass window currently available.',
+        marker: 'N/A',
+      },
+    topAlert
+      ? {
+        name: 'Active alert',
+        reason: `${topAlert.title}: ${topAlert.summary}`,
+        marker: topAlert.priority || 'Live',
+      }
+      : {
+        name: 'Active alert',
+        reason: loading || alertsQuery.isLoading ? 'Loading alert feed...' : 'No active alerts.',
+        marker: hasError || alertsQuery.isError ? 'Error' : 'Live',
+      },
+  ]
+  const liveBriefingActions = ['Open full briefing', 'Open news digest']
   const radarImageUrl = typeof conditions?.radar_image_url === 'string' ? conditions.radar_image_url : ''
   const radarFrameUrls = Array.isArray(conditions?.radar_frame_urls)
     ? conditions.radar_frame_urls.filter((url) => typeof url === 'string' && url.trim())

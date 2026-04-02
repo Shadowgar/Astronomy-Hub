@@ -3,7 +3,21 @@ import useDisplayModeState from '../../../state/displayModeState'
 import useGlobalUiState from '../../../state/globalUiState'
 import { useConditionsDataQuery } from '../../../features/conditions/queries'
 import { parseLocationQuery } from '../../../features/shared/locationQuery'
-import { topBar } from './foundationData'
+import { useScopesQuery } from '../../../features/scopes/queries'
+
+const COMMAND_ACTIONS = [
+  { label: "What's above me now?", scope: 'above_me', engine: 'above_me', filter: 'visible_now' },
+  { label: 'Show satellites', scope: 'earth', engine: 'satellites', filter: 'visible_now' },
+  { label: 'Show planets', scope: 'solar_system', engine: 'planets', filter: 'visible_now' },
+  { label: 'Earth events', scope: 'earth', engine: 'satellites', filter: 'events' },
+  { label: 'Solar', scope: 'sun', engine: 'moon', filter: 'visible_now' },
+]
+
+function formatScopeLabel(value) {
+  return String(value || '')
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase())
+}
 
 function formatConditionsScore(value) {
   if (typeof value === 'string') {
@@ -25,13 +39,41 @@ function formatTemperatureCF(value) {
 
 export default function TopControlBar() {
   const { mode, setMode, MODES } = useDisplayModeState()
-  const { setUiToggle } = useGlobalUiState()
+  const {
+    activeScope,
+    activeEngine,
+    setActiveScope,
+    setActiveEngine,
+    setActiveFilter,
+    setUiToggle,
+  } = useGlobalUiState()
   const locationQuery = typeof window !== 'undefined' ? window.location.search : ''
   const queryParams = parseLocationQuery(locationQuery)
+  const scopesQuery = useScopesQuery()
   const conditionsQuery = useConditionsDataQuery(queryParams)
   const conditions = conditionsQuery.data && typeof conditionsQuery.data === 'object' ? conditionsQuery.data : null
   const hasConditions = Boolean(conditions)
   const cloudCover = Number.isFinite(Number(conditions?.cloud_cover_pct)) ? Number(conditions.cloud_cover_pct) : null
+  const scopesPayload = scopesQuery.data && typeof scopesQuery.data === 'object' ? scopesQuery.data : null
+  const scopes = Array.isArray(scopesPayload?.scopes) ? scopesPayload.scopes : []
+  const scope = activeScope || 'above_me'
+  const scopeEntry = scopes.find((entry) => entry?.scope === scope) || null
+  const engines = scopeEntry
+    ? [...new Set([...(scopeEntry.engines || []), ...(scopeEntry.optional_engines || [])])]
+    : ['above_me']
+  const engine = activeEngine || engines[0] || 'above_me'
+  const locationLabel = queryParams.lat && queryParams.lon
+    ? `${queryParams.lat}, ${queryParams.lon}`
+    : 'ORAS'
+  const timeLabel = typeof window !== 'undefined'
+    ? new URLSearchParams(locationQuery).get('at') || 'Now'
+    : 'Now'
+
+  const applySelection = (nextScope, nextEngine, nextFilter) => {
+    setActiveScope(nextScope)
+    setActiveEngine(nextEngine)
+    setActiveFilter(nextFilter)
+  }
 
   return (
     <>
@@ -43,23 +85,44 @@ export default function TopControlBar() {
         <div className="header-controls" aria-label="Top control bar">
           <span className="mode-control">
             Scope:
-            <select aria-label="Scope selector (placeholder)" defaultValue="above_me">
-              <option value="above_me">{topBar.scope}</option>
+            <select
+              aria-label="Scope selector"
+              value={scope}
+              onChange={(event) => {
+                const nextScope = event.target.value
+                const nextScopeEntry = scopes.find((entry) => entry?.scope === nextScope) || null
+                const nextEngine = (nextScopeEntry?.engines || [])[0] || 'above_me'
+                applySelection(nextScope, nextEngine, 'visible_now')
+              }}
+            >
+              {(scopes.length > 0 ? scopes : [{ scope: 'above_me' }]).map((scopeItem) => (
+                <option key={scopeItem.scope} value={scopeItem.scope}>
+                  {formatScopeLabel(scopeItem.scope)}
+                </option>
+              ))}
             </select>
           </span>
           <span className="mode-control">
             Engine:
-            <select aria-label="Engine selector (placeholder)" defaultValue="conditions">
-              <option value="conditions">{topBar.engine}</option>
+            <select
+              aria-label="Engine selector"
+              value={engine}
+              onChange={(event) => setActiveEngine(event.target.value)}
+            >
+              {engines.map((engineItem) => (
+                <option key={engineItem} value={engineItem}>
+                  {formatScopeLabel(engineItem)}
+                </option>
+              ))}
             </select>
           </span>
           <span className="mode-control">
             Time:
-            <select aria-label="Time selector (placeholder)" defaultValue="now">
-              <option value="now">{topBar.time}</option>
+            <select aria-label="Time selector">
+              <option value="now">{timeLabel}</option>
             </select>
           </span>
-          <span className="mode-control">Location: {topBar.location}</span>
+          <span className="mode-control">Location: {locationLabel}</span>
           <span className="mode-control">
             Mode:
             <select
@@ -86,9 +149,13 @@ export default function TopControlBar() {
         <h2>Command Bar</h2>
         <div className="foundation-command-bar-row">
           <div className="foundation-command-bar-actions">
-            {topBar.commands.map((command) => (
-              <button key={command} type="button">
-                {command}
+            {COMMAND_ACTIONS.map((command) => (
+              <button
+                key={command.label}
+                type="button"
+                onClick={() => applySelection(command.scope, command.engine, command.filter)}
+              >
+                {command.label}
               </button>
             ))}
           </div>

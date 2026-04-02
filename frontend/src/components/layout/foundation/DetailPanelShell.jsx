@@ -60,7 +60,8 @@ function formatMedia(detail) {
   }
   return media.slice(0, 4).map((item, index) => ({
     name: `${valueOrUnknown(item.type)} ${index + 1}`,
-    reason: `${valueOrUnknown(item.source)} · ${valueOrUnknown(item.url)}`,
+    reason: valueOrUnknown(item.source),
+    url: typeof item.url === 'string' ? item.url : '',
   }))
 }
 
@@ -211,11 +212,38 @@ export default function DetailPanelShell() {
           <div className="detail-panel-shell__sections">
             <section key={activeSection.name} className="detail-panel-shell__section">
               <h4>{activeSection.name}</h4>
-              <ul className="foundation-list">
-                {activeSection.items.map((item) => (
-                  <PlaceholderItemRow key={`${activeSection.name}-${item.name}`} name={item.name} reason={item.reason} />
-                ))}
-              </ul>
+              {activeSection.name === 'Images' ? (
+                <div className="detail-panel-shell__media-grid">
+                  {activeSection.items.map((item) => (
+                    <article key={`${activeSection.name}-${item.name}`} className="detail-panel-shell__media-card">
+                      <h5>{item.name}</h5>
+                      {item.url ? (
+                        <img
+                          src={item.url}
+                          alt={`${detailProfile.objectName} ${item.name}`}
+                          loading="lazy"
+                          referrerPolicy="no-referrer"
+                          onError={(event) => {
+                            event.currentTarget.style.display = 'none'
+                          }}
+                        />
+                      ) : null}
+                      <p className="detail-panel-shell__media-source">{item.reason}</p>
+                      {item.url ? (
+                        <a href={item.url} target="_blank" rel="noreferrer">
+                          Open source image
+                        </a>
+                      ) : null}
+                    </article>
+                  ))}
+                </div>
+              ) : (
+                <ul className="foundation-list">
+                  {activeSection.items.map((item) => (
+                    <PlaceholderItemRow key={`${activeSection.name}-${item.name}`} name={item.name} reason={item.reason} />
+                  ))}
+                </ul>
+              )}
             </section>
           </div>
         ) : null}

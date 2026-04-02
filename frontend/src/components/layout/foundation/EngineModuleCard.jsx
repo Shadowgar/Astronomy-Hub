@@ -8,7 +8,13 @@ export default function EngineModuleCard({ title, items, marker = null, footerAc
       <PanelSection title={title}>
         <ul className="foundation-list">
           {items.map((item) => (
-            <PlaceholderItemRow key={`${title}-${item.name}`} name={item.name} reason={item.reason} marker={marker} />
+            <PlaceholderItemRow
+              key={`${title}-${item.name}`}
+              name={item.name}
+              reason={item.reason}
+              marker={item.marker || marker || null}
+              onClick={item.onClick || null}
+            />
           ))}
         </ul>
         {footerAction ? (

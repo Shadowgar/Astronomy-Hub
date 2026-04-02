@@ -61,6 +61,15 @@ def _safe_parse_dt(value: Any) -> datetime | None:
         return None
 
 
+def _clean_optional_text(value: Any) -> str | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    if text.lower() in {"none", "null", "n/a", "unknown"}:
+        return None
+    return text
+
+
 def _adapt_conditions(raw: Any) -> dict[str, Any] | None:
     if not isinstance(raw, dict):
         return None
@@ -114,6 +123,15 @@ def _adapt_sats(raw: Any) -> list[dict[str, Any]]:
         if tle_line1 and tle_line2:
             adapted["tle_line1"] = tle_line1
             adapted["tle_line2"] = tle_line2
+        adapted["status"] = _clean_optional_text(item.get("status"))
+        adapted["operator"] = _clean_optional_text(item.get("operator"))
+        adapted["countries"] = _clean_optional_text(item.get("countries"))
+        adapted["website"] = _clean_optional_text(item.get("website"))
+        adapted["launched"] = _clean_optional_text(item.get("launched"))
+        adapted["deployed"] = _clean_optional_text(item.get("deployed"))
+        adapted["citation"] = _clean_optional_text(item.get("citation"))
+        adapted["image_url"] = _clean_optional_text(item.get("image_url"))
+        adapted["norad_cat_id"] = _clean_optional_text(item.get("norad_cat_id")) or sat_id
         out.append(adapted)
     return out
 
@@ -415,6 +433,15 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
                 "duration_sec": duration_sec,
                 "tle_line1": str(sat.get("tle_line1") or "").strip() or None,
                 "tle_line2": str(sat.get("tle_line2") or "").strip() or None,
+                "status": _clean_optional_text(sat.get("status")),
+                "operator": _clean_optional_text(sat.get("operator")),
+                "countries": _clean_optional_text(sat.get("countries")),
+                "website": _clean_optional_text(sat.get("website")),
+                "launched": _clean_optional_text(sat.get("launched")),
+                "deployed": _clean_optional_text(sat.get("deployed")),
+                "citation": _clean_optional_text(sat.get("citation")),
+                "image_url": _clean_optional_text(sat.get("image_url")),
+                "norad_cat_id": _clean_optional_text(sat.get("norad_cat_id")) or sat_id,
             }
         )
     norm_flights = _normalize_list(

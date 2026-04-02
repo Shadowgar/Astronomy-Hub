@@ -67,6 +67,15 @@ def _http_get_json(url: str, *, params: dict[str, Any] | None = None, timeout_s:
         return response.json()
 
 
+def _clean_optional_text(value: Any) -> str | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    if text.lower() in {"none", "null", "n/a", "unknown"}:
+        return None
+    return text
+
+
 def _haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     r = 6371.0
     p1 = math.radians(lat1)
@@ -339,7 +348,25 @@ def fetch_satnogs_active(*, limit: int = 500) -> list[dict[str, Any]]:
         sat_id = str(norad if norad not in (None, "") else entry.get("sat_id") or "").strip()
         if not name or not sat_id:
             continue
-        out.append({"id": sat_id.lower(), "name": name, "source": "satnogs"})
+        image_path = str(entry.get("image") or "").strip()
+        if image_path and not image_path.startswith("http"):
+            image_path = f"https://db-satnogs.freetls.fastly.net/media/{image_path.lstrip('/')}"
+        out.append(
+            {
+                "id": sat_id.lower(),
+                "name": name,
+                "source": "satnogs",
+                "norad_cat_id": _clean_optional_text(entry.get("norad_cat_id")) or sat_id,
+                "status": _clean_optional_text(entry.get("status")),
+                "operator": _clean_optional_text(entry.get("operator")),
+                "countries": _clean_optional_text(entry.get("countries")),
+                "website": _clean_optional_text(entry.get("website")),
+                "launched": _clean_optional_text(entry.get("launched")),
+                "deployed": _clean_optional_text(entry.get("deployed")),
+                "citation": _clean_optional_text(entry.get("citation")),
+                "image_url": image_path or None,
+            }
+        )
         if len(out) >= max(1, int(limit)):
             break
 
