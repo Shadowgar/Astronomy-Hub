@@ -355,6 +355,18 @@ export default function ContextPanel() {
               </button>
             </header>
             <div className="foundation-modal-body">
+              <section className="foundation-modal-section">
+                <h4>Observing decision</h4>
+                <div className="foundation-modal-kpi-grid">
+                  {decisionRows.map((row) => (
+                    <article key={row.label} className="foundation-modal-kpi-card">
+                      <span className="foundation-modal-kpi-label">{row.label}</span>
+                      <span className="foundation-modal-kpi-value">{String(row.value)}</span>
+                    </article>
+                  ))}
+                </div>
+              </section>
+
               {activeRadarUrl ? (
                 <section className="foundation-modal-radar">
                   <h4>Local radar</h4>
@@ -398,6 +410,18 @@ export default function ContextPanel() {
                   </div>
                 </section>
               ) : null}
+
+              <section className="foundation-modal-section">
+                <h4>Conditions metrics</h4>
+                <ul className="foundation-modal-list">
+                  {metricRows.map((row) => (
+                    <li key={row.label} className="foundation-modal-row">
+                      <span className="foundation-modal-label">{row.label}</span>
+                      <span className="foundation-modal-value">{String(row.value)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
 
               <section className="foundation-modal-strip">
                 <div className="foundation-modal-strip__header">
@@ -454,30 +478,6 @@ export default function ContextPanel() {
                     Big chart list
                   </a>
                 </div>
-              </section>
-
-              <section className="foundation-modal-section">
-                <h4>Observing decision</h4>
-                <div className="foundation-modal-kpi-grid">
-                  {decisionRows.map((row) => (
-                    <article key={row.label} className="foundation-modal-kpi-card">
-                      <span className="foundation-modal-kpi-label">{row.label}</span>
-                      <span className="foundation-modal-kpi-value">{String(row.value)}</span>
-                    </article>
-                  ))}
-                </div>
-              </section>
-
-              <section className="foundation-modal-section">
-                <h4>Conditions metrics</h4>
-                <ul className="foundation-modal-list">
-                  {metricRows.map((row) => (
-                    <li key={row.label} className="foundation-modal-row">
-                      <span className="foundation-modal-label">{row.label}</span>
-                      <span className="foundation-modal-value">{String(row.value)}</span>
-                    </li>
-                  ))}
-                </ul>
               </section>
 
               <section className="foundation-modal-section">
