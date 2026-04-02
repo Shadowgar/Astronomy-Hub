@@ -70,7 +70,7 @@ function formatRelated(detail) {
   if (related.length === 0) {
     return [{ name: 'Data', reason: 'No related live records available.' }]
   }
-  return related.slice(0, 5).map((item) => ({
+  return related.map((item) => ({
     name: valueOrUnknown(item.title || item.id),
     reason: valueOrUnknown(item.summary),
   }))

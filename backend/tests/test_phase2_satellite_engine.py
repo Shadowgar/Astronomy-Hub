@@ -205,10 +205,29 @@ def test_satellite_detail_enriches_metadata_and_uses_image_url():
         }
     )
     detail = build_phase1_object_detail(satellite_object, scene_objects=[satellite_object])
-    assert "Operator / company: NASA / Roscosmos" in (detail.get("description") or "")
+    assert detail.get("summary", "").startswith("ISS")
+    assert "active sky context" in (detail.get("description") or "")
     related_titles = [item.get("title") for item in detail.get("related_objects") or []]
     assert "Status" in related_titles
     assert "Operator / company" in related_titles
     media = detail.get("media") or []
     assert media
     assert media[0].get("url") == "https://db-satnogs.freetls.fastly.net/media/satellites/ISS.jpg"
+
+
+def test_satellite_detail_defaults_missing_metadata_to_classified():
+    satellite_object = {
+        "id": "demo-sat",
+        "name": "Demo Sat",
+        "type": "satellite",
+        "engine": "satellite",
+        "summary": "Live pass candidate around 2026-03-31T15:42:00Z",
+    }
+    detail = build_phase1_object_detail(satellite_object, scene_objects=[satellite_object])
+    related = detail.get("related_objects") or []
+    related_map = {item.get("title"): item.get("summary") for item in related}
+
+    assert related_map.get("Status") == "Classified"
+    assert related_map.get("Operator / company") == "Classified"
+    assert related_map.get("Mission / purpose") == "Classified"
+    assert detail.get("summary") == "Demo Sat — mission classified."

@@ -1267,6 +1267,28 @@ def _is_blocked_image_url(url):
     return False
 
 
+def _normalize_satellite_metadata_value(value):
+    text = str(value or "").strip()
+    if not text:
+        return "Classified"
+    if text.lower() in ("none", "null", "n/a", "unknown"):
+        return "Classified"
+    return text
+
+
+def _normalize_satellite_purpose(value):
+    text = _normalize_satellite_metadata_value(value)
+    if text == "Classified":
+        return text
+    lower_text = text.lower()
+    if "citation needed" in lower_text:
+        return "Classified"
+    if "http://" in lower_text or "https://" in lower_text:
+        prefix = text.split("http://", 1)[0].split("https://", 1)[0].strip(" -:;,.")
+        return prefix or "Reference-linked mission context"
+    return text
+
+
 def build_phase1_object_detail(found, scene_objects=None):
     """Build canonical Phase 1 object detail payload."""
     scene_objects = scene_objects or []
@@ -1292,6 +1314,7 @@ def build_phase1_object_detail(found, scene_objects=None):
 
     related = []
     if detail.get("type") == "satellite":
+        purpose_for_summary = "Classified"
         metadata_rows = [
             ("Status", found.get("satellite_status")),
             ("Operator / company", found.get("satellite_operator")),
@@ -1302,13 +1325,14 @@ def build_phase1_object_detail(found, scene_objects=None):
             ("Mission / purpose", found.get("satellite_citation")),
             ("Website", found.get("satellite_website")),
         ]
-        metadata_descriptions = []
         for title, value in metadata_rows:
-            metadata_value = str(value or "").strip()
-            if not metadata_value or metadata_value.lower() in ("none", "null", "n/a", "unknown"):
-                metadata_value = "Classified"
-            else:
-                metadata_descriptions.append(f"{title}: {metadata_value}")
+            metadata_value = (
+                _normalize_satellite_purpose(value)
+                if title == "Mission / purpose"
+                else _normalize_satellite_metadata_value(value)
+            )
+            if title == "Mission / purpose":
+                purpose_for_summary = metadata_value
             related.append(
                 {
                     "id": _slugify(f"{found.get('id')}-{title}"),
@@ -1318,10 +1342,13 @@ def build_phase1_object_detail(found, scene_objects=None):
                     "relevance": "high",
                 }
             )
-        if metadata_descriptions:
-            detail["description"] = f"Satellite context: {'; '.join(metadata_descriptions)}."
+        if purpose_for_summary == "Classified":
+            detail["summary"] = f"{detail.get('name') or 'Satellite'} — mission classified."
         else:
-            detail["description"] = "Satellite context: key metadata is classified."
+            detail["summary"] = f"{detail.get('name') or 'Satellite'} — {purpose_for_summary}."
+        detail["description"] = (
+            f"{summary} This satellite is currently surfaced in your active sky context."
+        ).strip()
 
     for candidate in scene_objects:
         if not isinstance(candidate, dict):
