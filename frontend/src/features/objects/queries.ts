@@ -1,16 +1,35 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { apiGet } from '../../lib/api/client'
+import type { QueryParams } from '../../lib/api/types'
 
 const OBJECTS_PATH = '/object'
 
-export const objectsKeys = {
-  all: ['objects'] as const,
-  detail: (objectId?: string) => ['objects', 'detail', objectId || null] as const,
+export interface ObjectDetailQueryParams {
+  lat?: string | number
+  lon?: string | number
+  elevation_ft?: string | number
 }
 
-export async function fetchObjectDetail(objectId: string) {
-  return apiGet<unknown>(`${OBJECTS_PATH}/${encodeURIComponent(objectId)}`)
+export const objectsKeys = {
+  all: ['objects'] as const,
+  detail: (objectId?: string, params?: ObjectDetailQueryParams) =>
+    ['objects', 'detail', objectId || null, params || null] as const,
+}
+
+function toQueryParams(params?: ObjectDetailQueryParams): QueryParams | undefined {
+  if (!params) return undefined
+  return {
+    lat: params.lat,
+    lon: params.lon,
+    elevation_ft: params.elevation_ft,
+  }
+}
+
+export async function fetchObjectDetail(objectId: string, params?: ObjectDetailQueryParams) {
+  return apiGet<unknown>(`${OBJECTS_PATH}/${encodeURIComponent(objectId)}`, {
+    query: toQueryParams(params),
+  })
 }
 
 export function normalizeObjectDetailPayload(payload: unknown): unknown {
@@ -20,19 +39,19 @@ export function normalizeObjectDetailPayload(payload: unknown): unknown {
   return payload
 }
 
-export function useObjectDetailQuery(objectId?: string) {
+export function useObjectDetailQuery(objectId?: string, params?: ObjectDetailQueryParams) {
   return useQuery({
-    queryKey: objectsKeys.detail(objectId),
+    queryKey: objectsKeys.detail(objectId, params),
     enabled: Boolean(objectId),
-    queryFn: () => fetchObjectDetail(objectId as string),
+    queryFn: () => fetchObjectDetail(objectId as string, params),
   })
 }
 
-export function useObjectDetailDataQuery(objectId?: string) {
+export function useObjectDetailDataQuery(objectId?: string, params?: ObjectDetailQueryParams) {
   return useQuery({
-    queryKey: objectsKeys.detail(objectId),
+    queryKey: objectsKeys.detail(objectId, params),
     enabled: Boolean(objectId),
-    queryFn: () => fetchObjectDetail(objectId as string),
+    queryFn: () => fetchObjectDetail(objectId as string, params),
     select: normalizeObjectDetailPayload,
   })
 }
