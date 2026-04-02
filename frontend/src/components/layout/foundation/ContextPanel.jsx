@@ -105,6 +105,7 @@ export default function ContextPanel() {
   const radarFrameStepMinutes = Number.isFinite(conditions?.radar_frame_step_minutes)
     ? conditions.radar_frame_step_minutes
     : 10
+  const radarSupportsAnimation = false
 
   useEffect(() => {
     if (!isConditionsModalOpen) return
@@ -119,6 +120,7 @@ export default function ContextPanel() {
 
   useEffect(() => {
     if (!isConditionsModalOpen) return undefined
+    if (!radarSupportsAnimation) return undefined
     if (!radarPlaybackEnabled || radarFrameUrls.length < 2) return undefined
 
     const intervalId = window.setInterval(() => {
@@ -126,7 +128,7 @@ export default function ContextPanel() {
     }, 1250)
 
     return () => window.clearInterval(intervalId)
-  }, [isConditionsModalOpen, radarPlaybackEnabled, radarFrameUrls.length])
+  }, [isConditionsModalOpen, radarPlaybackEnabled, radarFrameUrls.length, radarSupportsAnimation])
   const detailRows = useMemo(() => {
     if (!conditions) return []
     return [
@@ -204,12 +206,9 @@ export default function ContextPanel() {
                   <RadarMapPreview
                     imageUrl={activeRadarUrl}
                     center={radarCenter}
-                    frameIndex={radarFrameIndex}
-                    frameCount={radarFrameUrls.length}
-                    frameStepMinutes={radarFrameStepMinutes}
-                    generatedAt={conditions?.radar_generated_at}
+                    isOpen={isConditionsModalOpen}
                   />
-                  {radarFrameUrls.length > 1 ? (
+                  {radarSupportsAnimation && radarFrameUrls.length > 1 ? (
                     <div className="foundation-modal-radar-controls">
                       <button
                         type="button"
@@ -232,14 +231,14 @@ export default function ContextPanel() {
                     </div>
                   ) : null}
                   <div className="foundation-modal-radar-meta">
-                    {radarFrameUrls.length > 1 ? (
+                    {radarSupportsAnimation && radarFrameUrls.length > 1 ? (
                       <span>
                         Frame {radarFrameIndex + 1}/{radarFrameUrls.length} ({radarFrameStepMinutes} min step)
                       </span>
                     ) : (
-                      <span>Single latest frame</span>
+                      <span>Latest RainViewer frame</span>
                     )}
-                    <span>Source: {radarSource || 'unknown'}</span>
+                    <span>Source: rainviewer</span>
                     <span>Generated: {radarGeneratedAt}</span>
                   </div>
                 </section>

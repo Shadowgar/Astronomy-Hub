@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -12,34 +12,43 @@ function parseFloatSafe(value) {
 export default function RadarMapPreview({
   imageUrl,
   center,
-  frameIndex = 0,
+  isOpen = false,
 }) {
   const containerRef = useRef(null)
   const mapRef = useRef(null)
-  const overlayRef = useRef(null)
+  const radarTileLayerRef = useRef(null)
+  const [rainViewerTileUrl, setRainViewerTileUrl] = useState('')
   const centerPoint = useMemo(() => {
     const lat = parseFloatSafe(center?.lat) ?? DEFAULT_CENTER.lat
     const lon = parseFloatSafe(center?.lon) ?? DEFAULT_CENTER.lon
     return { lat, lon }
   }, [center?.lat, center?.lon])
 
-  const overlayBounds = useMemo(() => {
-    if (typeof imageUrl === 'string' && imageUrl.trim()) {
+  useEffect(() => {
+    let cancelled = false
+
+    async function loadRainViewerMetadata() {
       try {
-        const parsed = new URL(imageUrl)
-        const bbox = parsed.searchParams.get('bbox')
-        if (bbox) {
-          const [lonMin, latMin, lonMax, latMax] = bbox.split(',').map(parseFloatSafe)
-          if ([lonMin, latMin, lonMax, latMax].every((v) => v !== null)) {
-            return [[latMin, lonMin], [latMax, lonMax]]
-          }
-        }
+        const response = await fetch('https://api.rainviewer.com/public/weather-maps.json')
+        if (!response.ok) return
+        const data = await response.json()
+        const host = typeof data?.host === 'string' ? data.host : ''
+        const past = Array.isArray(data?.radar?.past) ? data.radar.past : []
+        const latestPast = past.length > 0 ? past[past.length - 1] : null
+        const path = typeof latestPast?.path === 'string' ? latestPast.path : ''
+        if (!host || !path || cancelled) return
+        setRainViewerTileUrl(`${host}${path}/256/{z}/{x}/{y}/2/1_1.png`)
       } catch (error) {
-        // Fall back to center-derived bounds when URL parsing fails.
+        // Keep map usable with just basemap if RainViewer metadata fails.
       }
     }
-    return [[centerPoint.lat - 2, centerPoint.lon - 2], [centerPoint.lat + 2, centerPoint.lon + 2]]
-  }, [imageUrl, centerPoint.lat, centerPoint.lon])
+
+    loadRainViewerMetadata()
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return undefined
@@ -57,18 +66,18 @@ export default function RadarMapPreview({
     }).addTo(map)
 
     mapRef.current = map
-    map.fitBounds(overlayBounds, { padding: [16, 16], maxZoom: 8, animate: false })
+    map.setView([centerPoint.lat, centerPoint.lon], 8, { animate: false })
     window.setTimeout(() => map.invalidateSize(), 0)
 
     return () => {
-      if (overlayRef.current) {
-        map.removeLayer(overlayRef.current)
-        overlayRef.current = null
+      if (radarTileLayerRef.current) {
+        map.removeLayer(radarTileLayerRef.current)
+        radarTileLayerRef.current = null
       }
       map.remove()
       mapRef.current = null
     }
-  }, [centerPoint.lat, centerPoint.lon, overlayBounds])
+  }, [centerPoint.lat, centerPoint.lon])
 
   useEffect(() => {
     const map = mapRef.current
@@ -78,21 +87,26 @@ export default function RadarMapPreview({
 
   useEffect(() => {
     const map = mapRef.current
-    if (!map || !imageUrl) return
+    if (!map || !rainViewerTileUrl) return
 
-    if (overlayRef.current) {
-      map.removeLayer(overlayRef.current)
-      overlayRef.current = null
+    if (radarTileLayerRef.current) {
+      map.removeLayer(radarTileLayerRef.current)
+      radarTileLayerRef.current = null
     }
 
-    overlayRef.current = L.imageOverlay(imageUrl, overlayBounds, {
+    radarTileLayerRef.current = L.tileLayer(rainViewerTileUrl, {
       opacity: 0.82,
-      interactive: false,
-      crossOrigin: true,
-      className: 'foundation-radar-frame-overlay',
+      zIndex: 450,
+      attribution: 'RainViewer',
     })
-    overlayRef.current.addTo(map)
-  }, [imageUrl, overlayBounds, frameIndex])
+    radarTileLayerRef.current.addTo(map)
+  }, [rainViewerTileUrl])
+
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !isOpen) return
+    window.setTimeout(() => map.invalidateSize(), 0)
+  }, [isOpen])
 
   return (
     <div className="foundation-modal-radar-map-shell">
