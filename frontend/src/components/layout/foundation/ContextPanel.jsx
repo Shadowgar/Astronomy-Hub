@@ -5,6 +5,7 @@ import RadarMapPreview from './RadarMapPreview'
 import { liveBriefingActions, liveBriefingItems } from './foundationData'
 import { useConditionsDataQuery } from '../../../features/conditions/queries'
 import { parseLocationQuery } from '../../../features/shared/locationQuery'
+import useGlobalUiState from '../../../state/globalUiState'
 
 function formatConditionsScore(value) {
   if (typeof value === 'string') {
@@ -40,9 +41,14 @@ export default function ContextPanel() {
   const conditions = conditionsQuery.data && typeof conditionsQuery.data === 'object' ? conditionsQuery.data : null
   const loading = conditionsQuery.isLoading
   const hasError = conditionsQuery.isError
-  const [isConditionsModalOpen, setIsConditionsModalOpen] = useState(false)
+  const { uiToggles, setUiToggle } = useGlobalUiState()
+  const isConditionsModalOpen = Boolean(uiToggles.conditionsModalOpen)
   const [radarFrameIndex, setRadarFrameIndex] = useState(0)
   const [radarPlaybackEnabled, setRadarPlaybackEnabled] = useState(true)
+
+  const setIsConditionsModalOpen = (open) => {
+    setUiToggle('conditionsModalOpen', Boolean(open))
+  }
 
   useEffect(() => {
     if (!isConditionsModalOpen) return undefined
@@ -58,45 +64,17 @@ export default function ContextPanel() {
   }, [isConditionsModalOpen])
 
   const dynamicConditionRows = []
-  if (conditions) {
-    dynamicConditionRows.push({
-      name: 'Observing score',
-      reason: formatConditionsScore(conditions.observing_score),
-      marker: conditions.degraded ? 'Degraded' : 'Live',
-      onClick: () => setIsConditionsModalOpen(true),
-    })
-    if (typeof conditions.summary === 'string' && conditions.summary.trim()) {
-      dynamicConditionRows.push({
-        name: 'Conditions summary',
-        reason: conditions.summary,
-        marker: conditions.degraded ? 'Degraded' : 'Live',
-        onClick: () => setIsConditionsModalOpen(true),
-      })
-    }
-    if (Number.isFinite(Number(conditions.temperature_c))) {
-      dynamicConditionRows.push({
-        name: 'Temperature',
-        reason: formatTemperatureCF(conditions.temperature_c),
-        marker: conditions.degraded ? 'Degraded' : 'Live',
-        onClick: () => setIsConditionsModalOpen(true),
-      })
-    }
-    if (Array.isArray(conditions.missing_sources) && conditions.missing_sources.length > 0) {
+  if (conditions && Array.isArray(conditions.missing_sources) && conditions.missing_sources.length > 0) {
       dynamicConditionRows.push({
         name: 'Missing sources',
         reason: conditions.missing_sources.join(', '),
         marker: 'Degraded',
       })
-    }
   } else if (loading) {
-    dynamicConditionRows.push({
-      name: 'Observing score',
-      reason: 'Loading live conditions…',
-      marker: 'Loading',
-    })
+    // Keep briefing focused on decision-support rows while loading.
   } else if (hasError) {
     dynamicConditionRows.push({
-      name: 'Observing score',
+      name: 'Conditions',
       reason: 'Conditions unavailable; keeping fallback briefing.',
       marker: 'Error',
     })
