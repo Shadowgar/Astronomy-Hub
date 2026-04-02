@@ -96,6 +96,7 @@ def fetch_open_meteo_conditions(lat: float, lon: float) -> dict[str, Any] | None
     cloud_cover = int(round(float(current.get("cloud_cover") or 100)))
     visibility_m = int(round(float(current.get("visibility") or 0)))
     temperature_c = float(current.get("temperature_2m") or 0.0)
+    temperature_f = (temperature_c * 9.0 / 5.0) + 32.0
     weather_code = int(round(float(current.get("weather_code") or 0)))
 
     # Deterministic observing label from cloud/visibility.
@@ -114,7 +115,10 @@ def fetch_open_meteo_conditions(lat: float, lon: float) -> dict[str, Any] | None
         "temperature_c": temperature_c,
         "weather_code": weather_code,
         "observing_score": observing_score,
-        "summary": f"Live weather: cloud {cloud_cover}% visibility {visibility_m}m temp {temperature_c:.1f}C",
+        "summary": (
+            f"Live weather: cloud {cloud_cover}% visibility {visibility_m}m "
+            f"temp {temperature_c:.1f}C / {temperature_f:.1f}F"
+        ),
         "last_updated": current.get("time") or datetime.now(timezone.utc).isoformat(),
     }
     _cache_set(cache_key, result, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["open_meteo"])

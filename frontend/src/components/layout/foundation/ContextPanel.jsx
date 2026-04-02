@@ -26,6 +26,13 @@ function formatUpdatedAt(value) {
   }
 }
 
+function formatTemperatureCF(value) {
+  const c = Number(value)
+  if (!Number.isFinite(c)) return 'N/A'
+  const f = (c * 9) / 5 + 32
+  return `${c.toFixed(1)}C / ${f.toFixed(1)}F`
+}
+
 export default function ContextPanel() {
   const locationQuery = typeof window !== 'undefined' ? window.location.search : ''
   const queryParams = parseLocationQuery(locationQuery)
@@ -62,6 +69,14 @@ export default function ContextPanel() {
       dynamicConditionRows.push({
         name: 'Conditions summary',
         reason: conditions.summary,
+        marker: conditions.degraded ? 'Degraded' : 'Live',
+        onClick: () => setIsConditionsModalOpen(true),
+      })
+    }
+    if (Number.isFinite(Number(conditions.temperature_c))) {
+      dynamicConditionRows.push({
+        name: 'Temperature',
+        reason: formatTemperatureCF(conditions.temperature_c),
         marker: conditions.degraded ? 'Degraded' : 'Live',
         onClick: () => setIsConditionsModalOpen(true),
       })
@@ -141,7 +156,7 @@ export default function ContextPanel() {
       { label: 'Summary', value: conditions.summary || 'N/A' },
       { label: 'Cloud cover', value: conditions.cloud_cover_pct ?? 'N/A' },
       { label: 'Visibility (m)', value: conditions.visibility_m ?? 'N/A' },
-      { label: 'Temperature (C)', value: conditions.temperature_c ?? 'N/A' },
+      { label: 'Temperature (C/F)', value: formatTemperatureCF(conditions.temperature_c) },
       { label: 'Weather code', value: conditions.weather_code ?? 'N/A' },
       { label: 'Source', value: conditions.source || 'N/A' },
       { label: 'Last updated', value: formatUpdatedAt(conditions.last_updated) },
@@ -205,17 +220,6 @@ export default function ContextPanel() {
               </button>
             </header>
             <div className="foundation-modal-body">
-              <p className="foundation-modal-note">
-                Provider-backed conditions payload from the active conditions engine.
-              </p>
-              <ul className="foundation-modal-list">
-                {detailRows.map((row) => (
-                  <li key={row.label} className="foundation-modal-row">
-                    <span className="foundation-modal-label">{row.label}</span>
-                    <span className="foundation-modal-value">{String(row.value)}</span>
-                  </li>
-                ))}
-              </ul>
               {activeRadarUrl ? (
                 <section className="foundation-modal-radar">
                   <h4>Local radar</h4>
@@ -262,6 +266,17 @@ export default function ContextPanel() {
                   </div>
                 </section>
               ) : null}
+              <p className="foundation-modal-note">
+                Provider-backed conditions payload from the active conditions engine.
+              </p>
+              <ul className="foundation-modal-list">
+                {detailRows.map((row) => (
+                  <li key={row.label} className="foundation-modal-row">
+                    <span className="foundation-modal-label">{row.label}</span>
+                    <span className="foundation-modal-value">{String(row.value)}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
         </div>
