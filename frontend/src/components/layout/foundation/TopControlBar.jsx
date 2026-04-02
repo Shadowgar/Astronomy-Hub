@@ -1,7 +1,10 @@
 import React from 'react'
+import useDisplayModeState from '../../../state/displayModeState'
 import { topBar } from './foundationData'
 
 export default function TopControlBar() {
+  const { mode, setMode, MODES } = useDisplayModeState()
+
   return (
     <>
       <header className="app-header app-header-utility foundation-header-row" role="banner">
@@ -29,6 +32,25 @@ export default function TopControlBar() {
             </select>
           </span>
           <span className="mode-control">Location: {topBar.location}</span>
+          <span className="mode-control">
+            Mode:
+            <select
+              aria-label="Display mode"
+              value={mode}
+              onChange={(e) => {
+                const nextMode = e.target.value
+                if (MODES.includes(nextMode)) {
+                  setMode(nextMode)
+                }
+              }}
+            >
+              {MODES.map((m) => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+            </select>
+          </span>
         </div>
       </header>
 
