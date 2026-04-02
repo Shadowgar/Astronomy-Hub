@@ -53,7 +53,7 @@ It does NOT:
 
 * current task: PHASE 2 EXECUTION
 * current step: PHASE 2 STEP 6 — SATELLITE ENGINE
-* authorized parallel track: Phase 4 NOAA radar ingestion may execute only when explicitly requested; it does not change Phase 2 active step.
+* authorized additive track: Phase 4 NOAA radar ingestion may execute only when explicitly requested; canonical Phase 4 relationship-system scope remains intact, and this does not change Phase 2 active step.
 
 Rebase note:
 * Phase 2 step sequence has been restructured.

@@ -45,7 +45,7 @@ Phase 3:
 
 Phase 4:
 - status: AUTHORIZED TRACK (UNLOCKED BY EXPLICIT USER DIRECTIVE)
-- condition: Phase 4 is rebased to NOAA radar ingestion; this track is authorized when explicitly requested and does not change the active Phase 2 execution step.
+- condition: Canonical Phase 4 (Knowledge Graph / Relationship System) remains authoritative; NOAA radar ingestion is an authorized additive track when explicitly requested and does not change the active Phase 2 execution step.
 
 Phase 5:
 - status: NOT STARTED
