@@ -46,6 +46,8 @@ export default function CommandCenterFoundationView() {
           </section>
         </main>
       </ContentGrid>
+
+      <footer className="app-footer">ORAS Astronomy Hub (c) 2026</footer>
     </>
   )
 }
