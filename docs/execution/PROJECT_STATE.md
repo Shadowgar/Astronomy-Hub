@@ -35,7 +35,7 @@ Current phase status:
 
 * Phase 1: COMPLETED (LOCKED)
 * Phase 2: ACTIVE (UNLOCKED)
-* Rebased step status: Step 0 (CONTRACT LOCK) LOCKED; Step 1 (UI LAYOUT FOUNDATION) LOCKED; Step 2 (UI STANDARDIZATION) ACTIVE.
+* Rebased step status: Step 0 (CONTRACT LOCK) LOCKED; Step 1 (UI LAYOUT FOUNDATION) LOCKED; Step 2 (UI STANDARDIZATION) LOCKED; Step 3 (DETAIL PANEL SYSTEM — UI ONLY) LOCKED; Step 4 (DATA PIPELINE — FOUNDATION) LOCKED; Step 5 (CONDITIONS ENGINE) LOCKED; Step 6 (SATELLITE ENGINE) ACTIVE.
 
 ---
 
@@ -77,8 +77,8 @@ These items are explicitly deferred and do not block corrective exit.
 ## 5. CURRENT OBJECTIVE
 
 ```text
-Execute Phase 2 STEP 2 — UI STANDARDIZATION
-with rebased Step 0/1 lock status preserved.
+Execute Phase 2 STEP 6 — SATELLITE ENGINE
+with rebased Step 0/1/2/3/4/5 lock status preserved.
 ```
 
 Rebase note:

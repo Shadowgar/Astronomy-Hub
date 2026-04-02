@@ -36,7 +36,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK) and Step 1 (UI LAYOUT FOUNDATION) are locked. Effective current step is Phase 2 STEP 2 — UI STANDARDIZATION.
+- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK), Step 1 (UI LAYOUT FOUNDATION), Step 2 (UI STANDARDIZATION), Step 3 (DETAIL PANEL SYSTEM — UI ONLY), Step 4 (DATA PIPELINE — FOUNDATION), and Step 5 (CONDITIONS ENGINE) are locked. Effective current step is Phase 2 STEP 6 — SATELLITE ENGINE.
 
 Phase 3:
 - status: NOT STARTED
@@ -55,7 +55,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 2
+- execute Phase 2 STEP 6
 
 ---
 
@@ -82,7 +82,10 @@ Scope:
 - Phase 1 status updated to LOCKED
 - Rebased Phase 2 STEP 0 (CONTRACT LOCK) locked
 - Rebased Phase 2 STEP 1 (UI LAYOUT FOUNDATION) locked with static command-center foundation proof (`frontend/src/components/layout/foundation/*`, `frontend/src/App.jsx`) and no API/data wiring.
-- Rebased Phase 2 STEP 2 (UI STANDARDIZATION) attempted; lock revoked pending strict command-center diagram conformance verification.
+- Rebased Phase 2 STEP 2 (UI STANDARDIZATION) locked with final command-center composition conformance: full-width shell, stabilized hero/grid proportions, standardized panel/item structure across rows, diagram-aligned panel/menu labeling, and verified frontend build.
+- Rebased Phase 2 STEP 3 (DETAIL PANEL SYSTEM — UI ONLY) locked with reusable right-side detail panel shell mounted in command-center foundation path (`frontend/src/components/layout/foundation/DetailPanelShell.jsx`, `frontend/src/components/layout/foundation/CommandCenterFoundationView.jsx`) while hub remains visible and no backend/data wiring introduced.
+- Rebased Phase 2 STEP 4 (DATA PIPELINE — FOUNDATION) locked with Provider -> Adapter -> Normalizer -> Validator -> Cache -> Engine Input boundary enforcement (`backend/app/services/live_ingestion.py`), provider/cache layer proof (`backend/app/services/live_providers.py`, `backend/app/cache/redis_cache.py`), and focused Step 4 suite pass (`.venv/bin/pytest -q backend/tests/test_phase2_data_ingestion_pipeline.py backend/tests/test_phase2_provider_cache_ttl.py backend/tests/test_cache_foundation.py`: 11 passed).
+- Rebased Phase 2 STEP 5 (CONDITIONS ENGINE) locked with provider-backed conditions output proof (`backend/app/services/conditions_service.py`, `backend/app/services/live_providers.py`), focused conditions test suite pass (`.venv/bin/pytest -q backend/tests/test_fastapi_conditions.py backend/tests/test_conditions_schema.py backend/tests/test_conditions_cache_integration.py backend/tests/test_phase2_mock_data_removal.py`: 8 passed), command-center briefing live wiring in mounted UI (`frontend/src/components/layout/foundation/ContextPanel.jsx`), and verified frontend build.
 - Reconciliation note: legacy Phase 2 lock entries below were recorded under the pre-rebase sequence and are retained as history only; Step 2+ must be revalidated in the rebased sequence.
 - Phase 2 STEP 2 (SCOPE SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 3 (ENGINE SYSTEM) locked with implementation + tracking proof
@@ -111,15 +114,15 @@ Scope:
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 2 — UI STANDARDIZATION
-- force command-center home structure to match the authoritative diagram (header + command bar + hero 2-column row + two 3-column rows)
+- execute Phase 2 STEP 6 — SATELLITE ENGINE
+- verify TLE ingestion, propagation, pass computation, and above-me detection correctness
 
 ---
 
 # 7. BLOCKERS
 
 - no Phase 1 blockers
-- no blockers for Phase 2 STEP 2 execution start
+- no blockers for Phase 2 STEP 6 execution start
 - Phase 3+ remains blocked by phase-gate law
 
 ---

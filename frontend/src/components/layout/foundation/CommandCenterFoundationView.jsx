@@ -1,6 +1,7 @@
 import React from 'react'
 import ContentGrid from '../ContentGrid'
 import ContextPanel from './ContextPanel'
+import DetailPanelShell from './DetailPanelShell'
 import EngineModuleCard from './EngineModuleCard'
 import NowAboveMePanel from './NowAboveMePanel'
 import ScenePanel from './ScenePanel'
@@ -42,6 +43,12 @@ export default function CommandCenterFoundationView() {
               <EngineModuleCard title="Engine Quick Entry" items={engineQuickEntryItems} />
               <EngineModuleCard title="Active Filters" items={activeFiltersItems} />
               <EngineModuleCard title="Quick Tools" items={quickToolsItems} />
+            </div>
+          </section>
+
+          <section className="section section-detail-panel">
+            <div className="foundation-detail-panel-shell">
+              <DetailPanelShell />
             </div>
           </section>
         </main>

@@ -79,7 +79,7 @@ WITHOUT:
 
 ---
 
-# 🔴 STEP 0 — CONTRACT LOCK (RESTORED — CRITICAL)
+# ✅ STEP 0 — CONTRACT LOCK (RESTORED — CRITICAL, LOCKED)
 
 ## VERIFY
 
@@ -94,7 +94,7 @@ No further structural changes without explicit revision.
 
 ---
 
-# 🔴 STEP 1 — UI LAYOUT FOUNDATION
+# ✅ STEP 1 — UI LAYOUT FOUNDATION (LOCKED)
 
 ## Goal
 Build command center layout
@@ -118,7 +118,7 @@ UI matches system diagram of astronomy_hub_diagram.md
 
 ---
 
-# 🔴 STEP 2 — UI STANDARDIZATION
+# ✅ STEP 2 — UI STANDARDIZATION (LOCKED)
 
 ## VERIFY
 
@@ -132,7 +132,7 @@ UI structure unified
 
 ---
 
-# 🔴 STEP 3 — DETAIL PANEL SYSTEM (UI ONLY)
+# ✅ STEP 3 — DETAIL PANEL SYSTEM (UI ONLY, LOCKED)
 
 ## VERIFY
 
@@ -146,7 +146,7 @@ Panel stable and reusable
 
 ---
 
-# 🔴 STEP 4 — DATA PIPELINE (FOUNDATION)
+# 🔴 STEP 4 — DATA PIPELINE (FOUNDATION, ACTIVE)
 
 ## VERIFY
 
