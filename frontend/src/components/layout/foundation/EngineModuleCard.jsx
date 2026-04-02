@@ -12,7 +12,7 @@ export default function EngineModuleCard({ title, items, marker = 'Static', foot
           ))}
         </ul>
         {footerAction ? (
-          <button type="button" className="foundation-panel-link" disabled>
+          <button type="button" className="foundation-panel-link">
             {footerAction}
           </button>
         ) : null}

@@ -17,7 +17,7 @@ export default function NowAboveMePanel() {
             />
           ))}
         </ul>
-        <button type="button" className="foundation-panel-link" disabled>
+        <button type="button" className="foundation-panel-link">
           See all visible objects
         </button>
       </div>

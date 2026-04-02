@@ -6,7 +6,7 @@ import { sceneItems } from './foundationData'
 export default function ScenePanel() {
   return (
     <section className="module scene-module panel">
-      <h2>Main Scene Area</h2>
+      <h2>Primary Scene / Hero</h2>
       <PanelSection title="Scene Snapshot">
         <div className="foundation-scene-body">
           <ul className="foundation-list">
@@ -17,6 +17,14 @@ export default function ScenePanel() {
         </div>
       </PanelSection>
       <div className="above-me-scene__sky" role="img" aria-label="Main scene placeholder" />
+      <div className="foundation-scene-notes">
+        <p>Scene changes based on:</p>
+        <ul>
+          <li>scope</li>
+          <li>active engine</li>
+          <li>active filter</li>
+        </ul>
+      </div>
     </section>
   )
 }

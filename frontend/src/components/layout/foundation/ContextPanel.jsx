@@ -16,7 +16,7 @@ export default function ContextPanel() {
       </PanelSection>
       <div className="foundation-context-actions">
         {liveBriefingActions.map((action) => (
-          <button key={action} type="button" disabled>
+          <button key={action} type="button">
             {action}
           </button>
         ))}

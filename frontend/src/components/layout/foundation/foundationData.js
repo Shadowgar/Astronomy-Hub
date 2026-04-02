@@ -71,13 +71,13 @@ export const newsDigestItems = [
 ]
 
 export const engineQuickEntryItems = [
-  { name: 'Conditions Engine', reason: 'Open observing-state module.' },
-  { name: 'Satellite Engine', reason: 'Open visible passes and satellite tracks.' },
-  { name: 'Solar System Engine', reason: 'Open planets and moon context.' },
-  { name: 'Deep Sky Engine', reason: 'Open ranked telescope targets.' },
-  { name: 'Sun Engine', reason: 'Open solar activity and event state.' },
-  { name: 'Flight Engine', reason: 'Open above-horizon air traffic context.' },
-  { name: 'Events Engine', reason: 'Open transient alerts and event windows.' },
+  { name: 'Earth Engine', reason: 'Earth-context surface and event context.' },
+  { name: 'Solar Engine', reason: 'Solar region and activity context.' },
+  { name: 'Satellite Engine', reason: 'Visible passes and satellite tracks.' },
+  { name: 'Flight Engine', reason: 'Above-horizon air traffic context.' },
+  { name: 'Solar System Engine', reason: 'Planets and moon context.' },
+  { name: 'Deep Sky Engine', reason: 'Ranked deep-sky target context.' },
+  { name: 'News & Knowledge Engine', reason: 'Cross-engine news and research context.' },
 ]
 
 export const activeFiltersItems = [

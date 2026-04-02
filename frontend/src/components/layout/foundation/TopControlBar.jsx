@@ -12,19 +12,19 @@ export default function TopControlBar() {
         <div className="header-controls" aria-label="Top control bar">
           <span className="mode-control">
             Scope:
-            <select aria-label="Scope selector (placeholder)" defaultValue="above_me" disabled>
+            <select aria-label="Scope selector (placeholder)" defaultValue="above_me">
               <option value="above_me">{topBar.scope}</option>
             </select>
           </span>
           <span className="mode-control">
             Engine:
-            <select aria-label="Engine selector (placeholder)" defaultValue="conditions" disabled>
+            <select aria-label="Engine selector (placeholder)" defaultValue="conditions">
               <option value="conditions">{topBar.engine}</option>
             </select>
           </span>
           <span className="mode-control">
             Time:
-            <select aria-label="Time selector (placeholder)" defaultValue="now" disabled>
+            <select aria-label="Time selector (placeholder)" defaultValue="now">
               <option value="now">{topBar.time}</option>
             </select>
           </span>
@@ -36,7 +36,7 @@ export default function TopControlBar() {
         <h2>Command Bar</h2>
         <div className="foundation-command-bar-actions">
           {topBar.commands.map((command) => (
-            <button key={command} type="button" disabled>
+            <button key={command} type="button">
               {command}
             </button>
           ))}
