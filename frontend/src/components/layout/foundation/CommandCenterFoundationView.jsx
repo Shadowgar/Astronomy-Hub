@@ -21,36 +21,40 @@ export default function CommandCenterFoundationView() {
 
       <ContentGrid className="app-main-flow">
         <main className="dashboard tight-layout command-center-foundation">
-          <section className="section section-scene">
-            <div className="section-grid two-col command-center-foundation__hero-row">
-              <ScenePanel />
-              <ContextPanel />
-            </div>
-          </section>
+          <div className="command-center-foundation__layout">
+            <div className="command-center-foundation__main">
+              <section className="section section-scene">
+                <div className="section-grid two-col command-center-foundation__hero-row">
+                  <ScenePanel />
+                  <ContextPanel />
+                </div>
+              </section>
 
-          <section className="section">
-            <div className="section-grid three-col command-center-foundation__triple-row">
-              <div className="module panel">
-                <NowAboveMePanel />
+              <section className="section">
+                <div className="section-grid three-col command-center-foundation__triple-row">
+                  <div className="module panel">
+                    <NowAboveMePanel />
+                  </div>
+                  <EngineModuleCard title="Events / Alerts" items={eventsAlertsItems} footerAction="See all events" />
+                  <EngineModuleCard title="News Digest" items={newsDigestItems} footerAction="See all news" />
+                </div>
+              </section>
+
+              <section className="section">
+                <div className="section-grid three-col command-center-foundation__triple-row">
+                  <EngineModuleCard title="Engine Quick Entry" items={engineQuickEntryItems} />
+                  <EngineModuleCard title="Active Filters" items={activeFiltersItems} />
+                  <EngineModuleCard title="Quick Tools" items={quickToolsItems} />
+                </div>
+              </section>
+            </div>
+
+            <aside className="command-center-foundation__detail-column" aria-label="Detail companion panel">
+              <div className="foundation-detail-panel-shell">
+                <DetailPanelShell />
               </div>
-              <EngineModuleCard title="Events / Alerts" items={eventsAlertsItems} footerAction="See all events" />
-              <EngineModuleCard title="News Digest" items={newsDigestItems} footerAction="See all news" />
-            </div>
-          </section>
-
-          <section className="section">
-            <div className="section-grid three-col command-center-foundation__triple-row">
-              <EngineModuleCard title="Engine Quick Entry" items={engineQuickEntryItems} />
-              <EngineModuleCard title="Active Filters" items={activeFiltersItems} />
-              <EngineModuleCard title="Quick Tools" items={quickToolsItems} />
-            </div>
-          </section>
-
-          <section className="section section-detail-panel">
-            <div className="foundation-detail-panel-shell">
-              <DetailPanelShell />
-            </div>
-          </section>
+            </aside>
+          </div>
         </main>
       </ContentGrid>
 
