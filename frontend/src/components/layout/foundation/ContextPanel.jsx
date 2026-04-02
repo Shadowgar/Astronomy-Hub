@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import PanelSection from './PanelSection'
 import PlaceholderItemRow from './PlaceholderItemRow'
+import RadarMapPreview from './RadarMapPreview'
 import { liveBriefingActions, liveBriefingItems } from './foundationData'
 import { useConditionsDataQuery } from '../../../features/conditions/queries'
 import { parseLocationQuery } from '../../../features/shared/locationQuery'
@@ -93,6 +94,14 @@ export default function ContextPanel() {
     ? conditions.radar_frame_urls.filter((url) => typeof url === 'string' && url.trim())
     : []
   const activeRadarUrl = radarFrameUrls[radarFrameIndex] || radarImageUrl
+  const radarCenter = useMemo(() => {
+    const lat = Number(queryParams.lat)
+    const lon = Number(queryParams.lon)
+    if (Number.isFinite(lat) && Number.isFinite(lon)) {
+      return { lat, lon }
+    }
+    return { lat: 41.321903, lon: -79.585394 }
+  }, [queryParams.lat, queryParams.lon])
   const radarSource = typeof conditions?.radar_source === 'string' ? conditions.radar_source : ''
   const radarGeneratedAt = formatUpdatedAt(conditions?.radar_generated_at)
   const radarFrameStepMinutes = Number.isFinite(conditions?.radar_frame_step_minutes)
@@ -205,13 +214,7 @@ export default function ContextPanel() {
               {activeRadarUrl ? (
                 <section className="foundation-modal-radar">
                   <h4>Local radar</h4>
-                  <img
-                    className="foundation-modal-radar-image"
-                    src={activeRadarUrl}
-                    alt="Local radar centered on selected observing location"
-                    loading="lazy"
-                    referrerPolicy="no-referrer"
-                  />
+                  <RadarMapPreview imageUrl={activeRadarUrl} center={radarCenter} />
                   {radarFrameUrls.length > 1 ? (
                     <div className="foundation-modal-radar-controls">
                       <button
