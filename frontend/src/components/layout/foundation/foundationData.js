@@ -9,9 +9,9 @@ export const topBar = {
 }
 
 export const sceneItems = [
-  { name: 'ISS', reason: 'Overhead and very bright in the next window.' },
-  { name: 'Jupiter', reason: 'High altitude and clear line-of-sight.' },
-  { name: 'M13', reason: 'Dark-window target with strong visibility score.' },
+  { id: 'iss', name: 'ISS', reason: 'Overhead and very bright in the next window.' },
+  { id: 'jupiter', name: 'Jupiter', reason: 'High altitude and clear line-of-sight.' },
+  { id: 'm13', name: 'M13', reason: 'Dark-window target with strong visibility score.' },
 ]
 
 export const rightContextSections = [
@@ -50,10 +50,10 @@ export const liveBriefingItems = [
 export const liveBriefingActions = ['Open full briefing', 'Open news digest']
 
 export const nowAboveMeItems = [
-  { name: '[Sat] ISS', reason: 'Overhead in short window, very bright track.' },
-  { name: '[Planet] Jupiter', reason: 'High in SE with stable visibility.' },
-  { name: '[DSO] M13', reason: 'Excellent contrast in current dark sector.' },
-  { name: '[Flight] UAL 2401', reason: 'Above-horizon pass with low visual interference.' },
+  { id: 'iss', name: '[Sat] ISS', reason: 'Overhead in short window, very bright track.' },
+  { id: 'jupiter', name: '[Planet] Jupiter', reason: 'High in SE with stable visibility.' },
+  { id: 'm13', name: '[DSO] M13', reason: 'Excellent contrast in current dark sector.' },
+  { id: 'ual2401', name: '[Flight] UAL 2401', reason: 'Above-horizon pass with low visual interference.' },
 ]
 
 export const eventsAlertsItems = [
@@ -154,6 +154,7 @@ export const engineModules = [
 ]
 
 export const detailPanel = {
+  id: 'jupiter',
   objectName: 'Jupiter',
   objectMeta: 'Type: Planet · Status: Visible now',
   whyItMatters: 'High-confidence target with strong visibility and immediate observing value.',
@@ -187,4 +188,128 @@ export const detailPanel = {
       ],
     },
   ],
+}
+
+const ISS_DETAIL = {
+  id: 'iss',
+  objectName: 'ISS',
+  objectMeta: 'Type: Satellite · Status: Next bright pass in 12 min',
+  whyItMatters: 'High visibility and short lead-time make this a priority above-me target.',
+  sections: [
+    {
+      name: 'Overview',
+      items: [
+        { name: 'Summary', reason: 'Bright, reliable pass candidate in current window.' },
+        { name: 'Mission', reason: 'Crewed low-earth orbit station with frequent visibility passes.' },
+      ],
+    },
+    {
+      name: 'Sky Position',
+      items: [
+        { name: 'Track', reason: 'NW to SE traversal expected in local sky.' },
+        { name: 'Peak', reason: 'High elevation segment available near mid-pass.' },
+      ],
+    },
+    {
+      name: 'Images',
+      items: [
+        { name: 'Live imagery', reason: 'Placeholder slot for latest station visuals.' },
+        { name: 'Pass overlay', reason: 'Placeholder slot for pass-path preview.' },
+      ],
+    },
+    {
+      name: 'Data',
+      items: [
+        { name: 'Pass window', reason: 'Provider pass timing placeholder.' },
+        { name: 'Ownership', reason: 'Agency/operator metadata placeholder.' },
+      ],
+    },
+  ],
+}
+
+const M13_DETAIL = {
+  id: 'm13',
+  objectName: 'M13',
+  objectMeta: 'Type: Deep Sky · Status: High-contrast window active',
+  whyItMatters: 'One of the strongest deep-sky candidates under current darkness conditions.',
+  sections: [
+    {
+      name: 'Overview',
+      items: [
+        { name: 'Summary', reason: 'Globular cluster with high confidence under current sky state.' },
+        { name: 'Observing note', reason: 'Good candidate after bright-object calibration pass.' },
+      ],
+    },
+    {
+      name: 'Sky Position',
+      items: [
+        { name: 'Direction', reason: 'Hercules sector in active observing field.' },
+        { name: 'Elevation', reason: 'Sufficient altitude for stable visual acquisition.' },
+      ],
+    },
+    {
+      name: 'Images',
+      items: [
+        { name: 'Reference image', reason: 'Placeholder deep-sky image tile.' },
+        { name: 'Finder chart', reason: 'Placeholder locator chart for quick framing.' },
+      ],
+    },
+    {
+      name: 'Data',
+      items: [
+        { name: 'Classification', reason: 'Globular cluster contract metadata placeholder.' },
+        { name: 'Recommended optics', reason: 'Suggested aperture and magnification placeholder.' },
+      ],
+    },
+  ],
+}
+
+const UAL2401_DETAIL = {
+  id: 'ual2401',
+  objectName: 'UAL 2401',
+  objectMeta: 'Type: Flight · Status: Above-horizon crossing active',
+  whyItMatters: 'Short-term air-traffic visibility can affect observing and imaging decisions.',
+  sections: [
+    {
+      name: 'Overview',
+      items: [
+        { name: 'Summary', reason: 'Live crossing in current sky sector.' },
+        { name: 'Route relevance', reason: 'Potential visual interference near active target lane.' },
+      ],
+    },
+    {
+      name: 'Sky Position',
+      items: [
+        { name: 'Direction', reason: 'West-to-east crossing with moderate elevation.' },
+        { name: 'Altitude', reason: 'High-altitude pass likely visible in dark sky.' },
+      ],
+    },
+    {
+      name: 'Images',
+      items: [
+        { name: 'Track preview', reason: 'Placeholder route overlay tile.' },
+        { name: 'Context map', reason: 'Placeholder sky-track map image.' },
+      ],
+    },
+    {
+      name: 'Data',
+      items: [
+        { name: 'Aircraft type', reason: 'Flight registry metadata placeholder.' },
+        { name: 'Speed', reason: 'Live telemetry placeholder for current segment.' },
+      ],
+    },
+  ],
+}
+
+export const detailPanelProfiles = {
+  jupiter: detailPanel,
+  iss: ISS_DETAIL,
+  m13: M13_DETAIL,
+  ual2401: UAL2401_DETAIL,
+}
+
+export function resolveDetailPanelProfile(selectedObjectId) {
+  if (typeof selectedObjectId !== 'string' || !selectedObjectId.trim()) return null
+  const key = selectedObjectId.trim().toLowerCase()
+  return detailPanelProfiles[key] || null
 }

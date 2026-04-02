@@ -910,6 +910,14 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   padding: var(--token-size-4) var(--token-size-10);
   font-size: var(--token-size-12);
   color: var(--text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.command-center-foundation .detail-panel-shell__tab--active {
+  color: var(--text-primary);
+  border-color: color-mix(in oklab, var(--token-color-action-primary), var(--surface-border) 50%);
+  background: color-mix(in oklab, var(--surface-bg), var(--token-color-action-primary) 14%);
 }
 
 .command-center-foundation .detail-panel-shell__sections {

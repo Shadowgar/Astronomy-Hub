@@ -1,17 +1,57 @@
-import React from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import PlaceholderItemRow from './PlaceholderItemRow'
-import { detailPanel } from './foundationData'
+import { resolveDetailPanelProfile } from './foundationData'
+import useGlobalUiState from '../../../state/globalUiState'
 
 export default function DetailPanelShell() {
+  const { selectedObjectId, setSelectedObjectId } = useGlobalUiState()
+  const detailProfile = useMemo(
+    () => resolveDetailPanelProfile(selectedObjectId),
+    [selectedObjectId],
+  )
+  const [activeTabName, setActiveTabName] = useState('')
+
+  useEffect(() => {
+    if (!detailProfile) {
+      setActiveTabName('')
+      return
+    }
+    const firstSection = Array.isArray(detailProfile.sections) ? detailProfile.sections[0] : null
+    setActiveTabName(firstSection?.name || '')
+  }, [detailProfile])
+
+  if (!detailProfile) {
+    return (
+      <section className="module-shell detail-panel-shell">
+        <div className="module-shell-header detail-panel-shell__header">
+          <div className="detail-panel-shell__identity">
+            <h3>Detail Panel</h3>
+            <p className="detail-panel-shell__object-meta">Select an object from the hub to inspect details.</p>
+          </div>
+          <button type="button" className="detail-panel-shell__back" disabled>
+            Back
+          </button>
+        </div>
+      </section>
+    )
+  }
+
+  const sections = Array.isArray(detailProfile.sections) ? detailProfile.sections : []
+  const activeSection = sections.find((section) => section.name === activeTabName) || sections[0] || null
+
   return (
     <section className="module-shell detail-panel-shell">
       <div className="module-shell-header detail-panel-shell__header">
         <div className="detail-panel-shell__identity">
           <h3>Detail Panel</h3>
-          <p className="detail-panel-shell__object-name">Object: {detailPanel.objectName}</p>
-          <p className="detail-panel-shell__object-meta">{detailPanel.objectMeta}</p>
+          <p className="detail-panel-shell__object-name">Object: {detailProfile.objectName}</p>
+          <p className="detail-panel-shell__object-meta">{detailProfile.objectMeta}</p>
         </div>
-        <button type="button" className="detail-panel-shell__back" disabled>
+        <button
+          type="button"
+          className="detail-panel-shell__back"
+          onClick={() => setSelectedObjectId(null)}
+        >
           Back
         </button>
       </div>
@@ -19,29 +59,34 @@ export default function DetailPanelShell() {
       <div className="module-shell-body detail-panel-shell__body">
         <section className="detail-panel-shell__why">
           <h4>Why it matters</h4>
-          <p>{detailPanel.whyItMatters}</p>
+          <p>{detailProfile.whyItMatters}</p>
         </section>
 
         <nav className="detail-panel-shell__tabs" aria-label="Detail sections placeholder">
-          {detailPanel.sections.map((section) => (
-            <span key={section.name} className="detail-panel-shell__tab">
+          {sections.map((section) => (
+            <button
+              key={section.name}
+              type="button"
+              className={`detail-panel-shell__tab${section.name === activeSection?.name ? ' detail-panel-shell__tab--active' : ''}`}
+              onClick={() => setActiveTabName(section.name)}
+            >
               {section.name}
-            </span>
+            </button>
           ))}
         </nav>
 
-        <div className="detail-panel-shell__sections">
-          {detailPanel.sections.map((section) => (
-            <section key={section.name} className="detail-panel-shell__section">
-              <h4>{section.name}</h4>
+        {activeSection ? (
+          <div className="detail-panel-shell__sections">
+            <section key={activeSection.name} className="detail-panel-shell__section">
+              <h4>{activeSection.name}</h4>
               <ul className="foundation-list">
-                {section.items.map((item) => (
-                  <PlaceholderItemRow key={`${section.name}-${item.name}`} name={item.name} reason={item.reason} />
+                {activeSection.items.map((item) => (
+                  <PlaceholderItemRow key={`${activeSection.name}-${item.name}`} name={item.name} reason={item.reason} />
                 ))}
               </ul>
             </section>
-          ))}
-        </div>
+          </div>
+        ) : null}
       </div>
     </section>
   )
