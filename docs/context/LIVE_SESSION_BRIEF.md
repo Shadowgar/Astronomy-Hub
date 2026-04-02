@@ -37,7 +37,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK), Step 1 (UI LAYOUT FOUNDATION), Step 2 (UI STANDARDIZATION), Step 3 (DETAIL PANEL SYSTEM — UI ONLY), Step 4 (DATA PIPELINE — FOUNDATION), and Step 5 (CONDITIONS ENGINE) are locked. Effective current step is Phase 2 STEP 6 — SATELLITE ENGINE.
+- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK), Step 1 (UI LAYOUT FOUNDATION), Step 2 (UI STANDARDIZATION), Step 3 (DETAIL PANEL SYSTEM — UI ONLY), Step 4 (DATA PIPELINE — FOUNDATION), Step 5 (CONDITIONS ENGINE), and Step 6 (SATELLITE ENGINE) are locked. Effective current step is Phase 2 STEP 7 — SOLAR SYSTEM ENGINE.
 
 Phase 3:
 - status: NOT STARTED
@@ -56,7 +56,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 6
+- execute Phase 2 STEP 7
 
 ---
 
@@ -87,6 +87,7 @@ Scope:
 - Rebased Phase 2 STEP 3 (DETAIL PANEL SYSTEM — UI ONLY) locked with reusable right-side detail panel shell mounted in command-center foundation path (`frontend/src/components/layout/foundation/DetailPanelShell.jsx`, `frontend/src/components/layout/foundation/CommandCenterFoundationView.jsx`) while hub remains visible and no backend/data wiring introduced.
 - Rebased Phase 2 STEP 4 (DATA PIPELINE — FOUNDATION) locked with Provider -> Adapter -> Normalizer -> Validator -> Cache -> Engine Input boundary enforcement (`backend/app/services/live_ingestion.py`), provider/cache layer proof (`backend/app/services/live_providers.py`, `backend/app/cache/redis_cache.py`), and focused Step 4 suite pass (`.venv/bin/pytest -q backend/tests/test_phase2_data_ingestion_pipeline.py backend/tests/test_phase2_provider_cache_ttl.py backend/tests/test_cache_foundation.py`: 11 passed).
 - Rebased Phase 2 STEP 5 (CONDITIONS ENGINE) locked with provider-backed conditions output proof (`backend/app/services/conditions_service.py`, `backend/app/services/live_providers.py`), focused conditions test suite pass (`.venv/bin/pytest -q backend/tests/test_fastapi_conditions.py backend/tests/test_conditions_schema.py backend/tests/test_conditions_cache_integration.py backend/tests/test_phase2_mock_data_removal.py`: 8 passed), command-center briefing live wiring in mounted UI (`frontend/src/components/layout/foundation/ContextPanel.jsx`), and verified frontend build.
+- Rebased Phase 2 STEP 6 (SATELLITE ENGINE) locked with provider-backed TLE ingestion and deterministic pass-window computation in `backend/app/services/live_providers.py`, `backend/app/services/live_ingestion.py`, and `backend/app/services/_legacy_scene_logic.py` (provider pass metadata + local TLE propagation path + above-horizon enforcement), verified by focused suites: `.venv/bin/pytest -q backend/tests/test_phase2_satellite_engine.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_provider_cache_ttl.py` (25 passed) and `.venv/bin/pytest -q backend/tests/test_phase2_engine_input_refactor.py backend/tests/test_phase2_flights_engine_distinct.py` (3 passed).
 - Reconciliation note: legacy Phase 2 lock entries below were recorded under the pre-rebase sequence and are retained as history only; Step 2+ must be revalidated in the rebased sequence.
 - Phase 2 STEP 2 (SCOPE SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 3 (ENGINE SYSTEM) locked with implementation + tracking proof
@@ -115,15 +116,15 @@ Scope:
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 6 — SATELLITE ENGINE
-- verify TLE ingestion, propagation, pass computation, and above-me detection correctness
+- execute Phase 2 STEP 7 — SOLAR SYSTEM ENGINE
+- verify JPL ephemeris integration, deterministic time-context positioning, and visibility filtering correctness
 
 ---
 
 # 7. BLOCKERS
 
 - no Phase 1 blockers
-- no blockers for Phase 2 STEP 6 execution start
+- no blockers for Phase 2 STEP 7 execution start
 - Phase 3+ remains blocked by phase-gate law, except explicitly authorized Phase 4 NOAA radar track execution
 
 ---

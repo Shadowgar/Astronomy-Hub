@@ -52,14 +52,14 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 6 — SATELLITE ENGINE
+* current step: PHASE 2 STEP 7 — SOLAR SYSTEM ENGINE
 * authorized additive track: Phase 4 NOAA radar ingestion may execute only when explicitly requested; canonical Phase 4 relationship-system scope remains intact, and this does not change Phase 2 active step.
 
 Rebase note:
 * Phase 2 step sequence has been restructured.
 * Prior tracked progress was recorded under the legacy step order.
 * Prior progress is not discarded, but must be revalidated against the rebased execution model.
-* Rebased Step 0, Step 1, Step 2, Step 3, Step 4, and Step 5 are locked.
+* Rebased Step 0, Step 1, Step 2, Step 3, Step 4, Step 5, and Step 6 are locked.
 
 ---
 
@@ -90,6 +90,10 @@ Rebase note:
 * step: PHASE 2 STEP 5 — CONDITIONS ENGINE (REBASED)
   * result: LOCKED
   * validation: Open-Meteo ingestion path is active through `backend/app/services/live_ingestion.py` and consumed by `backend/app/services/conditions_service.py`; observing score and summary are emitted in conditions payload assembly; `/api/v1/conditions` contract path remains stable in `backend/app/routes/conditions.py`; mounted command-center right briefing is wired to live conditions (`frontend/src/components/layout/foundation/ContextPanel.jsx`); verification passed with `.venv/bin/pytest -q backend/tests/test_fastapi_conditions.py backend/tests/test_conditions_schema.py backend/tests/test_conditions_cache_integration.py backend/tests/test_phase2_mock_data_removal.py` (8 passed) and `npm --prefix frontend run build`.
+
+* step: PHASE 2 STEP 6 — SATELLITE ENGINE (REBASED)
+  * result: LOCKED
+  * validation: provider-backed satellite input remains enforced in `backend/app/services/live_ingestion.py` with TLE ingestion and fallback chain in `backend/app/services/live_providers.py`; deterministic pass computation + local TLE propagation path + above-horizon filtering are implemented in `backend/app/services/_legacy_scene_logic.py::_build_satellite_engine_slice`; verification passed with `.venv/bin/pytest -q backend/tests/test_phase2_satellite_engine.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_provider_cache_ttl.py` (25 passed) and `.venv/bin/pytest -q backend/tests/test_phase2_engine_input_refactor.py backend/tests/test_phase2_flights_engine_distinct.py` (3 passed).
 
 * step: STEP 1 — AUTHORITATIVE RUNTIME
   * result: LOCKED
@@ -247,7 +251,7 @@ Rebase note:
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute Phase 2 STEP 6 — SATELLITE ENGINE.
+* next step: execute Phase 2 STEP 7 — SOLAR SYSTEM ENGINE.
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

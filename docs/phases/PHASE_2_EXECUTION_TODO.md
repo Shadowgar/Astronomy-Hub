@@ -176,7 +176,7 @@ Conditions drive system behavior
 
 ---
 
-# 🔴 STEP 6 — SATELLITE ENGINE (ACTIVE)
+# ✅ STEP 6 — SATELLITE ENGINE (LOCKED)
 
 SPEC: docs/architecture/SATELLITE_ENGINE_SPEC.md
 
@@ -192,7 +192,7 @@ Satellite output matches reality
 
 ---
 
-# 🔴 STEP 7 — SOLAR SYSTEM ENGINE
+# 🔴 STEP 7 — SOLAR SYSTEM ENGINE (ACTIVE)
 
 SPEC: docs/architecture/SOLAR_SYSTEM_ENGINE_SPEC.md
 
