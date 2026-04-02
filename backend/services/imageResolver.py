@@ -14,6 +14,7 @@ Behavior:
 from __future__ import annotations
 
 import json
+import re
 import time
 import threading
 import urllib.parse
@@ -57,6 +58,43 @@ def _safe_json_loads(b: bytes) -> Optional[dict]:
         return None
 
 
+def _target_terms(target_name: str) -> list[str]:
+    return [token for token in re.split(r"[^a-z0-9]+", target_name.lower()) if token]
+
+
+def _item_text(item: dict) -> str:
+    parts: list[str] = []
+    data_rows = item.get("data") or []
+    if isinstance(data_rows, list):
+        for row in data_rows:
+            if not isinstance(row, dict):
+                continue
+            for key in ("title", "description"):
+                value = row.get(key)
+                if isinstance(value, str) and value.strip():
+                    parts.append(value.strip().lower())
+            keywords = row.get("keywords")
+            if isinstance(keywords, list):
+                for keyword in keywords:
+                    if isinstance(keyword, str) and keyword.strip():
+                        parts.append(keyword.strip().lower())
+    return " ".join(parts)
+
+
+def _item_score(item: dict, terms: list[str], phrase: str) -> int:
+    text = _item_text(item)
+    if not text:
+        return 0
+    score = 0
+    if phrase and phrase in text:
+        score += 20
+    matches = sum(1 for term in terms if term in text)
+    score += matches * 3
+    if terms and matches == len(terms):
+        score += 10
+    return score
+
+
 def get_object_image(target_name: str) -> Optional[dict]:
     """Return a dict with image_url and source, or None on failure.
 
@@ -88,11 +126,28 @@ def get_object_image(target_name: str) -> Optional[dict]:
         _cache_set(key, None)
         return None
 
-    # Navigate to collection.items[*].links[*].href
+    # Navigate to collection.items[*].links[*].href, but only accept
+    # results whose metadata is relevant to the target object.
     try:
         coll = data.get('collection', {})
         items = coll.get('items', []) if isinstance(coll, dict) else []
+        phrase = target_name.strip().lower()
+        terms = _target_terms(phrase)
+        scored_items: list[tuple[int, dict]] = []
         for item in items:
+            if not isinstance(item, dict):
+                continue
+            score = _item_score(item, terms, phrase)
+            scored_items.append((score, item))
+        scored_items.sort(key=lambda pair: pair[0], reverse=True)
+        best_score = scored_items[0][0] if scored_items else 0
+        if best_score <= 0:
+            _cache_set(key, None)
+            return None
+
+        for score, item in scored_items:
+            if score <= 0:
+                continue
             # prefer links array entries
             links = item.get('links') or []
             if not isinstance(links, list):
@@ -102,7 +157,7 @@ def get_object_image(target_name: str) -> Optional[dict]:
                 if not href or not isinstance(href, str):
                     continue
                 if href.startswith('https://') or href.startswith('http://'):
-                    # deterministic: take first valid URL
+                    # deterministic: best-ranked first valid URL.
                     result = {'image_url': href, 'source': 'nasa'}
                     _cache_set(key, result)
                     return result

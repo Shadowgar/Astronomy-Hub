@@ -48,6 +48,40 @@ def test_solar_system_slice_filters_below_horizon_and_keeps_provider_source():
     assert "best viewing around" in (objects[0].get("summary") or "").lower()
 
 
+def test_solar_system_slice_filters_non_moon_objects_below_five_degrees():
+    objects = _build_solar_system_engine_slice(
+        live_inputs={
+            "ephemeris": [
+                {"id": "mars", "name": "Mars", "azimuth": 220.0, "elevation": 3.0, "source": "jpl_ephemeris"},
+                {"id": "jupiter", "name": "Jupiter", "azimuth": 140.0, "elevation": 6.0, "source": "jpl_ephemeris"},
+            ]
+        }
+    )
+
+    ids = {obj.get("id") for obj in objects}
+    assert "jupiter" in ids
+    assert "mars" not in ids
+
+
+def test_solar_system_slice_relevance_includes_conditions_influence():
+    payload = {
+        "ephemeris": [
+            {"id": "mars", "name": "Mars", "azimuth": 220.0, "elevation": 45.0, "source": "jpl_ephemeris"},
+        ],
+    }
+    excellent = _build_solar_system_engine_slice(
+        live_inputs={**payload, "conditions": {"observing_score": "excellent"}}
+    )
+    poor = _build_solar_system_engine_slice(
+        live_inputs={**payload, "conditions": {"observing_score": "poor"}}
+    )
+
+    assert excellent and poor
+    excellent_score = float(excellent[0].get("relevance_score") or 0.0)
+    poor_score = float(poor[0].get("relevance_score") or 0.0)
+    assert excellent_score > poor_score
+
+
 def test_jpl_ephemeris_same_inputs_same_output(monkeypatch):
     monkeypatch.setattr(live_providers, "_cache_get", lambda key: None)
     monkeypatch.setattr(live_providers, "_cache_set", lambda key, payload, ttl_seconds: None)
@@ -151,3 +185,30 @@ def test_planet_detail_exposes_structured_solar_system_metadata():
     assert rows.get("Visibility") == "Visible now"
     assert rows.get("Best viewing time") == "2026-03-31T21:00:00+00:00"
     assert rows.get("Ephemeris source") == "jpl_ephemeris"
+
+
+def test_planet_detail_excludes_non_solar_related_objects():
+    found = {
+        "id": "neptune",
+        "name": "Neptune",
+        "type": "planet",
+        "engine": "planets",
+        "provider_source": "jpl_ephemeris",
+        "summary": "Live ephemeris position az 280.0 el 12.0; best viewing around 2026-03-31T22:00:00+00:00",
+        "position": {"azimuth": 280.0, "elevation": 12.0},
+        "visibility": {
+            "is_visible": True,
+            "visibility_window_start": "2026-03-31T22:00:00+00:00",
+            "visibility_window_end": "2026-04-01T00:00:00+00:00",
+        },
+    }
+    scene_objects = [
+        found,
+        {"id": "jupiter", "name": "Jupiter", "type": "planet", "engine": "planets", "summary": "Visible"},
+        {"id": "hj-1a", "name": "HJ-1A", "type": "satellite", "engine": "satellites", "summary": "Pass now"},
+    ]
+
+    detail = build_phase1_object_detail(found, scene_objects=scene_objects)
+    titles = {row.get("title") for row in (detail.get("related_objects") or [])}
+    assert "Jupiter" in titles
+    assert "HJ-1A" not in titles

@@ -652,6 +652,12 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   background: var(--surface-bg);
 }
 
+.command-center-foundation .foundation-row-selected {
+  border-radius: var(--token-size-8);
+  background: color-mix(in oklab, var(--surface-bg), var(--token-color-action-primary) 12%);
+  border-bottom-color: color-mix(in oklab, var(--surface-border), var(--token-color-action-primary) 45%);
+}
+
 .command-center-foundation .foundation-row-interactive .foundation-row-button:focus-visible {
   outline: var(--token-border-width-medium) solid var(--token-color-action-primary);
   outline-offset: var(--token-size-2);

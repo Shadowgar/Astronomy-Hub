@@ -1,10 +1,11 @@
 import React from 'react'
 
-export default function PlaceholderItemRow({ name, reason, marker = null, onClick = null }) {
+export default function PlaceholderItemRow({ name, reason, marker = null, onClick = null, isSelected = false }) {
   const interactive = typeof onClick === 'function'
+  const selectedClass = isSelected ? ' foundation-row-selected' : ''
 
   return (
-    <li className={`foundation-row${interactive ? ' foundation-row-interactive' : ''}`}>
+    <li className={`foundation-row${interactive ? ' foundation-row-interactive' : ''}${selectedClass}`}>
       {interactive ? (
         <button
           type="button"

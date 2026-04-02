@@ -432,6 +432,7 @@ def _build_solar_system_engine_slice(
     include_below_horizon=False,
 ):
     """Provider-backed solar-system slice from JPL ephemeris."""
+    visibility_threshold_deg = 5.0
     time_context = time_context or _resolve_time_context()
     window_start = time_context.replace(microsecond=0).isoformat()
     window_end = (time_context.replace(microsecond=0) + timedelta(hours=2)).isoformat()
@@ -439,6 +440,16 @@ def _build_solar_system_engine_slice(
     ephemeris = []
     if isinstance(live_inputs, dict):
         ephemeris = live_inputs.get("ephemeris") or []
+    conditions = live_inputs.get("conditions") if isinstance(live_inputs, dict) else None
+    observing_score = ""
+    if isinstance(conditions, dict):
+        observing_score = str(conditions.get("observing_score") or "").strip().lower()
+    conditions_factor = {
+        "excellent": 1.0,
+        "good": 0.92,
+        "fair": 0.82,
+        "poor": 0.72,
+    }.get(observing_score, 0.85)
 
     for entry in ephemeris:
         if not isinstance(entry, dict):
@@ -452,13 +463,17 @@ def _build_solar_system_engine_slice(
             elevation = float(entry.get("elevation") or 0.0)
         except Exception:
             elevation = 0.0
-        if elevation <= 0.0 and body_type != "moon" and not include_below_horizon:
+        if (
+            elevation <= visibility_threshold_deg
+            and body_type != "moon"
+            and not include_below_horizon
+        ):
             continue
         try:
             azimuth = float(entry.get("azimuth") or 0.0)
         except Exception:
             azimuth = 0.0
-        is_visible_now = elevation > 0.0
+        is_visible_now = elevation > visibility_threshold_deg
         if is_visible_now:
             summary = (
                 f"Live ephemeris position az {azimuth:.1f} el {elevation:.1f}; "
@@ -470,6 +485,7 @@ def _build_solar_system_engine_slice(
                 f"currently below horizon, next context window around {window_start}"
             )
 
+        visible_relevance = max(0.0, min(1.0, (elevation / 90.0) * conditions_factor))
         out.append(
             {
                 "id": body_slug,
@@ -484,7 +500,7 @@ def _build_solar_system_engine_slice(
                     "visibility_window_start": window_start,
                     "visibility_window_end": window_end,
                 },
-                "relevance_score": max(0.0, min(1.0, elevation / 90.0)) if is_visible_now else 0.05,
+                "relevance_score": visible_relevance if is_visible_now else 0.05,
             }
         )
 
@@ -1319,19 +1335,7 @@ def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
 
 def _fallback_media_for_type(obj_type):
     """Deterministic fallback media to keep detail payloads usable."""
-    if obj_type == "satellite":
-        return None
-    if obj_type == "planet":
-        return {
-            "type": "image",
-            "url": "https://images-assets.nasa.gov/image/PIA03149/PIA03149~small.jpg",
-            "source": "NASA",
-        }
-    return {
-        "type": "image",
-        "url": "https://images-assets.nasa.gov/image/heic0710a/heic0710a~small.jpg",
-        "source": "NASA",
-    }
+    return None
 
 
 def _is_blocked_image_url(url):
@@ -1342,6 +1346,19 @@ def _is_blocked_image_url(url):
         return True
     # Known source that currently returns AccessDenied for public browser loads.
     if "images-assets.nasa.gov" in value:
+        return True
+    return False
+
+
+def _is_mismatched_satellite_image(found, url):
+    if not isinstance(found, dict) or not isinstance(url, str):
+        return False
+    value = url.strip().lower()
+    name = str(found.get("name") or "").strip().lower()
+    if not value or not name:
+        return False
+    # Prevent known mis-assignment where non-ISS satellites resolve to ISS image.
+    if "iss.jpg" in value and "iss" not in name:
         return True
     return False
 
@@ -1547,11 +1564,29 @@ def build_phase1_object_detail(found, scene_objects=None):
             "Solar-system context resolved from live JPL ephemeris with local sky position and visibility window."
         )
 
+    detail_type = str(detail.get("type") or "").strip().lower()
+    detail_engine = str(detail.get("engine") or "").strip().lower()
     for candidate in scene_objects:
         if not isinstance(candidate, dict):
             continue
         candidate_id = candidate.get("id")
         if candidate_id == found.get("id"):
+            continue
+        candidate_type = str(candidate.get("type") or "").strip().lower()
+        candidate_engine = str(candidate.get("engine") or "").strip().lower()
+        if detail_type in ("planet", "moon"):
+            if candidate_type not in ("planet", "moon"):
+                continue
+            if candidate_engine not in ("solar_system", "planets", "moon"):
+                continue
+        if detail_type == "satellite":
+            if candidate_type != "satellite":
+                continue
+        if detail_engine in ("solar_system", "planets", "moon") and candidate_engine not in (
+            "solar_system",
+            "planets",
+            "moon",
+        ):
             continue
         related.append(
             {
@@ -1567,7 +1602,11 @@ def build_phase1_object_detail(found, scene_objects=None):
     detail["related_objects"] = related
 
     satellite_image_url = str(found.get("satellite_image_url") or "").strip()
-    if satellite_image_url and not _is_blocked_image_url(satellite_image_url):
+    if (
+        satellite_image_url
+        and not _is_blocked_image_url(satellite_image_url)
+        and not _is_mismatched_satellite_image(found, satellite_image_url)
+    ):
         detail["media"] = [
             {
                 "type": "image",

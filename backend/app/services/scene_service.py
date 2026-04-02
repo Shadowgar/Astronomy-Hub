@@ -2,6 +2,7 @@ from copy import deepcopy
 
 from backend.app.services._legacy_scene_logic import (
     build_phase1_scene_state,
+    get_phase2_object_lookup,
     parse_location_override,
 )
 from backend.app.services.scopes_service import (
@@ -95,13 +96,27 @@ def _objects_for_engine(
     objects: list[dict],
     engine: str,
     phase1_state: dict | None = None,
+    parsed_location: dict | None = None,
 ) -> list[dict]:
     if engine == "above_me":
         return list(objects)
     if engine == "deep_sky":
         return [obj for obj in objects if obj.get("type") == "deep_sky"]
     if engine == "planets":
-        return [obj for obj in objects if obj.get("type") == "planet"]
+        planets = [obj for obj in objects if obj.get("type") == "planet"]
+        if planets:
+            return planets
+        fallback_lookup = get_phase2_object_lookup(parsed_location=parsed_location)
+        fallback_planets = [
+            deepcopy(obj)
+            for obj in (fallback_lookup or {}).values()
+            if isinstance(obj, dict)
+            and obj.get("engine") == "planets"
+            and obj.get("type") == "planet"
+            and isinstance(obj.get("visibility"), dict)
+            and obj.get("visibility", {}).get("is_visible") is True
+        ]
+        return fallback_planets
     if engine == "moon":
         moon_objects = []
         for obj in objects:
@@ -117,7 +132,22 @@ def _objects_for_engine(
             normalized = deepcopy(obj)
             normalized["type"] = "moon"
             moon_objects.append(normalized)
-        return moon_objects
+        if moon_objects:
+            return moon_objects
+        fallback_lookup = get_phase2_object_lookup(parsed_location=parsed_location)
+        fallback_moon = next(
+            (
+                deepcopy(obj)
+                for obj in (fallback_lookup or {}).values()
+                if isinstance(obj, dict)
+                and str(obj.get("id") or "").strip().lower() == "moon"
+            ),
+            None,
+        )
+        if isinstance(fallback_moon, dict):
+            fallback_moon["type"] = "moon"
+            return [fallback_moon]
+        return []
     if engine == "satellites":
         return [obj for obj in objects if obj.get("type") == "satellite"]
     if engine == "flights":
@@ -190,7 +220,12 @@ def build_phase2_scope_scene_payload_with_context(
         phase1_scene = build_above_me_scene_payload(parsed_location=parsed_location, as_of=as_of)
 
     scene_objects = _extract_scene_objects(phase1_scene)
-    engine_objects = _objects_for_engine(scene_objects, resolved_engine, phase1_state=phase1_state)
+    engine_objects = _objects_for_engine(
+        scene_objects,
+        resolved_engine,
+        phase1_state=phase1_state,
+        parsed_location=parsed_location,
+    )
     ordered_objects = _sorted_objects(engine_objects)
     filtered_objects = _apply_filter(ordered_objects, resolved_filter, resolved_engine)
 

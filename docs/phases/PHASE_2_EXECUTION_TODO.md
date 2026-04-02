@@ -194,7 +194,7 @@ Satellite output matches reality
 
 ---
 
-# 🔴 STEP 7 — SOLAR SYSTEM ENGINE (ACTIVE)
+# ✅ STEP 7 — SOLAR SYSTEM ENGINE (LOCKED)
 
 SPEC: docs/architecture/SOLAR_SYSTEM_ENGINE_SPEC.md
 
@@ -209,7 +209,7 @@ Planets match real sky
 
 ---
 
-# 🔴 STEP 8 — DEEP SKY ENGINE
+# 🔴 STEP 8 — DEEP SKY ENGINE (ACTIVE)
 
 SPEC: docs/architecture/DEEP_SKY_ENGINE_SPEC.md
 

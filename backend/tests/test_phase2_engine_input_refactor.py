@@ -73,7 +73,7 @@ def test_phase1_scene_uses_provider_backed_engine_inputs(monkeypatch):
     assert any(obj.get("name") == "Kp update" for obj in objects)
 
 
-def test_object_detail_related_objects_come_from_scene_not_mock_alerts():
+def test_object_detail_related_objects_for_solar_objects_stay_in_solar_family():
     found = {
         "id": "moon",
         "name": "Moon",
@@ -92,13 +92,7 @@ def test_object_detail_related_objects_come_from_scene_not_mock_alerts():
             "engine": "planets",
             "summary": "Live ephemeris position",
         },
-        {
-            "id": "deep-sky-kp-update",
-            "name": "Kp update",
-            "type": "deep_sky",
-            "engine": "deep_sky",
-            "summary": "Calm geomagnetic conditions",
-        },
+        {"id": "25544", "name": "ISS", "type": "satellite", "engine": "satellites", "summary": "Pass now"},
     ]
 
     detail = logic.build_phase1_object_detail(found, scene_objects=scene_objects)
@@ -106,5 +100,5 @@ def test_object_detail_related_objects_come_from_scene_not_mock_alerts():
     titles = [item.get("title") for item in related if isinstance(item, dict)]
 
     assert "Mars" in titles
-    assert "Kp update" in titles
+    assert "ISS" not in titles
     assert all(item.get("type") == "object" for item in related if isinstance(item, dict))

@@ -35,7 +35,7 @@ Current phase status:
 
 * Phase 1: COMPLETED (LOCKED)
 * Phase 2: ACTIVE (UNLOCKED)
-* Rebased step status: Step 0 (CONTRACT LOCK) LOCKED; Step 1 (UI LAYOUT FOUNDATION) LOCKED; Step 2 (UI STANDARDIZATION) LOCKED; Step 3 (DETAIL PANEL SYSTEM — UI ONLY) LOCKED; Step 4 (DATA PIPELINE — FOUNDATION) LOCKED; Step 5 (CONDITIONS ENGINE) LOCKED; Step 6 (SATELLITE ENGINE) LOCKED; Step 7 (SOLAR SYSTEM ENGINE) ACTIVE.
+* Rebased step status: Step 0 (CONTRACT LOCK) LOCKED; Step 1 (UI LAYOUT FOUNDATION) LOCKED; Step 2 (UI STANDARDIZATION) LOCKED; Step 3 (DETAIL PANEL SYSTEM — UI ONLY) LOCKED; Step 4 (DATA PIPELINE — FOUNDATION) LOCKED; Step 5 (CONDITIONS ENGINE) LOCKED; Step 6 (SATELLITE ENGINE) LOCKED; Step 7 (SOLAR SYSTEM ENGINE) LOCKED; Step 8 (DEEP SKY ENGINE) ACTIVE.
 * Phase 4 NOAA radar ingestion addendum track: AUTHORIZED when explicitly requested; canonical Phase 4 relationship-system scope remains intact, and this does not override current active Phase 2 step.
 
 ---
@@ -78,7 +78,7 @@ These items are explicitly deferred and do not block corrective exit.
 ## 5. CURRENT OBJECTIVE
 
 ```text
-Execute Phase 2 STEP 7 — SOLAR SYSTEM ENGINE
+Execute Phase 2 STEP 8 — DEEP SKY ENGINE
 with rebased Step 0/1/2/3/4/5/6 lock status preserved.
 ```
 

@@ -52,7 +52,7 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 7 — SOLAR SYSTEM ENGINE
+* current step: PHASE 2 STEP 8 — DEEP SKY ENGINE
 * authorized additive track: Phase 4 NOAA radar ingestion may execute only when explicitly requested; canonical Phase 4 relationship-system scope remains intact, and this does not change Phase 2 active step.
 
 Rebase note:
@@ -94,6 +94,10 @@ Rebase note:
 * step: PHASE 2 STEP 6 — SATELLITE ENGINE (REBASED)
   * result: LOCKED
   * validation: provider-backed satellite input remains enforced in `backend/app/services/live_ingestion.py` with TLE ingestion and fallback chain in `backend/app/services/live_providers.py`; deterministic pass computation + local TLE propagation path + above-horizon filtering are implemented in `backend/app/services/_legacy_scene_logic.py::_build_satellite_engine_slice`; verification passed with `.venv/bin/pytest -q backend/tests/test_phase2_satellite_engine.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_provider_cache_ttl.py` (25 passed) and `.venv/bin/pytest -q backend/tests/test_phase2_engine_input_refactor.py backend/tests/test_phase2_flights_engine_distinct.py` (3 passed).
+
+* step: PHASE 2 STEP 7 — SOLAR SYSTEM ENGINE (REBASED)
+  * result: LOCKED
+  * validation: provider-backed JPL ephemeris object set is active in `backend/app/services/live_providers.py`; deterministic time-context positioning and visibility-window assembly are enforced in `backend/app/services/_legacy_scene_logic.py`; moon scope/detail routing remains stable in `backend/app/services/scene_service.py`; verification passed with `.venv/bin/pytest -q backend/tests/test_phase2_solar_system_engine.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_object_resolution.py` (29 passed).
 
 * step: STEP 1 — AUTHORITATIVE RUNTIME
   * result: LOCKED

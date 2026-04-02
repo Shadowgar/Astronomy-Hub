@@ -16,7 +16,7 @@ const DEFAULT_SCOPE_ENGINE = {
 }
 
 export default function NowAboveMePanel() {
-  const { activeScope, activeEngine, activeFilter, setSelectedObjectId } = useGlobalUiState()
+  const { activeScope, activeEngine, activeFilter, selectedObjectId, setSelectedObjectId } = useGlobalUiState()
   const locationQuery = typeof window !== 'undefined' ? window.location.search : ''
   const queryParams = parseLocationQuery(locationQuery)
   const scope = activeScope || 'above_me'
@@ -41,6 +41,7 @@ export default function NowAboveMePanel() {
               name={item.name}
               reason={item.reason || item.summary || 'Live scene object'}
               marker={item.type || 'object'}
+              isSelected={(item.id || null) === (selectedObjectId || null)}
               onClick={() => setSelectedObjectId(item.id || null)}
             />
           ))}
