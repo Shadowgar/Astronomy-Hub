@@ -879,6 +879,48 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   font-size: var(--token-size-12);
 }
 
+.foundation-modal-strip-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-size-6);
+}
+
+.foundation-modal-strip-controls label {
+  font-size: var(--token-size-12);
+  color: var(--text-muted);
+  font-weight: var(--token-font-weight-semibold);
+}
+
+.foundation-modal-strip-controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--token-size-8);
+}
+
+.foundation-modal-strip-controls-row input {
+  min-width: var(--token-size-170);
+  border: var(--token-border-width-thin) solid var(--surface-border);
+  border-radius: var(--token-size-8);
+  background: var(--surface-base);
+  color: var(--text-primary);
+  padding: var(--token-size-6) var(--token-size-8);
+}
+
+.foundation-modal-strip-controls-row button {
+  border: var(--token-border-width-thin) solid var(--surface-border);
+  border-radius: var(--token-size-8);
+  background: var(--surface-bg);
+  color: var(--text-primary);
+  padding: var(--token-size-6) var(--token-size-8);
+  font-weight: var(--token-font-weight-semibold);
+}
+
+.foundation-modal-strip-error {
+  margin: 0;
+  color: var(--loc-error);
+  font-size: var(--token-size-12);
+}
+
 .foundation-modal-strip-image {
   width: 100%;
   border: var(--token-border-width-thin) solid var(--surface-border);
@@ -886,6 +928,31 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   background: var(--surface-base);
   display: block;
   object-fit: contain;
+}
+
+.foundation-modal-strip-legend {
+  width: 100%;
+  border: var(--token-border-width-thin) solid var(--surface-border);
+  border-radius: var(--token-size-8);
+  background: var(--surface-base);
+  display: block;
+  object-fit: contain;
+}
+
+.foundation-modal-strip-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--token-size-8);
+}
+
+.foundation-modal-strip-links a {
+  color: var(--text-primary);
+  font-size: var(--token-size-12);
+  border: var(--token-border-width-thin) solid var(--surface-border);
+  border-radius: var(--token-size-8);
+  padding: var(--token-size-6) var(--token-size-8);
+  text-decoration: none;
+  background: color-mix(in oklab, var(--surface-bg), transparent 12%);
 }
 
 .foundation-modal-kpi-grid {

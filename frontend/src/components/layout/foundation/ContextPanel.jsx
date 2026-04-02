@@ -68,8 +68,22 @@ function formatMph(value) {
   return `${String(value)} mph`
 }
 
+function formatCoordinate(value, fallback) {
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed)) return fallback
+  return parsed.toFixed(6)
+}
+
+function sanitizeClearSkyKey(value) {
+  if (typeof value !== 'string') return ''
+  const trimmed = value.trim()
+  if (!trimmed) return ''
+  return /^[A-Za-z0-9]+$/.test(trimmed) ? trimmed : ''
+}
+
 export default function ContextPanel() {
   const locationQuery = typeof window !== 'undefined' ? window.location.search : ''
+  const locationParams = useMemo(() => new URLSearchParams(locationQuery), [locationQuery])
   const queryParams = parseLocationQuery(locationQuery)
   const conditionsQuery = useConditionsDataQuery(queryParams)
   const alertsQuery = useAlertsListQuery(queryParams)
@@ -174,8 +188,22 @@ export default function ContextPanel() {
     ? Number(conditions?.radar_frame_step_minutes)
     : 10
   const radarSupportsAnimation = radarFrameUrls.length > 1
-  const clearSkyChartImageUrl = 'https://www.cleardarksky.com/c/OilRegObs2PAcsk.gif'
-  const clearSkyChartPageUrl = 'https://server3.cleardarksky.com/c/OilRegObs2PAkey.html?1'
+  const clearSkyKeyFromQuery = sanitizeClearSkyKey(
+    locationParams.get('clear_sky_key') || locationParams.get('csk_key') || locationParams.get('clearsky_key') || ''
+  )
+  const defaultClearSkyKey = clearSkyKeyFromQuery || 'OilRegObs2PA'
+  const [clearSkyChartKey, setClearSkyChartKey] = useState(defaultClearSkyKey)
+  const [clearSkyKeyInput, setClearSkyKeyInput] = useState(defaultClearSkyKey)
+  const [clearSkyKeyError, setClearSkyKeyError] = useState('')
+  const clearSkyChartImageUrl = `https://www.cleardarksky.com/c/${clearSkyChartKey}csk.gif?1`
+  const clearSkyLegendImageUrl = `https://www.cleardarksky.com/c/${clearSkyChartKey}cs0.gif?1`
+  const clearSkyChartPageUrl = `https://www.cleardarksky.com/c/${clearSkyChartKey}key.html`
+  const clearSkyLat = formatCoordinate(conditions?.location?.latitude ?? queryParams.lat, '41.321903')
+  const clearSkyLon = formatCoordinate(conditions?.location?.longitude ?? queryParams.lon, '-79.585394')
+  const clearSkyFindByPositionUrl = `https://www.cleardarksky.com/cgi-bin/find_chart.py?type=llmap&Mn=optics&olat=${clearSkyLat}&olong=${clearSkyLon}&olatd=&olatm=&olongd=&olongm=&unit=1`
+  const clearSkyNearbyMapUrl = `https://www.cleardarksky.com/cgi-bin/find_chart.py?disp=gmap&type=llmap&radius=100&unit=1&title=Search+Results&keys=&chartid=&skip=0&nrecs=200&olong=${clearSkyLon}&olat=${clearSkyLat}&Mn=optics`
+  const clearSkyChartListUrl = 'https://server3.cleardarksky.com/csk/#chart_list'
+  const clearSkyBigChartListUrl = 'https://server3.cleardarksky.com/csk/big_clist.html'
 
   useEffect(() => {
     if (!isConditionsModalOpen) return
@@ -189,6 +217,12 @@ export default function ContextPanel() {
   }, [isConditionsModalOpen, radarFrameUrls.length])
 
   useEffect(() => {
+    setClearSkyChartKey(defaultClearSkyKey)
+    setClearSkyKeyInput(defaultClearSkyKey)
+    setClearSkyKeyError('')
+  }, [defaultClearSkyKey])
+
+  useEffect(() => {
     if (!isConditionsModalOpen) return undefined
     if (!radarSupportsAnimation) return undefined
     if (!radarPlaybackEnabled || radarFrameUrls.length < 2) return undefined
@@ -199,6 +233,36 @@ export default function ContextPanel() {
 
     return () => window.clearInterval(intervalId)
   }, [isConditionsModalOpen, radarPlaybackEnabled, radarFrameUrls.length, radarSupportsAnimation])
+
+  const applyClearSkyKey = () => {
+    const sanitized = sanitizeClearSkyKey(clearSkyKeyInput)
+    if (!sanitized) {
+      setClearSkyKeyError('Use letters and numbers only.')
+      return
+    }
+    setClearSkyChartKey(sanitized)
+    setClearSkyKeyError('')
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      params.set('clear_sky_key', sanitized)
+      const query = params.toString()
+      window.history.replaceState({}, '', query ? `${window.location.pathname}?${query}` : window.location.pathname)
+    }
+  }
+
+  const resetClearSkyKey = () => {
+    setClearSkyChartKey('OilRegObs2PA')
+    setClearSkyKeyInput('OilRegObs2PA')
+    setClearSkyKeyError('')
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      params.delete('clear_sky_key')
+      params.delete('csk_key')
+      params.delete('clearsky_key')
+      const query = params.toString()
+      window.history.replaceState({}, '', query ? `${window.location.pathname}?${query}` : window.location.pathname)
+    }
+  }
   const decisionRows = useMemo(() => {
     if (!conditions) return []
     return [
@@ -337,21 +401,59 @@ export default function ContextPanel() {
 
               <section className="foundation-modal-strip">
                 <div className="foundation-modal-strip__header">
-                  <h4>ORAS Clear Sky Chart</h4>
+                  <h4>Clear Sky Chart</h4>
                   <a href={clearSkyChartPageUrl} target="_blank" rel="noreferrer">
                     Open full forecast
                   </a>
                 </div>
+                <div className="foundation-modal-strip-controls">
+                  <label htmlFor="clear-sky-key-input">Custom chart key</label>
+                  <div className="foundation-modal-strip-controls-row">
+                    <input
+                      id="clear-sky-key-input"
+                      type="text"
+                      value={clearSkyKeyInput}
+                      onChange={(event) => setClearSkyKeyInput(event.target.value)}
+                      placeholder="OilRegObs2PA"
+                    />
+                    <button type="button" onClick={applyClearSkyKey}>Apply</button>
+                    <button type="button" onClick={resetClearSkyKey}>Use ORAS</button>
+                  </div>
+                  {clearSkyKeyError ? (
+                    <p className="foundation-modal-strip-error" role="alert">{clearSkyKeyError}</p>
+                  ) : null}
+                </div>
                 <p className="foundation-modal-note">
-                  ClearDarkSky chart for ORAS Observatory.
+                  Key: {clearSkyChartKey} · Location: {clearSkyLat}, {clearSkyLon}
                 </p>
                 <img
                   src={clearSkyChartImageUrl}
-                  alt="ORAS Clear Sky Chart"
+                  alt="Clear Sky forecast chart"
                   className="foundation-modal-strip-image"
                   loading="lazy"
                   referrerPolicy="no-referrer"
                 />
+                <img
+                  src={clearSkyLegendImageUrl}
+                  alt="Clear Sky chart legend"
+                  className="foundation-modal-strip-legend"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="foundation-modal-strip-links">
+                  <a href={clearSkyFindByPositionUrl} target="_blank" rel="noreferrer">
+                    Find charts by lat/lon
+                  </a>
+                  <a href={clearSkyNearbyMapUrl} target="_blank" rel="noreferrer">
+                    Nearby chart map
+                  </a>
+                  <a href={clearSkyChartListUrl} target="_blank" rel="noreferrer">
+                    Chart list
+                  </a>
+                  <a href={clearSkyBigChartListUrl} target="_blank" rel="noreferrer">
+                    Big chart list
+                  </a>
+                </div>
               </section>
 
               <section className="foundation-modal-section">
