@@ -1,6 +1,7 @@
 import os
 import json
-from datetime import datetime, timezone
+import urllib.parse
+from datetime import datetime, timedelta, timezone
 
 from backend.app.cache.redis_cache import cache_get, cache_set
 from backend.app.services.live_ingestion import fetch_normalized_live_inputs
@@ -11,6 +12,8 @@ _DEFAULT_LOCATION = {
     "longitude": -79.585394,
     "elevation_ft": 1420.0,
 }
+_RADAR_FRAME_COUNT = 10
+_RADAR_FRAME_STEP_MINUTES = 10
 
 
 def _build_conditions_cache_key(
@@ -60,6 +63,46 @@ def _build_degraded_conditions_data(
     }
 
 
+def _build_noaa_radar_frame_url(location: dict, end_time_utc: datetime) -> str:
+    """Build a location-centered NOAA/NWS event-driven radar frame URL."""
+    lat = float(location.get("latitude") or _DEFAULT_LOCATION["latitude"])
+    lon = float(location.get("longitude") or _DEFAULT_LOCATION["longitude"])
+    lat_min = max(-90.0, lat - 2.0)
+    lat_max = min(90.0, lat + 2.0)
+    lon_min = max(-180.0, lon - 2.0)
+    lon_max = min(180.0, lon + 2.0)
+    if end_time_utc.tzinfo is None:
+        end_time_utc = end_time_utc.replace(tzinfo=timezone.utc)
+    start_time_utc = end_time_utc - timedelta(minutes=_RADAR_FRAME_STEP_MINUTES)
+    time_range = f"{int(start_time_utc.timestamp() * 1000)},{int(end_time_utc.timestamp() * 1000)}"
+    params = {
+        "bbox": f"{lon_min:.3f},{lat_min:.3f},{lon_max:.3f},{lat_max:.3f}",
+        "bboxSR": "4326",
+        "imageSR": "4326",
+        "size": "880,520",
+        "format": "png32",
+        "f": "image",
+        "time": time_range,
+    }
+    return (
+        "https://mapservices.weather.noaa.gov/eventdriven/rest/services/"
+        "radar/radar_base_reflectivity_time/ImageServer/exportImage"
+        f"?{urllib.parse.urlencode(params)}"
+    )
+
+
+def _build_noaa_radar_frames(location: dict, now_utc: datetime) -> list[str]:
+    if now_utc.tzinfo is None:
+        now_utc = now_utc.replace(tzinfo=timezone.utc)
+    latest = now_utc.replace(second=0, microsecond=0)
+    frames: list[str] = []
+    for index in range(_RADAR_FRAME_COUNT):
+        minutes_ago = (_RADAR_FRAME_COUNT - 1 - index) * _RADAR_FRAME_STEP_MINUTES
+        frame_end = latest - timedelta(minutes=minutes_ago)
+        frames.append(_build_noaa_radar_frame_url(location, frame_end))
+    return frames
+
+
 def build_conditions_response(
     lat: str | None = None,
     lon: str | None = None,
@@ -93,6 +136,8 @@ def build_conditions_response(
 
     location = _resolve_location(lat=lat, lon=lon, elevation_ft=elevation_ft)
     now = datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
+    radar_frame_urls = _build_noaa_radar_frames(location, now)
+    radar_image_url = radar_frame_urls[-1] if radar_frame_urls else ""
 
     try:
         live_inputs = fetch_normalized_live_inputs(location, now)
@@ -125,6 +170,11 @@ def build_conditions_response(
             "visibility_m": conditions.get("visibility_m"),
             "temperature_c": conditions.get("temperature_c"),
             "weather_code": conditions.get("weather_code"),
+            "radar_image_url": radar_image_url,
+            "radar_frame_urls": radar_frame_urls,
+            "radar_frame_step_minutes": _RADAR_FRAME_STEP_MINUTES,
+            "radar_source": "noaa_nws_eventdriven",
+            "radar_generated_at": now.isoformat(),
         }
     else:
         data = _build_degraded_conditions_data(
@@ -132,6 +182,11 @@ def build_conditions_response(
             missing_sources=missing_sources,
             timestamp_utc=timestamp_utc,
         )
+        data["radar_image_url"] = radar_image_url
+        data["radar_frame_urls"] = radar_frame_urls
+        data["radar_frame_step_minutes"] = _RADAR_FRAME_STEP_MINUTES
+        data["radar_source"] = "noaa_nws_eventdriven"
+        data["radar_generated_at"] = now.isoformat()
 
     payload = {"status": "ok", "data": data}
     try:

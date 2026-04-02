@@ -33,6 +33,8 @@ export default function ContextPanel() {
   const loading = conditionsQuery.isLoading
   const hasError = conditionsQuery.isError
   const [isConditionsModalOpen, setIsConditionsModalOpen] = useState(false)
+  const [radarFrameIndex, setRadarFrameIndex] = useState(0)
+  const [radarPlaybackEnabled, setRadarPlaybackEnabled] = useState(true)
 
   useEffect(() => {
     if (!isConditionsModalOpen) return undefined
@@ -86,6 +88,38 @@ export default function ContextPanel() {
 
   const fallbackRows = liveBriefingItems.filter((item) => item.name !== 'Observing score')
   const briefingRows = [...dynamicConditionRows, ...fallbackRows]
+  const radarImageUrl = typeof conditions?.radar_image_url === 'string' ? conditions.radar_image_url : ''
+  const radarFrameUrls = Array.isArray(conditions?.radar_frame_urls)
+    ? conditions.radar_frame_urls.filter((url) => typeof url === 'string' && url.trim())
+    : []
+  const activeRadarUrl = radarFrameUrls[radarFrameIndex] || radarImageUrl
+  const radarSource = typeof conditions?.radar_source === 'string' ? conditions.radar_source : ''
+  const radarGeneratedAt = formatUpdatedAt(conditions?.radar_generated_at)
+  const radarFrameStepMinutes = Number.isFinite(conditions?.radar_frame_step_minutes)
+    ? conditions.radar_frame_step_minutes
+    : 10
+
+  useEffect(() => {
+    if (!isConditionsModalOpen) return
+    if (radarFrameUrls.length > 0) {
+      setRadarFrameIndex(radarFrameUrls.length - 1)
+      setRadarPlaybackEnabled(true)
+    } else {
+      setRadarFrameIndex(0)
+      setRadarPlaybackEnabled(false)
+    }
+  }, [isConditionsModalOpen, radarFrameUrls.length])
+
+  useEffect(() => {
+    if (!isConditionsModalOpen) return undefined
+    if (!radarPlaybackEnabled || radarFrameUrls.length < 2) return undefined
+
+    const intervalId = window.setInterval(() => {
+      setRadarFrameIndex((index) => (index >= radarFrameUrls.length - 1 ? 0 : index + 1))
+    }, 1250)
+
+    return () => window.clearInterval(intervalId)
+  }, [isConditionsModalOpen, radarPlaybackEnabled, radarFrameUrls.length])
   const detailRows = useMemo(() => {
     if (!conditions) return []
     return [
@@ -168,6 +202,51 @@ export default function ContextPanel() {
                   </li>
                 ))}
               </ul>
+              {activeRadarUrl ? (
+                <section className="foundation-modal-radar">
+                  <h4>Local radar</h4>
+                  <img
+                    className="foundation-modal-radar-image"
+                    src={activeRadarUrl}
+                    alt="Local radar centered on selected observing location"
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                  />
+                  {radarFrameUrls.length > 1 ? (
+                    <div className="foundation-modal-radar-controls">
+                      <button
+                        type="button"
+                        className="foundation-modal-radar-play"
+                        onClick={() => setRadarPlaybackEnabled((enabled) => !enabled)}
+                      >
+                        {radarPlaybackEnabled ? 'Pause' : 'Play'}
+                      </button>
+                      <input
+                        type="range"
+                        min={0}
+                        max={radarFrameUrls.length - 1}
+                        value={radarFrameIndex}
+                        className="foundation-modal-radar-slider"
+                        onChange={(event) => {
+                          setRadarPlaybackEnabled(false)
+                          setRadarFrameIndex(Number(event.target.value))
+                        }}
+                      />
+                    </div>
+                  ) : null}
+                  <div className="foundation-modal-radar-meta">
+                    {radarFrameUrls.length > 1 ? (
+                      <span>
+                        Frame {radarFrameIndex + 1}/{radarFrameUrls.length} ({radarFrameStepMinutes} min step)
+                      </span>
+                    ) : (
+                      <span>Single latest frame</span>
+                    )}
+                    <span>Source: {radarSource || 'unknown'}</span>
+                    <span>Generated: {radarGeneratedAt}</span>
+                  </div>
+                </section>
+              ) : null}
             </div>
           </section>
         </div>

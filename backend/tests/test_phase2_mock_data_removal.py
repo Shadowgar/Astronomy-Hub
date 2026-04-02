@@ -32,6 +32,10 @@ def test_conditions_response_is_provider_backed_not_static_mock(monkeypatch):
     assert data.get("source") == "open_meteo"
     assert data.get("summary") == "Live weather available"
     assert data.get("degraded") is False
+    assert str(data.get("radar_source") or "") == "noaa_nws_eventdriven"
+    assert "mapservices.weather.noaa.gov" in str(data.get("radar_image_url") or "")
+    assert isinstance(data.get("radar_frame_urls"), list)
+    assert len(data.get("radar_frame_urls") or []) >= 1
 
 
 def test_conditions_response_exposes_degraded_mode_when_provider_missing(monkeypatch):
@@ -59,3 +63,7 @@ def test_conditions_response_exposes_degraded_mode_when_provider_missing(monkeyp
     assert data.get("degraded") is True
     assert data.get("missing_sources") == ["open_meteo"]
     assert "degraded mode is active" in str(data.get("summary") or "").lower()
+    assert str(data.get("radar_source") or "") == "noaa_nws_eventdriven"
+    assert "mapservices.weather.noaa.gov" in str(data.get("radar_image_url") or "")
+    assert isinstance(data.get("radar_frame_urls"), list)
+    assert len(data.get("radar_frame_urls") or []) >= 1
