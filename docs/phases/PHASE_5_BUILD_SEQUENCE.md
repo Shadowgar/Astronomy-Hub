@@ -174,6 +174,7 @@ Verify:
 
 * personalization affects prioritization
 * personalization does NOT affect truth
+* prioritization consumes Conditions Engine V2 decision/metric outputs only (no raw weather text weighting)
 
 ---
 
@@ -228,6 +229,7 @@ Based on:
 
 * predictions
 * preferences
+* current Conditions Engine V2 signal (metrics + decision interpretation)
 
 Verify:
 

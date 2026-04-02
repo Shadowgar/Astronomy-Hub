@@ -117,6 +117,14 @@ Above Me (ONLY)
 * Event / Alert Engine
 * Earth Conditions Engine
 
+### Conditions Baseline Alignment
+
+Phase 1 uses a reduced subset of the Conditions Engine V2 model:
+
+* observing decision output remains required
+* cloud/wind/humidity context must be available
+* richer V2 metrics (seeing/transparency/darkness/smoke) may be partial in Phase 1
+
 ---
 
 ## RULES
@@ -316,6 +324,12 @@ Objects must be actionable.
 * best target
 * immediate opportunities
 * time-sensitive events
+
+Conditions interpretation in Phase 1 must remain decision-first:
+
+* concise quality summary
+* explanation of why now is good/fair/poor
+* no raw weather dump
 
 ---
 

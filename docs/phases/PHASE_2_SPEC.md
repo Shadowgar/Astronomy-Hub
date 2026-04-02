@@ -572,6 +572,28 @@ Used for:
 * visibility-related conditions where available
 * general weather context used by Above Me / Earth decision surfaces
 
+## 18.1A Conditions Engine V2 Alignment (ClearSky-Integrated Model)
+
+Phase 2 conditions behavior must align with `docs/architecture/CONDITIONS_ENGINE_SPEC.md` V2:
+
+* backend returns astronomy metrics + decision + explanation
+* conditions metrics include at minimum:
+  * cloud_cover
+  * transparency
+  * seeing
+  * darkness
+  * smoke (when available)
+  * wind
+  * humidity
+* decision layer includes:
+  * observing_score
+  * confidence
+  * warnings
+  * summary
+  * best_targets (when available in-step)
+
+Do NOT scrape ClearSky directly. Reproduce model behavior from approved providers.
+
 ## 18.2 Satellite Provider Chain (Authoritative Order)
 
 Used for:
@@ -923,6 +945,8 @@ Phase 2 MUST define canonical normalized contracts for the runtime domains it us
 * deep-sky object contract
 * scene object contract
 * scene contract
+
+Conditions contract must support V2 metric expression and decision interpretation fields.
 
 ---
 

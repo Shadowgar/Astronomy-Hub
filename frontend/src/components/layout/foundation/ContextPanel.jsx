@@ -44,6 +44,30 @@ function formatPassStart(value) {
   }
 }
 
+function formatField(value) {
+  if (value === null || value === undefined) return 'Classified'
+  if (typeof value === 'string') {
+    const trimmed = value.trim()
+    return trimmed || 'Classified'
+  }
+  return String(value)
+}
+
+function formatListField(value) {
+  if (!Array.isArray(value) || value.length === 0) return 'None'
+  return value.join(', ')
+}
+
+function formatPercent(value) {
+  if (value === null || value === undefined || value === '') return 'Classified'
+  return `${String(value)}%`
+}
+
+function formatMph(value) {
+  if (value === null || value === undefined || value === '') return 'Classified'
+  return `${String(value)} mph`
+}
+
 export default function ContextPanel() {
   const locationQuery = typeof window !== 'undefined' ? window.location.search : ''
   const queryParams = parseLocationQuery(locationQuery)
@@ -84,15 +108,22 @@ export default function ContextPanel() {
       name: 'Observing score',
       reason: formatConditionsScore(conditions?.observing_score),
       marker: conditions?.degraded ? 'Degraded' : 'Live',
+      onClick: () => setIsConditionsModalOpen(true),
+    },
+    {
+      name: 'Sky quality',
+      reason: `Transparency ${formatField(conditions?.transparency)} · Seeing ${formatField(conditions?.seeing)} · Darkness ${formatField(conditions?.darkness)}`,
+      marker: 'Live',
+      onClick: () => setIsConditionsModalOpen(true),
+    },
+    {
+      name: 'Atmosphere',
+      reason: `Cloud ${formatPercent(conditions?.cloud_cover_pct)} · Humidity ${formatPercent(conditions?.humidity_pct)} · Wind ${formatMph(conditions?.wind_mph)}`,
+      marker: 'Live',
     },
     {
       name: 'Temperature',
       reason: formatTemperatureCF(conditions?.temperature_c),
-      marker: 'Live',
-    },
-    {
-      name: 'Cloud / Visibility',
-      reason: `${conditions?.cloud_cover_pct ?? 'N/A'}% · ${conditions?.visibility_m ?? 'N/A'}m`,
       marker: 'Live',
     },
     nextPass
@@ -143,6 +174,8 @@ export default function ContextPanel() {
     ? Number(conditions?.radar_frame_step_minutes)
     : 10
   const radarSupportsAnimation = radarFrameUrls.length > 1
+  const clearSkyChartImageUrl = 'https://www.cleardarksky.com/c/OilRegObs2PAcsk.gif'
+  const clearSkyChartPageUrl = 'https://server3.cleardarksky.com/c/OilRegObs2PAkey.html?1'
 
   useEffect(() => {
     if (!isConditionsModalOpen) return
@@ -166,23 +199,44 @@ export default function ContextPanel() {
 
     return () => window.clearInterval(intervalId)
   }, [isConditionsModalOpen, radarPlaybackEnabled, radarFrameUrls.length, radarSupportsAnimation])
-  const detailRows = useMemo(() => {
+  const decisionRows = useMemo(() => {
     if (!conditions) return []
     return [
       { label: 'Observing score', value: formatConditionsScore(conditions.observing_score) },
-      { label: 'Summary', value: conditions.summary || 'N/A' },
-      { label: 'Cloud cover', value: conditions.cloud_cover_pct ?? 'N/A' },
-      { label: 'Visibility (m)', value: conditions.visibility_m ?? 'N/A' },
+      { label: 'Confidence', value: formatField(conditions.confidence) },
+      { label: 'Best for', value: formatListField(conditions.best_for) },
+      { label: 'Warnings', value: formatListField(conditions.warnings) },
+      { label: 'Summary', value: formatField(conditions.summary) },
+    ]
+  }, [conditions])
+
+  const metricRows = useMemo(() => {
+    if (!conditions) return []
+    return [
+      { label: 'Transparency', value: formatField(conditions.transparency) },
+      { label: 'Seeing', value: formatField(conditions.seeing) },
+      { label: 'Darkness', value: formatField(conditions.darkness) },
+      { label: 'Moon interference', value: formatField(conditions.moon_interference) },
+      { label: 'Cloud cover', value: formatField(conditions.cloud_cover_pct) },
+      { label: 'Visibility (m)', value: formatField(conditions.visibility_m) },
       { label: 'Temperature (C/F)', value: formatTemperatureCF(conditions.temperature_c) },
-      { label: 'Weather code', value: conditions.weather_code ?? 'N/A' },
-      { label: 'Source', value: conditions.source || 'N/A' },
+      { label: 'Humidity (%)', value: formatField(conditions.humidity_pct) },
+      { label: 'Wind (mph)', value: formatField(conditions.wind_mph) },
+      { label: 'Dew point (C)', value: formatField(conditions.dew_point_c) },
+      { label: 'Smoke', value: formatField(conditions.smoke) },
+    ]
+  }, [conditions])
+
+  const sourceRows = useMemo(() => {
+    if (!conditions) return []
+    return [
+      { label: 'Weather code', value: formatField(conditions.weather_code) },
+      { label: 'Source', value: formatField(conditions.source) },
       { label: 'Last updated', value: formatUpdatedAt(conditions.last_updated) },
       { label: 'Degraded', value: conditions.degraded ? 'Yes' : 'No' },
       {
         label: 'Missing sources',
-        value: Array.isArray(conditions.missing_sources) && conditions.missing_sources.length > 0
-          ? conditions.missing_sources.join(', ')
-          : 'None',
+        value: formatListField(conditions.missing_sources),
       },
     ]
   }, [conditions])
@@ -280,17 +334,61 @@ export default function ContextPanel() {
                   </div>
                 </section>
               ) : null}
-              <p className="foundation-modal-note">
-                Provider-backed conditions payload from the active conditions engine.
-              </p>
-              <ul className="foundation-modal-list">
-                {detailRows.map((row) => (
-                  <li key={row.label} className="foundation-modal-row">
-                    <span className="foundation-modal-label">{row.label}</span>
-                    <span className="foundation-modal-value">{String(row.value)}</span>
-                  </li>
-                ))}
-              </ul>
+
+              <section className="foundation-modal-strip">
+                <div className="foundation-modal-strip__header">
+                  <h4>ORAS Clear Sky Chart</h4>
+                  <a href={clearSkyChartPageUrl} target="_blank" rel="noreferrer">
+                    Open full forecast
+                  </a>
+                </div>
+                <p className="foundation-modal-note">
+                  ClearDarkSky chart for ORAS Observatory.
+                </p>
+                <img
+                  src={clearSkyChartImageUrl}
+                  alt="ORAS Clear Sky Chart"
+                  className="foundation-modal-strip-image"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+              </section>
+
+              <section className="foundation-modal-section">
+                <h4>Observing decision</h4>
+                <div className="foundation-modal-kpi-grid">
+                  {decisionRows.map((row) => (
+                    <article key={row.label} className="foundation-modal-kpi-card">
+                      <span className="foundation-modal-kpi-label">{row.label}</span>
+                      <span className="foundation-modal-kpi-value">{String(row.value)}</span>
+                    </article>
+                  ))}
+                </div>
+              </section>
+
+              <section className="foundation-modal-section">
+                <h4>Conditions metrics</h4>
+                <ul className="foundation-modal-list">
+                  {metricRows.map((row) => (
+                    <li key={row.label} className="foundation-modal-row">
+                      <span className="foundation-modal-label">{row.label}</span>
+                      <span className="foundation-modal-value">{String(row.value)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              <section className="foundation-modal-section">
+                <h4>Provider trace</h4>
+                <ul className="foundation-modal-list">
+                  {sourceRows.map((row) => (
+                    <li key={row.label} className="foundation-modal-row">
+                      <span className="foundation-modal-label">{row.label}</span>
+                      <span className="foundation-modal-value">{String(row.value)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
             </div>
           </section>
         </div>

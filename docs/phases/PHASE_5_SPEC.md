@@ -276,6 +276,9 @@ Based on:
 * current conditions
 * predictions
 
+Conditions input for adaptive prioritization must use Conditions Engine V2 outputs
+(astronomy metrics + decision interpretation), not raw weather text.
+
 ---
 
 ## RULE

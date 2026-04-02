@@ -1,8 +1,8 @@
-# 📄 `CONDITIONS_ENGINE_SPEC.md` (AUTHORITATIVE — V1)
+# 📄 `CONDITIONS_ENGINE_SPEC.md` (AUTHORITATIVE — V2)
 
 ---
 
-# 🌌 OBSERVING CONDITIONS ENGINE — SPECIFICATION
+# 🌌 OBSERVING CONDITIONS ENGINE — V2 (CLEAR SKY INTEGRATED)
 
 ## Status: 🔴 REQUIRED — HIGHEST PRIORITY
 
@@ -10,328 +10,209 @@
 
 ---
 
-# 🧠 PURPOSE
+# 🧠 PURPOSE (UPDATED)
 
-The Observing Conditions Engine is the **primary decision-making layer** of Astronomy Hub.
+Answer:
 
-It answers:
+> “What are the observing conditions right now, and is it worth observing?”
 
-> **“Is tonight worth observing from this location, and why?”**
+With:
 
----
-
-# 🔥 CORE PRINCIPLE
-
-> This engine does NOT return raw weather.
-> It returns a **decision + explanation**.
+* real astronomy metrics
+* transparent reasoning
+* trusted observational model
 
 ---
 
-# 🧱 ROLE IN SYSTEM ARCHITECTURE
+# 🔥 CORE PRINCIPLE (UPDATED)
+
+The engine returns:
 
 ```text
-External Data Sources
+Astronomy conditions + decision + explanation
+```
+
+NOT just a score.
+
+---
+
+# 🧱 ENGINE ARCHITECTURE (NEW)
+
+```text
+External Data (NOAA, etc)
         ↓
-Conditions Engine (Compute + Score)
+Atmospheric Processing Layer
         ↓
-Ranking Layer (affects all engines)
+Astronomy Metrics Layer (ClearSky-aligned)
         ↓
-UI (Hero Panel + Context Panel + Module)
+Decision Engine (scoring + interpretation)
+        ↓
+Scene / UI
 ```
 
 ---
 
-# 🔗 ENGINE DEPENDENCIES
+# 🧪 NEW CORE METRICS (LOCKED)
 
-### Upstream Dependencies
+These are FIRST-CLASS outputs:
 
-* NOAA / NWS weather data
-* NOAA atmospheric models (GFS / HRRR)
-* Moon data (from Solar System Engine)
-* Light pollution dataset (static)
+1. Cloud Cover
+* percentage-based
+* mapped to sky-state quality
 
----
+2. Transparency
+* Poor → Excellent
+* derived from humidity, aerosols, smoke, haze
 
-### Downstream Influence (CRITICAL)
+3. Seeing
+* 1/5 → 5/5 scale
+* derived from wind, temperature gradients, upper atmosphere
 
-This engine directly affects:
+4. Darkness
+* limiting magnitude estimate
+* derived from moon phase, moon altitude, sun position
 
-* Deep Sky Engine (target ranking)
-* Solar System Engine (visibility importance)
-* Satellite Engine (visibility clarity)
-* Astrophotography Engine (future)
-* UI Hero Panel
+5. Smoke
+* PM2.5-equivalent impact
+* affects transparency
 
----
+6. Wind
+* mph
+* usability impact
 
-# 📡 DATA SOURCES (LOCKED)
-
-## 🔹 PRIMARY (REQUIRED)
-
-### NOAA / NWS
-
-* Cloud cover
-* Hourly forecast
-* Wind
-* Humidity
-* Temperature
+7. Humidity
+* dew risk
+* fog formation risk
 
 ---
 
-### NOAA Atmospheric Models (Derived Use)
+# 🧠 KEY SHIFT
 
-* Cloud layers
-* Upper-atmosphere wind (seeing approximation)
-
----
-
-### Moon Data (Internal Dependency)
-
-* Phase
-* Illumination %
-* Rise / Set
-* Altitude
-
----
-
-### Light Pollution (Static Dataset)
-
-* Bortle approximation
-* Stored locally
-
----
-
-## 🔹 OPTIONAL (PHASE 3+)
-
-* Meteoblue (seeing / transparency)
-* Satellite cloud imagery
-* NOAA SWPC integration (partial overlap with Sun Engine)
-
----
-
-# ⚙️ CORE COMPUTATION MODEL
-
-## Inputs
+Instead of:
 
 ```text
-Cloud Cover %
-Wind Speed
-Humidity
-Temperature
-Dew Point
-Moon Phase
-Moon Altitude
-Light Pollution
+observing_score = GOOD
 ```
 
----
-
-## Derived Metrics
-
-### 1. Cloud Score
-
-* < 20% → Excellent
-* 20–50% → Mixed
-* > 50% → Poor
-
----
-
-### 2. Seeing (Approximation)
-
-Derived from:
-
-* wind speed
-* upper atmosphere data
-
-Output:
-
-* Poor / Fair / Good
-
----
-
-### 3. Transparency (Approximation)
-
-Derived from:
-
-* humidity
-* haze
-* cloud layering
-
----
-
-### 4. Moon Interference
-
-* Phase
-* Brightness
-* Position in sky
-
----
-
-### 5. Wind Stability
-
-* Telescope usability
-* Image stability
-
----
-
-# 🧠 FINAL OUTPUT MODEL
-
-## `/api/conditions`
+the contract includes explicit astronomy metrics:
 
 ```json
 {
-  "observing_score": "GOOD",
-  "confidence": "high",
-  "cloud_cover_pct": 12,
-  "seeing": "good",
-  "transparency": "excellent",
-  "moon_interference": "low",
-  "wind_mph": 4,
-  "summary": "Clear skies, stable atmosphere, minimal moon impact"
+  "conditions": {
+    "cloud_cover": "10%",
+    "transparency": "above_average",
+    "seeing": "4/5",
+    "darkness": "5.5 mag",
+    "smoke": "low",
+    "wind": "4 mph",
+    "humidity": "60%"
+  }
 }
 ```
 
 ---
 
-# 🧮 SCORING SYSTEM (V1)
+# 🧮 DECISION LAYER (SYSTEM VALUE)
 
-## Weighted Logic (Phase 2)
+The engine interprets ClearSky-style metrics into a decision:
 
-```text
-Cloud Cover → 40%
-Transparency → 20%
-Seeing → 15%
-Moon → 15%
-Wind → 10%
+```json
+{
+  "observing_score": "EXCELLENT",
+  "confidence": "high",
+  "best_for": ["deep_sky", "planetary"],
+  "warnings": ["light dew risk"],
+  "summary": "Clear skies, strong transparency, and steady seeing make this an excellent observing night."
+}
 ```
 
 ---
 
-## Final Output
+# ⚖️ UPDATED SCORING MODEL
 
-```text
-EXCELLENT
-GOOD
-FAIR
-POOR
+ClearSky-weighted interpretation baseline:
+
+* Cloud Cover → HARD GATE
+* Transparency → HIGH IMPACT
+* Seeing → TARGET-SPECIFIC IMPACT
+* Darkness → CRITICAL FOR DSO
+* Wind → USABILITY IMPACT
+* Smoke → TRANSPARENCY MODIFIER
+
+Example rules:
+
+* cloud > 60% → auto downgrade
+* transparency poor → deep-sky discouraged
+* seeing excellent → planetary boost
+* darkness low → deep-sky penalty
+
+---
+
+# 🧠 TARGET-SPECIFIC RECOMMENDATIONS
+
+The engine supports target suitability output:
+
+```json
+{
+  "best_targets": {
+    "planets": "excellent",
+    "deep_sky": "good",
+    "astrophotography": "fair"
+  }
+}
 ```
 
 ---
 
-# 🖥️ UI INTEGRATION
+# 🖥️ UI IMPACT
 
-## 🔹 Hero Panel (PRIMARY DRIVER)
+Hero panel:
 
-Displays:
+* quality summary (e.g., stars/bar + label)
+* concise interpretation (clear/steady/dark)
+* best-for callouts
+* warnings
 
-* Observing Score
-* Summary
-* Key callouts:
+Context panel:
 
-  * “Best night for deep sky”
-  * “Moon interference high”
-
----
-
-## 🔹 Right Context Panel
-
-Displays:
-
-* Conditions breakdown
-* Alerts
-* Metrics
+* cloud cover
+* transparency
+* seeing
+* darkness
+* wind
+* humidity
+* smoke (when available)
 
 ---
 
-## 🔹 Conditions Module (Grid)
+# 🔄 PHASE ALIGNMENT
 
-Displays:
+## Phase 2 (NOW)
 
-* simplified metrics
-* quick summary
+Keep existing core behavior and add:
 
----
+* transparency model
+* seeing model
+* darkness model
 
-# ⚠️ UI RULES
+## Phase 3
 
-* No raw data dump
-* Always include explanation
-* Always include summary
-* Must be readable in < 5 seconds
+* refine metric accuracy
+* improve atmospheric modeling
 
----
+## Phase 4
 
-# 🔄 SYSTEM BEHAVIOR
-
-## Refresh Frequency
-
-* Every 5–15 minutes
+* NOAA radar integration
+* smoke-model enrichment
+* tighter real-time refresh behavior
 
 ---
 
-## Caching
+# 🚨 IMPORTANT RULES
 
-* Required
-* Avoid excessive API calls
-
----
-
-## Fallback Behavior
-
-If data unavailable:
-
-* Use last known good state
-* Degrade gracefully
-* Mark confidence as LOW
-
----
-
-# 🚀 PHASE BREAKDOWN
-
----
-
-## 🔴 PHASE 2 (REQUIRED — CORE)
-
-### Build:
-
-* Data ingestion (NOAA)
-* Basic computation model
-* Observing score
-* Summary generation
-
-### UI:
-
-* Hero panel integration
-* Context panel display
-* Conditions module
-
-### Constraints:
-
-* No advanced atmospheric modeling
-* No paid APIs
-* Keep logic simple but believable
-
----
-
-## 🟠 PHASE 3 (ENHANCEMENT)
-
-### Add:
-
-* Improved seeing model
-* Transparency refinement
-* Time-based forecasting (tonight timeline)
-* Better moon impact modeling
-
----
-
-## 🟡 PHASE 4+ (ADVANCED)
-
-### Add:
-
-* Astro-specific scoring modes
-* Imaging vs visual modes
-* Forecast windows (multi-hour planning)
-* Integration with astrophotography engine
+* Do NOT scrape ClearSky directly
+* Do NOT depend on ClearSky web infrastructure
+* Reproduce the model behavior using Astronomy Hub provider inputs and normalization
 
 ---
 
@@ -339,10 +220,10 @@ If data unavailable:
 
 1. Must answer “Is tonight worth it?”
 2. Must provide explanation
-3. Must influence ALL engines
-4. Must NOT depend on a single API
+3. Must influence cross-engine relevance where applicable
+4. Must not depend on a single provider
 5. Must degrade gracefully
-6. Must remain simple in Phase 2
+6. Must remain Phase-appropriate (no future-phase leakage)
 
 ---
 
@@ -350,10 +231,10 @@ If data unavailable:
 
 The engine is complete when:
 
-* User opens app and immediately understands conditions
-* Score matches real-world expectations
-* Output is believable
-* Other engines respond to conditions
+* user immediately understands observing quality
+* metrics and decision are coherent and believable
+* output supports target-specific recommendation
+* downstream engine prioritization can consume the conditions decision safely
 
 ---
 
@@ -361,14 +242,5 @@ The engine is complete when:
 
 The Observing Conditions Engine is:
 
-> **The intelligence layer that transforms data into decisions**
+> The intelligence layer that transforms atmospheric/astronomy context into actionable observing decisions.
 
-Without it:
-
-* system = data dashboard
-
-With it:
-
-* system = decision support tool
-
----

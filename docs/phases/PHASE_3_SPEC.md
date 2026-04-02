@@ -114,6 +114,12 @@ Every immersive scene must feel like a space, not a panel.
 * orbital map
 * solar system
 
+### Conditions V2 Spatial Carryover
+
+Spatial scenes must consume the same backend-authored Conditions V2 decision/metrics contract.
+
+Phase 3 may change visual representation, but must not fork conditions truth or scoring ownership.
+
 ---
 
 ## REQUIREMENTS
@@ -457,4 +463,3 @@ but never sacrifices clarity or control.
 ```
 
 ```
-

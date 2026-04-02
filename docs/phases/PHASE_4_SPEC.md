@@ -565,3 +565,11 @@ Knowledge-graph work and NOAA radar track work must both preserve:
 * normalized contracts
 * deterministic behavior
 * Scope -> Engine -> Filter -> Scene -> Object -> Detail law
+
+## 17.7 Conditions V2 Compatibility (Required)
+
+NOAA radar addendum output must remain compatible with Conditions Engine V2:
+
+* radar and smoke enrich conditions interpretation
+* radar block is additive and backend-authored
+* V2 metrics/decision fields remain stable for frontend consumption

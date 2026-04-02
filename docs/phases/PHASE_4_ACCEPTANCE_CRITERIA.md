@@ -495,6 +495,7 @@ This addendum is additive and does not remove or invalidate the canonical relati
 
 * [ ] Conditions payload includes radar block from backend
 * [ ] Radar degraded mode is explicit when unavailable
+* [ ] Radar/smoke addendum does not break Conditions V2 decision+metrics contract fields
 
 ### FAIL CONDITIONS
 

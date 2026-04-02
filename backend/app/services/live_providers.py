@@ -86,6 +86,13 @@ def _haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     return 2 * r * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
 
+def _normalize_band(value: float, bands: tuple[tuple[float, str], ...], default: str) -> str:
+    for threshold, label in bands:
+        if value <= threshold:
+            return label
+    return default
+
+
 def fetch_open_meteo_conditions(lat: float, lon: float) -> dict[str, Any] | None:
     now_hour = datetime.now(timezone.utc).strftime("%Y%m%d%H")
     cache_key = f"open_meteo:{round(lat, 3)}:{round(lon, 3)}:{now_hour}"
@@ -98,7 +105,10 @@ def fetch_open_meteo_conditions(lat: float, lon: float) -> dict[str, Any] | None
         params={
             "latitude": lat,
             "longitude": lon,
-            "current": "cloud_cover,visibility,temperature_2m,weather_code",
+            "current": (
+                "cloud_cover,visibility,temperature_2m,weather_code,"
+                "relative_humidity_2m,wind_speed_10m,dew_point_2m"
+            ),
             "timezone": "UTC",
         },
         timeout_s=4.0,
@@ -112,6 +122,10 @@ def fetch_open_meteo_conditions(lat: float, lon: float) -> dict[str, Any] | None
     temperature_c = float(current.get("temperature_2m") or 0.0)
     temperature_f = (temperature_c * 9.0 / 5.0) + 32.0
     weather_code = int(round(float(current.get("weather_code") or 0)))
+    humidity_pct = int(round(float(current.get("relative_humidity_2m") or 0)))
+    wind_speed_kmh = float(current.get("wind_speed_10m") or 0.0)
+    wind_mph = wind_speed_kmh * 0.621371
+    dew_point_c = float(current.get("dew_point_2m") or temperature_c)
 
     # Deterministic observing label from cloud/visibility.
     if cloud_cover <= 20 and visibility_m >= 12000:
@@ -123,10 +137,44 @@ def fetch_open_meteo_conditions(lat: float, lon: float) -> dict[str, Any] | None
     else:
         observing_score = "poor"
 
+    if visibility_m >= 15000 and cloud_cover <= 25 and humidity_pct <= 70:
+        transparency = "excellent"
+    elif visibility_m >= 10000 and cloud_cover <= 45 and humidity_pct <= 80:
+        transparency = "above_average"
+    elif visibility_m >= 7000 and cloud_cover <= 65:
+        transparency = "average"
+    else:
+        transparency = "poor"
+
+    seeing = _normalize_band(
+        wind_mph,
+        (
+            (5.0, "5/5"),
+            (10.0, "4/5"),
+            (16.0, "3/5"),
+            (23.0, "2/5"),
+        ),
+        "1/5",
+    )
+
+    smoke = "unknown"
+    if visibility_m >= 12000 and humidity_pct <= 80:
+        smoke = "low"
+    elif visibility_m >= 8000:
+        smoke = "moderate"
+    elif visibility_m > 0:
+        smoke = "high"
+
     result = {
         "cloud_cover_pct": max(0, min(100, cloud_cover)),
         "visibility_m": max(0, visibility_m),
         "temperature_c": temperature_c,
+        "humidity_pct": max(0, min(100, humidity_pct)),
+        "wind_mph": round(max(0.0, wind_mph), 1),
+        "dew_point_c": round(dew_point_c, 1),
+        "transparency": transparency,
+        "seeing": seeing,
+        "smoke": smoke,
         "weather_code": weather_code,
         "observing_score": observing_score,
         "summary": (

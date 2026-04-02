@@ -445,6 +445,12 @@ Required outputs must exist and be usable:
 * immediate opportunities
 * time-sensitive events
 
+Conditions decision check (Phase 1 baseline):
+
+* conditions output is explanatory (not raw weather)
+* score/summary is coherent with cloud/wind/humidity context
+* no frontend-authored interpretation
+
 Verify:
 
 * each surfaced item explains why it matters

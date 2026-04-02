@@ -169,6 +169,8 @@ SPEC: docs/architecture/CONDITIONS_ENGINE_SPEC.md
 - ingestion works
 - score computed
 - summary generated
+- clear-sky-aligned metrics present (transparency, seeing, darkness; smoke when available)
+- decision includes explanation/warnings
 
 ## LOCK CONDITION
 

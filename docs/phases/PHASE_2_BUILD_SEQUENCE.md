@@ -166,6 +166,8 @@ SPEC: docs/architecture/CONDITIONS_ENGINE_SPEC.md
 * Open-Meteo ingestion working
 * observing score computed
 * summary generated
+* clear-sky-aligned metrics surfaced (transparency, seeing, darkness; smoke when available)
+* decision output includes explanation and warnings
 * output matches spec contract
 
 ---

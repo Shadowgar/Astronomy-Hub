@@ -521,6 +521,7 @@ Radar responses are stable and freshness-aware.
 
 * conditions payload includes normalized radar block
 * degraded mode is explicit when radar is unavailable
+* radar/smoke enrichment remains compatible with Conditions Engine V2 metric+decision contract
 
 ### LOCK CONDITION
 

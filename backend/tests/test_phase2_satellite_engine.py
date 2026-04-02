@@ -231,3 +231,16 @@ def test_satellite_detail_defaults_missing_metadata_to_classified():
     assert related_map.get("Operator / company") == "Classified"
     assert related_map.get("Mission / purpose") == "Classified"
     assert detail.get("summary") == "Demo Sat — mission classified."
+
+
+def test_satellite_detail_does_not_fallback_to_iss_image_for_unknown_satellite():
+    satellite_object = {
+        "id": "solrad",
+        "name": "SOLRAD",
+        "type": "satellite",
+        "engine": "satellite",
+        "summary": "Live pass candidate around 2026-03-31T15:42:00Z",
+    }
+    detail = build_phase1_object_detail(satellite_object, scene_objects=[satellite_object])
+    media = detail.get("media") or []
+    assert media == []

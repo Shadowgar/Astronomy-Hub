@@ -529,6 +529,8 @@ User MUST be able to:
 * [ ] satellites accurate
 * [ ] planets accurate
 * [ ] conditions believable
+* [ ] conditions expose clear-sky-aligned metrics (cloud/transparency/seeing/darkness/wind/humidity; smoke when available)
+* [ ] conditions decision includes explanation (summary/warnings) and is not raw weather text
 * [ ] events timely
 
 ---

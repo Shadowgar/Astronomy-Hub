@@ -35,6 +35,12 @@ def test_pipeline_normalizes_and_whitelists_provider_data(monkeypatch):
             "cloud_cover_pct": 22,
             "visibility_m": 11000,
             "temperature_c": 7.0,
+            "humidity_pct": 62,
+            "wind_mph": 5.4,
+            "dew_point_c": 2.1,
+            "transparency": "above_average",
+            "seeing": "4/5",
+            "smoke": "low",
             "weather_code": 1,
             "observing_score": "good",
             "summary": "clear",
@@ -94,6 +100,17 @@ def test_pipeline_normalizes_and_whitelists_provider_data(monkeypatch):
     assert payload["provider_trace"]["pipeline"] == "Provider->Adapter->Normalizer->Validator->Cache->EngineInput"
     assert payload["conditions"]["source"] == "open_meteo"
     assert "raw_field" not in payload["conditions"]
+    assert payload["conditions"]["transparency"] == "above_average"
+    assert payload["conditions"]["seeing"] == "4/5"
+    assert payload["conditions"]["smoke"] == "low"
+    assert isinstance(payload["conditions"]["warnings"], list)
+    assert isinstance(payload["conditions"]["best_for"], list)
+    assert isinstance(payload["conditions"]["conditions"], dict)
+    assert payload["conditions"]["conditions"]["cloud_cover"] == "22%"
+    assert payload["conditions"]["conditions"]["transparency"] == "above_average"
+    assert payload["conditions"]["conditions"]["seeing"] == "4/5"
+    assert payload["conditions"]["conditions"]["wind"] == "5.4 mph"
+    assert payload["conditions"]["conditions"]["humidity"] == "62%"
     assert payload["satellites"][0]["id"] == "25544"
     assert payload["satellites"][0]["name"] == "ISS"
     assert payload["satellites"][0]["source"] == "celestrak"

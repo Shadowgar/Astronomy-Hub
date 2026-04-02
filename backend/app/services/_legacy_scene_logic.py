@@ -578,12 +578,23 @@ def _build_earth_engine_slice(parsed_location=None, live_inputs=None):
                 "observing_score": conditions.get("observing_score") or "fair",
                 "moon_phase": "Unknown",
                 "summary": conditions.get("summary") or "Live observing conditions.",
+                "confidence": conditions.get("confidence") or "medium",
+                "warnings": list(conditions.get("warnings") or []),
+                "best_for": list(conditions.get("best_for") or []),
                 "degraded": bool(missing_sources),
                 "missing_sources": missing_sources,
                 "last_updated": conditions.get("last_updated"),
                 "cloud_cover_pct": conditions.get("cloud_cover_pct"),
                 "visibility_m": conditions.get("visibility_m"),
                 "temperature_c": conditions.get("temperature_c"),
+                "humidity_pct": conditions.get("humidity_pct"),
+                "wind_mph": conditions.get("wind_mph"),
+                "dew_point_c": conditions.get("dew_point_c"),
+                "transparency": conditions.get("transparency"),
+                "seeing": conditions.get("seeing"),
+                "darkness": conditions.get("darkness"),
+                "smoke": conditions.get("smoke"),
+                "moon_interference": conditions.get("moon_interference"),
             }
 
     if response.get("degraded") and parsed_location is None:
@@ -686,6 +697,13 @@ def _build_phase2_observing_context(parsed_location=None):
         "observing_score": conditions.get("observing_score"),
         "moon_phase": conditions.get("moon_phase"),
         "summary": conditions.get("summary"),
+        "confidence": conditions.get("confidence"),
+        "warnings": conditions.get("warnings"),
+        "best_for": conditions.get("best_for"),
+        "transparency": conditions.get("transparency"),
+        "seeing": conditions.get("seeing"),
+        "darkness": conditions.get("darkness"),
+        "smoke": conditions.get("smoke"),
     }
 
 
@@ -1237,11 +1255,7 @@ def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
 def _fallback_media_for_type(obj_type):
     """Deterministic fallback media to keep detail payloads usable."""
     if obj_type == "satellite":
-        return {
-            "type": "image",
-            "url": "https://db-satnogs.freetls.fastly.net/media/satellites/ISS.jpg",
-            "source": "satnogs",
-        }
+        return None
     if obj_type == "planet":
         return {
             "type": "image",
@@ -1414,6 +1428,10 @@ def build_phase1_object_detail(found, scene_objects=None):
         pass
 
     if not detail.get("media"):
-        detail["media"] = [_fallback_media_for_type(found.get("type"))]
+        fallback = _fallback_media_for_type(found.get("type"))
+        if fallback:
+            detail["media"] = [fallback]
+        else:
+            detail["media"] = []
 
     return detail

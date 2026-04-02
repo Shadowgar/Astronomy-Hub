@@ -223,6 +223,15 @@ For EACH engine:
   - reasoning
 
 - [ ] Observing score present and believable
+- [ ] ClearSky-aligned metrics surfaced:
+  - cloud cover
+  - transparency
+  - seeing
+  - darkness
+  - wind
+  - humidity
+  - smoke (when available)
+- [ ] Conditions decision includes explanation + warnings (not raw weather dump)
 
 ---
 

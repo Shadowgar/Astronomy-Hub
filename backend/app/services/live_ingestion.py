@@ -78,6 +78,12 @@ def _adapt_conditions(raw: Any) -> dict[str, Any] | None:
             "cloud_cover_pct": int(raw.get("cloud_cover_pct", 100)),
             "visibility_m": int(raw.get("visibility_m", 0)),
             "temperature_c": float(raw.get("temperature_c", 0.0)),
+            "humidity_pct": int(raw.get("humidity_pct", 0)),
+            "wind_mph": float(raw.get("wind_mph", 0.0)),
+            "dew_point_c": float(raw.get("dew_point_c", raw.get("temperature_c", 0.0))),
+            "transparency": str(raw.get("transparency") or "unknown"),
+            "seeing": str(raw.get("seeing") or "unknown"),
+            "smoke": str(raw.get("smoke") or "unknown"),
             "weather_code": int(raw.get("weather_code", 0)),
             "observing_score": str(raw.get("observing_score") or "fair"),
             "summary": str(raw.get("summary") or ""),
@@ -226,12 +232,130 @@ def _normalize_conditions(adapted: dict[str, Any] | None) -> dict[str, Any] | No
         "cloud_cover_pct": max(0, min(100, int(adapted.get("cloud_cover_pct") or 0))),
         "visibility_m": max(0, int(adapted.get("visibility_m") or 0)),
         "temperature_c": float(adapted.get("temperature_c") or 0.0),
+        "humidity_pct": max(0, min(100, int(adapted.get("humidity_pct") or 0))),
+        "wind_mph": max(0.0, float(adapted.get("wind_mph") or 0.0)),
+        "dew_point_c": float(adapted.get("dew_point_c") or adapted.get("temperature_c") or 0.0),
+        "transparency": str(adapted.get("transparency") or "unknown").strip().lower(),
+        "seeing": str(adapted.get("seeing") or "unknown").strip(),
+        "smoke": str(adapted.get("smoke") or "unknown").strip().lower(),
         "weather_code": int(adapted.get("weather_code") or 0),
         "observing_score": str(adapted.get("observing_score") or "fair"),
         "summary": str(adapted.get("summary") or ""),
         "last_updated": str(adapted.get("last_updated") or ""),
         "source": "open_meteo",
     }
+
+
+def _classify_darkness(norm_ephemeris: list[dict[str, Any]], cloud_cover_pct: int) -> tuple[str, str]:
+    moon_elevation = None
+    for body in norm_ephemeris:
+        if not isinstance(body, dict):
+            continue
+        body_id = str(body.get("id") or "").strip()
+        body_name = str(body.get("name") or "").strip().lower()
+        if body_id == "301" or body_name == "moon":
+            try:
+                moon_elevation = float(body.get("elevation"))
+            except Exception:
+                moon_elevation = None
+            break
+
+    darkness_mag = 5.8
+    if moon_elevation is not None:
+        if moon_elevation > 45:
+            darkness_mag -= 1.6
+        elif moon_elevation > 20:
+            darkness_mag -= 1.0
+        elif moon_elevation > 0:
+            darkness_mag -= 0.5
+    darkness_mag -= min(1.2, (max(0, int(cloud_cover_pct)) / 100.0) * 1.2)
+    darkness_mag = max(2.5, min(6.2, darkness_mag))
+
+    if moon_elevation is None:
+        moon_interference = "unknown"
+    elif moon_elevation <= 0:
+        moon_interference = "low"
+    elif moon_elevation <= 25:
+        moon_interference = "moderate"
+    else:
+        moon_interference = "high"
+
+    return (f"{darkness_mag:.1f} mag", moon_interference)
+
+
+def _derive_best_for(observing_score: str, transparency: str, seeing: str, darkness: str) -> list[str]:
+    score = str(observing_score or "").strip().lower()
+    out: list[str] = []
+    darkness_value = None
+    try:
+        darkness_value = float(str(darkness).split()[0])
+    except Exception:
+        darkness_value = None
+
+    if seeing in {"5/5", "4/5"}:
+        out.append("planetary")
+    if transparency in {"excellent", "above_average"} and darkness_value is not None and darkness_value >= 4.8:
+        out.append("deep_sky")
+    if score in {"excellent", "good"} and transparency in {"excellent", "above_average", "average"}:
+        out.append("astrophotography")
+    return out
+
+
+def _derive_warnings(cloud_cover_pct: int, humidity_pct: int, smoke: str, wind_mph: float) -> list[str]:
+    warnings: list[str] = []
+    if cloud_cover_pct > 60:
+        warnings.append("heavy cloud interference")
+    if humidity_pct >= 85:
+        warnings.append("light dew risk")
+    if smoke in {"high", "moderate"}:
+        warnings.append("reduced transparency due to smoke/haze")
+    if wind_mph >= 18:
+        warnings.append("wind may affect telescope stability")
+    return warnings
+
+
+def _enrich_conditions_v2(norm_conditions: dict[str, Any] | None, norm_ephemeris: list[dict[str, Any]]) -> dict[str, Any] | None:
+    if not isinstance(norm_conditions, dict):
+        return None
+
+    cloud_cover_pct = max(0, min(100, int(norm_conditions.get("cloud_cover_pct") or 0)))
+    humidity_pct = max(0, min(100, int(norm_conditions.get("humidity_pct") or 0)))
+    wind_mph = max(0.0, float(norm_conditions.get("wind_mph") or 0.0))
+    transparency = str(norm_conditions.get("transparency") or "unknown").strip().lower()
+    seeing = str(norm_conditions.get("seeing") or "unknown").strip()
+    smoke = str(norm_conditions.get("smoke") or "unknown").strip().lower()
+
+    darkness, moon_interference = _classify_darkness(norm_ephemeris, cloud_cover_pct)
+    warnings = _derive_warnings(cloud_cover_pct, humidity_pct, smoke, wind_mph)
+    best_for = _derive_best_for(
+        str(norm_conditions.get("observing_score") or ""),
+        transparency,
+        seeing,
+        darkness,
+    )
+
+    confidence = "high"
+    if transparency == "unknown" or seeing == "unknown":
+        confidence = "medium"
+    if moon_interference == "unknown":
+        confidence = "low" if confidence == "medium" else "medium"
+
+    enriched = dict(norm_conditions)
+    enriched["darkness"] = darkness
+    enriched["moon_interference"] = moon_interference
+    enriched["confidence"] = confidence
+    enriched["warnings"] = warnings
+    enriched["best_for"] = best_for
+    enriched["conditions"] = {
+        "cloud_cover": f"{cloud_cover_pct}%",
+        "transparency": transparency,
+        "seeing": seeing,
+        "darkness": darkness,
+        "smoke": smoke,
+        "wind": f"{wind_mph:.1f} mph",
+        "humidity": f"{humidity_pct}%",
+    }
+    return enriched
 
 
 def _normalize_list(items: list[dict[str, Any]], source: str, allowed: tuple[str, ...]) -> list[dict[str, Any]]:
@@ -452,6 +576,7 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
     norm_ephemeris = _normalize_list(adapted_ephemeris, "jpl_ephemeris", ("id", "name", "azimuth", "elevation"))
     norm_alerts = _normalize_list(adapted_alerts, "noaa_swpc", ("priority", "category", "title", "summary", "relevance"))
     norm_radar = _normalize_radar(adapted_radar)
+    norm_conditions = _enrich_conditions_v2(norm_conditions, norm_ephemeris)
 
     cond_ok, cond_reason = _validate_conditions(norm_conditions, now)
     sat_ok, sat_reason = _validate_list(norm_sats, ("id", "name"))

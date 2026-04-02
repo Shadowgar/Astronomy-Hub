@@ -197,6 +197,7 @@ If any condition cannot be proven → Phase 5 is NOT complete.
 
   * predictions
   * user preferences
+  * Conditions Engine V2 metric/decision signal
 
 * [ ] Behavior remains:
 
@@ -210,6 +211,7 @@ If any condition cannot be proven → Phase 5 is NOT complete.
 * random prioritization
 * hidden weighting
 * inconsistent ranking
+* prioritization logic depends on raw weather strings instead of normalized conditions contract
 
 ---
 
@@ -370,4 +372,3 @@ System must remain deterministic, explainable, and controlled.
 ```
 
 ```
-
