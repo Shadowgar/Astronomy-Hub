@@ -9,6 +9,7 @@ from backend.app.services.live_providers import (
     PROVIDER_CACHE_TTL_SECONDS,
     fetch_celestrak_active,
     fetch_jpl_ephemeris,
+    fetch_noaa_radar_eventdriven,
     fetch_open_meteo_conditions,
     fetch_opensky_nearby,
     fetch_swpc_alerts,
@@ -184,6 +185,22 @@ def _adapt_alerts(raw: Any) -> list[dict[str, Any]]:
     return out
 
 
+def _adapt_radar(raw: Any) -> dict[str, Any] | None:
+    if not isinstance(raw, dict):
+        return None
+    frame_urls = raw.get("frame_urls")
+    if not isinstance(frame_urls, list):
+        frame_urls = []
+    return {
+        "source": str(raw.get("source") or "noaa_nws_eventdriven").strip(),
+        "generated_at": str(raw.get("generated_at") or ""),
+        "frame_step_minutes": int(raw.get("frame_step_minutes") or 10),
+        "frame_urls": [str(url).strip() for url in frame_urls if isinstance(url, str) and str(url).strip()],
+        "image_url": str(raw.get("image_url") or "").strip(),
+        "coverage_note": str(raw.get("coverage_note") or "").strip(),
+    }
+
+
 def _normalize_conditions(adapted: dict[str, Any] | None) -> dict[str, Any] | None:
     if not isinstance(adapted, dict):
         return None
@@ -210,6 +227,27 @@ def _normalize_list(items: list[dict[str, Any]], source: str, allowed: tuple[str
     return out
 
 
+def _normalize_radar(adapted: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not isinstance(adapted, dict):
+        return None
+    frame_urls = [
+        str(url).strip()
+        for url in (adapted.get("frame_urls") or [])
+        if isinstance(url, str) and str(url).strip()
+    ]
+    image_url = str(adapted.get("image_url") or "").strip()
+    if not image_url and frame_urls:
+        image_url = frame_urls[-1]
+    return {
+        "source": str(adapted.get("source") or "noaa_nws_eventdriven").strip(),
+        "generated_at": str(adapted.get("generated_at") or ""),
+        "frame_step_minutes": max(1, int(adapted.get("frame_step_minutes") or 10)),
+        "frame_urls": frame_urls,
+        "image_url": image_url,
+        "coverage_note": str(adapted.get("coverage_note") or "").strip(),
+    }
+
+
 def _validate_conditions(normalized: dict[str, Any] | None, now: datetime) -> tuple[bool, str]:
     if not isinstance(normalized, dict):
         return (False, "invalid_payload")
@@ -221,6 +259,21 @@ def _validate_conditions(normalized: dict[str, Any] | None, now: datetime) -> tu
         return (False, "invalid_timestamp")
     if (now - updated_at).total_seconds() > 6 * 3600:
         return (False, "stale")
+    return (True, "ok")
+
+
+def _validate_radar(normalized: dict[str, Any] | None) -> tuple[bool, str]:
+    if not isinstance(normalized, dict):
+        return (False, "invalid_payload")
+    image_url = str(normalized.get("image_url") or "").strip()
+    source = str(normalized.get("source") or "").strip()
+    frame_urls = normalized.get("frame_urls")
+    if not source:
+        return (False, "missing_source")
+    if not image_url:
+        return (False, "missing_image_url")
+    if not isinstance(frame_urls, list):
+        return (False, "invalid_frames")
     return (True, "ok")
 
 
@@ -293,6 +346,7 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
     raw_flights = None
     raw_ephemeris = None
     raw_alerts = None
+    raw_radar = None
 
     try:
         raw_conditions = fetch_open_meteo_conditions(lat, lon)
@@ -314,12 +368,17 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
         raw_alerts = fetch_swpc_alerts(limit=3)
     except Exception:
         raw_alerts = None
+    try:
+        raw_radar = fetch_noaa_radar_eventdriven(lat, lon, as_of=now)
+    except Exception:
+        raw_radar = None
 
     adapted_conditions = _adapt_conditions(raw_conditions)
     adapted_sats = _adapt_sats(raw_sats)
     adapted_flights = _adapt_flights(raw_flights)
     adapted_ephemeris = _adapt_ephemeris(raw_ephemeris)
     adapted_alerts = _adapt_alerts(raw_alerts)
+    adapted_radar = _adapt_radar(raw_radar)
 
     norm_conditions = _normalize_conditions(adapted_conditions)
     norm_sats = []
@@ -365,6 +424,7 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
     )
     norm_ephemeris = _normalize_list(adapted_ephemeris, "jpl_ephemeris", ("id", "name", "azimuth", "elevation"))
     norm_alerts = _normalize_list(adapted_alerts, "noaa_swpc", ("priority", "category", "title", "summary", "relevance"))
+    norm_radar = _normalize_radar(adapted_radar)
 
     cond_ok, cond_reason = _validate_conditions(norm_conditions, now)
     sat_ok, sat_reason = _validate_list(norm_sats, ("id", "name"))
@@ -377,6 +437,7 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
     )
     eph_ok, eph_reason = _validate_list(norm_ephemeris, ("id", "name", "azimuth", "elevation"))
     alert_ok, alert_reason = _validate_list(norm_alerts, ("priority", "category", "title", "summary", "relevance"))
+    radar_ok, radar_reason = _validate_radar(norm_radar)
 
     sat_reason_effective = sat_reason
     if sat_ok and norm_sats:
@@ -390,6 +451,7 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
         "opensky": _provider_status(flight_ok, flight_reason, "miss"),
         "jpl_ephemeris": _provider_status(eph_ok, eph_reason, "miss"),
         "noaa_swpc": _provider_status(alert_ok, alert_reason, "miss"),
+        "noaa_nws_radar": _provider_status(radar_ok, radar_reason, "miss"),
     }
 
     missing_sources = [name for name, status in providers.items() if not bool(status.get("ok"))]
@@ -399,6 +461,7 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
         "flights": norm_flights if flight_ok else [],
         "ephemeris": norm_ephemeris if eph_ok else [],
         "alerts": norm_alerts if alert_ok else [],
+        "radar": norm_radar if radar_ok else None,
         "provider_trace": {
             "timestamp_utc": _iso_utc(now),
             "freshness": _freshness_trace(now, cache_state="miss"),

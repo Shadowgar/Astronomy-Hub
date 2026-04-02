@@ -11,6 +11,20 @@ def _now():
     return datetime(2026, 3, 31, 12, 0, tzinfo=timezone.utc)
 
 
+def _radar_payload():
+    return {
+        "source": "noaa_nws_eventdriven",
+        "generated_at": "2026-03-31T12:00:00Z",
+        "frame_step_minutes": 10,
+        "frame_urls": [
+            "https://mapservices.weather.noaa.gov/eventdriven/rest/services/radar/radar_base_reflectivity_time/ImageServer/exportImage?bbox=-77.000,39.000,-73.000,43.000&time=1,2",
+            "https://mapservices.weather.noaa.gov/eventdriven/rest/services/radar/radar_base_reflectivity_time/ImageServer/exportImage?bbox=-77.000,39.000,-73.000,43.000&time=3,4",
+        ],
+        "image_url": "https://mapservices.weather.noaa.gov/eventdriven/rest/services/radar/radar_base_reflectivity_time/ImageServer/exportImage?bbox=-77.000,39.000,-73.000,43.000&time=3,4",
+        "coverage_note": "NOAA NWS event-driven base reflectivity image export.",
+    }
+
+
 def test_pipeline_normalizes_and_whitelists_provider_data(monkeypatch):
     live_ingestion._clear_ingestion_cache_for_tests()
 
@@ -68,6 +82,11 @@ def test_pipeline_normalizes_and_whitelists_provider_data(monkeypatch):
         "fetch_swpc_alerts",
         lambda limit=3: [{"priority": "notice", "category": "space_weather", "title": "Kp", "summary": "Calm", "relevance": "low"}],
     )
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_noaa_radar_eventdriven",
+        lambda lat, lon, as_of=None: _radar_payload(),
+    )
 
     payload = live_ingestion.fetch_normalized_live_inputs(_loc(), _now())
 
@@ -86,6 +105,10 @@ def test_pipeline_normalizes_and_whitelists_provider_data(monkeypatch):
     assert "provider_extra" not in payload["flights"][0]
     assert payload["ephemeris"][0]["source"] == "jpl_ephemeris"
     assert payload["alerts"][0]["source"] == "noaa_swpc"
+    assert payload["radar"]["source"] == "noaa_nws_eventdriven"
+    assert payload["radar"]["image_url"].startswith("https://mapservices.weather.noaa.gov")
+    assert isinstance(payload["radar"]["frame_urls"], list)
+    assert payload["provider_trace"]["providers"]["noaa_nws_radar"]["ok"] is True
 
 
 def test_stale_conditions_are_rejected_and_degraded(monkeypatch):
@@ -108,6 +131,11 @@ def test_stale_conditions_are_rejected_and_degraded(monkeypatch):
     monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
     monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None, as_of=None: [])
     monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_noaa_radar_eventdriven",
+        lambda lat, lon, as_of=None: _radar_payload(),
+    )
 
     payload = live_ingestion.fetch_normalized_live_inputs(_loc(), _now())
 
@@ -139,12 +167,18 @@ def test_pipeline_cache_prevents_refetch_for_same_context(monkeypatch):
     monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
     monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None, as_of=None: [])
     monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_noaa_radar_eventdriven",
+        lambda lat, lon, as_of=None: _radar_payload(),
+    )
 
     first = live_ingestion.fetch_normalized_live_inputs(_loc(), _now())
     second = live_ingestion.fetch_normalized_live_inputs(_loc(), _now())
 
     assert calls["open_meteo"] == 1
     assert first["conditions"] == second["conditions"]
+    assert first["radar"] == second["radar"]
     assert second["provider_trace"]["providers"]["open_meteo"]["stages"]["cache"] == "hit"
     assert second["provider_trace"]["freshness"]["ingestion_cache"]["state"] == "hit"
     assert second["provider_trace"]["freshness"]["provider_cache_ttl_seconds"]["open_meteo"] == 300
@@ -174,6 +208,11 @@ def test_pipeline_cache_refreshes_after_ttl_expiry(monkeypatch):
     monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
     monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None, as_of=None: [])
     monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_noaa_radar_eventdriven",
+        lambda lat, lon, as_of=None: _radar_payload(),
+    )
 
     first = live_ingestion.fetch_normalized_live_inputs(_loc(), _now())
     clock["now"] += 91.0
@@ -181,6 +220,7 @@ def test_pipeline_cache_refreshes_after_ttl_expiry(monkeypatch):
 
     assert calls["open_meteo"] == 2
     assert first["conditions"] == second["conditions"]
+    assert first["radar"] == second["radar"]
     assert first["provider_trace"]["freshness"]["ingestion_cache"]["state"] == "miss"
     assert second["provider_trace"]["freshness"]["ingestion_cache"]["state"] == "miss"
 
@@ -204,6 +244,11 @@ def test_pipeline_ephemeris_changes_with_scene_time_context(monkeypatch):
     monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
     monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
     monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_noaa_radar_eventdriven",
+        lambda lat, lon, as_of=None: _radar_payload(),
+    )
 
     def _ephemeris(lat, lon, elevation_ft=None, as_of=None):
         hour = int(as_of.hour) if as_of is not None else 0

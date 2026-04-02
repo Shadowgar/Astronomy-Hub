@@ -136,8 +136,11 @@ def build_conditions_response(
 
     location = _resolve_location(lat=lat, lon=lon, elevation_ft=elevation_ft)
     now = datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
-    radar_frame_urls = _build_noaa_radar_frames(location, now)
-    radar_image_url = radar_frame_urls[-1] if radar_frame_urls else ""
+    radar_frame_urls: list[str] = []
+    radar_image_url = ""
+    radar_source = "noaa_nws_eventdriven"
+    radar_generated_at = now.isoformat()
+    radar_frame_step_minutes = _RADAR_FRAME_STEP_MINUTES
 
     try:
         live_inputs = fetch_normalized_live_inputs(location, now)
@@ -157,6 +160,31 @@ def build_conditions_response(
         provider_trace = {}
     missing_sources = list(provider_trace.get("missing_sources") or [])
     timestamp_utc = provider_trace.get("timestamp_utc")
+    radar = live_inputs.get("radar") if isinstance(live_inputs, dict) else None
+    if isinstance(radar, dict):
+        radar_frame_urls = [
+            str(url).strip()
+            for url in (radar.get("frame_urls") or [])
+            if isinstance(url, str) and str(url).strip()
+        ]
+        radar_image_url = str(radar.get("image_url") or "").strip()
+        if not radar_image_url and radar_frame_urls:
+            radar_image_url = radar_frame_urls[-1]
+        radar_source = str(radar.get("source") or radar_source)
+        radar_generated_at = str(radar.get("generated_at") or radar_generated_at)
+        try:
+            radar_frame_step_minutes = max(1, int(radar.get("frame_step_minutes") or _RADAR_FRAME_STEP_MINUTES))
+        except Exception:
+            radar_frame_step_minutes = _RADAR_FRAME_STEP_MINUTES
+
+    if not radar_frame_urls or not radar_image_url:
+        fallback_frames = _build_noaa_radar_frames(location, now)
+        if fallback_frames:
+            radar_frame_urls = fallback_frames
+            radar_image_url = fallback_frames[-1]
+            radar_source = "noaa_nws_eventdriven"
+            radar_generated_at = now.isoformat()
+            radar_frame_step_minutes = _RADAR_FRAME_STEP_MINUTES
 
     if isinstance(conditions, dict):
         data = {
@@ -172,9 +200,9 @@ def build_conditions_response(
             "weather_code": conditions.get("weather_code"),
             "radar_image_url": radar_image_url,
             "radar_frame_urls": radar_frame_urls,
-            "radar_frame_step_minutes": _RADAR_FRAME_STEP_MINUTES,
-            "radar_source": "noaa_nws_eventdriven",
-            "radar_generated_at": now.isoformat(),
+            "radar_frame_step_minutes": radar_frame_step_minutes,
+            "radar_source": radar_source,
+            "radar_generated_at": radar_generated_at,
             "location": {
                 "latitude": float(location["latitude"]),
                 "longitude": float(location["longitude"]),
@@ -189,9 +217,9 @@ def build_conditions_response(
         )
         data["radar_image_url"] = radar_image_url
         data["radar_frame_urls"] = radar_frame_urls
-        data["radar_frame_step_minutes"] = _RADAR_FRAME_STEP_MINUTES
-        data["radar_source"] = "noaa_nws_eventdriven"
-        data["radar_generated_at"] = now.isoformat()
+        data["radar_frame_step_minutes"] = radar_frame_step_minutes
+        data["radar_source"] = radar_source
+        data["radar_generated_at"] = radar_generated_at
         data["location"] = {
             "latitude": float(location["latitude"]),
             "longitude": float(location["longitude"]),

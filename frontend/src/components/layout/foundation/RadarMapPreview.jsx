@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -9,6 +9,28 @@ function parseFloatSafe(value) {
   return Number.isFinite(parsed) ? parsed : null
 }
 
+function parseBoundsFromImageUrl(imageUrl, centerPoint) {
+  if (typeof imageUrl !== 'string' || !imageUrl.trim()) return null
+  try {
+    const parsed = new URL(imageUrl)
+    const bbox = parsed.searchParams.get('bbox')
+    if (!bbox) return null
+    const values = bbox.split(',').map((value) => Number(value))
+    if (values.length !== 4 || values.some((value) => !Number.isFinite(value))) return null
+    const [lonMin, latMin, lonMax, latMax] = values
+    if (latMin >= latMax || lonMin >= lonMax) return null
+    return [
+      [latMin, lonMin],
+      [latMax, lonMax],
+    ]
+  } catch (error) {
+    return [
+      [centerPoint.lat - 2, centerPoint.lon - 2],
+      [centerPoint.lat + 2, centerPoint.lon + 2],
+    ]
+  }
+}
+
 export default function RadarMapPreview({
   imageUrl,
   center,
@@ -16,39 +38,12 @@ export default function RadarMapPreview({
 }) {
   const containerRef = useRef(null)
   const mapRef = useRef(null)
-  const radarTileLayerRef = useRef(null)
-  const [rainViewerTileUrl, setRainViewerTileUrl] = useState('')
+  const radarOverlayRef = useRef(null)
   const centerPoint = useMemo(() => {
     const lat = parseFloatSafe(center?.lat) ?? DEFAULT_CENTER.lat
     const lon = parseFloatSafe(center?.lon) ?? DEFAULT_CENTER.lon
     return { lat, lon }
   }, [center?.lat, center?.lon])
-
-  useEffect(() => {
-    let cancelled = false
-
-    async function loadRainViewerMetadata() {
-      try {
-        const response = await fetch('https://api.rainviewer.com/public/weather-maps.json')
-        if (!response.ok) return
-        const data = await response.json()
-        const host = typeof data?.host === 'string' ? data.host : ''
-        const past = Array.isArray(data?.radar?.past) ? data.radar.past : []
-        const latestPast = past.length > 0 ? past[past.length - 1] : null
-        const path = typeof latestPast?.path === 'string' ? latestPast.path : ''
-        if (!host || !path || cancelled) return
-        setRainViewerTileUrl(`${host}${path}/256/{z}/{x}/{y}/2/1_1.png`)
-      } catch (error) {
-        // Keep map usable with just basemap if RainViewer metadata fails.
-      }
-    }
-
-    loadRainViewerMetadata()
-
-    return () => {
-      cancelled = true
-    }
-  }, [])
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return undefined
@@ -70,9 +65,9 @@ export default function RadarMapPreview({
     window.setTimeout(() => map.invalidateSize(), 0)
 
     return () => {
-      if (radarTileLayerRef.current) {
-        map.removeLayer(radarTileLayerRef.current)
-        radarTileLayerRef.current = null
+      if (radarOverlayRef.current) {
+        map.removeLayer(radarOverlayRef.current)
+        radarOverlayRef.current = null
       }
       map.remove()
       mapRef.current = null
@@ -87,20 +82,22 @@ export default function RadarMapPreview({
 
   useEffect(() => {
     const map = mapRef.current
-    if (!map || !rainViewerTileUrl) return
-
-    if (radarTileLayerRef.current) {
-      map.removeLayer(radarTileLayerRef.current)
-      radarTileLayerRef.current = null
+    if (!map) return
+    if (radarOverlayRef.current) {
+      map.removeLayer(radarOverlayRef.current)
+      radarOverlayRef.current = null
     }
-
-    radarTileLayerRef.current = L.tileLayer(rainViewerTileUrl, {
-      opacity: 0.82,
+    if (!imageUrl) return
+    const bounds = parseBoundsFromImageUrl(imageUrl, centerPoint)
+    if (!bounds) return
+    radarOverlayRef.current = L.imageOverlay(imageUrl, bounds, {
+      opacity: 0.78,
       zIndex: 450,
-      attribution: 'RainViewer',
+      crossOrigin: true,
     })
-    radarTileLayerRef.current.addTo(map)
-  }, [rainViewerTileUrl])
+    radarOverlayRef.current.addTo(map)
+    map.setView([centerPoint.lat, centerPoint.lon], Math.max(map.getZoom(), 8), { animate: false })
+  }, [imageUrl, centerPoint.lat, centerPoint.lon])
 
   useEffect(() => {
     const map = mapRef.current

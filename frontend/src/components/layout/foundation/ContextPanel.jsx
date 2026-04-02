@@ -102,10 +102,10 @@ export default function ContextPanel() {
   }, [conditions?.location?.latitude, conditions?.location?.longitude, queryParams.lat, queryParams.lon])
   const radarSource = typeof conditions?.radar_source === 'string' ? conditions.radar_source : ''
   const radarGeneratedAt = formatUpdatedAt(conditions?.radar_generated_at)
-  const radarFrameStepMinutes = Number.isFinite(conditions?.radar_frame_step_minutes)
-    ? conditions.radar_frame_step_minutes
+  const radarFrameStepMinutes = Number.isFinite(Number(conditions?.radar_frame_step_minutes))
+    ? Number(conditions?.radar_frame_step_minutes)
     : 10
-  const radarSupportsAnimation = false
+  const radarSupportsAnimation = radarFrameUrls.length > 1
 
   useEffect(() => {
     if (!isConditionsModalOpen) return
@@ -236,9 +236,9 @@ export default function ContextPanel() {
                         Frame {radarFrameIndex + 1}/{radarFrameUrls.length} ({radarFrameStepMinutes} min step)
                       </span>
                     ) : (
-                      <span>Latest RainViewer frame</span>
+                      <span>Latest NOAA frame</span>
                     )}
-                    <span>Source: rainviewer</span>
+                    <span>Source: {radarSource || 'noaa_nws_eventdriven'}</span>
                     <span>Generated: {radarGeneratedAt}</span>
                   </div>
                 </section>

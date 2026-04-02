@@ -5,6 +5,7 @@ import math
 import os
 import threading
 import time
+import urllib.parse
 from typing import Any
 
 import httpx
@@ -15,6 +16,7 @@ _CACHE: dict[str, tuple[float, Any]] = {}
 
 PROVIDER_CACHE_TTL_SECONDS: dict[str, int] = {
     "open_meteo": 300,
+    "noaa_nws_radar": 300,
     "opensky": 90,
     "celestrak": 3600,
     "space_track": 1800,
@@ -35,6 +37,9 @@ JPL_EPHEMERIS_BODIES: tuple[tuple[str, str], ...] = (
     ("599", "Jupiter"),
     ("699", "Saturn"),
 )
+
+_NOAA_RADAR_DEFAULT_FRAME_COUNT = 10
+_NOAA_RADAR_DEFAULT_FRAME_STEP_MINUTES = 10
 
 
 def _cache_get(key: str) -> Any | None:
@@ -646,3 +651,73 @@ def fetch_swpc_alerts(limit: int = 3) -> list[dict[str, Any]]:
 
     _cache_set(cache_key, alerts, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["noaa_swpc"])
     return alerts
+
+
+def _build_noaa_radar_frame_url(lat: float, lon: float, end_time_utc: datetime, frame_step_minutes: int) -> str:
+    lat_min = max(-90.0, lat - 2.0)
+    lat_max = min(90.0, lat + 2.0)
+    lon_min = max(-180.0, lon - 2.0)
+    lon_max = min(180.0, lon + 2.0)
+    if end_time_utc.tzinfo is None:
+        end_time_utc = end_time_utc.replace(tzinfo=timezone.utc)
+    start_time_utc = end_time_utc - timedelta(minutes=max(1, int(frame_step_minutes)))
+    time_range = f"{int(start_time_utc.timestamp() * 1000)},{int(end_time_utc.timestamp() * 1000)}"
+    params = {
+        "bbox": f"{lon_min:.3f},{lat_min:.3f},{lon_max:.3f},{lat_max:.3f}",
+        "bboxSR": "4326",
+        "imageSR": "4326",
+        "size": "880,520",
+        "format": "png32",
+        "f": "image",
+        "time": time_range,
+    }
+    return (
+        "https://mapservices.weather.noaa.gov/eventdriven/rest/services/"
+        "radar/radar_base_reflectivity_time/ImageServer/exportImage"
+        f"?{urllib.parse.urlencode(params)}"
+    )
+
+
+def fetch_noaa_radar_eventdriven(
+    lat: float,
+    lon: float,
+    *,
+    as_of: datetime | None = None,
+    frame_count: int = _NOAA_RADAR_DEFAULT_FRAME_COUNT,
+    frame_step_minutes: int = _NOAA_RADAR_DEFAULT_FRAME_STEP_MINUTES,
+) -> dict[str, Any] | None:
+    if as_of is None:
+        now = datetime.now(timezone.utc)
+    else:
+        now = as_of.astimezone(timezone.utc)
+    latest = now.replace(second=0, microsecond=0)
+    frame_count = max(1, int(frame_count))
+    frame_step_minutes = max(1, int(frame_step_minutes))
+    bucket = latest.strftime("%Y%m%d%H%M")[:-1]
+    cache_key = (
+        f"noaa_radar:{round(lat, 3)}:{round(lon, 3)}:{bucket}:"
+        f"{frame_count}:{frame_step_minutes}"
+    )
+    cached = _cache_get(cache_key)
+    if isinstance(cached, dict):
+        return cached
+
+    frame_urls: list[str] = []
+    for index in range(frame_count):
+        minutes_ago = (frame_count - 1 - index) * frame_step_minutes
+        frame_end = latest - timedelta(minutes=minutes_ago)
+        frame_urls.append(
+            _build_noaa_radar_frame_url(lat, lon, frame_end, frame_step_minutes)
+        )
+
+    payload = {
+        "source": "noaa_nws_eventdriven",
+        "generated_at": latest.isoformat(),
+        "frame_step_minutes": frame_step_minutes,
+        "frame_urls": frame_urls,
+        "image_url": frame_urls[-1] if frame_urls else "",
+        "coverage_note": "NOAA NWS event-driven base reflectivity image export.",
+    }
+    ttl = max(30, min(600, PROVIDER_CACHE_TTL_SECONDS.get("noaa_nws_radar", 300)))
+    _cache_set(cache_key, payload, ttl_seconds=ttl)
+    return payload

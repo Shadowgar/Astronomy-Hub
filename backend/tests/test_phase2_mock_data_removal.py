@@ -67,3 +67,46 @@ def test_conditions_response_exposes_degraded_mode_when_provider_missing(monkeyp
     assert "mapservices.weather.noaa.gov" in str(data.get("radar_image_url") or "")
     assert isinstance(data.get("radar_frame_urls"), list)
     assert len(data.get("radar_frame_urls") or []) >= 1
+
+
+def test_conditions_response_prefers_ingested_radar_contract(monkeypatch):
+    monkeypatch.delenv("SIMULATE_NORMALIZER_FAIL", raising=False)
+    monkeypatch.setattr(conditions_service, "cache_get", lambda key: None)
+    monkeypatch.setattr(conditions_service, "cache_set", lambda key, value, ttl_seconds=None: True)
+
+    monkeypatch.setattr(
+        conditions_service,
+        "fetch_normalized_live_inputs",
+        lambda location, time_context: {
+            "conditions": {
+                "observing_score": "good",
+                "summary": "Live weather available",
+                "source": "open_meteo",
+                "last_updated": "2026-03-31T12:00:00Z",
+                "cloud_cover_pct": 20,
+                "visibility_m": 10000,
+                "temperature_c": 7.0,
+                "weather_code": 1,
+            },
+            "radar": {
+                "source": "noaa_nws_eventdriven",
+                "generated_at": "2026-03-31T12:00:00Z",
+                "frame_step_minutes": 10,
+                "frame_urls": ["https://example.test/radar/frame1.png", "https://example.test/radar/frame2.png"],
+                "image_url": "https://example.test/radar/frame2.png",
+                "coverage_note": "test",
+            },
+            "provider_trace": {"degraded": False, "missing_sources": [], "timestamp_utc": "2026-03-31T12:00:00Z"},
+        },
+    )
+
+    status_code, payload = conditions_service.build_conditions_response()
+
+    assert status_code == 200
+    data = payload.get("data") or {}
+    assert data.get("radar_source") == "noaa_nws_eventdriven"
+    assert data.get("radar_image_url") == "https://example.test/radar/frame2.png"
+    assert data.get("radar_frame_urls") == [
+        "https://example.test/radar/frame1.png",
+        "https://example.test/radar/frame2.png",
+    ]
