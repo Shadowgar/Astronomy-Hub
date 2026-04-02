@@ -36,6 +36,8 @@ JPL_EPHEMERIS_BODIES: tuple[tuple[str, str], ...] = (
     ("499", "Mars"),
     ("599", "Jupiter"),
     ("699", "Saturn"),
+    ("799", "Uranus"),
+    ("899", "Neptune"),
 )
 
 _NOAA_RADAR_DEFAULT_FRAME_COUNT = 10

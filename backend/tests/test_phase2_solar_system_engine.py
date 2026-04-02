@@ -1,7 +1,10 @@
 from datetime import datetime, timezone
 
 from backend.app.services import live_providers
-from backend.app.services._legacy_scene_logic import _build_solar_system_engine_slice
+from backend.app.services._legacy_scene_logic import (
+    _build_solar_system_engine_slice,
+    build_phase1_object_detail,
+)
 
 
 def test_jpl_ephemeris_fetches_expected_body_set(monkeypatch):
@@ -19,7 +22,7 @@ def test_jpl_ephemeris_fetches_expected_body_set(monkeypatch):
 
     payload = live_providers.fetch_jpl_ephemeris(40.0, -75.0, elevation_ft=100.0)
 
-    expected_ids = {"moon", "mercury", "venus", "mars", "jupiter", "saturn"}
+    expected_ids = {"moon", "mercury", "venus", "mars", "jupiter", "saturn", "uranus", "neptune"}
     returned_ids = {str(item.get("id") or "") for item in payload}
     assert expected_ids.issubset(returned_ids)
     assert set(seen_commands) == {body_id for body_id, _ in live_providers.JPL_EPHEMERIS_BODIES}
@@ -108,3 +111,43 @@ def test_solar_system_slice_time_context_changes_viewing_window():
     start_1 = ((objects_1[0].get("visibility") or {}).get("visibility_window_start"))
     start_2 = ((objects_2[0].get("visibility") or {}).get("visibility_window_start"))
     assert start_1 != start_2
+
+
+def test_solar_system_slice_marks_moon_as_moon_type():
+    payload = {
+        "ephemeris": [
+            {"id": "moon", "name": "Moon", "azimuth": 180.0, "elevation": 40.0, "source": "jpl_ephemeris"},
+            {"id": "mars", "name": "Mars", "azimuth": 220.0, "elevation": 35.0, "source": "jpl_ephemeris"},
+        ]
+    }
+
+    objects = _build_solar_system_engine_slice(time_context=datetime(2026, 3, 31, 12, 0, tzinfo=timezone.utc), live_inputs=payload)
+    by_id = {str(obj.get("id") or ""): obj for obj in objects}
+    assert by_id["moon"]["type"] == "moon"
+    assert by_id["mars"]["type"] == "planet"
+
+
+def test_planet_detail_exposes_structured_solar_system_metadata():
+    found = {
+        "id": "jupiter",
+        "name": "Jupiter",
+        "type": "planet",
+        "engine": "solar_system",
+        "provider_source": "jpl_ephemeris",
+        "summary": "Live ephemeris position az 130.0 el 45.0; best viewing around 2026-03-31T21:00:00+00:00",
+        "position": {"azimuth": 130.0, "elevation": 45.0},
+        "visibility": {
+            "is_visible": True,
+            "visibility_window_start": "2026-03-31T21:00:00+00:00",
+            "visibility_window_end": "2026-03-31T23:00:00+00:00",
+        },
+    }
+
+    detail = build_phase1_object_detail(found, scene_objects=[found])
+    rows = {row.get("title"): row.get("summary") for row in (detail.get("related_objects") or [])}
+    assert rows.get("Body type") == "Planet"
+    assert rows.get("Azimuth") == "130.0 deg"
+    assert rows.get("Elevation") == "45.0 deg"
+    assert rows.get("Visibility") == "Visible now"
+    assert rows.get("Best viewing time") == "2026-03-31T21:00:00+00:00"
+    assert rows.get("Ephemeris source") == "jpl_ephemeris"

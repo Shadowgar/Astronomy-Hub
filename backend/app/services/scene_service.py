@@ -103,11 +103,21 @@ def _objects_for_engine(
     if engine == "planets":
         return [obj for obj in objects if obj.get("type") == "planet"]
     if engine == "moon":
-        return [
-            obj
-            for obj in objects
-            if obj.get("type") == "planet" and str(obj.get("id") or "").strip().lower() == "moon"
-        ]
+        moon_objects = []
+        for obj in objects:
+            is_moon = (
+                obj.get("type") == "moon"
+                or (
+                    obj.get("type") == "planet"
+                    and str(obj.get("id") or "").strip().lower() == "moon"
+                )
+            )
+            if not is_moon:
+                continue
+            normalized = deepcopy(obj)
+            normalized["type"] = "moon"
+            moon_objects.append(normalized)
+        return moon_objects
     if engine == "satellites":
         return [obj for obj in objects if obj.get("type") == "satellite"]
     if engine == "flights":

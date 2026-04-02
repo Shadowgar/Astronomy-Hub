@@ -424,7 +424,13 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
     return []
 
 
-def _build_solar_system_engine_slice(parsed_location=None, time_context=None, live_inputs=None):
+def _build_solar_system_engine_slice(
+    parsed_location=None,
+    time_context=None,
+    live_inputs=None,
+    limit=4,
+    include_below_horizon=False,
+):
     """Provider-backed solar-system slice from JPL ephemeris."""
     time_context = time_context or _resolve_time_context()
     window_start = time_context.replace(microsecond=0).isoformat()
@@ -440,39 +446,57 @@ def _build_solar_system_engine_slice(parsed_location=None, time_context=None, li
         name = str(entry.get("name") or "").strip()
         if not name:
             continue
+        body_slug = _slugify(entry.get("id") or name)
+        body_type = "moon" if body_slug in {"moon", "301"} else "planet"
         try:
             elevation = float(entry.get("elevation") or 0.0)
         except Exception:
             elevation = 0.0
-        if elevation <= 0.0:
+        if elevation <= 0.0 and body_type != "moon" and not include_below_horizon:
             continue
         try:
             azimuth = float(entry.get("azimuth") or 0.0)
         except Exception:
             azimuth = 0.0
+        is_visible_now = elevation > 0.0
+        if is_visible_now:
+            summary = (
+                f"Live ephemeris position az {azimuth:.1f} el {elevation:.1f}; "
+                f"best viewing around {window_start}"
+            )
+        else:
+            summary = (
+                f"Ephemeris position az {azimuth:.1f} el {elevation:.1f}; "
+                f"currently below horizon, next context window around {window_start}"
+            )
+
         out.append(
             {
-                "id": _slugify(entry.get("id") or name),
+                "id": body_slug,
                 "name": name,
-                "type": "planet",
+                "type": body_type,
                 "engine": "solar_system",
                 "provider_source": entry.get("source") or "jpl_ephemeris",
-                "summary": (
-                    f"Live ephemeris position az {azimuth:.1f} el {elevation:.1f}; "
-                    f"best viewing around {window_start}"
-                ),
+                "summary": summary,
                 "position": {"azimuth": azimuth, "elevation": elevation},
                 "visibility": {
-                    "is_visible": True,
+                    "is_visible": is_visible_now,
                     "visibility_window_start": window_start,
                     "visibility_window_end": window_end,
                 },
-                "relevance_score": max(0.0, min(1.0, elevation / 90.0)),
+                "relevance_score": max(0.0, min(1.0, elevation / 90.0)) if is_visible_now else 0.05,
             }
         )
 
     if out:
-        return _rank_scene_objects(out)[:4]
+        ranked = _rank_scene_objects(out)
+        if limit is None:
+            return ranked
+        try:
+            max_items = max(1, int(limit))
+        except Exception:
+            max_items = 4
+        return ranked[:max_items]
     return []
 
 
@@ -864,6 +888,7 @@ def _build_phase2_moon_scene(filter_slug, parsed_location=None):
         parsed_location=parsed_location,
         time_context=time_context,
         live_inputs=live_inputs,
+        limit=None,
     )
     moon_object = next((obj for obj in solar_objects if str(obj.get("id") or "") == "moon"), None)
     moon_scene_object = (
@@ -1074,6 +1099,35 @@ def _build_phase2_object_lookup(parsed_location=None):
             normalized["id"] = object_id
             lookup.setdefault(object_id, normalized)
 
+    # Object lookup must remain stable for solar-system object ids across time contexts.
+    # Include an uncapped solar ephemeris set so object detail resolution doesn't depend on
+    # the currently visible/capped scene subset.
+    try:
+        location = _resolve_location(parsed_location)
+        time_context = _resolve_time_context()
+        live_inputs = _fetch_live_inputs(location, time_context)
+        solar_objects = _build_solar_system_engine_slice(
+            parsed_location=parsed_location,
+            time_context=time_context,
+            live_inputs=live_inputs,
+            limit=None,
+            include_below_horizon=True,
+        )
+        for raw in solar_objects:
+            if not isinstance(raw, dict):
+                continue
+            raw_id = str(raw.get("id") or "").strip().lower()
+            engine_name = "moon" if raw_id in {"moon", "301"} else "planets"
+            for scene_obj in _to_phase2_scene_objects([raw], engine_name):
+                object_id = _ensure_object_id(scene_obj)
+                if not object_id:
+                    continue
+                normalized = dict(scene_obj)
+                normalized["id"] = object_id
+                lookup.setdefault(object_id, normalized)
+    except Exception:
+        logger.exception("phase2.object.lookup.solar.failed")
+
     return lookup
 
 
@@ -1124,8 +1178,19 @@ def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
     objects = [
         obj
         for obj in (satellite_objects + planet_objects + deep_sky_objects)
-        if obj.get("type") in ("satellite", "planet", "deep_sky")
+        if obj.get("type") in ("satellite", "planet", "moon", "deep_sky")
     ]
+    normalized_objects = []
+    for obj in objects:
+        if not isinstance(obj, dict):
+            continue
+        if obj.get("type") == "moon":
+            moon_as_planet = dict(obj)
+            moon_as_planet["type"] = "planet"
+            normalized_objects.append(moon_as_planet)
+        else:
+            normalized_objects.append(obj)
+    objects = normalized_objects
     objects = [obj for obj in objects if _is_above_horizon(obj)]
     objects = _rank_scene_objects(objects)
     objects = objects[:10]
@@ -1303,6 +1368,111 @@ def _normalize_satellite_purpose(value):
     return text
 
 
+def _format_detail_value(value, fallback="Classified"):
+    if value is None:
+        return fallback
+    text = str(value).strip()
+    if not text:
+        return fallback
+    return text
+
+
+def _build_solar_system_related(found):
+    position = found.get("position") if isinstance(found.get("position"), dict) else {}
+    visibility = found.get("visibility") if isinstance(found.get("visibility"), dict) else {}
+
+    azimuth = position.get("azimuth")
+    elevation = position.get("elevation")
+    window_start = visibility.get("visibility_window_start")
+    window_end = visibility.get("visibility_window_end")
+    is_visible = visibility.get("is_visible")
+    provider = found.get("provider_source") or "jpl_ephemeris"
+
+    try:
+        azimuth_text = f"{float(azimuth):.1f} deg"
+    except Exception:
+        azimuth_text = "Classified"
+
+    try:
+        elevation_text = f"{float(elevation):.1f} deg"
+    except Exception:
+        elevation_text = "Classified"
+
+    if is_visible is True:
+        visibility_text = "Visible now"
+    elif is_visible is False:
+        visibility_text = "Not visible now"
+    else:
+        visibility_text = "Classified"
+
+    best_time = _format_detail_value(window_start)
+    return [
+        {
+            "id": _slugify(f"{found.get('id')}-body-type"),
+            "type": "object",
+            "title": "Body type",
+            "summary": (
+                "Moon"
+                if (
+                    str(found.get("type") or "").strip().lower() == "moon"
+                    or str(found.get("id") or "").strip().lower() in {"moon", "301"}
+                )
+                else "Planet"
+            ),
+            "relevance": "high",
+        },
+        {
+            "id": _slugify(f"{found.get('id')}-azimuth"),
+            "type": "object",
+            "title": "Azimuth",
+            "summary": azimuth_text,
+            "relevance": "high",
+        },
+        {
+            "id": _slugify(f"{found.get('id')}-elevation"),
+            "type": "object",
+            "title": "Elevation",
+            "summary": elevation_text,
+            "relevance": "high",
+        },
+        {
+            "id": _slugify(f"{found.get('id')}-visibility"),
+            "type": "object",
+            "title": "Visibility",
+            "summary": visibility_text,
+            "relevance": "high",
+        },
+        {
+            "id": _slugify(f"{found.get('id')}-window-start"),
+            "type": "object",
+            "title": "Visibility window start",
+            "summary": _format_detail_value(window_start),
+            "relevance": "medium",
+        },
+        {
+            "id": _slugify(f"{found.get('id')}-window-end"),
+            "type": "object",
+            "title": "Visibility window end",
+            "summary": _format_detail_value(window_end),
+            "relevance": "medium",
+        },
+        {
+            "id": _slugify(f"{found.get('id')}-best-viewing-time"),
+            "type": "object",
+            "title": "Best viewing time",
+            "summary": best_time,
+            "relevance": "high",
+        },
+        {
+            "id": _slugify(f"{found.get('id')}-ephemeris-source"),
+            "type": "object",
+            "title": "Ephemeris source",
+            "summary": _format_detail_value(provider, fallback="jpl_ephemeris"),
+            "relevance": "medium",
+        },
+    ]
+
+
 def build_phase1_object_detail(found, scene_objects=None):
     """Build canonical Phase 1 object detail payload."""
     scene_objects = scene_objects or []
@@ -1363,6 +1533,19 @@ def build_phase1_object_detail(found, scene_objects=None):
         detail["description"] = (
             f"{summary} This satellite is currently surfaced in your active sky context."
         ).strip()
+    elif detail.get("type") in ("planet", "moon"):
+        related.extend(_build_solar_system_related(found))
+        best_view = None
+        visibility = detail.get("visibility") if isinstance(detail.get("visibility"), dict) else {}
+        if isinstance(visibility, dict):
+            best_view = visibility.get("visibility_window_start")
+        if best_view:
+            detail["summary"] = f"{detail.get('name') or 'Object'} visible with best viewing around {best_view}."
+        else:
+            detail["summary"] = f"{detail.get('name') or 'Object'} visible in current observing context."
+        detail["description"] = (
+            "Solar-system context resolved from live JPL ephemeris with local sky position and visibility window."
+        )
 
     for candidate in scene_objects:
         if not isinstance(candidate, dict):

@@ -369,6 +369,7 @@ def test_moon_engine_returns_only_moon_object(monkeypatch):
     objects = payload.get("objects") or []
     assert len(objects) == 1
     assert objects[0].get("id") == "moon"
+    assert objects[0].get("type") == "moon"
 
 
 def test_moon_engine_identical_for_identical_inputs(monkeypatch):
