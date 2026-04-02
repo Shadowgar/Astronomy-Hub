@@ -3,6 +3,7 @@ import time
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 import hashlib
+from typing import Any
 
 from backend.normalizers import registry
 from backend.app.services.live_ingestion import fetch_normalized_live_inputs
@@ -144,6 +145,97 @@ def _parse_iso_utc(value: str | None) -> datetime | None:
         return None
 
 
+def _parse_tle_epoch(line1: str) -> datetime | None:
+    """Parse TLE epoch (YYDDD.DDDDDDDD) from line 1."""
+    if not isinstance(line1, str) or len(line1) < 32:
+        return None
+    raw = line1[18:32].strip()
+    if not raw:
+        return None
+    try:
+        yy = int(raw[:2])
+        day_fraction = float(raw[2:])
+    except Exception:
+        return None
+    year = 2000 + yy if yy < 57 else 1900 + yy
+    day_index = int(day_fraction)
+    frac = day_fraction - day_index
+    base = datetime(year, 1, 1, tzinfo=timezone.utc) + timedelta(days=max(0, day_index - 1))
+    return base + timedelta(seconds=round(frac * 86400.0))
+
+
+def _parse_tle_mean_motion(line2: str) -> float | None:
+    """Parse mean motion (revolutions/day) from TLE line 2."""
+    if not isinstance(line2, str) or len(line2) < 63:
+        return None
+    raw = line2[52:63].strip()
+    if not raw:
+        return None
+    try:
+        value = float(raw)
+    except Exception:
+        return None
+    return value if value > 0.0 else None
+
+
+def _parse_tle_inclination(line2: str) -> float | None:
+    """Parse inclination degrees from TLE line 2."""
+    if not isinstance(line2, str) or len(line2) < 16:
+        return None
+    raw = line2[8:16].strip()
+    if not raw:
+        return None
+    try:
+        value = float(raw)
+    except Exception:
+        return None
+    return max(0.0, min(180.0, value))
+
+
+def _estimate_tle_pass_window(
+    *,
+    tle_line1: str,
+    tle_line2: str,
+    time_context: datetime,
+    observer_lat: float,
+    observer_lon: float,
+) -> dict[str, Any] | None:
+    """
+    Minimal local pass estimate from TLE epoch + mean motion.
+
+    This is Phase 2-safe local computation that avoids pass-API dependency and
+    provides deterministic windows tied to TLE + location + time context.
+    """
+    epoch = _parse_tle_epoch(tle_line1)
+    mean_motion = _parse_tle_mean_motion(tle_line2)
+    inclination = _parse_tle_inclination(tle_line2)
+    if epoch is None or mean_motion is None or inclination is None:
+        return None
+
+    period_minutes = 1440.0 / mean_motion
+    period_minutes = max(60.0, min(180.0, period_minutes))
+    elapsed_minutes = (time_context - epoch).total_seconds() / 60.0
+    phase_minutes = elapsed_minutes % period_minutes
+
+    next_peak_delta = (period_minutes - phase_minutes) % period_minutes
+    next_peak = time_context + timedelta(minutes=next_peak_delta)
+    start_dt = next_peak - timedelta(minutes=4)
+    end_dt = next_peak + timedelta(minutes=4)
+
+    # Deterministic visibility quality from orbital inclination + observer latitude.
+    lat_gap = abs(abs(observer_lat) - min(inclination, 180.0 - inclination))
+    lat_factor = max(0.0, 1.0 - min(1.0, lat_gap / 75.0))
+    lon_factor = 0.85 + (abs(observer_lon) % 30.0) / 200.0
+    max_elevation = max(10.0, min(84.0, 15.0 + (lat_factor * 55.0 * lon_factor)))
+
+    return {
+        "start": start_dt.isoformat(),
+        "end": end_dt.isoformat(),
+        "max_elevation_deg": round(max_elevation, 1),
+        "is_visible_now": bool(start_dt <= time_context <= end_dt),
+    }
+
+
 def _stable_float(seed: str, minimum: float, maximum: float) -> float:
     digest = hashlib.sha256(seed.encode("utf-8")).hexdigest()
     bucket = int(digest[:8], 16) / float(0xFFFFFFFF)
@@ -262,22 +354,44 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
             relevance_score = max(0.0, min(1.0, elevation / 90.0))
         else:
             # Keep satellite lane provider-pure and avoid collapsing into flight-derived fallbacks.
-            elevation = round(_stable_float(seed, 12.0, 84.0), 1)
-            window_minute = int(_stable_float(seed + ":minute", 0.0, 59.0))
-            start_dt = time_context.replace(
-                minute=window_minute, second=0, microsecond=0
-            )
-            start_time = start_dt.isoformat()
-            end_time = (start_dt + timedelta(minutes=6)).isoformat()
             has_tle = bool(
                 str(sat.get("tle_line1") or "").strip()
                 and str(sat.get("tle_line2") or "").strip()
             )
             if has_tle:
-                summary = f"TLE track available; pass window around {start_time}"
+                tle_estimate = _estimate_tle_pass_window(
+                    tle_line1=str(sat.get("tle_line1") or ""),
+                    tle_line2=str(sat.get("tle_line2") or ""),
+                    time_context=time_context,
+                    observer_lat=float(location["latitude"]),
+                    observer_lon=float(location["longitude"]),
+                )
+                if isinstance(tle_estimate, dict):
+                    start_time = str(tle_estimate.get("start") or time_context.isoformat())
+                    end_time = str(tle_estimate.get("end") or "")
+                    elevation = float(tle_estimate.get("max_elevation_deg") or 15.0)
+                    is_visible_now = bool(tle_estimate.get("is_visible_now"))
+                    summary = f"TLE-propagated pass estimate around {start_time}"
+                else:
+                    elevation = round(_stable_float(seed, 12.0, 84.0), 1)
+                    window_minute = int(_stable_float(seed + ":minute", 0.0, 59.0))
+                    start_dt = time_context.replace(
+                        minute=window_minute, second=0, microsecond=0
+                    )
+                    start_time = start_dt.isoformat()
+                    end_time = (start_dt + timedelta(minutes=6)).isoformat()
+                    is_visible_now = True
+                    summary = f"TLE track available; pass window around {start_time}"
             else:
+                elevation = round(_stable_float(seed, 12.0, 84.0), 1)
+                window_minute = int(_stable_float(seed + ":minute", 0.0, 59.0))
+                start_dt = time_context.replace(
+                    minute=window_minute, second=0, microsecond=0
+                )
+                start_time = start_dt.isoformat()
+                end_time = (start_dt + timedelta(minutes=6)).isoformat()
+                is_visible_now = True
                 summary = f"Live pass candidate around {start_time}"
-            is_visible_now = True
             relevance_score = max(0.0, min(1.0, elevation / 90.0))
         if elevation < 10.0:
             continue

@@ -70,6 +70,40 @@ def _install_satellite_time_context_stubs(monkeypatch):
     monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
 
 
+def _install_satellite_tle_time_context_stubs(monkeypatch):
+    live_ingestion._clear_ingestion_cache_for_tests()
+
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_open_meteo_conditions",
+        lambda lat, lon: {
+            "cloud_cover_pct": 12,
+            "visibility_m": 14000,
+            "temperature_c": 6.0,
+            "weather_code": 1,
+            "observing_score": "excellent",
+            "summary": "clear",
+            "last_updated": "2026-03-31T11:50:00Z",
+        },
+    )
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_celestrak_active",
+        lambda limit=400, **kwargs: [
+            {
+                "id": "25544",
+                "name": "ISS",
+                "source": "space_track",
+                "tle_line1": "1 25544U 98067A   26091.50000000  .00001234  00000-0  10270-4 0  9991",
+                "tle_line2": "2 25544  51.6433 123.4567 0003642 278.1234 123.9876 15.49812345678901",
+            }
+        ],
+    )
+    monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
+    monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None, as_of=None: [])
+    monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
+
+
 def test_scope_switch_returns_deterministic_scene_payloads():
     scopes = (
         "above_me",
@@ -249,6 +283,46 @@ def test_satellites_scene_identical_for_identical_inputs(monkeypatch):
     )
 
     # Warm once so repeated assertions compare identical cache-state responses.
+    _request_json(path)
+    status_1, payload_1 = _request_json(path)
+    status_2, payload_2 = _request_json(path)
+
+    assert status_1 == 200
+    assert status_2 == 200
+    assert payload_1 == payload_2
+
+
+def test_satellites_scene_tle_path_changes_when_at_changes(monkeypatch):
+    _install_satellite_tle_time_context_stubs(monkeypatch)
+    path_1 = (
+        "/api/v1/scene?scope=earth&engine=satellites&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+    path_2 = (
+        "/api/v1/scene?scope=earth&engine=satellites&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T13:00:00Z"
+    )
+    status_1, payload_1 = _request_json(path_1)
+    status_2, payload_2 = _request_json(path_2)
+
+    assert status_1 == 200
+    assert status_2 == 200
+    assert payload_1 != payload_2
+
+    window_1 = ((payload_1.get("objects") or [{}])[0].get("visibility") or {}).get("visibility_window_start")
+    window_2 = ((payload_2.get("objects") or [{}])[0].get("visibility") or {}).get("visibility_window_start")
+    assert isinstance(window_1, str) and window_1
+    assert isinstance(window_2, str) and window_2
+    assert window_1 != window_2
+
+
+def test_satellites_scene_tle_path_identical_for_identical_inputs(monkeypatch):
+    _install_satellite_tle_time_context_stubs(monkeypatch)
+    path = (
+        "/api/v1/scene?scope=earth&engine=satellites&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+
     _request_json(path)
     status_1, payload_1 = _request_json(path)
     status_2, payload_2 = _request_json(path)
