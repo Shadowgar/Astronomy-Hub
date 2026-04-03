@@ -49,7 +49,7 @@ pnpm-debug.log*
 dist/
 build/
 out/
-
+frontend/dev
 # Editor / IDE
 .vscode/
 .idea/

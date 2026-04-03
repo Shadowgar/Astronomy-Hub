@@ -10,7 +10,7 @@ const COMMAND_ACTIONS = [
   { label: 'Show satellites', scope: 'satellites', engine: 'satellites', filter: 'visible_now' },
   { label: 'Show planets', scope: 'solar_system', engine: 'planets', filter: 'visible_now' },
   { label: 'Earth events', scope: 'earth', engine: 'satellites', filter: 'short_window' },
-  { label: 'Solar', scope: 'solar_system', engine: 'moon', filter: 'visible_now' },
+  { label: 'Solar', scope: 'sun', engine: 'moon', filter: 'visible_now' },
 ]
 
 function formatScopeLabel(value) {

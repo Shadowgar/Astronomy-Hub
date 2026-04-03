@@ -255,7 +255,7 @@ Events meaningful
 
 ---
 
-# 🔴 STEP 11 — FLIGHT ENGINE (ACTIVE)
+# ✅ STEP 11 — FLIGHT ENGINE (LOCKED)
 
 SPEC: docs/architecture/FLIGHT_ENGINE_SPEC.md
 
@@ -269,7 +269,7 @@ No UI clutter
 
 ---
 
-# 🔴 STEP 12 — ABOVE ME ORCHESTRATION
+# 🔴 STEP 12 — ABOVE ME ORCHESTRATION (ACTIVE)
 
 ## VERIFY
 

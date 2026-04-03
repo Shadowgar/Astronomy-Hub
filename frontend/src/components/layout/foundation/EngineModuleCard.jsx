@@ -7,9 +7,9 @@ export default function EngineModuleCard({ title, items, marker = null, footerAc
     <article className="module panel foundation-module-card">
       <PanelSection title={title}>
         <ul className="foundation-list">
-          {items.map((item) => (
+          {items.map((item, index) => (
             <PlaceholderItemRow
-              key={`${title}-${item.name}`}
+              key={`${title}-${item.id || item.name}-${index}`}
               name={item.name}
               reason={item.reason}
               marker={item.marker || marker || null}
