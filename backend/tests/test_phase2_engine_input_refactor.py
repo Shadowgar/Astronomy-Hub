@@ -183,6 +183,7 @@ def test_deep_sky_object_detail_surfaces_catalog_metadata():
 
     assert detail.get("summary") == "M42 Orion Nebula in Orion (M42)."
     assert by_title.get("Catalog") == "M42"
+    assert by_title.get("Catalog reference") == "https://messier.seds.org/m/m042.html"
     assert by_title.get("Object class") == "nebula"
     assert by_title.get("Constellation") == "Orion"
     assert by_title.get("Magnitude") == "4.0"

@@ -1741,6 +1741,16 @@ def _format_detail_value(value, fallback="Classified"):
     return text
 
 
+def _deep_sky_catalog_reference_url(catalog_value) -> str:
+    raw = str(catalog_value or "").strip().upper()
+    if not (raw.startswith("M") and raw[1:].isdigit()):
+        return "Classified"
+    number = int(raw[1:])
+    if number <= 0:
+        return "Classified"
+    return f"https://messier.seds.org/m/m{number:03d}.html"
+
+
 def _build_solar_system_related(found):
     position = found.get("position") if isinstance(found.get("position"), dict) else {}
     visibility = found.get("visibility") if isinstance(found.get("visibility"), dict) else {}
@@ -1936,6 +1946,7 @@ def build_phase1_object_detail(found, scene_objects=None):
         object_class = _format_detail_value(found.get("object_class"), fallback="Classified")
         constellation = _format_detail_value(found.get("constellation"), fallback="Classified")
         magnitude = _format_detail_value(found.get("magnitude"), fallback="Classified")
+        catalog_reference = _deep_sky_catalog_reference_url(found.get("catalog"))
         position = found.get("position") if isinstance(found.get("position"), dict) else {}
         visibility = found.get("visibility") if isinstance(found.get("visibility"), dict) else {}
 
@@ -1986,6 +1997,13 @@ def build_phase1_object_detail(found, scene_objects=None):
                     "type": "object",
                     "title": "Magnitude",
                     "summary": magnitude,
+                    "relevance": "medium",
+                },
+                {
+                    "id": _slugify(f"{found.get('id')}-catalog-reference"),
+                    "type": "object",
+                    "title": "Catalog reference",
+                    "summary": catalog_reference,
                     "relevance": "medium",
                 },
                 {

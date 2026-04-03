@@ -183,7 +183,7 @@ def test_deep_sky_object_detail_includes_catalog_fields_and_location_consistency
         if isinstance(row, dict)
     }
 
-    for title in ("Catalog", "Object class", "Constellation", "Magnitude"):
+    for title in ("Catalog", "Catalog reference", "Object class", "Constellation", "Magnitude"):
         assert rows_a.get(title)
         assert rows_b.get(title)
         assert rows_a.get(title) == rows_b.get(title)

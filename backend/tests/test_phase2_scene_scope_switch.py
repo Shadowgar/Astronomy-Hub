@@ -601,3 +601,47 @@ def test_deep_sky_scene_is_catalog_backed_and_ranked(monkeypatch):
 
     scores = [float(obj.get("relevance_score") or 0.0) for obj in objects]
     assert scores == sorted(scores, reverse=True)
+
+
+def test_deep_sky_bright_only_is_subset_of_visible_now(monkeypatch):
+    _install_deep_sky_time_context_stubs(monkeypatch)
+    base_path = (
+        "/api/v1/scene?scope=deep_sky&engine=deep_sky"
+        "&lat=41.3219&lon=-79.5854&at=2026-04-02T02:00:00Z"
+    )
+    status_visible, payload_visible = _request_json(f"{base_path}&filter=visible_now")
+    status_bright, payload_bright = _request_json(f"{base_path}&filter=bright_only")
+
+    assert status_visible == 200
+    assert status_bright == 200
+    visible_objects = payload_visible.get("objects") or []
+    bright_objects = payload_bright.get("objects") or []
+    assert visible_objects
+    assert bright_objects
+
+    visible_ids = {str(obj.get("id") or "") for obj in visible_objects}
+    bright_ids = {str(obj.get("id") or "") for obj in bright_objects}
+    assert bright_ids.issubset(visible_ids)
+    assert len(bright_objects) <= len(visible_objects)
+
+
+def test_deep_sky_naked_eye_limits_to_top_two_targets(monkeypatch):
+    _install_deep_sky_time_context_stubs(monkeypatch)
+    base_path = (
+        "/api/v1/scene?scope=deep_sky&engine=deep_sky"
+        "&lat=41.3219&lon=-79.5854&at=2026-04-02T02:00:00Z"
+    )
+    status_visible, payload_visible = _request_json(f"{base_path}&filter=visible_now")
+    status_naked, payload_naked = _request_json(f"{base_path}&filter=naked_eye")
+
+    assert status_visible == 200
+    assert status_naked == 200
+    visible_objects = payload_visible.get("objects") or []
+    naked_objects = payload_naked.get("objects") or []
+    assert visible_objects
+    assert naked_objects
+
+    visible_ids = {str(obj.get("id") or "") for obj in visible_objects}
+    naked_ids = {str(obj.get("id") or "") for obj in naked_objects}
+    assert naked_ids.issubset(visible_ids)
+    assert len(naked_objects) <= 2
