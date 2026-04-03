@@ -1112,6 +1112,12 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   color: var(--text-muted);
 }
 
+.command-center-foundation .detail-panel-shell__media-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--token-size-8);
+}
+
 @media (max-width: 1000px) {
   .command-center-foundation__hero-row {
     grid-template-columns: 1fr;

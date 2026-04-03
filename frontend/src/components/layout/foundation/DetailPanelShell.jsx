@@ -55,6 +55,10 @@ function formatPosition(detail) {
 
 function formatMedia(detail) {
   const media = Array.isArray(detail?.media) ? detail.media : []
+  const objectName = typeof detail?.name === 'string' ? detail.name.trim() : ''
+  const moreImagesUrl = objectName
+    ? `https://images.nasa.gov/search?q=${encodeURIComponent(objectName)}&media=image`
+    : ''
   if (media.length === 0) {
     return [{ name: 'Images', reason: 'No media available for this object yet.' }]
   }
@@ -62,6 +66,7 @@ function formatMedia(detail) {
     name: `${valueOrUnknown(item.type)} ${index + 1}`,
     reason: valueOrUnknown(item.source),
     url: typeof item.url === 'string' ? item.url : '',
+    moreImagesUrl,
   }))
 }
 
@@ -229,11 +234,18 @@ export default function DetailPanelShell() {
                         />
                       ) : null}
                       <p className="detail-panel-shell__media-source">{item.reason}</p>
-                      {item.url ? (
-                        <a href={item.url} target="_blank" rel="noreferrer">
-                          Open source image
-                        </a>
-                      ) : null}
+                      <div className="detail-panel-shell__media-links">
+                        {item.url ? (
+                          <a href={item.url} target="_blank" rel="noreferrer">
+                            Open source image
+                          </a>
+                        ) : null}
+                        {item.moreImagesUrl ? (
+                          <a href={item.moreImagesUrl} target="_blank" rel="noreferrer">
+                            More images
+                          </a>
+                        ) : null}
+                      </div>
                     </article>
                   ))}
                 </div>
