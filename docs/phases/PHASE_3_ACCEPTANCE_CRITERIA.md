@@ -1,3 +1,8 @@
+# LEGACY REFERENCE NOTICE
+
+This document is retained for planning/history context only.
+Active execution authority is feature-first under docs/features/*.
+
 ````markdown id="p3accept"
 # 🌌 PHASE 3 ACCEPTANCE CRITERIA (AUTHORITATIVE — BINARY VALIDATION)
 

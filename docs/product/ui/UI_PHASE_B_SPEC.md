@@ -1,3 +1,8 @@
+# LEGACY REFERENCE NOTICE
+
+This document is retained for planning/history context only.
+Active execution authority is feature-first under docs/features/*.
+
 This document defines the authoritative Phase B UI specification.
 It is written for execution and enforcement within the existing phase system.
 

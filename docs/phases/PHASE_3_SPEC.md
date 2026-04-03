@@ -1,3 +1,8 @@
+# LEGACY REFERENCE NOTICE
+
+This document is retained for planning/history context only.
+Active execution authority is feature-first under docs/features/*.
+
 ````markdown id="p3spec"
 # 🌌 PHASE 3 — SPATIAL / IMMERSIVE SYSTEM (AUTHORITATIVE — MASTER PLAN ALIGNED)
 

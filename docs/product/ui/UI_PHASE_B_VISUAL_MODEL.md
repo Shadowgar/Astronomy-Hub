@@ -1,3 +1,8 @@
+# LEGACY REFERENCE NOTICE
+
+This document is retained for planning/history context only.
+Active execution authority is feature-first under docs/features/*.
+
 # UI Phase B — Visual Model
 
 This document defines the visual and interaction expectations for Phase B: an operations-focused UI. It is concise and prescriptive — treat this as a non-negotiable visual contract.

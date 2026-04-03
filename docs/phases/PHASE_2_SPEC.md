@@ -1,3 +1,8 @@
+# LEGACY REFERENCE NOTICE
+
+This document is retained for planning/history context only.
+Active execution authority is feature-first under docs/features/*.
+
 ````markdown
 # 🌌 PHASE 2 — ENGINE SYSTEM (AUTHORITATIVE — MASTER PLAN ALIGNED)
 

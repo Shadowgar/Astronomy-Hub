@@ -1,3 +1,8 @@
+# LEGACY REFERENCE NOTICE
+
+This document is retained for planning/history context only.
+Active execution authority is feature-first under docs/features/*.
+
 ````markdown id="p3build"
 # 🌌 PHASE 3 BUILD SEQUENCE (AUTHORITATIVE — IMMERSIVE SYSTEM)
 

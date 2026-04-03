@@ -1,96 +1,52 @@
-# STATE TRANSITIONS — ASTRONOMY HUB (AUTHORITATIVE EXTENSION)
+# State Transitions (Authoritative Extension)
 
-## 0. PURPOSE
-Define legal execution state movement under existing authority and proof requirements.
+## Purpose
+Define legal execution state movement under the feature-first model.
 
-## 1. ROLE IN SYSTEM
-This document constrains execution-state transitions.
-It does not replace validation, context, or phase authority.
-
-## 2. AUTHORITY RELATIONSHIP (SUBORDINATE)
+## Authority Relationship
 This document is subordinate to:
 1. `docs/validation/SYSTEM_VALIDATION_SPEC.md`
 2. `docs/context/CORE_CONTEXT.md`
 3. `docs/context/LIVE_SESSION_BRIEF.md`
 4. `docs/context/CONTEXT_MANIFEST.yaml`
-5. phase execution documents
+5. `docs/execution/PROJECT_STATE.md`
+6. `docs/execution/MASTER_PLAN.md`
+7. `docs/features/*`
 
-If conflict exists, this document is wrong and must be corrected.
+If conflict exists, this document must be corrected.
 
-## 3. STATE DEFINITIONS
-- `READY`: context and authority loaded; execution may begin.
-- `ACTIVE`: one bounded task is being executed.
-- `BLOCKED`: execution stopped due to a valid stop condition.
-- `RECONCILING`: one bounded remediation task is being executed via recovery protocol.
-- `VALIDATING`: outputs are being verified against authoritative requirements.
-- `VERIFIED`: validation proof is complete and pass conditions are satisfied.
-- `COMPLETE`: verified work is finalized and state records are updated.
+## State Definitions
+- `READY`: context loaded and task pack selected.
+- `ACTIVE`: one bounded feature slice is in execution.
+- `BLOCKED`: execution halted by a valid fail condition.
+- `RECONCILING`: one bounded remediation slice is running.
+- `VALIDATING`: proof checks are being executed.
+- `VERIFIED`: required checks passed with evidence.
+- `COMPLETE`: tracker/state docs updated with proof.
 
-## 4. TRANSITION RULES (LEGAL ONLY)
-Each transition must include explicit trigger and proof.
+## Legal Transitions
+- `READY -> ACTIVE`: selected feature slice declared.
+- `ACTIVE -> BLOCKED`: fail condition triggered and recorded.
+- `BLOCKED -> RECONCILING`: bounded fix scope declared.
+- `RECONCILING -> VALIDATING`: implementation done, proof run begins.
+- `VALIDATING -> VERIFIED`: checks pass with evidence.
+- `VERIFIED -> COMPLETE`: feature/state docs updated.
+- `COMPLETE -> READY`: next bounded slice selected.
+- `VALIDATING -> BLOCKED`: validation fails.
+- `RECONCILING -> BLOCKED`: remediation cannot be proven.
 
-- `READY -> ACTIVE`
-  - Trigger: approved bounded task selected.
-  - Proof: active task declared in session state.
-
-- `ACTIVE -> BLOCKED`
-  - Trigger: authoritative stop condition triggered.
-  - Proof: stop reason recorded with source authority.
-
-- `BLOCKED -> RECONCILING`
-  - Trigger: recovery protocol invoked.
-  - Proof: failure class recorded + one remediation task defined.
-
-- `RECONCILING -> VALIDATING`
-  - Trigger: remediation task finished.
-  - Proof: changed artifacts and validation target declared.
-
-- `VALIDATING -> VERIFIED`
-  - Trigger: required checks pass.
-  - Proof: explicit pass evidence recorded.
-
-- `VERIFIED -> COMPLETE`
-  - Trigger: tracking docs updated.
-  - Proof: state docs reflect verified completion.
-
-- `COMPLETE -> READY`
-  - Trigger: next bounded task selected.
-  - Proof: prior completion remains documented.
-
-- `VALIDATING -> BLOCKED`
-  - Trigger: validation fails.
-  - Proof: failed check recorded with evidence.
-
-- `RECONCILING -> BLOCKED`
-  - Trigger: remediation cannot be proven.
-  - Proof: blocked reason and escalation note recorded.
-
-## 5. PROOF REQUIREMENTS
-Every state change must include:
-- trigger source
-- exact artifact references
-- validation evidence (when applicable)
-- explicit pass/fail statement
-
-State transitions without proof are invalid.
-
-## 6. PROHIBITED TRANSITIONS
-Illegal transitions include:
+## Illegal Transitions
 - `ACTIVE -> COMPLETE` (skips validation)
 - `BLOCKED -> ACTIVE` (skips reconciliation)
-- `BLOCKED -> VERIFIED` (no remediation)
 - `RECONCILING -> COMPLETE` (skips validation)
-- `VALIDATING -> ACTIVE` (validation not resolved)
-- any transition that batches multiple task outcomes
+- any transition without explicit proof artifacts
 
-## 7. RELATIONSHIP TO EXISTING STATE DOCS
-- `docs/context/LIVE_SESSION_BRIEF.md` remains the authoritative current execution memory.
-- `docs/execution/PROJECT_STATE.md` remains authoritative for factual project reality.
-- `docs/execution/SESSION_STATE.md` remains a tracking document and does not authorize transitions.
-- `docs/enforcement/FAILURE_RECOVERY_PROTOCOL.md` governs `BLOCKED -> RECONCILING` behavior.
+## Proof Requirements
+Every transition must include:
+- trigger source
+- artifact references
+- command/output evidence when applicable
+- pass/fail statement
 
-## 8. FINAL RULE
-```text
-No state transition is legal without explicit trigger and proof.
-Blocked execution may resume only through validated reconciliation.
-```
+## Final Rule
+No state transition is valid without explicit proof.
