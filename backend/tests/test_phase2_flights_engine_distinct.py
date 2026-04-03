@@ -34,8 +34,8 @@ def test_flights_engine_uses_flight_inputs_not_satellite_subset(monkeypatch):
                 {
                     "id": "flight-ab123",
                     "name": "AB123",
-                    "type": "satellite",
-                    "engine": "flight",
+                    "type": "flight",
+                    "engine": "flights",
                     "provider_source": "opensky",
                     "summary": "Live flight track (120 km)",
                     "position": {"elevation": 35.0, "lat": 40.1, "lon": -75.2},
@@ -70,5 +70,6 @@ def test_flights_engine_uses_flight_inputs_not_satellite_subset(monkeypatch):
     assert satellite_ids == ["sat-a", "sat-b"]
     assert flight_ids == ["flight-ab123"]
     assert flight_ids != satellite_ids
-    assert all(obj.get("engine") == "flight" for obj in flights_payload.get("objects") or [])
+    assert all(obj.get("type") == "flight" for obj in flights_payload.get("objects") or [])
+    assert all(obj.get("engine") == "flights" for obj in flights_payload.get("objects") or [])
     assert all(obj.get("provider_source") == "opensky" for obj in flights_payload.get("objects") or [])

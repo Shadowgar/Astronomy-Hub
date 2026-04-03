@@ -37,7 +37,7 @@ Phase 1:
 
 Phase 2:
 - status: ACTIVE (UNLOCKED)
-- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK), Step 1 (UI LAYOUT FOUNDATION), Step 2 (UI STANDARDIZATION), Step 3 (DETAIL PANEL SYSTEM — UI ONLY), Step 4 (DATA PIPELINE — FOUNDATION), Step 5 (CONDITIONS ENGINE), Step 6 (SATELLITE ENGINE), and Step 7 (SOLAR SYSTEM ENGINE) are locked. Effective current step is Phase 2 STEP 8 — DEEP SKY ENGINE.
+- condition: Phase 2 step sequence has been rebased. Prior tracked progress was recorded under the legacy step order and is not discarded. Rebased Step 0 (CONTRACT LOCK), Step 1 (UI LAYOUT FOUNDATION), Step 2 (UI STANDARDIZATION), Step 3 (DETAIL PANEL SYSTEM — UI ONLY), Step 4 (DATA PIPELINE — FOUNDATION), Step 5 (CONDITIONS ENGINE), Step 6 (SATELLITE ENGINE), Step 7 (SOLAR SYSTEM ENGINE), Step 8 (DEEP SKY ENGINE), Step 9 (SUN ENGINE), Step 10 (EVENTS ENGINE), and Step 11 (FLIGHT ENGINE) are locked. Effective current step is Phase 2 STEP 12 — ABOVE ME ORCHESTRATION.
 
 Phase 3:
 - status: NOT STARTED
@@ -56,7 +56,7 @@ Phase 5:
 # 3. CURRENT OBJECTIVE
 
 PRIMARY:
-- execute Phase 2 STEP 8
+- execute Phase 2 STEP 12
 
 ---
 
@@ -89,6 +89,10 @@ Scope:
 - Rebased Phase 2 STEP 5 (CONDITIONS ENGINE) locked with provider-backed conditions output proof (`backend/app/services/conditions_service.py`, `backend/app/services/live_providers.py`), focused conditions test suite pass (`.venv/bin/pytest -q backend/tests/test_fastapi_conditions.py backend/tests/test_conditions_schema.py backend/tests/test_conditions_cache_integration.py backend/tests/test_phase2_mock_data_removal.py`: 8 passed), command-center briefing live wiring in mounted UI (`frontend/src/components/layout/foundation/ContextPanel.jsx`), and verified frontend build.
 - Rebased Phase 2 STEP 6 (SATELLITE ENGINE) locked with provider-backed TLE ingestion and deterministic pass-window computation in `backend/app/services/live_providers.py`, `backend/app/services/live_ingestion.py`, and `backend/app/services/_legacy_scene_logic.py` (provider pass metadata + local TLE propagation path + above-horizon enforcement), verified by focused suites: `.venv/bin/pytest -q backend/tests/test_phase2_satellite_engine.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_provider_cache_ttl.py` (25 passed) and `.venv/bin/pytest -q backend/tests/test_phase2_engine_input_refactor.py backend/tests/test_phase2_flights_engine_distinct.py` (3 passed).
 - Rebased Phase 2 STEP 7 (SOLAR SYSTEM ENGINE) locked with provider-backed JPL ephemeris coverage (`backend/app/services/live_providers.py`), deterministic time-context propagation and moon/planet contract-safe routing (`backend/app/services/_legacy_scene_logic.py`, `backend/app/services/scene_service.py`), and focused verification proving ephemeris determinism, moon scope stability, object-detail resolution, and visibility-threshold enforcement via `.venv/bin/pytest -q backend/tests/test_phase2_solar_system_engine.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_object_resolution.py` (29 passed).
+- Rebased Phase 2 STEP 8 (DEEP SKY ENGINE) locked with catalog-backed Messier ingestion in `backend/app/services/_legacy_scene_logic.py::_build_deep_sky_engine_slice`, computed local-sky visibility bands/flags from RA-Dec and time/location context, and ranking/filter enforcement in `backend/app/services/scene_service.py` (`visible_now` ranking, `bright_only` magnitude gate/order, `naked_eye` magnitude gate/order); verification passed via `.venv/bin/pytest -q backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_deep_sky_engine.py backend/tests/test_phase2_object_resolution.py` (34 passed).
+- Rebased Phase 2 STEP 9 (SUN ENGINE) locked with SWPC alert ingestion through provider pipeline (`backend/app/services/live_ingestion.py`), scene-level solar activity classification propagation for `scope=sun&engine=moon` in `backend/app/services/scene_service.py` (`solar_activity_status`, `solar_activity_summary`, `solar_alert_count`), and detail-level solar activity rows in `backend/app/services/_legacy_scene_logic.py`; verification passed via `.venv/bin/pytest -q backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_object_resolution.py` (32 passed) and `.venv/bin/pytest -q backend/tests/test_phase2_solar_system_engine.py` (14 passed).
+- Rebased Phase 2 STEP 10 (EVENTS ENGINE) locked with event-time ingestion propagation (`event_time`) from provider layer (`backend/app/services/live_providers.py`, `backend/app/services/live_ingestion.py`), backend event ranking/time-window filtering in `backend/app/services/_legacy_scene_logic.py::_select_ranked_events`, and event-engine endpoint alignment in `backend/app/services/alerts_service.py` (`/api/v1/alerts` returns ranked events); verification passed via `.venv/bin/pytest -q backend/tests/test_phase2_events_engine.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_object_resolution.py` (34 passed).
+- Rebased Phase 2 STEP 11 (FLIGHT ENGINE) locked with flight-only scene typing and above-horizon filtering in `backend/app/services/_legacy_scene_logic.py::_build_flights_engine_slice`, plus scope-level contract propagation for `scope=flights&engine=flights` verified in `backend/tests/test_phase2_scene_scope_switch.py` and engine-distinct proof in `backend/tests/test_phase2_flights_engine_distinct.py`; verification passed via `.venv/bin/pytest -q backend/tests/test_phase2_events_engine.py backend/tests/test_phase2_flights_engine_distinct.py backend/tests/test_phase2_scene_scope_switch.py` (27 passed).
 - Reconciliation note: legacy Phase 2 lock entries below were recorded under the pre-rebase sequence and are retained as history only; Step 2+ must be revalidated in the rebased sequence.
 - Phase 2 STEP 2 (SCOPE SYSTEM) locked with implementation + tracking proof
 - Phase 2 STEP 3 (ENGINE SYSTEM) locked with implementation + tracking proof
@@ -117,8 +121,8 @@ Scope:
 
 # 6. NEXT REQUIRED STEP
 
-- execute Phase 2 STEP 8 — DEEP SKY ENGINE
-- verify catalog ingestion, visibility computation, and ranked target usefulness
+- execute Phase 2 STEP 12 — ABOVE ME ORCHESTRATION
+- verify merged multi-engine scene composition, ranking discipline, and single-scene decision output
 
 ---
 

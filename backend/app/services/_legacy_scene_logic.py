@@ -771,8 +771,8 @@ def _build_flights_engine_slice(live_inputs=None):
             {
                 "id": _slugify(f"flight-{flight_id}"),
                 "name": name,
-                "type": "satellite",
-                "engine": "flight",
+                "type": "flight",
+                "engine": "flights",
                 "provider_source": flight.get("source") or "opensky",
                 "summary": f"Live flight track ({distance_km:.0f} km)",
                 "position": {
@@ -949,6 +949,86 @@ def _phase2_timestamp() -> str:
     from datetime import datetime, timezone
 
     return datetime.now(timezone.utc).isoformat()
+
+
+_ALERT_PRIORITY_SCORE = {
+    "critical": 5,
+    "major": 4,
+    "high": 3,
+    "medium": 2,
+    "notice": 1,
+    "low": 0,
+}
+
+_ALERT_RELEVANCE_SCORE = {
+    "high": 3,
+    "medium": 2,
+    "low": 1,
+}
+
+
+def _parse_alert_event_time(alert: dict) -> datetime | None:
+    if not isinstance(alert, dict):
+        return None
+    parsed = _parse_iso_utc(alert.get("event_time"))
+    if parsed is not None:
+        return parsed
+
+    title = str(alert.get("title") or "").strip()
+    prefix = "NOAA Kp update "
+    if title.startswith(prefix):
+        raw_tag = title[len(prefix):].strip()
+        for candidate in (
+            raw_tag,
+            raw_tag.replace(" ", "T"),
+            f"{raw_tag}Z",
+            f"{raw_tag.replace(' ', 'T')}Z",
+        ):
+            parsed_candidate = _parse_iso_utc(candidate)
+            if parsed_candidate is not None:
+                return parsed_candidate
+    return None
+
+
+def _select_ranked_events(alerts: list[dict], time_context: datetime, limit: int = 3) -> list[dict]:
+    if not isinstance(alerts, list):
+        return []
+
+    ranked: list[tuple[tuple, dict]] = []
+    for alert in alerts:
+        if not isinstance(alert, dict):
+            continue
+        event_time = _parse_alert_event_time(alert)
+        if event_time is not None:
+            delta_seconds = abs((time_context - event_time).total_seconds())
+            if delta_seconds > 36 * 3600:
+                continue
+        else:
+            delta_seconds = float(36 * 3600)
+
+        priority = str(alert.get("priority") or "").strip().lower()
+        relevance = str(alert.get("relevance") or "").strip().lower()
+        priority_score = _ALERT_PRIORITY_SCORE.get(priority, 0)
+        relevance_score = _ALERT_RELEVANCE_SCORE.get(relevance, 0)
+
+        normalized = dict(alert)
+        if event_time is not None:
+            normalized["event_time"] = event_time.replace(microsecond=0).isoformat()
+
+        ranked.append(
+            (
+                (
+                    -priority_score,
+                    -relevance_score,
+                    delta_seconds,
+                    str(alert.get("title") or ""),
+                ),
+                normalized,
+            )
+        )
+
+    ranked.sort(key=lambda item: item[0])
+    return [item[1] for item in ranked[: max(1, int(limit))]]
 
 
 def _build_phase2_observing_context(parsed_location=None):
@@ -1603,7 +1683,7 @@ def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
                 "relevance": "medium",
             }
         ]
-    events = supporting_alerts[:3]
+    events = _select_ranked_events(supporting_alerts, time_context=time_context, limit=3)
     provider_trace = live_inputs.get("provider_trace") if isinstance(live_inputs, dict) else None
     if not isinstance(provider_trace, dict):
         provider_trace = {

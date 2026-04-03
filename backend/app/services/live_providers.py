@@ -723,6 +723,7 @@ def fetch_swpc_alerts(limit: int = 3) -> list[dict[str, Any]]:
                 "title": f"NOAA Kp update {time_tag}",
                 "summary": summary,
                 "relevance": relevance,
+                "event_time": time_tag,
             }
         )
 

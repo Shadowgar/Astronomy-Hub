@@ -204,6 +204,7 @@ def _adapt_alerts(raw: Any) -> list[dict[str, Any]]:
                 "title": str(item.get("title") or "Alert"),
                 "summary": str(item.get("summary") or ""),
                 "relevance": str(item.get("relevance") or "low"),
+                "event_time": str(item.get("event_time") or ""),
             }
         )
     return out
@@ -574,7 +575,11 @@ def fetch_normalized_live_inputs(location: dict[str, Any], time_context: datetim
         ("id", "name", "distance_km", "elevation", "longitude", "latitude"),
     )
     norm_ephemeris = _normalize_list(adapted_ephemeris, "jpl_ephemeris", ("id", "name", "azimuth", "elevation"))
-    norm_alerts = _normalize_list(adapted_alerts, "noaa_swpc", ("priority", "category", "title", "summary", "relevance"))
+    norm_alerts = _normalize_list(
+        adapted_alerts,
+        "noaa_swpc",
+        ("priority", "category", "title", "summary", "relevance", "event_time"),
+    )
     norm_radar = _normalize_radar(adapted_radar)
     norm_conditions = _enrich_conditions_v2(norm_conditions, norm_ephemeris)
 

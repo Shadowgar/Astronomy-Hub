@@ -52,14 +52,14 @@ It does NOT:
 ## CURRENT POSITION
 
 * current task: PHASE 2 EXECUTION
-* current step: PHASE 2 STEP 8 — DEEP SKY ENGINE
+* current step: PHASE 2 STEP 12 — ABOVE ME ORCHESTRATION
 * authorized additive track: Phase 4 NOAA radar ingestion may execute only when explicitly requested; canonical Phase 4 relationship-system scope remains intact, and this does not change Phase 2 active step.
 
 Rebase note:
 * Phase 2 step sequence has been restructured.
 * Prior tracked progress was recorded under the legacy step order.
 * Prior progress is not discarded, but must be revalidated against the rebased execution model.
-* Rebased Step 0, Step 1, Step 2, Step 3, Step 4, Step 5, and Step 6 are locked.
+* Rebased Step 0, Step 1, Step 2, Step 3, Step 4, Step 5, Step 6, Step 7, and Step 8 are locked.
 
 ---
 
@@ -98,6 +98,22 @@ Rebase note:
 * step: PHASE 2 STEP 7 — SOLAR SYSTEM ENGINE (REBASED)
   * result: LOCKED
   * validation: provider-backed JPL ephemeris object set is active in `backend/app/services/live_providers.py`; deterministic time-context positioning and visibility-window assembly are enforced in `backend/app/services/_legacy_scene_logic.py`; moon scope/detail routing remains stable in `backend/app/services/scene_service.py`; verification passed with `.venv/bin/pytest -q backend/tests/test_phase2_solar_system_engine.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_object_resolution.py` (29 passed).
+
+* step: PHASE 2 STEP 8 — DEEP SKY ENGINE (REBASED)
+  * result: LOCKED
+  * validation: Messier catalog-backed deep-sky ingestion is active in `backend/app/services/_legacy_scene_logic.py::_build_deep_sky_engine_slice`; local visibility is computed from RA/Dec with location/time context and exposed in scene/detail contracts; ranking/filter usefulness is enforced in `backend/app/services/scene_service.py` (`bright_only` and `naked_eye` magnitude gates/order); verification passed with `.venv/bin/pytest -q backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_deep_sky_engine.py backend/tests/test_phase2_object_resolution.py` (34 passed).
+
+* step: PHASE 2 STEP 9 — SUN ENGINE (REBASED)
+  * result: LOCKED
+  * validation: NOAA SWPC alert ingestion is active through `backend/app/services/live_ingestion.py`; sun-scope scene payload now carries classified solar activity summary fields in `backend/app/services/scene_service.py` (`solar_activity_status`, `solar_activity_summary`, `solar_alert_count`) while preserving scene/object/detail contract boundaries; object detail continues to expose solar activity rows via `backend/app/services/_legacy_scene_logic.py`; verification passed with `.venv/bin/pytest -q backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_object_resolution.py` (32 passed) and `.venv/bin/pytest -q backend/tests/test_phase2_solar_system_engine.py` (14 passed).
+
+* step: PHASE 2 STEP 10 — EVENTS ENGINE (REBASED)
+  * result: LOCKED
+  * validation: SWPC events now carry canonical event-time metadata from provider ingestion (`backend/app/services/live_providers.py`, `backend/app/services/live_ingestion.py`); event selection applies backend time-window filtering and relevance/priority ordering in `backend/app/services/_legacy_scene_logic.py`; `/api/v1/alerts` now returns ranked event-engine output via `backend/app/services/alerts_service.py`; verification passed with `.venv/bin/pytest -q backend/tests/test_phase2_events_engine.py backend/tests/test_phase2_scene_scope_switch.py backend/tests/test_phase2_object_resolution.py` (34 passed).
+
+* step: PHASE 2 STEP 11 — FLIGHT ENGINE (REBASED)
+  * result: LOCKED
+  * validation: flight scene objects are now typed as `flight` and constrained to above-horizon aircraft in `backend/app/services/_legacy_scene_logic.py::_build_flights_engine_slice`; `scope=flights&engine=flights` contract behavior is validated in `backend/tests/test_phase2_scene_scope_switch.py`, and flight/satellite separation remains proven in `backend/tests/test_phase2_flights_engine_distinct.py`; verification passed with `.venv/bin/pytest -q backend/tests/test_phase2_events_engine.py backend/tests/test_phase2_flights_engine_distinct.py backend/tests/test_phase2_scene_scope_switch.py` (27 passed).
 
 * step: STEP 1 — AUTHORITATIVE RUNTIME
   * result: LOCKED
@@ -255,7 +271,7 @@ Rebase note:
 
 ## NEXT STEP (REFERENCE ONLY)
 
-* next step: execute Phase 2 STEP 7 — SOLAR SYSTEM ENGINE.
+* next step: execute Phase 2 STEP 12 — ABOVE ME ORCHESTRATION.
 
 ⚠️ This must match LIVE_SESSION_BRIEF.md
 If it does not → STOP and resolve conflict

@@ -237,6 +237,59 @@ def test_earth_scope_engines_produce_distinct_scene_outputs():
     assert payload_sat.get("objects") != payload_flights.get("objects")
 
 
+def test_flights_scope_returns_above_horizon_flight_objects(monkeypatch):
+    live_ingestion._clear_ingestion_cache_for_tests()
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_open_meteo_conditions",
+        lambda lat, lon: {
+            "cloud_cover_pct": 25,
+            "visibility_m": 11000,
+            "temperature_c": 7.0,
+            "weather_code": 2,
+            "observing_score": "good",
+            "summary": "clear enough",
+            "last_updated": "2026-03-31T11:50:00Z",
+        },
+    )
+    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_opensky_nearby",
+        lambda lat, lon, radius_km=450.0, limit=6: [
+            {
+                "id": "ab123",
+                "name": "AB123",
+                "distance_km": 120.0,
+                "elevation": 28.0,
+                "longitude": -75.2,
+                "latitude": 40.1,
+            },
+            {
+                "id": "cd456",
+                "name": "CD456",
+                "distance_km": 90.0,
+                "elevation": 0.0,
+                "longitude": -75.0,
+                "latitude": 40.0,
+            },
+        ],
+    )
+    monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None, as_of=None: [])
+    monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
+
+    status, payload = _request_json(
+        "/api/v1/scene?scope=flights&engine=flights&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+    assert status == 200
+    objects = payload.get("objects") or []
+    assert objects
+    assert all(obj.get("type") == "flight" for obj in objects)
+    assert all(obj.get("engine") == "flights" for obj in objects)
+    assert all(float((obj.get("position") or {}).get("elevation") or 0.0) > 0.0 for obj in objects)
+
+
 def test_above_me_scene_exposes_traceability_metadata():
     status, payload = _request_json(
         "/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now"
@@ -532,6 +585,60 @@ def test_moon_engine_includes_solar_activity_classification_from_alerts(monkeypa
     assert moon.get("engine") == "moon"
     assert moon.get("solar_activity_status") == "active"
     assert "Solar activity: active." in str(moon.get("summary") or "")
+    assert payload.get("solar_activity_status") == "active"
+    assert isinstance(payload.get("solar_activity_summary"), str) and payload.get("solar_activity_summary")
+    assert payload.get("solar_alert_count") == 1
+
+
+def test_moon_engine_classification_downgrades_for_lower_severity_alerts(monkeypatch):
+    live_ingestion._clear_ingestion_cache_for_tests()
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_open_meteo_conditions",
+        lambda lat, lon: {
+            "cloud_cover_pct": 12,
+            "visibility_m": 14000,
+            "temperature_c": 6.0,
+            "weather_code": 1,
+            "observing_score": "excellent",
+            "summary": "clear",
+            "last_updated": "2026-03-31T11:50:00Z",
+        },
+    )
+    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
+    monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_swpc_alerts",
+        lambda limit=3: [
+            {
+                "priority": "notice",
+                "category": "space_weather",
+                "title": "Geomagnetic Activity Watch",
+                "summary": "Elevated geomagnetic activity possible.",
+                "relevance": "medium",
+                "source": "noaa_swpc",
+            }
+        ],
+    )
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_jpl_ephemeris",
+        lambda lat, lon, elevation_ft=None, as_of=None: [
+            {"id": "moon", "name": "Moon", "azimuth": 180.0, "elevation": 45.0},
+        ],
+    )
+
+    status, payload = _request_json(
+        "/api/v1/scene?scope=sun&engine=moon&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+    assert status == 200
+    assert payload.get("solar_activity_status") == "elevated"
+    assert payload.get("solar_alert_count") == 1
+    objects = payload.get("objects") or []
+    assert objects
+    assert objects[0].get("solar_activity_status") == "elevated"
 
 
 def test_deep_sky_scene_changes_when_at_changes(monkeypatch):
@@ -625,6 +732,8 @@ def test_deep_sky_bright_only_is_subset_of_visible_now(monkeypatch):
     assert len(bright_objects) <= len(visible_objects)
     for obj in bright_objects:
         assert float(obj.get("magnitude")) <= 6.5
+    magnitudes = [float(obj.get("magnitude")) for obj in bright_objects]
+    assert magnitudes == sorted(magnitudes)
 
 
 def test_deep_sky_naked_eye_limits_to_top_two_targets(monkeypatch):
@@ -649,3 +758,5 @@ def test_deep_sky_naked_eye_limits_to_top_two_targets(monkeypatch):
     assert len(naked_objects) <= 2
     for obj in naked_objects:
         assert float(obj.get("magnitude")) <= 6.0
+    magnitudes = [float(obj.get("magnitude")) for obj in naked_objects]
+    assert magnitudes == sorted(magnitudes)

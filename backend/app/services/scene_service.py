@@ -287,7 +287,14 @@ def _apply_filter(objects: list[dict], filter_slug: str, engine: str) -> list[di
                 if magnitude <= 6.5:
                     filtered.append(obj)
             if filtered:
-                return filtered
+                return sorted(
+                    filtered,
+                    key=lambda obj: (
+                        float(obj.get("magnitude") if obj.get("magnitude") is not None else 99.0),
+                        -float(obj.get("relevance_score") or 0.0),
+                        str(obj.get("id") or obj.get("name") or ""),
+                    ),
+                )
         filtered = [obj for obj in objects if float(obj.get("relevance_score") or 0.0) >= 0.8]
         return filtered or objects[: max(1, len(objects) // 2)]
     if filter_slug == "high_altitude":
@@ -315,7 +322,15 @@ def _apply_filter(objects: list[dict], filter_slug: str, engine: str) -> list[di
                 if magnitude <= 6.0:
                     naked_eye.append(obj)
             if naked_eye:
-                return naked_eye[:2]
+                ranked_naked_eye = sorted(
+                    naked_eye,
+                    key=lambda obj: (
+                        float(obj.get("magnitude") if obj.get("magnitude") is not None else 99.0),
+                        -float(obj.get("relevance_score") or 0.0),
+                        str(obj.get("id") or obj.get("name") or ""),
+                    ),
+                )
+                return ranked_naked_eye[:2]
         candidate = [obj for obj in objects if obj.get("type") in ("planet", "deep_sky")]
         return candidate[:2] if candidate else objects[:1]
     return list(objects)
@@ -385,4 +400,29 @@ def build_phase2_scope_scene_payload_with_context(
             "as_of": as_of,
         },
     }
+
+    if resolved_engine == "moon":
+        moon_object = next(
+            (
+                obj
+                for obj in filtered_objects
+                if isinstance(obj, dict) and str(obj.get("id") or "").strip().lower() == "moon"
+            ),
+            None,
+        )
+        alerts = (
+            (((phase1_state or {}).get("supporting") or {}).get("alerts"))
+            if isinstance(phase1_state, dict)
+            else []
+        )
+        if not isinstance(alerts, list):
+            alerts = []
+        payload["solar_activity_status"] = str(
+            ((moon_object or {}).get("solar_activity_status")) or "quiet"
+        ).strip()
+        payload["solar_activity_summary"] = str(
+            ((moon_object or {}).get("solar_activity_summary")) or "No active SWPC alerts."
+        ).strip()
+        payload["solar_alert_count"] = len([a for a in alerts if isinstance(a, dict)])
+
     return payload

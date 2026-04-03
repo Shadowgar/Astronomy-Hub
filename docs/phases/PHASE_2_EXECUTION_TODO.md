@@ -209,7 +209,7 @@ Planets match real sky
 
 ---
 
-# 🔴 STEP 8 — DEEP SKY ENGINE (ACTIVE)
+# ✅ STEP 8 — DEEP SKY ENGINE (LOCKED)
 
 SPEC: docs/architecture/DEEP_SKY_ENGINE_SPEC.md
 
@@ -225,7 +225,7 @@ Targets are valid and useful
 
 ---
 
-# 🔴 STEP 9 — SUN ENGINE
+# ✅ STEP 9 — SUN ENGINE (LOCKED)
 
 SPEC: docs/architecture/SUN_ENGINE_SPEC.md
 
@@ -240,7 +240,7 @@ Solar data accurate
 
 ---
 
-# 🟡 STEP 10 — EVENTS ENGINE
+# ✅ STEP 10 — EVENTS ENGINE (LOCKED)
 
 SPEC: docs/architecture/TRANSIENT_EVENTS_ENGINE_SPEC.md
 
@@ -255,7 +255,7 @@ Events meaningful
 
 ---
 
-# 🟡 STEP 11 — FLIGHT ENGINE
+# 🔴 STEP 11 — FLIGHT ENGINE (ACTIVE)
 
 SPEC: docs/architecture/FLIGHT_ENGINE_SPEC.md
 

@@ -17,7 +17,7 @@ def build_alerts_response(
 
     try:
         scene_state = build_phase1_scene_state(parsed_location)
-        alerts_payload = scene_state.get("supporting", {}).get("alerts", [])
+        alerts_payload = scene_state.get("events", [])
         return (200, alerts_payload)
     except Exception:
         return (500, {"error": {"code": "module_error", "message": "failed to assemble alerts"}})
@@ -31,7 +31,7 @@ def get_alerts_payload(
     """Return alerts payload only; raise on invalid params or assembly failure."""
     parsed_location = parse_location_override(lat, lon, elevation_ft)
     scene_state = build_phase1_scene_state(parsed_location)
-    alerts_payload = scene_state.get("supporting", {}).get("alerts", [])
+    alerts_payload = scene_state.get("events", [])
     if not isinstance(alerts_payload, list):
         raise RuntimeError("invalid alerts payload")
     return alerts_payload
