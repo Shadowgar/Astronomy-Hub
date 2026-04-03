@@ -259,3 +259,45 @@ def test_planet_object_detail_identical_for_identical_inputs_with_at():
     assert status_a == 200
     assert status_b == 200
     assert payload_a == payload_b
+
+
+def test_deep_sky_object_detail_changes_when_at_changes():
+    status, payload = _request_json(
+        "/api/v1/scene"
+        "?scope=deep_sky&engine=deep_sky&filter=visible_now"
+        "&lat=41.3219&lon=-79.5854&at=2026-04-02T02:00:00Z"
+    )
+    assert status == 200
+    scene_objects = payload.get("objects") or []
+    deep_sky_id = next(
+        (str(obj.get("id") or "").strip() for obj in scene_objects if str(obj.get("id") or "").strip()),
+        "",
+    )
+    assert deep_sky_id
+
+    status_a, payload_a = _request_json(
+        f"/api/v1/object/{quote(deep_sky_id, safe='')}?lat=41.3219&lon=-79.5854&at=2026-04-02T02:00:00Z"
+    )
+    status_b, payload_b = _request_json(
+        f"/api/v1/object/{quote(deep_sky_id, safe='')}?lat=41.3219&lon=-79.5854&at=2026-04-02T06:00:00Z"
+    )
+    assert status_a == 200
+    assert status_b == 200
+
+    rows_a = {
+        str(row.get("title") or ""): str(row.get("summary") or "")
+        for row in ((payload_a.get("data") or {}).get("related_objects") or [])
+        if isinstance(row, dict)
+    }
+    rows_b = {
+        str(row.get("title") or ""): str(row.get("summary") or "")
+        for row in ((payload_b.get("data") or {}).get("related_objects") or [])
+        if isinstance(row, dict)
+    }
+
+    assert rows_a.get("Azimuth")
+    assert rows_b.get("Azimuth")
+    assert rows_a.get("Azimuth") != rows_b.get("Azimuth")
+    assert rows_a.get("Best viewing time")
+    assert rows_b.get("Best viewing time")
+    assert rows_a.get("Best viewing time") != rows_b.get("Best viewing time")

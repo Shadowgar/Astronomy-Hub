@@ -1679,8 +1679,19 @@ def _fallback_media_for_object(found):
         "moon": "https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg",
         "301": "https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg",
     }
+    deep_sky_fallbacks = {
+        "m31": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Andromeda_Galaxy_%28with_h-alpha%29.jpg",
+        "m42": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg",
+        "m13": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Messier_13_HST.jpg",
+        "m57": "https://upload.wikimedia.org/wikipedia/commons/0/03/M57_The_Ring_Nebula.JPG",
+        "m81": "https://upload.wikimedia.org/wikipedia/commons/8/8a/M81_HST.jpg",
+    }
     if obj_type in ("planet", "moon"):
         url = planet_fallbacks.get(object_key)
+        if url:
+            return {"type": "image", "url": url, "source": "Wikimedia"}
+    if obj_type == "deep_sky":
+        url = deep_sky_fallbacks.get(object_key)
         if url:
             return {"type": "image", "url": url, "source": "Wikimedia"}
     return _fallback_media_for_type(obj_type)
@@ -1925,6 +1936,28 @@ def build_phase1_object_detail(found, scene_objects=None):
         object_class = _format_detail_value(found.get("object_class"), fallback="Classified")
         constellation = _format_detail_value(found.get("constellation"), fallback="Classified")
         magnitude = _format_detail_value(found.get("magnitude"), fallback="Classified")
+        position = found.get("position") if isinstance(found.get("position"), dict) else {}
+        visibility = found.get("visibility") if isinstance(found.get("visibility"), dict) else {}
+
+        try:
+            azimuth_text = f"{float(position.get('azimuth')):.1f} deg"
+        except Exception:
+            azimuth_text = "Classified"
+        try:
+            elevation_text = f"{float(position.get('elevation')):.1f} deg"
+        except Exception:
+            elevation_text = "Classified"
+
+        is_visible = visibility.get("is_visible")
+        if is_visible is True:
+            visibility_text = "Visible now"
+        elif is_visible is False:
+            visibility_text = "Not visible now"
+        else:
+            visibility_text = "Classified"
+
+        window_start = _format_detail_value(visibility.get("visibility_window_start"))
+        window_end = _format_detail_value(visibility.get("visibility_window_end"))
         related.extend(
             [
                 {
@@ -1954,6 +1987,48 @@ def build_phase1_object_detail(found, scene_objects=None):
                     "title": "Magnitude",
                     "summary": magnitude,
                     "relevance": "medium",
+                },
+                {
+                    "id": _slugify(f"{found.get('id')}-azimuth"),
+                    "type": "object",
+                    "title": "Azimuth",
+                    "summary": azimuth_text,
+                    "relevance": "high",
+                },
+                {
+                    "id": _slugify(f"{found.get('id')}-elevation"),
+                    "type": "object",
+                    "title": "Elevation",
+                    "summary": elevation_text,
+                    "relevance": "high",
+                },
+                {
+                    "id": _slugify(f"{found.get('id')}-visibility"),
+                    "type": "object",
+                    "title": "Visibility",
+                    "summary": visibility_text,
+                    "relevance": "high",
+                },
+                {
+                    "id": _slugify(f"{found.get('id')}-window-start"),
+                    "type": "object",
+                    "title": "Visibility window start",
+                    "summary": window_start,
+                    "relevance": "medium",
+                },
+                {
+                    "id": _slugify(f"{found.get('id')}-window-end"),
+                    "type": "object",
+                    "title": "Visibility window end",
+                    "summary": window_end,
+                    "relevance": "medium",
+                },
+                {
+                    "id": _slugify(f"{found.get('id')}-best-viewing-time"),
+                    "type": "object",
+                    "title": "Best viewing time",
+                    "summary": window_start,
+                    "relevance": "high",
                 },
             ]
         )

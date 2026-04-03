@@ -165,11 +165,16 @@ def test_deep_sky_object_detail_surfaces_catalog_metadata():
         "engine": "deep_sky",
         "provider_source": "messier_catalog",
         "summary": "M42 nebula at 36.0° altitude.",
+        "position": {"azimuth": 142.4, "elevation": 36.0},
         "catalog": "M42",
         "constellation": "Orion",
         "magnitude": 4.0,
         "object_class": "nebula",
-        "visibility": {"is_visible": True, "visibility_window_start": "2026-03-31T12:00:00Z"},
+        "visibility": {
+            "is_visible": True,
+            "visibility_window_start": "2026-03-31T12:00:00Z",
+            "visibility_window_end": "2026-03-31T14:00:00Z",
+        },
     }
 
     detail = logic.build_phase1_object_detail(found, scene_objects=[found])
@@ -181,3 +186,34 @@ def test_deep_sky_object_detail_surfaces_catalog_metadata():
     assert by_title.get("Object class") == "nebula"
     assert by_title.get("Constellation") == "Orion"
     assert by_title.get("Magnitude") == "4.0"
+    assert by_title.get("Azimuth") == "142.4 deg"
+    assert by_title.get("Elevation") == "36.0 deg"
+    assert by_title.get("Visibility") == "Visible now"
+    assert by_title.get("Visibility window start") == "2026-03-31T12:00:00Z"
+    assert by_title.get("Visibility window end") == "2026-03-31T14:00:00Z"
+    assert by_title.get("Best viewing time") == "2026-03-31T12:00:00Z"
+
+
+def test_deep_sky_object_detail_uses_object_specific_fallback_media_when_resolver_misses(monkeypatch):
+    from backend.services import imageResolver
+
+    monkeypatch.setattr(imageResolver, "get_object_image", lambda target_name: None)
+
+    found = {
+        "id": "m42",
+        "name": "M42 Orion Nebula",
+        "type": "deep_sky",
+        "engine": "deep_sky",
+        "provider_source": "messier_catalog",
+        "summary": "M42 nebula at 36.0° altitude.",
+        "catalog": "M42",
+        "constellation": "Orion",
+        "magnitude": 4.0,
+        "object_class": "nebula",
+        "visibility": {"is_visible": True},
+    }
+
+    detail = logic.build_phase1_object_detail(found, scene_objects=[found])
+    media = detail.get("media") or []
+    assert media
+    assert "Orion_Nebula" in str(media[0].get("url") or "")
