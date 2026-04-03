@@ -277,6 +277,17 @@ def _apply_filter(objects: list[dict], filter_slug: str, engine: str) -> list[di
     if filter_slug == "visible_now":
         return list(objects)
     if filter_slug == "bright_only":
+        if engine == "deep_sky":
+            filtered = []
+            for obj in objects:
+                try:
+                    magnitude = float(obj.get("magnitude"))
+                except Exception:
+                    continue
+                if magnitude <= 6.5:
+                    filtered.append(obj)
+            if filtered:
+                return filtered
         filtered = [obj for obj in objects if float(obj.get("relevance_score") or 0.0) >= 0.8]
         return filtered or objects[: max(1, len(objects) // 2)]
     if filter_slug == "high_altitude":
@@ -294,6 +305,17 @@ def _apply_filter(objects: list[dict], filter_slug: str, engine: str) -> list[di
                 candidate = satellite_subset
         return candidate[:2]
     if filter_slug == "naked_eye":
+        if engine == "deep_sky":
+            naked_eye = []
+            for obj in objects:
+                try:
+                    magnitude = float(obj.get("magnitude"))
+                except Exception:
+                    continue
+                if magnitude <= 6.0:
+                    naked_eye.append(obj)
+            if naked_eye:
+                return naked_eye[:2]
         candidate = [obj for obj in objects if obj.get("type") in ("planet", "deep_sky")]
         return candidate[:2] if candidate else objects[:1]
     return list(objects)

@@ -623,6 +623,8 @@ def test_deep_sky_bright_only_is_subset_of_visible_now(monkeypatch):
     bright_ids = {str(obj.get("id") or "") for obj in bright_objects}
     assert bright_ids.issubset(visible_ids)
     assert len(bright_objects) <= len(visible_objects)
+    for obj in bright_objects:
+        assert float(obj.get("magnitude")) <= 6.5
 
 
 def test_deep_sky_naked_eye_limits_to_top_two_targets(monkeypatch):
@@ -645,3 +647,5 @@ def test_deep_sky_naked_eye_limits_to_top_two_targets(monkeypatch):
     naked_ids = {str(obj.get("id") or "") for obj in naked_objects}
     assert naked_ids.issubset(visible_ids)
     assert len(naked_objects) <= 2
+    for obj in naked_objects:
+        assert float(obj.get("magnitude")) <= 6.0
