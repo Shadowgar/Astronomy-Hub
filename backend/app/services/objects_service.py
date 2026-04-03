@@ -26,6 +26,12 @@ def build_object_detail_response(
         object_lookup = get_phase2_object_lookup(parsed_location=parsed_location)
         found = object_lookup.get(obj_id)
         if not found:
+            object_lookup = get_phase2_object_lookup(
+                parsed_location=parsed_location,
+                force_refresh=True,
+            )
+            found = object_lookup.get(obj_id)
+        if not found:
             return (404, {"error": {"code": "not_found", "message": "object not found"}})
 
         detail = build_phase1_object_detail(found, scene_objects=list(object_lookup.values()))
@@ -57,6 +63,12 @@ def get_object_detail_payload(
 
     object_lookup = get_phase2_object_lookup(parsed_location=parsed_location)
     found = object_lookup.get(obj_id)
+    if not found:
+        object_lookup = get_phase2_object_lookup(
+            parsed_location=parsed_location,
+            force_refresh=True,
+        )
+        found = object_lookup.get(obj_id)
     if not found:
         raise LookupError("object not found")
 

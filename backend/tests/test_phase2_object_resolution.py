@@ -114,3 +114,76 @@ def test_object_resolution_is_stable_across_repeated_requests():
             assert status == 200
             assert payload.get("status") == "ok"
             assert (payload.get("data") or {}).get("id") == object_id
+
+
+def test_moon_object_detail_includes_solar_activity_fields_via_api():
+    status, payload = _request_json(
+        "/api/v1/scene"
+        "?scope=sun&engine=moon&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+    assert status == 200
+    scene_objects = payload.get("objects") or []
+    moon = next((obj for obj in scene_objects if str(obj.get("id") or "") == "moon"), None)
+    assert isinstance(moon, dict)
+
+    status, payload = _request_json("/api/v1/object/moon?lat=40.0&lon=-75.0")
+    assert status == 200
+    assert payload.get("status") == "ok"
+
+    data = payload.get("data") or {}
+    assert data.get("id") == "moon"
+    related = data.get("related_objects") or []
+    rows = {str(row.get("title") or ""): str(row.get("summary") or "") for row in related}
+
+    assert "Solar activity status" in rows
+    assert rows["Solar activity status"] in {"quiet", "elevated", "active"}
+    assert "Solar activity summary" in rows
+    assert rows["Solar activity summary"].strip()
+
+
+def test_deep_sky_object_detail_includes_catalog_fields_and_location_consistency():
+    status, payload = _request_json(
+        "/api/v1/scene"
+        "?scope=deep_sky&engine=deep_sky&filter=visible_now"
+        "&lat=41.3219&lon=-79.5854&at=2026-04-02T02:00:00Z"
+    )
+    assert status == 200
+    scene_objects = payload.get("objects") or []
+    deep_sky_id = next(
+        (str(obj.get("id") or "").strip() for obj in scene_objects if str(obj.get("id") or "").strip()),
+        "",
+    )
+    assert deep_sky_id
+
+    status_a, payload_a = _request_json(
+        f"/api/v1/object/{quote(deep_sky_id, safe='')}?lat=40.0&lon=-75.0"
+    )
+    status_b, payload_b = _request_json(
+        f"/api/v1/object/{quote(deep_sky_id, safe='')}?lat=41.3219&lon=-79.5854"
+    )
+    assert status_a == 200
+    assert status_b == 200
+    assert payload_a.get("status") == "ok"
+    assert payload_b.get("status") == "ok"
+
+    data_a = payload_a.get("data") or {}
+    data_b = payload_b.get("data") or {}
+    assert data_a.get("id") == deep_sky_id
+    assert data_b.get("id") == deep_sky_id
+
+    rows_a = {
+        str(row.get("title") or ""): str(row.get("summary") or "")
+        for row in (data_a.get("related_objects") or [])
+        if isinstance(row, dict)
+    }
+    rows_b = {
+        str(row.get("title") or ""): str(row.get("summary") or "")
+        for row in (data_b.get("related_objects") or [])
+        if isinstance(row, dict)
+    }
+
+    for title in ("Catalog", "Object class", "Constellation", "Magnitude"):
+        assert rows_a.get(title)
+        assert rows_b.get(title)
+        assert rows_a.get(title) == rows_b.get(title)

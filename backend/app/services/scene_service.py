@@ -207,7 +207,15 @@ def _objects_for_engine(
             and isinstance(obj.get("visibility"), dict)
             and obj.get("visibility", {}).get("is_visible") is True
         ]
-        return fallback_planets
+        if fallback_planets:
+            return fallback_planets
+        return [
+            deepcopy(obj)
+            for obj in (fallback_lookup or {}).values()
+            if isinstance(obj, dict)
+            and obj.get("engine") == "planets"
+            and obj.get("type") == "planet"
+        ]
     if engine == "moon":
         moon_objects = []
         for obj in objects:

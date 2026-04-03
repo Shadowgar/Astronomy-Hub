@@ -161,6 +161,34 @@ def test_solar_system_slice_marks_moon_as_moon_type():
     assert by_id["mars"]["type"] == "planet"
 
 
+def test_moon_slice_includes_solar_activity_context_from_swpc_alerts():
+    payload = {
+        "ephemeris": [
+            {"id": "moon", "name": "Moon", "azimuth": 180.0, "elevation": 40.0, "source": "jpl_ephemeris"},
+        ],
+        "alerts": [
+            {
+                "priority": "high",
+                "category": "space_weather",
+                "title": "Geomagnetic Storm Watch",
+                "summary": "Elevated geomagnetic activity expected (Kp 6).",
+                "relevance": "high",
+            }
+        ],
+    }
+
+    objects = _build_solar_system_engine_slice(
+        time_context=datetime(2026, 3, 31, 12, 0, tzinfo=timezone.utc),
+        live_inputs=payload,
+    )
+    assert objects
+    moon = objects[0]
+    assert moon.get("id") == "moon"
+    assert moon.get("solar_activity_status") == "active"
+    assert isinstance(moon.get("solar_activity_summary"), str) and moon.get("solar_activity_summary")
+    assert "solar activity: active" in str(moon.get("summary") or "").lower()
+
+
 def test_planet_detail_exposes_structured_solar_system_metadata():
     found = {
         "id": "jupiter",
@@ -212,6 +240,30 @@ def test_planet_detail_excludes_non_solar_related_objects():
     titles = {row.get("title") for row in (detail.get("related_objects") or [])}
     assert "Jupiter" in titles
     assert "HJ-1A" not in titles
+
+
+def test_moon_detail_exposes_solar_activity_rows():
+    found = {
+        "id": "moon",
+        "name": "Moon",
+        "type": "moon",
+        "engine": "moon",
+        "provider_source": "jpl_ephemeris",
+        "summary": "Live ephemeris position az 180.0 el 45.0; best viewing around 2026-03-31T21:00:00+00:00; solar activity: elevated",
+        "position": {"azimuth": 180.0, "elevation": 45.0},
+        "visibility": {
+            "is_visible": True,
+            "visibility_window_start": "2026-03-31T21:00:00+00:00",
+            "visibility_window_end": "2026-03-31T23:00:00+00:00",
+        },
+        "solar_activity_status": "elevated",
+        "solar_activity_summary": "Elevated geomagnetic activity expected (Kp 5).",
+    }
+
+    detail = build_phase1_object_detail(found, scene_objects=[found])
+    rows = {row.get("title"): row.get("summary") for row in (detail.get("related_objects") or [])}
+    assert rows.get("Solar activity status") == "elevated"
+    assert rows.get("Solar activity summary") == "Elevated geomagnetic activity expected (Kp 5)."
 
 
 def test_planet_detail_uses_object_specific_fallback_media_when_resolver_misses(monkeypatch):

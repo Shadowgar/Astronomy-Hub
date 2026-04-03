@@ -104,6 +104,60 @@ def _install_satellite_tle_time_context_stubs(monkeypatch):
     monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
 
 
+def _install_solar_system_below_horizon_stubs(monkeypatch):
+    live_ingestion._clear_ingestion_cache_for_tests()
+
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_open_meteo_conditions",
+        lambda lat, lon: {
+            "cloud_cover_pct": 30,
+            "visibility_m": 12000,
+            "temperature_c": 4.0,
+            "weather_code": 2,
+            "observing_score": "fair",
+            "summary": "mixed",
+            "last_updated": "2026-03-31T11:50:00Z",
+        },
+    )
+    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
+    monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
+    monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_jpl_ephemeris",
+        lambda lat, lon, elevation_ft=None, as_of=None: [
+            {"id": "mercury", "name": "Mercury", "azimuth": 70.0, "elevation": -8.0},
+            {"id": "venus", "name": "Venus", "azimuth": 90.0, "elevation": -12.0},
+            {"id": "mars", "name": "Mars", "azimuth": 110.0, "elevation": -5.5},
+            {"id": "jupiter", "name": "Jupiter", "azimuth": 130.0, "elevation": -3.0},
+            {"id": "saturn", "name": "Saturn", "azimuth": 150.0, "elevation": -7.0},
+        ],
+    )
+
+
+def _install_deep_sky_time_context_stubs(monkeypatch):
+    live_ingestion._clear_ingestion_cache_for_tests()
+
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_open_meteo_conditions",
+        lambda lat, lon: {
+            "cloud_cover_pct": 12,
+            "visibility_m": 14000,
+            "temperature_c": 6.0,
+            "weather_code": 1,
+            "observing_score": "excellent",
+            "summary": "clear",
+            "last_updated": "2026-03-31T11:50:00Z",
+        },
+    )
+    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
+    monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
+    monkeypatch.setattr(live_ingestion, "fetch_swpc_alerts", lambda limit=3: [])
+    monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", lambda lat, lon, elevation_ft=None, as_of=None: [])
+
+
 def test_scope_switch_returns_deterministic_scene_payloads():
     scopes = (
         "above_me",
@@ -249,6 +303,21 @@ def test_planets_scene_identical_for_identical_inputs(monkeypatch):
     assert status_1 == 200
     assert status_2 == 200
     assert payload_1 == payload_2
+
+
+def test_planets_scene_falls_back_to_below_horizon_context_when_none_visible(monkeypatch):
+    _install_solar_system_below_horizon_stubs(monkeypatch)
+    status, payload = _request_json(
+        "/api/v1/scene?scope=solar_system&engine=planets&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T04:00:00Z"
+    )
+
+    assert status == 200
+    objects = payload.get("objects") or []
+    assert objects
+    assert all(obj.get("type") == "planet" for obj in objects)
+    assert all(((obj.get("visibility") or {}).get("is_visible")) is False for obj in objects)
+    assert any("below horizon" in str(obj.get("summary") or "").lower() for obj in objects)
 
 
 def test_satellites_scene_changes_when_at_changes(monkeypatch):
@@ -463,3 +532,72 @@ def test_moon_engine_includes_solar_activity_classification_from_alerts(monkeypa
     assert moon.get("engine") == "moon"
     assert moon.get("solar_activity_status") == "active"
     assert "Solar activity: active." in str(moon.get("summary") or "")
+
+
+def test_deep_sky_scene_changes_when_at_changes(monkeypatch):
+    _install_deep_sky_time_context_stubs(monkeypatch)
+    path_1 = (
+        "/api/v1/scene?scope=deep_sky&engine=deep_sky&filter=visible_now"
+        "&lat=41.3219&lon=-79.5854&at=2026-04-02T02:00:00Z"
+    )
+    path_2 = (
+        "/api/v1/scene?scope=deep_sky&engine=deep_sky&filter=visible_now"
+        "&lat=41.3219&lon=-79.5854&at=2026-04-02T06:00:00Z"
+    )
+    status_1, payload_1 = _request_json(path_1)
+    status_2, payload_2 = _request_json(path_2)
+
+    assert status_1 == 200
+    assert status_2 == 200
+    objects_1 = payload_1.get("objects") or []
+    objects_2 = payload_2.get("objects") or []
+    assert objects_1 and objects_2
+
+    by_id_1 = {str(obj.get("id") or ""): obj for obj in objects_1 if isinstance(obj, dict)}
+    by_id_2 = {str(obj.get("id") or ""): obj for obj in objects_2 if isinstance(obj, dict)}
+    shared_ids = set(by_id_1).intersection(by_id_2)
+    assert shared_ids
+
+    moved = []
+    for object_id in shared_ids:
+        az_1 = ((by_id_1[object_id].get("position") or {}).get("azimuth"))
+        az_2 = ((by_id_2[object_id].get("position") or {}).get("azimuth"))
+        if az_1 is None or az_2 is None:
+            continue
+        moved.append(abs(float(az_1) - float(az_2)))
+
+    assert moved
+    assert max(moved) > 0.5
+
+
+def test_deep_sky_scene_identical_for_identical_inputs(monkeypatch):
+    _install_deep_sky_time_context_stubs(monkeypatch)
+    path = (
+        "/api/v1/scene?scope=deep_sky&engine=deep_sky&filter=visible_now"
+        "&lat=41.3219&lon=-79.5854&at=2026-04-02T02:00:00Z"
+    )
+
+    _request_json(path)
+    status_1, payload_1 = _request_json(path)
+    status_2, payload_2 = _request_json(path)
+
+    assert status_1 == 200
+    assert status_2 == 200
+    assert payload_1 == payload_2
+
+
+def test_deep_sky_scene_is_catalog_backed_and_ranked(monkeypatch):
+    _install_deep_sky_time_context_stubs(monkeypatch)
+    status, payload = _request_json(
+        "/api/v1/scene?scope=deep_sky&engine=deep_sky&filter=visible_now"
+        "&lat=41.3219&lon=-79.5854&at=2026-04-02T02:00:00Z"
+    )
+
+    assert status == 200
+    objects = payload.get("objects") or []
+    assert objects
+    assert all(obj.get("type") == "deep_sky" for obj in objects)
+    assert all(obj.get("provider_source") == "messier_catalog" for obj in objects)
+
+    scores = [float(obj.get("relevance_score") or 0.0) for obj in objects]
+    assert scores == sorted(scores, reverse=True)

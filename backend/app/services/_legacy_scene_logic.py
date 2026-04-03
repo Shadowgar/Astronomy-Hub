@@ -259,6 +259,42 @@ def _stable_float(seed: str, minimum: float, maximum: float) -> float:
     return minimum + (maximum - minimum) * bucket
 
 
+def _classify_solar_activity_from_alerts(live_inputs: dict | None) -> tuple[str, str]:
+    alerts = live_inputs.get("alerts") if isinstance(live_inputs, dict) else None
+    if not isinstance(alerts, list) or not alerts:
+        return ("quiet", "No active SWPC alerts.")
+
+    severity_by_priority = {
+        "critical": 4,
+        "high": 3,
+        "medium": 2,
+        "notice": 1,
+        "low": 0,
+    }
+    best = None
+    best_score = -1
+    for alert in alerts:
+        if not isinstance(alert, dict):
+            continue
+        priority = str(alert.get("priority") or "").strip().lower()
+        score = severity_by_priority.get(priority, 0)
+        text = f"{alert.get('title') or ''} {alert.get('summary') or ''}".lower()
+        if any(token in text for token in ("severe", "x-class", "storm", "cme", "flare")):
+            score = max(score, 3)
+        elif any(token in text for token in ("elevated", "watch", "kp")):
+            score = max(score, 1)
+        if score > best_score:
+            best = alert
+            best_score = score
+
+    status = "active" if best_score >= 3 else ("elevated" if best_score >= 1 else "quiet")
+    if isinstance(best, dict):
+        detail = str(best.get("summary") or best.get("title") or "").strip() or "SWPC solar activity update."
+    else:
+        detail = "SWPC solar activity update unavailable."
+    return (status, detail)
+
+
 def _fetch_live_inputs(location: dict, time_context: datetime) -> dict:
     return fetch_normalized_live_inputs(location, time_context)
 
@@ -476,6 +512,7 @@ def _build_solar_system_engine_slice(
             continue
         body_slug = _slugify(entry.get("id") or name)
         body_type = "moon" if body_slug in {"moon", "301"} else "planet"
+        object_id = "moon" if body_type == "moon" else body_slug
         try:
             elevation = float(entry.get("elevation") or 0.0)
         except Exception:
@@ -501,11 +538,16 @@ def _build_solar_system_engine_slice(
                 f"Ephemeris position az {azimuth:.1f} el {elevation:.1f}; "
                 f"currently below horizon, next context window around {window_start}"
             )
+        solar_activity_status = None
+        solar_activity_summary = None
+        if body_type == "moon":
+            solar_activity_status, solar_activity_summary = _classify_solar_activity_from_alerts(live_inputs)
+            summary = f"{summary}; solar activity: {solar_activity_status}"
 
         visible_relevance = max(0.0, min(1.0, (elevation / 90.0) * conditions_factor))
         out.append(
             {
-                "id": body_slug,
+                "id": object_id,
                 "name": name,
                 "type": body_type,
                 "engine": "solar_system",
@@ -518,6 +560,8 @@ def _build_solar_system_engine_slice(
                     "visibility_window_end": window_end,
                 },
                 "relevance_score": visible_relevance if is_visible_now else 0.05,
+                "solar_activity_status": solar_activity_status,
+                "solar_activity_summary": solar_activity_summary,
             }
         )
 
@@ -943,6 +987,10 @@ def _to_phase2_scene_objects(raw_objects, engine_slug):
         "magnitude",
         "object_class",
     )
+    solar_detail_keys = (
+        "solar_activity_status",
+        "solar_activity_summary",
+    )
     for obj in raw_objects:
         if not isinstance(obj, dict):
             continue
@@ -968,6 +1016,10 @@ def _to_phase2_scene_objects(raw_objects, engine_slug):
             if value not in (None, ""):
                 scene_objects[-1][key] = value
         for key in deep_sky_detail_keys:
+            value = obj.get(key)
+            if value not in (None, ""):
+                scene_objects[-1][key] = value
+        for key in solar_detail_keys:
             value = obj.get(key)
             if value not in (None, ""):
                 scene_objects[-1][key] = value
@@ -1060,14 +1112,21 @@ def _build_phase2_planets_scene(filter_slug, parsed_location=None):
     location = _resolve_location(parsed_location)
     time_context = _resolve_time_context()
     live_inputs = _fetch_live_inputs(location, time_context)
-    objects = _to_phase2_scene_objects(
-        _build_solar_system_engine_slice(
+    raw_objects = _build_solar_system_engine_slice(
+        parsed_location=parsed_location,
+        time_context=time_context,
+        live_inputs=live_inputs,
+    )
+    if not raw_objects:
+        # Preserve scene utility when all planets are currently below horizon.
+        raw_objects = _build_solar_system_engine_slice(
             parsed_location=parsed_location,
             time_context=time_context,
             live_inputs=live_inputs,
-        ),
-        "planets",
-    )
+            include_below_horizon=True,
+        )
+
+    objects = _to_phase2_scene_objects(raw_objects, "planets")
     groups = [
         _build_phase2_scene_group(
             "Planets Visible",
@@ -1371,11 +1430,15 @@ def _phase2_object_lookup_cache_key(parsed_location=None):
     )
 
 
-def get_phase2_object_lookup(parsed_location=None):
+def get_phase2_object_lookup(parsed_location=None, force_refresh: bool = False):
     cache_key = _phase2_object_lookup_cache_key(parsed_location)
     now = time.time()
     cached = _phase2_object_lookup_cache.get(cache_key)
-    if isinstance(cached, dict) and cached.get("expires_at", 0) > now:
+    if (
+        not force_refresh
+        and isinstance(cached, dict)
+        and cached.get("expires_at", 0) > now
+    ):
         return cached.get("lookup") or {}
 
     lookup = _build_phase2_object_lookup(parsed_location=parsed_location)
@@ -1693,17 +1756,18 @@ def _build_solar_system_related(found):
         visibility_text = "Classified"
 
     best_time = _format_detail_value(window_start)
-    return [
+    is_moon = (
+        str(found.get("type") or "").strip().lower() == "moon"
+        or str(found.get("id") or "").strip().lower() in {"moon", "301"}
+    )
+    rows = [
         {
             "id": _slugify(f"{found.get('id')}-body-type"),
             "type": "object",
             "title": "Body type",
             "summary": (
                 "Moon"
-                if (
-                    str(found.get("type") or "").strip().lower() == "moon"
-                    or str(found.get("id") or "").strip().lower() in {"moon", "301"}
-                )
+                if is_moon
                 else "Planet"
             ),
             "relevance": "high",
@@ -1758,6 +1822,26 @@ def _build_solar_system_related(found):
             "relevance": "medium",
         },
     ]
+    if is_moon:
+        rows.extend(
+            [
+                {
+                    "id": _slugify(f"{found.get('id')}-solar-activity-status"),
+                    "type": "object",
+                    "title": "Solar activity status",
+                    "summary": _format_detail_value(found.get("solar_activity_status"), fallback="quiet"),
+                    "relevance": "high",
+                },
+                {
+                    "id": _slugify(f"{found.get('id')}-solar-activity-summary"),
+                    "type": "object",
+                    "title": "Solar activity summary",
+                    "summary": _format_detail_value(found.get("solar_activity_summary"), fallback="No active SWPC alerts."),
+                    "relevance": "medium",
+                },
+            ]
+        )
+    return rows
 
 
 def build_phase1_object_detail(found, scene_objects=None):
