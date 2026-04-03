@@ -10,6 +10,7 @@ export interface SceneQueryParams {
   lat?: string | number
   lon?: string | number
   elevation_ft?: string | number
+  at?: string
 }
 
 const SCENE_ABOVE_ME_PATH = '/scene/above-me'
@@ -30,6 +31,7 @@ function toQueryParams(params?: SceneQueryParams): QueryParams | undefined {
     lat: params.lat,
     lon: params.lon,
     elevation_ft: params.elevation_ft,
+    at: params.at,
   }
 }
 

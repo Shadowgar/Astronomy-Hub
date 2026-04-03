@@ -5,28 +5,17 @@ import { useSceneByScopeDataQuery } from '../../../features/scene/queries'
 import { parseLocationQuery } from '../../../features/shared/locationQuery'
 import useGlobalUiState from '../../../state/globalUiState'
 
-const DEFAULT_SCOPE_ENGINE = {
-  above_me: 'above_me',
-  earth: 'satellites',
-  sun: 'moon',
-  satellites: 'satellites',
-  flights: 'flights',
-  solar_system: 'planets',
-  deep_sky: 'deep_sky',
-}
-
 export default function NowAboveMePanel() {
-  const { activeScope, activeEngine, activeFilter, selectedObjectId, setSelectedObjectId } = useGlobalUiState()
+  const { activeFilter, selectedObjectId, setSelectedObjectId, setActiveScope, setActiveEngine, setActiveFilter } = useGlobalUiState()
   const locationQuery = typeof window !== 'undefined' ? window.location.search : ''
   const queryParams = parseLocationQuery(locationQuery)
-  const scope = activeScope || 'above_me'
-  const engine = activeEngine || DEFAULT_SCOPE_ENGINE[scope] || 'above_me'
   const filter = activeFilter || 'visible_now'
+  const aboveMeFilter = filter === 'high_altitude' || filter === 'short_window' ? filter : 'visible_now'
   const sceneQuery = useSceneByScopeDataQuery({
     ...queryParams,
-    scope,
-    engine,
-    filter,
+    scope: 'above_me',
+    engine: 'above_me',
+    filter: aboveMeFilter,
   })
   const scene = sceneQuery.data && typeof sceneQuery.data === 'object' ? sceneQuery.data : null
   const nowAboveMeItems = Array.isArray(scene?.objects) ? scene.objects.slice(0, 7) : []
@@ -46,7 +35,16 @@ export default function NowAboveMePanel() {
             />
           ))}
         </ul>
-        <button type="button" className="foundation-panel-link">
+        <button
+          type="button"
+          className="foundation-panel-link"
+          onClick={() => {
+            setActiveScope('above_me')
+            setActiveEngine('above_me')
+            setActiveFilter('visible_now')
+            setSelectedObjectId(null)
+          }}
+        >
           See all visible objects
         </button>
       </div>

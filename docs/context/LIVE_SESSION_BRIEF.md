@@ -23,6 +23,8 @@ Recover product integrity by feature, not by phase checklist.
 - Command-bar solar routing corrected (`scope=sun&engine=moon`)
 - Events panel rewired to alerts + pass windows
 - News panel prevented from showing non-news target rows
+- Above Me panel decoupled from active scope and anchored to `scope=above_me&engine=above_me`
+- Time context (`at`) propagation restored from URL query to scene/object API calls
 
 ## 5. Known Gaps
 - no real `/api/v1/news` backend feed yet
@@ -30,7 +32,7 @@ Recover product integrity by feature, not by phase checklist.
 - several features remain partial in tracker
 
 ## 6. Next Required Slice
-Implement backend-authoritative News/Knowledge feed (`/api/v1/news`) and wire News Digest strictly to that contract.
+Complete Above Me orchestration hardening by validating end-to-end panel ownership against live runtime behavior, then move to backend-authoritative News/Knowledge feed (`/api/v1/news`).
 
 ## 7. Evidence Rule
 All status changes must include:

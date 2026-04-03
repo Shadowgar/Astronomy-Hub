@@ -9,6 +9,7 @@ export interface ObjectDetailQueryParams {
   lat?: string | number
   lon?: string | number
   elevation_ft?: string | number
+  at?: string
 }
 
 export const objectsKeys = {
@@ -23,6 +24,7 @@ function toQueryParams(params?: ObjectDetailQueryParams): QueryParams | undefine
     lat: params.lat,
     lon: params.lon,
     elevation_ft: params.elevation_ft,
+    at: params.at,
   }
 }
 

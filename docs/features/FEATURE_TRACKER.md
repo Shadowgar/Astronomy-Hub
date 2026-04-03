@@ -9,7 +9,7 @@
 ## Active Feature Slice
 - Feature: Above Me Orchestration
 - Status: PARTIAL
-- Why: panel ownership/feed-boundary consistency is still incomplete.
+- Why: core Above Me routing is now corrected in UI, but full panel/feed-boundary validation and News authority split are still incomplete.
 
 ## Runtime-Truth Inventory
 | Feature | UI visible? | Real backend path? | Real data source? | Mock active? | Status |

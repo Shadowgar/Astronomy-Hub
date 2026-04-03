@@ -46,6 +46,7 @@ export default function TopControlBar() {
     setActiveScope,
     setActiveEngine,
     setActiveFilter,
+    setSelectedObjectId,
     setUiToggle,
   } = useGlobalUiState()
   const locationQuery = typeof window !== 'undefined' ? window.location.search : ''
@@ -75,6 +76,7 @@ export default function TopControlBar() {
     setActiveScope(nextScope)
     setActiveEngine(nextEngine)
     setActiveFilter(nextFilter || 'visible_now')
+    setSelectedObjectId(null)
   }
 
   return (
@@ -112,6 +114,7 @@ export default function TopControlBar() {
               onChange={(event) => {
                 setActiveEngine(event.target.value)
                 setActiveFilter('visible_now')
+                setSelectedObjectId(null)
               }}
             >
               {engines.map((engineItem) => (
