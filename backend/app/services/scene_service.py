@@ -32,6 +32,76 @@ _PHASE2_DEFAULT_ENGINE = {
 }
 
 
+def _classify_solar_activity(alerts: list[dict] | None) -> tuple[str, str]:
+    if not isinstance(alerts, list) or not alerts:
+        return ("quiet", "No active SWPC alerts.")
+
+    severity_by_priority = {
+        "critical": 4,
+        "high": 3,
+        "medium": 2,
+        "notice": 1,
+        "low": 0,
+    }
+    best_alert = None
+    best_score = -1
+    for alert in alerts:
+        if not isinstance(alert, dict):
+            continue
+        priority = str(alert.get("priority") or "").strip().lower()
+        score = severity_by_priority.get(priority, 0)
+        title = str(alert.get("title") or "").strip()
+        summary = str(alert.get("summary") or "").strip()
+        text = f"{title} {summary}".lower()
+        if any(token in text for token in ("severe", "x-class", "storm", "cme", "flare")):
+            score = max(score, 3)
+        elif any(token in text for token in ("elevated", "watch", "kp")):
+            score = max(score, 1)
+        if score > best_score:
+            best_score = score
+            best_alert = alert
+
+    if best_score >= 3:
+        status = "active"
+    elif best_score >= 1:
+        status = "elevated"
+    else:
+        status = "quiet"
+
+    if isinstance(best_alert, dict):
+        title = str(best_alert.get("title") or "").strip()
+        summary = str(best_alert.get("summary") or "").strip()
+        detail = summary or title or "SWPC solar activity update."
+    else:
+        detail = "SWPC solar activity update unavailable."
+    return (status, detail)
+
+
+def _apply_solar_activity_context(objects: list[dict], phase1_state: dict | None) -> list[dict]:
+    if not isinstance(objects, list):
+        return []
+    supporting = phase1_state.get("supporting") if isinstance(phase1_state, dict) else {}
+    alerts = supporting.get("alerts") if isinstance(supporting, dict) else None
+    status, detail = _classify_solar_activity(alerts if isinstance(alerts, list) else [])
+    headline = f"Solar activity: {status}."
+
+    enriched: list[dict] = []
+    for obj in objects:
+        if not isinstance(obj, dict):
+            continue
+        normalized = deepcopy(obj)
+        base_summary = str(normalized.get("summary") or "").strip()
+        normalized["summary"] = f"{base_summary} {headline}".strip() if base_summary else headline
+        normalized["solar_activity_status"] = status
+        normalized["solar_activity_summary"] = detail
+        reason = str(normalized.get("reason_for_inclusion") or "").strip()
+        normalized["reason_for_inclusion"] = (
+            f"{reason} {detail}".strip() if reason else detail
+        )
+        enriched.append(normalized)
+    return enriched
+
+
 def build_above_me_scene_payload(
     parsed_location: dict | None = None,
     as_of: str | None = None,
@@ -101,7 +171,28 @@ def _objects_for_engine(
     if engine == "above_me":
         return list(objects)
     if engine == "deep_sky":
-        return [obj for obj in objects if obj.get("type") == "deep_sky"]
+        deep_sky = [obj for obj in objects if obj.get("type") == "deep_sky"]
+        if deep_sky:
+            return deep_sky
+        fallback_lookup = get_phase2_object_lookup(parsed_location=parsed_location)
+        fallback_deep_sky = [
+            deepcopy(obj)
+            for obj in (fallback_lookup or {}).values()
+            if isinstance(obj, dict)
+            and obj.get("engine") == "deep_sky"
+            and obj.get("type") == "deep_sky"
+            and isinstance(obj.get("visibility"), dict)
+            and obj.get("visibility", {}).get("is_visible") is True
+        ]
+        if fallback_deep_sky:
+            return fallback_deep_sky
+        return [
+            deepcopy(obj)
+            for obj in (fallback_lookup or {}).values()
+            if isinstance(obj, dict)
+            and obj.get("engine") == "deep_sky"
+            and obj.get("type") == "deep_sky"
+        ]
     if engine == "planets":
         planets = [obj for obj in objects if obj.get("type") == "planet"]
         if planets:
@@ -131,9 +222,10 @@ def _objects_for_engine(
                 continue
             normalized = deepcopy(obj)
             normalized["type"] = "moon"
+            normalized["engine"] = "moon"
             moon_objects.append(normalized)
         if moon_objects:
-            return moon_objects
+            return _apply_solar_activity_context(moon_objects, phase1_state)
         fallback_lookup = get_phase2_object_lookup(parsed_location=parsed_location)
         fallback_moon = next(
             (
@@ -146,7 +238,8 @@ def _objects_for_engine(
         )
         if isinstance(fallback_moon, dict):
             fallback_moon["type"] = "moon"
-            return [fallback_moon]
+            fallback_moon["engine"] = "moon"
+            return _apply_solar_activity_context([fallback_moon], phase1_state)
         return []
     if engine == "satellites":
         return [obj for obj in objects if obj.get("type") == "satellite"]

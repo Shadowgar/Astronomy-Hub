@@ -3,6 +3,7 @@ import time
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 import hashlib
+import math
 from typing import Any
 
 from backend.normalizers import registry
@@ -68,6 +69,22 @@ _DEFAULT_LOCATION = {
     "longitude": -79.585394,
     "elevation_ft": 1420.0,
 }
+
+_DEEP_SKY_MESSIER_CATALOG = [
+    {"catalog": "M31", "name": "Andromeda Galaxy", "ra_hours": 0.712, "dec_deg": 41.269, "magnitude": 3.4, "object_type": "galaxy", "constellation": "Andromeda"},
+    {"catalog": "M42", "name": "Orion Nebula", "ra_hours": 5.588, "dec_deg": -5.391, "magnitude": 4.0, "object_type": "nebula", "constellation": "Orion"},
+    {"catalog": "M13", "name": "Hercules Cluster", "ra_hours": 16.698, "dec_deg": 36.467, "magnitude": 5.8, "object_type": "globular_cluster", "constellation": "Hercules"},
+    {"catalog": "M8", "name": "Lagoon Nebula", "ra_hours": 18.06, "dec_deg": -24.38, "magnitude": 6.0, "object_type": "nebula", "constellation": "Sagittarius"},
+    {"catalog": "M17", "name": "Omega Nebula", "ra_hours": 18.346, "dec_deg": -16.171, "magnitude": 6.0, "object_type": "nebula", "constellation": "Sagittarius"},
+    {"catalog": "M20", "name": "Trifid Nebula", "ra_hours": 18.038, "dec_deg": -23.023, "magnitude": 6.3, "object_type": "nebula", "constellation": "Sagittarius"},
+    {"catalog": "M22", "name": "Sagittarius Cluster", "ra_hours": 18.607, "dec_deg": -23.904, "magnitude": 5.1, "object_type": "globular_cluster", "constellation": "Sagittarius"},
+    {"catalog": "M27", "name": "Dumbbell Nebula", "ra_hours": 19.993, "dec_deg": 22.721, "magnitude": 7.5, "object_type": "planetary_nebula", "constellation": "Vulpecula"},
+    {"catalog": "M45", "name": "Pleiades", "ra_hours": 3.792, "dec_deg": 24.117, "magnitude": 1.6, "object_type": "open_cluster", "constellation": "Taurus"},
+    {"catalog": "M57", "name": "Ring Nebula", "ra_hours": 18.893, "dec_deg": 33.028, "magnitude": 8.8, "object_type": "planetary_nebula", "constellation": "Lyra"},
+    {"catalog": "M81", "name": "Bode's Galaxy", "ra_hours": 9.926, "dec_deg": 69.065, "magnitude": 6.9, "object_type": "galaxy", "constellation": "Ursa Major"},
+    {"catalog": "M82", "name": "Cigar Galaxy", "ra_hours": 9.936, "dec_deg": 69.679, "magnitude": 8.4, "object_type": "galaxy", "constellation": "Ursa Major"},
+    {"catalog": "M92", "name": "Hercules Cluster (M92)", "ra_hours": 17.285, "dec_deg": 43.136, "magnitude": 6.4, "object_type": "globular_cluster", "constellation": "Hercules"},
+]
 
 
 def parse_location_override(
@@ -516,41 +533,171 @@ def _build_solar_system_engine_slice(
     return []
 
 
-def _build_deep_sky_engine_slice(live_inputs=None):
-    """Provider-backed deep-sky context derived from live alert inputs."""
-    alerts = []
-    if isinstance(live_inputs, dict):
-        alerts = live_inputs.get("alerts") or []
+def _julian_date(dt: datetime) -> float:
+    return (dt.astimezone(timezone.utc).timestamp() / 86400.0) + 2440587.5
+
+
+def _local_sidereal_time_hours(dt: datetime, longitude_deg: float) -> float:
+    # Sufficient precision for Phase 2 visibility/ranking decisions.
+    jd = _julian_date(dt)
+    d = jd - 2451545.0
+    gmst_hours = (18.697374558 + 24.06570982441908 * d) % 24.0
+    return (gmst_hours + (longitude_deg / 15.0)) % 24.0
+
+
+def _ra_dec_to_alt_az(
+    ra_hours: float,
+    dec_deg: float,
+    observer_lat_deg: float,
+    observer_lon_deg: float,
+    dt: datetime,
+) -> tuple[float, float]:
+    lst_hours = _local_sidereal_time_hours(dt, observer_lon_deg)
+    hour_angle_deg = ((lst_hours - ra_hours) * 15.0 + 540.0) % 360.0 - 180.0
+
+    lat_rad = math.radians(observer_lat_deg)
+    dec_rad = math.radians(dec_deg)
+    ha_rad = math.radians(hour_angle_deg)
+
+    sin_alt = (
+        math.sin(dec_rad) * math.sin(lat_rad)
+        + math.cos(dec_rad) * math.cos(lat_rad) * math.cos(ha_rad)
+    )
+    sin_alt = max(-1.0, min(1.0, sin_alt))
+    alt_rad = math.asin(sin_alt)
+
+    cos_az = (math.sin(dec_rad) - math.sin(alt_rad) * math.sin(lat_rad)) / (
+        max(1e-9, math.cos(alt_rad) * math.cos(lat_rad))
+    )
+    cos_az = max(-1.0, min(1.0, cos_az))
+    az_rad = math.acos(cos_az)
+    if math.sin(ha_rad) > 0:
+        az_rad = (2.0 * math.pi) - az_rad
+
+    return math.degrees(alt_rad), math.degrees(az_rad)
+
+
+def _deep_sky_reason(
+    catalog: str,
+    object_type: str,
+    altitude_deg: float,
+    visibility_band: str,
+    conditions_score: str,
+) -> str:
+    base = f"{catalog} {object_type.replace('_', ' ')} at {altitude_deg:.1f}° altitude."
+    if visibility_band == "excellent":
+        window = "High in sky with strong observing window."
+    elif visibility_band == "good":
+        window = "Clear observing window with useful altitude."
+    elif visibility_band == "below_horizon":
+        window = "Currently below horizon; retained for catalog continuity."
+    else:
+        window = "Marginal altitude; shorter viewing window."
+
+    if conditions_score == "poor":
+        conditions_note = " Conditions currently reduce deep-sky contrast."
+    elif conditions_score in {"excellent", "good"}:
+        conditions_note = " Conditions support deep-sky observing."
+    else:
+        conditions_note = ""
+    return f"{base} {window}{conditions_note}".strip()
+
+
+def _build_deep_sky_engine_slice(
+    parsed_location=None,
+    time_context=None,
+    live_inputs=None,
+    limit=8,
+    include_below_horizon=False,
+):
+    """Catalog-backed deep-sky targets computed from RA/Dec and local sky position."""
+    location = _resolve_location(parsed_location)
+    time_context = time_context or _resolve_time_context()
+    conditions = live_inputs.get("conditions") if isinstance(live_inputs, dict) else None
+    conditions_score = str((conditions or {}).get("observing_score") or "").strip().lower()
+    moon_interference = str((conditions or {}).get("moon_interference") or "").strip().lower()
+
+    conditions_factor = {
+        "excellent": 1.0,
+        "good": 0.9,
+        "fair": 0.78,
+        "poor": 0.6,
+    }.get(conditions_score, 0.82)
+    moon_penalty = 0.12 if moon_interference in {"high", "severe"} else 0.0
+
+    window_start = time_context.replace(microsecond=0).isoformat()
+    window_end = (time_context.replace(microsecond=0) + timedelta(hours=2)).isoformat()
 
     out = []
-    for index, alert in enumerate(alerts):
-        if not isinstance(alert, dict):
+    for row in _DEEP_SKY_MESSIER_CATALOG:
+        try:
+            alt_deg, az_deg = _ra_dec_to_alt_az(
+                float(row["ra_hours"]),
+                float(row["dec_deg"]),
+                float(location["latitude"]),
+                float(location["longitude"]),
+                time_context,
+            )
+        except Exception:
             continue
-        title = str(alert.get("title") or "").strip()
-        summary = str(alert.get("summary") or "").strip()
-        relevance = str(alert.get("relevance") or "low").strip().lower()
-        if not title:
+
+        # Visibility bands: >20 good, 10–20 marginal, <10 below horizon.
+        if alt_deg < 10.0 and not include_below_horizon:
             continue
-        if relevance == "high":
-            score = 0.85
-        elif relevance == "medium":
-            score = 0.65
-        else:
-            score = 0.45
+        visibility_band = (
+            "excellent"
+            if alt_deg >= 45.0
+            else ("good" if alt_deg >= 20.0 else ("marginal" if alt_deg >= 10.0 else "below_horizon"))
+        )
+        is_visible = alt_deg >= 20.0
+
+        magnitude = float(row["magnitude"])
+        altitude_score = max(0.0, min(1.0, (alt_deg - 10.0) / 80.0))
+        magnitude_score = max(0.0, min(1.0, (9.5 - magnitude) / 7.0))
+        type_boost = 1.0 if row["object_type"] in {"globular_cluster", "open_cluster", "nebula"} else 0.9
+        score = ((0.55 * altitude_score) + (0.3 * magnitude_score) + (0.15 * type_boost)) * conditions_factor
+        if magnitude > 6.5:
+            score -= moon_penalty
+        score = max(0.0, min(1.0, score))
+
+        catalog = str(row["catalog"])
+        name = f"{catalog} {row['name']}"
         out.append(
             {
-                "id": _slugify(f"deep-sky-{index}-{title}"),
-                "name": title,
+                "id": _slugify(catalog),
+                "name": name,
                 "type": "deep_sky",
                 "engine": "deep_sky",
-                "provider_source": alert.get("source") or "noaa_swpc",
-                "summary": summary or "Provider-backed deep-sky context.",
-                "position": None,
-                "visibility": {"is_visible": True},
-                "relevance_score": score,
+                "provider_source": "messier_catalog",
+                "summary": _deep_sky_reason(
+                    catalog,
+                    str(row["object_type"]),
+                    alt_deg,
+                    visibility_band,
+                    conditions_score,
+                ),
+                "position": {"azimuth": round(az_deg, 1), "elevation": round(alt_deg, 1)},
+                "visibility": {
+                    "is_visible": is_visible,
+                    "visibility_window_start": window_start,
+                    "visibility_window_end": window_end,
+                },
+                "relevance_score": round(score, 3),
+                "catalog": catalog,
+                "constellation": row["constellation"],
+                "magnitude": magnitude,
+                "object_class": row["object_type"],
             }
         )
-    return _rank_scene_objects(out)[:4]
+
+    ranked = _rank_scene_objects(out)
+    if limit is None:
+        return ranked
+    try:
+        max_items = max(1, int(limit))
+    except Exception:
+        max_items = 8
+    return ranked[:max_items]
 
 
 def _build_flights_engine_slice(live_inputs=None):
@@ -732,7 +879,7 @@ def _derive_provider_source(obj):
     if engine in ("solar_system", "planets", "moon"):
         return "jpl_ephemeris"
     if engine == "deep_sky":
-        return "noaa_swpc"
+        return "messier_catalog"
     return "unknown"
 
 
@@ -790,6 +937,12 @@ def _to_phase2_scene_objects(raw_objects, engine_slug):
         "satellite_image_url",
         "satellite_norad_id",
     )
+    deep_sky_detail_keys = (
+        "catalog",
+        "constellation",
+        "magnitude",
+        "object_class",
+    )
     for obj in raw_objects:
         if not isinstance(obj, dict):
             continue
@@ -811,6 +964,10 @@ def _to_phase2_scene_objects(raw_objects, engine_slug):
             }
         )
         for key in satellite_detail_keys:
+            value = obj.get(key)
+            if value not in (None, ""):
+                scene_objects[-1][key] = value
+        for key in deep_sky_detail_keys:
             value = obj.get(key)
             if value not in (None, ""):
                 scene_objects[-1][key] = value
@@ -870,7 +1027,11 @@ def _build_phase2_deep_sky_scene(filter_slug, parsed_location=None):
     time_context = _resolve_time_context()
     live_inputs = _fetch_live_inputs(location, time_context)
     objects = _to_phase2_scene_objects(
-        _build_deep_sky_engine_slice(live_inputs=live_inputs),
+        _build_deep_sky_engine_slice(
+            parsed_location=parsed_location,
+            time_context=time_context,
+            live_inputs=live_inputs,
+        ),
         "deep_sky",
     )
     scene_summary = "Deep-sky targets that are currently practical to observe."
@@ -1174,6 +1335,28 @@ def _build_phase2_object_lookup(parsed_location=None):
     except Exception:
         logger.exception("phase2.object.lookup.solar.failed")
 
+    # Deep-sky ids must also remain resolvable independent of current visibility window.
+    try:
+        location = _resolve_location(parsed_location)
+        time_context = _resolve_time_context()
+        live_inputs = _fetch_live_inputs(location, time_context)
+        deep_sky_objects = _build_deep_sky_engine_slice(
+            parsed_location=parsed_location,
+            time_context=time_context,
+            live_inputs=live_inputs,
+            limit=None,
+            include_below_horizon=True,
+        )
+        for scene_obj in _to_phase2_scene_objects(deep_sky_objects, "deep_sky"):
+            object_id = _ensure_object_id(scene_obj)
+            if not object_id:
+                continue
+            normalized = dict(scene_obj)
+            normalized["id"] = object_id
+            lookup.setdefault(object_id, normalized)
+    except Exception:
+        logger.exception("phase2.object.lookup.deep_sky.failed")
+
     return lookup
 
 
@@ -1219,7 +1402,11 @@ def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
         time_context=time_context,
         live_inputs=live_inputs,
     )
-    deep_sky_objects = _build_deep_sky_engine_slice(live_inputs=live_inputs)
+    deep_sky_objects = _build_deep_sky_engine_slice(
+        parsed_location=parsed_location,
+        time_context=time_context,
+        live_inputs=live_inputs,
+    )
 
     objects = [
         obj
@@ -1252,7 +1439,27 @@ def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
     try:
         from backend.app.contracts.phase1 import SceneContract
 
-        SceneContract.parse_obj(scene)
+        contract_keys = (
+            "id",
+            "name",
+            "type",
+            "engine",
+            "provider_source",
+            "summary",
+            "time_relevance",
+            "reason_for_inclusion",
+            "detail_route",
+            "position",
+            "visibility",
+            "relevance_score",
+        )
+        contract_scene = dict(scene)
+        contract_scene["objects"] = [
+            {key: obj.get(key) for key in contract_keys if key in obj}
+            for obj in objects
+            if isinstance(obj, dict)
+        ]
+        SceneContract.parse_obj(contract_scene)
     except Exception:
         logger.exception("scene.validation.warn")
 
@@ -1625,6 +1832,47 @@ def build_phase1_object_detail(found, scene_objects=None):
             detail["summary"] = f"{detail.get('name') or 'Object'} visible in current observing context."
         detail["description"] = (
             "Solar-system context resolved from live JPL ephemeris with local sky position and visibility window."
+        )
+    elif detail.get("type") == "deep_sky":
+        catalog = _format_detail_value(found.get("catalog"), fallback="Classified")
+        object_class = _format_detail_value(found.get("object_class"), fallback="Classified")
+        constellation = _format_detail_value(found.get("constellation"), fallback="Classified")
+        magnitude = _format_detail_value(found.get("magnitude"), fallback="Classified")
+        related.extend(
+            [
+                {
+                    "id": _slugify(f"{found.get('id')}-catalog"),
+                    "type": "object",
+                    "title": "Catalog",
+                    "summary": catalog,
+                    "relevance": "high",
+                },
+                {
+                    "id": _slugify(f"{found.get('id')}-object-class"),
+                    "type": "object",
+                    "title": "Object class",
+                    "summary": object_class,
+                    "relevance": "high",
+                },
+                {
+                    "id": _slugify(f"{found.get('id')}-constellation"),
+                    "type": "object",
+                    "title": "Constellation",
+                    "summary": constellation,
+                    "relevance": "high",
+                },
+                {
+                    "id": _slugify(f"{found.get('id')}-magnitude"),
+                    "type": "object",
+                    "title": "Magnitude",
+                    "summary": magnitude,
+                    "relevance": "medium",
+                },
+            ]
+        )
+        detail["summary"] = f"{detail.get('name') or 'Object'} in {constellation} ({catalog})."
+        detail["description"] = (
+            "Deep-sky target ranked from Messier catalog coordinates with local visibility context."
         )
 
     detail_type = str(detail.get("type") or "").strip().lower()

@@ -68,9 +68,8 @@ def test_phase1_scene_uses_provider_backed_engine_inputs(monkeypatch):
 
     assert objects
     assert all((obj.get("engine") or "").lower() != "mock" for obj in objects)
-    assert all((obj.get("name") or "") not in {"M31 Andromeda Galaxy", "M13 Hercules Cluster"} for obj in objects)
     assert any(obj.get("type") == "deep_sky" for obj in objects)
-    assert any(obj.get("name") == "Kp update" for obj in objects)
+    assert any(obj.get("provider_source") == "messier_catalog" for obj in objects if obj.get("type") == "deep_sky")
 
 
 def test_object_detail_related_objects_for_solar_objects_stay_in_solar_family():
@@ -156,3 +155,29 @@ def test_phase1_scene_state_keeps_cross_engine_coverage_under_object_cap(monkeyp
     assert "satellite" in object_types
     assert "planet" in object_types
     assert "deep_sky" in object_types
+
+
+def test_deep_sky_object_detail_surfaces_catalog_metadata():
+    found = {
+        "id": "m42",
+        "name": "M42 Orion Nebula",
+        "type": "deep_sky",
+        "engine": "deep_sky",
+        "provider_source": "messier_catalog",
+        "summary": "M42 nebula at 36.0° altitude.",
+        "catalog": "M42",
+        "constellation": "Orion",
+        "magnitude": 4.0,
+        "object_class": "nebula",
+        "visibility": {"is_visible": True, "visibility_window_start": "2026-03-31T12:00:00Z"},
+    }
+
+    detail = logic.build_phase1_object_detail(found, scene_objects=[found])
+    related = detail.get("related_objects") or []
+    by_title = {str(item.get("title")): str(item.get("summary")) for item in related if isinstance(item, dict)}
+
+    assert detail.get("summary") == "M42 Orion Nebula in Orion (M42)."
+    assert by_title.get("Catalog") == "M42"
+    assert by_title.get("Object class") == "nebula"
+    assert by_title.get("Constellation") == "Orion"
+    assert by_title.get("Magnitude") == "4.0"

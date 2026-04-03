@@ -409,3 +409,57 @@ def test_moon_engine_identical_for_identical_inputs(monkeypatch):
     assert status_1 == 200
     assert status_2 == 200
     assert payload_1 == payload_2
+
+
+def test_moon_engine_includes_solar_activity_classification_from_alerts(monkeypatch):
+    live_ingestion._clear_ingestion_cache_for_tests()
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_open_meteo_conditions",
+        lambda lat, lon: {
+            "cloud_cover_pct": 12,
+            "visibility_m": 14000,
+            "temperature_c": 6.0,
+            "weather_code": 1,
+            "observing_score": "excellent",
+            "summary": "clear",
+            "last_updated": "2026-03-31T11:50:00Z",
+        },
+    )
+    monkeypatch.setattr(live_ingestion, "fetch_celestrak_active", lambda limit=400, **kwargs: [])
+    monkeypatch.setattr(live_ingestion, "fetch_opensky_nearby", lambda lat, lon, radius_km=450.0, limit=6: [])
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_swpc_alerts",
+        lambda limit=3: [
+            {
+                "priority": "high",
+                "category": "space_weather",
+                "title": "Geomagnetic Storm Watch",
+                "summary": "Elevated geomagnetic activity expected (Kp 6).",
+                "relevance": "high",
+                "source": "noaa_swpc",
+            }
+        ],
+    )
+    monkeypatch.setattr(
+        live_ingestion,
+        "fetch_jpl_ephemeris",
+        lambda lat, lon, elevation_ft=None, as_of=None: [
+            {"id": "moon", "name": "Moon", "azimuth": 180.0, "elevation": 45.0},
+        ],
+    )
+
+    status, payload = _request_json(
+        "/api/v1/scene?scope=sun&engine=moon&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+    assert status == 200
+    objects = payload.get("objects") or []
+    assert len(objects) == 1
+    moon = objects[0]
+    assert moon.get("id") == "moon"
+    assert moon.get("type") == "moon"
+    assert moon.get("engine") == "moon"
+    assert moon.get("solar_activity_status") == "active"
+    assert "Solar activity: active." in str(moon.get("summary") or "")
