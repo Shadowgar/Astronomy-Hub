@@ -9,6 +9,7 @@ import TopControlBar from './TopControlBar'
 import { useSceneByScopeDataQuery } from '../../../features/scene/queries'
 import { useAlertsListQuery } from '../../../features/alerts/queries'
 import { usePassesListQuery } from '../../../features/passes/queries'
+import { useNewsListQuery } from '../../../features/news/queries'
 import { useScopesQuery } from '../../../features/scopes/queries'
 import { parseLocationQuery } from '../../../features/shared/locationQuery'
 import useGlobalUiState from '../../../state/globalUiState'
@@ -63,11 +64,18 @@ export default function CommandCenterFoundationView() {
   })
   const alertsQuery = useAlertsListQuery(queryParams)
   const passesQuery = usePassesListQuery(queryParams)
+  const newsQuery = useNewsListQuery({
+    ...queryParams,
+    scope,
+    engine,
+    limit: 5,
+  })
   const scopesQuery = useScopesQuery()
 
   const scene = sceneQuery.data && typeof sceneQuery.data === 'object' ? sceneQuery.data : null
   const alerts = Array.isArray(alertsQuery.data) ? alertsQuery.data : []
   const passes = Array.isArray(passesQuery.data) ? passesQuery.data : []
+  const newsItems = Array.isArray(newsQuery.data) ? newsQuery.data : []
   const sceneObjects = Array.isArray(scene?.objects) ? scene.objects : []
   const scopesPayload = scopesQuery.data && typeof scopesQuery.data === 'object' ? scopesQuery.data : null
   const scopes = Array.isArray(scopesPayload?.scopes) ? scopesPayload.scopes : []
@@ -89,14 +97,13 @@ export default function CommandCenterFoundationView() {
   const passEvents = toEventsFromPasses(passes.slice(0, 4))
   const eventsAlertsItems = [...liveAlerts, ...passEvents].slice(0, 4)
 
-  const newsDigestItems = alerts
-    .filter((item) => item && item.category !== 'system')
+  const newsDigestItems = newsItems
     .slice(0, 4)
     .map((item, index) => ({
-      id: `news-${index}-${item.title || 'item'}`,
+      id: item.id || `news-${index}-${item.title || 'item'}`,
       name: item.title || 'Space update',
-      reason: item.summary || 'Live astronomy update.',
-      marker: formatLabel(item.category || 'Live'),
+      reason: item.why_it_matters || item.summary || 'Live astronomy update.',
+      marker: item?.source?.name || 'Live',
     }))
 
   if (newsDigestItems.length === 0) {

@@ -13,6 +13,7 @@ __all__ = [
     "targets",
     "passes",
     "alerts",
+    "news",
     "location",
     "assets",
 ]
