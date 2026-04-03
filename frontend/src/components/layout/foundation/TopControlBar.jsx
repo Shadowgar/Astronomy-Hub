@@ -7,10 +7,10 @@ import { useScopesQuery } from '../../../features/scopes/queries'
 
 const COMMAND_ACTIONS = [
   { label: "What's above me now?", scope: 'above_me', engine: 'above_me', filter: 'visible_now' },
-  { label: 'Show satellites', scope: 'earth', engine: 'satellites', filter: 'visible_now' },
+  { label: 'Show satellites', scope: 'satellites', engine: 'satellites', filter: 'visible_now' },
   { label: 'Show planets', scope: 'solar_system', engine: 'planets', filter: 'visible_now' },
-  { label: 'Earth events', scope: 'earth', engine: 'satellites', filter: 'events' },
-  { label: 'Solar', scope: 'sun', engine: 'moon', filter: 'visible_now' },
+  { label: 'Earth events', scope: 'earth', engine: 'satellites', filter: 'short_window' },
+  { label: 'Solar', scope: 'solar_system', engine: 'moon', filter: 'visible_now' },
 ]
 
 function formatScopeLabel(value) {
@@ -42,6 +42,7 @@ export default function TopControlBar() {
   const {
     activeScope,
     activeEngine,
+    activeFilter,
     setActiveScope,
     setActiveEngine,
     setActiveFilter,
@@ -62,6 +63,7 @@ export default function TopControlBar() {
     ? [...new Set([...(scopeEntry.engines || []), ...(scopeEntry.optional_engines || [])])]
     : ['above_me']
   const engine = activeEngine || engines[0] || 'above_me'
+  const filter = activeFilter || 'visible_now'
   const locationLabel = queryParams.lat && queryParams.lon
     ? `${queryParams.lat}, ${queryParams.lon}`
     : 'ORAS'
@@ -72,7 +74,7 @@ export default function TopControlBar() {
   const applySelection = (nextScope, nextEngine, nextFilter) => {
     setActiveScope(nextScope)
     setActiveEngine(nextEngine)
-    setActiveFilter(nextFilter)
+    setActiveFilter(nextFilter || 'visible_now')
   }
 
   return (
@@ -107,7 +109,10 @@ export default function TopControlBar() {
             <select
               aria-label="Engine selector"
               value={engine}
-              onChange={(event) => setActiveEngine(event.target.value)}
+              onChange={(event) => {
+                setActiveEngine(event.target.value)
+                setActiveFilter('visible_now')
+              }}
             >
               {engines.map((engineItem) => (
                 <option key={engineItem} value={engineItem}>
@@ -153,6 +158,7 @@ export default function TopControlBar() {
               <button
                 key={command.label}
                 type="button"
+                className={scope === command.scope && engine === command.engine && filter === command.filter ? 'foundation-command-active' : ''}
                 onClick={() => applySelection(command.scope, command.engine, command.filter)}
               >
                 {command.label}

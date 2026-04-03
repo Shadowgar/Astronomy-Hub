@@ -212,3 +212,25 @@ def test_planet_detail_excludes_non_solar_related_objects():
     titles = {row.get("title") for row in (detail.get("related_objects") or [])}
     assert "Jupiter" in titles
     assert "HJ-1A" not in titles
+
+
+def test_planet_detail_uses_object_specific_fallback_media_when_resolver_misses(monkeypatch):
+    from backend.services import imageResolver
+
+    monkeypatch.setattr(imageResolver, "get_object_image", lambda target_name: None)
+
+    found = {
+        "id": "neptune",
+        "name": "Neptune",
+        "type": "planet",
+        "engine": "planets",
+        "provider_source": "jpl_ephemeris",
+        "summary": "Live ephemeris position",
+        "position": {"azimuth": 262.5, "elevation": 8.0},
+        "visibility": {"is_visible": True},
+    }
+
+    detail = build_phase1_object_detail(found, scene_objects=[found])
+    media = detail.get("media") or []
+    assert media
+    assert "Neptune_Full.jpg" in str(media[0].get("url") or "")

@@ -682,6 +682,36 @@ def _rank_scene_objects(objects):
         return objects
 
 
+def _select_diverse_scene_objects(objects, limit=10):
+    ranked = _rank_scene_objects(list(objects))
+    selected = []
+    seen_ids = set()
+    required_types = ("planet", "deep_sky", "satellite")
+
+    for required_type in required_types:
+        candidate = next((obj for obj in ranked if obj.get("type") == required_type), None)
+        if not isinstance(candidate, dict):
+            continue
+        object_id = str(candidate.get("id") or candidate.get("name") or "")
+        if object_id and object_id in seen_ids:
+            continue
+        selected.append(candidate)
+        if object_id:
+            seen_ids.add(object_id)
+
+    for candidate in ranked:
+        if len(selected) >= limit:
+            break
+        object_id = str(candidate.get("id") or candidate.get("name") or "")
+        if object_id and object_id in seen_ids:
+            continue
+        selected.append(candidate)
+        if object_id:
+            seen_ids.add(object_id)
+
+    return _rank_scene_objects(selected)[:limit]
+
+
 def _derive_time_relevance(obj):
     visibility = obj.get("visibility") if isinstance(obj, dict) else None
     if isinstance(visibility, dict):
@@ -1208,8 +1238,7 @@ def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
             normalized_objects.append(obj)
     objects = normalized_objects
     objects = [obj for obj in objects if _is_above_horizon(obj)]
-    objects = _rank_scene_objects(objects)
-    objects = objects[:10]
+    objects = _select_diverse_scene_objects(objects, limit=10)
     objects = [_enforce_phase1_object_contract(obj) for obj in objects]
 
     scene = {
@@ -1335,6 +1364,19 @@ def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
 
 def _fallback_media_for_type(obj_type):
     """Deterministic fallback media to keep detail payloads usable."""
+    obj_type = str(obj_type or "").strip().lower()
+    if obj_type in ("planet", "moon"):
+        return {
+            "type": "image",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg",
+            "source": "Wikimedia",
+        }
+    if obj_type == "deep_sky":
+        return {
+            "type": "image",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Messier_13_HST.jpg",
+            "source": "Wikimedia",
+        }
     return None
 
 
@@ -1344,10 +1386,31 @@ def _is_blocked_image_url(url):
     value = url.strip().lower()
     if not value:
         return True
-    # Known source that currently returns AccessDenied for public browser loads.
-    if "images-assets.nasa.gov" in value:
+    # Block only known URLs that currently return AccessDenied.
+    if "images-assets.nasa.gov/image/iss071e099123" in value:
         return True
     return False
+
+
+def _fallback_media_for_object(found):
+    obj_type = str((found or {}).get("type") or "").strip().lower()
+    object_key = str((found or {}).get("id") or (found or {}).get("name") or "").strip().lower()
+    planet_fallbacks = {
+        "mercury": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_true_color.jpg",
+        "venus": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg",
+        "mars": "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg",
+        "jupiter": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg",
+        "saturn": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg",
+        "uranus": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg",
+        "neptune": "https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg",
+        "moon": "https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg",
+        "301": "https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg",
+    }
+    if obj_type in ("planet", "moon"):
+        url = planet_fallbacks.get(object_key)
+        if url:
+            return {"type": "image", "url": url, "source": "Wikimedia"}
+    return _fallback_media_for_type(obj_type)
 
 
 def _is_mismatched_satellite_image(found, url):
@@ -1650,7 +1713,7 @@ def build_phase1_object_detail(found, scene_objects=None):
         pass
 
     if not detail.get("media"):
-        fallback = _fallback_media_for_type(found.get("type"))
+        fallback = _fallback_media_for_object(found)
         if fallback:
             detail["media"] = [fallback]
         else:

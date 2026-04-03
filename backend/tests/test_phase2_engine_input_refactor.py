@@ -102,3 +102,57 @@ def test_object_detail_related_objects_for_solar_objects_stay_in_solar_family():
     assert "Mars" in titles
     assert "ISS" not in titles
     assert all(item.get("type") == "object" for item in related if isinstance(item, dict))
+
+
+def test_phase1_scene_state_keeps_cross_engine_coverage_under_object_cap(monkeypatch):
+    satellites = [
+        {
+            "id": f"sat-{idx}",
+            "name": f"SAT-{idx}",
+            "type": "satellite",
+            "engine": "satellites",
+            "summary": "Synthetic satellite",
+            "relevance_score": 0.99 - (idx * 0.001),
+            "position": {"azimuth": 180.0, "elevation": 45.0},
+            "visibility": {"is_visible": True},
+        }
+        for idx in range(20)
+    ]
+    planets = [
+        {
+            "id": "jupiter",
+            "name": "Jupiter",
+            "type": "planet",
+            "engine": "solar_system",
+            "summary": "Synthetic planet",
+            "relevance_score": 0.2,
+            "position": {"azimuth": 120.0, "elevation": 35.0},
+            "visibility": {"is_visible": True},
+        }
+    ]
+    deep_sky = [
+        {
+            "id": "m13",
+            "name": "M13",
+            "type": "deep_sky",
+            "engine": "deep_sky",
+            "summary": "Synthetic deep sky target",
+            "relevance_score": 0.1,
+            "position": {"azimuth": 200.0, "elevation": 25.0},
+            "visibility": {"is_visible": True},
+        }
+    ]
+
+    monkeypatch.setattr(logic, "_fetch_live_inputs", lambda location, time_context: {})
+    monkeypatch.setattr(logic, "_build_satellite_engine_slice", lambda **kwargs: satellites)
+    monkeypatch.setattr(logic, "_build_solar_system_engine_slice", lambda **kwargs: planets)
+    monkeypatch.setattr(logic, "_build_deep_sky_engine_slice", lambda **kwargs: deep_sky)
+
+    state = logic.build_phase1_scene_state()
+    objects = ((state.get("scene") or {}).get("objects")) or []
+    object_types = {str(obj.get("type") or "") for obj in objects}
+
+    assert len(objects) <= 10
+    assert "satellite" in object_types
+    assert "planet" in object_types
+    assert "deep_sky" in object_types

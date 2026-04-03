@@ -515,6 +515,11 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   font-weight: var(--token-font-weight-semibold);
 }
 
+.foundation-command-bar-actions .foundation-command-active {
+  border-color: color-mix(in oklab, var(--token-color-action-primary), var(--surface-border) 40%);
+  background: color-mix(in oklab, var(--token-color-action-primary), var(--surface-bg) 84%);
+}
+
 .command-center-foundation__hero-row {
   grid-template-columns: 2.4fr 1fr;
   gap: var(--token-size-16);
