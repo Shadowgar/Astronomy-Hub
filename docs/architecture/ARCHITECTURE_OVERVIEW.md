@@ -547,3 +547,41 @@ This document ensures:
 * predictable system behavior
 
 ---
+
+# 14. SOURCE-TO-CONTRACT EXECUTION PATH (ADDITIVE)
+
+This section clarifies runtime source handling without replacing existing architecture law.
+
+## 14.1 Required Backend Path
+
+All runtime features must follow:
+
+```text
+Provider -> Adapter -> Normalizer -> Validator -> Cache -> API -> Client Rendering
+```
+
+## 14.2 Frontend Data Boundary
+
+Frontend must consume only normalized API contracts.
+Frontend must not:
+
+* build provider URLs directly
+* transform raw provider payloads into product truth
+* infer missing backend meaning
+
+## 14.3 Engine Source Declaration Rule
+
+Each engine must declare, in its engine spec:
+
+* primary provider(s)
+* optional enrichment source(s)
+* fallback behavior when primary fails
+* minimum contract fields emitted to UI
+
+## 14.4 Runtime Truth Requirement
+
+A user-visible module is `REAL` only when:
+
+* a live backend source path exists
+* normalized output is returned through API
+* UI renders that output without provider-shape leakage

@@ -324,3 +324,80 @@ The Sun Engine is:
 > **An event-driven system that combines solar imagery and space weather into meaningful context**
 
 ---
+
+# 15. SOURCE TIERS (ADDITIVE)
+
+## 15.1 PRIMARY
+
+* NOAA SWPC-style solar activity/event feeds
+* backend solar activity normalization path
+
+## 15.2 ENRICHMENT
+
+* Helioviewer/NASA imagery references
+* optional mission-linked media/analysis references
+
+## 15.3 FALLBACK
+
+If primary event feed fails:
+
+* return last-known solar state with explicit staleness marker
+* keep summary concise and truthful about degraded freshness
+
+---
+
+# 16. NORMALIZED CONTRACT EXTENSION (ADDITIVE)
+
+Sun engine outputs should combine activity state + event context:
+
+```json
+{
+  "id": "sun:activity",
+  "engine": "sun",
+  "state": {"activity_level": "quiet", "risk_window": "low"},
+  "events": [{"type": "flare", "class": "M1.2", "time": "2026-04-03T00:40:00Z"}],
+  "why_it_matters": "Current solar activity remains low with no immediate severe impact indicators.",
+  "trace": {"provider": "noaa_swpc", "fetched_at": "2026-04-03T01:45:00Z"}
+}
+```
+
+Contract notes:
+
+* summary must remain decision-support oriented, not raw telemetry dump
+* event lists should be bounded and relevance-ranked
+
+---
+
+# 17. MASTER PLAN ALIGNMENT + IMPLEMENTATION GUARDRAILS (ADDITIVE)
+
+## 17.1 Master-Plan Alignment Targets
+
+* Aligns to Master Plan §4.2 (Solar Engine) and cross-engine condition/event relevance.
+* Must answer: “What is happening on the Sun now, and does it affect observing?”
+
+## 17.2 Minimum Phase-2 Real Capability
+
+Must provide:
+
+* current solar activity state (quiet/moderate/active/high)
+* bounded event list with impact context
+* concise why-it-matters summary consumable by briefing panel
+
+## 17.3 Cross-Engine Relevance Rule
+
+* Sun output should provide explicit hooks for Conditions and Events engines.
+* Cross-linking must preserve owning-engine identity and source provenance.
+
+## 17.4 Visualization Boundary Rule
+
+* Phase-2: informative summary + image references
+* Phase-3+: advanced surface/globe visualization
+* No placeholder 3D should be presented as real Phase-2 capability
+
+## 17.5 Build-to-Proof Checklist
+
+Prove:
+
+* source traces and freshness are exposed
+* activity classification is deterministic for identical input snapshots
+* downstream panel callouts consume sun summary without raw payload leakage

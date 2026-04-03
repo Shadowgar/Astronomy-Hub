@@ -647,3 +647,45 @@ In Astronomy Hub:
 * The Main Engine coordinates, but does not replace engine authority
 
 That is the system.
+
+---
+
+## 28. ENGINE SOURCE GOVERNANCE (ADDITIVE)
+
+This section extends source requirements without changing ownership laws above.
+
+### 28.1 Source Classes
+
+Each engine source must be classified as:
+
+* `PRIMARY` — authoritative runtime source for active output
+* `ENRICHMENT` — optional supplemental metadata/media
+* `FALLBACK` — degraded-mode source used only when primary path fails
+
+### 28.2 Source Provenance Rule
+
+Every engine output record should remain source-traceable at least to:
+
+* provider identifier
+* retrieval timestamp
+* normalized contract version
+
+### 28.3 Engine-to-Source Baseline Matrix
+
+| Engine | PRIMARY (runtime) | ENRICHMENT (optional) |
+|---|---|---|
+| Earth / Conditions | NOAA/NWS + model-backed atmosphere inputs | local light-pollution datasets |
+| Solar | NOAA SWPC | NASA/ESA solar media and mission context |
+| Satellite | SatNOGS + visibility/pass providers in use | mission/operator lookup catalogs |
+| Flight | ADS-B Exchange/OpenSky-style flight-position feeds | aircraft/operator metadata registries |
+| Solar System | JPL ephemeris sources | planetary media catalogs |
+| Deep Sky | curated DSO catalogs + visibility context | astrophotography/reference datasets |
+| News / Knowledge | backend-curated astronomy/news feed | engine-linked media/research crossrefs |
+
+### 28.4 Engine Completeness Extension
+
+An engine is not operationally complete unless:
+
+* primary source path is explicit
+* degraded behavior is explicit
+* provenance is exposed in normalized outputs (directly or trace metadata)

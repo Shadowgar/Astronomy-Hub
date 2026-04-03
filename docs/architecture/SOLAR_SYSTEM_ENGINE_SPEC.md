@@ -333,3 +333,87 @@ The Solar System Engine is:
 > **A precision-driven system that converts ephemeris data into meaningful observing guidance**
 
 ---
+
+# 15. SOURCE TIERS (ADDITIVE)
+
+## 15.1 PRIMARY
+
+* JPL-class ephemeris provider path for body position/time context
+* backend visibility computation for local sky context
+
+## 15.2 ENRICHMENT
+
+* NASA/JPL imagery/media references
+* optional mission/reference metadata for selected bodies
+
+## 15.3 FALLBACK
+
+If primary ephemeris source is unavailable:
+
+* use cached ephemeris snapshots for bounded window
+* mark output degraded and timestamped
+
+---
+
+# 16. NORMALIZED CONTRACT EXTENSION (ADDITIVE)
+
+Solar-system scene/detail output should remain deterministic by input time/location:
+
+```json
+{
+  "id": "solar:neptune",
+  "name": "Neptune",
+  "engine": "planets",
+  "type": "planet",
+  "position": {"azimuth_deg": 262.5, "elevation_deg": 8.0},
+  "visibility": {
+    "state": "visible_now",
+    "window_start": "2026-04-03T22:00:00Z",
+    "window_end": "2026-04-04T03:00:00Z",
+    "best_viewing_time": "2026-04-03T22:00:00Z"
+  },
+  "why_it_matters": "Currently observable in the active context with a valid local visibility window.",
+  "trace": {"provider": "jpl_ephemeris", "fetched_at": "2026-04-03T01:55:00Z"}
+}
+```
+
+Contract notes:
+
+* identical input context must produce identical deterministic output
+* image/media fields should reference object-correct assets only (no cross-object image bleed)
+
+---
+
+# 17. MASTER PLAN ALIGNMENT + IMPLEMENTATION GUARDRAILS (ADDITIVE)
+
+## 17.1 Master-Plan Alignment Targets
+
+* Aligns to Master Plan §4.5 (Solar System Engine) and §5 object interaction flow.
+* Phase-2 focus is accurate context + decisions, not full immersive rendering.
+
+## 17.2 Minimum Phase-2 Real Capability
+
+Must provide:
+
+* locally relevant visible planetary set for active context
+* deterministic ephemeris-based position + visibility windows
+* best-viewing-time guidance with concise reason
+* object detail tabs that remain backend-authoritative
+
+## 17.3 3D/Immersive Boundary Rule
+
+* advanced 3D globe/system rendering is Phase-3+ enhancement
+* Phase-2 must still preserve future 3D handoff through stable object identity/contracts
+
+## 17.4 Media Integrity Rule
+
+* body media must be mapped by canonical object identity
+* incorrect default imagery (e.g., sun image on Neptune) is a contract/data mapping failure
+
+## 17.5 Build-to-Proof Checklist
+
+Prove:
+
+* `at` parameter changes output predictably
+* identical inputs return identical ephemeris scene output
+* detail payload fields match selected body identity and source trace

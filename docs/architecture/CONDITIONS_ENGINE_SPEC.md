@@ -244,3 +244,93 @@ The Observing Conditions Engine is:
 
 > The intelligence layer that transforms atmospheric/astronomy context into actionable observing decisions.
 
+---
+
+# 18. MASTER PLAN ALIGNMENT + IMPLEMENTATION GUARDRAILS (ADDITIVE)
+
+This addendum binds this engine to `docs/product/ASTRONOMY_HUB_MASTER_PLAN.md` and feature-first execution.
+
+## 18.1 Master-Plan Alignment Targets
+
+* Aligns to Master Plan §4.1 (Earth context) and command-center decision purpose.
+* Must directly support the user question: “Is it worth observing now, and why?”
+* Must influence ranked outputs in other engines via explicit condition context.
+
+## 18.2 Minimum Phase-2 Real Capability
+
+Must provide, through backend-authoritative output:
+
+* observing score + confidence
+* clear short summary (non-duplicative)
+* cloud/transparency/seeing/darkness/wind/humidity core metrics
+* degraded marker and source trace when not fresh
+
+## 18.3 Above-Me and Regional Coupling Rule
+
+For active location/time context:
+
+* conditions output must be recomputed or resolved for that exact context
+* summary/callouts must be usable by Above Me orchestration ranking
+* stale or generic “global” weather must not be labeled local live truth
+
+## 18.4 Build-to-Proof Checklist
+
+When implementing slices for this engine, prove:
+
+* `/api/v1/scene` briefing fields change correctly with location/time context
+* conditions detail endpoint/contract includes trace + degraded flags
+* repeated identical inputs return deterministic conditions output
+
+---
+
+# 16. SOURCE TIERS (ADDITIVE)
+
+## 16.1 PRIMARY
+
+* NOAA/NWS weather + forecast inputs
+* astronomy-context inputs required by current model (moon/solar/light-pollution context where applicable)
+
+## 16.2 ENRICHMENT
+
+* optional atmospheric/smoke refinements
+* optional chart-style interpretation overlays (model-driven, not scraped)
+
+## 16.3 FALLBACK
+
+If primary source path fails:
+
+* keep last-known-good decision window with explicit stale marker
+* lower confidence
+* return degraded explanation instead of blank output
+
+---
+
+# 17. NORMALIZED CONTRACT EXTENSION (ADDITIVE)
+
+Conditions output should expose model metrics and traceability together:
+
+```json
+{
+  "observing_score": "GOOD",
+  "confidence": "high",
+  "conditions": {
+    "cloud_cover_pct": 21,
+    "transparency": "above_average",
+    "seeing": "4/5",
+    "darkness_mag": 5.5,
+    "smoke": "low",
+    "wind_mph": 8,
+    "humidity_pct": 78
+  },
+  "summary": "Clear enough and steady for useful observing; deep-sky contrast is reduced.",
+  "trace": {
+    "provider": "noaa_nws",
+    "fetched_at": "2026-04-03T02:40:00Z"
+  }
+}
+```
+
+Contract rule:
+
+* summary must not duplicate every metric line verbatim
+* UI should render concise decision + expandable metric context

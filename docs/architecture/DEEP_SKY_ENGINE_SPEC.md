@@ -352,3 +352,82 @@ The Deep Sky Engine is:
 > **A computation-driven system that transforms catalog data into meaningful observing targets**
 
 ---
+
+# 15. SOURCE TIERS (ADDITIVE)
+
+## 15.1 PRIMARY
+
+* curated deep-sky catalog inputs (Phase-2 bounded set)
+* backend local visibility computation (time/location/conditions context)
+
+## 15.2 ENRICHMENT
+
+* imagery/reference datasets (NASA/ESO/community references where licensed/allowed)
+* optional observation notes and equipment hints
+
+## 15.3 FALLBACK
+
+If live computation is unavailable:
+
+* use cached ranked target window with degraded marker
+* avoid presenting stale ranking as current-truth without timestamp
+
+---
+
+# 16. NORMALIZED CONTRACT EXTENSION (ADDITIVE)
+
+Deep-sky output should include ranking rationale and observability context:
+
+```json
+{
+  "id": "dso:m45",
+  "name": "M45 Pleiades",
+  "engine": "deep_sky",
+  "type": "cluster",
+  "position": {"azimuth_deg": 124.7, "elevation_deg": 66.4},
+  "ranking": {"score": 0.88, "rank": 1},
+  "visibility": {"state": "high", "best_viewing_time": "2026-04-03T21:30:00Z"},
+  "why_it_matters": "High altitude and strong contrast window in current observing context.",
+  "trace": {"provider": "curated_dso_catalog", "fetched_at": "2026-04-03T01:30:00Z"}
+}
+```
+
+Contract notes:
+
+* ranking must be explainable from visibility + conditions inputs
+* missing enrichment fields should be explicit, not silent blanks
+
+---
+
+# 17. MASTER PLAN ALIGNMENT + IMPLEMENTATION GUARDRAILS (ADDITIVE)
+
+## 17.1 Master-Plan Alignment Targets
+
+* Aligns to Master Plan §4.6 (Deep Sky Engine) and command-center relevance model.
+* Must answer: “What deep-sky targets are worth observing now from this location?”
+
+## 17.2 Minimum Phase-2 Real Capability
+
+Must provide:
+
+* bounded ranked list of currently viable deep-sky targets
+* visibility-aware and conditions-aware reasons
+* object detail with catalog identity and observing context
+
+## 17.3 Catalog Expansion Rule
+
+* Phase-2 may remain curated, but coverage boundaries must be explicit.
+* If only Messier/core set is active, docs and output metadata should state it.
+
+## 17.4 Above-Me Coupling Rule
+
+* Deep-sky candidates can contribute to Above Me when visibility threshold is met.
+* Contribution must be ranked and concise; no long unfiltered object dumps.
+
+## 17.5 Build-to-Proof Checklist
+
+Prove:
+
+* conditions changes affect deep-sky ranking rationale
+* location/time context changes target ordering/visibility
+* detail payload keeps consistent object identity and provenance

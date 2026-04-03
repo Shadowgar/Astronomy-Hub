@@ -367,3 +367,81 @@ At this point, you now have **ALL ENGINE SPECS CREATED**:
 * Transient Events Engine
 
 ---
+
+# 13. SOURCE TIERS (ADDITIVE)
+
+## 13.1 PRIMARY
+
+* backend-curated transient/event datasets
+* time-window filtering and ranking computed by backend
+
+## 13.2 ENRICHMENT
+
+* optional external references for event details/media
+* optional cross-links to owning engines (solar/satellite/deep-sky/earth)
+
+## 13.3 FALLBACK
+
+If primary event feeds are unavailable:
+
+* serve cached upcoming significant events
+* mark degraded freshness and avoid implying fully live feed
+
+---
+
+# 14. NORMALIZED CONTRACT EXTENSION (ADDITIVE)
+
+Transient event output should remain concise, time-aware, and traceable:
+
+```json
+{
+  "id": "event:meteor_peak_2026",
+  "name": "Meteor shower peak",
+  "engine": "events",
+  "event_type": "meteor_shower",
+  "window": {"start": "2026-04-03T23:00:00Z", "end": "2026-04-04T05:00:00Z"},
+  "priority": "high",
+  "why_it_matters": "Peak visibility window opens tonight for the active location context.",
+  "trace": {"provider": "curated_events", "fetched_at": "2026-04-03T01:20:00Z"}
+}
+```
+
+Contract notes:
+
+* event payload should always include window + priority + reason
+* cross-engine links are additive and do not change event ownership
+
+---
+
+# 15. MASTER PLAN ALIGNMENT + IMPLEMENTATION GUARDRAILS (ADDITIVE)
+
+## 15.1 Master-Plan Alignment Targets
+
+* Aligns to Master Plan event-awareness intent and Above Me contextual significance.
+* Must answer: “What time-sensitive events should I care about now?”
+
+## 15.2 Minimum Phase-2 Real Capability
+
+Must provide:
+
+* bounded ranked near-term events with time windows
+* per-event why-it-matters explanation
+* conditions-aware relevance adjustments
+
+## 15.3 Above-Me Coupling Rule
+
+* events may surface in Above Me when sky-relevant and within active window
+* non-sky-relevant events must remain in events/news context and not pollute Above Me list
+
+## 15.4 Priority Integrity Rule
+
+* ranking must prioritize actionable opportunity over raw event count
+* rare/high-impact events should win tie-breaks when visibility is comparable
+
+## 15.5 Build-to-Proof Checklist
+
+Prove:
+
+* time context (`at`) changes event inclusion/priority appropriately
+* conditions impact is reflected in ranking rationale
+* fallback mode clearly marks stale/static event feed

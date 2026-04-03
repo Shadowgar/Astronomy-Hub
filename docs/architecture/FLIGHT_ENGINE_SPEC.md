@@ -313,3 +313,96 @@ The Flight Engine is:
 
 ---
 
+# 13. SOURCE TIERS (ADDITIVE)
+
+The Flight Engine keeps strict source tiers:
+
+## 13.1 PRIMARY
+
+* ADS-B position feed(s) used by backend ingestion
+* minimum needed fields: identifier/callsign, lat/lon, altitude, heading, timestamp
+
+## 13.2 ENRICHMENT
+
+* optional aircraft metadata registries for operator/type/route context
+* applied only when data quality is acceptable
+
+## 13.3 FALLBACK
+
+If primary feed is unavailable:
+
+* return explicit degraded state
+* avoid presenting stale aircraft as live truth
+
+---
+
+# 14. NORMALIZED CONTRACT EXTENSION (ADDITIVE)
+
+Flight summaries should prefer a stable contract with explicit provenance:
+
+```json
+{
+  "id": "flight:dal123",
+  "name": "DAL123",
+  "type": "flight",
+  "engine": "flights",
+  "position": {"lat": 40.8, "lon": -79.2, "altitude_ft": 34000},
+  "motion": {"heading_deg": 270, "ground_speed_kts": 450},
+  "relevance": {"distance_mi": 12, "overhead": true, "rank": 1},
+  "why_it_matters": "Passing directly overhead in current sky window.",
+  "trace": {"provider": "adsb_exchange", "fetched_at": "2026-04-03T02:40:00Z"}
+}
+```
+
+Contract notes:
+
+* `why_it_matters` must be concise and user-facing
+* `trace` must be machine-usable for diagnostics/provenance
+* missing optional values should be explicit (not silently dropped)
+
+---
+
+# 15. FEATURED USER VALUE (ADDITIVE)
+
+At Phase-2-level behavior, the user should get:
+
+* quick awareness of relevant overhead aircraft
+* strong filtering against low-relevance traffic
+* clean separation between astronomy-critical objects and flight context
+
+This engine remains supporting context, not the main scene authority.
+
+---
+
+# 16. MASTER PLAN ALIGNMENT + IMPLEMENTATION GUARDRAILS (ADDITIVE)
+
+## 16.1 Master-Plan Alignment Targets
+
+* Aligns to Master Plan §4.4 (Flight Engine) and Above Me merge awareness.
+* Must provide context without displacing astronomy priorities.
+
+## 16.2 Minimum Phase-2 Real Capability
+
+Must provide:
+
+* bounded overhead/nearby high-relevance aircraft list
+* simple movement and relevance context
+* clear why-it-matters messaging
+
+## 16.3 Priority Boundary Rule
+
+* Flight context is supporting signal in the command center.
+* It must not dominate “Now Above Me” ranking over astronomy-critical objects by default.
+
+## 16.4 Regional Context Rule
+
+* relevance scoring must be tied to active location/time
+* route/position snapshots lacking location coupling are insufficient
+
+## 16.5 Build-to-Proof Checklist
+
+Prove:
+
+* location/time changes reorder or filter overhead flights correctly
+* stale data is explicitly degraded
+* output remains bounded and concise for UI scanability

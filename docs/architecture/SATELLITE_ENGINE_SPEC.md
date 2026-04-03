@@ -358,3 +358,88 @@ The Satellite Engine is:
 > **A computation-driven system that converts orbital data into meaningful sky events**
 
 ---
+
+# 17. SOURCE TIERS (ADDITIVE)
+
+## 17.1 PRIMARY
+
+* TLE/orbital element sources used for pass computation (e.g., CelesTrak-class feeds)
+* backend local propagation/pass computation output
+
+## 17.2 ENRICHMENT
+
+* satellite/operator metadata registries
+* optional mission/media cross-reference sources
+
+## 17.3 FALLBACK
+
+If fresh TLE/propagation input is unavailable:
+
+* use cached recent pass windows with explicit degraded flag
+* avoid presenting stale computed passes as fully live
+
+---
+
+# 18. NORMALIZED CONTRACT EXTENSION (ADDITIVE)
+
+Satellite scene/detail output should include structured traceability:
+
+```json
+{
+  "id": "sat:25544",
+  "name": "ISS",
+  "engine": "satellites",
+  "type": "satellite",
+  "pass": {
+    "start": "2026-04-03T01:18:00Z",
+    "peak": "2026-04-03T01:21:00Z",
+    "end": "2026-04-03T01:24:00Z",
+    "max_elevation_deg": 63.2
+  },
+  "visibility": {"above_horizon": true, "brightness": "high"},
+  "why_it_matters": "Bright pass window crossing the local sky in the next 15 minutes.",
+  "trace": {"provider": "satnogs", "fetched_at": "2026-04-03T01:10:00Z"}
+}
+```
+
+Contract notes:
+
+* core pass times and visibility fields are mandatory for ranked output
+* enrichment fields (operator/mission/images) are optional but should be explicit when missing
+
+---
+
+# 19. MASTER PLAN ALIGNMENT + IMPLEMENTATION GUARDRAILS (ADDITIVE)
+
+## 19.1 Master-Plan Alignment Targets
+
+* Aligns to Master Plan §4.3 (Satellite Engine) and §5.2 (Above Me merge).
+* Must answer: “What satellites are above me now, and which pass matters next?”
+
+## 19.2 Minimum Phase-2 Real Capability
+
+Must produce:
+
+* ranked visible/current/near-term pass candidates
+* per-item why-it-matters reason
+* object detail fields for mission/operator/origin/catalog where available
+* explicit placeholders for unavailable details (never silent empty fields)
+
+## 19.3 Quality and Integrity Rules
+
+* Satellite images must be object-correct; cross-object image bleed is a failure.
+* Known bad/unusable media URLs must not be shown as authoritative images.
+* If source metadata is incomplete, output must state that explicitly.
+
+## 19.4 Above-Me Coupling Rule
+
+* Above Me must include satellite candidates when visibility criteria are met.
+* Satellite contribution must be filtered/ranked, not raw catalog dump.
+
+## 19.5 Build-to-Proof Checklist
+
+Prove with runtime tests/evidence:
+
+* location/time context changes pass windows/ranking
+* deterministic output for identical inputs
+* detail payload includes structured context (status/country/catalog/launch/mission) when available
