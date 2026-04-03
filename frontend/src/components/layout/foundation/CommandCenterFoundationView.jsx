@@ -147,7 +147,7 @@ export default function CommandCenterFoundationView() {
               <section className="section section-scene">
                 <div className="section-grid two-col command-center-foundation__hero-row">
                   <ScenePanel />
-                  <ContextPanel />
+                  <DetailPanelShell />
                 </div>
               </section>
 
@@ -171,9 +171,7 @@ export default function CommandCenterFoundationView() {
             </div>
 
             <aside className="command-center-foundation__detail-column" aria-label="Detail companion panel">
-              <div className="foundation-detail-panel-shell">
-                <DetailPanelShell />
-              </div>
+              <ContextPanel />
             </aside>
           </div>
         </main>
