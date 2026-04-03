@@ -11,6 +11,7 @@ def build_object_detail_response(
     lat: str | None = None,
     lon: str | None = None,
     elevation_ft: str | None = None,
+    as_of: str | None = None,
 ) -> tuple[int, dict]:
     """Thin adapter for legacy object detail behavior."""
     try:
@@ -23,12 +24,13 @@ def build_object_detail_response(
         return (400, {"error": {"code": "invalid_request", "message": "missing object id"}})
 
     try:
-        object_lookup = get_phase2_object_lookup(parsed_location=parsed_location)
+        object_lookup = get_phase2_object_lookup(parsed_location=parsed_location, as_of=as_of)
         found = object_lookup.get(obj_id)
         if not found:
             object_lookup = get_phase2_object_lookup(
                 parsed_location=parsed_location,
                 force_refresh=True,
+                as_of=as_of,
             )
             found = object_lookup.get(obj_id)
         if not found:
@@ -54,6 +56,7 @@ def get_object_detail_payload(
     lat: str | None = None,
     lon: str | None = None,
     elevation_ft: str | None = None,
+    as_of: str | None = None,
 ) -> dict:
     """Return object-detail payload only; raise on invalid input or lookup/assembly failures."""
     parsed_location = parse_location_override(lat, lon, elevation_ft)
@@ -61,12 +64,13 @@ def get_object_detail_payload(
     if not obj_id:
         raise ValueError("missing object id")
 
-    object_lookup = get_phase2_object_lookup(parsed_location=parsed_location)
+    object_lookup = get_phase2_object_lookup(parsed_location=parsed_location, as_of=as_of)
     found = object_lookup.get(obj_id)
     if not found:
         object_lookup = get_phase2_object_lookup(
             parsed_location=parsed_location,
             force_refresh=True,
+            as_of=as_of,
         )
         found = object_lookup.get(obj_id)
     if not found:

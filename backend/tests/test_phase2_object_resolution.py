@@ -187,3 +187,75 @@ def test_deep_sky_object_detail_includes_catalog_fields_and_location_consistency
         assert rows_a.get(title)
         assert rows_b.get(title)
         assert rows_a.get(title) == rows_b.get(title)
+
+
+def test_planet_object_detail_changes_when_at_changes():
+    status, payload = _request_json(
+        "/api/v1/scene"
+        "?scope=solar_system&engine=planets&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+    assert status == 200
+    scene_objects = payload.get("objects") or []
+    planet_id = next(
+        (
+            str(obj.get("id") or "").strip()
+            for obj in scene_objects
+            if str(obj.get("type") or "").strip().lower() == "planet"
+            and str(obj.get("id") or "").strip()
+        ),
+        "",
+    )
+    assert planet_id
+
+    status_a, payload_a = _request_json(
+        f"/api/v1/object/{quote(planet_id, safe='')}?lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+    status_b, payload_b = _request_json(
+        f"/api/v1/object/{quote(planet_id, safe='')}?lat=40.0&lon=-75.0&at=2026-03-31T13:00:00Z"
+    )
+    assert status_a == 200
+    assert status_b == 200
+    assert payload_a.get("status") == "ok"
+    assert payload_b.get("status") == "ok"
+
+    rows_a = {
+        str(row.get("title") or ""): str(row.get("summary") or "")
+        for row in ((payload_a.get("data") or {}).get("related_objects") or [])
+        if isinstance(row, dict)
+    }
+    rows_b = {
+        str(row.get("title") or ""): str(row.get("summary") or "")
+        for row in ((payload_b.get("data") or {}).get("related_objects") or [])
+        if isinstance(row, dict)
+    }
+    assert rows_a.get("Best viewing time")
+    assert rows_b.get("Best viewing time")
+    assert rows_a.get("Best viewing time") != rows_b.get("Best viewing time")
+
+
+def test_planet_object_detail_identical_for_identical_inputs_with_at():
+    status, payload = _request_json(
+        "/api/v1/scene"
+        "?scope=solar_system&engine=planets&filter=visible_now"
+        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    )
+    assert status == 200
+    scene_objects = payload.get("objects") or []
+    planet_id = next(
+        (
+            str(obj.get("id") or "").strip()
+            for obj in scene_objects
+            if str(obj.get("type") or "").strip().lower() == "planet"
+            and str(obj.get("id") or "").strip()
+        ),
+        "",
+    )
+    assert planet_id
+
+    path = f"/api/v1/object/{quote(planet_id, safe='')}?lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+    status_a, payload_a = _request_json(path)
+    status_b, payload_b = _request_json(path)
+    assert status_a == 200
+    assert status_b == 200
+    assert payload_a == payload_b

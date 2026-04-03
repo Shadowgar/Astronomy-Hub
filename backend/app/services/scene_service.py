@@ -167,6 +167,7 @@ def _objects_for_engine(
     engine: str,
     phase1_state: dict | None = None,
     parsed_location: dict | None = None,
+    as_of: str | None = None,
 ) -> list[dict]:
     if engine == "above_me":
         return list(objects)
@@ -174,7 +175,7 @@ def _objects_for_engine(
         deep_sky = [obj for obj in objects if obj.get("type") == "deep_sky"]
         if deep_sky:
             return deep_sky
-        fallback_lookup = get_phase2_object_lookup(parsed_location=parsed_location)
+        fallback_lookup = get_phase2_object_lookup(parsed_location=parsed_location, as_of=as_of)
         fallback_deep_sky = [
             deepcopy(obj)
             for obj in (fallback_lookup or {}).values()
@@ -197,7 +198,7 @@ def _objects_for_engine(
         planets = [obj for obj in objects if obj.get("type") == "planet"]
         if planets:
             return planets
-        fallback_lookup = get_phase2_object_lookup(parsed_location=parsed_location)
+        fallback_lookup = get_phase2_object_lookup(parsed_location=parsed_location, as_of=as_of)
         fallback_planets = [
             deepcopy(obj)
             for obj in (fallback_lookup or {}).values()
@@ -234,7 +235,7 @@ def _objects_for_engine(
             moon_objects.append(normalized)
         if moon_objects:
             return _apply_solar_activity_context(moon_objects, phase1_state)
-        fallback_lookup = get_phase2_object_lookup(parsed_location=parsed_location)
+        fallback_lookup = get_phase2_object_lookup(parsed_location=parsed_location, as_of=as_of)
         fallback_moon = next(
             (
                 deepcopy(obj)
@@ -326,6 +327,7 @@ def build_phase2_scope_scene_payload_with_context(
         resolved_engine,
         phase1_state=phase1_state,
         parsed_location=parsed_location,
+        as_of=as_of,
     )
     ordered_objects = _sorted_objects(engine_objects)
     filtered_objects = _apply_filter(ordered_objects, resolved_filter, resolved_engine)

@@ -13,11 +13,12 @@ async def get_object_detail(
     lat: str | None = None,
     lon: str | None = None,
     elevation_ft: str | None = None,
+    at: str | None = None,
 ):
     """Return object detail via a thin adapter over legacy helpers."""
     try:
         payload = get_object_detail_payload(
-            object_id, lat=lat, lon=lon, elevation_ft=elevation_ft
+            object_id, lat=lat, lon=lon, elevation_ft=elevation_ft, as_of=at
         )
         return payload
     except LookupError:

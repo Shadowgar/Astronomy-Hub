@@ -1074,9 +1074,9 @@ def _apply_satellite_metadata(objects, satellite_meta_by_id):
             obj["satellite_norad_id"] = sat_meta.get("norad_cat_id")
 
 
-def _build_phase2_deep_sky_scene(filter_slug, parsed_location=None):
+def _build_phase2_deep_sky_scene(filter_slug, parsed_location=None, as_of: str | None = None):
     location = _resolve_location(parsed_location)
-    time_context = _resolve_time_context()
+    time_context = _resolve_time_context(as_of)
     live_inputs = _fetch_live_inputs(location, time_context)
     objects = _to_phase2_scene_objects(
         _build_deep_sky_engine_slice(
@@ -1108,9 +1108,9 @@ def _build_phase2_deep_sky_scene(filter_slug, parsed_location=None):
     }
 
 
-def _build_phase2_planets_scene(filter_slug, parsed_location=None):
+def _build_phase2_planets_scene(filter_slug, parsed_location=None, as_of: str | None = None):
     location = _resolve_location(parsed_location)
-    time_context = _resolve_time_context()
+    time_context = _resolve_time_context(as_of)
     live_inputs = _fetch_live_inputs(location, time_context)
     raw_objects = _build_solar_system_engine_slice(
         parsed_location=parsed_location,
@@ -1146,9 +1146,9 @@ def _build_phase2_planets_scene(filter_slug, parsed_location=None):
     }
 
 
-def _build_phase2_moon_scene(filter_slug, parsed_location=None):
+def _build_phase2_moon_scene(filter_slug, parsed_location=None, as_of: str | None = None):
     location = _resolve_location(parsed_location)
-    time_context = _resolve_time_context()
+    time_context = _resolve_time_context(as_of)
     live_inputs = _fetch_live_inputs(location, time_context)
     solar_objects = _build_solar_system_engine_slice(
         parsed_location=parsed_location,
@@ -1181,9 +1181,9 @@ def _build_phase2_moon_scene(filter_slug, parsed_location=None):
     }
 
 
-def _build_phase2_satellites_scene(filter_slug, parsed_location=None):
+def _build_phase2_satellites_scene(filter_slug, parsed_location=None, as_of: str | None = None):
     location = _resolve_location(parsed_location)
-    time_context = _resolve_time_context()
+    time_context = _resolve_time_context(as_of)
     live_inputs = _fetch_live_inputs(location, time_context)
     objects = _to_phase2_scene_objects(
         _build_satellite_engine_slice(
@@ -1239,9 +1239,9 @@ def _build_phase2_satellites_scene(filter_slug, parsed_location=None):
     }
 
 
-def _build_phase2_flights_scene(filter_slug, parsed_location=None):
+def _build_phase2_flights_scene(filter_slug, parsed_location=None, as_of: str | None = None):
     location = _resolve_location(parsed_location)
-    time_context = _resolve_time_context()
+    time_context = _resolve_time_context(as_of)
     live_inputs = _fetch_live_inputs(location, time_context)
     objects = _to_phase2_scene_objects(
         _build_flights_engine_slice(live_inputs=live_inputs),
@@ -1266,8 +1266,8 @@ def _build_phase2_flights_scene(filter_slug, parsed_location=None):
     }
 
 
-def _build_phase2_above_me_scene(filter_slug, parsed_location=None):
-    phase1_state = build_phase1_scene_state(parsed_location)
+def _build_phase2_above_me_scene(filter_slug, parsed_location=None, as_of: str | None = None):
+    phase1_state = build_phase1_scene_state(parsed_location, as_of=as_of)
     phase1_scene = phase1_state.get("scene") or {}
     phase1_objects = phase1_scene.get("objects") or []
     objects = _to_phase2_scene_objects(phase1_objects, "above_me")
@@ -1296,7 +1296,7 @@ def _build_phase2_above_me_scene(filter_slug, parsed_location=None):
     }
 
 
-def _build_phase2_scene(scope_slug, engine_slug, filter_slug, parsed_location=None):
+def _build_phase2_scene(scope_slug, engine_slug, filter_slug, parsed_location=None, as_of: str | None = None):
     engine_meta = PHASE2_ENGINE_REGISTRY.get(engine_slug)
     if engine_meta is None:
         raise ValueError("invalid_engine")
@@ -1317,7 +1317,7 @@ def _build_phase2_scene(scope_slug, engine_slug, filter_slug, parsed_location=No
     builder = builders.get(engine_slug)
     if builder is None:
         raise ValueError("scene_builder_not_available")
-    return builder(filter_slug=filter_slug, parsed_location=parsed_location)
+    return builder(filter_slug=filter_slug, parsed_location=parsed_location, as_of=as_of)
 
 
 def _iter_phase2_grouped_objects(scene):
@@ -1335,7 +1335,7 @@ def _iter_phase2_grouped_objects(scene):
                 yield obj
 
 
-def _build_phase2_object_lookup(parsed_location=None):
+def _build_phase2_object_lookup(parsed_location=None, as_of: str | None = None):
     required_engines = ("above_me", "deep_sky", "planets", "moon", "satellites", "flights")
     lookup = {}
 
@@ -1352,6 +1352,7 @@ def _build_phase2_object_lookup(parsed_location=None):
                 engine_slug,
                 default_filter,
                 parsed_location=parsed_location,
+                as_of=as_of,
             )
         except Exception:
             logger.exception("phase2.object.lookup.scene.failed engine=%s", engine_slug)
@@ -1370,7 +1371,7 @@ def _build_phase2_object_lookup(parsed_location=None):
     # the currently visible/capped scene subset.
     try:
         location = _resolve_location(parsed_location)
-        time_context = _resolve_time_context()
+        time_context = _resolve_time_context(as_of)
         live_inputs = _fetch_live_inputs(location, time_context)
         solar_objects = _build_solar_system_engine_slice(
             parsed_location=parsed_location,
@@ -1397,7 +1398,7 @@ def _build_phase2_object_lookup(parsed_location=None):
     # Deep-sky ids must also remain resolvable independent of current visibility window.
     try:
         location = _resolve_location(parsed_location)
-        time_context = _resolve_time_context()
+        time_context = _resolve_time_context(as_of)
         live_inputs = _fetch_live_inputs(location, time_context)
         deep_sky_objects = _build_deep_sky_engine_slice(
             parsed_location=parsed_location,
@@ -1419,19 +1420,21 @@ def _build_phase2_object_lookup(parsed_location=None):
     return lookup
 
 
-def _phase2_object_lookup_cache_key(parsed_location=None):
+def _phase2_object_lookup_cache_key(parsed_location=None, as_of: str | None = None):
+    time_key = _resolve_time_context(as_of).isoformat()
     if not isinstance(parsed_location, dict):
-        return "oras"
+        return ("oras", time_key)
 
     return (
         parsed_location.get("latitude"),
         parsed_location.get("longitude"),
         parsed_location.get("elevation_ft"),
+        time_key,
     )
 
 
-def get_phase2_object_lookup(parsed_location=None, force_refresh: bool = False):
-    cache_key = _phase2_object_lookup_cache_key(parsed_location)
+def get_phase2_object_lookup(parsed_location=None, force_refresh: bool = False, as_of: str | None = None):
+    cache_key = _phase2_object_lookup_cache_key(parsed_location, as_of=as_of)
     now = time.time()
     cached = _phase2_object_lookup_cache.get(cache_key)
     if (
@@ -1441,7 +1444,7 @@ def get_phase2_object_lookup(parsed_location=None, force_refresh: bool = False):
     ):
         return cached.get("lookup") or {}
 
-    lookup = _build_phase2_object_lookup(parsed_location=parsed_location)
+    lookup = _build_phase2_object_lookup(parsed_location=parsed_location, as_of=as_of)
     _phase2_object_lookup_cache[cache_key] = {
         "lookup": lookup,
         "expires_at": now + _PHASE2_OBJECT_LOOKUP_TTL_SECONDS,
