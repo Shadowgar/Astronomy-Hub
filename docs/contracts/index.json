@@ -1,0 +1,19 @@
+{
+  "schemas": [
+    {
+      "name": "response_envelope",
+      "file": "response_envelope.schema.json",
+      "description": "Standard API response wrapper for all endpoints"
+    },
+    {
+      "name": "error",
+      "file": "error.schema.json",
+      "description": "Standard error structure used across all responses"
+    },
+    {
+      "name": "conditions",
+      "file": "conditions.schema.json",
+      "description": "Observational conditions and visibility data"
+    }
+  ]
+}

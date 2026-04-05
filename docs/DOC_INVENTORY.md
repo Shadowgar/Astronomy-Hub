@@ -1,106 +1,294 @@
-# Documentation Inventory (Feature-First Classification)
+# `DOC_INVENTORY.md`
 
-This inventory classifies every file under `docs/` for execution authority.
+---
 
-| File | Classification |
-|---|---|
-| `docs/ASTRONOMY_HUB_DIAGRAM.md` | `ACTIVE_REFERENCE` |
-| `docs/DOCUMENT_INDEX.md` | `ACTIVE_CONTROL` |
-| `docs/FEATURE_DOC_REBASE.md` | `SUPPORT` |
-| `docs/MASTER_PLAN.md` | `ACTIVE_CONTROL` |
-| `docs/PHASE_STRUCTURE.md` | `LEGACY_PHASE` |
-| `docs/PROJECT_STATE.md` | `ACTIVE_CONTROL` |
-| `docs/README.md` | `ACTIVE_CONTROL` |
-| `docs/STACK_OVERVIEW.md` | `ACTIVE_CONTROL` |
-| `docs/ai/CODEX_QUICKSTART.md` | `SUPPORT` |
-| `docs/ai/CODEX_SESSION_RUNBOOK.md` | `SUPPORT` |
-| `docs/architecture/ARCHITECTURE_OVERVIEW.md` | `ACTIVE_REFERENCE` |
-| `docs/architecture/CONDITIONS_ENGINE_SPEC.md` | `ACTIVE_REFERENCE` |
-| `docs/architecture/DATA_CONTRACTS.md` | `ACTIVE_REFERENCE` |
-| `docs/architecture/DEEP_SKY_ENGINE_SPEC.md` | `ACTIVE_REFERENCE` |
-| `docs/architecture/ENGINE_SPEC.md` | `ACTIVE_REFERENCE` |
-| `docs/architecture/FLIGHT_ENGINE_SPEC.md` | `ACTIVE_REFERENCE` |
-| `docs/architecture/INGESTION_STRATEGY.md` | `ACTIVE_REFERENCE` |
-| `docs/architecture/OBJECT_MODEL.md` | `ACTIVE_REFERENCE` |
-| `docs/architecture/SATELLITE_ENGINE_SPEC.md` | `ACTIVE_REFERENCE` |
-| `docs/architecture/SOLAR_SYSTEM_ENGINE_SPEC.md` | `ACTIVE_REFERENCE` |
-| `docs/architecture/SUN_ENGINE_SPEC.md` | `ACTIVE_REFERENCE` |
-| `docs/architecture/TRANSIENT_EVENTS_ENGINE_SPEC.md` | `ACTIVE_REFERENCE` |
-| `docs/architecture/UI_SPEC.md` | `ACTIVE_REFERENCE` |
-| `docs/archive/CODING_GUARDRAILS.md` | `ARCHIVE` |
-| `docs/archive/SESSION_CONTINUITY_BRIEF.md` | `ARCHIVE` |
-| `docs/archive/UI_GAP_ANALYSIS.md` | `ARCHIVE` |
-| `docs/archive/bitfrog_prompting.md` | `ARCHIVE` |
-| `docs/archive/styling_decision.md` | `ARCHIVE` |
-| `docs/context/CONTEXT_MANIFEST.yaml` | `ACTIVE_CONTROL` |
-| `docs/context/CORE_CONTEXT.md` | `ACTIVE_CONTROL` |
-| `docs/context/LIVE_SESSION_BRIEF.md` | `ACTIVE_CONTROL` |
-| `docs/context/SYSTEM_HANDOFF.md` | `ACTIVE_CONTROL` |
-| `docs/context/TASK_PACKS.md` | `ACTIVE_CONTROL` |
-| `docs/contracts/conditions.schema.json` | `ACTIVE_REFERENCE` |
-| `docs/contracts/error.schema.json` | `ACTIVE_REFERENCE` |
-| `docs/contracts/index.json` | `ACTIVE_REFERENCE` |
-| `docs/contracts/response_envelope.schema.json` | `ACTIVE_REFERENCE` |
-| `docs/contracts/review_notes.md` | `ACTIVE_REFERENCE` |
-| `docs/contracts/sample_error.json` | `ACTIVE_REFERENCE` |
-| `docs/contracts/scene.contract.md` | `ACTIVE_REFERENCE` |
-| `docs/corrective/CORRECTIVE_TRACK.md` | `SUPPORT` |
-| `docs/enforcement/CHANGELOG_UPDATE_RULES.md` | `SUPPORT` |
-| `docs/enforcement/FAILURE_RECOVERY_PROTOCOL.md` | `SUPPORT` |
-| `docs/execution/MASTER_PLAN.md` | `ACTIVE_CONTROL` |
-| `docs/execution/PROJECT_STATE.md` | `ACTIVE_CONTROL` |
-| `docs/execution/SESSION_STATE.md` | `ACTIVE_CONTROL` |
-| `docs/execution/STACK_OVERVIEW.md` | `ACTIVE_CONTROL` |
-| `docs/execution/STATE_TRANSITIONS.md` | `ACTIVE_CONTROL` |
-| `docs/execution/backend/PHASE_BE_EXECUTION.md` | `ACTIVE_CONTROL` |
-| `docs/execution/env_setup.md` | `ACTIVE_CONTROL` |
-| `docs/execution/frontend/CHANGELOG_PAGE_TODO.md` | `ACTIVE_CONTROL` |
-| `docs/execution/frontend/PHASE_B_EXECUTION_TODO.md` | `ACTIVE_CONTROL` |
-| `docs/execution/frontend/PHASE_FE_EXECUTION.md` | `ACTIVE_CONTROL` |
-| `docs/features/FEATURE_ACCEPTANCE.md` | `ACTIVE_CONTROL` |
-| `docs/features/FEATURE_CATALOG.md` | `ACTIVE_CONTROL` |
-| `docs/features/FEATURE_EXECUTION_MODEL.md` | `ACTIVE_CONTROL` |
-| `docs/features/FEATURE_MIGRATION_MAP.md` | `ACTIVE_CONTROL` |
-| `docs/features/FEATURE_SPEC_TEMPLATE.md` | `ACTIVE_CONTROL` |
-| `docs/features/FEATURE_TRACKER.md` | `ACTIVE_CONTROL` |
-| `docs/phases/PHASE_1_ACCEPTANCE_CRITERIA.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_1_BUILD_SEQUENCE.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_1_SPEC.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_2_ACCEPTANCE_CRITERIA.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_2_BUILD_SEQUENCE.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_2_EXECUTION_TODO.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_2_IMPLEMENTATION_PLAN.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_2_SPEC.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_2_VALIDATION_CHECKLIST.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_3_ACCEPTANCE_CRITERIA.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_3_BUILD_SEQUENCE.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_3_SPEC.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_4_ACCEPTANCE_CRITERIA.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_4_BUILD_SEQUENCE.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_4_EXECUTION_TODO.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_4_SPEC.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_5_ACCEPTANCE_CRITERIA.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_5_BUILD_SEQUENCE.md` | `LEGACY_PHASE` |
-| `docs/phases/PHASE_5_SPEC.md` | `LEGACY_PHASE` |
-| `docs/product/ASTRONOMY_HUB_MASTER_PLAN.md` | `SUPPORT` |
-| `docs/product/features/CHANGELOG_PAGE_SPEC.md` | `SUPPORT` |
-| `docs/product/ui/STYLING_DECISION.md` | `SUPPORT` |
-| `docs/product/ui/UI_DESIGN_PRINCIPLES.md` | `SUPPORT` |
-| `docs/product/ui/UI_INFORMATION_ARCHITECTURE.md` | `SUPPORT` |
-| `docs/product/ui/UI_MASTER_PLAN.md` | `SUPPORT` |
-| `docs/product/ui/UI_MODULE_TRANSFORMS.md` | `SUPPORT` |
-| `docs/product/ui/UI_PHASE_B_LAYOUT_BLUEPRINT.md` | `SUPPORT` |
-| `docs/product/ui/UI_PHASE_B_SPEC.md` | `SUPPORT` |
-| `docs/product/ui/UI_PHASE_B_VISUAL_MODEL.md` | `SUPPORT` |
-| `docs/product/ui/UI_PHASE_C_SPEC.md` | `SUPPORT` |
-| `docs/product/ui/UI_THEME_REFERENCES.md` | `SUPPORT` |
-| `docs/product/ui/UI_VALIDATION_RULES.md` | `SUPPORT` |
-| `docs/product/ui/UI_VISUAL_CALIBRATION.md` | `SUPPORT` |
-| `docs/product/ui/phases/archive/UI_PHASE_A_SPEC.md` | `SUPPORT` |
-| `docs/runtime/EXECUTION_LOG.md` | `SUPPORT` |
-| `docs/runtime/FAILURE_PATTERNS.md` | `SUPPORT` |
-| `docs/runtime/PUBLIC_CHANGELOG.md` | `SUPPORT` |
-| `docs/tools/PHASE_BE_STARTUP_PROMPT.md` | `SUPPORT` |
-| `docs/validation/STYLING_AUDIT.md` | `SUPPORT` |
-| `docs/validation/SYSTEM_VALIDATION_SPEC.md` | `ACTIVE_CONTROL` |
-| `docs/validation/VALIDATION_CHECKLIST.md` | `SUPPORT` |
+# DOCUMENT INVENTORY (SYSTEM CLASSIFICATION — AUTHORITATIVE)
+
+---
+
+## PURPOSE
+
+Classifies every document in `docs/` by **role and authority**.
+
+This prevents:
+
+* execution drift
+* authority confusion
+* legacy phase leakage
+* AI misuse of context
+
+---
+
+## CORE RULE
+
+```text
+Not all documents are equal.
+Only specific documents control execution.
+```
+
+---
+
+## CLASSIFICATION TYPES
+
+---
+
+### CORE_CONTROL
+
+Defines execution truth and system state.
+
+These documents:
+
+* control execution
+* cannot be overridden
+* must always be respected
+
+---
+
+### PRODUCT_DEFINITION
+
+Defines what Astronomy Hub **is**.
+
+These documents:
+
+* define system behavior
+* define UX model
+* define rendering model
+
+---
+
+### ENGINE_AUTHORITY
+
+Defines how the system actually works.
+
+These documents:
+
+* define engines
+* define object model
+* define contracts
+* define ingestion
+
+---
+
+### EXECUTION_MODEL
+
+Defines how work is performed and validated.
+
+---
+
+### SUPPORT
+
+Helpful but not authoritative.
+
+---
+
+### LEGACY
+
+Historical reference only.
+
+Cannot control execution.
+
+---
+
+## ROOT DOCUMENTS
+
+| File                            | Classification       |
+| ------------------------------- | -------------------- |
+| `docs/ASTRONOMY_HUB_DIAGRAM.md` | PRODUCT_DEFINITION   |
+| `docs/DOCUMENT_INDEX.md`        | CORE_CONTROL         |
+| `docs/FEATURE_DOC_REBASE.md`    | SUPPORT              |
+| `docs/MASTER_PLAN.md`           | SUPPORT (alias only) |
+| `docs/PHASE_STRUCTURE.md`       | LEGACY               |
+| `docs/PROJECT_STATE.md`         | SUPPORT (alias only) |
+| `docs/README.md`                | PRODUCT_DEFINITION   |
+| `docs/STACK_OVERVIEW.md`        | SUPPORT (alias only) |
+
+---
+
+## CONTEXT SYSTEM
+
+| File                                 | Classification |
+| ------------------------------------ | -------------- |
+| `docs/context/CONTEXT_MANIFEST.yaml` | CORE_CONTROL   |
+| `docs/context/CORE_CONTEXT.md`       | CORE_CONTROL   |
+| `docs/context/LIVE_SESSION_BRIEF.md` | CORE_CONTROL   |
+| `docs/context/SYSTEM_HANDOFF.md`     | CORE_CONTROL   |
+| `docs/context/TASK_PACKS.md`         | CORE_CONTROL   |
+
+---
+
+## EXECUTION SYSTEM
+
+| File                                  | Classification |
+| ------------------------------------- | -------------- |
+| `docs/execution/MASTER_PLAN.md`       | CORE_CONTROL   |
+| `docs/execution/PROJECT_STATE.md`     | CORE_CONTROL   |
+| `docs/execution/SESSION_STATE.md`     | CORE_CONTROL   |
+| `docs/execution/STACK_OVERVIEW.md`    | CORE_CONTROL   |
+| `docs/execution/STATE_TRANSITIONS.md` | CORE_CONTROL   |
+| `docs/execution/env_setup.md`         | CORE_CONTROL   |
+| `docs/execution/backend/*`            | LEGACY         |
+| `docs/execution/frontend/*`           | LEGACY         |
+
+---
+
+## FEATURE SYSTEM
+
+| File                                       | Classification  |
+| ------------------------------------------ | --------------- |
+| `docs/features/FEATURE_EXECUTION_MODEL.md` | EXECUTION_MODEL |
+| `docs/features/FEATURE_ACCEPTANCE.md`      | EXECUTION_MODEL |
+| `docs/features/FEATURE_TRACKER.md`         | EXECUTION_MODEL |
+| `docs/features/FEATURE_CATALOG.md`         | EXECUTION_MODEL |
+| `docs/features/FEATURE_SPEC_TEMPLATE.md`   | SUPPORT         |
+| `docs/features/FEATURE_MIGRATION_MAP.md`   | SUPPORT         |
+
+---
+
+## ARCHITECTURE / ENGINE SYSTEM
+
+| File                  | Classification   |
+| --------------------- | ---------------- |
+| `docs/architecture/*` | ENGINE_AUTHORITY |
+| `docs/contracts/*`    | ENGINE_AUTHORITY |
+
+These define:
+
+* engine behavior
+* object model
+* API contracts
+* ingestion rules
+
+---
+
+## VALIDATION SYSTEM
+
+| File                                        | Classification |
+| ------------------------------------------- | -------------- |
+| `docs/validation/SYSTEM_VALIDATION_SPEC.md` | CORE_CONTROL   |
+| `docs/validation/VALIDATION_CHECKLIST.md`   | SUPPORT        |
+| `docs/validation/STYLING_AUDIT.md`          | SUPPORT        |
+
+---
+
+## PRODUCT / UI SYSTEM
+
+| File             | Classification |
+| ---------------- | -------------- |
+| `docs/product/*` | SUPPORT        |
+
+These guide design but do not override execution or architecture.
+
+---
+
+## RUNTIME / LOGS
+
+| File             | Classification |
+| ---------------- | -------------- |
+| `docs/runtime/*` | SUPPORT        |
+
+---
+
+## ENFORCEMENT / RECOVERY
+
+| File                 | Classification |
+| -------------------- | -------------- |
+| `docs/enforcement/*` | SUPPORT        |
+| `docs/corrective/*`  | SUPPORT        |
+
+---
+
+## AI / TOOLING
+
+| File           | Classification |
+| -------------- | -------------- |
+| `docs/ai/*`    | SUPPORT        |
+| `docs/tools/*` | SUPPORT        |
+
+---
+
+## LEGACY DOCUMENTS
+
+These are explicitly **non-authoritative**.
+
+| File                      | Classification |
+| ------------------------- | -------------- |
+| `docs/phases/*`           | LEGACY         |
+| `docs/PHASE_STRUCTURE.md` | LEGACY         |
+
+---
+
+## CRITICAL SYSTEM RULES
+
+---
+
+### Rule 1 — Core Control Wins
+
+If conflict exists:
+
+```text
+CORE_CONTROL overrides everything
+```
+
+---
+
+### Rule 2 — Product Defines Behavior
+
+If feature or execution docs conflict with product definition:
+
+```text
+Product must be corrected — not ignored
+```
+
+---
+
+### Rule 3 — Engines Own Reality
+
+No document may redefine engine behavior outside:
+
+```text
+docs/architecture/*
+```
+
+---
+
+### Rule 4 — Hub Does Not Render
+
+Any document suggesting hub renders scenes is invalid.
+
+---
+
+### Rule 5 — Viewport Is Always Engine
+
+```text
+ACTIVE ENGINE VIEWPORT is required
+```
+
+---
+
+### Rule 6 — Legacy Cannot Control Execution
+
+Legacy docs:
+
+* cannot define features
+* cannot define architecture
+* cannot define execution
+
+---
+
+### Rule 7 — Sky Engine Is Anchor
+
+Frontend work must start from:
+
+```text
+Sky Engine + Babylon.js
+```
+
+---
+
+## FINAL PRINCIPLE
+
+```text
+Correct classification prevents incorrect execution.
+```
+
+---

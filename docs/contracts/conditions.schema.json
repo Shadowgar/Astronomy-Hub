@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Conditions Contract",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "lon": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "label": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": ["lat", "lon"],
+      "additionalProperties": false
+    },
+    "sky": {
+      "type": ["string", "null"]
+    },
+    "cloud_cover": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "visibility_km": {
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+    "light_pollution": {
+      "type": ["string", "null"]
+    },
+    "visibility_score": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "seeing": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "transparency": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "notes": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "string"
+      }
+    },
+    "degraded": {
+      "type": ["boolean", "null"]
+    }
+  },
+  "required": ["timestamp", "location"],
+  "additionalProperties": false
+}

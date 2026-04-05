@@ -1,0 +1,159 @@
+# CONTEXT MANIFEST — ASTRONOMY HUB (AUTHORITATIVE)
+
+global:
+  always:
+    - docs/context/CORE_CONTEXT.md
+    - docs/context/LIVE_SESSION_BRIEF.md
+
+tasks:
+  docs_change:
+    load:
+      - docs/context/CORE_CONTEXT.md
+      - docs/context/LIVE_SESSION_BRIEF.md
+      - docs/DOCUMENT_INDEX.md
+      - docs/DOC_INVENTORY.md
+      - docs/validation/SYSTEM_VALIDATION_SPEC.md
+      - docs/architecture/ARCHITECTURE_OVERVIEW.md
+      - docs/architecture/ENGINE_SPEC.md
+      - docs/architecture/ENGINE_CATALOG.md
+      - docs/architecture/OBJECT_MODEL.md
+      - docs/architecture/DATA_CONTRACTS.md
+      - docs/architecture/INGESTION_STRATEGY.md
+      - docs/execution/PROJECT_STATE.md
+      - docs/execution/MASTER_PLAN.md
+
+  backend_change:
+    load:
+      - docs/context/CORE_CONTEXT.md
+      - docs/context/LIVE_SESSION_BRIEF.md
+      - docs/validation/SYSTEM_VALIDATION_SPEC.md
+      - docs/architecture/ARCHITECTURE_OVERVIEW.md
+      - docs/architecture/ENGINE_SPEC.md
+      - docs/architecture/ENGINE_CATALOG.md
+      - docs/architecture/OBJECT_MODEL.md
+      - docs/architecture/DATA_CONTRACTS.md
+      - docs/architecture/INGESTION_STRATEGY.md
+      - docs/execution/STACK_OVERVIEW.md
+      - docs/execution/PROJECT_STATE.md
+      - docs/execution/MASTER_PLAN.md
+      - docs/features/FEATURE_EXECUTION_MODEL.md
+      - docs/features/FEATURE_CATALOG.md
+      - docs/features/FEATURE_ACCEPTANCE.md
+      - docs/features/FEATURE_TRACKER.md
+
+  frontend_change:
+    load:
+      - docs/context/CORE_CONTEXT.md
+      - docs/context/LIVE_SESSION_BRIEF.md
+      - docs/validation/SYSTEM_VALIDATION_SPEC.md
+      - docs/ASTRONOMY_HUB_DIAGRAM.md
+      - docs/architecture/ARCHITECTURE_OVERVIEW.md
+      - docs/architecture/ENGINE_SPEC.md
+      - docs/architecture/ENGINE_CATALOG.md
+      - docs/architecture/OBJECT_MODEL.md
+      - docs/architecture/DATA_CONTRACTS.md
+      - docs/execution/STACK_OVERVIEW.md
+      - docs/execution/PROJECT_STATE.md
+      - docs/execution/MASTER_PLAN.md
+      - docs/features/FEATURE_EXECUTION_MODEL.md
+      - docs/features/FEATURE_CATALOG.md
+      - docs/features/FEATURE_ACCEPTANCE.md
+      - docs/features/FEATURE_TRACKER.md
+
+  validation:
+    load:
+      - docs/context/CORE_CONTEXT.md
+      - docs/context/LIVE_SESSION_BRIEF.md
+      - docs/validation/SYSTEM_VALIDATION_SPEC.md
+      - docs/architecture/ARCHITECTURE_OVERVIEW.md
+      - docs/architecture/ENGINE_SPEC.md
+      - docs/architecture/ENGINE_CATALOG.md
+      - docs/architecture/OBJECT_MODEL.md
+      - docs/architecture/DATA_CONTRACTS.md
+      - docs/execution/PROJECT_STATE.md
+      - docs/features/FEATURE_EXECUTION_MODEL.md
+      - docs/features/FEATURE_ACCEPTANCE.md
+      - docs/features/FEATURE_TRACKER.md
+
+  debug:
+    load:
+      - docs/context/CORE_CONTEXT.md
+      - docs/context/LIVE_SESSION_BRIEF.md
+      - docs/validation/SYSTEM_VALIDATION_SPEC.md
+      - docs/architecture/ARCHITECTURE_OVERVIEW.md
+      - docs/architecture/ENGINE_SPEC.md
+      - docs/architecture/OBJECT_MODEL.md
+      - docs/architecture/DATA_CONTRACTS.md
+      - docs/execution/PROJECT_STATE.md
+      - docs/features/FEATURE_EXECUTION_MODEL.md
+      - docs/features/FEATURE_CATALOG.md
+      - docs/features/FEATURE_ACCEPTANCE.md
+      - docs/features/FEATURE_TRACKER.md
+      - docs/runtime/FAILURE_PATTERNS.md
+
+  review:
+    load:
+      - docs/context/CORE_CONTEXT.md
+      - docs/context/LIVE_SESSION_BRIEF.md
+      - docs/validation/SYSTEM_VALIDATION_SPEC.md
+      - docs/architecture/ARCHITECTURE_OVERVIEW.md
+      - docs/architecture/ENGINE_SPEC.md
+      - docs/architecture/ENGINE_CATALOG.md
+      - docs/architecture/OBJECT_MODEL.md
+      - docs/architecture/DATA_CONTRACTS.md
+      - docs/execution/PROJECT_STATE.md
+      - docs/features/FEATURE_EXECUTION_MODEL.md
+      - docs/features/FEATURE_ACCEPTANCE.md
+      - docs/features/FEATURE_TRACKER.md
+
+  reconciliation:
+    load:
+      - docs/context/CORE_CONTEXT.md
+      - docs/context/LIVE_SESSION_BRIEF.md
+      - docs/DOCUMENT_INDEX.md
+      - docs/DOC_INVENTORY.md
+      - docs/validation/SYSTEM_VALIDATION_SPEC.md
+      - docs/architecture/ARCHITECTURE_OVERVIEW.md
+      - docs/architecture/ENGINE_SPEC.md
+      - docs/architecture/ENGINE_CATALOG.md
+      - docs/architecture/OBJECT_MODEL.md
+      - docs/architecture/DATA_CONTRACTS.md
+      - docs/execution/PROJECT_STATE.md
+      - docs/execution/MASTER_PLAN.md
+      - docs/features/FEATURE_EXECUTION_MODEL.md
+      - docs/features/FEATURE_CATALOG.md
+      - docs/features/FEATURE_ACCEPTANCE.md
+      - docs/features/FEATURE_TRACKER.md
+      - docs/features/FEATURE_MIGRATION_MAP.md
+
+  planning:
+    load:
+      - docs/context/CORE_CONTEXT.md
+      - docs/context/LIVE_SESSION_BRIEF.md
+      - docs/DOCUMENT_INDEX.md
+      - docs/validation/SYSTEM_VALIDATION_SPEC.md
+      - docs/architecture/ARCHITECTURE_OVERVIEW.md
+      - docs/architecture/ENGINE_SPEC.md
+      - docs/architecture/ENGINE_CATALOG.md
+      - docs/architecture/OBJECT_MODEL.md
+      - docs/architecture/DATA_CONTRACTS.md
+      - docs/execution/PROJECT_STATE.md
+      - docs/execution/MASTER_PLAN.md
+      - docs/features/FEATURE_EXECUTION_MODEL.md
+      - docs/features/FEATURE_CATALOG.md
+      - docs/features/FEATURE_ACCEPTANCE.md
+      - docs/features/FEATURE_TRACKER.md
+
+rules:
+  - do_not_load_unlisted_documents: true
+  - must_declare_loaded_documents: true
+  - must_match_task_context: true
+  - architecture_must_precede_feature_execution: true
+  - core_context_and_live_session_brief_are_mandatory: true
+
+failure_conditions:
+  - loading_docs_outside_manifest
+  - missing_core_context
+  - missing_session_brief
+  - undeclared_context
+  - executing_without_architecture_context

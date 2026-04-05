@@ -1,3 +1,15 @@
+## ROLE OF THIS DOCUMENT
+
+This document provides reusable validation coverage and test areas.
+
+It does NOT:
+
+* determine execution order
+* define feature scope
+* override SYSTEM_VALIDATION_SPEC.md
+
+It supports validation, but does not define truth classification.
+
 # 🌌 ASTRONOMY HUB — VALIDATION CHECKLIST (AUTHORITATIVE)
 
 ---
@@ -17,12 +29,13 @@ It prevents:
 
 ---
 
-# 1. 🧠 CORE RULE
+## 1. CORE RULE
 
-```text id="n4x1dp"
-A phase is NOT complete because it runs.
+```text
+Completion is determined by validation results.
 
-A phase is complete ONLY when it passes all validation criteria.
+Validation defines whether a feature or system is:
+REAL, PARTIAL, FAKE, or BLOCKED.
 ```
 
 ---

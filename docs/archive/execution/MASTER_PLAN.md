@@ -1,34 +1,51 @@
-# ASTRONOMY HUB — MASTER PLAN (AUTHORITATIVE EXECUTION CONTROL)
+# MASTER PLAN — EXECUTION REFERENCE
 
-## 0. Purpose
-Control what is allowed to be built now.
+## Purpose
 
-## 1. Execution Mode
-Feature-first corrective execution.
+Provides a high-level reference of intended feature coverage.
 
-## 2. Build Order (locked)
-1. Command Center Shell
-2. Scope/Engine/Filter Control Surface
-3. Scene Authority Rendering
-4. Above Me Orchestration
-5. Conditions Decision Support
-6. Satellite Pass Intelligence
-7. Solar System Context
-8. Deep Sky Targeting
-9. Sun Activity Awareness
-10. Alerts/Events Intelligence
-11. Flight Awareness
-12. Object Detail Resolution
-13. News/Knowledge Feed
-14. Asset/Media Reliability
-15. Performance and Cache Freshness
+This document does not control execution.
 
-## 3. Rules
-- one active feature slice at a time
-- verify -> fix minimally -> verify
-- no completion claims without proof
-- no frontend ownership of backend meaning
-- no provider payload leakage into UI
+Execution is controlled by:
 
-## 4. Completion Rule
-A feature is complete only when `FEATURE_ACCEPTANCE.md` checks pass with proof artifacts.
+* `PROJECT_STATE.md`
+* `LIVE_SESSION_BRIEF.md`
+
+---
+
+## Feature Areas (Reference)
+
+* Command Center Shell
+* Control Surface
+* Scene Rendering
+* Above Me Orchestration
+* Conditions Support
+* Satellite Intelligence
+* Solar System Context
+* Deep Sky Targeting
+* Sun Activity
+* Events / Alerts
+* Flight Awareness
+* Object Detail
+* News / Knowledge
+* Asset Reliability
+* Performance
+
+---
+
+## Rule
+
+This list defines scope, not order.
+
+Actual build order is determined by current execution state.
+
+---
+
+## Completion Rule
+
+A feature is complete only when:
+
+* it works in runtime
+* behavior is correct
+* results are meaningful to the user
+* validation is proven

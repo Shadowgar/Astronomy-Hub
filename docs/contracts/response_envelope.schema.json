@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Response Envelope",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["ok", "error"]
+    },
+    "data": {
+      "type": ["object", "array", "null"]
+    },
+    "meta": {
+      "type": ["object", "null"],
+      "additionalProperties": true
+    },
+    "error": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "properties": {
+            "code": { "type": "string" },
+            "message": { "type": "string" },
+            "details": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            },
+            "request_id": { "type": ["string", "null"] }
+          },
+          "required": ["code", "message"],
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "required": ["status", "data", "error"],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": { "const": "ok" }
+        }
+      },
+      "then": {
+        "properties": {
+          "error": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": { "const": "error" }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": { "type": "null" },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "string" },
+              "message": { "type": "string" },
+              "details": {
+                "type": ["array", "null"],
+                "items": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              },
+              "request_id": { "type": ["string", "null"] }
+            },
+            "required": ["code", "message"],
+            "additionalProperties": false
+          }
+        }
+      }
+    }
+  ]
+}

@@ -9,7 +9,7 @@
         "code": { "type": "string" },
         "message": { "type": "string" },
         "details": {
-          "type": "array",
+          "type": ["array", "null"],
           "items": {
             "type": "object",
             "additionalProperties": true

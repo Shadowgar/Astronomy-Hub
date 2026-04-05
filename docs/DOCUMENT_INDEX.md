@@ -1,57 +1,284 @@
-# Astronomy Hub Document Index (Authoritative Map)
+# `DOCUMENT_INDEX.md` 
 
-## 1. Authority Order
-1. `docs/validation/SYSTEM_VALIDATION_SPEC.md`
-2. `docs/context/CORE_CONTEXT.md`
-3. `docs/context/LIVE_SESSION_BRIEF.md`
-4. `docs/context/CONTEXT_MANIFEST.yaml`
-5. `docs/execution/PROJECT_STATE.md`
-6. `docs/execution/MASTER_PLAN.md`
-7. `docs/features/FEATURE_EXECUTION_MODEL.md`
-8. `docs/features/FEATURE_CATALOG.md`
-9. `docs/features/FEATURE_ACCEPTANCE.md`
-10. `docs/features/FEATURE_TRACKER.md`
-11. `docs/architecture/*`
-12. `docs/contracts/*`
-13. `docs/ASTRONOMY_HUB_DIAGRAM.md`
-14. `docs/product/ASTRONOMY_HUB_MASTER_PLAN.md` (vision reference)
+---
 
-## 2. Execution System
-Active execution is **feature-first**, not phase-first.
+# DOCUMENT INDEX (AUTHORITATIVE CONTROL MAP)
 
-Mandatory behavior:
-- evaluate runtime truth first
-- classify feature state as `REAL`, `PARTIAL`, `FAKE`, or `BLOCKED`
-- implement one bounded corrective slice
-- prove outcome with commands and outputs
+---
 
-## 3. Active vs Legacy
-### Active execution-control docs
-- `docs/context/*` (except archive-style notes)
-- `docs/execution/*`
-- `docs/features/*`
-- `docs/validation/SYSTEM_VALIDATION_SPEC.md`
+## 1. PURPOSE
 
-### Active design/system references
-- `docs/architecture/*`
-- `docs/contracts/*`
-- `docs/ASTRONOMY_HUB_DIAGRAM.md`
+Defines:
 
-### Legacy planning/history docs
-- `docs/phases/*`
-- `docs/PHASE_STRUCTURE.md`
-- phase-labeled UI planning docs under `docs/product/ui/*`
+* document authority
+* execution control flow
+* product definition hierarchy
+* context loading rules
 
-Legacy docs are traceability references only and do not authorize execution state.
+This document prevents:
 
-## 4. Compatibility Aliases
-The following root-level compatibility docs exist to prevent path drift in older runbooks:
-- `docs/PROJECT_STATE.md` -> `docs/execution/PROJECT_STATE.md`
-- `docs/MASTER_PLAN.md` -> `docs/execution/MASTER_PLAN.md`
-- `docs/STACK_OVERVIEW.md` -> `docs/execution/STACK_OVERVIEW.md`
+* execution drift
+* product drift
+* authority conflicts
+* AI misinterpretation
 
-## 5. Conflict Rule
+---
+
+## 2. CORE LAW
+
+```text id="b7h2yz"
+Only specific documents control execution.
+All others are reference.
+```
+
+---
+
+## 3. PRODUCT MODEL (LOCKED)
+
+Astronomy Hub is:
+
+```text id="p1h6vk"
+A location-aware observatory command center
+```
+
+Core question:
+
+```text id="u9n4fc"
+What can I see right now, and what should I observe?
+```
+
+---
+
+### System Model
+
+```text id="v4q8lp"
+Hub → Engine → Scene → Object → Detail → Exploration
+```
+
+---
+
+### Rendering Law
+
+```text id="m3z7rf"
+Viewport = Active Engine Scene
+```
+
+---
+
+## 4. AUTHORITY TIERS
+
+---
+
+### TIER 1 — CORE CONTROL (HIGHEST)
+
+These define execution truth.
+
+```text id="v7g3mn"
+docs/validation/SYSTEM_VALIDATION_SPEC.md
+docs/context/CORE_CONTEXT.md
+docs/context/LIVE_SESSION_BRIEF.md
+docs/context/CONTEXT_MANIFEST.yaml
+docs/execution/PROJECT_STATE.md
+```
+
+---
+
+### TIER 2 — PRODUCT DEFINITION
+
+Defines what the system is.
+
+```text id="t4w9kd"
+docs/DOCUMENT_INDEX.md
+docs/README.md
+docs/ASTRONOMY_HUB_DIAGRAM.md
+docs/execution/MASTER_PLAN.md
+```
+
+---
+
+### TIER 3 — EXECUTION MODEL
+
+Defines how work is done.
+
+```text id="r6n3qa"
+docs/features/FEATURE_EXECUTION_MODEL.md
+docs/features/FEATURE_ACCEPTANCE.md
+docs/features/FEATURE_TRACKER.md
+docs/features/FEATURE_CATALOG.md
+```
+
+---
+
+### TIER 4 — ENGINE AUTHORITY
+
+Defines system behavior.
+
+```text id="n2k8uz"
+docs/architecture/*
+docs/contracts/*
+```
+
+---
+
+### TIER 5 — SUPPORT
+
+Guidance only.
+
+```text id="g5x2cr"
+docs/product/*
+docs/runtime/*
+docs/corrective/*
+docs/enforcement/*
+docs/ai/*
+docs/tools/*
+docs/DOC_INVENTORY.md
+docs/features/FEATURE_SPEC_TEMPLATE.md
+docs/features/FEATURE_MIGRATION_MAP.md
+```
+
+---
+
+### TIER 6 — LEGACY
+
+Non-authoritative.
+
+```text id="f3y6mb"
+docs/phases/*
+docs/PHASE_STRUCTURE.md
+```
+
+---
+
+## 5. LOADING RULES (CRITICAL)
+
+---
+
+### Rule 1 — Mandatory Context
+
+Always load:
+
+```text id="x9p2cz"
+CORE_CONTEXT.md
+LIVE_SESSION_BRIEF.md
+```
+
+---
+
+### Rule 2 — Task-Based Loading
+
+Load only what is required:
+
+| Task       | Required Docs                        |
+| ---------- | ------------------------------------ |
+| Frontend   | architecture + diagram + execution   |
+| Backend    | architecture + contracts + execution |
+| Validation | validation + execution               |
+| Docs       | index + inventory                    |
+
+---
+
+### Rule 3 — No Overloading
+
+Do NOT:
+
+* load entire docs directory
+* load legacy docs
+* load unrelated features
+
+---
+
+### Rule 4 — Architecture First
+
+```text id="h8v3yn"
+Architecture must be loaded before execution
+```
+
+---
+
+## 6. EXECUTION FLOW
+
+```text id="z2r6kj"
+Context → Architecture → Feature → Validation
+```
+
+---
+
+## 7. CURRENT PRODUCT ANCHOR
+
+```text id="p7y4qm"
+Sky Engine (Babylon.js) is the rendering foundation
+```
+
+Rules:
+
+* build Sky Engine first
+* embed into hub later
+* hub does not render scenes
+
+---
+
+## 8. EXECUTION SYSTEM RULE
+
+Every slice must:
+
+* identify engine
+* identify feature
+* verify runtime truth
+* implement minimal change
+* prove behavior
+* update tracker
+
+---
+
+## 9. CONFLICT RESOLUTION
+
 If documents conflict:
-- follow authority order
-- record conflict in `LIVE_SESSION_BRIEF.md`
-- do not mark feature state complete until conflict is reconciled and revalidated
+
+1. follow authority tier
+2. prefer CORE_CONTROL
+3. prefer PRODUCT_DEFINITION over execution
+4. record conflict
+5. revalidate
+
+---
+
+## 10. FORBIDDEN EXECUTION
+
+Do NOT:
+
+* follow legacy phase instructions
+* treat hub as rendering engine
+* treat engines as filters
+* bypass contracts
+* mark completion without proof
+
+---
+
+## 11. COMPATIBILITY ALIAS RULE
+
+These exist only for backward compatibility:
+
+```text id="t1n8vx"
+docs/PROJECT_STATE.md
+docs/MASTER_PLAN.md
+docs/STACK_OVERVIEW.md
+```
+
+They must NOT:
+
+* control execution
+* hold active state
+
+---
+
+## 12. FINAL PRINCIPLE
+
+```text id="q6x2re"
+Control documents define truth.
+Product documents define the system.
+Engine documents define behavior.
+Support documents assist.
+Legacy documents are ignored.
+```
+
+---

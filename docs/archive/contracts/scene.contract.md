@@ -1,230 +1,253 @@
-# Scene Contract — Phase 2
+# Scene Contract
 
 ## Purpose
 
-This document defines the **canonical structure and rules for all scenes** in Astronomy Hub.
+This document defines the canonical structure and rules for scenes in Astronomy Hub.
 
-A "scene" is the system’s primary decision unit.
+A scene is the active rendered context for either:
 
-Every scene must answer:
+* the Above Me Hub, or
+* an engine / sub-engine exploration view
 
-> “What should I know right now, and what should I look at?”
+This contract defines what a scene must contain conceptually.
+It is not a UI layout spec.
 
-This contract is **authoritative** and must be followed by all backend endpoints and frontend renderers.
+Related authority:
 
----
-
-## Canonical Scene Schema
-
-All scenes MUST conform to this structure:
-
-- scene_id (string)
-- scene_type (string)
-- title (string)
-- summary (string)
-
-- conditions (object)
-  - visibility (string)
-  - moon_phase (string)
-  - light_pollution (string)
-  - notes (optional string)
-
-- time_context (object)
-  - now (string)
-  - next_event (optional string)
-  - best_window (optional string)
-
-- groups (array)
-  - group_id (string)
-  - title (string)
-  - reason (string)
-  - priority (number)
-  - objects (array of object references)
-
-- objects (array)
-  - id (string)
-  - name (string)
-  - type (string)
-  - altitude (number or null)
-  - azimuth (number or null)
-  - visibility (string)
-  - time_relevance (string)
-  - reason (string)
-
-- decision_notes (array of strings)
-
-- actions (array of strings)
+* `docs/architecture/ARCHITECTURE_OVERVIEW.md`
+* `docs/architecture/ENGINE_SPEC.md`
+* `docs/architecture/OBJECT_MODEL.md`
+* `docs/architecture/DATA_CONTRACTS.md`
 
 ---
 
-## Scene Types (Phase 2)
+## Scene Definition
 
-The following scene types are **allowed and fixed**:
+A scene is the currently active user-facing context.
 
-### above_me
-- Purpose: Show current sky state overhead
-- Question: “What is in the sky right now above me?”
+A scene may represent:
 
-### best_tonight
-- Purpose: Ranked decision scene
-- Question: “What is most worth observing tonight?”
+* the Above Me hub decision surface
+* a primary engine view
+* a parent engine with one active sub-engine layer
+* a focused object context inside an engine
 
-### planets_moon
-- Purpose: Solar system focus
-- Question: “What planets or lunar conditions matter right now?”
+Only one scene is active at a time.
 
-### deep_sky_tonight
-- Purpose: Deep sky observation
-- Question: “What deep sky objects are worth viewing now?”
+---
 
-### passing_objects
-- Purpose: Time-sensitive events
-- Question: “What is passing or happening soon?”
+## Scene Types
 
-### conditions
-- Purpose: Observing viability
-- Question: “Are conditions good enough to observe?”
+The system supports these architectural scene classes:
 
-### class_filtered
-- Purpose: Category exploration
-- Question: “What objects of this type are worth viewing?”
+### 1. hub
 
-No additional scene types are allowed in Phase 2.
+The curated Above Me decision surface.
+
+Purpose:
+
+* show a ranked, filtered set of current relevant items
+
+### 2. engine
+
+A primary engine scene.
+
+Purpose:
+
+* provide domain exploration for a primary engine
+
+### 3. engine_layer
+
+A parent engine scene with an active sub-engine or layer.
+
+Examples:
+
+* Earth Engine with Satellite layer active
+* Earth Engine with Flight layer active
+* Earth Engine with Conditions layer active
+
+### 4. object_focus
+
+A scene state where one object is actively focused inside the current engine context.
+
+This is not a separate engine.
+It is a focused state of the current scene.
+
+---
+
+## Canonical Scene Structure
+
+Every scene must define these conceptual elements:
+
+* `scene_id` — unique identifier for the active scene instance
+* `scene_type` — one of: `hub`, `engine`, `engine_layer`, `object_focus`
+* `scope` — current top-level scope
+* `engine` — active primary engine
+* `active_layer` — active sub-engine or layer if applicable, else null
+* `title` — human-readable scene title
+* `summary` — short explanation of what the scene is showing
+* `time_context` — current time context for the scene
+* `location_context` — current location context for the scene when location matters
+* `focus_object_id` — selected object id if any, else null
+* `objects` — objects currently present in scene context
+* `decision_notes` — optional concise user guidance, especially for hub scenes
+* `meta` — non-visual scene metadata if needed
 
 ---
 
 ## Scene Rules
 
-A scene MUST:
+### Rule 1 — Scene must be self-describing
 
-- Answer a **clear decision question**
-- Provide **reasoning**, not just data
-- Group objects meaningfully
-- Reflect **current time and conditions**
-- Be self-explanatory without needing object detail
+A scene must clearly state:
 
-A scene MUST NOT:
+* what domain it belongs to
+* what it is currently showing
+* why the current contents are relevant
 
-- Be a raw list of objects
-- Duplicate full object detail
-- Act as a database query response
-- Depend on frontend interpretation to make sense
+### Rule 2 — Scene must not be a raw query dump
 
----
+A scene is a user-facing context, not a database response.
 
-## Object Presence Rules
+### Rule 3 — Hub scenes are curated
 
-Every object in a scene MUST include:
+Hub scenes must contain ranked, filtered, decision-ready items only.
 
-- A reason it appears
-- A time relevance indicator
-- A visibility context
+### Rule 4 — Engine scenes are exploratory
 
-Objects appear ONLY if:
+Engine scenes may show richer domain context than hub scenes, but must still be coherent and bounded.
 
-- They are observable OR relevant soon
-- They contribute to the scene’s decision goal
+### Rule 5 — Sub-engine layers do not create independent worlds
 
-Objects MUST NOT appear if:
+A sub-engine layer must remain inside the parent engine scene.
 
-- They are not actionable
-- They are not relevant to the scene type
+### Rule 6 — Object focus stays within current scene ownership
+
+Focusing an object does not invent a new engine. It focuses that object within the correct engine context.
 
 ---
 
-## Group Rules
+## Hub Scene Requirements
 
-Groups are required.
+A hub scene must:
 
-Each group MUST:
+* be tied to selected location/time
+* consume candidate objects from engines
+* present only a curated result set
+* provide enough meaning without requiring detail view
 
-- Represent a meaningful decision category
-- Include a reason for grouping
-- Have a priority value
+A hub scene must not:
 
-Examples:
-
-- “Best First Targets”
-- “Setting Soon”
-- “High Visibility”
-- “Short Window”
+* show raw engine lists
+* act like a full immersive engine scene
+* contain dead actions or placeholder reasoning
 
 ---
 
-## Time Context Rules
+## Engine Scene Requirements
 
-- "now" = current system time context
-- "soon" = near-future window (implementation-defined later)
-- "best_window" = peak viewing time (if applicable)
+An engine scene must:
 
-Scenes MUST express time relevance in human-understandable terms.
+* identify its active engine
+* support domain exploration
+* support object focus
+* remain consistent with engine ownership rules
 
 ---
 
-## Conditions Contract
+## Earth Engine Layer Requirements
 
-All scenes MUST include:
+When the active engine is Earth and a layer is active:
 
-- visibility
-- moon_phase
-- light_pollution
+* `engine` must remain `earth`
+* `active_layer` must identify the sub-engine/layer (`satellite`, `flight`, `conditions`, etc.)
+* all rendered context remains Earth-centered
+
+A satellite object selected from the hub should open:
+
+* `engine = earth`
+* `active_layer = satellite`
+
+A flight object selected from the hub should open:
+
+* `engine = earth`
+* `active_layer = flight`
+
+A conditions-related Earth view may open:
+
+* `engine = earth`
+* `active_layer = conditions`
+
+---
+
+## Time Context Requirements
+
+Every scene must carry enough time context to make the contents interpretable.
+
+At minimum:
+
+* current timestamp used for the scene
 
 Optional:
 
-- notes
+* best viewing window
+* next event time
+* validity window
 
-Conditions MUST influence:
-
-- object selection
-- grouping
-- decision notes
+Time language shown to users must be human-readable.
 
 ---
 
-## Decision Notes
+## Location Context Requirements
 
-Decision notes are REQUIRED.
+When a scene is location-dependent, it must include:
 
-They must:
+* latitude
+* longitude
+* any named location label if available
 
-- Guide the user toward action
-- Be short and clear
-- Reflect current conditions
+Location context is required for:
 
----
-
-## Actions
-
-Actions represent possible next steps.
-
-Examples:
-
-- "View object details"
-- "Switch scene"
-- "Check later time"
-
-Actions are NOT interactive definitions, only intent signals.
+* hub scenes
+* observing conditions
+* local sky / horizon-dependent engine scenes
 
 ---
 
-## Authority Rule
+## Object Rules Inside Scenes
 
-The backend is the **single authority** for:
+Objects shown in scenes must use the canonical object model from:
 
-- scene composition
-- object inclusion
-- reasoning
+* `docs/architecture/OBJECT_MODEL.md`
 
-The frontend MUST NOT:
+Scenes must not redefine object structure.
 
-- invent logic
-- reorder priorities arbitrarily
-- reinterpret scene meaning
+A scene may include a subset of object fields, but any object it references must still be resolvable through the canonical object/detail system.
 
 ---
 
-## Contract Stability
+## Frontend / Backend Authority
 
-This contract is locked for Phase 2.
+Backend is authoritative for:
 
-Changes require architectural review.
+* candidate generation
+* inclusion rules
+* ranking inputs
+* detail data assembly
+
+Frontend is authoritative for:
+
+* rendering the scene
+* focus behavior
+* visual transitions
+* layer toggles within allowed engine rules
+
+Frontend must not invent scene meaning or object truth.
+
+---
+
+## Stability Rule
+
+This contract is architectural and should remain stable.
+
+If scene behavior changes, this document must be updated deliberately rather than bypassed in UI or route code.

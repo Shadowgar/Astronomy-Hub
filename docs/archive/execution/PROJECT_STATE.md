@@ -1,33 +1,94 @@
-# ASTRONOMY HUB — PROJECT STATE (AUTHORITATIVE)
+# PROJECT STATE — EXECUTION AUTHORITY
 
-## 0. Purpose
-Record current factual execution state.
+## Purpose
 
-## 1. Current Mode
-- Active mode: FEATURE_EXECUTION
-- Active workstream: runtime-truth corrective recovery
+Defines the current factual execution state of Astronomy Hub.
 
-## 2. Current Objective
-Stabilize core command-center product behavior using feature-first execution.
+This is the only document that defines:
 
-## 3. Active Feature
-- Feature: Above Me Orchestration
-- Status: PARTIAL
-- Reason: panel ownership and feed boundaries remain inconsistent with diagram intent.
+* what is being worked on now
+* what is active
+* what is constrained
 
-## 4. Feature Status Snapshot
-See `docs/features/FEATURE_TRACKER.md` for canonical per-feature status.
+If this document conflicts with any execution, phase, or feature document, this document wins.
 
-## 5. Constraints
+---
+
+## Current Mode
+
+* Mode: FEATURE_EXECUTION
+* Approach: bounded, feature-first stabilization
+
+---
+
+## Current Objective
+
+Stabilize a usable product surface centered on:
+
+> Above Me (hub) + correct engine routing + real data behavior
+
+---
+
+## Active Feature
+
+* Feature: Above Me Orchestration
+* Status: PARTIAL
+
+---
+
+## Known Issues
+
+* panel ownership unclear
+* feeds mixing domains incorrectly
+* hub not properly curated
+* incorrect or generic detail behavior
+
+---
+
+## Constraints
+
 Must preserve:
-- Scope -> Engine -> Filter -> Scene -> Object -> Detail
-- backend-authoritative meaning
-- deterministic contracts
 
-Must not do:
-- fake completion by doc wording
-- frontend data invention
-- unproven feature claims
+* Scope → Engine → Filter → Scene → Object → Detail
+* hub = decision layer
+* engines = exploration layers
+* backend owns meaning
+* contracts must be deterministic
 
-## 6. Next Gate
-Proceed feature-by-feature with proof updates in `LIVE_SESSION_BRIEF.md` and `FEATURE_TRACKER.md`.
+Must not:
+
+* fabricate data
+* mix hub and engine responsibilities
+* claim completion without proof
+* expand into unrelated engines
+
+---
+
+## Execution Rule
+
+Only one bounded feature slice may be active at a time.
+
+Work must follow:
+
+```text
+verify → fix minimally → verify again
+```
+
+---
+
+## Next Action
+
+Continue refining Above Me behavior until:
+
+* output is curated
+* objects are correct
+* routing is correct
+* detail is meaningful
+
+Only then move to next feature.
+
+---
+
+## Final Rule
+
+If the system is not usable from the user's perspective, the feature is not complete.

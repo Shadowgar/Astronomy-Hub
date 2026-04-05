@@ -79,3 +79,17 @@ If any fail condition is triggered:
 
 ## 9. Non-Negotiable Rule
 If it cannot be proven from running behavior and evidence, it is not complete.
+
+## 10. ROLE BOUNDARY
+
+This document defines validation authority and truth classification.
+
+It does NOT:
+
+* define what should be built
+* define execution order
+* replace feature definitions
+* act as a planning document
+
+Validation determines status, not scope.
+

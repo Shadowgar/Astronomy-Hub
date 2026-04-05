@@ -8,14 +8,22 @@
       "type": "object",
       "properties": {
         "lat": { "type": "number", "minimum": -90, "maximum": 90 },
-        "lon": { "type": "number", "minimum": -180, "maximum": 180 }
+        "lon": { "type": "number", "minimum": -180, "maximum": 180 },
+        "label": { "type": ["string", "null"] }
       },
       "required": ["lat", "lon"],
       "additionalProperties": false
     },
-    "sky": { "type": "string" },
-    "cloud_cover": { "type": "number", "minimum": 0, "maximum": 100 },
-    "visibility_km": { "type": "number", "minimum": 0 }
+    "sky": { "type": ["string", "null"] },
+    "cloud_cover": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+    "visibility_km": { "type": ["number", "null"], "minimum": 0 },
+    "light_pollution": { "type": ["string", "null"] },
+    "visibility_score": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+    "notes": {
+      "type": ["array", "null"],
+      "items": { "type": "string" }
+    },
+    "degraded": { "type": ["boolean", "null"] }
   },
   "required": ["timestamp", "location"],
   "additionalProperties": false

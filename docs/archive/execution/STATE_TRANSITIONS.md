@@ -1,52 +1,49 @@
-# State Transitions (Authoritative Extension)
+# STATE TRANSITIONS
 
 ## Purpose
-Define legal execution state movement under the feature-first model.
 
-## Authority Relationship
-This document is subordinate to:
-1. `docs/validation/SYSTEM_VALIDATION_SPEC.md`
-2. `docs/context/CORE_CONTEXT.md`
-3. `docs/context/LIVE_SESSION_BRIEF.md`
-4. `docs/context/CONTEXT_MANIFEST.yaml`
-5. `docs/execution/PROJECT_STATE.md`
-6. `docs/execution/MASTER_PLAN.md`
-7. `docs/features/*`
+Defines basic execution state flow for controlled work.
 
-If conflict exists, this document must be corrected.
+---
 
-## State Definitions
-- `READY`: context loaded and task pack selected.
-- `ACTIVE`: one bounded feature slice is in execution.
-- `BLOCKED`: execution halted by a valid fail condition.
-- `RECONCILING`: one bounded remediation slice is running.
-- `VALIDATING`: proof checks are being executed.
-- `VERIFIED`: required checks passed with evidence.
-- `COMPLETE`: tracker/state docs updated with proof.
+## States
 
-## Legal Transitions
-- `READY -> ACTIVE`: selected feature slice declared.
-- `ACTIVE -> BLOCKED`: fail condition triggered and recorded.
-- `BLOCKED -> RECONCILING`: bounded fix scope declared.
-- `RECONCILING -> VALIDATING`: implementation done, proof run begins.
-- `VALIDATING -> VERIFIED`: checks pass with evidence.
-- `VERIFIED -> COMPLETE`: feature/state docs updated.
-- `COMPLETE -> READY`: next bounded slice selected.
-- `VALIDATING -> BLOCKED`: validation fails.
-- `RECONCILING -> BLOCKED`: remediation cannot be proven.
+* READY — context loaded, task defined
+* ACTIVE — work in progress
+* BLOCKED — cannot proceed due to failure
+* VALIDATING — verifying behavior
+* COMPLETE — verified and stable
 
-## Illegal Transitions
-- `ACTIVE -> COMPLETE` (skips validation)
-- `BLOCKED -> ACTIVE` (skips reconciliation)
-- `RECONCILING -> COMPLETE` (skips validation)
-- any transition without explicit proof artifacts
+---
 
-## Proof Requirements
-Every transition must include:
-- trigger source
-- artifact references
-- command/output evidence when applicable
-- pass/fail statement
+## Allowed Flow
+
+```text
+READY → ACTIVE → VALIDATING → COMPLETE
+ACTIVE → BLOCKED → ACTIVE
+VALIDATING → BLOCKED
+```
+
+---
+
+## Rules
+
+* no skipping validation
+* no marking complete without proof
+* no resuming from blocked without fixing cause
+
+---
+
+## Proof Requirement
+
+A state change is valid only if:
+
+* change is observable
+* behavior is verifiable
+* result matches expected outcome
+
+---
 
 ## Final Rule
-No state transition is valid without explicit proof.
+
+State reflects reality, not intention.

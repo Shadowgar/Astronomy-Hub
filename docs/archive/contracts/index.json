@@ -1,3 +1,5 @@
 [
-	"conditions.schema.json"
+  "conditions.schema.json",
+  "error.schema.json",
+  "response_envelope.schema.json"
 ]

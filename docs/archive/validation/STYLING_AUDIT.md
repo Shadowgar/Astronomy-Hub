@@ -1,3 +1,15 @@
+## ROLE OF THIS DOCUMENT
+
+This document defines styling validation rules.
+
+It applies only to visual and UI correctness.
+
+It does NOT:
+
+* define system behavior
+* affect backend validation
+* override SYSTEM_VALIDATION_SPEC.md
+
 # 🌌 ASTRONOMY HUB — STYLING AUDIT (AUTHORITATIVE)
 
 ---

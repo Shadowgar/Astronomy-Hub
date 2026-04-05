@@ -1,415 +1,288 @@
-# Main Screen — Command Center Home
+# `ASTRONOMY_HUB_DIAGRAM.md`
+
+---
+
+# ASTRONOMY HUB — SYSTEM DIAGRAM (AUTHORITATIVE)
+
+---
+
+## PURPOSE
+
+Defines the **actual product structure, interaction model, and rendering authority** of Astronomy Hub.
+
+This is a **product-definition document**, not a UI mock.
+
+It defines:
+
+* how the system behaves
+* how engines interact
+* how users move through the system
+
+---
+
+## CORE LAW
 
 ```text
-┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ ASTRONOMY HUB                                                                User / Settings │
-│ Scope: [ Above Me ▼ ]   Engine: [ Unified Main ]   Time: [ Now ▼ ]   Location: [ ORAS ▼ ]  │
-├──────────────────────────────────────────────────────────────────────────────────────────────┤
-│ COMMAND BAR                                                                                 │
-│ [ What’s above me now? ] [ Show satellites ] [ Show planets ] [ Earth events ] [ Solar ]  │
-└──────────────────────────────────────────────────────────────────────────────────────────────┘
-
-┌───────────────────────────────┬──────────────────────────────────────────────────────────────┐
-│ PRIMARY SCENE / HERO          │ RIGHT-SIDE LIVE BRIEFING                                     │
-│                               │                                                              │
-│  ┌─────────────────────────┐  │  ┌────────────────────────────────────────────────────────┐  │
-│  │   SKY / EARTH / SUN /   │  │  │ TONIGHT / NOW SUMMARY                                 │  │
-│  │   SOLAR SYSTEM VIEW     │  │  │                                                        │  │
-│  │                         │  │  │ - Observing score: GOOD                               │  │
-│  │   (context-dependent)   │  │  │ - Best target now: M13                                │  │
-│  │                         │  │  │ - Next satellite pass: ISS in 12 min                  │  │
-│  │   clickable objects     │  │  │ - Moon impact: Moderate                               │  │
-│  │   filtered scene only   │  │  │ - Active solar status: Quiet                          │  │
-│  │                         │  │  │ - Above-horizon flights: 2                            │  │
-│  └─────────────────────────┘  │  └────────────────────────────────────────────────────────┘  │
-│                               │                                                              │
-│  Scene changes based on:      │  [ Open full briefing ]                                     │
-│  - scope                      │                                                              │
-│  - active engine              │  [ Open news digest ]                                       │
-│  - active filter              │                                                              │
-└───────────────────────────────┴──────────────────────────────────────────────────────────────┘
-
-
-┌───────────────────────────────┬───────────────────────────────┬──────────────────────────────┐
-│ NOW ABOVE ME                  │ EVENTS / ALERTS              │ NEWS DIGEST                  │
-│                               │                              │                              │
-│ [Sat] ISS                     │ [Event] Meteor shower peak   │ [Solar] New active region    │
-│ [Planet] Jupiter              │ [Event] ISS bright pass      │ [Launch] Falcon 9 launch     │
-│ [DSO] M13                     │ [Solar] Minor geomagnetic    │ [Planetary] New Mars image   │
-│ [Flight] UAL 2401             │         activity             │ [Research] New exoplanet     │
-│                               │                              │                              │
-│ [See all visible objects]     │ [See all events]             │ [See all news]               │
-└───────────────────────────────┴───────────────────────────────┴──────────────────────────────┘
-
-
-┌───────────────────────────────┬───────────────────────────────┬──────────────────────────────┐
-│ ENGINE QUICK ENTRY            │ ACTIVE FILTERS               │ QUICK TOOLS                  │
-│                               │                              │                              │
-│ [Earth Engine]                │ Unified Main filter set:     │ [Identify object in sky]     │
-│ [Solar Engine]                │ - visible satellites         │ [Point telescope helper]     │
-│ [Satellite Engine]            │ - visible planets            │ [Switch to red mode]         │
-│ [Flight Engine]               │ - visible deep sky           │ [Track this object]          │
-│ [Solar System Engine]         │ - above-horizon flights      │                              │
-│ [Deep Sky Engine]             │ - active events              │                              │
-│ [News & Knowledge Engine]     │                              │                              │
-└───────────────────────────────┴───────────────────────────────┴──────────────────────────────┘
+The center viewport is always the Active Engine Scene.
 ```
 
 ---
 
-# Main Screen Behavior
-
-The main screen is not one static dashboard. It is a **scope-aware command surface**.
-
-When the user changes:
-
-* **Scope**
-* **Engine**
-* **Filter**
-* **Time**
-* **Location**
-
-…the center scene and the supporting panels recompose around that context.
-
----
-
-# Scope Model
+## SYSTEM MODEL
 
 ```text
-Above Me
-  └─ Unified merged sky scene from multiple engines
-
-Earth
-  └─ Earth Engine scene
-
-Sun
-  └─ Solar Engine scene
-
-Satellites
-  └─ Satellite Engine scene
-
-Flights
-  └─ Flight Engine scene
-
-Solar System
-  └─ Solar System Engine scene
-
-Deep Sky / Galaxy
-  └─ Deep Sky Engine scene
+Hub → Engine → Scene → Object → Detail → Exploration
 ```
 
 ---
 
-# Click Flow — Where Each Item Goes
-
-## 1. Clicking an object in “Now Above Me”
+## MAIN SCREEN STRUCTURE
 
 ```text
-Main Screen
-  └─ Now Above Me card
-      ├─ Click ISS
-      │    └─ Satellite Object Detail View
-      │         ├─ owner
-      │         ├─ mission
-      │         ├─ pass path
-      │         ├─ brightness
-      │         ├─ news
-      │         └─ related launches
-      │
-      ├─ Click Jupiter
-      │    └─ Solar System Object Detail View
-      │         ├─ 3D planet focus
-      │         ├─ physical data
-      │         ├─ current visibility
-      │         ├─ latest imagery
-      │         ├─ missions
-      │         └─ news/research
-      │
-      ├─ Click M13
-      │    └─ Deep Sky Object Detail View
-      │         ├─ classification
-      │         ├─ where to find it
-      │         ├─ observation notes
-      │         ├─ images
-      │         ├─ research/news
-      │         └─ suggested equipment
-      │
-      └─ Click Flight UAL 2401
-           └─ Flight Detail View
-                ├─ aircraft type
-                ├─ route
-                ├─ altitude
-                ├─ speed
-                └─ sky track relevance
+┌──────────────────────────────────────────────────────────────┐
+│                     COMMAND + CONTROL BAR                    │
+│ Scope | Engine | Time | Location | Mode                      │
+├──────────────────────────────────────────────────────────────┤
+
+┌───────────────┬──────────────────────────────┬───────────────┐
+│ LEFT CONTEXT  │ ACTIVE ENGINE VIEWPORT       │ RIGHT CONTEXT │
+│ (signals)     │                              │ (decision)    │
+│               │  Babylon.js Scene            │               │
+│ Conditions    │  Active Engine Only          │ Summary       │
+│ Status        │  Interactive                 │ Briefing      │
+│ Tools         │                              │ Active Object │
+└───────────────┴──────────────────────────────┴───────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│ FEED LAYER                                                   │
+│ Above Me | Events | News | Engine Entry                      │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│ DETAIL + EXPLORATION                                         │
+│ Object Detail | Related Paths                                │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 2. Clicking an event or alert
+## VIEWPORT RULE (NON-NEGOTIABLE)
 
 ```text
-Main Screen
-  └─ Events / Alerts
-      ├─ Click Meteor Shower Peak
-      │    └─ Event Detail View
-      │         ├─ active time window
-      │         ├─ visibility conditions
-      │         ├─ radiant direction
-      │         ├─ best observing window
-      │         ├─ related news
-      │         └─ related sky objects
-      │
-      ├─ Click Geomagnetic Activity
-      │    └─ Solar/Earth Linked Event View
-      │         ├─ solar cause
-      │         ├─ Earth impact
-      │         ├─ aurora zones
-      │         └─ forecast
-      │
-      └─ Click ISS Bright Pass
-           └─ Satellite Pass Detail View
-                ├─ time
-                ├─ path
-                ├─ visibility
-                └─ object ownership/mission
+Viewport = Active Engine Scene
+```
+
+The viewport:
+
+* is the primary interaction surface
+* is not decorative
+* is not a preview
+* is not controlled by the hub
+
+---
+
+## HUB RESPONSIBILITY
+
+The hub:
+
+* selects context
+* aggregates feeds
+* routes interactions
+
+The hub must NOT:
+
+* render scenes
+* own objects
+* override engine behavior
+
+---
+
+## ENGINE RESPONSIBILITY
+
+Engines:
+
+* own objects
+* define scenes
+* control rendering behavior
+* define interaction logic
+
+---
+
+## ENGINE SET
+
+```text
+Sky Engine
+Earth Engine
+Solar System Engine
+Sun Engine
+Satellite Engine
+Flight Engine
+Deep Sky Engine
 ```
 
 ---
 
-## 3. Clicking a news item
+## ENGINE → VIEWPORT MAPPING
+
+| Scope / Action | Result              |
+| -------------- | ------------------- |
+| Above Me       | Sky Engine          |
+| Earth          | Earth Engine        |
+| Sun            | Sun Engine          |
+| Satellites     | Earth/Satellite     |
+| Flights        | Earth/Flight        |
+| Solar System   | Solar System Engine |
+| Deep Sky       | Sky or Deep Sky     |
+
+---
+
+## CLICK BEHAVIOR (CRITICAL)
+
+---
+
+### Feed Interaction
 
 ```text
-Main Screen
-  └─ News Digest
-      ├─ Click Solar news item
-      │    └─ News Detail
-      │         ├─ article summary
-      │         ├─ linked solar region / event
-      │         └─ open Solar Engine filter
-      │
-      ├─ Click launch news item
-      │    └─ Launch Detail
-      │         ├─ mission info
-      │         ├─ payload / satellites
-      │         └─ linked Satellite Engine records
-      │
-      └─ Click planetary image/news item
-           └─ Planet Detail
-                ├─ media gallery
-                ├─ mission source
-                └─ linked Solar System Engine object
+Feed Click →
+  route to correct engine →
+  update viewport →
+  focus object →
+  open detail
 ```
 
 ---
 
-# Engine Architecture
+### Object Interaction (Viewport)
 
 ```text
-                                    ┌──────────────────────────────┐
-                                    │      MAIN ENGINE / SHELL     │
-                                    │------------------------------│
-                                    │ scope selector               │
-                                    │ engine selector              │
-                                    │ time selector                │
-                                    │ scene orchestration          │
-                                    │ merged "above me" resolver   │
-                                    │ navigation + detail routing  │
-                                    └──────────────┬───────────────┘
-                                                   │
-                   ┌───────────────────────────────┼───────────────────────────────┐
-                   │                               │                               │
-                   ▼                               ▼                               ▼
-
-       ┌──────────────────────┐      ┌──────────────────────┐      ┌──────────────────────┐
-       │    EARTH ENGINE      │      │    SOLAR ENGINE      │      │  SATELLITE ENGINE    │
-       │----------------------│      │----------------------│      │----------------------│
-       │ filters:             │      │ filters:             │      │ filters:             │
-       │ - weather            │      │ - sunspots           │      │ - visible passes     │
-       │ - earthquakes        │      │ - flares             │      │ - starlink           │
-       │ - aurora             │      │ - CME                │      │ - communications     │
-       │ - radiation          │      │ - magnetic activity  │      │ - science            │
-       │ - meteor strikes     │      │ - solar imagery      │      │ - deep-space assets  │
-       └──────────┬───────────┘      └──────────┬───────────┘      └──────────┬───────────┘
-                  │                             │                             │
-                  ▼                             ▼                             ▼
-
-       ┌──────────────────────┐      ┌──────────────────────┐      ┌──────────────────────┐
-       │    FLIGHT ENGINE     │      │ SOLAR SYSTEM ENGINE  │      │   DEEP SKY ENGINE    │
-       │----------------------│      │----------------------│      │----------------------│
-       │ filters:             │      │ filters:             │      │ filters:             │
-       │ - all flights        │      │ - planets            │      │ - galaxies           │
-       │ - above horizon      │      │ - moons              │      │ - clusters           │
-       │ - high altitude      │      │ - comets             │      │ - nebulae            │
-       │                      │      │ - asteroids          │      │ - visible tonight    │
-       │                      │      │ - NEOs               │      │ - telescope targets  │
-       │                      │      │ - spacecraft         │      │                      │
-       └──────────┬───────────┘      └──────────┬───────────┘      └──────────┬───────────┘
-                  │                             │                             │
-                  └───────────────┬─────────────┴─────────────┬───────────────┘
-                                  ▼                           ▼
-
-                    ┌──────────────────────────┐   ┌──────────────────────────┐
-                    │ NEWS & KNOWLEDGE ENGINE  │   │   OBJECT DETAIL SYSTEM   │
-                    │--------------------------│   │--------------------------│
-                    │ engine-tagged news       │   │ routes any clicked item  │
-                    │ research links           │   │ to its owning engine     │
-                    │ media linking            │   │ and detail schema        │
-                    │ cross-reference graph    │   │                          │
-                    └──────────────────────────┘   └──────────────────────────┘
+Click Object →
+  open detail →
+  show related paths →
+  allow deeper navigation
 ```
 
 ---
 
-# Runtime / Data Architecture
+### Exploration Rule
 
 ```text
-┌───────────────────────────────────────────────────────────────────────────────┐
-│                               BROWSER FRONTEND                               │
-│-------------------------------------------------------------------------------│
-│ - main shell                                                                  │
-│ - scope/engine/filter controls                                                │
-│ - 2D/3D rendering                                                             │
-│ - scene management                                                            │
-│ - object selection                                                            │
-│ - detail panels                                                               │
-└───────────────────────────────┬───────────────────────────────────────────────┘
-                                │ API requests for active scene only
-                                ▼
-┌───────────────────────────────────────────────────────────────────────────────┐
-│                              PI BACKEND / API                                 │
-│-------------------------------------------------------------------------------│
-│ - engine registry                                                              │
-│ - active scene resolver                                                        │
-│ - scope-aware query handling                                                   │
-│ - contract normalization                                                       │
-│ - caching                                                                      │
-│ - summary generation                                                           │
-└───────────────────────────────┬───────────────────────────────────────────────┘
-                                │
-                                ▼
-┌───────────────────────────────────────────────────────────────────────────────┐
-│                       DATA + INGEST + ENRICHMENT LAYER                        │
-│-------------------------------------------------------------------------------│
-│ - scheduled feed pulls                                                         │
-│ - normalization                                                                │
-│ - per-engine storage                                                           │
-│ - media mapping                                                                │
-│ - news linking                                                                 │
-│ - precomputed summaries                                                        │
-└───────────────────────────────────────────────────────────────────────────────┘
+Object → Detail → Related → Deeper Exploration
+```
+
+No dead ends allowed.
+
+---
+
+## ABOVE ME MODE
+
+Primary system mode.
+
+```text
+User selects Above Me →
+  hub aggregates:
+    sky objects
+    planets
+    conditions
+    events
+    satellites (later)
+  →
+  ranked output →
+  Sky Engine renders viewport →
+  feeds provide context
 ```
 
 ---
 
-# “Above Me” Merge Architecture
-
-This is the most important flow in the whole system.
+## DATA FLOW
 
 ```text
-User selects: Scope = Above Me
-        │
-        ▼
-Main Engine requests scoped sky scene
-        │
-        ├─ Satellite Engine → visible-above-horizon filter
-        ├─ Flight Engine    → aircraft-above-horizon filter
-        ├─ Solar System     → visible-planets filter
-        ├─ Deep Sky Engine  → visible-tonight filter
-        ├─ Event Engine     → sky-relevant-events filter
-        └─ Earth Engine     → local observing conditions filter
-        │
-        ▼
-Unified Sky Scene Assembler
-        │
-        ├─ rank by visibility / urgency / relevance
-        ├─ attach icon + type + summary
-        ├─ attach detail-route owner
-        └─ send merged scene to browser
-        │
-        ▼
-Rendered “What’s Above Me Right Now?” scene
+Frontend (Hub + Viewport)
+        ↓
+Backend (Scene Resolver + Engines)
+        ↓
+Data Layer (APIs + Catalogs + Ingestion)
 ```
 
 ---
 
-# Screen-to-Screen Navigation Map
+## RENDERING STACK
 
 ```text
-HOME / MAIN COMMAND SCREEN
-│
-├─ Scope: Above Me
-│   ├─ Click visible object → Object Detail View
-│   ├─ Click "See all visible objects" → Unified Sky List View
-│   └─ Click event → Event Detail View
-│
-├─ Scope: Earth
-│   └─ Earth Engine Scene
-│       ├─ choose filter: weather
-│       ├─ choose filter: earthquakes
-│       ├─ choose filter: meteor strikes
-│       └─ click event/object → Earth Detail View
-│
-├─ Scope: Sun
-│   └─ Solar Engine Scene
-│       ├─ choose filter: sunspots
-│       ├─ choose filter: flares
-│       ├─ choose filter: CME
-│       └─ click region/event → Solar Detail View
-│
-├─ Scope: Satellites
-│   └─ Satellite Engine Scene
-│       ├─ choose filter: visible passes
-│       ├─ choose filter: Starlink
-│       ├─ choose filter: deep-space assets
-│       └─ click object → Satellite Detail View
-│
-├─ Scope: Flights
-│   └─ Flight Engine Scene
-│       ├─ choose filter: above horizon
-│       └─ click flight → Flight Detail View
-│
-├─ Scope: Solar System
-│   └─ Solar System Engine Scene
-│       ├─ choose filter: planets
-│       ├─ choose filter: comets
-│       ├─ choose filter: asteroids
-│       └─ click body → Planet / Object Detail View
-│
-└─ Scope: Deep Sky / Galaxy
-    └─ Deep Sky Engine Scene
-        ├─ choose filter: visible tonight
-        ├─ choose filter: clusters
-        ├─ choose filter: galaxies
-        └─ click object → Deep Sky Detail View
+Babylon.js → Engine Scene → Viewport
 ```
 
 ---
 
-# The Product Architecture in One Sentence
+## ENGINE ARCHITECTURE
 
 ```text
-Main Shell
-  → selects scope
-    → activates engine
-      → applies filter
-        → assembles scene
-          → user clicks object
-            → routed to engine-owned detail view
+Hub Shell
+   ↓
+Active Engine Viewport
+   ↓
+Engine Systems
+   ├─ Sky
+   ├─ Earth
+   ├─ Solar System
+   ├─ Sun
+   ├─ Satellite
+   ├─ Flight
+   └─ Deep Sky
 ```
 
 ---
 
-# Why this architecture works
+## CRITICAL RULES
 
-It gives you:
+---
 
-* one powerful main screen
-* independent engines
-* filter-driven complexity control
-* Pi-safe backend behavior
-* browser-heavy rendering
-* clean routing for details
-* a future-proof system for huge scale
+### Rule 1 — Single Scene
 
-If you want, the next thing I should do is draw:
-**a second ASCII diagram just for the “object detail page” layout**, because that is where the engine handoff becomes really important.
+```text
+Only one active scene at a time
+```
+
+---
+
+### Rule 2 — Engine Ownership
+
+```text
+Every object belongs to exactly one engine
+```
+
+---
+
+### Rule 3 — No Hub Rendering
+
+```text
+Hub does not render scenes
+```
+
+---
+
+### Rule 4 — No Dead Ends
+
+```text
+Every object must lead to deeper exploration
+```
+
+---
+
+### Rule 5 — Routing Must Be Correct
+
+```text
+Object must route to correct engine
+```
+
+---
+
+## FINAL PRINCIPLE
+
+```text
+The hub decides what matters.
+The engine shows reality.
+The user explores without limits.
+```
+
+---
+
