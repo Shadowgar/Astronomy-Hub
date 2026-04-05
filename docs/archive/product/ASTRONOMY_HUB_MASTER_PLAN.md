@@ -1,7 +1,6 @@
 Below is the **final, fully re-rewritten** version of your master plan—now incorporating:
 
 * engine-based architecture
-* filter model (not layers)
 * scope system
 * scene instancing (your Guild Wars 2 insight)
 * client-heavy rendering + Pi backend reality
@@ -63,7 +62,7 @@ And allows the user to expand that into:
 
 Rule:
 
-> Everything exists. Only what matters is shown.
+> Everything exists. Only what is observable from the users location is shown.
 
 ---
 
@@ -77,12 +76,13 @@ Each engine:
 * ingests its own data
 * structures its knowledge
 * exposes filtered outputs
+* is a self contained reality for that topic
 
 ---
 
 ## 2.3 Filter-Based Interaction Model
 
-Each engine contains **filters**, not layers.
+Each engine contains all relevant data for its own topic. But can filter that data to the main front page (hub)
 
 A filter:
 
@@ -100,9 +100,9 @@ Rule:
 
 The system behaves like an **instanced environment**:
 
-* only the current scene is active
+* only the current scene (engine window) is active
 * only relevant data is processed
-* only visible objects are rendered
+* only visible objects are rendered (unless user selects a non-viewable object to read more about.)
 
 Rule:
 
@@ -158,10 +158,13 @@ What is currently being rendered
 
 The scale of the system:
 
-* Above Me
+* Above Me (Hub - Main screen)
 * Earth
+* Moon
+* News
 * Sun
 * Solar System
+* Deep Sky Obejects
 * Galaxy (future)
 
 ### Object
@@ -174,6 +177,7 @@ A clickable entity:
 * sunspot
 * flight
 * deep sky object
+* new items
 
 ---
 
@@ -196,6 +200,8 @@ Earth as a dynamic system.
 * geomagnetic field
 * aurora zones
 * light pollution
+* Satellites
+* flights
 
 ### Visualization:
 
@@ -227,7 +233,7 @@ Live solar intelligence.
 
 ---
 
-## 🛰️ 4.3 SATELLITE ENGINE
+## 🛰️ 4.3 SATELLITE ENGINE (Sub-Engine of Earth Engine)
 
 Orbital intelligence.
 
@@ -249,7 +255,7 @@ Orbital intelligence.
 
 ---
 
-## ✈️ 4.4 FLIGHT ENGINE
+## ✈️ 4.4 FLIGHT ENGINE (Sub-Engine of Earth Engine)
 
 Atmospheric tracking.
 
