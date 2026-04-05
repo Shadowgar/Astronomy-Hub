@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PlaceholderItemRow from './PlaceholderItemRow'
 import PanelSection from './PanelSection'
 import { useSceneByScopeDataQuery } from '../../../features/scene/queries'
@@ -17,7 +18,7 @@ const DEFAULT_SCOPE_ENGINE = {
 
 export default function ScenePanel() {
   const { activeScope, activeEngine, activeFilter, selectedObjectId, setSelectedObjectId } = useGlobalUiState()
-  const locationQuery = typeof window !== 'undefined' ? window.location.search : ''
+  const locationQuery = globalThis.window?.location.search || ''
   const queryParams = parseLocationQuery(locationQuery)
   const scope = activeScope || 'above_me'
   const engine = activeEngine || DEFAULT_SCOPE_ENGINE[scope] || 'above_me'
@@ -51,7 +52,7 @@ export default function ScenePanel() {
           </ul>
         </div>
       </PanelSection>
-      <div className="above-me-scene__sky" role="img" aria-label="Main scene placeholder" />
+      <div className="above-me-scene__sky" aria-label="Main scene placeholder" />
       <div className="foundation-scene-notes">
         <p>Scene changes based on:</p>
         <ul>
@@ -59,6 +60,9 @@ export default function ScenePanel() {
           <li>active engine</li>
           <li>active filter</li>
         </ul>
+        <Link className="foundation-panel-link foundation-panel-link--launch" to="/sky-engine">
+          Open Babylon Sky Engine
+        </Link>
       </div>
     </section>
   )

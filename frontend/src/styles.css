@@ -589,6 +589,14 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   align-self: flex-start;
 }
 
+.foundation-panel-link--launch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--token-size-36);
+  text-decoration: none;
+}
+
 .command-center-foundation .section-detail-panel {
   border-top: var(--token-border-width-thin) solid var(--surface-border);
   padding-top: var(--token-size-14);
@@ -1288,3 +1296,352 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .above-me-scene__pos-12 { left: 46%; top: 66%; }
 .above-me-scene__pos-13 { left: 64%; top: 66%; }
 .above-me-scene__pos-14 { left: 82%; top: 66%; }
+
+.sky-engine-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(93, 146, 214, 0.18), transparent 34%),
+    linear-gradient(180deg, #081120 0%, #02060d 100%);
+  color: #f3f8ff;
+  display: flex;
+  flex-direction: column;
+}
+
+.sky-engine-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--token-size-18);
+  padding: var(--token-size-18) var(--token-size-22) var(--token-size-14);
+}
+
+.sky-engine-page__header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+
+.sky-engine-page__eyebrow {
+  margin: 0 0 var(--token-size-6);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  color: rgba(201, 225, 255, 0.74);
+}
+
+.sky-engine-page__lede {
+  margin: var(--token-size-8) 0 0;
+  max-width: 58rem;
+  color: rgba(230, 241, 255, 0.84);
+}
+
+.sky-engine-page__header-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--token-size-12);
+}
+
+.sky-engine-page__observer-card,
+.sky-engine-page__back-link,
+.sky-engine-page__status-card,
+.sky-engine-detail-shell {
+  background: rgba(7, 14, 24, 0.72);
+  border: 1px solid rgba(154, 198, 255, 0.18);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(16px);
+}
+
+.sky-engine-page__observer-card {
+  min-width: 14rem;
+  border-radius: 1rem;
+  padding: 0.85rem 1rem;
+}
+
+.sky-engine-page__observer-card span,
+.sky-engine-detail-shell__meta-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(176, 208, 255, 0.72);
+}
+
+.sky-engine-page__observer-card strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.sky-engine-page__observer-card p {
+  margin: 0.35rem 0 0;
+  color: rgba(226, 239, 255, 0.84);
+}
+
+.sky-engine-page__back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0 1rem;
+  border-radius: 999px;
+  color: #f3f8ff;
+  text-decoration: none;
+}
+
+.sky-engine-page__viewport-shell {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.sky-engine-scene__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 7.5rem);
+  cursor: grab;
+}
+
+.sky-engine-scene__canvas:active {
+  cursor: grabbing;
+}
+
+.sky-engine-page__overlay {
+  position: absolute;
+  z-index: 2;
+}
+
+.sky-engine-page__overlay--top-left {
+  left: var(--token-size-22);
+  top: var(--token-size-16);
+}
+
+.sky-engine-page__overlay--bottom-left {
+  left: var(--token-size-22);
+  bottom: var(--token-size-22);
+}
+
+.sky-engine-page__overlay--right {
+  right: var(--token-size-22);
+  top: var(--token-size-16);
+  bottom: var(--token-size-22);
+  width: min(24rem, calc(100vw - 2rem));
+}
+
+.sky-engine-page__status-card {
+  width: min(22rem, calc(100vw - 2rem));
+  border-radius: 1rem;
+  padding: 1rem 1.1rem;
+}
+
+.sky-engine-page__status-card h2,
+.sky-engine-detail-shell h2,
+.sky-engine-detail-shell h3 {
+  margin: 0 0 0.55rem;
+}
+
+.sky-engine-page__status-card p {
+  margin: 0;
+  color: rgba(226, 239, 255, 0.84);
+}
+
+.sky-engine-page__status-card p + p {
+  margin-top: 0.65rem;
+}
+
+.sky-engine-page__status-card--compact ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.sky-engine-page__seed-button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid rgba(154, 198, 255, 0.14);
+  border-radius: 0.85rem;
+  padding: 0.7rem 0.8rem;
+  background: rgba(9, 18, 30, 0.7);
+  color: #f3f8ff;
+  text-align: left;
+}
+
+.sky-engine-page__seed-button span:last-child {
+  color: rgba(176, 208, 255, 0.78);
+  font-size: 0.83rem;
+}
+
+.sky-engine-page__seed-button--active {
+  border-color: rgba(135, 210, 255, 0.68);
+  box-shadow: 0 0 0 1px rgba(135, 210, 255, 0.18);
+}
+
+.sky-engine-detail-shell {
+  height: 100%;
+  border-radius: 1.2rem;
+  padding: 1rem 1.05rem;
+  overflow: auto;
+}
+
+.sky-engine-detail-shell__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.sky-engine-detail-shell__eyebrow {
+  margin: 0 0 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+  color: rgba(176, 208, 255, 0.72);
+}
+
+.sky-engine-detail-shell__clear {
+  border: 1px solid rgba(154, 198, 255, 0.18);
+  background: rgba(9, 18, 30, 0.78);
+  color: #f3f8ff;
+  border-radius: 999px;
+  min-height: 2.2rem;
+  padding: 0 0.85rem;
+}
+
+.sky-engine-detail-shell__meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.sky-engine-detail-shell__meta-grid p,
+.sky-engine-detail-shell__body p {
+  color: rgba(226, 239, 255, 0.84);
+}
+
+.sky-engine-detail-shell__body {
+  margin-top: 1rem;
+}
+
+.sky-engine-detail-shell__badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.85rem;
+}
+
+.sky-engine-detail-shell__badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.8rem;
+  padding: 0 0.65rem;
+  border-radius: 999px;
+  background: rgba(35, 68, 108, 0.72);
+  color: #f3f8ff;
+  font-size: 0.82rem;
+}
+
+.sky-engine-detail-shell__badge--warning {
+  background: rgba(120, 74, 20, 0.78);
+}
+
+.sky-engine-detail-shell__summary {
+  font-size: 1rem;
+}
+
+.sky-engine-detail-shell__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin: 1rem 0;
+}
+
+.sky-engine-detail-shell__facts div {
+  padding: 0.7rem 0.75rem;
+  border-radius: 0.85rem;
+  background: rgba(9, 18, 30, 0.65);
+  border: 1px solid rgba(154, 198, 255, 0.14);
+}
+
+.sky-engine-detail-shell__facts dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(176, 208, 255, 0.72);
+}
+
+.sky-engine-detail-shell__facts dd {
+  margin: 0.35rem 0 0;
+  font-size: 1rem;
+}
+
+.sky-engine-detail-shell__truth-note {
+  padding: 0.9rem;
+  border-radius: 0.95rem;
+  background: rgba(13, 24, 40, 0.72);
+  border: 1px solid rgba(154, 198, 255, 0.14);
+}
+
+.sky-engine-detail-shell__hint {
+  color: rgba(176, 208, 255, 0.78);
+}
+
+@media (max-width: 1100px) {
+  .sky-engine-page__header {
+    flex-direction: column;
+  }
+
+  .sky-engine-page__header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .sky-engine-page__overlay--right {
+    position: static;
+    width: auto;
+    margin: 0 var(--token-size-22) var(--token-size-22);
+  }
+
+  .sky-engine-page__viewport-shell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--token-size-16);
+  }
+
+  .sky-engine-page__overlay--top-left,
+  .sky-engine-page__overlay--bottom-left {
+    position: static;
+    margin: 0 var(--token-size-22);
+  }
+
+  .sky-engine-page__status-card {
+    width: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .sky-engine-page__header {
+    padding-left: var(--token-size-14);
+    padding-right: var(--token-size-14);
+  }
+
+  .sky-engine-page__header-actions {
+    flex-direction: column;
+  }
+
+  .sky-engine-page__overlay--top-left,
+  .sky-engine-page__overlay--bottom-left,
+  .sky-engine-page__overlay--right {
+    margin-left: var(--token-size-14);
+    margin-right: var(--token-size-14);
+  }
+
+  .sky-engine-detail-shell__meta-grid,
+  .sky-engine-detail-shell__facts {
+    grid-template-columns: 1fr;
+  }
+}
