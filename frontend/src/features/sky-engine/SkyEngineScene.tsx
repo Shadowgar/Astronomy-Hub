@@ -54,6 +54,7 @@ interface SceneRuntimeRefs {
   canvas: HTMLCanvasElement
   trajectoryMesh: Mesh | null
   trajectoryMarkers: Mesh[]
+  groundTextureMode: 'imgp0911.jpg_tiled' | 'procedural_dry_grass_reference'
 }
 
 const SKY_RADIUS = 120
@@ -61,6 +62,7 @@ const HORIZON_RADIUS = SKY_RADIUS * 0.92
 const LABEL_WIDTH = 13.5
 const LABEL_HEIGHT = 3.7
 const SKY_ENGINE_SCENE_STATE_ATTRIBUTE = 'data-sky-engine-scene-state'
+const SKY_ENGINE_GROUND_TEXTURE_URL = '/sky-engine-assets/imgp0911.jpg'
 const TRAJECTORY_HOUR_OFFSETS = Array.from({ length: 25 }, (_, index) => index - 12)
 const CARDINAL_MARKERS = [
   { label: 'N', azimuthDeg: 0 },
@@ -135,8 +137,8 @@ function buildSpriteTexture(name: string, edgeAlpha: number) {
   return texture
 }
 
-function buildGroundTexture() {
-  const texture = new DynamicTexture('sky-engine-ground-texture', { width: 512, height: 512 }, undefined, false)
+function buildProceduralGroundTexture(name: string, tileScale: number) {
+  const texture = new DynamicTexture(name, { width: 512, height: 512 }, undefined, false)
   texture.hasAlpha = false
 
   const context = texture.getContext() as CanvasRenderingContext2D
@@ -174,8 +176,21 @@ function buildGroundTexture() {
   texture.update()
   texture.wrapU = Texture.WRAP_ADDRESSMODE
   texture.wrapV = Texture.WRAP_ADDRESSMODE
-  texture.uScale = 14
-  texture.vScale = 14
+  texture.name = name
+  texture.uScale = tileScale
+  texture.vScale = tileScale
+
+  return texture
+}
+
+function buildAssetGroundTexture(scene: Scene, name: string, tileScale: number) {
+  const texture = new Texture(SKY_ENGINE_GROUND_TEXTURE_URL, scene, false, true, Texture.TRILINEAR_SAMPLINGMODE)
+  texture.hasAlpha = false
+  texture.wrapU = Texture.WRAP_ADDRESSMODE
+  texture.wrapV = Texture.WRAP_ADDRESSMODE
+  texture.name = name
+  texture.uScale = tileScale
+  texture.vScale = tileScale
 
   return texture
 }
@@ -207,6 +222,7 @@ function writeSceneState(
   selectedObjectId: string | null,
   trajectoryObjectId: string | null,
   visibleLabelIds: readonly string[],
+  groundTextureMode: 'imgp0911.jpg_tiled' | 'procedural_dry_grass_reference',
 ) {
   canvas.setAttribute(
     SKY_ENGINE_SCENE_STATE_ATTRIBUTE,
@@ -216,7 +232,7 @@ function writeSceneState(
       selectedObjectId,
       trajectoryObjectId,
       visibleLabelIds,
-      groundTextureMode: 'procedural_dry_grass_reference',
+      groundTextureMode,
     }),
   )
 }
@@ -240,7 +256,10 @@ function buildInitialViewTarget(objects: readonly SkyEngineSceneObject[]) {
     return accumulator.add(direction)
   }, Vector3.Zero())
 
-  return total.scale(1 / targetObjects.length).normalize().scale(90)
+  const direction = total.scale(1 / targetObjects.length).normalize()
+  const horizonBiasedDirection = new Vector3(direction.x, Math.min(direction.y, -0.08), direction.z).normalize()
+
+  return horizonBiasedDirection.scale(90)
 }
 
 function getMarkerDiameter(object: SkyEngineSceneObject) {
@@ -437,6 +456,7 @@ function syncSceneSelectionState(
     selectedObjectId,
     selectedObject?.source === 'computed_real_sky' ? selectedObject.id : null,
     visibleLabelIds.slice().sort((left, right) => left.localeCompare(right)),
+    runtime.groundTextureMode,
   )
 }
 
@@ -495,10 +515,8 @@ export default function SkyEngineScene({
     const starSpriteTexture = buildSpriteTexture('sky-engine-star-sprite', 0.08)
     const markerSpriteTexture = buildSpriteTexture('sky-engine-marker-sprite', 0.16)
     const selectionRingTexture = buildSelectionRingTexture()
-    const groundTexture = buildGroundTexture()
-    const localGroundTexture = buildGroundTexture()
-    localGroundTexture.uScale = 6
-    localGroundTexture.vScale = 6
+    const groundTexture = buildProceduralGroundTexture('sky-engine-ground-texture', 18)
+    const localGroundTexture = buildProceduralGroundTexture('sky-engine-local-ground-texture', 8)
 
     const groundDisk = MeshBuilder.CreateDisc(
       'sky-engine-ground-disk',
@@ -514,10 +532,11 @@ export default function SkyEngineScene({
     const groundMaterial = new StandardMaterial('sky-engine-ground-material', scene)
     groundMaterial.disableLighting = true
     groundMaterial.diffuseTexture = groundTexture
-    groundMaterial.diffuseColor = Color3.FromHexString('#313428')
-    groundMaterial.emissiveColor = Color3.FromHexString('#17170f')
+    groundMaterial.emissiveTexture = groundTexture
+    groundMaterial.diffuseColor = Color3.White()
+    groundMaterial.emissiveColor = Color3.White().scale(sunState.phaseLabel === 'Night' ? 0.72 : 0.94)
     groundMaterial.specularColor = Color3.Black()
-    groundMaterial.alpha = 0.92
+    groundMaterial.alpha = 1
     groundDisk.material = groundMaterial
 
     const localGroundDisk = MeshBuilder.CreateDisc(
@@ -534,10 +553,11 @@ export default function SkyEngineScene({
     const localGroundMaterial = new StandardMaterial('sky-engine-local-ground-material', scene)
     localGroundMaterial.disableLighting = true
     localGroundMaterial.diffuseTexture = localGroundTexture
-    localGroundMaterial.diffuseColor = Color3.FromHexString('#3a3426')
-    localGroundMaterial.emissiveColor = Color3.FromHexString(calibration.horizonColorHex).scale(0.05)
+    localGroundMaterial.emissiveTexture = localGroundTexture
+    localGroundMaterial.diffuseColor = Color3.White()
+    localGroundMaterial.emissiveColor = Color3.White().scale(sunState.phaseLabel === 'Night' ? 0.88 : 1)
     localGroundMaterial.specularColor = Color3.Black()
-    localGroundMaterial.alpha = 0.74
+    localGroundMaterial.alpha = 1
     localGroundDisk.material = localGroundMaterial
 
     const horizonBlend = MeshBuilder.CreateDisc(
@@ -612,7 +632,24 @@ export default function SkyEngineScene({
       canvas,
       trajectoryMesh: null,
       trajectoryMarkers: [],
+      groundTextureMode: 'procedural_dry_grass_reference',
     }
+
+    const assetGroundTexture = buildAssetGroundTexture(scene, 'sky-engine-ground-texture-asset', 18)
+    assetGroundTexture.onLoadObservable.add(() => {
+      groundMaterial.diffuseTexture = assetGroundTexture
+      groundMaterial.emissiveTexture = assetGroundTexture
+      runtimeRefs.current && (runtimeRefs.current.groundTextureMode = 'imgp0911.jpg_tiled')
+      runtimeRefs.current && syncSceneSelectionState(runtimeRefs.current, renderedObjectRefs.current, observer, objects, selectedObjectId, sunState)
+    })
+
+    const assetLocalGroundTexture = buildAssetGroundTexture(scene, 'sky-engine-local-ground-texture-asset', 8)
+    assetLocalGroundTexture.onLoadObservable.add(() => {
+      localGroundMaterial.diffuseTexture = assetLocalGroundTexture
+      localGroundMaterial.emissiveTexture = assetLocalGroundTexture
+      runtimeRefs.current && (runtimeRefs.current.groundTextureMode = 'imgp0911.jpg_tiled')
+      runtimeRefs.current && syncSceneSelectionState(runtimeRefs.current, renderedObjectRefs.current, observer, objects, selectedObjectId, sunState)
+    })
 
     objects.forEach((object) => {
       const position = toSkyPosition(object.altitudeDeg, object.azimuthDeg, SKY_RADIUS)
@@ -765,6 +802,8 @@ export default function SkyEngineScene({
       selectionRingTexture.dispose()
       groundTexture.dispose()
       localGroundTexture.dispose()
+      assetGroundTexture.dispose()
+      assetLocalGroundTexture.dispose()
       groundMaterial.dispose()
       localGroundMaterial.dispose()
       horizonBlendMaterial.dispose()

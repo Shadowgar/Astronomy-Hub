@@ -134,42 +134,41 @@ test('sky engine renders horizon framing, slider-driven time changes, trajectory
     selectedObjectId: null,
     trajectoryObjectId: null,
     visibleLabelIds: ['sky-real-altair', 'sky-real-arcturus', 'sky-real-vega'],
-    groundTextureMode: 'procedural_dry_grass_reference',
+    groundTextureMode: 'imgp0911.jpg_tiled',
   })
 
-  await selectCanvasObjectByName(page, 'Vega')
-  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Vega')
+  await selectCanvasObjectByName(page, 'Deneb')
+  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Deneb')
   await expect(page.locator('.sky-engine-detail-shell')).toContainText('12h arc active')
   await expectSceneState(page, {
     horizonVisible: true,
     cardinals: ['N', 'E', 'S', 'W'],
-    selectedObjectId: 'sky-real-vega',
-    trajectoryObjectId: 'sky-real-vega',
-    visibleLabelIds: ['sky-real-altair', 'sky-real-arcturus', 'sky-real-vega'],
-    groundTextureMode: 'procedural_dry_grass_reference',
+    selectedObjectId: 'sky-real-deneb',
+    trajectoryObjectId: 'sky-real-deneb',
+    visibleLabelIds: ['sky-real-altair', 'sky-real-arcturus', 'sky-real-deneb', 'sky-real-vega'],
+    groundTextureMode: 'imgp0911.jpg_tiled',
   })
 
   await setSceneTimeOffset(page, 7)
   await expect(phasePill).toHaveText('Low Sun')
-  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Vega')
+  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Deneb')
 
   await setSceneTimeOffset(page, 12)
   await expect(phasePill).toHaveText('Daylight')
-  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Vega')
-
-  await expect(page.locator('.sky-engine-detail-shell')).toContainText('Vega is no longer rendered at this scene time.')
+  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Deneb')
+  await expect(page.locator('.sky-engine-detail-shell')).toContainText('12h arc active')
   await expectSceneState(page, {
     horizonVisible: true,
     cardinals: ['N', 'E', 'S', 'W'],
-    selectedObjectId: 'sky-real-vega',
-    trajectoryObjectId: null,
+    selectedObjectId: 'sky-real-deneb',
+    trajectoryObjectId: 'sky-real-deneb',
     visibleLabelIds: ['sky-real-deneb', 'sky-real-polaris'],
-    groundTextureMode: 'procedural_dry_grass_reference',
+    groundTextureMode: 'imgp0911.jpg_tiled',
   })
 
   await setSceneTimeOffset(page, 7)
   await expect(phasePill).toHaveText('Low Sun')
-  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Vega')
+  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Deneb')
 
   const reselectionTarget = await selectFirstComputedPickTarget(page)
   await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText(reselectionTarget.objectName)

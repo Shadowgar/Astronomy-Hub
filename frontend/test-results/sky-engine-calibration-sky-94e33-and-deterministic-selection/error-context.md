@@ -1,0 +1,49 @@
+# Page snapshot
+
+```yaml
+- main [ref=e4]:
+  - generic "Sky Engine scene" [ref=e5]
+  - generic "Sky Engine top bar" [ref=e7]:
+    - generic [ref=e8]:
+      - link "Back" [ref=e9] [cursor=pointer]:
+        - /url: /
+      - button "Reset" [ref=e10]
+    - generic [ref=e11]:
+      - generic [ref=e12]: Observer
+      - strong [ref=e13]: ORAS Observatory
+    - generic [ref=e14]:
+      - generic [ref=e15]: Local time
+      - strong [ref=e16]: Jul 14, 11:00 PM EDT
+      - generic [ref=e17]: 03:00 UTC · America/New_York
+    - generic [ref=e18]:
+      - generic [ref=e19]: Phase
+      - generic [ref=e20]: Night
+  - region "Sky Engine controls" [ref=e22]:
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e25]: Time scrub
+        - strong [ref=e26]: Now
+      - generic [ref=e27]:
+        - generic [ref=e28]: 5 visible stars
+        - generic [ref=e29]: Sun below horizon
+        - generic [ref=e30]: 86% star visibility
+    - slider "Scene time offset" [ref=e31]: "0"
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: "-24h"
+        - generic [ref=e35]: Now
+        - generic [ref=e36]: +24h
+      - generic "Quick sky targets" [ref=e37]:
+        - button "Vega" [ref=e38]
+        - button "Deneb" [ref=e39]
+        - button "Altair" [ref=e40]
+        - button "Polaris" [ref=e41]
+        - button "Arcturus" [ref=e42]
+  - complementary "Sky Engine detail shell" [ref=e44]:
+    - generic [ref=e46]:
+      - paragraph [ref=e47]: Sky Engine
+      - heading "Select a rendered object" [level=2] [ref=e48]
+    - generic [ref=e49]:
+      - paragraph [ref=e50]: Pick a visible object to open its inspector.
+      - paragraph [ref=e51]: Selected computed stars keep a live trajectory arc and readable label.
+```
