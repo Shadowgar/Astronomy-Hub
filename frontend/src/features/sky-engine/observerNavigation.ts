@@ -1,7 +1,12 @@
 import { UniversalCamera } from '@babylonjs/core/Cameras/universalCamera'
-import { Vector3 } from '@babylonjs/core/Maths/math.vector'
+import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector'
+import { Scene } from '@babylonjs/core/scene'
 
 import type { SkyEngineSceneObject } from './types'
+
+export const SKY_ENGINE_MIN_FOV = 0.58
+export const SKY_ENGINE_MAX_FOV = 1.18
+const SKY_ENGINE_FOV_STEP = 0.04
 
 function toSkyPosition(altitudeDeg: number, azimuthDeg: number, radius: number) {
   const altitude = (altitudeDeg * Math.PI) / 180
@@ -13,6 +18,88 @@ function toSkyPosition(altitudeDeg: number, azimuthDeg: number, radius: number) 
     Math.sin(altitude) * radius,
     Math.cos(azimuth) * horizontalRadius,
   )
+}
+
+function clampDotProduct(value: number) {
+  return Math.min(1, Math.max(-1, value))
+}
+
+function rotateVectorAroundAxis(vector: Vector3, axis: Vector3, angle: number) {
+  const normalizedAxis = axis.normalizeToNew()
+  const cosAngle = Math.cos(angle)
+  const sinAngle = Math.sin(angle)
+  const parallelComponent = normalizedAxis.scale(Vector3.Dot(normalizedAxis, vector) * (1 - cosAngle))
+
+  return vector.scale(cosAngle)
+    .add(Vector3.Cross(normalizedAxis, vector).scale(sinAngle))
+    .add(parallelComponent)
+}
+
+function getPointerDirection(scene: Scene, camera: UniversalCamera, pointerX: number, pointerY: number) {
+  const ray = scene.createPickingRay(pointerX, pointerY, Matrix.Identity(), camera)
+  return ray.direction.normalizeToNew()
+}
+
+export function clampSkyEngineFov(fov: number) {
+  return Math.min(SKY_ENGINE_MAX_FOV, Math.max(SKY_ENGINE_MIN_FOV, fov))
+}
+
+export function stepSkyEngineFov(currentFov: number, deltaY: number) {
+  return clampSkyEngineFov(currentFov + Math.sign(deltaY) * SKY_ENGINE_FOV_STEP)
+}
+
+export function getSkyEngineFovDegrees(fovRadians: number) {
+  return (fovRadians * 180) / Math.PI
+}
+
+export function rotateVectorTowardPointerAnchor(
+  currentTarget: Vector3,
+  nextPointerDirection: Vector3,
+  previousPointerDirection: Vector3,
+) {
+  if (currentTarget.lengthSquared() === 0) {
+    return currentTarget.clone()
+  }
+
+  const sourceDirection = nextPointerDirection.normalizeToNew()
+  const targetDirection = previousPointerDirection.normalizeToNew()
+  const dotProduct = clampDotProduct(Vector3.Dot(sourceDirection, targetDirection))
+
+  if (dotProduct > 0.999999) {
+    return currentTarget.clone()
+  }
+
+  let rotationAxis = Vector3.Cross(sourceDirection, targetDirection)
+
+  if (rotationAxis.lengthSquared() < 1e-10) {
+    rotationAxis = Vector3.Cross(sourceDirection, Math.abs(sourceDirection.y) < 0.98 ? Vector3.Up() : Vector3.Right())
+  }
+
+  const rotatedDirection = rotateVectorAroundAxis(
+    currentTarget.normalizeToNew(),
+    rotationAxis,
+    Math.acos(dotProduct),
+  )
+
+  return rotatedDirection.normalize().scale(currentTarget.length())
+}
+
+export function applyPointerAnchoredZoom(
+  scene: Scene,
+  camera: UniversalCamera,
+  pointerX: number,
+  pointerY: number,
+  nextFov: number,
+) {
+  const previousPointerDirection = getPointerDirection(scene, camera, pointerX, pointerY)
+  const currentTarget = camera.getTarget().subtract(camera.position)
+
+  camera.fov = nextFov
+
+  const nextPointerDirection = getPointerDirection(scene, camera, pointerX, pointerY)
+  const nextTarget = rotateVectorTowardPointerAnchor(currentTarget, nextPointerDirection, previousPointerDirection)
+
+  camera.setTarget(camera.position.add(nextTarget))
 }
 
 export function buildInitialViewTarget(objects: readonly SkyEngineSceneObject[], guidedObjectIds: readonly string[]) {

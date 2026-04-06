@@ -30,9 +30,12 @@ import {
   getObjectPickRadiusPx,
 } from './objectClassRenderer'
 import {
+  applyPointerAnchoredZoom,
   buildInitialViewTarget as buildObserverInitialViewTarget,
+  getSkyEngineFovDegrees,
   getDesiredFovForObject,
   getSelectionTargetVector,
+  stepSkyEngineFov,
   updateObserverNavigation,
 } from './observerNavigation'
 import {
@@ -60,6 +63,7 @@ interface SkyEngineSceneProps {
   readonly aidVisibility: SkyEngineAidVisibility
   readonly onSelectObject: (objectId: string | null) => void
   readonly onAtmosphereStatusChange: (status: SkyEngineAtmosphereStatus) => void
+  readonly onViewStateChange?: (viewState: { fovDegrees: number }) => void
 }
 
 interface RenderedObjectRefs {
@@ -98,7 +102,9 @@ interface SceneRuntimeRefs {
   desiredFov: number
   targetVector: Vector3 | null
   homeVector: Vector3
+  selectedObjectId: string | null
   lastFrameTime: number
+  lastReportedFovTenths: number | null
   landscapeLayer: ReturnType<typeof createLandscapeLayer>
 }
 
@@ -112,6 +118,7 @@ interface SceneStateWriteInput {
   aidVisibility: SkyEngineAidVisibility
   groundTextureMode: 'oras-grass.jpg_tiled'
   groundTextureAssetPath: string
+  currentFovDegrees: number
 }
 
 const SKY_RADIUS = 120
@@ -419,6 +426,7 @@ function writeSceneState({
   aidVisibility,
   groundTextureMode,
   groundTextureAssetPath,
+  currentFovDegrees,
 }: SceneStateWriteInput) {
   const moonObject = objects.find((object) => object.type === 'moon')
 
@@ -437,6 +445,7 @@ function writeSceneState({
       aidVisibility,
       groundTextureMode,
       groundTextureAssetPath,
+      currentFovDegrees,
     }),
   )
 }
@@ -742,6 +751,9 @@ function syncSceneSelectionState(
   sunState: SkyEngineSunState,
 ) {
   const selectedObject = objects.find((object) => object.id === selectedObjectId) ?? null
+  const selectionChanged = runtime.selectedObjectId !== selectedObjectId
+
+  runtime.selectedObjectId = selectedObjectId
 
   Object.values(renderedRefs).forEach((refs) => {
     applyRenderedObjectState(refs, selectedObjectId, guidedObjectIds, sunState)
@@ -816,11 +828,13 @@ function syncSceneSelectionState(
 
   if (selectedObject?.isAboveHorizon) {
     runtime.targetVector = getSelectionTargetVector(selectedObject)
-  } else if (!selectedObject) {
+  } else if (!selectedObject && selectionChanged) {
     runtime.targetVector = runtime.homeVector.clone()
   }
 
-  runtime.desiredFov = getDesiredFovForObject(selectedObject)
+  if (selectionChanged) {
+    runtime.desiredFov = getDesiredFovForObject(selectedObject)
+  }
 
   if (!selectedObject || selectedObject.trackingMode === 'static') {
     return null
@@ -884,6 +898,7 @@ export default function SkyEngineScene({
   aidVisibility,
   onSelectObject,
   onAtmosphereStatusChange,
+  onViewStateChange,
 }: SkyEngineSceneProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const renderedObjectRefs = useRef<Record<string, RenderedObjectRefs>>({})
@@ -962,7 +977,9 @@ export default function SkyEngineScene({
       desiredFov: camera.fov,
       targetVector: null,
       homeVector: initialViewTarget.clone(),
+      selectedObjectId,
       lastFrameTime: performance.now(),
+      lastReportedFovTenths: null,
       landscapeLayer,
     }
 
@@ -1137,7 +1154,27 @@ export default function SkyEngineScene({
         return
       }
 
-      runtime.desiredFov = Math.min(1.18, Math.max(0.58, runtime.desiredFov + Math.sign(event.deltaY) * 0.04))
+      const nextDesiredFov = stepSkyEngineFov(runtime.desiredFov, event.deltaY)
+
+      if (nextDesiredFov === runtime.desiredFov) {
+        return
+      }
+
+      if (selectedObjectId) {
+        runtime.camera.fov = nextDesiredFov
+      } else {
+        const bounds = canvas.getBoundingClientRect()
+        applyPointerAnchoredZoom(
+          runtime.scene,
+          runtime.camera,
+          event.clientX - bounds.left,
+          event.clientY - bounds.top,
+          nextDesiredFov,
+        )
+        runtime.targetVector = null
+      }
+
+      runtime.desiredFov = nextDesiredFov
     }
 
     const handleResize = () => engine.resize()
@@ -1152,6 +1189,13 @@ export default function SkyEngineScene({
         const deltaSeconds = Math.min(0.05, (now - runtime.lastFrameTime) * 0.001)
         runtime.lastFrameTime = now
         runtime.targetVector = updateObserverNavigation(runtime.camera, runtime.desiredFov, runtime.targetVector, deltaSeconds)
+        const currentFovTenths = Math.round(getSkyEngineFovDegrees(runtime.camera.fov) * 10)
+
+        if (currentFovTenths !== runtime.lastReportedFovTenths) {
+          runtime.lastReportedFovTenths = currentFovTenths
+          onViewStateChange?.({ fovDegrees: currentFovTenths / 10 })
+        }
+
         const animationTime = performance.now() * 0.001
         const starVisibility = sunState.visualCalibration.starVisibility
 
@@ -1201,6 +1245,7 @@ export default function SkyEngineScene({
           aidVisibility,
           groundTextureMode: runtime.groundTextureMode,
           groundTextureAssetPath: runtime.groundTextureAssetPath,
+          currentFovDegrees: currentFovTenths / 10,
         })
       }
 
@@ -1241,7 +1286,7 @@ export default function SkyEngineScene({
       engine.dispose()
       renderedObjectRefs.current = {}
     }
-  }, [aidVisibility, guidedObjectIds, objects, observer, onAtmosphereStatusChange, onSelectObject, selectedObjectId, sunState])
+  }, [aidVisibility, guidedObjectIds, objects, observer, onAtmosphereStatusChange, onSelectObject, onViewStateChange, selectedObjectId, sunState])
 
   return <canvas ref={canvasRef} className="sky-engine-scene__canvas" aria-label="Sky Engine scene" />
 }

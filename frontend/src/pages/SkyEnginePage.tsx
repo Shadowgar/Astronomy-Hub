@@ -1,7 +1,8 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useDeferredValue, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { computeMoonSceneObject, computeRealSkySceneObjects, rankGuidanceTargets } from '../features/sky-engine/astronomy'
+import { getDesiredFovForObject, getSkyEngineFovDegrees } from '../features/sky-engine/observerNavigation'
 import { SKY_ENGINE_REAL_SKY_STARTERS, SKY_ENGINE_SCENE_TIMESTAMP } from '../features/sky-engine/realSkyCatalog'
 import {
   SKY_ENGINE_LOCAL_TIME_ZONE,
@@ -29,6 +30,9 @@ function getPlaybackButtonLabel(playbackValue: number, isPlaying: boolean, label
 
 export default function SkyEnginePage() {
   const sceneTime = useSkyEngineSceneTime(SKY_ENGINE_SCENE_TIMESTAMP)
+  const [searchQuery, setSearchQuery] = useState('')
+  const deferredSearchQuery = useDeferredValue(searchQuery)
+  const [viewFovDegrees, setViewFovDegrees] = useState(() => Number(getSkyEngineFovDegrees(getDesiredFovForObject(null)).toFixed(1)))
   const [aidVisibility, setAidVisibility] = useState({
     constellations: true,
     azimuthRing: true,
@@ -85,7 +89,25 @@ export default function SkyEnginePage() {
   )
   const selectedTargetName = selection.selectedObject?.name ?? 'Ready to inspect'
   const handleAtmosphereStatusChange = useCallback(() => undefined, [])
+  const handleViewStateChange = useCallback((viewState: { fovDegrees: number }) => {
+    setViewFovDegrees(viewState.fovDegrees)
+  }, [])
   const phaseBandState = sunState.phaseLabel === 'Low Sun' ? 'Twilight' : sunState.phaseLabel
+  const searchableSceneObjects = useMemo(
+    () => [...sceneObjects].sort((left, right) => left.name.localeCompare(right.name)),
+    [sceneObjects],
+  )
+  const matchingSearchObjects = useMemo(() => {
+    const normalizedQuery = deferredSearchQuery.trim().toLowerCase()
+
+    if (!normalizedQuery) {
+      return searchableSceneObjects.slice(0, 10)
+    }
+
+    return searchableSceneObjects
+      .filter((object) => object.name.toLowerCase().includes(normalizedQuery))
+      .slice(0, 10)
+  }, [deferredSearchQuery, searchableSceneObjects])
 
   const toggleAid = useCallback((key: 'constellations' | 'azimuthRing' | 'altitudeRings') => {
     setAidVisibility((currentVisibility) => ({
@@ -93,6 +115,24 @@ export default function SkyEnginePage() {
       [key]: !currentVisibility[key],
     }))
   }, [])
+
+  const selectObjectFromSearch = useCallback((query: string) => {
+    const normalizedQuery = query.trim().toLowerCase()
+
+    if (!normalizedQuery) {
+      return
+    }
+
+    const nextObject = searchableSceneObjects.find((object) => object.name.toLowerCase() === normalizedQuery)
+      ?? searchableSceneObjects.find((object) => object.name.toLowerCase().includes(normalizedQuery))
+
+    if (!nextObject) {
+      return
+    }
+
+    selection.selectObject(nextObject.id)
+    setSearchQuery(nextObject.name)
+  }, [searchableSceneObjects, selection])
 
   return (
     <div className="sky-engine-page sky-engine-page--immersive">
@@ -106,6 +146,7 @@ export default function SkyEnginePage() {
           aidVisibility={aidVisibility}
           onSelectObject={selection.selectObject}
           onAtmosphereStatusChange={handleAtmosphereStatusChange}
+          onViewStateChange={handleViewStateChange}
         />
 
         <div className="sky-engine-page__overlay sky-engine-page__overlay--top-bar">
@@ -122,22 +163,47 @@ export default function SkyEnginePage() {
                 Reset
               </button>
             </div>
-            <div className="sky-engine-page__top-bar-section">
-              <span className="sky-engine-page__top-bar-label">Observer</span>
-              <strong>{ORAS_OBSERVER.label}</strong>
-            </div>
-            <div className="sky-engine-page__top-bar-section sky-engine-page__top-bar-section--time">
-              <span className="sky-engine-page__top-bar-label">Local time</span>
-              <strong>{sceneTime.formattedSceneLocalTimestamp}</strong>
-              <small>{sceneTime.formattedSceneUtcTimestamp} · {SKY_ENGINE_LOCAL_TIME_ZONE}</small>
-            </div>
-            <div className="sky-engine-page__top-bar-section sky-engine-page__top-bar-section--time">
-              <span className="sky-engine-page__top-bar-label">Offset</span>
-              <strong>{sceneTime.formattedSceneOffset}</strong>
-              <small>{sceneTime.playbackRateLabel}</small>
-            </div>
-            <div className="sky-engine-page__top-bar-section sky-engine-page__top-bar-section--phase">
-              <span className="sky-engine-page__top-bar-label">Phase</span>
+            <form
+              className="sky-engine-page__search"
+              aria-label="Sky Engine target search"
+              onSubmit={(event) => {
+                event.preventDefault()
+                selectObjectFromSearch(searchQuery)
+              }}
+            >
+              <input
+                id="sky-engine-target-search"
+                className="sky-engine-page__search-input"
+                type="search"
+                list="sky-engine-target-search-list"
+                placeholder="Search visible sky objects"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+              />
+              <datalist id="sky-engine-target-search-list">
+                {matchingSearchObjects.map((object) => (
+                  <option key={object.id} value={object.name} />
+                ))}
+              </datalist>
+              <button type="submit" className="sky-engine-page__control-chip sky-engine-page__search-submit">
+                Find
+              </button>
+            </form>
+            <div className="sky-engine-page__top-bar-meta">
+              <div className="sky-engine-page__status-pill">
+                <span className="sky-engine-page__top-bar-label">FOV</span>
+                <strong>{viewFovDegrees.toFixed(1)}°</strong>
+              </div>
+              <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
+                <span className="sky-engine-page__top-bar-label">Target</span>
+                <strong>{selectedTargetName}</strong>
+                <small>{ORAS_OBSERVER.label}</small>
+              </div>
+              <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
+                <span className="sky-engine-page__top-bar-label">Local time</span>
+                <strong>{sceneTime.formattedSceneLocalTimestamp}</strong>
+                <small>{sceneTime.formattedSceneOffset} · {SKY_ENGINE_LOCAL_TIME_ZONE} · {sceneTime.playbackRateLabel}</small>
+              </div>
               <span
                 className={`sky-engine-page__phase-pill sky-engine-page__phase-pill--${phaseModifier(sunState.phaseLabel)}`}
                 data-phase={sunState.phaseLabel}
