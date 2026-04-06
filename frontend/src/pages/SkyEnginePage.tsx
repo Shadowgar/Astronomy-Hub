@@ -7,6 +7,7 @@ import {
   SKY_ENGINE_SCENE_TIME_CONTROLS,
   useSkyEngineSceneTime,
 } from '../features/sky-engine/sceneTime'
+import { computeSunState } from '../features/sky-engine/solar'
 import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
 import SkyEngineScene from '../features/sky-engine/SkyEngineScene'
 import { ORAS_OBSERVER, SKY_ENGINE_TEMPORARY_SCENE_SEED } from '../features/sky-engine/sceneSeed'
@@ -20,6 +21,10 @@ const INITIAL_ATMOSPHERE_STATUS: SkyEngineAtmosphereStatus = {
 
 export default function SkyEnginePage() {
   const sceneTime = useSkyEngineSceneTime(SKY_ENGINE_SCENE_TIMESTAMP)
+  const sunState = useMemo(
+    () => computeSunState(ORAS_OBSERVER, sceneTime.sceneTimestampIso),
+    [sceneTime.sceneTimestampIso],
+  )
   const computedSceneObjects = useMemo(
     () => computeRealSkySceneObjects(ORAS_OBSERVER, sceneTime.sceneTimestampIso, SKY_ENGINE_REAL_SKY_STARTERS),
     [sceneTime.sceneTimestampIso],
@@ -68,6 +73,7 @@ export default function SkyEnginePage() {
         <SkyEngineScene
           observer={ORAS_OBSERVER}
           objects={sceneObjects}
+          sunState={sunState}
           selectedObjectId={selection.selectedObjectId}
           onSelectObject={selection.selectObject}
           onAtmosphereStatusChange={setAtmosphereStatus}
@@ -79,6 +85,9 @@ export default function SkyEnginePage() {
             <p>{atmosphereStatus.message}</p>
             <p>
               Scene time: {sceneTime.formattedSceneTimestamp} · {computedVisibleObjects.length} computed stars rendered above the horizon.
+            </p>
+            <p>
+              Sun state: {sunState.phaseLabel} · alt {sunState.altitudeDeg.toFixed(1)}° · az {sunState.azimuthDeg.toFixed(1)}° · {sunState.isAboveHorizon ? 'above horizon' : 'below horizon'}.
             </p>
             <p>Drag to orbit the camera. Scroll to tighten or widen the view. Click a rendered marker to inspect it.</p>
             {computedBelowHorizonObjects.length > 0 ? (
@@ -147,6 +156,7 @@ export default function SkyEnginePage() {
             observer={ORAS_OBSERVER}
             selectedObject={selection.selectedObject}
             atmosphereStatus={atmosphereStatus}
+            sunState={sunState}
             sceneTimestampIso={sceneTime.sceneTimestampIso}
             onClearSelection={selection.clearSelection}
           />

@@ -43,3 +43,21 @@ export interface SkyEngineAtmosphereStatus {
   mode: 'addon' | 'fallback'
   message: string
 }
+
+export interface SkyEngineDirectionVector {
+  x: number
+  y: number
+  z: number
+}
+
+export interface SkyEngineSunState {
+  altitudeDeg: number
+  azimuthDeg: number
+  isAboveHorizon: boolean
+  phaseLabel: 'Daylight' | 'Civil / low sun' | 'Night'
+  rightAscensionHours: number
+  declinationDeg: number
+  localSiderealTimeDeg: number
+  skyDirection: SkyEngineDirectionVector
+  lightDirection: SkyEngineDirectionVector
+}

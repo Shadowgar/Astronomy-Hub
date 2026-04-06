@@ -7,21 +7,25 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import { DefaultRenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline'
 import type { Scene } from '@babylonjs/core/scene'
 
-import type { SkyEngineAtmosphereStatus } from './types'
+import type { SkyEngineAtmosphereStatus, SkyEngineSunState } from './types'
 
 export interface SkyAtmosphereSetup {
   status: SkyEngineAtmosphereStatus
   dispose: () => void
 }
 
-export function setupSkyAtmosphere(scene: Scene, camera: Camera): SkyAtmosphereSetup {
-  const sunLight = new DirectionalLight('sky-engine-sun', new Vector3(0.35, -0.18, -0.92), scene)
-  sunLight.intensity = Math.PI
+export function setupSkyAtmosphere(scene: Scene, camera: Camera, sunState: SkyEngineSunState): SkyAtmosphereSetup {
+  const sunLight = new DirectionalLight(
+    'sky-engine-sun',
+    new Vector3(sunState.lightDirection.x, sunState.lightDirection.y, sunState.lightDirection.z),
+    scene,
+  )
+  sunLight.intensity = sunState.isAboveHorizon ? Math.PI : 0.08
   sunLight.diffuse = new Color3(1, 0.92, 0.82)
   sunLight.specular = new Color3(1, 0.88, 0.78)
 
   const ambientLight = new HemisphericLight('sky-engine-ambient', new Vector3(0, 1, 0), scene)
-  ambientLight.intensity = 0.22
+  ambientLight.intensity = sunState.isAboveHorizon ? 0.22 : 0.08
   ambientLight.groundColor = new Color3(0.03, 0.04, 0.07)
 
   const pipeline = new DefaultRenderingPipeline('sky-engine-rendering', true, scene, [camera])
@@ -35,7 +39,7 @@ export function setupSkyAtmosphere(scene: Scene, camera: Camera): SkyAtmosphereS
     return {
       status: {
         mode: 'fallback',
-        message: 'Atmosphere addon was installed but this renderer does not support it. Babylon fallback sky colors are active.',
+        message: `Atmosphere addon was installed but this renderer does not support it. Babylon fallback sky colors are active while the computed solar light direction still drives the scene light. Sun is ${sunState.phaseLabel.toLowerCase()}.`,
       },
       dispose: () => {
         pipeline.dispose()
@@ -68,7 +72,7 @@ export function setupSkyAtmosphere(scene: Scene, camera: Camera): SkyAtmosphereS
     return {
       status: {
         mode: 'addon',
-        message: 'Babylon Atmosphere addon is active and driven by a seeded directional sun light.',
+        message: `Babylon Atmosphere addon is active and uses the computed solar directional light for ${sunState.phaseLabel.toLowerCase()} conditions.`,
       },
       dispose: () => {
         atmosphere.dispose()
@@ -82,7 +86,7 @@ export function setupSkyAtmosphere(scene: Scene, camera: Camera): SkyAtmosphereS
     return {
       status: {
         mode: 'fallback',
-        message: `Atmosphere addon initialization failed. Babylon fallback sky colors are active. ${message}`,
+        message: `Atmosphere addon initialization failed. Babylon fallback sky colors are active while the computed solar directional light still drives the scene. ${message}`,
       },
       dispose: () => {
         pipeline.dispose()

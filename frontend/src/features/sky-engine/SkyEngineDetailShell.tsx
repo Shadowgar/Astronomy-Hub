@@ -1,11 +1,12 @@
 import React from 'react'
 
-import type { SkyEngineAtmosphereStatus, SkyEngineObserver, SkyEngineSceneObject } from './types'
+import type { SkyEngineAtmosphereStatus, SkyEngineObserver, SkyEngineSceneObject, SkyEngineSunState } from './types'
 
 interface SkyEngineDetailShellProps {
   observer: SkyEngineObserver
   selectedObject: SkyEngineSceneObject | null
   atmosphereStatus: SkyEngineAtmosphereStatus
+  sunState: SkyEngineSunState
   sceneTimestampIso: string
   onClearSelection: () => void
 }
@@ -26,6 +27,7 @@ export default function SkyEngineDetailShell({
   observer,
   selectedObject,
   atmosphereStatus,
+  sunState,
   sceneTimestampIso,
   onClearSelection,
 }: SkyEngineDetailShellProps) {
@@ -60,6 +62,13 @@ export default function SkyEngineDetailShell({
           <span className="sky-engine-detail-shell__meta-label">Scene time</span>
           <strong>{formatTimestamp(sceneTimestampIso)}</strong>
           <p>Computed objects move when this timestamp changes in code.</p>
+        </div>
+        <div>
+          <span className="sky-engine-detail-shell__meta-label">Sun state</span>
+          <strong>{sunState.phaseLabel}</strong>
+          <p>
+            Alt {sunState.altitudeDeg.toFixed(1)}° · Az {sunState.azimuthDeg.toFixed(1)}° · {sunState.isAboveHorizon ? 'Above horizon' : 'Below horizon'}
+          </p>
         </div>
       </div>
 

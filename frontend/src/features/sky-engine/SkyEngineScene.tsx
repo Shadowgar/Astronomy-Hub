@@ -13,11 +13,12 @@ import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import { Scene } from '@babylonjs/core/scene'
 
 import { setupSkyAtmosphere } from './atmosphere'
-import type { SkyEngineAtmosphereStatus, SkyEngineObserver, SkyEngineSceneObject } from './types'
+import type { SkyEngineAtmosphereStatus, SkyEngineObserver, SkyEngineSceneObject, SkyEngineSunState } from './types'
 
 interface SkyEngineSceneProps {
   readonly observer: SkyEngineObserver
   readonly objects: readonly SkyEngineSceneObject[]
+  readonly sunState: SkyEngineSunState
   readonly selectedObjectId: string | null
   readonly onSelectObject: (objectId: string | null) => void
   readonly onAtmosphereStatusChange: (status: SkyEngineAtmosphereStatus) => void
@@ -86,6 +87,7 @@ function buildInitialViewTarget(objects: readonly SkyEngineSceneObject[]) {
 export default function SkyEngineScene({
   observer,
   objects,
+  sunState,
   selectedObjectId,
   onSelectObject,
   onAtmosphereStatusChange,
@@ -115,7 +117,7 @@ export default function SkyEngineScene({
     camera.maxZ = SKY_RADIUS * 2
     camera.fov = 1.02
 
-    const atmosphere = setupSkyAtmosphere(scene, camera)
+    const atmosphere = setupSkyAtmosphere(scene, camera, sunState)
     onAtmosphereStatusChange(atmosphere.status)
 
     const glowLayer = new GlowLayer('sky-engine-glow', scene, {
@@ -219,7 +221,7 @@ export default function SkyEngineScene({
       engine.dispose()
       renderedObjectRefs.current = {}
     }
-  }, [objects, observer, onAtmosphereStatusChange, onSelectObject])
+  }, [objects, observer, onAtmosphereStatusChange, onSelectObject, sunState])
 
   useEffect(() => {
     Object.entries(renderedObjectRefs.current).forEach(([objectId, refs]) => {

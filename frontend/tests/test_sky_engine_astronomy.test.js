@@ -4,6 +4,7 @@ import { computeHorizontalCoordinates, computeRealSkySceneObjects } from '../src
 import { SKY_ENGINE_REAL_SKY_STARTERS, SKY_ENGINE_SCENE_TIMESTAMP } from '../src/features/sky-engine/realSkyCatalog.ts'
 import { applySceneTimeAction } from '../src/features/sky-engine/sceneTime.ts'
 import { ORAS_OBSERVER } from '../src/features/sky-engine/sceneSeed.ts'
+import { computeSunState } from '../src/features/sky-engine/solar.ts'
 
 describe('Sky Engine astronomy helpers', () => {
   it('renders at least three computed starter objects above the horizon for the scene timestamp', () => {
@@ -38,5 +39,14 @@ describe('Sky Engine astronomy helpers', () => {
     expect(
       applySceneTimeAction(baseTimestamp, 'now', () => new Date('2026-04-05T12:34:56.000Z')),
     ).toBe('2026-04-05T12:34:56.000Z')
+  })
+
+  it('changes computed sun state across scene-time steps', () => {
+    const earlySun = computeSunState(ORAS_OBSERVER, '2026-07-15T03:00:00.000Z')
+    const laterSun = computeSunState(ORAS_OBSERVER, '2026-07-15T04:00:00.000Z')
+
+    expect(Math.abs(earlySun.altitudeDeg - laterSun.altitudeDeg)).toBeGreaterThan(0.5)
+    expect(Math.abs(earlySun.azimuthDeg - laterSun.azimuthDeg)).toBeGreaterThan(0.5)
+    expect(earlySun.lightDirection.x).not.toBe(laterSun.lightDirection.x)
   })
 })
