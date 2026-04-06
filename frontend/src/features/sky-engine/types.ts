@@ -1,4 +1,7 @@
-export type SkyEngineObjectSource = 'computed_real_sky' | 'temporary_scene_seed'
+export type SkyEngineObjectSource = 'computed_real_sky' | 'computed_ephemeris' | 'temporary_scene_seed'
+export type SkyEngineObjectType = 'star' | 'moon' | 'planet' | 'deep_sky'
+export type SkyEngineTrackingMode = 'fixed_equatorial' | 'lunar_ephemeris' | 'static'
+export type SkyEngineGuidanceTier = 'featured' | 'guide' | 'none'
 
 export interface SkyEngineObserver {
   label: string
@@ -23,7 +26,7 @@ export interface SkyEngineCelestialSourceObject {
 export interface SkyEngineSceneObject {
   id: string
   name: string
-  type: 'star' | 'planet' | 'deep_sky'
+  type: SkyEngineObjectType
   altitudeDeg: number
   azimuthDeg: number
   magnitude: number
@@ -33,9 +36,16 @@ export interface SkyEngineSceneObject {
   constellation?: string
   truthNote: string
   source: SkyEngineObjectSource
+  trackingMode: SkyEngineTrackingMode
   rightAscensionHours?: number
   declinationDeg?: number
   timestampIso?: string
+  illuminationFraction?: number
+  brightLimbAngleDeg?: number
+  phaseLabel?: string
+  waxing?: boolean
+  guidanceScore?: number
+  guidanceTier?: SkyEngineGuidanceTier
   isAboveHorizon: boolean
 }
 
@@ -64,6 +74,19 @@ export interface SkyEngineDirectionVector {
   x: number
   y: number
   z: number
+}
+
+export interface SkyEngineAidVisibility {
+  constellations: boolean
+  azimuthRing: boolean
+  altitudeRings: boolean
+}
+
+export interface SkyEngineGuidanceTarget {
+  objectId: string
+  name: string
+  score: number
+  summary: string
 }
 
 export type SkyEngineSunPhase = 'Daylight' | 'Low Sun' | 'Night'

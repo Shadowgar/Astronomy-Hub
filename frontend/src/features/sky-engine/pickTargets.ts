@@ -15,6 +15,10 @@ interface PickTargetMeshEntry {
 }
 
 export function getSkyEnginePickColliderDiameter(object: SkyEngineSceneObject) {
+  if (object.type === 'moon') {
+    return 11.5
+  }
+
   if (object.source === 'computed_real_sky') {
     return object.type === 'star' ? 10 : 8.5
   }

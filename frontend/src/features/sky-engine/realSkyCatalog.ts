@@ -1,6 +1,6 @@
 import type { SkyEngineCelestialSourceObject } from './types'
 
-export const SKY_ENGINE_SCENE_TIMESTAMP = '2026-07-15T03:00:00.000Z'
+export const SKY_ENGINE_SCENE_TIMESTAMP = '2026-07-15T02:00:00.000Z'
 
 export const SKY_ENGINE_REAL_SKY_STARTERS: readonly SkyEngineCelestialSourceObject[] = [
   {
@@ -62,5 +62,53 @@ export const SKY_ENGINE_REAL_SKY_STARTERS: readonly SkyEngineCelestialSourceObje
     summary: 'Bright Bootes star added as a fifth computed starter object.',
     description: 'Arcturus is included to keep the starter set above the minimum three-object requirement while remaining tightly scoped.',
     constellation: 'Bootes',
+  },
+  {
+    id: 'sky-real-albireo',
+    name: 'Albireo',
+    type: 'star',
+    rightAscensionHours: 19.512028,
+    declinationDeg: 27.959681,
+    magnitude: 3.05,
+    colorHex: '#ffd9a1',
+    summary: 'Cygnus anchor star used to give the observer a readable constellation stem.',
+    description: 'Albireo extends the starter set enough to support a useful constellation overlay without turning the scene into a dense catalog dump.',
+    constellation: 'Cygnus',
+  },
+  {
+    id: 'sky-real-tarazed',
+    name: 'Tarazed',
+    type: 'star',
+    rightAscensionHours: 19.770994,
+    declinationDeg: 10.613268,
+    magnitude: 2.72,
+    colorHex: '#ffc28f',
+    summary: 'Aquila companion star that helps ground Altair in a recognisable shape.',
+    description: 'Tarazed stays bright enough to support observer guidance while remaining light enough for the label solver to suppress when the view is crowded.',
+    constellation: 'Aquila',
+  },
+  {
+    id: 'sky-real-sheliak',
+    name: 'Sheliak',
+    type: 'star',
+    rightAscensionHours: 18.834665,
+    declinationDeg: 33.362667,
+    magnitude: 3.45,
+    colorHex: '#d4e2ff',
+    summary: 'Lyra support star used for a subtle constellation trace near Vega.',
+    description: 'Sheliak gives the scene one more real-sky reference for the aid layer while staying far below the label priority of the brightest stars.',
+    constellation: 'Lyra',
+  },
+  {
+    id: 'sky-real-sulafat',
+    name: 'Sulafat',
+    type: 'star',
+    rightAscensionHours: 18.982396,
+    declinationDeg: 32.689557,
+    magnitude: 3.25,
+    colorHex: '#cadbff',
+    summary: 'Second Lyra anchor used to draw a compact, readable aid cluster.',
+    description: 'Sulafat expands the starter set just enough to support constellation and guidance overlays without pushing into catalog-scale complexity.',
+    constellation: 'Lyra',
   },
 ] as const

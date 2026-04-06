@@ -1,13 +1,12 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { computeRealSkySceneObjects } from '../features/sky-engine/astronomy'
+import { computeMoonSceneObject, computeRealSkySceneObjects, rankGuidanceTargets } from '../features/sky-engine/astronomy'
 import { SKY_ENGINE_REAL_SKY_STARTERS, SKY_ENGINE_SCENE_TIMESTAMP } from '../features/sky-engine/realSkyCatalog'
 import {
   SKY_ENGINE_LOCAL_TIME_ZONE,
-  SKY_ENGINE_MAX_SCENE_HOUR_OFFSET,
-  SKY_ENGINE_MIN_SCENE_HOUR_OFFSET,
-  SKY_ENGINE_SCENE_HOUR_STEP,
+  SKY_ENGINE_PLAYBACK_RATE_OPTIONS,
+  SKY_ENGINE_TIME_SCALE_OPTIONS,
   useSkyEngineSceneTime,
 } from '../features/sky-engine/sceneTime'
 import { computeSunState } from '../features/sky-engine/solar'
@@ -20,8 +19,21 @@ function phaseModifier(phaseLabel: string) {
   return phaseLabel.toLowerCase().split(' ').join('-')
 }
 
+function getPlaybackButtonLabel(playbackValue: number, isPlaying: boolean, label: string) {
+  if (playbackValue === 0) {
+    return isPlaying ? 'Pause' : 'Play'
+  }
+
+  return label
+}
+
 export default function SkyEnginePage() {
   const sceneTime = useSkyEngineSceneTime(SKY_ENGINE_SCENE_TIMESTAMP)
+  const [aidVisibility, setAidVisibility] = useState({
+    constellations: true,
+    azimuthRing: true,
+    altitudeRings: true,
+  })
   const sunState = useMemo(
     () => computeSunState(ORAS_OBSERVER, sceneTime.sceneTimestampIso),
     [sceneTime.sceneTimestampIso],
@@ -30,21 +42,57 @@ export default function SkyEnginePage() {
     () => computeRealSkySceneObjects(ORAS_OBSERVER, sceneTime.sceneTimestampIso, SKY_ENGINE_REAL_SKY_STARTERS),
     [sceneTime.sceneTimestampIso],
   )
+  const moonObject = useMemo(
+    () => computeMoonSceneObject(ORAS_OBSERVER, sceneTime.sceneTimestampIso),
+    [sceneTime.sceneTimestampIso],
+  )
   const computedVisibleObjects = useMemo(
-    () => computedSceneObjects.filter((object) => object.isAboveHorizon),
-    [computedSceneObjects],
+    () => [...computedSceneObjects, moonObject].filter((object) => object.isAboveHorizon),
+    [computedSceneObjects, moonObject],
+  )
+  const baseSceneObjects = useMemo(
+    () => [...computedVisibleObjects, ...SKY_ENGINE_TEMPORARY_SCENE_SEED],
+    [computedVisibleObjects],
+  )
+  const guidanceTargets = useMemo(
+    () => rankGuidanceTargets(baseSceneObjects, 5),
+    [baseSceneObjects],
+  )
+  const guidanceLookup = useMemo(
+    () => new Map(guidanceTargets.map((target, index) => [target.objectId, { ...target, tier: index < 2 ? 'featured' as const : 'guide' as const }])),
+    [guidanceTargets],
   )
   const sceneObjects = useMemo(
-    () => [...computedVisibleObjects, ...SKY_ENGINE_TEMPORARY_SCENE_SEED],
-    [computedVisibleObjects],
+    () => baseSceneObjects.map((object) => {
+      const guidance = guidanceLookup.get(object.id)
+
+      if (!guidance) {
+        return object
+      }
+
+      return {
+        ...object,
+        guidanceScore: guidance.score,
+        guidanceTier: guidance.tier,
+      }
+    }),
+    [baseSceneObjects, guidanceLookup],
   )
   const selection = useSkyEngineSelection(sceneObjects)
-  const visibleTargets = useMemo(
-    () => [...computedVisibleObjects, ...SKY_ENGINE_TEMPORARY_SCENE_SEED],
-    [computedVisibleObjects],
+  const guidedObjectIds = useMemo(
+    () => guidanceTargets.map((target) => target.objectId),
+    [guidanceTargets],
   )
   const selectedTargetName = selection.selectedObject?.name ?? 'Ready to inspect'
   const handleAtmosphereStatusChange = useCallback(() => undefined, [])
+  const phaseBandState = sunState.phaseLabel === 'Low Sun' ? 'Twilight' : sunState.phaseLabel
+
+  const toggleAid = useCallback((key: 'constellations' | 'azimuthRing' | 'altitudeRings') => {
+    setAidVisibility((currentVisibility) => ({
+      ...currentVisibility,
+      [key]: !currentVisibility[key],
+    }))
+  }, [])
 
   return (
     <div className="sky-engine-page sky-engine-page--immersive">
@@ -54,6 +102,8 @@ export default function SkyEnginePage() {
           objects={sceneObjects}
           sunState={sunState}
           selectedObjectId={selection.selectedObjectId}
+          guidedObjectIds={guidedObjectIds}
+          aidVisibility={aidVisibility}
           onSelectObject={selection.selectObject}
           onAtmosphereStatusChange={handleAtmosphereStatusChange}
         />
@@ -81,6 +131,11 @@ export default function SkyEnginePage() {
               <strong>{sceneTime.formattedSceneLocalTimestamp}</strong>
               <small>{sceneTime.formattedSceneUtcTimestamp} · {SKY_ENGINE_LOCAL_TIME_ZONE}</small>
             </div>
+            <div className="sky-engine-page__top-bar-section sky-engine-page__top-bar-section--time">
+              <span className="sky-engine-page__top-bar-label">Offset</span>
+              <strong>{sceneTime.formattedSceneOffset}</strong>
+              <small>{sceneTime.playbackRateLabel}</small>
+            </div>
             <div className="sky-engine-page__top-bar-section sky-engine-page__top-bar-section--phase">
               <span className="sky-engine-page__top-bar-label">Phase</span>
               <span
@@ -98,44 +153,108 @@ export default function SkyEnginePage() {
             <div className="sky-engine-page__bottom-hud-main">
               <div>
                 <span className="sky-engine-page__scene-link-label">Time scrub</span>
-                <strong className="sky-engine-page__bottom-hud-offset">{sceneTime.formattedSceneHourOffset}</strong>
+                <strong className="sky-engine-page__bottom-hud-offset">{sceneTime.formattedScaleOffset}</strong>
               </div>
               <div className="sky-engine-page__bottom-hud-stats">
-                <span>{computedVisibleObjects.length} visible stars</span>
-                <span>{sunState.isAboveHorizon ? 'Sun above horizon' : 'Sun below horizon'}</span>
+                <span>{computedVisibleObjects.length} visible real targets</span>
+                <span>{moonObject.isAboveHorizon ? `${moonObject.phaseLabel} moon` : 'Moon below horizon'}</span>
+                <span>{guidanceTargets.length} guided now</span>
                 <span>{selectedTargetName}</span>
               </div>
+            </div>
+
+            <div className="sky-engine-page__phase-band" aria-label="Scene light band">
+              {['Daylight', 'Twilight', 'Night'].map((band) => (
+                <span
+                  key={band}
+                  className={`sky-engine-page__phase-band-segment${phaseBandState === band ? ' sky-engine-page__phase-band-segment--active' : ''}`}
+                >
+                  {band}
+                </span>
+              ))}
             </div>
 
             <input
               id="sky-engine-time-slider"
               className="sky-engine-page__time-slider"
               type="range"
-              min={SKY_ENGINE_MIN_SCENE_HOUR_OFFSET}
-              max={SKY_ENGINE_MAX_SCENE_HOUR_OFFSET}
-              step={SKY_ENGINE_SCENE_HOUR_STEP}
-              value={sceneTime.sceneHourOffset}
+              min={sceneTime.sliderMin}
+              max={sceneTime.sliderMax}
+              step={sceneTime.sliderStep}
+              value={sceneTime.sceneOffsetSeconds}
               aria-label="Scene time offset"
-              onChange={(event) => sceneTime.setSceneHourOffset(Number(event.target.value))}
+              onChange={(event) => sceneTime.setSceneOffsetSeconds(Number(event.target.value))}
             />
 
             <div className="sky-engine-page__bottom-hud-foot">
-              <div className="sky-engine-page__time-slider-scale" aria-hidden="true">
-                <span>-24h</span>
-                <span>Now</span>
-                <span>+24h</span>
+              <div className="sky-engine-page__control-group" aria-label="Time scale controls">
+                <button type="button" className="sky-engine-page__time-reset" onClick={() => sceneTime.nudgeSceneOffset(-sceneTime.selectedTimeScale.stepSeconds)}>
+                  - Step
+                </button>
+                <div className="sky-engine-page__time-slider-scale">
+                  {SKY_ENGINE_TIME_SCALE_OPTIONS.map((scaleOption) => (
+                    <button
+                      key={scaleOption.id}
+                      type="button"
+                      className={`sky-engine-page__control-chip${sceneTime.timeScaleId === scaleOption.id ? ' sky-engine-page__control-chip--active' : ''}`}
+                      onClick={() => sceneTime.setTimeScaleId(scaleOption.id)}
+                    >
+                      {scaleOption.shortLabel}
+                    </button>
+                  ))}
+                </div>
+                <button type="button" className="sky-engine-page__time-reset" onClick={() => sceneTime.nudgeSceneOffset(sceneTime.selectedTimeScale.stepSeconds)}>
+                  + Step
+                </button>
               </div>
-              <div className="sky-engine-page__target-chips" aria-label="Quick sky targets">
-                {visibleTargets.slice(0, 5).map((object) => (
+
+              <div className="sky-engine-page__control-group" aria-label="Playback controls">
+                {SKY_ENGINE_PLAYBACK_RATE_OPTIONS.map((playbackOption) => (
                   <button
-                    key={object.id}
+                    key={playbackOption.value}
                     type="button"
-                    className={`sky-engine-page__target-chip${selection.selectedObjectId === object.id ? ' sky-engine-page__target-chip--active' : ''}`}
-                    onClick={() => selection.selectObject(object.id)}
+                    className={`sky-engine-page__control-chip${sceneTime.playbackRate === playbackOption.value ? ' sky-engine-page__control-chip--active' : ''}`}
+                    onClick={() => {
+                      if (playbackOption.value === 0) {
+                        sceneTime.togglePlayback()
+                        return
+                      }
+
+                      sceneTime.setPlaybackRate(playbackOption.value)
+                    }}
                   >
-                    {object.name}
+                    {getPlaybackButtonLabel(playbackOption.value, sceneTime.isPlaying, playbackOption.label)}
                   </button>
                 ))}
+                <button type="button" className="sky-engine-page__time-reset" onClick={sceneTime.resetSceneTime}>
+                  Reset
+                </button>
+              </div>
+            </div>
+
+            <div className="sky-engine-page__bottom-hud-foot">
+              <div className="sky-engine-page__target-chips" aria-label="Guided sky targets">
+                {guidanceTargets.map((target) => (
+                  <button
+                    key={target.objectId}
+                    type="button"
+                    className={`sky-engine-page__target-chip${selection.selectedObjectId === target.objectId ? ' sky-engine-page__target-chip--active' : ''}`}
+                    onClick={() => selection.selectObject(target.objectId)}
+                  >
+                    {target.name}
+                  </button>
+                ))}
+              </div>
+              <div className="sky-engine-page__target-chips" aria-label="Sky aid toggles">
+                <button type="button" className={`sky-engine-page__control-chip${aidVisibility.constellations ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('constellations')}>
+                  Constellations
+                </button>
+                <button type="button" className={`sky-engine-page__control-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('azimuthRing')}>
+                  Compass
+                </button>
+                <button type="button" className={`sky-engine-page__control-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('altitudeRings')}>
+                  Altitude
+                </button>
               </div>
             </div>
           </section>

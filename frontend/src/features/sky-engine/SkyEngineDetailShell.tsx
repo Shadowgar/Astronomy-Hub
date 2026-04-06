@@ -19,7 +19,7 @@ function formatRightAscension(value: number) {
 
 function getSelectionSourceCoordinates(selectedObject: SkyEngineSceneObject) {
   if (
-    selectedObject.source !== 'computed_real_sky' ||
+    selectedObject.source === 'temporary_scene_seed' ||
     selectedObject.rightAscensionHours == null ||
     selectedObject.declinationDeg == null
   ) {
@@ -34,6 +34,10 @@ function getSelectionTruthDescription(selectedObject: SkyEngineSceneObject) {
     return 'Catalog position is computed for the ORAS observer and the current scene time.'
   }
 
+  if (selectedObject.source === 'computed_ephemeris') {
+    return 'Ephemeris position and phase are recomputed for the active observer and exact scene timestamp.'
+  }
+
   return 'This remains a temporary scene marker and is kept separate from the computed sky set.'
 }
 
@@ -44,15 +48,91 @@ function getSelectionBadgeClassName(selectedObject: SkyEngineSceneObject) {
 }
 
 function getSelectionBadgeLabel(selectedObject: SkyEngineSceneObject) {
-  return selectedObject.source === 'computed_real_sky' ? 'Computed real sky' : 'Temporary demo placement'
+  if (selectedObject.source === 'computed_real_sky') {
+    return 'Computed real sky'
+  }
+
+  if (selectedObject.source === 'computed_ephemeris') {
+    return 'Computed ephemeris'
+  }
+
+  return 'Temporary demo placement'
+}
+
+function getTrajectoryLabel(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.trackingMode === 'fixed_equatorial') {
+    return '12h arc active'
+  }
+
+  if (selectedObject.trackingMode === 'lunar_ephemeris') {
+    return '12h ephemeris arc'
+  }
+
+  return 'Static marker'
+}
+
+function getTrajectoryDescription(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.trackingMode === 'lunar_ephemeris') {
+    return '12h arc is sampled from the lunar ephemeris so the moon does not drift with a fake fixed-star trajectory.'
+  }
+
+  if (selectedObject.trackingMode === 'fixed_equatorial') {
+    return '12h arc active and tied to the selected object.'
+  }
+
+  return 'Static marker only.'
+}
+
+function getTrackingLabel(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.trackingMode === 'lunar_ephemeris') {
+    return 'Ephemeris'
+  }
+
+  if (selectedObject.trackingMode === 'fixed_equatorial') {
+    return 'Fixed RA/Dec'
+  }
+
+  return 'Static'
+}
+
+function getGuidanceLabel(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.guidanceScore === undefined) {
+    return 'Normal'
+  }
+
+  return selectedObject.guidanceTier === 'featured' ? 'Featured' : 'Recommended'
+}
+
+function getIlluminationLabel(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.illuminationFraction === undefined) {
+    return ''
+  }
+
+  return ` · ${(selectedObject.illuminationFraction * 100).toFixed(0)}% illuminated`
+}
+
+function renderSelectionInsights(selectedObject: SkyEngineSceneObject) {
+  return (
+    <>
+      {selectedObject.phaseLabel ? (
+        <p className="sky-engine-detail-shell__hint">
+          Phase: {selectedObject.phaseLabel}
+          {getIlluminationLabel(selectedObject)}
+        </p>
+      ) : null}
+      {selectedObject.guidanceScore === undefined ? null : (
+        <p className="sky-engine-detail-shell__hint">
+          Guidance target: {(selectedObject.guidanceScore * 100).toFixed(0)} relevance
+          {selectedObject.guidanceTier === 'featured' ? ' · featured now' : ''}
+        </p>
+      )}
+    </>
+  )
 }
 
 function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
   const sourceCoordinates = getSelectionSourceCoordinates(selectedObject)
-  const hasComputedTrajectory = selectedObject.source === 'computed_real_sky'
-  const trajectoryLine = hasComputedTrajectory
-    ? '12h arc active and tied to the selected object.'
-    : 'Static marker only.'
+  const trajectoryLine = getTrajectoryDescription(selectedObject)
 
   return (
     <div className="sky-engine-detail-shell__body">
@@ -69,6 +149,7 @@ function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
       <p className="sky-engine-detail-shell__summary">{selectedObject.summary}</p>
       <p className="sky-engine-detail-shell__description">{selectedObject.truthNote}</p>
       {sourceCoordinates ? <p className="sky-engine-detail-shell__hint">{sourceCoordinates}</p> : null}
+      {renderSelectionInsights(selectedObject)}
 
       <dl className="sky-engine-detail-shell__facts">
         <div>
@@ -89,7 +170,15 @@ function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
         </div>
         <div>
           <dt>Trajectory</dt>
-          <dd>{hasComputedTrajectory ? '12h arc active' : 'Static marker'}</dd>
+          <dd>{getTrajectoryLabel(selectedObject)}</dd>
+        </div>
+        <div>
+          <dt>Tracking</dt>
+          <dd>{getTrackingLabel(selectedObject)}</dd>
+        </div>
+        <div>
+          <dt>Guidance</dt>
+          <dd>{getGuidanceLabel(selectedObject)}</dd>
         </div>
       </dl>
 
@@ -117,7 +206,7 @@ function renderEmptySelectionBody(
   return (
     <div className="sky-engine-detail-shell__body">
       <p>Pick a visible object to open its inspector.</p>
-      <p className="sky-engine-detail-shell__hint">Selected computed stars keep a live trajectory arc and a persistent readable label.</p>
+      <p className="sky-engine-detail-shell__hint">Selected computed targets keep a persistent readable label, and the moon uses its own phase-aware rendering instead of the star path.</p>
     </div>
   )
 }

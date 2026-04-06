@@ -1496,7 +1496,8 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .sky-engine-page__bottom-hud-main,
 .sky-engine-page__bottom-hud-foot,
 .sky-engine-page__bottom-hud-stats,
-.sky-engine-page__target-chips {
+.sky-engine-page__target-chips,
+.sky-engine-page__control-group {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -1510,6 +1511,10 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .sky-engine-page__bottom-hud-stats {
   flex-wrap: wrap;
   justify-content: flex-end;
+}
+
+.sky-engine-page__control-group {
+  flex-wrap: wrap;
 }
 
 .sky-engine-page__bottom-hud-stats span,
@@ -1535,6 +1540,46 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .sky-engine-page__target-chip--active {
   border-color: rgba(135, 210, 255, 0.68);
   box-shadow: 0 0 0 1px rgba(135, 210, 255, 0.14);
+}
+
+.sky-engine-page__control-chip {
+  border: 1px solid rgba(154, 198, 255, 0.12);
+  background: rgba(9, 18, 30, 0.58);
+  border-radius: 999px;
+  min-height: 2rem;
+  padding: 0 0.78rem;
+  color: rgba(232, 241, 255, 0.9);
+  pointer-events: auto;
+}
+
+.sky-engine-page__control-chip--active {
+  border-color: rgba(204, 226, 255, 0.52);
+  background: rgba(24, 44, 70, 0.84);
+  box-shadow: 0 0 0 1px rgba(135, 210, 255, 0.12);
+}
+
+.sky-engine-page__phase-band {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.sky-engine-page__phase-band-segment {
+  border-radius: 999px;
+  border: 1px solid rgba(154, 198, 255, 0.12);
+  background: rgba(9, 18, 30, 0.32);
+  padding: 0.4rem 0.7rem;
+  text-align: center;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(176, 208, 255, 0.72);
+}
+
+.sky-engine-page__phase-band-segment--active {
+  color: #f4f8ff;
+  border-color: rgba(198, 223, 255, 0.52);
+  background: linear-gradient(180deg, rgba(22, 52, 84, 0.92), rgba(11, 29, 48, 0.76));
 }
 
 .sky-engine-detail-shell h2,
@@ -1618,10 +1663,9 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 
 .sky-engine-page__time-slider-scale {
   display: flex;
-  justify-content: space-between;
-  margin-top: 0.35rem;
-  font-size: 0.74rem;
-  color: rgba(176, 208, 255, 0.72);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
 }
 
 .sky-engine-page__time-reset {

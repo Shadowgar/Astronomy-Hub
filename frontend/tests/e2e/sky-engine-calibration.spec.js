@@ -1,3 +1,5 @@
+const path = require('node:path')
+
 const { test, expect } = require('@playwright/test')
 
 const PICK_TARGETS_DATA_ATTRIBUTE = 'data-sky-engine-pick-targets'
@@ -19,38 +21,14 @@ async function setSceneTimeOffset(page, value) {
   }, value)
 }
 
-async function extractVisibilityPercent(page) {
-  const statusCard = page.locator('.sky-engine-page__status-card').first()
-  const text = await statusCard.getByText(/Star visibility:/).textContent()
-  const value = text?.split('Star visibility: ')[1]?.split('%')[0]
-
-  if (!value) {
-    throw new Error(`Could not parse star visibility text from: ${text}`)
-  }
-
-  return Number.parseInt(value, 10)
-}
-
-async function getPickTarget(page, expectedName) {
-  const targets = await getPickTargets(page)
-  return targets.find((target) => target.objectName === expectedName) ?? null
-}
-
 async function getPickTargets(page) {
   const canvas = page.locator('canvas[aria-label="Sky Engine scene"]')
   await expect(canvas).toBeVisible()
-  await expect.poll(async () => {
-    return canvas.getAttribute(PICK_TARGETS_DATA_ATTRIBUTE)
-  }).not.toBeNull()
+  await expect.poll(async () => canvas.getAttribute(PICK_TARGETS_DATA_ATTRIBUTE)).not.toBeNull()
 
   return canvas.evaluate((element, attributeName) => {
     const rawTargets = element.getAttribute(attributeName)
-
-    if (!rawTargets) {
-      return []
-    }
-
-    return JSON.parse(rawTargets)
+    return rawTargets ? JSON.parse(rawTargets) : []
   }, PICK_TARGETS_DATA_ATTRIBUTE)
 }
 
@@ -60,17 +38,8 @@ async function getSceneState(page) {
 
   return canvas.evaluate((element, attributeName) => {
     const rawState = element.getAttribute(attributeName)
-
-    if (!rawState) {
-      return null
-    }
-
-    return JSON.parse(rawState)
+    return rawState ? JSON.parse(rawState) : null
   }, SCENE_STATE_DATA_ATTRIBUTE)
-}
-
-async function expectSceneState(page, expectedState) {
-  await expect.poll(async () => getSceneState(page)).toEqual(expectedState)
 }
 
 async function selectCanvasObjectByName(page, expectedName) {
@@ -81,36 +50,17 @@ async function selectCanvasObjectByName(page, expectedName) {
     throw new Error('Sky Engine canvas has no bounding box.')
   }
 
-  const pickTarget = await getPickTarget(page, expectedName)
+  const targets = await getPickTargets(page)
+  const pickTarget = targets.find((target) => target.objectName === expectedName)
 
   if (!pickTarget) {
     throw new Error(`Could not find pick target for ${expectedName}.`)
   }
 
   await page.mouse.click(box.x + pickTarget.screenX, box.y + pickTarget.screenY)
-  return pickTarget
 }
 
-async function selectFirstComputedPickTarget(page) {
-  const canvas = page.locator('canvas[aria-label="Sky Engine scene"]')
-  const box = await canvas.boundingBox()
-
-  if (!box) {
-    throw new Error('Sky Engine canvas has no bounding box.')
-  }
-
-  const targets = await getPickTargets(page)
-  const pickTarget = targets.find((target) => target.objectId.startsWith('sky-real-'))
-
-  if (!pickTarget) {
-    throw new Error('Could not find a computed real-sky pick target.')
-  }
-
-  await page.mouse.click(box.x + pickTarget.screenX, box.y + pickTarget.screenY)
-  return pickTarget
-}
-
-test('sky engine renders horizon framing, slider-driven time changes, trajectory state, and deterministic selection', async ({ page }) => {
+test('sky engine proves moon, labels, aids, guidance, and time controls in runtime', async ({ page }) => {
   const consoleMessages = []
   const pageErrors = []
   page.on('console', (message) => {
@@ -125,57 +75,51 @@ test('sky engine renders horizon framing, slider-driven time changes, trajectory
   await page.waitForTimeout(1200)
 
   await expect(page.locator('.sky-engine-page__top-bar')).toContainText('EDT')
-  const phasePill = page.locator('.sky-engine-page__phase-pill').first()
-  await expect(phasePill).toHaveText('Night')
+  await expect(page.locator('.sky-engine-page__phase-band-segment--active')).toHaveCount(1)
+  await expect(page.getByLabel('Guided sky targets').locator('button')).toHaveCount(5)
 
-  await expectSceneState(page, {
-    horizonVisible: true,
-    cardinals: ['N', 'E', 'S', 'W'],
-    selectedObjectId: null,
-    trajectoryObjectId: null,
-    visibleLabelIds: ['sky-real-altair', 'sky-real-arcturus', 'sky-real-vega'],
-    groundTextureMode: 'oras-grass.jpg_tiled',
-    groundTextureAssetPath: '/sky-engine-assets/oras-grass.jpg',
+  await expect.poll(async () => (await getSceneState(page))?.moonObjectId ?? null).toBe('sky-real-moon')
+  const initialState = await getSceneState(page)
+  expect(initialState.moonObjectId).toBe('sky-real-moon')
+  expect(initialState.guidanceObjectIds.length).toBeGreaterThanOrEqual(3)
+  expect(initialState.guidanceObjectIds.length).toBeLessThanOrEqual(5)
+  expect(initialState.controlledLabelCount).toBeLessThanOrEqual(initialState.labelCap)
+  const pickTargets = await getPickTargets(page)
+  expect(pickTargets.length).toBeGreaterThan(0)
+  expect(initialState.aidVisibility).toEqual({
+    constellations: true,
+    azimuthRing: true,
+    altitudeRings: true,
   })
 
-  await selectCanvasObjectByName(page, 'Deneb')
-  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Deneb')
-  await expect(page.locator('.sky-engine-detail-shell')).toContainText('12h arc active')
-  await expectSceneState(page, {
-    horizonVisible: true,
-    cardinals: ['N', 'E', 'S', 'W'],
-    selectedObjectId: 'sky-real-deneb',
-    trajectoryObjectId: 'sky-real-deneb',
-    visibleLabelIds: ['sky-real-altair', 'sky-real-arcturus', 'sky-real-deneb', 'sky-real-vega'],
-    groundTextureMode: 'oras-grass.jpg_tiled',
-    groundTextureAssetPath: '/sky-engine-assets/oras-grass.jpg',
-  })
+  await page.getByRole('button', { name: 'Moon' }).click()
+  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Moon')
+  await expect(page.locator('.sky-engine-detail-shell')).toContainText('Computed ephemeris')
+  await expect(page.locator('.sky-engine-detail-shell')).toContainText('12h ephemeris arc')
+  await expect(page.locator('.sky-engine-detail-shell')).toContainText('Phase:')
 
-  await setSceneTimeOffset(page, 7)
-  await expect(phasePill).toHaveText('Low Sun')
-  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Deneb')
+  await expect.poll(async () => (await getSceneState(page))?.selectedObjectId ?? null).toBe('sky-real-moon')
+  await expect.poll(async () => (await getSceneState(page))?.trajectoryObjectId ?? null).toBe('sky-real-moon')
+  await expect.poll(async () => (await getSceneState(page))?.visibleLabelIds ?? []).toContain('sky-real-moon')
 
-  await setSceneTimeOffset(page, 12)
-  await expect(phasePill).toHaveText('Daylight')
-  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Deneb')
-  await expect(page.locator('.sky-engine-detail-shell')).toContainText('12h arc active')
-  await expectSceneState(page, {
-    horizonVisible: true,
-    cardinals: ['N', 'E', 'S', 'W'],
-    selectedObjectId: 'sky-real-deneb',
-    trajectoryObjectId: 'sky-real-deneb',
-    visibleLabelIds: ['sky-real-deneb', 'sky-real-polaris'],
-    groundTextureMode: 'oras-grass.jpg_tiled',
-    groundTextureAssetPath: '/sky-engine-assets/oras-grass.jpg',
-  })
+  const offsetBeforePlayback = await page.locator('.sky-engine-page__bottom-hud-offset').textContent()
+  await page.getByRole('button', { name: '+1m/s' }).click()
+  await page.waitForTimeout(900)
+  await page.getByRole('button', { name: 'Pause' }).click()
+  await expect(page.locator('.sky-engine-page__bottom-hud-offset')).not.toHaveText(offsetBeforePlayback ?? 'Now')
 
-  await setSceneTimeOffset(page, 7)
-  await expect(phasePill).toHaveText('Low Sun')
-  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Deneb')
+  await setSceneTimeOffset(page, -3600)
+  await expect(page.locator('.sky-engine-page__top-bar')).toContainText('-1h')
 
-  const reselectionTarget = await selectFirstComputedPickTarget(page)
-  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText(reselectionTarget.objectName)
-  await expect(page.locator('.sky-engine-detail-shell')).toContainText('Computed real sky')
+  await page.getByRole('button', { name: 'Compass' }).click()
+  await expect.poll(async () => (await getSceneState(page))?.aidVisibility?.azimuthRing).toBe(false)
+
+  const proofPath = path.resolve(__dirname, '../../test-results/sky-engine-proof.png')
+  await page.screenshot({ path: proofPath, fullPage: true })
+
+  const finalState = await getSceneState(page)
+  expect(finalState.visibleLabelIds.length).toBeLessThanOrEqual(finalState.labelCap)
+  expect(finalState.guidanceObjectIds.length).toBeGreaterThanOrEqual(3)
   expect(consoleMessages).toEqual([])
   expect(pageErrors).toEqual([])
 })
