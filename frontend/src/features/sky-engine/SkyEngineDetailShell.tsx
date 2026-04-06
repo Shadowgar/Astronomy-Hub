@@ -5,6 +5,8 @@ import type { SkyEngineAtmosphereStatus, SkyEngineObserver, SkyEngineSceneObject
 interface SkyEngineDetailShellProps {
   readonly observer: SkyEngineObserver
   readonly selectedObject: SkyEngineSceneObject | null
+  readonly selectionStatus: 'idle' | 'active' | 'hidden'
+  readonly hiddenSelectionName: string | null
   readonly atmosphereStatus: SkyEngineAtmosphereStatus
   readonly sunState: SkyEngineSunState
   readonly sceneTimestampIso: string
@@ -96,7 +98,18 @@ function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
   )
 }
 
-function renderEmptySelectionBody() {
+function renderEmptySelectionBody(selectionStatus: 'idle' | 'active' | 'hidden', hiddenSelectionName: string | null) {
+  if (selectionStatus === 'hidden' && hiddenSelectionName) {
+    return (
+      <div className="sky-engine-detail-shell__body">
+        <p>{hiddenSelectionName} is no longer rendered at this scene time.</p>
+        <p className="sky-engine-detail-shell__hint">
+          The selection is preserved, but the object is currently below the horizon or outside the active rendered set. Change time again or clear the selection.
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div className="sky-engine-detail-shell__body">
       <p>Drag the scene to look around. Click a rendered marker to open a selection response.</p>
@@ -110,6 +123,8 @@ function renderEmptySelectionBody() {
 export default function SkyEngineDetailShell({
   observer,
   selectedObject,
+  selectionStatus,
+  hiddenSelectionName,
   atmosphereStatus,
   sunState,
   sceneTimestampIso,
@@ -120,9 +135,9 @@ export default function SkyEngineDetailShell({
       <div className="sky-engine-detail-shell__header">
         <div>
           <p className="sky-engine-detail-shell__eyebrow">Sky Engine</p>
-          <h2>{selectedObject ? selectedObject.name : 'Select a rendered object'}</h2>
+          <h2>{selectedObject ? selectedObject.name : hiddenSelectionName ?? 'Select a rendered object'}</h2>
         </div>
-        {selectedObject ? (
+        {selectionStatus === 'active' || selectionStatus === 'hidden' ? (
           <button type="button" className="sky-engine-detail-shell__clear" onClick={onClearSelection}>
             Clear
           </button>
@@ -161,7 +176,7 @@ export default function SkyEngineDetailShell({
         </div>
       </div>
 
-      {selectedObject ? renderSelectionBody(selectedObject) : renderEmptySelectionBody()}
+      {selectedObject ? renderSelectionBody(selectedObject) : renderEmptySelectionBody(selectionStatus, hiddenSelectionName)}
     </aside>
   )
 }

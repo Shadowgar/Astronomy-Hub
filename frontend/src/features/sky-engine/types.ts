@@ -39,6 +39,14 @@ export interface SkyEngineSceneObject {
   isAboveHorizon: boolean
 }
 
+export interface SkyEnginePickTarget {
+  objectId: string
+  objectName: string
+  screenX: number
+  screenY: number
+  radiusPx: number
+}
+
 export interface SkyEngineAtmosphereStatus {
   mode: 'addon' | 'fallback'
   message: string

@@ -13,6 +13,12 @@ import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import { Scene } from '@babylonjs/core/scene'
 
 import { setupSkyAtmosphere } from './atmosphere'
+import {
+  buildSkyEnginePickTargets,
+  clearSkyEnginePickTargets,
+  getSkyEnginePickColliderDiameter,
+  writeSkyEnginePickTargets,
+} from './pickTargets'
 import type { SkyEngineAtmosphereStatus, SkyEngineObserver, SkyEngineSceneObject, SkyEngineSunState } from './types'
 
 interface SkyEngineSceneProps {
@@ -26,12 +32,14 @@ interface SkyEngineSceneProps {
 
 interface RenderedObjectRefs {
   meshes: Mesh[]
+  pickMesh: Mesh
   markerMaterial: StandardMaterial
   labelMaterial: StandardMaterial
   baseColor: Color3
   object: SkyEngineSceneObject
   markerBaseAlpha: number
   labelBaseAlpha: number
+  pickRadiusPx: number
 }
 
 const SKY_RADIUS = 120
@@ -53,7 +61,7 @@ function buildLabelTexture(text: string) {
   const texture = new DynamicTexture(`sky-engine-label-${text}`, { width: 512, height: 128 }, undefined, true)
   texture.hasAlpha = true
 
-  const context = texture.getContext()
+  const context = texture.getContext() as CanvasRenderingContext2D
   context.clearRect(0, 0, 512, 128)
   context.fillStyle = 'rgba(7, 13, 23, 0.8)'
   context.fillRect(0, 20, 512, 88)
@@ -107,6 +115,14 @@ function applyRenderedObjectState(refs: RenderedObjectRefs, selectedObjectId: st
   refs.meshes.forEach((mesh) => {
     mesh.scaling.setAll(isSelected ? 1.35 : 1)
   })
+}
+
+function getPickRadiusPx(object: SkyEngineSceneObject) {
+  if (object.source === 'computed_real_sky') {
+    return 28
+  }
+
+  return object.type === 'planet' ? 24 : 22
 }
 
 export default function SkyEngineScene({
@@ -185,7 +201,7 @@ export default function SkyEngineScene({
         segments: 24,
       }, scene)
       marker.position = position
-      marker.metadata = { objectId: object.id }
+      marker.metadata = { objectId: object.id, objectName: object.name, pickRole: 'marker' }
 
       const markerMaterial = new StandardMaterial(`sky-object-material-${object.id}`, scene)
       markerMaterial.disableLighting = true
@@ -199,7 +215,7 @@ export default function SkyEngineScene({
       }, scene)
       label.position = position.add(new Vector3(0, 4.6, 0))
       label.billboardMode = Mesh.BILLBOARDMODE_ALL
-      label.metadata = { objectId: object.id }
+      label.metadata = { objectId: object.id, objectName: object.name, pickRole: 'label' }
 
       const labelMaterial = new StandardMaterial(`sky-label-material-${object.id}`, scene)
       labelMaterial.disableLighting = true
@@ -212,15 +228,31 @@ export default function SkyEngineScene({
 
       const markerBaseAlpha = object.source === 'temporary_scene_seed' ? 0.74 : 1
       const labelBaseAlpha = object.source === 'temporary_scene_seed' ? 0.84 : 1
+      const pickCollider = MeshBuilder.CreateSphere(`sky-pick-${object.id}`, {
+        diameter: getSkyEnginePickColliderDiameter(object),
+        segments: 12,
+      }, scene)
+      pickCollider.position = position.clone()
+      pickCollider.isPickable = true
+      pickCollider.metadata = { objectId: object.id, objectName: object.name, pickRole: 'collider' }
+
+      const pickMaterial = new StandardMaterial(`sky-pick-material-${object.id}`, scene)
+      pickMaterial.disableLighting = true
+      pickMaterial.alpha = 0.001
+      pickMaterial.emissiveColor = Color3.Black()
+      pickMaterial.diffuseColor = Color3.Black()
+      pickCollider.material = pickMaterial
 
       renderedObjectRefs.current[object.id] = {
-        meshes: [marker, label],
+        meshes: [marker, label, pickCollider],
+        pickMesh: pickCollider,
         markerMaterial,
         labelMaterial,
         baseColor: Color3.FromHexString(object.colorHex),
         object,
         markerBaseAlpha,
         labelBaseAlpha,
+        pickRadiusPx: getPickRadiusPx(object),
       }
 
       applyRenderedObjectState(renderedObjectRefs.current[object.id], selectedObjectId, sunState)
@@ -228,7 +260,10 @@ export default function SkyEngineScene({
 
     scene.onPointerDown = (_, pickInfo) => {
       const objectId = pickInfo.pickedMesh?.metadata?.objectId
-      onSelectObject(typeof objectId === 'string' ? objectId : null)
+
+      if (typeof objectId === 'string') {
+        onSelectObject(objectId)
+      }
     }
 
     const handleWheel = (event: WheelEvent) => {
@@ -242,11 +277,25 @@ export default function SkyEngineScene({
 
     engine.runRenderLoop(() => {
       scene.render()
+      writeSkyEnginePickTargets(
+        canvas,
+        buildSkyEnginePickTargets(
+          scene,
+          camera,
+          engine,
+          Object.values(renderedObjectRefs.current).map((refs) => ({
+            object: refs.object,
+            pickMesh: refs.pickMesh,
+            pickRadiusPx: refs.pickRadiusPx,
+          })),
+        ),
+      )
     })
 
     return () => {
       canvas.removeEventListener('wheel', handleWheel)
       globalThis.removeEventListener('resize', handleResize)
+      clearSkyEnginePickTargets(canvas)
       glowLayer.dispose()
       horizonMaterial.dispose()
       atmosphere.dispose()

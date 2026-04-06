@@ -174,6 +174,8 @@ export default function SkyEnginePage() {
           <SkyEngineDetailShell
             observer={ORAS_OBSERVER}
             selectedObject={selection.selectedObject}
+            selectionStatus={selection.selectionStatus}
+            hiddenSelectionName={selection.hiddenSelectionName}
             atmosphereStatus={atmosphereStatus}
             sunState={sunState}
             sceneTimestampIso={sceneTime.sceneTimestampIso}
