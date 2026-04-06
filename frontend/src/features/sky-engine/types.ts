@@ -18,6 +18,7 @@ export interface SkyEngineCelestialSourceObject {
   declinationDeg: number
   magnitude: number
   colorHex: string
+  colorIndexBV?: number
   summary: string
   description: string
   constellation?: string
@@ -39,6 +40,7 @@ export interface SkyEngineSceneObject {
   trackingMode: SkyEngineTrackingMode
   rightAscensionHours?: number
   declinationDeg?: number
+  colorIndexBV?: number
   timestampIso?: string
   illuminationFraction?: number
   brightLimbAngleDeg?: number
@@ -98,9 +100,20 @@ export interface SkyEngineVisualCalibration {
   directionalLightColorHex: string
   ambientLightColorHex: string
   backgroundColorHex: string
+  skyZenithColorHex: string
+  skyHorizonColorHex: string
+  twilightBandColorHex: string
   horizonColorHex: string
+  horizonGlowColorHex: string
+  horizonGlowAlpha: number
+  landscapeFogColorHex: string
+  groundTintHex: string
+  landscapeShadowAlpha: number
   starVisibility: number
+  starFieldBrightness: number
   starLabelVisibility: number
+  starHaloVisibility: number
+  starTwinkleAmplitude: number
   atmosphereExposure: number
   atmosphereAerialPerspectiveIntensity: number
   atmosphereMultiScatteringIntensity: number

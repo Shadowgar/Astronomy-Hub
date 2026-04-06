@@ -4,6 +4,10 @@ import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight'
 import { HemisphericLight } from '@babylonjs/core/Lights/hemisphericLight'
 import { Color3 } from '@babylonjs/core/Maths/math.color'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
+import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial'
+import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture'
+import { Mesh } from '@babylonjs/core/Meshes/mesh'
+import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import { DefaultRenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline'
 import type { Scene } from '@babylonjs/core/scene'
 
@@ -12,6 +16,39 @@ import type { SkyEngineAtmosphereStatus, SkyEngineSunState } from './types'
 export interface SkyAtmosphereSetup {
   status: SkyEngineAtmosphereStatus
   dispose: () => void
+}
+
+function buildSkyGradientTexture(name: string, sunState: SkyEngineSunState) {
+  const texture = new DynamicTexture(name, { width: 1024, height: 1024 }, undefined, true)
+  texture.hasAlpha = false
+
+  const context = texture.getContext() as CanvasRenderingContext2D
+  const gradient = context.createLinearGradient(0, 0, 0, 1024)
+  const calibration = sunState.visualCalibration
+
+  gradient.addColorStop(0, calibration.skyZenithColorHex)
+  gradient.addColorStop(0.58, calibration.backgroundColorHex)
+  gradient.addColorStop(0.78, calibration.twilightBandColorHex)
+  gradient.addColorStop(0.92, calibration.skyHorizonColorHex)
+  gradient.addColorStop(1, calibration.horizonGlowColorHex)
+
+  context.clearRect(0, 0, 1024, 1024)
+  context.fillStyle = gradient
+  context.fillRect(0, 0, 1024, 1024)
+
+  if (sunState.phaseLabel !== 'Daylight') {
+    const glow = context.createRadialGradient(512, 780, 100, 512, 780, 360)
+    const glowColor = Color3.FromHexString(calibration.horizonGlowColorHex)
+    const colorString = `${Math.round(glowColor.r * 255)}, ${Math.round(glowColor.g * 255)}, ${Math.round(glowColor.b * 255)}`
+    glow.addColorStop(0, `rgba(${colorString}, ${calibration.horizonGlowAlpha * (sunState.phaseLabel === 'Low Sun' ? 0.82 : 0.3)})`)
+    glow.addColorStop(0.7, `rgba(${colorString}, ${calibration.horizonGlowAlpha * 0.12})`)
+    glow.addColorStop(1, `rgba(${colorString}, 0)`)
+    context.fillStyle = glow
+    context.fillRect(0, 0, 1024, 1024)
+  }
+
+  texture.update()
+  return texture
 }
 
 export function setupSkyAtmosphere(scene: Scene, camera: Camera, sunState: SkyEngineSunState): SkyAtmosphereSetup {
@@ -37,9 +74,36 @@ export function setupSkyAtmosphere(scene: Scene, camera: Camera, sunState: SkyEn
   pipeline.imageProcessingEnabled = true
   pipeline.imageProcessing.toneMappingEnabled = true
   pipeline.imageProcessing.ditheringEnabled = true
-  pipeline.imageProcessing.exposure = calibration.phaseLabel === 'Night' ? 1.06 : 1
+  pipeline.imageProcessing.exposure = calibration.atmosphereExposure
+  let imageContrast = 1
+
+  if (calibration.phaseLabel === 'Night') {
+    imageContrast = 1.06
+  } else if (calibration.phaseLabel === 'Low Sun') {
+    imageContrast = 1.03
+  }
+
+  pipeline.imageProcessing.contrast = imageContrast
 
   scene.clearColor.set(backgroundColor.r, backgroundColor.g, backgroundColor.b, 1)
+
+  const skyDome = MeshBuilder.CreateSphere(
+    'sky-engine-sky-dome',
+    { diameter: 1500, segments: 48, sideOrientation: Mesh.BACKSIDE },
+    scene,
+  )
+  skyDome.isPickable = false
+  skyDome.infiniteDistance = true
+
+  const skyDomeTexture = buildSkyGradientTexture('sky-engine-sky-gradient', sunState)
+  const skyDomeMaterial = new StandardMaterial('sky-engine-sky-dome-material', scene)
+  skyDomeMaterial.disableLighting = true
+  skyDomeMaterial.backFaceCulling = false
+  skyDomeMaterial.emissiveTexture = skyDomeTexture
+  skyDomeMaterial.emissiveColor = Color3.White()
+  skyDomeMaterial.diffuseColor = Color3.Black()
+  skyDomeMaterial.specularColor = Color3.Black()
+  skyDome.material = skyDomeMaterial
 
   if (!Atmosphere.IsSupported(scene.getEngine())) {
     return {
@@ -48,6 +112,9 @@ export function setupSkyAtmosphere(scene: Scene, camera: Camera, sunState: SkyEn
         message: `Atmosphere addon was installed but this renderer does not support phase-calibrated atmosphere controls. Babylon fallback sky colors are active while the computed solar light direction, light color, and ambient calibration still drive the scene for ${sunState.phaseLabel.toLowerCase()} conditions.`,
       },
       dispose: () => {
+        skyDomeTexture.dispose()
+        skyDomeMaterial.dispose()
+        skyDome.dispose(false, true)
         pipeline.dispose()
         ambientLight.dispose()
         sunLight.dispose()
@@ -82,6 +149,9 @@ export function setupSkyAtmosphere(scene: Scene, camera: Camera, sunState: SkyEn
       },
       dispose: () => {
         atmosphere.dispose()
+        skyDomeTexture.dispose()
+        skyDomeMaterial.dispose()
+        skyDome.dispose(false, true)
         pipeline.dispose()
         ambientLight.dispose()
         sunLight.dispose()
@@ -95,6 +165,9 @@ export function setupSkyAtmosphere(scene: Scene, camera: Camera, sunState: SkyEn
         message: `Atmosphere addon initialization failed, so only the computed solar light and background calibration are active. Phase-specific atmosphere response could not be applied. ${message}`,
       },
       dispose: () => {
+        skyDomeTexture.dispose()
+        skyDomeMaterial.dispose()
+        skyDome.dispose(false, true)
         pipeline.dispose()
         ambientLight.dispose()
         sunLight.dispose()

@@ -288,6 +288,7 @@ export function computeRealSkySceneObjects(
         'Computed from fixed-star right ascension and declination for the ORAS observer and explicit scene timestamp in this slice.',
       rightAscensionHours: object.rightAscensionHours,
       declinationDeg: object.declinationDeg,
+      colorIndexBV: object.colorIndexBV,
       timestampIso,
       isAboveHorizon: horizontalCoordinates.isAboveHorizon,
     }

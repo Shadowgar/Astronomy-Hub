@@ -41,8 +41,8 @@ export function buildSkyEnginePickTargets(
   const viewportMinY = viewport.y
   const viewportMaxX = viewport.x + viewport.width
   const viewportMaxY = viewport.y + viewport.height
-
-  return entries.flatMap((entry) => {
+  const entryByObjectId = new Map(entries.map((entry) => [entry.object.id, entry]))
+  const targets = entries.flatMap((entry) => {
     const projected = Vector3.Project(
       entry.pickMesh.getAbsolutePosition(),
       Matrix.IdentityReadOnly,
@@ -58,13 +58,36 @@ export function buildSkyEnginePickTargets(
       return []
     }
 
+    const pickResult = scene.pick(projected.x, projected.y, (mesh) => {
+      return Boolean(mesh?.isPickable && typeof mesh.metadata?.objectId === 'string')
+    })
+    const pickedObjectId = pickResult?.pickedMesh?.metadata?.objectId
+    const pickedObjectName = pickResult?.pickedMesh?.metadata?.objectName
+
+    if (typeof pickedObjectId !== 'string' || typeof pickedObjectName !== 'string') {
+      return []
+    }
+
+    const pickedEntry = entryByObjectId.get(pickedObjectId)
+
     return [{
-      objectId: entry.object.id,
-      objectName: entry.object.name,
+      objectId: pickedObjectId,
+      objectName: pickedObjectName,
       screenX: roundCoordinate(projected.x),
       screenY: roundCoordinate(projected.y),
-      radiusPx: entry.pickRadiusPx,
+      radiusPx: pickedEntry?.pickRadiusPx ?? entry.pickRadiusPx,
     }]
+  })
+
+  const seenObjectIds = new Set<string>()
+
+  return targets.filter((target) => {
+    if (seenObjectIds.has(target.objectId)) {
+      return false
+    }
+
+    seenObjectIds.add(target.objectId)
+    return true
   })
 }
 

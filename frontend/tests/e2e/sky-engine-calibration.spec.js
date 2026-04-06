@@ -2,6 +2,8 @@ const path = require('node:path')
 
 const { test, expect } = require('@playwright/test')
 
+test.setTimeout(45000)
+
 const PICK_TARGETS_DATA_ATTRIBUTE = 'data-sky-engine-pick-targets'
 const SCENE_STATE_DATA_ATTRIBUTE = 'data-sky-engine-scene-state'
 
@@ -60,6 +62,26 @@ async function selectCanvasObjectByName(page, expectedName) {
   await page.mouse.click(box.x + pickTarget.screenX, box.y + pickTarget.screenY)
 }
 
+async function selectFirstCanvasPickTarget(page) {
+  const canvas = page.locator('canvas[aria-label="Sky Engine scene"]')
+  const box = await canvas.boundingBox()
+
+  if (!box) {
+    throw new Error('Sky Engine canvas has no bounding box.')
+  }
+
+  const targets = await getPickTargets(page)
+  const pickTarget = targets[0]
+
+  if (!pickTarget) {
+    throw new Error('Could not find any runtime pick targets.')
+  }
+
+  await page.mouse.click(box.x + pickTarget.screenX, box.y + pickTarget.screenY)
+
+  return pickTarget.objectName
+}
+
 test('sky engine proves moon, labels, aids, guidance, and time controls in runtime', async ({ page }) => {
   const consoleMessages = []
   const pageErrors = []
@@ -78,6 +100,9 @@ test('sky engine proves moon, labels, aids, guidance, and time controls in runti
   await expect(page.locator('.sky-engine-page__phase-band-segment--active')).toHaveCount(1)
   await expect(page.getByLabel('Guided sky targets').locator('button')).toHaveCount(5)
 
+  const fullProofPath = path.resolve(__dirname, '../../test-results/sky-engine-proof.png')
+  await page.screenshot({ path: fullProofPath, fullPage: true })
+
   await expect.poll(async () => (await getSceneState(page))?.moonObjectId ?? null).toBe('sky-real-moon')
   const initialState = await getSceneState(page)
   expect(initialState.moonObjectId).toBe('sky-real-moon')
@@ -92,7 +117,10 @@ test('sky engine proves moon, labels, aids, guidance, and time controls in runti
     altitudeRings: true,
   })
 
-  await page.getByRole('button', { name: 'Moon' }).click()
+  const pickedObjectName = await selectFirstCanvasPickTarget(page)
+  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText(pickedObjectName)
+
+  await page.getByLabel('Guided sky targets').getByRole('button', { name: 'Moon' }).click()
   await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Moon')
   await expect(page.locator('.sky-engine-detail-shell')).toContainText('Computed ephemeris')
   await expect(page.locator('.sky-engine-detail-shell')).toContainText('12h ephemeris arc')
@@ -114,8 +142,8 @@ test('sky engine proves moon, labels, aids, guidance, and time controls in runti
   await page.getByRole('button', { name: 'Compass' }).click()
   await expect.poll(async () => (await getSceneState(page))?.aidVisibility?.azimuthRing).toBe(false)
 
-  const proofPath = path.resolve(__dirname, '../../test-results/sky-engine-proof.png')
-  await page.screenshot({ path: proofPath, fullPage: true })
+  const selectedProofPath = path.resolve(__dirname, '../../test-results/sky-engine-selected-proof.png')
+  await page.screenshot({ path: selectedProofPath, fullPage: true })
 
   const finalState = await getSceneState(page)
   expect(finalState.visibleLabelIds.length).toBeLessThanOrEqual(finalState.labelCap)

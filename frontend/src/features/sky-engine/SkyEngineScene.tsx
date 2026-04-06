@@ -14,13 +14,34 @@ import { Scene } from '@babylonjs/core/scene'
 
 import { computeObjectTrajectorySamples } from './astronomy'
 import { setupSkyAtmosphere } from './atmosphere'
-import { SKY_ENGINE_CONSTELLATION_SEGMENTS } from './constellations'
+import {
+  buildLabelTexture as buildManagedLabelTexture,
+  getLabelAnchorPosition,
+  getLabelVariantForObject as getManagedLabelVariantForObject,
+  resolveLabelLayout as resolveManagedLabelLayout,
+} from './labelManager'
+import { createLandscapeLayer } from './landscapeLayer'
+import {
+  buildMoonTexture as buildObjectMoonTexture,
+  buildObjectMarkerTexture,
+  buildSelectionRingTexture as buildManagedSelectionRingTexture,
+  getMarkerBaseAlpha as getManagedMarkerBaseAlpha,
+  getObjectMarkerDiameter,
+  getObjectPickRadiusPx,
+} from './objectClassRenderer'
+import {
+  buildInitialViewTarget as buildObserverInitialViewTarget,
+  getDesiredFovForObject,
+  getSelectionTargetVector,
+  updateObserverNavigation,
+} from './observerNavigation'
 import {
   buildSkyEnginePickTargets,
   clearSkyEnginePickTargets,
   getSkyEnginePickColliderDiameter,
   writeSkyEnginePickTargets,
 } from './pickTargets'
+import { getStarRenderProfile, type StarRenderProfile } from './starRenderer'
 import type {
   SkyEngineAidVisibility,
   SkyEngineAtmosphereStatus,
@@ -61,6 +82,7 @@ interface RenderedObjectRefs {
   twinklePhase: number
   currentLabelAlpha: number
   currentLabelScale: number
+  starProfile: StarRenderProfile | null
 }
 
 interface SceneRuntimeRefs {
@@ -74,6 +96,9 @@ interface SceneRuntimeRefs {
   groundTextureAssetPath: string
   desiredFov: number
   targetVector: Vector3 | null
+  homeVector: Vector3
+  lastFrameTime: number
+  landscapeLayer: ReturnType<typeof createLandscapeLayer>
 }
 
 interface SceneStateWriteInput {
@@ -102,7 +127,7 @@ const CARDINAL_MARKERS = [
   { label: 'W', azimuthDeg: 270 },
 ] as const
 const ALTITUDE_RING_DEGREES = [30, 60] as const
-const MAX_VISIBLE_LABELS = 6
+const MAX_VISIBLE_LABELS = 7
 
 type LabelVariant = 'cardinal' | 'priority' | 'selected' | 'temporary' | 'moon'
 
@@ -688,15 +713,22 @@ function applyRenderedObjectState(
   const deEmphasis = hasActiveSelection && !isSelected ? 0.68 : 1
   const markerAlpha = refs.markerBaseAlpha * getMarkerVisibility(refs, sunState) * deEmphasis
 
-  refs.markerMaterial.alpha = clamp(markerAlpha + (isSelected ? 0.08 : 0), 0.12, 1)
+  if (refs.starProfile) {
+    refs.markerMaterial.alpha = clamp(refs.starProfile.alpha * getMarkerVisibility(refs, sunState) * deEmphasis + (isSelected ? 0.05 : 0), 0.08, 1)
+    refs.markerMaterial.emissiveColor = refs.baseColor.scale((isSelected ? 1.02 : refs.starProfile.emissiveScale) + (isGuided ? 0.08 : 0))
+    refs.markerMaterial.diffuseColor = refs.baseColor.scale(refs.starProfile.diffuseScale)
+  } else {
+    refs.markerMaterial.alpha = clamp(markerAlpha + (isSelected ? 0.08 : 0), 0.12, 1)
+    refs.markerMaterial.emissiveColor = getMarkerEmissiveColor(refs, isSelected, sunState)
+    refs.markerMaterial.diffuseColor = getMarkerDiffuseColor(refs, sunState)
+  }
+
   refs.selectionMaterial.alpha = isSelected ? 0.96 : 0
   refs.guidanceMaterial.alpha = getGuidanceAlpha(isGuided, isSelected, hasActiveSelection)
   refs.selectionRing.isVisible = isSelected
   refs.guidanceRing.isVisible = refs.guidanceMaterial.alpha > 0.02
   refs.labelMaterial.diffuseTexture = isSelected ? refs.selectedLabelTexture : refs.labelTexture
   refs.labelMaterial.opacityTexture = isSelected ? refs.selectedLabelTexture : refs.labelTexture
-  refs.markerMaterial.emissiveColor = getMarkerEmissiveColor(refs, isSelected, sunState)
-  refs.markerMaterial.diffuseColor = getMarkerDiffuseColor(refs, sunState)
 }
 
 function syncSceneSelectionState(
@@ -764,7 +796,7 @@ function syncSceneSelectionState(
         material.disableLighting = true
         material.backFaceCulling = false
         material.diffuseTexture = selectedObject.type === 'moon'
-          ? buildMoonTexture(
+          ? buildObjectMoonTexture(
               `sky-engine-trajectory-anchor-texture-${selectedObject.id}-${index}`,
               selectedObject.illuminationFraction,
               selectedObject.brightLimbAngleDeg,
@@ -782,8 +814,12 @@ function syncSceneSelectionState(
   }
 
   if (selectedObject?.isAboveHorizon) {
-    runtime.targetVector = toSkyPosition(selectedObject.altitudeDeg, selectedObject.azimuthDeg, 90)
+    runtime.targetVector = getSelectionTargetVector(selectedObject)
+  } else if (!selectedObject) {
+    runtime.targetVector = runtime.homeVector.clone()
   }
+
+  runtime.desiredFov = getDesiredFovForObject(selectedObject)
 
   if (!selectedObject || selectedObject.trackingMode === 'static') {
     return null
@@ -892,256 +928,25 @@ export default function SkyEngineScene({
     scene.skipPointerMovePicking = true
 
     const camera = new UniversalCamera('sky-engine-camera', Vector3.Zero(), scene)
-    camera.setTarget(buildInitialViewTarget(objects, guidedObjectIds))
+    const initialViewTarget = buildObserverInitialViewTarget(objects, guidedObjectIds)
+    camera.setTarget(initialViewTarget)
 
     camera.attachControl(canvas, true)
     camera.inputs.attached.keyboard?.detachControl()
-    camera.angularSensibility = 2400
+    camera.angularSensibility = 2800
+    camera.inertia = 0.82
     camera.speed = 0
     camera.minZ = 0.1
     camera.maxZ = SKY_RADIUS * 2
-    camera.fov = 1.02
+    camera.fov = getDesiredFovForObject(null)
 
     const atmosphere = setupSkyAtmosphere(scene, camera, sunState)
     onAtmosphereStatusChange(atmosphere.status)
 
     const guidedObjectSet = new Set(guidedObjectIds)
-    const starSpriteTexture = buildStarPointTexture('sky-engine-star-sprite')
-    const markerSpriteTexture = buildMarkerTexture('sky-engine-marker-sprite')
-    const selectionRingTexture = buildSelectionRingTexture('sky-engine-selection-ring')
-    const guidanceRingTexture = buildSelectionRingTexture('sky-engine-guidance-ring', '#f0d28d', 0.42, 0.16)
-    const groundTexture = buildAssetGroundTexture(scene, 'sky-engine-ground-texture', 24)
-    const localGroundTexture = buildAssetGroundTexture(scene, 'sky-engine-local-ground-texture', 10)
-    const horizonBandTexture = buildRadialBandTexture('sky-engine-horizon-band-texture', calibration.horizonColorHex, 0.56)
-    const nearGroundTexture = buildGroundDepthTexture('sky-engine-ground-depth-texture')
-    const groundShading = getGroundShading(sunState)
-
-    const groundDisk = MeshBuilder.CreateDisc(
-      'sky-engine-ground-disk',
-      {
-        radius: SKY_RADIUS * 1.38,
-        tessellation: 160,
-        sideOrientation: Mesh.DOUBLESIDE,
-      },
-      scene,
-    )
-    groundDisk.rotation.x = Math.PI / 2
-    groundDisk.position.y = -2.4
-    groundDisk.isPickable = false
-    const groundMaterial = new StandardMaterial('sky-engine-ground-material', scene)
-    groundMaterial.disableLighting = true
-    groundMaterial.diffuseTexture = groundTexture
-    groundMaterial.emissiveTexture = groundTexture
-    groundMaterial.diffuseColor = groundShading.diffuse
-    groundMaterial.emissiveColor = groundShading.emissive
-    groundMaterial.specularColor = Color3.Black()
-    groundMaterial.alpha = 1
-    groundDisk.material = groundMaterial
-
-    const localGroundDisk = MeshBuilder.CreateDisc(
-      'sky-engine-local-ground-disk',
-      {
-        radius: SKY_RADIUS * 0.3,
-        tessellation: 80,
-        sideOrientation: Mesh.DOUBLESIDE,
-      },
-      scene,
-    )
-    localGroundDisk.rotation.x = Math.PI / 2
-    localGroundDisk.position.y = -1.6
-    localGroundDisk.isPickable = false
-    const localGroundMaterial = new StandardMaterial('sky-engine-local-ground-material', scene)
-    localGroundMaterial.disableLighting = true
-    localGroundMaterial.diffuseTexture = localGroundTexture
-    localGroundMaterial.emissiveTexture = localGroundTexture
-    localGroundMaterial.diffuseColor = groundShading.diffuse.scale(1.05)
-    localGroundMaterial.emissiveColor = groundShading.localEmissive
-    localGroundMaterial.specularColor = Color3.Black()
-    localGroundMaterial.alpha = 1
-    localGroundDisk.material = localGroundMaterial
-
-    const groundDepthDisc = MeshBuilder.CreateDisc(
-      'sky-engine-ground-depth-disc',
-      {
-        radius: SKY_RADIUS * 0.96,
-        tessellation: 120,
-        sideOrientation: Mesh.DOUBLESIDE,
-      },
-      scene,
-    )
-    groundDepthDisc.rotation.x = Math.PI / 2
-    groundDepthDisc.position.y = -1.3
-    groundDepthDisc.isPickable = false
-    const groundDepthMaterial = new StandardMaterial('sky-engine-ground-depth-material', scene)
-    groundDepthMaterial.disableLighting = true
-    groundDepthMaterial.diffuseTexture = nearGroundTexture
-    groundDepthMaterial.opacityTexture = nearGroundTexture
-    groundDepthMaterial.useAlphaFromDiffuseTexture = true
-    groundDepthMaterial.backFaceCulling = false
-    groundDepthMaterial.emissiveColor = Color3.Black()
-    groundDepthMaterial.alpha = groundShading.overlayAlpha
-    groundDepthDisc.material = groundDepthMaterial
-
-    const horizonBlend = MeshBuilder.CreateDisc(
-      'sky-engine-horizon-blend',
-      {
-        radius: HORIZON_RADIUS * 1.08,
-        tessellation: 160,
-        sideOrientation: Mesh.DOUBLESIDE,
-      },
-      scene,
-    )
-    horizonBlend.rotation.x = Math.PI / 2
-    horizonBlend.position.y = -0.18
-    horizonBlend.isPickable = false
-    const horizonBlendMaterial = new StandardMaterial('sky-engine-horizon-blend-material', scene)
-    horizonBlendMaterial.disableLighting = true
-    horizonBlendMaterial.diffuseTexture = horizonBandTexture
-    horizonBlendMaterial.opacityTexture = horizonBandTexture
-    horizonBlendMaterial.useAlphaFromDiffuseTexture = true
-    horizonBlendMaterial.backFaceCulling = false
-    horizonBlendMaterial.emissiveColor = Color3.FromHexString(calibration.horizonColorHex).scale(0.26)
-    horizonBlendMaterial.alpha = groundShading.horizonAlpha
-    horizonBlend.material = horizonBlendMaterial
-
-    const horizonNearBand = MeshBuilder.CreateDisc(
-      'sky-engine-horizon-near-band',
-      {
-        radius: HORIZON_RADIUS * 0.995,
-        tessellation: 160,
-        sideOrientation: Mesh.DOUBLESIDE,
-      },
-      scene,
-    )
-    horizonNearBand.rotation.x = Math.PI / 2
-    horizonNearBand.position.y = 0.12
-    horizonNearBand.isPickable = false
-    const horizonNearBandMaterial = new StandardMaterial('sky-engine-horizon-near-band-material', scene)
-    horizonNearBandMaterial.disableLighting = true
-    horizonNearBandMaterial.diffuseTexture = horizonBandTexture
-    horizonNearBandMaterial.opacityTexture = horizonBandTexture
-    horizonNearBandMaterial.useAlphaFromDiffuseTexture = true
-    horizonNearBandMaterial.backFaceCulling = false
-    horizonNearBandMaterial.emissiveColor = Color3.FromHexString(calibration.horizonColorHex).scale(0.34)
-    horizonNearBandMaterial.alpha = Math.max(0.18, groundShading.horizonAlpha - 0.05)
-    horizonNearBand.material = horizonNearBandMaterial
-
-    const horizonRing = MeshBuilder.CreateTorus('sky-engine-horizon', {
-      diameter: HORIZON_RADIUS * 2,
-      thickness: 0.24,
-      tessellation: 128,
-    }, scene)
-    horizonRing.rotation.x = Math.PI / 2
-    horizonRing.isPickable = false
-    horizonRing.isVisible = aidVisibility.azimuthRing
-    const horizonMaterial = new StandardMaterial('sky-engine-horizon-material', scene)
-    horizonMaterial.emissiveColor = Color3.FromHexString(calibration.horizonColorHex)
-    horizonMaterial.alpha = 0.82
-    horizonRing.material = horizonMaterial
-
-    const aidMeshes: Mesh[] = [horizonRing]
-    CARDINAL_MARKERS.forEach((marker) => {
-      const markerPosition = toSkyPosition(0, marker.azimuthDeg, HORIZON_RADIUS)
-
-      const post = MeshBuilder.CreateCylinder(
-        `sky-engine-cardinal-post-${marker.label}`,
-        { height: 2.8, diameter: 0.14 },
-        scene,
-      )
-      post.position = new Vector3(markerPosition.x, 1.4, markerPosition.z)
-      post.isPickable = false
-      post.isVisible = aidVisibility.azimuthRing
-
-      const postMaterial = new StandardMaterial(`sky-engine-cardinal-post-material-${marker.label}`, scene)
-      postMaterial.disableLighting = true
-      postMaterial.emissiveColor = Color3.FromHexString(calibration.horizonColorHex).scale(0.92)
-      post.material = postMaterial
-      aidMeshes.push(post)
-
-      const label = MeshBuilder.CreatePlane(
-        `sky-engine-cardinal-label-${marker.label}`,
-        { width: 5.6, height: 2.6 },
-        scene,
-      )
-      label.position = new Vector3(markerPosition.x, 4.4, markerPosition.z)
-      label.billboardMode = Mesh.BILLBOARDMODE_ALL
-      label.isPickable = false
-      label.isVisible = aidVisibility.azimuthRing
-
-      const labelMaterial = new StandardMaterial(`sky-engine-cardinal-label-material-${marker.label}`, scene)
-      labelMaterial.disableLighting = true
-      labelMaterial.diffuseTexture = buildLabelTexture(marker.label, 'cardinal')
-      labelMaterial.opacityTexture = labelMaterial.diffuseTexture
-      labelMaterial.useAlphaFromDiffuseTexture = true
-      labelMaterial.backFaceCulling = false
-      labelMaterial.emissiveColor = Color3.FromHexString(calibration.horizonColorHex)
-      labelMaterial.alpha = 0.92
-      label.material = labelMaterial
-      aidMeshes.push(label)
-    })
-
-    ALTITUDE_RING_DEGREES.forEach((altitudeDeg) => {
-      const ring = MeshBuilder.CreateLines(
-        `sky-engine-altitude-ring-${altitudeDeg}`,
-        { points: buildAidRingPoints(altitudeDeg) },
-        scene,
-      )
-      ring.color = Color3.FromHexString('#7db2e4')
-      ring.alpha = 0.18
-      ring.isPickable = false
-      ring.isVisible = aidVisibility.altitudeRings
-      aidMeshes.push(ring)
-
-      const labelPosition = toSkyPosition(altitudeDeg, 315, SKY_RADIUS * 0.994)
-      const label = MeshBuilder.CreatePlane(
-        `sky-engine-altitude-label-${altitudeDeg}`,
-        { width: 6.5, height: 2.4 },
-        scene,
-      )
-      label.position = labelPosition.add(new Vector3(0, 1.8, 0))
-      label.billboardMode = Mesh.BILLBOARDMODE_ALL
-      label.isPickable = false
-      label.isVisible = aidVisibility.altitudeRings
-
-      const labelMaterial = new StandardMaterial(`sky-engine-altitude-label-material-${altitudeDeg}`, scene)
-      labelMaterial.disableLighting = true
-      labelMaterial.diffuseTexture = buildLabelTexture(`${altitudeDeg}°`, 'cardinal')
-      labelMaterial.opacityTexture = labelMaterial.diffuseTexture
-      labelMaterial.useAlphaFromDiffuseTexture = true
-      labelMaterial.backFaceCulling = false
-      labelMaterial.emissiveColor = Color3.FromHexString('#7db2e4')
-      labelMaterial.alpha = 0.44
-      label.material = labelMaterial
-      aidMeshes.push(label)
-    })
-
-    const constellationObjects = new Map(objects.map((object) => [object.id, object]))
-    SKY_ENGINE_CONSTELLATION_SEGMENTS.forEach((segment) => {
-      segment.pairs.forEach(([startId, endId], pairIndex) => {
-        const startObject = constellationObjects.get(startId)
-        const endObject = constellationObjects.get(endId)
-
-        if (!startObject || !endObject) {
-          return
-        }
-
-        const line = MeshBuilder.CreateLines(
-          `sky-engine-constellation-${segment.id}-${pairIndex}`,
-          {
-            points: [
-              toSkyPosition(startObject.altitudeDeg, startObject.azimuthDeg, SKY_RADIUS * 0.997),
-              toSkyPosition(endObject.altitudeDeg, endObject.azimuthDeg, SKY_RADIUS * 0.997),
-            ],
-          },
-          scene,
-        )
-        line.color = Color3.FromHexString('#7ea9ff')
-        line.alpha = 0.2
-        line.isPickable = false
-        line.isVisible = aidVisibility.constellations
-        aidMeshes.push(line)
-      })
-    })
+    const selectionRingTexture = buildManagedSelectionRingTexture('sky-engine-selection-ring')
+    const guidanceRingTexture = buildManagedSelectionRingTexture('sky-engine-guidance-ring', '#f0d28d', 0.42, 0.16)
+    const landscapeLayer = createLandscapeLayer(scene, calibration, sunState, aidVisibility, objects)
 
     renderedObjectRefs.current = {}
     runtimeRefs.current = {
@@ -1151,16 +956,27 @@ export default function SkyEngineScene({
       canvas,
       trajectoryMesh: null,
       trajectoryMarkers: [],
-      groundTextureMode: 'oras-grass.jpg_tiled',
-      groundTextureAssetPath: SKY_ENGINE_GROUND_TEXTURE_URL,
+      groundTextureMode: landscapeLayer.groundTextureMode,
+      groundTextureAssetPath: landscapeLayer.groundTextureAssetPath,
       desiredFov: camera.fov,
       targetVector: null,
+      homeVector: initialViewTarget.clone(),
+      lastFrameTime: performance.now(),
+      landscapeLayer,
     }
 
     objects.forEach((object) => {
       const position = toSkyPosition(object.altitudeDeg, object.azimuthDeg, SKY_RADIUS)
-      const markerDiameter = getMarkerDiameter(object)
-      const markerTexture = getMarkerTextureForObject(object, starSpriteTexture, markerSpriteTexture)
+      const starProfile = object.type === 'star' && object.source === 'computed_real_sky'
+        ? getStarRenderProfile(object, sunState.visualCalibration)
+        : null
+      const markerDiameter = getObjectMarkerDiameter(object, sunState.visualCalibration, starProfile ?? undefined)
+      const markerTexture = buildObjectMarkerTexture(
+        `sky-engine-marker-${object.id}`,
+        object,
+        sunState.visualCalibration,
+        starProfile ?? undefined,
+      )
 
       const marker = MeshBuilder.CreatePlane(`sky-object-${object.id}`, {
         width: markerDiameter,
@@ -1174,7 +990,7 @@ export default function SkyEngineScene({
       const markerMaterial = new StandardMaterial(`sky-object-material-${object.id}`, scene)
       markerMaterial.disableLighting = true
       markerMaterial.backFaceCulling = false
-      markerMaterial.emissiveColor = Color3.FromHexString(object.colorHex)
+      markerMaterial.emissiveColor = Color3.FromHexString(starProfile?.colorHex ?? object.colorHex)
       markerMaterial.diffuseColor = markerMaterial.emissiveColor.scale(0.14)
       markerMaterial.diffuseTexture = markerTexture
       markerMaterial.opacityTexture = markerTexture
@@ -1223,17 +1039,17 @@ export default function SkyEngineScene({
         width: LABEL_WIDTH,
         height: LABEL_HEIGHT,
       }, scene)
-      label.position = position.add(new Vector3(0, getLabelOffsetY(object), 0))
+      label.position = getLabelAnchorPosition(position, object)
       label.billboardMode = Mesh.BILLBOARDMODE_ALL
       label.isPickable = false
       label.isVisible = false
       label.metadata = { objectId: object.id, objectName: object.name, pickRole: 'label' }
 
-      const labelTexture = buildLabelTexture(
+      const labelTexture = buildManagedLabelTexture(
         object.type === 'moon' && object.phaseLabel ? `${object.name} · ${object.phaseLabel}` : object.name,
-        getLabelVariantForObject(object),
+        getManagedLabelVariantForObject(object),
       )
-      const selectedLabelTexture = buildLabelTexture(object.name, 'selected')
+      const selectedLabelTexture = buildManagedLabelTexture(object.name, 'selected')
       const labelMaterial = new StandardMaterial(`sky-label-material-${object.id}`, scene)
       labelMaterial.disableLighting = true
       labelMaterial.emissiveColor = new Color3(1, 1, 1)
@@ -1272,13 +1088,14 @@ export default function SkyEngineScene({
         labelTexture,
         selectedLabelTexture,
         markerTexture,
-        baseColor: Color3.FromHexString(object.colorHex),
+        baseColor: Color3.FromHexString(starProfile?.colorHex ?? object.colorHex),
         object,
-        markerBaseAlpha: getMarkerBaseAlpha(object),
-        pickRadiusPx: getPickRadiusPx(object),
+        markerBaseAlpha: getManagedMarkerBaseAlpha(object),
+        pickRadiusPx: getObjectPickRadiusPx(object),
         twinklePhase: hashObjectPhase(object.id),
         currentLabelAlpha: 0,
         currentLabelScale: 0.82,
+        starProfile,
       }
 
       applyRenderedObjectState(renderedObjectRefs.current[object.id], selectedObjectId, guidedObjectSet, sunState)
@@ -1321,38 +1138,34 @@ export default function SkyEngineScene({
       const runtime = runtimeRefs.current
 
       if (runtime) {
-        runtime.camera.fov += (runtime.desiredFov - runtime.camera.fov) * 0.14
-
-        if (runtime.targetVector) {
-          const currentTarget = runtime.camera.getTarget()
-          const nextTarget = Vector3.Lerp(currentTarget, runtime.targetVector, 0.045)
-          runtime.camera.setTarget(nextTarget)
-
-          if (Vector3.Distance(nextTarget, runtime.targetVector) < 0.1) {
-            runtime.targetVector = null
-          }
-        }
-
+        const now = performance.now()
+        const deltaSeconds = Math.min(0.05, (now - runtime.lastFrameTime) * 0.001)
+        runtime.lastFrameTime = now
+        runtime.targetVector = updateObserverNavigation(runtime.camera, runtime.desiredFov, runtime.targetVector, deltaSeconds)
         const animationTime = performance.now() * 0.001
         const starVisibility = sunState.visualCalibration.starVisibility
 
         Object.values(renderedObjectRefs.current).forEach((refs) => {
           const isSelected = refs.object.id === selectedObjectId
-          const isMoon = refs.object.type === 'moon'
-          const twinkleAmount = isMoon
-            ? 1 + Math.sin(animationTime * 0.4 + refs.twinklePhase) * 0.01
-            : 1 + Math.sin(animationTime * 1.6 + refs.twinklePhase) * 0.03 * starVisibility
+          let twinkleAmount = 1 + Math.sin(animationTime * 0.8 + refs.twinklePhase) * 0.015
+
+          if (refs.starProfile) {
+            twinkleAmount = 1 + Math.sin(animationTime * 1.35 + refs.twinklePhase) * refs.starProfile.twinkleAmplitude * starVisibility
+          } else if (refs.object.type === 'moon') {
+            twinkleAmount = 1 + Math.sin(animationTime * 0.32 + refs.twinklePhase) * 0.008
+          }
+
           refs.marker.scaling.setAll((isSelected ? 1.12 : 1) * twinkleAmount)
           refs.selectionRing.scaling.setAll(isSelected ? 1.04 + Math.sin(animationTime * 2.2) * 0.05 : 1)
           refs.guidanceRing.scaling.setAll(1 + Math.sin(animationTime * 1.2 + refs.twinklePhase) * 0.04)
-          if (refs.object.source === 'computed_real_sky') {
+          if (refs.starProfile) {
             refs.markerMaterial.emissiveColor = refs.baseColor.scale(
-              (isSelected ? 0.88 : 0.42) + starVisibility * (0.48 + (twinkleAmount - 1) * 1.6),
+              (isSelected ? 0.92 : refs.starProfile.emissiveScale) + starVisibility * (0.34 + (twinkleAmount - 1) * 1.2),
             )
           }
         })
 
-        const visibleLabelIds = resolveLabelLayout(
+        const visibleLabelIds = resolveManagedLabelLayout(
           scene,
           camera,
           engine,
@@ -1362,8 +1175,7 @@ export default function SkyEngineScene({
           sunState,
         )
 
-        horizonBlendMaterial.alpha = groundShading.horizonAlpha + Math.sin(animationTime * 0.42) * 0.015
-        horizonNearBandMaterial.alpha = Math.max(0.12, groundShading.horizonAlpha - 0.05 + Math.sin(animationTime * 0.6) * 0.012)
+        runtime.landscapeLayer.update(animationTime)
 
         trajectoryObjectId = selectedObjectId
           ? objects.find((object) => object.id === selectedObjectId && object.trackingMode !== 'static')?.id ?? null
@@ -1405,32 +1217,14 @@ export default function SkyEngineScene({
       clearSceneState(canvas)
       runtimeRefs.current?.trajectoryMesh?.dispose()
       runtimeRefs.current?.trajectoryMarkers.forEach((marker) => marker.dispose())
+      runtimeRefs.current?.landscapeLayer.dispose()
       runtimeRefs.current = null
-      starSpriteTexture.dispose()
-      markerSpriteTexture.dispose()
       selectionRingTexture.dispose()
       guidanceRingTexture.dispose()
-      groundTexture.dispose()
-      localGroundTexture.dispose()
-      horizonBandTexture.dispose()
-      nearGroundTexture.dispose()
-      groundMaterial.dispose()
-      localGroundMaterial.dispose()
-      groundDepthMaterial.dispose()
-      horizonBlendMaterial.dispose()
-      horizonNearBandMaterial.dispose()
-      horizonMaterial.dispose()
-      aidMeshes.forEach((mesh) => {
-        if (!mesh.isDisposed()) {
-          mesh.dispose(false, true)
-        }
-      })
       Object.values(renderedObjectRefs.current).forEach((refs) => {
         refs.labelTexture.dispose()
         refs.selectedLabelTexture.dispose()
-        if (refs.markerTexture !== starSpriteTexture && refs.markerTexture !== markerSpriteTexture) {
-          refs.markerTexture.dispose()
-        }
+        refs.markerTexture.dispose()
       })
       atmosphere.dispose()
       scene.dispose()
