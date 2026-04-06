@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 
 import { computeRealSkySceneObjects } from '../features/sky-engine/astronomy'
 import { SKY_ENGINE_REAL_SKY_STARTERS, SKY_ENGINE_SCENE_TIMESTAMP } from '../features/sky-engine/realSkyCatalog'
+import {
+  SKY_ENGINE_SCENE_TIME_CONTROLS,
+  useSkyEngineSceneTime,
+} from '../features/sky-engine/sceneTime'
 import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
 import SkyEngineScene from '../features/sky-engine/SkyEngineScene'
 import { ORAS_OBSERVER, SKY_ENGINE_TEMPORARY_SCENE_SEED } from '../features/sky-engine/sceneSeed'
@@ -15,9 +19,10 @@ const INITIAL_ATMOSPHERE_STATUS: SkyEngineAtmosphereStatus = {
 }
 
 export default function SkyEnginePage() {
+  const sceneTime = useSkyEngineSceneTime(SKY_ENGINE_SCENE_TIMESTAMP)
   const computedSceneObjects = useMemo(
-    () => computeRealSkySceneObjects(ORAS_OBSERVER, SKY_ENGINE_SCENE_TIMESTAMP, SKY_ENGINE_REAL_SKY_STARTERS),
-    [],
+    () => computeRealSkySceneObjects(ORAS_OBSERVER, sceneTime.sceneTimestampIso, SKY_ENGINE_REAL_SKY_STARTERS),
+    [sceneTime.sceneTimestampIso],
   )
   const computedVisibleObjects = useMemo(
     () => computedSceneObjects.filter((object) => object.isAboveHorizon),
@@ -73,7 +78,7 @@ export default function SkyEnginePage() {
             <h2>Scene Status</h2>
             <p>{atmosphereStatus.message}</p>
             <p>
-              Scene timestamp: {new Date(SKY_ENGINE_SCENE_TIMESTAMP).toUTCString()} · {computedVisibleObjects.length} computed stars rendered above the horizon.
+              Scene time: {sceneTime.formattedSceneTimestamp} · {computedVisibleObjects.length} computed stars rendered above the horizon.
             </p>
             <p>Drag to orbit the camera. Scroll to tighten or widen the view. Click a rendered marker to inspect it.</p>
             {computedBelowHorizonObjects.length > 0 ? (
@@ -81,6 +86,19 @@ export default function SkyEnginePage() {
                 Below horizon and not rendered as visible targets: {computedBelowHorizonObjects.map((object) => object.name).join(', ')}.
               </p>
             ) : null}
+
+            <div className="sky-engine-page__time-controls" aria-label="Scene time controls">
+              {SKY_ENGINE_SCENE_TIME_CONTROLS.map((control) => (
+                <button
+                  key={control.action}
+                  type="button"
+                  className="sky-engine-page__time-button"
+                  onClick={() => sceneTime.applyTimeAction(control.action)}
+                >
+                  {control.label}
+                </button>
+              ))}
+            </div>
           </section>
         </div>
 
@@ -129,7 +147,7 @@ export default function SkyEnginePage() {
             observer={ORAS_OBSERVER}
             selectedObject={selection.selectedObject}
             atmosphereStatus={atmosphereStatus}
-            sceneTimestampIso={SKY_ENGINE_SCENE_TIMESTAMP}
+            sceneTimestampIso={sceneTime.sceneTimestampIso}
             onClearSelection={selection.clearSelection}
           />
         </div>

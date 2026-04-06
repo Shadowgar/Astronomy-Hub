@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { computeHorizontalCoordinates, computeRealSkySceneObjects } from '../src/features/sky-engine/astronomy.ts'
 import { SKY_ENGINE_REAL_SKY_STARTERS, SKY_ENGINE_SCENE_TIMESTAMP } from '../src/features/sky-engine/realSkyCatalog.ts'
+import { applySceneTimeAction } from '../src/features/sky-engine/sceneTime.ts'
 import { ORAS_OBSERVER } from '../src/features/sky-engine/sceneSeed.ts'
 
 describe('Sky Engine astronomy helpers', () => {
@@ -25,5 +26,17 @@ describe('Sky Engine astronomy helpers', () => {
 
     expect(Math.abs(early.altitudeDeg - later.altitudeDeg)).toBeGreaterThan(1)
     expect(Math.abs(early.azimuthDeg - later.azimuthDeg)).toBeGreaterThan(1)
+  })
+
+  it('applies deterministic bounded scene-time actions', () => {
+    const baseTimestamp = '2026-07-15T03:00:00.000Z'
+
+    expect(applySceneTimeAction(baseTimestamp, 'minus_hour')).toBe('2026-07-15T02:00:00.000Z')
+    expect(applySceneTimeAction(baseTimestamp, 'plus_hour')).toBe('2026-07-15T04:00:00.000Z')
+    expect(applySceneTimeAction(baseTimestamp, 'minus_day')).toBe('2026-07-14T03:00:00.000Z')
+    expect(applySceneTimeAction(baseTimestamp, 'plus_day')).toBe('2026-07-16T03:00:00.000Z')
+    expect(
+      applySceneTimeAction(baseTimestamp, 'now', () => new Date('2026-04-05T12:34:56.000Z')),
+    ).toBe('2026-04-05T12:34:56.000Z')
   })
 })

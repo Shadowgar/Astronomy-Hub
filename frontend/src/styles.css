@@ -1448,6 +1448,22 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   margin-top: 0.65rem;
 }
 
+.sky-engine-page__time-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+
+.sky-engine-page__time-button {
+  border: 1px solid rgba(154, 198, 255, 0.18);
+  border-radius: 999px;
+  min-height: 2.2rem;
+  padding: 0 0.85rem;
+  background: rgba(9, 18, 30, 0.78);
+  color: #f3f8ff;
+}
+
 .sky-engine-page__section-label {
   margin: 0.85rem 0 0.55rem;
   text-transform: uppercase;
