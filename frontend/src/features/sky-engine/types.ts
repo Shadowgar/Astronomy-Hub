@@ -39,6 +39,14 @@ export interface SkyEngineSceneObject {
   isAboveHorizon: boolean
 }
 
+export interface SkyEngineTrajectorySample {
+  timestampIso: string
+  hourOffset: number
+  altitudeDeg: number
+  azimuthDeg: number
+  isAboveHorizon: boolean
+}
+
 export interface SkyEnginePickTarget {
   objectId: string
   objectName: string

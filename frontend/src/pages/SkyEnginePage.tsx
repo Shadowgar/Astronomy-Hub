@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 import { computeRealSkySceneObjects } from '../features/sky-engine/astronomy'
 import { SKY_ENGINE_REAL_SKY_STARTERS, SKY_ENGINE_SCENE_TIMESTAMP } from '../features/sky-engine/realSkyCatalog'
 import {
-  SKY_ENGINE_SCENE_TIME_CONTROLS,
+  SKY_ENGINE_MAX_SCENE_HOUR_OFFSET,
+  SKY_ENGINE_MIN_SCENE_HOUR_OFFSET,
+  SKY_ENGINE_SCENE_HOUR_STEP,
   useSkyEngineSceneTime,
 } from '../features/sky-engine/sceneTime'
 import { computeSunState } from '../features/sky-engine/solar'
@@ -47,6 +49,10 @@ export default function SkyEnginePage() {
   )
   const selection = useSkyEngineSelection(sceneObjects)
   const [atmosphereStatus, setAtmosphereStatus] = useState<SkyEngineAtmosphereStatus>(INITIAL_ATMOSPHERE_STATUS)
+  const visibleTargets = useMemo(
+    () => [...computedVisibleObjects, ...SKY_ENGINE_TEMPORARY_SCENE_SEED],
+    [computedVisibleObjects],
+  )
 
   return (
     <div className="sky-engine-page">
@@ -55,7 +61,7 @@ export default function SkyEnginePage() {
           <p className="sky-engine-page__eyebrow">Above Me Orchestration</p>
           <h1>Sky Engine</h1>
           <p className="sky-engine-page__lede">
-            Babylon.js owns this viewport. ORAS is the fixed observer, and a tiny starter star set is now positioned from real RA/Dec sky math.
+            Babylon.js owns the viewport. ORAS stays fixed, the star field is computed from real RA/Dec inputs, and the scene now carries its own horizon, compass, and time scrub.
           </p>
         </div>
 
@@ -85,7 +91,7 @@ export default function SkyEnginePage() {
 
         <div className="sky-engine-page__overlay sky-engine-page__overlay--top-left">
           <section className="sky-engine-page__status-card" aria-label="Sky Engine status">
-            <h2>Scene Status</h2>
+            <h2>Scene</h2>
             <div className="sky-engine-page__scene-link">
               <span className="sky-engine-page__scene-link-label">Scene-linked state</span>
               <div className="sky-engine-page__scene-link-main">
@@ -98,68 +104,85 @@ export default function SkyEnginePage() {
                 </span>
               </div>
             </div>
+            <div className="sky-engine-page__time-slider-block">
+              <div className="sky-engine-page__time-slider-header">
+                <label className="sky-engine-page__scene-link-label" htmlFor="sky-engine-time-slider">
+                  Time scrub
+                </label>
+                <div className="sky-engine-page__time-slider-actions">
+                  <strong>{sceneTime.formattedSceneHourOffset}</strong>
+                  <button
+                    type="button"
+                    className="sky-engine-page__time-reset"
+                    onClick={sceneTime.resetSceneTime}
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+              <input
+                id="sky-engine-time-slider"
+                className="sky-engine-page__time-slider"
+                type="range"
+                min={SKY_ENGINE_MIN_SCENE_HOUR_OFFSET}
+                max={SKY_ENGINE_MAX_SCENE_HOUR_OFFSET}
+                step={SKY_ENGINE_SCENE_HOUR_STEP}
+                value={sceneTime.sceneHourOffset}
+                aria-label="Scene time offset"
+                onChange={(event) => sceneTime.setSceneHourOffset(Number(event.target.value))}
+              />
+              <div className="sky-engine-page__time-slider-scale" aria-hidden="true">
+                <span>-24h</span>
+                <span>Base</span>
+                <span>+24h</span>
+              </div>
+            </div>
+
+            <div className="sky-engine-page__status-grid">
+              <div>
+                <span>Visible stars</span>
+                <strong>{computedVisibleObjects.length}</strong>
+              </div>
+              <div>
+                <span>Sun</span>
+                <strong>{sunState.isAboveHorizon ? 'Up' : 'Down'}</strong>
+              </div>
+              <div>
+                <span>Star visibility</span>
+                <strong>{Math.round(sunState.visualCalibration.starVisibility * 100)}%</strong>
+              </div>
+            </div>
+
+            <p>
+              Sun state: {sunState.phaseLabel} · alt {sunState.altitudeDeg.toFixed(1)}° · az {sunState.azimuthDeg.toFixed(1)}°.
+            </p>
+            <p>Star visibility: {Math.round(sunState.visualCalibration.starVisibility * 100)}%.</p>
             <p>{atmosphereStatus.message}</p>
-            <p>
-              {computedVisibleObjects.length} computed stars are currently rendered above the horizon for this timestamp.
-            </p>
-            <p>
-              Sun state: {sunState.phaseLabel} · alt {sunState.altitudeDeg.toFixed(1)}° · az {sunState.azimuthDeg.toFixed(1)}° · {sunState.isAboveHorizon ? 'above horizon' : 'below horizon'}.
-            </p>
-            <p>
-              Star visibility: {Math.round(sunState.visualCalibration.starVisibility * 100)}% visual intensity. Directional light {sunState.visualCalibration.directionalLightIntensity.toFixed(2)} · ambient {sunState.visualCalibration.ambientLightIntensity.toFixed(2)}.
-            </p>
-            <p>Drag to orbit the camera. Scroll to tighten or widen the view. Click a rendered marker to inspect it.</p>
+            <p>Drag to orbit, scroll to zoom, and click a marker or target chip to inspect it.</p>
             {computedBelowHorizonObjects.length > 0 ? (
-              <p>
-                Below horizon and not rendered as visible targets: {computedBelowHorizonObjects.map((object) => object.name).join(', ')}.
+              <p className="sky-engine-page__status-note">
+                Below horizon: {computedBelowHorizonObjects.map((object) => object.name).join(', ')}.
               </p>
             ) : null}
-
-            <div className="sky-engine-page__time-controls" aria-label="Scene time controls">
-              {SKY_ENGINE_SCENE_TIME_CONTROLS.map((control) => (
-                <button
-                  key={control.action}
-                  type="button"
-                  className="sky-engine-page__time-button"
-                  onClick={() => sceneTime.applyTimeAction(control.action)}
-                >
-                  {control.label}
-                </button>
-              ))}
-            </div>
           </section>
         </div>
 
         <div className="sky-engine-page__overlay sky-engine-page__overlay--bottom-left">
-          <section className="sky-engine-page__status-card sky-engine-page__status-card--compact" aria-label="Sky object legend">
-            <h2>Rendered Objects</h2>
-            <p className="sky-engine-page__section-label">Computed fixed stars</p>
+          <section className="sky-engine-page__status-card sky-engine-page__status-card--compact" aria-label="Sky targets">
+            <h2>Targets</h2>
+            <p className="sky-engine-page__status-note">Selected computed stars show a live 12-hour trajectory arc.</p>
             <ul>
-              {computedVisibleObjects.map((object) => (
+              {visibleTargets.map((object) => (
                 <li key={object.id}>
                   <button
                     type="button"
-                    className={`sky-engine-page__seed-button${selection.selectedObjectId === object.id ? ' sky-engine-page__seed-button--active' : ''}`}
+                    className={`sky-engine-page__seed-button${object.source === 'temporary_scene_seed' ? ' sky-engine-page__seed-button--temporary' : ''}${selection.selectedObjectId === object.id ? ' sky-engine-page__seed-button--active' : ''}`}
                     onClick={() => selection.selectObject(object.id)}
                   >
-                    <span>{object.name}</span>
                     <span>
-                      alt {object.altitudeDeg.toFixed(0)}° · az {object.azimuthDeg.toFixed(0)}°
+                      {object.name}
+                      <small>{object.source === 'computed_real_sky' ? 'Computed star' : 'Temporary marker'}</small>
                     </span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <p className="sky-engine-page__section-label">Temporary demo objects</p>
-            <ul>
-              {SKY_ENGINE_TEMPORARY_SCENE_SEED.map((object) => (
-                <li key={object.id}>
-                  <button
-                    type="button"
-                    className={`sky-engine-page__seed-button sky-engine-page__seed-button--temporary${selection.selectedObjectId === object.id ? ' sky-engine-page__seed-button--active' : ''}`}
-                    onClick={() => selection.selectObject(object.id)}
-                  >
-                    <span>{object.name}</span>
                     <span>
                       alt {object.altitudeDeg.toFixed(0)}° · az {object.azimuthDeg.toFixed(0)}°
                     </span>

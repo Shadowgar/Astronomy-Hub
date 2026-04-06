@@ -1,8 +1,15 @@
 import { describe, expect, it } from 'vitest'
 
-import { computeHorizontalCoordinates, computeRealSkySceneObjects } from '../src/features/sky-engine/astronomy.ts'
+import {
+  computeHorizontalCoordinates,
+  computeObjectTrajectorySamples,
+  computeRealSkySceneObjects,
+} from '../src/features/sky-engine/astronomy.ts'
 import { SKY_ENGINE_REAL_SKY_STARTERS, SKY_ENGINE_SCENE_TIMESTAMP } from '../src/features/sky-engine/realSkyCatalog.ts'
-import { applySceneTimeAction } from '../src/features/sky-engine/sceneTime.ts'
+import {
+  buildSceneTimestampFromHourOffset,
+  formatSceneHourOffset,
+} from '../src/features/sky-engine/sceneTime.ts'
 import { ORAS_OBSERVER } from '../src/features/sky-engine/sceneSeed.ts'
 import { computeSunState, deriveSunPhaseLabel, deriveSunVisualCalibration } from '../src/features/sky-engine/solar.ts'
 
@@ -29,16 +36,37 @@ describe('Sky Engine astronomy helpers', () => {
     expect(Math.abs(early.azimuthDeg - later.azimuthDeg)).toBeGreaterThan(1)
   })
 
-  it('applies deterministic bounded scene-time actions', () => {
+  it('builds deterministic scene timestamps from bounded hour offsets', () => {
     const baseTimestamp = '2026-07-15T03:00:00.000Z'
 
-    expect(applySceneTimeAction(baseTimestamp, 'minus_hour')).toBe('2026-07-15T02:00:00.000Z')
-    expect(applySceneTimeAction(baseTimestamp, 'plus_hour')).toBe('2026-07-15T04:00:00.000Z')
-    expect(applySceneTimeAction(baseTimestamp, 'minus_day')).toBe('2026-07-14T03:00:00.000Z')
-    expect(applySceneTimeAction(baseTimestamp, 'plus_day')).toBe('2026-07-16T03:00:00.000Z')
-    expect(
-      applySceneTimeAction(baseTimestamp, 'now', () => new Date('2026-04-05T12:34:56.000Z')),
-    ).toBe('2026-04-05T12:34:56.000Z')
+    expect(buildSceneTimestampFromHourOffset(baseTimestamp, -1)).toBe('2026-07-15T02:00:00.000Z')
+    expect(buildSceneTimestampFromHourOffset(baseTimestamp, 1)).toBe('2026-07-15T04:00:00.000Z')
+    expect(buildSceneTimestampFromHourOffset(baseTimestamp, -24)).toBe('2026-07-14T03:00:00.000Z')
+    expect(buildSceneTimestampFromHourOffset(baseTimestamp, 24)).toBe('2026-07-16T03:00:00.000Z')
+    expect(formatSceneHourOffset(0)).toBe('Base time')
+    expect(formatSceneHourOffset(7)).toBe('+7h')
+    expect(formatSceneHourOffset(-5)).toBe('-5h')
+  })
+
+  it('builds trajectory samples for computed stars across a 12-hour window', () => {
+    const vega = computeRealSkySceneObjects(
+      ORAS_OBSERVER,
+      SKY_ENGINE_SCENE_TIMESTAMP,
+      SKY_ENGINE_REAL_SKY_STARTERS,
+    ).find((object) => object.name === 'Vega')
+
+    expect(vega).toBeTruthy()
+
+    const trajectory = computeObjectTrajectorySamples(
+      ORAS_OBSERVER,
+      SKY_ENGINE_SCENE_TIMESTAMP,
+      vega,
+      [-6, 0, 6],
+    )
+
+    expect(trajectory).toHaveLength(3)
+    expect(Math.abs(trajectory[0].altitudeDeg - trajectory[2].altitudeDeg)).toBeGreaterThan(1)
+    expect(trajectory[1].timestampIso).toBe(SKY_ENGINE_SCENE_TIMESTAMP)
   })
 
   it('changes computed sun state across scene-time steps', () => {

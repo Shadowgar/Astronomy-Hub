@@ -1448,6 +1448,10 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   margin-top: 0.65rem;
 }
 
+.sky-engine-page__status-note {
+  color: rgba(176, 208, 255, 0.8);
+}
+
 .sky-engine-page__scene-link {
   margin-bottom: 0.75rem;
 }
@@ -1500,20 +1504,71 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   border-color: rgba(143, 181, 246, 0.42);
 }
 
-.sky-engine-page__time-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  margin-top: 0.9rem;
+.sky-engine-page__time-slider-block {
+  margin: 0.95rem 0 1rem;
 }
 
-.sky-engine-page__time-button {
+.sky-engine-page__time-slider-header,
+.sky-engine-page__time-slider-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.sky-engine-page__time-slider-actions strong {
+  font-size: 0.9rem;
+}
+
+.sky-engine-page__time-slider {
+  width: 100%;
+  margin-top: 0.55rem;
+  accent-color: #8bc7ff;
+}
+
+.sky-engine-page__time-slider-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+  font-size: 0.74rem;
+  color: rgba(176, 208, 255, 0.72);
+}
+
+.sky-engine-page__time-reset {
   border: 1px solid rgba(154, 198, 255, 0.18);
   border-radius: 999px;
-  min-height: 2.2rem;
-  padding: 0 0.85rem;
+  min-height: 2rem;
+  padding: 0 0.75rem;
   background: rgba(9, 18, 30, 0.78);
   color: #f3f8ff;
+}
+
+.sky-engine-page__status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: 0 0 0.9rem;
+}
+
+.sky-engine-page__status-grid div {
+  padding: 0.75rem;
+  border-radius: 0.85rem;
+  background: rgba(9, 18, 30, 0.62);
+  border: 1px solid rgba(154, 198, 255, 0.12);
+}
+
+.sky-engine-page__status-grid span {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(176, 208, 255, 0.72);
+}
+
+.sky-engine-page__status-grid strong {
+  display: block;
+  font-size: 1rem;
 }
 
 .sky-engine-page__section-label {
@@ -1544,6 +1599,19 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   background: rgba(9, 18, 30, 0.7);
   color: #f3f8ff;
   text-align: left;
+}
+
+.sky-engine-page__seed-button span:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.sky-engine-page__seed-button small {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(176, 208, 255, 0.62);
 }
 
 .sky-engine-page__seed-button span:last-child {
@@ -1712,6 +1780,10 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   }
 
   .sky-engine-detail-shell__meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sky-engine-page__status-grid {
     grid-template-columns: 1fr;
   }
 }

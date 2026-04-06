@@ -1,64 +1,53 @@
 import { useCallback, useMemo, useState } from 'react'
 
-export type SkyEngineSceneTimeAction = 'now' | 'minus_hour' | 'plus_hour' | 'minus_day' | 'plus_day'
+export const SKY_ENGINE_MIN_SCENE_HOUR_OFFSET = -24
+export const SKY_ENGINE_MAX_SCENE_HOUR_OFFSET = 24
+export const SKY_ENGINE_SCENE_HOUR_STEP = 1
 
-export interface SkyEngineSceneTimeControl {
-  action: SkyEngineSceneTimeAction
-  label: string
-}
-
-export const SKY_ENGINE_SCENE_TIME_CONTROLS: readonly SkyEngineSceneTimeControl[] = [
-  { action: 'now', label: 'Now' },
-  { action: 'minus_hour', label: '-1 hour' },
-  { action: 'plus_hour', label: '+1 hour' },
-  { action: 'minus_day', label: '-1 day' },
-  { action: 'plus_day', label: '+1 day' },
-] as const
-
-function offsetTimestamp(timestampIso: string, offsetMs: number) {
-  return new Date(new Date(timestampIso).getTime() + offsetMs).toISOString()
-}
-
-export function applySceneTimeAction(
-  timestampIso: string,
-  action: SkyEngineSceneTimeAction,
-  nowProvider: () => Date = () => new Date(),
-) {
-  switch (action) {
-    case 'now':
-      return nowProvider().toISOString()
-    case 'minus_hour':
-      return offsetTimestamp(timestampIso, -60 * 60 * 1000)
-    case 'plus_hour':
-      return offsetTimestamp(timestampIso, 60 * 60 * 1000)
-    case 'minus_day':
-      return offsetTimestamp(timestampIso, -24 * 60 * 60 * 1000)
-    case 'plus_day':
-      return offsetTimestamp(timestampIso, 24 * 60 * 60 * 1000)
-    default:
-      return timestampIso
-  }
+export function buildSceneTimestampFromHourOffset(baseTimestampIso: string, hourOffset: number) {
+  return new Date(new Date(baseTimestampIso).getTime() + hourOffset * 60 * 60 * 1000).toISOString()
 }
 
 export function formatSceneTimestamp(timestampIso: string) {
   return new Date(timestampIso).toUTCString()
 }
 
-export function useSkyEngineSceneTime(initialTimestampIso: string) {
-  const [sceneTimestampIso, setSceneTimestampIso] = useState(initialTimestampIso)
+export function formatSceneHourOffset(hourOffset: number) {
+  if (hourOffset === 0) {
+    return 'Base time'
+  }
 
-  const applyTimeAction = useCallback((action: SkyEngineSceneTimeAction) => {
-    setSceneTimestampIso((currentTimestampIso) => applySceneTimeAction(currentTimestampIso, action))
-  }, [])
+  return `${hourOffset > 0 ? '+' : ''}${hourOffset}h`
+}
+
+export function useSkyEngineSceneTime(initialTimestampIso: string) {
+  const [sceneHourOffset, setSceneHourOffset] = useState(0)
+
+  const sceneTimestampIso = useMemo(
+    () => buildSceneTimestampFromHourOffset(initialTimestampIso, sceneHourOffset),
+    [initialTimestampIso, sceneHourOffset],
+  )
 
   const formattedSceneTimestamp = useMemo(
     () => formatSceneTimestamp(sceneTimestampIso),
     [sceneTimestampIso],
   )
 
+  const formattedSceneHourOffset = useMemo(
+    () => formatSceneHourOffset(sceneHourOffset),
+    [sceneHourOffset],
+  )
+
+  const resetSceneTime = useCallback(() => {
+    setSceneHourOffset(0)
+  }, [])
+
   return {
     sceneTimestampIso,
+    sceneHourOffset,
     formattedSceneTimestamp,
-    applyTimeAction,
+    formattedSceneHourOffset,
+    setSceneHourOffset,
+    resetSceneTime,
   }
 }

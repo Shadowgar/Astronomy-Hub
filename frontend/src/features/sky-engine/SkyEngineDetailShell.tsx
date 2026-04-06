@@ -29,7 +29,7 @@ function phaseModifier(phaseLabel: SkyEngineSunState['phaseLabel']) {
   return phaseLabel.toLowerCase().split(' ').join('-')
 }
 
-function renderSelectionSourceCoordinates(selectedObject: SkyEngineSceneObject) {
+function getSelectionSourceCoordinates(selectedObject: SkyEngineSceneObject) {
   if (
     selectedObject.source !== 'computed_real_sky' ||
     selectedObject.rightAscensionHours == null ||
@@ -38,28 +38,31 @@ function renderSelectionSourceCoordinates(selectedObject: SkyEngineSceneObject) 
     return null
   }
 
-  return (
-    <p className="sky-engine-detail-shell__hint">
-      Source coordinates: RA {formatRightAscension(selectedObject.rightAscensionHours)} · Dec {formatSignedDegrees(selectedObject.declinationDeg)}
-    </p>
-  )
+  return `Source coordinates: RA ${formatRightAscension(selectedObject.rightAscensionHours)} · Dec ${formatSignedDegrees(selectedObject.declinationDeg)}`
 }
 
-function renderSelectionTruthNote(selectedObject: SkyEngineSceneObject) {
-  const truthDescription = selectedObject.source === 'computed_real_sky'
-    ? 'This object uses a real fixed-star RA/Dec to Alt/Az computation for the ORAS observer and explicit scene timestamp. The slice does not claim a full catalog or planetary ephemeris.'
-    : 'This object still uses temporary demo placement and is intentionally kept separate from the computed fixed-star set.'
+function getSelectionTruthDescription(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.source === 'computed_real_sky') {
+    return 'Computed from catalog right ascension and declination for the fixed ORAS observer and the current scene time.'
+  }
 
-  return (
-    <section className="sky-engine-detail-shell__truth-note">
-      <h3>Truth Boundary</h3>
-      <p>{selectedObject.truthNote}</p>
-      <p>{truthDescription}</p>
-    </section>
-  )
+  return 'This remains a temporary scene marker and is intentionally separated from the computed sky set.'
+}
+
+function getSelectionBadgeClassName(selectedObject: SkyEngineSceneObject) {
+  return selectedObject.source === 'temporary_scene_seed'
+    ? 'sky-engine-detail-shell__badge sky-engine-detail-shell__badge--warning'
+    : 'sky-engine-detail-shell__badge sky-engine-detail-shell__badge--real'
+}
+
+function getSelectionBadgeLabel(selectedObject: SkyEngineSceneObject) {
+  return selectedObject.source === 'computed_real_sky' ? 'Computed real sky' : 'Temporary demo placement'
 }
 
 function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
+  const sourceCoordinates = getSelectionSourceCoordinates(selectedObject)
+  const hasComputedTrajectory = selectedObject.source === 'computed_real_sky'
+
   return (
     <div className="sky-engine-detail-shell__body">
       <div className="sky-engine-detail-shell__badge-row">
@@ -67,16 +70,14 @@ function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
         {selectedObject.constellation ? (
           <span className="sky-engine-detail-shell__badge">{selectedObject.constellation}</span>
         ) : null}
-        <span
-          className={`sky-engine-detail-shell__badge${selectedObject.source === 'temporary_scene_seed' ? ' sky-engine-detail-shell__badge--warning' : ' sky-engine-detail-shell__badge--real'}`}
-        >
-          {selectedObject.source === 'computed_real_sky' ? 'Computed real sky' : 'Temporary demo placement'}
+        <span className={getSelectionBadgeClassName(selectedObject)}>
+          {getSelectionBadgeLabel(selectedObject)}
         </span>
       </div>
 
       <p className="sky-engine-detail-shell__summary">{selectedObject.summary}</p>
       <p>{selectedObject.description}</p>
-      {renderSelectionSourceCoordinates(selectedObject)}
+      {sourceCoordinates ? <p className="sky-engine-detail-shell__hint">{sourceCoordinates}</p> : null}
 
       <dl className="sky-engine-detail-shell__facts">
         <div>
@@ -91,20 +92,35 @@ function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
           <dt>Magnitude</dt>
           <dd>{selectedObject.magnitude.toFixed(2)}</dd>
         </div>
+        <div>
+          <dt>Horizon</dt>
+          <dd>{selectedObject.isAboveHorizon ? 'Above' : 'Below'}</dd>
+        </div>
+        <div>
+          <dt>Trajectory</dt>
+          <dd>{hasComputedTrajectory ? '12h arc active' : 'Static marker'}</dd>
+        </div>
       </dl>
 
-      {renderSelectionTruthNote(selectedObject)}
+      <section className="sky-engine-detail-shell__truth-note">
+        <h3>Provenance</h3>
+        <p>{getSelectionTruthDescription(selectedObject)}</p>
+        <p>{selectedObject.truthNote}</p>
+      </section>
     </div>
   )
 }
 
-function renderEmptySelectionBody(selectionStatus: 'idle' | 'active' | 'hidden', hiddenSelectionName: string | null) {
+function renderEmptySelectionBody(
+  selectionStatus: 'idle' | 'active' | 'hidden',
+  hiddenSelectionName: string | null,
+) {
   if (selectionStatus === 'hidden' && hiddenSelectionName) {
     return (
       <div className="sky-engine-detail-shell__body">
         <p>{hiddenSelectionName} is no longer rendered at this scene time.</p>
         <p className="sky-engine-detail-shell__hint">
-          The selection is preserved, but the object is currently below the horizon or outside the active rendered set. Change time again or clear the selection.
+          The selection is preserved. Move the time slider back toward the horizon crossing or clear the selection.
         </p>
       </div>
     )
@@ -112,9 +128,9 @@ function renderEmptySelectionBody(selectionStatus: 'idle' | 'active' | 'hidden',
 
   return (
     <div className="sky-engine-detail-shell__body">
-      <p>Drag the scene to look around. Click a rendered marker to open a selection response.</p>
+      <p>Drag to look around, scroll to zoom, and click a rendered marker to inspect it.</p>
       <p className="sky-engine-detail-shell__hint">
-        Computed stars and temporary demo objects are intentionally separated in this slice.
+        Computed stars support a live trajectory arc. Temporary markers stay clearly labeled.
       </p>
     </div>
   )
@@ -130,12 +146,14 @@ export default function SkyEngineDetailShell({
   sceneTimestampIso,
   onClearSelection,
 }: SkyEngineDetailShellProps) {
+  const heading = selectedObject ? selectedObject.name : hiddenSelectionName ?? 'Select a rendered object'
+
   return (
     <aside className="sky-engine-detail-shell" aria-label="Sky Engine detail shell">
       <div className="sky-engine-detail-shell__header">
         <div>
           <p className="sky-engine-detail-shell__eyebrow">Sky Engine</p>
-          <h2>{selectedObject ? selectedObject.name : hiddenSelectionName ?? 'Select a rendered object'}</h2>
+          <h2>{heading}</h2>
         </div>
         {selectionStatus === 'active' || selectionStatus === 'hidden' ? (
           <button type="button" className="sky-engine-detail-shell__clear" onClick={onClearSelection}>
@@ -160,7 +178,7 @@ export default function SkyEngineDetailShell({
         <div>
           <span className="sky-engine-detail-shell__meta-label">Scene time</span>
           <strong>{formatTimestamp(sceneTimestampIso)}</strong>
-          <p>Lighting, atmosphere response, and star visibility all recalibrate from this timestamp.</p>
+          <p>Lighting, visibility, and trajectories all recalculate from this timestamp.</p>
         </div>
         <div>
           <span className="sky-engine-detail-shell__meta-label">Scene-linked sun state</span>

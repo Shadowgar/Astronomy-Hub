@@ -1,15 +1,22 @@
 const { test, expect } = require('@playwright/test')
 
 const PICK_TARGETS_DATA_ATTRIBUTE = 'data-sky-engine-pick-targets'
+const SCENE_STATE_DATA_ATTRIBUTE = 'data-sky-engine-scene-state'
 
-async function clickTimeButton(page, label, times) {
-  const button = page.getByRole('button', { name: label })
+async function setSceneTimeOffset(page, value) {
+  const slider = page.getByLabel('Scene time offset')
 
-  for (let count = 0; count < times; count += 1) {
-    await button.evaluate((element) => {
-      element.click()
-    })
-  }
+  await slider.evaluate((element, nextValue) => {
+    const descriptor = Object.getOwnPropertyDescriptor(globalThis.HTMLInputElement.prototype, 'value')
+
+    if (!descriptor?.set) {
+      throw new Error('Could not resolve native range input setter.')
+    }
+
+    descriptor.set.call(element, String(nextValue))
+    element.dispatchEvent(new Event('input', { bubbles: true }))
+    element.dispatchEvent(new Event('change', { bubbles: true }))
+  }, value)
 }
 
 async function extractVisibilityPercent(page) {
@@ -45,6 +52,25 @@ async function getPickTargets(page) {
 
     return JSON.parse(rawTargets)
   }, PICK_TARGETS_DATA_ATTRIBUTE)
+}
+
+async function getSceneState(page) {
+  const canvas = page.locator('canvas[aria-label="Sky Engine scene"]')
+  await expect(canvas).toBeVisible()
+
+  return canvas.evaluate((element, attributeName) => {
+    const rawState = element.getAttribute(attributeName)
+
+    if (!rawState) {
+      return null
+    }
+
+    return JSON.parse(rawState)
+  }, SCENE_STATE_DATA_ATTRIBUTE)
+}
+
+async function expectSceneState(page, expectedState) {
+  await expect.poll(async () => getSceneState(page)).toEqual(expectedState)
 }
 
 async function selectCanvasObjectByName(page, expectedName) {
@@ -84,7 +110,7 @@ async function selectFirstComputedPickTarget(page) {
   return pickTarget
 }
 
-test('sky engine calibrates phase state, star visibility, deterministic selection, and scene-time persistence', async ({ page }) => {
+test('sky engine renders horizon framing, slider-driven time changes, trajectory state, and deterministic selection', async ({ page }) => {
   const consoleMessages = []
   const pageErrors = []
   page.on('console', (message) => {
@@ -102,15 +128,29 @@ test('sky engine calibrates phase state, star visibility, deterministic selectio
   await expect(phasePill).toHaveText('Night')
   const nightVisibility = await extractVisibilityPercent(page)
 
+  await expectSceneState(page, {
+    horizonVisible: true,
+    cardinals: ['N', 'E', 'S', 'W'],
+    selectedObjectId: null,
+    trajectoryObjectId: null,
+  })
+
   await selectCanvasObjectByName(page, 'Vega')
   await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Vega')
+  await expect(page.locator('.sky-engine-detail-shell')).toContainText('12h arc active')
+  await expectSceneState(page, {
+    horizonVisible: true,
+    cardinals: ['N', 'E', 'S', 'W'],
+    selectedObjectId: 'sky-real-vega',
+    trajectoryObjectId: 'sky-real-vega',
+  })
 
-  await clickTimeButton(page, '+1 hour', 7)
+  await setSceneTimeOffset(page, 7)
   await expect(phasePill).toHaveText('Low Sun')
   const lowSunVisibility = await extractVisibilityPercent(page)
   await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Vega')
 
-  await clickTimeButton(page, '+1 hour', 5)
+  await setSceneTimeOffset(page, 12)
   await expect(phasePill).toHaveText('Daylight')
   const daylightVisibility = await extractVisibilityPercent(page)
   await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Vega')
@@ -118,10 +158,17 @@ test('sky engine calibrates phase state, star visibility, deterministic selectio
   expect(nightVisibility).toBeGreaterThan(lowSunVisibility)
   expect(lowSunVisibility).toBeGreaterThan(daylightVisibility)
   await expect(page.locator('.sky-engine-detail-shell')).toContainText('Vega is no longer rendered at this scene time.')
+  await expectSceneState(page, {
+    horizonVisible: true,
+    cardinals: ['N', 'E', 'S', 'W'],
+    selectedObjectId: 'sky-real-vega',
+    trajectoryObjectId: null,
+  })
 
-  await clickTimeButton(page, '-1 day', 1)
-  await clickTimeButton(page, '-1 hour', 5)
+  await setSceneTimeOffset(page, 7)
   await expect(phasePill).toHaveText('Low Sun')
+  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Vega')
+
   const reselectionTarget = await selectFirstComputedPickTarget(page)
   await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText(reselectionTarget.objectName)
   await expect(page.locator('.sky-engine-detail-shell')).toContainText('Computed real sky')

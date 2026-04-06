@@ -2,6 +2,7 @@ import type {
   SkyEngineCelestialSourceObject,
   SkyEngineObserver,
   SkyEngineSceneObject,
+  SkyEngineTrajectorySample,
 } from './types'
 
 function degreesToRadians(value: number) {
@@ -23,6 +24,10 @@ function normalizeSignedDegrees(value: number) {
 
 function toJulianDate(timestampIso: string) {
   return new Date(timestampIso).getTime() / 86400000 + 2440587.5
+}
+
+function offsetTimestampByHours(timestampIso: string, hourOffset: number) {
+  return new Date(new Date(timestampIso).getTime() + hourOffset * 60 * 60 * 1000).toISOString()
 }
 
 export function computeLocalSiderealTimeDeg(longitudeDeg: number, timestampIso: string) {
@@ -99,6 +104,42 @@ export function computeRealSkySceneObjects(
       rightAscensionHours: object.rightAscensionHours,
       declinationDeg: object.declinationDeg,
       timestampIso,
+      isAboveHorizon: horizontalCoordinates.isAboveHorizon,
+    }
+  })
+}
+
+export function computeObjectTrajectorySamples(
+  observer: SkyEngineObserver,
+  timestampIso: string,
+  object: SkyEngineSceneObject,
+  hourOffsets: readonly number[],
+): readonly SkyEngineTrajectorySample[] {
+  if (
+    object.source !== 'computed_real_sky' ||
+    object.rightAscensionHours == null ||
+    object.declinationDeg == null
+  ) {
+    return []
+  }
+
+  const rightAscensionHours = object.rightAscensionHours
+  const declinationDeg = object.declinationDeg
+
+  return hourOffsets.map((hourOffset) => {
+    const sampleTimestampIso = offsetTimestampByHours(timestampIso, hourOffset)
+    const horizontalCoordinates = computeHorizontalCoordinates(
+      observer,
+      sampleTimestampIso,
+      rightAscensionHours,
+      declinationDeg,
+    )
+
+    return {
+      timestampIso: sampleTimestampIso,
+      hourOffset,
+      altitudeDeg: horizontalCoordinates.altitudeDeg,
+      azimuthDeg: horizontalCoordinates.azimuthDeg,
       isAboveHorizon: horizontalCoordinates.isAboveHorizon,
     }
   })
