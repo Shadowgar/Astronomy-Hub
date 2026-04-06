@@ -26,8 +26,12 @@ interface SkyEngineSceneProps {
 
 interface RenderedObjectRefs {
   meshes: Mesh[]
-  material: StandardMaterial
+  markerMaterial: StandardMaterial
+  labelMaterial: StandardMaterial
   baseColor: Color3
+  object: SkyEngineSceneObject
+  markerBaseAlpha: number
+  labelBaseAlpha: number
 }
 
 const SKY_RADIUS = 120
@@ -84,6 +88,27 @@ function buildInitialViewTarget(objects: readonly SkyEngineSceneObject[]) {
   return total.scale(1 / targetObjects.length).normalize().scale(90)
 }
 
+function applyRenderedObjectState(refs: RenderedObjectRefs, selectedObjectId: string | null, sunState: SkyEngineSunState) {
+  const isSelected = refs.object.id === selectedObjectId
+  const isComputedStar = refs.object.source === 'computed_real_sky'
+  const markerVisibility = isComputedStar ? sunState.visualCalibration.starVisibility : 1
+  const labelVisibility = isComputedStar ? sunState.visualCalibration.starLabelVisibility : 1
+  const markerAlpha = refs.markerBaseAlpha * markerVisibility
+  const labelAlpha = refs.labelBaseAlpha * labelVisibility
+  const emissiveScale = isComputedStar ? 0.48 + markerVisibility * 0.76 : 1
+  const labelBrightness = isComputedStar ? 0.58 + labelVisibility * 0.42 : 1
+
+  refs.markerMaterial.alpha = Math.min(1, markerAlpha + (isSelected ? 0.24 : 0))
+  refs.labelMaterial.alpha = Math.min(1, labelAlpha + (isSelected ? 0.22 : 0))
+  refs.markerMaterial.emissiveColor = refs.baseColor.scale(isSelected ? 1.45 : emissiveScale)
+  refs.markerMaterial.diffuseColor = refs.baseColor.scale(isComputedStar ? 0.08 + markerVisibility * 0.18 : 0.22)
+  refs.labelMaterial.emissiveColor = new Color3(labelBrightness, labelBrightness, labelBrightness)
+
+  refs.meshes.forEach((mesh) => {
+    mesh.scaling.setAll(isSelected ? 1.35 : 1)
+  })
+}
+
 export default function SkyEngineScene({
   observer,
   objects,
@@ -99,6 +124,7 @@ export default function SkyEngineScene({
     const canvas = canvasRef.current
     if (!canvas) return undefined
 
+    const calibration = sunState.visualCalibration
     const engine = new Engine(canvas, true, {
       antialias: true,
       preserveDrawingBuffer: false,
@@ -123,7 +149,7 @@ export default function SkyEngineScene({
     const glowLayer = new GlowLayer('sky-engine-glow', scene, {
       blurKernelSize: 64,
     })
-    glowLayer.intensity = 0.8
+    glowLayer.intensity = 0.18 + calibration.starVisibility * 0.62
 
     const horizonRing = MeshBuilder.CreateTorus('sky-engine-horizon', {
       diameter: SKY_RADIUS * 1.6,
@@ -132,7 +158,7 @@ export default function SkyEngineScene({
     }, scene)
     horizonRing.rotation.x = Math.PI / 2
     const horizonMaterial = new StandardMaterial('sky-engine-horizon-material', scene)
-    horizonMaterial.emissiveColor = new Color3(0.21, 0.31, 0.47)
+    horizonMaterial.emissiveColor = Color3.FromHexString(calibration.horizonColorHex)
     horizonMaterial.alpha = 0.75
     horizonRing.material = horizonMaterial
 
@@ -165,7 +191,6 @@ export default function SkyEngineScene({
       markerMaterial.disableLighting = true
       markerMaterial.emissiveColor = Color3.FromHexString(object.colorHex)
       markerMaterial.diffuseColor = markerMaterial.emissiveColor.scale(0.22)
-      markerMaterial.alpha = object.source === 'temporary_scene_seed' ? 0.74 : 1
       marker.material = markerMaterial
 
       const label = MeshBuilder.CreatePlane(`sky-label-${object.id}`, {
@@ -183,14 +208,22 @@ export default function SkyEngineScene({
       labelMaterial.diffuseTexture = labelMaterial.opacityTexture
       labelMaterial.useAlphaFromDiffuseTexture = true
       labelMaterial.backFaceCulling = false
-      labelMaterial.alpha = object.source === 'temporary_scene_seed' ? 0.84 : 1
       label.material = labelMaterial
+
+      const markerBaseAlpha = object.source === 'temporary_scene_seed' ? 0.74 : 1
+      const labelBaseAlpha = object.source === 'temporary_scene_seed' ? 0.84 : 1
 
       renderedObjectRefs.current[object.id] = {
         meshes: [marker, label],
-        material: markerMaterial,
+        markerMaterial,
+        labelMaterial,
         baseColor: Color3.FromHexString(object.colorHex),
+        object,
+        markerBaseAlpha,
+        labelBaseAlpha,
       }
+
+      applyRenderedObjectState(renderedObjectRefs.current[object.id], selectedObjectId, sunState)
     })
 
     scene.onPointerDown = (_, pickInfo) => {
@@ -224,15 +257,10 @@ export default function SkyEngineScene({
   }, [objects, observer, onAtmosphereStatusChange, onSelectObject, sunState])
 
   useEffect(() => {
-    Object.entries(renderedObjectRefs.current).forEach(([objectId, refs]) => {
-      const isSelected = objectId === selectedObjectId
-      refs.material.emissiveColor = isSelected ? refs.baseColor.scale(1.3) : refs.baseColor.clone()
-
-      refs.meshes.forEach((mesh) => {
-        mesh.scaling.setAll(isSelected ? 1.35 : 1)
-      })
+    Object.values(renderedObjectRefs.current).forEach((refs) => {
+      applyRenderedObjectState(refs, selectedObjectId, sunState)
     })
-  }, [selectedObjectId])
+  }, [selectedObjectId, sunState])
 
   return <canvas ref={canvasRef} className="sky-engine-scene__canvas" aria-label="Sky Engine scene" />
 }

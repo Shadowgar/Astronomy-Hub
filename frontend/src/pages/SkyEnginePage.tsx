@@ -19,6 +19,10 @@ const INITIAL_ATMOSPHERE_STATUS: SkyEngineAtmosphereStatus = {
   message: 'Sky Engine scene is initializing.',
 }
 
+function phaseModifier(phaseLabel: string) {
+  return phaseLabel.toLowerCase().split(' ').join('-')
+}
+
 export default function SkyEnginePage() {
   const sceneTime = useSkyEngineSceneTime(SKY_ENGINE_SCENE_TIMESTAMP)
   const sunState = useMemo(
@@ -82,12 +86,27 @@ export default function SkyEnginePage() {
         <div className="sky-engine-page__overlay sky-engine-page__overlay--top-left">
           <section className="sky-engine-page__status-card" aria-label="Sky Engine status">
             <h2>Scene Status</h2>
+            <div className="sky-engine-page__scene-link">
+              <span className="sky-engine-page__scene-link-label">Scene-linked state</span>
+              <div className="sky-engine-page__scene-link-main">
+                <strong>{sceneTime.formattedSceneTimestamp}</strong>
+                <span
+                  className={`sky-engine-page__phase-pill sky-engine-page__phase-pill--${phaseModifier(sunState.phaseLabel)}`}
+                  data-phase={sunState.phaseLabel}
+                >
+                  {sunState.phaseLabel}
+                </span>
+              </div>
+            </div>
             <p>{atmosphereStatus.message}</p>
             <p>
-              Scene time: {sceneTime.formattedSceneTimestamp} · {computedVisibleObjects.length} computed stars rendered above the horizon.
+              {computedVisibleObjects.length} computed stars are currently rendered above the horizon for this timestamp.
             </p>
             <p>
               Sun state: {sunState.phaseLabel} · alt {sunState.altitudeDeg.toFixed(1)}° · az {sunState.azimuthDeg.toFixed(1)}° · {sunState.isAboveHorizon ? 'above horizon' : 'below horizon'}.
+            </p>
+            <p>
+              Star visibility: {Math.round(sunState.visualCalibration.starVisibility * 100)}% visual intensity. Directional light {sunState.visualCalibration.directionalLightIntensity.toFixed(2)} · ambient {sunState.visualCalibration.ambientLightIntensity.toFixed(2)}.
             </p>
             <p>Drag to orbit the camera. Scroll to tighten or widen the view. Click a rendered marker to inspect it.</p>
             {computedBelowHorizonObjects.length > 0 ? (

@@ -50,14 +50,33 @@ export interface SkyEngineDirectionVector {
   z: number
 }
 
+export type SkyEngineSunPhase = 'Daylight' | 'Low Sun' | 'Night'
+
+export interface SkyEngineVisualCalibration {
+  phaseLabel: SkyEngineSunPhase
+  directionalLightIntensity: number
+  ambientLightIntensity: number
+  directionalLightColorHex: string
+  ambientLightColorHex: string
+  backgroundColorHex: string
+  horizonColorHex: string
+  starVisibility: number
+  starLabelVisibility: number
+  atmosphereExposure: number
+  atmosphereAerialPerspectiveIntensity: number
+  atmosphereMultiScatteringIntensity: number
+  atmosphereMieScatteringScale: number
+}
+
 export interface SkyEngineSunState {
   altitudeDeg: number
   azimuthDeg: number
   isAboveHorizon: boolean
-  phaseLabel: 'Daylight' | 'Civil / low sun' | 'Night'
+  phaseLabel: SkyEngineSunPhase
   rightAscensionHours: number
   declinationDeg: number
   localSiderealTimeDeg: number
   skyDirection: SkyEngineDirectionVector
   lightDirection: SkyEngineDirectionVector
+  visualCalibration: SkyEngineVisualCalibration
 }

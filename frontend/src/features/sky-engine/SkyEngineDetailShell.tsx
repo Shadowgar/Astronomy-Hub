@@ -3,12 +3,12 @@ import React from 'react'
 import type { SkyEngineAtmosphereStatus, SkyEngineObserver, SkyEngineSceneObject, SkyEngineSunState } from './types'
 
 interface SkyEngineDetailShellProps {
-  observer: SkyEngineObserver
-  selectedObject: SkyEngineSceneObject | null
-  atmosphereStatus: SkyEngineAtmosphereStatus
-  sunState: SkyEngineSunState
-  sceneTimestampIso: string
-  onClearSelection: () => void
+  readonly observer: SkyEngineObserver
+  readonly selectedObject: SkyEngineSceneObject | null
+  readonly atmosphereStatus: SkyEngineAtmosphereStatus
+  readonly sunState: SkyEngineSunState
+  readonly sceneTimestampIso: string
+  readonly onClearSelection: () => void
 }
 
 function formatSignedDegrees(value: number) {
@@ -21,6 +21,90 @@ function formatRightAscension(value: number) {
 
 function formatTimestamp(timestampIso: string) {
   return new Date(timestampIso).toUTCString()
+}
+
+function phaseModifier(phaseLabel: SkyEngineSunState['phaseLabel']) {
+  return phaseLabel.toLowerCase().split(' ').join('-')
+}
+
+function renderSelectionSourceCoordinates(selectedObject: SkyEngineSceneObject) {
+  if (
+    selectedObject.source !== 'computed_real_sky' ||
+    selectedObject.rightAscensionHours == null ||
+    selectedObject.declinationDeg == null
+  ) {
+    return null
+  }
+
+  return (
+    <p className="sky-engine-detail-shell__hint">
+      Source coordinates: RA {formatRightAscension(selectedObject.rightAscensionHours)} · Dec {formatSignedDegrees(selectedObject.declinationDeg)}
+    </p>
+  )
+}
+
+function renderSelectionTruthNote(selectedObject: SkyEngineSceneObject) {
+  const truthDescription = selectedObject.source === 'computed_real_sky'
+    ? 'This object uses a real fixed-star RA/Dec to Alt/Az computation for the ORAS observer and explicit scene timestamp. The slice does not claim a full catalog or planetary ephemeris.'
+    : 'This object still uses temporary demo placement and is intentionally kept separate from the computed fixed-star set.'
+
+  return (
+    <section className="sky-engine-detail-shell__truth-note">
+      <h3>Truth Boundary</h3>
+      <p>{selectedObject.truthNote}</p>
+      <p>{truthDescription}</p>
+    </section>
+  )
+}
+
+function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
+  return (
+    <div className="sky-engine-detail-shell__body">
+      <div className="sky-engine-detail-shell__badge-row">
+        <span className="sky-engine-detail-shell__badge">{selectedObject.type}</span>
+        {selectedObject.constellation ? (
+          <span className="sky-engine-detail-shell__badge">{selectedObject.constellation}</span>
+        ) : null}
+        <span
+          className={`sky-engine-detail-shell__badge${selectedObject.source === 'temporary_scene_seed' ? ' sky-engine-detail-shell__badge--warning' : ' sky-engine-detail-shell__badge--real'}`}
+        >
+          {selectedObject.source === 'computed_real_sky' ? 'Computed real sky' : 'Temporary demo placement'}
+        </span>
+      </div>
+
+      <p className="sky-engine-detail-shell__summary">{selectedObject.summary}</p>
+      <p>{selectedObject.description}</p>
+      {renderSelectionSourceCoordinates(selectedObject)}
+
+      <dl className="sky-engine-detail-shell__facts">
+        <div>
+          <dt>Altitude</dt>
+          <dd>{selectedObject.altitudeDeg.toFixed(1)}°</dd>
+        </div>
+        <div>
+          <dt>Azimuth</dt>
+          <dd>{selectedObject.azimuthDeg.toFixed(1)}°</dd>
+        </div>
+        <div>
+          <dt>Magnitude</dt>
+          <dd>{selectedObject.magnitude.toFixed(2)}</dd>
+        </div>
+      </dl>
+
+      {renderSelectionTruthNote(selectedObject)}
+    </div>
+  )
+}
+
+function renderEmptySelectionBody() {
+  return (
+    <div className="sky-engine-detail-shell__body">
+      <p>Drag the scene to look around. Click a rendered marker to open a selection response.</p>
+      <p className="sky-engine-detail-shell__hint">
+        Computed stars and temporary demo objects are intentionally separated in this slice.
+      </p>
+    </div>
+  )
 }
 
 export default function SkyEngineDetailShell({
@@ -61,73 +145,23 @@ export default function SkyEngineDetailShell({
         <div>
           <span className="sky-engine-detail-shell__meta-label">Scene time</span>
           <strong>{formatTimestamp(sceneTimestampIso)}</strong>
-          <p>Computed objects move when this timestamp changes in code.</p>
+          <p>Lighting, atmosphere response, and star visibility all recalibrate from this timestamp.</p>
         </div>
         <div>
-          <span className="sky-engine-detail-shell__meta-label">Sun state</span>
-          <strong>{sunState.phaseLabel}</strong>
+          <span className="sky-engine-detail-shell__meta-label">Scene-linked sun state</span>
+          <strong className="sky-engine-detail-shell__phase-line">
+            <span className={`sky-engine-page__phase-pill sky-engine-page__phase-pill--${phaseModifier(sunState.phaseLabel)}`}>
+              {sunState.phaseLabel}
+            </span>
+            <span>{sunState.isAboveHorizon ? 'Above horizon' : 'Below horizon'}</span>
+          </strong>
           <p>
-            Alt {sunState.altitudeDeg.toFixed(1)}° · Az {sunState.azimuthDeg.toFixed(1)}° · {sunState.isAboveHorizon ? 'Above horizon' : 'Below horizon'}
+            Alt {sunState.altitudeDeg.toFixed(1)}° · Az {sunState.azimuthDeg.toFixed(1)}° · Star visibility {Math.round(sunState.visualCalibration.starVisibility * 100)}%
           </p>
         </div>
       </div>
 
-      {selectedObject ? (
-        <div className="sky-engine-detail-shell__body">
-          <div className="sky-engine-detail-shell__badge-row">
-            <span className="sky-engine-detail-shell__badge">{selectedObject.type}</span>
-            {selectedObject.constellation ? (
-              <span className="sky-engine-detail-shell__badge">{selectedObject.constellation}</span>
-            ) : null}
-            <span
-              className={`sky-engine-detail-shell__badge${selectedObject.source === 'temporary_scene_seed' ? ' sky-engine-detail-shell__badge--warning' : ' sky-engine-detail-shell__badge--real'}`}
-            >
-              {selectedObject.source === 'computed_real_sky' ? 'Computed real sky' : 'Temporary demo placement'}
-            </span>
-          </div>
-
-          <p className="sky-engine-detail-shell__summary">{selectedObject.summary}</p>
-          <p>{selectedObject.description}</p>
-
-          {selectedObject.source === 'computed_real_sky' && selectedObject.rightAscensionHours != null && selectedObject.declinationDeg != null ? (
-            <p className="sky-engine-detail-shell__hint">
-              Source coordinates: RA {formatRightAscension(selectedObject.rightAscensionHours)} · Dec {formatSignedDegrees(selectedObject.declinationDeg)}
-            </p>
-          ) : null}
-
-          <dl className="sky-engine-detail-shell__facts">
-            <div>
-              <dt>Altitude</dt>
-              <dd>{selectedObject.altitudeDeg.toFixed(1)}°</dd>
-            </div>
-            <div>
-              <dt>Azimuth</dt>
-              <dd>{selectedObject.azimuthDeg.toFixed(1)}°</dd>
-            </div>
-            <div>
-              <dt>Magnitude</dt>
-              <dd>{selectedObject.magnitude.toFixed(2)}</dd>
-            </div>
-          </dl>
-
-          <section className="sky-engine-detail-shell__truth-note">
-            <h3>Truth Boundary</h3>
-            <p>{selectedObject.truthNote}</p>
-            <p>
-              {selectedObject.source === 'computed_real_sky'
-                ? 'This object uses a real fixed-star RA/Dec to Alt/Az computation for the ORAS observer and explicit scene timestamp. The slice does not claim a full catalog or planetary ephemeris.'
-                : 'This object still uses temporary demo placement and is intentionally kept separate from the computed fixed-star set.'}
-            </p>
-          </section>
-        </div>
-      ) : (
-        <div className="sky-engine-detail-shell__body">
-          <p>Drag the scene to look around. Click a rendered marker to open a selection response.</p>
-          <p className="sky-engine-detail-shell__hint">
-            Computed stars and temporary demo objects are intentionally separated in this slice.
-          </p>
-        </div>
-      )}
+      {selectedObject ? renderSelectionBody(selectedObject) : renderEmptySelectionBody()}
     </aside>
   )
 }
