@@ -28,6 +28,22 @@ function getPlaybackButtonLabel(playbackValue: number, isPlaying: boolean, label
   return label
 }
 
+function formatDisplayedFov(fovDegrees: number) {
+  if (fovDegrees >= 100) {
+    return `${fovDegrees.toFixed(0)}°`
+  }
+
+  if (fovDegrees >= 10) {
+    return `${fovDegrees.toFixed(1)}°`
+  }
+
+  if (fovDegrees >= 1) {
+    return `${fovDegrees.toFixed(2)}°`
+  }
+
+  return `${fovDegrees.toFixed(4)}°`
+}
+
 export default function SkyEnginePage() {
   const sceneTime = useSkyEngineSceneTime(SKY_ENGINE_SCENE_TIMESTAMP)
   const [searchQuery, setSearchQuery] = useState('')
@@ -196,7 +212,7 @@ export default function SkyEnginePage() {
             <div className="sky-engine-page__top-bar-meta">
               <div className="sky-engine-page__status-pill">
                 <span className="sky-engine-page__top-bar-label">FOV</span>
-                <strong>{viewFovDegrees.toFixed(1)}°</strong>
+                <strong>{formatDisplayedFov(viewFovDegrees)}</strong>
               </div>
               <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                 <span className="sky-engine-page__top-bar-label">Target</span>

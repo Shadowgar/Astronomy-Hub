@@ -121,7 +121,7 @@ function createStarEntry(scene: Scene, object: SkyEngineSceneObject, starProfile
 export function createStarRenderer(scene: Scene): SkyObjectRenderer {
   const entries = new Map<string, StarRenderEntry>()
   const syntheticTexture = buildSharedSyntheticTexture()
-  const syntheticSamples = buildSyntheticStarField(720)
+  const syntheticSamples = buildSyntheticStarField(1800)
   const syntheticEntries = syntheticSamples.map((sample) => {
     const marker = MeshBuilder.CreatePlane(`sky-engine-synthetic-star-${sample.id}`, { width: 1, height: 1 }, scene)
     marker.billboardMode = Mesh.BILLBOARDMODE_ALL
@@ -217,9 +217,9 @@ export function createStarRenderer(scene: Scene): SkyObjectRenderer {
         }
 
         const twinkle = 1 + Math.sin(animationTime * 0.8 + entry.twinklePhase) * sunState.visualCalibration.starTwinkleAmplitude * 0.7
-        const scale = entry.size * (0.86 + lod.closeBlend * 0.3) * twinkle
+        const scale = entry.size * (1.08 + lod.mediumBlend * 0.2 + lod.closeBlend * 0.34) * twinkle
         entry.marker.scaling.set(scale, scale, 1)
-        entry.markerMaterial.alpha = entry.alpha * sunState.visualCalibration.starFieldBrightness * (0.32 + lod.mediumBlend * 0.32 + lod.closeBlend * 0.52)
+        entry.markerMaterial.alpha = entry.alpha * sunState.visualCalibration.starFieldBrightness * (0.5 + lod.mediumBlend * 0.28 + lod.closeBlend * 0.46)
       })
     },
 

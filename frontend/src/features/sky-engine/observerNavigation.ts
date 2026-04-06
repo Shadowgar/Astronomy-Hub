@@ -4,9 +4,14 @@ import { Scene } from '@babylonjs/core/scene'
 
 import type { SkyEngineSceneObject } from './types'
 
-export const SKY_ENGINE_MIN_FOV = 0.58
-export const SKY_ENGINE_MAX_FOV = 1.18
-const SKY_ENGINE_FOV_STEP = 0.04
+const DEGREE = Math.PI / 180
+const STELLARIUM_MIN_FOV_DEGREES = 0.000278
+const BABYLON_SAFE_MAX_FOV_DEGREES = 175
+
+export const SKY_ENGINE_MIN_FOV = STELLARIUM_MIN_FOV_DEGREES * DEGREE
+export const SKY_ENGINE_MAX_FOV = BABYLON_SAFE_MAX_FOV_DEGREES * DEGREE
+const SKY_ENGINE_WHEEL_ZOOM_FACTOR = 1.05
+const SKY_ENGINE_DEFAULT_FOV = 120 * DEGREE
 
 function toSkyPosition(altitudeDeg: number, azimuthDeg: number, radius: number) {
   const altitude = (altitudeDeg * Math.PI) / 180
@@ -45,7 +50,15 @@ export function clampSkyEngineFov(fov: number) {
 }
 
 export function stepSkyEngineFov(currentFov: number, deltaY: number) {
-  return clampSkyEngineFov(currentFov + Math.sign(deltaY) * SKY_ENGINE_FOV_STEP)
+  if (deltaY === 0) {
+    return clampSkyEngineFov(currentFov)
+  }
+
+  const wheelDirection = Math.sign(deltaY)
+  const zoomExponent = Math.max(1, Math.abs(deltaY) / 120) * 2
+  const zoomScale = Math.pow(SKY_ENGINE_WHEEL_ZOOM_FACTOR, wheelDirection * zoomExponent)
+
+  return clampSkyEngineFov(currentFov * zoomScale)
 }
 
 export function getSkyEngineFovDegrees(fovRadians: number) {
@@ -162,22 +175,10 @@ export function getSelectionTargetVector(object: SkyEngineSceneObject) {
 
 export function getDesiredFovForObject(object: SkyEngineSceneObject | null) {
   if (!object) {
-    return 1.14
+    return SKY_ENGINE_DEFAULT_FOV
   }
 
-  if (object.type === 'moon') {
-    return 0.74
-  }
-
-  if (object.type === 'deep_sky') {
-    return 0.94
-  }
-
-  if (object.type === 'planet') {
-    return 0.8
-  }
-
-  return 0.94
+  return Number.NaN
 }
 
 export function updateObserverNavigation(

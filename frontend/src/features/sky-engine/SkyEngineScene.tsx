@@ -176,8 +176,8 @@ function syncNavigationState(runtime: SceneRuntimeRefs, objects: readonly SkyEng
     runtime.targetVector = runtime.homeVector.clone()
   }
 
-  if (selectionChanged) {
-    runtime.desiredFov = getDesiredFovForObject(selectedObject)
+  if (selectionChanged && !selectedObject) {
+    runtime.desiredFov = getDesiredFovForObject(null)
   }
 }
 

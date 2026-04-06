@@ -23,8 +23,8 @@ function smoothstep(edge0: number, edge1: number, value: number) {
 
 export function resolveSkyLodState(fovRadians: number): SkyLodState {
   const fovDegrees = (fovRadians * 180) / Math.PI
-  const wideBlend = smoothstep(50, 62, fovDegrees)
-  const closeBlend = 1 - smoothstep(34, 44, fovDegrees)
+  const wideBlend = smoothstep(85, 132, fovDegrees)
+  const closeBlend = 1 - smoothstep(4, 16, fovDegrees)
   const mediumBlend = clamp01(1 - Math.max(wideBlend, closeBlend) * 0.92)
 
   let tier: SkyLodTier = 'medium'
@@ -41,8 +41,8 @@ export function resolveSkyLodState(fovRadians: number): SkyLodState {
     wideBlend,
     mediumBlend,
     closeBlend,
-    labelCap: Math.round(4 * wideBlend + 7 * mediumBlend + 10 * closeBlend),
-    syntheticStarCount: Math.round(90 * wideBlend + 260 * mediumBlend + 540 * closeBlend),
+    labelCap: Math.round(3 * wideBlend + 7 * mediumBlend + 11 * closeBlend),
+    syntheticStarCount: Math.round(260 * wideBlend + 760 * mediumBlend + 1400 * closeBlend),
   }
 }
 
