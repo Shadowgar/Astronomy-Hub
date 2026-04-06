@@ -1,10 +1,23 @@
-export type SkyEngineSeedSource = 'temporary_scene_seed'
+export type SkyEngineObjectSource = 'computed_real_sky' | 'temporary_scene_seed'
 
 export interface SkyEngineObserver {
   label: string
   latitude: number
   longitude: number
   elevationFt: number
+}
+
+export interface SkyEngineCelestialSourceObject {
+  id: string
+  name: string
+  type: 'star'
+  rightAscensionHours: number
+  declinationDeg: number
+  magnitude: number
+  colorHex: string
+  summary: string
+  description: string
+  constellation?: string
 }
 
 export interface SkyEngineSceneObject {
@@ -18,8 +31,12 @@ export interface SkyEngineSceneObject {
   summary: string
   description: string
   constellation?: string
-  seededReason: string
-  source: SkyEngineSeedSource
+  truthNote: string
+  source: SkyEngineObjectSource
+  rightAscensionHours?: number
+  declinationDeg?: number
+  timestampIso?: string
+  isAboveHorizon: boolean
 }
 
 export interface SkyEngineAtmosphereStatus {

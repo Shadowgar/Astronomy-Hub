@@ -1,0 +1,29 @@
+import { describe, expect, it } from 'vitest'
+
+import { computeHorizontalCoordinates, computeRealSkySceneObjects } from '../src/features/sky-engine/astronomy.ts'
+import { SKY_ENGINE_REAL_SKY_STARTERS, SKY_ENGINE_SCENE_TIMESTAMP } from '../src/features/sky-engine/realSkyCatalog.ts'
+import { ORAS_OBSERVER } from '../src/features/sky-engine/sceneSeed.ts'
+
+describe('Sky Engine astronomy helpers', () => {
+  it('renders at least three computed starter objects above the horizon for the scene timestamp', () => {
+    const objects = computeRealSkySceneObjects(ORAS_OBSERVER, SKY_ENGINE_SCENE_TIMESTAMP, SKY_ENGINE_REAL_SKY_STARTERS)
+    const visibleObjects = objects.filter((object) => object.isAboveHorizon)
+
+    expect(visibleObjects.length).toBeGreaterThanOrEqual(3)
+    expect(visibleObjects.map((object) => object.name)).toContain('Vega')
+    expect(visibleObjects.map((object) => object.name)).toContain('Deneb')
+    expect(visibleObjects.every((object) => object.source === 'computed_real_sky')).toBe(true)
+  })
+
+  it('changes computed coordinates when the timestamp changes', () => {
+    const vega = SKY_ENGINE_REAL_SKY_STARTERS.find((object) => object.name === 'Vega')
+
+    expect(vega).toBeTruthy()
+
+    const early = computeHorizontalCoordinates(ORAS_OBSERVER, '2026-07-15T01:00:00.000Z', vega.rightAscensionHours, vega.declinationDeg)
+    const later = computeHorizontalCoordinates(ORAS_OBSERVER, '2026-07-15T05:00:00.000Z', vega.rightAscensionHours, vega.declinationDeg)
+
+    expect(Math.abs(early.altitudeDeg - later.altitudeDeg)).toBeGreaterThan(1)
+    expect(Math.abs(early.azimuthDeg - later.azimuthDeg)).toBeGreaterThan(1)
+  })
+})

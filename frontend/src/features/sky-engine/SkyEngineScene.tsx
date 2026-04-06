@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
-import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera'
+import { UniversalCamera } from '@babylonjs/core/Cameras/universalCamera'
 import '@babylonjs/core/Culling/ray'
 import { Engine } from '@babylonjs/core/Engines/engine'
 import { GlowLayer } from '@babylonjs/core/Layers/glowLayer'
@@ -65,6 +65,24 @@ function buildLabelTexture(text: string) {
   return texture
 }
 
+function buildInitialViewTarget(objects: readonly SkyEngineSceneObject[]) {
+  const preferredObjects = objects.filter(
+    (object) => object.source === 'computed_real_sky' && object.isAboveHorizon,
+  )
+  const targetObjects = preferredObjects.length > 0 ? preferredObjects : objects.filter((object) => object.isAboveHorizon)
+
+  if (targetObjects.length === 0) {
+    return new Vector3(0, 28, 90)
+  }
+
+  const total = targetObjects.reduce((accumulator, object) => {
+    const direction = toSkyPosition(object.altitudeDeg, object.azimuthDeg, 1)
+    return accumulator.add(direction)
+  }, Vector3.Zero())
+
+  return total.scale(1 / targetObjects.length).normalize().scale(90)
+}
+
 export default function SkyEngineScene({
   observer,
   objects,
@@ -87,15 +105,15 @@ export default function SkyEngineScene({
     const scene = new Scene(engine)
     scene.clearColor = new Color4(0.015, 0.024, 0.052, 1)
 
-    const camera = new ArcRotateCamera('sky-engine-camera', -Math.PI / 2, Math.PI / 2.1, 0.12, Vector3.Zero(), scene)
+    const camera = new UniversalCamera('sky-engine-camera', Vector3.Zero(), scene)
+    camera.setTarget(buildInitialViewTarget(objects))
     camera.attachControl(canvas, true)
-    camera.lowerRadiusLimit = 0.05
-    camera.upperRadiusLimit = 0.24
-    camera.panningSensibility = 0
-    camera.wheelPrecision = 40
-    camera.pinchPrecision = 20
-    camera.minZ = 0.001
-    camera.fov = 1.18
+    camera.inputs.attached.keyboard?.detachControl()
+    camera.angularSensibility = 2400
+    camera.speed = 0
+    camera.minZ = 0.1
+    camera.maxZ = SKY_RADIUS * 2
+    camera.fov = 1.02
 
     const atmosphere = setupSkyAtmosphere(scene, camera)
     onAtmosphereStatusChange(atmosphere.status)
@@ -126,6 +144,12 @@ export default function SkyEngineScene({
         markerDiameter = 3.8
       } else if (object.type === 'deep_sky') {
         markerDiameter = 3.2
+      } else if (object.source === 'computed_real_sky') {
+        markerDiameter = 4.2
+      }
+
+      if (object.source === 'temporary_scene_seed') {
+        markerDiameter -= 0.35
       }
 
       const marker = MeshBuilder.CreateSphere(`sky-object-${object.id}`, {
@@ -139,10 +163,11 @@ export default function SkyEngineScene({
       markerMaterial.disableLighting = true
       markerMaterial.emissiveColor = Color3.FromHexString(object.colorHex)
       markerMaterial.diffuseColor = markerMaterial.emissiveColor.scale(0.22)
+      markerMaterial.alpha = object.source === 'temporary_scene_seed' ? 0.74 : 1
       marker.material = markerMaterial
 
       const label = MeshBuilder.CreatePlane(`sky-label-${object.id}`, {
-        width: LABEL_SIZE,
+        width: object.source === 'computed_real_sky' ? LABEL_SIZE * 1.15 : LABEL_SIZE,
         height: LABEL_SIZE * 0.3,
       }, scene)
       label.position = position.add(new Vector3(0, 4.6, 0))
@@ -156,6 +181,7 @@ export default function SkyEngineScene({
       labelMaterial.diffuseTexture = labelMaterial.opacityTexture
       labelMaterial.useAlphaFromDiffuseTexture = true
       labelMaterial.backFaceCulling = false
+      labelMaterial.alpha = object.source === 'temporary_scene_seed' ? 0.84 : 1
       label.material = labelMaterial
 
       renderedObjectRefs.current[object.id] = {
@@ -170,7 +196,13 @@ export default function SkyEngineScene({
       onSelectObject(typeof objectId === 'string' ? objectId : null)
     }
 
+    const handleWheel = (event: WheelEvent) => {
+      event.preventDefault()
+      camera.fov = Math.min(1.22, Math.max(0.56, camera.fov + Math.sign(event.deltaY) * 0.045))
+    }
+
     const handleResize = () => engine.resize()
+    canvas.addEventListener('wheel', handleWheel, { passive: false })
     globalThis.addEventListener('resize', handleResize)
 
     engine.runRenderLoop(() => {
@@ -178,6 +210,7 @@ export default function SkyEngineScene({
     })
 
     return () => {
+      canvas.removeEventListener('wheel', handleWheel)
       globalThis.removeEventListener('resize', handleResize)
       glowLayer.dispose()
       horizonMaterial.dispose()

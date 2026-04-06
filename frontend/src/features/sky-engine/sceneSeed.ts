@@ -9,36 +9,6 @@ export const ORAS_OBSERVER: SkyEngineObserver = {
 
 export const SKY_ENGINE_TEMPORARY_SCENE_SEED: readonly SkyEngineSceneObject[] = [
   {
-    id: 'sky-seed-vega',
-    name: 'Vega',
-    type: 'star',
-    altitudeDeg: 67,
-    azimuthDeg: 82,
-    magnitude: 0.03,
-    colorHex: '#8ec5ff',
-    summary: 'Bright summer anchor rendered from temporary scene-seed data.',
-    description:
-      'Vega is used here as a visible interaction target while the first Babylon Sky Engine foundation is being established.',
-    constellation: 'Lyra',
-    seededReason: 'Temporary scene-seed data for first Babylon Sky Engine interaction slice.',
-    source: 'temporary_scene_seed',
-  },
-  {
-    id: 'sky-seed-deneb',
-    name: 'Deneb',
-    type: 'star',
-    altitudeDeg: 54,
-    azimuthDeg: 28,
-    magnitude: 1.25,
-    colorHex: '#d6e7ff',
-    summary: 'Second seed target used to test object picking and detail response.',
-    description:
-      'Deneb gives the initial scene more than one selectable object without claiming live astronomical accuracy.',
-    constellation: 'Cygnus',
-    seededReason: 'Temporary scene-seed data for first Babylon Sky Engine interaction slice.',
-    source: 'temporary_scene_seed',
-  },
-  {
     id: 'sky-seed-jupiter',
     name: 'Jupiter',
     type: 'planet',
@@ -48,9 +18,10 @@ export const SKY_ENGINE_TEMPORARY_SCENE_SEED: readonly SkyEngineSceneObject[] = 
     colorHex: '#ffd38a',
     summary: 'Seeded bright planet marker for the initial Babylon sky layout.',
     description:
-      'Jupiter is rendered as a temporary bright planet marker to validate scene ownership, camera interaction, and selection flow.',
-    seededReason: 'Temporary scene-seed data for first Babylon Sky Engine interaction slice.',
+      'Jupiter remains a temporary bright planet marker while this slice upgrades only a tiny fixed-star starter set to computed sky placement.',
+    truthNote: 'Temporary demo placement retained to keep non-computed objects explicitly visible and honestly labeled.',
     source: 'temporary_scene_seed',
+    isAboveHorizon: true,
   },
   {
     id: 'sky-seed-andromeda',
@@ -64,7 +35,8 @@ export const SKY_ENGINE_TEMPORARY_SCENE_SEED: readonly SkyEngineSceneObject[] = 
     description:
       'This deep-sky marker is intentionally labeled as temporary scene-seed data and exists to prove selection and detail-shell flow.',
     constellation: 'Andromeda',
-    seededReason: 'Temporary scene-seed data for first Babylon Sky Engine interaction slice.',
+    truthNote: 'Temporary demo placement retained so remaining non-computed objects are not mixed silently with real-sky stars.',
     source: 'temporary_scene_seed',
+    isAboveHorizon: true,
   },
 ] as const
