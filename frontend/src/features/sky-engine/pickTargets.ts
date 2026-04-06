@@ -33,6 +33,10 @@ export function buildSkyEnginePickTargets(
   entries: readonly PickTargetMeshEntry[],
 ): SkyEnginePickTarget[] {
   const viewport = camera.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight())
+  const viewportMinX = viewport.x
+  const viewportMinY = viewport.y
+  const viewportMaxX = viewport.x + viewport.width
+  const viewportMaxY = viewport.y + viewport.height
 
   return entries.flatMap((entry) => {
     const projected = Vector3.Project(
@@ -43,6 +47,10 @@ export function buildSkyEnginePickTargets(
     )
 
     if (projected.z < 0 || projected.z > 1) {
+      return []
+    }
+
+    if (projected.x < viewportMinX || projected.x > viewportMaxX || projected.y < viewportMinY || projected.y > viewportMaxY) {
       return []
     }
 

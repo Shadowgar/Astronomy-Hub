@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 
 import { computeRealSkySceneObjects } from '../features/sky-engine/astronomy'
@@ -14,13 +14,7 @@ import { computeSunState } from '../features/sky-engine/solar'
 import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
 import SkyEngineScene from '../features/sky-engine/SkyEngineScene'
 import { ORAS_OBSERVER, SKY_ENGINE_TEMPORARY_SCENE_SEED } from '../features/sky-engine/sceneSeed'
-import type { SkyEngineAtmosphereStatus } from '../features/sky-engine/types'
 import { useSkyEngineSelection } from '../features/sky-engine/useSkyEngineSelection'
-
-const INITIAL_ATMOSPHERE_STATUS: SkyEngineAtmosphereStatus = {
-  mode: 'fallback',
-  message: 'Sky Engine scene is initializing.',
-}
 
 function phaseModifier(phaseLabel: string) {
   return phaseLabel.toLowerCase().split(' ').join('-')
@@ -40,20 +34,17 @@ export default function SkyEnginePage() {
     () => computedSceneObjects.filter((object) => object.isAboveHorizon),
     [computedSceneObjects],
   )
-  const computedBelowHorizonObjects = useMemo(
-    () => computedSceneObjects.filter((object) => !object.isAboveHorizon),
-    [computedSceneObjects],
-  )
   const sceneObjects = useMemo(
     () => [...computedVisibleObjects, ...SKY_ENGINE_TEMPORARY_SCENE_SEED],
     [computedVisibleObjects],
   )
   const selection = useSkyEngineSelection(sceneObjects)
-  const [atmosphereStatus, setAtmosphereStatus] = useState<SkyEngineAtmosphereStatus>(INITIAL_ATMOSPHERE_STATUS)
   const visibleTargets = useMemo(
     () => [...computedVisibleObjects, ...SKY_ENGINE_TEMPORARY_SCENE_SEED],
     [computedVisibleObjects],
   )
+  const selectedTargetName = selection.selectedObject?.name ?? 'Ready to inspect'
+  const handleAtmosphereStatusChange = useCallback(() => undefined, [])
 
   return (
     <div className="sky-engine-page sky-engine-page--immersive">
@@ -64,7 +55,7 @@ export default function SkyEnginePage() {
           sunState={sunState}
           selectedObjectId={selection.selectedObjectId}
           onSelectObject={selection.selectObject}
-          onAtmosphereStatusChange={setAtmosphereStatus}
+          onAtmosphereStatusChange={handleAtmosphereStatusChange}
         />
 
         <div className="sky-engine-page__overlay sky-engine-page__overlay--top-bar">
@@ -112,7 +103,7 @@ export default function SkyEnginePage() {
               <div className="sky-engine-page__bottom-hud-stats">
                 <span>{computedVisibleObjects.length} visible stars</span>
                 <span>{sunState.isAboveHorizon ? 'Sun above horizon' : 'Sun below horizon'}</span>
-                <span>{Math.round(sunState.visualCalibration.starVisibility * 100)}% star visibility</span>
+                <span>{selectedTargetName}</span>
               </div>
             </div>
 

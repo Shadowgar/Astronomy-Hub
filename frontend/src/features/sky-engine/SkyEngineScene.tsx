@@ -40,11 +40,14 @@ interface RenderedObjectRefs {
   markerMaterial: StandardMaterial
   labelMaterial: StandardMaterial
   selectionMaterial: StandardMaterial
+  labelTexture: DynamicTexture
+  selectedLabelTexture: DynamicTexture
   baseColor: Color3
   object: SkyEngineSceneObject
   markerBaseAlpha: number
   labelBaseAlpha: number
   pickRadiusPx: number
+  twinklePhase: number
 }
 
 interface SceneRuntimeRefs {
@@ -54,15 +57,18 @@ interface SceneRuntimeRefs {
   canvas: HTMLCanvasElement
   trajectoryMesh: Mesh | null
   trajectoryMarkers: Mesh[]
-  groundTextureMode: 'imgp0911.jpg_tiled' | 'procedural_dry_grass_reference'
+  groundTextureMode: 'oras-grass.jpg_tiled'
+  groundTextureAssetPath: string
+  desiredFov: number
+  targetVector: Vector3 | null
 }
 
 const SKY_RADIUS = 120
 const HORIZON_RADIUS = SKY_RADIUS * 0.92
-const LABEL_WIDTH = 13.5
-const LABEL_HEIGHT = 3.7
+const LABEL_WIDTH = 11.2
+const LABEL_HEIGHT = 3.15
 const SKY_ENGINE_SCENE_STATE_ATTRIBUTE = 'data-sky-engine-scene-state'
-const SKY_ENGINE_GROUND_TEXTURE_URL = '/sky-engine-assets/imgp0911.jpg'
+const SKY_ENGINE_GROUND_TEXTURE_URL = '/sky-engine-assets/oras-grass.jpg'
 const TRAJECTORY_HOUR_OFFSETS = Array.from({ length: 25 }, (_, index) => index - 12)
 const CARDINAL_MARKERS = [
   { label: 'N', azimuthDeg: 0 },
@@ -71,6 +77,8 @@ const CARDINAL_MARKERS = [
   { label: 'W', azimuthDeg: 270 },
 ] as const
 const MAX_PRIORITY_STAR_LABELS = 3
+
+type LabelVariant = 'cardinal' | 'priority' | 'selected' | 'temporary'
 
 function toSkyPosition(altitudeDeg: number, azimuthDeg: number, radius: number) {
   const altitude = (altitudeDeg * Math.PI) / 180
@@ -84,101 +92,95 @@ function toSkyPosition(altitudeDeg: number, azimuthDeg: number, radius: number) 
   )
 }
 
-function buildLabelTexture(text: string, emphasized = false) {
+function buildLabelTexture(text: string, variant: LabelVariant = 'priority') {
   const texture = new DynamicTexture(`sky-engine-label-${text}`, { width: 512, height: 128 }, undefined, true)
   texture.hasAlpha = true
 
   const context = texture.getContext() as CanvasRenderingContext2D
+  const isSelected = variant === 'selected'
+  const isTemporary = variant === 'temporary'
+  const isCardinal = variant === 'cardinal'
+  let background = 'rgba(6, 12, 22, 0.74)'
+  let stroke = 'rgba(112, 164, 215, 0.56)'
+
+  if (isSelected) {
+    background = 'rgba(7, 15, 24, 0.98)'
+    stroke = 'rgba(226, 242, 255, 0.98)'
+  } else if (isCardinal) {
+    background = 'rgba(6, 12, 22, 0.84)'
+    stroke = 'rgba(120, 181, 239, 0.72)'
+  } else if (isTemporary) {
+    background = 'rgba(32, 24, 11, 0.82)'
+    stroke = 'rgba(230, 186, 122, 0.72)'
+  }
+
   context.clearRect(0, 0, 512, 128)
-  context.fillStyle = emphasized ? 'rgba(6, 12, 22, 0.94)' : 'rgba(6, 12, 22, 0.72)'
+  context.fillStyle = background
   context.beginPath()
-  context.roundRect(10, 18, 492, 92, 28)
+  context.roundRect(14, 20, 484, 88, isSelected ? 32 : 26)
   context.fill()
-  context.strokeStyle = emphasized ? 'rgba(206, 233, 255, 0.85)' : 'rgba(112, 164, 215, 0.5)'
-  context.lineWidth = emphasized ? 4 : 2
+  context.strokeStyle = stroke
+  context.lineWidth = isSelected ? 4.5 : 2
   context.stroke()
   context.fillStyle = '#eff8ff'
-  context.font = emphasized ? '600 44px sans-serif' : '600 40px sans-serif'
+  context.font = isSelected ? '600 42px sans-serif' : '600 36px sans-serif'
   context.textAlign = 'center'
   context.textBaseline = 'middle'
   context.shadowColor = 'rgba(0, 0, 0, 0.55)'
-  context.shadowBlur = emphasized ? 12 : 8
+  context.shadowBlur = isSelected ? 14 : 7
   context.fillText(text, 256, 64)
   texture.update()
 
   return texture
 }
 
-function buildSpriteTexture(name: string, edgeAlpha: number) {
-  const texture = new DynamicTexture(name, { width: 64, height: 64 }, undefined, true)
+function buildStarPointTexture(name: string) {
+  const texture = new DynamicTexture(name, { width: 48, height: 48 }, undefined, true)
   texture.hasAlpha = true
 
   const context = texture.getContext() as CanvasRenderingContext2D
-  context.clearRect(0, 0, 64, 64)
+  context.clearRect(0, 0, 48, 48)
 
-  const halo = context.createRadialGradient(32, 32, 1.5, 32, 32, 18)
+  const halo = context.createRadialGradient(24, 24, 0.75, 24, 24, 6)
   halo.addColorStop(0, 'rgba(255,255,255,1)')
-  halo.addColorStop(0.18, 'rgba(255,255,255,0.98)')
-  halo.addColorStop(0.28, 'rgba(255,255,255,0.64)')
-  halo.addColorStop(0.62, `rgba(255,255,255,${edgeAlpha})`)
+  halo.addColorStop(0.18, 'rgba(255,255,255,0.96)')
+  halo.addColorStop(0.34, 'rgba(255,255,255,0.34)')
+  halo.addColorStop(0.72, 'rgba(255,255,255,0.08)')
   halo.addColorStop(1, 'rgba(255,255,255,0)')
 
   context.fillStyle = halo
   context.beginPath()
-  context.arc(32, 32, 18, 0, Math.PI * 2)
+  context.arc(24, 24, 6, 0, Math.PI * 2)
   context.fill()
 
   context.fillStyle = 'rgba(255,255,255,1)'
   context.beginPath()
-  context.arc(32, 32, 2.2, 0, Math.PI * 2)
+  context.arc(24, 24, 1.35, 0, Math.PI * 2)
   context.fill()
   texture.update()
 
   return texture
 }
 
-function buildProceduralGroundTexture(name: string, tileScale: number) {
-  const texture = new DynamicTexture(name, { width: 512, height: 512 }, undefined, false)
-  texture.hasAlpha = false
+function buildMarkerTexture(name: string) {
+  const texture = new DynamicTexture(name, { width: 64, height: 64 }, undefined, true)
+  texture.hasAlpha = true
 
   const context = texture.getContext() as CanvasRenderingContext2D
-  context.clearRect(0, 0, 512, 512)
-  context.fillStyle = '#4a4132'
-  context.fillRect(0, 0, 512, 512)
+  context.clearRect(0, 0, 64, 64)
 
-  const grassPalette = ['#6f6550', '#8f7a57', '#9b8760', '#4d5840', '#72623d', '#b89f78']
+  const halo = context.createRadialGradient(32, 32, 2.5, 32, 32, 18)
+  halo.addColorStop(0, 'rgba(255,255,255,1)')
+  halo.addColorStop(0.2, 'rgba(255,255,255,0.96)')
+  halo.addColorStop(0.42, 'rgba(255,255,255,0.54)')
+  halo.addColorStop(0.78, 'rgba(255,255,255,0.12)')
+  halo.addColorStop(1, 'rgba(255,255,255,0)')
 
-  for (let index = 0; index < 1400; index += 1) {
-    const startX = (index * 73) % 512
-    const startY = (index * 29) % 512
-    const length = 8 + (index % 16)
-    const angle = ((index % 11) - 5) * 0.18
-
-    context.strokeStyle = grassPalette[index % grassPalette.length]
-    context.lineWidth = 1 + (index % 3) * 0.4
-    context.beginPath()
-    context.moveTo(startX, startY)
-    context.lineTo(startX + Math.cos(angle) * length, startY + Math.sin(angle) * length)
-    context.stroke()
-  }
-
-  for (let index = 0; index < 180; index += 1) {
-    const x = (index * 41) % 512
-    const y = (index * 97) % 512
-    const radius = 1 + (index % 3)
-
-    context.fillStyle = ['rgba(33, 42, 26, 0.18)', 'rgba(177, 152, 108, 0.18)', 'rgba(93, 80, 56, 0.15)'][index % 3]
-    context.beginPath()
-    context.arc(x, y, radius, 0, Math.PI * 2)
-    context.fill()
-  }
-
+  context.fillStyle = halo
+  context.beginPath()
+  context.arc(32, 32, 18, 0, Math.PI * 2)
+  context.fill()
   texture.update()
-  texture.wrapU = Texture.WRAP_ADDRESSMODE
-  texture.wrapV = Texture.WRAP_ADDRESSMODE
-  texture.name = name
-  texture.uScale = tileScale
-  texture.vScale = tileScale
 
   return texture
 }
@@ -191,6 +193,50 @@ function buildAssetGroundTexture(scene: Scene, name: string, tileScale: number) 
   texture.name = name
   texture.uScale = tileScale
   texture.vScale = tileScale
+  texture.level = 0.96
+
+  return texture
+}
+
+function buildRadialBandTexture(name: string, colorHex: string, alpha = 0.42) {
+  const texture = new DynamicTexture(name, { width: 1024, height: 1024 }, undefined, true)
+  texture.hasAlpha = true
+
+  const context = texture.getContext() as CanvasRenderingContext2D
+  const color = Color3.FromHexString(colorHex)
+  const [red, green, blue] = [color.r, color.g, color.b].map((channel) => Math.round(channel * 255))
+  const gradient = context.createRadialGradient(512, 512, 280, 512, 512, 512)
+
+  gradient.addColorStop(0, 'rgba(0, 0, 0, 0)')
+  gradient.addColorStop(0.56, 'rgba(0, 0, 0, 0)')
+  gradient.addColorStop(0.78, `rgba(${red}, ${green}, ${blue}, ${alpha * 0.2})`)
+  gradient.addColorStop(0.92, `rgba(${red}, ${green}, ${blue}, ${alpha})`)
+  gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
+
+  context.clearRect(0, 0, 1024, 1024)
+  context.fillStyle = gradient
+  context.fillRect(0, 0, 1024, 1024)
+  texture.update()
+
+  return texture
+}
+
+function buildGroundDepthTexture(name: string) {
+  const texture = new DynamicTexture(name, { width: 1024, height: 1024 }, undefined, true)
+  texture.hasAlpha = true
+
+  const context = texture.getContext() as CanvasRenderingContext2D
+  const gradient = context.createRadialGradient(512, 512, 180, 512, 512, 512)
+
+  gradient.addColorStop(0, 'rgba(0, 0, 0, 0)')
+  gradient.addColorStop(0.58, 'rgba(0, 0, 0, 0.08)')
+  gradient.addColorStop(0.86, 'rgba(0, 0, 0, 0.34)')
+  gradient.addColorStop(1, 'rgba(0, 0, 0, 0.62)')
+
+  context.clearRect(0, 0, 1024, 1024)
+  context.fillStyle = gradient
+  context.fillRect(0, 0, 1024, 1024)
+  texture.update()
 
   return texture
 }
@@ -217,12 +263,49 @@ function buildSelectionRingTexture() {
   return texture
 }
 
+function hashObjectPhase(value: string) {
+  return Array.from(value).reduce((accumulator, character, index) => {
+    return accumulator + (character.codePointAt(0) ?? 0) * (index + 1)
+  }, 0) * 0.017
+}
+
+function getGroundShading(sunState: SkyEngineSunState) {
+  if (sunState.phaseLabel === 'Night') {
+    return {
+      diffuse: Color3.FromHexString('#294038'),
+      emissive: Color3.FromHexString('#0f1d1f').scale(0.3),
+      localEmissive: Color3.FromHexString('#16312b').scale(0.44),
+      overlayAlpha: 0.46,
+      horizonAlpha: 0.34,
+    }
+  }
+
+  if (sunState.phaseLabel === 'Low Sun') {
+    return {
+      diffuse: Color3.FromHexString('#596045'),
+      emissive: Color3.FromHexString('#443927').scale(0.18),
+      localEmissive: Color3.FromHexString('#64513a').scale(0.26),
+      overlayAlpha: 0.32,
+      horizonAlpha: 0.28,
+    }
+  }
+
+  return {
+    diffuse: Color3.FromHexString('#7b6e4f'),
+    emissive: Color3.FromHexString('#5e4d33').scale(0.08),
+    localEmissive: Color3.FromHexString('#756346').scale(0.14),
+    overlayAlpha: 0.18,
+    horizonAlpha: 0.22,
+  }
+}
+
 function writeSceneState(
   canvas: HTMLCanvasElement,
   selectedObjectId: string | null,
   trajectoryObjectId: string | null,
   visibleLabelIds: readonly string[],
-  groundTextureMode: 'imgp0911.jpg_tiled' | 'procedural_dry_grass_reference',
+  groundTextureMode: 'oras-grass.jpg_tiled',
+  groundTextureAssetPath: string,
 ) {
   canvas.setAttribute(
     SKY_ENGINE_SCENE_STATE_ATTRIBUTE,
@@ -233,6 +316,7 @@ function writeSceneState(
       trajectoryObjectId,
       visibleLabelIds,
       groundTextureMode,
+      groundTextureAssetPath,
     }),
   )
 }
@@ -257,15 +341,19 @@ function buildInitialViewTarget(objects: readonly SkyEngineSceneObject[]) {
   }, Vector3.Zero())
 
   const direction = total.scale(1 / targetObjects.length).normalize()
-  const horizonBiasedDirection = new Vector3(direction.x, Math.min(direction.y, -0.08), direction.z).normalize()
+  const horizonBiasedDirection = new Vector3(
+    direction.x * 0.96,
+    Math.max(0.16, direction.y * 0.68 + 0.12),
+    direction.z,
+  ).normalize()
 
   return horizonBiasedDirection.scale(90)
 }
 
 function getMarkerDiameter(object: SkyEngineSceneObject) {
   if (object.source === 'computed_real_sky') {
-    const starIntensity = Math.max(0.2, Math.min(1, Math.exp(-0.42 * (object.magnitude + 1.2))))
-    return 0.82 + starIntensity * 1.22
+    const normalizedMagnitude = Math.min(1, Math.max(0, 1 - (object.magnitude + 1.5) / 7.2))
+    return 0.26 + normalizedMagnitude * 0.46
   }
 
   if (object.type === 'planet') {
@@ -313,14 +401,14 @@ function getLabelVisibility(
 
 function getLabelScale(isSelected: boolean, isPriorityLabel: boolean) {
   if (isSelected) {
-    return 1.08
+    return 1.04
   }
 
   if (isPriorityLabel) {
-    return 0.94
+    return 0.9
   }
 
-  return 0.82
+  return 0.78
 }
 
 function applyRenderedObjectState(
@@ -345,13 +433,16 @@ function applyRenderedObjectState(
   refs.labelMaterial.alpha = Math.min(1, labelAlpha)
   refs.selectionMaterial.alpha = isSelected ? 0.96 : 0
   refs.markerMaterial.emissiveColor = refs.baseColor.scale(isSelected ? 1.18 : emissiveScale)
-  refs.markerMaterial.diffuseColor = refs.baseColor.scale(isComputedStar ? 0.015 + markerVisibility * 0.05 : 0.18)
+  refs.markerMaterial.diffuseColor = refs.baseColor.scale(isComputedStar ? 0.01 + markerVisibility * 0.03 : 0.16)
   refs.labelMaterial.emissiveColor = new Color3(labelBrightness, labelBrightness, labelBrightness)
+  const activeLabelTexture = isSelected ? refs.selectedLabelTexture : refs.labelTexture
+  refs.labelMaterial.diffuseTexture = activeLabelTexture
+  refs.labelMaterial.opacityTexture = activeLabelTexture
   refs.label.isVisible = refs.labelMaterial.alpha > 0.02
   refs.selectionRing.isVisible = isSelected
   refs.selectionRing.scaling.setAll(isSelected ? 1.06 : 1)
 
-  refs.marker.scaling.setAll(isSelected ? 1.18 : 1)
+  refs.marker.scaling.setAll(isSelected ? 1.1 : 1)
   refs.label.scaling.set(labelScale, labelScale, 1)
 
   refs.meshes.forEach((mesh) => {
@@ -363,7 +454,7 @@ function applyRenderedObjectState(
 
 function getPickRadiusPx(object: SkyEngineSceneObject) {
   if (object.source === 'computed_real_sky') {
-    return 28
+    return 26
   }
 
   return object.type === 'planet' ? 24 : 22
@@ -436,7 +527,7 @@ function syncSceneSelectionState(
         const material = new StandardMaterial(`sky-engine-trajectory-anchor-material-${selectedObject.id}-${index}`, runtime.scene)
         material.disableLighting = true
         material.backFaceCulling = false
-        material.diffuseTexture = buildSpriteTexture(`sky-engine-trajectory-anchor-texture-${selectedObject.id}-${index}`, 0.06)
+        material.diffuseTexture = buildMarkerTexture(`sky-engine-trajectory-anchor-texture-${selectedObject.id}-${index}`)
         material.opacityTexture = material.diffuseTexture
         material.useAlphaFromDiffuseTexture = true
         material.emissiveColor = Color3.FromHexString(selectedObject.colorHex).scale(index === 0 ? 0.52 : 0.84)
@@ -457,7 +548,12 @@ function syncSceneSelectionState(
     selectedObject?.source === 'computed_real_sky' ? selectedObject.id : null,
     visibleLabelIds.slice().sort((left, right) => left.localeCompare(right)),
     runtime.groundTextureMode,
+    runtime.groundTextureAssetPath,
   )
+
+  if (selectedObject?.isAboveHorizon) {
+    runtime.targetVector = toSkyPosition(selectedObject.altitudeDeg, selectedObject.azimuthDeg, 90)
+  }
 }
 
 export default function SkyEngineScene({
@@ -512,11 +608,14 @@ export default function SkyEngineScene({
     const atmosphere = setupSkyAtmosphere(scene, camera, sunState)
     onAtmosphereStatusChange(atmosphere.status)
 
-    const starSpriteTexture = buildSpriteTexture('sky-engine-star-sprite', 0.08)
-    const markerSpriteTexture = buildSpriteTexture('sky-engine-marker-sprite', 0.16)
+    const starSpriteTexture = buildStarPointTexture('sky-engine-star-sprite')
+    const markerSpriteTexture = buildMarkerTexture('sky-engine-marker-sprite')
     const selectionRingTexture = buildSelectionRingTexture()
-    const groundTexture = buildProceduralGroundTexture('sky-engine-ground-texture', 18)
-    const localGroundTexture = buildProceduralGroundTexture('sky-engine-local-ground-texture', 8)
+    const groundTexture = buildAssetGroundTexture(scene, 'sky-engine-ground-texture', 24)
+    const localGroundTexture = buildAssetGroundTexture(scene, 'sky-engine-local-ground-texture', 10)
+    const horizonBandTexture = buildRadialBandTexture('sky-engine-horizon-band-texture', calibration.horizonColorHex, 0.56)
+    const nearGroundTexture = buildGroundDepthTexture('sky-engine-ground-depth-texture')
+    const groundShading = getGroundShading(sunState)
 
     const groundDisk = MeshBuilder.CreateDisc(
       'sky-engine-ground-disk',
@@ -529,12 +628,13 @@ export default function SkyEngineScene({
     )
     groundDisk.rotation.x = Math.PI / 2
     groundDisk.position.y = -2.4
+    groundDisk.isPickable = false
     const groundMaterial = new StandardMaterial('sky-engine-ground-material', scene)
     groundMaterial.disableLighting = true
     groundMaterial.diffuseTexture = groundTexture
     groundMaterial.emissiveTexture = groundTexture
-    groundMaterial.diffuseColor = Color3.White()
-    groundMaterial.emissiveColor = Color3.White().scale(sunState.phaseLabel === 'Night' ? 0.72 : 0.94)
+    groundMaterial.diffuseColor = groundShading.diffuse
+    groundMaterial.emissiveColor = groundShading.emissive
     groundMaterial.specularColor = Color3.Black()
     groundMaterial.alpha = 1
     groundDisk.material = groundMaterial
@@ -550,15 +650,38 @@ export default function SkyEngineScene({
     )
     localGroundDisk.rotation.x = Math.PI / 2
     localGroundDisk.position.y = -1.6
+    localGroundDisk.isPickable = false
     const localGroundMaterial = new StandardMaterial('sky-engine-local-ground-material', scene)
     localGroundMaterial.disableLighting = true
     localGroundMaterial.diffuseTexture = localGroundTexture
     localGroundMaterial.emissiveTexture = localGroundTexture
-    localGroundMaterial.diffuseColor = Color3.White()
-    localGroundMaterial.emissiveColor = Color3.White().scale(sunState.phaseLabel === 'Night' ? 0.88 : 1)
+    localGroundMaterial.diffuseColor = groundShading.diffuse.scale(1.05)
+    localGroundMaterial.emissiveColor = groundShading.localEmissive
     localGroundMaterial.specularColor = Color3.Black()
     localGroundMaterial.alpha = 1
     localGroundDisk.material = localGroundMaterial
+
+    const groundDepthDisc = MeshBuilder.CreateDisc(
+      'sky-engine-ground-depth-disc',
+      {
+        radius: SKY_RADIUS * 0.96,
+        tessellation: 120,
+        sideOrientation: Mesh.DOUBLESIDE,
+      },
+      scene,
+    )
+    groundDepthDisc.rotation.x = Math.PI / 2
+    groundDepthDisc.position.y = -1.3
+    groundDepthDisc.isPickable = false
+    const groundDepthMaterial = new StandardMaterial('sky-engine-ground-depth-material', scene)
+    groundDepthMaterial.disableLighting = true
+    groundDepthMaterial.diffuseTexture = nearGroundTexture
+    groundDepthMaterial.opacityTexture = nearGroundTexture
+    groundDepthMaterial.useAlphaFromDiffuseTexture = true
+    groundDepthMaterial.backFaceCulling = false
+    groundDepthMaterial.emissiveColor = Color3.Black()
+    groundDepthMaterial.alpha = groundShading.overlayAlpha
+    groundDepthDisc.material = groundDepthMaterial
 
     const horizonBlend = MeshBuilder.CreateDisc(
       'sky-engine-horizon-blend',
@@ -570,12 +693,39 @@ export default function SkyEngineScene({
       scene,
     )
     horizonBlend.rotation.x = Math.PI / 2
-    horizonBlend.position.y = -0.35
+    horizonBlend.position.y = -0.18
+    horizonBlend.isPickable = false
     const horizonBlendMaterial = new StandardMaterial('sky-engine-horizon-blend-material', scene)
     horizonBlendMaterial.disableLighting = true
-    horizonBlendMaterial.emissiveColor = Color3.FromHexString(calibration.horizonColorHex).scale(0.14)
-    horizonBlendMaterial.alpha = 0.16
+    horizonBlendMaterial.diffuseTexture = horizonBandTexture
+    horizonBlendMaterial.opacityTexture = horizonBandTexture
+    horizonBlendMaterial.useAlphaFromDiffuseTexture = true
+    horizonBlendMaterial.backFaceCulling = false
+    horizonBlendMaterial.emissiveColor = Color3.FromHexString(calibration.horizonColorHex).scale(0.26)
+    horizonBlendMaterial.alpha = groundShading.horizonAlpha
     horizonBlend.material = horizonBlendMaterial
+
+    const horizonNearBand = MeshBuilder.CreateDisc(
+      'sky-engine-horizon-near-band',
+      {
+        radius: HORIZON_RADIUS * 0.995,
+        tessellation: 160,
+        sideOrientation: Mesh.DOUBLESIDE,
+      },
+      scene,
+    )
+    horizonNearBand.rotation.x = Math.PI / 2
+    horizonNearBand.position.y = 0.12
+    horizonNearBand.isPickable = false
+    const horizonNearBandMaterial = new StandardMaterial('sky-engine-horizon-near-band-material', scene)
+    horizonNearBandMaterial.disableLighting = true
+    horizonNearBandMaterial.diffuseTexture = horizonBandTexture
+    horizonNearBandMaterial.opacityTexture = horizonBandTexture
+    horizonNearBandMaterial.useAlphaFromDiffuseTexture = true
+    horizonNearBandMaterial.backFaceCulling = false
+    horizonNearBandMaterial.emissiveColor = Color3.FromHexString(calibration.horizonColorHex).scale(0.34)
+    horizonNearBandMaterial.alpha = Math.max(0.18, groundShading.horizonAlpha - 0.05)
+    horizonNearBand.material = horizonNearBandMaterial
 
     const horizonRing = MeshBuilder.CreateTorus('sky-engine-horizon', {
       diameter: HORIZON_RADIUS * 2,
@@ -583,6 +733,7 @@ export default function SkyEngineScene({
       tessellation: 128,
     }, scene)
     horizonRing.rotation.x = Math.PI / 2
+    horizonRing.isPickable = false
     const horizonMaterial = new StandardMaterial('sky-engine-horizon-material', scene)
     horizonMaterial.emissiveColor = Color3.FromHexString(calibration.horizonColorHex)
     horizonMaterial.alpha = 0.82
@@ -615,7 +766,7 @@ export default function SkyEngineScene({
 
       const labelMaterial = new StandardMaterial(`sky-engine-cardinal-label-material-${marker.label}`, scene)
       labelMaterial.disableLighting = true
-      labelMaterial.diffuseTexture = buildLabelTexture(marker.label)
+      labelMaterial.diffuseTexture = buildLabelTexture(marker.label, 'cardinal')
       labelMaterial.opacityTexture = labelMaterial.diffuseTexture
       labelMaterial.useAlphaFromDiffuseTexture = true
       labelMaterial.backFaceCulling = false
@@ -632,24 +783,11 @@ export default function SkyEngineScene({
       canvas,
       trajectoryMesh: null,
       trajectoryMarkers: [],
-      groundTextureMode: 'procedural_dry_grass_reference',
+      groundTextureMode: 'oras-grass.jpg_tiled',
+      groundTextureAssetPath: SKY_ENGINE_GROUND_TEXTURE_URL,
+      desiredFov: camera.fov,
+      targetVector: null,
     }
-
-    const assetGroundTexture = buildAssetGroundTexture(scene, 'sky-engine-ground-texture-asset', 18)
-    assetGroundTexture.onLoadObservable.add(() => {
-      groundMaterial.diffuseTexture = assetGroundTexture
-      groundMaterial.emissiveTexture = assetGroundTexture
-      runtimeRefs.current && (runtimeRefs.current.groundTextureMode = 'imgp0911.jpg_tiled')
-      runtimeRefs.current && syncSceneSelectionState(runtimeRefs.current, renderedObjectRefs.current, observer, objects, selectedObjectId, sunState)
-    })
-
-    const assetLocalGroundTexture = buildAssetGroundTexture(scene, 'sky-engine-local-ground-texture-asset', 8)
-    assetLocalGroundTexture.onLoadObservable.add(() => {
-      localGroundMaterial.diffuseTexture = assetLocalGroundTexture
-      localGroundMaterial.emissiveTexture = assetLocalGroundTexture
-      runtimeRefs.current && (runtimeRefs.current.groundTextureMode = 'imgp0911.jpg_tiled')
-      runtimeRefs.current && syncSceneSelectionState(runtimeRefs.current, renderedObjectRefs.current, observer, objects, selectedObjectId, sunState)
-    })
 
     objects.forEach((object) => {
       const position = toSkyPosition(object.altitudeDeg, object.azimuthDeg, SKY_RADIUS)
@@ -668,7 +806,7 @@ export default function SkyEngineScene({
       markerMaterial.disableLighting = true
       markerMaterial.backFaceCulling = false
       markerMaterial.emissiveColor = Color3.FromHexString(object.colorHex)
-      markerMaterial.diffuseColor = markerMaterial.emissiveColor.scale(0.22)
+      markerMaterial.diffuseColor = markerMaterial.emissiveColor.scale(0.14)
       markerMaterial.diffuseTexture = object.source === 'computed_real_sky' ? starSpriteTexture : markerSpriteTexture
       markerMaterial.opacityTexture = markerMaterial.diffuseTexture
       markerMaterial.useAlphaFromDiffuseTexture = true
@@ -703,11 +841,13 @@ export default function SkyEngineScene({
       label.isVisible = false
       label.metadata = { objectId: object.id, objectName: object.name, pickRole: 'label' }
 
+      const labelTexture = buildLabelTexture(object.name, object.source === 'temporary_scene_seed' ? 'temporary' : 'priority')
+      const selectedLabelTexture = buildLabelTexture(object.name, 'selected')
       const labelMaterial = new StandardMaterial(`sky-label-material-${object.id}`, scene)
       labelMaterial.disableLighting = true
       labelMaterial.emissiveColor = new Color3(1, 1, 1)
-      labelMaterial.opacityTexture = buildLabelTexture(object.name, object.source === 'temporary_scene_seed')
-      labelMaterial.diffuseTexture = labelMaterial.opacityTexture
+      labelMaterial.opacityTexture = labelTexture
+      labelMaterial.diffuseTexture = labelTexture
       labelMaterial.useAlphaFromDiffuseTexture = true
       labelMaterial.backFaceCulling = false
       label.material = labelMaterial
@@ -738,11 +878,14 @@ export default function SkyEngineScene({
         markerMaterial,
         labelMaterial,
         selectionMaterial,
+        labelTexture,
+        selectedLabelTexture,
         baseColor: Color3.FromHexString(object.colorHex),
         object,
         markerBaseAlpha,
         labelBaseAlpha,
         pickRadiusPx: getPickRadiusPx(object),
+        twinklePhase: hashObjectPhase(object.id),
       }
 
       applyRenderedObjectState(
@@ -765,7 +908,13 @@ export default function SkyEngineScene({
 
     const handleWheel = (event: WheelEvent) => {
       event.preventDefault()
-      camera.fov = Math.min(1.22, Math.max(0.56, camera.fov + Math.sign(event.deltaY) * 0.045))
+      const runtime = runtimeRefs.current
+
+      if (!runtime) {
+        return
+      }
+
+      runtime.desiredFov = Math.min(1.18, Math.max(0.58, runtime.desiredFov + Math.sign(event.deltaY) * 0.04))
     }
 
     const handleResize = () => engine.resize()
@@ -773,6 +922,42 @@ export default function SkyEngineScene({
     globalThis.addEventListener('resize', handleResize)
 
     engine.runRenderLoop(() => {
+      const runtime = runtimeRefs.current
+
+      if (runtime) {
+        runtime.camera.fov += (runtime.desiredFov - runtime.camera.fov) * 0.14
+
+        if (runtime.targetVector) {
+          const currentTarget = runtime.camera.getTarget()
+          const nextTarget = Vector3.Lerp(currentTarget, runtime.targetVector, 0.045)
+          runtime.camera.setTarget(nextTarget)
+
+          if (Vector3.Distance(nextTarget, runtime.targetVector) < 0.1) {
+            runtime.targetVector = null
+          }
+        }
+
+        const animationTime = performance.now() * 0.001
+        const starVisibility = sunState.visualCalibration.starVisibility
+
+        Object.values(renderedObjectRefs.current).forEach((refs) => {
+          if (refs.object.source !== 'computed_real_sky') {
+            return
+          }
+
+          const twinkleAmount = 1 + Math.sin(animationTime * 1.6 + refs.twinklePhase) * 0.035 * starVisibility
+          const isSelected = refs.object.id === selectedObjectId
+          refs.marker.scaling.setAll((isSelected ? 1.1 : 1) * twinkleAmount)
+          refs.selectionRing.scaling.setAll(isSelected ? 1.04 + Math.sin(animationTime * 2.2) * 0.05 : 1)
+          refs.markerMaterial.emissiveColor = refs.baseColor.scale(
+            (isSelected ? 0.88 : 0.42) + starVisibility * (0.48 + (twinkleAmount - 1) * 1.6),
+          )
+        })
+
+        horizonBlendMaterial.alpha = groundShading.horizonAlpha + Math.sin(animationTime * 0.42) * 0.015
+        horizonNearBandMaterial.alpha = Math.max(0.12, groundShading.horizonAlpha - 0.05 + Math.sin(animationTime * 0.6) * 0.012)
+      }
+
       scene.render()
       writeSkyEnginePickTargets(
         canvas,
@@ -802,11 +987,13 @@ export default function SkyEngineScene({
       selectionRingTexture.dispose()
       groundTexture.dispose()
       localGroundTexture.dispose()
-      assetGroundTexture.dispose()
-      assetLocalGroundTexture.dispose()
+      horizonBandTexture.dispose()
+      nearGroundTexture.dispose()
       groundMaterial.dispose()
       localGroundMaterial.dispose()
+      groundDepthMaterial.dispose()
       horizonBlendMaterial.dispose()
+      horizonNearBandMaterial.dispose()
       horizonMaterial.dispose()
       atmosphere.dispose()
       scene.dispose()

@@ -134,7 +134,8 @@ test('sky engine renders horizon framing, slider-driven time changes, trajectory
     selectedObjectId: null,
     trajectoryObjectId: null,
     visibleLabelIds: ['sky-real-altair', 'sky-real-arcturus', 'sky-real-vega'],
-    groundTextureMode: 'imgp0911.jpg_tiled',
+    groundTextureMode: 'oras-grass.jpg_tiled',
+    groundTextureAssetPath: '/sky-engine-assets/oras-grass.jpg',
   })
 
   await selectCanvasObjectByName(page, 'Deneb')
@@ -146,7 +147,8 @@ test('sky engine renders horizon framing, slider-driven time changes, trajectory
     selectedObjectId: 'sky-real-deneb',
     trajectoryObjectId: 'sky-real-deneb',
     visibleLabelIds: ['sky-real-altair', 'sky-real-arcturus', 'sky-real-deneb', 'sky-real-vega'],
-    groundTextureMode: 'imgp0911.jpg_tiled',
+    groundTextureMode: 'oras-grass.jpg_tiled',
+    groundTextureAssetPath: '/sky-engine-assets/oras-grass.jpg',
   })
 
   await setSceneTimeOffset(page, 7)
@@ -163,7 +165,8 @@ test('sky engine renders horizon framing, slider-driven time changes, trajectory
     selectedObjectId: 'sky-real-deneb',
     trajectoryObjectId: 'sky-real-deneb',
     visibleLabelIds: ['sky-real-deneb', 'sky-real-polaris'],
-    groundTextureMode: 'imgp0911.jpg_tiled',
+    groundTextureMode: 'oras-grass.jpg_tiled',
+    groundTextureAssetPath: '/sky-engine-assets/oras-grass.jpg',
   })
 
   await setSceneTimeOffset(page, 7)

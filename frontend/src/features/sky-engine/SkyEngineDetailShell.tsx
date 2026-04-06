@@ -31,10 +31,10 @@ function getSelectionSourceCoordinates(selectedObject: SkyEngineSceneObject) {
 
 function getSelectionTruthDescription(selectedObject: SkyEngineSceneObject) {
   if (selectedObject.source === 'computed_real_sky') {
-    return 'Computed from catalog right ascension and declination for the fixed ORAS observer and the current scene time.'
+    return 'Catalog position is computed for the ORAS observer and the current scene time.'
   }
 
-  return 'This remains a temporary scene marker and is intentionally separated from the computed sky set.'
+  return 'This remains a temporary scene marker and is kept separate from the computed sky set.'
 }
 
 function getSelectionBadgeClassName(selectedObject: SkyEngineSceneObject) {
@@ -51,7 +51,7 @@ function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
   const sourceCoordinates = getSelectionSourceCoordinates(selectedObject)
   const hasComputedTrajectory = selectedObject.source === 'computed_real_sky'
   const trajectoryLine = hasComputedTrajectory
-    ? '12h arc visible and keyed to the selected object.'
+    ? '12h arc active and tied to the selected object.'
     : 'Static marker only.'
 
   return (
@@ -67,7 +67,7 @@ function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
       </div>
 
       <p className="sky-engine-detail-shell__summary">{selectedObject.summary}</p>
-      <p className="sky-engine-detail-shell__description">{selectedObject.description}</p>
+      <p className="sky-engine-detail-shell__description">{selectedObject.truthNote}</p>
       {sourceCoordinates ? <p className="sky-engine-detail-shell__hint">{sourceCoordinates}</p> : null}
 
       <dl className="sky-engine-detail-shell__facts">
@@ -117,7 +117,7 @@ function renderEmptySelectionBody(
   return (
     <div className="sky-engine-detail-shell__body">
       <p>Pick a visible object to open its inspector.</p>
-      <p className="sky-engine-detail-shell__hint">Selected computed stars keep a live trajectory arc and readable label.</p>
+      <p className="sky-engine-detail-shell__hint">Selected computed stars keep a live trajectory arc and a persistent readable label.</p>
     </div>
   )
 }
