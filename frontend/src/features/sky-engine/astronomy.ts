@@ -332,7 +332,7 @@ export function computeMoonSceneObject(observer: SkyEngineObserver, timestampIso
 }
 
 function computeGuidanceScore(object: SkyEngineSceneObject) {
-  if (!object.isAboveHorizon || object.source === 'temporary_scene_seed') {
+  if (!object.isAboveHorizon) {
     return 0
   }
 
@@ -340,8 +340,10 @@ function computeGuidanceScore(object: SkyEngineSceneObject) {
   const brightnessScore = clamp01((4.8 - object.magnitude) / 6)
   const moonBonus = object.type === 'moon' ? 0.12 : 0
   const comfortBonus = object.altitudeDeg >= 25 && object.altitudeDeg <= 70 ? 0.08 : 0
+  const deepSkyBonus = object.type === 'deep_sky' ? 0.1 : 0
+  const temporaryPenalty = object.source === 'temporary_scene_seed' ? 0.12 : 0
 
-  return altitudeScore * 0.5 + brightnessScore * 0.34 + comfortBonus + moonBonus
+  return altitudeScore * 0.5 + brightnessScore * 0.34 + comfortBonus + moonBonus + deepSkyBonus - temporaryPenalty
 }
 
 export function rankGuidanceTargets(
@@ -350,15 +352,25 @@ export function rankGuidanceTargets(
 ): readonly SkyEngineGuidanceTarget[] {
   const ranked = objects
     .map((object) => ({ object, score: computeGuidanceScore(object) }))
-    .filter(({ object, score }) => object.isAboveHorizon && object.source !== 'temporary_scene_seed' && score >= 0.28)
+    .filter(({ object, score }) => object.isAboveHorizon && score >= 0.28)
     .sort((left, right) => right.score - left.score || left.object.magnitude - right.object.magnitude)
   const moonCandidate = ranked.find(({ object }) => object.type === 'moon')
+  const deepSkyCandidate = ranked.find(({ object }) => object.type === 'deep_sky')
   const shortlist = ranked.slice(0, maxCount)
 
   if (moonCandidate && !shortlist.some(({ object }) => object.id === moonCandidate.object.id)) {
     shortlist.pop()
     shortlist.push(moonCandidate)
     shortlist.sort((left, right) => right.score - left.score || left.object.magnitude - right.object.magnitude)
+  }
+
+  if (deepSkyCandidate && !shortlist.some(({ object }) => object.id === deepSkyCandidate.object.id)) {
+    const replaceIndex = shortlist.findIndex(({ object }) => object.type !== 'moon')
+
+    if (replaceIndex >= 0) {
+      shortlist.splice(replaceIndex, 1, deepSkyCandidate)
+      shortlist.sort((left, right) => right.score - left.score || left.object.magnitude - right.object.magnitude)
+    }
   }
 
   return shortlist.map(({ object, score }) => ({

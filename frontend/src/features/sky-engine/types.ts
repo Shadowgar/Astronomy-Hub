@@ -62,6 +62,8 @@ export interface SkyEngineTrajectorySample {
 export interface SkyEnginePickTarget {
   objectId: string
   objectName: string
+  objectType: SkyEngineObjectType
+  objectSource: SkyEngineObjectSource
   screenX: number
   screenY: number
   radiusPx: number

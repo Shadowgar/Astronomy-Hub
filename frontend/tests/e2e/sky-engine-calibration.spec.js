@@ -2,7 +2,7 @@ const path = require('node:path')
 
 const { test, expect } = require('@playwright/test')
 
-test.setTimeout(45000)
+test.setTimeout(90000)
 
 const PICK_TARGETS_DATA_ATTRIBUTE = 'data-sky-engine-pick-targets'
 const SCENE_STATE_DATA_ATTRIBUTE = 'data-sky-engine-scene-state'
@@ -62,6 +62,47 @@ async function selectCanvasObjectByName(page, expectedName) {
   await page.mouse.click(box.x + pickTarget.screenX, box.y + pickTarget.screenY)
 }
 
+async function clickCanvasTarget(page, pickTarget) {
+  const canvas = page.locator('canvas[aria-label="Sky Engine scene"]')
+  const box = await canvas.boundingBox()
+
+  if (!box) {
+    throw new Error('Sky Engine canvas has no bounding box.')
+  }
+
+  await page.mouse.click(box.x + pickTarget.screenX, box.y + pickTarget.screenY)
+}
+
+async function clickCanvasTargetByObjectId(page, objectId) {
+  const targets = await getPickTargets(page)
+  const pickTarget = targets.find((target) => target.objectId === objectId)
+
+  if (!pickTarget) {
+    throw new Error(`Could not find pick target for object ${objectId}.`)
+  }
+
+  await clickCanvasTarget(page, pickTarget)
+  return pickTarget
+}
+
+function findEmptyCanvasPoint(box, targets) {
+  const margin = 28
+
+  for (let x = margin; x <= box.width - margin; x += 36) {
+    for (let y = margin; y <= box.height - margin; y += 36) {
+      const overlapsTarget = targets.some((target) => {
+        return Math.hypot(target.screenX - x, target.screenY - y) <= target.radiusPx + 16
+      })
+
+      if (!overlapsTarget) {
+        return { x, y }
+      }
+    }
+  }
+
+  return null
+}
+
 async function selectFirstCanvasPickTarget(page) {
   const canvas = page.locator('canvas[aria-label="Sky Engine scene"]')
   const box = await canvas.boundingBox()
@@ -99,6 +140,7 @@ test('sky engine proves moon, labels, aids, guidance, and time controls in runti
   await expect(page.locator('.sky-engine-page__top-bar')).toContainText('EDT')
   await expect(page.locator('.sky-engine-page__phase-band-segment--active')).toHaveCount(1)
   await expect(page.getByLabel('Guided sky targets').locator('button')).toHaveCount(5)
+  await expect(page.getByLabel('Guided sky targets').getByRole('button', { name: 'Andromeda Galaxy' })).toBeVisible()
 
   const fullProofPath = path.resolve(__dirname, '../../test-results/sky-engine-proof.png')
   await page.screenshot({ path: fullProofPath, fullPage: true })
@@ -116,6 +158,38 @@ test('sky engine proves moon, labels, aids, guidance, and time controls in runti
     azimuthRing: true,
     altitudeRings: true,
   })
+
+  const starTargets = pickTargets.filter((target) => target.objectType === 'star')
+  expect(starTargets.length).toBeGreaterThanOrEqual(2)
+  const firstStarTarget = starTargets[0]
+
+  await clickCanvasTargetByObjectId(page, firstStarTarget.objectId)
+  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText(firstStarTarget.objectName)
+  await expect.poll(async () => (await getSceneState(page))?.selectedObjectId ?? null).toBe(firstStarTarget.objectId)
+
+  const secondStarTarget = (await getPickTargets(page)).find(
+    (target) => target.objectType === 'star' && target.objectId !== firstStarTarget.objectId,
+  )
+  expect(secondStarTarget).toBeTruthy()
+
+  await clickCanvasTargetByObjectId(page, secondStarTarget.objectId)
+  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText(secondStarTarget.objectName)
+  await expect.poll(async () => (await getSceneState(page))?.selectedObjectId ?? null).toBe(secondStarTarget.objectId)
+
+  await page.getByLabel('Guided sky targets').getByRole('button', { name: 'Andromeda Galaxy' }).click()
+  await expect.poll(async () => (await getSceneState(page))?.selectedObjectId ?? null).toBe('sky-seed-andromeda')
+
+  await expect.poll(async () => {
+    return (await getPickTargets(page)).some((target) => target.objectName === 'Andromeda Galaxy')
+  }).toBe(true)
+
+  const andromedaTarget = (await getPickTargets(page)).find((target) => target.objectName === 'Andromeda Galaxy')
+  expect(andromedaTarget).toBeTruthy()
+  expect(secondStarTarget.objectName).not.toBe('Andromeda Galaxy')
+
+  await clickCanvasTargetByObjectId(page, andromedaTarget.objectId)
+  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Andromeda Galaxy')
+  await expect.poll(async () => (await getSceneState(page))?.selectedObjectId ?? null).toBe(andromedaTarget.objectId)
 
   const pickedObjectName = await selectFirstCanvasPickTarget(page)
   await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText(pickedObjectName)
@@ -141,6 +215,19 @@ test('sky engine proves moon, labels, aids, guidance, and time controls in runti
 
   await page.getByRole('button', { name: 'Compass' }).click()
   await expect.poll(async () => (await getSceneState(page))?.aidVisibility?.azimuthRing).toBe(false)
+
+  const canvas = page.locator('canvas[aria-label="Sky Engine scene"]')
+  const box = await canvas.boundingBox()
+
+  if (!box) {
+    throw new Error('Sky Engine canvas has no bounding box.')
+  }
+
+  const emptyPoint = findEmptyCanvasPoint(box, await getPickTargets(page))
+  expect(emptyPoint).toBeTruthy()
+  await page.mouse.click(box.x + emptyPoint.x, box.y + emptyPoint.y)
+  await expect.poll(async () => (await getSceneState(page))?.selectedObjectId ?? null).toBeNull()
+  await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Select a rendered object')
 
   const selectedProofPath = path.resolve(__dirname, '../../test-results/sky-engine-selected-proof.png')
   await page.screenshot({ path: selectedProofPath, fullPage: true })

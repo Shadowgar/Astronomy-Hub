@@ -18,7 +18,7 @@ function toSkyPosition(altitudeDeg: number, azimuthDeg: number, radius: number) 
 export function buildInitialViewTarget(objects: readonly SkyEngineSceneObject[], guidedObjectIds: readonly string[]) {
   const guidedSet = new Set(guidedObjectIds)
   const targetObjects = objects.filter(
-    (object) => object.isAboveHorizon && (guidedSet.has(object.id) || object.source === 'computed_real_sky'),
+    (object) => object.isAboveHorizon && (guidedSet.has(object.id) || object.source === 'computed_real_sky' || object.type === 'deep_sky'),
   )
 
   if (targetObjects.length === 0) {
@@ -31,11 +31,15 @@ export function buildInitialViewTarget(objects: readonly SkyEngineSceneObject[],
     let weight = 1
 
     if (isGuided) {
-      weight = 1.4
+      weight = 1.25
+    }
+
+    if (object.type === 'deep_sky') {
+      weight = Math.max(weight, object.source === 'temporary_scene_seed' ? 1.02 : 1.08)
     }
 
     if (object.type === 'moon') {
-      weight = 2.35
+      weight = 1.9
     }
 
     return accumulator.add(direction.scale(weight))
@@ -43,20 +47,24 @@ export function buildInitialViewTarget(objects: readonly SkyEngineSceneObject[],
 
   const totalWeight = targetObjects.reduce((accumulator, object) => {
     if (object.type === 'moon') {
-      return accumulator + 2.35
+      return accumulator + 1.9
     }
 
-    return accumulator + (guidedSet.has(object.id) ? 1.4 : 1)
+    if (object.type === 'deep_sky') {
+      return accumulator + (object.source === 'temporary_scene_seed' ? 1.02 : 1.08)
+    }
+
+    return accumulator + (guidedSet.has(object.id) ? 1.25 : 1)
   }, 0)
 
   const direction = total.scale(1 / totalWeight).normalize()
   const horizonBiasedDirection = new Vector3(
-    direction.x * 0.96,
-    Math.max(0.12, direction.y * 0.68 + 0.14),
+    direction.x * 0.94,
+    Math.max(0.12, direction.y * 0.52 + 0.14),
     direction.z,
   ).normalize()
 
-  return horizonBiasedDirection.scale(92)
+  return horizonBiasedDirection.scale(94)
 }
 
 export function getSelectionTargetVector(object: SkyEngineSceneObject) {
@@ -67,22 +75,22 @@ export function getSelectionTargetVector(object: SkyEngineSceneObject) {
 
 export function getDesiredFovForObject(object: SkyEngineSceneObject | null) {
   if (!object) {
-    return 1.02
+    return 1.14
   }
 
   if (object.type === 'moon') {
-    return 0.78
+    return 0.74
   }
 
   if (object.type === 'deep_sky') {
-    return 0.84
+    return 0.94
   }
 
   if (object.type === 'planet') {
-    return 0.82
+    return 0.8
   }
 
-  return 0.88
+  return 0.94
 }
 
 export function updateObserverNavigation(
@@ -91,7 +99,7 @@ export function updateObserverNavigation(
   targetVector: Vector3 | null,
   deltaSeconds: number,
 ) {
-  const fovEase = 1 - Math.pow(0.002, deltaSeconds * 5.2)
+  const fovEase = 1 - Math.pow(0.002, deltaSeconds * 4.2)
   camera.fov += (desiredFov - camera.fov) * fovEase
 
   if (!targetVector) {
@@ -99,7 +107,7 @@ export function updateObserverNavigation(
   }
 
   const currentTarget = camera.getTarget()
-  const lookEase = 1 - Math.pow(0.002, deltaSeconds * 3.6)
+  const lookEase = 1 - Math.pow(0.002, deltaSeconds * 2.9)
   const nextTarget = Vector3.Lerp(currentTarget, targetVector, lookEase)
   camera.setTarget(nextTarget)
 

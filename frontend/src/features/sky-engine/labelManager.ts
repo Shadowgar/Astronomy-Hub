@@ -133,7 +133,7 @@ function getLabelPriority(object: SkyEngineSceneObject, isSelected: boolean, gui
   } else if (object.type === 'planet') {
     priority += 120
   } else if (object.type === 'deep_sky') {
-    priority += 38
+    priority += object.source === 'temporary_scene_seed' ? 10 : 22
   }
 
   if (guidedObjectIds.has(object.id)) {
@@ -141,11 +141,11 @@ function getLabelPriority(object: SkyEngineSceneObject, isSelected: boolean, gui
   }
 
   if (object.source === 'computed_real_sky') {
-    priority += clamp(78 - object.magnitude * 12, 8, 78)
+    priority += clamp(72 - object.magnitude * 13, 6, 72)
   }
 
   if (object.source === 'temporary_scene_seed') {
-    priority -= 18
+    priority -= 34
   }
 
   return priority
@@ -160,43 +160,43 @@ function getLabelAlpha(
 ) {
   let alpha = object.type === 'moon'
     ? 0.96
-    : clamp(sunState.visualCalibration.starLabelVisibility * 0.9, 0.22, 0.84)
+    : clamp(sunState.visualCalibration.starLabelVisibility * 0.82, 0.18, 0.74)
 
   if (object.type === 'planet') {
-    alpha = Math.max(alpha, 0.76)
+    alpha = Math.max(alpha, 0.72)
   }
 
   if (object.type === 'deep_sky') {
-    alpha = object.source === 'temporary_scene_seed' ? 0.56 : 0.7
+    alpha = object.source === 'temporary_scene_seed' ? 0.42 : 0.56
   }
 
   if (isGuided) {
-    alpha = Math.min(0.96, alpha + 0.14)
+    alpha = Math.min(0.92, alpha + 0.1)
   }
 
   if (selectedObjectId && !isSelected) {
-    alpha *= 0.74
+    alpha *= 0.66
   }
 
   return alpha
 }
 
 function getLabelScale(projectedDepth: number, object: SkyEngineSceneObject, isSelected: boolean, isGuided: boolean) {
-  let scale = clamp(1.1 - projectedDepth * 0.24, 0.7, 1.1)
+  let scale = clamp(1.04 - projectedDepth * 0.18, 0.68, 1.04)
 
   if (object.type === 'moon') {
     scale += 0.08
   }
 
   if (isGuided) {
-    scale += 0.03
+    scale += 0.02
   }
 
   if (isSelected) {
-    scale += 0.1
+    scale += 0.08
   }
 
-  return clamp(scale, 0.72, 1.18)
+  return clamp(scale, 0.7, 1.12)
 }
 
 export function resolveLabelLayout(
@@ -225,9 +225,9 @@ export function resolveLabelLayout(
       let baseWidth = 176
 
       if (refs.object.type === 'moon') {
-        baseWidth = 214
+        baseWidth = 206
       } else if (refs.object.type === 'deep_sky') {
-        baseWidth = 194
+        baseWidth = refs.object.source === 'temporary_scene_seed' ? 178 : 186
       }
 
       const width = baseWidth * scale

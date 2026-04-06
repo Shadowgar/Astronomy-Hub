@@ -24,32 +24,31 @@ function toHex(channel: number) {
 
 export function resolveStarColorHex(colorIndexBV = 0.65) {
   const normalizedColorIndex = clamp(colorIndexBV, -0.4, 2)
-  let red = 255
-  let green = 255
-  let blue = 255
 
   if (normalizedColorIndex < 0) {
     const factor = (normalizedColorIndex + 0.4) / 0.4
-    red = 155 + factor * 100
-    green = 180 + factor * 60
-    blue = 255
+    const red = 155 + factor * 100
+    const green = 180 + factor * 60
+    const blue = 255
+    return `#${toHex(red)}${toHex(green)}${toHex(blue)}`
   } else if (normalizedColorIndex < 0.4) {
     const factor = normalizedColorIndex / 0.4
-    red = 255
-    green = 240 + factor * 12
-    blue = 255 - factor * 18
+    const red = 255
+    const green = 240 + factor * 12
+    const blue = 255 - factor * 18
+    return `#${toHex(red)}${toHex(green)}${toHex(blue)}`
   } else if (normalizedColorIndex < 1.1) {
     const factor = (normalizedColorIndex - 0.4) / 0.7
-    red = 255
-    green = 252 - factor * 32
-    blue = 237 - factor * 82
-  } else {
-    const factor = (normalizedColorIndex - 1.1) / 0.9
-    red = 255
-    green = 220 - factor * 48
-    blue = 155 - factor * 80
+    const red = 255
+    const green = 252 - factor * 32
+    const blue = 237 - factor * 82
+    return `#${toHex(red)}${toHex(green)}${toHex(blue)}`
   }
 
+  const factor = (normalizedColorIndex - 1.1) / 0.9
+  const red = 255
+  const green = 220 - factor * 48
+  const blue = 155 - factor * 80
   return `#${toHex(red)}${toHex(green)}${toHex(blue)}`
 }
 
@@ -67,14 +66,14 @@ export function getStarRenderProfile(
 
   return {
     colorHex,
-    diameter: clamp(0.16 + brightness * 0.42, 0.16, 0.58),
-    haloRadiusPx: clamp(5.5 + brightness * 8.5, 5.5, 13.5),
-    haloAlpha: clamp(0.05 + haloWeight * 0.22, 0.05, 0.24),
-    coreRadiusPx: clamp(0.9 + brightness * 2.3, 0.9, 3.1),
-    twinkleAmplitude: calibration.starTwinkleAmplitude * clamp(0.35 + brightness * 0.75, 0.35, 1),
-    alpha: clamp(0.2 + calibration.starFieldBrightness * (0.52 + brightness * 0.38), 0.18, 1),
-    emissiveScale: clamp(0.34 + calibration.starFieldBrightness * (0.44 + brightness * 0.46), 0.3, 1.08),
-    diffuseScale: clamp(0.008 + calibration.starFieldBrightness * 0.028, 0.008, 0.04),
+    diameter: clamp(0.14 + brightness * 0.34, 0.14, 0.44),
+    haloRadiusPx: clamp(3.8 + brightness * 6.2, 3.8, 9.6),
+    haloAlpha: clamp(0.03 + haloWeight * 0.15, 0.03, 0.17),
+    coreRadiusPx: clamp(0.82 + brightness * 1.45, 0.82, 2.2),
+    twinkleAmplitude: calibration.starTwinkleAmplitude * clamp(0.26 + brightness * 0.5, 0.26, 0.76),
+    alpha: clamp(0.18 + calibration.starFieldBrightness * (0.48 + brightness * 0.3), 0.16, 0.94),
+    emissiveScale: clamp(0.28 + calibration.starFieldBrightness * (0.34 + brightness * 0.28), 0.24, 0.86),
+    diffuseScale: clamp(0.006 + calibration.starFieldBrightness * 0.016, 0.006, 0.024),
   }
 }
 
@@ -89,19 +88,24 @@ export function buildDedicatedStarTexture(name: string, profile: StarRenderProfi
   const halo = context.createRadialGradient(48, 48, 1, 48, 48, profile.haloRadiusPx)
 
   context.clearRect(0, 0, 96, 96)
-  halo.addColorStop(0, `rgba(${red}, ${green}, ${blue}, 0.96)`)
-  halo.addColorStop(0.08, `rgba(${red}, ${green}, ${blue}, 0.9)`)
-  halo.addColorStop(0.24, `rgba(${red}, ${green}, ${blue}, ${profile.haloAlpha})`)
-  halo.addColorStop(0.62, `rgba(${red}, ${green}, ${blue}, ${profile.haloAlpha * 0.32})`)
+  halo.addColorStop(0, `rgba(${red}, ${green}, ${blue}, ${Math.min(0.94, profile.alpha)})`)
+  halo.addColorStop(0.06, `rgba(${red}, ${green}, ${blue}, ${Math.min(0.86, profile.alpha * 0.92)})`)
+  halo.addColorStop(0.18, `rgba(${red}, ${green}, ${blue}, ${profile.haloAlpha})`)
+  halo.addColorStop(0.48, `rgba(${red}, ${green}, ${blue}, ${profile.haloAlpha * 0.18})`)
   halo.addColorStop(1, `rgba(${red}, ${green}, ${blue}, 0)`)
   context.fillStyle = halo
   context.beginPath()
   context.arc(48, 48, profile.haloRadiusPx, 0, Math.PI * 2)
   context.fill()
 
+  context.fillStyle = `rgba(${red}, ${green}, ${blue}, 0.92)`
+  context.beginPath()
+  context.arc(48, 48, profile.coreRadiusPx * 1.25, 0, Math.PI * 2)
+  context.fill()
+
   context.fillStyle = '#ffffff'
   context.beginPath()
-  context.arc(48, 48, profile.coreRadiusPx, 0, Math.PI * 2)
+  context.arc(48, 48, Math.max(0.72, profile.coreRadiusPx * 0.72), 0, Math.PI * 2)
   context.fill()
   texture.update()
 

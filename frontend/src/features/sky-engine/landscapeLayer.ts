@@ -64,8 +64,8 @@ function buildRadialBandTexture(name: string, colorHex: string, alpha = 0.42) {
 
   gradient.addColorStop(0, 'rgba(0, 0, 0, 0)')
   gradient.addColorStop(0.62, 'rgba(0, 0, 0, 0)')
-  gradient.addColorStop(0.82, `rgba(${red}, ${green}, ${blue}, ${alpha * 0.24})`)
-  gradient.addColorStop(0.94, `rgba(${red}, ${green}, ${blue}, ${alpha})`)
+  gradient.addColorStop(0.84, `rgba(${red}, ${green}, ${blue}, ${alpha * 0.18})`)
+  gradient.addColorStop(0.95, `rgba(${red}, ${green}, ${blue}, ${alpha * 0.82})`)
   gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
 
   context.clearRect(0, 0, 1024, 1024)
@@ -108,8 +108,8 @@ function buildVerticalMistTexture(name: string, topHex: string, bottomHex: strin
   const bottomColor = `${Math.round(bottom.r * 255)}, ${Math.round(bottom.g * 255)}, ${Math.round(bottom.b * 255)}`
 
   gradient.addColorStop(0, `rgba(${topColor}, 0)`)
-  gradient.addColorStop(0.28, `rgba(${topColor}, ${alpha * 0.22})`)
-  gradient.addColorStop(0.68, `rgba(${bottomColor}, ${alpha})`)
+  gradient.addColorStop(0.32, `rgba(${topColor}, ${alpha * 0.14})`)
+  gradient.addColorStop(0.7, `rgba(${bottomColor}, ${alpha * 0.78})`)
   gradient.addColorStop(1, `rgba(${bottomColor}, 0)`)
   context.clearRect(0, 0, 256, 1024)
   context.fillStyle = gradient
@@ -122,8 +122,8 @@ function buildVerticalMistTexture(name: string, topHex: string, bottomHex: strin
 function getGroundShading(calibration: SkyEngineVisualCalibration) {
   return {
     diffuse: Color3.FromHexString(calibration.groundTintHex),
-    emissive: Color3.FromHexString(calibration.skyHorizonColorHex).scale(0.08),
-    localEmissive: Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.14),
+    emissive: Color3.FromHexString(calibration.skyHorizonColorHex).scale(0.06),
+    localEmissive: Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.1),
     overlayAlpha: calibration.landscapeShadowAlpha,
     horizonAlpha: calibration.horizonGlowAlpha,
   }
@@ -195,7 +195,7 @@ export function createLandscapeLayer(
     scene,
   )
   groundDepthDisc.rotation.x = Math.PI / 2
-  groundDepthDisc.position.y = -1.22
+  groundDepthDisc.position.y = -1.12
   groundDepthDisc.isPickable = false
   const groundDepthMaterial = new StandardMaterial('sky-engine-ground-depth-material', scene)
   groundDepthMaterial.disableLighting = true
@@ -221,8 +221,8 @@ export function createLandscapeLayer(
   horizonBlendMaterial.opacityTexture = horizonBandTexture
   horizonBlendMaterial.useAlphaFromDiffuseTexture = true
   horizonBlendMaterial.backFaceCulling = false
-  horizonBlendMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.28)
-  horizonBlendMaterial.alpha = groundShading.horizonAlpha
+  horizonBlendMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.2)
+  horizonBlendMaterial.alpha = groundShading.horizonAlpha * 0.88
   horizonBlend.material = horizonBlendMaterial
 
   const horizonNearBand = MeshBuilder.CreateDisc(
@@ -231,7 +231,7 @@ export function createLandscapeLayer(
     scene,
   )
   horizonNearBand.rotation.x = Math.PI / 2
-  horizonNearBand.position.y = 0.14
+  horizonNearBand.position.y = 0.08
   horizonNearBand.isPickable = false
   const horizonNearBandMaterial = new StandardMaterial('sky-engine-horizon-near-band-material', scene)
   horizonNearBandMaterial.disableLighting = true
@@ -239,8 +239,8 @@ export function createLandscapeLayer(
   horizonNearBandMaterial.opacityTexture = horizonBandTexture
   horizonNearBandMaterial.useAlphaFromDiffuseTexture = true
   horizonNearBandMaterial.backFaceCulling = false
-  horizonNearBandMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.36)
-  horizonNearBandMaterial.alpha = Math.max(0.14, groundShading.horizonAlpha - 0.04)
+  horizonNearBandMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.26)
+  horizonNearBandMaterial.alpha = Math.max(0.08, groundShading.horizonAlpha * 0.72)
   horizonNearBand.material = horizonNearBandMaterial
 
   const mistCylinder = MeshBuilder.CreateCylinder(
@@ -248,7 +248,7 @@ export function createLandscapeLayer(
     { height: 16, diameter: HORIZON_RADIUS * 2.14, tessellation: 128, sideOrientation: Mesh.DOUBLESIDE },
     scene,
   )
-  mistCylinder.position.y = 3.5
+  mistCylinder.position.y = 3.1
   mistCylinder.isPickable = false
   const mistMaterial = new StandardMaterial('sky-engine-horizon-mist-material', scene)
   mistMaterial.disableLighting = true
@@ -257,7 +257,7 @@ export function createLandscapeLayer(
   mistMaterial.useAlphaFromDiffuseTexture = true
   mistMaterial.backFaceCulling = false
   mistMaterial.emissiveColor = Color3.FromHexString(calibration.landscapeFogColorHex)
-  mistMaterial.alpha = 0.68
+  mistMaterial.alpha = 0.46
   mistCylinder.material = mistMaterial
 
   const horizonRing = MeshBuilder.CreateTorus(
@@ -270,7 +270,7 @@ export function createLandscapeLayer(
   horizonRing.isVisible = aidVisibility.azimuthRing
   const horizonMaterial = new StandardMaterial('sky-engine-horizon-material', scene)
   horizonMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex)
-  horizonMaterial.alpha = 0.82
+  horizonMaterial.alpha = 0.68
   horizonRing.material = horizonMaterial
 
   const aidMeshes: Mesh[] = [horizonRing]
@@ -381,10 +381,10 @@ export function createLandscapeLayer(
     groundTextureMode: 'oras-grass.jpg_tiled',
     groundTextureAssetPath: SKY_ENGINE_GROUND_TEXTURE_URL,
     update: (animationTime: number) => {
-      const horizonPulse = sunState.phaseLabel === 'Low Sun' ? 0.026 : 0.012
-      horizonBlendMaterial.alpha = groundShading.horizonAlpha + Math.sin(animationTime * 0.42) * horizonPulse
-      horizonNearBandMaterial.alpha = Math.max(0.12, groundShading.horizonAlpha - 0.04 + Math.sin(animationTime * 0.58) * 0.014)
-      mistMaterial.alpha = 0.54 + Math.sin(animationTime * 0.24) * 0.03
+      const horizonPulse = sunState.phaseLabel === 'Low Sun' ? 0.018 : 0.008
+      horizonBlendMaterial.alpha = groundShading.horizonAlpha * 0.88 + Math.sin(animationTime * 0.42) * horizonPulse
+      horizonNearBandMaterial.alpha = Math.max(0.08, groundShading.horizonAlpha * 0.72 + Math.sin(animationTime * 0.58) * 0.01)
+      mistMaterial.alpha = 0.42 + Math.sin(animationTime * 0.24) * 0.02
     },
     dispose: () => {
       groundTexture.dispose()

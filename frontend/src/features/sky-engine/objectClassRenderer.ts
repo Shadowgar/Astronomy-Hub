@@ -41,20 +41,20 @@ function buildDeepSkyMarkerTexture(name: string, colorHex: string) {
   const blue = Number.parseInt(colorHex.slice(5, 7), 16)
 
   context.clearRect(0, 0, 96, 96)
-  context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.84)`
-  context.lineWidth = 4
+  context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.76)`
+  context.lineWidth = 3
   context.beginPath()
-  context.moveTo(48, 16)
+  context.moveTo(48, 20)
   context.lineTo(80, 48)
-  context.lineTo(48, 80)
+  context.lineTo(48, 76)
   context.lineTo(16, 48)
   context.closePath()
   context.stroke()
 
-  context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.32)`
-  context.lineWidth = 2
+  context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.2)`
+  context.lineWidth = 1.6
   context.beginPath()
-  context.arc(48, 48, 28, 0, Math.PI * 2)
+  context.arc(48, 48, 24, 0, Math.PI * 2)
   context.stroke()
   texture.update()
 
@@ -149,7 +149,7 @@ export function getObjectMarkerDiameter(
   }
 
   if (object.type === 'deep_sky') {
-    return 3.2
+    return object.source === 'temporary_scene_seed' ? 2.4 : 2.8
   }
 
   return starProfile?.diameter ?? getStarRenderProfile(object, calibration).diameter
@@ -157,18 +157,18 @@ export function getObjectMarkerDiameter(
 
 export function getObjectPickRadiusPx(object: SkyEngineSceneObject) {
   if (object.type === 'moon') {
-    return 34
+    return 32
   }
 
   if (object.type === 'planet') {
-    return 26
-  }
-
-  if (object.type === 'deep_sky') {
     return 24
   }
 
-  return 22
+  if (object.type === 'deep_sky') {
+    return object.source === 'temporary_scene_seed' ? 13 : 16
+  }
+
+  return 18
 }
 
 export function getLabelOffsetRadius(object: SkyEngineSceneObject) {

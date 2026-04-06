@@ -27,21 +27,21 @@ function buildSkyGradientTexture(name: string, sunState: SkyEngineSunState) {
   const calibration = sunState.visualCalibration
 
   gradient.addColorStop(0, calibration.skyZenithColorHex)
-  gradient.addColorStop(0.58, calibration.backgroundColorHex)
-  gradient.addColorStop(0.78, calibration.twilightBandColorHex)
-  gradient.addColorStop(0.92, calibration.skyHorizonColorHex)
-  gradient.addColorStop(1, calibration.horizonGlowColorHex)
+  gradient.addColorStop(0.5, calibration.backgroundColorHex)
+  gradient.addColorStop(0.74, calibration.twilightBandColorHex)
+  gradient.addColorStop(0.9, calibration.skyHorizonColorHex)
+  gradient.addColorStop(0.98, calibration.horizonGlowColorHex)
 
   context.clearRect(0, 0, 1024, 1024)
   context.fillStyle = gradient
   context.fillRect(0, 0, 1024, 1024)
 
   if (sunState.phaseLabel !== 'Daylight') {
-    const glow = context.createRadialGradient(512, 780, 100, 512, 780, 360)
+    const glow = context.createRadialGradient(512, 794, 80, 512, 794, sunState.phaseLabel === 'Low Sun' ? 300 : 240)
     const glowColor = Color3.FromHexString(calibration.horizonGlowColorHex)
     const colorString = `${Math.round(glowColor.r * 255)}, ${Math.round(glowColor.g * 255)}, ${Math.round(glowColor.b * 255)}`
-    glow.addColorStop(0, `rgba(${colorString}, ${calibration.horizonGlowAlpha * (sunState.phaseLabel === 'Low Sun' ? 0.82 : 0.3)})`)
-    glow.addColorStop(0.7, `rgba(${colorString}, ${calibration.horizonGlowAlpha * 0.12})`)
+    glow.addColorStop(0, `rgba(${colorString}, ${calibration.horizonGlowAlpha * (sunState.phaseLabel === 'Low Sun' ? 0.72 : 0.18)})`)
+    glow.addColorStop(0.56, `rgba(${colorString}, ${calibration.horizonGlowAlpha * 0.08})`)
     glow.addColorStop(1, `rgba(${colorString}, 0)`)
     context.fillStyle = glow
     context.fillRect(0, 0, 1024, 1024)
@@ -78,9 +78,9 @@ export function setupSkyAtmosphere(scene: Scene, camera: Camera, sunState: SkyEn
   let imageContrast = 1
 
   if (calibration.phaseLabel === 'Night') {
-    imageContrast = 1.06
+    imageContrast = 1.08
   } else if (calibration.phaseLabel === 'Low Sun') {
-    imageContrast = 1.03
+    imageContrast = 1.02
   }
 
   pipeline.imageProcessing.contrast = imageContrast
@@ -140,7 +140,7 @@ export function setupSkyAtmosphere(scene: Scene, camera: Camera, sunState: SkyEn
     })
 
     atmosphere.exposure = calibration.atmosphereExposure
-    atmosphere.originHeight = 0.43
+    atmosphere.originHeight = 0.4
 
     return {
       status: {

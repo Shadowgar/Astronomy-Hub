@@ -39,6 +39,7 @@ import {
   buildSkyEnginePickTargets,
   clearSkyEnginePickTargets,
   getSkyEnginePickColliderDiameter,
+  resolveSkyEnginePickSelection,
   writeSkyEnginePickTargets,
 } from './pickTargets'
 import { getStarRenderProfile, type StarRenderProfile } from './starRenderer'
@@ -933,8 +934,8 @@ export default function SkyEngineScene({
 
     camera.attachControl(canvas, true)
     camera.inputs.attached.keyboard?.detachControl()
-    camera.angularSensibility = 2800
-    camera.inertia = 0.82
+    camera.angularSensibility = 3200
+    camera.inertia = 0.86
     camera.speed = 0
     camera.minZ = 0.1
     camera.maxZ = SKY_RADIUS * 2
@@ -1111,12 +1112,21 @@ export default function SkyEngineScene({
       sunState,
     )
 
-    scene.onPointerDown = (_, pickInfo) => {
-      const objectId = pickInfo.pickedMesh?.metadata?.objectId
+    scene.onPointerDown = () => {
+      const objectId = resolveSkyEnginePickSelection(
+        scene,
+        camera,
+        engine,
+        Object.values(renderedObjectRefs.current).map((refs) => ({
+          object: refs.object,
+          pickMesh: refs.pickMesh,
+          pickRadiusPx: refs.pickRadiusPx,
+        })),
+        scene.pointerX,
+        scene.pointerY,
+      )
 
-      if (typeof objectId === 'string') {
-        onSelectObject(objectId)
-      }
+      onSelectObject(objectId)
     }
 
     const handleWheel = (event: WheelEvent) => {
