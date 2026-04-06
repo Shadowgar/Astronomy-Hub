@@ -1,7 +1,7 @@
 import React, { useCallback, useDeferredValue, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { computeMoonSceneObject, computeRealSkySceneObjects, rankGuidanceTargets } from '../features/sky-engine/astronomy'
+import { computeMoonSceneObject, computePlanetSceneObjects, computeRealSkySceneObjects, rankGuidanceTargets } from '../features/sky-engine/astronomy'
 import { getDesiredFovForObject, getSkyEngineFovDegrees } from '../features/sky-engine/observerNavigation'
 import { SKY_ENGINE_REAL_SKY_STARTERS, SKY_ENGINE_SCENE_TIMESTAMP } from '../features/sky-engine/realSkyCatalog'
 import {
@@ -50,9 +50,13 @@ export default function SkyEnginePage() {
     () => computeMoonSceneObject(ORAS_OBSERVER, sceneTime.sceneTimestampIso),
     [sceneTime.sceneTimestampIso],
   )
+  const computedPlanetObjects = useMemo(
+    () => computePlanetSceneObjects(ORAS_OBSERVER, sceneTime.sceneTimestampIso),
+    [sceneTime.sceneTimestampIso],
+  )
   const computedVisibleObjects = useMemo(
-    () => [...computedSceneObjects, moonObject].filter((object) => object.isAboveHorizon),
-    [computedSceneObjects, moonObject],
+    () => [...computedSceneObjects, ...computedPlanetObjects, moonObject].filter((object) => object.isAboveHorizon),
+    [computedPlanetObjects, computedSceneObjects, moonObject],
   )
   const baseSceneObjects = useMemo(
     () => [...computedVisibleObjects, ...SKY_ENGINE_TEMPORARY_SCENE_SEED],

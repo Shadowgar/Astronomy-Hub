@@ -323,12 +323,173 @@ export function computeMoonSceneObject(observer: SkyEngineObserver, timestampIso
     rightAscensionHours: equatorialCoordinates.rightAscensionHours,
     declinationDeg: equatorialCoordinates.declinationDeg,
     timestampIso,
+    apparentSizeDeg: 0.52,
     illuminationFraction: equatorialCoordinates.illuminationFraction,
     brightLimbAngleDeg: equatorialCoordinates.brightLimbAngleDeg,
     phaseLabel: equatorialCoordinates.phaseLabel,
     waxing: equatorialCoordinates.waxing,
     isAboveHorizon: horizontalCoordinates.isAboveHorizon,
   }
+}
+
+interface OrbitalElements {
+  readonly ascendingNodeDeg: number
+  readonly inclinationDeg: number
+  readonly argumentOfPerihelionDeg: number
+  readonly semiMajorAxisAu: number
+  readonly eccentricity: number
+  readonly meanAnomalyDeg: number
+}
+
+interface PlanetDefinitionInternal {
+  readonly id: string
+  readonly name: string
+  readonly colorHex: string
+  readonly summary: string
+  readonly description: string
+  readonly magnitude: number
+  readonly angularSizeArcsecAtOneAu: number
+  readonly resolveElements: (daysSinceJ2000: number) => OrbitalElements
+}
+
+function resolveOrbitalPosition(elements: OrbitalElements) {
+  const eccentricAnomalyDeg = solveKeplerDegrees(elements.meanAnomalyDeg, elements.eccentricity)
+  const eccentricAnomalyRad = degreesToRadians(eccentricAnomalyDeg)
+  const xv = elements.semiMajorAxisAu * (Math.cos(eccentricAnomalyRad) - elements.eccentricity)
+  const yv = elements.semiMajorAxisAu * Math.sqrt(1 - elements.eccentricity * elements.eccentricity) * Math.sin(eccentricAnomalyRad)
+  const trueAnomalyDeg = radiansToDegrees(Math.atan2(yv, xv))
+  const radiusAu = Math.hypot(xv, yv)
+  const ascendingNodeRad = degreesToRadians(elements.ascendingNodeDeg)
+  const inclinationRad = degreesToRadians(elements.inclinationDeg)
+  const perihelionRad = degreesToRadians(elements.argumentOfPerihelionDeg + trueAnomalyDeg)
+
+  return {
+    x: radiusAu * (Math.cos(ascendingNodeRad) * Math.cos(perihelionRad) - Math.sin(ascendingNodeRad) * Math.sin(perihelionRad) * Math.cos(inclinationRad)),
+    y: radiusAu * (Math.sin(ascendingNodeRad) * Math.cos(perihelionRad) + Math.cos(ascendingNodeRad) * Math.sin(perihelionRad) * Math.cos(inclinationRad)),
+    z: radiusAu * Math.sin(perihelionRad) * Math.sin(inclinationRad),
+  }
+}
+
+const SKY_ENGINE_PLANET_DEFINITIONS: readonly PlanetDefinitionInternal[] = [
+  {
+    id: 'sky-planet-venus',
+    name: 'Venus',
+    colorHex: '#f4e4c1',
+    summary: 'Bright inner planet computed from a bounded orbital approximation.',
+    description: 'Venus is rendered through the dedicated planet renderer so wide zoom reads as a bright point while closer views transition toward a disc and textured surface.',
+    magnitude: -4.1,
+    angularSizeArcsecAtOneAu: 16,
+    resolveElements: (daysSinceJ2000) => ({
+      ascendingNodeDeg: 76.6799 + 2.4659e-5 * daysSinceJ2000,
+      inclinationDeg: 3.3946 + 2.75e-8 * daysSinceJ2000,
+      argumentOfPerihelionDeg: 54.891 + 1.38374e-5 * daysSinceJ2000,
+      semiMajorAxisAu: 0.72333,
+      eccentricity: 0.006773 - 1.302e-9 * daysSinceJ2000,
+      meanAnomalyDeg: normalizeDegrees(48.0052 + 1.6021302244 * daysSinceJ2000),
+    }),
+  },
+  {
+    id: 'sky-planet-mars',
+    name: 'Mars',
+    colorHex: '#e19972',
+    summary: 'Outer planet computed from a bounded orbital approximation.',
+    description: 'Mars is rendered as a dedicated planet object with point, disc, and textured surface transitions tied to field of view.',
+    magnitude: 0.3,
+    angularSizeArcsecAtOneAu: 9.36,
+    resolveElements: (daysSinceJ2000) => ({
+      ascendingNodeDeg: 49.5574 + 2.11081e-5 * daysSinceJ2000,
+      inclinationDeg: 1.8497 - 1.78e-8 * daysSinceJ2000,
+      argumentOfPerihelionDeg: 286.5016 + 2.92961e-5 * daysSinceJ2000,
+      semiMajorAxisAu: 1.523688,
+      eccentricity: 0.093405 + 2.516e-9 * daysSinceJ2000,
+      meanAnomalyDeg: normalizeDegrees(18.6021 + 0.5240207766 * daysSinceJ2000),
+    }),
+  },
+  {
+    id: 'sky-planet-jupiter',
+    name: 'Jupiter',
+    colorHex: '#d9b186',
+    summary: 'Gas giant computed from a bounded orbital approximation.',
+    description: 'Jupiter uses the planet renderer to transition from a bright sky point to a disc and simplified textured surface as field of view narrows.',
+    magnitude: -2.4,
+    angularSizeArcsecAtOneAu: 98,
+    resolveElements: (daysSinceJ2000) => ({
+      ascendingNodeDeg: 100.4542 + 2.76854e-5 * daysSinceJ2000,
+      inclinationDeg: 1.303 - 1.557e-7 * daysSinceJ2000,
+      argumentOfPerihelionDeg: 273.8777 + 1.64505e-5 * daysSinceJ2000,
+      semiMajorAxisAu: 5.20256,
+      eccentricity: 0.048498 + 4.469e-9 * daysSinceJ2000,
+      meanAnomalyDeg: normalizeDegrees(19.895 + 0.0830853001 * daysSinceJ2000),
+    }),
+  },
+  {
+    id: 'sky-planet-saturn',
+    name: 'Saturn',
+    colorHex: '#e2cf9c',
+    summary: 'Ringed gas giant computed from a bounded orbital approximation.',
+    description: 'Saturn is carried through the dedicated planet renderer so it follows the same Stellarium-style representation ladder as the other planets.',
+    magnitude: 0.7,
+    angularSizeArcsecAtOneAu: 82.73,
+    resolveElements: (daysSinceJ2000) => ({
+      ascendingNodeDeg: 113.6634 + 2.3898e-5 * daysSinceJ2000,
+      inclinationDeg: 2.4886 - 1.081e-7 * daysSinceJ2000,
+      argumentOfPerihelionDeg: 339.3939 + 2.97661e-5 * daysSinceJ2000,
+      semiMajorAxisAu: 9.55475,
+      eccentricity: 0.055546 - 9.499e-9 * daysSinceJ2000,
+      meanAnomalyDeg: normalizeDegrees(316.967 + 0.0334442282 * daysSinceJ2000),
+    }),
+  },
+] as const
+
+function resolveEarthElements(daysSinceJ2000: number): OrbitalElements {
+  return {
+    ascendingNodeDeg: 0,
+    inclinationDeg: 0,
+    argumentOfPerihelionDeg: 282.9404 + 4.70935e-5 * daysSinceJ2000,
+    semiMajorAxisAu: 1,
+    eccentricity: 0.016709 - 1.151e-9 * daysSinceJ2000,
+    meanAnomalyDeg: normalizeDegrees(356.047 + 0.9856002585 * daysSinceJ2000),
+  }
+}
+
+export function computePlanetSceneObjects(observer: SkyEngineObserver, timestampIso: string): readonly SkyEngineSceneObject[] {
+  const daysSinceJ2000 = toJulianDate(timestampIso) - 2451543.5
+  const earthOrbit = resolveOrbitalPosition(resolveEarthElements(daysSinceJ2000))
+  const obliquityRad = degreesToRadians(23.4393 - 3.563e-7 * daysSinceJ2000)
+
+  return SKY_ENGINE_PLANET_DEFINITIONS.map((planet) => {
+    const heliocentricPosition = resolveOrbitalPosition(planet.resolveElements(daysSinceJ2000))
+    const geocentricX = heliocentricPosition.x - earthOrbit.x
+    const geocentricY = heliocentricPosition.y - earthOrbit.y
+    const geocentricZ = heliocentricPosition.z - earthOrbit.z
+    const equatorialY = geocentricY * Math.cos(obliquityRad) - geocentricZ * Math.sin(obliquityRad)
+    const equatorialZ = geocentricY * Math.sin(obliquityRad) + geocentricZ * Math.cos(obliquityRad)
+    const rightAscensionDeg = normalizeDegrees(radiansToDegrees(Math.atan2(equatorialY, geocentricX)))
+    const declinationDeg = radiansToDegrees(Math.atan2(equatorialZ, Math.hypot(geocentricX, equatorialY)))
+    const rightAscensionHours = rightAscensionDeg / 15
+    const horizontalCoordinates = computeHorizontalCoordinates(observer, timestampIso, rightAscensionHours, declinationDeg)
+    const distanceAu = Math.hypot(geocentricX, geocentricY, geocentricZ)
+
+    return {
+      id: planet.id,
+      name: planet.name,
+      type: 'planet',
+      altitudeDeg: horizontalCoordinates.altitudeDeg,
+      azimuthDeg: horizontalCoordinates.azimuthDeg,
+      magnitude: planet.magnitude,
+      colorHex: planet.colorHex,
+      summary: planet.summary,
+      description: planet.description,
+      truthNote: 'Computed from a bounded planetary orbital approximation for the active observer and explicit scene timestamp in this slice.',
+      source: 'computed_ephemeris',
+      trackingMode: 'fixed_equatorial',
+      rightAscensionHours,
+      declinationDeg,
+      timestampIso,
+      apparentSizeDeg: (planet.angularSizeArcsecAtOneAu / Math.max(distanceAu, 0.1)) / 3600,
+      isAboveHorizon: horizontalCoordinates.isAboveHorizon,
+    }
+  })
 }
 
 function computeGuidanceScore(object: SkyEngineSceneObject) {

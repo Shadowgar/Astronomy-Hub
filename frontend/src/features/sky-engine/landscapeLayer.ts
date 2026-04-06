@@ -1,18 +1,16 @@
 import { Color3 } from '@babylonjs/core/Maths/math.color'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial'
-import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture'
-import { Texture } from '@babylonjs/core/Materials/Textures/texture'
 import { Mesh } from '@babylonjs/core/Meshes/mesh'
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import type { Scene } from '@babylonjs/core/scene'
 
 import { SKY_ENGINE_CONSTELLATION_SEGMENTS } from './constellations'
 import { buildLabelTexture } from './labelManager'
+import { SKY_RADIUS, toSkyPosition } from './skyDomeMath'
 import type { SkyEngineAidVisibility, SkyEngineSceneObject, SkyEngineSunState, SkyEngineVisualCalibration } from './types'
 
 const SKY_ENGINE_GROUND_TEXTURE_URL = '/sky-engine-assets/oras-grass.jpg'
-const SKY_RADIUS = 120
 const HORIZON_RADIUS = SKY_RADIUS * 0.92
 const CARDINAL_MARKERS = [
   { label: 'N', azimuthDeg: 0 },
@@ -29,106 +27,6 @@ export interface LandscapeLayer {
   dispose: () => void
 }
 
-function toSkyPosition(altitudeDeg: number, azimuthDeg: number, radius: number) {
-  const altitude = (altitudeDeg * Math.PI) / 180
-  const azimuth = (azimuthDeg * Math.PI) / 180
-  const horizontalRadius = Math.cos(altitude) * radius
-
-  return new Vector3(
-    Math.sin(azimuth) * horizontalRadius,
-    Math.sin(altitude) * radius,
-    Math.cos(azimuth) * horizontalRadius,
-  )
-}
-
-function buildAssetGroundTexture(scene: Scene, name: string, tileScale: number) {
-  const texture = new Texture(SKY_ENGINE_GROUND_TEXTURE_URL, scene, false, true, Texture.TRILINEAR_SAMPLINGMODE)
-  texture.hasAlpha = false
-  texture.wrapU = Texture.WRAP_ADDRESSMODE
-  texture.wrapV = Texture.WRAP_ADDRESSMODE
-  texture.name = name
-  texture.uScale = tileScale
-  texture.vScale = tileScale
-  texture.level = 0.94
-  return texture
-}
-
-function buildRadialBandTexture(name: string, colorHex: string, alpha = 0.42) {
-  const texture = new DynamicTexture(name, { width: 1024, height: 1024 }, undefined, true)
-  texture.hasAlpha = true
-
-  const context = texture.getContext() as CanvasRenderingContext2D
-  const color = Color3.FromHexString(colorHex)
-  const [red, green, blue] = [color.r, color.g, color.b].map((channel) => Math.round(channel * 255))
-  const gradient = context.createRadialGradient(512, 512, 250, 512, 512, 512)
-
-  gradient.addColorStop(0, 'rgba(0, 0, 0, 0)')
-  gradient.addColorStop(0.62, 'rgba(0, 0, 0, 0)')
-  gradient.addColorStop(0.84, `rgba(${red}, ${green}, ${blue}, ${alpha * 0.18})`)
-  gradient.addColorStop(0.95, `rgba(${red}, ${green}, ${blue}, ${alpha * 0.82})`)
-  gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
-
-  context.clearRect(0, 0, 1024, 1024)
-  context.fillStyle = gradient
-  context.fillRect(0, 0, 1024, 1024)
-  texture.update()
-
-  return texture
-}
-
-function buildGroundDepthTexture(name: string, alphaScale: number) {
-  const texture = new DynamicTexture(name, { width: 1024, height: 1024 }, undefined, true)
-  texture.hasAlpha = true
-
-  const context = texture.getContext() as CanvasRenderingContext2D
-  const gradient = context.createRadialGradient(512, 512, 180, 512, 512, 512)
-
-  gradient.addColorStop(0, 'rgba(0, 0, 0, 0)')
-  gradient.addColorStop(0.58, `rgba(0, 0, 0, ${0.08 * alphaScale})`)
-  gradient.addColorStop(0.86, `rgba(0, 0, 0, ${0.34 * alphaScale})`)
-  gradient.addColorStop(1, `rgba(0, 0, 0, ${0.66 * alphaScale})`)
-
-  context.clearRect(0, 0, 1024, 1024)
-  context.fillStyle = gradient
-  context.fillRect(0, 0, 1024, 1024)
-  texture.update()
-
-  return texture
-}
-
-function buildVerticalMistTexture(name: string, topHex: string, bottomHex: string, alpha = 0.32) {
-  const texture = new DynamicTexture(name, { width: 256, height: 1024 }, undefined, true)
-  texture.hasAlpha = true
-
-  const context = texture.getContext() as CanvasRenderingContext2D
-  const gradient = context.createLinearGradient(0, 0, 0, 1024)
-  const top = Color3.FromHexString(topHex)
-  const bottom = Color3.FromHexString(bottomHex)
-  const topColor = `${Math.round(top.r * 255)}, ${Math.round(top.g * 255)}, ${Math.round(top.b * 255)}`
-  const bottomColor = `${Math.round(bottom.r * 255)}, ${Math.round(bottom.g * 255)}, ${Math.round(bottom.b * 255)}`
-
-  gradient.addColorStop(0, `rgba(${topColor}, 0)`)
-  gradient.addColorStop(0.32, `rgba(${topColor}, ${alpha * 0.14})`)
-  gradient.addColorStop(0.7, `rgba(${bottomColor}, ${alpha * 0.78})`)
-  gradient.addColorStop(1, `rgba(${bottomColor}, 0)`)
-  context.clearRect(0, 0, 256, 1024)
-  context.fillStyle = gradient
-  context.fillRect(0, 0, 256, 1024)
-  texture.update()
-
-  return texture
-}
-
-function getGroundShading(calibration: SkyEngineVisualCalibration) {
-  return {
-    diffuse: Color3.FromHexString(calibration.groundTintHex),
-    emissive: Color3.FromHexString(calibration.skyHorizonColorHex).scale(0.06),
-    localEmissive: Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.1),
-    overlayAlpha: calibration.landscapeShadowAlpha,
-    horizonAlpha: calibration.horizonGlowAlpha,
-  }
-}
-
 function buildAidRingPoints(altitudeDeg: number, radius = SKY_RADIUS * 0.994, steps = 96) {
   return Array.from({ length: steps + 1 }, (_, index) => {
     const azimuthDeg = (index / steps) * 360
@@ -143,152 +41,84 @@ export function createLandscapeLayer(
   aidVisibility: SkyEngineAidVisibility,
   objects: readonly SkyEngineSceneObject[],
 ): LandscapeLayer {
-  const groundShading = getGroundShading(calibration)
-  const groundTexture = buildAssetGroundTexture(scene, 'sky-engine-ground-texture', 24)
-  const localGroundTexture = buildAssetGroundTexture(scene, 'sky-engine-local-ground-texture', 10)
-  const horizonBandTexture = buildRadialBandTexture('sky-engine-horizon-band-texture', calibration.horizonGlowColorHex, calibration.horizonGlowAlpha)
-  const nearGroundTexture = buildGroundDepthTexture('sky-engine-ground-depth-texture', calibration.landscapeShadowAlpha)
-  const verticalMistTexture = buildVerticalMistTexture(
-    'sky-engine-vertical-mist-texture',
-    calibration.skyHorizonColorHex,
-    calibration.landscapeFogColorHex,
-    calibration.horizonGlowAlpha,
-  )
+  const horizonMeshes: Mesh[] = []
+  const aidMeshes: Mesh[] = []
 
-  const groundDisk = MeshBuilder.CreateDisc(
-    'sky-engine-ground-disk',
-    { radius: SKY_RADIUS * 1.38, tessellation: 160, sideOrientation: Mesh.DOUBLESIDE },
+  const groundMask = MeshBuilder.CreateDisc(
+    'sky-engine-ground-mask',
+    { radius: SKY_RADIUS * 1.55, tessellation: 160, sideOrientation: Mesh.DOUBLESIDE },
     scene,
   )
-  groundDisk.rotation.x = Math.PI / 2
-  groundDisk.position.y = -2.4
-  groundDisk.isPickable = false
-  const groundMaterial = new StandardMaterial('sky-engine-ground-material', scene)
-  groundMaterial.disableLighting = true
-  groundMaterial.diffuseTexture = groundTexture
-  groundMaterial.emissiveTexture = groundTexture
-  groundMaterial.diffuseColor = groundShading.diffuse
-  groundMaterial.emissiveColor = groundShading.emissive
-  groundMaterial.specularColor = Color3.Black()
-  groundDisk.material = groundMaterial
+  groundMask.rotation.x = Math.PI / 2
+  groundMask.position.y = -0.75
+  groundMask.isPickable = false
+  const groundMaskMaterial = new StandardMaterial('sky-engine-ground-mask-material', scene)
+  groundMaskMaterial.disableLighting = true
+  groundMaskMaterial.diffuseColor = Color3.FromHexString('#04070b')
+  groundMaskMaterial.emissiveColor = Color3.FromHexString('#05090f').scale(sunState.phaseLabel === 'Daylight' ? 0.3 : 0.18)
+  groundMaskMaterial.alpha = 1
+  groundMask.material = groundMaskMaterial
+  horizonMeshes.push(groundMask)
 
-  const localGroundDisk = MeshBuilder.CreateDisc(
-    'sky-engine-local-ground-disk',
-    { radius: SKY_RADIUS * 0.34, tessellation: 96, sideOrientation: Mesh.DOUBLESIDE },
+  const horizonOccluder = MeshBuilder.CreateCylinder(
+    'sky-engine-horizon-occluder',
+    { height: 10, diameter: HORIZON_RADIUS * 2.24, tessellation: 128, sideOrientation: Mesh.DOUBLESIDE },
     scene,
   )
-  localGroundDisk.rotation.x = Math.PI / 2
-  localGroundDisk.position.y = -1.55
-  localGroundDisk.isPickable = false
-  const localGroundMaterial = new StandardMaterial('sky-engine-local-ground-material', scene)
-  localGroundMaterial.disableLighting = true
-  localGroundMaterial.diffuseTexture = localGroundTexture
-  localGroundMaterial.emissiveTexture = localGroundTexture
-  localGroundMaterial.diffuseColor = groundShading.diffuse.scale(1.04)
-  localGroundMaterial.emissiveColor = groundShading.localEmissive
-  localGroundMaterial.specularColor = Color3.Black()
-  localGroundDisk.material = localGroundMaterial
+  horizonOccluder.position.y = -4.2
+  horizonOccluder.isPickable = false
+  const horizonOccluderMaterial = new StandardMaterial('sky-engine-horizon-occluder-material', scene)
+  horizonOccluderMaterial.disableLighting = true
+  horizonOccluderMaterial.diffuseColor = Color3.FromHexString('#06090f')
+  horizonOccluderMaterial.emissiveColor = Color3.FromHexString(calibration.horizonColorHex).scale(0.04)
+  horizonOccluderMaterial.alpha = 0.96
+  horizonOccluder.material = horizonOccluderMaterial
+  horizonMeshes.push(horizonOccluder)
 
-  const groundDepthDisc = MeshBuilder.CreateDisc(
-    'sky-engine-ground-depth-disc',
-    { radius: SKY_RADIUS * 0.98, tessellation: 120, sideOrientation: Mesh.DOUBLESIDE },
+  const horizonBand = MeshBuilder.CreateTorus(
+    'sky-engine-horizon-band',
+    { diameter: HORIZON_RADIUS * 2.02, thickness: 0.28, tessellation: 128 },
     scene,
   )
-  groundDepthDisc.rotation.x = Math.PI / 2
-  groundDepthDisc.position.y = -1.12
-  groundDepthDisc.isPickable = false
-  const groundDepthMaterial = new StandardMaterial('sky-engine-ground-depth-material', scene)
-  groundDepthMaterial.disableLighting = true
-  groundDepthMaterial.diffuseTexture = nearGroundTexture
-  groundDepthMaterial.opacityTexture = nearGroundTexture
-  groundDepthMaterial.useAlphaFromDiffuseTexture = true
-  groundDepthMaterial.backFaceCulling = false
-  groundDepthMaterial.emissiveColor = Color3.Black()
-  groundDepthMaterial.alpha = groundShading.overlayAlpha
-  groundDepthDisc.material = groundDepthMaterial
+  horizonBand.rotation.x = Math.PI / 2
+  horizonBand.isPickable = false
+  const horizonBandMaterial = new StandardMaterial('sky-engine-horizon-band-material', scene)
+  horizonBandMaterial.disableLighting = true
+  horizonBandMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.28)
+  horizonBandMaterial.alpha = calibration.horizonGlowAlpha * 0.92
+  horizonBand.material = horizonBandMaterial
+  horizonMeshes.push(horizonBand)
 
-  const horizonBlend = MeshBuilder.CreateDisc(
-    'sky-engine-horizon-blend',
-    { radius: HORIZON_RADIUS * 1.08, tessellation: 160, sideOrientation: Mesh.DOUBLESIDE },
+  const azimuthRing = MeshBuilder.CreateTorus(
+    'sky-engine-horizon-ring',
+    { diameter: HORIZON_RADIUS * 2, thickness: 0.12, tessellation: 128 },
     scene,
   )
-  horizonBlend.rotation.x = Math.PI / 2
-  horizonBlend.position.y = -0.18
-  horizonBlend.isPickable = false
-  const horizonBlendMaterial = new StandardMaterial('sky-engine-horizon-blend-material', scene)
-  horizonBlendMaterial.disableLighting = true
-  horizonBlendMaterial.diffuseTexture = horizonBandTexture
-  horizonBlendMaterial.opacityTexture = horizonBandTexture
-  horizonBlendMaterial.useAlphaFromDiffuseTexture = true
-  horizonBlendMaterial.backFaceCulling = false
-  horizonBlendMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.2)
-  horizonBlendMaterial.alpha = groundShading.horizonAlpha * 0.88
-  horizonBlend.material = horizonBlendMaterial
+  azimuthRing.rotation.x = Math.PI / 2
+  azimuthRing.isPickable = false
+  azimuthRing.isVisible = aidVisibility.azimuthRing
+  const azimuthRingMaterial = new StandardMaterial('sky-engine-horizon-ring-material', scene)
+  azimuthRingMaterial.disableLighting = true
+  azimuthRingMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.7)
+  azimuthRingMaterial.alpha = 0.62
+  azimuthRing.material = azimuthRingMaterial
+  aidMeshes.push(azimuthRing)
 
-  const horizonNearBand = MeshBuilder.CreateDisc(
-    'sky-engine-horizon-near-band',
-    { radius: HORIZON_RADIUS * 0.996, tessellation: 160, sideOrientation: Mesh.DOUBLESIDE },
-    scene,
-  )
-  horizonNearBand.rotation.x = Math.PI / 2
-  horizonNearBand.position.y = 0.08
-  horizonNearBand.isPickable = false
-  const horizonNearBandMaterial = new StandardMaterial('sky-engine-horizon-near-band-material', scene)
-  horizonNearBandMaterial.disableLighting = true
-  horizonNearBandMaterial.diffuseTexture = horizonBandTexture
-  horizonNearBandMaterial.opacityTexture = horizonBandTexture
-  horizonNearBandMaterial.useAlphaFromDiffuseTexture = true
-  horizonNearBandMaterial.backFaceCulling = false
-  horizonNearBandMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.26)
-  horizonNearBandMaterial.alpha = Math.max(0.08, groundShading.horizonAlpha * 0.72)
-  horizonNearBand.material = horizonNearBandMaterial
-
-  const mistCylinder = MeshBuilder.CreateCylinder(
-    'sky-engine-horizon-mist',
-    { height: 16, diameter: HORIZON_RADIUS * 2.14, tessellation: 128, sideOrientation: Mesh.DOUBLESIDE },
-    scene,
-  )
-  mistCylinder.position.y = 3.1
-  mistCylinder.isPickable = false
-  const mistMaterial = new StandardMaterial('sky-engine-horizon-mist-material', scene)
-  mistMaterial.disableLighting = true
-  mistMaterial.diffuseTexture = verticalMistTexture
-  mistMaterial.opacityTexture = verticalMistTexture
-  mistMaterial.useAlphaFromDiffuseTexture = true
-  mistMaterial.backFaceCulling = false
-  mistMaterial.emissiveColor = Color3.FromHexString(calibration.landscapeFogColorHex)
-  mistMaterial.alpha = 0.46
-  mistCylinder.material = mistMaterial
-
-  const horizonRing = MeshBuilder.CreateTorus(
-    'sky-engine-horizon',
-    { diameter: HORIZON_RADIUS * 2, thickness: 0.24, tessellation: 128 },
-    scene,
-  )
-  horizonRing.rotation.x = Math.PI / 2
-  horizonRing.isPickable = false
-  horizonRing.isVisible = aidVisibility.azimuthRing
-  const horizonMaterial = new StandardMaterial('sky-engine-horizon-material', scene)
-  horizonMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex)
-  horizonMaterial.alpha = 0.68
-  horizonRing.material = horizonMaterial
-
-  const aidMeshes: Mesh[] = [horizonRing]
   CARDINAL_MARKERS.forEach((marker) => {
     const markerPosition = toSkyPosition(0, marker.azimuthDeg, HORIZON_RADIUS)
 
     const post = MeshBuilder.CreateCylinder(
       `sky-engine-cardinal-post-${marker.label}`,
-      { height: 2.8, diameter: 0.14 },
+      { height: 2.8, diameter: 0.12 },
       scene,
     )
     post.position = new Vector3(markerPosition.x, 1.4, markerPosition.z)
     post.isPickable = false
     post.isVisible = aidVisibility.azimuthRing
-
     const postMaterial = new StandardMaterial(`sky-engine-cardinal-post-material-${marker.label}`, scene)
     postMaterial.disableLighting = true
-    postMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.92)
+    postMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex).scale(0.88)
+    postMaterial.alpha = 0.72
     post.material = postMaterial
     aidMeshes.push(post)
 
@@ -297,17 +127,16 @@ export function createLandscapeLayer(
       { width: 5.6, height: 2.6 },
       scene,
     )
-    label.position = new Vector3(markerPosition.x, 4.4, markerPosition.z)
+    label.position = new Vector3(markerPosition.x, 4.2, markerPosition.z)
     label.billboardMode = Mesh.BILLBOARDMODE_ALL
     label.isPickable = false
     label.isVisible = aidVisibility.azimuthRing
-
     const labelMaterial = new StandardMaterial(`sky-engine-cardinal-label-material-${marker.label}`, scene)
     labelMaterial.disableLighting = true
+    labelMaterial.backFaceCulling = false
     labelMaterial.diffuseTexture = buildLabelTexture(marker.label, 'cardinal')
     labelMaterial.opacityTexture = labelMaterial.diffuseTexture
     labelMaterial.useAlphaFromDiffuseTexture = true
-    labelMaterial.backFaceCulling = false
     labelMaterial.emissiveColor = Color3.FromHexString(calibration.horizonGlowColorHex)
     labelMaterial.alpha = 0.88
     label.material = labelMaterial
@@ -320,47 +149,45 @@ export function createLandscapeLayer(
       { points: buildAidRingPoints(altitudeDeg) },
       scene,
     )
-    ring.color = Color3.FromHexString('#7aa9d8')
-    ring.alpha = 0.16
     ring.isPickable = false
     ring.isVisible = aidVisibility.altitudeRings
+    ring.color = Color3.FromHexString('#88b7f6')
+    ring.alpha = 0.34
     aidMeshes.push(ring)
 
     const labelPosition = toSkyPosition(altitudeDeg, 315, SKY_RADIUS * 0.994)
     const label = MeshBuilder.CreatePlane(
       `sky-engine-altitude-label-${altitudeDeg}`,
-      { width: 6.5, height: 2.4 },
+      { width: 5.2, height: 2.2 },
       scene,
     )
-    label.position = labelPosition.add(new Vector3(0, 1.8, 0))
+    label.position = labelPosition
     label.billboardMode = Mesh.BILLBOARDMODE_ALL
     label.isPickable = false
     label.isVisible = aidVisibility.altitudeRings
-
     const labelMaterial = new StandardMaterial(`sky-engine-altitude-label-material-${altitudeDeg}`, scene)
     labelMaterial.disableLighting = true
+    labelMaterial.backFaceCulling = false
     labelMaterial.diffuseTexture = buildLabelTexture(`${altitudeDeg}°`, 'cardinal')
     labelMaterial.opacityTexture = labelMaterial.diffuseTexture
     labelMaterial.useAlphaFromDiffuseTexture = true
-    labelMaterial.backFaceCulling = false
-    labelMaterial.emissiveColor = Color3.FromHexString('#7aa9d8')
-    labelMaterial.alpha = 0.4
+    labelMaterial.emissiveColor = Color3.FromHexString('#b8d5ff')
+    labelMaterial.alpha = 0.74
     label.material = labelMaterial
     aidMeshes.push(label)
   })
 
-  const constellationObjects = new Map(objects.map((object) => [object.id, object]))
-  SKY_ENGINE_CONSTELLATION_SEGMENTS.forEach((segment) => {
-    segment.pairs.forEach(([startId, endId], pairIndex) => {
-      const startObject = constellationObjects.get(startId)
-      const endObject = constellationObjects.get(endId)
+  SKY_ENGINE_CONSTELLATION_SEGMENTS.forEach((constellation) => {
+    constellation.pairs.forEach(([startId, endId], index) => {
+      const startObject = objects.find((object) => object.id === startId)
+      const endObject = objects.find((object) => object.id === endId)
 
       if (!startObject || !endObject) {
         return
       }
 
-      const line = MeshBuilder.CreateLines(
-        `sky-engine-constellation-${segment.id}-${pairIndex}`,
+      const segment = MeshBuilder.CreateLines(
+        `sky-engine-constellation-segment-${constellation.id}-${index}`,
         {
           points: [
             toSkyPosition(startObject.altitudeDeg, startObject.azimuthDeg, SKY_RADIUS * 0.997),
@@ -369,47 +196,27 @@ export function createLandscapeLayer(
         },
         scene,
       )
-      line.color = Color3.FromHexString('#6d96d9')
-      line.alpha = 0.14
-      line.isPickable = false
-      line.isVisible = aidVisibility.constellations
-      aidMeshes.push(line)
+      segment.isPickable = false
+      segment.isVisible = aidVisibility.constellations
+      segment.color = Color3.FromHexString('#6f90c9')
+      segment.alpha = 0.42
+      aidMeshes.push(segment)
     })
   })
 
   return {
     groundTextureMode: 'oras-grass.jpg_tiled',
     groundTextureAssetPath: SKY_ENGINE_GROUND_TEXTURE_URL,
-    update: (animationTime: number) => {
-      const horizonPulse = sunState.phaseLabel === 'Low Sun' ? 0.018 : 0.008
-      horizonBlendMaterial.alpha = groundShading.horizonAlpha * 0.88 + Math.sin(animationTime * 0.42) * horizonPulse
-      horizonNearBandMaterial.alpha = Math.max(0.08, groundShading.horizonAlpha * 0.72 + Math.sin(animationTime * 0.58) * 0.01)
-      mistMaterial.alpha = 0.42 + Math.sin(animationTime * 0.24) * 0.02
+    update(animationTime: number) {
+      horizonBandMaterial.alpha = calibration.horizonGlowAlpha * (0.86 + Math.sin(animationTime * 0.3) * 0.04)
+      azimuthRingMaterial.alpha = aidVisibility.azimuthRing ? 0.58 + Math.sin(animationTime * 0.45) * 0.03 : 0
     },
-    dispose: () => {
-      groundTexture.dispose()
-      localGroundTexture.dispose()
-      horizonBandTexture.dispose()
-      nearGroundTexture.dispose()
-      verticalMistTexture.dispose()
-      groundMaterial.dispose()
-      localGroundMaterial.dispose()
-      groundDepthMaterial.dispose()
-      horizonBlendMaterial.dispose()
-      horizonNearBandMaterial.dispose()
-      mistMaterial.dispose()
-      horizonMaterial.dispose()
-      groundDisk.dispose(false, true)
-      localGroundDisk.dispose(false, true)
-      groundDepthDisc.dispose(false, true)
-      horizonBlend.dispose(false, true)
-      horizonNearBand.dispose(false, true)
-      mistCylinder.dispose(false, true)
-      aidMeshes.forEach((mesh) => {
-        if (!mesh.isDisposed()) {
-          mesh.dispose(false, true)
-        }
-      })
+    dispose() {
+      ;[...horizonMeshes, ...aidMeshes].forEach((mesh) => mesh.dispose())
+      groundMaskMaterial.dispose()
+      horizonOccluderMaterial.dispose()
+      horizonBandMaterial.dispose()
+      azimuthRingMaterial.dispose()
     },
   }
 }

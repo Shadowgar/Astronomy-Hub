@@ -207,6 +207,7 @@ export function resolveLabelLayout(
   selectedObjectId: string | null,
   guidedObjectIds: ReadonlySet<string>,
   sunState: SkyEngineSunState,
+  maxVisibleLabels = MAX_VISIBLE_LABELS,
 ) {
   const viewport = camera.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight())
   const visibleRectangles: Array<{ x: number; y: number; width: number; height: number }> = []
@@ -265,7 +266,7 @@ export function resolveLabelLayout(
 
   let visibleCount = 0
   candidates.forEach((candidate) => {
-    const allowByCap = candidate.isSelected || visibleCount < MAX_VISIBLE_LABELS
+    const allowByCap = candidate.isSelected || visibleCount < maxVisibleLabels
     const overlaps = visibleRectangles.some((rectangle) => rectanglesOverlap(rectangle, candidate.rectangle))
     const shouldShow = candidate.isSelected
       ? candidate.priority > 0

@@ -42,6 +42,7 @@ export interface SkyEngineSceneObject {
   declinationDeg?: number
   colorIndexBV?: number
   timestampIso?: string
+  apparentSizeDeg?: number
   illuminationFraction?: number
   brightLimbAngleDeg?: number
   phaseLabel?: string
@@ -91,6 +92,14 @@ export interface SkyEngineGuidanceTarget {
   name: string
   score: number
   summary: string
+}
+
+export interface SkyEnginePlanetDefinition {
+  id: string
+  name: string
+  colorHex: string
+  summary: string
+  description: string
 }
 
 export type SkyEngineSunPhase = 'Daylight' | 'Low Sun' | 'Night'
