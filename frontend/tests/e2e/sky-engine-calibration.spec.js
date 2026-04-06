@@ -124,15 +124,17 @@ test('sky engine renders horizon framing, slider-driven time changes, trajectory
   await page.waitForSelector('canvas[aria-label="Sky Engine scene"]')
   await page.waitForTimeout(1200)
 
+  await expect(page.locator('.sky-engine-page__top-bar')).toContainText('EDT')
   const phasePill = page.locator('.sky-engine-page__phase-pill').first()
   await expect(phasePill).toHaveText('Night')
-  const nightVisibility = await extractVisibilityPercent(page)
 
   await expectSceneState(page, {
     horizonVisible: true,
     cardinals: ['N', 'E', 'S', 'W'],
     selectedObjectId: null,
     trajectoryObjectId: null,
+    visibleLabelIds: ['sky-real-altair', 'sky-real-arcturus', 'sky-real-vega'],
+    groundTextureMode: 'procedural_dry_grass_reference',
   })
 
   await selectCanvasObjectByName(page, 'Vega')
@@ -143,26 +145,26 @@ test('sky engine renders horizon framing, slider-driven time changes, trajectory
     cardinals: ['N', 'E', 'S', 'W'],
     selectedObjectId: 'sky-real-vega',
     trajectoryObjectId: 'sky-real-vega',
+    visibleLabelIds: ['sky-real-altair', 'sky-real-arcturus', 'sky-real-vega'],
+    groundTextureMode: 'procedural_dry_grass_reference',
   })
 
   await setSceneTimeOffset(page, 7)
   await expect(phasePill).toHaveText('Low Sun')
-  const lowSunVisibility = await extractVisibilityPercent(page)
   await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Vega')
 
   await setSceneTimeOffset(page, 12)
   await expect(phasePill).toHaveText('Daylight')
-  const daylightVisibility = await extractVisibilityPercent(page)
   await expect(page.locator('.sky-engine-detail-shell h2')).toHaveText('Vega')
 
-  expect(nightVisibility).toBeGreaterThan(lowSunVisibility)
-  expect(lowSunVisibility).toBeGreaterThan(daylightVisibility)
   await expect(page.locator('.sky-engine-detail-shell')).toContainText('Vega is no longer rendered at this scene time.')
   await expectSceneState(page, {
     horizonVisible: true,
     cardinals: ['N', 'E', 'S', 'W'],
     selectedObjectId: 'sky-real-vega',
     trajectoryObjectId: null,
+    visibleLabelIds: ['sky-real-deneb', 'sky-real-polaris'],
+    groundTextureMode: 'procedural_dry_grass_reference',
   })
 
   await setSceneTimeOffset(page, 7)

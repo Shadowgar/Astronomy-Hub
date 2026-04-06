@@ -1,15 +1,11 @@
 import React from 'react'
 
-import type { SkyEngineAtmosphereStatus, SkyEngineObserver, SkyEngineSceneObject, SkyEngineSunState } from './types'
+import type { SkyEngineSceneObject } from './types'
 
 interface SkyEngineDetailShellProps {
-  readonly observer: SkyEngineObserver
   readonly selectedObject: SkyEngineSceneObject | null
   readonly selectionStatus: 'idle' | 'active' | 'hidden'
   readonly hiddenSelectionName: string | null
-  readonly atmosphereStatus: SkyEngineAtmosphereStatus
-  readonly sunState: SkyEngineSunState
-  readonly sceneTimestampIso: string
   readonly onClearSelection: () => void
 }
 
@@ -19,14 +15,6 @@ function formatSignedDegrees(value: number) {
 
 function formatRightAscension(value: number) {
   return `${value.toFixed(3)}h`
-}
-
-function formatTimestamp(timestampIso: string) {
-  return new Date(timestampIso).toUTCString()
-}
-
-function phaseModifier(phaseLabel: SkyEngineSunState['phaseLabel']) {
-  return phaseLabel.toLowerCase().split(' ').join('-')
 }
 
 function getSelectionSourceCoordinates(selectedObject: SkyEngineSceneObject) {
@@ -62,6 +50,9 @@ function getSelectionBadgeLabel(selectedObject: SkyEngineSceneObject) {
 function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
   const sourceCoordinates = getSelectionSourceCoordinates(selectedObject)
   const hasComputedTrajectory = selectedObject.source === 'computed_real_sky'
+  const trajectoryLine = hasComputedTrajectory
+    ? '12h arc visible and keyed to the selected object.'
+    : 'Static marker only.'
 
   return (
     <div className="sky-engine-detail-shell__body">
@@ -76,7 +67,7 @@ function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
       </div>
 
       <p className="sky-engine-detail-shell__summary">{selectedObject.summary}</p>
-      <p>{selectedObject.description}</p>
+      <p className="sky-engine-detail-shell__description">{selectedObject.description}</p>
       {sourceCoordinates ? <p className="sky-engine-detail-shell__hint">{sourceCoordinates}</p> : null}
 
       <dl className="sky-engine-detail-shell__facts">
@@ -102,11 +93,8 @@ function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
         </div>
       </dl>
 
-      <section className="sky-engine-detail-shell__truth-note">
-        <h3>Provenance</h3>
-        <p>{getSelectionTruthDescription(selectedObject)}</p>
-        <p>{selectedObject.truthNote}</p>
-      </section>
+      <p className="sky-engine-detail-shell__hint">{trajectoryLine}</p>
+      <p className="sky-engine-detail-shell__hint">{getSelectionTruthDescription(selectedObject)}</p>
     </div>
   )
 }
@@ -128,22 +116,16 @@ function renderEmptySelectionBody(
 
   return (
     <div className="sky-engine-detail-shell__body">
-      <p>Drag to look around, scroll to zoom, and click a rendered marker to inspect it.</p>
-      <p className="sky-engine-detail-shell__hint">
-        Computed stars support a live trajectory arc. Temporary markers stay clearly labeled.
-      </p>
+      <p>Pick a visible object to open its inspector.</p>
+      <p className="sky-engine-detail-shell__hint">Selected computed stars keep a live trajectory arc and readable label.</p>
     </div>
   )
 }
 
 export default function SkyEngineDetailShell({
-  observer,
   selectedObject,
   selectionStatus,
   hiddenSelectionName,
-  atmosphereStatus,
-  sunState,
-  sceneTimestampIso,
   onClearSelection,
 }: SkyEngineDetailShellProps) {
   const heading = selectedObject ? selectedObject.name : hiddenSelectionName ?? 'Select a rendered object'
@@ -160,38 +142,6 @@ export default function SkyEngineDetailShell({
             Clear
           </button>
         ) : null}
-      </div>
-
-      <div className="sky-engine-detail-shell__meta-grid">
-        <div>
-          <span className="sky-engine-detail-shell__meta-label">Observer</span>
-          <strong>{observer.label}</strong>
-          <p>
-            {formatSignedDegrees(observer.latitude)} / {formatSignedDegrees(observer.longitude)}
-          </p>
-        </div>
-        <div>
-          <span className="sky-engine-detail-shell__meta-label">Atmosphere</span>
-          <strong>{atmosphereStatus.mode === 'addon' ? 'Addon active' : 'Fallback active'}</strong>
-          <p>{atmosphereStatus.message}</p>
-        </div>
-        <div>
-          <span className="sky-engine-detail-shell__meta-label">Scene time</span>
-          <strong>{formatTimestamp(sceneTimestampIso)}</strong>
-          <p>Lighting, visibility, and trajectories all recalculate from this timestamp.</p>
-        </div>
-        <div>
-          <span className="sky-engine-detail-shell__meta-label">Scene-linked sun state</span>
-          <strong className="sky-engine-detail-shell__phase-line">
-            <span className={`sky-engine-page__phase-pill sky-engine-page__phase-pill--${phaseModifier(sunState.phaseLabel)}`}>
-              {sunState.phaseLabel}
-            </span>
-            <span>{sunState.isAboveHorizon ? 'Above horizon' : 'Below horizon'}</span>
-          </strong>
-          <p>
-            Alt {sunState.altitudeDeg.toFixed(1)}° · Az {sunState.azimuthDeg.toFixed(1)}° · Star visibility {Math.round(sunState.visualCalibration.starVisibility * 100)}%
-          </p>
-        </div>
       </div>
 
       {selectedObject ? renderSelectionBody(selectedObject) : renderEmptySelectionBody(selectionStatus, hiddenSelectionName)}

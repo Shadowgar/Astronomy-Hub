@@ -3,18 +3,36 @@ import { useCallback, useMemo, useState } from 'react'
 export const SKY_ENGINE_MIN_SCENE_HOUR_OFFSET = -24
 export const SKY_ENGINE_MAX_SCENE_HOUR_OFFSET = 24
 export const SKY_ENGINE_SCENE_HOUR_STEP = 1
+export const SKY_ENGINE_LOCAL_TIME_ZONE = 'America/New_York'
 
 export function buildSceneTimestampFromHourOffset(baseTimestampIso: string, hourOffset: number) {
   return new Date(new Date(baseTimestampIso).getTime() + hourOffset * 60 * 60 * 1000).toISOString()
 }
 
-export function formatSceneTimestamp(timestampIso: string) {
-  return new Date(timestampIso).toUTCString()
+export function formatSceneLocalTimestamp(timestampIso: string) {
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: SKY_ENGINE_LOCAL_TIME_ZONE,
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short',
+  }).format(new Date(timestampIso))
+}
+
+export function formatSceneUtcTimestamp(timestampIso: string) {
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'UTC',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZoneName: 'short',
+  }).format(new Date(timestampIso))
 }
 
 export function formatSceneHourOffset(hourOffset: number) {
   if (hourOffset === 0) {
-    return 'Base time'
+    return 'Now'
   }
 
   return `${hourOffset > 0 ? '+' : ''}${hourOffset}h`
@@ -28,8 +46,13 @@ export function useSkyEngineSceneTime(initialTimestampIso: string) {
     [initialTimestampIso, sceneHourOffset],
   )
 
-  const formattedSceneTimestamp = useMemo(
-    () => formatSceneTimestamp(sceneTimestampIso),
+  const formattedSceneLocalTimestamp = useMemo(
+    () => formatSceneLocalTimestamp(sceneTimestampIso),
+    [sceneTimestampIso],
+  )
+
+  const formattedSceneUtcTimestamp = useMemo(
+    () => formatSceneUtcTimestamp(sceneTimestampIso),
     [sceneTimestampIso],
   )
 
@@ -45,7 +68,8 @@ export function useSkyEngineSceneTime(initialTimestampIso: string) {
   return {
     sceneTimestampIso,
     sceneHourOffset,
-    formattedSceneTimestamp,
+    formattedSceneLocalTimestamp,
+    formattedSceneUtcTimestamp,
     formattedSceneHourOffset,
     setSceneHourOffset,
     resetSceneTime,

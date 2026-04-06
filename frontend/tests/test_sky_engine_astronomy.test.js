@@ -8,7 +8,9 @@ import {
 import { SKY_ENGINE_REAL_SKY_STARTERS, SKY_ENGINE_SCENE_TIMESTAMP } from '../src/features/sky-engine/realSkyCatalog.ts'
 import {
   buildSceneTimestampFromHourOffset,
+  formatSceneLocalTimestamp,
   formatSceneHourOffset,
+  formatSceneUtcTimestamp,
 } from '../src/features/sky-engine/sceneTime.ts'
 import { ORAS_OBSERVER } from '../src/features/sky-engine/sceneSeed.ts'
 import { computeSunState, deriveSunPhaseLabel, deriveSunVisualCalibration } from '../src/features/sky-engine/solar.ts'
@@ -43,9 +45,11 @@ describe('Sky Engine astronomy helpers', () => {
     expect(buildSceneTimestampFromHourOffset(baseTimestamp, 1)).toBe('2026-07-15T04:00:00.000Z')
     expect(buildSceneTimestampFromHourOffset(baseTimestamp, -24)).toBe('2026-07-14T03:00:00.000Z')
     expect(buildSceneTimestampFromHourOffset(baseTimestamp, 24)).toBe('2026-07-16T03:00:00.000Z')
-    expect(formatSceneHourOffset(0)).toBe('Base time')
+    expect(formatSceneHourOffset(0)).toBe('Now')
     expect(formatSceneHourOffset(7)).toBe('+7h')
     expect(formatSceneHourOffset(-5)).toBe('-5h')
+    expect(formatSceneLocalTimestamp(baseTimestamp)).toContain('EDT')
+    expect(formatSceneUtcTimestamp(baseTimestamp)).toContain('UTC')
   })
 
   it('builds trajectory samples for computed stars across a 12-hour window', () => {
