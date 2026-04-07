@@ -40,6 +40,7 @@ import {
 } from './projectionMath'
 import { getStarRenderProfile } from './starRenderer'
 import type { SkyScenePacket } from './engine/sky'
+import type { BackendSkySceneStarObject } from '../scene/contracts'
 import type {
   SkyEngineAidVisibility,
   SkyEngineAtmosphereStatus,
@@ -49,6 +50,7 @@ import type {
 } from './types'
 
 interface SkyEngineSceneProps {
+  readonly backendStars: readonly BackendSkySceneStarObject[]
   readonly observer: SkyEngineObserver
   readonly objects: readonly SkyEngineSceneObject[]
   readonly scenePacket: SkyScenePacket | null
@@ -95,6 +97,7 @@ interface SceneRuntimeRefs {
 }
 
 interface SceneStateWriteInput {
+  backendStarCount: number
   canvas: HTMLCanvasElement
   objects: readonly SkyEngineSceneObject[]
   selectedObjectId: string | null
@@ -158,6 +161,7 @@ function isEngineTileSource(source: SkyEngineSceneObject['source']) {
 }
 
 function writeSceneState({
+  backendStarCount,
   canvas,
   objects,
   selectedObjectId,
@@ -183,6 +187,7 @@ function writeSceneState({
       guidanceObjectIds: guidedObjectIds,
       moonObjectId: moonObject?.id ?? null,
       controlledLabelCount: visibleLabelIds.length,
+      backendStarCount,
       labelCap,
       aidVisibility,
       currentFovDegrees,
@@ -1204,6 +1209,7 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
 }
 
 export default function SkyEngineScene({
+  backendStars,
   observer,
   objects,
   scenePacket,
@@ -1220,6 +1226,7 @@ export default function SkyEngineScene({
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const runtimeRefs = useRef<SceneRuntimeRefs | null>(null)
   const propsRef = useRef<ScenePropsSnapshot>({
+    backendStars,
     observer,
     objects,
     scenePacket,
@@ -1236,6 +1243,7 @@ export default function SkyEngineScene({
 
   useEffect(() => {
     propsRef.current = {
+      backendStars,
       observer,
       objects,
       scenePacket,
@@ -1249,7 +1257,7 @@ export default function SkyEngineScene({
       onAtmosphereStatusChange,
       onViewStateChange,
     }
-  }, [aidVisibility, guidedObjectIds, initialViewState, objects, observer, onAtmosphereStatusChange, onSelectObject, onViewStateChange, projectionMode, scenePacket, selectedObjectId, sunState])
+  }, [aidVisibility, backendStars, guidedObjectIds, initialViewState, objects, observer, onAtmosphereStatusChange, onSelectObject, onViewStateChange, projectionMode, scenePacket, selectedObjectId, sunState])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -1494,6 +1502,7 @@ export default function SkyEngineScene({
       }
 
       writeSceneState({
+        backendStarCount: latest.backendStars.length,
         canvas,
         objects: latest.objects,
         selectedObjectId: latest.selectedObjectId,

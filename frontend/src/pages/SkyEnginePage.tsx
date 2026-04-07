@@ -1,7 +1,7 @@
 import React, { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { computeMoonSceneObject, computePlanetSceneObjects, rankGuidanceTargets } from '../features/sky-engine/astronomy'
+import { computeBackendStarSceneObjects, computeMoonSceneObject, computePlanetSceneObjects, rankGuidanceTargets } from '../features/sky-engine/astronomy'
 import {
   assembleSkyScenePacket,
   buildSkyEngineQuery,
@@ -19,6 +19,7 @@ import {
 } from '../features/sky-engine/sceneTime'
 import { computeSunState } from '../features/sky-engine/solar'
 import { useSceneByScopeDataQuery } from '../features/scene/queries'
+import { isFiniteNumber, parseBackendSkyScenePayload, type BackendSkyScenePayload } from '../features/scene/contracts'
 import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
 import SkyEngineScene from '../features/sky-engine/SkyEngineScene'
 import { resolveStarColorHex } from '../features/sky-engine/starRenderer'
@@ -87,65 +88,6 @@ function resolveRuntimeModeLabel(
   return 'Loading'
 }
 
-interface BackendSkyScenePayload {
-  scope: 'sky'
-  engine: 'sky_engine'
-  filter: 'visible_now'
-  timestamp: string
-  observer: {
-    label: string
-    latitude: number
-    longitude: number
-    elevation_ft?: number | null
-    elevation_m?: number | null
-  }
-  scene_state: {
-    projection: 'stereographic'
-    center_alt_deg: number
-    center_az_deg: number
-    fov_deg: number
-    stars_ready: boolean
-  }
-  objects: unknown[]
-}
-
-function isFiniteNumber(value: unknown): value is number {
-  return typeof value === 'number' && Number.isFinite(value)
-}
-
-function parseBackendSkyScenePayload(payload: unknown): BackendSkyScenePayload | null {
-  if (!payload || typeof payload !== 'object') {
-    return null
-  }
-
-  const candidate = payload as Record<string, unknown>
-  const observer = candidate.observer as Record<string, unknown> | undefined
-  const sceneState = candidate.scene_state as Record<string, unknown> | undefined
-
-  if (candidate.scope !== 'sky' || candidate.engine !== 'sky_engine' || typeof candidate.timestamp !== 'string') {
-    return null
-  }
-
-  if (!observer || !sceneState) {
-    return null
-  }
-
-  if (
-    typeof observer.label !== 'string' ||
-    !isFiniteNumber(observer.latitude) ||
-    !isFiniteNumber(observer.longitude) ||
-    sceneState.projection !== 'stereographic' ||
-    !isFiniteNumber(sceneState.center_alt_deg) ||
-    !isFiniteNumber(sceneState.center_az_deg) ||
-    !isFiniteNumber(sceneState.fov_deg) ||
-    typeof sceneState.stars_ready !== 'boolean'
-  ) {
-    return null
-  }
-
-  return candidate as unknown as BackendSkyScenePayload
-}
-
 function convertBackendObserver(scene: BackendSkyScenePayload) {
   let elevationFeet = 0
 
@@ -171,7 +113,12 @@ function buildBackendViewState(scene: BackendSkyScenePayload) {
   }
 }
 
-function SkyEngineOwnershipState({ title, detail }: Readonly<{ title: string; detail: string }>) {
+type SkyEngineOwnershipStateProps = {
+  title: string
+  detail: string
+}
+
+function SkyEngineOwnershipState({ title, detail }: Readonly<SkyEngineOwnershipStateProps>) {
   return (
     <div className="sky-engine-page sky-engine-page--immersive">
       <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
@@ -202,6 +149,14 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   const [searchQuery, setSearchQuery] = useState('')
   const deferredSearchQuery = useDeferredValue(searchQuery)
   const observer = useMemo(() => convertBackendObserver(backendScene), [backendScene])
+  const backendStars = useMemo(
+    () => backendScene.objects.filter((object) => object.type === 'star'),
+    [backendScene.objects],
+  )
+  const backendStarSceneObjects = useMemo(
+    () => computeBackendStarSceneObjects(observer, sceneTime.sceneTimestampIso, backendStars),
+    [backendStars, observer, sceneTime.sceneTimestampIso],
+  )
   const [viewState, setViewState] = useState(() => buildBackendViewState(backendScene))
   const [aidVisibility, setAidVisibility] = useState({
     constellations: true,
@@ -320,9 +275,10 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     () => computedVisibleObjects.filter((object) => object.type !== 'star'),
     [computedVisibleObjects],
   )
+  const activeStarSceneObjects = backendStars.length > 0 ? backendStarSceneObjects : engineStarSceneObjects
   const baseSceneObjects = useMemo(
-    () => [...engineStarSceneObjects, ...nonStarVisibleObjects],
-    [engineStarSceneObjects, nonStarVisibleObjects],
+    () => [...activeStarSceneObjects, ...nonStarVisibleObjects],
+    [activeStarSceneObjects, nonStarVisibleObjects],
   )
   const guidanceTargets = useMemo(
     () => rankGuidanceTargets(baseSceneObjects, 5),
@@ -449,6 +405,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
             backendScene.scene_state.center_az_deg,
             backendScene.scene_state.fov_deg,
           ].join(':')}
+          backendStars={backendStars}
           observer={observer}
           objects={sceneObjects}
           scenePacket={skyScenePacket}

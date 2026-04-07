@@ -41,11 +41,13 @@ vi.mock('../src/features/sky-engine/sceneTime', () => ({
 }))
 
 vi.mock('../src/features/sky-engine/SkyEngineScene', () => ({
-  default: ({ observer, initialViewState }) => React.createElement(
+  default: ({ observer, initialViewState, backendStars }) => React.createElement(
     'div',
     {
       'data-testid': 'sky-engine-scene',
       'data-observer-label': observer.label,
+      'data-backend-star-count': String(backendStars.length),
+      'data-first-backend-star-id': backendStars[0]?.id ?? 'none',
       'data-fov': String(initialViewState.fovDegrees),
       'data-alt': String(initialViewState.centerAltDeg),
       'data-az': String(initialViewState.centerAzDeg),
@@ -70,6 +72,25 @@ vi.mock('../src/features/sky-engine/useSkyEngineSelection', () => ({
 }))
 
 vi.mock('../src/features/sky-engine/astronomy', () => ({
+  computeBackendStarSceneObjects: vi.fn((observer, timestampIso, stars) => stars.map((star, index) => ({
+    id: star.id,
+    name: star.name,
+    type: 'star',
+    altitudeDeg: 20 + index,
+    azimuthDeg: 90 + index,
+    magnitude: star.magnitude,
+    colorHex: '#ffffff',
+    summary: 'Backend star',
+    description: 'Backend star',
+    truthNote: 'backend',
+    source: 'backend_star_catalog',
+    trackingMode: 'fixed_equatorial',
+    rightAscensionHours: star.right_ascension,
+    declinationDeg: star.declination,
+    colorIndexBV: star.color_index,
+    timestampIso,
+    isAboveHorizon: true,
+  }))),
   computeMoonSceneObject: vi.fn(() => ({
     id: 'moon',
     name: 'Moon',
@@ -218,9 +239,30 @@ describe('SkyEnginePage scene ownership', () => {
           center_alt_deg: 28,
           center_az_deg: 96,
           fov_deg: 120,
-          stars_ready: false,
+          stars_ready: true,
         },
-        objects: [],
+        objects: [
+          {
+            id: 'star-sirius',
+            type: 'star',
+            name: 'Sirius',
+            engine: 'sky_engine',
+            right_ascension: 6.7525,
+            declination: -16.7161,
+            magnitude: -1.46,
+            color_index: 0,
+          },
+          {
+            id: 'star-vega',
+            type: 'star',
+            name: 'Vega',
+            engine: 'sky_engine',
+            right_ascension: 18.6156,
+            declination: 38.7837,
+            magnitude: 0.03,
+            color_index: 0,
+          },
+        ],
       },
     })
 
@@ -232,5 +274,7 @@ describe('SkyEnginePage scene ownership', () => {
     expect(html).toContain('Custom Location')
     expect(html).toContain('120°')
     expect(html).toContain('Jan 14, 10:00 PM EST')
+    expect(html).toContain('data-backend-star-count="2"')
+    expect(html).toContain('data-first-backend-star-id="star-sirius"')
   })
 })

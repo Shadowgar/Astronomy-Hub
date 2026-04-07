@@ -5,6 +5,7 @@ import type {
   SkyEngineSceneObject,
   SkyEngineTrajectorySample,
 } from './types'
+import type { BackendSkySceneStarObject } from '../scene/contracts'
 
 function degreesToRadians(value: number) {
   return (value * Math.PI) / 180
@@ -289,6 +290,41 @@ export function computeRealSkySceneObjects(
       rightAscensionHours: object.rightAscensionHours,
       declinationDeg: object.declinationDeg,
       colorIndexBV: object.colorIndexBV,
+      timestampIso,
+      isAboveHorizon: horizontalCoordinates.isAboveHorizon,
+    }
+  })
+}
+
+export function computeBackendStarSceneObjects(
+  observer: SkyEngineObserver,
+  timestampIso: string,
+  stars: readonly BackendSkySceneStarObject[],
+): readonly SkyEngineSceneObject[] {
+  return stars.map((star) => {
+    const horizontalCoordinates = computeHorizontalCoordinates(
+      observer,
+      timestampIso,
+      star.right_ascension,
+      star.declination,
+    )
+
+    return {
+      id: star.id,
+      name: star.name,
+      type: 'star',
+      altitudeDeg: horizontalCoordinates.altitudeDeg,
+      azimuthDeg: horizontalCoordinates.azimuthDeg,
+      magnitude: star.magnitude,
+      colorHex: '#ffffff',
+      summary: `${star.name} positioned from backend right ascension and declination for the active observer and scene time.`,
+      description: 'This star comes from the backend sky scene contract and is projected from equatorial coordinates into the active sky view.',
+      truthNote: 'Backend star contract drives this object. Frontend position is computed from observer, timestamp, right ascension, and declination.',
+      source: 'backend_star_catalog',
+      trackingMode: 'fixed_equatorial',
+      rightAscensionHours: star.right_ascension,
+      declinationDeg: star.declination,
+      colorIndexBV: star.color_index ?? undefined,
       timestampIso,
       isAboveHorizon: horizontalCoordinates.isAboveHorizon,
     }

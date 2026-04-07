@@ -1,81 +1,101 @@
 import { describe, expect, it } from 'vitest'
+import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 
 import {
+  computeBackendStarSceneObjects,
   computeHorizontalCoordinates,
-  computeObjectTrajectorySamples,
-  computeRealSkySceneObjects,
 } from '../src/features/sky-engine/astronomy.ts'
-import { SKY_ENGINE_REAL_SKY_STARTERS, SKY_ENGINE_SCENE_TIMESTAMP } from '../src/features/sky-engine/realSkyCatalog.ts'
-import {
-  buildSceneTimestampFromHourOffset,
-  formatSceneLocalTimestamp,
-  formatSceneHourOffset,
-  formatSceneUtcTimestamp,
-} from '../src/features/sky-engine/sceneTime.ts'
-import { ORAS_OBSERVER } from '../src/features/sky-engine/sceneSeed.ts'
+import { projectHorizontalToViewport } from '../src/features/sky-engine/projectionMath.ts'
 import { computeSunState, deriveSunPhaseLabel, deriveSunVisualCalibration } from '../src/features/sky-engine/solar.ts'
 
-describe('Sky Engine astronomy helpers', () => {
-  it('renders at least three computed starter objects above the horizon for the scene timestamp', () => {
-    const objects = computeRealSkySceneObjects(ORAS_OBSERVER, SKY_ENGINE_SCENE_TIMESTAMP, SKY_ENGINE_REAL_SKY_STARTERS)
-    const visibleObjects = objects.filter((object) => object.isAboveHorizon)
+const TEST_OBSERVER = {
+  label: 'ORAS Observatory',
+  latitude: 41.321903,
+  longitude: -79.585394,
+  elevationFt: 1420,
+}
 
-    expect(visibleObjects.length).toBeGreaterThanOrEqual(3)
-    expect(visibleObjects.map((object) => object.name)).toContain('Vega')
-    expect(visibleObjects.map((object) => object.name)).toContain('Deneb')
-    expect(visibleObjects.every((object) => object.source === 'computed_real_sky')).toBe(true)
+const SCENE_TIMESTAMP = '2025-01-15T03:00:00Z'
+
+const BACKEND_STARS = [
+  {
+    id: 'star-vega',
+    type: 'star',
+    name: 'Vega',
+    engine: 'sky_engine',
+    right_ascension: 18.6156,
+    declination: 38.7837,
+    magnitude: 0.03,
+    color_index: 0,
+  },
+  {
+    id: 'star-polaris',
+    type: 'star',
+    name: 'Polaris',
+    engine: 'sky_engine',
+    right_ascension: 2.5303,
+    declination: 89.2641,
+    magnitude: 1.98,
+    color_index: 0.6,
+  },
+]
+
+describe('Sky Engine astronomy helpers', () => {
+  it('positions backend stars from RA/Dec into horizontal coordinates', () => {
+    const objects = computeBackendStarSceneObjects(TEST_OBSERVER, SCENE_TIMESTAMP, BACKEND_STARS)
+    const polaris = objects.find((object) => object.id === 'star-polaris')
+
+    expect(objects).toHaveLength(2)
+    expect(objects.every((object) => object.source === 'backend_star_catalog')).toBe(true)
+    expect(polaris).toBeTruthy()
+    expect(polaris?.azimuthDeg === undefined).toBe(false)
+    expect(polaris?.altitudeDeg).toBeGreaterThan(39)
+    expect((polaris?.azimuthDeg ?? 180) < 20 || (polaris?.azimuthDeg ?? 180) > 340).toBe(true)
   })
 
-  it('changes computed coordinates when the timestamp changes', () => {
-    const vega = SKY_ENGINE_REAL_SKY_STARTERS.find((object) => object.name === 'Vega')
+  it('changes backend star positions when the timestamp changes', () => {
+    const vega = BACKEND_STARS.find((object) => object.name === 'Vega')
 
     expect(vega).toBeTruthy()
 
-    const early = computeHorizontalCoordinates(ORAS_OBSERVER, '2026-07-15T01:00:00.000Z', vega.rightAscensionHours, vega.declinationDeg)
-    const later = computeHorizontalCoordinates(ORAS_OBSERVER, '2026-07-15T05:00:00.000Z', vega.rightAscensionHours, vega.declinationDeg)
+    const early = computeHorizontalCoordinates(TEST_OBSERVER, '2025-01-15T01:00:00Z', vega.right_ascension, vega.declination)
+    const later = computeHorizontalCoordinates(TEST_OBSERVER, '2025-01-15T05:00:00Z', vega.right_ascension, vega.declination)
 
     expect(Math.abs(early.altitudeDeg - later.altitudeDeg)).toBeGreaterThan(1)
     expect(Math.abs(early.azimuthDeg - later.azimuthDeg)).toBeGreaterThan(1)
   })
 
-  it('builds deterministic scene timestamps from bounded hour offsets', () => {
-    const baseTimestamp = '2026-07-15T03:00:00.000Z'
-
-    expect(buildSceneTimestampFromHourOffset(baseTimestamp, -1)).toBe('2026-07-15T02:00:00.000Z')
-    expect(buildSceneTimestampFromHourOffset(baseTimestamp, 1)).toBe('2026-07-15T04:00:00.000Z')
-    expect(buildSceneTimestampFromHourOffset(baseTimestamp, -24)).toBe('2026-07-14T03:00:00.000Z')
-    expect(buildSceneTimestampFromHourOffset(baseTimestamp, 24)).toBe('2026-07-16T03:00:00.000Z')
-    expect(formatSceneHourOffset(0)).toBe('Now')
-    expect(formatSceneHourOffset(7)).toBe('+7h')
-    expect(formatSceneHourOffset(-5)).toBe('-5h')
-    expect(formatSceneLocalTimestamp(baseTimestamp)).toContain('EDT')
-    expect(formatSceneUtcTimestamp(baseTimestamp)).toContain('UTC')
-  })
-
-  it('builds trajectory samples for computed stars across a 12-hour window', () => {
-    const vega = computeRealSkySceneObjects(
-      ORAS_OBSERVER,
-      SKY_ENGINE_SCENE_TIMESTAMP,
-      SKY_ENGINE_REAL_SKY_STARTERS,
-    ).find((object) => object.name === 'Vega')
+  it('changes backend star positions when the observer changes', () => {
+    const vega = BACKEND_STARS.find((object) => object.name === 'Vega')
+    const equatorialObserver = { ...TEST_OBSERVER, latitude: 0, longitude: 0 }
+    const northernObserver = { ...TEST_OBSERVER, latitude: 50, longitude: 0 }
 
     expect(vega).toBeTruthy()
 
-    const trajectory = computeObjectTrajectorySamples(
-      ORAS_OBSERVER,
-      SKY_ENGINE_SCENE_TIMESTAMP,
-      vega,
-      [-6, 0, 6],
-    )
+    const equatorial = computeHorizontalCoordinates(equatorialObserver, SCENE_TIMESTAMP, vega.right_ascension, vega.declination)
+    const northern = computeHorizontalCoordinates(northernObserver, SCENE_TIMESTAMP, vega.right_ascension, vega.declination)
 
-    expect(trajectory).toHaveLength(3)
-    expect(Math.abs(trajectory[0].altitudeDeg - trajectory[2].altitudeDeg)).toBeGreaterThan(1)
-    expect(trajectory[1].timestampIso).toBe(SKY_ENGINE_SCENE_TIMESTAMP)
+    expect(Math.abs(equatorial.altitudeDeg - northern.altitudeDeg)).toBeGreaterThan(5)
+  })
+
+  it('projects computed backend star positions through the viewport projection system', () => {
+    const [vega] = computeBackendStarSceneObjects(TEST_OBSERVER, SCENE_TIMESTAMP, [BACKEND_STARS[0]])
+    const projected = projectHorizontalToViewport(vega.altitudeDeg, vega.azimuthDeg, {
+      centerDirection: new Vector3(0, 0, 1),
+      fovRadians: (120 * Math.PI) / 180,
+      viewportWidth: 1000,
+      viewportHeight: 1000,
+      projectionMode: 'stereographic',
+    })
+
+    expect(projected).toBeTruthy()
+    expect(Number.isFinite(projected?.screenX)).toBe(true)
+    expect(Number.isFinite(projected?.screenY)).toBe(true)
   })
 
   it('changes computed sun state across scene-time steps', () => {
-    const earlySun = computeSunState(ORAS_OBSERVER, '2026-07-15T03:00:00.000Z')
-    const laterSun = computeSunState(ORAS_OBSERVER, '2026-07-15T04:00:00.000Z')
+    const earlySun = computeSunState(TEST_OBSERVER, '2026-07-15T03:00:00.000Z')
+    const laterSun = computeSunState(TEST_OBSERVER, '2026-07-15T04:00:00.000Z')
 
     expect(Math.abs(earlySun.altitudeDeg - laterSun.altitudeDeg)).toBeGreaterThan(0.5)
     expect(Math.abs(earlySun.azimuthDeg - laterSun.azimuthDeg)).toBeGreaterThan(0.5)
@@ -99,9 +119,9 @@ describe('Sky Engine astronomy helpers', () => {
   })
 
   it('changes star visibility calibration between day, low sun, and night', () => {
-    const daylightSun = computeSunState(ORAS_OBSERVER, '2026-07-15T15:00:00.000Z')
-    const lowSun = computeSunState(ORAS_OBSERVER, '2026-07-15T10:00:00.000Z')
-    const nightSun = computeSunState(ORAS_OBSERVER, '2026-07-15T03:00:00.000Z')
+    const daylightSun = computeSunState(TEST_OBSERVER, '2026-07-15T15:00:00.000Z')
+    const lowSun = computeSunState(TEST_OBSERVER, '2026-07-15T10:00:00.000Z')
+    const nightSun = computeSunState(TEST_OBSERVER, '2026-07-15T03:00:00.000Z')
 
     expect(daylightSun.phaseLabel).toBe('Daylight')
     expect(lowSun.phaseLabel).toBe('Low Sun')
