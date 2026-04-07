@@ -452,27 +452,103 @@ function buildConstantAltitudeCurve(view: SkyProjectionView, altitudeDeg: number
   return points
 }
 
+function buildGroundBoundaryCurve(
+  horizonCurve: readonly { x: number; y: number }[],
+  viewportWidth: number,
+) {
+  if (horizonCurve.length < 2) {
+    return []
+  }
+
+  const bucketCount = Math.max(24, Math.min(160, Math.round(viewportWidth / 18)))
+  const boundaryByBucket = new Array<number | null>(bucketCount + 1).fill(null)
+
+  horizonCurve.forEach((point) => {
+    const clampedX = clamp(point.x, 0, viewportWidth)
+    const bucketIndex = Math.round((clampedX / Math.max(viewportWidth, 1)) * bucketCount)
+    const currentBoundary = boundaryByBucket[bucketIndex]
+
+    if (currentBoundary === null || point.y > currentBoundary) {
+      boundaryByBucket[bucketIndex] = point.y
+    }
+  })
+
+  let previousKnownIndex = -1
+  for (let index = 0; index <= bucketCount; index += 1) {
+    if (boundaryByBucket[index] === null) {
+      continue
+    }
+
+    if (previousKnownIndex >= 0 && index - previousKnownIndex > 1) {
+      const startY = boundaryByBucket[previousKnownIndex] ?? 0
+      const endY = boundaryByBucket[index] ?? startY
+      const gapLength = index - previousKnownIndex
+
+      for (let gapIndex = 1; gapIndex < gapLength; gapIndex += 1) {
+        const amount = gapIndex / gapLength
+        boundaryByBucket[previousKnownIndex + gapIndex] = startY + (endY - startY) * amount
+      }
+    }
+
+    previousKnownIndex = index
+  }
+
+  const firstKnownIndex = boundaryByBucket.findIndex((value) => value !== null)
+  if (firstKnownIndex < 0) {
+    return []
+  }
+
+  const lastKnownIndex = boundaryByBucket.reduce<number>((lastIndex, value, index) => {
+    if (value === null) {
+      return lastIndex
+    }
+
+    return index
+  }, firstKnownIndex)
+  const firstKnownY = boundaryByBucket[firstKnownIndex] ?? 0
+  const lastKnownY = boundaryByBucket[lastKnownIndex] ?? firstKnownY
+
+  for (let index = 0; index < firstKnownIndex; index += 1) {
+    boundaryByBucket[index] = firstKnownY
+  }
+
+  for (let index = lastKnownIndex + 1; index <= bucketCount; index += 1) {
+    boundaryByBucket[index] = lastKnownY
+  }
+
+  return boundaryByBucket.map((y, index) => ({
+    x: (index / bucketCount) * viewportWidth,
+    y: y ?? firstKnownY,
+  }))
+}
+
+function getWideFovGroundBlend(fovDegrees: number) {
+  return clamp((fovDegrees - 95) / 55, 0, 1)
+}
+
 function drawAidLayers(
   context: CanvasRenderingContext2D,
   view: SkyProjectionView,
   aidVisibility: SkyEngineAidVisibility,
   sunState: SkyEngineSunState,
+  fovDegrees: number,
 ) {
   const horizonCurve = buildConstantAltitudeCurve(view, 0)
 
   if (horizonCurve.length >= 2) {
-    const sortedHorizonCurve = [...horizonCurve].sort((left, right) => left.x - right.x)
-    const topY = Math.min(...sortedHorizonCurve.map((point) => point.y))
+    const groundBoundaryCurve = buildGroundBoundaryCurve(horizonCurve, view.viewportWidth)
+    const topY = Math.min(...groundBoundaryCurve.map((point) => point.y))
+    const wideFovGroundBlend = getWideFovGroundBlend(fovDegrees)
     const groundGradient = context.createLinearGradient(0, topY, 0, view.viewportHeight)
-    groundGradient.addColorStop(0, hexToRgba(sunState.visualCalibration.landscapeFogColorHex, 0.06))
-    groundGradient.addColorStop(0.24, hexToRgba(sunState.visualCalibration.groundTintHex, 0.18))
-    groundGradient.addColorStop(1, hexToRgba(sunState.visualCalibration.backgroundColorHex, 0.96))
+    groundGradient.addColorStop(0, hexToRgba(sunState.visualCalibration.landscapeFogColorHex, 0.06 * (1 - wideFovGroundBlend) + 0.03 * wideFovGroundBlend))
+    groundGradient.addColorStop(0.24, hexToRgba(sunState.visualCalibration.groundTintHex, 0.18 * (1 - wideFovGroundBlend) + 0.08 * wideFovGroundBlend))
+    groundGradient.addColorStop(1, hexToRgba(sunState.visualCalibration.backgroundColorHex, 0.96 * (1 - wideFovGroundBlend) + 0.74 * wideFovGroundBlend))
 
     context.save()
     context.fillStyle = groundGradient
     context.beginPath()
-    context.moveTo(sortedHorizonCurve[0].x, sortedHorizonCurve[0].y)
-    sortedHorizonCurve.slice(1).forEach((point) => {
+    context.moveTo(groundBoundaryCurve[0].x, groundBoundaryCurve[0].y)
+    groundBoundaryCurve.slice(1).forEach((point) => {
       context.lineTo(point.x, point.y)
     })
     context.lineTo(view.viewportWidth + 2, view.viewportHeight + 2)
@@ -1168,7 +1244,7 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
   const lod = resolveViewTier(getSkyEngineFovDegrees(runtime.currentFov))
 
   drawSolarGlare(context, view, latest.sunState)
-  drawAidLayers(context, view, latest.aidVisibility, latest.sunState)
+  drawAidLayers(context, view, latest.aidVisibility, latest.sunState, getSkyEngineFovDegrees(runtime.currentFov))
   const projectedObjects = drawProjectedObjects(context, view, latest.objects, latest.scenePacket, latest.sunState, latest.selectedObjectId)
 
   if (latest.aidVisibility.constellations) {

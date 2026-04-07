@@ -7,7 +7,10 @@ import {
   filterStarSceneObjectsByFov,
   getStarMagnitudeLimitForFov,
 } from '../src/features/sky-engine/astronomy.ts'
-import { projectHorizontalToViewport } from '../src/features/sky-engine/projectionMath.ts'
+import {
+  isProjectedPointVisible,
+  projectHorizontalToViewport,
+} from '../src/features/sky-engine/projectionMath.ts'
 import { computeSunState, deriveSunPhaseLabel, deriveSunVisualCalibration } from '../src/features/sky-engine/solar.ts'
 
 const TEST_OBSERVER = {
@@ -135,6 +138,26 @@ describe('Sky Engine astronomy helpers', () => {
     expect(projected).toBeTruthy()
     expect(Number.isFinite(projected?.screenX)).toBe(true)
     expect(Number.isFinite(projected?.screenY)).toBe(true)
+  })
+
+  it('keeps wide-FOV edge points visible when they still land inside the viewport', () => {
+    const view = {
+      centerDirection: new Vector3(0, 0, 1),
+      fovRadians: (175 * Math.PI) / 180,
+      viewportWidth: 1600,
+      viewportHeight: 900,
+      projectionMode: 'stereographic',
+    }
+    const edgePoint = {
+      screenX: 1592,
+      screenY: 448,
+      planeX: 2.8,
+      planeY: 0.02,
+      depth: 0.18,
+      angularDistanceRad: view.fovRadians * 0.75,
+    }
+
+    expect(isProjectedPointVisible(edgePoint, view)).toBe(true)
   })
 
   it('changes computed sun state across scene-time steps', () => {

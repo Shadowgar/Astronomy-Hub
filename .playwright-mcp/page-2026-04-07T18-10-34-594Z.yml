@@ -1,0 +1,77 @@
+- main [ref=e4]:
+  - generic "Sky Engine scene" [ref=e5]
+  - generic:
+    - generic "Sky Engine top bar":
+      - generic:
+        - link "Back" [ref=e6] [cursor=pointer]:
+          - /url: /
+        - button "Hide inspector" [active] [ref=e34]
+        - button "Reset" [ref=e8]
+      - form "Sky Engine target search" [ref=e9]:
+        - combobox "Search visible sky objects" [ref=e10]
+        - button "Find" [ref=e11]
+      - generic:
+        - generic:
+          - generic: Data
+          - strong: Hipparcos
+        - generic:
+          - generic: FOV
+          - strong: 120°
+        - generic:
+          - generic: Local time
+          - strong: Apr 7, 2:00 PM EDT
+          - generic: Now · America/New_York · Pause
+        - generic: Daylight
+  - generic:
+    - region "Sky Engine controls":
+      - generic:
+        - generic:
+          - generic: Time scrub
+          - strong: +0m
+        - generic:
+          - generic: HIP · m5.5 · 4 tiles · 1562 stars · L0
+          - generic: Hipparcos · 8,870 stars
+          - generic: Moon below horizon
+          - generic: 5 guided now
+      - generic "Scene light band":
+        - generic: Daylight
+        - generic: Twilight
+        - generic: Night
+      - slider "Scene time offset" [ref=e12]: "0"
+      - generic:
+        - generic "Time scale controls":
+          - button "- Step" [ref=e13]
+          - generic:
+            - button "sec" [ref=e14]
+            - button "min" [ref=e15]
+            - button "hr" [ref=e16]
+            - button "day" [ref=e17]
+          - button "+ Step" [ref=e18]
+        - generic "Playback controls":
+          - button "-1h/s" [ref=e19]
+          - button "-1m/s" [ref=e20]
+          - button "Play" [ref=e21]
+          - button "1x" [ref=e22]
+          - button "+1m/s" [ref=e23]
+          - button "+1h/s" [ref=e24]
+          - button "Reset" [ref=e25]
+      - generic:
+        - generic "Guided sky targets":
+          - button "Capella" [ref=e26]
+          - button "Aldebaran" [ref=e27]
+          - button "Saturn" [ref=e28]
+          - button "Deneb" [ref=e29]
+          - button "Betelgeuse" [ref=e30]
+        - generic "Sky aid toggles":
+          - button "Constellations" [ref=e31]
+          - button "Compass" [ref=e32]
+          - button "Altitude" [ref=e33]
+  - generic:
+    - complementary "Sky Engine detail shell":
+      - generic:
+        - generic:
+          - paragraph: Sky Engine
+          - heading "Select a rendered object" [level=2]
+      - generic:
+        - paragraph: Pick a visible object to open its inspector.
+        - paragraph: Selected computed targets keep a persistent readable label, and the moon uses its own phase-aware rendering instead of the star path.

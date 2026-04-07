@@ -204,10 +204,6 @@ export function isProjectedPointVisible(projectedPoint: SkyProjectedPoint, view:
     return false
   }
 
-  if (projectedPoint.angularDistanceRad > view.fovRadians * 0.5) {
-    return false
-  }
-
   return !(
     projectedPoint.screenX < -marginPx ||
     projectedPoint.screenX > view.viewportWidth + marginPx ||
