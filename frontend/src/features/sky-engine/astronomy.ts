@@ -331,6 +331,31 @@ export function computeBackendStarSceneObjects(
   })
 }
 
+export function getStarMagnitudeLimitForFov(fovDegrees: number) {
+  if (fovDegrees >= 120) {
+    return 6
+  }
+
+  if (fovDegrees >= 60) {
+    return 8
+  }
+
+  if (fovDegrees >= 20) {
+    return 10
+  }
+
+  return 12
+}
+
+export function filterStarSceneObjectsByFov(
+  stars: readonly SkyEngineSceneObject[],
+  fovDegrees: number,
+): readonly SkyEngineSceneObject[] {
+  const magnitudeLimit = getStarMagnitudeLimitForFov(fovDegrees)
+
+  return stars.filter((star) => star.magnitude <= magnitudeLimit)
+}
+
 export function computeMoonSceneObject(observer: SkyEngineObserver, timestampIso: string): SkyEngineSceneObject {
   const equatorialCoordinates = computeMoonEquatorialCoordinates(timestampIso)
   const horizontalCoordinates = computeHorizontalCoordinates(

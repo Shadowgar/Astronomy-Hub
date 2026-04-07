@@ -1,7 +1,13 @@
 import React, { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { computeBackendStarSceneObjects, computeMoonSceneObject, computePlanetSceneObjects, rankGuidanceTargets } from '../features/sky-engine/astronomy'
+import {
+  computeBackendStarSceneObjects,
+  computeMoonSceneObject,
+  computePlanetSceneObjects,
+  filterStarSceneObjectsByFov,
+  rankGuidanceTargets,
+} from '../features/sky-engine/astronomy'
 import {
   assembleSkyScenePacket,
   buildSkyEngineQuery,
@@ -276,9 +282,13 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     [computedVisibleObjects],
   )
   const activeStarSceneObjects = backendStars.length > 0 ? backendStarSceneObjects : engineStarSceneObjects
+  const visibleStarSceneObjects = useMemo(
+    () => filterStarSceneObjectsByFov(activeStarSceneObjects, viewState.fovDegrees),
+    [activeStarSceneObjects, viewState.fovDegrees],
+  )
   const baseSceneObjects = useMemo(
-    () => [...activeStarSceneObjects, ...nonStarVisibleObjects],
-    [activeStarSceneObjects, nonStarVisibleObjects],
+    () => [...visibleStarSceneObjects, ...nonStarVisibleObjects],
+    [nonStarVisibleObjects, visibleStarSceneObjects],
   )
   const guidanceTargets = useMemo(
     () => rankGuidanceTargets(baseSceneObjects, 5),

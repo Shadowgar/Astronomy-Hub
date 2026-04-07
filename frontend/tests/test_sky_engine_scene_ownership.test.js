@@ -41,12 +41,14 @@ vi.mock('../src/features/sky-engine/sceneTime', () => ({
 }))
 
 vi.mock('../src/features/sky-engine/SkyEngineScene', () => ({
-  default: ({ observer, initialViewState, backendStars }) => React.createElement(
+  default: ({ observer, initialViewState, backendStars, objects }) => React.createElement(
     'div',
     {
       'data-testid': 'sky-engine-scene',
       'data-observer-label': observer.label,
       'data-backend-star-count': String(backendStars.length),
+      'data-visible-star-count': String(objects.filter((object) => object.type === 'star').length),
+      'data-visible-object-count': String(objects.length),
       'data-first-backend-star-id': backendStars[0]?.id ?? 'none',
       'data-fov': String(initialViewState.fovDegrees),
       'data-alt': String(initialViewState.centerAltDeg),
@@ -71,6 +73,22 @@ vi.mock('../src/features/sky-engine/useSkyEngineSelection', () => ({
   })),
 }))
 
+function getMockStarMagnitudeLimitForFov(fovDegrees) {
+  if (fovDegrees >= 120) {
+    return 6
+  }
+
+  if (fovDegrees >= 60) {
+    return 8
+  }
+
+  if (fovDegrees >= 20) {
+    return 10
+  }
+
+  return 12
+}
+
 vi.mock('../src/features/sky-engine/astronomy', () => ({
   computeBackendStarSceneObjects: vi.fn((observer, timestampIso, stars) => stars.map((star, index) => ({
     id: star.id,
@@ -91,6 +109,11 @@ vi.mock('../src/features/sky-engine/astronomy', () => ({
     timestampIso,
     isAboveHorizon: true,
   }))),
+  filterStarSceneObjectsByFov: vi.fn((stars, fovDegrees) => {
+    const magnitudeLimit = getMockStarMagnitudeLimitForFov(fovDegrees)
+    return stars.filter((star) => star.magnitude <= magnitudeLimit)
+  }),
+  getStarMagnitudeLimitForFov: vi.fn((fovDegrees) => getMockStarMagnitudeLimitForFov(fovDegrees)),
   computeMoonSceneObject: vi.fn(() => ({
     id: 'moon',
     name: 'Moon',
@@ -262,6 +285,26 @@ describe('SkyEnginePage scene ownership', () => {
             magnitude: 0.03,
             color_index: 0,
           },
+          {
+            id: 'star-deneb',
+            type: 'star',
+            name: 'Deneb',
+            engine: 'sky_engine',
+            right_ascension: 20.6905,
+            declination: 45.2803,
+            magnitude: 7.2,
+            color_index: 0.1,
+          },
+          {
+            id: 'star-faint',
+            type: 'star',
+            name: 'Faint',
+            engine: 'sky_engine',
+            right_ascension: 21.2,
+            declination: 30.1,
+            magnitude: 11.4,
+            color_index: 0.5,
+          },
         ],
       },
     })
@@ -274,7 +317,82 @@ describe('SkyEnginePage scene ownership', () => {
     expect(html).toContain('Custom Location')
     expect(html).toContain('120°')
     expect(html).toContain('Jan 14, 10:00 PM EST')
-    expect(html).toContain('data-backend-star-count="2"')
+    expect(html).toContain('data-backend-star-count="4"')
+    expect(html).toContain('data-visible-star-count="2"')
     expect(html).toContain('data-first-backend-star-id="star-sirius"')
+  })
+
+  it('increases visible star count when the view zooms in', () => {
+    vi.mocked(useSceneByScopeDataQuery).mockReturnValue({
+      isPending: false,
+      isError: false,
+      data: {
+        scope: 'sky',
+        engine: 'sky_engine',
+        filter: 'visible_now',
+        timestamp: '2025-01-15T03:00:00Z',
+        observer: {
+          label: 'Custom Location',
+          latitude: 40,
+          longitude: -75,
+          elevation_ft: 500,
+          elevation_m: 152.4,
+        },
+        scene_state: {
+          projection: 'stereographic',
+          center_alt_deg: 28,
+          center_az_deg: 96,
+          fov_deg: 10,
+          stars_ready: true,
+        },
+        objects: [
+          {
+            id: 'star-sirius',
+            type: 'star',
+            name: 'Sirius',
+            engine: 'sky_engine',
+            right_ascension: 6.7525,
+            declination: -16.7161,
+            magnitude: -1.46,
+            color_index: 0,
+          },
+          {
+            id: 'star-vega',
+            type: 'star',
+            name: 'Vega',
+            engine: 'sky_engine',
+            right_ascension: 18.6156,
+            declination: 38.7837,
+            magnitude: 0.03,
+            color_index: 0,
+          },
+          {
+            id: 'star-deneb',
+            type: 'star',
+            name: 'Deneb',
+            engine: 'sky_engine',
+            right_ascension: 20.6905,
+            declination: 45.2803,
+            magnitude: 7.2,
+            color_index: 0.1,
+          },
+          {
+            id: 'star-faint',
+            type: 'star',
+            name: 'Faint',
+            engine: 'sky_engine',
+            right_ascension: 21.2,
+            declination: 30.1,
+            magnitude: 11.4,
+            color_index: 0.5,
+          },
+        ],
+      },
+    })
+
+    const html = renderToStaticMarkup(React.createElement(SkyEnginePage))
+
+    expect(html).toContain('data-visible-star-count="4"')
+    expect(html).toContain('data-fov="10"')
   })
 })

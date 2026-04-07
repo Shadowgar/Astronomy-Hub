@@ -4,6 +4,8 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import {
   computeBackendStarSceneObjects,
   computeHorizontalCoordinates,
+  filterStarSceneObjectsByFov,
+  getStarMagnitudeLimitForFov,
 } from '../src/features/sky-engine/astronomy.ts'
 import { projectHorizontalToViewport } from '../src/features/sky-engine/projectionMath.ts'
 import { computeSunState, deriveSunPhaseLabel, deriveSunVisualCalibration } from '../src/features/sky-engine/solar.ts'
@@ -38,19 +40,61 @@ const BACKEND_STARS = [
     magnitude: 1.98,
     color_index: 0.6,
   },
+  {
+    id: 'star-deneb',
+    type: 'star',
+    name: 'Deneb',
+    engine: 'sky_engine',
+    right_ascension: 20.6905,
+    declination: 45.2803,
+    magnitude: 7.2,
+    color_index: 0.1,
+  },
+  {
+    id: 'star-faint',
+    type: 'star',
+    name: 'Faint',
+    engine: 'sky_engine',
+    right_ascension: 21.2,
+    declination: 30.1,
+    magnitude: 11.4,
+    color_index: 0.5,
+  },
 ]
 
 describe('Sky Engine astronomy helpers', () => {
+  it('maps FOV bands into explicit star magnitude limits', () => {
+    expect(getStarMagnitudeLimitForFov(140)).toBe(6)
+    expect(getStarMagnitudeLimitForFov(80)).toBe(8)
+    expect(getStarMagnitudeLimitForFov(30)).toBe(10)
+    expect(getStarMagnitudeLimitForFov(10)).toBe(12)
+  })
+
   it('positions backend stars from RA/Dec into horizontal coordinates', () => {
     const objects = computeBackendStarSceneObjects(TEST_OBSERVER, SCENE_TIMESTAMP, BACKEND_STARS)
     const polaris = objects.find((object) => object.id === 'star-polaris')
 
-    expect(objects).toHaveLength(2)
+    expect(objects).toHaveLength(4)
     expect(objects.every((object) => object.source === 'backend_star_catalog')).toBe(true)
     expect(polaris).toBeTruthy()
     expect(polaris?.azimuthDeg === undefined).toBe(false)
     expect(polaris?.altitudeDeg).toBeGreaterThan(39)
     expect((polaris?.azimuthDeg ?? 180) < 20 || (polaris?.azimuthDeg ?? 180) > 340).toBe(true)
+  })
+
+  it('filters stars by magnitude as FOV changes without altering retained positions', () => {
+    const positionedStars = computeBackendStarSceneObjects(TEST_OBSERVER, SCENE_TIMESTAMP, BACKEND_STARS)
+    const wideVisibleStars = filterStarSceneObjectsByFov(positionedStars, 120)
+    const mediumVisibleStars = filterStarSceneObjectsByFov(positionedStars, 60)
+    const closeVisibleStars = filterStarSceneObjectsByFov(positionedStars, 10)
+    const retainedPolaris = closeVisibleStars.find((object) => object.id === 'star-polaris')
+    const originalPolaris = positionedStars.find((object) => object.id === 'star-polaris')
+
+    expect(wideVisibleStars).toHaveLength(2)
+    expect(mediumVisibleStars).toHaveLength(3)
+    expect(closeVisibleStars).toHaveLength(4)
+    expect(retainedPolaris?.altitudeDeg).toBe(originalPolaris?.altitudeDeg)
+    expect(retainedPolaris?.azimuthDeg).toBe(originalPolaris?.azimuthDeg)
   })
 
   it('changes backend star positions when the timestamp changes', () => {
