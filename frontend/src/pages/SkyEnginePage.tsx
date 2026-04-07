@@ -313,7 +313,9 @@ export default function SkyEnginePage() {
               <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                 <span className="sky-engine-page__top-bar-label">Sky runtime</span>
                 <strong>{formatSkyDiagnosticsSummary({ ...skyScenePacket.diagnostics, visibleTileIds: skyEngineQuery.visibleTileIds })}</strong>
-                <small>{skyEngineQuery.visibleTileIds.join(', ')}</small>
+                <small>
+                  levels {skyScenePacket.diagnostics.tileLevels.join(', ')} · depth {skyScenePacket.diagnostics.maxTileDepthReached} · {skyEngineQuery.visibleTileIds.join(', ')}
+                </small>
               </div>
               <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                 <span className="sky-engine-page__top-bar-label">Local time</span>
@@ -342,6 +344,8 @@ export default function SkyEnginePage() {
                 <span>{skyScenePacket.diagnostics.activeTiles} active tiles</span>
                 <span>Limiting mag {skyScenePacket.diagnostics.limitingMagnitude.toFixed(1)}</span>
                 <span>{skyScenePacket.diagnostics.activeTiers.join(' / ')}</span>
+                <span>Levels {skyScenePacket.diagnostics.tileLevels.join(' / ')}</span>
+                <span>Max depth {skyScenePacket.diagnostics.maxTileDepthReached}</span>
                 <span>{moonObject.isAboveHorizon ? `${moonObject.phaseLabel} moon` : 'Moon below horizon'}</span>
                 <span>{guidanceTargets.length} guided now</span>
                 <span>{selectedTargetName}</span>

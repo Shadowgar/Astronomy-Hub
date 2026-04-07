@@ -24,5 +24,8 @@ export type SkyScenePacket = {
     activeTiles: number
     visibleStars: number
     activeTiers: string[]
+    tileLevels: number[]
+    tilesPerLevel: Record<string, number>
+    maxTileDepthReached: number
   }
 }

@@ -4,6 +4,14 @@ export * from './contracts/stars'
 export * from './contracts/tiles'
 export { mockSkyTileRepository, createMockTileRepository } from './adapters/mockTileRepository'
 export { resolveLimitingMagnitude } from './core/magnitudePolicy'
+export {
+  getAllSkyTileDescriptors,
+  getSkyRootTileIds,
+  getSkyTileChildren,
+  getSkyTileDescriptor,
+  getSkyTileMaxLevel,
+  tileIntersectsView,
+} from './core/tileIndex'
 export { resolveActiveTiers } from './core/tierPolicy'
 export { selectVisibleTileIds } from './core/tileSelection'
 export { buildSkyDiagnostics, formatSkyDiagnosticsSummary } from './diagnostics/skyDiagnostics'
@@ -11,6 +19,7 @@ export { assembleSkyScenePacket } from './services/sceneAssembler'
 export {
   computeLocalSiderealTimeDeg,
   horizontalToUnitVector,
+  horizontalToRaDec,
   raDecToEquatorialUnitVector,
   raDecToHorizontalCoordinates,
   raDecToObserverUnitVector,

@@ -105,6 +105,26 @@ export function horizontalToUnitVector(altitudeDeg: number, azimuthDeg: number):
   }
 }
 
+export function horizontalToRaDec(observer: ObserverSnapshot): { raDeg: number; decDeg: number } {
+  const altitudeRad = degreesToRadians(observer.centerAltDeg)
+  const azimuthRad = degreesToRadians(observer.centerAzDeg)
+  const latitudeRad = degreesToRadians(observer.latitudeDeg)
+  const sinDeclination =
+    Math.sin(altitudeRad) * Math.sin(latitudeRad) +
+    Math.cos(altitudeRad) * Math.cos(latitudeRad) * Math.cos(azimuthRad)
+  const declinationRad = Math.asin(Math.max(-1, Math.min(1, sinDeclination)))
+  const hourAngleRad = Math.atan2(
+    Math.sin(azimuthRad),
+    Math.cos(azimuthRad) * Math.sin(latitudeRad) + Math.tan(altitudeRad) * Math.cos(latitudeRad),
+  )
+  const localSiderealTimeDeg = computeLocalSiderealTimeDeg(observer.longitudeDeg, observer.timestampUtc)
+
+  return {
+    raDeg: normalizeDegrees(localSiderealTimeDeg - radiansToDegrees(hourAngleRad)),
+    decDeg: radiansToDegrees(declinationRad),
+  }
+}
+
 export function raDecToObserverUnitVector(raDeg: number, decDeg: number, observer: ObserverSnapshot) {
   const horizontalCoordinates = raDecToHorizontalCoordinates(raDeg, decDeg, observer)
 

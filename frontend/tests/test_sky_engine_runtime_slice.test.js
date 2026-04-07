@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   assembleSkyScenePacket,
   buildSkyEngineQuery,
+  getSkyTileDescriptor,
   mockSkyTileRepository,
   resolveLimitingMagnitude,
 } from '../src/features/sky-engine/engine/sky'
@@ -37,22 +38,47 @@ describe('sky engine runtime slice', () => {
 
     expect(wideQuery.activeTiers).toEqual(['T0', 'T1'])
     expect(closeQuery.activeTiers).toEqual(['T0', 'T1', 'T2', 'T3'])
-    expect(closeQuery.visibleTileIds).toContain('tile-east-detail')
+    expect(wideQuery.visibleTileIds.every((tileId) => getSkyTileDescriptor(tileId)?.level === 1)).toBe(true)
+    expect(closeQuery.visibleTileIds.some((tileId) => getSkyTileDescriptor(tileId)?.level === 3)).toBe(true)
   })
 
   it('assembles a deduped scene packet from the mocked tiles', () => {
-    const query = buildSkyEngineQuery({
-      ...BASE_OBSERVER,
-      fovDeg: 3,
-    })
+    const query = {
+      observer: {
+        ...BASE_OBSERVER,
+        fovDeg: 3,
+      },
+      limitingMagnitude: 13.5,
+      activeTiers: ['T0', 'T1', 'T2', 'T3'],
+      visibleTileIds: ['root-ne-se-nw-nw'],
+    }
     const tiles = mockSkyTileRepository.loadTiles(query)
     const scenePacket = assembleSkyScenePacket(query, tiles)
     const starIds = scenePacket.stars.map((star) => star.id)
 
     expect(new Set(starIds).size).toBe(starIds.length)
-    expect(starIds).toContain('star-vega')
+    expect(scenePacket.stars.length).toBeGreaterThan(0)
     expect(scenePacket.labels.some((label) => label.text === 'Vega')).toBe(true)
     expect(scenePacket.diagnostics.activeTiles).toBe(tiles.length)
     expect(scenePacket.diagnostics.activeTiers).toEqual(['T0', 'T1', 'T2', 'T3'])
+    expect(scenePacket.diagnostics.tileLevels).toContain(3)
+    expect(scenePacket.diagnostics.maxTileDepthReached).toBe(3)
+    expect(scenePacket.diagnostics.tilesPerLevel['3']).toBeGreaterThan(0)
+  })
+
+  it('increases star density when deeper tiles are selected', () => {
+    const wideQuery = buildSkyEngineQuery({
+      ...BASE_OBSERVER,
+      fovDeg: 120,
+    })
+    const closeQuery = buildSkyEngineQuery({
+      ...BASE_OBSERVER,
+      fovDeg: 4,
+    })
+    const widePacket = assembleSkyScenePacket(wideQuery, mockSkyTileRepository.loadTiles(wideQuery))
+    const closePacket = assembleSkyScenePacket(closeQuery, mockSkyTileRepository.loadTiles(closeQuery))
+
+    expect(closePacket.diagnostics.maxTileDepthReached).toBeGreaterThan(widePacket.diagnostics.maxTileDepthReached)
+    expect(closePacket.stars.length).toBeGreaterThan(widePacket.stars.length)
   })
 })
