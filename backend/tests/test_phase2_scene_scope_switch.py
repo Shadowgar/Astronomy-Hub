@@ -218,7 +218,14 @@ def test_sky_scope_returns_backend_owned_scene_context():
     assert payload.get("engine") == "sky_engine"
     assert payload.get("filter") == "visible_now"
     assert isinstance(payload.get("timestamp"), str) and payload.get("timestamp")
-    assert payload.get("objects") == []
+    objects = payload.get("objects") or []
+    assert isinstance(objects, list)
+    assert len(objects) >= 20
+    assert all(obj.get("type") == "star" for obj in objects)
+    assert all(obj.get("engine") == "sky_engine" for obj in objects)
+    assert all("right_ascension" in obj for obj in objects)
+    assert all("declination" in obj for obj in objects)
+    assert all("magnitude" in obj for obj in objects)
 
     observer = payload.get("observer") or {}
     assert observer.get("label") == "ORAS Observatory"
@@ -230,7 +237,14 @@ def test_sky_scope_returns_backend_owned_scene_context():
     assert scene_state.get("center_alt_deg") == approx(28.0)
     assert scene_state.get("center_az_deg") == approx(96.0)
     assert scene_state.get("fov_deg") == approx(120.0)
-    assert scene_state.get("stars_ready") is False
+    assert scene_state.get("stars_ready") is True
+
+    sirius = next((obj for obj in objects if obj.get("id") == "star-sirius"), None)
+    assert sirius is not None
+    assert sirius.get("name") == "Sirius"
+    assert sirius.get("right_ascension") == approx(6.7525)
+    assert sirius.get("declination") == approx(-16.7161)
+    assert sirius.get("magnitude") == approx(-1.46)
 
 
 def test_sky_scope_honors_location_and_time_context():

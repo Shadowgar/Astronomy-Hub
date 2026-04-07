@@ -8,6 +8,7 @@ from backend.app.services._legacy_scene_logic import (
     get_phase2_object_lookup,
     parse_location_override,
 )
+from backend.app.services.sky_star_catalog import build_bright_star_scene_objects
 from backend.app.services.scopes_service import (
     PHASE2_ENGINE_REGISTRY,
     PHASE2_SCOPES,
@@ -149,6 +150,9 @@ def build_sky_scene_payload(
     resolved_time = _resolve_time_context(as_of)
     timestamp = resolved_time.replace(microsecond=0).isoformat().replace("+00:00", "Z")
     elevation_ft = float(resolved_location.get("elevation_ft") or 0.0)
+    star_objects = build_bright_star_scene_objects()
+    scene_state = dict(_SKY_ENGINE_DEFAULT_SCENE_STATE)
+    scene_state["stars_ready"] = bool(star_objects)
 
     payload = SkySceneContract(
         scope="sky",
@@ -162,8 +166,8 @@ def build_sky_scene_payload(
             "elevation_ft": elevation_ft,
             "elevation_m": round(elevation_ft * 0.3048, 3),
         },
-        scene_state=_SKY_ENGINE_DEFAULT_SCENE_STATE,
-        objects=[],
+        scene_state=scene_state,
+        objects=star_objects,
         degraded=False,
         missing_sources=[],
         input_context={
