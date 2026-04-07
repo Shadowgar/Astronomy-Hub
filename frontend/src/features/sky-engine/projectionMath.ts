@@ -109,10 +109,11 @@ export function getProjectionScale(view: SkyProjectionView) {
 
 function getProjectionViewportScales(view: SkyProjectionView): SkyProjectionViewportScales {
   const projectionRadius = Math.max(getProjectionPlaneRadiusForMode(view.fovRadians, view.projectionMode ?? 'stereographic'), 1e-6)
+  const uniformScale = (Math.min(view.viewportWidth, view.viewportHeight) * 0.5) / projectionRadius
 
   return {
-    x: (view.viewportWidth * 0.5) / projectionRadius,
-    y: (view.viewportHeight * 0.5) / projectionRadius,
+    x: uniformScale,
+    y: uniformScale,
   }
 }
 

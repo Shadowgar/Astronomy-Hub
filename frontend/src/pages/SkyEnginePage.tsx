@@ -221,6 +221,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     () => computePlanetSceneObjects(observer, sceneTime.sceneTimestampIso),
     [observer, sceneTime.sceneTimestampIso],
   )
+
   const observerSnapshot = useMemo(
     () => ({
       timestampUtc: sceneTime.sceneTimestampIso,
@@ -312,7 +313,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     [runtimeStarMetadata, sceneTime.sceneTimestampIso, skyScenePacket, tileLoadResult?.mode],
   )
   const computedVisibleObjects = useMemo(
-    () => [...computedPlanetObjects, moonObject].filter((object) => object.isAboveHorizon),
+    () => [...computedPlanetObjects, moonObject],
     [computedPlanetObjects, moonObject],
   )
   const nonStarVisibleObjects = useMemo(
@@ -320,11 +321,21 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     [computedVisibleObjects],
   )
   const activeStarSceneObjects = useMemo(() => {
+    const mergedStars = new Map<string, SkyEngineSceneObject>()
+
     if (backendSceneStars.length > 0) {
-      return backendTileStarSceneObjects
+      backendTileStarSceneObjects.forEach((star) => {
+        mergedStars.set(star.id, star)
+      })
     }
 
-    return engineStarSceneObjects
+    engineStarSceneObjects.forEach((star) => {
+      if (!mergedStars.has(star.id)) {
+        mergedStars.set(star.id, star)
+      }
+    })
+
+    return Array.from(mergedStars.values())
   }, [backendSceneStars.length, backendTileStarSceneObjects, engineStarSceneObjects])
   const visibleStarSceneObjects = useMemo(
     () => filterStarSceneObjectsByFov(activeStarSceneObjects, viewState.fovDegrees),

@@ -66,4 +66,27 @@ describe('Sky Engine stereographic projection', () => {
 
     expect(Vector3.Dot(restoredDirection, targetDirection)).toBeCloseTo(1, 5)
   })
+
+  it('keeps equal angular offsets circular at extreme wide FOV on a wide viewport', () => {
+    const centerDirection = horizontalToDirection(0, 0)
+    const eastTarget = horizontalToDirection(0, 45)
+    const northTarget = horizontalToDirection(45, 0)
+    const view = {
+      centerDirection,
+      fovRadians: (185 * Math.PI) / 180,
+      viewportWidth: 1600,
+      viewportHeight: 900,
+    }
+
+    const eastProjected = projectDirectionToViewport(eastTarget, view)
+    const northProjected = projectDirectionToViewport(northTarget, view)
+
+    expect(eastProjected).not.toBeNull()
+    expect(northProjected).not.toBeNull()
+
+    const eastRadius = Math.hypot(eastProjected.screenX - view.viewportWidth * 0.5, eastProjected.screenY - view.viewportHeight * 0.5)
+    const northRadius = Math.hypot(northProjected.screenX - view.viewportWidth * 0.5, northProjected.screenY - view.viewportHeight * 0.5)
+
+    expect(eastRadius).toBeCloseTo(northRadius, 5)
+  })
 })
