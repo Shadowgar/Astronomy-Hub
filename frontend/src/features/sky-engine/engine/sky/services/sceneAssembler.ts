@@ -5,18 +5,21 @@ import { dedupeRuntimeStars } from '../core/dedupe'
 import { buildSkyDiagnostics } from '../diagnostics/skyDiagnostics'
 import { raDecToObserverUnitVector } from '../transforms/coordinates'
 
+const STAR_RENDER_HORIZON_BUFFER_DEG = 8
+const DEFAULT_REPOSITORY_STATE: Pick<SkyTileRepositoryLoadResult, 'mode' | 'sourceLabel' | 'sourceError'> = {
+  mode: 'mock',
+  sourceLabel: 'Mock tile repository',
+  sourceError: null,
+}
+
 function resolveStarLabel(star: RuntimeStar) {
-  return star.properName ?? star.bayer ?? star.flamsteed ?? star.sourceId
+  return star.properName ?? star.bayer ?? star.flamsteed
 }
 
 export function assembleSkyScenePacket(
   query: SkyEngineQuery,
   tiles: readonly SkyTilePayload[],
-  repositoryState: Pick<SkyTileRepositoryLoadResult, 'mode' | 'sourceLabel' | 'sourceError'> = {
-    mode: 'mock',
-    sourceLabel: 'Mock tile repository',
-    sourceError: null,
-  },
+  repositoryState: Pick<SkyTileRepositoryLoadResult, 'mode' | 'sourceLabel' | 'sourceError'> = DEFAULT_REPOSITORY_STATE,
 ): SkyScenePacket {
   const activeTierSet = new Set(query.activeTiers)
   const visibleTileSet = new Set(query.visibleTileIds)
@@ -46,7 +49,7 @@ export function assembleSkyScenePacket(
   const visibleStars = dedupedStars.flatMap((star) => {
     const { vector, horizontalCoordinates } = raDecToObserverUnitVector(star.raDeg, star.decDeg, query.observer)
 
-    if (!horizontalCoordinates.isAboveHorizon) {
+    if (horizontalCoordinates.altitudeDeg < -STAR_RENDER_HORIZON_BUFFER_DEG) {
       return []
     }
 
@@ -59,6 +62,7 @@ export function assembleSkyScenePacket(
       colorIndex: star.colorIndex,
       label: resolveStarLabel(star),
       tier: star.tier,
+      isAboveHorizon: horizontalCoordinates.isAboveHorizon,
     }]
   }).sort((left, right) => left.mag - right.mag || left.id.localeCompare(right.id))
 
@@ -66,14 +70,19 @@ export function assembleSkyScenePacket(
     .flatMap((star) => {
       const candidate = labelCandidateMap.get(star.id)
       const fallbackLabel = star.label
+      const labelText = candidate?.text ?? fallbackLabel
 
-      if (!candidate && (!fallbackLabel || star.mag > 2.5)) {
+      if (!star.isAboveHorizon) {
+        return []
+      }
+
+      if (!labelText || (!candidate && star.mag > 2.5)) {
         return []
       }
 
       return [{
         id: star.id,
-        text: candidate?.text ?? (fallbackLabel as string),
+        text: labelText,
         x: star.x,
         y: star.y,
         z: star.z,
@@ -83,7 +92,7 @@ export function assembleSkyScenePacket(
     .sort((left, right) => right.priority - left.priority || left.text.localeCompare(right.text))
 
   return {
-    stars: visibleStars,
+    stars: visibleStars.map(({ isAboveHorizon: _isAboveHorizon, ...star }) => star),
     labels,
     diagnostics: buildSkyDiagnostics(query, tiles, visibleStars.length, repositoryState),
   }

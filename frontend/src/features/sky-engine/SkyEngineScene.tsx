@@ -39,6 +39,7 @@ import {
   type SkyProjectionView,
   unprojectViewportPoint,
 } from './projectionMath'
+import { getStarRenderProfile } from './starRenderer'
 import type { SkyScenePacket } from './engine/sky'
 import type {
   SkyEngineAidVisibility,
@@ -124,6 +125,8 @@ interface LabelLayoutEntry {
 const SKY_ENGINE_SCENE_STATE_ATTRIBUTE = 'data-sky-engine-scene-state'
 const TRAJECTORY_HOUR_OFFSETS = [-6, -3, 0, 3, 6] as const
 const POINTER_DRAG_THRESHOLD_PX = 6
+const STAR_BELOW_HORIZON_FADE_DEG = 8
+const BODY_BELOW_HORIZON_FADE_DEG = 1.5
 const CONSTELLATION_SEGMENTS = [
   ['sky-real-vega', 'sky-real-sheliak'],
   ['sky-real-vega', 'sky-real-sulafat'],
@@ -251,7 +254,7 @@ function shouldRenderObject(
     return true
   }
 
-  if (!object.isAboveHorizon && object.source !== 'temporary_scene_seed') {
+  if (getObjectHorizonFade(object) <= 0) {
     return false
   }
 
@@ -442,6 +445,30 @@ function drawAidLayers(
   aidVisibility: SkyEngineAidVisibility,
   sunState: SkyEngineSunState,
 ) {
+  const horizonCurve = buildConstantAltitudeCurve(view, 0)
+
+  if (horizonCurve.length >= 2) {
+    const sortedHorizonCurve = [...horizonCurve].sort((left, right) => left.x - right.x)
+    const topY = Math.min(...sortedHorizonCurve.map((point) => point.y))
+    const groundGradient = context.createLinearGradient(0, topY, 0, view.viewportHeight)
+    groundGradient.addColorStop(0, hexToRgba(sunState.visualCalibration.landscapeFogColorHex, 0.06))
+    groundGradient.addColorStop(0.24, hexToRgba(sunState.visualCalibration.groundTintHex, 0.18))
+    groundGradient.addColorStop(1, hexToRgba(sunState.visualCalibration.backgroundColorHex, 0.96))
+
+    context.save()
+    context.fillStyle = groundGradient
+    context.beginPath()
+    context.moveTo(sortedHorizonCurve[0].x, sortedHorizonCurve[0].y)
+    sortedHorizonCurve.slice(1).forEach((point) => {
+      context.lineTo(point.x, point.y)
+    })
+    context.lineTo(view.viewportWidth + 2, view.viewportHeight + 2)
+    context.lineTo(-2, view.viewportHeight + 2)
+    context.closePath()
+    context.fill()
+    context.restore()
+  }
+
   if (aidVisibility.altitudeRings) {
     ;[15, 30, 45, 60].forEach((altitudeDeg) => {
       drawCurve(context, buildConstantAltitudeCurve(view, altitudeDeg), hexToRgba('#9ecbff', 0.11), 1, true)
@@ -452,7 +479,6 @@ function drawAidLayers(
     return
   }
 
-  const horizonCurve = buildConstantAltitudeCurve(view, 0)
   const azimuthGuideCurve = buildConstantAltitudeCurve(view, 8)
 
   context.save()
@@ -498,6 +524,42 @@ function drawAidLayers(
 
     drawCompassLabel(context, cardinal.label, projected.screenX, projected.screenY, 'rgba(226, 243, 255, 0.96)')
   })
+}
+
+function drawSolarGlare(context: CanvasRenderingContext2D, view: SkyProjectionView, sunState: SkyEngineSunState) {
+  if (sunState.altitudeDeg < -6) {
+    return
+  }
+
+  const projectedSun = projectHorizontalToViewport(sunState.altitudeDeg, sunState.azimuthDeg, view)
+
+  if (!projectedSun || !isProjectedPointVisible(projectedSun, view, 180)) {
+    return
+  }
+
+  const horizonFade = clamp((sunState.altitudeDeg + 6) / 18, 0, 1)
+  const discRadius = clamp(getProjectionScale(view) * Math.tan((0.53 * Math.PI) / 360), 8, 22)
+  const outerGlow = discRadius * (sunState.altitudeDeg > 0 ? 12 : 18)
+  const glare = context.createRadialGradient(projectedSun.screenX, projectedSun.screenY, discRadius * 0.3, projectedSun.screenX, projectedSun.screenY, outerGlow)
+  glare.addColorStop(0, `rgba(255, 248, 228, ${0.36 * horizonFade})`)
+  glare.addColorStop(0.2, `rgba(255, 214, 148, ${0.18 * horizonFade})`)
+  glare.addColorStop(1, 'rgba(255, 214, 148, 0)')
+
+  context.save()
+  context.fillStyle = glare
+  context.beginPath()
+  context.arc(projectedSun.screenX, projectedSun.screenY, outerGlow, 0, Math.PI * 2)
+  context.fill()
+
+  const discGradient = context.createRadialGradient(projectedSun.screenX - discRadius * 0.25, projectedSun.screenY - discRadius * 0.3, discRadius * 0.15, projectedSun.screenX, projectedSun.screenY, discRadius)
+  discGradient.addColorStop(0, `rgba(255, 255, 244, ${0.96 * horizonFade})`)
+  discGradient.addColorStop(0.6, `rgba(255, 227, 162, ${0.94 * horizonFade})`)
+  discGradient.addColorStop(1, `rgba(255, 182, 96, ${0.9 * horizonFade})`)
+  context.fillStyle = discGradient
+  context.beginPath()
+  context.arc(projectedSun.screenX, projectedSun.screenY, discRadius, 0, Math.PI * 2)
+  context.fill()
+  context.restore()
 }
 
 function drawConstellationOverlay(context: CanvasRenderingContext2D, projectedObjects: readonly ProjectedSceneObjectEntry[]) {
@@ -573,59 +635,142 @@ function drawDeepSkyMarker(context: CanvasRenderingContext2D, object: SkyEngineS
 
 function drawMoon(context: CanvasRenderingContext2D, object: SkyEngineSceneObject, x: number, y: number, radius: number) {
   context.save()
-  context.fillStyle = 'rgba(250, 241, 216, 0.96)'
+  context.translate(x, y)
+  context.rotate((((object.brightLimbAngleDeg ?? 0) - 90) * Math.PI) / 180)
+  const moonDisc = context.createRadialGradient(-radius * 0.22, -radius * 0.28, radius * 0.18, 0, 0, radius)
+  moonDisc.addColorStop(0, 'rgba(255, 249, 231, 0.98)')
+  moonDisc.addColorStop(0.58, 'rgba(248, 238, 208, 0.96)')
+  moonDisc.addColorStop(1, 'rgba(196, 188, 168, 0.94)')
+  context.fillStyle = moonDisc
   context.beginPath()
-  context.arc(x, y, radius, 0, Math.PI * 2)
+  context.arc(0, 0, radius, 0, Math.PI * 2)
   context.fill()
 
-  const waxingOffset = (object.waxing ? -1 : 1) * radius * clamp(1 - (object.illuminationFraction ?? 0.5) * 1.2, -0.88, 0.88)
-  context.fillStyle = 'rgba(20, 24, 36, 0.42)'
+  const illumination = clamp(object.illuminationFraction ?? 0.5, 0, 1)
+  const shadowOffset = (object.waxing ? -1 : 1) * radius * clamp(1 - illumination * 1.85, -0.94, 0.94)
+  context.save()
   context.beginPath()
-  context.arc(x + waxingOffset, y, radius * 0.96, 0, Math.PI * 2)
+  context.arc(0, 0, radius, 0, Math.PI * 2)
+  context.clip()
+  context.fillStyle = 'rgba(11, 15, 26, 0.58)'
+  context.beginPath()
+  context.ellipse(shadowOffset, 0, radius * 0.98, radius * 0.98, 0, 0, Math.PI * 2)
   context.fill()
+  context.restore()
 
-  const halo = context.createRadialGradient(x, y, radius * 0.2, x, y, radius * 2.3)
+  context.strokeStyle = 'rgba(255, 251, 236, 0.45)'
+  context.lineWidth = Math.max(1, radius * 0.08)
+  context.beginPath()
+  context.arc(0, 0, radius * 0.96, 0, Math.PI * 2)
+  context.stroke()
+
+  const halo = context.createRadialGradient(0, 0, radius * 0.2, 0, 0, radius * 2.3)
   halo.addColorStop(0, 'rgba(255, 249, 223, 0.18)')
   halo.addColorStop(1, 'rgba(255, 249, 223, 0)')
   context.fillStyle = halo
   context.beginPath()
-  context.arc(x, y, radius * 2.3, 0, Math.PI * 2)
+  context.arc(0, 0, radius * 2.3, 0, Math.PI * 2)
   context.fill()
   context.restore()
 }
 
 function drawPlanet(context: CanvasRenderingContext2D, object: SkyEngineSceneObject, x: number, y: number, radius: number) {
   context.save()
-  const halo = context.createRadialGradient(x, y, radius * 0.2, x, y, radius * 2.4)
-  halo.addColorStop(0, hexToRgba(object.colorHex, 0.92))
-  halo.addColorStop(0.4, hexToRgba(object.colorHex, 0.54))
+  let haloStrength = 2.3
+
+  if (object.name === 'Venus') {
+    haloStrength = 3.4
+  } else if (object.name === 'Jupiter') {
+    haloStrength = 2.8
+  }
+
+  const halo = context.createRadialGradient(x, y, radius * 0.18, x, y, radius * haloStrength)
+  halo.addColorStop(0, hexToRgba(object.colorHex, object.name === 'Venus' ? 0.94 : 0.76))
+  halo.addColorStop(0.4, hexToRgba(object.colorHex, object.name === 'Venus' ? 0.48 : 0.34))
   halo.addColorStop(1, hexToRgba(object.colorHex, 0))
   context.fillStyle = halo
   context.beginPath()
-  context.arc(x, y, radius * 2.4, 0, Math.PI * 2)
+  context.arc(x, y, radius * haloStrength, 0, Math.PI * 2)
   context.fill()
-  context.fillStyle = hexToRgba(object.colorHex, 0.96)
+
+  const disc = context.createRadialGradient(x - radius * 0.28, y - radius * 0.34, radius * 0.12, x, y, radius)
+  disc.addColorStop(0, 'rgba(255, 255, 255, 0.9)')
+  disc.addColorStop(0.46, hexToRgba(object.colorHex, 0.98))
+  disc.addColorStop(1, hexToRgba(object.colorHex, 0.74))
+  context.fillStyle = disc
   context.beginPath()
   context.arc(x, y, radius, 0, Math.PI * 2)
+  context.fill()
+
+  if (object.name === 'Jupiter') {
+    context.save()
+    context.beginPath()
+    context.arc(x, y, radius, 0, Math.PI * 2)
+    context.clip()
+    ;[-0.46, -0.16, 0.14, 0.42].forEach((offset, index) => {
+      context.fillStyle = index % 2 === 0 ? 'rgba(122, 74, 38, 0.24)' : 'rgba(247, 220, 182, 0.16)'
+      context.fillRect(x - radius * 1.1, y + radius * offset, radius * 2.2, radius * 0.17)
+    })
+    context.restore()
+  }
+
+  if (object.name === 'Saturn') {
+    context.save()
+    context.strokeStyle = 'rgba(227, 208, 162, 0.74)'
+    context.lineWidth = Math.max(1.1, radius * 0.16)
+    context.beginPath()
+    context.ellipse(x, y, radius * 1.8, radius * 0.64, -0.34, 0, Math.PI * 2)
+    context.stroke()
+    context.restore()
+  }
+
+  context.restore()
+}
+
+function drawStar(
+  context: CanvasRenderingContext2D,
+  object: SkyEngineSceneObject,
+  x: number,
+  y: number,
+  radius: number,
+  calibration: SkyEngineSunState['visualCalibration'],
+  alpha: number,
+) {
+  const profile = getStarRenderProfile(object, calibration)
+
+  context.save()
+  const halo = context.createRadialGradient(x, y, 0, x, y, Math.max(radius * 3.2, profile.haloRadiusPx))
+  halo.addColorStop(0, hexToRgba(profile.colorHex, alpha))
+  halo.addColorStop(0.22, hexToRgba(profile.colorHex, alpha * 0.52))
+  halo.addColorStop(1, hexToRgba(profile.colorHex, 0))
+  context.fillStyle = halo
+  context.beginPath()
+  context.arc(x, y, Math.max(radius * 3.2, profile.haloRadiusPx), 0, Math.PI * 2)
+  context.fill()
+
+  context.fillStyle = hexToRgba(profile.colorHex, Math.min(1, alpha + 0.08))
+  context.beginPath()
+  context.arc(x, y, Math.max(radius * 0.96, profile.coreRadiusPx), 0, Math.PI * 2)
+  context.fill()
+
+  context.fillStyle = 'rgba(255, 255, 255, 0.9)'
+  context.beginPath()
+  context.arc(x, y, Math.max(0.65, Math.min(radius * 0.44, profile.coreRadiusPx * 0.72)), 0, Math.PI * 2)
   context.fill()
   context.restore()
 }
 
-function drawStar(context: CanvasRenderingContext2D, object: SkyEngineSceneObject, x: number, y: number, radius: number, alpha: number) {
-  context.save()
-  const halo = context.createRadialGradient(x, y, 0, x, y, radius * 3.4)
-  halo.addColorStop(0, hexToRgba(object.colorHex, alpha))
-  halo.addColorStop(0.32, hexToRgba(object.colorHex, alpha * 0.42))
-  halo.addColorStop(1, hexToRgba(object.colorHex, 0))
-  context.fillStyle = halo
-  context.beginPath()
-  context.arc(x, y, radius * 3.4, 0, Math.PI * 2)
-  context.fill()
-  context.fillStyle = hexToRgba(object.colorHex, Math.min(1, alpha + 0.14))
-  context.beginPath()
-  context.arc(x, y, radius, 0, Math.PI * 2)
-  context.fill()
-  context.restore()
+function getObjectHorizonFade(object: SkyEngineSceneObject) {
+  if (object.source === 'temporary_scene_seed') {
+    return 1
+  }
+
+  if (object.isAboveHorizon) {
+    return 1
+  }
+
+  const fadeRange = object.type === 'star' ? STAR_BELOW_HORIZON_FADE_DEG : BODY_BELOW_HORIZON_FADE_DEG
+  return clamp((object.altitudeDeg + fadeRange) / fadeRange, 0, 1)
 }
 
 function drawProjectedObjects(
@@ -690,18 +835,33 @@ function drawProjectedObjects(
     .sort((left, right) => left.depth - right.depth || left.object.magnitude - right.object.magnitude)
 
   allProjectedObjects.forEach((entry) => {
+    const horizonFade = getObjectHorizonFade(entry.object)
+
+    if (horizonFade <= 0) {
+      return
+    }
+
     if (entry.object.type === 'moon') {
+      context.save()
+      context.globalAlpha = horizonFade
       drawMoon(context, entry.object, entry.screenX, entry.screenY, entry.markerRadiusPx)
+      context.restore()
       return
     }
 
     if (entry.object.type === 'planet') {
+      context.save()
+      context.globalAlpha = horizonFade
       drawPlanet(context, entry.object, entry.screenX, entry.screenY, entry.markerRadiusPx)
+      context.restore()
       return
     }
 
     if (entry.object.type === 'deep_sky') {
+      context.save()
+      context.globalAlpha = horizonFade
       drawDeepSkyMarker(context, entry.object, entry.screenX, entry.screenY, entry.markerRadiusPx)
+      context.restore()
       return
     }
 
@@ -711,7 +871,8 @@ function drawProjectedObjects(
       entry.screenX,
       entry.screenY,
       entry.markerRadiusPx,
-      clamp(sunState.visualCalibration.starVisibility * 0.96, 0.28, 0.98),
+      sunState.visualCalibration,
+      clamp(sunState.visualCalibration.starVisibility * horizonFade, 0, 0.98),
     )
   })
 
@@ -993,6 +1154,7 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
   }
   const lod = resolveViewTier(getSkyEngineFovDegrees(runtime.currentFov))
 
+  drawSolarGlare(context, view, latest.sunState)
   drawAidLayers(context, view, latest.aidVisibility, latest.sunState)
   const projectedObjects = drawProjectedObjects(context, view, latest.objects, latest.scenePacket, latest.sunState, latest.selectedObjectId)
 

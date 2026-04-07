@@ -251,6 +251,7 @@ export default function SkyEnginePage() {
   )
   const diagnostics = skyScenePacket?.diagnostics ?? null
   const selectedTargetName = selection.selectedObject?.name ?? 'Ready to inspect'
+  const fallbackActive = Boolean(diagnostics?.sourceError)
   const runtimeSourceLabel = diagnostics?.sourceLabel
     ?? (repositoryMode === 'hipparcos' ? 'Hipparcos loading…' : 'Mock tile repository')
 
@@ -389,11 +390,13 @@ export default function SkyEnginePage() {
                 <span className="sky-engine-page__top-bar-label">FOV</span>
                 <strong>{formatDisplayedFov(viewState.fovDegrees)}</strong>
               </div>
-              <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
-                <span className="sky-engine-page__top-bar-label">Target</span>
-                <strong>{selectedTargetName}</strong>
-                <small>{ORAS_OBSERVER.label}</small>
-              </div>
+              {selection.selectedObject ? (
+                <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
+                  <span className="sky-engine-page__top-bar-label">Target</span>
+                  <strong>{selectedTargetName}</strong>
+                  <small>{ORAS_OBSERVER.label}</small>
+                </div>
+              ) : null}
               <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                 <span className="sky-engine-page__top-bar-label">Local time</span>
                 <strong>{sceneTime.formattedSceneLocalTimestamp}</strong>
@@ -418,13 +421,9 @@ export default function SkyEnginePage() {
               </div>
               <div className="sky-engine-page__bottom-hud-stats">
                 <span>{diagnostics ? formatSkyDiagnosticsSummary({ ...diagnostics, visibleTileIds: skyEngineQuery.visibleTileIds }) : 'Loading tiles…'}</span>
-                <span>{runtimeSourceLabel}</span>
-                <span>{diagnostics ? `tiers ${diagnostics.activeTiers.join('/')}` : 'tiers …'}</span>
-                <span>{diagnostics ? `levels ${diagnostics.tileLevels.join('/')}` : 'levels …'}</span>
+                <span>{fallbackActive ? `${runtimeSourceLabel} fallback` : runtimeSourceLabel}</span>
                 <span>{moonObject.isAboveHorizon ? `${moonObject.phaseLabel} moon` : 'Moon below horizon'}</span>
                 <span>{guidanceTargets.length} guided now</span>
-                <span>{selectedTargetName}</span>
-                {diagnostics?.sourceError ? <span>fallback active</span> : null}
               </div>
             </div>
 

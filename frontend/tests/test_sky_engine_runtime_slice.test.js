@@ -19,6 +19,36 @@ const BASE_OBSERVER = {
 }
 
 describe('sky engine runtime slice', () => {
+
+  it('keeps near-horizon stars in the scene packet but avoids raw catalog id labels', () => {
+    const query = {
+      observer: {
+        ...BASE_OBSERVER,
+        fovDeg: 30,
+      },
+      limitingMagnitude: 10,
+      activeTiers: ['T0', 'T1'],
+      visibleTileIds: ['root-ne'],
+    }
+    const tiles = [{
+      tileId: 'root-ne',
+      level: 1,
+      stars: [{
+        id: 'test-near-horizon',
+        sourceId: 'HIP 99999',
+        raDeg: 269.15,
+        decDeg: 4.7,
+        mag: 1.1,
+        tier: 'T0',
+      }],
+      labelCandidates: [],
+    }]
+
+    const scenePacket = assembleSkyScenePacket(query, tiles)
+
+    expect(scenePacket.stars.some((star) => star.id === 'test-near-horizon')).toBe(true)
+    expect(scenePacket.labels.some((label) => label.text === 'HIP 99999')).toBe(false)
+  })
   it('maps field of view to the starter limiting magnitude law', () => {
     expect(resolveLimitingMagnitude(120)).toBe(5.5)
     expect(resolveLimitingMagnitude(90)).toBe(6.2)

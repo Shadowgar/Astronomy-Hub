@@ -1417,40 +1417,40 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 
 
 .sky-engine-page__overlay--top-bar {
-  left: var(--token-size-10);
-  right: var(--token-size-10);
-  top: var(--token-size-8);
+  left: var(--token-size-8);
+  right: var(--token-size-8);
+  top: var(--token-size-6);
 }
 
 .sky-engine-page__overlay--bottom-hud {
-  left: var(--token-size-10);
-  right: var(--token-size-10);
-  bottom: var(--token-size-8);
+  left: var(--token-size-8);
+  right: var(--token-size-8);
+  bottom: var(--token-size-6);
 }
 
 .sky-engine-page__overlay--right {
-  right: var(--token-size-10);
-  top: 3.35rem;
-  bottom: 4.25rem;
-  width: min(13rem, calc(100vw - 1.5rem));
+  right: var(--token-size-8);
+  top: 2.8rem;
+  bottom: 3.2rem;
+  width: min(11.5rem, calc(100vw - 1.25rem));
 }
 
 .sky-engine-page__top-bar,
 .sky-engine-page__bottom-hud {
   display: flex;
   align-items: center;
-  gap: 0.48rem;
-  background: linear-gradient(180deg, rgba(5, 10, 16, 0.34), rgba(5, 10, 16, 0.1));
-  border: 1px solid rgba(154, 198, 255, 0.1);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(8px);
+  gap: 0.4rem;
+  background: linear-gradient(180deg, rgba(5, 10, 16, 0.18), rgba(5, 10, 16, 0.04));
+  border: 1px solid rgba(154, 198, 255, 0.06);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(6px);
   pointer-events: none;
 }
 
 .sky-engine-page__top-bar {
   justify-content: space-between;
-  padding: 0.34rem 0.46rem;
-  border-radius: 0.8rem;
+  padding: 0.22rem 0.34rem;
+  border-radius: 0.72rem;
   flex-wrap: wrap;
 }
 
@@ -1464,7 +1464,7 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .sky-engine-page__top-bar-section strong,
 .sky-engine-page__bottom-hud-offset {
   color: #f4f8ff;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
 }
 
 .sky-engine-page__top-bar-section small {
@@ -1495,12 +1495,12 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 
 .sky-engine-page__search-input {
   flex: 1 1 auto;
-  min-height: 1.72rem;
+  min-height: 1.58rem;
   border-radius: 999px;
   border: 1px solid rgba(154, 198, 255, 0.14);
-  background: rgba(7, 15, 26, 0.7);
+  background: rgba(7, 15, 26, 0.54);
   color: #f4f8ff;
-  padding: 0 0.7rem;
+  padding: 0 0.62rem;
 }
 
 .sky-engine-page__search-input::placeholder {
@@ -1521,11 +1521,11 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   display: flex;
   flex-direction: column;
   gap: 0.14rem;
-  min-width: 4.3rem;
-  padding: 0.26rem 0.44rem;
-  border-radius: 0.68rem;
-  border: 1px solid rgba(154, 198, 255, 0.1);
-  background: rgba(8, 17, 28, 0.3);
+  min-width: 4rem;
+  padding: 0.2rem 0.36rem;
+  border-radius: 0.62rem;
+  border: 1px solid rgba(154, 198, 255, 0.08);
+  background: rgba(8, 17, 28, 0.2);
 }
 
 .sky-engine-page__status-pill--wide {
@@ -1534,12 +1534,12 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 
 .sky-engine-page__status-pill strong {
   color: #f4f8ff;
-  font-size: 0.76rem;
+  font-size: 0.72rem;
 }
 
 .sky-engine-page__status-pill small {
   color: rgba(176, 208, 255, 0.72);
-  font-size: 0.62rem;
+  font-size: 0.58rem;
 }
 
 .sky-engine-page__top-bar-label {
@@ -1552,8 +1552,8 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .sky-engine-page__bottom-hud {
   flex-direction: column;
   align-items: stretch;
-  padding: 0.34rem 0.44rem;
-  border-radius: 0.8rem;
+  padding: 0.24rem 0.34rem;
+  border-radius: 0.72rem;
 }
 
 .sky-engine-page__bottom-hud-main,
@@ -1582,15 +1582,15 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 
 .sky-engine-page__bottom-hud-stats span,
 .sky-engine-page__target-chip {
-  font-size: 0.64rem;
+  font-size: 0.6rem;
   color: rgba(232, 241, 255, 0.86);
 }
 
 .sky-engine-page__bottom-hud-stats span {
-  padding: 0.08rem 0.34rem;
+  padding: 0.06rem 0.28rem;
   border-radius: 999px;
-  background: rgba(9, 18, 30, 0.26);
-  border: 1px solid rgba(154, 198, 255, 0.08);
+  background: rgba(9, 18, 30, 0.16);
+  border: 1px solid rgba(154, 198, 255, 0.06);
 }
 
 .sky-engine-page__target-chips {
@@ -1599,11 +1599,11 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 }
 
 .sky-engine-page__target-chip {
-  border: 1px solid rgba(154, 198, 255, 0.1);
-  background: rgba(9, 18, 30, 0.34);
+  border: 1px solid rgba(154, 198, 255, 0.08);
+  background: rgba(9, 18, 30, 0.22);
   border-radius: 999px;
-  min-height: 1.5rem;
-  padding: 0 0.52rem;
+  min-height: 1.38rem;
+  padding: 0 0.44rem;
   pointer-events: auto;
 }
 
@@ -1613,11 +1613,11 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 }
 
 .sky-engine-page__control-chip {
-  border: 1px solid rgba(154, 198, 255, 0.1);
-  background: rgba(9, 18, 30, 0.38);
+  border: 1px solid rgba(154, 198, 255, 0.08);
+  background: rgba(9, 18, 30, 0.24);
   border-radius: 999px;
-  min-height: 1.5rem;
-  padding: 0 0.52rem;
+  min-height: 1.38rem;
+  padding: 0 0.44rem;
   color: rgba(232, 241, 255, 0.9);
   pointer-events: auto;
 }
@@ -1741,15 +1741,15 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .sky-engine-page__time-reset {
   border: 1px solid rgba(154, 198, 255, 0.12);
   border-radius: 999px;
-  min-height: 1.8rem;
-  padding: 0 0.62rem;
-  background: rgba(9, 18, 30, 0.46);
+  min-height: 1.58rem;
+  padding: 0 0.52rem;
+  background: rgba(9, 18, 30, 0.28);
   color: #f3f8ff;
   pointer-events: auto;
 }
 
 .sky-engine-page__time-reset--top {
-  min-height: 1.95rem;
+  min-height: 1.72rem;
 }
 
 .sky-engine-page__status-grid {
@@ -1783,14 +1783,14 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .sky-engine-detail-shell {
   height: auto;
   min-height: 0;
-  border-radius: 0.8rem;
-  padding: 0.48rem 0.5rem;
+  border-radius: 0.72rem;
+  padding: 0.34rem 0.38rem;
   overflow: auto;
   pointer-events: none;
   max-height: 100%;
-  background: linear-gradient(180deg, rgba(5, 10, 16, 0.34), rgba(5, 10, 16, 0.2));
-  border: 1px solid rgba(154, 198, 255, 0.08);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(5, 10, 16, 0.2), rgba(5, 10, 16, 0.08));
+  border: 1px solid rgba(154, 198, 255, 0.06);
+  backdrop-filter: blur(8px);
 }
 
 .sky-engine-detail-shell__header {

@@ -28,6 +28,11 @@ export interface SkyProjectedPoint {
   angularDistanceRad: number
 }
 
+interface SkyProjectionViewportScales {
+  x: number
+  y: number
+}
+
 function clampDot(value: number) {
   return Math.min(1, Math.max(-1, value))
 }
@@ -98,7 +103,17 @@ function getProjectionPlaneRadiusForMode(fovRadians: number, projectionMode: Sky
 }
 
 export function getProjectionScale(view: SkyProjectionView) {
-  return (Math.min(view.viewportWidth, view.viewportHeight) * 0.5) / Math.max(getProjectionPlaneRadiusForMode(view.fovRadians, view.projectionMode ?? 'stereographic'), 1e-6)
+  const scales = getProjectionViewportScales(view)
+  return Math.min(scales.x, scales.y)
+}
+
+function getProjectionViewportScales(view: SkyProjectionView): SkyProjectionViewportScales {
+  const projectionRadius = Math.max(getProjectionPlaneRadiusForMode(view.fovRadians, view.projectionMode ?? 'stereographic'), 1e-6)
+
+  return {
+    x: (view.viewportWidth * 0.5) / projectionRadius,
+    y: (view.viewportHeight * 0.5) / projectionRadius,
+  }
 }
 
 export function projectDirectionToViewport(direction: Vector3, view: SkyProjectionView): SkyProjectedPoint | null {
@@ -132,11 +147,11 @@ export function projectDirectionToViewport(direction: Vector3, view: SkyProjecti
     planeY = northComponent * planeFactor
   }
 
-  const scale = getProjectionScale(view)
+  const scales = getProjectionViewportScales(view)
 
   return {
-    screenX: view.viewportWidth * 0.5 + planeX * scale,
-    screenY: view.viewportHeight * 0.5 - planeY * scale,
+    screenX: view.viewportWidth * 0.5 + planeX * scales.x,
+    screenY: view.viewportHeight * 0.5 - planeY * scales.y,
     planeX,
     planeY,
     depth: centerComponent,
@@ -150,9 +165,9 @@ export function projectHorizontalToViewport(altitudeDeg: number, azimuthDeg: num
 
 export function unprojectViewportPoint(screenX: number, screenY: number, view: SkyProjectionView) {
   const basis = buildProjectionBasis(view.centerDirection)
-  const scale = getProjectionScale(view)
-  const planeX = (screenX - view.viewportWidth * 0.5) / Math.max(scale, 1e-6)
-  const planeY = (view.viewportHeight * 0.5 - screenY) / Math.max(scale, 1e-6)
+  const scales = getProjectionViewportScales(view)
+  const planeX = (screenX - view.viewportWidth * 0.5) / Math.max(scales.x, 1e-6)
+  const planeY = (view.viewportHeight * 0.5 - screenY) / Math.max(scales.y, 1e-6)
   const projectionMode = view.projectionMode ?? 'stereographic'
 
   if (projectionMode === 'orthographic') {
