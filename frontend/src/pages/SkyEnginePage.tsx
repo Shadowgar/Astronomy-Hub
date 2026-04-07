@@ -11,8 +11,6 @@ import {
   resolveSkyTileRepositoryMode,
   unitVectorToHorizontalCoordinates,
 } from '../features/sky-engine/engine/sky'
-import { getDesiredFovForObject, getSkyEngineFovDegrees } from '../features/sky-engine/observerNavigation'
-import { SKY_ENGINE_SCENE_TIMESTAMP } from '../features/sky-engine/realSkyCatalog'
 import {
   SKY_ENGINE_LOCAL_TIME_ZONE,
   SKY_ENGINE_PLAYBACK_RATE_OPTIONS,
@@ -20,10 +18,10 @@ import {
   useSkyEngineSceneTime,
 } from '../features/sky-engine/sceneTime'
 import { computeSunState } from '../features/sky-engine/solar'
+import { useSceneByScopeDataQuery } from '../features/scene/queries'
 import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
 import SkyEngineScene from '../features/sky-engine/SkyEngineScene'
 import { resolveStarColorHex } from '../features/sky-engine/starRenderer'
-import { ORAS_OBSERVER, SKY_ENGINE_TEMPORARY_SCENE_SEED } from '../features/sky-engine/sceneSeed'
 import type { SkyEngineSceneObject } from '../features/sky-engine/types'
 import { useSkyEngineSelection } from '../features/sky-engine/useSkyEngineSelection'
 import type { SkyTileRepositoryLoadResult } from '../features/sky-engine/engine/sky'
@@ -89,16 +87,122 @@ function resolveRuntimeModeLabel(
   return 'Loading'
 }
 
-export default function SkyEnginePage() {
-  const sceneTime = useSkyEngineSceneTime(SKY_ENGINE_SCENE_TIMESTAMP)
+interface BackendSkyScenePayload {
+  scope: 'sky'
+  engine: 'sky_engine'
+  filter: 'visible_now'
+  timestamp: string
+  observer: {
+    label: string
+    latitude: number
+    longitude: number
+    elevation_ft?: number | null
+    elevation_m?: number | null
+  }
+  scene_state: {
+    projection: 'stereographic'
+    center_alt_deg: number
+    center_az_deg: number
+    fov_deg: number
+    stars_ready: boolean
+  }
+  objects: unknown[]
+}
+
+function isFiniteNumber(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value)
+}
+
+function parseBackendSkyScenePayload(payload: unknown): BackendSkyScenePayload | null {
+  if (!payload || typeof payload !== 'object') {
+    return null
+  }
+
+  const candidate = payload as Record<string, unknown>
+  const observer = candidate.observer as Record<string, unknown> | undefined
+  const sceneState = candidate.scene_state as Record<string, unknown> | undefined
+
+  if (candidate.scope !== 'sky' || candidate.engine !== 'sky_engine' || typeof candidate.timestamp !== 'string') {
+    return null
+  }
+
+  if (!observer || !sceneState) {
+    return null
+  }
+
+  if (
+    typeof observer.label !== 'string' ||
+    !isFiniteNumber(observer.latitude) ||
+    !isFiniteNumber(observer.longitude) ||
+    sceneState.projection !== 'stereographic' ||
+    !isFiniteNumber(sceneState.center_alt_deg) ||
+    !isFiniteNumber(sceneState.center_az_deg) ||
+    !isFiniteNumber(sceneState.fov_deg) ||
+    typeof sceneState.stars_ready !== 'boolean'
+  ) {
+    return null
+  }
+
+  return candidate as unknown as BackendSkyScenePayload
+}
+
+function convertBackendObserver(scene: BackendSkyScenePayload) {
+  let elevationFeet = 0
+
+  if (isFiniteNumber(scene.observer.elevation_ft)) {
+    elevationFeet = scene.observer.elevation_ft
+  } else if (isFiniteNumber(scene.observer.elevation_m)) {
+    elevationFeet = scene.observer.elevation_m / 0.3048
+  }
+
+  return {
+    label: scene.observer.label,
+    latitude: scene.observer.latitude,
+    longitude: scene.observer.longitude,
+    elevationFt: Number(elevationFeet.toFixed(2)),
+  }
+}
+
+function buildBackendViewState(scene: BackendSkyScenePayload) {
+  return {
+    fovDegrees: Number(scene.scene_state.fov_deg.toFixed(1)),
+    centerAltDeg: Number(scene.scene_state.center_alt_deg.toFixed(1)),
+    centerAzDeg: Number(scene.scene_state.center_az_deg.toFixed(1)),
+  }
+}
+
+function SkyEngineOwnershipState({ title, detail }: Readonly<{ title: string; detail: string }>) {
+  return (
+    <div className="sky-engine-page sky-engine-page--immersive">
+      <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
+        <div className="sky-engine-page__overlay sky-engine-page__overlay--top-bar">
+          <div className="sky-engine-page__top-bar" aria-label="Sky Engine ownership state">
+            <div className="sky-engine-page__top-bar-section sky-engine-page__top-bar-section--actions">
+              <Link className="sky-engine-page__back-link" to="/">
+                Back
+              </Link>
+            </div>
+            <div className="sky-engine-page__top-bar-meta">
+              <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
+                <span className="sky-engine-page__top-bar-label">Sky scene</span>
+                <strong>{title}</strong>
+                <small>{detail}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: BackendSkyScenePayload }>) {
+  const sceneTime = useSkyEngineSceneTime(backendScene.timestamp)
   const [repositoryMode] = useState(() => resolveSkyTileRepositoryMode())
   const [searchQuery, setSearchQuery] = useState('')
   const deferredSearchQuery = useDeferredValue(searchQuery)
-  const [viewState, setViewState] = useState(() => ({
-    fovDegrees: Number(getSkyEngineFovDegrees(getDesiredFovForObject(null)).toFixed(1)),
-    centerAltDeg: 28,
-    centerAzDeg: 96,
-  }))
+  const observer = useMemo(() => convertBackendObserver(backendScene), [backendScene])
+  const [viewState, setViewState] = useState(() => buildBackendViewState(backendScene))
   const [aidVisibility, setAidVisibility] = useState({
     constellations: true,
     azimuthRing: true,
@@ -107,29 +211,29 @@ export default function SkyEnginePage() {
   const [inspectorOpen, setInspectorOpen] = useState(false)
   const [tileLoadResult, setTileLoadResult] = useState<SkyTileRepositoryLoadResult | null>(null)
   const sunState = useMemo(
-    () => computeSunState(ORAS_OBSERVER, sceneTime.sceneTimestampIso),
-    [sceneTime.sceneTimestampIso],
+    () => computeSunState(observer, sceneTime.sceneTimestampIso),
+    [observer, sceneTime.sceneTimestampIso],
   )
   const moonObject = useMemo(
-    () => computeMoonSceneObject(ORAS_OBSERVER, sceneTime.sceneTimestampIso),
-    [sceneTime.sceneTimestampIso],
+    () => computeMoonSceneObject(observer, sceneTime.sceneTimestampIso),
+    [observer, sceneTime.sceneTimestampIso],
   )
   const computedPlanetObjects = useMemo(
-    () => computePlanetSceneObjects(ORAS_OBSERVER, sceneTime.sceneTimestampIso),
-    [sceneTime.sceneTimestampIso],
+    () => computePlanetSceneObjects(observer, sceneTime.sceneTimestampIso),
+    [observer, sceneTime.sceneTimestampIso],
   )
   const observerSnapshot = useMemo(
     () => ({
       timestampUtc: sceneTime.sceneTimestampIso,
-      latitudeDeg: ORAS_OBSERVER.latitude,
-      longitudeDeg: ORAS_OBSERVER.longitude,
-      elevationM: ORAS_OBSERVER.elevationFt * 0.3048,
+      latitudeDeg: observer.latitude,
+      longitudeDeg: observer.longitude,
+      elevationM: observer.elevationFt * 0.3048,
       fovDeg: viewState.fovDegrees,
       centerAltDeg: viewState.centerAltDeg,
       centerAzDeg: viewState.centerAzDeg,
-      projection: 'stereographic' as const,
+      projection: backendScene.scene_state.projection,
     }),
-    [sceneTime.sceneTimestampIso, viewState.centerAltDeg, viewState.centerAzDeg, viewState.fovDegrees],
+    [backendScene.scene_state.projection, observer.elevationFt, observer.latitude, observer.longitude, sceneTime.sceneTimestampIso, viewState.centerAltDeg, viewState.centerAzDeg, viewState.fovDegrees],
   )
   const skyEngineQuery = useMemo(
     () => buildSkyEngineQuery(observerSnapshot),
@@ -217,7 +321,7 @@ export default function SkyEnginePage() {
     [computedVisibleObjects],
   )
   const baseSceneObjects = useMemo(
-    () => [...engineStarSceneObjects, ...nonStarVisibleObjects, ...SKY_ENGINE_TEMPORARY_SCENE_SEED],
+    () => [...engineStarSceneObjects, ...nonStarVisibleObjects],
     [engineStarSceneObjects, nonStarVisibleObjects],
   )
   const guidanceTargets = useMemo(
@@ -254,6 +358,22 @@ export default function SkyEnginePage() {
   const fallbackActive = Boolean(diagnostics?.sourceError)
   const runtimeSourceLabel = diagnostics?.sourceLabel
     ?? (repositoryMode === 'hipparcos' ? 'Hipparcos loading…' : 'Mock tile repository')
+
+  useEffect(() => {
+    setViewState((currentViewState) => {
+      const nextViewState = buildBackendViewState(backendScene)
+
+      if (
+        currentViewState.fovDegrees === nextViewState.fovDegrees &&
+        currentViewState.centerAltDeg === nextViewState.centerAltDeg &&
+        currentViewState.centerAzDeg === nextViewState.centerAzDeg
+      ) {
+        return currentViewState
+      }
+
+      return nextViewState
+    })
+  }, [backendScene])
 
   useEffect(() => {
     if (selection.selectionStatus === 'active' || selection.selectionStatus === 'hidden') {
@@ -321,9 +441,18 @@ export default function SkyEnginePage() {
     <div className="sky-engine-page sky-engine-page--immersive">
       <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
         <SkyEngineScene
-          observer={ORAS_OBSERVER}
+          key={[
+            backendScene.timestamp,
+            backendScene.observer.latitude,
+            backendScene.observer.longitude,
+            backendScene.scene_state.center_alt_deg,
+            backendScene.scene_state.center_az_deg,
+            backendScene.scene_state.fov_deg,
+          ].join(':')}
+          observer={observer}
           objects={sceneObjects}
           scenePacket={skyScenePacket}
+          initialViewState={buildBackendViewState(backendScene)}
           projectionMode={observerSnapshot.projection}
           sunState={sunState}
           selectedObjectId={selection.selectedObjectId}
@@ -394,7 +523,7 @@ export default function SkyEnginePage() {
                 <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                   <span className="sky-engine-page__top-bar-label">Target</span>
                   <strong>{selectedTargetName}</strong>
-                  <small>{ORAS_OBSERVER.label}</small>
+                  <small>{observer.label}</small>
                 </div>
               ) : null}
               <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
@@ -537,4 +666,44 @@ export default function SkyEnginePage() {
       </main>
     </div>
   )
+}
+
+export default function SkyEnginePage() {
+  const sceneQuery = useSceneByScopeDataQuery({
+    scope: 'sky',
+    engine: 'sky_engine',
+  })
+  const backendScene = useMemo(
+    () => parseBackendSkyScenePayload(sceneQuery.data),
+    [sceneQuery.data],
+  )
+
+  if (sceneQuery.isPending) {
+    return (
+      <SkyEngineOwnershipState
+        title="Loading backend scene"
+        detail="Waiting for /scene?scope=sky&engine=sky_engine to provide observer and timestamp."
+      />
+    )
+  }
+
+  if (sceneQuery.isError) {
+    return (
+      <SkyEngineOwnershipState
+        title="Sky scene unavailable"
+        detail="Backend scene ownership failed to load; local observer and time are intentionally not used as fallback."
+      />
+    )
+  }
+
+  if (!backendScene) {
+    return (
+      <SkyEngineOwnershipState
+        title="Sky scene invalid"
+        detail="Backend responded without the required sky scene ownership contract."
+      />
+    )
+  }
+
+  return <SkyEnginePageContent backendScene={backendScene} />
 }

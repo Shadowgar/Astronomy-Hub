@@ -10,7 +10,6 @@ const BABYLON_SAFE_MAX_FOV_DEGREES = 175
 export const SKY_ENGINE_MIN_FOV = STELLARIUM_MIN_FOV_DEGREES * DEGREE
 export const SKY_ENGINE_MAX_FOV = BABYLON_SAFE_MAX_FOV_DEGREES * DEGREE
 const SKY_ENGINE_WHEEL_ZOOM_FACTOR = 1.05
-const SKY_ENGINE_DEFAULT_FOV = 120 * DEGREE
 
 function clampDotProduct(value: number) {
   return Math.min(1, Math.max(-1, value))
@@ -79,62 +78,9 @@ export function rotateVectorTowardPointerAnchor(
   return rotatedDirection.normalize().scale(currentTarget.length())
 }
 
-export function buildInitialViewTarget(objects: readonly SkyEngineSceneObject[], guidedObjectIds: readonly string[]) {
-  const guidedSet = new Set(guidedObjectIds)
-  const targetObjects = objects.filter(
-    (object) => object.isAboveHorizon && (guidedSet.has(object.id) || object.source === 'computed_real_sky' || object.type === 'deep_sky'),
-  )
-
-  if (targetObjects.length === 0) {
-    return horizontalToDirection(72, 0)
-  }
-
-  const total = targetObjects.reduce((accumulator, object) => {
-    const direction = horizontalToDirection(object.altitudeDeg, object.azimuthDeg)
-    const isGuided = guidedSet.has(object.id)
-    let weight = 1
-
-    if (isGuided) {
-      weight = 1.25
-    }
-
-    if (object.type === 'deep_sky') {
-      weight = Math.max(weight, object.source === 'temporary_scene_seed' ? 1.02 : 1.08)
-    }
-
-    if (object.type === 'moon') {
-      weight = 1.9
-    }
-
-    return accumulator.add(direction.scale(weight))
-  }, Vector3.Zero())
-
-  const totalWeight = targetObjects.reduce((accumulator, object) => {
-    if (object.type === 'moon') {
-      return accumulator + 1.9
-    }
-
-    if (object.type === 'deep_sky') {
-      return accumulator + (object.source === 'temporary_scene_seed' ? 1.02 : 1.08)
-    }
-
-    return accumulator + (guidedSet.has(object.id) ? 1.25 : 1)
-  }, 0)
-
-  return total.scale(1 / totalWeight).normalizeToNew()
-}
-
 export function getSelectionTargetVector(object: SkyEngineSceneObject) {
   const target = horizontalToDirection(object.altitudeDeg, object.azimuthDeg)
   return normalizeDirection(target)
-}
-
-export function getDesiredFovForObject(object: SkyEngineSceneObject | null) {
-  if (!object) {
-    return SKY_ENGINE_DEFAULT_FOV
-  }
-
-  return Number.NaN
 }
 
 export function updateObserverNavigation(

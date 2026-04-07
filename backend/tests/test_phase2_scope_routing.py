@@ -21,6 +21,7 @@ def test_scope_listing_returns_all_scope_mappings_with_optional_metadata():
     by_scope = {entry.get("scope"): entry for entry in scopes if isinstance(entry, dict)}
     assert set(by_scope.keys()) == {
         "above_me",
+        "sky",
         "earth",
         "sun",
         "satellites",
@@ -29,6 +30,7 @@ def test_scope_listing_returns_all_scope_mappings_with_optional_metadata():
         "deep_sky",
     }
     assert by_scope["above_me"].get("engines") == ["above_me"]
+    assert by_scope["sky"].get("engines") == ["sky_engine"]
     assert by_scope["deep_sky"].get("engines") == ["deep_sky"]
     assert by_scope["solar_system"].get("engines") == ["planets"]
     assert by_scope["earth"].get("engines") == ["satellites", "flights"]
@@ -60,6 +62,7 @@ def test_invalid_scope_returns_json_400_with_stable_error_code():
     assert isinstance(details, list)
     assert details and details[0].get("allowed_scopes") == [
         "above_me",
+        "sky",
         "earth",
         "sun",
         "satellites",
@@ -117,6 +120,7 @@ def test_engine_outside_selected_scope_returns_json_400_with_stable_error_code()
 def test_registry_consistency_across_all_canonical_engines():
     expected = {
         "above_me": ("above_me", False),
+        "sky_engine": ("sky", False),
         "deep_sky": ("deep_sky", False),
         "planets": ("solar_system", False),
         "moon": ("sun", False),

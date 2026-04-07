@@ -1,5 +1,6 @@
 PHASE2_SCOPES = (
     "above_me",
+    "sky",
     "earth",
     "sun",
     "satellites",
@@ -19,6 +20,12 @@ PHASE2_ENGINE_REGISTRY = {
         "scope": "above_me",
         "optional": False,
         "allowed_filters": ["visible_now", "high_altitude", "short_window"],
+        "default_filter": "visible_now",
+    },
+    "sky_engine": {
+        "scope": "sky",
+        "optional": False,
+        "allowed_filters": ["visible_now"],
         "default_filter": "visible_now",
     },
     "deep_sky": {

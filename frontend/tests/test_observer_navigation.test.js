@@ -4,7 +4,6 @@ import { describe, expect, it } from 'vitest'
 import {
   SKY_ENGINE_MAX_FOV,
   SKY_ENGINE_MIN_FOV,
-  buildInitialViewTarget,
   getSelectionTargetVector,
   rotateVectorTowardPointerAnchor,
   stepSkyEngineFov,
@@ -30,25 +29,7 @@ describe('Sky Engine observer navigation helpers', () => {
     expect(Vector3.Dot(rotatedTarget.normalize(), previousPointerDirection)).toBeLessThan(1)
   })
 
-  it('does not horizon-bias the initial or selected view targets', () => {
-    const zenithTarget = buildInitialViewTarget([
-      {
-        id: 'zenith-star',
-        name: 'Zenith Star',
-        type: 'star',
-        altitudeDeg: 88,
-        azimuthDeg: 10,
-        magnitude: 1,
-        colorHex: '#ffffff',
-        summary: '',
-        description: '',
-        truthNote: '',
-        source: 'computed_real_sky',
-        trackingMode: 'fixed_equatorial',
-        isAboveHorizon: true,
-      },
-    ], [])
-
+  it('does not horizon-bias selected view targets', () => {
     const selectedTarget = getSelectionTargetVector({
       id: 'high-star',
       name: 'High Star',
@@ -65,7 +46,6 @@ describe('Sky Engine observer navigation helpers', () => {
       isAboveHorizon: true,
     })
 
-    expect(zenithTarget.y).toBeGreaterThan(0.95)
     expect(selectedTarget.y).toBeGreaterThan(0.99)
   })
 })

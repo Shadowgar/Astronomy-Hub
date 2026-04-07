@@ -12,8 +12,7 @@ import { Scene } from '@babylonjs/core/scene'
 
 import { computeObjectTrajectorySamples } from './astronomy'
 import {
-  buildInitialViewTarget as buildObserverInitialViewTarget,
-  getDesiredFovForObject,
+  clampSkyEngineFov,
   getSelectionTargetVector,
   getSkyEngineFovDegrees,
   rotateVectorTowardPointerAnchor,
@@ -53,6 +52,11 @@ interface SkyEngineSceneProps {
   readonly observer: SkyEngineObserver
   readonly objects: readonly SkyEngineSceneObject[]
   readonly scenePacket: SkyScenePacket | null
+  readonly initialViewState: {
+    fovDegrees: number
+    centerAltDeg: number
+    centerAzDeg: number
+  }
   readonly projectionMode?: SkyProjectionMode
   readonly sunState: SkyEngineSunState
   readonly selectedObjectId: string | null
@@ -143,6 +147,10 @@ const COMPASS_CARDINALS = [
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
+}
+
+function degreesToRadians(value: number) {
+  return (value * Math.PI) / 180
 }
 
 function isEngineTileSource(source: SkyEngineSceneObject['source']) {
@@ -1199,6 +1207,7 @@ export default function SkyEngineScene({
   observer,
   objects,
   scenePacket,
+  initialViewState,
   projectionMode = 'stereographic',
   sunState,
   selectedObjectId,
@@ -1214,6 +1223,7 @@ export default function SkyEngineScene({
     observer,
     objects,
     scenePacket,
+    initialViewState,
     projectionMode,
     sunState,
     selectedObjectId,
@@ -1229,6 +1239,7 @@ export default function SkyEngineScene({
       observer,
       objects,
       scenePacket,
+      initialViewState,
       projectionMode,
       sunState,
       selectedObjectId,
@@ -1238,7 +1249,7 @@ export default function SkyEngineScene({
       onAtmosphereStatusChange,
       onViewStateChange,
     }
-  }, [aidVisibility, guidedObjectIds, objects, observer, onAtmosphereStatusChange, onSelectObject, onViewStateChange, projectionMode, scenePacket, selectedObjectId, sunState])
+  }, [aidVisibility, guidedObjectIds, initialViewState, objects, observer, onAtmosphereStatusChange, onSelectObject, onViewStateChange, projectionMode, scenePacket, selectedObjectId, sunState])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -1280,10 +1291,13 @@ export default function SkyEngineScene({
       projectionPlane,
       projectionMaterial,
       projectionTexture,
-      centerDirection: buildObserverInitialViewTarget(propsRef.current.objects, propsRef.current.guidedObjectIds),
+      centerDirection: horizontalToDirection(
+        propsRef.current.initialViewState.centerAltDeg,
+        propsRef.current.initialViewState.centerAzDeg,
+      ),
       targetVector: null,
-      currentFov: getDesiredFovForObject(null),
-      desiredFov: getDesiredFovForObject(null),
+      currentFov: clampSkyEngineFov(degreesToRadians(propsRef.current.initialViewState.fovDegrees)),
+      desiredFov: clampSkyEngineFov(degreesToRadians(propsRef.current.initialViewState.fovDegrees)),
       selectedObjectId: propsRef.current.selectedObjectId,
       activePointerId: null,
       dragAnchorDirection: null,

@@ -1,6 +1,9 @@
 from copy import deepcopy
 
+from backend.app.contracts.sky_scene import SkySceneContract
 from backend.app.services._legacy_scene_logic import (
+    _resolve_location,
+    _resolve_time_context,
     build_phase1_scene_state,
     get_phase2_object_lookup,
     parse_location_override,
@@ -13,6 +16,7 @@ from backend.app.services.scopes_service import (
 
 PHASE2_SCOPES = (
     "above_me",
+    "sky",
     "earth",
     "sun",
     "satellites",
@@ -23,12 +27,21 @@ PHASE2_SCOPES = (
 
 _PHASE2_DEFAULT_ENGINE = {
     "above_me": "above_me",
+    "sky": "sky_engine",
     "earth": "satellites",
     "sun": "moon",
     "satellites": "satellites",
     "flights": "flights",
     "solar_system": "planets",
     "deep_sky": "deep_sky",
+}
+
+_SKY_ENGINE_DEFAULT_SCENE_STATE = {
+    "projection": "stereographic",
+    "center_alt_deg": 28.0,
+    "center_az_deg": 96.0,
+    "fov_deg": 120.0,
+    "stars_ready": False,
 }
 
 
@@ -120,6 +133,49 @@ def build_above_me_scene_payload(
         "timestamp": "1970-01-01T00:00:00Z",
         "objects": [],
     }
+
+
+def build_sky_scene_payload(
+    parsed_location: dict | None = None,
+    as_of: str | None = None,
+) -> dict:
+    """Return backend-authored Sky Engine scene ownership context.
+
+    This payload intentionally excludes star catalogs for this slice. It provides
+    only observer, timestamp, engine identity, and minimal scene metadata so the
+    frontend stops owning scene context.
+    """
+    resolved_location = _resolve_location(parsed_location)
+    resolved_time = _resolve_time_context(as_of)
+    timestamp = resolved_time.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    elevation_ft = float(resolved_location.get("elevation_ft") or 0.0)
+
+    payload = SkySceneContract(
+        scope="sky",
+        engine="sky_engine",
+        filter="visible_now",
+        timestamp=timestamp,
+        observer={
+            "label": str(resolved_location.get("label") or "Observer"),
+            "latitude": float(resolved_location.get("latitude")),
+            "longitude": float(resolved_location.get("longitude")),
+            "elevation_ft": elevation_ft,
+            "elevation_m": round(elevation_ft * 0.3048, 3),
+        },
+        scene_state=_SKY_ENGINE_DEFAULT_SCENE_STATE,
+        objects=[],
+        degraded=False,
+        missing_sources=[],
+        input_context={
+            "lat": parsed_location.get("latitude") if isinstance(parsed_location, dict) else None,
+            "lon": parsed_location.get("longitude") if isinstance(parsed_location, dict) else None,
+            "elevation_ft": (
+                parsed_location.get("elevation_ft") if isinstance(parsed_location, dict) else None
+            ),
+            "as_of": as_of,
+        },
+    )
+    return payload.dict()
 
 
 def build_phase2_scope_scene_payload(scope: str) -> dict:
@@ -352,6 +408,9 @@ def build_phase2_scope_scene_payload_with_context(
     parsed_location = parse_location_override(lat, lon, elevation_ft)
     resolved_engine = _resolve_engine(scope, engine)
     resolved_filter = _resolve_filter(resolved_engine, filter_slug)
+
+    if scope == "sky" or resolved_engine == "sky_engine":
+        return build_sky_scene_payload(parsed_location=parsed_location, as_of=as_of)
 
     phase1_state = build_phase1_scene_state(parsed_location=parsed_location, as_of=as_of)
     phase1_scene = phase1_state.get("scene") if isinstance(phase1_state, dict) else None

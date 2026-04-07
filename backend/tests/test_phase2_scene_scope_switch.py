@@ -1,4 +1,5 @@
 from fastapi.testclient import TestClient
+from pytest import approx
 
 from backend.app.main import app
 from backend.app.services import live_ingestion
@@ -161,6 +162,7 @@ def _install_deep_sky_time_context_stubs(monkeypatch):
 def test_scope_switch_returns_deterministic_scene_payloads():
     scopes = (
         "above_me",
+        "sky",
         "earth",
         "sun",
         "satellites",
@@ -188,6 +190,7 @@ def test_invalid_scope_returns_stable_json_400():
     assert isinstance(details, list) and details
     assert details[0].get("allowed_scopes") == [
         "above_me",
+        "sky",
         "earth",
         "sun",
         "satellites",
@@ -207,6 +210,51 @@ def test_same_scope_engine_filter_returns_identical_scene_payload():
     assert payload1 == payload2
 
 
+def test_sky_scope_returns_backend_owned_scene_context():
+    status, payload = _request_json("/api/v1/scene?scope=sky")
+
+    assert status == 200
+    assert payload.get("scope") == "sky"
+    assert payload.get("engine") == "sky_engine"
+    assert payload.get("filter") == "visible_now"
+    assert isinstance(payload.get("timestamp"), str) and payload.get("timestamp")
+    assert payload.get("objects") == []
+
+    observer = payload.get("observer") or {}
+    assert observer.get("label") == "ORAS Observatory"
+    assert observer.get("latitude") == approx(41.321903)
+    assert observer.get("longitude") == approx(-79.585394)
+
+    scene_state = payload.get("scene_state") or {}
+    assert scene_state.get("projection") == "stereographic"
+    assert scene_state.get("center_alt_deg") == approx(28.0)
+    assert scene_state.get("center_az_deg") == approx(96.0)
+    assert scene_state.get("fov_deg") == approx(120.0)
+    assert scene_state.get("stars_ready") is False
+
+
+def test_sky_scope_honors_location_and_time_context():
+    path = (
+        "/api/v1/scene?scope=sky&engine=sky_engine"
+        "&lat=10&lon=20&elevation_ft=500&at=2026-03-31T12:34:56Z"
+    )
+    status, payload = _request_json(path)
+
+    assert status == 200
+    observer = payload.get("observer") or {}
+    assert observer.get("label") == "Custom Location"
+    assert observer.get("latitude") == approx(10.0)
+    assert observer.get("longitude") == approx(20.0)
+    assert observer.get("elevation_ft") == approx(500.0)
+    assert payload.get("timestamp") == "2026-03-31T12:00:00Z"
+
+    input_context = payload.get("input_context") or {}
+    assert input_context.get("lat") == approx(10.0)
+    assert input_context.get("lon") == approx(20.0)
+    assert input_context.get("elevation_ft") == approx(500.0)
+    assert input_context.get("as_of") == "2026-03-31T12:34:56Z"
+
+
 def test_location_and_time_context_change_scene_payload():
     path_a = (
         "/api/v1/scene?scope=above_me&engine=above_me&filter=visible_now"
@@ -222,8 +270,8 @@ def test_location_and_time_context_change_scene_payload():
     assert status_a == 200
     assert status_b == 200
     assert payload_a != payload_b
-    assert (payload_a.get("input_context") or {}).get("lat") == 10.0
-    assert (payload_b.get("input_context") or {}).get("lat") == 33.0
+    assert (payload_a.get("input_context") or {}).get("lat") == approx(10.0)
+    assert (payload_b.get("input_context") or {}).get("lat") == approx(33.0)
 
 
 def test_earth_scope_engines_produce_distinct_scene_outputs():
