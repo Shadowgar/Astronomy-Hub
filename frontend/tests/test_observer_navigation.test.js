@@ -6,8 +6,10 @@ import {
   SKY_ENGINE_MIN_FOV,
   getSelectionTargetVector,
   rotateVectorTowardPointerAnchor,
+  stabilizeSkyEngineCenterDirection,
   stepSkyEngineFov,
 } from '../src/features/sky-engine/observerNavigation.ts'
+import { directionToHorizontal, horizontalToDirection } from '../src/features/sky-engine/projectionMath.ts'
 
 describe('Sky Engine observer navigation helpers', () => {
   it('clamps FOV steps inside the supported Babylon view range', () => {
@@ -47,5 +49,31 @@ describe('Sky Engine observer navigation helpers', () => {
     })
 
     expect(selectedTarget.y).toBeGreaterThan(0.99)
+  })
+
+  it('keeps pole-facing center directions just inside the zenith and nadir clamps', () => {
+    const zenithCenter = stabilizeSkyEngineCenterDirection(horizontalToDirection(90, 135))
+    const nadirCenter = stabilizeSkyEngineCenterDirection(horizontalToDirection(-90, 315))
+    const zenithHorizontal = directionToHorizontal(zenithCenter)
+    const nadirHorizontal = directionToHorizontal(nadirCenter)
+
+    expect(zenithHorizontal.altitudeDeg).toBeLessThan(90)
+    expect(zenithHorizontal.altitudeDeg).toBeGreaterThan(89.9)
+    expect(nadirHorizontal.altitudeDeg).toBeGreaterThan(-90)
+    expect(nadirHorizontal.altitudeDeg).toBeLessThan(-89.9)
+  })
+
+  it('keeps drag rotation finite near the zenith without flipping across the pole', () => {
+    const dragBaseCenter = horizontalToDirection(89.92, 20)
+    const pointerAnchor = horizontalToDirection(84, 20)
+    const nextPointerDirection = horizontalToDirection(84, 110)
+
+    const rotatedTarget = rotateVectorTowardPointerAnchor(dragBaseCenter, nextPointerDirection, pointerAnchor)
+    const rotatedHorizontal = directionToHorizontal(rotatedTarget)
+
+    expect(Number.isFinite(rotatedHorizontal.altitudeDeg)).toBe(true)
+    expect(Number.isFinite(rotatedHorizontal.azimuthDeg)).toBe(true)
+    expect(rotatedHorizontal.altitudeDeg).toBeLessThan(90)
+    expect(rotatedHorizontal.altitudeDeg).toBeGreaterThan(80)
   })
 })

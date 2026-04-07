@@ -1,11 +1,12 @@
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 
-import { horizontalToDirection, normalizeDirection } from './projectionMath'
+import { directionToHorizontal, horizontalToDirection, normalizeDirection } from './projectionMath'
 import type { SkyEngineSceneObject } from './types'
 
 const DEGREE = Math.PI / 180
 const STELLARIUM_MIN_FOV_DEGREES = 0.000278
 const BABYLON_SAFE_MAX_FOV_DEGREES = 175
+const SKY_ENGINE_MAX_PITCH_DEGREES = 89.95
 
 export const SKY_ENGINE_MIN_FOV = STELLARIUM_MIN_FOV_DEGREES * DEGREE
 export const SKY_ENGINE_MAX_FOV = BABYLON_SAFE_MAX_FOV_DEGREES * DEGREE
@@ -24,6 +25,18 @@ function rotateVectorAroundAxis(vector: Vector3, axis: Vector3, angle: number) {
   return vector.scale(cosAngle)
     .add(Vector3.Cross(normalizedAxis, vector).scale(sinAngle))
     .add(parallelComponent)
+}
+
+function clamp(value: number, minimum: number, maximum: number) {
+  return Math.min(maximum, Math.max(minimum, value))
+}
+
+export function stabilizeSkyEngineCenterDirection(direction: Vector3) {
+  const normalizedDirection = normalizeDirection(direction)
+  const horizontal = directionToHorizontal(normalizedDirection)
+  const clampedAltitudeDeg = clamp(horizontal.altitudeDeg, -SKY_ENGINE_MAX_PITCH_DEGREES, SKY_ENGINE_MAX_PITCH_DEGREES)
+
+  return normalizeDirection(horizontalToDirection(clampedAltitudeDeg, horizontal.azimuthDeg))
 }
 
 export function clampSkyEngineFov(fov: number) {
@@ -75,7 +88,7 @@ export function rotateVectorTowardPointerAnchor(
     Math.acos(dotProduct),
   )
 
-  return rotatedDirection.normalize().scale(currentTarget.length())
+  return stabilizeSkyEngineCenterDirection(rotatedDirection).scale(currentTarget.length())
 }
 
 export function getSelectionTargetVector(object: SkyEngineSceneObject) {
@@ -95,18 +108,20 @@ export function updateObserverNavigation(
 
   if (!targetVector) {
     return {
-      centerDirection: normalizeDirection(centerDirection),
+      centerDirection: stabilizeSkyEngineCenterDirection(centerDirection),
       fovRadians: nextFov,
       targetVector: null,
     }
   }
 
   const lookEase = 1 - Math.pow(0.002, deltaSeconds * 2.9)
-  const nextCenter = normalizeDirection(Vector3.Lerp(normalizeDirection(centerDirection), normalizeDirection(targetVector), lookEase))
+  const nextCenter = stabilizeSkyEngineCenterDirection(
+    Vector3.Lerp(normalizeDirection(centerDirection), normalizeDirection(targetVector), lookEase),
+  )
 
   if (Vector3.Dot(nextCenter, normalizeDirection(targetVector)) > 0.99995) {
     return {
-      centerDirection: normalizeDirection(targetVector),
+      centerDirection: stabilizeSkyEngineCenterDirection(targetVector),
       fovRadians: nextFov,
       targetVector: null,
     }

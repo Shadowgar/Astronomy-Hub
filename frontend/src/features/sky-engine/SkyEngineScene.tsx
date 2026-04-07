@@ -16,6 +16,7 @@ import {
   getSelectionTargetVector,
   getSkyEngineFovDegrees,
   rotateVectorTowardPointerAnchor,
+  stabilizeSkyEngineCenterDirection,
   stepSkyEngineFov,
   updateObserverNavigation,
 } from './observerNavigation'
@@ -87,6 +88,7 @@ interface SceneRuntimeRefs {
   selectedObjectId: string | null
   activePointerId: number | null
   dragAnchorDirection: Vector3 | null
+  dragBaseCenterDirection: Vector3 | null
   dragStartX: number
   dragStartY: number
   dragMoved: boolean
@@ -1389,9 +1391,11 @@ export default function SkyEngineScene({
       projectionPlane,
       projectionMaterial,
       projectionTexture,
-      centerDirection: horizontalToDirection(
-        propsRef.current.initialViewState.centerAltDeg,
-        propsRef.current.initialViewState.centerAzDeg,
+      centerDirection: stabilizeSkyEngineCenterDirection(
+        horizontalToDirection(
+          propsRef.current.initialViewState.centerAltDeg,
+          propsRef.current.initialViewState.centerAzDeg,
+        ),
       ),
       targetVector: null,
       currentFov: clampSkyEngineFov(degreesToRadians(propsRef.current.initialViewState.fovDegrees)),
@@ -1399,6 +1403,7 @@ export default function SkyEngineScene({
       selectedObjectId: propsRef.current.selectedObjectId,
       activePointerId: null,
       dragAnchorDirection: null,
+      dragBaseCenterDirection: null,
       dragStartX: 0,
       dragStartY: 0,
       dragMoved: false,
@@ -1463,8 +1468,9 @@ export default function SkyEngineScene({
       runtime.dragStartX = event.clientX - bounds.left
       runtime.dragStartY = event.clientY - bounds.top
       runtime.dragMoved = false
+      runtime.dragBaseCenterDirection = runtime.centerDirection.clone()
       runtime.dragAnchorDirection = unprojectViewportPoint(runtime.dragStartX, runtime.dragStartY, {
-        centerDirection: runtime.centerDirection,
+        centerDirection: runtime.dragBaseCenterDirection,
         fovRadians: runtime.currentFov,
         viewportWidth: bounds.width,
         viewportHeight: bounds.height,
@@ -1476,7 +1482,7 @@ export default function SkyEngineScene({
     const handlePointerMove = (event: PointerEvent) => {
       const runtime = runtimeRefs.current
 
-      if (runtime?.activePointerId !== event.pointerId || !runtime.dragAnchorDirection) {
+      if (runtime?.activePointerId !== event.pointerId || !runtime.dragAnchorDirection || !runtime.dragBaseCenterDirection) {
         return
       }
 
@@ -1494,13 +1500,17 @@ export default function SkyEngineScene({
       }
 
       const nextPointerDirection = unprojectViewportPoint(screenX, screenY, {
-        centerDirection: runtime.centerDirection,
+        centerDirection: runtime.dragBaseCenterDirection,
         fovRadians: runtime.currentFov,
         viewportWidth: bounds.width,
         viewportHeight: bounds.height,
         projectionMode: propsRef.current.projectionMode,
       })
-      runtime.centerDirection = rotateVectorTowardPointerAnchor(runtime.centerDirection, nextPointerDirection, runtime.dragAnchorDirection).normalizeToNew()
+      runtime.centerDirection = rotateVectorTowardPointerAnchor(
+        runtime.dragBaseCenterDirection,
+        nextPointerDirection,
+        runtime.dragAnchorDirection,
+      ).normalizeToNew()
       runtime.targetVector = null
     }
 
@@ -1513,6 +1523,7 @@ export default function SkyEngineScene({
 
       runtime.activePointerId = null
       runtime.dragAnchorDirection = null
+  runtime.dragBaseCenterDirection = null
       runtime.dragMoved = false
 
       if (canvas.hasPointerCapture(pointerId)) {
