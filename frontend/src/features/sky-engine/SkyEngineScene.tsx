@@ -29,6 +29,7 @@ import {
   writeSkyEnginePickTargets,
 } from './pickTargets'
 import {
+  directionToHorizontal,
   getProjectionScale,
   horizontalToDirection,
   isProjectedPointVisible,
@@ -37,6 +38,7 @@ import {
   type SkyProjectionView,
   unprojectViewportPoint,
 } from './projectionMath'
+import type { SkyScenePacket } from './engine/sky'
 import type {
   SkyEngineAidVisibility,
   SkyEngineAtmosphereStatus,
@@ -48,13 +50,14 @@ import type {
 interface SkyEngineSceneProps {
   readonly observer: SkyEngineObserver
   readonly objects: readonly SkyEngineSceneObject[]
+  readonly scenePacket: SkyScenePacket | null
   readonly sunState: SkyEngineSunState
   readonly selectedObjectId: string | null
   readonly guidedObjectIds: readonly string[]
   readonly aidVisibility: SkyEngineAidVisibility
   readonly onSelectObject: (objectId: string | null) => void
   readonly onAtmosphereStatusChange: (status: SkyEngineAtmosphereStatus) => void
-  readonly onViewStateChange?: (viewState: { fovDegrees: number }) => void
+  readonly onViewStateChange?: (viewState: { fovDegrees: number; centerAltDeg: number; centerAzDeg: number }) => void
 }
 
 interface ScenePropsSnapshot extends SkyEngineSceneProps {}
@@ -80,6 +83,8 @@ interface SceneRuntimeRefs {
   projectedPickEntries: ProjectedPickTargetEntry[]
   lastFrameTime: number
   lastReportedFovTenths: number | null
+  lastReportedCenterAltTenths: number | null
+  lastReportedCenterAzTenths: number | null
 }
 
 interface SceneStateWriteInput {
@@ -225,6 +230,10 @@ function shouldRenderObject(
   sunState: SkyEngineSunState,
   selectedObjectId: string | null,
 ) {
+  if (object.source === 'engine_mock_tile') {
+    return false
+  }
+
   if (object.id === selectedObjectId) {
     return true
   }
@@ -540,10 +549,12 @@ function drawProjectedObjects(
   context: CanvasRenderingContext2D,
   view: SkyProjectionView,
   objects: readonly SkyEngineSceneObject[],
+  scenePacket: SkyScenePacket | null,
   sunState: SkyEngineSunState,
   selectedObjectId: string | null,
 ) {
   const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
+  const objectLookup = new Map(objects.map((object) => [object.id, object]))
   const projectedObjects = objects.flatMap((object) => {
     if (!shouldRenderObject(object, fovDegrees, sunState, selectedObjectId)) {
       return []
@@ -566,9 +577,36 @@ function drawProjectedObjects(
       markerRadiusPx,
       pickRadiusPx: getPickRadiusPx(object, markerRadiusPx),
     }]
-  }).sort((left, right) => left.depth - right.depth || left.object.magnitude - right.object.magnitude)
+  })
+  const packetProjectedObjects = (scenePacket?.stars ?? []).flatMap((packetStar) => {
+    const object = objectLookup.get(packetStar.id)
 
-  projectedObjects.forEach((entry) => {
+    if (!object) {
+      return []
+    }
+
+    const projected = projectDirectionToViewport(new Vector3(packetStar.x, packetStar.y, packetStar.z), view)
+
+    if (!projected || !isProjectedPointVisible(projected, view, 22)) {
+      return []
+    }
+
+    const markerRadiusPx = getMarkerRadiusPx(object, view, sunState)
+
+    return [{
+      object,
+      screenX: projected.screenX,
+      screenY: projected.screenY,
+      depth: projected.depth,
+      angularDistanceRad: projected.angularDistanceRad,
+      markerRadiusPx,
+      pickRadiusPx: getPickRadiusPx(object, markerRadiusPx),
+    }]
+  })
+  const allProjectedObjects = [...projectedObjects, ...packetProjectedObjects]
+    .sort((left, right) => left.depth - right.depth || left.object.magnitude - right.object.magnitude)
+
+  allProjectedObjects.forEach((entry) => {
     if (entry.object.type === 'moon') {
       drawMoon(context, entry.object, entry.screenX, entry.screenY, entry.markerRadiusPx)
       return
@@ -594,7 +632,7 @@ function drawProjectedObjects(
     )
   })
 
-  return projectedObjects
+  return allProjectedObjects
 }
 
 function drawLabels(
@@ -603,11 +641,11 @@ function drawLabels(
   selectedObjectId: string | null,
   guidedObjectIds: ReadonlySet<string>,
   labelCap: number,
+  placedRectangles: LabelLayoutEntry[] = [],
 ) {
-  const placedRectangles: LabelLayoutEntry[] = []
   const visibleLabelIds: string[] = []
   const labelPositions = new Map<string, { x: number; y: number }>()
-  const candidates = [...projectedObjects].sort((left, right) => {
+  const candidates = projectedObjects.filter((candidate) => candidate.object.source !== 'engine_mock_tile').sort((left, right) => {
     const priorityDelta = getLabelPriority(right.object, selectedObjectId, guidedObjectIds) - getLabelPriority(left.object, selectedObjectId, guidedObjectIds)
 
     if (priorityDelta !== 0) {
@@ -670,6 +708,109 @@ function drawLabels(
   return {
     visibleLabelIds: sortedVisibleLabelIds,
     labelPositions,
+    placedRectangles,
+    visibleCount,
+  }
+}
+
+function drawPacketLabels(
+  context: CanvasRenderingContext2D,
+  projectedObjects: readonly ProjectedSceneObjectEntry[],
+  scenePacket: SkyScenePacket | null,
+  selectedObjectId: string | null,
+  labelCap: number,
+) {
+  const placedRectangles: LabelLayoutEntry[] = []
+  const visibleLabelIds: string[] = []
+  const labelPositions = new Map<string, { x: number; y: number }>()
+
+  if (!scenePacket || scenePacket.labels.length === 0) {
+    return {
+      visibleLabelIds,
+      labelPositions,
+      placedRectangles,
+      visibleCount: 0,
+    }
+  }
+
+  const projectedLookup = new Map(projectedObjects.map((entry) => [entry.object.id, entry]))
+  const candidates = scenePacket.labels
+    .flatMap((label) => {
+      const projected = projectedLookup.get(label.id)
+
+      if (!projected) {
+        return []
+      }
+
+      return [{ label, projected }]
+    })
+    .sort((left, right) => {
+      if (left.label.id === selectedObjectId) {
+        return -1
+      }
+
+      if (right.label.id === selectedObjectId) {
+        return 1
+      }
+
+      return right.label.priority - left.label.priority || left.label.text.localeCompare(right.label.text)
+    })
+
+  context.save()
+  context.font = '600 14px sans-serif'
+  context.textBaseline = 'middle'
+
+  let visibleCount = 0
+  candidates.forEach(({ label, projected }) => {
+    const isSelected = label.id === selectedObjectId
+    const shouldAllow = isSelected || visibleCount < labelCap
+
+    if (!shouldAllow) {
+      return
+    }
+
+    const textWidth = context.measureText(label.text).width
+    const labelX = projected.screenX + projected.markerRadiusPx + 12
+    const labelY = projected.screenY - projected.markerRadiusPx - 10
+    const rectangle = {
+      x: labelX - 8,
+      y: labelY - 12,
+      width: textWidth + 16,
+      height: 24,
+    }
+
+    if (!isSelected && placedRectangles.some((entry) => rectanglesOverlap(entry, rectangle))) {
+      return
+    }
+
+    placedRectangles.push(rectangle)
+    visibleLabelIds.push(label.id)
+    labelPositions.set(label.id, { x: labelX, y: labelY })
+
+    if (!isSelected) {
+      visibleCount += 1
+    }
+
+    context.fillStyle = isSelected ? 'rgba(9, 16, 26, 0.92)' : 'rgba(8, 15, 26, 0.76)'
+    context.strokeStyle = isSelected ? 'rgba(236, 244, 255, 0.98)' : 'rgba(118, 171, 235, 0.54)'
+    context.lineWidth = isSelected ? 2 : 1.2
+    context.beginPath()
+    context.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+    context.fill()
+    context.stroke()
+    context.fillStyle = '#eef6ff'
+    context.fillText(label.text, labelX, labelY)
+  })
+
+  context.restore()
+
+  const sortedVisibleLabelIds = [...visibleLabelIds].sort((left, right) => left.localeCompare(right))
+
+  return {
+    visibleLabelIds: sortedVisibleLabelIds,
+    labelPositions,
+    placedRectangles,
+    visibleCount,
   }
 }
 
@@ -769,7 +910,7 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
   const lod = resolveViewTier(getSkyEngineFovDegrees(runtime.currentFov))
 
   drawAidLayers(context, view, latest.aidVisibility, latest.sunState)
-  const projectedObjects = drawProjectedObjects(context, view, latest.objects, latest.sunState, latest.selectedObjectId)
+  const projectedObjects = drawProjectedObjects(context, view, latest.objects, latest.scenePacket, latest.sunState, latest.selectedObjectId)
 
   if (latest.aidVisibility.constellations) {
     drawConstellationOverlay(context, projectedObjects)
@@ -777,8 +918,20 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
 
   const selectedObject = latest.objects.find((object) => object.id === latest.selectedObjectId) ?? null
   const trajectoryObjectId = drawTrajectory(context, view, latest.observer, selectedObject)
-  const labelLayout = drawLabels(context, projectedObjects, latest.selectedObjectId, new Set(latest.guidedObjectIds), lod.labelCap)
-  drawSelectionPointer(context, projectedObjects, latest.selectedObjectId, labelLayout.labelPositions)
+  const packetLabelLayout = drawPacketLabels(context, projectedObjects, latest.scenePacket, latest.selectedObjectId, lod.labelCap)
+  const labelLayout = drawLabels(
+    context,
+    projectedObjects,
+    latest.selectedObjectId,
+    new Set(latest.guidedObjectIds),
+    Math.max(0, lod.labelCap - packetLabelLayout.visibleCount),
+    packetLabelLayout.placedRectangles,
+  )
+  const labelPositions = new Map<string, { x: number; y: number }>([
+    ...Array.from(packetLabelLayout.labelPositions.entries()),
+    ...Array.from(labelLayout.labelPositions.entries()),
+  ])
+  drawSelectionPointer(context, projectedObjects, latest.selectedObjectId, labelPositions)
   runtime.projectionTexture.update()
 
   runtime.projectedPickEntries = projectedObjects.map((entry) => ({
@@ -792,13 +945,14 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
   return {
     lod,
     trajectoryObjectId,
-    visibleLabelIds: labelLayout.visibleLabelIds,
+    visibleLabelIds: [...packetLabelLayout.visibleLabelIds, ...labelLayout.visibleLabelIds].sort((left, right) => left.localeCompare(right)),
   }
 }
 
 export default function SkyEngineScene({
   observer,
   objects,
+  scenePacket,
   sunState,
   selectedObjectId,
   guidedObjectIds,
@@ -812,6 +966,7 @@ export default function SkyEngineScene({
   const propsRef = useRef<ScenePropsSnapshot>({
     observer,
     objects,
+    scenePacket,
     sunState,
     selectedObjectId,
     guidedObjectIds,
@@ -825,6 +980,7 @@ export default function SkyEngineScene({
     propsRef.current = {
       observer,
       objects,
+      scenePacket,
       sunState,
       selectedObjectId,
       guidedObjectIds,
@@ -833,7 +989,7 @@ export default function SkyEngineScene({
       onAtmosphereStatusChange,
       onViewStateChange,
     }
-  }, [aidVisibility, guidedObjectIds, objects, observer, onAtmosphereStatusChange, onSelectObject, onViewStateChange, selectedObjectId, sunState])
+  }, [aidVisibility, guidedObjectIds, objects, observer, onAtmosphereStatusChange, onSelectObject, onViewStateChange, scenePacket, selectedObjectId, sunState])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -888,6 +1044,8 @@ export default function SkyEngineScene({
       projectedPickEntries: [],
       lastFrameTime: performance.now(),
       lastReportedFovTenths: null,
+      lastReportedCenterAltTenths: null,
+      lastReportedCenterAzTenths: null,
     }
 
     propsRef.current.onAtmosphereStatusChange({
@@ -1049,10 +1207,23 @@ export default function SkyEngineScene({
 
       const frame = renderProjectionFrame(runtime, latest)
       const currentFovTenths = Math.round(getSkyEngineFovDegrees(runtime.currentFov) * 10)
+      const centerHorizontal = directionToHorizontal(runtime.centerDirection)
+      const currentCenterAltTenths = Math.round(centerHorizontal.altitudeDeg * 10)
+      const currentCenterAzTenths = Math.round(centerHorizontal.azimuthDeg * 10)
 
-      if (currentFovTenths !== runtime.lastReportedFovTenths) {
+      if (
+        currentFovTenths !== runtime.lastReportedFovTenths ||
+        currentCenterAltTenths !== runtime.lastReportedCenterAltTenths ||
+        currentCenterAzTenths !== runtime.lastReportedCenterAzTenths
+      ) {
         runtime.lastReportedFovTenths = currentFovTenths
-        latest.onViewStateChange?.({ fovDegrees: currentFovTenths / 10 })
+        runtime.lastReportedCenterAltTenths = currentCenterAltTenths
+        runtime.lastReportedCenterAzTenths = currentCenterAzTenths
+        latest.onViewStateChange?.({
+          fovDegrees: currentFovTenths / 10,
+          centerAltDeg: currentCenterAltTenths / 10,
+          centerAzDeg: currentCenterAzTenths / 10,
+        })
       }
 
       writeSceneState({

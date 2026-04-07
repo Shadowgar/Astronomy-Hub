@@ -1,9 +1,16 @@
 import React, { useCallback, useDeferredValue, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { computeMoonSceneObject, computePlanetSceneObjects, computeRealSkySceneObjects, rankGuidanceTargets } from '../features/sky-engine/astronomy'
+import { computeMoonSceneObject, computePlanetSceneObjects, rankGuidanceTargets } from '../features/sky-engine/astronomy'
+import {
+  assembleSkyScenePacket,
+  buildSkyEngineQuery,
+  formatSkyDiagnosticsSummary,
+  mockSkyTileRepository,
+  unitVectorToHorizontalCoordinates,
+} from '../features/sky-engine/engine/sky'
 import { getDesiredFovForObject, getSkyEngineFovDegrees } from '../features/sky-engine/observerNavigation'
-import { SKY_ENGINE_REAL_SKY_STARTERS, SKY_ENGINE_SCENE_TIMESTAMP } from '../features/sky-engine/realSkyCatalog'
+import { SKY_ENGINE_SCENE_TIMESTAMP } from '../features/sky-engine/realSkyCatalog'
 import {
   SKY_ENGINE_LOCAL_TIME_ZONE,
   SKY_ENGINE_PLAYBACK_RATE_OPTIONS,
@@ -13,7 +20,9 @@ import {
 import { computeSunState } from '../features/sky-engine/solar'
 import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
 import SkyEngineScene from '../features/sky-engine/SkyEngineScene'
+import { resolveStarColorHex } from '../features/sky-engine/starRenderer'
 import { ORAS_OBSERVER, SKY_ENGINE_TEMPORARY_SCENE_SEED } from '../features/sky-engine/sceneSeed'
+import type { SkyEngineSceneObject } from '../features/sky-engine/types'
 import { useSkyEngineSelection } from '../features/sky-engine/useSkyEngineSelection'
 
 function phaseModifier(phaseLabel: string) {
@@ -48,7 +57,11 @@ export default function SkyEnginePage() {
   const sceneTime = useSkyEngineSceneTime(SKY_ENGINE_SCENE_TIMESTAMP)
   const [searchQuery, setSearchQuery] = useState('')
   const deferredSearchQuery = useDeferredValue(searchQuery)
-  const [viewFovDegrees, setViewFovDegrees] = useState(() => Number(getSkyEngineFovDegrees(getDesiredFovForObject(null)).toFixed(1)))
+  const [viewState, setViewState] = useState(() => ({
+    fovDegrees: Number(getSkyEngineFovDegrees(getDesiredFovForObject(null)).toFixed(1)),
+    centerAltDeg: 28,
+    centerAzDeg: 96,
+  }))
   const [aidVisibility, setAidVisibility] = useState({
     constellations: true,
     azimuthRing: true,
@@ -56,10 +69,6 @@ export default function SkyEnginePage() {
   })
   const sunState = useMemo(
     () => computeSunState(ORAS_OBSERVER, sceneTime.sceneTimestampIso),
-    [sceneTime.sceneTimestampIso],
-  )
-  const computedSceneObjects = useMemo(
-    () => computeRealSkySceneObjects(ORAS_OBSERVER, sceneTime.sceneTimestampIso, SKY_ENGINE_REAL_SKY_STARTERS),
     [sceneTime.sceneTimestampIso],
   )
   const moonObject = useMemo(
@@ -70,13 +79,84 @@ export default function SkyEnginePage() {
     () => computePlanetSceneObjects(ORAS_OBSERVER, sceneTime.sceneTimestampIso),
     [sceneTime.sceneTimestampIso],
   )
+  const observerSnapshot = useMemo(
+    () => ({
+      timestampUtc: sceneTime.sceneTimestampIso,
+      latitudeDeg: ORAS_OBSERVER.latitude,
+      longitudeDeg: ORAS_OBSERVER.longitude,
+      elevationM: ORAS_OBSERVER.elevationFt * 0.3048,
+      fovDeg: viewState.fovDegrees,
+      centerAltDeg: viewState.centerAltDeg,
+      centerAzDeg: viewState.centerAzDeg,
+      projection: 'stereographic' as const,
+    }),
+    [sceneTime.sceneTimestampIso, viewState.centerAltDeg, viewState.centerAzDeg, viewState.fovDegrees],
+  )
+  const skyEngineQuery = useMemo(
+    () => buildSkyEngineQuery(observerSnapshot),
+    [observerSnapshot],
+  )
+  const mockedTiles = useMemo(
+    () => mockSkyTileRepository.loadTiles(skyEngineQuery),
+    [skyEngineQuery],
+  )
+  const skyScenePacket = useMemo(
+    () => assembleSkyScenePacket(skyEngineQuery, mockedTiles),
+    [mockedTiles, skyEngineQuery],
+  )
+  const runtimeStarMetadata = useMemo(() => {
+    const metadata = new Map<string, { tileId: string; star: (typeof mockedTiles)[number]['stars'][number] }>()
+
+    mockedTiles.forEach((tile) => {
+      tile.stars.forEach((star) => {
+        if (!metadata.has(star.id)) {
+          metadata.set(star.id, { tileId: tile.tileId, star })
+        }
+      })
+    })
+
+    return metadata
+  }, [mockedTiles])
+  const engineStarSceneObjects = useMemo<readonly SkyEngineSceneObject[]>(
+    () => skyScenePacket.stars.map((star) => {
+      const metadata = runtimeStarMetadata.get(star.id)
+      const runtimeStar = metadata?.star
+      const horizontalCoordinates = unitVectorToHorizontalCoordinates({ x: star.x, y: star.y, z: star.z })
+      const displayName = runtimeStar?.properName ?? runtimeStar?.bayer ?? runtimeStar?.flamsteed ?? star.label ?? star.id
+
+      return {
+        id: star.id,
+        name: displayName,
+        type: 'star',
+        altitudeDeg: horizontalCoordinates.altitudeDeg,
+        azimuthDeg: horizontalCoordinates.azimuthDeg,
+        magnitude: star.mag,
+        colorHex: resolveStarColorHex(runtimeStar?.colorIndex ?? star.colorIndex),
+        summary: `Mock ${star.tier} star resolved from the in-memory sky tile repository.`,
+        description: `Loaded from ${metadata?.tileId ?? 'unknown-tile'} and emitted through the Sky Engine scene packet for the active observer snapshot.`,
+        truthNote: 'Engine-owned mock tile data drives this star. No raw catalog ingestion or backend data source is involved in this slice.',
+        source: 'engine_mock_tile',
+        trackingMode: 'fixed_equatorial',
+        rightAscensionHours: runtimeStar ? runtimeStar.raDeg / 15 : undefined,
+        declinationDeg: runtimeStar?.decDeg,
+        colorIndexBV: runtimeStar?.colorIndex ?? star.colorIndex,
+        timestampIso: sceneTime.sceneTimestampIso,
+        isAboveHorizon: horizontalCoordinates.isAboveHorizon,
+      }
+    }),
+    [runtimeStarMetadata, sceneTime.sceneTimestampIso, skyScenePacket.stars],
+  )
   const computedVisibleObjects = useMemo(
-    () => [...computedSceneObjects, ...computedPlanetObjects, moonObject].filter((object) => object.isAboveHorizon),
-    [computedPlanetObjects, computedSceneObjects, moonObject],
+    () => [...computedPlanetObjects, moonObject].filter((object) => object.isAboveHorizon),
+    [computedPlanetObjects, moonObject],
+  )
+  const nonStarVisibleObjects = useMemo(
+    () => computedVisibleObjects.filter((object) => object.type !== 'star'),
+    [computedVisibleObjects],
   )
   const baseSceneObjects = useMemo(
-    () => [...computedVisibleObjects, ...SKY_ENGINE_TEMPORARY_SCENE_SEED],
-    [computedVisibleObjects],
+    () => [...engineStarSceneObjects, ...nonStarVisibleObjects, ...SKY_ENGINE_TEMPORARY_SCENE_SEED],
+    [engineStarSceneObjects, nonStarVisibleObjects],
   )
   const guidanceTargets = useMemo(
     () => rankGuidanceTargets(baseSceneObjects, 5),
@@ -109,8 +189,18 @@ export default function SkyEnginePage() {
   )
   const selectedTargetName = selection.selectedObject?.name ?? 'Ready to inspect'
   const handleAtmosphereStatusChange = useCallback(() => undefined, [])
-  const handleViewStateChange = useCallback((viewState: { fovDegrees: number }) => {
-    setViewFovDegrees(viewState.fovDegrees)
+  const handleViewStateChange = useCallback((nextViewState: { fovDegrees: number; centerAltDeg: number; centerAzDeg: number }) => {
+    setViewState((currentViewState) => {
+      if (
+        currentViewState.fovDegrees === nextViewState.fovDegrees &&
+        currentViewState.centerAltDeg === nextViewState.centerAltDeg &&
+        currentViewState.centerAzDeg === nextViewState.centerAzDeg
+      ) {
+        return currentViewState
+      }
+
+      return nextViewState
+    })
   }, [])
   const phaseBandState = sunState.phaseLabel === 'Low Sun' ? 'Twilight' : sunState.phaseLabel
   const searchableSceneObjects = useMemo(
@@ -160,6 +250,7 @@ export default function SkyEnginePage() {
         <SkyEngineScene
           observer={ORAS_OBSERVER}
           objects={sceneObjects}
+          scenePacket={skyScenePacket}
           sunState={sunState}
           selectedObjectId={selection.selectedObjectId}
           guidedObjectIds={guidedObjectIds}
@@ -212,12 +303,17 @@ export default function SkyEnginePage() {
             <div className="sky-engine-page__top-bar-meta">
               <div className="sky-engine-page__status-pill">
                 <span className="sky-engine-page__top-bar-label">FOV</span>
-                <strong>{formatDisplayedFov(viewFovDegrees)}</strong>
+                <strong>{formatDisplayedFov(viewState.fovDegrees)}</strong>
               </div>
               <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                 <span className="sky-engine-page__top-bar-label">Target</span>
                 <strong>{selectedTargetName}</strong>
                 <small>{ORAS_OBSERVER.label}</small>
+              </div>
+              <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
+                <span className="sky-engine-page__top-bar-label">Sky runtime</span>
+                <strong>{formatSkyDiagnosticsSummary({ ...skyScenePacket.diagnostics, visibleTileIds: skyEngineQuery.visibleTileIds })}</strong>
+                <small>{skyEngineQuery.visibleTileIds.join(', ')}</small>
               </div>
               <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                 <span className="sky-engine-page__top-bar-label">Local time</span>
@@ -242,7 +338,10 @@ export default function SkyEnginePage() {
                 <strong className="sky-engine-page__bottom-hud-offset">{sceneTime.formattedScaleOffset}</strong>
               </div>
               <div className="sky-engine-page__bottom-hud-stats">
-                <span>{computedVisibleObjects.length} visible real targets</span>
+                <span>{skyScenePacket.diagnostics.visibleStars} engine stars</span>
+                <span>{skyScenePacket.diagnostics.activeTiles} active tiles</span>
+                <span>Limiting mag {skyScenePacket.diagnostics.limitingMagnitude.toFixed(1)}</span>
+                <span>{skyScenePacket.diagnostics.activeTiers.join(' / ')}</span>
                 <span>{moonObject.isAboveHorizon ? `${moonObject.phaseLabel} moon` : 'Moon below horizon'}</span>
                 <span>{guidanceTargets.length} guided now</span>
                 <span>{selectedTargetName}</span>
