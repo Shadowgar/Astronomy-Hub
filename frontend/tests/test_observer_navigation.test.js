@@ -4,6 +4,8 @@ import { describe, expect, it } from 'vitest'
 import {
   SKY_ENGINE_MAX_FOV,
   SKY_ENGINE_MIN_FOV,
+  buildInitialViewTarget,
+  getSelectionTargetVector,
   rotateVectorTowardPointerAnchor,
   stepSkyEngineFov,
 } from '../src/features/sky-engine/observerNavigation.ts'
@@ -26,5 +28,44 @@ describe('Sky Engine observer navigation helpers', () => {
     expect(rotatedTarget.length()).toBeCloseTo(currentTarget.length(), 6)
     expect(rotatedTarget.x).toBeLessThan(0)
     expect(Vector3.Dot(rotatedTarget.normalize(), previousPointerDirection)).toBeLessThan(1)
+  })
+
+  it('does not horizon-bias the initial or selected view targets', () => {
+    const zenithTarget = buildInitialViewTarget([
+      {
+        id: 'zenith-star',
+        name: 'Zenith Star',
+        type: 'star',
+        altitudeDeg: 88,
+        azimuthDeg: 10,
+        magnitude: 1,
+        colorHex: '#ffffff',
+        summary: '',
+        description: '',
+        truthNote: '',
+        source: 'computed_real_sky',
+        trackingMode: 'fixed_equatorial',
+        isAboveHorizon: true,
+      },
+    ], [])
+
+    const selectedTarget = getSelectionTargetVector({
+      id: 'high-star',
+      name: 'High Star',
+      type: 'star',
+      altitudeDeg: 89,
+      azimuthDeg: 180,
+      magnitude: 1,
+      colorHex: '#ffffff',
+      summary: '',
+      description: '',
+      truthNote: '',
+      source: 'computed_real_sky',
+      trackingMode: 'fixed_equatorial',
+      isAboveHorizon: true,
+    })
+
+    expect(zenithTarget.y).toBeGreaterThan(0.95)
+    expect(selectedTarget.y).toBeGreaterThan(0.99)
   })
 })

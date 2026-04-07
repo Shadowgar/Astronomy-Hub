@@ -1,4 +1,4 @@
-import React, { useCallback, useDeferredValue, useMemo, useState } from 'react'
+import React, { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { computeMoonSceneObject, computePlanetSceneObjects, rankGuidanceTargets } from '../features/sky-engine/astronomy'
@@ -64,9 +64,10 @@ export default function SkyEnginePage() {
   }))
   const [aidVisibility, setAidVisibility] = useState({
     constellations: true,
-    azimuthRing: true,
+    azimuthRing: false,
     altitudeRings: true,
   })
+  const [inspectorOpen, setInspectorOpen] = useState(false)
   const sunState = useMemo(
     () => computeSunState(ORAS_OBSERVER, sceneTime.sceneTimestampIso),
     [sceneTime.sceneTimestampIso],
@@ -188,6 +189,12 @@ export default function SkyEnginePage() {
     [guidanceTargets],
   )
   const selectedTargetName = selection.selectedObject?.name ?? 'Ready to inspect'
+  useEffect(() => {
+    if (selection.selectionStatus === 'active' || selection.selectionStatus === 'hidden') {
+      setInspectorOpen(true)
+    }
+  }, [selection.selectionStatus])
+
   const handleAtmosphereStatusChange = useCallback(() => undefined, [])
   const handleViewStateChange = useCallback((nextViewState: { fovDegrees: number; centerAltDeg: number; centerAzDeg: number }) => {
     setViewState((currentViewState) => {
@@ -251,6 +258,7 @@ export default function SkyEnginePage() {
           observer={ORAS_OBSERVER}
           objects={sceneObjects}
           scenePacket={skyScenePacket}
+          projectionMode={observerSnapshot.projection}
           sunState={sunState}
           selectedObjectId={selection.selectedObjectId}
           guidedObjectIds={guidedObjectIds}
@@ -266,6 +274,13 @@ export default function SkyEnginePage() {
               <Link className="sky-engine-page__back-link" to="/">
                 Back
               </Link>
+              <button
+                type="button"
+                className={`sky-engine-page__control-chip${inspectorOpen ? ' sky-engine-page__control-chip--active' : ''}`}
+                onClick={() => setInspectorOpen((currentValue) => !currentValue)}
+              >
+                {inspectorOpen ? 'Hide inspector' : 'Show inspector'}
+              </button>
               <button
                 type="button"
                 className="sky-engine-page__time-reset sky-engine-page__time-reset--top"
@@ -311,13 +326,6 @@ export default function SkyEnginePage() {
                 <small>{ORAS_OBSERVER.label}</small>
               </div>
               <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
-                <span className="sky-engine-page__top-bar-label">Sky runtime</span>
-                <strong>{formatSkyDiagnosticsSummary({ ...skyScenePacket.diagnostics, visibleTileIds: skyEngineQuery.visibleTileIds })}</strong>
-                <small>
-                  levels {skyScenePacket.diagnostics.tileLevels.join(', ')} · depth {skyScenePacket.diagnostics.maxTileDepthReached} · {skyEngineQuery.visibleTileIds.join(', ')}
-                </small>
-              </div>
-              <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                 <span className="sky-engine-page__top-bar-label">Local time</span>
                 <strong>{sceneTime.formattedSceneLocalTimestamp}</strong>
                 <small>{sceneTime.formattedSceneOffset} · {SKY_ENGINE_LOCAL_TIME_ZONE} · {sceneTime.playbackRateLabel}</small>
@@ -340,12 +348,9 @@ export default function SkyEnginePage() {
                 <strong className="sky-engine-page__bottom-hud-offset">{sceneTime.formattedScaleOffset}</strong>
               </div>
               <div className="sky-engine-page__bottom-hud-stats">
-                <span>{skyScenePacket.diagnostics.visibleStars} engine stars</span>
-                <span>{skyScenePacket.diagnostics.activeTiles} active tiles</span>
-                <span>Limiting mag {skyScenePacket.diagnostics.limitingMagnitude.toFixed(1)}</span>
-                <span>{skyScenePacket.diagnostics.activeTiers.join(' / ')}</span>
-                <span>Levels {skyScenePacket.diagnostics.tileLevels.join(' / ')}</span>
-                <span>Max depth {skyScenePacket.diagnostics.maxTileDepthReached}</span>
+                <span>{formatSkyDiagnosticsSummary({ ...skyScenePacket.diagnostics, visibleTileIds: skyEngineQuery.visibleTileIds })}</span>
+                <span>tiers {skyScenePacket.diagnostics.activeTiers.join('/')}</span>
+                <span>levels {skyScenePacket.diagnostics.tileLevels.join('/')}</span>
                 <span>{moonObject.isAboveHorizon ? `${moonObject.phaseLabel} moon` : 'Moon below horizon'}</span>
                 <span>{guidanceTargets.length} guided now</span>
                 <span>{selectedTargetName}</span>
@@ -439,7 +444,7 @@ export default function SkyEnginePage() {
                   Constellations
                 </button>
                 <button type="button" className={`sky-engine-page__control-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('azimuthRing')}>
-                  Compass
+                  Horizon
                 </button>
                 <button type="button" className={`sky-engine-page__control-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('altitudeRings')}>
                   Altitude
@@ -449,14 +454,16 @@ export default function SkyEnginePage() {
           </section>
         </div>
 
-        <div className="sky-engine-page__overlay sky-engine-page__overlay--right">
-          <SkyEngineDetailShell
-            selectedObject={selection.selectedObject}
-            selectionStatus={selection.selectionStatus}
-            hiddenSelectionName={selection.hiddenSelectionName}
-            onClearSelection={selection.clearSelection}
-          />
-        </div>
+        {inspectorOpen ? (
+          <div className="sky-engine-page__overlay sky-engine-page__overlay--right">
+            <SkyEngineDetailShell
+              selectedObject={selection.selectedObject}
+              selectionStatus={selection.selectionStatus}
+              hiddenSelectionName={selection.hiddenSelectionName}
+              onClearSelection={selection.clearSelection}
+            />
+          </div>
+        ) : null}
       </main>
     </div>
   )

@@ -26,4 +26,24 @@ describe('Sky Engine stereographic projection', () => {
 
     expect(Vector3.Dot(restoredDirection, targetDirection)).toBeCloseTo(1, 5)
   })
+
+  it('round-trips an orthographic azimuthal view through the viewport transform', () => {
+    const centerDirection = horizontalToDirection(86, 12)
+    const targetDirection = horizontalToDirection(72, 38)
+    const view = {
+      centerDirection,
+      fovRadians: (110 * Math.PI) / 180,
+      viewportWidth: 1440,
+      viewportHeight: 900,
+      projectionMode: 'orthographic',
+    }
+
+    const projected = projectDirectionToViewport(targetDirection, view)
+
+    expect(projected).not.toBeNull()
+
+    const restoredDirection = unprojectViewportPoint(projected.screenX, projected.screenY, view)
+
+    expect(Vector3.Dot(restoredDirection, targetDirection)).toBeCloseTo(1, 5)
+  })
 })

@@ -86,7 +86,7 @@ export function buildInitialViewTarget(objects: readonly SkyEngineSceneObject[],
   )
 
   if (targetObjects.length === 0) {
-    return horizontalToDirection(16, 0)
+    return horizontalToDirection(72, 0)
   }
 
   const total = targetObjects.reduce((accumulator, object) => {
@@ -121,19 +121,12 @@ export function buildInitialViewTarget(objects: readonly SkyEngineSceneObject[],
     return accumulator + (guidedSet.has(object.id) ? 1.25 : 1)
   }, 0)
 
-  const direction = total.scale(1 / totalWeight).normalizeToNew()
-  const horizonBiasedDirection = normalizeDirection(new Vector3(
-    direction.x * 0.94,
-    Math.max(0.12, direction.y * 0.52 + 0.14),
-    direction.z,
-  ))
-
-  return horizonBiasedDirection
+  return total.scale(1 / totalWeight).normalizeToNew()
 }
 
 export function getSelectionTargetVector(object: SkyEngineSceneObject) {
   const target = horizontalToDirection(object.altitudeDeg, object.azimuthDeg)
-  return normalizeDirection(new Vector3(target.x, Math.max(-0.08, target.y), target.z))
+  return normalizeDirection(target)
 }
 
 export function getDesiredFovForObject(object: SkyEngineSceneObject | null) {

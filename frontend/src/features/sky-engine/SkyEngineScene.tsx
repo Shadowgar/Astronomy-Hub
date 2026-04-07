@@ -29,6 +29,7 @@ import {
   writeSkyEnginePickTargets,
 } from './pickTargets'
 import {
+  type SkyProjectionMode,
   directionToHorizontal,
   getProjectionScale,
   horizontalToDirection,
@@ -51,6 +52,7 @@ interface SkyEngineSceneProps {
   readonly observer: SkyEngineObserver
   readonly objects: readonly SkyEngineSceneObject[]
   readonly scenePacket: SkyScenePacket | null
+  readonly projectionMode?: SkyProjectionMode
   readonly sunState: SkyEngineSunState
   readonly selectedObjectId: string | null
   readonly guidedObjectIds: readonly string[]
@@ -309,17 +311,10 @@ function getLabelPriority(object: SkyEngineSceneObject, selectedObjectId: string
 function drawBackground(context: CanvasRenderingContext2D, width: number, height: number, sunState: SkyEngineSunState) {
   const skyGradient = context.createLinearGradient(0, 0, 0, height)
   skyGradient.addColorStop(0, sunState.visualCalibration.skyZenithColorHex)
-  skyGradient.addColorStop(0.68, sunState.visualCalibration.skyHorizonColorHex)
+  skyGradient.addColorStop(0.82, sunState.visualCalibration.skyHorizonColorHex)
   skyGradient.addColorStop(1, sunState.visualCalibration.backgroundColorHex)
   context.fillStyle = skyGradient
   context.fillRect(0, 0, width, height)
-
-  const horizonBand = context.createLinearGradient(0, height * 0.58, 0, height)
-  horizonBand.addColorStop(0, hexToRgba(sunState.visualCalibration.twilightBandColorHex, 0))
-  horizonBand.addColorStop(0.36, hexToRgba(sunState.visualCalibration.horizonGlowColorHex, sunState.visualCalibration.horizonGlowAlpha))
-  horizonBand.addColorStop(1, hexToRgba(sunState.visualCalibration.groundTintHex, 0.88))
-  context.fillStyle = horizonBand
-  context.fillRect(0, height * 0.52, width, height * 0.48)
 
   const vignette = context.createRadialGradient(
     width * 0.5,
@@ -388,7 +383,7 @@ function drawAidLayers(
   }
 
   if (aidVisibility.azimuthRing) {
-    drawCurve(context, buildConstantAltitudeCurve(view, 0), hexToRgba(sunState.visualCalibration.horizonColorHex, 0.82), 2.2)
+    drawCurve(context, buildConstantAltitudeCurve(view, 0), hexToRgba(sunState.visualCalibration.horizonColorHex, 0.42), 1.2)
   }
 
   if (!aidVisibility.azimuthRing) {
@@ -402,10 +397,10 @@ function drawAidLayers(
   context.textBaseline = 'middle'
 
   ;[
-    { label: 'N', altitudeDeg: 3, azimuthDeg: 0 },
-    { label: 'E', altitudeDeg: 3, azimuthDeg: 90 },
-    { label: 'S', altitudeDeg: 3, azimuthDeg: 180 },
-    { label: 'W', altitudeDeg: 3, azimuthDeg: 270 },
+    { label: 'N', altitudeDeg: 0.6, azimuthDeg: 0 },
+    { label: 'E', altitudeDeg: 0.6, azimuthDeg: 90 },
+    { label: 'S', altitudeDeg: 0.6, azimuthDeg: 180 },
+    { label: 'W', altitudeDeg: 0.6, azimuthDeg: 270 },
   ].forEach((cardinal) => {
     const projected = projectHorizontalToViewport(cardinal.altitudeDeg, cardinal.azimuthDeg, view)
 
@@ -884,11 +879,11 @@ function syncNavigationState(runtime: SceneRuntimeRefs, objects: readonly SkyEng
   if (selectedObject?.isAboveHorizon) {
     runtime.targetVector = getSelectionTargetVector(selectedObject)
   } else if (!selectedObject && selectionChanged) {
-    runtime.targetVector = buildObserverInitialViewTarget(objects, [])
+    runtime.targetVector = null
   }
 
   if (selectionChanged && !selectedObject) {
-    runtime.desiredFov = getDesiredFovForObject(null)
+    runtime.desiredFov = runtime.currentFov
   }
 }
 
@@ -906,6 +901,7 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
     fovRadians: runtime.currentFov,
     viewportWidth: width,
     viewportHeight: height,
+    projectionMode: latest.projectionMode,
   }
   const lod = resolveViewTier(getSkyEngineFovDegrees(runtime.currentFov))
 
@@ -953,6 +949,7 @@ export default function SkyEngineScene({
   observer,
   objects,
   scenePacket,
+  projectionMode = 'stereographic',
   sunState,
   selectedObjectId,
   guidedObjectIds,
@@ -967,6 +964,7 @@ export default function SkyEngineScene({
     observer,
     objects,
     scenePacket,
+    projectionMode,
     sunState,
     selectedObjectId,
     guidedObjectIds,
@@ -981,6 +979,7 @@ export default function SkyEngineScene({
       observer,
       objects,
       scenePacket,
+      projectionMode,
       sunState,
       selectedObjectId,
       guidedObjectIds,
@@ -989,7 +988,7 @@ export default function SkyEngineScene({
       onAtmosphereStatusChange,
       onViewStateChange,
     }
-  }, [aidVisibility, guidedObjectIds, objects, observer, onAtmosphereStatusChange, onSelectObject, onViewStateChange, scenePacket, selectedObjectId, sunState])
+  }, [aidVisibility, guidedObjectIds, objects, observer, onAtmosphereStatusChange, onSelectObject, onViewStateChange, projectionMode, scenePacket, selectedObjectId, sunState])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -1073,12 +1072,14 @@ export default function SkyEngineScene({
         fovRadians: runtime.currentFov,
         viewportWidth: bounds.width,
         viewportHeight: bounds.height,
+        projectionMode: propsRef.current.projectionMode,
       }
       const nextView: SkyProjectionView = {
         centerDirection: runtime.centerDirection,
         fovRadians: nextDesiredFov,
         viewportWidth: bounds.width,
         viewportHeight: bounds.height,
+        projectionMode: propsRef.current.projectionMode,
       }
       const previousPointerDirection = unprojectViewportPoint(event.clientX - bounds.left, event.clientY - bounds.top, currentView)
       const nextPointerDirection = unprojectViewportPoint(event.clientX - bounds.left, event.clientY - bounds.top, nextView)
@@ -1105,6 +1106,7 @@ export default function SkyEngineScene({
         fovRadians: runtime.currentFov,
         viewportWidth: bounds.width,
         viewportHeight: bounds.height,
+        projectionMode: propsRef.current.projectionMode,
       })
       canvas.setPointerCapture(event.pointerId)
     }
@@ -1134,6 +1136,7 @@ export default function SkyEngineScene({
         fovRadians: runtime.currentFov,
         viewportWidth: bounds.width,
         viewportHeight: bounds.height,
+        projectionMode: propsRef.current.projectionMode,
       })
       runtime.centerDirection = rotateVectorTowardPointerAnchor(runtime.centerDirection, nextPointerDirection, runtime.dragAnchorDirection).normalizeToNew()
       runtime.targetVector = null

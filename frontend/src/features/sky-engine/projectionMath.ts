@@ -1,5 +1,7 @@
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 
+export type SkyProjectionMode = 'stereographic' | 'gnomonic' | 'orthographic'
+
 const WORLD_UP = new Vector3(0, 1, 0)
 const WORLD_NORTH = new Vector3(0, 0, 1)
 
@@ -8,6 +10,7 @@ export interface SkyProjectionView {
   fovRadians: number
   viewportWidth: number
   viewportHeight: number
+  projectionMode?: SkyProjectionMode
 }
 
 export interface SkyProjectionBasis {
@@ -82,8 +85,20 @@ export function getProjectionPlaneRadius(fovRadians: number) {
   return 2 * Math.tan(fovRadians / 4)
 }
 
+function getProjectionPlaneRadiusForMode(fovRadians: number, projectionMode: SkyProjectionMode) {
+  if (projectionMode === 'gnomonic') {
+    return Math.tan(fovRadians / 2)
+  }
+
+  if (projectionMode === 'orthographic') {
+    return Math.sin(fovRadians / 2)
+  }
+
+  return getProjectionPlaneRadius(fovRadians)
+}
+
 export function getProjectionScale(view: SkyProjectionView) {
-  return (Math.min(view.viewportWidth, view.viewportHeight) * 0.5) / Math.max(getProjectionPlaneRadius(view.fovRadians), 1e-6)
+  return (Math.min(view.viewportWidth, view.viewportHeight) * 0.5) / Math.max(getProjectionPlaneRadiusForMode(view.fovRadians, view.projectionMode ?? 'stereographic'), 1e-6)
 }
 
 export function projectDirectionToViewport(direction: Vector3, view: SkyProjectionView): SkyProjectedPoint | null {
@@ -92,14 +107,31 @@ export function projectDirectionToViewport(direction: Vector3, view: SkyProjecti
   const eastComponent = Vector3.Dot(normalizedDirection, basis.east)
   const northComponent = Vector3.Dot(normalizedDirection, basis.north)
   const centerComponent = Vector3.Dot(normalizedDirection, basis.center)
+  const projectionMode = view.projectionMode ?? 'stereographic'
 
   if (centerComponent <= -0.999999) {
     return null
   }
 
-  const planeFactor = 2 / (1 + centerComponent)
-  const planeX = eastComponent * planeFactor
-  const planeY = northComponent * planeFactor
+  if (projectionMode === 'gnomonic' && centerComponent <= 0) {
+    return null
+  }
+
+  let planeX = 0
+  let planeY = 0
+
+  if (projectionMode === 'orthographic') {
+    planeX = eastComponent
+    planeY = northComponent
+  } else if (projectionMode === 'gnomonic') {
+    planeX = eastComponent / Math.max(centerComponent, 1e-6)
+    planeY = northComponent / Math.max(centerComponent, 1e-6)
+  } else {
+    const planeFactor = 2 / (1 + centerComponent)
+    planeX = eastComponent * planeFactor
+    planeY = northComponent * planeFactor
+  }
+
   const scale = getProjectionScale(view)
 
   return {
@@ -121,6 +153,27 @@ export function unprojectViewportPoint(screenX: number, screenY: number, view: S
   const scale = getProjectionScale(view)
   const planeX = (screenX - view.viewportWidth * 0.5) / Math.max(scale, 1e-6)
   const planeY = (view.viewportHeight * 0.5 - screenY) / Math.max(scale, 1e-6)
+  const projectionMode = view.projectionMode ?? 'stereographic'
+
+  if (projectionMode === 'orthographic') {
+    const radiusSquared = planeX * planeX + planeY * planeY
+    const centerComponent = Math.sqrt(Math.max(0, 1 - radiusSquared))
+
+    return normalizeDirection(
+      basis.east.scale(planeX)
+        .add(basis.north.scale(planeY))
+        .add(basis.center.scale(centerComponent)),
+    )
+  }
+
+  if (projectionMode === 'gnomonic') {
+    return normalizeDirection(
+      basis.east.scale(planeX)
+        .add(basis.north.scale(planeY))
+        .add(basis.center),
+    )
+  }
+
   const rhoSquared = planeX * planeX + planeY * planeY
   const denominator = rhoSquared + 4
 
@@ -132,6 +185,10 @@ export function unprojectViewportPoint(screenX: number, screenY: number, view: S
 }
 
 export function isProjectedPointVisible(projectedPoint: SkyProjectedPoint, view: SkyProjectionView, marginPx = 0) {
+  if ((view.projectionMode ?? 'stereographic') === 'orthographic' && projectedPoint.depth < 0) {
+    return false
+  }
+
   if (projectedPoint.angularDistanceRad > view.fovRadians * 0.5) {
     return false
   }
