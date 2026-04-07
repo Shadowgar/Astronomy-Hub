@@ -50,10 +50,10 @@ class SkySceneStarObject(BaseModel):
 
 
 class SkyStarTileDescriptor(BaseModel):
-    tier: Literal[1]
+    tier: Literal[1, 2]
     tile_id: str
     lookup_key: str
-    source: Literal["bright_star_catalog"]
+    source: Literal["bright_star_catalog", "hipparcos_subset"]
     object_count: int = Field(..., ge=0)
     magnitude_min: float
     magnitude_max: float
@@ -65,7 +65,7 @@ class SkyStarTileDescriptor(BaseModel):
 class SkyStarTileManifestContract(BaseModel):
     scope: Literal["sky"]
     engine: Literal["sky_engine"]
-    manifest_version: Literal["tier1"]
+    manifest_version: Literal["tier2"]
     generated_at: str
     tiles: list[SkyStarTileDescriptor] = Field(default_factory=list)
     degraded: bool = False

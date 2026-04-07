@@ -321,7 +321,7 @@ describe('SkyEnginePage scene ownership', () => {
       data: {
         scope: 'sky',
         engine: 'sky_engine',
-        manifest_version: 'tier1',
+        manifest_version: 'tier2',
         generated_at: '2025-01-15T03:00:00Z',
         tiles: [
           {
@@ -332,6 +332,15 @@ describe('SkyEnginePage scene ownership', () => {
             object_count: 4,
             magnitude_min: -1.46,
             magnitude_max: 11.4,
+          },
+          {
+            tier: 2,
+            tile_id: 'tier2-mid-stars',
+            lookup_key: 'sky:tier2:mid-stars',
+            source: 'hipparcos_subset',
+            object_count: 0,
+            magnitude_min: 1.63,
+            magnitude_max: 8.5,
           },
         ],
         degraded: false,
@@ -426,7 +435,7 @@ describe('SkyEnginePage scene ownership', () => {
       data: {
         scope: 'sky',
         engine: 'sky_engine',
-        manifest_version: 'tier1',
+        manifest_version: 'tier2',
         generated_at: '2025-01-15T03:00:00Z',
         tiles: [
           {
@@ -437,6 +446,15 @@ describe('SkyEnginePage scene ownership', () => {
             object_count: 4,
             magnitude_min: -1.46,
             magnitude_max: 11.4,
+          },
+          {
+            tier: 2,
+            tile_id: 'tier2-mid-stars',
+            lookup_key: 'sky:tier2:mid-stars',
+            source: 'hipparcos_subset',
+            object_count: 0,
+            magnitude_min: 1.63,
+            magnitude_max: 8.5,
           },
         ],
         degraded: false,

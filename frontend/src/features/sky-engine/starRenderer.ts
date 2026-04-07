@@ -18,6 +18,10 @@ function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
 }
 
+function smoothstep(value: number) {
+  return value * value * (3 - 2 * value)
+}
+
 function toHex(channel: number) {
   return Math.round(channel).toString(16).padStart(2, '0')
 }
@@ -53,7 +57,13 @@ export function resolveStarColorHex(colorIndexBV = 0.65) {
 }
 
 function getMagnitudeBrightness(magnitude: number) {
-  return clamp(1 - (magnitude + 1.5) / 7.6, 0, 1)
+  const normalizedMagnitude = clamp((9.4 - magnitude) / 10.6, 0, 1)
+  return smoothstep(normalizedMagnitude)
+}
+
+function getMagnitudeSizeWeight(magnitude: number) {
+  const brightness = getMagnitudeBrightness(magnitude)
+  return clamp(brightness * (0.58 + brightness * 0.72), 0, 1)
 }
 
 export function getStarRenderProfile(
@@ -61,19 +71,20 @@ export function getStarRenderProfile(
   calibration: SkyEngineVisualCalibration,
 ): StarRenderProfile {
   const brightness = getMagnitudeBrightness(object.magnitude)
+  const sizeWeight = getMagnitudeSizeWeight(object.magnitude)
   const haloWeight = brightness * calibration.starHaloVisibility
   const colorHex = resolveStarColorHex(object.colorIndexBV)
 
   return {
     colorHex,
-    diameter: clamp(0.14 + brightness * 0.34, 0.14, 0.44),
-    haloRadiusPx: clamp(3.8 + brightness * 6.2, 3.8, 9.6),
-    haloAlpha: clamp(0.03 + haloWeight * 0.15, 0.03, 0.17),
-    coreRadiusPx: clamp(0.82 + brightness * 1.45, 0.82, 2.2),
-    twinkleAmplitude: calibration.starTwinkleAmplitude * clamp(0.26 + brightness * 0.5, 0.26, 0.76),
-    alpha: clamp(0.18 + calibration.starFieldBrightness * (0.48 + brightness * 0.3), 0.16, 0.94),
-    emissiveScale: clamp(0.28 + calibration.starFieldBrightness * (0.34 + brightness * 0.28), 0.24, 0.86),
-    diffuseScale: clamp(0.006 + calibration.starFieldBrightness * 0.016, 0.006, 0.024),
+    diameter: clamp(0.1 + sizeWeight * 0.86, 0.1, 0.96),
+    haloRadiusPx: clamp(1.9 + sizeWeight * 10.5, 1.9, 12.4),
+    haloAlpha: clamp(0.02 + haloWeight * 0.24, 0.02, 0.3),
+    coreRadiusPx: clamp(0.52 + sizeWeight * 3.1, 0.52, 3.62),
+    twinkleAmplitude: calibration.starTwinkleAmplitude * clamp(0.18 + brightness * 0.48, 0.18, 0.66),
+    alpha: clamp(0.14 + calibration.starFieldBrightness * (0.16 + brightness * 0.72), 0.18, 0.98),
+    emissiveScale: clamp(0.18 + calibration.starFieldBrightness * (0.14 + brightness * 0.78), 0.18, 0.96),
+    diffuseScale: clamp(0.004 + calibration.starFieldBrightness * (0.004 + sizeWeight * 0.012), 0.004, 0.02),
   }
 }
 
@@ -98,12 +109,12 @@ export function buildDedicatedStarTexture(name: string, profile: StarRenderProfi
   context.arc(48, 48, profile.haloRadiusPx, 0, Math.PI * 2)
   context.fill()
 
-  context.fillStyle = `rgba(${red}, ${green}, ${blue}, 0.92)`
+  context.fillStyle = `rgba(${red}, ${green}, ${blue}, ${clamp(0.24 + profile.alpha * 0.72, 0.28, 0.96)})`
   context.beginPath()
   context.arc(48, 48, profile.coreRadiusPx * 1.25, 0, Math.PI * 2)
   context.fill()
 
-  context.fillStyle = '#ffffff'
+  context.fillStyle = `rgba(255, 255, 255, ${clamp(0.18 + profile.alpha * 0.78, 0.22, 0.98)})`
   context.beginPath()
   context.arc(48, 48, Math.max(0.72, profile.coreRadiusPx * 0.72), 0, Math.PI * 2)
   context.fill()

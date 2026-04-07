@@ -9,8 +9,9 @@ from backend.app.services._legacy_scene_logic import (
     parse_location_override,
 )
 from backend.app.services.sky_star_catalog import (
-    build_bright_star_scene_objects,
+    build_combined_sky_scene_objects,
     build_tier1_bright_star_tile_descriptor,
+    build_tier2_mid_star_tile_descriptor,
 )
 from backend.app.services.scopes_service import (
     PHASE2_ENGINE_REGISTRY,
@@ -143,17 +144,12 @@ def build_sky_scene_payload(
     parsed_location: dict | None = None,
     as_of: str | None = None,
 ) -> dict:
-    """Return backend-authored Sky Engine scene ownership context.
-
-    This payload intentionally excludes star catalogs for this slice. It provides
-    only observer, timestamp, engine identity, and minimal scene metadata so the
-    frontend stops owning scene context.
-    """
+    """Return backend-authored Sky Engine scene context with Tier 1 and Tier 2 stars."""
     resolved_location = _resolve_location(parsed_location)
     resolved_time = _resolve_time_context(as_of)
     timestamp = resolved_time.replace(microsecond=0).isoformat().replace("+00:00", "Z")
     elevation_ft = float(resolved_location.get("elevation_ft") or 0.0)
-    star_objects = build_bright_star_scene_objects()
+    star_objects = build_combined_sky_scene_objects()
     scene_state = dict(_SKY_ENGINE_DEFAULT_SCENE_STATE)
     scene_state["stars_ready"] = bool(star_objects)
 
@@ -191,9 +187,12 @@ def build_sky_star_tile_manifest_payload(as_of: str | None = None) -> dict:
     payload = SkyStarTileManifestContract(
         scope="sky",
         engine="sky_engine",
-        manifest_version="tier1",
+        manifest_version="tier2",
         generated_at=generated_at,
-        tiles=[build_tier1_bright_star_tile_descriptor()],
+        tiles=[
+            build_tier1_bright_star_tile_descriptor(),
+            build_tier2_mid_star_tile_descriptor(),
+        ],
         degraded=False,
         missing_sources=[],
     )

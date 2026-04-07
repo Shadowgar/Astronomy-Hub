@@ -48,6 +48,7 @@ import type {
   SkyEngineSceneObject,
   SkyEngineSunState,
 } from './types'
+import type { StarRenderProfile } from './starRenderer'
 
 interface SkyEngineSceneProps {
   readonly backendStars: readonly BackendSkySceneStarObject[]
@@ -120,6 +121,7 @@ interface ProjectedSceneObjectEntry {
   angularDistanceRad: number
   markerRadiusPx: number
   pickRadiusPx: number
+  starProfile?: StarRenderProfile
 }
 
 interface LabelLayoutEntry {
@@ -288,7 +290,12 @@ function getProjectedDiscRadiusPx(apparentSizeDeg: number | undefined, scale: nu
   return clamp(planeRadius * scale, minimumRadiusPx, maximumRadiusPx)
 }
 
-function getMarkerRadiusPx(object: SkyEngineSceneObject, view: SkyProjectionView, sunState: SkyEngineSunState) {
+function getMarkerRadiusPx(
+  object: SkyEngineSceneObject,
+  view: SkyProjectionView,
+  sunState: SkyEngineSunState,
+  starProfile?: StarRenderProfile,
+) {
   const scale = getProjectionScale(view)
 
   if (object.type === 'moon') {
@@ -303,8 +310,9 @@ function getMarkerRadiusPx(object: SkyEngineSceneObject, view: SkyProjectionView
     return object.source === 'temporary_scene_seed' ? 7.2 : 8.4
   }
 
-  const starBase = clamp(5.3 - object.magnitude * 0.85, 1.2, 6)
-  return starBase * clamp(sunState.visualCalibration.starFieldBrightness * 1.05, 0.35, 1.05)
+  const profile = starProfile ?? getStarRenderProfile(object, sunState.visualCalibration)
+  const starBase = Math.max(profile.coreRadiusPx * 1.1, profile.haloRadiusPx * 0.32, profile.diameter * 7.4)
+  return clamp(starBase, 0.85, 7.6) * clamp(sunState.visualCalibration.starFieldBrightness * 1.02, 0.4, 1.08)
 }
 
 function getPickRadiusPx(object: SkyEngineSceneObject, markerRadiusPx: number) {
@@ -822,29 +830,31 @@ function drawStar(
   x: number,
   y: number,
   radius: number,
-  calibration: SkyEngineSunState['visualCalibration'],
+  profile: StarRenderProfile,
   alpha: number,
 ) {
-  const profile = getStarRenderProfile(object, calibration)
+  const starAlpha = clamp(alpha * (0.42 + profile.alpha * 0.82), 0.14, 0.98)
+  const haloRadius = Math.max(radius * (2.1 + profile.diameter * 1.8), profile.haloRadiusPx)
+  const coreRadius = Math.max(radius * 0.92, profile.coreRadiusPx)
 
   context.save()
-  const halo = context.createRadialGradient(x, y, 0, x, y, Math.max(radius * 3.2, profile.haloRadiusPx))
-  halo.addColorStop(0, hexToRgba(profile.colorHex, alpha))
-  halo.addColorStop(0.22, hexToRgba(profile.colorHex, alpha * 0.52))
+  const halo = context.createRadialGradient(x, y, 0, x, y, haloRadius)
+  halo.addColorStop(0, hexToRgba(profile.colorHex, starAlpha))
+  halo.addColorStop(0.22, hexToRgba(profile.colorHex, starAlpha * 0.52))
   halo.addColorStop(1, hexToRgba(profile.colorHex, 0))
   context.fillStyle = halo
   context.beginPath()
-  context.arc(x, y, Math.max(radius * 3.2, profile.haloRadiusPx), 0, Math.PI * 2)
+  context.arc(x, y, haloRadius, 0, Math.PI * 2)
   context.fill()
 
-  context.fillStyle = hexToRgba(profile.colorHex, Math.min(1, alpha + 0.08))
+  context.fillStyle = hexToRgba(profile.colorHex, clamp(starAlpha + 0.06, 0.18, 1))
   context.beginPath()
-  context.arc(x, y, Math.max(radius * 0.96, profile.coreRadiusPx), 0, Math.PI * 2)
+  context.arc(x, y, coreRadius, 0, Math.PI * 2)
   context.fill()
 
-  context.fillStyle = 'rgba(255, 255, 255, 0.9)'
+  context.fillStyle = `rgba(255, 255, 255, ${clamp(0.18 + starAlpha * 0.84, 0.22, 0.98)})`
   context.beginPath()
-  context.arc(x, y, Math.max(0.65, Math.min(radius * 0.44, profile.coreRadiusPx * 0.72)), 0, Math.PI * 2)
+  context.arc(x, y, Math.max(0.42, Math.min(coreRadius * 0.52, profile.coreRadiusPx * 0.68)), 0, Math.PI * 2)
   context.fill()
   context.restore()
 }
@@ -883,7 +893,8 @@ function drawProjectedObjects(
       return []
     }
 
-    const markerRadiusPx = getMarkerRadiusPx(object, view, sunState)
+    const starProfile = object.type === 'star' ? getStarRenderProfile(object, sunState.visualCalibration) : undefined
+    const markerRadiusPx = getMarkerRadiusPx(object, view, sunState, starProfile)
 
     return [{
       object,
@@ -893,6 +904,7 @@ function drawProjectedObjects(
       angularDistanceRad: projected.angularDistanceRad,
       markerRadiusPx,
       pickRadiusPx: getPickRadiusPx(object, markerRadiusPx),
+      starProfile,
     }]
   })
   const packetProjectedObjects = (scenePacket?.stars ?? []).flatMap((packetStar) => {
@@ -908,7 +920,8 @@ function drawProjectedObjects(
       return []
     }
 
-    const markerRadiusPx = getMarkerRadiusPx(object, view, sunState)
+    const starProfile = object.type === 'star' ? getStarRenderProfile(object, sunState.visualCalibration) : undefined
+    const markerRadiusPx = getMarkerRadiusPx(object, view, sunState, starProfile)
 
     return [{
       object,
@@ -918,6 +931,7 @@ function drawProjectedObjects(
       angularDistanceRad: projected.angularDistanceRad,
       markerRadiusPx,
       pickRadiusPx: getPickRadiusPx(object, markerRadiusPx),
+      starProfile,
     }]
   })
   const allProjectedObjects = [...projectedObjects, ...packetProjectedObjects]
@@ -960,7 +974,7 @@ function drawProjectedObjects(
       entry.screenX,
       entry.screenY,
       entry.markerRadiusPx,
-      sunState.visualCalibration,
+      entry.starProfile ?? getStarRenderProfile(entry.object, sunState.visualCalibration),
       clamp(sunState.visualCalibration.starVisibility * horizonFade, 0, 0.98),
     )
   })

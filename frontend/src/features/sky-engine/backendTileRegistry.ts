@@ -5,6 +5,8 @@ import type {
 } from '../scene/contracts'
 
 const TIER1_BRIGHT_STAR_LOOKUP_KEY = 'sky:tier1:tier1-bright-stars'
+const TIER2_MID_STAR_LOOKUP_KEY = 'sky:tier2:mid-stars'
+const MAX_RESOLVED_BACKEND_STARS = 100000
 
 export type SkyBackendTileManifestState = {
   tier: number | null
@@ -45,7 +47,11 @@ function resolveBackendStarsForLookupKey(
   sceneStars: readonly BackendSkySceneStarObject[],
 ): readonly BackendSkySceneStarObject[] {
   if (lookupKey === TIER1_BRIGHT_STAR_LOOKUP_KEY) {
-    return sceneStars
+    return sceneStars.filter((star) => !star.id.startsWith('hip-'))
+  }
+
+  if (lookupKey === TIER2_MID_STAR_LOOKUP_KEY) {
+    return sceneStars.filter((star) => star.id.startsWith('hip-'))
   }
 
   return []
@@ -114,4 +120,12 @@ export function flattenResolvedSkyBackendTileRegistry(
   })
 
   return Array.from(dedupedStars.values())
+    .sort((left, right) => {
+      if (left.magnitude !== right.magnitude) {
+        return left.magnitude - right.magnitude
+      }
+
+      return left.id.localeCompare(right.id)
+    })
+    .slice(0, MAX_RESOLVED_BACKEND_STARS)
 }

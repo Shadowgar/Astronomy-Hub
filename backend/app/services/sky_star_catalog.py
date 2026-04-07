@@ -1,9 +1,18 @@
+import json
 from copy import deepcopy
+from functools import lru_cache
+from pathlib import Path
 
 
 TIER1_BRIGHT_STAR_TILE_ID = "tier1-bright-stars"
 TIER1_BRIGHT_STAR_LOOKUP_KEY = "sky:tier1:tier1-bright-stars"
 TIER1_BRIGHT_STAR_SOURCE = "bright_star_catalog"
+TIER1_BRIGHT_STAR_MAX_MAGNITUDE = 1.62
+
+TIER2_MID_STAR_TILE_ID = "tier2-mid-stars"
+TIER2_MID_STAR_LOOKUP_KEY = "sky:tier2:mid-stars"
+TIER2_MID_STAR_SOURCE = "hipparcos_subset"
+TIER2_MID_STAR_DATASET_PATH = Path(__file__).resolve().parents[3] / "backend" / "app" / "data" / "sky" / "hipparcos_tier2_subset.json"
 
 
 BRIGHT_STAR_SCENE_OBJECTS = [
@@ -254,6 +263,34 @@ def build_bright_star_scene_objects() -> list[dict]:
     return [deepcopy(star) for star in BRIGHT_STAR_SCENE_OBJECTS]
 
 
+@lru_cache(maxsize=1)
+def _load_tier2_mid_star_dataset() -> tuple[dict, ...]:
+    with TIER2_MID_STAR_DATASET_PATH.open("r", encoding="utf-8") as handle:
+        payload = json.load(handle)
+
+    if not isinstance(payload, list):
+        raise ValueError("tier2 hipparcos subset must be a list")
+
+    stars: list[dict] = []
+    for item in payload:
+        if not isinstance(item, dict):
+            continue
+        stars.append(item)
+
+    return tuple(stars)
+
+
+def build_tier2_mid_star_scene_objects() -> list[dict]:
+    return [deepcopy(star) for star in _load_tier2_mid_star_dataset()]
+
+
+def build_combined_sky_scene_objects() -> list[dict]:
+    stars = build_bright_star_scene_objects()
+    stars.extend(build_tier2_mid_star_scene_objects())
+    stars.sort(key=lambda star: (float(star["magnitude"]), str(star["id"])))
+    return stars
+
+
 def build_tier1_bright_star_tile_descriptor() -> dict:
     magnitudes = [float(star["magnitude"]) for star in BRIGHT_STAR_SCENE_OBJECTS]
     return {
@@ -262,6 +299,20 @@ def build_tier1_bright_star_tile_descriptor() -> dict:
         "lookup_key": TIER1_BRIGHT_STAR_LOOKUP_KEY,
         "source": TIER1_BRIGHT_STAR_SOURCE,
         "object_count": len(BRIGHT_STAR_SCENE_OBJECTS),
+        "magnitude_min": min(magnitudes),
+        "magnitude_max": max(magnitudes),
+    }
+
+
+def build_tier2_mid_star_tile_descriptor() -> dict:
+    mid_star_objects = _load_tier2_mid_star_dataset()
+    magnitudes = [float(star["magnitude"]) for star in mid_star_objects]
+    return {
+        "tier": 2,
+        "tile_id": TIER2_MID_STAR_TILE_ID,
+        "lookup_key": TIER2_MID_STAR_LOOKUP_KEY,
+        "source": TIER2_MID_STAR_SOURCE,
+        "object_count": len(mid_star_objects),
         "magnitude_min": min(magnitudes),
         "magnitude_max": max(magnitudes),
     }

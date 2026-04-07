@@ -10,10 +10,10 @@ export interface BackendSkySceneStarObject {
 }
 
 export interface BackendSkyStarTileDescriptor {
-  tier: 1
+  tier: 1 | 2
   tile_id: string
   lookup_key: string
-  source: 'bright_star_catalog'
+  source: 'bright_star_catalog' | 'hipparcos_subset'
   object_count: number
   magnitude_min: number
   magnitude_max: number
@@ -22,7 +22,7 @@ export interface BackendSkyStarTileDescriptor {
 export interface BackendSkyStarTileManifestPayload {
   scope: 'sky'
   engine: 'sky_engine'
-  manifest_version: 'tier1'
+  manifest_version: 'tier2'
   generated_at: string
   tiles: BackendSkyStarTileDescriptor[]
   degraded: boolean
@@ -100,12 +100,13 @@ function parseBackendSkyStarTileDescriptor(value: unknown): BackendSkyStarTileDe
   }
 
   const candidate = value as Record<string, unknown>
+  const source = candidate.source
 
   if (
-    candidate.tier !== 1 ||
+    (candidate.tier !== 1 && candidate.tier !== 2) ||
     typeof candidate.tile_id !== 'string' ||
     typeof candidate.lookup_key !== 'string' ||
-    candidate.source !== 'bright_star_catalog' ||
+    (source !== 'bright_star_catalog' && source !== 'hipparcos_subset') ||
     !isFiniteNumber(candidate.object_count) ||
     !Number.isInteger(candidate.object_count) ||
     candidate.object_count < 0 ||
@@ -116,10 +117,10 @@ function parseBackendSkyStarTileDescriptor(value: unknown): BackendSkyStarTileDe
   }
 
   return {
-    tier: 1,
+    tier: candidate.tier,
     tile_id: candidate.tile_id,
     lookup_key: candidate.lookup_key,
-    source: 'bright_star_catalog',
+    source,
     object_count: candidate.object_count,
     magnitude_min: candidate.magnitude_min,
     magnitude_max: candidate.magnitude_max,
@@ -186,7 +187,7 @@ export function parseBackendSkyStarTileManifestPayload(payload: unknown): Backen
   if (
     candidate.scope !== 'sky' ||
     candidate.engine !== 'sky_engine' ||
-    candidate.manifest_version !== 'tier1' ||
+    candidate.manifest_version !== 'tier2' ||
     typeof candidate.generated_at !== 'string' ||
     typeof candidate.degraded !== 'boolean' ||
     !Array.isArray(candidate.missing_sources) ||
@@ -214,7 +215,7 @@ export function parseBackendSkyStarTileManifestPayload(payload: unknown): Backen
   return {
     scope: 'sky',
     engine: 'sky_engine',
-    manifest_version: 'tier1',
+    manifest_version: 'tier2',
     generated_at: candidate.generated_at,
     tiles: parsedTiles,
     degraded: candidate.degraded,

@@ -185,6 +185,14 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     () => resolveSkyBackendTileRegistry(tileManifestState, backendSceneStars),
     [backendSceneStars, tileManifestState],
   )
+  const tier1ResolvedStarCount = useMemo(
+    () => resolvedTileRegistry.tiles.find((tile) => tile.lookup_key === 'sky:tier1:tier1-bright-stars')?.resolvedObjectCount ?? 0,
+    [resolvedTileRegistry],
+  )
+  const tier2ResolvedStarCount = useMemo(
+    () => resolvedTileRegistry.tiles.find((tile) => tile.lookup_key === 'sky:tier2:mid-stars')?.resolvedObjectCount ?? 0,
+    [resolvedTileRegistry],
+  )
   const resolvedBackendTileStars = useMemo(
     () => flattenResolvedSkyBackendTileRegistry(resolvedTileRegistry),
     [resolvedTileRegistry],
@@ -386,6 +394,8 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
 
     console.info('[SkyEngine][tiles] tiles resolved', {
       tier: resolvedTileRegistry.tier,
+      tier1ResolvedStarCount,
+      tier2ResolvedStarCount,
       totalResolvedStars: resolvedTileRegistry.totalResolvedStars,
       tiles: resolvedTileRegistry.tiles.map((tile) => ({
         tileId: tile.tile_id,
@@ -393,7 +403,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
         resolvedObjectCount: tile.resolvedObjectCount,
       })),
     })
-  }, [resolvedTileRegistry])
+  }, [resolvedTileRegistry, tier1ResolvedStarCount, tier2ResolvedStarCount])
 
   useEffect(() => {
     if (backendSceneStars.length === 0) {
@@ -401,11 +411,13 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     }
 
     console.info('[SkyEngine][tiles] stars loaded via tile pipeline', {
+      tier1Count: tier1ResolvedStarCount,
+      tier2Count: tier2ResolvedStarCount,
       resolvedStarCount: resolvedBackendTileStars.length,
       renderedStarCount: visibleStarSceneObjects.length,
       manifestTileCount: tileManifestState.tiles.length,
     })
-  }, [backendSceneStars.length, resolvedBackendTileStars.length, tileManifestState.tiles.length, visibleStarSceneObjects.length])
+  }, [backendSceneStars.length, resolvedBackendTileStars.length, tier1ResolvedStarCount, tier2ResolvedStarCount, tileManifestState.tiles.length, visibleStarSceneObjects.length])
 
   useEffect(() => {
     setViewState((currentViewState) => {
