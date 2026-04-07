@@ -1,0 +1,88 @@
+{
+  "tileId": "root-se-sw-se-sw",
+  "level": 3,
+  "parentTileId": "root-se-sw-se",
+  "childTileIds": [],
+  "bounds": {
+    "raMinDeg": 225.0,
+    "raMaxDeg": 247.5,
+    "decMinDeg": -90,
+    "decMaxDeg": -78.75
+  },
+  "magMin": 5.57,
+  "magMax": 6.49,
+  "starCount": 5,
+  "stars": [
+    {
+      "id": "hip-76996",
+      "sourceId": "HIP 76996",
+      "raDeg": 235.817087,
+      "decDeg": -84.465508,
+      "pmRaMasYr": 137.01,
+      "pmDecMasYr": 96.74,
+      "parallaxMas": 15.02,
+      "mag": 5.57,
+      "colorIndex": 0.118,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-73540",
+      "sourceId": "HIP 73540",
+      "raDeg": 225.461268,
+      "decDeg": -83.227776,
+      "pmRaMasYr": 18.65,
+      "pmDecMasYr": 53.3,
+      "parallaxMas": 8.39,
+      "mag": 5.65,
+      "colorIndex": 0.962,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-73771",
+      "sourceId": "HIP 73771",
+      "raDeg": 226.19568,
+      "decDeg": -83.038269,
+      "pmRaMasYr": -8.65,
+      "pmDecMasYr": -17.65,
+      "parallaxMas": 1.88,
+      "mag": 5.65,
+      "colorIndex": 1.273,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-74296",
+      "sourceId": "HIP 74296",
+      "raDeg": 227.786641,
+      "decDeg": -84.787822,
+      "pmRaMasYr": 3.22,
+      "pmDecMasYr": 4.03,
+      "parallaxMas": 10.24,
+      "mag": 5.88,
+      "colorIndex": -0.031,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-75736",
+      "sourceId": "HIP 75736",
+      "raDeg": 232.086183,
+      "decDeg": -88.132814,
+      "pmRaMasYr": -88.78,
+      "pmDecMasYr": -80.65,
+      "parallaxMas": 15.54,
+      "mag": 6.49,
+      "colorIndex": 0.303,
+      "tier": "T1"
+    }
+  ],
+  "labelCandidates": [],
+  "provenance": {
+    "catalog": "hipparcos",
+    "sourcePath": "/home/rocco/Astronomy-Hub/data/sky-engine/hipparcos/source/hip_main.dat",
+    "generator": "scripts/sky-engine/build_hipparcos_tiles.py",
+    "generatedAt": "2026-04-07T01:17:31.778592Z",
+    "sourceRecordCount": 8870,
+    "tierSet": [
+      "T1"
+    ]
+  }
+}

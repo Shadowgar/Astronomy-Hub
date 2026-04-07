@@ -1,0 +1,64 @@
+{
+  "tileId": "root-nw-ne-ne-ne",
+  "level": 3,
+  "parentTileId": "root-nw-ne-ne",
+  "childTileIds": [],
+  "bounds": {
+    "raMinDeg": 157.5,
+    "raMaxDeg": 180,
+    "decMinDeg": 78.75,
+    "decMaxDeg": 90
+  },
+  "magMin": 5.25,
+  "magMax": 6.48,
+  "starCount": 3,
+  "stars": [
+    {
+      "id": "hip-51502",
+      "sourceId": "HIP 51502",
+      "raDeg": 157.770919,
+      "decDeg": 82.558538,
+      "pmRaMasYr": -79.21,
+      "pmDecMasYr": 20.43,
+      "parallaxMas": 46.54,
+      "mag": 5.25,
+      "colorIndex": 0.399,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-56253",
+      "sourceId": "HIP 56253",
+      "raDeg": 172.962829,
+      "decDeg": 81.127174,
+      "pmRaMasYr": -144.22,
+      "pmDecMasYr": 34.19,
+      "parallaxMas": 16.72,
+      "mag": 6.12,
+      "colorIndex": 0.264,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-51883",
+      "sourceId": "HIP 51883",
+      "raDeg": 159.008419,
+      "decDeg": 80.494638,
+      "pmRaMasYr": -18.05,
+      "pmDecMasYr": -3.7,
+      "parallaxMas": 7.62,
+      "mag": 6.48,
+      "colorIndex": 0.963,
+      "tier": "T1"
+    }
+  ],
+  "labelCandidates": [],
+  "provenance": {
+    "catalog": "hipparcos",
+    "sourcePath": "/home/rocco/Astronomy-Hub/data/sky-engine/hipparcos/source/hip_main.dat",
+    "generator": "scripts/sky-engine/build_hipparcos_tiles.py",
+    "generatedAt": "2026-04-07T01:17:31.778592Z",
+    "sourceRecordCount": 8870,
+    "tierSet": [
+      "T1"
+    ]
+  }
+}

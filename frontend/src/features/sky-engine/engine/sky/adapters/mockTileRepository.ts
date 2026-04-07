@@ -1,14 +1,11 @@
-import type { SkyEngineQuery, SkyTilePayload } from '../contracts/tiles'
+import type { SkyTilePayload, SkyTileRepository } from '../contracts/tiles'
 import type { RuntimeStar, SkyRuntimeTier } from '../contracts/stars'
 import { getAllSkyTileDescriptors } from '../core/tileIndex'
-
-export interface SkyTileRepository {
-  loadTiles: (query: SkyEngineQuery) => SkyTilePayload[]
-}
 
 const NAMED_STARS: RuntimeStar[] = [
   {
     id: 'star-polaris',
+    sourceId: 'HIP 11767',
     raDeg: 37.954515,
     decDeg: 89.264109,
     mag: 1.98,
@@ -18,6 +15,7 @@ const NAMED_STARS: RuntimeStar[] = [
   },
   {
     id: 'star-kochab',
+    sourceId: 'HIP 72607',
     raDeg: 222.676361,
     decDeg: 74.155503,
     mag: 2.08,
@@ -27,6 +25,7 @@ const NAMED_STARS: RuntimeStar[] = [
   },
   {
     id: 'star-vega',
+    sourceId: 'HIP 91262',
     raDeg: 279.234735,
     decDeg: 38.783689,
     mag: 0.03,
@@ -36,6 +35,7 @@ const NAMED_STARS: RuntimeStar[] = [
   },
   {
     id: 'star-deneb',
+    sourceId: 'HIP 102098',
     raDeg: 310.35798,
     decDeg: 45.280339,
     mag: 1.25,
@@ -45,6 +45,7 @@ const NAMED_STARS: RuntimeStar[] = [
   },
   {
     id: 'star-altair',
+    sourceId: 'HIP 97649',
     raDeg: 297.695835,
     decDeg: 8.868321,
     mag: 0.77,
@@ -54,6 +55,7 @@ const NAMED_STARS: RuntimeStar[] = [
   },
   {
     id: 'star-albireo',
+    sourceId: 'HIP 95947',
     raDeg: 292.68042,
     decDeg: 27.959681,
     mag: 3.05,
@@ -63,6 +65,7 @@ const NAMED_STARS: RuntimeStar[] = [
   },
   {
     id: 'star-tarazed',
+    sourceId: 'HIP 97278',
     raDeg: 296.56491,
     decDeg: 10.613268,
     mag: 2.72,
@@ -72,6 +75,7 @@ const NAMED_STARS: RuntimeStar[] = [
   },
   {
     id: 'star-sheliak',
+    sourceId: 'HIP 92420',
     raDeg: 282.519975,
     decDeg: 33.362667,
     mag: 3.45,
@@ -81,6 +85,7 @@ const NAMED_STARS: RuntimeStar[] = [
   },
   {
     id: 'star-sulafat',
+    sourceId: 'HIP 93194',
     raDeg: 284.73594,
     decDeg: 32.689557,
     mag: 3.25,
@@ -90,6 +95,7 @@ const NAMED_STARS: RuntimeStar[] = [
   },
   {
     id: 'star-arcturus',
+    sourceId: 'HIP 69673',
     raDeg: 214.015315,
     decDeg: 19.18241,
     mag: -0.05,
@@ -99,6 +105,7 @@ const NAMED_STARS: RuntimeStar[] = [
   },
   {
     id: 'star-izar',
+    sourceId: 'HIP 72105',
     raDeg: 221.246734,
     decDeg: 27.074173,
     mag: 2.35,
@@ -218,7 +225,17 @@ function buildTilePayloadMap() {
       magMax: magnitudeBand.magMax,
       starCount: stars.length,
       stars,
-      labelCandidates: namedStars.map((star) => star.id),
+      labelCandidates: namedStars.map((star) => ({
+        starId: star.id,
+        label: star.properName ?? star.bayer ?? star.flamsteed ?? star.sourceId ?? star.id,
+        priority: Math.max(60, Math.round((10 - star.mag) * 16)),
+      })),
+      provenance: {
+        catalog: 'mock',
+        sourcePath: 'in-memory://mock-sky-tiles',
+        generator: 'createMockTileRepository',
+        tierSet: Array.from(new Set(stars.map((star) => star.tier))).sort(),
+      },
     }
 
     return payloads
@@ -233,17 +250,23 @@ function cloneTile(tile: SkyTilePayload): SkyTilePayload {
     childTileIds: [...tile.childTileIds],
     bounds: { ...tile.bounds },
     stars: tile.stars.map((star) => ({ ...star })),
-    labelCandidates: tile.labelCandidates ? [...tile.labelCandidates] : undefined,
+    labelCandidates: tile.labelCandidates ? tile.labelCandidates.map((candidate) => ({ ...candidate })) : undefined,
+    provenance: tile.provenance ? { ...tile.provenance, tierSet: tile.provenance.tierSet ? [...tile.provenance.tierSet] : undefined } : undefined,
   }
 }
 
 export function createMockTileRepository(): SkyTileRepository {
   return {
-    loadTiles(query) {
-      return query.visibleTileIds
+    async loadTiles(query) {
+      return {
+        mode: 'mock',
+        sourceLabel: 'Mock tile repository',
+        sourceError: null,
+        tiles: query.visibleTileIds
         .map((tileId) => MOCK_TILE_PAYLOADS[tileId])
         .filter((tile): tile is SkyTilePayload => tile != null)
-        .map(cloneTile)
+        .map(cloneTile),
+      }
     },
   }
 }

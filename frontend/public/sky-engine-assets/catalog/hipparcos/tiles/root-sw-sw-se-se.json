@@ -1,0 +1,88 @@
+{
+  "tileId": "root-sw-sw-se-se",
+  "level": 3,
+  "parentTileId": "root-sw-sw-se",
+  "childTileIds": [],
+  "bounds": {
+    "raMinDeg": 67.5,
+    "raMaxDeg": 90.0,
+    "decMinDeg": -90,
+    "decMaxDeg": -78.75
+  },
+  "magMin": 5.46,
+  "magMax": 6.18,
+  "starCount": 5,
+  "stars": [
+    {
+      "id": "hip-27566",
+      "sourceId": "HIP 27566",
+      "raDeg": 87.569997,
+      "decDeg": -79.361523,
+      "pmRaMasYr": -4.5,
+      "pmDecMasYr": 65.95,
+      "parallaxMas": 12.06,
+      "mag": 5.46,
+      "colorIndex": -0.076,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-26394",
+      "sourceId": "HIP 26394",
+      "raDeg": 84.286636,
+      "decDeg": -80.471675,
+      "pmRaMasYr": 311.97,
+      "pmDecMasYr": 1050.19,
+      "parallaxMas": 54.92,
+      "mag": 5.65,
+      "colorIndex": 0.6,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-23148",
+      "sourceId": "HIP 23148",
+      "raDeg": 74.712447,
+      "decDeg": -82.470523,
+      "pmRaMasYr": -5.1,
+      "pmDecMasYr": 4.12,
+      "parallaxMas": 9.34,
+      "mag": 5.84,
+      "colorIndex": 0.932,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-26264",
+      "sourceId": "HIP 26264",
+      "raDeg": 83.900544,
+      "decDeg": -78.820883,
+      "pmRaMasYr": 12.55,
+      "pmDecMasYr": 18.18,
+      "parallaxMas": 4.1,
+      "mag": 6.04,
+      "colorIndex": -0.018,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-25776",
+      "sourceId": "HIP 25776",
+      "raDeg": 82.558049,
+      "decDeg": -84.785212,
+      "pmRaMasYr": -6.84,
+      "pmDecMasYr": 44.27,
+      "parallaxMas": 9.35,
+      "mag": 6.18,
+      "colorIndex": -0.003,
+      "tier": "T1"
+    }
+  ],
+  "labelCandidates": [],
+  "provenance": {
+    "catalog": "hipparcos",
+    "sourcePath": "/home/rocco/Astronomy-Hub/data/sky-engine/hipparcos/source/hip_main.dat",
+    "generator": "scripts/sky-engine/build_hipparcos_tiles.py",
+    "generatedAt": "2026-04-07T01:17:31.778592Z",
+    "sourceRecordCount": 8870,
+    "tierSet": [
+      "T1"
+    ]
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "tileId": "root-se-se-sw-ne",
+  "level": 3,
+  "parentTileId": "root-se-se-sw",
+  "childTileIds": [],
+  "bounds": {
+    "raMinDeg": 292.5,
+    "raMaxDeg": 315.0,
+    "decMinDeg": -78.75,
+    "decMaxDeg": -67.5
+  },
+  "magMin": 3.97,
+  "magMax": 6.41,
+  "starCount": 9,
+  "stars": [
+    {
+      "id": "hip-98495",
+      "sourceId": "HIP 98495",
+      "raDeg": 300.147472,
+      "decDeg": -72.910184,
+      "pmRaMasYr": 80.54,
+      "pmDecMasYr": -131.34,
+      "parallaxMas": 30.73,
+      "mag": 3.97,
+      "colorIndex": -0.032,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-97534",
+      "sourceId": "HIP 97534",
+      "raDeg": 297.355387,
+      "decDeg": -72.503414,
+      "pmRaMasYr": 6.91,
+      "pmDecMasYr": 14.67,
+      "parallaxMas": 24.08,
+      "mag": 5.39,
+      "colorIndex": 0.234,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-102773",
+      "sourceId": "HIP 102773",
+      "raDeg": 312.326146,
+      "decDeg": -68.7764,
+      "pmRaMasYr": -64.57,
+      "pmDecMasYr": -49.78,
+      "parallaxMas": 10.7,
+      "mag": 5.41,
+      "colorIndex": 1.122,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-98332",
+      "sourceId": "HIP 98332",
+      "raDeg": 299.671575,
+      "decDeg": -69.163713,
+      "pmRaMasYr": 69.18,
+      "pmDecMasYr": -100.6,
+      "parallaxMas": 14.08,
+      "mag": 5.74,
+      "colorIndex": 0.224,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-95999",
+      "sourceId": "HIP 95999",
+      "raDeg": 292.795596,
+      "decDeg": -68.433887,
+      "pmRaMasYr": 17.19,
+      "pmDecMasYr": -13.42,
+      "parallaxMas": 3.13,
+      "mag": 5.98,
+      "colorIndex": 1.638,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-102162",
+      "sourceId": "HIP 102162",
+      "raDeg": 310.510505,
+      "decDeg": -76.180569,
+      "pmRaMasYr": 190.83,
+      "pmDecMasYr": -9.43,
+      "parallaxMas": 9.68,
+      "mag": 5.99,
+      "colorIndex": 0.45,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-101626",
+      "sourceId": "HIP 101626",
+      "raDeg": 308.965287,
+      "decDeg": -69.610478,
+      "pmRaMasYr": 30.71,
+      "pmDecMasYr": -44.55,
+      "parallaxMas": 3.93,
+      "mag": 6.09,
+      "colorIndex": 1.293,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-98346",
+      "sourceId": "HIP 98346",
+      "raDeg": 299.720526,
+      "decDeg": -68.762404,
+      "pmRaMasYr": 36.46,
+      "pmDecMasYr": -73.83,
+      "parallaxMas": 9.56,
+      "mag": 6.38,
+      "colorIndex": 0.164,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-101570",
+      "sourceId": "HIP 101570",
+      "raDeg": 308.77642,
+      "decDeg": -71.188809,
+      "pmRaMasYr": -38.53,
+      "pmDecMasYr": 12.3,
+      "parallaxMas": 4.05,
+      "mag": 6.41,
+      "colorIndex": 1.305,
+      "tier": "T1"
+    }
+  ],
+  "labelCandidates": [],
+  "provenance": {
+    "catalog": "hipparcos",
+    "sourcePath": "/home/rocco/Astronomy-Hub/data/sky-engine/hipparcos/source/hip_main.dat",
+    "generator": "scripts/sky-engine/build_hipparcos_tiles.py",
+    "generatedAt": "2026-04-07T01:17:31.778592Z",
+    "sourceRecordCount": 8870,
+    "tierSet": [
+      "T1"
+    ]
+  }
+}

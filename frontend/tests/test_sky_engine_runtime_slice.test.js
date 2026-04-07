@@ -42,7 +42,7 @@ describe('sky engine runtime slice', () => {
     expect(closeQuery.visibleTileIds.some((tileId) => getSkyTileDescriptor(tileId)?.level === 3)).toBe(true)
   })
 
-  it('assembles a deduped scene packet from the mocked tiles', () => {
+  it('assembles a deduped scene packet from the mocked tiles', async () => {
     const query = {
       observer: {
         ...BASE_OBSERVER,
@@ -52,21 +52,22 @@ describe('sky engine runtime slice', () => {
       activeTiers: ['T0', 'T1', 'T2', 'T3'],
       visibleTileIds: ['root-ne-se-nw-nw'],
     }
-    const tiles = mockSkyTileRepository.loadTiles(query)
-    const scenePacket = assembleSkyScenePacket(query, tiles)
+    const tileResult = await mockSkyTileRepository.loadTiles(query)
+    const scenePacket = assembleSkyScenePacket(query, tileResult.tiles, tileResult)
     const starIds = scenePacket.stars.map((star) => star.id)
 
     expect(new Set(starIds).size).toBe(starIds.length)
     expect(scenePacket.stars.length).toBeGreaterThan(0)
     expect(scenePacket.labels.some((label) => label.text === 'Vega')).toBe(true)
-    expect(scenePacket.diagnostics.activeTiles).toBe(tiles.length)
+    expect(scenePacket.diagnostics.activeTiles).toBe(tileResult.tiles.length)
     expect(scenePacket.diagnostics.activeTiers).toEqual(['T0', 'T1', 'T2', 'T3'])
     expect(scenePacket.diagnostics.tileLevels).toContain(3)
     expect(scenePacket.diagnostics.maxTileDepthReached).toBe(3)
     expect(scenePacket.diagnostics.tilesPerLevel['3']).toBeGreaterThan(0)
+    expect(scenePacket.diagnostics.dataMode).toBe('mock')
   })
 
-  it('increases star density when deeper tiles are selected', () => {
+  it('increases star density when deeper tiles are selected', async () => {
     const wideQuery = buildSkyEngineQuery({
       ...BASE_OBSERVER,
       fovDeg: 120,
@@ -75,8 +76,10 @@ describe('sky engine runtime slice', () => {
       ...BASE_OBSERVER,
       fovDeg: 4,
     })
-    const widePacket = assembleSkyScenePacket(wideQuery, mockSkyTileRepository.loadTiles(wideQuery))
-    const closePacket = assembleSkyScenePacket(closeQuery, mockSkyTileRepository.loadTiles(closeQuery))
+    const wideTileResult = await mockSkyTileRepository.loadTiles(wideQuery)
+    const closeTileResult = await mockSkyTileRepository.loadTiles(closeQuery)
+    const widePacket = assembleSkyScenePacket(wideQuery, wideTileResult.tiles, wideTileResult)
+    const closePacket = assembleSkyScenePacket(closeQuery, closeTileResult.tiles, closeTileResult)
 
     expect(closePacket.diagnostics.maxTileDepthReached).toBeGreaterThan(widePacket.diagnostics.maxTileDepthReached)
     expect(closePacket.stars.length).toBeGreaterThan(widePacket.stars.length)

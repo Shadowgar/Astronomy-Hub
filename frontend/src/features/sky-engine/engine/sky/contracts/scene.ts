@@ -1,4 +1,5 @@
 import type { SkyRuntimeTier } from './stars'
+import type { SkyTileRepositoryMode } from './tiles'
 
 export type SkyScenePacket = {
   stars: Array<{
@@ -20,6 +21,9 @@ export type SkyScenePacket = {
     priority: number
   }>
   diagnostics: {
+    dataMode: SkyTileRepositoryMode
+    sourceLabel: string
+    sourceError?: string | null
     limitingMagnitude: number
     activeTiles: number
     visibleStars: number

@@ -30,6 +30,14 @@ function getSelectionSourceCoordinates(selectedObject: SkyEngineSceneObject) {
 }
 
 function getSelectionTruthDescription(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.source === 'engine_hipparcos_tile') {
+    return 'Hipparcos tile assets were generated offline, then loaded through the file-backed Sky Engine repository for this scene.'
+  }
+
+  if (selectedObject.source === 'engine_mock_tile') {
+    return 'In-memory mock tile data is driving this star while preserving the same runtime slice used by the real file-backed path.'
+  }
+
   if (selectedObject.source === 'computed_real_sky') {
     return 'Catalog position is computed for the ORAS observer and the current scene time.'
   }
@@ -48,6 +56,14 @@ function getSelectionBadgeClassName(selectedObject: SkyEngineSceneObject) {
 }
 
 function getSelectionBadgeLabel(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.source === 'engine_hipparcos_tile') {
+    return 'Hipparcos tile runtime'
+  }
+
+  if (selectedObject.source === 'engine_mock_tile') {
+    return 'Mock tile runtime'
+  }
+
   if (selectedObject.source === 'computed_real_sky') {
     return 'Computed real sky'
   }

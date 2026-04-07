@@ -2,7 +2,9 @@ export * from './contracts/observer'
 export * from './contracts/scene'
 export * from './contracts/stars'
 export * from './contracts/tiles'
+export { resolveSkyTileRepositoryMode } from './runtimeMode'
 export { mockSkyTileRepository, createMockTileRepository } from './adapters/mockTileRepository'
+export { fileBackedSkyTileRepository, createFileBackedSkyTileRepository } from './adapters/fileTileRepository'
 export { resolveLimitingMagnitude } from './core/magnitudePolicy'
 export {
   getAllSkyTileDescriptors,

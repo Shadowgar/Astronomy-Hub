@@ -1,0 +1,197 @@
+{
+  "tileId": "root-se-sw-se-ne",
+  "level": 3,
+  "parentTileId": "root-se-sw-se",
+  "childTileIds": [],
+  "bounds": {
+    "raMinDeg": 247.5,
+    "raMaxDeg": 270.0,
+    "decMinDeg": -78.75,
+    "decMaxDeg": -67.5
+  },
+  "magMin": 1.91,
+  "magMax": 6.48,
+  "starCount": 14,
+  "stars": [
+    {
+      "id": "hip-82273",
+      "sourceId": "HIP 82273",
+      "raDeg": 252.166107,
+      "decDeg": -69.027635,
+      "pmRaMasYr": 17.85,
+      "pmDecMasYr": -32.92,
+      "parallaxMas": 7.85,
+      "mag": 1.91,
+      "colorIndex": 1.447,
+      "tier": "T0"
+    },
+    {
+      "id": "hip-81852",
+      "sourceId": "HIP 81852",
+      "raDeg": 250.772582,
+      "decDeg": -77.516572,
+      "pmRaMasYr": -282.83,
+      "pmDecMasYr": -355.03,
+      "parallaxMas": 20.69,
+      "mag": 4.23,
+      "colorIndex": 1.06,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-84969",
+      "sourceId": "HIP 84969",
+      "raDeg": 260.498062,
+      "decDeg": -67.77065,
+      "pmRaMasYr": -37.1,
+      "pmDecMasYr": -7.78,
+      "parallaxMas": 10.46,
+      "mag": 4.76,
+      "colorIndex": 1.194,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-84979",
+      "sourceId": "HIP 84979",
+      "raDeg": 260.524496,
+      "decDeg": -70.123179,
+      "pmRaMasYr": -1.73,
+      "pmDecMasYr": -12.04,
+      "parallaxMas": 2.85,
+      "mag": 5.39,
+      "colorIndex": -0.042,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-81141",
+      "sourceId": "HIP 81141",
+      "raDeg": 248.580706,
+      "decDeg": -70.988065,
+      "pmRaMasYr": -16.37,
+      "pmDecMasYr": -13.31,
+      "parallaxMas": 3.46,
+      "mag": 5.5,
+      "colorIndex": 1.235,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-83150",
+      "sourceId": "HIP 83150",
+      "raDeg": 254.891592,
+      "decDeg": -69.268132,
+      "pmRaMasYr": -13.94,
+      "pmDecMasYr": -13.12,
+      "parallaxMas": 3.32,
+      "mag": 5.79,
+      "colorIndex": -0.103,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-81710",
+      "sourceId": "HIP 81710",
+      "raDeg": 250.346377,
+      "decDeg": -68.296094,
+      "pmRaMasYr": -14.06,
+      "pmDecMasYr": -11.79,
+      "parallaxMas": 4.74,
+      "mag": 5.89,
+      "colorIndex": -0.078,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-87926",
+      "sourceId": "HIP 87926",
+      "raDeg": 269.423676,
+      "decDeg": -76.177946,
+      "pmRaMasYr": 1.16,
+      "pmDecMasYr": -1.34,
+      "parallaxMas": 5.48,
+      "mag": 6.08,
+      "colorIndex": 1.205,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-84158",
+      "sourceId": "HIP 84158",
+      "raDeg": 258.082698,
+      "decDeg": -70.720892,
+      "pmRaMasYr": 49.04,
+      "pmDecMasYr": -78.16,
+      "parallaxMas": 14.3,
+      "mag": 6.21,
+      "colorIndex": 1.062,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-84510",
+      "sourceId": "HIP 84510",
+      "raDeg": 259.148746,
+      "decDeg": -74.532881,
+      "pmRaMasYr": -23.89,
+      "pmDecMasYr": -52.4,
+      "parallaxMas": 10.06,
+      "mag": 6.24,
+      "colorIndex": -0.004,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-82539",
+      "sourceId": "HIP 82539",
+      "raDeg": 253.074097,
+      "decDeg": -67.681514,
+      "pmRaMasYr": -52.82,
+      "pmDecMasYr": -49.2,
+      "parallaxMas": 8.64,
+      "mag": 6.33,
+      "colorIndex": 1.289,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-82944",
+      "sourceId": "HIP 82944",
+      "raDeg": 254.254436,
+      "decDeg": -71.111557,
+      "pmRaMasYr": -8.47,
+      "pmDecMasYr": -35.91,
+      "parallaxMas": 1.96,
+      "mag": 6.46,
+      "colorIndex": 0.26,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-83556",
+      "sourceId": "HIP 83556",
+      "raDeg": 256.140435,
+      "decDeg": -68.278643,
+      "pmRaMasYr": -7.94,
+      "pmDecMasYr": -21.06,
+      "parallaxMas": 2.6,
+      "mag": 6.47,
+      "colorIndex": 1.57,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-86510",
+      "sourceId": "HIP 86510",
+      "raDeg": 265.185705,
+      "decDeg": -67.854121,
+      "pmRaMasYr": -43.14,
+      "pmDecMasYr": -20.85,
+      "parallaxMas": 8.6,
+      "mag": 6.48,
+      "colorIndex": 0.999,
+      "tier": "T1"
+    }
+  ],
+  "labelCandidates": [],
+  "provenance": {
+    "catalog": "hipparcos",
+    "sourcePath": "/home/rocco/Astronomy-Hub/data/sky-engine/hipparcos/source/hip_main.dat",
+    "generator": "scripts/sky-engine/build_hipparcos_tiles.py",
+    "generatedAt": "2026-04-07T01:17:31.778592Z",
+    "sourceRecordCount": 8870,
+    "tierSet": [
+      "T0",
+      "T1"
+    ]
+  }
+}

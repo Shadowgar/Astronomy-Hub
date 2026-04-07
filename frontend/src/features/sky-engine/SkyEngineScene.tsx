@@ -131,8 +131,19 @@ const CONSTELLATION_SEGMENTS = [
   ['sky-real-altair', 'sky-real-tarazed'],
 ] as const
 
+const COMPASS_CARDINALS = [
+  { label: 'N', azimuthDeg: 0 },
+  { label: 'E', azimuthDeg: 90 },
+  { label: 'S', azimuthDeg: 180 },
+  { label: 'W', azimuthDeg: 270 },
+] as const
+
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
+}
+
+function isEngineTileSource(source: SkyEngineSceneObject['source']) {
+  return source === 'engine_mock_tile' || source === 'engine_hipparcos_tile'
 }
 
 function writeSceneState({
@@ -232,7 +243,7 @@ function shouldRenderObject(
   sunState: SkyEngineSunState,
   selectedObjectId: string | null,
 ) {
-  if (object.source === 'engine_mock_tile') {
+  if (isEngineTileSource(object.source)) {
     return false
   }
 
@@ -356,6 +367,61 @@ function drawCurve(
   context.restore()
 }
 
+function buildAzimuthTickSegments(view: SkyProjectionView) {
+  return Array.from({ length: 36 }, (_, index) => index * 10).flatMap((azimuthDeg) => {
+    const isCardinal = azimuthDeg % 90 === 0
+    const isMajor = azimuthDeg % 30 === 0
+    let innerAltitudeDeg = 2.2
+
+    if (isCardinal) {
+      innerAltitudeDeg = 5.8
+    } else if (isMajor) {
+      innerAltitudeDeg = 4.1
+    }
+
+    const outerPoint = projectHorizontalToViewport(0.2, azimuthDeg, view)
+    const innerPoint = projectHorizontalToViewport(innerAltitudeDeg, azimuthDeg, view)
+
+    if (!outerPoint || !innerPoint) {
+      return []
+    }
+
+    if (!isProjectedPointVisible(outerPoint, view, 18) || !isProjectedPointVisible(innerPoint, view, 18)) {
+      return []
+    }
+
+    return [{
+      azimuthDeg,
+      isCardinal,
+      isMajor,
+      outerPoint,
+      innerPoint,
+    }]
+  })
+}
+
+function drawCompassLabel(context: CanvasRenderingContext2D, label: string, x: number, y: number, color: string) {
+  const width = 26
+  const height = 24
+
+  context.save()
+  context.fillStyle = 'rgba(4, 10, 20, 0.72)'
+  context.strokeStyle = 'rgba(126, 186, 255, 0.28)'
+  context.lineWidth = 1
+  context.beginPath()
+  context.rect(x - width * 0.5, y - height * 0.5, width, height)
+  context.fill()
+  context.stroke()
+  context.shadowColor = color
+  context.shadowBlur = 14
+  context.fillStyle = color
+  context.font = '700 15px sans-serif'
+  context.textAlign = 'center'
+  context.textBaseline = 'middle'
+  context.fillText(label, x, y)
+  context.restore()
+}
+
 function buildConstantAltitudeCurve(view: SkyProjectionView, altitudeDeg: number) {
   const points: Array<{ x: number; y: number }> = []
 
@@ -378,38 +444,60 @@ function drawAidLayers(
 ) {
   if (aidVisibility.altitudeRings) {
     ;[15, 30, 45, 60].forEach((altitudeDeg) => {
-      drawCurve(context, buildConstantAltitudeCurve(view, altitudeDeg), hexToRgba('#9ecbff', 0.14), 1, true)
+      drawCurve(context, buildConstantAltitudeCurve(view, altitudeDeg), hexToRgba('#9ecbff', 0.11), 1, true)
     })
-  }
-
-  if (aidVisibility.azimuthRing) {
-    drawCurve(context, buildConstantAltitudeCurve(view, 0), hexToRgba(sunState.visualCalibration.horizonColorHex, 0.42), 1.2)
   }
 
   if (!aidVisibility.azimuthRing) {
     return
   }
 
+  const horizonCurve = buildConstantAltitudeCurve(view, 0)
+  const azimuthGuideCurve = buildConstantAltitudeCurve(view, 8)
+
   context.save()
-  context.fillStyle = 'rgba(231, 241, 255, 0.82)'
-  context.font = '600 14px sans-serif'
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
-
-  ;[
-    { label: 'N', altitudeDeg: 0.6, azimuthDeg: 0 },
-    { label: 'E', altitudeDeg: 0.6, azimuthDeg: 90 },
-    { label: 'S', altitudeDeg: 0.6, azimuthDeg: 180 },
-    { label: 'W', altitudeDeg: 0.6, azimuthDeg: 270 },
-  ].forEach((cardinal) => {
-    const projected = projectHorizontalToViewport(cardinal.altitudeDeg, cardinal.azimuthDeg, view)
-
-    if (projected && isProjectedPointVisible(projected, view, 18)) {
-      context.fillText(cardinal.label, projected.screenX, projected.screenY)
-    }
-  })
-
+  context.shadowColor = hexToRgba(sunState.visualCalibration.horizonGlowColorHex, 0.58)
+  context.shadowBlur = 22
+  drawCurve(context, horizonCurve, hexToRgba('#7cc6ff', 0.22), 3.2)
   context.restore()
+
+  drawCurve(context, horizonCurve, hexToRgba('#cfe7ff', 0.62), 1.1)
+  drawCurve(context, azimuthGuideCurve, hexToRgba('#9ccfff', 0.1), 1)
+
+  const tickSegments = buildAzimuthTickSegments(view)
+
+  context.save()
+  context.lineCap = 'round'
+  tickSegments.forEach((tick) => {
+    let strokeStyle = 'rgba(132, 186, 240, 0.36)'
+    let lineWidth = 1
+
+    if (tick.isCardinal) {
+      strokeStyle = 'rgba(220, 240, 255, 0.92)'
+      lineWidth = 1.9
+    } else if (tick.isMajor) {
+      strokeStyle = 'rgba(171, 214, 255, 0.62)'
+      lineWidth = 1.35
+    }
+
+    context.strokeStyle = strokeStyle
+    context.lineWidth = lineWidth
+    context.beginPath()
+    context.moveTo(tick.outerPoint.screenX, tick.outerPoint.screenY)
+    context.lineTo(tick.innerPoint.screenX, tick.innerPoint.screenY)
+    context.stroke()
+  })
+  context.restore()
+
+  COMPASS_CARDINALS.forEach((cardinal) => {
+    const projected = projectHorizontalToViewport(7.6, cardinal.azimuthDeg, view)
+
+    if (!projected || !isProjectedPointVisible(projected, view, 22)) {
+      return
+    }
+
+    drawCompassLabel(context, cardinal.label, projected.screenX, projected.screenY, 'rgba(226, 243, 255, 0.96)')
+  })
 }
 
 function drawConstellationOverlay(context: CanvasRenderingContext2D, projectedObjects: readonly ProjectedSceneObjectEntry[]) {
@@ -640,7 +728,7 @@ function drawLabels(
 ) {
   const visibleLabelIds: string[] = []
   const labelPositions = new Map<string, { x: number; y: number }>()
-  const candidates = projectedObjects.filter((candidate) => candidate.object.source !== 'engine_mock_tile').sort((left, right) => {
+  const candidates = projectedObjects.filter((candidate) => !isEngineTileSource(candidate.object.source)).sort((left, right) => {
     const priorityDelta = getLabelPriority(right.object, selectedObjectId, guidedObjectIds) - getLabelPriority(left.object, selectedObjectId, guidedObjectIds)
 
     if (priorityDelta !== 0) {

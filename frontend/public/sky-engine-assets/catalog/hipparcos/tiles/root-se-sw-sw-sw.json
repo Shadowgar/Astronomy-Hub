@@ -1,0 +1,88 @@
+{
+  "tileId": "root-se-sw-sw-sw",
+  "level": 3,
+  "parentTileId": "root-se-sw-sw",
+  "childTileIds": [],
+  "bounds": {
+    "raMinDeg": 180,
+    "raMaxDeg": 202.5,
+    "decMinDeg": -90,
+    "decMaxDeg": -78.75
+  },
+  "magMin": 4.24,
+  "magMax": 6.34,
+  "starCount": 5,
+  "stars": [
+    {
+      "id": "hip-60000",
+      "sourceId": "HIP 60000",
+      "raDeg": 184.587266,
+      "decDeg": -79.312269,
+      "pmRaMasYr": -38.07,
+      "pmDecMasYr": 12.0,
+      "parallaxMas": 12.05,
+      "mag": 4.24,
+      "colorIndex": -0.123,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-63031",
+      "sourceId": "HIP 63031",
+      "raDeg": 193.743116,
+      "decDeg": -85.123422,
+      "pmRaMasYr": 67.47,
+      "pmDecMasYr": 22.11,
+      "parallaxMas": 8.79,
+      "mag": 5.45,
+      "colorIndex": 0.991,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-58697",
+      "sourceId": "HIP 58697",
+      "raDeg": 180.58615,
+      "decDeg": -85.631761,
+      "pmRaMasYr": -56.44,
+      "pmDecMasYr": 1.55,
+      "parallaxMas": 9.74,
+      "mag": 6.05,
+      "colorIndex": 1.29,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-60638",
+      "sourceId": "HIP 60638",
+      "raDeg": 186.409491,
+      "decDeg": -86.150597,
+      "pmRaMasYr": -4.91,
+      "pmDecMasYr": -6.56,
+      "parallaxMas": 4.26,
+      "mag": 6.32,
+      "colorIndex": 1.065,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-64951",
+      "sourceId": "HIP 64951",
+      "raDeg": 199.701404,
+      "decDeg": -79.975961,
+      "pmRaMasYr": -18.11,
+      "pmDecMasYr": -22.9,
+      "parallaxMas": 7.35,
+      "mag": 6.34,
+      "colorIndex": -0.027,
+      "tier": "T1"
+    }
+  ],
+  "labelCandidates": [],
+  "provenance": {
+    "catalog": "hipparcos",
+    "sourcePath": "/home/rocco/Astronomy-Hub/data/sky-engine/hipparcos/source/hip_main.dat",
+    "generator": "scripts/sky-engine/build_hipparcos_tiles.py",
+    "generatedAt": "2026-04-07T01:17:31.778592Z",
+    "sourceRecordCount": 8870,
+    "tierSet": [
+      "T1"
+    ]
+  }
+}

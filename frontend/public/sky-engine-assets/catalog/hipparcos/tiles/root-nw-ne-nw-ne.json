@@ -1,0 +1,88 @@
+{
+  "tileId": "root-nw-ne-nw-ne",
+  "level": 3,
+  "parentTileId": "root-nw-ne-nw",
+  "childTileIds": [],
+  "bounds": {
+    "raMinDeg": 112.5,
+    "raMaxDeg": 135.0,
+    "decMinDeg": 78.75,
+    "decMaxDeg": 90
+  },
+  "magMin": 4.92,
+  "magMax": 6.45,
+  "starCount": 5,
+  "stars": [
+    {
+      "id": "hip-36547",
+      "sourceId": "HIP 36547",
+      "raDeg": 112.768668,
+      "decDeg": 82.411569,
+      "pmRaMasYr": -3.71,
+      "pmDecMasYr": -42.31,
+      "parallaxMas": 6.89,
+      "mag": 4.92,
+      "colorIndex": 1.633,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-37391",
+      "sourceId": "HIP 37391",
+      "raDeg": 115.129548,
+      "decDeg": 87.020156,
+      "pmRaMasYr": -53.48,
+      "pmDecMasYr": -26.85,
+      "parallaxMas": 6.53,
+      "mag": 5.05,
+      "colorIndex": 1.604,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-39538",
+      "sourceId": "HIP 39538",
+      "raDeg": 121.196609,
+      "decDeg": 79.479743,
+      "pmRaMasYr": -36.46,
+      "pmDecMasYr": -53.75,
+      "parallaxMas": 9.88,
+      "mag": 5.39,
+      "colorIndex": -0.04,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-41208",
+      "sourceId": "HIP 41208",
+      "raDeg": 126.137945,
+      "decDeg": 82.430822,
+      "pmRaMasYr": -19.31,
+      "pmDecMasYr": -25.9,
+      "parallaxMas": 4.8,
+      "mag": 6.28,
+      "colorIndex": 0.035,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-40559",
+      "sourceId": "HIP 40559",
+      "raDeg": 124.224841,
+      "decDeg": 84.057689,
+      "pmRaMasYr": -9.68,
+      "pmDecMasYr": -19.14,
+      "parallaxMas": 5.74,
+      "mag": 6.45,
+      "colorIndex": 0.052,
+      "tier": "T1"
+    }
+  ],
+  "labelCandidates": [],
+  "provenance": {
+    "catalog": "hipparcos",
+    "sourcePath": "/home/rocco/Astronomy-Hub/data/sky-engine/hipparcos/source/hip_main.dat",
+    "generator": "scripts/sky-engine/build_hipparcos_tiles.py",
+    "generatedAt": "2026-04-07T01:17:31.778592Z",
+    "sourceRecordCount": 8870,
+    "tierSet": [
+      "T1"
+    ]
+  }
+}

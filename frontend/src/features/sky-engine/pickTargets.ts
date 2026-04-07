@@ -15,7 +15,7 @@ export function getSkyEnginePickColliderDiameter(object: SkyEngineSceneObject) {
     return 10.8
   }
 
-  if (object.source === 'computed_real_sky') {
+  if (object.source === 'computed_real_sky' || object.source === 'engine_hipparcos_tile') {
     return object.type === 'star' ? 6.4 : 7.2
   }
 
@@ -40,7 +40,7 @@ function getObjectPickPriority(object: SkyEngineSceneObject) {
   }
 
   if (object.type === 'star') {
-    return object.source === 'computed_real_sky' ? 24 : 20
+    return object.source === 'computed_real_sky' || object.source === 'engine_hipparcos_tile' ? 24 : 20
   }
 
   return object.source === 'temporary_scene_seed' ? 4 : 10

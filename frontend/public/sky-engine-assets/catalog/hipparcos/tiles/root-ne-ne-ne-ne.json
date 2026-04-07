@@ -1,0 +1,76 @@
+{
+  "tileId": "root-ne-ne-ne-ne",
+  "level": 3,
+  "parentTileId": "root-ne-ne-ne",
+  "childTileIds": [],
+  "bounds": {
+    "raMinDeg": 337.5,
+    "raMaxDeg": 360,
+    "decMinDeg": 78.75,
+    "decMaxDeg": 90
+  },
+  "magMin": 4.7,
+  "magMax": 5.89,
+  "starCount": 4,
+  "stars": [
+    {
+      "id": "hip-113116",
+      "sourceId": "HIP 113116",
+      "raDeg": 343.601601,
+      "decDeg": 84.346119,
+      "pmRaMasYr": 98.45,
+      "pmDecMasYr": 23.89,
+      "parallaxMas": 8.35,
+      "mag": 4.7,
+      "colorIndex": 1.418,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-112519",
+      "sourceId": "HIP 112519",
+      "raDeg": 341.870614,
+      "decDeg": 83.153716,
+      "pmRaMasYr": 23.65,
+      "pmDecMasYr": 47.21,
+      "parallaxMas": 10.06,
+      "mag": 4.77,
+      "colorIndex": 1.257,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-115746",
+      "sourceId": "HIP 115746",
+      "raDeg": 351.749663,
+      "decDeg": 87.307457,
+      "pmRaMasYr": 76.9,
+      "pmDecMasYr": 19.35,
+      "parallaxMas": 10.63,
+      "mag": 5.56,
+      "colorIndex": 0.25,
+      "tier": "T1"
+    },
+    {
+      "id": "hip-112833",
+      "sourceId": "HIP 112833",
+      "raDeg": 342.762239,
+      "decDeg": 85.373461,
+      "pmRaMasYr": 13.22,
+      "pmDecMasYr": 114.38,
+      "parallaxMas": 7.14,
+      "mag": 5.89,
+      "colorIndex": 1.34,
+      "tier": "T1"
+    }
+  ],
+  "labelCandidates": [],
+  "provenance": {
+    "catalog": "hipparcos",
+    "sourcePath": "/home/rocco/Astronomy-Hub/data/sky-engine/hipparcos/source/hip_main.dat",
+    "generator": "scripts/sky-engine/build_hipparcos_tiles.py",
+    "generatedAt": "2026-04-07T01:17:31.778592Z",
+    "sourceRecordCount": 8870,
+    "tierSet": [
+      "T1"
+    ]
+  }
+}

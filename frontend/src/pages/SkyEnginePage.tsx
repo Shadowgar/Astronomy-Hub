@@ -5,8 +5,10 @@ import { computeMoonSceneObject, computePlanetSceneObjects, rankGuidanceTargets 
 import {
   assembleSkyScenePacket,
   buildSkyEngineQuery,
+  fileBackedSkyTileRepository,
   formatSkyDiagnosticsSummary,
   mockSkyTileRepository,
+  resolveSkyTileRepositoryMode,
   unitVectorToHorizontalCoordinates,
 } from '../features/sky-engine/engine/sky'
 import { getDesiredFovForObject, getSkyEngineFovDegrees } from '../features/sky-engine/observerNavigation'
@@ -24,6 +26,7 @@ import { resolveStarColorHex } from '../features/sky-engine/starRenderer'
 import { ORAS_OBSERVER, SKY_ENGINE_TEMPORARY_SCENE_SEED } from '../features/sky-engine/sceneSeed'
 import type { SkyEngineSceneObject } from '../features/sky-engine/types'
 import { useSkyEngineSelection } from '../features/sky-engine/useSkyEngineSelection'
+import type { SkyTileRepositoryLoadResult } from '../features/sky-engine/engine/sky'
 
 function phaseModifier(phaseLabel: string) {
   return phaseLabel.toLowerCase().split(' ').join('-')
@@ -53,8 +56,42 @@ function formatDisplayedFov(fovDegrees: number) {
   return `${fovDegrees.toFixed(4)}°`
 }
 
+async function loadSkyRuntimeTiles(
+  repositoryMode: 'mock' | 'hipparcos',
+  query: Parameters<typeof mockSkyTileRepository.loadTiles>[0],
+): Promise<SkyTileRepositoryLoadResult> {
+  const preferredRepository = repositoryMode === 'hipparcos' ? fileBackedSkyTileRepository : mockSkyTileRepository
+
+  try {
+    return await preferredRepository.loadTiles(query)
+  } catch (error) {
+    const fallbackResult = await mockSkyTileRepository.loadTiles(query)
+    return {
+      ...fallbackResult,
+      sourceLabel: repositoryMode === 'hipparcos' ? 'Mock fallback' : fallbackResult.sourceLabel,
+      sourceError: error instanceof Error ? error.message : String(error),
+    }
+  }
+}
+
+function resolveRuntimeModeLabel(
+  diagnosticsMode: SkyTileRepositoryLoadResult['mode'] | undefined,
+  repositoryMode: 'mock' | 'hipparcos',
+) {
+  if (diagnosticsMode === 'hipparcos') {
+    return 'Hipparcos'
+  }
+
+  if (diagnosticsMode === 'mock' || repositoryMode === 'mock') {
+    return 'Mock'
+  }
+
+  return 'Loading'
+}
+
 export default function SkyEnginePage() {
   const sceneTime = useSkyEngineSceneTime(SKY_ENGINE_SCENE_TIMESTAMP)
+  const [repositoryMode] = useState(() => resolveSkyTileRepositoryMode())
   const [searchQuery, setSearchQuery] = useState('')
   const deferredSearchQuery = useDeferredValue(searchQuery)
   const [viewState, setViewState] = useState(() => ({
@@ -64,10 +101,11 @@ export default function SkyEnginePage() {
   }))
   const [aidVisibility, setAidVisibility] = useState({
     constellations: true,
-    azimuthRing: false,
+    azimuthRing: true,
     altitudeRings: true,
   })
   const [inspectorOpen, setInspectorOpen] = useState(false)
+  const [tileLoadResult, setTileLoadResult] = useState<SkyTileRepositoryLoadResult | null>(null)
   const sunState = useMemo(
     () => computeSunState(ORAS_OBSERVER, sceneTime.sceneTimestampIso),
     [sceneTime.sceneTimestampIso],
@@ -97,18 +135,33 @@ export default function SkyEnginePage() {
     () => buildSkyEngineQuery(observerSnapshot),
     [observerSnapshot],
   )
-  const mockedTiles = useMemo(
-    () => mockSkyTileRepository.loadTiles(skyEngineQuery),
-    [skyEngineQuery],
-  )
+  useEffect(() => {
+    let cancelled = false
+
+    async function loadTiles() {
+      const result = await loadSkyRuntimeTiles(repositoryMode, skyEngineQuery)
+
+      if (!cancelled) {
+        setTileLoadResult(result)
+      }
+    }
+
+    void loadTiles()
+
+    return () => {
+      cancelled = true
+    }
+  }, [repositoryMode, skyEngineQuery])
+
+  const runtimeTiles = tileLoadResult?.tiles ?? []
   const skyScenePacket = useMemo(
-    () => assembleSkyScenePacket(skyEngineQuery, mockedTiles),
-    [mockedTiles, skyEngineQuery],
+    () => (tileLoadResult ? assembleSkyScenePacket(skyEngineQuery, runtimeTiles, tileLoadResult) : null),
+    [runtimeTiles, skyEngineQuery, tileLoadResult],
   )
   const runtimeStarMetadata = useMemo(() => {
-    const metadata = new Map<string, { tileId: string; star: (typeof mockedTiles)[number]['stars'][number] }>()
+    const metadata = new Map<string, { tileId: string; star: (typeof runtimeTiles)[number]['stars'][number] }>()
 
-    mockedTiles.forEach((tile) => {
+    runtimeTiles.forEach((tile) => {
       tile.stars.forEach((star) => {
         if (!metadata.has(star.id)) {
           metadata.set(star.id, { tileId: tile.tileId, star })
@@ -117,13 +170,15 @@ export default function SkyEnginePage() {
     })
 
     return metadata
-  }, [mockedTiles])
+  }, [runtimeTiles])
   const engineStarSceneObjects = useMemo<readonly SkyEngineSceneObject[]>(
-    () => skyScenePacket.stars.map((star) => {
+    () => (skyScenePacket?.stars ?? []).map((star) => {
       const metadata = runtimeStarMetadata.get(star.id)
       const runtimeStar = metadata?.star
       const horizontalCoordinates = unitVectorToHorizontalCoordinates({ x: star.x, y: star.y, z: star.z })
-      const displayName = runtimeStar?.properName ?? runtimeStar?.bayer ?? runtimeStar?.flamsteed ?? star.label ?? star.id
+      const isHipparcosMode = tileLoadResult?.mode === 'hipparcos'
+      const displayName = runtimeStar?.properName ?? runtimeStar?.bayer ?? runtimeStar?.flamsteed ?? runtimeStar?.sourceId ?? star.label ?? star.id
+      const tileSourceLabel = metadata?.star.sourceId ?? metadata?.tileId ?? 'unknown-tile'
 
       return {
         id: star.id,
@@ -133,10 +188,16 @@ export default function SkyEnginePage() {
         azimuthDeg: horizontalCoordinates.azimuthDeg,
         magnitude: star.mag,
         colorHex: resolveStarColorHex(runtimeStar?.colorIndex ?? star.colorIndex),
-        summary: `Mock ${star.tier} star resolved from the in-memory sky tile repository.`,
-        description: `Loaded from ${metadata?.tileId ?? 'unknown-tile'} and emitted through the Sky Engine scene packet for the active observer snapshot.`,
-        truthNote: 'Engine-owned mock tile data drives this star. No raw catalog ingestion or backend data source is involved in this slice.',
-        source: 'engine_mock_tile',
+        summary: isHipparcosMode
+          ? `Hipparcos ${star.tier} star streamed from the generated runtime tile assets.`
+          : `Mock ${star.tier} star resolved from the in-memory sky tile repository.`,
+        description: isHipparcosMode
+          ? `Loaded from ${metadata?.tileId ?? 'unknown-tile'} and emitted through the Sky Engine scene packet from offline-generated Hipparcos runtime assets.`
+          : `Loaded from ${metadata?.tileId ?? 'unknown-tile'} and emitted through the Sky Engine scene packet for the active observer snapshot.`,
+        truthNote: isHipparcosMode
+          ? `Engine-owned Hipparcos tile data drives this star. Source: ${tileSourceLabel}.`
+          : 'Engine-owned mock tile data drives this star. No raw catalog ingestion or backend data source is involved in this slice.',
+        source: isHipparcosMode ? 'engine_hipparcos_tile' : 'engine_mock_tile',
         trackingMode: 'fixed_equatorial',
         rightAscensionHours: runtimeStar ? runtimeStar.raDeg / 15 : undefined,
         declinationDeg: runtimeStar?.decDeg,
@@ -145,7 +206,7 @@ export default function SkyEnginePage() {
         isAboveHorizon: horizontalCoordinates.isAboveHorizon,
       }
     }),
-    [runtimeStarMetadata, sceneTime.sceneTimestampIso, skyScenePacket.stars],
+    [runtimeStarMetadata, sceneTime.sceneTimestampIso, skyScenePacket, tileLoadResult?.mode],
   )
   const computedVisibleObjects = useMemo(
     () => [...computedPlanetObjects, moonObject].filter((object) => object.isAboveHorizon),
@@ -188,7 +249,11 @@ export default function SkyEnginePage() {
     () => guidanceTargets.map((target) => target.objectId),
     [guidanceTargets],
   )
+  const diagnostics = skyScenePacket?.diagnostics ?? null
   const selectedTargetName = selection.selectedObject?.name ?? 'Ready to inspect'
+  const runtimeSourceLabel = diagnostics?.sourceLabel
+    ?? (repositoryMode === 'hipparcos' ? 'Hipparcos loading…' : 'Mock tile repository')
+
   useEffect(() => {
     if (selection.selectionStatus === 'active' || selection.selectionStatus === 'hidden') {
       setInspectorOpen(true)
@@ -317,6 +382,10 @@ export default function SkyEnginePage() {
             </form>
             <div className="sky-engine-page__top-bar-meta">
               <div className="sky-engine-page__status-pill">
+                <span className="sky-engine-page__top-bar-label">Data</span>
+                <strong>{resolveRuntimeModeLabel(diagnostics?.dataMode, repositoryMode)}</strong>
+              </div>
+              <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                 <span className="sky-engine-page__top-bar-label">FOV</span>
                 <strong>{formatDisplayedFov(viewState.fovDegrees)}</strong>
               </div>
@@ -348,12 +417,14 @@ export default function SkyEnginePage() {
                 <strong className="sky-engine-page__bottom-hud-offset">{sceneTime.formattedScaleOffset}</strong>
               </div>
               <div className="sky-engine-page__bottom-hud-stats">
-                <span>{formatSkyDiagnosticsSummary({ ...skyScenePacket.diagnostics, visibleTileIds: skyEngineQuery.visibleTileIds })}</span>
-                <span>tiers {skyScenePacket.diagnostics.activeTiers.join('/')}</span>
-                <span>levels {skyScenePacket.diagnostics.tileLevels.join('/')}</span>
+                <span>{diagnostics ? formatSkyDiagnosticsSummary({ ...diagnostics, visibleTileIds: skyEngineQuery.visibleTileIds }) : 'Loading tiles…'}</span>
+                <span>{runtimeSourceLabel}</span>
+                <span>{diagnostics ? `tiers ${diagnostics.activeTiers.join('/')}` : 'tiers …'}</span>
+                <span>{diagnostics ? `levels ${diagnostics.tileLevels.join('/')}` : 'levels …'}</span>
                 <span>{moonObject.isAboveHorizon ? `${moonObject.phaseLabel} moon` : 'Moon below horizon'}</span>
                 <span>{guidanceTargets.length} guided now</span>
                 <span>{selectedTargetName}</span>
+                {diagnostics?.sourceError ? <span>fallback active</span> : null}
               </div>
             </div>
 
@@ -444,7 +515,7 @@ export default function SkyEnginePage() {
                   Constellations
                 </button>
                 <button type="button" className={`sky-engine-page__control-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('azimuthRing')}>
-                  Horizon
+                  Compass
                 </button>
                 <button type="button" className={`sky-engine-page__control-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('altitudeRings')}>
                   Altitude
