@@ -49,6 +49,32 @@ class SkySceneStarObject(BaseModel):
         extra = "forbid"
 
 
+class SkyStarTileDescriptor(BaseModel):
+    tier: Literal[1]
+    tile_id: str
+    lookup_key: str
+    source: Literal["bright_star_catalog"]
+    object_count: int = Field(..., ge=0)
+    magnitude_min: float
+    magnitude_max: float
+
+    class Config:
+        extra = "forbid"
+
+
+class SkyStarTileManifestContract(BaseModel):
+    scope: Literal["sky"]
+    engine: Literal["sky_engine"]
+    manifest_version: Literal["tier1"]
+    generated_at: str
+    tiles: list[SkyStarTileDescriptor] = Field(default_factory=list)
+    degraded: bool = False
+    missing_sources: list[str] = Field(default_factory=list)
+
+    class Config:
+        extra = "forbid"
+
+
 class SkySceneContract(BaseModel):
     scope: Literal["sky"]
     engine: Literal["sky_engine"]

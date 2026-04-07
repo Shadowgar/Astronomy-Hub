@@ -10,6 +10,7 @@ vi.mock('react-router-dom', () => ({
 
 vi.mock('../src/features/scene/queries', () => ({
   useSceneByScopeDataQuery: vi.fn(),
+  useSkyStarTileManifestDataQuery: vi.fn(),
 }))
 
 vi.mock('../src/features/sky-engine/sceneTime', () => ({
@@ -218,18 +219,24 @@ vi.mock('../src/features/sky-engine/engine/sky', () => ({
 }))
 
 import SkyEnginePage from '../src/pages/SkyEnginePage'
-import { useSceneByScopeDataQuery } from '../src/features/scene/queries'
+import { useSceneByScopeDataQuery, useSkyStarTileManifestDataQuery } from '../src/features/scene/queries'
 import { useSkyEngineSceneTime } from '../src/features/sky-engine/sceneTime'
 
 describe('SkyEnginePage scene ownership', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    vi.spyOn(console, 'info').mockImplementation(() => undefined)
   })
 
   it('hard-fails into loading or error states instead of using local fallback ownership', () => {
     vi.mocked(useSceneByScopeDataQuery).mockReturnValue({
       isPending: false,
       isError: true,
+      data: null,
+    })
+    vi.mocked(useSkyStarTileManifestDataQuery).mockReturnValue({
+      isPending: false,
+      isError: false,
       data: null,
     })
 
@@ -308,10 +315,34 @@ describe('SkyEnginePage scene ownership', () => {
         ],
       },
     })
+    vi.mocked(useSkyStarTileManifestDataQuery).mockReturnValue({
+      isPending: false,
+      isError: false,
+      data: {
+        scope: 'sky',
+        engine: 'sky_engine',
+        manifest_version: 'tier1',
+        generated_at: '2025-01-15T03:00:00Z',
+        tiles: [
+          {
+            tier: 1,
+            tile_id: 'tier1-bright-stars',
+            lookup_key: 'sky:tier1:tier1-bright-stars',
+            source: 'bright_star_catalog',
+            object_count: 4,
+            magnitude_min: -1.46,
+            magnitude_max: 11.4,
+          },
+        ],
+        degraded: false,
+        missing_sources: [],
+      },
+    })
 
     const html = renderToStaticMarkup(React.createElement(SkyEnginePage))
 
     expect(useSceneByScopeDataQuery).toHaveBeenCalledWith({ scope: 'sky', engine: 'sky_engine' })
+    expect(useSkyStarTileManifestDataQuery).toHaveBeenCalledWith({ at: '2025-01-15T03:00:00Z' })
     expect(useSkyEngineSceneTime).toHaveBeenCalledWith('2025-01-15T03:00:00Z')
     expect(html).toContain('Sky scene mounted')
     expect(html).toContain('Custom Location')
@@ -387,6 +418,29 @@ describe('SkyEnginePage scene ownership', () => {
             color_index: 0.5,
           },
         ],
+      },
+    })
+    vi.mocked(useSkyStarTileManifestDataQuery).mockReturnValue({
+      isPending: false,
+      isError: false,
+      data: {
+        scope: 'sky',
+        engine: 'sky_engine',
+        manifest_version: 'tier1',
+        generated_at: '2025-01-15T03:00:00Z',
+        tiles: [
+          {
+            tier: 1,
+            tile_id: 'tier1-bright-stars',
+            lookup_key: 'sky:tier1:tier1-bright-stars',
+            source: 'bright_star_catalog',
+            object_count: 4,
+            magnitude_min: -1.46,
+            magnitude_max: 11.4,
+          },
+        ],
+        degraded: false,
+        missing_sources: [],
       },
     })
 

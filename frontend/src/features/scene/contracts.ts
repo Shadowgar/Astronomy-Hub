@@ -9,6 +9,26 @@ export interface BackendSkySceneStarObject {
   color_index?: number | null
 }
 
+export interface BackendSkyStarTileDescriptor {
+  tier: 1
+  tile_id: string
+  lookup_key: string
+  source: 'bright_star_catalog'
+  object_count: number
+  magnitude_min: number
+  magnitude_max: number
+}
+
+export interface BackendSkyStarTileManifestPayload {
+  scope: 'sky'
+  engine: 'sky_engine'
+  manifest_version: 'tier1'
+  generated_at: string
+  tiles: BackendSkyStarTileDescriptor[]
+  degraded: boolean
+  missing_sources: string[]
+}
+
 export interface BackendSkyScenePayload {
   scope: 'sky'
   engine: 'sky_engine'
@@ -70,7 +90,39 @@ function parseBackendSkySceneStarObject(value: unknown): BackendSkySceneStarObje
     right_ascension: candidate.right_ascension,
     declination: candidate.declination,
     magnitude: candidate.magnitude,
-    color_index: candidate.color_index as number | null | undefined,
+    color_index: candidate.color_index,
+  }
+}
+
+function parseBackendSkyStarTileDescriptor(value: unknown): BackendSkyStarTileDescriptor | null {
+  if (!value || typeof value !== 'object') {
+    return null
+  }
+
+  const candidate = value as Record<string, unknown>
+
+  if (
+    candidate.tier !== 1 ||
+    typeof candidate.tile_id !== 'string' ||
+    typeof candidate.lookup_key !== 'string' ||
+    candidate.source !== 'bright_star_catalog' ||
+    !isFiniteNumber(candidate.object_count) ||
+    !Number.isInteger(candidate.object_count) ||
+    candidate.object_count < 0 ||
+    !isFiniteNumber(candidate.magnitude_min) ||
+    !isFiniteNumber(candidate.magnitude_max)
+  ) {
+    return null
+  }
+
+  return {
+    tier: 1,
+    tile_id: candidate.tile_id,
+    lookup_key: candidate.lookup_key,
+    source: 'bright_star_catalog',
+    object_count: candidate.object_count,
+    magnitude_min: candidate.magnitude_min,
+    magnitude_max: candidate.magnitude_max,
   }
 }
 
@@ -120,5 +172,52 @@ export function parseBackendSkyScenePayload(payload: unknown): BackendSkyScenePa
   return {
     ...(candidate as Omit<BackendSkyScenePayload, 'objects'>),
     objects: parsedStars,
+  }
+}
+
+export function parseBackendSkyStarTileManifestPayload(payload: unknown): BackendSkyStarTileManifestPayload | null {
+  if (!payload || typeof payload !== 'object') {
+    return null
+  }
+
+  const candidate = payload as Record<string, unknown>
+  const tiles = Array.isArray(candidate.tiles) ? candidate.tiles : null
+
+  if (
+    candidate.scope !== 'sky' ||
+    candidate.engine !== 'sky_engine' ||
+    candidate.manifest_version !== 'tier1' ||
+    typeof candidate.generated_at !== 'string' ||
+    typeof candidate.degraded !== 'boolean' ||
+    !Array.isArray(candidate.missing_sources) ||
+    !tiles
+  ) {
+    return null
+  }
+
+  const parsedTiles: BackendSkyStarTileDescriptor[] = []
+
+  for (const tile of tiles) {
+    const parsedTile = parseBackendSkyStarTileDescriptor(tile)
+
+    if (!parsedTile) {
+      return null
+    }
+
+    parsedTiles.push(parsedTile)
+  }
+
+  if (!candidate.missing_sources.every((value) => typeof value === 'string')) {
+    return null
+  }
+
+  return {
+    scope: 'sky',
+    engine: 'sky_engine',
+    manifest_version: 'tier1',
+    generated_at: candidate.generated_at,
+    tiles: parsedTiles,
+    degraded: candidate.degraded,
+    missing_sources: candidate.missing_sources,
   }
 }

@@ -1,6 +1,11 @@
 from copy import deepcopy
 
 
+TIER1_BRIGHT_STAR_TILE_ID = "tier1-bright-stars"
+TIER1_BRIGHT_STAR_LOOKUP_KEY = "sky:tier1:tier1-bright-stars"
+TIER1_BRIGHT_STAR_SOURCE = "bright_star_catalog"
+
+
 BRIGHT_STAR_SCENE_OBJECTS = [
     {
         "id": "star-sirius",
@@ -247,3 +252,16 @@ BRIGHT_STAR_SCENE_OBJECTS = [
 
 def build_bright_star_scene_objects() -> list[dict]:
     return [deepcopy(star) for star in BRIGHT_STAR_SCENE_OBJECTS]
+
+
+def build_tier1_bright_star_tile_descriptor() -> dict:
+    magnitudes = [float(star["magnitude"]) for star in BRIGHT_STAR_SCENE_OBJECTS]
+    return {
+        "tier": 1,
+        "tile_id": TIER1_BRIGHT_STAR_TILE_ID,
+        "lookup_key": TIER1_BRIGHT_STAR_LOOKUP_KEY,
+        "source": TIER1_BRIGHT_STAR_SOURCE,
+        "object_count": len(BRIGHT_STAR_SCENE_OBJECTS),
+        "magnitude_min": min(magnitudes),
+        "magnitude_max": max(magnitudes),
+    }

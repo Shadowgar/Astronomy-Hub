@@ -4,11 +4,13 @@ from fastapi.responses import JSONResponse
 from backend.app.contracts.phase1 import (
     SceneContract,
 )
+from backend.app.contracts.sky_scene import SkyStarTileManifestContract
 from backend.app.services._legacy_scene_logic import parse_location_override
 from backend.app.services.scene_service import (
     PHASE2_SCOPES,
     build_above_me_scene_payload,
     build_phase2_scope_scene_payload_with_context,
+    build_sky_star_tile_manifest_payload,
 )
 
 router = APIRouter()
@@ -79,3 +81,11 @@ async def scene_by_scope(
                 }
             },
         )
+
+
+@router.get("/scene/sky/star-tiles/manifest", response_model=SkyStarTileManifestContract)
+async def sky_star_tile_manifest(
+    at: str | None = None,
+):
+    """Return the backend-owned Tier 1 bright-star tile manifest descriptor."""
+    return build_sky_star_tile_manifest_payload(as_of=at)

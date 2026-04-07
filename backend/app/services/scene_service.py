@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-from backend.app.contracts.sky_scene import SkySceneContract
+from backend.app.contracts.sky_scene import SkySceneContract, SkyStarTileManifestContract
 from backend.app.services._legacy_scene_logic import (
     _resolve_location,
     _resolve_time_context,
@@ -8,7 +8,10 @@ from backend.app.services._legacy_scene_logic import (
     get_phase2_object_lookup,
     parse_location_override,
 )
-from backend.app.services.sky_star_catalog import build_bright_star_scene_objects
+from backend.app.services.sky_star_catalog import (
+    build_bright_star_scene_objects,
+    build_tier1_bright_star_tile_descriptor,
+)
 from backend.app.services.scopes_service import (
     PHASE2_ENGINE_REGISTRY,
     PHASE2_SCOPES,
@@ -178,6 +181,21 @@ def build_sky_scene_payload(
             ),
             "as_of": as_of,
         },
+    )
+    return payload.dict()
+
+
+def build_sky_star_tile_manifest_payload(as_of: str | None = None) -> dict:
+    resolved_time = _resolve_time_context(as_of)
+    generated_at = resolved_time.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    payload = SkyStarTileManifestContract(
+        scope="sky",
+        engine="sky_engine",
+        manifest_version="tier1",
+        generated_at=generated_at,
+        tiles=[build_tier1_bright_star_tile_descriptor()],
+        degraded=False,
+        missing_sources=[],
     )
     return payload.dict()
 

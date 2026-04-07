@@ -23,9 +23,20 @@ import {
   SKY_ENGINE_TIME_SCALE_OPTIONS,
   useSkyEngineSceneTime,
 } from '../features/sky-engine/sceneTime'
+import {
+  createSkyBackendTileManifestState,
+  flattenResolvedSkyBackendTileRegistry,
+  resolveSkyBackendTileRegistry,
+  type SkyBackendTileManifestState,
+} from '../features/sky-engine/backendTileRegistry'
 import { computeSunState } from '../features/sky-engine/solar'
-import { useSceneByScopeDataQuery } from '../features/scene/queries'
-import { isFiniteNumber, parseBackendSkyScenePayload, type BackendSkyScenePayload } from '../features/scene/contracts'
+import { useSceneByScopeDataQuery, useSkyStarTileManifestDataQuery } from '../features/scene/queries'
+import {
+  isFiniteNumber,
+  parseBackendSkyScenePayload,
+  parseBackendSkyStarTileManifestPayload,
+  type BackendSkyScenePayload,
+} from '../features/scene/contracts'
 import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
 import SkyEngineScene from '../features/sky-engine/SkyEngineScene'
 import { resolveStarColorHex } from '../features/sky-engine/starRenderer'
@@ -151,17 +162,36 @@ function SkyEngineOwnershipState({ title, detail }: Readonly<SkyEngineOwnershipS
 
 function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: BackendSkyScenePayload }>) {
   const sceneTime = useSkyEngineSceneTime(backendScene.timestamp)
+  const skyStarTileManifestQuery = useSkyStarTileManifestDataQuery({ at: backendScene.timestamp })
   const [repositoryMode] = useState(() => resolveSkyTileRepositoryMode())
   const [searchQuery, setSearchQuery] = useState('')
   const deferredSearchQuery = useDeferredValue(searchQuery)
   const observer = useMemo(() => convertBackendObserver(backendScene), [backendScene])
-  const backendStars = useMemo(
+  const backendSceneStars = useMemo(
     () => backendScene.objects.filter((object) => object.type === 'star'),
     [backendScene.objects],
   )
-  const backendStarSceneObjects = useMemo(
-    () => computeBackendStarSceneObjects(observer, sceneTime.sceneTimestampIso, backendStars),
-    [backendStars, observer, sceneTime.sceneTimestampIso],
+  const backendTileManifest = useMemo(
+    () => parseBackendSkyStarTileManifestPayload(skyStarTileManifestQuery.data),
+    [skyStarTileManifestQuery.data],
+  )
+  const [tileManifestState, setTileManifestState] = useState<SkyBackendTileManifestState>(() =>
+    createSkyBackendTileManifestState(backendTileManifest),
+  )
+  useEffect(() => {
+    setTileManifestState(createSkyBackendTileManifestState(backendTileManifest))
+  }, [backendTileManifest])
+  const resolvedTileRegistry = useMemo(
+    () => resolveSkyBackendTileRegistry(tileManifestState, backendSceneStars),
+    [backendSceneStars, tileManifestState],
+  )
+  const resolvedBackendTileStars = useMemo(
+    () => flattenResolvedSkyBackendTileRegistry(resolvedTileRegistry),
+    [resolvedTileRegistry],
+  )
+  const backendTileStarSceneObjects = useMemo(
+    () => computeBackendStarSceneObjects(observer, sceneTime.sceneTimestampIso, resolvedBackendTileStars),
+    [observer, resolvedBackendTileStars, sceneTime.sceneTimestampIso],
   )
   const [viewState, setViewState] = useState(() => buildBackendViewState(backendScene))
   const [aidVisibility, setAidVisibility] = useState({
@@ -281,7 +311,13 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     () => computedVisibleObjects.filter((object) => object.type !== 'star'),
     [computedVisibleObjects],
   )
-  const activeStarSceneObjects = backendStars.length > 0 ? backendStarSceneObjects : engineStarSceneObjects
+  const activeStarSceneObjects = useMemo(() => {
+    if (backendSceneStars.length > 0) {
+      return backendTileStarSceneObjects
+    }
+
+    return engineStarSceneObjects
+  }, [backendSceneStars.length, backendTileStarSceneObjects, engineStarSceneObjects])
   const visibleStarSceneObjects = useMemo(
     () => filterStarSceneObjectsByFov(activeStarSceneObjects, viewState.fovDegrees),
     [activeStarSceneObjects, viewState.fovDegrees],
@@ -324,6 +360,52 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   const fallbackActive = Boolean(diagnostics?.sourceError)
   const runtimeSourceLabel = diagnostics?.sourceLabel
     ?? (repositoryMode === 'hipparcos' ? 'Hipparcos loading…' : 'Mock tile repository')
+
+  useEffect(() => {
+    if (!backendTileManifest) {
+      return
+    }
+
+    console.info('[SkyEngine][tiles] manifest received', {
+      generatedAt: tileManifestState.metadata.generatedAt,
+      manifestVersion: tileManifestState.metadata.manifestVersion,
+      tier: tileManifestState.tier,
+      tiles: tileManifestState.tiles.map((tile) => ({
+        tileId: tile.tile_id,
+        lookupKey: tile.lookup_key,
+        objectCount: tile.object_count,
+        source: tile.source,
+      })),
+    })
+  }, [backendTileManifest, tileManifestState])
+
+  useEffect(() => {
+    if (resolvedTileRegistry.tiles.length === 0) {
+      return
+    }
+
+    console.info('[SkyEngine][tiles] tiles resolved', {
+      tier: resolvedTileRegistry.tier,
+      totalResolvedStars: resolvedTileRegistry.totalResolvedStars,
+      tiles: resolvedTileRegistry.tiles.map((tile) => ({
+        tileId: tile.tile_id,
+        lookupKey: tile.lookup_key,
+        resolvedObjectCount: tile.resolvedObjectCount,
+      })),
+    })
+  }, [resolvedTileRegistry])
+
+  useEffect(() => {
+    if (backendSceneStars.length === 0) {
+      return
+    }
+
+    console.info('[SkyEngine][tiles] stars loaded via tile pipeline', {
+      resolvedStarCount: resolvedBackendTileStars.length,
+      renderedStarCount: visibleStarSceneObjects.length,
+      manifestTileCount: tileManifestState.tiles.length,
+    })
+  }, [backendSceneStars.length, resolvedBackendTileStars.length, tileManifestState.tiles.length, visibleStarSceneObjects.length])
 
   useEffect(() => {
     setViewState((currentViewState) => {
@@ -415,7 +497,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
             backendScene.scene_state.center_az_deg,
             backendScene.scene_state.fov_deg,
           ].join(':')}
-          backendStars={backendStars}
+          backendStars={resolvedBackendTileStars}
           observer={observer}
           objects={sceneObjects}
           scenePacket={skyScenePacket}
