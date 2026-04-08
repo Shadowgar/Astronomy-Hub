@@ -44,6 +44,7 @@ import {
   computeObservedMagnitude,
 } from './atmosphericExtinction'
 import { computeLimitingMagnitude, computeSkyBrightness } from './skyBrightness'
+import { computeVisibilityAlpha, computeVisibilitySizeScale } from './starVisibility'
 import { getStarRenderProfile, getStarRenderProfileForMagnitude } from './starRenderer'
 import { buildProceduralSkyBackdrop, buildSyntheticSkyDensityField } from './syntheticStarField'
 import { renderPreethamSkyBackground, blendNightSky } from './preethamSky'
@@ -131,6 +132,7 @@ interface ProjectedSceneObjectEntry {
   markerRadiusPx: number
   pickRadiusPx: number
   renderedMagnitude?: number
+  visibilityAlpha?: number
   starProfile?: StarRenderProfile
 }
 
@@ -1097,8 +1099,9 @@ function drawSyntheticDensityStars(
   for (const sample of SYNTHETIC_SKY_DENSITY_SAMPLES) {
     const sampleAltitudeDeg = (Math.asin(clamp(sample.direction.y, -1, 1)) * 180) / Math.PI
     const renderedMagnitude = computeObservedMagnitude(sample.magnitude, extinction, sampleAltitudeDeg)
+    const visibilityAlpha = computeVisibilityAlpha(renderedMagnitude, magnitudeLimit)
 
-    if (renderedMagnitude > magnitudeLimit || drawnCount >= densityBudget) {
+    if (visibilityAlpha <= 0 || drawnCount >= densityBudget) {
       if (drawnCount >= densityBudget) {
         break
       }
@@ -1128,10 +1131,11 @@ function drawSyntheticDensityStars(
     const normalizedCenterDistance = clamp(distanceToCenter / Math.max(view.viewportWidth, view.viewportHeight), 0, 1)
     const centerFill = 1 + wideBlend * (1 - normalizedCenterDistance) * 0.38
     const profile = getStarRenderProfileForMagnitude(renderedMagnitude, sample.colorIndexBV, sunState.visualCalibration)
-    const markerRadiusPx = clamp((profile.coreRadiusPx * 0.46 + sample.size * 0.7) * (0.9 + closeBlend * 0.3) * centerFill, 0.34, 2.4)
+    const sizeScale = computeVisibilitySizeScale(visibilityAlpha)
+    const markerRadiusPx = clamp((profile.coreRadiusPx * 0.46 + sample.size * 0.7) * (0.9 + closeBlend * 0.3) * centerFill * sizeScale, 0.34, 2.4)
     const twinkle = 1 + Math.sin(animationTime + sample.twinklePhase) * profile.twinkleAmplitude * 0.9
     const alpha = clamp(
-      sample.alpha * profile.alpha * (0.34 + sample.bandWeight * 0.3) * (0.74 + closeBlend * 0.2) * centerFill,
+      sample.alpha * profile.alpha * visibilityAlpha * (0.34 + sample.bandWeight * 0.3) * (0.74 + closeBlend * 0.2) * centerFill,
       0.035,
       0.32,
     )
@@ -1190,15 +1194,20 @@ function drawProjectedObjects(
     const renderedMagnitude = object.type === 'star'
       ? computeObservedMagnitude(object.magnitude, extinction, object.altitudeDeg)
       : object.magnitude
+    const visibilityAlpha = object.type === 'star'
+      ? computeVisibilityAlpha(renderedMagnitude, limitingMagnitude)
+      : 1
 
-    if (object.type === 'star' && renderedMagnitude > limitingMagnitude) {
+    if (object.type === 'star' && visibilityAlpha <= 0) {
       return []
     }
 
     const starProfile = object.type === 'star'
       ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, sunState.visualCalibration)
       : undefined
-    const markerRadiusPx = getMarkerRadiusPx(object, view, sunState, starProfile)
+    const markerRadiusPx = object.type === 'star'
+      ? getMarkerRadiusPx(object, view, sunState, starProfile) * computeVisibilitySizeScale(visibilityAlpha)
+      : getMarkerRadiusPx(object, view, sunState, starProfile)
 
     return [{
       object,
@@ -1209,6 +1218,7 @@ function drawProjectedObjects(
       markerRadiusPx,
       pickRadiusPx: getPickRadiusPx(object, markerRadiusPx),
       renderedMagnitude,
+      visibilityAlpha,
       starProfile,
     }]
   })
@@ -1228,15 +1238,20 @@ function drawProjectedObjects(
     const renderedMagnitude = object.type === 'star'
       ? computeObservedMagnitude(object.magnitude, extinction, object.altitudeDeg)
       : object.magnitude
+    const visibilityAlpha = object.type === 'star'
+      ? computeVisibilityAlpha(renderedMagnitude, limitingMagnitude)
+      : 1
 
-    if (object.type === 'star' && renderedMagnitude > limitingMagnitude) {
+    if (object.type === 'star' && visibilityAlpha <= 0) {
       return []
     }
 
     const starProfile = object.type === 'star'
       ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, sunState.visualCalibration)
       : undefined
-    const markerRadiusPx = getMarkerRadiusPx(object, view, sunState, starProfile)
+    const markerRadiusPx = object.type === 'star'
+      ? getMarkerRadiusPx(object, view, sunState, starProfile) * computeVisibilitySizeScale(visibilityAlpha)
+      : getMarkerRadiusPx(object, view, sunState, starProfile)
 
     return [{
       object,
@@ -1247,6 +1262,7 @@ function drawProjectedObjects(
       markerRadiusPx,
       pickRadiusPx: getPickRadiusPx(object, markerRadiusPx),
       renderedMagnitude,
+      visibilityAlpha,
       starProfile,
     }]
   })
@@ -1292,7 +1308,7 @@ function drawProjectedObjects(
       entry.screenY,
       entry.markerRadiusPx,
       entry.starProfile ?? getStarRenderProfileForMagnitude(entry.renderedMagnitude ?? entry.object.magnitude, entry.object.colorIndexBV, sunState.visualCalibration),
-      clamp(sunState.visualCalibration.starVisibility * horizonFade, 0, 0.98),
+      clamp(sunState.visualCalibration.starVisibility * horizonFade * (entry.visibilityAlpha ?? 1), 0, 0.98),
     )
   })
 
