@@ -21,6 +21,32 @@ export interface LabelRenderRef {
   currentLabelScale: number
 }
 
+export interface LabelRectangle {
+  readonly x: number
+  readonly y: number
+  readonly width: number
+  readonly height: number
+}
+
+export interface LabelLayoutState {
+  readonly wasVisible: boolean
+  readonly rectangle: LabelRectangle
+  readonly inViewport: boolean
+  readonly projectedX: number
+  readonly projectedY: number
+  readonly projectedDepth: number
+  readonly scale: number
+  readonly priority: number
+  readonly signature: string
+  readonly markerRadiusPx: number
+  readonly occluded: boolean
+}
+
+export interface LabelLayoutResult {
+  readonly visibleLabelIds: readonly string[]
+  readonly nextLayoutState: Map<string, LabelLayoutState>
+}
+
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
 }
@@ -30,14 +56,39 @@ function hashObjectValue(value: string) {
 }
 
 function rectanglesOverlap(
-  left: { x: number; y: number; width: number; height: number },
-  right: { x: number; y: number; width: number; height: number },
+  left: LabelRectangle,
+  right: LabelRectangle,
 ) {
   return !(
     left.x + left.width < right.x ||
     right.x + right.width < left.x ||
     left.y + left.height < right.y ||
     right.y + right.height < left.y
+  )
+}
+
+function getOverlapArea(left: LabelRectangle, right: LabelRectangle) {
+  const overlapWidth = Math.max(0, Math.min(left.x + left.width, right.x + right.width) - Math.max(left.x, right.x))
+  const overlapHeight = Math.max(0, Math.min(left.y + left.height, right.y + right.height) - Math.max(left.y, right.y))
+
+  return overlapWidth * overlapHeight
+}
+
+function getRectangleCenterDistance(left: LabelRectangle, right: LabelRectangle) {
+  const leftCenterX = left.x + left.width * 0.5
+  const leftCenterY = left.y + left.height * 0.5
+  const rightCenterX = right.x + right.width * 0.5
+  const rightCenterY = right.y + right.height * 0.5
+
+  return Math.hypot(leftCenterX - rightCenterX, leftCenterY - rightCenterY)
+}
+
+function isInsideExpandedViewport(rectangle: LabelRectangle, viewport: { x: number; y: number; width: number; height: number }, margin: number) {
+  return (
+    rectangle.x + rectangle.width >= viewport.x - margin &&
+    rectangle.y + rectangle.height >= viewport.y - margin &&
+    rectangle.x <= viewport.x + viewport.width + margin &&
+    rectangle.y <= viewport.y + viewport.height + margin
   )
 }
 
@@ -199,7 +250,23 @@ function getLabelScale(projectedDepth: number, object: SkyEngineSceneObject, isS
   return clamp(scale, 0.7, 1.12)
 }
 
-export function resolveLabelLayout(
+interface LabelCandidate {
+  readonly refs: LabelRenderRef
+  readonly isSelected: boolean
+  readonly priority: number
+  readonly baseAlpha: number
+  readonly scale: number
+  readonly rectangle: LabelRectangle
+  readonly inViewport: boolean
+  readonly projectedX: number
+  readonly projectedY: number
+  readonly projectedDepth: number
+  readonly signature: string
+  readonly markerRadiusPx: number
+  readonly occluded: boolean
+}
+
+function collectLabelCandidates(
   scene: Scene,
   camera: Camera,
   engine: Engine,
@@ -207,11 +274,8 @@ export function resolveLabelLayout(
   selectedObjectId: string | null,
   guidedObjectIds: ReadonlySet<string>,
   sunState: SkyEngineSunState,
-  maxVisibleLabels = MAX_VISIBLE_LABELS,
 ) {
   const viewport = camera.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight())
-  const visibleRectangles: Array<{ x: number; y: number; width: number; height: number }> = []
-  const visibleLabelIds: string[] = []
   const candidates = Object.values(renderedRefs)
     .map((refs) => {
       const projected = Vector3.Project(
@@ -260,23 +324,133 @@ export function resolveLabelLayout(
         scale,
         rectangle,
         inViewport,
-      }
+        projectedX: projected.x,
+        projectedY: projected.y,
+        projectedDepth: projected.z,
+        signature: refs.object.name,
+        markerRadiusPx: getLabelOffsetRadius(refs.object),
+        occluded: !refs.object.isAboveHorizon,
+      } satisfies LabelCandidate
     })
     .sort((left, right) => right.priority - left.priority)
+
+  return { candidates, viewport }
+}
+
+function applyLabelPresentation(refs: LabelRenderRef, targetAlpha: number, targetScale: number) {
+  refs.currentLabelAlpha += (targetAlpha - refs.currentLabelAlpha) * 0.16
+  refs.currentLabelScale += (targetScale - refs.currentLabelScale) * 0.2
+  refs.labelMaterial.alpha = refs.currentLabelAlpha
+  refs.label.isVisible = refs.currentLabelAlpha > 0.025
+  refs.label.scaling.set(refs.currentLabelScale, refs.currentLabelScale, 1)
+}
+
+export function shouldKeepStableLabelVisibility(
+  previousState: LabelLayoutState | undefined,
+  candidate: Pick<LabelLayoutState, 'rectangle' | 'inViewport' | 'projectedDepth' | 'priority'>,
+  viewport: { x: number; y: number; width: number; height: number },
+  overlapAreaRatio: number,
+) {
+  if (!previousState?.wasVisible) {
+    return false
+  }
+
+  const centerDistance = getRectangleCenterDistance(previousState.rectangle, candidate.rectangle)
+  const smallMotion = centerDistance <= 18 && Math.abs(previousState.projectedDepth - candidate.projectedDepth) <= 0.06
+  const withinExpandedViewport = isInsideExpandedViewport(candidate.rectangle, viewport, 22)
+  const priorityStable = candidate.priority >= Math.max(1, previousState.priority - 12)
+
+  return smallMotion && withinExpandedViewport && priorityStable && overlapAreaRatio <= 0.18
+}
+
+export function reusePreviousLabelLayout(
+  scene: Scene,
+  camera: Camera,
+  engine: Engine,
+  renderedRefs: Record<string, LabelRenderRef>,
+  selectedObjectId: string | null,
+  guidedObjectIds: ReadonlySet<string>,
+  sunState: SkyEngineSunState,
+  previousLayoutState: ReadonlyMap<string, LabelLayoutState>,
+): LabelLayoutResult {
+  const { candidates } = collectLabelCandidates(scene, camera, engine, renderedRefs, selectedObjectId, guidedObjectIds, sunState)
+  const nextLayoutState = new Map<string, LabelLayoutState>()
+  const visibleLabelIds: string[] = []
+
+  candidates.forEach((candidate) => {
+    const previousState = previousLayoutState.get(candidate.refs.object.id)
+    const shouldShow = candidate.isSelected
+      ? candidate.priority > 0
+      : previousState?.wasVisible === true && candidate.inViewport && candidate.priority > 0
+
+    applyLabelPresentation(candidate.refs, shouldShow ? candidate.baseAlpha : 0, candidate.scale)
+
+    if (shouldShow) {
+      visibleLabelIds.push(candidate.refs.object.id)
+    }
+
+    nextLayoutState.set(candidate.refs.object.id, {
+      wasVisible: shouldShow,
+      rectangle: candidate.rectangle,
+      inViewport: candidate.inViewport,
+      projectedX: candidate.projectedX,
+      projectedY: candidate.projectedY,
+      projectedDepth: candidate.projectedDepth,
+      scale: candidate.scale,
+      priority: candidate.priority,
+      signature: candidate.signature,
+      markerRadiusPx: candidate.markerRadiusPx,
+      occluded: candidate.occluded,
+    })
+  })
+
+  return {
+    visibleLabelIds: visibleLabelIds.sort((left, right) => left.localeCompare(right)),
+    nextLayoutState,
+  }
+}
+
+export function resolveLabelLayout(
+  scene: Scene,
+  camera: Camera,
+  engine: Engine,
+  renderedRefs: Record<string, LabelRenderRef>,
+  selectedObjectId: string | null,
+  guidedObjectIds: ReadonlySet<string>,
+  sunState: SkyEngineSunState,
+  maxVisibleLabels = MAX_VISIBLE_LABELS,
+  previousLayoutState: ReadonlyMap<string, LabelLayoutState> = new Map<string, LabelLayoutState>(),
+) {
+  const { candidates, viewport } = collectLabelCandidates(scene, camera, engine, renderedRefs, selectedObjectId, guidedObjectIds, sunState)
+  const visibleRectangles: LabelRectangle[] = []
+  const visibleLabelIds: string[] = []
+  const nextLayoutState = new Map<string, LabelLayoutState>()
 
   let visibleCount = 0
   candidates.forEach((candidate) => {
     const allowByCap = candidate.isSelected || visibleCount < maxVisibleLabels
-    const overlaps = visibleRectangles.some((rectangle) => rectanglesOverlap(rectangle, candidate.rectangle))
+    const overlapRectangle = visibleRectangles.find((rectangle) => rectanglesOverlap(rectangle, candidate.rectangle))
+    const overlapAreaRatio = overlapRectangle
+      ? getOverlapArea(overlapRectangle, candidate.rectangle) / Math.max(1, Math.min(
+          overlapRectangle.width * overlapRectangle.height,
+          candidate.rectangle.width * candidate.rectangle.height,
+        ))
+      : 0
+    const previousState = previousLayoutState.get(candidate.refs.object.id)
     const shouldShow = candidate.isSelected
       ? candidate.priority > 0
-      : candidate.inViewport && allowByCap && !overlaps && candidate.priority > 0
+      : (
+          candidate.inViewport &&
+          allowByCap &&
+          !overlapRectangle &&
+          candidate.priority > 0
+        ) || (
+          allowByCap &&
+          candidate.priority > 0 &&
+          shouldKeepStableLabelVisibility(previousState, candidate, viewport, overlapAreaRatio)
+        )
     const targetAlpha = shouldShow ? candidate.baseAlpha : 0
-    candidate.refs.currentLabelAlpha += (targetAlpha - candidate.refs.currentLabelAlpha) * 0.16
-    candidate.refs.currentLabelScale += (candidate.scale - candidate.refs.currentLabelScale) * 0.2
-    candidate.refs.labelMaterial.alpha = candidate.refs.currentLabelAlpha
-    candidate.refs.label.isVisible = candidate.refs.currentLabelAlpha > 0.025
-    candidate.refs.label.scaling.set(candidate.refs.currentLabelScale, candidate.refs.currentLabelScale, 1)
+    applyLabelPresentation(candidate.refs, targetAlpha, candidate.scale)
 
     if (shouldShow) {
       visibleRectangles.push(candidate.rectangle)
@@ -285,7 +459,24 @@ export function resolveLabelLayout(
         visibleCount += 1
       }
     }
+
+    nextLayoutState.set(candidate.refs.object.id, {
+      wasVisible: shouldShow,
+      rectangle: candidate.rectangle,
+      inViewport: candidate.inViewport,
+      projectedX: candidate.projectedX,
+      projectedY: candidate.projectedY,
+      projectedDepth: candidate.projectedDepth,
+      scale: candidate.scale,
+      priority: candidate.priority,
+      signature: candidate.signature,
+      markerRadiusPx: candidate.markerRadiusPx,
+      occluded: candidate.occluded,
+    })
   })
 
-  return visibleLabelIds.sort((left, right) => left.localeCompare(right))
+  return {
+    visibleLabelIds: visibleLabelIds.sort((left, right) => left.localeCompare(right)),
+    nextLayoutState,
+  }
 }

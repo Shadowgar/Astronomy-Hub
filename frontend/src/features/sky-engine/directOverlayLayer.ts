@@ -16,6 +16,8 @@ import {
   buildLabelTexture,
   getLabelVariantForObject,
   resolveLabelLayout,
+  reusePreviousLabelLayout,
+  type LabelLayoutState,
   type LabelRenderRef,
   type LabelVariant,
 } from './labelManager'
@@ -84,6 +86,36 @@ const COMPASS_CARDINALS = [
   { label: 'S', azimuthDeg: 180 },
   { label: 'W', azimuthDeg: 270 },
 ] as const
+
+const LABEL_RELAYOUT_MOTION_PX = 18
+const LABEL_RELAYOUT_DEPTH_DELTA = 0.06
+const LABEL_RELAYOUT_FOV_DELTA_DEG = 6
+
+interface CachedLabelTextureEntry {
+  readonly texture: DynamicTexture
+  references: number
+}
+
+interface OverlayLabelProjectionSnapshot {
+  readonly screenX: number
+  readonly screenY: number
+  readonly depth: number
+  readonly markerRadiusPx: number
+  readonly signature: string
+  readonly occluded: boolean
+}
+
+interface LabelLayoutFrameState {
+  readonly visibleLabelIds: readonly string[]
+  readonly layoutState: ReadonlyMap<string, LabelLayoutState>
+  readonly projectionState: ReadonlyMap<string, OverlayLabelProjectionSnapshot>
+  readonly fovDegrees: number
+  readonly labelCap: number
+  readonly selectedObjectId: string | null
+  readonly guidedSignature: string
+  readonly viewportWidth: number
+  readonly viewportHeight: number
+}
 
 function isEngineTileSource(source: SkyEngineSceneObject['source']) {
   return source === 'engine_mock_tile' || source === 'engine_hipparcos_tile'
@@ -200,9 +232,14 @@ function getLabelPlaneSize(object: SkyEngineSceneObject) {
   return { width: 176, height: 48 }
 }
 
-function createLabelMesh(scene: Scene, object: SkyEngineSceneObject, text: string, variant: LabelVariant): LabelMeshEntry {
+function createLabelMesh(
+  scene: Scene,
+  object: SkyEngineSceneObject,
+  text: string,
+  variant: LabelVariant,
+  texture = buildLabelTexture(text, variant),
+): LabelMeshEntry {
   const { width, height } = getLabelPlaneSize(object)
-  const texture = buildLabelTexture(text, variant)
   texture.hasAlpha = true
 
   const mesh = MeshBuilder.CreatePlane(`sky-engine-overlay-label-${object.id}`, { width, height }, scene)
@@ -234,7 +271,6 @@ function createLabelMesh(scene: Scene, object: SkyEngineSceneObject, text: strin
 function disposeLabelMesh(entry: LabelMeshEntry) {
   entry.label.dispose()
   entry.labelMaterial.dispose()
-  entry.texture.dispose()
 }
 
 function createCardinalMesh(scene: Scene, id: string, text: string) {
@@ -411,6 +447,131 @@ export function createDirectOverlayLayer(scene: Scene) {
   const lineMeshes = new Map<string, LinesMesh>()
   const labelMeshes = new Map<string, LabelMeshEntry>()
   const cardinalMeshes = new Map<string, CardinalMeshEntry>()
+  const labelTextureCache = new Map<string, CachedLabelTextureEntry>()
+  let labelLayoutFrameState: LabelLayoutFrameState = {
+    visibleLabelIds: [],
+    layoutState: new Map<string, LabelLayoutState>(),
+    projectionState: new Map<string, OverlayLabelProjectionSnapshot>(),
+    fovDegrees: Number.NaN,
+    labelCap: -1,
+    selectedObjectId: null,
+    guidedSignature: '',
+    viewportWidth: 0,
+    viewportHeight: 0,
+  }
+
+  function acquireLabelTexture(signature: string, text: string, variant: LabelVariant) {
+    const cached = labelTextureCache.get(signature)
+
+    if (cached) {
+      cached.references += 1
+      return cached.texture
+    }
+
+    const texture = buildLabelTexture(text, variant)
+    texture.hasAlpha = true
+    labelTextureCache.set(signature, { texture, references: 1 })
+    return texture
+  }
+
+  function releaseLabelTexture(signature: string) {
+    const cached = labelTextureCache.get(signature)
+
+    if (!cached) {
+      return
+    }
+
+    cached.references -= 1
+
+    if (cached.references > 0) {
+      return
+    }
+
+    cached.texture.dispose()
+    labelTextureCache.delete(signature)
+  }
+
+  function createCachedLabelMesh(object: SkyEngineSceneObject, text: string, variant: LabelVariant) {
+    const signature = createLabelSignature(text, variant)
+    const texture = acquireLabelTexture(signature, text, variant)
+    return createLabelMesh(scene, object, text, variant, texture)
+  }
+
+  function replaceLabelTexture(entry: LabelMeshEntry, nextSignature: string, text: string, variant: LabelVariant) {
+    if (entry.signature === nextSignature) {
+      return
+    }
+
+    const nextTexture = acquireLabelTexture(nextSignature, text, variant)
+    releaseLabelTexture(entry.signature)
+    entry.texture = nextTexture
+    entry.labelMaterial.diffuseTexture = nextTexture
+    entry.labelMaterial.opacityTexture = nextTexture
+    entry.signature = nextSignature
+  }
+
+  function disposeCachedLabelMesh(entry: LabelMeshEntry) {
+    releaseLabelTexture(entry.signature)
+    disposeLabelMesh(entry)
+  }
+
+  function buildGuidedSignature(guidedObjectIds: ReadonlySet<string>) {
+    return Array.from(guidedObjectIds).sort((left, right) => left.localeCompare(right)).join('|')
+  }
+
+  function shouldForceLabelRelayout(
+    previousState: LabelLayoutFrameState,
+    projectionState: ReadonlyMap<string, OverlayLabelProjectionSnapshot>,
+    selectedObjectId: string | null,
+    guidedSignature: string,
+    labelCap: number,
+    currentFovDegrees: number,
+    viewportWidth: number,
+    viewportHeight: number,
+  ) {
+    if (!Number.isFinite(previousState.fovDegrees)) {
+      return true
+    }
+
+    if (previousState.selectedObjectId !== selectedObjectId || previousState.labelCap !== labelCap || previousState.guidedSignature !== guidedSignature) {
+      return true
+    }
+
+    if (previousState.viewportWidth !== viewportWidth || previousState.viewportHeight !== viewportHeight) {
+      return true
+    }
+
+    if (Math.abs(previousState.fovDegrees - currentFovDegrees) >= LABEL_RELAYOUT_FOV_DELTA_DEG) {
+      return true
+    }
+
+    if (previousState.projectionState.size !== projectionState.size) {
+      return true
+    }
+
+    for (const [objectId, nextProjection] of Array.from(projectionState.entries())) {
+      const previousProjection = previousState.projectionState.get(objectId)
+
+      if (!previousProjection) {
+        return true
+      }
+
+      if (previousProjection.signature !== nextProjection.signature || previousProjection.occluded !== nextProjection.occluded) {
+        return true
+      }
+
+      const projectedMotion = Math.hypot(previousProjection.screenX - nextProjection.screenX, previousProjection.screenY - nextProjection.screenY)
+      if (projectedMotion >= LABEL_RELAYOUT_MOTION_PX) {
+        return true
+      }
+
+      if (Math.abs(previousProjection.depth - nextProjection.depth) >= LABEL_RELAYOUT_DEPTH_DELTA) {
+        return true
+      }
+    }
+
+    return false
+  }
 
   return {
     sync(
@@ -424,6 +585,7 @@ export function createDirectOverlayLayer(scene: Scene) {
       guidedObjectIds: ReadonlySet<string>,
       sunState: SkyEngineSunState,
       labelCap: number,
+      currentFovDegrees: number,
     ) {
       const nextLineIds = new Set(frame.lines.map((line) => line.id))
 
@@ -502,10 +664,11 @@ export function createDirectOverlayLayer(scene: Scene) {
           return
         }
 
-        disposeLabelMesh(entry)
+        disposeCachedLabelMesh(entry)
         labelMeshes.delete(objectId)
       })
 
+      const nextProjectionState = new Map<string, OverlayLabelProjectionSnapshot>()
       frame.labels.forEach((labelEntry) => {
         const projected = projectedLookup.get(labelEntry.object.id)
 
@@ -518,18 +681,11 @@ export function createDirectOverlayLayer(scene: Scene) {
         let meshEntry = labelMeshes.get(labelEntry.object.id)
 
         if (!meshEntry) {
-          meshEntry = createLabelMesh(scene, labelEntry.object, labelEntry.text, variant)
+          meshEntry = createCachedLabelMesh(labelEntry.object, labelEntry.text, variant)
           labelMeshes.set(labelEntry.object.id, meshEntry)
         }
 
-        if (meshEntry.signature !== nextSignature) {
-          meshEntry.texture.dispose()
-          meshEntry.texture = buildLabelTexture(labelEntry.text, variant)
-          meshEntry.texture.hasAlpha = true
-          meshEntry.labelMaterial.diffuseTexture = meshEntry.texture
-          meshEntry.labelMaterial.opacityTexture = meshEntry.texture
-          meshEntry.signature = nextSignature
-        }
+        replaceLabelTexture(meshEntry, nextSignature, labelEntry.text, variant)
 
         meshEntry.object = labelEntry.object
         meshEntry.label.position.copyFrom(
@@ -541,21 +697,65 @@ export function createDirectOverlayLayer(scene: Scene) {
             0.04,
           ),
         )
+        nextProjectionState.set(labelEntry.object.id, {
+          screenX: projected.screenX,
+          screenY: projected.screenY,
+          depth: projected.depth,
+          markerRadiusPx: projected.markerRadiusPx,
+          signature: nextSignature,
+          occluded: !labelEntry.object.isAboveHorizon,
+        })
       })
 
-      const visibleLabelIds = resolveLabelLayout(
-        scene,
-        camera,
-        engine,
-        Object.fromEntries(labelMeshes.entries()) as Record<string, LabelRenderRef>,
+      const guidedSignature = buildGuidedSignature(guidedObjectIds)
+      const shouldRunFullRelayout = shouldForceLabelRelayout(
+        labelLayoutFrameState,
+        nextProjectionState,
         selectedObjectId,
-        guidedObjectIds,
-        sunState,
+        guidedSignature,
         labelCap,
+        currentFovDegrees,
+        viewportWidth,
+        viewportHeight,
       )
 
+      const labelLayoutResult = shouldRunFullRelayout
+        ? resolveLabelLayout(
+            scene,
+            camera,
+            engine,
+            Object.fromEntries(labelMeshes.entries()) as Record<string, LabelRenderRef>,
+            selectedObjectId,
+            guidedObjectIds,
+            sunState,
+            labelCap,
+            labelLayoutFrameState.layoutState,
+          )
+        : reusePreviousLabelLayout(
+            scene,
+            camera,
+            engine,
+            Object.fromEntries(labelMeshes.entries()) as Record<string, LabelRenderRef>,
+            selectedObjectId,
+            guidedObjectIds,
+            sunState,
+            labelLayoutFrameState.layoutState,
+          )
+
+      labelLayoutFrameState = {
+        visibleLabelIds: labelLayoutResult.visibleLabelIds,
+        layoutState: labelLayoutResult.nextLayoutState,
+        projectionState: nextProjectionState,
+        fovDegrees: currentFovDegrees,
+        labelCap,
+        selectedObjectId,
+        guidedSignature,
+        viewportWidth,
+        viewportHeight,
+      }
+
       return {
-        visibleLabelIds,
+        visibleLabelIds: labelLayoutResult.visibleLabelIds,
         trajectoryObjectId: frame.trajectoryObjectId,
       }
     },
@@ -563,10 +763,23 @@ export function createDirectOverlayLayer(scene: Scene) {
     dispose() {
       lineMeshes.forEach((mesh) => mesh.dispose())
       lineMeshes.clear()
-      labelMeshes.forEach(disposeLabelMesh)
+      labelMeshes.forEach(disposeCachedLabelMesh)
       labelMeshes.clear()
+      labelTextureCache.forEach((entry) => entry.texture.dispose())
+      labelTextureCache.clear()
       cardinalMeshes.forEach(disposeCardinalMesh)
       cardinalMeshes.clear()
+      labelLayoutFrameState = {
+        visibleLabelIds: [],
+        layoutState: new Map<string, LabelLayoutState>(),
+        projectionState: new Map<string, OverlayLabelProjectionSnapshot>(),
+        fovDegrees: Number.NaN,
+        labelCap: -1,
+        selectedObjectId: null,
+        guidedSignature: '',
+        viewportWidth: 0,
+        viewportHeight: 0,
+      }
     },
   }
 }

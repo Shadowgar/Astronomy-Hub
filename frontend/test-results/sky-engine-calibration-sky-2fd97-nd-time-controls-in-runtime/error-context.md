@@ -1,0 +1,72 @@
+# Page snapshot
+
+```yaml
+- main [ref=e4]:
+  - generic "Sky Engine scene" [ref=e6]
+  - generic:
+    - generic "Sky Engine top bar":
+      - generic:
+        - link "Back" [ref=e7] [cursor=pointer]:
+          - /url: /
+        - button "Show inspector" [ref=e8]
+        - button "Reset" [ref=e9]
+      - form "Sky Engine target search" [ref=e10]:
+        - combobox "Search visible sky objects" [ref=e11]
+        - button "Find" [ref=e12]
+      - generic:
+        - generic:
+          - generic: Data
+          - strong: Hipparcos
+        - generic:
+          - generic: FOV
+          - strong: 120°
+        - generic:
+          - generic: Local time
+          - strong: Apr 8, 9:53 AM EDT
+          - generic: +8s · America/New_York · 1x
+        - generic: Daylight
+  - generic:
+    - region "Sky Engine controls":
+      - generic:
+        - generic:
+          - generic: Time scrub
+          - strong: +0m
+        - generic:
+          - generic: HIP · m5.5 · 4 tiles · 1507 stars · L0
+          - generic: Hipparcos · 8,870 stars
+          - generic: Waning Crescent moon
+          - generic: 5 guided now
+      - generic "Scene light band":
+        - generic: Daylight
+        - generic: Twilight
+        - generic: Night
+      - slider "Scene time offset" [ref=e13]: "0"
+      - generic:
+        - generic "Time scale controls":
+          - button "- Step" [ref=e14]
+          - generic:
+            - button "sec" [ref=e15]
+            - button "min" [ref=e16]
+            - button "hr" [ref=e17]
+            - button "day" [ref=e18]
+          - button "+ Step" [ref=e19]
+        - generic "Playback controls":
+          - button "-1h/s" [ref=e20]
+          - button "-1m/s" [ref=e21]
+          - button "Pause" [ref=e22]
+          - button "1x" [ref=e23]
+          - button "+1m/s" [ref=e24]
+          - button "+1h/s" [ref=e25]
+          - button "Reset" [ref=e26]
+      - generic:
+        - generic "Guided sky targets":
+          - button "Vega" [ref=e27]
+          - button "Vega" [ref=e28]
+          - button "HIP 113881" [ref=e29]
+          - button "Deneb" [ref=e30]
+          - button "Moon" [ref=e31]
+        - generic "Sky aid toggles":
+          - button "Constellations" [ref=e32]
+          - button "Compass" [ref=e33]
+          - button "Altitude" [ref=e34]
+```

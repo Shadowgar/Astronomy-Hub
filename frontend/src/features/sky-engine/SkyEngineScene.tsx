@@ -864,6 +864,7 @@ function renderSceneFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot)
     new Set(latest.guidedObjectIds),
     latest.sunState,
     lod.labelCap,
+    currentFovDegrees,
   )
 
   runtime.projectedPickEntries = projectedObjects.map((entry) => ({
