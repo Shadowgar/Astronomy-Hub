@@ -148,7 +148,7 @@ test('sky engine proves moon, labels, aids, guidance, and time controls in runti
   await expect.poll(async () => (await getSceneState(page))?.moonObjectId ?? null).toBe('sky-real-moon')
   const initialState = await getSceneState(page)
   expect(initialState.moonObjectId).toBe('sky-real-moon')
-  expect(initialState.groundTextureMode).toBe('direct-babylon-object-and-overlay-layer')
+  expect(initialState.groundTextureMode).toBe('direct-babylon-background-object-and-overlay-layer')
   expect(initialState.guidanceObjectIds.length).toBeGreaterThanOrEqual(3)
   expect(initialState.guidanceObjectIds.length).toBeLessThanOrEqual(5)
   expect(initialState.controlledLabelCount).toBeLessThanOrEqual(initialState.labelCap)

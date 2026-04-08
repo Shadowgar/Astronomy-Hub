@@ -38,13 +38,12 @@ import {
   buildAtmosphericExtinctionContext,
   computeObservedMagnitude,
 } from './atmosphericExtinction'
-import { renderNightSkyBackground } from './nightSkyBackground'
 import { computeEffectiveLimitingMagnitude, computeSkyBrightness } from './skyBrightness'
 import { computeVisibilityAlpha, computeVisibilitySizeScale } from './starVisibility'
 import { getStarRenderProfile, getStarRenderProfileForMagnitude } from './starRenderer'
-import { buildProceduralSkyBackdrop, buildSyntheticSkyDensityField } from './syntheticStarField'
-import { renderPreethamSkyBackground, blendNightSky } from './preethamSky'
+import { buildSyntheticSkyDensityField } from './syntheticStarField'
 import { createDirectObjectLayer, type DirectProjectedObjectEntry } from './directObjectLayer'
+import { createDirectBackgroundLayer, prepareDirectBackgroundFrame } from './directBackgroundLayer'
 import { createDirectOverlayLayer, prepareDirectOverlayFrame } from './directOverlayLayer'
 import type { SkyScenePacket } from './engine/sky'
 import type { BackendSkySceneStarObject } from '../scene/contracts'
@@ -85,6 +84,7 @@ interface SceneRuntimeRefs {
   camera: UniversalCamera
   canvas: HTMLCanvasElement
   backgroundCanvas: HTMLCanvasElement
+  directBackgroundLayer: ReturnType<typeof createDirectBackgroundLayer>
   directObjectLayer: ReturnType<typeof createDirectObjectLayer>
   directOverlayLayer: ReturnType<typeof createDirectOverlayLayer>
   centerDirection: Vector3
@@ -139,24 +139,11 @@ interface ProjectedSceneObjectEntry extends DirectProjectedObjectEntry {
 }
 
 const SKY_ENGINE_SCENE_STATE_ATTRIBUTE = 'data-sky-engine-scene-state'
+const DENSITY_STARS_CANVAS_FALLBACK = 'density-stars-canvas-fallback'
 const POINTER_DRAG_THRESHOLD_PX = 6
 const STAR_BELOW_HORIZON_FADE_DEG = 8
 const BODY_BELOW_HORIZON_FADE_DEG = 1.5
 const SYNTHETIC_SKY_DENSITY_SAMPLES = buildSyntheticSkyDensityField(2800)
-const PROCEDURAL_SKY_BACKDROP = buildProceduralSkyBackdrop(180)
-const CONSTELLATION_SEGMENTS = [
-  ['sky-real-vega', 'sky-real-sheliak'],
-  ['sky-real-vega', 'sky-real-sulafat'],
-  ['sky-real-deneb', 'sky-real-albireo'],
-  ['sky-real-altair', 'sky-real-tarazed'],
-] as const
-
-const COMPASS_CARDINALS = [
-  { label: 'N', azimuthDeg: 0 },
-  { label: 'E', azimuthDeg: 90 },
-  { label: 'S', azimuthDeg: 180 },
-  { label: 'W', azimuthDeg: 270 },
-] as const
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -335,78 +322,6 @@ function getLabelPriority(object: SkyEngineSceneObject, selectedObjectId: string
   return priority
 }
 
-function drawBackground(
-  context: CanvasRenderingContext2D,
-  width: number,
-  height: number,
-  sunState: SkyEngineSunState,
-  view: SkyProjectionView | null,
-) {
-  if (view) {
-    // Preetham physically-based sky when projection view is available
-    const calibration = sunState.visualCalibration
-    const dayExposure = calibration.atmosphereExposure
-    // Turbidity: clear=2 for night, slightly hazy=3 for day, hazier at low sun
-    let turbidity = 2.8
-    if (sunState.phaseLabel === 'Low Sun') {
-      turbidity = 4
-    } else if (sunState.phaseLabel === 'Night') {
-      turbidity = 2.2
-    }
-
-    renderPreethamSkyBackground(context, width, height, {
-      sunAltDeg: sunState.altitudeDeg,
-      sunAzDeg: sunState.azimuthDeg,
-      turbidity,
-      exposure: clamp(dayExposure, 0.6, 1.4),
-    }, (sx, sy) => {
-      const dir = unprojectViewportPoint(sx, sy, view)
-      return { dirEast: dir.x, dirUp: dir.y, dirNorth: dir.z }
-    })
-
-    // Cross-fade to calibrated night sky colors below the horizon
-    blendNightSky(
-      context, width, height,
-      sunState.altitudeDeg,
-      calibration.skyZenithColorHex,
-      calibration.skyHorizonColorHex,
-    )
-
-    renderNightSkyBackground(
-      context,
-      width,
-      height,
-      sunState.altitudeDeg,
-      (sx, sy) => {
-        const dir = unprojectViewportPoint(sx, sy, view)
-        return { dirEast: dir.x, dirUp: dir.y, dirNorth: dir.z }
-      },
-    )
-  } else {
-    // Fallback: simple gradient (initial frame before view is ready)
-    const skyGradient = context.createLinearGradient(0, 0, 0, height)
-    skyGradient.addColorStop(0, sunState.visualCalibration.skyZenithColorHex)
-    skyGradient.addColorStop(0.82, sunState.visualCalibration.skyHorizonColorHex)
-    skyGradient.addColorStop(1, sunState.visualCalibration.backgroundColorHex)
-    context.fillStyle = skyGradient
-    context.fillRect(0, 0, width, height)
-  }
-
-  // Subtle vignette for depth
-  const vignette = context.createRadialGradient(
-    width * 0.5,
-    height * 0.46,
-    Math.min(width, height) * 0.08,
-    width * 0.5,
-    height * 0.46,
-    Math.min(width, height) * 0.72,
-  )
-  vignette.addColorStop(0, 'rgba(0, 0, 0, 0)')
-  vignette.addColorStop(1, 'rgba(0, 0, 0, 0.18)')
-  context.fillStyle = vignette
-  context.fillRect(0, 0, width, height)
-}
-
 function getSyntheticDensityMagnitudeLimit(fovDegrees: number, renderLimitingMagnitude: number) {
   const closeBlend = 1 - smoothstep(18, 120, fovDegrees)
   const ultraCloseBlend = 1 - smoothstep(0.7, 6, fovDegrees)
@@ -423,169 +338,6 @@ function getSyntheticDensityBudget(fovDegrees: number, sunState: SkyEngineSunSta
   const closeBoost = mix(1, 1.45, ultraCloseBlend)
 
   return Math.round(baseBudget * closeBoost * (0.3 + visibility * 0.7) * (0.34 + brightness * 0.66))
-}
-
-function getBackdropOpacity(sunState: SkyEngineSunState) {
-  return clamp(sunState.visualCalibration.starVisibility * 0.62 + sunState.visualCalibration.starFieldBrightness * 0.24, 0, 1)
-}
-
-function drawProceduralSkyBackdrop(
-  context: CanvasRenderingContext2D,
-  view: SkyProjectionView,
-  sunState: SkyEngineSunState,
-  fovDegrees: number,
-) {
-  const backdropOpacity = getBackdropOpacity(sunState)
-
-  if (backdropOpacity <= 0.08) {
-    return
-  }
-
-  const projectionScale = getProjectionScale(view)
-  const wideBlend = smoothstep(80, 185, fovDegrees)
-
-  context.save()
-  PROCEDURAL_SKY_BACKDROP.forEach((patch) => {
-    const projected = projectDirectionToViewport(patch.direction, view)
-
-    if (!projected || !isProjectedPointVisible(projected, view, 120)) {
-      return
-    }
-
-    const radiusPx = clamp(projectionScale * Math.tan(degreesToRadians(patch.radiusDeg) * 0.5), 28, 240)
-    const alpha = patch.alpha * backdropOpacity * (0.35 + patch.bandWeight * 0.95) * (0.56 + wideBlend * 0.44)
-
-    if (alpha <= 0.004) {
-      return
-    }
-
-    const glow = context.createRadialGradient(projected.screenX, projected.screenY, 0, projected.screenX, projected.screenY, radiusPx)
-    glow.addColorStop(0, hexToRgba(patch.colorHex, alpha * 0.34))
-    glow.addColorStop(0.42, hexToRgba(patch.colorHex, alpha * 0.16))
-    glow.addColorStop(1, hexToRgba(patch.colorHex, 0))
-    context.fillStyle = glow
-    context.beginPath()
-    context.arc(projected.screenX, projected.screenY, radiusPx, 0, Math.PI * 2)
-    context.fill()
-  })
-  context.restore()
-}
-
-function getLandscapeOpacity(centerAltitudeDeg: number, fovDegrees: number) {
-  const baseOpacity = smoothstep(1, 20, fovDegrees)
-  const belowHorizonReveal = getBelowHorizonVisibility(centerAltitudeDeg, fovDegrees)
-
-  return clamp(mix(baseOpacity, baseOpacity * 0.28, belowHorizonReveal), 0.12, 1)
-}
-
-function getBelowHorizonVisibility(centerAltitudeDeg: number, _fovDegrees: number) {
-  return centerAltitudeDeg < 0 ? 1 : 0
-}
-
-function drawLandscapeMask(
-  context: CanvasRenderingContext2D,
-  view: SkyProjectionView,
-  sunState: SkyEngineSunState,
-  centerAltitudeDeg: number,
-  fovDegrees: number,
-) {
-  const landscapeOpacity = getLandscapeOpacity(centerAltitudeDeg, fovDegrees)
-
-  if (landscapeOpacity <= 0.02) {
-    return
-  }
-
-  // Smaller cells for smoother horizon gradient
-  let cellSize = 6
-  if (fovDegrees >= 150) {
-    cellSize = 8
-  } else if (fovDegrees >= 60) {
-    cellSize = 10
-  }
-  const fogRgb = hexToRgb(sunState.visualCalibration.landscapeFogColorHex)
-  const groundRgb = hexToRgb(sunState.visualCalibration.groundTintHex)
-  const backgroundRgb = hexToRgb(sunState.visualCalibration.backgroundColorHex)
-  const horizonRgb = hexToRgb(sunState.visualCalibration.skyHorizonColorHex)
-
-  context.save()
-
-  for (let y = 0; y < view.viewportHeight; y += cellSize) {
-    const cellHeight = Math.min(cellSize, view.viewportHeight - y)
-
-    for (let x = 0; x < view.viewportWidth; x += cellSize) {
-      const cellWidth = Math.min(cellSize, view.viewportWidth - x)
-      const direction = unprojectViewportPoint(x + cellWidth * 0.5, y + cellHeight * 0.5, view)
-      const altitudeDeg = directionToHorizontal(direction).altitudeDeg
-
-      // Two-zone transition: sky-fog blend from +8° to 0°, fog-ground blend from 0° to -14°
-      const skyFogBlend = smoothstep(8, 0, altitudeDeg)
-      const groundBlend = smoothstep(0, -14, altitudeDeg)
-
-      if (skyFogBlend <= 0.001) {
-        continue
-      }
-
-      // Near-horizon fog zone: blend sky color into fog
-      const fogAlpha = skyFogBlend * (1 - groundBlend)
-      // Below-horizon ground zone
-      const solidAlpha = groundBlend
-
-      // Composite: horizon gets a fog layer, below gets ground
-      const fogWeight = fogAlpha * 0.65
-      const groundWeight = solidAlpha * 0.82
-
-      const totalWeight = fogWeight + groundWeight
-      if (totalWeight <= 0.002) {
-        continue
-      }
-
-      const red = (fogWeight * mix(horizonRgb.red, fogRgb.red, 0.4) + groundWeight * mix(groundRgb.red, backgroundRgb.red, 0.3)) / totalWeight
-      const green = (fogWeight * mix(horizonRgb.green, fogRgb.green, 0.4) + groundWeight * mix(groundRgb.green, backgroundRgb.green, 0.3)) / totalWeight
-      const blue = (fogWeight * mix(horizonRgb.blue, fogRgb.blue, 0.4) + groundWeight * mix(groundRgb.blue, backgroundRgb.blue, 0.3)) / totalWeight
-      const alpha = landscapeOpacity * totalWeight
-
-      context.fillStyle = `rgba(${Math.round(red)}, ${Math.round(green)}, ${Math.round(blue)}, ${clamp(alpha, 0, 1)})`
-      context.fillRect(x, y, cellWidth + 0.5, cellHeight + 0.5)
-    }
-  }
-
-  context.restore()
-}
-
-function drawSolarGlare(context: CanvasRenderingContext2D, view: SkyProjectionView, sunState: SkyEngineSunState) {
-  if (sunState.altitudeDeg < -6) {
-    return
-  }
-
-  const projectedSun = projectHorizontalToViewport(sunState.altitudeDeg, sunState.azimuthDeg, view)
-
-  if (!projectedSun || !isProjectedPointVisible(projectedSun, view, 180)) {
-    return
-  }
-
-  const horizonFade = clamp((sunState.altitudeDeg + 6) / 18, 0, 1)
-  const discRadius = clamp(getProjectionScale(view) * Math.tan((0.53 * Math.PI) / 360), 8, 22)
-  const outerGlow = discRadius * (sunState.altitudeDeg > 0 ? 12 : 18)
-  const glare = context.createRadialGradient(projectedSun.screenX, projectedSun.screenY, discRadius * 0.3, projectedSun.screenX, projectedSun.screenY, outerGlow)
-  glare.addColorStop(0, `rgba(255, 248, 228, ${0.36 * horizonFade})`)
-  glare.addColorStop(0.2, `rgba(255, 214, 148, ${0.18 * horizonFade})`)
-  glare.addColorStop(1, 'rgba(255, 214, 148, 0)')
-
-  context.save()
-  context.fillStyle = glare
-  context.beginPath()
-  context.arc(projectedSun.screenX, projectedSun.screenY, outerGlow, 0, Math.PI * 2)
-  context.fill()
-
-  const discGradient = context.createRadialGradient(projectedSun.screenX - discRadius * 0.25, projectedSun.screenY - discRadius * 0.3, discRadius * 0.15, projectedSun.screenX, projectedSun.screenY, discRadius)
-  discGradient.addColorStop(0, `rgba(255, 255, 244, ${0.96 * horizonFade})`)
-  discGradient.addColorStop(0.6, `rgba(255, 227, 162, ${0.94 * horizonFade})`)
-  discGradient.addColorStop(1, `rgba(255, 182, 96, ${0.9 * horizonFade})`)
-  context.fillStyle = discGradient
-  context.beginPath()
-  context.arc(projectedSun.screenX, projectedSun.screenY, discRadius, 0, Math.PI * 2)
-  context.fill()
-  context.restore()
 }
 
 function drawDeepSkyMarker(context: CanvasRenderingContext2D, object: SkyEngineSceneObject, x: number, y: number, radius: number) {
@@ -1088,12 +840,9 @@ function renderSceneFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot)
   )
 
   backgroundContext.clearRect(0, 0, width, height)
-
-  drawBackground(backgroundContext, width, height, latest.sunState, view)
-  drawProceduralSkyBackdrop(backgroundContext, view, latest.sunState, currentFovDegrees)
-  drawSolarGlare(backgroundContext, view, latest.sunState)
+  const backgroundFrame = prepareDirectBackgroundFrame(view, latest.sunState, currentFovDegrees)
+  runtime.directBackgroundLayer.sync(backgroundFrame)
   drawSyntheticDensityStars(backgroundContext, view, projectedObjects, latest.sunState, latest.observer, sceneTimestampIso, limitingMagnitude)
-  drawLandscapeMask(backgroundContext, view, latest.sunState, centerAltitudeDeg, currentFovDegrees)
 
   syncDirectObjectLayer(runtime, projectedObjects, latest, width, height)
   const overlayFrame = prepareDirectOverlayFrame(
@@ -1218,6 +967,7 @@ export default function SkyEngineScene({
       camera,
       canvas,
       backgroundCanvas,
+      directBackgroundLayer: createDirectBackgroundLayer(scene),
       directObjectLayer: createDirectObjectLayer(scene),
       directOverlayLayer: createDirectOverlayLayer(scene),
       centerDirection: stabilizeSkyEngineCenterDirection(
@@ -1248,7 +998,7 @@ export default function SkyEngineScene({
 
     propsRef.current.onAtmosphereStatusChange({
       mode: 'fallback',
-      message: 'Direct Babylon object, aid, trajectory, and label rendering is active over the observer-centered projection background.',
+      message: 'Direct Babylon background, object, aid, trajectory, and label rendering is active with a bounded density-star canvas fallback.',
     })
 
     const handleWheel = (event: WheelEvent) => {
@@ -1468,8 +1218,8 @@ export default function SkyEngineScene({
         currentFovDegrees: currentFovTenths / 10,
         currentLodTier: frame.lod.tier,
         labelCap: frame.lod.labelCap,
-        groundTextureMode: 'direct-babylon-object-and-overlay-layer',
-        groundTextureAssetPath: 'direct-babylon objects with Babylon-native aid, label, and trajectory overlays',
+        groundTextureMode: 'direct-babylon-background-object-and-overlay-layer',
+        groundTextureAssetPath: `direct Babylon backdrop, glare, horizon blocking, objects, and overlays with ${DENSITY_STARS_CANVAS_FALLBACK}`,
       })
 
       scene.render()
@@ -1485,6 +1235,7 @@ export default function SkyEngineScene({
       globalThis.removeEventListener('resize', handleResize)
       clearSkyEnginePickTargets(canvas)
       clearSceneState(canvas)
+      runtimeRefs.current?.directBackgroundLayer.dispose()
       runtimeRefs.current?.directObjectLayer.dispose()
       runtimeRefs.current?.directOverlayLayer.dispose()
       runtimeRefs.current = null
@@ -1496,7 +1247,7 @@ export default function SkyEngineScene({
   useEffect(() => {
     onAtmosphereStatusChange({
       mode: 'fallback',
-      message: `Direct Babylon objects, labels, aids, and trajectories are active for ${sunState.phaseLabel.toLowerCase()} conditions.`,
+      message: `Direct Babylon backdrop, glare, horizon blocking, objects, labels, aids, and trajectories are active for ${sunState.phaseLabel.toLowerCase()} conditions with ${DENSITY_STARS_CANVAS_FALLBACK}.`,
     })
   }, [onAtmosphereStatusChange, sunState])
 
