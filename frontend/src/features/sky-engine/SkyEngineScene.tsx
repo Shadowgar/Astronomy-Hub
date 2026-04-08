@@ -467,13 +467,6 @@ function drawProceduralSkyBackdrop(
   context.restore()
 }
 
-function getBelowHorizonReveal(centerAltitudeDeg: number, fovDegrees: number) {
-  const downwardReveal = smoothstep(0, 45, -centerAltitudeDeg)
-  const wideBlend = smoothstep(90, 185, fovDegrees)
-
-  return clamp(downwardReveal * (0.55 + wideBlend * 0.45), 0, 1)
-}
-
 function getLandscapeOpacity(centerAltitudeDeg: number, fovDegrees: number) {
   const forwardAltitudeDeg = Math.max(-90, Math.min(90, centerAltitudeDeg))
   let alpha = smoothstep(1, 20, fovDegrees)
@@ -483,31 +476,58 @@ function getLandscapeOpacity(centerAltitudeDeg: number, fovDegrees: number) {
   return clamp(alpha, 0.18, 1)
 }
 
-function drawBelowHorizonSkyContinuation(
+function getBelowHorizonVisibility(centerAltitudeDeg: number, fovDegrees: number) {
+  if (centerAltitudeDeg >= 0) {
+    return 0
+  }
+
+  return clamp(1 - getLandscapeOpacity(centerAltitudeDeg, fovDegrees), 0, 1)
+}
+
+function drawLandscapeMask(
   context: CanvasRenderingContext2D,
   view: SkyProjectionView,
   sunState: SkyEngineSunState,
   centerAltitudeDeg: number,
   fovDegrees: number,
 ) {
-  const reveal = getBelowHorizonReveal(centerAltitudeDeg, fovDegrees)
+  const landscapeOpacity = getLandscapeOpacity(centerAltitudeDeg, fovDegrees)
 
-  if (reveal <= 0.02) {
+  if (landscapeOpacity <= 0.02) {
     return
   }
-
-  const continuationAltitudes = [-12, -28, -46]
+  const cellSize = fovDegrees >= 150 ? 12 : 14
+  const fogRgb = hexToRgb(sunState.visualCalibration.landscapeFogColorHex)
+  const groundRgb = hexToRgb(sunState.visualCalibration.groundTintHex)
+  const backgroundRgb = hexToRgb(sunState.visualCalibration.backgroundColorHex)
 
   context.save()
-  continuationAltitudes.forEach((altitudeDeg, index) => {
-    const alpha = (0.05 + reveal * 0.14) * (1 - index * 0.18)
-    drawCurve(
-      context,
-      buildConstantAltitudeCurve(view, altitudeDeg),
-      hexToRgba(sunState.visualCalibration.skyHorizonColorHex, alpha),
-      1.8 - index * 0.25,
-    )
-  })
+
+  for (let y = 0; y < view.viewportHeight; y += cellSize) {
+    const cellHeight = Math.min(cellSize, view.viewportHeight - y)
+    const verticalBlend = clamp((y + cellHeight * 0.5) / Math.max(view.viewportHeight, 1), 0, 1)
+
+    for (let x = 0; x < view.viewportWidth; x += cellSize) {
+      const cellWidth = Math.min(cellSize, view.viewportWidth - x)
+      const direction = unprojectViewportPoint(x + cellWidth * 0.5, y + cellHeight * 0.5, view)
+      const altitudeDeg = directionToHorizontal(direction).altitudeDeg
+      const maskAmount = smoothstep(6, -10, altitudeDeg)
+
+      if (maskAmount <= 0.002) {
+        continue
+      }
+
+      const colorBlend = 0.22 + verticalBlend * 0.6
+      const red = mix(fogRgb.red, mix(groundRgb.red, backgroundRgb.red, 0.24), colorBlend)
+      const green = mix(fogRgb.green, mix(groundRgb.green, backgroundRgb.green, 0.24), colorBlend)
+      const blue = mix(fogRgb.blue, mix(groundRgb.blue, backgroundRgb.blue, 0.24), colorBlend)
+      const alpha = landscapeOpacity * maskAmount * (0.2 + verticalBlend * 0.72)
+
+      context.fillStyle = `rgba(${Math.round(red)}, ${Math.round(green)}, ${Math.round(blue)}, ${alpha})`
+      context.fillRect(x, y, cellWidth + 0.6, cellHeight + 0.6)
+    }
+  }
+
   context.restore()
 }
 
@@ -686,39 +706,14 @@ function drawAidLayers(
   const horizonCurve = buildConstantAltitudeCurve(view, 0)
   const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
 
-  if (horizonCurve.length >= 2) {
-    const groundBoundaryCurve = buildGroundBoundaryCurve(horizonCurve, view.viewportWidth)
-    const topY = Math.min(...groundBoundaryCurve.map((point) => point.y))
-    const landscapeOpacity = getLandscapeOpacity(centerAltitudeDeg, fovDegrees)
-    const groundGradient = context.createLinearGradient(0, topY, 0, view.viewportHeight)
-    groundGradient.addColorStop(0, hexToRgba(sunState.visualCalibration.landscapeFogColorHex, landscapeOpacity * 0.08))
-    groundGradient.addColorStop(0.24, hexToRgba(sunState.visualCalibration.groundTintHex, landscapeOpacity * 0.2))
-    groundGradient.addColorStop(1, hexToRgba(sunState.visualCalibration.backgroundColorHex, landscapeOpacity * 0.82))
-
-    context.save()
-    if (landscapeOpacity > 0.045) {
-      context.fillStyle = groundGradient
-      context.beginPath()
-      context.moveTo(groundBoundaryCurve[0].x, groundBoundaryCurve[0].y)
-      groundBoundaryCurve.slice(1).forEach((point) => {
-        context.lineTo(point.x, point.y)
-      })
-      context.lineTo(view.viewportWidth + 2, view.viewportHeight + 2)
-      context.lineTo(-2, view.viewportHeight + 2)
-      context.closePath()
-      context.fill()
-    }
-    context.restore()
-  }
-
-  drawBelowHorizonSkyContinuation(context, view, sunState, centerAltitudeDeg, fovDegrees)
+  drawLandscapeMask(context, view, sunState, centerAltitudeDeg, fovDegrees)
 
   if (aidVisibility.altitudeRings) {
     ;[15, 30, 45, 60].forEach((altitudeDeg) => {
       drawCurve(context, buildConstantAltitudeCurve(view, altitudeDeg), hexToRgba('#9ecbff', 0.11), 1, true)
     })
 
-    if (getBelowHorizonReveal(centerAltitudeDeg, fovDegrees) > 0.08) {
+    if (getBelowHorizonVisibility(centerAltitudeDeg, fovDegrees) > 0.08) {
       ;[-15, -30, -45].forEach((altitudeDeg) => {
         drawCurve(context, buildConstantAltitudeCurve(view, altitudeDeg), hexToRgba('#8ebfff', 0.08), 1, true)
       })
@@ -1098,16 +1093,7 @@ function getObjectHorizonFade(object: SkyEngineSceneObject, centerAltitudeDeg: n
     return 0
   }
 
-  const belowHorizonReveal = getBelowHorizonReveal(centerAltitudeDeg, fovDegrees)
-  let fadeRange = object.type === 'star' ? STAR_BELOW_HORIZON_FADE_DEG : BODY_BELOW_HORIZON_FADE_DEG
-
-  if (object.type === 'star') {
-    fadeRange += belowHorizonReveal * 118
-  } else if (object.type === 'deep_sky') {
-    fadeRange += belowHorizonReveal * 36
-  }
-
-  return clamp((object.altitudeDeg + fadeRange) / fadeRange, 0, 1)
+  return 1
 }
 
 function drawProjectedObjects(
@@ -1500,8 +1486,8 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
 
   drawProceduralSkyBackdrop(context, view, latest.sunState, currentFovDegrees)
   drawSolarGlare(context, view, latest.sunState)
-  drawAidLayers(context, view, latest.aidVisibility, latest.sunState, currentFovDegrees)
   const projectedObjects = drawProjectedObjects(context, view, latest.objects, latest.scenePacket, latest.sunState, latest.selectedObjectId)
+  drawAidLayers(context, view, latest.aidVisibility, latest.sunState, currentFovDegrees)
 
   if (latest.aidVisibility.constellations) {
     drawConstellationOverlay(context, projectedObjects)
@@ -1693,6 +1679,7 @@ export default function SkyEngineScene({
 
       runtime.centerDirection = rotateVectorTowardPointerAnchor(runtime.centerDirection, nextPointerDirection, previousPointerDirection).normalizeToNew()
       runtime.targetVector = null
+      runtime.currentFov = nextDesiredFov
       runtime.desiredFov = nextDesiredFov
     }
 
@@ -1763,7 +1750,7 @@ export default function SkyEngineScene({
 
       runtime.activePointerId = null
       runtime.dragAnchorDirection = null
-  runtime.dragBaseCenterDirection = null
+        runtime.dragBaseCenterDirection = null
       runtime.dragMoved = false
 
       if (canvas.hasPointerCapture(pointerId)) {

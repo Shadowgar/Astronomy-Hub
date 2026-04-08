@@ -12,23 +12,22 @@ export const SKY_ENGINE_MIN_FOV = STELLARIUM_MIN_FOV_DEGREES * DEGREE
 export const SKY_ENGINE_MAX_FOV = BABYLON_SAFE_MAX_FOV_DEGREES * DEGREE
 const SKY_ENGINE_WHEEL_ZOOM_FACTOR = 1.05
 
-function clampDotProduct(value: number) {
-  return Math.min(1, Math.max(-1, value))
-}
-
-function rotateVectorAroundAxis(vector: Vector3, axis: Vector3, angle: number) {
-  const normalizedAxis = axis.normalizeToNew()
-  const cosAngle = Math.cos(angle)
-  const sinAngle = Math.sin(angle)
-  const parallelComponent = normalizedAxis.scale(Vector3.Dot(normalizedAxis, vector) * (1 - cosAngle))
-
-  return vector.scale(cosAngle)
-    .add(Vector3.Cross(normalizedAxis, vector).scale(sinAngle))
-    .add(parallelComponent)
-}
-
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
+}
+
+function normalizeSignedDegrees(value: number) {
+  let normalizedValue = value
+
+  while (normalizedValue <= -180) {
+    normalizedValue += 360
+  }
+
+  while (normalizedValue > 180) {
+    normalizedValue -= 360
+  }
+
+  return normalizedValue
 }
 
 export function stabilizeSkyEngineCenterDirection(direction: Vector3) {
@@ -68,27 +67,24 @@ export function rotateVectorTowardPointerAnchor(
     return currentTarget.clone()
   }
 
-  const sourceDirection = nextPointerDirection.normalizeToNew()
-  const targetDirection = previousPointerDirection.normalizeToNew()
-  const dotProduct = clampDotProduct(Vector3.Dot(sourceDirection, targetDirection))
+  const currentHorizontal = directionToHorizontal(currentTarget)
+  const nextHorizontal = directionToHorizontal(nextPointerDirection)
+  const previousHorizontal = directionToHorizontal(previousPointerDirection)
+  const altitudeDeltaDeg = previousHorizontal.altitudeDeg - nextHorizontal.altitudeDeg
+  const azimuthDeltaDeg = normalizeSignedDegrees(previousHorizontal.azimuthDeg - nextHorizontal.azimuthDeg)
 
-  if (dotProduct > 0.999999) {
+  if (Math.abs(altitudeDeltaDeg) < 1e-6 && Math.abs(azimuthDeltaDeg) < 1e-6) {
     return currentTarget.clone()
   }
 
-  let rotationAxis = Vector3.Cross(sourceDirection, targetDirection)
-
-  if (rotationAxis.lengthSquared() < 1e-10) {
-    rotationAxis = Vector3.Cross(sourceDirection, Math.abs(sourceDirection.y) < 0.98 ? Vector3.Up() : Vector3.Right())
-  }
-
-  const rotatedDirection = rotateVectorAroundAxis(
-    currentTarget.normalizeToNew(),
-    rotationAxis,
-    Math.acos(dotProduct),
+  const nextAltitudeDeg = clamp(
+    currentHorizontal.altitudeDeg + altitudeDeltaDeg,
+    -SKY_ENGINE_MAX_PITCH_DEGREES,
+    SKY_ENGINE_MAX_PITCH_DEGREES,
   )
+  const nextAzimuthDeg = ((currentHorizontal.azimuthDeg + azimuthDeltaDeg) % 360 + 360) % 360
 
-  return stabilizeSkyEngineCenterDirection(rotatedDirection).scale(currentTarget.length())
+  return horizontalToDirection(nextAltitudeDeg, nextAzimuthDeg).scale(currentTarget.length())
 }
 
 export function getSelectionTargetVector(object: SkyEngineSceneObject) {
