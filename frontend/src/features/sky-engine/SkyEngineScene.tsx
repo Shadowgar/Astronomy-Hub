@@ -106,6 +106,8 @@ interface SceneRuntimeRefs {
   lastReportedFovTenths: number | null
   lastReportedCenterAltTenths: number | null
   lastReportedCenterAzTenths: number | null
+  needsRender: boolean
+  renderedPropsVersion: number
 }
 
 interface SceneStateWriteInput {
@@ -1673,6 +1675,7 @@ export default function SkyEngineScene({
 }: SkyEngineSceneProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const runtimeRefs = useRef<SceneRuntimeRefs | null>(null)
+  const propsVersionRef = useRef(0)
   const propsRef = useRef<ScenePropsSnapshot>({
     backendStars,
     observer,
@@ -1690,6 +1693,7 @@ export default function SkyEngineScene({
   })
 
   useEffect(() => {
+    propsVersionRef.current += 1
     propsRef.current = {
       backendStars,
       observer,
@@ -1704,6 +1708,10 @@ export default function SkyEngineScene({
       onSelectObject,
       onAtmosphereStatusChange,
       onViewStateChange,
+    }
+
+    if (runtimeRefs.current) {
+      runtimeRefs.current.needsRender = true
     }
   }, [aidVisibility, backendStars, guidedObjectIds, initialViewState, objects, observer, onAtmosphereStatusChange, onSelectObject, onViewStateChange, projectionMode, scenePacket, selectedObjectId, sunState])
 
@@ -1768,6 +1776,8 @@ export default function SkyEngineScene({
       lastReportedFovTenths: null,
       lastReportedCenterAltTenths: null,
       lastReportedCenterAzTenths: null,
+      needsRender: true,
+      renderedPropsVersion: -1,
     }
 
     propsRef.current.onAtmosphereStatusChange({
@@ -1912,7 +1922,13 @@ export default function SkyEngineScene({
       releasePointer(event.pointerId)
     }
 
-    const handleResize = () => engine.resize()
+    const handleResize = () => {
+      engine.resize()
+
+      if (runtimeRefs.current) {
+        runtimeRefs.current.needsRender = true
+      }
+    }
     canvas.addEventListener('wheel', handleWheel, { passive: false })
     canvas.addEventListener('pointerdown', handlePointerDown)
     canvas.addEventListener('pointermove', handlePointerMove)
@@ -1933,12 +1949,26 @@ export default function SkyEngineScene({
       runtime.lastFrameTime = now
 
       syncNavigationState(runtime, latest.objects, latest.selectedObjectId)
+      const previousCenterDirection = runtime.centerDirection
+      const previousFov = runtime.currentFov
       const navigation = updateObserverNavigation(runtime.centerDirection, runtime.currentFov, runtime.desiredFov, runtime.targetVector, deltaSeconds)
+      const navigationChanged = !navigation.centerDirection.equalsWithEpsilon(previousCenterDirection, 0.000001)
+        || Math.abs(navigation.fovRadians - previousFov) > 0.000001
       runtime.centerDirection = navigation.centerDirection
       runtime.currentFov = navigation.fovRadians
       runtime.targetVector = navigation.targetVector
 
+      const shouldRenderFrame = runtime.needsRender
+        || navigationChanged
+        || runtime.renderedPropsVersion !== propsVersionRef.current
+
+      if (!shouldRenderFrame) {
+        return
+      }
+
       const frame = renderProjectionFrame(runtime, latest)
+      runtime.needsRender = false
+      runtime.renderedPropsVersion = propsVersionRef.current
       const currentFovTenths = Math.round(getSkyEngineFovDegrees(runtime.currentFov) * 10)
       const centerHorizontal = directionToHorizontal(runtime.centerDirection)
       const currentCenterAltTenths = Math.round(centerHorizontal.altitudeDeg * 10)
