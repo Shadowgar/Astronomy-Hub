@@ -43,6 +43,7 @@ import {
   buildAtmosphericExtinctionContext,
   computeObservedMagnitude,
 } from './atmosphericExtinction'
+import { renderNightSkyBackground } from './nightSkyBackground'
 import { computeLimitingMagnitude, computeSkyBrightness } from './skyBrightness'
 import { computeVisibilityAlpha, computeVisibilitySizeScale } from './starVisibility'
 import { getStarRenderProfile, getStarRenderProfileForMagnitude } from './starRenderer'
@@ -405,6 +406,17 @@ function drawBackground(
       sunState.altitudeDeg,
       calibration.skyZenithColorHex,
       calibration.skyHorizonColorHex,
+    )
+
+    renderNightSkyBackground(
+      context,
+      width,
+      height,
+      sunState.altitudeDeg,
+      (sx, sy) => {
+        const dir = unprojectViewportPoint(sx, sy, view)
+        return { dirEast: dir.x, dirUp: dir.y, dirNorth: dir.z }
+      },
     )
   } else {
     // Fallback: simple gradient (initial frame before view is ready)
