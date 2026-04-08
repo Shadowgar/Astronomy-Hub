@@ -43,6 +43,7 @@ import {
   buildAtmosphericExtinctionContext,
   computeObservedMagnitude,
 } from './atmosphericExtinction'
+import { computeLimitingMagnitude, computeSkyBrightness } from './skyBrightness'
 import { getStarRenderProfile, getStarRenderProfileForMagnitude } from './starRenderer'
 import { buildProceduralSkyBackdrop, buildSyntheticSkyDensityField } from './syntheticStarField'
 import { renderPreethamSkyBackground, blendNightSky } from './preethamSky'
@@ -262,7 +263,7 @@ function resolveViewTier(fovDegrees: number) {
   return { tier: 'close' as const, labelCap: 10 }
 }
 
-function getVisibleStarMagnitudeLimit(fovDegrees: number, sunState: SkyEngineSunState) {
+function getVisibleStarMagnitudeLimit(fovDegrees: number) {
   let limit = 4.2
 
   if (fovDegrees >= 120) {
@@ -275,15 +276,14 @@ function getVisibleStarMagnitudeLimit(fovDegrees: number, sunState: SkyEngineSun
     limit = 3.4
   }
 
-  const daylightPenalty = (1 - sunState.visualCalibration.starVisibility) * 2.8
-  return limit - daylightPenalty
+  return limit
 }
 
 function shouldRenderObject(
   object: SkyEngineSceneObject,
   centerAltitudeDeg: number,
   fovDegrees: number,
-  sunState: SkyEngineSunState,
+  _sunState: SkyEngineSunState,
   selectedObjectId: string | null,
 ) {
   if (isEngineTileSource(object.source)) {
@@ -299,7 +299,7 @@ function shouldRenderObject(
   }
 
   if (object.type === 'star' && object.source === 'computed_real_sky') {
-    return object.magnitude <= getVisibleStarMagnitudeLimit(fovDegrees, sunState)
+    return object.magnitude <= getVisibleStarMagnitudeLimit(fovDegrees)
   }
 
   return true
@@ -430,7 +430,7 @@ function drawBackground(
 }
 
 function getSyntheticDensityMagnitudeLimit(fovDegrees: number, sunState: SkyEngineSunState) {
-  const baseLimit = getVisibleStarMagnitudeLimit(fovDegrees, sunState)
+  const baseLimit = getVisibleStarMagnitudeLimit(fovDegrees)
 
   if (fovDegrees >= 130) {
     return clamp(baseLimit + 3.4, 4.2, 7.2)
@@ -1075,9 +1075,10 @@ function drawSyntheticDensityStars(
   sunState: SkyEngineSunState,
   observer: SkyEngineObserver,
   sceneTimestampIso: string | undefined,
+  limitingMagnitude: number,
 ) {
   const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
-  const magnitudeLimit = getSyntheticDensityMagnitudeLimit(fovDegrees, sunState)
+  const magnitudeLimit = Math.min(getSyntheticDensityMagnitudeLimit(fovDegrees, sunState), limitingMagnitude)
   const densityBudget = getSyntheticDensityBudget(fovDegrees, sunState)
 
   if (densityBudget <= 0) {
@@ -1126,7 +1127,7 @@ function drawSyntheticDensityStars(
     const distanceToCenter = Math.hypot(projected.screenX - viewportCenterX, projected.screenY - viewportCenterY)
     const normalizedCenterDistance = clamp(distanceToCenter / Math.max(view.viewportWidth, view.viewportHeight), 0, 1)
     const centerFill = 1 + wideBlend * (1 - normalizedCenterDistance) * 0.38
-  const profile = getStarRenderProfileForMagnitude(renderedMagnitude, sample.colorIndexBV, sunState.visualCalibration)
+    const profile = getStarRenderProfileForMagnitude(renderedMagnitude, sample.colorIndexBV, sunState.visualCalibration)
     const markerRadiusPx = clamp((profile.coreRadiusPx * 0.46 + sample.size * 0.7) * (0.9 + closeBlend * 0.3) * centerFill, 0.34, 2.4)
     const twinkle = 1 + Math.sin(animationTime + sample.twinklePhase) * profile.twinkleAmplitude * 0.9
     const alpha = clamp(
@@ -1169,6 +1170,11 @@ function drawProjectedObjects(
   const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
   const sceneTimestampIso = resolveSceneTimestampIso(objects)
   const extinction = buildAtmosphericExtinctionContext(observer, sceneTimestampIso)
+  const skyBrightness = computeSkyBrightness((sunState.altitudeDeg * Math.PI) / 180)
+  const limitingMagnitude = Math.min(
+    getVisibleStarMagnitudeLimit(fovDegrees),
+    computeLimitingMagnitude(skyBrightness),
+  )
   const objectLookup = new Map(objects.map((object) => [object.id, object]))
   const projectedObjects = objects.flatMap((object) => {
     if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, sunState, selectedObjectId)) {
@@ -1185,7 +1191,7 @@ function drawProjectedObjects(
       ? computeObservedMagnitude(object.magnitude, extinction, object.altitudeDeg)
       : object.magnitude
 
-    if (object.type === 'star' && renderedMagnitude > getVisibleStarMagnitudeLimit(fovDegrees, sunState)) {
+    if (object.type === 'star' && renderedMagnitude > limitingMagnitude) {
       return []
     }
 
@@ -1223,7 +1229,7 @@ function drawProjectedObjects(
       ? computeObservedMagnitude(object.magnitude, extinction, object.altitudeDeg)
       : object.magnitude
 
-    if (object.type === 'star' && renderedMagnitude > getVisibleStarMagnitudeLimit(fovDegrees, sunState)) {
+    if (object.type === 'star' && renderedMagnitude > limitingMagnitude) {
       return []
     }
 
@@ -1247,7 +1253,7 @@ function drawProjectedObjects(
   const allProjectedObjects = [...projectedObjects, ...packetProjectedObjects]
     .sort((left, right) => left.depth - right.depth || (left.renderedMagnitude ?? left.object.magnitude) - (right.renderedMagnitude ?? right.object.magnitude))
 
-  drawSyntheticDensityStars(context, view, allProjectedObjects, sunState, observer, sceneTimestampIso)
+  drawSyntheticDensityStars(context, view, allProjectedObjects, sunState, observer, sceneTimestampIso, limitingMagnitude)
 
   allProjectedObjects.forEach((entry) => {
     const horizonFade = getObjectHorizonFade(entry.object, centerAltitudeDeg, fovDegrees)
