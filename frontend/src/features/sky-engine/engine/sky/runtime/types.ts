@@ -27,9 +27,25 @@ export interface SkyCoreServicesFactoryConfig<TProps, TRuntime extends SkyCoreRe
   readonly initialProps: TProps
 }
 
+export interface SkyCoreServicesLifecycleContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
+  readonly runtime: TRuntime
+  readonly services: TServices
+  getProps: () => TProps
+  requestRender: () => void
+}
+
+export interface SkyCoreServicesUpdateContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices>
+  extends SkyCoreServicesLifecycleContext<TProps, TRuntime, TServices> {
+  readonly deltaSeconds: number
+}
+
 export interface SkyCoreConfigWithServices<TProps, TRuntime extends SkyCoreRenderRefs, TServices> extends SkyCoreConfig<TProps, TRuntime> {
   readonly createServices: (config: SkyCoreServicesFactoryConfig<TProps, TRuntime>) => TServices
   readonly syncServices?: (services: TServices, props: TProps) => void
+  readonly startServices?: (context: SkyCoreServicesLifecycleContext<TProps, TRuntime, TServices>) => void
+  readonly updateServices?: (context: SkyCoreServicesUpdateContext<TProps, TRuntime, TServices>) => void
+  readonly stopServices?: (context: SkyCoreServicesLifecycleContext<TProps, TRuntime, TServices>) => void
+  readonly disposeServices?: (context: SkyCoreServicesLifecycleContext<TProps, TRuntime, TServices>) => void
 }
 
 export interface SkyModuleContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {

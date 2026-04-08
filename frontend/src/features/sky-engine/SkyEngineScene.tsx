@@ -2,20 +2,15 @@ import React, { useEffect, useRef } from 'react'
 
 import { SkyCore } from './engine/sky/runtime/SkyCore'
 import {
-  applyWheelInput,
-  beginPointerInteraction,
-  completePointerInteraction,
   createSceneRuntimeState,
   createSkySceneBridgeModule,
   createSkySceneRuntimeServices,
   DENSITY_STARS_CANVAS_FALLBACK,
-  releasePointerInteraction,
   type ScenePropsSnapshot,
   type SceneRuntimeRefs,
   type SkySceneRuntimeServices,
   type SkyEngineSceneProps,
   syncSkySceneRuntimeServices,
-  updatePointerInteraction,
 } from './SkyEngineRuntimeBridge'
 
 export default function SkyEngineScene({
@@ -78,81 +73,28 @@ export default function SkyEngineScene({
       }),
       createServices: ({ initialProps }) => createSkySceneRuntimeServices(initialProps),
       syncServices: (services, props) => syncSkySceneRuntimeServices(services, props),
+      startServices: ({ runtime, services, getProps, requestRender }) => {
+        services.inputService.attach({
+          canvas: runtime.canvas,
+          getProjectedPickEntries: () => runtime.projectedPickEntries,
+          getProps,
+          navigationService: services.navigationService,
+          projectionService: services.projectionService,
+          requestRender,
+        })
+      },
+      updateServices: ({ services, deltaSeconds }) => {
+        services.clockService.advanceFrame(deltaSeconds)
+      },
+      stopServices: ({ services }) => {
+        services.inputService.detach()
+      },
     })
     core.registerModule(createSkySceneBridgeModule())
     coreRef.current = core
     core.start()
 
-    // Phase 0A bridge: React still hosts pointer wiring, but forwards all input into SkyCore.
-    const handleWheel = (event: WheelEvent) => {
-      event.preventDefault()
-      core.dispatchInput((runtime, services) => {
-        applyWheelInput(runtime, services, {
-          clientX: event.clientX,
-          clientY: event.clientY,
-          deltaY: event.deltaY,
-        })
-      })
-    }
-
-    const handlePointerDown = (event: PointerEvent) => {
-      core.dispatchInput((runtime, services) => {
-        beginPointerInteraction(runtime, services, {
-          pointerId: event.pointerId,
-          clientX: event.clientX,
-          clientY: event.clientY,
-        })
-      })
-    }
-
-    const handlePointerMove = (event: PointerEvent) => {
-      core.dispatchInput((runtime, services) => {
-        updatePointerInteraction(runtime, services, {
-          pointerId: event.pointerId,
-          clientX: event.clientX,
-          clientY: event.clientY,
-        })
-      })
-    }
-
-    const handlePointerUp = (event: PointerEvent) => {
-      core.dispatchInput((runtime, services, props) => {
-        const objectId = completePointerInteraction(runtime, services, {
-          pointerId: event.pointerId,
-          clientX: event.clientX,
-          clientY: event.clientY,
-        })
-
-        if (objectId !== undefined) {
-          props.onSelectObject(objectId)
-        }
-      })
-    }
-
-    const handlePointerCancel = (event: PointerEvent) => {
-      core.dispatchInput((runtime, services) => {
-        releasePointerInteraction(runtime, services, event.pointerId)
-      })
-    }
-
-    const handleResize = () => {
-      core.resize()
-    }
-
-    canvas.addEventListener('wheel', handleWheel, { passive: false })
-    canvas.addEventListener('pointerdown', handlePointerDown)
-    canvas.addEventListener('pointermove', handlePointerMove)
-    canvas.addEventListener('pointerup', handlePointerUp)
-    canvas.addEventListener('pointercancel', handlePointerCancel)
-    globalThis.addEventListener('resize', handleResize)
-
     return () => {
-      canvas.removeEventListener('wheel', handleWheel)
-      canvas.removeEventListener('pointerdown', handlePointerDown)
-      canvas.removeEventListener('pointermove', handlePointerMove)
-      canvas.removeEventListener('pointerup', handlePointerUp)
-      canvas.removeEventListener('pointercancel', handlePointerCancel)
-      globalThis.removeEventListener('resize', handleResize)
       core.dispose()
       coreRef.current = null
     }

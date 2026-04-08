@@ -47,6 +47,8 @@ import type {
 } from './types'
 import type { StarRenderProfile } from './starRenderer'
 import type { SkyModule } from './engine/sky/runtime/SkyModule'
+import { SkyClockService } from './engine/sky/runtime/SkyClockService'
+import { SkyInputService } from './engine/sky/runtime/SkyInputService'
 import { SkyNavigationService } from './engine/sky/runtime/SkyNavigationService'
 import { SkyObserverService } from './engine/sky/runtime/SkyObserverService'
 import { SkyProjectionService } from './engine/sky/runtime/SkyProjectionService'
@@ -86,13 +88,14 @@ export interface SceneRuntimeRefs {
   lastReportedFovTenths: number | null
   lastReportedCenterAltTenths: number | null
   lastReportedCenterAzTenths: number | null
-  animationTime: number
 }
 
 export interface SkySceneRuntimeServices {
   readonly observerService: SkyObserverService
   readonly navigationService: SkyNavigationService
   readonly projectionService: SkyProjectionService
+  readonly inputService: SkyInputService<ScenePropsSnapshot>
+  readonly clockService: SkyClockService
 }
 
 interface SceneStateWriteInput {
@@ -399,6 +402,7 @@ function drawSyntheticDensityStars(
   observer: SkyEngineObserver,
   sceneTimestampIso: string | undefined,
   renderLimitingMagnitude: number,
+  animationTime: number,
 ) {
   const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
   const magnitudeLimit = getSyntheticDensityMagnitudeLimit(fovDegrees, renderLimitingMagnitude)
@@ -413,7 +417,6 @@ function drawSyntheticDensityStars(
   const viewportCenterY = view.viewportHeight * 0.5
   const wideBlend = smoothstep(115, 185, fovDegrees)
   const closeBlend = 1 - smoothstep(24, 90, fovDegrees)
-  const animationTime = performance.now() * 0.0008
   const extinction = buildAtmosphericExtinctionContext(observer, sceneTimestampIso)
   let drawnCount = 0
 
@@ -470,10 +473,6 @@ function getObjectHorizonFade(_object: SkyEngineSceneObject, _centerAltitudeDeg:
   return 1
 }
 
-function resolveSceneTimestampIso(objects: readonly SkyEngineSceneObject[]) {
-  return objects.find((object) => object.timestampIso)?.timestampIso
-}
-
 function collectProjectedObjects(
   view: SkyProjectionView,
   observer: SkyEngineObserver,
@@ -481,10 +480,10 @@ function collectProjectedObjects(
   scenePacket: SkyScenePacket | null,
   sunState: SkyEngineSunState,
   selectedObjectId: string | null,
+  sceneTimestampIso: string | undefined,
 ) {
   const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
   const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
-  const sceneTimestampIso = resolveSceneTimestampIso(objects)
   const extinction = buildAtmosphericExtinctionContext(observer, sceneTimestampIso)
   const skyBrightness = computeSkyBrightness((sunState.altitudeDeg * Math.PI) / 180)
   const limitingMagnitude = computeEffectiveLimitingMagnitude(
@@ -639,14 +638,21 @@ function ensureSceneSurfaces(runtime: SceneRuntimeRefs) {
   }
 }
 
-function syncDirectObjectLayer(runtime: SceneRuntimeRefs, projectedObjects: readonly ProjectedSceneObjectEntry[], latest: ScenePropsSnapshot, width: number, height: number) {
+function syncDirectObjectLayer(
+  runtime: SceneRuntimeRefs,
+  services: SkySceneRuntimeServices,
+  projectedObjects: readonly ProjectedSceneObjectEntry[],
+  latest: ScenePropsSnapshot,
+  width: number,
+  height: number,
+) {
   runtime.directObjectLayer.sync(
     projectedObjects,
     width,
     height,
     latest.sunState,
     latest.selectedObjectId,
-    runtime.animationTime,
+    services.clockService.getAnimationTimeSeconds(),
   )
 }
 
@@ -658,15 +664,17 @@ export function renderSceneFrame(runtime: SceneRuntimeRefs, services: SkySceneRu
     services.navigationService.getCenterDirection(),
   )
   const currentFovDegrees = services.projectionService.getCurrentFovDegrees()
+  const sceneTimestampIso = services.clockService.getSceneTimestampIso()
   const lod = resolveViewTier(currentFovDegrees)
   const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
-  const { projectedObjects, limitingMagnitude, sceneTimestampIso } = collectProjectedObjects(
+  const { projectedObjects, limitingMagnitude } = collectProjectedObjects(
     view,
     services.observerService.getObserver(),
     latest.objects,
     latest.scenePacket,
     latest.sunState,
     latest.selectedObjectId,
+    sceneTimestampIso,
   )
 
   backgroundContext.clearRect(0, 0, width, height)
@@ -680,9 +688,10 @@ export function renderSceneFrame(runtime: SceneRuntimeRefs, services: SkySceneRu
     services.observerService.getObserver(),
     sceneTimestampIso,
     limitingMagnitude,
+    services.clockService.getAnimationTimeSeconds(),
   )
 
-  syncDirectObjectLayer(runtime, projectedObjects, latest, width, height)
+  syncDirectObjectLayer(runtime, services, projectedObjects, latest, width, height)
   const overlayFrame = prepareDirectOverlayFrame(
     view,
     services.observerService.getObserver(),
@@ -754,7 +763,6 @@ export function createSceneRuntimeState({
     lastReportedFovTenths: null,
     lastReportedCenterAltTenths: null,
     lastReportedCenterAzTenths: null,
-    animationTime: 0,
   } satisfies SceneRuntimeRefs
 }
 
@@ -774,58 +782,15 @@ export function createSkySceneRuntimeServices(initialProps: ScenePropsSnapshot):
       initialProjectionMode: initialProps.projectionMode,
       initialFovDegrees: initialProps.initialViewState.fovDegrees,
     }),
+    inputService: new SkyInputService(),
+    clockService: new SkyClockService(),
   }
 }
 
 export function syncSkySceneRuntimeServices(services: SkySceneRuntimeServices, props: ScenePropsSnapshot) {
   services.observerService.syncObserver(props.observer)
   services.projectionService.syncProjectionMode(props.projectionMode)
-}
-
-export function applyWheelInput(
-  runtime: Pick<SceneRuntimeRefs, 'canvas'>,
-  services: SkySceneRuntimeServices,
-  input: { clientX: number; clientY: number; deltaY: number },
-) {
-  services.navigationService.handleWheelInput(runtime.canvas, services.projectionService, input)
-}
-
-export function beginPointerInteraction(
-  runtime: Pick<SceneRuntimeRefs, 'canvas'>,
-  services: SkySceneRuntimeServices,
-  input: { pointerId: number; clientX: number; clientY: number },
-) {
-  services.navigationService.beginPointerInteraction(runtime.canvas, services.projectionService, input)
-}
-
-export function updatePointerInteraction(
-  runtime: Pick<SceneRuntimeRefs, 'canvas'>,
-  services: SkySceneRuntimeServices,
-  input: { pointerId: number; clientX: number; clientY: number },
-) {
-  services.navigationService.updatePointerInteraction(runtime.canvas, services.projectionService, input)
-}
-
-export function releasePointerInteraction(
-  runtime: Pick<SceneRuntimeRefs, 'canvas'>,
-  services: SkySceneRuntimeServices,
-  pointerId: number,
-) {
-  services.navigationService.releasePointerInteraction(runtime.canvas, pointerId)
-}
-
-export function completePointerInteraction(
-  runtime: Pick<SceneRuntimeRefs, 'canvas' | 'projectedPickEntries'>,
-  services: SkySceneRuntimeServices,
-  input: { pointerId: number; clientX: number; clientY: number },
-) {
-  return services.navigationService.completePointerInteraction(
-    runtime.canvas,
-    input.pointerId,
-    input.clientX,
-    input.clientY,
-    runtime.projectedPickEntries,
-  )
+  services.clockService.syncSceneTimestampFromObjects(props.objects)
 }
 
 function updateReportedViewState(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot, services: SkySceneRuntimeServices) {
@@ -866,7 +831,6 @@ export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, Scen
     },
     update({ runtime, services, getProps, deltaSeconds, markFrameDirty }) {
       const latest = getProps()
-      runtime.animationTime += deltaSeconds
       services.navigationService.syncSelection(
         latest.objects,
         latest.selectedObjectId,

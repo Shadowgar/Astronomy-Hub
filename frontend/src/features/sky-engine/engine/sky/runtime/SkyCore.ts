@@ -1,8 +1,17 @@
 import type { SkyModule } from './SkyModule'
-import type { SkyCoreConfigWithServices, SkyCoreRenderRefs, SkyModuleContext, SkyRenderContext, SkyUpdateContext } from './types'
+import type {
+  SkyCoreConfigWithServices,
+  SkyCoreRenderRefs,
+  SkyModuleContext,
+  SkyRenderContext,
+  SkyUpdateContext,
+} from './types'
 
 export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
   private readonly config: SkyCoreConfigWithServices<TProps, TRuntime, TServices>
+  private readonly handleWindowResize = () => {
+    this.resize()
+  }
 
   private runtime: TRuntime | null = null
   private services: TServices | null = null
@@ -50,7 +59,9 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     this.lastFrameTime = performance.now()
 
     const context = this.getModuleContext()
+    this.config.startServices?.(this.getServicesLifecycleContext())
     this.modules.forEach((module) => module.start?.(context))
+    globalThis.addEventListener('resize', this.handleWindowResize)
     this.runtime.engine.runRenderLoop(() => {
       if (!this.runtime) {
         return
@@ -60,6 +71,10 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       const deltaSeconds = Math.min(0.05, (now - this.lastFrameTime) * 0.001)
       this.lastFrameTime = now
       this.frameDirty = false
+      this.config.updateServices?.({
+        ...this.getServicesLifecycleContext(),
+        deltaSeconds,
+      })
       this.update(deltaSeconds)
 
       const shouldRenderFrame = this.requestedRender || this.frameDirty || this.renderedPropsVersion !== this.propsVersion
@@ -81,6 +96,8 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     }
 
     this.runtime.engine.stopRenderLoop()
+    globalThis.removeEventListener('resize', this.handleWindowResize)
+    this.config.stopServices?.(this.getServicesLifecycleContext())
     const context = this.getModuleContext()
     this.modules.forEach((module) => module.stop?.(context))
     this.started = false
@@ -146,6 +163,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     this.stop()
     const context = this.getModuleContext()
     this.modules.forEach((module) => module.dispose?.(context))
+    this.config.disposeServices?.(this.getServicesLifecycleContext())
     this.runtime.scene.dispose()
     this.runtime.engine.dispose()
     this.runtime = null
@@ -167,6 +185,21 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       },
       markFrameDirty: () => {
         this.frameDirty = true
+      },
+    }
+  }
+
+  private getServicesLifecycleContext() {
+    if (!this.runtime || !this.services) {
+      throw new Error('SkyCore runtime is not started')
+    }
+
+    return {
+      runtime: this.runtime,
+      services: this.services,
+      getProps: () => this.latestProps,
+      requestRender: () => {
+        this.requestRender()
       },
     }
   }
