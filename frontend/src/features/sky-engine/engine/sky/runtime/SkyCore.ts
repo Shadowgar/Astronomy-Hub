@@ -1,11 +1,12 @@
 import type { SkyModule } from './SkyModule'
-import type { SkyCoreConfig, SkyCoreRenderRefs, SkyModuleContext, SkyRenderContext, SkyUpdateContext } from './types'
+import type { SkyCoreConfigWithServices, SkyCoreRenderRefs, SkyModuleContext, SkyRenderContext, SkyUpdateContext } from './types'
 
-export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs> {
-  private readonly config: SkyCoreConfig<TProps, TRuntime>
+export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
+  private readonly config: SkyCoreConfigWithServices<TProps, TRuntime, TServices>
 
   private runtime: TRuntime | null = null
-  private modules: Array<SkyModule<TProps, TRuntime>> = []
+  private services: TServices | null = null
+  private modules: Array<SkyModule<TProps, TRuntime, TServices>> = []
   private latestProps: TProps
   private propsVersion: number
   private renderedPropsVersion = -1
@@ -14,13 +15,13 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs> {
   private requestedRender = true
   private frameDirty = false
 
-  constructor(config: SkyCoreConfig<TProps, TRuntime>) {
+  constructor(config: SkyCoreConfigWithServices<TProps, TRuntime, TServices>) {
     this.config = config
     this.latestProps = config.initialProps
     this.propsVersion = config.initialPropsVersion ?? 0
   }
 
-  registerModule(module: SkyModule<TProps, TRuntime>) {
+  registerModule(module: SkyModule<TProps, TRuntime, TServices>) {
     this.modules = [...this.modules, module].sort((left, right) => left.renderOrder - right.renderOrder || left.id.localeCompare(right.id))
 
     if (this.runtime && module.start) {
@@ -38,6 +39,11 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs> {
       backgroundCanvas: this.config.backgroundCanvas,
       initialProps: this.latestProps,
     })
+    this.services = this.config.createServices({
+      runtime: this.runtime,
+      initialProps: this.latestProps,
+    })
+    this.config.syncServices?.(this.services, this.latestProps)
     this.started = true
     this.requestedRender = true
     this.renderedPropsVersion = -1
@@ -85,7 +91,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs> {
       return
     }
 
-    const context: SkyUpdateContext<TProps, TRuntime> = {
+    const context: SkyUpdateContext<TProps, TRuntime, TServices> = {
       ...this.getModuleContext(),
       deltaSeconds,
     }
@@ -97,13 +103,16 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs> {
       return
     }
 
-    const context: SkyRenderContext<TProps, TRuntime> = this.getModuleContext()
+    const context: SkyRenderContext<TProps, TRuntime, TServices> = this.getModuleContext()
     this.modules.forEach((module) => module.render?.(context))
   }
 
   syncProps(nextProps: TProps, propsVersion: number) {
     this.latestProps = nextProps
     this.propsVersion = propsVersion
+    if (this.services) {
+      this.config.syncServices?.(this.services, nextProps)
+    }
     this.requestRender()
   }
 
@@ -111,12 +120,12 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs> {
     this.requestedRender = true
   }
 
-  dispatchInput(handler: (runtime: TRuntime, props: TProps) => void) {
-    if (!this.runtime) {
+  dispatchInput(handler: (runtime: TRuntime, services: TServices, props: TProps) => void) {
+    if (!this.runtime || !this.services) {
       return
     }
 
-    handler(this.runtime, this.latestProps)
+    handler(this.runtime, this.services, this.latestProps)
     this.requestRender()
   }
 
@@ -140,15 +149,17 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs> {
     this.runtime.scene.dispose()
     this.runtime.engine.dispose()
     this.runtime = null
+    this.services = null
   }
 
-  private getModuleContext(): SkyModuleContext<TProps, TRuntime> {
-    if (!this.runtime) {
+  private getModuleContext(): SkyModuleContext<TProps, TRuntime, TServices> {
+    if (!this.runtime || !this.services) {
       throw new Error('SkyCore runtime is not started')
     }
 
     return {
       runtime: this.runtime,
+      services: this.services,
       getProps: () => this.latestProps,
       getPropsVersion: () => this.propsVersion,
       requestRender: () => {

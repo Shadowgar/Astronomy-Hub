@@ -22,16 +22,27 @@ export interface SkyCoreConfig<TProps, TRuntime extends SkyCoreRenderRefs> {
   }) => TRuntime
 }
 
-export interface SkyModuleContext<TProps, TRuntime extends SkyCoreRenderRefs> {
+export interface SkyCoreServicesFactoryConfig<TProps, TRuntime extends SkyCoreRenderRefs> {
   readonly runtime: TRuntime
+  readonly initialProps: TProps
+}
+
+export interface SkyCoreConfigWithServices<TProps, TRuntime extends SkyCoreRenderRefs, TServices> extends SkyCoreConfig<TProps, TRuntime> {
+  readonly createServices: (config: SkyCoreServicesFactoryConfig<TProps, TRuntime>) => TServices
+  readonly syncServices?: (services: TServices, props: TProps) => void
+}
+
+export interface SkyModuleContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
+  readonly runtime: TRuntime
+  readonly services: TServices
   getProps: () => TProps
   getPropsVersion: () => number
   requestRender: () => void
   markFrameDirty: () => void
 }
 
-export interface SkyUpdateContext<TProps, TRuntime extends SkyCoreRenderRefs> extends SkyModuleContext<TProps, TRuntime> {
+export interface SkyUpdateContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices> extends SkyModuleContext<TProps, TRuntime, TServices> {
   readonly deltaSeconds: number
 }
 
-export interface SkyRenderContext<TProps, TRuntime extends SkyCoreRenderRefs> extends SkyModuleContext<TProps, TRuntime> {}
+export interface SkyRenderContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices> extends SkyModuleContext<TProps, TRuntime, TServices> {}

@@ -5,13 +5,8 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import { Scene } from '@babylonjs/core/scene'
 
 import {
-  clampSkyEngineFov,
-  getSelectionTargetVector,
   getSkyEngineFovDegrees,
-  rotateVectorTowardPointerAnchor,
   stabilizeSkyEngineCenterDirection,
-  stepSkyEngineFov,
-  updateObserverNavigation,
 } from './observerNavigation'
 import {
   buildSkyEnginePickTargets,
@@ -29,7 +24,6 @@ import {
   isProjectedPointVisible,
   projectDirectionToViewport,
   type SkyProjectionView,
-  unprojectViewportPoint,
 } from './projectionMath'
 import {
   buildAtmosphericExtinctionContext,
@@ -53,6 +47,9 @@ import type {
 } from './types'
 import type { StarRenderProfile } from './starRenderer'
 import type { SkyModule } from './engine/sky/runtime/SkyModule'
+import { SkyNavigationService } from './engine/sky/runtime/SkyNavigationService'
+import { SkyObserverService } from './engine/sky/runtime/SkyObserverService'
+import { SkyProjectionService } from './engine/sky/runtime/SkyProjectionService'
 
 export interface SkyEngineSceneProps {
   readonly backendStars: readonly BackendSkySceneStarObject[]
@@ -85,22 +82,17 @@ export interface SceneRuntimeRefs {
   directBackgroundLayer: ReturnType<typeof createDirectBackgroundLayer>
   directObjectLayer: ReturnType<typeof createDirectObjectLayer>
   directOverlayLayer: ReturnType<typeof createDirectOverlayLayer>
-  centerDirection: Vector3
-  targetVector: Vector3 | null
-  currentFov: number
-  desiredFov: number
-  selectedObjectId: string | null
-  activePointerId: number | null
-  dragAnchorDirection: Vector3 | null
-  dragBaseCenterDirection: Vector3 | null
-  dragStartX: number
-  dragStartY: number
-  dragMoved: boolean
   projectedPickEntries: ProjectedPickTargetEntry[]
   lastReportedFovTenths: number | null
   lastReportedCenterAltTenths: number | null
   lastReportedCenterAzTenths: number | null
   animationTime: number
+}
+
+export interface SkySceneRuntimeServices {
+  readonly observerService: SkyObserverService
+  readonly navigationService: SkyNavigationService
+  readonly projectionService: SkyProjectionService
 }
 
 interface SceneStateWriteInput {
@@ -135,7 +127,6 @@ interface ProjectedSceneObjectEntry extends DirectProjectedObjectEntry {
 
 const SKY_ENGINE_SCENE_STATE_ATTRIBUTE = 'data-sky-engine-scene-state'
 export const DENSITY_STARS_CANVAS_FALLBACK = 'density-stars-canvas-fallback'
-export const POINTER_DRAG_THRESHOLD_PX = 6
 const SYNTHETIC_SKY_DENSITY_SAMPLES = buildSyntheticSkyDensityField(2800)
 const SYNTHETIC_STAR_OVERLAP_CELL_PX = 24
 
@@ -745,11 +736,9 @@ export function renderSceneFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSn
 export function createSceneRuntimeState({
   canvas,
   backgroundCanvas,
-  initialProps,
 }: {
   canvas: HTMLCanvasElement
   backgroundCanvas: HTMLCanvasElement
-  initialProps: ScenePropsSnapshot
 }) {
   const engine = new Engine(canvas, true, {
     antialias: true,
@@ -774,22 +763,6 @@ export function createSceneRuntimeState({
     directBackgroundLayer: createDirectBackgroundLayer(scene),
     directObjectLayer: createDirectObjectLayer(scene),
     directOverlayLayer: createDirectOverlayLayer(scene),
-    centerDirection: stabilizeSkyEngineCenterDirection(
-      horizontalToDirection(
-        initialProps.initialViewState.centerAltDeg,
-        initialProps.initialViewState.centerAzDeg,
-      ),
-    ),
-    targetVector: null,
-    currentFov: clampSkyEngineFov(degreesToRadians(initialProps.initialViewState.fovDegrees)),
-    desiredFov: clampSkyEngineFov(degreesToRadians(initialProps.initialViewState.fovDegrees)),
-    selectedObjectId: initialProps.selectedObjectId,
-    activePointerId: null,
-    dragAnchorDirection: null,
-    dragBaseCenterDirection: null,
-    dragStartX: 0,
-    dragStartY: 0,
-    dragMoved: false,
     projectedPickEntries: [],
     lastReportedFovTenths: null,
     lastReportedCenterAltTenths: null,
@@ -798,140 +771,33 @@ export function createSceneRuntimeState({
   } satisfies SceneRuntimeRefs
 }
 
-export function applyWheelInput(
-  runtime: SceneRuntimeRefs,
-  projectionMode: SkyProjectionMode | undefined,
-  input: { clientX: number; clientY: number; deltaY: number },
-) {
-  const nextDesiredFov = stepSkyEngineFov(runtime.desiredFov, input.deltaY)
-
-  if (nextDesiredFov === runtime.desiredFov) {
-    return
-  }
-
-  const bounds = runtime.canvas.getBoundingClientRect()
-  const currentView: SkyProjectionView = {
-    centerDirection: runtime.centerDirection,
-    fovRadians: runtime.currentFov,
-    viewportWidth: bounds.width,
-    viewportHeight: bounds.height,
-    projectionMode,
-  }
-  const nextView: SkyProjectionView = {
-    centerDirection: runtime.centerDirection,
-    fovRadians: nextDesiredFov,
-    viewportWidth: bounds.width,
-    viewportHeight: bounds.height,
-    projectionMode,
-  }
-  const previousPointerDirection = unprojectViewportPoint(input.clientX - bounds.left, input.clientY - bounds.top, currentView)
-  const nextPointerDirection = unprojectViewportPoint(input.clientX - bounds.left, input.clientY - bounds.top, nextView)
-
-  runtime.centerDirection = rotateVectorTowardPointerAnchor(runtime.centerDirection, nextPointerDirection, previousPointerDirection).normalizeToNew()
-  runtime.targetVector = null
-  runtime.currentFov = nextDesiredFov
-  runtime.desiredFov = nextDesiredFov
-}
-
-export function beginPointerInteraction(
-  runtime: SceneRuntimeRefs,
-  projectionMode: SkyProjectionMode | undefined,
-  input: { pointerId: number; clientX: number; clientY: number },
-) {
-  const bounds = runtime.canvas.getBoundingClientRect()
-  runtime.activePointerId = input.pointerId
-  runtime.dragStartX = input.clientX - bounds.left
-  runtime.dragStartY = input.clientY - bounds.top
-  runtime.dragMoved = false
-  runtime.dragBaseCenterDirection = runtime.centerDirection.clone()
-  runtime.dragAnchorDirection = unprojectViewportPoint(runtime.dragStartX, runtime.dragStartY, {
-    centerDirection: runtime.dragBaseCenterDirection,
-    fovRadians: runtime.currentFov,
-    viewportWidth: bounds.width,
-    viewportHeight: bounds.height,
-    projectionMode,
-  })
-  runtime.canvas.setPointerCapture(input.pointerId)
-}
-
-export function updatePointerInteraction(
-  runtime: SceneRuntimeRefs,
-  projectionMode: SkyProjectionMode | undefined,
-  input: { pointerId: number; clientX: number; clientY: number },
-) {
-  if (runtime.activePointerId !== input.pointerId || !runtime.dragAnchorDirection || !runtime.dragBaseCenterDirection) {
-    return
-  }
-
-  const bounds = runtime.canvas.getBoundingClientRect()
-  const screenX = input.clientX - bounds.left
-  const screenY = input.clientY - bounds.top
-  const pointerDistance = Math.hypot(screenX - runtime.dragStartX, screenY - runtime.dragStartY)
-
-  if (pointerDistance >= POINTER_DRAG_THRESHOLD_PX) {
-    runtime.dragMoved = true
-  }
-
-  if (!runtime.dragMoved) {
-    return
-  }
-
-  const nextPointerDirection = unprojectViewportPoint(screenX, screenY, {
-    centerDirection: runtime.dragBaseCenterDirection,
-    fovRadians: runtime.currentFov,
-    viewportWidth: bounds.width,
-    viewportHeight: bounds.height,
-    projectionMode,
-  })
-  runtime.centerDirection = rotateVectorTowardPointerAnchor(
-    runtime.dragBaseCenterDirection,
-    nextPointerDirection,
-    runtime.dragAnchorDirection,
-  ).normalizeToNew()
-  runtime.targetVector = null
-}
-
-export function releasePointerInteraction(runtime: SceneRuntimeRefs, pointerId: number) {
-  if (runtime.activePointerId !== pointerId) {
-    return
-  }
-
-  runtime.activePointerId = null
-  runtime.dragAnchorDirection = null
-  runtime.dragBaseCenterDirection = null
-  runtime.dragMoved = false
-
-  if (runtime.canvas.hasPointerCapture(pointerId)) {
-    runtime.canvas.releasePointerCapture(pointerId)
+export function createSkySceneRuntimeServices(initialProps: ScenePropsSnapshot): SkySceneRuntimeServices {
+  return {
+    observerService: new SkyObserverService(initialProps.observer),
+    navigationService: new SkyNavigationService({
+      initialCenterDirection: stabilizeSkyEngineCenterDirection(
+        horizontalToDirection(
+          initialProps.initialViewState.centerAltDeg,
+          initialProps.initialViewState.centerAzDeg,
+        ),
+      ),
+      initialSelectedObjectId: initialProps.selectedObjectId,
+    }),
+    projectionService: new SkyProjectionService({
+      initialProjectionMode: initialProps.projectionMode,
+      initialFovDegrees: initialProps.initialViewState.fovDegrees,
+    }),
   }
 }
 
-export function completePointerInteraction(
-  runtime: SceneRuntimeRefs,
-  input: { pointerId: number; clientX: number; clientY: number },
-) {
-  if (runtime.activePointerId !== input.pointerId) {
-    return undefined
-  }
-
-  let objectId: string | null | undefined
-
-  if (!runtime.dragMoved) {
-    const bounds = runtime.canvas.getBoundingClientRect()
-    objectId = resolveSkyEnginePickSelection(
-      runtime.projectedPickEntries,
-      input.clientX - bounds.left,
-      input.clientY - bounds.top,
-    )
-  }
-
-  releasePointerInteraction(runtime, input.pointerId)
-  return objectId
+export function syncSkySceneRuntimeServices(services: SkySceneRuntimeServices, props: ScenePropsSnapshot) {
+  services.observerService.syncObserver(props.observer)
+  services.projectionService.syncProjectionMode(props.projectionMode)
 }
 
-function updateReportedViewState(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot) {
-  const currentFovTenths = Math.round(getSkyEngineFovDegrees(runtime.currentFov) * 10)
-  const centerHorizontal = directionToHorizontal(runtime.centerDirection)
+function updateReportedViewState(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot, services: SkySceneRuntimeServices) {
+  const currentFovTenths = Math.round(services.projectionService.getCurrentFovDegrees() * 10)
+  const centerHorizontal = directionToHorizontal(services.navigationService.getCenterDirection())
   const currentCenterAltTenths = Math.round(centerHorizontal.altitudeDeg * 10)
   const currentCenterAzTenths = Math.round(centerHorizontal.azimuthDeg * 10)
 
