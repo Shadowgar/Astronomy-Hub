@@ -2,17 +2,29 @@
 
 ```yaml
 - main [ref=e4]:
-  - generic "Sky Engine scene" [ref=e6]
+  - generic:
+    - generic "Astronomy Hub engine shell":
+      - generic:
+        - generic: Astronomy Hub
+        - strong: Sky Engine
+        - generic: Hub shell persists while the active engine owns this viewport.
+      - generic:
+        - link "Hub" [ref=e5] [cursor=pointer]:
+          - /url: /
+        - generic:
+          - generic: Active engine
+          - strong: Sky Engine
+  - generic "Sky Engine scene" [ref=e7]
   - generic:
     - generic "Sky Engine top bar":
       - generic:
-        - link "Back" [ref=e7] [cursor=pointer]:
+        - link "Back" [ref=e8] [cursor=pointer]:
           - /url: /
-        - button "Show inspector" [ref=e8]
-        - button "Reset" [ref=e9]
-      - form "Sky Engine target search" [ref=e10]:
-        - combobox "Search visible sky objects" [ref=e11]
-        - button "Find" [ref=e12]
+        - button "Show inspector" [ref=e9]
+        - button "Reset" [ref=e10]
+      - form "Sky Engine target search" [ref=e11]:
+        - combobox "Search visible sky objects" [ref=e12]
+        - button "Find" [ref=e13]
       - generic:
         - generic:
           - generic: Data
@@ -22,7 +34,7 @@
           - strong: 120°
         - generic:
           - generic: Local time
-          - strong: Apr 8, 9:53 AM EDT
+          - strong: Apr 8, 10:53 AM EDT
           - generic: +8s · America/New_York · 1x
         - generic: Daylight
   - generic:
@@ -32,7 +44,7 @@
           - generic: Time scrub
           - strong: +0m
         - generic:
-          - generic: HIP · m5.5 · 4 tiles · 1507 stars · L0
+          - generic: HIP · m5.5 · 4 tiles · 1527 stars · L0
           - generic: Hipparcos · 8,870 stars
           - generic: Waning Crescent moon
           - generic: 5 guided now
@@ -40,33 +52,33 @@
         - generic: Daylight
         - generic: Twilight
         - generic: Night
-      - slider "Scene time offset" [ref=e13]: "0"
+      - slider "Scene time offset" [ref=e14]: "0"
       - generic:
         - generic "Time scale controls":
-          - button "- Step" [ref=e14]
+          - button "- Step" [ref=e15]
           - generic:
-            - button "sec" [ref=e15]
-            - button "min" [ref=e16]
-            - button "hr" [ref=e17]
-            - button "day" [ref=e18]
-          - button "+ Step" [ref=e19]
+            - button "sec" [ref=e16]
+            - button "min" [ref=e17]
+            - button "hr" [ref=e18]
+            - button "day" [ref=e19]
+          - button "+ Step" [ref=e20]
         - generic "Playback controls":
-          - button "-1h/s" [ref=e20]
-          - button "-1m/s" [ref=e21]
-          - button "Pause" [ref=e22]
-          - button "1x" [ref=e23]
-          - button "+1m/s" [ref=e24]
-          - button "+1h/s" [ref=e25]
-          - button "Reset" [ref=e26]
+          - button "-1h/s" [ref=e21]
+          - button "-1m/s" [ref=e22]
+          - button "Pause" [ref=e23]
+          - button "1x" [ref=e24]
+          - button "+1m/s" [ref=e25]
+          - button "+1h/s" [ref=e26]
+          - button "Reset" [ref=e27]
       - generic:
         - generic "Guided sky targets":
-          - button "Vega" [ref=e27]
-          - button "Vega" [ref=e28]
-          - button "HIP 113881" [ref=e29]
-          - button "Deneb" [ref=e30]
-          - button "Moon" [ref=e31]
+          - button "Deneb" [ref=e28]
+          - button "Deneb" [ref=e29]
+          - button "HIP 677" [ref=e30]
+          - button "HIP 746" [ref=e31]
+          - button "Moon" [ref=e32]
         - generic "Sky aid toggles":
-          - button "Constellations" [ref=e32]
-          - button "Compass" [ref=e33]
-          - button "Altitude" [ref=e34]
+          - button "Constellations" [ref=e33]
+          - button "Compass" [ref=e34]
+          - button "Altitude" [ref=e35]
 ```
