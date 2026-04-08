@@ -41,6 +41,7 @@ import {
 } from './projectionMath'
 import { getStarRenderProfile, getStarRenderProfileForMagnitude } from './starRenderer'
 import { buildProceduralSkyBackdrop, buildSyntheticSkyDensityField } from './syntheticStarField'
+import { renderPreethamSkyBackground, blendNightSky } from './preethamSky'
 import type { SkyScenePacket } from './engine/sky'
 import type { BackendSkySceneStarObject } from '../scene/contracts'
 import type {
@@ -362,14 +363,53 @@ function getLabelPriority(object: SkyEngineSceneObject, selectedObjectId: string
   return priority
 }
 
-function drawBackground(context: CanvasRenderingContext2D, width: number, height: number, sunState: SkyEngineSunState) {
-  const skyGradient = context.createLinearGradient(0, 0, 0, height)
-  skyGradient.addColorStop(0, sunState.visualCalibration.skyZenithColorHex)
-  skyGradient.addColorStop(0.82, sunState.visualCalibration.skyHorizonColorHex)
-  skyGradient.addColorStop(1, sunState.visualCalibration.backgroundColorHex)
-  context.fillStyle = skyGradient
-  context.fillRect(0, 0, width, height)
+function drawBackground(
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  sunState: SkyEngineSunState,
+  view: SkyProjectionView | null,
+) {
+  if (view) {
+    // Preetham physically-based sky when projection view is available
+    const calibration = sunState.visualCalibration
+    const dayExposure = calibration.atmosphereExposure
+    // Turbidity: clear=2 for night, slightly hazy=3 for day, hazier at low sun
+    let turbidity = 2.8
+    if (sunState.phaseLabel === 'Low Sun') {
+      turbidity = 4
+    } else if (sunState.phaseLabel === 'Night') {
+      turbidity = 2.2
+    }
 
+    renderPreethamSkyBackground(context, width, height, {
+      sunAltDeg: sunState.altitudeDeg,
+      sunAzDeg: sunState.azimuthDeg,
+      turbidity,
+      exposure: clamp(dayExposure, 0.6, 1.4),
+    }, (sx, sy) => {
+      const dir = unprojectViewportPoint(sx, sy, view)
+      return { dirEast: dir.x, dirUp: dir.y, dirNorth: dir.z }
+    })
+
+    // Cross-fade to calibrated night sky colors below the horizon
+    blendNightSky(
+      context, width, height,
+      sunState.altitudeDeg,
+      calibration.skyZenithColorHex,
+      calibration.skyHorizonColorHex,
+    )
+  } else {
+    // Fallback: simple gradient (initial frame before view is ready)
+    const skyGradient = context.createLinearGradient(0, 0, 0, height)
+    skyGradient.addColorStop(0, sunState.visualCalibration.skyZenithColorHex)
+    skyGradient.addColorStop(0.82, sunState.visualCalibration.skyHorizonColorHex)
+    skyGradient.addColorStop(1, sunState.visualCalibration.backgroundColorHex)
+    context.fillStyle = skyGradient
+    context.fillRect(0, 0, width, height)
+  }
+
+  // Subtle vignette for depth
   const vignette = context.createRadialGradient(
     width * 0.5,
     height * 0.46,
@@ -379,7 +419,7 @@ function drawBackground(context: CanvasRenderingContext2D, width: number, height
     Math.min(width, height) * 0.72,
   )
   vignette.addColorStop(0, 'rgba(0, 0, 0, 0)')
-  vignette.addColorStop(1, 'rgba(0, 0, 0, 0.32)')
+  vignette.addColorStop(1, 'rgba(0, 0, 0, 0.18)')
   context.fillStyle = vignette
   context.fillRect(0, 0, width, height)
 }
@@ -490,35 +530,58 @@ function drawLandscapeMask(
   if (landscapeOpacity <= 0.02) {
     return
   }
-  const cellSize = fovDegrees >= 150 ? 12 : 14
+
+  // Smaller cells for smoother horizon gradient
+  let cellSize = 6
+  if (fovDegrees >= 150) {
+    cellSize = 8
+  } else if (fovDegrees >= 60) {
+    cellSize = 10
+  }
   const fogRgb = hexToRgb(sunState.visualCalibration.landscapeFogColorHex)
   const groundRgb = hexToRgb(sunState.visualCalibration.groundTintHex)
   const backgroundRgb = hexToRgb(sunState.visualCalibration.backgroundColorHex)
+  const horizonRgb = hexToRgb(sunState.visualCalibration.skyHorizonColorHex)
 
   context.save()
 
   for (let y = 0; y < view.viewportHeight; y += cellSize) {
     const cellHeight = Math.min(cellSize, view.viewportHeight - y)
-    const verticalBlend = clamp((y + cellHeight * 0.5) / Math.max(view.viewportHeight, 1), 0, 1)
 
     for (let x = 0; x < view.viewportWidth; x += cellSize) {
       const cellWidth = Math.min(cellSize, view.viewportWidth - x)
       const direction = unprojectViewportPoint(x + cellWidth * 0.5, y + cellHeight * 0.5, view)
       const altitudeDeg = directionToHorizontal(direction).altitudeDeg
-      const maskAmount = smoothstep(6, -10, altitudeDeg)
 
-      if (maskAmount <= 0.002) {
+      // Two-zone transition: sky-fog blend from +8° to 0°, fog-ground blend from 0° to -14°
+      const skyFogBlend = smoothstep(8, 0, altitudeDeg)
+      const groundBlend = smoothstep(0, -14, altitudeDeg)
+
+      if (skyFogBlend <= 0.001) {
         continue
       }
 
-      const colorBlend = 0.22 + verticalBlend * 0.6
-      const red = mix(fogRgb.red, mix(groundRgb.red, backgroundRgb.red, 0.24), colorBlend)
-      const green = mix(fogRgb.green, mix(groundRgb.green, backgroundRgb.green, 0.24), colorBlend)
-      const blue = mix(fogRgb.blue, mix(groundRgb.blue, backgroundRgb.blue, 0.24), colorBlend)
-      const alpha = landscapeOpacity * maskAmount * (0.2 + verticalBlend * 0.72)
+      // Near-horizon fog zone: blend sky color into fog
+      const fogAlpha = skyFogBlend * (1 - groundBlend)
+      // Below-horizon ground zone
+      const solidAlpha = groundBlend
 
-      context.fillStyle = `rgba(${Math.round(red)}, ${Math.round(green)}, ${Math.round(blue)}, ${alpha})`
-      context.fillRect(x, y, cellWidth + 0.6, cellHeight + 0.6)
+      // Composite: horizon gets a fog layer, below gets ground
+      const fogWeight = fogAlpha * 0.65
+      const groundWeight = solidAlpha * 0.82
+
+      const totalWeight = fogWeight + groundWeight
+      if (totalWeight <= 0.002) {
+        continue
+      }
+
+      const red = (fogWeight * mix(horizonRgb.red, fogRgb.red, 0.4) + groundWeight * mix(groundRgb.red, backgroundRgb.red, 0.3)) / totalWeight
+      const green = (fogWeight * mix(horizonRgb.green, fogRgb.green, 0.4) + groundWeight * mix(groundRgb.green, backgroundRgb.green, 0.3)) / totalWeight
+      const blue = (fogWeight * mix(horizonRgb.blue, fogRgb.blue, 0.4) + groundWeight * mix(groundRgb.blue, backgroundRgb.blue, 0.3)) / totalWeight
+      const alpha = landscapeOpacity * totalWeight
+
+      context.fillStyle = `rgba(${Math.round(red)}, ${Math.round(green)}, ${Math.round(blue)}, ${clamp(alpha, 0, 1)})`
+      context.fillRect(x, y, cellWidth + 0.5, cellHeight + 0.5)
     }
   }
 
@@ -1454,7 +1517,6 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
   const height = runtime.engine.getRenderHeight()
 
   context.clearRect(0, 0, width, height)
-  drawBackground(context, width, height, latest.sunState)
 
   const view: SkyProjectionView = {
     centerDirection: runtime.centerDirection,
@@ -1465,6 +1527,8 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
   }
   const currentFovDegrees = getSkyEngineFovDegrees(runtime.currentFov)
   const lod = resolveViewTier(currentFovDegrees)
+
+  drawBackground(context, width, height, latest.sunState, view)
 
   drawProceduralSkyBackdrop(context, view, latest.sunState, currentFovDegrees)
   drawSolarGlare(context, view, latest.sunState)
