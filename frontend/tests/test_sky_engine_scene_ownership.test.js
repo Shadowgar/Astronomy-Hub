@@ -74,22 +74,6 @@ vi.mock('../src/features/sky-engine/useSkyEngineSelection', () => ({
   })),
 }))
 
-function getMockStarMagnitudeLimitForFov(fovDegrees) {
-  if (fovDegrees >= 120) {
-    return 6
-  }
-
-  if (fovDegrees >= 60) {
-    return 8
-  }
-
-  if (fovDegrees >= 20) {
-    return 10
-  }
-
-  return 12
-}
-
 vi.mock('../src/features/sky-engine/astronomy', () => ({
   computeBackendStarSceneObjects: vi.fn((observer, timestampIso, stars) => stars.map((star, index) => ({
     id: star.id,
@@ -110,11 +94,6 @@ vi.mock('../src/features/sky-engine/astronomy', () => ({
     timestampIso,
     isAboveHorizon: true,
   }))),
-  filterStarSceneObjectsByFov: vi.fn((stars, fovDegrees) => {
-    const magnitudeLimit = getMockStarMagnitudeLimitForFov(fovDegrees)
-    return stars.filter((star) => star.magnitude <= magnitudeLimit)
-  }),
-  getStarMagnitudeLimitForFov: vi.fn((fovDegrees) => getMockStarMagnitudeLimitForFov(fovDegrees)),
   computeMoonSceneObject: vi.fn(() => ({
     id: 'moon',
     name: 'Moon',
@@ -352,13 +331,13 @@ describe('SkyEnginePage scene ownership', () => {
 
     expect(useSceneByScopeDataQuery).toHaveBeenCalledWith({ scope: 'sky', engine: 'sky_engine' })
     expect(useSkyStarTileManifestDataQuery).toHaveBeenCalledWith({ at: '2025-01-15T03:00:00Z' })
-    expect(useSkyEngineSceneTime).toHaveBeenCalledWith('2025-01-15T03:00:00Z')
+    expect(useSkyEngineSceneTime).toHaveBeenCalledWith()
     expect(html).toContain('Sky scene mounted')
     expect(html).toContain('Custom Location')
     expect(html).toContain('120°')
     expect(html).toContain('Jan 14, 10:00 PM EST')
     expect(html).toContain('data-backend-star-count="4"')
-    expect(html).toContain('data-visible-star-count="2"')
+    expect(html).toContain('data-visible-star-count="4"')
     expect(html).toContain('data-first-backend-star-id="star-sirius"')
   })
 

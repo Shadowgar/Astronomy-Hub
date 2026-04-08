@@ -5,7 +5,6 @@ import {
   computeBackendStarSceneObjects,
   computeMoonSceneObject,
   computePlanetSceneObjects,
-  filterStarSceneObjectsByFov,
   rankGuidanceTargets,
 } from '../features/sky-engine/astronomy'
 import {
@@ -337,13 +336,9 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
 
     return Array.from(mergedStars.values())
   }, [backendSceneStars.length, backendTileStarSceneObjects, engineStarSceneObjects])
-  const visibleStarSceneObjects = useMemo(
-    () => filterStarSceneObjectsByFov(activeStarSceneObjects, viewState.fovDegrees),
-    [activeStarSceneObjects, viewState.fovDegrees],
-  )
   const baseSceneObjects = useMemo(
-    () => [...visibleStarSceneObjects, ...nonStarVisibleObjects],
-    [nonStarVisibleObjects, visibleStarSceneObjects],
+    () => [...activeStarSceneObjects, ...nonStarVisibleObjects],
+    [activeStarSceneObjects, nonStarVisibleObjects],
   )
   const guidanceTargets = useMemo(
     () => rankGuidanceTargets(baseSceneObjects, 5),
@@ -425,10 +420,10 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
       tier1Count: tier1ResolvedStarCount,
       tier2Count: tier2ResolvedStarCount,
       resolvedStarCount: resolvedBackendTileStars.length,
-      renderedStarCount: visibleStarSceneObjects.length,
+      renderedStarCount: activeStarSceneObjects.length,
       manifestTileCount: tileManifestState.tiles.length,
     })
-  }, [backendSceneStars.length, resolvedBackendTileStars.length, tier1ResolvedStarCount, tier2ResolvedStarCount, tileManifestState.tiles.length, visibleStarSceneObjects.length])
+  }, [activeStarSceneObjects.length, backendSceneStars.length, resolvedBackendTileStars.length, tier1ResolvedStarCount, tier2ResolvedStarCount, tileManifestState.tiles.length])
 
   useEffect(() => {
     setViewState((currentViewState) => {
