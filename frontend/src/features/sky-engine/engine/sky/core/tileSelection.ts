@@ -5,15 +5,15 @@ import { horizontalToRaDec } from '../transforms/coordinates'
 function resolveDesiredTileDepth(observer: ObserverSnapshot, limitingMagnitude: number) {
   let desiredDepth = 0
 
-  if (observer.fovDeg <= 100) {
+  if (observer.fovDeg <= 110 || limitingMagnitude >= 5.8) {
     desiredDepth = 1
   }
 
-  if (observer.fovDeg <= 40 || limitingMagnitude >= 8.5) {
+  if (observer.fovDeg <= 50 || limitingMagnitude >= 8.2) {
     desiredDepth = 2
   }
 
-  if (observer.fovDeg <= 10 || limitingMagnitude >= 12) {
+  if (observer.fovDeg <= 12 || limitingMagnitude >= 11.4) {
     desiredDepth = 3
   }
 

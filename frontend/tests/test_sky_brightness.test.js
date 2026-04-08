@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  computeEffectiveLimitingMagnitude,
   computeLimitingMagnitude,
   computeSkyBrightness,
   computeSkyBrightnessLimitingMagnitude,
@@ -41,5 +42,15 @@ describe('sky brightness model', () => {
   it('restores the night limiting magnitude below astronomical twilight', () => {
     expect(computeSkyBrightnessLimitingMagnitude(-18)).toBe(6.5)
     expect(computeSkyBrightnessLimitingMagnitude(-24)).toBe(6.5)
+  })
+
+  it('preserves zoom depth at night without leaking faint stars into daylight', () => {
+    const darkWideLimit = computeEffectiveLimitingMagnitude(0, 120, 1)
+    const darkCloseLimit = computeEffectiveLimitingMagnitude(0, 2.5, 1)
+    const daylightCloseLimit = computeEffectiveLimitingMagnitude(1, 2.5, 0.05)
+
+    expect(darkWideLimit).toBe(5.5)
+    expect(darkCloseLimit).toBe(13.5)
+    expect(daylightCloseLimit).toBeLessThan(0)
   })
 })

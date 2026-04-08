@@ -103,7 +103,8 @@ export function buildSyntheticSkyDensityField(count = 2800): readonly SyntheticS
     const direction = getFibonacciDirection(index, count, pseudoRandom(index + 19) * 0.37)
     const bandWeight = getBandWeight(direction)
     const brightnessNoise = pseudoRandom(index + 101)
-    const magnitude = 4.8 + brightnessNoise * 4.9 - bandWeight * 1.25
+    const magnitude = 4.9 + brightnessNoise * 9.2 - bandWeight * 1.6
+    const magnitudeWeight = 1 - clamp((magnitude - 4.5) / 10, 0, 1)
     const colorIndexBV = -0.24 + pseudoRandom(index + 137) * 1.84
 
     return {
@@ -111,8 +112,8 @@ export function buildSyntheticSkyDensityField(count = 2800): readonly SyntheticS
       direction,
       magnitude,
       colorIndexBV,
-      alpha: 0.1 + pseudoRandom(index + 151) * 0.22 + bandWeight * 0.08,
-      size: 0.32 + pseudoRandom(index + 167) * 0.54,
+      alpha: 0.045 + magnitudeWeight * 0.16 + pseudoRandom(index + 151) * 0.05 + bandWeight * 0.05,
+      size: 0.14 + magnitudeWeight * 0.38 + pseudoRandom(index + 167) * 0.18,
       twinklePhase: pseudoRandom(index + 181) * Math.PI * 2,
       bandWeight,
     }

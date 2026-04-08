@@ -54,6 +54,8 @@ describe('sky engine runtime slice', () => {
     expect(resolveLimitingMagnitude(90)).toBe(6.2)
     expect(resolveLimitingMagnitude(30)).toBe(8.5)
     expect(resolveLimitingMagnitude(2.5)).toBe(13.5)
+    expect(resolveLimitingMagnitude(69.7)).toBeGreaterThan(resolveLimitingMagnitude(90))
+    expect(resolveLimitingMagnitude(69.7)).toBeLessThan(resolveLimitingMagnitude(60))
   })
 
   it('activates deeper tiers as the observer narrows the field', () => {

@@ -44,7 +44,7 @@ import {
   computeObservedMagnitude,
 } from './atmosphericExtinction'
 import { renderNightSkyBackground } from './nightSkyBackground'
-import { computeLimitingMagnitude, computeSkyBrightness } from './skyBrightness'
+import { computeEffectiveLimitingMagnitude, computeSkyBrightness } from './skyBrightness'
 import { computeVisibilityAlpha, computeVisibilitySizeScale } from './starVisibility'
 import { getStarRenderProfile, getStarRenderProfileForMagnitude } from './starRenderer'
 import { buildProceduralSkyBackdrop, buildSyntheticSkyDensityField } from './syntheticStarField'
@@ -266,22 +266,6 @@ function resolveViewTier(fovDegrees: number) {
   return { tier: 'close' as const, labelCap: 10 }
 }
 
-function getVisibleStarMagnitudeLimit(fovDegrees: number) {
-  let limit = 4.2
-
-  if (fovDegrees >= 120) {
-    limit = 1.4
-  } else if (fovDegrees >= 90) {
-    limit = 2.1
-  } else if (fovDegrees >= 60) {
-    limit = 2.9
-  } else if (fovDegrees >= 35) {
-    limit = 3.4
-  }
-
-  return limit
-}
-
 function shouldRenderObject(
   object: SkyEngineSceneObject,
   centerAltitudeDeg: number,
@@ -439,41 +423,22 @@ function drawBackground(
   context.fillRect(0, 0, width, height)
 }
 
-function getSyntheticDensityMagnitudeLimit(fovDegrees: number, sunState: SkyEngineSunState) {
-  const baseLimit = getVisibleStarMagnitudeLimit(fovDegrees)
+function getSyntheticDensityMagnitudeLimit(fovDegrees: number, renderLimitingMagnitude: number) {
+  const closeBlend = 1 - smoothstep(18, 120, fovDegrees)
+  const ultraCloseBlend = 1 - smoothstep(0.7, 6, fovDegrees)
 
-  if (fovDegrees >= 130) {
-    return clamp(baseLimit + 3.4, 4.2, 7.2)
-  }
-
-  if (fovDegrees >= 90) {
-    return clamp(baseLimit + 4.2, 4.8, 8.3)
-  }
-
-  if (fovDegrees >= 45) {
-    return clamp(baseLimit + 5.2, 5.6, 9.4)
-  }
-
-  return clamp(baseLimit + 5.8, 6.2, 10.2)
+  return clamp(renderLimitingMagnitude + 0.45 + closeBlend * 0.85 + ultraCloseBlend * 0.55, -1, 14.6)
 }
 
 function getSyntheticDensityBudget(fovDegrees: number, sunState: SkyEngineSunState) {
   const visibility = clamp(sunState.visualCalibration.starVisibility, 0, 1)
   const brightness = clamp(sunState.visualCalibration.starFieldBrightness, 0, 1)
+  const closeBlend = 1 - smoothstep(28, 140, fovDegrees)
+  const ultraCloseBlend = 1 - smoothstep(0.7, 6, fovDegrees)
+  const baseBudget = mix(260, 1700, closeBlend)
+  const closeBoost = mix(1, 1.45, ultraCloseBlend)
 
-  let budget = 220
-
-  if (fovDegrees < 35) {
-    budget = 1240
-  } else if (fovDegrees < 60) {
-    budget = 860
-  } else if (fovDegrees < 90) {
-    budget = 560
-  } else if (fovDegrees < 130) {
-    budget = 380
-  }
-
-  return Math.round(budget * (0.28 + visibility * 0.72) * (0.5 + brightness * 0.5))
+  return Math.round(baseBudget * closeBoost * (0.3 + visibility * 0.7) * (0.34 + brightness * 0.66))
 }
 
 function getBackdropOpacity(sunState: SkyEngineSunState) {
@@ -1082,10 +1047,10 @@ function drawSyntheticDensityStars(
   sunState: SkyEngineSunState,
   observer: SkyEngineObserver,
   sceneTimestampIso: string | undefined,
-  limitingMagnitude: number,
+  renderLimitingMagnitude: number,
 ) {
   const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
-  const magnitudeLimit = Math.min(getSyntheticDensityMagnitudeLimit(fovDegrees, sunState), limitingMagnitude)
+  const magnitudeLimit = getSyntheticDensityMagnitudeLimit(fovDegrees, renderLimitingMagnitude)
   const densityBudget = getSyntheticDensityBudget(fovDegrees, sunState)
 
   if (densityBudget <= 0) {
@@ -1180,7 +1145,11 @@ function drawProjectedObjects(
   const sceneTimestampIso = resolveSceneTimestampIso(objects)
   const extinction = buildAtmosphericExtinctionContext(observer, sceneTimestampIso)
   const skyBrightness = computeSkyBrightness((sunState.altitudeDeg * Math.PI) / 180)
-  const limitingMagnitude = computeLimitingMagnitude(skyBrightness)
+  const limitingMagnitude = computeEffectiveLimitingMagnitude(
+    skyBrightness,
+    fovDegrees,
+    sunState.visualCalibration.starVisibility,
+  )
   const objectLookup = new Map(objects.map((object) => [object.id, object]))
   const projectedObjects = objects.flatMap((object) => {
     if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, sunState, selectedObjectId)) {
