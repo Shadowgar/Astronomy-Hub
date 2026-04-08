@@ -1040,6 +1040,64 @@ function drawStar(
   context.restore()
 }
 
+const SYNTHETIC_STAR_OVERLAP_CELL_PX = 24
+
+function buildProjectedStarOverlapGrid(projectedObjects: readonly ProjectedSceneObjectEntry[]) {
+  const grid = new Map<string, ProjectedSceneObjectEntry[]>()
+
+  projectedObjects.forEach((entry) => {
+    if (entry.object.type !== 'star') {
+      return
+    }
+
+    const cellX = Math.floor(entry.screenX / SYNTHETIC_STAR_OVERLAP_CELL_PX)
+    const cellY = Math.floor(entry.screenY / SYNTHETIC_STAR_OVERLAP_CELL_PX)
+    const key = `${cellX}:${cellY}`
+    const bucket = grid.get(key)
+
+    if (bucket) {
+      bucket.push(entry)
+      return
+    }
+
+    grid.set(key, [entry])
+  })
+
+  return grid
+}
+
+function overlapsProjectedStar(
+  overlapGrid: ReadonlyMap<string, readonly ProjectedSceneObjectEntry[]>,
+  screenX: number,
+  screenY: number,
+) {
+  const cellX = Math.floor(screenX / SYNTHETIC_STAR_OVERLAP_CELL_PX)
+  const cellY = Math.floor(screenY / SYNTHETIC_STAR_OVERLAP_CELL_PX)
+
+  for (let rowOffset = -1; rowOffset <= 1; rowOffset += 1) {
+    for (let columnOffset = -1; columnOffset <= 1; columnOffset += 1) {
+      const key = `${cellX + columnOffset}:${cellY + rowOffset}`
+      const bucket = overlapGrid.get(key)
+
+      if (!bucket) {
+        continue
+      }
+
+      for (const entry of bucket) {
+        const dx = entry.screenX - screenX
+        const dy = entry.screenY - screenY
+        const minimumDistance = Math.max(5.5, entry.markerRadiusPx * 0.9)
+
+        if (dx * dx + dy * dy < minimumDistance * minimumDistance) {
+          return true
+        }
+      }
+    }
+  }
+
+  return false
+}
+
 function drawSyntheticDensityStars(
   context: CanvasRenderingContext2D,
   view: SkyProjectionView,
@@ -1057,7 +1115,7 @@ function drawSyntheticDensityStars(
     return
   }
 
-  const realStars = projectedObjects.filter((entry) => entry.object.type === 'star')
+  const overlapGrid = buildProjectedStarOverlapGrid(projectedObjects)
   const viewportCenterX = view.viewportWidth * 0.5
   const viewportCenterY = view.viewportHeight * 0.5
   const wideBlend = smoothstep(115, 185, fovDegrees)
@@ -1085,15 +1143,7 @@ function drawSyntheticDensityStars(
       continue
     }
 
-    const overlapsRealStar = realStars.some((entry) => {
-      const dx = entry.screenX - projected.screenX
-      const dy = entry.screenY - projected.screenY
-      const minimumDistance = Math.max(5.5, entry.markerRadiusPx * 0.9)
-
-      return dx * dx + dy * dy < minimumDistance * minimumDistance
-    })
-
-    if (overlapsRealStar) {
+    if (overlapsProjectedStar(overlapGrid, projected.screenX, projected.screenY)) {
       continue
     }
 

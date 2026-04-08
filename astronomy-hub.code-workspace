@@ -6,5 +6,7 @@
     },
 
   ],
-  "settings": {}
+  "settings": {
+    "workbench.browser.enableChatTools": true
+  }
 }
