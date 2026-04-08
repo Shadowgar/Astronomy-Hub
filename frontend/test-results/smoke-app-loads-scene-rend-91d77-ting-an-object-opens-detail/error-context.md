@@ -1,0 +1,187 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e5]:
+  - banner [ref=e6]:
+    - generic [ref=e7]:
+      - heading "Astronomy Hub" [level=1] [ref=e8]
+      - generic [ref=e9]: User / Settings
+    - generic "Top control bar" [ref=e10]:
+      - generic [ref=e11]:
+        - text: "Scope:"
+        - combobox "Scope selector" [ref=e12]:
+          - option "Above Me" [selected]
+      - generic [ref=e13]:
+        - text: "Engine:"
+        - combobox "Engine selector" [ref=e14]:
+          - option "Above Me" [selected]
+      - generic [ref=e15]:
+        - text: "Time:"
+        - combobox "Time selector" [ref=e16]:
+          - option "Now" [selected]
+      - generic [ref=e17]: "Location: ORAS"
+      - generic [ref=e18]:
+        - text: "Mode:"
+        - combobox "Display mode" [ref=e19]:
+          - option "Light" [selected]
+          - option "Dark"
+          - option "Red"
+  - region "Command bar placeholder" [ref=e20]:
+    - heading "Command Bar" [level=2] [ref=e21]
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - button "What's above me now?" [ref=e24]
+        - button "Show satellites" [ref=e25]
+        - button "Show planets" [ref=e26]
+        - button "Earth events" [ref=e27]
+        - button "Solar" [ref=e28]
+      - button "Open conditions details" [ref=e29]:
+        - generic [ref=e30]: Conditions
+        - generic [ref=e31]: "78"
+        - generic [ref=e32]: N/A
+        - generic [ref=e33]: Cloud 22%
+  - main [ref=e35]:
+    - generic [ref=e36]:
+      - generic [ref=e37]:
+        - generic [ref=e39]:
+          - generic [ref=e40]:
+            - heading "Primary Scene / Hero" [level=2] [ref=e41]
+            - generic [ref=e42]:
+              - heading "Scene Snapshot" [level=3] [ref=e44]
+              - generic [ref=e45]:
+                - generic:
+                  - list
+            - generic "Main scene placeholder" [ref=e46]
+            - generic [ref=e47]:
+              - paragraph [ref=e48]: "Scene changes based on:"
+              - list [ref=e49]:
+                - listitem [ref=e50]: scope
+                - listitem [ref=e51]: active engine
+                - listitem [ref=e52]: active filter
+              - link "Open Babylon Sky Engine" [ref=e53] [cursor=pointer]:
+                - /url: /sky-engine
+          - generic [ref=e55]:
+            - generic [ref=e56]:
+              - heading "Detail Panel" [level=3] [ref=e57]
+              - paragraph [ref=e58]: Select an object from the hub to inspect details.
+            - button "Back" [disabled] [ref=e59]
+        - generic [ref=e61]:
+          - generic [ref=e63]:
+            - heading "Now Above Me" [level=3] [ref=e65]
+            - generic [ref=e67]:
+              - list
+              - button "See all visible objects" [ref=e68]
+          - article [ref=e69]:
+            - generic [ref=e70]:
+              - heading "Events / Alerts" [level=3] [ref=e72]
+              - generic [ref=e73]:
+                - list [ref=e74]:
+                  - listitem [ref=e75]:
+                    - generic [ref=e76]:
+                      - generic [ref=e77]: Meteor chance
+                      - generic [ref=e78]: Watch NE sky
+                    - generic [ref=e79]: low
+                  - listitem [ref=e80]:
+                    - generic [ref=e81]:
+                      - generic [ref=e82]: ISS pass
+                      - generic [ref=e83]: Starts Unknown time · Max elevation 65°
+                    - generic [ref=e84]: Good
+                - button "See all events" [ref=e85]
+          - article [ref=e86]:
+            - generic [ref=e87]:
+              - heading "News Digest" [level=3] [ref=e89]
+              - generic [ref=e90]:
+                - list [ref=e91]:
+                  - listitem [ref=e92]:
+                    - generic [ref=e93]:
+                      - generic [ref=e94]: Space news feed unavailable
+                      - generic [ref=e95]: No live article feed is currently configured. Events remain available in Events / Alerts.
+                    - generic [ref=e96]: Unavailable
+                - button "See all news" [ref=e97]
+        - generic [ref=e99]:
+          - article [ref=e100]:
+            - generic [ref=e101]:
+              - heading "Engine Quick Entry" [level=3] [ref=e103]
+              - generic [ref=e104]:
+                - list
+          - article [ref=e105]:
+            - generic [ref=e106]:
+              - heading "Active Filters" [level=3] [ref=e108]
+              - list [ref=e110]:
+                - listitem [ref=e111]:
+                  - generic [ref=e112]:
+                    - generic [ref=e113]: "scope: Above Me"
+                    - generic [ref=e114]: 0 live objects in current scene.
+                  - generic [ref=e115]: Live
+                - listitem [ref=e116]:
+                  - generic [ref=e117]:
+                    - generic [ref=e118]: "engine: Above Me"
+                    - generic [ref=e119]: "Active filter: Visible Now"
+                  - generic [ref=e120]: Live
+          - article [ref=e121]:
+            - generic [ref=e122]:
+              - heading "Quick Tools" [level=3] [ref=e124]
+              - list [ref=e126]:
+                - listitem [ref=e127]:
+                  - generic [ref=e128]:
+                    - generic [ref=e129]: Selected object
+                    - generic [ref=e130]: No object selected.
+                  - generic [ref=e131]: N/A
+                - listitem [ref=e132]:
+                  - generic [ref=e133]:
+                    - generic [ref=e134]: Scene timestamp
+                    - generic [ref=e135]: Scene time unavailable.
+                  - generic [ref=e136]: Live
+                - listitem [ref=e137]:
+                  - generic [ref=e138]:
+                    - generic [ref=e139]: Location context
+                    - generic [ref=e140]: Default ORAS location
+                  - generic [ref=e141]: Live
+                - listitem [ref=e142]:
+                  - generic [ref=e143]:
+                    - generic [ref=e144]: Provider health
+                    - generic [ref=e145]: Provider trace unavailable.
+                  - generic [ref=e146]: Unknown
+      - complementary "Detail companion panel" [ref=e147]:
+        - complementary "Right context panel" [ref=e148]:
+          - heading "Right-Side Live Briefing" [level=2] [ref=e149]
+          - generic [ref=e150]:
+            - heading "Tonight / Now Summary" [level=3] [ref=e152]
+            - list [ref=e154]:
+              - listitem [ref=e155]:
+                - button "Open details for Observing score" [ref=e156] [cursor=pointer]:
+                  - generic [ref=e157]:
+                    - generic [ref=e158]: Observing score
+                    - generic [ref=e159]: "78"
+                  - generic [ref=e160]: Live
+              - listitem [ref=e161]:
+                - button "Open details for Sky quality" [ref=e162] [cursor=pointer]:
+                  - generic [ref=e163]:
+                    - generic [ref=e164]: Sky quality
+                    - generic [ref=e165]: Transparency Classified · Seeing Classified · Darkness Classified
+                  - generic [ref=e166]: Live
+              - listitem [ref=e167]:
+                - generic [ref=e168]:
+                  - generic [ref=e169]: Atmosphere
+                  - generic [ref=e170]: Cloud 22% · Humidity Classified · Wind Classified
+                - generic [ref=e171]: Live
+              - listitem [ref=e172]:
+                - generic [ref=e173]:
+                  - generic [ref=e174]: Temperature
+                  - generic [ref=e175]: N/A
+                - generic [ref=e176]: Live
+              - listitem [ref=e177]:
+                - generic [ref=e178]:
+                  - generic [ref=e179]: Next satellite pass
+                  - generic [ref=e180]: ISS at Unknown
+                - generic [ref=e181]: Good
+              - listitem [ref=e182]:
+                - generic [ref=e183]:
+                  - generic [ref=e184]: Active alert
+                  - generic [ref=e185]: "Meteor chance: Watch NE sky"
+                - generic [ref=e186]: low
+          - generic [ref=e187]:
+            - button "Open full briefing" [ref=e188]
+            - button "Open news digest" [ref=e189]
+  - contentinfo [ref=e190]: ORAS Astronomy Hub (c) 2026
+```

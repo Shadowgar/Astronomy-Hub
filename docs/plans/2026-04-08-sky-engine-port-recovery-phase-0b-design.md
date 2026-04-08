@@ -10,6 +10,7 @@ Responsibilities:
 - own the host-driven `SkyEngineObserver` snapshot inside the runtime
 - expose update/get access for runtime consumers
 - keep observer ownership out of the React mount adapter and out of the bridge
+- provide the observer boundary consumed by bridge render orchestration
 
 Deferred:
 - runtime-owned time service
@@ -23,6 +24,7 @@ Responsibilities:
 - own runtime navigation updates each frame
 - own forwarded wheel/pointer input handling
 - keep navigation state out of React even while React still forwards raw events
+- own selection-target sync during the bridge module update path
 
 Deferred:
 - fully moving pointer listener attachment out of React
@@ -35,6 +37,7 @@ Responsibilities:
 - own viewport sizing config
 - own current/desired FOV state
 - build projection views and wrap projection/unprojection helpers
+- provide the bridge render path with the active `SkyProjectionView`
 
 Deferred:
 - deeper painter-facing projection abstraction
@@ -47,6 +50,7 @@ This slice removes from `SkyEngineRuntimeBridge.ts`:
 - navigation state ownership
 - pointer drag state ownership
 - projection-mode/FOV/view construction ownership
+- direct per-frame navigation stepping
 
 The bridge keeps temporarily:
 - timestamp derivation
@@ -55,3 +59,25 @@ The bridge keeps temporarily:
 - scene-state proof writing and pick-target writing
 
 Timestamp/time ownership remains deferred to a later runtime phase and must not be absorbed into `SkyObserverService` in Phase 0B.
+
+## SkyCore Wiring
+
+`SkyCore` explicitly constructs:
+- `SkyObserverService`
+- `SkyNavigationService`
+- `SkyProjectionService`
+
+`SkyCore.syncServices()` updates:
+- observer snapshot sync
+- projection mode sync
+
+Selection-target sync and frame navigation updates remain runtime-owned inside the bridge module update path, not in React.
+
+## React Host Boundary
+
+`SkyEngineScene.tsx` remains a temporary host adapter only:
+- attaches raw wheel/pointer listeners
+- forwards raw events into `SkyCore.dispatchInput()`
+- does not own observer, navigation, or projection state
+
+React does not take on timestamp/time ownership in this slice. That boundary remains deferred.

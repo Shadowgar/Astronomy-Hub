@@ -34,8 +34,8 @@
           - strong: 120°
         - generic:
           - generic: Local time
-          - strong: Apr 8, 10:53 AM EDT
-          - generic: +8s · America/New_York · 1x
+          - strong: Apr 8, 11:25 AM EDT
+          - generic: +7s · America/New_York · 1x
         - generic: Daylight
   - generic:
     - region "Sky Engine controls":
@@ -44,7 +44,7 @@
           - generic: Time scrub
           - strong: +0m
         - generic:
-          - generic: HIP · m5.5 · 4 tiles · 1527 stars · L0
+          - generic: HIP · m5.5 · 4 tiles · 1544 stars · L0
           - generic: Hipparcos · 8,870 stars
           - generic: Waning Crescent moon
           - generic: 5 guided now
@@ -72,10 +72,10 @@
           - button "Reset" [ref=e27]
       - generic:
         - generic "Guided sky targets":
-          - button "Deneb" [ref=e28]
+          - button "HIP 3179" [ref=e28]
           - button "Deneb" [ref=e29]
-          - button "HIP 677" [ref=e30]
-          - button "HIP 746" [ref=e31]
+          - button "Deneb" [ref=e30]
+          - button "HIP 5447" [ref=e31]
           - button "Moon" [ref=e32]
         - generic "Sky aid toggles":
           - button "Constellations" [ref=e33]

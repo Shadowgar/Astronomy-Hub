@@ -7,11 +7,14 @@ import {
   completePointerInteraction,
   createSceneRuntimeState,
   createSkySceneBridgeModule,
+  createSkySceneRuntimeServices,
   DENSITY_STARS_CANVAS_FALLBACK,
   releasePointerInteraction,
   type ScenePropsSnapshot,
   type SceneRuntimeRefs,
+  type SkySceneRuntimeServices,
   type SkyEngineSceneProps,
+  syncSkySceneRuntimeServices,
   updatePointerInteraction,
 } from './SkyEngineRuntimeBridge'
 
@@ -32,7 +35,7 @@ export default function SkyEngineScene({
 }: SkyEngineSceneProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const backgroundCanvasRef = useRef<HTMLCanvasElement | null>(null)
-  const coreRef = useRef<SkyCore<ScenePropsSnapshot, SceneRuntimeRefs> | null>(null)
+  const coreRef = useRef<SkyCore<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> | null>(null)
   const propsVersionRef = useRef(0)
 
   const snapshot: ScenePropsSnapshot = {
@@ -64,16 +67,17 @@ export default function SkyEngineScene({
       return undefined
     }
 
-    const core = new SkyCore<ScenePropsSnapshot, SceneRuntimeRefs>({
+    const core = new SkyCore<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices>({
       canvas,
       backgroundCanvas,
       initialProps: snapshot,
       initialPropsVersion: propsVersionRef.current,
-      createRuntime: ({ canvas: runtimeCanvas, backgroundCanvas: runtimeBackgroundCanvas, initialProps }) => createSceneRuntimeState({
+      createRuntime: ({ canvas: runtimeCanvas, backgroundCanvas: runtimeBackgroundCanvas }) => createSceneRuntimeState({
         canvas: runtimeCanvas,
         backgroundCanvas: runtimeBackgroundCanvas,
-        initialProps,
       }),
+      createServices: ({ initialProps }) => createSkySceneRuntimeServices(initialProps),
+      syncServices: (services, props) => syncSkySceneRuntimeServices(services, props),
     })
     core.registerModule(createSkySceneBridgeModule())
     coreRef.current = core
@@ -82,8 +86,8 @@ export default function SkyEngineScene({
     // Phase 0A bridge: React still hosts pointer wiring, but forwards all input into SkyCore.
     const handleWheel = (event: WheelEvent) => {
       event.preventDefault()
-      core.dispatchInput((runtime, props) => {
-        applyWheelInput(runtime, props.projectionMode, {
+      core.dispatchInput((runtime, services) => {
+        applyWheelInput(runtime, services, {
           clientX: event.clientX,
           clientY: event.clientY,
           deltaY: event.deltaY,
@@ -92,8 +96,8 @@ export default function SkyEngineScene({
     }
 
     const handlePointerDown = (event: PointerEvent) => {
-      core.dispatchInput((runtime, props) => {
-        beginPointerInteraction(runtime, props.projectionMode, {
+      core.dispatchInput((runtime, services) => {
+        beginPointerInteraction(runtime, services, {
           pointerId: event.pointerId,
           clientX: event.clientX,
           clientY: event.clientY,
@@ -102,8 +106,8 @@ export default function SkyEngineScene({
     }
 
     const handlePointerMove = (event: PointerEvent) => {
-      core.dispatchInput((runtime, props) => {
-        updatePointerInteraction(runtime, props.projectionMode, {
+      core.dispatchInput((runtime, services) => {
+        updatePointerInteraction(runtime, services, {
           pointerId: event.pointerId,
           clientX: event.clientX,
           clientY: event.clientY,
@@ -112,8 +116,8 @@ export default function SkyEngineScene({
     }
 
     const handlePointerUp = (event: PointerEvent) => {
-      core.dispatchInput((runtime, props) => {
-        const objectId = completePointerInteraction(runtime, {
+      core.dispatchInput((runtime, services, props) => {
+        const objectId = completePointerInteraction(runtime, services, {
           pointerId: event.pointerId,
           clientX: event.clientX,
           clientY: event.clientY,
@@ -126,8 +130,8 @@ export default function SkyEngineScene({
     }
 
     const handlePointerCancel = (event: PointerEvent) => {
-      core.dispatchInput((runtime) => {
-        releasePointerInteraction(runtime, event.pointerId)
+      core.dispatchInput((runtime, services) => {
+        releasePointerInteraction(runtime, services, event.pointerId)
       })
     }
 

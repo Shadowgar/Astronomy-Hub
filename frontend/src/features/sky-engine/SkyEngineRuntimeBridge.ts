@@ -639,23 +639,6 @@ function ensureSceneSurfaces(runtime: SceneRuntimeRefs) {
   }
 }
 
-export function syncNavigationState(runtime: SceneRuntimeRefs, objects: readonly SkyEngineSceneObject[], selectedObjectId: string | null) {
-  const selectedObject = objects.find((object) => object.id === selectedObjectId) ?? null
-  const selectionChanged = runtime.selectedObjectId !== selectedObjectId
-
-  runtime.selectedObjectId = selectedObjectId
-
-  if (selectedObject?.isAboveHorizon) {
-    runtime.targetVector = getSelectionTargetVector(selectedObject)
-  } else if (!selectedObject && selectionChanged) {
-    runtime.targetVector = null
-  }
-
-  if (selectionChanged && !selectedObject) {
-    runtime.desiredFov = runtime.currentFov
-  }
-}
-
 function syncDirectObjectLayer(runtime: SceneRuntimeRefs, projectedObjects: readonly ProjectedSceneObjectEntry[], latest: ScenePropsSnapshot, width: number, height: number) {
   runtime.directObjectLayer.sync(
     projectedObjects,
@@ -667,23 +650,19 @@ function syncDirectObjectLayer(runtime: SceneRuntimeRefs, projectedObjects: read
   )
 }
 
-export function renderSceneFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot) {
+export function renderSceneFrame(runtime: SceneRuntimeRefs, services: SkySceneRuntimeServices, latest: ScenePropsSnapshot) {
   const { width, height } = ensureSceneSurfaces(runtime)
   const backgroundContext = runtime.backgroundCanvas.getContext('2d') as CanvasRenderingContext2D
-
-  const view: SkyProjectionView = {
-    centerDirection: runtime.centerDirection,
-    fovRadians: runtime.currentFov,
-    viewportWidth: width,
-    viewportHeight: height,
-    projectionMode: latest.projectionMode,
-  }
-  const currentFovDegrees = getSkyEngineFovDegrees(runtime.currentFov)
+  services.projectionService.syncViewport(width, height)
+  const view: SkyProjectionView = services.projectionService.createView(
+    services.navigationService.getCenterDirection(),
+  )
+  const currentFovDegrees = services.projectionService.getCurrentFovDegrees()
   const lod = resolveViewTier(currentFovDegrees)
   const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
   const { projectedObjects, limitingMagnitude, sceneTimestampIso } = collectProjectedObjects(
     view,
-    latest.observer,
+    services.observerService.getObserver(),
     latest.objects,
     latest.scenePacket,
     latest.sunState,
@@ -693,12 +672,20 @@ export function renderSceneFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSn
   backgroundContext.clearRect(0, 0, width, height)
   const backgroundFrame = prepareDirectBackgroundFrame(view, latest.sunState, currentFovDegrees)
   runtime.directBackgroundLayer.sync(backgroundFrame)
-  drawSyntheticDensityStars(backgroundContext, view, projectedObjects, latest.sunState, latest.observer, sceneTimestampIso, limitingMagnitude)
+  drawSyntheticDensityStars(
+    backgroundContext,
+    view,
+    projectedObjects,
+    latest.sunState,
+    services.observerService.getObserver(),
+    sceneTimestampIso,
+    limitingMagnitude,
+  )
 
   syncDirectObjectLayer(runtime, projectedObjects, latest, width, height)
   const overlayFrame = prepareDirectOverlayFrame(
     view,
-    latest.observer,
+    services.observerService.getObserver(),
     projectedObjects,
     latest.scenePacket,
     latest.selectedObjectId,
@@ -795,6 +782,52 @@ export function syncSkySceneRuntimeServices(services: SkySceneRuntimeServices, p
   services.projectionService.syncProjectionMode(props.projectionMode)
 }
 
+export function applyWheelInput(
+  runtime: Pick<SceneRuntimeRefs, 'canvas'>,
+  services: SkySceneRuntimeServices,
+  input: { clientX: number; clientY: number; deltaY: number },
+) {
+  services.navigationService.handleWheelInput(runtime.canvas, services.projectionService, input)
+}
+
+export function beginPointerInteraction(
+  runtime: Pick<SceneRuntimeRefs, 'canvas'>,
+  services: SkySceneRuntimeServices,
+  input: { pointerId: number; clientX: number; clientY: number },
+) {
+  services.navigationService.beginPointerInteraction(runtime.canvas, services.projectionService, input)
+}
+
+export function updatePointerInteraction(
+  runtime: Pick<SceneRuntimeRefs, 'canvas'>,
+  services: SkySceneRuntimeServices,
+  input: { pointerId: number; clientX: number; clientY: number },
+) {
+  services.navigationService.updatePointerInteraction(runtime.canvas, services.projectionService, input)
+}
+
+export function releasePointerInteraction(
+  runtime: Pick<SceneRuntimeRefs, 'canvas'>,
+  services: SkySceneRuntimeServices,
+  pointerId: number,
+) {
+  services.navigationService.releasePointerInteraction(runtime.canvas, pointerId)
+}
+
+export function completePointerInteraction(
+  runtime: Pick<SceneRuntimeRefs, 'canvas' | 'projectedPickEntries'>,
+  services: SkySceneRuntimeServices,
+  input: { pointerId: number; clientX: number; clientY: number },
+) {
+  return services.navigationService.completePointerInteraction(
+    runtime.canvas,
+    input.pointerId,
+    input.clientX,
+    input.clientY,
+    runtime.projectedPickEntries,
+  )
+}
+
 function updateReportedViewState(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot, services: SkySceneRuntimeServices) {
   const currentFovTenths = Math.round(services.projectionService.getCurrentFovDegrees() * 10)
   const centerHorizontal = directionToHorizontal(services.navigationService.getCenterDirection())
@@ -821,7 +854,7 @@ function updateReportedViewState(runtime: SceneRuntimeRefs, latest: ScenePropsSn
   }
 }
 
-export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs> {
+export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-scene-runtime-bridge',
     renderOrder: 100,
@@ -831,27 +864,27 @@ export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, Scen
         message: 'Direct Babylon background, object, aid, trajectory, and label rendering is active with a bounded density-star canvas fallback.',
       })
     },
-    update({ runtime, getProps, deltaSeconds, markFrameDirty }) {
+    update({ runtime, services, getProps, deltaSeconds, markFrameDirty }) {
       const latest = getProps()
       runtime.animationTime += deltaSeconds
-      syncNavigationState(runtime, latest.objects, latest.selectedObjectId)
-      const previousCenterDirection = runtime.centerDirection
-      const previousFov = runtime.currentFov
-      const navigation = updateObserverNavigation(runtime.centerDirection, runtime.currentFov, runtime.desiredFov, runtime.targetVector, deltaSeconds)
-      const navigationChanged = !navigation.centerDirection.equalsWithEpsilon(previousCenterDirection, 0.000001)
-        || Math.abs(navigation.fovRadians - previousFov) > 0.000001
-      runtime.centerDirection = navigation.centerDirection
-      runtime.currentFov = navigation.fovRadians
-      runtime.targetVector = navigation.targetVector
+      services.navigationService.syncSelection(
+        latest.objects,
+        latest.selectedObjectId,
+        services.projectionService,
+      )
+      const navigationChanged = services.navigationService.update(
+        deltaSeconds,
+        services.projectionService,
+      )
 
       if (navigationChanged) {
         markFrameDirty()
       }
     },
-    render({ runtime, getProps }) {
+    render({ runtime, services, getProps }) {
       const latest = getProps()
-      const frame = renderSceneFrame(runtime, latest)
-      const { currentFovDegrees } = updateReportedViewState(runtime, latest)
+      const frame = renderSceneFrame(runtime, services, latest)
+      const { currentFovDegrees } = updateReportedViewState(runtime, latest, services)
 
       writeSceneState({
         backendStarCount: latest.backendStars.length,
