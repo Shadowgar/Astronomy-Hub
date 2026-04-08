@@ -39,7 +39,8 @@ import {
   type SkyProjectionView,
   unprojectViewportPoint,
 } from './projectionMath'
-import { getStarRenderProfile } from './starRenderer'
+import { getStarRenderProfile, getStarRenderProfileForMagnitude } from './starRenderer'
+import { buildProceduralSkyBackdrop, buildSyntheticSkyDensityField } from './syntheticStarField'
 import type { SkyScenePacket } from './engine/sky'
 import type { BackendSkySceneStarObject } from '../scene/contracts'
 import type {
@@ -138,6 +139,8 @@ const TRAJECTORY_HOUR_OFFSETS = [-6, -3, 0, 3, 6] as const
 const POINTER_DRAG_THRESHOLD_PX = 6
 const STAR_BELOW_HORIZON_FADE_DEG = 8
 const BODY_BELOW_HORIZON_FADE_DEG = 1.5
+const SYNTHETIC_SKY_DENSITY_SAMPLES = buildSyntheticSkyDensityField(2800)
+const PROCEDURAL_SKY_BACKDROP = buildProceduralSkyBackdrop(180)
 const CONSTELLATION_SEGMENTS = [
   ['sky-real-vega', 'sky-real-sheliak'],
   ['sky-real-vega', 'sky-real-sulafat'],
@@ -163,6 +166,10 @@ function smoothstep(edge0: number, edge1: number, value: number) {
 
   const amount = clamp((value - edge0) / (edge1 - edge0), 0, 1)
   return amount * amount * (3 - 2 * amount)
+}
+
+function mix(left: number, right: number, amount: number) {
+  return left + (right - left) * amount
 }
 
 function degreesToRadians(value: number) {
@@ -377,18 +384,103 @@ function drawBackground(context: CanvasRenderingContext2D, width: number, height
   context.fillRect(0, 0, width, height)
 }
 
-function getBelowHorizonReveal(centerAltitudeDeg: number, fovDegrees: number) {
-  const downwardReveal = smoothstep(2, 58, -centerAltitudeDeg)
-  const wideReveal = smoothstep(110, 185, fovDegrees)
+function getSyntheticDensityMagnitudeLimit(fovDegrees: number, sunState: SkyEngineSunState) {
+  const baseLimit = getVisibleStarMagnitudeLimit(fovDegrees, sunState)
 
-  return clamp(Math.max(downwardReveal, wideReveal * 0.58), 0, 1)
+  if (fovDegrees >= 130) {
+    return clamp(baseLimit + 3.4, 4.2, 7.2)
+  }
+
+  if (fovDegrees >= 90) {
+    return clamp(baseLimit + 4.2, 4.8, 8.3)
+  }
+
+  if (fovDegrees >= 45) {
+    return clamp(baseLimit + 5.2, 5.6, 9.4)
+  }
+
+  return clamp(baseLimit + 5.8, 6.2, 10.2)
+}
+
+function getSyntheticDensityBudget(fovDegrees: number, sunState: SkyEngineSunState) {
+  const visibility = clamp(sunState.visualCalibration.starVisibility, 0, 1)
+  const brightness = clamp(sunState.visualCalibration.starFieldBrightness, 0, 1)
+
+  let budget = 220
+
+  if (fovDegrees < 35) {
+    budget = 1240
+  } else if (fovDegrees < 60) {
+    budget = 860
+  } else if (fovDegrees < 90) {
+    budget = 560
+  } else if (fovDegrees < 130) {
+    budget = 380
+  }
+
+  return Math.round(budget * (0.28 + visibility * 0.72) * (0.5 + brightness * 0.5))
+}
+
+function getBackdropOpacity(sunState: SkyEngineSunState) {
+  return clamp(sunState.visualCalibration.starVisibility * 0.62 + sunState.visualCalibration.starFieldBrightness * 0.24, 0, 1)
+}
+
+function drawProceduralSkyBackdrop(
+  context: CanvasRenderingContext2D,
+  view: SkyProjectionView,
+  sunState: SkyEngineSunState,
+  fovDegrees: number,
+) {
+  const backdropOpacity = getBackdropOpacity(sunState)
+
+  if (backdropOpacity <= 0.08) {
+    return
+  }
+
+  const projectionScale = getProjectionScale(view)
+  const wideBlend = smoothstep(80, 185, fovDegrees)
+
+  context.save()
+  PROCEDURAL_SKY_BACKDROP.forEach((patch) => {
+    const projected = projectDirectionToViewport(patch.direction, view)
+
+    if (!projected || !isProjectedPointVisible(projected, view, 120)) {
+      return
+    }
+
+    const radiusPx = clamp(projectionScale * Math.tan(degreesToRadians(patch.radiusDeg) * 0.5), 28, 240)
+    const alpha = patch.alpha * backdropOpacity * (0.35 + patch.bandWeight * 0.95) * (0.56 + wideBlend * 0.44)
+
+    if (alpha <= 0.004) {
+      return
+    }
+
+    const glow = context.createRadialGradient(projected.screenX, projected.screenY, 0, projected.screenX, projected.screenY, radiusPx)
+    glow.addColorStop(0, hexToRgba(patch.colorHex, alpha * 0.34))
+    glow.addColorStop(0.42, hexToRgba(patch.colorHex, alpha * 0.16))
+    glow.addColorStop(1, hexToRgba(patch.colorHex, 0))
+    context.fillStyle = glow
+    context.beginPath()
+    context.arc(projected.screenX, projected.screenY, radiusPx, 0, Math.PI * 2)
+    context.fill()
+  })
+  context.restore()
+}
+
+function getBelowHorizonReveal(centerAltitudeDeg: number, fovDegrees: number) {
+  const downwardReveal = smoothstep(0, 45, -centerAltitudeDeg)
+  const wideBlend = smoothstep(90, 185, fovDegrees)
+
+  return clamp(downwardReveal * (0.55 + wideBlend * 0.45), 0, 1)
 }
 
 function getLandscapeOpacity(centerAltitudeDeg: number, fovDegrees: number) {
-  const reveal = getBelowHorizonReveal(centerAltitudeDeg, fovDegrees)
-  const polarBlend = smoothstep(68, 88, Math.abs(centerAltitudeDeg))
+  const forwardAltitudeDeg = Math.max(-90, Math.min(90, centerAltitudeDeg))
+  let alpha = smoothstep(1, 20, fovDegrees)
 
-  return clamp(1 - reveal * 0.9 - polarBlend * 0.5, 0.04, 1)
+  alpha = mix(alpha, alpha * 0.5, smoothstep(0, 45, -forwardAltitudeDeg))
+
+  return clamp(alpha, 0.18, 1)
 }
 
 function drawBelowHorizonSkyContinuation(
@@ -887,7 +979,6 @@ function drawPlanet(context: CanvasRenderingContext2D, object: SkyEngineSceneObj
 
 function drawStar(
   context: CanvasRenderingContext2D,
-  object: SkyEngineSceneObject,
   x: number,
   y: number,
   radius: number,
@@ -920,6 +1011,80 @@ function drawStar(
   context.restore()
 }
 
+function drawSyntheticDensityStars(
+  context: CanvasRenderingContext2D,
+  view: SkyProjectionView,
+  projectedObjects: readonly ProjectedSceneObjectEntry[],
+  sunState: SkyEngineSunState,
+) {
+  const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
+  const magnitudeLimit = getSyntheticDensityMagnitudeLimit(fovDegrees, sunState)
+  const densityBudget = getSyntheticDensityBudget(fovDegrees, sunState)
+
+  if (densityBudget <= 0) {
+    return
+  }
+
+  const realStars = projectedObjects.filter((entry) => entry.object.type === 'star')
+  const viewportCenterX = view.viewportWidth * 0.5
+  const viewportCenterY = view.viewportHeight * 0.5
+  const wideBlend = smoothstep(115, 185, fovDegrees)
+  const closeBlend = 1 - smoothstep(24, 90, fovDegrees)
+  const animationTime = performance.now() * 0.0008
+  let drawnCount = 0
+
+  for (const sample of SYNTHETIC_SKY_DENSITY_SAMPLES) {
+    if (sample.magnitude > magnitudeLimit || drawnCount >= densityBudget) {
+      if (drawnCount >= densityBudget) {
+        break
+      }
+
+      continue
+    }
+
+    const projected = projectDirectionToViewport(sample.direction, view)
+
+    if (!projected || !isProjectedPointVisible(projected, view, 20)) {
+      continue
+    }
+
+    const overlapsRealStar = realStars.some((entry) => {
+      const dx = entry.screenX - projected.screenX
+      const dy = entry.screenY - projected.screenY
+      const minimumDistance = Math.max(5.5, entry.markerRadiusPx * 0.9)
+
+      return dx * dx + dy * dy < minimumDistance * minimumDistance
+    })
+
+    if (overlapsRealStar) {
+      continue
+    }
+
+    const distanceToCenter = Math.hypot(projected.screenX - viewportCenterX, projected.screenY - viewportCenterY)
+    const normalizedCenterDistance = clamp(distanceToCenter / Math.max(view.viewportWidth, view.viewportHeight), 0, 1)
+    const centerFill = 1 + wideBlend * (1 - normalizedCenterDistance) * 0.38
+    const profile = getStarRenderProfileForMagnitude(sample.magnitude, sample.colorIndexBV, sunState.visualCalibration)
+    const markerRadiusPx = clamp((profile.coreRadiusPx * 0.46 + sample.size * 0.7) * (0.9 + closeBlend * 0.3) * centerFill, 0.34, 2.4)
+    const twinkle = 1 + Math.sin(animationTime + sample.twinklePhase) * profile.twinkleAmplitude * 0.9
+    const alpha = clamp(
+      sample.alpha * profile.alpha * (0.34 + sample.bandWeight * 0.3) * (0.74 + closeBlend * 0.2) * centerFill,
+      0.035,
+      0.32,
+    )
+
+    drawStar(
+      context,
+      projected.screenX,
+      projected.screenY,
+      markerRadiusPx * twinkle,
+      profile,
+      alpha,
+    )
+
+    drawnCount += 1
+  }
+}
+
 function getObjectHorizonFade(object: SkyEngineSceneObject, centerAltitudeDeg: number, fovDegrees: number) {
   if (object.source === 'temporary_scene_seed') {
     return 1
@@ -927,6 +1092,10 @@ function getObjectHorizonFade(object: SkyEngineSceneObject, centerAltitudeDeg: n
 
   if (object.isAboveHorizon) {
     return 1
+  }
+
+  if (centerAltitudeDeg >= 0) {
+    return 0
   }
 
   const belowHorizonReveal = getBelowHorizonReveal(centerAltitudeDeg, fovDegrees)
@@ -1007,6 +1176,8 @@ function drawProjectedObjects(
   const allProjectedObjects = [...projectedObjects, ...packetProjectedObjects]
     .sort((left, right) => left.depth - right.depth || left.object.magnitude - right.object.magnitude)
 
+  drawSyntheticDensityStars(context, view, allProjectedObjects, sunState)
+
   allProjectedObjects.forEach((entry) => {
     const horizonFade = getObjectHorizonFade(entry.object, centerAltitudeDeg, fovDegrees)
 
@@ -1040,7 +1211,6 @@ function drawProjectedObjects(
 
     drawStar(
       context,
-      entry.object,
       entry.screenX,
       entry.screenY,
       entry.markerRadiusPx,
@@ -1325,10 +1495,12 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
     viewportHeight: height,
     projectionMode: latest.projectionMode,
   }
-  const lod = resolveViewTier(getSkyEngineFovDegrees(runtime.currentFov))
+  const currentFovDegrees = getSkyEngineFovDegrees(runtime.currentFov)
+  const lod = resolveViewTier(currentFovDegrees)
 
+  drawProceduralSkyBackdrop(context, view, latest.sunState, currentFovDegrees)
   drawSolarGlare(context, view, latest.sunState)
-  drawAidLayers(context, view, latest.aidVisibility, latest.sunState, getSkyEngineFovDegrees(runtime.currentFov))
+  drawAidLayers(context, view, latest.aidVisibility, latest.sunState, currentFovDegrees)
   const projectedObjects = drawProjectedObjects(context, view, latest.objects, latest.scenePacket, latest.sunState, latest.selectedObjectId)
 
   if (latest.aidVisibility.constellations) {

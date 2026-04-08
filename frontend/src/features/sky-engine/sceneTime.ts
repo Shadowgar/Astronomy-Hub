@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 
-import { computeSceneTimestampFromOffsetSeconds } from './astronomy'
-
 export const SKY_ENGINE_LOCAL_TIME_ZONE = 'America/New_York'
 export const SKY_ENGINE_MAX_SCENE_OFFSET_SECONDS = 14 * 24 * 60 * 60
 
@@ -53,12 +51,14 @@ export function formatSceneUtcTimestamp(timestampIso: string) {
 }
 
 export function formatSceneOffset(offsetSeconds: number) {
-  if (offsetSeconds === 0) {
+  const roundedOffsetSeconds = Math.round(offsetSeconds)
+
+  if (roundedOffsetSeconds === 0) {
     return 'Now'
   }
 
-  const sign = offsetSeconds > 0 ? '+' : '-'
-  const absoluteSeconds = Math.abs(offsetSeconds)
+  const sign = roundedOffsetSeconds > 0 ? '+' : '-'
+  const absoluteSeconds = Math.abs(roundedOffsetSeconds)
   const days = Math.floor(absoluteSeconds / 86400)
   const hours = Math.floor((absoluteSeconds % 86400) / 3600)
   const minutes = Math.floor((absoluteSeconds % 3600) / 60)
@@ -85,19 +85,21 @@ export function formatSceneOffset(offsetSeconds: number) {
 }
 
 export function formatSceneScaleOffset(offsetSeconds: number, scaleId: SkyEngineTimeScaleId) {
+  const roundedOffsetSeconds = Math.round(offsetSeconds)
+
   if (scaleId === 'seconds') {
-    return formatOffsetUnit(offsetSeconds, 's')
+    return formatOffsetUnit(roundedOffsetSeconds, 's')
   }
 
   if (scaleId === 'minutes') {
-    return formatOffsetUnit(Math.round(offsetSeconds / 60), 'm')
+    return formatOffsetUnit(Math.round(roundedOffsetSeconds / 60), 'm')
   }
 
   if (scaleId === 'hours') {
-    return formatOffsetUnit(Number((offsetSeconds / 3600).toFixed(1)), 'h')
+    return formatOffsetUnit(Number((roundedOffsetSeconds / 3600).toFixed(1)), 'h')
   }
 
-  return formatOffsetUnit(Number((offsetSeconds / 86400).toFixed(1)), 'd')
+  return formatOffsetUnit(Number((roundedOffsetSeconds / 86400).toFixed(1)), 'd')
 }
 
 export function getPlaybackRateLabel(playbackRate: number) {
@@ -105,7 +107,12 @@ export function getPlaybackRateLabel(playbackRate: number) {
   return playbackOption?.label ?? `${playbackRate > 0 ? '+' : ''}${playbackRate}x`
 }
 
-export function useSkyEngineSceneTime(initialTimestampIso: string) {
+function toSceneTimestampIso(timestampMs: number) {
+  return new Date(timestampMs).toISOString()
+}
+
+export function useSkyEngineSceneTime() {
+  const [sceneBaseTimestampMs, setSceneBaseTimestampMs] = useState(() => Date.now())
   const [sceneOffsetSeconds, setSceneOffsetSecondsInternal] = useReducer(
     (currentValue: number, nextValue: number | ((currentValue: number) => number)) => {
       const resolvedValue = typeof nextValue === 'function' ? nextValue(currentValue) : nextValue
@@ -114,8 +121,8 @@ export function useSkyEngineSceneTime(initialTimestampIso: string) {
     0,
   )
   const [timeScaleId, setTimeScaleId] = useState<SkyEngineTimeScaleId>('minutes')
-  const [playbackRate, setPlaybackRate] = useState(0)
-  const lastNonZeroPlaybackRate = useRef(60)
+  const [playbackRate, setPlaybackRate] = useState(1)
+  const lastNonZeroPlaybackRate = useRef(1)
   const lastAnimationTimestampRef = useRef<number | null>(null)
 
   useEffect(() => {
@@ -137,7 +144,7 @@ export function useSkyEngineSceneTime(initialTimestampIso: string) {
       lastAnimationTimestampRef.current = timestamp
 
       setSceneOffsetSecondsInternal((currentValue) => {
-        const nextValue = clampSceneOffsetSeconds(Math.round(currentValue + elapsedSeconds * playbackRate))
+        const nextValue = clampSceneOffsetSeconds(currentValue + elapsedSeconds * playbackRate)
 
         if (Math.abs(nextValue) >= SKY_ENGINE_MAX_SCENE_OFFSET_SECONDS) {
           setPlaybackRate(0)
@@ -163,8 +170,8 @@ export function useSkyEngineSceneTime(initialTimestampIso: string) {
   )
 
   const sceneTimestampIso = useMemo(
-    () => computeSceneTimestampFromOffsetSeconds(initialTimestampIso, sceneOffsetSeconds),
-    [initialTimestampIso, sceneOffsetSeconds],
+    () => toSceneTimestampIso(sceneBaseTimestampMs + sceneOffsetSeconds * 1000),
+    [sceneBaseTimestampMs, sceneOffsetSeconds],
   )
 
   const formattedSceneLocalTimestamp = useMemo(
@@ -211,7 +218,8 @@ export function useSkyEngineSceneTime(initialTimestampIso: string) {
   }, [])
 
   const resetSceneTime = useCallback(() => {
-    setPlaybackRate(0)
+    setSceneBaseTimestampMs(Date.now())
+    setPlaybackRate(1)
     setSceneOffsetSecondsInternal(0)
   }, [])
 

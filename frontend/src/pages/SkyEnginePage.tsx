@@ -161,7 +161,7 @@ function SkyEngineOwnershipState({ title, detail }: Readonly<SkyEngineOwnershipS
 }
 
 function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: BackendSkyScenePayload }>) {
-  const sceneTime = useSkyEngineSceneTime(backendScene.timestamp)
+  const sceneTime = useSkyEngineSceneTime()
   const skyStarTileManifestQuery = useSkyStarTileManifestDataQuery({ at: backendScene.timestamp })
   const [repositoryMode] = useState(() => resolveSkyTileRepositoryMode())
   const [searchQuery, setSearchQuery] = useState('')
