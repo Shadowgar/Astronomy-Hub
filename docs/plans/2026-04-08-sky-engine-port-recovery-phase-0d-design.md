@@ -10,6 +10,21 @@ Reduce `SkyEngineRuntimeBridge.ts` from a hidden engine implementation into a th
 
 This slice keeps current Babylon behavior intact. It does not change visual semantics, painter architecture, catalog scope, or parity tuning.
 
+## Bridge To Module Mapping
+
+Bridge responsibilities moved into real runtime modules:
+- background frame preparation and direct background submission now live in `BackgroundRuntimeModule`
+- synthetic density-star fallback coordination now lives in `BackgroundRuntimeModule`
+- projected object collection, viewport/FOV frame construction, and pick-entry refresh now live in `ObjectRuntimeModule`
+- direct object-layer submission now lives in `ObjectRuntimeModule`
+- overlay frame preparation plus labels/aids/trajectory submission now live in `OverlayRuntimeModule`
+
+Bridge responsibilities intentionally retained:
+- Babylon runtime creation and disposal
+- service construction and prop sync entrypoints
+- bounded compatibility reporting for scene state and pick target export
+- per-frame navigation update coordination that still belongs to the temporary compatibility shell in this slice
+
 ## BackgroundRuntimeModule
 
 Responsibilities:
@@ -77,6 +92,12 @@ Remains temporary in `SkyEngineRuntimeBridge.ts` after this slice:
 - compatibility module for navigation update, atmosphere fallback status reporting, scene-state reporting, and pick-target export
 - final layer disposal until deeper runtime cleanup work is approved
 
+Not handled in this slice:
+- painter abstraction or painter parity work
+- deeper module splitting inside background/object/overlay paths
+- new catalogs, labels, atmosphere tuning, or visual upgrades
+- runtime service redesign beyond consuming the existing observer/navigation/projection/input/clock backbone
+
 ## SkyCore Registration
 
 `SkyCore` remains the owner of the runtime and services. It now registers modules explicitly in render order:
@@ -103,3 +124,35 @@ It does not:
 - own clock cadence
 - own render orchestration
 - own background/object/overlay composition
+
+## Live Stellarium Parity Baseline
+
+Behavioral authority used for this slice:
+- live reference: `http://127.0.0.1:8080/`
+- source reference: `/study/stellarium-web-engine/source/stellarium-web-engine-master/src/`
+
+Baseline observations from the live reference before extraction verification:
+- background behavior: strong day/night gradient with horizon brightening, atmospheric glow, and a landscape horizon that visibly occludes below-horizon content
+- object behavior: dense star placement with center-weighted readability, sky-culture/object labels, and stable major-object placement during drag/zoom
+- overlay behavior: labels and guides remain separate from the core background/object draw path and appear to be layered after object placement
+- interaction feel: drag and zoom are immediate, and the scene updates continuously without host-page ownership leaks
+
+Source structure observations used to match runtime ownership:
+- `core.c` sorts child modules by render order and updates/renders them under core ownership
+- `module.h` defines module-level update/list/render behavior as a module concern rather than a page concern
+- `atmosphere.c`, `stars.c`, `landscape.c`, `constellations.c`, and `labels.c` keep rendering responsibilities separated by module
+
+## Validation Plan
+
+Structural validation:
+- verify `SkyCore` explicitly registers `BackgroundRuntimeModule`, `ObjectRuntimeModule`, `OverlayRuntimeModule`, and the thin bridge module in render order
+- verify `SkyEngineRuntimeBridge.ts` no longer owns projected object collection, background preparation, or overlay preparation helpers
+
+Functional validation:
+- run targeted runtime-boundary tests that prove module registration and bridge shrinkage
+- run frontend typecheck and build
+- smoke-check `/sky-engine` in the local Astronomy Hub preview
+
+Live parity validation:
+- compare Astronomy Hub `/sky-engine` against live Stellarium for background layering, object density/placement feel, overlay presence, and drag/zoom responsiveness
+- if behavior differs, treat it as an ownership regression first and fix the extraction boundary before changing visuals

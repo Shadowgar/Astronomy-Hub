@@ -58,4 +58,40 @@ describe('sky core runtime boundary', () => {
     expect(bridgeSource).not.toContain('function collectProjectedObjects')
     expect(bridgeSource).not.toContain('function drawSyntheticDensityStars')
   })
+
+  it('registers runtime modules in explicit render order and keeps the bridge last', () => {
+    const sceneSource = fs.readFileSync(SKY_ENGINE_SCENE_PATH, 'utf8')
+    const backgroundModuleSource = fs.readFileSync(BACKGROUND_RUNTIME_MODULE_PATH, 'utf8')
+    const objectModuleSource = fs.readFileSync(OBJECT_RUNTIME_MODULE_PATH, 'utf8')
+    const overlayModuleSource = fs.readFileSync(OVERLAY_RUNTIME_MODULE_PATH, 'utf8')
+    const bridgeSource = fs.readFileSync(SKY_RUNTIME_BRIDGE_PATH, 'utf8')
+
+    const backgroundRegistrationIndex = sceneSource.indexOf('core.registerModule(createBackgroundRuntimeModule())')
+    const objectRegistrationIndex = sceneSource.indexOf('core.registerModule(createObjectRuntimeModule())')
+    const overlayRegistrationIndex = sceneSource.indexOf('core.registerModule(createOverlayRuntimeModule())')
+    const bridgeRegistrationIndex = sceneSource.indexOf('core.registerModule(createSkySceneBridgeModule())')
+
+    expect(backgroundRegistrationIndex).toBeGreaterThan(-1)
+    expect(objectRegistrationIndex).toBeGreaterThan(backgroundRegistrationIndex)
+    expect(overlayRegistrationIndex).toBeGreaterThan(objectRegistrationIndex)
+    expect(bridgeRegistrationIndex).toBeGreaterThan(overlayRegistrationIndex)
+
+    expect(backgroundModuleSource).toContain('renderOrder: 10')
+    expect(objectModuleSource).toContain('renderOrder: 20')
+    expect(overlayModuleSource).toContain('renderOrder: 30')
+    expect(bridgeSource).toContain('renderOrder: 100')
+  })
+
+  it('keeps the bridge as compatibility reporting instead of render-orchestration ownership', () => {
+    const bridgeSource = fs.readFileSync(SKY_RUNTIME_BRIDGE_PATH, 'utf8')
+
+    expect(bridgeSource).toContain('writeSceneState({')
+    expect(bridgeSource).toContain('writeSkyEnginePickTargets')
+    expect(bridgeSource).not.toContain('prepareDirectBackgroundFrame')
+    expect(bridgeSource).not.toContain('prepareDirectOverlayFrame')
+    expect(bridgeSource).not.toContain('collectProjectedObjects(')
+    expect(bridgeSource).not.toContain('runtime.directObjectLayer.sync(')
+    expect(bridgeSource).not.toContain('runtime.directOverlayLayer.sync(')
+    expect(bridgeSource).not.toContain('runtime.directBackgroundLayer.sync(')
+  })
 })
