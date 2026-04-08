@@ -37,6 +37,10 @@ function clampDot(value: number) {
   return Math.min(1, Math.max(-1, value))
 }
 
+function degreesToRadians(value: number) {
+  return (value * Math.PI) / 180
+}
+
 export function normalizeDirection(direction: Vector3) {
   if (direction.lengthSquared() === 0) {
     return WORLD_NORTH.clone()
@@ -70,14 +74,19 @@ export function directionToHorizontal(direction: Vector3) {
 
 export function buildProjectionBasis(centerDirection: Vector3): SkyProjectionBasis {
   const center = normalizeDirection(centerDirection)
-  let east = Vector3.Cross(WORLD_UP, center)
-
-  if (east.lengthSquared() < 1e-8) {
-    east = Vector3.Cross(WORLD_NORTH, center)
-  }
-
-  east = east.normalizeToNew()
-  const north = Vector3.Cross(center, east).normalizeToNew()
+  const { altitudeDeg, azimuthDeg } = directionToHorizontal(center)
+  const altitudeRad = degreesToRadians(altitudeDeg)
+  const azimuthRad = degreesToRadians(azimuthDeg)
+  const east = new Vector3(
+    Math.cos(azimuthRad),
+    0,
+    -Math.sin(azimuthRad),
+  ).normalizeToNew()
+  const north = new Vector3(
+    -Math.sin(azimuthRad) * Math.sin(altitudeRad),
+    Math.cos(altitudeRad),
+    -Math.cos(azimuthRad) * Math.sin(altitudeRad),
+  ).normalizeToNew()
 
   return {
     center,
