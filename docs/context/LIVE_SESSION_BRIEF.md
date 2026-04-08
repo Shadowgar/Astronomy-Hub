@@ -109,6 +109,7 @@ The viewport:
 * supports interaction (click, focus, highlight)
 * updates based on feed interaction
 * does NOT expand into full engine mode by default
+* mounts Sky Engine as an engine-owned runtime, not as hub-owned rendering logic
 
 ---
 
@@ -197,6 +198,7 @@ Current work is LIMITED to:
 
 * building the Above Me Hub
 * implementing Sky Engine rendering (Babylon.js)
+* recovering Sky Engine as a self-contained Babylon.js runtime
 * connecting hub → engine interaction
 * enforcing architecture rules
 * cleaning document authority
@@ -210,6 +212,7 @@ Current work is LIMITED to:
 * adding new domains
 * phase progression work
 * speculative architecture changes
+* turning the Hub into a shared engine runtime
 
 ---
 

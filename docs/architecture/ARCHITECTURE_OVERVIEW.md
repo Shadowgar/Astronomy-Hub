@@ -62,6 +62,7 @@ Each engine:
 * provides detail views
 * supports exploration
 * controls its scene (if primary)
+* may own an isolated runtime if primary
 
 Examples:
 
@@ -100,6 +101,17 @@ Rules:
 * switching engines replaces the scene
 * the Hub does not render scenes directly
 * the viewport is the primary interaction surface
+
+---
+
+## PRIMARY ENGINE RUNTIME BOUNDARY
+
+For a primary engine:
+
+* the engine may own its own BabylonJS runtime
+* the engine owns its render loop and internal module graph
+* the host provides mount surface, context, and routing only
+* the host must not absorb engine-internal rendering behavior
 
 ---
 
@@ -197,6 +209,7 @@ Engines operate independently but must:
 * conform to shared object model
 * expose consistent contracts
 * support cross-engine navigation
+* preserve thin host-facing interfaces
 
 ---
 

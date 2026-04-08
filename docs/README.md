@@ -77,6 +77,7 @@ Engines:
 * own objects
 * render scenes
 * control interaction
+* may own isolated Babylon.js runtimes when primary
 
 Examples:
 
@@ -101,13 +102,13 @@ The viewport:
 ## Current Product Anchor
 
 ```text id="c5t9kw"
-Sky Engine (Babylon.js) is the rendering foundation
+Sky Engine is the self-contained Babylon.js rendering foundation
 ```
 
 Current build order:
 
-1. Sky Engine (full-screen)
-2. Hub embedding (viewport integration)
+1. Sky Engine runtime recovery
+2. Hub embedding through thin viewport integration
 3. Feed → Engine interaction
 4. Object exploration flow
 5. Additional engines

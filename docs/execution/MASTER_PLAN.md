@@ -78,14 +78,16 @@ They do NOT define build order.
 * constellations
 * visible planets
 * deep sky objects
+* self-contained Stellarium-like runtime structure
 
 ---
 
 ### 3. Scene Rendering
 
-* Babylon.js rendering
+* Babylon.js engine-owned rendering
 * interactive viewport
 * object selection and focus
+* thin host ↔ engine mount interfaces
 
 ---
 

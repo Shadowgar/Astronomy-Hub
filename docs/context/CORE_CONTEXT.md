@@ -143,6 +143,7 @@ Each engine must:
 * produce candidate objects
 * provide detail
 * control scene behavior (if primary)
+* own runtime and render loop if primary
 
 ---
 
@@ -166,11 +167,18 @@ Primary engines:
 * control rendering behavior
 * define scene composition
 * manage object interaction
+* may own isolated BabylonJS runtimes and internal module systems
 
 Sub-engines:
 
 * provide layers
 * do not own rendering
+
+Host rule:
+
+* the Hub may mount a primary engine viewport
+* the Hub must not own the engine render loop
+* the Hub must not become a shared universal rendering core
 
 ---
 

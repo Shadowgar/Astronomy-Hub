@@ -40,7 +40,7 @@ Approach: bounded, architecture-aligned stabilization
 Stabilize a usable product surface centered on:
 
 ```text
-Above Me Hub + Sky Engine viewport + correct engine routing
+Above Me Hub + self-contained Sky Engine viewport + correct engine routing
 ```
 
 ---
@@ -63,6 +63,7 @@ Focus only on fixing:
 * correct engine ownership and routing
 * meaningful object detail
 * viewport reflecting active engine
+* restoring Sky Engine runtime ownership behind a thin host mount
 
 ---
 
@@ -73,6 +74,7 @@ Focus only on fixing:
 * hub not properly curated
 * detail behavior generic or incorrect
 * viewport not correctly tied to engine
+* Sky Engine runtime ownership blurred into page/component code
 
 ---
 
@@ -89,6 +91,7 @@ And:
 * hub = decision layer
 * engines = domain authority
 * viewport = active engine scene
+* hub mounts engines but does not own engine runtimes
 * backend owns meaning
 * contracts must be deterministic
 
@@ -140,6 +143,7 @@ Continue refining Above Me until:
 * routing is correct
 * viewport reflects engine
 * detail is meaningful
+* Sky Engine owns its runtime again
 
 Only then:
 

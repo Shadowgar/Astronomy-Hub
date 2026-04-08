@@ -41,7 +41,7 @@ This is the **default engine of the system** and the foundation of the "Above Me
 
 ### Visualization
 
-* 3D sky dome (Babylon.js)
+* self-contained Babylon.js sky runtime
 
 ### Responsibilities
 
@@ -49,11 +49,14 @@ This is the **default engine of the system** and the foundation of the "Above Me
 * provide primary interaction surface
 * support object selection and highlighting
 * serve as the base context for observational decisions
+* own observer, projection, and render flow for sky behavior
 
 ### Notes
 
 * All “Above Me” rendering originates from this engine
 * Other engines may feed data into this context, but do not replace it
+* Sky Engine must remain self-contained and mounted through thin Hub interfaces
+* Target internal shape is Stellarium-like: core → observer → projection → modules → render
 
 ---
 

@@ -238,7 +238,7 @@ Babylon.js
 
 Babylon.js handles:
 
-* Sky rendering (Sky Engine)
+* Sky Engine runtime rendering
 * Solar system rendering
 * Object interaction
 * Scene transitions
@@ -258,9 +258,10 @@ Babylon.js handles:
 
 ### RULES
 
-* Babylon.js is the **primary rendering system**
-* All engines must integrate into Babylon rendering pipeline
+* Babylon.js is the **primary 3D rendering system**
+* Primary 3D engines may own isolated Babylon.js runtimes mounted by the host
 * No competing 3D engines allowed
+* The Hub must not become a shared universal 3D rendering core
 
 ---
 
@@ -268,7 +269,7 @@ Babylon.js handles:
 
 Do NOT use:
 
-* Three.js as a separate rendering system
+* Three.js as an active rendering system
 * Cesium as a competing rendering layer
 
 (If Earth rendering later requires Cesium-level precision, it must be integrated carefully—not replace Babylon as system core.)

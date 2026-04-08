@@ -21,7 +21,7 @@ backward compatibility with legacy prompts and tooling
 The real stack definition is located at:
 
 ```text id="t8k4np"
-docs/execution/STACK_OVERVIEW.md
+docs/architecture/STACK_OVERVIEW.md
 ```
 
 ---
@@ -67,7 +67,7 @@ The documentation system is in an invalid state.
 ## FINAL RULE
 
 ```text id="n2q5kx"
-All stack truth lives in docs/execution/STACK_OVERVIEW.md
+All stack truth lives in docs/architecture/STACK_OVERVIEW.md
 ```
 
 ---

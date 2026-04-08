@@ -132,6 +132,7 @@ docs/enforcement/*
 docs/ai/*
 docs/tools/*
 docs/DOC_INVENTORY.md
+docs/full_audit.md
 docs/features/FEATURE_SPEC_TEMPLATE.md
 docs/features/FEATURE_MIGRATION_MAP.md
 ```
@@ -206,14 +207,15 @@ Context → Architecture → Feature → Validation
 ## 7. CURRENT PRODUCT ANCHOR
 
 ```text id="p7y4qm"
-Sky Engine (Babylon.js) is the rendering foundation
+Sky Engine is the self-contained Babylon.js rendering foundation
 ```
 
 Rules:
 
-* build Sky Engine first
-* embed into hub later
+* build Sky Engine runtime first
+* mount it into the hub through thin interfaces
 * hub does not render scenes
+* hub does not own engine render loops
 
 ---
 

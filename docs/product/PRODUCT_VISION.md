@@ -425,7 +425,7 @@ Responsibilities:
 ## Frontend (Browser)
 
 * React-based UI
-* WebGL (Three.js / CesiumJS)
+* WebGL (Babylon.js / CesiumJS where explicitly required)
 * scene rendering
 * object interaction
 * dynamic loading

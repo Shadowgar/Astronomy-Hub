@@ -22,7 +22,7 @@ An engine is a **domain-specific system** responsible for:
 2. producing candidate objects or signals
 3. providing detail and context
 4. supporting domain exploration
-5. controlling its rendering behavior (if primary)
+5. controlling its runtime and rendering behavior (if primary)
 
 ---
 
@@ -38,6 +38,7 @@ A primary engine:
 
 * owns a complete domain
 * controls its own scene and rendering behavior
+* owns its own runtime loop and internal module system
 * can be entered directly
 * defines its own exploration environment
 
@@ -126,6 +127,31 @@ Primary engines:
 * control scene composition
 * determine object visibility
 * manage interaction within their scene
+
+---
+
+## PRIMARY ENGINE RUNTIME OWNERSHIP
+
+A primary engine may be mounted inside the Hub viewport, but the mounted surface remains the engine runtime.
+
+Primary engine ownership includes:
+
+* render loop ownership
+* BabylonJS scene ownership
+* internal module graph ownership
+* engine-internal observer / projection / navigation services
+
+The host may provide:
+
+* mount surface
+* location / time / route context
+* selection and routing interfaces
+
+The host must NOT:
+
+* own the engine render loop
+* compose engine-internal rendering modules
+* extract one engine into a universal shared rendering core
 
 Sub-engines:
 
@@ -240,6 +266,8 @@ Engines must be:
 * independent in logic
 * consistent in contracts
 * interoperable via shared object model
+* isolated in runtime ownership when primary
+* thinly integrated at host boundaries
 
 ---
 
@@ -251,6 +279,7 @@ Engines do NOT:
 * decide importance
 * manage global UI layout
 * override other engine domains
+* become a universal rendering core for the entire system
 
 ---
 

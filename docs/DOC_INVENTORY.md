@@ -96,6 +96,7 @@ Cannot control execution.
 | `docs/ASTRONOMY_HUB_DIAGRAM.md` | PRODUCT_DEFINITION   |
 | `docs/DOCUMENT_INDEX.md`        | CORE_CONTROL         |
 | `docs/FEATURE_DOC_REBASE.md`    | SUPPORT              |
+| `docs/full_audit.md`            | SUPPORT              |
 | `docs/MASTER_PLAN.md`           | SUPPORT (alias only) |
 | `docs/PHASE_STRUCTURE.md`       | LEGACY               |
 | `docs/PROJECT_STATE.md`         | SUPPORT (alias only) |
@@ -123,11 +124,12 @@ Cannot control execution.
 | `docs/execution/MASTER_PLAN.md`       | CORE_CONTROL   |
 | `docs/execution/PROJECT_STATE.md`     | CORE_CONTROL   |
 | `docs/execution/SESSION_STATE.md`     | CORE_CONTROL   |
-| `docs/execution/STACK_OVERVIEW.md`    | CORE_CONTROL   |
 | `docs/execution/STATE_TRANSITIONS.md` | CORE_CONTROL   |
 | `docs/execution/env_setup.md`         | CORE_CONTROL   |
 | `docs/execution/backend/*`            | LEGACY         |
 | `docs/execution/frontend/*`           | LEGACY         |
+
+Stack authority is defined in `docs/architecture/STACK_OVERVIEW.md` and surfaced through the `docs/STACK_OVERVIEW.md` compatibility alias.
 
 ---
 
@@ -282,6 +284,12 @@ Frontend work must start from:
 ```text
 Sky Engine + Babylon.js
 ```
+
+---
+
+### Rule 8 — Sky Engine Runtime Is Engine-Owned
+
+The Hub may mount Sky Engine, but it must not own Sky Engine's internal render loop, module composition, or runtime state.
 
 ---
 

@@ -96,6 +96,7 @@ Must pass:
 * scene matches engine
 * interaction updates scene correctly
 * hub does not override engine rendering
+* hub does not own engine-internal render loop or module composition
 
 ---
 
@@ -105,6 +106,7 @@ Must pass:
 * multiple engine scenes appear
 * hub acts as rendering layer
 * viewport state inconsistent
+* hub directly owns engine-internal runtime behavior
 
 ---
 
