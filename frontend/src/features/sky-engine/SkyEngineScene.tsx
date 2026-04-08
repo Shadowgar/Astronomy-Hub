@@ -6,7 +6,6 @@ import { Engine } from '@babylonjs/core/Engines/engine'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import { Scene } from '@babylonjs/core/scene'
 
-import { computeObjectTrajectorySamples } from './astronomy'
 import {
   clampSkyEngineFov,
   getSelectionTargetVector,
@@ -45,6 +44,8 @@ import { computeVisibilityAlpha, computeVisibilitySizeScale } from './starVisibi
 import { getStarRenderProfile, getStarRenderProfileForMagnitude } from './starRenderer'
 import { buildProceduralSkyBackdrop, buildSyntheticSkyDensityField } from './syntheticStarField'
 import { renderPreethamSkyBackground, blendNightSky } from './preethamSky'
+import { createDirectObjectLayer, type DirectProjectedObjectEntry } from './directObjectLayer'
+import { createDirectOverlayLayer, prepareDirectOverlayFrame } from './directOverlayLayer'
 import type { SkyScenePacket } from './engine/sky'
 import type { BackendSkySceneStarObject } from '../scene/contracts'
 import type {
@@ -84,7 +85,8 @@ interface SceneRuntimeRefs {
   camera: UniversalCamera
   canvas: HTMLCanvasElement
   backgroundCanvas: HTMLCanvasElement
-  overlayCanvas: HTMLCanvasElement
+  directObjectLayer: ReturnType<typeof createDirectObjectLayer>
+  directOverlayLayer: ReturnType<typeof createDirectOverlayLayer>
   centerDirection: Vector3
   targetVector: Vector3 | null
   currentFov: number
@@ -103,6 +105,7 @@ interface SceneRuntimeRefs {
   lastReportedCenterAzTenths: number | null
   needsRender: boolean
   renderedPropsVersion: number
+  animationTime: number
 }
 
 interface SceneStateWriteInput {
@@ -121,7 +124,7 @@ interface SceneStateWriteInput {
   groundTextureAssetPath: string
 }
 
-interface ProjectedSceneObjectEntry {
+interface ProjectedSceneObjectEntry extends DirectProjectedObjectEntry {
   object: SkyEngineSceneObject
   screenX: number
   screenY: number
@@ -129,20 +132,13 @@ interface ProjectedSceneObjectEntry {
   angularDistanceRad: number
   markerRadiusPx: number
   pickRadiusPx: number
+  renderAlpha: number
   renderedMagnitude?: number
   visibilityAlpha?: number
   starProfile?: StarRenderProfile
 }
 
-interface LabelLayoutEntry {
-  x: number
-  y: number
-  width: number
-  height: number
-}
-
 const SKY_ENGINE_SCENE_STATE_ATTRIBUTE = 'data-sky-engine-scene-state'
-const TRAJECTORY_HOUR_OFFSETS = [-6, -3, 0, 3, 6] as const
 const POINTER_DRAG_THRESHOLD_PX = 6
 const STAR_BELOW_HORIZON_FADE_DEG = 8
 const BODY_BELOW_HORIZON_FADE_DEG = 1.5
@@ -227,15 +223,6 @@ function writeSceneState({
 
 function clearSceneState(canvas: HTMLCanvasElement) {
   canvas.removeAttribute(SKY_ENGINE_SCENE_STATE_ATTRIBUTE)
-}
-
-function rectanglesOverlap(left: LabelLayoutEntry, right: LabelLayoutEntry) {
-  return !(
-    left.x + left.width < right.x ||
-    right.x + right.width < left.x ||
-    left.y + left.height < right.y ||
-    right.y + right.height < left.y
-  )
 }
 
 function hexToRgb(hex: string) {
@@ -565,246 +552,6 @@ function drawLandscapeMask(
   context.restore()
 }
 
-function drawCurve(
-  context: CanvasRenderingContext2D,
-  points: Array<{ x: number; y: number }>,
-  strokeStyle: string,
-  lineWidth: number,
-  dashed = false,
-) {
-  if (points.length < 2) {
-    return
-  }
-
-  context.save()
-  context.strokeStyle = strokeStyle
-  context.lineWidth = lineWidth
-  context.setLineDash(dashed ? [8, 6] : [])
-  context.beginPath()
-  context.moveTo(points[0].x, points[0].y)
-
-  points.slice(1).forEach((point) => {
-    context.lineTo(point.x, point.y)
-  })
-
-  context.stroke()
-  context.restore()
-}
-
-function buildAzimuthTickSegments(view: SkyProjectionView) {
-  return Array.from({ length: 36 }, (_, index) => index * 10).flatMap((azimuthDeg) => {
-    const isCardinal = azimuthDeg % 90 === 0
-    const isMajor = azimuthDeg % 30 === 0
-    let innerAltitudeDeg = 2.2
-
-    if (isCardinal) {
-      innerAltitudeDeg = 5.8
-    } else if (isMajor) {
-      innerAltitudeDeg = 4.1
-    }
-
-    const outerPoint = projectHorizontalToViewport(0.2, azimuthDeg, view)
-    const innerPoint = projectHorizontalToViewport(innerAltitudeDeg, azimuthDeg, view)
-
-    if (!outerPoint || !innerPoint) {
-      return []
-    }
-
-    if (!isProjectedPointVisible(outerPoint, view, 18) || !isProjectedPointVisible(innerPoint, view, 18)) {
-      return []
-    }
-
-    return [{
-      azimuthDeg,
-      isCardinal,
-      isMajor,
-      outerPoint,
-      innerPoint,
-    }]
-  })
-}
-
-function drawCompassLabel(context: CanvasRenderingContext2D, label: string, x: number, y: number, color: string) {
-  const width = 26
-  const height = 24
-
-  context.save()
-  context.fillStyle = 'rgba(4, 10, 20, 0.72)'
-  context.strokeStyle = 'rgba(126, 186, 255, 0.28)'
-  context.lineWidth = 1
-  context.beginPath()
-  context.rect(x - width * 0.5, y - height * 0.5, width, height)
-  context.fill()
-  context.stroke()
-  context.shadowColor = color
-  context.shadowBlur = 14
-  context.fillStyle = color
-  context.font = '700 15px sans-serif'
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
-  context.fillText(label, x, y)
-  context.restore()
-}
-
-function buildConstantAltitudeCurve(view: SkyProjectionView, altitudeDeg: number) {
-  const points: Array<{ x: number; y: number }> = []
-
-  for (let azimuthDeg = 0; azimuthDeg <= 360; azimuthDeg += 4) {
-    const projected = projectHorizontalToViewport(altitudeDeg, azimuthDeg, view)
-
-    if (projected && isProjectedPointVisible(projected, view, 24)) {
-      points.push({ x: projected.screenX, y: projected.screenY })
-    }
-  }
-
-  return points
-}
-
-function buildGroundBoundaryCurve(
-  horizonCurve: readonly { x: number; y: number }[],
-  viewportWidth: number,
-) {
-  if (horizonCurve.length < 2) {
-    return []
-  }
-
-  const bucketCount = Math.max(24, Math.min(160, Math.round(viewportWidth / 18)))
-  const boundaryByBucket = new Array<number | null>(bucketCount + 1).fill(null)
-
-  horizonCurve.forEach((point) => {
-    const clampedX = clamp(point.x, 0, viewportWidth)
-    const bucketIndex = Math.round((clampedX / Math.max(viewportWidth, 1)) * bucketCount)
-    const currentBoundary = boundaryByBucket[bucketIndex]
-
-    if (currentBoundary === null || point.y > currentBoundary) {
-      boundaryByBucket[bucketIndex] = point.y
-    }
-  })
-
-  let previousKnownIndex = -1
-  for (let index = 0; index <= bucketCount; index += 1) {
-    if (boundaryByBucket[index] === null) {
-      continue
-    }
-
-    if (previousKnownIndex >= 0 && index - previousKnownIndex > 1) {
-      const startY = boundaryByBucket[previousKnownIndex] ?? 0
-      const endY = boundaryByBucket[index] ?? startY
-      const gapLength = index - previousKnownIndex
-
-      for (let gapIndex = 1; gapIndex < gapLength; gapIndex += 1) {
-        const amount = gapIndex / gapLength
-        boundaryByBucket[previousKnownIndex + gapIndex] = startY + (endY - startY) * amount
-      }
-    }
-
-    previousKnownIndex = index
-  }
-
-  const firstKnownIndex = boundaryByBucket.findIndex((value) => value !== null)
-  if (firstKnownIndex < 0) {
-    return []
-  }
-
-  const lastKnownIndex = boundaryByBucket.reduce<number>((lastIndex, value, index) => {
-    if (value === null) {
-      return lastIndex
-    }
-
-    return index
-  }, firstKnownIndex)
-  const firstKnownY = boundaryByBucket[firstKnownIndex] ?? 0
-  const lastKnownY = boundaryByBucket[lastKnownIndex] ?? firstKnownY
-
-  for (let index = 0; index < firstKnownIndex; index += 1) {
-    boundaryByBucket[index] = firstKnownY
-  }
-
-  for (let index = lastKnownIndex + 1; index <= bucketCount; index += 1) {
-    boundaryByBucket[index] = lastKnownY
-  }
-
-  return boundaryByBucket.map((y, index) => ({
-    x: (index / bucketCount) * viewportWidth,
-    y: y ?? firstKnownY,
-  }))
-}
-
-function drawAidLayers(
-  context: CanvasRenderingContext2D,
-  view: SkyProjectionView,
-  aidVisibility: SkyEngineAidVisibility,
-  sunState: SkyEngineSunState,
-  fovDegrees: number,
-  includeLandscapeMask = true,
-) {
-  const horizonCurve = buildConstantAltitudeCurve(view, 0)
-  const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
-
-  if (includeLandscapeMask) {
-    drawLandscapeMask(context, view, sunState, centerAltitudeDeg, fovDegrees)
-  }
-
-  if (aidVisibility.altitudeRings) {
-    ;[15, 30, 45, 60].forEach((altitudeDeg) => {
-      drawCurve(context, buildConstantAltitudeCurve(view, altitudeDeg), hexToRgba('#9ecbff', 0.11), 1, true)
-    })
-
-    if (getBelowHorizonVisibility(centerAltitudeDeg, fovDegrees) > 0.08) {
-      ;[-15, -30, -45].forEach((altitudeDeg) => {
-        drawCurve(context, buildConstantAltitudeCurve(view, altitudeDeg), hexToRgba('#8ebfff', 0.08), 1, true)
-      })
-    }
-  }
-
-  if (!aidVisibility.azimuthRing) {
-    return
-  }
-
-  context.save()
-  context.shadowColor = hexToRgba(sunState.visualCalibration.horizonGlowColorHex, 0.58)
-  context.shadowBlur = 22
-  drawCurve(context, horizonCurve, hexToRgba('#7cc6ff', 0.22), 3.2)
-  context.restore()
-
-  drawCurve(context, horizonCurve, hexToRgba('#cfe7ff', 0.62), 1.1)
-
-  const tickSegments = buildAzimuthTickSegments(view)
-
-  context.save()
-  context.lineCap = 'round'
-  tickSegments.forEach((tick) => {
-    let strokeStyle = 'rgba(132, 186, 240, 0.36)'
-    let lineWidth = 1
-
-    if (tick.isCardinal) {
-      strokeStyle = 'rgba(220, 240, 255, 0.92)'
-      lineWidth = 1.9
-    } else if (tick.isMajor) {
-      strokeStyle = 'rgba(171, 214, 255, 0.62)'
-      lineWidth = 1.35
-    }
-
-    context.strokeStyle = strokeStyle
-    context.lineWidth = lineWidth
-    context.beginPath()
-    context.moveTo(tick.outerPoint.screenX, tick.outerPoint.screenY)
-    context.lineTo(tick.innerPoint.screenX, tick.innerPoint.screenY)
-    context.stroke()
-  })
-  context.restore()
-
-  COMPASS_CARDINALS.forEach((cardinal) => {
-    const projected = projectHorizontalToViewport(7.6, cardinal.azimuthDeg, view)
-
-    if (!projected || !isProjectedPointVisible(projected, view, 22)) {
-      return
-    }
-
-    drawCompassLabel(context, cardinal.label, projected.screenX, projected.screenY, 'rgba(226, 243, 255, 0.96)')
-  })
-}
-
 function drawSolarGlare(context: CanvasRenderingContext2D, view: SkyProjectionView, sunState: SkyEngineSunState) {
   if (sunState.altitudeDeg < -6) {
     return
@@ -839,63 +586,6 @@ function drawSolarGlare(context: CanvasRenderingContext2D, view: SkyProjectionVi
   context.arc(projectedSun.screenX, projectedSun.screenY, discRadius, 0, Math.PI * 2)
   context.fill()
   context.restore()
-}
-
-function drawConstellationOverlay(context: CanvasRenderingContext2D, projectedObjects: readonly ProjectedSceneObjectEntry[]) {
-  const projectedLookup = new Map(projectedObjects.map((entry) => [entry.object.id, entry]))
-  context.save()
-  context.strokeStyle = 'rgba(126, 171, 255, 0.18)'
-  context.lineWidth = 1.1
-  context.setLineDash([4, 5])
-
-  CONSTELLATION_SEGMENTS.forEach(([leftId, rightId]) => {
-    const left = projectedLookup.get(leftId)
-    const right = projectedLookup.get(rightId)
-
-    if (!left || !right) {
-      return
-    }
-
-    context.beginPath()
-    context.moveTo(left.screenX, left.screenY)
-    context.lineTo(right.screenX, right.screenY)
-    context.stroke()
-  })
-
-  context.restore()
-}
-
-function drawTrajectory(
-  context: CanvasRenderingContext2D,
-  view: SkyProjectionView,
-  observer: SkyEngineObserver,
-  selectedObject: SkyEngineSceneObject | null,
-) {
-  if (!selectedObject || selectedObject.trackingMode === 'static') {
-    return null
-  }
-
-  const points = computeObjectTrajectorySamples(
-    observer,
-    selectedObject.timestampIso ?? new Date().toISOString(),
-    selectedObject,
-    TRAJECTORY_HOUR_OFFSETS,
-  )
-    .filter((sample) => sample.altitudeDeg >= -2)
-    .map((sample) => projectHorizontalToViewport(sample.altitudeDeg, sample.azimuthDeg, view))
-    .filter((sample): sample is NonNullable<typeof sample> => sample !== null)
-    .filter((sample) => isProjectedPointVisible(sample, view, 24))
-    .map((sample) => ({ x: sample.screenX, y: sample.screenY }))
-
-  drawCurve(
-    context,
-    points,
-    hexToRgba(selectedObject.colorHex, selectedObject.type === 'moon' ? 0.68 : 0.54),
-    selectedObject.type === 'moon' ? 2.2 : 1.6,
-    true,
-  )
-
-  return selectedObject.id
 }
 
 function drawDeepSkyMarker(context: CanvasRenderingContext2D, object: SkyEngineSceneObject, x: number, y: number, radius: number) {
@@ -1222,6 +912,15 @@ function collectProjectedObjects(
       return []
     }
 
+    const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees)
+    const renderAlpha = object.type === 'star'
+      ? clamp(horizonFade * visibilityAlpha, 0, 0.98)
+      : clamp(horizonFade, 0, 1)
+
+    if (renderAlpha <= 0) {
+      return []
+    }
+
     const starProfile = object.type === 'star'
       ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, sunState.visualCalibration)
       : undefined
@@ -1237,6 +936,7 @@ function collectProjectedObjects(
       angularDistanceRad: projected.angularDistanceRad,
       markerRadiusPx,
       pickRadiusPx: getPickRadiusPx(object, markerRadiusPx),
+      renderAlpha,
       renderedMagnitude,
       visibilityAlpha,
       starProfile,
@@ -1266,6 +966,15 @@ function collectProjectedObjects(
       return []
     }
 
+    const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees)
+    const renderAlpha = object.type === 'star'
+      ? clamp(horizonFade * visibilityAlpha, 0, 0.98)
+      : clamp(horizonFade, 0, 1)
+
+    if (renderAlpha <= 0) {
+      return []
+    }
+
     const starProfile = object.type === 'star'
       ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, sunState.visualCalibration)
       : undefined
@@ -1281,6 +990,7 @@ function collectProjectedObjects(
       angularDistanceRad: projected.angularDistanceRad,
       markerRadiusPx,
       pickRadiusPx: getPickRadiusPx(object, markerRadiusPx),
+      renderAlpha,
       renderedMagnitude,
       visibilityAlpha,
       starProfile,
@@ -1306,276 +1016,6 @@ function collectProjectedObjects(
   }
 }
 
-function drawProjectedBodies(
-  context: CanvasRenderingContext2D,
-  projectedObjects: readonly ProjectedSceneObjectEntry[],
-  sunState: SkyEngineSunState,
-  centerAltitudeDeg: number,
-  fovDegrees: number,
-) {
-
-  projectedObjects.forEach((entry) => {
-    const horizonFade = getObjectHorizonFade(entry.object, centerAltitudeDeg, fovDegrees)
-
-    if (horizonFade <= 0) {
-      return
-    }
-
-    if (entry.object.type === 'moon') {
-      context.save()
-      context.globalAlpha = horizonFade
-      drawMoon(context, entry.object, entry.screenX, entry.screenY, entry.markerRadiusPx)
-      context.restore()
-      return
-    }
-
-    if (entry.object.type === 'planet') {
-      context.save()
-      context.globalAlpha = horizonFade
-      drawPlanet(context, entry.object, entry.screenX, entry.screenY, entry.markerRadiusPx)
-      context.restore()
-      return
-    }
-
-    if (entry.object.type === 'deep_sky') {
-      context.save()
-      context.globalAlpha = horizonFade
-      drawDeepSkyMarker(context, entry.object, entry.screenX, entry.screenY, entry.markerRadiusPx)
-      context.restore()
-      return
-    }
-
-    drawStar(
-      context,
-      entry.screenX,
-      entry.screenY,
-      entry.markerRadiusPx,
-      entry.starProfile ?? getStarRenderProfileForMagnitude(entry.renderedMagnitude ?? entry.object.magnitude, entry.object.colorIndexBV, sunState.visualCalibration),
-      clamp(sunState.visualCalibration.starVisibility * horizonFade * (entry.visibilityAlpha ?? 1), 0, 0.98),
-    )
-  })
-}
-
-function drawLabels(
-  context: CanvasRenderingContext2D,
-  projectedObjects: readonly ProjectedSceneObjectEntry[],
-  selectedObjectId: string | null,
-  guidedObjectIds: ReadonlySet<string>,
-  labelCap: number,
-  placedRectangles: LabelLayoutEntry[] = [],
-) {
-  const visibleLabelIds: string[] = []
-  const labelPositions = new Map<string, { x: number; y: number }>()
-  const candidates = projectedObjects.filter((candidate) => !isEngineTileSource(candidate.object.source)).sort((left, right) => {
-    const priorityDelta = getLabelPriority(right.object, selectedObjectId, guidedObjectIds) - getLabelPriority(left.object, selectedObjectId, guidedObjectIds)
-
-    if (priorityDelta !== 0) {
-      return priorityDelta
-    }
-
-    return left.angularDistanceRad - right.angularDistanceRad
-  })
-
-  context.save()
-  context.font = '600 14px sans-serif'
-  context.textBaseline = 'middle'
-
-  let visibleCount = 0
-  candidates.forEach((candidate) => {
-    const isSelected = candidate.object.id === selectedObjectId
-    const shouldAllow = isSelected || visibleCount < labelCap
-
-    if (!shouldAllow) {
-      return
-    }
-
-    const textWidth = context.measureText(candidate.object.name).width
-    const labelX = candidate.screenX + candidate.markerRadiusPx + 12
-    const labelY = candidate.screenY - candidate.markerRadiusPx - 10
-    const rectangle = {
-      x: labelX - 8,
-      y: labelY - 12,
-      width: textWidth + 16,
-      height: 24,
-    }
-
-    if (!isSelected && placedRectangles.some((entry) => rectanglesOverlap(entry, rectangle))) {
-      return
-    }
-
-    placedRectangles.push(rectangle)
-    visibleLabelIds.push(candidate.object.id)
-    labelPositions.set(candidate.object.id, { x: labelX, y: labelY })
-
-    if (!isSelected) {
-      visibleCount += 1
-    }
-
-    context.fillStyle = isSelected ? 'rgba(9, 16, 26, 0.92)' : 'rgba(8, 15, 26, 0.68)'
-    context.strokeStyle = isSelected ? 'rgba(236, 244, 255, 0.98)' : 'rgba(118, 171, 235, 0.42)'
-    context.lineWidth = isSelected ? 2 : 1.2
-    context.beginPath()
-    context.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
-    context.fill()
-    context.stroke()
-    context.fillStyle = '#eef6ff'
-    context.fillText(candidate.object.name, labelX, labelY)
-  })
-
-  context.restore()
-
-  const sortedVisibleLabelIds = [...visibleLabelIds].sort((left, right) => left.localeCompare(right))
-
-  return {
-    visibleLabelIds: sortedVisibleLabelIds,
-    labelPositions,
-    placedRectangles,
-    visibleCount,
-  }
-}
-
-function drawPacketLabels(
-  context: CanvasRenderingContext2D,
-  projectedObjects: readonly ProjectedSceneObjectEntry[],
-  scenePacket: SkyScenePacket | null,
-  selectedObjectId: string | null,
-  labelCap: number,
-) {
-  const placedRectangles: LabelLayoutEntry[] = []
-  const visibleLabelIds: string[] = []
-  const labelPositions = new Map<string, { x: number; y: number }>()
-
-  if (!scenePacket || scenePacket.labels.length === 0) {
-    return {
-      visibleLabelIds,
-      labelPositions,
-      placedRectangles,
-      visibleCount: 0,
-    }
-  }
-
-  const projectedLookup = new Map(projectedObjects.map((entry) => [entry.object.id, entry]))
-  const candidates = scenePacket.labels
-    .flatMap((label) => {
-      const projected = projectedLookup.get(label.id)
-
-      if (!projected) {
-        return []
-      }
-
-      return [{ label, projected }]
-    })
-    .sort((left, right) => {
-      if (left.label.id === selectedObjectId) {
-        return -1
-      }
-
-      if (right.label.id === selectedObjectId) {
-        return 1
-      }
-
-      return right.label.priority - left.label.priority || left.label.text.localeCompare(right.label.text)
-    })
-
-  context.save()
-  context.font = '600 14px sans-serif'
-  context.textBaseline = 'middle'
-
-  let visibleCount = 0
-  candidates.forEach(({ label, projected }) => {
-    const isSelected = label.id === selectedObjectId
-    const shouldAllow = isSelected || visibleCount < labelCap
-
-    if (!shouldAllow) {
-      return
-    }
-
-    const textWidth = context.measureText(label.text).width
-    const labelX = projected.screenX + projected.markerRadiusPx + 12
-    const labelY = projected.screenY - projected.markerRadiusPx - 10
-    const rectangle = {
-      x: labelX - 8,
-      y: labelY - 12,
-      width: textWidth + 16,
-      height: 24,
-    }
-
-    if (!isSelected && placedRectangles.some((entry) => rectanglesOverlap(entry, rectangle))) {
-      return
-    }
-
-    placedRectangles.push(rectangle)
-    visibleLabelIds.push(label.id)
-    labelPositions.set(label.id, { x: labelX, y: labelY })
-
-    if (!isSelected) {
-      visibleCount += 1
-    }
-
-    context.fillStyle = isSelected ? 'rgba(9, 16, 26, 0.92)' : 'rgba(8, 15, 26, 0.76)'
-    context.strokeStyle = isSelected ? 'rgba(236, 244, 255, 0.98)' : 'rgba(118, 171, 235, 0.54)'
-    context.lineWidth = isSelected ? 2 : 1.2
-    context.beginPath()
-    context.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
-    context.fill()
-    context.stroke()
-    context.fillStyle = '#eef6ff'
-    context.fillText(label.text, labelX, labelY)
-  })
-
-  context.restore()
-
-  const sortedVisibleLabelIds = [...visibleLabelIds].sort((left, right) => left.localeCompare(right))
-
-  return {
-    visibleLabelIds: sortedVisibleLabelIds,
-    labelPositions,
-    placedRectangles,
-    visibleCount,
-  }
-}
-
-function drawSelectionPointer(
-  context: CanvasRenderingContext2D,
-  projectedObjects: readonly ProjectedSceneObjectEntry[],
-  selectedObjectId: string | null,
-  labelPositions: ReadonlyMap<string, { x: number; y: number }>,
-) {
-  if (!selectedObjectId) {
-    return
-  }
-
-  const selectedEntry = projectedObjects.find((entry) => entry.object.id === selectedObjectId)
-
-  if (!selectedEntry) {
-    return
-  }
-
-  const labelPosition = labelPositions.get(selectedObjectId)
-  context.save()
-  context.strokeStyle = 'rgba(255, 255, 255, 0.96)'
-  context.lineWidth = 2
-  context.beginPath()
-  context.arc(selectedEntry.screenX, selectedEntry.screenY, selectedEntry.markerRadiusPx + 8, 0, Math.PI * 2)
-  context.stroke()
-  context.strokeStyle = 'rgba(255, 255, 255, 0.22)'
-  context.lineWidth = 1
-  context.beginPath()
-  context.arc(selectedEntry.screenX, selectedEntry.screenY, selectedEntry.markerRadiusPx + 14, 0, Math.PI * 2)
-  context.stroke()
-
-  if (labelPosition) {
-    context.strokeStyle = 'rgba(255, 255, 255, 0.4)'
-    context.lineWidth = 1.25
-    context.beginPath()
-    context.moveTo(selectedEntry.screenX + selectedEntry.markerRadiusPx * 0.8, selectedEntry.screenY - selectedEntry.markerRadiusPx * 0.8)
-    context.lineTo(labelPosition.x - 4, labelPosition.y)
-    context.stroke()
-  }
-
-  context.restore()
-}
-
 function ensureSceneSurfaces(runtime: SceneRuntimeRefs) {
   const width = Math.max(1, Math.round(runtime.engine.getRenderWidth()))
   const height = Math.max(1, Math.round(runtime.engine.getRenderHeight()))
@@ -1583,11 +1023,6 @@ function ensureSceneSurfaces(runtime: SceneRuntimeRefs) {
   if (runtime.backgroundCanvas.width !== width || runtime.backgroundCanvas.height !== height) {
     runtime.backgroundCanvas.width = width
     runtime.backgroundCanvas.height = height
-  }
-
-  if (runtime.overlayCanvas.width !== width || runtime.overlayCanvas.height !== height) {
-    runtime.overlayCanvas.width = width
-    runtime.overlayCanvas.height = height
   }
 
   runtime.camera.orthoLeft = -width * 0.5
@@ -1618,10 +1053,20 @@ function syncNavigationState(runtime: SceneRuntimeRefs, objects: readonly SkyEng
   }
 }
 
+function syncDirectObjectLayer(runtime: SceneRuntimeRefs, projectedObjects: readonly ProjectedSceneObjectEntry[], latest: ScenePropsSnapshot, width: number, height: number) {
+  runtime.directObjectLayer.sync(
+    projectedObjects,
+    width,
+    height,
+    latest.sunState,
+    latest.selectedObjectId,
+    runtime.animationTime,
+  )
+}
+
 function renderSceneFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot) {
   const { width, height } = ensureSceneSurfaces(runtime)
   const backgroundContext = runtime.backgroundCanvas.getContext('2d') as CanvasRenderingContext2D
-  const overlayContext = runtime.overlayCanvas.getContext('2d') as CanvasRenderingContext2D
 
   const view: SkyProjectionView = {
     centerDirection: runtime.centerDirection,
@@ -1643,7 +1088,6 @@ function renderSceneFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot)
   )
 
   backgroundContext.clearRect(0, 0, width, height)
-  overlayContext.clearRect(0, 0, width, height)
 
   drawBackground(backgroundContext, width, height, latest.sunState, view)
   drawProceduralSkyBackdrop(backgroundContext, view, latest.sunState, currentFovDegrees)
@@ -1651,30 +1095,27 @@ function renderSceneFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot)
   drawSyntheticDensityStars(backgroundContext, view, projectedObjects, latest.sunState, latest.observer, sceneTimestampIso, limitingMagnitude)
   drawLandscapeMask(backgroundContext, view, latest.sunState, centerAltitudeDeg, currentFovDegrees)
 
-  drawProjectedBodies(overlayContext, projectedObjects, latest.sunState, centerAltitudeDeg, currentFovDegrees)
-  drawAidLayers(overlayContext, view, latest.aidVisibility, latest.sunState, currentFovDegrees, false)
-
-  if (latest.aidVisibility.constellations) {
-    drawConstellationOverlay(overlayContext, projectedObjects)
-  }
-
-  const selectedObject = latest.objects.find((object) => object.id === latest.selectedObjectId) ?? null
-  const trajectoryObjectId = drawTrajectory(overlayContext, view, latest.observer, selectedObject)
-  const packetLabelLayout = drawPacketLabels(overlayContext, projectedObjects, latest.scenePacket, latest.selectedObjectId, lod.labelCap)
-  const labelLayout = drawLabels(
-    overlayContext,
+  syncDirectObjectLayer(runtime, projectedObjects, latest, width, height)
+  const overlayFrame = prepareDirectOverlayFrame(
+    view,
+    latest.observer,
     projectedObjects,
+    latest.scenePacket,
+    latest.selectedObjectId,
+    latest.aidVisibility,
+  )
+  const overlayState = runtime.directOverlayLayer.sync(
+    overlayFrame,
+    projectedObjects,
+    width,
+    height,
+    runtime.camera,
+    runtime.engine,
     latest.selectedObjectId,
     new Set(latest.guidedObjectIds),
-    Math.max(0, lod.labelCap - packetLabelLayout.visibleCount),
-    packetLabelLayout.placedRectangles,
+    latest.sunState,
+    lod.labelCap,
   )
-
-  const labelPositions = new Map<string, { x: number; y: number }>([
-    ...Array.from(packetLabelLayout.labelPositions.entries()),
-    ...Array.from(labelLayout.labelPositions.entries()),
-  ])
-  drawSelectionPointer(overlayContext, projectedObjects, latest.selectedObjectId, labelPositions)
 
   runtime.projectedPickEntries = projectedObjects.map((entry) => ({
     object: entry.object,
@@ -1686,8 +1127,8 @@ function renderSceneFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot)
 
   return {
     lod,
-    trajectoryObjectId,
-    visibleLabelIds: [...packetLabelLayout.visibleLabelIds, ...labelLayout.visibleLabelIds].sort((left, right) => left.localeCompare(right)),
+    trajectoryObjectId: overlayState.trajectoryObjectId,
+    visibleLabelIds: overlayState.visibleLabelIds,
   }
 }
 
@@ -1708,7 +1149,6 @@ export default function SkyEngineScene({
 }: SkyEngineSceneProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const backgroundCanvasRef = useRef<HTMLCanvasElement | null>(null)
-  const overlayCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const runtimeRefs = useRef<SceneRuntimeRefs | null>(null)
   const propsVersionRef = useRef(0)
   const propsRef = useRef<ScenePropsSnapshot>({
@@ -1753,9 +1193,8 @@ export default function SkyEngineScene({
   useEffect(() => {
     const canvas = canvasRef.current
     const backgroundCanvas = backgroundCanvasRef.current
-    const overlayCanvas = overlayCanvasRef.current
 
-    if (!canvas || !backgroundCanvas || !overlayCanvas) {
+    if (!canvas || !backgroundCanvas) {
       return undefined
     }
 
@@ -1779,7 +1218,8 @@ export default function SkyEngineScene({
       camera,
       canvas,
       backgroundCanvas,
-      overlayCanvas,
+      directObjectLayer: createDirectObjectLayer(scene),
+      directOverlayLayer: createDirectOverlayLayer(scene),
       centerDirection: stabilizeSkyEngineCenterDirection(
         horizontalToDirection(
           propsRef.current.initialViewState.centerAltDeg,
@@ -1803,11 +1243,12 @@ export default function SkyEngineScene({
       lastReportedCenterAzTenths: null,
       needsRender: true,
       renderedPropsVersion: -1,
+      animationTime: 0,
     }
 
     propsRef.current.onAtmosphereStatusChange({
       mode: 'fallback',
-      message: 'Direct Babylon star rendering is active over the observer-centered projection background.',
+      message: 'Direct Babylon object, aid, trajectory, and label rendering is active over the observer-centered projection background.',
     })
 
     const handleWheel = (event: WheelEvent) => {
@@ -1972,6 +1413,7 @@ export default function SkyEngineScene({
       const now = performance.now()
       const deltaSeconds = Math.min(0.05, (now - runtime.lastFrameTime) * 0.001)
       runtime.lastFrameTime = now
+      runtime.animationTime += deltaSeconds
 
       syncNavigationState(runtime, latest.objects, latest.selectedObjectId)
       const previousCenterDirection = runtime.centerDirection
@@ -2026,8 +1468,8 @@ export default function SkyEngineScene({
         currentFovDegrees: currentFovTenths / 10,
         currentLodTier: frame.lod.tier,
         labelCap: frame.lod.labelCap,
-        groundTextureMode: 'layered-direct',
-        groundTextureAssetPath: 'direct-babylon-stars over observer-centered projection canvases',
+        groundTextureMode: 'direct-babylon-object-and-overlay-layer',
+        groundTextureAssetPath: 'direct-babylon objects with Babylon-native aid, label, and trajectory overlays',
       })
 
       scene.render()
@@ -2043,6 +1485,8 @@ export default function SkyEngineScene({
       globalThis.removeEventListener('resize', handleResize)
       clearSkyEnginePickTargets(canvas)
       clearSceneState(canvas)
+      runtimeRefs.current?.directObjectLayer.dispose()
+      runtimeRefs.current?.directOverlayLayer.dispose()
       runtimeRefs.current = null
       scene.dispose()
       engine.dispose()
@@ -2052,7 +1496,7 @@ export default function SkyEngineScene({
   useEffect(() => {
     onAtmosphereStatusChange({
       mode: 'fallback',
-      message: `Direct Babylon stars and projected sky canvases are active for ${sunState.phaseLabel.toLowerCase()} conditions.`,
+      message: `Direct Babylon objects, labels, aids, and trajectories are active for ${sunState.phaseLabel.toLowerCase()} conditions.`,
     })
   }, [onAtmosphereStatusChange, sunState])
 
@@ -2060,7 +1504,6 @@ export default function SkyEngineScene({
     <div className="sky-engine-scene">
       <canvas ref={backgroundCanvasRef} className="sky-engine-scene__background" />
       <canvas ref={canvasRef} className="sky-engine-scene__canvas" aria-label="Sky Engine scene" />
-      <canvas ref={overlayCanvasRef} className="sky-engine-scene__overlay" />
     </div>
   )
 }

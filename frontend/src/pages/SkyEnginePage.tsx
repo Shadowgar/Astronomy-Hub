@@ -134,10 +134,34 @@ type SkyEngineOwnershipStateProps = {
   detail: string
 }
 
+function SkyEngineHubShell() {
+  return (
+    <div className="sky-engine-page__overlay sky-engine-page__overlay--hub-shell">
+      <div className="sky-engine-page__hub-shell" aria-label="Astronomy Hub engine shell">
+        <div className="sky-engine-page__hub-shell-brand">
+          <span className="sky-engine-page__hub-shell-label">Astronomy Hub</span>
+          <strong>Sky Engine</strong>
+          <small>Hub shell persists while the active engine owns this viewport.</small>
+        </div>
+        <div className="sky-engine-page__hub-shell-actions">
+          <Link className="sky-engine-page__back-link sky-engine-page__back-link--hub" to="/">
+            Hub
+          </Link>
+          <span className="sky-engine-page__status-pill">
+            <span className="sky-engine-page__top-bar-label">Active engine</span>
+            <strong>Sky Engine</strong>
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function SkyEngineOwnershipState({ title, detail }: Readonly<SkyEngineOwnershipStateProps>) {
   return (
     <div className="sky-engine-page sky-engine-page--immersive">
       <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
+        <SkyEngineHubShell />
         <div className="sky-engine-page__overlay sky-engine-page__overlay--top-bar">
           <div className="sky-engine-page__top-bar" aria-label="Sky Engine ownership state">
             <div className="sky-engine-page__top-bar-section sky-engine-page__top-bar-section--actions">
@@ -506,6 +530,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   return (
     <div className="sky-engine-page sky-engine-page--immersive">
       <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
+        <SkyEngineHubShell />
         <SkyEngineScene
           key={[
             backendScene.timestamp,

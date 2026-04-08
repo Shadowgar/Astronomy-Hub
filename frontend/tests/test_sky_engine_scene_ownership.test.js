@@ -333,6 +333,8 @@ describe('SkyEnginePage scene ownership', () => {
     expect(useSkyStarTileManifestDataQuery).toHaveBeenCalledWith({ at: '2025-01-15T03:00:00Z' })
     expect(useSkyEngineSceneTime).toHaveBeenCalledWith()
     expect(html).toContain('Sky scene mounted')
+    expect(html).toContain('Astronomy Hub')
+    expect(html).toContain('Hub shell persists while the active engine owns this viewport')
     expect(html).toContain('Custom Location')
     expect(html).toContain('120°')
     expect(html).toContain('Jan 14, 10:00 PM EST')
