@@ -39,6 +39,10 @@ import {
   type SkyProjectionView,
   unprojectViewportPoint,
 } from './projectionMath'
+import {
+  buildAtmosphericExtinctionContext,
+  computeObservedMagnitude,
+} from './atmosphericExtinction'
 import { getStarRenderProfile, getStarRenderProfileForMagnitude } from './starRenderer'
 import { buildProceduralSkyBackdrop, buildSyntheticSkyDensityField } from './syntheticStarField'
 import { renderPreethamSkyBackground, blendNightSky } from './preethamSky'
@@ -125,6 +129,7 @@ interface ProjectedSceneObjectEntry {
   angularDistanceRad: number
   markerRadiusPx: number
   pickRadiusPx: number
+  renderedMagnitude?: number
   starProfile?: StarRenderProfile
 }
 
@@ -1068,6 +1073,8 @@ function drawSyntheticDensityStars(
   view: SkyProjectionView,
   projectedObjects: readonly ProjectedSceneObjectEntry[],
   sunState: SkyEngineSunState,
+  observer: SkyEngineObserver,
+  sceneTimestampIso: string | undefined,
 ) {
   const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
   const magnitudeLimit = getSyntheticDensityMagnitudeLimit(fovDegrees, sunState)
@@ -1083,10 +1090,14 @@ function drawSyntheticDensityStars(
   const wideBlend = smoothstep(115, 185, fovDegrees)
   const closeBlend = 1 - smoothstep(24, 90, fovDegrees)
   const animationTime = performance.now() * 0.0008
+  const extinction = buildAtmosphericExtinctionContext(observer, sceneTimestampIso)
   let drawnCount = 0
 
   for (const sample of SYNTHETIC_SKY_DENSITY_SAMPLES) {
-    if (sample.magnitude > magnitudeLimit || drawnCount >= densityBudget) {
+    const sampleAltitudeDeg = (Math.asin(clamp(sample.direction.y, -1, 1)) * 180) / Math.PI
+    const renderedMagnitude = computeObservedMagnitude(sample.magnitude, extinction, sampleAltitudeDeg)
+
+    if (renderedMagnitude > magnitudeLimit || drawnCount >= densityBudget) {
       if (drawnCount >= densityBudget) {
         break
       }
@@ -1115,7 +1126,7 @@ function drawSyntheticDensityStars(
     const distanceToCenter = Math.hypot(projected.screenX - viewportCenterX, projected.screenY - viewportCenterY)
     const normalizedCenterDistance = clamp(distanceToCenter / Math.max(view.viewportWidth, view.viewportHeight), 0, 1)
     const centerFill = 1 + wideBlend * (1 - normalizedCenterDistance) * 0.38
-    const profile = getStarRenderProfileForMagnitude(sample.magnitude, sample.colorIndexBV, sunState.visualCalibration)
+  const profile = getStarRenderProfileForMagnitude(renderedMagnitude, sample.colorIndexBV, sunState.visualCalibration)
     const markerRadiusPx = clamp((profile.coreRadiusPx * 0.46 + sample.size * 0.7) * (0.9 + closeBlend * 0.3) * centerFill, 0.34, 2.4)
     const twinkle = 1 + Math.sin(animationTime + sample.twinklePhase) * profile.twinkleAmplitude * 0.9
     const alpha = clamp(
@@ -1141,9 +1152,14 @@ function getObjectHorizonFade(_object: SkyEngineSceneObject, _centerAltitudeDeg:
   return 1
 }
 
+function resolveSceneTimestampIso(objects: readonly SkyEngineSceneObject[]) {
+  return objects.find((object) => object.timestampIso)?.timestampIso
+}
+
 function drawProjectedObjects(
   context: CanvasRenderingContext2D,
   view: SkyProjectionView,
+  observer: SkyEngineObserver,
   objects: readonly SkyEngineSceneObject[],
   scenePacket: SkyScenePacket | null,
   sunState: SkyEngineSunState,
@@ -1151,6 +1167,8 @@ function drawProjectedObjects(
 ) {
   const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
   const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
+  const sceneTimestampIso = resolveSceneTimestampIso(objects)
+  const extinction = buildAtmosphericExtinctionContext(observer, sceneTimestampIso)
   const objectLookup = new Map(objects.map((object) => [object.id, object]))
   const projectedObjects = objects.flatMap((object) => {
     if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, sunState, selectedObjectId)) {
@@ -1163,7 +1181,17 @@ function drawProjectedObjects(
       return []
     }
 
-    const starProfile = object.type === 'star' ? getStarRenderProfile(object, sunState.visualCalibration) : undefined
+    const renderedMagnitude = object.type === 'star'
+      ? computeObservedMagnitude(object.magnitude, extinction, object.altitudeDeg)
+      : object.magnitude
+
+    if (object.type === 'star' && renderedMagnitude > getVisibleStarMagnitudeLimit(fovDegrees, sunState)) {
+      return []
+    }
+
+    const starProfile = object.type === 'star'
+      ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, sunState.visualCalibration)
+      : undefined
     const markerRadiusPx = getMarkerRadiusPx(object, view, sunState, starProfile)
 
     return [{
@@ -1174,6 +1202,7 @@ function drawProjectedObjects(
       angularDistanceRad: projected.angularDistanceRad,
       markerRadiusPx,
       pickRadiusPx: getPickRadiusPx(object, markerRadiusPx),
+      renderedMagnitude,
       starProfile,
     }]
   })
@@ -1190,7 +1219,17 @@ function drawProjectedObjects(
       return []
     }
 
-    const starProfile = object.type === 'star' ? getStarRenderProfile(object, sunState.visualCalibration) : undefined
+    const renderedMagnitude = object.type === 'star'
+      ? computeObservedMagnitude(object.magnitude, extinction, object.altitudeDeg)
+      : object.magnitude
+
+    if (object.type === 'star' && renderedMagnitude > getVisibleStarMagnitudeLimit(fovDegrees, sunState)) {
+      return []
+    }
+
+    const starProfile = object.type === 'star'
+      ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, sunState.visualCalibration)
+      : undefined
     const markerRadiusPx = getMarkerRadiusPx(object, view, sunState, starProfile)
 
     return [{
@@ -1201,13 +1240,14 @@ function drawProjectedObjects(
       angularDistanceRad: projected.angularDistanceRad,
       markerRadiusPx,
       pickRadiusPx: getPickRadiusPx(object, markerRadiusPx),
+      renderedMagnitude,
       starProfile,
     }]
   })
   const allProjectedObjects = [...projectedObjects, ...packetProjectedObjects]
-    .sort((left, right) => left.depth - right.depth || left.object.magnitude - right.object.magnitude)
+    .sort((left, right) => left.depth - right.depth || (left.renderedMagnitude ?? left.object.magnitude) - (right.renderedMagnitude ?? right.object.magnitude))
 
-  drawSyntheticDensityStars(context, view, allProjectedObjects, sunState)
+  drawSyntheticDensityStars(context, view, allProjectedObjects, sunState, observer, sceneTimestampIso)
 
   allProjectedObjects.forEach((entry) => {
     const horizonFade = getObjectHorizonFade(entry.object, centerAltitudeDeg, fovDegrees)
@@ -1245,7 +1285,7 @@ function drawProjectedObjects(
       entry.screenX,
       entry.screenY,
       entry.markerRadiusPx,
-      entry.starProfile ?? getStarRenderProfile(entry.object, sunState.visualCalibration),
+      entry.starProfile ?? getStarRenderProfileForMagnitude(entry.renderedMagnitude ?? entry.object.magnitude, entry.object.colorIndexBV, sunState.visualCalibration),
       clamp(sunState.visualCalibration.starVisibility * horizonFade, 0, 0.98),
     )
   })
@@ -1532,7 +1572,7 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
 
   drawProceduralSkyBackdrop(context, view, latest.sunState, currentFovDegrees)
   drawSolarGlare(context, view, latest.sunState)
-  const projectedObjects = drawProjectedObjects(context, view, latest.objects, latest.scenePacket, latest.sunState, latest.selectedObjectId)
+  const projectedObjects = drawProjectedObjects(context, view, latest.observer, latest.objects, latest.scenePacket, latest.sunState, latest.selectedObjectId)
   drawAidLayers(context, view, latest.aidVisibility, latest.sunState, currentFovDegrees)
 
   if (latest.aidVisibility.constellations) {
