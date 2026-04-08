@@ -7,6 +7,9 @@ const SKY_ENGINE_SCENE_PATH = path.resolve(process.cwd(), 'src/features/sky-engi
 const SKY_CORE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/SkyCore.ts')
 const SKY_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/SkyModule.ts')
 const SKY_RUNTIME_BRIDGE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/SkyEngineRuntimeBridge.ts')
+const BACKGROUND_RUNTIME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/modules/BackgroundRuntimeModule.ts')
+const OBJECT_RUNTIME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/modules/ObjectRuntimeModule.ts')
+const OVERLAY_RUNTIME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/modules/OverlayRuntimeModule.ts')
 
 describe('sky core runtime boundary', () => {
   it('moves babylon lifecycle ownership behind SkyCore', () => {
@@ -34,5 +37,25 @@ describe('sky core runtime boundary', () => {
     expect(moduleSource).toContain('renderOrder')
     expect(bridgeSource).toContain('createSkySceneBridgeModule')
     expect(bridgeSource).toContain('createSceneRuntimeState')
+  })
+
+  it('registers explicit runtime modules for background, objects, and overlays', () => {
+    const sceneSource = fs.readFileSync(SKY_ENGINE_SCENE_PATH, 'utf8')
+    const bridgeSource = fs.readFileSync(SKY_RUNTIME_BRIDGE_PATH, 'utf8')
+    const backgroundModuleSource = fs.readFileSync(BACKGROUND_RUNTIME_MODULE_PATH, 'utf8')
+    const objectModuleSource = fs.readFileSync(OBJECT_RUNTIME_MODULE_PATH, 'utf8')
+    const overlayModuleSource = fs.readFileSync(OVERLAY_RUNTIME_MODULE_PATH, 'utf8')
+
+    expect(sceneSource).toContain('createBackgroundRuntimeModule')
+    expect(sceneSource).toContain('createObjectRuntimeModule')
+    expect(sceneSource).toContain('createOverlayRuntimeModule')
+
+    expect(backgroundModuleSource).toContain("id: 'sky-background-runtime-module'")
+    expect(objectModuleSource).toContain("id: 'sky-object-runtime-module'")
+    expect(overlayModuleSource).toContain("id: 'sky-overlay-runtime-module'")
+
+    expect(bridgeSource).not.toContain('function renderSceneFrame')
+    expect(bridgeSource).not.toContain('function collectProjectedObjects')
+    expect(bridgeSource).not.toContain('function drawSyntheticDensityStars')
   })
 })

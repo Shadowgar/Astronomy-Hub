@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 
 import { SkyCore } from './engine/sky/runtime/SkyCore'
+import { createBackgroundRuntimeModule } from './engine/sky/runtime/modules/BackgroundRuntimeModule'
+import { createObjectRuntimeModule } from './engine/sky/runtime/modules/ObjectRuntimeModule'
+import { createOverlayRuntimeModule } from './engine/sky/runtime/modules/OverlayRuntimeModule'
 import {
   createSceneRuntimeState,
   createSkySceneBridgeModule,
@@ -90,6 +93,9 @@ export default function SkyEngineScene({
         services.inputService.detach()
       },
     })
+    core.registerModule(createBackgroundRuntimeModule())
+    core.registerModule(createObjectRuntimeModule())
+    core.registerModule(createOverlayRuntimeModule())
     core.registerModule(createSkySceneBridgeModule())
     coreRef.current = core
     core.start()
