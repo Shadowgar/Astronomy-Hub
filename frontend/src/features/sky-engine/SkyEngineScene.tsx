@@ -139,9 +139,6 @@ const TRAJECTORY_HOUR_OFFSETS = [-6, -3, 0, 3, 6] as const
 const POINTER_DRAG_THRESHOLD_PX = 6
 const STAR_BELOW_HORIZON_FADE_DEG = 8
 const BODY_BELOW_HORIZON_FADE_DEG = 1.5
-const SKY_DISK_BLEND_START_FOV_DEGREES = 120
-const SKY_DISK_MIN_REVEAL_ALTITUDE_DEGREES = -8
-const SKY_DISK_MAX_REVEAL_ALTITUDE_DEGREES = 2
 const SYNTHETIC_SKY_DENSITY_SAMPLES = buildSyntheticSkyDensityField(2800)
 const PROCEDURAL_SKY_BACKDROP = buildProceduralSkyBackdrop(180)
 const CONSTELLATION_SEGMENTS = [
@@ -478,70 +475,7 @@ function getLandscapeOpacity(centerAltitudeDeg: number, fovDegrees: number) {
 }
 
 function getBelowHorizonVisibility(centerAltitudeDeg: number, _fovDegrees: number) {
-  return smoothstep(SKY_DISK_MAX_REVEAL_ALTITUDE_DEGREES, SKY_DISK_MIN_REVEAL_ALTITUDE_DEGREES, centerAltitudeDeg)
-}
-
-function getSkyDiskBlend(view: SkyProjectionView) {
-  if ((view.projectionMode ?? 'stereographic') !== 'stereographic') {
-    return 0
-  }
-
-  const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
-  return smoothstep(SKY_DISK_BLEND_START_FOV_DEGREES, 185, fovDegrees)
-}
-
-function getSkyDiskRadiusPx(view: SkyProjectionView) {
-  return Math.min(view.viewportWidth, view.viewportHeight) * 0.5
-}
-
-function isProjectedPointInsideSkyDisk(
-  projectedPoint: { screenX: number; screenY: number },
-  view: SkyProjectionView,
-  marginPx = 0,
-) {
-  const diskBlend = getSkyDiskBlend(view)
-
-  if (diskBlend <= 0.01) {
-    return true
-  }
-
-  const centerX = view.viewportWidth * 0.5
-  const centerY = view.viewportHeight * 0.5
-  const distance = Math.hypot(projectedPoint.screenX - centerX, projectedPoint.screenY - centerY)
-
-  return distance <= getSkyDiskRadiusPx(view) + marginPx
-}
-
-function clipToSkyDisk(context: CanvasRenderingContext2D, view: SkyProjectionView) {
-  context.beginPath()
-  context.arc(view.viewportWidth * 0.5, view.viewportHeight * 0.5, getSkyDiskRadiusPx(view), 0, Math.PI * 2)
-  context.clip()
-}
-
-function drawSkyDiskMask(context: CanvasRenderingContext2D, view: SkyProjectionView, sunState: SkyEngineSunState) {
-  const diskBlend = getSkyDiskBlend(view)
-
-  if (diskBlend <= 0.01) {
-    return
-  }
-
-  const radius = getSkyDiskRadiusPx(view)
-  const centerX = view.viewportWidth * 0.5
-  const centerY = view.viewportHeight * 0.5
-
-  context.save()
-  context.fillStyle = hexToRgba(sunState.visualCalibration.backgroundColorHex, 0.92 * diskBlend)
-  context.beginPath()
-  context.rect(0, 0, view.viewportWidth, view.viewportHeight)
-  context.arc(centerX, centerY, radius, 0, Math.PI * 2, true)
-  context.fill('evenodd')
-
-  context.strokeStyle = hexToRgba('#8fbfe9', 0.22 * diskBlend)
-  context.lineWidth = 2
-  context.beginPath()
-  context.arc(centerX, centerY, Math.max(0, radius - 1), 0, Math.PI * 2)
-  context.stroke()
-  context.restore()
+  return centerAltitudeDeg < 0 ? 1 : 0
 }
 
 function drawLandscapeMask(
@@ -1140,20 +1074,8 @@ function drawSyntheticDensityStars(
   }
 }
 
-function getObjectHorizonFade(object: SkyEngineSceneObject, centerAltitudeDeg: number, fovDegrees: number) {
-  if (object.source === 'temporary_scene_seed') {
-    return 1
-  }
-
-  if (object.isAboveHorizon) {
-    return 1
-  }
-
-  if (centerAltitudeDeg >= 0) {
-    return 0
-  }
-
-  return getBelowHorizonVisibility(centerAltitudeDeg, fovDegrees)
+function getObjectHorizonFade(_object: SkyEngineSceneObject, _centerAltitudeDeg: number, _fovDegrees: number) {
+  return 1
 }
 
 function drawProjectedObjects(
@@ -1174,7 +1096,7 @@ function drawProjectedObjects(
 
     const projected = projectDirectionToViewport(horizontalToDirection(object.altitudeDeg, object.azimuthDeg), view)
 
-    if (!projected || !isProjectedPointVisible(projected, view, 22) || !isProjectedPointInsideSkyDisk(projected, view, 22)) {
+    if (!projected || !isProjectedPointVisible(projected, view, 22)) {
       return []
     }
 
@@ -1201,7 +1123,7 @@ function drawProjectedObjects(
 
     const projected = projectDirectionToViewport(new Vector3(packetStar.x, packetStar.y, packetStar.z), view)
 
-    if (!projected || !isProjectedPointVisible(projected, view, 22) || !isProjectedPointInsideSkyDisk(projected, view, 22)) {
+    if (!projected || !isProjectedPointVisible(projected, view, 22)) {
       return []
     }
 
@@ -1544,11 +1466,6 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
   const currentFovDegrees = getSkyEngineFovDegrees(runtime.currentFov)
   const lod = resolveViewTier(currentFovDegrees)
 
-  context.save()
-  if (getSkyDiskBlend(view) > 0.01) {
-    clipToSkyDisk(context, view)
-  }
-
   drawProceduralSkyBackdrop(context, view, latest.sunState, currentFovDegrees)
   drawSolarGlare(context, view, latest.sunState)
   const projectedObjects = drawProjectedObjects(context, view, latest.objects, latest.scenePacket, latest.sunState, latest.selectedObjectId)
@@ -1569,9 +1486,6 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
     Math.max(0, lod.labelCap - packetLabelLayout.visibleCount),
     packetLabelLayout.placedRectangles,
   )
-  context.restore()
-
-  drawSkyDiskMask(context, view, latest.sunState)
 
   const labelPositions = new Map<string, { x: number; y: number }>([
     ...Array.from(packetLabelLayout.labelPositions.entries()),
