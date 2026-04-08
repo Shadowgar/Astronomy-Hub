@@ -4,10 +4,6 @@ import { Camera } from '@babylonjs/core/Cameras/camera'
 import { UniversalCamera } from '@babylonjs/core/Cameras/universalCamera'
 import { Engine } from '@babylonjs/core/Engines/engine'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
-import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial'
-import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture'
-import { Mesh } from '@babylonjs/core/Meshes/mesh'
-import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import { Scene } from '@babylonjs/core/scene'
 
 import { computeObjectTrajectorySamples } from './astronomy'
@@ -87,9 +83,8 @@ interface SceneRuntimeRefs {
   engine: Engine
   camera: UniversalCamera
   canvas: HTMLCanvasElement
-  projectionPlane: Mesh
-  projectionMaterial: StandardMaterial
-  projectionTexture: DynamicTexture
+  backgroundCanvas: HTMLCanvasElement
+  overlayCanvas: HTMLCanvasElement
   centerDirection: Vector3
   targetVector: Vector3 | null
   currentFov: number
@@ -741,11 +736,14 @@ function drawAidLayers(
   aidVisibility: SkyEngineAidVisibility,
   sunState: SkyEngineSunState,
   fovDegrees: number,
+  includeLandscapeMask = true,
 ) {
   const horizonCurve = buildConstantAltitudeCurve(view, 0)
   const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
 
-  drawLandscapeMask(context, view, sunState, centerAltitudeDeg, fovDegrees)
+  if (includeLandscapeMask) {
+    drawLandscapeMask(context, view, sunState, centerAltitudeDeg, fovDegrees)
+  }
 
   if (aidVisibility.altitudeRings) {
     ;[15, 30, 45, 60].forEach((altitudeDeg) => {
@@ -1183,8 +1181,7 @@ function resolveSceneTimestampIso(objects: readonly SkyEngineSceneObject[]) {
   return objects.find((object) => object.timestampIso)?.timestampIso
 }
 
-function drawProjectedObjects(
-  context: CanvasRenderingContext2D,
+function collectProjectedObjects(
   view: SkyProjectionView,
   observer: SkyEngineObserver,
   objects: readonly SkyEngineSceneObject[],
@@ -1289,12 +1286,35 @@ function drawProjectedObjects(
       starProfile,
     }]
   })
-  const allProjectedObjects = [...projectedObjects, ...packetProjectedObjects]
+  const dedupedProjectedObjects = new Map<string, ProjectedSceneObjectEntry>()
+
+  projectedObjects.forEach((entry) => {
+    dedupedProjectedObjects.set(entry.object.id, entry)
+  })
+
+  packetProjectedObjects.forEach((entry) => {
+    dedupedProjectedObjects.set(entry.object.id, entry)
+  })
+
+  const allProjectedObjects = Array.from(dedupedProjectedObjects.values())
     .sort((left, right) => left.depth - right.depth || (left.renderedMagnitude ?? left.object.magnitude) - (right.renderedMagnitude ?? right.object.magnitude))
 
-  drawSyntheticDensityStars(context, view, allProjectedObjects, sunState, observer, sceneTimestampIso, limitingMagnitude)
+  return {
+    projectedObjects: allProjectedObjects,
+    limitingMagnitude,
+    sceneTimestampIso,
+  }
+}
 
-  allProjectedObjects.forEach((entry) => {
+function drawProjectedBodies(
+  context: CanvasRenderingContext2D,
+  projectedObjects: readonly ProjectedSceneObjectEntry[],
+  sunState: SkyEngineSunState,
+  centerAltitudeDeg: number,
+  fovDegrees: number,
+) {
+
+  projectedObjects.forEach((entry) => {
     const horizonFade = getObjectHorizonFade(entry.object, centerAltitudeDeg, fovDegrees)
 
     if (horizonFade <= 0) {
@@ -1334,8 +1354,6 @@ function drawProjectedObjects(
       clamp(sunState.visualCalibration.starVisibility * horizonFade * (entry.visibilityAlpha ?? 1), 0, 0.98),
     )
   })
-
-  return allProjectedObjects
 }
 
 function drawLabels(
@@ -1558,24 +1576,29 @@ function drawSelectionPointer(
   context.restore()
 }
 
-function ensureProjectionSurface(runtime: SceneRuntimeRefs) {
+function ensureSceneSurfaces(runtime: SceneRuntimeRefs) {
   const width = Math.max(1, Math.round(runtime.engine.getRenderWidth()))
   const height = Math.max(1, Math.round(runtime.engine.getRenderHeight()))
-  const textureSize = runtime.projectionTexture.getSize()
 
-  if (textureSize.width !== width || textureSize.height !== height) {
-    runtime.projectionTexture.dispose()
-    runtime.projectionTexture = new DynamicTexture('sky-engine-projection-texture', { width, height }, runtime.scene, false)
-    runtime.projectionTexture.hasAlpha = false
-    runtime.projectionMaterial.diffuseTexture = runtime.projectionTexture
-    runtime.projectionMaterial.emissiveTexture = runtime.projectionTexture
+  if (runtime.backgroundCanvas.width !== width || runtime.backgroundCanvas.height !== height) {
+    runtime.backgroundCanvas.width = width
+    runtime.backgroundCanvas.height = height
   }
 
-  runtime.projectionPlane.scaling.set(width, height, 1)
+  if (runtime.overlayCanvas.width !== width || runtime.overlayCanvas.height !== height) {
+    runtime.overlayCanvas.width = width
+    runtime.overlayCanvas.height = height
+  }
+
   runtime.camera.orthoLeft = -width * 0.5
   runtime.camera.orthoRight = width * 0.5
   runtime.camera.orthoTop = height * 0.5
   runtime.camera.orthoBottom = -height * 0.5
+
+  return {
+    width,
+    height,
+  }
 }
 
 function syncNavigationState(runtime: SceneRuntimeRefs, objects: readonly SkyEngineSceneObject[], selectedObjectId: string | null) {
@@ -1595,13 +1618,10 @@ function syncNavigationState(runtime: SceneRuntimeRefs, objects: readonly SkyEng
   }
 }
 
-function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot) {
-  ensureProjectionSurface(runtime)
-  const context = runtime.projectionTexture.getContext() as CanvasRenderingContext2D
-  const width = runtime.engine.getRenderWidth()
-  const height = runtime.engine.getRenderHeight()
-
-  context.clearRect(0, 0, width, height)
+function renderSceneFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnapshot) {
+  const { width, height } = ensureSceneSurfaces(runtime)
+  const backgroundContext = runtime.backgroundCanvas.getContext('2d') as CanvasRenderingContext2D
+  const overlayContext = runtime.overlayCanvas.getContext('2d') as CanvasRenderingContext2D
 
   const view: SkyProjectionView = {
     centerDirection: runtime.centerDirection,
@@ -1612,23 +1632,37 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
   }
   const currentFovDegrees = getSkyEngineFovDegrees(runtime.currentFov)
   const lod = resolveViewTier(currentFovDegrees)
+  const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
+  const { projectedObjects, limitingMagnitude, sceneTimestampIso } = collectProjectedObjects(
+    view,
+    latest.observer,
+    latest.objects,
+    latest.scenePacket,
+    latest.sunState,
+    latest.selectedObjectId,
+  )
 
-  drawBackground(context, width, height, latest.sunState, view)
+  backgroundContext.clearRect(0, 0, width, height)
+  overlayContext.clearRect(0, 0, width, height)
 
-  drawProceduralSkyBackdrop(context, view, latest.sunState, currentFovDegrees)
-  drawSolarGlare(context, view, latest.sunState)
-  const projectedObjects = drawProjectedObjects(context, view, latest.observer, latest.objects, latest.scenePacket, latest.sunState, latest.selectedObjectId)
-  drawAidLayers(context, view, latest.aidVisibility, latest.sunState, currentFovDegrees)
+  drawBackground(backgroundContext, width, height, latest.sunState, view)
+  drawProceduralSkyBackdrop(backgroundContext, view, latest.sunState, currentFovDegrees)
+  drawSolarGlare(backgroundContext, view, latest.sunState)
+  drawSyntheticDensityStars(backgroundContext, view, projectedObjects, latest.sunState, latest.observer, sceneTimestampIso, limitingMagnitude)
+  drawLandscapeMask(backgroundContext, view, latest.sunState, centerAltitudeDeg, currentFovDegrees)
+
+  drawProjectedBodies(overlayContext, projectedObjects, latest.sunState, centerAltitudeDeg, currentFovDegrees)
+  drawAidLayers(overlayContext, view, latest.aidVisibility, latest.sunState, currentFovDegrees, false)
 
   if (latest.aidVisibility.constellations) {
-    drawConstellationOverlay(context, projectedObjects)
+    drawConstellationOverlay(overlayContext, projectedObjects)
   }
 
   const selectedObject = latest.objects.find((object) => object.id === latest.selectedObjectId) ?? null
-  const trajectoryObjectId = drawTrajectory(context, view, latest.observer, selectedObject)
-  const packetLabelLayout = drawPacketLabels(context, projectedObjects, latest.scenePacket, latest.selectedObjectId, lod.labelCap)
+  const trajectoryObjectId = drawTrajectory(overlayContext, view, latest.observer, selectedObject)
+  const packetLabelLayout = drawPacketLabels(overlayContext, projectedObjects, latest.scenePacket, latest.selectedObjectId, lod.labelCap)
   const labelLayout = drawLabels(
-    context,
+    overlayContext,
     projectedObjects,
     latest.selectedObjectId,
     new Set(latest.guidedObjectIds),
@@ -1640,8 +1674,7 @@ function renderProjectionFrame(runtime: SceneRuntimeRefs, latest: ScenePropsSnap
     ...Array.from(packetLabelLayout.labelPositions.entries()),
     ...Array.from(labelLayout.labelPositions.entries()),
   ])
-  drawSelectionPointer(context, projectedObjects, latest.selectedObjectId, labelPositions)
-  runtime.projectionTexture.update()
+  drawSelectionPointer(overlayContext, projectedObjects, latest.selectedObjectId, labelPositions)
 
   runtime.projectedPickEntries = projectedObjects.map((entry) => ({
     object: entry.object,
@@ -1674,6 +1707,8 @@ export default function SkyEngineScene({
   onViewStateChange,
 }: SkyEngineSceneProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const backgroundCanvasRef = useRef<HTMLCanvasElement | null>(null)
+  const overlayCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const runtimeRefs = useRef<SceneRuntimeRefs | null>(null)
   const propsVersionRef = useRef(0)
   const propsRef = useRef<ScenePropsSnapshot>({
@@ -1717,13 +1752,16 @@ export default function SkyEngineScene({
 
   useEffect(() => {
     const canvas = canvasRef.current
+    const backgroundCanvas = backgroundCanvasRef.current
+    const overlayCanvas = overlayCanvasRef.current
 
-    if (!canvas) {
+    if (!canvas || !backgroundCanvas || !overlayCanvas) {
       return undefined
     }
 
     const engine = new Engine(canvas, true, {
       antialias: true,
+      alpha: true,
       preserveDrawingBuffer: false,
       stencil: true,
     })
@@ -1733,28 +1771,15 @@ export default function SkyEngineScene({
     camera.minZ = 0.1
     camera.maxZ = 50
     camera.setTarget(Vector3.Zero())
-
-    const projectionPlane = MeshBuilder.CreatePlane('sky-engine-projection-plane', { size: 1 }, scene)
-    projectionPlane.position = Vector3.Zero()
-    projectionPlane.isPickable = false
-
-    const projectionMaterial = new StandardMaterial('sky-engine-projection-material', scene)
-    projectionMaterial.disableLighting = true
-    projectionMaterial.backFaceCulling = false
-    const projectionTexture = new DynamicTexture('sky-engine-projection-texture', { width: 2, height: 2 }, scene, false)
-    projectionTexture.hasAlpha = false
-    projectionMaterial.diffuseTexture = projectionTexture
-    projectionMaterial.emissiveTexture = projectionTexture
-    projectionPlane.material = projectionMaterial
+    scene.clearColor.set(0, 0, 0, 0)
 
     runtimeRefs.current = {
       scene,
       engine,
       camera,
       canvas,
-      projectionPlane,
-      projectionMaterial,
-      projectionTexture,
+      backgroundCanvas,
+      overlayCanvas,
       centerDirection: stabilizeSkyEngineCenterDirection(
         horizontalToDirection(
           propsRef.current.initialViewState.centerAltDeg,
@@ -1782,7 +1807,7 @@ export default function SkyEngineScene({
 
     propsRef.current.onAtmosphereStatusChange({
       mode: 'fallback',
-      message: 'Observer-centered stereographic projection active. Babylon is only the drawing surface.',
+      message: 'Direct Babylon star rendering is active over the observer-centered projection background.',
     })
 
     const handleWheel = (event: WheelEvent) => {
@@ -1966,7 +1991,7 @@ export default function SkyEngineScene({
         return
       }
 
-      const frame = renderProjectionFrame(runtime, latest)
+      const frame = renderSceneFrame(runtime, latest)
       runtime.needsRender = false
       runtime.renderedPropsVersion = propsVersionRef.current
       const currentFovTenths = Math.round(getSkyEngineFovDegrees(runtime.currentFov) * 10)
@@ -2001,8 +2026,8 @@ export default function SkyEngineScene({
         currentFovDegrees: currentFovTenths / 10,
         currentLodTier: frame.lod.tier,
         labelCap: frame.lod.labelCap,
-        groundTextureMode: 'projection-screen',
-        groundTextureAssetPath: 'observer-centered stereographic projection',
+        groundTextureMode: 'layered-direct',
+        groundTextureAssetPath: 'direct-babylon-stars over observer-centered projection canvases',
       })
 
       scene.render()
@@ -2018,9 +2043,6 @@ export default function SkyEngineScene({
       globalThis.removeEventListener('resize', handleResize)
       clearSkyEnginePickTargets(canvas)
       clearSceneState(canvas)
-      runtimeRefs.current?.projectionTexture.dispose()
-      runtimeRefs.current?.projectionPlane.dispose()
-      runtimeRefs.current?.projectionMaterial.dispose()
       runtimeRefs.current = null
       scene.dispose()
       engine.dispose()
@@ -2030,9 +2052,15 @@ export default function SkyEngineScene({
   useEffect(() => {
     onAtmosphereStatusChange({
       mode: 'fallback',
-      message: `Projection renderer active for ${sunState.phaseLabel.toLowerCase()} conditions.`,
+      message: `Direct Babylon stars and projected sky canvases are active for ${sunState.phaseLabel.toLowerCase()} conditions.`,
     })
   }, [onAtmosphereStatusChange, sunState])
 
-  return <canvas ref={canvasRef} className="sky-engine-scene__canvas" aria-label="Sky Engine scene" />
+  return (
+    <div className="sky-engine-scene">
+      <canvas ref={backgroundCanvasRef} className="sky-engine-scene__background" />
+      <canvas ref={canvasRef} className="sky-engine-scene__canvas" aria-label="Sky Engine scene" />
+      <canvas ref={overlayCanvasRef} className="sky-engine-scene__overlay" />
+    </div>
+  )
 }
