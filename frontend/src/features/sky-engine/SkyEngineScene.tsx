@@ -301,10 +301,6 @@ function shouldRenderObject(
     return false
   }
 
-  if (object.type === 'star' && object.source === 'computed_real_sky') {
-    return object.magnitude <= getVisibleStarMagnitudeLimit(fovDegrees)
-  }
-
   return true
 }
 
@@ -800,8 +796,6 @@ function drawAidLayers(
     return
   }
 
-  const azimuthGuideCurve = buildConstantAltitudeCurve(view, 8)
-
   context.save()
   context.shadowColor = hexToRgba(sunState.visualCalibration.horizonGlowColorHex, 0.58)
   context.shadowBlur = 22
@@ -809,7 +803,6 @@ function drawAidLayers(
   context.restore()
 
   drawCurve(context, horizonCurve, hexToRgba('#cfe7ff', 0.62), 1.1)
-  drawCurve(context, azimuthGuideCurve, hexToRgba('#9ccfff', 0.1), 1)
 
   const tickSegments = buildAzimuthTickSegments(view)
 
@@ -1187,10 +1180,7 @@ function drawProjectedObjects(
   const sceneTimestampIso = resolveSceneTimestampIso(objects)
   const extinction = buildAtmosphericExtinctionContext(observer, sceneTimestampIso)
   const skyBrightness = computeSkyBrightness((sunState.altitudeDeg * Math.PI) / 180)
-  const limitingMagnitude = Math.min(
-    getVisibleStarMagnitudeLimit(fovDegrees),
-    computeLimitingMagnitude(skyBrightness),
-  )
+  const limitingMagnitude = computeLimitingMagnitude(skyBrightness)
   const objectLookup = new Map(objects.map((object) => [object.id, object]))
   const projectedObjects = objects.flatMap((object) => {
     if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, sunState, selectedObjectId)) {
