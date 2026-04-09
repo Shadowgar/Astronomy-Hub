@@ -45,7 +45,7 @@ interface DirectBackgroundGlareEntry {
   readonly discAlpha: number
 }
 
-export interface PreparedDirectBackgroundFrame {
+export interface PreparedDirectAtmosphereFrame {
   readonly viewportWidth: number
   readonly viewportHeight: number
   readonly zenithColorHex: string
@@ -56,8 +56,13 @@ export interface PreparedDirectBackgroundFrame {
   readonly twilightStrength: number
   readonly sunPosition: Vector2
   readonly patches: readonly DirectBackgroundPatchEntry[]
-  readonly ribbons: readonly DirectBackgroundRibbonEntry[]
   readonly glare: DirectBackgroundGlareEntry | null
+}
+
+export interface PreparedDirectLandscapeFrame {
+  readonly viewportWidth: number
+  readonly viewportHeight: number
+  readonly ribbons: readonly DirectBackgroundRibbonEntry[]
 }
 
 interface GlowEntry {
@@ -401,7 +406,7 @@ function prepareLandscapeRibbons(view: SkyProjectionView, sunState: SkyEngineSun
   return ribbons
 }
 
-export function prepareDirectBackgroundFrame(view: SkyProjectionView, sunState: SkyEngineSunState, fovDegrees: number) {
+export function prepareDirectAtmosphereFrame(view: SkyProjectionView, sunState: SkyEngineSunState, fovDegrees: number) {
   const projectedSun = projectHorizontalToViewport(sunState.altitudeDeg, sunState.azimuthDeg, view)
   const sunPosition = projectedSun
     ? new Vector2(
@@ -421,9 +426,16 @@ export function prepareDirectBackgroundFrame(view: SkyProjectionView, sunState: 
     twilightStrength: buildTwilightStrength(sunState),
     sunPosition,
     patches: prepareBackdropPatches(view, sunState, fovDegrees),
-    ribbons: prepareLandscapeRibbons(view, sunState, fovDegrees),
     glare: prepareGlare(view, sunState),
-  } satisfies PreparedDirectBackgroundFrame
+  } satisfies PreparedDirectAtmosphereFrame
+}
+
+export function prepareDirectLandscapeFrame(view: SkyProjectionView, sunState: SkyEngineSunState, fovDegrees: number) {
+  return {
+    viewportWidth: view.viewportWidth,
+    viewportHeight: view.viewportHeight,
+    ribbons: prepareLandscapeRibbons(view, sunState, fovDegrees),
+  } satisfies PreparedDirectLandscapeFrame
 }
 
 export function createDirectBackgroundLayer(scene: Scene) {
@@ -459,7 +471,7 @@ export function createDirectBackgroundLayer(scene: Scene) {
   const discGlare = createGlowPlane(scene, 'sky-engine-background-disc-glare', discTexture, 0)
 
   return {
-    sync(frame: PreparedDirectBackgroundFrame) {
+    syncAtmosphere(frame: PreparedDirectAtmosphereFrame) {
       backdropPlane.scaling.set(frame.viewportWidth, frame.viewportHeight, 1)
       backdropPlane.position.set(0, 0, 0.001)
       backdropMaterial.setColor3('zenithColor', hexToColor3(frame.zenithColorHex))
@@ -501,6 +513,28 @@ export function createDirectBackgroundLayer(scene: Scene) {
         entry.material.emissiveColor = hexToColor3(patch.colorHex)
         entry.material.alpha = patch.alpha
       })
+
+      if (!frame.glare) {
+        outerGlare.mesh.isVisible = false
+        discGlare.mesh.isVisible = false
+        return
+      }
+
+      outerGlare.mesh.isVisible = true
+      outerGlare.mesh.position.copyFrom(toViewportPlanePosition(frame.glare.screenX, frame.glare.screenY, frame.viewportWidth, frame.viewportHeight, 0.003))
+      outerGlare.mesh.scaling.set(frame.glare.outerRadiusPx * 2, frame.glare.outerRadiusPx * 2, 1)
+      outerGlare.material.emissiveColor = Color3.FromHexString('#ffd694')
+      outerGlare.material.alpha = frame.glare.outerAlpha
+
+      discGlare.mesh.isVisible = true
+      discGlare.mesh.position.copyFrom(toViewportPlanePosition(frame.glare.screenX, frame.glare.screenY, frame.viewportWidth, frame.viewportHeight, 0.0035))
+      discGlare.mesh.scaling.set(frame.glare.discRadiusPx * 2, frame.glare.discRadiusPx * 2, 1)
+      discGlare.material.emissiveColor = Color3.FromHexString('#ffe7a2')
+      discGlare.material.alpha = frame.glare.discAlpha
+    },
+
+    syncLandscape(frame: PreparedDirectLandscapeFrame) {
+      backdropPlane.scaling.set(frame.viewportWidth, frame.viewportHeight, 1)
 
       const nextRibbonIds = new Set(frame.ribbons.map((entry) => entry.id))
       Array.from(ribbonMeshes.keys()).forEach((ribbonId) => {
@@ -546,24 +580,6 @@ export function createDirectBackgroundLayer(scene: Scene) {
         material.alpha = ribbon.alpha
         ribbonMeshes.set(ribbon.id, nextRibbon)
       })
-
-      if (!frame.glare) {
-        outerGlare.mesh.isVisible = false
-        discGlare.mesh.isVisible = false
-        return
-      }
-
-      outerGlare.mesh.isVisible = true
-      outerGlare.mesh.position.copyFrom(toViewportPlanePosition(frame.glare.screenX, frame.glare.screenY, frame.viewportWidth, frame.viewportHeight, 0.003))
-      outerGlare.mesh.scaling.set(frame.glare.outerRadiusPx * 2, frame.glare.outerRadiusPx * 2, 1)
-      outerGlare.material.emissiveColor = Color3.FromHexString('#ffd694')
-      outerGlare.material.alpha = frame.glare.outerAlpha
-
-      discGlare.mesh.isVisible = true
-      discGlare.mesh.position.copyFrom(toViewportPlanePosition(frame.glare.screenX, frame.glare.screenY, frame.viewportWidth, frame.viewportHeight, 0.0035))
-      discGlare.mesh.scaling.set(frame.glare.discRadiusPx * 2, frame.glare.discRadiusPx * 2, 1)
-      discGlare.material.emissiveColor = Color3.FromHexString('#ffe7a2')
-      discGlare.material.alpha = frame.glare.discAlpha
     },
 
     dispose() {

@@ -1,11 +1,11 @@
 import type { SkyModule } from '../SkyModule'
-import { prepareDirectAtmosphereFrame } from '../../../../directBackgroundLayer'
+import { prepareDirectLandscapeFrame } from '../../../../directBackgroundLayer'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 
-export function createAtmosphereModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
+export function createLandscapeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
-    id: 'sky-atmosphere-runtime-module',
-    renderOrder: 10,
+    id: 'sky-landscape-runtime-module',
+    renderOrder: 15,
     render({ runtime, getProps }) {
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame
@@ -14,12 +14,12 @@ export function createAtmosphereModule(): SkyModule<ScenePropsSnapshot, SceneRun
         return
       }
 
-      const atmosphereFrame = prepareDirectAtmosphereFrame(
+      const landscapeFrame = prepareDirectLandscapeFrame(
         projectedFrame.view,
         latest.sunState,
         projectedFrame.currentFovDegrees,
       )
-      runtime.directBackgroundLayer.syncAtmosphere(atmosphereFrame)
+      runtime.directBackgroundLayer.syncLandscape(landscapeFrame)
     },
   }
 }

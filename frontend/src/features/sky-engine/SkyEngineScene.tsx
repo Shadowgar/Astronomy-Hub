@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import { SkyCore } from './engine/sky/runtime/SkyCore'
 import { createAtmosphereModule } from './engine/sky/runtime/modules/AtmosphereModule'
 import { createBackgroundRuntimeModule } from './engine/sky/runtime/modules/BackgroundRuntimeModule'
+import { createLandscapeModule } from './engine/sky/runtime/modules/LandscapeModule'
 import { createObjectRuntimeModule } from './engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createOverlayRuntimeModule } from './engine/sky/runtime/modules/OverlayRuntimeModule'
 import { createStarsModule } from './engine/sky/runtime/modules/StarsModule'
@@ -96,6 +97,7 @@ export default function SkyEngineScene({
       },
     })
     core.registerModule(createAtmosphereModule())
+    core.registerModule(createLandscapeModule())
     core.registerModule(createBackgroundRuntimeModule())
     core.registerModule(createStarsModule())
     core.registerModule(createObjectRuntimeModule())

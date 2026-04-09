@@ -217,7 +217,7 @@ function drawSyntheticDensityStars(
 export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-background-runtime-module',
-    renderOrder: 15,
+    renderOrder: 18,
     render({ runtime, services, getProps }) {
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame
