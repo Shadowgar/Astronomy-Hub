@@ -9,6 +9,8 @@ describe('milky way module response', () => {
   it('reveals the galactic layer more strongly at dark night than daylight', () => {
     const dayState = evaluateMilkyWayRenderState({
       skyBrightness: 0.98,
+      adaptationLevel: 0.04,
+      sceneContrast: 0.48,
       limitingMagnitude: -0.4,
       starVisibility: 0.08,
       starFieldBrightness: 0.1,
@@ -22,6 +24,8 @@ describe('milky way module response', () => {
     })
     const nightState = evaluateMilkyWayRenderState({
       skyBrightness: 0.04,
+      adaptationLevel: 0.96,
+      sceneContrast: 1.02,
       limitingMagnitude: 6.4,
       starVisibility: 1,
       starFieldBrightness: 0.92,

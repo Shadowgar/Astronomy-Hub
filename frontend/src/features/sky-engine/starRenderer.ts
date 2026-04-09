@@ -90,6 +90,8 @@ function getSceneResponseWeight(state: SkyBrightnessExposureState | undefined) {
       fieldBrightness: 1,
       exposure: 1,
       skySuppression: 1,
+      sceneContrast: 1,
+      adaptation: 1,
     }
   }
 
@@ -97,7 +99,9 @@ function getSceneResponseWeight(state: SkyBrightnessExposureState | undefined) {
     visibility: clamp(state.starVisibility, 0.05, 1),
     fieldBrightness: clamp(state.starFieldBrightness, 0.05, 1),
     exposure: clamp(state.atmosphereExposure, 0.68, 1.14),
-    skySuppression: clamp(1 - state.skyBrightness * 0.94, 0.06, 1),
+    skySuppression: clamp(1 - state.skyBrightness * (0.98 - state.adaptationLevel * 0.18), 0.04, 1),
+    sceneContrast: clamp(state.sceneContrast, 0.46, 1.08),
+    adaptation: clamp(state.adaptationLevel, 0, 1),
   }
 }
 
@@ -112,12 +116,20 @@ export function getStarRenderProfileForMagnitude(
   const brightGlowWeight = clamp(Math.pow(brightness, 1.18), 0, 1)
   const response = getSceneResponseWeight(brightnessExposureState)
   const apparentBrightness = clamp(
-    brightness * response.visibility * Math.pow(response.fieldBrightness, 0.82) * Math.pow(response.exposure, 0.42) * response.skySuppression,
-    0.02,
+    brightness *
+      response.visibility *
+      Math.pow(response.fieldBrightness, 0.82) *
+      Math.pow(response.exposure, 0.42) *
+      response.skySuppression *
+      (0.78 + response.sceneContrast * 0.26),
+    0.015,
     1,
   )
   const apparentSize = clamp(
-    sizeWeight * (0.82 + response.visibility * 0.18) * (0.88 + response.skySuppression * 0.22),
+    sizeWeight *
+      (0.8 + response.visibility * 0.18 + response.adaptation * 0.06) *
+      (0.86 + response.skySuppression * 0.24) *
+      (0.9 + response.sceneContrast * 0.08),
     0.04,
     1,
   )

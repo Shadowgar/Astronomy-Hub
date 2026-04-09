@@ -165,8 +165,16 @@ function buildObserverSnapshot(
 
 export function evaluateMilkyWayRenderState(brightnessExposureState: SkyBrightnessExposureState): MilkyWayRenderState {
   return {
-    visibility: clamp(brightnessExposureState.milkyWayVisibility, 0, 1),
-    contrast: clamp(brightnessExposureState.milkyWayContrast, 0.06, 1),
+    visibility: clamp(
+      brightnessExposureState.milkyWayVisibility * (0.22 + brightnessExposureState.adaptationLevel * 0.78),
+      0,
+      1,
+    ),
+    contrast: clamp(
+      brightnessExposureState.milkyWayContrast * (0.54 + brightnessExposureState.sceneContrast * 0.46),
+      0.06,
+      1,
+    ),
   }
 }
 

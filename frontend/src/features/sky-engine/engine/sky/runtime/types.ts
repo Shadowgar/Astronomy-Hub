@@ -66,6 +66,8 @@ export interface SkyRenderContext<TProps, TRuntime extends SkyCoreRenderRefs, TS
 
 export interface SkyBrightnessExposureState {
   readonly skyBrightness: number
+  readonly adaptationLevel: number
+  readonly sceneContrast: number
   readonly limitingMagnitude: number
   readonly starVisibility: number
   readonly starFieldBrightness: number

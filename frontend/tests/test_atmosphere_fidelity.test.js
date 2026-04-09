@@ -62,6 +62,8 @@ describe('atmosphere frame fidelity shaping', () => {
       120,
       {
         skyBrightness: 0.32,
+        adaptationLevel: 0.58,
+        sceneContrast: 0.72,
         limitingMagnitude: 3.4,
         starVisibility: 0.46,
         starFieldBrightness: 0.4,
@@ -80,6 +82,8 @@ describe('atmosphere frame fidelity shaping', () => {
       120,
       {
         skyBrightness: 0.02,
+        adaptationLevel: 0.95,
+        sceneContrast: 1.02,
         limitingMagnitude: 6.4,
         starVisibility: 1,
         starFieldBrightness: 0.92,

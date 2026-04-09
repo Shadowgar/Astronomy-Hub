@@ -333,10 +333,19 @@ function createGlowPlane(scene: Scene, id: string, texture: DynamicTexture, rend
   return { mesh, material }
 }
 
-function prepareBackdropPatches(view: SkyProjectionView, sunState: SkyEngineSunState, fovDegrees: number) {
+function prepareBackdropPatches(
+  view: SkyProjectionView,
+  sunState: SkyEngineSunState,
+  fovDegrees: number,
+  brightnessExposureState: SkyBrightnessExposureState,
+) {
   const projectionScale = getProjectionScale(view)
   const wideBlend = smoothstep(80, 185, fovDegrees)
-  const backdropOpacity = clamp(sunState.visualCalibration.starVisibility * 0.62 + sunState.visualCalibration.starFieldBrightness * 0.24, 0, 1)
+  const backdropOpacity = clamp(
+    brightnessExposureState.starVisibility * 0.62 + brightnessExposureState.starFieldBrightness * 0.24,
+    0,
+    1,
+  )
 
   if (backdropOpacity <= 0.08) {
     return []
@@ -455,19 +464,26 @@ export function prepareDirectAtmosphereFrame(
     : new Vector2(0.5, clamp(0.18 + (sunState.altitudeDeg + 18) / 72, 0.05, 0.95))
   const skyBrightness = clamp(brightnessExposureState.skyBrightness, 0, 1)
   const darkness = clamp(1 - skyBrightness, 0, 1)
+  const adaptationLevel = clamp(brightnessExposureState.adaptationLevel, 0, 1)
+  const sceneContrast = clamp(brightnessExposureState.sceneContrast, 0.46, 1.08)
   const twilightStrength = buildTwilightStrength(sunState)
   const horizonGlowStrength = clamp(
-    Math.pow(1 - skyBrightness, 0.42) * (0.18 + twilightStrength * 1.28),
+    Math.pow(1 - skyBrightness, 0.42) * (0.14 + twilightStrength * 1.18 + sceneContrast * 0.18),
     0.06,
     1,
   )
   const twilightLowerBandIntensity = clamp(
-    twilightStrength * (0.42 + (1 - skyBrightness) * 0.36 + brightnessExposureState.atmosphereExposure * 0.16),
+    twilightStrength * (
+      0.34 +
+      (1 - skyBrightness) * 0.3 +
+      brightnessExposureState.atmosphereExposure * 0.14 +
+      sceneContrast * 0.14
+    ),
     0.02,
     0.92,
   )
   const zenithDarkening = clamp(
-    Math.pow(darkness, 1.24) * (0.22 + brightnessExposureState.atmosphereExposure * 0.2),
+    Math.pow(darkness, 1.24) * (0.16 + adaptationLevel * 0.28 + sceneContrast * 0.12),
     0,
     0.78,
   )
@@ -475,13 +491,15 @@ export function prepareDirectAtmosphereFrame(
     Math.pow(darkness, 2.35) * (
       brightnessExposureState.nightSkyZenithLuminance * 5.6 +
       brightnessExposureState.nightSkyHorizonLuminance * 2.2
-    ),
+    ) * (0.88 + adaptationLevel * 0.2),
     0,
     0.42,
   )
   const exposureOpacity = clamp(
-    backdropAlpha * (0.82 + brightnessExposureState.atmosphereExposure * 0.26) * (0.9 + skyBrightness * 0.08),
-    0.52,
+    backdropAlpha *
+      (0.84 + brightnessExposureState.atmosphereExposure * 0.22) *
+      (0.88 + skyBrightness * 0.08 + sceneContrast * 0.04 - adaptationLevel * 0.06),
+    0.46,
     1,
   )
   const nightFloorTintHex = blendHexColors(
@@ -506,7 +524,7 @@ export function prepareDirectAtmosphereFrame(
     nightFloorStrength,
     nightFloorTintHex,
     sunPosition,
-    patches: prepareBackdropPatches(view, sunState, fovDegrees),
+    patches: prepareBackdropPatches(view, sunState, fovDegrees, brightnessExposureState),
     glare: prepareGlare(view, sunState),
   } satisfies PreparedDirectAtmosphereFrame
 }
