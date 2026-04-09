@@ -1,9 +1,8 @@
 import type { SkyModule } from '../SkyModule'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import {
-  collectProjectedObjects,
-  ensureSceneSurfaces,
-  resolveViewTier,
+  collectProjectedNonStarObjects,
+  mergeProjectedSceneObjects,
   type RuntimeProjectedSceneFrame,
 } from './runtimeFrame'
 
@@ -26,36 +25,32 @@ function syncDirectObjectLayer(
 export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-object-runtime-module',
-    renderOrder: 20,
+    renderOrder: 30,
     update({ runtime, services, getProps }) {
       const latest = getProps()
-      const { width, height } = ensureSceneSurfaces(runtime)
+      const projectedStarsFrame = runtime.projectedStarsFrame
 
-      services.projectionService.syncViewport(width, height)
-      const view = services.projectionService.createView(
-        services.navigationService.getCenterDirection(),
-      )
-      const currentFovDegrees = services.projectionService.getCurrentFovDegrees()
-      const sceneTimestampIso = services.clockService.getSceneTimestampIso()
-      const { projectedObjects, limitingMagnitude } = collectProjectedObjects(
-        view,
-        services.observerService.getObserver(),
+      if (!projectedStarsFrame) {
+        runtime.projectedSceneFrame = null
+        return
+      }
+
+      const projectedObjects = collectProjectedNonStarObjects(
+        projectedStarsFrame.view,
         latest.objects,
-        latest.scenePacket,
         latest.sunState,
         latest.selectedObjectId,
-        sceneTimestampIso,
       )
 
       runtime.projectedSceneFrame = {
-        width,
-        height,
-        currentFovDegrees,
-        lod: resolveViewTier(currentFovDegrees),
-        view,
-        projectedObjects,
-        limitingMagnitude,
-        sceneTimestampIso,
+        width: projectedStarsFrame.width,
+        height: projectedStarsFrame.height,
+        currentFovDegrees: projectedStarsFrame.currentFovDegrees,
+        lod: projectedStarsFrame.lod,
+        view: projectedStarsFrame.view,
+        projectedObjects: mergeProjectedSceneObjects(projectedStarsFrame.projectedStars, projectedObjects),
+        limitingMagnitude: projectedStarsFrame.limitingMagnitude,
+        sceneTimestampIso: projectedStarsFrame.sceneTimestampIso,
       }
     },
     render({ runtime, services, getProps }) {

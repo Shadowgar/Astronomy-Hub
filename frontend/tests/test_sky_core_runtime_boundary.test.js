@@ -8,6 +8,7 @@ const SKY_CORE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engin
 const SKY_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/SkyModule.ts')
 const SKY_RUNTIME_BRIDGE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/SkyEngineRuntimeBridge.ts')
 const BACKGROUND_RUNTIME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/modules/BackgroundRuntimeModule.ts')
+const STARS_RUNTIME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/modules/StarsModule.ts')
 const OBJECT_RUNTIME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/modules/ObjectRuntimeModule.ts')
 const OVERLAY_RUNTIME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/modules/OverlayRuntimeModule.ts')
 
@@ -39,20 +40,26 @@ describe('sky core runtime boundary', () => {
     expect(bridgeSource).toContain('createSceneRuntimeState')
   })
 
-  it('registers explicit runtime modules for background, objects, and overlays', () => {
+  it('registers explicit runtime modules for background, stars, objects, and overlays', () => {
     const sceneSource = fs.readFileSync(SKY_ENGINE_SCENE_PATH, 'utf8')
     const bridgeSource = fs.readFileSync(SKY_RUNTIME_BRIDGE_PATH, 'utf8')
     const backgroundModuleSource = fs.readFileSync(BACKGROUND_RUNTIME_MODULE_PATH, 'utf8')
+    const starsModuleSource = fs.readFileSync(STARS_RUNTIME_MODULE_PATH, 'utf8')
     const objectModuleSource = fs.readFileSync(OBJECT_RUNTIME_MODULE_PATH, 'utf8')
     const overlayModuleSource = fs.readFileSync(OVERLAY_RUNTIME_MODULE_PATH, 'utf8')
 
     expect(sceneSource).toContain('createBackgroundRuntimeModule')
+    expect(sceneSource).toContain('createStarsModule')
     expect(sceneSource).toContain('createObjectRuntimeModule')
     expect(sceneSource).toContain('createOverlayRuntimeModule')
 
     expect(backgroundModuleSource).toContain("id: 'sky-background-runtime-module'")
+    expect(starsModuleSource).toContain("id: 'sky-stars-runtime-module'")
     expect(objectModuleSource).toContain("id: 'sky-object-runtime-module'")
     expect(overlayModuleSource).toContain("id: 'sky-overlay-runtime-module'")
+    expect(starsModuleSource).toContain('collectProjectedStars(')
+    expect(objectModuleSource).toContain('collectProjectedNonStarObjects(')
+    expect(objectModuleSource).not.toContain('collectProjectedStars(')
 
     expect(bridgeSource).not.toContain('function renderSceneFrame')
     expect(bridgeSource).not.toContain('function collectProjectedObjects')
@@ -62,23 +69,27 @@ describe('sky core runtime boundary', () => {
   it('registers runtime modules in explicit render order and keeps the bridge last', () => {
     const sceneSource = fs.readFileSync(SKY_ENGINE_SCENE_PATH, 'utf8')
     const backgroundModuleSource = fs.readFileSync(BACKGROUND_RUNTIME_MODULE_PATH, 'utf8')
+    const starsModuleSource = fs.readFileSync(STARS_RUNTIME_MODULE_PATH, 'utf8')
     const objectModuleSource = fs.readFileSync(OBJECT_RUNTIME_MODULE_PATH, 'utf8')
     const overlayModuleSource = fs.readFileSync(OVERLAY_RUNTIME_MODULE_PATH, 'utf8')
     const bridgeSource = fs.readFileSync(SKY_RUNTIME_BRIDGE_PATH, 'utf8')
 
     const backgroundRegistrationIndex = sceneSource.indexOf('core.registerModule(createBackgroundRuntimeModule())')
+    const starsRegistrationIndex = sceneSource.indexOf('core.registerModule(createStarsModule())')
     const objectRegistrationIndex = sceneSource.indexOf('core.registerModule(createObjectRuntimeModule())')
     const overlayRegistrationIndex = sceneSource.indexOf('core.registerModule(createOverlayRuntimeModule())')
     const bridgeRegistrationIndex = sceneSource.indexOf('core.registerModule(createSkySceneBridgeModule())')
 
     expect(backgroundRegistrationIndex).toBeGreaterThan(-1)
-    expect(objectRegistrationIndex).toBeGreaterThan(backgroundRegistrationIndex)
+    expect(starsRegistrationIndex).toBeGreaterThan(backgroundRegistrationIndex)
+    expect(objectRegistrationIndex).toBeGreaterThan(starsRegistrationIndex)
     expect(overlayRegistrationIndex).toBeGreaterThan(objectRegistrationIndex)
     expect(bridgeRegistrationIndex).toBeGreaterThan(overlayRegistrationIndex)
 
     expect(backgroundModuleSource).toContain('renderOrder: 10')
-    expect(objectModuleSource).toContain('renderOrder: 20')
-    expect(overlayModuleSource).toContain('renderOrder: 30')
+    expect(starsModuleSource).toContain('renderOrder: 20')
+    expect(objectModuleSource).toContain('renderOrder: 30')
+    expect(overlayModuleSource).toContain('renderOrder: 40')
     expect(bridgeSource).toContain('renderOrder: 100')
   })
 

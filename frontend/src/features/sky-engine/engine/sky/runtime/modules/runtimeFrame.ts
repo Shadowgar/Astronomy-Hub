@@ -55,6 +55,17 @@ export interface RuntimeProjectedSceneFrame {
   readonly sceneTimestampIso: string | undefined
 }
 
+export interface RuntimeProjectedStarsFrame {
+  readonly width: number
+  readonly height: number
+  readonly currentFovDegrees: number
+  readonly lod: SceneViewLod
+  readonly view: SkyProjectionView
+  readonly projectedStars: readonly ProjectedSceneObjectEntry[]
+  readonly limitingMagnitude: number
+  readonly sceneTimestampIso: string | undefined
+}
+
 export interface SceneFrameStateWriteInput {
   backendStarCount: number
   canvas: HTMLCanvasElement
@@ -227,7 +238,7 @@ export function ensureSceneSurfaces(runtime: {
   return { width, height }
 }
 
-export function collectProjectedObjects(
+export function collectProjectedStars(
   view: SkyProjectionView,
   observer: SkyEngineObserver,
   objects: readonly SkyEngineSceneObject[],
@@ -247,6 +258,10 @@ export function collectProjectedObjects(
   )
   const objectLookup = new Map(objects.map((object) => [object.id, object]))
   const projectedObjects = objects.flatMap((object) => {
+    if (object.type !== 'star') {
+      return []
+    }
+
     if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, sunState, selectedObjectId)) {
       return []
     }
@@ -362,10 +377,65 @@ export function collectProjectedObjects(
   })
 
   return {
-    projectedObjects: Array.from(dedupedProjectedObjects.values())
+    projectedStars: Array.from(dedupedProjectedObjects.values())
       .sort((left, right) => left.depth - right.depth || (left.renderedMagnitude ?? left.object.magnitude) - (right.renderedMagnitude ?? right.object.magnitude)),
     limitingMagnitude,
   }
+}
+
+export function collectProjectedNonStarObjects(
+  view: SkyProjectionView,
+  objects: readonly SkyEngineSceneObject[],
+  sunState: SkyEngineSunState,
+  selectedObjectId: string | null,
+) {
+  const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
+  const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
+
+  return objects.flatMap((object) => {
+    if (object.type === 'star') {
+      return []
+    }
+
+    if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, sunState, selectedObjectId)) {
+      return []
+    }
+
+    const projected = projectDirectionToViewport(horizontalToDirection(object.altitudeDeg, object.azimuthDeg), view)
+
+    if (!projected || !isProjectedPointVisible(projected, view, 22)) {
+      return []
+    }
+
+    const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees)
+    const renderAlpha = clamp(horizonFade, 0, 1)
+
+    if (renderAlpha <= 0) {
+      return []
+    }
+
+    const markerRadiusPx = getMarkerRadiusPx(object, view, sunState)
+
+    return [{
+      object,
+      screenX: projected.screenX,
+      screenY: projected.screenY,
+      depth: projected.depth,
+      angularDistanceRad: projected.angularDistanceRad,
+      markerRadiusPx,
+      pickRadiusPx: getPickRadiusPx(object, markerRadiusPx),
+      renderAlpha,
+      renderedMagnitude: object.magnitude,
+    }]
+  })
+}
+
+export function mergeProjectedSceneObjects(
+  projectedStars: readonly ProjectedSceneObjectEntry[],
+  projectedObjects: readonly ProjectedSceneObjectEntry[],
+) {
+  return [...projectedStars, ...projectedObjects]
+    .sort((left, right) => left.depth - right.depth || (left.renderedMagnitude ?? left.object.magnitude) - (right.renderedMagnitude ?? right.object.magnitude))
 }
 
 export function updateReportedViewState(

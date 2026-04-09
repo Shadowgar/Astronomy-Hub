@@ -4,6 +4,7 @@ import { SkyCore } from './engine/sky/runtime/SkyCore'
 import { createBackgroundRuntimeModule } from './engine/sky/runtime/modules/BackgroundRuntimeModule'
 import { createObjectRuntimeModule } from './engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createOverlayRuntimeModule } from './engine/sky/runtime/modules/OverlayRuntimeModule'
+import { createStarsModule } from './engine/sky/runtime/modules/StarsModule'
 import {
   createSceneRuntimeState,
   createSkySceneBridgeModule,
@@ -94,6 +95,7 @@ export default function SkyEngineScene({
       },
     })
     core.registerModule(createBackgroundRuntimeModule())
+    core.registerModule(createStarsModule())
     core.registerModule(createObjectRuntimeModule())
     core.registerModule(createOverlayRuntimeModule())
     core.registerModule(createSkySceneBridgeModule())

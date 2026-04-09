@@ -5,7 +5,7 @@ import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } fr
 export function createOverlayRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-overlay-runtime-module',
-    renderOrder: 30,
+    renderOrder: 40,
     render({ runtime, services, getProps }) {
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame

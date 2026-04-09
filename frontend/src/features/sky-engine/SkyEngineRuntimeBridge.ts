@@ -38,6 +38,7 @@ import {
   updateReportedViewState,
   writeSceneState,
   type RuntimeProjectedSceneFrame,
+  type RuntimeProjectedStarsFrame,
 } from './engine/sky/runtime/modules/runtimeFrame'
 
 export interface SkyEngineSceneProps {
@@ -75,6 +76,7 @@ export interface SceneRuntimeRefs {
   lastReportedFovTenths: number | null
   lastReportedCenterAltTenths: number | null
   lastReportedCenterAzTenths: number | null
+  projectedStarsFrame: RuntimeProjectedStarsFrame | null
   projectedSceneFrame: RuntimeProjectedSceneFrame | null
   trajectoryObjectId: string | null
   visibleLabelIds: readonly string[]
@@ -124,6 +126,7 @@ export function createSceneRuntimeState({
     lastReportedFovTenths: null,
     lastReportedCenterAltTenths: null,
     lastReportedCenterAzTenths: null,
+    projectedStarsFrame: null,
     projectedSceneFrame: null,
     trajectoryObjectId: null,
     visibleLabelIds: [],
