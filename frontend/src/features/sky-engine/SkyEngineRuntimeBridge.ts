@@ -164,7 +164,7 @@ export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, Scen
     start({ getProps }) {
       getProps().onAtmosphereStatusChange({
         mode: 'fallback',
-        message: 'Direct Babylon background, object, aid, trajectory, and label rendering is active with a bounded density-star canvas fallback.',
+        message: 'Direct Babylon atmosphere, Milky Way, landscape, object, aid, trajectory, and label rendering is active with a bounded density-star canvas fallback.',
       })
     },
     update({ services, getProps, deltaSeconds, markFrameDirty }) {

@@ -240,7 +240,6 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
         return
       }
 
-      backgroundContext.clearRect(0, 0, projectedFrame.width, projectedFrame.height)
       drawSyntheticDensityStars(
         backgroundContext,
         projectedFrame.view,

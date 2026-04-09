@@ -12,6 +12,36 @@ function buildBackdropAlpha(starVisibility: number) {
   return clamp(0.9 - starVisibility * 0.18, 0.68, 0.92)
 }
 
+function buildMilkyWayVisibility(
+  skyBrightness: number,
+  starVisibility: number,
+  starFieldBrightness: number,
+) {
+  const darkness = clamp(1 - skyBrightness, 0, 1)
+  const reveal = Math.pow(darkness, 1.65)
+
+  return clamp(
+    reveal * (0.24 + clamp(starVisibility, 0, 1) * 0.5 + clamp(starFieldBrightness, 0, 1) * 0.26),
+    0,
+    1,
+  )
+}
+
+function buildMilkyWayContrast(
+  skyBrightness: number,
+  atmosphereExposure: number,
+  nightSkyZenithLuminance: number,
+) {
+  const darkness = clamp(1 - skyBrightness, 0, 1)
+  const darkSkyBias = clamp(1 - nightSkyZenithLuminance / 0.12, 0.18, 1)
+
+  return clamp(
+    Math.pow(darkness, 1.18) * (0.44 + clamp(atmosphereExposure, 0, 1.4) * 0.24) * darkSkyBias,
+    0.04,
+    1,
+  )
+}
+
 export function evaluateSkyBrightnessExposureState(
   props: ScenePropsSnapshot,
   services: SkySceneRuntimeServices,
@@ -22,10 +52,22 @@ export function evaluateSkyBrightnessExposureState(
   const starFieldBrightness = props.sunState.visualCalibration.starFieldBrightness
   const atmosphereExposure = props.sunState.visualCalibration.atmosphereExposure
   const skyBrightness = computeSkyBrightness(sunAltitudeRad)
+  const nightSkyZenithLuminance = computeNightSkyLuminance(Math.PI / 2, sunAltitudeRad)
+  const nightSkyHorizonLuminance = computeNightSkyLuminance(0, sunAltitudeRad)
   const limitingMagnitude = computeEffectiveLimitingMagnitude(
     skyBrightness,
     currentFovDegrees,
     starVisibility,
+  )
+  const milkyWayVisibility = buildMilkyWayVisibility(
+    skyBrightness,
+    starVisibility,
+    starFieldBrightness,
+  )
+  const milkyWayContrast = buildMilkyWayContrast(
+    skyBrightness,
+    atmosphereExposure,
+    nightSkyZenithLuminance,
   )
 
   return {
@@ -34,9 +76,11 @@ export function evaluateSkyBrightnessExposureState(
     starVisibility,
     starFieldBrightness,
     atmosphereExposure,
+    milkyWayVisibility,
+    milkyWayContrast,
     backdropAlpha: buildBackdropAlpha(starVisibility),
-    nightSkyZenithLuminance: computeNightSkyLuminance(Math.PI / 2, sunAltitudeRad),
-    nightSkyHorizonLuminance: computeNightSkyLuminance(0, sunAltitudeRad),
+    nightSkyZenithLuminance,
+    nightSkyHorizonLuminance,
     visualCalibration: props.sunState.visualCalibration,
   }
 }

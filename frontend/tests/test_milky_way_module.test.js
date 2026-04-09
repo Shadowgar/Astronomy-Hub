@@ -1,0 +1,49 @@
+import { describe, expect, it } from 'vitest'
+
+import {
+  buildProceduralMilkyWaySamples,
+  evaluateMilkyWayRenderState,
+} from '../src/features/sky-engine/engine/sky/runtime/modules/MilkyWayModule.ts'
+
+describe('milky way module response', () => {
+  it('reveals the galactic layer more strongly at dark night than daylight', () => {
+    const dayState = evaluateMilkyWayRenderState({
+      skyBrightness: 0.98,
+      limitingMagnitude: -0.4,
+      starVisibility: 0.08,
+      starFieldBrightness: 0.1,
+      atmosphereExposure: 0.72,
+      milkyWayVisibility: 0.01,
+      milkyWayContrast: 0.05,
+      backdropAlpha: 0.92,
+      nightSkyZenithLuminance: 0.01,
+      nightSkyHorizonLuminance: 0.03,
+      visualCalibration: {},
+    })
+    const nightState = evaluateMilkyWayRenderState({
+      skyBrightness: 0.04,
+      limitingMagnitude: 6.4,
+      starVisibility: 1,
+      starFieldBrightness: 0.92,
+      atmosphereExposure: 1,
+      milkyWayVisibility: 0.84,
+      milkyWayContrast: 0.72,
+      backdropAlpha: 0.74,
+      nightSkyZenithLuminance: 0.012,
+      nightSkyHorizonLuminance: 0.024,
+      visualCalibration: {},
+    })
+
+    expect(nightState.visibility).toBeGreaterThan(dayState.visibility)
+    expect(nightState.contrast).toBeGreaterThan(dayState.contrast)
+  })
+
+  it('builds a bounded procedural galactic patch set', () => {
+    const samples = buildProceduralMilkyWaySamples()
+
+    expect(samples.length).toBeGreaterThan(500)
+    expect(samples.some((sample) => sample.coreWeight > 1)).toBe(true)
+    expect(samples.every((sample) => sample.radiusDeg > 0)).toBe(true)
+    expect(samples.every((sample) => sample.alpha > 0)).toBe(true)
+  })
+})

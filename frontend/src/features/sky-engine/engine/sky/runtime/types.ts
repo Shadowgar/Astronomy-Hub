@@ -70,6 +70,8 @@ export interface SkyBrightnessExposureState {
   readonly starVisibility: number
   readonly starFieldBrightness: number
   readonly atmosphereExposure: number
+  readonly milkyWayVisibility: number
+  readonly milkyWayContrast: number
   readonly backdropAlpha: number
   readonly nightSkyZenithLuminance: number
   readonly nightSkyHorizonLuminance: number

@@ -4,6 +4,7 @@ import { SkyCore } from './engine/sky/runtime/SkyCore'
 import { createAtmosphereModule } from './engine/sky/runtime/modules/AtmosphereModule'
 import { createBackgroundRuntimeModule } from './engine/sky/runtime/modules/BackgroundRuntimeModule'
 import { createLandscapeModule } from './engine/sky/runtime/modules/LandscapeModule'
+import { createMilkyWayModule } from './engine/sky/runtime/modules/MilkyWayModule'
 import { createObjectRuntimeModule } from './engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createOverlayRuntimeModule } from './engine/sky/runtime/modules/OverlayRuntimeModule'
 import { createSceneReportingModule } from './engine/sky/runtime/modules/SceneReportingModule'
@@ -100,6 +101,7 @@ export default function SkyEngineScene({
     })
     core.registerModule(createSkyBrightnessExposureModule())
     core.registerModule(createAtmosphereModule())
+    core.registerModule(createMilkyWayModule())
     core.registerModule(createLandscapeModule())
     core.registerModule(createBackgroundRuntimeModule())
     core.registerModule(createStarsModule())
@@ -119,7 +121,7 @@ export default function SkyEngineScene({
   useEffect(() => {
     onAtmosphereStatusChange({
       mode: 'fallback',
-      message: `Direct Babylon backdrop, glare, horizon blocking, objects, labels, aids, and trajectories are active for ${sunState.phaseLabel.toLowerCase()} conditions with ${DENSITY_STARS_CANVAS_FALLBACK}.`,
+      message: `Direct Babylon backdrop, Milky Way, glare, horizon blocking, objects, labels, aids, and trajectories are active for ${sunState.phaseLabel.toLowerCase()} conditions with ${DENSITY_STARS_CANVAS_FALLBACK}.`,
     })
   }, [onAtmosphereStatusChange, sunState])
 
