@@ -19,7 +19,7 @@ export function createAtmosphereModule(): SkyModule<ScenePropsSnapshot, SceneRun
         projectedFrame.view,
         latest.sunState,
         projectedFrame.currentFovDegrees,
-        brightnessExposureState.backdropAlpha,
+        brightnessExposureState,
       )
       runtime.directBackgroundLayer.syncAtmosphere(atmosphereFrame)
     },

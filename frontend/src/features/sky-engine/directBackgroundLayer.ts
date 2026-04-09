@@ -18,6 +18,7 @@ import {
   type SkyProjectionView,
 } from './projectionMath'
 import type { SkyEngineSunState } from './types'
+import type { SkyBrightnessExposureState } from './engine/sky/runtime/types'
 
 interface DirectBackgroundPatchEntry {
   readonly id: string
@@ -53,7 +54,13 @@ export interface PreparedDirectAtmosphereFrame {
   readonly backgroundColorHex: string
   readonly twilightBandColorHex: string
   readonly backdropAlpha: number
+  readonly exposureOpacity: number
   readonly twilightStrength: number
+  readonly twilightLowerBandIntensity: number
+  readonly horizonGlowStrength: number
+  readonly zenithDarkening: number
+  readonly nightFloorStrength: number
+  readonly nightFloorTintHex: string
   readonly sunPosition: Vector2
   readonly patches: readonly DirectBackgroundPatchEntry[]
   readonly glare: DirectBackgroundGlareEntry | null
@@ -202,10 +209,6 @@ function getLandscapeOpacity(centerAltitudeDeg: number, fovDegrees: number) {
   return clamp(mix(baseOpacity, baseOpacity * 0.28, belowHorizonReveal), 0.12, 1)
 }
 
-function buildBackdropAlpha(sunState: SkyEngineSunState) {
-  return clamp(0.9 - sunState.visualCalibration.starVisibility * 0.18, 0.68, 0.92)
-}
-
 function buildTwilightStrength(sunState: SkyEngineSunState) {
   if (sunState.altitudeDeg >= 6) {
     return 0.42
@@ -216,6 +219,22 @@ function buildTwilightStrength(sunState: SkyEngineSunState) {
   }
 
   return 0.04
+}
+
+function blendHexColors(left: string, right: string, amount: number) {
+  const clampedAmount = clamp(amount, 0, 1)
+  const leftRed = Number.parseInt(left.slice(1, 3), 16)
+  const leftGreen = Number.parseInt(left.slice(3, 5), 16)
+  const leftBlue = Number.parseInt(left.slice(5, 7), 16)
+  const rightRed = Number.parseInt(right.slice(1, 3), 16)
+  const rightGreen = Number.parseInt(right.slice(3, 5), 16)
+  const rightBlue = Number.parseInt(right.slice(5, 7), 16)
+
+  const red = Math.round(mix(leftRed, rightRed, clampedAmount))
+  const green = Math.round(mix(leftGreen, rightGreen, clampedAmount))
+  const blue = Math.round(mix(leftBlue, rightBlue, clampedAmount))
+
+  return `#${red.toString(16).padStart(2, '0')}${green.toString(16).padStart(2, '0')}${blue.toString(16).padStart(2, '0')}`
 }
 
 function createRadialTexture(name: string, tint = '#ffffff') {
@@ -261,20 +280,34 @@ function ensureBackgroundShader() {
     uniform vec3 horizonColor;
     uniform vec3 backgroundColor;
     uniform vec3 twilightColor;
+    uniform vec3 nightFloorTint;
     uniform vec2 sunPosition;
     uniform float twilightStrength;
+    uniform float twilightLowerBandIntensity;
+    uniform float horizonGlowStrength;
+    uniform float zenithDarkening;
+    uniform float nightFloorStrength;
     uniform float opacity;
 
     void main(void) {
-      float horizonMix = smoothstep(0.08, 0.82, vUV.y);
+      float horizonMix = smoothstep(0.02, 0.9, pow(vUV.y, 0.9));
       vec3 base = mix(horizonColor, zenithColor, horizonMix);
-      float lowerMix = smoothstep(0.0, 0.24, vUV.y);
+      float lowerMix = smoothstep(0.0, 0.26, vUV.y);
       base = mix(backgroundColor, base, lowerMix);
+
+      float horizonGlow = exp(-pow((vUV.y - 0.08) * 6.5, 2.0)) * horizonGlowStrength;
+      float zenithFade = smoothstep(0.56, 1.0, vUV.y) * zenithDarkening;
+      float lowerBand = exp(-pow((vUV.y - 0.18) * 8.5, 2.0)) * twilightLowerBandIntensity;
+      float nightFloor = smoothstep(0.0, 0.72, 1.0 - vUV.y) * nightFloorStrength;
+      base += horizonColor * horizonGlow * 0.32;
+      base = mix(base, base * (1.0 - zenithDarkening * 0.22), zenithFade);
+      base += twilightColor * lowerBand * 0.22;
+      base += nightFloorTint * nightFloor * 0.22;
 
       vec2 glowDelta = vec2((vUV.x - sunPosition.x) * 1.45, (vUV.y - sunPosition.y) * 3.2);
       float twilightGlow = exp(-dot(glowDelta, glowDelta) * 2.4) * twilightStrength;
-      float bandGlow = exp(-pow((vUV.y - 0.22) * 7.0, 2.0)) * twilightStrength * 0.42;
-      vec3 color = base + twilightColor * (twilightGlow * 0.46 + bandGlow);
+      float bandGlow = exp(-pow((vUV.y - 0.22) * 7.0, 2.0)) * twilightStrength * (0.24 + twilightLowerBandIntensity * 0.62);
+      vec3 color = base + twilightColor * (twilightGlow * 0.52 + bandGlow);
 
       gl_FragColor = vec4(color, opacity);
     }
@@ -410,8 +443,9 @@ export function prepareDirectAtmosphereFrame(
   view: SkyProjectionView,
   sunState: SkyEngineSunState,
   fovDegrees: number,
-  backdropAlpha = buildBackdropAlpha(sunState),
+  brightnessExposureState: SkyBrightnessExposureState,
 ) {
+  const backdropAlpha = brightnessExposureState.backdropAlpha
   const projectedSun = projectHorizontalToViewport(sunState.altitudeDeg, sunState.azimuthDeg, view)
   const sunPosition = projectedSun
     ? new Vector2(
@@ -419,6 +453,42 @@ export function prepareDirectAtmosphereFrame(
         clamp(1 - projectedSun.screenY / Math.max(view.viewportHeight, 1), 0, 1),
       )
     : new Vector2(0.5, clamp(0.18 + (sunState.altitudeDeg + 18) / 72, 0.05, 0.95))
+  const skyBrightness = clamp(brightnessExposureState.skyBrightness, 0, 1)
+  const darkness = clamp(1 - skyBrightness, 0, 1)
+  const twilightStrength = buildTwilightStrength(sunState)
+  const horizonGlowStrength = clamp(
+    Math.pow(1 - skyBrightness, 0.42) * (0.18 + twilightStrength * 1.28),
+    0.06,
+    1,
+  )
+  const twilightLowerBandIntensity = clamp(
+    twilightStrength * (0.42 + (1 - skyBrightness) * 0.36 + brightnessExposureState.atmosphereExposure * 0.16),
+    0.02,
+    0.92,
+  )
+  const zenithDarkening = clamp(
+    Math.pow(darkness, 1.24) * (0.22 + brightnessExposureState.atmosphereExposure * 0.2),
+    0,
+    0.78,
+  )
+  const nightFloorStrength = clamp(
+    Math.pow(darkness, 2.35) * (
+      brightnessExposureState.nightSkyZenithLuminance * 5.6 +
+      brightnessExposureState.nightSkyHorizonLuminance * 2.2
+    ),
+    0,
+    0.42,
+  )
+  const exposureOpacity = clamp(
+    backdropAlpha * (0.82 + brightnessExposureState.atmosphereExposure * 0.26) * (0.9 + skyBrightness * 0.08),
+    0.52,
+    1,
+  )
+  const nightFloorTintHex = blendHexColors(
+    '#4f648e',
+    sunState.visualCalibration.skyZenithColorHex,
+    clamp(1 - darkness * 0.86, 0, 1),
+  )
 
   return {
     viewportWidth: view.viewportWidth,
@@ -428,7 +498,13 @@ export function prepareDirectAtmosphereFrame(
     backgroundColorHex: sunState.visualCalibration.backgroundColorHex,
     twilightBandColorHex: sunState.visualCalibration.twilightBandColorHex,
     backdropAlpha,
-    twilightStrength: buildTwilightStrength(sunState),
+    exposureOpacity,
+    twilightStrength,
+    twilightLowerBandIntensity,
+    horizonGlowStrength,
+    zenithDarkening,
+    nightFloorStrength,
+    nightFloorTintHex,
     sunPosition,
     patches: prepareBackdropPatches(view, sunState, fovDegrees),
     glare: prepareGlare(view, sunState),
@@ -459,7 +535,21 @@ export function createDirectBackgroundLayer(scene: Scene) {
     },
     {
       attributes: ['position', 'uv'],
-      uniforms: ['worldViewProjection', 'zenithColor', 'horizonColor', 'backgroundColor', 'twilightColor', 'sunPosition', 'twilightStrength', 'opacity'],
+      uniforms: [
+        'worldViewProjection',
+        'zenithColor',
+        'horizonColor',
+        'backgroundColor',
+        'twilightColor',
+        'nightFloorTint',
+        'sunPosition',
+        'twilightStrength',
+        'twilightLowerBandIntensity',
+        'horizonGlowStrength',
+        'zenithDarkening',
+        'nightFloorStrength',
+        'opacity',
+      ],
       needAlphaBlending: true,
     },
   )
@@ -483,9 +573,14 @@ export function createDirectBackgroundLayer(scene: Scene) {
       backdropMaterial.setColor3('horizonColor', hexToColor3(frame.horizonColorHex))
       backdropMaterial.setColor3('backgroundColor', hexToColor3(frame.backgroundColorHex))
       backdropMaterial.setColor3('twilightColor', hexToColor3(frame.twilightBandColorHex))
+      backdropMaterial.setColor3('nightFloorTint', hexToColor3(frame.nightFloorTintHex))
       backdropMaterial.setVector2('sunPosition', frame.sunPosition)
       backdropMaterial.setFloat('twilightStrength', frame.twilightStrength)
-      backdropMaterial.setFloat('opacity', frame.backdropAlpha)
+      backdropMaterial.setFloat('twilightLowerBandIntensity', frame.twilightLowerBandIntensity)
+      backdropMaterial.setFloat('horizonGlowStrength', frame.horizonGlowStrength)
+      backdropMaterial.setFloat('zenithDarkening', frame.zenithDarkening)
+      backdropMaterial.setFloat('nightFloorStrength', frame.nightFloorStrength)
+      backdropMaterial.setFloat('opacity', frame.exposureOpacity)
 
       const nextPatchIds = new Set(frame.patches.map((entry) => entry.id))
       Array.from(patchEntries.keys()).forEach((patchId) => {
