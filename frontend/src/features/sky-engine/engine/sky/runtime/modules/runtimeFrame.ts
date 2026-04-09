@@ -290,10 +290,10 @@ export function collectProjectedStars(
     }
 
     const starProfile = object.type === 'star'
-      ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, brightnessExposureState.visualCalibration)
+      ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, brightnessExposureState.visualCalibration, brightnessExposureState)
       : undefined
     const markerRadiusPx = object.type === 'star'
-      ? getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile) * computeVisibilitySizeScale(visibilityAlpha)
+      ? Math.max(starProfile?.psfDiameterPx ? starProfile.psfDiameterPx * 0.5 : 0, getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile) * computeVisibilitySizeScale(visibilityAlpha))
       : getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile)
 
     return [{
@@ -344,10 +344,10 @@ export function collectProjectedStars(
     }
 
     const starProfile = object.type === 'star'
-      ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, brightnessExposureState.visualCalibration)
+      ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, brightnessExposureState.visualCalibration, brightnessExposureState)
       : undefined
     const markerRadiusPx = object.type === 'star'
-      ? getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile) * computeVisibilitySizeScale(visibilityAlpha)
+      ? Math.max(starProfile?.psfDiameterPx ? starProfile.psfDiameterPx * 0.5 : 0, getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile) * computeVisibilitySizeScale(visibilityAlpha))
       : getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile)
 
     return [{

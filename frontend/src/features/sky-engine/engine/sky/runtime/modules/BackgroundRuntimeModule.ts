@@ -201,7 +201,12 @@ function drawSyntheticDensityStars(
     const distanceToCenter = Math.hypot(projected.screenX - viewportCenterX, projected.screenY - viewportCenterY)
     const normalizedCenterDistance = clamp(distanceToCenter / Math.max(view.viewportWidth, view.viewportHeight), 0, 1)
     const centerFill = 1 + wideBlend * (1 - normalizedCenterDistance) * 0.38
-    const profile = getStarRenderProfileForMagnitude(renderedMagnitude, sample.colorIndexBV, brightnessExposureState.visualCalibration)
+    const profile = getStarRenderProfileForMagnitude(
+      renderedMagnitude,
+      sample.colorIndexBV,
+      brightnessExposureState.visualCalibration,
+      brightnessExposureState,
+    )
     const sizeScale = computeVisibilitySizeScale(visibilityAlpha)
     const markerRadiusPx = clamp((profile.coreRadiusPx * 0.46 + sample.size * 0.7) * (0.9 + closeBlend * 0.3) * centerFill * sizeScale, 0.34, 2.4)
     const twinkle = 1 + Math.sin(animationTime + sample.twinklePhase) * profile.twinkleAmplitude * 0.9
