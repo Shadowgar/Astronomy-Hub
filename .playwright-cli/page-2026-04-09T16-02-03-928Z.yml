@@ -1,0 +1,53 @@
+- main [ref=e5]:
+  - generic [ref=e9]:
+    - generic:
+      - generic [ref=e12]:
+        - button [ref=e13] [cursor=pointer]:
+          - generic [ref=e15]: 
+        - img "Stellarium Web Logo" [ref=e16]
+        - generic [ref=e19]:
+          - generic [ref=e22]: 
+          - generic [ref=e25]:
+            - generic: Search...
+            - textbox "Search..." [ref=e26]
+        - link "Observe" [ref=e27] [cursor=pointer]:
+          - /url: /p/calendar
+          - generic [ref=e28]:
+            - text: Observe
+            - generic [ref=e29]: 
+      - generic:
+        - generic:
+          - generic:
+            - text: DSO
+            - progressbar:
+              - img
+        - generic:
+          - generic:
+            - text: Stars
+            - progressbar:
+              - img
+        - generic:
+          - generic:
+            - text: milkyway
+            - progressbar:
+              - img
+      - generic [ref=e30]:
+        - button "Unknown" [ref=e32] [cursor=pointer]:
+          - generic [ref=e33]:
+            - text: 
+            - generic [ref=e34]: Unknown
+        - img "Constellations Button" [ref=e37] [cursor=pointer]
+        - img "Constellations Art Button" [ref=e40] [cursor=pointer]
+        - img "Atmosphere Button" [ref=e43] [cursor=pointer]
+        - img "Landscape Button" [ref=e46] [cursor=pointer]
+        - img "Azimuthal Button" [ref=e49] [cursor=pointer]
+        - img "Equatorial Grid Button" [ref=e52] [cursor=pointer]
+        - img "Deep Sky Objects Button" [ref=e55] [cursor=pointer]
+        - img "Night Mode Button" [ref=e58] [cursor=pointer]
+        - img "Fullscreen Button" [ref=e61] [cursor=pointer]
+        - button "12:02:03 2026-04-09" [ref=e62] [cursor=pointer]:
+          - generic [ref=e63]:
+            - text: 
+            - generic [ref=e64]:
+              - generic [ref=e65]: 12:02:03
+              - generic [ref=e66]: 2026-04-09

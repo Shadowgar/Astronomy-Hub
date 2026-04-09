@@ -1,5 +1,4 @@
 import type { SkyModule } from '../SkyModule'
-import { prepareDirectBackgroundFrame } from '../../../../directBackgroundLayer'
 import { buildAtmosphericExtinctionContext, computeObservedMagnitude } from '../../../../atmosphericExtinction'
 import { projectDirectionToViewport, isProjectedPointVisible, type SkyProjectionView } from '../../../../projectionMath'
 import { buildSyntheticSkyDensityField } from '../../../../syntheticStarField'
@@ -218,7 +217,7 @@ function drawSyntheticDensityStars(
 export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-background-runtime-module',
-    renderOrder: 10,
+    renderOrder: 15,
     render({ runtime, services, getProps }) {
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame
@@ -234,12 +233,6 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
       }
 
       backgroundContext.clearRect(0, 0, projectedFrame.width, projectedFrame.height)
-      const backgroundFrame = prepareDirectBackgroundFrame(
-        projectedFrame.view,
-        latest.sunState,
-        projectedFrame.currentFovDegrees,
-      )
-      runtime.directBackgroundLayer.sync(backgroundFrame)
       drawSyntheticDensityStars(
         backgroundContext,
         projectedFrame.view,

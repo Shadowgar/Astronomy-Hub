@@ -1,0 +1,22 @@
+- main [ref=e4]:
+  - generic:
+    - generic "Astronomy Hub engine shell":
+      - generic:
+        - generic: Astronomy Hub
+        - strong: Sky Engine
+        - generic: Hub shell persists while the active engine owns this viewport.
+      - generic:
+        - link "Hub" [ref=e5] [cursor=pointer]:
+          - /url: /
+        - generic:
+          - generic: Active engine
+          - strong: Sky Engine
+  - generic:
+    - generic "Sky Engine ownership state":
+      - link "Back" [ref=e6] [cursor=pointer]:
+        - /url: /
+      - generic:
+        - generic:
+          - generic: Sky scene
+          - strong: Loading backend scene
+          - generic: Waiting for /scene?scope=sky&engine=sky_engine to provide observer and timestamp.
