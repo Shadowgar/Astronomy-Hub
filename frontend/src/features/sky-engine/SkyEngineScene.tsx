@@ -6,6 +6,8 @@ import { createBackgroundRuntimeModule } from './engine/sky/runtime/modules/Back
 import { createLandscapeModule } from './engine/sky/runtime/modules/LandscapeModule'
 import { createObjectRuntimeModule } from './engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createOverlayRuntimeModule } from './engine/sky/runtime/modules/OverlayRuntimeModule'
+import { createSceneReportingModule } from './engine/sky/runtime/modules/SceneReportingModule'
+import { createSkyBrightnessExposureModule } from './engine/sky/runtime/modules/SkyBrightnessExposureModule'
 import { createStarsModule } from './engine/sky/runtime/modules/StarsModule'
 import {
   createSceneRuntimeState,
@@ -96,12 +98,14 @@ export default function SkyEngineScene({
         services.inputService.detach()
       },
     })
+    core.registerModule(createSkyBrightnessExposureModule())
     core.registerModule(createAtmosphereModule())
     core.registerModule(createLandscapeModule())
     core.registerModule(createBackgroundRuntimeModule())
     core.registerModule(createStarsModule())
     core.registerModule(createObjectRuntimeModule())
     core.registerModule(createOverlayRuntimeModule())
+    core.registerModule(createSceneReportingModule())
     core.registerModule(createSkySceneBridgeModule())
     coreRef.current = core
     core.start()

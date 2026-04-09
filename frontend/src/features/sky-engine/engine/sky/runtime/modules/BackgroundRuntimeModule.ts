@@ -6,6 +6,7 @@ import { computeVisibilityAlpha, computeVisibilitySizeScale } from '../../../../
 import { getStarRenderProfileForMagnitude, type StarRenderProfile } from '../../../../starRenderer'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import type { ProjectedSceneObjectEntry } from './runtimeFrame'
+import type { SkyBrightnessExposureState } from '../types'
 
 const SYNTHETIC_SKY_DENSITY_SAMPLES = buildSyntheticSkyDensityField(2800)
 const SYNTHETIC_STAR_OVERLAP_CELL_PX = 24
@@ -81,9 +82,9 @@ function getSyntheticDensityMagnitudeLimit(fovDegrees: number, renderLimitingMag
   return clamp(renderLimitingMagnitude + 0.45 + closeBlend * 0.85 + ultraCloseBlend * 0.55, -1, 14.6)
 }
 
-function getSyntheticDensityBudget(fovDegrees: number, visualCalibration: ScenePropsSnapshot['sunState']['visualCalibration']) {
-  const visibility = clamp(visualCalibration.starVisibility, 0, 1)
-  const brightness = clamp(visualCalibration.starFieldBrightness, 0, 1)
+function getSyntheticDensityBudget(fovDegrees: number, brightnessExposureState: SkyBrightnessExposureState) {
+  const visibility = clamp(brightnessExposureState.starVisibility, 0, 1)
+  const brightness = clamp(brightnessExposureState.starFieldBrightness, 0, 1)
   const closeBlend = 1 - smoothstep(28, 140, fovDegrees)
   const ultraCloseBlend = 1 - smoothstep(0.7, 6, fovDegrees)
   const baseBudget = mix(260, 1700, closeBlend)
@@ -153,13 +154,14 @@ function drawSyntheticDensityStars(
   view: SkyProjectionView,
   projectedObjects: readonly ProjectedSceneObjectEntry[],
   latest: ScenePropsSnapshot,
+  brightnessExposureState: SkyBrightnessExposureState,
   sceneTimestampIso: string | undefined,
   renderLimitingMagnitude: number,
   animationTime: number,
 ) {
   const fovDegrees = (view.fovRadians * 180) / Math.PI
   const magnitudeLimit = getSyntheticDensityMagnitudeLimit(fovDegrees, renderLimitingMagnitude)
-  const densityBudget = getSyntheticDensityBudget(fovDegrees, latest.sunState.visualCalibration)
+  const densityBudget = getSyntheticDensityBudget(fovDegrees, brightnessExposureState)
 
   if (densityBudget <= 0) {
     return
@@ -199,7 +201,7 @@ function drawSyntheticDensityStars(
     const distanceToCenter = Math.hypot(projected.screenX - viewportCenterX, projected.screenY - viewportCenterY)
     const normalizedCenterDistance = clamp(distanceToCenter / Math.max(view.viewportWidth, view.viewportHeight), 0, 1)
     const centerFill = 1 + wideBlend * (1 - normalizedCenterDistance) * 0.38
-    const profile = getStarRenderProfileForMagnitude(renderedMagnitude, sample.colorIndexBV, latest.sunState.visualCalibration)
+    const profile = getStarRenderProfileForMagnitude(renderedMagnitude, sample.colorIndexBV, brightnessExposureState.visualCalibration)
     const sizeScale = computeVisibilitySizeScale(visibilityAlpha)
     const markerRadiusPx = clamp((profile.coreRadiusPx * 0.46 + sample.size * 0.7) * (0.9 + closeBlend * 0.3) * centerFill * sizeScale, 0.34, 2.4)
     const twinkle = 1 + Math.sin(animationTime + sample.twinklePhase) * profile.twinkleAmplitude * 0.9
@@ -221,8 +223,9 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
     render({ runtime, services, getProps }) {
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame
+      const brightnessExposureState = runtime.brightnessExposureState
 
-      if (!projectedFrame) {
+      if (!projectedFrame || !brightnessExposureState) {
         return
       }
 
@@ -238,6 +241,7 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
         projectedFrame.view,
         projectedFrame.projectedObjects,
         latest,
+        brightnessExposureState,
         projectedFrame.sceneTimestampIso,
         projectedFrame.limitingMagnitude,
         services.clockService.getAnimationTimeSeconds(),

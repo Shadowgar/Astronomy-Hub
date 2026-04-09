@@ -8,9 +8,6 @@ import {
   stabilizeSkyEngineCenterDirection,
 } from './observerNavigation'
 import {
-  buildSkyEnginePickTargets,
-  clearSkyEnginePickTargets,
-  writeSkyEnginePickTargets,
   type ProjectedPickTargetEntry,
 } from './pickTargets'
 import type { SkyProjectionMode } from './projectionMath'
@@ -33,10 +30,8 @@ import { SkyInputService } from './engine/sky/runtime/SkyInputService'
 import { SkyNavigationService } from './engine/sky/runtime/SkyNavigationService'
 import { SkyObserverService } from './engine/sky/runtime/SkyObserverService'
 import { SkyProjectionService } from './engine/sky/runtime/SkyProjectionService'
+import type { SkyBrightnessExposureState } from './engine/sky/runtime/types'
 import {
-  clearSceneState,
-  updateReportedViewState,
-  writeSceneState,
   type RuntimeProjectedSceneFrame,
   type RuntimeProjectedStarsFrame,
 } from './engine/sky/runtime/modules/runtimeFrame'
@@ -78,6 +73,7 @@ export interface SceneRuntimeRefs {
   lastReportedCenterAzTenths: number | null
   projectedStarsFrame: RuntimeProjectedStarsFrame | null
   projectedSceneFrame: RuntimeProjectedSceneFrame | null
+  brightnessExposureState: SkyBrightnessExposureState | null
   trajectoryObjectId: string | null
   visibleLabelIds: readonly string[]
 }
@@ -128,6 +124,7 @@ export function createSceneRuntimeState({
     lastReportedCenterAzTenths: null,
     projectedStarsFrame: null,
     projectedSceneFrame: null,
+    brightnessExposureState: null,
     trajectoryObjectId: null,
     visibleLabelIds: [],
   } satisfies SceneRuntimeRefs
@@ -186,42 +183,7 @@ export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, Scen
         markFrameDirty()
       }
     },
-    render({ runtime, services, getProps }) {
-      const latest = getProps()
-      const projectedFrame = runtime.projectedSceneFrame
-
-      if (!projectedFrame) {
-        return
-      }
-
-      const { currentFovDegrees } = updateReportedViewState(
-        runtime,
-        latest,
-        projectedFrame.currentFovDegrees,
-        services.navigationService.getCenterDirection(),
-      )
-
-      writeSceneState({
-        backendStarCount: latest.backendStars.length,
-        canvas: runtime.canvas,
-        objects: latest.objects,
-        selectedObjectId: latest.selectedObjectId,
-        trajectoryObjectId: runtime.trajectoryObjectId,
-        visibleLabelIds: runtime.visibleLabelIds,
-        guidedObjectIds: latest.guidedObjectIds,
-        aidVisibility: latest.aidVisibility,
-        currentFovDegrees,
-        currentLodTier: projectedFrame.lod.tier,
-        labelCap: projectedFrame.lod.labelCap,
-        groundTextureMode: 'direct-babylon-background-object-and-overlay-layer',
-        groundTextureAssetPath: `direct Babylon backdrop, glare, horizon blocking, objects, and overlays with ${DENSITY_STARS_CANVAS_FALLBACK}`,
-      })
-
-      writeSkyEnginePickTargets(runtime.canvas, buildSkyEnginePickTargets(runtime.projectedPickEntries))
-    },
     dispose({ runtime }) {
-      clearSkyEnginePickTargets(runtime.canvas)
-      clearSceneState(runtime.canvas)
       runtime.directBackgroundLayer.dispose()
       runtime.directObjectLayer.dispose()
       runtime.directOverlayLayer.dispose()

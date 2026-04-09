@@ -14,7 +14,6 @@ import {
   projectDirectionToViewport,
   type SkyProjectionView,
 } from '../../../../projectionMath'
-import { computeEffectiveLimitingMagnitude, computeSkyBrightness } from '../../../../skyBrightness'
 import { getStarRenderProfile, getStarRenderProfileForMagnitude, type StarRenderProfile } from '../../../../starRenderer'
 import { computeVisibilityAlpha, computeVisibilitySizeScale } from '../../../../starVisibility'
 import type { SkyScenePacket } from '../..'
@@ -23,7 +22,9 @@ import type {
   SkyEngineObserver,
   SkyEngineSceneObject,
   SkyEngineSunState,
+  SkyEngineVisualCalibration,
 } from '../../../../types'
+import type { SkyBrightnessExposureState } from '../types'
 
 export interface SceneViewLod {
   readonly tier: 'wide' | 'medium' | 'close'
@@ -183,7 +184,7 @@ function getProjectedDiscRadiusPx(apparentSizeDeg: number | undefined, scale: nu
 function getMarkerRadiusPx(
   object: SkyEngineSceneObject,
   view: SkyProjectionView,
-  sunState: SkyEngineSunState,
+  visualCalibration: SkyEngineVisualCalibration,
   starProfile?: StarRenderProfile,
 ) {
   const scale = getProjectionScale(view)
@@ -200,9 +201,9 @@ function getMarkerRadiusPx(
     return object.source === 'temporary_scene_seed' ? 7.2 : 8.4
   }
 
-  const profile = starProfile ?? getStarRenderProfile(object, sunState.visualCalibration)
+  const profile = starProfile ?? getStarRenderProfile(object, visualCalibration)
   const starBase = Math.max(profile.coreRadiusPx * 1.1, profile.haloRadiusPx * 0.32, profile.diameter * 7.4)
-  return clamp(starBase, 0.85, 7.6) * clamp(sunState.visualCalibration.starFieldBrightness * 1.02, 0.4, 1.08)
+  return clamp(starBase, 0.85, 7.6) * clamp(visualCalibration.starFieldBrightness * 1.02, 0.4, 1.08)
 }
 
 function getPickRadiusPx(object: SkyEngineSceneObject, markerRadiusPx: number) {
@@ -244,18 +245,14 @@ export function collectProjectedStars(
   objects: readonly SkyEngineSceneObject[],
   scenePacket: SkyScenePacket | null,
   sunState: SkyEngineSunState,
+  brightnessExposureState: SkyBrightnessExposureState,
   selectedObjectId: string | null,
   sceneTimestampIso: string | undefined,
 ) {
   const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
   const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
   const extinction = buildAtmosphericExtinctionContext(observer, sceneTimestampIso)
-  const skyBrightness = computeSkyBrightness((sunState.altitudeDeg * Math.PI) / 180)
-  const limitingMagnitude = computeEffectiveLimitingMagnitude(
-    skyBrightness,
-    fovDegrees,
-    sunState.visualCalibration.starVisibility,
-  )
+  const limitingMagnitude = brightnessExposureState.limitingMagnitude
   const objectLookup = new Map(objects.map((object) => [object.id, object]))
   const projectedObjects = objects.flatMap((object) => {
     if (object.type !== 'star') {
@@ -293,11 +290,11 @@ export function collectProjectedStars(
     }
 
     const starProfile = object.type === 'star'
-      ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, sunState.visualCalibration)
+      ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, brightnessExposureState.visualCalibration)
       : undefined
     const markerRadiusPx = object.type === 'star'
-      ? getMarkerRadiusPx(object, view, sunState, starProfile) * computeVisibilitySizeScale(visibilityAlpha)
-      : getMarkerRadiusPx(object, view, sunState, starProfile)
+      ? getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile) * computeVisibilitySizeScale(visibilityAlpha)
+      : getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile)
 
     return [{
       object,
@@ -347,11 +344,11 @@ export function collectProjectedStars(
     }
 
     const starProfile = object.type === 'star'
-      ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, sunState.visualCalibration)
+      ? getStarRenderProfileForMagnitude(renderedMagnitude, object.colorIndexBV, brightnessExposureState.visualCalibration)
       : undefined
     const markerRadiusPx = object.type === 'star'
-      ? getMarkerRadiusPx(object, view, sunState, starProfile) * computeVisibilitySizeScale(visibilityAlpha)
-      : getMarkerRadiusPx(object, view, sunState, starProfile)
+      ? getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile) * computeVisibilitySizeScale(visibilityAlpha)
+      : getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile)
 
     return [{
       object,
@@ -414,7 +411,7 @@ export function collectProjectedNonStarObjects(
       return []
     }
 
-    const markerRadiusPx = getMarkerRadiusPx(object, view, sunState)
+    const markerRadiusPx = getMarkerRadiusPx(object, view, sunState.visualCalibration)
 
     return [{
       object,

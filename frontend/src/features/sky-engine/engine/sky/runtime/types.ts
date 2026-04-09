@@ -1,6 +1,7 @@
 import type { UniversalCamera } from '@babylonjs/core/Cameras/universalCamera'
 import type { Engine } from '@babylonjs/core/Engines/engine'
 import type { Scene } from '@babylonjs/core/scene'
+import type { SkyEngineVisualCalibration } from '../../../types'
 
 export interface SkyCoreRenderRefs {
   readonly scene: Scene
@@ -62,3 +63,15 @@ export interface SkyUpdateContext<TProps, TRuntime extends SkyCoreRenderRefs, TS
 }
 
 export interface SkyRenderContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices> extends SkyModuleContext<TProps, TRuntime, TServices> {}
+
+export interface SkyBrightnessExposureState {
+  readonly skyBrightness: number
+  readonly limitingMagnitude: number
+  readonly starVisibility: number
+  readonly starFieldBrightness: number
+  readonly atmosphereExposure: number
+  readonly backdropAlpha: number
+  readonly nightSkyZenithLuminance: number
+  readonly nightSkyHorizonLuminance: number
+  readonly visualCalibration: SkyEngineVisualCalibration
+}

@@ -406,7 +406,12 @@ function prepareLandscapeRibbons(view: SkyProjectionView, sunState: SkyEngineSun
   return ribbons
 }
 
-export function prepareDirectAtmosphereFrame(view: SkyProjectionView, sunState: SkyEngineSunState, fovDegrees: number) {
+export function prepareDirectAtmosphereFrame(
+  view: SkyProjectionView,
+  sunState: SkyEngineSunState,
+  fovDegrees: number,
+  backdropAlpha = buildBackdropAlpha(sunState),
+) {
   const projectedSun = projectHorizontalToViewport(sunState.altitudeDeg, sunState.azimuthDeg, view)
   const sunPosition = projectedSun
     ? new Vector2(
@@ -422,7 +427,7 @@ export function prepareDirectAtmosphereFrame(view: SkyProjectionView, sunState: 
     horizonColorHex: sunState.visualCalibration.skyHorizonColorHex,
     backgroundColorHex: sunState.visualCalibration.backgroundColorHex,
     twilightBandColorHex: sunState.visualCalibration.twilightBandColorHex,
-    backdropAlpha: buildBackdropAlpha(sunState),
+    backdropAlpha,
     twilightStrength: buildTwilightStrength(sunState),
     sunPosition,
     patches: prepareBackdropPatches(view, sunState, fovDegrees),

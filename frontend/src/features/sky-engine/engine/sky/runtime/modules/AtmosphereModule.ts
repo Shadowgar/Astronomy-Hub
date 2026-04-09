@@ -9,8 +9,9 @@ export function createAtmosphereModule(): SkyModule<ScenePropsSnapshot, SceneRun
     render({ runtime, getProps }) {
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame
+      const brightnessExposureState = runtime.brightnessExposureState
 
-      if (!projectedFrame) {
+      if (!projectedFrame || !brightnessExposureState) {
         return
       }
 
@@ -18,6 +19,7 @@ export function createAtmosphereModule(): SkyModule<ScenePropsSnapshot, SceneRun
         projectedFrame.view,
         latest.sunState,
         projectedFrame.currentFovDegrees,
+        brightnessExposureState.backdropAlpha,
       )
       runtime.directBackgroundLayer.syncAtmosphere(atmosphereFrame)
     },
