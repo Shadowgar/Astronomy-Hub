@@ -9,7 +9,6 @@ import { Mesh } from '@babylonjs/core/Meshes/mesh'
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import type { Scene } from '@babylonjs/core/scene'
 
-import { computeObjectTrajectorySamples } from './astronomy'
 import { SKY_ENGINE_CONSTELLATION_SEGMENTS } from './constellations'
 import type { SkyScenePacket } from './engine/sky'
 import {
@@ -25,6 +24,7 @@ import {
   directionToHorizontal,
   isProjectedPointVisible,
   projectHorizontalToViewport,
+  unprojectViewportPoint,
   type SkyProjectionView,
 } from './projectionMath'
 import type { SkyEngineAidVisibility, SkyEngineObserver, SkyEngineSceneObject, SkyEngineSunState } from './types'
@@ -79,13 +79,14 @@ interface CardinalMeshEntry {
   readonly texture: DynamicTexture
 }
 
-const TRAJECTORY_HOUR_OFFSETS = [-6, -3, 0, 3, 6] as const
-const COMPASS_CARDINALS = [
-  { label: 'N', azimuthDeg: 0 },
-  { label: 'E', azimuthDeg: 90 },
-  { label: 'S', azimuthDeg: 180 },
-  { label: 'W', azimuthDeg: 270 },
-] as const
+const STELLARIUM_AZIMUTHAL_GRID_COLOR_HEX = '#6c4329'
+const STELLARIUM_AZIMUTHAL_GRID_ALPHA = 1
+const STELLARIUM_AZIMUTHAL_GRID_DIVISIONS = 6
+const STELLARIUM_AZIMUTHAL_GRID_MAX_STEP_DEG = 15
+const STELLARIUM_AZIMUTHAL_GRID_SAMPLE_MARGIN_PX = 24
+const STELLARIUM_AZIMUTHAL_FOV_SAMPLE_GRID_SIZE = 3
+const STELLARIUM_AZIMUTH_STEPS_DEG = [15, 5, 1] as const
+const STELLARIUM_ALTITUDE_STEPS_DEG = [20, 10, 5, 1] as const
 
 const LABEL_RELAYOUT_MOTION_PX = 18
 const LABEL_RELAYOUT_DEPTH_DELTA = 0.06
@@ -133,87 +134,228 @@ function toViewportPlanePosition(screenX: number, screenY: number, viewportWidth
   )
 }
 
-function buildConstantAltitudeCurve(view: SkyProjectionView, altitudeDeg: number) {
-  const points: Vector3[] = []
-
-  for (let azimuthDeg = 0; azimuthDeg <= 360; azimuthDeg += 4) {
-    const projected = projectHorizontalToViewport(altitudeDeg, azimuthDeg, view)
-
-    if (projected && isProjectedPointVisible(projected, view, 24)) {
-      points.push(toViewportPlanePosition(projected.screenX, projected.screenY, view.viewportWidth, view.viewportHeight))
-    }
-  }
-
-  return points
+function clamp(value: number, minimum: number, maximum: number) {
+  return Math.min(maximum, Math.max(minimum, value))
 }
 
-function buildAzimuthTickSegments(view: SkyProjectionView) {
-  return Array.from({ length: 36 }, (_, index) => index * 10).flatMap((azimuthDeg) => {
-    const isCardinal = azimuthDeg % 90 === 0
-    const isMajor = azimuthDeg % 30 === 0
-    let innerAltitudeDeg = 2.2
-
-    if (isCardinal) {
-      innerAltitudeDeg = 5.8
-    } else if (isMajor) {
-      innerAltitudeDeg = 4.1
-    }
-
-    const outerPoint = projectHorizontalToViewport(0.2, azimuthDeg, view)
-    const innerPoint = projectHorizontalToViewport(innerAltitudeDeg, azimuthDeg, view)
-
-    if (!outerPoint || !innerPoint) {
-      return []
-    }
-
-    if (!isProjectedPointVisible(outerPoint, view, 18) || !isProjectedPointVisible(innerPoint, view, 18)) {
-      return []
-    }
-
-    return [{
-      id: `azimuth-tick-${azimuthDeg}`,
-      points: [
-        toViewportPlanePosition(outerPoint.screenX, outerPoint.screenY, view.viewportWidth, view.viewportHeight),
-        toViewportPlanePosition(innerPoint.screenX, innerPoint.screenY, view.viewportWidth, view.viewportHeight),
-      ],
-      colorHex: isCardinal ? '#dcf0ff' : isMajor ? '#abd6ff' : '#84baf0',
-      alpha: isCardinal ? 0.92 : isMajor ? 0.62 : 0.36,
-    }]
-  })
+function wrapDegrees(value: number) {
+  return ((value % 360) + 360) % 360
 }
 
-function buildTrajectoryLine(
-  view: SkyProjectionView,
-  observer: SkyEngineObserver,
-  selectedObject: SkyEngineSceneObject | null,
-) {
-  if (!selectedObject || selectedObject.trackingMode === 'static') {
-    return { trajectoryObjectId: null, line: null }
-  }
+function getSignedAngleDeltaDegrees(value: number, center: number) {
+  return ((value - center + 540) % 360) - 180
+}
 
-  const points = computeObjectTrajectorySamples(
-    observer,
-    selectedObject.timestampIso ?? new Date().toISOString(),
-    selectedObject,
-    TRAJECTORY_HOUR_OFFSETS,
-  )
-    .filter((sample) => sample.altitudeDeg >= -2)
-    .map((sample) => projectHorizontalToViewport(sample.altitudeDeg, sample.azimuthDeg, view))
-    .filter((sample): sample is NonNullable<typeof sample> => sample !== null)
-    .filter((sample) => isProjectedPointVisible(sample, view, 24))
-    .map((sample) => toViewportPlanePosition(sample.screenX, sample.screenY, view.viewportWidth, view.viewportHeight, 0.03))
+interface AzimuthalViewportRange {
+  readonly centerAzimuthDeg: number
+  readonly centerAltitudeDeg: number
+  readonly azimuthMinOffsetDeg: number
+  readonly azimuthMaxOffsetDeg: number
+  readonly altitudeMinOffsetDeg: number
+  readonly altitudeMaxOffsetDeg: number
+  readonly azimuthFovDeg: number
+  readonly altitudeFovDeg: number
+}
+
+function estimateAzimuthalViewportRange(view: SkyProjectionView): AzimuthalViewportRange {
+  const centerHorizontal = directionToHorizontal(view.centerDirection)
+  let azimuthMinOffsetDeg = 0
+  let azimuthMaxOffsetDeg = 0
+  let altitudeMinOffsetDeg = 0
+  let altitudeMaxOffsetDeg = 0
+
+  for (let row = 0; row < STELLARIUM_AZIMUTHAL_FOV_SAMPLE_GRID_SIZE; row += 1) {
+    for (let column = 0; column < STELLARIUM_AZIMUTHAL_FOV_SAMPLE_GRID_SIZE; column += 1) {
+      const screenX = (column / (STELLARIUM_AZIMUTHAL_FOV_SAMPLE_GRID_SIZE - 1)) * view.viewportWidth
+      const screenY = (row / (STELLARIUM_AZIMUTHAL_FOV_SAMPLE_GRID_SIZE - 1)) * view.viewportHeight
+      const sampleHorizontal = directionToHorizontal(unprojectViewportPoint(screenX, screenY, view))
+      const azimuthOffsetDeg = getSignedAngleDeltaDegrees(sampleHorizontal.azimuthDeg, centerHorizontal.azimuthDeg)
+      const altitudeOffsetDeg = sampleHorizontal.altitudeDeg - centerHorizontal.altitudeDeg
+
+      azimuthMinOffsetDeg = Math.min(azimuthMinOffsetDeg, azimuthOffsetDeg)
+      azimuthMaxOffsetDeg = Math.max(azimuthMaxOffsetDeg, azimuthOffsetDeg)
+      altitudeMinOffsetDeg = Math.min(altitudeMinOffsetDeg, altitudeOffsetDeg)
+      altitudeMaxOffsetDeg = Math.max(altitudeMaxOffsetDeg, altitudeOffsetDeg)
+    }
+  }
 
   return {
-    trajectoryObjectId: selectedObject.id,
-    line: points.length >= 2
-      ? {
-          id: `trajectory-${selectedObject.id}`,
-          points,
-          colorHex: selectedObject.colorHex,
-          alpha: selectedObject.type === 'moon' ? 0.68 : 0.54,
-        }
-      : null,
+    centerAzimuthDeg: centerHorizontal.azimuthDeg,
+    centerAltitudeDeg: centerHorizontal.altitudeDeg,
+    azimuthMinOffsetDeg,
+    azimuthMaxOffsetDeg,
+    altitudeMinOffsetDeg,
+    altitudeMaxOffsetDeg,
+    azimuthFovDeg: azimuthMaxOffsetDeg - azimuthMinOffsetDeg,
+    altitudeFovDeg: altitudeMaxOffsetDeg - altitudeMinOffsetDeg,
   }
+}
+
+function lookupClosestStepDegrees(steps: readonly number[], targetAngleDeg: number) {
+  const targetSplits = 360 / Math.max(targetAngleDeg, 1e-6)
+  let closestStep = steps[0]
+  let closestDistance = Math.abs(360 / steps[0] - targetSplits)
+
+  steps.slice(1).forEach((step) => {
+    const distance = Math.abs(360 / step - targetSplits)
+
+    if (distance < closestDistance) {
+      closestStep = step
+      closestDistance = distance
+    }
+  })
+
+  return closestStep
+}
+
+function buildDegreeSamples(startDeg: number, endDeg: number, stepDeg: number) {
+  if (stepDeg <= 0) {
+    return [startDeg, endDeg]
+  }
+
+  const samples: number[] = []
+  const direction = startDeg <= endDeg ? 1 : -1
+  const increment = Math.abs(stepDeg) * direction
+
+  for (let currentDeg = startDeg; direction > 0 ? currentDeg <= endDeg + 1e-6 : currentDeg >= endDeg - 1e-6; currentDeg += increment) {
+    samples.push(Number(currentDeg.toFixed(6)))
+  }
+
+  const [lastSample = endDeg] = samples.slice(-1)
+
+  if (samples.length === 0 || Math.abs(lastSample - endDeg) > 1e-6) {
+    samples.push(endDeg)
+  }
+
+  return samples
+}
+
+function buildProjectedCurveSegments(
+  view: SkyProjectionView,
+  sampleValues: readonly number[],
+  projectSample: (sampleValue: number) => ReturnType<typeof projectHorizontalToViewport>,
+  depth = 0.02,
+) {
+  const segments: Vector3[][] = []
+  let currentSegment: Vector3[] = []
+  let previousProjected: ReturnType<typeof projectHorizontalToViewport> = null
+  const maxScreenGapPx = Math.max(view.viewportWidth, view.viewportHeight) * 0.35
+
+  const flushSegment = () => {
+    if (currentSegment.length >= 2) {
+      segments.push(currentSegment)
+    }
+
+    currentSegment = []
+  }
+
+  sampleValues.forEach((sampleValue) => {
+    const projected = projectSample(sampleValue)
+
+    if (!projected || !isProjectedPointVisible(projected, view, STELLARIUM_AZIMUTHAL_GRID_SAMPLE_MARGIN_PX)) {
+      flushSegment()
+      previousProjected = null
+      return
+    }
+
+    if (previousProjected) {
+      const screenGapPx = Math.hypot(projected.screenX - previousProjected.screenX, projected.screenY - previousProjected.screenY)
+
+      if (screenGapPx > maxScreenGapPx) {
+        flushSegment()
+      }
+    }
+
+    currentSegment.push(toViewportPlanePosition(projected.screenX, projected.screenY, view.viewportWidth, view.viewportHeight, depth))
+    previousProjected = projected
+  })
+
+  flushSegment()
+  return segments
+}
+
+function getCurveSampleStepDegrees(gridStepDeg: number) {
+  if (gridStepDeg <= 1) {
+    return 0.5
+  }
+
+  if (gridStepDeg <= 5) {
+    return 1
+  }
+
+  return 2
+}
+
+function buildAzimuthalGridLines(
+  view: SkyProjectionView,
+  aidVisibility: SkyEngineAidVisibility,
+) {
+  const lines: OverlayLineEntry[] = []
+  const viewportRange = estimateAzimuthalViewportRange(view)
+  const azimuthTargetStepDeg = Math.min(
+    viewportRange.azimuthFovDeg / STELLARIUM_AZIMUTHAL_GRID_DIVISIONS,
+    STELLARIUM_AZIMUTHAL_GRID_MAX_STEP_DEG,
+  )
+  const altitudeTargetStepDeg = Math.min(
+    viewportRange.altitudeFovDeg / STELLARIUM_AZIMUTHAL_GRID_DIVISIONS,
+    STELLARIUM_AZIMUTHAL_GRID_MAX_STEP_DEG,
+  )
+  const azimuthStepDeg = lookupClosestStepDegrees(STELLARIUM_AZIMUTH_STEPS_DEG, azimuthTargetStepDeg)
+  const altitudeStepDeg = lookupClosestStepDegrees(STELLARIUM_ALTITUDE_STEPS_DEG, altitudeTargetStepDeg)
+  const azimuthSampleStepDeg = getCurveSampleStepDegrees(azimuthStepDeg)
+  const altitudeSampleStepDeg = getCurveSampleStepDegrees(altitudeStepDeg)
+  const azimuthStartOffsetDeg = Math.max(-180, Math.floor((viewportRange.azimuthMinOffsetDeg - azimuthStepDeg) / azimuthStepDeg) * azimuthStepDeg)
+  const azimuthEndOffsetDeg = Math.min(180, Math.ceil((viewportRange.azimuthMaxOffsetDeg + azimuthStepDeg) / azimuthStepDeg) * azimuthStepDeg)
+  const maxVisibleAltitudeDeg = clamp(
+    Math.ceil((viewportRange.centerAltitudeDeg + viewportRange.altitudeMaxOffsetDeg + altitudeStepDeg) / altitudeStepDeg) * altitudeStepDeg,
+    0,
+    90,
+  )
+
+  const pushSegments = (idPrefix: string, segments: readonly Vector3[][]) => {
+    segments.forEach((points, index) => {
+      lines.push({
+        id: `${idPrefix}-${index}`,
+        points,
+        colorHex: STELLARIUM_AZIMUTHAL_GRID_COLOR_HEX,
+        alpha: STELLARIUM_AZIMUTHAL_GRID_ALPHA,
+      })
+    })
+  }
+
+  if (aidVisibility.altitudeRings || aidVisibility.azimuthRing) {
+    const horizonSegments = buildProjectedCurveSegments(
+      view,
+      buildDegreeSamples(azimuthStartOffsetDeg, azimuthEndOffsetDeg, altitudeSampleStepDeg),
+      (azimuthOffsetDeg) => projectHorizontalToViewport(0, wrapDegrees(viewportRange.centerAzimuthDeg + azimuthOffsetDeg), view),
+    )
+    pushSegments('azimuthal-horizon', horizonSegments)
+  }
+
+  if (aidVisibility.altitudeRings) {
+    for (let altitudeDeg = altitudeStepDeg; altitudeDeg <= maxVisibleAltitudeDeg + 1e-6; altitudeDeg += altitudeStepDeg) {
+      const altitudeSegments = buildProjectedCurveSegments(
+        view,
+        buildDegreeSamples(azimuthStartOffsetDeg, azimuthEndOffsetDeg, altitudeSampleStepDeg),
+        (azimuthOffsetDeg) => projectHorizontalToViewport(altitudeDeg, wrapDegrees(viewportRange.centerAzimuthDeg + azimuthOffsetDeg), view),
+      )
+      pushSegments(`azimuthal-altitude-${altitudeDeg}`, altitudeSegments)
+    }
+  }
+
+  if (aidVisibility.azimuthRing) {
+    for (let azimuthOffsetDeg = azimuthStartOffsetDeg; azimuthOffsetDeg <= azimuthEndOffsetDeg + 1e-6; azimuthOffsetDeg += azimuthStepDeg) {
+      const azimuthDeg = wrapDegrees(viewportRange.centerAzimuthDeg + azimuthOffsetDeg)
+      const meridianSegments = buildProjectedCurveSegments(
+        view,
+        buildDegreeSamples(0, 90, azimuthSampleStepDeg),
+        (altitudeDeg) => projectHorizontalToViewport(altitudeDeg, azimuthDeg, view),
+      )
+      pushSegments(`azimuthal-azimuth-${azimuthDeg}`, meridianSegments)
+    }
+  }
+
+  return lines
 }
 
 function createLabelSignature(text: string, variant: LabelVariant) {
@@ -302,74 +444,11 @@ function disposeCardinalMesh(entry: CardinalMeshEntry) {
 
 function prepareAidLines(
   view: SkyProjectionView,
-  observer: SkyEngineObserver,
   projectedObjects: readonly OverlayProjectedObjectEntry[],
   aidVisibility: SkyEngineAidVisibility,
-  selectedObject: SkyEngineSceneObject | null,
 ) {
-  const lines: OverlayLineEntry[] = []
+  const lines = buildAzimuthalGridLines(view, aidVisibility)
   const cardinals: OverlayCardinalEntry[] = []
-  const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
-
-  if (aidVisibility.altitudeRings) {
-    ;[15, 30, 45, 60].forEach((altitudeDeg) => {
-      const points = buildConstantAltitudeCurve(view, altitudeDeg)
-
-      if (points.length >= 2) {
-        lines.push({
-          id: `altitude-ring-${altitudeDeg}`,
-          points,
-          colorHex: '#9ecbff',
-          alpha: 0.11,
-        })
-      }
-    })
-
-    if (getBelowHorizonVisibility(centerAltitudeDeg) > 0.08) {
-      ;[-15, -30, -45].forEach((altitudeDeg) => {
-        const points = buildConstantAltitudeCurve(view, altitudeDeg)
-
-        if (points.length >= 2) {
-          lines.push({
-            id: `altitude-ring-${altitudeDeg}`,
-            points,
-            colorHex: '#8ebfff',
-            alpha: 0.08,
-          })
-        }
-      })
-    }
-  }
-
-  if (aidVisibility.azimuthRing) {
-    const horizonPoints = buildConstantAltitudeCurve(view, 0)
-
-    if (horizonPoints.length >= 2) {
-      lines.push({
-        id: 'horizon-ring',
-        points: horizonPoints,
-        colorHex: '#cfe7ff',
-        alpha: 0.62,
-      })
-    }
-
-    lines.push(...buildAzimuthTickSegments(view))
-
-    COMPASS_CARDINALS.forEach((cardinal) => {
-      const projected = projectHorizontalToViewport(7.6, cardinal.azimuthDeg, view)
-
-      if (!projected || !isProjectedPointVisible(projected, view, 22)) {
-        return
-      }
-
-      cardinals.push({
-        id: `cardinal-${cardinal.label}`,
-        text: cardinal.label,
-        screenX: projected.screenX,
-        screenY: projected.screenY,
-      })
-    })
-  }
 
   if (aidVisibility.constellations) {
     const projectedLookup = new Map(projectedObjects.map((entry) => [entry.object.id, entry]))
@@ -396,29 +475,22 @@ function prepareAidLines(
     })
   }
 
-  const trajectory = buildTrajectoryLine(view, observer, selectedObject)
-
-  if (trajectory.line) {
-    lines.push(trajectory.line)
-  }
-
   return {
     lines,
     cardinals,
-    trajectoryObjectId: trajectory.trajectoryObjectId,
+    trajectoryObjectId: null,
   }
 }
 
 export function prepareDirectOverlayFrame(
   view: SkyProjectionView,
-  observer: SkyEngineObserver,
+  _observer: SkyEngineObserver,
   projectedObjects: readonly OverlayProjectedObjectEntry[],
   scenePacket: SkyScenePacket | null,
   selectedObjectId: string | null,
   aidVisibility: SkyEngineAidVisibility,
 ) {
-  const selectedObject = projectedObjects.find((entry) => entry.object.id === selectedObjectId)?.object ?? null
-  const { lines, cardinals, trajectoryObjectId } = prepareAidLines(view, observer, projectedObjects, aidVisibility, selectedObject)
+  const { lines, cardinals, trajectoryObjectId } = prepareAidLines(view, projectedObjects, aidVisibility)
   const packetTextById = new Map((scenePacket?.labels ?? []).map((label) => [label.id, label.text]))
   const labelIds = new Set<string>()
   const labels: OverlayLabelEntry[] = []

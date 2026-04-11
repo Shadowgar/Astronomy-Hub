@@ -658,7 +658,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                   Constellations
                 </button>
                 <button type="button" className={`sky-engine-page__control-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('azimuthRing')}>
-                  Compass
+                  Azimuth
                 </button>
                 <button type="button" className={`sky-engine-page__control-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('altitudeRings')}>
                   Altitude
