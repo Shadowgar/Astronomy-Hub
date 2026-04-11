@@ -9,6 +9,14 @@ import type { Scene } from '@babylonjs/core/scene'
 import { buildSelectionRingTexture } from './objectClassRenderer'
 import type { ProjectedSceneObjectEntry } from './engine/sky/runtime/modules/runtimeFrame'
 
+export interface DirectStarLayerSyncTiming {
+  readonly totalMs: number
+  readonly instanceTransformMs: number
+  readonly bufferUpdateMs: number
+  readonly gpuUploadMs: number
+  readonly selectionHighlightMs: number
+}
+
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
 }
@@ -138,18 +146,26 @@ export function createDirectStarLayer(scene: Scene) {
       viewportHeight: number,
       selectedObjectId: string | null,
       animationTime: number,
-    ) {
+    ): DirectStarLayerSyncTiming {
+      const syncStartMs = performance.now()
       if (projectedStars.length === 0) {
         markerMesh.thinInstanceCount = 0
         markerMesh.isVisible = false
         selectionRing.mesh.isVisible = false
-        return
+        return {
+          totalMs: performance.now() - syncStartMs,
+          instanceTransformMs: 0,
+          bufferUpdateMs: 0,
+          gpuUploadMs: 0,
+          selectionHighlightMs: 0,
+        }
       }
 
       ensureCapacity(projectedStars.length)
 
       markerMesh.isVisible = true
       let selectedEntry: ProjectedSceneObjectEntry | null = null
+      const transformStartMs = performance.now()
 
       for (let index = 0; index < projectedStars.length; index += 1) {
         const entry = projectedStars[index]
@@ -184,14 +200,24 @@ export function createDirectStarLayer(scene: Scene) {
           selectedEntry = entry
         }
       }
+      const instanceTransformMs = performance.now() - transformStartMs
 
+      const bufferUpdateStartMs = performance.now()
       markerMesh.thinInstanceSetBuffer('matrix', matrixBuffer, 16, true)
       markerMesh.thinInstanceSetBuffer('color', colorBuffer, 4, true)
       markerMesh.thinInstanceCount = projectedStars.length
+      const bufferUpdateMs = performance.now() - bufferUpdateStartMs
+      const selectionStartMs = performance.now()
 
       if (!selectedEntry) {
         selectionRing.mesh.isVisible = false
-        return
+        return {
+          totalMs: performance.now() - syncStartMs,
+          instanceTransformMs,
+          bufferUpdateMs,
+          gpuUploadMs: 0,
+          selectionHighlightMs: performance.now() - selectionStartMs,
+        }
       }
 
       selectionRing.mesh.isVisible = true
@@ -203,6 +229,14 @@ export function createDirectStarLayer(scene: Scene) {
       const selectionDiameter = Math.max(20, selectedEntry.markerRadiusPx * 2 + 22)
       selectionRing.mesh.scaling.set(selectionDiameter, selectionDiameter, 1)
       selectionRing.material.alpha = clamp(0.72 + selectedEntry.renderAlpha * 0.18, 0, 0.94)
+      const selectionHighlightMs = performance.now() - selectionStartMs
+      return {
+        totalMs: performance.now() - syncStartMs,
+        instanceTransformMs,
+        bufferUpdateMs,
+        gpuUploadMs: 0,
+        selectionHighlightMs,
+      }
     },
 
     dispose() {

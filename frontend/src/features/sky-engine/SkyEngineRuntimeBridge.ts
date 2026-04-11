@@ -191,17 +191,26 @@ export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, Scen
         message: 'Direct Babylon atmosphere, Milky Way, landscape, object, aid, trajectory, and label rendering is active with a bounded density-star canvas fallback.',
       })
     },
-    update({ services, getProps, deltaSeconds, markFrameDirty }) {
+    update({ runtime, services, getProps, deltaSeconds, markFrameDirty }) {
       const latest = getProps()
       services.navigationService.syncSelection(
         latest.objects,
         latest.selectedObjectId,
         services.projectionService,
       )
+      const cameraUpdateStartMs = performance.now()
       const navigationChanged = services.navigationService.update(
         deltaSeconds,
         services.projectionService,
       )
+      const cameraUpdateMs = performance.now() - cameraUpdateStartMs
+      runtime.runtimePerfTelemetry.latest = {
+        ...runtime.runtimePerfTelemetry.latest,
+        stepMs: {
+          ...runtime.runtimePerfTelemetry.latest.stepMs,
+          cameraUpdateMs,
+        },
+      }
 
       if (navigationChanged) {
         markFrameDirty()

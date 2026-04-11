@@ -15,11 +15,17 @@ export interface SkyCoreRenderRefs {
 export interface SkyRuntimePerfTelemetrySnapshot {
   readonly frameIndex: number
   readonly shouldRenderFrame: boolean
+  readonly servicesUpdateMs: number
+  readonly skyCoreUpdateTotalMs: number
+  readonly skyCoreRenderTotalMs: number
+  readonly renderLoopMs: number
   readonly updateMs: number
   readonly renderModulesMs: number
   readonly sceneRenderMs: number
   readonly frameTotalMs: number
   readonly moduleMs: Readonly<Record<string, number>>
+  readonly moduleUpdateMs: Readonly<Record<string, number>>
+  readonly moduleRenderMs: Readonly<Record<string, number>>
   readonly stepMs: Readonly<Record<string, number>>
   readonly starCount: number
   readonly objectCount: number

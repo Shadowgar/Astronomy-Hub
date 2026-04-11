@@ -13,6 +13,25 @@ import {
 
 const STAR_RENDER_METRICS_ATTRIBUTE = 'data-sky-engine-star-render-metrics'
 const RUNTIME_PERF_METRICS_ATTRIBUTE = 'data-sky-engine-runtime-perf'
+const UI_PERF_METRICS_ATTRIBUTE = 'data-sky-engine-ui-perf'
+
+function readUiPerfMetrics(canvas: HTMLCanvasElement) {
+  const root = canvas.closest('.sky-engine-page')
+  if (!root) {
+    return null
+  }
+
+  const raw = root.getAttribute(UI_PERF_METRICS_ATTRIBUTE)
+  if (!raw) {
+    return null
+  }
+
+  try {
+    return JSON.parse(raw) as Record<string, number | boolean | string | null>
+  } catch {
+    return null
+  }
+}
 
 export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
@@ -61,12 +80,28 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
       const emaPerf = runtime.runtimePerfTelemetry.ema
       const projectionMs = (latestPerf.stepMs.collectProjectedStarsMs ?? 0) + (latestPerf.stepMs.collectProjectedNonStarObjectsMs ?? 0)
       const projectionShare = latestPerf.frameTotalMs > 0 ? projectionMs / latestPerf.frameTotalMs : 0
+      const uiPerf = readUiPerfMetrics(runtime.canvas)
+      const moduleBreakdown = Object.keys(latestPerf.moduleMs)
+        .sort()
+        .reduce<Record<string, { updateMs: number; renderMs: number; totalMs: number }>>((accumulator, moduleId) => {
+          const updateMs = latestPerf.moduleUpdateMs[moduleId] ?? 0
+          const renderMs = latestPerf.moduleRenderMs[moduleId] ?? 0
+          accumulator[moduleId] = {
+            updateMs,
+            renderMs,
+            totalMs: updateMs + renderMs,
+          }
+          return accumulator
+        }, {})
+
       runtime.canvas.setAttribute(
         RUNTIME_PERF_METRICS_ATTRIBUTE,
         JSON.stringify({
           latest: latestPerf,
           ema: emaPerf,
           projectionShare,
+          moduleBreakdown,
+          uiPerf,
         }),
       )
 

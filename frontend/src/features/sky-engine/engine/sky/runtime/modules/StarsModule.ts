@@ -161,20 +161,29 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
         return
       }
 
-      const syncStartMs = performance.now()
-      runtime.directStarLayer.sync(
+      const syncMetrics = runtime.directStarLayer.sync(
         projectedStarsFrame.projectedStars,
         projectedStarsFrame.width,
         projectedStarsFrame.height,
         getProps().selectedObjectId,
         services.clockService.getAnimationTimeSeconds(),
       )
-      const syncElapsedMs = performance.now() - syncStartMs
+      const resolvedSyncMetrics = syncMetrics ?? {
+        totalMs: 0,
+        instanceTransformMs: 0,
+        bufferUpdateMs: 0,
+        gpuUploadMs: 0,
+        selectionHighlightMs: 0,
+      }
       runtime.runtimePerfTelemetry.latest = {
         ...runtime.runtimePerfTelemetry.latest,
         stepMs: {
           ...runtime.runtimePerfTelemetry.latest.stepMs,
-          starLayerSyncMs: syncElapsedMs,
+          starLayerSyncMs: resolvedSyncMetrics.totalMs,
+          starLayerSyncInstanceTransformMs: resolvedSyncMetrics.instanceTransformMs,
+          starLayerSyncBufferUpdateMs: resolvedSyncMetrics.bufferUpdateMs,
+          starLayerSyncGpuUploadMs: resolvedSyncMetrics.gpuUploadMs,
+          starLayerSyncSelectionHighlightMs: resolvedSyncMetrics.selectionHighlightMs,
         },
       }
     },

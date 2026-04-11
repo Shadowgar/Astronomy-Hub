@@ -1,4 +1,4 @@
-import React, { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react'
+import React, { Profiler, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type ProfilerOnRenderCallback } from 'react'
 import { Link } from 'react-router-dom'
 
 import {
@@ -134,6 +134,48 @@ type SkyEngineOwnershipStateProps = {
   detail: string
 }
 
+type SkyEngineUiPerfState = {
+  reactCommitCount: number
+  reactActualDurationTotalMs: number
+  reactLastCommitMs: number
+  reactMaxCommitMs: number
+  pendingReactDurationMs: number
+  reactFrameDurationMs: number
+  reactFrameMaxMs: number
+  uiFrameMs: number
+  uiFrameMaxMs: number
+  domLayoutProbeMs: number
+  domLayoutProbeMaxMs: number
+  overlayMutationCount: number
+  longTaskCount: number
+  longTaskTotalMs: number
+  layoutShiftCount: number
+  layoutShiftTotal: number
+  sampleCount: number
+}
+
+function createSkyEngineUiPerfState(): SkyEngineUiPerfState {
+  return {
+    reactCommitCount: 0,
+    reactActualDurationTotalMs: 0,
+    reactLastCommitMs: 0,
+    reactMaxCommitMs: 0,
+    pendingReactDurationMs: 0,
+    reactFrameDurationMs: 0,
+    reactFrameMaxMs: 0,
+    uiFrameMs: 0,
+    uiFrameMaxMs: 0,
+    domLayoutProbeMs: 0,
+    domLayoutProbeMaxMs: 0,
+    overlayMutationCount: 0,
+    longTaskCount: 0,
+    longTaskTotalMs: 0,
+    layoutShiftCount: 0,
+    layoutShiftTotal: 0,
+    sampleCount: 0,
+  }
+}
+
 function SkyEngineHubShell() {
   return (
     <div className="sky-engine-page__overlay sky-engine-page__overlay--hub-shell">
@@ -184,6 +226,8 @@ function SkyEngineOwnershipState({ title, detail }: Readonly<SkyEngineOwnershipS
 }
 
 function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: BackendSkyScenePayload }>) {
+  const rootRef = useRef<HTMLDivElement | null>(null)
+  const uiPerfRef = useRef<SkyEngineUiPerfState>(createSkyEngineUiPerfState())
   const sceneTime = useSkyEngineSceneTime()
   const skyStarTileManifestQuery = useSkyStarTileManifestDataQuery({ at: backendScene.timestamp })
   const [repositoryMode] = useState(() => resolveSkyTileRepositoryMode())
@@ -232,6 +276,38 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   })
   const [inspectorOpen, setInspectorOpen] = useState(false)
   const [tileLoadResult, setTileLoadResult] = useState<SkyTileRepositoryLoadResult | null>(null)
+
+  const publishUiPerfMetrics = useCallback(() => {
+    const root = rootRef.current
+
+    if (!root) {
+      return
+    }
+
+    const metrics = uiPerfRef.current
+    const meanReactCommitMs = metrics.reactCommitCount > 0
+      ? metrics.reactActualDurationTotalMs / metrics.reactCommitCount
+      : 0
+
+    root.setAttribute('data-sky-engine-ui-perf', JSON.stringify({
+      reactCommitCount: metrics.reactCommitCount,
+      reactLastCommitMs: metrics.reactLastCommitMs,
+      reactMeanCommitMs: meanReactCommitMs,
+      reactMaxCommitMs: metrics.reactMaxCommitMs,
+      reactFrameMs: metrics.reactFrameDurationMs,
+      reactFrameMaxMs: metrics.reactFrameMaxMs,
+      uiFrameMs: metrics.uiFrameMs,
+      uiFrameMaxMs: metrics.uiFrameMaxMs,
+      domLayoutProbeMs: metrics.domLayoutProbeMs,
+      domLayoutProbeMaxMs: metrics.domLayoutProbeMaxMs,
+      overlayMutationCount: metrics.overlayMutationCount,
+      longTaskCount: metrics.longTaskCount,
+      longTaskTotalMs: metrics.longTaskTotalMs,
+      layoutShiftCount: metrics.layoutShiftCount,
+      layoutShiftTotal: metrics.layoutShiftTotal,
+      sampleCount: metrics.sampleCount,
+    }))
+  }, [])
   const sunState = useMemo(
     () => computeSunState(observer, sceneTime.sceneTimestampIso),
     [observer, sceneTime.sceneTimestampIso],
@@ -527,9 +603,122 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     setSearchQuery(nextObject.name)
   }, [searchableSceneObjects, selection])
 
+  const handleUiProfilerRender = useCallback<ProfilerOnRenderCallback>((_id, _phase, actualDuration) => {
+    const metrics = uiPerfRef.current
+    metrics.reactCommitCount += 1
+    metrics.reactActualDurationTotalMs += actualDuration
+    metrics.reactLastCommitMs = actualDuration
+    metrics.reactMaxCommitMs = Math.max(metrics.reactMaxCommitMs, actualDuration)
+    metrics.pendingReactDurationMs += actualDuration
+    metrics.sampleCount += 1
+
+    if (metrics.reactCommitCount % 10 === 0 && rootRef.current) {
+      const layoutProbeStartMs = performance.now()
+      rootRef.current.getBoundingClientRect()
+      rootRef.current.querySelectorAll('.sky-engine-page__overlay').forEach((overlayElement) => {
+        overlayElement.getBoundingClientRect()
+      })
+      const layoutProbeMs = performance.now() - layoutProbeStartMs
+      metrics.domLayoutProbeMs = layoutProbeMs
+      metrics.domLayoutProbeMaxMs = Math.max(metrics.domLayoutProbeMaxMs, layoutProbeMs)
+    }
+
+    publishUiPerfMetrics()
+  }, [publishUiPerfMetrics])
+
+  useEffect(() => {
+    const root = rootRef.current
+    if (!root) {
+      return undefined
+    }
+
+    const observer = new MutationObserver((mutations) => {
+      uiPerfRef.current.overlayMutationCount += mutations.length
+    })
+    observer.observe(root, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      characterData: true,
+    })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    const observer = typeof PerformanceObserver !== 'undefined' && PerformanceObserver.supportedEntryTypes?.includes('longtask')
+      ? new PerformanceObserver((list) => {
+          const metrics = uiPerfRef.current
+          list.getEntries().forEach((entry) => {
+            metrics.longTaskCount += 1
+            metrics.longTaskTotalMs += entry.duration
+          })
+        })
+      : null
+
+    observer?.observe({ entryTypes: ['longtask'] })
+
+    return () => {
+      observer?.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    const observer = typeof PerformanceObserver !== 'undefined' && PerformanceObserver.supportedEntryTypes?.includes('layout-shift')
+      ? new PerformanceObserver((list) => {
+          const metrics = uiPerfRef.current
+          list.getEntries().forEach((entry) => {
+            const shift = entry as PerformanceEntry & { value?: number; hadRecentInput?: boolean }
+            if (shift.hadRecentInput) {
+              return
+            }
+            metrics.layoutShiftCount += 1
+            metrics.layoutShiftTotal += shift.value ?? 0
+          })
+        })
+      : null
+
+    observer?.observe({ entryTypes: ['layout-shift'] })
+
+    return () => {
+      observer?.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    let frameHandle = 0
+    let lastFrameTime = performance.now()
+
+    const onFrame = (nowMs: number) => {
+      const metrics = uiPerfRef.current
+      const uiFrameMs = nowMs - lastFrameTime
+      lastFrameTime = nowMs
+      metrics.uiFrameMs = uiFrameMs
+      metrics.uiFrameMaxMs = Math.max(metrics.uiFrameMaxMs, uiFrameMs)
+      metrics.reactFrameDurationMs = metrics.pendingReactDurationMs
+      metrics.reactFrameMaxMs = Math.max(metrics.reactFrameMaxMs, metrics.reactFrameDurationMs)
+      metrics.pendingReactDurationMs = 0
+      publishUiPerfMetrics()
+      frameHandle = requestAnimationFrame(onFrame)
+    }
+
+    frameHandle = requestAnimationFrame(onFrame)
+
+    return () => {
+      cancelAnimationFrame(frameHandle)
+    }
+  }, [publishUiPerfMetrics])
+
+  useEffect(() => () => {
+    rootRef.current?.removeAttribute('data-sky-engine-ui-perf')
+  }, [])
+
   return (
-    <div className="sky-engine-page sky-engine-page--immersive">
-      <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
+    <Profiler id="sky-engine-page-content" onRender={handleUiProfilerRender}>
+      <div ref={rootRef} className="sky-engine-page sky-engine-page--immersive">
+        <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
         <SkyEngineHubShell />
         <SkyEngineScene
           key={[
@@ -755,8 +944,9 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
             />
           </div>
         ) : null}
-      </main>
-    </div>
+        </main>
+      </div>
+    </Profiler>
   )
 }
 
