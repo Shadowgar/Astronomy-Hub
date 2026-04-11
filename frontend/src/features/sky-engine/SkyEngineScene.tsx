@@ -60,6 +60,28 @@ interface SceneControllerModel {
   tileQuerySignature: string
 }
 
+function syncSelectionMemory(
+  selectionMemoryRef: React.MutableRefObject<SelectionMemory | null>,
+  currentSceneObjects: readonly SkyEngineSceneObject[],
+  objectId: string | null,
+) {
+  if (objectId === null) {
+    selectionMemoryRef.current = null
+    return
+  }
+
+  const nextSelectedObject = currentSceneObjects.find((object) => object.id === objectId)
+
+  if (!nextSelectedObject) {
+    return
+  }
+
+  selectionMemoryRef.current = {
+    objectId: nextSelectedObject.id,
+    objectName: nextSelectedObject.name,
+  }
+}
+
 export interface SkyEngineSceneHandle {
   clearSelection: () => void
   nudgeSceneOffset: (deltaSeconds: number) => void
@@ -484,18 +506,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
         hiddenSelectionName: selectedObject ? null : selectionMemoryRef.current?.objectName ?? null,
         onSelectObject: (objectId) => {
           selectedObjectIdRef.current = objectId
-
-          if (!objectId) {
-            selectionMemoryRef.current = null
-          } else {
-            const nextSelectedObject = currentSceneObjectsRef.current.find((object) => object.id === objectId)
-            if (nextSelectedObject) {
-              selectionMemoryRef.current = {
-                objectId: nextSelectedObject.id,
-                objectName: nextSelectedObject.name,
-              }
-            }
-          }
+          syncSelectionMemory(selectionMemoryRef, currentSceneObjectsRef.current, objectId)
 
           syncRuntimeModelRef.current(true)
         },
@@ -528,7 +539,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
     core.registerModule(createStarsModule())
     core.registerModule(createObjectRuntimeModule())
     core.registerModule(createOverlayRuntimeModule())
-    core.registerModule(createSnapshotBridgeModule(snapshotStore))
+    core.registerModule(createSnapshotBridgeModule(snapshotStore, UI_SNAPSHOT_CADENCE_MS))
     if (debugTelemetryEnabled) {
       core.registerModule(createSceneReportingModule())
     }

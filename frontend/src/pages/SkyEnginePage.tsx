@@ -27,7 +27,11 @@ import {
   resolveSkyBackendTileRegistry,
   type SkyBackendTileManifestState,
 } from '../features/sky-engine/backendTileRegistry'
-import { useSkyEngineSnapshot, createSkyEngineSnapshotStore } from '../features/sky-engine/SkyEngineSnapshotStore'
+import {
+  useSkyEngineSnapshot,
+  createSkyEngineSnapshotStore,
+  type SkyEngineSnapshotCadenceMetrics,
+} from '../features/sky-engine/SkyEngineSnapshotStore'
 import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
 import SkyEngineScene, { type SkyEngineSceneHandle } from '../features/sky-engine/SkyEngineScene'
 import { useSceneByScopeDataQuery, useSkyStarTileManifestDataQuery } from '../features/scene/queries'
@@ -37,9 +41,13 @@ import {
   parseBackendSkyStarTileManifestPayload,
   type BackendSkyScenePayload,
 } from '../features/scene/contracts'
-import type { SkyEngineAidVisibility, SkyEngineGuidanceTarget, SkyEngineSceneObject } from '../features/sky-engine/types'
+import type { SkyEngineAidVisibility, SkyEngineGuidanceTarget } from '../features/sky-engine/types'
 
 const DEBUG_TELEMETRY_QUERY_PARAM = 'debugTelemetry'
+
+const snapshotMetricsHost = globalThis as typeof globalThis & {
+  __skyEngineSnapshotMetrics__?: () => SkyEngineSnapshotCadenceMetrics
+}
 
 function phaseModifier(phaseLabel: string) {
   return phaseLabel.toLowerCase().split(' ').join('-')
@@ -99,11 +107,11 @@ function buildBackendViewState(scene: BackendSkyScenePayload) {
 }
 
 function resolveDebugTelemetryEnabled() {
-  if (typeof window === 'undefined') {
+  if (globalThis.window === undefined) {
     return false
   }
 
-  return new URLSearchParams(window.location.search).get(DEBUG_TELEMETRY_QUERY_PARAM) === '1'
+  return new URLSearchParams(globalThis.location.search).get(DEBUG_TELEMETRY_QUERY_PARAM) === '1'
 }
 
 function computeSceneOffsetSeconds(baseTimestampIso: string, snapshotTimestampIso: string) {
@@ -298,6 +306,14 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
       setInspectorOpen(true)
     }
   }, [snapshot.selection.status])
+
+  useEffect(() => {
+    snapshotMetricsHost.__skyEngineSnapshotMetrics__ = () => snapshotStore.getCadenceMetrics()
+
+    return () => {
+      delete snapshotMetricsHost.__skyEngineSnapshotMetrics__
+    }
+  }, [snapshotStore])
 
   const publishUiPerfMetrics = useCallback(() => {
     const root = rootRef.current

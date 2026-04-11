@@ -2,6 +2,14 @@ import type { SkyModule } from '../SkyModule'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import type { SkyEngineSnapshotStore, SkyEngineRuntimeSnapshot } from '../../../../SkyEngineSnapshotStore'
 
+function resolveVisibilityState() {
+  if (typeof document === 'undefined') {
+    return 'unknown' as const
+  }
+
+  return document.visibilityState
+}
+
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
 }
@@ -18,11 +26,21 @@ function resolveCameraSnapshot(services: SkySceneRuntimeServices) {
 
 export function createSnapshotBridgeModule(
   snapshotStore: SkyEngineSnapshotStore,
+  cadenceMs = 150,
 ): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
+  let lastPublishAtMs = 0
+
   return {
     id: 'sky-snapshot-bridge-runtime-module',
     renderOrder: 85,
-    render({ runtime, services, getProps }) {
+    update({ runtime, services, getProps }) {
+      const nowMs = performance.now()
+
+      if (lastPublishAtMs !== 0 && nowMs - lastPublishAtMs < cadenceMs) {
+        return
+      }
+
+      lastPublishAtMs = nowMs
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame
       const selectedObject = latest.objects.find((object) => object.id === latest.selectedObjectId) ?? null
@@ -54,9 +72,14 @@ export function createSnapshotBridgeModule(
         },
       }
 
-      snapshotStore.publish(snapshot)
+      snapshotStore.publish(snapshot, {
+        force: true,
+        sourceAtMs: nowMs,
+        visibilityState: resolveVisibilityState(),
+      })
     },
     dispose() {
+      lastPublishAtMs = 0
       snapshotStore.reset()
     },
   }
