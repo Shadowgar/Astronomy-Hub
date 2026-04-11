@@ -4,8 +4,6 @@ import type { SkyEngineQuery, SkyTilePayload, SkyTileRepositoryLoadResult } from
 import { dedupeRuntimeStars } from '../core/dedupe'
 import { buildSkyDiagnostics } from '../diagnostics/skyDiagnostics'
 import { raDecToObserverUnitVector } from '../transforms/coordinates'
-
-const STAR_RENDER_HORIZON_BUFFER_DEG = 8
 const DEFAULT_REPOSITORY_STATE: Pick<SkyTileRepositoryLoadResult, 'mode' | 'sourceLabel' | 'sourceError'> = {
   mode: 'mock',
   sourceLabel: 'Mock tile repository',
@@ -48,10 +46,6 @@ export function assembleSkyScenePacket(
 
   const visibleStars = dedupedStars.flatMap((star) => {
     const { vector, horizontalCoordinates } = raDecToObserverUnitVector(star.raDeg, star.decDeg, query.observer)
-
-    if (horizontalCoordinates.altitudeDeg < -STAR_RENDER_HORIZON_BUFFER_DEG) {
-      return []
-    }
 
     return [{
       id: star.id,

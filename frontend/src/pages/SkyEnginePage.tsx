@@ -658,10 +658,10 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                   Constellations
                 </button>
                 <button type="button" className={`sky-engine-page__control-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('azimuthRing')}>
-                  Azimuth
+                  Azimuthal
                 </button>
                 <button type="button" className={`sky-engine-page__control-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('altitudeRings')}>
-                  Altitude
+                  Equatorial
                 </button>
               </div>
             </div>

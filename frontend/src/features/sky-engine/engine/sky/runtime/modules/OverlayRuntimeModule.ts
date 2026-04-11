@@ -84,6 +84,7 @@ export function createOverlayRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
       const overlayFrame = prepareDirectOverlayFrame(
         projectedFrame.view,
         services.observerService.getObserver(),
+        latest.initialSceneTimestampIso,
         projectedFrame.projectedObjects,
         latest.scenePacket,
         latest.selectedObjectId,

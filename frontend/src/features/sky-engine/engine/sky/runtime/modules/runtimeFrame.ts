@@ -278,6 +278,14 @@ function getObjectHorizonFade(_object: SkyEngineSceneObject, _centerAltitudeDeg:
   return 1
 }
 
+function getObjectVisibilityAltitudeDeg(object: SkyEngineSceneObject, centerAltitudeDeg: number) {
+  if (centerAltitudeDeg <= 0 && object.altitudeDeg < 0) {
+    return Math.abs(object.altitudeDeg)
+  }
+
+  return object.altitudeDeg
+}
+
 function getProjectedDiscRadiusPx(apparentSizeDeg: number | undefined, scale: number, minimumRadiusPx: number, maximumRadiusPx: number) {
   if (!apparentSizeDeg || apparentSizeDeg <= 0) {
     return minimumRadiusPx
@@ -391,7 +399,8 @@ export function collectProjectedStars(
       break
     }
 
-    const renderedMagnitude = computeObservedMagnitude(object.magnitude, extinction, object.altitudeDeg)
+    const visibilityAltitudeDeg = getObjectVisibilityAltitudeDeg(object, centerAltitudeDeg)
+    const renderedMagnitude = computeObservedMagnitude(object.magnitude, extinction, visibilityAltitudeDeg)
     const visibilityAlpha = computeVisibilityAlpha(renderedMagnitude, limitingMagnitude)
     magnitudeFilterMs += performance.now() - magnitudeStartMs
 
@@ -470,7 +479,8 @@ export function collectProjectedStars(
     visibilityFilterMs += performance.now() - visibilityStartMs
 
     const magnitudeStartMs = performance.now()
-    const renderedMagnitude = computeObservedMagnitude(object.magnitude, extinction, object.altitudeDeg)
+    const visibilityAltitudeDeg = getObjectVisibilityAltitudeDeg(object, centerAltitudeDeg)
+    const renderedMagnitude = computeObservedMagnitude(object.magnitude, extinction, visibilityAltitudeDeg)
     const visibilityAlpha = computeVisibilityAlpha(renderedMagnitude, limitingMagnitude)
     magnitudeFilterMs += performance.now() - magnitudeStartMs
 

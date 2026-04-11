@@ -9,8 +9,9 @@ import { Mesh } from '@babylonjs/core/Meshes/mesh'
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import type { Scene } from '@babylonjs/core/scene'
 
+import { computeHorizontalCoordinates } from './astronomy'
 import { SKY_ENGINE_CONSTELLATION_SEGMENTS } from './constellations'
-import type { SkyScenePacket } from './engine/sky'
+import { computeLocalSiderealTimeDeg, type SkyScenePacket } from './engine/sky'
 import {
   buildLabelTexture,
   getLabelVariantForObject,
@@ -87,6 +88,14 @@ const STELLARIUM_AZIMUTHAL_GRID_SAMPLE_MARGIN_PX = 24
 const STELLARIUM_AZIMUTHAL_FOV_SAMPLE_GRID_SIZE = 3
 const STELLARIUM_AZIMUTH_STEPS_DEG = [15, 5, 1] as const
 const STELLARIUM_ALTITUDE_STEPS_DEG = [20, 10, 5, 1] as const
+const STELLARIUM_EQUATORIAL_GRID_COLOR_HEX = '#2a81ad'
+const STELLARIUM_EQUATORIAL_GRID_ALPHA = 0.38
+const STELLARIUM_RIGHT_ASCENSION_STEPS_DEG = [15, 5, 2.5, 1.25, 0.25] as const
+const STELLARIUM_DECLINATION_STEPS_DEG = [20, 10, 5, 1] as const
+const STELLARIUM_EQUATORIAL_RIGHT_ASCENSION_MAJOR_STEPS_DEG = [60, 30, 15, 5, 2.5, 1.25, 0.25] as const
+const STELLARIUM_EQUATORIAL_DECLINATION_MAJOR_STEPS_DEG = [45, 30, 20, 10, 5, 1] as const
+const STELLARIUM_EQUATORIAL_MAX_RIGHT_ASCENSION_LINES = 8
+const STELLARIUM_EQUATORIAL_MAX_DECLINATION_LINES = 7
 
 const LABEL_RELAYOUT_MOTION_PX = 18
 const LABEL_RELAYOUT_DEPTH_DELTA = 0.06
@@ -122,10 +131,6 @@ function isEngineTileSource(source: SkyEngineSceneObject['source']) {
   return source === 'engine_mock_tile' || source === 'engine_hipparcos_tile'
 }
 
-function getBelowHorizonVisibility(centerAltitudeDeg: number) {
-  return centerAltitudeDeg < 0 ? 1 : 0
-}
-
 function toViewportPlanePosition(screenX: number, screenY: number, viewportWidth: number, viewportHeight: number, depth = 0.02) {
   return new Vector3(
     screenX - viewportWidth * 0.5,
@@ -155,6 +160,17 @@ interface AzimuthalViewportRange {
   readonly altitudeMaxOffsetDeg: number
   readonly azimuthFovDeg: number
   readonly altitudeFovDeg: number
+}
+
+interface EquatorialViewportRange {
+  readonly centerRightAscensionDeg: number
+  readonly centerDeclinationDeg: number
+  readonly rightAscensionMinOffsetDeg: number
+  readonly rightAscensionMaxOffsetDeg: number
+  readonly declinationMinOffsetDeg: number
+  readonly declinationMaxOffsetDeg: number
+  readonly rightAscensionFovDeg: number
+  readonly declinationFovDeg: number
 }
 
 function estimateAzimuthalViewportRange(view: SkyProjectionView): AzimuthalViewportRange {
@@ -191,6 +207,81 @@ function estimateAzimuthalViewportRange(view: SkyProjectionView): AzimuthalViewp
   }
 }
 
+function horizontalToEquatorialCoordinates(
+  altitudeDeg: number,
+  azimuthDeg: number,
+  observer: SkyEngineObserver,
+  timestampIso: string,
+) {
+  const altitudeRad = (altitudeDeg * Math.PI) / 180
+  const azimuthRad = (azimuthDeg * Math.PI) / 180
+  const latitudeRad = (observer.latitude * Math.PI) / 180
+  const sinDeclination =
+    Math.sin(altitudeRad) * Math.sin(latitudeRad) +
+    Math.cos(altitudeRad) * Math.cos(latitudeRad) * Math.cos(azimuthRad)
+  const declinationRad = Math.asin(clamp(sinDeclination, -1, 1))
+  const hourAngleRad = Math.atan2(
+    Math.sin(azimuthRad),
+    Math.cos(azimuthRad) * Math.sin(latitudeRad) + Math.tan(altitudeRad) * Math.cos(latitudeRad),
+  )
+  const localSiderealTimeDeg = computeLocalSiderealTimeDeg(observer.longitude, timestampIso)
+
+  return {
+    rightAscensionDeg: wrapDegrees(localSiderealTimeDeg - (hourAngleRad * 180) / Math.PI),
+    declinationDeg: (declinationRad * 180) / Math.PI,
+  }
+}
+
+function estimateEquatorialViewportRange(
+  view: SkyProjectionView,
+  observer: SkyEngineObserver,
+  timestampIso: string,
+): EquatorialViewportRange {
+  const centerHorizontal = directionToHorizontal(view.centerDirection)
+  const centerEquatorial = horizontalToEquatorialCoordinates(
+    centerHorizontal.altitudeDeg,
+    centerHorizontal.azimuthDeg,
+    observer,
+    timestampIso,
+  )
+  let rightAscensionMinOffsetDeg = 0
+  let rightAscensionMaxOffsetDeg = 0
+  let declinationMinOffsetDeg = 0
+  let declinationMaxOffsetDeg = 0
+
+  for (let row = 0; row < STELLARIUM_AZIMUTHAL_FOV_SAMPLE_GRID_SIZE; row += 1) {
+    for (let column = 0; column < STELLARIUM_AZIMUTHAL_FOV_SAMPLE_GRID_SIZE; column += 1) {
+      const screenX = (column / (STELLARIUM_AZIMUTHAL_FOV_SAMPLE_GRID_SIZE - 1)) * view.viewportWidth
+      const screenY = (row / (STELLARIUM_AZIMUTHAL_FOV_SAMPLE_GRID_SIZE - 1)) * view.viewportHeight
+      const sampleHorizontal = directionToHorizontal(unprojectViewportPoint(screenX, screenY, view))
+      const sampleEquatorial = horizontalToEquatorialCoordinates(
+        sampleHorizontal.altitudeDeg,
+        sampleHorizontal.azimuthDeg,
+        observer,
+        timestampIso,
+      )
+      const rightAscensionOffsetDeg = getSignedAngleDeltaDegrees(sampleEquatorial.rightAscensionDeg, centerEquatorial.rightAscensionDeg)
+      const declinationOffsetDeg = sampleEquatorial.declinationDeg - centerEquatorial.declinationDeg
+
+      rightAscensionMinOffsetDeg = Math.min(rightAscensionMinOffsetDeg, rightAscensionOffsetDeg)
+      rightAscensionMaxOffsetDeg = Math.max(rightAscensionMaxOffsetDeg, rightAscensionOffsetDeg)
+      declinationMinOffsetDeg = Math.min(declinationMinOffsetDeg, declinationOffsetDeg)
+      declinationMaxOffsetDeg = Math.max(declinationMaxOffsetDeg, declinationOffsetDeg)
+    }
+  }
+
+  return {
+    centerRightAscensionDeg: centerEquatorial.rightAscensionDeg,
+    centerDeclinationDeg: centerEquatorial.declinationDeg,
+    rightAscensionMinOffsetDeg,
+    rightAscensionMaxOffsetDeg,
+    declinationMinOffsetDeg,
+    declinationMaxOffsetDeg,
+    rightAscensionFovDeg: rightAscensionMaxOffsetDeg - rightAscensionMinOffsetDeg,
+    declinationFovDeg: declinationMaxOffsetDeg - declinationMinOffsetDeg,
+  }
+}
+
 function lookupClosestStepDegrees(steps: readonly number[], targetAngleDeg: number) {
   const targetSplits = 360 / Math.max(targetAngleDeg, 1e-6)
   let closestStep = steps[0]
@@ -206,6 +297,27 @@ function lookupClosestStepDegrees(steps: readonly number[], targetAngleDeg: numb
   })
 
   return closestStep
+}
+
+function coarsenGridStepDegrees(
+  visibleSpanDeg: number,
+  stepDeg: number,
+  majorStepsDeg: readonly number[],
+  maxVisibleLines: number,
+) {
+  const requiredStepDeg = visibleSpanDeg / Math.max(maxVisibleLines, 1)
+
+  if (stepDeg >= requiredStepDeg) {
+    return stepDeg
+  }
+
+  for (const majorStepDeg of majorStepsDeg) {
+    if (majorStepDeg >= requiredStepDeg) {
+      return majorStepDeg
+    }
+  }
+
+  return majorStepsDeg[0] ?? stepDeg
 }
 
 function buildDegreeSamples(startDeg: number, endDeg: number, stepDeg: number) {
@@ -288,8 +400,12 @@ function getCurveSampleStepDegrees(gridStepDeg: number) {
 
 function buildAzimuthalGridLines(
   view: SkyProjectionView,
-  aidVisibility: SkyEngineAidVisibility,
+  enabled: boolean,
 ) {
+  if (!enabled) {
+    return []
+  }
+
   const lines: OverlayLineEntry[] = []
   const viewportRange = estimateAzimuthalViewportRange(view)
   const azimuthTargetStepDeg = Math.min(
@@ -328,40 +444,126 @@ function buildAzimuthalGridLines(
     })
   }
 
-  if (aidVisibility.altitudeRings || aidVisibility.azimuthRing) {
-    const horizonSegments = buildProjectedCurveSegments(
+  const horizonSegments = buildProjectedCurveSegments(
+    view,
+    buildDegreeSamples(azimuthStartOffsetDeg, azimuthEndOffsetDeg, altitudeSampleStepDeg),
+    (azimuthOffsetDeg) => projectHorizontalToViewport(0, wrapDegrees(viewportRange.centerAzimuthDeg + azimuthOffsetDeg), view),
+  )
+  pushSegments('azimuthal-horizon', horizonSegments)
+
+  for (let altitudeDeg = minVisibleAltitudeDeg; altitudeDeg <= maxVisibleAltitudeDeg + 1e-6; altitudeDeg += altitudeStepDeg) {
+    if (Math.abs(altitudeDeg) <= 1e-6) {
+      continue
+    }
+
+    const altitudeSegments = buildProjectedCurveSegments(
       view,
       buildDegreeSamples(azimuthStartOffsetDeg, azimuthEndOffsetDeg, altitudeSampleStepDeg),
-      (azimuthOffsetDeg) => projectHorizontalToViewport(0, wrapDegrees(viewportRange.centerAzimuthDeg + azimuthOffsetDeg), view),
+      (azimuthOffsetDeg) => projectHorizontalToViewport(altitudeDeg, wrapDegrees(viewportRange.centerAzimuthDeg + azimuthOffsetDeg), view),
     )
-    pushSegments('azimuthal-horizon', horizonSegments)
+    pushSegments(`azimuthal-altitude-${altitudeDeg}`, altitudeSegments)
   }
 
-  if (aidVisibility.altitudeRings) {
-    for (let altitudeDeg = minVisibleAltitudeDeg; altitudeDeg <= maxVisibleAltitudeDeg + 1e-6; altitudeDeg += altitudeStepDeg) {
-      if (Math.abs(altitudeDeg) <= 1e-6) {
-        continue
-      }
-
-      const altitudeSegments = buildProjectedCurveSegments(
-        view,
-        buildDegreeSamples(azimuthStartOffsetDeg, azimuthEndOffsetDeg, altitudeSampleStepDeg),
-        (azimuthOffsetDeg) => projectHorizontalToViewport(altitudeDeg, wrapDegrees(viewportRange.centerAzimuthDeg + azimuthOffsetDeg), view),
-      )
-      pushSegments(`azimuthal-altitude-${altitudeDeg}`, altitudeSegments)
-    }
+  for (let azimuthOffsetDeg = azimuthStartOffsetDeg; azimuthOffsetDeg <= azimuthEndOffsetDeg + 1e-6; azimuthOffsetDeg += azimuthStepDeg) {
+    const azimuthDeg = wrapDegrees(viewportRange.centerAzimuthDeg + azimuthOffsetDeg)
+    const meridianSegments = buildProjectedCurveSegments(
+      view,
+      buildDegreeSamples(minVisibleAltitudeDeg, maxVisibleAltitudeDeg, azimuthSampleStepDeg),
+      (altitudeDeg) => projectHorizontalToViewport(altitudeDeg, azimuthDeg, view),
+    )
+    pushSegments(`azimuthal-azimuth-${azimuthDeg}`, meridianSegments)
   }
 
-  if (aidVisibility.azimuthRing) {
-    for (let azimuthOffsetDeg = azimuthStartOffsetDeg; azimuthOffsetDeg <= azimuthEndOffsetDeg + 1e-6; azimuthOffsetDeg += azimuthStepDeg) {
-      const azimuthDeg = wrapDegrees(viewportRange.centerAzimuthDeg + azimuthOffsetDeg)
-      const meridianSegments = buildProjectedCurveSegments(
-        view,
-        buildDegreeSamples(minVisibleAltitudeDeg, maxVisibleAltitudeDeg, azimuthSampleStepDeg),
-        (altitudeDeg) => projectHorizontalToViewport(altitudeDeg, azimuthDeg, view),
-      )
-      pushSegments(`azimuthal-azimuth-${azimuthDeg}`, meridianSegments)
-    }
+  return lines
+}
+
+function buildEquatorialGridLines(
+  view: SkyProjectionView,
+  observer: SkyEngineObserver,
+  timestampIso: string,
+  enabled: boolean,
+) {
+  if (!enabled) {
+    return []
+  }
+
+  const lines: OverlayLineEntry[] = []
+  const viewportRange = estimateEquatorialViewportRange(view, observer, timestampIso)
+  const rightAscensionTargetStepDeg = Math.min(
+    viewportRange.rightAscensionFovDeg / STELLARIUM_AZIMUTHAL_GRID_DIVISIONS,
+    STELLARIUM_AZIMUTHAL_GRID_MAX_STEP_DEG,
+  )
+  const declinationTargetStepDeg = Math.min(
+    viewportRange.declinationFovDeg / STELLARIUM_AZIMUTHAL_GRID_DIVISIONS,
+    STELLARIUM_AZIMUTHAL_GRID_MAX_STEP_DEG,
+  )
+  const baseRightAscensionStepDeg = lookupClosestStepDegrees(STELLARIUM_RIGHT_ASCENSION_STEPS_DEG, rightAscensionTargetStepDeg)
+  const baseDeclinationStepDeg = lookupClosestStepDegrees(STELLARIUM_DECLINATION_STEPS_DEG, declinationTargetStepDeg)
+  const rightAscensionVisibleSpanDeg = viewportRange.rightAscensionFovDeg + baseRightAscensionStepDeg * 2
+  const declinationVisibleSpanDeg = viewportRange.declinationFovDeg + baseDeclinationStepDeg * 2
+  const rightAscensionStepDeg = coarsenGridStepDegrees(
+    rightAscensionVisibleSpanDeg,
+    baseRightAscensionStepDeg,
+    STELLARIUM_EQUATORIAL_RIGHT_ASCENSION_MAJOR_STEPS_DEG,
+    STELLARIUM_EQUATORIAL_MAX_RIGHT_ASCENSION_LINES,
+  )
+  const declinationStepDeg = coarsenGridStepDegrees(
+    declinationVisibleSpanDeg,
+    baseDeclinationStepDeg,
+    STELLARIUM_EQUATORIAL_DECLINATION_MAJOR_STEPS_DEG,
+    STELLARIUM_EQUATORIAL_MAX_DECLINATION_LINES,
+  )
+  const rightAscensionSampleStepDeg = getCurveSampleStepDegrees(rightAscensionStepDeg)
+  const declinationSampleStepDeg = getCurveSampleStepDegrees(declinationStepDeg)
+  const rightAscensionStartOffsetDeg = Math.max(-180, Math.floor((viewportRange.rightAscensionMinOffsetDeg - rightAscensionStepDeg) / rightAscensionStepDeg) * rightAscensionStepDeg)
+  const rightAscensionEndOffsetDeg = Math.min(180, Math.ceil((viewportRange.rightAscensionMaxOffsetDeg + rightAscensionStepDeg) / rightAscensionStepDeg) * rightAscensionStepDeg)
+  const minVisibleDeclinationDeg = clamp(
+    Math.floor((viewportRange.centerDeclinationDeg + viewportRange.declinationMinOffsetDeg - declinationStepDeg) / declinationStepDeg) * declinationStepDeg,
+    -90,
+    90,
+  )
+  const maxVisibleDeclinationDeg = clamp(
+    Math.ceil((viewportRange.centerDeclinationDeg + viewportRange.declinationMaxOffsetDeg + declinationStepDeg) / declinationStepDeg) * declinationStepDeg,
+    -90,
+    90,
+  )
+
+  const projectEquatorialSample = (rightAscensionDeg: number, declinationDeg: number) => {
+    const horizontal = computeHorizontalCoordinates(observer, timestampIso, rightAscensionDeg / 15, declinationDeg)
+    return projectHorizontalToViewport(horizontal.altitudeDeg, horizontal.azimuthDeg, view)
+  }
+
+  const pushSegments = (idPrefix: string, segments: readonly Vector3[][]) => {
+    segments.forEach((points, index) => {
+      lines.push({
+        id: `${idPrefix}-${index}`,
+        points,
+        colorHex: STELLARIUM_EQUATORIAL_GRID_COLOR_HEX,
+        alpha: STELLARIUM_EQUATORIAL_GRID_ALPHA,
+      })
+    })
+  }
+
+  for (let declinationDeg = minVisibleDeclinationDeg; declinationDeg <= maxVisibleDeclinationDeg + 1e-6; declinationDeg += declinationStepDeg) {
+    const declinationSegments = buildProjectedCurveSegments(
+      view,
+      buildDegreeSamples(rightAscensionStartOffsetDeg, rightAscensionEndOffsetDeg, rightAscensionSampleStepDeg),
+      (rightAscensionOffsetDeg) => projectEquatorialSample(
+        wrapDegrees(viewportRange.centerRightAscensionDeg + rightAscensionOffsetDeg),
+        declinationDeg,
+      ),
+    )
+    pushSegments(`equatorial-declination-${declinationDeg}`, declinationSegments)
+  }
+
+  for (let rightAscensionOffsetDeg = rightAscensionStartOffsetDeg; rightAscensionOffsetDeg <= rightAscensionEndOffsetDeg + 1e-6; rightAscensionOffsetDeg += rightAscensionStepDeg) {
+    const rightAscensionDeg = wrapDegrees(viewportRange.centerRightAscensionDeg + rightAscensionOffsetDeg)
+    const rightAscensionSegments = buildProjectedCurveSegments(
+      view,
+      buildDegreeSamples(minVisibleDeclinationDeg, maxVisibleDeclinationDeg, declinationSampleStepDeg),
+      (declinationDeg) => projectEquatorialSample(rightAscensionDeg, declinationDeg),
+    )
+    pushSegments(`equatorial-right-ascension-${rightAscensionDeg}`, rightAscensionSegments)
   }
 
   return lines
@@ -453,10 +655,15 @@ function disposeCardinalMesh(entry: CardinalMeshEntry) {
 
 function prepareAidLines(
   view: SkyProjectionView,
+  observer: SkyEngineObserver,
+  timestampIso: string,
   projectedObjects: readonly OverlayProjectedObjectEntry[],
   aidVisibility: SkyEngineAidVisibility,
 ) {
-  const lines = buildAzimuthalGridLines(view, aidVisibility)
+  const lines = [
+    ...buildAzimuthalGridLines(view, aidVisibility.azimuthRing),
+    ...buildEquatorialGridLines(view, observer, timestampIso, aidVisibility.altitudeRings),
+  ]
   const cardinals: OverlayCardinalEntry[] = []
 
   if (aidVisibility.constellations) {
@@ -493,13 +700,14 @@ function prepareAidLines(
 
 export function prepareDirectOverlayFrame(
   view: SkyProjectionView,
-  _observer: SkyEngineObserver,
+  observer: SkyEngineObserver,
+  timestampIso: string,
   projectedObjects: readonly OverlayProjectedObjectEntry[],
   scenePacket: SkyScenePacket | null,
   selectedObjectId: string | null,
   aidVisibility: SkyEngineAidVisibility,
 ) {
-  const { lines, cardinals, trajectoryObjectId } = prepareAidLines(view, projectedObjects, aidVisibility)
+  const { lines, cardinals, trajectoryObjectId } = prepareAidLines(view, observer, timestampIso, projectedObjects, aidVisibility)
   const packetTextById = new Map((scenePacket?.labels ?? []).map((label) => [label.id, label.text]))
   const labelIds = new Set<string>()
   const labels: OverlayLabelEntry[] = []
