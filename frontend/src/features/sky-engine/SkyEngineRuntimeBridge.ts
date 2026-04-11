@@ -18,9 +18,9 @@ import { createDirectOverlayLayer } from './directOverlayLayer'
 import { createDirectStarLayer } from './directStarLayer'
 import type { SkyScenePacket } from './engine/sky'
 import type { BackendSkySceneStarObject } from '../scene/contracts'
+import type { SkyEngineSnapshotStore } from './SkyEngineSnapshotStore'
 import type {
   SkyEngineAidVisibility,
-  SkyEngineAtmosphereStatus,
   SkyEngineObserver,
   SkyEngineSceneObject,
   SkyEngineSunState,
@@ -41,6 +41,23 @@ import {
 
 export interface SkyEngineSceneProps {
   readonly backendStars: readonly BackendSkySceneStarObject[]
+  readonly initialSceneTimestampIso: string
+  readonly observer: SkyEngineObserver
+  readonly initialViewState: {
+    fovDegrees: number
+    centerAltDeg: number
+    centerAzDeg: number
+  }
+  readonly projectionMode?: SkyProjectionMode
+  readonly repositoryMode: 'mock' | 'hipparcos'
+  readonly snapshotStore: SkyEngineSnapshotStore
+  readonly initialAidVisibility?: SkyEngineAidVisibility
+  readonly debugTelemetryEnabled?: boolean
+}
+
+export interface ScenePropsSnapshot {
+  readonly backendStars: readonly BackendSkySceneStarObject[]
+  readonly initialSceneTimestampIso: string
   readonly observer: SkyEngineObserver
   readonly objects: readonly SkyEngineSceneObject[]
   readonly scenePacket: SkyScenePacket | null
@@ -54,12 +71,9 @@ export interface SkyEngineSceneProps {
   readonly selectedObjectId: string | null
   readonly guidedObjectIds: readonly string[]
   readonly aidVisibility: SkyEngineAidVisibility
+  readonly hiddenSelectionName: string | null
   readonly onSelectObject: (objectId: string | null) => void
-  readonly onAtmosphereStatusChange: (status: SkyEngineAtmosphereStatus) => void
-  readonly onViewStateChange?: (viewState: { fovDegrees: number; centerAltDeg: number; centerAzDeg: number }) => void
 }
-
-export interface ScenePropsSnapshot extends SkyEngineSceneProps {}
 
 export interface SceneRuntimeRefs {
   scene: Scene
@@ -178,19 +192,13 @@ export function createSkySceneRuntimeServices(initialProps: ScenePropsSnapshot):
 export function syncSkySceneRuntimeServices(services: SkySceneRuntimeServices, props: ScenePropsSnapshot) {
   services.observerService.syncObserver(props.observer)
   services.projectionService.syncProjectionMode(props.projectionMode)
-  services.clockService.syncSceneTimestampFromObjects(props.objects)
+  services.clockService.syncBaseTimestamp(props.initialSceneTimestampIso)
 }
 
 export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-scene-runtime-bridge',
     renderOrder: 100,
-    start({ getProps }) {
-      getProps().onAtmosphereStatusChange({
-        mode: 'fallback',
-        message: 'Direct Babylon atmosphere, Milky Way, landscape, object, aid, trajectory, and label rendering is active with a bounded density-star canvas fallback.',
-      })
-    },
     update({ runtime, services, getProps, deltaSeconds, markFrameDirty }) {
       const latest = getProps()
       services.navigationService.syncSelection(

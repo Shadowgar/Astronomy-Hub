@@ -1,4 +1,4 @@
-import React, { Profiler, startTransition, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type ProfilerOnRenderCallback } from 'react'
+import React, { Profiler, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type ProfilerOnRenderCallback } from 'react'
 import { Link } from 'react-router-dom'
 
 import {
@@ -8,19 +8,18 @@ import {
   rankGuidanceTargets,
 } from '../features/sky-engine/astronomy'
 import {
-  assembleSkyScenePacket,
-  buildSkyEngineQuery,
-  fileBackedSkyTileRepository,
-  formatSkyDiagnosticsSummary,
-  mockSkyTileRepository,
   resolveSkyTileRepositoryMode,
-  unitVectorToHorizontalCoordinates,
 } from '../features/sky-engine/engine/sky'
 import {
   SKY_ENGINE_LOCAL_TIME_ZONE,
+  SKY_ENGINE_MAX_SCENE_OFFSET_SECONDS,
   SKY_ENGINE_PLAYBACK_RATE_OPTIONS,
   SKY_ENGINE_TIME_SCALE_OPTIONS,
-  useSkyEngineSceneTime,
+  formatSceneLocalTimestamp,
+  formatSceneOffset,
+  formatSceneScaleOffset,
+  getPlaybackRateLabel,
+  type SkyEngineTimeScaleId,
 } from '../features/sky-engine/sceneTime'
 import {
   createSkyBackendTileManifestState,
@@ -28,7 +27,9 @@ import {
   resolveSkyBackendTileRegistry,
   type SkyBackendTileManifestState,
 } from '../features/sky-engine/backendTileRegistry'
-import { computeSunState } from '../features/sky-engine/solar'
+import { useSkyEngineSnapshot, createSkyEngineSnapshotStore } from '../features/sky-engine/SkyEngineSnapshotStore'
+import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
+import SkyEngineScene, { type SkyEngineSceneHandle } from '../features/sky-engine/SkyEngineScene'
 import { useSceneByScopeDataQuery, useSkyStarTileManifestDataQuery } from '../features/scene/queries'
 import {
   isFiniteNumber,
@@ -36,23 +37,12 @@ import {
   parseBackendSkyStarTileManifestPayload,
   type BackendSkyScenePayload,
 } from '../features/scene/contracts'
-import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
-import SkyEngineScene from '../features/sky-engine/SkyEngineScene'
-import { resolveStarColorHex } from '../features/sky-engine/starRenderer'
-import type { SkyEngineSceneObject } from '../features/sky-engine/types'
-import { useSkyEngineSelection } from '../features/sky-engine/useSkyEngineSelection'
-import type { SkyTileRepositoryLoadResult } from '../features/sky-engine/engine/sky'
+import type { SkyEngineAidVisibility, SkyEngineGuidanceTarget, SkyEngineSceneObject } from '../features/sky-engine/types'
+
+const DEBUG_TELEMETRY_QUERY_PARAM = 'debugTelemetry'
 
 function phaseModifier(phaseLabel: string) {
   return phaseLabel.toLowerCase().split(' ').join('-')
-}
-
-function getPlaybackButtonLabel(playbackValue: number, isPlaying: boolean, label: string) {
-  if (playbackValue === 0) {
-    return isPlaying ? 'Pause' : 'Play'
-  }
-
-  return label
 }
 
 function formatDisplayedFov(fovDegrees: number) {
@@ -71,33 +61,12 @@ function formatDisplayedFov(fovDegrees: number) {
   return `${fovDegrees.toFixed(4)}°`
 }
 
-async function loadSkyRuntimeTiles(
-  repositoryMode: 'mock' | 'hipparcos',
-  query: Parameters<typeof mockSkyTileRepository.loadTiles>[0],
-): Promise<SkyTileRepositoryLoadResult> {
-  const preferredRepository = repositoryMode === 'hipparcos' ? fileBackedSkyTileRepository : mockSkyTileRepository
-
-  try {
-    return await preferredRepository.loadTiles(query)
-  } catch (error) {
-    const fallbackResult = await mockSkyTileRepository.loadTiles(query)
-    return {
-      ...fallbackResult,
-      sourceLabel: repositoryMode === 'hipparcos' ? 'Mock fallback' : fallbackResult.sourceLabel,
-      sourceError: error instanceof Error ? error.message : String(error),
-    }
-  }
-}
-
-function resolveRuntimeModeLabel(
-  diagnosticsMode: SkyTileRepositoryLoadResult['mode'] | undefined,
-  repositoryMode: 'mock' | 'hipparcos',
-) {
-  if (diagnosticsMode === 'hipparcos') {
+function resolveRuntimeModeLabel(mode: 'mock' | 'hipparcos' | 'loading') {
+  if (mode === 'hipparcos') {
     return 'Hipparcos'
   }
 
-  if (diagnosticsMode === 'mock' || repositoryMode === 'mock') {
+  if (mode === 'mock') {
     return 'Mock'
   }
 
@@ -129,6 +98,25 @@ function buildBackendViewState(scene: BackendSkyScenePayload) {
   }
 }
 
+function resolveDebugTelemetryEnabled() {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
+  return new URLSearchParams(window.location.search).get(DEBUG_TELEMETRY_QUERY_PARAM) === '1'
+}
+
+function computeSceneOffsetSeconds(baseTimestampIso: string, snapshotTimestampIso: string) {
+  const baseTimestampMs = Date.parse(baseTimestampIso)
+  const snapshotTimestampMs = Date.parse(snapshotTimestampIso)
+
+  if (Number.isNaN(baseTimestampMs) || Number.isNaN(snapshotTimestampMs)) {
+    return 0
+  }
+
+  return Math.round((snapshotTimestampMs - baseTimestampMs) / 1000)
+}
+
 type SkyEngineOwnershipStateProps = {
   title: string
   detail: string
@@ -144,30 +132,8 @@ type SkyEngineUiPerfState = {
   reactFrameMaxMs: number
   uiFrameMs: number
   uiFrameMaxMs: number
-  domLayoutProbeMs: number
-  domLayoutProbeMaxMs: number
   overlayMutationCount: number
-  longTaskCount: number
-  longTaskTotalMs: number
-  layoutShiftCount: number
-  layoutShiftTotal: number
   sampleCount: number
-}
-
-type SkyEngineViewState = {
-  fovDegrees: number
-  centerAltDeg: number
-  centerAzDeg: number
-}
-
-const SKY_ENGINE_UI_CADENCE_MS = 150
-
-function areViewStatesEqual(left: SkyEngineViewState, right: SkyEngineViewState) {
-  return (
-    left.fovDegrees === right.fovDegrees &&
-    left.centerAltDeg === right.centerAltDeg &&
-    left.centerAzDeg === right.centerAzDeg
-  )
 }
 
 function createSkyEngineUiPerfState(): SkyEngineUiPerfState {
@@ -181,13 +147,7 @@ function createSkyEngineUiPerfState(): SkyEngineUiPerfState {
     reactFrameMaxMs: 0,
     uiFrameMs: 0,
     uiFrameMaxMs: 0,
-    domLayoutProbeMs: 0,
-    domLayoutProbeMaxMs: 0,
     overlayMutationCount: 0,
-    longTaskCount: 0,
-    longTaskTotalMs: 0,
-    layoutShiftCount: 0,
-    layoutShiftTotal: 0,
     sampleCount: 0,
   }
 }
@@ -243,24 +203,21 @@ function SkyEngineOwnershipState({ title, detail }: Readonly<SkyEngineOwnershipS
 
 function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: BackendSkyScenePayload }>) {
   const rootRef = useRef<HTMLDivElement | null>(null)
+  const sceneRef = useRef<SkyEngineSceneHandle | null>(null)
   const uiPerfRef = useRef<SkyEngineUiPerfState>(createSkyEngineUiPerfState())
-  const uiPerfPublishRef = useRef({
-    lastPublishAtMs: 0,
-    lastPayload: '',
-  })
-  const viewStateCadenceRef = useRef<{
-    lastPublishAtMs: number
-    pending: SkyEngineViewState | null
-    timeoutHandle: number | null
-  }>({
-    lastPublishAtMs: 0,
-    pending: null,
-    timeoutHandle: null,
-  })
-  const sceneTime = useSkyEngineSceneTime()
+  const snapshotStore = useMemo(() => createSkyEngineSnapshotStore(), [])
+  const debugTelemetryEnabled = useMemo(() => resolveDebugTelemetryEnabled(), [])
+  const snapshot = useSkyEngineSnapshot(snapshotStore)
   const skyStarTileManifestQuery = useSkyStarTileManifestDataQuery({ at: backendScene.timestamp })
   const [repositoryMode] = useState(() => resolveSkyTileRepositoryMode())
   const [searchQuery, setSearchQuery] = useState('')
+  const [timeScaleId, setTimeScaleId] = useState<SkyEngineTimeScaleId>('minutes')
+  const [aidVisibility, setAidVisibility] = useState<SkyEngineAidVisibility>({
+    constellations: true,
+    azimuthRing: true,
+    altitudeRings: true,
+  })
+  const [inspectorOpen, setInspectorOpen] = useState(false)
   const deferredSearchQuery = useDeferredValue(searchQuery)
   const observer = useMemo(() => convertBackendObserver(backendScene), [backendScene])
   const backendSceneStars = useMemo(
@@ -274,361 +231,34 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   const [tileManifestState, setTileManifestState] = useState<SkyBackendTileManifestState>(() =>
     createSkyBackendTileManifestState(backendTileManifest),
   )
+
   useEffect(() => {
     setTileManifestState(createSkyBackendTileManifestState(backendTileManifest))
   }, [backendTileManifest])
+
   const resolvedTileRegistry = useMemo(
     () => resolveSkyBackendTileRegistry(tileManifestState, backendSceneStars),
     [backendSceneStars, tileManifestState],
-  )
-  const tier1ResolvedStarCount = useMemo(
-    () => resolvedTileRegistry.tiles.find((tile) => tile.lookup_key === 'sky:tier1:tier1-bright-stars')?.resolvedObjectCount ?? 0,
-    [resolvedTileRegistry],
-  )
-  const tier2ResolvedStarCount = useMemo(
-    () => resolvedTileRegistry.tiles.find((tile) => tile.lookup_key === 'sky:tier2:mid-stars')?.resolvedObjectCount ?? 0,
-    [resolvedTileRegistry],
   )
   const resolvedBackendTileStars = useMemo(
     () => flattenResolvedSkyBackendTileRegistry(resolvedTileRegistry),
     [resolvedTileRegistry],
   )
-  const backendTileStarSceneObjects = useMemo(
-    () => computeBackendStarSceneObjects(observer, sceneTime.sceneTimestampIso, resolvedBackendTileStars),
-    [observer, resolvedBackendTileStars, sceneTime.sceneTimestampIso],
-  )
-  const [viewState, setViewState] = useState<SkyEngineViewState>(() => buildBackendViewState(backendScene))
-  const [aidVisibility, setAidVisibility] = useState({
-    constellations: true,
-    azimuthRing: true,
-    altitudeRings: true,
-  })
-  const [inspectorOpen, setInspectorOpen] = useState(false)
-  const [tileLoadResult, setTileLoadResult] = useState<SkyTileRepositoryLoadResult | null>(null)
-
-  const publishUiPerfMetrics = useCallback((force = false) => {
-    const root = rootRef.current
-
-    if (!root) {
-      return
-    }
-
-    const metrics = uiPerfRef.current
-    const meanReactCommitMs = metrics.reactCommitCount > 0
-      ? metrics.reactActualDurationTotalMs / metrics.reactCommitCount
-      : 0
-
-    const nextPayload = JSON.stringify({
-      reactCommitCount: metrics.reactCommitCount,
-      reactLastCommitMs: metrics.reactLastCommitMs,
-      reactMeanCommitMs: meanReactCommitMs,
-      reactMaxCommitMs: metrics.reactMaxCommitMs,
-      reactFrameMs: metrics.reactFrameDurationMs,
-      reactFrameMaxMs: metrics.reactFrameMaxMs,
-      uiFrameMs: metrics.uiFrameMs,
-      uiFrameMaxMs: metrics.uiFrameMaxMs,
-      domLayoutProbeMs: metrics.domLayoutProbeMs,
-      domLayoutProbeMaxMs: metrics.domLayoutProbeMaxMs,
-      overlayMutationCount: metrics.overlayMutationCount,
-      longTaskCount: metrics.longTaskCount,
-      longTaskTotalMs: metrics.longTaskTotalMs,
-      layoutShiftCount: metrics.layoutShiftCount,
-      layoutShiftTotal: metrics.layoutShiftTotal,
-      sampleCount: metrics.sampleCount,
-    })
-    const publishState = uiPerfPublishRef.current
-    const nowMs = performance.now()
-
-    if (!force && nowMs - publishState.lastPublishAtMs < SKY_ENGINE_UI_CADENCE_MS) {
-      return
-    }
-
-    if (publishState.lastPayload === nextPayload) {
-      return
-    }
-
-    publishState.lastPublishAtMs = nowMs
-    publishState.lastPayload = nextPayload
-    root.setAttribute('data-sky-engine-ui-perf', nextPayload)
-  }, [])
-  const sunState = useMemo(
-    () => computeSunState(observer, sceneTime.sceneTimestampIso),
-    [observer, sceneTime.sceneTimestampIso],
-  )
-  const moonObject = useMemo(
-    () => computeMoonSceneObject(observer, sceneTime.sceneTimestampIso),
-    [observer, sceneTime.sceneTimestampIso],
-  )
-  const computedPlanetObjects = useMemo(
-    () => computePlanetSceneObjects(observer, sceneTime.sceneTimestampIso),
-    [observer, sceneTime.sceneTimestampIso],
-  )
-
-  const observerSnapshot = useMemo(
-    () => ({
-      timestampUtc: sceneTime.sceneTimestampIso,
-      latitudeDeg: observer.latitude,
-      longitudeDeg: observer.longitude,
-      elevationM: observer.elevationFt * 0.3048,
-      fovDeg: viewState.fovDegrees,
-      centerAltDeg: viewState.centerAltDeg,
-      centerAzDeg: viewState.centerAzDeg,
-      projection: backendScene.scene_state.projection,
-    }),
-    [backendScene.scene_state.projection, observer.elevationFt, observer.latitude, observer.longitude, sceneTime.sceneTimestampIso, viewState.centerAltDeg, viewState.centerAzDeg, viewState.fovDegrees],
-  )
-  const skyEngineQuery = useMemo(
-    () => buildSkyEngineQuery(observerSnapshot),
-    [observerSnapshot],
-  )
-  useEffect(() => {
-    let cancelled = false
-
-    async function loadTiles() {
-      const result = await loadSkyRuntimeTiles(repositoryMode, skyEngineQuery)
-
-      if (!cancelled) {
-        setTileLoadResult(result)
-      }
-    }
-
-    void loadTiles()
-
-    return () => {
-      cancelled = true
-    }
-  }, [repositoryMode, skyEngineQuery])
-
-  const runtimeTiles = tileLoadResult?.tiles ?? []
-  const skyScenePacket = useMemo(
-    () => (tileLoadResult ? assembleSkyScenePacket(skyEngineQuery, runtimeTiles, tileLoadResult) : null),
-    [runtimeTiles, skyEngineQuery, tileLoadResult],
-  )
-  const runtimeStarMetadata = useMemo(() => {
-    const metadata = new Map<string, { tileId: string; star: (typeof runtimeTiles)[number]['stars'][number] }>()
-
-    runtimeTiles.forEach((tile) => {
-      tile.stars.forEach((star) => {
-        if (!metadata.has(star.id)) {
-          metadata.set(star.id, { tileId: tile.tileId, star })
-        }
-      })
-    })
-
-    return metadata
-  }, [runtimeTiles])
-  const engineStarSceneObjects = useMemo<readonly SkyEngineSceneObject[]>(
-    () => (skyScenePacket?.stars ?? []).map((star) => {
-      const metadata = runtimeStarMetadata.get(star.id)
-      const runtimeStar = metadata?.star
-      const horizontalCoordinates = unitVectorToHorizontalCoordinates({ x: star.x, y: star.y, z: star.z })
-      const isHipparcosMode = tileLoadResult?.mode === 'hipparcos'
-      const displayName = runtimeStar?.properName ?? runtimeStar?.bayer ?? runtimeStar?.flamsteed ?? runtimeStar?.sourceId ?? star.label ?? star.id
-      const tileSourceLabel = metadata?.star.sourceId ?? metadata?.tileId ?? 'unknown-tile'
-
-      return {
-        id: star.id,
-        name: displayName,
-        type: 'star',
-        altitudeDeg: horizontalCoordinates.altitudeDeg,
-        azimuthDeg: horizontalCoordinates.azimuthDeg,
-        magnitude: star.mag,
-        colorHex: resolveStarColorHex(runtimeStar?.colorIndex ?? star.colorIndex),
-        summary: isHipparcosMode
-          ? `Hipparcos ${star.tier} star streamed from the generated runtime tile assets.`
-          : `Mock ${star.tier} star resolved from the in-memory sky tile repository.`,
-        description: isHipparcosMode
-          ? `Loaded from ${metadata?.tileId ?? 'unknown-tile'} and emitted through the Sky Engine scene packet from offline-generated Hipparcos runtime assets.`
-          : `Loaded from ${metadata?.tileId ?? 'unknown-tile'} and emitted through the Sky Engine scene packet for the active observer snapshot.`,
-        truthNote: isHipparcosMode
-          ? `Engine-owned Hipparcos tile data drives this star. Source: ${tileSourceLabel}.`
-          : 'Engine-owned mock tile data drives this star. No raw catalog ingestion or backend data source is involved in this slice.',
-        source: isHipparcosMode ? 'engine_hipparcos_tile' : 'engine_mock_tile',
-        trackingMode: 'fixed_equatorial',
-        rightAscensionHours: runtimeStar ? runtimeStar.raDeg / 15 : undefined,
-        declinationDeg: runtimeStar?.decDeg,
-        colorIndexBV: runtimeStar?.colorIndex ?? star.colorIndex,
-        timestampIso: sceneTime.sceneTimestampIso,
-        isAboveHorizon: horizontalCoordinates.isAboveHorizon,
-      }
-    }),
-    [runtimeStarMetadata, sceneTime.sceneTimestampIso, skyScenePacket, tileLoadResult?.mode],
-  )
-  const computedVisibleObjects = useMemo(
-    () => [...computedPlanetObjects, moonObject],
-    [computedPlanetObjects, moonObject],
-  )
-  const nonStarVisibleObjects = useMemo(
-    () => computedVisibleObjects.filter((object) => object.type !== 'star'),
-    [computedVisibleObjects],
-  )
-  const activeStarSceneObjects = useMemo(() => {
-    const mergedStars = new Map<string, SkyEngineSceneObject>()
-
-    if (backendSceneStars.length > 0) {
-      backendTileStarSceneObjects.forEach((star) => {
-        mergedStars.set(star.id, star)
-      })
-    }
-
-    engineStarSceneObjects.forEach((star) => {
-      if (!mergedStars.has(star.id)) {
-        mergedStars.set(star.id, star)
-      }
-    })
-
-    return Array.from(mergedStars.values())
-  }, [backendSceneStars.length, backendTileStarSceneObjects, engineStarSceneObjects])
-  const baseSceneObjects = useMemo(
-    () => [...activeStarSceneObjects, ...nonStarVisibleObjects],
-    [activeStarSceneObjects, nonStarVisibleObjects],
-  )
-  const guidanceTargets = useMemo(
-    () => rankGuidanceTargets(baseSceneObjects, 5),
-    [baseSceneObjects],
-  )
-  const guidanceLookup = useMemo(
-    () => new Map(guidanceTargets.map((target, index) => [target.objectId, { ...target, tier: index < 2 ? 'featured' as const : 'guide' as const }])),
-    [guidanceTargets],
-  )
-  const sceneObjects = useMemo(
-    () => baseSceneObjects.map((object) => {
-      const guidance = guidanceLookup.get(object.id)
-
-      if (!guidance) {
-        return object
-      }
-
-      return {
-        ...object,
-        guidanceScore: guidance.score,
-        guidanceTier: guidance.tier,
-      }
-    }),
-    [baseSceneObjects, guidanceLookup],
-  )
-  const selection = useSkyEngineSelection(sceneObjects)
-  const guidedObjectIds = useMemo(
-    () => guidanceTargets.map((target) => target.objectId),
-    [guidanceTargets],
-  )
-  const diagnostics = skyScenePacket?.diagnostics ?? null
-  const selectedTargetName = selection.selectedObject?.name ?? 'Ready to inspect'
-  const fallbackActive = Boolean(diagnostics?.sourceError)
-  const runtimeSourceLabel = diagnostics?.sourceLabel
-    ?? (repositoryMode === 'hipparcos' ? 'Hipparcos loading…' : 'Mock tile repository')
-
-  useEffect(() => {
-    if (!backendTileManifest) {
-      return
-    }
-
-    console.info('[SkyEngine][tiles] manifest received', {
-      generatedAt: tileManifestState.metadata.generatedAt,
-      manifestVersion: tileManifestState.metadata.manifestVersion,
-      tier: tileManifestState.tier,
-      tiles: tileManifestState.tiles.map((tile) => ({
-        tileId: tile.tile_id,
-        lookupKey: tile.lookup_key,
-        objectCount: tile.object_count,
-        source: tile.source,
-      })),
-    })
-  }, [backendTileManifest, tileManifestState])
-
-  useEffect(() => {
-    if (resolvedTileRegistry.tiles.length === 0) {
-      return
-    }
-
-    console.info('[SkyEngine][tiles] tiles resolved', {
-      tier: resolvedTileRegistry.tier,
-      tier1ResolvedStarCount,
-      tier2ResolvedStarCount,
-      totalResolvedStars: resolvedTileRegistry.totalResolvedStars,
-      tiles: resolvedTileRegistry.tiles.map((tile) => ({
-        tileId: tile.tile_id,
-        lookupKey: tile.lookup_key,
-        resolvedObjectCount: tile.resolvedObjectCount,
-      })),
-    })
-  }, [resolvedTileRegistry, tier1ResolvedStarCount, tier2ResolvedStarCount])
-
-  useEffect(() => {
-    if (backendSceneStars.length === 0) {
-      return
-    }
-
-    console.info('[SkyEngine][tiles] stars loaded via tile pipeline', {
-      tier1Count: tier1ResolvedStarCount,
-      tier2Count: tier2ResolvedStarCount,
-      resolvedStarCount: resolvedBackendTileStars.length,
-      renderedStarCount: activeStarSceneObjects.length,
-      manifestTileCount: tileManifestState.tiles.length,
-    })
-  }, [activeStarSceneObjects.length, backendSceneStars.length, resolvedBackendTileStars.length, tier1ResolvedStarCount, tier2ResolvedStarCount, tileManifestState.tiles.length])
-
-  useEffect(() => {
-    setViewState((currentViewState) => {
-      const nextViewState = buildBackendViewState(backendScene)
-
-      if (areViewStatesEqual(currentViewState, nextViewState)) {
-        return currentViewState
-      }
-
-      return nextViewState
-    })
-  }, [backendScene])
-
-  useEffect(() => {
-    if (selection.selectionStatus === 'active' || selection.selectionStatus === 'hidden') {
-      setInspectorOpen(true)
-    }
-  }, [selection.selectionStatus])
-
-  const handleAtmosphereStatusChange = useCallback(() => undefined, [])
-  const flushViewState = useCallback(function flushPendingViewState(force = false) {
-    const cadenceState = viewStateCadenceRef.current
-    const nextViewState = cadenceState.pending
-
-    if (!nextViewState) {
-      return
-    }
-
-    const nowMs = performance.now()
-    const timeUntilNextPublishMs = SKY_ENGINE_UI_CADENCE_MS - (nowMs - cadenceState.lastPublishAtMs)
-
-    if (!force && timeUntilNextPublishMs > 0) {
-      if (cadenceState.timeoutHandle === null) {
-        cadenceState.timeoutHandle = window.setTimeout(() => {
-          cadenceState.timeoutHandle = null
-          flushPendingViewState(true)
-        }, timeUntilNextPublishMs)
-      }
-
-      return
-    }
-
-    cadenceState.lastPublishAtMs = nowMs
-    cadenceState.pending = null
-
-    if (cadenceState.timeoutHandle !== null) {
-      window.clearTimeout(cadenceState.timeoutHandle)
-      cadenceState.timeoutHandle = null
-    }
-
-    startTransition(() => {
-      setViewState((currentViewState) => (areViewStatesEqual(currentViewState, nextViewState) ? currentViewState : nextViewState))
-    })
-  }, [])
-  const handleViewStateChange = useCallback((nextViewState: SkyEngineViewState) => {
-    viewStateCadenceRef.current.pending = nextViewState
-    flushViewState(false)
-  }, [flushViewState])
-  const phaseBandState = sunState.phaseLabel === 'Low Sun' ? 'Twilight' : sunState.phaseLabel
+  const initialStaticObjects = useMemo(() => {
+    const sceneTimestampIso = backendScene.timestamp
+    return [
+      ...computeBackendStarSceneObjects(observer, sceneTimestampIso, resolvedBackendTileStars),
+      ...computePlanetSceneObjects(observer, sceneTimestampIso),
+      computeMoonSceneObject(observer, sceneTimestampIso),
+    ]
+  }, [backendScene.timestamp, observer, resolvedBackendTileStars])
   const searchableSceneObjects = useMemo(
-    () => [...sceneObjects].sort((left, right) => left.name.localeCompare(right.name)),
-    [sceneObjects],
+    () => [...initialStaticObjects].sort((left, right) => left.name.localeCompare(right.name)),
+    [initialStaticObjects],
+  )
+  const guidanceTargets = useMemo<readonly SkyEngineGuidanceTarget[]>(
+    () => rankGuidanceTargets(initialStaticObjects, 5),
+    [initialStaticObjects],
   )
   const matchingSearchObjects = useMemo(() => {
     const normalizedQuery = deferredSearchQuery.trim().toLowerCase()
@@ -641,33 +271,65 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
       .filter((object) => object.name.toLowerCase().includes(normalizedQuery))
       .slice(0, 10)
   }, [deferredSearchQuery, searchableSceneObjects])
+  const sceneOffsetSeconds = useMemo(
+    () => computeSceneOffsetSeconds(backendScene.timestamp, snapshot.timestampIso),
+    [backendScene.timestamp, snapshot.timestampIso],
+  )
+  const formattedSceneLocalTimestamp = useMemo(
+    () => formatSceneLocalTimestamp(snapshot.timestampIso),
+    [snapshot.timestampIso],
+  )
+  const formattedSceneOffset = useMemo(
+    () => formatSceneOffset(sceneOffsetSeconds),
+    [sceneOffsetSeconds],
+  )
+  const formattedScaleOffset = useMemo(
+    () => formatSceneScaleOffset(sceneOffsetSeconds, timeScaleId),
+    [sceneOffsetSeconds, timeScaleId],
+  )
+  const playbackRateLabel = useMemo(
+    () => getPlaybackRateLabel(snapshot.summary.playbackRate),
+    [snapshot.summary.playbackRate],
+  )
+  const phaseBandState = snapshot.summary.phaseLabel === 'Low Sun' ? 'Twilight' : snapshot.summary.phaseLabel
 
-  const toggleAid = useCallback((key: 'constellations' | 'azimuthRing' | 'altitudeRings') => {
-    setAidVisibility((currentVisibility) => ({
-      ...currentVisibility,
-      [key]: !currentVisibility[key],
-    }))
-  }, [])
+  useEffect(() => {
+    if (snapshot.selection.status === 'active' || snapshot.selection.status === 'hidden') {
+      setInspectorOpen(true)
+    }
+  }, [snapshot.selection.status])
 
-  const selectObjectFromSearch = useCallback((query: string) => {
-    const normalizedQuery = query.trim().toLowerCase()
+  const publishUiPerfMetrics = useCallback(() => {
+    const root = rootRef.current
 
-    if (!normalizedQuery) {
+    if (!debugTelemetryEnabled || !root) {
       return
     }
 
-    const nextObject = searchableSceneObjects.find((object) => object.name.toLowerCase() === normalizedQuery)
-      ?? searchableSceneObjects.find((object) => object.name.toLowerCase().includes(normalizedQuery))
+    const metrics = uiPerfRef.current
+    const meanReactCommitMs = metrics.reactCommitCount > 0
+      ? metrics.reactActualDurationTotalMs / metrics.reactCommitCount
+      : 0
 
-    if (!nextObject) {
-      return
-    }
-
-    selection.selectObject(nextObject.id)
-    setSearchQuery(nextObject.name)
-  }, [searchableSceneObjects, selection])
+    root.dataset.skyEngineUiPerf = JSON.stringify({
+      reactCommitCount: metrics.reactCommitCount,
+      reactLastCommitMs: metrics.reactLastCommitMs,
+      reactMeanCommitMs: meanReactCommitMs,
+      reactMaxCommitMs: metrics.reactMaxCommitMs,
+      reactFrameMs: metrics.reactFrameDurationMs,
+      reactFrameMaxMs: metrics.reactFrameMaxMs,
+      uiFrameMs: metrics.uiFrameMs,
+      uiFrameMaxMs: metrics.uiFrameMaxMs,
+      overlayMutationCount: metrics.overlayMutationCount,
+      sampleCount: metrics.sampleCount,
+    })
+  }, [debugTelemetryEnabled])
 
   const handleUiProfilerRender = useCallback<ProfilerOnRenderCallback>((_id, _phase, actualDuration) => {
+    if (!debugTelemetryEnabled) {
+      return
+    }
+
     const metrics = uiPerfRef.current
     metrics.reactCommitCount += 1
     metrics.reactActualDurationTotalMs += actualDuration
@@ -675,31 +337,24 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     metrics.reactMaxCommitMs = Math.max(metrics.reactMaxCommitMs, actualDuration)
     metrics.pendingReactDurationMs += actualDuration
     metrics.sampleCount += 1
-
-    if (metrics.reactCommitCount % 10 === 0 && rootRef.current) {
-      const layoutProbeStartMs = performance.now()
-      rootRef.current.getBoundingClientRect()
-      rootRef.current.querySelectorAll('.sky-engine-page__overlay').forEach((overlayElement) => {
-        overlayElement.getBoundingClientRect()
-      })
-      const layoutProbeMs = performance.now() - layoutProbeStartMs
-      metrics.domLayoutProbeMs = layoutProbeMs
-      metrics.domLayoutProbeMaxMs = Math.max(metrics.domLayoutProbeMaxMs, layoutProbeMs)
-    }
-
     publishUiPerfMetrics()
-  }, [publishUiPerfMetrics])
+  }, [debugTelemetryEnabled, publishUiPerfMetrics])
 
   useEffect(() => {
+    if (!debugTelemetryEnabled) {
+      return undefined
+    }
+
     const root = rootRef.current
     if (!root) {
       return undefined
     }
 
-    const observer = new MutationObserver((mutations) => {
+    const observerInstance = new MutationObserver((mutations) => {
       uiPerfRef.current.overlayMutationCount += mutations.length
     })
-    observer.observe(root, {
+
+    observerInstance.observe(root, {
       subtree: true,
       childList: true,
       attributes: true,
@@ -707,51 +362,15 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     })
 
     return () => {
-      observer.disconnect()
+      observerInstance.disconnect()
     }
-  }, [])
+  }, [debugTelemetryEnabled])
 
   useEffect(() => {
-    const observer = typeof PerformanceObserver !== 'undefined' && PerformanceObserver.supportedEntryTypes?.includes('longtask')
-      ? new PerformanceObserver((list) => {
-          const metrics = uiPerfRef.current
-          list.getEntries().forEach((entry) => {
-            metrics.longTaskCount += 1
-            metrics.longTaskTotalMs += entry.duration
-          })
-        })
-      : null
-
-    observer?.observe({ entryTypes: ['longtask'] })
-
-    return () => {
-      observer?.disconnect()
+    if (!debugTelemetryEnabled) {
+      return undefined
     }
-  }, [])
 
-  useEffect(() => {
-    const observer = typeof PerformanceObserver !== 'undefined' && PerformanceObserver.supportedEntryTypes?.includes('layout-shift')
-      ? new PerformanceObserver((list) => {
-          const metrics = uiPerfRef.current
-          list.getEntries().forEach((entry) => {
-            const shift = entry as PerformanceEntry & { value?: number; hadRecentInput?: boolean }
-            if (shift.hadRecentInput) {
-              return
-            }
-            metrics.layoutShiftCount += 1
-            metrics.layoutShiftTotal += shift.value ?? 0
-          })
-        })
-      : null
-
-    observer?.observe({ entryTypes: ['layout-shift'] })
-
-    return () => {
-      observer?.disconnect()
-    }
-  }, [])
-
-  useEffect(() => {
     let frameHandle = 0
     let lastFrameTime = performance.now()
 
@@ -773,25 +392,46 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     return () => {
       cancelAnimationFrame(frameHandle)
     }
-  }, [publishUiPerfMetrics])
+  }, [debugTelemetryEnabled, publishUiPerfMetrics])
 
   useEffect(() => () => {
-    const cadenceState = viewStateCadenceRef.current
-
-    if (cadenceState.timeoutHandle !== null) {
-      window.clearTimeout(cadenceState.timeoutHandle)
-      cadenceState.timeoutHandle = null
+    if (rootRef.current) {
+      delete rootRef.current.dataset.skyEngineUiPerf
     }
   }, [])
 
-  useEffect(() => () => {
-    rootRef.current?.removeAttribute('data-sky-engine-ui-perf')
+  const selectObjectFromSearch = useCallback((query: string) => {
+    const normalizedQuery = query.trim().toLowerCase()
+
+    if (!normalizedQuery) {
+      return
+    }
+
+    const nextObject = searchableSceneObjects.find((object) => object.name.toLowerCase() === normalizedQuery)
+      ?? searchableSceneObjects.find((object) => object.name.toLowerCase().includes(normalizedQuery))
+
+    if (!nextObject) {
+      return
+    }
+
+    sceneRef.current?.selectObject(nextObject.id)
+    setSearchQuery(nextObject.name)
+  }, [searchableSceneObjects])
+
+  const toggleAid = useCallback((key: keyof SkyEngineAidVisibility) => {
+    setAidVisibility((currentVisibility) => {
+      const nextVisibility = {
+        ...currentVisibility,
+        [key]: !currentVisibility[key],
+      }
+      sceneRef.current?.setAidVisibility(nextVisibility)
+      return nextVisibility
+    })
   }, [])
 
-  return (
-    <Profiler id="sky-engine-page-content" onRender={handleUiProfilerRender}>
-      <div ref={rootRef} className="sky-engine-page sky-engine-page--immersive">
-        <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
+  const pageBody = (
+    <div ref={rootRef} className="sky-engine-page sky-engine-page--immersive">
+      <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
         <SkyEngineHubShell />
         <SkyEngineScene
           key={[
@@ -802,19 +442,16 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
             backendScene.scene_state.center_az_deg,
             backendScene.scene_state.fov_deg,
           ].join(':')}
+          ref={sceneRef}
           backendStars={resolvedBackendTileStars}
+          initialSceneTimestampIso={backendScene.timestamp}
           observer={observer}
-          objects={sceneObjects}
-          scenePacket={skyScenePacket}
           initialViewState={buildBackendViewState(backendScene)}
-          projectionMode={observerSnapshot.projection}
-          sunState={sunState}
-          selectedObjectId={selection.selectedObjectId}
-          guidedObjectIds={guidedObjectIds}
-          aidVisibility={aidVisibility}
-          onSelectObject={selection.selectObject}
-          onAtmosphereStatusChange={handleAtmosphereStatusChange}
-          onViewStateChange={handleViewStateChange}
+          projectionMode={backendScene.scene_state.projection}
+          repositoryMode={repositoryMode}
+          snapshotStore={snapshotStore}
+          initialAidVisibility={aidVisibility}
+          debugTelemetryEnabled={debugTelemetryEnabled}
         />
 
         <div className="sky-engine-page__overlay sky-engine-page__overlay--top-bar">
@@ -833,7 +470,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
               <button
                 type="button"
                 className="sky-engine-page__time-reset sky-engine-page__time-reset--top"
-                onClick={sceneTime.resetSceneTime}
+                onClick={() => sceneRef.current?.resetSceneTime()}
               >
                 Reset
               </button>
@@ -867,29 +504,29 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
             <div className="sky-engine-page__top-bar-meta">
               <div className="sky-engine-page__status-pill">
                 <span className="sky-engine-page__top-bar-label">Data</span>
-                <strong>{resolveRuntimeModeLabel(diagnostics?.dataMode, repositoryMode)}</strong>
+                <strong>{resolveRuntimeModeLabel(snapshot.summary.dataMode)}</strong>
               </div>
               <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                 <span className="sky-engine-page__top-bar-label">FOV</span>
-                <strong>{formatDisplayedFov(viewState.fovDegrees)}</strong>
+                <strong>{formatDisplayedFov(snapshot.camera.fovDegrees)}</strong>
               </div>
-              {selection.selectedObject ? (
+              {snapshot.selection.object ? (
                 <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                   <span className="sky-engine-page__top-bar-label">Target</span>
-                  <strong>{selectedTargetName}</strong>
+                  <strong>{snapshot.selection.object.name}</strong>
                   <small>{observer.label}</small>
                 </div>
               ) : null}
               <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                 <span className="sky-engine-page__top-bar-label">Local time</span>
-                <strong>{sceneTime.formattedSceneLocalTimestamp}</strong>
-                <small>{sceneTime.formattedSceneOffset} · {SKY_ENGINE_LOCAL_TIME_ZONE} · {sceneTime.playbackRateLabel}</small>
+                <strong>{formattedSceneLocalTimestamp}</strong>
+                <small>{formattedSceneOffset} · {SKY_ENGINE_LOCAL_TIME_ZONE} · {playbackRateLabel}</small>
               </div>
               <span
-                className={`sky-engine-page__phase-pill sky-engine-page__phase-pill--${phaseModifier(sunState.phaseLabel)}`}
-                data-phase={sunState.phaseLabel}
+                className={`sky-engine-page__phase-pill sky-engine-page__phase-pill--${phaseModifier(snapshot.summary.phaseLabel)}`}
+                data-phase={snapshot.summary.phaseLabel}
               >
-                {sunState.phaseLabel}
+                {snapshot.summary.phaseLabel}
               </span>
             </div>
           </div>
@@ -900,13 +537,13 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
             <div className="sky-engine-page__bottom-hud-main">
               <div>
                 <span className="sky-engine-page__scene-link-label">Time scrub</span>
-                <strong className="sky-engine-page__bottom-hud-offset">{sceneTime.formattedScaleOffset}</strong>
+                <strong className="sky-engine-page__bottom-hud-offset">{formattedScaleOffset}</strong>
               </div>
               <div className="sky-engine-page__bottom-hud-stats">
-                <span>{diagnostics ? formatSkyDiagnosticsSummary({ ...diagnostics, visibleTileIds: skyEngineQuery.visibleTileIds }) : 'Loading tiles…'}</span>
-                <span>{fallbackActive ? `${runtimeSourceLabel} fallback` : runtimeSourceLabel}</span>
-                <span>{moonObject.isAboveHorizon ? `${moonObject.phaseLabel} moon` : 'Moon below horizon'}</span>
-                <span>{guidanceTargets.length} guided now</span>
+                <span>{snapshot.summary.renderedStarCount} rendered stars · {snapshot.summary.lodTier}</span>
+                <span>{snapshot.summary.fallbackActive ? `${snapshot.summary.sourceLabel} fallback` : snapshot.summary.sourceLabel}</span>
+                <span>{snapshot.summary.moonAboveHorizon ? `${snapshot.summary.moonPhaseLabel ?? 'Visible'} moon` : 'Moon below horizon'}</span>
+                <span>{snapshot.summary.guidedObjectCount} guided now</span>
               </div>
             </div>
 
@@ -925,17 +562,21 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
               id="sky-engine-time-slider"
               className="sky-engine-page__time-slider"
               type="range"
-              min={sceneTime.sliderMin}
-              max={sceneTime.sliderMax}
-              step={sceneTime.sliderStep}
-              value={sceneTime.sceneOffsetSeconds}
+              min={-SKY_ENGINE_MAX_SCENE_OFFSET_SECONDS}
+              max={SKY_ENGINE_MAX_SCENE_OFFSET_SECONDS}
+              step={SKY_ENGINE_TIME_SCALE_OPTIONS.find((option) => option.id === timeScaleId)?.stepSeconds ?? 60}
+              value={sceneOffsetSeconds}
               aria-label="Scene time offset"
-              onChange={(event) => sceneTime.setSceneOffsetSeconds(Number(event.target.value))}
+              onChange={(event) => sceneRef.current?.setSceneOffsetSeconds(Number(event.target.value))}
             />
 
             <div className="sky-engine-page__bottom-hud-foot">
               <div className="sky-engine-page__control-group" aria-label="Time scale controls">
-                <button type="button" className="sky-engine-page__time-reset" onClick={() => sceneTime.nudgeSceneOffset(-sceneTime.selectedTimeScale.stepSeconds)}>
+                <button
+                  type="button"
+                  className="sky-engine-page__time-reset"
+                  onClick={() => sceneRef.current?.nudgeSceneOffset(-(SKY_ENGINE_TIME_SCALE_OPTIONS.find((option) => option.id === timeScaleId)?.stepSeconds ?? 60))}
+                >
                   - Step
                 </button>
                 <div className="sky-engine-page__time-slider-scale">
@@ -943,14 +584,18 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                     <button
                       key={scaleOption.id}
                       type="button"
-                      className={`sky-engine-page__control-chip${sceneTime.timeScaleId === scaleOption.id ? ' sky-engine-page__control-chip--active' : ''}`}
-                      onClick={() => sceneTime.setTimeScaleId(scaleOption.id)}
+                      className={`sky-engine-page__control-chip${timeScaleId === scaleOption.id ? ' sky-engine-page__control-chip--active' : ''}`}
+                      onClick={() => setTimeScaleId(scaleOption.id)}
                     >
                       {scaleOption.shortLabel}
                     </button>
                   ))}
                 </div>
-                <button type="button" className="sky-engine-page__time-reset" onClick={() => sceneTime.nudgeSceneOffset(sceneTime.selectedTimeScale.stepSeconds)}>
+                <button
+                  type="button"
+                  className="sky-engine-page__time-reset"
+                  onClick={() => sceneRef.current?.nudgeSceneOffset(SKY_ENGINE_TIME_SCALE_OPTIONS.find((option) => option.id === timeScaleId)?.stepSeconds ?? 60)}
+                >
                   + Step
                 </button>
               </div>
@@ -960,20 +605,20 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                   <button
                     key={playbackOption.value}
                     type="button"
-                    className={`sky-engine-page__control-chip${sceneTime.playbackRate === playbackOption.value ? ' sky-engine-page__control-chip--active' : ''}`}
+                    className={`sky-engine-page__control-chip${snapshot.summary.playbackRate === playbackOption.value ? ' sky-engine-page__control-chip--active' : ''}`}
                     onClick={() => {
                       if (playbackOption.value === 0) {
-                        sceneTime.togglePlayback()
+                        sceneRef.current?.togglePlayback()
                         return
                       }
 
-                      sceneTime.setPlaybackRate(playbackOption.value)
+                      sceneRef.current?.setPlaybackRate(playbackOption.value)
                     }}
                   >
-                    {getPlaybackButtonLabel(playbackOption.value, sceneTime.isPlaying, playbackOption.label)}
+                    {playbackOption.value === 0 && snapshot.summary.playbackRate !== 0 ? 'Pause' : playbackOption.label}
                   </button>
                 ))}
-                <button type="button" className="sky-engine-page__time-reset" onClick={sceneTime.resetSceneTime}>
+                <button type="button" className="sky-engine-page__time-reset" onClick={() => sceneRef.current?.resetSceneTime()}>
                   Reset
                 </button>
               </div>
@@ -985,8 +630,8 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                   <button
                     key={target.objectId}
                     type="button"
-                    className={`sky-engine-page__target-chip${selection.selectedObjectId === target.objectId ? ' sky-engine-page__target-chip--active' : ''}`}
-                    onClick={() => selection.selectObject(target.objectId)}
+                    className={`sky-engine-page__target-chip${snapshot.selection.object?.id === target.objectId ? ' sky-engine-page__target-chip--active' : ''}`}
+                    onClick={() => sceneRef.current?.selectObject(target.objectId)}
                   >
                     {target.name}
                   </button>
@@ -1010,17 +655,20 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
         {inspectorOpen ? (
           <div className="sky-engine-page__overlay sky-engine-page__overlay--right">
             <SkyEngineDetailShell
-              selectedObject={selection.selectedObject}
-              selectionStatus={selection.selectionStatus}
-              hiddenSelectionName={selection.hiddenSelectionName}
-              onClearSelection={selection.clearSelection}
+              selectedObject={snapshot.selection.object}
+              selectionStatus={snapshot.selection.status}
+              hiddenSelectionName={snapshot.selection.hiddenName}
+              onClearSelection={() => sceneRef.current?.clearSelection()}
             />
           </div>
         ) : null}
-        </main>
-      </div>
-    </Profiler>
+      </main>
+    </div>
   )
+
+  return debugTelemetryEnabled
+    ? <Profiler id="sky-engine-page-content" onRender={handleUiProfilerRender}>{pageBody}</Profiler>
+    : pageBody
 }
 
 export default function SkyEnginePage() {

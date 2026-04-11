@@ -227,6 +227,14 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     this.requestRender()
   }
 
+  withContext<TResult>(handler: (runtime: TRuntime, services: TServices, props: TProps) => TResult): TResult | undefined {
+    if (!this.runtime || !this.services) {
+      return undefined
+    }
+
+    return handler(this.runtime, this.services, this.latestProps)
+  }
+
   resize() {
     if (!this.runtime) {
       return

@@ -8,7 +8,6 @@ import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } fr
 import {
   clearSceneState,
   serializeSceneState,
-  updateReportedViewState,
 } from './runtimeFrame'
 
 const STAR_RENDER_METRICS_ATTRIBUTE = 'data-sky-engine-star-render-metrics'
@@ -72,12 +71,7 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
         return
       }
 
-      const { currentFovDegrees } = updateReportedViewState(
-        runtime,
-        latest,
-        projectedFrame.currentFovDegrees,
-        services.navigationService.getCenterDirection(),
-      )
+      const currentFovDegrees = Number(projectedFrame.currentFovDegrees.toFixed(1))
 
       const nowMs = performance.now()
       if (reportingState.lastPublishAtMs !== 0 && nowMs - reportingState.lastPublishAtMs < REPORTING_CADENCE_MS) {
