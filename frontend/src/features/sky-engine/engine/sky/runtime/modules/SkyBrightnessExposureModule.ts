@@ -1,8 +1,19 @@
-import { computeNightSkyLuminance } from '../../../../nightSkyBackground'
-import { computeEffectiveLimitingMagnitude, computeSkyBrightness } from '../../../../skyBrightness'
+import {
+  computeEffectiveLimitingMagnitude,
+  computeSkyBrightnessFromLuminance,
+  evaluateStellariumSkyBrightnessBaseline,
+  resolveTonemapperLwmaxFromLuminance,
+} from '../../../../skyBrightness'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import type { SkyModule } from '../SkyModule'
 import type { SkyBrightnessExposureState } from '../types'
+
+const FEET_TO_METERS = 0.3048
+const STELLARIUM_TONEMAPPER_P = 2.2
+const STELLARIUM_TONEMAPPER_EXPOSURE = 2
+const STELLARIUM_DARK_ADAPTATION_RATE = 0.16
+const STELLARIUM_ADAPTATION_FRAME_SECONDS = 0.01666
+const STELLARIUM_MIN_SCENE_LUMINANCE = 1.75e-4
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -13,11 +24,11 @@ function buildBackdropAlpha(starVisibility: number) {
 }
 
 function buildAdaptationLevel(
-  skyBrightness: number,
+  adaptedSkyBrightness: number,
   nightSkyZenithLuminance: number,
   nightSkyHorizonLuminance: number,
 ) {
-  const darkness = clamp(1 - skyBrightness, 0, 1)
+  const darkness = clamp(1 - adaptedSkyBrightness, 0, 1)
   const darkSkyBias = clamp(
     1 - (nightSkyZenithLuminance * 0.72 + nightSkyHorizonLuminance * 0.28) / 0.06,
     0.18,
@@ -110,31 +121,105 @@ function buildMilkyWayContrast(
   )
 }
 
+function resolveTimestampIso(props: ScenePropsSnapshot) {
+  return props.initialSceneTimestampIso ?? (props.observer as { timestampUtc?: string }).timestampUtc
+}
+
+function resolveObserverLatitudeDeg(props: ScenePropsSnapshot) {
+  const observer = props.observer as ScenePropsSnapshot['observer'] & { latitudeDeg?: number }
+  return observer.latitude ?? observer.latitudeDeg ?? 0
+}
+
+function resolveObserverElevationMeters(props: ScenePropsSnapshot) {
+  const observer = props.observer as ScenePropsSnapshot['observer'] & {
+    altitudeMeters?: number
+    elevationM?: number
+  }
+
+  if (typeof observer.elevationFt === 'number') {
+    return observer.elevationFt * FEET_TO_METERS
+  }
+
+  return observer.altitudeMeters ?? observer.elevationM ?? 0
+}
+
+function adaptSceneLuminance(
+  previousLuminance: number | undefined,
+  targetLuminance: number,
+  deltaSeconds: number,
+) {
+  const safeTargetLuminance = Math.max(targetLuminance, STELLARIUM_MIN_SCENE_LUMINANCE)
+
+  if (!previousLuminance || !Number.isFinite(previousLuminance)) {
+    return {
+      adaptedSceneLuminance: safeTargetLuminance,
+      adaptationSmoothing: 1,
+    }
+  }
+
+  const safePreviousLuminance = Math.max(previousLuminance, STELLARIUM_MIN_SCENE_LUMINANCE)
+
+  if (safeTargetLuminance >= safePreviousLuminance) {
+    return {
+      adaptedSceneLuminance: safeTargetLuminance,
+      adaptationSmoothing: 1,
+    }
+  }
+
+  const adaptationSmoothing = Math.min(
+    (STELLARIUM_DARK_ADAPTATION_RATE * Math.max(deltaSeconds, 0.001)) / STELLARIUM_ADAPTATION_FRAME_SECONDS,
+    0.5,
+  )
+
+  return {
+    adaptedSceneLuminance: Math.exp(
+      Math.log(safePreviousLuminance)
+        + (Math.log(safeTargetLuminance) - Math.log(safePreviousLuminance)) * adaptationSmoothing,
+    ),
+    adaptationSmoothing,
+  }
+}
+
 export function evaluateSkyBrightnessExposureState(
   props: ScenePropsSnapshot,
   services: SkySceneRuntimeServices,
+  previousState?: SkyBrightnessExposureState | null,
+  deltaSeconds = STELLARIUM_ADAPTATION_FRAME_SECONDS,
 ): SkyBrightnessExposureState {
   const sunAltitudeRad = (props.sunState.altitudeDeg * Math.PI) / 180
   const currentFovDegrees = services.projectionService.getCurrentFovDegrees()
+  const moonObject = props.objects.find((object) => object.type === 'moon') ?? null
+  const moonAltitudeRad = moonObject ? (moonObject.altitudeDeg * Math.PI) / 180 : null
   const calibratedStarVisibility = props.sunState.visualCalibration.starVisibility
   const calibratedStarFieldBrightness = props.sunState.visualCalibration.starFieldBrightness
   const calibratedAtmosphereExposure = props.sunState.visualCalibration.atmosphereExposure
-  const skyBrightness = computeSkyBrightness(sunAltitudeRad)
-  const nightSkyZenithLuminance = computeNightSkyLuminance(Math.PI / 2, sunAltitudeRad)
-  const nightSkyHorizonLuminance = computeNightSkyLuminance(0, sunAltitudeRad)
+  const baseline = evaluateStellariumSkyBrightnessBaseline({
+    timestampIso: resolveTimestampIso(props),
+    latitudeDeg: resolveObserverLatitudeDeg(props),
+    observerElevationM: resolveObserverElevationMeters(props),
+    sunAltitudeRad,
+    moonAltitudeRad,
+    moonMagnitude: moonObject?.magnitude,
+  })
+  const adaptation = adaptSceneLuminance(
+    previousState?.adaptedSceneLuminance,
+    baseline.zenithSkyLuminance,
+    deltaSeconds,
+  )
+  const adaptedSkyBrightness = computeSkyBrightnessFromLuminance(adaptation.adaptedSceneLuminance)
   const adaptationLevel = buildAdaptationLevel(
-    skyBrightness,
-    nightSkyZenithLuminance,
-    nightSkyHorizonLuminance,
+    adaptedSkyBrightness,
+    baseline.nightSkyZenithLuminance,
+    baseline.nightSkyHorizonLuminance,
   )
   const sceneContrast = buildSceneContrast(
-    skyBrightness,
+    baseline.skyBrightness,
     adaptationLevel,
-    nightSkyZenithLuminance,
+    baseline.nightSkyZenithLuminance,
   )
   const starVisibility = buildStarVisibility(
     calibratedStarVisibility,
-    skyBrightness,
+    baseline.skyBrightness,
     adaptationLevel,
   )
   const starFieldBrightness = buildStarFieldBrightness(
@@ -144,28 +229,32 @@ export function evaluateSkyBrightnessExposureState(
   )
   const atmosphereExposure = buildAtmosphereExposure(
     calibratedAtmosphereExposure,
-    skyBrightness,
+    baseline.skyBrightness,
     adaptationLevel,
   )
-  const limitingMagnitude = computeEffectiveLimitingMagnitude(
-    skyBrightness,
-    currentFovDegrees,
-    starVisibility,
-  )
+  const tonemapperLwmax = resolveTonemapperLwmaxFromLuminance(adaptation.adaptedSceneLuminance)
+  const targetTonemapperLwmax = resolveTonemapperLwmaxFromLuminance(baseline.zenithSkyLuminance)
+  const limitingMagnitude = computeEffectiveLimitingMagnitude({
+    fovDegrees: currentFovDegrees,
+    skyBrightness: baseline.skyBrightness,
+    tonemapperP: STELLARIUM_TONEMAPPER_P,
+    tonemapperExposure: STELLARIUM_TONEMAPPER_EXPOSURE,
+    tonemapperLwmax,
+  })
   const milkyWayVisibility = buildMilkyWayVisibility(
     adaptationLevel,
     starVisibility,
     starFieldBrightness,
-    nightSkyZenithLuminance,
+    baseline.nightSkyZenithLuminance,
   )
   const milkyWayContrast = buildMilkyWayContrast(
     adaptationLevel,
     sceneContrast,
-    nightSkyZenithLuminance,
+    baseline.nightSkyZenithLuminance,
   )
 
   return {
-    skyBrightness,
+    skyBrightness: baseline.skyBrightness,
     adaptationLevel,
     sceneContrast,
     limitingMagnitude,
@@ -175,12 +264,19 @@ export function evaluateSkyBrightnessExposureState(
     milkyWayVisibility,
     milkyWayContrast,
     backdropAlpha: clamp(
-      buildBackdropAlpha(starVisibility) - milkyWayVisibility * 0.06 + skyBrightness * 0.04,
+      buildBackdropAlpha(starVisibility) - milkyWayVisibility * 0.06 + baseline.skyBrightness * 0.04,
       0.62,
       0.94,
     ),
-    nightSkyZenithLuminance,
-    nightSkyHorizonLuminance,
+    nightSkyZenithLuminance: baseline.nightSkyZenithLuminance,
+    nightSkyHorizonLuminance: baseline.nightSkyHorizonLuminance,
+    sceneLuminance: baseline.zenithSkyLuminance,
+    adaptedSceneLuminance: adaptation.adaptedSceneLuminance,
+    targetTonemapperLwmax,
+    adaptationSmoothing: adaptation.adaptationSmoothing,
+    tonemapperP: STELLARIUM_TONEMAPPER_P,
+    tonemapperExposure: STELLARIUM_TONEMAPPER_EXPOSURE,
+    tonemapperLwmax,
     visualCalibration: props.sunState.visualCalibration,
   }
 }
@@ -189,8 +285,13 @@ export function createSkyBrightnessExposureModule(): SkyModule<ScenePropsSnapsho
   return {
     id: 'sky-brightness-exposure-runtime-module',
     renderOrder: 5,
-    update({ runtime, services, getProps }) {
-      runtime.brightnessExposureState = evaluateSkyBrightnessExposureState(getProps(), services)
+    update({ runtime, services, getProps, deltaSeconds }) {
+      runtime.brightnessExposureState = evaluateSkyBrightnessExposureState(
+        getProps(),
+        services,
+        runtime.brightnessExposureState,
+        deltaSeconds,
+      )
     },
   }
 }

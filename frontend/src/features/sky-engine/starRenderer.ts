@@ -16,12 +16,27 @@ export interface StarRenderProfile {
   readonly psfDiameterPx: number
 }
 
+interface StellariumPointVisual {
+  readonly visible: boolean
+  readonly radiusPx: number
+  readonly luminance: number
+}
+
+const ARCSECONDS_PER_RADIAN = (180 / Math.PI) * 3600
+const STELLARIUM_POINT_SPREAD_RADIUS_RAD = (2.5 / 60) * (Math.PI / 180)
+const STELLARIUM_MIN_POINT_AREA_SR = Math.PI * STELLARIUM_POINT_SPREAD_RADIUS_RAD * STELLARIUM_POINT_SPREAD_RADIUS_RAD
+const STELLARIUM_STAR_LINEAR_SCALE = 0.8
+const STELLARIUM_STAR_RELATIVE_SCALE = 1.1
+const STELLARIUM_MAX_POINT_RADIUS_PX = 50
+const STELLARIUM_MIN_POINT_RADIUS_PX = 0.6
+const STELLARIUM_SKIP_POINT_RADIUS_PX = 0.25
+
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
 }
 
-function smoothstep(value: number) {
-  return value * value * (3 - 2 * value)
+function exp10(value: number) {
+  return Math.exp(value * Math.log(10))
 }
 
 function mixChannel(left: number, right: number, amount: number) {
@@ -63,24 +78,12 @@ export function resolveStarColorHex(colorIndexBV = 0.65) {
   return `#${toHex(red)}${toHex(green)}${toHex(blue)}`
 }
 
-function getMagnitudeLuminance(magnitude: number) {
-  const clampedMagnitude = clamp(magnitude, -1.6, 10.4)
-  const brightReference = Math.pow(10, -0.4 * -1.46)
-  const faintReference = Math.pow(10, -0.4 * 10.4)
-  const luminance = Math.pow(10, -0.4 * clampedMagnitude)
-
-  return clamp((luminance - faintReference) / (brightReference - faintReference), 0, 1)
+function tonemapperMap(lw: number, p: number, lwmax: number, exposure: number) {
+  return (Math.log(1 + p * lw) / Math.log(1 + p * lwmax)) * exposure
 }
 
-function getMagnitudeBrightness(magnitude: number) {
-  const luminance = getMagnitudeLuminance(magnitude)
-  return clamp(Math.pow(smoothstep(Math.pow(luminance, 0.42)), 0.58), 0, 1)
-}
-
-function getMagnitudeSizeWeight(magnitude: number) {
-  const luminance = getMagnitudeLuminance(magnitude)
-  const brightness = getMagnitudeBrightness(magnitude)
-  return clamp(Math.pow(luminance, 0.34) * 0.86 + Math.pow(brightness, 0.88) * 0.42, 0, 1)
+function getMagnitudeIlluminance(magnitude: number) {
+  return 10.7646e4 / (ARCSECONDS_PER_RADIAN * ARCSECONDS_PER_RADIAN) * exp10(-0.4 * magnitude)
 }
 
 function getSceneResponseWeight(state: SkyBrightnessExposureState | undefined) {
@@ -88,10 +91,13 @@ function getSceneResponseWeight(state: SkyBrightnessExposureState | undefined) {
     return {
       visibility: 1,
       fieldBrightness: 1,
-      exposure: 1,
+      exposure: 2,
       skySuppression: 1,
       sceneContrast: 1,
       adaptation: 1,
+      tonemapperP: 2.2,
+      tonemapperExposure: 2,
+      tonemapperLwmax: 0.052,
     }
   }
 
@@ -102,6 +108,61 @@ function getSceneResponseWeight(state: SkyBrightnessExposureState | undefined) {
     skySuppression: clamp(1 - state.skyBrightness * (0.98 - state.adaptationLevel * 0.18), 0.04, 1),
     sceneContrast: clamp(state.sceneContrast, 0.46, 1.08),
     adaptation: clamp(state.adaptationLevel, 0, 1),
+    tonemapperP: clamp(state.tonemapperP, 0.8, 4),
+    tonemapperExposure: clamp(state.tonemapperExposure, 0.8, 2.2),
+    tonemapperLwmax: clamp(state.tonemapperLwmax, 0.052, 5000),
+  }
+}
+
+function getScreenScaleFactor(screenSizePx: number) {
+  return clamp(screenSizePx / 600, 0.7, 1.5)
+}
+
+function computeStellariumPointVisual(
+  magnitude: number,
+  brightnessExposureState: SkyBrightnessExposureState | undefined,
+  screenSizePx: number,
+): StellariumPointVisual {
+  const response = getSceneResponseWeight(brightnessExposureState)
+  const apparentLuminance = getMagnitudeIlluminance(clamp(magnitude, -1.6, 14.6)) / STELLARIUM_MIN_POINT_AREA_SR
+  let displayLuminance = tonemapperMap(
+    apparentLuminance,
+    response.tonemapperP,
+    response.tonemapperLwmax,
+    response.tonemapperExposure,
+  )
+
+  if (displayLuminance < 0) {
+    displayLuminance = 0
+  }
+
+  const screenFactor = getScreenScaleFactor(screenSizePx)
+  const radiusUnclamped = STELLARIUM_STAR_LINEAR_SCALE * screenFactor * Math.pow(displayLuminance, STELLARIUM_STAR_RELATIVE_SCALE / 2)
+
+  if (radiusUnclamped < STELLARIUM_SKIP_POINT_RADIUS_PX) {
+    return {
+      visible: false,
+      radiusPx: 0,
+      luminance: 0,
+    }
+  }
+
+  let radiusPx = radiusUnclamped
+
+  if (radiusPx < STELLARIUM_MIN_POINT_RADIUS_PX) {
+    const fadeAmount = clamp(
+      (radiusPx - STELLARIUM_SKIP_POINT_RADIUS_PX) / (STELLARIUM_MIN_POINT_RADIUS_PX - STELLARIUM_SKIP_POINT_RADIUS_PX),
+      0,
+      1,
+    )
+    displayLuminance *= fadeAmount * fadeAmount
+    radiusPx = STELLARIUM_MIN_POINT_RADIUS_PX
+  }
+
+  return {
+    visible: true,
+    radiusPx: Math.min(radiusPx, STELLARIUM_MAX_POINT_RADIUS_PX),
+    luminance: clamp(Math.pow(displayLuminance, 1 / 2.2), 0, 1),
   }
 }
 
@@ -110,46 +171,35 @@ export function getStarRenderProfileForMagnitude(
   colorIndexBV: number | undefined,
   calibration: SkyEngineVisualCalibration,
   brightnessExposureState?: SkyBrightnessExposureState,
+  screenSizePx = 600,
 ): StarRenderProfile {
-  const brightness = getMagnitudeBrightness(magnitude)
-  const sizeWeight = getMagnitudeSizeWeight(magnitude)
-  const brightGlowWeight = clamp(Math.pow(brightness, 1.18), 0, 1)
   const response = getSceneResponseWeight(brightnessExposureState)
+  const pointVisual = computeStellariumPointVisual(magnitude, brightnessExposureState, screenSizePx)
   const apparentBrightness = clamp(
-    brightness *
-      response.visibility *
-      Math.pow(response.fieldBrightness, 0.82) *
-      Math.pow(response.exposure, 0.42) *
-      response.skySuppression *
-      (0.78 + response.sceneContrast * 0.26),
-    0.015,
-    1,
-  )
-  const apparentSize = clamp(
-    sizeWeight *
-      (0.8 + response.visibility * 0.18 + response.adaptation * 0.06) *
-      (0.86 + response.skySuppression * 0.24) *
-      (0.9 + response.sceneContrast * 0.08),
-    0.04,
+    pointVisual.luminance * response.visibility * response.skySuppression,
+    0,
     1,
   )
   const colorHex = resolveStarColorHex(colorIndexBV)
-
-  const diameter = clamp(0.1 + Math.pow(apparentSize, 1.06) * 1.52, 0.1, 1.72)
-  const haloRadiusPx = clamp(1.3 + Math.pow(apparentSize, 0.9) * 16.8 + brightGlowWeight * 10.4, 1.3, 24.5)
-  const coreRadiusPx = clamp(0.52 + Math.pow(apparentSize, 1.18) * 5.4 + brightGlowWeight * 1.8, 0.52, 7.4)
+  const pointRadiusPx = pointVisual.visible ? pointVisual.radiusPx : STELLARIUM_MIN_POINT_RADIUS_PX
+  const haloRadiusPx = clamp(
+    pointRadiusPx * (1.3 + calibration.starHaloVisibility * 0.25) + apparentBrightness * 2.4,
+    0.9,
+    11.5,
+  )
+  const coreRadiusPx = clamp(pointRadiusPx * (0.92 + apparentBrightness * 0.08), 0.42, 6.2)
 
   return {
     colorHex,
-    diameter,
+    diameter: clamp(pointRadiusPx * 2, 0.9, 10.5),
     haloRadiusPx,
-    haloAlpha: clamp(0.02 + calibration.starHaloVisibility * (0.04 + brightGlowWeight * 0.34) * response.skySuppression, 0.02, 0.42),
+    haloAlpha: clamp(0.012 + calibration.starHaloVisibility * apparentBrightness * 0.16 * response.skySuppression, 0.012, 0.2),
     coreRadiusPx,
-    twinkleAmplitude: calibration.starTwinkleAmplitude * clamp(0.08 + apparentBrightness * 0.32, 0.08, 0.4),
-    alpha: clamp(0.18 + apparentBrightness * 0.78, 0.18, 0.99),
-    emissiveScale: clamp(0.22 + apparentBrightness * 1.12, 0.22, 1.34),
-    diffuseScale: clamp(0.004 + apparentBrightness * 0.022, 0.004, 0.03),
-    psfDiameterPx: clamp(Math.max(haloRadiusPx * 1.9, coreRadiusPx * 3.1, diameter * 18), 2.2, 42),
+    twinkleAmplitude: calibration.starTwinkleAmplitude * clamp(0.03 + apparentBrightness * 0.1, 0.025, 0.14),
+    alpha: clamp(apparentBrightness * (0.78 + response.sceneContrast * 0.12), 0.04, 0.98),
+    emissiveScale: clamp(0.16 + apparentBrightness * 0.94, 0.16, 1.08),
+    diffuseScale: clamp(0.003 + apparentBrightness * 0.014, 0.003, 0.02),
+    psfDiameterPx: clamp(Math.max(pointRadiusPx * 2.4, haloRadiusPx * 1.35), 1.8, 20),
   }
 }
 
@@ -172,11 +222,11 @@ export function buildDedicatedStarTexture(name: string, profile: StarRenderProfi
   const halo = context.createRadialGradient(64, 64, 1, 64, 64, Math.min(56, profile.haloRadiusPx * 1.08))
 
   context.clearRect(0, 0, 128, 128)
-  halo.addColorStop(0, `rgba(255, 255, 255, ${clamp(0.32 + profile.alpha * 0.62, 0.32, 0.96)})`)
-  halo.addColorStop(0.03, `rgba(${red}, ${green}, ${blue}, ${Math.min(0.98, profile.alpha)})`)
-  halo.addColorStop(0.11, `rgba(${red}, ${green}, ${blue}, ${Math.min(0.88, profile.alpha * 0.94)})`)
-  halo.addColorStop(0.24, `rgba(${red}, ${green}, ${blue}, ${profile.haloAlpha})`)
-  halo.addColorStop(0.54, `rgba(${red}, ${green}, ${blue}, ${profile.haloAlpha * 0.22})`)
+  halo.addColorStop(0, `rgba(255, 255, 255, ${clamp(0.24 + profile.alpha * 0.54, 0.24, 0.92)})`)
+  halo.addColorStop(0.015, `rgba(${red}, ${green}, ${blue}, ${Math.min(0.94, profile.alpha)})`)
+  halo.addColorStop(0.08, `rgba(${red}, ${green}, ${blue}, ${Math.min(0.78, profile.alpha * 0.9)})`)
+  halo.addColorStop(0.18, `rgba(${red}, ${green}, ${blue}, ${profile.haloAlpha})`)
+  halo.addColorStop(0.42, `rgba(${red}, ${green}, ${blue}, ${profile.haloAlpha * 0.16})`)
   halo.addColorStop(1, `rgba(${red}, ${green}, ${blue}, 0)`)
   context.fillStyle = halo
   context.beginPath()

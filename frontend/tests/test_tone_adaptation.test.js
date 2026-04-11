@@ -108,4 +108,48 @@ describe('sky brightness exposure adaptation', () => {
     expect(nightState.milkyWayVisibility).toBeGreaterThan(twilightState.milkyWayVisibility)
     expect(twilightState.atmosphereExposure).toBeLessThanOrEqual(1.08)
   })
+
+  it('reveals darkness gradually but suppresses stars immediately when the scene brightens', () => {
+    const dayState = evaluateSkyBrightnessExposureState(
+      createProps(8, createVisualCalibration('Daylight', {
+        starVisibility: 0.04,
+        starFieldBrightness: 0.06,
+        atmosphereExposure: 1,
+      })),
+      SERVICES,
+    )
+    const instantNightTarget = evaluateSkyBrightnessExposureState(
+      createProps(-22, createVisualCalibration('Night', {
+        starVisibility: 1,
+        starFieldBrightness: 0.92,
+        atmosphereExposure: 1,
+      })),
+      SERVICES,
+    )
+    const firstDarkFrame = evaluateSkyBrightnessExposureState(
+      createProps(-22, createVisualCalibration('Night', {
+        starVisibility: 1,
+        starFieldBrightness: 0.92,
+        atmosphereExposure: 1,
+      })),
+      SERVICES,
+      dayState,
+      1 / 60,
+    )
+    const brightRecovery = evaluateSkyBrightnessExposureState(
+      createProps(8, createVisualCalibration('Daylight', {
+        starVisibility: 0.04,
+        starFieldBrightness: 0.06,
+        atmosphereExposure: 1,
+      })),
+      SERVICES,
+      instantNightTarget,
+      1 / 60,
+    )
+
+    expect(firstDarkFrame.adaptedSceneLuminance).toBeGreaterThan(firstDarkFrame.sceneLuminance)
+    expect(firstDarkFrame.limitingMagnitude).toBeLessThan(instantNightTarget.limitingMagnitude)
+    expect(brightRecovery.tonemapperLwmax).toBeCloseTo(brightRecovery.targetTonemapperLwmax, 6)
+    expect(brightRecovery.limitingMagnitude).toBeLessThan(instantNightTarget.limitingMagnitude)
+  })
 })

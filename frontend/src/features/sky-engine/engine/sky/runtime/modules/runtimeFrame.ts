@@ -1,9 +1,5 @@
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 
-import {
-  buildAtmosphericExtinctionContext,
-  computeObservedMagnitude,
-} from '../../../../atmosphericExtinction'
 import { getSkyEngineFovDegrees } from '../../../../observerNavigation'
 import {
   directionToHorizontal,
@@ -372,7 +368,6 @@ export function collectProjectedStars(
   let allocationMs = 0
   const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
   const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
-  const extinction = buildAtmosphericExtinctionContext(observer, sceneTimestampIso)
   const limitingMagnitude = brightnessExposureState.limitingMagnitude
   const projectedStarDensityCap = getProjectedStarDensityCap(fovDegrees)
   const objectLookup = new Map(objects.map((object) => [object.id, object]))
@@ -399,8 +394,7 @@ export function collectProjectedStars(
       break
     }
 
-    const visibilityAltitudeDeg = getObjectVisibilityAltitudeDeg(object, centerAltitudeDeg)
-    const renderedMagnitude = computeObservedMagnitude(object.magnitude, extinction, visibilityAltitudeDeg)
+    const renderedMagnitude = object.magnitude
     const visibilityAlpha = computeVisibilityAlpha(renderedMagnitude, limitingMagnitude)
     magnitudeFilterMs += performance.now() - magnitudeStartMs
 
@@ -434,6 +428,7 @@ export function collectProjectedStars(
       object.colorIndexBV,
       brightnessExposureState.visualCalibration,
       brightnessExposureState,
+      Math.min(view.viewportWidth, view.viewportHeight),
     )
     const markerRadiusPx = Math.max(
       starProfile?.psfDiameterPx ? starProfile.psfDiameterPx * 0.5 : 0,
@@ -479,8 +474,7 @@ export function collectProjectedStars(
     visibilityFilterMs += performance.now() - visibilityStartMs
 
     const magnitudeStartMs = performance.now()
-    const visibilityAltitudeDeg = getObjectVisibilityAltitudeDeg(object, centerAltitudeDeg)
-    const renderedMagnitude = computeObservedMagnitude(object.magnitude, extinction, visibilityAltitudeDeg)
+    const renderedMagnitude = object.magnitude
     const visibilityAlpha = computeVisibilityAlpha(renderedMagnitude, limitingMagnitude)
     magnitudeFilterMs += performance.now() - magnitudeStartMs
 
@@ -504,6 +498,7 @@ export function collectProjectedStars(
       object.colorIndexBV,
       brightnessExposureState.visualCalibration,
       brightnessExposureState,
+      Math.min(view.viewportWidth, view.viewportHeight),
     )
     const markerRadiusPx = Math.max(
       starProfile?.psfDiameterPx ? starProfile.psfDiameterPx * 0.5 : 0,

@@ -34,8 +34,11 @@ import { resolveLimitingMagnitude } from './core/magnitudePolicy'
 import { resolveActiveTiers } from './core/tierPolicy'
 import { selectVisibleTileIds } from './core/tileSelection'
 
-export function buildSkyEngineQuery(observer: ObserverSnapshot): SkyEngineQuery {
-  const limitingMagnitude = resolveLimitingMagnitude(observer.fovDeg)
+export function buildSkyEngineQuery(
+  observer: ObserverSnapshot,
+  options?: { limitingMagnitude?: number },
+): SkyEngineQuery {
+  const limitingMagnitude = options?.limitingMagnitude ?? resolveLimitingMagnitude(observer.fovDeg)
 
   return {
     observer,

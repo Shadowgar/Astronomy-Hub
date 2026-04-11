@@ -49,13 +49,20 @@ describe('sky engine runtime slice', () => {
     expect(scenePacket.stars.some((star) => star.id === 'test-near-horizon')).toBe(true)
     expect(scenePacket.labels.some((label) => label.text === 'HIP 99999')).toBe(false)
   })
-  it('maps field of view to the starter limiting magnitude law', () => {
-    expect(resolveLimitingMagnitude(120)).toBe(5.5)
-    expect(resolveLimitingMagnitude(90)).toBe(6.2)
-    expect(resolveLimitingMagnitude(30)).toBe(8.5)
-    expect(resolveLimitingMagnitude(2.5)).toBe(13.5)
-    expect(resolveLimitingMagnitude(69.7)).toBeGreaterThan(resolveLimitingMagnitude(90))
-    expect(resolveLimitingMagnitude(69.7)).toBeLessThan(resolveLimitingMagnitude(60))
+  it('deepens the limiting magnitude continuously as the field narrows', () => {
+    const wideLimit = resolveLimitingMagnitude(120)
+    const mediumLimit = resolveLimitingMagnitude(90)
+    const closeLimit = resolveLimitingMagnitude(30)
+    const telescopicLimit = resolveLimitingMagnitude(2.5)
+    const intermediateLimit = resolveLimitingMagnitude(69.7)
+
+    expect(wideLimit).toBeGreaterThan(5)
+    expect(wideLimit).toBeLessThan(6.2)
+    expect(mediumLimit).toBeGreaterThan(wideLimit)
+    expect(closeLimit).toBeGreaterThan(mediumLimit)
+    expect(telescopicLimit).toBeGreaterThan(closeLimit)
+    expect(intermediateLimit).toBeGreaterThan(mediumLimit)
+    expect(intermediateLimit).toBeLessThan(closeLimit)
   })
 
   it('activates deeper tiers as the observer narrows the field', () => {
@@ -113,7 +120,9 @@ describe('sky engine runtime slice', () => {
     const widePacket = assembleSkyScenePacket(wideQuery, wideTileResult.tiles, wideTileResult)
     const closePacket = assembleSkyScenePacket(closeQuery, closeTileResult.tiles, closeTileResult)
 
+    expect(closeQuery.limitingMagnitude).toBeGreaterThan(wideQuery.limitingMagnitude)
     expect(closePacket.diagnostics.maxTileDepthReached).toBeGreaterThan(widePacket.diagnostics.maxTileDepthReached)
-    expect(closePacket.stars.length).toBeGreaterThan(widePacket.stars.length)
+    expect(closePacket.diagnostics.limitingMagnitude).toBeGreaterThan(widePacket.diagnostics.limitingMagnitude)
+    expect(closePacket.diagnostics.tileLevels.at(-1)).toBeGreaterThan(widePacket.diagnostics.tileLevels.at(-1) ?? 0)
   })
 })

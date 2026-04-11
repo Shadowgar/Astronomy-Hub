@@ -1,5 +1,4 @@
 import type { SkyModule } from '../SkyModule'
-import { buildAtmosphericExtinctionContext, computeObservedMagnitude } from '../../../../atmosphericExtinction'
 import { projectDirectionToViewport, isProjectedPointVisible, type SkyProjectionView } from '../../../../projectionMath'
 import { buildSyntheticSkyDensityField } from '../../../../syntheticStarField'
 import { computeVisibilityAlpha, computeVisibilitySizeScale } from '../../../../starVisibility'
@@ -172,12 +171,10 @@ function drawSyntheticDensityStars(
   const viewportCenterY = view.viewportHeight * 0.5
   const wideBlend = smoothstep(115, 185, fovDegrees)
   const closeBlend = 1 - smoothstep(24, 90, fovDegrees)
-  const extinction = buildAtmosphericExtinctionContext(latest.observer, sceneTimestampIso)
   let drawnCount = 0
 
   for (const sample of SYNTHETIC_SKY_DENSITY_SAMPLES) {
-    const sampleAltitudeDeg = (Math.asin(clamp(sample.direction.y, -1, 1)) * 180) / Math.PI
-    const renderedMagnitude = computeObservedMagnitude(sample.magnitude, extinction, sampleAltitudeDeg)
+    const renderedMagnitude = sample.magnitude
     const visibilityAlpha = computeVisibilityAlpha(renderedMagnitude, magnitudeLimit)
 
     if (visibilityAlpha <= 0 || drawnCount >= densityBudget) {
@@ -206,14 +203,15 @@ function drawSyntheticDensityStars(
       sample.colorIndexBV,
       brightnessExposureState.visualCalibration,
       brightnessExposureState,
+      Math.min(view.viewportWidth, view.viewportHeight),
     )
     const sizeScale = computeVisibilitySizeScale(visibilityAlpha)
-    const markerRadiusPx = clamp((profile.coreRadiusPx * 0.46 + sample.size * 0.7) * (0.9 + closeBlend * 0.3) * centerFill * sizeScale, 0.34, 2.4)
+    const markerRadiusPx = clamp((profile.coreRadiusPx * 0.32 + sample.size * 0.34) * (0.88 + closeBlend * 0.18) * centerFill * sizeScale, 0.22, 1.55)
     const twinkle = 1 + Math.sin(animationTime + sample.twinklePhase) * profile.twinkleAmplitude * 0.9
     const alpha = clamp(
-      sample.alpha * profile.alpha * visibilityAlpha * (0.34 + sample.bandWeight * 0.3) * (0.74 + closeBlend * 0.2) * centerFill,
-      0.035,
-      0.32,
+      sample.alpha * profile.alpha * visibilityAlpha * (0.18 + sample.bandWeight * 0.16) * (0.62 + closeBlend * 0.1) * centerFill,
+      0.016,
+      0.16,
     )
 
     drawStar(context, projected.screenX, projected.screenY, markerRadiusPx * twinkle, profile, alpha)

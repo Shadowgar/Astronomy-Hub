@@ -36,6 +36,11 @@ import {
   syncSkySceneRuntimeServices,
 } from './SkyEngineRuntimeBridge'
 import { computeSunState } from './solar'
+import {
+  computeEffectiveLimitingMagnitude,
+  evaluateStellariumSkyBrightnessBaseline,
+  resolveTonemapperLwmaxFromLuminance,
+} from './skyBrightness'
 import { resolveStarColorHex } from './starRenderer'
 import type { SkyEngineAidVisibility, SkyEngineSceneObject, SkyEngineSunState } from './types'
 
@@ -46,6 +51,8 @@ const DEFAULT_AID_VISIBILITY: SkyEngineAidVisibility = {
 }
 
 const UI_SNAPSHOT_CADENCE_MS = 150
+const DEGREES_TO_RADIANS = Math.PI / 180
+const STELLARIUM_QUERY_TONEMAPPER_EXPOSURE = 2
 
 interface SelectionMemory {
   objectId: string
@@ -57,7 +64,32 @@ interface SceneControllerModel {
   sunState: SkyEngineSunState
   sceneObjects: readonly SkyEngineSceneObject[]
   guidedObjectIds: readonly string[]
+  queryLimitingMagnitude: number
   tileQuerySignature: string
+}
+
+function resolveSceneQueryLimitingMagnitude(config: {
+  observer: SkyEngineSceneProps['observer']
+  currentViewState: ScenePropsSnapshot['initialViewState']
+  sceneTimestampIso: string
+  sunState: SkyEngineSunState
+  moonObject: SkyEngineSceneObject
+}) {
+  const baseline = evaluateStellariumSkyBrightnessBaseline({
+    timestampIso: config.sceneTimestampIso,
+    latitudeDeg: config.observer.latitude,
+    observerElevationM: config.observer.elevationFt * 0.3048,
+    sunAltitudeRad: config.sunState.altitudeDeg * DEGREES_TO_RADIANS,
+    moonAltitudeRad: config.moonObject.altitudeDeg * DEGREES_TO_RADIANS,
+    moonMagnitude: config.moonObject.magnitude,
+  })
+
+  return computeEffectiveLimitingMagnitude({
+    fovDegrees: config.currentViewState.fovDegrees,
+    skyBrightness: baseline.skyBrightness,
+    tonemapperExposure: STELLARIUM_QUERY_TONEMAPPER_EXPOSURE,
+    tonemapperLwmax: resolveTonemapperLwmaxFromLuminance(baseline.zenithSkyLuminance),
+  })
 }
 
 function syncSelectionMemory(
@@ -230,12 +262,21 @@ function buildSceneControllerModel(config: {
     centerAzDeg: config.currentViewState.centerAzDeg,
     projection: config.projectionMode,
   }
-  const query = buildSkyEngineQuery(observerSnapshot)
+  const sunState = computeSunState(config.observer, config.sceneTimestampIso)
+  const moonObject = computeMoonSceneObject(config.observer, config.sceneTimestampIso)
+  const queryLimitingMagnitude = resolveSceneQueryLimitingMagnitude({
+    observer: config.observer,
+    currentViewState: config.currentViewState,
+    sceneTimestampIso: config.sceneTimestampIso,
+    sunState,
+    moonObject,
+  })
+  const query = buildSkyEngineQuery(observerSnapshot, {
+    limitingMagnitude: queryLimitingMagnitude,
+  })
   const scenePacket = config.tileLoadResult
     ? assembleSkyScenePacket(query, config.runtimeTiles, config.tileLoadResult)
     : null
-  const sunState = computeSunState(config.observer, config.sceneTimestampIso)
-  const moonObject = computeMoonSceneObject(config.observer, config.sceneTimestampIso)
   const planetObjects = computePlanetSceneObjects(config.observer, config.sceneTimestampIso)
   const backendTileStarSceneObjects = computeBackendStarSceneObjects(
     config.observer,
@@ -286,6 +327,7 @@ function buildSceneControllerModel(config: {
     sunState,
     sceneObjects,
     guidedObjectIds: guidanceTargets.map((target) => target.objectId),
+    queryLimitingMagnitude,
     tileQuerySignature: buildTileQuerySignature(query, config.repositoryMode),
   } satisfies SceneControllerModel
 }
@@ -478,6 +520,8 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
           centerAltDeg: currentViewState.centerAltDeg,
           centerAzDeg: currentViewState.centerAzDeg,
           projection: projectionMode,
+        }, {
+          limitingMagnitude: nextModel.queryLimitingMagnitude,
         })
 
         void loadSkyRuntimeTiles(repositoryMode, query).then((result) => {

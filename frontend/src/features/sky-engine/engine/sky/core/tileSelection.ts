@@ -1,20 +1,19 @@
 import type { ObserverSnapshot } from '../contracts/observer'
 import { getSkyRootTileIds, getSkyTileChildren, getSkyTileDescriptor, getSkyTileMaxLevel, tileIntersectsView } from './tileIndex'
 import { horizontalToRaDec } from '../transforms/coordinates'
+import { SKY_TILE_LEVEL_MAG_MAX } from './magnitudePolicy'
 
-function resolveDesiredTileDepth(observer: ObserverSnapshot, limitingMagnitude: number) {
+function resolveDesiredTileDepth(_observer: ObserverSnapshot, limitingMagnitude: number) {
   let desiredDepth = 0
 
-  if (observer.fovDeg <= 110 || limitingMagnitude >= 5.8) {
+  SKY_TILE_LEVEL_MAG_MAX.forEach((levelMaxMagnitude, level) => {
+    if (limitingMagnitude > levelMaxMagnitude) {
+      desiredDepth = level + 1
+    }
+  })
+
+  if (limitingMagnitude <= SKY_TILE_LEVEL_MAG_MAX[0]) {
     desiredDepth = 1
-  }
-
-  if (observer.fovDeg <= 50 || limitingMagnitude >= 8.2) {
-    desiredDepth = 2
-  }
-
-  if (observer.fovDeg <= 12 || limitingMagnitude >= 11.4) {
-    desiredDepth = 3
   }
 
   return Math.min(desiredDepth, getSkyTileMaxLevel())

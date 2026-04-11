@@ -2,7 +2,6 @@ import { Color3 } from '@babylonjs/core/Maths/math.color'
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture'
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial'
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
-import type { Mesh } from '@babylonjs/core/Meshes/mesh'
 import '@babylonjs/core/Meshes/thinInstanceMesh'
 import type { Scene } from '@babylonjs/core/scene'
 
@@ -68,8 +67,9 @@ function createStarTexture(scene: Scene) {
   const context = texture.getContext()
   const gradient = context.createRadialGradient(32, 32, 1, 32, 32, 31)
   gradient.addColorStop(0, 'rgba(255, 255, 255, 1)')
-  gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.95)')
-  gradient.addColorStop(0.55, 'rgba(255, 255, 255, 0.3)')
+  gradient.addColorStop(0.08, 'rgba(255, 255, 255, 0.96)')
+  gradient.addColorStop(0.22, 'rgba(255, 255, 255, 0.34)')
+  gradient.addColorStop(0.48, 'rgba(255, 255, 255, 0.06)')
   gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
   context.clearRect(0, 0, 64, 64)
   context.fillStyle = gradient

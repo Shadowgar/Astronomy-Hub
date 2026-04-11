@@ -1,53 +1,166 @@
-const LIMITING_MAGNITUDE_ANCHORS = [
-  { fovDeg: 180, limitingMagnitude: 5 },
-  { fovDeg: 120, limitingMagnitude: 5.5 },
-  { fovDeg: 90, limitingMagnitude: 6.2 },
-  { fovDeg: 60, limitingMagnitude: 7 },
-  { fovDeg: 30, limitingMagnitude: 8.5 },
-  { fovDeg: 15, limitingMagnitude: 10 },
-  { fovDeg: 7, limitingMagnitude: 11.5 },
-  { fovDeg: 3, limitingMagnitude: 12.5 },
-  { fovDeg: 2.5, limitingMagnitude: 13.5 },
-  { fovDeg: 1, limitingMagnitude: 14.1 },
-  { fovDeg: 0.5, limitingMagnitude: 14.6 },
-] as const
+const DEGREES_TO_RADIANS = Math.PI / 180
+const STELLARIUM_FOV_EYE_RADIANS = 60 * DEGREES_TO_RADIANS
+const STELLARIUM_STAR_LINEAR_SCALE = 0.8
+const STELLARIUM_STAR_RELATIVE_SCALE = 1.1
+const STELLARIUM_MIN_POINT_RADIUS_PX = 0.6
+const STELLARIUM_SKIP_POINT_RADIUS_PX = 0.25
+const STELLARIUM_DEFAULT_SCREEN_SIZE_PX = 600
+const STELLARIUM_MIN_SCREEN_FACTOR = 0.7
+const STELLARIUM_MAX_SCREEN_FACTOR = 1.5
+const STELLARIUM_TONEMAPPER_P = 2.2
+const STELLARIUM_TONEMAPPER_EXPOSURE = 2
+const STELLARIUM_TONEMAPPER_LWMAX = 0.052
+const STELLARIUM_POINT_SPREAD_RADIUS_RAD = (2.5 / 60) * DEGREES_TO_RADIANS
+const RADIANS_TO_ARCSECONDS = 206264.80624709636
+
+export const SKY_RUNTIME_TIER_MAG_MAX = {
+  T0: 2.5,
+  T1: 6.5,
+  T2: 10.5,
+  T3: Number.POSITIVE_INFINITY,
+} as const
+
+export const SKY_TILE_LEVEL_MAG_MAX = [4.5, 6.8, 9.8, 13.2] as const
+
+export interface LimitingMagnitudeConfig {
+  readonly fovDeg: number
+  readonly skyBrightness?: number
+  readonly tonemapperP?: number
+  readonly tonemapperExposure?: number
+  readonly tonemapperLwmax?: number
+  readonly viewportMinSizePx?: number
+}
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
 }
 
-function interpolate(start: number, end: number, amount: number) {
-  return start + (end - start) * amount
+function exp10(value: number) {
+  return Math.exp(value * Math.log(10))
 }
 
-export function resolveLimitingMagnitude(fovDeg: number) {
-  const widestAnchor = LIMITING_MAGNITUDE_ANCHORS[0]
-  const [narrowestAnchor = LIMITING_MAGNITUDE_ANCHORS[0]] = LIMITING_MAGNITUDE_ANCHORS.slice(-1)
-  const clampedFovDeg = clamp(fovDeg, narrowestAnchor.fovDeg, widestAnchor.fovDeg)
+function buildScreenFactor(viewportMinSizePx: number | undefined) {
+  const minSize = viewportMinSizePx ?? STELLARIUM_DEFAULT_SCREEN_SIZE_PX
+  return clamp(
+    minSize / STELLARIUM_DEFAULT_SCREEN_SIZE_PX,
+    STELLARIUM_MIN_SCREEN_FACTOR,
+    STELLARIUM_MAX_SCREEN_FACTOR,
+  )
+}
 
-  if (clampedFovDeg >= widestAnchor.fovDeg) {
-    return widestAnchor.limitingMagnitude
+function buildTelescopeGainMagnitude(fovDeg: number) {
+  const fovRad = clamp(fovDeg, 0.25, 180) * DEGREES_TO_RADIANS
+  const magnification = STELLARIUM_FOV_EYE_RADIANS / fovRad
+  const exposure = Math.pow(Math.max(1, (5 * DEGREES_TO_RADIANS) / fovRad), 0.07)
+  const lightGrasp = Math.max(0.4, magnification * magnification * exposure)
+
+  return 2.5 * Math.log10(lightGrasp)
+}
+
+function getMagnitudeIlluminance(magnitude: number) {
+  return 10.7646e4 / (RADIANS_TO_ARCSECONDS * RADIANS_TO_ARCSECONDS) * exp10(-0.4 * magnitude)
+}
+
+function getApparentLuminanceForMagnitude(magnitude: number, telescopeGainMagnitude: number) {
+  const minimumPointArea = Math.PI * STELLARIUM_POINT_SPREAD_RADIUS_RAD * STELLARIUM_POINT_SPREAD_RADIUS_RAD
+  return getMagnitudeIlluminance(magnitude - telescopeGainMagnitude) / minimumPointArea
+}
+
+function tonemapperMap(
+  luminance: number,
+  tonemapperP: number,
+  tonemapperLwmax: number,
+  tonemapperExposure: number,
+) {
+  const safeLuminance = Math.max(luminance, 0)
+  const safeLwmax = Math.max(tonemapperLwmax, 1e-6)
+  const denominator = Math.log(1 + tonemapperP * safeLwmax)
+
+  if (denominator <= 0) {
+    return 0
   }
 
-  if (clampedFovDeg <= narrowestAnchor.fovDeg) {
-    return narrowestAnchor.limitingMagnitude
+  return (Math.log(1 + tonemapperP * safeLuminance) / denominator) * tonemapperExposure
+}
+
+function computePointRadiusForMagnitude(magnitude: number, config: Required<LimitingMagnitudeConfig>) {
+  const response = tonemapperMap(
+    getApparentLuminanceForMagnitude(magnitude, buildTelescopeGainMagnitude(config.fovDeg)),
+    config.tonemapperP,
+    config.tonemapperLwmax,
+    config.tonemapperExposure,
+  )
+
+  return (
+    STELLARIUM_STAR_LINEAR_SCALE *
+    buildScreenFactor(config.viewportMinSizePx) *
+    Math.pow(Math.max(response, 0), STELLARIUM_STAR_RELATIVE_SCALE / 2)
+  )
+}
+
+function normalizeConfig(input: number | LimitingMagnitudeConfig): Required<LimitingMagnitudeConfig> {
+  if (typeof input === 'number') {
+    return {
+      fovDeg: input,
+      skyBrightness: 0,
+      tonemapperP: STELLARIUM_TONEMAPPER_P,
+      tonemapperExposure: STELLARIUM_TONEMAPPER_EXPOSURE,
+      tonemapperLwmax: STELLARIUM_TONEMAPPER_LWMAX,
+      viewportMinSizePx: STELLARIUM_DEFAULT_SCREEN_SIZE_PX,
+    }
   }
 
-  for (let index = 0; index < LIMITING_MAGNITUDE_ANCHORS.length - 1; index += 1) {
-    const upperAnchor = LIMITING_MAGNITUDE_ANCHORS[index]
-    const lowerAnchor = LIMITING_MAGNITUDE_ANCHORS[index + 1]
+  return {
+    fovDeg: input.fovDeg,
+    skyBrightness: input.skyBrightness ?? 0,
+    tonemapperP: input.tonemapperP ?? STELLARIUM_TONEMAPPER_P,
+    tonemapperExposure: input.tonemapperExposure ?? STELLARIUM_TONEMAPPER_EXPOSURE,
+    tonemapperLwmax: input.tonemapperLwmax ?? STELLARIUM_TONEMAPPER_LWMAX,
+    viewportMinSizePx: input.viewportMinSizePx ?? STELLARIUM_DEFAULT_SCREEN_SIZE_PX,
+  }
+}
 
-    if (clampedFovDeg > upperAnchor.fovDeg || clampedFovDeg < lowerAnchor.fovDeg) {
-      continue
+export function computeVisibilityAlphaForMagnitude(magnitude: number, input: number | LimitingMagnitudeConfig) {
+  const config = normalizeConfig(input)
+  const radius = computePointRadiusForMagnitude(magnitude, config)
+
+  if (radius < STELLARIUM_SKIP_POINT_RADIUS_PX) {
+    return 0
+  }
+
+  if (radius < STELLARIUM_MIN_POINT_RADIUS_PX) {
+    const normalizedRadius = (radius - STELLARIUM_SKIP_POINT_RADIUS_PX)
+      / (STELLARIUM_MIN_POINT_RADIUS_PX - STELLARIUM_SKIP_POINT_RADIUS_PX)
+    return clamp(normalizedRadius * normalizedRadius, 0, 1)
+  }
+
+  return 1
+}
+
+export function resolveLimitingMagnitude(input: number | LimitingMagnitudeConfig) {
+  const config = normalizeConfig(input)
+  let magnitude = 0
+  let lowerBound = -192
+  let upperBound = 64
+
+  if (computePointRadiusForMagnitude(lowerBound, config) < STELLARIUM_SKIP_POINT_RADIUS_PX) {
+    return lowerBound
+  }
+
+  for (let iteration = 0; iteration < 32; iteration += 1) {
+    magnitude = (lowerBound + upperBound) * 0.5
+    const radius = computePointRadiusForMagnitude(magnitude, config)
+
+    if (Math.abs(radius - STELLARIUM_SKIP_POINT_RADIUS_PX) < 0.001) {
+      return magnitude
     }
 
-    const upperLogFov = Math.log(upperAnchor.fovDeg)
-    const lowerLogFov = Math.log(lowerAnchor.fovDeg)
-    const currentLogFov = Math.log(clampedFovDeg)
-    const amount = (upperLogFov - currentLogFov) / (upperLogFov - lowerLogFov)
-
-    return interpolate(upperAnchor.limitingMagnitude, lowerAnchor.limitingMagnitude, amount)
+    if (radius > STELLARIUM_SKIP_POINT_RADIUS_PX) {
+      lowerBound = magnitude
+    } else {
+      upperBound = magnitude
+    }
   }
 
-  return narrowestAnchor.limitingMagnitude
+  return magnitude
 }
