@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 export const SKY_ENGINE_LOCAL_TIME_ZONE = 'America/New_York'
 export const SKY_ENGINE_MAX_SCENE_OFFSET_SECONDS = 14 * 24 * 60 * 60
+const SKY_ENGINE_UI_CADENCE_MS = 150
 
 export const SKY_ENGINE_TIME_SCALE_OPTIONS = [
   { id: 'seconds', label: 'Seconds', shortLabel: 'sec', stepSeconds: 1 },
@@ -113,17 +114,33 @@ function toSceneTimestampIso(timestampMs: number) {
 
 export function useSkyEngineSceneTime() {
   const [sceneBaseTimestampMs, setSceneBaseTimestampMs] = useState(() => Date.now())
-  const [sceneOffsetSeconds, setSceneOffsetSecondsInternal] = useReducer(
-    (currentValue: number, nextValue: number | ((currentValue: number) => number)) => {
-      const resolvedValue = typeof nextValue === 'function' ? nextValue(currentValue) : nextValue
-      return clampSceneOffsetSeconds(resolvedValue)
-    },
-    0,
-  )
+  const [sceneOffsetSeconds, setSceneOffsetSeconds] = useState(0)
   const [timeScaleId, setTimeScaleId] = useState<SkyEngineTimeScaleId>('minutes')
   const [playbackRate, setPlaybackRate] = useState(1)
   const lastNonZeroPlaybackRate = useRef(1)
   const lastAnimationTimestampRef = useRef<number | null>(null)
+  const sceneOffsetSecondsRef = useRef(0)
+  const lastUiPublishTimestampRef = useRef(0)
+
+  const flushSceneOffset = useCallback((force = false) => {
+    const nextValue = clampSceneOffsetSeconds(sceneOffsetSecondsRef.current)
+    const nowMs = performance.now()
+
+    sceneOffsetSecondsRef.current = nextValue
+
+    if (!force && nowMs - lastUiPublishTimestampRef.current < SKY_ENGINE_UI_CADENCE_MS) {
+      return
+    }
+
+    lastUiPublishTimestampRef.current = nowMs
+    setSceneOffsetSeconds((currentValue) => (currentValue === nextValue ? currentValue : nextValue))
+  }, [])
+
+  const commitSceneOffset = useCallback((nextValue: number | ((currentValue: number) => number), force = false) => {
+    const resolvedValue = typeof nextValue === 'function' ? nextValue(sceneOffsetSecondsRef.current) : nextValue
+    sceneOffsetSecondsRef.current = clampSceneOffsetSeconds(resolvedValue)
+    flushSceneOffset(force)
+  }, [flushSceneOffset])
 
   useEffect(() => {
     if (playbackRate !== 0) {
@@ -134,6 +151,7 @@ export function useSkyEngineSceneTime() {
   useEffect(() => {
     if (playbackRate === 0) {
       lastAnimationTimestampRef.current = null
+      flushSceneOffset(true)
       return undefined
     }
 
@@ -143,7 +161,7 @@ export function useSkyEngineSceneTime() {
       const elapsedSeconds = (timestamp - lastTimestamp) / 1000
       lastAnimationTimestampRef.current = timestamp
 
-      setSceneOffsetSecondsInternal((currentValue) => {
+      commitSceneOffset((currentValue) => {
         const nextValue = clampSceneOffsetSeconds(currentValue + elapsedSeconds * playbackRate)
 
         if (Math.abs(nextValue) >= SKY_ENGINE_MAX_SCENE_OFFSET_SECONDS) {
@@ -162,7 +180,7 @@ export function useSkyEngineSceneTime() {
       globalThis.cancelAnimationFrame(frameHandle)
       lastAnimationTimestampRef.current = null
     }
-  }, [playbackRate])
+  }, [commitSceneOffset, flushSceneOffset, playbackRate])
 
   const selectedTimeScale = useMemo(
     () => SKY_ENGINE_TIME_SCALE_OPTIONS.find((option) => option.id === timeScaleId) ?? SKY_ENGINE_TIME_SCALE_OPTIONS[1],
@@ -199,13 +217,13 @@ export function useSkyEngineSceneTime() {
     [playbackRate],
   )
 
-  const setSceneOffsetSeconds = useCallback((nextValue: number) => {
-    setSceneOffsetSecondsInternal(nextValue)
+  const setSceneOffsetSecondsImmediate = useCallback((nextValue: number) => {
+    commitSceneOffset(nextValue, true)
   }, [])
 
   const nudgeSceneOffset = useCallback((deltaSeconds: number) => {
-    setSceneOffsetSecondsInternal((currentValue) => currentValue + deltaSeconds)
-  }, [])
+    commitSceneOffset((currentValue) => currentValue + deltaSeconds, true)
+  }, [commitSceneOffset])
 
   const togglePlayback = useCallback(() => {
     setPlaybackRate((currentRate) => {
@@ -220,8 +238,8 @@ export function useSkyEngineSceneTime() {
   const resetSceneTime = useCallback(() => {
     setSceneBaseTimestampMs(Date.now())
     setPlaybackRate(1)
-    setSceneOffsetSecondsInternal(0)
-  }, [])
+    commitSceneOffset(0, true)
+  }, [commitSceneOffset])
 
   return {
     sceneTimestampIso,
@@ -240,7 +258,7 @@ export function useSkyEngineSceneTime() {
     isPlaying: playbackRate !== 0,
     setTimeScaleId,
     setPlaybackRate,
-    setSceneOffsetSeconds,
+    setSceneOffsetSeconds: setSceneOffsetSecondsImmediate,
     nudgeSceneOffset,
     togglePlayback,
     resetSceneTime,

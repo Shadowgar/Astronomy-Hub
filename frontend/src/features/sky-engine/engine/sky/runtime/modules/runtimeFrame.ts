@@ -5,7 +5,6 @@ import {
   computeObservedMagnitude,
 } from '../../../../atmosphericExtinction'
 import { getSkyEngineFovDegrees } from '../../../../observerNavigation'
-import type { ProjectedPickTargetEntry } from '../../../../pickTargets'
 import {
   directionToHorizontal,
   getProjectionScale,
@@ -187,27 +186,54 @@ export function writeSceneState({
   groundTextureMode,
   groundTextureAssetPath,
 }: SceneFrameStateWriteInput) {
+  canvas.setAttribute('data-sky-engine-scene-state', serializeSceneState({
+    backendStarCount,
+    objects,
+    selectedObjectId,
+    trajectoryObjectId,
+    visibleLabelIds,
+    guidedObjectIds,
+    aidVisibility,
+    currentFovDegrees,
+    currentLodTier,
+    labelCap,
+    groundTextureMode,
+    groundTextureAssetPath,
+  }))
+}
+
+export function serializeSceneState({
+  backendStarCount,
+  objects,
+  selectedObjectId,
+  trajectoryObjectId,
+  visibleLabelIds,
+  guidedObjectIds,
+  aidVisibility,
+  currentFovDegrees,
+  currentLodTier,
+  labelCap,
+  groundTextureMode,
+  groundTextureAssetPath,
+}: Omit<SceneFrameStateWriteInput, 'canvas'>) {
   const moonObject = objects.find((object) => object.type === 'moon')
 
-  canvas.setAttribute(
-    'data-sky-engine-scene-state',
-    JSON.stringify({
-      horizonVisible: true,
-      selectedObjectId,
-      trajectoryObjectId,
-      visibleLabelIds,
-      guidanceObjectIds: guidedObjectIds,
-      moonObjectId: moonObject?.id ?? null,
-      controlledLabelCount: visibleLabelIds.length,
-      backendStarCount,
-      labelCap,
-      aidVisibility,
-      currentFovDegrees,
-      currentLodTier,
-      groundTextureMode,
-      groundTextureAssetPath,
-    }),
-  )
+  return JSON.stringify({
+    horizonVisible: true,
+    selectedObjectId,
+    trajectoryObjectId,
+    visibleLabelIds,
+    guidanceObjectIds: guidedObjectIds,
+    moonObjectId: moonObject?.id ?? null,
+    controlledLabelCount: visibleLabelIds.length,
+    backendStarCount,
+    labelCap,
+    aidVisibility,
+    currentFovDegrees,
+    currentLodTier,
+    groundTextureMode,
+    groundTextureAssetPath,
+  })
 }
 
 export function clearSceneState(canvas: HTMLCanvasElement) {

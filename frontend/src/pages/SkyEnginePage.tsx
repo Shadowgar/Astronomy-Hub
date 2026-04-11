@@ -1,4 +1,4 @@
-import React, { Profiler, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type ProfilerOnRenderCallback } from 'react'
+import React, { Profiler, startTransition, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type ProfilerOnRenderCallback } from 'react'
 import { Link } from 'react-router-dom'
 
 import {
@@ -154,6 +154,22 @@ type SkyEngineUiPerfState = {
   sampleCount: number
 }
 
+type SkyEngineViewState = {
+  fovDegrees: number
+  centerAltDeg: number
+  centerAzDeg: number
+}
+
+const SKY_ENGINE_UI_CADENCE_MS = 150
+
+function areViewStatesEqual(left: SkyEngineViewState, right: SkyEngineViewState) {
+  return (
+    left.fovDegrees === right.fovDegrees &&
+    left.centerAltDeg === right.centerAltDeg &&
+    left.centerAzDeg === right.centerAzDeg
+  )
+}
+
 function createSkyEngineUiPerfState(): SkyEngineUiPerfState {
   return {
     reactCommitCount: 0,
@@ -228,6 +244,19 @@ function SkyEngineOwnershipState({ title, detail }: Readonly<SkyEngineOwnershipS
 function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: BackendSkyScenePayload }>) {
   const rootRef = useRef<HTMLDivElement | null>(null)
   const uiPerfRef = useRef<SkyEngineUiPerfState>(createSkyEngineUiPerfState())
+  const uiPerfPublishRef = useRef({
+    lastPublishAtMs: 0,
+    lastPayload: '',
+  })
+  const viewStateCadenceRef = useRef<{
+    lastPublishAtMs: number
+    pending: SkyEngineViewState | null
+    timeoutHandle: number | null
+  }>({
+    lastPublishAtMs: 0,
+    pending: null,
+    timeoutHandle: null,
+  })
   const sceneTime = useSkyEngineSceneTime()
   const skyStarTileManifestQuery = useSkyStarTileManifestDataQuery({ at: backendScene.timestamp })
   const [repositoryMode] = useState(() => resolveSkyTileRepositoryMode())
@@ -268,7 +297,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     () => computeBackendStarSceneObjects(observer, sceneTime.sceneTimestampIso, resolvedBackendTileStars),
     [observer, resolvedBackendTileStars, sceneTime.sceneTimestampIso],
   )
-  const [viewState, setViewState] = useState(() => buildBackendViewState(backendScene))
+  const [viewState, setViewState] = useState<SkyEngineViewState>(() => buildBackendViewState(backendScene))
   const [aidVisibility, setAidVisibility] = useState({
     constellations: true,
     azimuthRing: true,
@@ -277,7 +306,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   const [inspectorOpen, setInspectorOpen] = useState(false)
   const [tileLoadResult, setTileLoadResult] = useState<SkyTileRepositoryLoadResult | null>(null)
 
-  const publishUiPerfMetrics = useCallback(() => {
+  const publishUiPerfMetrics = useCallback((force = false) => {
     const root = rootRef.current
 
     if (!root) {
@@ -289,7 +318,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
       ? metrics.reactActualDurationTotalMs / metrics.reactCommitCount
       : 0
 
-    root.setAttribute('data-sky-engine-ui-perf', JSON.stringify({
+    const nextPayload = JSON.stringify({
       reactCommitCount: metrics.reactCommitCount,
       reactLastCommitMs: metrics.reactLastCommitMs,
       reactMeanCommitMs: meanReactCommitMs,
@@ -306,7 +335,21 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
       layoutShiftCount: metrics.layoutShiftCount,
       layoutShiftTotal: metrics.layoutShiftTotal,
       sampleCount: metrics.sampleCount,
-    }))
+    })
+    const publishState = uiPerfPublishRef.current
+    const nowMs = performance.now()
+
+    if (!force && nowMs - publishState.lastPublishAtMs < SKY_ENGINE_UI_CADENCE_MS) {
+      return
+    }
+
+    if (publishState.lastPayload === nextPayload) {
+      return
+    }
+
+    publishState.lastPublishAtMs = nowMs
+    publishState.lastPayload = nextPayload
+    root.setAttribute('data-sky-engine-ui-perf', nextPayload)
   }, [])
   const sunState = useMemo(
     () => computeSunState(observer, sceneTime.sceneTimestampIso),
@@ -529,11 +572,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     setViewState((currentViewState) => {
       const nextViewState = buildBackendViewState(backendScene)
 
-      if (
-        currentViewState.fovDegrees === nextViewState.fovDegrees &&
-        currentViewState.centerAltDeg === nextViewState.centerAltDeg &&
-        currentViewState.centerAzDeg === nextViewState.centerAzDeg
-      ) {
+      if (areViewStatesEqual(currentViewState, nextViewState)) {
         return currentViewState
       }
 
@@ -548,19 +587,44 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   }, [selection.selectionStatus])
 
   const handleAtmosphereStatusChange = useCallback(() => undefined, [])
-  const handleViewStateChange = useCallback((nextViewState: { fovDegrees: number; centerAltDeg: number; centerAzDeg: number }) => {
-    setViewState((currentViewState) => {
-      if (
-        currentViewState.fovDegrees === nextViewState.fovDegrees &&
-        currentViewState.centerAltDeg === nextViewState.centerAltDeg &&
-        currentViewState.centerAzDeg === nextViewState.centerAzDeg
-      ) {
-        return currentViewState
+  const flushViewState = useCallback(function flushPendingViewState(force = false) {
+    const cadenceState = viewStateCadenceRef.current
+    const nextViewState = cadenceState.pending
+
+    if (!nextViewState) {
+      return
+    }
+
+    const nowMs = performance.now()
+    const timeUntilNextPublishMs = SKY_ENGINE_UI_CADENCE_MS - (nowMs - cadenceState.lastPublishAtMs)
+
+    if (!force && timeUntilNextPublishMs > 0) {
+      if (cadenceState.timeoutHandle === null) {
+        cadenceState.timeoutHandle = window.setTimeout(() => {
+          cadenceState.timeoutHandle = null
+          flushPendingViewState(true)
+        }, timeUntilNextPublishMs)
       }
 
-      return nextViewState
+      return
+    }
+
+    cadenceState.lastPublishAtMs = nowMs
+    cadenceState.pending = null
+
+    if (cadenceState.timeoutHandle !== null) {
+      window.clearTimeout(cadenceState.timeoutHandle)
+      cadenceState.timeoutHandle = null
+    }
+
+    startTransition(() => {
+      setViewState((currentViewState) => (areViewStatesEqual(currentViewState, nextViewState) ? currentViewState : nextViewState))
     })
   }, [])
+  const handleViewStateChange = useCallback((nextViewState: SkyEngineViewState) => {
+    viewStateCadenceRef.current.pending = nextViewState
+    flushViewState(false)
+  }, [flushViewState])
   const phaseBandState = sunState.phaseLabel === 'Low Sun' ? 'Twilight' : sunState.phaseLabel
   const searchableSceneObjects = useMemo(
     () => [...sceneObjects].sort((left, right) => left.name.localeCompare(right.name)),
@@ -710,6 +774,15 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
       cancelAnimationFrame(frameHandle)
     }
   }, [publishUiPerfMetrics])
+
+  useEffect(() => () => {
+    const cadenceState = viewStateCadenceRef.current
+
+    if (cadenceState.timeoutHandle !== null) {
+      window.clearTimeout(cadenceState.timeoutHandle)
+      cadenceState.timeoutHandle = null
+    }
+  }, [])
 
   useEffect(() => () => {
     rootRef.current?.removeAttribute('data-sky-engine-ui-perf')
