@@ -2,10 +2,12 @@ import type { SkyModule } from './SkyModule'
 import type {
   SkyCoreConfigWithServices,
   SkyCoreRenderRefs,
+  SkyRuntimePerfTelemetrySnapshot,
   SkyModuleContext,
   SkyRenderContext,
   SkyUpdateContext,
 } from './types'
+import { commitRuntimePerfTelemetry } from './perfTelemetry'
 
 export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
   private readonly config: SkyCoreConfigWithServices<TProps, TRuntime, TServices>
@@ -23,6 +25,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
   private started = false
   private requestedRender = true
   private frameDirty = false
+  private currentModuleCostMs: Record<string, number> = {}
 
   constructor(config: SkyCoreConfigWithServices<TProps, TRuntime, TServices>) {
     this.config = config
@@ -67,26 +70,65 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
         return
       }
 
+      const frameStartMs = performance.now()
       const now = performance.now()
       const deltaSeconds = Math.min(0.05, (now - this.lastFrameTime) * 0.001)
       this.lastFrameTime = now
       this.frameDirty = false
+      this.currentModuleCostMs = {}
+      if (this.runtime.runtimePerfTelemetry) {
+        this.runtime.runtimePerfTelemetry.latest = {
+          ...this.runtime.runtimePerfTelemetry.latest,
+          stepMs: {},
+        }
+      }
       this.config.updateServices?.({
         ...this.getServicesLifecycleContext(),
         deltaSeconds,
       })
+      const updateStartMs = performance.now()
       this.update(deltaSeconds)
+      const updateMs = performance.now() - updateStartMs
 
       const shouldRenderFrame = this.requestedRender || this.frameDirty || this.renderedPropsVersion !== this.propsVersion
 
       if (!shouldRenderFrame) {
+        this.commitPerfSnapshot({
+          frameIndex: this.runtime.runtimePerfTelemetry?.latest.frameIndex ?? 0,
+          shouldRenderFrame: false,
+          updateMs,
+          renderModulesMs: 0,
+          sceneRenderMs: 0,
+          frameTotalMs: performance.now() - frameStartMs,
+          moduleMs: { ...this.currentModuleCostMs },
+          stepMs: this.runtime.runtimePerfTelemetry?.latest.stepMs ?? {},
+          starCount: this.runtime.runtimePerfTelemetry?.latest.starCount ?? 0,
+          objectCount: this.runtime.runtimePerfTelemetry?.latest.objectCount ?? 0,
+        })
         return
       }
 
+      const renderStartMs = performance.now()
       this.render()
+      const renderModulesMs = performance.now() - renderStartMs
+      const sceneRenderStartMs = performance.now()
       this.runtime.scene.render()
+      const sceneRenderMs = performance.now() - sceneRenderStartMs
+      const frameTotalMs = performance.now() - frameStartMs
       this.requestedRender = false
       this.renderedPropsVersion = this.propsVersion
+      this.commitPerfSnapshot({
+        frameIndex: (this.runtime.runtimePerfTelemetry?.latest.frameIndex ?? 0) + 1,
+        shouldRenderFrame: true,
+        updateMs,
+        renderModulesMs,
+        sceneRenderMs,
+        frameTotalMs,
+        moduleMs: { ...this.currentModuleCostMs },
+        stepMs: this.runtime.runtimePerfTelemetry?.latest.stepMs ?? {},
+        starCount: this.runtime.runtimePerfTelemetry?.latest.starCount ?? 0,
+        objectCount: this.runtime.runtimePerfTelemetry?.latest.objectCount ?? 0,
+      })
     })
   }
 
@@ -112,7 +154,12 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       ...this.getModuleContext(),
       deltaSeconds,
     }
-    this.modules.forEach((module) => module.update?.(context))
+    this.modules.forEach((module) => {
+      const startMs = performance.now()
+      module.update?.(context)
+      const elapsedMs = performance.now() - startMs
+      this.currentModuleCostMs[module.id] = (this.currentModuleCostMs[module.id] ?? 0) + elapsedMs
+    })
   }
 
   render() {
@@ -121,7 +168,12 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     }
 
     const context: SkyRenderContext<TProps, TRuntime, TServices> = this.getModuleContext()
-    this.modules.forEach((module) => module.render?.(context))
+    this.modules.forEach((module) => {
+      const startMs = performance.now()
+      module.render?.(context)
+      const elapsedMs = performance.now() - startMs
+      this.currentModuleCostMs[module.id] = (this.currentModuleCostMs[module.id] ?? 0) + elapsedMs
+    })
   }
 
   syncProps(nextProps: TProps, propsVersion: number) {
@@ -202,5 +254,13 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
         this.requestRender()
       },
     }
+  }
+
+  private commitPerfSnapshot(snapshot: SkyRuntimePerfTelemetrySnapshot) {
+    if (!this.runtime?.runtimePerfTelemetry) {
+      return
+    }
+
+    commitRuntimePerfTelemetry(this.runtime.runtimePerfTelemetry, snapshot)
   }
 }

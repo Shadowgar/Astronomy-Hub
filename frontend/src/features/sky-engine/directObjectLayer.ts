@@ -144,7 +144,19 @@ export function createDirectObjectLayer(scene: Scene) {
       selectedObjectId: string | null,
       animationTime: number,
     ) {
-      const nextIds = new Set(projectedObjects.map((entry) => entry.object.id))
+      if (projectedObjects.length === 0 && entries.size === 0) {
+        selectionRing.mesh.isVisible = false
+        return
+      }
+
+      const nextIds = new Set<string>()
+      for (let index = 0; index < projectedObjects.length; index += 1) {
+        const entry = projectedObjects[index]
+        if (entry.object.type === 'star') {
+          continue
+        }
+        nextIds.add(entry.object.id)
+      }
 
       Array.from(entries.keys()).forEach((objectId) => {
         if (nextIds.has(objectId)) {
@@ -163,7 +175,12 @@ export function createDirectObjectLayer(scene: Scene) {
 
       let selectedEntry: DirectProjectedObjectEntry | null = null
 
-      projectedObjects.forEach((projectedObject) => {
+      for (let index = 0; index < projectedObjects.length; index += 1) {
+        const projectedObject = projectedObjects[index]
+        if (projectedObject.object.type === 'star') {
+          continue
+        }
+
         let entry = entries.get(projectedObject.object.id)
 
         if (!entry) {
@@ -189,38 +206,26 @@ export function createDirectObjectLayer(scene: Scene) {
 
         const isSelected = projectedObject.object.id === selectedObjectId
         const basePosition = toViewportPlanePosition(projectedObject, viewportWidth, viewportHeight)
-        const twinkle = projectedObject.object.type === 'star'
-          ? 1 + Math.sin(animationTime * 1.35 + entry.twinklePhase) * (projectedObject.starProfile?.twinkleAmplitude ?? 0)
-          : 1
+        const twinkle = 1
         const emphasisScale = isSelected ? 1.16 : 1
-        const diameter = projectedObject.object.type === 'star'
-          ? Math.max(
-              0.9,
-              (projectedObject.starProfile?.psfDiameterPx ?? projectedObject.markerRadiusPx * 2.2) * emphasisScale * twinkle,
-            )
-          : Math.max(2, projectedObject.markerRadiusPx * 2 * emphasisScale * twinkle)
+        const diameter = Math.max(2, projectedObject.markerRadiusPx * 2 * emphasisScale * twinkle)
 
         entry.mesh.position.copyFrom(basePosition)
         entry.mesh.scaling.set(diameter, diameter, 1)
         entry.mesh.isVisible = projectedObject.renderAlpha > 0.001
 
-        if (projectedObject.object.type === 'star') {
-          entry.material.emissiveColor = Color3.FromHexString(projectedObject.starProfile?.colorHex ?? projectedObject.object.colorHex)
-            .scale((projectedObject.starProfile?.emissiveScale ?? 1) * (isSelected ? 1.08 : 1))
-        } else if (projectedObject.object.type === 'deep_sky') {
+        if (projectedObject.object.type === 'deep_sky') {
           entry.material.emissiveColor = Color3.FromHexString(projectedObject.object.colorHex).scale(0.9)
         } else {
           entry.material.emissiveColor = Color3.White()
         }
 
-        entry.material.alpha = projectedObject.object.type === 'star'
-          ? clamp(projectedObject.renderAlpha * (0.58 + (projectedObject.starProfile?.alpha ?? 0.4) * 0.62) + (isSelected ? 0.08 : 0), 0, 1)
-          : clamp(projectedObject.renderAlpha + (isSelected ? 0.08 : 0), 0, 1)
+        entry.material.alpha = clamp(projectedObject.renderAlpha + (isSelected ? 0.08 : 0), 0, 1)
 
         if (isSelected) {
           selectedEntry = projectedObject
         }
-      })
+      }
 
       if (selectedEntry === null) {
         selectionRing.mesh.isVisible = false

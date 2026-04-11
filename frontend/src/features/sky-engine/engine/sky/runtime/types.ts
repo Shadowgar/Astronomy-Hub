@@ -9,6 +9,25 @@ export interface SkyCoreRenderRefs {
   readonly camera: UniversalCamera
   readonly canvas: HTMLCanvasElement
   readonly backgroundCanvas: HTMLCanvasElement
+  readonly runtimePerfTelemetry?: SkyRuntimePerfTelemetry
+}
+
+export interface SkyRuntimePerfTelemetrySnapshot {
+  readonly frameIndex: number
+  readonly shouldRenderFrame: boolean
+  readonly updateMs: number
+  readonly renderModulesMs: number
+  readonly sceneRenderMs: number
+  readonly frameTotalMs: number
+  readonly moduleMs: Readonly<Record<string, number>>
+  readonly stepMs: Readonly<Record<string, number>>
+  readonly starCount: number
+  readonly objectCount: number
+}
+
+export interface SkyRuntimePerfTelemetry {
+  latest: SkyRuntimePerfTelemetrySnapshot
+  ema: SkyRuntimePerfTelemetrySnapshot
 }
 
 export interface SkyCoreConfig<TProps, TRuntime extends SkyCoreRenderRefs> {

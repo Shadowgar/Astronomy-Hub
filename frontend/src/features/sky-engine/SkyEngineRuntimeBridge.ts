@@ -15,6 +15,7 @@ import { horizontalToDirection } from './projectionMath'
 import { createDirectBackgroundLayer } from './directBackgroundLayer'
 import { createDirectObjectLayer } from './directObjectLayer'
 import { createDirectOverlayLayer } from './directOverlayLayer'
+import { createDirectStarLayer } from './directStarLayer'
 import type { SkyScenePacket } from './engine/sky'
 import type { BackendSkySceneStarObject } from '../scene/contracts'
 import type {
@@ -30,8 +31,10 @@ import { SkyInputService } from './engine/sky/runtime/SkyInputService'
 import { SkyNavigationService } from './engine/sky/runtime/SkyNavigationService'
 import { SkyObserverService } from './engine/sky/runtime/SkyObserverService'
 import { SkyProjectionService } from './engine/sky/runtime/SkyProjectionService'
+import { createRuntimePerfTelemetry } from './engine/sky/runtime/perfTelemetry'
 import type { SkyBrightnessExposureState } from './engine/sky/runtime/types'
 import {
+  type ProjectedSceneObjectEntry,
   type RuntimeProjectedSceneFrame,
   type RuntimeProjectedStarsFrame,
 } from './engine/sky/runtime/modules/runtimeFrame'
@@ -65,17 +68,32 @@ export interface SceneRuntimeRefs {
   canvas: HTMLCanvasElement
   backgroundCanvas: HTMLCanvasElement
   directBackgroundLayer: ReturnType<typeof createDirectBackgroundLayer>
+  directStarLayer: ReturnType<typeof createDirectStarLayer>
   directObjectLayer: ReturnType<typeof createDirectObjectLayer>
   directOverlayLayer: ReturnType<typeof createDirectOverlayLayer>
   projectedPickEntries: ProjectedPickTargetEntry[]
+  projectedPickSourceRef: readonly ProjectedSceneObjectEntry[] | null
   lastReportedFovTenths: number | null
   lastReportedCenterAltTenths: number | null
   lastReportedCenterAzTenths: number | null
   projectedStarsFrame: RuntimeProjectedStarsFrame | null
   projectedSceneFrame: RuntimeProjectedSceneFrame | null
+  projectedNonStarObjects: RuntimeProjectedSceneFrame['projectedObjects']
   brightnessExposureState: SkyBrightnessExposureState | null
   trajectoryObjectId: string | null
   visibleLabelIds: readonly string[]
+  runtimePerfTelemetry: ReturnType<typeof createRuntimePerfTelemetry>
+  starsProjectionCache: {
+    sceneTimestampMs: number
+    width: number
+    height: number
+    objectSignature: string
+    centerDirection: { x: number; y: number; z: number }
+    fovDegrees: number
+    limitingMagnitude: number
+    projectedStars: readonly ProjectedSceneObjectEntry[]
+  } | null
+  starsProjectionReuseStreak: number
 }
 
 export interface SkySceneRuntimeServices {
@@ -116,17 +134,23 @@ export function createSceneRuntimeState({
     canvas,
     backgroundCanvas,
     directBackgroundLayer: createDirectBackgroundLayer(scene),
+    directStarLayer: createDirectStarLayer(scene),
     directObjectLayer: createDirectObjectLayer(scene),
     directOverlayLayer: createDirectOverlayLayer(scene),
     projectedPickEntries: [],
+    projectedPickSourceRef: null,
     lastReportedFovTenths: null,
     lastReportedCenterAltTenths: null,
     lastReportedCenterAzTenths: null,
     projectedStarsFrame: null,
     projectedSceneFrame: null,
+    projectedNonStarObjects: [],
     brightnessExposureState: null,
     trajectoryObjectId: null,
     visibleLabelIds: [],
+    runtimePerfTelemetry: createRuntimePerfTelemetry(),
+    starsProjectionCache: null,
+    starsProjectionReuseStreak: 0,
   } satisfies SceneRuntimeRefs
 }
 
@@ -185,6 +209,7 @@ export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, Scen
     },
     dispose({ runtime }) {
       runtime.directBackgroundLayer.dispose()
+      runtime.directStarLayer.dispose()
       runtime.directObjectLayer.dispose()
       runtime.directOverlayLayer.dispose()
     },
