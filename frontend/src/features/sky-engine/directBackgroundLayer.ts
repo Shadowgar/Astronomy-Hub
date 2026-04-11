@@ -204,9 +204,16 @@ function createBottomPath(boundary: readonly { x: number; y: number }[], viewpor
 
 function getLandscapeOpacity(centerAltitudeDeg: number, fovDegrees: number) {
   const baseOpacity = smoothstep(1, 20, fovDegrees)
-  const belowHorizonReveal = centerAltitudeDeg < 0 ? 1 : 0
 
-  return clamp(mix(baseOpacity, baseOpacity * 0.28, belowHorizonReveal), 0.12, 1)
+  if (centerAltitudeDeg <= 0) {
+    return 0
+  }
+
+  if (centerAltitudeDeg < 6) {
+    return clamp(baseOpacity * smoothstep(0, 6, centerAltitudeDeg), 0, 1)
+  }
+
+  return clamp(baseOpacity, 0, 1)
 }
 
 function buildTwilightStrength(sunState: SkyEngineSunState) {

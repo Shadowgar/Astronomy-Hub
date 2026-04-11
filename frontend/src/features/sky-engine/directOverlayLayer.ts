@@ -306,9 +306,14 @@ function buildAzimuthalGridLines(
   const altitudeSampleStepDeg = getCurveSampleStepDegrees(altitudeStepDeg)
   const azimuthStartOffsetDeg = Math.max(-180, Math.floor((viewportRange.azimuthMinOffsetDeg - azimuthStepDeg) / azimuthStepDeg) * azimuthStepDeg)
   const azimuthEndOffsetDeg = Math.min(180, Math.ceil((viewportRange.azimuthMaxOffsetDeg + azimuthStepDeg) / azimuthStepDeg) * azimuthStepDeg)
+  const minVisibleAltitudeDeg = clamp(
+    Math.floor((viewportRange.centerAltitudeDeg + viewportRange.altitudeMinOffsetDeg - altitudeStepDeg) / altitudeStepDeg) * altitudeStepDeg,
+    -90,
+    90,
+  )
   const maxVisibleAltitudeDeg = clamp(
     Math.ceil((viewportRange.centerAltitudeDeg + viewportRange.altitudeMaxOffsetDeg + altitudeStepDeg) / altitudeStepDeg) * altitudeStepDeg,
-    0,
+    -90,
     90,
   )
 
@@ -333,7 +338,11 @@ function buildAzimuthalGridLines(
   }
 
   if (aidVisibility.altitudeRings) {
-    for (let altitudeDeg = altitudeStepDeg; altitudeDeg <= maxVisibleAltitudeDeg + 1e-6; altitudeDeg += altitudeStepDeg) {
+    for (let altitudeDeg = minVisibleAltitudeDeg; altitudeDeg <= maxVisibleAltitudeDeg + 1e-6; altitudeDeg += altitudeStepDeg) {
+      if (Math.abs(altitudeDeg) <= 1e-6) {
+        continue
+      }
+
       const altitudeSegments = buildProjectedCurveSegments(
         view,
         buildDegreeSamples(azimuthStartOffsetDeg, azimuthEndOffsetDeg, altitudeSampleStepDeg),
@@ -348,7 +357,7 @@ function buildAzimuthalGridLines(
       const azimuthDeg = wrapDegrees(viewportRange.centerAzimuthDeg + azimuthOffsetDeg)
       const meridianSegments = buildProjectedCurveSegments(
         view,
-        buildDegreeSamples(0, 90, azimuthSampleStepDeg),
+        buildDegreeSamples(minVisibleAltitudeDeg, maxVisibleAltitudeDeg, azimuthSampleStepDeg),
         (altitudeDeg) => projectHorizontalToViewport(altitudeDeg, azimuthDeg, view),
       )
       pushSegments(`azimuthal-azimuth-${azimuthDeg}`, meridianSegments)
