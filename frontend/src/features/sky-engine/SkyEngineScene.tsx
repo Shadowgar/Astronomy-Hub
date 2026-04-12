@@ -21,6 +21,7 @@ import { createLandscapeModule } from './engine/sky/runtime/modules/LandscapeMod
 import { createMilkyWayModule } from './engine/sky/runtime/modules/MilkyWayModule'
 import { createObjectRuntimeModule } from './engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createOverlayRuntimeModule } from './engine/sky/runtime/modules/OverlayRuntimeModule'
+import { createPlanetRuntimeModule } from './engine/sky/runtime/modules/PlanetRuntimeModule'
 import { createSceneReportingModule } from './engine/sky/runtime/modules/SceneReportingModule'
 import { createSceneLuminanceReportModule } from './engine/sky/runtime/modules/SceneLuminanceReportModule'
 import { createSkyBrightnessExposureModule } from './engine/sky/runtime/modules/SkyBrightnessExposureModule'
@@ -595,6 +596,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
     core.registerModule(createLandscapeModule())
     core.registerModule(createBackgroundRuntimeModule())
     core.registerModule(createStarsModule())
+    core.registerModule(createPlanetRuntimeModule())
     core.registerModule(createObjectRuntimeModule())
     core.registerModule(createOverlayRuntimeModule())
     core.registerModule(createSnapshotBridgeModule(snapshotStore, UI_SNAPSHOT_CADENCE_MS))

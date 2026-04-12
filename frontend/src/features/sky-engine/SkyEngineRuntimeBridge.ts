@@ -7,6 +7,7 @@ import { Scene } from '@babylonjs/core/scene'
 import {
   stabilizeSkyEngineCenterDirection,
 } from './observerNavigation'
+import { createPlanetRenderer } from './PlanetRenderer'
 import {
   type ProjectedPickTargetEntry,
 } from './pickTargets'
@@ -84,6 +85,7 @@ export interface SceneRuntimeRefs {
   canvas: HTMLCanvasElement
   backgroundCanvas: HTMLCanvasElement
   directBackgroundLayer: ReturnType<typeof createDirectBackgroundLayer>
+  directPlanetLayer: ReturnType<typeof createPlanetRenderer>
   directStarLayer: ReturnType<typeof createDirectStarLayer>
   directObjectLayer: ReturnType<typeof createDirectObjectLayer>
   directOverlayLayer: ReturnType<typeof createDirectOverlayLayer>
@@ -95,6 +97,8 @@ export interface SceneRuntimeRefs {
   projectedStarsFrame: RuntimeProjectedStarsFrame | null
   projectedSceneFrame: RuntimeProjectedSceneFrame | null
   projectedNonStarObjects: RuntimeProjectedSceneFrame['projectedObjects']
+  projectedPlanetObjects: RuntimeProjectedSceneFrame['projectedObjects']
+  projectedGenericObjects: RuntimeProjectedSceneFrame['projectedObjects']
   sceneLuminanceReport: SceneLuminanceReport | null
   brightnessExposureState: SkyBrightnessExposureState | null
   trajectoryObjectId: string | null
@@ -151,6 +155,7 @@ export function createSceneRuntimeState({
     canvas,
     backgroundCanvas,
     directBackgroundLayer: createDirectBackgroundLayer(scene),
+    directPlanetLayer: createPlanetRenderer(scene),
     directStarLayer: createDirectStarLayer(scene),
     directObjectLayer: createDirectObjectLayer(scene),
     directOverlayLayer: createDirectOverlayLayer(scene),
@@ -162,6 +167,8 @@ export function createSceneRuntimeState({
     projectedStarsFrame: null,
     projectedSceneFrame: null,
     projectedNonStarObjects: [],
+    projectedPlanetObjects: [],
+    projectedGenericObjects: [],
     sceneLuminanceReport: null,
     brightnessExposureState: null,
     trajectoryObjectId: null,
@@ -230,6 +237,7 @@ export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, Scen
     },
     dispose({ runtime }) {
       runtime.directBackgroundLayer.dispose()
+      runtime.directPlanetLayer.dispose()
       runtime.directStarLayer.dispose()
       runtime.directObjectLayer.dispose()
       runtime.directOverlayLayer.dispose()

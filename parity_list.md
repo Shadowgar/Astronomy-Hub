@@ -40,7 +40,7 @@ Purpose:
 | minorplanets | `src/modules/minorplanets.c` | none found | not started | No asteroid or minor-planet catalog, propagation, or rendering path was found in the local sky-engine runtime. | Catalog, orbit propagation, and brightness modeling are absent. | Add a bounded minor-planet catalog and runtime path. |
 | movements | `src/modules/movements.c` | `engine/sky/runtime/SkyNavigationService.ts`, `observerNavigation.ts`, `engine/sky/runtime/SkyInputService.ts` | partially ported | Wheel zoom, drag pan, selection targeting, and observer-navigation updates are active in the current runtime. | Stellarium-style movement modes and tuning breadth are still missing. | Tune inertia and zoom behavior, then add the next missing navigation mode. |
 | photos | `src/modules/photos.c` | none found | not started | No photo ingestion, calibration, or photo projection/rendering path was found. | Photo overlays and astrometric projection are absent. | Add an optional bounded photo overlay subsystem. |
-| planets | `src/modules/planets.c` | `astronomy.ts`, `directObjectLayer.ts` | partially ported | Planet data is computed and projected into the active generic object layer; dedicated `PlanetRenderer.ts` exists but is not wired into the active runtime. | No dedicated active planet renderer and no higher-fidelity ephemerides. | Wire a bounded planet renderer into the runtime or deepen the active generic path. |
+| planets | `src/modules/planets.c` | `astronomy.ts`, `engine/sky/runtime/modules/PlanetRuntimeModule.ts`, `PlanetRenderer.ts` | partially ported | Planet data is still computed in `astronomy.ts`, but projected planets are now partitioned out of the generic object layer and rendered through a dedicated planet runtime module and layer. | Planet visuals are now owned correctly, but body-specific behavior is still limited to a bounded sprite-style render path rather than deeper subsystem fidelity. | Deepen planet-specific visuals per body without changing projection or ephemeris ownership. |
 | pointer | `src/modules/pointer.c` | `directObjectLayer.ts`, `PointerRenderer.ts` | stubbed | The active runtime uses a generic selection ring; standalone `PointerRenderer.ts` exists but has no active runtime references. | No animated pointer subsystem is wired through the active module graph. | Wire pointer lifecycle through object selection in the active runtime. |
 | satellites | `src/modules/satellites.c` | none found | not started | No TLE ingestion, SGP4 propagation, or satellite rendering path was found in the local sky engine. | Satellite propagation and render behavior are absent. | Add a bounded satellites runtime subsystem. |
 | skycultures | `src/modules/skycultures.c` | `skycultures/index.ts`, `skyCultureSelection.ts`, `directOverlayLayer.ts` | partially ported | Multiple sky-culture definitions exist, culture IDs can be normalized and persisted, and the active overlay renders constellation data for the selected culture ID. | Culture pack coverage and localized behavior breadth are still very limited. | Expand the active culture pack and verify bounded culture switching end-to-end. |
@@ -48,14 +48,14 @@ Purpose:
 
 ## Audit Notes
 - `constellations` and `skycultures` are more advanced than the previous parity file claimed because they are actively rendered through the overlay path, not just defined as static data.
-- `DsoRenderer.ts`, `PlanetRenderer.ts`, `MoonRenderer.ts`, and `PointerRenderer.ts` currently exist as standalone renderer paths but are not wired into the active runtime, so they do not justify higher parity by themselves.
+- `DsoRenderer.ts`, `MoonRenderer.ts`, and `PointerRenderer.ts` still exist as standalone renderer paths that are not wired into the active runtime; `PlanetRenderer.ts` is now part of the active planet render path.
 - Parity judgments in this file are based on the active runtime module graph and the code that actually feeds the current scene.
 
 ## Snapshot Summary
-- Strongest current areas: `stars`, `atmosphere`, `milkyway`, `landscape`, `labels`, `lines`, `movements`, `constellations/skycultures`.
+- Strongest current areas: `stars`, `planets`, `atmosphere`, `milkyway`, `landscape`, `labels`, `lines`, `movements`, `constellations/skycultures`.
 - Weakest current areas: `comets`, `minorplanets`, `satellites`, `meteors`, `dss`, `geojson`, `photos`, `circle`, `drag_selection`.
 - Highest-value next bounded slices:
-  1. Wire active dedicated renderers where parallel dead paths already exist (`planets`, `pointer`, `dso`).
+  1. Wire active dedicated renderers where parallel dead paths still exist (`pointer`, `dso`).
   2. Expand `skycultures` and constellation asset coverage beyond the current narrow pack.
   3. Add a bounded `satellites` subsystem.
   4. Add bounded `minorplanets` and `comets` catalog/runtime support.

@@ -13,13 +13,34 @@ function syncDirectObjectLayer(
   latest: ScenePropsSnapshot,
 ) {
   runtime.directObjectLayer.sync(
-    runtime.projectedNonStarObjects,
+    runtime.projectedGenericObjects,
     projectedFrame.width,
     projectedFrame.height,
     latest.sunState,
     latest.selectedObjectId,
     services.clockService.getAnimationTimeSeconds(),
   )
+}
+
+function partitionProjectedObjects(projectedObjects: RuntimeProjectedSceneFrame['projectedObjects']) {
+  const projectedPlanetObjects: RuntimeProjectedSceneFrame['projectedObjects'][number][] = []
+  const projectedGenericObjects: RuntimeProjectedSceneFrame['projectedObjects'][number][] = []
+
+  for (let index = 0; index < projectedObjects.length; index += 1) {
+    const entry = projectedObjects[index]
+
+    if (entry.object.type === 'planet') {
+      projectedPlanetObjects.push(entry)
+      continue
+    }
+
+    projectedGenericObjects.push(entry)
+  }
+
+  return {
+    projectedPlanetObjects,
+    projectedGenericObjects,
+  }
 }
 
 export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
@@ -33,6 +54,8 @@ export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, Scene
       if (!projectedStarsFrame) {
         runtime.projectedSceneFrame = null
         runtime.projectedNonStarObjects = []
+        runtime.projectedPlanetObjects = []
+        runtime.projectedGenericObjects = []
         runtime.projectedPickSourceRef = null
         return
       }
@@ -46,7 +69,10 @@ export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, Scene
       )
       const nonStarProjectionElapsedMs = performance.now() - nonStarProjectionStartMs
       const projectedObjects = nonStarProjection.projectedObjects
+      const { projectedPlanetObjects, projectedGenericObjects } = partitionProjectedObjects(projectedObjects)
       runtime.projectedNonStarObjects = projectedObjects
+      runtime.projectedPlanetObjects = projectedPlanetObjects
+      runtime.projectedGenericObjects = projectedGenericObjects
       const mergeStartMs = performance.now()
       const mergedProjectedObjects = mergeProjectedSceneObjects(projectedStarsFrame.projectedStars, projectedObjects)
       const mergeElapsedMs = performance.now() - mergeStartMs

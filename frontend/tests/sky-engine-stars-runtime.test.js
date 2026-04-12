@@ -25,6 +25,17 @@ vi.mock('../src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame', ()
     renderAlpha: 1,
     renderedMagnitude: -11.8,
   }
+  const planetEntry = {
+    object: { id: 'planet-1', type: 'planet', magnitude: -2.4, colorHex: '#f6d28b' },
+    screenX: 220,
+    screenY: 120,
+    depth: 0.3,
+    angularDistanceRad: 0.18,
+    markerRadiusPx: 9,
+    pickRadiusPx: 23,
+    renderAlpha: 0.94,
+    renderedMagnitude: -2.4,
+  }
 
   return {
     collectProjectedStars: vi.fn(() => ({
@@ -40,7 +51,7 @@ vi.mock('../src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame', ()
       },
     })),
     collectProjectedNonStarObjects: vi.fn(() => ({
-      projectedObjects: [moonEntry],
+      projectedObjects: [moonEntry, planetEntry],
       timing: {
         transformMs: 0,
         filteringMs: 0,
@@ -48,17 +59,21 @@ vi.mock('../src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame', ()
         totalMs: 0,
       },
     })),
-    mergeProjectedSceneObjects: vi.fn(() => [starEntry, moonEntry]),
+    mergeProjectedSceneObjects: vi.fn(() => [starEntry, moonEntry, planetEntry]),
     ensureSceneSurfaces: vi.fn(() => ({ width: 800, height: 400 })),
     resolveViewTier: vi.fn(() => ({ tier: 'medium', labelCap: 8 })),
   }
 })
 
 import { createObjectRuntimeModule } from '../src/features/sky-engine/engine/sky/runtime/modules/ObjectRuntimeModule'
+import { createPlanetRuntimeModule } from '../src/features/sky-engine/engine/sky/runtime/modules/PlanetRuntimeModule'
 import { createStarsModule } from '../src/features/sky-engine/engine/sky/runtime/modules/StarsModule'
 
 function createBaseRuntime() {
   return {
+    directPlanetLayer: {
+      sync: vi.fn(),
+    },
     directObjectLayer: {
       sync: vi.fn(),
     },
@@ -68,6 +83,8 @@ function createBaseRuntime() {
     projectedStarsFrame: null,
     projectedSceneFrame: null,
     projectedNonStarObjects: [],
+    projectedPlanetObjects: [],
+    projectedGenericObjects: [],
     projectedPickEntries: [],
     projectedPickSourceRef: null,
     runtimePerfTelemetry: {
@@ -142,10 +159,12 @@ function createBaseProps() {
     objects: [
       { id: 'star-1', type: 'star', magnitude: 1.2, altitudeDeg: 40, azimuthDeg: 120 },
       { id: 'moon-1', type: 'moon', magnitude: -11.8, altitudeDeg: 20, azimuthDeg: 180 },
+      { id: 'planet-1', type: 'planet', magnitude: -2.4, altitudeDeg: 32, azimuthDeg: 210, colorHex: '#f6d28b' },
     ],
     scenePacket: null,
     sunState: { visualCalibration: { starVisibility: 1, starFieldBrightness: 1 } },
     selectedObjectId: null,
+    guidedObjectIds: [],
   }
 }
 
@@ -206,6 +225,49 @@ describe('Sky star runtime ownership', () => {
     const [genericObjects] = runtime.directObjectLayer.sync.mock.calls[0]
     expect(genericObjects).toHaveLength(1)
     expect(genericObjects[0].object.type).toBe('moon')
+    expect(runtime.projectedPlanetObjects).toHaveLength(1)
+    expect(runtime.projectedPlanetObjects[0].object.type).toBe('planet')
+    expect(runtime.projectedGenericObjects).toHaveLength(1)
+    expect(runtime.projectedGenericObjects[0].object.type).toBe('moon')
     expect(runtime.projectedPickEntries.some((entry) => entry.object.type === 'star')).toBe(true)
+    expect(runtime.projectedPickEntries.some((entry) => entry.object.type === 'planet')).toBe(true)
+  })
+
+  it('PlanetRuntimeModule owns dedicated planet layer sync', () => {
+    const objectModule = createObjectRuntimeModule()
+    const planetModule = createPlanetRuntimeModule()
+    const runtime = createBaseRuntime()
+    const services = createBaseServices()
+    const props = createBaseProps()
+    const getProps = () => props
+    const getPropsVersion = () => 1
+    runtime.projectedStarsFrame = {
+      width: 800,
+      height: 400,
+      currentFovDegrees: 60,
+      lod: { tier: 'medium', labelCap: 8 },
+      view: { fovRadians: 1, viewportWidth: 800, viewportHeight: 400 },
+      projectedStars: [{
+        object: { id: 'star-1', type: 'star', magnitude: 1.2 },
+        screenX: 100,
+        screenY: 100,
+        depth: 0.2,
+        angularDistanceRad: 0.3,
+        markerRadiusPx: 3,
+        pickRadiusPx: 12,
+        renderAlpha: 0.8,
+      }],
+      limitingMagnitude: 6.4,
+      sceneTimestampIso: '2026-04-10T00:00:00Z',
+    }
+
+    objectModule.update({ runtime, services, getProps, getPropsVersion })
+    planetModule.render({ runtime, services, getProps })
+
+    expect(runtime.directPlanetLayer.sync).toHaveBeenCalledTimes(1)
+    const [projectedPlanets] = runtime.directPlanetLayer.sync.mock.calls[0]
+    expect(projectedPlanets).toHaveLength(1)
+    expect(projectedPlanets[0].object.type).toBe('planet')
+    expect(runtime.directObjectLayer.sync).not.toHaveBeenCalled()
   })
 })
