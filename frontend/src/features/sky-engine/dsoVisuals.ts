@@ -19,6 +19,15 @@ export interface DeepSkyResolvedAxes {
   readonly axisRatio: number
 }
 
+export interface DeepSkySymbolStyle {
+  readonly visualClass: SkyEngineDeepSkyClass
+  readonly contourKind: 'ellipse' | 'bracketed-nebula' | 'cluster-ring' | 'diamond'
+  readonly accentKind: 'nucleus' | 'wisps' | 'stars' | 'core-ring'
+  readonly dashPattern: readonly number[]
+  readonly glowScaleX: number
+  readonly glowScaleY: number
+}
+
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
 }
@@ -66,12 +75,51 @@ const DEEP_SKY_VISUAL_STYLES: Record<SkyEngineDeepSkyClass, DeepSkyVisualStyle> 
   },
 }
 
+const DEEP_SKY_SYMBOL_STYLES: Record<SkyEngineDeepSkyClass, DeepSkySymbolStyle> = {
+  galaxy: {
+    visualClass: 'galaxy',
+    contourKind: 'ellipse',
+    accentKind: 'nucleus',
+    dashPattern: [],
+    glowScaleX: 1.34,
+    glowScaleY: 0.82,
+  },
+  nebula: {
+    visualClass: 'nebula',
+    contourKind: 'bracketed-nebula',
+    accentKind: 'wisps',
+    dashPattern: [],
+    glowScaleX: 1.08,
+    glowScaleY: 1.02,
+  },
+  cluster: {
+    visualClass: 'cluster',
+    contourKind: 'cluster-ring',
+    accentKind: 'stars',
+    dashPattern: [10, 8],
+    glowScaleX: 1,
+    glowScaleY: 1,
+  },
+  generic: {
+    visualClass: 'generic',
+    contourKind: 'diamond',
+    accentKind: 'core-ring',
+    dashPattern: [],
+    glowScaleX: 1,
+    glowScaleY: 1,
+  },
+}
+
 export function resolveDeepSkyVisualClass(object: Pick<SkyEngineSceneObject, 'deepSkyClass'>): SkyEngineDeepSkyClass {
   return object.deepSkyClass ?? 'generic'
 }
 
 export function getDeepSkyVisualStyle(object: Pick<SkyEngineSceneObject, 'deepSkyClass'>): DeepSkyVisualStyle {
   return DEEP_SKY_VISUAL_STYLES[resolveDeepSkyVisualClass(object)]
+}
+
+export function getDeepSkySymbolStyle(object: Pick<SkyEngineSceneObject, 'deepSkyClass'>): DeepSkySymbolStyle {
+  return DEEP_SKY_SYMBOL_STYLES[resolveDeepSkyVisualClass(object)]
 }
 
 export function getDeepSkyProjectionStyle(

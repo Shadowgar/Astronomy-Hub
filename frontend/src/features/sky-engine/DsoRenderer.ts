@@ -7,7 +7,7 @@ import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import type { Scene } from '@babylonjs/core/scene'
 
 import type { DirectProjectedObjectEntry } from './directObjectLayer'
-import { getDeepSkyMarkerDimensionsPx, resolveDeepSkyVisualClass } from './dsoVisuals'
+import { getDeepSkyMarkerDimensionsPx, getDeepSkySymbolStyle, resolveDeepSkyVisualClass } from './dsoVisuals'
 import { buildSelectionRingTexture } from './objectClassRenderer'
 import type { SkyEngineDeepSkyClass } from './types'
 
@@ -48,13 +48,14 @@ function drawSoftGlow(
   outerRadius: number,
   scaleX = 1,
   scaleY = 1,
+  alphaScale = 1,
 ) {
   context.save()
   context.translate(96, 96)
   context.scale(scaleX, scaleY)
   const haze = context.createRadialGradient(0, 0, 18, 0, 0, outerRadius)
-  haze.addColorStop(0, `rgba(${red}, ${green}, ${blue}, 0.34)`)
-  haze.addColorStop(0.55, `rgba(${red}, ${green}, ${blue}, 0.14)`)
+  haze.addColorStop(0, `rgba(${red}, ${green}, ${blue}, ${0.34 * alphaScale})`)
+  haze.addColorStop(0.55, `rgba(${red}, ${green}, ${blue}, ${0.14 * alphaScale})`)
   haze.addColorStop(1, `rgba(${red}, ${green}, ${blue}, 0)`)
   context.fillStyle = haze
   context.beginPath()
@@ -63,18 +64,54 @@ function drawSoftGlow(
   context.restore()
 }
 
+function drawCornerBrackets(context: CanvasRenderingContext2D, strokeStyle: string, lineWidth: number) {
+  context.strokeStyle = strokeStyle
+  context.lineWidth = lineWidth
+  ;[
+    [44, 58, 44, 44, 58, 44],
+    [148, 44, 134, 44, 148, 58],
+    [44, 134, 44, 148, 58, 148],
+    [148, 134, 134, 148, 148, 148],
+  ].forEach(([x1, y1, x2, y2, x3, y3]) => {
+    context.beginPath()
+    context.moveTo(x1, y1)
+    context.lineTo(x2, y2)
+    context.lineTo(x3, y3)
+    context.stroke()
+  })
+}
+
+function drawClusterStars(context: CanvasRenderingContext2D, fillStyle: string) {
+  context.fillStyle = fillStyle
+  ;[
+    [68, 80, 4.4],
+    [84, 60, 3.4],
+    [110, 72, 3.8],
+    [126, 88, 4.2],
+    [116, 118, 3.6],
+    [92, 108, 4.1],
+    [74, 122, 3.4],
+    [100, 92, 4.8],
+  ].forEach(([x, y, radius]) => {
+    context.beginPath()
+    context.arc(x, y, radius, 0, Math.PI * 2)
+    context.fill()
+  })
+}
+
 function drawGalaxyTexture(context: CanvasRenderingContext2D, red: number, green: number, blue: number) {
-  drawSoftGlow(context, red, green, blue, 64, 1.34, 0.82)
+  const symbolStyle = getDeepSkySymbolStyle({ deepSkyClass: 'galaxy' })
+  drawSoftGlow(context, red, green, blue, 60, symbolStyle.glowScaleX, symbolStyle.glowScaleY, 0.9)
 
   context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.88)`
-  context.lineWidth = 6
+  context.lineWidth = 5.5
   context.beginPath()
   context.ellipse(96, 96, 62, 38, 0, 0, Math.PI * 2)
   context.stroke()
 
-  context.lineWidth = 3
+  context.lineWidth = 2.5
   context.beginPath()
-  context.ellipse(96, 96, 42, 24, 0, 0, Math.PI * 2)
+  context.ellipse(96, 96, 34, 18, 0, 0, Math.PI * 2)
   context.stroke()
 
   context.fillStyle = `rgba(${red}, ${green}, ${blue}, 0.92)`
@@ -85,13 +122,14 @@ function drawGalaxyTexture(context: CanvasRenderingContext2D, red: number, green
   context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.24)`
   context.lineWidth = 4
   context.beginPath()
-  context.moveTo(48, 102)
-  context.lineTo(144, 92)
+  context.moveTo(50, 103)
+  context.lineTo(142, 89)
   context.stroke()
 }
 
 function drawNebulaTexture(context: CanvasRenderingContext2D, red: number, green: number, blue: number) {
-  drawSoftGlow(context, red, green, blue, 70, 1.08, 1.02)
+  const symbolStyle = getDeepSkySymbolStyle({ deepSkyClass: 'nebula' })
+  drawSoftGlow(context, red, green, blue, 74, symbolStyle.glowScaleX, symbolStyle.glowScaleY, 1.05)
 
   context.fillStyle = `rgba(${red}, ${green}, ${blue}, 0.22)`
   context.beginPath()
@@ -114,50 +152,45 @@ function drawNebulaTexture(context: CanvasRenderingContext2D, red: number, green
   context.closePath()
   context.stroke()
 
-  context.lineWidth = 3
+  context.lineWidth = 3.5
   context.beginPath()
-  context.moveTo(64, 70)
-  context.lineTo(128, 70)
-  context.moveTo(54, 124)
-  context.lineTo(122, 136)
+  context.moveTo(62, 72)
+  context.lineTo(132, 68)
+  context.moveTo(56, 120)
+  context.lineTo(126, 138)
   context.stroke()
+
+  drawCornerBrackets(context, `rgba(${red}, ${green}, ${blue}, 0.9)`, 4)
 }
 
 function drawClusterTexture(context: CanvasRenderingContext2D, red: number, green: number, blue: number) {
-  drawSoftGlow(context, red, green, blue, 62)
+  const symbolStyle = getDeepSkySymbolStyle({ deepSkyClass: 'cluster' })
+  drawSoftGlow(context, red, green, blue, 56, symbolStyle.glowScaleX, symbolStyle.glowScaleY, 0.58)
 
   context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.88)`
-  context.lineWidth = 5
+  context.lineWidth = 4.5
   context.strokeRect(46, 46, 100, 100)
 
+  context.setLineDash([...symbolStyle.dashPattern])
   context.beginPath()
   context.arc(96, 96, 34, 0, Math.PI * 2)
   context.stroke()
+  context.setLineDash([])
 
-  context.lineWidth = 4
+  context.lineWidth = 3
   context.beginPath()
-  context.moveTo(96, 58)
-  context.lineTo(96, 134)
-  context.moveTo(58, 96)
-  context.lineTo(134, 96)
+  context.moveTo(96, 64)
+  context.lineTo(96, 128)
+  context.moveTo(64, 96)
+  context.lineTo(128, 96)
   context.stroke()
 
-  context.fillStyle = `rgba(${red}, ${green}, ${blue}, 0.94)`
-  ;[
-    [72, 78, 4],
-    [116, 74, 3.5],
-    [128, 106, 4],
-    [84, 118, 3.5],
-    [104, 96, 4.5],
-  ].forEach(([x, y, radius]) => {
-    context.beginPath()
-    context.arc(x, y, radius, 0, Math.PI * 2)
-    context.fill()
-  })
+  drawClusterStars(context, `rgba(${red}, ${green}, ${blue}, 0.96)`)
 }
 
 function drawGenericTexture(context: CanvasRenderingContext2D, red: number, green: number, blue: number) {
-  drawSoftGlow(context, red, green, blue, 64)
+  const symbolStyle = getDeepSkySymbolStyle({ deepSkyClass: 'generic' })
+  drawSoftGlow(context, red, green, blue, 64, symbolStyle.glowScaleX, symbolStyle.glowScaleY, 0.82)
 
   context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.88)`
   context.lineWidth = 6

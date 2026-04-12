@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { getDeepSkyMarkerDimensionsPx, getDeepSkyVisualStyle, resolveDeepSkyAxes } from '../src/features/sky-engine/dsoVisuals'
+import { getDeepSkyMarkerDimensionsPx, getDeepSkySymbolStyle, getDeepSkyVisualStyle, resolveDeepSkyAxes } from '../src/features/sky-engine/dsoVisuals'
 import { collectProjectedNonStarObjects } from '../src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame'
 import { horizontalToDirection } from '../src/features/sky-engine/projectionMath'
 
@@ -102,5 +102,22 @@ describe('DSO morphology and sizing', () => {
     expect(getDeepSkyVisualStyle({ deepSkyClass: 'nebula' }).projectionMagnitudeBoostPx).toBeGreaterThan(
       getDeepSkyVisualStyle({}).projectionMagnitudeBoostPx,
     )
+  })
+
+  it('assigns class-specific DSO symbol styles with distinct contour and accent behavior', () => {
+    const galaxy = getDeepSkySymbolStyle({ deepSkyClass: 'galaxy' })
+    const nebula = getDeepSkySymbolStyle({ deepSkyClass: 'nebula' })
+    const cluster = getDeepSkySymbolStyle({ deepSkyClass: 'cluster' })
+    const generic = getDeepSkySymbolStyle({})
+
+    expect(galaxy.contourKind).toBe('ellipse')
+    expect(galaxy.accentKind).toBe('nucleus')
+    expect(nebula.contourKind).toBe('bracketed-nebula')
+    expect(nebula.accentKind).toBe('wisps')
+    expect(cluster.contourKind).toBe('cluster-ring')
+    expect(cluster.accentKind).toBe('stars')
+    expect(cluster.dashPattern.length).toBeGreaterThan(0)
+    expect(generic.contourKind).toBe('diamond')
+    expect(generic.accentKind).toBe('core-ring')
   })
 })
