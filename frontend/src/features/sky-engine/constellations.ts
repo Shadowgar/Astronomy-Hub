@@ -1,11 +1,44 @@
 import { DEFAULT_SKY_ENGINE_SKYCULTURE_ID, SKY_ENGINE_SKYCULTURES } from './skycultures'
-import type { SkyCultureConstellationDefinition, SkyCultureDefinition } from './skycultures/types'
+import type {
+  SkyCultureBoundaryDefinition,
+  SkyCultureConstellationDefinition,
+  SkyCultureDefinition,
+} from './skycultures/types'
+
+export interface SkyEngineConstellationBoundarySegment {
+  readonly id: string
+  readonly leftIau: string
+  readonly rightIau: string
+  readonly startRightAscensionHours: number
+  readonly startDeclinationDeg: number
+  readonly endRightAscensionHours: number
+  readonly endDeclinationDeg: number
+}
+
+export interface SkyEngineConstellationImageMetadata {
+  readonly file: string
+  readonly anchorStarIds: readonly string[]
+}
+
+export interface SkyEngineConstellationNameMetadata {
+  readonly english: string | null
+  readonly native: string | null
+  readonly pronounce: string | null
+  readonly resolvedLabel: string
+}
 
 export interface SkyEngineConstellationSegment {
   readonly id: string
   readonly label: string
+  readonly canonicalCode: string
   readonly cultureId: string
+  readonly cultureRegion: string | null
+  readonly description: string | null
+  readonly names: SkyEngineConstellationNameMetadata
+  readonly representativeAnchorStarId: string | null
+  readonly image: SkyEngineConstellationImageMetadata | null
   readonly anchorStarIds: readonly string[]
+  readonly boundarySegments: readonly SkyEngineConstellationBoundarySegment[]
   readonly pairs: readonly (readonly [string, string])[]
 }
 
@@ -13,6 +46,8 @@ export interface SkyEngineSkyCulture {
   readonly id: string
   readonly region: string | null
   readonly fallbackToInternationalNames: boolean
+  readonly langsUseNativeNames: readonly string[]
+  readonly boundaries: readonly SkyEngineConstellationBoundarySegment[]
   readonly constellations: readonly SkyEngineConstellationSegment[]
 }
 
@@ -38,6 +73,26 @@ export function resolveSkyCultureConstellationLabel(constellation: SkyCultureCon
   )
 }
 
+function getSkyCultureConstellationCode(constellation: SkyCultureConstellationDefinition) {
+  return constellation.iau ?? constellation.id
+}
+
+function convertBoundarySegment(boundary: SkyCultureBoundaryDefinition): SkyEngineConstellationBoundarySegment {
+  return {
+    id: boundary.id,
+    leftIau: boundary.leftIau,
+    rightIau: boundary.rightIau,
+    startRightAscensionHours: boundary.start.rightAscensionHours,
+    startDeclinationDeg: boundary.start.declinationDeg,
+    endRightAscensionHours: boundary.end.rightAscensionHours,
+    endDeclinationDeg: boundary.end.declinationDeg,
+  }
+}
+
+function normalizeConstellationCodeKey(code: string) {
+  return code.trim().toUpperCase()
+}
+
 function convertLineStripToPairs(lineStrip: readonly number[]) {
   const pairs: Array<readonly [string, string]> = []
 
@@ -55,36 +110,96 @@ function convertLineStripToPairs(lineStrip: readonly number[]) {
   return pairs
 }
 
-function extractAnchorIds(lines: readonly (readonly number[])[]) {
+function extractAnchorIds(constellation: SkyCultureConstellationDefinition) {
   const anchors = new Set<string>()
-  lines.forEach((line) => {
+  constellation.lines.forEach((line) => {
     line.forEach((hip) => {
       if (Number.isFinite(hip)) {
         anchors.add(toHipId(hip))
       }
     })
   })
+  constellation.image?.anchors.forEach((anchor) => {
+    if (Number.isFinite(anchor.hip)) {
+      anchors.add(toHipId(anchor.hip))
+    }
+  })
   return Array.from(anchors)
 }
 
-function convertSkyCultureConstellation(cultureId: string, constellation: SkyCultureConstellationDefinition): SkyEngineConstellationSegment {
+function buildBoundaryMap(boundaries: readonly SkyCultureBoundaryDefinition[]) {
+  const byConstellationCode = new Map<string, SkyEngineConstellationBoundarySegment[]>()
+  const convertedBoundaries = boundaries.map((boundary) => convertBoundarySegment(boundary))
+
+  convertedBoundaries.forEach((boundary) => {
+    const constellationCodes = [boundary.leftIau, boundary.rightIau]
+    constellationCodes.forEach((constellationCode) => {
+      const normalizedCode = normalizeConstellationCodeKey(constellationCode)
+      const current = byConstellationCode.get(normalizedCode) ?? []
+      current.push(boundary)
+      byConstellationCode.set(normalizedCode, current)
+    })
+  })
+
+  return {
+    byConstellationCode,
+    convertedBoundaries,
+  }
+}
+
+function convertSkyCultureConstellation(
+  cultureId: string,
+  cultureRegion: string | null,
+  constellation: SkyCultureConstellationDefinition,
+  boundariesByConstellationCode: ReadonlyMap<string, readonly SkyEngineConstellationBoundarySegment[]>,
+): SkyEngineConstellationSegment {
   const pairs = constellation.lines.flatMap((line) => convertLineStripToPairs(line))
+  const label = resolveSkyCultureConstellationLabel(constellation)
+  const canonicalCode = getSkyCultureConstellationCode(constellation)
+  const anchorStarIds = extractAnchorIds(constellation)
+  const representativeAnchorStarId = constellation.image?.anchors[0]?.hip
+    ? toHipId(constellation.image.anchors[0].hip)
+    : (anchorStarIds[0] ?? null)
+  const imageAnchorStarIds = constellation.image?.anchors.map((anchor) => toHipId(anchor.hip)) ?? []
 
   return {
     id: `${normalizeId(cultureId)}-${normalizeId(constellation.id)}`,
     cultureId,
-    label: resolveSkyCultureConstellationLabel(constellation),
-    anchorStarIds: extractAnchorIds(constellation.lines),
+    label,
+    canonicalCode,
+    cultureRegion,
+    description: constellation.description,
+    names: {
+      english: constellation.commonName.english,
+      native: constellation.commonName.native,
+      pronounce: constellation.commonName.pronounce,
+      resolvedLabel: label,
+    },
+    representativeAnchorStarId,
+    image: constellation.image
+      ? {
+          file: constellation.image.file,
+          anchorStarIds: imageAnchorStarIds,
+        }
+      : null,
+    anchorStarIds,
+    boundarySegments: boundariesByConstellationCode.get(normalizeConstellationCodeKey(canonicalCode)) ?? [],
     pairs,
   }
 }
 
 function convertSkyCulture(culture: SkyCultureDefinition): SkyEngineSkyCulture {
+  const { byConstellationCode, convertedBoundaries } = buildBoundaryMap(culture.boundaries)
+
   return {
     id: culture.id,
     region: culture.region,
     fallbackToInternationalNames: culture.fallbackToInternationalNames,
-    constellations: culture.constellations.map((constellation) => convertSkyCultureConstellation(culture.id, constellation)),
+    langsUseNativeNames: culture.langsUseNativeNames,
+    boundaries: convertedBoundaries,
+    constellations: culture.constellations.map((constellation) =>
+      convertSkyCultureConstellation(culture.id, culture.region, constellation, byConstellationCode),
+    ),
   }
 }
 

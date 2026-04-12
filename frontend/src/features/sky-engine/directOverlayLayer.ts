@@ -673,6 +673,7 @@ function prepareAidLines(
   if (aidVisibility.constellations) {
     const constellationSegments = getSkyEngineSkyCulture(skyCultureId).constellations
     const projectedLookup = new Map(projectedObjects.map((entry) => [entry.object.id, entry]))
+    const renderedBoundaryIds = new Set<string>()
 
     constellationSegments.forEach((constellation) => {
       const visibleAnchorsById = new Map<string, OverlayProjectedObjectEntry>()
@@ -698,6 +699,49 @@ function prepareAidLines(
         visibleAnchorsById.set(right.object.id, right)
       })
 
+      constellation.boundarySegments.forEach((boundarySegment) => {
+        const boundaryId = `constellation-boundary-${constellation.cultureId}-${boundarySegment.id}`
+
+        if (renderedBoundaryIds.has(boundaryId)) {
+          return
+        }
+
+        const startHorizontal = computeHorizontalCoordinates(
+          observer,
+          timestampIso,
+          boundarySegment.startRightAscensionHours,
+          boundarySegment.startDeclinationDeg,
+        )
+        const endHorizontal = computeHorizontalCoordinates(
+          observer,
+          timestampIso,
+          boundarySegment.endRightAscensionHours,
+          boundarySegment.endDeclinationDeg,
+        )
+
+        const left = projectHorizontalToViewport(startHorizontal.altitudeDeg, startHorizontal.azimuthDeg, view)
+        const right = projectHorizontalToViewport(endHorizontal.altitudeDeg, endHorizontal.azimuthDeg, view)
+
+        if (!left || !right) {
+          return
+        }
+
+        if (!isProjectedPointVisible(left, view, 18) || !isProjectedPointVisible(right, view, 18)) {
+          return
+        }
+
+        renderedBoundaryIds.add(boundaryId)
+        lines.push({
+          id: boundaryId,
+          points: [
+            toViewportPlanePosition(left.screenX, left.screenY, view.viewportWidth, view.viewportHeight),
+            toViewportPlanePosition(right.screenX, right.screenY, view.viewportWidth, view.viewportHeight),
+          ],
+          colorHex: '#8a6b4c',
+          alpha: 0.12,
+        })
+      })
+
       const visibleAnchors = Array.from(visibleAnchorsById.values())
       if (visibleAnchors.length === 0) {
         return
@@ -720,8 +764,8 @@ function prepareAidLines(
           name: constellation.label,
           type: 'deep_sky',
           source: 'temporary_scene_seed',
-          summary: `${constellation.label} constellation`,
-          description: `${constellation.label} constellation label from active skyculture data.`,
+          summary: `${constellation.label} constellation (${constellation.canonicalCode})`,
+          description: `${constellation.label} constellation label from active skyculture data (${constellation.cultureId}${constellation.cultureRegion ? ` · ${constellation.cultureRegion}` : ''}).`,
           constellation: constellation.label,
           trackingMode: 'static',
         },

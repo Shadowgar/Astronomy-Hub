@@ -40,6 +40,22 @@ describe('skyculture constellation data port', () => {
     expect(westernSegments).toBeGreaterThan(belarusianSegments)
   })
 
+  it('ports richer constellation metadata and culture-backed boundaries when available', () => {
+    const western = getSkyEngineSkyCulture('western')
+    const belarusian = getSkyEngineSkyCulture('belarusian')
+    const westernBoundaryLinkedConstellations = western.constellations.filter((constellation) => constellation.boundarySegments.length > 0)
+    const sampleWesternConstellation = western.constellations.find((constellation) => constellation.image !== null)
+
+    expect(western.boundaries.length).toBeGreaterThan(700)
+    expect(westernBoundaryLinkedConstellations.length).toBeGreaterThan(60)
+    expect(belarusian.boundaries.length).toBe(0)
+    expect(sampleWesternConstellation).toBeDefined()
+    expect(sampleWesternConstellation.canonicalCode).toBeTruthy()
+    expect(sampleWesternConstellation.names.resolvedLabel).toBe(sampleWesternConstellation.label)
+    expect(sampleWesternConstellation.representativeAnchorStarId?.startsWith('hip-')).toBe(true)
+    expect(sampleWesternConstellation.image.file.length).toBeGreaterThan(0)
+  })
+
   it('uses bounded constellation label fallback policy: native -> english -> pronounce -> identifier', () => {
     expect(resolveSkyCultureConstellationLabel({
       id: 'fallback-a',
@@ -88,6 +104,7 @@ describe('skyculture constellation data port', () => {
     const overlaySource = fs.readFileSync(OVERLAY_SOURCE_PATH, 'utf8')
 
     expect(overlaySource).toContain('constellation-label-')
+    expect(overlaySource).toContain('constellation-boundary-')
     expect(overlaySource).toContain('anchorObjectId')
     expect(overlaySource).toContain('constellationLabels.forEach')
     expect(overlaySource).toContain('getSkyEngineSkyCulture(skyCultureId).constellations')
