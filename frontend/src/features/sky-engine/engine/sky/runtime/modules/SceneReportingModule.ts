@@ -13,20 +13,32 @@ import {
 const STAR_RENDER_METRICS_ATTRIBUTE = 'data-sky-engine-star-render-metrics'
 const RUNTIME_PERF_METRICS_ATTRIBUTE = 'data-sky-engine-runtime-perf'
 const UI_PERF_METRICS_ATTRIBUTE = 'data-sky-engine-ui-perf'
-const REPORTING_CADENCE_MS = 150
+const REPORTING_CADENCE_MS = 250
 
 type UiPerfMetricsSnapshot = Record<string, number | boolean | string | null>
+
+function toDatasetKey(attribute: string) {
+  return attribute
+    .replace(/^data-/, '')
+    .split('-')
+    .map((segment, index) => (index === 0 ? segment : `${segment[0]?.toUpperCase() ?? ''}${segment.slice(1)}`))
+    .join('')
+}
+
+function setDatasetAttribute(element: HTMLElement, attribute: string, value: string) {
+  element.dataset[toDatasetKey(attribute)] = value
+}
 
 function readUiPerfMetrics(
   canvas: HTMLCanvasElement,
   state: { lastUiPerfRaw: string | null; lastUiPerfValue: UiPerfMetricsSnapshot | null },
 ) {
   const root = canvas.closest('.sky-engine-page')
-  if (!root) {
+  if (!(root instanceof HTMLElement)) {
     return null
   }
 
-  const raw = root.getAttribute(UI_PERF_METRICS_ATTRIBUTE)
+  const raw = root.dataset.skyEngineUiPerf ?? null
   if (!raw) {
     state.lastUiPerfRaw = null
     state.lastUiPerfValue = null
@@ -94,7 +106,7 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
         groundTextureAssetPath: 'direct Babylon backdrop, glare, horizon blocking, objects, and overlays with density-stars-canvas-fallback',
       })
       if (sceneStateJson !== reportingState.lastSceneStateJson) {
-        runtime.canvas.setAttribute('data-sky-engine-scene-state', sceneStateJson)
+        setDatasetAttribute(runtime.canvas, 'data-sky-engine-scene-state', sceneStateJson)
         reportingState.lastSceneStateJson = sceneStateJson
       }
       const starRenderMetricsJson = JSON.stringify({
@@ -104,7 +116,7 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
         starTextureCount: runtime.scene.textures.filter((texture) => texture.name.startsWith('sky-engine-star-')).length,
       })
       if (starRenderMetricsJson !== reportingState.lastStarMetricsJson) {
-        runtime.canvas.setAttribute(STAR_RENDER_METRICS_ATTRIBUTE, starRenderMetricsJson)
+        setDatasetAttribute(runtime.canvas, STAR_RENDER_METRICS_ATTRIBUTE, starRenderMetricsJson)
         reportingState.lastStarMetricsJson = starRenderMetricsJson
       }
       const latestPerf = runtime.runtimePerfTelemetry.latest
@@ -133,13 +145,13 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
         uiPerf,
       })
       if (runtimePerfJson !== reportingState.lastRuntimePerfJson) {
-        runtime.canvas.setAttribute(RUNTIME_PERF_METRICS_ATTRIBUTE, runtimePerfJson)
+        setDatasetAttribute(runtime.canvas, RUNTIME_PERF_METRICS_ATTRIBUTE, runtimePerfJson)
         reportingState.lastRuntimePerfJson = runtimePerfJson
       }
 
       const pickTargetsJson = JSON.stringify(buildSkyEnginePickTargets(runtime.projectedPickEntries))
       if (pickTargetsJson !== reportingState.lastPickTargetsJson) {
-        runtime.canvas.setAttribute(getSkyEnginePickTargetsDataAttribute(), pickTargetsJson)
+        setDatasetAttribute(runtime.canvas, getSkyEnginePickTargetsDataAttribute(), pickTargetsJson)
         reportingState.lastPickTargetsJson = pickTargetsJson
       }
     },

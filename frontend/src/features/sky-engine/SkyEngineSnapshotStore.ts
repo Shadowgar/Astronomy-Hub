@@ -1,4 +1,4 @@
-import { useCallback, useSyncExternalStore } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import type { SkyEngineSceneObject, SkyEngineSunPhase } from './types'
 
@@ -75,6 +75,8 @@ export interface SkyEngineSnapshotStore {
   recordUiReceive: (atMs?: number, visibilityState?: SnapshotVisibilityState) => void
   reset: () => void
 }
+
+export const SKY_ENGINE_SNAPSHOT_POLL_CADENCE_MS = 200
 
 type SnapshotCadenceSeries = {
   totalCount: number
@@ -264,11 +266,11 @@ export function createSkyEngineSnapshotStore(
     }
 
     const nextSnapshot = pendingSnapshot
-  const sourceAtMs = pendingSourceAtMs ?? nowMs
-  const visibilityState = pendingVisibilityState
+    const sourceAtMs = pendingSourceAtMs ?? nowMs
+    const visibilityState = pendingVisibilityState
     pendingSnapshot = null
-  pendingSourceAtMs = null
-  pendingVisibilityState = 'unknown'
+    pendingSourceAtMs = null
+    pendingVisibilityState = 'unknown'
     const nextSignature = createSnapshotSignature(nextSnapshot)
 
     latestSnapshot = nextSnapshot
@@ -349,11 +351,37 @@ export function createSkyEngineSnapshotStore(
   }
 }
 
-export function useSkyEngineSnapshot(snapshotStore: SkyEngineSnapshotStore) {
-  const subscribe = useCallback((listener: () => void) => snapshotStore.subscribe(() => {
-    snapshotStore.recordUiReceive()
-    listener()
-  }), [snapshotStore])
+export function useSkyEngineSnapshotPoll(
+  snapshotStore: SkyEngineSnapshotStore,
+  cadenceMs = SKY_ENGINE_SNAPSHOT_POLL_CADENCE_MS,
+) {
+  const [snapshot, setSnapshot] = useState(() => snapshotStore.getLatestSnapshot())
+  const snapshotRef = useRef(snapshot)
 
-  return useSyncExternalStore(subscribe, snapshotStore.getSnapshot, snapshotStore.getSnapshot)
+  useEffect(() => {
+    snapshotRef.current = snapshot
+  }, [snapshot])
+
+  useEffect(() => {
+    const pollSnapshot = () => {
+      const latestSnapshot = snapshotStore.getLatestSnapshot()
+
+      if (latestSnapshot === snapshotRef.current) {
+        return
+      }
+
+      snapshotRef.current = latestSnapshot
+      snapshotStore.recordUiReceive()
+      setSnapshot(latestSnapshot)
+    }
+
+    pollSnapshot()
+    const intervalHandle = globalThis.setInterval(pollSnapshot, cadenceMs)
+
+    return () => {
+      globalThis.clearInterval(intervalHandle)
+    }
+  }, [cadenceMs, snapshotStore])
+
+  return snapshot
 }

@@ -29,8 +29,8 @@ import {
   type SkyBackendTileManifestState,
 } from '../features/sky-engine/backendTileRegistry'
 import {
-  useSkyEngineSnapshot,
   createSkyEngineSnapshotStore,
+  useSkyEngineSnapshotPoll,
   type SkyEngineSnapshotCadenceMetrics,
 } from '../features/sky-engine/SkyEngineSnapshotStore'
 import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
@@ -53,6 +53,7 @@ import {
 import type { SkyEngineAidVisibility, SkyEngineGuidanceTarget } from '../features/sky-engine/types'
 
 const DEBUG_TELEMETRY_QUERY_PARAM = 'debugTelemetry'
+const UI_PERF_REPORTING_CADENCE_MS = 250
 
 const snapshotMetricsHost = globalThis as typeof globalThis & {
   __skyEngineSnapshotMetrics__?: () => SkyEngineSnapshotCadenceMetrics
@@ -218,22 +219,78 @@ function SkyEngineOwnershipState({ title, detail }: Readonly<SkyEngineOwnershipS
   )
 }
 
+type SkyEngineViewportProps = {
+  sceneRef: React.Ref<SkyEngineSceneHandle>
+  sceneKey: string
+  backendStars: ReturnType<typeof flattenResolvedSkyBackendTileRegistry>
+  backendSatellites: readonly BackendSatelliteSceneObject[]
+  initialSceneTimestampIso: string
+  observer: ReturnType<typeof convertBackendObserver>
+  initialViewState: ReturnType<typeof buildBackendViewState>
+  projectionMode: BackendSkyScenePayload['scene_state']['projection']
+  repositoryMode: ReturnType<typeof resolveSkyTileRepositoryMode>
+  snapshotStore: ReturnType<typeof createSkyEngineSnapshotStore>
+  initialAidVisibility: SkyEngineAidVisibility
+  initialSkyCultureId: string
+  debugTelemetryEnabled: boolean
+}
+
+const SkyEngineViewport = React.memo(function SkyEngineViewport({
+  sceneRef,
+  sceneKey,
+  backendStars,
+  backendSatellites,
+  initialSceneTimestampIso,
+  observer,
+  initialViewState,
+  projectionMode,
+  repositoryMode,
+  snapshotStore,
+  initialAidVisibility,
+  initialSkyCultureId,
+  debugTelemetryEnabled,
+}: Readonly<SkyEngineViewportProps>) {
+  return (
+    <SkyEngineScene
+      key={sceneKey}
+      ref={sceneRef}
+      backendStars={backendStars}
+      backendSatellites={backendSatellites}
+      initialSceneTimestampIso={initialSceneTimestampIso}
+      observer={observer}
+      initialViewState={initialViewState}
+      projectionMode={projectionMode}
+      repositoryMode={repositoryMode}
+      snapshotStore={snapshotStore}
+      initialAidVisibility={initialAidVisibility}
+      initialSkyCultureId={initialSkyCultureId}
+      debugTelemetryEnabled={debugTelemetryEnabled}
+    />
+  )
+})
+
+SkyEngineViewport.displayName = 'SkyEngineViewport'
+
 function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: BackendSkyScenePayload }>) {
   const rootRef = useRef<HTMLDivElement | null>(null)
   const sceneRef = useRef<SkyEngineSceneHandle | null>(null)
   const uiPerfRef = useRef<SkyEngineUiPerfState>(createSkyEngineUiPerfState())
+  const lastPublishedUiPerfRef = useRef<string | null>(null)
   const snapshotStore = useMemo(() => createSkyEngineSnapshotStore(), [])
   const debugTelemetryEnabled = useMemo(() => resolveDebugTelemetryEnabled(), [])
-  const snapshot = useSkyEngineSnapshot(snapshotStore)
+  const snapshot = useSkyEngineSnapshotPoll(snapshotStore)
   const skyStarTileManifestQuery = useSkyStarTileManifestDataQuery({ at: backendScene.timestamp })
   const [repositoryMode] = useState(() => resolveSkyTileRepositoryMode())
   const [searchQuery, setSearchQuery] = useState('')
   const [timeScaleId, setTimeScaleId] = useState<SkyEngineTimeScaleId>('minutes')
-  const [aidVisibility, setAidVisibility] = useState<SkyEngineAidVisibility>(() => readPersistedAidVisibility())
-  const [skyCultureId, setSkyCultureId] = useState(() => readPersistedSkyCultureId())
+  const initialAidVisibility = useMemo(() => readPersistedAidVisibility(), [])
+  const initialSkyCultureId = useMemo(() => readPersistedSkyCultureId(), [])
+  const [aidVisibility, setAidVisibility] = useState<SkyEngineAidVisibility>(initialAidVisibility)
+  const [skyCultureId, setSkyCultureId] = useState(initialSkyCultureId)
   const [inspectorOpen, setInspectorOpen] = useState(false)
   const deferredSearchQuery = useDeferredValue(searchQuery)
   const observer = useMemo(() => convertBackendObserver(backendScene), [backendScene])
+  const initialViewState = useMemo(() => buildBackendViewState(backendScene), [backendScene])
   const satelliteSceneQuery = useSceneByScopeDataQuery({
     scope: 'earth',
     engine: 'satellites',
@@ -333,6 +390,23 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     [],
   )
   const phaseBandState = snapshot.summary.phaseLabel === 'Low Sun' ? 'Twilight' : snapshot.summary.phaseLabel
+  const sceneKey = useMemo(() => [
+    backendScene.timestamp,
+    backendScene.observer.latitude,
+    backendScene.observer.longitude,
+    backendScene.scene_state.center_alt_deg,
+    backendScene.scene_state.center_az_deg,
+    backendScene.scene_state.fov_deg,
+    backendSatellites.map((satellite) => satellite.id).join(','),
+  ].join(':'), [
+    backendSatellites,
+    backendScene.observer.latitude,
+    backendScene.observer.longitude,
+    backendScene.scene_state.center_alt_deg,
+    backendScene.scene_state.center_az_deg,
+    backendScene.scene_state.fov_deg,
+    backendScene.timestamp,
+  ])
 
   useEffect(() => {
     persistAidVisibility(aidVisibility)
@@ -370,7 +444,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
       ? metrics.reactActualDurationTotalMs / metrics.reactCommitCount
       : 0
 
-    root.dataset.skyEngineUiPerf = JSON.stringify({
+    const payload = JSON.stringify({
       reactCommitCount: metrics.reactCommitCount,
       reactLastCommitMs: metrics.reactLastCommitMs,
       reactMeanCommitMs: meanReactCommitMs,
@@ -382,6 +456,13 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
       overlayMutationCount: metrics.overlayMutationCount,
       sampleCount: metrics.sampleCount,
     })
+
+    if (payload === lastPublishedUiPerfRef.current) {
+      return
+    }
+
+    root.dataset.skyEngineUiPerf = payload
+    lastPublishedUiPerfRef.current = payload
   }, [debugTelemetryEnabled])
 
   const handleUiProfilerRender = useCallback<ProfilerOnRenderCallback>((_id, _phase, actualDuration) => {
@@ -396,8 +477,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     metrics.reactMaxCommitMs = Math.max(metrics.reactMaxCommitMs, actualDuration)
     metrics.pendingReactDurationMs += actualDuration
     metrics.sampleCount += 1
-    publishUiPerfMetrics()
-  }, [debugTelemetryEnabled, publishUiPerfMetrics])
+  }, [debugTelemetryEnabled])
 
   useEffect(() => {
     if (!debugTelemetryEnabled) {
@@ -430,26 +510,26 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
       return undefined
     }
 
-    let frameHandle = 0
-    let lastFrameTime = performance.now()
+    let lastSampleAtMs = performance.now()
 
-    const onFrame = (nowMs: number) => {
+    const sampleMetrics = () => {
+      const nowMs = performance.now()
       const metrics = uiPerfRef.current
-      const uiFrameMs = nowMs - lastFrameTime
-      lastFrameTime = nowMs
+      const uiFrameMs = nowMs - lastSampleAtMs
+      lastSampleAtMs = nowMs
       metrics.uiFrameMs = uiFrameMs
       metrics.uiFrameMaxMs = Math.max(metrics.uiFrameMaxMs, uiFrameMs)
       metrics.reactFrameDurationMs = metrics.pendingReactDurationMs
       metrics.reactFrameMaxMs = Math.max(metrics.reactFrameMaxMs, metrics.reactFrameDurationMs)
       metrics.pendingReactDurationMs = 0
       publishUiPerfMetrics()
-      frameHandle = requestAnimationFrame(onFrame)
     }
 
-    frameHandle = requestAnimationFrame(onFrame)
+    sampleMetrics()
+    const intervalHandle = globalThis.setInterval(sampleMetrics, UI_PERF_REPORTING_CADENCE_MS)
 
     return () => {
-      cancelAnimationFrame(frameHandle)
+      globalThis.clearInterval(intervalHandle)
     }
   }, [debugTelemetryEnabled, publishUiPerfMetrics])
 
@@ -457,6 +537,8 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     if (rootRef.current) {
       delete rootRef.current.dataset.skyEngineUiPerf
     }
+
+    lastPublishedUiPerfRef.current = null
   }, [])
 
   const selectObjectFromSearch = useCallback((query: string) => {
@@ -488,27 +570,19 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     <div ref={rootRef} className="sky-engine-page sky-engine-page--immersive">
       <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
         <SkyEngineHubShell />
-        <SkyEngineScene
-          key={[
-            backendScene.timestamp,
-            backendScene.observer.latitude,
-            backendScene.observer.longitude,
-            backendScene.scene_state.center_alt_deg,
-            backendScene.scene_state.center_az_deg,
-            backendScene.scene_state.fov_deg,
-            backendSatellites.map((satellite) => satellite.id).join(','),
-          ].join(':')}
-          ref={sceneRef}
+        <SkyEngineViewport
+          sceneRef={sceneRef}
+          sceneKey={sceneKey}
           backendStars={resolvedBackendTileStars}
           backendSatellites={backendSatellites}
           initialSceneTimestampIso={backendScene.timestamp}
           observer={observer}
-          initialViewState={buildBackendViewState(backendScene)}
+          initialViewState={initialViewState}
           projectionMode={backendScene.scene_state.projection}
           repositoryMode={repositoryMode}
           snapshotStore={snapshotStore}
-          initialAidVisibility={aidVisibility}
-          initialSkyCultureId={skyCultureId}
+          initialAidVisibility={initialAidVisibility}
+          initialSkyCultureId={initialSkyCultureId}
           debugTelemetryEnabled={debugTelemetryEnabled}
         />
 

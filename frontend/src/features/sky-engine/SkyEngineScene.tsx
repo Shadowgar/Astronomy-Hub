@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
+import React, { forwardRef, memo, useEffect, useImperativeHandle, useRef } from 'react'
 
 import {
   computeBackendStarSceneObjects,
@@ -52,6 +52,7 @@ import { resolveStarColorHex } from './starRenderer'
 import type { SkyEngineAidVisibility, SkyEngineSceneObject, SkyEngineSunState } from './types'
 
 const UI_SNAPSHOT_CADENCE_MS = 150
+const RUNTIME_MODEL_SYNC_CADENCE_MS = 200
 const DEGREES_TO_RADIANS = Math.PI / 180
 const STELLARIUM_QUERY_TONEMAPPER_EXPOSURE = 2
 
@@ -341,7 +342,7 @@ function buildSceneControllerModel(config: {
   } satisfies SceneControllerModel
 }
 
-const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(function SkyEngineScene(
+const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(function SkyEngineScene(
   {
     backendStars,
     backendSatellites,
@@ -617,27 +618,17 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
     core.start()
     syncRuntimeModel(true)
 
-    let syncFrameHandle = 0
-    let lastSyncAtMs = performance.now()
-
-    const pumpSnapshotSync = (nowMs: number) => {
+    const syncIntervalHandle = globalThis.setInterval(() => {
       if (disposed) {
         return
       }
 
-      if (nowMs - lastSyncAtMs >= UI_SNAPSHOT_CADENCE_MS) {
-        lastSyncAtMs = nowMs
-        syncRuntimeModel(false)
-      }
-
-      syncFrameHandle = globalThis.requestAnimationFrame(pumpSnapshotSync)
-    }
-
-    syncFrameHandle = globalThis.requestAnimationFrame(pumpSnapshotSync)
+      syncRuntimeModel(false)
+    }, RUNTIME_MODEL_SYNC_CADENCE_MS)
 
     return () => {
       disposed = true
-      globalThis.cancelAnimationFrame(syncFrameHandle)
+      globalThis.clearInterval(syncIntervalHandle)
       core.dispose()
       coreRef.current = null
       snapshotStore.reset()
@@ -650,6 +641,8 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
       <canvas ref={canvasRef} className="sky-engine-scene__canvas" aria-label="Sky Engine scene" />
     </div>
   )
-})
+}))
+
+SkyEngineScene.displayName = 'SkyEngineScene'
 
 export default SkyEngineScene

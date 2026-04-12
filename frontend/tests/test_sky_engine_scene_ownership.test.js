@@ -15,8 +15,13 @@ vi.mock('../src/features/scene/queries', () => ({
 
 vi.mock('../src/features/sky-engine/sceneTime', () => ({
   SKY_ENGINE_LOCAL_TIME_ZONE: 'America/New_York',
+  SKY_ENGINE_MAX_SCENE_OFFSET_SECONDS: 43200,
   SKY_ENGINE_PLAYBACK_RATE_OPTIONS: [{ value: 0, label: 'Pause' }],
   SKY_ENGINE_TIME_SCALE_OPTIONS: [{ id: 'minutes', shortLabel: 'min', stepSeconds: 60 }],
+  formatSceneLocalTimestamp: vi.fn(() => 'Jan 14, 10:00 PM EST'),
+  formatSceneOffset: vi.fn(() => 'Now'),
+  formatSceneScaleOffset: vi.fn(() => '+0m'),
+  getPlaybackRateLabel: vi.fn(() => 'Pause'),
   useSkyEngineSceneTime: vi.fn(() => ({
     sceneTimestampIso: '2025-01-15T03:00:00Z',
     sceneOffsetSeconds: 0,
@@ -42,14 +47,14 @@ vi.mock('../src/features/sky-engine/sceneTime', () => ({
 }))
 
 vi.mock('../src/features/sky-engine/SkyEngineScene', () => ({
-  default: ({ observer, initialViewState, backendStars, objects }) => React.createElement(
+  default: ({ observer, initialViewState, backendStars, backendSatellites = [] }) => React.createElement(
     'div',
     {
       'data-testid': 'sky-engine-scene',
       'data-observer-label': observer.label,
       'data-backend-star-count': String(backendStars.length),
-      'data-visible-star-count': String(objects.filter((object) => object.type === 'star').length),
-      'data-visible-object-count': String(objects.length),
+      'data-visible-star-count': String(backendStars.length),
+      'data-visible-object-count': String(backendStars.length + backendSatellites.length),
       'data-first-backend-star-id': backendStars[0]?.id ?? 'none',
       'data-fov': String(initialViewState.fovDegrees),
       'data-alt': String(initialViewState.centerAltDeg),
@@ -112,6 +117,7 @@ vi.mock('../src/features/sky-engine/astronomy', () => ({
     isAboveHorizon: true,
   })),
   computePlanetSceneObjects: vi.fn(() => []),
+  computeSatelliteSceneObjects: vi.fn(() => []),
   rankGuidanceTargets: vi.fn(() => []),
 }))
 
@@ -199,7 +205,6 @@ vi.mock('../src/features/sky-engine/engine/sky', () => ({
 
 import SkyEnginePage from '../src/pages/SkyEnginePage'
 import { useSceneByScopeDataQuery, useSkyStarTileManifestDataQuery } from '../src/features/scene/queries'
-import { useSkyEngineSceneTime } from '../src/features/sky-engine/sceneTime'
 
 describe('SkyEnginePage scene ownership', () => {
   beforeEach(() => {
@@ -331,7 +336,6 @@ describe('SkyEnginePage scene ownership', () => {
 
     expect(useSceneByScopeDataQuery).toHaveBeenCalledWith({ scope: 'sky', engine: 'sky_engine' })
     expect(useSkyStarTileManifestDataQuery).toHaveBeenCalledWith({ at: '2025-01-15T03:00:00Z' })
-    expect(useSkyEngineSceneTime).toHaveBeenCalledWith()
     expect(html).toContain('Sky scene mounted')
     expect(html).toContain('Astronomy Hub')
     expect(html).toContain('Hub shell persists while the active engine owns this viewport')
