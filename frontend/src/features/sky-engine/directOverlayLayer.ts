@@ -53,6 +53,8 @@ interface OverlayCardinalEntry {
 }
 
 interface OverlayLabelEntry {
+  readonly id: string
+  readonly anchorObjectId: string
   readonly object: SkyEngineSceneObject
   readonly text: string
 }
@@ -665,11 +667,14 @@ function prepareAidLines(
     ...buildEquatorialGridLines(view, observer, timestampIso, aidVisibility.altitudeRings),
   ]
   const cardinals: OverlayCardinalEntry[] = []
+  const labels: OverlayLabelEntry[] = []
 
   if (aidVisibility.constellations) {
     const projectedLookup = new Map(projectedObjects.map((entry) => [entry.object.id, entry]))
 
     SKY_ENGINE_CONSTELLATION_SEGMENTS.forEach((constellation) => {
+      const visibleAnchorsById = new Map<string, OverlayProjectedObjectEntry>()
+
       constellation.pairs.forEach(([leftId, rightId], index) => {
         const left = projectedLookup.get(leftId)
         const right = projectedLookup.get(rightId)
@@ -687,6 +692,38 @@ function prepareAidLines(
           colorHex: '#7eabff',
           alpha: 0.18,
         })
+        visibleAnchorsById.set(left.object.id, left)
+        visibleAnchorsById.set(right.object.id, right)
+      })
+
+      const visibleAnchors = Array.from(visibleAnchorsById.values())
+      if (visibleAnchors.length === 0) {
+        return
+      }
+
+      const labelAnchor = visibleAnchors
+        .slice()
+        .sort((left, right) =>
+          left.object.magnitude - right.object.magnitude ||
+          left.depth - right.depth ||
+          left.object.id.localeCompare(right.object.id),
+        )[0]
+      const labelId = `constellation-label-${constellation.id}`
+      labels.push({
+        id: labelId,
+        anchorObjectId: labelAnchor.object.id,
+        object: {
+          ...labelAnchor.object,
+          id: labelId,
+          name: constellation.label,
+          type: 'deep_sky',
+          source: 'temporary_scene_seed',
+          summary: `${constellation.label} constellation`,
+          description: `${constellation.label} constellation label from active skyculture data.`,
+          constellation: constellation.label,
+          trackingMode: 'static',
+        },
+        text: constellation.label,
       })
     })
   }
@@ -694,6 +731,7 @@ function prepareAidLines(
   return {
     lines,
     cardinals,
+    labels,
     trajectoryObjectId: null,
   }
 }
@@ -707,7 +745,12 @@ export function prepareDirectOverlayFrame(
   selectedObjectId: string | null,
   aidVisibility: SkyEngineAidVisibility,
 ) {
-  const { lines, cardinals, trajectoryObjectId } = prepareAidLines(view, observer, timestampIso, projectedObjects, aidVisibility)
+  const {
+    lines,
+    cardinals,
+    labels: constellationLabels,
+    trajectoryObjectId,
+  } = prepareAidLines(view, observer, timestampIso, projectedObjects, aidVisibility)
   const packetTextById = new Map((scenePacket?.labels ?? []).map((label) => [label.id, label.text]))
   const labelIds = new Set<string>()
   const labels: OverlayLabelEntry[] = []
@@ -719,9 +762,20 @@ export function prepareDirectOverlayFrame(
 
     labelIds.add(entry.object.id)
     labels.push({
+      id: entry.object.id,
+      anchorObjectId: entry.object.id,
       object: entry.object,
       text: packetTextById.get(entry.object.id) ?? entry.object.name,
     })
+  })
+
+  constellationLabels.forEach((labelEntry) => {
+    if (labelIds.has(labelEntry.id)) {
+      return
+    }
+
+    labelIds.add(labelEntry.id)
+    labels.push(labelEntry)
   })
 
   return {
@@ -941,37 +995,37 @@ export function createDirectOverlayLayer(scene: Scene) {
       })
 
       const projectedLookup = new Map(projectedObjects.map((entry) => [entry.object.id, entry]))
-      const nextLabelIds = new Set(frame.labels.map((label) => label.object.id))
-      Array.from(labelMeshes.keys()).forEach((objectId) => {
-        if (nextLabelIds.has(objectId)) {
+      const nextLabelIds = new Set(frame.labels.map((label) => label.id))
+      Array.from(labelMeshes.keys()).forEach((labelId) => {
+        if (nextLabelIds.has(labelId)) {
           return
         }
 
-        const entry = labelMeshes.get(objectId)
+        const entry = labelMeshes.get(labelId)
 
         if (!entry) {
           return
         }
 
         disposeCachedLabelMesh(entry)
-        labelMeshes.delete(objectId)
+        labelMeshes.delete(labelId)
       })
 
       const nextProjectionState = new Map<string, OverlayLabelProjectionSnapshot>()
       frame.labels.forEach((labelEntry) => {
-        const projected = projectedLookup.get(labelEntry.object.id)
+        const projected = projectedLookup.get(labelEntry.anchorObjectId)
 
         if (!projected) {
           return
         }
 
-        const variant = labelEntry.object.id === selectedObjectId ? 'selected' : getLabelVariantForObject(labelEntry.object)
+        const variant = labelEntry.anchorObjectId === selectedObjectId ? 'selected' : getLabelVariantForObject(labelEntry.object)
         const nextSignature = createLabelSignature(labelEntry.text, variant)
-        let meshEntry = labelMeshes.get(labelEntry.object.id)
+        let meshEntry = labelMeshes.get(labelEntry.id)
 
         if (!meshEntry) {
           meshEntry = createCachedLabelMesh(labelEntry.object, labelEntry.text, variant)
-          labelMeshes.set(labelEntry.object.id, meshEntry)
+          labelMeshes.set(labelEntry.id, meshEntry)
         }
 
         replaceLabelTexture(meshEntry, nextSignature, labelEntry.text, variant)
@@ -986,7 +1040,7 @@ export function createDirectOverlayLayer(scene: Scene) {
             0.04,
           ),
         )
-        nextProjectionState.set(labelEntry.object.id, {
+        nextProjectionState.set(labelEntry.id, {
           screenX: projected.screenX,
           screenY: projected.screenY,
           depth: projected.depth,
