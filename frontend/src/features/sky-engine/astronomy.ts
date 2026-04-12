@@ -28,6 +28,25 @@ function clamp01(value: number) {
   return Math.min(1, Math.max(0, value))
 }
 
+function clamp(value: number, minimum: number, maximum: number) {
+  return Math.min(maximum, Math.max(minimum, value))
+}
+
+const EARTH_RADIUS_KM = 6378.14
+const MOON_RADIUS_KM = 1737.4
+const AU_IN_KM = 149597870.7
+const AU_PER_LIGHT_DAY = 173.1446326846693
+const MIN_DISTANCE_AU = 1e-6
+const STELLARIUM_PLANET_VISUAL_ELEMENTS = {
+  mercury: { angularSizeArcsecAtOneAu: 6.74, magnitudeAtOneAu: -0.36, phaseA: 3.8, phaseB: -2.73, phaseC: 2.0 },
+  venus: { angularSizeArcsecAtOneAu: 16.92, magnitudeAtOneAu: -4.29, phaseA: 0.09, phaseB: 2.39, phaseC: -0.65 },
+  mars: { angularSizeArcsecAtOneAu: 9.36, magnitudeAtOneAu: -1.52, phaseA: 1.6, phaseB: 0, phaseC: 0 },
+  jupiter: { angularSizeArcsecAtOneAu: 196.74, magnitudeAtOneAu: -9.25, phaseA: 0.5, phaseB: 0, phaseC: 0 },
+  saturn: { angularSizeArcsecAtOneAu: 165.6, magnitudeAtOneAu: -8.88, phaseA: 4.4, phaseB: 0, phaseC: 0 },
+  uranus: { angularSizeArcsecAtOneAu: 70.481, magnitudeAtOneAu: -7.19, phaseA: 0.28, phaseB: 0, phaseC: 0 },
+  neptune: { angularSizeArcsecAtOneAu: 68.294, magnitudeAtOneAu: -6.87, phaseA: 0, phaseB: 0, phaseC: 0 },
+} as const
+
 export function toJulianDate(timestampIso: string) {
   return new Date(timestampIso).getTime() / 86400000 + 2440587.5
 }
@@ -134,6 +153,7 @@ function computeMoonEquatorialCoordinates(timestampIso: string) {
   const eccentricAnomalyRad = degreesToRadians(eccentricAnomalyDeg)
   const xv = semiMajorAxis * (Math.cos(eccentricAnomalyRad) - eccentricity)
   const yv = semiMajorAxis * (Math.sqrt(1 - eccentricity * eccentricity) * Math.sin(eccentricAnomalyRad))
+  const orbitalDistanceEarthRadii = Math.hypot(xv, yv)
   let trueAnomalyDeg = radiansToDegrees(Math.atan2(yv, xv))
 
   const meanLongitudeDeg = normalizeDegrees(nodeLongitudeDeg + periapsisDeg + meanAnomalyDeg)
@@ -165,6 +185,9 @@ function computeMoonEquatorialCoordinates(timestampIso: string) {
     0.046 * Math.sin(degreesToRadians(meanAnomalyDeg + argumentOfLatitudeDeg - 2 * meanElongationDeg)) +
     0.033 * Math.sin(degreesToRadians(argumentOfLatitudeDeg + 2 * meanElongationDeg)) +
     0.017 * Math.sin(degreesToRadians(2 * meanAnomalyDeg + argumentOfLatitudeDeg))
+  const correctedDistanceEarthRadii = orbitalDistanceEarthRadii
+    - 0.58 * Math.cos(degreesToRadians(meanAnomalyDeg - 2 * meanElongationDeg))
+    - 0.46 * Math.cos(degreesToRadians(2 * meanElongationDeg))
 
   const trueLongitudeDeg = normalizeDegrees(trueAnomalyDeg + periapsisDeg)
   const eclipticLongitudeDeg = trueLongitudeDeg
@@ -210,6 +233,7 @@ function computeMoonEquatorialCoordinates(timestampIso: string) {
     declinationDeg,
     illuminationFraction,
     brightLimbAngleDeg,
+    distanceAu: (correctedDistanceEarthRadii * EARTH_RADIUS_KM) / AU_IN_KM,
     phaseLabel: deriveMoonPhaseLabel(illuminationFraction, waxing),
     waxing,
   }
@@ -339,7 +363,24 @@ export function computeMoonSceneObject(observer: SkyEngineObserver, timestampIso
     equatorialCoordinates.rightAscensionHours,
     equatorialCoordinates.declinationDeg,
   )
-  const illuminationMagnitudeAdjustment = (1 - equatorialCoordinates.illuminationFraction) * 1.9
+  const sunEquatorial = computeSolarEquatorialCoordinates(timestampIso)
+  const moonRightAscensionRad = degreesToRadians(equatorialCoordinates.rightAscensionHours * 15)
+  const moonDeclinationRad = degreesToRadians(equatorialCoordinates.declinationDeg)
+  const sunRightAscensionRad = degreesToRadians(sunEquatorial.rightAscensionHours * 15)
+  const sunDeclinationRad = degreesToRadians(sunEquatorial.declinationDeg)
+  const rightAscensionDiffRad = sunRightAscensionRad - moonRightAscensionRad
+  const elongationRad = Math.acos(clamp(
+    Math.sin(sunDeclinationRad) * Math.sin(moonDeclinationRad) +
+      Math.cos(sunDeclinationRad) * Math.cos(moonDeclinationRad) * Math.cos(rightAscensionDiffRad),
+    -1,
+    1,
+  ))
+  const moonDistanceAu = Math.max(equatorialCoordinates.distanceAu, MIN_DISTANCE_AU)
+  const moonAngularDiameterDeg = radiansToDegrees(2 * Math.asin(clamp(MOON_RADIUS_KM / (moonDistanceAu * AU_IN_KM), -1, 1)))
+  const moonMagnitude =
+    -12.7 +
+    2.5 * (Math.log10(Math.PI) - Math.log10((Math.PI / 2) * (1 + 1e-6 - Math.cos(elongationRad)))) +
+    5.0 * Math.log10(moonDistanceAu / 0.0025)
 
   return {
     id: 'sky-real-moon',
@@ -347,7 +388,7 @@ export function computeMoonSceneObject(observer: SkyEngineObserver, timestampIso
     type: 'moon',
     altitudeDeg: horizontalCoordinates.altitudeDeg,
     azimuthDeg: horizontalCoordinates.azimuthDeg,
-    magnitude: -12.2 + illuminationMagnitudeAdjustment,
+    magnitude: moonMagnitude,
     colorHex: '#f8f1d7',
     summary: `${equatorialCoordinates.phaseLabel} moon computed for the active observer and scene timestamp.`,
     description:
@@ -359,7 +400,7 @@ export function computeMoonSceneObject(observer: SkyEngineObserver, timestampIso
     rightAscensionHours: equatorialCoordinates.rightAscensionHours,
     declinationDeg: equatorialCoordinates.declinationDeg,
     timestampIso,
-    apparentSizeDeg: 0.52,
+    apparentSizeDeg: moonAngularDiameterDeg,
     illuminationFraction: equatorialCoordinates.illuminationFraction,
     brightLimbAngleDeg: equatorialCoordinates.brightLimbAngleDeg,
     phaseLabel: equatorialCoordinates.phaseLabel,
@@ -383,8 +424,13 @@ interface PlanetDefinitionInternal {
   readonly colorHex: string
   readonly summary: string
   readonly description: string
-  readonly magnitude: number
-  readonly angularSizeArcsecAtOneAu: number
+  readonly visualElements: {
+    readonly angularSizeArcsecAtOneAu: number
+    readonly magnitudeAtOneAu: number
+    readonly phaseA: number
+    readonly phaseB: number
+    readonly phaseC: number
+  }
   readonly resolveElements: (daysSinceJ2000: number) => OrbitalElements
 }
 
@@ -403,18 +449,34 @@ function resolveOrbitalPosition(elements: OrbitalElements) {
     x: radiusAu * (Math.cos(ascendingNodeRad) * Math.cos(perihelionRad) - Math.sin(ascendingNodeRad) * Math.sin(perihelionRad) * Math.cos(inclinationRad)),
     y: radiusAu * (Math.sin(ascendingNodeRad) * Math.cos(perihelionRad) + Math.cos(ascendingNodeRad) * Math.sin(perihelionRad) * Math.cos(inclinationRad)),
     z: radiusAu * Math.sin(perihelionRad) * Math.sin(inclinationRad),
+    distanceAu: radiusAu,
   }
 }
 
 const SKY_ENGINE_PLANET_DEFINITIONS: readonly PlanetDefinitionInternal[] = [
   {
+    id: 'sky-planet-mercury',
+    name: 'Mercury',
+    colorHex: '#cfc7b8',
+    summary: 'Inner planet computed from a timestamp-driven orbital model with light-time correction.',
+    description: 'Mercury uses a higher-fidelity planetary ephemeris approximation and dynamic brightness tied to geometry.',
+    visualElements: STELLARIUM_PLANET_VISUAL_ELEMENTS.mercury,
+    resolveElements: (daysSinceJ2000) => ({
+      ascendingNodeDeg: 48.3313 + 3.24587e-5 * daysSinceJ2000,
+      inclinationDeg: 7.0047 + 5e-8 * daysSinceJ2000,
+      argumentOfPerihelionDeg: 29.1241 + 1.01444e-5 * daysSinceJ2000,
+      semiMajorAxisAu: 0.387098,
+      eccentricity: 0.205635 + 5.59e-10 * daysSinceJ2000,
+      meanAnomalyDeg: normalizeDegrees(168.6562 + 4.0923344368 * daysSinceJ2000),
+    }),
+  },
+  {
     id: 'sky-planet-venus',
     name: 'Venus',
     colorHex: '#f4e4c1',
-    summary: 'Bright inner planet computed from a bounded orbital approximation.',
-    description: 'Venus is rendered through the dedicated planet renderer so wide zoom reads as a bright point while closer views transition toward a disc and textured surface.',
-    magnitude: -4.1,
-    angularSizeArcsecAtOneAu: 16,
+    summary: 'Bright inner planet computed from a timestamp-driven orbital model with light-time correction.',
+    description: 'Venus is rendered through the dedicated planet renderer with dynamic brightness tied to orbital geometry.',
+    visualElements: STELLARIUM_PLANET_VISUAL_ELEMENTS.venus,
     resolveElements: (daysSinceJ2000) => ({
       ascendingNodeDeg: 76.6799 + 2.4659e-5 * daysSinceJ2000,
       inclinationDeg: 3.3946 + 2.75e-8 * daysSinceJ2000,
@@ -428,10 +490,9 @@ const SKY_ENGINE_PLANET_DEFINITIONS: readonly PlanetDefinitionInternal[] = [
     id: 'sky-planet-mars',
     name: 'Mars',
     colorHex: '#e19972',
-    summary: 'Outer planet computed from a bounded orbital approximation.',
-    description: 'Mars is rendered as a dedicated planet object with point, disc, and textured surface transitions tied to field of view.',
-    magnitude: 0.3,
-    angularSizeArcsecAtOneAu: 9.36,
+    summary: 'Outer planet computed from a timestamp-driven orbital model with light-time correction.',
+    description: 'Mars uses geometry-driven brightness and apparent size, improving runtime planetary fidelity.',
+    visualElements: STELLARIUM_PLANET_VISUAL_ELEMENTS.mars,
     resolveElements: (daysSinceJ2000) => ({
       ascendingNodeDeg: 49.5574 + 2.11081e-5 * daysSinceJ2000,
       inclinationDeg: 1.8497 - 1.78e-8 * daysSinceJ2000,
@@ -445,10 +506,9 @@ const SKY_ENGINE_PLANET_DEFINITIONS: readonly PlanetDefinitionInternal[] = [
     id: 'sky-planet-jupiter',
     name: 'Jupiter',
     colorHex: '#d9b186',
-    summary: 'Gas giant computed from a bounded orbital approximation.',
-    description: 'Jupiter uses the planet renderer to transition from a bright sky point to a disc and simplified textured surface as field of view narrows.',
-    magnitude: -2.4,
-    angularSizeArcsecAtOneAu: 98,
+    summary: 'Gas giant computed from a timestamp-driven orbital model with light-time correction.',
+    description: 'Jupiter now uses dynamic apparent magnitude and disc size tied to observer/solar geometry.',
+    visualElements: STELLARIUM_PLANET_VISUAL_ELEMENTS.jupiter,
     resolveElements: (daysSinceJ2000) => ({
       ascendingNodeDeg: 100.4542 + 2.76854e-5 * daysSinceJ2000,
       inclinationDeg: 1.303 - 1.557e-7 * daysSinceJ2000,
@@ -462,10 +522,9 @@ const SKY_ENGINE_PLANET_DEFINITIONS: readonly PlanetDefinitionInternal[] = [
     id: 'sky-planet-saturn',
     name: 'Saturn',
     colorHex: '#e2cf9c',
-    summary: 'Ringed gas giant computed from a bounded orbital approximation.',
-    description: 'Saturn is carried through the dedicated planet renderer so it follows the same Stellarium-style representation ladder as the other planets.',
-    magnitude: 0.7,
-    angularSizeArcsecAtOneAu: 82.73,
+    summary: 'Ringed gas giant computed from a timestamp-driven orbital model with light-time correction.',
+    description: 'Saturn now uses geometry-driven apparent brightness and size aligned with Stellarium visual elements.',
+    visualElements: STELLARIUM_PLANET_VISUAL_ELEMENTS.saturn,
     resolveElements: (daysSinceJ2000) => ({
       ascendingNodeDeg: 113.6634 + 2.3898e-5 * daysSinceJ2000,
       inclinationDeg: 2.4886 - 1.081e-7 * daysSinceJ2000,
@@ -473,6 +532,38 @@ const SKY_ENGINE_PLANET_DEFINITIONS: readonly PlanetDefinitionInternal[] = [
       semiMajorAxisAu: 9.55475,
       eccentricity: 0.055546 - 9.499e-9 * daysSinceJ2000,
       meanAnomalyDeg: normalizeDegrees(316.967 + 0.0334442282 * daysSinceJ2000),
+    }),
+  },
+  {
+    id: 'sky-planet-uranus',
+    name: 'Uranus',
+    colorHex: '#9fd4dc',
+    summary: 'Ice giant computed from a timestamp-driven orbital model with light-time correction.',
+    description: 'Uranus uses dynamic geometry-driven apparent brightness and disc size in the object runtime.',
+    visualElements: STELLARIUM_PLANET_VISUAL_ELEMENTS.uranus,
+    resolveElements: (daysSinceJ2000) => ({
+      ascendingNodeDeg: 74.0005 + 1.3978e-5 * daysSinceJ2000,
+      inclinationDeg: 0.7733 + 1.9e-8 * daysSinceJ2000,
+      argumentOfPerihelionDeg: 96.6612 + 3.0565e-5 * daysSinceJ2000,
+      semiMajorAxisAu: 19.18171 - 1.55e-8 * daysSinceJ2000,
+      eccentricity: 0.047318 + 7.45e-9 * daysSinceJ2000,
+      meanAnomalyDeg: normalizeDegrees(142.5905 + 0.011725806 * daysSinceJ2000),
+    }),
+  },
+  {
+    id: 'sky-planet-neptune',
+    name: 'Neptune',
+    colorHex: '#7697d8',
+    summary: 'Ice giant computed from a timestamp-driven orbital model with light-time correction.',
+    description: 'Neptune uses dynamic geometry-driven apparent brightness and disc size in the object runtime.',
+    visualElements: STELLARIUM_PLANET_VISUAL_ELEMENTS.neptune,
+    resolveElements: (daysSinceJ2000) => ({
+      ascendingNodeDeg: 131.7806 + 3.0173e-5 * daysSinceJ2000,
+      inclinationDeg: 1.77 - 2.55e-7 * daysSinceJ2000,
+      argumentOfPerihelionDeg: 272.8461 - 6.027e-6 * daysSinceJ2000,
+      semiMajorAxisAu: 30.05826 + 3.313e-8 * daysSinceJ2000,
+      eccentricity: 0.008606 + 2.15e-9 * daysSinceJ2000,
+      meanAnomalyDeg: normalizeDegrees(260.2471 + 0.005995147 * daysSinceJ2000),
     }),
   },
 ] as const
@@ -492,19 +583,48 @@ export function computePlanetSceneObjects(observer: SkyEngineObserver, timestamp
   const daysSinceJ2000 = toJulianDate(timestampIso) - 2451543.5
   const earthOrbit = resolveOrbitalPosition(resolveEarthElements(daysSinceJ2000))
   const obliquityRad = degreesToRadians(23.4393 - 3.563e-7 * daysSinceJ2000)
+  const lightDaysPerAu = 1 / AU_PER_LIGHT_DAY
 
   return SKY_ENGINE_PLANET_DEFINITIONS.map((planet) => {
     const heliocentricPosition = resolveOrbitalPosition(planet.resolveElements(daysSinceJ2000))
-    const geocentricX = heliocentricPosition.x - earthOrbit.x
-    const geocentricY = heliocentricPosition.y - earthOrbit.y
-    const geocentricZ = heliocentricPosition.z - earthOrbit.z
+    const initialGeocentricX = heliocentricPosition.x - earthOrbit.x
+    const initialGeocentricY = heliocentricPosition.y - earthOrbit.y
+    const initialGeocentricZ = heliocentricPosition.z - earthOrbit.z
+    const initialDistanceAu = Math.hypot(initialGeocentricX, initialGeocentricY, initialGeocentricZ)
+    const lightTimeDays = initialDistanceAu * lightDaysPerAu
+    const lightTimeCorrectedDaysSinceJ2000 = daysSinceJ2000 - lightTimeDays
+    const lightTimeCorrectedHeliocentricPosition = resolveOrbitalPosition(planet.resolveElements(lightTimeCorrectedDaysSinceJ2000))
+    const geocentricX = lightTimeCorrectedHeliocentricPosition.x - earthOrbit.x
+    const geocentricY = lightTimeCorrectedHeliocentricPosition.y - earthOrbit.y
+    const geocentricZ = lightTimeCorrectedHeliocentricPosition.z - earthOrbit.z
     const equatorialY = geocentricY * Math.cos(obliquityRad) - geocentricZ * Math.sin(obliquityRad)
     const equatorialZ = geocentricY * Math.sin(obliquityRad) + geocentricZ * Math.cos(obliquityRad)
     const rightAscensionDeg = normalizeDegrees(radiansToDegrees(Math.atan2(equatorialY, geocentricX)))
     const declinationDeg = radiansToDegrees(Math.atan2(equatorialZ, Math.hypot(geocentricX, equatorialY)))
     const rightAscensionHours = rightAscensionDeg / 15
     const horizontalCoordinates = computeHorizontalCoordinates(observer, timestampIso, rightAscensionHours, declinationDeg)
-    const distanceAu = Math.hypot(geocentricX, geocentricY, geocentricZ)
+    const distanceToEarthAu = Math.max(Math.hypot(geocentricX, geocentricY, geocentricZ), MIN_DISTANCE_AU)
+    const distanceToSunAu = Math.max(lightTimeCorrectedHeliocentricPosition.distanceAu, MIN_DISTANCE_AU)
+    const phaseAngleRad = Math.acos(clamp(
+      (
+        lightTimeCorrectedHeliocentricPosition.x * geocentricX +
+        lightTimeCorrectedHeliocentricPosition.y * geocentricY +
+        lightTimeCorrectedHeliocentricPosition.z * geocentricZ
+      ) / (distanceToSunAu * distanceToEarthAu),
+      -1,
+      1,
+    ))
+    const phasePercent = (radiansToDegrees(phaseAngleRad)) / 100
+    const magnitude =
+      planet.visualElements.magnitudeAtOneAu +
+      5 * Math.log10(distanceToSunAu * distanceToEarthAu) +
+      phasePercent * (
+        planet.visualElements.phaseA +
+        phasePercent * (
+          planet.visualElements.phaseB +
+          phasePercent * planet.visualElements.phaseC
+        )
+      )
 
     return {
       id: planet.id,
@@ -512,17 +632,17 @@ export function computePlanetSceneObjects(observer: SkyEngineObserver, timestamp
       type: 'planet',
       altitudeDeg: horizontalCoordinates.altitudeDeg,
       azimuthDeg: horizontalCoordinates.azimuthDeg,
-      magnitude: planet.magnitude,
+      magnitude,
       colorHex: planet.colorHex,
       summary: planet.summary,
       description: planet.description,
-      truthNote: 'Computed from a bounded planetary orbital approximation for the active observer and explicit scene timestamp in this slice.',
+      truthNote: 'Computed from a timestamp-driven planetary orbital model with light-time correction and Stellarium-style apparent magnitude terms.',
       source: 'computed_ephemeris',
       trackingMode: 'fixed_equatorial',
       rightAscensionHours,
       declinationDeg,
       timestampIso,
-      apparentSizeDeg: (planet.angularSizeArcsecAtOneAu / Math.max(distanceAu, 0.1)) / 3600,
+      apparentSizeDeg: (planet.visualElements.angularSizeArcsecAtOneAu / Math.max(distanceToEarthAu, 0.1)) / 3600,
       isAboveHorizon: horizontalCoordinates.isAboveHorizon,
     }
   })
