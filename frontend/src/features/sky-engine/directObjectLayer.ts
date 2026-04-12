@@ -16,6 +16,9 @@ export interface DirectProjectedObjectEntry {
   readonly screenY: number
   readonly depth: number
   readonly markerRadiusPx: number
+  readonly shapeWidthPx?: number
+  readonly shapeHeightPx?: number
+  readonly shapeRotationRad?: number
   readonly renderAlpha: number
   readonly starProfile?: StarRenderProfile
 }

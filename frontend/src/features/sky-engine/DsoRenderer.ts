@@ -37,7 +37,7 @@ function toViewportPlanePosition(entry: DirectProjectedObjectEntry, viewportWidt
 }
 
 function buildDsoTextureSignature(entry: DirectProjectedObjectEntry) {
-  return [entry.object.id, entry.object.colorHex, entry.object.source, resolveDeepSkyVisualClass(entry.object)].join(':')
+  return [entry.object.colorHex, resolveDeepSkyVisualClass(entry.object)].join(':')
 }
 
 function drawSoftGlow(
@@ -318,11 +318,13 @@ export function createDsoRenderer(scene: Scene) {
 
         const isSelected = projectedDso.object.id === selectedObjectId
         const markerDimensions = getDeepSkyMarkerDimensionsPx(projectedDso.object, projectedDso.markerRadiusPx)
-        const widthPx = markerDimensions.widthPx * (isSelected ? 1.12 : 1)
-        const heightPx = markerDimensions.heightPx * (isSelected ? 1.12 : 1)
+        const widthPx = (projectedDso.shapeWidthPx ?? markerDimensions.widthPx) * (isSelected ? 1.12 : 1)
+        const heightPx = (projectedDso.shapeHeightPx ?? markerDimensions.heightPx) * (isSelected ? 1.12 : 1)
+        const rotationRad = projectedDso.shapeRotationRad ?? ((markerDimensions.rotationDeg * Math.PI) / 180)
 
         entry.mesh.position.copyFrom(toViewportPlanePosition(projectedDso, viewportWidth, viewportHeight))
         entry.mesh.scaling.set(widthPx, heightPx, 1)
+        entry.mesh.rotation.z = rotationRad
         entry.mesh.isVisible = projectedDso.renderAlpha > 0.001
         entry.material.emissiveColor = Color3.FromHexString(projectedDso.object.colorHex).scale(isSelected ? 1.04 : 0.92)
         entry.material.alpha = clamp(projectedDso.renderAlpha + (isSelected ? 0.08 : 0), 0, 1)
@@ -341,7 +343,13 @@ export function createDsoRenderer(scene: Scene) {
       selectionRing.mesh.isVisible = true
       selectionRing.mesh.position.copyFrom(toViewportPlanePosition(finalSelectedEntry, viewportWidth, viewportHeight))
       const markerDimensions = getDeepSkyMarkerDimensionsPx(finalSelectedEntry.object, finalSelectedEntry.markerRadiusPx)
-      const selectionDiameter = Math.max(28, Math.max(markerDimensions.widthPx, markerDimensions.heightPx) + 20)
+      const selectionDiameter = Math.max(
+        28,
+        Math.max(
+          finalSelectedEntry.shapeWidthPx ?? markerDimensions.widthPx,
+          finalSelectedEntry.shapeHeightPx ?? markerDimensions.heightPx,
+        ) + 20,
+      )
       selectionRing.mesh.scaling.set(selectionDiameter, selectionDiameter, 1)
       selectionRing.material.alpha = clamp(0.68 + finalSelectedEntry.renderAlpha * 0.2, 0, 0.94)
     },

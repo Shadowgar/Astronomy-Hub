@@ -45,6 +45,9 @@ export interface SkyEngineSceneObject {
   timestampIso?: string
   apparentSizeDeg?: number
   deepSkyClass?: SkyEngineDeepSkyClass
+  orientationDeg?: number
+  majorAxis?: number
+  minorAxis?: number
   illuminationFraction?: number
   phaseAngle?: number
   phaseMagnitudeAdjustment?: number

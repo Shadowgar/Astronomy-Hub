@@ -2,65 +2,67 @@ import type { SkyEngineDeepSkyClass, SkyEngineSceneObject } from './types'
 
 export interface DeepSkyVisualStyle {
   readonly visualClass: SkyEngineDeepSkyClass
-  readonly widthScale: number
-  readonly heightScale: number
-  readonly minimumDiameterPx: number
-  readonly diameterScale: number
-  readonly diameterBiasPx: number
-  readonly projectionMinimumRadiusPx: number
-  readonly projectionMaximumRadiusPx: number
-  readonly projectionRadiusGain: number
+  readonly defaultOrientationDeg: number
+  readonly defaultMinorAxisRatio: number
+  readonly minimumMajorDiameterPx: number
+  readonly minimumMinorDiameterPx: number
+  readonly maximumMajorDiameterPx: number
+  readonly maximumMinorDiameterPx: number
   readonly projectionMagnitudeBoostPx: number
+}
+
+export interface DeepSkyResolvedAxes {
+  readonly visualClass: SkyEngineDeepSkyClass
+  readonly orientationDeg: number
+  readonly majorAxis: number
+  readonly minorAxis: number
+  readonly axisRatio: number
+}
+
+function clamp(value: number, minimum: number, maximum: number) {
+  return Math.min(maximum, Math.max(minimum, value))
 }
 
 const DEEP_SKY_VISUAL_STYLES: Record<SkyEngineDeepSkyClass, DeepSkyVisualStyle> = {
   galaxy: {
     visualClass: 'galaxy',
-    widthScale: 1.28,
-    heightScale: 0.82,
-    minimumDiameterPx: 18,
-    diameterScale: 2.85,
-    diameterBiasPx: 6,
-    projectionMinimumRadiusPx: 8,
-    projectionMaximumRadiusPx: 34,
-    projectionRadiusGain: 1,
-    projectionMagnitudeBoostPx: 1.8,
+    defaultOrientationDeg: 32,
+    defaultMinorAxisRatio: 0.42,
+    minimumMajorDiameterPx: 20,
+    minimumMinorDiameterPx: 10,
+    maximumMajorDiameterPx: 68,
+    maximumMinorDiameterPx: 36,
+    projectionMagnitudeBoostPx: 2.2,
   },
   nebula: {
     visualClass: 'nebula',
-    widthScale: 1.08,
-    heightScale: 1.08,
-    minimumDiameterPx: 20,
-    diameterScale: 2.95,
-    diameterBiasPx: 6,
-    projectionMinimumRadiusPx: 9,
-    projectionMaximumRadiusPx: 38,
-    projectionRadiusGain: 1.04,
-    projectionMagnitudeBoostPx: 2.2,
+    defaultOrientationDeg: 48,
+    defaultMinorAxisRatio: 0.68,
+    minimumMajorDiameterPx: 22,
+    minimumMinorDiameterPx: 14,
+    maximumMajorDiameterPx: 72,
+    maximumMinorDiameterPx: 52,
+    projectionMagnitudeBoostPx: 2.4,
   },
   cluster: {
     visualClass: 'cluster',
-    widthScale: 1,
-    heightScale: 1,
-    minimumDiameterPx: 16,
-    diameterScale: 2.35,
-    diameterBiasPx: 4,
-    projectionMinimumRadiusPx: 6.4,
-    projectionMaximumRadiusPx: 24,
-    projectionRadiusGain: 0.9,
+    defaultOrientationDeg: 0,
+    defaultMinorAxisRatio: 1,
+    minimumMajorDiameterPx: 18,
+    minimumMinorDiameterPx: 18,
+    maximumMajorDiameterPx: 48,
+    maximumMinorDiameterPx: 48,
     projectionMagnitudeBoostPx: 1.4,
   },
   generic: {
     visualClass: 'generic',
-    widthScale: 1,
-    heightScale: 1,
-    minimumDiameterPx: 16,
-    diameterScale: 2.5,
-    diameterBiasPx: 4,
-    projectionMinimumRadiusPx: 7,
-    projectionMaximumRadiusPx: 26,
-    projectionRadiusGain: 0.95,
-    projectionMagnitudeBoostPx: 1.6,
+    defaultOrientationDeg: 0,
+    defaultMinorAxisRatio: 0.86,
+    minimumMajorDiameterPx: 18,
+    minimumMinorDiameterPx: 14,
+    maximumMajorDiameterPx: 52,
+    maximumMinorDiameterPx: 40,
+    projectionMagnitudeBoostPx: 1.7,
   },
 }
 
@@ -83,23 +85,55 @@ export function getDeepSkyProjectionStyle(
 
   return {
     ...style,
-    projectionMinimumRadiusPx: Math.max(5.8, style.projectionMinimumRadiusPx * 0.82),
-    projectionMaximumRadiusPx: style.projectionMaximumRadiusPx * 0.74,
-    projectionRadiusGain: style.projectionRadiusGain * 0.86,
+    minimumMajorDiameterPx: Math.max(16, Math.round(style.minimumMajorDiameterPx * 0.88)),
+    minimumMinorDiameterPx: Math.max(12, Math.round(style.minimumMinorDiameterPx * 0.86)),
+    maximumMajorDiameterPx: Math.round(style.maximumMajorDiameterPx * 0.74),
+    maximumMinorDiameterPx: Math.round(style.maximumMinorDiameterPx * 0.72),
     projectionMagnitudeBoostPx: Math.min(style.projectionMagnitudeBoostPx, 1.2),
   }
 }
 
-export function getDeepSkyMarkerDimensionsPx(
-  object: Pick<SkyEngineSceneObject, 'deepSkyClass'>,
-  markerRadiusPx: number,
-) {
+export function resolveDeepSkyAxes(
+  object: Pick<SkyEngineSceneObject, 'deepSkyClass' | 'apparentSizeDeg' | 'majorAxis' | 'minorAxis' | 'orientationDeg'>,
+): DeepSkyResolvedAxes {
   const style = getDeepSkyVisualStyle(object)
-  const baseDiameterPx = Math.max(style.minimumDiameterPx, markerRadiusPx * style.diameterScale + style.diameterBiasPx)
+  const majorAxis = Math.max(object.majorAxis ?? object.apparentSizeDeg ?? 0.25, 0.05)
+  const minorAxis = clamp(
+    object.minorAxis ?? majorAxis * style.defaultMinorAxisRatio,
+    0.05,
+    majorAxis,
+  )
 
   return {
     visualClass: style.visualClass,
-    widthPx: baseDiameterPx * style.widthScale,
-    heightPx: baseDiameterPx * style.heightScale,
+    orientationDeg: object.orientationDeg ?? style.defaultOrientationDeg,
+    majorAxis,
+    minorAxis,
+    axisRatio: Math.max(1, majorAxis / Math.max(minorAxis, 0.05)),
+  }
+}
+
+export function getDeepSkyMarkerDimensionsPx(
+  object: Pick<SkyEngineSceneObject, 'deepSkyClass' | 'apparentSizeDeg' | 'majorAxis' | 'minorAxis' | 'orientationDeg'>,
+  markerRadiusPx: number,
+) {
+  const style = getDeepSkyVisualStyle(object)
+  const axes = resolveDeepSkyAxes(object)
+  const widthPx = clamp(
+    Math.max(style.minimumMajorDiameterPx, markerRadiusPx * 2 + 6),
+    style.minimumMajorDiameterPx,
+    style.maximumMajorDiameterPx,
+  )
+  const heightPx = clamp(
+    Math.max(style.minimumMinorDiameterPx, widthPx / axes.axisRatio),
+    style.minimumMinorDiameterPx,
+    Math.min(style.maximumMinorDiameterPx, widthPx),
+  )
+
+  return {
+    visualClass: style.visualClass,
+    widthPx,
+    heightPx,
+    rotationDeg: axes.orientationDeg,
   }
 }

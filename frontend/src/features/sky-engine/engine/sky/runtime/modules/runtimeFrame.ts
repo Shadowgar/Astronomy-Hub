@@ -16,7 +16,7 @@ import {
   type StarRenderProfile,
 } from '../../../../starRenderer'
 import { computeVisibilityAlpha } from '../../../../starVisibility'
-import { getDeepSkyProjectionStyle } from '../../../../dsoVisuals'
+import { getDeepSkyMarkerDimensionsPx, getDeepSkyProjectionStyle, resolveDeepSkyAxes } from '../../../../dsoVisuals'
 import type { SkyScenePacket } from '../..'
 import type {
   SkyEngineAidVisibility,
@@ -39,6 +39,9 @@ export interface ProjectedSceneObjectEntry {
   readonly depth: number
   readonly angularDistanceRad: number
   readonly markerRadiusPx: number
+  readonly shapeWidthPx?: number
+  readonly shapeHeightPx?: number
+  readonly shapeRotationRad?: number
   readonly pickRadiusPx: number
   readonly renderAlpha: number
   readonly renderedMagnitude?: number
@@ -113,6 +116,10 @@ export interface SceneFrameStateWriteInput {
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
+}
+
+function degreesToRadians(value: number) {
+  return (value * Math.PI) / 180
 }
 
 function isEngineTileSource(source: SkyEngineSceneObject['source']) {
@@ -300,11 +307,12 @@ function getProjectedDiscRadiusPx(apparentSizeDeg: number | undefined, scale: nu
 
 function getDeepSkyMarkerRadiusPx(object: SkyEngineSceneObject, scale: number) {
   const style = getDeepSkyProjectionStyle(object)
+  const axes = resolveDeepSkyAxes(object)
   const projectedRadiusPx = getProjectedDiscRadiusPx(
-    object.apparentSizeDeg,
+    axes.majorAxis,
     scale,
-    style.projectionMinimumRadiusPx,
-    style.projectionMaximumRadiusPx,
+    style.minimumMajorDiameterPx * 0.5,
+    style.maximumMajorDiameterPx * 0.5,
   )
   const magnitudeBoostPx = clamp(
     1.7 - object.magnitude * 0.12,
@@ -313,10 +321,129 @@ function getDeepSkyMarkerRadiusPx(object: SkyEngineSceneObject, scale: number) {
   )
 
   return clamp(
-    projectedRadiusPx * style.projectionRadiusGain + magnitudeBoostPx,
-    style.projectionMinimumRadiusPx,
-    style.projectionMaximumRadiusPx,
+    projectedRadiusPx + magnitudeBoostPx,
+    style.minimumMajorDiameterPx * 0.5,
+    style.maximumMajorDiameterPx * 0.5,
   )
+}
+
+function resolveHorizontalTangentBasis(altitudeDeg: number, azimuthDeg: number) {
+  const altitudeRad = degreesToRadians(altitudeDeg)
+  const azimuthRad = degreesToRadians(azimuthDeg)
+
+  return {
+    east: new Vector3(
+      Math.cos(azimuthRad),
+      0,
+      -Math.sin(azimuthRad),
+    ).normalize(),
+    north: new Vector3(
+      -Math.sin(azimuthRad) * Math.sin(altitudeRad),
+      Math.cos(altitudeRad),
+      -Math.cos(azimuthRad) * Math.sin(altitudeRad),
+    ).normalize(),
+  }
+}
+
+function offsetDirectionByTangent(centerDirection: Vector3, tangentDirection: Vector3, angularDistanceDeg: number) {
+  const offsetFactor = Math.tan(degreesToRadians(angularDistanceDeg))
+
+  return centerDirection.add(tangentDirection.scale(offsetFactor)).normalizeToNew()
+}
+
+function getProjectedSegmentMetrics(
+  startDirection: Vector3,
+  endDirection: Vector3,
+  view: SkyProjectionView,
+) {
+  const start = projectDirectionToViewport(startDirection, view)
+  const end = projectDirectionToViewport(endDirection, view)
+
+  if (!start || !end) {
+    return null
+  }
+
+  const deltaX = end.screenX - start.screenX
+  const deltaY = start.screenY - end.screenY
+
+  return {
+    lengthPx: Math.hypot(deltaX, deltaY),
+    rotationRad: Math.atan2(deltaY, deltaX),
+  }
+}
+
+function normalizeRotationRad(value: number) {
+  let normalized = value
+
+  while (normalized <= -Math.PI) {
+    normalized += Math.PI * 2
+  }
+
+  while (normalized > Math.PI) {
+    normalized -= Math.PI * 2
+  }
+
+  return normalized
+}
+
+function getProjectedDsoShape(
+  object: SkyEngineSceneObject,
+  view: SkyProjectionView,
+  centerDirection: Vector3,
+) {
+  const style = getDeepSkyProjectionStyle(object)
+  const axes = resolveDeepSkyAxes(object)
+  const fallbackRadiusPx = getDeepSkyMarkerRadiusPx(object, getProjectionScale(view))
+  const fallbackDimensions = getDeepSkyMarkerDimensionsPx(object, fallbackRadiusPx)
+  const basis = resolveHorizontalTangentBasis(object.altitudeDeg, object.azimuthDeg)
+  const orientationRad = degreesToRadians(axes.orientationDeg)
+  const majorTangent = basis.north.scale(Math.cos(orientationRad)).add(basis.east.scale(Math.sin(orientationRad))).normalize()
+  const minorTangent = basis.north.scale(-Math.sin(orientationRad)).add(basis.east.scale(Math.cos(orientationRad))).normalize()
+  const majorSegment = getProjectedSegmentMetrics(
+    offsetDirectionByTangent(centerDirection, majorTangent.scale(-1), axes.majorAxis * 0.5),
+    offsetDirectionByTangent(centerDirection, majorTangent, axes.majorAxis * 0.5),
+    view,
+  )
+  const minorSegment = getProjectedSegmentMetrics(
+    offsetDirectionByTangent(centerDirection, minorTangent.scale(-1), axes.minorAxis * 0.5),
+    offsetDirectionByTangent(centerDirection, minorTangent, axes.minorAxis * 0.5),
+    view,
+  )
+  const magnitudeBoostPx = clamp(
+    1.7 - object.magnitude * 0.12,
+    0.2,
+    style.projectionMagnitudeBoostPx,
+  ) * 2
+
+  let shapeWidthPx = clamp(
+    Math.max(majorSegment?.lengthPx ?? fallbackDimensions.widthPx, style.minimumMajorDiameterPx) + magnitudeBoostPx,
+    style.minimumMajorDiameterPx,
+    style.maximumMajorDiameterPx,
+  )
+  let shapeHeightPx = clamp(
+    Math.max(minorSegment?.lengthPx ?? fallbackDimensions.heightPx, style.minimumMinorDiameterPx) + magnitudeBoostPx,
+    style.minimumMinorDiameterPx,
+    Math.min(style.maximumMinorDiameterPx, shapeWidthPx),
+  )
+  let shapeRotationRad = majorSegment?.rotationRad ?? degreesToRadians(fallbackDimensions.rotationDeg)
+
+  if (shapeHeightPx > shapeWidthPx) {
+    const swappedWidthPx = shapeHeightPx
+    shapeHeightPx = shapeWidthPx
+    shapeWidthPx = swappedWidthPx
+    shapeRotationRad += Math.PI * 0.5
+  }
+
+  if (Math.abs(shapeWidthPx - shapeHeightPx) < 0.35 || Math.abs(axes.majorAxis - axes.minorAxis) < 0.01) {
+    shapeRotationRad = 0
+  }
+
+  return {
+    markerRadiusPx: shapeWidthPx * 0.5,
+    shapeWidthPx,
+    shapeHeightPx,
+    shapeRotationRad: normalizeRotationRad(shapeRotationRad),
+  }
 }
 
 function getMarkerRadiusPx(
@@ -344,9 +471,11 @@ function getMarkerRadiusPx(
   return clamp(starBase, 0.85, 7.6) * clamp(visualCalibration.starFieldBrightness * 1.02, 0.4, 1.08)
 }
 
-function getPickRadiusPx(object: SkyEngineSceneObject, markerRadiusPx: number) {
+function getPickRadiusPx(object: SkyEngineSceneObject, markerRadiusPx: number, shapeWidthPx?: number, shapeHeightPx?: number) {
+  const shapeRadiusPx = Math.max(shapeWidthPx ?? markerRadiusPx * 2, shapeHeightPx ?? markerRadiusPx * 2) * 0.5
+
   return Math.max(
-    Math.max(object.type === 'moon' ? 36 : 0, markerRadiusPx + 14),
+    Math.max(object.type === 'moon' ? 36 : 0, shapeRadiusPx + 14),
     markerRadiusPx + 14,
   )
 }
@@ -641,7 +770,8 @@ export function collectProjectedNonStarObjects(
     filteringMs += performance.now() - filteringStartMs
 
     const transformStartMs = performance.now()
-    const projected = projectDirectionToViewport(horizontalToDirection(object.altitudeDeg, object.azimuthDeg), view)
+  const centerDirection = horizontalToDirection(object.altitudeDeg, object.azimuthDeg)
+  const projected = projectDirectionToViewport(centerDirection, view)
     transformMs += performance.now() - transformStartMs
 
     const filteringProjectedMs = performance.now()
@@ -662,7 +792,10 @@ export function collectProjectedNonStarObjects(
     filteringMs += performance.now() - filteringAlphaMs
 
     const allocationStartMs = performance.now()
-    const markerRadiusPx = getMarkerRadiusPx(object, view, sunState.visualCalibration)
+    const projectedDsoShape = object.type === 'deep_sky'
+      ? getProjectedDsoShape(object, view, centerDirection)
+      : null
+    const markerRadiusPx = projectedDsoShape?.markerRadiusPx ?? getMarkerRadiusPx(object, view, sunState.visualCalibration)
 
     projectedObjects.push({
       object,
@@ -671,7 +804,10 @@ export function collectProjectedNonStarObjects(
       depth: projected.depth,
       angularDistanceRad: projected.angularDistanceRad,
       markerRadiusPx,
-      pickRadiusPx: getPickRadiusPx(object, markerRadiusPx),
+      shapeWidthPx: projectedDsoShape?.shapeWidthPx,
+      shapeHeightPx: projectedDsoShape?.shapeHeightPx,
+      shapeRotationRad: projectedDsoShape?.shapeRotationRad,
+      pickRadiusPx: getPickRadiusPx(object, markerRadiusPx, projectedDsoShape?.shapeWidthPx, projectedDsoShape?.shapeHeightPx),
       renderAlpha,
       renderedMagnitude: object.magnitude,
     })

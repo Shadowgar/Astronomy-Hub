@@ -118,6 +118,8 @@ describe('sky core runtime boundary', () => {
     expect(objectModuleSource).toContain("entry.object.type === 'planet'")
     expect(objectModuleSource).toContain("entry.object.type === 'deep_sky'")
     expect(dsoRendererSource).toContain('DirectProjectedObjectEntry')
+    expect(dsoRendererSource).toContain('shapeRotationRad')
+    expect(dsoRendererSource).toContain('mesh.rotation.z')
     expect(dsoRendererSource).not.toContain('SkyObjectRenderer')
     expect(dsoRendererSource).not.toContain('skyRendererContracts')
     expect(sceneReportingModuleSource).toContain('serializeSceneState({')
