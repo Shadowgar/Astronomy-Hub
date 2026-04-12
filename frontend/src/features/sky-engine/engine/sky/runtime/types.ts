@@ -102,6 +102,11 @@ export interface SkyBrightnessExposureState {
   readonly backdropAlpha: number
   readonly nightSkyZenithLuminance: number
   readonly nightSkyHorizonLuminance: number
+  readonly sceneLuminanceSkyContributor: number
+  readonly sceneLuminanceStarContributor: number
+  readonly sceneLuminanceSolarSystemContributor: number
+  readonly sceneLuminanceStarSampleCount: number
+  readonly sceneLuminanceSolarSystemSampleCount: number
   readonly sceneLuminance: number
   readonly adaptedSceneLuminance: number
   readonly targetTonemapperLwmax: number

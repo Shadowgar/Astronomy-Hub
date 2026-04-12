@@ -4,6 +4,7 @@ import {
   evaluateStellariumSkyBrightnessBaseline,
   resolveTonemapperLwmaxFromLuminance,
 } from '../../../../skyBrightness'
+import { horizontalToDirection } from '../../../../projectionMath'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import type { SkyModule } from '../SkyModule'
 import type { SkyBrightnessExposureState } from '../types'
@@ -18,7 +19,9 @@ const STELLARIUM_POINT_SPREAD_RADIUS_RAD = (2.5 / 60) * (Math.PI / 180)
 const STELLARIUM_MIN_POINT_AREA_SR = Math.PI * STELLARIUM_POINT_SPREAD_RADIUS_RAD * STELLARIUM_POINT_SPREAD_RADIUS_RAD
 const STELLARIUM_ARCSECONDS_PER_RADIAN = 206264.80624709636
 const MAX_BRIGHTNESS_STAR_SAMPLES = 640
+const MAX_SOLAR_SYSTEM_SAMPLES = 32
 const BRIGHTNESS_STAR_MAGNITUDE_CUTOFF = 6.2
+const BRIGHTNESS_SOLAR_SYSTEM_MAGNITUDE_CUTOFF = 7.5
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -37,11 +40,21 @@ function estimateTelescopeLightGrasp(currentFovDegrees: number) {
   return lightGrasp
 }
 
+function estimateTelescopeMagnification(currentFovDegrees: number) {
+  const fovRad = clamp(currentFovDegrees, 0.25, 180) * (Math.PI / 180)
+  const fovEyeRad = 60 * (Math.PI / 180)
+  return fovEyeRad / fovRad
+}
+
+function estimateTelescopeGainMagnitude(currentFovDegrees: number) {
+  return 2.5 * Math.log10(estimateTelescopeLightGrasp(currentFovDegrees))
+}
+
 function coreMagToIlluminance(magnitude: number) {
   return 10.7646e4 / (STELLARIUM_ARCSECONDS_PER_RADIAN * STELLARIUM_ARCSECONDS_PER_RADIAN) * exp10(-0.4 * magnitude)
 }
 
-function estimateBrightStarLuminanceInFov(
+function estimateStarLuminanceContributor(
   props: ScenePropsSnapshot,
   currentFovDegrees: number,
 ) {
@@ -67,15 +80,106 @@ function estimateBrightStarLuminanceInFov(
     }
   }
 
-  if (illuminance <= 0) {
-    return 0
+  const apparentLuminance = illuminance > 0
+    ? (illuminance * lightGrasp) / STELLARIUM_MIN_POINT_AREA_SR
+    : 0
+  const reportedLuminance = apparentLuminance > 0 ? Math.pow(apparentLuminance, 1 / 3) / 300 : 0
+
+  return {
+    luminance: reportedLuminance,
+    sampleCount: samples,
+  }
+}
+
+function smoothstep(edge0: number, edge1: number, value: number) {
+  if (edge0 === edge1) {
+    return value >= edge1 ? 1 : 0
+  }
+  const amount = clamp((value - edge0) / (edge1 - edge0), 0, 1)
+  return amount * amount * (3 - 2 * amount)
+}
+
+function getAngularSeparationRadians(
+  left: { x: number; y: number; z: number },
+  right: { x: number; y: number; z: number },
+) {
+  const dot = clamp(left.x * right.x + left.y * right.y + left.z * right.z, -1, 1)
+  return Math.acos(dot)
+}
+
+function estimateObjectAngularRadiusRadians(apparentSizeDeg: number | undefined) {
+  if (!apparentSizeDeg || apparentSizeDeg <= 0) {
+    return STELLARIUM_POINT_SPREAD_RADIUS_RAD
+  }
+  return Math.max(STELLARIUM_POINT_SPREAD_RADIUS_RAD, (apparentSizeDeg * Math.PI) / 360)
+}
+
+function estimateSolarSystemLuminanceContributor(
+  props: ScenePropsSnapshot,
+  currentFovDegrees: number,
+  centerDirection: { x: number; y: number; z: number },
+) {
+  const magnification = estimateTelescopeMagnification(currentFovDegrees)
+  const gainMagnitude = estimateTelescopeGainMagnitude(currentFovDegrees)
+  const fovRad = clamp(currentFovDegrees, 0.25, 180) * (Math.PI / 180)
+  let brightestLuminance = 0
+  let samples = 0
+
+  for (let index = 0; index < props.objects.length; index += 1) {
+    const object = props.objects[index]
+    if (object.type !== 'moon' && object.type !== 'planet') {
+      continue
+    }
+    if (object.altitudeDeg <= -2) {
+      continue
+    }
+    if (object.magnitude > BRIGHTNESS_SOLAR_SYSTEM_MAGNITUDE_CUTOFF) {
+      continue
+    }
+    const objectDirection = horizontalToDirection(object.altitudeDeg, object.azimuthDeg)
+    const angularRadius = estimateObjectAngularRadiusRadians(object.apparentSizeDeg)
+    const separation = getAngularSeparationRadians(centerDirection, objectDirection)
+
+    // core_report_vmag_in_fov style contributor approximation.
+    let lum = coreMagToIlluminance(object.magnitude - gainMagnitude) / (Math.PI * angularRadius * angularRadius)
+    const observedRadius = Math.max(STELLARIUM_POINT_SPREAD_RADIUS_RAD, angularRadius * magnification)
+    lum *= Math.pow(observedRadius / (60 * (Math.PI / 180)), 1.2)
+    lum = Math.pow(Math.max(lum, 0), 0.33) / 300
+    lum *= smoothstep(fovRad * 0.75, 0, Math.max(0, separation - angularRadius))
+    lum *= 7
+
+    brightestLuminance = Math.max(brightestLuminance, lum)
+    samples += 1
+    if (samples >= MAX_SOLAR_SYSTEM_SAMPLES) {
+      break
+    }
   }
 
-  // Stellarium stars.c proxy: convert integrated illuminance to apparent
-  // luminance, then apply the same empirical compression used when reporting
-  // in-FOV luminance to core adaptation.
-  const apparentLuminance = (illuminance * lightGrasp) / STELLARIUM_MIN_POINT_AREA_SR
-  return Math.pow(apparentLuminance, 1 / 3) / 300
+  return {
+    luminance: brightestLuminance,
+    sampleCount: samples,
+  }
+}
+
+function resolveSceneLuminanceContributors(
+  props: ScenePropsSnapshot,
+  services: SkySceneRuntimeServices,
+  baselineSkyLuminance: number,
+  currentFovDegrees: number,
+) {
+  const centerDirection = services.navigationService.getCenterDirection()
+  const star = estimateStarLuminanceContributor(props, currentFovDegrees)
+  const solarSystem = estimateSolarSystemLuminanceContributor(props, currentFovDegrees, centerDirection)
+  const sky = Math.max(0, baselineSkyLuminance)
+  const target = Math.max(sky, star.luminance, solarSystem.luminance)
+  return {
+    sky,
+    stars: star.luminance,
+    solarSystem: solarSystem.luminance,
+    target,
+    starSampleCount: star.sampleCount,
+    solarSystemSampleCount: solarSystem.sampleCount,
+  }
 }
 
 function buildBackdropAlpha(starVisibility: number) {
@@ -260,8 +364,13 @@ export function evaluateSkyBrightnessExposureState(
     moonAltitudeRad,
     moonMagnitude: moonObject?.magnitude,
   })
-  const brightStarLuminance = estimateBrightStarLuminanceInFov(props, currentFovDegrees)
-  const targetSceneLuminance = Math.max(baseline.zenithSkyLuminance, brightStarLuminance)
+  const luminanceContributors = resolveSceneLuminanceContributors(
+    props,
+    services,
+    baseline.zenithSkyLuminance,
+    currentFovDegrees,
+  )
+  const targetSceneLuminance = luminanceContributors.target
   const adaptation = adaptSceneLuminance(
     previousState?.adaptedSceneLuminance,
     targetSceneLuminance,
@@ -294,7 +403,7 @@ export function evaluateSkyBrightnessExposureState(
     adaptationLevel,
   )
   const tonemapperLwmax = resolveTonemapperLwmaxFromLuminance(adaptation.adaptedSceneLuminance)
-  const targetTonemapperLwmax = resolveTonemapperLwmaxFromLuminance(baseline.zenithSkyLuminance)
+  const targetTonemapperLwmax = resolveTonemapperLwmaxFromLuminance(targetSceneLuminance)
   const limitingMagnitude = computeEffectiveLimitingMagnitude({
     fovDegrees: currentFovDegrees,
     skyBrightness: baseline.skyBrightness,
@@ -331,6 +440,11 @@ export function evaluateSkyBrightnessExposureState(
     ),
     nightSkyZenithLuminance: baseline.nightSkyZenithLuminance,
     nightSkyHorizonLuminance: baseline.nightSkyHorizonLuminance,
+    sceneLuminanceSkyContributor: luminanceContributors.sky,
+    sceneLuminanceStarContributor: luminanceContributors.stars,
+    sceneLuminanceSolarSystemContributor: luminanceContributors.solarSystem,
+    sceneLuminanceStarSampleCount: luminanceContributors.starSampleCount,
+    sceneLuminanceSolarSystemSampleCount: luminanceContributors.solarSystemSampleCount,
     sceneLuminance: targetSceneLuminance,
     adaptedSceneLuminance: adaptation.adaptedSceneLuminance,
     targetTonemapperLwmax,
@@ -347,12 +461,25 @@ export function createSkyBrightnessExposureModule(): SkyModule<ScenePropsSnapsho
     id: 'sky-brightness-exposure-runtime-module',
     renderOrder: 5,
     update({ runtime, services, getProps, deltaSeconds }) {
-      runtime.brightnessExposureState = evaluateSkyBrightnessExposureState(
+      const nextState = evaluateSkyBrightnessExposureState(
         getProps(),
         services,
         runtime.brightnessExposureState,
         deltaSeconds,
       )
+      runtime.brightnessExposureState = nextState
+      runtime.runtimePerfTelemetry.latest = {
+        ...runtime.runtimePerfTelemetry.latest,
+        stepMs: {
+          ...runtime.runtimePerfTelemetry.latest.stepMs,
+          sceneLuminanceSkyContributor: nextState.sceneLuminanceSkyContributor,
+          sceneLuminanceStarContributor: nextState.sceneLuminanceStarContributor,
+          sceneLuminanceSolarSystemContributor: nextState.sceneLuminanceSolarSystemContributor,
+          sceneLuminanceTarget: nextState.sceneLuminance,
+          sceneLuminanceStarSampleCount: nextState.sceneLuminanceStarSampleCount,
+          sceneLuminanceSolarSystemSampleCount: nextState.sceneLuminanceSolarSystemSampleCount,
+        },
+      }
     },
   }
 }
