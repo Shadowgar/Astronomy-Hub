@@ -32,7 +32,7 @@ import { SkyNavigationService } from './engine/sky/runtime/SkyNavigationService'
 import { SkyObserverService } from './engine/sky/runtime/SkyObserverService'
 import { SkyProjectionService } from './engine/sky/runtime/SkyProjectionService'
 import { createRuntimePerfTelemetry } from './engine/sky/runtime/perfTelemetry'
-import type { SkyBrightnessExposureState } from './engine/sky/runtime/types'
+import type { SceneLuminanceReport, SkyBrightnessExposureState } from './engine/sky/runtime/types'
 import {
   type ProjectedSceneObjectEntry,
   type RuntimeProjectedSceneFrame,
@@ -93,6 +93,7 @@ export interface SceneRuntimeRefs {
   projectedStarsFrame: RuntimeProjectedStarsFrame | null
   projectedSceneFrame: RuntimeProjectedSceneFrame | null
   projectedNonStarObjects: RuntimeProjectedSceneFrame['projectedObjects']
+  sceneLuminanceReport: SceneLuminanceReport | null
   brightnessExposureState: SkyBrightnessExposureState | null
   trajectoryObjectId: string | null
   visibleLabelIds: readonly string[]
@@ -159,6 +160,7 @@ export function createSceneRuntimeState({
     projectedStarsFrame: null,
     projectedSceneFrame: null,
     projectedNonStarObjects: [],
+    sceneLuminanceReport: null,
     brightnessExposureState: null,
     trajectoryObjectId: null,
     visibleLabelIds: [],

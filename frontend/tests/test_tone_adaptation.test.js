@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { evaluateSkyBrightnessExposureState } from '../src/features/sky-engine/engine/sky/runtime/modules/SkyBrightnessExposureModule.ts'
+import { evaluateSceneLuminanceReport } from '../src/features/sky-engine/engine/sky/runtime/luminanceReport.ts'
 import { horizontalToDirection } from '../src/features/sky-engine/projectionMath.ts'
 
 function createVisualCalibration(phaseLabel, overrides = {}) {
@@ -99,6 +100,14 @@ describe('sky brightness exposure adaptation', () => {
         atmosphereExposure: 0.86,
       }), starsAndMoon),
       SERVICES,
+      evaluateSceneLuminanceReport(
+        createProps(-6, createVisualCalibration('Low Sun', {
+          starVisibility: 0.46,
+          starFieldBrightness: 0.4,
+          atmosphereExposure: 0.86,
+        }), starsAndMoon),
+        SERVICES,
+      ),
     )
     const nightState = evaluateSkyBrightnessExposureState(
       createProps(-22, createVisualCalibration('Night', {
@@ -107,6 +116,14 @@ describe('sky brightness exposure adaptation', () => {
         atmosphereExposure: 1,
       }), starsAndMoon),
       SERVICES,
+      evaluateSceneLuminanceReport(
+        createProps(-22, createVisualCalibration('Night', {
+          starVisibility: 1,
+          starFieldBrightness: 0.92,
+          atmosphereExposure: 1,
+        }), starsAndMoon),
+        SERVICES,
+      ),
     )
 
     expect(nightState.sceneContrast).toBeGreaterThan(twilightState.sceneContrast)
@@ -127,39 +144,47 @@ describe('sky brightness exposure adaptation', () => {
   })
 
   it('reveals darkness gradually but suppresses stars immediately when the scene brightens', () => {
+    const dayProps = createProps(8, createVisualCalibration('Daylight', {
+      starVisibility: 0.04,
+      starFieldBrightness: 0.06,
+      atmosphereExposure: 1,
+    }))
     const dayState = evaluateSkyBrightnessExposureState(
-      createProps(8, createVisualCalibration('Daylight', {
-        starVisibility: 0.04,
-        starFieldBrightness: 0.06,
-        atmosphereExposure: 1,
-      })),
+      dayProps,
       SERVICES,
+      evaluateSceneLuminanceReport(dayProps, SERVICES),
     )
+    const instantNightProps = createProps(-22, createVisualCalibration('Night', {
+      starVisibility: 1,
+      starFieldBrightness: 0.92,
+      atmosphereExposure: 1,
+    }))
     const instantNightTarget = evaluateSkyBrightnessExposureState(
-      createProps(-22, createVisualCalibration('Night', {
-        starVisibility: 1,
-        starFieldBrightness: 0.92,
-        atmosphereExposure: 1,
-      })),
+      instantNightProps,
       SERVICES,
+      evaluateSceneLuminanceReport(instantNightProps, SERVICES),
     )
+    const firstDarkFrameProps = createProps(-22, createVisualCalibration('Night', {
+      starVisibility: 1,
+      starFieldBrightness: 0.92,
+      atmosphereExposure: 1,
+    }))
     const firstDarkFrame = evaluateSkyBrightnessExposureState(
-      createProps(-22, createVisualCalibration('Night', {
-        starVisibility: 1,
-        starFieldBrightness: 0.92,
-        atmosphereExposure: 1,
-      })),
+      firstDarkFrameProps,
       SERVICES,
+      evaluateSceneLuminanceReport(firstDarkFrameProps, SERVICES),
       dayState,
       1 / 60,
     )
-    const brightRecovery = evaluateSkyBrightnessExposureState(
-      createProps(8, createVisualCalibration('Daylight', {
+    const brightRecoveryProps = createProps(8, createVisualCalibration('Daylight', {
         starVisibility: 0.04,
         starFieldBrightness: 0.06,
         atmosphereExposure: 1,
-      })),
+      }))
+    const brightRecovery = evaluateSkyBrightnessExposureState(
+      brightRecoveryProps,
       SERVICES,
+      evaluateSceneLuminanceReport(brightRecoveryProps, SERVICES),
       instantNightTarget,
       1 / 60,
     )
@@ -189,12 +214,39 @@ describe('sky brightness exposure adaptation', () => {
       colorHex: '#ffffff',
     }))
 
+    const stateProps = createProps(-18, createVisualCalibration('Night'), [...manyBrightStars, ...brightPlanets])
     const state = evaluateSkyBrightnessExposureState(
-      createProps(-18, createVisualCalibration('Night'), [...manyBrightStars, ...brightPlanets]),
+      stateProps,
       SERVICES,
+      evaluateSceneLuminanceReport(stateProps, SERVICES),
     )
 
     expect(state.sceneLuminanceStarSampleCount).toBeLessThanOrEqual(640)
     expect(state.sceneLuminanceSolarSystemSampleCount).toBeLessThanOrEqual(32)
+  })
+
+  it('consumes scene luminance report aggregate as the source of truth', () => {
+    const props = createProps(-18, createVisualCalibration('Night'))
+    const report = {
+      skyBrightness: 0.21,
+      nightSkyZenithLuminance: 0.002,
+      nightSkyHorizonLuminance: 0.003,
+      sky: 0.005,
+      stars: 0.002,
+      solarSystem: 0.017,
+      target: 0.017,
+      starSampleCount: 17,
+      solarSystemSampleCount: 3,
+    }
+
+    const state = evaluateSkyBrightnessExposureState(props, SERVICES, report)
+
+    expect(state.sceneLuminanceSkyContributor).toBe(report.sky)
+    expect(state.sceneLuminanceStarContributor).toBe(report.stars)
+    expect(state.sceneLuminanceSolarSystemContributor).toBe(report.solarSystem)
+    expect(state.sceneLuminance).toBe(report.target)
+    expect(state.sceneLuminanceStarSampleCount).toBe(report.starSampleCount)
+    expect(state.sceneLuminanceSolarSystemSampleCount).toBe(report.solarSystemSampleCount)
+    expect(state.skyBrightness).toBe(report.skyBrightness)
   })
 })

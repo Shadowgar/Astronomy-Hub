@@ -89,6 +89,18 @@ export interface SkyUpdateContext<TProps, TRuntime extends SkyCoreRenderRefs, TS
 
 export interface SkyRenderContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices> extends SkyModuleContext<TProps, TRuntime, TServices> {}
 
+export interface SceneLuminanceReport {
+  readonly skyBrightness: number
+  readonly nightSkyZenithLuminance: number
+  readonly nightSkyHorizonLuminance: number
+  readonly sky: number
+  readonly stars: number
+  readonly solarSystem: number
+  readonly target: number
+  readonly starSampleCount: number
+  readonly solarSystemSampleCount: number
+}
+
 export interface SkyBrightnessExposureState {
   readonly skyBrightness: number
   readonly adaptationLevel: number

@@ -16,6 +16,7 @@ const STARS_RUNTIME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-
 const OBJECT_RUNTIME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/modules/ObjectRuntimeModule.ts')
 const OVERLAY_RUNTIME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/modules/OverlayRuntimeModule.ts')
 const SCENE_REPORTING_RUNTIME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/modules/SceneReportingModule.ts')
+const SCENE_LUMINANCE_REPORT_RUNTIME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/modules/SceneLuminanceReportModule.ts')
 const RUNTIME_FRAME_MODULE_PATH = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame.ts')
 
 describe('sky core runtime boundary', () => {
@@ -45,7 +46,7 @@ describe('sky core runtime boundary', () => {
     expect(bridgeSource).toContain('createSceneRuntimeState')
   })
 
-  it('registers explicit runtime modules for brightness, atmosphere, milky way, landscape, background, stars, objects, overlays, and reporting', () => {
+  it('registers explicit runtime modules for luminance reporting, brightness, atmosphere, milky way, landscape, background, stars, objects, overlays, and reporting', () => {
     const sceneSource = fs.readFileSync(SKY_ENGINE_SCENE_PATH, 'utf8')
     const bridgeSource = fs.readFileSync(SKY_RUNTIME_BRIDGE_PATH, 'utf8')
     const brightnessExposureModuleSource = fs.readFileSync(SKY_BRIGHTNESS_EXPOSURE_RUNTIME_MODULE_PATH, 'utf8')
@@ -57,7 +58,9 @@ describe('sky core runtime boundary', () => {
     const objectModuleSource = fs.readFileSync(OBJECT_RUNTIME_MODULE_PATH, 'utf8')
     const overlayModuleSource = fs.readFileSync(OVERLAY_RUNTIME_MODULE_PATH, 'utf8')
     const sceneReportingModuleSource = fs.readFileSync(SCENE_REPORTING_RUNTIME_MODULE_PATH, 'utf8')
+    const sceneLuminanceReportModuleSource = fs.readFileSync(SCENE_LUMINANCE_REPORT_RUNTIME_MODULE_PATH, 'utf8')
 
+    expect(sceneSource).toContain('createSceneLuminanceReportModule')
     expect(sceneSource).toContain('createSkyBrightnessExposureModule')
     expect(sceneSource).toContain('createAtmosphereModule')
     expect(sceneSource).toContain('createMilkyWayModule')
@@ -68,6 +71,7 @@ describe('sky core runtime boundary', () => {
     expect(sceneSource).toContain('createOverlayRuntimeModule')
     expect(sceneSource).toContain('createSceneReportingModule')
 
+    expect(sceneLuminanceReportModuleSource).toContain("id: 'sky-scene-luminance-report-runtime-module'")
     expect(brightnessExposureModuleSource).toContain("id: 'sky-brightness-exposure-runtime-module'")
     expect(atmosphereModuleSource).toContain("id: 'sky-atmosphere-runtime-module'")
     expect(milkyWayModuleSource).toContain("id: 'sky-milky-way-runtime-module'")
@@ -77,9 +81,12 @@ describe('sky core runtime boundary', () => {
     expect(objectModuleSource).toContain("id: 'sky-object-runtime-module'")
     expect(overlayModuleSource).toContain("id: 'sky-overlay-runtime-module'")
     expect(sceneReportingModuleSource).toContain("id: 'sky-scene-reporting-runtime-module'")
-    expect(brightnessExposureModuleSource).toContain('evaluateStellariumSkyBrightnessBaseline(')
+    expect(sceneLuminanceReportModuleSource).toContain('evaluateSceneLuminanceReport(')
+    expect(sceneLuminanceReportModuleSource).toContain('runtime.sceneLuminanceReport = report')
     expect(brightnessExposureModuleSource).toContain('computeEffectiveLimitingMagnitude(')
     expect(brightnessExposureModuleSource).toContain('adaptSceneLuminance(')
+    expect(brightnessExposureModuleSource).toContain('const sceneLuminanceReport = runtime.sceneLuminanceReport')
+    expect(brightnessExposureModuleSource).not.toContain('evaluateStellariumSkyBrightnessBaseline(')
     expect(atmosphereModuleSource).toContain('prepareDirectAtmosphereFrame(')
     expect(milkyWayModuleSource).toContain('runtime.brightnessExposureState')
     expect(milkyWayModuleSource).toContain('renderMilkyWayLayer(')
@@ -101,6 +108,7 @@ describe('sky core runtime boundary', () => {
 
   it('registers runtime modules in explicit render order and keeps the bridge last', () => {
     const sceneSource = fs.readFileSync(SKY_ENGINE_SCENE_PATH, 'utf8')
+    const sceneLuminanceReportModuleSource = fs.readFileSync(SCENE_LUMINANCE_REPORT_RUNTIME_MODULE_PATH, 'utf8')
     const brightnessExposureModuleSource = fs.readFileSync(SKY_BRIGHTNESS_EXPOSURE_RUNTIME_MODULE_PATH, 'utf8')
     const atmosphereModuleSource = fs.readFileSync(ATMOSPHERE_RUNTIME_MODULE_PATH, 'utf8')
     const milkyWayModuleSource = fs.readFileSync(MILKY_WAY_RUNTIME_MODULE_PATH, 'utf8')
@@ -112,6 +120,7 @@ describe('sky core runtime boundary', () => {
     const sceneReportingModuleSource = fs.readFileSync(SCENE_REPORTING_RUNTIME_MODULE_PATH, 'utf8')
     const bridgeSource = fs.readFileSync(SKY_RUNTIME_BRIDGE_PATH, 'utf8')
 
+    const luminanceReportRegistrationIndex = sceneSource.indexOf('core.registerModule(createSceneLuminanceReportModule())')
     const brightnessRegistrationIndex = sceneSource.indexOf('core.registerModule(createSkyBrightnessExposureModule())')
     const atmosphereRegistrationIndex = sceneSource.indexOf('core.registerModule(createAtmosphereModule())')
     const milkyWayRegistrationIndex = sceneSource.indexOf('core.registerModule(createMilkyWayModule())')
@@ -123,6 +132,8 @@ describe('sky core runtime boundary', () => {
     const sceneReportingRegistrationIndex = sceneSource.indexOf('core.registerModule(createSceneReportingModule())')
     const bridgeRegistrationIndex = sceneSource.indexOf('core.registerModule(createSkySceneBridgeModule())')
 
+    expect(luminanceReportRegistrationIndex).toBeGreaterThan(-1)
+    expect(brightnessRegistrationIndex).toBeGreaterThan(luminanceReportRegistrationIndex)
     expect(brightnessRegistrationIndex).toBeGreaterThan(-1)
     expect(atmosphereRegistrationIndex).toBeGreaterThan(brightnessRegistrationIndex)
     expect(atmosphereRegistrationIndex).toBeGreaterThan(-1)
@@ -135,6 +146,7 @@ describe('sky core runtime boundary', () => {
     expect(sceneReportingRegistrationIndex).toBeGreaterThan(overlayRegistrationIndex)
     expect(bridgeRegistrationIndex).toBeGreaterThan(sceneReportingRegistrationIndex)
 
+    expect(sceneLuminanceReportModuleSource).toContain('renderOrder: 4')
     expect(brightnessExposureModuleSource).toContain('renderOrder: 5')
     expect(atmosphereModuleSource).toContain('renderOrder: 10')
     expect(milkyWayModuleSource).toContain('renderOrder: 12')
@@ -169,12 +181,17 @@ describe('sky core runtime boundary', () => {
 
   it('centralizes sky brightness and exposure ownership before atmosphere and stars consume it', () => {
     const brightnessExposureModuleSource = fs.readFileSync(SKY_BRIGHTNESS_EXPOSURE_RUNTIME_MODULE_PATH, 'utf8')
+    const sceneLuminanceReportModuleSource = fs.readFileSync(SCENE_LUMINANCE_REPORT_RUNTIME_MODULE_PATH, 'utf8')
     const atmosphereModuleSource = fs.readFileSync(ATMOSPHERE_RUNTIME_MODULE_PATH, 'utf8')
     const starsModuleSource = fs.readFileSync(STARS_RUNTIME_MODULE_PATH, 'utf8')
     const backgroundModuleSource = fs.readFileSync(BACKGROUND_RUNTIME_MODULE_PATH, 'utf8')
     const runtimeFrameSource = fs.readFileSync(RUNTIME_FRAME_MODULE_PATH, 'utf8')
 
+    expect(sceneLuminanceReportModuleSource).toContain('evaluateSceneLuminanceReport(')
+    expect(sceneLuminanceReportModuleSource).toContain('runtime.sceneLuminanceReport = report')
     expect(brightnessExposureModuleSource).toContain('runtime.brightnessExposureState =')
+    expect(brightnessExposureModuleSource).toContain('runtime.sceneLuminanceReport')
+    expect(brightnessExposureModuleSource).not.toContain('evaluateStellariumSkyBrightnessBaseline(')
     expect(brightnessExposureModuleSource).toContain('limitingMagnitude')
     expect(brightnessExposureModuleSource).toContain('starVisibility')
     expect(brightnessExposureModuleSource).toContain('starFieldBrightness')
