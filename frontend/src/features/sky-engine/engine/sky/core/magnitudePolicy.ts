@@ -83,7 +83,7 @@ function tonemapperMap(
   return (Math.log(1 + tonemapperP * safeLuminance) / denominator) * tonemapperExposure
 }
 
-function computePointRadiusForMagnitude(magnitude: number, config: Required<LimitingMagnitudeConfig>) {
+function resolvePointRadiusForMagnitude(magnitude: number, config: Required<LimitingMagnitudeConfig>) {
   const response = tonemapperMap(
     getApparentLuminanceForMagnitude(magnitude, buildTelescopeGainMagnitude(config.fovDeg)),
     config.tonemapperP,
@@ -122,19 +122,21 @@ function normalizeConfig(input: number | LimitingMagnitudeConfig): Required<Limi
 
 export function computeVisibilityAlphaForMagnitude(magnitude: number, input: number | LimitingMagnitudeConfig) {
   const config = normalizeConfig(input)
-  const radius = computePointRadiusForMagnitude(magnitude, config)
+  const radius = resolvePointRadiusForMagnitude(magnitude, config)
 
-  if (radius < STELLARIUM_SKIP_POINT_RADIUS_PX) {
-    return 0
-  }
+  return radius >= STELLARIUM_SKIP_POINT_RADIUS_PX ? 1 : 0
+}
 
-  if (radius < STELLARIUM_MIN_POINT_RADIUS_PX) {
-    const normalizedRadius = (radius - STELLARIUM_SKIP_POINT_RADIUS_PX)
-      / (STELLARIUM_MIN_POINT_RADIUS_PX - STELLARIUM_SKIP_POINT_RADIUS_PX)
-    return clamp(normalizedRadius * normalizedRadius, 0, 1)
-  }
+export function computePointRadiusForMagnitude(magnitude: number, input: number | LimitingMagnitudeConfig) {
+  return resolvePointRadiusForMagnitude(magnitude, normalizeConfig(input))
+}
 
-  return 1
+export function isVisibleByPointThreshold(
+  magnitude: number,
+  input: number | LimitingMagnitudeConfig,
+  thresholdRadiusPx = STELLARIUM_SKIP_POINT_RADIUS_PX,
+) {
+  return computePointRadiusForMagnitude(magnitude, input) >= thresholdRadiusPx
 }
 
 export function resolveLimitingMagnitude(input: number | LimitingMagnitudeConfig) {
@@ -143,13 +145,13 @@ export function resolveLimitingMagnitude(input: number | LimitingMagnitudeConfig
   let lowerBound = -192
   let upperBound = 64
 
-  if (computePointRadiusForMagnitude(lowerBound, config) < STELLARIUM_SKIP_POINT_RADIUS_PX) {
+  if (resolvePointRadiusForMagnitude(lowerBound, config) < STELLARIUM_SKIP_POINT_RADIUS_PX) {
     return lowerBound
   }
 
   for (let iteration = 0; iteration < 32; iteration += 1) {
     magnitude = (lowerBound + upperBound) * 0.5
-    const radius = computePointRadiusForMagnitude(magnitude, config)
+    const radius = resolvePointRadiusForMagnitude(magnitude, config)
 
     if (Math.abs(radius - STELLARIUM_SKIP_POINT_RADIUS_PX) < 0.001) {
       return magnitude

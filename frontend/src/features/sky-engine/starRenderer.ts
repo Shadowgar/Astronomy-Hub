@@ -16,7 +16,7 @@ export interface StarRenderProfile {
   readonly psfDiameterPx: number
 }
 
-interface StellariumPointVisual {
+export interface StellariumPointVisual {
   readonly visible: boolean
   readonly radiusPx: number
   readonly luminance: number
@@ -89,12 +89,7 @@ function getMagnitudeIlluminance(magnitude: number) {
 function getSceneResponseWeight(state: SkyBrightnessExposureState | undefined) {
   if (!state) {
     return {
-      visibility: 1,
-      fieldBrightness: 1,
-      exposure: 2,
-      skySuppression: 1,
       sceneContrast: 1,
-      adaptation: 1,
       tonemapperP: 2.2,
       tonemapperExposure: 2,
       tonemapperLwmax: 0.052,
@@ -102,12 +97,7 @@ function getSceneResponseWeight(state: SkyBrightnessExposureState | undefined) {
   }
 
   return {
-    visibility: clamp(state.starVisibility, 0.05, 1),
-    fieldBrightness: clamp(state.starFieldBrightness, 0.05, 1),
-    exposure: clamp(state.atmosphereExposure, 0.68, 1.14),
-    skySuppression: clamp(1 - state.skyBrightness * (0.98 - state.adaptationLevel * 0.18), 0.04, 1),
     sceneContrast: clamp(state.sceneContrast, 0.46, 1.08),
-    adaptation: clamp(state.adaptationLevel, 0, 1),
     tonemapperP: clamp(state.tonemapperP, 0.8, 4),
     tonemapperExposure: clamp(state.tonemapperExposure, 0.8, 2.2),
     tonemapperLwmax: clamp(state.tonemapperLwmax, 0.052, 5000),
@@ -118,7 +108,7 @@ function getScreenScaleFactor(screenSizePx: number) {
   return clamp(screenSizePx / 600, 0.7, 1.5)
 }
 
-function computeStellariumPointVisual(
+export function computeStellariumPointVisual(
   magnitude: number,
   brightnessExposureState: SkyBrightnessExposureState | undefined,
   screenSizePx: number,
@@ -172,11 +162,12 @@ export function getStarRenderProfileForMagnitude(
   calibration: SkyEngineVisualCalibration,
   brightnessExposureState?: SkyBrightnessExposureState,
   screenSizePx = 600,
+  precomputedPointVisual?: StellariumPointVisual,
 ): StarRenderProfile {
   const response = getSceneResponseWeight(brightnessExposureState)
-  const pointVisual = computeStellariumPointVisual(magnitude, brightnessExposureState, screenSizePx)
+  const pointVisual = precomputedPointVisual ?? computeStellariumPointVisual(magnitude, brightnessExposureState, screenSizePx)
   const apparentBrightness = clamp(
-    pointVisual.luminance * response.visibility * response.skySuppression,
+    pointVisual.luminance * (0.84 + response.sceneContrast * 0.16),
     0,
     1,
   )
@@ -193,7 +184,7 @@ export function getStarRenderProfileForMagnitude(
     colorHex,
     diameter: clamp(pointRadiusPx * 2, 0.9, 10.5),
     haloRadiusPx,
-    haloAlpha: clamp(0.012 + calibration.starHaloVisibility * apparentBrightness * 0.16 * response.skySuppression, 0.012, 0.2),
+    haloAlpha: clamp(0.012 + calibration.starHaloVisibility * apparentBrightness * 0.16, 0.012, 0.2),
     coreRadiusPx,
     twinkleAmplitude: calibration.starTwinkleAmplitude * clamp(0.03 + apparentBrightness * 0.1, 0.025, 0.14),
     alpha: clamp(apparentBrightness * (0.78 + response.sceneContrast * 0.12), 0.04, 0.98),

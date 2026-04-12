@@ -1,7 +1,7 @@
 import type { SkyModule } from '../SkyModule'
 import { projectDirectionToViewport, isProjectedPointVisible, type SkyProjectionView } from '../../../../projectionMath'
 import { buildSyntheticSkyDensityField } from '../../../../syntheticStarField'
-import { computeVisibilityAlpha, computeVisibilitySizeScale } from '../../../../starVisibility'
+import { computeVisibilityAlpha } from '../../../../starVisibility'
 import { getStarRenderProfileForMagnitude, type StarRenderProfile } from '../../../../starRenderer'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import type { ProjectedSceneObjectEntry } from './runtimeFrame'
@@ -205,11 +205,10 @@ function drawSyntheticDensityStars(
       brightnessExposureState,
       Math.min(view.viewportWidth, view.viewportHeight),
     )
-    const sizeScale = computeVisibilitySizeScale(visibilityAlpha)
-    const markerRadiusPx = clamp((profile.coreRadiusPx * 0.32 + sample.size * 0.34) * (0.88 + closeBlend * 0.18) * centerFill * sizeScale, 0.22, 1.55)
+    const markerRadiusPx = clamp((profile.coreRadiusPx * 0.32 + sample.size * 0.34) * (0.88 + closeBlend * 0.18) * centerFill, 0.22, 1.55)
     const twinkle = 1 + Math.sin(animationTime + sample.twinklePhase) * profile.twinkleAmplitude * 0.9
     const alpha = clamp(
-      sample.alpha * profile.alpha * visibilityAlpha * (0.18 + sample.bandWeight * 0.16) * (0.62 + closeBlend * 0.1) * centerFill,
+      sample.alpha * profile.alpha * (0.18 + sample.bandWeight * 0.16) * (0.62 + closeBlend * 0.1) * centerFill,
       0.016,
       0.16,
     )

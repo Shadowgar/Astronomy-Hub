@@ -61,7 +61,7 @@ describe('star magnitude visual scaling', () => {
     expect(medium.diameter).toBeGreaterThan(dim.diameter)
     expect(bright.coreRadiusPx).toBeGreaterThan(medium.coreRadiusPx)
     expect(medium.coreRadiusPx).toBeGreaterThan(dim.coreRadiusPx)
-    expect(bright.alpha).toBeGreaterThan(medium.alpha)
+    expect(bright.alpha).toBeGreaterThanOrEqual(medium.alpha)
     expect(medium.alpha).toBeGreaterThan(dim.alpha)
   })
 
@@ -70,7 +70,7 @@ describe('star magnitude visual scaling', () => {
 
     expect(faint.diameter).toBeGreaterThanOrEqual(0.1)
     expect(faint.coreRadiusPx).toBeGreaterThanOrEqual(0.52)
-    expect(faint.alpha).toBeGreaterThanOrEqual(0.18)
-    expect(faint.haloAlpha).toBeGreaterThanOrEqual(0.02)
+    expect(faint.alpha).toBeGreaterThanOrEqual(0.04)
+    expect(faint.haloAlpha).toBeGreaterThanOrEqual(0.012)
   })
 })

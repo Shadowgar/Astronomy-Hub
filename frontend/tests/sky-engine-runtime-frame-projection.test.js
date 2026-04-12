@@ -22,6 +22,7 @@ vi.mock('../src/features/sky-engine/projectionMath', () => ({
 }))
 
 vi.mock('../src/features/sky-engine/starRenderer', () => ({
+  computeStellariumPointVisual: vi.fn(() => ({ visible: true, radiusPx: 1.2, luminance: 0.7 })),
   getStarRenderProfile: vi.fn(() => ({ coreRadiusPx: 1, haloRadiusPx: 2, diameter: 0.4 })),
   getStarRenderProfileForMagnitude: vi.fn(() => ({
     psfDiameterPx: 2.4,

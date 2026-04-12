@@ -14,9 +14,68 @@ const STELLARIUM_TONEMAPPER_EXPOSURE = 2
 const STELLARIUM_DARK_ADAPTATION_RATE = 0.16
 const STELLARIUM_ADAPTATION_FRAME_SECONDS = 0.01666
 const STELLARIUM_MIN_SCENE_LUMINANCE = 1.75e-4
+const STELLARIUM_POINT_SPREAD_RADIUS_RAD = (2.5 / 60) * (Math.PI / 180)
+const STELLARIUM_MIN_POINT_AREA_SR = Math.PI * STELLARIUM_POINT_SPREAD_RADIUS_RAD * STELLARIUM_POINT_SPREAD_RADIUS_RAD
+const STELLARIUM_ARCSECONDS_PER_RADIAN = 206264.80624709636
+const MAX_BRIGHTNESS_STAR_SAMPLES = 640
+const BRIGHTNESS_STAR_MAGNITUDE_CUTOFF = 6.2
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
+}
+
+function exp10(value: number) {
+  return Math.exp(value * Math.log(10))
+}
+
+function estimateTelescopeLightGrasp(currentFovDegrees: number) {
+  const fovRad = clamp(currentFovDegrees, 0.25, 180) * (Math.PI / 180)
+  const fovEyeRad = 60 * (Math.PI / 180)
+  const magnification = fovEyeRad / fovRad
+  const exposure = Math.pow(Math.max(1, (5 * (Math.PI / 180)) / fovRad), 0.07)
+  const lightGrasp = Math.max(0.4, magnification * magnification * exposure)
+  return lightGrasp
+}
+
+function coreMagToIlluminance(magnitude: number) {
+  return 10.7646e4 / (STELLARIUM_ARCSECONDS_PER_RADIAN * STELLARIUM_ARCSECONDS_PER_RADIAN) * exp10(-0.4 * magnitude)
+}
+
+function estimateBrightStarLuminanceInFov(
+  props: ScenePropsSnapshot,
+  currentFovDegrees: number,
+) {
+  const lightGrasp = estimateTelescopeLightGrasp(currentFovDegrees)
+  let samples = 0
+  let illuminance = 0
+
+  for (let index = 0; index < props.objects.length; index += 1) {
+    const object = props.objects[index]
+    if (object.type !== 'star') {
+      continue
+    }
+    if (object.altitudeDeg <= -2) {
+      continue
+    }
+    if (object.magnitude > BRIGHTNESS_STAR_MAGNITUDE_CUTOFF) {
+      continue
+    }
+    illuminance += coreMagToIlluminance(object.magnitude)
+    samples += 1
+    if (samples >= MAX_BRIGHTNESS_STAR_SAMPLES) {
+      break
+    }
+  }
+
+  if (illuminance <= 0) {
+    return 0
+  }
+
+  // Stellarium stars.c proxy: convert integrated illuminance to apparent
+  // luminance, then apply the same empirical compression used when reporting
+  // in-FOV luminance to core adaptation.
+  const apparentLuminance = (illuminance * lightGrasp) / STELLARIUM_MIN_POINT_AREA_SR
+  return Math.pow(apparentLuminance, 1 / 3) / 300
 }
 
 function buildBackdropAlpha(starVisibility: number) {
@@ -201,9 +260,11 @@ export function evaluateSkyBrightnessExposureState(
     moonAltitudeRad,
     moonMagnitude: moonObject?.magnitude,
   })
+  const brightStarLuminance = estimateBrightStarLuminanceInFov(props, currentFovDegrees)
+  const targetSceneLuminance = Math.max(baseline.zenithSkyLuminance, brightStarLuminance)
   const adaptation = adaptSceneLuminance(
     previousState?.adaptedSceneLuminance,
-    baseline.zenithSkyLuminance,
+    targetSceneLuminance,
     deltaSeconds,
   )
   const adaptedSkyBrightness = computeSkyBrightnessFromLuminance(adaptation.adaptedSceneLuminance)
@@ -270,7 +331,7 @@ export function evaluateSkyBrightnessExposureState(
     ),
     nightSkyZenithLuminance: baseline.nightSkyZenithLuminance,
     nightSkyHorizonLuminance: baseline.nightSkyHorizonLuminance,
-    sceneLuminance: baseline.zenithSkyLuminance,
+    sceneLuminance: targetSceneLuminance,
     adaptedSceneLuminance: adaptation.adaptedSceneLuminance,
     targetTonemapperLwmax,
     adaptationSmoothing: adaptation.adaptationSmoothing,

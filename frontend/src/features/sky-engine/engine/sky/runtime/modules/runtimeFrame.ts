@@ -9,8 +9,13 @@ import {
   projectDirectionToViewport,
   type SkyProjectionView,
 } from '../../../../projectionMath'
-import { getStarRenderProfile, getStarRenderProfileForMagnitude, type StarRenderProfile } from '../../../../starRenderer'
-import { computeVisibilityAlpha, computeVisibilitySizeScale } from '../../../../starVisibility'
+import {
+  computeStellariumPointVisual,
+  getStarRenderProfile,
+  getStarRenderProfileForMagnitude,
+  type StarRenderProfile,
+} from '../../../../starRenderer'
+import { computeVisibilityAlpha } from '../../../../starVisibility'
 import type { SkyScenePacket } from '../..'
 import type {
   SkyEngineAidVisibility,
@@ -402,6 +407,16 @@ export function collectProjectedStars(
       continue
     }
 
+    const pointVisual = computeStellariumPointVisual(
+      renderedMagnitude,
+      brightnessExposureState,
+      Math.min(view.viewportWidth, view.viewportHeight),
+    )
+
+    if (object.id !== selectedObjectId && !pointVisual.visible) {
+      break
+    }
+
     const transformStartMs = performance.now()
     const projected = projectDirectionToViewport(horizontalToDirection(object.altitudeDeg, object.azimuthDeg), view)
     transformMs += performance.now() - transformStartMs
@@ -414,14 +429,6 @@ export function collectProjectedStars(
     visibilityFilterMs += performance.now() - visibilityProjectionStartMs
 
     const visibilityFilterStartMs = performance.now()
-    const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees)
-    const renderAlpha = clamp(horizonFade * visibilityAlpha, 0, 0.98)
-
-    if (renderAlpha <= 0) {
-      visibilityFilterMs += performance.now() - visibilityFilterStartMs
-      continue
-    }
-
     const allocationStartMs = performance.now()
     const starProfile = getStarRenderProfileForMagnitude(
       renderedMagnitude,
@@ -429,11 +436,19 @@ export function collectProjectedStars(
       brightnessExposureState.visualCalibration,
       brightnessExposureState,
       Math.min(view.viewportWidth, view.viewportHeight),
+      pointVisual,
     )
+    const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees)
+    const renderAlpha = clamp(horizonFade * starProfile.alpha, 0, 0.98)
+
+    if (renderAlpha <= 0) {
+      allocationMs += performance.now() - allocationStartMs
+      visibilityFilterMs += performance.now() - visibilityFilterStartMs
+      continue
+    }
     const markerRadiusPx = Math.max(
       starProfile?.psfDiameterPx ? starProfile.psfDiameterPx * 0.5 : 0,
-      getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile) *
-        computeVisibilitySizeScale(visibilityAlpha),
+      getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile),
     )
 
     projectedStars.push({
@@ -484,10 +499,13 @@ export function collectProjectedStars(
       return
     }
 
-    const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees)
-    const renderAlpha = clamp(horizonFade * visibilityAlpha, 0, 0.98)
+    const pointVisual = computeStellariumPointVisual(
+      renderedMagnitude,
+      brightnessExposureState,
+      Math.min(view.viewportWidth, view.viewportHeight),
+    )
 
-    if (renderAlpha <= 0) {
+    if (object.id !== selectedObjectId && !pointVisual.visible) {
       visibilityFilterMs += performance.now() - visibilityFilterStartMs
       return
     }
@@ -499,11 +517,19 @@ export function collectProjectedStars(
       brightnessExposureState.visualCalibration,
       brightnessExposureState,
       Math.min(view.viewportWidth, view.viewportHeight),
+      pointVisual,
     )
+    const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees)
+    const renderAlpha = clamp(horizonFade * starProfile.alpha, 0, 0.98)
+
+    if (renderAlpha <= 0) {
+      allocationMs += performance.now() - allocationStartMs
+      visibilityFilterMs += performance.now() - visibilityFilterStartMs
+      return
+    }
     const markerRadiusPx = Math.max(
       starProfile?.psfDiameterPx ? starProfile.psfDiameterPx * 0.5 : 0,
-      getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile) *
-        computeVisibilitySizeScale(visibilityAlpha),
+      getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile),
     )
     packetProjectedObjects.push({
       object,
