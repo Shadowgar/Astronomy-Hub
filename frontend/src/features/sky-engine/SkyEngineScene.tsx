@@ -29,6 +29,7 @@ import { createSceneLuminanceReportModule } from './engine/sky/runtime/modules/S
 import { createSkyBrightnessExposureModule } from './engine/sky/runtime/modules/SkyBrightnessExposureModule'
 import { createSnapshotBridgeModule } from './engine/sky/runtime/modules/SnapshotBridgeModule'
 import { createStarsModule } from './engine/sky/runtime/modules/StarsModule'
+import { DEFAULT_SKY_ENGINE_AID_VISIBILITY } from './aidVisibilityPersistence'
 import {
   createSceneRuntimeState,
   createSkySceneBridgeModule,
@@ -47,12 +48,6 @@ import {
 } from './skyBrightness'
 import { resolveStarColorHex } from './starRenderer'
 import type { SkyEngineAidVisibility, SkyEngineSceneObject, SkyEngineSunState } from './types'
-
-const DEFAULT_AID_VISIBILITY: SkyEngineAidVisibility = {
-  constellations: true,
-  azimuthRing: true,
-  altitudeRings: true,
-}
 
 const UI_SNAPSHOT_CADENCE_MS = 150
 const DEGREES_TO_RADIANS = Math.PI / 180
@@ -349,7 +344,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
     projectionMode = 'stereographic',
     repositoryMode,
     snapshotStore,
-    initialAidVisibility = DEFAULT_AID_VISIBILITY,
+    initialAidVisibility = DEFAULT_SKY_ENGINE_AID_VISIBILITY,
     initialSkyCultureId = 'western',
     debugTelemetryEnabled = false,
   },

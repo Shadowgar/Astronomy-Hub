@@ -34,6 +34,10 @@ import {
 } from '../features/sky-engine/SkyEngineSnapshotStore'
 import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
 import SkyEngineScene, { type SkyEngineSceneHandle } from '../features/sky-engine/SkyEngineScene'
+import {
+  persistAidVisibility,
+  readPersistedAidVisibility,
+} from '../features/sky-engine/aidVisibilityPersistence'
 import { persistSkyCultureId, readPersistedSkyCultureId } from '../features/sky-engine/skyCultureSelection'
 import { SKY_ENGINE_SKYCULTURES } from '../features/sky-engine/skycultures'
 import { useSceneByScopeDataQuery, useSkyStarTileManifestDataQuery } from '../features/scene/queries'
@@ -222,11 +226,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   const [repositoryMode] = useState(() => resolveSkyTileRepositoryMode())
   const [searchQuery, setSearchQuery] = useState('')
   const [timeScaleId, setTimeScaleId] = useState<SkyEngineTimeScaleId>('minutes')
-  const [aidVisibility, setAidVisibility] = useState<SkyEngineAidVisibility>({
-    constellations: true,
-    azimuthRing: true,
-    altitudeRings: true,
-  })
+  const [aidVisibility, setAidVisibility] = useState<SkyEngineAidVisibility>(() => readPersistedAidVisibility())
   const [skyCultureId, setSkyCultureId] = useState(() => readPersistedSkyCultureId())
   const [inspectorOpen, setInspectorOpen] = useState(false)
   const deferredSearchQuery = useDeferredValue(searchQuery)
@@ -312,6 +312,11 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     [],
   )
   const phaseBandState = snapshot.summary.phaseLabel === 'Low Sun' ? 'Twilight' : snapshot.summary.phaseLabel
+
+  useEffect(() => {
+    persistAidVisibility(aidVisibility)
+    sceneRef.current?.setAidVisibility(aidVisibility)
+  }, [aidVisibility])
 
   useEffect(() => {
     persistSkyCultureId(skyCultureId)
@@ -452,14 +457,10 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   }, [searchableSceneObjects])
 
   const toggleAid = useCallback((key: keyof SkyEngineAidVisibility) => {
-    setAidVisibility((currentVisibility) => {
-      const nextVisibility = {
-        ...currentVisibility,
-        [key]: !currentVisibility[key],
-      }
-      sceneRef.current?.setAidVisibility(nextVisibility)
-      return nextVisibility
-    })
+    setAidVisibility((currentVisibility) => ({
+      ...currentVisibility,
+      [key]: !currentVisibility[key],
+    }))
   }, [])
 
   const pageBody = (
