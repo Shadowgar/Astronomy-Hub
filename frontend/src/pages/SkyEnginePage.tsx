@@ -34,6 +34,8 @@ import {
 } from '../features/sky-engine/SkyEngineSnapshotStore'
 import SkyEngineDetailShell from '../features/sky-engine/SkyEngineDetailShell'
 import SkyEngineScene, { type SkyEngineSceneHandle } from '../features/sky-engine/SkyEngineScene'
+import { persistSkyCultureId, readPersistedSkyCultureId } from '../features/sky-engine/skyCultureSelection'
+import { SKY_ENGINE_SKYCULTURES } from '../features/sky-engine/skycultures'
 import { useSceneByScopeDataQuery, useSkyStarTileManifestDataQuery } from '../features/scene/queries'
 import {
   isFiniteNumber,
@@ -225,6 +227,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     azimuthRing: true,
     altitudeRings: true,
   })
+  const [skyCultureId, setSkyCultureId] = useState(() => readPersistedSkyCultureId())
   const [inspectorOpen, setInspectorOpen] = useState(false)
   const deferredSearchQuery = useDeferredValue(searchQuery)
   const observer = useMemo(() => convertBackendObserver(backendScene), [backendScene])
@@ -299,7 +302,21 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     () => getPlaybackRateLabel(snapshot.summary.playbackRate),
     [snapshot.summary.playbackRate],
   )
+  const skyCultureOptions = useMemo(
+    () => Object.values(SKY_ENGINE_SKYCULTURES)
+      .map((culture) => ({
+        id: culture.id,
+        label: culture.id[0].toUpperCase() + culture.id.slice(1),
+      }))
+      .sort((left, right) => left.label.localeCompare(right.label)),
+    [],
+  )
   const phaseBandState = snapshot.summary.phaseLabel === 'Low Sun' ? 'Twilight' : snapshot.summary.phaseLabel
+
+  useEffect(() => {
+    persistSkyCultureId(skyCultureId)
+    sceneRef.current?.setSkyCultureId(skyCultureId)
+  }, [skyCultureId])
 
   useEffect(() => {
     if (snapshot.selection.status === 'active' || snapshot.selection.status === 'hidden') {
@@ -467,6 +484,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
           repositoryMode={repositoryMode}
           snapshotStore={snapshotStore}
           initialAidVisibility={aidVisibility}
+          initialSkyCultureId={skyCultureId}
           debugTelemetryEnabled={debugTelemetryEnabled}
         />
 
@@ -663,6 +681,18 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                 <button type="button" className={`sky-engine-page__control-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('altitudeRings')}>
                   Equatorial
                 </button>
+              </div>
+              <div className="sky-engine-page__target-chips" aria-label="Sky culture selection">
+                {skyCultureOptions.map((culture) => (
+                  <button
+                    key={culture.id}
+                    type="button"
+                    className={`sky-engine-page__control-chip${skyCultureId === culture.id ? ' sky-engine-page__control-chip--active' : ''}`}
+                    onClick={() => setSkyCultureId(culture.id)}
+                  >
+                    {culture.label}
+                  </button>
+                ))}
               </div>
             </div>
           </section>

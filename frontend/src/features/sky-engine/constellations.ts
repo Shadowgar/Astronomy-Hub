@@ -28,7 +28,7 @@ function toHipId(hip: number) {
   return `hip-${hip}`
 }
 
-function resolveConstellationLabel(constellation: SkyCultureConstellationDefinition) {
+export function resolveSkyCultureConstellationLabel(constellation: SkyCultureConstellationDefinition) {
   return (
     constellation.commonName.native ??
     constellation.commonName.english ??
@@ -73,7 +73,7 @@ function convertSkyCultureConstellation(cultureId: string, constellation: SkyCul
   return {
     id: `${normalizeId(cultureId)}-${normalizeId(constellation.id)}`,
     cultureId,
-    label: resolveConstellationLabel(constellation),
+    label: resolveSkyCultureConstellationLabel(constellation),
     anchorStarIds: extractAnchorIds(constellation.lines),
     pairs,
   }

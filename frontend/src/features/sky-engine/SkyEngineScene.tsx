@@ -121,6 +121,7 @@ export interface SkyEngineSceneHandle {
   resetSceneTime: () => void
   selectObject: (objectId: string | null) => void
   setAidVisibility: (aidVisibility: SkyEngineAidVisibility) => void
+  setSkyCultureId: (skyCultureId: string) => void
   setPlaybackRate: (playbackRate: number) => void
   setSceneOffsetSeconds: (sceneOffsetSeconds: number) => void
   togglePlayback: () => void
@@ -146,6 +147,7 @@ function buildPropsSignature(
   selectedObjectId: string | null,
   guidedObjectIds: readonly string[],
   aidVisibility: SkyEngineAidVisibility,
+  skyCultureId: string,
   sceneObjects: readonly SkyEngineSceneObject[],
   scenePacket: ScenePropsSnapshot['scenePacket'],
   currentViewState: ScenePropsSnapshot['initialViewState'],
@@ -155,6 +157,7 @@ function buildPropsSignature(
     selectedObjectId ?? 'none',
     guidedObjectIds.join('|'),
     createAidVisibilitySignature(aidVisibility),
+    skyCultureId,
     sceneObjects.length,
     scenePacket?.stars.length ?? 0,
     currentViewState.centerAltDeg.toFixed(1),
@@ -343,6 +346,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
     repositoryMode,
     snapshotStore,
     initialAidVisibility = DEFAULT_AID_VISIBILITY,
+    initialSkyCultureId = 'western',
     debugTelemetryEnabled = false,
   },
   ref,
@@ -355,6 +359,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
   const selectedObjectIdRef = useRef<string | null>(null)
   const selectionMemoryRef = useRef<SelectionMemory | null>(null)
   const aidVisibilityRef = useRef<SkyEngineAidVisibility>(initialAidVisibility)
+  const skyCultureIdRef = useRef<string>(initialSkyCultureId)
   const runtimeTilesRef = useRef<NonNullable<SkyTileRepositoryLoadResult['tiles']>>([])
   const tileLoadResultRef = useRef<SkyTileRepositoryLoadResult | null>(null)
   const tileLoadGenerationRef = useRef(0)
@@ -386,6 +391,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
     selectedObjectId: null,
     guidedObjectIds: defaultDynamicModelRef.current.guidedObjectIds,
     aidVisibility: aidVisibilityRef.current,
+    skyCultureId: skyCultureIdRef.current,
     hiddenSelectionName: null,
     onSelectObject: (objectId) => {
       selectedObjectIdRef.current = objectId
@@ -420,6 +426,10 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
     },
     setAidVisibility(aidVisibility) {
       aidVisibilityRef.current = aidVisibility
+      syncRuntimeModelRef.current(true)
+    },
+    setSkyCultureId(skyCultureId) {
+      skyCultureIdRef.current = skyCultureId
       syncRuntimeModelRef.current(true)
     },
     setPlaybackRate(playbackRate) {
@@ -548,6 +558,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
         selectedObjectId: selectedObjectIdRef.current,
         guidedObjectIds: nextModel.guidedObjectIds,
         aidVisibility: aidVisibilityRef.current,
+        skyCultureId: skyCultureIdRef.current,
         hiddenSelectionName: selectedObject ? null : selectionMemoryRef.current?.objectName ?? null,
         onSelectObject: (objectId) => {
           selectedObjectIdRef.current = objectId
@@ -561,6 +572,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
         nextProps.selectedObjectId,
         nextProps.guidedObjectIds,
         nextProps.aidVisibility,
+        nextProps.skyCultureId,
         nextProps.objects,
         nextProps.scenePacket,
         currentViewState,

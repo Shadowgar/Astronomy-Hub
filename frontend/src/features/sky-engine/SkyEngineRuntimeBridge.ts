@@ -52,6 +52,7 @@ export interface SkyEngineSceneProps {
   readonly repositoryMode: 'mock' | 'hipparcos'
   readonly snapshotStore: SkyEngineSnapshotStore
   readonly initialAidVisibility?: SkyEngineAidVisibility
+  readonly initialSkyCultureId?: string
   readonly debugTelemetryEnabled?: boolean
 }
 
@@ -71,6 +72,7 @@ export interface ScenePropsSnapshot {
   readonly selectedObjectId: string | null
   readonly guidedObjectIds: readonly string[]
   readonly aidVisibility: SkyEngineAidVisibility
+  readonly skyCultureId: string
   readonly hiddenSelectionName: string | null
   readonly onSelectObject: (objectId: string | null) => void
 }

@@ -10,7 +10,7 @@ import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import type { Scene } from '@babylonjs/core/scene'
 
 import { computeHorizontalCoordinates } from './astronomy'
-import { SKY_ENGINE_CONSTELLATION_SEGMENTS } from './constellations'
+import { getSkyEngineSkyCulture } from './constellations'
 import { computeLocalSiderealTimeDeg, type SkyScenePacket } from './engine/sky'
 import {
   buildLabelTexture,
@@ -661,6 +661,7 @@ function prepareAidLines(
   timestampIso: string,
   projectedObjects: readonly OverlayProjectedObjectEntry[],
   aidVisibility: SkyEngineAidVisibility,
+  skyCultureId: string,
 ) {
   const lines = [
     ...buildAzimuthalGridLines(view, aidVisibility.azimuthRing),
@@ -670,9 +671,10 @@ function prepareAidLines(
   const labels: OverlayLabelEntry[] = []
 
   if (aidVisibility.constellations) {
+    const constellationSegments = getSkyEngineSkyCulture(skyCultureId).constellations
     const projectedLookup = new Map(projectedObjects.map((entry) => [entry.object.id, entry]))
 
-    SKY_ENGINE_CONSTELLATION_SEGMENTS.forEach((constellation) => {
+    constellationSegments.forEach((constellation) => {
       const visibleAnchorsById = new Map<string, OverlayProjectedObjectEntry>()
 
       constellation.pairs.forEach(([leftId, rightId], index) => {
@@ -744,13 +746,14 @@ export function prepareDirectOverlayFrame(
   scenePacket: SkyScenePacket | null,
   selectedObjectId: string | null,
   aidVisibility: SkyEngineAidVisibility,
+  skyCultureId: string,
 ) {
   const {
     lines,
     cardinals,
     labels: constellationLabels,
     trajectoryObjectId,
-  } = prepareAidLines(view, observer, timestampIso, projectedObjects, aidVisibility)
+  } = prepareAidLines(view, observer, timestampIso, projectedObjects, aidVisibility, skyCultureId)
   const packetTextById = new Map((scenePacket?.labels ?? []).map((label) => [label.id, label.text]))
   const labelIds = new Set<string>()
   const labels: OverlayLabelEntry[] = []
