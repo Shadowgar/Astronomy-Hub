@@ -24,6 +24,7 @@ function syncDirectObjectLayer(
 
 function partitionProjectedObjects(projectedObjects: RuntimeProjectedSceneFrame['projectedObjects']) {
   const projectedPlanetObjects: RuntimeProjectedSceneFrame['projectedObjects'][number][] = []
+  const projectedDsoObjects: RuntimeProjectedSceneFrame['projectedObjects'][number][] = []
   const projectedGenericObjects: RuntimeProjectedSceneFrame['projectedObjects'][number][] = []
 
   for (let index = 0; index < projectedObjects.length; index += 1) {
@@ -34,11 +35,17 @@ function partitionProjectedObjects(projectedObjects: RuntimeProjectedSceneFrame[
       continue
     }
 
+    if (entry.object.type === 'deep_sky') {
+      projectedDsoObjects.push(entry)
+      continue
+    }
+
     projectedGenericObjects.push(entry)
   }
 
   return {
     projectedPlanetObjects,
+    projectedDsoObjects,
     projectedGenericObjects,
   }
 }
@@ -55,6 +62,7 @@ export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, Scene
         runtime.projectedSceneFrame = null
         runtime.projectedNonStarObjects = []
         runtime.projectedPlanetObjects = []
+        runtime.projectedDsoObjects = []
         runtime.projectedGenericObjects = []
         runtime.projectedPickSourceRef = null
         return
@@ -69,9 +77,10 @@ export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, Scene
       )
       const nonStarProjectionElapsedMs = performance.now() - nonStarProjectionStartMs
       const projectedObjects = nonStarProjection.projectedObjects
-      const { projectedPlanetObjects, projectedGenericObjects } = partitionProjectedObjects(projectedObjects)
+      const { projectedPlanetObjects, projectedDsoObjects, projectedGenericObjects } = partitionProjectedObjects(projectedObjects)
       runtime.projectedNonStarObjects = projectedObjects
       runtime.projectedPlanetObjects = projectedPlanetObjects
+      runtime.projectedDsoObjects = projectedDsoObjects
       runtime.projectedGenericObjects = projectedGenericObjects
       const mergeStartMs = performance.now()
       const mergedProjectedObjects = mergeProjectedSceneObjects(projectedStarsFrame.projectedStars, projectedObjects)

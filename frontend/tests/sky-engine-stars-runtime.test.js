@@ -36,6 +36,17 @@ vi.mock('../src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame', ()
     renderAlpha: 0.94,
     renderedMagnitude: -2.4,
   }
+  const dsoEntry = {
+    object: { id: 'dso-1', type: 'deep_sky', magnitude: 3.4, colorHex: '#8fb5ff' },
+    screenX: 260,
+    screenY: 150,
+    depth: 0.45,
+    angularDistanceRad: 0.22,
+    markerRadiusPx: 10,
+    pickRadiusPx: 20,
+    renderAlpha: 0.72,
+    renderedMagnitude: 3.4,
+  }
 
   return {
     collectProjectedStars: vi.fn(() => ({
@@ -51,7 +62,7 @@ vi.mock('../src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame', ()
       },
     })),
     collectProjectedNonStarObjects: vi.fn(() => ({
-      projectedObjects: [moonEntry, planetEntry],
+      projectedObjects: [moonEntry, planetEntry, dsoEntry],
       timing: {
         transformMs: 0,
         filteringMs: 0,
@@ -59,12 +70,13 @@ vi.mock('../src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame', ()
         totalMs: 0,
       },
     })),
-    mergeProjectedSceneObjects: vi.fn(() => [starEntry, moonEntry, planetEntry]),
+    mergeProjectedSceneObjects: vi.fn(() => [starEntry, moonEntry, planetEntry, dsoEntry]),
     ensureSceneSurfaces: vi.fn(() => ({ width: 800, height: 400 })),
     resolveViewTier: vi.fn(() => ({ tier: 'medium', labelCap: 8 })),
   }
 })
 
+import { createDsoRuntimeModule } from '../src/features/sky-engine/engine/sky/runtime/modules/DsoRuntimeModule'
 import { createObjectRuntimeModule } from '../src/features/sky-engine/engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createPlanetRuntimeModule } from '../src/features/sky-engine/engine/sky/runtime/modules/PlanetRuntimeModule'
 import { createStarsModule } from '../src/features/sky-engine/engine/sky/runtime/modules/StarsModule'
@@ -72,6 +84,9 @@ import { createStarsModule } from '../src/features/sky-engine/engine/sky/runtime
 function createBaseRuntime() {
   return {
     directPlanetLayer: {
+      sync: vi.fn(),
+    },
+    directDsoLayer: {
       sync: vi.fn(),
     },
     directObjectLayer: {
@@ -84,6 +99,7 @@ function createBaseRuntime() {
     projectedSceneFrame: null,
     projectedNonStarObjects: [],
     projectedPlanetObjects: [],
+    projectedDsoObjects: [],
     projectedGenericObjects: [],
     projectedPickEntries: [],
     projectedPickSourceRef: null,
@@ -160,6 +176,7 @@ function createBaseProps() {
       { id: 'star-1', type: 'star', magnitude: 1.2, altitudeDeg: 40, azimuthDeg: 120 },
       { id: 'moon-1', type: 'moon', magnitude: -11.8, altitudeDeg: 20, azimuthDeg: 180 },
       { id: 'planet-1', type: 'planet', magnitude: -2.4, altitudeDeg: 32, azimuthDeg: 210, colorHex: '#f6d28b' },
+      { id: 'dso-1', type: 'deep_sky', magnitude: 3.4, altitudeDeg: 41, azimuthDeg: 232, colorHex: '#8fb5ff' },
     ],
     scenePacket: null,
     sunState: { visualCalibration: { starVisibility: 1, starFieldBrightness: 1 } },
@@ -191,7 +208,7 @@ describe('Sky star runtime ownership', () => {
     expect(projectedStars[0].object.type).toBe('star')
   })
 
-  it('ObjectRuntimeModule keeps stars out of generic direct object sync', () => {
+  it('ObjectRuntimeModule keeps stars, planets, and deep sky out of generic direct object sync', () => {
     const module = createObjectRuntimeModule()
     const runtime = createBaseRuntime()
     const services = createBaseServices()
@@ -227,10 +244,13 @@ describe('Sky star runtime ownership', () => {
     expect(genericObjects[0].object.type).toBe('moon')
     expect(runtime.projectedPlanetObjects).toHaveLength(1)
     expect(runtime.projectedPlanetObjects[0].object.type).toBe('planet')
+    expect(runtime.projectedDsoObjects).toHaveLength(1)
+    expect(runtime.projectedDsoObjects[0].object.type).toBe('deep_sky')
     expect(runtime.projectedGenericObjects).toHaveLength(1)
     expect(runtime.projectedGenericObjects[0].object.type).toBe('moon')
     expect(runtime.projectedPickEntries.some((entry) => entry.object.type === 'star')).toBe(true)
     expect(runtime.projectedPickEntries.some((entry) => entry.object.type === 'planet')).toBe(true)
+    expect(runtime.projectedPickEntries.some((entry) => entry.object.type === 'deep_sky')).toBe(true)
   })
 
   it('PlanetRuntimeModule owns dedicated planet layer sync', () => {
@@ -268,6 +288,47 @@ describe('Sky star runtime ownership', () => {
     const [projectedPlanets] = runtime.directPlanetLayer.sync.mock.calls[0]
     expect(projectedPlanets).toHaveLength(1)
     expect(projectedPlanets[0].object.type).toBe('planet')
+    expect(runtime.directObjectLayer.sync).not.toHaveBeenCalled()
+  })
+
+  it('DsoRuntimeModule owns dedicated deep sky layer sync', () => {
+    const objectModule = createObjectRuntimeModule()
+    const dsoModule = createDsoRuntimeModule()
+    const runtime = createBaseRuntime()
+    const services = createBaseServices()
+    const props = createBaseProps()
+    const getProps = () => props
+    const getPropsVersion = () => 1
+    runtime.projectedStarsFrame = {
+      width: 800,
+      height: 400,
+      currentFovDegrees: 60,
+      lod: { tier: 'medium', labelCap: 8 },
+      view: { fovRadians: 1, viewportWidth: 800, viewportHeight: 400 },
+      projectedStars: [{
+        object: { id: 'star-1', type: 'star', magnitude: 1.2 },
+        screenX: 100,
+        screenY: 100,
+        depth: 0.2,
+        angularDistanceRad: 0.3,
+        markerRadiusPx: 3,
+        pickRadiusPx: 12,
+        renderAlpha: 0.8,
+      }],
+      limitingMagnitude: 6.4,
+      sceneTimestampIso: '2026-04-10T00:00:00Z',
+    }
+
+    objectModule.update({ runtime, services, getProps, getPropsVersion })
+    dsoModule.render({ runtime, services, getProps })
+
+    expect(runtime.directDsoLayer.sync).toHaveBeenCalledTimes(1)
+    const [projectedDsos, viewportWidth, viewportHeight, selectedObjectId] = runtime.directDsoLayer.sync.mock.calls[0]
+    expect(projectedDsos).toHaveLength(1)
+    expect(projectedDsos[0].object.type).toBe('deep_sky')
+    expect(viewportWidth).toBe(800)
+    expect(viewportHeight).toBe(400)
+    expect(selectedObjectId).toBeNull()
     expect(runtime.directObjectLayer.sync).not.toHaveBeenCalled()
   })
 })

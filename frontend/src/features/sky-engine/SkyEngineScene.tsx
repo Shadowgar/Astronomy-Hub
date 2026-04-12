@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react
 
 import {
   computeBackendStarSceneObjects,
+  computeDeepSkySceneObjects,
   computeMoonSceneObject,
   computePlanetSceneObjects,
   rankGuidanceTargets,
@@ -19,6 +20,7 @@ import { createAtmosphereModule } from './engine/sky/runtime/modules/AtmosphereM
 import { createBackgroundRuntimeModule } from './engine/sky/runtime/modules/BackgroundRuntimeModule'
 import { createLandscapeModule } from './engine/sky/runtime/modules/LandscapeModule'
 import { createMilkyWayModule } from './engine/sky/runtime/modules/MilkyWayModule'
+import { createDsoRuntimeModule } from './engine/sky/runtime/modules/DsoRuntimeModule'
 import { createObjectRuntimeModule } from './engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createOverlayRuntimeModule } from './engine/sky/runtime/modules/OverlayRuntimeModule'
 import { createPlanetRuntimeModule } from './engine/sky/runtime/modules/PlanetRuntimeModule'
@@ -283,6 +285,7 @@ function buildSceneControllerModel(config: {
     ? assembleSkyScenePacket(query, config.runtimeTiles, config.tileLoadResult)
     : null
   const planetObjects = computePlanetSceneObjects(config.observer, config.sceneTimestampIso)
+  const deepSkyObjects = computeDeepSkySceneObjects(config.observer, config.sceneTimestampIso)
   const backendTileStarSceneObjects = computeBackendStarSceneObjects(
     config.observer,
     config.sceneTimestampIso,
@@ -305,7 +308,7 @@ function buildSceneControllerModel(config: {
     }
   })
 
-  const baseSceneObjects = [...Array.from(mergedStars.values()), ...planetObjects, moonObject]
+  const baseSceneObjects = [...Array.from(mergedStars.values()), ...planetObjects, ...deepSkyObjects, moonObject]
   const guidanceTargets = rankGuidanceTargets(baseSceneObjects, 5)
   const guidanceLookup = new Map(
     guidanceTargets.map((target, index) => [
@@ -597,6 +600,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
     core.registerModule(createBackgroundRuntimeModule())
     core.registerModule(createStarsModule())
     core.registerModule(createPlanetRuntimeModule())
+    core.registerModule(createDsoRuntimeModule())
     core.registerModule(createObjectRuntimeModule())
     core.registerModule(createOverlayRuntimeModule())
     core.registerModule(createSnapshotBridgeModule(snapshotStore, UI_SNAPSHOT_CADENCE_MS))

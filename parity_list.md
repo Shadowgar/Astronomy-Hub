@@ -29,7 +29,7 @@ Purpose:
 | coordinates | `src/modules/coordinates.c` | `engine/sky/transforms/coordinates.ts`, `projectionMath.ts` | partially ported | Observer-frame coordinate transforms and projection helpers are present and used by the active runtime. | Broader frame conversion/reporting breadth is still missing. | Add missing frame utilities and tests against study-side coordinate expectations. |
 | debug | `src/modules/debug.c` | `engine/sky/runtime/modules/SceneReportingModule.ts`, `engine/sky/runtime/perfTelemetry.ts`, `engine/sky/runtime/luminanceReport.ts` | partially ported | The active runtime collects scene telemetry and per-step timing data through dedicated reporting modules. | Interactive debug tooling and Stellarium-like inspection controls are absent. | Add a bounded runtime debug surface backed by the existing telemetry. |
 | drag_selection | `src/modules/drag_selection.c` | `engine/sky/runtime/SkyNavigationService.ts` | not started | Pointer drag currently pans the camera only; there is no rectangle-selection or drag-hit extraction path. | Drag-selection rectangle and object extraction behavior are absent. | Add rectangle selection over projected pick entries. |
-| dso | `src/modules/dso.c` | `directObjectLayer.ts` | stubbed | Deep-sky objects currently render through the generic non-star object layer; dedicated `DsoRenderer.ts` exists but is not wired into the active runtime. | No DSO-specific morphology, sizing, filtering, or active runtime ownership. | Either wire a bounded DSO renderer into the runtime or remove the dead path and add an active DSO-specific module. |
+| dso | `src/modules/dso.c` | `astronomy.ts`, `engine/sky/runtime/modules/DsoRuntimeModule.ts`, `DsoRenderer.ts` | partially ported | A minimal deep-sky seed catalog is now transformed into active scene objects, partitioned out of generic object rendering, and synced through a dedicated DSO runtime module and renderer. | The active path still uses bounded sprite-style markers rather than Stellarium-grade morphology, catalog breadth, and per-class filtering. | Deepen the dedicated DSO path with bounded morphology, sizing classes, and catalog expansion without folding it back into generic object rendering. |
 | dss | `src/modules/dss.c` | none found | not started | No DSS or survey-background tile subsystem was found in the local runtime. | Survey ingestion and rendering are absent. | Add a feature-flagged survey background module. |
 | geojson | `src/modules/geojson.c` | none found | not started | No GeoJSON ingestion, projection, or overlay rendering path was found in the local sky engine. | GeoJSON overlays are absent. | Add a bounded GeoJSON overlay ingestion and rendering path. |
 | labels | `src/modules/labels.c` | `labelManager.ts`, `directOverlayLayer.ts` | partially ported | Active label layout includes overlap pruning, priorities, selected/guided emphasis, and constellation labels. | Per-class budgets and richer Stellarium-style label policy remain shallow. | Port per-class label budgets and more explicit label policy knobs. |
@@ -48,19 +48,19 @@ Purpose:
 
 ## Audit Notes
 - `constellations` and `skycultures` are more advanced than the previous parity file claimed because they are actively rendered through the overlay path, not just defined as static data.
-- `DsoRenderer.ts`, `MoonRenderer.ts`, and `PointerRenderer.ts` still exist as standalone renderer paths that are not wired into the active runtime; `PlanetRenderer.ts` is now part of the active planet render path.
+- `MoonRenderer.ts` and `PointerRenderer.ts` still exist as standalone renderer paths that are not wired into the active runtime; `PlanetRenderer.ts` and `DsoRenderer.ts` are now part of active dedicated render paths.
 - Parity judgments in this file are based on the active runtime module graph and the code that actually feeds the current scene.
 
 ## Snapshot Summary
-- Strongest current areas: `stars`, `planets`, `atmosphere`, `milkyway`, `landscape`, `labels`, `lines`, `movements`, `constellations/skycultures`.
+- Strongest current areas: `stars`, `planets`, `dso`, `atmosphere`, `milkyway`, `landscape`, `labels`, `lines`, `movements`, `constellations/skycultures`.
 - Weakest current areas: `comets`, `minorplanets`, `satellites`, `meteors`, `dss`, `geojson`, `photos`, `circle`, `drag_selection`.
 - Highest-value next bounded slices:
-  1. Wire active dedicated renderers where parallel dead paths still exist (`pointer`, `dso`).
+  1. Wire active dedicated renderers where parallel dead paths still exist (`pointer`).
   2. Expand `skycultures` and constellation asset coverage beyond the current narrow pack.
   3. Add a bounded `satellites` subsystem.
   4. Add bounded `minorplanets` and `comets` catalog/runtime support.
   5. Decide whether to port a survey background (`dss`) or explicitly defer it.
-- Overall parity estimate: `~22-26%` subsystem parity.
+- Overall parity estimate: `~24-28%` subsystem parity.
 
 ## Update Protocol (for future AI coders)
 When you complete a slice, update:

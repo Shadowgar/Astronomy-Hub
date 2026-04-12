@@ -533,6 +533,18 @@ interface PlanetDefinitionInternal {
   readonly resolveElements: (daysSinceJ2000: number) => OrbitalElements
 }
 
+interface DeepSkyDefinitionInternal {
+  readonly id: string
+  readonly name: string
+  readonly rightAscensionHours: number
+  readonly declinationDeg: number
+  readonly magnitude: number
+  readonly colorHex: string
+  readonly constellation: string
+  readonly summary: string
+  readonly description: string
+}
+
 function resolveOrbitalPosition(elements: OrbitalElements) {
   const eccentricAnomalyDeg = solveKeplerDegrees(elements.meanAnomalyDeg, elements.eccentricity)
   const eccentricAnomalyRad = degreesToRadians(eccentricAnomalyDeg)
@@ -667,6 +679,53 @@ const SKY_ENGINE_PLANET_DEFINITIONS: readonly PlanetDefinitionInternal[] = [
   },
 ] as const
 
+const SKY_ENGINE_DEEP_SKY_DEFINITIONS: readonly DeepSkyDefinitionInternal[] = [
+  {
+    id: 'sky-dso-m31',
+    name: 'Andromeda Galaxy',
+    rightAscensionHours: 0.712,
+    declinationDeg: 41.269,
+    magnitude: 3.44,
+    colorHex: '#a9c7ff',
+    constellation: 'Andromeda',
+    summary: 'Nearest major spiral galaxy included as a minimal deep-sky activation target.',
+    description: 'A bounded built-in deep-sky seed entry used to activate the dedicated DSO runtime path.',
+  },
+  {
+    id: 'sky-dso-m42',
+    name: 'Orion Nebula',
+    rightAscensionHours: 5.591,
+    declinationDeg: -5.45,
+    magnitude: 4,
+    colorHex: '#8dc8ff',
+    constellation: 'Orion',
+    summary: 'Bright emission nebula included as a minimal deep-sky activation target.',
+    description: 'A bounded built-in deep-sky seed entry used to activate the dedicated DSO runtime path.',
+  },
+  {
+    id: 'sky-dso-m13',
+    name: 'Hercules Globular Cluster',
+    rightAscensionHours: 16.695,
+    declinationDeg: 36.467,
+    magnitude: 5.8,
+    colorHex: '#d9d2ff',
+    constellation: 'Hercules',
+    summary: 'Prominent globular cluster included as a minimal deep-sky activation target.',
+    description: 'A bounded built-in deep-sky seed entry used to activate the dedicated DSO runtime path.',
+  },
+  {
+    id: 'sky-dso-m45',
+    name: 'Pleiades',
+    rightAscensionHours: 3.783,
+    declinationDeg: 24.117,
+    magnitude: 1.6,
+    colorHex: '#9fd7ff',
+    constellation: 'Taurus',
+    summary: 'Bright open cluster included as a minimal deep-sky activation target.',
+    description: 'A bounded built-in deep-sky seed entry used to activate the dedicated DSO runtime path.',
+  },
+] as const
+
 function resolveEarthElements(daysSinceJ2000: number): OrbitalElements {
   return {
     ascendingNodeDeg: 0,
@@ -676,6 +735,37 @@ function resolveEarthElements(daysSinceJ2000: number): OrbitalElements {
     eccentricity: 0.016709 - 1.151e-9 * daysSinceJ2000,
     meanAnomalyDeg: normalizeDegrees(356.047 + 0.9856002585 * daysSinceJ2000),
   }
+}
+
+export function computeDeepSkySceneObjects(observer: SkyEngineObserver, timestampIso: string): readonly SkyEngineSceneObject[] {
+  return SKY_ENGINE_DEEP_SKY_DEFINITIONS.map((object) => {
+    const horizontalCoordinates = computeHorizontalCoordinates(
+      observer,
+      timestampIso,
+      object.rightAscensionHours,
+      object.declinationDeg,
+    )
+
+    return {
+      id: object.id,
+      name: object.name,
+      type: 'deep_sky',
+      altitudeDeg: horizontalCoordinates.altitudeDeg,
+      azimuthDeg: horizontalCoordinates.azimuthDeg,
+      magnitude: object.magnitude,
+      colorHex: object.colorHex,
+      summary: object.summary,
+      description: object.description,
+      constellation: object.constellation,
+      truthNote: `Built-in minimal deep-sky seed catalog entry for runtime activation. Coordinates are observer-transformed from fixed equatorial values for ${object.name}.`,
+      source: 'computed_real_sky',
+      trackingMode: 'fixed_equatorial',
+      rightAscensionHours: object.rightAscensionHours,
+      declinationDeg: object.declinationDeg,
+      timestampIso,
+      isAboveHorizon: horizontalCoordinates.isAboveHorizon,
+    }
+  })
 }
 
 export function computePlanetSceneObjects(observer: SkyEngineObserver, timestampIso: string): readonly SkyEngineSceneObject[] {

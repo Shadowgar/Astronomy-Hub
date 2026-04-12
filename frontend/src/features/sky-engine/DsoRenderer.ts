@@ -1,34 +1,45 @@
 import { Color3 } from '@babylonjs/core/Maths/math.color'
+import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial'
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture'
 import { Mesh } from '@babylonjs/core/Meshes/mesh'
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import type { Scene } from '@babylonjs/core/scene'
 
-import { buildLabelTexture, getLabelAnchorPosition, getLabelVariantForObject, type LabelRenderRef } from './labelManager'
-import { getSkyEnginePickColliderDiameter } from './pickTargets'
-import type { SkyObjectRenderer, SkyRendererPickEntry, SkyRendererSyncInput } from './skyRendererContracts'
-import { toSkyPosition } from './skyDomeMath'
-import type { SkyEngineSceneObject } from './types'
+import type { DirectProjectedObjectEntry } from './directObjectLayer'
+import { buildSelectionRingTexture } from './objectClassRenderer'
 
-const LABEL_WIDTH = 12
-const LABEL_HEIGHT = 3.25
+interface DsoRenderEntry {
+  readonly mesh: Mesh
+  readonly material: StandardMaterial
+  texture: DynamicTexture
+  signature: string
+}
 
-interface DsoRenderEntry extends LabelRenderRef {
-  readonly hazeMesh: Mesh
-  readonly symbolMesh: Mesh
-  readonly pickMesh: Mesh
-  readonly hazeMaterial: StandardMaterial
-  readonly symbolMaterial: StandardMaterial
-  readonly hazeTexture: DynamicTexture
-  readonly symbolTexture: DynamicTexture
-  readonly labelTexture: DynamicTexture
-  object: SkyEngineSceneObject
-  readonly pickRadiusPx: number
+interface SelectionRingEntry {
+  readonly mesh: Mesh
+  readonly material: StandardMaterial
+  readonly texture: DynamicTexture
+}
+
+function clamp(value: number, minimum: number, maximum: number) {
+  return Math.min(maximum, Math.max(minimum, value))
+}
+
+function toViewportPlanePosition(entry: DirectProjectedObjectEntry, viewportWidth: number, viewportHeight: number) {
+  return new Vector3(
+    entry.screenX - viewportWidth * 0.5,
+    viewportHeight * 0.5 - entry.screenY,
+    clamp(entry.depth * 0.01, 0, 0.01),
+  )
+}
+
+function buildDsoTextureSignature(entry: DirectProjectedObjectEntry) {
+  return [entry.object.id, entry.object.colorHex, entry.object.source].join(':')
 }
 
 function buildDsoTexture(name: string, colorHex: string) {
-  const texture = new DynamicTexture(name, { width: 128, height: 128 }, undefined, true)
+  const texture = new DynamicTexture(name, { width: 192, height: 192 }, undefined, true)
   texture.hasAlpha = true
 
   const context = texture.getContext() as CanvasRenderingContext2D
@@ -36,126 +47,106 @@ function buildDsoTexture(name: string, colorHex: string) {
   const red = Math.round(color.r * 255)
   const green = Math.round(color.g * 255)
   const blue = Math.round(color.b * 255)
-  const gradient = context.createRadialGradient(64, 64, 12, 64, 64, 54)
+  const haze = context.createRadialGradient(96, 96, 18, 96, 96, 72)
 
-  gradient.addColorStop(0, `rgba(${red}, ${green}, ${blue}, 0.44)`)
-  gradient.addColorStop(0.52, `rgba(${red}, ${green}, ${blue}, 0.14)`)
-  gradient.addColorStop(1, `rgba(${red}, ${green}, ${blue}, 0)`)
-  context.clearRect(0, 0, 128, 128)
-  context.fillStyle = gradient
+  haze.addColorStop(0, `rgba(${red}, ${green}, ${blue}, 0.34)`)
+  haze.addColorStop(0.55, `rgba(${red}, ${green}, ${blue}, 0.14)`)
+  haze.addColorStop(1, `rgba(${red}, ${green}, ${blue}, 0)`)
+  context.clearRect(0, 0, 192, 192)
+  context.fillStyle = haze
   context.beginPath()
-  context.arc(64, 64, 54, 0, Math.PI * 2)
+  context.arc(96, 96, 72, 0, Math.PI * 2)
   context.fill()
-  texture.update()
 
-  return texture
-}
-
-function buildDsoSymbolTexture(name: string, colorHex: string) {
-  const texture = new DynamicTexture(name, { width: 128, height: 128 }, undefined, true)
-  texture.hasAlpha = true
-
-  const context = texture.getContext() as CanvasRenderingContext2D
-  const color = Color3.FromHexString(colorHex)
-  const red = Math.round(color.r * 255)
-  const green = Math.round(color.g * 255)
-  const blue = Math.round(color.b * 255)
-
-  context.clearRect(0, 0, 128, 128)
   context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.88)`
-  context.lineWidth = 5
+  context.lineWidth = 6
   context.beginPath()
-  context.moveTo(64, 18)
-  context.lineTo(104, 64)
-  context.lineTo(64, 110)
-  context.lineTo(24, 64)
+  context.moveTo(96, 24)
+  context.lineTo(148, 96)
+  context.lineTo(96, 168)
+  context.lineTo(44, 96)
   context.closePath()
   context.stroke()
   context.beginPath()
-  context.arc(64, 64, 24, 0, Math.PI * 2)
+  context.arc(96, 96, 28, 0, Math.PI * 2)
   context.stroke()
   texture.update()
 
   return texture
 }
 
-function createDsoEntry(scene: Scene, object: SkyEngineSceneObject): DsoRenderEntry {
-  const hazeTexture = buildDsoTexture(`sky-engine-dso-haze-${object.id}`, object.colorHex)
-  const symbolTexture = buildDsoSymbolTexture(`sky-engine-dso-symbol-${object.id}`, object.colorHex)
-  const labelTexture = buildLabelTexture(object.name, getLabelVariantForObject(object))
+function createDsoEntry(scene: Scene, entry: DirectProjectedObjectEntry): DsoRenderEntry {
+  const texture = buildDsoTexture(`sky-engine-dso-${entry.object.id}`, entry.object.colorHex)
+  texture.hasAlpha = true
 
-  const hazeMesh = MeshBuilder.CreatePlane(`sky-engine-dso-haze-${object.id}`, { width: 1, height: 1 }, scene)
-  hazeMesh.billboardMode = Mesh.BILLBOARDMODE_ALL
-  hazeMesh.isPickable = false
-  const hazeMaterial = new StandardMaterial(`sky-engine-dso-haze-material-${object.id}`, scene)
-  hazeMaterial.disableLighting = true
-  hazeMaterial.backFaceCulling = false
-  hazeMaterial.diffuseTexture = hazeTexture
-  hazeMaterial.opacityTexture = hazeTexture
-  hazeMaterial.useAlphaFromDiffuseTexture = true
-  hazeMesh.material = hazeMaterial
+  const mesh = MeshBuilder.CreatePlane(`sky-engine-dso-mesh-${entry.object.id}`, { width: 1, height: 1 }, scene)
+  mesh.isPickable = false
+  mesh.renderingGroupId = 1
 
-  const symbolMesh = MeshBuilder.CreatePlane(`sky-engine-dso-symbol-${object.id}`, { width: 1, height: 1 }, scene)
-  symbolMesh.billboardMode = Mesh.BILLBOARDMODE_ALL
-  symbolMesh.isPickable = false
-  const symbolMaterial = new StandardMaterial(`sky-engine-dso-symbol-material-${object.id}`, scene)
-  symbolMaterial.disableLighting = true
-  symbolMaterial.backFaceCulling = false
-  symbolMaterial.diffuseTexture = symbolTexture
-  symbolMaterial.opacityTexture = symbolTexture
-  symbolMaterial.useAlphaFromDiffuseTexture = true
-  symbolMaterial.emissiveColor = Color3.White()
-  symbolMesh.material = symbolMaterial
-
-  const label = MeshBuilder.CreatePlane(`sky-engine-dso-label-${object.id}`, { width: LABEL_WIDTH, height: LABEL_HEIGHT }, scene)
-  label.billboardMode = Mesh.BILLBOARDMODE_ALL
-  label.isPickable = false
-  label.isVisible = false
-  const labelMaterial = new StandardMaterial(`sky-engine-dso-label-material-${object.id}`, scene)
-  labelMaterial.disableLighting = true
-  labelMaterial.backFaceCulling = false
-  labelMaterial.diffuseTexture = labelTexture
-  labelMaterial.opacityTexture = labelTexture
-  labelMaterial.useAlphaFromDiffuseTexture = true
-  labelMaterial.emissiveColor = Color3.White()
-  label.material = labelMaterial
-
-  const pickMesh = MeshBuilder.CreateSphere(
-    `sky-engine-dso-pick-${object.id}`,
-    { diameter: getSkyEnginePickColliderDiameter(object), segments: 12 },
-    scene,
-  )
-  pickMesh.isPickable = true
-  const pickMaterial = new StandardMaterial(`sky-engine-dso-pick-material-${object.id}`, scene)
-  pickMaterial.disableLighting = true
-  pickMaterial.alpha = 0.001
-  pickMesh.material = pickMaterial
+  const material = new StandardMaterial(`sky-engine-dso-material-${entry.object.id}`, scene)
+  material.disableLighting = true
+  material.backFaceCulling = false
+  material.diffuseTexture = texture
+  material.opacityTexture = texture
+  material.useAlphaFromDiffuseTexture = true
+  material.emissiveColor = Color3.White()
+  mesh.material = material
 
   return {
-    hazeMesh,
-    symbolMesh,
-    pickMesh,
-    hazeMaterial,
-    symbolMaterial,
-    label,
-    labelMaterial,
-    hazeTexture,
-    symbolTexture,
-    labelTexture,
-    object,
-    pickRadiusPx: object.source === 'temporary_scene_seed' ? 13 : 16,
-    currentLabelAlpha: 0,
-    currentLabelScale: 0.82,
+    mesh,
+    material,
+    texture,
+    signature: buildDsoTextureSignature(entry),
   }
 }
 
-export function createDsoRenderer(scene: Scene): SkyObjectRenderer {
-  const entries = new Map<string, DsoRenderEntry>()
+function createSelectionRing(scene: Scene): SelectionRingEntry {
+  const texture = buildSelectionRingTexture('sky-engine-dso-selection-ring', '#d8c4ff', 0.9, 0.24)
+  texture.hasAlpha = true
+
+  const mesh = MeshBuilder.CreatePlane('sky-engine-dso-selection-ring-mesh', { width: 1, height: 1 }, scene)
+  mesh.isPickable = false
+  mesh.renderingGroupId = 2
+
+  const material = new StandardMaterial('sky-engine-dso-selection-ring-material', scene)
+  material.disableLighting = true
+  material.backFaceCulling = false
+  material.diffuseTexture = texture
+  material.opacityTexture = texture
+  material.useAlphaFromDiffuseTexture = true
+  material.emissiveColor = Color3.White()
+  mesh.material = material
 
   return {
-    sync({ objects, selectedObjectId, guidedObjectIds, lod }: SkyRendererSyncInput) {
-      const dsoObjects = objects.filter((object) => object.type === 'deep_sky')
-      const nextIds = new Set(dsoObjects.map((object) => object.id))
+    mesh,
+    material,
+    texture,
+  }
+}
+
+function disposeDsoEntry(entry: DsoRenderEntry) {
+  entry.mesh.dispose()
+  entry.material.dispose()
+  entry.texture.dispose()
+}
+
+export function createDsoRenderer(scene: Scene) {
+  const entries = new Map<string, DsoRenderEntry>()
+  const selectionRing = createSelectionRing(scene)
+
+  return {
+    sync(
+      projectedDsos: readonly DirectProjectedObjectEntry[],
+      viewportWidth: number,
+      viewportHeight: number,
+      selectedObjectId: string | null,
+    ) {
+      if (projectedDsos.length === 0 && entries.size === 0) {
+        selectionRing.mesh.isVisible = false
+        return
+      }
+
+      const nextIds = new Set(projectedDsos.map((entry) => entry.object.id))
 
       Array.from(entries.keys()).forEach((objectId) => {
         if (nextIds.has(objectId)) {
@@ -168,74 +159,65 @@ export function createDsoRenderer(scene: Scene): SkyObjectRenderer {
           return
         }
 
-        entry.hazeMesh.dispose()
-        entry.symbolMesh.dispose()
-        entry.pickMesh.dispose()
-        entry.label.dispose()
-        entry.hazeMaterial.dispose()
-        entry.symbolMaterial.dispose()
-        entry.labelMaterial.dispose()
-        entry.hazeTexture.dispose()
-        entry.symbolTexture.dispose()
-        entry.labelTexture.dispose()
+        disposeDsoEntry(entry)
         entries.delete(objectId)
       })
 
-      dsoObjects.forEach((object) => {
-        let entry = entries.get(object.id)
+      let selectedEntry: DirectProjectedObjectEntry | null = null
+
+      projectedDsos.forEach((projectedDso) => {
+        let entry = entries.get(projectedDso.object.id)
 
         if (!entry) {
-          entry = createDsoEntry(scene, object)
-          entries.set(object.id, entry)
+          entry = createDsoEntry(scene, projectedDso)
+          entries.set(projectedDso.object.id, entry)
         }
 
-        entry.object = object
-        const isSelected = object.id === selectedObjectId
-        const isGuided = guidedObjectIds.has(object.id)
-        const position = toSkyPosition(object.altitudeDeg, object.azimuthDeg)
-        const hazeScale = 1.1 + lod.mediumBlend * 0.8 + lod.closeBlend * 1.6
-        const symbolScale = 0.9 + lod.mediumBlend * 0.45 + lod.closeBlend * 0.85
-        const baseAlpha = object.source === 'temporary_scene_seed' ? 0.78 : 0.56
+        const nextSignature = buildDsoTextureSignature(projectedDso)
+        if (entry.signature !== nextSignature) {
+          entry.texture.dispose()
+          entry.texture = buildDsoTexture(`sky-engine-dso-${projectedDso.object.id}`, projectedDso.object.colorHex)
+          entry.texture.hasAlpha = true
+          entry.material.diffuseTexture = entry.texture
+          entry.material.opacityTexture = entry.texture
+          entry.signature = nextSignature
+        }
 
-        ;[entry.hazeMesh, entry.symbolMesh, entry.pickMesh].forEach((mesh) => mesh.position.copyFrom(position))
-        entry.label.position = getLabelAnchorPosition(position, object)
-        entry.hazeMesh.scaling.set(hazeScale, hazeScale, 1)
-        entry.symbolMesh.scaling.set(symbolScale * (isSelected ? 1.12 : 1), symbolScale * (isSelected ? 1.12 : 1), 1)
-        entry.hazeMaterial.alpha = baseAlpha * (0.12 * lod.wideBlend + 0.48 * lod.mediumBlend + 0.84 * lod.closeBlend + (isGuided ? 0.08 : 0))
-        entry.symbolMaterial.alpha = baseAlpha * (0.18 * lod.wideBlend + 0.74 * lod.mediumBlend + 0.92 * lod.closeBlend + (isSelected ? 0.1 : 0))
+        const isSelected = projectedDso.object.id === selectedObjectId
+        const diameter = Math.max(14, projectedDso.markerRadiusPx * 2.4 + 4)
+
+        entry.mesh.position.copyFrom(toViewportPlanePosition(projectedDso, viewportWidth, viewportHeight))
+        entry.mesh.scaling.set(diameter * (isSelected ? 1.12 : 1), diameter * (isSelected ? 1.12 : 1), 1)
+        entry.mesh.isVisible = projectedDso.renderAlpha > 0.001
+        entry.material.emissiveColor = Color3.FromHexString(projectedDso.object.colorHex).scale(isSelected ? 1.04 : 0.92)
+        entry.material.alpha = clamp(projectedDso.renderAlpha + (isSelected ? 0.08 : 0), 0, 1)
+
+        if (isSelected) {
+          selectedEntry = projectedDso
+        }
       })
-    },
 
-    getPickEntries() {
-      return Array.from(entries.values()).map<SkyRendererPickEntry>((entry) => ({
-        object: entry.object,
-        pickMesh: entry.pickMesh,
-        pickRadiusPx: entry.pickRadiusPx,
-      }))
-    },
+      if (!selectedEntry) {
+        selectionRing.mesh.isVisible = false
+        return
+      }
 
-    getLabelRefs() {
-      return Object.fromEntries(Array.from(entries.values()).map((entry) => [entry.object.id, entry]))
-    },
-
-    getAnchor(objectId: string) {
-      return entries.get(objectId)?.symbolMesh.getAbsolutePosition().clone() ?? null
+      const finalSelectedEntry = selectedEntry as DirectProjectedObjectEntry
+      selectionRing.mesh.isVisible = true
+      selectionRing.mesh.position.copyFrom(toViewportPlanePosition(finalSelectedEntry, viewportWidth, viewportHeight))
+      const selectionDiameter = Math.max(28, finalSelectedEntry.markerRadiusPx * 2.6 + 20)
+      selectionRing.mesh.scaling.set(selectionDiameter, selectionDiameter, 1)
+      selectionRing.material.alpha = clamp(0.68 + finalSelectedEntry.renderAlpha * 0.2, 0, 0.94)
     },
 
     dispose() {
       entries.forEach((entry) => {
-        entry.hazeMesh.dispose()
-        entry.symbolMesh.dispose()
-        entry.pickMesh.dispose()
-        entry.label.dispose()
-        entry.hazeMaterial.dispose()
-        entry.symbolMaterial.dispose()
-        entry.labelMaterial.dispose()
-        entry.hazeTexture.dispose()
-        entry.symbolTexture.dispose()
-        entry.labelTexture.dispose()
+        disposeDsoEntry(entry)
       })
       entries.clear()
+      selectionRing.mesh.dispose()
+      selectionRing.material.dispose()
+      selectionRing.texture.dispose()
     },
   }
 }
