@@ -5,6 +5,7 @@ import {
   computeDeepSkySceneObjects,
   computeMoonSceneObject,
   computePlanetSceneObjects,
+  computeSatelliteSceneObjects,
   rankGuidanceTargets,
 } from './astronomy'
 import {
@@ -24,6 +25,7 @@ import { createDsoRuntimeModule } from './engine/sky/runtime/modules/DsoRuntimeM
 import { createObjectRuntimeModule } from './engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createOverlayRuntimeModule } from './engine/sky/runtime/modules/OverlayRuntimeModule'
 import { createPlanetRuntimeModule } from './engine/sky/runtime/modules/PlanetRuntimeModule'
+import { createSatelliteRuntimeModule } from './engine/sky/runtime/modules/SatelliteRuntimeModule'
 import { createSceneReportingModule } from './engine/sky/runtime/modules/SceneReportingModule'
 import { createSceneLuminanceReportModule } from './engine/sky/runtime/modules/SceneLuminanceReportModule'
 import { createSkyBrightnessExposureModule } from './engine/sky/runtime/modules/SkyBrightnessExposureModule'
@@ -65,6 +67,17 @@ interface SceneControllerModel {
   guidedObjectIds: readonly string[]
   queryLimitingMagnitude: number
   tileQuerySignature: string
+}
+
+interface PropsSignatureConfig {
+  timestampIso: string
+  selectedObjectId: string | null
+  guidedObjectIds: readonly string[]
+  aidVisibility: SkyEngineAidVisibility
+  skyCultureId: string
+  sceneObjects: readonly SkyEngineSceneObject[]
+  scenePacket: ScenePropsSnapshot['scenePacket']
+  currentViewState: ScenePropsSnapshot['initialViewState']
 }
 
 function resolveSceneQueryLimitingMagnitude(config: {
@@ -140,27 +153,18 @@ function buildTileQuerySignature(query: ReturnType<typeof buildSkyEngineQuery>, 
   ].join(':')
 }
 
-function buildPropsSignature(
-  timestampIso: string,
-  selectedObjectId: string | null,
-  guidedObjectIds: readonly string[],
-  aidVisibility: SkyEngineAidVisibility,
-  skyCultureId: string,
-  sceneObjects: readonly SkyEngineSceneObject[],
-  scenePacket: ScenePropsSnapshot['scenePacket'],
-  currentViewState: ScenePropsSnapshot['initialViewState'],
-) {
+function buildPropsSignature(config: PropsSignatureConfig) {
   return [
-    timestampIso,
-    selectedObjectId ?? 'none',
-    guidedObjectIds.join('|'),
-    createAidVisibilitySignature(aidVisibility),
-    skyCultureId,
-    sceneObjects.length,
-    scenePacket?.stars.length ?? 0,
-    currentViewState.centerAltDeg.toFixed(1),
-    currentViewState.centerAzDeg.toFixed(1),
-    currentViewState.fovDegrees.toFixed(1),
+    config.timestampIso,
+    config.selectedObjectId ?? 'none',
+    config.guidedObjectIds.join('|'),
+    createAidVisibilitySignature(config.aidVisibility),
+    config.skyCultureId,
+    config.sceneObjects.length,
+    config.scenePacket?.stars.length ?? 0,
+    config.currentViewState.centerAltDeg.toFixed(1),
+    config.currentViewState.centerAzDeg.toFixed(1),
+    config.currentViewState.fovDegrees.toFixed(1),
   ].join(':')
 }
 
@@ -246,6 +250,7 @@ function buildEngineStarSceneObjects(
 
 function buildSceneControllerModel(config: {
   backendStars: SkyEngineSceneProps['backendStars']
+  backendSatellites: SkyEngineSceneProps['backendSatellites']
   observer: SkyEngineSceneProps['observer']
   projectionMode: NonNullable<SkyEngineSceneProps['projectionMode']>
   repositoryMode: SkyEngineSceneProps['repositoryMode']
@@ -281,6 +286,7 @@ function buildSceneControllerModel(config: {
     : null
   const planetObjects = computePlanetSceneObjects(config.observer, config.sceneTimestampIso)
   const deepSkyObjects = computeDeepSkySceneObjects(config.observer, config.sceneTimestampIso)
+  const satelliteObjects = computeSatelliteSceneObjects(config.observer, config.sceneTimestampIso, config.backendSatellites)
   const backendTileStarSceneObjects = computeBackendStarSceneObjects(
     config.observer,
     config.sceneTimestampIso,
@@ -303,7 +309,7 @@ function buildSceneControllerModel(config: {
     }
   })
 
-  const baseSceneObjects = [...Array.from(mergedStars.values()), ...planetObjects, ...deepSkyObjects, moonObject]
+  const baseSceneObjects = [...Array.from(mergedStars.values()), ...planetObjects, ...deepSkyObjects, ...satelliteObjects, moonObject]
   const guidanceTargets = rankGuidanceTargets(baseSceneObjects, 5)
   const guidanceLookup = new Map(
     guidanceTargets.map((target, index) => [
@@ -338,6 +344,7 @@ function buildSceneControllerModel(config: {
 const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(function SkyEngineScene(
   {
     backendStars,
+    backendSatellites,
     initialSceneTimestampIso,
     observer,
     initialViewState,
@@ -368,6 +375,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
   const defaultDynamicModelRef = useRef<SceneControllerModel>(
     buildSceneControllerModel({
       backendStars,
+      backendSatellites,
       observer,
       projectionMode,
       repositoryMode,
@@ -500,6 +508,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
       const sceneTimestampIso = runtimeContext.services.clockService.getSceneTimestampIso() ?? initialSceneTimestampIso
       const nextModel = buildSceneControllerModel({
         backendStars,
+        backendSatellites,
         observer,
         projectionMode,
         repositoryMode,
@@ -566,16 +575,16 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
           syncRuntimeModelRef.current(true)
         },
       }
-      const nextSignature = buildPropsSignature(
-        sceneTimestampIso,
-        nextProps.selectedObjectId,
-        nextProps.guidedObjectIds,
-        nextProps.aidVisibility,
-        nextProps.skyCultureId,
-        nextProps.objects,
-        nextProps.scenePacket,
+      const nextSignature = buildPropsSignature({
+        timestampIso: sceneTimestampIso,
+        selectedObjectId: nextProps.selectedObjectId,
+        guidedObjectIds: nextProps.guidedObjectIds,
+        aidVisibility: nextProps.aidVisibility,
+        skyCultureId: nextProps.skyCultureId,
+        sceneObjects: nextProps.objects,
+        scenePacket: nextProps.scenePacket,
         currentViewState,
-      )
+      })
 
       if (!force && nextSignature === lastPropsSignatureRef.current) {
         return
@@ -595,6 +604,7 @@ const SkyEngineScene = forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps>(fun
     core.registerModule(createBackgroundRuntimeModule())
     core.registerModule(createStarsModule())
     core.registerModule(createPlanetRuntimeModule())
+    core.registerModule(createSatelliteRuntimeModule())
     core.registerModule(createDsoRuntimeModule())
     core.registerModule(createObjectRuntimeModule())
     core.registerModule(createOverlayRuntimeModule())

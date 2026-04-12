@@ -55,6 +55,10 @@ export function getLodVisibilityAlpha(object: SkyEngineSceneObject, lod: SkyLodS
     return 0.9 + lod.closeBlend * 0.1
   }
 
+  if (object.type === 'satellite') {
+    return 0.88 + lod.closeBlend * 0.08
+  }
+
   if (object.type === 'deep_sky') {
     return Math.min(1, lod.mediumBlend * 0.72 + lod.closeBlend)
   }

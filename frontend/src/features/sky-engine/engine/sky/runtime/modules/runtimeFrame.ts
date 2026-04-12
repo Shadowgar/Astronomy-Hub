@@ -462,6 +462,10 @@ function getMarkerRadiusPx(
     return getProjectedDiscRadiusPx(object.apparentSizeDeg, scale, 4.2, 14) + clamp(2.2 - object.magnitude * 0.2, 0.3, 2.8)
   }
 
+  if (object.type === 'satellite') {
+    return 5.2
+  }
+
   if (object.type === 'deep_sky') {
     return getDeepSkyMarkerRadiusPx(object, scale)
   }

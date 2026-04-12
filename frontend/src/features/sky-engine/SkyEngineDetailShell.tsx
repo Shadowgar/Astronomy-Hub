@@ -30,6 +30,10 @@ function getSelectionSourceCoordinates(selectedObject: SkyEngineSceneObject) {
 }
 
 function getSelectionTruthDescription(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.source === 'backend_satellite_scene') {
+    return 'Satellite position is sourced from the backend satellite scene for the active observer snapshot. This slice intentionally renders only a bounded marker without orbit lines or frontend TLE propagation.'
+  }
+
   if (selectedObject.source === 'engine_hipparcos_tile') {
     return 'Hipparcos tile assets were generated offline, then loaded through the file-backed Sky Engine repository for this scene.'
   }
@@ -56,6 +60,10 @@ function getSelectionBadgeClassName(selectedObject: SkyEngineSceneObject) {
 }
 
 function getSelectionBadgeLabel(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.source === 'backend_satellite_scene') {
+    return 'Backend satellite scene'
+  }
+
   if (selectedObject.source === 'engine_hipparcos_tile') {
     return 'Hipparcos tile runtime'
   }
@@ -76,6 +84,10 @@ function getSelectionBadgeLabel(selectedObject: SkyEngineSceneObject) {
 }
 
 function getTrajectoryLabel(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.type === 'satellite') {
+    return 'Marker only'
+  }
+
   if (selectedObject.trackingMode === 'fixed_equatorial') {
     return '12h arc active'
   }
@@ -88,6 +100,10 @@ function getTrajectoryLabel(selectedObject: SkyEngineSceneObject) {
 }
 
 function getTrajectoryDescription(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.type === 'satellite') {
+    return 'Dedicated satellite marker only. Orbit path and iterative propagation are deferred to a later slice.'
+  }
+
   if (selectedObject.trackingMode === 'lunar_ephemeris') {
     return '12h arc is sampled from the lunar ephemeris so the moon does not drift with a fake fixed-star trajectory.'
   }
@@ -100,6 +116,10 @@ function getTrajectoryDescription(selectedObject: SkyEngineSceneObject) {
 }
 
 function getTrackingLabel(selectedObject: SkyEngineSceneObject) {
+  if (selectedObject.type === 'satellite') {
+    return 'Backend snapshot'
+  }
+
   if (selectedObject.trackingMode === 'lunar_ephemeris') {
     return 'Ephemeris'
   }
@@ -130,6 +150,13 @@ function getIlluminationLabel(selectedObject: SkyEngineSceneObject) {
 function renderSelectionInsights(selectedObject: SkyEngineSceneObject) {
   return (
     <>
+      {selectedObject.type === 'satellite' ? (
+        <p className="sky-engine-detail-shell__hint">
+          Pass window: {selectedObject.visibilityWindowStartIso ?? 'Unknown start'}
+          {selectedObject.visibilityWindowEndIso ? ` to ${selectedObject.visibilityWindowEndIso}` : ''}
+          {selectedObject.providerSource ? ` · provider ${selectedObject.providerSource}` : ''}
+        </p>
+      ) : null}
       {selectedObject.phaseLabel ? (
         <p className="sky-engine-detail-shell__hint">
           Phase: {selectedObject.phaseLabel}
@@ -178,7 +205,7 @@ function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
         </div>
         <div>
           <dt>Magnitude</dt>
-          <dd>{selectedObject.magnitude.toFixed(2)}</dd>
+          <dd>{selectedObject.type === 'satellite' ? 'Not provided' : selectedObject.magnitude.toFixed(2)}</dd>
         </div>
         <div>
           <dt>Horizon</dt>

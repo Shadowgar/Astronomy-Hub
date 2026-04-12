@@ -1,5 +1,5 @@
-export type SkyEngineObjectSource = 'computed_real_sky' | 'computed_ephemeris' | 'temporary_scene_seed' | 'engine_mock_tile' | 'engine_hipparcos_tile' | 'backend_star_catalog'
-export type SkyEngineObjectType = 'star' | 'moon' | 'planet' | 'deep_sky'
+export type SkyEngineObjectSource = 'computed_real_sky' | 'computed_ephemeris' | 'temporary_scene_seed' | 'engine_mock_tile' | 'engine_hipparcos_tile' | 'backend_star_catalog' | 'backend_satellite_scene'
+export type SkyEngineObjectType = 'star' | 'moon' | 'planet' | 'deep_sky' | 'satellite'
 export type SkyEngineTrackingMode = 'fixed_equatorial' | 'lunar_ephemeris' | 'static'
 export type SkyEngineGuidanceTier = 'featured' | 'guide' | 'none'
 export type SkyEngineDeepSkyClass = 'galaxy' | 'nebula' | 'cluster' | 'generic'
@@ -43,6 +43,10 @@ export interface SkyEngineSceneObject {
   declinationDeg?: number
   colorIndexBV?: number
   timestampIso?: string
+  providerSource?: string
+  visibilityWindowStartIso?: string
+  visibilityWindowEndIso?: string
+  detailRoute?: string
   apparentSizeDeg?: number
   deepSkyClass?: SkyEngineDeepSkyClass
   orientationDeg?: number

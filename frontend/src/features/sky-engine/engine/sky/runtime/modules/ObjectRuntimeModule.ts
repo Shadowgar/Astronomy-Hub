@@ -25,11 +25,10 @@ function syncDirectObjectLayer(
 function partitionProjectedObjects(projectedObjects: RuntimeProjectedSceneFrame['projectedObjects']) {
   const projectedPlanetObjects: RuntimeProjectedSceneFrame['projectedObjects'][number][] = []
   const projectedDsoObjects: RuntimeProjectedSceneFrame['projectedObjects'][number][] = []
+  const projectedSatelliteObjects: RuntimeProjectedSceneFrame['projectedObjects'][number][] = []
   const projectedGenericObjects: RuntimeProjectedSceneFrame['projectedObjects'][number][] = []
 
-  for (let index = 0; index < projectedObjects.length; index += 1) {
-    const entry = projectedObjects[index]
-
+  for (const entry of projectedObjects) {
     if (entry.object.type === 'planet') {
       projectedPlanetObjects.push(entry)
       continue
@@ -40,12 +39,18 @@ function partitionProjectedObjects(projectedObjects: RuntimeProjectedSceneFrame[
       continue
     }
 
+    if (entry.object.type === 'satellite') {
+      projectedSatelliteObjects.push(entry)
+      continue
+    }
+
     projectedGenericObjects.push(entry)
   }
 
   return {
     projectedPlanetObjects,
     projectedDsoObjects,
+    projectedSatelliteObjects,
     projectedGenericObjects,
   }
 }
@@ -63,6 +68,7 @@ export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, Scene
         runtime.projectedNonStarObjects = []
         runtime.projectedPlanetObjects = []
         runtime.projectedDsoObjects = []
+        runtime.projectedSatelliteObjects = []
         runtime.projectedGenericObjects = []
         runtime.projectedPickSourceRef = null
         return
@@ -77,10 +83,11 @@ export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, Scene
       )
       const nonStarProjectionElapsedMs = performance.now() - nonStarProjectionStartMs
       const projectedObjects = nonStarProjection.projectedObjects
-      const { projectedPlanetObjects, projectedDsoObjects, projectedGenericObjects } = partitionProjectedObjects(projectedObjects)
+      const { projectedPlanetObjects, projectedDsoObjects, projectedSatelliteObjects, projectedGenericObjects } = partitionProjectedObjects(projectedObjects)
       runtime.projectedNonStarObjects = projectedObjects
       runtime.projectedPlanetObjects = projectedPlanetObjects
       runtime.projectedDsoObjects = projectedDsoObjects
+      runtime.projectedSatelliteObjects = projectedSatelliteObjects
       runtime.projectedGenericObjects = projectedGenericObjects
       const mergeStartMs = performance.now()
       const mergedProjectedObjects = mergeProjectedSceneObjects(projectedStarsFrame.projectedStars, projectedObjects)

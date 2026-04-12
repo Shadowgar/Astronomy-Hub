@@ -9,6 +9,7 @@ import {
 } from './observerNavigation'
 import { createDsoRenderer } from './DsoRenderer'
 import { createPlanetRenderer } from './PlanetRenderer'
+import { createSatelliteRenderer } from './SatelliteRenderer'
 import {
   type ProjectedPickTargetEntry,
 } from './pickTargets'
@@ -43,6 +44,7 @@ import {
 
 export interface SkyEngineSceneProps {
   readonly backendStars: readonly BackendSkySceneStarObject[]
+  readonly backendSatellites: readonly import('../scene/contracts').BackendSatelliteSceneObject[]
   readonly initialSceneTimestampIso: string
   readonly observer: SkyEngineObserver
   readonly initialViewState: {
@@ -88,6 +90,7 @@ export interface SceneRuntimeRefs {
   directBackgroundLayer: ReturnType<typeof createDirectBackgroundLayer>
   directPlanetLayer: ReturnType<typeof createPlanetRenderer>
   directDsoLayer: ReturnType<typeof createDsoRenderer>
+  directSatelliteLayer: ReturnType<typeof createSatelliteRenderer>
   directStarLayer: ReturnType<typeof createDirectStarLayer>
   directObjectLayer: ReturnType<typeof createDirectObjectLayer>
   directOverlayLayer: ReturnType<typeof createDirectOverlayLayer>
@@ -101,6 +104,7 @@ export interface SceneRuntimeRefs {
   projectedNonStarObjects: RuntimeProjectedSceneFrame['projectedObjects']
   projectedPlanetObjects: RuntimeProjectedSceneFrame['projectedObjects']
   projectedDsoObjects: RuntimeProjectedSceneFrame['projectedObjects']
+  projectedSatelliteObjects: RuntimeProjectedSceneFrame['projectedObjects']
   projectedGenericObjects: RuntimeProjectedSceneFrame['projectedObjects']
   sceneLuminanceReport: SceneLuminanceReport | null
   brightnessExposureState: SkyBrightnessExposureState | null
@@ -160,6 +164,7 @@ export function createSceneRuntimeState({
     directBackgroundLayer: createDirectBackgroundLayer(scene),
     directPlanetLayer: createPlanetRenderer(scene),
     directDsoLayer: createDsoRenderer(scene),
+    directSatelliteLayer: createSatelliteRenderer(scene),
     directStarLayer: createDirectStarLayer(scene),
     directObjectLayer: createDirectObjectLayer(scene),
     directOverlayLayer: createDirectOverlayLayer(scene),
@@ -173,6 +178,7 @@ export function createSceneRuntimeState({
     projectedNonStarObjects: [],
     projectedPlanetObjects: [],
     projectedDsoObjects: [],
+    projectedSatelliteObjects: [],
     projectedGenericObjects: [],
     sceneLuminanceReport: null,
     brightnessExposureState: null,
@@ -244,6 +250,7 @@ export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, Scen
       runtime.directBackgroundLayer.dispose()
       runtime.directPlanetLayer.dispose()
       runtime.directDsoLayer.dispose()
+      runtime.directSatelliteLayer.dispose()
       runtime.directStarLayer.dispose()
       runtime.directObjectLayer.dispose()
       runtime.directOverlayLayer.dispose()

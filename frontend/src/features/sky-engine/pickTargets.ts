@@ -39,6 +39,10 @@ function getObjectPickPriority(object: SkyEngineSceneObject) {
     return 30
   }
 
+  if (object.type === 'satellite') {
+    return 26
+  }
+
   if (object.type === 'star') {
     return object.source === 'computed_real_sky' || object.source === 'engine_hipparcos_tile' ? 24 : 20
   }

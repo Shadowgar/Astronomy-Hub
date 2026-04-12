@@ -5,6 +5,7 @@ import {
   computeBackendStarSceneObjects,
   computeMoonSceneObject,
   computePlanetSceneObjects,
+  computeSatelliteSceneObjects,
   rankGuidanceTargets,
 } from '../features/sky-engine/astronomy'
 import {
@@ -43,8 +44,10 @@ import { SKY_ENGINE_SKYCULTURES } from '../features/sky-engine/skycultures'
 import { useSceneByScopeDataQuery, useSkyStarTileManifestDataQuery } from '../features/scene/queries'
 import {
   isFiniteNumber,
+  parseBackendSatelliteScenePayload,
   parseBackendSkyScenePayload,
   parseBackendSkyStarTileManifestPayload,
+  type BackendSatelliteSceneObject,
   type BackendSkyScenePayload,
 } from '../features/scene/contracts'
 import type { SkyEngineAidVisibility, SkyEngineGuidanceTarget } from '../features/sky-engine/types'
@@ -231,6 +234,23 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   const [inspectorOpen, setInspectorOpen] = useState(false)
   const deferredSearchQuery = useDeferredValue(searchQuery)
   const observer = useMemo(() => convertBackendObserver(backendScene), [backendScene])
+  const satelliteSceneQuery = useSceneByScopeDataQuery({
+    scope: 'earth',
+    engine: 'satellites',
+    filter: 'visible_now',
+    lat: backendScene.observer.latitude,
+    lon: backendScene.observer.longitude,
+    elevation_ft: observer.elevationFt,
+    at: backendScene.timestamp,
+  })
+  const backendSatelliteScene = useMemo(
+    () => parseBackendSatelliteScenePayload(satelliteSceneQuery.data),
+    [satelliteSceneQuery.data],
+  )
+  const backendSatellites = useMemo<readonly BackendSatelliteSceneObject[]>(
+    () => backendSatelliteScene?.objects ?? [],
+    [backendSatelliteScene],
+  )
   const backendSceneStars = useMemo(
     () => backendScene.objects.filter((object) => object.type === 'star'),
     [backendScene.objects],
@@ -260,9 +280,10 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     return [
       ...computeBackendStarSceneObjects(observer, sceneTimestampIso, resolvedBackendTileStars),
       ...computePlanetSceneObjects(observer, sceneTimestampIso),
+      ...computeSatelliteSceneObjects(observer, sceneTimestampIso, backendSatellites),
       computeMoonSceneObject(observer, sceneTimestampIso),
     ]
-  }, [backendScene.timestamp, observer, resolvedBackendTileStars])
+  }, [backendSatellites, backendScene.timestamp, observer, resolvedBackendTileStars])
   const searchableSceneObjects = useMemo(
     () => [...initialStaticObjects].sort((left, right) => left.name.localeCompare(right.name)),
     [initialStaticObjects],
@@ -475,9 +496,11 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
             backendScene.scene_state.center_alt_deg,
             backendScene.scene_state.center_az_deg,
             backendScene.scene_state.fov_deg,
+            backendSatellites.map((satellite) => satellite.id).join(','),
           ].join(':')}
           ref={sceneRef}
           backendStars={resolvedBackendTileStars}
+          backendSatellites={backendSatellites}
           initialSceneTimestampIso={backendScene.timestamp}
           observer={observer}
           initialViewState={buildBackendViewState(backendScene)}

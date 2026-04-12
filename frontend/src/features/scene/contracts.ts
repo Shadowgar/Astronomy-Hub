@@ -9,6 +9,26 @@ export interface BackendSkySceneStarObject {
   color_index?: number | null
 }
 
+export interface BackendSatelliteSceneObject {
+  id: string
+  type: 'satellite'
+  name: string
+  engine: 'satellite'
+  provider_source: string
+  summary: string
+  position: {
+    azimuth: number
+    elevation: number
+  }
+  visibility: {
+    is_visible: boolean
+    visibility_window_start?: string | null
+    visibility_window_end?: string | null
+  }
+  relevance_score?: number
+  detail_route?: string
+}
+
 export interface BackendSkyStarTileDescriptor {
   tier: 1 | 2
   tile_id: string
@@ -51,6 +71,14 @@ export interface BackendSkyScenePayload {
   objects: BackendSkySceneStarObject[]
 }
 
+export interface BackendSatelliteScenePayload {
+  scope: 'earth'
+  engine: 'satellites'
+  filter: string
+  timestamp: string
+  objects: BackendSatelliteSceneObject[]
+}
+
 export function isFiniteNumber(value: unknown): value is number {
   return typeof value === 'number' && Number.isFinite(value)
 }
@@ -91,6 +119,76 @@ function parseBackendSkySceneStarObject(value: unknown): BackendSkySceneStarObje
     declination: candidate.declination,
     magnitude: candidate.magnitude,
     color_index: candidate.color_index,
+  }
+}
+
+function parseBackendSatelliteSceneObject(value: unknown): BackendSatelliteSceneObject | null {
+  if (!value || typeof value !== 'object') {
+    return null
+  }
+
+  const candidate = value as Record<string, unknown>
+  const position = candidate.position as Record<string, unknown> | undefined
+  const visibility = candidate.visibility as Record<string, unknown> | undefined
+
+  if (
+    typeof candidate.id !== 'string' ||
+    candidate.type !== 'satellite' ||
+    typeof candidate.name !== 'string' ||
+    candidate.engine !== 'satellite' ||
+    typeof candidate.provider_source !== 'string' ||
+    typeof candidate.summary !== 'string' ||
+    !position ||
+    !visibility ||
+    !isFiniteNumber(position.azimuth) ||
+    !isFiniteNumber(position.elevation) ||
+    typeof visibility.is_visible !== 'boolean'
+  ) {
+    return null
+  }
+
+  if (
+    visibility.visibility_window_start !== undefined &&
+    visibility.visibility_window_start !== null &&
+    typeof visibility.visibility_window_start !== 'string'
+  ) {
+    return null
+  }
+
+  if (
+    visibility.visibility_window_end !== undefined &&
+    visibility.visibility_window_end !== null &&
+    typeof visibility.visibility_window_end !== 'string'
+  ) {
+    return null
+  }
+
+  if (candidate.relevance_score !== undefined && !isFiniteNumber(candidate.relevance_score)) {
+    return null
+  }
+
+  if (candidate.detail_route !== undefined && typeof candidate.detail_route !== 'string') {
+    return null
+  }
+
+  return {
+    id: candidate.id,
+    type: 'satellite',
+    name: candidate.name,
+    engine: 'satellite',
+    provider_source: candidate.provider_source,
+    summary: candidate.summary,
+    position: {
+      azimuth: position.azimuth,
+      elevation: position.elevation,
+    },
+    visibility: {
+      is_visible: visibility.is_visible,
+      visibility_window_start: visibility.visibility_window_start as string | null | undefined,
+      visibility_window_end: visibility.visibility_window_end as string | null | undefined,
+    },
+    relevance_score: candidate.relevance_score,
+    detail_route: candidate.detail_route as string | undefined,
   }
 }
 
@@ -173,6 +271,45 @@ export function parseBackendSkyScenePayload(payload: unknown): BackendSkyScenePa
   return {
     ...(candidate as Omit<BackendSkyScenePayload, 'objects'>),
     objects: parsedStars,
+  }
+}
+
+export function parseBackendSatelliteScenePayload(payload: unknown): BackendSatelliteScenePayload | null {
+  if (!payload || typeof payload !== 'object') {
+    return null
+  }
+
+  const candidate = payload as Record<string, unknown>
+  const objects = Array.isArray(candidate.objects) ? candidate.objects : null
+
+  if (
+    candidate.scope !== 'earth' ||
+    candidate.engine !== 'satellites' ||
+    typeof candidate.filter !== 'string' ||
+    typeof candidate.timestamp !== 'string' ||
+    !objects
+  ) {
+    return null
+  }
+
+  const parsedObjects: BackendSatelliteSceneObject[] = []
+
+  for (const object of objects) {
+    const parsedObject = parseBackendSatelliteSceneObject(object)
+
+    if (!parsedObject) {
+      return null
+    }
+
+    parsedObjects.push(parsedObject)
+  }
+
+  return {
+    scope: 'earth',
+    engine: 'satellites',
+    filter: candidate.filter,
+    timestamp: candidate.timestamp,
+    objects: parsedObjects,
   }
 }
 

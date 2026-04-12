@@ -6,7 +6,7 @@ import type {
   SkyEngineSceneObject,
   SkyEngineTrajectorySample,
 } from './types'
-import type { BackendSkySceneStarObject } from '../scene/contracts'
+import type { BackendSatelliteSceneObject, BackendSkySceneStarObject } from '../scene/contracts'
 
 function degreesToRadians(value: number) {
   return (value * Math.PI) / 180
@@ -799,6 +799,50 @@ export function computeDeepSkySceneObjects(observer: SkyEngineObserver, timestam
   })
 }
 
+export function computeSatelliteSceneObjects(
+  _observer: SkyEngineObserver,
+  timestampIso: string,
+  backendSatellites: readonly BackendSatelliteSceneObject[],
+  maxCount = 3,
+): readonly SkyEngineSceneObject[] {
+  return backendSatellites
+    .filter((satellite) => satellite.visibility.is_visible && satellite.position.elevation > 0)
+    .sort((left, right) => (right.relevance_score ?? 0) - (left.relevance_score ?? 0) || left.name.localeCompare(right.name))
+    .slice(0, maxCount)
+    .map((satellite) => {
+      const windowStart = satellite.visibility.visibility_window_start ?? null
+      const windowEnd = satellite.visibility.visibility_window_end ?? null
+      let passWindowSummary = 'Visibility window is provider-backed but not fully specified in this payload.'
+
+      if (windowStart && windowEnd) {
+        passWindowSummary = `Visibility window ${windowStart} to ${windowEnd}.`
+      } else if (windowStart) {
+        passWindowSummary = `Visibility window starts at ${windowStart}.`
+      }
+
+      return {
+        id: satellite.id,
+        name: satellite.name,
+        type: 'satellite',
+        altitudeDeg: satellite.position.elevation,
+        azimuthDeg: satellite.position.azimuth,
+        magnitude: 99,
+        colorHex: '#8ee7ff',
+        summary: satellite.summary,
+        description: `${passWindowSummary} This bounded activation renders a dedicated marker from the backend satellite scene without orbit lines or photometric brightness modelling.`,
+        truthNote: `Backend satellite scene data drives this marker for the active observer snapshot. Provider source: ${satellite.provider_source}. Position is taken directly from the backend scene payload, while brightness and orbital path remain intentionally unimplemented in this slice.`,
+        source: 'backend_satellite_scene',
+        trackingMode: 'static',
+        timestampIso,
+        providerSource: satellite.provider_source,
+        visibilityWindowStartIso: windowStart ?? undefined,
+        visibilityWindowEndIso: windowEnd ?? undefined,
+        detailRoute: satellite.detail_route,
+        isAboveHorizon: satellite.position.elevation > 0,
+      } satisfies SkyEngineSceneObject
+    })
+}
+
 export function computePlanetSceneObjects(observer: SkyEngineObserver, timestampIso: string): readonly SkyEngineSceneObject[] {
   const daysSinceJ2000 = toJulianDate(timestampIso) - 2451543.5
   const earthOrbit = resolveOrbitalPosition(resolveEarthElements(daysSinceJ2000))
@@ -896,11 +940,12 @@ function computeGuidanceScore(object: SkyEngineSceneObject) {
   const altitudeScore = clamp01((object.altitudeDeg - 12) / 58)
   const brightnessScore = clamp01((4.8 - object.magnitude) / 6)
   const moonBonus = object.type === 'moon' ? 0.12 : 0
+  const satelliteBonus = object.type === 'satellite' ? 0.08 : 0
   const comfortBonus = object.altitudeDeg >= 25 && object.altitudeDeg <= 70 ? 0.08 : 0
   const deepSkyBonus = object.type === 'deep_sky' ? 0.1 : 0
   const temporaryPenalty = object.source === 'temporary_scene_seed' ? 0.12 : 0
 
-  return altitudeScore * 0.5 + brightnessScore * 0.34 + comfortBonus + moonBonus + deepSkyBonus - temporaryPenalty
+  return altitudeScore * 0.5 + brightnessScore * 0.34 + comfortBonus + moonBonus + satelliteBonus + deepSkyBonus - temporaryPenalty
 }
 
 export function rankGuidanceTargets(
