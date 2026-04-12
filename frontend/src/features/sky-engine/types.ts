@@ -2,6 +2,7 @@ export type SkyEngineObjectSource = 'computed_real_sky' | 'computed_ephemeris' |
 export type SkyEngineObjectType = 'star' | 'moon' | 'planet' | 'deep_sky'
 export type SkyEngineTrackingMode = 'fixed_equatorial' | 'lunar_ephemeris' | 'static'
 export type SkyEngineGuidanceTier = 'featured' | 'guide' | 'none'
+export type SkyEngineDeepSkyClass = 'galaxy' | 'nebula' | 'cluster' | 'generic'
 
 export interface SkyEngineObserver {
   label: string
@@ -43,6 +44,7 @@ export interface SkyEngineSceneObject {
   colorIndexBV?: number
   timestampIso?: string
   apparentSizeDeg?: number
+  deepSkyClass?: SkyEngineDeepSkyClass
   illuminationFraction?: number
   phaseAngle?: number
   phaseMagnitudeAdjustment?: number

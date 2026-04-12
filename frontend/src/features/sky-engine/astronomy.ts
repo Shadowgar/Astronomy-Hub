@@ -1,5 +1,6 @@
 import type {
   SkyEngineCelestialSourceObject,
+  SkyEngineDeepSkyClass,
   SkyEngineGuidanceTarget,
   SkyEngineObserver,
   SkyEngineSceneObject,
@@ -539,6 +540,8 @@ interface DeepSkyDefinitionInternal {
   readonly rightAscensionHours: number
   readonly declinationDeg: number
   readonly magnitude: number
+  readonly apparentSizeDeg: number
+  readonly deepSkyClass: SkyEngineDeepSkyClass
   readonly colorHex: string
   readonly constellation: string
   readonly summary: string
@@ -686,6 +689,8 @@ const SKY_ENGINE_DEEP_SKY_DEFINITIONS: readonly DeepSkyDefinitionInternal[] = [
     rightAscensionHours: 0.712,
     declinationDeg: 41.269,
     magnitude: 3.44,
+    apparentSizeDeg: 3.1,
+    deepSkyClass: 'galaxy',
     colorHex: '#a9c7ff',
     constellation: 'Andromeda',
     summary: 'Nearest major spiral galaxy included as a minimal deep-sky activation target.',
@@ -697,6 +702,8 @@ const SKY_ENGINE_DEEP_SKY_DEFINITIONS: readonly DeepSkyDefinitionInternal[] = [
     rightAscensionHours: 5.591,
     declinationDeg: -5.45,
     magnitude: 4,
+    apparentSizeDeg: 1.1,
+    deepSkyClass: 'nebula',
     colorHex: '#8dc8ff',
     constellation: 'Orion',
     summary: 'Bright emission nebula included as a minimal deep-sky activation target.',
@@ -708,6 +715,8 @@ const SKY_ENGINE_DEEP_SKY_DEFINITIONS: readonly DeepSkyDefinitionInternal[] = [
     rightAscensionHours: 16.695,
     declinationDeg: 36.467,
     magnitude: 5.8,
+    apparentSizeDeg: 0.28,
+    deepSkyClass: 'cluster',
     colorHex: '#d9d2ff',
     constellation: 'Hercules',
     summary: 'Prominent globular cluster included as a minimal deep-sky activation target.',
@@ -719,6 +728,8 @@ const SKY_ENGINE_DEEP_SKY_DEFINITIONS: readonly DeepSkyDefinitionInternal[] = [
     rightAscensionHours: 3.783,
     declinationDeg: 24.117,
     magnitude: 1.6,
+    apparentSizeDeg: 1.8,
+    deepSkyClass: 'cluster',
     colorHex: '#9fd7ff',
     constellation: 'Taurus',
     summary: 'Bright open cluster included as a minimal deep-sky activation target.',
@@ -753,11 +764,13 @@ export function computeDeepSkySceneObjects(observer: SkyEngineObserver, timestam
       altitudeDeg: horizontalCoordinates.altitudeDeg,
       azimuthDeg: horizontalCoordinates.azimuthDeg,
       magnitude: object.magnitude,
+      apparentSizeDeg: object.apparentSizeDeg,
+      deepSkyClass: object.deepSkyClass,
       colorHex: object.colorHex,
       summary: object.summary,
       description: object.description,
       constellation: object.constellation,
-      truthNote: `Built-in minimal deep-sky seed catalog entry for runtime activation. Coordinates are observer-transformed from fixed equatorial values for ${object.name}.`,
+      truthNote: `Built-in minimal deep-sky seed catalog entry for runtime activation. Coordinates are observer-transformed from fixed equatorial values for ${object.name}, with bounded morphology and apparent-size metadata for the dedicated DSO renderer.`,
       source: 'computed_real_sky',
       trackingMode: 'fixed_equatorial',
       rightAscensionHours: object.rightAscensionHours,

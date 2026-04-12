@@ -7,7 +7,9 @@ import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import type { Scene } from '@babylonjs/core/scene'
 
 import type { DirectProjectedObjectEntry } from './directObjectLayer'
+import { getDeepSkyMarkerDimensionsPx, resolveDeepSkyVisualClass } from './dsoVisuals'
 import { buildSelectionRingTexture } from './objectClassRenderer'
+import type { SkyEngineDeepSkyClass } from './types'
 
 interface DsoRenderEntry {
   readonly mesh: Mesh
@@ -35,28 +37,127 @@ function toViewportPlanePosition(entry: DirectProjectedObjectEntry, viewportWidt
 }
 
 function buildDsoTextureSignature(entry: DirectProjectedObjectEntry) {
-  return [entry.object.id, entry.object.colorHex, entry.object.source].join(':')
+  return [entry.object.id, entry.object.colorHex, entry.object.source, resolveDeepSkyVisualClass(entry.object)].join(':')
 }
 
-function buildDsoTexture(name: string, colorHex: string) {
-  const texture = new DynamicTexture(name, { width: 192, height: 192 }, undefined, true)
-  texture.hasAlpha = true
-
-  const context = texture.getContext() as CanvasRenderingContext2D
-  const color = Color3.FromHexString(colorHex)
-  const red = Math.round(color.r * 255)
-  const green = Math.round(color.g * 255)
-  const blue = Math.round(color.b * 255)
-  const haze = context.createRadialGradient(96, 96, 18, 96, 96, 72)
-
+function drawSoftGlow(
+  context: CanvasRenderingContext2D,
+  red: number,
+  green: number,
+  blue: number,
+  outerRadius: number,
+  scaleX = 1,
+  scaleY = 1,
+) {
+  context.save()
+  context.translate(96, 96)
+  context.scale(scaleX, scaleY)
+  const haze = context.createRadialGradient(0, 0, 18, 0, 0, outerRadius)
   haze.addColorStop(0, `rgba(${red}, ${green}, ${blue}, 0.34)`)
   haze.addColorStop(0.55, `rgba(${red}, ${green}, ${blue}, 0.14)`)
   haze.addColorStop(1, `rgba(${red}, ${green}, ${blue}, 0)`)
-  context.clearRect(0, 0, 192, 192)
   context.fillStyle = haze
   context.beginPath()
-  context.arc(96, 96, 72, 0, Math.PI * 2)
+  context.arc(0, 0, outerRadius, 0, Math.PI * 2)
   context.fill()
+  context.restore()
+}
+
+function drawGalaxyTexture(context: CanvasRenderingContext2D, red: number, green: number, blue: number) {
+  drawSoftGlow(context, red, green, blue, 64, 1.34, 0.82)
+
+  context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.88)`
+  context.lineWidth = 6
+  context.beginPath()
+  context.ellipse(96, 96, 62, 38, 0, 0, Math.PI * 2)
+  context.stroke()
+
+  context.lineWidth = 3
+  context.beginPath()
+  context.ellipse(96, 96, 42, 24, 0, 0, Math.PI * 2)
+  context.stroke()
+
+  context.fillStyle = `rgba(${red}, ${green}, ${blue}, 0.92)`
+  context.beginPath()
+  context.arc(96, 96, 14, 0, Math.PI * 2)
+  context.fill()
+
+  context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.24)`
+  context.lineWidth = 4
+  context.beginPath()
+  context.moveTo(48, 102)
+  context.lineTo(144, 92)
+  context.stroke()
+}
+
+function drawNebulaTexture(context: CanvasRenderingContext2D, red: number, green: number, blue: number) {
+  drawSoftGlow(context, red, green, blue, 70, 1.08, 1.02)
+
+  context.fillStyle = `rgba(${red}, ${green}, ${blue}, 0.22)`
+  context.beginPath()
+  context.moveTo(42, 102)
+  context.bezierCurveTo(52, 58, 84, 38, 124, 46)
+  context.bezierCurveTo(154, 54, 168, 84, 152, 120)
+  context.bezierCurveTo(138, 154, 92, 166, 58, 144)
+  context.bezierCurveTo(36, 130, 30, 118, 42, 102)
+  context.closePath()
+  context.fill()
+
+  context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.84)`
+  context.lineWidth = 5
+  context.beginPath()
+  context.moveTo(42, 102)
+  context.bezierCurveTo(52, 58, 84, 38, 124, 46)
+  context.bezierCurveTo(154, 54, 168, 84, 152, 120)
+  context.bezierCurveTo(138, 154, 92, 166, 58, 144)
+  context.bezierCurveTo(36, 130, 30, 118, 42, 102)
+  context.closePath()
+  context.stroke()
+
+  context.lineWidth = 3
+  context.beginPath()
+  context.moveTo(64, 70)
+  context.lineTo(128, 70)
+  context.moveTo(54, 124)
+  context.lineTo(122, 136)
+  context.stroke()
+}
+
+function drawClusterTexture(context: CanvasRenderingContext2D, red: number, green: number, blue: number) {
+  drawSoftGlow(context, red, green, blue, 62)
+
+  context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.88)`
+  context.lineWidth = 5
+  context.strokeRect(46, 46, 100, 100)
+
+  context.beginPath()
+  context.arc(96, 96, 34, 0, Math.PI * 2)
+  context.stroke()
+
+  context.lineWidth = 4
+  context.beginPath()
+  context.moveTo(96, 58)
+  context.lineTo(96, 134)
+  context.moveTo(58, 96)
+  context.lineTo(134, 96)
+  context.stroke()
+
+  context.fillStyle = `rgba(${red}, ${green}, ${blue}, 0.94)`
+  ;[
+    [72, 78, 4],
+    [116, 74, 3.5],
+    [128, 106, 4],
+    [84, 118, 3.5],
+    [104, 96, 4.5],
+  ].forEach(([x, y, radius]) => {
+    context.beginPath()
+    context.arc(x, y, radius, 0, Math.PI * 2)
+    context.fill()
+  })
+}
+
+function drawGenericTexture(context: CanvasRenderingContext2D, red: number, green: number, blue: number) {
+  drawSoftGlow(context, red, green, blue, 64)
 
   context.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.88)`
   context.lineWidth = 6
@@ -67,16 +168,44 @@ function buildDsoTexture(name: string, colorHex: string) {
   context.lineTo(44, 96)
   context.closePath()
   context.stroke()
+
   context.beginPath()
   context.arc(96, 96, 28, 0, Math.PI * 2)
   context.stroke()
+}
+
+function buildDsoTexture(name: string, colorHex: string, visualClass: SkyEngineDeepSkyClass) {
+  const texture = new DynamicTexture(name, { width: 192, height: 192 }, undefined, true)
+  texture.hasAlpha = true
+
+  const context = texture.getContext() as CanvasRenderingContext2D
+  const color = Color3.FromHexString(colorHex)
+  const red = Math.round(color.r * 255)
+  const green = Math.round(color.g * 255)
+  const blue = Math.round(color.b * 255)
+  context.clearRect(0, 0, 192, 192)
+
+  if (visualClass === 'galaxy') {
+    drawGalaxyTexture(context, red, green, blue)
+  } else if (visualClass === 'nebula') {
+    drawNebulaTexture(context, red, green, blue)
+  } else if (visualClass === 'cluster') {
+    drawClusterTexture(context, red, green, blue)
+  } else {
+    drawGenericTexture(context, red, green, blue)
+  }
+
   texture.update()
 
   return texture
 }
 
 function createDsoEntry(scene: Scene, entry: DirectProjectedObjectEntry): DsoRenderEntry {
-  const texture = buildDsoTexture(`sky-engine-dso-${entry.object.id}`, entry.object.colorHex)
+  const texture = buildDsoTexture(
+    `sky-engine-dso-${entry.object.id}`,
+    entry.object.colorHex,
+    resolveDeepSkyVisualClass(entry.object),
+  )
   texture.hasAlpha = true
 
   const mesh = MeshBuilder.CreatePlane(`sky-engine-dso-mesh-${entry.object.id}`, { width: 1, height: 1 }, scene)
@@ -176,7 +305,11 @@ export function createDsoRenderer(scene: Scene) {
         const nextSignature = buildDsoTextureSignature(projectedDso)
         if (entry.signature !== nextSignature) {
           entry.texture.dispose()
-          entry.texture = buildDsoTexture(`sky-engine-dso-${projectedDso.object.id}`, projectedDso.object.colorHex)
+          entry.texture = buildDsoTexture(
+            `sky-engine-dso-${projectedDso.object.id}`,
+            projectedDso.object.colorHex,
+            resolveDeepSkyVisualClass(projectedDso.object),
+          )
           entry.texture.hasAlpha = true
           entry.material.diffuseTexture = entry.texture
           entry.material.opacityTexture = entry.texture
@@ -184,10 +317,12 @@ export function createDsoRenderer(scene: Scene) {
         }
 
         const isSelected = projectedDso.object.id === selectedObjectId
-        const diameter = Math.max(14, projectedDso.markerRadiusPx * 2.4 + 4)
+        const markerDimensions = getDeepSkyMarkerDimensionsPx(projectedDso.object, projectedDso.markerRadiusPx)
+        const widthPx = markerDimensions.widthPx * (isSelected ? 1.12 : 1)
+        const heightPx = markerDimensions.heightPx * (isSelected ? 1.12 : 1)
 
         entry.mesh.position.copyFrom(toViewportPlanePosition(projectedDso, viewportWidth, viewportHeight))
-        entry.mesh.scaling.set(diameter * (isSelected ? 1.12 : 1), diameter * (isSelected ? 1.12 : 1), 1)
+        entry.mesh.scaling.set(widthPx, heightPx, 1)
         entry.mesh.isVisible = projectedDso.renderAlpha > 0.001
         entry.material.emissiveColor = Color3.FromHexString(projectedDso.object.colorHex).scale(isSelected ? 1.04 : 0.92)
         entry.material.alpha = clamp(projectedDso.renderAlpha + (isSelected ? 0.08 : 0), 0, 1)
@@ -205,7 +340,8 @@ export function createDsoRenderer(scene: Scene) {
       const finalSelectedEntry = selectedEntry as DirectProjectedObjectEntry
       selectionRing.mesh.isVisible = true
       selectionRing.mesh.position.copyFrom(toViewportPlanePosition(finalSelectedEntry, viewportWidth, viewportHeight))
-      const selectionDiameter = Math.max(28, finalSelectedEntry.markerRadiusPx * 2.6 + 20)
+      const markerDimensions = getDeepSkyMarkerDimensionsPx(finalSelectedEntry.object, finalSelectedEntry.markerRadiusPx)
+      const selectionDiameter = Math.max(28, Math.max(markerDimensions.widthPx, markerDimensions.heightPx) + 20)
       selectionRing.mesh.scaling.set(selectionDiameter, selectionDiameter, 1)
       selectionRing.material.alpha = clamp(0.68 + finalSelectedEntry.renderAlpha * 0.2, 0, 0.94)
     },

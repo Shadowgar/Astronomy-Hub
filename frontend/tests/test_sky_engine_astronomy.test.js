@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 
 import {
+  computeDeepSkySceneObjects,
   computeBackendStarSceneObjects,
   computeHorizontalCoordinates,
 } from '../src/features/sky-engine/astronomy.ts'
@@ -173,5 +174,18 @@ describe('Sky Engine astronomy helpers', () => {
     expect(lowSun.visualCalibration.starVisibility).toBeLessThan(nightSun.visualCalibration.starVisibility)
     expect(daylightSun.visualCalibration.starLabelVisibility).toBeLessThan(lowSun.visualCalibration.starLabelVisibility)
     expect(lowSun.visualCalibration.starLabelVisibility).toBeLessThan(nightSun.visualCalibration.starLabelVisibility)
+  })
+
+  it('surfaces bounded deep-sky morphology classes and apparent sizes', () => {
+    const deepSkyObjects = computeDeepSkySceneObjects(TEST_OBSERVER, '2026-04-12T03:00:00Z')
+    const objectById = new Map(deepSkyObjects.map((object) => [object.id, object]))
+
+    expect(deepSkyObjects).toHaveLength(4)
+    expect(objectById.get('sky-dso-m31')?.deepSkyClass).toBe('galaxy')
+    expect(objectById.get('sky-dso-m42')?.deepSkyClass).toBe('nebula')
+    expect(objectById.get('sky-dso-m13')?.deepSkyClass).toBe('cluster')
+    expect(objectById.get('sky-dso-m45')?.deepSkyClass).toBe('cluster')
+    expect(objectById.get('sky-dso-m31')?.apparentSizeDeg).toBeGreaterThan(objectById.get('sky-dso-m13')?.apparentSizeDeg ?? 0)
+    expect(objectById.get('sky-dso-m42')?.truthNote).toContain('bounded morphology and apparent-size metadata')
   })
 })

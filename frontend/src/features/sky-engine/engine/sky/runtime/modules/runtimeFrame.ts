@@ -16,6 +16,7 @@ import {
   type StarRenderProfile,
 } from '../../../../starRenderer'
 import { computeVisibilityAlpha } from '../../../../starVisibility'
+import { getDeepSkyProjectionStyle } from '../../../../dsoVisuals'
 import type { SkyScenePacket } from '../..'
 import type {
   SkyEngineAidVisibility,
@@ -297,6 +298,27 @@ function getProjectedDiscRadiusPx(apparentSizeDeg: number | undefined, scale: nu
   return clamp(planeRadius * scale, minimumRadiusPx, maximumRadiusPx)
 }
 
+function getDeepSkyMarkerRadiusPx(object: SkyEngineSceneObject, scale: number) {
+  const style = getDeepSkyProjectionStyle(object)
+  const projectedRadiusPx = getProjectedDiscRadiusPx(
+    object.apparentSizeDeg,
+    scale,
+    style.projectionMinimumRadiusPx,
+    style.projectionMaximumRadiusPx,
+  )
+  const magnitudeBoostPx = clamp(
+    1.7 - object.magnitude * 0.12,
+    0.2,
+    style.projectionMagnitudeBoostPx,
+  )
+
+  return clamp(
+    projectedRadiusPx * style.projectionRadiusGain + magnitudeBoostPx,
+    style.projectionMinimumRadiusPx,
+    style.projectionMaximumRadiusPx,
+  )
+}
+
 function getMarkerRadiusPx(
   object: SkyEngineSceneObject,
   view: SkyProjectionView,
@@ -314,7 +336,7 @@ function getMarkerRadiusPx(
   }
 
   if (object.type === 'deep_sky') {
-    return object.source === 'temporary_scene_seed' ? 7.2 : 8.4
+    return getDeepSkyMarkerRadiusPx(object, scale)
   }
 
   const profile = starProfile ?? getStarRenderProfile(object, visualCalibration)
