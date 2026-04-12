@@ -37,8 +37,12 @@ const MOON_RADIUS_KM = 1737.4
 const AU_IN_KM = 149597870.7
 const AU_PER_LIGHT_DAY = 173.1446326846693
 const MIN_DISTANCE_AU = 1e-6
+const SATURN_POLE = {
+  rightAscensionHours: 40.589 / 15,
+  declinationDeg: 83.537,
+} as const
 const STELLARIUM_PLANET_VISUAL_ELEMENTS = {
-  mercury: { angularSizeArcsecAtOneAu: 6.74, magnitudeAtOneAu: -0.36, phaseA: 3.8, phaseB: -2.73, phaseC: 2.0 },
+  mercury: { angularSizeArcsecAtOneAu: 6.74, magnitudeAtOneAu: -0.36, phaseA: 3.8, phaseB: -2.73, phaseC: 2 },
   venus: { angularSizeArcsecAtOneAu: 16.92, magnitudeAtOneAu: -4.29, phaseA: 0.09, phaseB: 2.39, phaseC: -0.65 },
   mars: { angularSizeArcsecAtOneAu: 9.36, magnitudeAtOneAu: -1.52, phaseA: 1.6, phaseB: 0, phaseC: 0 },
   jupiter: { angularSizeArcsecAtOneAu: 196.74, magnitudeAtOneAu: -9.25, phaseA: 0.5, phaseB: 0, phaseC: 0 },
@@ -119,6 +123,101 @@ export function computeSolarEquatorialCoordinates(timestampIso: string) {
     rightAscensionHours: rightAscensionDeg / 15,
     declinationDeg,
     apparentLongitudeDeg,
+  }
+}
+
+type Vector3Tuple = readonly [number, number, number]
+
+function dot(left: Vector3Tuple, right: Vector3Tuple) {
+  return left[0] * right[0] + left[1] * right[1] + left[2] * right[2]
+}
+
+function cross(left: Vector3Tuple, right: Vector3Tuple): Vector3Tuple {
+  return [
+    left[1] * right[2] - left[2] * right[1],
+    left[2] * right[0] - left[0] * right[2],
+    left[0] * right[1] - left[1] * right[0],
+  ]
+}
+
+function vectorLength(vector: Vector3Tuple) {
+  return Math.hypot(vector[0], vector[1], vector[2])
+}
+
+function normalizeVector(vector: Vector3Tuple): Vector3Tuple {
+  const length = vectorLength(vector)
+
+  if (length <= 1e-6) {
+    return [0, 0, 0]
+  }
+
+  return [vector[0] / length, vector[1] / length, vector[2] / length]
+}
+
+function vectorFromEquatorial(rightAscensionHours: number, declinationDeg: number): Vector3Tuple {
+  const rightAscensionRad = degreesToRadians(rightAscensionHours * 15)
+  const declinationRad = degreesToRadians(declinationDeg)
+  const cosDeclination = Math.cos(declinationRad)
+
+  return [
+    Math.cos(rightAscensionRad) * cosDeclination,
+    Math.sin(rightAscensionRad) * cosDeclination,
+    Math.sin(declinationRad),
+  ]
+}
+
+function resolveSkyTangentBasis(rightAscensionHours: number, declinationDeg: number) {
+  const rightAscensionRad = degreesToRadians(rightAscensionHours * 15)
+  const declinationRad = degreesToRadians(declinationDeg)
+
+  return {
+    east: normalizeVector([-
+      Math.sin(rightAscensionRad),
+      Math.cos(rightAscensionRad),
+      0,
+    ]),
+    north: normalizeVector([-
+      Math.cos(rightAscensionRad) * Math.sin(declinationRad),
+      -Math.sin(rightAscensionRad) * Math.sin(declinationRad),
+      Math.cos(declinationRad),
+    ]),
+  }
+}
+
+function computeBrightLimbAngleDeg(
+  targetRightAscensionHours: number,
+  targetDeclinationDeg: number,
+  sunRightAscensionHours: number,
+  sunDeclinationDeg: number,
+) {
+  const sunRightAscensionRad = degreesToRadians(sunRightAscensionHours * 15)
+  const sunDeclinationRad = degreesToRadians(sunDeclinationDeg)
+  const targetRightAscensionRad = degreesToRadians(targetRightAscensionHours * 15)
+  const targetDeclinationRad = degreesToRadians(targetDeclinationDeg)
+  const rightAscensionDiffRad = sunRightAscensionRad - targetRightAscensionRad
+
+  return radiansToDegrees(
+    Math.atan2(
+      Math.cos(sunDeclinationRad) * Math.sin(rightAscensionDiffRad),
+      Math.sin(sunDeclinationRad) * Math.cos(targetDeclinationRad) -
+        Math.cos(sunDeclinationRad) * Math.sin(targetDeclinationRad) * Math.cos(rightAscensionDiffRad),
+    ),
+  )
+}
+
+function computeSaturnRingVisualState(rightAscensionHours: number, declinationDeg: number) {
+  const viewVector = vectorFromEquatorial(rightAscensionHours, declinationDeg)
+  const poleVector = vectorFromEquatorial(SATURN_POLE.rightAscensionHours, SATURN_POLE.declinationDeg)
+  const tangentBasis = resolveSkyTangentBasis(rightAscensionHours, declinationDeg)
+  const ringMajorAxis = normalizeVector(cross(poleVector, viewVector))
+  const ringOpening = Math.abs(dot(poleVector, viewVector))
+  const ringTiltAngle = Math.atan2(dot(ringMajorAxis, tangentBasis.north), dot(ringMajorAxis, tangentBasis.east))
+  const ringMagnitudeAdjustment = (-2.6 + 1.25 * ringOpening) * ringOpening
+
+  return {
+    ringOpening,
+    ringTiltAngle,
+    ringBrightnessGain: Math.pow(10, -0.4 * ringMagnitudeAdjustment),
   }
 }
 
@@ -380,7 +479,7 @@ export function computeMoonSceneObject(observer: SkyEngineObserver, timestampIso
   const moonMagnitude =
     -12.7 +
     2.5 * (Math.log10(Math.PI) - Math.log10((Math.PI / 2) * (1 + 1e-6 - Math.cos(elongationRad)))) +
-    5.0 * Math.log10(moonDistanceAu / 0.0025)
+    5 * Math.log10(moonDistanceAu / 0.0025)
 
   return {
     id: 'sky-real-moon',
@@ -584,6 +683,7 @@ export function computePlanetSceneObjects(observer: SkyEngineObserver, timestamp
   const earthOrbit = resolveOrbitalPosition(resolveEarthElements(daysSinceJ2000))
   const obliquityRad = degreesToRadians(23.4393 - 3.563e-7 * daysSinceJ2000)
   const lightDaysPerAu = 1 / AU_PER_LIGHT_DAY
+  const solarCoordinates = computeSolarEquatorialCoordinates(timestampIso)
 
   return SKY_ENGINE_PLANET_DEFINITIONS.map((planet) => {
     const heliocentricPosition = resolveOrbitalPosition(planet.resolveElements(daysSinceJ2000))
@@ -614,10 +714,15 @@ export function computePlanetSceneObjects(observer: SkyEngineObserver, timestamp
       -1,
       1,
     ))
+    const illuminationFraction = clamp01((1 + Math.cos(phaseAngleRad)) * 0.5)
+    const brightLimbAngleDeg = computeBrightLimbAngleDeg(
+      rightAscensionHours,
+      declinationDeg,
+      solarCoordinates.rightAscensionHours,
+      solarCoordinates.declinationDeg,
+    )
     const phasePercent = (radiansToDegrees(phaseAngleRad)) / 100
-    const magnitude =
-      planet.visualElements.magnitudeAtOneAu +
-      5 * Math.log10(distanceToSunAu * distanceToEarthAu) +
+    const phaseMagnitudeAdjustment =
       phasePercent * (
         planet.visualElements.phaseA +
         phasePercent * (
@@ -625,6 +730,13 @@ export function computePlanetSceneObjects(observer: SkyEngineObserver, timestamp
           phasePercent * planet.visualElements.phaseC
         )
       )
+    const magnitude =
+      planet.visualElements.magnitudeAtOneAu +
+      5 * Math.log10(distanceToSunAu * distanceToEarthAu) +
+      phaseMagnitudeAdjustment
+    const saturnVisualState = planet.id === 'sky-planet-saturn'
+      ? computeSaturnRingVisualState(rightAscensionHours, declinationDeg)
+      : null
 
     return {
       id: planet.id,
@@ -643,6 +755,13 @@ export function computePlanetSceneObjects(observer: SkyEngineObserver, timestamp
       declinationDeg,
       timestampIso,
       apparentSizeDeg: (planet.visualElements.angularSizeArcsecAtOneAu / Math.max(distanceToEarthAu, 0.1)) / 3600,
+      illuminationFraction,
+      phaseAngle: phaseAngleRad,
+      phaseMagnitudeAdjustment,
+      brightLimbAngleDeg,
+      ringOpening: saturnVisualState?.ringOpening,
+      ringTiltAngle: saturnVisualState?.ringTiltAngle,
+      ringBrightnessGain: saturnVisualState?.ringBrightnessGain,
       isAboveHorizon: horizontalCoordinates.isAboveHorizon,
     }
   })

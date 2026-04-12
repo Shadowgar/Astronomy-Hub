@@ -6,7 +6,6 @@ import { Mesh } from '@babylonjs/core/Meshes/mesh'
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import type { Scene } from '@babylonjs/core/scene'
 
-import { computeSolarEquatorialCoordinates } from './astronomy'
 import type { DirectProjectedObjectEntry } from './directObjectLayer'
 import { buildSelectionRingTexture } from './objectClassRenderer'
 
@@ -31,7 +30,6 @@ interface RgbColor {
 
 interface PhaseVisualState {
   readonly illuminationFraction: number
-  readonly brightLimbAngleDeg: number
   readonly sunDirectionX: number
   readonly sunDirectionY: number
   readonly sunDirectionZ: number
@@ -39,7 +37,7 @@ interface PhaseVisualState {
 
 interface SaturnVisualState {
   readonly ringOpening: number
-  readonly ringRotationRad: number
+  readonly ringTiltAngle: number
   readonly ringBrightnessGain: number
 }
 
@@ -49,9 +47,6 @@ interface PlanetVisualState {
   readonly saturnVisual: SaturnVisualState | null
 }
 
-type SolarEquatorialCoordinates = ReturnType<typeof computeSolarEquatorialCoordinates>
-type Vec3 = readonly [number, number, number]
-
 const TEXTURE_SIZE = 256
 const TEXTURE_CENTER = TEXTURE_SIZE * 0.5
 const DEFAULT_DISC_RADIUS = 86
@@ -59,22 +54,7 @@ const SATURN_DISC_RADIUS = 52
 const SATURN_RING_INNER_RADIUS_SCALE = 1.24
 const SATURN_RING_OUTER_RADIUS_SCALE = 2.27
 const SATURN_MAX_RING_BRIGHTNESS_GAIN = Math.pow(10, -0.4 * (-1.35))
-
-const INNER_PLANET_PHASE_MODELS: Record<string, { readonly angularSizeArcsecAtOneAu: number; readonly orbitalRadiusAu: number }> = {
-  'sky-planet-mercury': {
-    angularSizeArcsecAtOneAu: 6.74,
-    orbitalRadiusAu: 0.387098,
-  },
-  'sky-planet-venus': {
-    angularSizeArcsecAtOneAu: 16.92,
-    orbitalRadiusAu: 0.72333,
-  },
-}
-
-const SATURN_POLE = {
-  rightAscensionDeg: 40.589,
-  declinationDeg: 83.537,
-}
+const PHASE_TEXTURE_PLANET_IDS = new Set(['sky-planet-mercury', 'sky-planet-venus'])
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -122,178 +102,59 @@ function toRgba(color: RgbColor, alpha: number) {
   return `rgba(${color.red}, ${color.green}, ${color.blue}, ${clamp01(alpha)})`
 }
 
-function dot(left: Vec3, right: Vec3) {
-  return left[0] * right[0] + left[1] * right[1] + left[2] * right[2]
-}
-
-function cross(left: Vec3, right: Vec3): Vec3 {
-  return [
-    left[1] * right[2] - left[2] * right[1],
-    left[2] * right[0] - left[0] * right[2],
-    left[0] * right[1] - left[1] * right[0],
-  ]
-}
-
-function vectorLength(vector: Vec3) {
-  return Math.hypot(vector[0], vector[1], vector[2])
-}
-
-function normalize(vector: Vec3): Vec3 {
-  const length = vectorLength(vector)
-
-  if (length <= 1e-6) {
-    return [0, 0, 0]
-  }
-
-  return [vector[0] / length, vector[1] / length, vector[2] / length]
-}
-
-function subtract(left: Vec3, right: Vec3): Vec3 {
-  return [left[0] - right[0], left[1] - right[1], left[2] - right[2]]
-}
-
-function scale(vector: Vec3, amount: number): Vec3 {
-  return [vector[0] * amount, vector[1] * amount, vector[2] * amount]
-}
-
-function vectorFromEquatorial(rightAscensionHours: number, declinationDeg: number): Vec3 {
-  const rightAscensionRad = degreesToRadians(rightAscensionHours * 15)
-  const declinationRad = degreesToRadians(declinationDeg)
-  const cosDeclination = Math.cos(declinationRad)
-
-  return [
-    Math.cos(rightAscensionRad) * cosDeclination,
-    Math.sin(rightAscensionRad) * cosDeclination,
-    Math.sin(declinationRad),
-  ]
-}
-
-function resolveTangentBasis(rightAscensionHours: number, declinationDeg: number) {
-  const rightAscensionRad = degreesToRadians(rightAscensionHours * 15)
-  const declinationRad = degreesToRadians(declinationDeg)
-
-  return {
-    east: normalize([-
-      Math.sin(rightAscensionRad),
-      Math.cos(rightAscensionRad),
-      0,
-    ]),
-    north: normalize([-
-      Math.cos(rightAscensionRad) * Math.sin(declinationRad),
-      -Math.sin(rightAscensionRad) * Math.sin(declinationRad),
-      Math.cos(declinationRad),
-    ]),
-  }
-}
-
-function resolveSolarCoordinates(timestampIso: string | undefined, cache: Map<string, SolarEquatorialCoordinates>) {
-  if (!timestampIso) {
-    return null
-  }
-
-  const cached = cache.get(timestampIso)
-  if (cached) {
-    return cached
-  }
-
-  const coordinates = computeSolarEquatorialCoordinates(timestampIso)
-  cache.set(timestampIso, coordinates)
-  return coordinates
-}
-
-function resolvePhaseVisualState(
-  entry: DirectProjectedObjectEntry,
-  solarCoordinateCache: Map<string, SolarEquatorialCoordinates>,
-): PhaseVisualState | null {
-  const phaseModel = INNER_PLANET_PHASE_MODELS[entry.object.id]
-
-  if (!phaseModel) {
+function resolvePhaseVisualState(entry: DirectProjectedObjectEntry): PhaseVisualState | null {
+  if (!PHASE_TEXTURE_PLANET_IDS.has(entry.object.id)) {
     return null
   }
 
   if (
-    entry.object.rightAscensionHours == null ||
-    entry.object.declinationDeg == null ||
-    entry.object.apparentSizeDeg == null ||
-    entry.object.apparentSizeDeg <= 0
+    entry.object.illuminationFraction == null ||
+    entry.object.phaseAngle == null ||
+    entry.object.brightLimbAngleDeg == null
   ) {
     return null
   }
 
-  const solarCoordinates = resolveSolarCoordinates(entry.object.timestampIso, solarCoordinateCache)
-
-  if (!solarCoordinates) {
-    return null
-  }
-
-  const apparentSizeArcsec = entry.object.apparentSizeDeg * 3600
-  const earthDistanceAu = phaseModel.angularSizeArcsecAtOneAu / apparentSizeArcsec
-  const cosinePhaseAngle = clamp(
-    (
-      phaseModel.orbitalRadiusAu * phaseModel.orbitalRadiusAu +
-      earthDistanceAu * earthDistanceAu -
-      1
-    ) / (2 * phaseModel.orbitalRadiusAu * earthDistanceAu),
-    -1,
-    1,
-  )
-  const illuminationFraction = clamp01((1 + cosinePhaseAngle) * 0.5)
-  const phaseAngleRad = Math.acos(cosinePhaseAngle)
-  const phaseSin = Math.sin(phaseAngleRad)
-  const planetVector = vectorFromEquatorial(entry.object.rightAscensionHours, entry.object.declinationDeg)
-  const sunVector = vectorFromEquatorial(solarCoordinates.rightAscensionHours, solarCoordinates.declinationDeg)
-  const tangentBasis = resolveTangentBasis(entry.object.rightAscensionHours, entry.object.declinationDeg)
-  const projectedSunVector = normalize(subtract(sunVector, scale(planetVector, dot(sunVector, planetVector))))
-  const brightLimbX = dot(projectedSunVector, tangentBasis.east)
-  const brightLimbY = dot(projectedSunVector, tangentBasis.north)
-  const brightLimbAngleDeg = radiansToDegrees(Math.atan2(brightLimbY, brightLimbX))
+  const phaseSin = Math.sin(entry.object.phaseAngle)
+  const brightLimbAngleRad = degreesToRadians(entry.object.brightLimbAngleDeg)
 
   return {
-    illuminationFraction,
-    brightLimbAngleDeg,
-    sunDirectionX: brightLimbX * phaseSin,
-    sunDirectionY: brightLimbY * phaseSin,
-    sunDirectionZ: cosinePhaseAngle,
+    illuminationFraction: entry.object.illuminationFraction,
+    sunDirectionX: Math.sin(brightLimbAngleRad) * phaseSin,
+    sunDirectionY: -Math.cos(brightLimbAngleRad) * phaseSin,
+    sunDirectionZ: Math.cos(entry.object.phaseAngle),
   }
 }
 
 function resolveSaturnVisualState(entry: DirectProjectedObjectEntry): SaturnVisualState | null {
-  if (entry.object.id !== 'sky-planet-saturn') {
+  if (
+    entry.object.id !== 'sky-planet-saturn' ||
+    entry.object.ringOpening == null ||
+    entry.object.ringTiltAngle == null ||
+    entry.object.ringBrightnessGain == null
+  ) {
     return null
   }
-
-  if (entry.object.rightAscensionHours == null || entry.object.declinationDeg == null) {
-    return null
-  }
-
-  const viewVector = vectorFromEquatorial(entry.object.rightAscensionHours, entry.object.declinationDeg)
-  const poleVector = vectorFromEquatorial(SATURN_POLE.rightAscensionDeg / 15, SATURN_POLE.declinationDeg)
-  const tangentBasis = resolveTangentBasis(entry.object.rightAscensionHours, entry.object.declinationDeg)
-  const ringMajorAxis = normalize(cross(poleVector, viewVector))
-  const ringOpening = Math.abs(dot(poleVector, viewVector))
-  const ringRotationRad = Math.atan2(dot(ringMajorAxis, tangentBasis.north), dot(ringMajorAxis, tangentBasis.east))
-  const ringMagnitudeDelta = (-2.6 + 1.25 * ringOpening) * ringOpening
 
   return {
-    ringOpening,
-    ringRotationRad,
-    ringBrightnessGain: Math.pow(10, -0.4 * ringMagnitudeDelta),
+    ringOpening: entry.object.ringOpening,
+    ringTiltAngle: entry.object.ringTiltAngle,
+    ringBrightnessGain: entry.object.ringBrightnessGain,
   }
 }
 
-function resolvePlanetVisualState(
-  entry: DirectProjectedObjectEntry,
-  solarCoordinateCache: Map<string, SolarEquatorialCoordinates>,
-): PlanetVisualState {
-  const phaseVisual = resolvePhaseVisualState(entry, solarCoordinateCache)
+function resolvePlanetVisualState(entry: DirectProjectedObjectEntry): PlanetVisualState {
+  const phaseVisual = resolvePhaseVisualState(entry)
   const saturnVisual = resolveSaturnVisualState(entry)
 
   return {
     phaseVisual,
     saturnVisual,
     textureSignature: [
-      phaseVisual ? `phase:${Math.round(phaseVisual.illuminationFraction * 1000)}:${Math.round(phaseVisual.brightLimbAngleDeg)}` : 'phase:none',
-      saturnVisual ? `saturn:${Math.round(saturnVisual.ringOpening * 1000)}:${Math.round(radiansToDegrees(saturnVisual.ringRotationRad))}` : 'saturn:none',
+      phaseVisual && entry.object.brightLimbAngleDeg != null
+        ? `phase:${Math.round(phaseVisual.illuminationFraction * 1000)}:${Math.round(entry.object.brightLimbAngleDeg)}`
+        : 'phase:none',
+      saturnVisual ? `saturn:${Math.round(saturnVisual.ringOpening * 1000)}:${Math.round(radiansToDegrees(saturnVisual.ringTiltAngle))}` : 'saturn:none',
     ].join(':'),
   }
 }
@@ -412,7 +273,7 @@ function drawSaturnRings(context: CanvasRenderingContext2D, color: RgbColor, sat
 
   context.save()
   context.translate(TEXTURE_CENTER, TEXTURE_CENTER)
-  context.rotate(saturnVisual.ringRotationRad)
+  context.rotate(saturnVisual.ringTiltAngle)
 
   const fill = context.createLinearGradient(-outerRadius, 0, outerRadius, 0)
   fill.addColorStop(0, toRgba(ringColor, 0.06 + ringBrightness * 0.12))
@@ -529,8 +390,6 @@ export function createPlanetRenderer(scene: Scene) {
       viewportHeight: number,
       selectedObjectId: string | null,
     ) {
-      const solarCoordinateCache = new Map<string, SolarEquatorialCoordinates>()
-
       if (projectedPlanets.length === 0 && entries.size === 0) {
         selectionRing.mesh.isVisible = false
         return
@@ -556,7 +415,7 @@ export function createPlanetRenderer(scene: Scene) {
       let selectedEntry: DirectProjectedObjectEntry | null = null
 
       projectedPlanets.forEach((projectedPlanet) => {
-        const visualState = resolvePlanetVisualState(projectedPlanet, solarCoordinateCache)
+        const visualState = resolvePlanetVisualState(projectedPlanet)
         let entry = entries.get(projectedPlanet.object.id)
 
         if (!entry) {

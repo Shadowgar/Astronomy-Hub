@@ -44,6 +44,35 @@ describe('planet ephemeris fidelity upgrade', () => {
     expect(Math.abs(earlyVenus.magnitude - laterVenus.magnitude)).toBeGreaterThan(0.01)
   })
 
+  it('surfaces renderer-driving planet visual inputs directly on scene objects', () => {
+    const planets = computePlanetSceneObjects(TEST_OBSERVER, '2026-04-12T03:00:00Z')
+    const mercury = planets.find((planet) => planet.id === 'sky-planet-mercury')
+    const venus = planets.find((planet) => planet.id === 'sky-planet-venus')
+    const saturn = planets.find((planet) => planet.id === 'sky-planet-saturn')
+
+    expect(mercury).toBeTruthy()
+    expect(venus).toBeTruthy()
+    expect(saturn).toBeTruthy()
+
+    expect(mercury?.illuminationFraction).toBeGreaterThan(0)
+    expect(mercury?.illuminationFraction).toBeLessThan(1)
+    expect(mercury?.phaseAngle).toBeGreaterThan(0)
+    expect(Number.isFinite(mercury?.brightLimbAngleDeg ?? Number.NaN)).toBe(true)
+    expect(Number.isFinite(mercury?.phaseMagnitudeAdjustment ?? Number.NaN)).toBe(true)
+
+    expect(venus?.illuminationFraction).toBeGreaterThan(0)
+    expect(venus?.illuminationFraction).toBeLessThan(1)
+    expect(venus?.phaseAngle).toBeGreaterThan(0)
+    expect(Number.isFinite(venus?.brightLimbAngleDeg ?? Number.NaN)).toBe(true)
+    expect(Number.isFinite(venus?.phaseMagnitudeAdjustment ?? Number.NaN)).toBe(true)
+
+    expect(saturn?.illuminationFraction).toBeGreaterThan(0)
+    expect(saturn?.phaseAngle).toBeGreaterThan(0)
+    expect(Number.isFinite(saturn?.ringOpening ?? Number.NaN)).toBe(true)
+    expect(Number.isFinite(saturn?.ringTiltAngle ?? Number.NaN)).toBe(true)
+    expect((saturn?.ringBrightnessGain ?? 0)).toBeGreaterThan(1)
+  })
+
   it('uses dynamic moon distance for apparent size and magnitude', () => {
     const near = computeMoonSceneObject(TEST_OBSERVER, '2026-01-03T03:00:00Z')
     const far = computeMoonSceneObject(TEST_OBSERVER, '2026-01-17T03:00:00Z')
