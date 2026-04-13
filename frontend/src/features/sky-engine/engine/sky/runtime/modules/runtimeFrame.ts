@@ -99,6 +99,8 @@ export interface SceneFrameStateWriteInput {
   backendStarCount: number
   canvas: HTMLCanvasElement
   objects: readonly SkyEngineSceneObject[]
+  dataMode: 'mock' | 'hipparcos' | 'gaia' | 'multi-survey' | 'loading'
+  sourceLabel: string
   selectedObjectId: string | null
   trajectoryObjectId: string | null
   visibleLabelIds: readonly string[]
@@ -150,7 +152,8 @@ interface PlanetRenderSizing {
 
 function getObjectOrderSignature(objects: readonly SkyEngineSceneObject[]) {
   const first = objects[0]?.id ?? 'none'
-  const last = objects.length > 0 ? objects[objects.length - 1]?.id ?? 'none' : 'none'
+  const [lastObject] = objects.slice(-1)
+  const last = lastObject?.id ?? 'none'
   return `${objects.length}:${first}:${last}`
 }
 
@@ -217,6 +220,8 @@ export function writeSceneState({
   backendStarCount,
   canvas,
   objects,
+  dataMode,
+  sourceLabel,
   selectedObjectId,
   trajectoryObjectId,
   visibleLabelIds,
@@ -231,6 +236,8 @@ export function writeSceneState({
   canvas.dataset.skyEngineSceneState = serializeSceneState({
     backendStarCount,
     objects,
+    dataMode,
+    sourceLabel,
     selectedObjectId,
     trajectoryObjectId,
     visibleLabelIds,
@@ -247,6 +254,8 @@ export function writeSceneState({
 export function serializeSceneState({
   backendStarCount,
   objects,
+  dataMode,
+  sourceLabel,
   selectedObjectId,
   trajectoryObjectId,
   visibleLabelIds,
@@ -269,6 +278,8 @@ export function serializeSceneState({
     moonObjectId: moonObject?.id ?? null,
     controlledLabelCount: visibleLabelIds.length,
     backendStarCount,
+    dataMode,
+    sourceLabel,
     labelCap,
     aidVisibility,
     currentFovDegrees,

@@ -94,6 +94,8 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
       const sceneStateJson = serializeSceneState({
         backendStarCount: latest.backendStars.length,
         objects: latest.objects,
+        dataMode: latest.scenePacket?.diagnostics?.dataMode ?? 'loading',
+        sourceLabel: latest.scenePacket?.diagnostics?.sourceLabel ?? 'Loading tiles…',
         selectedObjectId: latest.selectedObjectId,
         trajectoryObjectId: runtime.trajectoryObjectId,
         visibleLabelIds: runtime.visibleLabelIds,

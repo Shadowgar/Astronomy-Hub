@@ -20,6 +20,7 @@ import {
 
 const DEGREES_TO_RADIANS = Math.PI / 180
 const STELLARIUM_QUERY_TONEMAPPER_EXPOSURE = 2
+const HIPPARCOS_ONLY_LIMITING_MAGNITUDE_MAX = 6.5 - 0.001
 const PUBLIC_ROOT = join(process.cwd(), 'public')
 const ORIGINAL_FETCH = globalThis.fetch
 
@@ -104,13 +105,16 @@ function resolveQueryLimitingMagnitude(fovDegrees) {
     moonMagnitude: moonObject.magnitude,
   })
 
-  return resolveRepositoryQueryLimitingMagnitude('hipparcos', computeEffectiveLimitingMagnitude({
-    fovDegrees,
-    skyBrightness: baseline.skyBrightness,
-    tonemapperExposure: STELLARIUM_QUERY_TONEMAPPER_EXPOSURE,
-    tonemapperLwmax: resolveTonemapperLwmaxFromLuminance(baseline.zenithSkyLuminance),
-    viewportMinSizePx: 1085,
-  }))
+  return Math.min(
+    resolveRepositoryQueryLimitingMagnitude('hipparcos', computeEffectiveLimitingMagnitude({
+      fovDegrees,
+      skyBrightness: baseline.skyBrightness,
+      tonemapperExposure: STELLARIUM_QUERY_TONEMAPPER_EXPOSURE,
+      tonemapperLwmax: resolveTonemapperLwmaxFromLuminance(baseline.zenithSkyLuminance),
+      viewportMinSizePx: 1085,
+    })),
+    HIPPARCOS_ONLY_LIMITING_MAGNITUDE_MAX,
+  )
 }
 
 async function collectCountsForVegaCenter() {

@@ -73,3 +73,9 @@ Thumbs.db
 #study files
 /study
 /data/sky-engine/hipparcos/source/
+data/
+*.db
+*.fits
+*.csv
+gaia/
+catalog/

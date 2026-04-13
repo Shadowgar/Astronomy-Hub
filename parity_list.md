@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-13 (Port Block 6 fixed the blocking close-FOV star-packet collapse by keeping Hipparcos-mode queries below the Gaia activation threshold and preserving the last resolved scene packet while close-FOV tiles load; Docker frontend tests, typecheck, build, and fixed-FOV count regression pass)
+Last updated: 2026-04-13 (Port Block 7 removed the non-source supplemental Hipparcos handoff cap, added live `dataMode`/`sourceLabel` telemetry, and fixed Gaia fetch cache poisoning with throttled remote tile loading; required Docker frontend tests, typecheck, and build pass, but the live scene packet still remains on the stale Hipparcos packet after Gaia requests begin)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -24,7 +24,7 @@ Purpose:
 |---|---|---|---|---|---|---|
 | core / tonemapper / skybrightness | `src/core.c`, `src/tonemapper.c`, `src/skybrightness.c`, `src/navigation.c` | `skyBrightness.ts`, `starRenderer.ts`, `engine/sky/core/stellariumVisualMath.ts`, `engine/sky/runtime/luminanceReport.ts`, `SkyBrightnessExposureModule.ts`, `observerNavigation.ts` | strong partial port | navigation easing and some runtime presentation policy remain local; core point/luminance/adaptation chain now routes through shared Stellarium math | Keep shared physical input chain; replace remaining non-source presentation policy; delete any duplicated math that reappears | Validate runtime visuals against live Stellarium at wide FOV and close any remaining adaptation/background deltas |
 | stars | `src/modules/stars.c`, `src/core.c` | `StarsModule.ts`, `runtimeFrame.ts`, `directStarLayer.ts`, `starRenderer.ts` | near parity | deepest zoom is now bounded by the currently shipped authoritative asset pack rather than a local tile/tier gate | Keep strict scene-packet traversal and core point chain; replace remaining deep-zoom data ceiling only | Add the next real survey asset layer and revalidate live Stellarium density at deep zoom |
-| star surveys / sequencing | `src/modules/stars.c`, `src/eph-file.c`, `src/eph-file.h`, `src/algos/healpix.c`, `src/hips.c` | `engine/sky/adapters/fileTileRepository.ts`, `engine/sky/adapters/ephCodec.ts`, `engine/sky/adapters/healpix.ts`, `sceneAssembler.ts`, `SkyEngineScene.tsx`, `backendTileRegistry.ts`, `engine/sky/core/tileIndex.ts`, `engine/sky/core/tileSelection.ts` | strong partial port | runtime now combines local Hipparcos assets with local mirrored Gaia HiPS tiles, but live Stellarium side-by-side density and exact HiPS overlap traversal are not yet proven | Keep ordered file-backed sequencing and real Gaia ingestion; replace remaining overlap/traversal approximations only if checkpoint evidence demands it; delete any reintroduced fallback branches | Run explicit live deep-zoom density checkpoints against Stellarium with Gaia active and reconcile any residual tile-selection delta |
+| star surveys / sequencing | `src/modules/stars.c`, `src/eph-file.c`, `src/eph-file.h`, `src/algos/healpix.c`, `src/hips.c` | `engine/sky/adapters/fileTileRepository.ts`, `engine/sky/adapters/ephCodec.ts`, `engine/sky/adapters/healpix.ts`, `sceneAssembler.ts`, `SkyEngineScene.tsx`, `backendTileRegistry.ts`, `engine/sky/core/tileIndex.ts`, `engine/sky/core/tileSelection.ts` | strong partial port | source-backed Gaia activation now begins once the Hipparcos ceiling is crossed, and transient Gaia fetch failures no longer poison the cache, but the live runtime still keeps the stale Hipparcos packet after Gaia requests complete | Keep ordered file-backed sequencing, real Gaia ingestion, and fetch recovery; replace the remaining live query-resolution blocker only; delete any reintroduced fallback branches | Trace why the resolved multi-survey load is not replacing the stale Hipparcos packet once Gaia tile requests finish, then re-run live Stellarium density checkpoints |
 | hints / label limiting magnitude | `src/core.c`, `src/modules/labels.c`, `src/modules/stars.c`, `src/modules/planets.c` | `labelManager.ts`, `directOverlayLayer.ts`, `runtimeFrame.ts` | heuristic | fixed label caps and local admissions instead of `hints_limit_mag` chain | Keep overlap/layout mechanics; replace admission rules; delete fixed caps | Port hint limiting-magnitude eligibility from Stellarium modules |
 | planets | `src/modules/planets.c`, `src/core.c`, `src/navigation.c`, `src/tonemapper.c` | `astronomy.ts`, `runtimeFrame.ts`, `PlanetRenderer.ts`, `PlanetRuntimeModule.ts` | strong partial port | live Stellarium side-by-side threshold parity still unproven; horizon fade bypass still active globally | Keep ephemeris object feed; replace remaining non-source visibility/presentation paths | Validate/align any remaining `planet_render` threshold deltas against live Stellarium checkpoints |
 | planet zoom chain | `src/modules/planets.c` (`planet_render`, `get_artificial_scale`), `src/core.c` (`core_get_point_for_mag*`, `core_get_apparent_angle_for_point`), `src/navigation.c` | `runtimeFrame.ts`, `PlanetRenderer.ts`, `ObjectRuntimeModule.ts`, `directObjectLayer.ts`, `observerNavigation.ts` | partial port | no live side-by-side confirmation yet; additional tonemapper parity validation still needed | Keep single transition chain now in runtime frame; replace residual non-source alpha/visibility behavior if discovered | Run explicit Jupiter+Moon checkpoint validation against live Stellarium and close residual deltas |
@@ -74,10 +74,46 @@ Purpose:
 9. Missing subsystems: satellites full parity, minor planets, comets, meteors, DSS.
 
 ## Biggest Missing Behavior
-- The runtime now reaches real Gaia HiPS data, but the exact deep-zoom density and HiPS overlap traversal have not yet been checkpointed side-by-side against live Stellarium.
+- The live runtime still does not promote from the stale Hipparcos packet to a resolved multi-survey packet after Gaia tile loading begins, so exact Gaia-backed density parity cannot yet be proven side-by-side against Stellarium.
 
 ## Recommended Next Bounded Slice
-- Run live Stellarium deep-zoom checkpoint comparisons with Gaia active, then only adjust the local HiPS pixel-overlap/traversal logic if the evidence shows a residual sequencing delta before moving on to hints/labels parity.
+- Trace the unresolved live scene-packet handoff after Gaia requests begin, make the multi-survey packet win once the local Gaia load resolves, then re-run live Stellarium deep-zoom checkpoints before moving on to hints/labels parity.
+
+## Port Block 7 (Executed, not yet complete)
+### Wide-FOV Star Admission + Multi-Survey Activation Parity
+
+Stellarium authority files:
+- `src/core.c`
+- `src/modules/stars.c`
+- related HiPS survey registration behavior under `src/hips.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/SceneReportingModule.ts`
+- `frontend/tests/test_file_backed_tile_repository.test.js`
+- `frontend/tests/test_close_fov_star_counts.test.js`
+
+Explicit local logic deleted in this block:
+1. non-source supplemental Hipparcos survey activation from `6.0` to `8.5` inside the active multi-survey repository.
+2. permanent cache poisoning after transient Gaia tile fetch failures.
+3. unthrottled Gaia remote tile fan-out that made browser-side resource failure easier to trigger.
+
+Live checkpoint evidence:
+1. startup daytime wide view: `dataMode = hipparcos`, `sourceLabel = Hipparcos · 8,870 stars`, `0 rendered stars`, limiting magnitude below daytime visibility floor.
+2. night wide view after fix: `120°`, `dataMode = hipparcos`, `sourceLabel = Hipparcos · 8,870 stars`, `488 rendered stars`, limiting magnitude `4.671875`.
+3. night medium view after fix: `35.0°`, `dataMode = hipparcos`, `sourceLabel = Hipparcos · 8,870 stars`, `254 rendered stars`, limiting magnitude `7.9375`, Gaia resource entries `46`.
+4. night close view after fix: `18.9°`, `dataMode = hipparcos`, `sourceLabel = Hipparcos · 8,870 stars`, `106 rendered stars`, limiting magnitude `9.28125`, Gaia resource entries still `46`.
+
+Interpretation:
+- The Stellarium-backed Gaia handoff threshold is now active because Gaia requests begin once the Hipparcos ceiling is crossed.
+- The browser no longer reports the earlier cached failure collapse, but the live scene packet still does not flip to `multi-survey` after Gaia loading begins.
+- The remaining blocker is now the unresolved live handoff from Gaia tile loading to resolved scene-packet adoption, not the old survey activation ceiling.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub && docker compose exec frontend npm run test -- tests/test_scene_query_state.test.js tests/test_file_backed_tile_repository.test.js tests/test_close_fov_star_counts.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub && docker compose exec frontend npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub && docker compose exec frontend npm run build`: pass
 
 ## Port Block 1 (Executed)
 ### Planet Zoom Chain Parity

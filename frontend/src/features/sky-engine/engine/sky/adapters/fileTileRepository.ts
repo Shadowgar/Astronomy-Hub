@@ -9,24 +9,21 @@ import type {
 } from '../contracts/tiles'
 import type { RuntimeStar } from '../contracts/stars'
 import { getSkyTileDescriptor } from '../core/tileIndex'
-import { resolveSkyRuntimeTierForMagnitude, SKY_TILE_LEVEL_MAG_MAX } from '../core/magnitudePolicy'
+import { SKY_TILE_LEVEL_MAG_MAX } from '../core/magnitudePolicy'
 import { buildHipsTilePath, decodeEphTile, parseSurveyProperties, type SurveyProperties } from './ephCodec'
 import { healpixAngToPix, healpixPixToRaDec } from './healpix'
 
 const DEFAULT_MANIFEST_PATH = '/sky-engine-assets/catalog/hipparcos/manifest.json'
-const SUPPLEMENTAL_SURVEY_PATH = '/sky-engine-assets/catalog/hipparcos/hipparcos_tier2_subset.json'
 const GAIA_SURVEY_BASE_PATH = '/sky-engine-assets/catalog/gaia'
 const GAIA_MIRROR_MANIFEST_PATH = `${GAIA_SURVEY_BASE_PATH}/mirror-manifest.json`
 const STELLARIUM_MAX_RENDER_ORDER = 9
+const GAIA_REMOTE_FETCH_CONCURRENCY = 6
 
-const SUPPLEMENTAL_SURVEY_KEY = 'hipparcos-tier2-subset'
 const HIPPARCOS_SURVEY_KEY = 'hipparcos'
 const GAIA_SURVEY_KEY = 'gaia'
 
 const HIPPARCOS_MIN_MAG = -2
 const HIPPARCOS_MAX_MAG = 6.5
-const SUPPLEMENTAL_MIN_MAG = 6
-const SUPPLEMENTAL_MAX_MAG = 8.5
 
 type RuntimeSurveyDefinition = {
   key: string
@@ -35,21 +32,6 @@ type RuntimeSurveyDefinition = {
   maxVmag: number
   sourceRecordCount?: number
   loadTile: (tileId: string, query: SkyEngineQuery) => Promise<SkyTilePayload | null>
-}
-
-type SupplementalRawStar = {
-  id?: string
-  name?: string
-  right_ascension?: number
-  declination?: number
-  magnitude?: number
-  color_index?: number
-}
-
-type SupplementalSurveyCache = {
-  sourceRecordCount: number
-  starsByTileId: Map<string, RuntimeStar[]>
-  tileCache: Map<string, SkyTilePayload | null>
 }
 
 type GaiaSurveyCache = {
@@ -67,6 +49,37 @@ type GaiaMirrorManifest = {
   sourceUrl: string
   totalTileCount: number
   tileCountByOrder: Record<string, number>
+}
+
+function createPromiseQueue(maxConcurrent: number) {
+  const pending: Array<() => void> = []
+  let activeCount = 0
+
+  function complete() {
+    activeCount = Math.max(0, activeCount - 1)
+    const next = pending.shift()
+    next?.()
+  }
+
+  function enqueue<T>(task: () => Promise<T>) {
+    return new Promise<T>((resolve, reject) => {
+      const start = () => {
+        activeCount += 1
+        void task()
+          .then(resolve, reject)
+          .finally(complete)
+      }
+
+      if (activeCount < maxConcurrent) {
+        start()
+        return
+      }
+
+      pending.push(start)
+    })
+  }
+
+  return { enqueue }
 }
 
 function normalizeManifestDirectory(manifestPath: string) {
@@ -94,7 +107,7 @@ function joinAssetPath(basePath: string, assetPath: string) {
 }
 
 function resolveMagnitudeBand(level: number) {
-  const deepestResolvedMax = SKY_TILE_LEVEL_MAG_MAX[SKY_TILE_LEVEL_MAG_MAX.length - 1] ?? SKY_TILE_LEVEL_MAG_MAX[0]
+  const [deepestResolvedMax = SKY_TILE_LEVEL_MAG_MAX[0]] = SKY_TILE_LEVEL_MAG_MAX.slice(-1)
   const resolvedMax = SKY_TILE_LEVEL_MAG_MAX[level] ?? deepestResolvedMax
 
   if (level <= 1) {
@@ -190,96 +203,6 @@ function buildEmptyTilePayload(tileId: string, manifest: SkyTileAssetManifest): 
       generatedAt: manifest.generatedAt,
       sourceRecordCount: manifest.sourceRecordCount,
       tierSet: [],
-    },
-  }
-}
-
-function normalizeSupplementalStar(rawStar: SupplementalRawStar): RuntimeStar | null {
-  const id = rawStar.id
-  const rightAscensionHours = Number(rawStar.right_ascension)
-  const declinationDeg = Number(rawStar.declination)
-  const magnitude = Number(rawStar.magnitude)
-
-  if (
-    !id ||
-    !Number.isFinite(rightAscensionHours) ||
-    !Number.isFinite(declinationDeg) ||
-    !Number.isFinite(magnitude)
-  ) {
-    return null
-  }
-
-  const normalizedId = String(id).trim()
-  const hipNumber = normalizedId.startsWith('hip-') ? normalizedId.slice(4) : normalizedId
-  const normalizedName = rawStar.name?.trim()
-  const properName = normalizedName && !/^HIP\s+\d+$/i.test(normalizedName) ? normalizedName : undefined
-
-  return {
-    id: normalizedId,
-    sourceId: `HIP ${hipNumber}`,
-    raDeg: rightAscensionHours * 15,
-    decDeg: declinationDeg,
-    mag: magnitude,
-    colorIndex: Number.isFinite(Number(rawStar.color_index)) ? Number(rawStar.color_index) : undefined,
-    tier: resolveSkyRuntimeTierForMagnitude(magnitude),
-    properName,
-    catalog: 'hipparcos',
-  }
-}
-
-function buildSupplementalTileIndex(stars: readonly RuntimeStar[]) {
-  const starsByTileId = new Map<string, RuntimeStar[]>()
-
-  stars.forEach((star) => {
-    let tileId: string | null = resolveRootTileId(star.raDeg, star.decDeg)
-
-    while (tileId) {
-      const tileStars = starsByTileId.get(tileId)
-
-      if (tileStars) {
-        tileStars.push(star)
-      } else {
-        starsByTileId.set(tileId, [star])
-      }
-
-      tileId = chooseChildTileId(tileId, star.raDeg, star.decDeg)
-    }
-  })
-
-  return starsByTileId
-}
-
-function buildSupplementalTilePayload(
-  tileId: string,
-  starsByTileId: ReadonlyMap<string, readonly RuntimeStar[]>,
-): SkyTilePayload | null {
-  const descriptor = getSkyTileDescriptor(tileId)
-
-  if (!descriptor) {
-    return null
-  }
-
-  const stars = [...(starsByTileId.get(tileId) ?? [])]
-  const magnitudeBand = resolveMagnitudeBand(descriptor.level)
-  const magMin = stars.length > 0 ? stars.reduce((minimum, star) => Math.min(minimum, star.mag), Number.POSITIVE_INFINITY) : magnitudeBand.magMin
-  const magMax = stars.length > 0 ? stars.reduce((maximum, star) => Math.max(maximum, star.mag), Number.NEGATIVE_INFINITY) : magnitudeBand.magMax
-
-  return {
-    tileId: descriptor.tileId,
-    level: descriptor.level,
-    parentTileId: descriptor.parentTileId,
-    childTileIds: [...descriptor.childTileIds],
-    bounds: { ...descriptor.bounds },
-    magMin,
-    magMax,
-    starCount: stars.length,
-    stars,
-    labelCandidates: [],
-    provenance: {
-      catalog: 'hipparcos',
-      sourcePath: SUPPLEMENTAL_SURVEY_PATH,
-      generator: 'frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts',
-      tierSet: ['T1', 'T2'],
     },
   }
 }
@@ -429,8 +352,8 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
   const manifestDirectory = normalizeManifestDirectory(manifestPath)
   let manifestPromise: Promise<SkyTileAssetManifest> | null = null
   const tileCache = new Map<string, Promise<SkyTilePayload | null>>()
-  let supplementalSurveyPromise: Promise<SupplementalSurveyCache> | null = null
   let gaiaSurveyPromise: Promise<GaiaSurveyCache> | null = null
+  const gaiaRemoteFetchQueue = createPromiseQueue(GAIA_REMOTE_FETCH_CONCURRENCY)
 
   function loadManifest() {
     manifestPromise ??= fetchJson<SkyTileAssetManifest>(manifestPath)
@@ -454,35 +377,12 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
 
     const tilePromise = fetchJson<SkyTilePayload>(joinAssetPath(manifestDirectory, tileEntry.path))
       .catch((error) => {
+        tileCache.delete(tileId)
         throw new Error(`Failed to load tile ${tileId}: ${error instanceof Error ? error.message : String(error)}`)
       })
 
     tileCache.set(tileId, tilePromise)
     return tilePromise
-  }
-
-  function loadSupplementalSurvey() {
-    supplementalSurveyPromise ??= fetchJson<SupplementalRawStar[]>(SUPPLEMENTAL_SURVEY_PATH)
-      .then((rawStars) => rawStars.map(normalizeSupplementalStar).filter((star): star is RuntimeStar => star != null))
-      .then((stars) => ({
-        sourceRecordCount: stars.length,
-        starsByTileId: buildSupplementalTileIndex(stars),
-        tileCache: new Map<string, SkyTilePayload | null>(),
-      }))
-    return supplementalSurveyPromise
-  }
-
-  async function loadSupplementalTile(tileId: string) {
-    const supplementalSurvey = await loadSupplementalSurvey()
-    const cachedTile = supplementalSurvey.tileCache.get(tileId)
-
-    if (cachedTile !== undefined) {
-      return cachedTile
-    }
-
-    const tilePayload = buildSupplementalTilePayload(tileId, supplementalSurvey.starsByTileId)
-    supplementalSurvey.tileCache.set(tileId, tilePayload)
-    return tilePayload
   }
 
   function loadGaiaSurvey() {
@@ -518,7 +418,10 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
       return cachedTile
     }
 
-    const tilePromise = fetchBinary(buildHipsTilePath(GAIA_SURVEY_BASE_PATH, order, pix, 'eph'), { allowNotFound: true })
+    const tilePromise = gaiaRemoteFetchQueue.enqueue(() => fetchBinary(
+      buildHipsTilePath(GAIA_SURVEY_BASE_PATH, order, pix, 'eph'),
+      { allowNotFound: true },
+    ))
       .then(async (buffer) => {
         if (buffer == null) {
           return [] as const
@@ -530,6 +433,10 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
         })
 
         return decodedTile.stars
+      })
+      .catch((error) => {
+        gaiaSurvey.remoteTileCache.delete(cacheKey)
+        throw error
       })
     gaiaSurvey.remoteTileCache.set(cacheKey, tilePromise)
     return tilePromise
@@ -579,7 +486,10 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
           tierSet: Array.from(new Set(stars.map((star) => star.tier))),
         },
       } satisfies SkyTilePayload
-    })()
+    })().catch((error) => {
+      gaiaSurvey.localTileCache.delete(cacheKey)
+      throw error
+    })
 
     gaiaSurvey.localTileCache.set(cacheKey, tilePromise)
     return tilePromise
@@ -596,19 +506,6 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
         sourceRecordCount: manifest.sourceRecordCount,
         loadTile: (tileId) => loadTile(tileId, manifest),
       }]
-
-      if (query.limitingMagnitude >= SUPPLEMENTAL_MIN_MAG) {
-        const supplementalSurvey = await loadSupplementalSurvey()
-
-        surveys.push({
-          key: SUPPLEMENTAL_SURVEY_KEY,
-          catalog: 'hipparcos',
-          minVmag: SUPPLEMENTAL_MIN_MAG,
-          maxVmag: SUPPLEMENTAL_MAX_MAG,
-          sourceRecordCount: supplementalSurvey.sourceRecordCount,
-          loadTile: (tileId) => loadSupplementalTile(tileId),
-        })
-      }
 
       let sourceError: string | null = null
       const gaiaMinVmag = surveys.reduce((minimumMagnitude, survey) => (
