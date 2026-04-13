@@ -1,5 +1,13 @@
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture'
 
+import {
+  coreGetPointForMagnitude,
+  STELLARIUM_DEFAULT_SCREEN_SIZE_PX,
+  STELLARIUM_MIN_POINT_RADIUS_PX,
+  STELLARIUM_TONEMAPPER_EXPOSURE,
+  STELLARIUM_TONEMAPPER_LWMAX_MIN,
+  STELLARIUM_TONEMAPPER_P,
+} from './engine/sky/core/stellariumVisualMath'
 import type { SkyBrightnessExposureState } from './engine/sky/runtime/types'
 import type { SkyEngineSceneObject, SkyEngineVisualCalibration } from './types'
 
@@ -22,23 +30,10 @@ export interface StellariumPointVisual {
   readonly luminance: number
 }
 
-const ARCSECONDS_PER_RADIAN = (180 / Math.PI) * 3600
-const DEGREES_TO_RADIANS = Math.PI / 180
-const STELLARIUM_FOV_EYE_RADIANS = 60 * DEGREES_TO_RADIANS
-const STELLARIUM_POINT_SPREAD_RADIUS_RAD = (2.5 / 60) * (Math.PI / 180)
-const STELLARIUM_MIN_POINT_AREA_SR = Math.PI * STELLARIUM_POINT_SPREAD_RADIUS_RAD * STELLARIUM_POINT_SPREAD_RADIUS_RAD
-const STELLARIUM_STAR_LINEAR_SCALE = 0.8
-const STELLARIUM_STAR_RELATIVE_SCALE = 1.1
 const STELLARIUM_MAX_POINT_RADIUS_PX = 50
-const STELLARIUM_MIN_POINT_RADIUS_PX = 0.6
-const STELLARIUM_SKIP_POINT_RADIUS_PX = 0.25
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
-}
-
-function exp10(value: number) {
-  return Math.exp(value * Math.log(10))
 }
 
 function mixChannel(left: number, right: number, amount: number) {
@@ -80,52 +75,20 @@ export function resolveStarColorHex(colorIndexBV = 0.65) {
   return `#${toHex(red)}${toHex(green)}${toHex(blue)}`
 }
 
-function tonemapperMap(lw: number, p: number, lwmax: number, exposure: number) {
-  return (Math.log(1 + p * lw) / Math.log(1 + p * lwmax)) * exposure
-}
-
-function getMagnitudeIlluminance(magnitude: number) {
-  return 10.7646e4 / (ARCSECONDS_PER_RADIAN * ARCSECONDS_PER_RADIAN) * exp10(-0.4 * magnitude)
-}
-
 function getSceneResponseWeight(state: SkyBrightnessExposureState | undefined) {
   if (!state) {
     return {
-      sceneContrast: 1,
-      tonemapperP: 2.2,
-      tonemapperExposure: 2,
-      tonemapperLwmax: 0.052,
+      tonemapperP: STELLARIUM_TONEMAPPER_P,
+      tonemapperExposure: STELLARIUM_TONEMAPPER_EXPOSURE,
+      tonemapperLwmax: STELLARIUM_TONEMAPPER_LWMAX_MIN,
     }
   }
 
   return {
-    sceneContrast: clamp(state.sceneContrast, 0.46, 1.08),
     tonemapperP: clamp(state.tonemapperP, 0.8, 4),
     tonemapperExposure: clamp(state.tonemapperExposure, 0.8, 2.2),
-    tonemapperLwmax: clamp(state.tonemapperLwmax, 0.052, 5000),
+    tonemapperLwmax: clamp(state.tonemapperLwmax, STELLARIUM_TONEMAPPER_LWMAX_MIN, 5000),
   }
-}
-
-function getScreenScaleFactor(screenSizePx: number) {
-  return clamp(screenSizePx / 600, 0.7, 1.5)
-}
-
-function getTelescopeState(fovDegrees: number) {
-  const fovRad = clamp(fovDegrees, 0.25, 180) * DEGREES_TO_RADIANS
-  const magnification = STELLARIUM_FOV_EYE_RADIANS / fovRad
-  const exposure = Math.pow(Math.max(1, (5 * DEGREES_TO_RADIANS) / fovRad), 0.07)
-  const lightGrasp = Math.max(0.4, magnification * magnification * exposure)
-
-  return {
-    magnification,
-    lightGrasp,
-    gainMagnitude: 2.5 * Math.log10(lightGrasp),
-  }
-}
-
-function getApparentLuminanceForMagnitude(magnitude: number, fovDegrees: number) {
-  const telescope = getTelescopeState(fovDegrees)
-  return getMagnitudeIlluminance(clamp(magnitude - telescope.gainMagnitude, -192, 64)) / STELLARIUM_MIN_POINT_AREA_SR
 }
 
 export function computeStellariumPointVisual(
@@ -135,45 +98,18 @@ export function computeStellariumPointVisual(
   fovDegrees = 60,
 ): StellariumPointVisual {
   const response = getSceneResponseWeight(brightnessExposureState)
-  const apparentLuminance = getApparentLuminanceForMagnitude(magnitude, fovDegrees)
-  let displayLuminance = tonemapperMap(
-    apparentLuminance,
-    response.tonemapperP,
-    response.tonemapperLwmax,
-    response.tonemapperExposure,
-  )
-
-  if (displayLuminance < 0) {
-    displayLuminance = 0
-  }
-
-  const screenFactor = getScreenScaleFactor(screenSizePx)
-  const radiusUnclamped = STELLARIUM_STAR_LINEAR_SCALE * screenFactor * Math.pow(displayLuminance, STELLARIUM_STAR_RELATIVE_SCALE / 2)
-
-  if (radiusUnclamped < STELLARIUM_SKIP_POINT_RADIUS_PX) {
-    return {
-      visible: false,
-      radiusPx: 0,
-      luminance: 0,
-    }
-  }
-
-  let radiusPx = radiusUnclamped
-
-  if (radiusPx < STELLARIUM_MIN_POINT_RADIUS_PX) {
-    const fadeAmount = clamp(
-      (radiusPx - STELLARIUM_SKIP_POINT_RADIUS_PX) / (STELLARIUM_MIN_POINT_RADIUS_PX - STELLARIUM_SKIP_POINT_RADIUS_PX),
-      0,
-      1,
-    )
-    displayLuminance *= fadeAmount * fadeAmount
-    radiusPx = STELLARIUM_MIN_POINT_RADIUS_PX
-  }
+  const point = coreGetPointForMagnitude(magnitude, fovDegrees, {
+    p: response.tonemapperP,
+    exposure: response.tonemapperExposure,
+    lwmax: response.tonemapperLwmax,
+  }, {
+    screenSizePx: screenSizePx || STELLARIUM_DEFAULT_SCREEN_SIZE_PX,
+  })
 
   return {
-    visible: true,
-    radiusPx: Math.min(radiusPx, STELLARIUM_MAX_POINT_RADIUS_PX),
-    luminance: clamp(Math.pow(displayLuminance, 1 / 2.2), 0, 1),
+    visible: point.visible,
+    radiusPx: Math.min(point.radiusPx, STELLARIUM_MAX_POINT_RADIUS_PX),
+    luminance: point.luminance,
   }
 }
 

@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-13 (Multi-survey Gaia/HiPS ingestion block implemented with local Gaia mirror assets; HiPS EPH decoding, bounded local mirror seeding, and ordered Hipparcos→Gaia survey handoff added; frontend typecheck/build and targeted runtime tests pass)
+Last updated: 2026-04-13 (Port Block 5 landed shared Stellarium visual math, core luminance contributor reporting, and tonemapper-driven adaptation; local Gaia mirror assets remain active; frontend targeted parity tests, typecheck, and build pass)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -22,9 +22,9 @@ Purpose:
 ## Corrected Parity Matrix (active runtime only)
 | Category | Stellarium source file(s) | Astronomy Hub active file(s) | Status | Still fake locally | Keep / Replace / Delete | Exact next direct port task |
 |---|---|---|---|---|---|---|
-| core / tonemapper / skybrightness | `src/core.c`, `src/tonemapper.c`, `src/skybrightness.c`, `src/navigation.c` | `skyBrightness.ts`, `starRenderer.ts`, `engine/sky/runtime/luminanceReport.ts`, `SkyBrightnessExposureModule.ts`, `observerNavigation.ts` | strong partial port | mixed local response curves and navigation easing not fully source-locked | Keep physical input chain; replace response math; delete non-source transition surrogates | Port one shared Stellarium-equivalent core math utility used by stars and planets |
+| core / tonemapper / skybrightness | `src/core.c`, `src/tonemapper.c`, `src/skybrightness.c`, `src/navigation.c` | `skyBrightness.ts`, `starRenderer.ts`, `engine/sky/core/stellariumVisualMath.ts`, `engine/sky/runtime/luminanceReport.ts`, `SkyBrightnessExposureModule.ts`, `observerNavigation.ts` | strong partial port | navigation easing and some runtime presentation policy remain local; core point/luminance/adaptation chain now routes through shared Stellarium math | Keep shared physical input chain; replace remaining non-source presentation policy; delete any duplicated math that reappears | Validate runtime visuals against live Stellarium at wide FOV and close any remaining adaptation/background deltas |
 | stars | `src/modules/stars.c`, `src/core.c` | `StarsModule.ts`, `runtimeFrame.ts`, `directStarLayer.ts`, `starRenderer.ts` | near parity | deepest zoom is now bounded by the currently shipped authoritative asset pack rather than a local tile/tier gate | Keep strict scene-packet traversal and core point chain; replace remaining deep-zoom data ceiling only | Add the next real survey asset layer and revalidate live Stellarium density at deep zoom |
-| star surveys / sequencing | `src/modules/stars.c`, `src/eph-file.c`, `src/eph-file.h`, `src/algos/healpix.c`, `src/hips.c` | `engine/sky/adapters/fileTileRepository.ts`, `engine/sky/adapters/ephCodec.ts`, `engine/sky/adapters/healpix.ts`, `sceneAssembler.ts`, `SkyEngineScene.tsx`, `backendTileRegistry.ts`, `engine/sky/core/tileIndex.ts`, `engine/sky/core/tileSelection.ts` | strong partial port | runtime now combines local Hipparcos assets with proxied Gaia HiPS tiles, but live Stellarium side-by-side density and exact HiPS overlap traversal are not yet proven | Keep ordered file-backed sequencing and real Gaia ingestion; replace remaining overlap/traversal approximations only if checkpoint evidence demands it; delete any reintroduced fallback branches | Run explicit live deep-zoom density checkpoints against Stellarium with Gaia active and reconcile any residual tile-selection delta |
+| star surveys / sequencing | `src/modules/stars.c`, `src/eph-file.c`, `src/eph-file.h`, `src/algos/healpix.c`, `src/hips.c` | `engine/sky/adapters/fileTileRepository.ts`, `engine/sky/adapters/ephCodec.ts`, `engine/sky/adapters/healpix.ts`, `sceneAssembler.ts`, `SkyEngineScene.tsx`, `backendTileRegistry.ts`, `engine/sky/core/tileIndex.ts`, `engine/sky/core/tileSelection.ts` | strong partial port | runtime now combines local Hipparcos assets with local mirrored Gaia HiPS tiles, but live Stellarium side-by-side density and exact HiPS overlap traversal are not yet proven | Keep ordered file-backed sequencing and real Gaia ingestion; replace remaining overlap/traversal approximations only if checkpoint evidence demands it; delete any reintroduced fallback branches | Run explicit live deep-zoom density checkpoints against Stellarium with Gaia active and reconcile any residual tile-selection delta |
 | hints / label limiting magnitude | `src/core.c`, `src/modules/labels.c`, `src/modules/stars.c`, `src/modules/planets.c` | `labelManager.ts`, `directOverlayLayer.ts`, `runtimeFrame.ts` | heuristic | fixed label caps and local admissions instead of `hints_limit_mag` chain | Keep overlap/layout mechanics; replace admission rules; delete fixed caps | Port hint limiting-magnitude eligibility from Stellarium modules |
 | planets | `src/modules/planets.c`, `src/core.c`, `src/navigation.c`, `src/tonemapper.c` | `astronomy.ts`, `runtimeFrame.ts`, `PlanetRenderer.ts`, `PlanetRuntimeModule.ts` | strong partial port | live Stellarium side-by-side threshold parity still unproven; horizon fade bypass still active globally | Keep ephemeris object feed; replace remaining non-source visibility/presentation paths | Validate/align any remaining `planet_render` threshold deltas against live Stellarium checkpoints |
 | planet zoom chain | `src/modules/planets.c` (`planet_render`, `get_artificial_scale`), `src/core.c` (`core_get_point_for_mag*`, `core_get_apparent_angle_for_point`), `src/navigation.c` | `runtimeFrame.ts`, `PlanetRenderer.ts`, `ObjectRuntimeModule.ts`, `directObjectLayer.ts`, `observerNavigation.ts` | partial port | no live side-by-side confirmation yet; additional tonemapper parity validation still needed | Keep single transition chain now in runtime frame; replace residual non-source alpha/visibility behavior if discovered | Run explicit Jupiter+Moon checkpoint validation against live Stellarium and close residual deltas |
@@ -34,7 +34,7 @@ Purpose:
 | constellations | `src/modules/constellations.c` | `constellations.ts`, `directOverlayLayer.ts` | strong partial port | local presentation policy not fully source-equivalent | Keep culture-driven geometry flow; replace policy differences | Port constellation visibility/policy coupling from Stellarium module behavior |
 | skycultures | `src/skyculture.c`, `src/modules/skycultures.c` | `skycultures/**`, `constellations.ts`, `SkyEngineScene.tsx` | strong partial port | runtime coupling rules still simplified | Keep data loading and switching foundation; replace behavior coupling | Align culture activation/fallback behavior to Stellarium flow |
 | overlays / grids | `src/modules/coordinates.c`, `src/modules/labels.c` | `OverlayRuntimeModule.ts`, `directOverlayLayer.ts` | heuristic | cadence throttling thresholds govern relayout timing | Keep overlay pipeline; replace cadence heuristics with deterministic invalidation | Remove fixed relayout thresholds and use projection/state driven updates |
-| atmosphere | `src/modules/atmosphere.c`, `src/skybrightness.c` | `AtmosphereModule.ts`, `directBackgroundLayer.ts`, `SkyBrightnessExposureModule.ts` | partial port | local exposure/contrast calibrations not fully source-locked | Keep module ownership and frame sync; replace coupling formulas | Align atmosphere response chain to Stellarium skybrightness/tonemapper behavior |
+| atmosphere | `src/modules/atmosphere.c`, `src/skybrightness.c` | `AtmosphereModule.ts`, `directBackgroundLayer.ts`, `SkyBrightnessExposureModule.ts` | strong partial port | direct background tinting is still local, but atmosphere adaptation now follows shared tonemapper target state instead of the older contrast/boost chain | Keep module ownership and frame sync; replace residual tint/shading policy only where checkpoint evidence demands it | Run explicit wide-FOV sky brightness checkpoints against live Stellarium and reconcile any remaining background tone differences |
 | landscape | `src/modules/landscape.c` | `LandscapeModule.ts`, `directBackgroundLayer.ts` | heuristic | procedural horizon/ground shading substitute | Keep landscape module ownership; replace procedural shading behavior | Port Stellarium landscape + occlusion behavior |
 | Milky Way | `src/modules/milkyway.c` | `MilkyWayModule.ts`, `directBackgroundLayer.ts` | heuristic | procedural Milky Way sampling | Delete procedural synthesis; replace with source-defined behavior | Port Milky Way intensity/shape behavior from Stellarium module |
 | pointer / selection | `src/modules/pointer.c`, selection paths in core | `SkyNavigationService.ts`, `pickTargets.ts`, selection rings in direct layers | partial port | local pick radius and pointer visuals differ; `PointerRenderer.ts` unwired | Keep selection ownership and routing; replace pointer behavior | Port pointer marker and selection behavior from Stellarium pointer module |
@@ -271,6 +271,51 @@ Validation evidence recorded for this block:
 
 Residual proof gap:
 - Live browser/runtime checkpoint evidence against Stellarium with Gaia active is still pending. This block establishes the real multi-survey ingestion path, but it does not yet prove exact deep-zoom density equivalence.
+
+## Port Block 5 (Executed)
+### Tonemapper + Sky Luminance Parity
+
+Stellarium authority files:
+- `src/tonemapper.c`
+- `src/core.c`
+- `src/skybrightness.c`
+- `src/modules/stars.c`
+- `src/modules/atmosphere.c`
+- `src/modules/planets.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/core/stellariumVisualMath.ts`
+- `frontend/src/features/sky-engine/engine/sky/core/magnitudePolicy.ts`
+- `frontend/src/features/sky-engine/starRenderer.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/luminanceReport.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/SkyBrightnessExposureModule.ts`
+- `frontend/src/features/sky-engine/directBackgroundLayer.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/MilkyWayModule.ts`
+- `frontend/tests/test_scene_luminance_report.test.js`
+- `frontend/tests/test_tone_adaptation.test.js`
+- `frontend/tests/test_atmosphere_fidelity.test.js`
+
+Stellarium to AH function mapping (this block):
+1. `tonemapper_map` -> shared `tonemapperMap` in `stellariumVisualMath.ts`, consumed by both limiting-magnitude and runtime star rendering paths.
+2. `core_get_point_for_mag*` / `compute_vmag_for_radius` -> shared point radius, visibility, and limiting-magnitude logic used by `magnitudePolicy.ts` and `starRenderer.ts`.
+3. `core_mag_to_illuminance` / `core_illuminance_to_lum_apparent` -> shared contributor math used by runtime luminance reporting.
+4. `core_report_vmag_in_fov` -> solar-system luminance contributor path in `luminanceReport.ts`.
+5. star aggregate report in `modules/stars.c` -> total visible-star illuminance aggregation and `pow(lum, 1/3) / 300` reporting path.
+6. `core_update` adaptation behavior -> tonemapper target updates now distinguish fast atmosphere-style bright adaptation from logarithmic dark adaptation.
+
+Explicit local logic deleted in this block:
+- Duplicate local tonemapper and magnitude-to-point math in `starRenderer.ts`.
+- Immediate brightening path in `SkyBrightnessExposureModule.ts` that bypassed the Stellarium `core_update` dark-adaptation behavior.
+- Local star and solar-system contributor approximations in `luminanceReport.ts` that no longer used the shared core math.
+- Background and Milky Way response chains that multiplied through the older runtime contrast stack instead of consuming luminance-driven runtime state directly.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_tone_adaptation.test.js tests/test_scene_luminance_report.test.js tests/test_atmosphere_fidelity.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+
+Residual proof gap:
+- Live side-by-side visual checkpoint evidence is still pending for wide-FOV sky brightness, bright-star separation, and zoom-level contrast against Stellarium runtime output.
 
 ## Evidence Rule
 - Do not upgrade parity status by naming similarity.

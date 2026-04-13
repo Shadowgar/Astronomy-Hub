@@ -97,6 +97,7 @@ export interface SceneLuminanceReport {
   readonly stars: number
   readonly solarSystem: number
   readonly target: number
+  readonly targetFastAdaptation: boolean
   readonly starSampleCount: number
   readonly solarSystemSampleCount: number
 }

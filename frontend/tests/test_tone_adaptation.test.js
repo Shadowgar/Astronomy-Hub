@@ -190,7 +190,7 @@ describe('sky brightness exposure adaptation', () => {
     )
 
     expect(firstDarkFrame.adaptedSceneLuminance).toBeGreaterThan(firstDarkFrame.sceneLuminance)
-    expect(firstDarkFrame.limitingMagnitude).toBeLessThan(instantNightTarget.limitingMagnitude)
+    expect(firstDarkFrame.tonemapperLwmax).toBeGreaterThan(firstDarkFrame.targetTonemapperLwmax)
     expect(brightRecovery.tonemapperLwmax).toBeCloseTo(brightRecovery.targetTonemapperLwmax, 6)
     expect(brightRecovery.limitingMagnitude).toBeLessThan(instantNightTarget.limitingMagnitude)
   })
@@ -235,6 +235,7 @@ describe('sky brightness exposure adaptation', () => {
       stars: 0.002,
       solarSystem: 0.017,
       target: 0.017,
+      targetFastAdaptation: false,
       starSampleCount: 17,
       solarSystemSampleCount: 3,
     }
