@@ -1,104 +1,120 @@
-# Astronomy Hub vs Stellarium Web Engine - Subsystem Parity List
+# Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-12 (Phase 6C1 survey port update)
+Last updated: 2026-04-13 (corrected audit + execution reprioritization)
+
 Authority sources:
-- Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/modules/*.c`
-- Astronomy Hub local source: `/home/rocco/Astronomy-Hub/frontend/src/features/sky-engine/**`
+- Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
+- Astronomy Hub source: `/home/rocco/Astronomy-Hub/frontend/src/features/sky-engine/**`
+- Active runtime wiring anchor: `SkyEngineScene.tsx` module graph + `SkyEngineRuntimeBridge.ts`
 
 Purpose:
-- This is a working parity tracker for AI coders.
-- Update this file after each bounded subsystem slice.
-- Status must reflect active code reality, not intent.
-- Active runtime wiring counts more than standalone experimental files.
+- Track strict Stellarium-to-AH behavior parity.
+- Count only active runtime wiring.
+- Treat local heuristics as debt when Stellarium source behavior exists.
 
 ## Status Legend
-- `not started`
-- `stubbed`
-- `partially ported`
-- `functionally equivalent`
-- `behaviorally equivalent`
+- `absent`
+- `heuristic`
+- `partial port`
+- `strong partial port`
+- `near parity`
 
-## Parity Matrix
-| Subsystem | Stellarium module/file | Local equivalent file(s) | Status | Brief justification from code | Biggest missing behavior | Recommended next bounded slice |
+## Corrected Parity Matrix (active runtime only)
+| Category | Stellarium source file(s) | Astronomy Hub active file(s) | Status | Still fake locally | Keep / Replace / Delete | Exact next direct port task |
 |---|---|---|---|---|---|---|
-| atmosphere | `src/modules/atmosphere.c` | `engine/sky/runtime/modules/AtmosphereModule.ts`, `directBackgroundLayer.ts` | partially ported | Active runtime module prepares atmosphere frames and syncs them into the direct background layer every render pass. | No Stellarium-grade atmospheric scattering/extinction model depth. | Port bounded airmass and extinction behavior into the active background frame. |
-| cardinal | `src/modules/cardinal.c` | `directOverlayLayer.ts` | partially ported | Active overlay generation emits cardinal labels and grid aids from the current projected view. | Localized cardinal naming and Stellarium-style label policy are still shallow. | Split cardinal policy from generic overlay aids and align visibility rules. |
-| circle | `src/modules/circle.c` | none found | not started | No dedicated circle primitive projection or rendering path exists in the local sky engine. | Circle overlays and frame-aware circle rendering are absent. | Add a minimal bounded circle overlay module. |
-| comets | `src/modules/comets.c` | none found | not started | No comet catalog ingestion, orbit propagation, or rendering path was found in the local sky-engine runtime. | Catalog, ephemeris, and comet-specific render behavior are absent. | Add comet ingestion plus a bounded projected runtime integration. |
-| constellations | `src/modules/constellations.c` | `constellations.ts`, `skycultures/**`, `directOverlayLayer.ts` | partially ported | Sky-culture data is converted into constellation pairs and boundaries, and the active overlay renders segments, boundaries, and labels for the selected sky culture. | No Stellarium-grade image artwork, broader culture coverage, or richer constellation presentation policies. | Expand the active sky-culture pack and wire constellation image anchors as a bounded slice. |
-| coordinates | `src/modules/coordinates.c` | `engine/sky/transforms/coordinates.ts`, `projectionMath.ts` | partially ported | Observer-frame coordinate transforms and projection helpers are present and used by the active runtime. | Broader frame conversion/reporting breadth is still missing. | Add missing frame utilities and tests against study-side coordinate expectations. |
-| debug | `src/modules/debug.c` | `engine/sky/runtime/modules/SceneReportingModule.ts`, `engine/sky/runtime/perfTelemetry.ts`, `engine/sky/runtime/luminanceReport.ts` | partially ported | The active runtime collects scene telemetry and per-step timing data through dedicated reporting modules. | Interactive debug tooling and Stellarium-like inspection controls are absent. | Add a bounded runtime debug surface backed by the existing telemetry. |
-| drag_selection | `src/modules/drag_selection.c` | `engine/sky/runtime/SkyNavigationService.ts` | not started | Pointer drag currently pans the camera only; there is no rectangle-selection or drag-hit extraction path. | Drag-selection rectangle and object extraction behavior are absent. | Add rectangle selection over projected pick entries. |
-| dso | `src/modules/dso.c` | `astronomy.ts`, `engine/sky/runtime/modules/DsoRuntimeModule.ts`, `DsoRenderer.ts`, `dsoVisuals.ts` | partially ported | The active deep-sky path now carries bounded morphology classes plus orientation and major/minor axis metadata, projects elongated DSO shapes through the dedicated runtime path, and renders class-specific symbols aligned more closely with Stellarium’s galaxy / nebula / cluster glyph language. | Catalog breadth, subtype-level symbol coverage, full astrometric ellipse transformation, and deeper filtering remain incomplete. | Preserve the dedicated DSO path and deepen subtype symbol coverage plus sky-frame ellipse fidelity before widening the catalog. |
-| dss | `src/modules/dss.c` | none found | not started | No DSS or survey-background tile subsystem was found in the local runtime. | Survey ingestion and rendering are absent. | Add a feature-flagged survey background module. |
-| geojson | `src/modules/geojson.c` | none found | not started | No GeoJSON ingestion, projection, or overlay rendering path was found in the local sky engine. | GeoJSON overlays are absent. | Add a bounded GeoJSON overlay ingestion and rendering path. |
-| labels | `src/modules/labels.c` | `labelManager.ts`, `directOverlayLayer.ts` | partially ported | Active label layout includes overlap pruning, priorities, selected/guided emphasis, and constellation labels. | Per-class budgets and richer Stellarium-style label policy remain shallow. | Port per-class label budgets and more explicit label policy knobs. |
-| landscape | `src/modules/landscape.c` | `engine/sky/runtime/modules/LandscapeModule.ts`, `directBackgroundLayer.ts`, `landscapeLayer.ts` | partially ported | The active runtime syncs landscape frames into the background layer and renders horizon and aid geometry. | Landscape asset fidelity, occlusion behavior, and luminance coupling are still limited. | Add structured landscape assets and bounded luminance/occlusion coupling. |
-| lines | `src/modules/lines.c` | `directOverlayLayer.ts` | partially ported | The active overlay builds altitude/azimuth, equatorial, constellation, and boundary lines from the current view and timestamp. | Line families are not broken into the same fine-grained controls as Stellarium. | Split line families into explicit toggles and policies. |
-| meteors | `src/modules/meteors.c` | none found | not started | No meteor catalog, radiant generation, or meteor trail rendering path was found locally. | Meteor generation and rendering are absent. | Add a simple bounded meteor subsystem. |
-| milkyway | `src/modules/milkyway.c` | `engine/sky/runtime/modules/MilkyWayModule.ts`, `directBackgroundLayer.ts` | partially ported | A dedicated runtime module prepares Milky Way state and syncs it into the active background layer. | Data-backed density and fidelity are still far below Stellarium depth. | Port bounded data-driven Milky Way intensity and shape behavior. |
-| minorplanets | `src/modules/minorplanets.c` | none found | not started | No asteroid or minor-planet catalog, propagation, or rendering path was found in the local sky-engine runtime. | Catalog, orbit propagation, and brightness modeling are absent. | Add a bounded minor-planet catalog and runtime path. |
-| movements | `src/modules/movements.c` | `engine/sky/runtime/SkyNavigationService.ts`, `observerNavigation.ts`, `engine/sky/runtime/SkyInputService.ts` | partially ported | Wheel zoom, drag pan, selection targeting, and observer-navigation updates are active in the current runtime. | Stellarium-style movement modes and tuning breadth are still missing. | Tune inertia and zoom behavior, then add the next missing navigation mode. |
-| photos | `src/modules/photos.c` | none found | not started | No photo ingestion, calibration, or photo projection/rendering path was found. | Photo overlays and astrometric projection are absent. | Add an optional bounded photo overlay subsystem. |
-| planets | `src/modules/planets.c` | `astronomy.ts`, `engine/sky/runtime/modules/PlanetRuntimeModule.ts`, `PlanetRenderer.ts` | partially ported | Planet data is still computed in `astronomy.ts`, but projected planets are now partitioned out of the generic object layer and rendered through a dedicated planet runtime module and layer. | Planet visuals are now owned correctly, but body-specific behavior is still limited to a bounded sprite-style render path rather than deeper subsystem fidelity. | Deepen planet-specific visuals per body without changing projection or ephemeris ownership. |
-| pointer | `src/modules/pointer.c` | `directObjectLayer.ts`, `PointerRenderer.ts` | stubbed | The active runtime uses a generic selection ring; standalone `PointerRenderer.ts` exists but has no active runtime references. | No animated pointer subsystem is wired through the active module graph. | Wire pointer lifecycle through object selection in the active runtime. |
-| satellites | `src/modules/satellites.c` | `src/features/scene/contracts.ts`, `src/features/sky-engine/astronomy.ts`, `src/features/sky-engine/SatelliteRenderer.ts`, `src/features/sky-engine/engine/sky/runtime/modules/SatelliteRuntimeModule.ts`, `src/pages/SkyEnginePage.tsx` | partially ported | Backend satellite scene payloads now feed a bounded top-visible satellite set into the Sky Engine, where satellites are partitioned into a dedicated runtime module and rendered as dedicated marker sprites instead of the generic object layer. | Frontend TLE ingestion, propagation, orbit lines, and brightness modelling are still absent; this slice only activates backend-fed marker rendering for a small visible subset. | Keep the backend-fed runtime boundary, then add richer satellite visuals or motion only after the ownership split is stable. |
-| skycultures | `src/modules/skycultures.c` | `skycultures/index.ts`, `skyCultureSelection.ts`, `directOverlayLayer.ts` | partially ported | Multiple sky-culture definitions exist, culture IDs can be normalized and persisted, and the active overlay renders constellation data for the selected culture ID. | Culture pack coverage and localized behavior breadth are still very limited. | Expand the active culture pack and verify bounded culture switching end-to-end. |
-| stars | `src/modules/stars.c`, `src/core.c`, `src/tonemapper.c` | `engine/sky/runtime/modules/StarsModule.ts`, `engine/sky/runtime/modules/runtimeFrame.ts`, `engine/sky/adapters/fileTileRepository.ts`, `starRenderer.ts`, `directStarLayer.ts` | functionally equivalent | Star traversal is sorted + early-break by limiting magnitude, point visibility follows Stellarium-like point-radius chain, telescope/FOV gain is applied in point sizing, and multi-survey data sequencing is active (`hipparcos` + supplemental 61k dataset) with synthetic background fallback disabled. | Full Stellarium survey depth is still missing (no Gaia/deep survey beyond mag ~8.5), plus hint/label magnitude chain parity and survey overlap policies are still simplified. | Add a third real deep survey (mag >8.5) with strict min/max survey handoff + overlap guards, then port `hints_limit_mag` behavior from `stars.c`. |
+| core / tonemapper / skybrightness | `src/core.c`, `src/tonemapper.c`, `src/skybrightness.c`, `src/navigation.c` | `skyBrightness.ts`, `starRenderer.ts`, `engine/sky/runtime/luminanceReport.ts`, `SkyBrightnessExposureModule.ts`, `observerNavigation.ts` | strong partial port | mixed local response curves and navigation easing not fully source-locked | Keep physical input chain; replace response math; delete non-source transition surrogates | Port one shared Stellarium-equivalent core math utility used by stars and planets |
+| stars | `src/modules/stars.c`, `src/core.c` | `StarsModule.ts`, `runtimeFrame.ts`, `directStarLayer.ts`, `starRenderer.ts` | strong partial port | residual local profile shaping and clamp policy divergence | Keep survey-driven traversal and projection; replace remaining local profile shaping | Route all star point size/visibility through strict core point model |
+| star surveys / sequencing | `src/modules/stars.c`, survey/hips paths | `engine/sky/adapters/fileTileRepository.ts`, `sceneAssembler.ts`, `SkyEngineScene.tsx`, `backendTileRegistry.ts` | partial port | mock fallback and lookup heuristics still affect active flow | Keep multi-survey loader; replace fallback/heuristic routing; delete mock fallback in active parity path | Lock runtime to authoritative file-backed survey path and remove heuristic lookup branches |
+| hints / label limiting magnitude | `src/core.c`, `src/modules/labels.c`, `src/modules/stars.c`, `src/modules/planets.c` | `labelManager.ts`, `directOverlayLayer.ts`, `runtimeFrame.ts` | heuristic | fixed label caps and local admissions instead of `hints_limit_mag` chain | Keep overlap/layout mechanics; replace admission rules; delete fixed caps | Port hint limiting-magnitude eligibility from Stellarium modules |
+| planets | `src/modules/planets.c`, `src/core.c`, `src/navigation.c`, `src/tonemapper.c` | `astronomy.ts`, `runtimeFrame.ts`, `PlanetRenderer.ts`, `PlanetRuntimeModule.ts` | partial port | local point/disk blends and synthetic alpha/size shaping | Keep ephemeris object feed; replace planet render transition logic; delete synthetic blend path | Port `planet_render` unresolved-point + model transition behavior |
+| planet zoom chain | `src/modules/planets.c` (`planet_render`, `get_artificial_scale`), `src/core.c` (`core_get_point_for_mag*`, `core_get_apparent_angle_for_point`), `src/navigation.c` | `runtimeFrame.ts`, `PlanetRenderer.ts`, `ObjectRuntimeModule.ts`, `directObjectLayer.ts`, `observerNavigation.ts` | heuristic | FOV smoothstep transition and local radius blend curves | Keep projection plumbing; replace transition math; delete local threshold chains | Execute Planet Zoom Chain Parity block first |
+| moons | `src/modules/planets.c` (moon exception + scale behavior) | `astronomy.ts`, `ObjectRuntimeModule.ts`, `directObjectLayer.ts`, `PlanetRenderer.ts` | heuristic | moon still on generic object path, not full planet-chain behavior | Keep lunar ephemeris source object; replace render ownership and scaling behavior; delete generic moon primary path | Move moon into planet chain and apply Stellarium moon scaling/exception behavior |
+| DSO | `src/modules/dso.c` | `astronomy.ts`, `DsoRuntimeModule.ts`, `DsoRenderer.ts`, `dsoVisuals.ts` | partial port | fixed 4-item seed DSO catalog and local morphology shortcuts | Keep dedicated DSO render lane; replace static seed behavior | Replace seed catalog with survey-backed DSO behavior and Stellarium gating |
+| labels | `src/modules/labels.c` | `labelManager.ts`, `directOverlayLayer.ts` | heuristic | local priority and cap policies | Keep layout/collision implementation; replace class visibility rules | Port Stellarium label policy and class offsets |
+| constellations | `src/modules/constellations.c` | `constellations.ts`, `directOverlayLayer.ts` | strong partial port | local presentation policy not fully source-equivalent | Keep culture-driven geometry flow; replace policy differences | Port constellation visibility/policy coupling from Stellarium module behavior |
+| skycultures | `src/skyculture.c`, `src/modules/skycultures.c` | `skycultures/**`, `constellations.ts`, `SkyEngineScene.tsx` | strong partial port | runtime coupling rules still simplified | Keep data loading and switching foundation; replace behavior coupling | Align culture activation/fallback behavior to Stellarium flow |
+| overlays / grids | `src/modules/coordinates.c`, `src/modules/labels.c` | `OverlayRuntimeModule.ts`, `directOverlayLayer.ts` | heuristic | cadence throttling thresholds govern relayout timing | Keep overlay pipeline; replace cadence heuristics with deterministic invalidation | Remove fixed relayout thresholds and use projection/state driven updates |
+| atmosphere | `src/modules/atmosphere.c`, `src/skybrightness.c` | `AtmosphereModule.ts`, `directBackgroundLayer.ts`, `SkyBrightnessExposureModule.ts` | partial port | local exposure/contrast calibrations not fully source-locked | Keep module ownership and frame sync; replace coupling formulas | Align atmosphere response chain to Stellarium skybrightness/tonemapper behavior |
+| landscape | `src/modules/landscape.c` | `LandscapeModule.ts`, `directBackgroundLayer.ts` | heuristic | procedural horizon/ground shading substitute | Keep landscape module ownership; replace procedural shading behavior | Port Stellarium landscape + occlusion behavior |
+| Milky Way | `src/modules/milkyway.c` | `MilkyWayModule.ts`, `directBackgroundLayer.ts` | heuristic | procedural Milky Way sampling | Delete procedural synthesis; replace with source-defined behavior | Port Milky Way intensity/shape behavior from Stellarium module |
+| pointer / selection | `src/modules/pointer.c`, selection paths in core | `SkyNavigationService.ts`, `pickTargets.ts`, selection rings in direct layers | partial port | local pick radius and pointer visuals differ; `PointerRenderer.ts` unwired | Keep selection ownership and routing; replace pointer behavior | Port pointer marker and selection behavior from Stellarium pointer module |
+| object inspector / detail surface | object info paths (`obj_info` and per-module `get_info`) | `SkyEngineDetailShell.tsx` | heuristic | explicit temporary/deferred truth placeholders | Keep shell surface; replace content contracts | Port object-type info adapters mirroring Stellarium info fields |
+| satellites | `src/modules/satellites.c` | `astronomy.ts`, `SatelliteRuntimeModule.ts`, `SatelliteRenderer.ts` | partial port | top-3 truncation and placeholder `magnitude: 99` | Keep backend-fed integration boundary; replace truncation/placeholder behavior | Port visibility and photometric behavior from Stellarium satellite logic |
+| minor planets | `src/modules/minorplanets.c`, `src/mpc.c` | none active | absent | subsystem missing | Replace absence with direct port | Add minor-planet ingestion + runtime module + rendering path |
+| comets | `src/modules/comets.c` | none active | absent | subsystem missing | Replace absence with direct port | Add comet ingestion + runtime module + rendering path |
+| meteors | `src/modules/meteors.c` | none active | absent | subsystem missing | Replace absence with direct port | Add meteor subsystem and rendering behavior |
+| DSS / survey background | `src/modules/dss.c` | `BackgroundRuntimeModule.ts` (no DSS parity path) | heuristic | procedural background substitute, no DSS behavior | Keep background module ownership; replace DSS behavior path | Port DSS layer behavior and gating from `dss.c` |
 
-## Audit Notes
-- `constellations` and `skycultures` are more advanced than the previous parity file claimed because they are actively rendered through the overlay path, not just defined as static data.
-- `MoonRenderer.ts` and `PointerRenderer.ts` still exist as standalone renderer paths that are not wired into the active runtime; `PlanetRenderer.ts` and `DsoRenderer.ts` are now part of active dedicated render paths.
-- Parity judgments in this file are based on the active runtime module graph and the code that actually feeds the current scene.
+## Top 15 Fake Local Behaviors To Remove
+1. `runtimeFrame.ts:getPlanetMarkerRadiusPx` FOV smoothstep point-to-disk blend; replace with `planets.c:planet_render` transition.
+2. `PlanetRenderer.ts` local diameter/alpha boost shaping (`2.08`, `+0.9`, `pointToDiscBlend`); replace with Stellarium model/point outputs.
+3. `ObjectRuntimeModule.ts` + `directObjectLayer.ts` moon generic path; replace with moon handling in planet chain per `planets.c`.
+4. `runtimeFrame.ts:getObjectHorizonFade` unconditional return `1`; replace with Stellarium visibility/occlusion behavior.
+5. `runtimeFrame.ts:resolveViewTier` hard label caps (`6/8/10`); replace with limiting-magnitude-driven hint policy.
+6. `labelManager.ts` fixed max visible labels and local ranking constants; replace with `labels.c` + class hint limits.
+7. `sceneAssembler.ts` fallback magnitude label rule (`mag > 2.5` style shortcut); replace with source hint gating.
+8. `SkyEngineScene.tsx:loadSkyRuntimeTiles` active mock fallback branch; replace with authoritative source path and explicit failure.
+9. `runtimeMode.ts` query-param mock mode in parity path; replace with single authoritative runtime behavior.
+10. `backendTileRegistry.ts` ID-prefix lookup heuristics; replace with deterministic survey mapping.
+11. `astronomy.ts` fixed 4-item DSO seed catalog; replace with `dso.c` data/behavior path.
+12. `astronomy.ts:computeSatelliteSceneObjects` top-3 truncation; replace with Stellarium visibility policy.
+13. `astronomy.ts:computeSatelliteSceneObjects` placeholder `magnitude: 99`; replace with Stellarium-style photometric behavior.
+14. `astronomy.ts:computeGuidanceScore` local score curves; remove from strict parity behavior chain.
+15. `MilkyWayModule.ts` procedural sample clouds; replace with `milkyway.c` behavior.
 
-## Snapshot Summary
-- Strongest current areas: `stars`, `planets`, `dso`, `atmosphere`, `milkyway`, `landscape`, `labels`, `lines`, `movements`, `constellations/skycultures`.
-- Weakest current areas: `comets`, `minorplanets`, `satellites`, `meteors`, `dss`, `geojson`, `photos`, `circle`, `drag_selection`.
-- Highest-value next bounded slices:
-  1. Complete strict star survey sequencing by adding a deep real survey (mag >8.5) and overlap-safe handoff behavior.
-  2. Port star hint/label limiting-magnitude chain (`hints_limit_mag`) to reduce remaining visual mismatch at zoom.
-  3. Expand `skycultures` and constellation asset coverage beyond the current narrow pack.
-  4. Add bounded `minorplanets` and `comets` catalog/runtime support.
-  5. Re-evaluate `dss` after deep survey parity is stable.
-- Overall parity estimate: `~30-35%` subsystem parity.
+## Corrected Remaining Port Order
+1. Planet zoom/render chain parity.
+2. Star LOD + survey sequencing parity.
+3. DSO data-depth parity.
+4. Hints/labels limiting-magnitude parity.
+5. Constellations + skyculture behavior coupling parity.
+6. Overlay/grid deterministic behavior parity.
+7. Atmosphere + landscape + Milky Way parity.
+8. Pointer/selection parity.
+9. Object inspector/detail parity.
+10. Missing subsystems: satellites full parity, minor planets, comets, meteors, DSS.
 
-## Strict Port Progress (Stars)
-Reference slices:
-- Phase 6B1: literal point-size / limiting-magnitude traversal alignment and selected-star persistence.
-- Phase 6C1: survey sequencing + Hipparcos ceiling removal + synthetic deep fallback removal.
+## First Port Block (Must Execute Next)
+### Planet Zoom Chain Parity
 
-Current data coverage:
-- Hipparcos tile survey: `8,870` unique stars
-- Supplemental survey (`hipparcos_tier2_subset.json`): `61,675` stars (mag `1.64` to `8.5`)
+Stellarium authority files:
+- `src/core.c`
+- `src/tonemapper.c`
+- `src/navigation.c`
+- `src/modules/planets.c`
 
-Checkpoint evidence (catalog-gate parity harness):
-- Command: `node scripts/sky-engine/report_star_survey_checkpoints.mjs`
-- Output:
-  - `120°` → limit `5.781` → `3,986`
-  - `60°` → limit `6.766` → `11,927`
-  - `30°` → limit `8.281` → `52,415`
-  - `10°` → limit `10.656` → `61,701`
-  - `2°` → limit `14.219` → `61,701`
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame.ts`
+- `frontend/src/features/sky-engine/PlanetRenderer.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/ObjectRuntimeModule.ts`
+- `frontend/src/features/sky-engine/directObjectLayer.ts`
+- `frontend/src/features/sky-engine/astronomy.ts`
+- `frontend/src/features/sky-engine/observerNavigation.ts`
 
-Interpretation:
-- The previous hard ceiling near `8,870` is removed.
-- Density now increases strongly with zoom.
-- A new ceiling appears near `61.7k` because current deepest real survey ends at mag `8.5`.
+Stellarium to AH function mapping (this block):
+1. `core_get_point_for_mag_` -> replace local unresolved-point math in planet marker sizing.
+2. `core_get_point_for_mag` -> replace local unresolved point size/luminance for planets/moon.
+3. `core_get_apparent_angle_for_point` -> replace local disk-threshold surrogates.
+4. `compute_vmag_for_radius` -> align limiting-magnitude/radius breakpoints.
+5. `planet_render` -> authoritative point-to-disk transition and render gate behavior.
+6. `get_artificial_scale` / `scale_moon` -> moon zoom-out scaling behavior.
+7. `vmag > stars_limit_mag` with moon exception -> non-star visibility gate.
+8. `core_update_fov` -> FOV semantics feeding transition logic.
 
-Verification bundle (latest star parity slices):
-- `npm run typecheck` (frontend) ✅
-- `npm run build` (frontend) ✅
-- `npm run test -- test_file_backed_tile_repository.test.js test_sky_engine_runtime_slice.test.js sky-engine-runtime-frame-projection.test.js test_star_renderer.test.js test_star_visibility.test.js sky-engine-stars-runtime.test.js` ✅
+Explicit local logic to delete before porting:
+- `runtimeFrame.ts:getPlanetMarkerRadiusPx` smoothstep/mix blend chain.
+- `PlanetRenderer.ts` local `pointToDiscBlend`-based alpha/diameter shaping.
+- moon primary rendering in generic object path (`directObjectLayer.ts` + partition flow).
+- any fixed FOV threshold used as point-to-disk switch.
 
-## Update Protocol (for future AI coders)
-When you complete a slice, update:
-1. the row `Status`
-2. `Brief justification from code` with concrete implementation evidence
-3. `Biggest missing behavior`
-4. `Recommended next bounded slice`
-5. `Last updated` date at top
+Pass/fail parity checkpoints:
+1. Jupiter wide-FOV dominance.
+2. Smooth zoom growth.
+3. Moon visibility/separation behavior.
+4. Correct point-to-disk transition threshold.
+5. No zoom disappearance except Stellarium visibility gating.
 
-Hard rule:
-- Do not upgrade status based on naming similarity or intent.
-- Do not count unwired experimental files as active parity.
-- Only upgrade status when behavior is implemented and verifiable in the active runtime or supporting code path.
+## Evidence Rule
+- Do not upgrade parity status by naming similarity.
+- Do not count unwired/dormant files.
+- Do not claim parity without active runtime verification.
