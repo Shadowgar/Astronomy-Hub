@@ -79,6 +79,14 @@ function createProps(objects) {
 const SERVICES = {
   projectionService: {
     getCurrentFovDegrees: () => 120,
+    createView: (centerDirection) => ({
+      centerDirection,
+      fovRadians: (120 * Math.PI) / 180,
+      viewportWidth: 1280,
+      viewportHeight: 720,
+      projectionMode: 'stereographic',
+    }),
+    unproject: () => horizontalToDirection(38, 155),
   },
   navigationService: {
     getCenterDirection: () => horizontalToDirection(38, 155),
@@ -111,6 +119,9 @@ describe('scene luminance report', () => {
     )
 
     expect(report.target).toBe(Math.max(report.sky, report.stars, report.solarSystem))
+    expect(report.skyAverageLuminance).toBeGreaterThan(0)
+    expect(report.sky + 1e-12).toBeGreaterThanOrEqual(report.skyAverageLuminance)
+    expect(report.skySampleCount).toBeGreaterThan(0)
     expect(report.starSampleCount).toBeLessThanOrEqual(640)
     expect(report.solarSystemSampleCount).toBeLessThanOrEqual(32)
   })

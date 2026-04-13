@@ -1,5 +1,10 @@
 import { horizontalToDirection } from '../../../projectionMath'
-import { evaluateStellariumSkyBrightnessBaseline } from '../../../skyBrightness'
+import {
+  buildStellariumSkyBrightnessContext,
+  computeSkyBrightnessFromLuminance,
+  computeStellariumSkyLuminance,
+  evaluateStellariumSkyBrightnessBaseline,
+} from '../../../skyBrightness'
 import type { ScenePropsSnapshot, SkySceneRuntimeServices } from '../../../SkyEngineRuntimeBridge'
 import {
   coreIlluminanceToLumApparent,
@@ -14,6 +19,8 @@ const MAX_BRIGHTNESS_STAR_SAMPLES = 640
 const MAX_SOLAR_SYSTEM_SAMPLES = 32
 const BRIGHTNESS_STAR_MAGNITUDE_CUTOFF = 6.2
 const BRIGHTNESS_SOLAR_SYSTEM_MAGNITUDE_CUTOFF = 7.5
+const SKY_LUMINANCE_SAMPLE_COLUMNS = 8
+const SKY_LUMINANCE_SAMPLE_ROWS = 6
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -133,6 +140,102 @@ function resolveObserverElevationMeters(props: ScenePropsSnapshot) {
   return observer.altitudeMeters ?? observer.elevationM ?? 0
 }
 
+function evaluateVisibleSkyLuminance(
+  props: ScenePropsSnapshot,
+  services: SkySceneRuntimeServices,
+  moonObject: ScenePropsSnapshot['objects'][number] | null,
+  baseline: ReturnType<typeof evaluateStellariumSkyBrightnessBaseline>,
+) {
+  const centerDirection = services.navigationService.getCenterDirection()
+
+  if (
+    typeof services.projectionService.createView !== 'function' ||
+    typeof services.projectionService.unproject !== 'function'
+  ) {
+    return {
+      averageLuminance: baseline.zenithSkyLuminance,
+      maxLuminance: baseline.zenithSkyLuminance,
+      sampleCount: 1,
+    }
+  }
+
+  const view = services.projectionService.createView(centerDirection)
+  const sunDirection = horizontalToDirection(props.sunState.altitudeDeg, props.sunState.azimuthDeg)
+  const moonDirection = moonObject
+    ? horizontalToDirection(moonObject.altitudeDeg, moonObject.azimuthDeg)
+    : null
+  const context = buildStellariumSkyBrightnessContext({
+    timestampIso: resolveTimestampIso(props),
+    latitudeDeg: resolveObserverLatitudeDeg(props),
+    observerElevationM: resolveObserverElevationMeters(props),
+    sunAltitudeRad: (props.sunState.altitudeDeg * Math.PI) / 180,
+    moonAltitudeRad: moonObject ? (moonObject.altitudeDeg * Math.PI) / 180 : null,
+    moonMagnitude: moonObject?.magnitude,
+  })
+  let totalLuminance = 0
+  let maxLuminance = 0
+  let sampleCount = 0
+
+  for (let row = 0; row < SKY_LUMINANCE_SAMPLE_ROWS; row += 1) {
+    const screenY = ((row + 0.5) / SKY_LUMINANCE_SAMPLE_ROWS) * view.viewportHeight
+
+    for (let column = 0; column < SKY_LUMINANCE_SAMPLE_COLUMNS; column += 1) {
+      const screenX = ((column + 0.5) / SKY_LUMINANCE_SAMPLE_COLUMNS) * view.viewportWidth
+      const sampleDirection = services.projectionService.unproject(
+        screenX,
+        screenY,
+        centerDirection,
+        view.fovRadians,
+      )
+      const cosZenithDistance = clamp(sampleDirection.y, 0, 1)
+
+      if (cosZenithDistance <= 0) {
+        continue
+      }
+
+      const cosMoonDistance = moonDirection
+        ? clamp(
+          sampleDirection.x * moonDirection.x +
+            sampleDirection.y * moonDirection.y +
+            sampleDirection.z * moonDirection.z,
+          -1,
+          1,
+        )
+        : -1
+      const cosSunDistance = clamp(
+        sampleDirection.x * sunDirection.x +
+          sampleDirection.y * sunDirection.y +
+          sampleDirection.z * sunDirection.z,
+        -1,
+        1,
+      )
+      const luminance = computeStellariumSkyLuminance(context, {
+        cosMoonDistance,
+        cosSunDistance,
+        cosZenithDistance,
+      })
+
+      totalLuminance += luminance
+      maxLuminance = Math.max(maxLuminance, luminance)
+      sampleCount += 1
+    }
+  }
+
+  if (sampleCount === 0) {
+    return {
+      averageLuminance: baseline.zenithSkyLuminance,
+      maxLuminance: baseline.zenithSkyLuminance,
+      sampleCount: 1,
+    }
+  }
+
+  return {
+    averageLuminance: totalLuminance / sampleCount,
+    maxLuminance,
+    sampleCount,
+  }
+}
+
 export function evaluateSceneLuminanceReport(
   props: ScenePropsSnapshot,
   services: SkySceneRuntimeServices,
@@ -151,17 +254,19 @@ export function evaluateSceneLuminanceReport(
   })
 
   const centerDirection = services.navigationService.getCenterDirection()
+  const sky = evaluateVisibleSkyLuminance(props, services, moonObject, baseline)
   const star = estimateStarLuminanceContributor(props, currentFovDegrees)
   const solarSystem = estimateSolarSystemLuminanceContributor(props, currentFovDegrees, centerDirection)
-  const sky = Math.max(0, baseline.zenithSkyLuminance)
-  const target = Math.max(sky, star.luminance, solarSystem.luminance)
-  const targetFastAdaptation = target === sky && target > 0
+  const target = Math.max(sky.maxLuminance, star.luminance, solarSystem.luminance)
+  const targetFastAdaptation = target === sky.maxLuminance && target > 0
 
   return {
-    skyBrightness: baseline.skyBrightness,
+    skyBrightness: computeSkyBrightnessFromLuminance(sky.averageLuminance),
+    skyAverageLuminance: sky.averageLuminance,
+    skySampleCount: sky.sampleCount,
     nightSkyZenithLuminance: baseline.nightSkyZenithLuminance,
     nightSkyHorizonLuminance: baseline.nightSkyHorizonLuminance,
-    sky,
+    sky: sky.maxLuminance,
     stars: star.luminance,
     solarSystem: solarSystem.luminance,
     target,

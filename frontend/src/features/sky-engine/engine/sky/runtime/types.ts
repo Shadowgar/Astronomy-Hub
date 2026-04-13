@@ -91,6 +91,8 @@ export interface SkyRenderContext<TProps, TRuntime extends SkyCoreRenderRefs, TS
 
 export interface SceneLuminanceReport {
   readonly skyBrightness: number
+  readonly skyAverageLuminance: number
+  readonly skySampleCount: number
   readonly nightSkyZenithLuminance: number
   readonly nightSkyHorizonLuminance: number
   readonly sky: number

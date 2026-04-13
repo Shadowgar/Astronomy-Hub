@@ -1,6 +1,5 @@
 import {
   computeEffectiveLimitingMagnitude,
-  computeSkyBrightnessFromLuminance,
 } from '../../../../skyBrightness'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import {
@@ -46,10 +45,9 @@ export function evaluateSkyBrightnessExposureState(
   })
   const tonemapperLwmax = adaptation.lwmax
   const adaptedSceneLuminance = tonemapperLwmax
-  const adaptedSkyBrightness = computeSkyBrightnessFromLuminance(adaptedSceneLuminance)
+  const adaptedSkyBrightness = sceneLuminanceReport.skyBrightness
   const adaptationLevel = clamp(1 - adaptedSkyBrightness, 0, 1)
-  const adaptationLag = clamp(1 - targetTonemapperLwmax / Math.max(tonemapperLwmax, targetTonemapperLwmax, 1e-6), 0, 1)
-  const visualAdaptationLevel = clamp(adaptationLevel * (1 - adaptationLag), 0, 1)
+  const visualAdaptationLevel = adaptationLevel
   const contributorTotal = Math.max(targetSceneLuminance, 1e-6)
   const skyShare = computeContributorShare(sceneLuminanceReport.sky, contributorTotal)
   const starShare = computeContributorShare(sceneLuminanceReport.stars, contributorTotal)

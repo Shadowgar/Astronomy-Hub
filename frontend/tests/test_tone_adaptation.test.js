@@ -81,6 +81,14 @@ function createProps(sunAltitudeDeg, visualCalibration, objects = []) {
 const SERVICES = {
   projectionService: {
     getCurrentFovDegrees: () => 120,
+    createView: (centerDirection) => ({
+      centerDirection,
+      fovRadians: (120 * Math.PI) / 180,
+      viewportWidth: 1280,
+      viewportHeight: 720,
+      projectionMode: 'stereographic',
+    }),
+    unproject: () => horizontalToDirection(38, 155),
   },
   navigationService: {
     getCenterDirection: () => horizontalToDirection(38, 155),
@@ -229,6 +237,8 @@ describe('sky brightness exposure adaptation', () => {
     const props = createProps(-18, createVisualCalibration('Night'))
     const report = {
       skyBrightness: 0.21,
+      skyAverageLuminance: 0.004,
+      skySampleCount: 48,
       nightSkyZenithLuminance: 0.002,
       nightSkyHorizonLuminance: 0.003,
       sky: 0.005,
