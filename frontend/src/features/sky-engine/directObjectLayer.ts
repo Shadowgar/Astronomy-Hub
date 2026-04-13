@@ -155,7 +155,7 @@ export function createDirectObjectLayer(scene: Scene) {
       const nextIds = new Set<string>()
       for (let index = 0; index < projectedObjects.length; index += 1) {
         const entry = projectedObjects[index]
-        if (entry.object.type === 'star') {
+        if (entry.object.type === 'star' || entry.object.type === 'moon') {
           continue
         }
         nextIds.add(entry.object.id)
@@ -180,7 +180,7 @@ export function createDirectObjectLayer(scene: Scene) {
 
       for (let index = 0; index < projectedObjects.length; index += 1) {
         const projectedObject = projectedObjects[index]
-        if (projectedObject.object.type === 'star') {
+        if (projectedObject.object.type === 'star' || projectedObject.object.type === 'moon') {
           continue
         }
 

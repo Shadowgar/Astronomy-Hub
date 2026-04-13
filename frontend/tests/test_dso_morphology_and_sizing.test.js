@@ -78,6 +78,11 @@ describe('DSO morphology and sizing', () => {
       TEST_VIEW,
       [galaxy, generic, cluster, temporaryNebula],
       TEST_SUN_STATE,
+      {
+        limitingMagnitude: 8,
+        visualCalibration: { starFieldBrightness: 1 },
+      },
+      8,
       null,
     )
     const entryById = new Map(projectedObjects.map((entry) => [entry.object.id, entry]))

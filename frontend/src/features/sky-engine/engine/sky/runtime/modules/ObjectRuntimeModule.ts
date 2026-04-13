@@ -29,7 +29,7 @@ function partitionProjectedObjects(projectedObjects: RuntimeProjectedSceneFrame[
   const projectedGenericObjects: RuntimeProjectedSceneFrame['projectedObjects'][number][] = []
 
   for (const entry of projectedObjects) {
-    if (entry.object.type === 'planet') {
+    if (entry.object.type === 'planet' || entry.object.type === 'moon') {
       projectedPlanetObjects.push(entry)
       continue
     }
@@ -79,6 +79,8 @@ export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, Scene
         projectedStarsFrame.view,
         latest.objects,
         latest.sunState,
+        runtime.brightnessExposureState ?? undefined,
+        projectedStarsFrame.limitingMagnitude,
         latest.selectedObjectId,
       )
       const nonStarProjectionElapsedMs = performance.now() - nonStarProjectionStartMs

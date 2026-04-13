@@ -438,8 +438,7 @@ export function createPlanetRenderer(scene: Scene) {
         }
 
         const isSelected = projectedPlanet.object.id === selectedObjectId
-        const diameter = Math.max(2.2, projectedPlanet.markerRadiusPx * 2.08 + 0.9)
-        const pointToDiscBlend = clamp((projectedPlanet.markerRadiusPx - 1.05) / 2.6, 0, 1)
+        const diameter = Math.max(2, projectedPlanet.markerRadiusPx * 2)
 
         entry.mesh.position.copyFrom(toViewportPlanePosition(projectedPlanet, viewportWidth, viewportHeight))
         entry.mesh.scaling.set(diameter * (isSelected ? 1.14 : 1), diameter * (isSelected ? 1.14 : 1), 1)
@@ -448,7 +447,7 @@ export function createPlanetRenderer(scene: Scene) {
           ? Math.pow(visualState.saturnVisual.ringBrightnessGain, 0.18)
           : 1
         entry.material.emissiveColor = Color3.FromHexString(projectedPlanet.object.colorHex).scale((isSelected ? 1.05 : 0.94) * emissiveBoost)
-        entry.material.alpha = clamp(projectedPlanet.renderAlpha * (0.82 + pointToDiscBlend * 0.18) + (isSelected ? 0.08 : 0), 0, 1)
+        entry.material.alpha = clamp(projectedPlanet.renderAlpha + (isSelected ? 0.08 : 0), 0, 1)
 
         if (isSelected) {
           selectedEntry = projectedPlanet

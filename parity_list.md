@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-13 (corrected audit + execution reprioritization)
+Last updated: 2026-04-13 (Planet Zoom Chain block implemented; runtime tests/build pass; live Stellarium visual checkpoints still pending)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -26,9 +26,9 @@ Purpose:
 | stars | `src/modules/stars.c`, `src/core.c` | `StarsModule.ts`, `runtimeFrame.ts`, `directStarLayer.ts`, `starRenderer.ts` | strong partial port | residual local profile shaping and clamp policy divergence | Keep survey-driven traversal and projection; replace remaining local profile shaping | Route all star point size/visibility through strict core point model |
 | star surveys / sequencing | `src/modules/stars.c`, survey/hips paths | `engine/sky/adapters/fileTileRepository.ts`, `sceneAssembler.ts`, `SkyEngineScene.tsx`, `backendTileRegistry.ts` | partial port | mock fallback and lookup heuristics still affect active flow | Keep multi-survey loader; replace fallback/heuristic routing; delete mock fallback in active parity path | Lock runtime to authoritative file-backed survey path and remove heuristic lookup branches |
 | hints / label limiting magnitude | `src/core.c`, `src/modules/labels.c`, `src/modules/stars.c`, `src/modules/planets.c` | `labelManager.ts`, `directOverlayLayer.ts`, `runtimeFrame.ts` | heuristic | fixed label caps and local admissions instead of `hints_limit_mag` chain | Keep overlap/layout mechanics; replace admission rules; delete fixed caps | Port hint limiting-magnitude eligibility from Stellarium modules |
-| planets | `src/modules/planets.c`, `src/core.c`, `src/navigation.c`, `src/tonemapper.c` | `astronomy.ts`, `runtimeFrame.ts`, `PlanetRenderer.ts`, `PlanetRuntimeModule.ts` | partial port | local point/disk blends and synthetic alpha/size shaping | Keep ephemeris object feed; replace planet render transition logic; delete synthetic blend path | Port `planet_render` unresolved-point + model transition behavior |
-| planet zoom chain | `src/modules/planets.c` (`planet_render`, `get_artificial_scale`), `src/core.c` (`core_get_point_for_mag*`, `core_get_apparent_angle_for_point`), `src/navigation.c` | `runtimeFrame.ts`, `PlanetRenderer.ts`, `ObjectRuntimeModule.ts`, `directObjectLayer.ts`, `observerNavigation.ts` | heuristic | FOV smoothstep transition and local radius blend curves | Keep projection plumbing; replace transition math; delete local threshold chains | Execute Planet Zoom Chain Parity block first |
-| moons | `src/modules/planets.c` (moon exception + scale behavior) | `astronomy.ts`, `ObjectRuntimeModule.ts`, `directObjectLayer.ts`, `PlanetRenderer.ts` | heuristic | moon still on generic object path, not full planet-chain behavior | Keep lunar ephemeris source object; replace render ownership and scaling behavior; delete generic moon primary path | Move moon into planet chain and apply Stellarium moon scaling/exception behavior |
+| planets | `src/modules/planets.c`, `src/core.c`, `src/navigation.c`, `src/tonemapper.c` | `astronomy.ts`, `runtimeFrame.ts`, `PlanetRenderer.ts`, `PlanetRuntimeModule.ts` | strong partial port | live Stellarium side-by-side threshold parity still unproven; horizon fade bypass still active globally | Keep ephemeris object feed; replace remaining non-source visibility/presentation paths | Validate/align any remaining `planet_render` threshold deltas against live Stellarium checkpoints |
+| planet zoom chain | `src/modules/planets.c` (`planet_render`, `get_artificial_scale`), `src/core.c` (`core_get_point_for_mag*`, `core_get_apparent_angle_for_point`), `src/navigation.c` | `runtimeFrame.ts`, `PlanetRenderer.ts`, `ObjectRuntimeModule.ts`, `directObjectLayer.ts`, `observerNavigation.ts` | partial port | no live side-by-side confirmation yet; additional tonemapper parity validation still needed | Keep single transition chain now in runtime frame; replace residual non-source alpha/visibility behavior if discovered | Run explicit Jupiter+Moon checkpoint validation against live Stellarium and close residual deltas |
+| moons | `src/modules/planets.c` (moon exception + scale behavior) | `astronomy.ts`, `ObjectRuntimeModule.ts`, `directObjectLayer.ts`, `PlanetRenderer.ts` | partial port | moon exception uses type gate but full Stellarium moon branch nuances may still differ | Keep moon in planet chain and artificial scaling port; replace any remaining generic-marker semantics | Validate moon separation/scale checkpoints and adjust to exact `get_artificial_scale` behavior |
 | DSO | `src/modules/dso.c` | `astronomy.ts`, `DsoRuntimeModule.ts`, `DsoRenderer.ts`, `dsoVisuals.ts` | partial port | fixed 4-item seed DSO catalog and local morphology shortcuts | Keep dedicated DSO render lane; replace static seed behavior | Replace seed catalog with survey-backed DSO behavior and Stellarium gating |
 | labels | `src/modules/labels.c` | `labelManager.ts`, `directOverlayLayer.ts` | heuristic | local priority and cap policies | Keep layout/collision implementation; replace class visibility rules | Port Stellarium label policy and class offsets |
 | constellations | `src/modules/constellations.c` | `constellations.ts`, `directOverlayLayer.ts` | strong partial port | local presentation policy not fully source-equivalent | Keep culture-driven geometry flow; replace policy differences | Port constellation visibility/policy coupling from Stellarium module behavior |
@@ -46,9 +46,9 @@ Purpose:
 | DSS / survey background | `src/modules/dss.c` | `BackgroundRuntimeModule.ts` (no DSS parity path) | heuristic | procedural background substitute, no DSS behavior | Keep background module ownership; replace DSS behavior path | Port DSS layer behavior and gating from `dss.c` |
 
 ## Top 15 Fake Local Behaviors To Remove
-1. `runtimeFrame.ts:getPlanetMarkerRadiusPx` FOV smoothstep point-to-disk blend; replace with `planets.c:planet_render` transition.
-2. `PlanetRenderer.ts` local diameter/alpha boost shaping (`2.08`, `+0.9`, `pointToDiscBlend`); replace with Stellarium model/point outputs.
-3. `ObjectRuntimeModule.ts` + `directObjectLayer.ts` moon generic path; replace with moon handling in planet chain per `planets.c`.
+1. `runtimeFrame.ts:getPlanetMarkerRadiusPx` FOV smoothstep point-to-disk blend; replace with `planets.c:planet_render` transition. Status: removed in Port Block 1.
+2. `PlanetRenderer.ts` local diameter/alpha boost shaping (`2.08`, `+0.9`, `pointToDiscBlend`); replace with Stellarium model/point outputs. Status: removed in Port Block 1.
+3. `ObjectRuntimeModule.ts` + `directObjectLayer.ts` moon generic path; replace with moon handling in planet chain per `planets.c`. Status: removed in Port Block 1.
 4. `runtimeFrame.ts:getObjectHorizonFade` unconditional return `1`; replace with Stellarium visibility/occlusion behavior.
 5. `runtimeFrame.ts:resolveViewTier` hard label caps (`6/8/10`); replace with limiting-magnitude-driven hint policy.
 6. `labelManager.ts` fixed max visible labels and local ranking constants; replace with `labels.c` + class hint limits.
@@ -63,18 +63,23 @@ Purpose:
 15. `MilkyWayModule.ts` procedural sample clouds; replace with `milkyway.c` behavior.
 
 ## Corrected Remaining Port Order
-1. Planet zoom/render chain parity.
-2. Star LOD + survey sequencing parity.
-3. DSO data-depth parity.
-4. Hints/labels limiting-magnitude parity.
-5. Constellations + skyculture behavior coupling parity.
-6. Overlay/grid deterministic behavior parity.
-7. Atmosphere + landscape + Milky Way parity.
-8. Pointer/selection parity.
-9. Object inspector/detail parity.
-10. Missing subsystems: satellites full parity, minor planets, comets, meteors, DSS.
+1. Star LOD + survey sequencing parity.
+2. DSO data-depth parity.
+3. Hints/labels limiting-magnitude parity.
+4. Constellations + skyculture behavior coupling parity.
+5. Overlay/grid deterministic behavior parity.
+6. Atmosphere + landscape + Milky Way parity.
+7. Pointer/selection parity.
+8. Object inspector/detail parity.
+9. Missing subsystems: satellites full parity, minor planets, comets, meteors, DSS.
 
-## First Port Block (Must Execute Next)
+## Biggest Missing Behavior
+- Star zoom behavior and survey depth sequencing remain the highest-impact visible mismatch after the planet zoom-chain port.
+
+## Recommended Next Bounded Slice
+- Port Stellarium star point-size/visibility/LOD chain (`modules/stars.c` + `core_get_point_for_mag*`) into the active AH star runtime path (`StarsModule.ts`, `runtimeFrame.ts`, `starRenderer.ts`) and remove residual local star profile shaping.
+
+## Port Block 1 (Executed)
 ### Planet Zoom Chain Parity
 
 Stellarium authority files:
@@ -101,18 +106,23 @@ Stellarium to AH function mapping (this block):
 7. `vmag > stars_limit_mag` with moon exception -> non-star visibility gate.
 8. `core_update_fov` -> FOV semantics feeding transition logic.
 
-Explicit local logic to delete before porting:
-- `runtimeFrame.ts:getPlanetMarkerRadiusPx` smoothstep/mix blend chain.
-- `PlanetRenderer.ts` local `pointToDiscBlend`-based alpha/diameter shaping.
-- moon primary rendering in generic object path (`directObjectLayer.ts` + partition flow).
-- any fixed FOV threshold used as point-to-disk switch.
+Explicit local logic deleted in this block:
+- `runtimeFrame.ts` planet marker smoothstep/mix blend chain (`zoomDiscBlend`, `geometricDiscBlend`, `discBlend`, `discMagnitudeBoostPx`, `zoomDiscScale`, final `mix(...)`).
+- `PlanetRenderer.ts` local `pointToDiscBlend`-driven alpha/diameter shaping and synthetic diameter boost constants.
+- moon primary rendering in generic object path (`directObjectLayer.ts` + runtime partition flow now routes moon with planets).
+- fixed FOV threshold-based point-to-disk switch logic in planet marker path.
 
-Pass/fail parity checkpoints:
-1. Jupiter wide-FOV dominance.
-2. Smooth zoom growth.
-3. Moon visibility/separation behavior.
-4. Correct point-to-disk transition threshold.
-5. No zoom disappearance except Stellarium visibility gating.
+Pass/fail parity checkpoints (current status):
+1. Jupiter wide-FOV dominance: `PENDING LIVE STELLARIUM CHECK`
+2. Smooth zoom growth: `PASS (local runtime/tests)`, `PENDING LIVE STELLARIUM CHECK`
+3. Moon visibility/separation behavior: `PASS (unit tests + chain routing)`, `PENDING LIVE STELLARIUM CHECK`
+4. Correct point-to-disk transition threshold: `PENDING LIVE STELLARIUM CHECK`
+5. No zoom disappearance except Stellarium visibility gating: `PASS (non-moon limiting-mag gate + moon exception in runtime path)`, `PENDING LIVE STELLARIUM CHECK`
+
+Validation evidence recorded for this block:
+- `npm run typecheck` (frontend): pass
+- `npm run build` (frontend): pass
+- `npm run test -- test_planet_ephemeris_fidelity.test.js sky-engine-runtime-frame-projection.test.js test_observer_navigation.test.js`: pass
 
 ## Evidence Rule
 - Do not upgrade parity status by naming similarity.

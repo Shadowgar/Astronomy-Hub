@@ -919,7 +919,7 @@ export function computePlanetSceneObjects(observer: SkyEngineObserver, timestamp
       rightAscensionHours,
       declinationDeg,
       timestampIso,
-      apparentSizeDeg: (planet.visualElements.angularSizeArcsecAtOneAu / Math.max(distanceToEarthAu, 0.1)) / 3600,
+      apparentSizeDeg: (planet.visualElements.angularSizeArcsecAtOneAu / distanceToEarthAu) / 3600,
       illuminationFraction,
       phaseAngle: phaseAngleRad,
       phaseMagnitudeAdjustment,

@@ -56,7 +56,11 @@ vi.mock('../src/features/sky-engine/projectionMath', () => ({
 }))
 
 vi.mock('../src/features/sky-engine/starRenderer', () => ({
-  computeStellariumPointVisual: vi.fn(() => ({ visible: true, radiusPx: 1.2, luminance: 0.7 })),
+  computeStellariumPointVisual: vi.fn((_magnitude, _brightnessExposureState, _screenSizePx, fovDegrees = 60) => ({
+    visible: true,
+    radiusPx: fovDegrees <= 0 ? 1.2 : 1.2 * (60 / fovDegrees),
+    luminance: 0.7,
+  })),
   getStarRenderProfile: vi.fn(() => ({ coreRadiusPx: 1, haloRadiusPx: 2, diameter: 0.4 })),
   getStarRenderProfileForMagnitude: vi.fn(() => ({
     psfDiameterPx: 2.4,
@@ -234,6 +238,8 @@ describe('collectProjectedNonStarObjects LOD sizing', () => {
       createView(),
       [planet],
       { visualCalibration: { starFieldBrightness: 1 } },
+      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      6.0,
       null,
     )
 
@@ -242,6 +248,8 @@ describe('collectProjectedNonStarObjects LOD sizing', () => {
       createView(),
       [planet],
       { visualCalibration: { starFieldBrightness: 1 } },
+      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      6.0,
       null,
     )
 
@@ -284,6 +292,8 @@ describe('collectProjectedNonStarObjects LOD sizing', () => {
       createView(),
       [dso],
       { visualCalibration: { starFieldBrightness: 1 } },
+      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      6.0,
       null,
     )
 
@@ -292,10 +302,107 @@ describe('collectProjectedNonStarObjects LOD sizing', () => {
       createView(),
       [dso],
       { visualCalibration: { starFieldBrightness: 1 } },
+      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      6.0,
       null,
     )
 
     expect(close.projectedObjects[0].shapeWidthPx).toBeGreaterThan(wide.projectedObjects[0].shapeWidthPx)
     expect(close.projectedObjects[0].shapeHeightPx).toBeGreaterThan(wide.projectedObjects[0].shapeHeightPx)
+  })
+
+  it('applies Stellarium visibility gate to non-moon planets by limiting magnitude', () => {
+    projectDirectionToViewportMock.mockReset()
+    getSkyEngineFovDegreesMock.mockReset()
+    projectDirectionToViewportMock.mockReturnValue({
+      screenX: 320,
+      screenY: 240,
+      depth: 0.3,
+      angularDistanceRad: 0.12,
+    })
+    getSkyEngineFovDegreesMock.mockReturnValue(60)
+
+    const dimPlanet = {
+      id: 'planet-neptune',
+      name: 'Neptune',
+      type: 'planet',
+      source: 'computed_ephemeris',
+      magnitude: 8.1,
+      altitudeDeg: 44,
+      azimuthDeg: 195,
+      apparentSizeDeg: 0.002,
+      colorHex: '#88a4d8',
+      summary: 'test',
+      description: 'test',
+      truthNote: 'test',
+      trackingMode: 'fixed_equatorial',
+      isAboveHorizon: true,
+    }
+
+    const projected = collectProjectedNonStarObjects(
+      createView(),
+      [dimPlanet],
+      { visualCalibration: { starFieldBrightness: 1 } },
+      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      6.0,
+      null,
+    )
+
+    expect(projected.projectedObjects).toHaveLength(0)
+  })
+
+  it('keeps moon visible and applies Stellarium moon wide-field scale-up', () => {
+    projectDirectionToViewportMock.mockReset()
+    getSkyEngineFovDegreesMock.mockReset()
+    projectDirectionToViewportMock.mockReturnValue({
+      screenX: 320,
+      screenY: 240,
+      depth: 0.3,
+      angularDistanceRad: 0.12,
+    })
+
+    const moon = {
+      id: 'sky-real-moon',
+      name: 'Moon',
+      type: 'moon',
+      source: 'computed_ephemeris',
+      magnitude: -12.4,
+      altitudeDeg: 44,
+      azimuthDeg: 195,
+      apparentSizeDeg: 0.52,
+      colorHex: '#f8f1d7',
+      summary: 'test',
+      description: 'test',
+      truthNote: 'test',
+      trackingMode: 'lunar_ephemeris',
+      isAboveHorizon: true,
+      illuminationFraction: 0.65,
+      brightLimbAngleDeg: 32,
+      waxing: true,
+    }
+
+    getSkyEngineFovDegreesMock.mockReturnValue(120)
+    const wide = collectProjectedNonStarObjects(
+      createView(),
+      [moon],
+      { visualCalibration: { starFieldBrightness: 1 } },
+      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      6.0,
+      null,
+    )
+
+    getSkyEngineFovDegreesMock.mockReturnValue(8)
+    const close = collectProjectedNonStarObjects(
+      createView(),
+      [moon],
+      { visualCalibration: { starFieldBrightness: 1 } },
+      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      6.0,
+      null,
+    )
+
+    expect(wide.projectedObjects).toHaveLength(1)
+    expect(close.projectedObjects).toHaveLength(1)
+    expect(wide.projectedObjects[0].markerRadiusPx).toBeGreaterThan(close.projectedObjects[0].markerRadiusPx)
   })
 })

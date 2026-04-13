@@ -7,10 +7,10 @@ const DEGREE = Math.PI / 180
 const STELLARIUM_MIN_FOV_DEGREES = 0.000278
 const BABYLON_SAFE_MAX_FOV_DEGREES = 185
 const SKY_ENGINE_MAX_PITCH_DEGREES = 89.95
+const STELLARIUM_ZOOM_FACTOR = 0.05
 
 export const SKY_ENGINE_MIN_FOV = STELLARIUM_MIN_FOV_DEGREES * DEGREE
 export const SKY_ENGINE_MAX_FOV = BABYLON_SAFE_MAX_FOV_DEGREES * DEGREE
-const SKY_ENGINE_WHEEL_ZOOM_FACTOR = 1.05
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -49,7 +49,7 @@ export function stepSkyEngineFov(currentFov: number, deltaY: number) {
 
   const wheelDirection = Math.sign(deltaY)
   const zoomExponent = Math.max(1, Math.abs(deltaY) / 120) * 2
-  const zoomScale = Math.pow(SKY_ENGINE_WHEEL_ZOOM_FACTOR, wheelDirection * zoomExponent)
+  const zoomScale = Math.pow(1 + STELLARIUM_ZOOM_FACTOR * wheelDirection, zoomExponent)
 
   return clampSkyEngineFov(currentFov * zoomScale)
 }

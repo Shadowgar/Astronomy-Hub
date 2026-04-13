@@ -146,6 +146,12 @@ let cachedOrderedStarsByMagnitude: SkyEngineSceneObject[] = []
 let cachedNonStarOrderSignature = ''
 let cachedNonStarObjects: SkyEngineSceneObject[] = []
 
+interface PlanetRenderSizing {
+  readonly markerRadiusPx: number
+  readonly modelAlpha: number
+  readonly pointLuminance: number
+}
+
 function getStarOrderSignature(objects: readonly SkyEngineSceneObject[]) {
   const first = objects[0]?.id ?? 'none'
   const last = objects[objects.length - 1]?.id ?? 'none'
@@ -166,20 +172,37 @@ function getOrderedStarsByMagnitude(objects: readonly SkyEngineSceneObject[]) {
   return cachedOrderedStarsByMagnitude
 }
 
-function getPlanetMarkerRadiusPx(object: SkyEngineSceneObject, scale: number, fovDegrees: number) {
-  const projectedDiscRadiusPx = getProjectedDiscRadiusPx(object.apparentSizeDeg, scale, 0, 24)
-  const pointRadiusPx = clamp(0.82 + (2.15 - object.magnitude * 0.16), 0.55, 2.8)
-  const zoomDiscBlend = 1 - smoothstep(20, 95, fovDegrees)
-  const geometricDiscBlend = smoothstep(0.9, 2.6, projectedDiscRadiusPx)
-  const discBlend = Math.max(geometricDiscBlend, zoomDiscBlend * 0.92)
-  const discMagnitudeBoostPx = clamp(1.65 - object.magnitude * 0.16, 0.2, 1.8)
-  const zoomDiscScale = mix(1, 2.6, zoomDiscBlend)
-  const discRadiusPx = Math.max(
-    projectedDiscRadiusPx * zoomDiscScale + discMagnitudeBoostPx + zoomDiscBlend * 1.4,
-    0.85,
-  )
+function getPlanetRenderSizing(
+  object: SkyEngineSceneObject,
+  view: SkyProjectionView,
+  brightnessExposureState: SkyBrightnessExposureState | undefined,
+  fovDegrees: number,
+) : PlanetRenderSizing {
+  const scale = getProjectionScale(view)
+  const viewportMinSizePx = Math.max(1, Math.min(view.viewportWidth, view.viewportHeight))
+  const pointVisual = computeStellariumPointVisual(object.magnitude, brightnessExposureState, viewportMinSizePx, fovDegrees)
+  const pointRadiusPx = pointVisual.radiusPx
+  const pointAngularRadius = getApparentAngleForPointRadius(scale, pointRadiusPx * 2)
+  const angularDiameterRad = degreesToRadians(object.apparentSizeDeg ?? 0)
+  const moonArtificialScale = getMoonArtificialScale(object, fovDegrees, viewportMinSizePx)
+  const modelScale = object.type === 'moon' ? 4 : 2
+  const scaledAngularDiameter = angularDiameterRad * moonArtificialScale
+  let modelAlpha = 0
 
-  return mix(pointRadiusPx, discRadiusPx, discBlend)
+  if (scaledAngularDiameter > 0 && modelScale * scaledAngularDiameter >= pointAngularRadius) {
+    modelAlpha = smoothstep(1, 0.5, pointAngularRadius / Math.max(modelScale * scaledAngularDiameter, 1e-8))
+  }
+
+  if (object.type === 'moon') {
+    modelAlpha = 1
+  }
+
+  const discRadiusPx = getPointRadiusForApparentAngle(scale, scaledAngularDiameter * 0.5)
+  return {
+    markerRadiusPx: pointRadiusPx * (1 - modelAlpha) + discRadiusPx * modelAlpha,
+    modelAlpha,
+    pointLuminance: pointVisual.luminance,
+  }
 }
 
 function resolveDsoLodBounds(
@@ -333,6 +356,35 @@ function getProjectedDiscRadiusPx(apparentSizeDeg: number | undefined, scale: nu
   return clamp(planeRadius * scale, minimumRadiusPx, maximumRadiusPx)
 }
 
+function getApparentAngleForPointRadius(scale: number, radiusPx: number) {
+  const planeRadius = radiusPx / Math.max(scale, 1e-6)
+  return 2 * Math.atan(planeRadius / 2)
+}
+
+function getPointRadiusForApparentAngle(scale: number, angularRadiusRad: number) {
+  const planeRadius = 2 * Math.tan(Math.max(0, angularRadiusRad) / 2)
+  return Math.max(0, planeRadius * scale)
+}
+
+function getMoonArtificialScale(object: SkyEngineSceneObject, fovDegrees: number, viewportMinSizePx: number) {
+  if (object.type !== 'moon') {
+    return 1
+  }
+
+  const angularDiameterRad = degreesToRadians(object.apparentSizeDeg ?? 0)
+  if (angularDiameterRad <= 0) {
+    return 1
+  }
+
+  const moonAngularDiameterFromEarth = degreesToRadians(0.55)
+  const starScaleScreenFactor = clamp(viewportMinSizePx / 600, 0.7, 1.5)
+  let scale = degreesToRadians(fovDegrees) / degreesToRadians(20)
+
+  scale /= angularDiameterRad / moonAngularDiameterFromEarth
+  scale /= starScaleScreenFactor
+  return Math.max(1, scale)
+}
+
 function getDeepSkyMarkerRadiusPx(object: SkyEngineSceneObject, scale: number, fovDegrees: number) {
   const style = getDeepSkyProjectionStyle(object)
   const lodBounds = resolveDsoLodBounds(style, fovDegrees)
@@ -482,16 +534,13 @@ function getMarkerRadiusPx(
   view: SkyProjectionView,
   visualCalibration: SkyEngineVisualCalibration,
   fovDegrees: number,
+  brightnessExposureState?: SkyBrightnessExposureState,
   starProfile?: StarRenderProfile,
 ) {
   const scale = getProjectionScale(view)
 
-  if (object.type === 'moon') {
-    return getProjectedDiscRadiusPx(object.apparentSizeDeg, scale, 11, 36)
-  }
-
-  if (object.type === 'planet') {
-    return getPlanetMarkerRadiusPx(object, scale, fovDegrees)
+  if (object.type === 'moon' || object.type === 'planet') {
+    return getPlanetRenderSizing(object, view, brightnessExposureState, fovDegrees).markerRadiusPx
   }
 
   if (object.type === 'satellite') {
@@ -631,7 +680,7 @@ export function collectProjectedStars(
     }
     const markerRadiusPx = Math.max(
       starProfile?.psfDiameterPx ? starProfile.psfDiameterPx * 0.5 : 0,
-      getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, fovDegrees, starProfile),
+      getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, fovDegrees, undefined, starProfile),
     )
 
     projectedStars.push({
@@ -717,7 +766,7 @@ export function collectProjectedStars(
     }
     const markerRadiusPx = Math.max(
       starProfile?.psfDiameterPx ? starProfile.psfDiameterPx * 0.5 : 0,
-      getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, fovDegrees, starProfile),
+      getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, fovDegrees, undefined, starProfile),
     )
     packetProjectedObjects.push({
       object,
@@ -778,7 +827,7 @@ export function collectProjectedStars(
       if (renderAlpha > 0) {
         const markerRadiusPx = Math.max(
           starProfile?.psfDiameterPx ? starProfile.psfDiameterPx * 0.5 : 0,
-          getMarkerRadiusPx(selectedStar, view, brightnessExposureState.visualCalibration, fovDegrees, starProfile),
+          getMarkerRadiusPx(selectedStar, view, brightnessExposureState.visualCalibration, fovDegrees, undefined, starProfile),
         )
 
         projectedStars.push({
@@ -821,6 +870,8 @@ export function collectProjectedNonStarObjects(
   view: SkyProjectionView,
   objects: readonly SkyEngineSceneObject[],
   sunState: SkyEngineSunState,
+  brightnessExposureState: SkyBrightnessExposureState | undefined,
+  limitingMagnitude: number,
   selectedObjectId: string | null,
 ) : ProjectedNonStarObjectsResult {
   const totalStartMs = performance.now()
@@ -852,11 +903,16 @@ export function collectProjectedNonStarObjects(
       filteringMs += performance.now() - filteringStartMs
       return
     }
+
+    if (object.type === 'planet' && object.magnitude > limitingMagnitude) {
+      filteringMs += performance.now() - filteringStartMs
+      return
+    }
     filteringMs += performance.now() - filteringStartMs
 
     const transformStartMs = performance.now()
-  const centerDirection = horizontalToDirection(object.altitudeDeg, object.azimuthDeg)
-  const projected = projectDirectionToViewport(centerDirection, view)
+    const centerDirection = horizontalToDirection(object.altitudeDeg, object.azimuthDeg)
+    const projected = projectDirectionToViewport(centerDirection, view)
     transformMs += performance.now() - transformStartMs
 
     const filteringProjectedMs = performance.now()
@@ -868,7 +924,13 @@ export function collectProjectedNonStarObjects(
 
     const filteringAlphaMs = performance.now()
     const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees)
-    const renderAlpha = clamp(horizonFade, 0, 1)
+    const planetSizing = (object.type === 'planet' || object.type === 'moon')
+      ? getPlanetRenderSizing(object, view, brightnessExposureState, fovDegrees)
+      : null
+    const planetAlpha = planetSizing
+      ? planetSizing.pointLuminance * (1 - planetSizing.modelAlpha) + planetSizing.modelAlpha
+      : 1
+    const renderAlpha = clamp(horizonFade * Math.max(planetAlpha, 0.04), 0, 1)
 
     if (renderAlpha <= 0) {
       filteringMs += performance.now() - filteringAlphaMs
@@ -880,7 +942,9 @@ export function collectProjectedNonStarObjects(
     const projectedDsoShape = object.type === 'deep_sky'
       ? getProjectedDsoShape(object, view, centerDirection, fovDegrees)
       : null
-    const markerRadiusPx = projectedDsoShape?.markerRadiusPx ?? getMarkerRadiusPx(object, view, sunState.visualCalibration, fovDegrees)
+    const markerRadiusPx = projectedDsoShape?.markerRadiusPx
+      ?? planetSizing?.markerRadiusPx
+      ?? getMarkerRadiusPx(object, view, sunState.visualCalibration, fovDegrees, brightnessExposureState)
 
     projectedObjects.push({
       object,
