@@ -103,7 +103,7 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
         currentLodTier: projectedFrame.lod.tier,
         labelCap: projectedFrame.lod.labelCap,
         groundTextureMode: 'direct-babylon-background-object-and-overlay-layer',
-        groundTextureAssetPath: 'direct Babylon backdrop, glare, horizon blocking, objects, and overlays with density-stars-canvas-fallback',
+        groundTextureAssetPath: 'direct Babylon backdrop, glare, horizon blocking, objects, and overlays',
       })
       if (sceneStateJson !== reportingState.lastSceneStateJson) {
         setDatasetAttribute(runtime.canvas, 'data-sky-engine-scene-state', sceneStateJson)
@@ -142,6 +142,7 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
         ema: emaPerf,
         projectionShare,
         moduleBreakdown,
+        brightnessExposureState: runtime.brightnessExposureState,
         uiPerf,
       })
       if (runtimePerfJson !== reportingState.lastRuntimePerfJson) {

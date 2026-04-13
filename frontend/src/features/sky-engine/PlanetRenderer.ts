@@ -441,13 +441,10 @@ export function createPlanetRenderer(scene: Scene) {
         const diameter = Math.max(2, projectedPlanet.markerRadiusPx * 2)
 
         entry.mesh.position.copyFrom(toViewportPlanePosition(projectedPlanet, viewportWidth, viewportHeight))
-        entry.mesh.scaling.set(diameter * (isSelected ? 1.14 : 1), diameter * (isSelected ? 1.14 : 1), 1)
+        entry.mesh.scaling.set(diameter, diameter, 1)
         entry.mesh.isVisible = projectedPlanet.renderAlpha > 0.001
-        const emissiveBoost = visualState.saturnVisual
-          ? Math.pow(visualState.saturnVisual.ringBrightnessGain, 0.18)
-          : 1
-        entry.material.emissiveColor = Color3.FromHexString(projectedPlanet.object.colorHex).scale((isSelected ? 1.05 : 0.94) * emissiveBoost)
-        entry.material.alpha = clamp(projectedPlanet.renderAlpha + (isSelected ? 0.08 : 0), 0, 1)
+        entry.material.emissiveColor = Color3.FromHexString(projectedPlanet.object.colorHex)
+        entry.material.alpha = clamp(projectedPlanet.renderAlpha, 0, 1)
 
         if (isSelected) {
           selectedEntry = projectedPlanet
@@ -463,9 +460,9 @@ export function createPlanetRenderer(scene: Scene) {
 
       selectionRing.mesh.isVisible = true
       selectionRing.mesh.position.copyFrom(toViewportPlanePosition(finalSelectedEntry, viewportWidth, viewportHeight))
-      const selectionDiameter = Math.max(24, finalSelectedEntry.markerRadiusPx * 2.4 + 18)
+      const selectionDiameter = Math.max(24, finalSelectedEntry.markerRadiusPx * 2 + 18)
       selectionRing.mesh.scaling.set(selectionDiameter, selectionDiameter, 1)
-      selectionRing.material.alpha = clamp(0.72 + finalSelectedEntry.renderAlpha * 0.18, 0, 0.94)
+      selectionRing.material.alpha = clamp(0.72, 0, 0.94)
     },
 
     dispose() {

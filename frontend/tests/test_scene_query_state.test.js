@@ -34,6 +34,7 @@ describe('scene query state', () => {
   it('caps Hipparcos runtime queries at the Hipparcos catalog ceiling', () => {
     expect(resolveRepositoryQueryLimitingMagnitude('hipparcos', 11.4)).toBe(HIPPARCOS_QUERY_LIMITING_MAGNITUDE_MAX)
     expect(resolveRepositoryQueryLimitingMagnitude('mock', 11.4)).toBe(11.4)
+    expect(resolveRepositoryQueryLimitingMagnitude('multi-survey', 11.4)).toBe(11.4)
   })
 
   it('keeps the previous scene packet while a deeper tile query is still unresolved', () => {

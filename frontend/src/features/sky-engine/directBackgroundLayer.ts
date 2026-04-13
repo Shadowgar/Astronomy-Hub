@@ -13,7 +13,6 @@ import {
   directionToHorizontal,
   getProjectionScale,
   isProjectedPointVisible,
-  projectDirectionToViewport,
   projectHorizontalToViewport,
   type SkyProjectionView,
 } from './projectionMath'
@@ -341,50 +340,12 @@ function createGlowPlane(scene: Scene, id: string, texture: DynamicTexture, rend
 }
 
 function prepareBackdropPatches(
-  view: SkyProjectionView,
+  _view: SkyProjectionView,
   _sunState: SkyEngineSunState,
-  fovDegrees: number,
-  brightnessExposureState: SkyBrightnessExposureState,
+  _fovDegrees: number,
+  _brightnessExposureState: SkyBrightnessExposureState,
 ) {
-  const projectionScale = getProjectionScale(view)
-  const wideBlend = smoothstep(80, 185, fovDegrees)
-  const contributorTotal = Math.max(brightnessExposureState.sceneLuminance ?? 1, 1e-6)
-  const starShare = Number.isFinite(brightnessExposureState.sceneLuminanceStarContributor)
-    ? clamp(brightnessExposureState.sceneLuminanceStarContributor / contributorTotal, 0, 1)
-    : clamp(brightnessExposureState.starFieldBrightness ?? brightnessExposureState.starVisibility ?? 0, 0, 1)
-  const backdropOpacity = clamp(
-    brightnessExposureState.milkyWayVisibility * 0.72 + starShare * 0.28,
-    0,
-    1,
-  )
-
-  if (backdropOpacity <= 0.08) {
-    return []
-  }
-
-  return PROCEDURAL_SKY_BACKDROP.flatMap((patch, index) => {
-    const projected = projectDirectionToViewport(patch.direction, view)
-
-    if (!projected || !isProjectedPointVisible(projected, view, 120)) {
-      return []
-    }
-
-    const radiusPx = clamp(projectionScale * Math.tan(degreesToRadians(patch.radiusDeg) * 0.5), 28, 240)
-    const alpha = patch.alpha * backdropOpacity * (0.35 + patch.bandWeight * 0.95) * (0.56 + wideBlend * 0.44)
-
-    if (alpha <= 0.004) {
-      return []
-    }
-
-    return [{
-      id: `backdrop-patch-${index}`,
-      screenX: projected.screenX,
-      screenY: projected.screenY,
-      radiusPx,
-      alpha: alpha * 0.34,
-      colorHex: patch.colorHex,
-    }]
-  })
+  return []
 }
 
 function prepareGlare(view: SkyProjectionView, sunState: SkyEngineSunState) {

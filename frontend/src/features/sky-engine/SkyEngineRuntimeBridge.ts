@@ -20,6 +20,7 @@ import { createDirectObjectLayer } from './directObjectLayer'
 import { createDirectOverlayLayer } from './directOverlayLayer'
 import { createDirectStarLayer } from './directStarLayer'
 import type { SkyScenePacket } from './engine/sky'
+import type { SkyTileCatalog } from './engine/sky/contracts/tiles'
 import type { BackendSkySceneStarObject } from '../scene/contracts'
 import type { SkyEngineSnapshotStore } from './SkyEngineSnapshotStore'
 import type {
@@ -53,7 +54,7 @@ export interface SkyEngineSceneProps {
     centerAzDeg: number
   }
   readonly projectionMode?: SkyProjectionMode
-  readonly repositoryMode: 'mock' | 'hipparcos'
+  readonly repositoryMode: Extract<SkyTileCatalog, 'mock' | 'hipparcos' | 'multi-survey'>
   readonly snapshotStore: SkyEngineSnapshotStore
   readonly initialAidVisibility?: SkyEngineAidVisibility
   readonly initialSkyCultureId?: string
