@@ -219,7 +219,10 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
   return {
     id: 'sky-background-runtime-module',
     renderOrder: 18,
-    render({ runtime, services, getProps }) {
+    render() {
+      // Synthetic density fallback is disabled. Star density is sourced from catalog surveys only.
+      return
+      /*
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame
       const brightnessExposureState = runtime.brightnessExposureState
@@ -244,6 +247,7 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
         projectedFrame.limitingMagnitude,
         services.clockService.getAnimationTimeSeconds(),
       )
+      */
     },
   }
 }

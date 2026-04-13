@@ -174,3 +174,15 @@ This tracker must reflect reality, even if that reality is bad.
 ```
 
 ---
+
+## STELLARIUM PARITY TRACKING
+
+For strict Sky Engine parity progress against Stellarium source behavior, use:
+
+- `/home/rocco/Astronomy-Hub/parity_list.md`
+
+Current parity anchor (as of 2026-04-12):
+
+- Stars moved from Hipparcos-only ceiling (~8,870) to multi-survey sequencing (~61.7k visible ceiling with current datasets).
+- Synthetic deep background star fallback is disabled; real catalog surveys now drive deep star density.
+- Remaining star parity gap is deep-survey coverage beyond mag 8.5 and full hint/label limiting-magnitude chain parity.

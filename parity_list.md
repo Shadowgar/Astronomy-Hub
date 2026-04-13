@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Subsystem Parity List
 
-Last updated: 2026-04-12
+Last updated: 2026-04-12 (Phase 6C1 survey port update)
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/modules/*.c`
 - Astronomy Hub local source: `/home/rocco/Astronomy-Hub/frontend/src/features/sky-engine/**`
@@ -44,7 +44,7 @@ Purpose:
 | pointer | `src/modules/pointer.c` | `directObjectLayer.ts`, `PointerRenderer.ts` | stubbed | The active runtime uses a generic selection ring; standalone `PointerRenderer.ts` exists but has no active runtime references. | No animated pointer subsystem is wired through the active module graph. | Wire pointer lifecycle through object selection in the active runtime. |
 | satellites | `src/modules/satellites.c` | `src/features/scene/contracts.ts`, `src/features/sky-engine/astronomy.ts`, `src/features/sky-engine/SatelliteRenderer.ts`, `src/features/sky-engine/engine/sky/runtime/modules/SatelliteRuntimeModule.ts`, `src/pages/SkyEnginePage.tsx` | partially ported | Backend satellite scene payloads now feed a bounded top-visible satellite set into the Sky Engine, where satellites are partitioned into a dedicated runtime module and rendered as dedicated marker sprites instead of the generic object layer. | Frontend TLE ingestion, propagation, orbit lines, and brightness modelling are still absent; this slice only activates backend-fed marker rendering for a small visible subset. | Keep the backend-fed runtime boundary, then add richer satellite visuals or motion only after the ownership split is stable. |
 | skycultures | `src/modules/skycultures.c` | `skycultures/index.ts`, `skyCultureSelection.ts`, `directOverlayLayer.ts` | partially ported | Multiple sky-culture definitions exist, culture IDs can be normalized and persisted, and the active overlay renders constellation data for the selected culture ID. | Culture pack coverage and localized behavior breadth are still very limited. | Expand the active culture pack and verify bounded culture switching end-to-end. |
-| stars | `src/modules/stars.c` | `engine/sky/runtime/modules/StarsModule.ts`, `engine/sky/runtime/modules/runtimeFrame.ts`, `directStarLayer.ts` | partially ported | A dedicated star runtime module handles projection caching, LOD reuse, limiting magnitude, and star-layer sync in the active scene. | Catalog richness, traversal depth, and Stellarium-grade data breadth are still missing. | Deepen catalog richness and port the next bounded traversal/detail behavior. |
+| stars | `src/modules/stars.c`, `src/core.c`, `src/tonemapper.c` | `engine/sky/runtime/modules/StarsModule.ts`, `engine/sky/runtime/modules/runtimeFrame.ts`, `engine/sky/adapters/fileTileRepository.ts`, `starRenderer.ts`, `directStarLayer.ts` | functionally equivalent | Star traversal is sorted + early-break by limiting magnitude, point visibility follows Stellarium-like point-radius chain, telescope/FOV gain is applied in point sizing, and multi-survey data sequencing is active (`hipparcos` + supplemental 61k dataset) with synthetic background fallback disabled. | Full Stellarium survey depth is still missing (no Gaia/deep survey beyond mag ~8.5), plus hint/label magnitude chain parity and survey overlap policies are still simplified. | Add a third real deep survey (mag >8.5) with strict min/max survey handoff + overlap guards, then port `hints_limit_mag` behavior from `stars.c`. |
 
 ## Audit Notes
 - `constellations` and `skycultures` are more advanced than the previous parity file claimed because they are actively rendered through the overlay path, not just defined as static data.
@@ -55,12 +55,40 @@ Purpose:
 - Strongest current areas: `stars`, `planets`, `dso`, `atmosphere`, `milkyway`, `landscape`, `labels`, `lines`, `movements`, `constellations/skycultures`.
 - Weakest current areas: `comets`, `minorplanets`, `satellites`, `meteors`, `dss`, `geojson`, `photos`, `circle`, `drag_selection`.
 - Highest-value next bounded slices:
-  1. Wire active dedicated renderers where parallel dead paths still exist (`pointer`).
-  2. Expand `skycultures` and constellation asset coverage beyond the current narrow pack.
-  3. Add a bounded `satellites` subsystem.
+  1. Complete strict star survey sequencing by adding a deep real survey (mag >8.5) and overlap-safe handoff behavior.
+  2. Port star hint/label limiting-magnitude chain (`hints_limit_mag`) to reduce remaining visual mismatch at zoom.
+  3. Expand `skycultures` and constellation asset coverage beyond the current narrow pack.
   4. Add bounded `minorplanets` and `comets` catalog/runtime support.
-  5. Decide whether to port a survey background (`dss`) or explicitly defer it.
-- Overall parity estimate: `~24-28%` subsystem parity.
+  5. Re-evaluate `dss` after deep survey parity is stable.
+- Overall parity estimate: `~30-35%` subsystem parity.
+
+## Strict Port Progress (Stars)
+Reference slices:
+- Phase 6B1: literal point-size / limiting-magnitude traversal alignment and selected-star persistence.
+- Phase 6C1: survey sequencing + Hipparcos ceiling removal + synthetic deep fallback removal.
+
+Current data coverage:
+- Hipparcos tile survey: `8,870` unique stars
+- Supplemental survey (`hipparcos_tier2_subset.json`): `61,675` stars (mag `1.64` to `8.5`)
+
+Checkpoint evidence (catalog-gate parity harness):
+- Command: `node scripts/sky-engine/report_star_survey_checkpoints.mjs`
+- Output:
+  - `120°` → limit `5.781` → `3,986`
+  - `60°` → limit `6.766` → `11,927`
+  - `30°` → limit `8.281` → `52,415`
+  - `10°` → limit `10.656` → `61,701`
+  - `2°` → limit `14.219` → `61,701`
+
+Interpretation:
+- The previous hard ceiling near `8,870` is removed.
+- Density now increases strongly with zoom.
+- A new ceiling appears near `61.7k` because current deepest real survey ends at mag `8.5`.
+
+Verification bundle (latest star parity slices):
+- `npm run typecheck` (frontend) ✅
+- `npm run build` (frontend) ✅
+- `npm run test -- test_file_backed_tile_repository.test.js test_sky_engine_runtime_slice.test.js sky-engine-runtime-frame-projection.test.js test_star_renderer.test.js test_star_visibility.test.js sky-engine-stars-runtime.test.js` ✅
 
 ## Update Protocol (for future AI coders)
 When you complete a slice, update:
