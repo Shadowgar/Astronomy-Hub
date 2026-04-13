@@ -8,7 +8,6 @@ import {
   rankGuidanceTargets,
 } from './astronomy'
 import {
-  assembleSkyScenePacket,
   buildSkyEngineQuery,
   fileBackedSkyTileRepository,
   getSkyTileMaxLevel,
@@ -49,6 +48,10 @@ import {
   evaluateStellariumSkyBrightnessBaseline,
   resolveTonemapperLwmaxFromLuminance,
 } from './skyBrightness'
+import {
+  resolveRepositoryQueryLimitingMagnitude,
+  resolveScenePacketForQuery,
+} from './sceneQueryState'
 import { resolveStarColorHex } from './starRenderer'
 import type { SkyEngineAidVisibility, SkyEngineSceneObject, SkyEngineSunState } from './types'
 
@@ -144,16 +147,6 @@ function createAidVisibilitySignature(aidVisibility: SkyEngineAidVisibility) {
   return [aidVisibility.constellations, aidVisibility.azimuthRing, aidVisibility.altitudeRings]
     .map((value) => (value ? '1' : '0'))
     .join(':')
-}
-
-function buildTileQuerySignature(query: ReturnType<typeof buildSkyEngineQuery>, repositoryMode: SkyEngineSceneProps['repositoryMode']) {
-  return [
-    repositoryMode,
-    String(query.maxTileLevel ?? getSkyTileMaxLevel()),
-    query.limitingMagnitude.toFixed(2),
-    query.activeTiers.join(','),
-    query.visibleTileIds.join(','),
-  ].join(':')
 }
 
 function buildPropsSignature(config: PropsSignatureConfig) {
@@ -252,6 +245,8 @@ function buildSceneControllerModel(config: {
   currentViewState: ScenePropsSnapshot['initialViewState']
   runtimeTiles: NonNullable<SkyTileRepositoryLoadResult['tiles']>
   tileLoadResult: SkyTileRepositoryLoadResult | null
+  resolvedTileQuerySignature: string
+  previousScenePacket: ScenePropsSnapshot['scenePacket']
   sceneTimestampIso: string
 }) {
   const observerSnapshot = {
@@ -266,19 +261,28 @@ function buildSceneControllerModel(config: {
   }
   const sunState = computeSunState(config.observer, config.sceneTimestampIso)
   const moonObject = computeMoonSceneObject(config.observer, config.sceneTimestampIso)
-  const queryLimitingMagnitude = resolveSceneQueryLimitingMagnitude({
-    observer: config.observer,
-    currentViewState: config.currentViewState,
-    sceneTimestampIso: config.sceneTimestampIso,
-    sunState,
-    moonObject,
-  })
+  const queryLimitingMagnitude = resolveRepositoryQueryLimitingMagnitude(
+    config.repositoryMode,
+    resolveSceneQueryLimitingMagnitude({
+      observer: config.observer,
+      currentViewState: config.currentViewState,
+      sceneTimestampIso: config.sceneTimestampIso,
+      sunState,
+      moonObject,
+    }),
+  )
   const query = buildSkyEngineQuery(observerSnapshot, {
     limitingMagnitude: queryLimitingMagnitude,
   })
-  const scenePacket = config.tileLoadResult
-    ? assembleSkyScenePacket(query, config.runtimeTiles, config.tileLoadResult)
-    : null
+  const scenePacketState = resolveScenePacketForQuery({
+    query,
+    repositoryMode: config.repositoryMode,
+    runtimeTiles: config.runtimeTiles,
+    tileLoadResult: config.tileLoadResult,
+    resolvedTileQuerySignature: config.resolvedTileQuerySignature,
+    previousScenePacket: config.previousScenePacket,
+  })
+  const scenePacket = scenePacketState.scenePacket
   const planetObjects = computePlanetSceneObjects(config.observer, config.sceneTimestampIso)
   const deepSkyObjects = computeDeepSkySceneObjects(config.observer, config.sceneTimestampIso)
   const satelliteObjects = computeSatelliteSceneObjects(config.observer, config.sceneTimestampIso, config.backendSatellites)
@@ -315,7 +319,7 @@ function buildSceneControllerModel(config: {
     sceneObjects,
     guidedObjectIds: guidanceTargets.map((target) => target.objectId),
     queryLimitingMagnitude,
-    tileQuerySignature: buildTileQuerySignature(query, config.repositoryMode),
+    tileQuerySignature: scenePacketState.tileQuerySignature,
   } satisfies SceneControllerModel
 }
 
@@ -347,8 +351,10 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
   const runtimeTilesRef = useRef<NonNullable<SkyTileRepositoryLoadResult['tiles']>>([])
   const tileLoadResultRef = useRef<SkyTileRepositoryLoadResult | null>(null)
   const tileLoadGenerationRef = useRef(0)
+  const resolvedTileQuerySignatureRef = useRef('')
   const lastTileQuerySignatureRef = useRef('')
   const lastPropsSignatureRef = useRef('')
+  const stableScenePacketRef = useRef<ScenePropsSnapshot['scenePacket']>(null)
   const syncRuntimeModelRef = useRef<(force?: boolean) => void>(() => undefined)
   const defaultDynamicModelRef = useRef<SceneControllerModel>(
     buildSceneControllerModel({
@@ -360,6 +366,8 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
       currentViewState: initialViewState,
       runtimeTiles: runtimeTilesRef.current,
       tileLoadResult: tileLoadResultRef.current,
+      resolvedTileQuerySignature: resolvedTileQuerySignatureRef.current,
+      previousScenePacket: stableScenePacketRef.current,
       sceneTimestampIso: initialSceneTimestampIso,
     }),
   )
@@ -493,8 +501,13 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
         currentViewState,
         runtimeTiles: runtimeTilesRef.current,
         tileLoadResult: tileLoadResultRef.current,
+        resolvedTileQuerySignature: resolvedTileQuerySignatureRef.current,
+        previousScenePacket: stableScenePacketRef.current,
         sceneTimestampIso,
       })
+      if (nextModel.scenePacket != null && nextModel.tileQuerySignature === resolvedTileQuerySignatureRef.current) {
+        stableScenePacketRef.current = nextModel.scenePacket
+      }
       currentSceneObjectsRef.current = nextModel.sceneObjects
 
       const selectedObject = nextModel.sceneObjects.find((object) => object.id === selectedObjectIdRef.current) ?? null
@@ -508,6 +521,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
       if (nextModel.tileQuerySignature !== lastTileQuerySignatureRef.current) {
         lastTileQuerySignatureRef.current = nextModel.tileQuerySignature
         const loadGeneration = ++tileLoadGenerationRef.current
+        const nextTileQuerySignature = nextModel.tileQuerySignature
         const query = buildSkyEngineQuery({
           timestampUtc: sceneTimestampIso,
           latitudeDeg: observer.latitude,
@@ -529,6 +543,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
 
             runtimeTilesRef.current = result.tiles
             tileLoadResultRef.current = result
+            resolvedTileQuerySignatureRef.current = nextTileQuerySignature
             syncRuntimeModel(true)
           })
           .catch((error) => {

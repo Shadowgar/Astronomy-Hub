@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-13 (Port Block 5 landed shared Stellarium visual math, core luminance contributor reporting, and tonemapper-driven adaptation; local Gaia mirror assets remain active; frontend targeted parity tests, typecheck, and build pass)
+Last updated: 2026-04-13 (Port Block 6 fixed the blocking close-FOV star-packet collapse by keeping Hipparcos-mode queries below the Gaia activation threshold and preserving the last resolved scene packet while close-FOV tiles load; Docker frontend tests, typecheck, build, and fixed-FOV count regression pass)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -316,6 +316,51 @@ Validation evidence recorded for this block:
 
 Residual proof gap:
 - Live side-by-side visual checkpoint evidence is still pending for wide-FOV sky brightness, bright-star separation, and zoom-level contrast against Stellarium runtime output.
+
+## Port Block 6 (Executed)
+### Close-FOV Star Packet Collapse
+
+Stellarium authority files:
+- `src/modules/stars.c`
+- `src/core.c`
+- `src/hips.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/SkyEngineScene.tsx`
+- `frontend/src/features/sky-engine/sceneQueryState.ts`
+- `frontend/tests/test_scene_query_state.test.js`
+- `frontend/tests/test_close_fov_star_counts.test.js`
+
+Blocking defect observed before fix:
+- Wide live runtime view around `120°` reported hundreds of rendered stars.
+- Close live runtime view around `5.5°` collapsed to `starCount = 0`, `starThinInstanceCount = 0`, `sceneLuminanceStarSampleCount = 0`.
+
+Root cause:
+1. `SkyEngineScene.tsx` rebuilt a new close-FOV query immediately from live camera state, but while the new tile load was still in flight it assembled the next frame from the current `runtimeTilesRef`, which could temporarily be unresolved for that query.
+2. Hipparcos runtime mode still allowed query limiting magnitude to reach `8.5`, and `fileTileRepository.ts` treats `limitingMagnitude >= 8.5` as permission to enter the Gaia branch. In practice this pushed close-FOV Hipparcos checkpoints onto the deeper Gaia load path even though the active runtime mode was locked to Hipparcos.
+
+Fix implemented:
+1. Added `sceneQueryState.ts` to centralize query-state decisions.
+2. Capped Hipparcos-mode query limiting magnitude to `8.499` so close-FOV Hipparcos runtime never crosses the Gaia activation boundary.
+3. Preserved the last resolved `scenePacket` until matching tiles for the newly requested query signature have actually loaded, preventing empty transitional packets during close-FOV query churn.
+4. Added regression coverage for both the Hipparcos query cap and the non-empty fixed-FOV packet path through `5°`.
+
+Docker validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub && docker compose build frontend`: pass
+- `cd /home/rocco/Astronomy-Hub && docker compose run --rm frontend npm run test -- tests/test_scene_query_state.test.js tests/test_tone_adaptation.test.js tests/test_scene_luminance_report.test.js tests/test_atmosphere_fidelity.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub && docker compose run --rm frontend npm run test -- tests/test_close_fov_star_counts.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub && docker compose run --rm frontend npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub && docker compose run --rm frontend npm run build`: pass
+
+Fixed-FOV query-stage evidence recorded for this block (Vega-centered, Docker):
+- `120°`: limiting magnitude `6.578`; visible tiles `12`; repository tiles `12`; tile stars `52,592`; assembled stars `7,754`
+- `60°`: limiting magnitude `7.578`; visible tiles `17`; repository tiles `17`; tile stars `16,164`; assembled stars `6,691`
+- `20°`: limiting magnitude `8.499`; visible tiles `5`; repository tiles `5`; tile stars `4,871`; assembled stars `4,551`
+- `5°`: limiting magnitude `8.499`; visible tiles `4`; repository tiles `4`; tile stars `4,185`; assembled stars `3,908`
+
+Interpretation:
+- The blocking defect is fixed: close-FOV Hipparcos queries no longer collapse to an empty star packet, and the packet remains populated through `5°`.
+- Absolute star count decreases with narrower framing in this Vega-centered checkpoint because sky area shrinks, but the engine no longer exhibits the invalid zero-star collapse that blocked parity work.
 
 ## Evidence Rule
 - Do not upgrade parity status by naming similarity.
