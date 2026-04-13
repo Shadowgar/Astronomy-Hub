@@ -75,21 +75,18 @@ function drawStar(
 }
 
 function getSyntheticDensityMagnitudeLimit(fovDegrees: number, renderLimitingMagnitude: number) {
-  const closeBlend = 1 - smoothstep(18, 120, fovDegrees)
-  const ultraCloseBlend = 1 - smoothstep(0.7, 6, fovDegrees)
-
-  return clamp(renderLimitingMagnitude + 0.45 + closeBlend * 0.85 + ultraCloseBlend * 0.55, -1, 14.6)
+  const wideBlend = smoothstep(40, 85, fovDegrees)
+  const syntheticOffset = 0.35 * wideBlend
+  return clamp(renderLimitingMagnitude + syntheticOffset, -1, 14.6)
 }
 
 function getSyntheticDensityBudget(fovDegrees: number, brightnessExposureState: SkyBrightnessExposureState) {
   const visibility = clamp(brightnessExposureState.starVisibility, 0, 1)
   const brightness = clamp(brightnessExposureState.starFieldBrightness, 0, 1)
-  const closeBlend = 1 - smoothstep(28, 140, fovDegrees)
-  const ultraCloseBlend = 1 - smoothstep(0.7, 6, fovDegrees)
-  const baseBudget = mix(260, 1700, closeBlend)
-  const closeBoost = mix(1, 1.45, ultraCloseBlend)
+  const wideBlend = smoothstep(45, 95, fovDegrees)
+  const baseBudget = mix(0, 900, wideBlend)
 
-  return Math.round(baseBudget * closeBoost * (0.3 + visibility * 0.7) * (0.34 + brightness * 0.66))
+  return Math.round(baseBudget * (0.3 + visibility * 0.7) * (0.34 + brightness * 0.66))
 }
 
 function buildProjectedStarOverlapGrid(projectedObjects: readonly ProjectedSceneObjectEntry[]) {

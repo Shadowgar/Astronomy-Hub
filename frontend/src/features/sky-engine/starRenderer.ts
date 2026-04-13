@@ -23,6 +23,8 @@ export interface StellariumPointVisual {
 }
 
 const ARCSECONDS_PER_RADIAN = (180 / Math.PI) * 3600
+const DEGREES_TO_RADIANS = Math.PI / 180
+const STELLARIUM_FOV_EYE_RADIANS = 60 * DEGREES_TO_RADIANS
 const STELLARIUM_POINT_SPREAD_RADIUS_RAD = (2.5 / 60) * (Math.PI / 180)
 const STELLARIUM_MIN_POINT_AREA_SR = Math.PI * STELLARIUM_POINT_SPREAD_RADIUS_RAD * STELLARIUM_POINT_SPREAD_RADIUS_RAD
 const STELLARIUM_STAR_LINEAR_SCALE = 0.8
@@ -86,6 +88,15 @@ function getMagnitudeIlluminance(magnitude: number) {
   return 10.7646e4 / (ARCSECONDS_PER_RADIAN * ARCSECONDS_PER_RADIAN) * exp10(-0.4 * magnitude)
 }
 
+function getTelescopeGainMagnitude(fovDegrees: number) {
+  const fovRad = clamp(fovDegrees, 0.25, 180) * DEGREES_TO_RADIANS
+  const magnification = STELLARIUM_FOV_EYE_RADIANS / fovRad
+  const exposure = Math.pow(Math.max(1, (5 * DEGREES_TO_RADIANS) / fovRad), 0.07)
+  const lightGrasp = Math.max(0.4, magnification * magnification * exposure)
+
+  return 2.5 * Math.log10(lightGrasp)
+}
+
 function getSceneResponseWeight(state: SkyBrightnessExposureState | undefined) {
   if (!state) {
     return {
@@ -112,9 +123,11 @@ export function computeStellariumPointVisual(
   magnitude: number,
   brightnessExposureState: SkyBrightnessExposureState | undefined,
   screenSizePx: number,
+  fovDegrees = 60,
 ): StellariumPointVisual {
   const response = getSceneResponseWeight(brightnessExposureState)
-  const apparentLuminance = getMagnitudeIlluminance(clamp(magnitude, -1.6, 14.6)) / STELLARIUM_MIN_POINT_AREA_SR
+  const telescopeGainMagnitude = getTelescopeGainMagnitude(fovDegrees)
+  const apparentLuminance = getMagnitudeIlluminance(clamp(magnitude - telescopeGainMagnitude, -192, 64)) / STELLARIUM_MIN_POINT_AREA_SR
   let displayLuminance = tonemapperMap(
     apparentLuminance,
     response.tonemapperP,

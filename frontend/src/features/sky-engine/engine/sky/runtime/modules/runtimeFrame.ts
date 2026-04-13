@@ -15,7 +15,6 @@ import {
   getStarRenderProfileForMagnitude,
   type StarRenderProfile,
 } from '../../../../starRenderer'
-import { computeVisibilityAlpha } from '../../../../starVisibility'
 import { getDeepSkyMarkerDimensionsPx, getDeepSkyProjectionStyle, resolveDeepSkyAxes } from '../../../../dsoVisuals'
 import type { SkyScenePacket } from '../..'
 import type {
@@ -140,12 +139,6 @@ function isEngineTileSource(source: SkyEngineSceneObject['source']) {
 }
 
 const STAR_MAGNITUDE_BREAK_MARGIN = 0
-const STAR_DENSITY_CAP_WIDE = 450
-const STAR_DENSITY_CAP_MEDIUM = 1100
-const STAR_DENSITY_CAP_CLOSE = 2600
-const STAR_ZOOM_LIMIT_GAIN_CLOSE = 0.52
-const STAR_ZOOM_LIMIT_GAIN_TELESCOPE = 1.05
-const STAR_ZOOM_BRIGHTNESS_GAIN = 0.4
 const EMPTY_PROJECTED_OBJECTS: readonly ProjectedSceneObjectEntry[] = []
 
 let cachedStarOrderSignature = ''
@@ -171,28 +164,6 @@ function getOrderedStarsByMagnitude(objects: readonly SkyEngineSceneObject[]) {
     .sort((left, right) => left.magnitude - right.magnitude || left.id.localeCompare(right.id))
   cachedStarOrderSignature = signature
   return cachedOrderedStarsByMagnitude
-}
-
-function getProjectedStarDensityCap(fovDegrees: number) {
-  const wideBlend = smoothstep(86, 165, fovDegrees)
-  const closeBlend = 1 - smoothstep(8, 34, fovDegrees)
-  const mediumBlend = clamp(1 - Math.max(wideBlend, closeBlend), 0, 1)
-
-  return Math.round(
-    STAR_DENSITY_CAP_WIDE * wideBlend +
-    STAR_DENSITY_CAP_MEDIUM * mediumBlend +
-    STAR_DENSITY_CAP_CLOSE * closeBlend,
-  )
-}
-
-function getStarZoomLimitMagnitudeGain(fovDegrees: number) {
-  const closeBlend = 1 - smoothstep(20, 105, fovDegrees)
-  const telescopeBlend = 1 - smoothstep(0.75, 15, fovDegrees)
-  return closeBlend * STAR_ZOOM_LIMIT_GAIN_CLOSE + telescopeBlend * STAR_ZOOM_LIMIT_GAIN_TELESCOPE
-}
-
-function getStarZoomBrightnessGain(fovDegrees: number) {
-  return getStarZoomLimitMagnitudeGain(fovDegrees) * STAR_ZOOM_BRIGHTNESS_GAIN
 }
 
 function getPlanetMarkerRadiusPx(object: SkyEngineSceneObject, scale: number, fovDegrees: number) {
@@ -589,25 +560,20 @@ export function collectProjectedStars(
   let allocationMs = 0
   const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
   const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
-  const limitingMagnitude = brightnessExposureState.limitingMagnitude + getStarZoomLimitMagnitudeGain(fovDegrees)
-  const renderedMagnitudeGain = getStarZoomBrightnessGain(fovDegrees)
-  const projectedStarDensityCap = getProjectedStarDensityCap(fovDegrees)
+  const limitingMagnitude = brightnessExposureState.limitingMagnitude
   const objectLookup = new Map(objects.map((object) => [object.id, object]))
   const projectedStars: ProjectedSceneObjectEntry[] = []
   const orderedStars = getOrderedStarsByMagnitude(objects)
   const projectedStarIndexById = new Map<string, number>()
+  const viewportMinSizePx = Math.min(view.viewportWidth, view.viewportHeight)
+  const selectedStar = selectedObjectId
+    ? orderedStars.find((star) => star.id === selectedObjectId) ?? null
+    : null
 
   for (let index = 0; index < orderedStars.length; index += 1) {
     const object = orderedStars[index]
     if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, sunState, selectedObjectId)) {
       continue
-    }
-
-    if (
-      object.id !== selectedObjectId &&
-      projectedStars.length >= projectedStarDensityCap
-    ) {
-      break
     }
 
     const magnitudeStartMs = performance.now()
@@ -616,22 +582,22 @@ export function collectProjectedStars(
       break
     }
 
-    const renderedMagnitude = object.magnitude - renderedMagnitudeGain
-    const visibilityAlpha = computeVisibilityAlpha(renderedMagnitude, limitingMagnitude)
+    const renderedMagnitude = object.magnitude
+    const pointVisual = computeStellariumPointVisual(
+      renderedMagnitude,
+      brightnessExposureState,
+      viewportMinSizePx,
+      fovDegrees,
+    )
+    const visibilityAlpha = pointVisual.visible ? 1 : 0
     magnitudeFilterMs += performance.now() - magnitudeStartMs
 
     if (object.id !== selectedObjectId && visibilityAlpha <= 0) {
       continue
     }
 
-    const pointVisual = computeStellariumPointVisual(
-      renderedMagnitude,
-      brightnessExposureState,
-      Math.min(view.viewportWidth, view.viewportHeight),
-    )
-
     if (object.id !== selectedObjectId && !pointVisual.visible) {
-      break
+      continue
     }
 
     const transformStartMs = performance.now()
@@ -652,7 +618,7 @@ export function collectProjectedStars(
       object.colorIndexBV,
       brightnessExposureState.visualCalibration,
       brightnessExposureState,
-      Math.min(view.viewportWidth, view.viewportHeight),
+      viewportMinSizePx,
       pointVisual,
     )
     const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees)
@@ -706,21 +672,26 @@ export function collectProjectedStars(
     visibilityFilterMs += performance.now() - visibilityStartMs
 
     const magnitudeStartMs = performance.now()
-    const renderedMagnitude = object.magnitude - renderedMagnitudeGain
-    const visibilityAlpha = computeVisibilityAlpha(renderedMagnitude, limitingMagnitude)
+    const renderedMagnitude = object.magnitude
+    const pointVisual = computeStellariumPointVisual(
+      renderedMagnitude,
+      brightnessExposureState,
+      viewportMinSizePx,
+      fovDegrees,
+    )
+    const visibilityAlpha = pointVisual.visible ? 1 : 0
     magnitudeFilterMs += performance.now() - magnitudeStartMs
 
     const visibilityFilterStartMs = performance.now()
-    if (object.id !== selectedObjectId && visibilityAlpha <= 0) {
+    if (object.id !== selectedObjectId && object.magnitude > limitingMagnitude + STAR_MAGNITUDE_BREAK_MARGIN) {
       visibilityFilterMs += performance.now() - visibilityFilterStartMs
       return
     }
 
-    const pointVisual = computeStellariumPointVisual(
-      renderedMagnitude,
-      brightnessExposureState,
-      Math.min(view.viewportWidth, view.viewportHeight),
-    )
+    if (object.id !== selectedObjectId && visibilityAlpha <= 0) {
+      visibilityFilterMs += performance.now() - visibilityFilterStartMs
+      return
+    }
 
     if (object.id !== selectedObjectId && !pointVisual.visible) {
       visibilityFilterMs += performance.now() - visibilityFilterStartMs
@@ -733,7 +704,7 @@ export function collectProjectedStars(
       object.colorIndexBV,
       brightnessExposureState.visualCalibration,
       brightnessExposureState,
-      Math.min(view.viewportWidth, view.viewportHeight),
+      viewportMinSizePx,
       pointVisual,
     )
     const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees)
@@ -778,6 +749,54 @@ export function collectProjectedStars(
       projectedStars[existingIndex] = entry
     })
     allocationMs += performance.now() - allocationMergeStartMs
+  }
+
+  if (selectedStar && projectedStarIndexById.get(selectedStar.id) === undefined) {
+    const transformStartMs = performance.now()
+    const projected = projectDirectionToViewport(horizontalToDirection(selectedStar.altitudeDeg, selectedStar.azimuthDeg), view)
+    transformMs += performance.now() - transformStartMs
+
+    if (projected && isProjectedPointVisible(projected, view, 22)) {
+      const renderedMagnitude = selectedStar.magnitude
+      const pointVisual = computeStellariumPointVisual(
+        renderedMagnitude,
+        brightnessExposureState,
+        viewportMinSizePx,
+        fovDegrees,
+      )
+      const starProfile = getStarRenderProfileForMagnitude(
+        renderedMagnitude,
+        selectedStar.colorIndexBV,
+        brightnessExposureState.visualCalibration,
+        brightnessExposureState,
+        viewportMinSizePx,
+        pointVisual,
+      )
+      const horizonFade = getObjectHorizonFade(selectedStar, centerAltitudeDeg, fovDegrees)
+      const renderAlpha = clamp(horizonFade * starProfile.alpha, 0, 0.98)
+
+      if (renderAlpha > 0) {
+        const markerRadiusPx = Math.max(
+          starProfile?.psfDiameterPx ? starProfile.psfDiameterPx * 0.5 : 0,
+          getMarkerRadiusPx(selectedStar, view, brightnessExposureState.visualCalibration, fovDegrees, starProfile),
+        )
+
+        projectedStars.push({
+          object: selectedStar,
+          screenX: projected.screenX,
+          screenY: projected.screenY,
+          depth: projected.depth,
+          angularDistanceRad: projected.angularDistanceRad,
+          markerRadiusPx,
+          pickRadiusPx: getPickRadiusPx(selectedStar, markerRadiusPx),
+          renderAlpha,
+          renderedMagnitude,
+          visibilityAlpha: 1,
+          starProfile,
+        })
+        projectedStarIndexById.set(selectedStar.id, projectedStars.length - 1)
+      }
+    }
   }
 
   // Preserved for telemetry visibility; in optimized path sorting is intentionally skipped.

@@ -63,6 +63,7 @@ vi.mock('../src/features/sky-engine/starRenderer', () => ({
     coreRadiusPx: 1.2,
     haloRadiusPx: 2.2,
     diameter: 0.4,
+    alpha: 0.8,
   })),
 }))
 
@@ -83,7 +84,7 @@ function createView() {
 }
 
 describe('collectProjectedStars early exit', () => {
-  it('increases limiting depth as FOV narrows (zoom in) while keeping wide-FOV density constrained', () => {
+  it('does not apply extra FOV gain heuristics inside star traversal', () => {
     projectDirectionToViewportMock.mockReset()
     getSkyEngineFovDegreesMock.mockReset()
     projectDirectionToViewportMock.mockReturnValue({
@@ -129,8 +130,8 @@ describe('collectProjectedStars early exit', () => {
       '2026-04-11T05:00:00Z',
     )
 
-    expect(wide.projectedStars.length).toBeLessThan(close.projectedStars.length)
-    expect(close.limitingMagnitude).toBeGreaterThan(wide.limitingMagnitude)
+    expect(wide.projectedStars.length).toBe(close.projectedStars.length)
+    expect(close.limitingMagnitude).toBe(wide.limitingMagnitude)
   })
 
   it('breaks before transform when raw magnitude exceeds limiting magnitude', () => {
@@ -165,6 +166,38 @@ describe('collectProjectedStars early exit', () => {
     expect(result.projectedStars[0].object.id).toBe('star-bright')
     expect(projectDirectionToViewportMock).toHaveBeenCalledTimes(1)
     expect(result.timing.sortingMs).toBe(0)
+  })
+
+  it('keeps selected stars visible even when they are beyond limiting magnitude', () => {
+    projectDirectionToViewportMock.mockReset()
+    getSkyEngineFovDegreesMock.mockReset()
+    projectDirectionToViewportMock.mockReturnValue({
+      screenX: 300,
+      screenY: 210,
+      depth: 0.2,
+      angularDistanceRad: 0.1,
+    })
+    getSkyEngineFovDegreesMock.mockReturnValue(60)
+
+    const stars = [
+      { id: 'star-bright', type: 'star', source: 'catalog', magnitude: 1.4, altitudeDeg: 40, azimuthDeg: 110, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 'star-limit', type: 'star', source: 'catalog', magnitude: 6.2, altitudeDeg: 42, azimuthDeg: 112, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 'star-selected-dim', type: 'star', source: 'catalog', magnitude: 9.8, altitudeDeg: 44, azimuthDeg: 114, colorHex: '#ffffff', colorIndexBV: 0.2 },
+    ]
+
+    const result = collectProjectedStars(
+      createView(),
+      { latitudeDeg: 0, longitudeDeg: 0, elevationM: 0 },
+      stars,
+      null,
+      { visualCalibration: { starFieldBrightness: 1 } },
+      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      'star-selected-dim',
+      '2026-04-11T05:00:00Z',
+    )
+
+    const ids = result.projectedStars.map((entry) => entry.object.id)
+    expect(ids).toContain('star-selected-dim')
   })
 })
 
