@@ -118,6 +118,19 @@ function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
 }
 
+function smoothstep(edge0: number, edge1: number, value: number) {
+  if (edge0 === edge1) {
+    return value < edge0 ? 0 : 1
+  }
+
+  const t = clamp((value - edge0) / (edge1 - edge0), 0, 1)
+  return t * t * (3 - 2 * t)
+}
+
+function mix(start: number, end: number, amount: number) {
+  return start + (end - start) * clamp(amount, 0, 1)
+}
+
 function degreesToRadians(value: number) {
   return (value * Math.PI) / 180
 }
@@ -127,9 +140,12 @@ function isEngineTileSource(source: SkyEngineSceneObject['source']) {
 }
 
 const STAR_MAGNITUDE_BREAK_MARGIN = 0
-const STAR_DENSITY_CAP_WIDE = 700
-const STAR_DENSITY_CAP_MEDIUM = 1200
-const STAR_DENSITY_CAP_CLOSE = 2000
+const STAR_DENSITY_CAP_WIDE = 450
+const STAR_DENSITY_CAP_MEDIUM = 1100
+const STAR_DENSITY_CAP_CLOSE = 2600
+const STAR_ZOOM_LIMIT_GAIN_CLOSE = 0.52
+const STAR_ZOOM_LIMIT_GAIN_TELESCOPE = 1.05
+const STAR_ZOOM_BRIGHTNESS_GAIN = 0.4
 const EMPTY_PROJECTED_OBJECTS: readonly ProjectedSceneObjectEntry[] = []
 
 let cachedStarOrderSignature = ''
@@ -158,15 +174,56 @@ function getOrderedStarsByMagnitude(objects: readonly SkyEngineSceneObject[]) {
 }
 
 function getProjectedStarDensityCap(fovDegrees: number) {
-  if (fovDegrees >= 90) {
-    return STAR_DENSITY_CAP_WIDE
-  }
+  const wideBlend = smoothstep(86, 165, fovDegrees)
+  const closeBlend = 1 - smoothstep(8, 34, fovDegrees)
+  const mediumBlend = clamp(1 - Math.max(wideBlend, closeBlend), 0, 1)
 
-  if (fovDegrees >= 35) {
-    return STAR_DENSITY_CAP_MEDIUM
-  }
+  return Math.round(
+    STAR_DENSITY_CAP_WIDE * wideBlend +
+    STAR_DENSITY_CAP_MEDIUM * mediumBlend +
+    STAR_DENSITY_CAP_CLOSE * closeBlend,
+  )
+}
 
-  return STAR_DENSITY_CAP_CLOSE
+function getStarZoomLimitMagnitudeGain(fovDegrees: number) {
+  const closeBlend = 1 - smoothstep(20, 105, fovDegrees)
+  const telescopeBlend = 1 - smoothstep(0.75, 15, fovDegrees)
+  return closeBlend * STAR_ZOOM_LIMIT_GAIN_CLOSE + telescopeBlend * STAR_ZOOM_LIMIT_GAIN_TELESCOPE
+}
+
+function getStarZoomBrightnessGain(fovDegrees: number) {
+  return getStarZoomLimitMagnitudeGain(fovDegrees) * STAR_ZOOM_BRIGHTNESS_GAIN
+}
+
+function getPlanetMarkerRadiusPx(object: SkyEngineSceneObject, scale: number, fovDegrees: number) {
+  const projectedDiscRadiusPx = getProjectedDiscRadiusPx(object.apparentSizeDeg, scale, 0, 24)
+  const pointRadiusPx = clamp(0.82 + (2.15 - object.magnitude * 0.16), 0.55, 2.8)
+  const zoomDiscBlend = 1 - smoothstep(20, 95, fovDegrees)
+  const geometricDiscBlend = smoothstep(0.9, 2.6, projectedDiscRadiusPx)
+  const discBlend = Math.max(geometricDiscBlend, zoomDiscBlend * 0.92)
+  const discMagnitudeBoostPx = clamp(1.65 - object.magnitude * 0.16, 0.2, 1.8)
+  const zoomDiscScale = mix(1, 2.6, zoomDiscBlend)
+  const discRadiusPx = Math.max(
+    projectedDiscRadiusPx * zoomDiscScale + discMagnitudeBoostPx + zoomDiscBlend * 1.4,
+    0.85,
+  )
+
+  return mix(pointRadiusPx, discRadiusPx, discBlend)
+}
+
+function resolveDsoLodBounds(
+  style: ReturnType<typeof getDeepSkyProjectionStyle>,
+  fovDegrees: number,
+) {
+  const closeBlend = 1 - smoothstep(12, 78, fovDegrees)
+
+  return {
+    minimumMajorDiameterPx: mix(style.minimumMajorDiameterPx * 0.42, style.minimumMajorDiameterPx * 0.98, closeBlend),
+    minimumMinorDiameterPx: mix(style.minimumMinorDiameterPx * 0.42, style.minimumMinorDiameterPx * 0.98, closeBlend),
+    maximumMajorDiameterPx: mix(style.maximumMajorDiameterPx * 0.72, style.maximumMajorDiameterPx * 1.56, closeBlend),
+    maximumMinorDiameterPx: mix(style.maximumMinorDiameterPx * 0.72, style.maximumMinorDiameterPx * 1.56, closeBlend),
+    magnitudeBoostScale: mix(0.84, 1.26, closeBlend),
+  }
 }
 
 function getOrderedNonStarObjects(objects: readonly SkyEngineSceneObject[]) {
@@ -305,25 +362,26 @@ function getProjectedDiscRadiusPx(apparentSizeDeg: number | undefined, scale: nu
   return clamp(planeRadius * scale, minimumRadiusPx, maximumRadiusPx)
 }
 
-function getDeepSkyMarkerRadiusPx(object: SkyEngineSceneObject, scale: number) {
+function getDeepSkyMarkerRadiusPx(object: SkyEngineSceneObject, scale: number, fovDegrees: number) {
   const style = getDeepSkyProjectionStyle(object)
+  const lodBounds = resolveDsoLodBounds(style, fovDegrees)
   const axes = resolveDeepSkyAxes(object)
   const projectedRadiusPx = getProjectedDiscRadiusPx(
     axes.majorAxis,
     scale,
-    style.minimumMajorDiameterPx * 0.5,
-    style.maximumMajorDiameterPx * 0.5,
+    lodBounds.minimumMajorDiameterPx * 0.5,
+    lodBounds.maximumMajorDiameterPx * 0.5,
   )
   const magnitudeBoostPx = clamp(
-    1.7 - object.magnitude * 0.12,
+    (1.7 - object.magnitude * 0.12) * lodBounds.magnitudeBoostScale,
     0.2,
-    style.projectionMagnitudeBoostPx,
+    style.projectionMagnitudeBoostPx * lodBounds.magnitudeBoostScale,
   )
 
   return clamp(
     projectedRadiusPx + magnitudeBoostPx,
-    style.minimumMajorDiameterPx * 0.5,
-    style.maximumMajorDiameterPx * 0.5,
+    lodBounds.minimumMajorDiameterPx * 0.5,
+    lodBounds.maximumMajorDiameterPx * 0.5,
   )
 }
 
@@ -390,10 +448,12 @@ function getProjectedDsoShape(
   object: SkyEngineSceneObject,
   view: SkyProjectionView,
   centerDirection: Vector3,
+  fovDegrees: number,
 ) {
   const style = getDeepSkyProjectionStyle(object)
+  const lodBounds = resolveDsoLodBounds(style, fovDegrees)
   const axes = resolveDeepSkyAxes(object)
-  const fallbackRadiusPx = getDeepSkyMarkerRadiusPx(object, getProjectionScale(view))
+  const fallbackRadiusPx = getDeepSkyMarkerRadiusPx(object, getProjectionScale(view), fovDegrees)
   const fallbackDimensions = getDeepSkyMarkerDimensionsPx(object, fallbackRadiusPx)
   const basis = resolveHorizontalTangentBasis(object.altitudeDeg, object.azimuthDeg)
   const orientationRad = degreesToRadians(axes.orientationDeg)
@@ -410,20 +470,20 @@ function getProjectedDsoShape(
     view,
   )
   const magnitudeBoostPx = clamp(
-    1.7 - object.magnitude * 0.12,
+    (1.7 - object.magnitude * 0.12) * lodBounds.magnitudeBoostScale,
     0.2,
-    style.projectionMagnitudeBoostPx,
+    style.projectionMagnitudeBoostPx * lodBounds.magnitudeBoostScale,
   ) * 2
 
   let shapeWidthPx = clamp(
-    Math.max(majorSegment?.lengthPx ?? fallbackDimensions.widthPx, style.minimumMajorDiameterPx) + magnitudeBoostPx,
-    style.minimumMajorDiameterPx,
-    style.maximumMajorDiameterPx,
+    Math.max(majorSegment?.lengthPx ?? fallbackDimensions.widthPx, lodBounds.minimumMajorDiameterPx) + magnitudeBoostPx,
+    lodBounds.minimumMajorDiameterPx,
+    lodBounds.maximumMajorDiameterPx,
   )
   let shapeHeightPx = clamp(
-    Math.max(minorSegment?.lengthPx ?? fallbackDimensions.heightPx, style.minimumMinorDiameterPx) + magnitudeBoostPx,
-    style.minimumMinorDiameterPx,
-    Math.min(style.maximumMinorDiameterPx, shapeWidthPx),
+    Math.max(minorSegment?.lengthPx ?? fallbackDimensions.heightPx, lodBounds.minimumMinorDiameterPx) + magnitudeBoostPx,
+    lodBounds.minimumMinorDiameterPx,
+    Math.min(lodBounds.maximumMinorDiameterPx, shapeWidthPx),
   )
   let shapeRotationRad = majorSegment?.rotationRad ?? degreesToRadians(fallbackDimensions.rotationDeg)
 
@@ -450,6 +510,7 @@ function getMarkerRadiusPx(
   object: SkyEngineSceneObject,
   view: SkyProjectionView,
   visualCalibration: SkyEngineVisualCalibration,
+  fovDegrees: number,
   starProfile?: StarRenderProfile,
 ) {
   const scale = getProjectionScale(view)
@@ -459,7 +520,7 @@ function getMarkerRadiusPx(
   }
 
   if (object.type === 'planet') {
-    return getProjectedDiscRadiusPx(object.apparentSizeDeg, scale, 4.2, 14) + clamp(2.2 - object.magnitude * 0.2, 0.3, 2.8)
+    return getPlanetMarkerRadiusPx(object, scale, fovDegrees)
   }
 
   if (object.type === 'satellite') {
@@ -467,7 +528,7 @@ function getMarkerRadiusPx(
   }
 
   if (object.type === 'deep_sky') {
-    return getDeepSkyMarkerRadiusPx(object, scale)
+    return getDeepSkyMarkerRadiusPx(object, scale, fovDegrees)
   }
 
   const profile = starProfile ?? getStarRenderProfile(object, visualCalibration)
@@ -528,7 +589,8 @@ export function collectProjectedStars(
   let allocationMs = 0
   const fovDegrees = getSkyEngineFovDegrees(view.fovRadians)
   const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
-  const limitingMagnitude = brightnessExposureState.limitingMagnitude
+  const limitingMagnitude = brightnessExposureState.limitingMagnitude + getStarZoomLimitMagnitudeGain(fovDegrees)
+  const renderedMagnitudeGain = getStarZoomBrightnessGain(fovDegrees)
   const projectedStarDensityCap = getProjectedStarDensityCap(fovDegrees)
   const objectLookup = new Map(objects.map((object) => [object.id, object]))
   const projectedStars: ProjectedSceneObjectEntry[] = []
@@ -554,7 +616,7 @@ export function collectProjectedStars(
       break
     }
 
-    const renderedMagnitude = object.magnitude
+    const renderedMagnitude = object.magnitude - renderedMagnitudeGain
     const visibilityAlpha = computeVisibilityAlpha(renderedMagnitude, limitingMagnitude)
     magnitudeFilterMs += performance.now() - magnitudeStartMs
 
@@ -603,7 +665,7 @@ export function collectProjectedStars(
     }
     const markerRadiusPx = Math.max(
       starProfile?.psfDiameterPx ? starProfile.psfDiameterPx * 0.5 : 0,
-      getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile),
+      getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, fovDegrees, starProfile),
     )
 
     projectedStars.push({
@@ -644,7 +706,7 @@ export function collectProjectedStars(
     visibilityFilterMs += performance.now() - visibilityStartMs
 
     const magnitudeStartMs = performance.now()
-    const renderedMagnitude = object.magnitude
+    const renderedMagnitude = object.magnitude - renderedMagnitudeGain
     const visibilityAlpha = computeVisibilityAlpha(renderedMagnitude, limitingMagnitude)
     magnitudeFilterMs += performance.now() - magnitudeStartMs
 
@@ -684,7 +746,7 @@ export function collectProjectedStars(
     }
     const markerRadiusPx = Math.max(
       starProfile?.psfDiameterPx ? starProfile.psfDiameterPx * 0.5 : 0,
-      getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, starProfile),
+      getMarkerRadiusPx(object, view, brightnessExposureState.visualCalibration, fovDegrees, starProfile),
     )
     packetProjectedObjects.push({
       object,
@@ -797,9 +859,9 @@ export function collectProjectedNonStarObjects(
 
     const allocationStartMs = performance.now()
     const projectedDsoShape = object.type === 'deep_sky'
-      ? getProjectedDsoShape(object, view, centerDirection)
+      ? getProjectedDsoShape(object, view, centerDirection, fovDegrees)
       : null
-    const markerRadiusPx = projectedDsoShape?.markerRadiusPx ?? getMarkerRadiusPx(object, view, sunState.visualCalibration)
+    const markerRadiusPx = projectedDsoShape?.markerRadiusPx ?? getMarkerRadiusPx(object, view, sunState.visualCalibration, fovDegrees)
 
     projectedObjects.push({
       object,
