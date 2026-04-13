@@ -32,18 +32,21 @@ import type { ObserverSnapshot } from './contracts/observer'
 import type { SkyEngineQuery } from './contracts/tiles'
 import { resolveLimitingMagnitude } from './core/magnitudePolicy'
 import { resolveActiveTiers } from './core/tierPolicy'
+import { getSkyTileMaxLevel } from './core/tileIndex'
 import { selectVisibleTileIds } from './core/tileSelection'
 
 export function buildSkyEngineQuery(
   observer: ObserverSnapshot,
-  options?: { limitingMagnitude?: number },
+  options?: { limitingMagnitude?: number; maxTileLevel?: number },
 ): SkyEngineQuery {
   const limitingMagnitude = options?.limitingMagnitude ?? resolveLimitingMagnitude(observer.fovDeg)
+  const maxTileLevel = getSkyTileMaxLevel(options?.maxTileLevel)
 
   return {
     observer,
     limitingMagnitude,
     activeTiers: resolveActiveTiers(observer, limitingMagnitude),
-    visibleTileIds: selectVisibleTileIds(observer, limitingMagnitude),
+    visibleTileIds: selectVisibleTileIds(observer, limitingMagnitude, maxTileLevel),
+    maxTileLevel,
   }
 }

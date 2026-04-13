@@ -88,15 +88,6 @@ function getMagnitudeIlluminance(magnitude: number) {
   return 10.7646e4 / (ARCSECONDS_PER_RADIAN * ARCSECONDS_PER_RADIAN) * exp10(-0.4 * magnitude)
 }
 
-function getTelescopeGainMagnitude(fovDegrees: number) {
-  const fovRad = clamp(fovDegrees, 0.25, 180) * DEGREES_TO_RADIANS
-  const magnification = STELLARIUM_FOV_EYE_RADIANS / fovRad
-  const exposure = Math.pow(Math.max(1, (5 * DEGREES_TO_RADIANS) / fovRad), 0.07)
-  const lightGrasp = Math.max(0.4, magnification * magnification * exposure)
-
-  return 2.5 * Math.log10(lightGrasp)
-}
-
 function getSceneResponseWeight(state: SkyBrightnessExposureState | undefined) {
   if (!state) {
     return {
@@ -119,6 +110,24 @@ function getScreenScaleFactor(screenSizePx: number) {
   return clamp(screenSizePx / 600, 0.7, 1.5)
 }
 
+function getTelescopeState(fovDegrees: number) {
+  const fovRad = clamp(fovDegrees, 0.25, 180) * DEGREES_TO_RADIANS
+  const magnification = STELLARIUM_FOV_EYE_RADIANS / fovRad
+  const exposure = Math.pow(Math.max(1, (5 * DEGREES_TO_RADIANS) / fovRad), 0.07)
+  const lightGrasp = Math.max(0.4, magnification * magnification * exposure)
+
+  return {
+    magnification,
+    lightGrasp,
+    gainMagnitude: 2.5 * Math.log10(lightGrasp),
+  }
+}
+
+function getApparentLuminanceForMagnitude(magnitude: number, fovDegrees: number) {
+  const telescope = getTelescopeState(fovDegrees)
+  return getMagnitudeIlluminance(clamp(magnitude - telescope.gainMagnitude, -192, 64)) / STELLARIUM_MIN_POINT_AREA_SR
+}
+
 export function computeStellariumPointVisual(
   magnitude: number,
   brightnessExposureState: SkyBrightnessExposureState | undefined,
@@ -126,8 +135,7 @@ export function computeStellariumPointVisual(
   fovDegrees = 60,
 ): StellariumPointVisual {
   const response = getSceneResponseWeight(brightnessExposureState)
-  const telescopeGainMagnitude = getTelescopeGainMagnitude(fovDegrees)
-  const apparentLuminance = getMagnitudeIlluminance(clamp(magnitude - telescopeGainMagnitude, -192, 64)) / STELLARIUM_MIN_POINT_AREA_SR
+  const apparentLuminance = getApparentLuminanceForMagnitude(magnitude, fovDegrees)
   let displayLuminance = tonemapperMap(
     apparentLuminance,
     response.tonemapperP,
@@ -177,33 +185,23 @@ export function getStarRenderProfileForMagnitude(
   screenSizePx = 600,
   precomputedPointVisual?: StellariumPointVisual,
 ): StarRenderProfile {
-  const response = getSceneResponseWeight(brightnessExposureState)
   const pointVisual = precomputedPointVisual ?? computeStellariumPointVisual(magnitude, brightnessExposureState, screenSizePx)
-  const apparentBrightness = clamp(
-    pointVisual.luminance * (0.84 + response.sceneContrast * 0.16),
-    0,
-    1,
-  )
   const colorHex = resolveStarColorHex(colorIndexBV)
   const pointRadiusPx = pointVisual.visible ? pointVisual.radiusPx : STELLARIUM_MIN_POINT_RADIUS_PX
-  const haloRadiusPx = clamp(
-    pointRadiusPx * (1.3 + calibration.starHaloVisibility * 0.25) + apparentBrightness * 2.4,
-    0.9,
-    11.5,
-  )
-  const coreRadiusPx = clamp(pointRadiusPx * (0.92 + apparentBrightness * 0.08), 0.42, 6.2)
+  const pointDiameterPx = clamp(pointRadiusPx * 2, 0.9, STELLARIUM_MAX_POINT_RADIUS_PX * 2)
+  const alpha = clamp(pointVisual.luminance, 0, 1)
 
   return {
     colorHex,
-    diameter: clamp(pointRadiusPx * 2, 0.9, 10.5),
-    haloRadiusPx,
-    haloAlpha: clamp(0.012 + calibration.starHaloVisibility * apparentBrightness * 0.16, 0.012, 0.2),
-    coreRadiusPx,
-    twinkleAmplitude: calibration.starTwinkleAmplitude * clamp(0.03 + apparentBrightness * 0.1, 0.025, 0.14),
-    alpha: clamp(apparentBrightness * (0.78 + response.sceneContrast * 0.12), 0.04, 0.98),
-    emissiveScale: clamp(0.16 + apparentBrightness * 0.94, 0.16, 1.08),
-    diffuseScale: clamp(0.003 + apparentBrightness * 0.014, 0.003, 0.02),
-    psfDiameterPx: clamp(Math.max(pointRadiusPx * 2.4, haloRadiusPx * 1.35), 1.8, 20),
+    diameter: pointDiameterPx,
+    haloRadiusPx: pointRadiusPx,
+    haloAlpha: alpha,
+    coreRadiusPx: pointRadiusPx,
+    twinkleAmplitude: 0,
+    alpha,
+    emissiveScale: clamp(alpha, 0.16, 1),
+    diffuseScale: clamp(alpha * 0.01, 0.003, 0.01),
+    psfDiameterPx: pointDiameterPx,
   }
 }
 

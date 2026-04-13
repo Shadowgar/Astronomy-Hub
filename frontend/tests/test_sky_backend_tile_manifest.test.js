@@ -58,7 +58,7 @@ const BACKEND_SCENE_STARS = [
     color_index: 0,
   },
   {
-    id: 'hip-11767',
+    id: 'catalog-mid-a',
     type: 'star',
     name: 'HIP 11767',
     engine: 'sky_engine',
@@ -68,7 +68,7 @@ const BACKEND_SCENE_STARS = [
     color_index: 0.12,
   },
   {
-    id: 'hip-53910',
+    id: 'catalog-mid-b',
     type: 'star',
     name: 'HIP 53910',
     engine: 'sky_engine',
@@ -104,6 +104,6 @@ describe('Sky backend tile manifest pipeline', () => {
     expect(registry.totalResolvedStars).toBe(4)
     expect(registry.tilesByLookupKey.get('sky:tier1:tier1-bright-stars')).toHaveLength(2)
     expect(registry.tilesByLookupKey.get('sky:tier2:mid-stars')).toHaveLength(2)
-    expect(resolvedStars.map((star) => star.id)).toEqual(['star-sirius', 'star-vega', 'hip-11767', 'hip-53910'])
+    expect(resolvedStars.map((star) => star.id)).toEqual(['star-sirius', 'star-vega', 'catalog-mid-a', 'catalog-mid-b'])
   })
 })

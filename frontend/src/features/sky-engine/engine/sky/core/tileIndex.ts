@@ -11,7 +11,7 @@ export type SkyTileDescriptor = {
   angularRadiusDeg: number
 }
 
-export const SKY_TILE_MAX_LEVEL = 3
+export const DEFAULT_SKY_TILE_MAX_LEVEL = 3
 
 function degreesToRadians(value: number) {
   return (value * Math.PI) / 180
@@ -63,9 +63,7 @@ function computeTileAngularRadius(bounds: SkyTileBounds, centerRaDeg: number, ce
 function buildTileDescriptor(tileId: string, level: number, parentTileId: string | null, bounds: SkyTileBounds): SkyTileDescriptor {
   const centerRaDeg = normalizeDegrees((bounds.raMinDeg + bounds.raMaxDeg) / 2)
   const centerDecDeg = (bounds.decMinDeg + bounds.decMaxDeg) / 2
-  const childTileIds = level >= SKY_TILE_MAX_LEVEL
-    ? []
-    : ['nw', 'ne', 'sw', 'se'].map((suffix) => `${tileId}-${suffix}`)
+  const childTileIds = [] as string[]
 
   return {
     tileId,
@@ -77,6 +75,12 @@ function buildTileDescriptor(tileId: string, level: number, parentTileId: string
     centerDecDeg,
     angularRadiusDeg: computeTileAngularRadius(bounds, centerRaDeg, centerDecDeg),
   }
+}
+
+function populateChildTileIds(descriptor: SkyTileDescriptor, maxLevel: number) {
+  descriptor.childTileIds = descriptor.level >= maxLevel
+    ? []
+    : ['nw', 'ne', 'sw', 'se'].map((suffix) => `${descriptor.tileId}-${suffix}`)
 }
 
 function subdivideBounds(bounds: SkyTileBounds) {
@@ -111,10 +115,11 @@ function subdivideBounds(bounds: SkyTileBounds) {
   }
 }
 
-function addTileFamily(descriptors: Map<string, SkyTileDescriptor>, descriptor: SkyTileDescriptor) {
+function addTileFamily(descriptors: Map<string, SkyTileDescriptor>, descriptor: SkyTileDescriptor, maxLevel: number) {
+  populateChildTileIds(descriptor, maxLevel)
   descriptors.set(descriptor.tileId, descriptor)
 
-  if (descriptor.level >= SKY_TILE_MAX_LEVEL) {
+  if (descriptor.level >= maxLevel) {
     return
   }
 
@@ -124,11 +129,20 @@ function addTileFamily(descriptors: Map<string, SkyTileDescriptor>, descriptor: 
     addTileFamily(
       descriptors,
       buildTileDescriptor(childTileId, descriptor.level + 1, descriptor.tileId, childBounds[suffix]),
+      maxLevel,
     )
   })
 }
 
-function buildTileIndex() {
+function normalizeMaxLevel(maxLevel: number | undefined) {
+  if (maxLevel == null || !Number.isFinite(maxLevel)) {
+    return DEFAULT_SKY_TILE_MAX_LEVEL
+  }
+
+  return Math.max(0, Math.floor(maxLevel))
+}
+
+function buildTileIndex(maxLevel: number) {
   const descriptors = new Map<string, SkyTileDescriptor>()
   const rootDescriptors = [
     buildTileDescriptor('root-nw', 0, null, { raMinDeg: 0, raMaxDeg: 180, decMinDeg: 0, decMaxDeg: 90 }),
@@ -137,7 +151,7 @@ function buildTileIndex() {
     buildTileDescriptor('root-se', 0, null, { raMinDeg: 180, raMaxDeg: 360, decMinDeg: -90, decMaxDeg: 0 }),
   ]
 
-  rootDescriptors.forEach((descriptor) => addTileFamily(descriptors, descriptor))
+  rootDescriptors.forEach((descriptor) => addTileFamily(descriptors, descriptor, maxLevel))
 
   return {
     descriptors,
@@ -145,26 +159,39 @@ function buildTileIndex() {
   }
 }
 
-const SKY_TILE_INDEX = buildTileIndex()
+const SKY_TILE_INDEX_BY_MAX_LEVEL = new Map<number, ReturnType<typeof buildTileIndex>>()
 
-export function getSkyTileDescriptor(tileId: string) {
-  return SKY_TILE_INDEX.descriptors.get(tileId) ?? null
+function resolveSkyTileIndex(maxLevel?: number) {
+  const normalizedMaxLevel = normalizeMaxLevel(maxLevel)
+  const cached = SKY_TILE_INDEX_BY_MAX_LEVEL.get(normalizedMaxLevel)
+
+  if (cached) {
+    return cached
+  }
+
+  const index = buildTileIndex(normalizedMaxLevel)
+  SKY_TILE_INDEX_BY_MAX_LEVEL.set(normalizedMaxLevel, index)
+  return index
 }
 
-export function getSkyTileChildren(tileId: string) {
-  return getSkyTileDescriptor(tileId)?.childTileIds ?? []
+export function getSkyTileDescriptor(tileId: string, maxLevel?: number) {
+  return resolveSkyTileIndex(maxLevel).descriptors.get(tileId) ?? null
 }
 
-export function getSkyRootTileIds() {
-  return [...SKY_TILE_INDEX.rootTileIds]
+export function getSkyTileChildren(tileId: string, maxLevel?: number) {
+  return getSkyTileDescriptor(tileId, maxLevel)?.childTileIds ?? []
 }
 
-export function getAllSkyTileDescriptors() {
-  return Array.from(SKY_TILE_INDEX.descriptors.values())
+export function getSkyRootTileIds(maxLevel?: number) {
+  return [...resolveSkyTileIndex(maxLevel).rootTileIds]
 }
 
-export function getSkyTileMaxLevel() {
-  return SKY_TILE_MAX_LEVEL
+export function getAllSkyTileDescriptors(maxLevel?: number) {
+  return Array.from(resolveSkyTileIndex(maxLevel).descriptors.values())
+}
+
+export function getSkyTileMaxLevel(maxLevel?: number) {
+  return normalizeMaxLevel(maxLevel)
 }
 
 export function tileIntersectsView(tile: SkyTileDescriptor, centerRaDeg: number, centerDecDeg: number, viewRadiusDeg: number) {

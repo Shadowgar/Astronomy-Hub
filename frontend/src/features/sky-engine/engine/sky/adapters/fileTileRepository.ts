@@ -7,6 +7,7 @@ import type {
 } from '../contracts/tiles'
 import type { RuntimeStar } from '../contracts/stars'
 import { getSkyTileDescriptor } from '../core/tileIndex'
+import { resolveSkyRuntimeTierForMagnitude, SKY_TILE_LEVEL_MAG_MAX } from '../core/magnitudePolicy'
 
 const DEFAULT_MANIFEST_PATH = '/sky-engine-assets/catalog/hipparcos/manifest.json'
 const SUPPLEMENTAL_SURVEY_PATH = '/sky-engine-assets/catalog/hipparcos/hipparcos_tier2_subset.json'
@@ -14,7 +15,7 @@ const SUPPLEMENTAL_SURVEY_KEY = 'hipparcos-tier2-subset'
 const HIPPARCOS_SURVEY_KEY = 'hipparcos'
 const HIPPARCOS_MIN_MAG = -2
 const HIPPARCOS_MAX_MAG = 6.5
-const SUPPLEMENTAL_MIN_MAG = 6.0
+const SUPPLEMENTAL_MIN_MAG = 6
 const SUPPLEMENTAL_MAX_MAG = 8.5
 
 type RuntimeSurveyDefinition = {
@@ -65,35 +66,18 @@ function joinAssetPath(basePath: string, assetPath: string) {
 }
 
 function resolveMagnitudeBand(level: number) {
-  if (level === 0) {
-    return { magMin: -2, magMax: 4.5 }
+  const [, , , deepestResolvedMax] = SKY_TILE_LEVEL_MAG_MAX
+  const resolvedMax = SKY_TILE_LEVEL_MAG_MAX[level] ?? deepestResolvedMax
+
+  if (level <= 0) {
+    return { magMin: -2, magMax: resolvedMax }
   }
 
   if (level === 1) {
-    return { magMin: -2, magMax: 6.8 }
+    return { magMin: -2, magMax: resolvedMax }
   }
 
-  if (level === 2) {
-    return { magMin: 0, magMax: 10.5 }
-  }
-
-  return { magMin: 0, magMax: 13.5 }
-}
-
-function resolveSurveyTier(magnitude: number): RuntimeStar['tier'] {
-  if (magnitude <= 2.5) {
-    return 'T0'
-  }
-
-  if (magnitude <= 6.5) {
-    return 'T1'
-  }
-
-  if (magnitude <= 10.5) {
-    return 'T2'
-  }
-
-  return 'T3'
+  return { magMin: 0, magMax: resolvedMax }
 }
 
 function resolveRootTileId(raDeg: number, decDeg: number) {
@@ -189,7 +173,7 @@ function normalizeSupplementalStar(rawStar: SupplementalRawStar): RuntimeStar | 
     decDeg: declinationDeg,
     mag: magnitude,
     colorIndex: Number.isFinite(Number(rawStar.color_index)) ? Number(rawStar.color_index) : undefined,
-    tier: resolveSurveyTier(magnitude),
+    tier: resolveSkyRuntimeTierForMagnitude(magnitude),
     properName,
   }
 }
@@ -318,7 +302,10 @@ function mergeSurveyTiles(
 }
 
 function resolveActiveSurveys(surveys: readonly RuntimeSurveyDefinition[], limitingMagnitude: number) {
-  return surveys.filter((survey) => survey.minVmag <= limitingMagnitude)
+  return surveys
+    .filter((survey) => survey.minVmag <= limitingMagnitude)
+    .slice()
+    .sort((left, right) => left.maxVmag - right.maxVmag || left.minVmag - right.minVmag || left.key.localeCompare(right.key))
 }
 
 export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFEST_PATH): SkyTileRepository {
@@ -328,10 +315,7 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
   let supplementalSurveyPromise: Promise<SupplementalSurveyCache> | null = null
 
   function loadManifest() {
-    if (!manifestPromise) {
-      manifestPromise = fetchJson<SkyTileAssetManifest>(manifestPath)
-    }
-
+    manifestPromise ??= fetchJson<SkyTileAssetManifest>(manifestPath)
     return manifestPromise
   }
 
@@ -360,16 +344,13 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
   }
 
   function loadSupplementalSurvey() {
-    if (!supplementalSurveyPromise) {
-      supplementalSurveyPromise = fetchJson<SupplementalRawStar[]>(SUPPLEMENTAL_SURVEY_PATH)
-        .then((rawStars) => rawStars.map(normalizeSupplementalStar).filter((star): star is RuntimeStar => star != null))
-        .then((stars) => ({
-          sourceRecordCount: stars.length,
-          starsByTileId: buildSupplementalTileIndex(stars),
-          tileCache: new Map<string, SkyTilePayload | null>(),
-        }))
-    }
-
+    supplementalSurveyPromise ??= fetchJson<SupplementalRawStar[]>(SUPPLEMENTAL_SURVEY_PATH)
+      .then((rawStars) => rawStars.map(normalizeSupplementalStar).filter((star): star is RuntimeStar => star != null))
+      .then((stars) => ({
+        sourceRecordCount: stars.length,
+        starsByTileId: buildSupplementalTileIndex(stars),
+        tileCache: new Map<string, SkyTilePayload | null>(),
+      }))
     return supplementalSurveyPromise
   }
 

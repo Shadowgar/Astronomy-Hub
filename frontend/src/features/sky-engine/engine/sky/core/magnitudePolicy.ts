@@ -13,14 +13,25 @@ const STELLARIUM_TONEMAPPER_LWMAX = 0.052
 const STELLARIUM_POINT_SPREAD_RADIUS_RAD = (2.5 / 60) * DEGREES_TO_RADIANS
 const RADIANS_TO_ARCSECONDS = 206264.80624709636
 
-export const SKY_RUNTIME_TIER_MAG_MAX = {
-  T0: 2.5,
-  T1: 6.5,
-  T2: 10.5,
-  T3: Number.POSITIVE_INFINITY,
-} as const
+export const SKY_RUNTIME_TIER_MAG_MAX = [2.5, 6.5, 10.5] as const
 
 export const SKY_TILE_LEVEL_MAG_MAX = [4.5, 6.8, 9.8, 13.2] as const
+
+export function formatSkyRuntimeTier(index: number) {
+  return `T${Math.max(0, Math.floor(index))}` as const
+}
+
+export function resolveSkyRuntimeTierForMagnitude(magnitude: number) {
+  let tierIndex = 0
+
+  SKY_RUNTIME_TIER_MAG_MAX.forEach((maxMagnitude, index) => {
+    if (magnitude > maxMagnitude) {
+      tierIndex = index + 1
+    }
+  })
+
+  return formatSkyRuntimeTier(tierIndex)
+}
 
 export interface LimitingMagnitudeConfig {
   readonly fovDeg: number

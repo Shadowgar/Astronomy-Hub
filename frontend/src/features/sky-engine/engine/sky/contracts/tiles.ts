@@ -3,8 +3,6 @@ import type { RuntimeStar, SkyRuntimeTier } from './stars'
 
 export type SkyTileCatalog = 'mock' | 'hipparcos'
 
-export type SkyTileRepositoryMode = SkyTileCatalog
-
 export type SkyTileBounds = {
   raMinDeg: number
   raMaxDeg: number
@@ -17,6 +15,7 @@ export type SkyEngineQuery = {
   limitingMagnitude: number
   activeTiers: SkyRuntimeTier[]
   visibleTileIds: string[]
+  maxTileLevel?: number
 }
 
 export type SkyTileLabelCandidate = {
@@ -69,7 +68,7 @@ export type SkyTileAssetManifest = {
 }
 
 export type SkyTileRepositoryLoadResult = {
-  mode: SkyTileRepositoryMode
+  mode: SkyTileCatalog
   sourceLabel: string
   sourceError?: string | null
   manifest?: SkyTileAssetManifest

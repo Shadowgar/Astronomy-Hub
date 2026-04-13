@@ -106,6 +106,47 @@ describe('sky engine runtime slice', () => {
     expect(scenePacket.diagnostics.dataMode).toBe('mock')
   })
 
+  it('does not drop deeper-tier stars when they remain within the limiting magnitude', () => {
+    const query = {
+      observer: {
+        ...BASE_OBSERVER,
+        fovDeg: 3,
+      },
+      limitingMagnitude: 13.5,
+      activeTiers: ['T0', 'T1', 'T2', 'T3'],
+      visibleTileIds: ['root-ne-se-nw-nw'],
+      maxTileLevel: 3,
+    }
+    const tiles = [{
+      tileId: 'root-ne-se-nw-nw',
+      level: 3,
+      parentTileId: 'root-ne-se-nw',
+      childTileIds: [],
+      bounds: {
+        raMinDeg: 180,
+        raMaxDeg: 202.5,
+        decMinDeg: 11.25,
+        decMaxDeg: 22.5,
+      },
+      magMin: 12.9,
+      magMax: 12.9,
+      starCount: 1,
+      stars: [{
+        id: 'deep-tier-star',
+        sourceId: 'HIP 900000',
+        raDeg: 190,
+        decDeg: 18,
+        mag: 12.9,
+        tier: 'T4',
+      }],
+      labelCandidates: [],
+    }]
+
+    const scenePacket = assembleSkyScenePacket(query, tiles)
+
+    expect(scenePacket.stars.map((star) => star.id)).toContain('deep-tier-star')
+  })
+
   it('increases star density when deeper tiles are selected', async () => {
     const wideQuery = buildSkyEngineQuery({
       ...BASE_OBSERVER,

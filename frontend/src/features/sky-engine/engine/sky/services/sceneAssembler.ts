@@ -5,8 +5,8 @@ import { dedupeRuntimeStars } from '../core/dedupe'
 import { buildSkyDiagnostics } from '../diagnostics/skyDiagnostics'
 import { raDecToObserverUnitVector } from '../transforms/coordinates'
 const DEFAULT_REPOSITORY_STATE: Pick<SkyTileRepositoryLoadResult, 'mode' | 'sourceLabel' | 'sourceError'> = {
-  mode: 'mock',
-  sourceLabel: 'Mock tile repository',
+  mode: 'hipparcos',
+  sourceLabel: 'Hipparcos tile repository',
   sourceError: null,
 }
 
@@ -19,7 +19,6 @@ export function assembleSkyScenePacket(
   tiles: readonly SkyTilePayload[],
   repositoryState: Pick<SkyTileRepositoryLoadResult, 'mode' | 'sourceLabel' | 'sourceError'> = DEFAULT_REPOSITORY_STATE,
 ): SkyScenePacket {
-  const activeTierSet = new Set(query.activeTiers)
   const visibleTileSet = new Set(query.visibleTileIds)
   const labelCandidateMap = tiles
     .filter((tile) => visibleTileSet.has(tile.tileId))
@@ -40,7 +39,6 @@ export function assembleSkyScenePacket(
     tiles
       .filter((tile) => visibleTileSet.has(tile.tileId))
       .flatMap((tile) => tile.stars)
-      .filter((star) => activeTierSet.has(star.tier))
       .filter((star) => star.mag <= query.limitingMagnitude),
   )
 

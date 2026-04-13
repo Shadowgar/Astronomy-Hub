@@ -4,8 +4,6 @@ import type {
   BackendSkyStarTileManifestPayload,
 } from '../scene/contracts'
 
-const TIER1_BRIGHT_STAR_LOOKUP_KEY = 'sky:tier1:tier1-bright-stars'
-const TIER2_MID_STAR_LOOKUP_KEY = 'sky:tier2:mid-stars'
 const MAX_RESOLVED_BACKEND_STARS = 100000
 
 export type SkyBackendTileManifestState = {
@@ -42,19 +40,23 @@ const EMPTY_TILE_MANIFEST_STATE: SkyBackendTileManifestState = {
   },
 }
 
-function resolveBackendStarsForLookupKey(
-  lookupKey: string,
+function resolveBackendStarsForTile(
+  tile: BackendSkyStarTileDescriptor,
   sceneStars: readonly BackendSkySceneStarObject[],
 ): readonly BackendSkySceneStarObject[] {
-  if (lookupKey === TIER1_BRIGHT_STAR_LOOKUP_KEY) {
-    return sceneStars.filter((star) => !star.id.startsWith('hip-'))
-  }
+  const epsilon = 1e-6
+  const resolvedStars = sceneStars
+    .filter((star) => star.magnitude >= tile.magnitude_min - epsilon)
+    .filter((star) => star.magnitude <= tile.magnitude_max + epsilon)
+    .sort((left, right) => {
+      if (left.magnitude !== right.magnitude) {
+        return left.magnitude - right.magnitude
+      }
 
-  if (lookupKey === TIER2_MID_STAR_LOOKUP_KEY) {
-    return sceneStars.filter((star) => star.id.startsWith('hip-'))
-  }
+      return left.id.localeCompare(right.id)
+    })
 
-  return []
+  return resolvedStars.slice(0, tile.object_count)
 }
 
 export function createSkyBackendTileManifestState(
@@ -81,7 +83,7 @@ export function resolveSkyBackendTileRegistry(
   sceneStars: readonly BackendSkySceneStarObject[],
 ): SkyBackendTileRegistry {
   const tiles = manifestState.tiles.map((tile) => {
-    const resolvedStars = resolveBackendStarsForLookupKey(tile.lookup_key, sceneStars)
+    const resolvedStars = resolveBackendStarsForTile(tile, sceneStars)
 
     return {
       ...tile,

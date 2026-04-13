@@ -20,10 +20,6 @@ function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
 }
 
-function hashPhase(value: string) {
-  return Array.from(value).reduce((accumulator, character, index) => accumulator + (character.codePointAt(0) ?? 0) * (index + 1), 0) * 0.017
-}
-
 function fillMatrix(
   output: Float32Array,
   offset: number,
@@ -124,7 +120,6 @@ export function createDirectStarLayer(scene: Scene) {
   markerMesh.alwaysSelectAsActiveMesh = true
 
   const selectionRing = createSelectionRing(scene)
-  const phaseByStarId = new Map<string, number>()
   let matrixBuffer = new Float32Array(0)
   let colorBuffer = new Float32Array(0)
   let capacity = 0
@@ -145,7 +140,7 @@ export function createDirectStarLayer(scene: Scene) {
       viewportWidth: number,
       viewportHeight: number,
       selectedObjectId: string | null,
-      animationTime: number,
+      _animationTime: number,
     ): DirectStarLayerSyncTiming {
       const syncStartMs = performance.now()
       if (projectedStars.length === 0) {
@@ -169,15 +164,8 @@ export function createDirectStarLayer(scene: Scene) {
 
       for (let index = 0; index < projectedStars.length; index += 1) {
         const entry = projectedStars[index]
-        const phase = phaseByStarId.get(entry.object.id) ?? hashPhase(entry.object.id)
-        phaseByStarId.set(entry.object.id, phase)
         const isSelected = entry.object.id === selectedObjectId
-        const twinkle = 1 + Math.sin(animationTime * 1.35 + phase) * (entry.starProfile?.twinkleAmplitude ?? 0)
-        const emphasisScale = isSelected ? 1.16 : 1
-        const diameter = Math.max(
-          0.9,
-          (entry.starProfile?.psfDiameterPx ?? entry.markerRadiusPx * 2.2) * emphasisScale * twinkle,
-        )
+        const diameter = Math.max(0.9, entry.markerRadiusPx * 2)
         const matrixOffset = index * 16
         const colorOffset = index * 4
         fillMatrix(
@@ -193,7 +181,7 @@ export function createDirectStarLayer(scene: Scene) {
           colorBuffer,
           colorOffset,
           entry.starProfile?.colorHex ?? entry.object.colorHex,
-          clamp(entry.renderAlpha * (0.58 + (entry.starProfile?.alpha ?? 0.4) * 0.62) + (isSelected ? 0.08 : 0), 0, 1),
+          clamp(entry.renderAlpha, 0, 1),
         )
 
         if (isSelected) {
@@ -240,7 +228,6 @@ export function createDirectStarLayer(scene: Scene) {
     },
 
     dispose() {
-      phaseByStarId.clear()
       markerMesh.dispose()
       markerMaterial.dispose()
       markerTexture.dispose()

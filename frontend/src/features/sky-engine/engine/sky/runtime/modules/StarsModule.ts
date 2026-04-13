@@ -90,16 +90,13 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
         runtime.starsProjectionReuseStreak += 1
       } else {
         const projectionStartMs = performance.now()
-        const projectionResult = collectProjectedStars(
+        const projectionResult = collectProjectedStars({
           view,
-          services.observerService.getObserver(),
-          latest.objects,
-          latest.scenePacket,
-          latest.sunState,
+          objects: latest.objects,
+          scenePacket: latest.scenePacket,
+          sunState: latest.sunState,
           brightnessExposureState,
-          latest.selectedObjectId,
-          sceneTimestampIso,
-        )
+        })
         projectionElapsedMs = performance.now() - projectionStartMs
         projectedStars = projectionResult.projectedStars
         projectionTransformMs = projectionResult.timing.transformMs

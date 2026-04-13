@@ -1,7 +1,6 @@
 import React, { forwardRef, memo, useEffect, useImperativeHandle, useRef } from 'react'
 
 import {
-  computeBackendStarSceneObjects,
   computeDeepSkySceneObjects,
   computeMoonSceneObject,
   computePlanetSceneObjects,
@@ -12,7 +11,9 @@ import {
   assembleSkyScenePacket,
   buildSkyEngineQuery,
   fileBackedSkyTileRepository,
-  mockSkyTileRepository,
+  getSkyTileMaxLevel,
+  selectVisibleTileIds,
+  type SkyEngineQuery,
   unitVectorToHorizontalCoordinates,
   type SkyTileRepositoryLoadResult,
 } from './engine/sky'
@@ -148,6 +149,7 @@ function createAidVisibilitySignature(aidVisibility: SkyEngineAidVisibility) {
 function buildTileQuerySignature(query: ReturnType<typeof buildSkyEngineQuery>, repositoryMode: SkyEngineSceneProps['repositoryMode']) {
   return [
     repositoryMode,
+    String(query.maxTileLevel ?? getSkyTileMaxLevel()),
     query.limitingMagnitude.toFixed(2),
     query.activeTiers.join(','),
     query.visibleTileIds.join(','),
@@ -180,27 +182,25 @@ function resolveCurrentViewState(services: SkySceneRuntimeServices): ScenePropsS
 }
 
 async function loadSkyRuntimeTiles(
-  repositoryMode: SkyEngineSceneProps['repositoryMode'],
-  query: Parameters<typeof mockSkyTileRepository.loadTiles>[0],
+  query: SkyEngineQuery,
 ): Promise<SkyTileRepositoryLoadResult> {
-  const preferredRepository = repositoryMode === 'hipparcos' ? fileBackedSkyTileRepository : mockSkyTileRepository
+  const initialResult = await fileBackedSkyTileRepository.loadTiles(query)
+  const manifestMaxTileLevel = initialResult.manifest?.maxLevel
 
-  try {
-    return await preferredRepository.loadTiles(query)
-  } catch (error) {
-    const fallbackResult = await mockSkyTileRepository.loadTiles(query)
-    return {
-      ...fallbackResult,
-      sourceLabel: repositoryMode === 'hipparcos' ? 'Mock fallback' : fallbackResult.sourceLabel,
-      sourceError: error instanceof Error ? error.message : String(error),
-    }
+  if (manifestMaxTileLevel == null || manifestMaxTileLevel === (query.maxTileLevel ?? getSkyTileMaxLevel())) {
+    return initialResult
   }
+
+  return fileBackedSkyTileRepository.loadTiles({
+    ...query,
+    maxTileLevel: manifestMaxTileLevel,
+    visibleTileIds: selectVisibleTileIds(query.observer, query.limitingMagnitude, manifestMaxTileLevel),
+  })
 }
 
 function buildEngineStarSceneObjects(
   scenePacket: ScenePropsSnapshot['scenePacket'],
   runtimeTiles: NonNullable<SkyTileRepositoryLoadResult['tiles']>,
-  diagnosticsMode: SkyTileRepositoryLoadResult['mode'] | undefined,
   sceneTimestampIso: string,
 ): readonly SkyEngineSceneObject[] {
   const runtimeStarMetadata = new Map<string, { tileId: string; star: (typeof runtimeTiles)[number]['stars'][number] }>()
@@ -217,7 +217,6 @@ function buildEngineStarSceneObjects(
     const metadata = runtimeStarMetadata.get(star.id)
     const runtimeStar = metadata?.star
     const horizontalCoordinates = unitVectorToHorizontalCoordinates({ x: star.x, y: star.y, z: star.z })
-    const isHipparcosMode = diagnosticsMode === 'hipparcos'
     const displayName = runtimeStar?.properName ?? runtimeStar?.bayer ?? runtimeStar?.flamsteed ?? runtimeStar?.sourceId ?? star.label ?? star.id
     const tileSourceLabel = metadata?.star.sourceId ?? metadata?.tileId ?? 'unknown-tile'
 
@@ -229,16 +228,10 @@ function buildEngineStarSceneObjects(
       azimuthDeg: horizontalCoordinates.azimuthDeg,
       magnitude: star.mag,
       colorHex: resolveStarColorHex(runtimeStar?.colorIndex ?? star.colorIndex),
-      summary: isHipparcosMode
-        ? `Hipparcos ${star.tier} star streamed from the generated runtime tile assets.`
-        : `Mock ${star.tier} star resolved from the in-memory sky tile repository.`,
-      description: isHipparcosMode
-        ? `Loaded from ${metadata?.tileId ?? 'unknown-tile'} and emitted through the Sky Engine scene packet from offline-generated Hipparcos runtime assets.`
-        : `Loaded from ${metadata?.tileId ?? 'unknown-tile'} and emitted through the Sky Engine scene packet for the active observer snapshot.`,
-      truthNote: isHipparcosMode
-        ? `Engine-owned Hipparcos tile data drives this star. Source: ${tileSourceLabel}.`
-        : 'Engine-owned mock tile data drives this star. No raw catalog ingestion or backend data source is involved in this slice.',
-      source: isHipparcosMode ? 'engine_hipparcos_tile' : 'engine_mock_tile',
+      summary: `Hipparcos ${star.tier} star streamed from the generated runtime tile assets.`,
+      description: `Loaded from ${metadata?.tileId ?? 'unknown-tile'} and emitted through the Sky Engine scene packet from offline-generated Hipparcos runtime assets.`,
+      truthNote: `Engine-owned Hipparcos tile data drives this star. Source: ${tileSourceLabel}.`,
+      source: 'engine_hipparcos_tile',
       trackingMode: 'fixed_equatorial',
       rightAscensionHours: runtimeStar ? runtimeStar.raDeg / 15 : undefined,
       declinationDeg: runtimeStar?.decDeg,
@@ -288,29 +281,12 @@ function buildSceneControllerModel(config: {
   const planetObjects = computePlanetSceneObjects(config.observer, config.sceneTimestampIso)
   const deepSkyObjects = computeDeepSkySceneObjects(config.observer, config.sceneTimestampIso)
   const satelliteObjects = computeSatelliteSceneObjects(config.observer, config.sceneTimestampIso, config.backendSatellites)
-  const backendTileStarSceneObjects = computeBackendStarSceneObjects(
-    config.observer,
-    config.sceneTimestampIso,
-    config.backendStars,
-  )
   const engineStarSceneObjects = buildEngineStarSceneObjects(
     scenePacket,
     config.runtimeTiles,
-    config.tileLoadResult?.mode ?? config.repositoryMode,
     config.sceneTimestampIso,
   )
-  const mergedStars = new Map<string, SkyEngineSceneObject>()
-
-  backendTileStarSceneObjects.forEach((star) => {
-    mergedStars.set(star.id, star)
-  })
-  engineStarSceneObjects.forEach((star) => {
-    if (!mergedStars.has(star.id)) {
-      mergedStars.set(star.id, star)
-    }
-  })
-
-  const baseSceneObjects = [...Array.from(mergedStars.values()), ...planetObjects, ...deepSkyObjects, ...satelliteObjects, moonObject]
+  const baseSceneObjects = [...engineStarSceneObjects, ...planetObjects, ...deepSkyObjects, ...satelliteObjects, moonObject]
   const guidanceTargets = rankGuidanceTargets(baseSceneObjects, 5)
   const guidanceLookup = new Map(
     guidanceTargets.map((target, index) => [
@@ -544,15 +520,30 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
           limitingMagnitude: nextModel.queryLimitingMagnitude,
         })
 
-        void loadSkyRuntimeTiles(repositoryMode, query).then((result) => {
-          if (disposed || loadGeneration !== tileLoadGenerationRef.current) {
-            return
-          }
+        void loadSkyRuntimeTiles(query)
+          .then((result) => {
+            if (disposed || loadGeneration !== tileLoadGenerationRef.current) {
+              return
+            }
 
-          runtimeTilesRef.current = result.tiles
-          tileLoadResultRef.current = result
-          syncRuntimeModel(true)
-        })
+            runtimeTilesRef.current = result.tiles
+            tileLoadResultRef.current = result
+            syncRuntimeModel(true)
+          })
+          .catch((error) => {
+            if (disposed || loadGeneration !== tileLoadGenerationRef.current) {
+              return
+            }
+
+            runtimeTilesRef.current = []
+            tileLoadResultRef.current = {
+              mode: 'hipparcos',
+              sourceLabel: 'Hipparcos survey load failed',
+              sourceError: error instanceof Error ? error.message : String(error),
+              tiles: [],
+            }
+            syncRuntimeModel(true)
+          })
       }
 
       const nextProps: ScenePropsSnapshot = {

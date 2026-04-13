@@ -111,27 +111,33 @@ describe('collectProjectedStars early exit', () => {
     }))
 
     const wide = collectProjectedStars(
-      createView(),
-      { latitudeDeg: 0, longitudeDeg: 0, elevationM: 0 },
-      stars,
-      null,
-      { visualCalibration: { starFieldBrightness: 1 } },
-      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
-      null,
-      '2026-04-11T05:00:00Z',
+      {
+        view: createView(),
+        objects: stars,
+        scenePacket: {
+          stars: stars.map((star, index) => ({ id: star.id, x: 0, y: 0, z: 1, mag: star.magnitude, colorIndex: star.colorIndexBV, label: star.id, tier: `T${Math.min(index, 2)}` })),
+          labels: [],
+          diagnostics: {},
+        },
+        sunState: { visualCalibration: { starFieldBrightness: 1 } },
+        brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      },
     )
 
     getSkyEngineFovDegreesMock.mockReturnValue(6)
 
     const close = collectProjectedStars(
-      createView(),
-      { latitudeDeg: 0, longitudeDeg: 0, elevationM: 0 },
-      stars,
-      null,
-      { visualCalibration: { starFieldBrightness: 1 } },
-      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
-      null,
-      '2026-04-11T05:00:00Z',
+      {
+        view: createView(),
+        objects: stars,
+        scenePacket: {
+          stars: stars.map((star, index) => ({ id: star.id, x: 0, y: 0, z: 1, mag: star.magnitude, colorIndex: star.colorIndexBV, label: star.id, tier: `T${Math.min(index, 2)}` })),
+          labels: [],
+          diagnostics: {},
+        },
+        sunState: { visualCalibration: { starFieldBrightness: 1 } },
+        brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      },
     )
 
     expect(wide.projectedStars.length).toBe(close.projectedStars.length)
@@ -156,14 +162,17 @@ describe('collectProjectedStars early exit', () => {
     ]
 
     const result = collectProjectedStars(
-      createView(),
-      { latitudeDeg: 0, longitudeDeg: 0, elevationM: 0 },
-      stars,
-      null,
-      { visualCalibration: { starFieldBrightness: 1 } },
-      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
-      null,
-      '2026-04-11T05:00:00Z',
+      {
+        view: createView(),
+        objects: stars,
+        scenePacket: {
+          stars: stars.map((star, index) => ({ id: star.id, x: 0, y: 0, z: 1, mag: star.magnitude, colorIndex: star.colorIndexBV, label: star.id, tier: `T${Math.min(index, 2)}` })),
+          labels: [],
+          diagnostics: {},
+        },
+        sunState: { visualCalibration: { starFieldBrightness: 1 } },
+        brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      },
     )
 
     expect(result.projectedStars).toHaveLength(1)
@@ -172,7 +181,7 @@ describe('collectProjectedStars early exit', () => {
     expect(result.timing.sortingMs).toBe(0)
   })
 
-  it('keeps selected stars visible even when they are beyond limiting magnitude', () => {
+  it('does not admit selected stars once they fail the Stellarium point gate', () => {
     projectDirectionToViewportMock.mockReset()
     getSkyEngineFovDegreesMock.mockReset()
     projectDirectionToViewportMock.mockReturnValue({
@@ -190,18 +199,21 @@ describe('collectProjectedStars early exit', () => {
     ]
 
     const result = collectProjectedStars(
-      createView(),
-      { latitudeDeg: 0, longitudeDeg: 0, elevationM: 0 },
-      stars,
-      null,
-      { visualCalibration: { starFieldBrightness: 1 } },
-      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
-      'star-selected-dim',
-      '2026-04-11T05:00:00Z',
+      {
+        view: createView(),
+        objects: stars,
+        scenePacket: {
+          stars: stars.map((star, index) => ({ id: star.id, x: 0, y: 0, z: 1, mag: star.magnitude, colorIndex: star.colorIndexBV, label: star.id, tier: `T${Math.min(index, 2)}` })),
+          labels: [],
+          diagnostics: {},
+        },
+        sunState: { visualCalibration: { starFieldBrightness: 1 } },
+        brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      },
     )
 
     const ids = result.projectedStars.map((entry) => entry.object.id)
-    expect(ids).toContain('star-selected-dim')
+    expect(ids).not.toContain('star-selected-dim')
   })
 })
 
