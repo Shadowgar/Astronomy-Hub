@@ -13,19 +13,33 @@ function createView() {
   }
 }
 
+function resolvePhaseLabel(altitudeDeg) {
+  if (altitudeDeg > 6) {
+    return 'Daylight'
+  }
+
+  if (altitudeDeg > -12) {
+    return 'Low Sun'
+  }
+
+  return 'Night'
+}
+
 function createSunState(altitudeDeg) {
+  const phaseLabel = resolvePhaseLabel(altitudeDeg)
+
   return {
     altitudeDeg,
     azimuthDeg: 215,
     isAboveHorizon: altitudeDeg > 0,
-    phaseLabel: altitudeDeg > 6 ? 'Daylight' : altitudeDeg > -12 ? 'Low Sun' : 'Night',
+    phaseLabel,
     rightAscensionHours: 0,
     declinationDeg: 0,
     localSiderealTimeDeg: 0,
     skyDirection: { x: 0, y: 1, z: 0 },
     lightDirection: { x: 0, y: 1, z: 0 },
     visualCalibration: {
-      phaseLabel: altitudeDeg > 6 ? 'Daylight' : altitudeDeg > -12 ? 'Low Sun' : 'Night',
+      phaseLabel,
       directionalLightIntensity: 0,
       ambientLightIntensity: 0,
       directionalLightColorHex: '#ffffff',
@@ -99,6 +113,7 @@ describe('atmosphere frame fidelity shaping', () => {
 
     expect(twilightFrame.twilightLowerBandIntensity).toBeGreaterThan(nightFrame.twilightLowerBandIntensity)
     expect(twilightFrame.horizonGlowStrength).toBeGreaterThan(nightFrame.horizonGlowStrength)
+    expect(nightFrame.twilightStrength).toBe(0)
     expect(nightFrame.zenithDarkening).toBeGreaterThan(twilightFrame.zenithDarkening)
     expect(nightFrame.nightFloorStrength).toBeGreaterThan(twilightFrame.nightFloorStrength)
   })

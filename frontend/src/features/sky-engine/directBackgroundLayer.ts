@@ -225,7 +225,7 @@ function buildTwilightStrength(sunState: SkyEngineSunState) {
     return clamp((sunState.altitudeDeg + 12) / 18, 0.08, 0.34)
   }
 
-  return 0.04
+  return 0
 }
 
 function blendHexColors(left: string, right: string, amount: number) {
@@ -485,12 +485,12 @@ export function prepareDirectAtmosphereFrame(
   const twilightStrength = buildTwilightStrength(sunState)
   const horizonGlowStrength = clamp(
     twilightStrength * (0.72 + skyShare * 0.48) + skyBrightness * 0.18,
-    0.04,
+    0,
     1,
   )
   const twilightLowerBandIntensity = clamp(
     twilightStrength * (0.28 + skyShare * 0.72),
-    0.02,
+    0,
     0.92,
   )
   const zenithDarkening = clamp(
