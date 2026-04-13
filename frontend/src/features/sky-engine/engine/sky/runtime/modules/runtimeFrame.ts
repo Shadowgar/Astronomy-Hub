@@ -133,7 +133,7 @@ function degreesToRadians(value: number) {
 }
 
 function isEngineTileSource(source: SkyEngineSceneObject['source']) {
-  return source === 'engine_hipparcos_tile'
+  return source === 'engine_catalog_tile'
 }
 
 const STAR_MAGNITUDE_BREAK_MARGIN = 0

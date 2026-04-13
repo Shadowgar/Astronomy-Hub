@@ -1,5 +1,7 @@
 export type SkyRuntimeTier = `T${number}`
 
+export type RuntimeStarCatalog = 'hipparcos' | 'gaia'
+
 export type RuntimeStar = {
   id: string
   sourceId?: string
@@ -15,4 +17,5 @@ export type RuntimeStar = {
   bayer?: string
   flamsteed?: string
   flags?: number
+  catalog?: RuntimeStarCatalog
 }

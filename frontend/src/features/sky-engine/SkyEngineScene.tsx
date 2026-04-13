@@ -219,6 +219,7 @@ function buildEngineStarSceneObjects(
     const horizontalCoordinates = unitVectorToHorizontalCoordinates({ x: star.x, y: star.y, z: star.z })
     const displayName = runtimeStar?.properName ?? runtimeStar?.bayer ?? runtimeStar?.flamsteed ?? runtimeStar?.sourceId ?? star.label ?? star.id
     const tileSourceLabel = metadata?.star.sourceId ?? metadata?.tileId ?? 'unknown-tile'
+    const catalogLabel = runtimeStar?.catalog === 'gaia' ? 'Gaia HiPS' : 'Hipparcos'
 
     return {
       id: star.id,
@@ -228,10 +229,10 @@ function buildEngineStarSceneObjects(
       azimuthDeg: horizontalCoordinates.azimuthDeg,
       magnitude: star.mag,
       colorHex: resolveStarColorHex(runtimeStar?.colorIndex ?? star.colorIndex),
-      summary: `Hipparcos ${star.tier} star streamed from the generated runtime tile assets.`,
-      description: `Loaded from ${metadata?.tileId ?? 'unknown-tile'} and emitted through the Sky Engine scene packet from offline-generated Hipparcos runtime assets.`,
-      truthNote: `Engine-owned Hipparcos tile data drives this star. Source: ${tileSourceLabel}.`,
-      source: 'engine_hipparcos_tile',
+      summary: `${catalogLabel} ${star.tier} star streamed from the active runtime survey tiles.`,
+      description: `Loaded from ${metadata?.tileId ?? 'unknown-tile'} and emitted through the Sky Engine scene packet from the active file-backed survey repository.`,
+      truthNote: `Engine-owned ${catalogLabel} tile data drives this star. Source: ${tileSourceLabel}.`,
+      source: 'engine_catalog_tile',
       trackingMode: 'fixed_equatorial',
       rightAscensionHours: runtimeStar ? runtimeStar.raDeg / 15 : undefined,
       declinationDeg: runtimeStar?.decDeg,
@@ -538,7 +539,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
             runtimeTilesRef.current = []
             tileLoadResultRef.current = {
               mode: 'hipparcos',
-              sourceLabel: 'Hipparcos survey load failed',
+              sourceLabel: 'Sky survey load failed',
               sourceError: error instanceof Error ? error.message : String(error),
               tiles: [],
             }

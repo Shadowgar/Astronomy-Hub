@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-13 (Survey depth expansion block implemented; local tile/tier depth ceilings removed; frontend typecheck/build and targeted runtime tests pass; 120/60/30/10/2 checkpoint evidence revalidated)
+Last updated: 2026-04-13 (Multi-survey Gaia/HiPS ingestion block implemented; same-origin Gaia proxying, HiPS EPH decoding, and ordered Hipparcos→Gaia survey handoff added; frontend typecheck/build and targeted runtime tests pass)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -24,7 +24,7 @@ Purpose:
 |---|---|---|---|---|---|---|
 | core / tonemapper / skybrightness | `src/core.c`, `src/tonemapper.c`, `src/skybrightness.c`, `src/navigation.c` | `skyBrightness.ts`, `starRenderer.ts`, `engine/sky/runtime/luminanceReport.ts`, `SkyBrightnessExposureModule.ts`, `observerNavigation.ts` | strong partial port | mixed local response curves and navigation easing not fully source-locked | Keep physical input chain; replace response math; delete non-source transition surrogates | Port one shared Stellarium-equivalent core math utility used by stars and planets |
 | stars | `src/modules/stars.c`, `src/core.c` | `StarsModule.ts`, `runtimeFrame.ts`, `directStarLayer.ts`, `starRenderer.ts` | near parity | deepest zoom is now bounded by the currently shipped authoritative asset pack rather than a local tile/tier gate | Keep strict scene-packet traversal and core point chain; replace remaining deep-zoom data ceiling only | Add the next real survey asset layer and revalidate live Stellarium density at deep zoom |
-| star surveys / sequencing | `src/modules/stars.c`, survey/hips paths | `engine/sky/adapters/fileTileRepository.ts`, `sceneAssembler.ts`, `SkyEngineScene.tsx`, `backendTileRegistry.ts`, `engine/sky/core/tileIndex.ts`, `engine/sky/core/tileSelection.ts` | strong partial port | current file-backed chain still tops out at the shipped Hipparcos/supplemental asset depth after local level and tier caps were removed | Keep deterministic file-backed sequencing and manifest-aware depth selection; replace remaining dataset ceiling; delete any reintroduced fallback branches | Add the next authoritative survey asset pack and validate the handoff beyond current Hipparcos ceiling |
+| star surveys / sequencing | `src/modules/stars.c`, `src/eph-file.c`, `src/eph-file.h`, `src/algos/healpix.c`, `src/hips.c` | `engine/sky/adapters/fileTileRepository.ts`, `engine/sky/adapters/ephCodec.ts`, `engine/sky/adapters/healpix.ts`, `sceneAssembler.ts`, `SkyEngineScene.tsx`, `backendTileRegistry.ts`, `engine/sky/core/tileIndex.ts`, `engine/sky/core/tileSelection.ts` | strong partial port | runtime now combines local Hipparcos assets with proxied Gaia HiPS tiles, but live Stellarium side-by-side density and exact HiPS overlap traversal are not yet proven | Keep ordered file-backed sequencing and real Gaia ingestion; replace remaining overlap/traversal approximations only if checkpoint evidence demands it; delete any reintroduced fallback branches | Run explicit live deep-zoom density checkpoints against Stellarium with Gaia active and reconcile any residual tile-selection delta |
 | hints / label limiting magnitude | `src/core.c`, `src/modules/labels.c`, `src/modules/stars.c`, `src/modules/planets.c` | `labelManager.ts`, `directOverlayLayer.ts`, `runtimeFrame.ts` | heuristic | fixed label caps and local admissions instead of `hints_limit_mag` chain | Keep overlap/layout mechanics; replace admission rules; delete fixed caps | Port hint limiting-magnitude eligibility from Stellarium modules |
 | planets | `src/modules/planets.c`, `src/core.c`, `src/navigation.c`, `src/tonemapper.c` | `astronomy.ts`, `runtimeFrame.ts`, `PlanetRenderer.ts`, `PlanetRuntimeModule.ts` | strong partial port | live Stellarium side-by-side threshold parity still unproven; horizon fade bypass still active globally | Keep ephemeris object feed; replace remaining non-source visibility/presentation paths | Validate/align any remaining `planet_render` threshold deltas against live Stellarium checkpoints |
 | planet zoom chain | `src/modules/planets.c` (`planet_render`, `get_artificial_scale`), `src/core.c` (`core_get_point_for_mag*`, `core_get_apparent_angle_for_point`), `src/navigation.c` | `runtimeFrame.ts`, `PlanetRenderer.ts`, `ObjectRuntimeModule.ts`, `directObjectLayer.ts`, `observerNavigation.ts` | partial port | no live side-by-side confirmation yet; additional tonemapper parity validation still needed | Keep single transition chain now in runtime frame; replace residual non-source alpha/visibility behavior if discovered | Run explicit Jupiter+Moon checkpoint validation against live Stellarium and close residual deltas |
@@ -74,10 +74,10 @@ Purpose:
 9. Missing subsystems: satellites full parity, minor planets, comets, meteors, DSS.
 
 ## Biggest Missing Behavior
-- Deep-zoom star density is still capped by the current shipped authoritative file-backed survey assets, but the local level-3 tile clamp and tier-admission clamp are no longer the cause.
+- The runtime now reaches real Gaia HiPS data, but the exact deep-zoom density and HiPS overlap traversal have not yet been checkpointed side-by-side against live Stellarium.
 
 ## Recommended Next Bounded Slice
-- Add the next real file-backed survey asset pack beyond the current Hipparcos ceiling and revalidate deep-zoom density against Stellarium before moving on to hints/labels parity.
+- Run live Stellarium deep-zoom checkpoint comparisons with Gaia active, then only adjust the local HiPS pixel-overlap/traversal logic if the evidence shows a residual sequencing delta before moving on to hints/labels parity.
 
 ## Port Block 1 (Executed)
 ### Planet Zoom Chain Parity
@@ -215,6 +215,61 @@ Validation evidence recorded for this block:
 - `npm run build` (frontend): pass
 - `npm run test -- test_sky_engine_runtime_slice.test.js test_file_backed_tile_repository.test.js sky-engine-runtime-frame-projection.test.js test_sky_engine_scene_ownership.test.js`: pass
 - `node <<'NODE' ... NODE` checkpoint script over `frontend/public/sky-engine-assets/catalog/hipparcos/**`: pass
+
+## Port Block 4 (Executed)
+### Multi-Survey Ingestion (Gaia / HiPS)
+
+Stellarium authority files:
+- `src/modules/stars.c`
+- `src/eph-file.c`
+- `src/eph-file.h`
+- `src/algos/healpix.c`
+- `src/hips.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts`
+- `frontend/src/features/sky-engine/engine/sky/adapters/ephCodec.ts`
+- `frontend/src/features/sky-engine/engine/sky/adapters/healpix.ts`
+- `frontend/src/features/sky-engine/engine/sky/contracts/stars.ts`
+- `frontend/src/features/sky-engine/engine/sky/contracts/tiles.ts`
+- `frontend/src/features/sky-engine/engine/sky/diagnostics/skyDiagnostics.ts`
+- `frontend/src/features/sky-engine/engine/sky/services/sceneAssembler.ts`
+- `frontend/src/features/sky-engine/SkyEngineScene.tsx`
+- `frontend/src/features/sky-engine/SkyEngineDetailShell.tsx`
+- `frontend/src/features/sky-engine/SkyEngineSnapshotStore.ts`
+- `frontend/src/features/sky-engine/directOverlayLayer.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame.ts`
+- `frontend/src/features/sky-engine/pickTargets.ts`
+- `frontend/src/features/sky-engine/types.ts`
+- `frontend/src/pages/SkyEnginePage.tsx`
+- `frontend/vite.config.mjs`
+- `frontend/nginx.conf`
+- `frontend/tests/test_eph_codec.test.js`
+
+Stellarium to AH function mapping (this block):
+1. `stars_add_data_source` and ordered survey traversal in `stars.c` -> the file-backed repository now stages ordered bright-to-deep surveys, preserving local Hipparcos assets and adding Gaia HiPS only when the limiting magnitude crosses the brightest prior survey ceiling.
+2. `hips.c` survey path conventions -> Gaia survey metadata and tile payloads are loaded through canonical HiPS `properties` and `Norder*/Dir*/Npix*.eph` paths.
+3. `eph-file.c` / `eph-file.h` tile decoding -> `.eph` star tiles are now decoded in AH runtime code with integer-style NUNIQ order derivation, column-table decoding, deflate inflation, and unit conversion.
+4. `healpix.c` addressing helpers -> the runtime now maps local tile bounds into HiPS pixel requests through minimal nested HEALPix helpers.
+5. survey-backed runtime truth -> scene objects and diagnostics now describe catalog-backed tiles rather than a Hipparcos-only runtime.
+
+Explicit local logic deleted in this block:
+- Hipparcos-only repository sequencing as the only active parity path.
+- Hipparcos-only runtime/source labels in the scene, detail shell, overlay routing, and pick/runtime source handling.
+- Local assumption that star survey mode can only report `mock` or `hipparcos` once the repository is active.
+- Implicit browser-direct remote fetch assumption for Gaia; replaced by same-origin proxy wiring in both Vite and nginx.
+
+Implementation evidence recorded for this block:
+- Verified real Gaia survey source: `https://data.stellarium.org/surveys/gaia/properties`
+- Observed Gaia HiPS metadata: `hips_order_min = 3`, `hips_release_date = 2018-08-28T08:10Z`, `hips_tile_format = eph`
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- test_file_backed_tile_repository.test.js test_sky_engine_runtime_slice.test.js test_eph_codec.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+
+Residual proof gap:
+- Live browser/runtime checkpoint evidence against Stellarium with Gaia active is still pending. This block establishes the real multi-survey ingestion path, but it does not yet prove exact deep-zoom density equivalence.
 
 ## Evidence Rule
 - Do not upgrade parity status by naming similarity.

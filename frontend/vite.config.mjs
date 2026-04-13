@@ -23,6 +23,12 @@ export default defineConfig({
         target: proxyTarget,
         changeOrigin: true,
         secure: false
+      },
+      '/sky-engine-remote/stellarium': {
+        target: 'https://data.stellarium.org',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/sky-engine-remote\/stellarium/, ''),
       }
     }
   }

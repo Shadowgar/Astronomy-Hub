@@ -6,7 +6,7 @@ import { buildSkyDiagnostics } from '../diagnostics/skyDiagnostics'
 import { raDecToObserverUnitVector } from '../transforms/coordinates'
 const DEFAULT_REPOSITORY_STATE: Pick<SkyTileRepositoryLoadResult, 'mode' | 'sourceLabel' | 'sourceError'> = {
   mode: 'hipparcos',
-  sourceLabel: 'Hipparcos tile repository',
+  sourceLabel: 'Sky tile repository',
   sourceError: null,
 }
 

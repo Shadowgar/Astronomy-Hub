@@ -36,7 +36,13 @@ export function buildSkyDiagnostics(
 
 export function formatSkyDiagnosticsSummary(diagnostics: SkyDiagnosticsSnapshot) {
   return [
-    diagnostics.dataMode === 'hipparcos' ? 'HIP' : 'MOCK',
+    diagnostics.dataMode === 'multi-survey'
+      ? 'MULTI'
+      : diagnostics.dataMode === 'hipparcos'
+        ? 'HIP'
+        : diagnostics.dataMode === 'gaia'
+          ? 'GAIA'
+          : 'MOCK',
     `m${diagnostics.limitingMagnitude.toFixed(1)}`,
     `${diagnostics.activeTiles} tiles`,
     `${diagnostics.visibleStars} stars`,

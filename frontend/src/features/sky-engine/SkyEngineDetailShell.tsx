@@ -34,8 +34,8 @@ function getSelectionTruthDescription(selectedObject: SkyEngineSceneObject) {
     return 'Satellite position is sourced from the backend satellite scene for the active observer snapshot. This slice intentionally renders only a bounded marker without orbit lines or frontend TLE propagation.'
   }
 
-  if (selectedObject.source === 'engine_hipparcos_tile') {
-    return 'Hipparcos tile assets were generated offline, then loaded through the file-backed Sky Engine repository for this scene.'
+  if (selectedObject.source === 'engine_catalog_tile') {
+    return 'Survey-backed star tiles were loaded through the file-backed Sky Engine repository for this scene. The runtime may combine local Hipparcos assets with proxied Gaia HiPS tiles depending on the limiting magnitude.'
   }
 
   if (selectedObject.source === 'engine_mock_tile') {
@@ -64,8 +64,8 @@ function getSelectionBadgeLabel(selectedObject: SkyEngineSceneObject) {
     return 'Backend satellite scene'
   }
 
-  if (selectedObject.source === 'engine_hipparcos_tile') {
-    return 'Hipparcos tile runtime'
+  if (selectedObject.source === 'engine_catalog_tile') {
+    return 'Catalog tile runtime'
   }
 
   if (selectedObject.source === 'engine_mock_tile') {

@@ -130,7 +130,7 @@ interface LabelLayoutFrameState {
 }
 
 function isEngineTileSource(source: SkyEngineSceneObject['source']) {
-  return source === 'engine_mock_tile' || source === 'engine_hipparcos_tile'
+  return source === 'engine_mock_tile' || source === 'engine_catalog_tile'
 }
 
 function toViewportPlanePosition(screenX: number, screenY: number, viewportWidth: number, viewportHeight: number, depth = 0.02) {

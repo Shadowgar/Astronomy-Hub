@@ -1,7 +1,7 @@
 import type { ObserverSnapshot } from './observer'
 import type { RuntimeStar, SkyRuntimeTier } from './stars'
 
-export type SkyTileCatalog = 'mock' | 'hipparcos'
+export type SkyTileCatalog = 'mock' | 'hipparcos' | 'gaia' | 'multi-survey'
 
 export type SkyTileBounds = {
   raMinDeg: number

@@ -23,7 +23,7 @@ export interface SkyEngineRuntimeSummarySnapshot {
   readonly renderedStarCount: number
   readonly lodTier: 'wide' | 'medium' | 'close'
   readonly labelCap: number
-  readonly dataMode: 'mock' | 'hipparcos' | 'loading'
+  readonly dataMode: 'mock' | 'hipparcos' | 'gaia' | 'multi-survey' | 'loading'
   readonly sourceLabel: string
   readonly fallbackActive: boolean
   readonly sceneOffsetSeconds: number

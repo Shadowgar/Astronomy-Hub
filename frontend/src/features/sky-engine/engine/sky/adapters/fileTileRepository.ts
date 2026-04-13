@@ -1,5 +1,7 @@
 import type {
   SkyTileAssetManifest,
+  SkyTileBounds,
+  SkyTileCatalog,
   SkyEngineQuery,
   SkyTilePayload,
   SkyTileRepository,
@@ -8,11 +10,19 @@ import type {
 import type { RuntimeStar } from '../contracts/stars'
 import { getSkyTileDescriptor } from '../core/tileIndex'
 import { resolveSkyRuntimeTierForMagnitude, SKY_TILE_LEVEL_MAG_MAX } from '../core/magnitudePolicy'
+import { buildHipsTilePath, decodeEphTile, parseSurveyProperties, type SurveyProperties } from './ephCodec'
+import { healpixAngToPix, healpixPixToRaDec } from './healpix'
 
 const DEFAULT_MANIFEST_PATH = '/sky-engine-assets/catalog/hipparcos/manifest.json'
 const SUPPLEMENTAL_SURVEY_PATH = '/sky-engine-assets/catalog/hipparcos/hipparcos_tier2_subset.json'
+const STELLARIUM_PROXY_BASE_PATH = '/sky-engine-remote/stellarium'
+const GAIA_SURVEY_BASE_PATH = `${STELLARIUM_PROXY_BASE_PATH}/surveys/gaia`
+const STELLARIUM_MAX_RENDER_ORDER = 9
+
 const SUPPLEMENTAL_SURVEY_KEY = 'hipparcos-tier2-subset'
 const HIPPARCOS_SURVEY_KEY = 'hipparcos'
+const GAIA_SURVEY_KEY = 'gaia'
+
 const HIPPARCOS_MIN_MAG = -2
 const HIPPARCOS_MAX_MAG = 6.5
 const SUPPLEMENTAL_MIN_MAG = 6
@@ -20,10 +30,11 @@ const SUPPLEMENTAL_MAX_MAG = 8.5
 
 type RuntimeSurveyDefinition = {
   key: string
+  catalog: Extract<SkyTileCatalog, 'hipparcos' | 'gaia'>
   minVmag: number
   maxVmag: number
-  sourceRecordCount: number
-  loadTile: (tileId: string) => Promise<SkyTilePayload | null>
+  sourceRecordCount?: number
+  loadTile: (tileId: string, query: SkyEngineQuery) => Promise<SkyTilePayload | null>
 }
 
 type SupplementalRawStar = {
@@ -39,6 +50,13 @@ type SupplementalSurveyCache = {
   sourceRecordCount: number
   starsByTileId: Map<string, RuntimeStar[]>
   tileCache: Map<string, SkyTilePayload | null>
+}
+
+type GaiaSurveyCache = {
+  properties: SurveyProperties
+  pixelSelectionCache: Map<string, number[]>
+  remoteTileCache: Map<string, Promise<readonly RuntimeStar[]>>
+  localTileCache: Map<string, Promise<SkyTilePayload | null>>
 }
 
 function normalizeManifestDirectory(manifestPath: string) {
@@ -66,14 +84,10 @@ function joinAssetPath(basePath: string, assetPath: string) {
 }
 
 function resolveMagnitudeBand(level: number) {
-  const [, , , deepestResolvedMax] = SKY_TILE_LEVEL_MAG_MAX
+  const deepestResolvedMax = SKY_TILE_LEVEL_MAG_MAX[SKY_TILE_LEVEL_MAG_MAX.length - 1] ?? SKY_TILE_LEVEL_MAG_MAX[0]
   const resolvedMax = SKY_TILE_LEVEL_MAG_MAX[level] ?? deepestResolvedMax
 
-  if (level <= 0) {
-    return { magMin: -2, magMax: resolvedMax }
-  }
-
-  if (level === 1) {
+  if (level <= 1) {
     return { magMin: -2, magMax: resolvedMax }
   }
 
@@ -113,6 +127,30 @@ async function fetchJson<T>(assetPath: string): Promise<T> {
   }
 
   return response.json() as Promise<T>
+}
+
+async function fetchText(assetPath: string): Promise<string> {
+  const response = await fetch(assetPath)
+
+  if (!response.ok) {
+    throw new Error(`Failed to load ${assetPath}: ${response.status} ${response.statusText}`)
+  }
+
+  return response.text()
+}
+
+async function fetchBinary(assetPath: string, options?: { allowNotFound?: boolean }) {
+  const response = await fetch(assetPath)
+
+  if (response.status === 404 && options?.allowNotFound) {
+    return null
+  }
+
+  if (!response.ok) {
+    throw new Error(`Failed to load ${assetPath}: ${response.status} ${response.statusText}`)
+  }
+
+  return response.arrayBuffer()
 }
 
 function buildEmptyTilePayload(tileId: string, manifest: SkyTileAssetManifest): SkyTilePayload | null {
@@ -175,6 +213,7 @@ function normalizeSupplementalStar(rawStar: SupplementalRawStar): RuntimeStar | 
     colorIndex: Number.isFinite(Number(rawStar.color_index)) ? Number(rawStar.color_index) : undefined,
     tier: resolveSkyRuntimeTierForMagnitude(magnitude),
     properName,
+    catalog: 'hipparcos',
   }
 }
 
@@ -235,6 +274,60 @@ function buildSupplementalTilePayload(
   }
 }
 
+function isStarInsideBounds(star: RuntimeStar, bounds: SkyTileBounds) {
+  return (
+    star.raDeg >= bounds.raMinDeg &&
+    star.raDeg <= bounds.raMaxDeg &&
+    star.decDeg >= bounds.decMinDeg &&
+    star.decDeg <= bounds.decMaxDeg
+  )
+}
+
+const healpixCenterCache = new Map<number, readonly { pix: number; raDeg: number; decDeg: number }[]>()
+
+function getHealpixPixelCenters(order: number) {
+  const cachedCenters = healpixCenterCache.get(order)
+
+  if (cachedCenters) {
+    return cachedCenters
+  }
+
+  const pixelCount = 12 * (1 << (2 * order))
+  const centers = Array.from({ length: pixelCount }, (_, pix) => ({
+    pix,
+    ...healpixPixToRaDec(order, pix),
+  }))
+  healpixCenterCache.set(order, centers)
+  return centers
+}
+
+function selectHealpixPixelsForBounds(tileId: string, bounds: SkyTileBounds, order: number, cache: Map<string, number[]>) {
+  const cacheKey = `${tileId}:${order}`
+  const cachedPixels = cache.get(cacheKey)
+
+  if (cachedPixels) {
+    return cachedPixels
+  }
+
+  const selectedPixels = getHealpixPixelCenters(order)
+    .filter((pixel) => (
+      pixel.raDeg >= bounds.raMinDeg &&
+      pixel.raDeg <= bounds.raMaxDeg &&
+      pixel.decDeg >= bounds.decMinDeg &&
+      pixel.decDeg <= bounds.decMaxDeg
+    ))
+    .map((pixel) => pixel.pix)
+
+  if (selectedPixels.length === 0) {
+    const centerRaDeg = (bounds.raMinDeg + bounds.raMaxDeg) * 0.5
+    const centerDecDeg = (bounds.decMinDeg + bounds.decMaxDeg) * 0.5
+    selectedPixels.push(healpixAngToPix(order, centerRaDeg, centerDecDeg))
+  }
+
+  cache.set(cacheKey, selectedPixels)
+  return selectedPixels
+}
+
 function filterSurveyStarsByMagnitudeRange(stars: readonly RuntimeStar[], survey: { minVmag: number; maxVmag: number }) {
   return stars.filter((star) => star.mag >= survey.minVmag && star.mag <= survey.maxVmag)
 }
@@ -253,31 +346,27 @@ function mergeSurveyTiles(
     return null
   }
 
-  const stars = tilePayloads
-    .flatMap(({ survey, tile }) => (tile ? filterSurveyStarsByMagnitudeRange(tile.stars, survey) : []))
-  const starCount = stars.length
+  const stars = tilePayloads.flatMap(({ survey, tile }) => (tile ? filterSurveyStarsByMagnitudeRange(tile.stars, survey) : []))
   const labelCandidates = tilePayloads
     .flatMap(({ tile }) => tile?.labelCandidates ?? [])
     .reduce<Map<string, { starId: string; label: string; priority: number }>>((candidates, candidate) => {
       const current = candidates.get(candidate.starId)
 
       if (!current || candidate.priority > current.priority) {
-        candidates.set(candidate.starId, {
-          starId: candidate.starId,
-          label: candidate.label,
-          priority: candidate.priority,
-        })
+        candidates.set(candidate.starId, candidate)
       }
 
       return candidates
     }, new Map())
   const magnitudeBand = resolveMagnitudeBand(descriptor.level)
-  const magMin = starCount > 0 ? stars.reduce((minimum, star) => Math.min(minimum, star.mag), Number.POSITIVE_INFINITY) : magnitudeBand.magMin
-  const magMax = starCount > 0 ? stars.reduce((maximum, star) => Math.max(maximum, star.mag), Number.NEGATIVE_INFINITY) : magnitudeBand.magMax
-  const tierSet = Array.from(new Set(stars.map((star) => star.tier)))
+  const magMin = stars.length > 0 ? stars.reduce((minimum, star) => Math.min(minimum, star.mag), Number.POSITIVE_INFINITY) : magnitudeBand.magMin
+  const magMax = stars.length > 0 ? stars.reduce((maximum, star) => Math.max(maximum, star.mag), Number.NEGATIVE_INFINITY) : magnitudeBand.magMax
   const sourcePaths = Array.from(new Set(tilePayloads
     .map(({ tile }) => tile?.provenance?.sourcePath)
     .filter((sourcePath): sourcePath is string => Boolean(sourcePath))))
+  const tierSet = Array.from(new Set(stars.map((star) => star.tier)))
+  const surveyCatalogs = Array.from(new Set(tilePayloads.map(({ survey }) => survey.catalog)))
+  const sourceRecordCount = tilePayloads.reduce((count, payload) => count + (payload.survey.sourceRecordCount ?? 0), 0)
 
   return {
     tileId: descriptor.tileId,
@@ -287,15 +376,15 @@ function mergeSurveyTiles(
     bounds: { ...descriptor.bounds },
     magMin,
     magMax,
-    starCount,
+    starCount: stars.length,
     stars,
     labelCandidates: Array.from(labelCandidates.values()),
     provenance: {
-      catalog: manifest.catalog,
+      catalog: surveyCatalogs.length > 1 ? 'multi-survey' : (surveyCatalogs[0] ?? manifest.catalog),
       sourcePath: sourcePaths.join(' + '),
       generator: manifest.generator,
       generatedAt: manifest.generatedAt,
-      sourceRecordCount: tilePayloads.reduce((count, payload) => count + payload.survey.sourceRecordCount, 0),
+      sourceRecordCount: sourceRecordCount > 0 ? sourceRecordCount : undefined,
       tierSet: tierSet.length > 0 ? tierSet : undefined,
     },
   }
@@ -308,11 +397,30 @@ function resolveActiveSurveys(surveys: readonly RuntimeSurveyDefinition[], limit
     .sort((left, right) => left.maxVmag - right.maxVmag || left.minVmag - right.minVmag || left.key.localeCompare(right.key))
 }
 
+function resolveGaiaTileOrder(tileLevel: number, minOrder: number) {
+  return Math.min(STELLARIUM_MAX_RENDER_ORDER, minOrder + Math.max(tileLevel, 0))
+}
+
+function buildSourceLabel(activeSurveys: readonly RuntimeSurveyDefinition[], manifest: SkyTileAssetManifest) {
+  if (activeSurveys.some((survey) => survey.catalog === 'gaia')) {
+    return 'Hipparcos + Gaia HiPS'
+  }
+
+  const sourceRecordCount = activeSurveys.reduce((count, survey) => count + (survey.sourceRecordCount ?? 0), 0)
+
+  if (activeSurveys.length > 1) {
+    return `Hipparcos multi-survey · ${sourceRecordCount.toLocaleString()} stars`
+  }
+
+  return `Hipparcos · ${manifest.sourceRecordCount.toLocaleString()} stars`
+}
+
 export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFEST_PATH): SkyTileRepository {
   const manifestDirectory = normalizeManifestDirectory(manifestPath)
   let manifestPromise: Promise<SkyTileAssetManifest> | null = null
   const tileCache = new Map<string, Promise<SkyTilePayload | null>>()
   let supplementalSurveyPromise: Promise<SupplementalSurveyCache> | null = null
+  let gaiaSurveyPromise: Promise<GaiaSurveyCache> | null = null
 
   function loadManifest() {
     manifestPromise ??= fetchJson<SkyTileAssetManifest>(manifestPath)
@@ -367,11 +475,105 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
     return tilePayload
   }
 
+  function loadGaiaSurvey() {
+    gaiaSurveyPromise ??= fetchText(`${GAIA_SURVEY_BASE_PATH}/properties`)
+      .then(parseSurveyProperties)
+      .then((properties) => {
+        if (!properties.tileFormat.includes('eph')) {
+          throw new Error(`Unsupported Gaia tile format: ${properties.tileFormat}`)
+        }
+
+        return {
+          properties,
+          pixelSelectionCache: new Map<string, number[]>(),
+          remoteTileCache: new Map<string, Promise<readonly RuntimeStar[]>>(),
+          localTileCache: new Map<string, Promise<SkyTilePayload | null>>(),
+        }
+      })
+    return gaiaSurveyPromise
+  }
+
+  async function loadGaiaRemoteTile(gaiaSurvey: GaiaSurveyCache, order: number, pix: number, minVmag: number) {
+    const cacheKey = `${order}:${pix}:${minVmag.toFixed(1)}`
+    const cachedTile = gaiaSurvey.remoteTileCache.get(cacheKey)
+
+    if (cachedTile) {
+      return cachedTile
+    }
+
+    const tilePromise = fetchBinary(buildHipsTilePath(GAIA_SURVEY_BASE_PATH, order, pix, 'eph'), { allowNotFound: true })
+      .then(async (buffer) => {
+        if (buffer == null) {
+          return [] as const
+        }
+
+        const decodedTile = await decodeEphTile(buffer, {
+          catalog: 'gaia',
+          minVmag,
+        })
+
+        return decodedTile.stars
+      })
+    gaiaSurvey.remoteTileCache.set(cacheKey, tilePromise)
+    return tilePromise
+  }
+
+  async function loadGaiaTile(tileId: string, query: SkyEngineQuery, minVmag: number) {
+    const gaiaSurvey = await loadGaiaSurvey()
+    const cacheKey = `${tileId}:${query.maxTileLevel ?? 'default'}:${minVmag.toFixed(1)}`
+    const cachedTile = gaiaSurvey.localTileCache.get(cacheKey)
+
+    if (cachedTile) {
+      return cachedTile
+    }
+
+    const tilePromise = (async () => {
+      const descriptor = getSkyTileDescriptor(tileId)
+
+      if (!descriptor) {
+        return null
+      }
+
+      const order = resolveGaiaTileOrder(descriptor.level, gaiaSurvey.properties.minOrder)
+      const selectedPixels = selectHealpixPixelsForBounds(tileId, descriptor.bounds, order, gaiaSurvey.pixelSelectionCache)
+      const remoteStars = await Promise.all(selectedPixels.map((pix) => loadGaiaRemoteTile(gaiaSurvey, order, pix, minVmag)))
+      const stars = remoteStars
+        .flat()
+        .filter((star) => isStarInsideBounds(star, descriptor.bounds))
+      const magnitudeBand = resolveMagnitudeBand(descriptor.level)
+      const magMin = stars.length > 0 ? stars.reduce((minimum, star) => Math.min(minimum, star.mag), Number.POSITIVE_INFINITY) : magnitudeBand.magMin
+      const magMax = stars.length > 0 ? stars.reduce((maximum, star) => Math.max(maximum, star.mag), Number.NEGATIVE_INFINITY) : magnitudeBand.magMax
+
+      return {
+        tileId: descriptor.tileId,
+        level: descriptor.level,
+        parentTileId: descriptor.parentTileId,
+        childTileIds: [...descriptor.childTileIds],
+        bounds: { ...descriptor.bounds },
+        magMin,
+        magMax,
+        starCount: stars.length,
+        stars,
+        labelCandidates: [],
+        provenance: {
+          catalog: 'gaia',
+          sourcePath: GAIA_SURVEY_BASE_PATH,
+          generatedAt: gaiaSurvey.properties.releaseDate,
+          tierSet: Array.from(new Set(stars.map((star) => star.tier))),
+        },
+      } satisfies SkyTilePayload
+    })()
+
+    gaiaSurvey.localTileCache.set(cacheKey, tilePromise)
+    return tilePromise
+  }
+
   return {
     async loadTiles(query: SkyEngineQuery): Promise<SkyTileRepositoryLoadResult> {
       const manifest = await loadManifest()
       const surveys: RuntimeSurveyDefinition[] = [{
         key: HIPPARCOS_SURVEY_KEY,
+        catalog: 'hipparcos',
         minVmag: HIPPARCOS_MIN_MAG,
         maxVmag: HIPPARCOS_MAX_MAG,
         sourceRecordCount: manifest.sourceRecordCount,
@@ -383,6 +585,7 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
 
         surveys.push({
           key: SUPPLEMENTAL_SURVEY_KEY,
+          catalog: 'hipparcos',
           minVmag: SUPPLEMENTAL_MIN_MAG,
           maxVmag: SUPPLEMENTAL_MAX_MAG,
           sourceRecordCount: supplementalSurvey.sourceRecordCount,
@@ -390,24 +593,44 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
         })
       }
 
+      let sourceError: string | null = null
+      const gaiaMinVmag = surveys.reduce((minimumMagnitude, survey) => (
+        survey.catalog === 'gaia' || !Number.isFinite(survey.maxVmag)
+          ? minimumMagnitude
+          : Math.max(minimumMagnitude, survey.maxVmag)
+      ), HIPPARCOS_MIN_MAG)
+
+      if (query.limitingMagnitude >= gaiaMinVmag) {
+        try {
+          const gaiaSurvey = await loadGaiaSurvey()
+          const gaiaEntryMinVmag = Math.max(gaiaSurvey.properties.minVmag, gaiaMinVmag)
+
+          surveys.push({
+            key: GAIA_SURVEY_KEY,
+            catalog: 'gaia',
+            minVmag: gaiaEntryMinVmag,
+            maxVmag: gaiaSurvey.properties.maxVmag,
+            loadTile: (tileId, activeQuery) => loadGaiaTile(tileId, activeQuery, gaiaEntryMinVmag),
+          })
+        } catch (error) {
+          sourceError = `Gaia HiPS unavailable: ${error instanceof Error ? error.message : String(error)}`
+        }
+      }
+
       const activeSurveys = resolveActiveSurveys(surveys, query.limitingMagnitude)
       const tiles = (await Promise.all(query.visibleTileIds.map(async (tileId) => {
         const tilePayloads = await Promise.all(activeSurveys.map(async (survey) => ({
           survey,
-          tile: await survey.loadTile(tileId),
+          tile: await survey.loadTile(tileId, query),
         })))
 
         return mergeSurveyTiles(tileId, manifest, tilePayloads)
       }))).filter((tile): tile is SkyTilePayload => tile != null)
-      const sourceRecordCount = activeSurveys.reduce((count, survey) => count + survey.sourceRecordCount, 0)
-      const sourceLabel = activeSurveys.length > 1
-        ? `Hipparcos multi-survey · ${sourceRecordCount.toLocaleString()} stars`
-        : `Hipparcos · ${manifest.sourceRecordCount.toLocaleString()} stars`
 
       return {
-        mode: 'hipparcos',
-        sourceLabel,
-        sourceError: null,
+        mode: activeSurveys.some((survey) => survey.catalog === 'gaia') ? 'multi-survey' : 'hipparcos',
+        sourceLabel: buildSourceLabel(activeSurveys, manifest),
+        sourceError,
         manifest,
         tiles,
       }

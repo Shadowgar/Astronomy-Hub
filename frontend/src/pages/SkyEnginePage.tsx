@@ -79,7 +79,15 @@ function formatDisplayedFov(fovDegrees: number) {
   return `${fovDegrees.toFixed(4)}°`
 }
 
-function resolveRuntimeModeLabel(mode: 'mock' | 'hipparcos' | 'loading') {
+function resolveRuntimeModeLabel(mode: 'mock' | 'hipparcos' | 'gaia' | 'multi-survey' | 'loading') {
+  if (mode === 'multi-survey') {
+    return 'Multi-survey'
+  }
+
+  if (mode === 'gaia') {
+    return 'Gaia'
+  }
+
   if (mode === 'hipparcos') {
     return 'Hipparcos'
   }
