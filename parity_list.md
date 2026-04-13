@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-13 (Multi-survey Gaia/HiPS ingestion block implemented; same-origin Gaia proxying, HiPS EPH decoding, and ordered Hipparcos→Gaia survey handoff added; frontend typecheck/build and targeted runtime tests pass)
+Last updated: 2026-04-13 (Multi-survey Gaia/HiPS ingestion block implemented with local Gaia mirror assets; HiPS EPH decoding, bounded local mirror seeding, and ordered Hipparcos→Gaia survey handoff added; frontend typecheck/build and targeted runtime tests pass)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -257,11 +257,12 @@ Explicit local logic deleted in this block:
 - Hipparcos-only repository sequencing as the only active parity path.
 - Hipparcos-only runtime/source labels in the scene, detail shell, overlay routing, and pick/runtime source handling.
 - Local assumption that star survey mode can only report `mock` or `hipparcos` once the repository is active.
-- Implicit browser-direct remote fetch assumption for Gaia; replaced by same-origin proxy wiring in both Vite and nginx.
+- Implicit runtime dependence on Stellarium-hosted Gaia tiles; replaced by a local mirrored Gaia asset root plus explicit mirror metadata.
 
 Implementation evidence recorded for this block:
 - Verified real Gaia survey source: `https://data.stellarium.org/surveys/gaia/properties`
 - Observed Gaia HiPS metadata: `hips_order_min = 3`, `hips_release_date = 2018-08-28T08:10Z`, `hips_tile_format = eph`
+- Seeded local Gaia mirror: orders `3..5`, `16,088` mirrored tiles written under `frontend/public/sky-engine-assets/catalog/gaia/` with generated `mirror-manifest.json`
 
 Validation evidence recorded for this block:
 - `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- test_file_backed_tile_repository.test.js test_sky_engine_runtime_slice.test.js test_eph_codec.test.js`: pass

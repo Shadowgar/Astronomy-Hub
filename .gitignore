@@ -68,6 +68,7 @@ Thumbs.db
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+/frontend/public/sky-engine-assets/catalog/gaia/
 
 #study files
 /study

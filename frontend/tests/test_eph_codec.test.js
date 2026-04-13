@@ -135,8 +135,8 @@ describe('eph codec', () => {
   })
 
   it('builds the canonical HiPS tile path', () => {
-    expect(buildHipsTilePath('/sky-engine-remote/stellarium/surveys/gaia', 6, 12345, 'eph')).toBe(
-      '/sky-engine-remote/stellarium/surveys/gaia/Norder6/Dir10000/Npix12345.eph',
+    expect(buildHipsTilePath('/sky-engine-assets/catalog/gaia', 6, 12345, 'eph')).toBe(
+      '/sky-engine-assets/catalog/gaia/Norder6/Dir10000/Npix12345.eph',
     )
   })
 

@@ -15,8 +15,8 @@ import { healpixAngToPix, healpixPixToRaDec } from './healpix'
 
 const DEFAULT_MANIFEST_PATH = '/sky-engine-assets/catalog/hipparcos/manifest.json'
 const SUPPLEMENTAL_SURVEY_PATH = '/sky-engine-assets/catalog/hipparcos/hipparcos_tier2_subset.json'
-const STELLARIUM_PROXY_BASE_PATH = '/sky-engine-remote/stellarium'
-const GAIA_SURVEY_BASE_PATH = `${STELLARIUM_PROXY_BASE_PATH}/surveys/gaia`
+const GAIA_SURVEY_BASE_PATH = '/sky-engine-assets/catalog/gaia'
+const GAIA_MIRROR_MANIFEST_PATH = `${GAIA_SURVEY_BASE_PATH}/mirror-manifest.json`
 const STELLARIUM_MAX_RENDER_ORDER = 9
 
 const SUPPLEMENTAL_SURVEY_KEY = 'hipparcos-tier2-subset'
@@ -54,9 +54,19 @@ type SupplementalSurveyCache = {
 
 type GaiaSurveyCache = {
   properties: SurveyProperties
+  maxOrder: number
   pixelSelectionCache: Map<string, number[]>
   remoteTileCache: Map<string, Promise<readonly RuntimeStar[]>>
   localTileCache: Map<string, Promise<SkyTilePayload | null>>
+}
+
+type GaiaMirrorManifest = {
+  minOrder: number
+  maxOrder: number
+  mirroredAt: string
+  sourceUrl: string
+  totalTileCount: number
+  tileCountByOrder: Record<string, number>
 }
 
 function normalizeManifestDirectory(manifestPath: string) {
@@ -397,8 +407,8 @@ function resolveActiveSurveys(surveys: readonly RuntimeSurveyDefinition[], limit
     .sort((left, right) => left.maxVmag - right.maxVmag || left.minVmag - right.minVmag || left.key.localeCompare(right.key))
 }
 
-function resolveGaiaTileOrder(tileLevel: number, minOrder: number) {
-  return Math.min(STELLARIUM_MAX_RENDER_ORDER, minOrder + Math.max(tileLevel, 0))
+function resolveGaiaTileOrder(tileLevel: number, minOrder: number, maxOrder: number) {
+  return Math.min(maxOrder, minOrder + Math.max(tileLevel, 0))
 }
 
 function buildSourceLabel(activeSurveys: readonly RuntimeSurveyDefinition[], manifest: SkyTileAssetManifest) {
@@ -476,15 +486,22 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
   }
 
   function loadGaiaSurvey() {
-    gaiaSurveyPromise ??= fetchText(`${GAIA_SURVEY_BASE_PATH}/properties`)
-      .then(parseSurveyProperties)
-      .then((properties) => {
+    gaiaSurveyPromise ??= Promise.all([
+      fetchText(`${GAIA_SURVEY_BASE_PATH}/properties`).then(parseSurveyProperties),
+      fetchJson<GaiaMirrorManifest>(GAIA_MIRROR_MANIFEST_PATH),
+    ])
+      .then(([properties, mirrorManifest]) => {
         if (!properties.tileFormat.includes('eph')) {
           throw new Error(`Unsupported Gaia tile format: ${properties.tileFormat}`)
         }
 
+        if (!Number.isFinite(mirrorManifest.maxOrder) || mirrorManifest.maxOrder < properties.minOrder) {
+          throw new Error('Gaia mirror manifest is invalid or incomplete')
+        }
+
         return {
           properties,
+          maxOrder: Math.min(STELLARIUM_MAX_RENDER_ORDER, mirrorManifest.maxOrder),
           pixelSelectionCache: new Map<string, number[]>(),
           remoteTileCache: new Map<string, Promise<readonly RuntimeStar[]>>(),
           localTileCache: new Map<string, Promise<SkyTilePayload | null>>(),
@@ -534,7 +551,7 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
         return null
       }
 
-      const order = resolveGaiaTileOrder(descriptor.level, gaiaSurvey.properties.minOrder)
+      const order = resolveGaiaTileOrder(descriptor.level, gaiaSurvey.properties.minOrder, gaiaSurvey.maxOrder)
       const selectedPixels = selectHealpixPixelsForBounds(tileId, descriptor.bounds, order, gaiaSurvey.pixelSelectionCache)
       const remoteStars = await Promise.all(selectedPixels.map((pix) => loadGaiaRemoteTile(gaiaSurvey, order, pix, minVmag)))
       const stars = remoteStars
@@ -613,7 +630,7 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
             loadTile: (tileId, activeQuery) => loadGaiaTile(tileId, activeQuery, gaiaEntryMinVmag),
           })
         } catch (error) {
-          sourceError = `Gaia HiPS unavailable: ${error instanceof Error ? error.message : String(error)}`
+          sourceError = `Gaia mirror unavailable: ${error instanceof Error ? error.message : String(error)}. Run npm run mirror:gaia in frontend to seed local survey assets.`
         }
       }
 
