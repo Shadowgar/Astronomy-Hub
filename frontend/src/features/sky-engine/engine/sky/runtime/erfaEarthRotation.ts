@@ -3,8 +3,12 @@
  * Used for `astrom->eral = theta + along` before full `eraApco` port.
  */
 
-const ERFA_DJ00 = 2451545.0
-const ERFA_D2PI = 6.283185307179586476925287
+import { ERFA_DAS2R, ERFA_DJC, ERFA_D2PI, ERFA_DJ00 } from './erfaConstants'
+
+function eraSp00FromTtJulianDate(ttJd: number) {
+  const t = (ttJd - ERFA_DJ00) / ERFA_DJC
+  return -47e-6 * t * ERFA_DAS2R
+}
 
 function eraAnp(angle: number) {
   let w = angle % ERFA_D2PI
@@ -38,8 +42,8 @@ export function eraEra00FromUt1JulianDate(ut1Jd: number) {
 }
 
 /**
- * Stellarium `eraApco` / `eraAper`: `eral = theta + along` with `along ≈ elong` (TIO s′ omitted).
+ * Stellarium `eraApco`: `eral = theta + along` with `along = elong + sp` (`eraSp00` on TT).
  */
-export function localEarthRotationAngleRad(ut1Jd: number, longitudeRad: number) {
-  return eraEra00FromUt1JulianDate(ut1Jd) + longitudeRad
+export function localEarthRotationAngleRad(ut1Jd: number, longitudeRad: number, ttJulianDate: number) {
+  return eraEra00FromUt1JulianDate(ut1Jd) + longitudeRad + eraSp00FromTtJulianDate(ttJulianDate)
 }

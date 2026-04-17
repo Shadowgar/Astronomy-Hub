@@ -250,5 +250,6 @@ Function-level mapping is required before any module can pass `G0 InventoryLock`
   - `frontend/src/features/sky-engine/engine/sky/runtime/timeScales.ts`
   - consumed by `frontend/src/features/sky-engine/engine/sky/runtime/observerDerivedGeometry.ts`
 - Stellarium `deltat` (SMH2016) and UT1 Julian date for GMST: `deltaTSecondsFromTtMjd`, `ut1JulianDateFromTimestampIso`, `dut1SecondsFromTimestampIso` in `timeScales.ts`; `computeLocalSiderealTimeDeg` uses UT1 JD.
-- ERFA `eraEra00` (Capitaine et al. 2000) in `runtime/erfaEarthRotation.ts`; simplified `ri2h`/`rh2i` use `localEarthRotationAngleRad` = ERA + longitude (`eral` analog; no polar motion, BPN, or `sp`).
+- ERFA `eraEra00` (Capitaine et al. 2000) in `runtime/erfaEarthRotation.ts`; simplified `ri2h`/`rh2i` use `localEarthRotationAngleRad` = ERA + longitude + `eraSp00` (TIO s′) on TT (`eral` analog; no polar motion or BPN).
+- IAU 2006 `eraObl06` / `eraPfw06` / `eraFw2m` / `eraPmat06` / `eraEcm06` in `runtime/erfaIau2006.ts`; `matrices.ri2e` / `matrices.re2i` from `eraEcm06` (no Stellarium `mat3_invert` naming swap — ERFA ICRS→ecliptic of date).
 - Remaining module0 function mappings stay `UNMAPPED` until exact source-equivalent behavior is implemented and verified.

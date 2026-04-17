@@ -4,6 +4,7 @@ import {
   computeStellariumBarometricPressureMbar,
   refractionPrepareStellarium,
 } from '../transforms/coordinates'
+import { eclipticToIcrsMatrixFromTt, icrsToEclipticMatrixFromTt, type MutableMatrix3 } from './erfaIau2006'
 import { localEarthRotationAngleRad } from './erfaEarthRotation'
 import { dut1SecondsFromTimestampIso, toJulianDateTt, toJulianDateUtc, ut1JulianDateFromTimestampIso } from './timeScales'
 
@@ -38,6 +39,14 @@ function multiplyMatrix3(left: Matrix3, right: Matrix3): Matrix3 {
     [m00, m01, m02],
     [m10, m11, m12],
     [m20, m21, m22],
+  ]
+}
+
+function toReadonlyMatrix3(m: MutableMatrix3): Matrix3 {
+  return [
+    [m[0][0], m[0][1], m[0][2]],
+    [m[1][0], m[1][1], m[1][2]],
+    [m[2][0], m[2][1], m[2][2]],
   ]
 }
 
@@ -119,6 +128,9 @@ export interface SkyObserverDerivedGeometry {
     readonly rv2o: Matrix3
     readonly ri2v: Matrix3
     readonly rc2v: Matrix3
+    /** ERFA `eraEcm06` (ICRS → mean ecliptic of date); BPN not applied. */
+    readonly ri2e: Matrix3
+    readonly re2i: Matrix3
   }
   readonly earthPv: readonly [number, number, number]
   readonly sunPv: readonly [number, number, number]
@@ -164,12 +176,17 @@ export function deriveObserverGeometry(
   const elevationMeters = observer.elevationFt * FT_TO_METERS
   const localSiderealTimeDeg = computeLocalSiderealTimeDeg(observer.longitude, sceneTimestampIso)
   const ut1JulianDate = ut1JulianDateFromTimestampIso(sceneTimestampIso)
-  const localEraRad = localEarthRotationAngleRad(ut1JulianDate, longitudeRad)
   const utcJulianDate = toJulianDateUtc(sceneTimestampIso)
   const ttJulianDate = toJulianDateTt(sceneTimestampIso)
+  const localEraRad = localEarthRotationAngleRad(ut1JulianDate, longitudeRad, ttJulianDate)
   const dut1Seconds = dut1SecondsFromTimestampIso(sceneTimestampIso)
   const refraction = refractionFromElevation(elevationMeters)
-  const matrices = computeFrameMatrices(latitudeRad, localEraRad)
+  const horizon = computeFrameMatrices(latitudeRad, localEraRad)
+  const matrices = {
+    ...horizon,
+    ri2e: toReadonlyMatrix3(icrsToEclipticMatrixFromTt(ttJulianDate)),
+    re2i: toReadonlyMatrix3(eclipticToIcrsMatrixFromTt(ttJulianDate)),
+  }
   const earthPv: readonly [number, number, number] = previous?.earthPv ?? [0, 0, 0]
   const sunPv: readonly [number, number, number] = previous?.sunPv ?? [0, 0, 0]
   const lastAccurateSceneTimestampIso = updateMode === 'full'

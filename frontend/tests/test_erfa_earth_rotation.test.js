@@ -17,9 +17,9 @@ describe('erfaEarthRotation (eraEra00 port)', () => {
     expect(a).toBeCloseTo(4.894961212823757, 10)
   })
 
-  it('matches eral = ERA + longitude (radians)', () => {
+  it('matches eral = ERA + longitude + sp (TIO at J2000 sp≈0)', () => {
     const jd = 2451545.0
     const lon = 0.5
-    expect(localEarthRotationAngleRad(jd, lon)).toBeCloseTo(eraEra00FromUt1JulianDate(jd) + lon, 12)
+    expect(localEarthRotationAngleRad(jd, lon, jd)).toBeCloseTo(eraEra00FromUt1JulianDate(jd) + lon, 12)
   })
 })
