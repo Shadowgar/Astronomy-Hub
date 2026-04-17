@@ -23,6 +23,13 @@ const TEST_OBSERVER = {
   elevationFt: 1420,
 }
 
+const SEVILLA_OBSERVER = {
+  label: 'Sevilla',
+  latitude: 37.3891,
+  longitude: -5.9845,
+  elevationFt: 50,
+}
+
 const SCENE_TIMESTAMP = '2025-01-15T03:00:00Z'
 
 const BACKEND_STARS = [
@@ -178,6 +185,13 @@ describe('Sky Engine astronomy helpers', () => {
     expect(lowSun.visualCalibration.starVisibility).toBeLessThan(nightSun.visualCalibration.starVisibility)
     expect(daylightSun.visualCalibration.starLabelVisibility).toBeLessThan(lowSun.visualCalibration.starLabelVisibility)
     expect(lowSun.visualCalibration.starLabelVisibility).toBeLessThan(nightSun.visualCalibration.starLabelVisibility)
+  })
+
+  it('treats Sevilla as night at 01:00 UTC in mid-April', () => {
+    const sevilleNight = computeSunState(SEVILLA_OBSERVER, '2026-04-17T01:00:00.000Z')
+
+    expect(sevilleNight.phaseLabel).toBe('Night')
+    expect(sevilleNight.altitudeDeg).toBeLessThan(0)
   })
 
   it('surfaces bounded deep-sky morphology classes and apparent sizes', () => {

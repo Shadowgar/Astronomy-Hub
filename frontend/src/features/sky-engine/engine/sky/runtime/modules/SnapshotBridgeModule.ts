@@ -18,9 +18,9 @@ function resolveCameraSnapshot(services: SkySceneRuntimeServices) {
   const centerDirection = services.navigationService.getCenterDirection()
 
   return {
-    centerAltDeg: Number(((Math.asin(clamp(centerDirection.y, -1, 1)) * 180) / Math.PI).toFixed(1)),
-    centerAzDeg: Number(((((Math.atan2(centerDirection.x, centerDirection.z) * 180) / Math.PI) + 360) % 360).toFixed(1)),
-    fovDegrees: Number(services.projectionService.getCurrentFovDegrees().toFixed(1)),
+    centerAltDeg: (Math.asin(clamp(centerDirection.y, -1, 1)) * 180) / Math.PI,
+    centerAzDeg: ((((Math.atan2(centerDirection.x, centerDirection.z) * 180) / Math.PI) + 360) % 360),
+    fovDegrees: services.projectionService.getCurrentFovDegrees(),
   }
 }
 

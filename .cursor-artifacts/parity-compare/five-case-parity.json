@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "lat": 37.3891,
+    "lon": -5.9845,
+    "elevation_ft": 50,
+    "at": "2026-04-17T01:00:00Z"
+  },
+  "case1_wide": {
+    "hub": {
+      "stars": 7,
+      "fov": "120°",
+      "dataMode": "Hipparcos",
+      "localTime": "Apr 16, 9:00 PM EDT",
+      "satellitesProjected": 0,
+      "dsoProjected": 0,
+      "textSnippet": "ASTRONOMY HUB\nSky Engine\nHub shell persists while the active engine owns this viewport.\nHub\nACTIVE ENGINE\nSky Engine\nBack\nShow inspector\nReset\nFind\nDATA\nHipparcos\nFOV\n120°\nLOCAL TIME\nApr 16, 9:00 PM EDT\n+2s · America/New_York · 1x\nNIGHT\nTIME SCRUB\n+0m\n7 render"
+    },
+    "stellarium": {
+      "fov": 120,
+      "location": "SEVILLA",
+      "time": "16:10:00",
+      "date": "2026-04-17",
+      "textSnippet": "StellariumWeb\nSearch...\nFOV 120°\nOBSERVE\nDSO\nStars\nmilkyway\nNEAR SEVILLA\n16:10:00\n2026-04-17"
+    }
+  },
+  "case2_medium": {
+    "hub": {
+      "stars": 0,
+      "fov": "25.8°",
+      "dataMode": "Hipparcos",
+      "localTime": "Apr 16, 9:00 PM EDT",
+      "satellitesProjected": 0,
+      "dsoProjected": 0,
+      "textSnippet": "ASTRONOMY HUB\nSky Engine\nHub shell persists while the active engine owns this viewport.\nHub\nACTIVE ENGINE\nSky Engine\nBack\nShow inspector\nReset\nFind\nDATA\nHipparcos\nFOV\n25.8°\nLOCAL TIME\nApr 16, 9:00 PM EDT\n+2s · America/New_York · 1x\nNIGHT\nTIME SCRUB\n+0m\n0 rende"
+    },
+    "stellarium": {
+      "fov": 120,
+      "location": "SEVILLA",
+      "time": "16:10:01",
+      "date": "2026-04-17",
+      "textSnippet": "StellariumWeb\nSearch...\nFOV 120°\nOBSERVE\nStars\nNEAR SEVILLA\n16:10:01\n2026-04-17"
+    }
+  },
+  "case3_deep": {
+    "hub": {
+      "stars": 0,
+      "fov": "1.70°",
+      "dataMode": "Hipparcos",
+      "localTime": "Apr 16, 9:00 PM EDT",
+      "satellitesProjected": 0,
+      "dsoProjected": 0,
+      "textSnippet": "ASTRONOMY HUB\nSky Engine\nHub shell persists while the active engine owns this viewport.\nHub\nACTIVE ENGINE\nSky Engine\nBack\nShow inspector\nReset\nFind\nDATA\nHipparcos\nFOV\n1.70°\nLOCAL TIME\nApr 16, 9:00 PM EDT\n+2s · America/New_York · 1x\nNIGHT\nTIME SCRUB\n+0m\n0 rende"
+    },
+    "stellarium": {
+      "fov": 120,
+      "location": "SEVILLA",
+      "time": "16:10:01",
+      "date": "2026-04-17",
+      "textSnippet": "StellariumWeb\nSearch...\nFOV 120°\nOBSERVE\nStars\nNEAR SEVILLA\n16:10:01\n2026-04-17"
+    }
+  },
+  "case4_dss_candidate": {
+    "hub": {
+      "stars": 0,
+      "fov": "3.30°",
+      "dataMode": "Hipparcos",
+      "localTime": "Apr 16, 9:00 PM EDT",
+      "satellitesProjected": 0,
+      "dsoProjected": 0,
+      "textSnippet": "ASTRONOMY HUB\nSky Engine\nHub shell persists while the active engine owns this viewport.\nHub\nACTIVE ENGINE\nSky Engine\nBack\nShow inspector\nReset\nFind\nDATA\nHipparcos\nFOV\n3.30°\nLOCAL TIME\nApr 16, 9:00 PM EDT\n+1s · America/New_York · 1x\nNIGHT\nTIME SCRUB\n+0m\n0 rende"
+    },
+    "stellarium": {
+      "fov": 120,
+      "location": "SEVILLA",
+      "time": "16:10:01",
+      "date": "2026-04-17",
+      "textSnippet": "StellariumWeb\nSearch...\nFOV 120°\nOBSERVE\nStars\nNEAR SEVILLA\n16:10:01\n2026-04-17"
+    }
+  },
+  "case5_satellites_candidate": {
+    "hub": {
+      "stars": 7,
+      "fov": "120°",
+      "dataMode": "Hipparcos",
+      "localTime": "Apr 16, 9:00 PM EDT",
+      "satellitesProjected": 0,
+      "dsoProjected": 0,
+      "textSnippet": "ASTRONOMY HUB\nSky Engine\nHub shell persists while the active engine owns this viewport.\nHub\nACTIVE ENGINE\nSky Engine\nBack\nShow inspector\nReset\nFind\nDATA\nHipparcos\nFOV\n120°\nLOCAL TIME\nApr 16, 9:00 PM EDT\n+1s · America/New_York · 1x\nNIGHT\nTIME SCRUB\n+0m\n7 render"
+    },
+    "stellarium": {
+      "fov": 120,
+      "location": "SEVILLA",
+      "time": "16:10:00",
+      "date": "2026-04-17",
+      "textSnippet": "StellariumWeb\nSearch...\nFOV 120°\nOBSERVE\nStars\nNEAR SEVILLA\n16:10:00\n2026-04-17"
+    }
+  }
+}

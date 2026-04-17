@@ -55,7 +55,12 @@ function buildSampleEphTile() {
     { name: 'gmag', type: 'f', unit: 0, size: 4 },
     { name: 'ra', type: 'f', unit: 1 << 16, size: 4 },
     { name: 'de', type: 'f', unit: 1 << 16, size: 4 },
+    { name: 'plx', type: 'f', unit: (1 << 16) | 1 | 2 | 4, size: 4 },
+    { name: 'pra', type: 'f', unit: ((1 << 16) | 1 | 2 | 4) | 8, size: 4 },
+    { name: 'pde', type: 'f', unit: ((1 << 16) | 1 | 2 | 4) | 8, size: 4 },
+    { name: 'epoc', type: 'f', unit: 0, size: 4 },
     { name: 'ids', type: 's', unit: 0, size: 256 },
+    { name: 'sp', type: 's', unit: 0, size: 32 },
     { name: 'bv', type: 'f', unit: 0, size: 4 },
   ]
   let startOffset = 0
@@ -77,8 +82,13 @@ function buildSampleEphTile() {
   writeFloat32(tableView, resolvedColumns[4].start, 9.7)
   writeFloat32(tableView, resolvedColumns[5].start, Math.PI)
   writeFloat32(tableView, resolvedColumns[6].start, (10 * Math.PI) / 180)
-  tableData.set(encodeAscii('NAME Sample Star|GAIA 219547565555375488', 256), resolvedColumns[7].start)
-  writeFloat32(tableView, resolvedColumns[8].start, 0.42)
+  writeFloat32(tableView, resolvedColumns[7].start, 0.01)
+  writeFloat32(tableView, resolvedColumns[8].start, 0.005)
+  writeFloat32(tableView, resolvedColumns[9].start, -0.004)
+  writeFloat32(tableView, resolvedColumns[10].start, 2016.0)
+  tableData.set(encodeAscii('NAME Sample Star|GAIA 219547565555375488', 256), resolvedColumns[11].start)
+  tableData.set(encodeAscii('G2V', 32), resolvedColumns[12].start)
+  writeFloat32(tableView, resolvedColumns[13].start, 0.42)
 
   shuffleBytes(tableData, rowCount, rowSize)
   const compressed = deflateSync(tableData)
@@ -156,5 +166,8 @@ describe('eph codec', () => {
     expect(decodedTile.stars[0]?.raDeg).toBeCloseTo(180, 3)
     expect(decodedTile.stars[0]?.decDeg).toBeCloseTo(10, 3)
     expect(decodedTile.stars[0]?.mag).toBeCloseTo(9.7, 3)
+    expect(decodedTile.stars[0]?.parallaxMas).toBeCloseTo(10, 3)
+    expect(decodedTile.stars[0]?.pmRaMasYr).toBeCloseTo(5, 3)
+    expect(decodedTile.stars[0]?.pmDecMasYr).toBeCloseTo(-4, 3)
   })
 })

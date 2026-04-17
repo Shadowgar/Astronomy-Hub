@@ -658,7 +658,9 @@ function projectScenePacketStar(
 
   const magnitudeStartMs = performance.now()
   const renderedMagnitude = packetStar.mag
-  if (renderedMagnitude > input.brightnessExposureState.limitingMagnitude + STAR_MAGNITUDE_BREAK_MARGIN) {
+  const scenePacketLimitingMagnitude = input.scenePacket?.diagnostics?.limitingMagnitude ?? Number.NEGATIVE_INFINITY
+  const effectiveLimitingMagnitude = Math.max(input.brightnessExposureState.limitingMagnitude, scenePacketLimitingMagnitude)
+  if (renderedMagnitude > effectiveLimitingMagnitude + STAR_MAGNITUDE_BREAK_MARGIN) {
     magnitudeFilterMs += performance.now() - magnitudeStartMs
     return { entry: null, shouldBreak: true, transformMs, magnitudeFilterMs, visibilityFilterMs, allocationMs, lastMagnitude, lastPointVisual }
   }
@@ -738,7 +740,10 @@ export function collectProjectedStars(input: CollectProjectedStarsInput): Projec
   let allocationMs = 0
   const fovDegrees = getSkyEngineFovDegrees(input.view.fovRadians)
   const centerAltitudeDeg = directionToHorizontal(input.view.centerDirection).altitudeDeg
-  const limitingMagnitude = input.brightnessExposureState.limitingMagnitude
+  const limitingMagnitude = Math.max(
+    input.brightnessExposureState.limitingMagnitude,
+    input.scenePacket?.diagnostics?.limitingMagnitude ?? Number.NEGATIVE_INFINITY,
+  )
   const objectLookup = new Map(input.objects.map((object) => [object.id, object]))
   const projectedStars: ProjectedSceneObjectEntry[] = []
   const viewportMinSizePx = Math.min(input.view.viewportWidth, input.view.viewportHeight)

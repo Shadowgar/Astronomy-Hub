@@ -7,6 +7,7 @@ export class SkyClockService {
   private sceneOffsetSeconds = 0
   private playbackRate = 1
   private lastNonZeroPlaybackRate = 1
+  private lastSyncedBaseTimestampMs = this.baseTimestampMs
 
   syncBaseTimestamp(sceneTimestampIso: string | undefined) {
     if (!sceneTimestampIso) {
@@ -20,6 +21,7 @@ export class SkyClockService {
     }
 
     this.baseTimestampMs = nextBaseTimestampMs
+    this.lastSyncedBaseTimestampMs = nextBaseTimestampMs
   }
 
   syncSceneTimestampFromObjects(objects: readonly SkyEngineSceneObject[]) {
@@ -85,7 +87,7 @@ export class SkyClockService {
   }
 
   resetSceneTime() {
-    this.baseTimestampMs = Date.now()
+    this.baseTimestampMs = this.lastSyncedBaseTimestampMs
     this.sceneOffsetSeconds = 0
     this.setPlaybackRate(1)
   }

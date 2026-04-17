@@ -114,6 +114,16 @@ function convertUnit(sourceUnit: number, targetUnit: number | undefined, value: 
     converted *= 60
   }
 
+  // Stellarium EPH unit bit 8 encodes per-year quantities (e.g. arcsec/year).
+  // Convert between "per year" and absolute units using the same 365.25 factor.
+  if ((sourceUnit & 8) && !(targetUnit & 8)) {
+    converted *= 365.25
+  }
+
+  if (!(sourceUnit & 8) && (targetUnit & 8)) {
+    converted /= 365.25
+  }
+
   return converted
 }
 
@@ -192,7 +202,12 @@ function createStarColumns() {
     createColumn('gmag', 'f'),
     createColumn('ra', 'f', { unit: EPH_UNIT_DEG }),
     createColumn('de', 'f', { unit: EPH_UNIT_DEG }),
+    createColumn('plx', 'f', { unit: EPH_UNIT_ARCSEC }),
+    createColumn('pra', 'f', { unit: EPH_UNIT_ARCSEC | 8 }),
+    createColumn('pde', 'f', { unit: EPH_UNIT_ARCSEC | 8 }),
+    createColumn('epoc', 'f'),
     createColumn('ids', 's', { size: 256 }),
+    createColumn('sp', 's', { size: 32 }),
     createColumn('bv', 'f'),
   ]
 }
@@ -251,6 +266,9 @@ function decodeRuntimeStar(row: Map<string, string | number | bigint>, options: 
     decDeg,
     mag: magnitude,
     colorIndex: Number.isFinite(Number(row.get('bv'))) ? Number(row.get('bv')) : undefined,
+    pmRaMasYr: Number.isFinite(Number(row.get('pra'))) ? Number(row.get('pra')) * 1000 : undefined,
+    pmDecMasYr: Number.isFinite(Number(row.get('pde'))) ? Number(row.get('pde')) * 1000 : undefined,
+    parallaxMas: Number.isFinite(Number(row.get('plx'))) ? Number(row.get('plx')) * 1000 : undefined,
     tier: resolveSkyRuntimeTierForMagnitude(magnitude),
     properName: selectProperName(ids),
     catalog: options.catalog,
