@@ -50,6 +50,18 @@ function getSelectionTruthDescription(selectedObject: SkyEngineSceneObject) {
     return 'Ephemeris position and phase are recomputed for the active observer and exact scene timestamp.'
   }
 
+  if (selectedObject.source === 'minor_planet_catalog') {
+    return 'Minor-planet position is computed from bounded catalog coordinates transformed for the active observer and time.'
+  }
+
+  if (selectedObject.source === 'comet_catalog') {
+    return 'Comet position is computed from bounded catalog coordinates transformed for the active observer and time.'
+  }
+
+  if (selectedObject.source === 'meteor_shower_catalog') {
+    return 'Meteor-shower radiant is transformed from bounded shower catalog coordinates for the active observer and time.'
+  }
+
   return 'This remains a temporary scene marker and is kept separate from the computed sky set.'
 }
 
@@ -78,6 +90,18 @@ function getSelectionBadgeLabel(selectedObject: SkyEngineSceneObject) {
 
   if (selectedObject.source === 'computed_ephemeris') {
     return 'Computed ephemeris'
+  }
+
+  if (selectedObject.source === 'minor_planet_catalog') {
+    return 'Minor-planet catalog'
+  }
+
+  if (selectedObject.source === 'comet_catalog') {
+    return 'Comet catalog'
+  }
+
+  if (selectedObject.source === 'meteor_shower_catalog') {
+    return 'Meteor-shower catalog'
   }
 
   return 'Temporary demo placement'
@@ -193,6 +217,11 @@ function renderSelectionInsights(selectedObject: SkyEngineSceneObject) {
           {selectedObject.guidanceTier === 'featured' ? ' · featured now' : ''}
         </p>
       )}
+      {selectedObject.type === 'meteor_shower' ? (
+        <p className="sky-engine-detail-shell__hint">
+          Peak: {selectedObject.meteorPeakIso ?? 'Unknown'} · ZHR {selectedObject.meteorZenithRatePerHour ?? 'Unknown'}
+        </p>
+      ) : null}
     </>
   )
 }
@@ -229,7 +258,11 @@ function renderSelectionBody(selectedObject: SkyEngineSceneObject) {
         </div>
         <div>
           <dt>Magnitude</dt>
-          <dd>{selectedObject.type === 'satellite' ? 'Not provided' : selectedObject.magnitude.toFixed(2)}</dd>
+          <dd>{
+            selectedObject.type === 'satellite' && selectedObject.stdMagnitude === undefined
+              ? 'Not provided'
+              : selectedObject.magnitude.toFixed(2)
+          }</dd>
         </div>
         <div>
           <dt>Horizon</dt>

@@ -2,9 +2,13 @@ import { describe, expect, it } from 'vitest'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 
 import {
+  computeCometSceneObjects,
   computeDeepSkySceneObjects,
   computeBackendStarSceneObjects,
   computeHorizontalCoordinates,
+  computeMeteorShowerSceneObjects,
+  computeMinorPlanetSceneObjects,
+  computeSatelliteSceneObjects,
 } from '../src/features/sky-engine/astronomy.ts'
 import {
   isProjectedPointVisible,
@@ -190,5 +194,42 @@ describe('Sky Engine astronomy helpers', () => {
     expect(objectById.get('sky-dso-m31')?.majorAxis).toBe(3.1)
     expect(objectById.get('sky-dso-m31')?.minorAxis).toBe(1)
     expect(objectById.get('sky-dso-m42')?.truthNote).toContain('orientation, and major/minor axis metadata')
+  })
+
+  it('maps satellite model_data into runtime satellite scene object fields', () => {
+    const objects = computeSatelliteSceneObjects(TEST_OBSERVER, SCENE_TIMESTAMP, [
+      {
+        id: '25544',
+        type: 'satellite',
+        name: 'ISS',
+        engine: 'satellite',
+        provider_source: 'space_track',
+        summary: 'TLE-backed sample',
+        position: { azimuth: 165.2, elevation: 42.5 },
+        visibility: { is_visible: true, visibility_window_start: SCENE_TIMESTAMP, visibility_window_end: '2025-01-15T03:08:00Z' },
+        model_data: {
+          tle_line1: '1 25544U 98067A   26091.50000000  .00001234  00000-0  10270-4 0  9991',
+          tle_line2: '2 25544  51.6433 123.4567 0003642 278.1234 123.9876 15.49812345678901',
+          stdmag: 1.2,
+          period_minutes: 92.6,
+        },
+      },
+    ])
+    expect(objects).toHaveLength(1)
+    expect(objects[0].magnitude).toBe(1.2)
+    expect(objects[0].tleLine1).toContain('25544U')
+    expect(objects[0].orbitalPeriodMinutes).toBeCloseTo(92.6, 1)
+  })
+
+  it('builds bounded minor-planet, comet, and meteor-shower scene objects', () => {
+    const minorPlanets = computeMinorPlanetSceneObjects(TEST_OBSERVER, SCENE_TIMESTAMP)
+    const comets = computeCometSceneObjects(TEST_OBSERVER, SCENE_TIMESTAMP)
+    const meteorShowers = computeMeteorShowerSceneObjects(TEST_OBSERVER, SCENE_TIMESTAMP)
+    expect(minorPlanets.length).toBeGreaterThan(0)
+    expect(comets.length).toBeGreaterThan(0)
+    expect(meteorShowers.length).toBeGreaterThan(0)
+    expect(minorPlanets[0].type).toBe('minor_planet')
+    expect(comets[0].type).toBe('comet')
+    expect(meteorShowers[0].type).toBe('meteor_shower')
   })
 })

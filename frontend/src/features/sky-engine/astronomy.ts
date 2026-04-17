@@ -7,6 +7,9 @@ import type {
   SkyEngineTrajectorySample,
 } from './types'
 import type { BackendSatelliteSceneObject, BackendSkySceneStarObject } from '../scene/contracts'
+import { MINOR_PLANETS_CATALOG } from './data/minorPlanetsCatalog'
+import { COMETS_CATALOG } from './data/cometsCatalog'
+import { METEOR_SHOWERS_CATALOG } from './data/meteorShowersCatalog'
 
 function degreesToRadians(value: number) {
   return (value * Math.PI) / 180
@@ -826,7 +829,7 @@ export function computeSatelliteSceneObjects(
         type: 'satellite',
         altitudeDeg: satellite.position.elevation,
         azimuthDeg: satellite.position.azimuth,
-        magnitude: 99,
+        magnitude: satellite.model_data?.stdmag ?? 99,
         colorHex: '#8ee7ff',
         summary: satellite.summary,
         description: `${passWindowSummary} This bounded activation renders a dedicated marker from the backend satellite scene without orbit lines or photometric brightness modelling.`,
@@ -835,12 +838,118 @@ export function computeSatelliteSceneObjects(
         trackingMode: 'static',
         timestampIso,
         providerSource: satellite.provider_source,
+        tleLine1: satellite.model_data?.tle_line1 ?? undefined,
+        tleLine2: satellite.model_data?.tle_line2 ?? undefined,
+        stdMagnitude: satellite.model_data?.stdmag ?? undefined,
+        orbitEpochIso: satellite.model_data?.epoch ?? undefined,
+        orbitalInclinationDeg: satellite.model_data?.inclination_deg ?? undefined,
+        orbitalPeriodMinutes: satellite.model_data?.period_minutes ?? undefined,
         visibilityWindowStartIso: windowStart ?? undefined,
         visibilityWindowEndIso: windowEnd ?? undefined,
         detailRoute: satellite.detail_route,
         isAboveHorizon: satellite.position.elevation > 0,
       } satisfies SkyEngineSceneObject
     })
+}
+
+export function computeMinorPlanetSceneObjects(
+  observer: SkyEngineObserver,
+  timestampIso: string,
+): readonly SkyEngineSceneObject[] {
+  return MINOR_PLANETS_CATALOG.map((object) => {
+    const horizontalCoordinates = computeHorizontalCoordinates(
+      observer,
+      timestampIso,
+      object.rightAscensionHours,
+      object.declinationDeg,
+    )
+    return {
+      id: object.id,
+      name: object.name,
+      type: 'minor_planet',
+      altitudeDeg: horizontalCoordinates.altitudeDeg,
+      azimuthDeg: horizontalCoordinates.azimuthDeg,
+      magnitude: object.magnitude,
+      colorHex: '#d7d7d7',
+      summary: `${object.name} projected from a bounded minor-planet catalog source.`,
+      description: `Minor-planet source carries H/G metadata (H ${object.absoluteMagnitude.toFixed(2)}, G ${object.slopeParameterG.toFixed(2)}) for Stellarium-style photometric compatibility.`,
+      truthNote: 'Minor-planet object is catalog-driven and observer-transformed from fixed source coordinates in this bounded section #9 port slice.',
+      source: 'minor_planet_catalog',
+      trackingMode: 'fixed_equatorial',
+      rightAscensionHours: object.rightAscensionHours,
+      declinationDeg: object.declinationDeg,
+      timestampIso,
+      orbitEpochIso: object.orbitEpochIso,
+      isAboveHorizon: horizontalCoordinates.isAboveHorizon,
+    } satisfies SkyEngineSceneObject
+  })
+}
+
+export function computeCometSceneObjects(
+  observer: SkyEngineObserver,
+  timestampIso: string,
+): readonly SkyEngineSceneObject[] {
+  return COMETS_CATALOG.map((comet) => {
+    const horizontalCoordinates = computeHorizontalCoordinates(
+      observer,
+      timestampIso,
+      comet.rightAscensionHours,
+      comet.declinationDeg,
+    )
+    return {
+      id: comet.id,
+      name: comet.name,
+      type: 'comet',
+      altitudeDeg: horizontalCoordinates.altitudeDeg,
+      azimuthDeg: horizontalCoordinates.azimuthDeg,
+      magnitude: comet.magnitude,
+      colorHex: '#b7f1ff',
+      summary: `${comet.name} comet entry projected from bounded comet source data.`,
+      description: `Comet source includes ${comet.orbitType} orbit classification and perihelion timing metadata for source-aligned runtime behavior.`,
+      truthNote: 'Comet object is catalog-driven and transformed to the active observer frame for section #9 subsystem parity integration.',
+      source: 'comet_catalog',
+      trackingMode: 'fixed_equatorial',
+      rightAscensionHours: comet.rightAscensionHours,
+      declinationDeg: comet.declinationDeg,
+      timestampIso,
+      orbitEpochIso: comet.perihelionIso,
+      isAboveHorizon: horizontalCoordinates.isAboveHorizon,
+    } satisfies SkyEngineSceneObject
+  })
+}
+
+export function computeMeteorShowerSceneObjects(
+  observer: SkyEngineObserver,
+  timestampIso: string,
+): readonly SkyEngineSceneObject[] {
+  return METEOR_SHOWERS_CATALOG.map((shower) => {
+    const horizontalCoordinates = computeHorizontalCoordinates(
+      observer,
+      timestampIso,
+      shower.rightAscensionHours,
+      shower.declinationDeg,
+    )
+    return {
+      id: shower.id,
+      name: shower.name,
+      type: 'meteor_shower',
+      altitudeDeg: horizontalCoordinates.altitudeDeg,
+      azimuthDeg: horizontalCoordinates.azimuthDeg,
+      magnitude: 3,
+      colorHex: '#ffd9a8',
+      summary: `${shower.name} radiant and activity metadata projected for the active observer.`,
+      description: `Meteor shower source tracks peak activity (${shower.peakIso}) and zenithal hourly rate (${shower.zenithRatePerHour}/h).`,
+      truthNote: 'Meteor-shower radiant is catalog-defined and transformed to observer-local coordinates for section #9 runtime parity scaffolding.',
+      source: 'meteor_shower_catalog',
+      trackingMode: 'fixed_equatorial',
+      rightAscensionHours: shower.rightAscensionHours,
+      declinationDeg: shower.declinationDeg,
+      timestampIso,
+      meteorPeakIso: shower.peakIso,
+      meteorZenithRatePerHour: shower.zenithRatePerHour,
+      isAboveHorizon: horizontalCoordinates.isAboveHorizon,
+    } satisfies SkyEngineSceneObject
+  })
 }
 
 export function computePlanetSceneObjects(observer: SkyEngineObserver, timestampIso: string): readonly SkyEngineSceneObject[] {

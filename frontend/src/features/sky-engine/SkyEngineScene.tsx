@@ -1,7 +1,10 @@
 import React, { forwardRef, memo, useEffect, useImperativeHandle, useRef } from 'react'
 
 import {
+  computeCometSceneObjects,
   computeDeepSkySceneObjects,
+  computeMeteorShowerSceneObjects,
+  computeMinorPlanetSceneObjects,
   computeMoonSceneObject,
   computePlanetSceneObjects,
   computeSatelliteSceneObjects,
@@ -289,12 +292,24 @@ function buildSceneControllerModel(config: {
   const planetObjects = computePlanetSceneObjects(config.observer, config.sceneTimestampIso)
   const deepSkyObjects = computeDeepSkySceneObjects(config.observer, config.sceneTimestampIso)
   const satelliteObjects = computeSatelliteSceneObjects(config.observer, config.sceneTimestampIso, config.backendSatellites)
+  const minorPlanetObjects = computeMinorPlanetSceneObjects(config.observer, config.sceneTimestampIso)
+  const cometObjects = computeCometSceneObjects(config.observer, config.sceneTimestampIso)
+  const meteorShowerObjects = computeMeteorShowerSceneObjects(config.observer, config.sceneTimestampIso)
   const engineStarSceneObjects = buildEngineStarSceneObjects(
     scenePacket,
     config.runtimeTiles,
     config.sceneTimestampIso,
   )
-  const baseSceneObjects = [...engineStarSceneObjects, ...planetObjects, ...deepSkyObjects, ...satelliteObjects, moonObject]
+  const baseSceneObjects = [
+    ...engineStarSceneObjects,
+    ...planetObjects,
+    ...deepSkyObjects,
+    ...satelliteObjects,
+    ...minorPlanetObjects,
+    ...cometObjects,
+    ...meteorShowerObjects,
+    moonObject,
+  ]
   const guidanceTargets = rankGuidanceTargets(baseSceneObjects, 5)
   const guidanceLookup = new Map(
     guidanceTargets.map((target, index) => [

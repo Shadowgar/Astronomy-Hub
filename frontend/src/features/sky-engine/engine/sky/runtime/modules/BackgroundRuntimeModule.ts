@@ -1,11 +1,13 @@
 import type { SkyModule } from '../SkyModule'
-import { projectDirectionToViewport, isProjectedPointVisible, type SkyProjectionView } from '../../../../projectionMath'
+import { projectDirectionToViewport, isProjectedPointVisible, horizontalToDirection, type SkyProjectionView } from '../../../../projectionMath'
 import { buildSyntheticSkyDensityField } from '../../../../syntheticStarField'
 import { computeVisibilityAlpha } from '../../../../starVisibility'
 import { getStarRenderProfileForMagnitude, type StarRenderProfile } from '../../../../starRenderer'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import type { ProjectedSceneObjectEntry } from './runtimeFrame'
 import type { SkyBrightnessExposureState } from '../types'
+import { computeHorizontalCoordinates } from '../../../../astronomy'
+import { DSS_SURVEY_PATCHES } from '../../../../data/dssSurveyCatalog'
 
 const SYNTHETIC_SKY_DENSITY_SAMPLES = buildSyntheticSkyDensityField(2800)
 const SYNTHETIC_STAR_OVERLAP_CELL_PX = 24
@@ -219,9 +221,57 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
   return {
     id: 'sky-background-runtime-module',
     renderOrder: 6,
-    render() {
-      // Synthetic density fallback is disabled. Star density is sourced from catalog surveys only.
-      return
+    render({ runtime, getProps, services }) {
+      const latest = getProps()
+      const projectedFrame = runtime.projectedSceneFrame
+      const brightnessExposureState = runtime.brightnessExposureState
+      if (!projectedFrame || !brightnessExposureState) {
+        return
+      }
+      const backgroundContext = runtime.backgroundCanvas.getContext('2d')
+      if (!backgroundContext) {
+        return
+      }
+      const width = projectedFrame.width
+      const height = projectedFrame.height
+      backgroundContext.clearRect(0, 0, width, height)
+
+      const dssBaseAlpha = clamp(brightnessExposureState.backdropAlpha * 0.14, 0.02, 0.2)
+      for (const patch of DSS_SURVEY_PATCHES) {
+        const horizontal = computeHorizontalCoordinates(
+          latest.observer,
+          services.clockService.getSceneTimestampIso(),
+          patch.rightAscensionHours,
+          patch.declinationDeg,
+        )
+        if (!horizontal.isAboveHorizon) {
+          continue
+        }
+        const projected = projectDirectionToViewport(
+          horizontalToDirection(horizontal.altitudeDeg, horizontal.azimuthDeg),
+          projectedFrame.view,
+        )
+        if (!projected || !isProjectedPointVisible(projected, projectedFrame.view, 40)) {
+          continue
+        }
+        const patchRadiusPx = clamp((patch.radiusDeg / projectedFrame.currentFovDegrees) * width, 28, 260)
+        const gradient = backgroundContext.createRadialGradient(
+          projected.screenX,
+          projected.screenY,
+          patchRadiusPx * 0.12,
+          projected.screenX,
+          projected.screenY,
+          patchRadiusPx,
+        )
+        const alpha = dssBaseAlpha * patch.intensity
+        gradient.addColorStop(0, `rgba(118, 146, 210, ${alpha})`)
+        gradient.addColorStop(0.45, `rgba(89, 124, 188, ${alpha * 0.45})`)
+        gradient.addColorStop(1, 'rgba(36, 50, 84, 0)')
+        backgroundContext.fillStyle = gradient
+        backgroundContext.beginPath()
+        backgroundContext.arc(projected.screenX, projected.screenY, patchRadiusPx, 0, Math.PI * 2)
+        backgroundContext.fill()
+      }
       /*
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame

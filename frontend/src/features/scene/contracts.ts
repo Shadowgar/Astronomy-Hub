@@ -27,6 +27,15 @@ export interface BackendSatelliteSceneObject {
   }
   relevance_score?: number
   detail_route?: string
+  model_data?: {
+    tle_line1?: string
+    tle_line2?: string
+    stdmag?: number
+    epoch?: string
+    inclination_deg?: number
+    period_minutes?: number
+    norad_cat_id?: string
+  }
 }
 
 export interface BackendSkyStarTileDescriptor {
@@ -171,6 +180,34 @@ function parseBackendSatelliteSceneObject(value: unknown): BackendSatelliteScene
     return null
   }
 
+  if (candidate.model_data !== undefined && candidate.model_data !== null) {
+    if (typeof candidate.model_data !== 'object') {
+      return null
+    }
+    const modelData = candidate.model_data as Record<string, unknown>
+    if (modelData.tle_line1 !== undefined && typeof modelData.tle_line1 !== 'string') {
+      return null
+    }
+    if (modelData.tle_line2 !== undefined && typeof modelData.tle_line2 !== 'string') {
+      return null
+    }
+    if (modelData.stdmag !== undefined && !isFiniteNumber(modelData.stdmag)) {
+      return null
+    }
+    if (modelData.epoch !== undefined && typeof modelData.epoch !== 'string') {
+      return null
+    }
+    if (modelData.inclination_deg !== undefined && !isFiniteNumber(modelData.inclination_deg)) {
+      return null
+    }
+    if (modelData.period_minutes !== undefined && !isFiniteNumber(modelData.period_minutes)) {
+      return null
+    }
+    if (modelData.norad_cat_id !== undefined && typeof modelData.norad_cat_id !== 'string') {
+      return null
+    }
+  }
+
   return {
     id: candidate.id,
     type: 'satellite',
@@ -189,6 +226,7 @@ function parseBackendSatelliteSceneObject(value: unknown): BackendSatelliteScene
     },
     relevance_score: candidate.relevance_score,
     detail_route: candidate.detail_route as string | undefined,
+    model_data: candidate.model_data as BackendSatelliteSceneObject['model_data'],
   }
 }
 

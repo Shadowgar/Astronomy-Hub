@@ -541,6 +541,18 @@ function getMarkerRadiusPx(
     return 5.2
   }
 
+  if (object.type === 'minor_planet') {
+    return 3.6
+  }
+
+  if (object.type === 'comet') {
+    return 4.6
+  }
+
+  if (object.type === 'meteor_shower') {
+    return 4.2
+  }
+
   if (object.type === 'deep_sky') {
     return getDeepSkyMarkerRadiusPx(object, scale, fovDegrees)
   }
@@ -798,6 +810,11 @@ export function collectProjectedNonStarObjects(
     }
 
     if (object.type === 'planet' && object.magnitude > limitingMagnitude) {
+      filteringMs += performance.now() - filteringStartMs
+      return
+    }
+
+    if ((object.type === 'minor_planet' || object.type === 'comet') && object.magnitude > limitingMagnitude) {
       filteringMs += performance.now() - filteringStartMs
       return
     }

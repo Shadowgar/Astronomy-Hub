@@ -355,6 +355,14 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
     if isinstance(live_inputs, dict):
         provider_satellites = live_inputs.get("satellites") or []
 
+    def _safe_optional_float(value):
+        try:
+            if value in (None, ""):
+                return None
+            return float(value)
+        except Exception:
+            return None
+
     out = []
     for sat in provider_satellites[:160]:
         if not isinstance(sat, dict):
@@ -466,6 +474,15 @@ def _build_satellite_engine_slice(parsed_location=None, time_context=None, live_
                     "visibility_window_end": end_time,
                 },
                 "relevance_score": relevance_score,
+                "model_data": {
+                    "tle_line1": str(sat.get("tle_line1") or "").strip() or None,
+                    "tle_line2": str(sat.get("tle_line2") or "").strip() or None,
+                    "stdmag": _safe_optional_float(sat.get("stdmag")),
+                    "epoch": str(sat.get("epoch") or "").strip() or None,
+                    "inclination_deg": _safe_optional_float(sat.get("inclination_deg")),
+                    "period_minutes": _safe_optional_float(sat.get("period_minutes")),
+                    "norad_cat_id": str(sat.get("norad_cat_id") or "").strip() or None,
+                },
             }
         )
 
