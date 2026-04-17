@@ -63,6 +63,7 @@ export interface SkyCoreServicesLifecycleContext<TProps, TRuntime extends SkyCor
 export interface SkyCoreServicesUpdateContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices>
   extends SkyCoreServicesLifecycleContext<TProps, TRuntime, TServices> {
   readonly deltaSeconds: number
+  markFrameDirty: () => void
 }
 
 export interface SkyCoreConfigWithServices<TProps, TRuntime extends SkyCoreRenderRefs, TServices> extends SkyCoreConfig<TProps, TRuntime> {
@@ -70,8 +71,16 @@ export interface SkyCoreConfigWithServices<TProps, TRuntime extends SkyCoreRende
   readonly syncServices?: (services: TServices, props: TProps) => void
   readonly startServices?: (context: SkyCoreServicesLifecycleContext<TProps, TRuntime, TServices>) => void
   readonly updateServices?: (context: SkyCoreServicesUpdateContext<TProps, TRuntime, TServices>) => void
+  /**
+   * Stellarium `core_update` preamble: after clock/dt, before `module_update` (see `core_update` in `core.c`).
+   */
+  readonly coreUpdatePreamble?: (context: SkyCoreServicesUpdateContext<TProps, TRuntime, TServices>) => void
   readonly stopServices?: (context: SkyCoreServicesLifecycleContext<TProps, TRuntime, TServices>) => void
   readonly disposeServices?: (context: SkyCoreServicesLifecycleContext<TProps, TRuntime, TServices>) => void
+  /**
+   * Stellarium `core_render` preamble: after window/proj sync, before `obj_render` (see `core_render` in `core.c`).
+   */
+  readonly coreRenderPreamble?: (context: SkyRenderContext<TProps, TRuntime, TServices>) => void
 }
 
 export interface SkyModuleContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {

@@ -3,6 +3,7 @@ import type {
   SkyCoreConfigWithServices,
   SkyCoreRenderRefs,
   SkyRuntimePerfTelemetrySnapshot,
+  SkyCoreServicesUpdateContext,
   SkyModuleContext,
   SkyRenderContext,
   SkyUpdateContext,
@@ -92,9 +93,13 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
         }
       }
       const servicesUpdateStartMs = performance.now()
+      const markFrameDirty = () => {
+        this.frameDirty = true
+      }
       this.config.updateServices?.({
         ...this.getServicesLifecycleContext(),
         deltaSeconds,
+        markFrameDirty,
       })
       const servicesUpdateMs = performance.now() - servicesUpdateStartMs
       const skyCoreUpdateStartMs = performance.now()
@@ -177,6 +182,15 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       return
     }
 
+    const preambleContext: SkyCoreServicesUpdateContext<TProps, TRuntime, TServices> = {
+      ...this.getServicesLifecycleContext(),
+      deltaSeconds,
+      markFrameDirty: () => {
+        this.frameDirty = true
+      },
+    }
+    this.config.coreUpdatePreamble?.(preambleContext)
+
     const context: SkyUpdateContext<TProps, TRuntime, TServices> = {
       ...this.getModuleContext(),
       deltaSeconds,
@@ -196,6 +210,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     }
 
     const context: SkyRenderContext<TProps, TRuntime, TServices> = this.getModuleContext()
+    this.config.coreRenderPreamble?.(context)
     this.modules.forEach((module) => {
       const startMs = performance.now()
       module.render?.(context)

@@ -51,7 +51,8 @@ build/
 out/
 frontend/dev
 # Editor / IDE
-.vscode/
+.vscode/*
+!.vscode/settings.json
 .idea/
 *.iml
 *.sublime-project

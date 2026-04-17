@@ -17,6 +17,8 @@ import {
   type SkyTileRepositoryLoadResult,
 } from './engine/sky'
 import { SkyCore } from './engine/sky/runtime/SkyCore'
+import { runStellariumCoreRenderSpine } from './engine/sky/runtime/stellariumCoreRenderSpine'
+import { runStellariumCoreUpdateObserverPreamble } from './engine/sky/runtime/stellariumCoreUpdateObserver'
 import { createAtmosphereModule } from './engine/sky/runtime/modules/AtmosphereModule'
 import { createBackgroundRuntimeModule } from './engine/sky/runtime/modules/BackgroundRuntimeModule'
 import { createLandscapeModule } from './engine/sky/runtime/modules/LandscapeModule'
@@ -477,6 +479,12 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
       },
       updateServices: ({ services, deltaSeconds }) => {
         services.clockService.advanceFrame(deltaSeconds)
+      },
+      coreUpdatePreamble: (ctx) => {
+        runStellariumCoreUpdateObserverPreamble(ctx)
+      },
+      coreRenderPreamble: (ctx) => {
+        runStellariumCoreRenderSpine(ctx.services, ctx.runtime, ctx.getProps)
       },
       stopServices: ({ services }) => {
         services.inputService.detach()

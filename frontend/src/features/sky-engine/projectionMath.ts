@@ -99,6 +99,23 @@ export function getProjectionPlaneRadius(fovRadians: number) {
   return 2 * Math.tan(fovRadians / 4)
 }
 
+/**
+ * Stellarium `projection_compute_fovs` for stereographic (`proj_stereographic_compute_fov` in
+ * `proj_stereographic.c`). `fovDiameterRad` is `core->fov` (angular diameter in radians).
+ * `aspectWidthOverHeight` is viewport width / height.
+ */
+export function computeStereographicFovAxes(fovDiameterRad: number, aspectWidthOverHeight: number): { fovX: number; fovY: number } {
+  if (aspectWidthOverHeight < 1) {
+    const fovx = fovDiameterRad
+    const fovy = 4 * Math.atan(Math.tan(fovDiameterRad / 4) / aspectWidthOverHeight)
+    return { fovX: fovx, fovY: fovy }
+  }
+
+  const fovy = fovDiameterRad
+  const fovx = 4 * Math.atan(Math.tan(fovDiameterRad / 4) * aspectWidthOverHeight)
+  return { fovX: fovx, fovY: fovy }
+}
+
 function getProjectionPlaneRadiusForMode(fovRadians: number, projectionMode: SkyProjectionMode) {
   if (projectionMode === 'gnomonic') {
     return Math.tan(fovRadians / 2)

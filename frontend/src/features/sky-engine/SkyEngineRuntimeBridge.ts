@@ -123,6 +123,10 @@ export interface SceneRuntimeRefs {
     projectedStars: readonly ProjectedSceneObjectEntry[]
   } | null
   starsProjectionReuseStreak: number
+  /**
+   * Stellarium `core_render` painter limits (`stars_limit_mag`, `hints_limit_mag`); stub until full parity.
+   */
+  corePainterLimits: { starsLimitMag: number; hintsLimitMag: number } | null
 }
 
 export interface SkySceneRuntimeServices {
@@ -188,6 +192,7 @@ export function createSceneRuntimeState({
     runtimePerfTelemetry: createRuntimePerfTelemetry(),
     starsProjectionCache: null,
     starsProjectionReuseStreak: 0,
+    corePainterLimits: null,
   } satisfies SceneRuntimeRefs
 }
 
@@ -222,31 +227,6 @@ export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, Scen
   return {
     id: 'sky-scene-runtime-bridge',
     renderOrder: 100,
-    update({ runtime, services, getProps, deltaSeconds, markFrameDirty }) {
-      const latest = getProps()
-      services.navigationService.syncSelection(
-        latest.objects,
-        latest.selectedObjectId,
-        services.projectionService,
-      )
-      const cameraUpdateStartMs = performance.now()
-      const navigationChanged = services.navigationService.update(
-        deltaSeconds,
-        services.projectionService,
-      )
-      const cameraUpdateMs = performance.now() - cameraUpdateStartMs
-      runtime.runtimePerfTelemetry.latest = {
-        ...runtime.runtimePerfTelemetry.latest,
-        stepMs: {
-          ...runtime.runtimePerfTelemetry.latest.stepMs,
-          cameraUpdateMs,
-        },
-      }
-
-      if (navigationChanged) {
-        markFrameDirty()
-      }
-    },
     dispose({ runtime }) {
       runtime.directBackgroundLayer.dispose()
       runtime.directPlanetLayer.dispose()

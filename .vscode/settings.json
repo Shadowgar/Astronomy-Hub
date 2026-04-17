@@ -1,0 +1,9 @@
+{
+  "git.enabled": true,
+  "git.autoRepositoryDetection": true,
+  "git.autorefresh": true,
+  "git.refreshOnWindowFocus": true,
+  "git.untrackedChanges": "mixed",
+  "git.ignoreSubmodules": false,
+  "snyk.advanced.autoSelectOrganization": true
+}

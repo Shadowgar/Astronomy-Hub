@@ -4,6 +4,7 @@ import {
   type SkyProjectedPoint,
   type SkyProjectionMode,
   type SkyProjectionView,
+  computeStereographicFovAxes,
   getProjectionScale,
   isProjectedPointVisible,
   projectDirectionToViewport,
@@ -32,6 +33,24 @@ export class SkyProjectionService {
   syncViewport(viewportWidth: number, viewportHeight: number) {
     this.viewportWidth = Math.max(1, viewportWidth)
     this.viewportHeight = Math.max(1, viewportHeight)
+  }
+
+  /** Viewport width / height (Stellarium `core_get_proj` aspect input). */
+  getAspectRatio() {
+    return this.viewportWidth / this.viewportHeight
+  }
+
+  /**
+   * For stereographic, `SkyProjectionView.fovRadians` must follow `projection_init(..., fovy, ...)`:
+   * `fovy` from `computeStereographicFovAxes` (not always equal to `core->fov` when aspect ≠ 1).
+   * Other modes keep the stored diameter until their `projection_compute_fovs` port lands.
+   */
+  private resolveProjectionFovRadians(fovDiameterRad: number) {
+    if (this.projectionMode !== 'stereographic') {
+      return fovDiameterRad
+    }
+
+    return computeStereographicFovAxes(fovDiameterRad, this.getAspectRatio()).fovY
   }
 
   getProjectionMode() {
@@ -74,7 +93,7 @@ export class SkyProjectionService {
   createView(centerDirection: Vector3): SkyProjectionView {
     return {
       centerDirection,
-      fovRadians: this.currentFov,
+      fovRadians: this.resolveProjectionFovRadians(this.currentFov),
       viewportWidth: this.viewportWidth,
       viewportHeight: this.viewportHeight,
       projectionMode: this.projectionMode,
@@ -84,7 +103,7 @@ export class SkyProjectionService {
   createViewForFov(centerDirection: Vector3, fovRadians: number): SkyProjectionView {
     return {
       centerDirection,
-      fovRadians,
+      fovRadians: this.resolveProjectionFovRadians(fovRadians),
       viewportWidth: this.viewportWidth,
       viewportHeight: this.viewportHeight,
       projectionMode: this.projectionMode,

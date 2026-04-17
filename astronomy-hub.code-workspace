@@ -1,12 +1,18 @@
 {
   "folders": [
     {
-      "name": "Frontend (Local)",
+      "name": "Astronomy-Hub",
       "path": "."
-    },
-
+    }
   ],
   "settings": {
-    "workbench.browser.enableChatTools": true
+    "workbench.browser.enableChatTools": true,
+    "git.enabled": true,
+    "git.autoRepositoryDetection": true,
+    "git.autorefresh": true,
+    "git.refreshOnWindowFocus": true,
+    "git.untrackedChanges": "mixed",
+    "git.ignoreSubmodules": false,
+    "git.statusLimit": 10000
   }
 }

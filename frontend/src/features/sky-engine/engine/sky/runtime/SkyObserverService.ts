@@ -11,6 +11,12 @@ export class SkyObserverService {
     this.observer = observer
   }
 
+  /**
+   * Placeholder for Stellarium `observer_update` (ERFA / refraction / mount internals).
+   * Props-driven fields are applied in `syncObserver`; this hook is for future parity.
+   */
+  frameTick() {}
+
   getObserver() {
     return this.observer
   }
