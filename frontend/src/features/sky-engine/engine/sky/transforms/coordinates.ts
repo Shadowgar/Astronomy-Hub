@@ -1,4 +1,5 @@
 import type { ObserverSnapshot } from '../contracts/observer'
+import { ut1JulianDateFromTimestampIso } from '../runtime/timeScales'
 
 export type UnitVector3 = {
   x: number
@@ -204,7 +205,7 @@ export function raDecToEquatorialUnitVector(raDeg: number, decDeg: number): Unit
 }
 
 export function computeLocalSiderealTimeDeg(longitudeDeg: number, timestampUtc: string) {
-  const julianDate = new Date(timestampUtc).getTime() / 86400000 + 2440587.5
+  const julianDate = ut1JulianDateFromTimestampIso(timestampUtc)
   const centuriesSinceJ2000 = (julianDate - 2451545) / 36525
   const gmstDeg =
     280.46061837 +

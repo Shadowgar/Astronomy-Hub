@@ -4,7 +4,7 @@ import {
   computeStellariumBarometricPressureMbar,
   refractionPrepareStellarium,
 } from '../transforms/coordinates'
-import { toJulianDateTt, toJulianDateUtc } from './timeScales'
+import { dut1SecondsFromTimestampIso, toJulianDateTt, toJulianDateUtc } from './timeScales'
 
 const FT_TO_METERS = 0.3048
 const FAST_UPDATE_SECONDS = 1.001 * 24 * 60 * 60
@@ -161,7 +161,7 @@ export function deriveObserverGeometry(
   const localSiderealTimeDeg = computeLocalSiderealTimeDeg(observer.longitude, sceneTimestampIso)
   const utcJulianDate = toJulianDateUtc(sceneTimestampIso)
   const ttJulianDate = toJulianDateTt(sceneTimestampIso)
-  const dut1Seconds = 0
+  const dut1Seconds = dut1SecondsFromTimestampIso(sceneTimestampIso)
   const refraction = refractionFromElevation(elevationMeters)
   const matrices = computeFrameMatrices(latitudeRad, localSiderealTimeDeg)
   const earthPv: readonly [number, number, number] = previous?.earthPv ?? [0, 0, 0]

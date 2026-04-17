@@ -16,6 +16,7 @@ import {
  * when the gate opens (scalar analog of site inputs used before full astrometry).
  *
  * **Partial:** refraction matches Stellarium `refraction_prepare` + Saemundsson `refraction()` (pressure from `core.c` barometric formula, 15 °C).
+ * **Partial:** ΔT via `deltat.c` SMH2016 in `timeScales.ts`; GMST uses UT1 JD = TT − ΔT; DUT1 = (TT−UTC) − ΔT (not IERS EOP).
  * **Not ported (deferred):** `observer_update_fast` / `observer_update_full`, `update_matrices`,
  * `eraApco` / `eraAper13`, earth/sun PV — require ERFA + full `observer_t`.
  */

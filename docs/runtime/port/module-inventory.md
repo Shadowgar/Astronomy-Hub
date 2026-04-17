@@ -160,7 +160,7 @@ Total C/H files: 146
 | `src/algos/pluto.c` | algos | module7-remaining-swe | UNMAPPED | - |
 | `src/algos/satrings.c` | algos | module7-remaining-swe | UNMAPPED | - |
 | `src/algos/utctt.c` | time_scale | module0-foundation-lock | UNMAPPED | - |
-| `src/algos/deltat.c` | algos | module0-foundation-lock | UNMAPPED | - |
+| `src/algos/deltat.c` | algos | module0-foundation-lock | UNMAPPED | `deltaTSecondsFromTtMjd` in `runtime/timeScales.ts` (SMH2016 + post-2016 branch per source). |
 | `src/algos/bv_to_rgb.c` | algos | module2-stars-full | UNMAPPED | - |
 | `src/algos/algos.h` | algos | module0-foundation-lock | UNMAPPED | - |
 | `src/algos/gust86.c` | algos | module7-remaining-swe | UNMAPPED | - |
@@ -237,10 +237,10 @@ Function-level mapping is required before any module can pass `G0 InventoryLock`
 
 | Function | Source | Status | AH Target |
 |---|---|---|---|
-| `utc2tt` | algos/utctt.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/runtime/SkyClockService.ts` |
-| `tt2utc` | algos/utctt.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/runtime/SkyClockService.ts` |
-| `ut1_minus_utc` | algos/utctt.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
-| `deltat` | algos/deltat.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
+| `utc2tt` | algos/utctt.c | UNMAPPED | `toJulianDateTt` in `runtime/timeScales.ts` (leap table; not full ERFA `eraUtctai`/`eraTaitt`). |
+| `tt2utc` | algos/utctt.c | UNMAPPED | inverse not split out; `dut1SecondsFromTimestampIso` uses (TT−UTC)−ΔT identity vs full `eraTtut1`/`eraTaiutc`. |
+| `ut1_minus_utc` | algos/utctt.c | UNMAPPED | `dut1SecondsFromTimestampIso` in `runtime/timeScales.ts` (algebraic from ΔT + leap table). |
+| `deltat` | algos/deltat.c | UNMAPPED | `deltaTSecondsFromTtMjd` in `runtime/timeScales.ts`. |
 
 ### Module 0 Mapping Notes (working)
 
@@ -249,4 +249,5 @@ Function-level mapping is required before any module can pass `G0 InventoryLock`
 - Leap-second-aware UTC/TT conversion introduced:
   - `frontend/src/features/sky-engine/engine/sky/runtime/timeScales.ts`
   - consumed by `frontend/src/features/sky-engine/engine/sky/runtime/observerDerivedGeometry.ts`
+- Stellarium `deltat` (SMH2016) and UT1 Julian date for GMST: `deltaTSecondsFromTtMjd`, `ut1JulianDateFromTimestampIso`, `dut1SecondsFromTimestampIso` in `timeScales.ts`; `computeLocalSiderealTimeDeg` uses UT1 JD.
 - Remaining module0 function mappings stay `UNMAPPED` until exact source-equivalent behavior is implemented and verified.
