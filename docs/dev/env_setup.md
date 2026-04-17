@@ -383,6 +383,38 @@ After setup, validate the following.
 * port conflicts
 * stale containers or volumes
 
+### Stellarium reference runtime
+
+Use the repo-owned Docker service instead of ad hoc local `docker run` commands.
+
+Commands:
+
+```bash
+npm run docker:stellarium:up
+npm run docker:reference-stack:up
+npm run docker:stellarium:down
+
+docker compose up -d --build stellarium-reference
+docker compose up -d --build backend frontend stellarium-reference
+docker compose rm -sf stellarium-reference
+```
+
+Expected endpoints:
+
+* Astronomy Hub frontend: `http://127.0.0.1:4173/`
+* Astronomy Hub backend: `http://127.0.0.1:8000/`
+* Stellarium reference: `http://127.0.0.1:8080/`
+
+Implementation notes:
+
+* preferred agent entrypoints are the root `package.json` scripts above
+* `scripts/prepare-stellarium-reference.sh` patches the vendored Stellarium frontend package definition to the known-good Vue/compiler pair and generates missing `stellarium-web-engine.js` / `stellarium-web-engine.wasm` assets from the vendored source tree before startup
+* that preparation step builds its own repo-tracked Emscripten helper image from `scripts/Dockerfile.stellarium-jsbuild` so it does not depend on the stale vendored `Dockerfile.jsbuild` apt sources
+* the service builds from `study/stellarium-web-engine/source/stellarium-web-engine-master/apps/web-frontend`
+* the service patches the vendored Stellarium `package.json` to the known-good Vue 2.6.12 / `vue-template-compiler` 2.6.12 pair before running `yarn install`
+* `apps/test-skydata` is mounted at both `/skydata` and `/test-skydata`
+* `node_modules` is stored in a Docker-managed named volume so agents do not need local permission workarounds
+
 ---
 
 ### Backend
