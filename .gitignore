@@ -80,3 +80,4 @@ data/
 *.csv
 gaia/
 catalog/
+third_party/spectorjs

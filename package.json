@@ -16,7 +16,9 @@
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.5.0"
   },
-  "scripts": {},
+  "scripts": {
+    "snyk:test": "snyk test --all-projects --exclude=.venv --command=python3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shadowgar/Astronomy-Hub.git"
