@@ -16,6 +16,8 @@ This index links command runs, raw outputs, screenshots, and JSON artifacts used
 | EV-0003 | module0-foundation-lock | G6 | `npm run test -- test_sky_observer_service.test.js test_sky_clock_service.test.js` | Terminal command output | PASS | Observer/time-scale and deterministic clock regression tests passing. |
 | EV-0004 | module0-foundation-lock | G6 | `npm run typecheck` | Terminal command output | PASS | Type safety intact after foundation updates. |
 | EV-0005 | module0-foundation-lock | G0 | Exhaustive file inventory seeded at fail-closed baseline | `docs/runtime/port/module-inventory.md` | PASS | All 146 source C/H files enumerated with initial status. |
+| EV-0006 | module0-foundation-lock | G3 | TT-based observer hash alignment update | `frontend/src/features/sky-engine/engine/sky/runtime/observerUpdateHash.ts` | PASS | Update hash now keyed on TT Julian date instead of raw ISO string. |
+| EV-0007 | module0-foundation-lock | G6 | `npm run test -- test_sky_observer_service.test.js` | Terminal command output | PASS | Observer service regression suite green after TT-hash change. |
 
 ## Rules
 

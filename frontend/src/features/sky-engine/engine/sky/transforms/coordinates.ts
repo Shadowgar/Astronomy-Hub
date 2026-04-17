@@ -69,21 +69,56 @@ function multiplyMatrixVector(
   }
 }
 
+/** Stellarium `core.c`: sea-level temp 15 °C, scale from Allen Astrophysical Quantities §52. */
+export function computeStellariumBarometricPressureMbar(elevationMeters: number) {
+  const tsl = 15 + 273.15
+  return 1013.25 * Math.exp(-elevationMeters / (29.3 * tsl))
+}
+
+/**
+ * Stellarium `algos/refraction.c` `refraction_prepare`: refa = pressure (mbar), refb = temperature (°C).
+ * Humidity is accepted but unused in the current implementation.
+ */
+export function refractionPrepareStellarium(pressureMbar: number, temperatureC: number) {
+  return { refA: pressureMbar, refB: temperatureC }
+}
+
+const DD2R = Math.PI / 180
+const MIN_GEO_ALTITUDE_DEG = -3.54
+const TRANSITION_WIDTH_GEO_DEG = 1.46
+const MIN_TRANSITION_BOTTOM_DEG = MIN_GEO_ALTITUDE_DEG - TRANSITION_WIDTH_GEO_DEG
+
 function applyRefraction(geometricAltitudeDeg: number, astrometry?: ObserverAstrometrySnapshot) {
   if (!astrometry?.refraction) {
     return geometricAltitudeDeg
   }
-  const { refA, refB } = astrometry.refraction
-  if (geometricAltitudeDeg < -1) {
+  const pressure = astrometry.refraction.refA
+  const temperature = astrometry.refraction.refB
+
+  if (geometricAltitudeDeg < MIN_TRANSITION_BOTTOM_DEG) {
     return geometricAltitudeDeg
   }
-  const altitudeRad = degreesToRadians(Math.max(geometricAltitudeDeg, -1))
-  const tanArgument = Math.tan(altitudeRad + degreesToRadians(7.31 / (geometricAltitudeDeg + 4.4)))
-  if (!Number.isFinite(tanArgument) || tanArgument === 0) {
-    return geometricAltitudeDeg
+
+  const pSaemundsson = 1.02 * (pressure / 1010) * (283 / (273 + temperature)) / 60
+
+  if (geometricAltitudeDeg > MIN_GEO_ALTITUDE_DEG) {
+    const r =
+      pSaemundsson / Math.tan((geometricAltitudeDeg + 10.3 / (geometricAltitudeDeg + 5.11)) * DD2R) +
+      0.0019279
+    let observed = geometricAltitudeDeg + r
+    if (observed > 90) {
+      observed = 90
+    }
+    return observed
   }
-  const correctionArcMinutes = (refA * refB) / tanArgument
-  return geometricAltitudeDeg + correctionArcMinutes / 60
+
+  const rAtMin =
+    pSaemundsson /
+      Math.tan((MIN_GEO_ALTITUDE_DEG + 10.3 / (MIN_GEO_ALTITUDE_DEG + 5.11)) * DD2R) +
+    0.0019279
+  const blend =
+    (geometricAltitudeDeg - MIN_TRANSITION_BOTTOM_DEG) / TRANSITION_WIDTH_GEO_DEG
+  return geometricAltitudeDeg + rAtMin * blend
 }
 
 function removeRefraction(observedAltitudeDeg: number, astrometry?: ObserverAstrometrySnapshot) {
@@ -91,7 +126,7 @@ function removeRefraction(observedAltitudeDeg: number, astrometry?: ObserverAstr
     return observedAltitudeDeg
   }
   let geometricAltitudeDeg = observedAltitudeDeg
-  for (let index = 0; index < 3; index += 1) {
+  for (let index = 0; index < 10; index += 1) {
     const corrected = applyRefraction(geometricAltitudeDeg, astrometry)
     geometricAltitudeDeg -= corrected - observedAltitudeDeg
   }
@@ -108,13 +143,10 @@ export function observedToGeometricAltitudeDeg(observedAltitudeDeg: number, astr
 
 export function createObserverAstrometrySnapshot(observer: ObserverSnapshot): ObserverAstrometrySnapshot {
   const elevationM = observer.elevationM ?? 0
-  const pressureHpa = Math.min(1035, Math.max(120, 1013.25 * Math.exp(-elevationM / 8434.5)))
+  const pressureMbar = computeStellariumBarometricPressureMbar(elevationM)
   return {
     localSiderealTimeDeg: computeLocalSiderealTimeDeg(observer.longitudeDeg, observer.timestampUtc),
-    refraction: {
-      refA: pressureHpa / 1010,
-      refB: 283 / (273 + 15),
-    },
+    refraction: refractionPrepareStellarium(pressureMbar, 15),
   }
 }
 

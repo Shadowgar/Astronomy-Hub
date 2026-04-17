@@ -15,8 +15,9 @@ import {
  * scene time unchanged); **derived** latitude/longitude radians and elevation in meters
  * when the gate opens (scalar analog of site inputs used before full astrometry).
  *
+ * **Partial:** refraction matches Stellarium `refraction_prepare` + Saemundsson `refraction()` (pressure from `core.c` barometric formula, 15 °C).
  * **Not ported (deferred):** `observer_update_fast` / `observer_update_full`, `update_matrices`,
- * `eraApco` / `eraAper13`, earth/sun PV, refraction constants — require ERFA + `observer_t`.
+ * `eraApco` / `eraAper13`, earth/sun PV — require ERFA + full `observer_t`.
  */
 export class SkyObserverService {
   private observer: SkyEngineObserver

@@ -152,7 +152,7 @@ Total C/H files: 146
 | `src/config.h` | config | module7-remaining-swe | UNMAPPED | - |
 | `src/areas.h` | areas | module7-remaining-swe | UNMAPPED | - |
 | `src/algos/utctt.h` | time_scale | module0-foundation-lock | UNMAPPED | - |
-| `src/algos/refraction.c` | algos | module0-foundation-lock | UNMAPPED | - |
+| `src/algos/refraction.c` | algos | module0-foundation-lock | UNMAPPED | Altitude-layer: `refraction_prepare` + Saemundsson forward/inverse in `transforms/coordinates.ts`; barometric pressure `core.c` in `computeStellariumBarometricPressureMbar`. Vector `refraction`/`refraction_inv` not yet on shared unit-vector path. |
 | `src/algos/orbit.c` | algos | module7-remaining-swe | UNMAPPED | - |
 | `src/algos/moon.c` | algos | module7-remaining-swe | UNMAPPED | - |
 | `src/algos/format.c` | algos | module7-remaining-swe | UNMAPPED | - |
@@ -241,3 +241,12 @@ Function-level mapping is required before any module can pass `G0 InventoryLock`
 | `tt2utc` | algos/utctt.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/runtime/SkyClockService.ts` |
 | `ut1_minus_utc` | algos/utctt.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
 | `deltat` | algos/deltat.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
+
+### Module 0 Mapping Notes (working)
+
+- `computeObserverUpdateHash` now keys on TT Julian date instead of raw ISO timestamp:
+  - `frontend/src/features/sky-engine/engine/sky/runtime/observerUpdateHash.ts`
+- Leap-second-aware UTC/TT conversion introduced:
+  - `frontend/src/features/sky-engine/engine/sky/runtime/timeScales.ts`
+  - consumed by `frontend/src/features/sky-engine/engine/sky/runtime/observerDerivedGeometry.ts`
+- Remaining module0 function mappings stay `UNMAPPED` until exact source-equivalent behavior is implemented and verified.

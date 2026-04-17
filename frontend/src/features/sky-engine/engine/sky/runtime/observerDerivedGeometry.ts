@@ -1,5 +1,9 @@
 import type { SkyEngineObserver } from '../../../types'
-import { computeLocalSiderealTimeDeg } from '../transforms/coordinates'
+import {
+  computeLocalSiderealTimeDeg,
+  computeStellariumBarometricPressureMbar,
+  refractionPrepareStellarium,
+} from '../transforms/coordinates'
 import { toJulianDateTt, toJulianDateUtc } from './timeScales'
 
 const FT_TO_METERS = 0.3048
@@ -64,15 +68,10 @@ function rotationZ(radians: number): Matrix3 {
   ]
 }
 
-function clamp(value: number, minimum: number, maximum: number) {
-  return Math.min(maximum, Math.max(minimum, value))
-}
-
-function computeRefractionCoefficients(elevationMeters: number) {
-  const pressureHpa = clamp(1013.25 * Math.exp(-elevationMeters / 8434.5), 120, 1035)
-  const refA = pressureHpa / 1010
-  const refB = 283 / (273 + 15)
-  return { refA, refB }
+/** Same as Stellarium `observer_update_full` → `refraction_prepare(pressure, 15, 0.5, ...)`. */
+function refractionFromElevation(elevationMeters: number) {
+  const pressureMbar = computeStellariumBarometricPressureMbar(elevationMeters)
+  return refractionPrepareStellarium(pressureMbar, 15)
 }
 
 function computeFrameMatrices(latitudeRad: number, localSiderealTimeDeg: number): {
@@ -163,7 +162,7 @@ export function deriveObserverGeometry(
   const utcJulianDate = toJulianDateUtc(sceneTimestampIso)
   const ttJulianDate = toJulianDateTt(sceneTimestampIso)
   const dut1Seconds = 0
-  const refraction = computeRefractionCoefficients(elevationMeters)
+  const refraction = refractionFromElevation(elevationMeters)
   const matrices = computeFrameMatrices(latitudeRad, localSiderealTimeDeg)
   const earthPv: readonly [number, number, number] = previous?.earthPv ?? [0, 0, 0]
   const sunPv: readonly [number, number, number] = previous?.sunPv ?? [0, 0, 0]

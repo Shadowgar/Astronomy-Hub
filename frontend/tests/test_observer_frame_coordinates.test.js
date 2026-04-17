@@ -26,6 +26,12 @@ describe('observer frame coordinate conversions', () => {
     expect(astrometry.refraction?.refB ?? 0).toBeGreaterThan(0)
   })
 
+  it('uses Stellarium refraction_prepare semantics (pressure mbar, temperature °C)', () => {
+    const sea = createObserverAstrometrySnapshot({ ...observer, elevationM: 0 })
+    expect(sea.refraction?.refB).toBe(15)
+    expect(sea.refraction?.refA).toBeCloseTo(1013.25, 2)
+  })
+
   it('applies refraction correction to horizontal altitude', () => {
     const astrometry = createObserverAstrometrySnapshot(observer)
     const result = raDecToHorizontalCoordinates(180, 0, observer, astrometry)
