@@ -125,6 +125,8 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
                 matrices: {
                   ri2h: runtime.observerAstrometry.matrices.ri2h,
                   rh2i: runtime.observerAstrometry.matrices.rh2i,
+                  icrsToHorizontal: runtime.observerAstrometry.matrices.icrsToHorizontal,
+                  horizontalToIcrs: runtime.observerAstrometry.matrices.horizontalToIcrs,
                 },
               }
             : undefined,

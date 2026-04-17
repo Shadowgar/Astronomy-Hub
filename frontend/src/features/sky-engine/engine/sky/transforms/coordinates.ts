@@ -23,6 +23,17 @@ export type ObserverAstrometrySnapshot = {
   matrices?: {
     ri2h: readonly [readonly [number, number, number], readonly [number, number, number], readonly [number, number, number]]
     rh2i: readonly [readonly [number, number, number], readonly [number, number, number], readonly [number, number, number]]
+    /** ICRS/GCRS → horizontal (geom); preferred for `icrf` frame. Falls back to `ri2h` if omitted. */
+    icrsToHorizontal?: readonly [
+      readonly [number, number, number],
+      readonly [number, number, number],
+      readonly [number, number, number],
+    ]
+    horizontalToIcrs?: readonly [
+      readonly [number, number, number],
+      readonly [number, number, number],
+      readonly [number, number, number],
+    ]
   }
 }
 
@@ -163,9 +174,12 @@ export function convertObserverFrameVector(
   let current = normalizeVector(vector)
   let frame: ObserverFrame = origin
 
-  if (frame === 'icrf' && destination !== 'icrf' && astrometry?.matrices?.ri2h) {
-    current = normalizeVector(multiplyMatrixVector(astrometry.matrices.ri2h, current))
-    frame = 'observed_geom'
+  if (frame === 'icrf' && destination !== 'icrf' && astrometry?.matrices) {
+    const m = astrometry.matrices.icrsToHorizontal ?? astrometry.matrices.ri2h
+    if (m) {
+      current = normalizeVector(multiplyMatrixVector(m, current))
+      frame = 'observed_geom'
+    }
   }
   if (frame === 'observed_geom' && destination === 'observed') {
     const horizontal = unitVectorToHorizontalCoordinates(current)
@@ -185,9 +199,12 @@ export function convertObserverFrameVector(
     ))
     frame = 'observed_geom'
   }
-  if (frame === 'observed_geom' && destination === 'icrf' && astrometry?.matrices?.rh2i) {
-    current = normalizeVector(multiplyMatrixVector(astrometry.matrices.rh2i, current))
-    frame = 'icrf'
+  if (frame === 'observed_geom' && destination === 'icrf' && astrometry?.matrices) {
+    const m = astrometry.matrices.horizontalToIcrs ?? astrometry.matrices.rh2i
+    if (m) {
+      current = normalizeVector(multiplyMatrixVector(m, current))
+      frame = 'icrf'
+    }
   }
   return current
 }

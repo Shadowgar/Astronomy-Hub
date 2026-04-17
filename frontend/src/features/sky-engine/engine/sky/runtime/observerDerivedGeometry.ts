@@ -98,16 +98,23 @@ function computeFrameMatrices(latitudeRad: number, localEarthRotationRad: number
   ri2v: Matrix3
   rc2v: Matrix3
   bpn: Matrix3
+  /** ICRS/GCRS equatorial unit vector → topocentric horizontal (geometric): `ri2h × bpn`. */
+  icrsToHorizontal: Matrix3
+  /** Inverse of `icrsToHorizontal`: `bpn^T × rh2i`. */
+  horizontalToIcrs: Matrix3
 } {
   const ri2h = multiplyMatrix3(rotationY(Math.PI / 2 - latitudeRad), rotationZ(-localEarthRotationRad))
   const rh2i = transposeMatrix3(ri2h)
   const ro2vM = erfaIdentityMatrix3()
   const rv2oM = erfaIdentityMatrix3()
   const ri2hM = ri2h as unknown as MutableMatrix3
+  const rh2iM = rh2i as unknown as MutableMatrix3
   const ri2vM = multiplyMatrix3Erfa(ri2hM, ro2vM)
   const bpnM = eraPnm06aFromTtJulianDate(ttJulianDate)
   const bpnT = transposeMatrix3Erfa(bpnM)
   const rc2vM = multiplyMatrix3Erfa(multiplyMatrix3Erfa(bpnT, ri2hM), ro2vM)
+  const icrsToHorizontalM = multiplyMatrix3Erfa(ri2hM, bpnM)
+  const horizontalToIcrsM = multiplyMatrix3Erfa(bpnT, rh2iM)
   return {
     ri2h,
     rh2i,
@@ -116,6 +123,8 @@ function computeFrameMatrices(latitudeRad: number, localEarthRotationRad: number
     ri2v: toReadonlyMatrix3(ri2vM),
     rc2v: toReadonlyMatrix3(rc2vM),
     bpn: toReadonlyMatrix3(bpnM),
+    icrsToHorizontal: toReadonlyMatrix3(icrsToHorizontalM),
+    horizontalToIcrs: toReadonlyMatrix3(horizontalToIcrsM),
   }
 }
 
@@ -147,6 +156,9 @@ export interface SkyObserverDerivedGeometry {
     readonly rc2v: Matrix3
     /** ERFA `eraPnm06a` `rnpb` (GCRS → CIRS / true equator of date); Stellarium `astrom->bpn`. */
     readonly bpn: Matrix3
+    /** ICRS → horizontal (geom): `ri2h × bpn`. Use for `ObserverFrame` `icrf` when vector is GCRS/ICRS. */
+    readonly icrsToHorizontal: Matrix3
+    readonly horizontalToIcrs: Matrix3
     /** ERFA `eraEcm06` (ICRS → mean ecliptic of date). */
     readonly ri2e: Matrix3
     readonly re2i: Matrix3

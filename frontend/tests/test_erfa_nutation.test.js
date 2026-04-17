@@ -1,9 +1,29 @@
 import { describe, expect, it } from 'vitest'
 
+import { deriveObserverGeometry } from '../src/features/sky-engine/engine/sky/runtime/observerDerivedGeometry.ts'
 import { multiplyMatrix3Erfa, transposeMatrix3 } from '../src/features/sky-engine/engine/sky/runtime/erfaIau2006.ts'
 import { eraNut06a, eraPnm06a } from '../src/features/sky-engine/engine/sky/runtime/erfaPnm06a.ts'
 
 describe('ERFA nutation / PNM06a (Stellarium erfa.c parity)', () => {
+  it('icrsToHorizontal × horizontalToIcrs is identity (observer frame chain)', () => {
+    const g = deriveObserverGeometry(
+      { label: 't', latitude: 51.5, longitude: -0.12, elevationFt: 80 },
+      '2026-06-15T12:00:00.000Z',
+      'full',
+      null,
+    )
+    const prod = multiplyMatrix3Erfa(
+      g.matrices.icrsToHorizontal,
+      g.matrices.horizontalToIcrs,
+    )
+    expect(prod[0][0]).toBeCloseTo(1, 10)
+    expect(prod[1][1]).toBeCloseTo(1, 10)
+    expect(prod[2][2]).toBeCloseTo(1, 10)
+    expect(prod[0][1]).toBeCloseTo(0, 10)
+    expect(prod[0][2]).toBeCloseTo(0, 10)
+    expect(prod[1][2]).toBeCloseTo(0, 10)
+  })
+
   it('eraNut06a is stable at TT = J2000.0 (golden from ported series)', () => {
     const { dpsi, deps } = eraNut06a(2451545.0, 0)
     expect(dpsi).toBeCloseTo(-6.754425598969512e-5, 14)
