@@ -30,26 +30,6 @@ function roundCoordinate(value: number) {
   return Math.round(value * 100) / 100
 }
 
-function getObjectPickPriority(object: SkyEngineSceneObject) {
-  if (object.type === 'moon') {
-    return 40
-  }
-
-  if (object.type === 'planet') {
-    return 30
-  }
-
-  if (object.type === 'satellite') {
-    return 26
-  }
-
-  if (object.type === 'star') {
-    return object.source === 'computed_real_sky' || object.source === 'engine_catalog_tile' ? 24 : 20
-  }
-
-  return object.source === 'temporary_scene_seed' ? 4 : 10
-}
-
 export function buildSkyEnginePickTargets(
   entries: readonly ProjectedPickTargetEntry[],
 ): SkyEnginePickTarget[] {
@@ -90,7 +70,6 @@ export function resolveSkyEnginePickSelection(
         ...target,
         distancePx,
         normalizedDistance: distancePx / Math.max(target.radiusPx, 1),
-        priority: getObjectPickPriority(target.object),
       }
     })
     .filter((target) => target.distancePx <= target.radiusPx)
@@ -99,12 +78,6 @@ export function resolveSkyEnginePickSelection(
 
       if (Math.abs(normalizedDelta) > 0.08) {
         return normalizedDelta
-      }
-
-      const priorityDelta = right.priority - left.priority
-
-      if (priorityDelta !== 0) {
-        return priorityDelta
       }
 
       const distanceDelta = left.distancePx - right.distancePx

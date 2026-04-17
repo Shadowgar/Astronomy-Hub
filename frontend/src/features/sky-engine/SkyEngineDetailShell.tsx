@@ -147,6 +147,10 @@ function getIlluminationLabel(selectedObject: SkyEngineSceneObject) {
   return ` · ${(selectedObject.illuminationFraction * 100).toFixed(0)}% illuminated`
 }
 
+function formatDegrees(value: number) {
+  return `${value.toFixed(1)}°`
+}
+
 function renderSelectionInsights(selectedObject: SkyEngineSceneObject) {
   return (
     <>
@@ -161,6 +165,26 @@ function renderSelectionInsights(selectedObject: SkyEngineSceneObject) {
         <p className="sky-engine-detail-shell__hint">
           Phase: {selectedObject.phaseLabel}
           {getIlluminationLabel(selectedObject)}
+        </p>
+      ) : null}
+      {selectedObject.apparentSizeDeg ? (
+        <p className="sky-engine-detail-shell__hint">
+          Apparent size: {formatDegrees(selectedObject.apparentSizeDeg)}
+        </p>
+      ) : null}
+      {selectedObject.phaseAngle !== undefined ? (
+        <p className="sky-engine-detail-shell__hint">
+          Phase angle: {formatDegrees((selectedObject.phaseAngle * 180) / Math.PI)}
+        </p>
+      ) : null}
+      {selectedObject.ringOpening !== undefined ? (
+        <p className="sky-engine-detail-shell__hint">
+          Ring opening: {(selectedObject.ringOpening * 100).toFixed(0)}%
+        </p>
+      ) : null}
+      {selectedObject.detailRoute ? (
+        <p className="sky-engine-detail-shell__hint">
+          Source detail route: {selectedObject.detailRoute}
         </p>
       ) : null}
       {selectedObject.guidanceScore === undefined ? null : (
