@@ -837,7 +837,7 @@ export default function SkyEnginePage() {
     return (
       <SkyEngineOwnershipState
         title="Loading backend scene"
-        detail="Waiting for /scene?scope=sky&engine=sky_engine to provide observer and timestamp."
+        detail="Waiting for /api/v1/scene?scope=sky&engine=sky_engine to provide observer and timestamp."
       />
     )
   }

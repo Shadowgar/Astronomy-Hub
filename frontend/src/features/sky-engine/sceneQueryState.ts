@@ -50,12 +50,18 @@ export function resolveScenePacketForQuery(config: {
   const matchingTileLoadResult = config.tileLoadResult != null && config.resolvedTileQuerySignature === tileQuerySignature
     ? config.tileLoadResult
     : null
+  const promotedSurveyLoadResult = config.tileLoadResult != null &&
+    config.tileLoadResult.mode === 'multi-survey' &&
+    config.repositoryMode === 'multi-survey'
+    ? config.tileLoadResult
+    : null
+  const effectiveLoadResult = matchingTileLoadResult ?? promotedSurveyLoadResult
 
   return {
     tileQuerySignature,
-    scenePacket: matchingTileLoadResult == null
+    scenePacket: effectiveLoadResult == null
       ? (config.previousScenePacket ?? null)
-      : assembleSkyScenePacket(config.query, config.runtimeTiles, matchingTileLoadResult),
-    hasResolvedTilesForQuery: matchingTileLoadResult != null,
+      : assembleSkyScenePacket(config.query, config.runtimeTiles, effectiveLoadResult),
+    hasResolvedTilesForQuery: effectiveLoadResult != null,
   }
 }

@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-13 (Port Block 7 removed the non-source supplemental Hipparcos handoff cap, added live `dataMode`/`sourceLabel` telemetry, and fixed Gaia fetch cache poisoning with throttled remote tile loading; required Docker frontend tests, typecheck, and build pass, but the live scene packet still remains on the stale Hipparcos packet after Gaia requests begin)
+Last updated: 2026-04-17 (Port Block 8 repaired frontend scene routing to `/api/v1/scene`, added multi-survey packet promotion fallback, switched DSO to file-backed catalog ingestion, and removed satellite placeholder/truncation defaults; frontend tests/typecheck/build pass, but live parity against Stellarium is still partial for dense stars/DSO/DSS/satellites)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -24,12 +24,12 @@ Purpose:
 |---|---|---|---|---|---|---|
 | core / tonemapper / skybrightness | `src/core.c`, `src/tonemapper.c`, `src/skybrightness.c`, `src/navigation.c` | `skyBrightness.ts`, `starRenderer.ts`, `engine/sky/core/stellariumVisualMath.ts`, `engine/sky/runtime/luminanceReport.ts`, `SkyBrightnessExposureModule.ts`, `observerNavigation.ts` | strong partial port | navigation easing and some runtime presentation policy remain local; core point/luminance/adaptation chain now routes through shared Stellarium math | Keep shared physical input chain; replace remaining non-source presentation policy; delete any duplicated math that reappears | Validate runtime visuals against live Stellarium at wide FOV and close any remaining adaptation/background deltas |
 | stars | `src/modules/stars.c`, `src/core.c` | `StarsModule.ts`, `runtimeFrame.ts`, `directStarLayer.ts`, `starRenderer.ts` | near parity | deepest zoom is now bounded by the currently shipped authoritative asset pack rather than a local tile/tier gate | Keep strict scene-packet traversal and core point chain; replace remaining deep-zoom data ceiling only | Add the next real survey asset layer and revalidate live Stellarium density at deep zoom |
-| star surveys / sequencing | `src/modules/stars.c`, `src/eph-file.c`, `src/eph-file.h`, `src/algos/healpix.c`, `src/hips.c` | `engine/sky/adapters/fileTileRepository.ts`, `engine/sky/adapters/ephCodec.ts`, `engine/sky/adapters/healpix.ts`, `sceneAssembler.ts`, `SkyEngineScene.tsx`, `backendTileRegistry.ts`, `engine/sky/core/tileIndex.ts`, `engine/sky/core/tileSelection.ts` | strong partial port | source-backed Gaia activation now begins once the Hipparcos ceiling is crossed, and transient Gaia fetch failures no longer poison the cache, but the live runtime still keeps the stale Hipparcos packet after Gaia requests complete | Keep ordered file-backed sequencing, real Gaia ingestion, and fetch recovery; replace the remaining live query-resolution blocker only; delete any reintroduced fallback branches | Trace why the resolved multi-survey load is not replacing the stale Hipparcos packet once Gaia tile requests finish, then re-run live Stellarium density checkpoints |
+| star surveys / sequencing | `src/modules/stars.c`, `src/eph-file.c`, `src/eph-file.h`, `src/algos/healpix.c`, `src/hips.c` | `engine/sky/adapters/fileTileRepository.ts`, `engine/sky/adapters/ephCodec.ts`, `engine/sky/adapters/healpix.ts`, `sceneAssembler.ts`, `SkyEngineScene.tsx`, `sceneQueryState.ts`, `backendTileRegistry.ts`, `engine/sky/core/tileIndex.ts`, `engine/sky/core/tileSelection.ts` | strong partial port | multi-survey promotion fallback is now wired, but live deep-density still trails Stellarium with the current mirrored Gaia depth and unresolved observer/time synchronization controls | Keep ordered file-backed sequencing, real Gaia ingestion, and promotion fallback; replace remaining deep-density and runtime parity controls | Verify night-time synchronized observer/time checkpoints and expand survey depth where assets are currently capped |
 | hints / label limiting magnitude | `src/core.c`, `src/modules/labels.c`, `src/modules/stars.c`, `src/modules/planets.c` | `labelManager.ts`, `directOverlayLayer.ts`, `runtimeFrame.ts` | heuristic | fixed label caps and local admissions instead of `hints_limit_mag` chain | Keep overlap/layout mechanics; replace admission rules; delete fixed caps | Port hint limiting-magnitude eligibility from Stellarium modules |
 | planets | `src/modules/planets.c`, `src/core.c`, `src/navigation.c`, `src/tonemapper.c` | `astronomy.ts`, `runtimeFrame.ts`, `PlanetRenderer.ts`, `PlanetRuntimeModule.ts` | strong partial port | live Stellarium side-by-side threshold parity still unproven; horizon fade bypass still active globally | Keep ephemeris object feed; replace remaining non-source visibility/presentation paths | Validate/align any remaining `planet_render` threshold deltas against live Stellarium checkpoints |
 | planet zoom chain | `src/modules/planets.c` (`planet_render`, `get_artificial_scale`), `src/core.c` (`core_get_point_for_mag*`, `core_get_apparent_angle_for_point`), `src/navigation.c` | `runtimeFrame.ts`, `PlanetRenderer.ts`, `ObjectRuntimeModule.ts`, `directObjectLayer.ts`, `observerNavigation.ts` | partial port | no live side-by-side confirmation yet; additional tonemapper parity validation still needed | Keep single transition chain now in runtime frame; replace residual non-source alpha/visibility behavior if discovered | Run explicit Jupiter+Moon checkpoint validation against live Stellarium and close residual deltas |
 | moons | `src/modules/planets.c` (moon exception + scale behavior) | `astronomy.ts`, `ObjectRuntimeModule.ts`, `directObjectLayer.ts`, `PlanetRenderer.ts` | partial port | moon exception uses type gate but full Stellarium moon branch nuances may still differ | Keep moon in planet chain and artificial scaling port; replace any remaining generic-marker semantics | Validate moon separation/scale checkpoints and adjust to exact `get_artificial_scale` behavior |
-| DSO | `src/modules/dso.c` | `astronomy.ts`, `DsoRuntimeModule.ts`, `DsoRenderer.ts`, `dsoVisuals.ts` | partial port | fixed 4-item seed DSO catalog and local morphology shortcuts | Keep dedicated DSO render lane; replace static seed behavior | Replace seed catalog with survey-backed DSO behavior and Stellarium gating |
+| DSO | `src/modules/dso.c` | `astronomy.ts`, `engine/sky/adapters/dsoRepository.ts`, `SkyEngineScene.tsx`, `DsoRuntimeModule.ts`, `DsoRenderer.ts`, `dsoVisuals.ts`, `public/sky-engine-assets/catalog/dso/catalog.json` | partial port | no HiPS/EPH DSO tile ingestion yet; catalog coverage remains minimal | Keep dedicated DSO render lane and file-backed ingestion; replace remaining bounded catalog with Stellarium-equivalent survey feed | Port DSO tile-source loading/gating semantics from `dso.c` and replace bounded catalog with true survey-backed depth |
 | labels | `src/modules/labels.c` | `labelManager.ts`, `directOverlayLayer.ts` | heuristic | local priority and cap policies | Keep layout/collision implementation; replace class visibility rules | Port Stellarium label policy and class offsets |
 | constellations | `src/modules/constellations.c` | `constellations.ts`, `directOverlayLayer.ts` | strong partial port | local presentation policy not fully source-equivalent | Keep culture-driven geometry flow; replace policy differences | Port constellation visibility/policy coupling from Stellarium module behavior |
 | skycultures | `src/skyculture.c`, `src/modules/skycultures.c` | `skycultures/**`, `constellations.ts`, `SkyEngineScene.tsx` | strong partial port | runtime coupling rules still simplified | Keep data loading and switching foundation; replace behavior coupling | Align culture activation/fallback behavior to Stellarium flow |
@@ -39,11 +39,11 @@ Purpose:
 | Milky Way | `src/modules/milkyway.c` | `MilkyWayModule.ts`, `directBackgroundLayer.ts` | heuristic | procedural Milky Way sampling | Delete procedural synthesis; replace with source-defined behavior | Port Milky Way intensity/shape behavior from Stellarium module |
 | pointer / selection | `src/modules/pointer.c`, selection paths in core | `SkyNavigationService.ts`, `pickTargets.ts`, selection rings in direct layers | partial port | local pick radius and pointer visuals differ; `PointerRenderer.ts` unwired | Keep selection ownership and routing; replace pointer behavior | Port pointer marker and selection behavior from Stellarium pointer module |
 | object inspector / detail surface | object info paths (`obj_info` and per-module `get_info`) | `SkyEngineDetailShell.tsx` | heuristic | explicit temporary/deferred truth placeholders | Keep shell surface; replace content contracts | Port object-type info adapters mirroring Stellarium info fields |
-| satellites | `src/modules/satellites.c` | `astronomy.ts`, `SatelliteRuntimeModule.ts`, `SatelliteRenderer.ts` | partial port | top-3 truncation and placeholder `magnitude: 99` | Keep backend-fed integration boundary; replace truncation/placeholder behavior | Port visibility and photometric behavior from Stellarium satellite logic |
+| satellites | `src/modules/satellites.c` | `astronomy.ts`, `SatelliteRuntimeModule.ts`, `SatelliteRenderer.ts` | strong partial port | backend contract still lacks full Stellarium satellite lifecycle and shadow/phase photometry; horizon-only visible slice still provider-gated | Keep backend-fed integration boundary and full visible-set rendering; replace remaining lifecycle/photometry deltas | Port Stellarium shadow/illumination magnitude path and visibility iteration strategy on top of complete satellite feed |
 | minor planets | `src/modules/minorplanets.c`, `src/mpc.c` | none active | absent | subsystem missing | Replace absence with direct port | Add minor-planet ingestion + runtime module + rendering path |
 | comets | `src/modules/comets.c` | none active | absent | subsystem missing | Replace absence with direct port | Add comet ingestion + runtime module + rendering path |
 | meteors | `src/modules/meteors.c` | none active | absent | subsystem missing | Replace absence with direct port | Add meteor subsystem and rendering behavior |
-| DSS / survey background | `src/modules/dss.c` | `BackgroundRuntimeModule.ts` (no DSS parity path) | heuristic | procedural background substitute, no DSS behavior | Keep background module ownership; replace DSS behavior path | Port DSS layer behavior and gating from `dss.c` |
+| DSS / survey background | `src/modules/dss.c` | `BackgroundRuntimeModule.ts`, `engine/sky/adapters/dssRepository.ts`, `public/sky-engine-assets/catalog/dss/manifest.json` | heuristic | current manifest is patch/gradient metadata only; no HiPS-backed DSS tile rendering path yet | Keep background module ownership and DSS gating chain; replace patch-only rendering path | Port `hips_render`-style DSS tile path (split/render order, adaptation gating, and concrete survey tile loading) |
 
 ## Top 15 Fake Local Behaviors To Remove
 1. `runtimeFrame.ts:getPlanetMarkerRadiusPx` FOV smoothstep point-to-disk blend; replace with `planets.c:planet_render` transition. Status: removed in Port Block 1.
@@ -78,6 +78,53 @@ Purpose:
 
 ## Recommended Next Bounded Slice
 - Trace the unresolved live scene-packet handoff after Gaia requests begin, make the multi-survey packet win once the local Gaia load resolves, then re-run live Stellarium deep-zoom checkpoints before moving on to hints/labels parity.
+
+## Port Block 8 (Executed, partial parity)
+### Runtime Route Repair + Star/DSO/Satellite Corrective Pass
+
+Stellarium authority files:
+- `src/modules/stars.c`
+- `src/eph-file.c`
+- `src/eph-file.h`
+- `src/algos/healpix.c`
+- `src/hips.c`
+- `src/modules/dso.c`
+- `src/modules/satellites.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/scene/queries.ts`
+- `frontend/src/pages/SkyEnginePage.tsx`
+- `frontend/src/features/sky-engine/sceneQueryState.ts`
+- `frontend/src/features/sky-engine/astronomy.ts`
+- `frontend/src/features/sky-engine/SkyEngineScene.tsx`
+- `frontend/src/features/sky-engine/engine/sky/adapters/dsoRepository.ts`
+- `frontend/public/sky-engine-assets/catalog/dso/catalog.json`
+- `frontend/tests/test_satellite_runtime_activation.test.js`
+
+Explicit local logic deleted/replaced in this block:
+1. frontend scene-route drift to `/scene` (stalled runtime readiness) replaced with `/api/v1/scene` authority routing.
+2. stale-only query matching for scene packet adoption replaced with multi-survey promotion fallback in `sceneQueryState.ts`.
+3. hardcoded in-file DSO seed usage replaced with file-backed DSO catalog ingestion path.
+4. satellite placeholder `magnitude: 99` replaced with nominal fallback magnitude `7`.
+5. default satellite truncation branch removed (full visible list now rendered unless an explicit caller-provided cap is passed).
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- test_satellite_runtime_activation.test.js test_sky_engine_astronomy.test.js test_scene_query_state.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- test_satellite_runtime_activation.test.js test_scene_query_state.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub && curl -sS "http://127.0.0.1:8000/api/v1/scene?scope=sky&engine=sky_engine"` contract probe: pass
+- `cd /home/rocco/Astronomy-Hub && node <playwright parity capture>` wrote `.cursor-artifacts/parity-compare/port-mode-validation.json` plus side-by-side screenshots.
+
+Live parity evidence snapshot (current partial state):
+- Hub wide: `FOV 120°`, rendered stars `1`, projected satellites `0`, projected DSO `0`.
+- Hub medium: `FOV 30.6°`, rendered stars `0`, projected satellites `0`, projected DSO `0`.
+- Hub deep: `FOV 0.8°`, rendered stars `0`, projected satellites `0`, projected DSO `0`.
+- Stellarium reference: `FOV 120°`, observer `SEVILLA`, timestamp `2026-04-17 16:10:00`.
+
+Interpretation:
+- Runtime routing blocker is fixed, and star/DSO/satellite paths are now source-aligned structurally.
+- Behavioral parity is still incomplete: observer/time synchronization, deeper survey richness, DSS HiPS tile rendering, and full Stellarium satellite photometry/visibility iteration remain open.
 
 ## Port Block 7 (Executed, not yet complete)
 ### Wide-FOV Star Admission + Multi-Survey Activation Parity

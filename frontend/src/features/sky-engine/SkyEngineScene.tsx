@@ -19,6 +19,7 @@ import {
   unitVectorToHorizontalCoordinates,
   type SkyTileRepositoryLoadResult,
 } from './engine/sky'
+import { loadDsoCatalog } from './engine/sky/adapters/dsoRepository'
 import { SkyCore } from './engine/sky/runtime/SkyCore'
 import { runStellariumCoreRenderSpine } from './engine/sky/runtime/stellariumCoreRenderSpine'
 import { runStellariumCoreUpdateObserverPreamble } from './engine/sky/runtime/stellariumCoreUpdateObserver'
@@ -251,6 +252,7 @@ function buildSceneControllerModel(config: {
   repositoryMode: SkyEngineSceneProps['repositoryMode']
   currentViewState: ScenePropsSnapshot['initialViewState']
   runtimeTiles: NonNullable<SkyTileRepositoryLoadResult['tiles']>
+  dsoCatalog: Parameters<typeof computeDeepSkySceneObjects>[2]
   tileLoadResult: SkyTileRepositoryLoadResult | null
   resolvedTileQuerySignature: string
   previousScenePacket: ScenePropsSnapshot['scenePacket']
@@ -291,7 +293,7 @@ function buildSceneControllerModel(config: {
   })
   const scenePacket = scenePacketState.scenePacket
   const planetObjects = computePlanetSceneObjects(config.observer, config.sceneTimestampIso)
-  const deepSkyObjects = computeDeepSkySceneObjects(config.observer, config.sceneTimestampIso)
+  const deepSkyObjects = computeDeepSkySceneObjects(config.observer, config.sceneTimestampIso, config.dsoCatalog)
   const satelliteObjects = computeSatelliteSceneObjects(config.observer, config.sceneTimestampIso, config.backendSatellites)
   const minorPlanetObjects = computeMinorPlanetSceneObjects(config.observer, config.sceneTimestampIso)
   const cometObjects = computeCometSceneObjects(config.observer, config.sceneTimestampIso)
@@ -369,6 +371,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
   const skyCultureIdRef = useRef<string>(initialSkyCultureId)
   const runtimeTilesRef = useRef<NonNullable<SkyTileRepositoryLoadResult['tiles']>>([])
   const tileLoadResultRef = useRef<SkyTileRepositoryLoadResult | null>(null)
+  const dsoCatalogRef = useRef<Parameters<typeof computeDeepSkySceneObjects>[2]>(undefined)
   const tileLoadGenerationRef = useRef(0)
   const resolvedTileQuerySignatureRef = useRef('')
   const lastTileQuerySignatureRef = useRef('')
@@ -384,6 +387,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
       repositoryMode,
       currentViewState: initialViewState,
       runtimeTiles: runtimeTilesRef.current,
+      dsoCatalog: dsoCatalogRef.current,
       tileLoadResult: tileLoadResultRef.current,
       resolvedTileQuerySignature: resolvedTileQuerySignatureRef.current,
       previousScenePacket: stableScenePacketRef.current,
@@ -525,6 +529,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
         repositoryMode,
         currentViewState,
         runtimeTiles: runtimeTilesRef.current,
+        dsoCatalog: dsoCatalogRef.current,
         tileLoadResult: tileLoadResultRef.current,
         resolvedTileQuerySignature: resolvedTileQuerySignatureRef.current,
         previousScenePacket: stableScenePacketRef.current,
@@ -651,6 +656,17 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     coreRef.current = core
     core.start()
     syncRuntimeModel(true)
+    void loadDsoCatalog()
+      .then((catalog) => {
+        if (disposed) {
+          return
+        }
+        dsoCatalogRef.current = catalog
+        syncRuntimeModel(true)
+      })
+      .catch(() => {
+        // keep bounded built-in fallback when no external DSO catalog is available
+      })
 
     const syncIntervalHandle = globalThis.setInterval(() => {
       if (disposed) {

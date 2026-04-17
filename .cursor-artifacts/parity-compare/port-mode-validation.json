@@ -1,0 +1,36 @@
+{
+  "wide": {
+    "stars": 1,
+    "fov": 120,
+    "satelliteCount": 0,
+    "dsoCount": 0,
+    "location": null,
+    "time": null,
+    "date": null
+  },
+  "medium": {
+    "stars": 0,
+    "fov": 30.6,
+    "satelliteCount": 0,
+    "dsoCount": 0,
+    "location": null,
+    "time": null,
+    "date": null
+  },
+  "deep": {
+    "stars": 0,
+    "fov": 0.8,
+    "satelliteCount": 0,
+    "dsoCount": 0,
+    "location": null,
+    "time": null,
+    "date": null
+  },
+  "stellarium": {
+    "fov": 120,
+    "location": "SEVILLA",
+    "time": "16:10:00",
+    "date": "2026-04-17",
+    "textSnippet": "StellariumWeb\nSearch...\nFOV 120°\nOBSERVE\nDSO\nStars\nNEAR SEVILLA\n16:10:00\n2026-04-17"
+  }
+}

@@ -13,9 +13,9 @@ export interface SceneQueryParams {
   at?: string
 }
 
-const SCENE_ABOVE_ME_PATH = '/scene/above-me'
-const SCENE_BY_SCOPE_PATH = '/scene'
-const SKY_STAR_TILE_MANIFEST_PATH = '/scene/sky/star-tiles/manifest'
+const SCENE_ABOVE_ME_PATH = '/api/v1/scene/above-me'
+const SCENE_BY_SCOPE_PATH = '/api/v1/scene'
+const SKY_STAR_TILE_MANIFEST_PATH = '/api/v1/scene/sky/star-tiles/manifest'
 
 export const sceneKeys = {
   all: ['scene'] as const,

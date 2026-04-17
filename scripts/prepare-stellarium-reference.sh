@@ -8,6 +8,7 @@ source_root="$repo_root/study/stellarium-web-engine/source/stellarium-web-engine
 app_dir="$source_root/apps/web-frontend"
 assets_dir="$app_dir/src/assets/js"
 build_dir="$source_root/build"
+skydata_dir="$source_root/apps/test-skydata"
 js_image="astronomy-hub-stellarium-jsbuild"
 js_dockerfile="$repo_root/scripts/Dockerfile.stellarium-jsbuild"
 
@@ -38,5 +39,38 @@ if [[ ! -f "$assets_dir/stellarium-web-engine.js" || ! -f "$assets_dir/stellariu
   cp "$build_dir/stellarium-web-engine.js" "$assets_dir/stellarium-web-engine.js"
   cp "$build_dir/stellarium-web-engine.wasm" "$assets_dir/stellarium-web-engine.wasm"
 fi
+
+# Build a compatibility satellite feed for this pinned SWE version.
+# New upstream JSONL entries include launch_date values in a format that this
+# runtime cannot parse; stripping the field avoids rejecting most satellites.
+tmp_tle_gz="$(mktemp)"
+curl -fsSL "https://stellarium.sfo2.cdn.digitaloceanspaces.com/skysources/v1/tle_satellite.jsonl.gz" -o "$tmp_tle_gz"
+python3 - "$tmp_tle_gz" "$skydata_dir/tle_satellite.jsonl.gz" <<'PY'
+import gzip
+import json
+import os
+import sys
+
+src_path = sys.argv[1]
+dst_path = sys.argv[2]
+tmp_path = f"{dst_path}.tmp"
+
+with gzip.open(src_path, "rt", encoding="utf-8", errors="ignore") as source_stream, gzip.open(tmp_path, "wt", encoding="utf-8") as output_stream:
+    for raw_line in source_stream:
+        line = raw_line.strip()
+        if not line:
+            continue
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        model_data = record.get("model_data")
+        if isinstance(model_data, dict):
+            model_data.pop("launch_date", None)
+        output_stream.write(json.dumps(record, separators=(",", ":")) + "\n")
+
+os.replace(tmp_path, dst_path)
+PY
+rm -f "$tmp_tle_gz"
 
 echo "Stellarium reference workspace is prepared."

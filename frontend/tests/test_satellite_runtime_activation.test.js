@@ -114,7 +114,7 @@ describe('Satellite runtime activation', () => {
     expect(objects[0]?.providerSource).toBe('satnogs')
     expect(objects[0]?.visibilityWindowStartIso).toBe('2026-03-31T11:58:00Z')
     expect(objects[0]?.detailRoute).toBe('/satellites/opal')
-    expect(objects[0]?.description).toContain('without orbit lines or photometric brightness modelling')
+    expect(objects[0]?.description).toContain('fallback visual magnitude defaults to a Stellarium-like nominal satellite magnitude')
     expect(objects[0]?.truthNote).toContain('Provider source: satnogs')
   })
 

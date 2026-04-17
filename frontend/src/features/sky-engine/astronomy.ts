@@ -604,7 +604,7 @@ interface PlanetDefinitionInternal {
   readonly resolveElements: (daysSinceJ2000: number) => OrbitalElements
 }
 
-interface DeepSkyDefinitionInternal {
+export interface DeepSkyDefinition {
   readonly id: string
   readonly name: string
   readonly rightAscensionHours: number
@@ -755,7 +755,7 @@ const SKY_ENGINE_PLANET_DEFINITIONS: readonly PlanetDefinitionInternal[] = [
   },
 ] as const
 
-const SKY_ENGINE_DEEP_SKY_DEFINITIONS: readonly DeepSkyDefinitionInternal[] = [
+const SKY_ENGINE_DEEP_SKY_DEFINITIONS: readonly DeepSkyDefinition[] = [
   {
     id: 'sky-dso-m31',
     name: 'Andromeda Galaxy',
@@ -833,8 +833,12 @@ function resolveEarthElements(daysSinceJ2000: number): OrbitalElements {
   }
 }
 
-export function computeDeepSkySceneObjects(observer: SkyEngineObserver, timestampIso: string): readonly SkyEngineSceneObject[] {
-  return SKY_ENGINE_DEEP_SKY_DEFINITIONS.map((object) => {
+export function computeDeepSkySceneObjects(
+  observer: SkyEngineObserver,
+  timestampIso: string,
+  dsoCatalog: readonly DeepSkyDefinition[] = SKY_ENGINE_DEEP_SKY_DEFINITIONS,
+): readonly SkyEngineSceneObject[] {
+  return dsoCatalog.map((object) => {
     const horizontalCoordinates = computeHorizontalCoordinates(
       observer,
       timestampIso,
@@ -873,15 +877,17 @@ export function computeSatelliteSceneObjects(
   _observer: SkyEngineObserver,
   timestampIso: string,
   backendSatellites: readonly BackendSatelliteSceneObject[],
-  maxCount = 160,
+  maxCount: number | null = null,
 ): readonly SkyEngineSceneObject[] {
   const nowMs = new Date(timestampIso).getTime()
   const sceneObjects: SkyEngineSceneObject[] = []
   backendSatellites
     .filter((satellite) => satellite.position.elevation > 0)
     .sort((left, right) => (right.relevance_score ?? 0) - (left.relevance_score ?? 0) || left.name.localeCompare(right.name))
-    .slice(0, maxCount)
-    .forEach((satellite) => {
+    .forEach((satellite, index) => {
+      if (maxCount != null && index >= maxCount) {
+        return
+      }
       const windowStart = satellite.visibility.visibility_window_start ?? null
       const windowEnd = satellite.visibility.visibility_window_end ?? null
       const startMs = windowStart ? new Date(windowStart).getTime() : Number.NaN
@@ -914,10 +920,10 @@ export function computeSatelliteSceneObjects(
         type: 'satellite',
         altitudeDeg: satellite.position.elevation,
         azimuthDeg: satellite.position.azimuth,
-        magnitude: satellite.model_data?.stdmag ?? 99,
+        magnitude: satellite.model_data?.stdmag ?? 7,
         colorHex: '#8ee7ff',
         summary: satellite.summary,
-        description: `${passWindowSummary} This bounded activation renders a dedicated marker from the backend satellite scene without orbit lines or photometric brightness modelling.`,
+        description: `${passWindowSummary} Marker uses backend visibility windows and TLE-linked metadata; fallback visual magnitude defaults to a Stellarium-like nominal satellite magnitude when stdmag is unavailable.`,
         truthNote: `Backend satellite scene data drives this marker for the active observer snapshot. Provider source: ${satellite.provider_source}. Position is taken directly from the backend scene payload, while brightness and orbital path remain intentionally unimplemented in this slice.`,
         source: 'backend_satellite_scene',
         trackingMode: 'static',
