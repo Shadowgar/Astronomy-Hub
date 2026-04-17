@@ -40,6 +40,9 @@ logs/
 .code-workspace
 AGENTS.md
 
+# Local binaries (e.g. accidentally copied Snyk CLI; use npx snyk or a global install)
+/snyk
+
 # Node
 node_modules/
 npm-debug.log*
