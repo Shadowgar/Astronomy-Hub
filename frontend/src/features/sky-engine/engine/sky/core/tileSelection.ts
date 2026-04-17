@@ -16,6 +16,15 @@ function resolveDesiredTileDepth(_observer: ObserverSnapshot, limitingMagnitude:
     desiredDepth = 1
   }
 
+  // For narrow views we need deeper tile traversal even at similar limiting magnitude
+  // to avoid under-sampling compared to Stellarium-style traversal behavior.
+  if (_observer.fovDeg <= 20) {
+    desiredDepth = Math.max(desiredDepth, 2)
+  }
+  if (_observer.fovDeg <= 8) {
+    desiredDepth = Math.max(desiredDepth, 3)
+  }
+
   return Math.min(desiredDepth, getSkyTileMaxLevel(maxTileLevel))
 }
 
@@ -27,7 +36,7 @@ export function selectVisibleTileIds(observer: ObserverSnapshot, limitingMagnitu
   const visibleTileIds: string[] = []
   const desiredDepth = resolveDesiredTileDepth(observer, limitingMagnitude, maxTileLevel)
   const centerEquatorial = horizontalToRaDec(observer)
-  const viewRadiusDeg = Math.max(6, observer.fovDeg * 0.65)
+  const viewRadiusDeg = Math.max(10, observer.fovDeg * 0.85)
 
   function visitTile(tileId: string) {
     const tile = getSkyTileDescriptor(tileId, maxTileLevel)

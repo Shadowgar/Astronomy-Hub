@@ -2,7 +2,7 @@ import type { SkyEngineObserver } from '../../../types'
 import { computeLocalSiderealTimeDeg } from '../transforms/coordinates'
 
 const FT_TO_METERS = 0.3048
-const FAST_UPDATE_SECONDS = 24 * 60 * 60
+const FAST_UPDATE_SECONDS = 1.001 * 24 * 60 * 60
 const TT_MINUS_UTC_SECONDS = 69.184
 
 type Matrix3 = readonly [
@@ -123,12 +123,14 @@ export interface SkyObserverDerivedGeometry {
   }
   readonly earthPv: readonly [number, number, number]
   readonly sunPv: readonly [number, number, number]
+  readonly lastAccurateSceneTimestampIso: string
 }
 
 export interface ObserverUpdateDecisionInput {
   readonly sceneTimestampIso: string
   readonly previousSceneTimestampIso: string | null
   readonly observerPartialHashChanged: boolean
+  readonly previousUpdateMode: SkyObserverUpdateMode | null
 }
 
 export function resolveObserverUpdateMode(input: ObserverUpdateDecisionInput): SkyObserverUpdateMode {
@@ -141,7 +143,10 @@ export function resolveObserverUpdateMode(input: ObserverUpdateDecisionInput): S
     return 'full'
   }
   const deltaSeconds = Math.abs((nowMs - previousMs) / 1000)
-  return deltaSeconds >= FAST_UPDATE_SECONDS ? 'full' : 'fast'
+  if (deltaSeconds >= FAST_UPDATE_SECONDS) {
+    return 'full'
+  }
+  return input.previousUpdateMode === 'full' ? 'fast' : 'fast'
 }
 
 /**
@@ -153,6 +158,7 @@ export function deriveObserverGeometry(
   observer: SkyEngineObserver,
   sceneTimestampIso: string,
   updateMode: SkyObserverUpdateMode,
+  previous: SkyObserverDerivedGeometry | null,
 ): SkyObserverDerivedGeometry {
   const latitudeRad = (observer.latitude * Math.PI) / 180
   const longitudeRad = (observer.longitude * Math.PI) / 180
@@ -163,8 +169,11 @@ export function deriveObserverGeometry(
   const dut1Seconds = 0
   const refraction = computeRefractionCoefficients(elevationMeters)
   const matrices = computeFrameMatrices(latitudeRad, localSiderealTimeDeg)
-  const earthPv: readonly [number, number, number] = [0, 0, 0]
-  const sunPv: readonly [number, number, number] = [0, 0, 0]
+  const earthPv: readonly [number, number, number] = previous?.earthPv ?? [0, 0, 0]
+  const sunPv: readonly [number, number, number] = previous?.sunPv ?? [0, 0, 0]
+  const lastAccurateSceneTimestampIso = updateMode === 'full'
+    ? sceneTimestampIso
+    : (previous?.lastAccurateSceneTimestampIso ?? sceneTimestampIso)
 
   return {
     sceneTimestampIso,
@@ -180,5 +189,6 @@ export function deriveObserverGeometry(
     matrices,
     earthPv,
     sunPv,
+    lastAccurateSceneTimestampIso,
   }
 }

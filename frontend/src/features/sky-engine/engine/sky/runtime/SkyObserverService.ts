@@ -49,12 +49,13 @@ export class SkyObserverService {
     },
     earthPv: [0, 0, 0],
     sunPv: [0, 0, 0],
+    lastAccurateSceneTimestampIso: '',
   }
 
   constructor(initialObserver: SkyEngineObserver, clockService: SkyClockService) {
     this.observer = initialObserver
     this.clockService = clockService
-    this.derived = deriveObserverGeometry(initialObserver, this.clockService.getSceneTimestampIso(), 'full')
+    this.derived = deriveObserverGeometry(initialObserver, this.clockService.getSceneTimestampIso(), 'full', null)
   }
 
   syncObserver(observer: SkyEngineObserver) {
@@ -85,8 +86,9 @@ export class SkyObserverService {
       sceneTimestampIso: sceneIso,
       previousSceneTimestampIso: this.lastSceneTimestampIso,
       observerPartialHashChanged: nextPartialHash !== this.committedPartialHash,
+      previousUpdateMode: this.derived.updateMode,
     })
-    this.derived = deriveObserverGeometry(this.observer, sceneIso, updateMode)
+    this.derived = deriveObserverGeometry(this.observer, sceneIso, updateMode, this.derived)
     this.committedPartialHash = nextPartialHash
     this.committedHash = nextHash
     this.lastSceneTimestampIso = sceneIso

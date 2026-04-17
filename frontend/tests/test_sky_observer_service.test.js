@@ -72,7 +72,7 @@ describe('SkyObserverService (Stellarium observer_update seam)', () => {
     clock.syncBaseTimestamp('2024-06-01T12:00:00.000Z')
     const service = new SkyObserverService(baseObserver, clock)
     expect(service.frameTick()).toBe(true)
-    clock.nudgeSceneOffset(60 * 60 * 24 + 5)
+    clock.nudgeSceneOffset(60 * 60 * 24 + 120)
     expect(service.frameTick()).toBe(true)
     expect(service.getUpdateMode()).toBe('full')
   })

@@ -24,6 +24,8 @@ export function buildRuntimeTileQuerySignature(
   query: SkyEngineQuery,
   repositoryMode: SkyEngineSceneProps['repositoryMode'],
 ) {
+  const normalizedActiveTiers = [...query.activeTiers].sort()
+  const normalizedVisibleTileIds = [...query.visibleTileIds].sort()
   const surveyPhase = repositoryMode !== 'multi-survey'
     ? repositoryMode
     : (query.limitingMagnitude >= GAIA_SURVEY_ACTIVATION_MAGNITUDE ? 'gaia-active' : 'hipparcos-only')
@@ -31,8 +33,8 @@ export function buildRuntimeTileQuerySignature(
     repositoryMode,
     surveyPhase,
     String(query.maxTileLevel ?? getSkyTileMaxLevel()),
-    query.activeTiers.join(','),
-    query.visibleTileIds.join(','),
+    normalizedActiveTiers.join(','),
+    normalizedVisibleTileIds.join(','),
   ].join(':')
 }
 

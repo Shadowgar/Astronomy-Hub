@@ -19,7 +19,13 @@ export type ObserverAstrometrySnapshot = {
     refA: number
     refB: number
   }
+  matrices?: {
+    ri2h: readonly [readonly [number, number, number], readonly [number, number, number], readonly [number, number, number]]
+    rh2i: readonly [readonly [number, number, number], readonly [number, number, number], readonly [number, number, number]]
+  }
 }
+
+export type ObserverFrame = 'icrf' | 'observed_geom' | 'observed'
 
 function degreesToRadians(value: number) {
   return (value * Math.PI) / 180
@@ -49,6 +55,17 @@ function normalizeVector(vector: UnitVector3): UnitVector3 {
     x: vector.x / length,
     y: vector.y / length,
     z: vector.z / length,
+  }
+}
+
+function multiplyMatrixVector(
+  matrix: readonly [readonly [number, number, number], readonly [number, number, number], readonly [number, number, number]],
+  vector: UnitVector3,
+): UnitVector3 {
+  return {
+    x: matrix[0][0] * vector.x + matrix[0][1] * vector.y + matrix[0][2] * vector.z,
+    y: matrix[1][0] * vector.x + matrix[1][1] * vector.y + matrix[1][2] * vector.z,
+    z: matrix[2][0] * vector.x + matrix[2][1] * vector.y + matrix[2][2] * vector.z,
   }
 }
 
@@ -99,6 +116,47 @@ export function createObserverAstrometrySnapshot(observer: ObserverSnapshot): Ob
       refB: 283 / (273 + 15),
     },
   }
+}
+
+export function convertObserverFrameVector(
+  vector: UnitVector3,
+  origin: ObserverFrame,
+  destination: ObserverFrame,
+  astrometry?: ObserverAstrometrySnapshot,
+): UnitVector3 {
+  if (origin === destination) {
+    return normalizeVector(vector)
+  }
+  let current = normalizeVector(vector)
+  let frame: ObserverFrame = origin
+
+  if (frame === 'icrf' && destination !== 'icrf' && astrometry?.matrices?.ri2h) {
+    current = normalizeVector(multiplyMatrixVector(astrometry.matrices.ri2h, current))
+    frame = 'observed_geom'
+  }
+  if (frame === 'observed_geom' && destination === 'observed') {
+    const horizontal = unitVectorToHorizontalCoordinates(current)
+    current = normalizeVector(horizontalToUnitVector(
+      geometricToObservedAltitudeDeg(horizontal.altitudeDeg, astrometry),
+      horizontal.azimuthDeg,
+      astrometry,
+    ))
+    frame = 'observed'
+  }
+  if (frame === 'observed' && destination === 'observed_geom') {
+    const horizontal = unitVectorToHorizontalCoordinates(current)
+    current = normalizeVector(horizontalToUnitVector(
+      observedToGeometricAltitudeDeg(horizontal.altitudeDeg, astrometry),
+      horizontal.azimuthDeg,
+      astrometry,
+    ))
+    frame = 'observed_geom'
+  }
+  if (frame === 'observed_geom' && destination === 'icrf' && astrometry?.matrices?.rh2i) {
+    current = normalizeVector(multiplyMatrixVector(astrometry.matrices.rh2i, current))
+    frame = 'icrf'
+  }
+  return current
 }
 
 export function raDecToEquatorialUnitVector(raDeg: number, decDeg: number): UnitVector3 {
