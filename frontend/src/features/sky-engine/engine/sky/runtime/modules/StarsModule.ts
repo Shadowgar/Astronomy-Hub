@@ -31,6 +31,19 @@ function buildObjectSignature(props: ScenePropsSnapshot) {
   return `${props.objects.length}:${firstObject}:${lastObject}:${packetStarsCount}`
 }
 
+function resolveStellariumStarLimitMagnitude(runtime: SceneRuntimeRefs, exposureLimitMagnitude: number) {
+  const painterLimits = runtime.corePainterLimits
+  if (!painterLimits) {
+    return exposureLimitMagnitude
+  }
+
+  return Math.min(
+    exposureLimitMagnitude,
+    painterLimits.starsLimitMag,
+    painterLimits.hardLimitMag,
+  )
+}
+
 export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-stars-runtime-module',
@@ -49,7 +62,16 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
       if (!brightnessExposureState) {
         return
       }
-      const limitingMagnitude = brightnessExposureState.limitingMagnitude
+      const limitingMagnitude = resolveStellariumStarLimitMagnitude(
+        runtime,
+        brightnessExposureState.limitingMagnitude,
+      )
+      const starsExposureState = limitingMagnitude === brightnessExposureState.limitingMagnitude
+        ? brightnessExposureState
+        : {
+          ...brightnessExposureState,
+          limitingMagnitude,
+        }
       const centerDirection = view.centerDirection
       const objectSignature = buildObjectSignature(latest)
       const sceneTimestampMs = sceneTimestampIso ? Date.parse(sceneTimestampIso) : Number.NaN
@@ -95,7 +117,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           objects: latest.objects,
           scenePacket: latest.scenePacket,
           sunState: latest.sunState,
-          brightnessExposureState,
+          brightnessExposureState: starsExposureState,
         })
         projectionElapsedMs = performance.now() - projectionStartMs
         projectedStars = projectionResult.projectedStars
@@ -135,6 +157,8 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
         ...runtime.runtimePerfTelemetry.latest,
         stepMs: {
           ...runtime.runtimePerfTelemetry.latest.stepMs,
+          starsExposureLimitMag: brightnessExposureState.limitingMagnitude,
+          starsPainterLimitMag: runtime.corePainterLimits?.starsLimitMag ?? Number.NaN,
           collectProjectedStarsMs: projectionElapsedMs,
           starsProjectionReused: shouldReuseProjection ? 1 : 0,
           starsProjectionCenterDeltaRad: centerDeltaRad,

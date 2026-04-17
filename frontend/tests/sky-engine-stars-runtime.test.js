@@ -208,6 +208,24 @@ describe('Sky star runtime ownership', () => {
     expect(projectedStars[0].object.type).toBe('star')
   })
 
+  it('caps star limiting magnitude with Stellarium painter limits when present', () => {
+    const module = createStarsModule()
+    const runtime = createBaseRuntime()
+    runtime.corePainterLimits = {
+      starsLimitMag: 5.1,
+      hintsLimitMag: 4.8,
+      hardLimitMag: 99,
+    }
+    const services = createBaseServices()
+    const props = createBaseProps()
+    const getProps = () => props
+    const getPropsVersion = () => 1
+
+    module.update({ runtime, services, getProps, getPropsVersion })
+
+    expect(runtime.projectedStarsFrame?.limitingMagnitude).toBe(5.1)
+  })
+
   it('ObjectRuntimeModule keeps stars, planets, and deep sky out of generic direct object sync', () => {
     const module = createObjectRuntimeModule()
     const runtime = createBaseRuntime()
