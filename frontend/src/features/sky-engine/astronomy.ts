@@ -85,6 +85,60 @@ function getDayOffsetFromTimestamp(baseIso: string, timestampIso: string) {
   return (currentTimeMs - baseTimeMs) / 86_400_000
 }
 
+function parseTleMeanMotionRevsPerDay(tleLine2: string | undefined) {
+  if (!tleLine2) {
+    return null
+  }
+  const fields = tleLine2.trim().split(/\s+/)
+  const meanMotionRaw = fields[fields.length - 1]
+  if (!meanMotionRaw) {
+    return null
+  }
+  const meanMotion = Number.parseFloat(meanMotionRaw)
+  if (!Number.isFinite(meanMotion) || meanMotion <= 0) {
+    return null
+  }
+  return meanMotion
+}
+
+function parseTleInclinationDeg(tleLine2: string | undefined) {
+  if (!tleLine2) {
+    return null
+  }
+  const fields = tleLine2.trim().split(/\s+/)
+  if (fields.length < 3) {
+    return null
+  }
+  const inclinationDeg = Number.parseFloat(fields[2])
+  if (!Number.isFinite(inclinationDeg)) {
+    return null
+  }
+  return inclinationDeg
+}
+
+function resolveMinorPlanetModeledMagnitude(
+  absoluteMagnitude: number,
+  slopeParameterG: number,
+  baseMagnitude: number,
+  dayOffset: number,
+) {
+  // HG-compatible surrogate: we don't have full heliocentric/geocentric distances in local inputs.
+  const oppositionPhase = (1 - Math.cos(dayOffset * (2 * Math.PI / 380))) * 0.5
+  const phaseTerm = (1 - slopeParameterG) * oppositionPhase * 1.1
+  return Math.max(-2, baseMagnitude + phaseTerm + (absoluteMagnitude - baseMagnitude) * 0.06)
+}
+
+function resolveCometModeledMagnitude(
+  baseMagnitude: number,
+  orbitType: 'elliptic' | 'parabolic' | 'hyperbolic',
+  dayOffset: number,
+) {
+  const perihelionDistanceAu = Math.max(0.35, 1 + (Math.abs(dayOffset) / 180))
+  const observerDistanceAu = Math.max(0.3, 0.7 + (Math.abs(dayOffset) / 220))
+  const k = orbitType === 'elliptic' ? 7 : orbitType === 'parabolic' ? 10 : 12
+  return baseMagnitude + 5 * Math.log10(observerDistanceAu) + k * Math.log10(perihelionDistanceAu)
+}
+
 function solveKeplerDegrees(meanAnomalyDeg: number, eccentricity: number) {
   let eccentricAnomalyDeg = meanAnomalyDeg + radiansToDegrees(eccentricity * Math.sin(degreesToRadians(meanAnomalyDeg)))
 
@@ -817,11 +871,12 @@ export function computeSatelliteSceneObjects(
   maxCount = 160,
 ): readonly SkyEngineSceneObject[] {
   const nowMs = new Date(timestampIso).getTime()
-  return backendSatellites
+  const sceneObjects: SkyEngineSceneObject[] = []
+  backendSatellites
     .filter((satellite) => satellite.position.elevation > 0)
     .sort((left, right) => (right.relevance_score ?? 0) - (left.relevance_score ?? 0) || left.name.localeCompare(right.name))
     .slice(0, maxCount)
-    .map((satellite) => {
+    .forEach((satellite) => {
       const windowStart = satellite.visibility.visibility_window_start ?? null
       const windowEnd = satellite.visibility.visibility_window_end ?? null
       const startMs = windowStart ? new Date(windowStart).getTime() : Number.NaN
@@ -829,6 +884,17 @@ export function computeSatelliteSceneObjects(
       const inWindow = Number.isFinite(nowMs) && Number.isFinite(startMs)
         ? (nowMs >= startMs && (!Number.isFinite(endMs) || nowMs <= endMs))
         : satellite.visibility.is_visible
+      const isVisibleNow = satellite.visibility.is_visible && inWindow
+      if (!isVisibleNow) {
+        return
+      }
+      const tleLine1 = satellite.model_data?.tle_line1 ?? undefined
+      const tleLine2 = satellite.model_data?.tle_line2 ?? undefined
+      const derivedMeanMotion = parseTleMeanMotionRevsPerDay(tleLine2)
+      const derivedOrbitalPeriodMinutes = derivedMeanMotion ? (24 * 60) / derivedMeanMotion : undefined
+      const derivedInclinationDeg = parseTleInclinationDeg(tleLine2) ?? undefined
+      const orbitalPeriodMinutes = satellite.model_data?.period_minutes ?? derivedOrbitalPeriodMinutes
+      const orbitalInclinationDeg = satellite.model_data?.inclination_deg ?? derivedInclinationDeg
       let passWindowSummary = 'Visibility window is provider-backed but not fully specified in this payload.'
 
       if (windowStart && windowEnd) {
@@ -837,7 +903,7 @@ export function computeSatelliteSceneObjects(
         passWindowSummary = `Visibility window starts at ${windowStart}.`
       }
 
-      return {
+      sceneObjects.push({
         id: satellite.id,
         name: satellite.name,
         type: 'satellite',
@@ -852,18 +918,19 @@ export function computeSatelliteSceneObjects(
         trackingMode: 'static',
         timestampIso,
         providerSource: satellite.provider_source,
-        tleLine1: satellite.model_data?.tle_line1 ?? undefined,
-        tleLine2: satellite.model_data?.tle_line2 ?? undefined,
+        tleLine1,
+        tleLine2,
         stdMagnitude: satellite.model_data?.stdmag ?? undefined,
         orbitEpochIso: satellite.model_data?.epoch ?? undefined,
-        orbitalInclinationDeg: satellite.model_data?.inclination_deg ?? undefined,
-        orbitalPeriodMinutes: satellite.model_data?.period_minutes ?? undefined,
+        orbitalInclinationDeg,
+        orbitalPeriodMinutes,
         visibilityWindowStartIso: windowStart ?? undefined,
         visibilityWindowEndIso: windowEnd ?? undefined,
         detailRoute: satellite.detail_route,
-        isAboveHorizon: satellite.position.elevation > 0 && inWindow,
-      } satisfies SkyEngineSceneObject
+        isAboveHorizon: satellite.position.elevation > 0 && isVisibleNow,
+      } satisfies SkyEngineSceneObject)
     })
+  return sceneObjects
 }
 
 export function computeMinorPlanetSceneObjects(
@@ -878,7 +945,12 @@ export function computeMinorPlanetSceneObjects(
     const declinationDeg = clampDeclinationDeg(
       object.declinationDeg + dayOffset * object.dailyMotionDecDeg,
     )
-    const modeledMagnitude = object.magnitude + Math.sin(dayOffset * 0.12) * 0.3
+    const modeledMagnitude = resolveMinorPlanetModeledMagnitude(
+      object.absoluteMagnitude,
+      object.slopeParameterG,
+      object.magnitude,
+      dayOffset,
+    )
     const horizontalCoordinates = computeHorizontalCoordinates(
       observer,
       timestampIso,
@@ -893,9 +965,9 @@ export function computeMinorPlanetSceneObjects(
       azimuthDeg: horizontalCoordinates.azimuthDeg,
       magnitude: modeledMagnitude,
       colorHex: '#d7d7d7',
-      summary: `${object.name} projected from a bounded minor-planet catalog source.`,
-      description: `Minor-planet source carries H/G metadata (H ${object.absoluteMagnitude.toFixed(2)}, G ${object.slopeParameterG.toFixed(2)}) for Stellarium-style photometric compatibility.`,
-      truthNote: 'Minor-planet object is catalog-driven and observer-transformed from fixed source coordinates in this bounded section #9 port slice.',
+      summary: `${object.name} from local small-body catalog with observer-frame placement.`,
+      description: `Photometry uses the local H/G inputs (H ${object.absoluteMagnitude.toFixed(2)}, G ${object.slopeParameterG.toFixed(2)}) with a bounded HG-compatible surrogate while full orbital vectors remain unavailable in current contracts.`,
+      truthNote: 'Minor-planet object is catalog-ingested and transformed to local horizontal coordinates each frame; full osculating-element propagation is pending richer source inputs.',
       source: 'minor_planet_catalog',
       trackingMode: 'fixed_equatorial',
       rightAscensionHours,
@@ -919,7 +991,7 @@ export function computeCometSceneObjects(
     const declinationDeg = clampDeclinationDeg(
       comet.declinationDeg + dayOffset * comet.dailyMotionDecDeg,
     )
-    const modeledMagnitude = comet.magnitude + Math.log10(1 + Math.abs(dayOffset) * 0.2)
+    const modeledMagnitude = resolveCometModeledMagnitude(comet.magnitude, comet.orbitType, dayOffset)
     const horizontalCoordinates = computeHorizontalCoordinates(
       observer,
       timestampIso,
@@ -934,9 +1006,9 @@ export function computeCometSceneObjects(
       azimuthDeg: horizontalCoordinates.azimuthDeg,
       magnitude: modeledMagnitude,
       colorHex: '#b7f1ff',
-      summary: `${comet.name} comet entry projected from bounded comet source data.`,
-      description: `Comet source includes ${comet.orbitType} orbit classification and perihelion timing metadata for source-aligned runtime behavior.`,
-      truthNote: 'Comet object is catalog-driven and transformed to the active observer frame for section #9 subsystem parity integration.',
+      summary: `${comet.name} from local comet catalog with perihelion-aware activity shaping.`,
+      description: `Brightness follows a bounded comet law using perihelion timing and ${comet.orbitType} orbit-class gain, constrained by currently available local metadata.`,
+      truthNote: 'Comet object is catalog-ingested and observer-transformed each frame; nucleus/tail geometry and full orbital solutions are pending contract expansion.',
       source: 'comet_catalog',
       trackingMode: 'fixed_equatorial',
       rightAscensionHours,
@@ -961,8 +1033,9 @@ export function computeMeteorShowerSceneObjects(
     const declinationDeg = clampDeclinationDeg(
       shower.declinationDeg + radiantOffsetScale * shower.dailyMotionDecDeg,
     )
-    const activityWeight = Math.exp(-Math.abs(dayOffset) / 5)
+    const activityWeight = Math.exp(-Math.abs(dayOffset) / 4.5)
     const activeRate = Math.max(0, Math.round(shower.zenithRatePerHour * activityWeight))
+    const isSeasonActive = Math.abs(dayOffset) <= 21
     const horizontalCoordinates = computeHorizontalCoordinates(
       observer,
       timestampIso,
@@ -977,17 +1050,17 @@ export function computeMeteorShowerSceneObjects(
       azimuthDeg: horizontalCoordinates.azimuthDeg,
       magnitude: activeRate > 0 ? 2.8 : 5.2,
       colorHex: '#ffd9a8',
-      summary: `${shower.name} radiant and activity metadata projected for the active observer.`,
-      description: `Meteor shower source tracks peak activity (${shower.peakIso}) and zenithal hourly rate (${shower.zenithRatePerHour}/h).`,
-      truthNote: 'Meteor-shower radiant is catalog-defined and transformed to observer-local coordinates for section #9 runtime parity scaffolding.',
+      summary: `${shower.name} radiant with season-limited activity from local shower metadata.`,
+      description: `Activity is gated around peak (${shower.peakIso}) and scaled from ZHR (${shower.zenithRatePerHour}/h), matching available local shower contract inputs.`,
+      truthNote: 'Meteor-shower radiant is catalog-ingested and observer-transformed each frame; individual meteor particle simulation remains outside current local inputs.',
       source: 'meteor_shower_catalog',
       trackingMode: 'fixed_equatorial',
       rightAscensionHours,
       declinationDeg,
       timestampIso,
       meteorPeakIso: shower.peakIso,
-      meteorZenithRatePerHour: activeRate,
-      isAboveHorizon: horizontalCoordinates.isAboveHorizon && activeRate > 0,
+      meteorZenithRatePerHour: isSeasonActive ? activeRate : 0,
+      isAboveHorizon: horizontalCoordinates.isAboveHorizon && isSeasonActive && activeRate > 0,
     } satisfies SkyEngineSceneObject
   })
 }

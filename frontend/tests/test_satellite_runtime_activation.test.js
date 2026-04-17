@@ -100,7 +100,7 @@ describe('Satellite runtime activation', () => {
     expect(parsedPayload?.objects[0]?.visibility.visibility_window_end).toBe('2026-03-31T12:04:00Z')
   })
 
-  it('converts the top visible backend satellites into dedicated scene objects', () => {
+  it('converts only currently visible backend satellites into dedicated scene objects', () => {
     const parsedPayload = parseBackendSatelliteScenePayload(SATELLITE_PAYLOAD)
     const objects = computeSatelliteSceneObjects(TEST_OBSERVER, SATELLITE_PAYLOAD.timestamp, parsedPayload?.objects ?? [], 3)
 
@@ -116,5 +116,40 @@ describe('Satellite runtime activation', () => {
     expect(objects[0]?.detailRoute).toBe('/satellites/opal')
     expect(objects[0]?.description).toContain('without orbit lines or photometric brightness modelling')
     expect(objects[0]?.truthNote).toContain('Provider source: satnogs')
+  })
+
+  it('derives fallback orbital metadata from TLE when contract fields are absent', () => {
+    const parsedPayload = parseBackendSatelliteScenePayload({
+      ...SATELLITE_PAYLOAD,
+      objects: [
+        {
+          id: 'sat-iss',
+          type: 'satellite',
+          name: 'ISS',
+          engine: 'satellite',
+          provider_source: 'space_track',
+          summary: 'Visible TLE-backed pass.',
+          position: {
+            azimuth: 145.2,
+            elevation: 51.8,
+          },
+          visibility: {
+            is_visible: true,
+            visibility_window_start: '2026-03-31T11:58:00Z',
+            visibility_window_end: '2026-03-31T12:04:00Z',
+          },
+          model_data: {
+            tle_line1: '1 25544U 98067A   26091.50000000  .00001234  00000-0  10270-4 0  9991',
+            tle_line2: '2 25544  51.6433 123.4567 0003642 278.1234 123.9876 15.49812345678901',
+            stdmag: 1.2,
+          },
+        },
+      ],
+    })
+    const objects = computeSatelliteSceneObjects(TEST_OBSERVER, SATELLITE_PAYLOAD.timestamp, parsedPayload?.objects ?? [])
+
+    expect(objects).toHaveLength(1)
+    expect(objects[0]?.orbitalInclinationDeg).toBeCloseTo(51.6433, 4)
+    expect(objects[0]?.orbitalPeriodMinutes).toBeCloseTo(92.9, 1)
   })
 })

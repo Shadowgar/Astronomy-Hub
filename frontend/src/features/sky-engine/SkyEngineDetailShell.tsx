@@ -183,6 +183,8 @@ function renderSelectionInsights(selectedObject: SkyEngineSceneObject) {
           Pass window: {selectedObject.visibilityWindowStartIso ?? 'Unknown start'}
           {selectedObject.visibilityWindowEndIso ? ` to ${selectedObject.visibilityWindowEndIso}` : ''}
           {selectedObject.providerSource ? ` · provider ${selectedObject.providerSource}` : ''}
+          {selectedObject.orbitalPeriodMinutes ? ` · period ${selectedObject.orbitalPeriodMinutes.toFixed(1)} min` : ''}
+          {selectedObject.orbitalInclinationDeg ? ` · i ${selectedObject.orbitalInclinationDeg.toFixed(1)}°` : ''}
         </p>
       ) : null}
       {selectedObject.phaseLabel ? (
