@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-17 (Port Block 8 repaired frontend scene routing to `/api/v1/scene`, added multi-survey packet promotion fallback, switched DSO to file-backed catalog ingestion, and removed satellite placeholder/truncation defaults; frontend tests/typecheck/build pass, but live parity against Stellarium is still partial for dense stars/DSO/DSS/satellites)
+Last updated: 2026-04-17 (Port Block 9 hardened deterministic observer/time control, added EPH unit+astrometry-field parity, and removed runtime limiting-magnitude underflow in star projection; wide/medium star density improved, but deep zoom still remains Hipparcos-stuck until Gaia packet promotion resolves)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -78,6 +78,54 @@ Purpose:
 
 ## Recommended Next Bounded Slice
 - Trace the unresolved live scene-packet handoff after Gaia requests begin, make the multi-survey packet win once the local Gaia load resolves, then re-run live Stellarium deep-zoom checkpoints before moving on to hints/labels parity.
+
+## Port Block 9 (Executed, partial parity)
+### Deterministic Harness + EPH Parity + Star Magnitude Gate Repair
+
+Stellarium authority files:
+- `src/core.c`
+- `src/navigation.c`
+- `src/modules/stars.c`
+- `src/eph-file.c`
+- `src/eph-file.h`
+- `src/hips.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/stellariumCoreRenderSpine.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/SkyClockService.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/SnapshotBridgeModule.ts`
+- `frontend/src/features/sky-engine/engine/sky/adapters/ephCodec.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame.ts`
+- `frontend/src/features/sky-engine/SkyEngineScene.tsx`
+- `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts`
+- `frontend/tests/test_sky_clock_service.test.js`
+- `frontend/tests/test_eph_codec.test.js`
+- `frontend/tests/test_sky_engine_astronomy.test.js`
+- `frontend/tests/test_file_backed_tile_repository.test.js`
+
+Explicit local logic deleted/replaced in this block:
+1. render-spine observer retick removed to restore single observer tick ownership per frame.
+2. `resetSceneTime()` wall-clock fallback (`Date.now`) replaced with synced backend timestamp anchor.
+3. snapshot camera rounding (`toFixed(1)`) removed to preserve audit precision.
+4. EPH unit conversion now handles bit-8 yearly units (`/year`) with Stellarium 365.25 scaling semantics.
+5. EPH star column support expanded to decode `plx`, `pra`, `pde`, `epoc`, and `sp`.
+6. runtime star projection now uses an effective limiting magnitude floor from scene-packet diagnostics to avoid synthetic underflow culling.
+7. scene query limiting magnitude gets deep-FOV floor so close zoom cannot collapse below Stellarium-like survey activation ranges.
+8. Gaia survey activation now permits narrow-FOV entry to match Stellarium deep-zoom intent (while preserving Hipparcos at wide mode).
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- test_sky_clock_service.test.js test_scene_query_state.test.js test_satellite_runtime_activation.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- test_eph_codec.test.js test_sky_clock_service.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- test_sky_engine_astronomy.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- test_close_fov_star_counts.test.js sky-engine-runtime-frame-projection.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- test_file_backed_tile_repository.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass (run after each change-set)
+- `cd /home/rocco/Astronomy-Hub && node <playwright probe>` on synced Sevilla night case: wide `1181` stars, medium `60` stars, deep `0` stars, phase `NIGHT`, and Gaia requests observed, but displayed packet mode still `Hipparcos`.
+
+Interpretation:
+- Deterministic control-plane drift and EPH decoding parity are materially improved and now verified by tests.
+- Visual parity improved at wide/medium night checkpoints.
+- Deep zoom is still blocked by unresolved scene packet promotion to resolved Gaia-backed payload in the live runtime.
 
 ## Port Block 8 (Executed, partial parity)
 ### Runtime Route Repair + Star/DSO/Satellite Corrective Pass

@@ -837,33 +837,13 @@ export function collectProjectedNonStarObjects(
       return
     }
 
-    if (object.type === 'planet' && object.magnitude > limitingMagnitude) {
-      filteringMs += performance.now() - filteringStartMs
-      return
-    }
-
+    // Keep strict magnitude gating for synthetic minor-planet/comet placeholders only.
+    // Planets, DSO, and satellites are handled by module-specific visibility behavior.
     if ((object.type === 'minor_planet' || object.type === 'comet') && object.magnitude > limitingMagnitude) {
       filteringMs += performance.now() - filteringStartMs
       return
     }
 
-    // Stellarium painter gating: deep-sky objects obey visibility magnitude limits
-    // produced upstream by core_render + exposure state before projection/render.
-    if (object.type === 'deep_sky' && object.magnitude > limitingMagnitude) {
-      filteringMs += performance.now() - filteringStartMs
-      return
-    }
-
-    // Satellites currently carry placeholder magnitude when photometry is not modeled.
-    // Only apply magnitude gate when a modeled value is present.
-    if (
-      object.type === 'satellite' &&
-      object.magnitude < SATELLITE_UNMODELED_MAGNITUDE_SENTINEL &&
-      object.magnitude > limitingMagnitude
-    ) {
-      filteringMs += performance.now() - filteringStartMs
-      return
-    }
     filteringMs += performance.now() - filteringStartMs
 
     const transformStartMs = performance.now()

@@ -221,6 +221,114 @@ describe('file-backed sky tile repository', () => {
     expect(closeResult.sourceLabel).toContain('Hipparcos + Gaia HiPS')
   })
 
+  it('activates Gaia for narrow FOV even before limiting magnitude crosses threshold', async () => {
+    const repository = createFileBackedSkyTileRepository('/sky-engine-assets/catalog/hipparcos/manifest.json')
+    const fetchMock = vi.fn(async (assetPath) => {
+      if (assetPath === '/sky-engine-assets/catalog/hipparcos/manifest.json') {
+        return {
+          ok: true,
+          json: async () => ({
+            schemaVersion: 'sky-runtime-tile.v1',
+            catalog: 'hipparcos',
+            tileIndex: 'equatorial-quadtree-v1',
+            generatedAt: '2026-04-06T00:00:00Z',
+            generator: 'test',
+            sourcePath: 'fixtures/hip_main.dat',
+            sourceRecordCount: 1,
+            maxLevel: 3,
+            tileCount: 1,
+            totalStarRecords: 1,
+            tiles: {
+              'root-ne': {
+                path: 'tiles/root-ne.json',
+                level: 0,
+                starCount: 1,
+                magMin: 1,
+                magMax: 1,
+              },
+            },
+          }),
+        }
+      }
+
+      if (assetPath === '/sky-engine-assets/catalog/hipparcos/tiles/root-ne.json') {
+        return {
+          ok: true,
+          json: async () => ({
+            tileId: 'root-ne',
+            level: 0,
+            parentTileId: null,
+            childTileIds: ['root-ne-nw', 'root-ne-ne', 'root-ne-sw', 'root-ne-se'],
+            bounds: {
+              raMinDeg: 180,
+              raMaxDeg: 360,
+              decMinDeg: 0,
+              decMaxDeg: 90,
+            },
+            magMin: 1,
+            magMax: 1,
+            starCount: 1,
+            stars: [{
+              id: 'hip-1',
+              sourceId: 'HIP 1',
+              raDeg: 185,
+              decDeg: 10,
+              mag: 1,
+              tier: 'T0',
+            }],
+            labelCandidates: [],
+          }),
+        }
+      }
+
+      if (assetPath === '/sky-engine-assets/catalog/gaia/properties') {
+        return {
+          ok: true,
+          text: async () => 'hips_order_min = 3\nhips_release_date = 2018-08-28T08:10Z\nhips_tile_format = eph\n',
+        }
+      }
+
+      if (assetPath === '/sky-engine-assets/catalog/gaia/mirror-manifest.json') {
+        return {
+          ok: true,
+          json: async () => ({
+            minOrder: 3,
+            maxOrder: 5,
+            mirroredAt: '2026-04-13T07:33:44.844Z',
+            sourceUrl: 'https://data.stellarium.org/surveys/gaia',
+            totalTileCount: 16088,
+            tileCountByOrder: { '3': 768, '4': 3064, '5': 12256 },
+          }),
+        }
+      }
+
+      if (String(assetPath).includes('/sky-engine-assets/catalog/gaia/')) {
+        return {
+          ok: false,
+          status: 404,
+          statusText: 'Not Found',
+        }
+      }
+
+      throw new Error(`Unexpected asset request: ${assetPath}`)
+    })
+
+    vi.stubGlobal('fetch', fetchMock)
+
+    const closeResult = await repository.loadTiles({
+      ...TEST_QUERY,
+      limitingMagnitude: 5.8,
+      observer: {
+        ...TEST_QUERY.observer,
+        fovDeg: 10,
+      },
+      visibleTileIds: ['root-ne'],
+    })
+
+    expect(closeResult.mode).toBe('multi-survey')
+    expect(closeResult.sourceLabel).toContain('Hipparcos + Gaia HiPS')
+  })
+
   it('retries Gaia tiles after a transient fetch failure instead of caching the rejection', async () => {
     const repository = createFileBackedSkyTileRepository('/sky-engine-assets/catalog/hipparcos/manifest.json')
     let gaiaTileAttempts = 0

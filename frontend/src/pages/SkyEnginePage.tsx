@@ -308,13 +308,32 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     elevation_ft: observer.elevationFt,
     at: backendScene.timestamp,
   })
+  const highAltitudeSatelliteSceneQuery = useSceneByScopeDataQuery({
+    scope: 'earth',
+    engine: 'satellites',
+    filter: 'high_altitude',
+    lat: backendScene.observer.latitude,
+    lon: backendScene.observer.longitude,
+    elevation_ft: observer.elevationFt,
+    at: backendScene.timestamp,
+  })
   const backendSatelliteScene = useMemo(
     () => parseBackendSatelliteScenePayload(satelliteSceneQuery.data),
     [satelliteSceneQuery.data],
   )
+  const highAltitudeBackendSatelliteScene = useMemo(
+    () => parseBackendSatelliteScenePayload(highAltitudeSatelliteSceneQuery.data),
+    [highAltitudeSatelliteSceneQuery.data],
+  )
   const backendSatellites = useMemo<readonly BackendSatelliteSceneObject[]>(
-    () => backendSatelliteScene?.objects ?? [],
-    [backendSatelliteScene],
+    () => {
+      const visibleNow = backendSatelliteScene?.objects ?? []
+      if (visibleNow.length > 0) {
+        return visibleNow
+      }
+      return highAltitudeBackendSatelliteScene?.objects ?? []
+    },
+    [backendSatelliteScene, highAltitudeBackendSatelliteScene],
   )
   const backendSceneStars = useMemo(
     () => backendScene.objects.filter((object) => object.type === 'star'),

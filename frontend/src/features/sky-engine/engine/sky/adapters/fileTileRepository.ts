@@ -24,6 +24,7 @@ const GAIA_SURVEY_KEY = 'gaia'
 
 const HIPPARCOS_MIN_MAG = -2
 const HIPPARCOS_MAX_MAG = 6.5
+const GAIA_FOV_ACTIVATION_DEG = 40
 
 type RuntimeSurveyDefinition = {
   key: string
@@ -514,10 +515,13 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
           : Math.max(minimumMagnitude, survey.maxVmag)
       ), HIPPARCOS_MIN_MAG)
 
-      if (query.limitingMagnitude >= gaiaMinVmag) {
+      const shouldActivateGaiaSurvey = query.limitingMagnitude >= gaiaMinVmag || query.observer.fovDeg <= GAIA_FOV_ACTIVATION_DEG
+      if (shouldActivateGaiaSurvey) {
         try {
           const gaiaSurvey = await loadGaiaSurvey()
-          const gaiaEntryMinVmag = Math.max(gaiaSurvey.properties.minVmag, gaiaMinVmag)
+          const gaiaEntryMinVmag = query.observer.fovDeg <= GAIA_FOV_ACTIVATION_DEG
+            ? HIPPARCOS_MIN_MAG
+            : Math.max(gaiaSurvey.properties.minVmag, gaiaMinVmag)
 
           surveys.push({
             key: GAIA_SURVEY_KEY,
