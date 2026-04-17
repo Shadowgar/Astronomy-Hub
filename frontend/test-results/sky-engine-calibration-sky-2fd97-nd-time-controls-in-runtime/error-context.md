@@ -1,0 +1,85 @@
+# Page snapshot
+
+```yaml
+- main [ref=e4]:
+  - generic:
+    - generic "Astronomy Hub engine shell":
+      - generic:
+        - generic: Astronomy Hub
+        - strong: Sky Engine
+        - generic: Hub shell persists while the active engine owns this viewport.
+      - generic:
+        - link "Hub" [ref=e5] [cursor=pointer]:
+          - /url: /
+        - generic:
+          - generic: Active engine
+          - strong: Sky Engine
+  - generic "Sky Engine scene" [ref=e7]
+  - generic:
+    - generic "Sky Engine top bar":
+      - generic:
+        - link "Back" [ref=e8] [cursor=pointer]:
+          - /url: /
+        - button "Show inspector" [ref=e9]
+        - button "Reset" [ref=e10]
+      - form "Sky Engine target search" [ref=e11]:
+        - combobox "Search visible sky objects" [ref=e12]
+        - button "Find" [ref=e13]
+      - generic:
+        - generic:
+          - generic: Data
+          - strong: Hipparcos
+        - generic:
+          - generic: FOV
+          - strong: 120°
+        - generic:
+          - generic: Local time
+          - strong: Apr 17, 1:00 AM EDT
+          - generic: +5s · America/New_York · 1x
+        - generic: Night
+  - generic:
+    - region "Sky Engine controls":
+      - generic:
+        - generic:
+          - generic: Time scrub
+          - strong: +0m
+        - generic:
+          - generic: 1272 rendered stars · wide
+          - generic: Hipparcos · 8,870 stars
+          - generic: Moon below horizon
+          - generic: 5 guided now
+      - generic "Scene light band":
+        - generic: Daylight
+        - generic: Twilight
+        - generic: Night
+      - slider "Scene time offset" [ref=e14]: "0"
+      - generic:
+        - generic "Time scale controls":
+          - button "- Step" [ref=e15]
+          - generic:
+            - button "sec" [ref=e16]
+            - button "min" [ref=e17]
+            - button "hr" [ref=e18]
+            - button "day" [ref=e19]
+          - button "+ Step" [ref=e20]
+        - generic "Playback controls":
+          - button "-1h/s" [ref=e21]
+          - button "-1m/s" [ref=e22]
+          - button "Pause" [ref=e23]
+          - button "1x" [ref=e24]
+          - button "+1m/s" [ref=e25]
+          - button "+1h/s" [ref=e26]
+          - button "Reset" [ref=e27]
+      - generic:
+        - generic "Guided sky targets":
+          - button "Venus" [ref=e28]
+          - button "Jupiter" [ref=e29]
+          - button "Mercury" [ref=e30]
+        - generic "Sky aid toggles":
+          - button "Constellations" [ref=e31]
+          - button "Azimuthal" [ref=e32]
+          - button "Equatorial" [ref=e33]
+        - generic "Sky culture selection":
+          - button "Belarusian" [ref=e34]
+          - button "Western" [ref=e35]
+```

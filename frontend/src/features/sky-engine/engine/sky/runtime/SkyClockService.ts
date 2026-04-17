@@ -27,7 +27,8 @@ export class SkyClockService {
   }
 
   advanceFrame(deltaSeconds: number) {
-    this.lastFrameDeltaSeconds = Math.max(0, deltaSeconds)
+    const safeDelta = Number.isFinite(deltaSeconds) ? Math.max(0, deltaSeconds) : 0
+    this.lastFrameDeltaSeconds = safeDelta
     this.animationTimeSeconds += this.lastFrameDeltaSeconds
 
     if (this.playbackRate !== 0) {
@@ -44,7 +45,12 @@ export class SkyClockService {
   }
 
   getSceneTimestampIso() {
-    return new Date(this.baseTimestampMs + this.sceneOffsetSeconds * 1000).toISOString()
+    const ms = this.baseTimestampMs + this.sceneOffsetSeconds * 1000
+    const date = new Date(ms)
+    if (Number.isNaN(date.getTime())) {
+      return new Date(this.baseTimestampMs).toISOString()
+    }
+    return date.toISOString()
   }
 
   getSceneOffsetSeconds() {
@@ -52,10 +58,13 @@ export class SkyClockService {
   }
 
   setSceneOffsetSeconds(sceneOffsetSeconds: number) {
-    this.sceneOffsetSeconds = sceneOffsetSeconds
+    this.sceneOffsetSeconds = Number.isFinite(sceneOffsetSeconds) ? sceneOffsetSeconds : 0
   }
 
   nudgeSceneOffset(deltaSeconds: number) {
+    if (!Number.isFinite(deltaSeconds)) {
+      return
+    }
     this.sceneOffsetSeconds += deltaSeconds
   }
 

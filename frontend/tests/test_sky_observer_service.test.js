@@ -60,4 +60,14 @@ describe('SkyObserverService (Stellarium observer_update seam)', () => {
     expect(g.longitudeRad).toBeCloseTo((-74 * Math.PI) / 180, 5)
     expect(g.elevationMeters).toBeCloseTo(100 * 0.3048, 5)
   })
+
+  it('does not throw when scene offset is NaN: frameTick uses safe scene ISO', () => {
+    const clock = new SkyClockService()
+    clock.syncBaseTimestamp('2024-06-01T12:00:00.000Z')
+    clock.setSceneOffsetSeconds(Number.NaN)
+    expect(clock.getSceneOffsetSeconds()).toBe(0)
+    const service = new SkyObserverService(baseObserver, clock)
+    expect(() => service.frameTick()).not.toThrow()
+    expect(() => clock.getSceneTimestampIso()).not.toThrow()
+  })
 })

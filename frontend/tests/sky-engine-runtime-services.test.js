@@ -228,7 +228,7 @@ test('runtime services own input attachment and scene clock state', () => {
   ])
   services.clockService.advanceFrame(0.25)
 
-  expect(services.clockService.getSceneTimestampIso()).toBe('2026-04-08T12:00:00Z')
+  expect(services.clockService.getSceneTimestampIso()).toBe('2026-04-08T12:00:00.250Z')
   expect(services.clockService.getAnimationTimeSeconds()).toBe(0.25)
 
   services.inputService.attach({
