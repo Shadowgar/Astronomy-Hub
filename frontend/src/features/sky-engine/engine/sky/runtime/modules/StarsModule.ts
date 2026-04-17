@@ -118,6 +118,12 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           scenePacket: latest.scenePacket,
           sunState: latest.sunState,
           brightnessExposureState: starsExposureState,
+          observerAstrometry: runtime.observerAstrometry
+            ? {
+                localSiderealTimeDeg: runtime.observerAstrometry.localSiderealTimeDeg,
+                refraction: runtime.observerAstrometry.refraction,
+              }
+            : undefined,
         })
         projectionElapsedMs = performance.now() - projectionStartMs
         projectedStars = projectionResult.projectedStars

@@ -82,6 +82,12 @@ export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, Scene
         runtime.brightnessExposureState ?? undefined,
         projectedStarsFrame.limitingMagnitude,
         latest.selectedObjectId,
+        runtime.observerAstrometry
+          ? {
+              localSiderealTimeDeg: runtime.observerAstrometry.localSiderealTimeDeg,
+              refraction: runtime.observerAstrometry.refraction,
+            }
+          : undefined,
       )
       const nonStarProjectionElapsedMs = performance.now() - nonStarProjectionStartMs
       const projectedObjects = nonStarProjection.projectedObjects
@@ -145,6 +151,7 @@ export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, Scene
             picks[index].screenY = entry.screenY
             picks[index].radiusPx = entry.pickRadiusPx
             picks[index].depth = entry.depth
+            picks[index].renderAlpha = entry.renderAlpha
           } else {
             picks[index] = {
               object: entry.object,
@@ -152,6 +159,7 @@ export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, Scene
               screenY: entry.screenY,
               radiusPx: entry.pickRadiusPx,
               depth: entry.depth,
+              renderAlpha: entry.renderAlpha,
             }
           }
         }

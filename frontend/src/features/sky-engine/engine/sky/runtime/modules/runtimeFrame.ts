@@ -9,6 +9,7 @@ import {
   projectDirectionToViewport,
   type SkyProjectionView,
 } from '../../../../projectionMath'
+import { observedToGeometricAltitudeDeg, type ObserverAstrometrySnapshot } from '../../transforms/coordinates'
 import {
   computeStellariumPointVisual,
   getStarRenderProfileForMagnitude,
@@ -315,6 +316,7 @@ function shouldRenderObject(
   fovDegrees: number,
   _sunState: SkyEngineSunState,
   selectedObjectId: string | null,
+  observerAstrometry?: ObserverAstrometrySnapshot,
 ) {
   if (object.type !== 'star' && isEngineTileSource(object.source)) {
     return false
@@ -324,25 +326,35 @@ function shouldRenderObject(
     return true
   }
 
-  if (getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees) <= 0) {
+  if (getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees, observerAstrometry) <= 0) {
     return false
   }
 
   return true
 }
 
-function getObjectHorizonFade(object: SkyEngineSceneObject, centerAltitudeDeg: number, fovDegrees: number) {
-  const visibilityAltitudeDeg = getObjectVisibilityAltitudeDeg(object, centerAltitudeDeg)
+function getObjectHorizonFade(
+  object: SkyEngineSceneObject,
+  centerAltitudeDeg: number,
+  fovDegrees: number,
+  observerAstrometry?: ObserverAstrometrySnapshot,
+) {
+  const visibilityAltitudeDeg = getObjectVisibilityAltitudeDeg(object, centerAltitudeDeg, observerAstrometry)
   const horizonSoftEdgeDeg = clamp(1.2 + fovDegrees * 0.015, 1.2, 4.5)
   return smoothstep(-horizonSoftEdgeDeg, horizonSoftEdgeDeg, visibilityAltitudeDeg)
 }
 
-function getObjectVisibilityAltitudeDeg(object: SkyEngineSceneObject, centerAltitudeDeg: number) {
-  if (centerAltitudeDeg <= 0 && object.altitudeDeg < 0) {
-    return Math.abs(object.altitudeDeg)
+function getObjectVisibilityAltitudeDeg(
+  object: SkyEngineSceneObject,
+  centerAltitudeDeg: number,
+  observerAstrometry?: ObserverAstrometrySnapshot,
+) {
+  const geometricAltitudeDeg = observedToGeometricAltitudeDeg(object.altitudeDeg, observerAstrometry)
+  if (centerAltitudeDeg <= 0 && geometricAltitudeDeg < 0) {
+    return Math.abs(geometricAltitudeDeg)
   }
 
-  return object.altitudeDeg
+  return geometricAltitudeDeg
 }
 
 function getProjectedDiscRadiusPx(apparentSizeDeg: number | undefined, scale: number, minimumRadiusPx: number, maximumRadiusPx: number) {
@@ -606,6 +618,7 @@ type CollectProjectedStarsInput = {
   scenePacket: SkyScenePacket | null
   sunState: SkyEngineSunState
   brightnessExposureState: SkyBrightnessExposureState
+  observerAstrometry?: ObserverAstrometrySnapshot
 }
 
 type ProjectedStarAttempt = {
@@ -639,7 +652,7 @@ function projectScenePacketStar(
   let allocationMs = 0
   let { lastMagnitude, lastPointVisual } = visualState
 
-  if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, input.sunState, null)) {
+  if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, input.sunState, null, input.observerAstrometry)) {
     return { entry: null, shouldBreak: false, transformMs, magnitudeFilterMs, visibilityFilterMs, allocationMs, lastMagnitude, lastPointVisual }
   }
 
@@ -686,7 +699,11 @@ function projectScenePacketStar(
     viewportMinSizePx,
     pointVisual,
   )
-  const renderAlpha = clamp(getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees) * pointVisual.luminance, 0, 1)
+  const renderAlpha = clamp(
+    getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees, input.observerAstrometry) * pointVisual.luminance,
+    0,
+    1,
+  )
 
   if (renderAlpha <= 0) {
     allocationMs += performance.now() - allocationStartMs
@@ -783,6 +800,7 @@ export function collectProjectedNonStarObjects(
   brightnessExposureState: SkyBrightnessExposureState | undefined,
   limitingMagnitude: number,
   selectedObjectId: string | null,
+  observerAstrometry?: ObserverAstrometrySnapshot,
 ) : ProjectedNonStarObjectsResult {
   const totalStartMs = performance.now()
   let transformMs = 0
@@ -809,7 +827,7 @@ export function collectProjectedNonStarObjects(
 
   orderedNonStars.forEach((object) => {
     const filteringStartMs = performance.now()
-    if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, sunState, selectedObjectId)) {
+    if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, sunState, selectedObjectId, observerAstrometry)) {
       filteringMs += performance.now() - filteringStartMs
       return
     }
@@ -856,7 +874,7 @@ export function collectProjectedNonStarObjects(
     filteringMs += performance.now() - filteringProjectedMs
 
     const filteringAlphaMs = performance.now()
-    const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees)
+    const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees, observerAstrometry)
     const planetSizing = (object.type === 'planet' || object.type === 'moon')
       ? getPlanetRenderSizing(object, view, brightnessExposureState, fovDegrees)
       : null

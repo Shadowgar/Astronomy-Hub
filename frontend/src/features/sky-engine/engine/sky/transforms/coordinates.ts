@@ -81,6 +81,14 @@ function removeRefraction(observedAltitudeDeg: number, astrometry?: ObserverAstr
   return geometricAltitudeDeg
 }
 
+export function geometricToObservedAltitudeDeg(geometricAltitudeDeg: number, astrometry?: ObserverAstrometrySnapshot) {
+  return applyRefraction(geometricAltitudeDeg, astrometry)
+}
+
+export function observedToGeometricAltitudeDeg(observedAltitudeDeg: number, astrometry?: ObserverAstrometrySnapshot) {
+  return removeRefraction(observedAltitudeDeg, astrometry)
+}
+
 export function createObserverAstrometrySnapshot(observer: ObserverSnapshot): ObserverAstrometrySnapshot {
   const elevationM = observer.elevationM ?? 0
   const pressureHpa = Math.min(1035, Math.max(120, 1013.25 * Math.exp(-elevationM / 8434.5)))

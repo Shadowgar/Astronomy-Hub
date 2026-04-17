@@ -1,0 +1,20 @@
+{
+  "hub": {
+    "hasRenderedStarsText": true,
+    "renderedStarsSnippet": "6 rendered stars · wide",
+    "hasCatalogSize": true,
+    "hasMilkyToggle": false,
+    "hasObservePanel": false,
+    "hasDSOPanel": false,
+    "charLen": 522
+  },
+  "stellarium": {
+    "hasRenderedStarsText": false,
+    "hasCatalogSize": false,
+    "hasMilkyToggle": true,
+    "hasObservePanel": true,
+    "hasDSOPanel": true,
+    "hasFov": true,
+    "charLen": 88
+  }
+}

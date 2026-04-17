@@ -8,6 +8,7 @@ export interface ProjectedPickTargetEntry {
   screenY: number
   radiusPx: number
   depth: number
+  renderAlpha?: number
 }
 
 export function getSkyEnginePickColliderDiameter(object: SkyEngineSceneObject) {
@@ -90,6 +91,11 @@ export function resolveSkyEnginePickSelection(
 
       if (Math.abs(depthDelta) > 0.015) {
         return depthDelta
+      }
+
+      const alphaDelta = (right.renderAlpha ?? 1) - (left.renderAlpha ?? 1)
+      if (Math.abs(alphaDelta) > 0.05) {
+        return alphaDelta
       }
 
       return left.object.name.localeCompare(right.object.name)
