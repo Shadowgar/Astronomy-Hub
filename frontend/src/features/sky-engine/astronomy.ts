@@ -7,6 +7,7 @@ import type {
   SkyEngineTrajectorySample,
 } from './types'
 import type { BackendSatelliteSceneObject, BackendSkySceneStarObject } from '../scene/contracts'
+import { computeLocalSiderealTimeDeg } from './engine/sky/transforms/coordinates'
 import { MINOR_PLANETS_CATALOG } from './data/minorPlanetsCatalog'
 import { COMETS_CATALOG } from './data/cometsCatalog'
 import { METEOR_SHOWERS_CATALOG } from './data/meteorShowersCatalog'
@@ -359,18 +360,6 @@ function computeMoonEquatorialCoordinates(timestampIso: string) {
   }
 }
 
-export function computeLocalSiderealTimeDeg(longitudeDeg: number, timestampIso: string) {
-  const julianDate = toJulianDate(timestampIso)
-  const centuriesSinceJ2000 = (julianDate - 2451545) / 36525
-  const gmstDeg =
-    280.46061837 +
-    360.98564736629 * (julianDate - 2451545) +
-    0.000387933 * centuriesSinceJ2000 * centuriesSinceJ2000 -
-    (centuriesSinceJ2000 * centuriesSinceJ2000 * centuriesSinceJ2000) / 38710000
-
-  return normalizeDegrees(gmstDeg + longitudeDeg)
-}
-
 export function computeHorizontalCoordinates(
   observer: SkyEngineObserver,
   timestampIso: string,
@@ -402,6 +391,8 @@ export function computeHorizontalCoordinates(
     isAboveHorizon: altitudeDeg > 0,
   }
 }
+
+export { computeLocalSiderealTimeDeg }
 
 export function computeRealSkySceneObjects(
   observer: SkyEngineObserver,

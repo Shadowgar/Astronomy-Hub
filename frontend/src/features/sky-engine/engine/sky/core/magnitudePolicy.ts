@@ -116,3 +116,13 @@ export function resolveLimitingMagnitude(input: number | LimitingMagnitudeConfig
     screenSizePx: config.viewportMinSizePx,
   })
 }
+
+export function resolveLimitingMagnitudeForPointRadius(
+  targetRadiusPx: number,
+  input: number | LimitingMagnitudeConfig,
+) {
+  const config = normalizeConfig(input)
+  return computeVmagForRadius(targetRadiusPx, config.fovDeg, buildTonemapper(config), {
+    screenSizePx: config.viewportMinSizePx,
+  })
+}

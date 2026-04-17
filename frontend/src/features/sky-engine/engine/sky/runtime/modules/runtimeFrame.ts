@@ -331,8 +331,10 @@ function shouldRenderObject(
   return true
 }
 
-function getObjectHorizonFade(_object: SkyEngineSceneObject, _centerAltitudeDeg: number, _fovDegrees: number) {
-  return 1
+function getObjectHorizonFade(object: SkyEngineSceneObject, centerAltitudeDeg: number, fovDegrees: number) {
+  const visibilityAltitudeDeg = getObjectVisibilityAltitudeDeg(object, centerAltitudeDeg)
+  const horizonSoftEdgeDeg = clamp(1.2 + fovDegrees * 0.015, 1.2, 4.5)
+  return smoothstep(-horizonSoftEdgeDeg, horizonSoftEdgeDeg, visibilityAltitudeDeg)
 }
 
 function getObjectVisibilityAltitudeDeg(object: SkyEngineSceneObject, centerAltitudeDeg: number) {

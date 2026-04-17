@@ -8,6 +8,7 @@ export interface SkyObserverDerivedGeometry {
   readonly latitudeRad: number
   readonly longitudeRad: number
   readonly elevationMeters: number
+  readonly localSiderealTimeDeg: number
 }
 
 /**
@@ -29,12 +30,13 @@ export class SkyObserverService {
     latitudeRad: 0,
     longitudeRad: 0,
     elevationMeters: 0,
+    localSiderealTimeDeg: 0,
   }
 
   constructor(initialObserver: SkyEngineObserver, clockService: SkyClockService) {
     this.observer = initialObserver
     this.clockService = clockService
-    this.derived = deriveObserverGeometry(initialObserver)
+    this.derived = deriveObserverGeometry(initialObserver, this.clockService.getSceneTimestampIso())
   }
 
   syncObserver(observer: SkyEngineObserver) {
@@ -60,7 +62,7 @@ export class SkyObserverService {
     if (!this.dirty && this.committedHash !== null && nextHash === this.committedHash) {
       return false
     }
-    this.derived = deriveObserverGeometry(this.observer)
+    this.derived = deriveObserverGeometry(this.observer, sceneIso)
     this.committedHash = nextHash
     this.dirty = false
     return true
