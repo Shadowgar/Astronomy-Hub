@@ -35,6 +35,7 @@ import { SkyClockService } from './engine/sky/runtime/SkyClockService'
 import { SkyInputService } from './engine/sky/runtime/SkyInputService'
 import { SkyNavigationService } from './engine/sky/runtime/SkyNavigationService'
 import { SkyObserverService } from './engine/sky/runtime/SkyObserverService'
+import type { SkyObserverDerivedGeometry } from './engine/sky/runtime/observerDerivedGeometry'
 import { SkyProjectionService } from './engine/sky/runtime/SkyProjectionService'
 import { createRuntimePerfTelemetry } from './engine/sky/runtime/perfTelemetry'
 import type { SceneLuminanceReport, SkyBrightnessExposureState } from './engine/sky/runtime/types'
@@ -129,6 +130,7 @@ export interface SceneRuntimeRefs {
    * Stellarium `painter_t` limits from `core_render` (`core.c` ~553–561): `stars_limit_mag`, `hints_limit_mag`, `hard_limit_mag`.
    */
   corePainterLimits: { starsLimitMag: number; hintsLimitMag: number; hardLimitMag: number } | null
+  observerAstrometry: SkyObserverDerivedGeometry | null
 }
 
 export interface SkySceneRuntimeServices {
@@ -196,6 +198,7 @@ export function createSceneRuntimeState({
     starsProjectionCache: null,
     starsProjectionReuseStreak: 0,
     corePainterLimits: null,
+    observerAstrometry: null,
   } satisfies SceneRuntimeRefs
 }
 

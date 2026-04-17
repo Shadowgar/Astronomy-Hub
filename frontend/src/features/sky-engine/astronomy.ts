@@ -7,7 +7,11 @@ import type {
   SkyEngineTrajectorySample,
 } from './types'
 import type { BackendSatelliteSceneObject, BackendSkySceneStarObject } from '../scene/contracts'
-import { computeLocalSiderealTimeDeg } from './engine/sky/transforms/coordinates'
+import {
+  computeLocalSiderealTimeDeg,
+  createObserverAstrometrySnapshot,
+  raDecToHorizontalCoordinates,
+} from './engine/sky/transforms/coordinates'
 import { MINOR_PLANETS_CATALOG } from './data/minorPlanetsCatalog'
 import { COMETS_CATALOG } from './data/cometsCatalog'
 import { METEOR_SHOWERS_CATALOG } from './data/meteorShowersCatalog'
@@ -420,29 +424,30 @@ export function computeHorizontalCoordinates(
   rightAscensionHours: number,
   declinationDeg: number,
 ) {
-  const latitudeRad = degreesToRadians(observer.latitude)
-  const declinationRad = degreesToRadians(declinationDeg)
-  const localSiderealTimeDeg = computeLocalSiderealTimeDeg(observer.longitude, timestampIso)
-  const hourAngleDeg = normalizeSignedDegrees(localSiderealTimeDeg - rightAscensionHours * 15)
-  const hourAngleRad = degreesToRadians(hourAngleDeg)
-
-  // Standard equatorial-to-horizontal conversion for a fixed observer and timestamp.
-  const sinAltitude =
-    Math.sin(declinationRad) * Math.sin(latitudeRad) +
-    Math.cos(declinationRad) * Math.cos(latitudeRad) * Math.cos(hourAngleRad)
-  const altitudeDeg = radiansToDegrees(Math.asin(sinAltitude))
-
-  const azimuthFromSouthRad = Math.atan2(
-    Math.sin(hourAngleRad),
-    Math.cos(hourAngleRad) * Math.sin(latitudeRad) - Math.tan(declinationRad) * Math.cos(latitudeRad),
+  const observerSnapshot = {
+    timestampUtc: timestampIso,
+    latitudeDeg: observer.latitude,
+    longitudeDeg: observer.longitude,
+    elevationM: observer.elevationFt * 0.3048,
+    fovDeg: 60,
+    centerAltDeg: 0,
+    centerAzDeg: 0,
+    projection: 'stereographic' as const,
+  }
+  const astrometry = createObserverAstrometrySnapshot(observerSnapshot)
+  const horizontalCoordinates = raDecToHorizontalCoordinates(
+    rightAscensionHours * 15,
+    declinationDeg,
+    observerSnapshot,
+    astrometry,
   )
-  const azimuthDeg = normalizeDegrees(radiansToDegrees(azimuthFromSouthRad) + 180)
+  const hourAngleDeg = normalizeSignedDegrees(astrometry.localSiderealTimeDeg - rightAscensionHours * 15)
 
   return {
-    altitudeDeg,
-    azimuthDeg,
+    altitudeDeg: horizontalCoordinates.altitudeDeg,
+    azimuthDeg: horizontalCoordinates.azimuthDeg,
     hourAngleDeg,
-    isAboveHorizon: altitudeDeg > 0,
+    isAboveHorizon: horizontalCoordinates.isAboveHorizon,
   }
 }
 

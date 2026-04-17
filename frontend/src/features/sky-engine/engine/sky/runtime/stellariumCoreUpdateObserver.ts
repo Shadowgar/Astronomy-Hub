@@ -22,6 +22,7 @@ export function runStellariumCoreUpdateObserverPreamble(ctx: {
 
   services.observerService.syncObserver(latest.observer)
   services.observerService.frameTick()
+  runtime.observerAstrometry = services.observerService.getDerivedGeometry()
 
   services.navigationService.syncSelection(latest.objects, latest.selectedObjectId, services.projectionService)
 

@@ -8,8 +8,17 @@ export type UnitVector3 = {
 
 export type HorizontalCoordinates = {
   altitudeDeg: number
+  geometricAltitudeDeg: number
   azimuthDeg: number
   isAboveHorizon: boolean
+}
+
+export type ObserverAstrometrySnapshot = {
+  localSiderealTimeDeg: number
+  refraction?: {
+    refA: number
+    refB: number
+  }
 }
 
 function degreesToRadians(value: number) {
@@ -43,6 +52,47 @@ function normalizeVector(vector: UnitVector3): UnitVector3 {
   }
 }
 
+function applyRefraction(geometricAltitudeDeg: number, astrometry?: ObserverAstrometrySnapshot) {
+  if (!astrometry?.refraction) {
+    return geometricAltitudeDeg
+  }
+  const { refA, refB } = astrometry.refraction
+  if (geometricAltitudeDeg < -1) {
+    return geometricAltitudeDeg
+  }
+  const altitudeRad = degreesToRadians(Math.max(geometricAltitudeDeg, -1))
+  const tanArgument = Math.tan(altitudeRad + degreesToRadians(7.31 / (geometricAltitudeDeg + 4.4)))
+  if (!Number.isFinite(tanArgument) || tanArgument === 0) {
+    return geometricAltitudeDeg
+  }
+  const correctionArcMinutes = (refA * refB) / tanArgument
+  return geometricAltitudeDeg + correctionArcMinutes / 60
+}
+
+function removeRefraction(observedAltitudeDeg: number, astrometry?: ObserverAstrometrySnapshot) {
+  if (!astrometry?.refraction) {
+    return observedAltitudeDeg
+  }
+  let geometricAltitudeDeg = observedAltitudeDeg
+  for (let index = 0; index < 3; index += 1) {
+    const corrected = applyRefraction(geometricAltitudeDeg, astrometry)
+    geometricAltitudeDeg -= corrected - observedAltitudeDeg
+  }
+  return geometricAltitudeDeg
+}
+
+export function createObserverAstrometrySnapshot(observer: ObserverSnapshot): ObserverAstrometrySnapshot {
+  const elevationM = observer.elevationM ?? 0
+  const pressureHpa = Math.min(1035, Math.max(120, 1013.25 * Math.exp(-elevationM / 8434.5)))
+  return {
+    localSiderealTimeDeg: computeLocalSiderealTimeDeg(observer.longitudeDeg, observer.timestampUtc),
+    refraction: {
+      refA: pressureHpa / 1010,
+      refB: 283 / (273 + 15),
+    },
+  }
+}
+
 export function raDecToEquatorialUnitVector(raDeg: number, decDeg: number): UnitVector3 {
   const rightAscensionRad = degreesToRadians(raDeg)
   const declinationRad = degreesToRadians(decDeg)
@@ -71,30 +121,35 @@ export function raDecToHorizontalCoordinates(
   raDeg: number,
   decDeg: number,
   observer: ObserverSnapshot,
+  astrometry?: ObserverAstrometrySnapshot,
 ): HorizontalCoordinates {
   const latitudeRad = degreesToRadians(observer.latitudeDeg)
   const declinationRad = degreesToRadians(decDeg)
-  const localSiderealTimeDeg = computeLocalSiderealTimeDeg(observer.longitudeDeg, observer.timestampUtc)
+  const localSiderealTimeDeg = astrometry?.localSiderealTimeDeg
+    ?? computeLocalSiderealTimeDeg(observer.longitudeDeg, observer.timestampUtc)
   const hourAngleRad = degreesToRadians(normalizeSignedDegrees(localSiderealTimeDeg - raDeg))
   const sinAltitude =
     Math.sin(declinationRad) * Math.sin(latitudeRad) +
     Math.cos(declinationRad) * Math.cos(latitudeRad) * Math.cos(hourAngleRad)
-  const altitudeDeg = radiansToDegrees(Math.asin(sinAltitude))
+  const geometricAltitudeDeg = radiansToDegrees(Math.asin(sinAltitude))
   const azimuthFromSouthRad = Math.atan2(
     Math.sin(hourAngleRad),
     Math.cos(hourAngleRad) * Math.sin(latitudeRad) - Math.tan(declinationRad) * Math.cos(latitudeRad),
   )
   const azimuthDeg = normalizeDegrees(radiansToDegrees(azimuthFromSouthRad) + 180)
+  const altitudeDeg = applyRefraction(geometricAltitudeDeg, astrometry)
 
   return {
     altitudeDeg,
+    geometricAltitudeDeg,
     azimuthDeg,
     isAboveHorizon: altitudeDeg > 0,
   }
 }
 
-export function horizontalToUnitVector(altitudeDeg: number, azimuthDeg: number): UnitVector3 {
-  const altitudeRad = degreesToRadians(altitudeDeg)
+export function horizontalToUnitVector(altitudeDeg: number, azimuthDeg: number, astrometry?: ObserverAstrometrySnapshot): UnitVector3 {
+  const geometricAltitudeDeg = removeRefraction(altitudeDeg, astrometry)
+  const altitudeRad = degreesToRadians(geometricAltitudeDeg)
   const azimuthRad = degreesToRadians(azimuthDeg)
   const radius = Math.cos(altitudeRad)
 
@@ -106,7 +161,9 @@ export function horizontalToUnitVector(altitudeDeg: number, azimuthDeg: number):
 }
 
 export function horizontalToRaDec(observer: ObserverSnapshot): { raDeg: number; decDeg: number } {
-  const altitudeRad = degreesToRadians(observer.centerAltDeg)
+  const astrometry = createObserverAstrometrySnapshot(observer)
+  const geometricAltitudeDeg = removeRefraction(observer.centerAltDeg, astrometry)
+  const altitudeRad = degreesToRadians(geometricAltitudeDeg)
   const azimuthRad = degreesToRadians(observer.centerAzDeg)
   const latitudeRad = degreesToRadians(observer.latitudeDeg)
   const sinDeclination =
@@ -117,7 +174,7 @@ export function horizontalToRaDec(observer: ObserverSnapshot): { raDeg: number; 
     Math.sin(azimuthRad),
     Math.cos(azimuthRad) * Math.sin(latitudeRad) + Math.tan(altitudeRad) * Math.cos(latitudeRad),
   )
-  const localSiderealTimeDeg = computeLocalSiderealTimeDeg(observer.longitudeDeg, observer.timestampUtc)
+  const localSiderealTimeDeg = astrometry.localSiderealTimeDeg
 
   return {
     raDeg: normalizeDegrees(localSiderealTimeDeg - radiansToDegrees(hourAngleRad)),
@@ -126,10 +183,11 @@ export function horizontalToRaDec(observer: ObserverSnapshot): { raDeg: number; 
 }
 
 export function raDecToObserverUnitVector(raDeg: number, decDeg: number, observer: ObserverSnapshot) {
-  const horizontalCoordinates = raDecToHorizontalCoordinates(raDeg, decDeg, observer)
+  const astrometry = createObserverAstrometrySnapshot(observer)
+  const horizontalCoordinates = raDecToHorizontalCoordinates(raDeg, decDeg, observer, astrometry)
 
   return {
-    vector: normalizeVector(horizontalToUnitVector(horizontalCoordinates.altitudeDeg, horizontalCoordinates.azimuthDeg)),
+    vector: normalizeVector(horizontalToUnitVector(horizontalCoordinates.altitudeDeg, horizontalCoordinates.azimuthDeg, astrometry)),
     horizontalCoordinates,
   }
 }
@@ -141,6 +199,7 @@ export function unitVectorToHorizontalCoordinates(vector: UnitVector3): Horizont
 
   return {
     altitudeDeg,
+    geometricAltitudeDeg: altitudeDeg,
     azimuthDeg,
     isAboveHorizon: altitudeDeg > 0,
   }

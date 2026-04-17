@@ -1,15 +1,12 @@
 import type { SkyEngineObserver } from '../../../types'
 
 import type { SkyClockService } from './SkyClockService'
-import { computeObserverUpdateHash } from './observerUpdateHash'
-import { deriveObserverGeometry } from './observerDerivedGeometry'
-
-export interface SkyObserverDerivedGeometry {
-  readonly latitudeRad: number
-  readonly longitudeRad: number
-  readonly elevationMeters: number
-  readonly localSiderealTimeDeg: number
-}
+import { computeObserverPartialUpdateHash, computeObserverUpdateHash } from './observerUpdateHash'
+import {
+  deriveObserverGeometry,
+  resolveObserverUpdateMode,
+  type SkyObserverDerivedGeometry,
+} from './observerDerivedGeometry'
 
 /**
  * Stellarium `observer_update` (`observer.c` ~244–274): hash gate + fast/full ERFA paths.
@@ -25,18 +22,39 @@ export class SkyObserverService {
   private observer: SkyEngineObserver
   private readonly clockService: SkyClockService
   private committedHash: string | null = null
+  private committedPartialHash: string | null = null
+  private lastSceneTimestampIso: string | null = null
   private dirty = true
   private derived: SkyObserverDerivedGeometry = {
+    sceneTimestampIso: '',
+    updateMode: 'full',
+    utcJulianDate: 0,
+    ttJulianDate: 0,
+    dut1Seconds: 0,
     latitudeRad: 0,
     longitudeRad: 0,
     elevationMeters: 0,
     localSiderealTimeDeg: 0,
+    refraction: {
+      refA: 0,
+      refB: 0,
+    },
+    matrices: {
+      ri2h: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+      rh2i: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+      ro2v: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+      rv2o: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+      ri2v: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+      rc2v: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+    },
+    earthPv: [0, 0, 0],
+    sunPv: [0, 0, 0],
   }
 
   constructor(initialObserver: SkyEngineObserver, clockService: SkyClockService) {
     this.observer = initialObserver
     this.clockService = clockService
-    this.derived = deriveObserverGeometry(initialObserver, this.clockService.getSceneTimestampIso())
+    this.derived = deriveObserverGeometry(initialObserver, this.clockService.getSceneTimestampIso(), 'full')
   }
 
   syncObserver(observer: SkyEngineObserver) {
@@ -58,12 +76,20 @@ export class SkyObserverService {
    */
   frameTick(): boolean {
     const sceneIso = this.clockService.getSceneTimestampIso()
+    const nextPartialHash = computeObserverPartialUpdateHash(this.observer)
     const nextHash = computeObserverUpdateHash(this.observer, sceneIso)
     if (!this.dirty && this.committedHash !== null && nextHash === this.committedHash) {
       return false
     }
-    this.derived = deriveObserverGeometry(this.observer, sceneIso)
+    const updateMode = resolveObserverUpdateMode({
+      sceneTimestampIso: sceneIso,
+      previousSceneTimestampIso: this.lastSceneTimestampIso,
+      observerPartialHashChanged: nextPartialHash !== this.committedPartialHash,
+    })
+    this.derived = deriveObserverGeometry(this.observer, sceneIso, updateMode)
+    this.committedPartialHash = nextPartialHash
     this.committedHash = nextHash
+    this.lastSceneTimestampIso = sceneIso
     this.dirty = false
     return true
   }
@@ -75,5 +101,9 @@ export class SkyObserverService {
   /** Radians / meters; updated when `frameTick` recomputes. */
   getDerivedGeometry(): SkyObserverDerivedGeometry {
     return this.derived
+  }
+
+  getUpdateMode(): SkyObserverDerivedGeometry['updateMode'] {
+    return this.derived.updateMode
   }
 }

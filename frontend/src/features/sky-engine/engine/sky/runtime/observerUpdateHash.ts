@@ -5,12 +5,18 @@ import type { SkyEngineObserver } from '../../../types'
  * "already computed for this observer + time" gating. Hub uses props + scene clock ISO
  * instead of ERFA `tt` / matrix fields.
  */
-export function computeObserverUpdateHash(observer: SkyEngineObserver, sceneTimestampIso: string | null): string {
+export function computeObserverPartialUpdateHash(observer: SkyEngineObserver): string {
   return [
     observer.label,
     observer.latitude,
     observer.longitude,
     observer.elevationFt,
+  ].join('|')
+}
+
+export function computeObserverUpdateHash(observer: SkyEngineObserver, sceneTimestampIso: string | null): string {
+  return [
+    computeObserverPartialUpdateHash(observer),
     sceneTimestampIso ?? '',
   ].join('|')
 }

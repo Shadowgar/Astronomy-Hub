@@ -11,7 +11,7 @@ import type { Scene } from '@babylonjs/core/scene'
 
 import { computeHorizontalCoordinates } from './astronomy'
 import { getSkyEngineSkyCulture } from './constellations'
-import { computeLocalSiderealTimeDeg, type SkyScenePacket } from './engine/sky'
+import { type SkyScenePacket } from './engine/sky'
 import {
   buildLabelTexture,
   getLabelVariantForObject,
@@ -28,6 +28,7 @@ import {
   unprojectViewportPoint,
   type SkyProjectionView,
 } from './projectionMath'
+import { horizontalToRaDec } from './engine/sky/transforms/coordinates'
 import type { SkyEngineAidVisibility, SkyEngineObserver, SkyEngineSceneObject, SkyEngineSunState } from './types'
 
 interface OverlayProjectedObjectEntry {
@@ -215,22 +216,19 @@ function horizontalToEquatorialCoordinates(
   observer: SkyEngineObserver,
   timestampIso: string,
 ) {
-  const altitudeRad = (altitudeDeg * Math.PI) / 180
-  const azimuthRad = (azimuthDeg * Math.PI) / 180
-  const latitudeRad = (observer.latitude * Math.PI) / 180
-  const sinDeclination =
-    Math.sin(altitudeRad) * Math.sin(latitudeRad) +
-    Math.cos(altitudeRad) * Math.cos(latitudeRad) * Math.cos(azimuthRad)
-  const declinationRad = Math.asin(clamp(sinDeclination, -1, 1))
-  const hourAngleRad = Math.atan2(
-    Math.sin(azimuthRad),
-    Math.cos(azimuthRad) * Math.sin(latitudeRad) + Math.tan(altitudeRad) * Math.cos(latitudeRad),
-  )
-  const localSiderealTimeDeg = computeLocalSiderealTimeDeg(observer.longitude, timestampIso)
-
+  const equatorial = horizontalToRaDec({
+    timestampUtc: timestampIso,
+    latitudeDeg: observer.latitude,
+    longitudeDeg: observer.longitude,
+    elevationM: observer.elevationFt * 0.3048,
+    fovDeg: 60,
+    centerAltDeg: altitudeDeg,
+    centerAzDeg: azimuthDeg,
+    projection: 'stereographic',
+  })
   return {
-    rightAscensionDeg: wrapDegrees(localSiderealTimeDeg - (hourAngleRad * 180) / Math.PI),
-    declinationDeg: (declinationRad * 180) / Math.PI,
+    rightAscensionDeg: wrapDegrees(equatorial.raDeg),
+    declinationDeg: equatorial.decDeg,
   }
 }
 

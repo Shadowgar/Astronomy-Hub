@@ -27,6 +27,7 @@ describe('SkyObserverService (Stellarium observer_update seam)', () => {
     service.frameTick()
     clock.nudgeSceneOffset(60)
     expect(service.frameTick()).toBe(true)
+    expect(service.getUpdateMode()).toBe('fast')
   })
 
   it('recomputes after syncObserver', () => {
@@ -38,6 +39,7 @@ describe('SkyObserverService (Stellarium observer_update seam)', () => {
 
     service.syncObserver({ ...baseObserver, latitude: 41 })
     expect(service.frameTick()).toBe(true)
+    expect(service.getUpdateMode()).toBe('full')
   })
 
   it('does not dirty when syncObserver receives equivalent props', () => {
@@ -59,6 +61,20 @@ describe('SkyObserverService (Stellarium observer_update seam)', () => {
     expect(g.latitudeRad).toBeCloseTo((40.7 * Math.PI) / 180, 5)
     expect(g.longitudeRad).toBeCloseTo((-74 * Math.PI) / 180, 5)
     expect(g.elevationMeters).toBeCloseTo(100 * 0.3048, 5)
+    expect(g.refraction.refA).toBeGreaterThan(0)
+    expect(g.refraction.refB).toBeGreaterThan(0)
+    expect(g.matrices.ri2h[0]).toHaveLength(3)
+    expect(g.matrices.rh2i[1]).toHaveLength(3)
+  })
+
+  it('forces full update when elapsed scene time exceeds fast threshold', () => {
+    const clock = new SkyClockService()
+    clock.syncBaseTimestamp('2024-06-01T12:00:00.000Z')
+    const service = new SkyObserverService(baseObserver, clock)
+    expect(service.frameTick()).toBe(true)
+    clock.nudgeSceneOffset(60 * 60 * 24 + 5)
+    expect(service.frameTick()).toBe(true)
+    expect(service.getUpdateMode()).toBe('full')
   })
 
   it('does not throw when scene offset is NaN: frameTick uses safe scene ISO', () => {

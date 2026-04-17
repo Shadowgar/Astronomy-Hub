@@ -22,6 +22,7 @@ export function runStellariumCoreRenderSpine(
   const latest = getProps()
   services.observerService.syncObserver(latest.observer)
   services.observerService.frameTick()
+  runtime.observerAstrometry = services.observerService.getDerivedGeometry()
 
   runtime.corePainterLimits = computeStellariumCorePainterLimits()
 
