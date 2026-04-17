@@ -824,9 +824,18 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
 }
 
 export default function SkyEnginePage() {
+  const routeQueryParams = new URLSearchParams(globalThis.location?.search ?? '')
+  const routeLat = routeQueryParams.get('lat')?.trim() || undefined
+  const routeLon = routeQueryParams.get('lon')?.trim() || undefined
+  const routeElevationFt = routeQueryParams.get('elevation_ft')?.trim() || undefined
+  const routeAt = routeQueryParams.get('at')?.trim() || undefined
   const sceneQuery = useSceneByScopeDataQuery({
     scope: 'sky',
     engine: 'sky_engine',
+    lat: routeLat,
+    lon: routeLon,
+    elevation_ft: routeElevationFt,
+    at: routeAt,
   })
   const backendScene = useMemo(
     () => parseBackendSkyScenePayload(sceneQuery.data),

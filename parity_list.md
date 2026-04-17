@@ -107,6 +107,8 @@ Explicit local logic deleted/replaced in this block:
 3. hardcoded in-file DSO seed usage replaced with file-backed DSO catalog ingestion path.
 4. satellite placeholder `magnitude: 99` replaced with nominal fallback magnitude `7`.
 5. default satellite truncation branch removed (full visible list now rendered unless an explicit caller-provided cap is passed).
+6. sky scene query now accepts explicit `lat/lon/elevation_ft/at` URL params so parity checks can run with synchronized observer/time inputs.
+7. fixed query wiring so sky-scene ownership request actually forwards those URL overrides to `/api/v1/scene`.
 
 Validation evidence recorded for this block:
 - `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- test_satellite_runtime_activation.test.js test_sky_engine_astronomy.test.js test_scene_query_state.test.js`: pass
@@ -115,6 +117,8 @@ Validation evidence recorded for this block:
 - `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
 - `cd /home/rocco/Astronomy-Hub && curl -sS "http://127.0.0.1:8000/api/v1/scene?scope=sky&engine=sky_engine"` contract probe: pass
 - `cd /home/rocco/Astronomy-Hub && node <playwright parity capture>` wrote `.cursor-artifacts/parity-compare/port-mode-validation.json` plus side-by-side screenshots.
+- `cd /home/rocco/Astronomy-Hub && node <playwright synced parity capture with lat/lon/at>` wrote `.cursor-artifacts/parity-compare/port-mode-validation-synced.json`.
+- `cd /home/rocco/Astronomy-Hub && node <playwright synced night capture>` wrote `.cursor-artifacts/parity-compare/port-mode-validation-synced-night.json` and validated request forwarding (`/api/v1/scene?...&lat=...&lon=...&elevation_ft=...&at=...`).
 
 Live parity evidence snapshot (current partial state):
 - Hub wide: `FOV 120°`, rendered stars `1`, projected satellites `0`, projected DSO `0`.

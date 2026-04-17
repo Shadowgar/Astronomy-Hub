@@ -1,0 +1,28 @@
+{
+  "hubUrl": "http://127.0.0.1:4173/sky-engine?lat=37.3891&lon=-5.9845&elevation_ft=50&at=2026-04-17T01:00:00Z&tileMode=multi-survey",
+  "wide": {
+    "stars": 7,
+    "fov": "120°",
+    "data": "Hipparcos",
+    "localTime": "Apr 16, 9:00 PM EDT",
+    "satellites": 0,
+    "dso": 0
+  },
+  "medium": {
+    "stars": 0,
+    "fov": "18.3°",
+    "data": "Hipparcos",
+    "localTime": "Apr 16, 9:00 PM EDT",
+    "satellites": 0,
+    "dso": 0
+  },
+  "deep": {
+    "stars": 0,
+    "fov": "0.5000°",
+    "data": "Hipparcos",
+    "localTime": "Apr 16, 9:00 PM EDT",
+    "satellites": 0,
+    "dso": 0
+  },
+  "stellariumError": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:8080/\nCall log:\n  - navigating to \"http://127.0.0.1:8080/\", waiting until \"domcontentloaded\"\n"
+}
