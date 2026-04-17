@@ -9,7 +9,7 @@ import type { Scene } from '@babylonjs/core/scene'
 
 import type { SkyLodState } from './skyLod'
 
-function buildPointerTexture() {
+function buildPointerTexture(skipTopStroke: boolean) {
   const texture = new DynamicTexture('sky-engine-pointer-texture', { width: 128, height: 128 }, undefined, true)
   texture.hasAlpha = true
 
@@ -17,12 +17,13 @@ function buildPointerTexture() {
   context.clearRect(0, 0, 128, 128)
   context.strokeStyle = 'rgba(255, 255, 255, 0.96)'
   context.lineWidth = 6
-  ;[
+  const strokes = [
     [24, 46, 24, 24, 46, 24],
     [82, 24, 104, 24, 104, 46],
     [24, 82, 24, 104, 46, 104],
     [82, 104, 104, 104, 104, 82],
-  ].forEach(([x1, y1, x2, y2, x3, y3]) => {
+  ]
+  ;(skipTopStroke ? strokes.slice(0, 3) : strokes).forEach(([x1, y1, x2, y2, x3, y3]) => {
     context.beginPath()
     context.moveTo(x1, y1)
     context.lineTo(x2, y2)
@@ -35,7 +36,8 @@ function buildPointerTexture() {
 }
 
 export function createPointerRenderer(scene: Scene) {
-  const pointerTexture = buildPointerTexture()
+  const pointerTexture = buildPointerTexture(false)
+  const pointerTextureNoTopStroke = buildPointerTexture(true)
   const pointerMesh = MeshBuilder.CreatePlane('sky-engine-pointer-marker', { width: 1, height: 1 }, scene)
   pointerMesh.billboardMode = Mesh.BILLBOARDMODE_ALL
   pointerMesh.isPickable = false
@@ -58,6 +60,7 @@ export function createPointerRenderer(scene: Scene) {
       colorHex: string,
       lod: SkyLodState,
       animationTime: number,
+      skipTopBar: boolean,
     ) {
       if (!objectPosition) {
         pointerMesh.isVisible = false
@@ -69,6 +72,9 @@ export function createPointerRenderer(scene: Scene) {
       pointerMesh.isVisible = true
       pointerMesh.position.copyFrom(objectPosition)
       pointerMesh.scaling.setAll((1.3 + lod.closeBlend * 0.8) * (1 + Math.sin(animationTime * 2.2) * 0.05))
+      const activePointerTexture = skipTopBar ? pointerTextureNoTopStroke : pointerTexture
+      pointerMaterial.diffuseTexture = activePointerTexture
+      pointerMaterial.opacityTexture = activePointerTexture
       pointerMaterial.emissiveColor = Color3.FromHexString(colorHex).scale(1.12)
       pointerMaterial.alpha = 0.92
 
@@ -93,6 +99,7 @@ export function createPointerRenderer(scene: Scene) {
       pointerMesh.dispose()
       pointerMaterial.dispose()
       pointerTexture.dispose()
+      pointerTextureNoTopStroke.dispose()
     },
   }
 }

@@ -66,6 +66,14 @@ function mix(left: number, right: number, amount: number) {
   return left + (right - left) * amount
 }
 
+function smoothstep(edge0: number, edge1: number, value: number) {
+  if (edge0 === edge1) {
+    return value >= edge1 ? 1 : 0
+  }
+  const amount = clamp((value - edge0) / (edge1 - edge0), 0, 1)
+  return amount * amount * (3 - 2 * amount)
+}
+
 function limitingMagnitudeVisibilityGate(limitingMagnitude: number | undefined) {
   if (limitingMagnitude === undefined || !Number.isFinite(limitingMagnitude)) {
     return 1
@@ -176,10 +184,17 @@ function buildObserverSnapshot(
 export function evaluateMilkyWayRenderState(
   brightnessExposureState: SkyBrightnessExposureState,
   limitingMagnitude?: number,
+  fovDegrees?: number,
 ): MilkyWayRenderState {
   const gate = limitingMagnitudeVisibilityGate(limitingMagnitude)
+  const fovVisibility = Number.isFinite(fovDegrees) ? smoothstep(10, 20, fovDegrees ?? 20) : 1
+  const lwskyAverageProxy = Math.max(
+    1e-6,
+    ((brightnessExposureState.nightSkyZenithLuminance + brightnessExposureState.nightSkyHorizonLuminance) * 0.5),
+  )
+  const atmosphereVisibility = clamp(0.004 / lwskyAverageProxy, 0, 1)
   return {
-    visibility: clamp(brightnessExposureState.milkyWayVisibility * gate, 0, 1),
+    visibility: clamp(brightnessExposureState.milkyWayVisibility * gate * fovVisibility * atmosphereVisibility, 0, 1),
     contrast: clamp(brightnessExposureState.milkyWayContrast, 0.06, 1),
   }
 }
@@ -193,7 +208,11 @@ function renderMilkyWayLayer(
 ) {
   context.clearRect(0, 0, view.viewportWidth, view.viewportHeight)
 
-  const renderState = evaluateMilkyWayRenderState(brightnessExposureState, limitingMagnitude)
+  const renderState = evaluateMilkyWayRenderState(
+    brightnessExposureState,
+    limitingMagnitude,
+    (view.fovRadians * 180) / Math.PI,
+  )
 
   if (renderState.visibility <= 0.01) {
     return

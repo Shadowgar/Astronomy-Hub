@@ -201,18 +201,12 @@ function createBottomPath(boundary: readonly { x: number; y: number }[], viewpor
   return boundary.map((point) => toViewportPlanePosition(point.x, screenY, viewportWidth, viewportHeight, depth))
 }
 
-function getLandscapeOpacity(centerAltitudeDeg: number, fovDegrees: number) {
+export function computeLandscapeLayerOpacity(centerAltitudeDeg: number, fovDegrees: number) {
+  // Source alignment (`modules/landscape.c`):
+  // alpha = smoothstep(1, 20, fov) then reduced while looking down.
   const baseOpacity = smoothstep(1, 20, fovDegrees)
-
-  if (centerAltitudeDeg <= 0) {
-    return 0
-  }
-
-  if (centerAltitudeDeg < 6) {
-    return clamp(baseOpacity * smoothstep(0, 6, centerAltitudeDeg), 0, 1)
-  }
-
-  return clamp(baseOpacity, 0, 1)
+  const lookingDownBlend = smoothstep(0, -45, centerAltitudeDeg)
+  return clamp(mix(baseOpacity, baseOpacity * 0.5, lookingDownBlend), 0, 1)
 }
 
 function buildTwilightStrength(sunState: SkyEngineSunState) {
@@ -374,7 +368,7 @@ function prepareGlare(view: SkyProjectionView, sunState: SkyEngineSunState) {
 
 function prepareLandscapeRibbons(view: SkyProjectionView, sunState: SkyEngineSunState, fovDegrees: number) {
   const centerAltitudeDeg = directionToHorizontal(view.centerDirection).altitudeDeg
-  const landscapeOpacity = getLandscapeOpacity(centerAltitudeDeg, fovDegrees)
+  const landscapeOpacity = computeLandscapeLayerOpacity(centerAltitudeDeg, fovDegrees)
 
   if (landscapeOpacity <= 0.02) {
     return []

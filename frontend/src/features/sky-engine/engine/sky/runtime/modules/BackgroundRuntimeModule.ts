@@ -7,7 +7,7 @@ import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } fr
 import type { ProjectedSceneObjectEntry } from './runtimeFrame'
 import type { SkyBrightnessExposureState } from '../types'
 import { computeHorizontalCoordinates } from '../../../../astronomy'
-import { loadDssPatches, type DssPatchRecord } from '../../adapters/dssRepository'
+import { loadDssManifest, type DssManifestPayload, type DssPatchRecord } from '../../adapters/dssRepository'
 
 const SYNTHETIC_SKY_DENSITY_SAMPLES = buildSyntheticSkyDensityField(2800)
 const SYNTHETIC_STAR_OVERLAP_CELL_PX = 24
@@ -27,6 +27,38 @@ function smoothstep(edge0: number, edge1: number, value: number) {
 
 function mix(left: number, right: number, amount: number) {
   return left + (right - left) * amount
+}
+
+function computeDssFovVisibilityAlpha(fovDegrees: number) {
+  return smoothstep(20, 10, fovDegrees)
+}
+
+function computeDssDisplayLimitMagnitudeAlpha(limitingMagnitude: number) {
+  if (!Number.isFinite(limitingMagnitude)) {
+    return 0
+  }
+  if (limitingMagnitude >= 14) {
+    return 1
+  }
+  const ratio = clamp((14 - limitingMagnitude) / 10, 0, 1)
+  return 1 - ratio
+}
+
+export function computeDssLayerAlpha(
+  fovDegrees: number,
+  limitingMagnitude: number,
+  brightnessExposureState: Pick<SkyBrightnessExposureState, 'milkyWayVisibility' | 'milkyWayContrast'>,
+) {
+  // Source alignment (`modules/dss.c`): DSS fades in only on close FOV and is
+  // further gated by display limiting magnitude and adaptation-dependent contrast.
+  const fovVisibility = computeDssFovVisibilityAlpha(fovDegrees)
+  const limitingMagnitudeVisibility = computeDssDisplayLimitMagnitudeAlpha(limitingMagnitude)
+  const adaptationVisibility = clamp(
+    brightnessExposureState.milkyWayVisibility * (0.6 + brightnessExposureState.milkyWayContrast * 0.6),
+    0,
+    1.2,
+  )
+  return clamp(fovVisibility * limitingMagnitudeVisibility * adaptationVisibility, 0, 1.2)
 }
 
 function hexToRgb(hex: string) {
@@ -219,6 +251,7 @@ function drawSyntheticDensityStars(
 
 export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   let dssPatches: readonly DssPatchRecord[] = []
+  let dssManifest: DssManifestPayload | null = null
   let dssReady = false
   let dssLoadError: string | null = null
 
@@ -226,9 +259,10 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
     id: 'sky-background-runtime-module',
     renderOrder: 6,
     start({ requestRender }) {
-      void loadDssPatches()
-        .then((patches) => {
-          dssPatches = patches
+      void loadDssManifest()
+        .then((manifest) => {
+          dssManifest = manifest
+          dssPatches = manifest.patches
           dssReady = true
           dssLoadError = null
           requestRender()
@@ -255,7 +289,18 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
       const height = projectedFrame.height
       backgroundContext.clearRect(0, 0, width, height)
 
-      const dssBaseAlpha = clamp(brightnessExposureState.backdropAlpha * 0.14, 0.02, 0.2)
+      const dssBaseAlpha = computeDssLayerAlpha(
+        projectedFrame.currentFovDegrees,
+        projectedFrame.limitingMagnitude,
+        brightnessExposureState,
+      )
+      const activeSurveyVisible = dssManifest?.surveys.length
+        ? dssManifest.surveys.some((survey) => survey.visibleByDefault)
+        : true
+      if (dssBaseAlpha <= (3 / 255) || !activeSurveyVisible) {
+        return
+      }
+
       for (const patch of dssPatches) {
         const horizontal = computeHorizontalCoordinates(
           latest.observer,
@@ -282,7 +327,7 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
           projected.screenY,
           patchRadiusPx,
         )
-        const alpha = dssBaseAlpha * patch.intensity
+        const alpha = clamp(dssBaseAlpha * patch.intensity, 0, 1)
         gradient.addColorStop(0, `rgba(118, 146, 210, ${alpha})`)
         gradient.addColorStop(0.45, `rgba(89, 124, 188, ${alpha * 0.45})`)
         gradient.addColorStop(1, 'rgba(36, 50, 84, 0)')
@@ -298,6 +343,7 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
           dssPatchCount: dssPatches.length,
           dssReady: dssReady ? 1 : 0,
           dssLoadError: dssLoadError ? 1 : 0,
+          dssAlpha: dssBaseAlpha,
         },
       }
       /*

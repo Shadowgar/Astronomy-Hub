@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { loadDssPatches } from '../src/features/sky-engine/engine/sky/adapters/dssRepository'
+import { loadDssManifest, loadDssPatches } from '../src/features/sky-engine/engine/sky/adapters/dssRepository'
 
 describe('DSS repository manifest loader', () => {
   beforeEach(() => {
@@ -13,6 +13,13 @@ describe('DSS repository manifest loader', () => {
       json: async () => ({
         source: 'dss',
         generated_at: '2026-04-17T00:00:00Z',
+        surveys: [{
+          id: 'dss-colored',
+          title: 'Digitized Sky Survey Colored',
+          frame: 'icrs',
+          tileFormat: 'jpg',
+          visibleByDefault: true,
+        }],
         patches: [{
           id: 'dss-1',
           name: 'Patch 1',
@@ -25,7 +32,9 @@ describe('DSS repository manifest loader', () => {
     })
 
     const patches = await loadDssPatches()
+    const manifest = await loadDssManifest()
     expect(patches).toHaveLength(1)
     expect(patches[0].id).toBe('dss-1')
+    expect(manifest.surveys[0].id).toBe('dss-colored')
   })
 })

@@ -30,15 +30,16 @@ export function createPointerRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
       const projectedFrame = runtime.projectedSceneFrame
       const selectedObjectId = getProps().selectedObjectId
       if (!projectedFrame || !selectedObjectId) {
-        runtime.directPointerLayer.sync(null, null, '#ffffff', resolveSkyLodState((60 * Math.PI) / 180), 0)
+        runtime.directPointerLayer.sync(null, null, '#ffffff', resolveSkyLodState((60 * Math.PI) / 180), 0, false)
         return
       }
 
       const selectedEntry = projectedFrame.projectedObjects.find((entry) => entry.object.id === selectedObjectId) ?? null
       if (!selectedEntry) {
-        runtime.directPointerLayer.sync(null, null, '#ffffff', resolveSkyLodState((60 * Math.PI) / 180), 0)
+        runtime.directPointerLayer.sync(null, null, '#ffffff', resolveSkyLodState((60 * Math.PI) / 180), 0, false)
         return
       }
+      const hasSelectedLabel = runtime.visibleLabelIds.includes(selectedObjectId)
 
       runtime.directPointerLayer.sync(
         toViewportPlanePosition(
@@ -52,6 +53,7 @@ export function createPointerRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
         selectedEntry.object.colorHex,
         resolveSkyLodState((projectedFrame.currentFovDegrees * Math.PI) / 180),
         services.clockService.getAnimationTimeSeconds(),
+        hasSelectedLabel,
       )
     },
     dispose({ runtime }) {

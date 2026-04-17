@@ -1,7 +1,7 @@
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import { describe, expect, it } from 'vitest'
 
-import { prepareDirectAtmosphereFrame } from '../src/features/sky-engine/directBackgroundLayer.ts'
+import { computeLandscapeLayerOpacity, prepareDirectAtmosphereFrame } from '../src/features/sky-engine/directBackgroundLayer.ts'
 
 function createView() {
   return {
@@ -116,5 +116,14 @@ describe('atmosphere frame fidelity shaping', () => {
     expect(nightFrame.twilightStrength).toBe(0)
     expect(nightFrame.zenithDarkening).toBeGreaterThan(twilightFrame.zenithDarkening)
     expect(nightFrame.nightFloorStrength).toBeGreaterThan(twilightFrame.nightFloorStrength)
+  })
+
+  it('matches Stellarium landscape alpha policy for fov and look-down angle', () => {
+    const wideLevel = computeLandscapeLayerOpacity(10, 20)
+    const narrowLevel = computeLandscapeLayerOpacity(10, 1)
+    const lookingDownLevel = computeLandscapeLayerOpacity(-40, 20)
+
+    expect(wideLevel).toBeGreaterThan(narrowLevel)
+    expect(lookingDownLevel).toBeLessThan(wideLevel)
   })
 })

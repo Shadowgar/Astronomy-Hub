@@ -21,7 +21,7 @@ describe('milky way module response', () => {
       nightSkyZenithLuminance: 0.01,
       nightSkyHorizonLuminance: 0.03,
       visualCalibration: {},
-    }, -0.4)
+    }, -0.4, 70)
     const nightState = evaluateMilkyWayRenderState({
       skyBrightness: 0.04,
       adaptationLevel: 0.96,
@@ -36,7 +36,7 @@ describe('milky way module response', () => {
       nightSkyZenithLuminance: 0.012,
       nightSkyHorizonLuminance: 0.024,
       visualCalibration: {},
-    }, 6.4)
+    }, 6.4, 70)
 
     expect(nightState.visibility).toBeGreaterThan(dayState.visibility)
     expect(nightState.contrast).toBeGreaterThan(dayState.contrast)
@@ -57,7 +57,7 @@ describe('milky way module response', () => {
       nightSkyZenithLuminance: 0.012,
       nightSkyHorizonLuminance: 0.024,
       visualCalibration: {},
-    }, -0.5)
+    }, -0.5, 70)
     const ungated = evaluateMilkyWayRenderState({
       skyBrightness: 0.2,
       adaptationLevel: 0.8,
@@ -72,10 +72,33 @@ describe('milky way module response', () => {
       nightSkyZenithLuminance: 0.012,
       nightSkyHorizonLuminance: 0.024,
       visualCalibration: {},
-    }, 6.2)
+    }, 6.2, 70)
 
     expect(gated.visibility).toBe(0)
     expect(ungated.visibility).toBeGreaterThan(0)
+  })
+
+  it('suppresses milky-way visibility at narrow FOV where DSS is favored', () => {
+    const brightState = {
+      skyBrightness: 0.04,
+      adaptationLevel: 0.96,
+      sceneContrast: 1.02,
+      limitingMagnitude: 6.4,
+      starVisibility: 1,
+      starFieldBrightness: 0.92,
+      atmosphereExposure: 1,
+      milkyWayVisibility: 0.84,
+      milkyWayContrast: 0.72,
+      backdropAlpha: 0.74,
+      nightSkyZenithLuminance: 0.0008,
+      nightSkyHorizonLuminance: 0.0012,
+      visualCalibration: {},
+    }
+    const narrow = evaluateMilkyWayRenderState(brightState, 6.4, 8)
+    const wide = evaluateMilkyWayRenderState(brightState, 6.4, 40)
+
+    expect(narrow.visibility).toBe(0)
+    expect(wide.visibility).toBeGreaterThan(0)
   })
 
   it('builds a bounded procedural galactic patch set', () => {
