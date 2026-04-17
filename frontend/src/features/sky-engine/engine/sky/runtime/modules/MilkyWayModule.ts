@@ -66,6 +66,16 @@ function mix(left: number, right: number, amount: number) {
   return left + (right - left) * amount
 }
 
+function limitingMagnitudeVisibilityGate(limitingMagnitude: number | undefined) {
+  if (limitingMagnitude === undefined || !Number.isFinite(limitingMagnitude)) {
+    return 1
+  }
+
+  // Core painter limits / runtime limiting magnitude govern whether faint extended
+  // structures are even admissible in the current frame.
+  return clamp((limitingMagnitude - 1) / 5, 0, 1)
+}
+
 function hexToRgba(hex: string, alpha: number) {
   const red = Number.parseInt(hex.slice(1, 3), 16)
   const green = Number.parseInt(hex.slice(3, 5), 16)
@@ -163,9 +173,13 @@ function buildObserverSnapshot(
   }
 }
 
-export function evaluateMilkyWayRenderState(brightnessExposureState: SkyBrightnessExposureState): MilkyWayRenderState {
+export function evaluateMilkyWayRenderState(
+  brightnessExposureState: SkyBrightnessExposureState,
+  limitingMagnitude?: number,
+): MilkyWayRenderState {
+  const gate = limitingMagnitudeVisibilityGate(limitingMagnitude)
   return {
-    visibility: clamp(brightnessExposureState.milkyWayVisibility, 0, 1),
+    visibility: clamp(brightnessExposureState.milkyWayVisibility * gate, 0, 1),
     contrast: clamp(brightnessExposureState.milkyWayContrast, 0.06, 1),
   }
 }
@@ -175,10 +189,11 @@ function renderMilkyWayLayer(
   view: SkyProjectionView,
   observerSnapshot: ObserverSnapshot,
   brightnessExposureState: SkyBrightnessExposureState,
+  limitingMagnitude: number,
 ) {
   context.clearRect(0, 0, view.viewportWidth, view.viewportHeight)
 
-  const renderState = evaluateMilkyWayRenderState(brightnessExposureState)
+  const renderState = evaluateMilkyWayRenderState(brightnessExposureState, limitingMagnitude)
 
   if (renderState.visibility <= 0.01) {
     return
@@ -292,6 +307,7 @@ export function createMilkyWayModule(): SkyModule<ScenePropsSnapshot, SceneRunti
           timestampUtc,
         ),
         brightnessExposureState,
+        projectedFrame.limitingMagnitude,
       )
     },
   }

@@ -21,7 +21,7 @@ describe('milky way module response', () => {
       nightSkyZenithLuminance: 0.01,
       nightSkyHorizonLuminance: 0.03,
       visualCalibration: {},
-    })
+    }, -0.4)
     const nightState = evaluateMilkyWayRenderState({
       skyBrightness: 0.04,
       adaptationLevel: 0.96,
@@ -36,10 +36,46 @@ describe('milky way module response', () => {
       nightSkyZenithLuminance: 0.012,
       nightSkyHorizonLuminance: 0.024,
       visualCalibration: {},
-    })
+    }, 6.4)
 
     expect(nightState.visibility).toBeGreaterThan(dayState.visibility)
     expect(nightState.contrast).toBeGreaterThan(dayState.contrast)
+  })
+
+  it('suppresses milky-way visibility under bright limiting-magnitude gate', () => {
+    const gated = evaluateMilkyWayRenderState({
+      skyBrightness: 0.2,
+      adaptationLevel: 0.8,
+      sceneContrast: 0.9,
+      limitingMagnitude: 6.2,
+      starVisibility: 1,
+      starFieldBrightness: 1,
+      atmosphereExposure: 1,
+      milkyWayVisibility: 0.9,
+      milkyWayContrast: 0.8,
+      backdropAlpha: 0.8,
+      nightSkyZenithLuminance: 0.012,
+      nightSkyHorizonLuminance: 0.024,
+      visualCalibration: {},
+    }, -0.5)
+    const ungated = evaluateMilkyWayRenderState({
+      skyBrightness: 0.2,
+      adaptationLevel: 0.8,
+      sceneContrast: 0.9,
+      limitingMagnitude: 6.2,
+      starVisibility: 1,
+      starFieldBrightness: 1,
+      atmosphereExposure: 1,
+      milkyWayVisibility: 0.9,
+      milkyWayContrast: 0.8,
+      backdropAlpha: 0.8,
+      nightSkyZenithLuminance: 0.012,
+      nightSkyHorizonLuminance: 0.024,
+      visualCalibration: {},
+    }, 6.2)
+
+    expect(gated.visibility).toBe(0)
+    expect(ungated.visibility).toBeGreaterThan(0)
   })
 
   it('builds a bounded procedural galactic patch set', () => {

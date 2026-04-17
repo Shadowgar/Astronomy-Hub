@@ -662,6 +662,7 @@ function prepareAidLines(
   projectedObjects: readonly OverlayProjectedObjectEntry[],
   aidVisibility: SkyEngineAidVisibility,
   skyCultureId: string,
+  hintsLimitMag?: number,
 ) {
   const lines = [
     ...buildAzimuthalGridLines(view, aidVisibility.azimuthRing),
@@ -755,6 +756,9 @@ function prepareAidLines(
           left.object.id.localeCompare(right.object.id),
         )[0]
       const labelId = `constellation-label-${constellation.id}`
+      if (hintsLimitMag !== undefined && labelAnchor.object.magnitude > hintsLimitMag) {
+        return
+      }
       labels.push({
         id: labelId,
         anchorObjectId: labelAnchor.object.id,
@@ -798,7 +802,7 @@ export function prepareDirectOverlayFrame(
     cardinals,
     labels: constellationLabels,
     trajectoryObjectId,
-  } = prepareAidLines(view, observer, timestampIso, projectedObjects, aidVisibility, skyCultureId)
+  } = prepareAidLines(view, observer, timestampIso, projectedObjects, aidVisibility, skyCultureId, hintsLimitMag)
   const packetTextById = new Map((scenePacket?.labels ?? []).map((label) => [label.id, label.text]))
   const labelIds = new Set<string>()
   const labels: OverlayLabelEntry[] = []

@@ -1,9 +1,7 @@
 import type { SkyModule } from '../SkyModule'
 import { prepareDirectOverlayFrame } from '../../../../directOverlayLayer'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
-
-const OVERLAY_SYNC_CADENCE_MS = 150
-const OVERLAY_VIEW_DELTA_TENTHS = 5
+import type { RuntimeProjectedSceneFrame } from './runtimeFrame'
 
 function toTenths(value: number) {
   return Math.round(value * 10)
@@ -37,6 +35,8 @@ export function createOverlayRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
     lastFovTenths: Number.NaN,
     lastViewportWidth: 0,
     lastViewportHeight: 0,
+    lastProjectedObjectsRef: null as RuntimeProjectedSceneFrame['projectedObjects'] | null,
+    lastHintsLimitMag: Number.NaN,
     /** Preserved when sync is skipped so `labels_reset` in the render preamble does not clear labels for a whole frame. */
     lastVisibleLabelIds: [] as readonly string[],
     lastTrajectoryObjectId: null as string | null,
@@ -62,7 +62,7 @@ export function createOverlayRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
       const fovTenths = toTenths(projectedFrame.currentFovDegrees)
       const aidSignature = buildAidSignature(latest.aidVisibility)
       const guidedSignature = buildGuidedSignature(latest.guidedObjectIds)
-      const nowMs = performance.now()
+      const hintsLimitMag = runtime.corePainterLimits?.hintsLimitMag ?? Number.NaN
       const forceSync =
         cadenceState.lastSyncAtMs === 0 ||
         propsVersion !== cadenceState.lastPropsVersion ||
@@ -70,21 +70,17 @@ export function createOverlayRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
         aidSignature !== cadenceState.lastAidSignature ||
         guidedSignature !== cadenceState.lastGuidedSignature ||
         latest.sunState.phaseLabel !== cadenceState.lastSunPhaseLabel ||
+        projectedFrame.projectedObjects !== cadenceState.lastProjectedObjectsRef ||
+        hintsLimitMag !== cadenceState.lastHintsLimitMag ||
         projectedFrame.width !== cadenceState.lastViewportWidth ||
         projectedFrame.height !== cadenceState.lastViewportHeight
       const significantViewChange =
         Number.isNaN(cadenceState.lastCenterAltTenths) ||
-        Math.abs(centerAltTenths - cadenceState.lastCenterAltTenths) >= OVERLAY_VIEW_DELTA_TENTHS ||
-        getCircularDeltaTenths(centerAzTenths, cadenceState.lastCenterAzTenths) >= OVERLAY_VIEW_DELTA_TENTHS ||
-        Math.abs(fovTenths - cadenceState.lastFovTenths) >= OVERLAY_VIEW_DELTA_TENTHS
+        centerAltTenths !== cadenceState.lastCenterAltTenths ||
+        getCircularDeltaTenths(centerAzTenths, cadenceState.lastCenterAzTenths) > 0 ||
+        fovTenths !== cadenceState.lastFovTenths
 
       if (!forceSync && !significantViewChange) {
-        runtime.visibleLabelIds = cadenceState.lastVisibleLabelIds
-        runtime.trajectoryObjectId = cadenceState.lastTrajectoryObjectId
-        return
-      }
-
-      if (!forceSync && nowMs - cadenceState.lastSyncAtMs < OVERLAY_SYNC_CADENCE_MS) {
         runtime.visibleLabelIds = cadenceState.lastVisibleLabelIds
         runtime.trajectoryObjectId = cadenceState.lastTrajectoryObjectId
         return
@@ -119,12 +115,14 @@ export function createOverlayRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
       cadenceState.lastTrajectoryObjectId = overlayState.trajectoryObjectId
       runtime.visibleLabelIds = overlayState.visibleLabelIds
       runtime.trajectoryObjectId = overlayState.trajectoryObjectId
-      cadenceState.lastSyncAtMs = nowMs
+      cadenceState.lastSyncAtMs = performance.now()
       cadenceState.lastPropsVersion = propsVersion
       cadenceState.lastSelectedObjectId = latest.selectedObjectId
       cadenceState.lastAidSignature = aidSignature
       cadenceState.lastGuidedSignature = guidedSignature
       cadenceState.lastSunPhaseLabel = latest.sunState.phaseLabel
+      cadenceState.lastProjectedObjectsRef = projectedFrame.projectedObjects
+      cadenceState.lastHintsLimitMag = hintsLimitMag
       cadenceState.lastCenterAltTenths = centerAltTenths
       cadenceState.lastCenterAzTenths = centerAzTenths
       cadenceState.lastFovTenths = fovTenths
