@@ -140,6 +140,7 @@ function isEngineTileSource(source: SkyEngineSceneObject['source']) {
 
 const STAR_MAGNITUDE_BREAK_MARGIN = 0
 const EMPTY_PROJECTED_OBJECTS: readonly ProjectedSceneObjectEntry[] = []
+const SATELLITE_UNMODELED_MAGNITUDE_SENTINEL = 90
 
 let cachedNonStarOrderSignature = ''
 let cachedNonStarObjects: SkyEngineSceneObject[] = []
@@ -797,6 +798,24 @@ export function collectProjectedNonStarObjects(
     }
 
     if (object.type === 'planet' && object.magnitude > limitingMagnitude) {
+      filteringMs += performance.now() - filteringStartMs
+      return
+    }
+
+    // Stellarium painter gating: deep-sky objects obey visibility magnitude limits
+    // produced upstream by core_render + exposure state before projection/render.
+    if (object.type === 'deep_sky' && object.magnitude > limitingMagnitude) {
+      filteringMs += performance.now() - filteringStartMs
+      return
+    }
+
+    // Satellites currently carry placeholder magnitude when photometry is not modeled.
+    // Only apply magnitude gate when a modeled value is present.
+    if (
+      object.type === 'satellite' &&
+      object.magnitude < SATELLITE_UNMODELED_MAGNITUDE_SENTINEL &&
+      object.magnitude > limitingMagnitude
+    ) {
       filteringMs += performance.now() - filteringStartMs
       return
     }

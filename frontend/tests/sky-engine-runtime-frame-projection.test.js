@@ -363,6 +363,94 @@ describe('collectProjectedNonStarObjects LOD sizing', () => {
     expect(projected.projectedObjects).toHaveLength(0)
   })
 
+  it('applies Stellarium visibility gate to deep-sky objects by limiting magnitude', () => {
+    projectDirectionToViewportMock.mockReset()
+    getSkyEngineFovDegreesMock.mockReset()
+    projectDirectionToViewportMock.mockReturnValue({
+      screenX: 320,
+      screenY: 240,
+      depth: 0.3,
+      angularDistanceRad: 0.12,
+    })
+    getSkyEngineFovDegreesMock.mockReturnValue(60)
+
+    const dimDso = {
+      id: 'dso-dim',
+      name: 'Dim DSO',
+      type: 'deep_sky',
+      source: 'computed_real_sky',
+      magnitude: 8.3,
+      altitudeDeg: 44,
+      azimuthDeg: 195,
+      apparentSizeDeg: 0.3,
+      majorAxis: 0.3,
+      minorAxis: 0.2,
+      orientationDeg: 15,
+      deepSkyClass: 'nebula',
+      colorHex: '#8fb5ff',
+      summary: 'test',
+      description: 'test',
+      truthNote: 'test',
+      trackingMode: 'fixed_equatorial',
+      isAboveHorizon: true,
+    }
+
+    const projected = collectProjectedNonStarObjects(
+      createView(),
+      [dimDso],
+      { visualCalibration: { starFieldBrightness: 1 } },
+      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      6.0,
+      null,
+    )
+
+    expect(projected.projectedObjects).toHaveLength(0)
+  })
+
+  it('applies limiting-magnitude gate to satellites only when modeled photometric magnitude exists', () => {
+    projectDirectionToViewportMock.mockReset()
+    getSkyEngineFovDegreesMock.mockReset()
+    projectDirectionToViewportMock.mockReturnValue({
+      screenX: 320,
+      screenY: 240,
+      depth: 0.3,
+      angularDistanceRad: 0.12,
+    })
+    getSkyEngineFovDegreesMock.mockReturnValue(60)
+
+    const modeledDimSatellite = {
+      id: 'sat-dim-modeled',
+      name: 'DimSat',
+      type: 'satellite',
+      source: 'backend_satellite_scene',
+      magnitude: 8.5,
+      altitudeDeg: 44,
+      azimuthDeg: 195,
+      colorHex: '#8ee7ff',
+      summary: 'test',
+      description: 'test',
+      truthNote: 'test',
+      trackingMode: 'static',
+      isAboveHorizon: true,
+    }
+    const placeholderMagnitudeSatellite = {
+      ...modeledDimSatellite,
+      id: 'sat-placeholder',
+      magnitude: 99,
+    }
+
+    const projected = collectProjectedNonStarObjects(
+      createView(),
+      [modeledDimSatellite, placeholderMagnitudeSatellite],
+      { visualCalibration: { starFieldBrightness: 1 } },
+      { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      6.0,
+      null,
+    )
+
+    expect(projected.projectedObjects.map((entry) => entry.object.id)).toEqual(['sat-placeholder'])
+  })
+
   it('keeps moon visible and applies Stellarium moon wide-field scale-up', () => {
     projectDirectionToViewportMock.mockReset()
     getSkyEngineFovDegreesMock.mockReset()
