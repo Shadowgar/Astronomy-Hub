@@ -37,6 +37,9 @@ export function createOverlayRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
     lastFovTenths: Number.NaN,
     lastViewportWidth: 0,
     lastViewportHeight: 0,
+    /** Preserved when sync is skipped so `labels_reset` in the render preamble does not clear labels for a whole frame. */
+    lastVisibleLabelIds: [] as readonly string[],
+    lastTrajectoryObjectId: null as string | null,
   }
 
   return {
@@ -47,6 +50,8 @@ export function createOverlayRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
       const projectedFrame = runtime.projectedSceneFrame
 
       if (!projectedFrame) {
+        runtime.visibleLabelIds = cadenceState.lastVisibleLabelIds
+        runtime.trajectoryObjectId = cadenceState.lastTrajectoryObjectId
         return
       }
 
@@ -74,10 +79,14 @@ export function createOverlayRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
         Math.abs(fovTenths - cadenceState.lastFovTenths) >= OVERLAY_VIEW_DELTA_TENTHS
 
       if (!forceSync && !significantViewChange) {
+        runtime.visibleLabelIds = cadenceState.lastVisibleLabelIds
+        runtime.trajectoryObjectId = cadenceState.lastTrajectoryObjectId
         return
       }
 
       if (!forceSync && nowMs - cadenceState.lastSyncAtMs < OVERLAY_SYNC_CADENCE_MS) {
+        runtime.visibleLabelIds = cadenceState.lastVisibleLabelIds
+        runtime.trajectoryObjectId = cadenceState.lastTrajectoryObjectId
         return
       }
 
@@ -105,6 +114,8 @@ export function createOverlayRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
         projectedFrame.currentFovDegrees,
       )
 
+      cadenceState.lastVisibleLabelIds = overlayState.visibleLabelIds
+      cadenceState.lastTrajectoryObjectId = overlayState.trajectoryObjectId
       runtime.visibleLabelIds = overlayState.visibleLabelIds
       runtime.trajectoryObjectId = overlayState.trajectoryObjectId
       cadenceState.lastSyncAtMs = nowMs

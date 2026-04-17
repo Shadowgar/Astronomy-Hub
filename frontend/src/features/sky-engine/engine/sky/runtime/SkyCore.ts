@@ -37,11 +37,19 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
   }
 
   registerModule(module: SkyModule<TProps, TRuntime, TServices>) {
-    this.modules = [...this.modules, module].sort((left, right) => left.renderOrder - right.renderOrder || left.id.localeCompare(right.id))
+    this.modules = [...this.modules, module]
+    this.sortModulesByRenderOrder()
 
     if (this.runtime && module.start) {
       module.start(this.getModuleContext())
     }
+  }
+
+  /** Stellarium `modules_sort_cmp` / `DL_SORT` before `module_update` / `obj_render` (`core.c`). */
+  private sortModulesByRenderOrder() {
+    this.modules = [...this.modules].sort(
+      (left, right) => left.renderOrder - right.renderOrder || left.id.localeCompare(right.id),
+    )
   }
 
   start() {
@@ -139,6 +147,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       const sceneRenderStartMs = performance.now()
       this.runtime.scene.render()
       const sceneRenderMs = performance.now() - sceneRenderStartMs
+      this.runModulePostRenders()
       const skyCoreRenderTotalMs = performance.now() - skyCoreRenderStartMs
       const frameTotalMs = performance.now() - frameStartMs
       this.requestedRender = false
@@ -182,6 +191,8 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       return
     }
 
+    this.sortModulesByRenderOrder()
+
     const preambleContext: SkyCoreServicesUpdateContext<TProps, TRuntime, TServices> = {
       ...this.getServicesLifecycleContext(),
       deltaSeconds,
@@ -209,11 +220,28 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       return
     }
 
+    this.sortModulesByRenderOrder()
+
     const context: SkyRenderContext<TProps, TRuntime, TServices> = this.getModuleContext()
     this.config.coreRenderPreamble?.(context)
     this.modules.forEach((module) => {
       const startMs = performance.now()
       module.render?.(context)
+      const elapsedMs = performance.now() - startMs
+      this.currentModuleCostMs[module.id] = (this.currentModuleCostMs[module.id] ?? 0) + elapsedMs
+      this.currentModuleRenderCostMs[module.id] = (this.currentModuleRenderCostMs[module.id] ?? 0) + elapsedMs
+    })
+  }
+
+  private runModulePostRenders() {
+    if (!this.runtime) {
+      return
+    }
+
+    const context: SkyRenderContext<TProps, TRuntime, TServices> = this.getModuleContext()
+    this.modules.forEach((module) => {
+      const startMs = performance.now()
+      module.postRender?.(context)
       const elapsedMs = performance.now() - startMs
       this.currentModuleCostMs[module.id] = (this.currentModuleCostMs[module.id] ?? 0) + elapsedMs
       this.currentModuleRenderCostMs[module.id] = (this.currentModuleRenderCostMs[module.id] ?? 0) + elapsedMs
