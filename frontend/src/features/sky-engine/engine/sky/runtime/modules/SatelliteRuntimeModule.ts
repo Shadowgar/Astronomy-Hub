@@ -4,7 +4,7 @@ import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } fr
 export function createSatelliteRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-satellite-runtime-module',
-    renderOrder: 29,
+    renderOrder: 31,
     render({ runtime, getProps }) {
       const projectedFrame = runtime.projectedSceneFrame
 

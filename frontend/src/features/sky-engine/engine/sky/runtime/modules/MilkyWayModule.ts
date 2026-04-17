@@ -260,7 +260,7 @@ function renderMilkyWayLayer(
 export function createMilkyWayModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-milky-way-runtime-module',
-    renderOrder: 12,
+    renderOrder: 5,
     render({ runtime, getProps }) {
       const projectedFrame = runtime.projectedSceneFrame
       const brightnessExposureState = runtime.brightnessExposureState

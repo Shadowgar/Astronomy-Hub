@@ -4,7 +4,7 @@ import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } fr
 export function createDsoRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-dso-runtime-module',
-    renderOrder: 29,
+    renderOrder: 25,
     render({ runtime, getProps }) {
       const projectedFrame = runtime.projectedSceneFrame
 

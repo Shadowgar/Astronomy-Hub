@@ -5,7 +5,7 @@ import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } fr
 export function createLandscapeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-landscape-runtime-module',
-    renderOrder: 15,
+    renderOrder: 40,
     render({ runtime, getProps }) {
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame

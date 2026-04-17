@@ -218,7 +218,7 @@ function drawSyntheticDensityStars(
 export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-background-runtime-module',
-    renderOrder: 18,
+    renderOrder: 6,
     render() {
       // Synthetic density fallback is disabled. Star density is sourced from catalog surveys only.
       return

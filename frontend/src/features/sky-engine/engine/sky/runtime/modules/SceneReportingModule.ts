@@ -74,7 +74,7 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
 
   return {
     id: 'sky-scene-reporting-runtime-module',
-    renderOrder: 90,
+    renderOrder: 105,
     render({ runtime, services, getProps }) {
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame

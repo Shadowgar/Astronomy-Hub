@@ -3,10 +3,20 @@ import react from '@vitejs/plugin-react'
 
 const frontendPort = Number(process.env.FRONTEND_PORT || 4173)
 
+// Default to host loopback so `npm run dev` / `vite preview` on the machine works.
+// docker-compose sets VITE_DEV_PROXY_TARGET=http://backend:8000 for the frontend container.
 const proxyTarget =
   process.env.VITE_DEV_PROXY_TARGET ||
   process.env.API_URL ||
-  'http://backend:8000'
+  'http://127.0.0.1:8000'
+
+const apiProxy = {
+  '/api': {
+    target: proxyTarget,
+    changeOrigin: true,
+    secure: false,
+  },
+}
 
 export default defineConfig({
   plugins: [react()],
@@ -18,12 +28,11 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: frontendPort,
-    proxy: {
-      '/api': {
-        target: proxyTarget,
-        changeOrigin: true,
-        secure: false
-      }
-    }
-  }
+    proxy: apiProxy,
+  },
+  preview: {
+    host: '0.0.0.0',
+    port: frontendPort,
+    proxy: apiProxy,
+  },
 })

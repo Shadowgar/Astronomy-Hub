@@ -6,6 +6,7 @@ import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } fr
  * - `core_update_time` — scene clock: `SkyClockService.advanceFrame` in `updateServices` (runs before this preamble).
  * - `core_update_fov` + `core_update_direction` — `SkyNavigationService.update` (FOV ease + center/target).
  * - `core_update_mount` — identity until mount pipeline exists.
+ * - Observer seam: `frameTick` runs Stellarium-style staleness gate + derived site geometry (not full ERFA).
  *
  * Runs before `DL_SORT` / `module_update` (see `SkyCore.update`).
  */

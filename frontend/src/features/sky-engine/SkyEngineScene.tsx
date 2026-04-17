@@ -23,6 +23,7 @@ import { createAtmosphereModule } from './engine/sky/runtime/modules/AtmosphereM
 import { createBackgroundRuntimeModule } from './engine/sky/runtime/modules/BackgroundRuntimeModule'
 import { createLandscapeModule } from './engine/sky/runtime/modules/LandscapeModule'
 import { createMilkyWayModule } from './engine/sky/runtime/modules/MilkyWayModule'
+import { createMovementsRuntimeModule } from './engine/sky/runtime/modules/MovementsRuntimeModule'
 import { createDsoRuntimeModule } from './engine/sky/runtime/modules/DsoRuntimeModule'
 import { createObjectRuntimeModule } from './engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createOverlayRuntimeModule } from './engine/sky/runtime/modules/OverlayRuntimeModule'
@@ -612,17 +613,18 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     }
 
     syncRuntimeModelRef.current = syncRuntimeModel
+    core.registerModule(createMovementsRuntimeModule())
     core.registerModule(createSceneLuminanceReportModule())
     core.registerModule(createSkyBrightnessExposureModule())
-    core.registerModule(createAtmosphereModule())
     core.registerModule(createMilkyWayModule())
-    core.registerModule(createLandscapeModule())
     core.registerModule(createBackgroundRuntimeModule())
     core.registerModule(createStarsModule())
+    core.registerModule(createDsoRuntimeModule())
     core.registerModule(createPlanetRuntimeModule())
     core.registerModule(createSatelliteRuntimeModule())
-    core.registerModule(createDsoRuntimeModule())
     core.registerModule(createObjectRuntimeModule())
+    core.registerModule(createAtmosphereModule())
+    core.registerModule(createLandscapeModule())
     core.registerModule(createOverlayRuntimeModule())
     core.registerModule(createSnapshotBridgeModule(snapshotStore, UI_SNAPSHOT_CADENCE_MS))
     if (debugTelemetryEnabled) {

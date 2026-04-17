@@ -32,7 +32,7 @@ export function createSnapshotBridgeModule(
 
   return {
     id: 'sky-snapshot-bridge-runtime-module',
-    renderOrder: 85,
+    renderOrder: 95,
     update({ runtime, services, getProps }) {
       const nowMs = performance.now()
 

@@ -58,7 +58,7 @@ function partitionProjectedObjects(projectedObjects: RuntimeProjectedSceneFrame[
 export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-object-runtime-module',
-    renderOrder: 30,
+    renderOrder: 32,
     update({ runtime, services, getProps }) {
       const latest = getProps()
       const projectedStarsFrame = runtime.projectedStarsFrame

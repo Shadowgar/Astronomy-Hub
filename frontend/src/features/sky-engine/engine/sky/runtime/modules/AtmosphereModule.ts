@@ -5,7 +5,7 @@ import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } fr
 export function createAtmosphereModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-atmosphere-runtime-module',
-    renderOrder: 10,
+    renderOrder: 35,
     render({ runtime, getProps }) {
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame

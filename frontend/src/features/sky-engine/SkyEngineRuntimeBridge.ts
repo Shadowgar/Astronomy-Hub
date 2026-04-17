@@ -124,9 +124,9 @@ export interface SceneRuntimeRefs {
   } | null
   starsProjectionReuseStreak: number
   /**
-   * Stellarium `core_render` painter limits (`stars_limit_mag`, `hints_limit_mag`); stub until full parity.
+   * Stellarium `painter_t` limits from `core_render` (`core.c` ~553–561): `stars_limit_mag`, `hints_limit_mag`, `hard_limit_mag`.
    */
-  corePainterLimits: { starsLimitMag: number; hintsLimitMag: number } | null
+  corePainterLimits: { starsLimitMag: number; hintsLimitMag: number; hardLimitMag: number } | null
 }
 
 export interface SkySceneRuntimeServices {
@@ -197,8 +197,9 @@ export function createSceneRuntimeState({
 }
 
 export function createSkySceneRuntimeServices(initialProps: ScenePropsSnapshot): SkySceneRuntimeServices {
+  const clockService = new SkyClockService()
   return {
-    observerService: new SkyObserverService(initialProps.observer),
+    observerService: new SkyObserverService(initialProps.observer, clockService),
     navigationService: new SkyNavigationService({
       initialCenterDirection: stabilizeSkyEngineCenterDirection(
         horizontalToDirection(
@@ -213,7 +214,7 @@ export function createSkySceneRuntimeServices(initialProps: ScenePropsSnapshot):
       initialFovDegrees: initialProps.initialViewState.fovDegrees,
     }),
     inputService: new SkyInputService(),
-    clockService: new SkyClockService(),
+    clockService,
   }
 }
 
@@ -226,7 +227,7 @@ export function syncSkySceneRuntimeServices(services: SkySceneRuntimeServices, p
 export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-scene-runtime-bridge',
-    renderOrder: 100,
+    renderOrder: 110,
     dispose({ runtime }) {
       runtime.directBackgroundLayer.dispose()
       runtime.directPlanetLayer.dispose()
