@@ -86,4 +86,22 @@ describe('SkyObserverService (Stellarium observer_update seam)', () => {
     expect(() => service.frameTick()).not.toThrow()
     expect(() => clock.getSceneTimestampIso()).not.toThrow()
   })
+
+  it('uses leap-second aware TT conversion for historical timestamps', () => {
+    const clock = new SkyClockService()
+    clock.syncBaseTimestamp('2014-01-01T00:00:00.000Z')
+    const service = new SkyObserverService(baseObserver, clock)
+    service.frameTick()
+    const before2015 = service.getDerivedGeometry()
+
+    clock.syncBaseTimestamp('2017-01-02T00:00:00.000Z')
+    service.frameTick()
+    const after2017 = service.getDerivedGeometry()
+
+    const beforeOffsetSeconds = (before2015.ttJulianDate - before2015.utcJulianDate) * 86400
+    const afterOffsetSeconds = (after2017.ttJulianDate - after2017.utcJulianDate) * 86400
+
+    expect(beforeOffsetSeconds).toBeCloseTo(67.184, 3)
+    expect(afterOffsetSeconds).toBeCloseTo(69.184, 3)
+  })
 })

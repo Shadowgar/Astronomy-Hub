@@ -8,6 +8,7 @@ export class SkyClockService {
   private playbackRate = 1
   private lastNonZeroPlaybackRate = 1
   private lastSyncedBaseTimestampMs = this.baseTimestampMs
+  private deterministicMode = false
 
   syncBaseTimestamp(sceneTimestampIso: string | undefined) {
     if (!sceneTimestampIso) {
@@ -31,11 +32,17 @@ export class SkyClockService {
   advanceFrame(deltaSeconds: number) {
     const safeDelta = Number.isFinite(deltaSeconds) ? Math.max(0, deltaSeconds) : 0
     this.lastFrameDeltaSeconds = safeDelta
-    this.animationTimeSeconds += this.lastFrameDeltaSeconds
+    if (!this.deterministicMode) {
+      this.animationTimeSeconds += this.lastFrameDeltaSeconds
+    }
 
-    if (this.playbackRate !== 0) {
+    if (!this.deterministicMode && this.playbackRate !== 0) {
       this.sceneOffsetSeconds += this.lastFrameDeltaSeconds * this.playbackRate
     }
+  }
+
+  setDeterministicMode(enabled: boolean) {
+    this.deterministicMode = enabled
   }
 
   getAnimationTimeSeconds() {

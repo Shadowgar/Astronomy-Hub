@@ -25,4 +25,17 @@ describe('SkyClockService deterministic reset', () => {
 
     expect(clock.getSceneTimestampIso()).toBe('2026-04-17T02:30:00.000Z')
   })
+
+  it('freezes animation and scene offset in deterministic mode', () => {
+    const clock = new SkyClockService()
+    clock.syncBaseTimestamp('2026-04-17T01:00:00.000Z')
+    clock.setPlaybackRate(5)
+    clock.setDeterministicMode(true)
+
+    clock.advanceFrame(10)
+
+    expect(clock.getAnimationTimeSeconds()).toBe(0)
+    expect(clock.getSceneOffsetSeconds()).toBe(0)
+    expect(clock.getSceneTimestampIso()).toBe('2026-04-17T01:00:00.000Z')
+  })
 })

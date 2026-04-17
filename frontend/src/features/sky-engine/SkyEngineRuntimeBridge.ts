@@ -61,6 +61,7 @@ export interface SkyEngineSceneProps {
   readonly initialAidVisibility?: SkyEngineAidVisibility
   readonly initialSkyCultureId?: string
   readonly debugTelemetryEnabled?: boolean
+  readonly deterministicParityMode?: boolean
 }
 
 export interface ScenePropsSnapshot {

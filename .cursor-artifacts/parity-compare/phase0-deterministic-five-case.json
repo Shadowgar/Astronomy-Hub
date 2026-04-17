@@ -1,0 +1,169 @@
+{
+  "generatedAt": "2026-04-17T16:58:57.855Z",
+  "runs": [
+    {
+      "pass": 1,
+      "hub": {
+        "wide": {
+          "hash": "2345e41414f46e54d8738a3d87c006cee738331c9b64420e25c6efca1e958a66",
+          "metrics": {
+            "mode": "Hipparcos",
+            "stars": "1181",
+            "fov": "120°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          }
+        },
+        "medium": {
+          "hash": "b38569e1096e29d04af2b8a6674d568713885739d754783107d8c95cf7ce1dbe",
+          "metrics": {
+            "mode": "Hipparcos",
+            "stars": "126",
+            "fov": "25.8°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          }
+        },
+        "deep": {
+          "hash": "565f96e717328fd5584cf92e0dd1f8a50d4d275ecc799fc64d3f88e6d38f7f4a",
+          "metrics": {
+            "mode": "Hipparcos",
+            "stars": "0",
+            "fov": "3.31°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          }
+        },
+        "survey": {
+          "hash": "8299d0cffcae06be1a704c2d231dffba40ca4210183a7402b196f32915493b57",
+          "metrics": {
+            "mode": "Hipparcos",
+            "stars": "0",
+            "fov": "3.31°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          }
+        },
+        "satellite": {
+          "hash": "0cbc9c1147ce30fe6bef17d6633743965f329f79cf54064fa5400a7a38a2b3ff",
+          "metrics": {
+            "mode": "Hipparcos",
+            "stars": "404",
+            "fov": "51.0°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          }
+        }
+      },
+      "stellarium": {
+        "wide": {
+          "hash": "0e11abaa2de4695cac2596c2ea4a45bf681a203471647b9738593666541658e1"
+        },
+        "medium": {
+          "hash": "f0475511872a6e7b86db2ae3cf13f43f7cf9904a74cdfe44a6c171df7c9bbafb"
+        },
+        "deep": {
+          "hash": "4468d969a3e81535c5d8e39f3449b5ba6d9bdaef5f35178ba24b80c9bf8acf61"
+        },
+        "survey": {
+          "hash": "6240d5d8c86a6320c6d48c214f52dcda4d0754a97676f7ea36a010c79f3c4c1d"
+        },
+        "satellite": {
+          "hash": "600808d5640f51af6932be705d372ecf24c1f2b77dec9842008b370c2286d05d"
+        }
+      }
+    },
+    {
+      "pass": 2,
+      "hub": {
+        "wide": {
+          "hash": "8874e9c1df2ccb422edf7845ac05c6eac920cb7a4c84233e2dc5c6ff7efca3bc",
+          "metrics": {
+            "mode": "Hipparcos",
+            "stars": "1181",
+            "fov": "120°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          }
+        },
+        "medium": {
+          "hash": "3177c8cd1b4342d3d7b95c21cdc05622f5c6a1f8ff9e8fcc22ed7861dc59f4d4",
+          "metrics": {
+            "mode": "Hipparcos",
+            "stars": "126",
+            "fov": "25.8°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          }
+        },
+        "deep": {
+          "hash": "565f96e717328fd5584cf92e0dd1f8a50d4d275ecc799fc64d3f88e6d38f7f4a",
+          "metrics": {
+            "mode": "Hipparcos",
+            "stars": "0",
+            "fov": "3.31°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          }
+        },
+        "survey": {
+          "hash": "8299d0cffcae06be1a704c2d231dffba40ca4210183a7402b196f32915493b57",
+          "metrics": {
+            "mode": "Hipparcos",
+            "stars": "0",
+            "fov": "3.31°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          }
+        },
+        "satellite": {
+          "hash": "14fdf68c5f471e5a4bb62dd73b22c4b5baf0b2024cef9dbb76badf33701a44af",
+          "metrics": {
+            "mode": "Hipparcos",
+            "stars": "404",
+            "fov": "51.0°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          }
+        }
+      },
+      "stellarium": {
+        "wide": {
+          "hash": "e90dec53bb26228bd8e5d9eb5071a7fd34f9b43f9edb46381267cb0004ef70c6"
+        },
+        "medium": {
+          "hash": "4953594e3debfb03085e09234895ebe4e90227534520f85b2d44f80244dcad71"
+        },
+        "deep": {
+          "hash": "ba358f4d357b649a3563aa8322fb0d76cb2cddefa7e1c4500fbccda656a1bb90"
+        },
+        "survey": {
+          "hash": "1fd3295ecde7e5b929f8bb8bf29d904b8cf87781c987fbced009ddea40d35437"
+        },
+        "satellite": {
+          "hash": "683fa64455702a971356e4f25f6f7dff11c6ea377dd3513b982bfd88ba8a0a5a"
+        }
+      }
+    }
+  ],
+  "stable": {
+    "hub": {
+      "wide": false,
+      "medium": false,
+      "deep": true,
+      "survey": true,
+      "satellite": false
+    },
+    "stellarium": {
+      "wide": false,
+      "medium": false,
+      "deep": false,
+      "survey": false,
+      "satellite": false
+    }
+  },
+  "summary": {
+    "hubAllStable": false,
+    "stellariumAllStable": false
+  }
+}

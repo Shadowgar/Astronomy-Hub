@@ -132,6 +132,14 @@ function resolveDebugTelemetryEnabled() {
   return new URLSearchParams(globalThis.location.search).get(DEBUG_TELEMETRY_QUERY_PARAM) === '1'
 }
 
+function resolveDeterministicParityModeEnabled() {
+  if (globalThis.window === undefined) {
+    return false
+  }
+
+  return new URLSearchParams(globalThis.location.search).get('parityMode') === '1'
+}
+
 function computeSceneOffsetSeconds(baseTimestampIso: string, snapshotTimestampIso: string) {
   const baseTimestampMs = Date.parse(baseTimestampIso)
   const snapshotTimestampMs = Date.parse(snapshotTimestampIso)
@@ -241,6 +249,7 @@ type SkyEngineViewportProps = {
   initialAidVisibility: SkyEngineAidVisibility
   initialSkyCultureId: string
   debugTelemetryEnabled: boolean
+  deterministicParityModeEnabled: boolean
 }
 
 const SkyEngineViewport = React.memo(function SkyEngineViewport({
@@ -257,6 +266,7 @@ const SkyEngineViewport = React.memo(function SkyEngineViewport({
   initialAidVisibility,
   initialSkyCultureId,
   debugTelemetryEnabled,
+  deterministicParityModeEnabled,
 }: Readonly<SkyEngineViewportProps>) {
   return (
     <SkyEngineScene
@@ -273,6 +283,7 @@ const SkyEngineViewport = React.memo(function SkyEngineViewport({
       initialAidVisibility={initialAidVisibility}
       initialSkyCultureId={initialSkyCultureId}
       debugTelemetryEnabled={debugTelemetryEnabled}
+      deterministicParityMode={deterministicParityModeEnabled}
     />
   )
 })
@@ -286,6 +297,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   const lastPublishedUiPerfRef = useRef<string | null>(null)
   const snapshotStore = useMemo(() => createSkyEngineSnapshotStore(), [])
   const debugTelemetryEnabled = useMemo(() => resolveDebugTelemetryEnabled(), [])
+  const deterministicParityModeEnabled = useMemo(() => resolveDeterministicParityModeEnabled(), [])
   const snapshot = useSkyEngineSnapshotPoll(snapshotStore)
   const skyStarTileManifestQuery = useSkyStarTileManifestDataQuery({ at: backendScene.timestamp })
   const [repositoryMode] = useState(() => resolveSkyTileRepositoryMode())
@@ -611,6 +623,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
           initialAidVisibility={initialAidVisibility}
           initialSkyCultureId={initialSkyCultureId}
           debugTelemetryEnabled={debugTelemetryEnabled}
+          deterministicParityModeEnabled={deterministicParityModeEnabled}
         />
 
         <div className="sky-engine-page__overlay sky-engine-page__overlay--top-bar">

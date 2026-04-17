@@ -1,0 +1,175 @@
+{
+  "generatedAt": "2026-04-17T17:09:18.386Z",
+  "runs": [
+    {
+      "pass": 1,
+      "hub": {
+        "wide": {
+          "metrics": {
+            "stars": "1181",
+            "fov": "120°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          },
+          "fp": null
+        },
+        "medium": {
+          "metrics": {
+            "stars": "126",
+            "fov": "25.8°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          },
+          "fp": null
+        },
+        "deep": {
+          "metrics": {
+            "stars": "0",
+            "fov": "3.31°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          },
+          "fp": null
+        },
+        "survey": {
+          "metrics": {
+            "stars": "0",
+            "fov": "3.31°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          },
+          "fp": null
+        },
+        "satellite": {
+          "metrics": {
+            "stars": "404",
+            "fov": "51.0°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          },
+          "fp": null
+        }
+      },
+      "stellarium": {
+        "wide": {
+          "fp": null
+        },
+        "medium": {
+          "fp": null
+        },
+        "deep": {
+          "fp": null
+        },
+        "survey": {
+          "fp": null
+        },
+        "satellite": {
+          "fp": null
+        }
+      }
+    },
+    {
+      "pass": 2,
+      "hub": {
+        "wide": {
+          "metrics": {
+            "stars": "1181",
+            "fov": "120°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          },
+          "fp": null
+        },
+        "medium": {
+          "metrics": {
+            "stars": "126",
+            "fov": "25.8°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          },
+          "fp": null
+        },
+        "deep": {
+          "metrics": {
+            "stars": "0",
+            "fov": "3.31°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          },
+          "fp": null
+        },
+        "survey": {
+          "metrics": {
+            "stars": "0",
+            "fov": "3.31°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          },
+          "fp": null
+        },
+        "satellite": {
+          "metrics": {
+            "stars": "404",
+            "fov": "51.0°",
+            "localTime": "Apr 16, 9:00 PM EDT",
+            "phase": "NIGHT"
+          },
+          "fp": null
+        }
+      },
+      "stellarium": {
+        "wide": {
+          "fp": null
+        },
+        "medium": {
+          "fp": null
+        },
+        "deep": {
+          "fp": null
+        },
+        "survey": {
+          "fp": null
+        },
+        "satellite": {
+          "fp": null
+        }
+      }
+    }
+  ],
+  "deltas": {
+    "hub": {
+      "wide": 999,
+      "medium": 999,
+      "deep": 999,
+      "survey": 999,
+      "satellite": 999
+    },
+    "stellarium": {
+      "wide": 999,
+      "medium": 999,
+      "deep": 999,
+      "survey": 999,
+      "satellite": 999
+    }
+  },
+  "stable": {
+    "hub": {
+      "wide": false,
+      "medium": false,
+      "deep": false,
+      "survey": false,
+      "satellite": false
+    },
+    "stellarium": {
+      "wide": false,
+      "medium": false,
+      "deep": false,
+      "survey": false,
+      "satellite": false
+    }
+  },
+  "summary": {
+    "hubAllStable": false,
+    "stellariumAllStable": false
+  }
+}

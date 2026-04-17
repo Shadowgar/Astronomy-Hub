@@ -366,6 +366,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     initialAidVisibility = DEFAULT_SKY_ENGINE_AID_VISIBILITY,
     initialSkyCultureId = 'western',
     debugTelemetryEnabled = false,
+    deterministicParityMode = false,
   },
   ref,
 ) {
@@ -664,6 +665,13 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     core.registerModule(createSkySceneBridgeModule())
     coreRef.current = core
     core.start()
+    if (deterministicParityMode) {
+      core.dispatchInput((_runtime, services) => {
+        services.clockService.setDeterministicMode(true)
+        services.clockService.setSceneOffsetSeconds(0)
+        services.clockService.setPlaybackRate(0)
+      })
+    }
     syncRuntimeModel(true)
     void loadDsoCatalog()
       .then((catalog) => {

@@ -1,9 +1,9 @@
 import type { SkyEngineObserver } from '../../../types'
 import { computeLocalSiderealTimeDeg } from '../transforms/coordinates'
+import { toJulianDateTt, toJulianDateUtc } from './timeScales'
 
 const FT_TO_METERS = 0.3048
 const FAST_UPDATE_SECONDS = 1.001 * 24 * 60 * 60
-const TT_MINUS_UTC_SECONDS = 69.184
 
 type Matrix3 = readonly [
   readonly [number, number, number],
@@ -66,10 +66,6 @@ function rotationZ(radians: number): Matrix3 {
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
-}
-
-function toJulianDate(timestampIso: string) {
-  return new Date(timestampIso).getTime() / 86400000 + 2440587.5
 }
 
 function computeRefractionCoefficients(elevationMeters: number) {
@@ -164,8 +160,8 @@ export function deriveObserverGeometry(
   const longitudeRad = (observer.longitude * Math.PI) / 180
   const elevationMeters = observer.elevationFt * FT_TO_METERS
   const localSiderealTimeDeg = computeLocalSiderealTimeDeg(observer.longitude, sceneTimestampIso)
-  const utcJulianDate = toJulianDate(sceneTimestampIso)
-  const ttJulianDate = utcJulianDate + TT_MINUS_UTC_SECONDS / 86400
+  const utcJulianDate = toJulianDateUtc(sceneTimestampIso)
+  const ttJulianDate = toJulianDateTt(sceneTimestampIso)
   const dut1Seconds = 0
   const refraction = computeRefractionCoefficients(elevationMeters)
   const matrices = computeFrameMatrices(latitudeRad, localSiderealTimeDeg)
