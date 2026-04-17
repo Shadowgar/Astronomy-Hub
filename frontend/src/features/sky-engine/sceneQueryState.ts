@@ -7,6 +7,7 @@ import {
 import type { ScenePropsSnapshot, SkyEngineSceneProps } from './SkyEngineRuntimeBridge'
 
 export const HIPPARCOS_QUERY_LIMITING_MAGNITUDE_MAX = 8.5 - 0.001
+const GAIA_SURVEY_ACTIVATION_MAGNITUDE = 8.5
 
 export function resolveRepositoryQueryLimitingMagnitude(
   repositoryMode: SkyEngineSceneProps['repositoryMode'],
@@ -23,10 +24,13 @@ export function buildRuntimeTileQuerySignature(
   query: SkyEngineQuery,
   repositoryMode: SkyEngineSceneProps['repositoryMode'],
 ) {
+  const surveyPhase = repositoryMode !== 'multi-survey'
+    ? repositoryMode
+    : (query.limitingMagnitude >= GAIA_SURVEY_ACTIVATION_MAGNITUDE ? 'gaia-active' : 'hipparcos-only')
   return [
     repositoryMode,
+    surveyPhase,
     String(query.maxTileLevel ?? getSkyTileMaxLevel()),
-    query.limitingMagnitude.toFixed(2),
     query.activeTiers.join(','),
     query.visibleTileIds.join(','),
   ].join(':')

@@ -9,6 +9,7 @@ import {
 } from './observerNavigation'
 import { createDsoRenderer } from './DsoRenderer'
 import { createPlanetRenderer } from './PlanetRenderer'
+import { createPointerRenderer } from './PointerRenderer'
 import { createSatelliteRenderer } from './SatelliteRenderer'
 import {
   type ProjectedPickTargetEntry,
@@ -95,6 +96,7 @@ export interface SceneRuntimeRefs {
   directStarLayer: ReturnType<typeof createDirectStarLayer>
   directObjectLayer: ReturnType<typeof createDirectObjectLayer>
   directOverlayLayer: ReturnType<typeof createDirectOverlayLayer>
+  directPointerLayer: ReturnType<typeof createPointerRenderer>
   projectedPickEntries: ProjectedPickTargetEntry[]
   projectedPickSourceRef: readonly ProjectedSceneObjectEntry[] | null
   lastReportedFovTenths: number | null
@@ -173,6 +175,7 @@ export function createSceneRuntimeState({
     directStarLayer: createDirectStarLayer(scene),
     directObjectLayer: createDirectObjectLayer(scene),
     directOverlayLayer: createDirectOverlayLayer(scene),
+    directPointerLayer: createPointerRenderer(scene),
     projectedPickEntries: [],
     projectedPickSourceRef: null,
     lastReportedFovTenths: null,

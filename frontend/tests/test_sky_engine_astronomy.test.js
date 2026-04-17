@@ -232,4 +232,23 @@ describe('Sky Engine astronomy helpers', () => {
     expect(comets[0].type).toBe('comet')
     expect(meteorShowers[0].type).toBe('meteor_shower')
   })
+
+  it('evolves minor-planet and comet coordinates with scene time', () => {
+    const earlyMinor = computeMinorPlanetSceneObjects(TEST_OBSERVER, '2026-01-15T00:00:00Z')
+    const laterMinor = computeMinorPlanetSceneObjects(TEST_OBSERVER, '2026-03-15T00:00:00Z')
+    const earlyComets = computeCometSceneObjects(TEST_OBSERVER, '2026-01-15T00:00:00Z')
+    const laterComets = computeCometSceneObjects(TEST_OBSERVER, '2026-03-15T00:00:00Z')
+
+    expect(earlyMinor[0].rightAscensionHours).not.toBe(laterMinor[0].rightAscensionHours)
+    expect(earlyComets[0].declinationDeg).not.toBe(laterComets[0].declinationDeg)
+  })
+
+  it('scales meteor-shower activity around peak date', () => {
+    const nearPeak = computeMeteorShowerSceneObjects(TEST_OBSERVER, '2026-08-12T03:00:00Z')
+    const offPeak = computeMeteorShowerSceneObjects(TEST_OBSERVER, '2026-02-01T03:00:00Z')
+
+    const perseidsNearPeak = nearPeak.find((object) => object.id === 'meteor-perseids')
+    const perseidsOffPeak = offPeak.find((object) => object.id === 'meteor-perseids')
+    expect((perseidsNearPeak?.meteorZenithRatePerHour ?? 0)).toBeGreaterThan(perseidsOffPeak?.meteorZenithRatePerHour ?? 0)
+  })
 })

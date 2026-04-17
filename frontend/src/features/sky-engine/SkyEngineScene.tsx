@@ -31,6 +31,7 @@ import { createDsoRuntimeModule } from './engine/sky/runtime/modules/DsoRuntimeM
 import { createObjectRuntimeModule } from './engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createOverlayRuntimeModule } from './engine/sky/runtime/modules/OverlayRuntimeModule'
 import { createPlanetRuntimeModule } from './engine/sky/runtime/modules/PlanetRuntimeModule'
+import { createPointerRuntimeModule } from './engine/sky/runtime/modules/PointerRuntimeModule'
 import { createSatelliteRuntimeModule } from './engine/sky/runtime/modules/SatelliteRuntimeModule'
 import { createSceneReportingModule } from './engine/sky/runtime/modules/SceneReportingModule'
 import { createSceneLuminanceReportModule } from './engine/sky/runtime/modules/SceneLuminanceReportModule'
@@ -641,6 +642,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     core.registerModule(createAtmosphereModule())
     core.registerModule(createLandscapeModule())
     core.registerModule(createOverlayRuntimeModule())
+    core.registerModule(createPointerRuntimeModule())
     core.registerModule(createSnapshotBridgeModule(snapshotStore, UI_SNAPSHOT_CADENCE_MS))
     if (debugTelemetryEnabled) {
       core.registerModule(createSceneReportingModule())

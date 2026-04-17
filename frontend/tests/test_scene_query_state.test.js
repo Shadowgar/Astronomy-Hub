@@ -31,6 +31,30 @@ const PREVIOUS_SCENE_PACKET = {
 }
 
 describe('scene query state', () => {
+  it('does not churn tile signature for small limiting-magnitude drift', () => {
+    const low = buildRuntimeTileQuerySignature(
+      { ...BASE_QUERY, limitingMagnitude: 8.51 },
+      'multi-survey',
+    )
+    const high = buildRuntimeTileQuerySignature(
+      { ...BASE_QUERY, limitingMagnitude: 8.93 },
+      'multi-survey',
+    )
+    expect(low).toBe(high)
+  })
+
+  it('switches tile signature when crossing Gaia activation threshold', () => {
+    const hipOnly = buildRuntimeTileQuerySignature(
+      { ...BASE_QUERY, limitingMagnitude: 8.49 },
+      'multi-survey',
+    )
+    const gaiaActive = buildRuntimeTileQuerySignature(
+      { ...BASE_QUERY, limitingMagnitude: 8.5 },
+      'multi-survey',
+    )
+    expect(hipOnly).not.toBe(gaiaActive)
+  })
+
   it('caps Hipparcos runtime queries at the Hipparcos catalog ceiling', () => {
     expect(resolveRepositoryQueryLimitingMagnitude('hipparcos', 11.4)).toBe(HIPPARCOS_QUERY_LIMITING_MAGNITUDE_MAX)
     expect(resolveRepositoryQueryLimitingMagnitude('mock', 11.4)).toBe(11.4)
@@ -47,7 +71,7 @@ describe('scene query state', () => {
         sourceLabel: 'Hipparcos',
         tiles: [],
       },
-      resolvedTileQuerySignature: 'hipparcos:3:6.50:T0,T1:root-ne',
+      resolvedTileQuerySignature: 'hipparcos:hipparcos:3:T0,T1:root-ne',
       previousScenePacket: PREVIOUS_SCENE_PACKET,
     })
 

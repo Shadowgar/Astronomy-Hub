@@ -295,15 +295,18 @@ export function clearSceneState(canvas: HTMLCanvasElement) {
 }
 
 export function resolveViewTier(fovDegrees: number): SceneViewLod {
+  const normalized = clamp((fovDegrees - 12) / (120 - 12), 0, 1)
+  const dynamicLabelCap = Math.round(11 - normalized * 6)
+
   if (fovDegrees >= 90) {
-    return { tier: 'wide', labelCap: 6 }
+    return { tier: 'wide', labelCap: dynamicLabelCap }
   }
 
   if (fovDegrees >= 35) {
-    return { tier: 'medium', labelCap: 8 }
+    return { tier: 'medium', labelCap: dynamicLabelCap }
   }
 
-  return { tier: 'close', labelCap: 10 }
+  return { tier: 'close', labelCap: dynamicLabelCap }
 }
 
 function shouldRenderObject(

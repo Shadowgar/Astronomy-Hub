@@ -7,7 +7,7 @@ import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } fr
 import type { ProjectedSceneObjectEntry } from './runtimeFrame'
 import type { SkyBrightnessExposureState } from '../types'
 import { computeHorizontalCoordinates } from '../../../../astronomy'
-import { DSS_SURVEY_PATCHES } from '../../../../data/dssSurveyCatalog'
+import { loadDssPatches, type DssPatchRecord } from '../../adapters/dssRepository'
 
 const SYNTHETIC_SKY_DENSITY_SAMPLES = buildSyntheticSkyDensityField(2800)
 const SYNTHETIC_STAR_OVERLAP_CELL_PX = 24
@@ -218,9 +218,28 @@ function drawSyntheticDensityStars(
 }
 
 export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
+  let dssPatches: readonly DssPatchRecord[] = []
+  let dssReady = false
+  let dssLoadError: string | null = null
+
   return {
     id: 'sky-background-runtime-module',
     renderOrder: 6,
+    start({ requestRender }) {
+      void loadDssPatches()
+        .then((patches) => {
+          dssPatches = patches
+          dssReady = true
+          dssLoadError = null
+          requestRender()
+        })
+        .catch((error) => {
+          dssPatches = []
+          dssReady = true
+          dssLoadError = error instanceof Error ? error.message : String(error)
+          requestRender()
+        })
+    },
     render({ runtime, getProps, services }) {
       const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame
@@ -237,7 +256,7 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
       backgroundContext.clearRect(0, 0, width, height)
 
       const dssBaseAlpha = clamp(brightnessExposureState.backdropAlpha * 0.14, 0.02, 0.2)
-      for (const patch of DSS_SURVEY_PATCHES) {
+      for (const patch of dssPatches) {
         const horizontal = computeHorizontalCoordinates(
           latest.observer,
           services.clockService.getSceneTimestampIso(),
@@ -271,6 +290,15 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
         backgroundContext.beginPath()
         backgroundContext.arc(projected.screenX, projected.screenY, patchRadiusPx, 0, Math.PI * 2)
         backgroundContext.fill()
+      }
+      runtime.runtimePerfTelemetry.latest = {
+        ...runtime.runtimePerfTelemetry.latest,
+        stepMs: {
+          ...runtime.runtimePerfTelemetry.latest.stepMs,
+          dssPatchCount: dssPatches.length,
+          dssReady: dssReady ? 1 : 0,
+          dssLoadError: dssLoadError ? 1 : 0,
+        },
       }
       /*
       const latest = getProps()

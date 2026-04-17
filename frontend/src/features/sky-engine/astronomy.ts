@@ -67,6 +67,23 @@ function offsetTimestampBySeconds(timestampIso: string, secondOffset: number) {
   return new Date(new Date(timestampIso).getTime() + secondOffset * 1000).toISOString()
 }
 
+function normalizeRightAscensionHours(value: number) {
+  return ((value % 24) + 24) % 24
+}
+
+function clampDeclinationDeg(value: number) {
+  return clamp(value, -90, 90)
+}
+
+function getDayOffsetFromTimestamp(baseIso: string, timestampIso: string) {
+  const baseTimeMs = new Date(baseIso).getTime()
+  const currentTimeMs = new Date(timestampIso).getTime()
+  if (!Number.isFinite(baseTimeMs) || !Number.isFinite(currentTimeMs)) {
+    return 0
+  }
+  return (currentTimeMs - baseTimeMs) / 86_400_000
+}
+
 function solveKeplerDegrees(meanAnomalyDeg: number, eccentricity: number) {
   let eccentricAnomalyDeg = meanAnomalyDeg + radiansToDegrees(eccentricity * Math.sin(degreesToRadians(meanAnomalyDeg)))
 
@@ -806,15 +823,21 @@ export function computeSatelliteSceneObjects(
   _observer: SkyEngineObserver,
   timestampIso: string,
   backendSatellites: readonly BackendSatelliteSceneObject[],
-  maxCount = 3,
+  maxCount = 160,
 ): readonly SkyEngineSceneObject[] {
+  const nowMs = new Date(timestampIso).getTime()
   return backendSatellites
-    .filter((satellite) => satellite.visibility.is_visible && satellite.position.elevation > 0)
+    .filter((satellite) => satellite.position.elevation > 0)
     .sort((left, right) => (right.relevance_score ?? 0) - (left.relevance_score ?? 0) || left.name.localeCompare(right.name))
     .slice(0, maxCount)
     .map((satellite) => {
       const windowStart = satellite.visibility.visibility_window_start ?? null
       const windowEnd = satellite.visibility.visibility_window_end ?? null
+      const startMs = windowStart ? new Date(windowStart).getTime() : Number.NaN
+      const endMs = windowEnd ? new Date(windowEnd).getTime() : Number.NaN
+      const inWindow = Number.isFinite(nowMs) && Number.isFinite(startMs)
+        ? (nowMs >= startMs && (!Number.isFinite(endMs) || nowMs <= endMs))
+        : satellite.visibility.is_visible
       let passWindowSummary = 'Visibility window is provider-backed but not fully specified in this payload.'
 
       if (windowStart && windowEnd) {
@@ -847,7 +870,7 @@ export function computeSatelliteSceneObjects(
         visibilityWindowStartIso: windowStart ?? undefined,
         visibilityWindowEndIso: windowEnd ?? undefined,
         detailRoute: satellite.detail_route,
-        isAboveHorizon: satellite.position.elevation > 0,
+        isAboveHorizon: satellite.position.elevation > 0 && inWindow,
       } satisfies SkyEngineSceneObject
     })
 }
@@ -857,11 +880,19 @@ export function computeMinorPlanetSceneObjects(
   timestampIso: string,
 ): readonly SkyEngineSceneObject[] {
   return MINOR_PLANETS_CATALOG.map((object) => {
+    const dayOffset = getDayOffsetFromTimestamp(object.orbitEpochIso, timestampIso)
+    const rightAscensionHours = normalizeRightAscensionHours(
+      object.rightAscensionHours + dayOffset * object.dailyMotionRaHours,
+    )
+    const declinationDeg = clampDeclinationDeg(
+      object.declinationDeg + dayOffset * object.dailyMotionDecDeg,
+    )
+    const modeledMagnitude = object.magnitude + Math.sin(dayOffset * 0.12) * 0.3
     const horizontalCoordinates = computeHorizontalCoordinates(
       observer,
       timestampIso,
-      object.rightAscensionHours,
-      object.declinationDeg,
+      rightAscensionHours,
+      declinationDeg,
     )
     return {
       id: object.id,
@@ -869,15 +900,15 @@ export function computeMinorPlanetSceneObjects(
       type: 'minor_planet',
       altitudeDeg: horizontalCoordinates.altitudeDeg,
       azimuthDeg: horizontalCoordinates.azimuthDeg,
-      magnitude: object.magnitude,
+      magnitude: modeledMagnitude,
       colorHex: '#d7d7d7',
       summary: `${object.name} projected from a bounded minor-planet catalog source.`,
       description: `Minor-planet source carries H/G metadata (H ${object.absoluteMagnitude.toFixed(2)}, G ${object.slopeParameterG.toFixed(2)}) for Stellarium-style photometric compatibility.`,
       truthNote: 'Minor-planet object is catalog-driven and observer-transformed from fixed source coordinates in this bounded section #9 port slice.',
       source: 'minor_planet_catalog',
       trackingMode: 'fixed_equatorial',
-      rightAscensionHours: object.rightAscensionHours,
-      declinationDeg: object.declinationDeg,
+      rightAscensionHours,
+      declinationDeg,
       timestampIso,
       orbitEpochIso: object.orbitEpochIso,
       isAboveHorizon: horizontalCoordinates.isAboveHorizon,
@@ -890,11 +921,19 @@ export function computeCometSceneObjects(
   timestampIso: string,
 ): readonly SkyEngineSceneObject[] {
   return COMETS_CATALOG.map((comet) => {
+    const dayOffset = getDayOffsetFromTimestamp(comet.perihelionIso, timestampIso)
+    const rightAscensionHours = normalizeRightAscensionHours(
+      comet.rightAscensionHours + dayOffset * comet.dailyMotionRaHours,
+    )
+    const declinationDeg = clampDeclinationDeg(
+      comet.declinationDeg + dayOffset * comet.dailyMotionDecDeg,
+    )
+    const modeledMagnitude = comet.magnitude + Math.log10(1 + Math.abs(dayOffset) * 0.2)
     const horizontalCoordinates = computeHorizontalCoordinates(
       observer,
       timestampIso,
-      comet.rightAscensionHours,
-      comet.declinationDeg,
+      rightAscensionHours,
+      declinationDeg,
     )
     return {
       id: comet.id,
@@ -902,15 +941,15 @@ export function computeCometSceneObjects(
       type: 'comet',
       altitudeDeg: horizontalCoordinates.altitudeDeg,
       azimuthDeg: horizontalCoordinates.azimuthDeg,
-      magnitude: comet.magnitude,
+      magnitude: modeledMagnitude,
       colorHex: '#b7f1ff',
       summary: `${comet.name} comet entry projected from bounded comet source data.`,
       description: `Comet source includes ${comet.orbitType} orbit classification and perihelion timing metadata for source-aligned runtime behavior.`,
       truthNote: 'Comet object is catalog-driven and transformed to the active observer frame for section #9 subsystem parity integration.',
       source: 'comet_catalog',
       trackingMode: 'fixed_equatorial',
-      rightAscensionHours: comet.rightAscensionHours,
-      declinationDeg: comet.declinationDeg,
+      rightAscensionHours,
+      declinationDeg,
       timestampIso,
       orbitEpochIso: comet.perihelionIso,
       isAboveHorizon: horizontalCoordinates.isAboveHorizon,
@@ -923,11 +962,21 @@ export function computeMeteorShowerSceneObjects(
   timestampIso: string,
 ): readonly SkyEngineSceneObject[] {
   return METEOR_SHOWERS_CATALOG.map((shower) => {
+    const dayOffset = getDayOffsetFromTimestamp(shower.peakIso, timestampIso)
+    const radiantOffsetScale = Math.tanh(dayOffset / 6)
+    const rightAscensionHours = normalizeRightAscensionHours(
+      shower.rightAscensionHours + radiantOffsetScale * shower.dailyMotionRaHours,
+    )
+    const declinationDeg = clampDeclinationDeg(
+      shower.declinationDeg + radiantOffsetScale * shower.dailyMotionDecDeg,
+    )
+    const activityWeight = Math.exp(-Math.abs(dayOffset) / 5)
+    const activeRate = Math.max(0, Math.round(shower.zenithRatePerHour * activityWeight))
     const horizontalCoordinates = computeHorizontalCoordinates(
       observer,
       timestampIso,
-      shower.rightAscensionHours,
-      shower.declinationDeg,
+      rightAscensionHours,
+      declinationDeg,
     )
     return {
       id: shower.id,
@@ -935,19 +984,19 @@ export function computeMeteorShowerSceneObjects(
       type: 'meteor_shower',
       altitudeDeg: horizontalCoordinates.altitudeDeg,
       azimuthDeg: horizontalCoordinates.azimuthDeg,
-      magnitude: 3,
+      magnitude: activeRate > 0 ? 2.8 : 5.2,
       colorHex: '#ffd9a8',
       summary: `${shower.name} radiant and activity metadata projected for the active observer.`,
       description: `Meteor shower source tracks peak activity (${shower.peakIso}) and zenithal hourly rate (${shower.zenithRatePerHour}/h).`,
       truthNote: 'Meteor-shower radiant is catalog-defined and transformed to observer-local coordinates for section #9 runtime parity scaffolding.',
       source: 'meteor_shower_catalog',
       trackingMode: 'fixed_equatorial',
-      rightAscensionHours: shower.rightAscensionHours,
-      declinationDeg: shower.declinationDeg,
+      rightAscensionHours,
+      declinationDeg,
       timestampIso,
       meteorPeakIso: shower.peakIso,
-      meteorZenithRatePerHour: shower.zenithRatePerHour,
-      isAboveHorizon: horizontalCoordinates.isAboveHorizon,
+      meteorZenithRatePerHour: activeRate,
+      isAboveHorizon: horizontalCoordinates.isAboveHorizon && activeRate > 0,
     } satisfies SkyEngineSceneObject
   })
 }
