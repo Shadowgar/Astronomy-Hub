@@ -4,7 +4,15 @@ import {
   computeStellariumBarometricPressureMbar,
   refractionPrepareStellarium,
 } from '../transforms/coordinates'
-import { eclipticToIcrsMatrixFromTt, icrsToEclipticMatrixFromTt, type MutableMatrix3 } from './erfaIau2006'
+import {
+  eclipticToIcrsMatrixFromTt,
+  icrsToEclipticMatrixFromTt,
+  identityMatrix3 as erfaIdentityMatrix3,
+  multiplyMatrix3Erfa,
+  transposeMatrix3 as transposeMatrix3Erfa,
+  type MutableMatrix3,
+} from './erfaIau2006'
+import { eraPnm06aFromTtJulianDate } from './erfaPnm06a'
 import { localEarthRotationAngleRad } from './erfaEarthRotation'
 import { dut1SecondsFromTimestampIso, toJulianDateTt, toJulianDateUtc, ut1JulianDateFromTimestampIso } from './timeScales'
 
@@ -16,14 +24,6 @@ type Matrix3 = readonly [
   readonly [number, number, number],
   readonly [number, number, number],
 ]
-
-function identityMatrix3(): Matrix3 {
-  return [
-    [1, 0, 0],
-    [0, 1, 0],
-    [0, 0, 1],
-  ]
-}
 
 function multiplyMatrix3(left: Matrix3, right: Matrix3): Matrix3 {
   const m00 = left[0][0] * right[0][0] + left[0][1] * right[1][0] + left[0][2] * right[2][0]
@@ -84,22 +84,39 @@ function refractionFromElevation(elevationMeters: number) {
   return refractionPrepareStellarium(pressureMbar, 15)
 }
 
-/** `eral` analog: ERFA `eraEra00` + longitude (Stellarium `observer.c` `mat3_rz(astrom->eral,…)`), not GMST+LST. */
-function computeFrameMatrices(latitudeRad: number, localEarthRotationRad: number): {
+/**
+ * Stellarium `observer.c` `update_matrices`: `mat3_mul` is `out = b × a` in row-storage
+ * matching ERFA `multiplyMatrix3Erfa` as `multiplyMatrix3Erfa(a,b)=a*b` (standard), so
+ * `mat3_mul(ro2v, ri2h, ri2v)` → `ri2v = ri2h × ro2v`. `rc2v` uses `transpose(bpn)` then
+ * the same convention: `bpn^T × ri2h × ro2v` (ERFA `eraPnm06a` `rnpb` = GCRS→CIRS `bpn`).
+ */
+function computeFrameMatrices(latitudeRad: number, localEarthRotationRad: number, ttJulianDate: number): {
   ri2h: Matrix3
   rh2i: Matrix3
   ro2v: Matrix3
   rv2o: Matrix3
   ri2v: Matrix3
   rc2v: Matrix3
+  bpn: Matrix3
 } {
   const ri2h = multiplyMatrix3(rotationY(Math.PI / 2 - latitudeRad), rotationZ(-localEarthRotationRad))
   const rh2i = transposeMatrix3(ri2h)
-  const ro2v = identityMatrix3()
-  const rv2o = identityMatrix3()
-  const ri2v = multiplyMatrix3(ro2v, ri2h)
-  const rc2v = ri2v
-  return { ri2h, rh2i, ro2v, rv2o, ri2v, rc2v }
+  const ro2vM = erfaIdentityMatrix3()
+  const rv2oM = erfaIdentityMatrix3()
+  const ri2hM = ri2h as unknown as MutableMatrix3
+  const ri2vM = multiplyMatrix3Erfa(ri2hM, ro2vM)
+  const bpnM = eraPnm06aFromTtJulianDate(ttJulianDate)
+  const bpnT = transposeMatrix3Erfa(bpnM)
+  const rc2vM = multiplyMatrix3Erfa(multiplyMatrix3Erfa(bpnT, ri2hM), ro2vM)
+  return {
+    ri2h,
+    rh2i,
+    ro2v: toReadonlyMatrix3(ro2vM),
+    rv2o: toReadonlyMatrix3(rv2oM),
+    ri2v: toReadonlyMatrix3(ri2vM),
+    rc2v: toReadonlyMatrix3(rc2vM),
+    bpn: toReadonlyMatrix3(bpnM),
+  }
 }
 
 export type SkyObserverUpdateMode = 'fast' | 'full'
@@ -128,7 +145,9 @@ export interface SkyObserverDerivedGeometry {
     readonly rv2o: Matrix3
     readonly ri2v: Matrix3
     readonly rc2v: Matrix3
-    /** ERFA `eraEcm06` (ICRS → mean ecliptic of date); BPN not applied. */
+    /** ERFA `eraPnm06a` `rnpb` (GCRS → CIRS / true equator of date); Stellarium `astrom->bpn`. */
+    readonly bpn: Matrix3
+    /** ERFA `eraEcm06` (ICRS → mean ecliptic of date). */
     readonly ri2e: Matrix3
     readonly re2i: Matrix3
   }
@@ -181,7 +200,7 @@ export function deriveObserverGeometry(
   const localEraRad = localEarthRotationAngleRad(ut1JulianDate, longitudeRad, ttJulianDate)
   const dut1Seconds = dut1SecondsFromTimestampIso(sceneTimestampIso)
   const refraction = refractionFromElevation(elevationMeters)
-  const horizon = computeFrameMatrices(latitudeRad, localEraRad)
+  const horizon = computeFrameMatrices(latitudeRad, localEraRad, ttJulianDate)
   const matrices = {
     ...horizon,
     ri2e: toReadonlyMatrix3(icrsToEclipticMatrixFromTt(ttJulianDate)),

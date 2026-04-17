@@ -17,8 +17,8 @@ import {
  *
  * **Partial:** refraction matches Stellarium `refraction_prepare` + Saemundsson `refraction()` (pressure from `core.c` barometric formula, 15 °C).
  * **Partial:** ΔT via `deltat.c` SMH2016 in `timeScales.ts`; UT1 JD; GMST/LST for display; `ri2h` uses ERFA `eraEra00` + longitude (`eral` analog). DUT1 = (TT−UTC) − ΔT (not IERS EOP).
- * **Not ported (deferred):** full `observer_update_fast` / `observer_update_full`, `update_matrices` with
- * BPN/polar motion/`eraEcm06`, `eraApco` / `eraAper13`, earth/sun PV — require full ERFA `observer_t`.
+ * **Partial:** `eraPnm06a` BPN + `rc2v` / `ri2v` chain matching Stellarium `mat3_mul` order (`vec.h`).
+ * **Not ported (deferred):** polar motion in `ri2h`, `eraApco` / `eraAper13`, earth/sun PV — full `observer_t`.
  */
 export class SkyObserverService {
   private observer: SkyEngineObserver
@@ -49,6 +49,7 @@ export class SkyObserverService {
       rv2o: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
       ri2v: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
       rc2v: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+      bpn: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
       ri2e: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
       re2i: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
     },
