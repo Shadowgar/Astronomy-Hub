@@ -791,6 +791,7 @@ export function prepareDirectOverlayFrame(
   selectedObjectId: string | null,
   aidVisibility: SkyEngineAidVisibility,
   skyCultureId: string,
+  hintsLimitMag?: number,
 ) {
   const {
     lines,
@@ -804,6 +805,14 @@ export function prepareDirectOverlayFrame(
 
   projectedObjects.forEach((entry) => {
     if (isEngineTileSource(entry.object.source) || labelIds.has(entry.object.id)) {
+      return
+    }
+    if (
+      hintsLimitMag !== undefined &&
+      entry.object.id !== selectedObjectId &&
+      Number.isFinite(entry.object.magnitude) &&
+      entry.object.magnitude > hintsLimitMag
+    ) {
       return
     }
 

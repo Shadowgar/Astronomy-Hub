@@ -99,6 +99,7 @@ export function createOverlayRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
         latest.selectedObjectId,
         latest.aidVisibility,
         latest.skyCultureId,
+        runtime.corePainterLimits?.hintsLimitMag,
       )
       const overlayState = runtime.directOverlayLayer.sync(
         overlayFrame,
