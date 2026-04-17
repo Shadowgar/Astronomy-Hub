@@ -4,7 +4,8 @@ import {
   computeStellariumBarometricPressureMbar,
   refractionPrepareStellarium,
 } from '../transforms/coordinates'
-import { dut1SecondsFromTimestampIso, toJulianDateTt, toJulianDateUtc } from './timeScales'
+import { localEarthRotationAngleRad } from './erfaEarthRotation'
+import { dut1SecondsFromTimestampIso, toJulianDateTt, toJulianDateUtc, ut1JulianDateFromTimestampIso } from './timeScales'
 
 const FT_TO_METERS = 0.3048
 const FAST_UPDATE_SECONDS = 1.001 * 24 * 60 * 60
@@ -74,7 +75,8 @@ function refractionFromElevation(elevationMeters: number) {
   return refractionPrepareStellarium(pressureMbar, 15)
 }
 
-function computeFrameMatrices(latitudeRad: number, localSiderealTimeDeg: number): {
+/** `eral` analog: ERFA `eraEra00` + longitude (Stellarium `observer.c` `mat3_rz(astrom->eral,…)`), not GMST+LST. */
+function computeFrameMatrices(latitudeRad: number, localEarthRotationRad: number): {
   ri2h: Matrix3
   rh2i: Matrix3
   ro2v: Matrix3
@@ -82,8 +84,7 @@ function computeFrameMatrices(latitudeRad: number, localSiderealTimeDeg: number)
   ri2v: Matrix3
   rc2v: Matrix3
 } {
-  const earthRotationRad = (localSiderealTimeDeg * Math.PI) / 180
-  const ri2h = multiplyMatrix3(rotationY(Math.PI / 2 - latitudeRad), rotationZ(-earthRotationRad))
+  const ri2h = multiplyMatrix3(rotationY(Math.PI / 2 - latitudeRad), rotationZ(-localEarthRotationRad))
   const rh2i = transposeMatrix3(ri2h)
   const ro2v = identityMatrix3()
   const rv2o = identityMatrix3()
@@ -99,10 +100,13 @@ export interface SkyObserverDerivedGeometry {
   readonly updateMode: SkyObserverUpdateMode
   readonly utcJulianDate: number
   readonly ttJulianDate: number
+  /** UT1 Julian date (TT − ΔT); Stellarium `observer_t.ut1` is MJD offset from `DJM0`. */
+  readonly ut1JulianDate: number
   readonly dut1Seconds: number
   readonly latitudeRad: number
   readonly longitudeRad: number
   readonly elevationMeters: number
+  /** GMST + longitude (degrees); not used for `ri2h` — matrices use `eraEra00` + longitude. */
   readonly localSiderealTimeDeg: number
   readonly refraction: {
     readonly refA: number
@@ -159,11 +163,13 @@ export function deriveObserverGeometry(
   const longitudeRad = (observer.longitude * Math.PI) / 180
   const elevationMeters = observer.elevationFt * FT_TO_METERS
   const localSiderealTimeDeg = computeLocalSiderealTimeDeg(observer.longitude, sceneTimestampIso)
+  const ut1JulianDate = ut1JulianDateFromTimestampIso(sceneTimestampIso)
+  const localEraRad = localEarthRotationAngleRad(ut1JulianDate, longitudeRad)
   const utcJulianDate = toJulianDateUtc(sceneTimestampIso)
   const ttJulianDate = toJulianDateTt(sceneTimestampIso)
   const dut1Seconds = dut1SecondsFromTimestampIso(sceneTimestampIso)
   const refraction = refractionFromElevation(elevationMeters)
-  const matrices = computeFrameMatrices(latitudeRad, localSiderealTimeDeg)
+  const matrices = computeFrameMatrices(latitudeRad, localEraRad)
   const earthPv: readonly [number, number, number] = previous?.earthPv ?? [0, 0, 0]
   const sunPv: readonly [number, number, number] = previous?.sunPv ?? [0, 0, 0]
   const lastAccurateSceneTimestampIso = updateMode === 'full'
@@ -175,6 +181,7 @@ export function deriveObserverGeometry(
     updateMode,
     utcJulianDate,
     ttJulianDate,
+    ut1JulianDate,
     dut1Seconds,
     latitudeRad,
     longitudeRad,

@@ -16,9 +16,9 @@ import {
  * when the gate opens (scalar analog of site inputs used before full astrometry).
  *
  * **Partial:** refraction matches Stellarium `refraction_prepare` + Saemundsson `refraction()` (pressure from `core.c` barometric formula, 15 °C).
- * **Partial:** ΔT via `deltat.c` SMH2016 in `timeScales.ts`; GMST uses UT1 JD = TT − ΔT; DUT1 = (TT−UTC) − ΔT (not IERS EOP).
- * **Not ported (deferred):** `observer_update_fast` / `observer_update_full`, `update_matrices`,
- * `eraApco` / `eraAper13`, earth/sun PV — require ERFA + full `observer_t`.
+ * **Partial:** ΔT via `deltat.c` SMH2016 in `timeScales.ts`; UT1 JD; GMST/LST for display; `ri2h` uses ERFA `eraEra00` + longitude (`eral` analog). DUT1 = (TT−UTC) − ΔT (not IERS EOP).
+ * **Not ported (deferred):** full `observer_update_fast` / `observer_update_full`, `update_matrices` with
+ * BPN/polar motion/`eraEcm06`, `eraApco` / `eraAper13`, earth/sun PV — require full ERFA `observer_t`.
  */
 export class SkyObserverService {
   private observer: SkyEngineObserver
@@ -32,6 +32,7 @@ export class SkyObserverService {
     updateMode: 'full',
     utcJulianDate: 0,
     ttJulianDate: 0,
+    ut1JulianDate: 0,
     dut1Seconds: 0,
     latitudeRad: 0,
     longitudeRad: 0,
