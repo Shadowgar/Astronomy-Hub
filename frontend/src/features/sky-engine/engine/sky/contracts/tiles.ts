@@ -1,5 +1,6 @@
 import type { ObserverSnapshot } from './observer'
 import type { RuntimeStar, SkyRuntimeTier } from './stars'
+import type { ObserverAstrometrySnapshot } from '../transforms/coordinates'
 
 export type SkyTileCatalog = 'mock' | 'hipparcos' | 'gaia' | 'multi-survey'
 
@@ -16,6 +17,10 @@ export type SkyEngineQuery = {
   activeTiers: SkyRuntimeTier[]
   visibleTileIds: string[]
   maxTileLevel?: number
+  /**
+   * When set (Hub Module 0), star scene assembly uses Stellarium CIO + aberration (`convertObserverFrameVector`).
+   */
+  observerFrameAstrometry?: ObserverAstrometrySnapshot
 }
 
 export type SkyTileLabelCandidate = {

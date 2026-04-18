@@ -350,8 +350,22 @@ export function horizontalToRaDec(observer: ObserverSnapshot): { raDeg: number; 
   }
 }
 
-export function raDecToObserverUnitVector(raDeg: number, decDeg: number, observer: ObserverSnapshot) {
-  const astrometry = createObserverAstrometrySnapshot(observer)
+export function raDecToObserverUnitVector(
+  raDeg: number,
+  decDeg: number,
+  observer: ObserverSnapshot,
+  observerFrameAstrometry?: ObserverAstrometrySnapshot,
+) {
+  const astrometry = observerFrameAstrometry ?? createObserverAstrometrySnapshot(observer)
+  if (
+    observerFrameAstrometry?.stellariumAstrom &&
+    observerFrameAstrometry.matrices?.ri2h
+  ) {
+    const icrf = normalizeVector(raDecToEquatorialUnitVector(raDeg, decDeg))
+    const geom = convertObserverFrameVector(icrf, 'icrf', 'observed_geom', observerFrameAstrometry)
+    const horizontalCoordinates = unitVectorToHorizontalCoordinates(geom)
+    return { vector: geom, horizontalCoordinates }
+  }
   const horizontalCoordinates = raDecToHorizontalCoordinates(raDeg, decDeg, observer, astrometry)
 
   return {

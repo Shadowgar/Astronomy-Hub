@@ -43,7 +43,12 @@ export function assembleSkyScenePacket(
   )
 
   const visibleStars = dedupedStars.flatMap((star) => {
-    const { vector, horizontalCoordinates } = raDecToObserverUnitVector(star.raDeg, star.decDeg, query.observer)
+    const { vector, horizontalCoordinates } = raDecToObserverUnitVector(
+      star.raDeg,
+      star.decDeg,
+      query.observer,
+      query.observerFrameAstrometry,
+    )
 
     return [{
       id: star.id,

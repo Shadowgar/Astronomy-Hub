@@ -5,9 +5,10 @@ import {
   createObserverAstrometrySnapshot,
   horizontalToRaDec,
   raDecToHorizontalCoordinates,
+  raDecToObserverUnitVector,
 } from '../src/features/sky-engine/engine/sky/transforms/coordinates.ts'
 import { deriveObserverGeometry } from '../src/features/sky-engine/engine/sky/runtime/observerDerivedGeometry.ts'
-import { stellariumFrameAstrometryFromEraAstrom } from '../src/features/sky-engine/engine/sky/runtime/erfaAbLdsun.ts'
+import { mergeObserverSnapshotWithDerivedGeometry } from '../src/features/sky-engine/engine/sky/runtime/observerAstrometryMerge.ts'
 
 describe('observer frame coordinate conversions', () => {
   const observer = {
@@ -41,26 +42,53 @@ describe('observer frame coordinate conversions', () => {
     expect(result.altitudeDeg).toBeGreaterThanOrEqual(result.geometricAltitudeDeg)
   })
 
-  it('convertObserverFrameVector icrf ↔ observed_geom with Stellarium CIO+aberration path', () => {
+  it('raDecToObserverUnitVector shifts slightly under Module0 vs classical', () => {
+    const observer = {
+      timestampUtc: '2026-04-08T12:00:00.000Z',
+      latitudeDeg: 40.7128,
+      longitudeDeg: -74.006,
+      elevationM: 10,
+      fovDeg: 60,
+      centerAltDeg: 0,
+      centerAzDeg: 0,
+      projection: 'stereographic',
+    }
     const g = deriveObserverGeometry(
-      { label: 't', latitude: 40.7128, longitude: -74.006, elevationFt: 100 },
-      '2026-04-08T12:00:00.000Z',
+      { label: 't', latitude: observer.latitudeDeg, longitude: observer.longitudeDeg, elevationFt: (observer.elevationM ?? 0) / 0.3048 },
+      observer.timestampUtc,
       'full',
       null,
     )
-    const astrometry = {
-      localSiderealTimeDeg: g.localSiderealTimeDeg,
-      refraction: g.refraction,
-      polarMotion: g.polarMotion,
-      observerSeam: g.observerSeam,
-      stellariumAstrom: stellariumFrameAstrometryFromEraAstrom(g.astrom),
-      matrices: {
-        ri2h: g.matrices.ri2h,
-        rh2i: g.matrices.rh2i,
-        icrsToHorizontal: g.matrices.icrsToHorizontal,
-        horizontalToIcrs: g.matrices.horizontalToIcrs,
-      },
+    const snap = mergeObserverSnapshotWithDerivedGeometry(observer, g)
+    const classical = raDecToObserverUnitVector(180, 45, observer)
+    const mod0 = raDecToObserverUnitVector(180, 45, observer, snap)
+    expect(Math.hypot(mod0.vector.x, mod0.vector.y, mod0.vector.z)).toBeCloseTo(1, 10)
+    const sep = Math.hypot(
+      mod0.vector.x - classical.vector.x,
+      mod0.vector.y - classical.vector.y,
+      mod0.vector.z - classical.vector.z,
+    )
+    expect(sep).toBeGreaterThan(0.05)
+  })
+
+  it('convertObserverFrameVector icrf ↔ observed_geom with Stellarium CIO+aberration path', () => {
+    const observerSnap = {
+      timestampUtc: '2026-04-08T12:00:00.000Z',
+      latitudeDeg: 40.7128,
+      longitudeDeg: -74.006,
+      elevationM: 100 * 0.3048,
+      fovDeg: 60,
+      centerAltDeg: 0,
+      centerAzDeg: 0,
+      projection: 'stereographic',
     }
+    const g = deriveObserverGeometry(
+      { label: 't', latitude: 40.7128, longitude: -74.006, elevationFt: 100 },
+      observerSnap.timestampUtc,
+      'full',
+      null,
+    )
+    const astrometry = mergeObserverSnapshotWithDerivedGeometry(observerSnap, g)
     const u0 = { x: 0.42, y: -0.65, z: 0.63 }
     const n = Math.hypot(u0.x, u0.y, u0.z)
     const u = { x: u0.x / n, y: u0.y / n, z: u0.z / n }

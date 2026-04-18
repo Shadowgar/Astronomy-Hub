@@ -19,6 +19,9 @@ import {
   unitVectorToHorizontalCoordinates,
   type SkyTileRepositoryLoadResult,
 } from './engine/sky'
+import { mergeObserverSnapshotWithDerivedGeometry } from './engine/sky/runtime/observerAstrometryMerge'
+import { deriveObserverGeometry } from './engine/sky/runtime/observerDerivedGeometry'
+import type { ObserverAstrometrySnapshot } from './engine/sky/transforms/coordinates'
 import { loadDsoCatalog } from './engine/sky/adapters/dsoRepository'
 import { SkyCore } from './engine/sky/runtime/SkyCore'
 import { runStellariumCoreRenderSpine } from './engine/sky/runtime/stellariumCoreRenderSpine'
@@ -80,6 +83,7 @@ interface SceneControllerModel {
   guidedObjectIds: readonly string[]
   queryLimitingMagnitude: number
   tileQuerySignature: string
+  observerFrameAstrometry: ObserverAstrometrySnapshot
 }
 
 interface PropsSignatureConfig {
@@ -289,8 +293,21 @@ function buildSceneControllerModel(config: {
       moonObject,
     }),
   )
+  const derivedGeometry = deriveObserverGeometry(
+    {
+      label: 'hub',
+      latitude: config.observer.latitude,
+      longitude: config.observer.longitude,
+      elevationFt: config.observer.elevationFt,
+    },
+    config.sceneTimestampIso,
+    'full',
+    null,
+  )
+  const observerFrameAstrometry = mergeObserverSnapshotWithDerivedGeometry(observerSnapshot, derivedGeometry)
   const query = buildSkyEngineQuery(observerSnapshot, {
     limitingMagnitude: queryLimitingMagnitude,
+    observerFrameAstrometry,
   })
   const scenePacketState = resolveScenePacketForQuery({
     query,
@@ -350,6 +367,7 @@ function buildSceneControllerModel(config: {
     guidedObjectIds: guidanceTargets.map((target) => target.objectId),
     queryLimitingMagnitude,
     tileQuerySignature: scenePacketState.tileQuerySignature,
+    observerFrameAstrometry,
   } satisfies SceneControllerModel
 }
 
@@ -573,6 +591,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
           projection: projectionMode,
         }, {
           limitingMagnitude: nextModel.queryLimitingMagnitude,
+          observerFrameAstrometry: nextModel.observerFrameAstrometry,
         })
 
         void loadSkyRuntimeTiles(query)
