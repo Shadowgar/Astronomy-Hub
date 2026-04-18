@@ -1,10 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  convertObserverFrameVector,
   createObserverAstrometrySnapshot,
   horizontalToRaDec,
   raDecToHorizontalCoordinates,
 } from '../src/features/sky-engine/engine/sky/transforms/coordinates.ts'
+import { deriveObserverGeometry } from '../src/features/sky-engine/engine/sky/runtime/observerDerivedGeometry.ts'
+import { stellariumFrameAstrometryFromEraAstrom } from '../src/features/sky-engine/engine/sky/runtime/erfaAbLdsun.ts'
 
 describe('observer frame coordinate conversions', () => {
   const observer = {
@@ -36,6 +39,36 @@ describe('observer frame coordinate conversions', () => {
     const astrometry = createObserverAstrometrySnapshot(observer)
     const result = raDecToHorizontalCoordinates(180, 0, observer, astrometry)
     expect(result.altitudeDeg).toBeGreaterThanOrEqual(result.geometricAltitudeDeg)
+  })
+
+  it('convertObserverFrameVector icrf ↔ observed_geom with Stellarium CIO+aberration path', () => {
+    const g = deriveObserverGeometry(
+      { label: 't', latitude: 40.7128, longitude: -74.006, elevationFt: 100 },
+      '2026-04-08T12:00:00.000Z',
+      'full',
+      null,
+    )
+    const astrometry = {
+      localSiderealTimeDeg: g.localSiderealTimeDeg,
+      refraction: g.refraction,
+      polarMotion: g.polarMotion,
+      observerSeam: g.observerSeam,
+      stellariumAstrom: stellariumFrameAstrometryFromEraAstrom(g.astrom),
+      matrices: {
+        ri2h: g.matrices.ri2h,
+        rh2i: g.matrices.rh2i,
+        icrsToHorizontal: g.matrices.icrsToHorizontal,
+        horizontalToIcrs: g.matrices.horizontalToIcrs,
+      },
+    }
+    const u0 = { x: 0.42, y: -0.65, z: 0.63 }
+    const n = Math.hypot(u0.x, u0.y, u0.z)
+    const u = { x: u0.x / n, y: u0.y / n, z: u0.z / n }
+    const h = convertObserverFrameVector(u, 'icrf', 'observed_geom', astrometry)
+    const back = convertObserverFrameVector(h, 'observed_geom', 'icrf', astrometry)
+    expect(back.x).toBeCloseTo(u.x, 8)
+    expect(back.y).toBeCloseTo(u.y, 8)
+    expect(back.z).toBeCloseTo(u.z, 8)
   })
 
   it('keeps horizontal/equatorial conversions numerically stable', () => {

@@ -1,8 +1,9 @@
 /**
- * ERFA `eraAb`, `eraLd`, `eraLdsun` — Stellarium `frames.c` `astrometric_to_apparent` (distant sources).
+ * ERFA `eraAb`, `eraLd`, `eraLdsun` — Stellarium `frames.c` `astrometric_to_apparent` / `apparent_to_astrometric` (distant sources).
  * Transcribed from `study/.../ext_src/erfa/erfa.c`.
  */
 
+import type { EraAstrom } from './erfaApco'
 import { ERFA_SRS } from './erfaConstants'
 
 function eraPdp(a: readonly [number, number, number], b: readonly [number, number, number]): number {
@@ -106,4 +107,56 @@ export function stellariumAstrometricToApparentIcrsUnit(
   eraLdsun(p, astrom.eh, astrom.em, p)
   eraAb(p, astrom.v, astrom.em, astrom.bm1, p)
   return p
+}
+
+function normalizeTuple3(t: readonly [number, number, number]): [number, number, number] {
+  const n = Math.hypot(t[0], t[1], t[2])
+  if (n === 0) {
+    return [0, 0, 1]
+  }
+  return [t[0] / n, t[1] / n, t[2] / n]
+}
+
+/** Stellarium `frames.c` `apparent_to_astrometric` for `inf` (fixed-point iteration). */
+export function stellariumApparentGcrsToAstrometricIcrsUnit(
+  astrom: EraAstromApparentSlice,
+  apparentGcrsUnit: readonly [number, number, number],
+): readonly [number, number, number] {
+  const inp = normalizeTuple3(apparentGcrsUnit)
+  let a: [number, number, number] = [inp[0], inp[1], inp[2]]
+  const tol = Math.cos((0.001 / 3600) * (Math.PI / 180))
+  for (let i = 0; i < 10; i += 1) {
+    const bRaw = stellariumAstrometricToApparentIcrsUnit(astrom, a)
+    const bN = normalizeTuple3(bRaw)
+    const delta: [number, number, number] = [bN[0] - inp[0], bN[1] - inp[1], bN[2] - inp[2]]
+    a = normalizeTuple3([a[0] - delta[0], a[1] - delta[1], a[2] - delta[2]])
+    const dot = bN[0] * inp[0] + bN[1] * inp[1] + bN[2] * inp[2]
+    if (dot > tol) {
+      break
+    }
+  }
+  return a
+}
+
+/** CIO `bpn` + aberration slice for `convertObserverFrameVector` (`frames.c`). */
+export type StellariumFrameAstrometry = EraAstromApparentSlice & {
+  readonly bpn: readonly [
+    readonly [number, number, number],
+    readonly [number, number, number],
+    readonly [number, number, number],
+  ]
+}
+
+export function stellariumFrameAstrometryFromEraAstrom(ast: EraAstrom): StellariumFrameAstrometry {
+  return {
+    eh: [ast.eh[0], ast.eh[1], ast.eh[2]],
+    em: ast.em,
+    v: [ast.v[0], ast.v[1], ast.v[2]],
+    bm1: ast.bm1,
+    bpn: [
+      [ast.bpn[0][0], ast.bpn[0][1], ast.bpn[0][2]],
+      [ast.bpn[1][0], ast.bpn[1][1], ast.bpn[1][2]],
+      [ast.bpn[2][0], ast.bpn[2][1], ast.bpn[2][2]],
+    ],
+  }
 }

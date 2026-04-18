@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
-import { eraAb, eraLdsun, stellariumAstrometricToApparentIcrsUnit } from '../src/features/sky-engine/engine/sky/runtime/erfaAbLdsun.ts'
+import {
+  eraAb,
+  eraLdsun,
+  stellariumApparentGcrsToAstrometricIcrsUnit,
+  stellariumAstrometricToApparentIcrsUnit,
+} from '../src/features/sky-engine/engine/sky/runtime/erfaAbLdsun.ts'
 import { deriveObserverGeometry } from '../src/features/sky-engine/engine/sky/runtime/observerDerivedGeometry.ts'
 
 describe('erfaAbLdsun (ERFA eraAb / eraLd / eraLdsun)', () => {
@@ -24,6 +29,23 @@ describe('erfaAbLdsun (ERFA eraAb / eraLd / eraLdsun)', () => {
     expect(p[0]).toBeCloseTo(1.0, 15)
     expect(p[1]).toBeCloseTo(1.97412574336e-8, 15)
     expect(p[2]).toBeCloseTo(0.0, 15)
+  })
+
+  it('apparent GCRS ↔ astrometric ICRS round-trip (Stellarium iteration)', () => {
+    const astrom = {
+      eh: /** @type {[number, number, number]} */ ([0, 1, 0]),
+      em: 1.0,
+      v: /** @type {[number, number, number]} */ ([1e-5, 2e-6, -3e-6]),
+      bm1: 0.99999999995,
+    }
+    const icrs = [0.6, 0.7, 0.3583]
+    const hyp = Math.hypot(icrs[0], icrs[1], icrs[2])
+    const u = [icrs[0] / hyp, icrs[1] / hyp, icrs[2] / hyp]
+    const app = stellariumAstrometricToApparentIcrsUnit(astrom, u)
+    const back = stellariumApparentGcrsToAstrometricIcrsUnit(astrom, app)
+    expect(back[0]).toBeCloseTo(u[0], 9)
+    expect(back[1]).toBeCloseTo(u[1], 9)
+    expect(back[2]).toBeCloseTo(u[2], 9)
   })
 
   it('stellariumAstrometricToApparentIcrsUnit matches PyERFA chain', () => {

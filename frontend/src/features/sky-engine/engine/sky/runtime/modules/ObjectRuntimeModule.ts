@@ -1,5 +1,6 @@
 import type { SkyModule } from '../SkyModule'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
+import { stellariumFrameAstrometryFromEraAstrom } from '../erfaAbLdsun'
 import {
   collectProjectedNonStarObjects,
   mergeProjectedSceneObjects,
@@ -88,6 +89,7 @@ export function createObjectRuntimeModule(): SkyModule<ScenePropsSnapshot, Scene
               refraction: runtime.observerAstrometry.refraction,
               polarMotion: runtime.observerAstrometry.polarMotion,
               observerSeam: runtime.observerAstrometry.observerSeam,
+              stellariumAstrom: stellariumFrameAstrometryFromEraAstrom(runtime.observerAstrometry.astrom),
               matrices: {
                 ri2h: runtime.observerAstrometry.matrices.ri2h,
                 rh2i: runtime.observerAstrometry.matrices.rh2i,

@@ -1,7 +1,13 @@
 import type { ObserverSnapshot } from '../contracts/observer'
 import type { SkyObserverSeamScalars, SkyPolarMotionStub } from '../runtime/observerParityStubs'
+import type { StellariumFrameAstrometry } from '../runtime/erfaAbLdsun'
+import {
+  stellariumApparentGcrsToAstrometricIcrsUnit,
+  stellariumAstrometricToApparentIcrsUnit,
+} from '../runtime/erfaAbLdsun'
 
 export type { SkyObserverSeamScalars, SkyPolarMotionStub } from '../runtime/observerParityStubs'
+export type { StellariumFrameAstrometry } from '../runtime/erfaAbLdsun'
 import { ut1JulianDateFromTimestampIso } from '../runtime/timeScales'
 
 export type UnitVector3 = {
@@ -27,6 +33,11 @@ export type ObserverAstrometrySnapshot = {
   polarMotion?: SkyPolarMotionStub
   /** `observer_t` / `eraASTROM` scalar seam; optional for slim snapshots. */
   observerSeam?: SkyObserverSeamScalars
+  /**
+   * When set with `matrices.ri2h` / `rh2i`, `convertObserverFrameVector` uses Stellarium `frames.c`
+   * order: `astrometric_to_apparent` then **`bpn^T`** (CIO `astrom` from `eraApco`) then **`ri2h`** — not classical `icrsToHorizontal`.
+   */
+  stellariumAstrom?: StellariumFrameAstrometry
   matrices?: {
     ri2h: readonly [readonly [number, number, number], readonly [number, number, number], readonly [number, number, number]]
     rh2i: readonly [readonly [number, number, number], readonly [number, number, number], readonly [number, number, number]]
@@ -85,6 +96,18 @@ function multiplyMatrixVector(
     x: matrix[0][0] * vector.x + matrix[0][1] * vector.y + matrix[0][2] * vector.z,
     y: matrix[1][0] * vector.x + matrix[1][1] * vector.y + matrix[1][2] * vector.z,
     z: matrix[2][0] * vector.x + matrix[2][1] * vector.y + matrix[2][2] * vector.z,
+  }
+}
+
+/** `M^T * v` for row-stored `M` (Stellarium `mat3_mul_vec3_transposed`). */
+function multiplyMatrixTransposeTimesVector3(
+  m: StellariumFrameAstrometry['bpn'],
+  vector: UnitVector3,
+): UnitVector3 {
+  return {
+    x: m[0][0] * vector.x + m[1][0] * vector.y + m[2][0] * vector.z,
+    y: m[0][1] * vector.x + m[1][1] * vector.y + m[2][1] * vector.z,
+    z: m[0][2] * vector.x + m[1][2] * vector.y + m[2][2] * vector.z,
   }
 }
 
@@ -181,7 +204,16 @@ export function convertObserverFrameVector(
   let current = normalizeVector(vector)
   let frame: ObserverFrame = origin
 
-  if (frame === 'icrf' && destination !== 'icrf' && astrometry?.matrices) {
+  if (frame === 'icrf' && destination !== 'icrf' && astrometry?.matrices?.ri2h && astrometry.stellariumAstrom) {
+    const s = astrometry.stellariumAstrom
+    const u = normalizeVector(current)
+    const pAb = stellariumAstrometricToApparentIcrsUnit(s, [u.x, u.y, u.z])
+    const pCirs = normalizeVector(
+      multiplyMatrixTransposeTimesVector3(s.bpn, { x: pAb[0], y: pAb[1], z: pAb[2] }),
+    )
+    current = normalizeVector(multiplyMatrixVector(astrometry.matrices.ri2h, pCirs))
+    frame = 'observed_geom'
+  } else if (frame === 'icrf' && destination !== 'icrf' && astrometry?.matrices) {
     const m = astrometry.matrices.icrsToHorizontal ?? astrometry.matrices.ri2h
     if (m) {
       current = normalizeVector(multiplyMatrixVector(m, current))
@@ -206,7 +238,20 @@ export function convertObserverFrameVector(
     ))
     frame = 'observed_geom'
   }
-  if (frame === 'observed_geom' && destination === 'icrf' && astrometry?.matrices) {
+  if (
+    frame === 'observed_geom' &&
+    destination === 'icrf' &&
+    astrometry?.matrices?.rh2i &&
+    astrometry?.matrices?.ri2h &&
+    astrometry.stellariumAstrom
+  ) {
+    const s = astrometry.stellariumAstrom
+    const pCirs = normalizeVector(multiplyMatrixVector(astrometry.matrices.rh2i, current))
+    const pGcrs = normalizeVector(multiplyMatrixVector(s.bpn, pCirs))
+    const pIcrs = stellariumApparentGcrsToAstrometricIcrsUnit(s, [pGcrs.x, pGcrs.y, pGcrs.z])
+    current = normalizeVector({ x: pIcrs[0], y: pIcrs[1], z: pIcrs[2] })
+    frame = 'icrf'
+  } else if (frame === 'observed_geom' && destination === 'icrf' && astrometry?.matrices) {
     const m = astrometry.matrices.horizontalToIcrs ?? astrometry.matrices.rh2i
     if (m) {
       current = normalizeVector(multiplyMatrixVector(m, current))
