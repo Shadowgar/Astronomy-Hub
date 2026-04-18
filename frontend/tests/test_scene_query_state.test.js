@@ -55,6 +55,26 @@ describe('scene query state', () => {
     expect(hipOnly).not.toBe(gaiaActive)
   })
 
+  it('changes tile signature when hipsViewport projection scale or height changes (G5 tile reload)', () => {
+    const base = buildRuntimeTileQuerySignature(BASE_QUERY, 'hipparcos')
+    const taller = buildRuntimeTileQuerySignature(
+      {
+        ...BASE_QUERY,
+        hipsViewport: { windowHeightPx: 1080, projectionMat11: 1.2 },
+      },
+      'hipparcos',
+    )
+    const sharper = buildRuntimeTileQuerySignature(
+      {
+        ...BASE_QUERY,
+        hipsViewport: { windowHeightPx: 1080, projectionMat11: 2.4 },
+      },
+      'hipparcos',
+    )
+    expect(taller).not.toBe(base)
+    expect(sharper).not.toBe(taller)
+  })
+
   it('caps Hipparcos runtime queries at the Hipparcos catalog ceiling', () => {
     expect(resolveRepositoryQueryLimitingMagnitude('hipparcos', 11.4)).toBe(HIPPARCOS_QUERY_LIMITING_MAGNITUDE_MAX)
     expect(resolveRepositoryQueryLimitingMagnitude('mock', 11.4)).toBe(11.4)

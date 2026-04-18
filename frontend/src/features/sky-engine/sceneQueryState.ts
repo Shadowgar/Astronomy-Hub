@@ -29,12 +29,17 @@ export function buildRuntimeTileQuerySignature(
   const surveyPhase = repositoryMode !== 'multi-survey'
     ? repositoryMode
     : (query.limitingMagnitude >= GAIA_SURVEY_ACTIVATION_MAGNITUDE ? 'gaia-active' : 'hipparcos-only')
+  const vp = query.hipsViewport
+  const vpSig = vp
+    ? `${vp.windowHeightPx}:${vp.projectionMat11}:${vp.tileWidthPx ?? ''}`
+    : 'novp'
   return [
     repositoryMode,
     surveyPhase,
     String(query.maxTileLevel ?? getSkyTileMaxLevel()),
     normalizedActiveTiers.join(','),
     normalizedVisibleTileIds.join(','),
+    vpSig,
   ].join(':')
 }
 

@@ -35,6 +35,14 @@ export class SkyProjectionService {
     this.viewportHeight = Math.max(1, viewportHeight)
   }
 
+  getViewportWidth() {
+    return this.viewportWidth
+  }
+
+  getViewportHeight() {
+    return this.viewportHeight
+  }
+
   /** Viewport width / height (Stellarium `core_get_proj` aspect input). */
   getAspectRatio() {
     return this.viewportWidth / this.viewportHeight

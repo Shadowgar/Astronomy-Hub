@@ -15,6 +15,7 @@ import {
   fileBackedSkyTileRepository,
   getSkyTileMaxLevel,
   selectVisibleTileIds,
+  type SkyEngineHipsViewport,
   type SkyEngineQuery,
   unitVectorToHorizontalCoordinates,
   type SkyTileRepositoryLoadResult,
@@ -87,6 +88,7 @@ interface SceneControllerModel {
   queryLimitingMagnitude: number
   tileQuerySignature: string
   observerFrameAstrometry: ObserverAstrometrySnapshot
+  hipsViewport?: SkyEngineHipsViewport
 }
 
 interface PropsSignatureConfig {
@@ -200,6 +202,15 @@ function resolveCurrentViewState(services: SkySceneRuntimeServices): ScenePropsS
   }
 }
 
+/** Stellarium `hips_get_render_order` inputs: viewport height + vertical projection scale (`getProjectionScale`). */
+function resolveHipsViewportForTileQuery(services: SkySceneRuntimeServices): SkyEngineHipsViewport {
+  const centerDirection = services.navigationService.getCenterDirection()
+  return {
+    windowHeightPx: services.projectionService.getViewportHeight(),
+    projectionMat11: services.projectionService.getProjectionScale(centerDirection),
+  }
+}
+
 async function loadSkyRuntimeTiles(
   query: SkyEngineQuery,
 ): Promise<SkyTileRepositoryLoadResult> {
@@ -275,6 +286,7 @@ function buildSceneControllerModel(config: {
   resolvedTileQuerySignature: string
   previousScenePacket: ScenePropsSnapshot['scenePacket']
   sceneTimestampIso: string
+  hipsViewport?: SkyEngineHipsViewport
 }) {
   const observerSnapshot = {
     timestampUtc: config.sceneTimestampIso,
@@ -313,6 +325,7 @@ function buildSceneControllerModel(config: {
   const query = buildSkyEngineQuery(observerSnapshot, {
     limitingMagnitude: queryLimitingMagnitude,
     observerFrameAstrometry,
+    hipsViewport: config.hipsViewport,
   })
   const scenePacketState = resolveScenePacketForQuery({
     query,
@@ -373,6 +386,7 @@ function buildSceneControllerModel(config: {
     queryLimitingMagnitude,
     tileQuerySignature: scenePacketState.tileQuerySignature,
     observerFrameAstrometry,
+    hipsViewport: config.hipsViewport,
   } satisfies SceneControllerModel
 }
 
@@ -555,6 +569,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
 
       const currentViewState = resolveCurrentViewState(runtimeContext.services)
       const sceneTimestampIso = runtimeContext.services.clockService.getSceneTimestampIso() ?? initialSceneTimestampIso
+      const hipsViewport = resolveHipsViewportForTileQuery(runtimeContext.services)
       const nextModel = buildSceneControllerModel({
         backendStars,
         backendSatellites,
@@ -568,6 +583,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
         resolvedTileQuerySignature: resolvedTileQuerySignatureRef.current,
         previousScenePacket: stableScenePacketRef.current,
         sceneTimestampIso,
+        hipsViewport,
       })
       if (nextModel.scenePacket != null && nextModel.tileQuerySignature === resolvedTileQuerySignatureRef.current) {
         stableScenePacketRef.current = nextModel.scenePacket
@@ -598,6 +614,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
         }, {
           limitingMagnitude: nextModel.queryLimitingMagnitude,
           observerFrameAstrometry: nextModel.observerFrameAstrometry,
+          hipsViewport: nextModel.hipsViewport,
         })
 
         void loadSkyRuntimeTiles(query)

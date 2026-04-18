@@ -47,6 +47,7 @@ export function buildSkyEngineQuery(
     limitingMagnitude?: number
     maxTileLevel?: number
     observerFrameAstrometry?: ObserverAstrometrySnapshot
+    hipsViewport?: SkyEngineQuery['hipsViewport']
   },
 ): SkyEngineQuery {
   const limitingMagnitude = options?.limitingMagnitude ?? resolveLimitingMagnitude(observer.fovDeg)
@@ -58,6 +59,7 @@ export function buildSkyEngineQuery(
     activeTiers: resolveActiveTiers(observer, limitingMagnitude),
     visibleTileIds: selectVisibleTileIds(observer, limitingMagnitude, maxTileLevel),
     maxTileLevel,
+    hipsViewport: options?.hipsViewport,
     observerFrameAstrometry: options?.observerFrameAstrometry,
   }
 }

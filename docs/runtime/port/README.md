@@ -47,4 +47,4 @@ Status values are strict:
 
 No partial statuses are allowed.
 
-**`module0-foundation-lock`** is **`COMPLETE`** (**EV-0019**). **`module1-hips-kernel`** is **active** with a filled gate row (**EV-0020**); **G4** Hub tile-load replay is **PASS** (**EV-0024**); **G2/G3** have additional **`eph-file.c`**, **`healpix`**, and **tile selection** regression coverage (**EV-0025**–**EV-0028**); **G5** has **`hips_get_render_order`** + Gaia **`hipsViewport`** wiring (**EV-0029**, **EV-0030**). **`Overall`** stays **`BLOCKED`** until G2, full G3, G5, and G7 close.
+**`module0-foundation-lock`** is **`COMPLETE`** (**EV-0019**). **`module1-hips-kernel`** is **active** with a filled gate row (**EV-0020**); **G4** Hub tile-load replay is **PASS** (**EV-0024**); **G2/G3** have additional **`eph-file.c`**, **`healpix`**, and **tile selection** regression coverage (**EV-0025**–**EV-0028**); **G5** has **`hips_get_render_order`** + Gaia **`hipsViewport`** wiring (**EV-0029**–**EV-0031**). **`Overall`** stays **`BLOCKED`** until G2, full G3, G5, and G7 close.
