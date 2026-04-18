@@ -5,6 +5,11 @@ export * from './contracts/tiles'
 export { resolveSkyTileRepositoryMode } from './runtimeMode'
 export { mockSkyTileRepository, createMockTileRepository } from './adapters/mockTileRepository'
 export { fileBackedSkyTileRepository, createFileBackedSkyTileRepository } from './adapters/fileTileRepository'
+export {
+  clampHipsRenderOrder,
+  hipsGetRenderOrderUnclamped,
+  resolveGaiaHealpixOrder,
+} from './adapters/hipsRenderOrder'
 export { resolveLimitingMagnitude } from './core/magnitudePolicy'
 export {
   getAllSkyTileDescriptors,

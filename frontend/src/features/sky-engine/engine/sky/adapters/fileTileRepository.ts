@@ -11,6 +11,7 @@ import type { RuntimeStar } from '../contracts/stars'
 import { getSkyTileDescriptor } from '../core/tileIndex'
 import { SKY_TILE_LEVEL_MAG_MAX } from '../core/magnitudePolicy'
 import { buildHipsTilePath, decodeEphTile, parseSurveyProperties, type SurveyProperties } from './ephCodec'
+import { resolveGaiaHealpixOrder } from './hipsRenderOrder'
 import { healpixAngToPix, healpixPixToRaDec } from './healpix'
 
 const DEFAULT_MANIFEST_PATH = '/sky-engine-assets/catalog/hipparcos/manifest.json'
@@ -361,10 +362,6 @@ function resolveActiveSurveys(surveys: readonly RuntimeSurveyDefinition[], limit
     .sort((left, right) => left.maxVmag - right.maxVmag || left.minVmag - right.minVmag || left.key.localeCompare(right.key))
 }
 
-function resolveGaiaTileOrder(tileLevel: number, minOrder: number, maxOrder: number) {
-  return Math.min(maxOrder, minOrder + Math.max(tileLevel, 0))
-}
-
 function buildSourceLabel(activeSurveys: readonly RuntimeSurveyDefinition[], manifest: SkyTileAssetManifest) {
   if (activeSurveys.some((survey) => survey.catalog === 'gaia')) {
     return 'Hipparcos + Gaia HiPS'
@@ -475,7 +472,11 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
 
   async function loadGaiaTile(tileId: string, query: SkyEngineQuery, minVmag: number) {
     const gaiaSurvey = await loadGaiaSurvey()
-    const cacheKey = `${tileId}:${query.maxTileLevel ?? 'default'}:${minVmag.toFixed(1)}`
+    const vp = query.hipsViewport
+    const vpKey = vp
+      ? `${vp.windowHeightPx}:${vp.projectionMat11}:${vp.tileWidthPx ?? ''}`
+      : 'novp'
+    const cacheKey = `${tileId}:${query.maxTileLevel ?? 'default'}:${minVmag.toFixed(1)}:${vpKey}`
     const cachedTile = gaiaSurvey.localTileCache.get(cacheKey)
 
     if (cachedTile) {
@@ -489,7 +490,12 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
         return null
       }
 
-      const order = resolveGaiaTileOrder(descriptor.level, gaiaSurvey.properties.minOrder, gaiaSurvey.maxOrder)
+      const order = resolveGaiaHealpixOrder({
+        tileLevel: descriptor.level,
+        minOrder: gaiaSurvey.properties.minOrder,
+        maxOrder: gaiaSurvey.maxOrder,
+        viewport: query.hipsViewport,
+      })
       const selectedPixels = selectHealpixPixelsForBounds(tileId, descriptor.bounds, order, gaiaSurvey.pixelSelectionCache)
       const remoteStars = await Promise.all(selectedPixels.map((pix) => loadGaiaRemoteTile(gaiaSurvey, order, pix, minVmag)))
       const stars = remoteStars
