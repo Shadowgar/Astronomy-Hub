@@ -23,7 +23,8 @@ This document freezes the Astronomy Hub ↔ Stellarium **`module1-hips-kernel`**
 | Concern | Hub files |
 |---|---|
 | File-backed Hipparcos/Gaia tile repository | `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts` |
-| Eph / survey property codec | `frontend/src/features/sky-engine/engine/sky/adapters/ephCodec.ts` |
+| Module1 G4 tile-load fingerprint (deterministic replay) | `frontend/src/features/sky-engine/engine/sky/runtime/module1ParityFingerprint.ts` |
+| Eph / survey property codec | `frontend/src/features/sky-engine/engine/sky/adapters/ephCodec.ts` (`decodeEphTile`, **`decodeEphTileNuniq`** / **`encodeEphTileNuniq`** ↔ `eph-file.c` tile header) |
 | HEALPix helpers | `frontend/src/features/sky-engine/engine/sky/adapters/healpix.ts` |
 | Mock tiles (tests) | `frontend/src/features/sky-engine/engine/sky/adapters/mockTileRepository.ts` |
 | Tile index / query | `frontend/src/features/sky-engine/engine/sky/core/tileIndex.ts` (and related `contracts/tiles`) |
@@ -51,7 +52,9 @@ Renames or new Hub adapters in §2 require updates to **`module-inventory.md`**,
 |---|---|
 | G1 | **PASS** for the §1–§2 mapped subset; remaining **`BLOCKED`** C rows in inventory are out of this contract’s behavioral freeze. |
 | G3 | Runtime-path proofs for RA wrap bounds handling and Gaia activation/merge flow (**EV-0022**, **EV-0023**). |
-| G6 | **`npm run test:module1`** (see **EV-0020**, **EV-0022**, **EV-0023**). |
+| G4 | **`computeModule1TileLoadFingerprint`** + `tests/test_module1_deterministic_replay.test.js` snapshot (**EV-0024**). |
+| G2 (partial) | EPH **`nuniq`** decode/encode aligned with Stellarium **`eph_read_tile_header`** (**EV-0025**). |
+| G6 | **`npm run test:module1`** (see **EV-0020**, **EV-0022**, **EV-0023**, **EV-0024**, **EV-0025**). |
 
 ---
 

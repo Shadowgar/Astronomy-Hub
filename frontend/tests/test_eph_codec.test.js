@@ -4,6 +4,8 @@ import { deflateSync } from 'node:zlib'
 import {
   buildHipsTilePath,
   decodeEphTile,
+  decodeEphTileNuniq,
+  encodeEphTileNuniq,
   parseSurveyProperties,
 } from '../src/features/sky-engine/engine/sky/adapters/ephCodec'
 
@@ -131,6 +133,21 @@ function buildSampleEphTile() {
 }
 
 describe('eph codec', () => {
+  it('round-trips EPH tile nuniq order/pix like eph-file.c eph_read_tile_header', () => {
+    const cases = [
+      { order: 0, pix: 0 },
+      { order: 0, pix: 11 },
+      { order: 3, pix: 42 },
+      { order: 6, pix: 12345 },
+    ]
+
+    for (const { order, pix } of cases) {
+      const nuniq = encodeEphTileNuniq(order, pix)
+      expect(decodeEphTileNuniq(nuniq)).toEqual({ order, pix })
+      expect(decodeEphTileNuniq(Number(nuniq))).toEqual({ order, pix })
+    }
+  })
+
   it('parses Gaia survey properties with missing max_vmag as an open range', () => {
     const properties = parseSurveyProperties([
       'hips_order_min = 3',

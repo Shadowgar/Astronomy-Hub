@@ -16,6 +16,7 @@ import { healpixAngToPix, healpixPixToRaDec } from './healpix'
 const DEFAULT_MANIFEST_PATH = '/sky-engine-assets/catalog/hipparcos/manifest.json'
 const GAIA_SURVEY_BASE_PATH = '/sky-engine-assets/catalog/gaia'
 const GAIA_MIRROR_MANIFEST_PATH = `${GAIA_SURVEY_BASE_PATH}/mirror-manifest.json`
+/** Stellarium `hips.c` `hips_render`: `render_order = fmin(render_order, 9); // Hard limit.` */
 const STELLARIUM_MAX_RENDER_ORDER = 9
 const GAIA_REMOTE_FETCH_CONCURRENCY = 6
 

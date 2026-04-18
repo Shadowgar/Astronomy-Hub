@@ -4,6 +4,22 @@ import { resolveSkyRuntimeTierForMagnitude } from '../core/magnitudePolicy'
 const EPH_MAGIC = 'EPHE'
 const EPH_FILE_VERSION = 2
 const EPH_UNIT_RAD = 1 << 16
+
+/**
+ * Decode HEALPix `nuniq` from an EPH tile header (8 bytes after the 4-byte tile version).
+ * Matches Stellarium `eph_read_tile_header` in `eph-file.c` (`order` / `pix` extraction).
+ */
+export function decodeEphTileNuniq(nuniq: bigint | number): { order: number; pix: number } {
+  const n = typeof nuniq === 'bigint' ? Number(nuniq) : nuniq
+  const order = Math.floor(Math.log2(Math.floor(n / 4)) / 2)
+  const pix = n - 4 * (1 << (2 * order))
+  return { order, pix }
+}
+
+/** Inverse of {@link decodeEphTileNuniq} for tests and tooling. */
+export function encodeEphTileNuniq(order: number, pix: number): bigint {
+  return BigInt(pix + 4 * (1 << (2 * order)))
+}
 const EPH_UNIT_DEG = EPH_UNIT_RAD | 1
 const EPH_UNIT_ARCMIN = EPH_UNIT_DEG | 2
 const EPH_UNIT_ARCSEC = EPH_UNIT_ARCMIN | 4
@@ -278,9 +294,8 @@ function decodeRuntimeStar(row: Map<string, string | number | bigint>, options: 
 async function decodeTileChunk(buffer: ArrayBuffer, chunkStart: number, chunkSize: number, options: { catalog: RuntimeStarCatalog; minVmag: number }) {
   const chunkView = new DataView(buffer, chunkStart, chunkSize)
   const tileVersion = chunkView.getUint32(0, true)
-  const nuniq = Number(readUint64(chunkView, 4))
-  const order = Math.floor(Math.log2(Math.floor(nuniq / 4)) / 2)
-  const pix = nuniq - 4 * (1 << (2 * order))
+  const nuniq = readUint64(chunkView, 4)
+  const { order, pix } = decodeEphTileNuniq(nuniq)
 
   if (tileVersion < 3) {
     throw new Error(`Unsupported EPH tile version: ${tileVersion}`)

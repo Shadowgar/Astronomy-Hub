@@ -27,7 +27,7 @@ This file tracks gate completion for each module in execution order.
 | Module | G0 | G1 | G2 | G3 | G4 | G5 | G6 | G7 | Overall |
 |---|---|---|---|---|---|---|---|---|---|
 | module0-foundation-lock | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | COMPLETE |
-| module1-hips-kernel | PASS | PASS | FAIL | FAIL | FAIL | FAIL | PASS | FAIL | BLOCKED |
+| module1-hips-kernel | PASS | PASS | FAIL | FAIL | PASS | FAIL | PASS | FAIL | BLOCKED |
 | module2-stars-full | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
 | module3-dso-full | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
 | module4-dss-full | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
@@ -48,7 +48,7 @@ This file tracks gate completion for each module in execution order.
 
 **G1 (module 0):** `module0-source-contract.md` freezes the **implemented** observer/time/ERFA/refraction Hub paths vs Stellarium §1 sources. **`PORTED`** / **`BLOCKED`** inventory rows outside §1 remain tracked for future port waves; they do not invalidate **G1 PASS** for the closed module 0 gate set.
 
-**Module 1 (hips-kernel) — active:** **G0** — nine `module1-hips-kernel` file rows in `module-inventory.md` (**`BLOCKED`** / deferred C port). **G1** — `module1-source-contract.md`. **G2** — still open (more heuristic debt to retire). **G3** — partial runtime-path proofs now recorded for RA wrap handling (**EV-0022**) and Gaia narrow-FOV activation/merge flow (**EV-0023**), but overall G3 remains **FAIL** pending broader end-to-end flow proof. **G4–G5** — not satisfied (replay/parity work pending vs Stellarium HiPS/eph/cache/worker). **G6** — `npm run typecheck`, `npm run build`, **`npm run test:module1`** (**EV-0020**) and CI workflow **`.github/workflows/module1-hips.yml`** (**EV-0021**). **G7** — open until module 1 **`COMPLETE`** evidence. **`test_close_fov_star_counts.test.js`** is intentionally excluded from **`test:module1`** (long-running / asset-heavy; see contract §3).
+**Module 1 (hips-kernel) — active:** **G0** — nine `module1-hips-kernel` file rows in `module-inventory.md` (**`BLOCKED`** / deferred C port). **G1** — `module1-source-contract.md`. **G2** — still **FAIL** overall; partial alignment: EPH **`nuniq`** helpers vs **`eph-file.c`** (**EV-0025**). **G3** — partial runtime-path proofs now recorded for RA wrap handling (**EV-0022**) and Gaia narrow-FOV activation/merge flow (**EV-0023**), but overall G3 remains **FAIL** pending broader end-to-end flow proof. **G4** — Hub **`SkyTileRepositoryLoadResult`** deterministic fingerprint + snapshot (**EV-0024**); Stellarium-side HiPS/tile parity remains **G5**. **G5** — not satisfied (side-by-side vs Stellarium HiPS/eph/cache/worker). **G6** — `npm run typecheck`, `npm run build`, **`npm run test:module1`** (**EV-0020**, **EV-0024**, **EV-0025**) and CI workflow **`.github/workflows/module1-hips.yml`** (**EV-0021**). **G7** — open until module 1 **`COMPLETE`** evidence. **`test_close_fov_star_counts.test.js`** is intentionally excluded from **`test:module1`** (long-running / asset-heavy; see contract §3).
 
 ## Rules
 

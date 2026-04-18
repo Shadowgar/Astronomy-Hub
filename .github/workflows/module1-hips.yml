@@ -15,6 +15,9 @@ on:
       - 'frontend/tests/test_file_backed_tile_repository_gaia_flow.test.js'
       - 'frontend/tests/test_eph_codec.test.js'
       - 'frontend/tests/test_sky_engine_runtime_slice.test.js'
+      - 'frontend/tests/test_module1_deterministic_replay.test.js'
+      - 'frontend/tests/module1ReplayFixtures.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/runtime/module1ParityFingerprint.ts'
       - 'frontend/package.json'
       - '.github/workflows/module1-hips.yml'
   pull_request:
@@ -31,6 +34,9 @@ on:
       - 'frontend/tests/test_file_backed_tile_repository_gaia_flow.test.js'
       - 'frontend/tests/test_eph_codec.test.js'
       - 'frontend/tests/test_sky_engine_runtime_slice.test.js'
+      - 'frontend/tests/test_module1_deterministic_replay.test.js'
+      - 'frontend/tests/module1ReplayFixtures.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/runtime/module1ParityFingerprint.ts'
       - 'frontend/package.json'
       - '.github/workflows/module1-hips.yml'
 

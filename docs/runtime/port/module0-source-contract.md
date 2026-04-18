@@ -21,7 +21,7 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoi
 | `utils/vec.c`, `utils/vec.h` | Matrix multiply conventions (documented in Hub) |
 | `constants.h`, `core.c`, `core.h` | Shared constants / barometric pressure analog |
 
-**Explicitly not in this contract yet:** use of **`astrom`** for apparent-place / **`eraAtciq`** / **`eraAtioq`**, `eraAper13`, `eraPvu`, space mode, `correct_speed_of_light`, `update_nutation_precession_mat` (`eraPn00a` path in C vs Hub `eraPnm06a` path). Those remain **BLOCKED** per `blockers.md` / inventory notes.
+**Explicitly not in this contract yet:** use of **`astrom`** for apparent-place / **`eraAtciq`** / **`eraAtioq`**, `eraAper13`, `eraPvu`, space mode, `correct_speed_of_light`, `update_nutation_precession_mat` (`eraPn00a` path in C vs Hub `eraPnm06a` path). Those remain **BLOCKED** in `module-inventory.md` as deferred port surfaces; **`blockers.md`** tracks only active process blockers (none required for this gap alone).
 
 **`eraApco` (partial):** full terrestrial **`eraApco`** stack is in `erfaApco.ts` with SOFA `test_ufunc.test_apco` regression — **EV-0016**; **`deriveObserverGeometry`** now calls it and attaches **`astrom`** (UTC `eraEra00` for `theta`, TT **`eraSp00`** for `sp`, **`refa`/`refb` = 0** as in Stellarium before `refraction_prepare`).
 
