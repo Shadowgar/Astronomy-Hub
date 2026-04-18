@@ -7,6 +7,7 @@ import {
   resolveObserverUpdateMode,
   type SkyObserverDerivedGeometry,
 } from './observerDerivedGeometry'
+import { ZERO_POLAR_MOTION_STUB, type SkyObserverSeamScalars } from './observerParityStubs'
 
 /**
  * Stellarium `observer_update` (`observer.c` ~244–274): hash gate + fast/full ERFA paths.
@@ -18,7 +19,8 @@ import {
  * **Partial:** refraction matches Stellarium `refraction_prepare` + Saemundsson `refraction()` (pressure from `core.c` barometric formula, 15 °C).
  * **Partial:** ΔT via `deltat.c` SMH2016 in `timeScales.ts`; UT1 JD; GMST/LST for display; `ri2h` uses ERFA `eraEra00` + longitude (`eral` analog). DUT1 = (TT−UTC) − ΔT (not IERS EOP).
  * **Partial:** `eraPnm06a` BPN + `rc2v` / `ri2v` chain matching Stellarium `mat3_mul` order (`vec.h`).
- * **Not ported (deferred):** polar motion in `ri2h`, `eraApco` / `eraAper13`, earth/sun PV — full `observer_t`.
+ * **`polarMotion` / `observerSeam`:** zero PM stub + `elong`/`phi`/`hm`/`eral` scalars (`astrom` seam); EOP not integrated.
+ * **Not ported (deferred):** PM in `ri2h`, `eraApco` / `eraAper13`, earth/sun PV — full `observer_t`.
  */
 export class SkyObserverService {
   private observer: SkyEngineObserver
@@ -58,6 +60,21 @@ export class SkyObserverService {
     earthPv: [0, 0, 0],
     sunPv: [0, 0, 0],
     lastAccurateSceneTimestampIso: '',
+    polarMotion: ZERO_POLAR_MOTION_STUB,
+    observerSeam: {
+      elongRad: 0,
+      phiRad: 0,
+      hmMeters: 0,
+      eralRad: 0,
+    } satisfies SkyObserverSeamScalars,
+    timeModifiedJulianDate: {
+      tt: 0,
+      utc: 0,
+      ut1: 0,
+    },
+    cipRad: { x: 0, y: 0 },
+    cioLocatorSRad: 0,
+    equationOfOriginsRad: 0,
   }
 
   constructor(initialObserver: SkyEngineObserver, clockService: SkyClockService) {

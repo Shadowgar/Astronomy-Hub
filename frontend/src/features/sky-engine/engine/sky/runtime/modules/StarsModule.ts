@@ -122,6 +122,8 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
             ? {
                 localSiderealTimeDeg: runtime.observerAstrometry.localSiderealTimeDeg,
                 refraction: runtime.observerAstrometry.refraction,
+                polarMotion: runtime.observerAstrometry.polarMotion,
+                observerSeam: runtime.observerAstrometry.observerSeam,
                 matrices: {
                   ri2h: runtime.observerAstrometry.matrices.ri2h,
                   rh2i: runtime.observerAstrometry.matrices.rh2i,

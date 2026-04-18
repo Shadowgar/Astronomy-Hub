@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
 import { deriveObserverGeometry } from '../src/features/sky-engine/engine/sky/runtime/observerDerivedGeometry.ts'
+import { eraBpn2xy } from '../src/features/sky-engine/engine/sky/runtime/erfaBpn2xy.ts'
+import { eraEors } from '../src/features/sky-engine/engine/sky/runtime/erfaEors.ts'
 import { multiplyMatrix3Erfa, transposeMatrix3 } from '../src/features/sky-engine/engine/sky/runtime/erfaIau2006.ts'
 import { eraNut06a, eraPnm06a } from '../src/features/sky-engine/engine/sky/runtime/erfaPnm06a.ts'
+import { eraS06 } from '../src/features/sky-engine/engine/sky/runtime/erfaS06.ts'
 
 describe('ERFA nutation / PNM06a (Stellarium erfa.c parity)', () => {
   it('icrsToHorizontal × horizontalToIcrs is identity (observer frame chain)', () => {
@@ -50,5 +53,46 @@ describe('ERFA nutation / PNM06a (Stellarium erfa.c parity)', () => {
       r[0][1] * (r[1][0] * r[2][2] - r[1][2] * r[2][0]) +
       r[0][2] * (r[1][0] * r[2][1] - r[1][1] * r[2][0])
     expect(det).toBeCloseTo(1, 10)
+  })
+
+  it('eraBpn2xy matches BPN bottom row', () => {
+    const r = eraPnm06a(2451545.0, -1421.3)
+    const xy = eraBpn2xy(r)
+    expect(xy.x).toBe(r[2][0])
+    expect(xy.y).toBe(r[2][1])
+  })
+
+  it('eraS06 / eraEors stable at TT = J2000.0 (goldens from ported series)', () => {
+    const r = eraPnm06a(2451545.0, 0.0)
+    const { x, y } = eraBpn2xy(r)
+    const s = eraS06(2451545.0, 0.0, x, y)
+    const eo = eraEors(r, s)
+    expect(s).toBeCloseTo(-1.0133965177563803e-8, 14)
+    expect(eo).toBeCloseTo(0.00006189010752393381, 12)
+  })
+
+  it('eraS06 / eraEors at mixed JD apportionment (ERA sample split)', () => {
+    const r = eraPnm06a(2400000.5, 50123.2)
+    const { x, y } = eraBpn2xy(r)
+    const s = eraS06(2400000.5, 50123.2, x, y)
+    const eo = eraEors(r, s)
+    expect(s).toBeCloseTo(-3.693350919690419e-9, 12)
+    expect(eo).toBeCloseTo(0.0008375055559364065, 12)
+  })
+
+  it('deriveObserverGeometry exposes CIP / s / EO / MJD seam', () => {
+    const g = deriveObserverGeometry(
+      { label: 't', latitude: 51.5, longitude: -0.12, elevationFt: 80 },
+      '2026-06-15T12:00:00.000Z',
+      'full',
+      null,
+    )
+    expect(g.cipRad.x).toBeCloseTo(g.matrices.bpn[2][0], 15)
+    expect(g.timeModifiedJulianDate.tt).toBeCloseTo(g.ttJulianDate - 2400000.5, 12)
+    expect(g.cioLocatorSRad).toBeCloseTo(
+      eraS06(2400000.5, g.ttJulianDate - 2400000.5, g.cipRad.x, g.cipRad.y),
+      14,
+    )
+    expect(g.equationOfOriginsRad).toBeCloseTo(eraEors(g.matrices.bpn, g.cioLocatorSRad), 14)
   })
 })

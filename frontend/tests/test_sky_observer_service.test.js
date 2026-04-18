@@ -67,6 +67,11 @@ describe('SkyObserverService (Stellarium observer_update seam)', () => {
     expect(g.matrices.rh2i[1]).toHaveLength(3)
     expect(g.matrices.icrsToHorizontal[0]).toHaveLength(3)
     expect(g.matrices.horizontalToIcrs[2]).toHaveLength(3)
+    expect(g.polarMotion.xpRad).toBe(0)
+    expect(g.polarMotion.yplRad).toBe(0)
+    expect(g.observerSeam.phiRad).toBeCloseTo((40.7 * Math.PI) / 180, 5)
+    expect(g.observerSeam.elongRad).toBeCloseTo((-74 * Math.PI) / 180, 5)
+    expect(Number.isFinite(g.observerSeam.eralRad)).toBe(true)
   })
 
   it('forces full update when elapsed scene time exceeds fast threshold', () => {

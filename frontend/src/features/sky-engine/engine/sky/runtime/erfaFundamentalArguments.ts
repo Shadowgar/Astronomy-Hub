@@ -18,10 +18,30 @@ export function eraFal03(t: number): number {
   return a * ERFA_DAS2R
 }
 
+/** Mean anomaly of the Sun, IERS 2003 (for `eraS06` and nutation). */
+export function eraFalp03(t: number): number {
+  const a = cFmod(
+    1287104.793048 +
+      t * (129596581.0481 + t * (-0.5532 + t * (0.000136 + t * -0.00001149))),
+    ERFA_TURNAS,
+  )
+  return a * ERFA_DAS2R
+}
+
 export function eraFaf03(t: number): number {
   const a = cFmod(
     335779.526232 +
       t * (1739527262.8478 + t * (-12.7512 + t * (-0.001037 + t * 0.00000417))),
+    ERFA_TURNAS,
+  )
+  return a * ERFA_DAS2R
+}
+
+/** Mean elongation of the Moon from the Sun, IERS 2003 (`eraS06`, nutation). */
+export function eraFad03(t: number): number {
+  const a = cFmod(
+    1072260.703692 +
+      t * (1602961601.209 + t * (-6.3706 + t * (0.006593 + t * -0.00003169))),
     ERFA_TURNAS,
   )
   return a * ERFA_DAS2R

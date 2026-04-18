@@ -31,15 +31,15 @@ Total C/H files: 146
 | `src/obj_info.h` | object_info | module7-remaining-swe | UNMAPPED | - |
 | `src/geojson_parser.h` | geojson | module7-remaining-swe | UNMAPPED | - |
 | `src/hips.h` | hips | module1-hips-kernel | UNMAPPED | - |
-| `src/core.c` | core | module0-foundation-lock | UNMAPPED | - |
+| `src/core.c` | core | module0-foundation-lock | BLOCKED | Barometric + time/refraction hooks: `transforms/coordinates.ts` (`computeStellariumBarometricPressureMbar`), `SkyClockService`, bridge; full Stellarium `core.c` render/init loop not ported. **Gate:** BLK-000, G5. |
 | `src/symbols.h` | symbols | module7-remaining-swe | UNMAPPED | - |
-| `src/projection.h` | projection | module0-foundation-lock | UNMAPPED | - |
+| `src/projection.h` | projection | module0-foundation-lock | BLOCKED | `projectionMath.ts`, `SkyProjectionService.ts`; not all C projection entry points frozen. **Gate:** G5. |
 | `src/log.h` | core | module7-remaining-swe | UNMAPPED | - |
 | `src/shader_cache.h` | render | module7-remaining-swe | UNMAPPED | - |
 | `src/painter.c` | render | module7-remaining-swe | UNMAPPED | - |
 | `src/hip.c` | stars | module2-stars-full | UNMAPPED | - |
 | `src/swe.h` | core | module7-remaining-swe | UNMAPPED | - |
-| `src/erfa_wrap.h` | astro_math | module0-foundation-lock | UNMAPPED | - |
+| `src/erfa_wrap.h` | astro_math | module0-foundation-lock | BLOCKED | Literal TS ERFA ports: `engine/sky/runtime/erfa*.ts` (no C shim). **Gate:** G5 astrometry parity. |
 | `src/skybrightness.h` | skybrightness | module7-remaining-swe | UNMAPPED | - |
 | `src/utils/progressbar.c` | utils | module7-remaining-swe | UNMAPPED | - |
 | `src/line_mesh.c` | render | module7-remaining-swe | UNMAPPED | - |
@@ -61,7 +61,7 @@ Total C/H files: 146
 | `src/line_mesh.h` | render | module7-remaining-swe | UNMAPPED | - |
 | `src/utils/fader.c` | utils | module7-remaining-swe | UNMAPPED | - |
 | `src/telescope.c` | telescope | module7-remaining-swe | UNMAPPED | - |
-| `src/core.h` | core | module0-foundation-lock | UNMAPPED | - |
+| `src/core.h` | core | module0-foundation-lock | BLOCKED | Types/contracts spread across `sky-engine` runtime + feature modules; no 1:1 header. **Gate:** G5. |
 | `src/utils/worker.h` | async | module1-hips-kernel | UNMAPPED | - |
 | `src/hips.c` | hips | module1-hips-kernel | UNMAPPED | - |
 | `src/events.c` | events | module7-remaining-swe | UNMAPPED | - |
@@ -76,11 +76,11 @@ Total C/H files: 146
 | `src/labels.h` | labels | module6-labels-overlays | UNMAPPED | - |
 | `src/modules/cardinal.c` | module | module6-labels-overlays | UNMAPPED | - |
 | `src/eph-file.h` | eph | module1-hips-kernel | UNMAPPED | - |
-| `src/frames.h` | frames | module0-foundation-lock | UNMAPPED | - |
-| `src/utils/vec.c` | math | module0-foundation-lock | UNMAPPED | - |
-| `src/observer.h` | observer | module0-foundation-lock | UNMAPPED | - |
+| `src/frames.h` | frames | module0-foundation-lock | BLOCKED | Paired with `frames.c` mapping. **Gate:** G5. |
+| `src/utils/vec.c` | math | module0-foundation-lock | BLOCKED | `erfaIau2006.ts` matrix ops; Babylon `Vector3` elsewhere; Stellarium `vec.h` multiply order documented for observer chain. **Gate:** G5. |
+| `src/observer.h` | observer | module0-foundation-lock | BLOCKED | `SkyObserverService.ts`, `observerDerivedGeometry.ts`, `observerParityStubs.ts`. **Gate:** EOP/PM/`eraEpv00`/`observer_update_full`; BLK-000. |
 | `src/utils/cache.h` | cache | module1-hips-kernel | UNMAPPED | - |
-| `src/navigation.h` | navigation | module0-foundation-lock | UNMAPPED | - |
+| `src/navigation.h` | navigation | module0-foundation-lock | BLOCKED | `SkyNavigationService.ts`, `SkyClockService.ts`, `observerNavigation.ts`. **Gate:** G5. |
 | `src/render_gl.c` | render | module7-remaining-swe | UNMAPPED | - |
 | `src/utils/utf8.h` | utils | module7-remaining-swe | UNMAPPED | - |
 | `src/libtess2.c` | render | module7-remaining-swe | UNMAPPED | - |
@@ -91,16 +91,16 @@ Total C/H files: 146
 | `src/telescope.h` | telescope | module7-remaining-swe | UNMAPPED | - |
 | `src/utils/texture.h` | texture | module7-remaining-swe | UNMAPPED | - |
 | `src/otypes.c` | object_types | module7-remaining-swe | UNMAPPED | - |
-| `src/projections/proj_hammer.c` | projection | module0-foundation-lock | UNMAPPED | - |
+| `src/projections/proj_hammer.c` | projection | module0-foundation-lock | BLOCKED | Not implemented in Hub projection surface; `projectionMath.ts` / `SkyProjectionService.ts` cover subset. **Gate:** G5. |
 | `src/system.c` | system | module7-remaining-swe | UNMAPPED | - |
 | `src/utils/progressbar.h` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/observer.c` | observer | module0-foundation-lock | UNMAPPED | - |
-| `src/projections/proj_perspective.c` | projection | module0-foundation-lock | UNMAPPED | - |
+| `src/observer.c` | observer | module0-foundation-lock | BLOCKED | `SkyObserverService.ts`, `observerDerivedGeometry.ts`, `runtime/erfa*.ts`. **Gate:** BLK-000, EOP/PM/`eraApco`/PV. |
+| `src/projections/proj_perspective.c` | projection | module0-foundation-lock | BLOCKED | Perspective path via `SkyProjectionService` / `projectionMath.ts` (not C-identical). **Gate:** G5. |
 | `src/modules/planets.c` | module | module7-remaining-swe | UNMAPPED | - |
 | `src/utils/request_js.c` | io | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/vec.h` | math | module0-foundation-lock | UNMAPPED | - |
+| `src/utils/vec.h` | math | module0-foundation-lock | BLOCKED | `erfaIau2006.ts` + Babylon vectors; see `vec.c` row. **Gate:** G5. |
 | `src/assets.c` | assets | module7-remaining-swe | UNMAPPED | - |
-| `src/projections/proj_mercator.c` | projection | module0-foundation-lock | UNMAPPED | - |
+| `src/projections/proj_mercator.c` | projection | module0-foundation-lock | BLOCKED | Not first-class in Hub; subset in `projectionMath.ts`. **Gate:** G5. |
 | `src/otypes.h` | object_types | module7-remaining-swe | UNMAPPED | - |
 | `src/modules/labels.c` | module | module6-labels-overlays | UNMAPPED | - |
 | `src/utils/worker.c` | async | module1-hips-kernel | UNMAPPED | - |
@@ -108,17 +108,17 @@ Total C/H files: 146
 | `src/hip.h` | stars | module2-stars-full | UNMAPPED | - |
 | `src/utils/utils_json.h` | utils | module7-remaining-swe | UNMAPPED | - |
 | `src/utils/utils_json.c` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/constants.h` | core | module0-foundation-lock | UNMAPPED | - |
+| `src/constants.h` | core | module0-foundation-lock | BLOCKED | `erfaConstants.ts`, time-scale and engine constants. **Gate:** G5. |
 | `src/modules/stars.c` | module | module2-stars-full | UNMAPPED | - |
-| `src/projections/proj_stereographic.c` | projection | module0-foundation-lock | UNMAPPED | - |
-| `src/frames.c` | frames | module0-foundation-lock | UNMAPPED | - |
+| `src/projections/proj_stereographic.c` | projection | module0-foundation-lock | BLOCKED | `projectionMath.ts` stereographic branch + `SkyProjectionService.ts`. **Gate:** G5. |
+| `src/frames.c` | frames | module0-foundation-lock | BLOCKED | `astronomy.ts`, `transforms/coordinates.ts` (`ObserverFrame`, `convertObserverFrameVector`). **Gate:** G5. |
 | `src/utils/mesh.h` | render | module7-remaining-swe | UNMAPPED | - |
 | `src/utils/gl.c` | render | module7-remaining-swe | UNMAPPED | - |
 | `src/args.c` | args | module7-remaining-swe | UNMAPPED | - |
-| `src/projections/proj_mollweide.c` | projection | module0-foundation-lock | UNMAPPED | - |
+| `src/projections/proj_mollweide.c` | projection | module0-foundation-lock | BLOCKED | Not implemented in Hub viewport stack. **Gate:** G5 / future. |
 | `src/utils/fader.h` | utils | module7-remaining-swe | UNMAPPED | - |
 | `src/utils/mesh.c` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/navigation.c` | navigation | module0-foundation-lock | UNMAPPED | - |
+| `src/navigation.c` | navigation | module0-foundation-lock | BLOCKED | `SkyNavigationService.ts`, `SkyClockService.ts`, `SkyProjectionService.ts`, `observerNavigation.ts`. **Gate:** G5. |
 | `src/areas.c` | areas | module7-remaining-swe | UNMAPPED | - |
 | `src/modules/geojson.c` | module | module7-remaining-swe | UNMAPPED | - |
 | `src/utils/gesture.c` | input | module7-remaining-swe | UNMAPPED | - |
@@ -148,21 +148,21 @@ Total C/H files: 146
 | `src/render.h` | render | module7-remaining-swe | UNMAPPED | - |
 | `src/mpc.c` | minor_planets | module7-remaining-swe | UNMAPPED | - |
 | `src/tonemapper.c` | tonemapper | module7-remaining-swe | UNMAPPED | - |
-| `src/projection.c` | projection | module0-foundation-lock | UNMAPPED | - |
+| `src/projection.c` | projection | module0-foundation-lock | BLOCKED | `projectionMath.ts`, `SkyProjectionService.ts`. **Gate:** G5. |
 | `src/config.h` | config | module7-remaining-swe | UNMAPPED | - |
 | `src/areas.h` | areas | module7-remaining-swe | UNMAPPED | - |
-| `src/algos/utctt.h` | time_scale | module0-foundation-lock | UNMAPPED | - |
-| `src/algos/refraction.c` | algos | module0-foundation-lock | UNMAPPED | Altitude-layer: `refraction_prepare` + Saemundsson forward/inverse in `transforms/coordinates.ts`; barometric pressure `core.c` in `computeStellariumBarometricPressureMbar`. Vector `refraction`/`refraction_inv` not yet on shared unit-vector path. |
+| `src/algos/utctt.h` | time_scale | module0-foundation-lock | BLOCKED | `timeScales.ts` UTC↔TT (+ leap seconds); not full ERFA `eraUtctai`/`eraTaitt` surface. **Gate:** G5. |
+| `src/algos/refraction.c` | algos | module0-foundation-lock | BLOCKED | Altitude-layer: `refraction_prepare` + Saemundsson forward/inverse in `transforms/coordinates.ts`; barometric pressure `core.c` in `computeStellariumBarometricPressureMbar`. Vector `refraction`/`refraction_inv` not yet on shared unit-vector path. **Gate:** G5. |
 | `src/algos/orbit.c` | algos | module7-remaining-swe | UNMAPPED | - |
 | `src/algos/moon.c` | algos | module7-remaining-swe | UNMAPPED | - |
 | `src/algos/format.c` | algos | module7-remaining-swe | UNMAPPED | - |
 | `src/algos/healpix.c` | algos | module1-hips-kernel | UNMAPPED | - |
 | `src/algos/pluto.c` | algos | module7-remaining-swe | UNMAPPED | - |
 | `src/algos/satrings.c` | algos | module7-remaining-swe | UNMAPPED | - |
-| `src/algos/utctt.c` | time_scale | module0-foundation-lock | UNMAPPED | - |
-| `src/algos/deltat.c` | algos | module0-foundation-lock | UNMAPPED | `deltaTSecondsFromTtMjd` in `runtime/timeScales.ts` (SMH2016 + post-2016 branch per source). |
+| `src/algos/utctt.c` | time_scale | module0-foundation-lock | BLOCKED | `timeScales.ts` (`toJulianDateTt`, `dut1SecondsFromTimestampIso`, etc.). **Gate:** G5. |
+| `src/algos/deltat.c` | algos | module0-foundation-lock | PORTED | `runtime/timeScales.ts` (`deltaTSecondsFromTtMjd`, SMH2016 + post-2016 branch). Verified: `tests/test_time_scales.test.js`. |
 | `src/algos/bv_to_rgb.c` | algos | module2-stars-full | UNMAPPED | - |
-| `src/algos/algos.h` | algos | module0-foundation-lock | UNMAPPED | - |
+| `src/algos/algos.h` | algos | module0-foundation-lock | BLOCKED | Umbrella header; module0 algorithms mapped on per-file rows (`deltat`, `utctt`, `refraction`). **Gate:** per-algo G5. |
 | `src/algos/gust86.c` | algos | module7-remaining-swe | UNMAPPED | - |
 | `src/algos/tass17.c` | algos | module7-remaining-swe | UNMAPPED | - |
 | `src/algos/l1.c` | algos | module7-remaining-swe | UNMAPPED | - |
@@ -177,8 +177,8 @@ No out-of-scope entries approved yet.
 
 Function-level mapping is required before any module can pass `G0 InventoryLock`.
 
-- module0-foundation-lock: pending
-- module1-hips-kernel: pending
+- module0-foundation-lock: **seeded** — file inventory rows for module0 are `PORTED`/`BLOCKED` with AH targets; function tables below list core contracts; **G5** parity still blocks elevating `BLOCKED` rows to `PORTED`.
+- module1-hips-kernel: pending (inventory rows left **`UNMAPPED`** until module 0 is **`COMPLETE`** per `port/README.md` execution order)
 - module2-stars-full: pending
 - module3-dso-full: pending
 - module4-dss-full: pending
@@ -192,58 +192,59 @@ Function-level mapping is required before any module can pass `G0 InventoryLock`
 
 | Function | Source | Status | AH Target |
 |---|---|---|---|
-| `observer_update` | observer.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
-| `observer_update_fast` | observer.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
-| `observer_update_full` | observer.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
-| `observer_is_uptodate` | observer.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
-| `observer_get_pos` | observer.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
+| `observer_update` | observer.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` (parity **G5** / **BLK-000**) |
+| `observer_update_fast` | observer.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
+| `observer_update_full` | observer.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
+| `observer_is_uptodate` | observer.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
+| `observer_get_pos` | observer.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
 
 ### Source: `src/frames.c`, `src/frames.h`
 
 | Function | Source | Status | AH Target |
 |---|---|---|---|
-| `convert_frame` | frames.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
-| `convert_framev4` | frames.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
-| `position_to_apparent` | frames.c | UNMAPPED | `frontend/src/features/sky-engine/astronomy.ts` |
-| `position_to_astrometric` | frames.c | UNMAPPED | `frontend/src/features/sky-engine/astronomy.ts` |
-| `apparent_to_astrometric` | frames.c | UNMAPPED | `frontend/src/features/sky-engine/astronomy.ts` |
-| `frame_get_rotation` | frames.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
+| `convert_frame` | frames.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
+| `convert_framev4` | frames.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
+| `position_to_apparent` | frames.c | BLOCKED | `frontend/src/features/sky-engine/astronomy.ts` |
+| `position_to_astrometric` | frames.c | BLOCKED | `frontend/src/features/sky-engine/astronomy.ts` |
+| `apparent_to_astrometric` | frames.c | BLOCKED | `frontend/src/features/sky-engine/astronomy.ts` |
+| `frame_get_rotation` | frames.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
 
 ### Source: `src/navigation.c`, `src/navigation.h`
 
 | Function | Source | Status | AH Target |
 |---|---|---|---|
-| `core_update_time` | navigation.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/runtime/SkyClockService.ts` |
-| `core_update_direction` | navigation.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyNavigationService.ts` |
-| `core_update_mount` | navigation.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyNavigationService.ts` |
-| `core_update_fov` | navigation.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
+| `core_update_time` | navigation.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/runtime/SkyClockService.ts` |
+| `core_update_direction` | navigation.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyNavigationService.ts` |
+| `core_update_mount` | navigation.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyNavigationService.ts` |
+| `core_update_fov` | navigation.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
 
 ### Source: `src/projection.c`, `src/projection.h`, `src/projections/*.c`
 
 | Function | Source | Status | AH Target |
 |---|---|---|---|
-| `projection_init` | projection.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
-| `projection_compute_fovs` | projection.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
-| `project_to_clip` | projection.c | UNMAPPED | `frontend/src/features/sky-engine/projectionMath.ts` |
-| `project_to_win` | projection.c | UNMAPPED | `frontend/src/features/sky-engine/projectionMath.ts` |
-| `unproject` | projection.c | UNMAPPED | `frontend/src/features/sky-engine/projectionMath.ts` |
-| `proj_stereographic` | projections/proj_stereographic.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
-| `proj_perspective` | projections/proj_perspective.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
-| `proj_hammer` | projections/proj_hammer.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
-| `proj_mercator` | projections/proj_mercator.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
-| `proj_mollweide` | projections/proj_mollweide.c | UNMAPPED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
+| `projection_init` | projection.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
+| `projection_compute_fovs` | projection.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
+| `project_to_clip` | projection.c | BLOCKED | `frontend/src/features/sky-engine/projectionMath.ts` |
+| `project_to_win` | projection.c | BLOCKED | `frontend/src/features/sky-engine/projectionMath.ts` |
+| `unproject` | projection.c | BLOCKED | `frontend/src/features/sky-engine/projectionMath.ts` |
+| `proj_stereographic` | projections/proj_stereographic.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
+| `proj_perspective` | projections/proj_perspective.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
+| `proj_hammer` | projections/proj_hammer.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
+| `proj_mercator` | projections/proj_mercator.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
+| `proj_mollweide` | projections/proj_mollweide.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyProjectionService.ts` |
 
 ### Source: `src/algos/utctt.c`, `src/algos/utctt.h`, `src/algos/deltat.c`
 
 | Function | Source | Status | AH Target |
 |---|---|---|---|
-| `utc2tt` | algos/utctt.c | UNMAPPED | `toJulianDateTt` in `runtime/timeScales.ts` (leap table; not full ERFA `eraUtctai`/`eraTaitt`). |
-| `tt2utc` | algos/utctt.c | UNMAPPED | inverse not split out; `dut1SecondsFromTimestampIso` uses (TT−UTC)−ΔT identity vs full `eraTtut1`/`eraTaiutc`. |
-| `ut1_minus_utc` | algos/utctt.c | UNMAPPED | `dut1SecondsFromTimestampIso` in `runtime/timeScales.ts` (algebraic from ΔT + leap table). |
-| `deltat` | algos/deltat.c | UNMAPPED | `deltaTSecondsFromTtMjd` in `runtime/timeScales.ts`. |
+| `utc2tt` | algos/utctt.c | BLOCKED | `toJulianDateTt` in `runtime/timeScales.ts` (leap table; not full ERFA `eraUtctai`/`eraTaitt`). |
+| `tt2utc` | algos/utctt.c | BLOCKED | inverse not split out; `dut1SecondsFromTimestampIso` uses (TT−UTC)−ΔT identity vs full `eraTtut1`/`eraTaiutc`. |
+| `ut1_minus_utc` | algos/utctt.c | BLOCKED | `dut1SecondsFromTimestampIso` in `runtime/timeScales.ts` (algebraic from ΔT + leap table). |
+| `deltat` | algos/deltat.c | PORTED | `deltaTSecondsFromTtMjd` in `runtime/timeScales.ts`; `tests/test_time_scales.test.js`. |
 
 ### Module 0 Mapping Notes (working)
 
+- **G1 partial contract:** `docs/runtime/port/module0-source-contract.md` — frozen Hub ↔ Stellarium mapping for the observer/time/ERFA/refraction spine (evidence **EV-0012**).
 - `computeObserverUpdateHash` now keys on TT Julian date instead of raw ISO timestamp:
   - `frontend/src/features/sky-engine/engine/sky/runtime/observerUpdateHash.ts`
 - Leap-second-aware UTC/TT conversion introduced:
@@ -252,5 +253,9 @@ Function-level mapping is required before any module can pass `G0 InventoryLock`
 - Stellarium `deltat` (SMH2016) and UT1 Julian date for GMST: `deltaTSecondsFromTtMjd`, `ut1JulianDateFromTimestampIso`, `dut1SecondsFromTimestampIso` in `timeScales.ts`; `computeLocalSiderealTimeDeg` uses UT1 JD.
 - ERFA `eraEra00` (Capitaine et al. 2000) in `runtime/erfaEarthRotation.ts`; simplified `ri2h`/`rh2i` use `localEarthRotationAngleRad` = ERA + longitude + `eraSp00` (TIO s′) on TT (`eral` analog; **no polar motion** in `ri2h`).
 - `eraPnm06a` + `eraNut00a`/`eraNut06a` in `runtime/erfaNut00a.ts`, `runtime/erfaPnm06a.ts` (generated `erfaNut00aTables.generated.ts`); `matrices.bpn`, `rc2v`/`ri2v` per Stellarium `vec.h` `mat3_mul` order; `matrices.icrsToHorizontal` = `ri2h×bpn`, `horizontalToIcrs` for `coordinates.ts` `icrf` frame.
+- Polar motion: `runtime/observerParityStubs.ts` (`ZERO_POLAR_MOTION_STUB`, `SkyPolarMotionStub`); `SkyObserverDerivedGeometry.polarMotion` / `.observerSeam` (ERFA `xp`/`yp` + `xpl`/`ypl`, and `elong`/`phi`/`hm`/`eral`) — zeros / computed scalars until EOP + PM in `ri2h`.
+- CIP / CIO / EO chain (Stellarium `observer_update_full` / `eraEo06a` ingredients): `runtime/erfaBpn2xy.ts`, `runtime/erfaS06.ts`, `runtime/erfaEors.ts`; `SkyObserverDerivedGeometry.cipRad`, `.cioLocatorSRad`, `.equationOfOriginsRad`, and `.timeModifiedJulianDate` (TT/UTC/UT1 as MJD); `eraFalp03` / `eraFad03` added in `erfaFundamentalArguments.ts` for `eraS06`.
 - IAU 2006 `eraObl06` / `eraPfw06` / `eraFw2m` / `eraPmat06` / `eraEcm06` in `runtime/erfaIau2006.ts`; `matrices.ri2e` / `matrices.re2i` from `eraEcm06` (no Stellarium `mat3_invert` naming swap — ERFA ICRS→ecliptic of date).
-- Remaining module0 function mappings stay `UNMAPPED` until exact source-equivalent behavior is implemented and verified.
+- Module0 function rows use **`BLOCKED`** until **G5** side-by-side parity (or **`PORTED`** where noted, e.g. `deltat`). Inventory **`UNMAPPED`** count for module0 foundation files is cleared; global inventory still contains `UNMAPPED` rows for other planned modules.
+- **G4 / BLK-000 (Hub):** `runtime/module0ParityFingerprint.ts` + `tests/test_module0_deterministic_replay.test.js` — stable text fingerprint of `deriveObserverGeometry` for five fixed checkpoints (evidence **EV-0011**); Stellarium reference replay still outstanding for full blocker exit.
+- **`eraEpv00` (Earth PV):** execution plan `docs/runtime/port/module0-eraEpv00-port-plan.md` (ERFA `erfa.c` ~8619–11152; generator + `erfaEpv00.ts` + tests + wire `earth_pvh`/`earth_pvb` in derived geometry).

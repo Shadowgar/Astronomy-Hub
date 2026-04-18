@@ -12,12 +12,22 @@ import {
   transposeMatrix3 as transposeMatrix3Erfa,
   type MutableMatrix3,
 } from './erfaIau2006'
+import { eraBpn2xy } from './erfaBpn2xy'
+import { eraEors } from './erfaEors'
 import { eraPnm06aFromTtJulianDate } from './erfaPnm06a'
+import { eraS06 } from './erfaS06'
 import { localEarthRotationAngleRad } from './erfaEarthRotation'
 import { dut1SecondsFromTimestampIso, toJulianDateTt, toJulianDateUtc, ut1JulianDateFromTimestampIso } from './timeScales'
+import {
+  type SkyObserverSeamScalars,
+  type SkyPolarMotionStub,
+  ZERO_POLAR_MOTION_STUB,
+} from './observerParityStubs'
 
 const FT_TO_METERS = 0.3048
 const FAST_UPDATE_SECONDS = 1.001 * 24 * 60 * 60
+/** ERFA / SOFA MJD reference `DJM0` (Modified Julian Date = JD − 2400000.5). */
+const ERFA_DJM0 = 2400000.5
 
 type Matrix3 = readonly [
   readonly [number, number, number],
@@ -130,6 +140,9 @@ function computeFrameMatrices(latitudeRad: number, localEarthRotationRad: number
 
 export type SkyObserverUpdateMode = 'fast' | 'full'
 
+export type { SkyObserverSeamScalars, SkyPolarMotionStub }
+export { ZERO_POLAR_MOTION_STUB } from './observerParityStubs'
+
 export interface SkyObserverDerivedGeometry {
   readonly sceneTimestampIso: string
   readonly updateMode: SkyObserverUpdateMode
@@ -166,6 +179,30 @@ export interface SkyObserverDerivedGeometry {
   readonly earthPv: readonly [number, number, number]
   readonly sunPv: readonly [number, number, number]
   readonly lastAccurateSceneTimestampIso: string
+  /**
+   * Polar motion stub (radians). Zeros: no IERS EOP; `ri2h` is built without PM rotation
+   * (Stellarium `mat3_mul` rpl with `astrom->xpl`/`ypl`).
+   */
+  readonly polarMotion: SkyPolarMotionStub
+  /**
+   * `observer_t` / `eraASTROM` scalar seam — same values as top-level lat/long/hm + local ERA where applicable.
+   */
+  readonly observerSeam: SkyObserverSeamScalars
+  /** TT / UTC / UT1 as Modified Julian Date (`JD − 2400000.5`), Stellarium `observer_t.{tt,utc,ut1}` style. */
+  readonly timeModifiedJulianDate: {
+    readonly tt: number
+    readonly utc: number
+    readonly ut1: number
+  }
+  /** CIP unit vector components in GCRS (radians) — ERFA `eraBpn2xy` / bottom row of `bpn`. */
+  readonly cipRad: {
+    readonly x: number
+    readonly y: number
+  }
+  /** CIO locator s (radians): `eraS06` using same TT split as `eraPnm06a`. */
+  readonly cioLocatorSRad: number
+  /** Equation of the origins (radians): `eraEors(bpn, cioLocatorSRad)`. */
+  readonly equationOfOriginsRad: number
 }
 
 export interface ObserverUpdateDecisionInput {
@@ -213,6 +250,11 @@ export function deriveObserverGeometry(
   const dut1Seconds = dut1SecondsFromTimestampIso(sceneTimestampIso)
   const refraction = refractionFromElevation(elevationMeters)
   const horizon = computeFrameMatrices(latitudeRad, localEraRad, ttJulianDate)
+  const cipScratch = { x: 0, y: 0 }
+  eraBpn2xy(horizon.bpn, cipScratch)
+  const ttMjdPart = ttJulianDate - ERFA_DJM0
+  const cioLocatorSRad = eraS06(ERFA_DJM0, ttMjdPart, cipScratch.x, cipScratch.y)
+  const equationOfOriginsRad = eraEors(horizon.bpn, cioLocatorSRad)
   const matrices = {
     ...horizon,
     ri2e: toReadonlyMatrix3(icrsToEclipticMatrixFromTt(ttJulianDate)),
@@ -223,6 +265,14 @@ export function deriveObserverGeometry(
   const lastAccurateSceneTimestampIso = updateMode === 'full'
     ? sceneTimestampIso
     : (previous?.lastAccurateSceneTimestampIso ?? sceneTimestampIso)
+
+  const polarMotion = ZERO_POLAR_MOTION_STUB
+  const observerSeam: SkyObserverSeamScalars = {
+    elongRad: longitudeRad,
+    phiRad: latitudeRad,
+    hmMeters: elevationMeters,
+    eralRad: localEraRad,
+  }
 
   return {
     sceneTimestampIso,
@@ -240,5 +290,15 @@ export function deriveObserverGeometry(
     earthPv,
     sunPv,
     lastAccurateSceneTimestampIso,
+    polarMotion,
+    observerSeam,
+    timeModifiedJulianDate: {
+      tt: ttMjdPart,
+      utc: utcJulianDate - ERFA_DJM0,
+      ut1: ut1JulianDate - ERFA_DJM0,
+    },
+    cipRad: { x: cipScratch.x, y: cipScratch.y },
+    cioLocatorSRad,
+    equationOfOriginsRad,
   }
 }

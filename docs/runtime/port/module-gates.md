@@ -34,6 +34,16 @@ This file tracks gate completion for each module in execution order.
 | module7-remaining-swe | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
 | module8-global-final-gate | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
 
+### Execution order vs inventory (`README.md`)
+
+**Module Completion Rule** (`port/README.md`): each module must pass **all** gates in the checklist (inventory lock through evidence closure) **before** the **next** module is treated as the active completion target. Until then, downstream modules stay **`N/A`** here — that is the strict “one module to ~100% (all gates **PASS** / **COMPLETE**) before the next” plan.
+
+**Inventory file** (`module-inventory.md`) is separate: **global G0** stays **FAIL** while **any** source file row is still **`UNMAPPED`**, across all planned modules. Filling rows early is **documentation only**; it does **not** mean module 1 has “started” in the completion-rule sense while module 0 is still **`BLOCKED`**.
+
+**Module 0 subset:** every file row with `Planned Module == module0-foundation-lock` is **`PORTED`** or **`BLOCKED`** with an AH mapping (no **`UNMAPPED`** in that subset). Resolving **BLK-000** and passing remaining gates is still required before module 0 can go **COMPLETE**.
+
+**G1 (module 0):** `module0-source-contract.md` freezes the **implemented** observer/time/ERFA/refraction Hub paths vs Stellarium §1 sources. **Overall G1** stays **FAIL** until the rest of module 0 files are either under contract extensions or **`OUT-OF-SCOPE`** with approval.
+
 ## Rules
 
 - A module can be `COMPLETE` only if every gate is `PASS`.

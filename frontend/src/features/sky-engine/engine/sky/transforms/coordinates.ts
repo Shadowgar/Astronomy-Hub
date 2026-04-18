@@ -1,4 +1,7 @@
 import type { ObserverSnapshot } from '../contracts/observer'
+import type { SkyObserverSeamScalars, SkyPolarMotionStub } from '../runtime/observerParityStubs'
+
+export type { SkyObserverSeamScalars, SkyPolarMotionStub } from '../runtime/observerParityStubs'
 import { ut1JulianDateFromTimestampIso } from '../runtime/timeScales'
 
 export type UnitVector3 = {
@@ -20,6 +23,10 @@ export type ObserverAstrometrySnapshot = {
     refA: number
     refB: number
   }
+  /** Stellarium/ERFA polar motion stub (rad). Omitted in legacy callers; zeros = no PM. */
+  polarMotion?: SkyPolarMotionStub
+  /** `observer_t` / `eraASTROM` scalar seam; optional for slim snapshots. */
+  observerSeam?: SkyObserverSeamScalars
   matrices?: {
     ri2h: readonly [readonly [number, number, number], readonly [number, number, number], readonly [number, number, number]]
     rh2i: readonly [readonly [number, number, number], readonly [number, number, number], readonly [number, number, number]]
