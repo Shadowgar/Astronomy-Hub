@@ -52,7 +52,7 @@ From `erfa.c` ~1067–1107:
 - [x] Hub **`astrom`** on `SkyObserverDerivedGeometry` (`observerDerivedGeometry` calls **`eraApco`**; `SkyObserverService` default + `module0ParityFingerprint` extended).  
 - [x] `module0-source-contract.md` §1 / §3 updated for live **`astrom`** (apparent-place / `eraAtioq` still future).  
 - [x] **`ri2h` / `observerSeam.eralRad`** use **`observerEralStellariumRad`** (= **`astrom.eral`**, UTC `eraEra00` + longitude + `eraSp00`), not UT1-based `localEarthRotationAngleRad`.  
-- [ ] Full **`update_matrices`** parity: Stellarium `Rz(eral) × Rpl × Ry(…) × Rsx` then transpose vs Hub’s `Ry × Rz` factorization; polar motion **`Rpl`** when EOP lands.  
+- [x] Full **`update_matrices`** `ri2h` / `rh2i` parity: Stellarium `observer.c` (~68–83) — `Rz(eral) × Rpl × Ry(-φ+π/2) × Rsx`, transpose, `rh2i = invert(ri2h)`; **`Rpl`** from **`astrom.xpl`/`ypl`** (zeros until EOP); classical **`eraPnm06a` `bpn`** unchanged for `icrsToHorizontal` / fingerprint.  
 - [x] **`eraAb` / `eraLd` / `eraLdsun`**, **`stellariumApparentGcrsToAstrometricIcrsUnit`**, **`stellariumFrameAstrometryFromEraAstrom`** (`erfaAbLdsun.ts`, **`test_erfa_ab_ldsun.test.js`**).  
 - [x] **`convertObserverFrameVector`**: when **`stellariumAstrom`** is present, `icrf` ↔ `observed_geom` uses **`astrometric_to_apparent`** + **`bpn^T`** + **`ri2h`** / inverse (`frames.c`); runtime modules attach slice from **`observerAstrometry.astrom`**.  
 - [x] **`SkyEngineScene` → `buildSkyEngineQuery`**: **`observerFrameAstrometry`** from **`mergeObserverSnapshotWithDerivedGeometry`**; **`assembleSkyScenePacket`** / **`raDecToObserverUnitVector`** use Module 0 horizontal for Hipparcos/Gaia packet stars.

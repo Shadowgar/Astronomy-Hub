@@ -18,7 +18,7 @@ import { eraPnm06aFromTtJulianDate } from './erfaPnm06a'
 import { eraS06 } from './erfaS06'
 import { eraEpv00 } from './erfaEpv00'
 import { eraApco, type EraAstrom } from './erfaApco'
-import { eraEra00FromUtcJulianDate, eraSp00, observerEralStellariumRad } from './erfaEarthRotation'
+import { eraEra00FromUtcJulianDate, eraSp00 } from './erfaEarthRotation'
 import { dut1SecondsFromTimestampIso, toJulianDateTt, toJulianDateUtc, ut1JulianDateFromTimestampIso } from './timeScales'
 import {
   type SkyObserverSeamScalars,
@@ -70,6 +70,44 @@ function transposeMatrix3(value: Matrix3): Matrix3 {
   ]
 }
 
+/** Full inverse for 3×3 (Stellarium `mat3_invert`); `ri2h` with `rpl` is not orthogonal. */
+function invertMatrix3(m: Matrix3): Matrix3 {
+  const a00 = m[0][0]
+  const a01 = m[0][1]
+  const a02 = m[0][2]
+  const a10 = m[1][0]
+  const a11 = m[1][1]
+  const a12 = m[1][2]
+  const a20 = m[2][0]
+  const a21 = m[2][1]
+  const a22 = m[2][2]
+  const det =
+    a00 * (a11 * a22 - a12 * a21) -
+    a01 * (a10 * a22 - a12 * a20) +
+    a02 * (a10 * a21 - a11 * a20)
+  if (!Number.isFinite(det) || Math.abs(det) < 1e-18) {
+    return transposeMatrix3(m)
+  }
+  const invDet = 1 / det
+  return [
+    [
+      (a11 * a22 - a12 * a21) * invDet,
+      (a02 * a21 - a01 * a22) * invDet,
+      (a01 * a12 - a02 * a11) * invDet,
+    ],
+    [
+      (a12 * a20 - a10 * a22) * invDet,
+      (a00 * a22 - a02 * a20) * invDet,
+      (a02 * a10 - a00 * a12) * invDet,
+    ],
+    [
+      (a10 * a21 - a11 * a20) * invDet,
+      (a01 * a20 - a00 * a21) * invDet,
+      (a00 * a11 - a01 * a10) * invDet,
+    ],
+  ]
+}
+
 function rotationY(radians: number): Matrix3 {
   const c = Math.cos(radians)
   const s = Math.sin(radians)
@@ -97,12 +135,42 @@ function refractionFromElevation(elevationMeters: number) {
 }
 
 /**
- * Stellarium `observer.c` `update_matrices`: `mat3_mul` is `out = b × a` in row-storage
- * matching ERFA `multiplyMatrix3Erfa` as `multiplyMatrix3Erfa(a,b)=a*b` (standard), so
- * `mat3_mul(ro2v, ri2h, ri2v)` → `ri2v = ri2h × ro2v`. `rc2v` uses `transpose(bpn)` then
- * the same convention: `bpn^T × ri2h × ro2v` (ERFA `eraPnm06a` `rnpb` = GCRS→CIRS `bpn`).
+ * Stellarium `observer.c` `update_matrices` (~68–80): `Rz(eral) × Rpl × Ry(-φ+π/2) × Rsx`,
+ * then `mat3_transpose` → stored `ri2h`; `rh2i = mat3_invert(ri2h)` (~82–83).
+ *
+ * `Rpl` uses `eraASTROM.xpl` / `ypl` (first-order polar-motion block in C, not `eraPom00`).
+ * `mat3_mul(ro2v, ri2h, ri2v)` → Hub `multiplyMatrix3Erfa(ri2h, ro2v)` = `ri2h × ro2v` (same as prior Hub).
+ * Classical `bpn` remains ERFA `eraPnm06a` for `icrsToHorizontal` / fingerprint; CIO `astrom.bpn` is separate.
  */
-function computeFrameMatrices(latitudeRad: number, eralRad: number, ttJulianDate: number): {
+function buildRi2hRh2iStellariumUpdateMatrices(
+  astrom: Pick<EraAstrom, 'eral' | 'xpl' | 'ypl'>,
+  latitudeRad: number,
+): { ri2h: Matrix3; rh2i: Matrix3 } {
+  const { eral, xpl, ypl } = astrom
+  const rpl: Matrix3 = [
+    [1, 0, xpl],
+    [0, 1, ypl],
+    [xpl, ypl, 1],
+  ]
+  const rsx: Matrix3 = [
+    [-1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1],
+  ]
+  const chain = multiplyMatrix3(
+    multiplyMatrix3(multiplyMatrix3(rotationZ(eral), rpl), rotationY(-latitudeRad + Math.PI / 2)),
+    rsx,
+  )
+  const ri2h = transposeMatrix3(chain)
+  const rh2i = invertMatrix3(ri2h)
+  return { ri2h, rh2i }
+}
+
+function computeFrameMatricesFromAstrom(
+  astrom: Pick<EraAstrom, 'eral' | 'xpl' | 'ypl'>,
+  latitudeRad: number,
+  ttJulianDate: number,
+): {
   ri2h: Matrix3
   rh2i: Matrix3
   ro2v: Matrix3
@@ -115,8 +183,7 @@ function computeFrameMatrices(latitudeRad: number, eralRad: number, ttJulianDate
   /** Inverse of `icrsToHorizontal`: `bpn^T × rh2i`. */
   horizontalToIcrs: Matrix3
 } {
-  const ri2h = multiplyMatrix3(rotationY(Math.PI / 2 - latitudeRad), rotationZ(-eralRad))
-  const rh2i = transposeMatrix3(ri2h)
+  const { ri2h, rh2i } = buildRi2hRh2iStellariumUpdateMatrices(astrom, latitudeRad)
   const ro2vM = erfaIdentityMatrix3()
   const rv2oM = erfaIdentityMatrix3()
   const ri2hM = ri2h as unknown as MutableMatrix3
@@ -156,7 +223,7 @@ export interface SkyObserverDerivedGeometry {
   readonly latitudeRad: number
   readonly longitudeRad: number
   readonly elevationMeters: number
-  /** GMST + longitude (degrees); not used for `ri2h` — matrices use Stellarium **`astrom.eral`** (UTC `eraEra00` + longitude + `eraSp00`). */
+  /** GMST + longitude (degrees); not used for `ri2h` — `ri2h` uses **`astrom.eral`** after **`eraApco`** (UTC `theta` + `along`). */
   readonly localSiderealTimeDeg: number
   readonly refraction: {
     readonly refA: number
@@ -187,8 +254,8 @@ export interface SkyObserverDerivedGeometry {
   readonly sunPv: readonly [number, number, number]
   readonly lastAccurateSceneTimestampIso: string
   /**
-   * Polar motion stub (radians). Zeros: no IERS EOP; `ri2h` is built without PM rotation
-   * (Stellarium `mat3_mul` rpl with `astrom->xpl`/`ypl`).
+   * Polar motion stub (radians). Zeros until IERS EOP feeds **`eraApco`**; `ri2h` still applies
+   * Stellarium **`Rpl`** using **`astrom.xpl`/`ypl`** (same as zeros today).
    */
   readonly polarMotion: SkyPolarMotionStub
   /**
@@ -260,18 +327,13 @@ export function deriveObserverGeometry(
   const ttJulianDate = toJulianDateTt(sceneTimestampIso)
   const dut1Seconds = dut1SecondsFromTimestampIso(sceneTimestampIso)
   const refraction = refractionFromElevation(elevationMeters)
-  const eralRad = observerEralStellariumRad(utcJulianDate, longitudeRad, ttJulianDate)
-  const horizon = computeFrameMatrices(latitudeRad, eralRad, ttJulianDate)
+
+  const bpnForCip = eraPnm06aFromTtJulianDate(ttJulianDate)
   const cipScratch = { x: 0, y: 0 }
-  eraBpn2xy(horizon.bpn, cipScratch)
+  eraBpn2xy(bpnForCip, cipScratch)
   const ttMjdPart = ttJulianDate - ERFA_DJM0
   const cioLocatorSRad = eraS06(ERFA_DJM0, ttMjdPart, cipScratch.x, cipScratch.y)
-  const equationOfOriginsRad = eraEors(horizon.bpn, cioLocatorSRad)
-  const matrices = {
-    ...horizon,
-    ri2e: toReadonlyMatrix3(icrsToEclipticMatrixFromTt(ttJulianDate)),
-    re2i: toReadonlyMatrix3(eclipticToIcrsMatrixFromTt(ttJulianDate)),
-  }
+  const equationOfOriginsRad = eraEors(bpnForCip, cioLocatorSRad)
   const epv = eraEpv00(ERFA_DJM0, ttJulianDate - ERFA_DJM0)
   const pvb0 = epv.pvb[0]
   const pvh0 = epv.pvh[0]
@@ -304,6 +366,12 @@ export function deriveObserverGeometry(
     0,
     0,
   )
+
+  const matrices = {
+    ...computeFrameMatricesFromAstrom(astrom, latitudeRad, ttJulianDate),
+    ri2e: toReadonlyMatrix3(icrsToEclipticMatrixFromTt(ttJulianDate)),
+    re2i: toReadonlyMatrix3(eclipticToIcrsMatrixFromTt(ttJulianDate)),
+  }
 
   const observerSeam: SkyObserverSeamScalars = {
     elongRad: longitudeRad,
