@@ -107,6 +107,32 @@ function joinAssetPath(basePath: string, assetPath: string) {
   return normalizedPath
 }
 
+function normalizeRaDeg(raDeg: number) {
+  const wrapped = raDeg % 360
+  return wrapped < 0 ? wrapped + 360 : wrapped
+}
+
+function isRaWithinBounds(raDeg: number, raMinDeg: number, raMaxDeg: number) {
+  const normalizedRa = normalizeRaDeg(raDeg)
+  const normalizedMin = normalizeRaDeg(raMinDeg)
+  const normalizedMax = normalizeRaDeg(raMaxDeg)
+
+  if (normalizedMin <= normalizedMax) {
+    return normalizedRa >= normalizedMin && normalizedRa <= normalizedMax
+  }
+
+  return normalizedRa >= normalizedMin || normalizedRa <= normalizedMax
+}
+
+function centerRaForBounds(raMinDeg: number, raMaxDeg: number) {
+  const normalizedMin = normalizeRaDeg(raMinDeg)
+  const normalizedMax = normalizeRaDeg(raMaxDeg)
+  const forwardSpan = normalizedMax >= normalizedMin
+    ? normalizedMax - normalizedMin
+    : (normalizedMax + 360) - normalizedMin
+  return normalizeRaDeg(normalizedMin + (forwardSpan * 0.5))
+}
+
 function resolveMagnitudeBand(level: number) {
   const [deepestResolvedMax = SKY_TILE_LEVEL_MAG_MAX[0]] = SKY_TILE_LEVEL_MAG_MAX.slice(-1)
   const resolvedMax = SKY_TILE_LEVEL_MAG_MAX[level] ?? deepestResolvedMax
@@ -210,8 +236,7 @@ function buildEmptyTilePayload(tileId: string, manifest: SkyTileAssetManifest): 
 
 function isStarInsideBounds(star: RuntimeStar, bounds: SkyTileBounds) {
   return (
-    star.raDeg >= bounds.raMinDeg &&
-    star.raDeg <= bounds.raMaxDeg &&
+    isRaWithinBounds(star.raDeg, bounds.raMinDeg, bounds.raMaxDeg) &&
     star.decDeg >= bounds.decMinDeg &&
     star.decDeg <= bounds.decMaxDeg
   )
@@ -245,21 +270,25 @@ function selectHealpixPixelsForBounds(tileId: string, bounds: SkyTileBounds, ord
 
   const selectedPixels = getHealpixPixelCenters(order)
     .filter((pixel) => (
-      pixel.raDeg >= bounds.raMinDeg &&
-      pixel.raDeg <= bounds.raMaxDeg &&
+      isRaWithinBounds(pixel.raDeg, bounds.raMinDeg, bounds.raMaxDeg) &&
       pixel.decDeg >= bounds.decMinDeg &&
       pixel.decDeg <= bounds.decMaxDeg
     ))
     .map((pixel) => pixel.pix)
 
   if (selectedPixels.length === 0) {
-    const centerRaDeg = (bounds.raMinDeg + bounds.raMaxDeg) * 0.5
+    const centerRaDeg = centerRaForBounds(bounds.raMinDeg, bounds.raMaxDeg)
     const centerDecDeg = (bounds.decMinDeg + bounds.decMaxDeg) * 0.5
     selectedPixels.push(healpixAngToPix(order, centerRaDeg, centerDecDeg))
   }
 
   cache.set(cacheKey, selectedPixels)
   return selectedPixels
+}
+
+export const __fileTileRepositoryInternals = {
+  isRaWithinBounds,
+  centerRaForBounds,
 }
 
 function filterSurveyStarsByMagnitudeRange(stars: readonly RuntimeStar[], survey: { minVmag: number; maxVmag: number }) {
