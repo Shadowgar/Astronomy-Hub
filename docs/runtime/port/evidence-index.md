@@ -26,6 +26,7 @@ This index links command runs, raw outputs, screenshots, and JSON artifacts used
 | EV-0013 | module0-foundation-lock | G1 | Author `module0-eraEpv00-port-plan.md` (line span, generator strategy, test + integration checklist) | `docs/runtime/port/module0-eraEpv00-port-plan.md` (commit) | PASS | Staged plan for `eraEpv00`; implementation tracked via future evidence rows. |
 | EV-0014 | module0-foundation-lock | G6 | `npx vitest run tests/test_erfa_epv00.test.js tests/test_module0_deterministic_replay.test.js` | `frontend/scripts/generate_erfa_epv00_tables.mjs`, `erfaEpv00.ts`, `erfaEpv00Tables.generated.ts`, `observerDerivedGeometry.ts`, snapshot update | PASS | `eraEpv00` ported from study `erfa.c`; PyERFA goldens; `earthPv`/`sunPv` wired; Module 0 fingerprint snapshot refreshed. |
 | EV-0015 | module0-foundation-lock | G1 | Author `module0-eraApco-port-plan.md` + implement **`eraApcs`** with regression tests | `docs/runtime/port/module0-eraApco-port-plan.md`, `erfaApcs.ts`, `erfaConstants.ts` (`ERFA_DAU`…), `tests/test_erfa_apcs.test.js` | PASS | First `eraApco` subgraph ported; full `eraApco` + `astrom` wiring still open (plan §4). |
+| EV-0016 | module0-foundation-lock | G6 | `npx vitest run tests/test_erfa_apco.test.js` | `erfaApco.ts`, `test_erfa_apco.test.js` (SOFA `test_ufunc.test_apco` vector) | PASS | Full **`eraApco`** + helpers (`eraC2ixys`, `eraPvtob`, …); Hub observer pipeline wiring still TODO. |
 
 ## Rules
 

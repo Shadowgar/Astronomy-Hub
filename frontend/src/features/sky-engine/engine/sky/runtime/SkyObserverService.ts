@@ -20,7 +20,7 @@ import { ZERO_POLAR_MOTION_STUB, type SkyObserverSeamScalars } from './observerP
  * **Partial:** ΔT via `deltat.c` SMH2016 in `timeScales.ts`; UT1 JD; GMST/LST for display; `ri2h` uses ERFA `eraEra00` + longitude (`eral` analog). DUT1 = (TT−UTC) − ΔT (not IERS EOP).
  * **Partial:** `eraPnm06a` BPN + `rc2v` / `ri2v` chain matching Stellarium `mat3_mul` order (`vec.h`).
  * **`polarMotion` / `observerSeam`:** zero PM stub + `elong`/`phi`/`hm`/`eral` scalars (`astrom` seam); EOP not integrated.
- * **Not ported (deferred):** PM in `ri2h`, `eraApco` / `eraAper13`, full `eraASTROM` on the seam — `eraEpv00` + **`eraApcs`** exist; `eraApco` glue still pending (see `docs/runtime/port/module0-eraApco-port-plan.md`).
+ * **Not ported (deferred):** PM in `ri2h`, `eraAper13`, full **`eraASTROM`** on the seam — `eraEpv00`, **`eraApcs`**, **`eraApco`** (`erfaApco.ts`) exist; Hub does not yet call `eraApco` or attach `astrom` to derived geometry (see `docs/runtime/port/module0-eraApco-port-plan.md` §4).
  */
 export class SkyObserverService {
   private observer: SkyEngineObserver

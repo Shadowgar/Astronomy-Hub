@@ -21,9 +21,11 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoi
 | `utils/vec.c`, `utils/vec.h` | Matrix multiply conventions (documented in Hub) |
 | `constants.h`, `core.c`, `core.h` | Shared constants / barometric pressure analog |
 
-**Explicitly not in this contract yet:** **`eraApco`** (terrestrial astrometry context), `eraAper13`, `eraPvu`, full **`eraASTROM`** population on the Hub observer seam, space mode, `correct_speed_of_light`, `update_nutation_precession_mat` (`eraPn00a` path in C vs Hub `eraPnm06a` path). Those remain **BLOCKED** per `blockers.md` / inventory notes.
+**Explicitly not in this contract yet:** Hub consumption of **`eraASTROM`** on the live observer seam (`SkyObserverDerivedGeometry` / services), `eraAper13`, `eraPvu`, space mode, `correct_speed_of_light`, `update_nutation_precession_mat` (`eraPn00a` path in C vs Hub `eraPnm06a` path). Those remain **BLOCKED** per `blockers.md` / inventory notes.
 
-**`eraApcs` (partial):** ICRS↔GCRS star-independent block is ported — `frontend/src/features/sky-engine/engine/sky/runtime/erfaApcs.ts`, `frontend/tests/test_erfa_apcs.test.js` (**EV-0015**, plan `module0-eraApco-port-plan.md`).
+**`eraApco` (ported, not wired):** full terrestrial **`eraApco`** stack is in `frontend/src/features/sky-engine/engine/sky/runtime/erfaApco.ts` with SOFA `test_ufunc.test_apco` regression — **EV-0016**; call sites in Hub observer pipeline still pending (plan `module0-eraApco-port-plan.md` §4).
+
+**`eraApcs` (partial):** ICRS↔GCRS star-independent block — `erfaApcs.ts`, `test_erfa_apcs.test.js` (**EV-0015**).
 
 **`eraEpv00` (partial):** VSOP2000 Earth PV is ported (`frontend/scripts/generate_erfa_epv00_tables.mjs` → `erfaEpv00Tables.generated.ts`, `erfaEpv00.ts`, `tests/test_erfa_epv00.test.js`). `observerDerivedGeometry` fills **`earthPv`** = barycentric Earth position (AU) and **`sunPv`** = **−**heliocentric Sun→Earth position (AU), matching the former zero placeholders’ shape; full six-component `pvh`/`pvb` + `eraApco` wiring is still future work (**EV-0014**, plan `module0-eraEpv00-port-plan.md`).
 
@@ -39,13 +41,13 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoi
 | Polar motion + `astrom` scalar seam stubs | `frontend/src/features/sky-engine/engine/sky/runtime/observerParityStubs.ts` |
 | Time scales, leap table, ΔT, UT1 JD | `frontend/src/features/sky-engine/engine/sky/runtime/timeScales.ts` |
 | ERA, Earth rotation | `frontend/src/features/sky-engine/engine/sky/runtime/erfaEarthRotation.ts` |
-| IAU2006 / BPN / nutation / ecliptic / Earth PV / `eraApcs` | `frontend/src/features/sky-engine/engine/sky/runtime/erfaIau2006.ts`, `erfaPnm06a.ts`, `erfaNut00a.ts`, `erfaNut00aTables.generated.ts`, `erfaEpv00.ts`, `erfaEpv00Tables.generated.ts`, `erfaApcs.ts`, `erfaBpn2xy.ts`, `erfaS06.ts`, `erfaEors.ts` |
+| IAU2006 / BPN / nutation / ecliptic / Earth PV / `eraApcs` / `eraApco` | `frontend/src/features/sky-engine/engine/sky/runtime/erfaIau2006.ts`, `erfaPnm06a.ts`, `erfaNut00a.ts`, `erfaNut00aTables.generated.ts`, `erfaEpv00.ts`, `erfaEpv00Tables.generated.ts`, `erfaApcs.ts`, `erfaApco.ts`, `erfaBpn2xy.ts`, `erfaS06.ts`, `erfaEors.ts` |
 | Fundamental arguments | `frontend/src/features/sky-engine/engine/sky/runtime/erfaFundamentalArguments.ts` |
 | Constants | `frontend/src/features/sky-engine/engine/sky/runtime/erfaConstants.ts` |
 | Scene clock + deterministic mode | `frontend/src/features/sky-engine/engine/sky/runtime/SkyClockService.ts` |
 | Refraction + barometric pressure + coordinate transforms | `frontend/src/features/sky-engine/engine/sky/transforms/coordinates.ts` |
 | Module 0 deterministic fingerprint (G4) | `frontend/src/features/sky-engine/engine/sky/runtime/module0ParityFingerprint.ts` |
-| Regression: observer / time / ERFA / replay | `frontend/tests/test_sky_observer_service.test.js`, `test_time_scales.test.js`, `test_erfa_nutation.test.js`, `test_erfa_epv00.test.js`, `test_erfa_apcs.test.js`, `test_module0_deterministic_replay.test.js` |
+| Regression: observer / time / ERFA / replay | `frontend/tests/test_sky_observer_service.test.js`, `test_time_scales.test.js`, `test_erfa_nutation.test.js`, `test_erfa_epv00.test.js`, `test_erfa_apcs.test.js`, `test_erfa_apco.test.js`, `test_module0_deterministic_replay.test.js` |
 
 ---
 

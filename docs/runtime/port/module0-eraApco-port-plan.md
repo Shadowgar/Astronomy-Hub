@@ -48,5 +48,6 @@ From `erfa.c` ~1067–1107:
 ## 4. Exit check
 
 - [x] `eraApcs` + tests (**`erfaApcs.ts`**, **`test_erfa_apcs.test.js`**).  
-- [ ] `eraApco` + helpers + Hub `astrom` seam + evidence row.  
-- [ ] `module0-source-contract.md` §1 updated when `eraApco` is **PORTED** (not just planned).
+- [x] `eraApco` + local helpers + SOFA release-vector test (**`erfaApco.ts`**, **`test_erfa_apco.test.js`**); evidence **EV-0016**.  
+- [ ] Hub **`astrom`** / `observerDerivedGeometry` / `SkyObserverService` wiring + fingerprint impact (optional separate PR).  
+- [ ] `module0-source-contract.md` §3 behavioral bullet updated when `astrom` is consumed on the live observer path.
