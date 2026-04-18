@@ -178,7 +178,7 @@ No out-of-scope entries approved yet.
 File-level **`G0 InventoryLock`** means zero **`UNMAPPED`** rows (satisfied globally as of **2026-04-18**). Function-level expansion below is still the authoritative checklist for parity work inside **`PORTED`** / **`BLOCKED`** surfaces.
 
 - module0-foundation-lock: **gate `COMPLETE`** (**EV-0019**); file rows are `PORTED`/`BLOCKED` with AH targets; function tables list core contracts; **`BLOCKED`** C sources remain until row-specific **G5** parity or scope decisions.
-- module1-hips-kernel: rows are **`BLOCKED`** with G0 seed notes until module 0 is **`COMPLETE`** per `port/README.md` execution order (AH enumeration still deferred).
+- module1-hips-kernel: **active** — rows **`BLOCKED`** with G0 seed notes; see **`module1-source-contract.md`** and gate promotion **EV-0020** (`module-gates.md`).
 - module2-stars-full: pending
 - module3-dso-full: pending
 - module4-dss-full: pending

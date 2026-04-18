@@ -27,7 +27,7 @@ This file tracks gate completion for each module in execution order.
 | Module | G0 | G1 | G2 | G3 | G4 | G5 | G6 | G7 | Overall |
 |---|---|---|---|---|---|---|---|---|---|
 | module0-foundation-lock | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | COMPLETE |
-| module1-hips-kernel | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| module1-hips-kernel | PASS | PASS | FAIL | FAIL | FAIL | FAIL | PASS | FAIL | BLOCKED |
 | module2-stars-full | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
 | module3-dso-full | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
 | module4-dss-full | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
@@ -47,6 +47,8 @@ This file tracks gate completion for each module in execution order.
 **Module 0 gate closure (EV-0019):** **G0** — no **`UNMAPPED`** file rows in `module-inventory.md` (2026-04-18 G0 seed). **G1** — `module0-source-contract.md` §1–§2 spine + every module 0 inventory row cross-referenced (§6). **G2** — observer/time/matrix spine uses explicit ERFA ports or documented stubs; no undocumented numeric shortcuts on that path. **G3** — G6 Vitest bundle exercises observer/clock/time/geometry services. **G4** — **EV-0011** + **EV-0017**. **G5** — Hub astrom goldens + PyERFA **EV-0018** (not bit-identical native Stellarium C). **G6** — `npm run typecheck`, `npm run build`, and the Vitest list in **EV-0019**. **G7** — this row + `evidence-index.md` through **EV-0019**.
 
 **G1 (module 0):** `module0-source-contract.md` freezes the **implemented** observer/time/ERFA/refraction Hub paths vs Stellarium §1 sources. **`PORTED`** / **`BLOCKED`** inventory rows outside §1 remain tracked for future port waves; they do not invalidate **G1 PASS** for the closed module 0 gate set.
+
+**Module 1 (hips-kernel) — active:** **G0** — nine `module1-hips-kernel` file rows in `module-inventory.md` (**`BLOCKED`** / deferred C port). **G1** — `module1-source-contract.md`. **G2–G5** — not satisfied (heuristic/runtime/replay/parity work pending vs Stellarium HiPS/eph/cache/worker). **G6** — `npm run typecheck`, `npm run build`, **`npm run test:module1`** (**EV-0020**) and CI workflow **`.github/workflows/module1-hips.yml`** (**EV-0021**). **G7** — open until module 1 **`COMPLETE`** evidence. **`test_close_fov_star_counts.test.js`** is intentionally excluded from **`test:module1`** (long-running / asset-heavy; see contract §3).
 
 ## Rules
 

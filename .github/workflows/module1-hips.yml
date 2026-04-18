@@ -1,0 +1,49 @@
+name: Module 1 hips-kernel (G6)
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/adapters/ephCodec.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/adapters/healpix.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/adapters/mockTileRepository.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/core/tileIndex.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/contracts/tiles.ts'
+      - 'frontend/tests/test_file_backed_tile_repository.test.js'
+      - 'frontend/tests/test_eph_codec.test.js'
+      - 'frontend/tests/test_sky_engine_runtime_slice.test.js'
+      - 'frontend/package.json'
+      - '.github/workflows/module1-hips.yml'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/adapters/ephCodec.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/adapters/healpix.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/adapters/mockTileRepository.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/core/tileIndex.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/contracts/tiles.ts'
+      - 'frontend/tests/test_file_backed_tile_repository.test.js'
+      - 'frontend/tests/test_eph_codec.test.js'
+      - 'frontend/tests/test_sky_engine_runtime_slice.test.js'
+      - 'frontend/package.json'
+      - '.github/workflows/module1-hips.yml'
+
+jobs:
+  module1-hips:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install frontend dependencies
+        run: npm ci
+      - name: Typecheck + build + module1 regression bundle
+        run: npm run typecheck && npm run build && npm run test:module1

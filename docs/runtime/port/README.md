@@ -25,6 +25,7 @@ General Hub docs are frozen for this effort. If there is a conflict between this
 - `module0-source-contract.md`: **G1** frozen Hub ↔ source mapping for the module 0 observer/time/matrix spine (**PASS** for module 0 closure; see file §5–§6)
 - `module0-eraEpv00-port-plan.md`: staged work plan for **`eraEpv00`** (Earth heliocentric/barycentric PV) before `eraApco` / full `observer_update_full`
 - `module0-eraApco-port-plan.md`: **`eraApco`** dependency graph (`eraApcs` … `eraPvtob`) and Hub `astrom` seam checklist
+- `module1-source-contract.md`: **G1** Hub ↔ source mapping for **`module1-hips-kernel`** (tile / Eph / HEALPix spine; **PASS** for §1–§2; see file §5–§6)
 
 ## Module Completion Rule
 
@@ -46,4 +47,4 @@ Status values are strict:
 
 No partial statuses are allowed.
 
-**`module0-foundation-lock`** is **`COMPLETE`** (**EV-0019** in `evidence-index.md`). Promote **`module1-hips-kernel`** from **`N/A`** when starting that module’s gate checklist.
+**`module0-foundation-lock`** is **`COMPLETE`** (**EV-0019**). **`module1-hips-kernel`** is **active** with a filled gate row (**EV-0020**); **`Overall`** stays **`BLOCKED`** until G2–G5 and G7 close.
