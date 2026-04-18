@@ -21,7 +21,9 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoi
 | `utils/vec.c`, `utils/vec.h` | Matrix multiply conventions (documented in Hub) |
 | `constants.h`, `core.c`, `core.h` | Shared constants / barometric pressure analog |
 
-**Explicitly not in this contract yet:** `eraEpv00` (**port plan:** `module0-eraEpv00-port-plan.md`), `eraApco` / `eraApcs`, `eraAper13`, `eraPvu`, full `eraASTROM` population, space mode, `correct_speed_of_light`, `update_nutation_precession_mat` (`eraPn00a` path in C vs Hub `eraPnm06a` path). Those remain **BLOCKED** per `blockers.md` / inventory notes.
+**Explicitly not in this contract yet:** `eraApco` / `eraApcs`, `eraAper13`, `eraPvu`, full `eraASTROM` population, space mode, `correct_speed_of_light`, `update_nutation_precession_mat` (`eraPn00a` path in C vs Hub `eraPnm06a` path). Those remain **BLOCKED** per `blockers.md` / inventory notes.
+
+**`eraEpv00` (partial):** VSOP2000 Earth PV is ported (`frontend/scripts/generate_erfa_epv00_tables.mjs` → `erfaEpv00Tables.generated.ts`, `erfaEpv00.ts`, `tests/test_erfa_epv00.test.js`). `observerDerivedGeometry` fills **`earthPv`** = barycentric Earth position (AU) and **`sunPv`** = **−**heliocentric Sun→Earth position (AU), matching the former zero placeholders’ shape; full six-component `pvh`/`pvb` + `eraApco` wiring is still future work (**EV-0014**, plan `module0-eraEpv00-port-plan.md`).
 
 ---
 
@@ -35,13 +37,13 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoi
 | Polar motion + `astrom` scalar seam stubs | `frontend/src/features/sky-engine/engine/sky/runtime/observerParityStubs.ts` |
 | Time scales, leap table, ΔT, UT1 JD | `frontend/src/features/sky-engine/engine/sky/runtime/timeScales.ts` |
 | ERA, Earth rotation | `frontend/src/features/sky-engine/engine/sky/runtime/erfaEarthRotation.ts` |
-| IAU2006 / BPN / nutation / ecliptic | `frontend/src/features/sky-engine/engine/sky/runtime/erfaIau2006.ts`, `erfaPnm06a.ts`, `erfaNut00a.ts`, `erfaNut00aTables.generated.ts`, `erfaBpn2xy.ts`, `erfaS06.ts`, `erfaEors.ts` |
+| IAU2006 / BPN / nutation / ecliptic / Earth PV | `frontend/src/features/sky-engine/engine/sky/runtime/erfaIau2006.ts`, `erfaPnm06a.ts`, `erfaNut00a.ts`, `erfaNut00aTables.generated.ts`, `erfaEpv00.ts`, `erfaEpv00Tables.generated.ts`, `erfaBpn2xy.ts`, `erfaS06.ts`, `erfaEors.ts` |
 | Fundamental arguments | `frontend/src/features/sky-engine/engine/sky/runtime/erfaFundamentalArguments.ts` |
 | Constants | `frontend/src/features/sky-engine/engine/sky/runtime/erfaConstants.ts` |
 | Scene clock + deterministic mode | `frontend/src/features/sky-engine/engine/sky/runtime/SkyClockService.ts` |
 | Refraction + barometric pressure + coordinate transforms | `frontend/src/features/sky-engine/engine/sky/transforms/coordinates.ts` |
 | Module 0 deterministic fingerprint (G4) | `frontend/src/features/sky-engine/engine/sky/runtime/module0ParityFingerprint.ts` |
-| Regression: observer / time / ERFA / replay | `frontend/tests/test_sky_observer_service.test.js`, `test_time_scales.test.js`, `test_erfa_nutation.test.js`, `test_module0_deterministic_replay.test.js` |
+| Regression: observer / time / ERFA / replay | `frontend/tests/test_sky_observer_service.test.js`, `test_time_scales.test.js`, `test_erfa_nutation.test.js`, `test_erfa_epv00.test.js`, `test_module0_deterministic_replay.test.js` |
 
 ---
 
@@ -49,7 +51,7 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoi
 
 1. **Matrix multiply order:** Stellarium `mat3_mul` / `vec.h` row-storage matches Hub `multiplyMatrix3Erfa` / `observerDerivedGeometry` comments (`ri2v` = `ri2h × ro2v`, `rc2v` = `bpn^T × ri2h × ro2v`).
 2. **Hash gate:** Stellarium `observer_compute_hash` XOR over packed structs; Hub `computeObserverUpdateHash` uses string + **TT Julian date** (see `observerUpdateHash.ts`). **G5** must document any intentional divergence.
-3. **Full update:** Hub does not yet call `eraApco` / `eraEpv00`; `earthPv` / `sunPv` in derived geometry are placeholders until PV port.
+3. **Full update:** Hub calls **`eraEpv00`** (TT split `2400000.5` + `ttJulianDate − 2400000.5`) for **`earthPv`** / **`sunPv`** (see §1); **`eraApco`** and full **`eraASTROM`** population remain unported.
 
 ---
 

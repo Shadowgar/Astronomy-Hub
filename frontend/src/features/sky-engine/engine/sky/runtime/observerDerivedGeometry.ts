@@ -16,6 +16,7 @@ import { eraBpn2xy } from './erfaBpn2xy'
 import { eraEors } from './erfaEors'
 import { eraPnm06aFromTtJulianDate } from './erfaPnm06a'
 import { eraS06 } from './erfaS06'
+import { eraEpv00 } from './erfaEpv00'
 import { localEarthRotationAngleRad } from './erfaEarthRotation'
 import { dut1SecondsFromTimestampIso, toJulianDateTt, toJulianDateUtc, ut1JulianDateFromTimestampIso } from './timeScales'
 import {
@@ -176,7 +177,9 @@ export interface SkyObserverDerivedGeometry {
     readonly ri2e: Matrix3
     readonly re2i: Matrix3
   }
+  /** Barycentric Earth position (AU), ERFA `eraEpv00` → `pvb[0]` in BCRS. */
   readonly earthPv: readonly [number, number, number]
+  /** Minus heliocentric Sun→Earth position (AU), −`eraEpv00` → `pvh[0]`; coarse sun direction until full `eraASTROM`. */
   readonly sunPv: readonly [number, number, number]
   readonly lastAccurateSceneTimestampIso: string
   /**
@@ -260,8 +263,12 @@ export function deriveObserverGeometry(
     ri2e: toReadonlyMatrix3(icrsToEclipticMatrixFromTt(ttJulianDate)),
     re2i: toReadonlyMatrix3(eclipticToIcrsMatrixFromTt(ttJulianDate)),
   }
-  const earthPv: readonly [number, number, number] = previous?.earthPv ?? [0, 0, 0]
-  const sunPv: readonly [number, number, number] = previous?.sunPv ?? [0, 0, 0]
+  const epv = eraEpv00(ERFA_DJM0, ttJulianDate - ERFA_DJM0)
+  const pvb0 = epv.pvb[0]
+  const pvh0 = epv.pvh[0]
+  const earthPv: readonly [number, number, number] = [pvb0[0], pvb0[1], pvb0[2]]
+  /** Heliocentric Sun→Earth position; Earth→Sun direction uses `-pvh[0]` (AU). */
+  const sunPv: readonly [number, number, number] = [-pvh0[0], -pvh0[1], -pvh0[2]]
   const lastAccurateSceneTimestampIso = updateMode === 'full'
     ? sceneTimestampIso
     : (previous?.lastAccurateSceneTimestampIso ?? sceneTimestampIso)

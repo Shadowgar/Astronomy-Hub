@@ -39,7 +39,7 @@ Total C/H files: 146
 | `src/painter.c` | render | module7-remaining-swe | UNMAPPED | - |
 | `src/hip.c` | stars | module2-stars-full | UNMAPPED | - |
 | `src/swe.h` | core | module7-remaining-swe | UNMAPPED | - |
-| `src/erfa_wrap.h` | astro_math | module0-foundation-lock | BLOCKED | Literal TS ERFA ports: `engine/sky/runtime/erfa*.ts` (no C shim). **Gate:** G5 astrometry parity. |
+| `src/erfa_wrap.h` | astro_math | module0-foundation-lock | BLOCKED | Literal TS ERFA ports: `engine/sky/runtime/erfa*.ts` (incl. **`eraEpv00`** → `erfaEpv00.ts` + generated tables). **Gate:** G5 astrometry parity. |
 | `src/skybrightness.h` | skybrightness | module7-remaining-swe | UNMAPPED | - |
 | `src/utils/progressbar.c` | utils | module7-remaining-swe | UNMAPPED | - |
 | `src/line_mesh.c` | render | module7-remaining-swe | UNMAPPED | - |
@@ -78,7 +78,7 @@ Total C/H files: 146
 | `src/eph-file.h` | eph | module1-hips-kernel | UNMAPPED | - |
 | `src/frames.h` | frames | module0-foundation-lock | BLOCKED | Paired with `frames.c` mapping. **Gate:** G5. |
 | `src/utils/vec.c` | math | module0-foundation-lock | BLOCKED | `erfaIau2006.ts` matrix ops; Babylon `Vector3` elsewhere; Stellarium `vec.h` multiply order documented for observer chain. **Gate:** G5. |
-| `src/observer.h` | observer | module0-foundation-lock | BLOCKED | `SkyObserverService.ts`, `observerDerivedGeometry.ts`, `observerParityStubs.ts`. **Gate:** EOP/PM/`eraEpv00`/`observer_update_full`; BLK-000. |
+| `src/observer.h` | observer | module0-foundation-lock | BLOCKED | `SkyObserverService.ts`, `observerDerivedGeometry.ts` (**`eraEpv00`** → `earthPv`/`sunPv` partial), `observerParityStubs.ts`. **Gate:** EOP/PM, full `observer_update_full` / `eraApco`; BLK-000. |
 | `src/utils/cache.h` | cache | module1-hips-kernel | UNMAPPED | - |
 | `src/navigation.h` | navigation | module0-foundation-lock | BLOCKED | `SkyNavigationService.ts`, `SkyClockService.ts`, `observerNavigation.ts`. **Gate:** G5. |
 | `src/render_gl.c` | render | module7-remaining-swe | UNMAPPED | - |
@@ -258,4 +258,4 @@ Function-level mapping is required before any module can pass `G0 InventoryLock`
 - IAU 2006 `eraObl06` / `eraPfw06` / `eraFw2m` / `eraPmat06` / `eraEcm06` in `runtime/erfaIau2006.ts`; `matrices.ri2e` / `matrices.re2i` from `eraEcm06` (no Stellarium `mat3_invert` naming swap — ERFA ICRS→ecliptic of date).
 - Module0 function rows use **`BLOCKED`** until **G5** side-by-side parity (or **`PORTED`** where noted, e.g. `deltat`). Inventory **`UNMAPPED`** count for module0 foundation files is cleared; global inventory still contains `UNMAPPED` rows for other planned modules.
 - **G4 / BLK-000 (Hub):** `runtime/module0ParityFingerprint.ts` + `tests/test_module0_deterministic_replay.test.js` — stable text fingerprint of `deriveObserverGeometry` for five fixed checkpoints (evidence **EV-0011**); Stellarium reference replay still outstanding for full blocker exit.
-- **`eraEpv00` (Earth PV):** execution plan `docs/runtime/port/module0-eraEpv00-port-plan.md` (ERFA `erfa.c` ~8619–11152; generator + `erfaEpv00.ts` + tests + wire `earth_pvh`/`earth_pvb` in derived geometry).
+- **`eraEpv00` (Earth PV):** **PORTED** — generator `frontend/scripts/generate_erfa_epv00_tables.mjs`, `erfaEpv00Tables.generated.ts`, `erfaEpv00.ts`, `frontend/tests/test_erfa_epv00.test.js`; `observerDerivedGeometry` sets **`earthPv`** = barycentric position (AU), **`sunPv`** = −heliocentric Sun→Earth (AU). Evidence **EV-0014**. Full six-component PV + `eraApco` still **BLOCKED** (see plan §4 follow-on).

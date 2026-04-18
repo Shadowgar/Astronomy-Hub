@@ -42,7 +42,9 @@ AGENTS.md
 
 # Local binaries (e.g. accidentally copied Snyk CLI; use npx snyk or a global install)
 /snyk
-
+frontend/.venv*
+backend/.venv*
+third_party/
 # Node
 node_modules/
 npm-debug.log*
@@ -83,6 +85,3 @@ data/
 *.csv
 gaia/
 catalog/
-third_party/spectorjs
-third_party/*
-third_party/spectorjs

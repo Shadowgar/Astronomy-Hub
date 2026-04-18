@@ -24,6 +24,7 @@ This index links command runs, raw outputs, screenshots, and JSON artifacts used
 | EV-0011 | module0-foundation-lock | G4 | `npx vitest run tests/test_module0_deterministic_replay.test.js` | `frontend/tests/__snapshots__/test_module0_deterministic_replay.test.js.snap` + `module0ParityFingerprint.ts` | PASS | Hub five-case deterministic fingerprint + snapshot; **Stellarium reference path still pending** for BLK-000 full exit. |
 | EV-0012 | module0-foundation-lock | G1 | Review / adopt `module0-source-contract.md` as partial source-contract lock | `docs/runtime/port/module0-source-contract.md` (commit) | PASS | Frozen Hub file list + Stellarium §1 scope for observer spine; §5 states remaining G1 gap for other module 0 files. |
 | EV-0013 | module0-foundation-lock | G1 | Author `module0-eraEpv00-port-plan.md` (line span, generator strategy, test + integration checklist) | `docs/runtime/port/module0-eraEpv00-port-plan.md` (commit) | PASS | Staged plan for `eraEpv00`; implementation tracked via future evidence rows. |
+| EV-0014 | module0-foundation-lock | G6 | `npx vitest run tests/test_erfa_epv00.test.js tests/test_module0_deterministic_replay.test.js` | `frontend/scripts/generate_erfa_epv00_tables.mjs`, `erfaEpv00.ts`, `erfaEpv00Tables.generated.ts`, `observerDerivedGeometry.ts`, snapshot update | PASS | `eraEpv00` ported from study `erfa.c`; PyERFA goldens; `earthPv`/`sunPv` wired; Module 0 fingerprint snapshot refreshed. |
 
 ## Rules
 

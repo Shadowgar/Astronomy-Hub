@@ -48,6 +48,8 @@
 
 ## 4. Exit check (for this workstream)
 
-- [ ] Generator committed and reproducible (`node frontend/scripts/generate_erfa_epv00_tables.mjs`).  
-- [ ] `eraEpv00` tests green; fingerprint snapshot updated if PV included.  
-- [ ] `module-inventory.md` / contract / evidence index updated.
+- [x] Generator committed and reproducible (`node frontend/scripts/generate_erfa_epv00_tables.mjs`).  
+- [x] `eraEpv00` tests green; fingerprint snapshot updated (non-zero `earthPv` / `sunPv` in Module 0 fingerprint).  
+- [x] `module-inventory.md` / contract / evidence index updated (see **EV-0014**).
+
+**Follow-on (not required to close this plan):** expose full `pvh`/`pvb` velocity rows on `SkyObserverDerivedGeometry` for `eraApco` / `observer_update_full`; today Hub maps **barycentric Earth position** → `earthPv` and **−heliocentric Earth position** → `sunPv` (AU) for the former zero placeholders.
