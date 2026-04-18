@@ -24,6 +24,7 @@ General Hub docs are frozen for this effort. If there is a conflict between this
 - `evidence-index.md`: evidence artifacts and command/output references
 - `module0-source-contract.md`: **G1** frozen Hub ↔ source mapping for the module 0 observer/time/matrix spine (partial lock; see file §5)
 - `module0-eraEpv00-port-plan.md`: staged work plan for **`eraEpv00`** (Earth heliocentric/barycentric PV) before `eraApco` / full `observer_update_full`
+- `module0-eraApco-port-plan.md`: **`eraApco`** dependency graph (`eraApcs` … `eraPvtob`) and Hub `astrom` seam checklist
 
 ## Module Completion Rule
 
