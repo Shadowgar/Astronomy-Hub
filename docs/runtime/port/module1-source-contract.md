@@ -34,7 +34,8 @@ This document freezes the Astronomy Hub ↔ Stellarium **`module1-hips-kernel`**
 
 1. **Star surveys** use built-in manifests under `public/sky-engine-assets/` (Hipparcos; optional Gaia via `mirror:gaia`). Stellarium Web Engine HiPS **image** surveys are not ported here.
 2. **RA wrap seam (G3):** repository bounds checks now treat `raMinDeg > raMaxDeg` as a wrap interval crossing `0°` for both healpix pixel preselection and final star clipping (`fileTileRepository.ts` helpers + `test_file_backed_tile_repository_bounds.test.js`, **EV-0022**).
-3. **`test_close_fov_star_counts.test.js`** exercises wide-to-close FOV against real assets and may **time out** without full local catalogs — it is **not** part of the default **`npm run test:module1`** bundle (see **`evidence-index.md` EV-0020**).
+3. **Gaia activation flow seam (G3):** integration test covers narrow-FOV Gaia activation path (`properties` + mirror manifest + HiPS tile fetch + `decodeEphTile` merge with in-bounds filtering) in `test_file_backed_tile_repository_gaia_flow.test.js` (**EV-0023**).
+4. **`test_close_fov_star_counts.test.js`** exercises wide-to-close FOV against real assets and may **time out** without full local catalogs — it is **not** part of the default **`npm run test:module1`** bundle (see **`evidence-index.md` EV-0020**).
 
 ---
 
@@ -49,8 +50,8 @@ Renames or new Hub adapters in §2 require updates to **`module-inventory.md`**,
 | Gate | Note |
 |---|---|
 | G1 | **PASS** for the §1–§2 mapped subset; remaining **`BLOCKED`** C rows in inventory are out of this contract’s behavioral freeze. |
-| G3 | Runtime-path proof for RA wrap bounds handling in tile/pixel selection (**EV-0022**). |
-| G6 | **`npm run test:module1`** (see **EV-0020**, **EV-0022**). |
+| G3 | Runtime-path proofs for RA wrap bounds handling and Gaia activation/merge flow (**EV-0022**, **EV-0023**). |
+| G6 | **`npm run test:module1`** (see **EV-0020**, **EV-0022**, **EV-0023**). |
 
 ---
 
