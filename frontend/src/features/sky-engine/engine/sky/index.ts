@@ -7,6 +7,7 @@ export { mockSkyTileRepository, createMockTileRepository } from './adapters/mock
 export { fileBackedSkyTileRepository, createFileBackedSkyTileRepository } from './adapters/fileTileRepository'
 export {
   clampHipsRenderOrder,
+  formatHipsViewportKey,
   hipsGetRenderOrderUnclamped,
   resolveGaiaHealpixOrder,
 } from './adapters/hipsRenderOrder'

@@ -9,6 +9,18 @@ export type HipsViewportHint = {
 }
 
 /**
+ * Single canonical string for `hipsViewport` in Gaia tile caches and `buildRuntimeTileQuerySignature`.
+ * Keep all call sites on this helper so cache invalidation matches scene tile reloads.
+ */
+export function formatHipsViewportKey(viewport: HipsViewportHint | undefined): string {
+  if (!viewport) {
+    return 'novp'
+  }
+
+  return `${viewport.windowHeightPx}:${viewport.projectionMat11}:${viewport.tileWidthPx ?? ''}`
+}
+
+/**
  * Unclamped formula from `hips_get_render_order` (`hips.c`): one HEALPix `order` where
  * tile pixel density along a small angle matches screen pixel density.
  */

@@ -1,5 +1,6 @@
 import {
   assembleSkyScenePacket,
+  formatHipsViewportKey,
   getSkyTileMaxLevel,
   type SkyEngineQuery,
   type SkyTileRepositoryLoadResult,
@@ -29,10 +30,7 @@ export function buildRuntimeTileQuerySignature(
   const surveyPhase = repositoryMode !== 'multi-survey'
     ? repositoryMode
     : (query.limitingMagnitude >= GAIA_SURVEY_ACTIVATION_MAGNITUDE ? 'gaia-active' : 'hipparcos-only')
-  const vp = query.hipsViewport
-  const vpSig = vp
-    ? `${vp.windowHeightPx}:${vp.projectionMat11}:${vp.tileWidthPx ?? ''}`
-    : 'novp'
+  const vpSig = formatHipsViewportKey(query.hipsViewport)
   return [
     repositoryMode,
     surveyPhase,

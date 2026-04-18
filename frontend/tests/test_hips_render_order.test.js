@@ -2,11 +2,18 @@ import { describe, expect, it } from 'vitest'
 
 import {
   clampHipsRenderOrder,
+  formatHipsViewportKey,
   hipsGetRenderOrderUnclamped,
   resolveGaiaHealpixOrder,
 } from '../src/features/sky-engine/engine/sky/adapters/hipsRenderOrder'
 
 describe('hips_get_render_order reference (hips.c)', () => {
+  it('formatHipsViewportKey matches sceneQueryState / Gaia cache convention', () => {
+    expect(formatHipsViewportKey(undefined)).toBe('novp')
+    expect(formatHipsViewportKey({ windowHeightPx: 800, projectionMat11: 1.5 })).toBe('800:1.5:')
+    expect(formatHipsViewportKey({ windowHeightPx: 800, projectionMat11: 1.5, tileWidthPx: 512 })).toBe('800:1.5:512')
+  })
+
   it('matches Stellarium formula for representative inputs', () => {
     expect(
       hipsGetRenderOrderUnclamped({ tileWidthPx: 256, windowHeightPx: 600, projectionMat11: 1 }),

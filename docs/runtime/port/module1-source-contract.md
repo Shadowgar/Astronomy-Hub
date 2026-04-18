@@ -29,7 +29,7 @@ This document freezes the Astronomy Hub ↔ Stellarium **`module1-hips-kernel`**
 | Mock tiles (tests) | `frontend/src/features/sky-engine/engine/sky/adapters/mockTileRepository.ts` |
 | Tile index / query | `frontend/src/features/sky-engine/engine/sky/core/tileIndex.ts` and `contracts/tiles` (**`SkyEngineQuery.hipsViewport`** for Gaia order, **EV-0030**) |
 | Visible tile selection | `frontend/src/features/sky-engine/engine/sky/core/tileSelection.ts` (`selectVisibleTileIds`; **`tests/test_tile_selection.test.js`**, **EV-0028**) |
-| HiPS render order (reference) | `frontend/src/features/sky-engine/engine/sky/adapters/hipsRenderOrder.ts` (`hipsGetRenderOrderUnclamped`, `clampHipsRenderOrder`; **`tests/test_hips_render_order.test.js`**, **EV-0029**) |
+| HiPS render order (reference) | `frontend/src/features/sky-engine/engine/sky/adapters/hipsRenderOrder.ts` (`hipsGetRenderOrderUnclamped`, `clampHipsRenderOrder`, **`formatHipsViewportKey`**; **`tests/test_hips_render_order.test.js`**, **EV-0029**) |
 
 ---
 

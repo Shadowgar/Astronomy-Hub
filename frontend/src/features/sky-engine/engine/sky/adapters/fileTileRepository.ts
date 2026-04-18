@@ -11,7 +11,7 @@ import type { RuntimeStar } from '../contracts/stars'
 import { getSkyTileDescriptor } from '../core/tileIndex'
 import { SKY_TILE_LEVEL_MAG_MAX } from '../core/magnitudePolicy'
 import { buildHipsTilePath, decodeEphTile, parseSurveyProperties, type SurveyProperties } from './ephCodec'
-import { resolveGaiaHealpixOrder } from './hipsRenderOrder'
+import { formatHipsViewportKey, resolveGaiaHealpixOrder } from './hipsRenderOrder'
 import { healpixAngToPix, healpixPixToRaDec } from './healpix'
 
 const DEFAULT_MANIFEST_PATH = '/sky-engine-assets/catalog/hipparcos/manifest.json'
@@ -472,11 +472,7 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
 
   async function loadGaiaTile(tileId: string, query: SkyEngineQuery, minVmag: number) {
     const gaiaSurvey = await loadGaiaSurvey()
-    const vp = query.hipsViewport
-    const vpKey = vp
-      ? `${vp.windowHeightPx}:${vp.projectionMat11}:${vp.tileWidthPx ?? ''}`
-      : 'novp'
-    const cacheKey = `${tileId}:${query.maxTileLevel ?? 'default'}:${minVmag.toFixed(1)}:${vpKey}`
+    const cacheKey = `${tileId}:${query.maxTileLevel ?? 'default'}:${minVmag.toFixed(1)}:${formatHipsViewportKey(query.hipsViewport)}`
     const cachedTile = gaiaSurvey.localTileCache.get(cacheKey)
 
     if (cachedTile) {
