@@ -21,6 +21,7 @@ import { createDirectObjectLayer } from './directObjectLayer'
 import { createDirectOverlayLayer } from './directOverlayLayer'
 import { createDirectStarLayer } from './directStarLayer'
 import type { SkyScenePacket } from './engine/sky'
+import type { ObserverAstrometrySnapshot } from './engine/sky/transforms/coordinates'
 import type { SkyTileCatalog } from './engine/sky/contracts/tiles'
 import type { BackendSkySceneStarObject } from '../scene/contracts'
 import type { SkyEngineSnapshotStore } from './SkyEngineSnapshotStore'
@@ -83,6 +84,8 @@ export interface ScenePropsSnapshot {
   readonly skyCultureId: string
   readonly hiddenSelectionName: string | null
   readonly onSelectObject: (objectId: string | null) => void
+  /** CIO + aberration snapshot aligned with scene packet / tile query (Module 0). */
+  readonly observerFrameAstrometry: ObserverAstrometrySnapshot
 }
 
 export interface SceneRuntimeRefs {

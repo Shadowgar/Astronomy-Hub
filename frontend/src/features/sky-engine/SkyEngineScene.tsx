@@ -440,6 +440,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     onSelectObject: (objectId) => {
       selectedObjectIdRef.current = objectId
     },
+    observerFrameAstrometry: defaultDynamicModelRef.current.observerFrameAstrometry,
   }
   const initialSnapshotRef = useRef(initialSnapshot)
 
@@ -641,6 +642,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
 
           syncRuntimeModelRef.current(true)
         },
+        observerFrameAstrometry: nextModel.observerFrameAstrometry,
       }
       const nextSignature = buildPropsSignature({
         timestampIso: sceneTimestampIso,

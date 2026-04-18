@@ -1,7 +1,7 @@
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 
 import type { ObserverSnapshot } from '../../contracts/observer'
-import { raDecToObserverUnitVector } from '../../transforms/coordinates'
+import { raDecToObserverUnitVector, type ObserverAstrometrySnapshot } from '../../transforms/coordinates'
 import type { SkyModule } from '../SkyModule'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import {
@@ -203,6 +203,7 @@ function renderMilkyWayLayer(
   context: CanvasRenderingContext2D,
   view: SkyProjectionView,
   observerSnapshot: ObserverSnapshot,
+  observerFrameAstrometry: ObserverAstrometrySnapshot,
   brightnessExposureState: SkyBrightnessExposureState,
   limitingMagnitude: number,
 ) {
@@ -226,7 +227,12 @@ function renderMilkyWayLayer(
 
   PROCEDURAL_MILKY_WAY_SAMPLES.forEach((sample) => {
     const equatorial = galacticToEquatorial(sample.galacticLongitudeDeg, sample.galacticLatitudeDeg)
-    const observed = raDecToObserverUnitVector(equatorial.raDeg, equatorial.decDeg, observerSnapshot)
+    const observed = raDecToObserverUnitVector(
+      equatorial.raDeg,
+      equatorial.decDeg,
+      observerSnapshot,
+      observerFrameAstrometry,
+    )
     const direction = new Vector3(observed.vector.x, observed.vector.y, observed.vector.z)
     const projected = projectDirectionToViewport(direction, view)
 
@@ -325,6 +331,7 @@ export function createMilkyWayModule(): SkyModule<ScenePropsSnapshot, SceneRunti
           latest.observer.longitude,
           timestampUtc,
         ),
+        latest.observerFrameAstrometry,
         brightnessExposureState,
         projectedFrame.limitingMagnitude,
       )
