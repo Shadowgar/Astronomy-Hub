@@ -19,7 +19,10 @@ import {
   unitVectorToHorizontalCoordinates,
   type SkyTileRepositoryLoadResult,
 } from './engine/sky'
-import { mergeObserverSnapshotWithDerivedGeometry } from './engine/sky/runtime/observerAstrometryMerge'
+import {
+  computeObserverFrameAstrometrySignatureForPropSync,
+  mergeObserverSnapshotWithDerivedGeometry,
+} from './engine/sky/runtime/observerAstrometryMerge'
 import { deriveObserverGeometry } from './engine/sky/runtime/observerDerivedGeometry'
 import type { ObserverAstrometrySnapshot } from './engine/sky/transforms/coordinates'
 import { loadDsoCatalog } from './engine/sky/adapters/dsoRepository'
@@ -95,6 +98,7 @@ interface PropsSignatureConfig {
   sceneObjects: readonly SkyEngineSceneObject[]
   scenePacket: ScenePropsSnapshot['scenePacket']
   currentViewState: ScenePropsSnapshot['initialViewState']
+  observerFrameAstrometry: ObserverAstrometrySnapshot
 }
 
 function resolveSceneQueryLimitingMagnitude(config: {
@@ -182,6 +186,7 @@ function buildPropsSignature(config: PropsSignatureConfig) {
     config.currentViewState.centerAltDeg.toFixed(1),
     config.currentViewState.centerAzDeg.toFixed(1),
     config.currentViewState.fovDegrees.toFixed(1),
+    computeObserverFrameAstrometrySignatureForPropSync(config.observerFrameAstrometry),
   ].join(':')
 }
 
@@ -653,6 +658,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
         sceneObjects: nextProps.objects,
         scenePacket: nextProps.scenePacket,
         currentViewState,
+        observerFrameAstrometry: nextProps.observerFrameAstrometry,
       })
 
       if (!force && nextSignature === lastPropsSignatureRef.current) {

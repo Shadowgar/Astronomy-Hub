@@ -9,6 +9,7 @@ build/
 pip-wheel-metadata/
 *.egg
 .venv/
+.venv-*/
 venv/
 ENV/
 env/

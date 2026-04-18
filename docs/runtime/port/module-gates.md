@@ -40,7 +40,7 @@ This file tracks gate completion for each module in execution order.
 
 **Inventory file** (`module-inventory.md`) is separate: **global G0** stays **FAIL** while **any** source file row is still **`UNMAPPED`**, across all planned modules. Filling rows early is **documentation only**; it does **not** mean module 1 has “started” in the completion-rule sense while module 0 is still **`BLOCKED`**.
 
-**Module 0 subset:** every file row with `Planned Module == module0-foundation-lock` is **`PORTED`** or **`BLOCKED`** with an AH mapping (no **`UNMAPPED`** in that subset). Resolving **BLK-000** and passing remaining gates is still required before module 0 can go **COMPLETE**.
+**Module 0 subset:** every file row with `Planned Module == module0-foundation-lock` is **`PORTED`** or **`BLOCKED`** with an AH mapping (no **`UNMAPPED`** in that subset). **BLK-000** (G4 tier-1) is **RESOLVED**; **BLK-002** (G5 PyERFA `apco` second runtime vs Hub) is **RESOLVED** (**EV-0018**). Optional native Stellarium C / WASM matrix dumps remain out of scope for that blocker. Passing all module 0 gates is still required before module 0 can go **COMPLETE**.
 
 **G1 (module 0):** `module0-source-contract.md` freezes the **implemented** observer/time/ERFA/refraction Hub paths vs Stellarium §1 sources. **Overall G1** stays **FAIL** until the rest of module 0 files are either under contract extensions or **`OUT-OF-SCOPE`** with approval.
 

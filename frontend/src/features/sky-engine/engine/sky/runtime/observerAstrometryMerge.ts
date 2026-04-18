@@ -6,6 +6,38 @@ import {
 import { stellariumFrameAstrometryFromEraAstrom } from './erfaAbLdsun'
 import type { SkyObserverDerivedGeometry } from './observerDerivedGeometry'
 
+const PROP_SYNC_DECIMALS = 8
+
+function roundForPropSync(value: number): number {
+  if (!Number.isFinite(value)) {
+    return 0
+  }
+  return Number(value.toFixed(PROP_SYNC_DECIMALS))
+}
+
+/**
+ * Compact signature so `SkyCore.syncProps` runs when Module 0 matrices / seam drift
+ * while other props fields (selection, aids, …) are unchanged.
+ */
+export function computeObserverFrameAstrometrySignatureForPropSync(
+  snap: ObserverAstrometrySnapshot,
+): string {
+  const seam = snap.observerSeam
+  const m = snap.matrices?.ri2h
+  if (!seam || !m) {
+    return 'na'
+  }
+  const flat = m
+    .map((row) => row.map((v) => String(roundForPropSync(v))).join(','))
+    .join(';')
+  return [
+    roundForPropSync(seam.eralRad),
+    roundForPropSync(seam.phiRad),
+    roundForPropSync(seam.elongRad),
+    flat,
+  ].join(':')
+}
+
 /**
  * Full **`ObserverAstrometrySnapshot`** for scene assembly / Milky Way: base refraction + LST from `observer`,
  * matrices + **`stellariumAstrom`** from **`deriveObserverGeometry`** (Module 0 CIO + aberration path).

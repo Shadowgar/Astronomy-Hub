@@ -307,17 +307,52 @@ export function resolveObserverUpdateMode(input: ObserverUpdateDecisionInput): S
   return input.previousUpdateMode === 'full' ? 'fast' : 'fast'
 }
 
-/**
- * Cheap geometry derived from `SkyEngineObserver` (degrees / feet) each time the
- * observer update hash changes. Stellarium stores radians, meters, and matrices from
- * `observer_update` / ERFA; this covers the scalar site inputs only.
- */
-export function deriveObserverGeometry(
+/** JSON-serializable `eraApco` arguments for PyERFA / ERFA C cross-check (BLK-002). */
+export type Module0EraApcoParityInputs = {
+  readonly date1: number
+  readonly date2: number
+  readonly ebpv: [[number, number, number], [number, number, number]]
+  readonly ehp: [number, number, number]
+  readonly x: number
+  readonly y: number
+  readonly s: number
+  readonly theta: number
+  readonly elong: number
+  readonly phi: number
+  readonly hm: number
+  readonly xp: number
+  readonly yp: number
+  readonly sp: number
+  readonly refa: number
+  readonly refb: number
+}
+
+type ObserverSceneAstrometryCore = {
+  readonly latitudeRad: number
+  readonly longitudeRad: number
+  readonly elevationMeters: number
+  readonly localSiderealTimeDeg: number
+  readonly ut1JulianDate: number
+  readonly utcJulianDate: number
+  readonly ttJulianDate: number
+  readonly dut1Seconds: number
+  readonly refraction: SkyObserverDerivedGeometry['refraction']
+  readonly cipScratch: { readonly x: number; readonly y: number }
+  readonly ttMjdPart: number
+  readonly cioLocatorSRad: number
+  readonly equationOfOriginsRad: number
+  readonly epv: ReturnType<typeof eraEpv00>
+  readonly polarMotion: typeof ZERO_POLAR_MOTION_STUB
+  readonly thetaUtc: number
+  readonly sp: number
+  readonly astrom: EraAstrom
+  readonly pvh0: readonly [number, number, number]
+}
+
+function resolveObserverSceneAstrometry(
   observer: SkyEngineObserver,
   sceneTimestampIso: string,
-  updateMode: SkyObserverUpdateMode,
-  previous: SkyObserverDerivedGeometry | null,
-): SkyObserverDerivedGeometry {
+): ObserverSceneAstrometryCore {
   const latitudeRad = (observer.latitude * Math.PI) / 180
   const longitudeRad = (observer.longitude * Math.PI) / 180
   const elevationMeters = observer.elevationFt * FT_TO_METERS
@@ -335,17 +370,8 @@ export function deriveObserverGeometry(
   const cioLocatorSRad = eraS06(ERFA_DJM0, ttMjdPart, cipScratch.x, cipScratch.y)
   const equationOfOriginsRad = eraEors(bpnForCip, cioLocatorSRad)
   const epv = eraEpv00(ERFA_DJM0, ttJulianDate - ERFA_DJM0)
-  const pvb0 = epv.pvb[0]
   const pvh0 = epv.pvh[0]
-  const earthPv: readonly [number, number, number] = [pvb0[0], pvb0[1], pvb0[2]]
-  /** Heliocentric Sun→Earth position; Earth→Sun direction uses `-pvh[0]` (AU). */
-  const sunPv: readonly [number, number, number] = [-pvh0[0], -pvh0[1], -pvh0[2]]
-  const lastAccurateSceneTimestampIso = updateMode === 'full'
-    ? sceneTimestampIso
-    : (previous?.lastAccurateSceneTimestampIso ?? sceneTimestampIso)
-
   const polarMotion = ZERO_POLAR_MOTION_STUB
-
   const thetaUtc = eraEra00FromUtcJulianDate(utcJulianDate)
   const sp = eraSp00(ERFA_DJM0, ttMjdPart)
   const astrom = eraApco(
@@ -366,6 +392,99 @@ export function deriveObserverGeometry(
     0,
     0,
   )
+  return {
+    latitudeRad,
+    longitudeRad,
+    elevationMeters,
+    localSiderealTimeDeg,
+    ut1JulianDate,
+    utcJulianDate,
+    ttJulianDate,
+    dut1Seconds,
+    refraction,
+    cipScratch: { x: cipScratch.x, y: cipScratch.y },
+    ttMjdPart,
+    cioLocatorSRad,
+    equationOfOriginsRad,
+    epv,
+    polarMotion,
+    thetaUtc,
+    sp,
+    astrom,
+    pvh0,
+  }
+}
+
+/**
+ * Exact `eraApco` argument tuple used by `deriveObserverGeometry` (for PyERFA parity scripts).
+ */
+export function exportModule0EraApcoParityInputs(
+  observer: SkyEngineObserver,
+  sceneTimestampIso: string,
+): Module0EraApcoParityInputs {
+  const c = resolveObserverSceneAstrometry(observer, sceneTimestampIso)
+  const pv = c.epv.pvb
+  return {
+    date1: ERFA_DJM0,
+    date2: c.ttMjdPart,
+    ebpv: [
+      [pv[0][0], pv[0][1], pv[0][2]],
+      [pv[1][0], pv[1][1], pv[1][2]],
+    ],
+    ehp: [c.pvh0[0], c.pvh0[1], c.pvh0[2]],
+    x: c.cipScratch.x,
+    y: c.cipScratch.y,
+    s: c.cioLocatorSRad,
+    theta: c.thetaUtc,
+    elong: c.longitudeRad,
+    phi: c.latitudeRad,
+    hm: c.elevationMeters,
+    xp: c.polarMotion.xpRad,
+    yp: c.polarMotion.ypRad,
+    sp: c.sp,
+    refa: 0,
+    refb: 0,
+  }
+}
+
+/**
+ * Cheap geometry derived from `SkyEngineObserver` (degrees / feet) each time the
+ * observer update hash changes. Stellarium stores radians, meters, and matrices from
+ * `observer_update` / ERFA; this covers the scalar site inputs only.
+ */
+export function deriveObserverGeometry(
+  observer: SkyEngineObserver,
+  sceneTimestampIso: string,
+  updateMode: SkyObserverUpdateMode,
+  previous: SkyObserverDerivedGeometry | null,
+): SkyObserverDerivedGeometry {
+  const core = resolveObserverSceneAstrometry(observer, sceneTimestampIso)
+  const {
+    latitudeRad,
+    longitudeRad,
+    elevationMeters,
+    localSiderealTimeDeg,
+    ut1JulianDate,
+    utcJulianDate,
+    ttJulianDate,
+    dut1Seconds,
+    refraction,
+    cipScratch,
+    ttMjdPart,
+    cioLocatorSRad,
+    equationOfOriginsRad,
+    epv,
+    polarMotion,
+    astrom,
+    pvh0,
+  } = core
+  const pvb0 = epv.pvb[0]
+  const earthPv: readonly [number, number, number] = [pvb0[0], pvb0[1], pvb0[2]]
+  /** Heliocentric Sun→Earth position; Earth→Sun direction uses `-pvh[0]` (AU). */
+  const sunPv: readonly [number, number, number] = [-pvh0[0], -pvh0[1], -pvh0[2]]
+  const lastAccurateSceneTimestampIso = updateMode === 'full'
+    ? sceneTimestampIso
+    : (previous?.lastAccurateSceneTimestampIso ?? sceneTimestampIso)
 
   const matrices = {
     ...computeFrameMatricesFromAstrom(astrom, latitudeRad, ttJulianDate),

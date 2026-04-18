@@ -6,6 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "mirror:gaia": "node scripts/mirror_gaia_survey.mjs",
+    "parity:dump-module0-astrom-goldens": "tsx scripts/dumpModule0AstromGoldens.ts",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:docker": "PLAYWRIGHT_BASE_URL=http://127.0.0.1:4173 PLAYWRIGHT_SKIP_WEBSERVER=1 playwright test",
@@ -32,6 +33,7 @@
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^5.0.0",
+    "tsx": "^4.19.3",
     "typescript": "^5.2.2",
     "vite": "^8.0.5",
     "vitest": "^4.1.2"

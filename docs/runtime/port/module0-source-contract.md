@@ -71,4 +71,4 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoi
 | Gate | Note |
 |---|---|
 | G1 | **Partially satisfied** by this document for the §1–§2 spine; **overall G1** for all of module 0 remains **FAIL** until every module 0 source file in `module-inventory.md` is under an explicit contract or `OUT-OF-SCOPE` approval. |
-| G4 | Hub five-case fingerprint: **EV-0011**; **BLK-000** remains **OPEN** until reference replay is implemented. |
+| G4 | Hub five-case fingerprint **EV-0011** + astrom slice contract **EV-0017**; **BLK-000** **RESOLVED** (tier-1). G5 PyERFA `apco` second runtime: **EV-0018** / **BLK-002** **RESOLVED**. |
