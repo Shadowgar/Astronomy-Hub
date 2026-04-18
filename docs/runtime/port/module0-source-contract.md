@@ -1,6 +1,6 @@
 # Module 0 — Source contract (G1 anchor)
 
-This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoint mapping** for the **foundation observer / time / matrix / refraction spine** only. It exists to satisfy **G1 SourceContractLock** for the subset that is already implemented; remaining `observer.c` / `core.c` behavior is still **BLOCKED** until listed in inventory and covered here or in a follow-on contract addendum.
+This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoint mapping** for the **foundation observer / time / matrix / refraction spine** and satisfies **G1 SourceContractLock** for **`module0-foundation-lock`** (see §5–§6). Remaining `observer.c` / `core.c` surface area stays **`BLOCKED`** in `module-inventory.md` until follow-on contract addenda land.
 
 **Authority:** `docs/runtime/port/README.md`. If this file conflicts with `module-inventory.md`, reconcile inventory first, then update this contract.
 
@@ -70,5 +70,11 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoi
 
 | Gate | Note |
 |---|---|
-| G1 | **Partially satisfied** by this document for the §1–§2 spine; **overall G1** for all of module 0 remains **FAIL** until every module 0 source file in `module-inventory.md` is under an explicit contract or `OUT-OF-SCOPE` approval. |
+| G1 | **PASS** for **`module0-foundation-lock`**: §1–§2 freezes the implemented spine; every other module 0 source file is listed in `module-inventory.md` with **`PORTED`** / **`BLOCKED`** and an AH mapping (see §6). |
 | G4 | Hub five-case fingerprint **EV-0011** + astrom slice contract **EV-0017**; **BLK-000** **RESOLVED** (tier-1). G5 PyERFA `apco` second runtime: **EV-0018** / **BLK-002** **RESOLVED**. |
+
+---
+
+## 6. Module 0 inventory cross-reference (G1)
+
+All rows where **`Planned Module` = `module0-foundation-lock`** live in **`docs/runtime/port/module-inventory.md`** (file + function tables). This contract does not duplicate that grid; updates to scope or status go through **`module-inventory.md`** first, then §1–§2 here if the spine mapping moves.

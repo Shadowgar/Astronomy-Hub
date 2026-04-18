@@ -22,7 +22,7 @@ General Hub docs are frozen for this effort. If there is a conflict between this
 - `module-gates.md`: gate checklists and pass/fail per module
 - `blockers.md`: blocker log with owner and unblock criteria
 - `evidence-index.md`: evidence artifacts and command/output references
-- `module0-source-contract.md`: **G1** frozen Hub ↔ source mapping for the module 0 observer/time/matrix spine (partial lock; see file §5)
+- `module0-source-contract.md`: **G1** frozen Hub ↔ source mapping for the module 0 observer/time/matrix spine (**PASS** for module 0 closure; see file §5–§6)
 - `module0-eraEpv00-port-plan.md`: staged work plan for **`eraEpv00`** (Earth heliocentric/barycentric PV) before `eraApco` / full `observer_update_full`
 - `module0-eraApco-port-plan.md`: **`eraApco`** dependency graph (`eraApcs` … `eraPvtob`) and Hub `astrom` seam checklist
 
@@ -45,3 +45,5 @@ Status values are strict:
 - `BLOCKED`
 
 No partial statuses are allowed.
+
+**`module0-foundation-lock`** is **`COMPLETE`** (**EV-0019** in `evidence-index.md`). Promote **`module1-hips-kernel`** from **`N/A`** when starting that module’s gate checklist.

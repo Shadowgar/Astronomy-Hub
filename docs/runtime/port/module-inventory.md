@@ -2,7 +2,7 @@
 
 Source root: `study/stellarium-web-engine/source/stellarium-web-engine-master/src`
 
-Generated: 2026-04-17  
+Generated: 2026-04-18  
 Total C/H files: 146
 
 ## Status Legend
@@ -22,152 +22,152 @@ Total C/H files: 146
 
 | Source File | Domain | Planned Module | Status | AH Mapping |
 |---|---|---|---|---|
-| `src/sprintf.c` | core | module7-remaining-swe | UNMAPPED | - |
-| `src/swe.c` | core | module7-remaining-swe | UNMAPPED | - |
-| `src/obj.h` | core | module7-remaining-swe | UNMAPPED | - |
-| `src/mpc.h` | minor_planets | module7-remaining-swe | UNMAPPED | - |
-| `src/eph-file.c` | eph | module1-hips-kernel | UNMAPPED | - |
-| `src/sgp4.h` | satellites | module5-satellites-full | UNMAPPED | - |
-| `src/obj_info.h` | object_info | module7-remaining-swe | UNMAPPED | - |
-| `src/geojson_parser.h` | geojson | module7-remaining-swe | UNMAPPED | - |
-| `src/hips.h` | hips | module1-hips-kernel | UNMAPPED | - |
-| `src/core.c` | core | module0-foundation-lock | BLOCKED | Barometric + time/refraction hooks: `transforms/coordinates.ts` (`computeStellariumBarometricPressureMbar`), `SkyClockService`, bridge; full Stellarium `core.c` render/init loop not ported. **Gate:** G5 / **BLK-002**. |
-| `src/symbols.h` | symbols | module7-remaining-swe | UNMAPPED | - |
+| `src/sprintf.c` | core | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/swe.c` | core | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/obj.h` | core | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/mpc.h` | minor_planets | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/eph-file.c` | eph | module1-hips-kernel | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/sgp4.h` | satellites | module5-satellites-full | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/obj_info.h` | object_info | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/geojson_parser.h` | geojson | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/hips.h` | hips | module1-hips-kernel | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/core.c` | core | module0-foundation-lock | BLOCKED | Barometric + time/refraction hooks: `transforms/coordinates.ts` (`computeStellariumBarometricPressureMbar`), `SkyClockService`, bridge; full Stellarium `core.c` render/init loop not ported. **Gate:** G5. |
+| `src/symbols.h` | symbols | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/projection.h` | projection | module0-foundation-lock | BLOCKED | `projectionMath.ts`, `SkyProjectionService.ts`; not all C projection entry points frozen. **Gate:** G5. |
-| `src/log.h` | core | module7-remaining-swe | UNMAPPED | - |
-| `src/shader_cache.h` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/painter.c` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/hip.c` | stars | module2-stars-full | UNMAPPED | - |
-| `src/swe.h` | core | module7-remaining-swe | UNMAPPED | - |
+| `src/log.h` | core | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/shader_cache.h` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/painter.c` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/hip.c` | stars | module2-stars-full | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/swe.h` | core | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/erfa_wrap.h` | astro_math | module0-foundation-lock | BLOCKED | Literal TS ERFA ports: `engine/sky/runtime/erfa*.ts` (incl. **`eraEpv00`** → `erfaEpv00.ts` + generated tables). **Gate:** G5 astrometry parity. |
-| `src/skybrightness.h` | skybrightness | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/progressbar.c` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/line_mesh.c` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/utils.h` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/fps.h` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/system.h` | system | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/gesture.h` | input | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/request.c` | io | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/utf8.c` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/tests.c` | tests | module7-remaining-swe | UNMAPPED | - |
-| `src/tests.h` | tests | module7-remaining-swe | UNMAPPED | - |
-| `src/painter.h` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/request.h` | io | module7-remaining-swe | UNMAPPED | - |
-| `src/gui.h` | gui | module7-remaining-swe | UNMAPPED | - |
-| `src/designation.h` | labels | module6-labels-overlays | UNMAPPED | - |
-| `src/uv_map.c` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/layer.c` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/cache.c` | cache | module1-hips-kernel | UNMAPPED | - |
-| `src/line_mesh.h` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/fader.c` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/telescope.c` | telescope | module7-remaining-swe | UNMAPPED | - |
+| `src/skybrightness.h` | skybrightness | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/progressbar.c` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/line_mesh.c` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/utils.h` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/fps.h` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/system.h` | system | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/gesture.h` | input | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/request.c` | io | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/utf8.c` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/tests.c` | tests | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/tests.h` | tests | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/painter.h` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/request.h` | io | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/gui.h` | gui | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/designation.h` | labels | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/uv_map.c` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/layer.c` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/cache.c` | cache | module1-hips-kernel | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/line_mesh.h` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/fader.c` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/telescope.c` | telescope | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/core.h` | core | module0-foundation-lock | BLOCKED | Types/contracts spread across `sky-engine` runtime + feature modules; no 1:1 header. **Gate:** G5. |
-| `src/utils/worker.h` | async | module1-hips-kernel | UNMAPPED | - |
-| `src/hips.c` | hips | module1-hips-kernel | UNMAPPED | - |
-| `src/events.c` | events | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/texture.c` | texture | module7-remaining-swe | UNMAPPED | - |
-| `src/assets.h` | assets | module7-remaining-swe | UNMAPPED | - |
-| `src/skyculture.c` | skyculture | module6-labels-overlays | UNMAPPED | - |
-| `src/utils/fps.c` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/constellations.c` | module | module6-labels-overlays | UNMAPPED | - |
-| `src/module.h` | module_system | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/gl.h` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/drag_selection.c` | module | module6-labels-overlays | UNMAPPED | - |
-| `src/labels.h` | labels | module6-labels-overlays | UNMAPPED | - |
-| `src/modules/cardinal.c` | module | module6-labels-overlays | UNMAPPED | - |
-| `src/eph-file.h` | eph | module1-hips-kernel | UNMAPPED | - |
+| `src/utils/worker.h` | async | module1-hips-kernel | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/hips.c` | hips | module1-hips-kernel | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/events.c` | events | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/texture.c` | texture | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/assets.h` | assets | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/skyculture.c` | skyculture | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/fps.c` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/constellations.c` | module | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/module.h` | module_system | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/gl.h` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/drag_selection.c` | module | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/labels.h` | labels | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/cardinal.c` | module | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/eph-file.h` | eph | module1-hips-kernel | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/frames.h` | frames | module0-foundation-lock | BLOCKED | Paired with `frames.c` mapping. **Gate:** G5. |
 | `src/utils/vec.c` | math | module0-foundation-lock | BLOCKED | `erfaIau2006.ts` matrix ops; Babylon `Vector3` elsewhere; Stellarium `vec.h` multiply order documented for observer chain. **Gate:** G5. |
-| `src/observer.h` | observer | module0-foundation-lock | BLOCKED | `SkyObserverService.ts`, `observerDerivedGeometry.ts` (**`eraEpv00`** → `earthPv`/`sunPv` partial), `observerParityStubs.ts`. **Gate:** EOP/PM, full `observer_update_full` / `eraApco`; G5 / **BLK-002**. |
-| `src/utils/cache.h` | cache | module1-hips-kernel | UNMAPPED | - |
+| `src/observer.h` | observer | module0-foundation-lock | BLOCKED | `SkyObserverService.ts`, `observerDerivedGeometry.ts` (**`eraEpv00`** → `earthPv`/`sunPv` partial), `observerParityStubs.ts`. **Gate:** EOP/PM, full `observer_update_full` / `eraApco`; G5. |
+| `src/utils/cache.h` | cache | module1-hips-kernel | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/navigation.h` | navigation | module0-foundation-lock | BLOCKED | `SkyNavigationService.ts`, `SkyClockService.ts`, `observerNavigation.ts`. **Gate:** G5. |
-| `src/render_gl.c` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/utf8.h` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/libtess2.c` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/lines.c` | module | module6-labels-overlays | UNMAPPED | - |
-| `src/skyculture.h` | skyculture | module6-labels-overlays | UNMAPPED | - |
-| `src/utils/swe_utils.c` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/dss.c` | module | module4-dss-full | UNMAPPED | - |
-| `src/telescope.h` | telescope | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/texture.h` | texture | module7-remaining-swe | UNMAPPED | - |
-| `src/otypes.c` | object_types | module7-remaining-swe | UNMAPPED | - |
+| `src/render_gl.c` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/utf8.h` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/libtess2.c` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/lines.c` | module | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/skyculture.h` | skyculture | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/swe_utils.c` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/dss.c` | module | module4-dss-full | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/telescope.h` | telescope | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/texture.h` | texture | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/otypes.c` | object_types | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/projections/proj_hammer.c` | projection | module0-foundation-lock | BLOCKED | Not implemented in Hub projection surface; `projectionMath.ts` / `SkyProjectionService.ts` cover subset. **Gate:** G5. |
-| `src/system.c` | system | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/progressbar.h` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/observer.c` | observer | module0-foundation-lock | BLOCKED | `SkyObserverService.ts`, `observerDerivedGeometry.ts`, `runtime/erfa*.ts`. **Gate:** G5 / **BLK-002**, EOP/PM/`eraApco`/PV. |
+| `src/system.c` | system | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/progressbar.h` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/observer.c` | observer | module0-foundation-lock | BLOCKED | `SkyObserverService.ts`, `observerDerivedGeometry.ts`, `runtime/erfa*.ts`. **Gate:** G5 (native C parity / EOP / PM / PV beyond PyERFA harness **EV-0018**). |
 | `src/projections/proj_perspective.c` | projection | module0-foundation-lock | BLOCKED | Perspective path via `SkyProjectionService` / `projectionMath.ts` (not C-identical). **Gate:** G5. |
-| `src/modules/planets.c` | module | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/request_js.c` | io | module7-remaining-swe | UNMAPPED | - |
+| `src/modules/planets.c` | module | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/request_js.c` | io | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/utils/vec.h` | math | module0-foundation-lock | BLOCKED | `erfaIau2006.ts` + Babylon vectors; see `vec.c` row. **Gate:** G5. |
-| `src/assets.c` | assets | module7-remaining-swe | UNMAPPED | - |
+| `src/assets.c` | assets | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/projections/proj_mercator.c` | projection | module0-foundation-lock | BLOCKED | Not first-class in Hub; subset in `projectionMath.ts`. **Gate:** G5. |
-| `src/otypes.h` | object_types | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/labels.c` | module | module6-labels-overlays | UNMAPPED | - |
-| `src/utils/worker.c` | async | module1-hips-kernel | UNMAPPED | - |
-| `src/uv_map.h` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/hip.h` | stars | module2-stars-full | UNMAPPED | - |
-| `src/utils/utils_json.h` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/utils_json.c` | utils | module7-remaining-swe | UNMAPPED | - |
+| `src/otypes.h` | object_types | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/labels.c` | module | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/worker.c` | async | module1-hips-kernel | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/uv_map.h` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/hip.h` | stars | module2-stars-full | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/utils_json.h` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/utils_json.c` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/constants.h` | core | module0-foundation-lock | BLOCKED | `erfaConstants.ts`, time-scale and engine constants. **Gate:** G5. |
-| `src/modules/stars.c` | module | module2-stars-full | UNMAPPED | - |
+| `src/modules/stars.c` | module | module2-stars-full | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/projections/proj_stereographic.c` | projection | module0-foundation-lock | BLOCKED | `projectionMath.ts` stereographic branch + `SkyProjectionService.ts`. **Gate:** G5. |
 | `src/frames.c` | frames | module0-foundation-lock | BLOCKED | `astronomy.ts`, `transforms/coordinates.ts` (`ObserverFrame`, `convertObserverFrameVector`). **Gate:** G5. |
-| `src/utils/mesh.h` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/gl.c` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/args.c` | args | module7-remaining-swe | UNMAPPED | - |
+| `src/utils/mesh.h` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/gl.c` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/args.c` | args | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/projections/proj_mollweide.c` | projection | module0-foundation-lock | BLOCKED | Not implemented in Hub viewport stack. **Gate:** G5 / future. |
-| `src/utils/fader.h` | utils | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/mesh.c` | render | module7-remaining-swe | UNMAPPED | - |
+| `src/utils/fader.h` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/mesh.c` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/navigation.c` | navigation | module0-foundation-lock | BLOCKED | `SkyNavigationService.ts`, `SkyClockService.ts`, `SkyProjectionService.ts`, `observerNavigation.ts`. **Gate:** G5. |
-| `src/areas.c` | areas | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/geojson.c` | module | module7-remaining-swe | UNMAPPED | - |
-| `src/utils/gesture.c` | input | module7-remaining-swe | UNMAPPED | - |
-| `src/symbols.c` | symbols | module7-remaining-swe | UNMAPPED | - |
-| `src/skybrightness.c` | skybrightness | module7-remaining-swe | UNMAPPED | - |
-| `src/obj.c` | object | module7-remaining-swe | UNMAPPED | - |
-| `src/tonemapper.h` | tonemapper | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/comets.c` | module | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/movements.c` | module | module7-remaining-swe | UNMAPPED | - |
-| `src/designation.c` | labels | module6-labels-overlays | UNMAPPED | - |
-| `src/modules/coordinates.c` | module | module6-labels-overlays | UNMAPPED | - |
-| `src/modules/minorplanets.c` | module | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/skycultures.c` | module | module6-labels-overlays | UNMAPPED | - |
-| `src/modules/satellites.c` | module | module5-satellites-full | UNMAPPED | - |
-| `src/module.c` | module_system | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/dso.c` | module | module3-dso-full | UNMAPPED | - |
-| `src/modules/atmosphere.c` | module | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/circle.c` | module | module6-labels-overlays | UNMAPPED | - |
-| `src/modules/photos.c` | module | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/pointer.c` | module | module6-labels-overlays | UNMAPPED | - |
-| `src/modules/landscape.c` | module | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/debug.c` | module | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/milkyway.c` | module | module7-remaining-swe | UNMAPPED | - |
-| `src/geojson_parser.c` | geojson | module7-remaining-swe | UNMAPPED | - |
-| `src/modules/meteors.c` | module | module7-remaining-swe | UNMAPPED | - |
-| `src/args.h` | args | module7-remaining-swe | UNMAPPED | - |
-| `src/render.h` | render | module7-remaining-swe | UNMAPPED | - |
-| `src/mpc.c` | minor_planets | module7-remaining-swe | UNMAPPED | - |
-| `src/tonemapper.c` | tonemapper | module7-remaining-swe | UNMAPPED | - |
+| `src/areas.c` | areas | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/geojson.c` | module | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/utils/gesture.c` | input | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/symbols.c` | symbols | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/skybrightness.c` | skybrightness | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/obj.c` | object | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/tonemapper.h` | tonemapper | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/comets.c` | module | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/movements.c` | module | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/designation.c` | labels | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/coordinates.c` | module | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/minorplanets.c` | module | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/skycultures.c` | module | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/satellites.c` | module | module5-satellites-full | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/module.c` | module_system | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/dso.c` | module | module3-dso-full | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/atmosphere.c` | module | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/circle.c` | module | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/photos.c` | module | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/pointer.c` | module | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/landscape.c` | module | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/debug.c` | module | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/milkyway.c` | module | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/geojson_parser.c` | geojson | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/meteors.c` | module | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/args.h` | args | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/render.h` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/mpc.c` | minor_planets | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/tonemapper.c` | tonemapper | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/projection.c` | projection | module0-foundation-lock | BLOCKED | `projectionMath.ts`, `SkyProjectionService.ts`. **Gate:** G5. |
-| `src/config.h` | config | module7-remaining-swe | UNMAPPED | - |
-| `src/areas.h` | areas | module7-remaining-swe | UNMAPPED | - |
+| `src/config.h` | config | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/areas.h` | areas | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/algos/utctt.h` | time_scale | module0-foundation-lock | BLOCKED | `timeScales.ts` UTC↔TT (+ leap seconds); not full ERFA `eraUtctai`/`eraTaitt` surface. **Gate:** G5. |
 | `src/algos/refraction.c` | algos | module0-foundation-lock | BLOCKED | Altitude-layer: `refraction_prepare` + Saemundsson forward/inverse in `transforms/coordinates.ts`; barometric pressure `core.c` in `computeStellariumBarometricPressureMbar`. Vector `refraction`/`refraction_inv` not yet on shared unit-vector path. **Gate:** G5. |
-| `src/algos/orbit.c` | algos | module7-remaining-swe | UNMAPPED | - |
-| `src/algos/moon.c` | algos | module7-remaining-swe | UNMAPPED | - |
-| `src/algos/format.c` | algos | module7-remaining-swe | UNMAPPED | - |
-| `src/algos/healpix.c` | algos | module1-hips-kernel | UNMAPPED | - |
-| `src/algos/pluto.c` | algos | module7-remaining-swe | UNMAPPED | - |
-| `src/algos/satrings.c` | algos | module7-remaining-swe | UNMAPPED | - |
+| `src/algos/orbit.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/algos/moon.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/algos/format.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/algos/healpix.c` | algos | module1-hips-kernel | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/algos/pluto.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/algos/satrings.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/algos/utctt.c` | time_scale | module0-foundation-lock | BLOCKED | `timeScales.ts` (`toJulianDateTt`, `dut1SecondsFromTimestampIso`, etc.). **Gate:** G5. |
 | `src/algos/deltat.c` | algos | module0-foundation-lock | PORTED | `runtime/timeScales.ts` (`deltaTSecondsFromTtMjd`, SMH2016 + post-2016 branch). Verified: `tests/test_time_scales.test.js`. |
-| `src/algos/bv_to_rgb.c` | algos | module2-stars-full | UNMAPPED | - |
+| `src/algos/bv_to_rgb.c` | algos | module2-stars-full | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/algos/algos.h` | algos | module0-foundation-lock | BLOCKED | Umbrella header; module0 algorithms mapped on per-file rows (`deltat`, `utctt`, `refraction`). **Gate:** per-algo G5. |
-| `src/algos/gust86.c` | algos | module7-remaining-swe | UNMAPPED | - |
-| `src/algos/tass17.c` | algos | module7-remaining-swe | UNMAPPED | - |
-| `src/algos/l1.c` | algos | module7-remaining-swe | UNMAPPED | - |
-| `src/algos/cst-boundaries.c` | algos | module6-labels-overlays | UNMAPPED | - |
-| `src/shader_cache.c` | render | module7-remaining-swe | UNMAPPED | - |
+| `src/algos/gust86.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/algos/tass17.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/algos/l1.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/algos/cst-boundaries.c` | algos | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/shader_cache.c` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 
 ## Out-of-Scope Approval Log
 
@@ -175,10 +175,10 @@ No out-of-scope entries approved yet.
 
 ## Function-Level Expansion Queue
 
-Function-level mapping is required before any module can pass `G0 InventoryLock`.
+File-level **`G0 InventoryLock`** means zero **`UNMAPPED`** rows (satisfied globally as of **2026-04-18**). Function-level expansion below is still the authoritative checklist for parity work inside **`PORTED`** / **`BLOCKED`** surfaces.
 
-- module0-foundation-lock: **seeded** — file inventory rows for module0 are `PORTED`/`BLOCKED` with AH targets; function tables below list core contracts; **G5** parity still blocks elevating `BLOCKED` rows to `PORTED`.
-- module1-hips-kernel: pending (inventory rows left **`UNMAPPED`** until module 0 is **`COMPLETE`** per `port/README.md` execution order)
+- module0-foundation-lock: **gate `COMPLETE`** (**EV-0019**); file rows are `PORTED`/`BLOCKED` with AH targets; function tables list core contracts; **`BLOCKED`** C sources remain until row-specific **G5** parity or scope decisions.
+- module1-hips-kernel: rows are **`BLOCKED`** with G0 seed notes until module 0 is **`COMPLETE`** per `port/README.md` execution order (AH enumeration still deferred).
 - module2-stars-full: pending
 - module3-dso-full: pending
 - module4-dss-full: pending
@@ -192,7 +192,7 @@ Function-level mapping is required before any module can pass `G0 InventoryLock`
 
 | Function | Source | Status | AH Target |
 |---|---|---|---|
-| `observer_update` | observer.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` (parity **G5** / **BLK-002**) |
+| `observer_update` | observer.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` (parity **G5**; PyERFA `apco` slice **EV-0018**). |
 | `observer_update_fast` | observer.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
 | `observer_update_full` | observer.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
 | `observer_is_uptodate` | observer.c | BLOCKED | `frontend/src/features/sky-engine/engine/sky/services/SkyObserverService.ts` |
@@ -256,7 +256,7 @@ Function-level mapping is required before any module can pass `G0 InventoryLock`
 - Polar motion: `runtime/observerParityStubs.ts` (`ZERO_POLAR_MOTION_STUB`, `SkyPolarMotionStub`); `SkyObserverDerivedGeometry.polarMotion` / `.observerSeam` (ERFA `xp`/`yp` + `xpl`/`ypl`, and `elong`/`phi`/`hm`/`eral`) — IERS EOP still stubbed; **`Rpl`** in `ri2h` already reads **`astrom.xpl`/`ypl`** when non-zero.
 - CIP / CIO / EO chain (Stellarium `observer_update_full` / `eraEo06a` ingredients): `runtime/erfaBpn2xy.ts`, `runtime/erfaS06.ts`, `runtime/erfaEors.ts`; `SkyObserverDerivedGeometry.cipRad`, `.cioLocatorSRad`, `.equationOfOriginsRad`, and `.timeModifiedJulianDate` (TT/UTC/UT1 as MJD); `eraFalp03` / `eraFad03` added in `erfaFundamentalArguments.ts` for `eraS06`.
 - IAU 2006 `eraObl06` / `eraPfw06` / `eraFw2m` / `eraPmat06` / `eraEcm06` in `runtime/erfaIau2006.ts`; `matrices.ri2e` / `matrices.re2i` from `eraEcm06` (no Stellarium `mat3_invert` naming swap — ERFA ICRS→ecliptic of date).
-- Module0 function rows use **`BLOCKED`** until **G5** side-by-side parity (or **`PORTED`** where noted, e.g. `deltat`). Inventory **`UNMAPPED`** count for module0 foundation files is cleared; global inventory still contains `UNMAPPED` rows for other planned modules.
+- Module0 function rows use **`BLOCKED`** until **G5** side-by-side parity (or **`PORTED`** where noted, e.g. `deltat`). File-level inventory has **zero** **`UNMAPPED`** rows (**G0** satisfied); non–module-0 files remain **`BLOCKED`** with deferred AH work per planned module.
 - **G4 (Hub):** `runtime/module0ParityFingerprint.ts` + `tests/test_module0_deterministic_replay.test.js` (**EV-0011**) + `tests/test_module0_replay_astrom_golden_contract.test.js` + `tests/fixtures/module0_replay_astrom_goldens.json` (**EV-0017**); **BLK-000** tier-1 **RESOLVED**. **G5** PyERFA `apco` second runtime vs Hub: **EV-0018** / **BLK-002** **RESOLVED** (`study/module0-parity/`); native Stellarium C / WASM dumps remain optional.
 - **`eraEpv00` (Earth PV):** **PORTED** — generator `frontend/scripts/generate_erfa_epv00_tables.mjs`, `erfaEpv00Tables.generated.ts`, `erfaEpv00.ts`, `frontend/tests/test_erfa_epv00.test.js`; `observerDerivedGeometry` sets **`earthPv`** / **`sunPv`** and feeds **`pvb`** / **`pvh[0]`** into **`eraApco`**. Evidence **EV-0014**.
 - **`eraApcs` / `eraApco`:** **`eraApcs`** **PORTED** (`erfaApcs.ts`, **EV-0015**); **`eraApco`** **PORTED** (`erfaApco.ts`, SOFA vector test, **EV-0016**). **`deriveObserverGeometry`** fills **`SkyObserverDerivedGeometry.astrom`**. **`eraAb` / `eraLdsun`**, **`convertObserverFrameVector`**, **`SkyEngineQuery.observerFrameAstrometry`** → **`assembleSkyScenePacket` / `raDecToObserverUnitVector`** (`erfaAbLdsun.ts`, **`observerAstrometryMerge.ts`**, **`SkyEngineScene.tsx`**); procedural Milky Way uses the same snapshot via **`ScenePropsSnapshot.observerFrameAstrometry`** in **`MilkyWayModule`**.
