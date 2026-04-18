@@ -38,6 +38,7 @@ This index links command runs, raw outputs, screenshots, and JSON artifacts used
 | EV-0025 | module1-hips-kernel | G2 (partial) | `npm run test:module1` (includes `test_eph_codec.test.js`) | `ephCodec.ts` (`decodeEphTileNuniq`, `encodeEphTileNuniq`), `tests/test_eph_codec.test.js` | PASS | **`nuniq` ↔ order/pix** matches Stellarium **`eph-file.c`** `eph_read_tile_header`; tile decode path uses shared helper. |
 | EV-0026 | module1-hips-kernel | G2/G3 (partial) | `npm run test:module1` (includes `test_eph_codec.test.js`, **`test_healpix.test.js`**) | `ephCodec.ts` (`shuffleEphTableBytes`), `healpix.ts`, `tests/test_healpix.test.js` | PASS | **`eph_shuffle_bytes`**-aligned shuffle + inverse; HEALPix nest **pix → center → pix** round-trip samples (orders 0–3). |
 | EV-0027 | module1-hips-kernel | G2 (partial) | `npm run test:module1` (`test_eph_codec.test.js`) | `ephCodec.ts` (`convertEphFloat`, exported **`EPH_UNIT_*`**) | PASS | **`eph_convert_f`** parity: deg↔rad, arcsec→deg, per-year bit 8, legacy **`EPH_ARCSEC_`** normalization. |
+| EV-0028 | module1-hips-kernel | G3 (partial) | `npm run test:module1` (`test_tile_selection.test.js`) | `tileSelection.ts`, `tests/test_tile_selection.test.js` | PASS | **`selectVisibleTileIds`** regression: wide FOV → depth 1; telescopic FOV → depth 3; **`maxTileLevel`** cap; constants documented as G2/G5 debt in **`module1-source-contract.md` §3**. |
 
 ## Rules
 

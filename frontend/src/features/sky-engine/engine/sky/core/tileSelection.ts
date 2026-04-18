@@ -3,6 +3,20 @@ import { getSkyRootTileIds, getSkyTileChildren, getSkyTileDescriptor, getSkyTile
 import { horizontalToRaDec } from '../transforms/coordinates'
 import { SKY_TILE_LEVEL_MAG_MAX } from './magnitudePolicy'
 
+/** Floor for view radius (deg) when intersecting quadtree tiles. Hub policy until G5 parity. */
+const MIN_VIEW_RADIUS_DEG = 10
+/** Scale from FOV to view radius when above {@link MIN_VIEW_RADIUS_DEG}. */
+const VIEW_RADIUS_FOV_FACTOR = 0.85
+/**
+ * When FOV is this narrow (deg) or smaller, require at least tile depth 2 (see `module1-source-contract.md` §3).
+ * Stellarium `hips_render` traversal differs; this remains G2/G5 debt.
+ */
+const NARROW_FOV_DEG_FOR_MIN_DEPTH2 = 20
+/**
+ * Telescopic FOV threshold (deg): require depth 3 when possible (capped by `maxTileLevel`).
+ */
+const TELESCOPIC_FOV_DEG_FOR_MIN_DEPTH3 = 8
+
 function resolveDesiredTileDepth(_observer: ObserverSnapshot, limitingMagnitude: number, maxTileLevel: number) {
   let desiredDepth = 0
 
@@ -16,12 +30,10 @@ function resolveDesiredTileDepth(_observer: ObserverSnapshot, limitingMagnitude:
     desiredDepth = 1
   }
 
-  // For narrow views we need deeper tile traversal even at similar limiting magnitude
-  // to avoid under-sampling compared to Stellarium-style traversal behavior.
-  if (_observer.fovDeg <= 20) {
+  if (_observer.fovDeg <= NARROW_FOV_DEG_FOR_MIN_DEPTH2) {
     desiredDepth = Math.max(desiredDepth, 2)
   }
-  if (_observer.fovDeg <= 8) {
+  if (_observer.fovDeg <= TELESCOPIC_FOV_DEG_FOR_MIN_DEPTH3) {
     desiredDepth = Math.max(desiredDepth, 3)
   }
 
@@ -36,7 +48,7 @@ export function selectVisibleTileIds(observer: ObserverSnapshot, limitingMagnitu
   const visibleTileIds: string[] = []
   const desiredDepth = resolveDesiredTileDepth(observer, limitingMagnitude, maxTileLevel)
   const centerEquatorial = horizontalToRaDec(observer)
-  const viewRadiusDeg = Math.max(10, observer.fovDeg * 0.85)
+  const viewRadiusDeg = Math.max(MIN_VIEW_RADIUS_DEG, observer.fovDeg * VIEW_RADIUS_FOV_FACTOR)
 
   function visitTile(tileId: string) {
     const tile = getSkyTileDescriptor(tileId, maxTileLevel)
