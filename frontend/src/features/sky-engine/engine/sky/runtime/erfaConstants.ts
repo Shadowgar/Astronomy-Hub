@@ -18,3 +18,5 @@ export const ERFA_CMPS = 299792458.0
 export const ERFA_DAU = 149597870.7e3
 /** Light time for 1 au (s, `ERFA_AULT`). */
 export const ERFA_AULT = ERFA_DAU / ERFA_CMPS
+/** Schwarzschild radius of the Sun / au (`ERFA_SRS`) — `eraAb` / `eraLd`. */
+export const ERFA_SRS = 1.97412574336e-8

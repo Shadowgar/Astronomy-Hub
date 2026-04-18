@@ -52,4 +52,5 @@ From `erfa.c` ~1067–1107:
 - [x] Hub **`astrom`** on `SkyObserverDerivedGeometry` (`observerDerivedGeometry` calls **`eraApco`**; `SkyObserverService` default + `module0ParityFingerprint` extended).  
 - [x] `module0-source-contract.md` §1 / §3 updated for live **`astrom`** (apparent-place / `eraAtioq` still future).  
 - [x] **`ri2h` / `observerSeam.eralRad`** use **`observerEralStellariumRad`** (= **`astrom.eral`**, UTC `eraEra00` + longitude + `eraSp00`), not UT1-based `localEarthRotationAngleRad`.  
-- [ ] Full **`update_matrices`** parity: Stellarium `Rz(eral) × Rpl × Ry(…) × Rsx` then transpose vs Hub’s `Ry × Rz` factorization; polar motion **`Rpl`** when EOP lands.
+- [ ] Full **`update_matrices`** parity: Stellarium `Rz(eral) × Rpl × Ry(…) × Rsx` then transpose vs Hub’s `Ry × Rz` factorization; polar motion **`Rpl`** when EOP lands.  
+- [x] **`eraAb` / `eraLd` / `eraLdsun`** + **`stellariumAstrometricToApparentIcrsUnit`** (`erfaAbLdsun.ts`, **`test_erfa_ab_ldsun.test.js`**, PyERFA goldens). **Not yet** wired into `convertObserverFrameVector` (next: ICRS → apparent before **`bpn^T`** per `frames.c`).
