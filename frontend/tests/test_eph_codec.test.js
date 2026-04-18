@@ -7,6 +7,7 @@ import {
   decodeEphTileNuniq,
   encodeEphTileNuniq,
   parseSurveyProperties,
+  shuffleEphTableBytes,
 } from '../src/features/sky-engine/engine/sky/adapters/ephCodec'
 
 function encodeAscii(text, size) {
@@ -33,16 +34,6 @@ function writeFloat32(view, offset, value) {
 
 function writeUint64(view, offset, value) {
   view.setBigUint64(offset, BigInt(value), true)
-}
-
-function shuffleBytes(data, rowCount, rowSize) {
-  const source = new Uint8Array(data)
-
-  for (let byteIndex = 0; byteIndex < rowSize; byteIndex += 1) {
-    for (let rowIndex = 0; rowIndex < rowCount; rowIndex += 1) {
-      data[byteIndex * rowCount + rowIndex] = source[rowIndex * rowSize + byteIndex]
-    }
-  }
 }
 
 function buildSampleEphTile() {
@@ -73,7 +64,7 @@ function buildSampleEphTile() {
   })
   const rowSize = startOffset
   const rowCount = 1
-  const tableData = new Uint8Array(rowSize * rowCount)
+  let tableData = new Uint8Array(rowSize * rowCount)
   const tableView = new DataView(tableData.buffer)
   const gaiaId = 219547565555375488n
 
@@ -92,7 +83,7 @@ function buildSampleEphTile() {
   tableData.set(encodeAscii('G2V', 32), resolvedColumns[12].start)
   writeFloat32(tableView, resolvedColumns[13].start, 0.42)
 
-  shuffleBytes(tableData, rowCount, rowSize)
+  tableData = shuffleEphTableBytes(tableData, rowCount, rowSize)
   const compressed = deflateSync(tableData)
   const tableHeaderSize = 16 + resolvedColumns.length * 20
   const chunkSize = 12 + tableHeaderSize + 8 + compressed.byteLength
@@ -133,6 +124,23 @@ function buildSampleEphTile() {
 }
 
 describe('eph codec', () => {
+  it('inverts shuffleEphTableBytes to row-major (eph_shuffle_bytes ↔ decode unshuffle)', () => {
+    const rowCount = 5
+    const rowSize = 11
+    const rowMajor = new Uint8Array(rowCount * rowSize)
+    for (let i = 0; i < rowMajor.length; i += 1) {
+      rowMajor[i] = (i * 31 + 7) % 256
+    }
+    const shuffled = shuffleEphTableBytes(rowMajor, rowCount, rowSize)
+    const restored = new Uint8Array(rowMajor.length)
+    for (let rowIndex = 0; rowIndex < rowCount; rowIndex += 1) {
+      for (let byteIndex = 0; byteIndex < rowSize; byteIndex += 1) {
+        restored[rowIndex * rowSize + byteIndex] = shuffled[byteIndex * rowCount + rowIndex]
+      }
+    }
+    expect(restored).toEqual(rowMajor)
+  })
+
   it('round-trips EPH tile nuniq order/pix like eph-file.c eph_read_tile_header', () => {
     const cases = [
       { order: 0, pix: 0 },

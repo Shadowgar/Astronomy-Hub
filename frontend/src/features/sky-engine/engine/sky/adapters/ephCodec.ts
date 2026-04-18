@@ -20,6 +20,22 @@ export function decodeEphTileNuniq(nuniq: bigint | number): { order: number; pix
 export function encodeEphTileNuniq(order: number, pix: number): bigint {
   return BigInt(pix + 4 * (1 << (2 * order)))
 }
+
+/**
+ * Row-major table → column-major layout for compression (matches Stellarium `eph_shuffle_bytes` in `eph-file.c`).
+ * Decode path applies the inverse when the tabular `flags` bit 1 is set (see `readChunkTable`).
+ */
+export function shuffleEphTableBytes(data: Uint8Array, rowCount: number, rowSize: number): Uint8Array {
+  const out = new Uint8Array(data.length)
+
+  for (let j = 0; j < rowSize; j += 1) {
+    for (let i = 0; i < rowCount; i += 1) {
+      out[j * rowCount + i] = data[i * rowSize + j]
+    }
+  }
+
+  return out
+}
 const EPH_UNIT_DEG = EPH_UNIT_RAD | 1
 const EPH_UNIT_ARCMIN = EPH_UNIT_DEG | 2
 const EPH_UNIT_ARCSEC = EPH_UNIT_ARCMIN | 4
@@ -146,8 +162,8 @@ function convertUnit(sourceUnit: number, targetUnit: number | undefined, value: 
 function unshuffleBytes(data: Uint8Array, rowSize: number, rowCount: number) {
   const restored = new Uint8Array(data.length)
 
-  for (let byteIndex = 0; byteIndex < rowSize; byteIndex += 1) {
-    for (let rowIndex = 0; rowIndex < rowCount; rowIndex += 1) {
+  for (let rowIndex = 0; rowIndex < rowCount; rowIndex += 1) {
+    for (let byteIndex = 0; byteIndex < rowSize; byteIndex += 1) {
       restored[rowIndex * rowSize + byteIndex] = data[byteIndex * rowCount + rowIndex]
     }
   }
