@@ -39,7 +39,7 @@ From `erfa.c` ~1067–1107:
 
 ## 3. Dependencies / risks
 
-- **Stellarium `theta`:** `observer.c` uses **`eraEra00(DJM0, obs->utc)`** (UTC), not UT1 — Hub must match that quirk for parity tests.
+- **Stellarium `theta` / `eral`:** `observer.c` uses **`eraEra00(DJM0, obs->utc)`** (UTC), not UT1 — Hub **`ri2h`** / **`observerSeam.eralRad`** use **`observerEralStellariumRad`** = same angle as **`astrom.eral`** after **`eraApco`**.
 - **`eraASTROM.phi`:** struct field exists in `erfa.h`; `eraApco` does not set it — treat as **unspecified** unless a downstream read appears in study `src/`.
 - **Scope creep:** `eraAtioq` / `eraAtciq` are **not** required to declare `eraApco` ported for matrix spine, but they are needed for full apparent-place parity.
 
@@ -50,4 +50,6 @@ From `erfa.c` ~1067–1107:
 - [x] `eraApcs` + tests (**`erfaApcs.ts`**, **`test_erfa_apcs.test.js`**).  
 - [x] `eraApco` + local helpers + SOFA release-vector test (**`erfaApco.ts`**, **`test_erfa_apco.test.js`**); evidence **EV-0016**.  
 - [x] Hub **`astrom`** on `SkyObserverDerivedGeometry` (`observerDerivedGeometry` calls **`eraApco`**; `SkyObserverService` default + `module0ParityFingerprint` extended).  
-- [x] `module0-source-contract.md` §1 / §3 updated for live **`astrom`** (apparent-place / `eraAtioq` still future).
+- [x] `module0-source-contract.md` §1 / §3 updated for live **`astrom`** (apparent-place / `eraAtioq` still future).  
+- [x] **`ri2h` / `observerSeam.eralRad`** use **`observerEralStellariumRad`** (= **`astrom.eral`**, UTC `eraEra00` + longitude + `eraSp00`), not UT1-based `localEarthRotationAngleRad`.  
+- [ ] Full **`update_matrices`** parity: Stellarium `Rz(eral) × Rpl × Ry(…) × Rsx` then transpose vs Hub’s `Ry × Rz` factorization; polar motion **`Rpl`** when EOP lands.

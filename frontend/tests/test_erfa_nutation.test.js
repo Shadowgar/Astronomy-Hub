@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { deriveObserverGeometry } from '../src/features/sky-engine/engine/sky/runtime/observerDerivedGeometry.ts'
+import { observerEralStellariumRad } from '../src/features/sky-engine/engine/sky/runtime/erfaEarthRotation.ts'
 import { eraBpn2xy } from '../src/features/sky-engine/engine/sky/runtime/erfaBpn2xy.ts'
 import { eraEors } from '../src/features/sky-engine/engine/sky/runtime/erfaEors.ts'
 import { multiplyMatrix3Erfa, transposeMatrix3 } from '../src/features/sky-engine/engine/sky/runtime/erfaIau2006.ts'
@@ -88,6 +89,8 @@ describe('ERFA nutation / PNM06a (Stellarium erfa.c parity)', () => {
       null,
     )
     expect(g.astrom.bpn[0][0]).not.toBeCloseTo(g.matrices.bpn[0][0], 6)
+    expect(observerEralStellariumRad(g.utcJulianDate, g.longitudeRad, g.ttJulianDate)).toBeCloseTo(g.astrom.eral, 14)
+    expect(g.observerSeam.eralRad).toBeCloseTo(g.astrom.eral, 14)
     expect(g.cipRad.x).toBeCloseTo(g.matrices.bpn[2][0], 15)
     expect(g.timeModifiedJulianDate.tt).toBeCloseTo(g.ttJulianDate - 2400000.5, 12)
     expect(g.cioLocatorSRad).toBeCloseTo(

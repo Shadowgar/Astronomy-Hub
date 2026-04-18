@@ -18,7 +18,7 @@ import { eraPnm06aFromTtJulianDate } from './erfaPnm06a'
 import { eraS06 } from './erfaS06'
 import { eraEpv00 } from './erfaEpv00'
 import { eraApco, type EraAstrom } from './erfaApco'
-import { eraEra00FromUtcJulianDate, eraSp00, localEarthRotationAngleRad } from './erfaEarthRotation'
+import { eraEra00FromUtcJulianDate, eraSp00, observerEralStellariumRad } from './erfaEarthRotation'
 import { dut1SecondsFromTimestampIso, toJulianDateTt, toJulianDateUtc, ut1JulianDateFromTimestampIso } from './timeScales'
 import {
   type SkyObserverSeamScalars,
@@ -102,7 +102,7 @@ function refractionFromElevation(elevationMeters: number) {
  * `mat3_mul(ro2v, ri2h, ri2v)` → `ri2v = ri2h × ro2v`. `rc2v` uses `transpose(bpn)` then
  * the same convention: `bpn^T × ri2h × ro2v` (ERFA `eraPnm06a` `rnpb` = GCRS→CIRS `bpn`).
  */
-function computeFrameMatrices(latitudeRad: number, localEarthRotationRad: number, ttJulianDate: number): {
+function computeFrameMatrices(latitudeRad: number, eralRad: number, ttJulianDate: number): {
   ri2h: Matrix3
   rh2i: Matrix3
   ro2v: Matrix3
@@ -115,7 +115,7 @@ function computeFrameMatrices(latitudeRad: number, localEarthRotationRad: number
   /** Inverse of `icrsToHorizontal`: `bpn^T × rh2i`. */
   horizontalToIcrs: Matrix3
 } {
-  const ri2h = multiplyMatrix3(rotationY(Math.PI / 2 - latitudeRad), rotationZ(-localEarthRotationRad))
+  const ri2h = multiplyMatrix3(rotationY(Math.PI / 2 - latitudeRad), rotationZ(-eralRad))
   const rh2i = transposeMatrix3(ri2h)
   const ro2vM = erfaIdentityMatrix3()
   const rv2oM = erfaIdentityMatrix3()
@@ -156,7 +156,7 @@ export interface SkyObserverDerivedGeometry {
   readonly latitudeRad: number
   readonly longitudeRad: number
   readonly elevationMeters: number
-  /** GMST + longitude (degrees); not used for `ri2h` — matrices use `eraEra00` + longitude. */
+  /** GMST + longitude (degrees); not used for `ri2h` — matrices use Stellarium **`astrom.eral`** (UTC `eraEra00` + longitude + `eraSp00`). */
   readonly localSiderealTimeDeg: number
   readonly refraction: {
     readonly refA: number
@@ -258,10 +258,10 @@ export function deriveObserverGeometry(
   const ut1JulianDate = ut1JulianDateFromTimestampIso(sceneTimestampIso)
   const utcJulianDate = toJulianDateUtc(sceneTimestampIso)
   const ttJulianDate = toJulianDateTt(sceneTimestampIso)
-  const localEraRad = localEarthRotationAngleRad(ut1JulianDate, longitudeRad, ttJulianDate)
   const dut1Seconds = dut1SecondsFromTimestampIso(sceneTimestampIso)
   const refraction = refractionFromElevation(elevationMeters)
-  const horizon = computeFrameMatrices(latitudeRad, localEraRad, ttJulianDate)
+  const eralRad = observerEralStellariumRad(utcJulianDate, longitudeRad, ttJulianDate)
+  const horizon = computeFrameMatrices(latitudeRad, eralRad, ttJulianDate)
   const cipScratch = { x: 0, y: 0 }
   eraBpn2xy(horizon.bpn, cipScratch)
   const ttMjdPart = ttJulianDate - ERFA_DJM0
@@ -283,12 +283,6 @@ export function deriveObserverGeometry(
     : (previous?.lastAccurateSceneTimestampIso ?? sceneTimestampIso)
 
   const polarMotion = ZERO_POLAR_MOTION_STUB
-  const observerSeam: SkyObserverSeamScalars = {
-    elongRad: longitudeRad,
-    phiRad: latitudeRad,
-    hmMeters: elevationMeters,
-    eralRad: localEraRad,
-  }
 
   const thetaUtc = eraEra00FromUtcJulianDate(utcJulianDate)
   const sp = eraSp00(ERFA_DJM0, ttMjdPart)
@@ -310,6 +304,13 @@ export function deriveObserverGeometry(
     0,
     0,
   )
+
+  const observerSeam: SkyObserverSeamScalars = {
+    elongRad: longitudeRad,
+    phiRad: latitudeRad,
+    hmMeters: elevationMeters,
+    eralRad: astrom.eral,
+  }
 
   return {
     sceneTimestampIso,

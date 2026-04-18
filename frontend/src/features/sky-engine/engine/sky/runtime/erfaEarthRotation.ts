@@ -57,7 +57,15 @@ export function eraEra00FromUtcJulianDate(utcJd: number) {
 }
 
 /**
- * Stellarium `eraApco`: `eral = theta + along` with `along = elong + sp` (`eraSp00` on TT).
+ * Stellarium `eraApco` / `eraAper`: **`astrom.eral`** = `eraEra00(DJM0, utc)` + longitude + `eraSp00` on TT
+ * (`observer.c` uses UTC for `theta`; see `observer_update_full` comment about UT1).
+ */
+export function observerEralStellariumRad(utcJulianDate: number, longitudeRad: number, ttJulianDate: number) {
+  return eraEra00FromUtcJulianDate(utcJulianDate) + longitudeRad + eraSp00(ERFA_DJM0, ttJulianDate - ERFA_DJM0)
+}
+
+/**
+ * UT1-based local angle = `eraEra00(UT1)` + longitude + `eraSp00` (not used for Stellarium `ri2h`; kept for GMST/LST analogs).
  */
 export function localEarthRotationAngleRad(ut1Jd: number, longitudeRad: number, ttJulianDate: number) {
   return eraEra00FromUt1JulianDate(ut1Jd) + longitudeRad + eraSp00(ERFA_DJM0, ttJulianDate - ERFA_DJM0)

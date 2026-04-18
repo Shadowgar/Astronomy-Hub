@@ -20,7 +20,7 @@ import { ZERO_POLAR_MOTION_STUB, type SkyObserverSeamScalars } from './observerP
  * **Partial:** refraction matches Stellarium `refraction_prepare` + Saemundsson `refraction()` (pressure from `core.c` barometric formula, 15 °C).
  * **Partial:** ΔT via `deltat.c` SMH2016 in `timeScales.ts`; UT1 JD; GMST/LST for display; `ri2h` uses ERFA `eraEra00` + longitude (`eral` analog). DUT1 = (TT−UTC) − ΔT (not IERS EOP).
  * **Partial:** `eraPnm06a` BPN + `rc2v` / `ri2v` chain matching Stellarium `mat3_mul` order (`vec.h`).
- * **`polarMotion` / `observerSeam`:** zero PM stub + `elong`/`phi`/`hm`/`eral` scalars (`astrom` seam); EOP not integrated.
+ * **`polarMotion` / `observerSeam`:** zero PM stub + `elong`/`phi`/`hm`/`eral` = **`astrom.eral`** (UTC ERA seam); EOP not integrated.
  * **`astrom`:** `deriveObserverGeometry` calls **`eraApco`** (UTC `theta`, TT `sp`, `refa`/`refb` = 0 like Stellarium before `refraction_prepare`). PM still stubbed in `ri2h` vs `astrom.xpl`/`ypl`.
  * **Not ported (deferred):** PM in `ri2h`, `eraAper13`, refraction radians on `astrom` after `eraRefco`-style prep.
  */
