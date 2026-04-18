@@ -2,7 +2,9 @@ import { describe, expect, it } from 'vitest'
 
 import {
   eraEra00,
+  eraEra00FromUtcJulianDate,
   eraEra00FromUt1JulianDate,
+  eraSp00,
   localEarthRotationAngleRad,
 } from '../src/features/sky-engine/engine/sky/runtime/erfaEarthRotation.ts'
 
@@ -21,5 +23,17 @@ describe('erfaEarthRotation (eraEra00 port)', () => {
     const jd = 2451545.0
     const lon = 0.5
     expect(localEarthRotationAngleRad(jd, lon, jd)).toBeCloseTo(eraEra00FromUt1JulianDate(jd) + lon, 12)
+  })
+
+  it('eraEra00FromUtcJulianDate matches DJM0 + MJD split', () => {
+    const utc = 2460483.000800741
+    expect(eraEra00FromUtcJulianDate(utc)).toBeCloseTo(eraEra00(2400000.5, utc - 2400000.5), 15)
+  })
+
+  it('eraSp00 is invariant to equivalent TT two-part splits', () => {
+    const tt = 2460483.2716340744
+    const a = eraSp00(2400000.5, tt - 2400000.5)
+    const b = eraSp00(tt, 0)
+    expect(a).toBeCloseTo(b, 15)
   })
 })

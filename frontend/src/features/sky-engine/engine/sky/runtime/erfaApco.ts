@@ -267,7 +267,6 @@ export function eraPvtob(
 }
 
 function emptyAstrom(): EraAstrom {
-  const z: [number, number, number] = [0, 0, 0]
   return {
     pmt: 0,
     eb: [0, 0, 0],
@@ -279,6 +278,33 @@ function emptyAstrom(): EraAstrom {
       [0, 0, 0],
       [0, 0, 0],
       [0, 0, 0],
+    ],
+    along: 0,
+    phi: 0,
+    xpl: 0,
+    ypl: 0,
+    sphi: 0,
+    cphi: 0,
+    diurab: 0,
+    eral: 0,
+    refa: 0,
+    refb: 0,
+  }
+}
+
+/** Default `astrom` before the first `deriveObserverGeometry` (identity `bpn`; replaced on derive). */
+export function createPlaceholderEraAstrom(): EraAstrom {
+  return {
+    pmt: 0,
+    eb: [0, 0, 0],
+    eh: [0, 0, 0],
+    em: 0,
+    v: [0, 0, 0],
+    bm1: 0,
+    bpn: [
+      [1, 0, 0],
+      [0, 1, 0],
+      [0, 0, 1],
     ],
     along: 0,
     phi: 0,

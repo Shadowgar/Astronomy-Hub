@@ -21,13 +21,13 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoi
 | `utils/vec.c`, `utils/vec.h` | Matrix multiply conventions (documented in Hub) |
 | `constants.h`, `core.c`, `core.h` | Shared constants / barometric pressure analog |
 
-**Explicitly not in this contract yet:** Hub consumption of **`eraASTROM`** on the live observer seam (`SkyObserverDerivedGeometry` / services), `eraAper13`, `eraPvu`, space mode, `correct_speed_of_light`, `update_nutation_precession_mat` (`eraPn00a` path in C vs Hub `eraPnm06a` path). Those remain **BLOCKED** per `blockers.md` / inventory notes.
+**Explicitly not in this contract yet:** use of **`astrom`** for apparent-place / **`eraAtciq`** / **`eraAtioq`**, `eraAper13`, `eraPvu`, space mode, `correct_speed_of_light`, `update_nutation_precession_mat` (`eraPn00a` path in C vs Hub `eraPnm06a` path). Those remain **BLOCKED** per `blockers.md` / inventory notes.
 
-**`eraApco` (ported, not wired):** full terrestrial **`eraApco`** stack is in `frontend/src/features/sky-engine/engine/sky/runtime/erfaApco.ts` with SOFA `test_ufunc.test_apco` regression — **EV-0016**; call sites in Hub observer pipeline still pending (plan `module0-eraApco-port-plan.md` §4).
+**`eraApco` (partial):** full terrestrial **`eraApco`** stack is in `erfaApco.ts` with SOFA `test_ufunc.test_apco` regression — **EV-0016**; **`deriveObserverGeometry`** now calls it and attaches **`astrom`** (UTC `eraEra00` for `theta`, TT **`eraSp00`** for `sp`, **`refa`/`refb` = 0** as in Stellarium before `refraction_prepare`).
 
 **`eraApcs` (partial):** ICRS↔GCRS star-independent block — `erfaApcs.ts`, `test_erfa_apcs.test.js` (**EV-0015**).
 
-**`eraEpv00` (partial):** VSOP2000 Earth PV is ported (`frontend/scripts/generate_erfa_epv00_tables.mjs` → `erfaEpv00Tables.generated.ts`, `erfaEpv00.ts`, `tests/test_erfa_epv00.test.js`). `observerDerivedGeometry` fills **`earthPv`** = barycentric Earth position (AU) and **`sunPv`** = **−**heliocentric Sun→Earth position (AU), matching the former zero placeholders’ shape; full six-component `pvh`/`pvb` + `eraApco` wiring is still future work (**EV-0014**, plan `module0-eraEpv00-port-plan.md`).
+**`eraEpv00` (partial):** VSOP2000 Earth PV is ported (`frontend/scripts/generate_erfa_epv00_tables.mjs` → `erfaEpv00Tables.generated.ts`, `erfaEpv00.ts`, `tests/test_erfa_epv00.test.js`). `observerDerivedGeometry` fills **`earthPv`** / **`sunPv`** and passes full **`pvb`** / **`pvh[0]`** into **`eraApco`** (**EV-0014** + plan `module0-eraEpv00-port-plan.md`).
 
 ---
 
@@ -55,7 +55,7 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoi
 
 1. **Matrix multiply order:** Stellarium `mat3_mul` / `vec.h` row-storage matches Hub `multiplyMatrix3Erfa` / `observerDerivedGeometry` comments (`ri2v` = `ri2h × ro2v`, `rc2v` = `bpn^T × ri2h × ro2v`).
 2. **Hash gate:** Stellarium `observer_compute_hash` XOR over packed structs; Hub `computeObserverUpdateHash` uses string + **TT Julian date** (see `observerUpdateHash.ts`). **G5** must document any intentional divergence.
-3. **Full update:** Hub calls **`eraEpv00`** (TT split `2400000.5` + `ttJulianDate − 2400000.5`) for **`earthPv`** / **`sunPv`** (see §1); **`eraApco`** and full **`eraASTROM`** population remain unported.
+3. **Full update:** Hub calls **`eraEpv00`** (TT split `2400000.5` + `ttJulianDate − 2400000.5`) for **`earthPv`** / **`sunPv`** and **`eraApco`** with the same split for **`astrom`** (see §1). Apparent-place use of **`astrom`** and ERFA refraction constants on **`astrom.refa`/`refb`** remain unported.
 
 ---
 

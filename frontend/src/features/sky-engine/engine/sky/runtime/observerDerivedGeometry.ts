@@ -17,7 +17,8 @@ import { eraEors } from './erfaEors'
 import { eraPnm06aFromTtJulianDate } from './erfaPnm06a'
 import { eraS06 } from './erfaS06'
 import { eraEpv00 } from './erfaEpv00'
-import { localEarthRotationAngleRad } from './erfaEarthRotation'
+import { eraApco, type EraAstrom } from './erfaApco'
+import { eraEra00FromUtcJulianDate, eraSp00, localEarthRotationAngleRad } from './erfaEarthRotation'
 import { dut1SecondsFromTimestampIso, toJulianDateTt, toJulianDateUtc, ut1JulianDateFromTimestampIso } from './timeScales'
 import {
   type SkyObserverSeamScalars,
@@ -168,7 +169,10 @@ export interface SkyObserverDerivedGeometry {
     readonly rv2o: Matrix3
     readonly ri2v: Matrix3
     readonly rc2v: Matrix3
-    /** ERFA `eraPnm06a` `rnpb` (GCRS → CIRS / true equator of date); Stellarium `astrom->bpn`. */
+    /**
+     * Classical bias-precession-nutation: ERFA `eraPnm06a` `rnpb` (GCRS → CIRS).
+     * Distinct from `astrom.bpn` (CIO `eraC2ixys` inside `eraApco`).
+     */
     readonly bpn: Matrix3
     /** ICRS → horizontal (geom): `ri2h × bpn`. Use for `ObserverFrame` `icrf` when vector is GCRS/ICRS. */
     readonly icrsToHorizontal: Matrix3
@@ -206,6 +210,11 @@ export interface SkyObserverDerivedGeometry {
   readonly cioLocatorSRad: number
   /** Equation of the origins (radians): `eraEors(bpn, cioLocatorSRad)`. */
   readonly equationOfOriginsRad: number
+  /**
+   * Star-independent astrometry (`eraApco`), Stellarium `observer_update_full` before `refraction_prepare`.
+   * `refa`/`refb` are passed as `0` like Stellarium’s `eraApco(..., 0, 0, ...)` call; weather scalars stay in `refraction`.
+   */
+  readonly astrom: EraAstrom
 }
 
 export interface ObserverUpdateDecisionInput {
@@ -281,6 +290,27 @@ export function deriveObserverGeometry(
     eralRad: localEraRad,
   }
 
+  const thetaUtc = eraEra00FromUtcJulianDate(utcJulianDate)
+  const sp = eraSp00(ERFA_DJM0, ttMjdPart)
+  const astrom = eraApco(
+    ERFA_DJM0,
+    ttMjdPart,
+    epv.pvb,
+    pvh0,
+    cipScratch.x,
+    cipScratch.y,
+    cioLocatorSRad,
+    thetaUtc,
+    longitudeRad,
+    latitudeRad,
+    elevationMeters,
+    polarMotion.xpRad,
+    polarMotion.ypRad,
+    sp,
+    0,
+    0,
+  )
+
   return {
     sceneTimestampIso,
     updateMode,
@@ -307,5 +337,6 @@ export function deriveObserverGeometry(
     cipRad: { x: cipScratch.x, y: cipScratch.y },
     cioLocatorSRad,
     equationOfOriginsRad,
+    astrom,
   }
 }

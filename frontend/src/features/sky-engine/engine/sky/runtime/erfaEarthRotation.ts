@@ -5,8 +5,15 @@
 
 import { ERFA_DAS2R, ERFA_DJC, ERFA_D2PI, ERFA_DJ00 } from './erfaConstants'
 
-function eraSp00FromTtJulianDate(ttJd: number) {
-  const t = (ttJd - ERFA_DJ00) / ERFA_DJC
+/** ERFA / SOFA two-part JD reference `DJM0` (JD − 2400000.5 = MJD). */
+const ERFA_DJM0 = 2400000.5
+
+/**
+ * IERS 2000 precession adjustment (radians), `eraSp00`.
+ * Two-part TT Julian date should satisfy `date1 + date2` = TT JD (same split as `eraPnm06a` / `eraS06`).
+ */
+export function eraSp00(date1: number, date2: number) {
+  const t = ((date1 - ERFA_DJ00) + date2) / ERFA_DJC
   return -47e-6 * t * ERFA_DAS2R
 }
 
@@ -36,14 +43,22 @@ export function eraEra00(ut11: number, ut12: number) {
   return eraAnp(ERFA_D2PI * (f + 0.7790572732640 + 0.00273781191135448 * t))
 }
 
-/** MJD split: `dj1 = 2400000.5`, `dj2` = UT1 as MJD (preserves precision like ERFA examples). */
+/** MJD split: `dj1 = DJM0`, `dj2` = UT1 as MJD (preserves precision like ERFA examples). */
 export function eraEra00FromUt1JulianDate(ut1Jd: number) {
-  return eraEra00(2400000.5, ut1Jd - 2400000.5)
+  return eraEra00(ERFA_DJM0, ut1Jd - ERFA_DJM0)
+}
+
+/**
+ * Earth rotation angle for Stellarium `observer_update_full` → `eraApco` (`theta`):
+ * `eraEra00(DJM0, obs->utc)` (UTC-based split), not UT1.
+ */
+export function eraEra00FromUtcJulianDate(utcJd: number) {
+  return eraEra00(ERFA_DJM0, utcJd - ERFA_DJM0)
 }
 
 /**
  * Stellarium `eraApco`: `eral = theta + along` with `along = elong + sp` (`eraSp00` on TT).
  */
 export function localEarthRotationAngleRad(ut1Jd: number, longitudeRad: number, ttJulianDate: number) {
-  return eraEra00FromUt1JulianDate(ut1Jd) + longitudeRad + eraSp00FromTtJulianDate(ttJulianDate)
+  return eraEra00FromUt1JulianDate(ut1Jd) + longitudeRad + eraSp00(ERFA_DJM0, ttJulianDate - ERFA_DJM0)
 }

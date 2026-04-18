@@ -20,7 +20,7 @@ From `erfa.c` ~1067–1107:
 | ICRS↔GCRS block | **`eraApcs`** | 1337–1505 | **`PORTED`** → `erfaApcs.ts` |
 | copy BPN | `eraCr` | 5683–5707 | `eraCp` rows |
 
-**Already in Hub:** `eraEpv00`, `eraPnm06a` / `eraBpn2xy`, `eraS06`, `eraEors`, `localEarthRotationAngleRad` / `eraEra00` path, `eraSp00` in `erfaEarthRotation.ts`, refraction scalars in `observerDerivedGeometry`.
+**Already in Hub:** `eraEpv00`, `eraPnm06a` / `eraBpn2xy`, `eraS06`, `eraEors`, `localEarthRotationAngleRad` / `eraEra00` path, exported **`eraSp00`** / **`eraEra00FromUtcJulianDate`** in `erfaEarthRotation.ts`, refraction weather scalars in `observerDerivedGeometry`, **`deriveObserverGeometry` → `eraApco`** → **`astrom`**.
 
 ---
 
@@ -49,5 +49,5 @@ From `erfa.c` ~1067–1107:
 
 - [x] `eraApcs` + tests (**`erfaApcs.ts`**, **`test_erfa_apcs.test.js`**).  
 - [x] `eraApco` + local helpers + SOFA release-vector test (**`erfaApco.ts`**, **`test_erfa_apco.test.js`**); evidence **EV-0016**.  
-- [ ] Hub **`astrom`** / `observerDerivedGeometry` / `SkyObserverService` wiring + fingerprint impact (optional separate PR).  
-- [ ] `module0-source-contract.md` §3 behavioral bullet updated when `astrom` is consumed on the live observer path.
+- [x] Hub **`astrom`** on `SkyObserverDerivedGeometry` (`observerDerivedGeometry` calls **`eraApco`**; `SkyObserverService` default + `module0ParityFingerprint` extended).  
+- [x] `module0-source-contract.md` §1 / §3 updated for live **`astrom`** (apparent-place / `eraAtioq` still future).

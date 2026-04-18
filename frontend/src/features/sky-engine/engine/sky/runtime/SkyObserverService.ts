@@ -7,6 +7,7 @@ import {
   resolveObserverUpdateMode,
   type SkyObserverDerivedGeometry,
 } from './observerDerivedGeometry'
+import { createPlaceholderEraAstrom } from './erfaApco'
 import { ZERO_POLAR_MOTION_STUB, type SkyObserverSeamScalars } from './observerParityStubs'
 
 /**
@@ -20,7 +21,8 @@ import { ZERO_POLAR_MOTION_STUB, type SkyObserverSeamScalars } from './observerP
  * **Partial:** ΔT via `deltat.c` SMH2016 in `timeScales.ts`; UT1 JD; GMST/LST for display; `ri2h` uses ERFA `eraEra00` + longitude (`eral` analog). DUT1 = (TT−UTC) − ΔT (not IERS EOP).
  * **Partial:** `eraPnm06a` BPN + `rc2v` / `ri2v` chain matching Stellarium `mat3_mul` order (`vec.h`).
  * **`polarMotion` / `observerSeam`:** zero PM stub + `elong`/`phi`/`hm`/`eral` scalars (`astrom` seam); EOP not integrated.
- * **Not ported (deferred):** PM in `ri2h`, `eraAper13`, full **`eraASTROM`** on the seam — `eraEpv00`, **`eraApcs`**, **`eraApco`** (`erfaApco.ts`) exist; Hub does not yet call `eraApco` or attach `astrom` to derived geometry (see `docs/runtime/port/module0-eraApco-port-plan.md` §4).
+ * **`astrom`:** `deriveObserverGeometry` calls **`eraApco`** (UTC `theta`, TT `sp`, `refa`/`refb` = 0 like Stellarium before `refraction_prepare`). PM still stubbed in `ri2h` vs `astrom.xpl`/`ypl`.
+ * **Not ported (deferred):** PM in `ri2h`, `eraAper13`, refraction radians on `astrom` after `eraRefco`-style prep.
  */
 export class SkyObserverService {
   private observer: SkyEngineObserver
@@ -75,6 +77,7 @@ export class SkyObserverService {
     cipRad: { x: 0, y: 0 },
     cioLocatorSRad: 0,
     equationOfOriginsRad: 0,
+    astrom: createPlaceholderEraAstrom(),
   }
 
   constructor(initialObserver: SkyEngineObserver, clockService: SkyClockService) {

@@ -87,6 +87,7 @@ describe('ERFA nutation / PNM06a (Stellarium erfa.c parity)', () => {
       'full',
       null,
     )
+    expect(g.astrom.bpn[0][0]).not.toBeCloseTo(g.matrices.bpn[0][0], 6)
     expect(g.cipRad.x).toBeCloseTo(g.matrices.bpn[2][0], 15)
     expect(g.timeModifiedJulianDate.tt).toBeCloseTo(g.ttJulianDate - 2400000.5, 12)
     expect(g.cioLocatorSRad).toBeCloseTo(

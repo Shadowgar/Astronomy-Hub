@@ -41,6 +41,7 @@ export function computeModule0ObserverGeometryFingerprint(
   const seam = g.observerSeam
   const mjd = g.timeModifiedJulianDate
   const cip = g.cipRad
+  const a = g.astrom
   const pieces = [
     sceneTimestampIso,
     observer.label,
@@ -91,6 +92,29 @@ export function computeModule0ObserverGeometryFingerprint(
     q(cip.y),
     q(g.cioLocatorSRad),
     q(g.equationOfOriginsRad),
+    matrixFlat(a.bpn as Matrix3),
+    q(a.pmt),
+    q(a.em),
+    q(a.bm1),
+    q(a.eb[0]),
+    q(a.eb[1]),
+    q(a.eb[2]),
+    q(a.eh[0]),
+    q(a.eh[1]),
+    q(a.eh[2]),
+    q(a.v[0]),
+    q(a.v[1]),
+    q(a.v[2]),
+    q(a.along),
+    q(a.phi),
+    q(a.xpl),
+    q(a.ypl),
+    q(a.sphi),
+    q(a.cphi),
+    q(a.diurab),
+    q(a.eral),
+    q(a.refa),
+    q(a.refb),
   ]
   return pieces.join('|')
 }
