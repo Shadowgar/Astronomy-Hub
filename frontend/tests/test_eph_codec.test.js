@@ -3,8 +3,12 @@ import { deflateSync } from 'node:zlib'
 
 import {
   buildHipsTilePath,
+  convertEphFloat,
   decodeEphTile,
   decodeEphTileNuniq,
+  EPH_UNIT_ARCSEC,
+  EPH_UNIT_DEG,
+  EPH_UNIT_RAD,
   encodeEphTileNuniq,
   parseSurveyProperties,
   shuffleEphTableBytes,
@@ -124,6 +128,13 @@ function buildSampleEphTile() {
 }
 
 describe('eph codec', () => {
+  it('matches eph-file.c eph_convert_f for representative unit paths', () => {
+    expect(convertEphFloat(EPH_UNIT_DEG, EPH_UNIT_RAD, 45)).toBeCloseTo((45 * Math.PI) / 180, 12)
+    expect(convertEphFloat(EPH_UNIT_ARCSEC, EPH_UNIT_DEG, 3600)).toBeCloseTo(1, 12)
+    expect(convertEphFloat(EPH_UNIT_ARCSEC | 8, EPH_UNIT_ARCSEC, 2)).toBeCloseTo(2 * 365.25, 12)
+    expect(convertEphFloat((5 << 16) | 1 | 2 | 4, EPH_UNIT_DEG, 3600)).toBeCloseTo(1, 12)
+  })
+
   it('inverts shuffleEphTableBytes to row-major (eph_shuffle_bytes ↔ decode unshuffle)', () => {
     const rowCount = 5
     const rowSize = 11

@@ -24,7 +24,7 @@ This document freezes the Astronomy Hub ↔ Stellarium **`module1-hips-kernel`**
 |---|---|
 | File-backed Hipparcos/Gaia tile repository | `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts` |
 | Module1 G4 tile-load fingerprint (deterministic replay) | `frontend/src/features/sky-engine/engine/sky/runtime/module1ParityFingerprint.ts` |
-| Eph / survey property codec | `frontend/src/features/sky-engine/engine/sky/adapters/ephCodec.ts` (`decodeEphTile`, **`decodeEphTileNuniq`** / **`encodeEphTileNuniq`**, **`shuffleEphTableBytes`** ↔ `eph-file.c` tile header + `eph_shuffle_bytes`) |
+| Eph / survey property codec | `frontend/src/features/sky-engine/engine/sky/adapters/ephCodec.ts` (`decodeEphTile`, **`decodeEphTileNuniq`** / **`encodeEphTileNuniq`**, **`shuffleEphTableBytes`**, **`convertEphFloat`** + exported **`EPH_UNIT_*`** ↔ `eph-file.c` header / `eph_shuffle_bytes` / `eph_convert_f`) |
 | HEALPix helpers | `frontend/src/features/sky-engine/engine/sky/adapters/healpix.ts` (nest **`ang2pix`** / **`pix2ang`** port; **`tests/test_healpix.test.js`**) |
 | Mock tiles (tests) | `frontend/src/features/sky-engine/engine/sky/adapters/mockTileRepository.ts` |
 | Tile index / query | `frontend/src/features/sky-engine/engine/sky/core/tileIndex.ts` (and related `contracts/tiles`) |
@@ -53,9 +53,9 @@ Renames or new Hub adapters in §2 require updates to **`module-inventory.md`**,
 | G1 | **PASS** for the §1–§2 mapped subset; remaining **`BLOCKED`** C rows in inventory are out of this contract’s behavioral freeze. |
 | G3 | Runtime-path proofs for RA wrap bounds handling and Gaia activation/merge flow (**EV-0022**, **EV-0023**). |
 | G4 | **`computeModule1TileLoadFingerprint`** + `tests/test_module1_deterministic_replay.test.js` snapshot (**EV-0024**). |
-| G2 (partial) | EPH **`nuniq`** decode/encode aligned with Stellarium **`eph_read_tile_header`** (**EV-0025**); tabular **`shuffleEphTableBytes`** vs **`eph_shuffle_bytes`** (**EV-0026**). |
+| G2 (partial) | EPH **`nuniq`** (**EV-0025**); **`shuffleEphTableBytes`** (**EV-0026**); **`convertEphFloat`** vs **`eph_convert_f`** (**EV-0027**). |
 | G3 (partial) | HEALPix nest round-trip regression (**EV-0026**). |
-| G6 | **`npm run test:module1`** (see **EV-0020**, **EV-0022**, **EV-0023**, **EV-0024**, **EV-0025**, **EV-0026**). |
+| G6 | **`npm run test:module1`** (see **EV-0020**, **EV-0022**, **EV-0023**, **EV-0024**, **EV-0025**, **EV-0026**, **EV-0027**). |
 
 ---
 

@@ -37,6 +37,7 @@ This index links command runs, raw outputs, screenshots, and JSON artifacts used
 | EV-0024 | module1-hips-kernel | G4 | `npx vitest run tests/test_module1_deterministic_replay.test.js` | `frontend/src/features/sky-engine/engine/sky/runtime/module1ParityFingerprint.ts`, `frontend/tests/module1ReplayFixtures.ts`, `frontend/tests/__snapshots__/test_module1_deterministic_replay.test.js.snap` | PASS | Hub **`SkyTileRepositoryLoadResult`** fingerprint (sorted tiles/stars, fixed decimals); snapshot drift guard; included in **`npm run test:module1`**. |
 | EV-0025 | module1-hips-kernel | G2 (partial) | `npm run test:module1` (includes `test_eph_codec.test.js`) | `ephCodec.ts` (`decodeEphTileNuniq`, `encodeEphTileNuniq`), `tests/test_eph_codec.test.js` | PASS | **`nuniq` ↔ order/pix** matches Stellarium **`eph-file.c`** `eph_read_tile_header`; tile decode path uses shared helper. |
 | EV-0026 | module1-hips-kernel | G2/G3 (partial) | `npm run test:module1` (includes `test_eph_codec.test.js`, **`test_healpix.test.js`**) | `ephCodec.ts` (`shuffleEphTableBytes`), `healpix.ts`, `tests/test_healpix.test.js` | PASS | **`eph_shuffle_bytes`**-aligned shuffle + inverse; HEALPix nest **pix → center → pix** round-trip samples (orders 0–3). |
+| EV-0027 | module1-hips-kernel | G2 (partial) | `npm run test:module1` (`test_eph_codec.test.js`) | `ephCodec.ts` (`convertEphFloat`, exported **`EPH_UNIT_*`**) | PASS | **`eph_convert_f`** parity: deg↔rad, arcsec→deg, per-year bit 8, legacy **`EPH_ARCSEC_`** normalization. |
 
 ## Rules
 

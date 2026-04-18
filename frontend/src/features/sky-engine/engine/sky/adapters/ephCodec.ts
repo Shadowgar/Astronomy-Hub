@@ -3,7 +3,13 @@ import { resolveSkyRuntimeTierForMagnitude } from '../core/magnitudePolicy'
 
 const EPH_MAGIC = 'EPHE'
 const EPH_FILE_VERSION = 2
-const EPH_UNIT_RAD = 1 << 16
+
+/** `eph-file.h` EPH_UNIT bitfield (lower 16 bits); do not change — matches packed survey data. */
+export const EPH_UNIT_RAD = 1 << 16
+export const EPH_UNIT_DEG = EPH_UNIT_RAD | 1
+export const EPH_UNIT_ARCMIN = EPH_UNIT_DEG | 2
+export const EPH_UNIT_ARCSEC = EPH_UNIT_ARCMIN | 4
+const EPH_UNIT_ARCSEC_LEGACY = (5 << 16) | 1 | 2 | 4
 
 /**
  * Decode HEALPix `nuniq` from an EPH tile header (8 bytes after the 4-byte tile version).
@@ -36,10 +42,6 @@ export function shuffleEphTableBytes(data: Uint8Array, rowCount: number, rowSize
 
   return out
 }
-const EPH_UNIT_DEG = EPH_UNIT_RAD | 1
-const EPH_UNIT_ARCMIN = EPH_UNIT_DEG | 2
-const EPH_UNIT_ARCSEC = EPH_UNIT_ARCMIN | 4
-const EPH_UNIT_ARCSEC_LEGACY = (5 << 16) | 1 | 2 | 4
 
 type SupportedColumnType = 'f' | 'i' | 'Q' | 's'
 
@@ -157,6 +159,11 @@ function convertUnit(sourceUnit: number, targetUnit: number | undefined, value: 
   }
 
   return converted
+}
+
+/** Stellarium `eph_convert_f` (`eph-file.c`) for EPH tabular float columns. */
+export function convertEphFloat(sourceUnit: number, targetUnit: number, value: number): number {
+  return convertUnit(normalizeUnit(sourceUnit), normalizeUnit(targetUnit), value)
 }
 
 function unshuffleBytes(data: Uint8Array, rowSize: number, rowCount: number) {
