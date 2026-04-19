@@ -626,30 +626,62 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
           deterministicParityModeEnabled={deterministicParityModeEnabled}
         />
 
+        <div className="sky-engine-page__overlay sky-engine-page__overlay--left-tools">
+          <div className="sky-engine-page__left-tools" aria-label="Sky tools">
+            <button
+              type="button"
+              className={`sky-engine-page__control-chip sky-engine-page__icon-chip${aidVisibility.constellations ? ' sky-engine-page__control-chip--active' : ''}`}
+              onClick={() => toggleAid('constellations')}
+              title="Constellation lines"
+              aria-label="Constellation lines"
+            >
+              ✶
+            </button>
+            <button
+              type="button"
+              className={`sky-engine-page__control-chip sky-engine-page__icon-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`}
+              onClick={() => toggleAid('azimuthRing')}
+              title="Azimuth grid"
+              aria-label="Azimuth grid"
+            >
+              ⊙
+            </button>
+            <button
+              type="button"
+              className={`sky-engine-page__control-chip sky-engine-page__icon-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`}
+              onClick={() => toggleAid('altitudeRings')}
+              title="Equatorial grid"
+              aria-label="Equatorial grid"
+            >
+              ⌖
+            </button>
+            <button
+              type="button"
+              className={`sky-engine-page__control-chip sky-engine-page__icon-chip${inspectorOpen ? ' sky-engine-page__control-chip--active' : ''}`}
+              onClick={() => setInspectorOpen((currentValue) => !currentValue)}
+              title={inspectorOpen ? 'Hide interface' : 'Show interface'}
+              aria-label={inspectorOpen ? 'Hide interface' : 'Show interface'}
+            >
+              ◫
+            </button>
+            <button
+              type="button"
+              className="sky-engine-page__time-reset sky-engine-page__icon-chip"
+              onClick={() => sceneRef.current?.resetSceneTime()}
+              title="Reset time to now"
+              aria-label="Reset time to now"
+            >
+              ⟳
+            </button>
+          </div>
+        </div>
+
         <div className="sky-engine-page__overlay sky-engine-page__overlay--top-bar">
           <div className="sky-engine-page__top-bar" aria-label="Sky Engine top bar">
             <div className="sky-engine-page__top-bar-section sky-engine-page__top-bar-section--actions">
               <Link className="sky-engine-page__back-link sky-engine-page__icon-chip" to="/" title="Main menu" aria-label="Main menu">
                 ≡
               </Link>
-              <button
-                type="button"
-                className={`sky-engine-page__control-chip sky-engine-page__icon-chip${inspectorOpen ? ' sky-engine-page__control-chip--active' : ''}`}
-                onClick={() => setInspectorOpen((currentValue) => !currentValue)}
-                title={inspectorOpen ? 'Hide interface' : 'Show interface'}
-                aria-label={inspectorOpen ? 'Hide interface' : 'Show interface'}
-              >
-                {inspectorOpen ? '◫' : '☰'}
-              </button>
-              <button
-                type="button"
-                className="sky-engine-page__time-reset sky-engine-page__time-reset--top sky-engine-page__icon-chip"
-                onClick={() => sceneRef.current?.resetSceneTime()}
-                title="Now"
-                aria-label="Reset time to now"
-              >
-                ⟳
-              </button>
             </div>
             <form
               className="sky-engine-page__search"
@@ -745,15 +777,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                   ))}
                 </div>
                 <div className="sky-engine-page__target-chips" aria-label="Sky aid toggles">
-                  <button type="button" className={`sky-engine-page__control-chip sky-engine-page__icon-chip${aidVisibility.constellations ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('constellations')} title="Constellation lines" aria-label="Constellation lines">
-                    ✶
-                  </button>
-                  <button type="button" className={`sky-engine-page__control-chip sky-engine-page__icon-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('azimuthRing')} title="Azimuth grid" aria-label="Azimuth grid">
-                    ⊙
-                  </button>
-                  <button type="button" className={`sky-engine-page__control-chip sky-engine-page__icon-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('altitudeRings')} title="Equatorial grid" aria-label="Equatorial grid">
-                    ⌖
-                  </button>
+                  <span className="sky-engine-page__chip-label">tools</span>
                 </div>
                 <div className="sky-engine-page__target-chips" aria-label="Sky culture selection">
                   {skyCultureOptions.slice(0, 4).map((culture) => (

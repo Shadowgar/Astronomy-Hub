@@ -58,6 +58,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 10. Scene-time bootstrap now shifts to night during local daytime to keep startup star visibility; HUD copy/style is being aligned toward Stellarium semantics on the active viewport shell (**EV-0048**).
 11. HUD controls are now grouped in a Stellarium-like structure (center actions + right time controls) while keeping current runtime hooks intact (**EV-0049**).
 12. HUD chrome is now icon-first and more compact (top tools, search submit, aid toggles) to reduce Hub-specific text density and move closer to Stellarium control ergonomics (**EV-0050**).
+13. A left vertical tool dock now anchors key controls (constellation/azimuth/equatorial grids, UI toggle, time reset) and top/bottom overlays are shifted to match the docked Stellarium-like control geometry (**EV-0051**).
 
 ---
 
@@ -89,7 +90,7 @@ Rows: **`src/hip.c`**, **`src/hip.h`**, **`src/modules/stars.c`**, **`src/algos/
 
 ## 7. Handoff for external agents (e.g. Codex / new chat)
 
-Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0050), this file §2–§5.
+Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0051), this file §2–§5.
 
 ### Where to implement module 2 work
 
@@ -131,6 +132,7 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 | EV-0048 | Night-visible startup bias + Stellarium-style HUD copy/styling pass |
 | EV-0049 | Stellarium-like HUD control-strip grouping in active viewport |
 | EV-0050 | Icon-first compact Stellarium control chrome pass |
+| EV-0051 | Left vertical tool dock + dock-aligned overlay geometry |
 
 ### CI
 

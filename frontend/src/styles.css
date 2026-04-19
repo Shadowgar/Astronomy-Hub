@@ -1440,14 +1440,20 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 }
 
 .sky-engine-page__overlay--top-bar {
-  left: var(--token-size-8);
+  left: calc(var(--token-size-8) + 2.3rem);
   right: var(--token-size-8);
   top: calc(var(--token-size-6) + 3.9rem);
 }
 
 .sky-engine-page__overlay--bottom-hud {
-  left: var(--token-size-8);
+  left: calc(var(--token-size-8) + 2.3rem);
   right: var(--token-size-8);
+  bottom: var(--token-size-6);
+}
+
+.sky-engine-page__overlay--left-tools {
+  left: var(--token-size-8);
+  top: calc(var(--token-size-6) + 3.9rem);
   bottom: var(--token-size-6);
 }
 
@@ -1460,7 +1466,8 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 
 .sky-engine-page__top-bar,
 .sky-engine-page__bottom-hud,
-.sky-engine-page__hub-shell {
+.sky-engine-page__hub-shell,
+.sky-engine-page__left-tools {
   display: flex;
   align-items: center;
   gap: 0.55rem;
@@ -1469,6 +1476,15 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.38);
   backdrop-filter: blur(10px);
   pointer-events: none;
+}
+
+.sky-engine-page__left-tools {
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 2rem;
+  border-radius: 0.7rem;
+  padding: 0.25rem 0.15rem;
+  pointer-events: auto;
 }
 
 .sky-engine-page__hub-shell {
@@ -1575,6 +1591,14 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 
 .sky-engine-page__search-submit {
   flex: 0 0 auto;
+}
+
+.sky-engine-page__chip-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(176, 208, 255, 0.72);
+  padding: 0 0.2rem;
 }
 
 .sky-engine-page__top-bar-meta {
@@ -1726,6 +1750,7 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .sky-engine-page__icon-chip {
   width: 1.6rem;
   min-width: 1.6rem;
+  height: 1.6rem;
   padding: 0;
   justify-content: center;
   font-size: 0.82rem;
@@ -2026,9 +2051,15 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
     margin: var(--token-size-16);
   }
 
+  .sky-engine-page__overlay--left-tools {
+    position: static;
+    margin: 0 var(--token-size-16);
+  }
+
   .sky-engine-page__top-bar,
   .sky-engine-page__bottom-hud,
   .sky-engine-page__hub-shell,
+  .sky-engine-page__left-tools,
   .sky-engine-page__bottom-hud-main,
   .sky-engine-page__bottom-hud-foot {
     flex-direction: column;
