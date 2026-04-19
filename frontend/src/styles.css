@@ -1637,6 +1637,41 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   justify-content: space-between;
 }
 
+.sky-engine-page__bottom-hud-main--stellarium {
+  align-items: flex-start;
+}
+
+.sky-engine-page__bottom-hud-stats--stellarium {
+  max-width: 70%;
+}
+
+.sky-engine-page__stellarium-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.sky-engine-page__bottom-hud-foot--stellarium {
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.sky-engine-page__stellarium-center-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.sky-engine-page__stellarium-time-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-end;
+}
+
 .sky-engine-page__bottom-hud-stats {
   flex-wrap: wrap;
   justify-content: flex-end;

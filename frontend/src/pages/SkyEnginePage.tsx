@@ -706,12 +706,12 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
 
         <div className="sky-engine-page__overlay sky-engine-page__overlay--bottom-hud">
           <section className="sky-engine-page__bottom-hud" aria-label="Sky Engine controls">
-            <div className="sky-engine-page__bottom-hud-main">
-              <div>
+            <div className="sky-engine-page__bottom-hud-main sky-engine-page__bottom-hud-main--stellarium">
+              <div className="sky-engine-page__stellarium-status">
                 <span className="sky-engine-page__scene-link-label">Time scrub</span>
                 <strong className="sky-engine-page__bottom-hud-offset">{formattedScaleOffset}</strong>
               </div>
-              <div className="sky-engine-page__bottom-hud-stats">
+              <div className="sky-engine-page__bottom-hud-stats sky-engine-page__bottom-hud-stats--stellarium">
                 <span>{snapshot.summary.renderedStarCount} rendered stars · {snapshot.summary.lodTier}</span>
                 <span>{snapshot.summary.fallbackActive ? `${snapshot.summary.sourceLabel} fallback` : snapshot.summary.sourceLabel}</span>
                 <span>{snapshot.summary.moonAboveHorizon ? `${snapshot.summary.moonPhaseLabel ?? 'Visible'} moon` : 'Moon below horizon'}</span>
@@ -742,95 +742,95 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
               onChange={(event) => sceneRef.current?.setSceneOffsetSeconds(Number(event.target.value))}
             />
 
-            <div className="sky-engine-page__bottom-hud-foot">
-              <div className="sky-engine-page__control-group" aria-label="Time scale controls">
-                <button
-                  type="button"
-                  className="sky-engine-page__time-reset"
-                  onClick={() => sceneRef.current?.nudgeSceneOffset(-(SKY_ENGINE_TIME_SCALE_OPTIONS.find((option) => option.id === timeScaleId)?.stepSeconds ?? 60))}
-                >
-                  - Step
-                </button>
-                <div className="sky-engine-page__time-slider-scale">
-                  {SKY_ENGINE_TIME_SCALE_OPTIONS.map((scaleOption) => (
+            <div className="sky-engine-page__bottom-hud-foot sky-engine-page__bottom-hud-foot--stellarium">
+              <div className="sky-engine-page__stellarium-center-strip" aria-label="Stellarium style center actions">
+                <div className="sky-engine-page__target-chips" aria-label="Guided sky targets">
+                  {guidanceTargets.map((target) => (
                     <button
-                      key={scaleOption.id}
+                      key={target.objectId}
                       type="button"
-                      className={`sky-engine-page__control-chip${timeScaleId === scaleOption.id ? ' sky-engine-page__control-chip--active' : ''}`}
-                      onClick={() => setTimeScaleId(scaleOption.id)}
+                      className={`sky-engine-page__target-chip${snapshot.selection.object?.id === target.objectId ? ' sky-engine-page__target-chip--active' : ''}`}
+                      onClick={() => sceneRef.current?.selectObject(target.objectId)}
                     >
-                      {scaleOption.shortLabel}
+                      {target.name}
                     </button>
                   ))}
                 </div>
-                <button
-                  type="button"
-                  className="sky-engine-page__time-reset"
-                  onClick={() => sceneRef.current?.nudgeSceneOffset(SKY_ENGINE_TIME_SCALE_OPTIONS.find((option) => option.id === timeScaleId)?.stepSeconds ?? 60)}
-                >
-                  + Step
-                </button>
-              </div>
-
-              <div className="sky-engine-page__control-group" aria-label="Playback controls">
-                {SKY_ENGINE_PLAYBACK_RATE_OPTIONS.map((playbackOption) => (
-                  <button
-                    key={playbackOption.value}
-                    type="button"
-                    className={`sky-engine-page__control-chip${snapshot.summary.playbackRate === playbackOption.value ? ' sky-engine-page__control-chip--active' : ''}`}
-                    onClick={() => {
-                      if (playbackOption.value === 0) {
-                        sceneRef.current?.togglePlayback()
-                        return
-                      }
-
-                      sceneRef.current?.setPlaybackRate(playbackOption.value)
-                    }}
-                  >
-                    {playbackOption.value === 0 && snapshot.summary.playbackRate !== 0 ? 'Pause' : playbackOption.label}
+                <div className="sky-engine-page__target-chips" aria-label="Sky aid toggles">
+                  <button type="button" className={`sky-engine-page__control-chip${aidVisibility.constellations ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('constellations')}>
+                    Constellations
                   </button>
-                ))}
-                <button type="button" className="sky-engine-page__time-reset" onClick={() => sceneRef.current?.resetSceneTime()}>
-                  Reset
-                </button>
+                  <button type="button" className={`sky-engine-page__control-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('azimuthRing')}>
+                    Azimuth
+                  </button>
+                  <button type="button" className={`sky-engine-page__control-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('altitudeRings')}>
+                    Equator
+                  </button>
+                </div>
+                <div className="sky-engine-page__target-chips" aria-label="Sky culture selection">
+                  {skyCultureOptions.map((culture) => (
+                    <button
+                      key={culture.id}
+                      type="button"
+                      className={`sky-engine-page__control-chip${skyCultureId === culture.id ? ' sky-engine-page__control-chip--active' : ''}`}
+                      onClick={() => setSkyCultureId(culture.id)}
+                    >
+                      {culture.label}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+              <div className="sky-engine-page__stellarium-time-strip">
+                <div className="sky-engine-page__control-group" aria-label="Time scale controls">
+                  <button
+                    type="button"
+                    className="sky-engine-page__time-reset"
+                    onClick={() => sceneRef.current?.nudgeSceneOffset(-(SKY_ENGINE_TIME_SCALE_OPTIONS.find((option) => option.id === timeScaleId)?.stepSeconds ?? 60))}
+                  >
+                    - Step
+                  </button>
+                  <div className="sky-engine-page__time-slider-scale">
+                    {SKY_ENGINE_TIME_SCALE_OPTIONS.map((scaleOption) => (
+                      <button
+                        key={scaleOption.id}
+                        type="button"
+                        className={`sky-engine-page__control-chip${timeScaleId === scaleOption.id ? ' sky-engine-page__control-chip--active' : ''}`}
+                        onClick={() => setTimeScaleId(scaleOption.id)}
+                      >
+                        {scaleOption.shortLabel}
+                      </button>
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    className="sky-engine-page__time-reset"
+                    onClick={() => sceneRef.current?.nudgeSceneOffset(SKY_ENGINE_TIME_SCALE_OPTIONS.find((option) => option.id === timeScaleId)?.stepSeconds ?? 60)}
+                  >
+                    + Step
+                  </button>
+                </div>
+                <div className="sky-engine-page__control-group" aria-label="Playback controls">
+                  {SKY_ENGINE_PLAYBACK_RATE_OPTIONS.map((playbackOption) => (
+                    <button
+                      key={playbackOption.value}
+                      type="button"
+                      className={`sky-engine-page__control-chip${snapshot.summary.playbackRate === playbackOption.value ? ' sky-engine-page__control-chip--active' : ''}`}
+                      onClick={() => {
+                        if (playbackOption.value === 0) {
+                          sceneRef.current?.togglePlayback()
+                          return
+                        }
 
-            <div className="sky-engine-page__bottom-hud-foot">
-              <div className="sky-engine-page__target-chips" aria-label="Guided sky targets">
-                {guidanceTargets.map((target) => (
-                  <button
-                    key={target.objectId}
-                    type="button"
-                    className={`sky-engine-page__target-chip${snapshot.selection.object?.id === target.objectId ? ' sky-engine-page__target-chip--active' : ''}`}
-                    onClick={() => sceneRef.current?.selectObject(target.objectId)}
-                  >
-                    {target.name}
+                        sceneRef.current?.setPlaybackRate(playbackOption.value)
+                      }}
+                    >
+                      {playbackOption.value === 0 && snapshot.summary.playbackRate !== 0 ? 'Pause' : playbackOption.label}
+                    </button>
+                  ))}
+                  <button type="button" className="sky-engine-page__time-reset" onClick={() => sceneRef.current?.resetSceneTime()}>
+                    Reset
                   </button>
-                ))}
-              </div>
-              <div className="sky-engine-page__target-chips" aria-label="Sky aid toggles">
-                <button type="button" className={`sky-engine-page__control-chip${aidVisibility.constellations ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('constellations')}>
-                  Constellations
-                </button>
-                <button type="button" className={`sky-engine-page__control-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('azimuthRing')}>
-                  Azimuth
-                </button>
-                <button type="button" className={`sky-engine-page__control-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('altitudeRings')}>
-                  Equator
-                </button>
-              </div>
-              <div className="sky-engine-page__target-chips" aria-label="Sky culture selection">
-                {skyCultureOptions.map((culture) => (
-                  <button
-                    key={culture.id}
-                    type="button"
-                    className={`sky-engine-page__control-chip${skyCultureId === culture.id ? ' sky-engine-page__control-chip--active' : ''}`}
-                    onClick={() => setSkyCultureId(culture.id)}
-                  >
-                    {culture.label}
-                  </button>
-                ))}
+                </div>
               </div>
             </div>
           </section>
