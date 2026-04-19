@@ -61,6 +61,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 13. A left vertical tool dock now anchors key controls (constellation/azimuth/equatorial grids, UI toggle, time reset) and top/bottom overlays are shifted to match the docked Stellarium-like control geometry (**EV-0051**).
 14. Time transport/scale controls moved into a dedicated right-side dock while bottom HUD was simplified to center-strip actions, matching Stellarium-like docked control zoning (**EV-0052**).
 15. Stellarium **`apps/simple-html/static/imgs/symbols`** toolbar SVGs are vendored under **`frontend/public/stellarium-web/`** and wired via **`stellariumWebUiAssets.ts`** for grid/constellation/search chrome fidelity (**EV-0053**).
+16. **`computeModule2PortFingerprint`** now includes **`coreGetPointForMagnitude`** samples and a view-tier/label-cap mirror of **`resolveViewTier`** for stronger G4 drift detection (**EV-0054**).
 
 ---
 
@@ -79,7 +80,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 | G1 | **PASS** for §1–§2 mapping as written. |
 | G2 | **Partial** — **`bv_to_rgb`** (**EV-0038**); **`nuniq_to_pix`** via **`starsNuniq.ts`** (**EV-0039**); **`render_visitor` limit_mag policy** (**EV-0040**); **`hip_get_pix`** (**EV-0041**); full **`stars.c`** render path / remaining **`hip.c`** loaders still open. |
 | G3 | **Partial** — Hipparcos **`mergeSurveyTiles`** uses **`runtimeStarMatchesHipHealpixLookup`** (**EV-0042**); `obj_get_by_hip` helper + scene wiring + stable HIP route identity + selection continuity (**EV-0044**, **EV-0045**, **EV-0046**, **EV-0047**); full **`stars.c`** / object graph still open. |
-| G4 | **Partial** — algorithm fingerprint **`computeModule2PortFingerprint`** (**EV-0043**); tile-load replay remains module 1 **`computeModule1TileLoadFingerprint`** (**EV-0024**). |
+| G4 | **Partial** — algorithm fingerprint **`computeModule2PortFingerprint`** (**EV-0043**, extended **EV-0054** with point-math + view-tier samples); full scene/`StarsModule` projection replay still open; tile-load replay remains module 1 **`computeModule1TileLoadFingerprint`** (**EV-0024**). |
 | G5–G7 | **FAIL** until parity closure + evidence for remaining §1 scope. |
 
 ---
@@ -92,7 +93,7 @@ Rows: **`src/hip.c`**, **`src/hip.h`**, **`src/modules/stars.c`**, **`src/algos/
 
 ## 7. Handoff for external agents (e.g. Codex / new chat)
 
-Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0053), this file §2–§5.
+Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0054), this file §2–§5.
 
 ### Where to implement module 2 work
 
@@ -138,6 +139,7 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 | EV-0051 | Left vertical tool dock + dock-aligned overlay geometry |
 | EV-0052 | Right time dock + simplified bottom action strip |
 | EV-0053 | Vendored Stellarium simple-html toolbar SVGs + hub shell / phase layout |
+| EV-0054 | Extended **`computeModule2PortFingerprint`** (point math + view tier) |
 
 
 ### CI
@@ -148,7 +150,7 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 ### Suggested next coding targets (not done)
 
 1. **`stars.c`** — render path, surveys, `obj_get_by_hip`-style resolution beyond current tile merge; align with pinned C where Hub exposes stars objects.
-2. **G4** — extend deterministic coverage (e.g. **`StarsModule`** / scene packet snapshot) beyond **`computeModule2PortFingerprint`** (**EV-0043**).
+2. **G4** — extend deterministic coverage further (e.g. **`StarsModule`** projection cache signature / scene packet slice) beyond **`computeModule2PortFingerprint`** (**EV-0043**, **EV-0054**).
 3. **Tests** — synthetic fixtures: if a star uses a fake **`HIP N`** with coordinates that do not match **`PIX_ORDER_2`**, merge will drop it (**EV-0042**); use no-HIP ids or catalog-consistent RA/Dec.
 
 ### Fixture pitfall (tests)
