@@ -13,8 +13,10 @@ import {
 import {
   buildSkyEngineQuery,
   fileBackedSkyTileRepository,
+  findRuntimeStarByHipInTiles,
   getSkyTileMaxLevel,
   normalizeProjectionMat11ForHips,
+  parseHipIdFromRuntimeStar,
   selectVisibleTileIds,
   type SkyEngineHipsViewport,
   type SkyEngineQuery,
@@ -246,6 +248,15 @@ function buildEngineStarSceneObjects(
       }
     })
   })
+  const hipLookupByStarId = new Map<string, boolean>()
+  runtimeStarMetadata.forEach(({ star }) => {
+    const hip = parseHipIdFromRuntimeStar(star)
+    if (hip == null) {
+      return
+    }
+    const lookedUp = findRuntimeStarByHipInTiles(runtimeTiles, hip)
+    hipLookupByStarId.set(star.id, lookedUp?.id === star.id)
+  })
 
   return (scenePacket?.stars ?? []).map((star) => {
     const metadata = runtimeStarMetadata.get(star.id)
@@ -254,6 +265,12 @@ function buildEngineStarSceneObjects(
     const displayName = runtimeStar?.properName ?? runtimeStar?.bayer ?? runtimeStar?.flamsteed ?? runtimeStar?.sourceId ?? star.label ?? star.id
     const tileSourceLabel = metadata?.star.sourceId ?? metadata?.tileId ?? 'unknown-tile'
     const catalogLabel = runtimeStar?.catalog === 'gaia' ? 'Gaia HiPS' : 'Hipparcos'
+    const hipLookupStatus = hipLookupByStarId.get(star.id)
+    const hipLookupNote = hipLookupStatus == null
+      ? ''
+      : hipLookupStatus
+        ? ' HIP lookup confirms this tile star.'
+        : ' HIP lookup did not resolve this star on the non-Gaia path.'
 
     return {
       id: star.id,
@@ -265,7 +282,7 @@ function buildEngineStarSceneObjects(
       colorHex: resolveStarColorHex(runtimeStar?.colorIndex ?? star.colorIndex),
       summary: `${catalogLabel} ${star.tier} star streamed from the active runtime survey tiles.`,
       description: `Loaded from ${metadata?.tileId ?? 'unknown-tile'} and emitted through the Sky Engine scene packet from the active file-backed survey repository.`,
-      truthNote: `Engine-owned ${catalogLabel} tile data drives this star. Source: ${tileSourceLabel}.`,
+      truthNote: `Engine-owned ${catalogLabel} tile data drives this star. Source: ${tileSourceLabel}.${hipLookupNote}`,
       source: 'engine_catalog_tile',
       trackingMode: 'fixed_equatorial',
       rightAscensionHours: runtimeStar ? runtimeStar.raDeg / 15 : undefined,
