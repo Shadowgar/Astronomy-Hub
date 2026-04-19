@@ -71,3 +71,53 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 ## 6. Inventory cross-reference
 
 Rows: **`src/hip.c`**, **`src/hip.h`**, **`src/modules/stars.c`**, **`src/algos/bv_to_rgb.c`** — see **`docs/runtime/port/module-inventory.md`**.
+
+---
+
+## 7. Handoff for external agents (e.g. Codex / new chat)
+
+Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0042), this file §2–§5.
+
+### Where to implement module 2 work
+
+| Area | Primary Hub paths |
+|---|---|
+| Stellarium reference | Pin is **`63fb3279e85782158a6df63649f1c8a1837b7846`** — diff against raw `src/` under that commit. |
+| B−V → RGB | `frontend/src/features/sky-engine/engine/sky/adapters/bvToRgb.ts`, `frontend/src/features/sky-engine/starRenderer.ts` |
+| `nuniq` ↔ tile | `frontend/src/features/sky-engine/engine/sky/adapters/starsNuniq.ts`, `ephCodec.ts` |
+| Star render limit magnitude | `frontend/src/features/sky-engine/engine/sky/runtime/stellariumPainterLimits.ts` (`resolveStarsRenderLimitMagnitude`), `runtime/modules/StarsModule.ts` |
+| `hip_get_pix` + table | `frontend/src/features/sky-engine/engine/sky/adapters/hipGetPix.ts`, generated **`hipPixOrder2.generated.ts`**, generator **`frontend/scripts/generate_hip_pix_order2.mjs`** (`npm run generate:hip-pix` from `frontend/`) |
+| Hipparcos merge + HIP check | `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts` (`filterSurveyStarsForMerge` → `runtimeStarMatchesHipHealpixLookup`) |
+| Public exports | `frontend/src/features/sky-engine/engine/sky/index.ts` |
+
+### Commands (from `frontend/`)
+
+- `npm run typecheck` — required before claiming done.
+- `npm run build` — production bundle (note: **`hipPixOrder2.generated.ts`** embeds ~120 KB table as base64; optional future work: lazy load).
+- `npm run test:module2` — module 2 Vitest bundle (BV, nuniq, limit mag, HIP).
+- `npm run test:module1` — must stay green if **`fileTileRepository.ts`**, **`healpix.ts`**, or **`ephCodec.ts`** change.
+
+### Evidence IDs already landed (do not duplicate unless changing behavior)
+
+| ID | What |
+|---|---|
+| EV-0038 | `bv_to_rgb` + `starRenderer` |
+| EV-0039 | `starsNuniq` + `decodeEphTileNuniq` |
+| EV-0040 | `resolveStarsRenderLimitMagnitude` + `StarsModule` |
+| EV-0041 | `hip_get_pix` + `hip.inl` → **`hipPixOrder2.generated.ts`** |
+| EV-0042 | Hipparcos **`mergeSurveyTiles`** HIP ↔ `healpixAngToPix(2, …)` filter |
+
+### CI
+
+- **`.github/workflows/module2-stars.yml`** — typecheck, build, `test:module2` (path-filtered).
+- **`.github/workflows/module1-hips.yml`** — includes **`fileTileRepository.ts`**; run **`test:module1`** when touching tile merge.
+
+### Suggested next coding targets (not done)
+
+1. **`stars.c`** — render path, surveys, `obj_get_by_hip`-style resolution beyond current tile merge; align with pinned C where Hub exposes stars objects.
+2. **G4** — deterministic replay / fingerprint for module 2 (mirror **`module1ParityFingerprint.ts`** pattern if spec’d).
+3. **Tests** — synthetic fixtures: if a star uses a fake **`HIP N`** with coordinates that do not match **`PIX_ORDER_2`**, merge will drop it (**EV-0042**); use no-HIP ids or catalog-consistent RA/Dec.
+
+### Fixture pitfall (tests)
+
+**`test_file_backed_tile_repository_gaia_flow.test.js`** uses a Hipparcos placeholder star **`fixture-hipparcos-no-hip`** (no `HIP` / `hip-` id) so multi-survey merge tests are not rejected by the HIP consistency rule.
