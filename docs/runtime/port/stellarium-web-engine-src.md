@@ -31,6 +31,14 @@ Example raw URL for `bv_to_rgb.c`:
 
 `https://raw.githubusercontent.com/Stellarium/stellarium-web-engine/63fb3279e85782158a6df63649f1c8a1837b7846/src/algos/bv_to_rgb.c`
 
+## Simple HTML toolbar assets (vendored in Hub for UI port)
+
+The upstream demo ships toolbar SVGs under:
+
+`apps/simple-html/static/imgs/symbols/`
+
+Astronomy Hub copies selected icons into `frontend/public/stellarium-web/` (same pinned commit) for the sky viewport chrome; see **`frontend/src/pages/stellariumWebUiAssets.ts`** and evidence **EV-0053**.
+
 ## Note on `/study` and Git
 
 The repo root **`.gitignore`** includes `/study`, so local trees are not committed. Port work should still treat the **GitHub revision above** as the contract reference; CI and reviewers can fetch via raw URLs or clone at the pinned commit.

@@ -1489,9 +1489,9 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .sky-engine-page__left-tools {
   flex-direction: column;
   justify-content: flex-start;
-  width: 2rem;
+  width: 2.15rem;
   border-radius: 0.7rem;
-  padding: 0.25rem 0.15rem;
+  padding: 0.28rem 0.15rem;
   pointer-events: auto;
 }
 
@@ -1537,9 +1537,18 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 }
 
 .sky-engine-page__hub-shell-brand {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.12rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.sky-engine-page__hub-shell-title {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #f4f8ff;
+  letter-spacing: 0.04em;
 }
 
 .sky-engine-page__hub-shell-brand strong {
@@ -1729,6 +1738,7 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 .sky-engine-page__bottom-hud-stats {
   flex-wrap: wrap;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .sky-engine-page__control-group {
@@ -1785,6 +1795,20 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   justify-content: center;
   font-size: 0.82rem;
   line-height: 1;
+}
+
+.sky-engine-page__icon-chip--stel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sky-engine-page__stel-toolbar-icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  display: block;
+  pointer-events: none;
+  flex-shrink: 0;
 }
 
 .sky-engine-page__control-chip--active {

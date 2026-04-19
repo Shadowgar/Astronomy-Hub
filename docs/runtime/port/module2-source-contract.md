@@ -60,6 +60,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 12. HUD chrome is now icon-first and more compact (top tools, search submit, aid toggles) to reduce Hub-specific text density and move closer to Stellarium control ergonomics (**EV-0050**).
 13. A left vertical tool dock now anchors key controls (constellation/azimuth/equatorial grids, UI toggle, time reset) and top/bottom overlays are shifted to match the docked Stellarium-like control geometry (**EV-0051**).
 14. Time transport/scale controls moved into a dedicated right-side dock while bottom HUD was simplified to center-strip actions, matching Stellarium-like docked control zoning (**EV-0052**).
+15. Stellarium **`apps/simple-html/static/imgs/symbols`** toolbar SVGs are vendored under **`frontend/public/stellarium-web/`** and wired via **`stellariumWebUiAssets.ts`** for grid/constellation/search chrome fidelity (**EV-0053**).
 
 ---
 
@@ -91,7 +92,7 @@ Rows: **`src/hip.c`**, **`src/hip.h`**, **`src/modules/stars.c`**, **`src/algos/
 
 ## 7. Handoff for external agents (e.g. Codex / new chat)
 
-Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0052), this file §2–§5.
+Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0053), this file §2–§5.
 
 ### Where to implement module 2 work
 
@@ -107,6 +108,7 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 | Selection continuity | `frontend/src/features/sky-engine/useSkyEngineSelection.ts` (`resolveSelectedObjectWithDetailRoute`) |
 | Hipparcos merge + HIP check | `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts` (`filterSurveyStarsForMerge` → `runtimeStarMatchesHipHealpixLookup`) |
 | Public exports | `frontend/src/features/sky-engine/engine/sky/index.ts` |
+| Stellarium simple-html UI assets (toolbar SVGs) | `frontend/public/stellarium-web/`, `frontend/src/pages/stellariumWebUiAssets.ts`, `frontend/src/pages/SkyEnginePage.tsx` (**EV-0053**) |
 | G4 port fingerprint | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts`; tests **`test_module2_deterministic_replay.test.js`** (**EV-0043**) |
 
 ### Commands (from `frontend/`)
@@ -135,6 +137,8 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 | EV-0050 | Icon-first compact Stellarium control chrome pass |
 | EV-0051 | Left vertical tool dock + dock-aligned overlay geometry |
 | EV-0052 | Right time dock + simplified bottom action strip |
+| EV-0053 | Vendored Stellarium simple-html toolbar SVGs + hub shell / phase layout |
+
 
 ### CI
 

@@ -51,6 +51,7 @@ import {
   type BackendSkyScenePayload,
 } from '../features/scene/contracts'
 import type { SkyEngineAidVisibility, SkyEngineGuidanceTarget } from '../features/sky-engine/types'
+import { STELLARIUM_WEB_UI } from './stellariumWebUiAssets'
 
 const DEBUG_TELEMETRY_QUERY_PARAM = 'debugTelemetry'
 const UI_PERF_REPORTING_CADENCE_MS = 250
@@ -189,20 +190,14 @@ function createSkyEngineUiPerfState(): SkyEngineUiPerfState {
 function SkyEngineHubShell() {
   return (
     <div className="sky-engine-page__overlay sky-engine-page__overlay--hub-shell">
-      <div className="sky-engine-page__hub-shell" aria-label="Stellarium style shell">
+      <div className="sky-engine-page__hub-shell" aria-label="Stellarium Web">
         <div className="sky-engine-page__hub-shell-brand">
-          <span className="sky-engine-page__hub-shell-label">Stellarium Web</span>
-          <strong>Sky View</strong>
-          <small>Observer sky viewport</small>
+          <strong className="sky-engine-page__hub-shell-title">Stellarium Web</strong>
         </div>
         <div className="sky-engine-page__hub-shell-actions">
-          <Link className="sky-engine-page__back-link sky-engine-page__back-link--hub" to="/">
+          <Link className="sky-engine-page__back-link sky-engine-page__back-link--hub" to="/" title="Menu">
             Menu
           </Link>
-          <span className="sky-engine-page__status-pill">
-            <span className="sky-engine-page__top-bar-label">Mode</span>
-            <strong>Observe</strong>
-          </span>
         </div>
       </div>
     </div>
@@ -630,30 +625,30 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
           <div className="sky-engine-page__left-tools" aria-label="Sky tools">
             <button
               type="button"
-              className={`sky-engine-page__control-chip sky-engine-page__icon-chip${aidVisibility.constellations ? ' sky-engine-page__control-chip--active' : ''}`}
+              className={`sky-engine-page__control-chip sky-engine-page__icon-chip sky-engine-page__icon-chip--stel${aidVisibility.constellations ? ' sky-engine-page__control-chip--active' : ''}`}
               onClick={() => toggleAid('constellations')}
               title="Constellation lines"
               aria-label="Constellation lines"
             >
-              ✶
+              <img src={STELLARIUM_WEB_UI.constellationLines} alt="" className="sky-engine-page__stel-toolbar-icon" draggable={false} />
             </button>
             <button
               type="button"
-              className={`sky-engine-page__control-chip sky-engine-page__icon-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`}
+              className={`sky-engine-page__control-chip sky-engine-page__icon-chip sky-engine-page__icon-chip--stel${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`}
               onClick={() => toggleAid('azimuthRing')}
-              title="Azimuth grid"
-              aria-label="Azimuth grid"
+              title="Azimuthal grid"
+              aria-label="Azimuthal grid"
             >
-              ⊙
+              <img src={STELLARIUM_WEB_UI.azimuthalGrid} alt="" className="sky-engine-page__stel-toolbar-icon" draggable={false} />
             </button>
             <button
               type="button"
-              className={`sky-engine-page__control-chip sky-engine-page__icon-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`}
+              className={`sky-engine-page__control-chip sky-engine-page__icon-chip sky-engine-page__icon-chip--stel${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`}
               onClick={() => toggleAid('altitudeRings')}
               title="Equatorial grid"
               aria-label="Equatorial grid"
             >
-              ⌖
+              <img src={STELLARIUM_WEB_UI.equatorialGrid} alt="" className="sky-engine-page__stel-toolbar-icon" draggable={false} />
             </button>
             <button
               type="button"
@@ -705,8 +700,8 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                   <option key={object.id} value={object.name} />
                 ))}
               </datalist>
-              <button type="submit" className="sky-engine-page__control-chip sky-engine-page__search-submit">
-                ⌕
+              <button type="submit" className="sky-engine-page__control-chip sky-engine-page__search-submit sky-engine-page__icon-chip sky-engine-page__icon-chip--stel" title="Search" aria-label="Search">
+                <img src={STELLARIUM_WEB_UI.pointer} alt="" className="sky-engine-page__stel-toolbar-icon" draggable={false} />
               </button>
             </form>
             <div className="sky-engine-page__top-bar-meta">
@@ -715,12 +710,6 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                 <strong>{formattedSceneLocalTimestamp}</strong>
                 <small>{formattedSceneOffset} · {SKY_ENGINE_LOCAL_TIME_ZONE} · {playbackRateLabel}</small>
               </div>
-              <span
-                className={`sky-engine-page__phase-pill sky-engine-page__phase-pill--${phaseModifier(snapshot.summary.phaseLabel)}`}
-                data-phase={snapshot.summary.phaseLabel}
-              >
-                {snapshot.summary.phaseLabel}
-              </span>
             </div>
           </div>
         </div>
@@ -733,6 +722,12 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                 <strong className="sky-engine-page__bottom-hud-offset">{formattedScaleOffset}</strong>
               </div>
               <div className="sky-engine-page__bottom-hud-stats sky-engine-page__bottom-hud-stats--stellarium">
+                <div
+                  className={`sky-engine-page__phase-pill sky-engine-page__phase-pill--${phaseModifier(snapshot.summary.phaseLabel)}`}
+                  data-phase={snapshot.summary.phaseLabel}
+                >
+                  {snapshot.summary.phaseLabel}
+                </div>
                 <span>{snapshot.summary.renderedStarCount} stars</span>
                 <span>{snapshot.summary.fallbackActive ? `${snapshot.summary.sourceLabel} fallback` : snapshot.summary.sourceLabel}</span>
                 <span>{snapshot.selection.object?.name ?? observer.label}</span>
@@ -775,9 +770,6 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                       {target.name}
                     </button>
                   ))}
-                </div>
-                <div className="sky-engine-page__target-chips" aria-label="Sky aid toggles">
-                  <span className="sky-engine-page__chip-label">tools</span>
                 </div>
                 <div className="sky-engine-page__target-chips" aria-label="Sky culture selection">
                   {skyCultureOptions.slice(0, 4).map((culture) => (
