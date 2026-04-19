@@ -26,7 +26,8 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 
 | Concern | Hub files |
 |---|---|
-| B−V–based display color (heuristic until `bv_to_rgb.c` port) | `frontend/src/features/sky-engine/starRenderer.ts` (`resolveStarColorHex`, `getStarRenderProfileForMagnitude`) |
+| B−V → RGB (`bv_to_rgb.c` table port) | `frontend/src/features/sky-engine/engine/sky/adapters/bvToRgb.ts` (`bvToRgb`); **`frontend/tests/test_module2_bv_to_rgb.test.js`** (**EV-0038**) |
+| Star hex wrapper | `frontend/src/features/sky-engine/starRenderer.ts` (`resolveStarColorHex` → `bvToRgb`) |
 | Stellarium point-size / tonemapper-style magnitude | `frontend/src/features/sky-engine/engine/sky/core/stellariumVisualMath.ts`; used from `starRenderer.ts` |
 | Stars runtime module (projection, limits, projected star list) | `frontend/src/features/sky-engine/engine/sky/runtime/modules/StarsModule.ts`, `runtimeFrame.ts` (`collectProjectedStars`, …) |
 | Star billboards / layer sync | `frontend/src/features/sky-engine/starObjectRenderer.ts`, `directStarLayer.ts` |
@@ -38,7 +39,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 ## 3. Behavioral notes
 
 1. **`BLK-003` (RESOLVED):** Authoritative C sources are pinned in **`stellarium-web-engine-src.md`** (GitHub **`63fb327…`**). A full local checkout may live under `study/` (gitignored); port diffs can use raw.githubusercontent.com or a local clone.
-2. **`resolveStarColorHex`** is a **Hub curve**, not a verified port of **`bv_to_rgb.c`** — **G2** debt until source is available and a golden or side-by-side check exists.
+2. **`bvToRgb`** reproduces the **`COLORS`** table and index math from **`bv_to_rgb.c`**; **`resolveStarColorHex`** maps linear RGB to 8-bit sRGB hex for rendering.
 3. **Module 1** already implements Eph tiles + HiPS order; **module 2** focuses on **stars module + color + point pipeline**, not duplicating **`eph-file.c`** (see **`module1-source-contract.md`**).
 
 ---
@@ -55,7 +56,9 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 | Gate | Note |
 |---|---|
 | G0 | **PASS** — four `module2-stars-full` file rows exist in **`module-inventory.md`** with **`BLOCKED`** + Planned Module. |
-| G1 | **PASS** for §1–§2 mapping as written; **G2–G7** remain **FAIL** until implementation/evidence waves. |
+| G1 | **PASS** for §1–§2 mapping as written. |
+| G2 | **Partial** — **`bv_to_rgb.c`** table ported to **`bvToRgb.ts`** (**EV-0038**); **`hip.c` / `stars.c`** still open. |
+| G3–G7 | **FAIL** until runtime/evidence waves for remaining §1 files. |
 
 ---
 

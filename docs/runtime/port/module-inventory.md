@@ -161,7 +161,7 @@ Total C/H files: 146
 | `src/algos/satrings.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/algos/utctt.c` | time_scale | module0-foundation-lock | BLOCKED | `timeScales.ts` (`toJulianDateTt`, `dut1SecondsFromTimestampIso`, etc.). **Gate:** G5. |
 | `src/algos/deltat.c` | algos | module0-foundation-lock | PORTED | `runtime/timeScales.ts` (`deltaTSecondsFromTtMjd`, SMH2016 + post-2016 branch). Verified: `tests/test_time_scales.test.js`. |
-| `src/algos/bv_to_rgb.c` | algos | module2-stars-full | BLOCKED | **`module2-source-contract.md`** §2 (`resolveStarColorHex` heuristic); **`stellarium-web-engine-src.md`**. |
+| `src/algos/bv_to_rgb.c` | algos | module2-stars-full | BLOCKED | Hub TS: **`bvToRgb.ts`** + **`test_module2_bv_to_rgb.test.js`** (**EV-0038**); C file row **`BLOCKED`** until native parity pass. |
 | `src/algos/algos.h` | algos | module0-foundation-lock | BLOCKED | Umbrella header; module0 algorithms mapped on per-file rows (`deltat`, `utctt`, `refraction`). **Gate:** per-algo G5. |
 | `src/algos/gust86.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/algos/tass17.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
@@ -179,7 +179,7 @@ File-level **`G0 InventoryLock`** means zero **`UNMAPPED`** rows (satisfied glob
 
 - module0-foundation-lock: **gate `COMPLETE`** (**EV-0019**); file rows are `PORTED`/`BLOCKED` with AH targets; function tables list core contracts; **`BLOCKED`** C sources remain until row-specific **G5** parity or scope decisions.
 - module1-hips-kernel: **COMPLETE** (**EV-0034**); see **`module1-source-contract.md`**, **`module-gates.md`**.
-- module2-stars-full: **`G0`/`G1`** **PASS** (**EV-0036**); **`BLK-003`** **RESOLVED** (**EV-0037**, **`stellarium-web-engine-src.md`**); **`BLOCKED`** C inventory rows until port parity; see **`module2-source-contract.md`**.
+- module2-stars-full: **`G0`/`G1`** **PASS** (**EV-0036**); **`BLK-003`** **RESOLVED** (**EV-0037**); **`bv_to_rgb`** Hub port (**EV-0038**); see **`module2-source-contract.md`**.
 - module3-dso-full: pending
 - module4-dss-full: pending
 - module5-satellites-full: pending

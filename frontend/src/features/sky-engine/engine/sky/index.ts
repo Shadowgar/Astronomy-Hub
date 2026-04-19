@@ -13,6 +13,7 @@ export {
   normalizeProjectionMat11ForHips,
   resolveGaiaHealpixOrder,
 } from './adapters/hipsRenderOrder'
+export { bvToRgb } from './adapters/bvToRgb'
 export { resolveLimitingMagnitude } from './core/magnitudePolicy'
 export {
   getAllSkyTileDescriptors,

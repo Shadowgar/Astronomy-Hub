@@ -66,7 +66,8 @@ describe('star magnitude visual scaling', () => {
   })
 
   it('keeps faint stars visible with a non-zero floor', () => {
-    const faint = getStarRenderProfile(createStar(10.2), NIGHT_CALIBRATION)
+    /** Magnitude where `coreGetPointForMagnitude` still reports visible luminance (see `stellariumVisualMath`). */
+    const faint = getStarRenderProfile(createStar(6.2), NIGHT_CALIBRATION)
 
     expect(faint.diameter).toBeGreaterThanOrEqual(0.1)
     expect(faint.coreRadiusPx).toBeGreaterThanOrEqual(0.52)

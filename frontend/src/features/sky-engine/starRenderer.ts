@@ -1,5 +1,6 @@
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture'
 
+import { bvToRgb } from './engine/sky/adapters/bvToRgb'
 import {
   coreGetPointForMagnitude,
   STELLARIUM_DEFAULT_SCREEN_SIZE_PX,
@@ -36,43 +37,15 @@ function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
 }
 
-function mixChannel(left: number, right: number, amount: number) {
-  return left + (right - left) * amount
-}
-
 function toHex(channel: number) {
   return Math.round(channel).toString(16).padStart(2, '0')
 }
 
+/** Linear sRGB hex from B−V using Stellarium Web Engine `bv_to_rgb` (`bvToRgb.ts`). */
 export function resolveStarColorHex(colorIndexBV = 0.65) {
-  const normalizedColorIndex = clamp(colorIndexBV, -0.4, 2)
-  let green: number
-  let blue: number
+  const [r, g, b] = bvToRgb(colorIndexBV)
 
-  if (normalizedColorIndex < 0) {
-    const factor = (normalizedColorIndex + 0.4) / 0.4
-    green = 196 + factor * 44
-    blue = 255
-  } else if (normalizedColorIndex < 0.4) {
-    const factor = normalizedColorIndex / 0.4
-    green = 243 + factor * 8
-    blue = 250 - factor * 16
-  } else if (normalizedColorIndex < 1.1) {
-    const factor = (normalizedColorIndex - 0.4) / 0.7
-    green = 250 - factor * 28
-    blue = 232 - factor * 58
-  } else {
-    const factor = (normalizedColorIndex - 1.1) / 0.9
-    green = 220 - factor * 42
-    blue = 162 - factor * 58
-  }
-
-  const desaturation = 0.18
-  const red = 255
-  green = mixChannel(green, 247, desaturation)
-  blue = mixChannel(blue, 242, desaturation)
-
-  return `#${toHex(red)}${toHex(green)}${toHex(blue)}`
+  return `#${toHex(r * 255)}${toHex(g * 255)}${toHex(b * 255)}`
 }
 
 function getSceneResponseWeight(state: SkyBrightnessExposureState | undefined) {
