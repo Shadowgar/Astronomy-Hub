@@ -16,6 +16,7 @@ export {
 export { bvToRgb } from './adapters/bvToRgb'
 export { healpixOrderPixToNuniq, nuniqToHealpixOrderAndPix } from './adapters/starsNuniq'
 export { hipGetPix, parseHipIdFromRuntimeStar, runtimeStarMatchesHipHealpixLookup } from './adapters/hipGetPix'
+export { findRuntimeStarByHipInTiles } from './adapters/starsLookup'
 export { resolveLimitingMagnitude } from './core/magnitudePolicy'
 export {
   getAllSkyTileDescriptors,

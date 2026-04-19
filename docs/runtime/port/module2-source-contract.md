@@ -31,6 +31,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 | `stars.c` `nuniq_to_pix` ↔ EPH tile header | `frontend/src/features/sky-engine/engine/sky/adapters/starsNuniq.ts` (`nuniqToHealpixOrderAndPix` → `decodeEphTileNuniq`); **`frontend/tests/test_module2_stars_nuniq.test.js`** (**EV-0039**) |
 | `hip.c` `hip_get_pix` + `hip.inl` lookup | `frontend/src/features/sky-engine/engine/sky/adapters/hipGetPix.ts` (`hipGetPix`, `parseHipIdFromRuntimeStar`, `runtimeStarMatchesHipHealpixLookup`); generated **`hipPixOrder2.generated.ts`** via **`npm run generate:hip-pix`**; **`frontend/tests/test_module2_hip_get_pix.test.js`** (**EV-0041**) |
 | Hipparcos tile merge + HIP ↔ HEALPix check | `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts` (`mergeSurveyTiles` → **`filterSurveyStarsForMerge`**) (**EV-0042**) |
+| `stars.c` `obj_get_by_hip`-style lookup seam | `frontend/src/features/sky-engine/engine/sky/adapters/starsLookup.ts` (`findRuntimeStarByHipInTiles`) + **`test_module2_stars_lookup.test.js`** (**EV-0044**) |
 | Stellarium point-size / tonemapper-style magnitude | `frontend/src/features/sky-engine/engine/sky/core/stellariumVisualMath.ts`; used from `starRenderer.ts` |
 | Stars runtime module (projection, limits, projected star list) | `frontend/src/features/sky-engine/engine/sky/runtime/modules/StarsModule.ts`, `runtimeFrame.ts` (`collectProjectedStars`, …); **`stellariumPainterLimits.ts`** (`resolveStarsRenderLimitMagnitude`, **EV-0040**) |
 | Star billboards / layer sync | `frontend/src/features/sky-engine/starObjectRenderer.ts`, `directStarLayer.ts` |
@@ -47,6 +48,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 3. **Module 1** already implements Eph tiles + HiPS order; **module 2** focuses on **stars module + color + point pipeline**, not duplicating **`eph-file.c`** (see **`module1-source-contract.md`**).
 4. **`hip_get_pix`** uses the same **`PIX_ORDER_2`** bytes as Stellarium (**`hip.inl`**); regenerate with **`npm run generate:hip-pix`** when the pinned upstream revision changes (**EV-0041**).
 5. On the Hipparcos survey merge path, stars with a parseable HIP must satisfy **`hip_get_pix(hip, 2) === healpixAngToPix(2, raDeg, decDeg)`** or they are dropped (**EV-0042**).
+6. Hub lookup helper **`findRuntimeStarByHipInTiles`** follows `obj_get_by_hip` intent: invalid HIP mapping => null, Gaia rows skipped, first non-Gaia HIP match returned (**EV-0044**).
 
 ---
 
@@ -89,6 +91,7 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 | `nuniq` ↔ tile | `frontend/src/features/sky-engine/engine/sky/adapters/starsNuniq.ts`, `ephCodec.ts` |
 | Star render limit magnitude | `frontend/src/features/sky-engine/engine/sky/runtime/stellariumPainterLimits.ts` (`resolveStarsRenderLimitMagnitude`), `runtime/modules/StarsModule.ts` |
 | `hip_get_pix` + table | `frontend/src/features/sky-engine/engine/sky/adapters/hipGetPix.ts`, generated **`hipPixOrder2.generated.ts`**, generator **`frontend/scripts/generate_hip_pix_order2.mjs`** (`npm run generate:hip-pix` from `frontend/`) |
+| `obj_get_by_hip`-style lookup | `frontend/src/features/sky-engine/engine/sky/adapters/starsLookup.ts` (`findRuntimeStarByHipInTiles`) |
 | Hipparcos merge + HIP check | `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts` (`filterSurveyStarsForMerge` → `runtimeStarMatchesHipHealpixLookup`) |
 | Public exports | `frontend/src/features/sky-engine/engine/sky/index.ts` |
 | G4 port fingerprint | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts`; tests **`test_module2_deterministic_replay.test.js`** (**EV-0043**) |
@@ -110,6 +113,8 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 | EV-0041 | `hip_get_pix` + `hip.inl` → **`hipPixOrder2.generated.ts`** |
 | EV-0042 | Hipparcos **`mergeSurveyTiles`** HIP ↔ `healpixAngToPix(2, …)` filter |
 | EV-0043 | **`computeModule2PortFingerprint`** snapshot (**G4** partial) |
+| EV-0044 | `findRuntimeStarByHipInTiles` (`obj_get_by_hip`-style helper) |
+| EV-0044 | `findRuntimeStarByHipInTiles` (`obj_get_by_hip`-style helper) |
 
 ### CI
 
