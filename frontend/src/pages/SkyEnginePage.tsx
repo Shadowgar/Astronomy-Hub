@@ -189,19 +189,19 @@ function createSkyEngineUiPerfState(): SkyEngineUiPerfState {
 function SkyEngineHubShell() {
   return (
     <div className="sky-engine-page__overlay sky-engine-page__overlay--hub-shell">
-      <div className="sky-engine-page__hub-shell" aria-label="Astronomy Hub engine shell">
+      <div className="sky-engine-page__hub-shell" aria-label="Stellarium style shell">
         <div className="sky-engine-page__hub-shell-brand">
-          <span className="sky-engine-page__hub-shell-label">Astronomy Hub</span>
-          <strong>Sky Engine</strong>
-          <small>Hub shell persists while the active engine owns this viewport.</small>
+          <span className="sky-engine-page__hub-shell-label">Stellarium Web</span>
+          <strong>Sky View</strong>
+          <small>Observer sky viewport</small>
         </div>
         <div className="sky-engine-page__hub-shell-actions">
           <Link className="sky-engine-page__back-link sky-engine-page__back-link--hub" to="/">
-            Hub
+            Menu
           </Link>
           <span className="sky-engine-page__status-pill">
-            <span className="sky-engine-page__top-bar-label">Active engine</span>
-            <strong>Sky Engine</strong>
+            <span className="sky-engine-page__top-bar-label">Mode</span>
+            <strong>Observe</strong>
           </span>
         </div>
       </div>
@@ -637,7 +637,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                 className={`sky-engine-page__control-chip${inspectorOpen ? ' sky-engine-page__control-chip--active' : ''}`}
                 onClick={() => setInspectorOpen((currentValue) => !currentValue)}
               >
-                {inspectorOpen ? 'Hide inspector' : 'Show inspector'}
+                {inspectorOpen ? 'Hide UI' : 'Show UI'}
               </button>
               <button
                 type="button"
@@ -660,7 +660,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                 className="sky-engine-page__search-input"
                 type="search"
                 list="sky-engine-target-search-list"
-                placeholder="Search visible sky objects"
+                placeholder="Search..."
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
               />
@@ -670,7 +670,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                 ))}
               </datalist>
               <button type="submit" className="sky-engine-page__control-chip sky-engine-page__search-submit">
-                Find
+                Go
               </button>
             </form>
             <div className="sky-engine-page__top-bar-meta">
@@ -814,10 +814,10 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                   Constellations
                 </button>
                 <button type="button" className={`sky-engine-page__control-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('azimuthRing')}>
-                  Azimuthal
+                  Azimuth
                 </button>
                 <button type="button" className={`sky-engine-page__control-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('altitudeRings')}>
-                  Equatorial
+                  Equator
                 </button>
               </div>
               <div className="sky-engine-page__target-chips" aria-label="Sky culture selection">

@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 export const SKY_ENGINE_LOCAL_TIME_ZONE = 'America/New_York'
 export const SKY_ENGINE_MAX_SCENE_OFFSET_SECONDS = 14 * 24 * 60 * 60
 const SKY_ENGINE_UI_CADENCE_MS = 150
+const SKY_ENGINE_DAYLIGHT_NIGHT_BOOTSTRAP_OFFSET_SECONDS = -12 * 60 * 60
 
 export const SKY_ENGINE_TIME_SCALE_OPTIONS = [
   { id: 'seconds', label: 'Seconds', shortLabel: 'sec', stepSeconds: 1 },
@@ -112,14 +113,32 @@ function toSceneTimestampIso(timestampMs: number) {
   return new Date(timestampMs).toISOString()
 }
 
+function resolveInitialSceneOffsetSeconds() {
+  const localHour = Number(
+    new Intl.DateTimeFormat('en-US', {
+      timeZone: SKY_ENGINE_LOCAL_TIME_ZONE,
+      hour: '2-digit',
+      hourCycle: 'h23',
+    }).format(new Date()),
+  )
+
+  if (Number.isNaN(localHour)) {
+    return 0
+  }
+
+  return localHour >= 7 && localHour < 18
+    ? SKY_ENGINE_DAYLIGHT_NIGHT_BOOTSTRAP_OFFSET_SECONDS
+    : 0
+}
+
 export function useSkyEngineSceneTime() {
   const [sceneBaseTimestampMs, setSceneBaseTimestampMs] = useState(() => Date.now())
-  const [sceneOffsetSeconds, setSceneOffsetSeconds] = useState(0)
+  const [sceneOffsetSeconds, setSceneOffsetSeconds] = useState(resolveInitialSceneOffsetSeconds)
   const [timeScaleId, setTimeScaleId] = useState<SkyEngineTimeScaleId>('minutes')
   const [playbackRate, setPlaybackRate] = useState(1)
   const lastNonZeroPlaybackRate = useRef(1)
   const lastAnimationTimestampRef = useRef<number | null>(null)
-  const sceneOffsetSecondsRef = useRef(0)
+  const sceneOffsetSecondsRef = useRef(sceneOffsetSeconds)
   const lastUiPublishTimestampRef = useRef(0)
 
   const flushSceneOffset = useCallback((force = false) => {

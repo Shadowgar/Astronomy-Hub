@@ -55,6 +55,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 7. `SkyEngineScene` runtime star-object assembly now consumes the helper and surfaces HIP lookup status in star `truthNote` on the live scene path (**EV-0045**).
 8. HIP-backed stars now carry stable detail route identity **`hip/<id>`** for runtime selection/detail continuity (**EV-0046**).
 9. Selection state uses stable HIP `detailRoute` fallback and then rebinds `selectedObjectId` to the active runtime object id when survey tile ids change (**EV-0047**).
+10. Scene-time bootstrap now shifts to night during local daytime to keep startup star visibility; HUD copy/style is being aligned toward Stellarium semantics on the active viewport shell (**EV-0048**).
 
 ---
 
@@ -86,7 +87,7 @@ Rows: **`src/hip.c`**, **`src/hip.h`**, **`src/modules/stars.c`**, **`src/algos/
 
 ## 7. Handoff for external agents (e.g. Codex / new chat)
 
-Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0047), this file §2–§5.
+Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0048), this file §2–§5.
 
 ### Where to implement module 2 work
 
@@ -125,6 +126,7 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 | EV-0045 | `SkyEngineScene` live runtime wiring for HIP lookup status |
 | EV-0046 | Stable HIP detail routes (`hip/<id>`) on runtime star objects |
 | EV-0047 | Selection continuity via HIP detailRoute fallback + selected id resync |
+| EV-0048 | Night-visible startup bias + Stellarium-style HUD copy/styling pass |
 
 ### CI
 
