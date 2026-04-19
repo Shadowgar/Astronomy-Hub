@@ -133,6 +133,32 @@ export function getProjectionScale(view: SkyProjectionView) {
   return Math.min(scales.x, scales.y)
 }
 
+const TILE_SELECTION_REFERENCE_VIEWPORT = { width: 1920, height: 1080 } as const
+
+/**
+ * Canonical viewport for Hipparcos quadtree depth / tile policy when no live render viewport exists (unit tests).
+ * Uses the same stereographic FOV-axis split as {@link SkyProjectionService.resolveProjectionFovRadians}.
+ */
+export function buildCanonicalSkyProjectionViewForFov(
+  fovDeg: number,
+  projectionMode: SkyProjectionMode = 'stereographic',
+): SkyProjectionView {
+  const fovDiameterRad = (fovDeg * Math.PI) / 180
+  const aspect = TILE_SELECTION_REFERENCE_VIEWPORT.width / TILE_SELECTION_REFERENCE_VIEWPORT.height
+  const fovRadians =
+    projectionMode === 'stereographic'
+      ? computeStereographicFovAxes(fovDiameterRad, aspect).fovY
+      : fovDiameterRad
+
+  return {
+    centerDirection: WORLD_NORTH,
+    fovRadians,
+    viewportWidth: TILE_SELECTION_REFERENCE_VIEWPORT.width,
+    viewportHeight: TILE_SELECTION_REFERENCE_VIEWPORT.height,
+    projectionMode,
+  }
+}
+
 function getProjectionViewportScales(view: SkyProjectionView): SkyProjectionViewportScales {
   const projectionRadius = Math.max(getProjectionPlaneRadiusForMode(view.fovRadians, view.projectionMode ?? 'stereographic'), 1e-6)
   const uniformScale = (Math.min(view.viewportWidth, view.viewportHeight) * 0.5) / projectionRadius

@@ -1,13 +1,28 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  buildSyntheticHipsViewportForTileSelection,
   clampHipsRenderOrder,
   formatHipsViewportKey,
   hipsGetRenderOrderUnclamped,
+  normalizeProjectionMat11ForHips,
   resolveGaiaHealpixOrder,
 } from '../src/features/sky-engine/engine/sky/adapters/hipsRenderOrder'
 
 describe('hips_get_render_order reference (hips.c)', () => {
+  it('normalizes pixel projection scale to a dimensionless hips mat11 ratio', () => {
+    expect(normalizeProjectionMat11ForHips(1080, 1080)).toBe(1)
+    expect(normalizeProjectionMat11ForHips(2160, 1080)).toBe(2)
+  })
+
+  it('buildSyntheticHipsViewportForTileSelection stays in the same numeric range as scene tests', () => {
+    const wide = buildSyntheticHipsViewportForTileSelection({ fovDeg: 100, projection: 'stereographic' })
+    const narrow = buildSyntheticHipsViewportForTileSelection({ fovDeg: 4, projection: 'stereographic' })
+
+    expect(wide.projectionMat11).toBeLessThan(narrow.projectionMat11)
+    expect(wide.projectionMat11).toBeGreaterThan(0)
+  })
+
   it('formatHipsViewportKey matches sceneQueryState / Gaia cache convention', () => {
     expect(formatHipsViewportKey(undefined)).toBe('novp')
     expect(formatHipsViewportKey({ windowHeightPx: 800, projectionMat11: 1.5 })).toBe('800:1.5:')

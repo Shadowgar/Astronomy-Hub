@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  buildSkyEngineQuery,
   getSkyTileDescriptor,
   resolveLimitingMagnitude,
   selectVisibleTileIds,
@@ -41,5 +42,20 @@ describe('selectVisibleTileIds (module1 tile traversal, G3)', () => {
 
     expect(ids.length).toBeGreaterThan(0)
     expect(ids.every((tileId) => (getSkyTileDescriptor(tileId, 1)?.level ?? -1) <= 1)).toBe(true)
+  })
+
+  it('buildSkyEngineQuery: visibleTileIds track hipsViewport on the active query path (G3)', () => {
+    const observer = { ...BASE_OBSERVER, fovDeg: 60 }
+    const limitingMagnitude = resolveLimitingMagnitude(60)
+    const lowZoomVp = buildSkyEngineQuery(observer, {
+      limitingMagnitude,
+      hipsViewport: { windowHeightPx: 1080, projectionMat11: 0.35 },
+    })
+    const highZoomVp = buildSkyEngineQuery(observer, {
+      limitingMagnitude,
+      hipsViewport: { windowHeightPx: 1080, projectionMat11: 2.8 },
+    })
+
+    expect(lowZoomVp.visibleTileIds).not.toEqual(highZoomVp.visibleTileIds)
   })
 })

@@ -6,9 +6,11 @@ export { resolveSkyTileRepositoryMode } from './runtimeMode'
 export { mockSkyTileRepository, createMockTileRepository } from './adapters/mockTileRepository'
 export { fileBackedSkyTileRepository, createFileBackedSkyTileRepository } from './adapters/fileTileRepository'
 export {
+  buildSyntheticHipsViewportForTileSelection,
   clampHipsRenderOrder,
   formatHipsViewportKey,
   hipsGetRenderOrderUnclamped,
+  normalizeProjectionMat11ForHips,
   resolveGaiaHealpixOrder,
 } from './adapters/hipsRenderOrder'
 export { resolveLimitingMagnitude } from './core/magnitudePolicy'
@@ -58,7 +60,7 @@ export function buildSkyEngineQuery(
     observer,
     limitingMagnitude,
     activeTiers: resolveActiveTiers(observer, limitingMagnitude),
-    visibleTileIds: selectVisibleTileIds(observer, limitingMagnitude, maxTileLevel),
+    visibleTileIds: selectVisibleTileIds(observer, limitingMagnitude, maxTileLevel, options?.hipsViewport),
     maxTileLevel,
     hipsViewport: options?.hipsViewport,
     observerFrameAstrometry: options?.observerFrameAstrometry,

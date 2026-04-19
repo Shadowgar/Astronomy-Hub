@@ -5,7 +5,10 @@ import type { ObserverAstrometrySnapshot } from '../transforms/coordinates'
 /** Optional screen hint for HiPS order (`hips_get_render_order`); supply from the active render/viewport when available. */
 export type SkyEngineHipsViewport = {
   windowHeightPx: number
-  /** Vertical projection scale, Stellarium `fabs(painter->proj->mat[1][1])`. */
+  /**
+   * Vertical projection scale for `hips_get_render_order`, **Hub-normalized** as `projectionScalePx / windowHeightPx`
+   * (Stellarium `fabs(painter->proj->mat[1][1])` in the same dimensionless ratio with `window_size[1]`).
+   */
   projectionMat11: number
   tileWidthPx?: number
 }

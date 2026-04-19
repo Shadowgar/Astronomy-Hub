@@ -39,8 +39,8 @@ This document freezes the Astronomy Hub ↔ Stellarium **`module1-hips-kernel`**
 2. **RA wrap seam (G3):** repository bounds checks now treat `raMinDeg > raMaxDeg` as a wrap interval crossing `0°` for both healpix pixel preselection and final star clipping (`fileTileRepository.ts` helpers + `test_file_backed_tile_repository_bounds.test.js`, **EV-0022**).
 3. **Gaia activation flow seam (G3):** integration test covers narrow-FOV Gaia activation path (`properties` + mirror manifest + HiPS tile fetch + `decodeEphTile` merge with in-bounds filtering) in `test_file_backed_tile_repository_gaia_flow.test.js` (**EV-0023**).
 4. **`test_close_fov_star_counts.test.js`** exercises wide-to-close FOV against real catalogs and may **time out** without full local assets — it is **not** part of the default **`npm run test:module1`** bundle (see **`evidence-index.md` EV-0020**).
-5. **Tile traversal policy (G2/G5 debt):** `tileSelection.ts` uses explicit constants for narrow-FOV minimum depth (**≤20°** → depth ≥2, **≤8°** → depth ≥3), view radius **`max(10°, 0.85×FOV)`**, and `SKY_TILE_LEVEL_MAG_MAX` for magnitude-driven depth. **Stellarium `hips_render` / split order** is not matched numerically yet — **G5** parity work.
-6. **HiPS render order (G5 partial):** **`hipsGetRenderOrderUnclamped`** mirrors **`hips_get_render_order`** in **`hips.c`**; **`clampHipsRenderOrder`** mirrors post-clamp **`fmin(..., 9)`**. **`resolveGaiaHealpixOrder`** combines quadtree **`minOrder + level`** with screen order when **`hipsViewport`** is set on **`SkyEngineQuery`** (**EV-0030**). **`SkyEngineScene`** fills **`hipsViewport`** from **`SkyProjectionService`** (viewport height + **`getProjectionScale`**) and **`buildRuntimeTileQuerySignature`** includes it so resize/reprojection reloads tiles (**EV-0031**).
+5. **Tile traversal depth:** **`selectVisibleTileIds`** uses **`max(magnitude-tier depth, clampHipsRenderOrder(hipsGetRenderOrderUnclamped(viewport), 0, maxTileLevel))`** where **`viewport`** is **`hipsViewport`** on **`SkyEngineQuery`** when present, otherwise **`buildSyntheticHipsViewportForTileSelection`** (canonical 1920×1080 + **`buildCanonicalSkyProjectionViewForFov`**) (**EV-0032**). View intersection still uses **`max(10°, 0.85×FOV)`** (edge coverage vs full **`hips_render`** culling — inventory **`hips.c`** imagery path remains deferred).
+6. **HiPS render order:** **`hipsGetRenderOrderUnclamped`** mirrors **`hips_get_render_order`**; **`clampHipsRenderOrder`** mirrors post-clamp **`fmin(..., 9)`**. **`projectionMat11`** on **`SkyEngineHipsViewport`** is **normalized** (**`projectionScalePx / windowHeightPx`**) for the **`hips.c`** ratio (**EV-0032**). **`resolveGaiaHealpixOrder`** combines quadtree **`minOrder + level`** with screen order when **`hipsViewport`** is set (**EV-0030**). **`SkyEngineScene`** supplies normalized **`hipsViewport`** and **`buildRuntimeTileQuerySignature`** includes it (**EV-0031**).
 
 ---
 
@@ -55,11 +55,11 @@ Renames or new Hub adapters in §2 require updates to **`module-inventory.md`**,
 | Gate | Note |
 |---|---|
 | G1 | **PASS** for the §1–§2 mapped subset; remaining **`BLOCKED`** C rows in inventory are out of this contract’s behavioral freeze. |
-| G3 (partial) | RA wrap bounds + Gaia merge (**EV-0022**, **EV-0023**); HEALPix nest (**EV-0026**); **`selectVisibleTileIds`** depth regression (**EV-0028**). |
+| G2 | EPH **`nuniq`** (**EV-0025**); **`shuffleEphTableBytes`** (**EV-0026**); **`convertEphFloat`** (**EV-0027**); Hipparcos depth from **`hips_get_render_order`** (**EV-0032**). |
+| G3 | RA wrap / Gaia / HEALPix / tile tests (**EV-0022**–**EV-0028**); **`hipsViewport`** on **`buildSkyEngineQuery`** (**EV-0033**). |
 | G4 | **`computeModule1TileLoadFingerprint`** + `tests/test_module1_deterministic_replay.test.js` snapshot (**EV-0024**). |
-| G2 (partial) | EPH **`nuniq`** (**EV-0025**); **`shuffleEphTableBytes`** (**EV-0026**); **`convertEphFloat`** vs **`eph_convert_f`** (**EV-0027**). |
-| G5 (partial) | Reference **`hips_get_render_order`** + clamp (**EV-0029**); Gaia **`resolveGaiaHealpixOrder`** + **`hipsViewport`** (**EV-0030**); full traversal parity still open. |
-| G6 | **`npm run test:module1`** (includes **`test_scene_query_state.test.js`**) + **`npm run typecheck`** for scene wiring (see **EV-0020**, **EV-0022**, **EV-0023**, **EV-0024**, **EV-0025**, **EV-0026**, **EV-0027**, **EV-0028**, **EV-0029**, **EV-0030**, **EV-0031**). |
+| G5 | **`hips_get_render_order`** + Gaia order + normalized viewport (**EV-0029**–**EV-0032**); Hub regression checkpoints (**EV-0034**). |
+| G6–G7 | **`npm run typecheck`**, **`npm run build`**, **`npm run test:module1`** (**EV-0034**); **`module-gates.md`** + **`evidence-index.md`**. |
 
 ---
 

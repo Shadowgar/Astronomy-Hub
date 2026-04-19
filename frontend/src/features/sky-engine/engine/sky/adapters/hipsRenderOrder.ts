@@ -2,6 +2,9 @@
  * Stellarium Web Engine HiPS render-order helpers (`hips.c`).
  */
 
+import type { SkyProjectionMode } from '../contracts/observer'
+import { buildCanonicalSkyProjectionViewForFov, getProjectionScale } from '../../../projectionMath'
+
 export type HipsViewportHint = {
   windowHeightPx: number
   projectionMat11: number
@@ -18,6 +21,31 @@ export function formatHipsViewportKey(viewport: HipsViewportHint | undefined): s
   }
 
   return `${viewport.windowHeightPx}:${viewport.projectionMat11}:${viewport.tileWidthPx ?? ''}`
+}
+
+/**
+ * Stellarium `hips_get_render_order` uses `fabs(painter->proj->mat[1][1])` in a dimensionless ratio with `window_size[1]`.
+ * Hub stores **`projectionScale / windowHeightPx`** so the formula matches reference tests (e.g. mat11 ≈ 1–2 at typical zoom).
+ */
+export function normalizeProjectionMat11ForHips(projectionScalePx: number, windowHeightPx: number): number {
+  return projectionScalePx / Math.max(1, windowHeightPx)
+}
+
+/**
+ * When no live `hipsViewport` is available (unit tests), derive the same inputs from observer FOV + canonical 1920×1080 viewport.
+ */
+export function buildSyntheticHipsViewportForTileSelection(options: {
+  fovDeg: number
+  projection: SkyProjectionMode
+}): HipsViewportHint {
+  const view = buildCanonicalSkyProjectionViewForFov(options.fovDeg, options.projection)
+  const scale = getProjectionScale(view)
+
+  return {
+    windowHeightPx: view.viewportHeight,
+    projectionMat11: normalizeProjectionMat11ForHips(scale, view.viewportHeight),
+    tileWidthPx: 256,
+  }
 }
 
 /**

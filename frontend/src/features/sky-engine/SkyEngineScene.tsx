@@ -14,6 +14,7 @@ import {
   buildSkyEngineQuery,
   fileBackedSkyTileRepository,
   getSkyTileMaxLevel,
+  normalizeProjectionMat11ForHips,
   selectVisibleTileIds,
   type SkyEngineHipsViewport,
   type SkyEngineQuery,
@@ -202,12 +203,15 @@ function resolveCurrentViewState(services: SkySceneRuntimeServices): ScenePropsS
   }
 }
 
-/** Stellarium `hips_get_render_order` inputs: viewport height + vertical projection scale (`getProjectionScale`). */
+/** Stellarium `hips_get_render_order` inputs: viewport height + vertical projection scale (normalized to match `hips.c` ratio). */
 function resolveHipsViewportForTileQuery(services: SkySceneRuntimeServices): SkyEngineHipsViewport {
   const centerDirection = services.navigationService.getCenterDirection()
+  const windowHeightPx = services.projectionService.getViewportHeight()
+  const projectionScalePx = services.projectionService.getProjectionScale(centerDirection)
+
   return {
-    windowHeightPx: services.projectionService.getViewportHeight(),
-    projectionMat11: services.projectionService.getProjectionScale(centerDirection),
+    windowHeightPx,
+    projectionMat11: normalizeProjectionMat11ForHips(projectionScalePx, windowHeightPx),
   }
 }
 
@@ -224,7 +228,7 @@ async function loadSkyRuntimeTiles(
   return fileBackedSkyTileRepository.loadTiles({
     ...query,
     maxTileLevel: manifestMaxTileLevel,
-    visibleTileIds: selectVisibleTileIds(query.observer, query.limitingMagnitude, manifestMaxTileLevel),
+    visibleTileIds: selectVisibleTileIds(query.observer, query.limitingMagnitude, manifestMaxTileLevel, query.hipsViewport),
   })
 }
 

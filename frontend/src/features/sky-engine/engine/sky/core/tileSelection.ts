@@ -1,52 +1,64 @@
 import type { ObserverSnapshot } from '../contracts/observer'
+import {
+  buildSyntheticHipsViewportForTileSelection,
+  clampHipsRenderOrder,
+  hipsGetRenderOrderUnclamped,
+  type HipsViewportHint,
+} from '../adapters/hipsRenderOrder'
 import { getSkyRootTileIds, getSkyTileChildren, getSkyTileDescriptor, getSkyTileMaxLevel, tileIntersectsView } from './tileIndex'
 import { horizontalToRaDec } from '../transforms/coordinates'
 import { SKY_TILE_LEVEL_MAG_MAX } from './magnitudePolicy'
 
-/** Floor for view radius (deg) when intersecting quadtree tiles. Hub policy until G5 parity. */
+/** Floor for view radius (deg) when intersecting quadtree tiles (edge coverage vs full `hips_render` culling). */
 const MIN_VIEW_RADIUS_DEG = 10
 /** Scale from FOV to view radius when above {@link MIN_VIEW_RADIUS_DEG}. */
 const VIEW_RADIUS_FOV_FACTOR = 0.85
-/**
- * When FOV is this narrow (deg) or smaller, require at least tile depth 2 (see `module1-source-contract.md` §3).
- * Stellarium `hips_render` traversal differs; this remains G2/G5 debt.
- */
-const NARROW_FOV_DEG_FOR_MIN_DEPTH2 = 20
-/**
- * Telescopic FOV threshold (deg): require depth 3 when possible (capped by `maxTileLevel`).
- */
-const TELESCOPIC_FOV_DEG_FOR_MIN_DEPTH3 = 8
 
-function resolveDesiredTileDepth(_observer: ObserverSnapshot, limitingMagnitude: number, maxTileLevel: number) {
-  let desiredDepth = 0
+function resolveDesiredTileDepth(
+  observer: ObserverSnapshot,
+  limitingMagnitude: number,
+  maxTileLevel: number,
+  hipsViewport?: HipsViewportHint,
+) {
+  let magDepth = 0
 
   SKY_TILE_LEVEL_MAG_MAX.forEach((levelMaxMagnitude, level) => {
     if (limitingMagnitude > levelMaxMagnitude) {
-      desiredDepth = level + 1
+      magDepth = level + 1
     }
   })
 
   if (limitingMagnitude <= SKY_TILE_LEVEL_MAG_MAX[0]) {
-    desiredDepth = 1
+    magDepth = 1
   }
 
-  if (_observer.fovDeg <= NARROW_FOV_DEG_FOR_MIN_DEPTH2) {
-    desiredDepth = Math.max(desiredDepth, 2)
-  }
-  if (_observer.fovDeg <= TELESCOPIC_FOV_DEG_FOR_MIN_DEPTH3) {
-    desiredDepth = Math.max(desiredDepth, 3)
-  }
+  const viewport = hipsViewport ?? buildSyntheticHipsViewportForTileSelection({
+    fovDeg: observer.fovDeg,
+    projection: observer.projection,
+  })
+  const suggested = hipsGetRenderOrderUnclamped({
+    tileWidthPx: viewport.tileWidthPx ?? 256,
+    windowHeightPx: viewport.windowHeightPx,
+    projectionMat11: viewport.projectionMat11,
+  })
+  const capped = getSkyTileMaxLevel(maxTileLevel)
+  const hipsDepth = clampHipsRenderOrder(suggested, 0, capped)
 
-  return Math.min(desiredDepth, getSkyTileMaxLevel(maxTileLevel))
+  return Math.min(capped, Math.max(magDepth, hipsDepth))
 }
 
 function shouldDescendTile(level: number, desiredDepth: number) {
   return level < desiredDepth
 }
 
-export function selectVisibleTileIds(observer: ObserverSnapshot, limitingMagnitude: number, maxTileLevel = getSkyTileMaxLevel()) {
+export function selectVisibleTileIds(
+  observer: ObserverSnapshot,
+  limitingMagnitude: number,
+  maxTileLevel = getSkyTileMaxLevel(),
+  hipsViewport?: HipsViewportHint,
+) {
   const visibleTileIds: string[] = []
-  const desiredDepth = resolveDesiredTileDepth(observer, limitingMagnitude, maxTileLevel)
+  const desiredDepth = resolveDesiredTileDepth(observer, limitingMagnitude, maxTileLevel, hipsViewport)
   const centerEquatorial = horizontalToRaDec(observer)
   const viewRadiusDeg = Math.max(MIN_VIEW_RADIUS_DEG, observer.fovDeg * VIEW_RADIUS_FOV_FACTOR)
 
