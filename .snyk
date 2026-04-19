@@ -1,3 +1,0 @@
-# Root policy (optional). Stellarium study snapshot uses a local .snyk next to its package.json.
-version: v1.25.1
-patch: {}
