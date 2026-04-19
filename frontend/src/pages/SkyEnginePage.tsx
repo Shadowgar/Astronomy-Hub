@@ -629,22 +629,26 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
         <div className="sky-engine-page__overlay sky-engine-page__overlay--top-bar">
           <div className="sky-engine-page__top-bar" aria-label="Sky Engine top bar">
             <div className="sky-engine-page__top-bar-section sky-engine-page__top-bar-section--actions">
-              <Link className="sky-engine-page__back-link" to="/">
-                Back
+              <Link className="sky-engine-page__back-link sky-engine-page__icon-chip" to="/" title="Main menu" aria-label="Main menu">
+                ≡
               </Link>
               <button
                 type="button"
-                className={`sky-engine-page__control-chip${inspectorOpen ? ' sky-engine-page__control-chip--active' : ''}`}
+                className={`sky-engine-page__control-chip sky-engine-page__icon-chip${inspectorOpen ? ' sky-engine-page__control-chip--active' : ''}`}
                 onClick={() => setInspectorOpen((currentValue) => !currentValue)}
+                title={inspectorOpen ? 'Hide interface' : 'Show interface'}
+                aria-label={inspectorOpen ? 'Hide interface' : 'Show interface'}
               >
-                {inspectorOpen ? 'Hide UI' : 'Show UI'}
+                {inspectorOpen ? '◫' : '☰'}
               </button>
               <button
                 type="button"
-                className="sky-engine-page__time-reset sky-engine-page__time-reset--top"
+                className="sky-engine-page__time-reset sky-engine-page__time-reset--top sky-engine-page__icon-chip"
                 onClick={() => sceneRef.current?.resetSceneTime()}
+                title="Now"
+                aria-label="Reset time to now"
               >
-                Reset
+                ⟳
               </button>
             </div>
             <form
@@ -670,27 +674,12 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                 ))}
               </datalist>
               <button type="submit" className="sky-engine-page__control-chip sky-engine-page__search-submit">
-                Go
+                ⌕
               </button>
             </form>
             <div className="sky-engine-page__top-bar-meta">
-              <div className="sky-engine-page__status-pill">
-                <span className="sky-engine-page__top-bar-label">Data</span>
-                <strong>{resolveRuntimeModeLabel(snapshot.summary.dataMode)}</strong>
-              </div>
               <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
-                <span className="sky-engine-page__top-bar-label">FOV</span>
-                <strong>{formatDisplayedFov(snapshot.camera.fovDegrees)}</strong>
-              </div>
-              {snapshot.selection.object ? (
-                <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
-                  <span className="sky-engine-page__top-bar-label">Target</span>
-                  <strong>{snapshot.selection.object.name}</strong>
-                  <small>{observer.label}</small>
-                </div>
-              ) : null}
-              <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
-                <span className="sky-engine-page__top-bar-label">Local time</span>
+                <span className="sky-engine-page__top-bar-label">{resolveRuntimeModeLabel(snapshot.summary.dataMode)} · {formatDisplayedFov(snapshot.camera.fovDegrees)}</span>
                 <strong>{formattedSceneLocalTimestamp}</strong>
                 <small>{formattedSceneOffset} · {SKY_ENGINE_LOCAL_TIME_ZONE} · {playbackRateLabel}</small>
               </div>
@@ -708,14 +697,13 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
           <section className="sky-engine-page__bottom-hud" aria-label="Sky Engine controls">
             <div className="sky-engine-page__bottom-hud-main sky-engine-page__bottom-hud-main--stellarium">
               <div className="sky-engine-page__stellarium-status">
-                <span className="sky-engine-page__scene-link-label">Time scrub</span>
+                <span className="sky-engine-page__scene-link-label">Timeline</span>
                 <strong className="sky-engine-page__bottom-hud-offset">{formattedScaleOffset}</strong>
               </div>
               <div className="sky-engine-page__bottom-hud-stats sky-engine-page__bottom-hud-stats--stellarium">
-                <span>{snapshot.summary.renderedStarCount} rendered stars · {snapshot.summary.lodTier}</span>
+                <span>{snapshot.summary.renderedStarCount} stars</span>
                 <span>{snapshot.summary.fallbackActive ? `${snapshot.summary.sourceLabel} fallback` : snapshot.summary.sourceLabel}</span>
-                <span>{snapshot.summary.moonAboveHorizon ? `${snapshot.summary.moonPhaseLabel ?? 'Visible'} moon` : 'Moon below horizon'}</span>
-                <span>{snapshot.summary.guidedObjectCount} guided now</span>
+                <span>{snapshot.selection.object?.name ?? observer.label}</span>
               </div>
             </div>
 
@@ -745,7 +733,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
             <div className="sky-engine-page__bottom-hud-foot sky-engine-page__bottom-hud-foot--stellarium">
               <div className="sky-engine-page__stellarium-center-strip" aria-label="Stellarium style center actions">
                 <div className="sky-engine-page__target-chips" aria-label="Guided sky targets">
-                  {guidanceTargets.map((target) => (
+                  {guidanceTargets.slice(0, 3).map((target) => (
                     <button
                       key={target.objectId}
                       type="button"
@@ -757,18 +745,18 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                   ))}
                 </div>
                 <div className="sky-engine-page__target-chips" aria-label="Sky aid toggles">
-                  <button type="button" className={`sky-engine-page__control-chip${aidVisibility.constellations ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('constellations')}>
-                    Constellations
+                  <button type="button" className={`sky-engine-page__control-chip sky-engine-page__icon-chip${aidVisibility.constellations ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('constellations')} title="Constellation lines" aria-label="Constellation lines">
+                    ✶
                   </button>
-                  <button type="button" className={`sky-engine-page__control-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('azimuthRing')}>
-                    Azimuth
+                  <button type="button" className={`sky-engine-page__control-chip sky-engine-page__icon-chip${aidVisibility.azimuthRing ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('azimuthRing')} title="Azimuth grid" aria-label="Azimuth grid">
+                    ⊙
                   </button>
-                  <button type="button" className={`sky-engine-page__control-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('altitudeRings')}>
-                    Equator
+                  <button type="button" className={`sky-engine-page__control-chip sky-engine-page__icon-chip${aidVisibility.altitudeRings ? ' sky-engine-page__control-chip--active' : ''}`} onClick={() => toggleAid('altitudeRings')} title="Equatorial grid" aria-label="Equatorial grid">
+                    ⌖
                   </button>
                 </div>
                 <div className="sky-engine-page__target-chips" aria-label="Sky culture selection">
-                  {skyCultureOptions.map((culture) => (
+                  {skyCultureOptions.slice(0, 4).map((culture) => (
                     <button
                       key={culture.id}
                       type="button"
