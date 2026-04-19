@@ -34,6 +34,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 | `stars.c` `obj_get_by_hip`-style lookup seam | `frontend/src/features/sky-engine/engine/sky/adapters/starsLookup.ts` (`findRuntimeStarByHipInTiles`) + **`test_module2_stars_lookup.test.js`** (**EV-0044**) |
 | Scene runtime HIP lookup wiring | `frontend/src/features/sky-engine/SkyEngineScene.tsx` (`buildEngineStarSceneObjects` truth-note uses `findRuntimeStarByHipInTiles`) (**EV-0045**) |
 | Stable HIP detail route identity | `frontend/src/features/sky-engine/engine/sky/adapters/starsLookup.ts` (`buildHipDetailRoute`, `resolveHipDetailRouteForRuntimeStar`), `SkyEngineScene.tsx` (`detailRoute = hip/<id>`) (**EV-0046**) |
+| Selection continuity across id churn | `frontend/src/features/sky-engine/useSkyEngineSelection.ts` (`resolveSelectedObjectWithDetailRoute` + id resync), `test_sky_engine_selection_detail_route.test.js` (**EV-0047**) |
 | Stellarium point-size / tonemapper-style magnitude | `frontend/src/features/sky-engine/engine/sky/core/stellariumVisualMath.ts`; used from `starRenderer.ts` |
 | Stars runtime module (projection, limits, projected star list) | `frontend/src/features/sky-engine/engine/sky/runtime/modules/StarsModule.ts`, `runtimeFrame.ts` (`collectProjectedStars`, …); **`stellariumPainterLimits.ts`** (`resolveStarsRenderLimitMagnitude`, **EV-0040**) |
 | Star billboards / layer sync | `frontend/src/features/sky-engine/starObjectRenderer.ts`, `directStarLayer.ts` |
@@ -53,6 +54,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 6. Hub lookup helper **`findRuntimeStarByHipInTiles`** follows `obj_get_by_hip` intent: invalid HIP mapping => null, Gaia rows skipped, first non-Gaia HIP match returned (**EV-0044**).
 7. `SkyEngineScene` runtime star-object assembly now consumes the helper and surfaces HIP lookup status in star `truthNote` on the live scene path (**EV-0045**).
 8. HIP-backed stars now carry stable detail route identity **`hip/<id>`** for runtime selection/detail continuity (**EV-0046**).
+9. Selection state uses stable HIP `detailRoute` fallback and then rebinds `selectedObjectId` to the active runtime object id when survey tile ids change (**EV-0047**).
 
 ---
 
@@ -70,7 +72,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 | G0 | **PASS** — four `module2-stars-full` file rows exist in **`module-inventory.md`** with **`BLOCKED`** + Planned Module. |
 | G1 | **PASS** for §1–§2 mapping as written. |
 | G2 | **Partial** — **`bv_to_rgb`** (**EV-0038**); **`nuniq_to_pix`** via **`starsNuniq.ts`** (**EV-0039**); **`render_visitor` limit_mag policy** (**EV-0040**); **`hip_get_pix`** (**EV-0041**); full **`stars.c`** render path / remaining **`hip.c`** loaders still open. |
-| G3 | **Partial** — Hipparcos **`mergeSurveyTiles`** uses **`runtimeStarMatchesHipHealpixLookup`** (**EV-0042**); `obj_get_by_hip` helper + scene wiring + stable HIP route identity (**EV-0044**, **EV-0045**, **EV-0046**); full **`stars.c`** / object graph still open. |
+| G3 | **Partial** — Hipparcos **`mergeSurveyTiles`** uses **`runtimeStarMatchesHipHealpixLookup`** (**EV-0042**); `obj_get_by_hip` helper + scene wiring + stable HIP route identity + selection continuity (**EV-0044**, **EV-0045**, **EV-0046**, **EV-0047**); full **`stars.c`** / object graph still open. |
 | G4 | **Partial** — algorithm fingerprint **`computeModule2PortFingerprint`** (**EV-0043**); tile-load replay remains module 1 **`computeModule1TileLoadFingerprint`** (**EV-0024**). |
 | G5–G7 | **FAIL** until parity closure + evidence for remaining §1 scope. |
 
@@ -84,7 +86,7 @@ Rows: **`src/hip.c`**, **`src/hip.h`**, **`src/modules/stars.c`**, **`src/algos/
 
 ## 7. Handoff for external agents (e.g. Codex / new chat)
 
-Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0046), this file §2–§5.
+Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0047), this file §2–§5.
 
 ### Where to implement module 2 work
 
@@ -97,6 +99,7 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 | `hip_get_pix` + table | `frontend/src/features/sky-engine/engine/sky/adapters/hipGetPix.ts`, generated **`hipPixOrder2.generated.ts`**, generator **`frontend/scripts/generate_hip_pix_order2.mjs`** (`npm run generate:hip-pix` from `frontend/`) |
 | `obj_get_by_hip`-style lookup | `frontend/src/features/sky-engine/engine/sky/adapters/starsLookup.ts` (`findRuntimeStarByHipInTiles`) |
 | HIP detail route identity | `frontend/src/features/sky-engine/engine/sky/adapters/starsLookup.ts` (`buildHipDetailRoute`), `frontend/src/features/sky-engine/SkyEngineScene.tsx` (`detailRoute`) |
+| Selection continuity | `frontend/src/features/sky-engine/useSkyEngineSelection.ts` (`resolveSelectedObjectWithDetailRoute`) |
 | Hipparcos merge + HIP check | `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts` (`filterSurveyStarsForMerge` → `runtimeStarMatchesHipHealpixLookup`) |
 | Public exports | `frontend/src/features/sky-engine/engine/sky/index.ts` |
 | G4 port fingerprint | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts`; tests **`test_module2_deterministic_replay.test.js`** (**EV-0043**) |
@@ -121,6 +124,7 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 | EV-0044 | `findRuntimeStarByHipInTiles` (`obj_get_by_hip`-style helper) |
 | EV-0045 | `SkyEngineScene` live runtime wiring for HIP lookup status |
 | EV-0046 | Stable HIP detail routes (`hip/<id>`) on runtime star objects |
+| EV-0047 | Selection continuity via HIP detailRoute fallback + selected id resync |
 
 ### CI
 

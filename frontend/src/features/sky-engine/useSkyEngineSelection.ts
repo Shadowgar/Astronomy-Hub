@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import type { SkyEngineSceneObject } from './types'
 
@@ -7,6 +7,29 @@ export type SkyEngineSelectionStatus = 'idle' | 'active' | 'hidden'
 interface SkyEngineSelectionSnapshot {
   objectId: string
   objectName: string
+  detailRoute?: string
+}
+
+export function resolveSelectedObjectWithDetailRoute(
+  objects: readonly SkyEngineSceneObject[],
+  selectedObjectId: string | null,
+  selectionSnapshot: SkyEngineSelectionSnapshot | null,
+): SkyEngineSceneObject | null {
+  if (!selectedObjectId) {
+    return null
+  }
+
+  const directMatch = objects.find((object) => object.id === selectedObjectId) ?? null
+  if (directMatch) {
+    return directMatch
+  }
+
+  const snapshotRoute = selectionSnapshot?.detailRoute
+  if (!snapshotRoute) {
+    return null
+  }
+
+  return objects.find((object) => object.detailRoute === snapshotRoute) ?? null
 }
 
 export function useSkyEngineSelection(objects: readonly SkyEngineSceneObject[]) {
@@ -14,9 +37,15 @@ export function useSkyEngineSelection(objects: readonly SkyEngineSceneObject[]) 
   const [selectionSnapshot, setSelectionSnapshot] = useState<SkyEngineSelectionSnapshot | null>(null)
 
   const selectedObject = useMemo(
-    () => objects.find((object) => object.id === selectedObjectId) ?? null,
-    [objects, selectedObjectId],
+    () => resolveSelectedObjectWithDetailRoute(objects, selectedObjectId, selectionSnapshot),
+    [objects, selectedObjectId, selectionSnapshot],
   )
+
+  useEffect(() => {
+    if (selectedObject && selectedObjectId && selectedObject.id !== selectedObjectId) {
+      setSelectedObjectId(selectedObject.id)
+    }
+  }, [selectedObject, selectedObjectId])
 
   let selectionStatus: SkyEngineSelectionStatus = 'idle'
 
@@ -40,6 +69,7 @@ export function useSkyEngineSelection(objects: readonly SkyEngineSceneObject[]) 
       setSelectionSnapshot({
         objectId: nextObject.id,
         objectName: nextObject.name,
+        detailRoute: nextObject.detailRoute,
       })
     }
   }, [objects])
