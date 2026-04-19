@@ -13,6 +13,7 @@ on:
       - 'frontend/src/features/sky-engine/engine/sky/adapters/hipPixOrder2.generated.ts'
       - 'frontend/scripts/generate_hip_pix_order2.mjs'
       - 'frontend/src/features/sky-engine/engine/sky/runtime/stellariumPainterLimits.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts'
       - 'frontend/src/features/sky-engine/engine/sky/runtime/modules/StarsModule.ts'
       - 'frontend/src/features/sky-engine/engine/sky/index.ts'
       - 'frontend/src/features/sky-engine/starRenderer.ts'
@@ -20,6 +21,8 @@ on:
       - 'frontend/tests/test_module2_stars_nuniq.test.js'
       - 'frontend/tests/test_module2_stars_render_limit.test.js'
       - 'frontend/tests/test_module2_hip_get_pix.test.js'
+      - 'frontend/tests/test_module2_deterministic_replay.test.js'
+      - 'frontend/tests/__snapshots__/test_module2_deterministic_replay.test.js.snap'
       - 'frontend/package.json'
       - '.github/workflows/module2-stars.yml'
   pull_request:
@@ -34,6 +37,7 @@ on:
       - 'frontend/src/features/sky-engine/engine/sky/adapters/hipPixOrder2.generated.ts'
       - 'frontend/scripts/generate_hip_pix_order2.mjs'
       - 'frontend/src/features/sky-engine/engine/sky/runtime/stellariumPainterLimits.ts'
+      - 'frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts'
       - 'frontend/src/features/sky-engine/engine/sky/runtime/modules/StarsModule.ts'
       - 'frontend/src/features/sky-engine/engine/sky/index.ts'
       - 'frontend/src/features/sky-engine/starRenderer.ts'
@@ -41,6 +45,8 @@ on:
       - 'frontend/tests/test_module2_stars_nuniq.test.js'
       - 'frontend/tests/test_module2_stars_render_limit.test.js'
       - 'frontend/tests/test_module2_hip_get_pix.test.js'
+      - 'frontend/tests/test_module2_deterministic_replay.test.js'
+      - 'frontend/tests/__snapshots__/test_module2_deterministic_replay.test.js.snap'
       - 'frontend/package.json'
       - '.github/workflows/module2-stars.yml'
 

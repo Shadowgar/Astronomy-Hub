@@ -36,6 +36,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 | Star billboards / layer sync | `frontend/src/features/sky-engine/starObjectRenderer.ts`, `directStarLayer.ts` |
 | Catalog → scene objects (non-tile backends) | `frontend/src/features/sky-engine/astronomy.ts` (`computeRealSkySceneObjects`, …) |
 | Typed star payload from tiles | `frontend/src/features/sky-engine/engine/sky/contracts/stars.ts` (`RuntimeStar`) |
+| Module 2 port deterministic replay (G4) | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts` (`computeModule2PortFingerprint`); **`frontend/tests/test_module2_deterministic_replay.test.js`** (**EV-0043**) |
 
 ---
 
@@ -64,7 +65,8 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 | G1 | **PASS** for §1–§2 mapping as written. |
 | G2 | **Partial** — **`bv_to_rgb`** (**EV-0038**); **`nuniq_to_pix`** via **`starsNuniq.ts`** (**EV-0039**); **`render_visitor` limit_mag policy** (**EV-0040**); **`hip_get_pix`** (**EV-0041**); full **`stars.c`** render path / remaining **`hip.c`** loaders still open. |
 | G3 | **Partial** — Hipparcos **`mergeSurveyTiles`** uses **`runtimeStarMatchesHipHealpixLookup`** (**EV-0042**); full **`stars.c`** / object graph still open. |
-| G4–G7 | **FAIL** until remaining §1 files + evidence closure. |
+| G4 | **Partial** — algorithm fingerprint **`computeModule2PortFingerprint`** (**EV-0043**); tile-load replay remains module 1 **`computeModule1TileLoadFingerprint`** (**EV-0024**). |
+| G5–G7 | **FAIL** until parity closure + evidence for remaining §1 scope. |
 
 ---
 
@@ -89,6 +91,7 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 | `hip_get_pix` + table | `frontend/src/features/sky-engine/engine/sky/adapters/hipGetPix.ts`, generated **`hipPixOrder2.generated.ts`**, generator **`frontend/scripts/generate_hip_pix_order2.mjs`** (`npm run generate:hip-pix` from `frontend/`) |
 | Hipparcos merge + HIP check | `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts` (`filterSurveyStarsForMerge` → `runtimeStarMatchesHipHealpixLookup`) |
 | Public exports | `frontend/src/features/sky-engine/engine/sky/index.ts` |
+| G4 port fingerprint | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts`; tests **`test_module2_deterministic_replay.test.js`** (**EV-0043**) |
 
 ### Commands (from `frontend/`)
 
@@ -106,6 +109,7 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 | EV-0040 | `resolveStarsRenderLimitMagnitude` + `StarsModule` |
 | EV-0041 | `hip_get_pix` + `hip.inl` → **`hipPixOrder2.generated.ts`** |
 | EV-0042 | Hipparcos **`mergeSurveyTiles`** HIP ↔ `healpixAngToPix(2, …)` filter |
+| EV-0043 | **`computeModule2PortFingerprint`** snapshot (**G4** partial) |
 
 ### CI
 
@@ -115,7 +119,7 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 ### Suggested next coding targets (not done)
 
 1. **`stars.c`** — render path, surveys, `obj_get_by_hip`-style resolution beyond current tile merge; align with pinned C where Hub exposes stars objects.
-2. **G4** — deterministic replay / fingerprint for module 2 (mirror **`module1ParityFingerprint.ts`** pattern if spec’d).
+2. **G4** — extend deterministic coverage (e.g. **`StarsModule`** / scene packet snapshot) beyond **`computeModule2PortFingerprint`** (**EV-0043**).
 3. **Tests** — synthetic fixtures: if a star uses a fake **`HIP N`** with coordinates that do not match **`PIX_ORDER_2`**, merge will drop it (**EV-0042**); use no-HIP ids or catalog-consistent RA/Dec.
 
 ### Fixture pitfall (tests)
