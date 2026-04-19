@@ -1,4 +1,9 @@
+import type { RuntimeStar } from '../contracts/stars'
+import { healpixAngToPix } from './healpix'
 import { HIP_PIX_ORDER_2_BASE64, HIP_PIX_ORDER_2_BYTE_LENGTH } from './hipPixOrder2.generated'
+
+const HIP_SOURCE_ID = /^HIP\s+(\d+)\s*$/i
+const HIP_ID_PREFIX = /^hip-(\d+)$/i
 
 let cachedTable: Uint8Array | null = null
 
@@ -50,4 +55,43 @@ export function hipGetPix(hip: number, order: number): number {
   const divisor = 1 << (2 * (2 - order))
   ret = (ret / divisor) | 0
   return ret
+}
+
+/**
+ * Hipparcos id from `sourceId` (`"HIP 91262"`), `id` (`"hip-91262"`), or numeric `id`.
+ */
+export function parseHipIdFromRuntimeStar(star: RuntimeStar): number | null {
+  const source = star.sourceId?.match(HIP_SOURCE_ID)
+  if (source) {
+    return Number(source[1])
+  }
+
+  const prefixed = star.id?.match(HIP_ID_PREFIX)
+  if (prefixed) {
+    return Number(prefixed[1])
+  }
+
+  if (star.id != null && /^\d+$/.test(star.id)) {
+    return Number(star.id)
+  }
+
+  return null
+}
+
+/**
+ * When a HIP is present, Stellarium’s `PIX_ORDER_2[hip]` at order **2** matches nested HEALPix from catalog RA/Dec.
+ * Stars without a parseable HIP pass through; unknown HIP (`hip_get_pix` → `-1`) is dropped.
+ */
+export function runtimeStarMatchesHipHealpixLookup(star: RuntimeStar): boolean {
+  const hip = parseHipIdFromRuntimeStar(star)
+  if (hip == null) {
+    return true
+  }
+
+  const pix = hipGetPix(hip, 2)
+  if (pix === -1) {
+    return false
+  }
+
+  return pix === healpixAngToPix(2, star.raDeg, star.decDeg)
 }

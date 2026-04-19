@@ -110,8 +110,7 @@ describe('file-backed sky tile repository Gaia flow', () => {
             magMax: 1,
             starCount: 1,
             stars: [{
-              id: 'hip-1',
-              sourceId: 'HIP 1',
+              id: 'fixture-hipparcos-no-hip',
               raDeg: 185,
               decDeg: 10,
               mag: 1,
@@ -161,7 +160,7 @@ describe('file-backed sky tile repository Gaia flow', () => {
 
     expect(result.mode).toBe('multi-survey')
     expect(result.sourceLabel).toContain('Hipparcos + Gaia HiPS')
-    expect(ids).toContain('hip-1')
+    expect(ids).toContain('fixture-hipparcos-no-hip')
     expect(ids).toContain('gaia-inside')
     expect(ids).not.toContain('gaia-outside')
     expect(fetchMock.mock.calls.some(([assetPath]) => String(assetPath).includes('/sky-engine-assets/catalog/gaia/Norder'))).toBe(true)
@@ -215,8 +214,7 @@ describe('file-backed sky tile repository Gaia flow', () => {
             magMax: 1,
             starCount: 1,
             stars: [{
-              id: 'hip-1',
-              sourceId: 'HIP 1',
+              id: 'fixture-hipparcos-no-hip',
               raDeg: 185,
               decDeg: 10,
               mag: 1,

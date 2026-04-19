@@ -13,6 +13,7 @@ import { SKY_TILE_LEVEL_MAG_MAX } from '../core/magnitudePolicy'
 import { buildHipsTilePath, decodeEphTile, parseSurveyProperties, type SurveyProperties } from './ephCodec'
 import { formatHipsViewportKey, resolveGaiaHealpixOrder } from './hipsRenderOrder'
 import { healpixAngToPix, healpixPixToRaDec } from './healpix'
+import { runtimeStarMatchesHipHealpixLookup } from './hipGetPix'
 
 const DEFAULT_MANIFEST_PATH = '/sky-engine-assets/catalog/hipparcos/manifest.json'
 const GAIA_SURVEY_BASE_PATH = '/sky-engine-assets/catalog/gaia'
@@ -297,6 +298,18 @@ function filterSurveyStarsByMagnitudeRange(stars: readonly RuntimeStar[], survey
   return stars.filter((star) => star.mag >= survey.minVmag && star.mag <= survey.maxVmag)
 }
 
+function filterSurveyStarsForMerge(
+  stars: readonly RuntimeStar[],
+  survey: { minVmag: number; maxVmag: number; catalog: SkyTileCatalog },
+) {
+  const magnitudeFiltered = filterSurveyStarsByMagnitudeRange(stars, survey)
+  if (survey.catalog !== 'hipparcos') {
+    return magnitudeFiltered
+  }
+
+  return magnitudeFiltered.filter(runtimeStarMatchesHipHealpixLookup)
+}
+
 function mergeSurveyTiles(
   tileId: string,
   manifest: SkyTileAssetManifest,
@@ -311,7 +324,7 @@ function mergeSurveyTiles(
     return null
   }
 
-  const stars = tilePayloads.flatMap(({ survey, tile }) => (tile ? filterSurveyStarsByMagnitudeRange(tile.stars, survey) : []))
+  const stars = tilePayloads.flatMap(({ survey, tile }) => (tile ? filterSurveyStarsForMerge(tile.stars, survey) : []))
   const labelCandidates = tilePayloads
     .flatMap(({ tile }) => tile?.labelCandidates ?? [])
     .reduce<Map<string, { starId: string; label: string; priority: number }>>((candidates, candidate) => {
