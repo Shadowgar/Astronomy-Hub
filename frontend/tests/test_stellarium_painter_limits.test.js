@@ -3,8 +3,13 @@ import { describe, expect, it } from 'vitest'
 import {
   STELLARIUM_DEFAULT_DISPLAY_LIMIT_MAG,
   computeStellariumCorePainterLimits,
-  computeVmagForRadius,
 } from '../src/features/sky-engine/engine/sky/runtime/stellariumPainterLimits.ts'
+import {
+  STELLARIUM_TONEMAPPER_EXPOSURE,
+  STELLARIUM_TONEMAPPER_LWMAX_MAX,
+  STELLARIUM_TONEMAPPER_P,
+  computeVmagForRadius,
+} from '../src/features/sky-engine/engine/sky/core/stellariumVisualMath.ts'
 
 describe('Stellarium core_render painter limits', () => {
   it('exposes hard_limit_mag default 99', () => {
@@ -20,8 +25,13 @@ describe('Stellarium core_render painter limits', () => {
   })
 
   it('matches dichotomy shape for compute_vmag_for_radius', () => {
-    const a = computeVmagForRadius(0.25)
-    const b = computeVmagForRadius(0.4)
+    const tonemapper = {
+      p: STELLARIUM_TONEMAPPER_P,
+      exposure: STELLARIUM_TONEMAPPER_EXPOSURE,
+      lwmax: STELLARIUM_TONEMAPPER_LWMAX_MAX,
+    }
+    const a = computeVmagForRadius(0.25, 60, tonemapper)
+    const b = computeVmagForRadius(0.4, 60, tonemapper)
     expect(b).toBeLessThan(a)
   })
 })

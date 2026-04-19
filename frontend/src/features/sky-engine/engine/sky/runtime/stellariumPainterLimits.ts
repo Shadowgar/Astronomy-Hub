@@ -57,3 +57,19 @@ export function computeStellariumCorePainterLimits(
     hardLimitMag: STELLARIUM_DEFAULT_DISPLAY_LIMIT_MAG,
   }
 }
+
+/**
+ * Ceiling for star magnitudes on the Hub stars runtime path.
+ * Stellarium `stars.c` `render_visitor`: `limit_mag = fmin(painter.stars_limit_mag, painter.hard_limit_mag)` (then `vmag` vs `limit_mag`).
+ * Hub applies the same `min` together with tonemapper exposure **`limitingMagnitude`** from `brightnessExposureState`.
+ */
+export function resolveStarsRenderLimitMagnitude(
+  exposureLimitMagnitude: number,
+  painterLimits: { starsLimitMag: number; hardLimitMag: number } | null | undefined,
+): number {
+  if (!painterLimits) {
+    return exposureLimitMagnitude
+  }
+
+  return Math.min(exposureLimitMagnitude, painterLimits.starsLimitMag, painterLimits.hardLimitMag)
+}

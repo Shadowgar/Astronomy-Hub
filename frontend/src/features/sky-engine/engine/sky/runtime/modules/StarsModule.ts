@@ -1,6 +1,7 @@
 import type { SkyModule } from '../SkyModule'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import { stellariumFrameAstrometryFromEraAstrom } from '../erfaAbLdsun'
+import { resolveStarsRenderLimitMagnitude } from '../stellariumPainterLimits'
 import {
   collectProjectedStars,
   ensureSceneSurfaces,
@@ -32,19 +33,6 @@ function buildObjectSignature(props: ScenePropsSnapshot) {
   return `${props.objects.length}:${firstObject}:${lastObject}:${packetStarsCount}`
 }
 
-function resolveStellariumStarLimitMagnitude(runtime: SceneRuntimeRefs, exposureLimitMagnitude: number) {
-  const painterLimits = runtime.corePainterLimits
-  if (!painterLimits) {
-    return exposureLimitMagnitude
-  }
-
-  return Math.min(
-    exposureLimitMagnitude,
-    painterLimits.starsLimitMag,
-    painterLimits.hardLimitMag,
-  )
-}
-
 export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-stars-runtime-module',
@@ -63,9 +51,9 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
       if (!brightnessExposureState) {
         return
       }
-      const limitingMagnitude = resolveStellariumStarLimitMagnitude(
-        runtime,
+      const limitingMagnitude = resolveStarsRenderLimitMagnitude(
         brightnessExposureState.limitingMagnitude,
+        runtime.corePainterLimits,
       )
       const starsExposureState = limitingMagnitude === brightnessExposureState.limitingMagnitude
         ? brightnessExposureState
