@@ -13,6 +13,7 @@ import {
 import {
   buildSkyEngineQuery,
   fileBackedSkyTileRepository,
+  buildHipDetailRoute,
   findRuntimeStarByHipInTiles,
   getSkyTileMaxLevel,
   normalizeProjectionMat11ForHips,
@@ -271,6 +272,8 @@ function buildEngineStarSceneObjects(
       : hipLookupStatus
         ? ' HIP lookup confirms this tile star.'
         : ' HIP lookup did not resolve this star on the non-Gaia path.'
+    const hip = runtimeStar ? parseHipIdFromRuntimeStar(runtimeStar) : null
+    const detailRoute = hip == null ? undefined : buildHipDetailRoute(hip)
 
     return {
       id: star.id,
@@ -285,6 +288,7 @@ function buildEngineStarSceneObjects(
       truthNote: `Engine-owned ${catalogLabel} tile data drives this star. Source: ${tileSourceLabel}.${hipLookupNote}`,
       source: 'engine_catalog_tile',
       trackingMode: 'fixed_equatorial',
+      detailRoute,
       rightAscensionHours: runtimeStar ? runtimeStar.raDeg / 15 : undefined,
       declinationDeg: runtimeStar?.decDeg,
       colorIndexBV: runtimeStar?.colorIndex ?? star.colorIndex,

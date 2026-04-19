@@ -2,6 +2,18 @@ import type { RuntimeStar } from '../contracts/stars'
 import type { SkyTilePayload } from '../contracts/tiles'
 import { hipGetPix, parseHipIdFromRuntimeStar } from './hipGetPix'
 
+export function buildHipDetailRoute(hip: number): string {
+  return `hip/${hip}`
+}
+
+export function resolveHipDetailRouteForRuntimeStar(star: RuntimeStar): string | null {
+  const hip = parseHipIdFromRuntimeStar(star)
+  if (hip == null) {
+    return null
+  }
+  return buildHipDetailRoute(hip)
+}
+
 /**
  * Hub helper mirroring Stellarium `stars.c` `obj_get_by_hip` search intent:
  * - invalid / missing HIP tile mapping (`hip_get_pix` = -1) returns null,

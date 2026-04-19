@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
-import { findRuntimeStarByHipInTiles } from '../src/features/sky-engine/engine/sky/adapters/starsLookup.ts'
+import {
+  buildHipDetailRoute,
+  findRuntimeStarByHipInTiles,
+  resolveHipDetailRouteForRuntimeStar,
+} from '../src/features/sky-engine/engine/sky/adapters/starsLookup.ts'
 
 describe('module2 stars.c obj_get_by_hip-style lookup', () => {
   it('returns null when hip_get_pix does not map the HIP', () => {
@@ -46,5 +50,29 @@ describe('module2 stars.c obj_get_by_hip-style lookup', () => {
     ], 91262)
 
     expect(result).toBe(null)
+  })
+
+  it('resolves stable HIP detail route', () => {
+    expect(buildHipDetailRoute(11767)).toBe('hip/11767')
+    expect(
+      resolveHipDetailRouteForRuntimeStar({
+        id: 'hip-11767',
+        sourceId: 'HIP 11767',
+        raDeg: 0,
+        decDeg: 0,
+        mag: 1,
+        tier: 'T0',
+      }),
+    ).toBe('hip/11767')
+    expect(
+      resolveHipDetailRouteForRuntimeStar({
+        id: 'gaia-x',
+        sourceId: 'GAIA 1',
+        raDeg: 0,
+        decDeg: 0,
+        mag: 1,
+        tier: 'T0',
+      }),
+    ).toBe(null)
   })
 })
