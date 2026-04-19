@@ -792,60 +792,68 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                   ))}
                 </div>
               </div>
-              <div className="sky-engine-page__stellarium-time-strip">
-                <div className="sky-engine-page__control-group" aria-label="Time scale controls">
-                  <button
-                    type="button"
-                    className="sky-engine-page__time-reset"
-                    onClick={() => sceneRef.current?.nudgeSceneOffset(-(SKY_ENGINE_TIME_SCALE_OPTIONS.find((option) => option.id === timeScaleId)?.stepSeconds ?? 60))}
-                  >
-                    - Step
-                  </button>
-                  <div className="sky-engine-page__time-slider-scale">
-                    {SKY_ENGINE_TIME_SCALE_OPTIONS.map((scaleOption) => (
-                      <button
-                        key={scaleOption.id}
-                        type="button"
-                        className={`sky-engine-page__control-chip${timeScaleId === scaleOption.id ? ' sky-engine-page__control-chip--active' : ''}`}
-                        onClick={() => setTimeScaleId(scaleOption.id)}
-                      >
-                        {scaleOption.shortLabel}
-                      </button>
-                    ))}
-                  </div>
-                  <button
-                    type="button"
-                    className="sky-engine-page__time-reset"
-                    onClick={() => sceneRef.current?.nudgeSceneOffset(SKY_ENGINE_TIME_SCALE_OPTIONS.find((option) => option.id === timeScaleId)?.stepSeconds ?? 60)}
-                  >
-                    + Step
-                  </button>
-                </div>
-                <div className="sky-engine-page__control-group" aria-label="Playback controls">
-                  {SKY_ENGINE_PLAYBACK_RATE_OPTIONS.map((playbackOption) => (
-                    <button
-                      key={playbackOption.value}
-                      type="button"
-                      className={`sky-engine-page__control-chip${snapshot.summary.playbackRate === playbackOption.value ? ' sky-engine-page__control-chip--active' : ''}`}
-                      onClick={() => {
-                        if (playbackOption.value === 0) {
-                          sceneRef.current?.togglePlayback()
-                          return
-                        }
-
-                        sceneRef.current?.setPlaybackRate(playbackOption.value)
-                      }}
-                    >
-                      {playbackOption.value === 0 && snapshot.summary.playbackRate !== 0 ? 'Pause' : playbackOption.label}
-                    </button>
-                  ))}
-                  <button type="button" className="sky-engine-page__time-reset" onClick={() => sceneRef.current?.resetSceneTime()}>
-                    Reset
-                  </button>
-                </div>
-              </div>
             </div>
           </section>
+        </div>
+
+        <div className="sky-engine-page__overlay sky-engine-page__overlay--right-time">
+          <div className="sky-engine-page__time-dock" aria-label="Time controls">
+            <div className="sky-engine-page__time-dock-block">
+              <span className="sky-engine-page__top-bar-label">scale</span>
+              <div className="sky-engine-page__time-dock-row">
+                {SKY_ENGINE_TIME_SCALE_OPTIONS.map((scaleOption) => (
+                  <button
+                    key={scaleOption.id}
+                    type="button"
+                    className={`sky-engine-page__control-chip${timeScaleId === scaleOption.id ? ' sky-engine-page__control-chip--active' : ''}`}
+                    onClick={() => setTimeScaleId(scaleOption.id)}
+                  >
+                    {scaleOption.shortLabel}
+                  </button>
+                ))}
+              </div>
+              <div className="sky-engine-page__time-dock-row">
+                <button
+                  type="button"
+                  className="sky-engine-page__time-reset"
+                  onClick={() => sceneRef.current?.nudgeSceneOffset(-(SKY_ENGINE_TIME_SCALE_OPTIONS.find((option) => option.id === timeScaleId)?.stepSeconds ?? 60))}
+                >
+                  −
+                </button>
+                <button
+                  type="button"
+                  className="sky-engine-page__time-reset"
+                  onClick={() => sceneRef.current?.nudgeSceneOffset(SKY_ENGINE_TIME_SCALE_OPTIONS.find((option) => option.id === timeScaleId)?.stepSeconds ?? 60)}
+                >
+                  +
+                </button>
+                <button type="button" className="sky-engine-page__time-reset" onClick={() => sceneRef.current?.resetSceneTime()}>
+                  now
+                </button>
+              </div>
+            </div>
+            <div className="sky-engine-page__time-dock-block">
+              <span className="sky-engine-page__top-bar-label">playback</span>
+              <div className="sky-engine-page__time-dock-row">
+                {SKY_ENGINE_PLAYBACK_RATE_OPTIONS.map((playbackOption) => (
+                  <button
+                    key={playbackOption.value}
+                    type="button"
+                    className={`sky-engine-page__control-chip${snapshot.summary.playbackRate === playbackOption.value ? ' sky-engine-page__control-chip--active' : ''}`}
+                    onClick={() => {
+                      if (playbackOption.value === 0) {
+                        sceneRef.current?.togglePlayback()
+                        return
+                      }
+                      sceneRef.current?.setPlaybackRate(playbackOption.value)
+                    }}
+                  >
+                    {playbackOption.value === 0 && snapshot.summary.playbackRate !== 0 ? 'pause' : playbackOption.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         {inspectorOpen ? (

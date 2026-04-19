@@ -1458,16 +1458,24 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 }
 
 .sky-engine-page__overlay--right {
-  right: var(--token-size-8);
+  right: calc(var(--token-size-8) + 11.2rem);
   top: 6.8rem;
   bottom: 3.2rem;
   width: min(11.5rem, calc(100vw - 1.25rem));
 }
 
+.sky-engine-page__overlay--right-time {
+  right: var(--token-size-8);
+  top: calc(var(--token-size-6) + 3.9rem);
+  bottom: var(--token-size-6);
+  width: 10.6rem;
+}
+
 .sky-engine-page__top-bar,
 .sky-engine-page__bottom-hud,
 .sky-engine-page__hub-shell,
-.sky-engine-page__left-tools {
+.sky-engine-page__left-tools,
+.sky-engine-page__time-dock {
   display: flex;
   align-items: center;
   gap: 0.55rem;
@@ -1485,6 +1493,33 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   border-radius: 0.7rem;
   padding: 0.25rem 0.15rem;
   pointer-events: auto;
+}
+
+.sky-engine-page__time-dock {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0.45rem;
+  border-radius: 0.7rem;
+  padding: 0.38rem;
+  pointer-events: auto;
+  height: 100%;
+}
+
+.sky-engine-page__time-dock-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.26rem;
+  padding: 0.28rem;
+  border: 1px solid rgba(154, 198, 255, 0.1);
+  border-radius: 0.5rem;
+  background: rgba(6, 14, 24, 0.3);
+}
+
+.sky-engine-page__time-dock-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.24rem;
 }
 
 .sky-engine-page__hub-shell {
@@ -1676,8 +1711,9 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 }
 
 .sky-engine-page__bottom-hud-foot--stellarium {
-  align-items: flex-end;
-  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
 }
 
 .sky-engine-page__stellarium-center-strip {
@@ -1686,14 +1722,8 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   gap: 0.35rem;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100%;
-}
-
-.sky-engine-page__stellarium-time-strip {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  align-items: flex-end;
+  width: auto;
+  max-width: 100%;
 }
 
 .sky-engine-page__bottom-hud-stats {
@@ -1720,7 +1750,7 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 
 .sky-engine-page__target-chips {
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .sky-engine-page__target-chip {
@@ -2046,7 +2076,8 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 
   .sky-engine-page__overlay--top-bar,
   .sky-engine-page__overlay--bottom-hud,
-  .sky-engine-page__overlay--hub-shell {
+  .sky-engine-page__overlay--hub-shell,
+  .sky-engine-page__overlay--right-time {
     position: static;
     margin: var(--token-size-16);
   }
@@ -2060,10 +2091,15 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   .sky-engine-page__bottom-hud,
   .sky-engine-page__hub-shell,
   .sky-engine-page__left-tools,
+  .sky-engine-page__time-dock,
   .sky-engine-page__bottom-hud-main,
   .sky-engine-page__bottom-hud-foot {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .sky-engine-page__overlay--right {
+    right: auto;
   }
 
   .sky-engine-page__top-bar {
@@ -2093,7 +2129,8 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   .sky-engine-page__overlay--top-bar,
   .sky-engine-page__overlay--bottom-hud,
   .sky-engine-page__overlay--hub-shell,
-  .sky-engine-page__overlay--right {
+  .sky-engine-page__overlay--right,
+  .sky-engine-page__overlay--right-time {
     margin-left: var(--token-size-14);
     margin-right: var(--token-size-14);
   }
