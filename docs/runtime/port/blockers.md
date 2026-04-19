@@ -8,6 +8,7 @@ This log records blockers that prevent module completion. Blockers must be expli
 |---|---|---|---|---|---|---|---|---|
 | BLK-000 | module0-foundation-lock | G4 | Deterministic replay harness requires robust cross-runtime measurable signal that is not based on noisy pixel hash alone. | Implement deterministic parity mode signal and stable measurement contract. | Sky Engine Port | 2026-04-17 | Five-case deterministic replay produces stable metrics for Hub and reference checkpoints. | RESOLVED |
 | BLK-002 | module0-foundation-lock | G5 | Independent `eraApco` second runtime vs Hub not automated. | PyERFA `apco` harness + committed `apcoInputs` per replay case on CI. | Sky Engine Port | 2026-04-17 | Five replay cases: PyERFA `apco` astrom slice matches Hub goldens on CI (see EV-0018). | RESOLVED |
+| BLK-003 | module2-stars-full | G1 / G5 | Stellarium Web Engine **`src`**.c sources are not present under `study/` in this repo (no `study/**/*.c` checkout), so `hip.c`, `stars.c`, and `bv_to_rgb.c` cannot be line-referenced or diff-ported from the tree assumed by `module-inventory.md`. | Vendor, submodule, or documented mirror path under `study/` (see `module2-source-contract.md` §3). | Sky Engine Port | 2026-04-18 | **`BLK-003` RESOLVED**: committed path to Stellarium `src/hip.c`, `src/modules/stars.c`, `src/algos/bv_to_rgb.c` (and headers) under `study/` with version/revision note in **`evidence-index.md`**. | OPEN |
 
 ### BLK-000 — Resolution (tier-1 G4 contract)
 

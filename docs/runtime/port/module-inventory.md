@@ -37,7 +37,7 @@ Total C/H files: 146
 | `src/log.h` | core | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/shader_cache.h` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/painter.c` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
-| `src/hip.c` | stars | module2-stars-full | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/hip.c` | stars | module2-stars-full | BLOCKED | **`module2-source-contract.md`** §1; C port blocked **`BLK-003`** (no `study/` tree). |
 | `src/swe.h` | core | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/erfa_wrap.h` | astro_math | module0-foundation-lock | BLOCKED | Literal TS ERFA ports: `engine/sky/runtime/erfa*.ts` (incl. **`eraEpv00`** → `erfaEpv00.ts` + generated tables). **Gate:** G5 astrometry parity. |
 | `src/skybrightness.h` | skybrightness | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
@@ -105,11 +105,11 @@ Total C/H files: 146
 | `src/modules/labels.c` | module | module6-labels-overlays | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/utils/worker.c` | async | module1-hips-kernel | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/uv_map.h` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
-| `src/hip.h` | stars | module2-stars-full | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/hip.h` | stars | module2-stars-full | BLOCKED | **`module2-source-contract.md`** §1; **`BLK-003`**. |
 | `src/utils/utils_json.h` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/utils/utils_json.c` | utils | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/constants.h` | core | module0-foundation-lock | BLOCKED | `erfaConstants.ts`, time-scale and engine constants. **Gate:** G5. |
-| `src/modules/stars.c` | module | module2-stars-full | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/modules/stars.c` | module | module2-stars-full | BLOCKED | **`module2-source-contract.md`** §1–§2 (`StarsModule` / `runtimeFrame`); **`BLK-003`**. |
 | `src/projections/proj_stereographic.c` | projection | module0-foundation-lock | BLOCKED | `projectionMath.ts` stereographic branch + `SkyProjectionService.ts`. **Gate:** G5. |
 | `src/frames.c` | frames | module0-foundation-lock | BLOCKED | `astronomy.ts`, `transforms/coordinates.ts` (`ObserverFrame`, `convertObserverFrameVector`). **Gate:** G5. |
 | `src/utils/mesh.h` | render | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
@@ -161,7 +161,7 @@ Total C/H files: 146
 | `src/algos/satrings.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/algos/utctt.c` | time_scale | module0-foundation-lock | BLOCKED | `timeScales.ts` (`toJulianDateTt`, `dut1SecondsFromTimestampIso`, etc.). **Gate:** G5. |
 | `src/algos/deltat.c` | algos | module0-foundation-lock | PORTED | `runtime/timeScales.ts` (`deltaTSecondsFromTtMjd`, SMH2016 + post-2016 branch). Verified: `tests/test_time_scales.test.js`. |
-| `src/algos/bv_to_rgb.c` | algos | module2-stars-full | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
+| `src/algos/bv_to_rgb.c` | algos | module2-stars-full | BLOCKED | **`module2-source-contract.md`** §2 (`resolveStarColorHex` heuristic); **`BLK-003`**. |
 | `src/algos/algos.h` | algos | module0-foundation-lock | BLOCKED | Umbrella header; module0 algorithms mapped on per-file rows (`deltat`, `utctt`, `refraction`). **Gate:** per-algo G5. |
 | `src/algos/gust86.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
 | `src/algos/tass17.c` | algos | module7-remaining-swe | BLOCKED | G0 inventory lock: Planned Module assigned; AH port work deferred per `docs/runtime/port/README.md` execution order. |
@@ -178,8 +178,8 @@ No out-of-scope entries approved yet.
 File-level **`G0 InventoryLock`** means zero **`UNMAPPED`** rows (satisfied globally as of **2026-04-18**). Function-level expansion below is still the authoritative checklist for parity work inside **`PORTED`** / **`BLOCKED`** surfaces.
 
 - module0-foundation-lock: **gate `COMPLETE`** (**EV-0019**); file rows are `PORTED`/`BLOCKED` with AH targets; function tables list core contracts; **`BLOCKED`** C sources remain until row-specific **G5** parity or scope decisions.
-- module1-hips-kernel: **active** — rows **`BLOCKED`** with G0 seed notes; see **`module1-source-contract.md`** and gate promotion **EV-0020** (`module-gates.md`).
-- module2-stars-full: pending
+- module1-hips-kernel: **COMPLETE** (**EV-0034**); see **`module1-source-contract.md`**, **`module-gates.md`**.
+- module2-stars-full: **`G0`/`G1`** **PASS** (**EV-0036**); **`BLOCKED`** C rows; **`BLK-003`** — no **`study/`** C tree; see **`module2-source-contract.md`**, **`blockers.md`**.
 - module3-dso-full: pending
 - module4-dss-full: pending
 - module5-satellites-full: pending

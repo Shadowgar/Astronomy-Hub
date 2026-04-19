@@ -28,7 +28,7 @@ This file tracks gate completion for each module in execution order.
 |---|---|---|---|---|---|---|---|---|---|
 | module0-foundation-lock | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | COMPLETE |
 | module1-hips-kernel | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | COMPLETE |
-| module2-stars-full | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| module2-stars-full | PASS | PASS | FAIL | FAIL | FAIL | FAIL | FAIL | FAIL | BLOCKED |
 | module3-dso-full | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
 | module4-dss-full | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
 | module5-satellites-full | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
@@ -50,7 +50,9 @@ This file tracks gate completion for each module in execution order.
 
 **Module 1 (hips-kernel) — COMPLETE (**EV-0034**): **G0** — nine `module1-hips-kernel` file rows in `module-inventory.md` (**`BLOCKED`** / deferred C port; inventory-only, not process blockers). **G1** — `module1-source-contract.md`. **G2** — EPH **`nuniq`**, **`shuffleEphTableBytes`**, **`convertEphFloat`** (**EV-0025**–**EV-0027**); Hipparcos quadtree depth from **`hips_get_render_order`** + **`clampHipsRenderOrder`** with **`normalizeProjectionMat11ForHips`** (**EV-0032**), not ad-hoc FOV thresholds. **G3** — RA wrap (**EV-0022**), Gaia merge (**EV-0023**), HEALPix (**EV-0026**), tile selection (**EV-0028**), **`buildSkyEngineQuery` ↔ `hipsViewport`** on visible tiles (**EV-0033**). **G4** — tile-load fingerprint (**EV-0024**). **G5** — Hub regression checkpoints: **`hips_get_render_order`** + Gaia **`resolveGaiaHealpixOrder`** (**EV-0029**–**EV-0031**), normalized viewport + tile depth policy (**EV-0032**); full native **`hips.c`** / worker / cache C parity remains inventory **`BLOCKED`**, not a gate failure for this module’s Hub subset. **G6** — `npm run typecheck`, `npm run build`, **`npm run test:module1`**, **`.github/workflows/module1-hips.yml`** (**EV-0021**, **EV-0034**). **G7** — this row + **`evidence-index.md`** through **EV-0034**. **`test_close_fov_star_counts.test.js`** is intentionally excluded from **`test:module1`** (long-running / asset-heavy; see contract §3).
 
-**Module 2 (stars-full) — active execution target (**EV-0035**): **`module1-hips-kernel`** is **`COMPLETE`**, so **`module2-stars-full`** is the next module in execution order (`README.md`). Inventory rows include **`src/hip.c`**, **`src/hip.h`**, **`src/modules/stars.c`**, **`src/algos/bv_to_rgb.c`**, and related entries under **`Planned Module == module2-stars-full`** in **`module-inventory.md`** (currently **`BLOCKED`** pending port work). Gate columns stay **`N/A`** here until **`G0`/`G1`** kickoff evidence promotes the row (same pattern as module 1 **EV-0020**). Next artifact: **`module2-source-contract.md`** (G1) once §1–§2 scope is frozen.
+**Module 2 (stars-full) — active; Overall BLOCKED (**BLK-003**): **`module1-hips-kernel`** is **`COMPLETE`** (**EV-0034**). **`G0`/`G1`** promoted (**EV-0036**): four inventory rows + **`module2-source-contract.md`**. **`G2`–`G7`** remain **FAIL** until Stellarium **`src`** is available under **`study/`** (**`BLK-003` OPEN**) and subsequent port/evidence waves. Execution-order note: **EV-0035**.
+
+**`BLK-003`:** no **`study/**/*.c`** tree in the workspace — cannot close **G5** line parity or finish **G2** `bv_to_rgb` / **`stars.c`** debt against C sources until sources are vendored (see **`blockers.md`**).
 
 ## Rules
 
