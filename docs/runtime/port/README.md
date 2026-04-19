@@ -21,12 +21,13 @@ General Hub docs are frozen for this effort. If there is a conflict between this
 - `module-inventory.md`: exhaustive source inventory and mapping status
 - `module-gates.md`: gate checklists and pass/fail per module
 - `blockers.md`: blocker log with owner and unblock criteria
+- `stellarium-web-engine-src.md`: pinned GitHub commit + `src/` paths for Stellarium Web Engine (module 2 reference; **EV-0037** / **`BLK-003`**)
 - `evidence-index.md`: evidence artifacts and command/output references
 - `module0-source-contract.md`: **G1** frozen Hub ↔ source mapping for the module 0 observer/time/matrix spine (**PASS** for module 0 closure; see file §5–§6)
 - `module0-eraEpv00-port-plan.md`: staged work plan for **`eraEpv00`** (Earth heliocentric/barycentric PV) before `eraApco` / full `observer_update_full`
 - `module0-eraApco-port-plan.md`: **`eraApco`** dependency graph (`eraApcs` … `eraPvtob`) and Hub `astrom` seam checklist
 - `module1-source-contract.md`: **G1** Hub ↔ source mapping for **`module1-hips-kernel`** (tile / Eph / HEALPix spine; **PASS** for §1–§2; see file §5–§6)
-- `module2-source-contract.md`: **G1** Hub ↔ source mapping for **`module2-stars-full`** (`hip` / `stars` / `bv_to_rgb` inventory rows; **PASS** for §1–§2; **BLK-003** blocks C parity work)
+- `module2-source-contract.md`: **G1** Hub ↔ source mapping for **`module2-stars-full`** (`hip` / `stars` / `bv_to_rgb` inventory rows; **PASS** for §1–§2; C reference: **`stellarium-web-engine-src.md`**)
 
 ## Module Completion Rule
 
@@ -48,4 +49,4 @@ Status values are strict:
 
 No partial statuses are allowed.
 
-**`module0-foundation-lock`** is **`COMPLETE`** (**EV-0019**). **`module1-hips-kernel`** is **`COMPLETE`** (**EV-0034**): **`eph-file.c`** / HEALPix / tile / HiPS-order spine, deterministic tile-load replay (**EV-0024**), normalized **`hipsViewport`** + quadtree depth from **`hips_get_render_order`** (**EV-0032**–**EV-0033**), and full evidence closure. **`module2-stars-full`** is the active execution-order target (**EV-0035**); **`G0`/`G1`** are **PASS** (**EV-0036**, **`module2-source-contract.md`**). **Overall** stays **`BLOCKED`** until **`BLK-003`** is resolved (Stellarium **`src`** under **`study/`**) and subsequent gates close.
+**`module0-foundation-lock`** is **`COMPLETE`** (**EV-0019**). **`module1-hips-kernel`** is **`COMPLETE`** (**EV-0034**): **`eph-file.c`** / HEALPix / tile / HiPS-order spine, deterministic tile-load replay (**EV-0024**), normalized **`hipsViewport`** + quadtree depth from **`hips_get_render_order`** (**EV-0032**–**EV-0033**), and full evidence closure. **`module2-stars-full`** is the active execution-order target (**EV-0035**); **`G0`/`G1`** are **PASS** (**EV-0036**); Stellarium `src/` reference is pinned (**EV-0037**, **`BLK-003`** **RESOLVED**). **Overall** stays **`BLOCKED`** until **`G2`–`G7`** close.

@@ -1,6 +1,6 @@
 # Module 2 — Stars full (G1 anchor)
 
-This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **initial mapping** for **`module2-stars-full`** inventory rows (`hip.c` / `hip.h` / `stars.c` / `bv_to_rgb.c`). It satisfies **G1 SourceContractLock** for the **declared Hub surface** in §2; **line-level C parity** and **G2–G7** closure are **blocked** until **`BLK-003`** in **`blockers.md`** (Stellarium sources available under `study/`).
+This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **initial mapping** for **`module2-stars-full`** inventory rows (`hip.c` / `hip.h` / `stars.c` / `bv_to_rgb.c`). It satisfies **G1 SourceContractLock** for the **declared Hub surface** in §2; **line-level C parity** and **G2–G7** closure use the pinned Git reference in **`stellarium-web-engine-src.md`** (**`BLK-003`** **RESOLVED**, **EV-0037**); optional local tree under `study/` remains gitignored.
 
 **Authority:** `docs/runtime/port/README.md`. Reconcile **`module-inventory.md`** before changing Hub paths here.
 
@@ -8,7 +8,7 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **initial 
 
 ## 1. Stellarium sources in scope (inventory rows)
 
-Paths are relative to the Stellarium Web Engine tree referenced by **`module-inventory.md`** (expected under `study/.../src` once **BLK-003** is resolved).
+Paths are relative to the Stellarium Web Engine `src/` tree; see **`stellarium-web-engine-src.md`** for the pinned commit and raw URLs (**`BLK-003`** **RESOLVED**).
 
 | Source | Role |
 |---|---|
@@ -37,7 +37,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 
 ## 3. Behavioral notes
 
-1. **`BLK-003`:** There is **no** `study/**/*.c` tree in this workspace today, so §1 sources cannot be diffed or ported line-by-line. **Exit:** vendored or submodule path documented in **`blockers.md`**.
+1. **`BLK-003` (RESOLVED):** Authoritative C sources are pinned in **`stellarium-web-engine-src.md`** (GitHub **`63fb327…`**). A full local checkout may live under `study/` (gitignored); port diffs can use raw.githubusercontent.com or a local clone.
 2. **`resolveStarColorHex`** is a **Hub curve**, not a verified port of **`bv_to_rgb.c`** — **G2** debt until source is available and a golden or side-by-side check exists.
 3. **Module 1** already implements Eph tiles + HiPS order; **module 2** focuses on **stars module + color + point pipeline**, not duplicating **`eph-file.c`** (see **`module1-source-contract.md`**).
 
@@ -46,7 +46,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 ## 4. Change control
 
 - Renames or new Hub files in §2 require updates to this document, **`module-inventory.md`** notes (if mapping changes), and **`evidence-index.md`**.
-- Do not claim **G5** parity for §1 until **BLK-003** is **RESOLVED** or an approved alternative reference (e.g. pasted excerpts with version pin) is recorded in evidence.
+- Do not claim **G5** parity for §1 until Hub checks match **`stellarium-web-engine-src.md`** revision behavior (see **EV-0037**).
 
 ---
 
@@ -55,7 +55,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 | Gate | Note |
 |---|---|
 | G0 | **PASS** — four `module2-stars-full` file rows exist in **`module-inventory.md`** with **`BLOCKED`** + Planned Module. |
-| G1 | **PASS** for §1–§2 mapping as written; **G2–G7** remain **FAIL** until **`BLK-003`** and implementation/evidence waves. |
+| G1 | **PASS** for §1–§2 mapping as written; **G2–G7** remain **FAIL** until implementation/evidence waves. |
 
 ---
 
