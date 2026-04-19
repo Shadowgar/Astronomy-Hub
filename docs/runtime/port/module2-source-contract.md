@@ -28,6 +28,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 |---|---|
 | B−V → RGB (`bv_to_rgb.c` table port) | `frontend/src/features/sky-engine/engine/sky/adapters/bvToRgb.ts` (`bvToRgb`); **`frontend/tests/test_module2_bv_to_rgb.test.js`** (**EV-0038**) |
 | Star hex wrapper | `frontend/src/features/sky-engine/starRenderer.ts` (`resolveStarColorHex` → `bvToRgb`) |
+| `stars.c` `nuniq_to_pix` ↔ EPH tile header | `frontend/src/features/sky-engine/engine/sky/adapters/starsNuniq.ts` (`nuniqToHealpixOrderAndPix` → `decodeEphTileNuniq`); **`frontend/tests/test_module2_stars_nuniq.test.js`** (**EV-0039**) |
 | Stellarium point-size / tonemapper-style magnitude | `frontend/src/features/sky-engine/engine/sky/core/stellariumVisualMath.ts`; used from `starRenderer.ts` |
 | Stars runtime module (projection, limits, projected star list) | `frontend/src/features/sky-engine/engine/sky/runtime/modules/StarsModule.ts`, `runtimeFrame.ts` (`collectProjectedStars`, …) |
 | Star billboards / layer sync | `frontend/src/features/sky-engine/starObjectRenderer.ts`, `directStarLayer.ts` |
@@ -57,7 +58,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 |---|---|
 | G0 | **PASS** — four `module2-stars-full` file rows exist in **`module-inventory.md`** with **`BLOCKED`** + Planned Module. |
 | G1 | **PASS** for §1–§2 mapping as written. |
-| G2 | **Partial** — **`bv_to_rgb.c`** table ported to **`bvToRgb.ts`** (**EV-0038**); **`hip.c` / `stars.c`** still open. |
+| G2 | **Partial** — **`bv_to_rgb`** (**EV-0038**); **`nuniq_to_pix`** via **`starsNuniq.ts`** (**EV-0039**); **`hip.c` / full `stars.c`** still open. |
 | G3–G7 | **FAIL** until runtime/evidence waves for remaining §1 files. |
 
 ---

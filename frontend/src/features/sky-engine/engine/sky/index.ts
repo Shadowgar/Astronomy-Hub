@@ -14,6 +14,7 @@ export {
   resolveGaiaHealpixOrder,
 } from './adapters/hipsRenderOrder'
 export { bvToRgb } from './adapters/bvToRgb'
+export { healpixOrderPixToNuniq, nuniqToHealpixOrderAndPix } from './adapters/starsNuniq'
 export { resolveLimitingMagnitude } from './core/magnitudePolicy'
 export {
   getAllSkyTileDescriptors,

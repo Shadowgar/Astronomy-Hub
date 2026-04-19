@@ -49,6 +49,7 @@ This index links command runs, raw outputs, screenshots, and JSON artifacts used
 | EV-0036 | module2-stars-full | G0 / G1 | Inventory rows (`hip.c`, `hip.h`, `stars.c`, `bv_to_rgb.c`) + author **`module2-source-contract.md`** | `docs/runtime/port/module2-source-contract.md`, `docs/runtime/port/module-gates.md` (module 2 **`G0`/`G1`**) | PASS | G1 mapping for §1–§2 Hub targets. |
 | EV-0037 | module2-stars-full | G1 / G5 (reference) | Review **`stellarium-web-engine-src.md`** + **`blockers.md`** (**`BLK-003`** **RESOLVED**) | `docs/runtime/port/stellarium-web-engine-src.md` (commit **`63fb3279e85782158a6df63649f1c8a1837b7846`**) | PASS | Pinned **Stellarium/stellarium-web-engine** revision + `src/` paths for module 2 inventory rows; optional local `study/...` tree documented. |
 | EV-0038 | module2-stars-full | G2 (partial) | `npm run test:module2` (`vitest run tests/test_module2_bv_to_rgb.test.js`) | `bvToRgb.ts`, `starRenderer.ts` (`resolveStarColorHex`), `test_module2_bv_to_rgb.test.js`, `package.json` (`test:module2`) | PASS | Stellarium **`bv_to_rgb`** 128×3 **`COLORS`** table + index math ported; hex wrapper regression. |
+| EV-0039 | module2-stars-full | G2 / G3 (partial) | `npm run test:module2` (includes `test_module2_stars_nuniq.test.js`) | `starsNuniq.ts`, `ephCodec.ts` (`decodeEphTileNuniq`), `test_module2_stars_nuniq.test.js`, `.github/workflows/module2-stars.yml` | PASS | **`stars.c` `nuniq_to_pix`** documented alias to **`decodeEphTileNuniq`** (same as **`eph-file.c`**). |
 
 ## Rules
 
