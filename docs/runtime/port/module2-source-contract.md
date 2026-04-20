@@ -64,6 +64,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 15. Runtime stabilization pass: scene model sync cadence increased to `500ms` and wide-FOV repository query floor pinned to `6.5` to reduce lag and avoid near-empty star loads at startup (**EV-0057**). This is a stability stopgap, not final parity closure.
 16. Runtime projection stabilization: projected star count is capped by FOV tier (`>=90°: 2500`, `>=40°: 4500`, `>=15°: 7000`, else `12000`) and render-side limiting-magnitude floor also pins to `6.5` in `collectProjectedStars` to reduce frame churn while preserving visible stars during recovery (**EV-0058**).
 17. Toolbar interaction wiring: Deep Sky / Atmosphere / Landscape / Night Mode toggles now flow through shared `aidVisibility` state and directly gate runtime modules/layers, replacing UI-local-only toggle behavior (**EV-0059**).
+18. Additional lag mitigation: scene-model sync cadence is throttled to `1000ms`, and projected-star caps were tightened (`>=90°: 1200`, `>=40°: 2200`, `>=15°: 3500`, else `5000`) to reduce visible stutter on constrained hardware while parity work continues (**EV-0060**).
 
 ---
 
@@ -150,6 +151,7 @@ Hard constraints for continuation:
 | EV-0057 | Runtime stabilization: slower model-sync cadence + wide-FOV star floor |
 | EV-0058 | Runtime stabilization: FOV star caps + render-side star floor |
 | EV-0059 | Runtime interaction wiring: aidVisibility drives DSO/atmosphere/landscape/night mode |
+| EV-0060 | Runtime stabilization: 1000ms model cadence + tighter projected-star caps |
 
 
 ### CI

@@ -144,10 +144,10 @@ const EMPTY_PROJECTED_OBJECTS: readonly ProjectedSceneObjectEntry[] = []
 const SATELLITE_UNMODELED_MAGNITUDE_SENTINEL = 90
 
 function resolveProjectedStarCapForFov(fovDegrees: number) {
-  if (fovDegrees >= 90) return 2500
-  if (fovDegrees >= 40) return 4500
-  if (fovDegrees >= 15) return 7000
-  return 12000
+  if (fovDegrees >= 90) return 1200
+  if (fovDegrees >= 40) return 2200
+  if (fovDegrees >= 15) return 3500
+  return 5000
 }
 
 let cachedNonStarOrderSignature = ''
