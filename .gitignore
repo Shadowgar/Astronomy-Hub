@@ -78,9 +78,17 @@ Thumbs.db
 /frontend/public/sky-engine-assets/catalog/gaia/
 
 #study files
-/study
+/study/*
+!/study/module0-parity/
+!/study/module0-parity/requirements.txt
+!/study/module0-parity/verify_apco_vs_hub.py
+/study/stellarium-web-engine/
 /data/sky-engine/hipparcos/source/
 data/
+!frontend/src/features/sky-engine/data/
+!frontend/src/features/sky-engine/data/minorPlanetsCatalog.ts
+!frontend/src/features/sky-engine/data/cometsCatalog.ts
+!frontend/src/features/sky-engine/data/meteorShowersCatalog.ts
 *.db
 *.fits
 *.csv
