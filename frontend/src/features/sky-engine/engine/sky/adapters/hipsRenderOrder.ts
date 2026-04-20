@@ -11,6 +11,16 @@ export type HipsViewportHint = {
   tileWidthPx?: number
 }
 
+const HIPS_VIEWPORT_SIGNATURE_PRECISION = 1_000_000
+
+function quantizeViewportNumber(value: number) {
+  if (!Number.isFinite(value)) {
+    return 0
+  }
+
+  return Math.round(value * HIPS_VIEWPORT_SIGNATURE_PRECISION) / HIPS_VIEWPORT_SIGNATURE_PRECISION
+}
+
 /**
  * Single canonical string for `hipsViewport` in Gaia tile caches and `buildRuntimeTileQuerySignature`.
  * Keep all call sites on this helper so cache invalidation matches scene tile reloads.
@@ -20,7 +30,11 @@ export function formatHipsViewportKey(viewport: HipsViewportHint | undefined): s
     return 'novp'
   }
 
-  return `${viewport.windowHeightPx}:${viewport.projectionMat11}:${viewport.tileWidthPx ?? ''}`
+  const heightPx = Math.max(1, Math.round(viewport.windowHeightPx))
+  const projectionMat11 = quantizeViewportNumber(Math.abs(viewport.projectionMat11))
+  const tileWidthPx = viewport.tileWidthPx == null ? '' : Math.max(1, Math.round(viewport.tileWidthPx))
+
+  return `${heightPx}:${projectionMat11}:${tileWidthPx}`
 }
 
 /**
