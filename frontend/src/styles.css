@@ -2400,6 +2400,18 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   filter: opacity(1);
 }
 
+.bottom-button .hint {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  color: white;
+  width: 200px;
+}
+
+.bottom-button:hover .hint {
+  display: block;
+}
+
 .tbtcontainer {
   width: 300px;
   max-width: 300px;

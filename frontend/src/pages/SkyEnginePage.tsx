@@ -277,9 +277,11 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   const [skyCultureId, setSkyCultureId] = useState(initialSkyCultureId)
   const [inspectorOpen, setInspectorOpen] = useState(false)
   const [constellationArtVisible, setConstellationArtVisible] = useState(false)
+  const [atmosphereVisible, setAtmosphereVisible] = useState(true)
   const [landscapeVisible, setLandscapeVisible] = useState(true)
   const [deepSkyVisible, setDeepSkyVisible] = useState(true)
   const [nightModeVisible, setNightModeVisible] = useState(false)
+  const [fullscreenVisible, setFullscreenVisible] = useState(false)
   const deferredSearchQuery = useDeferredValue(searchQuery)
   const observer = useMemo(() => convertBackendObserver(backendScene), [backendScene])
   const initialViewState = useMemo(() => buildBackendViewState(backendScene), [backendScene])
@@ -652,17 +654,15 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
               <button type="button" className="tmenubt">{observer.label}</button>
             </div>
             <div className="sky-engine-page__toolbar-spacer" />
-            <button type="button" className={`bottom-button${aidVisibility.constellations ? ' on' : ''}`} onClick={() => toggleAid('constellations')} aria-label="Constellations"><img src={STELLARIUM_WEB_UI.constellationLines} alt="" /></button>
-            <button type="button" className={`bottom-button${constellationArtVisible ? ' on' : ''}`} onClick={() => setConstellationArtVisible((v) => !v)} aria-label="Constellations Art"><img src={STELLARIUM_WEB_UI.constellationArt} alt="" /></button>
-            <button type="button" className="bottom-button" onClick={() => sceneRef.current?.resetSceneTime()} aria-label="Atmosphere"><img src={STELLARIUM_WEB_UI.atmosphere} alt="" /></button>
-            <button type="button" className={`bottom-button${landscapeVisible ? ' on' : ''}`} onClick={() => setLandscapeVisible((v) => !v)} aria-label="Landscape"><img src={STELLARIUM_WEB_UI.landscape} alt="" /></button>
-            <button type="button" className={`bottom-button${aidVisibility.azimuthRing ? ' on' : ''}`} onClick={() => toggleAid('azimuthRing')} aria-label="Azimuthal Grid"><img src={STELLARIUM_WEB_UI.azimuthalGrid} alt="" /></button>
-            <button type="button" className={`bottom-button${aidVisibility.altitudeRings ? ' on' : ''}`} onClick={() => toggleAid('altitudeRings')} aria-label="Equatorial Grid"><img src={STELLARIUM_WEB_UI.equatorialGrid} alt="" /></button>
-            <button type="button" className={`bottom-button${deepSkyVisible ? ' on' : ''}`} onClick={() => setDeepSkyVisible((v) => !v)} aria-label="Deep Sky Objects"><img src={STELLARIUM_WEB_UI.nebulae} alt="" /></button>
-            <button type="button" className={`bottom-button${nightModeVisible ? ' on' : ''}`} onClick={() => setNightModeVisible((v) => !v)} aria-label="Night Mode"><img src={STELLARIUM_WEB_UI.nightMode} alt="" /></button>
-            <button type="button" className="bottom-button" onClick={() => sceneRef.current?.setPlaybackRate(1)} aria-label="Play">▶</button>
-            <button type="button" className="bottom-button" onClick={() => sceneRef.current?.togglePlayback()} aria-label="Pause">⏸</button>
-            <button type="button" className="bottom-button" onClick={() => sceneRef.current?.setSceneOffsetSeconds(0)} aria-label="Now">⟳</button>
+            <button type="button" className={`bottom-button${aidVisibility.constellations ? ' on' : ''}`} onClick={() => toggleAid('constellations')} aria-label="Constellations"><img src={STELLARIUM_WEB_UI.constellationLines} alt="" /><span className="hint">Constellations</span></button>
+            <button type="button" className={`bottom-button${constellationArtVisible ? ' on' : ''}`} onClick={() => setConstellationArtVisible((v) => !v)} aria-label="Constellations Art"><img src={STELLARIUM_WEB_UI.constellationArt} alt="" /><span className="hint">Constellations Art</span></button>
+            <button type="button" className={`bottom-button${atmosphereVisible ? ' on' : ''}`} onClick={() => setAtmosphereVisible((v) => !v)} aria-label="Atmosphere"><img src={STELLARIUM_WEB_UI.atmosphere} alt="" /><span className="hint">Atmosphere</span></button>
+            <button type="button" className={`bottom-button${landscapeVisible ? ' on' : ''}`} onClick={() => setLandscapeVisible((v) => !v)} aria-label="Landscape"><img src={STELLARIUM_WEB_UI.landscape} alt="" /><span className="hint">Landscape</span></button>
+            <button type="button" className={`bottom-button${aidVisibility.azimuthRing ? ' on' : ''}`} onClick={() => toggleAid('azimuthRing')} aria-label="Azimuthal Grid"><img src={STELLARIUM_WEB_UI.azimuthalGrid} alt="" /><span className="hint">Azimuthal Grid</span></button>
+            <button type="button" className={`bottom-button${aidVisibility.altitudeRings ? ' on' : ''}`} onClick={() => toggleAid('altitudeRings')} aria-label="Equatorial Grid"><img src={STELLARIUM_WEB_UI.equatorialGrid} alt="" /><span className="hint">Equatorial Grid</span></button>
+            <button type="button" className={`bottom-button${deepSkyVisible ? ' on' : ''}`} onClick={() => setDeepSkyVisible((v) => !v)} aria-label="Deep Sky Objects"><img src={STELLARIUM_WEB_UI.nebulae} alt="" /><span className="hint">Deep Sky Objects</span></button>
+            <button type="button" className={`bottom-button${nightModeVisible ? ' on' : ''}`} onClick={() => setNightModeVisible((v) => !v)} aria-label="Night Mode"><img src={STELLARIUM_WEB_UI.nightMode} alt="" /><span className="hint">Night Mode</span></button>
+            <button type="button" className={`bottom-button${fullscreenVisible ? ' on' : ''}`} onClick={() => setFullscreenVisible((v) => !v)} aria-label="Fullscreen"><span>⛶</span><span className="hint">Fullscreen</span></button>
             <div className="sky-engine-page__toolbar-spacer" />
             <button type="button" className="tmenubt" onClick={() => sceneRef.current?.togglePlayback()} aria-label="Time controls">
               <span className="text-subtitle-2">{localClockTimeLabel}</span>
