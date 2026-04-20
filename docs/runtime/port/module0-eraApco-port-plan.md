@@ -2,7 +2,7 @@
 
 **Goal:** match Stellarium `observer_update_full` (`observer.c` ~214–217) for terrestrial observers: **`eraApco(DJM0, tt, earth_pvb, earth_pvh[0], x, y, s, theta, elong, phi, hm, 0, 0, sp, 0, 0, &astrom)`** before `eraEors` / matrix refresh.
 
-**Source of truth:** `study/stellarium-web-engine/source/stellarium-web-engine-master/ext_src/erfa/erfa.c`.
+**Source of truth:** pinned upstream `ext_src/erfa/erfa.c` in `Stellarium/stellarium-web-engine` commit `63fb3279e85782158a6df63649f1c8a1837b7846`.
 
 ---
 

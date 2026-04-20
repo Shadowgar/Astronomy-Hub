@@ -1,6 +1,6 @@
 # Stellarium Source Module Inventory (Fail-Closed)
 
-Source root: `study/stellarium-web-engine/source/stellarium-web-engine-master/src`
+Source root: pinned upstream `Stellarium/stellarium-web-engine` `src/` (see `stellarium-web-engine-src.md`)
 
 Generated: 2026-04-18  
 Total C/H files: 146
@@ -258,5 +258,5 @@ File-level **`G0 InventoryLock`** means zero **`UNMAPPED`** rows (satisfied glob
 - IAU 2006 `eraObl06` / `eraPfw06` / `eraFw2m` / `eraPmat06` / `eraEcm06` in `runtime/erfaIau2006.ts`; `matrices.ri2e` / `matrices.re2i` from `eraEcm06` (no Stellarium `mat3_invert` naming swap — ERFA ICRS→ecliptic of date).
 - Module0 function rows use **`BLOCKED`** until **G5** side-by-side parity (or **`PORTED`** where noted, e.g. `deltat`). File-level inventory has **zero** **`UNMAPPED`** rows (**G0** satisfied); non–module-0 files remain **`BLOCKED`** with deferred AH work per planned module.
 - **G4 (Hub):** `runtime/module0ParityFingerprint.ts` + `tests/test_module0_deterministic_replay.test.js` (**EV-0011**) + `tests/test_module0_replay_astrom_golden_contract.test.js` + `tests/fixtures/module0_replay_astrom_goldens.json` (**EV-0017**); **BLK-000** tier-1 **RESOLVED**. **G5** PyERFA `apco` second runtime vs Hub: **EV-0018** / **BLK-002** **RESOLVED** (`study/module0-parity/`); native Stellarium C / WASM dumps remain optional.
-- **`eraEpv00` (Earth PV):** **PORTED** — generator `frontend/scripts/generate_erfa_epv00_tables.mjs`, `erfaEpv00Tables.generated.ts`, `erfaEpv00.ts`, `frontend/tests/test_erfa_epv00.test.js`; `observerDerivedGeometry` sets **`earthPv`** / **`sunPv`** and feeds **`pvb`** / **`pvh[0]`** into **`eraApco`**. Evidence **EV-0014**.
+- **`eraEpv00` (Earth PV):** **PORTED** — vendored `erfaEpv00Tables.generated.ts`, `erfaEpv00.ts`, `frontend/tests/test_erfa_epv00.test.js`; `observerDerivedGeometry` sets **`earthPv`** / **`sunPv`** and feeds **`pvb`** / **`pvh[0]`** into **`eraApco`**. Evidence **EV-0014**.
 - **`eraApcs` / `eraApco`:** **`eraApcs`** **PORTED** (`erfaApcs.ts`, **EV-0015**); **`eraApco`** **PORTED** (`erfaApco.ts`, SOFA vector test, **EV-0016**). **`deriveObserverGeometry`** fills **`SkyObserverDerivedGeometry.astrom`**. **`eraAb` / `eraLdsun`**, **`convertObserverFrameVector`**, **`SkyEngineQuery.observerFrameAstrometry`** → **`assembleSkyScenePacket` / `raDecToObserverUnitVector`** (`erfaAbLdsun.ts`, **`observerAstrometryMerge.ts`**, **`SkyEngineScene.tsx`**); procedural Milky Way uses the same snapshot via **`ScenePropsSnapshot.observerFrameAstrometry`** in **`MilkyWayModule`**.

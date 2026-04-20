@@ -1,6 +1,6 @@
 # Module 2 — Stars full (G1 anchor)
 
-This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **initial mapping** for **`module2-stars-full`** inventory rows (`hip.c` / `hip.h` / `stars.c` / `bv_to_rgb.c`). It satisfies **G1 SourceContractLock** for the **declared Hub surface** in §2; **line-level C parity** and **G2–G7** closure use the pinned Git reference in **`stellarium-web-engine-src.md`** (**`BLK-003`** **RESOLVED**, **EV-0037**); optional local tree under `study/` remains gitignored.
+This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **initial mapping** for **`module2-stars-full`** inventory rows (`hip.c` / `hip.h` / `stars.c` / `bv_to_rgb.c`). It satisfies **G1 SourceContractLock** for the **declared Hub surface** in §2; **line-level C parity** and **G2–G7** closure use the pinned Git reference in **`stellarium-web-engine-src.md`** (**`BLK-003`** **RESOLVED**, **EV-0037**).
 
 **Authority:** `docs/runtime/port/README.md`. Reconcile **`module-inventory.md`** before changing Hub paths here.
 
@@ -46,7 +46,8 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 
 ## 3. Behavioral notes
 
-1. **`BLK-003` (RESOLVED):** Authoritative C sources are pinned in **`stellarium-web-engine-src.md`** (GitHub **`63fb327…`**). A full local checkout may live under `study/` (gitignored); port diffs can use raw.githubusercontent.com or a local clone.
+0. **Exact parity rule:** the module target is exact source parity, not "Stellarium-like" interpretation. If source behavior exists, port that behavior directly.
+1. **`BLK-003` (RESOLVED):** Authoritative C sources are pinned in **`stellarium-web-engine-src.md`** (GitHub **`63fb327…`**). Use pinned upstream URLs/commit for parity reference.
 2. **`bvToRgb`** reproduces the **`COLORS`** table and index math from **`bv_to_rgb.c`**; **`resolveStarColorHex`** maps linear RGB to 8-bit sRGB hex for rendering.
 3. **Module 1** already implements Eph tiles + HiPS order; **module 2** focuses on **stars module + color + point pipeline**, not duplicating **`eph-file.c`** (see **`module1-source-contract.md`**).
 4. **`hip_get_pix`** uses vendored **`PIX_ORDER_2`** bytes from **`hipPixOrder2.generated.ts`** (no runtime or tooling dependency on an external Stellarium tree) (**EV-0041**).
@@ -55,13 +56,14 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 7. `SkyEngineScene` runtime star-object assembly now consumes the helper and surfaces HIP lookup status in star `truthNote` on the live scene path (**EV-0045**).
 8. HIP-backed stars now carry stable detail route identity **`hip/<id>`** for runtime selection/detail continuity (**EV-0046**).
 9. Selection state uses stable HIP `detailRoute` fallback and then rebinds `selectedObjectId` to the active runtime object id when survey tile ids change (**EV-0047**).
-10. Scene-time bootstrap now shifts to night during local daytime to keep startup star visibility; HUD copy/style is being aligned toward Stellarium semantics on the active viewport shell (**EV-0048**).
-11. HUD controls are now grouped in a Stellarium-like structure (center actions + right time controls) while keeping current runtime hooks intact (**EV-0049**).
-12. HUD chrome is now icon-first and more compact (top tools, search submit, aid toggles) to reduce Hub-specific text density and move closer to Stellarium control ergonomics (**EV-0050**).
-13. A left vertical tool dock now anchors key controls (constellation/azimuth/equatorial grids, UI toggle, time reset) and top/bottom overlays are shifted to match the docked Stellarium-like control geometry (**EV-0051**).
-14. Time transport/scale controls moved into a dedicated right-side dock while bottom HUD was simplified to center-strip actions, matching Stellarium-like docked control zoning (**EV-0052**).
-15. Stellarium **`apps/simple-html/static/imgs/symbols`** toolbar SVGs are vendored under **`frontend/public/stellarium-web/`** and wired via **`stellariumWebUiAssets.ts`** for grid/constellation/search chrome fidelity (**EV-0053**).
-16. **`computeModule2PortFingerprint`** now includes **`coreGetPointForMagnitude`** samples and a view-tier/label-cap mirror of **`resolveViewTier`** for stronger G4 drift detection (**EV-0054**).
+10. HUD controls are grouped around the same top-bar and bottom-bar composition used by the reference UI while preserving current runtime hooks (**EV-0049**, **EV-0050**).
+11. Earlier experimental left/right dock UI passes are historical only and were reverted to keep parity with reference composition (see **`evidence-index.md`** notes for **EV-0051** and **EV-0052**).
+12. Upstream toolbar SVG assets are vendored under **`frontend/public/stellarium-web/`** and wired via **`stellariumWebUiAssets.ts`** so runtime UI is self-contained (**EV-0053**).
+13. **`computeModule2PortFingerprint`** includes **`coreGetPointForMagnitude`** samples and a view-tier/label-cap mirror of **`resolveViewTier`** for stronger G4 drift detection (**EV-0054**).
+14. User-facing branding in the Sky-Engine UI must not show the word `Stellarium`; preserve parity through structure/behavior/assets instead of upstream branding text.
+15. Runtime stabilization pass: scene model sync cadence increased to `500ms` and wide-FOV repository query floor pinned to `6.5` to reduce lag and avoid near-empty star loads at startup (**EV-0057**). This is a stability stopgap, not final parity closure.
+16. Runtime projection stabilization: projected star count is capped by FOV tier (`>=90°: 2500`, `>=40°: 4500`, `>=15°: 7000`, else `12000`) and render-side limiting-magnitude floor also pins to `6.5` in `collectProjectedStars` to reduce frame churn while preserving visible stars during recovery (**EV-0058**).
+17. Toolbar interaction wiring: Deep Sky / Atmosphere / Landscape / Night Mode toggles now flow through shared `aidVisibility` state and directly gate runtime modules/layers, replacing UI-local-only toggle behavior (**EV-0059**).
 
 ---
 
@@ -93,7 +95,12 @@ Rows: **`src/hip.c`**, **`src/hip.h`**, **`src/modules/stars.c`**, **`src/algos/
 
 ## 7. Handoff for external agents (e.g. Codex / new chat)
 
-Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0054), this file §2–§5.
+Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0056), this file §2–§5.
+
+Hard constraints for continuation:
+- Port for exact parity (logic/UI behavior), not approximation.
+- Keep runtime/tooling self-contained in Astronomy Hub (no active dependency on external local source trees).
+- Do not show `Stellarium` as user-facing UI branding text in Sky-Engine.
 
 ### Where to implement module 2 work
 
@@ -133,13 +140,16 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 | EV-0045 | `SkyEngineScene` live runtime wiring for HIP lookup status |
 | EV-0046 | Stable HIP detail routes (`hip/<id>`) on runtime star objects |
 | EV-0047 | Selection continuity via HIP detailRoute fallback + selected id resync |
-| EV-0048 | Night-visible startup bias + Stellarium-style HUD copy/styling pass |
+| EV-0048 | Historical UI/staging pass (superseded by later direct-parity updates) |
 | EV-0049 | Stellarium-like HUD control-strip grouping in active viewport |
 | EV-0050 | Icon-first compact Stellarium control chrome pass |
-| EV-0051 | Left vertical tool dock + dock-aligned overlay geometry |
-| EV-0052 | Right time dock + simplified bottom action strip |
+| EV-0051 | Historical left-dock experiment (later reverted) |
+| EV-0052 | Historical right-dock experiment (later reverted) |
 | EV-0053 | Vendored Stellarium simple-html toolbar SVGs + hub shell / phase layout |
 | EV-0054 | Extended **`computeModule2PortFingerprint`** (point math + view tier) |
+| EV-0057 | Runtime stabilization: slower model-sync cadence + wide-FOV star floor |
+| EV-0058 | Runtime stabilization: FOV star caps + render-side star floor |
+| EV-0059 | Runtime interaction wiring: aidVisibility drives DSO/atmosphere/landscape/night mode |
 
 
 ### CI
@@ -152,6 +162,7 @@ Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit)
 1. **`stars.c`** — render path, surveys, `obj_get_by_hip`-style resolution beyond current tile merge; align with pinned C where Hub exposes stars objects.
 2. **G4** — extend deterministic coverage further (e.g. **`StarsModule`** projection cache signature / scene packet slice) beyond **`computeModule2PortFingerprint`** (**EV-0043**, **EV-0054**).
 3. **Tests** — synthetic fixtures: if a star uses a fake **`HIP N`** with coordinates that do not match **`PIX_ORDER_2`**, merge will drop it (**EV-0042**); use no-HIP ids or catalog-consistent RA/Dec.
+4. **Runtime blockers before deeper parity:** profile frame pacing with active sky scene + overlays now that primary toolbar toggles are runtime-wired; treat this as P0 before additional UI parity deltas.
 
 ### Fixture pitfall (tests)
 

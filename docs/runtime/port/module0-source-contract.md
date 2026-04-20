@@ -8,7 +8,7 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoi
 
 ## 1. Stellarium sources in scope (this contract)
 
-| Source (under `study/.../src`) | Role |
+| Source (under pinned upstream `src/`) | Role |
 |---|---|
 | `observer.c` | `observer_update` / `_fast` / `_full`, `update_matrices`, `observer_compute_hash` seam |
 | `observer.h` | `observer_t` shape (logical; Hub uses TS types) |
@@ -27,7 +27,7 @@ This document **freezes** the Astronomy Hub ↔ Stellarium Web Engine **entrypoi
 
 **`eraApcs` (partial):** ICRS↔GCRS star-independent block — `erfaApcs.ts`, `test_erfa_apcs.test.js` (**EV-0015**).
 
-**`eraEpv00` (partial):** VSOP2000 Earth PV is ported (`frontend/scripts/generate_erfa_epv00_tables.mjs` → `erfaEpv00Tables.generated.ts`, `erfaEpv00.ts`, `tests/test_erfa_epv00.test.js`). `observerDerivedGeometry` fills **`earthPv`** / **`sunPv`** and passes full **`pvb`** / **`pvh[0]`** into **`eraApco`** (**EV-0014** + plan `module0-eraEpv00-port-plan.md`).
+**`eraEpv00` (partial):** VSOP2000 Earth PV is ported (vendored `erfaEpv00Tables.generated.ts`, `erfaEpv00.ts`, `tests/test_erfa_epv00.test.js`). `observerDerivedGeometry` fills **`earthPv`** / **`sunPv`** and passes full **`pvb`** / **`pvh[0]`** into **`eraApco`** (**EV-0014** + plan `module0-eraEpv00-port-plan.md`).
 
 ---
 

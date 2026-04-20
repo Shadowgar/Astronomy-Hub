@@ -143,6 +143,13 @@ const STAR_MAGNITUDE_BREAK_MARGIN = 0
 const EMPTY_PROJECTED_OBJECTS: readonly ProjectedSceneObjectEntry[] = []
 const SATELLITE_UNMODELED_MAGNITUDE_SENTINEL = 90
 
+function resolveProjectedStarCapForFov(fovDegrees: number) {
+  if (fovDegrees >= 90) return 2500
+  if (fovDegrees >= 40) return 4500
+  if (fovDegrees >= 15) return 7000
+  return 12000
+}
+
 let cachedNonStarOrderSignature = ''
 let cachedNonStarObjects: SkyEngineSceneObject[] = []
 
@@ -743,7 +750,9 @@ export function collectProjectedStars(input: CollectProjectedStarsInput): Projec
   const limitingMagnitude = Math.max(
     input.brightnessExposureState.limitingMagnitude,
     input.scenePacket?.diagnostics?.limitingMagnitude ?? Number.NEGATIVE_INFINITY,
+    6.5,
   )
+  const projectedStarCap = resolveProjectedStarCapForFov(fovDegrees)
   const objectLookup = new Map(input.objects.map((object) => [object.id, object]))
   const projectedStars: ProjectedSceneObjectEntry[] = []
   const viewportMinSizePx = Math.min(input.view.viewportWidth, input.view.viewportHeight)
@@ -775,6 +784,9 @@ export function collectProjectedStars(input: CollectProjectedStarsInput): Projec
 
     if (attempt.entry) {
       projectedStars.push(attempt.entry)
+      if (projectedStars.length >= projectedStarCap) {
+        break
+      }
     }
     if (attempt.shouldBreak) {
       break

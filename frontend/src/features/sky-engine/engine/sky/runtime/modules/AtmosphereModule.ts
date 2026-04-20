@@ -21,6 +21,22 @@ export function createAtmosphereModule(): SkyModule<ScenePropsSnapshot, SceneRun
         projectedFrame.currentFovDegrees,
         brightnessExposureState,
       )
+      if (!latest.aidVisibility.atmosphere) {
+        runtime.directBackgroundLayer.syncAtmosphere({
+          ...atmosphereFrame,
+          backdropAlpha: 0,
+          exposureOpacity: 0,
+          twilightStrength: 0,
+          twilightLowerBandIntensity: 0,
+          horizonGlowStrength: 0,
+          zenithDarkening: 0,
+          nightFloorStrength: 0,
+          patches: [],
+          glare: null,
+        })
+        return
+      }
+
       runtime.directBackgroundLayer.syncAtmosphere(atmosphereFrame)
     },
   }

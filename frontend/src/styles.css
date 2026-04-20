@@ -2337,14 +2337,34 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   color: rgba(238, 244, 255, 0.96);
 }
 
-#stellarium-web-toolbar-logo {
+.sky-engine-page__brand-mark {
   margin-right: 10px;
-  margin-left: 30px;
+  margin-left: 24px;
+  width: 30px;
+  text-align: center;
+  font-size: 1.15rem;
+  line-height: 1;
+  color: rgba(241, 247, 255, 0.96);
 }
 
 .tsearch {
   z-index: 2;
-  width: min(36rem, 54vw);
+  width: min(24rem, 40vw);
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.sky-engine-page__search-icon {
+  position: absolute;
+  left: 8px;
+  color: rgba(207, 220, 240, 0.9);
+  font-size: 0.92rem;
+  pointer-events: none;
+}
+
+.sky-engine-page__search-input {
+  padding-left: 1.5rem;
 }
 
 .subheader {
@@ -2428,6 +2448,10 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   padding: 0.32rem 0.52rem;
   font-size: 0.68rem;
   text-transform: uppercase;
+  max-width: 292px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .text-subtitle-2 {
@@ -2462,6 +2486,8 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 44px;
+  padding: 0 8px;
 }
 
 .sky-engine-page__bottom-toolbar-buttons {
@@ -2471,12 +2497,25 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   display: flex;
   align-items: center;
   gap: 2px;
+  z-index: 1;
 }
 
 .tbtcontainer--left,
 .tbtcontainer--right {
-  width: auto;
+  position: absolute;
+  z-index: 2;
+  width: 300px;
+  max-width: 300px;
   min-width: 0;
+}
+
+.tbtcontainer--left {
+  left: 8px;
+}
+
+.tbtcontainer--right {
+  right: 8px;
+  justify-content: flex-end;
 }
 
 .sky-engine-page__overlay--selected-object {

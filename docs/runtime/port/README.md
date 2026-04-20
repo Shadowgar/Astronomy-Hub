@@ -1,20 +1,23 @@
 # Sky Engine Stellarium Port Canon
 
-This directory is the only canonical documentation set for the Stellarium source port into Astronomy Hub Sky Engine.
+This directory is the only canonical documentation set for the Sky-Engine source port into Astronomy Hub.
 
 General Hub docs are frozen for this effort. If there is a conflict between this directory and other docs, this directory wins.
 
 ## Completion Contract
 
-- Goal: source-faithful port of Stellarium Web Engine behaviors into Sky Engine.
+- Goal: source-faithful port of Stellarium Web Engine behaviors into Sky-Engine.
+- Port quality bar: **exact parity target** (logic, UI structure, control behavior). Do not ship "style-like" approximations when reference behavior exists.
 - Coverage policy: fail-closed.
-  - Every source file/function under `study/stellarium-web-engine/source/stellarium-web-engine-master/src` must be mapped.
+  - Every source file/function under pinned upstream `src/` must be mapped (see `stellarium-web-engine-src.md`).
   - Allowed mapping states:
     - `PORTED`
     - `OUT-OF-SCOPE` (requires explicit user approval recorded in `module-inventory.md`)
     - `BLOCKED`
     - `UNMAPPED` (automatic fail state)
 - No module can be marked complete with any `UNMAPPED` item in scope.
+- Runtime and active tooling must not require external local source trees (`study/...`); Hub must stay self-contained.
+- User-facing UI branding must not display the word `Stellarium`.
 
 ## Canonical Files
 
@@ -28,6 +31,7 @@ General Hub docs are frozen for this effort. If there is a conflict between this
 - `module0-eraApco-port-plan.md`: **`eraApco`** dependency graph (`eraApcs` … `eraPvtob`) and Hub `astrom` seam checklist
 - `module1-source-contract.md`: **G1** Hub ↔ source mapping for **`module1-hips-kernel`** (tile / Eph / HEALPix spine; **PASS** for §1–§2; see file §5–§6)
 - `module2-source-contract.md`: **G1** Hub ↔ source mapping for **`module2-stars-full`** (`hip` / `stars` / `bv_to_rgb` inventory rows; **PASS** for §1–§2; C reference: **`stellarium-web-engine-src.md`**). **§7** = handoff for external agents (paths, `npm run test:module2`, open work).
+- `AUDIT-2026-04-20.md`: Codex handoff audit and runtime-port doc consistency closure (**EV-0056**).
 
 ## Module Completion Rule
 
@@ -49,4 +53,4 @@ Status values are strict:
 
 No partial statuses are allowed.
 
-**`module0-foundation-lock`** is **`COMPLETE`** (**EV-0019**). **`module1-hips-kernel`** is **`COMPLETE`** (**EV-0034**): **`eph-file.c`** / HEALPix / tile / HiPS-order spine, deterministic tile-load replay (**EV-0024**), normalized **`hipsViewport`** + quadtree depth from **`hips_get_render_order`** (**EV-0032**–**EV-0033**), and full evidence closure. **`module2-stars-full`** is the active execution-order target (**EV-0035**); **`G0`/`G1`** **PASS** (**EV-0036**). Hub subset progress: **EV-0038**–**EV-0047** (`bv_to_rgb`, `nuniq`, `limit_mag`, `hip_get_pix`, tile-merge HIP check, `obj_get_by_hip`-style lookup seam, live scene runtime HIP lookup wiring, stable HIP detail route identity, selection continuity with id-resync, **G4** port fingerprint). **Overall** **`BLOCKED`** until remaining gates close; see **`module2-source-contract.md` §5–§7** and **`evidence-index.md`** (through **EV-0047**).
+**`module0-foundation-lock`** is **`COMPLETE`** (**EV-0019**). **`module1-hips-kernel`** is **`COMPLETE`** (**EV-0034**): **`eph-file.c`** / HEALPix / tile / HiPS-order spine, deterministic tile-load replay (**EV-0024**), normalized **`hipsViewport`** + quadtree depth from **`hips_get_render_order`** (**EV-0032**–**EV-0033**), and full evidence closure. **`module2-stars-full`** is the active execution-order target (**EV-0035**); **`G0`/`G1`** **PASS** (**EV-0036**). Hub subset progress includes stars pipeline parity and UI structure/asset parity hardening (**EV-0038**–**EV-0056**). **Overall** **`BLOCKED`** until remaining gates close; see **`module2-source-contract.md` §5–§7** and **`evidence-index.md`**.

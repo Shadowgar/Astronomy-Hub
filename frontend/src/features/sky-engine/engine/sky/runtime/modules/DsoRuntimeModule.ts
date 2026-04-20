@@ -6,10 +6,16 @@ export function createDsoRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRun
     id: 'sky-dso-runtime-module',
     renderOrder: 25,
     render({ runtime, getProps }) {
+      const latest = getProps()
       const projectedFrame = runtime.projectedSceneFrame
 
       if (!projectedFrame) {
         runtime.directDsoLayer.sync([], 0, 0, null)
+        return
+      }
+
+      if (!latest.aidVisibility.deepSky) {
+        runtime.directDsoLayer.sync([], projectedFrame.width, projectedFrame.height, latest.selectedObjectId)
         return
       }
 
@@ -18,7 +24,7 @@ export function createDsoRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRun
         runtime.projectedDsoObjects,
         projectedFrame.width,
         projectedFrame.height,
-        getProps().selectedObjectId,
+        latest.selectedObjectId,
       )
       const syncElapsedMs = performance.now() - syncStartMs
 

@@ -75,7 +75,7 @@ import { resolveStarColorHex } from './starRenderer'
 import type { SkyEngineAidVisibility, SkyEngineSceneObject, SkyEngineSunState } from './types'
 
 const UI_SNAPSHOT_CADENCE_MS = 150
-const RUNTIME_MODEL_SYNC_CADENCE_MS = 200
+const RUNTIME_MODEL_SYNC_CADENCE_MS = 500
 const DEGREES_TO_RADIANS = Math.PI / 180
 const STELLARIUM_QUERY_TONEMAPPER_EXPOSURE = 2
 
@@ -136,7 +136,7 @@ function resolveSceneQueryLimitingMagnitude(config: {
         : fovDegrees <= 5 ? 11.8
           : fovDegrees <= 10 ? 10.5
             : fovDegrees <= 20 ? 9.2
-              : Number.NEGATIVE_INFINITY
+              : 6.5
   return Math.max(computedLimitingMagnitude, minimumByFov)
 }
 
@@ -175,7 +175,15 @@ export interface SkyEngineSceneHandle {
 }
 
 function createAidVisibilitySignature(aidVisibility: SkyEngineAidVisibility) {
-  return [aidVisibility.constellations, aidVisibility.azimuthRing, aidVisibility.altitudeRings]
+  return [
+    aidVisibility.constellations,
+    aidVisibility.azimuthRing,
+    aidVisibility.altitudeRings,
+    aidVisibility.atmosphere,
+    aidVisibility.landscape,
+    aidVisibility.deepSky,
+    aidVisibility.nightMode,
+  ]
     .map((value) => (value ? '1' : '0'))
     .join(':')
 }

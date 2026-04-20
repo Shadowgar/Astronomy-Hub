@@ -1,6 +1,6 @@
 # Stellarium Web Engine — source reference (for port contracts)
 
-This file gives an **authoritative Git reference** and **paths** into the Stellarium Web Engine C sources used by **`module-inventory.md`**. It exists so **`BLK-003`** can be closed without vendoring C files into Git when **`/study`** is gitignored (local checkouts remain optional).
+This file gives an **authoritative Git reference** and **paths** into the Stellarium Web Engine C sources used by **`module-inventory.md`**.
 
 ## Upstream
 
@@ -10,13 +10,9 @@ This file gives an **authoritative Git reference** and **paths** into the Stella
 
 ## Layout
 
-After cloning or extracting the archive, sources live under:
+For parity references, treat the pinned repository layout as canonical:
 
 `src/` (repository root)
-
-A common local layout in this repo (gitignored) is:
-
-`study/stellarium-web-engine/source/stellarium-web-engine-master/src/`
 
 ## Module 2 (`module2-stars-full`) — inventory paths
 
@@ -39,6 +35,6 @@ The upstream demo ships toolbar SVGs under:
 
 Astronomy Hub copies selected icons into `frontend/public/stellarium-web/` (same pinned commit) for the sky viewport chrome; see **`frontend/src/pages/stellariumWebUiAssets.ts`** and evidence **EV-0053**.
 
-## Note on `/study` and Git
+## Reference usage rule
 
-The repo root **`.gitignore`** includes `/study`, so local trees are not committed. Port work should still treat the **GitHub revision above** as the contract reference; CI and reviewers can fetch via raw URLs or clone at the pinned commit.
+Port work should treat the pinned GitHub revision above as the contract reference. Runtime and active tooling in Astronomy Hub must remain self-contained and must not require a local external source tree.

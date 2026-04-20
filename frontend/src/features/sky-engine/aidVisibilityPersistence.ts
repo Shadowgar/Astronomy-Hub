@@ -6,6 +6,10 @@ export const DEFAULT_SKY_ENGINE_AID_VISIBILITY: SkyEngineAidVisibility = {
   constellations: false,
   azimuthRing: false,
   altitudeRings: false,
+  atmosphere: true,
+  landscape: true,
+  deepSky: true,
+  nightMode: false,
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -21,6 +25,10 @@ export function normalizePersistedAidVisibility(value: unknown): SkyEngineAidVis
     constellations: value.constellations === true,
     azimuthRing: value.azimuthRing === true,
     altitudeRings: value.altitudeRings === true,
+    atmosphere: typeof value.atmosphere === 'boolean' ? value.atmosphere : DEFAULT_SKY_ENGINE_AID_VISIBILITY.atmosphere,
+    landscape: typeof value.landscape === 'boolean' ? value.landscape : DEFAULT_SKY_ENGINE_AID_VISIBILITY.landscape,
+    deepSky: typeof value.deepSky === 'boolean' ? value.deepSky : DEFAULT_SKY_ENGINE_AID_VISIBILITY.deepSky,
+    nightMode: value.nightMode === true,
   }
 }
 

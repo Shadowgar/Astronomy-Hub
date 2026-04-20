@@ -8,7 +8,7 @@ This document freezes the Astronomy Hub ↔ Stellarium **`module1-hips-kernel`**
 
 ## 1. Stellarium sources in scope (this contract)
 
-| Source (under `study/.../src`) | Role |
+| Source (under pinned upstream `src/`) | Role |
 |---|---|
 | `hips.c`, `hips.h` | HiPS survey runtime (Hub: partial — catalog tiles + healpix helpers; reference **`hips_get_render_order`** in **`hipsRenderOrder.ts`**, **EV-0029**; not full imagery HiPS). |
 | `eph-file.c`, `eph-file.h` | Packed Eph tile blobs — mirrored by **`ephCodec`** for Gaia/Hipparcos tile payloads. |

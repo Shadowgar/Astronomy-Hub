@@ -281,11 +281,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   const [skyCultureId, setSkyCultureId] = useState(initialSkyCultureId)
   const [inspectorOpen, setInspectorOpen] = useState(false)
   const [constellationArtVisible, setConstellationArtVisible] = useState(false)
-  const [atmosphereVisible, setAtmosphereVisible] = useState(true)
-  const [landscapeVisible, setLandscapeVisible] = useState(true)
-  const [deepSkyVisible, setDeepSkyVisible] = useState(true)
   const [equatorialJ2000Visible, setEquatorialJ2000Visible] = useState(false)
-  const [nightModeVisible, setNightModeVisible] = useState(false)
   const [fullscreenVisible, setFullscreenVisible] = useState(false)
   const deferredSearchQuery = useDeferredValue(searchQuery)
   const observer = useMemo(() => convertBackendObserver(backendScene), [backendScene])
@@ -626,8 +622,8 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
           <div className="sky-engine-page__overlay sky-engine-page__overlay--top-bar get-click" id="toolbar-image">
             <div className="sky-engine-page__top-bar" aria-label="Sky toolbar">
               <Link className="sky-engine-page__toolbar-menu-btn" to="/" title="Main menu" aria-label="Main menu">☰</Link>
-              <img id="stellarium-web-toolbar-logo" src={STELLARIUM_WEB_UI.pointer} width={30} height={30} alt="" />
-              <span className="tbtitle">Sky-Engine<sup>Web</sup></span>
+              <span className="sky-engine-page__brand-mark" aria-hidden="true">☽</span>
+              <span className="tbtitle">Sky Engine<sup>Web</sup></span>
               <div className="sky-engine-page__toolbar-spacer" />
               <form
                 className="tsearch"
@@ -637,6 +633,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                   selectObjectFromSearch(searchQuery)
                 }}
               >
+                <span className="sky-engine-page__search-icon" aria-hidden="true">⌕</span>
                 <input
                   id="sky-engine-target-search"
                   className="sky-engine-page__search-input"
@@ -674,13 +671,13 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
               <div className="sky-engine-page__bottom-toolbar-buttons">
                 <button type="button" className={`bottom-button${aidVisibility.constellations ? ' on' : ''}`} onClick={() => toggleAid('constellations')} aria-label="Constellations"><img src={STELLARIUM_WEB_UI.constellationLines} alt="" /><span className="hint">Constellations</span></button>
                 <button type="button" className={`bottom-button${constellationArtVisible ? ' on' : ''}`} onClick={() => setConstellationArtVisible((v) => !v)} aria-label="Constellations Art"><img src={STELLARIUM_WEB_UI.constellationArt} alt="" /><span className="hint">Constellations Art</span></button>
-                <button type="button" className={`bottom-button${atmosphereVisible ? ' on' : ''}`} onClick={() => setAtmosphereVisible((v) => !v)} aria-label="Atmosphere"><img src={STELLARIUM_WEB_UI.atmosphere} alt="" /><span className="hint">Atmosphere</span></button>
-                <button type="button" className={`bottom-button${landscapeVisible ? ' on' : ''}`} onClick={() => setLandscapeVisible((v) => !v)} aria-label="Landscape"><img src={STELLARIUM_WEB_UI.landscape} alt="" /><span className="hint">Landscape</span></button>
+                <button type="button" className={`bottom-button${aidVisibility.atmosphere ? ' on' : ''}`} onClick={() => toggleAid('atmosphere')} aria-label="Atmosphere"><img src={STELLARIUM_WEB_UI.atmosphere} alt="" /><span className="hint">Atmosphere</span></button>
+                <button type="button" className={`bottom-button${aidVisibility.landscape ? ' on' : ''}`} onClick={() => toggleAid('landscape')} aria-label="Landscape"><img src={STELLARIUM_WEB_UI.landscape} alt="" /><span className="hint">Landscape</span></button>
                 <button type="button" className={`bottom-button${aidVisibility.azimuthRing ? ' on' : ''}`} onClick={() => toggleAid('azimuthRing')} aria-label="Azimuthal Grid"><img src={STELLARIUM_WEB_UI.azimuthalGrid} alt="" /><span className="hint">Azimuthal Grid</span></button>
                 <button type="button" className={`bottom-button${aidVisibility.altitudeRings ? ' on' : ''}`} onClick={() => toggleAid('altitudeRings')} aria-label="Equatorial Grid"><img src={STELLARIUM_WEB_UI.equatorialGrid} alt="" /><span className="hint">Equatorial Grid</span></button>
                 <button type="button" className={`bottom-button${equatorialJ2000Visible ? ' on' : ''}`} onClick={() => setEquatorialJ2000Visible((v) => !v)} aria-label="Equatorial J2000 Grid"><img src={STELLARIUM_WEB_UI.equatorialGrid} alt="" /><span className="hint">Equatorial J2000 Grid</span></button>
-                <button type="button" className={`bottom-button${deepSkyVisible ? ' on' : ''}`} onClick={() => setDeepSkyVisible((v) => !v)} aria-label="Deep Sky Objects"><img src={STELLARIUM_WEB_UI.nebulae} alt="" /><span className="hint">Deep Sky Objects</span></button>
-                <button type="button" className={`bottom-button${nightModeVisible ? ' on' : ''}`} onClick={() => setNightModeVisible((v) => !v)} aria-label="Night Mode"><img src={STELLARIUM_WEB_UI.nightMode} alt="" /><span className="hint">Night Mode</span></button>
+                <button type="button" className={`bottom-button${aidVisibility.deepSky ? ' on' : ''}`} onClick={() => toggleAid('deepSky')} aria-label="Deep Sky Objects"><img src={STELLARIUM_WEB_UI.nebulae} alt="" /><span className="hint">Deep Sky Objects</span></button>
+                <button type="button" className={`bottom-button${aidVisibility.nightMode ? ' on' : ''}`} onClick={() => toggleAid('nightMode')} aria-label="Night Mode"><img src={STELLARIUM_WEB_UI.nightMode} alt="" /><span className="hint">Night Mode</span></button>
                 <button type="button" className={`bottom-button${fullscreenVisible ? ' on' : ''}`} onClick={toggleFullscreen} aria-label="Fullscreen"><img src={fullscreenVisible ? STELLARIUM_WEB_UI.fullscreenExit : STELLARIUM_WEB_UI.fullscreen} alt="" /><span className="hint">Fullscreen</span></button>
               </div>
               <div className="tbtcontainer tbtcontainer--right">
@@ -705,7 +702,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
           </div>
         </div>
 
-        <div id="nightmode" className={`sky-engine-page__nightmode${nightModeVisible ? ' sky-engine-page__nightmode--visible' : ''}`} />
+        <div id="nightmode" className={`sky-engine-page__nightmode${aidVisibility.nightMode ? ' sky-engine-page__nightmode--visible' : ''}`} />
 
         {inspectorOpen ? (
           <div className="sky-engine-page__overlay sky-engine-page__overlay--right">

@@ -2,6 +2,8 @@
 
 This is the execution history of the system.
 
+Historical entries may include superseded experiments and temporary environment states (for example transient preview ports). Canonical current port rules and gate status are in `docs/runtime/port/`.
+
 It records:
 
 * what was done

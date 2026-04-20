@@ -117,6 +117,10 @@ export interface SkyEngineAidVisibility {
   constellations: boolean
   azimuthRing: boolean
   altitudeRings: boolean
+  atmosphere: boolean
+  landscape: boolean
+  deepSky: boolean
+  nightMode: boolean
 }
 
 export interface SkyEngineGuidanceTarget {

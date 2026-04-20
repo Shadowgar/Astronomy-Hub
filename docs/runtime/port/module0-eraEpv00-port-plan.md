@@ -2,7 +2,7 @@
 
 **Goal:** match Stellarium `observer_update_full` (`observer.c` ~211–212) so Hub can fill `earth_pvh` / `earth_pvb` (AU, AU/day) before `eraApco` / aberration chains.
 
-**Source of truth:** `study/stellarium-web-engine/source/stellarium-web-engine-master/ext_src/erfa/erfa.c`, function **`eraEpv00`** (declaration **`int eraEpv00(double date1, double date2, double pvh[2][3], double pvb[2][3])`**).
+**Source of truth:** pinned upstream `ext_src/erfa/erfa.c` in `Stellarium/stellarium-web-engine` commit `63fb3279e85782158a6df63649f1c8a1837b7846`, function **`eraEpv00`** (declaration **`int eraEpv00(double date1, double date2, double pvh[2][3], double pvb[2][3])`**).
 
 **Approximate line span in vendored `erfa.c`:** **8619–11152** (body includes DE405-alignment constants, large static harmonic tables for Sun–Earth and SSB–Sun models, then assembly math; next symbol is **`eraEqec06`** at ~11154).
 
@@ -17,7 +17,7 @@
 
 ## 2. Recommended implementation sequence
 
-1. **Generator** — `frontend/scripts/generate_erfa_epv00_tables.mjs`  
+1. **Generator (historical path used for initial port)** — `frontend/scripts/generate_erfa_epv00_tables.mjs`  
    - Parse or slice the known line range from `erfa.c` (or copy-paste stable blocks into a sidecar JSON committed under `frontend/scripts/data/` if parsing is too brittle).  
    - Emit TypeScript: one export per table array (`e0x`, `e0y`, … `s2z` per ERFA comments in source), plus `am12`…`am33` scalars.
 
@@ -48,7 +48,7 @@
 
 ## 4. Exit check (for this workstream)
 
-- [x] Generator committed and reproducible (`node frontend/scripts/generate_erfa_epv00_tables.mjs`).  
+- [x] Generator was used to produce committed tables; runtime now uses vendored `erfaEpv00Tables.generated.ts` (no active dependency on external source trees).  
 - [x] `eraEpv00` tests green; fingerprint snapshot updated (non-zero `earthPv` / `sunPv` in Module 0 fingerprint).  
 - [x] `module-inventory.md` / contract / evidence index updated (see **EV-0014**).
 
