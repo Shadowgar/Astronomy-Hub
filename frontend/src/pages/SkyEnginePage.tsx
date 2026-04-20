@@ -601,16 +601,13 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
           deterministicParityModeEnabled={deterministicParityModeEnabled}
         />
 
-        <div className="sky-engine-page__overlay sky-engine-page__overlay--top-bar">
-          <div className="sky-engine-page__top-bar sky-engine-page__top-bar--stellarium" aria-label="Sky toolbar">
-            <div className="sky-engine-page__stellarium-toolbar-left">
-              <Link className="sky-engine-page__back-link sky-engine-page__icon-chip sky-engine-page__stellarium-menu" to="/" title="Main menu" aria-label="Main menu">
-                ≡
-              </Link>
-              <span className="sky-engine-page__stellarium-brand">Sky Web</span>
-            </div>
+        <div className="sky-engine-page__overlay sky-engine-page__overlay--top-bar" id="toolbar-image">
+          <div className="sky-engine-page__top-bar" aria-label="Sky toolbar">
+            <Link className="sky-engine-page__toolbar-menu-btn" to="/" title="Main menu" aria-label="Main menu">☰</Link>
+            <span className="tbtitle">Sky<sup>Web</sup></span>
+            <div className="sky-engine-page__toolbar-spacer" />
             <form
-              className="sky-engine-page__search sky-engine-page__search--stellarium"
+              className="tsearch"
               aria-label="Target search"
               onSubmit={(event) => {
                 event.preventDefault()
@@ -622,7 +619,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                 className="sky-engine-page__search-input"
                 type="search"
                 list="sky-engine-target-search-list"
-                placeholder="Search..."
+                placeholder="search..."
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
               />
@@ -631,113 +628,38 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                   <option key={object.id} value={object.name} />
                 ))}
               </datalist>
-              <button type="submit" className="sky-engine-page__control-chip sky-engine-page__search-submit sky-engine-page__icon-chip sky-engine-page__icon-chip--stel" title="Search" aria-label="Search">
-                <img src={STELLARIUM_WEB_UI.pointer} alt="" className="sky-engine-page__stel-toolbar-icon" draggable={false} />
-              </button>
             </form>
-            <div className="sky-engine-page__stellarium-toolbar-right">
-              <span className="sky-engine-page__stellarium-fov">FOV {formatDisplayedFov(snapshot.camera.fovDegrees)}</span>
-              <button
-                type="button"
-                className={`sky-engine-page__stellarium-observe${inspectorOpen ? ' sky-engine-page__stellarium-observe--active' : ''}`}
-                onClick={() => setInspectorOpen((currentValue) => !currentValue)}
-                aria-label="Observe panel"
-              >
-                Observe ▾
-              </button>
-            </div>
+            <div className="sky-engine-page__toolbar-spacer" />
+            <div className="subheader">FOV {formatDisplayedFov(snapshot.camera.fovDegrees)}</div>
+            <button
+              type="button"
+              className="sky-engine-page__observe-btn"
+              onClick={() => setInspectorOpen((currentValue) => !currentValue)}
+            >
+              Observe ▾
+            </button>
           </div>
         </div>
 
         <div className="sky-engine-page__overlay sky-engine-page__overlay--bottom-hud">
-          <section className="sky-engine-page__bottom-hud sky-engine-page__bottom-hud--stellarium" aria-label="Bottom toolbar">
-            <div className="sky-engine-page__stellarium-bottom-left">
-              <button
-                type="button"
-                className="sky-engine-page__stellarium-corner-btn"
-                onClick={() => setSkyCultureId(skyCultureId === 'western' ? 'belarusian' : 'western')}
-              >
-                {observer.label}
-              </button>
+          <section className="sky-engine-page__bottom-hud" aria-label="Bottom toolbar">
+            <div className="tbtcontainer">
+              <button type="button" className="tmenubt">{observer.label}</button>
             </div>
-            <div className="sky-engine-page__stellarium-bottom-center">
-              <button
-                type="button"
-                className={`sky-engine-page__stellarium-bottom-icon${aidVisibility.constellations ? ' is-active' : ''}`}
-                onClick={() => toggleAid('constellations')}
-                aria-label="Constellations"
-              >
-                <img src={STELLARIUM_WEB_UI.constellationLines} alt="" className="sky-engine-page__stel-toolbar-icon" draggable={false} />
-              </button>
-              <button
-                type="button"
-                className={`sky-engine-page__stellarium-bottom-icon${aidVisibility.azimuthRing ? ' is-active' : ''}`}
-                onClick={() => toggleAid('azimuthRing')}
-                aria-label="Azimuthal grid"
-              >
-                <img src={STELLARIUM_WEB_UI.azimuthalGrid} alt="" className="sky-engine-page__stel-toolbar-icon" draggable={false} />
-              </button>
-              <button
-                type="button"
-                className={`sky-engine-page__stellarium-bottom-icon${aidVisibility.altitudeRings ? ' is-active' : ''}`}
-                onClick={() => toggleAid('altitudeRings')}
-                aria-label="Equatorial grid"
-              >
-                <img src={STELLARIUM_WEB_UI.equatorialGrid} alt="" className="sky-engine-page__stel-toolbar-icon" draggable={false} />
-              </button>
-              <button
-                type="button"
-                className="sky-engine-page__stellarium-bottom-icon"
-                onClick={() => sceneRef.current?.resetSceneTime()}
-                aria-label="Atmosphere"
-              >
-                <img src={STELLARIUM_WEB_UI.atmosphere} alt="" className="sky-engine-page__stel-toolbar-icon" draggable={false} />
-              </button>
-              <button
-                type="button"
-                className="sky-engine-page__stellarium-bottom-icon"
-                onClick={() => sceneRef.current?.setPlaybackRate(1)}
-                aria-label="Play"
-              >
-                ▶
-              </button>
-              <button
-                type="button"
-                className="sky-engine-page__stellarium-bottom-icon"
-                onClick={() => sceneRef.current?.togglePlayback()}
-                aria-label="Pause"
-              >
-                ⏸
-              </button>
-              <button
-                type="button"
-                className="sky-engine-page__stellarium-bottom-icon"
-                onClick={() => sceneRef.current?.setSceneOffsetSeconds(0)}
-                aria-label="Now"
-              >
-                ⟳
-              </button>
-            </div>
-            <div className="sky-engine-page__stellarium-bottom-right">
-              <button
-                type="button"
-                className="sky-engine-page__stellarium-corner-btn sky-engine-page__stellarium-time-btn"
-                onClick={() => sceneRef.current?.togglePlayback()}
-                aria-label="Time controls"
-              >
-                <strong>{localClockTimeLabel}</strong>
-                <small>{localClockDateLabel}</small>
-              </button>
-            </div>
+            <div className="sky-engine-page__toolbar-spacer" />
+            <button type="button" className={`bottom-button${aidVisibility.constellations ? ' on' : ''}`} onClick={() => toggleAid('constellations')} aria-label="Constellations"><img src={STELLARIUM_WEB_UI.constellationLines} alt="" /></button>
+            <button type="button" className="bottom-button" onClick={() => sceneRef.current?.resetSceneTime()} aria-label="Atmosphere"><img src={STELLARIUM_WEB_UI.atmosphere} alt="" /></button>
+            <button type="button" className={`bottom-button${aidVisibility.azimuthRing ? ' on' : ''}`} onClick={() => toggleAid('azimuthRing')} aria-label="Azimuthal Grid"><img src={STELLARIUM_WEB_UI.azimuthalGrid} alt="" /></button>
+            <button type="button" className={`bottom-button${aidVisibility.altitudeRings ? ' on' : ''}`} onClick={() => toggleAid('altitudeRings')} aria-label="Equatorial Grid"><img src={STELLARIUM_WEB_UI.equatorialGrid} alt="" /></button>
+            <button type="button" className="bottom-button" onClick={() => sceneRef.current?.setPlaybackRate(1)} aria-label="Play">▶</button>
+            <button type="button" className="bottom-button" onClick={() => sceneRef.current?.togglePlayback()} aria-label="Pause">⏸</button>
+            <button type="button" className="bottom-button" onClick={() => sceneRef.current?.setSceneOffsetSeconds(0)} aria-label="Now">⟳</button>
+            <div className="sky-engine-page__toolbar-spacer" />
+            <button type="button" className="tmenubt" onClick={() => sceneRef.current?.togglePlayback()} aria-label="Time controls">
+              <span className="text-subtitle-2">{localClockTimeLabel}</span>
+              <span className="text-caption">{localClockDateLabel}</span>
+            </button>
           </section>
-        </div>
-
-        <div className="sky-engine-page__overlay sky-engine-page__overlay--status-chip">
-          <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
-            <span className="sky-engine-page__top-bar-label">{resolveRuntimeModeLabel(snapshot.summary.dataMode)}</span>
-            <strong>{formattedSceneLocalTimestamp}</strong>
-            <small>{formattedSceneOffset} · {playbackRateLabel} · {snapshot.summary.renderedStarCount} stars</small>
-          </div>
         </div>
 
         {inspectorOpen ? (
