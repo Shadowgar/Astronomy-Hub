@@ -61,7 +61,7 @@ export default function ScenePanel() {
           <li>active filter</li>
         </ul>
         <Link className="foundation-panel-link foundation-panel-link--launch" to="/sky-engine">
-          Open Babylon Sky Engine
+          Open Sky View
         </Link>
       </div>
     </section>

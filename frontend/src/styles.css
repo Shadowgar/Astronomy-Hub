@@ -1345,8 +1345,11 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 }
 
 .sky-engine-page--immersive {
+  position: fixed;
+  inset: 0;
   min-height: 100vh;
   background: #02060d;
+  overflow: hidden;
 }
 
 .sky-engine-page__observer-card {
@@ -1433,16 +1436,10 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
   pointer-events: none;
 }
 
-.sky-engine-page__overlay--hub-shell {
-  left: var(--token-size-8);
-  right: var(--token-size-8);
-  top: var(--token-size-6);
-}
-
 .sky-engine-page__overlay--top-bar {
   left: calc(var(--token-size-8) + 2.3rem);
   right: var(--token-size-8);
-  top: calc(var(--token-size-6) + 3.9rem);
+  top: var(--token-size-6);
 }
 
 .sky-engine-page__overlay--bottom-hud {
@@ -1453,7 +1450,7 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 
 .sky-engine-page__overlay--left-tools {
   left: var(--token-size-8);
-  top: calc(var(--token-size-6) + 3.9rem);
+  top: var(--token-size-6);
   bottom: var(--token-size-6);
 }
 
@@ -1466,7 +1463,7 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
 
 .sky-engine-page__overlay--right-time {
   right: var(--token-size-8);
-  top: calc(var(--token-size-6) + 3.9rem);
+  top: var(--token-size-6);
   bottom: var(--token-size-6);
   width: 10.6rem;
 }

@@ -80,7 +80,7 @@ function formatDisplayedFov(fovDegrees: number) {
   return `${fovDegrees.toFixed(4)}°`
 }
 
-function resolveRuntimeModeLabel(mode: 'mock' | 'hipparcos' | 'gaia' | 'multi-survey' | 'loading') {
+function resolveRuntimeModeLabel(mode: 'hipparcos' | 'gaia' | 'multi-survey' | 'loading' | 'mock') {
   if (mode === 'multi-survey') {
     return 'Multi-survey'
   }
@@ -91,10 +91,6 @@ function resolveRuntimeModeLabel(mode: 'mock' | 'hipparcos' | 'gaia' | 'multi-su
 
   if (mode === 'hipparcos') {
     return 'Hipparcos'
-  }
-
-  if (mode === 'mock') {
-    return 'Mock'
   }
 
   return 'Loading'
@@ -187,35 +183,12 @@ function createSkyEngineUiPerfState(): SkyEngineUiPerfState {
   }
 }
 
-function SkyEngineHubShell() {
-  return (
-    <div className="sky-engine-page__overlay sky-engine-page__overlay--hub-shell">
-      <div className="sky-engine-page__hub-shell" aria-label="Stellarium Web">
-        <div className="sky-engine-page__hub-shell-brand">
-          <strong className="sky-engine-page__hub-shell-title">Stellarium Web</strong>
-        </div>
-        <div className="sky-engine-page__hub-shell-actions">
-          <Link className="sky-engine-page__back-link sky-engine-page__back-link--hub" to="/" title="Menu">
-            Menu
-          </Link>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 function SkyEngineOwnershipState({ title, detail }: Readonly<SkyEngineOwnershipStateProps>) {
   return (
     <div className="sky-engine-page sky-engine-page--immersive">
       <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
-        <SkyEngineHubShell />
         <div className="sky-engine-page__overlay sky-engine-page__overlay--top-bar">
           <div className="sky-engine-page__top-bar" aria-label="Sky Engine ownership state">
-            <div className="sky-engine-page__top-bar-section sky-engine-page__top-bar-section--actions">
-              <Link className="sky-engine-page__back-link" to="/">
-                Back
-              </Link>
-            </div>
             <div className="sky-engine-page__top-bar-meta">
               <div className="sky-engine-page__status-pill sky-engine-page__status-pill--wide">
                 <span className="sky-engine-page__top-bar-label">Sky scene</span>
@@ -603,7 +576,6 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
   const pageBody = (
     <div ref={rootRef} className="sky-engine-page sky-engine-page--immersive">
       <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
-        <SkyEngineHubShell />
         <SkyEngineViewport
           sceneRef={sceneRef}
           sceneKey={sceneKey}
@@ -873,13 +845,14 @@ export default function SkyEnginePage() {
   const routeLon = routeQueryParams.get('lon')?.trim() || undefined
   const routeElevationFt = routeQueryParams.get('elevation_ft')?.trim() || undefined
   const routeAt = routeQueryParams.get('at')?.trim() || undefined
+  const resolvedRouteAt = useMemo(() => routeAt ?? new Date().toISOString(), [routeAt])
   const sceneQuery = useSceneByScopeDataQuery({
     scope: 'sky',
     engine: 'sky_engine',
     lat: routeLat,
     lon: routeLon,
     elevation_ft: routeElevationFt,
-    at: routeAt,
+    at: resolvedRouteAt,
   })
   const backendScene = useMemo(
     () => parseBackendSkyScenePayload(sceneQuery.data),

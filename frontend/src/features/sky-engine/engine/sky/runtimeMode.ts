@@ -1,11 +1,11 @@
 import type { SkyTileCatalog } from './contracts/tiles'
 
-type SupportedRuntimeTileMode = Extract<SkyTileCatalog, 'mock' | 'hipparcos' | 'multi-survey'>
+type SupportedRuntimeTileMode = Extract<SkyTileCatalog, 'hipparcos' | 'multi-survey'>
 
 const DEFAULT_RUNTIME_TILE_MODE: SupportedRuntimeTileMode = 'multi-survey'
 
 function isSupportedRuntimeTileMode(value: string | null | undefined): value is SupportedRuntimeTileMode {
-  return value === 'mock' || value === 'hipparcos' || value === 'multi-survey'
+  return value === 'hipparcos' || value === 'multi-survey'
 }
 
 export function resolveSkyTileRepositoryMode(search: string = globalThis.location?.search ?? ''): SupportedRuntimeTileMode {
