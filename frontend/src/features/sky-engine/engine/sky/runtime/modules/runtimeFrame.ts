@@ -143,7 +143,7 @@ const STAR_MAGNITUDE_BREAK_MARGIN = 0
 const EMPTY_PROJECTED_OBJECTS: readonly ProjectedSceneObjectEntry[] = []
 const SATELLITE_UNMODELED_MAGNITUDE_SENTINEL = 90
 
-function resolveProjectedStarCapForFov(fovDegrees: number) {
+export function resolveProjectedStarCapForFov(fovDegrees: number) {
   if (fovDegrees >= 90) return 1200
   if (fovDegrees >= 40) return 2200
   if (fovDegrees >= 15) return 3500

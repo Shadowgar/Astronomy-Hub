@@ -75,7 +75,7 @@ import { resolveStarColorHex } from './starRenderer'
 import type { SkyEngineAidVisibility, SkyEngineSceneObject, SkyEngineSunState } from './types'
 
 const UI_SNAPSHOT_CADENCE_MS = 150
-const RUNTIME_MODEL_SYNC_CADENCE_MS = 1000
+export const RUNTIME_MODEL_SYNC_CADENCE_MS = 1000
 const DEGREES_TO_RADIANS = Math.PI / 180
 const STELLARIUM_QUERY_TONEMAPPER_EXPOSURE = 2
 

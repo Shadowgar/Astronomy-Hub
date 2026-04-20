@@ -8,6 +8,7 @@
     "mirror:gaia": "node scripts/mirror_gaia_survey.mjs",
     "parity:dump-module0-astrom-goldens": "tsx scripts/dumpModule0AstromGoldens.ts",
     "test": "vitest run",
+    "test:module0": "vitest run tests/test_module0_deterministic_replay.test.js tests/test_module0_replay_astrom_golden_contract.test.js",
     "test:module1": "vitest run tests/test_file_backed_tile_repository.test.js tests/test_file_backed_tile_repository_bounds.test.js tests/test_file_backed_tile_repository_gaia_flow.test.js tests/test_eph_codec.test.js tests/test_healpix.test.js tests/test_hips_render_order.test.js tests/test_tile_selection.test.js tests/test_scene_query_state.test.js tests/test_sky_engine_runtime_slice.test.js tests/test_module1_deterministic_replay.test.js",
     "test:module2": "vitest run tests/test_module2_bv_to_rgb.test.js tests/test_module2_stars_nuniq.test.js tests/test_module2_stars_render_limit.test.js tests/test_module2_hip_get_pix.test.js tests/test_module2_stars_lookup.test.js tests/test_module2_deterministic_replay.test.js tests/test_sky_engine_selection_detail_route.test.js",
     "test:e2e": "playwright test",

@@ -15,6 +15,8 @@ import {
   coreGetPointForMagnitude,
 } from '../core/stellariumVisualMath'
 import { resolveStarsRenderLimitMagnitude } from './stellariumPainterLimits'
+import { resolveProjectedStarCapForFov } from './modules/runtimeFrame'
+import { RUNTIME_MODEL_SYNC_CADENCE_MS } from '../../../SkyEngineScene'
 
 const DECIMALS = 12
 
@@ -91,6 +93,11 @@ export function computeModule2PortFingerprint(): string {
 
   for (const fov of [8, 40, 95]) {
     parts.push(`tier:${fov}:${resolveViewTierFingerprint(fov)}`)
+  }
+
+  parts.push(`syncCadenceMs:${RUNTIME_MODEL_SYNC_CADENCE_MS}`)
+  for (const fov of [10, 30, 60, 100]) {
+    parts.push(`starCap:${fov}:${resolveProjectedStarCapForFov(fov)}`)
   }
 
   return parts.join('::')

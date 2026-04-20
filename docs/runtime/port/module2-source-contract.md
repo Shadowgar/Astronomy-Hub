@@ -65,6 +65,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 16. Runtime projection stabilization: projected star count is capped by FOV tier (`>=90°: 2500`, `>=40°: 4500`, `>=15°: 7000`, else `12000`) and render-side limiting-magnitude floor also pins to `6.5` in `collectProjectedStars` to reduce frame churn while preserving visible stars during recovery (**EV-0058**).
 17. Toolbar interaction wiring: Deep Sky / Atmosphere / Landscape / Night Mode toggles now flow through shared `aidVisibility` state and directly gate runtime modules/layers, replacing UI-local-only toggle behavior (**EV-0059**).
 18. Additional lag mitigation: scene-model sync cadence is throttled to `1000ms`, and projected-star caps were tightened (`>=90°: 1200`, `>=40°: 2200`, `>=15°: 3500`, else `5000`) to reduce visible stutter on constrained hardware while parity work continues (**EV-0060**).
+19. Deterministic replay was extended to include active runtime perf knobs (`syncCadenceMs` and sampled FOV `starCap` tiers) so parity snapshots now catch unintended drift in stabilization settings (**EV-0061**).
 
 ---
 
@@ -83,7 +84,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 | G1 | **PASS** for §1–§2 mapping as written. |
 | G2 | **Partial** — **`bv_to_rgb`** (**EV-0038**); **`nuniq_to_pix`** via **`starsNuniq.ts`** (**EV-0039**); **`render_visitor` limit_mag policy** (**EV-0040**); **`hip_get_pix`** (**EV-0041**); full **`stars.c`** render path / remaining **`hip.c`** loaders still open. |
 | G3 | **Partial** — Hipparcos **`mergeSurveyTiles`** uses **`runtimeStarMatchesHipHealpixLookup`** (**EV-0042**); `obj_get_by_hip` helper + scene wiring + stable HIP route identity + selection continuity (**EV-0044**, **EV-0045**, **EV-0046**, **EV-0047**); full **`stars.c`** / object graph still open. |
-| G4 | **Partial** — algorithm fingerprint **`computeModule2PortFingerprint`** (**EV-0043**, extended **EV-0054** with point-math + view-tier samples); full scene/`StarsModule` projection replay still open; tile-load replay remains module 1 **`computeModule1TileLoadFingerprint`** (**EV-0024**). |
+| G4 | **Partial** — algorithm fingerprint **`computeModule2PortFingerprint`** (**EV-0043**, extended **EV-0054** with point-math + view-tier samples and **EV-0061** with perf-knob samples); full scene/`StarsModule` projection replay still open; tile-load replay remains module 1 **`computeModule1TileLoadFingerprint`** (**EV-0024**). |
 | G5–G7 | **FAIL** until parity closure + evidence for remaining §1 scope. |
 
 ---
@@ -152,6 +153,8 @@ Hard constraints for continuation:
 | EV-0058 | Runtime stabilization: FOV star caps + render-side star floor |
 | EV-0059 | Runtime interaction wiring: aidVisibility drives DSO/atmosphere/landscape/night mode |
 | EV-0060 | Runtime stabilization: 1000ms model cadence + tighter projected-star caps |
+| EV-0061 | Extended G4 fingerprint with `syncCadenceMs` and FOV `starCap` samples |
+| EV-0062 | Cross-module sweep: added `test:module0` + verified module0/module1/module2 bundles |
 
 
 ### CI
