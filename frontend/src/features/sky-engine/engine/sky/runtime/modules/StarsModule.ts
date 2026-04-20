@@ -26,11 +26,39 @@ function getAngularDeltaRadians(
   return Math.acos(clamp(dot, -1, 1))
 }
 
-function buildObjectSignature(props: ScenePropsSnapshot) {
+function q(value: number) {
+  if (!Number.isFinite(value)) {
+    return 'nan'
+  }
+  return value.toFixed(3)
+}
+
+export function buildScenePacketSignature(scenePacket: ScenePropsSnapshot['scenePacket']) {
+  if (!scenePacket) {
+    return 'packet:none'
+  }
+
+  const stars = scenePacket.stars
+  const firstStar = stars[0]
+  const lastStar = stars[stars.length - 1]
+  const diagnostics = scenePacket.diagnostics
+  return [
+    `packet:${stars.length}`,
+    `s0:${firstStar?.id ?? 'none'}:${q(firstStar?.mag ?? Number.NaN)}`,
+    `s1:${lastStar?.id ?? 'none'}:${q(lastStar?.mag ?? Number.NaN)}`,
+    `lim:${q(diagnostics.limitingMagnitude)}`,
+    `visible:${diagnostics.visibleStars}`,
+    `tiles:${diagnostics.activeTiles}:${diagnostics.maxTileDepthReached}`,
+  ].join('|')
+}
+
+function buildProjectionSignature(props: ScenePropsSnapshot) {
   const firstObject = props.objects[0]?.id ?? 'none'
   const lastObject = props.objects[props.objects.length - 1]?.id ?? 'none'
-  const packetStarsCount = props.scenePacket?.stars?.length ?? 0
-  return `${props.objects.length}:${firstObject}:${lastObject}:${packetStarsCount}`
+  return [
+    `obj:${props.objects.length}:${firstObject}:${lastObject}`,
+    buildScenePacketSignature(props.scenePacket),
+  ].join('::')
 }
 
 export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
@@ -62,7 +90,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           limitingMagnitude,
         }
       const centerDirection = view.centerDirection
-      const objectSignature = buildObjectSignature(latest)
+      const objectSignature = buildProjectionSignature(latest)
       const sceneTimestampMs = sceneTimestampIso ? Date.parse(sceneTimestampIso) : Number.NaN
       const previousProjectionCache = runtime.starsProjectionCache
       const centerDeltaRad = previousProjectionCache
@@ -106,6 +134,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           objects: latest.objects,
           scenePacket: latest.scenePacket,
           sunState: latest.sunState,
+          selectedObjectId: latest.selectedObjectId,
           brightnessExposureState: starsExposureState,
           observerAstrometry: runtime.observerAstrometry
             ? {

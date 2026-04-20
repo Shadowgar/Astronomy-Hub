@@ -80,6 +80,7 @@ import { createDsoRuntimeModule } from '../src/features/sky-engine/engine/sky/ru
 import { createObjectRuntimeModule } from '../src/features/sky-engine/engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createPlanetRuntimeModule } from '../src/features/sky-engine/engine/sky/runtime/modules/PlanetRuntimeModule'
 import { createStarsModule } from '../src/features/sky-engine/engine/sky/runtime/modules/StarsModule'
+import { collectProjectedStars } from '../src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame'
 
 function createBaseRuntime() {
   return {
@@ -103,6 +104,8 @@ function createBaseRuntime() {
     projectedGenericObjects: [],
     projectedPickEntries: [],
     projectedPickSourceRef: null,
+    starsProjectionCache: null,
+    starsProjectionReuseStreak: 0,
     runtimePerfTelemetry: {
       latest: {
         frameIndex: 0,
@@ -182,6 +185,15 @@ function createBaseProps() {
     sunState: { visualCalibration: { starVisibility: 1, starFieldBrightness: 1 } },
     selectedObjectId: null,
     guidedObjectIds: [],
+    aidVisibility: {
+      constellations: true,
+      azimuthRing: true,
+      altitudeRings: true,
+      atmosphere: true,
+      landscape: true,
+      deepSky: true,
+      nightMode: false,
+    },
   }
 }
 
@@ -226,6 +238,48 @@ describe('Sky star runtime ownership', () => {
     expect(runtime.projectedStarsFrame?.limitingMagnitude).toBe(5.1)
   })
 
+  it('reprojects stars when scene packet signature changes', () => {
+    const module = createStarsModule()
+    const runtime = createBaseRuntime()
+    const services = createBaseServices()
+    const props = createBaseProps()
+    props.scenePacket = {
+      stars: [
+        { id: 'star-1', x: 0, y: 0, z: 1, mag: 1.2, tier: 'T0' },
+        { id: 'star-2', x: 0.1, y: 0, z: 0.99, mag: 2.4, tier: 'T1' },
+      ],
+      labels: [],
+      diagnostics: {
+        dataMode: 'mock',
+        sourceLabel: 'mock',
+        limitingMagnitude: 6.4,
+        activeTiles: 1,
+        visibleStars: 2,
+        activeTiers: ['T0', 'T1'],
+        tileLevels: [0, 1],
+        tilesPerLevel: { 0: 1, 1: 1 },
+        maxTileDepthReached: 1,
+      },
+    }
+    const getProps = () => props
+    const getPropsVersion = () => 1
+
+    module.update({ runtime, services, getProps, getPropsVersion })
+    module.update({ runtime, services, getProps, getPropsVersion })
+    expect(collectProjectedStars).toHaveBeenCalledTimes(1)
+
+    props.scenePacket = {
+      ...props.scenePacket,
+      stars: [
+        { ...props.scenePacket.stars[0], mag: 1.7 },
+        props.scenePacket.stars[1],
+      ],
+    }
+
+    module.update({ runtime, services, getProps, getPropsVersion })
+    expect(collectProjectedStars).toHaveBeenCalledTimes(2)
+  })
+
   it('ObjectRuntimeModule keeps stars, planets, and deep sky out of generic direct object sync', () => {
     const module = createObjectRuntimeModule()
     const runtime = createBaseRuntime()
@@ -258,14 +312,13 @@ describe('Sky star runtime ownership', () => {
 
     expect(runtime.directObjectLayer.sync).toHaveBeenCalledTimes(1)
     const [genericObjects] = runtime.directObjectLayer.sync.mock.calls[0]
-    expect(genericObjects).toHaveLength(1)
-    expect(genericObjects[0].object.type).toBe('moon')
-    expect(runtime.projectedPlanetObjects).toHaveLength(1)
-    expect(runtime.projectedPlanetObjects[0].object.type).toBe('planet')
+    expect(genericObjects).toHaveLength(0)
+    expect(runtime.projectedPlanetObjects).toHaveLength(2)
+    expect(runtime.projectedPlanetObjects.some((entry) => entry.object.type === 'planet')).toBe(true)
+    expect(runtime.projectedPlanetObjects.some((entry) => entry.object.type === 'moon')).toBe(true)
     expect(runtime.projectedDsoObjects).toHaveLength(1)
     expect(runtime.projectedDsoObjects[0].object.type).toBe('deep_sky')
-    expect(runtime.projectedGenericObjects).toHaveLength(1)
-    expect(runtime.projectedGenericObjects[0].object.type).toBe('moon')
+    expect(runtime.projectedGenericObjects).toHaveLength(0)
     expect(runtime.projectedPickEntries.some((entry) => entry.object.type === 'star')).toBe(true)
     expect(runtime.projectedPickEntries.some((entry) => entry.object.type === 'planet')).toBe(true)
     expect(runtime.projectedPickEntries.some((entry) => entry.object.type === 'deep_sky')).toBe(true)
@@ -304,8 +357,9 @@ describe('Sky star runtime ownership', () => {
 
     expect(runtime.directPlanetLayer.sync).toHaveBeenCalledTimes(1)
     const [projectedPlanets] = runtime.directPlanetLayer.sync.mock.calls[0]
-    expect(projectedPlanets).toHaveLength(1)
-    expect(projectedPlanets[0].object.type).toBe('planet')
+    expect(projectedPlanets).toHaveLength(2)
+    expect(projectedPlanets.some((entry) => entry.object.type === 'planet')).toBe(true)
+    expect(projectedPlanets.some((entry) => entry.object.type === 'moon')).toBe(true)
     expect(runtime.directObjectLayer.sync).not.toHaveBeenCalled()
   })
 

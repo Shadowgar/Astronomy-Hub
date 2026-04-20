@@ -67,6 +67,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 18. Additional lag mitigation (historical): scene-model sync cadence was throttled to `1000ms`, and projected-star caps were tightened in a follow-up stopgap (**EV-0060**).
 19. Deterministic replay was extended to include active runtime perf knobs (`syncCadenceMs` and sampled FOV `starCap` tiers) so parity snapshots now catch unintended drift in stabilization settings (**EV-0061**).
 20. Parity hardening removed forced render-path floor/cap heuristics in `collectProjectedStars` (no fixed `6.5` floor, no finite FOV cap) so module2 star projection follows source-aligned limit flow rather than local throttling policy (**EV-0063**).
+21. Stars runtime projection-cache signature now includes a scene-packet content slice (first/last id+mag, packet count, diagnostics limit/visible/tile depth) so cache reuse is invalidated when packet star payload changes even if object array shape is unchanged (**EV-0064**).
 
 ---
 
@@ -157,6 +158,7 @@ Hard constraints for continuation:
 | EV-0061 | Extended G4 fingerprint with `syncCadenceMs` and FOV `starCap` samples |
 | EV-0062 | Cross-module sweep: added `test:module0` + verified module0/module1/module2 bundles |
 | EV-0063 | Removed forced star-floor/star-cap heuristics from `collectProjectedStars` path |
+| EV-0064 | Scene-packet-aware stars projection cache signature + runtime reuse regression test |
 
 
 ### CI

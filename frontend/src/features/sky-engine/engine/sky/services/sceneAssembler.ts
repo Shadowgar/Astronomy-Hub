@@ -10,10 +10,6 @@ const DEFAULT_REPOSITORY_STATE: Pick<SkyTileRepositoryLoadResult, 'mode' | 'sour
   sourceError: null,
 }
 
-function resolveStarLabel(star: RuntimeStar) {
-  return star.properName ?? star.bayer ?? star.flamsteed
-}
-
 export function assembleSkyScenePacket(
   query: SkyEngineQuery,
   tiles: readonly SkyTilePayload[],
@@ -39,7 +35,6 @@ export function assembleSkyScenePacket(
     tiles
       .filter((tile) => visibleTileSet.has(tile.tileId))
       .flatMap((tile) => tile.stars)
-      .filter((star) => star.mag <= query.limitingMagnitude),
   )
 
   const visibleStars = dedupedStars.flatMap((star) => {
@@ -57,7 +52,6 @@ export function assembleSkyScenePacket(
       z: vector.z,
       mag: star.mag,
       colorIndex: star.colorIndex,
-      label: resolveStarLabel(star),
       tier: star.tier,
       isAboveHorizon: horizontalCoordinates.isAboveHorizon,
     }]
@@ -66,24 +60,22 @@ export function assembleSkyScenePacket(
   const labels = visibleStars
     .flatMap((star) => {
       const candidate = labelCandidateMap.get(star.id)
-      const fallbackLabel = star.label
-      const labelText = candidate?.text ?? fallbackLabel
 
       if (!star.isAboveHorizon) {
         return []
       }
 
-      if (!labelText || (!candidate && star.mag > 2.5)) {
+      if (!candidate?.text) {
         return []
       }
 
       return [{
         id: star.id,
-        text: labelText,
+        text: candidate.text,
         x: star.x,
         y: star.y,
         z: star.z,
-        priority: Math.max(candidate?.priority ?? 0, Math.max(1, Math.round((14 - star.mag) * 10))),
+        priority: candidate.priority,
       }]
     })
     .sort((left, right) => right.priority - left.priority || left.text.localeCompare(right.text))
