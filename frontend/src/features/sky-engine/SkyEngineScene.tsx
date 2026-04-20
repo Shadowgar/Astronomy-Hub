@@ -129,15 +129,7 @@ function resolveSceneQueryLimitingMagnitude(config: {
     tonemapperExposure: STELLARIUM_QUERY_TONEMAPPER_EXPOSURE,
     tonemapperLwmax: resolveTonemapperLwmaxFromLuminance(baseline.zenithSkyLuminance),
   })
-  const fovDegrees = config.currentViewState.fovDegrees
-  const minimumByFov =
-    fovDegrees <= 1 ? 13.8
-      : fovDegrees <= 2 ? 12.8
-        : fovDegrees <= 5 ? 11.8
-          : fovDegrees <= 10 ? 10.5
-            : fovDegrees <= 20 ? 9.2
-              : 6.5
-  return Math.max(computedLimitingMagnitude, minimumByFov)
+  return computedLimitingMagnitude
 }
 
 function syncSelectionMemory(

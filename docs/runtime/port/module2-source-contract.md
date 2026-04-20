@@ -69,6 +69,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 20. Parity hardening removed forced render-path floor/cap heuristics in `collectProjectedStars` (no fixed `6.5` floor, no finite FOV cap) so module2 star projection follows source-aligned limit flow rather than local throttling policy (**EV-0063**).
 21. Stars runtime projection-cache signature now includes a scene-packet content slice (first/last id+mag, packet count, diagnostics limit/visible/tile depth) so cache reuse is invalidated when packet star payload changes even if object array shape is unchanged (**EV-0064**).
 22. Scene packet assembly no longer applies local packet-time limiting-magnitude filtering or fallback label heuristics; packet carries deduped tile stars and candidate labels while active render/runtime path enforces visibility limits. Selected-star projection path now bypasses strict star drop gates to preserve continuity of active selection (**EV-0065**).
+23. Parity cleanup removed Hub-introduced star visibility inflators (`minimumByFov` query floor and selected-star projection bypass) so limiting-magnitude and visibility decisions stay on the source-aligned runtime path only (**EV-0066**).
 
 ---
 
@@ -161,6 +162,7 @@ Hard constraints for continuation:
 | EV-0063 | Removed forced star-floor/star-cap heuristics from `collectProjectedStars` path |
 | EV-0064 | Scene-packet-aware stars projection cache signature + runtime reuse regression test |
 | EV-0065 | Removed packet-time star/filter label heuristics + selected-star projection continuity path |
+| EV-0066 | Removed query-floor and selected-star visibility bypass heuristics |
 
 
 ### CI

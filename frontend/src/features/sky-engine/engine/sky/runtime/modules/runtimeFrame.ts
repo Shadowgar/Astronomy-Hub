@@ -621,7 +621,6 @@ type CollectProjectedStarsInput = {
   objects: readonly SkyEngineSceneObject[]
   scenePacket: SkyScenePacket | null
   sunState: SkyEngineSunState
-  selectedObjectId: string | null
   brightnessExposureState: SkyBrightnessExposureState
   observerAstrometry?: ObserverAstrometrySnapshot
 }
@@ -656,9 +655,8 @@ function projectScenePacketStar(
   let visibilityFilterMs = 0
   let allocationMs = 0
   let { lastMagnitude, lastPointVisual } = visualState
-  const isSelectedObject = object.id === input.selectedObjectId
 
-  if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, input.sunState, input.selectedObjectId, input.observerAstrometry)) {
+  if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, input.sunState, null, input.observerAstrometry)) {
     return { entry: null, shouldBreak: false, transformMs, magnitudeFilterMs, visibilityFilterMs, allocationMs, lastMagnitude, lastPointVisual }
   }
 
@@ -666,7 +664,7 @@ function projectScenePacketStar(
   const renderedMagnitude = packetStar.mag
   const scenePacketLimitingMagnitude = input.scenePacket?.diagnostics?.limitingMagnitude ?? Number.NEGATIVE_INFINITY
   const effectiveLimitingMagnitude = Math.max(input.brightnessExposureState.limitingMagnitude, scenePacketLimitingMagnitude)
-  if (!isSelectedObject && renderedMagnitude > effectiveLimitingMagnitude + STAR_MAGNITUDE_BREAK_MARGIN) {
+  if (renderedMagnitude > effectiveLimitingMagnitude + STAR_MAGNITUDE_BREAK_MARGIN) {
     magnitudeFilterMs += performance.now() - magnitudeStartMs
     return { entry: null, shouldBreak: true, transformMs, magnitudeFilterMs, visibilityFilterMs, allocationMs, lastMagnitude, lastPointVisual }
   }
@@ -682,7 +680,7 @@ function projectScenePacketStar(
   const pointVisual = lastPointVisual
   magnitudeFilterMs += performance.now() - magnitudeStartMs
 
-  if ((!pointVisual.visible || pointVisual.luminance <= 0) && !isSelectedObject) {
+  if (!pointVisual.visible || pointVisual.luminance <= 0) {
     return { entry: null, shouldBreak: false, transformMs, magnitudeFilterMs, visibilityFilterMs, allocationMs, lastMagnitude, lastPointVisual }
   }
 
@@ -707,14 +705,8 @@ function projectScenePacketStar(
     viewportMinSizePx,
     pointVisual,
   )
-  const resolvedVisibilityAlpha = isSelectedObject
-    ? Math.max(pointVisual.luminance, 0.45)
-    : pointVisual.luminance
-  const resolvedMarkerRadiusPx = isSelectedObject
-    ? Math.max(pointVisual.radiusPx, 2)
-    : pointVisual.radiusPx
   const renderAlpha = clamp(
-    getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees, input.observerAstrometry) * resolvedVisibilityAlpha,
+    getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees, input.observerAstrometry) * pointVisual.luminance,
     0,
     1,
   )
@@ -731,11 +723,11 @@ function projectScenePacketStar(
     screenY: projected.screenY,
     depth: projected.depth,
     angularDistanceRad: projected.angularDistanceRad,
-    markerRadiusPx: resolvedMarkerRadiusPx,
-    pickRadiusPx: getPickRadiusPx(object, resolvedMarkerRadiusPx),
+    markerRadiusPx: pointVisual.radiusPx,
+    pickRadiusPx: getPickRadiusPx(object, pointVisual.radiusPx),
     renderAlpha,
     renderedMagnitude,
-    visibilityAlpha: resolvedVisibilityAlpha,
+    visibilityAlpha: pointVisual.luminance,
     starProfile,
   } satisfies ProjectedSceneObjectEntry
   allocationMs += performance.now() - allocationStartMs

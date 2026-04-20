@@ -134,7 +134,6 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           objects: latest.objects,
           scenePacket: latest.scenePacket,
           sunState: latest.sunState,
-          selectedObjectId: latest.selectedObjectId,
           brightnessExposureState: starsExposureState,
           observerAstrometry: runtime.observerAstrometry
             ? {
