@@ -2160,3 +2160,165 @@ body{font-family: var(--token-font-family-base);margin:0;padding:0;font-size:var
     grid-template-columns: 1fr;
   }
 }
+
+/* Stellarium UI parity pass */
+.sky-engine-page__top-bar--stellarium {
+  height: 48px;
+  border-radius: 0;
+  background: linear-gradient(180deg, rgba(20, 29, 48, 0.92), rgba(18, 26, 42, 0.86));
+  border: 0;
+  box-shadow: none;
+  padding: 0 0.6rem;
+  justify-content: space-between;
+}
+
+.sky-engine-page__stellarium-toolbar-left,
+.sky-engine-page__stellarium-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.sky-engine-page__stellarium-brand {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(234, 242, 255, 0.92);
+  letter-spacing: 0.01em;
+}
+
+.sky-engine-page__stellarium-menu {
+  min-height: 2rem;
+  width: 2rem;
+  border-radius: 0.25rem;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.sky-engine-page__search--stellarium {
+  max-width: 29rem;
+  min-width: 15rem;
+}
+
+.sky-engine-page__stellarium-fov {
+  font-size: 0.8rem;
+  color: rgba(230, 236, 247, 0.86);
+}
+
+.sky-engine-page__stellarium-observe {
+  border: 0;
+  background: transparent;
+  color: rgba(241, 245, 253, 0.92);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.sky-engine-page__stellarium-observe--active {
+  color: #fff;
+}
+
+.sky-engine-page__bottom-hud--stellarium {
+  min-height: 50px;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+  background: linear-gradient(180deg, rgba(24, 33, 49, 0.88), rgba(20, 28, 42, 0.82));
+  padding: 0.15rem 0.8rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.sky-engine-page__stellarium-bottom-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.sky-engine-page__stellarium-bottom-center {
+  display: flex;
+  align-items: center;
+  gap: 0.18rem;
+}
+
+.sky-engine-page__stellarium-bottom-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sky-engine-page__stellarium-bottom-icon {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(232, 238, 249, 0.92);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  filter: opacity(0.58);
+}
+
+.sky-engine-page__stellarium-bottom-icon.is-active,
+.sky-engine-page__stellarium-bottom-icon:hover {
+  filter: opacity(1);
+}
+
+.sky-engine-page__stellarium-corner-btn {
+  min-height: 2rem;
+  border: 1px solid rgba(186, 204, 232, 0.28);
+  border-radius: 0.24rem;
+  background: rgba(20, 30, 48, 0.88);
+  color: rgba(239, 244, 255, 0.94);
+  padding: 0.28rem 0.55rem;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.sky-engine-page__stellarium-time-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 6.2rem;
+}
+
+.sky-engine-page__stellarium-time-btn strong {
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.sky-engine-page__stellarium-time-btn small {
+  font-size: 0.66rem;
+  line-height: 1.2;
+}
+
+.sky-engine-page__overlay--status-chip {
+  right: var(--token-size-8);
+  top: calc(var(--token-size-6) + 3.2rem);
+  left: auto;
+}
+
+.sky-engine-page__overlay--status-chip .sky-engine-page__status-pill {
+  min-width: 12rem;
+}
+
+.sky-engine-page__overlay--top-bar {
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.sky-engine-page__overlay--bottom-hud {
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.sky-engine-page__top-bar--stellarium,
+.sky-engine-page__bottom-hud--stellarium {
+  pointer-events: auto;
+}

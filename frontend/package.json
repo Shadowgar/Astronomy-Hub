@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 4173 --strictPort",
     "build": "vite build",
     "mirror:gaia": "node scripts/mirror_gaia_survey.mjs",
     "generate:hip-pix": "node scripts/generate_hip_pix_order2.mjs",
@@ -13,7 +13,7 @@
     "test:module2": "vitest run tests/test_module2_bv_to_rgb.test.js tests/test_module2_stars_nuniq.test.js tests/test_module2_stars_render_limit.test.js tests/test_module2_hip_get_pix.test.js tests/test_module2_stars_lookup.test.js tests/test_module2_deterministic_replay.test.js tests/test_sky_engine_selection_detail_route.test.js",
     "test:e2e": "playwright test",
     "test:e2e:docker": "PLAYWRIGHT_BASE_URL=http://127.0.0.1:4173 PLAYWRIGHT_SKIP_WEBSERVER=1 playwright test",
-    "preview": "vite preview --port 4173",
+    "preview": "vite preview --port 4173 --strictPort",
     "type-check": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --watch"

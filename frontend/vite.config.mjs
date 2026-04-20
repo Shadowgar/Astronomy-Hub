@@ -28,11 +28,13 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: frontendPort,
+    strictPort: true,
     proxy: apiProxy,
   },
   preview: {
     host: '0.0.0.0',
     port: frontendPort,
+    strictPort: true,
     proxy: apiProxy,
   },
 })
