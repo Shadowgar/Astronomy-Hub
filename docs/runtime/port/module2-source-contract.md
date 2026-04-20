@@ -52,7 +52,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 3. **Module 1** already implements Eph tiles + HiPS order; **module 2** focuses on **stars module + color + point pipeline**, not duplicating **`eph-file.c`** (see **`module1-source-contract.md`**).
 4. **`hip_get_pix`** uses vendored **`PIX_ORDER_2`** bytes from **`hipPixOrder2.generated.ts`** (no runtime or tooling dependency on an external Stellarium tree) (**EV-0041**).
 5. On the Hipparcos survey merge path, stars with a parseable HIP must satisfy **`hip_get_pix(hip, 2) === healpixAngToPix(2, raDeg, decDeg)`** or they are dropped (**EV-0042**).
-6. Hub lookup helper **`findRuntimeStarByHipInTiles`** follows `obj_get_by_hip` intent: invalid HIP mapping => null, Gaia rows skipped, first non-Gaia HIP match returned (**EV-0044**).
+6. Hub lookup helper **`findRuntimeStarByHipInTiles`** now follows survey-wide `obj_get_by_hip` intent on the loaded runtime surface: invalid HIP mapping => null, Gaia rows skipped, lookup keyed by `hip_get_pix(hip, 2)` bucket index, first non-Gaia HIP match returned (**EV-0044**, **EV-0075**).
 7. `SkyEngineScene` runtime star-object assembly now consumes the helper and surfaces HIP lookup status in star `truthNote` on the live scene path (**EV-0045**).
 8. HIP-backed stars now carry stable detail route identity **`hip/<id>`** for runtime selection/detail continuity (**EV-0046**).
 9. Selection state uses stable HIP `detailRoute` fallback and then rebinds `selectedObjectId` to the active runtime object id when survey tile ids change (**EV-0047**).
@@ -89,7 +89,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 | G0 | **PASS** — four `module2-stars-full` file rows exist in **`module-inventory.md`** with **`BLOCKED`** + Planned Module. |
 | G1 | **PASS** for §1–§2 mapping as written. |
 | G2 | **Partial** — **`bv_to_rgb`** (**EV-0038**); **`nuniq_to_pix`** via **`starsNuniq.ts`** (**EV-0039**); **`render_visitor` limit_mag policy** (**EV-0040**) plus native tile traversal loop / tile gates / point-clipped path on the runtime surface (**EV-0074**); **`hip_get_pix`** (**EV-0041**); **`eraStarpv` / `eraEpb2jd` / `compute_pv` / `star_get_astrom`** (**EV-0070**); **`painter_project(FRAME_ASTROM → FRAME_OBSERVED)`** apparent-place chain on EV-0070 pv output (**EV-0072**); remaining **`hip.c`** loader/list seams still open. |
-| G3 | **Partial** — Hipparcos **`mergeSurveyTiles`** uses **`runtimeStarMatchesHipHealpixLookup`** (**EV-0042**); `obj_get_by_hip` helper + scene wiring + stable HIP route identity + selection continuity (**EV-0044**, **EV-0045**, **EV-0046**, **EV-0047**); scene assembler now uses Stellarium's `star_get_astrom` path for catalogue stars with a per-star pv cache (**EV-0070**); end-to-end `painter_project(FRAME_ASTROM, …)` apparent-place chain sealed over the EV-0070 pv output by regression test (**EV-0072**); active StarsModule path now consumes tile traversal output through `starsRenderVisitor.ts` (native parent→child visit order and descend gating, **EV-0074**); full **`stars.c`** / object graph still open. |
+| G3 | **Partial** — Hipparcos **`mergeSurveyTiles`** uses **`runtimeStarMatchesHipHealpixLookup`** (**EV-0042**); `obj_get_by_hip` helper + scene wiring + stable HIP route identity + selection continuity (**EV-0044**, **EV-0045**, **EV-0046**, **EV-0047**) plus survey-wide `hip_get_pix(hip, 2)` bucketed traversal on loaded runtime tiles (**EV-0075**); scene assembler now uses Stellarium's `star_get_astrom` path for catalogue stars with a per-star pv cache (**EV-0070**); end-to-end `painter_project(FRAME_ASTROM, …)` apparent-place chain sealed over the EV-0070 pv output by regression test (**EV-0072**); active StarsModule path now consumes tile traversal output through `starsRenderVisitor.ts` (native parent→child visit order and descend gating, **EV-0074**); full **`stars.c`** / object graph still open. |
 | G4 | **Partial** — algorithm fingerprint **`computeModule2PortFingerprint`** (**EV-0043**, extended **EV-0054** with point-math + view-tier samples and **EV-0061** with perf-knob samples); full scene/`StarsModule` projection replay still open; tile-load replay remains module 1 **`computeModule1TileLoadFingerprint`** (**EV-0024**). |
 | G5–G7 | **FAIL** until parity closure + evidence for remaining §1 scope. |
 
@@ -103,7 +103,7 @@ Rows: **`src/hip.c`**, **`src/hip.h`**, **`src/modules/stars.c`**, **`src/algos/
 
 ## 7. Handoff for external agents (e.g. Codex / new chat)
 
-Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0074, noting EV-0067 / EV-0068 are intentionally unused IDs), **`module-gates.md`** "Known residuals" section for non-module-0/1/2 npm test failures that should be picked up by downstream modules, and this file §2–§5.
+Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0075, noting EV-0067 / EV-0068 are intentionally unused IDs), **`module-gates.md`** "Known residuals" section for non-module-0/1/2 npm test failures that should be picked up by downstream modules, and this file §2–§5.
 
 Hard constraints for continuation:
 - Port for exact parity (logic/UI behavior), not approximation.
@@ -120,7 +120,7 @@ Hard constraints for continuation:
 | Star render limit magnitude | `frontend/src/features/sky-engine/engine/sky/runtime/stellariumPainterLimits.ts` (`resolveStarsRenderLimitMagnitude`), `runtime/modules/StarsModule.ts` |
 | Native `render_visitor` traversal loop | `frontend/src/features/sky-engine/engine/sky/runtime/starsRenderVisitor.ts`, `runtime/modules/runtimeFrame.ts`, `runtime/modules/StarsModule.ts`, `services/sceneAssembler.ts`, `contracts/scene.ts` |
 | `hip_get_pix` + table | `frontend/src/features/sky-engine/engine/sky/adapters/hipGetPix.ts`, vendored **`hipPixOrder2.generated.ts`** |
-| `obj_get_by_hip`-style lookup | `frontend/src/features/sky-engine/engine/sky/adapters/starsLookup.ts` (`findRuntimeStarByHipInTiles`) |
+| Survey-wide `obj_get_by_hip` lookup | `frontend/src/features/sky-engine/engine/sky/adapters/starsLookup.ts` (`findRuntimeStarByHipInTiles`) |
 | HIP detail route identity | `frontend/src/features/sky-engine/engine/sky/adapters/starsLookup.ts` (`buildHipDetailRoute`), `frontend/src/features/sky-engine/SkyEngineScene.tsx` (`detailRoute`) |
 | Selection continuity | `frontend/src/features/sky-engine/useSkyEngineSelection.ts` (`resolveSelectedObjectWithDetailRoute`) |
 | Hipparcos merge + HIP check | `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts` (`filterSurveyStarsForMerge` → `runtimeStarMatchesHipHealpixLookup`) |
@@ -132,7 +132,7 @@ Hard constraints for continuation:
 
 - `npm run typecheck` — required before claiming done.
 - `npm run build` — production bundle (note: **`hipPixOrder2.generated.ts`** embeds ~120 KB table as base64; optional future work: lazy load).
-- `npm run test:module2` — module 2 Vitest bundle (BV, nuniq, limit mag, HIP, HIP lookup, native `render_visitor` traversal regression `test_module2_stars_render_visitor.test.js`, deterministic replay, selection detail route, ERFA `eraStarpv` + `starsCatalogAstrom`, `painter_project(FRAME_ASTROM, …)` end-to-end).
+- `npm run test:module2` — module 2 Vitest bundle (BV, nuniq, limit mag, HIP, survey-wide HIP lookup regression `test_module2_stars_lookup_survey.test.js`, native `render_visitor` traversal regression `test_module2_stars_render_visitor.test.js`, deterministic replay, selection detail route, ERFA `eraStarpv` + `starsCatalogAstrom`, `painter_project(FRAME_ASTROM, …)` end-to-end).
 - `npm run test:module1` — must stay green if **`fileTileRepository.ts`**, **`healpix.ts`**, or **`ephCodec.ts`** change.
 
 ### Evidence IDs already landed (do not duplicate unless changing behavior)
@@ -171,6 +171,7 @@ Hard constraints for continuation:
 | EV-0071 | Full runtime-port doc audit reconciliation; `test:module2` bundle + CI path-filter expanded with `test_erfa_starpv.test.js` + the three runtime files (`erfaStarpv.ts`, `starsCatalogAstrom.ts`, `observerAstrometryMerge.ts`) and `sceneAssembler.ts` / `transforms/coordinates.ts`; module-inventory function tables for module 2 (stars pipeline); repo-wide `npm test` residuals catalog in `module-gates.md` |
 | EV-0072 | End-to-end `painter_project(FRAME_ASTROM → FRAME_OBSERVED)` regression test asserting the EV-0070 pv output flows through `eraLdsun` + `eraAb` + `bpn^T` + `ri2h` in `sceneAssembler.ts` (and the `plx ≤ 2 mas` fallback), plus `test:module2` bundle + CI path-filter extension |
 | EV-0074 | Native `stars.c::render_visitor` tile traversal port (`starsRenderVisitor.ts`) wired into `runtimeFrame.ts` / `StarsModule.ts` using tile-ordered scene packets from `sceneAssembler.ts`; regression coverage in `test_module2_stars_render_visitor.test.js`; `test:module2` now 35/35 across 10 files |
+| EV-0075 | Survey-wide `obj_get_by_hip` lookup keyed by `hip_get_pix(hip, 2)` buckets (`starsLookup.ts` cached index over loaded non-Gaia survey tiles) + regression coverage in `test_module2_stars_lookup_survey.test.js`; `test:module2` now 38/38 across 11 files |
 
 
 ### CI
@@ -180,8 +181,8 @@ Hard constraints for continuation:
 
 ### Suggested next coding targets (not done)
 
-1. **`stars.c`** — survey-wide `obj_get_by_hip` traversal keyed off `hip_get_pix(hip, 2)` (single-tile helper landed in **EV-0044**). Native `render_visitor` traversal loop is now wired on the runtime path via **EV-0074**; `compute_pv` + `star_get_astrom` landed in **EV-0070**; and `painter_project(FRAME_ASTROM → FRAME_OBSERVED)` is sealed by **EV-0072**.
-2. **G4** — extend deterministic coverage further (e.g. visitor tile-order / projection cache signature / scene packet slice) beyond **`computeModule2PortFingerprint`** (**EV-0043**, **EV-0054**, **EV-0074**).
+1. **G4** — extend deterministic coverage further (e.g. visitor tile-order / projection cache signature / scene packet slice) beyond **`computeModule2PortFingerprint`** (**EV-0043**, **EV-0054**, **EV-0074**, **EV-0075**).
+2. **`stars.c`** — `stars_list` / `stars_add_data_source` datasource/list seams (survey-wide loaded-tile `obj_get_by_hip` is now landed in **EV-0075**; traversal loop landed in **EV-0074**).
 3. **Tests** — synthetic fixtures: if a star uses a fake **`HIP N`** with coordinates that do not match **`PIX_ORDER_2`**, merge will drop it (**EV-0042**); use no-HIP ids or catalog-consistent RA/Dec.
 4. **Runtime blockers before deeper parity:** profile frame pacing with active sky scene + overlays now that primary toolbar toggles are runtime-wired; treat this as P0 before additional UI parity deltas.
 
