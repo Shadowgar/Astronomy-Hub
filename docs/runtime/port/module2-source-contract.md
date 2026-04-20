@@ -62,10 +62,11 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 13. **`computeModule2PortFingerprint`** includes **`coreGetPointForMagnitude`** samples and a view-tier/label-cap mirror of **`resolveViewTier`** for stronger G4 drift detection (**EV-0054**).
 14. User-facing branding in the Sky-Engine UI must not show the word `Stellarium`; preserve parity through structure/behavior/assets instead of upstream branding text.
 15. Runtime stabilization pass: scene model sync cadence increased to `500ms` and wide-FOV repository query floor pinned to `6.5` to reduce lag and avoid near-empty star loads at startup (**EV-0057**). This is a stability stopgap, not final parity closure.
-16. Runtime projection stabilization: projected star count is capped by FOV tier (`>=90°: 2500`, `>=40°: 4500`, `>=15°: 7000`, else `12000`) and render-side limiting-magnitude floor also pins to `6.5` in `collectProjectedStars` to reduce frame churn while preserving visible stars during recovery (**EV-0058**).
+16. Runtime projection stabilization (historical): earlier recovery passes added FOV-based projected-star caps and a render-side `6.5` floor in `collectProjectedStars` (**EV-0058**); these were temporary stopgaps.
 17. Toolbar interaction wiring: Deep Sky / Atmosphere / Landscape / Night Mode toggles now flow through shared `aidVisibility` state and directly gate runtime modules/layers, replacing UI-local-only toggle behavior (**EV-0059**).
-18. Additional lag mitigation: scene-model sync cadence is throttled to `1000ms`, and projected-star caps were tightened (`>=90°: 1200`, `>=40°: 2200`, `>=15°: 3500`, else `5000`) to reduce visible stutter on constrained hardware while parity work continues (**EV-0060**).
+18. Additional lag mitigation (historical): scene-model sync cadence was throttled to `1000ms`, and projected-star caps were tightened in a follow-up stopgap (**EV-0060**).
 19. Deterministic replay was extended to include active runtime perf knobs (`syncCadenceMs` and sampled FOV `starCap` tiers) so parity snapshots now catch unintended drift in stabilization settings (**EV-0061**).
+20. Parity hardening removed forced render-path floor/cap heuristics in `collectProjectedStars` (no fixed `6.5` floor, no finite FOV cap) so module2 star projection follows source-aligned limit flow rather than local throttling policy (**EV-0063**).
 
 ---
 
@@ -155,6 +156,7 @@ Hard constraints for continuation:
 | EV-0060 | Runtime stabilization: 1000ms model cadence + tighter projected-star caps |
 | EV-0061 | Extended G4 fingerprint with `syncCadenceMs` and FOV `starCap` samples |
 | EV-0062 | Cross-module sweep: added `test:module0` + verified module0/module1/module2 bundles |
+| EV-0063 | Removed forced star-floor/star-cap heuristics from `collectProjectedStars` path |
 
 
 ### CI
