@@ -591,6 +591,16 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
     }))
   }, [])
 
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      void document.documentElement.requestFullscreen()
+      setFullscreenVisible(true)
+      return
+    }
+    void document.exitFullscreen()
+    setFullscreenVisible(false)
+  }, [])
+
   const pageBody = (
     <div ref={rootRef} className="sky-engine-page sky-engine-page--immersive">
       <main className="sky-engine-page__viewport-shell sky-engine-page__viewport-shell--immersive">
@@ -669,7 +679,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
               <button type="button" className={`bottom-button${aidVisibility.altitudeRings ? ' on' : ''}`} onClick={() => toggleAid('altitudeRings')} aria-label="Equatorial Grid"><img src={STELLARIUM_WEB_UI.equatorialGrid} alt="" /><span className="hint">Equatorial Grid</span></button>
               <button type="button" className={`bottom-button${deepSkyVisible ? ' on' : ''}`} onClick={() => setDeepSkyVisible((v) => !v)} aria-label="Deep Sky Objects"><img src={STELLARIUM_WEB_UI.nebulae} alt="" /><span className="hint">Deep Sky Objects</span></button>
               <button type="button" className={`bottom-button${nightModeVisible ? ' on' : ''}`} onClick={() => setNightModeVisible((v) => !v)} aria-label="Night Mode"><img src={STELLARIUM_WEB_UI.nightMode} alt="" /><span className="hint">Night Mode</span></button>
-              <button type="button" className={`bottom-button${fullscreenVisible ? ' on' : ''}`} onClick={() => setFullscreenVisible((v) => !v)} aria-label="Fullscreen"><span>⛶</span><span className="hint">Fullscreen</span></button>
+              <button type="button" className={`bottom-button${fullscreenVisible ? ' on' : ''}`} onClick={toggleFullscreen} aria-label="Fullscreen"><img src={fullscreenVisible ? STELLARIUM_WEB_UI.fullscreenExit : STELLARIUM_WEB_UI.fullscreen} alt="" /><span className="hint">Fullscreen</span></button>
               <div className="sky-engine-page__toolbar-spacer" />
               <button type="button" className="tmenubt" aria-label="Time controls">
                 <span className="text-subtitle-2">{localClockTimeLabel}</span>
@@ -690,6 +700,8 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
             <div className="sky-engine-page__progress-chip">Data {resolveRuntimeModeLabel(snapshot.summary.dataMode)}</div>
           </div>
         </div>
+
+        <div id="nightmode" className={`sky-engine-page__nightmode${nightModeVisible ? ' sky-engine-page__nightmode--visible' : ''}`} />
 
         {inspectorOpen ? (
           <div className="sky-engine-page__overlay sky-engine-page__overlay--right">

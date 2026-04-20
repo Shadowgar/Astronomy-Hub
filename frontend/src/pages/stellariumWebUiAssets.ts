@@ -13,5 +13,7 @@ export const STELLARIUM_WEB_UI = {
   landscape: `${STELLARIUM_WEB_UI_BASE}/btn-landscape.svg`,
   nebulae: `${STELLARIUM_WEB_UI_BASE}/btn-nebulae.svg`,
   nightMode: `${STELLARIUM_WEB_UI_BASE}/btn-night-mode.svg`,
+  fullscreen: `${STELLARIUM_WEB_UI_BASE}/fullscreen.svg`,
+  fullscreenExit: `${STELLARIUM_WEB_UI_BASE}/fullscreen_exit.svg`,
   pointer: `${STELLARIUM_WEB_UI_BASE}/pointer.svg`,
 } as const
