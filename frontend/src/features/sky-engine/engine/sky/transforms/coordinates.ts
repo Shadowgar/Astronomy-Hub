@@ -53,6 +53,17 @@ export type ObserverAstrometrySnapshot = {
       readonly [number, number, number],
     ]
   }
+  /**
+   * TT Julian Date from `SkyObserverDerivedGeometry`. Required for
+   * Stellarium `stars.c::star_get_astrom` (`obs->tt - ERFA_DJM00`
+   * propagation of the star pv-vector to observer epoch).
+   */
+  ttJulianDate?: number
+  /**
+   * Barycentric Earth position (AU, BCRS), Stellarium `observer_t.earth_pvb[0]`.
+   * Required for `stars.c::star_get_astrom` parallax/astrometric subtraction.
+   */
+  earthPv?: readonly [number, number, number]
 }
 
 export type ObserverFrame = 'icrf' | 'observed_geom' | 'observed'

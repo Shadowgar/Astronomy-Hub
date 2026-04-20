@@ -20,3 +20,9 @@ export const ERFA_DAU = 149597870.7e3
 export const ERFA_AULT = ERFA_DAU / ERFA_CMPS
 /** Schwarzschild radius of the Sun / au (`ERFA_SRS`) — `eraAb` / `eraLd`. */
 export const ERFA_SRS = 1.97412574336e-8
+/** Radians to arcseconds (ERFA `ERFA_DR2AS`). */
+export const ERFA_DR2AS = 206264.8062470963551564734
+/** Modified Julian Date zero-point (ERFA `ERFA_DJM0`). */
+export const ERFA_DJM0 = 2400000.5
+/** TT 2000.0 as Modified Julian Date (ERFA `ERFA_DJM00`). */
+export const ERFA_DJM00 = 51544.5

@@ -58,5 +58,7 @@ export function mergeObserverSnapshotWithDerivedGeometry(
       icrsToHorizontal: derived.matrices.icrsToHorizontal,
       horizontalToIcrs: derived.matrices.horizontalToIcrs,
     },
+    ttJulianDate: derived.ttJulianDate,
+    earthPv: derived.earthPv,
   }
 }

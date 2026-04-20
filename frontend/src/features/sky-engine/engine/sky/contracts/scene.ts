@@ -12,6 +12,15 @@ export type SkyScenePacket = {
     label?: string
     tier: SkyRuntimeTier
   }>
+  starTiles: Array<{
+    tileId: string
+    level: number
+    parentTileId: string | null
+    childTileIds: string[]
+    magMin: number
+    magMax: number
+    starIds: string[]
+  }>
   labels: Array<{
     id: string
     text: string
@@ -31,5 +40,6 @@ export type SkyScenePacket = {
     tileLevels: number[]
     tilesPerLevel: Record<string, number>
     maxTileDepthReached: number
+    visibleTileIds: string[]
   }
 }

@@ -135,6 +135,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           scenePacket: latest.scenePacket,
           sunState: latest.sunState,
           brightnessExposureState: starsExposureState,
+          corePainterLimits: runtime.corePainterLimits,
           observerAstrometry: runtime.observerAstrometry
             ? {
                 localSiderealTimeDeg: runtime.observerAstrometry.localSiderealTimeDeg,

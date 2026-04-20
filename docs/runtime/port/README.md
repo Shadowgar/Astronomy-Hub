@@ -21,17 +21,18 @@ General Hub docs are frozen for this effort. If there is a conflict between this
 
 ## Canonical Files
 
-- `module-inventory.md`: exhaustive source inventory and mapping status
-- `module-gates.md`: gate checklists and pass/fail per module
-- `blockers.md`: blocker log with owner and unblock criteria
-- `stellarium-web-engine-src.md`: pinned GitHub commit + `src/` paths for Stellarium Web Engine (module 2 reference; **EV-0037** / **`BLK-003`**)
-- `evidence-index.md`: evidence artifacts and command/output references
-- `module0-source-contract.md`: **G1** frozen Hub ↔ source mapping for the module 0 observer/time/matrix spine (**PASS** for module 0 closure; see file §5–§6)
-- `module0-eraEpv00-port-plan.md`: staged work plan for **`eraEpv00`** (Earth heliocentric/barycentric PV) before `eraApco` / full `observer_update_full`
-- `module0-eraApco-port-plan.md`: **`eraApco`** dependency graph (`eraApcs` … `eraPvtob`) and Hub `astrom` seam checklist
-- `module1-source-contract.md`: **G1** Hub ↔ source mapping for **`module1-hips-kernel`** (tile / Eph / HEALPix spine; **PASS** for §1–§2; see file §5–§6)
+- **`CODEX-HANDOFF.md`**: **single entry point** for a fresh agent (Codex 5.3 or successor) taking over without prior chat context — read this first. Links out to everything below.
+- `module-inventory.md`: exhaustive source inventory and mapping status (includes "Module 2 Function Inventory" per-function table).
+- `module-gates.md`: gate checklists and pass/fail per module (includes "Known residuals" for repo-wide `npm test` failures that belong to later modules).
+- `blockers.md`: blocker log with owner and unblock criteria.
+- `stellarium-web-engine-src.md`: pinned GitHub commit + `src/` paths for Stellarium Web Engine (module 2 reference; **EV-0037** / **`BLK-003`**).
+- `evidence-index.md`: evidence artifacts and command/output references. **Next free ID: EV-0075** (EV-0067 / EV-0068 are intentionally unused).
+- `module0-source-contract.md`: **G1** frozen Hub ↔ source mapping for the module 0 observer/time/matrix spine (**PASS** for module 0 closure; see file §5–§6).
+- `module0-eraEpv00-port-plan.md`: staged work plan for **`eraEpv00`** (Earth heliocentric/barycentric PV) before `eraApco` / full `observer_update_full`.
+- `module0-eraApco-port-plan.md`: **`eraApco`** dependency graph (`eraApcs` … `eraPvtob`) and Hub `astrom` seam checklist.
+- `module1-source-contract.md`: **G1** Hub ↔ source mapping for **`module1-hips-kernel`** (tile / Eph / HEALPix spine; **PASS** for §1–§2; see file §5–§6).
 - `module2-source-contract.md`: **G1** Hub ↔ source mapping for **`module2-stars-full`** (`hip` / `stars` / `bv_to_rgb` inventory rows; **PASS** for §1–§2; C reference: **`stellarium-web-engine-src.md`**). **§7** = handoff for external agents (paths, `npm run test:module2`, open work).
-- `AUDIT-2026-04-20.md`: Codex handoff audit and runtime-port doc consistency closure (**EV-0056**).
+- `AUDIT-2026-04-20.md`: Codex handoff audit (Pass A = **EV-0056**) and full runtime-port doc audit (Pass B = **EV-0071**).
 
 ## Module Completion Rule
 
@@ -53,4 +54,4 @@ Status values are strict:
 
 No partial statuses are allowed.
 
-**`module0-foundation-lock`** is **`COMPLETE`** (**EV-0019**). **`module1-hips-kernel`** is **`COMPLETE`** (**EV-0034**): **`eph-file.c`** / HEALPix / tile / HiPS-order spine, deterministic tile-load replay (**EV-0024**), normalized **`hipsViewport`** + quadtree depth from **`hips_get_render_order`** (**EV-0032**–**EV-0033**), and full evidence closure. **`module2-stars-full`** is the active execution-order target (**EV-0035**); **`G0`/`G1`** **PASS** (**EV-0036**). Hub subset progress includes stars pipeline parity and UI structure/asset parity hardening (**EV-0038**–**EV-0056**). **Overall** **`BLOCKED`** until remaining gates close; see **`module2-source-contract.md` §5–§7** and **`evidence-index.md`**.
+**`module0-foundation-lock`** is **`COMPLETE`** (**EV-0019**). **`module1-hips-kernel`** is **`COMPLETE`** (**EV-0034**): **`eph-file.c`** / HEALPix / tile / HiPS-order spine, deterministic tile-load replay (**EV-0024**), normalized **`hipsViewport`** + quadtree depth from **`hips_get_render_order`** (**EV-0032**–**EV-0033**), and full evidence closure. **`module2-stars-full`** is the active execution-order target (**EV-0035**); **`G0`/`G1`** **PASS** (**EV-0036**). Hub subset progress includes stars pipeline parity, UI structure/asset parity hardening, runtime stabilization + cleanup, the ERFA `eraStarpv` / Stellarium `compute_pv` / `star_get_astrom` catalogue astrometry port wired through the scene assembler with a per-star pv cache (**EV-0038**–**EV-0070**), the full runtime-port doc audit + `test:module2` bundle expansion to include `test_erfa_starpv.test.js` (**EV-0071**), the end-to-end `painter_project(FRAME_ASTROM → FRAME_OBSERVED)` regression that seals the EV-0070 pv output through `eraLdsun` + `eraAb` + `bpn^T` + `ri2h` (**EV-0072**), and native `stars.c::render_visitor` tile traversal semantics wired onto the active StarsModule/runtimeFrame path (**EV-0074**; `test:module2` now 35/35 across 10 files). **Overall** **`BLOCKED`** until remaining gates close; see **`module2-source-contract.md` §5–§7**, **`module-gates.md`** "Known residuals", and **`evidence-index.md`**.
