@@ -80,6 +80,10 @@ function formatDisplayedFov(fovDegrees: number) {
   return `${fovDegrees.toFixed(4)}°`
 }
 
+function formatToolbarFov(fovDegrees: number) {
+  return `${fovDegrees.toPrecision(3)}°`
+}
+
 function resolveRuntimeModeLabel(mode: 'hipparcos' | 'gaia' | 'multi-survey' | 'loading' | 'mock') {
   if (mode === 'multi-survey') {
     return 'Multi-survey'
@@ -637,14 +641,16 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
               </datalist>
             </form>
             <div className="sky-engine-page__toolbar-spacer" />
-            <div className="subheader">FOV {formatDisplayedFov(snapshot.camera.fovDegrees)}</div>
-            <button
-              type="button"
-              className="sky-engine-page__observe-btn"
-              onClick={() => setInspectorOpen((currentValue) => !currentValue)}
-            >
-              Observe ▾
-            </button>
+            <div className="subheader">FOV {formatToolbarFov(snapshot.camera.fovDegrees)}</div>
+            {!inspectorOpen ? (
+              <button
+                type="button"
+                className="sky-engine-page__observe-btn"
+                onClick={() => setInspectorOpen(true)}
+              >
+                Observe ▾
+              </button>
+            ) : null}
           </div>
         </div>
 
@@ -664,7 +670,7 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
             <button type="button" className={`bottom-button${nightModeVisible ? ' on' : ''}`} onClick={() => setNightModeVisible((v) => !v)} aria-label="Night Mode"><img src={STELLARIUM_WEB_UI.nightMode} alt="" /><span className="hint">Night Mode</span></button>
             <button type="button" className={`bottom-button${fullscreenVisible ? ' on' : ''}`} onClick={() => setFullscreenVisible((v) => !v)} aria-label="Fullscreen"><span>⛶</span><span className="hint">Fullscreen</span></button>
             <div className="sky-engine-page__toolbar-spacer" />
-            <button type="button" className="tmenubt" onClick={() => sceneRef.current?.togglePlayback()} aria-label="Time controls">
+            <button type="button" className="tmenubt" aria-label="Time controls">
               <span className="text-subtitle-2">{localClockTimeLabel}</span>
               <span className="text-caption">{localClockDateLabel}</span>
             </button>
