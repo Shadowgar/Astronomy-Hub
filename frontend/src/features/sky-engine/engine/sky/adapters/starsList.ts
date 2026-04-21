@@ -55,6 +55,37 @@ function resolveSourceKey(
   return null
 }
 
+function resolveActiveSourceKey(
+  tiles: readonly SkyTilePayload[],
+  requestedSource: StarsListSourceKey,
+): string | null {
+  const requested = resolveSourceKey(tiles, requestedSource)
+  if (!requested) {
+    return null
+  }
+  const sortedTiles = tiles
+    .slice()
+    .sort((a, b) => a.level - b.level || a.tileId.localeCompare(b.tileId))
+  const sourceExists = sortedTiles.some((tile) => {
+    const keys = tile.provenance?.sourceKeys ?? (tile.provenance?.sourceKey ? [tile.provenance.sourceKey] : [])
+    return keys.includes(requested)
+  })
+  if (sourceExists) {
+    return requested
+  }
+  // stars.c::stars_list: unknown source falls back to first survey.
+  for (const tile of sortedTiles) {
+    if (tile.provenance?.sourceKey) {
+      return tile.provenance.sourceKey
+    }
+    const first = tile.provenance?.sourceKeys?.[0]
+    if (first) {
+      return first
+    }
+  }
+  return requested
+}
+
 function resolveHintTile(
   tiles: readonly SkyTilePayload[],
   hintNuniq: bigint | number,
@@ -83,7 +114,7 @@ function resolveHintTile(
  * - unresolved hint tile returns `again` (Stellarium `MODULE_AGAIN` seam).
  */
 export function listRuntimeStarsFromTiles(options: StarsListOptions): StarsListStatus {
-  const sourceKey = resolveSourceKey(options.tiles, options.source ?? null)
+  const sourceKey = resolveActiveSourceKey(options.tiles, options.source ?? null)
   const sourceCatalog = resolveSourceCatalog(
     options.tiles,
     isCatalogSourceKey(sourceKey) ? sourceKey : null,
@@ -127,12 +158,18 @@ export function listRuntimeStarsFromTiles(options: StarsListOptions): StarsListS
   }
 
   for (const tile of sourceTiles) {
-    for (const star of tile.stars) {
+    if (tile.magMin >= maxMag) {
+      continue
+    }
+    const starsInTile = tile.stars
+      .slice()
+      .sort((left, right) => left.mag - right.mag || left.id.localeCompare(right.id))
+    for (const star of starsInTile) {
       if (sourceCatalog != null && star.catalog !== sourceCatalog) {
         continue
       }
       if (star.mag > maxMag) {
-        continue
+        break
       }
       if (options.visit(star)) {
         return 'ok'

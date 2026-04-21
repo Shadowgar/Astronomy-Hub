@@ -73,6 +73,20 @@ describe('module2 stars.c stars_list parity seam', () => {
     expect(visited).toEqual(['gaia-1'])
   })
 
+  it('falls back to first available survey source when requested source key is unknown', () => {
+    const visited = []
+    const status = listRuntimeStarsFromTiles({
+      tiles,
+      source: 'unknown-survey-key',
+      maxMag: 6,
+      visit: (star) => {
+        visited.push(star.id)
+      },
+    })
+    expect(status).toBe('ok')
+    expect(visited).toEqual(['hip-bright', 'hip-mid'])
+  })
+
   it('returns MODULE_AGAIN-style status when hint nuniq tile is unresolved', () => {
     const status = listRuntimeStarsFromTiles({
       tiles,
@@ -110,5 +124,52 @@ describe('module2 stars.c stars_list parity seam', () => {
     })
     expect(status).toBe('ok')
     expect(visited).toEqual(['gaia-1', 'gaia-2'])
+  })
+
+  it('prunes tiles by magMin and breaks per-tile traversal once max_mag is exceeded', () => {
+    const visited = []
+    const status = listRuntimeStarsFromTiles({
+      tiles: [
+        ...tiles,
+        {
+          tileId: 'deep-hip',
+          level: 2,
+          parentTileId: 'root-hip',
+          childTileIds: [],
+          bounds: { raMinDeg: 0, raMaxDeg: 90, decMinDeg: 0, decMaxDeg: 45 },
+          magMin: 8.5,
+          magMax: 12,
+          starCount: 2,
+          stars: [
+            { id: 'hip-faint-a', sourceId: 'HIP 1001', raDeg: 10, decDeg: 10, mag: 9.1, tier: 'T2', catalog: 'hipparcos' },
+            { id: 'hip-faint-b', sourceId: 'HIP 1002', raDeg: 11, decDeg: 11, mag: 10.2, tier: 'T2', catalog: 'hipparcos' },
+          ],
+          provenance: { catalog: 'hipparcos', sourcePath: 'fixtures', sourceKey: 'hip-main', sourceKeys: ['hip-main'] },
+        },
+        {
+          tileId: 'mixed-order',
+          level: 1,
+          parentTileId: 'root-hip',
+          childTileIds: [],
+          bounds: { raMinDeg: 90, raMaxDeg: 180, decMinDeg: 0, decMaxDeg: 45 },
+          magMin: 1,
+          magMax: 9,
+          starCount: 3,
+          stars: [
+            { id: 'hip-too-faint', sourceId: 'HIP 2003', raDeg: 100, decDeg: 10, mag: 8.7, tier: 'T2', catalog: 'hipparcos' },
+            { id: 'hip-ok-2', sourceId: 'HIP 2002', raDeg: 101, decDeg: 10, mag: 4.2, tier: 'T1', catalog: 'hipparcos' },
+            { id: 'hip-ok-1', sourceId: 'HIP 2001', raDeg: 102, decDeg: 10, mag: 2.1, tier: 'T0', catalog: 'hipparcos' },
+          ],
+          provenance: { catalog: 'hipparcos', sourcePath: 'fixtures', sourceKey: 'hip-main', sourceKeys: ['hip-main'] },
+        },
+      ],
+      source: 'hip-main',
+      maxMag: 6,
+      visit: (star) => {
+        visited.push(star.id)
+      },
+    })
+    expect(status).toBe('ok')
+    expect(visited).toEqual(['hip-bright', 'hip-mid', 'hip-ok-1', 'hip-ok-2'])
   })
 })
