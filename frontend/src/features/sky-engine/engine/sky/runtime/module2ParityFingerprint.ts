@@ -26,6 +26,13 @@ import {
 } from './starsCatalogAstrom'
 import { buildScenePacketSignature } from './modules/StarsModule'
 import { buildRuntimeTileQuerySignature } from '../../../sceneQueryState'
+import type { ScenePropsSnapshot, SkySceneRuntimeServices } from '../../../SkyEngineRuntimeBridge'
+import { horizontalToDirection } from '../../../projectionMath'
+import { deriveSunPhaseLabel, deriveSunVisualCalibration } from '../../../solar'
+import type { SkyEngineAidVisibility, SkyEngineObserver, SkyEngineSunState } from '../../../types'
+import type { ObserverSnapshot } from '../contracts/observer'
+import { createObserverAstrometrySnapshot } from '../transforms/coordinates'
+import { evaluateSceneLuminanceReport } from './luminanceReport'
 import type { SkyScenePacket } from '../contracts/scene'
 import type { SkyTilePayload } from '../contracts/tiles'
 import type { SkyEngineQuery } from '../contracts/tiles'
@@ -366,6 +373,113 @@ function resolveViewTierFingerprint(fovDegrees: number): string {
   return `close:${dynamicLabelCap}`
 }
 
+const FINGERPRINT_LUMINANCE_SERVICES = {
+  projectionService: {
+    getCurrentFovDegrees: () => 120,
+    createView: (centerDirection: { x: number; y: number; z: number }) => ({
+      centerDirection,
+      fovRadians: (120 * Math.PI) / 180,
+      viewportWidth: 1280,
+      viewportHeight: 720,
+      projectionMode: 'stereographic' as const,
+    }),
+    unproject: () => horizontalToDirection(38, 155),
+  },
+  navigationService: {
+    getCenterDirection: () => horizontalToDirection(38, 155),
+  },
+} as unknown as SkySceneRuntimeServices
+
+const FINGERPRINT_LUMINANCE_OBSERVER_SNAPSHOT: ObserverSnapshot = {
+  timestampUtc: '2026-04-10T00:00:00Z',
+  latitudeDeg: 40.44,
+  longitudeDeg: -79.99,
+  elevationM: 250,
+  fovDeg: 120,
+  centerAltDeg: 45,
+  centerAzDeg: 180,
+  projection: 'stereographic',
+}
+
+function sceneLuminanceFingerprintSlice(): string {
+  const observer: SkyEngineObserver = {
+    label: 'g4-scene-lum',
+    latitude: 40.44,
+    longitude: -79.99,
+    elevationFt: 250 / 0.3048,
+  }
+  const observerFrameAstrometry = createObserverAstrometrySnapshot(FINGERPRINT_LUMINANCE_OBSERVER_SNAPSHOT)
+
+  const buildAid = (atmosphere: boolean): SkyEngineAidVisibility => ({
+    constellations: false,
+    azimuthRing: false,
+    altitudeRings: false,
+    atmosphere,
+    landscape: true,
+    deepSky: true,
+    nightMode: false,
+  })
+
+  const buildProps = (sunAltitudeDeg: number, atmosphere: boolean): ScenePropsSnapshot => {
+    const phaseLabel = deriveSunPhaseLabel(sunAltitudeDeg)
+    const visualCalibration = deriveSunVisualCalibration(sunAltitudeDeg)
+    const skyDirection = horizontalToDirection(sunAltitudeDeg, 215)
+    const sunState: SkyEngineSunState = {
+      altitudeDeg: sunAltitudeDeg,
+      azimuthDeg: 215,
+      isAboveHorizon: sunAltitudeDeg > 0,
+      phaseLabel,
+      rightAscensionHours: 0,
+      declinationDeg: 0,
+      localSiderealTimeDeg: 0,
+      skyDirection,
+      lightDirection: { x: -skyDirection.x, y: -skyDirection.y, z: -skyDirection.z },
+      visualCalibration,
+    }
+
+    return {
+      backendStars: [],
+      initialSceneTimestampIso: '2026-04-10T00:00:00Z',
+      observer,
+      objects: [],
+      scenePacket: null,
+      initialViewState: { fovDegrees: 120, centerAltDeg: 45, centerAzDeg: 180 },
+      projectionMode: 'stereographic',
+      sunState,
+      selectedObjectId: null,
+      guidedObjectIds: [],
+      aidVisibility: buildAid(atmosphere),
+      skyCultureId: 'western',
+      hiddenSelectionName: null,
+      onSelectObject: () => {},
+      observerFrameAstrometry,
+    }
+  }
+
+  const formatCase = (sunAltitudeDeg: number, atmosphere: boolean) => {
+    const report = evaluateSceneLuminanceReport(
+      buildProps(sunAltitudeDeg, atmosphere),
+      FINGERPRINT_LUMINANCE_SERVICES,
+    )
+    return [
+      atmosphere ? 'atm1' : 'atm0',
+      q(sunAltitudeDeg),
+      q(report.sky),
+      q(report.skyAverageLuminance),
+      q(report.skyBrightness),
+      q(report.target),
+      report.targetFastAdaptation ? '1' : '0',
+    ].join(':')
+  }
+
+  return [
+    'scene-lum',
+    formatCase(55, false),
+    formatCase(72, true),
+    formatCase(-18, true),
+  ].join('|')
+}
+
 /**
  * Canonical string for the module 2 ported surface. Two runs on the same build MUST match bitwise.
  */
@@ -424,6 +538,7 @@ export function computeModule2PortFingerprint(): string {
   parts.push(projectionCacheSignatureSlice())
   parts.push(runtimeTileQuerySignatureSlice())
   parts.push(starsListSlice())
+  parts.push(sceneLuminanceFingerprintSlice())
 
   return parts.join('::')
 }

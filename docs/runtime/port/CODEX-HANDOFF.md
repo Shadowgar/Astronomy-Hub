@@ -2,7 +2,7 @@
 
 **Purpose:** This file is the single entry point for a fresh agent (Codex 5.3 or any successor) taking over the runtime port without prior chat context. Read this file first, then the four "required reads" below, then start coding.
 
-**Last updated:** 2026-04-21, evidence **EV-0086** (Stellarium-aligned daytime star adaptation: `luminanceReport.ts` atmosphere-off + daylight cap using **+5°** zenith reference; `solar.ts` daylight star bands continuous at 8°; `test_tone_adaptation` settles night lwmax before bright step; `test:module2` **54/54** / **14 files**; module1 **46/46**; typecheck + build PASS).
+**Last updated:** 2026-04-21, evidence **EV-0086** (same as prior row, plus **G4** `computeModule2PortFingerprint` **`scene-lum|`** slice for `evaluateSceneLuminanceReport`; `test:module2` **54/54** / **14 files**; module1 **46/46**; typecheck + build PASS).
 
 ---
 

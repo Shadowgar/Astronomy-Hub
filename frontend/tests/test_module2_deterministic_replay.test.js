@@ -22,5 +22,6 @@ describe('Module 2 deterministic port replay (G4)', () => {
     expect(fingerprint).toContain('packet-signature:')
     expect(fingerprint).toContain('tile-query-signature:')
     expect(fingerprint).toContain('stars-list:')
+    expect(fingerprint).toContain('scene-lum|')
   })
 })

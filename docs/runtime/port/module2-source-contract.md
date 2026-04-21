@@ -136,7 +136,7 @@ Hard constraints for continuation:
 | Hipparcos merge + HIP check | `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts` (`filterSurveyStarsForMerge` → `runtimeStarMatchesHipHealpixLookup`) |
 | Public exports | `frontend/src/features/sky-engine/engine/sky/index.ts` |
 | Stellarium simple-html UI assets (toolbar SVGs) | `frontend/public/stellarium-web/`, `frontend/src/pages/stellariumWebUiAssets.ts`, `frontend/src/pages/SkyEnginePage.tsx` (**EV-0053**) |
-| G4 port fingerprint | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts`; tests **`test_module2_deterministic_replay.test.js`** (**EV-0043**) |
+| G4 port fingerprint | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts` (includes **`scene-lum|`** slice for `evaluateSceneLuminanceReport` — **EV-0086**); tests **`test_module2_deterministic_replay.test.js`** (**EV-0043**) |
 | Scene luminance / daytime star adaptation | `frontend/src/features/sky-engine/engine/sky/runtime/luminanceReport.ts`, `runtime/modules/SceneLuminanceReportModule.ts`, `frontend/src/features/sky-engine/solar.ts` (**EV-0086**) |
 
 ### Commands (from `frontend/`)
@@ -187,7 +187,7 @@ Hard constraints for continuation:
 | EV-0082 | G4 fingerprint adds deterministic `stars_list` slice; root `docker:dev-backend` for Docker-first local API stack |
 | EV-0083 | Scene diagnostics invoke `listRuntimeStarsFromTiles`; `starsListVisitCount` on assembled packets |
 | EV-0084 | Snapshot bridge + HUD **Listed** chip + `formatSkyDiagnosticsSummary` list token |
-| EV-0086 | `luminanceReport.ts` mirrors Stellarium atmosphere-off luminance path + daylight adaptation cap (**+5°** zenith reference); daylight `solar.ts` star band calibration; `test_scene_luminance_report.test.js` + `test_tone_adaptation.test.js` in **`test:module2`** + CI path filter |
+| EV-0086 | `luminanceReport.ts` + **`scene-lum|`** in `module2ParityFingerprint.ts`; daylight `solar.ts` star band calibration; `test_scene_luminance_report.test.js` + `test_tone_adaptation.test.js` in **`test:module2`** + CI path filter |
 
 
 ### CI
