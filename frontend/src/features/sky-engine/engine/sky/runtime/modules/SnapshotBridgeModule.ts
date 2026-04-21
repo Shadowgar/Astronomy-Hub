@@ -60,6 +60,7 @@ export function createSnapshotBridgeModule(
           visibleLabelCount: runtime.visibleLabelIds.length,
           backendStarCount: latest.backendStars.length,
           renderedStarCount: runtime.projectedStarsFrame?.projectedStars.length ?? 0,
+          starsListVisitCount: latest.scenePacket?.diagnostics?.starsListVisitCount ?? 0,
           lodTier: projectedFrame?.lod.tier ?? 'wide',
           labelCap: projectedFrame?.lod.labelCap ?? 0,
           dataMode: latest.scenePacket?.diagnostics?.dataMode ?? 'loading',

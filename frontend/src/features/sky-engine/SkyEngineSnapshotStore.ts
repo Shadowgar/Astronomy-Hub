@@ -21,6 +21,8 @@ export interface SkyEngineRuntimeSummarySnapshot {
   readonly visibleLabelCount: number
   readonly backendStarCount: number
   readonly renderedStarCount: number
+  /** `stars.c::stars_list`-style visit count from scene diagnostics (visible tiles, current limiting magnitude). */
+  readonly starsListVisitCount: number
   readonly lodTier: 'wide' | 'medium' | 'close'
   readonly labelCap: number
   readonly dataMode: 'mock' | 'hipparcos' | 'gaia' | 'multi-survey' | 'loading'
@@ -107,6 +109,7 @@ const EMPTY_SUMMARY_SNAPSHOT: SkyEngineRuntimeSummarySnapshot = {
   visibleLabelCount: 0,
   backendStarCount: 0,
   renderedStarCount: 0,
+  starsListVisitCount: 0,
   lodTier: 'wide',
   labelCap: 0,
   dataMode: 'loading',

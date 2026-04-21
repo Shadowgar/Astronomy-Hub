@@ -745,6 +745,12 @@ function SkyEnginePageContent({
 
           <div className="sky-engine-page__overlay sky-engine-page__overlay--progress-bars">
             <div className="sky-engine-page__progress-chip">Stars {snapshot.summary.renderedStarCount}</div>
+            <div
+              className="sky-engine-page__progress-chip"
+              title="Catalog stars that would be visited by the Stellarium-style stars_list pass over visible survey tiles at the current limiting magnitude (may differ from rendered count due to dedupe and projection gates)."
+            >
+              Listed {snapshot.summary.starsListVisitCount}
+            </div>
             <div className="sky-engine-page__progress-chip">Data {resolveRuntimeModeLabel(snapshot.summary.dataMode)}</div>
           </div>
         </div>

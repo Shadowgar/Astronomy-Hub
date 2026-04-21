@@ -67,6 +67,7 @@ export function formatSkyDiagnosticsSummary(diagnostics: SkyDiagnosticsSnapshot)
     `m${diagnostics.limitingMagnitude.toFixed(1)}`,
     `${diagnostics.activeTiles} tiles`,
     `${diagnostics.visibleStars} stars`,
+    `list ${diagnostics.starsListVisitCount}`,
     `L${diagnostics.maxTileDepthReached}`,
   ].join(' · ')
 }
