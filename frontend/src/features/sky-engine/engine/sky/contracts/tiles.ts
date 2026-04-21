@@ -48,6 +48,15 @@ export type SkyTileProvenance = {
   catalog: SkyTileCatalog
   sourcePath: string
   /**
+   * Source key aligned with `stars_add_data_source(..., key)`/`stars_list(..., source)` behavior.
+   * Present when tile payload is backed by a single active survey source.
+   */
+  sourceKey?: string
+  /**
+   * Ordered source keys that contributed stars into this tile payload.
+   */
+  sourceKeys?: string[]
+  /**
    * Optional source-tile identity for `stars_list` hint traversal parity (`nuniq_to_pix`-decoded lookup).
    * Present when a runtime tile maps to a single upstream HiPS tile.
    */

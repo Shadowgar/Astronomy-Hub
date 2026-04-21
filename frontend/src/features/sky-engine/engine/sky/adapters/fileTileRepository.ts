@@ -372,6 +372,7 @@ function mergeSurveyTiles(
   const sourcePaths = Array.from(new Set(tilePayloads
     .map(({ tile }) => tile?.provenance?.sourcePath)
     .filter((sourcePath): sourcePath is string => Boolean(sourcePath))))
+  const sourceKeys = Array.from(new Set(tilePayloads.map(({ survey }) => survey.key)))
   const tierSet = Array.from(new Set(stars.map((star) => star.tier)))
   const surveyCatalogs = Array.from(new Set(tilePayloads.map(({ survey }) => survey.catalog)))
   const sourceRecordCount = tilePayloads.reduce((count, payload) => count + (payload.survey.sourceRecordCount ?? 0), 0)
@@ -390,6 +391,8 @@ function mergeSurveyTiles(
     provenance: {
       catalog: surveyCatalogs.length > 1 ? 'multi-survey' : (surveyCatalogs[0] ?? manifest.catalog),
       sourcePath: sourcePaths.join(' + '),
+      sourceKey: sourceKeys.length === 1 ? sourceKeys[0] : undefined,
+      sourceKeys,
       generator: manifest.generator,
       generatedAt: manifest.generatedAt,
       sourceRecordCount: sourceRecordCount > 0 ? sourceRecordCount : undefined,

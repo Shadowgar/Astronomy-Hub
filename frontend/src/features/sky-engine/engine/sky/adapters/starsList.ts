@@ -4,7 +4,7 @@ import { nuniqToHealpixOrderAndPix } from './starsNuniq'
 
 export type StarsListStatus = 'ok' | 'again'
 
-export type StarsListSourceKey = RuntimeStarCatalog | null
+export type StarsListSourceKey = string | null
 
 type StarsListOptions = {
   readonly tiles: readonly SkyTilePayload[]
@@ -20,7 +20,7 @@ function normalizeMaxMag(maxMag?: number): number {
 
 function resolveSourceCatalog(
   tiles: readonly SkyTilePayload[],
-  source: StarsListSourceKey,
+  source: RuntimeStarCatalog | null,
 ): RuntimeStarCatalog | null {
   if (source) {
     return source
@@ -31,6 +31,28 @@ function resolveSourceCatalog(
     .flatMap((tile) => tile.stars)
     .find((star) => star.catalog === 'hipparcos' || star.catalog === 'gaia')
   return firstStar?.catalog ?? null
+}
+
+function isCatalogSourceKey(source: string | null): source is RuntimeStarCatalog {
+  return source === 'hipparcos' || source === 'gaia'
+}
+
+function resolveSourceKey(
+  tiles: readonly SkyTilePayload[],
+  source: StarsListSourceKey,
+): string | null {
+  if (source) {
+    return source
+  }
+  const sortedTiles = tiles
+    .slice()
+    .sort((a, b) => a.level - b.level || a.tileId.localeCompare(b.tileId))
+  for (const tile of sortedTiles) {
+    if (tile.provenance?.sourceKey) {
+      return tile.provenance.sourceKey
+    }
+  }
+  return null
 }
 
 function resolveHintTile(
@@ -54,10 +76,23 @@ function resolveHintTile(
  * - unresolved hint tile returns `again` (Stellarium `MODULE_AGAIN` seam).
  */
 export function listRuntimeStarsFromTiles(options: StarsListOptions): StarsListStatus {
-  const sourceCatalog = resolveSourceCatalog(options.tiles, options.source ?? null)
+  const sourceKey = resolveSourceKey(options.tiles, options.source ?? null)
+  const sourceCatalog = resolveSourceCatalog(
+    options.tiles,
+    isCatalogSourceKey(sourceKey) ? sourceKey : null,
+  )
   const maxMag = normalizeMaxMag(options.maxMag)
   const sourceTiles = options.tiles
-    .filter((tile) => tile.stars.some((star) => star.catalog === sourceCatalog))
+    .filter((tile) => {
+      const tileSourceKeys = tile.provenance?.sourceKeys ?? (tile.provenance?.sourceKey ? [tile.provenance.sourceKey] : [])
+      if (sourceKey != null && tileSourceKeys.length > 0 && !tileSourceKeys.includes(sourceKey)) {
+        return false
+      }
+      if (sourceCatalog == null) {
+        return true
+      }
+      return tile.stars.some((star) => star.catalog === sourceCatalog)
+    })
     .slice()
     .sort((a, b) => a.level - b.level || a.tileId.localeCompare(b.tileId))
 
@@ -71,7 +106,7 @@ export function listRuntimeStarsFromTiles(options: StarsListOptions): StarsListS
       return 'again'
     }
     for (const star of hintTile.stars) {
-      if (star.catalog !== sourceCatalog) {
+      if (sourceCatalog != null && star.catalog !== sourceCatalog) {
         continue
       }
       if (star.mag > maxMag) {
@@ -86,7 +121,7 @@ export function listRuntimeStarsFromTiles(options: StarsListOptions): StarsListS
 
   for (const tile of sourceTiles) {
     for (const star of tile.stars) {
-      if (star.catalog !== sourceCatalog) {
+      if (sourceCatalog != null && star.catalog !== sourceCatalog) {
         continue
       }
       if (star.mag > maxMag) {
