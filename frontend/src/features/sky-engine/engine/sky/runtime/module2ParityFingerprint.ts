@@ -17,6 +17,14 @@ import {
 import { resolveStarsRenderLimitMagnitude } from './stellariumPainterLimits'
 import { resolveProjectedStarCapForFov } from './modules/runtimeFrame'
 import { RUNTIME_MODEL_SYNC_CADENCE_MS } from '../../../SkyEngineScene'
+import { visitStarsRenderTiles } from './starsRenderVisitor'
+import { findRuntimeStarByHipInTiles } from '../adapters/starsLookup'
+import {
+  computeCatalogStarPvFromCatalogueUnits,
+  starAstrometricIcrfVector,
+} from './starsCatalogAstrom'
+import type { SkyScenePacket } from '../contracts/scene'
+import type { SkyTilePayload } from '../contracts/tiles'
 
 const DECIMALS = 12
 
@@ -29,6 +37,168 @@ function q(value: number): number {
 
 function triplet(rgb: readonly [number, number, number]): string {
   return `${q(rgb[0])},${q(rgb[1])},${q(rgb[2])}`
+}
+
+function visitorTraversalSlice(): string {
+  const scenePacket: SkyScenePacket = {
+    stars: [
+      { id: 'root-bright', x: 1, y: 0.2, z: 0.1, mag: 2, tier: 'T0' },
+      { id: 'root-faint', x: 0.2, y: 1, z: 0.1, mag: 8, tier: 'T2' },
+      { id: 'child-one', x: 0.2, y: 0.1, z: 1, mag: 3, tier: 'T0' },
+      { id: 'child-two', x: -1, y: 0.3, z: 0.2, mag: 4.8, tier: 'T1' },
+      { id: 'sibling', x: 0.1, y: -1, z: 0.3, mag: 1.2, tier: 'T0' },
+    ],
+    starTiles: [
+      {
+        tileId: 'root-a',
+        level: 0,
+        parentTileId: null,
+        childTileIds: ['root-a-nw', 'root-a-ne'],
+        magMin: 1,
+        magMax: 9,
+        starIds: ['root-bright', 'root-faint'],
+      },
+      {
+        tileId: 'root-a-nw',
+        level: 1,
+        parentTileId: 'root-a',
+        childTileIds: [],
+        magMin: 3,
+        magMax: 4,
+        starIds: ['child-one'],
+      },
+      {
+        tileId: 'root-a-ne',
+        level: 1,
+        parentTileId: 'root-a',
+        childTileIds: [],
+        magMin: 4.5,
+        magMax: 5,
+        starIds: ['child-two'],
+      },
+      {
+        tileId: 'root-b',
+        level: 0,
+        parentTileId: null,
+        childTileIds: [],
+        magMin: 1,
+        magMax: 2,
+        starIds: ['sibling'],
+      },
+    ],
+    labels: [],
+    diagnostics: {
+      dataMode: 'hipparcos',
+      sourceLabel: 'fingerprint',
+      limitingMagnitude: 6.5,
+      activeTiles: 4,
+      visibleStars: 5,
+      activeTiers: ['T0', 'T1', 'T2'],
+      tileLevels: [0, 1],
+      tilesPerLevel: { '0': 2, '1': 2 },
+      maxTileDepthReached: 1,
+      visibleTileIds: ['root-a', 'root-a-nw', 'root-a-ne', 'root-b'],
+    },
+  }
+
+  const visitedOrder: string[] = []
+  const entries = visitStarsRenderTiles({
+    scenePacket,
+    starsLimitMagnitude: 5.3,
+    hardLimitMagnitude: 9,
+    projectStar: (star) => ({
+      planeX: star.x,
+      planeY: star.y,
+      screenX: star.x,
+      screenY: star.id === 'child-two' ? -1 : star.y,
+      depth: 0.5,
+      angularDistanceRad: 0.1,
+    }),
+    isPointClipped: (projected) => projected.screenY < 0,
+    isTileClipped: (tile) => {
+      visitedOrder.push(tile.tileId)
+      return false
+    },
+  })
+
+  const entrySlice = entries.map((entry) => `${entry.tileId}:${entry.star.id}`).join(',')
+  return `visitor-order:${visitedOrder.join(',')}|entries:${entrySlice}`
+}
+
+function hipLookupSlice(): string {
+  const tiles: SkyTilePayload[] = [
+    {
+      tileId: 'root-ne',
+      level: 0,
+      parentTileId: null,
+      childTileIds: [],
+      bounds: { raMinDeg: 180, raMaxDeg: 360, decMinDeg: 0, decMaxDeg: 90 },
+      magMin: 0,
+      magMax: 7,
+      starCount: 3,
+      stars: [
+        {
+          id: 'gaia-11767',
+          sourceId: 'HIP 11767',
+          raDeg: 37.954515,
+          decDeg: 89.264109,
+          mag: 2.1,
+          tier: 'T1',
+          catalog: 'gaia',
+        },
+        {
+          id: 'hip-11767-a',
+          sourceId: 'HIP 11767',
+          raDeg: 37.954515,
+          decDeg: 89.264109,
+          mag: 2.0,
+          tier: 'T0',
+          catalog: 'hipparcos',
+        },
+        {
+          id: 'hip-91262',
+          sourceId: 'HIP 91262',
+          raDeg: 279.234735,
+          decDeg: 38.783689,
+          mag: 0.03,
+          tier: 'T0',
+          catalog: 'hipparcos',
+        },
+      ],
+    },
+  ]
+
+  const hip11767 = findRuntimeStarByHipInTiles(tiles, 11767)?.id ?? 'null'
+  const hip91262 = findRuntimeStarByHipInTiles(tiles, 91262)?.id ?? 'null'
+  const hipMissing = findRuntimeStarByHipInTiles(tiles, 9999999)?.id ?? 'null'
+  const hip11767Repeated = findRuntimeStarByHipInTiles(tiles, 11767)?.id ?? 'null'
+  return `hip-lookup:${hip11767}|${hip91262}|${hipMissing}|repeat:${hip11767Repeated}`
+}
+
+function catalogAstrometrySlice(): string {
+  const pv = computeCatalogStarPvFromCatalogueUnits({
+    raDeg: 101.287155,
+    decDeg: -16.716116,
+    pmRaMasYr: -546.05,
+    pmDecMasYr: -1223.14,
+    parallaxMas: 379.21,
+  })
+  const propagated = starAstrometricIcrfVector(pv, 51544.5 + 800, [0.1, 0.9, 0.4])
+  const zeroParallax = computeCatalogStarPvFromCatalogueUnits({
+    raDeg: 120.5,
+    decDeg: 22.25,
+    pmRaMasYr: 10,
+    pmDecMasYr: -4,
+    parallaxMas: 0,
+  })
+  return [
+    `catalog-astrom:iwarn:${pv.iwarn}`,
+    `distance:${q(pv.distanceAu)}`,
+    `p0:${q(pv.p[0])}`,
+    `v1:${q(pv.v[1])}`,
+    `vec:${q(propagated[0])},${q(propagated[1])},${q(propagated[2])}`,
+    `zero-v:${q(zeroParallax.v[0])},${q(zeroParallax.v[1])},${q(zeroParallax.v[2])}`,
+  ].join('|')
 }
 
 /**
@@ -99,6 +269,9 @@ export function computeModule2PortFingerprint(): string {
   for (const fov of [10, 30, 60, 100]) {
     parts.push(`starCap:${fov}:${resolveProjectedStarCapForFov(fov)}`)
   }
+  parts.push(visitorTraversalSlice())
+  parts.push(hipLookupSlice())
+  parts.push(catalogAstrometrySlice())
 
   return parts.join('::')
 }
