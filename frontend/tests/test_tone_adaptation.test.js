@@ -71,6 +71,11 @@ function createProps(sunAltitudeDeg, visualCalibration, objects = []) {
       compass: true,
       altitudeRings: true,
       trajectories: true,
+      atmosphere: true,
+      landscape: true,
+      deepSky: true,
+      nightMode: false,
+      azimuthRing: false,
     },
     onSelectObject: () => {},
     onAtmosphereStatusChange: () => {},
@@ -167,11 +172,20 @@ describe('sky brightness exposure adaptation', () => {
       starFieldBrightness: 0.92,
       atmosphereExposure: 1,
     }))
-    const instantNightTarget = evaluateSkyBrightnessExposureState(
+    let settledNightState = evaluateSkyBrightnessExposureState(
       instantNightProps,
       SERVICES,
       evaluateSceneLuminanceReport(instantNightProps, SERVICES),
     )
+    for (let step = 0; step < 50; step += 1) {
+      settledNightState = evaluateSkyBrightnessExposureState(
+        instantNightProps,
+        SERVICES,
+        evaluateSceneLuminanceReport(instantNightProps, SERVICES),
+        settledNightState,
+        1 / 30,
+      )
+    }
     const firstDarkFrameProps = createProps(-22, createVisualCalibration('Night', {
       starVisibility: 1,
       starFieldBrightness: 0.92,
@@ -185,22 +199,22 @@ describe('sky brightness exposure adaptation', () => {
       1 / 60,
     )
     const brightRecoveryProps = createProps(8, createVisualCalibration('Daylight', {
-        starVisibility: 0.04,
-        starFieldBrightness: 0.06,
-        atmosphereExposure: 1,
-      }))
+      starVisibility: 0.04,
+      starFieldBrightness: 0.06,
+      atmosphereExposure: 1,
+    }))
     const brightRecovery = evaluateSkyBrightnessExposureState(
       brightRecoveryProps,
       SERVICES,
       evaluateSceneLuminanceReport(brightRecoveryProps, SERVICES),
-      instantNightTarget,
+      settledNightState,
       1 / 60,
     )
 
     expect(firstDarkFrame.adaptedSceneLuminance).toBeGreaterThan(firstDarkFrame.sceneLuminance)
     expect(firstDarkFrame.tonemapperLwmax).toBeGreaterThan(firstDarkFrame.targetTonemapperLwmax)
     expect(brightRecovery.tonemapperLwmax).toBeCloseTo(brightRecovery.targetTonemapperLwmax, 6)
-    expect(brightRecovery.limitingMagnitude).toBeLessThan(instantNightTarget.limitingMagnitude)
+    expect(brightRecovery.limitingMagnitude).toBeLessThan(settledNightState.limitingMagnitude)
   })
 
   it('bounds contributor sampling work per frame', () => {

@@ -137,12 +137,13 @@ Hard constraints for continuation:
 | Public exports | `frontend/src/features/sky-engine/engine/sky/index.ts` |
 | Stellarium simple-html UI assets (toolbar SVGs) | `frontend/public/stellarium-web/`, `frontend/src/pages/stellariumWebUiAssets.ts`, `frontend/src/pages/SkyEnginePage.tsx` (**EV-0053**) |
 | G4 port fingerprint | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts`; tests **`test_module2_deterministic_replay.test.js`** (**EV-0043**) |
+| Scene luminance / daytime star adaptation | `frontend/src/features/sky-engine/engine/sky/runtime/luminanceReport.ts`, `runtime/modules/SceneLuminanceReportModule.ts`, `frontend/src/features/sky-engine/solar.ts` (**EV-0086**) |
 
 ### Commands (from `frontend/`)
 
 - `npm run typecheck` — required before claiming done.
 - `npm run build` — production bundle (note: **`hipPixOrder2.generated.ts`** embeds ~120 KB table as base64; optional future work: lazy load).
-- `npm run test:module2` — module 2 Vitest bundle (BV, nuniq, limit mag, HIP, survey-wide HIP lookup regression `test_module2_stars_lookup_survey.test.js`, native `render_visitor` traversal regression `test_module2_stars_render_visitor.test.js`, deterministic replay, selection detail route, ERFA `eraStarpv` + `starsCatalogAstrom`, `painter_project(FRAME_ASTROM, …)` end-to-end).
+- `npm run test:module2` — module 2 Vitest bundle (BV, nuniq, limit mag, HIP, survey-wide HIP lookup regression `test_module2_stars_lookup_survey.test.js`, native `render_visitor` traversal regression `test_module2_stars_render_visitor.test.js`, deterministic replay, selection detail route, ERFA `eraStarpv` + `starsCatalogAstrom`, `painter_project(FRAME_ASTROM, …)` end-to-end, **`test_scene_luminance_report.test.js`** + **`test_tone_adaptation.test.js`** for atmosphere/daylight luminance + exposure adaptation (**EV-0086**)).
 - `npm run test:module1` — must stay green if **`fileTileRepository.ts`**, **`healpix.ts`**, or **`ephCodec.ts`** change.
 
 ### Evidence IDs already landed (do not duplicate unless changing behavior)
@@ -186,6 +187,7 @@ Hard constraints for continuation:
 | EV-0082 | G4 fingerprint adds deterministic `stars_list` slice; root `docker:dev-backend` for Docker-first local API stack |
 | EV-0083 | Scene diagnostics invoke `listRuntimeStarsFromTiles`; `starsListVisitCount` on assembled packets |
 | EV-0084 | Snapshot bridge + HUD **Listed** chip + `formatSkyDiagnosticsSummary` list token |
+| EV-0086 | `luminanceReport.ts` mirrors Stellarium atmosphere-off luminance path + daylight adaptation cap (**+5°** zenith reference); daylight `solar.ts` star band calibration; `test_scene_luminance_report.test.js` + `test_tone_adaptation.test.js` in **`test:module2`** + CI path filter |
 
 
 ### CI

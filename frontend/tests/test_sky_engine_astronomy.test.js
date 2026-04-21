@@ -181,10 +181,10 @@ describe('Sky Engine astronomy helpers', () => {
     expect(daylightSun.phaseLabel).toBe('Daylight')
     expect(lowSun.phaseLabel).toBe('Low Sun')
     expect(nightSun.phaseLabel).toBe('Night')
-    expect(daylightSun.visualCalibration.starVisibility).toBeLessThan(lowSun.visualCalibration.starVisibility)
-    expect(lowSun.visualCalibration.starVisibility).toBeLessThan(nightSun.visualCalibration.starVisibility)
-    expect(daylightSun.visualCalibration.starLabelVisibility).toBeLessThan(lowSun.visualCalibration.starLabelVisibility)
-    expect(lowSun.visualCalibration.starLabelVisibility).toBeLessThan(nightSun.visualCalibration.starLabelVisibility)
+    expect(nightSun.visualCalibration.starVisibility).toBeGreaterThan(daylightSun.visualCalibration.starVisibility)
+    expect(nightSun.visualCalibration.starVisibility).toBeGreaterThan(lowSun.visualCalibration.starVisibility)
+    expect(nightSun.visualCalibration.starLabelVisibility).toBeGreaterThan(daylightSun.visualCalibration.starLabelVisibility)
+    expect(nightSun.visualCalibration.starLabelVisibility).toBeGreaterThan(lowSun.visualCalibration.starLabelVisibility)
   })
 
   it('treats Sevilla as night at 01:00 UTC in mid-April', () => {

@@ -21,8 +21,12 @@ const BRIGHTNESS_STAR_MAGNITUDE_CUTOFF = 6.2
 const BRIGHTNESS_SOLAR_SYSTEM_MAGNITUDE_CUTOFF = 7.5
 const SKY_LUMINANCE_SAMPLE_COLUMNS = 8
 const SKY_LUMINANCE_SAMPLE_ROWS = 6
-/** Civil twilight reference (degrees below horizon) for capping sky luminance used in star adaptation while the sun is up. */
-const DAYLIGHT_STAR_ADAPTATION_SUN_ALTITUDE_RAD = (-6 * Math.PI) / 180
+/**
+ * Reference sun altitude (radians) for capping sky luminance used in star adaptation during Daylight.
+ * A −6° zenith model is almost fully dark (~0.01 cd/m²), which would erase daytime adaptation entirely;
+ * a low positive altitude matches “deep twilight / graze” brightness (~10² cd/m²) as a readable ceiling.
+ */
+const DAYLIGHT_STAR_ADAPTATION_SUN_ALTITUDE_RAD = (5 * Math.PI) / 180
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -274,9 +278,9 @@ export function evaluateSceneLuminanceReport(
   // With the atmosphere dome visible under a high sun, physical zenith luminance is orders of
   // magnitude above what human vision resolves for point stars. Stellarium still paints stars
   // in planetarium-style views by driving point response from a tonemapper that is not solely
-  // the raw photometric zenith peak. Cap adaptation luminances to a civil-twilight-class zenith
-  // reference so limiting magnitude / lwmax stay in a range where bright stars remain visible
-  // over the rendered blue sky (backdrop colors stay on the Preetham path in `AtmosphereModule`).
+  // the raw photometric zenith peak. Cap adaptation luminances to a low-sun zenith reference so
+  // limiting magnitude / lwmax stay in a range where bright stars remain visible over the
+  // rendered blue sky (backdrop colors stay on the Preetham path in `AtmosphereModule`).
   const atmosphereAidVisible = props.aidVisibility?.atmosphere !== false
   if (atmosphereAidVisible && props.sunState.phaseLabel === 'Daylight') {
     const capBaseline = evaluateStellariumSkyBrightnessBaseline({
