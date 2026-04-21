@@ -78,6 +78,51 @@ vi.mock('../src/features/sky-engine/starVisibility', () => ({
 
 import { collectProjectedNonStarObjects, collectProjectedStars } from '../src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame'
 
+/** Minimal packet so `visitStarsRenderTiles` can traverse (requires `starTiles` + `diagnostics.visibleTileIds`). */
+function buildStarScenePacket(starSceneObjects) {
+  const stars = starSceneObjects.map((star, index) => ({
+    id: star.id,
+    x: 0,
+    y: 0,
+    z: 1,
+    mag: star.magnitude,
+    colorIndex: star.colorIndexBV,
+    label: star.id,
+    tier: `T${Math.min(index, 2)}`,
+  }))
+  const mags = stars.map((s) => s.mag)
+  const magMin = Math.min(...mags)
+  const magMax = Math.max(...mags)
+  return {
+    stars,
+    starTiles: [
+      {
+        tileId: 'test-root',
+        level: 0,
+        parentTileId: null,
+        childTileIds: [],
+        magMin,
+        magMax: Math.max(magMax, magMin + 0.01),
+        starIds: stars.map((s) => s.id),
+      },
+    ],
+    labels: [],
+    diagnostics: {
+      dataMode: 'test',
+      sourceLabel: 'test',
+      limitingMagnitude: 8,
+      activeTiles: 1,
+      visibleStars: stars.length,
+      starsListVisitCount: 0,
+      activeTiers: ['bright'],
+      tileLevels: [0],
+      tilesPerLevel: { '0': 1 },
+      maxTileDepthReached: 0,
+      visibleTileIds: ['test-root'],
+    },
+  }
+}
+
 function createView() {
   return {
     fovRadians: 1.0,
@@ -114,11 +159,7 @@ describe('collectProjectedStars early exit', () => {
       {
         view: createView(),
         objects: stars,
-        scenePacket: {
-          stars: stars.map((star, index) => ({ id: star.id, x: 0, y: 0, z: 1, mag: star.magnitude, colorIndex: star.colorIndexBV, label: star.id, tier: `T${Math.min(index, 2)}` })),
-          labels: [],
-          diagnostics: {},
-        },
+        scenePacket: buildStarScenePacket(stars),
         sunState: { visualCalibration: { starFieldBrightness: 1 } },
         brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
       },
@@ -130,11 +171,7 @@ describe('collectProjectedStars early exit', () => {
       {
         view: createView(),
         objects: stars,
-        scenePacket: {
-          stars: stars.map((star, index) => ({ id: star.id, x: 0, y: 0, z: 1, mag: star.magnitude, colorIndex: star.colorIndexBV, label: star.id, tier: `T${Math.min(index, 2)}` })),
-          labels: [],
-          diagnostics: {},
-        },
+        scenePacket: buildStarScenePacket(stars),
         sunState: { visualCalibration: { starFieldBrightness: 1 } },
         brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
       },
@@ -165,11 +202,7 @@ describe('collectProjectedStars early exit', () => {
       {
         view: createView(),
         objects: stars,
-        scenePacket: {
-          stars: stars.map((star, index) => ({ id: star.id, x: 0, y: 0, z: 1, mag: star.magnitude, colorIndex: star.colorIndexBV, label: star.id, tier: `T${Math.min(index, 2)}` })),
-          labels: [],
-          diagnostics: {},
-        },
+        scenePacket: buildStarScenePacket(stars),
         sunState: { visualCalibration: { starFieldBrightness: 1 } },
         brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
       },
@@ -202,11 +235,7 @@ describe('collectProjectedStars early exit', () => {
       {
         view: createView(),
         objects: stars,
-        scenePacket: {
-          stars: stars.map((star, index) => ({ id: star.id, x: 0, y: 0, z: 1, mag: star.magnitude, colorIndex: star.colorIndexBV, label: star.id, tier: `T${Math.min(index, 2)}` })),
-          labels: [],
-          diagnostics: {},
-        },
+        scenePacket: buildStarScenePacket(stars),
         sunState: { visualCalibration: { starFieldBrightness: 1 } },
         brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
       },
@@ -323,7 +352,7 @@ describe('collectProjectedNonStarObjects LOD sizing', () => {
     expect(close.projectedObjects[0].shapeHeightPx).toBeGreaterThan(wide.projectedObjects[0].shapeHeightPx)
   })
 
-  it('applies Stellarium visibility gate to non-moon planets by limiting magnitude', () => {
+  it('still projects faint planets: limiting magnitude is not applied in this collector (module-specific visibility)', () => {
     projectDirectionToViewportMock.mockReset()
     getSkyEngineFovDegreesMock.mockReset()
     projectDirectionToViewportMock.mockReturnValue({
@@ -360,10 +389,11 @@ describe('collectProjectedNonStarObjects LOD sizing', () => {
       null,
     )
 
-    expect(projected.projectedObjects).toHaveLength(0)
+    expect(projected.projectedObjects).toHaveLength(1)
+    expect(projected.projectedObjects[0].object.id).toBe('planet-neptune')
   })
 
-  it('applies Stellarium visibility gate to deep-sky objects by limiting magnitude', () => {
+  it('still projects faint DSOs: limiting magnitude is not applied in this collector (module-specific visibility)', () => {
     projectDirectionToViewportMock.mockReset()
     getSkyEngineFovDegreesMock.mockReset()
     projectDirectionToViewportMock.mockReturnValue({
@@ -404,10 +434,11 @@ describe('collectProjectedNonStarObjects LOD sizing', () => {
       null,
     )
 
-    expect(projected.projectedObjects).toHaveLength(0)
+    expect(projected.projectedObjects).toHaveLength(1)
+    expect(projected.projectedObjects[0].object.id).toBe('dso-dim')
   })
 
-  it('applies limiting-magnitude gate to satellites only when modeled photometric magnitude exists', () => {
+  it('does not apply limiting-magnitude gate to satellites in this collector (module-specific visibility)', () => {
     projectDirectionToViewportMock.mockReset()
     getSkyEngineFovDegreesMock.mockReset()
     projectDirectionToViewportMock.mockReturnValue({
@@ -448,7 +479,7 @@ describe('collectProjectedNonStarObjects LOD sizing', () => {
       null,
     )
 
-    expect(projected.projectedObjects.map((entry) => entry.object.id)).toEqual(['sat-placeholder'])
+    expect(projected.projectedObjects.map((entry) => entry.object.id)).toEqual(['sat-dim-modeled', 'sat-placeholder'])
   })
 
   it('keeps moon visible and applies Stellarium moon wide-field scale-up', () => {

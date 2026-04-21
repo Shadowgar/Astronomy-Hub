@@ -319,7 +319,7 @@ export function resolveViewTier(fovDegrees: number): SceneViewLod {
 
 function shouldRenderObject(
   object: SkyEngineSceneObject,
-  centerAltitudeDeg: number,
+  _centerAltitudeDeg: number,
   fovDegrees: number,
   _sunState: SkyEngineSunState,
   selectedObjectId: string | null,
@@ -333,35 +333,27 @@ function shouldRenderObject(
     return true
   }
 
-  if (getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees, observerAstrometry) <= 0) {
+  if (getObjectHorizonFade(object, fovDegrees, observerAstrometry) <= 0) {
     return false
   }
 
   return true
 }
 
+/**
+ * Soft horizon mask in **geometric** altitude (refraction removed). Uses only the object's
+ * altitude, not the camera center: a previous path mixed in `centerAltitudeDeg` and could
+ * treat far-below-horizon bodies as fully visible whenever the view center dipped slightly
+ * below the horizon, which hid the astronomical horizon for planets and DSOs.
+ */
 function getObjectHorizonFade(
   object: SkyEngineSceneObject,
-  centerAltitudeDeg: number,
   fovDegrees: number,
   observerAstrometry?: ObserverAstrometrySnapshot,
 ) {
-  const visibilityAltitudeDeg = getObjectVisibilityAltitudeDeg(object, centerAltitudeDeg, observerAstrometry)
-  const horizonSoftEdgeDeg = clamp(1.2 + fovDegrees * 0.015, 1.2, 4.5)
-  return smoothstep(-horizonSoftEdgeDeg, horizonSoftEdgeDeg, visibilityAltitudeDeg)
-}
-
-function getObjectVisibilityAltitudeDeg(
-  object: SkyEngineSceneObject,
-  centerAltitudeDeg: number,
-  observerAstrometry?: ObserverAstrometrySnapshot,
-) {
   const geometricAltitudeDeg = observedToGeometricAltitudeDeg(object.altitudeDeg, observerAstrometry)
-  if (centerAltitudeDeg <= 0 && geometricAltitudeDeg < 0) {
-    return Math.abs(geometricAltitudeDeg)
-  }
-
-  return geometricAltitudeDeg
+  const horizonSoftEdgeDeg = clamp(1.2 + fovDegrees * 0.015, 1.2, 4.5)
+  return smoothstep(-horizonSoftEdgeDeg, horizonSoftEdgeDeg, geometricAltitudeDeg)
 }
 
 function getProjectedDiscRadiusPx(apparentSizeDeg: number | undefined, scale: number, minimumRadiusPx: number, maximumRadiusPx: number) {
@@ -688,7 +680,7 @@ function projectScenePacketStar(
     pointVisual,
   )
   const renderAlpha = clamp(
-    getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees, input.observerAstrometry) * pointVisual.luminance,
+    getObjectHorizonFade(object, fovDegrees, input.observerAstrometry) * pointVisual.luminance,
     0,
     1,
   )
@@ -881,7 +873,7 @@ export function collectProjectedNonStarObjects(
     filteringMs += performance.now() - filteringProjectedMs
 
     const filteringAlphaMs = performance.now()
-    const horizonFade = getObjectHorizonFade(object, centerAltitudeDeg, fovDegrees, observerAstrometry)
+    const horizonFade = getObjectHorizonFade(object, fovDegrees, observerAstrometry)
     const planetSizing = (object.type === 'planet' || object.type === 'moon')
       ? getPlanetRenderSizing(object, view, brightnessExposureState, fovDegrees)
       : null
