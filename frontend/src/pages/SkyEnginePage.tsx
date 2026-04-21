@@ -298,7 +298,10 @@ const SkyEngineViewport = React.memo(function SkyEngineViewport({
 
 SkyEngineViewport.displayName = 'SkyEngineViewport'
 
-function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: BackendSkyScenePayload }>) {
+function SkyEnginePageContent({
+  backendScene,
+  offlineFallbackMode = false,
+}: Readonly<{ backendScene: BackendSkyScenePayload; offlineFallbackMode?: boolean }>) {
   const rootRef = useRef<HTMLDivElement | null>(null)
   const sceneRef = useRef<SkyEngineSceneHandle | null>(null)
   const uiPerfRef = useRef<SkyEngineUiPerfState>(createSkyEngineUiPerfState())
@@ -686,6 +689,14 @@ function SkyEnginePageContent({ backendScene }: Readonly<{ backendScene: Backend
                 </datalist>
               </form>
               <div className="sky-engine-page__toolbar-spacer" />
+              {offlineFallbackMode ? (
+                <div className="sky-engine-page__status-pill">
+                  <span className="sky-engine-page__top-bar-label">Mode</span>
+                  <strong>Offline fallback</strong>
+                  <small>Backend scene unavailable; local defaults active</small>
+                </div>
+              ) : null}
+              <div className="sky-engine-page__toolbar-spacer" />
               <div className="subheader">FOV {formatToolbarFov(snapshot.camera.fovDegrees)}</div>
               {!inspectorOpen ? (
                 <button
@@ -795,11 +806,11 @@ export default function SkyEnginePage() {
   }
 
   if (sceneQuery.isError) {
-    return <SkyEnginePageContent backendScene={fallbackBackendScene} />
+    return <SkyEnginePageContent backendScene={fallbackBackendScene} offlineFallbackMode />
   }
 
   if (!backendScene) {
-    return <SkyEnginePageContent backendScene={fallbackBackendScene} />
+    return <SkyEnginePageContent backendScene={fallbackBackendScene} offlineFallbackMode />
   }
 
   return <SkyEnginePageContent backendScene={backendScene} />
