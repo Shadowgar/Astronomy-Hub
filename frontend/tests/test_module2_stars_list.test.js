@@ -34,7 +34,15 @@ describe('module2 stars.c stars_list parity seam', () => {
         { id: 'gaia-1', sourceId: 'Gaia DR3 2', raDeg: 30, decDeg: 11, mag: 8.1, tier: 'T2', catalog: 'gaia' },
         { id: 'gaia-2', sourceId: 'Gaia DR3 3', raDeg: 35, decDeg: 14, mag: 9.2, tier: 'T2', catalog: 'gaia' },
       ],
-      provenance: { catalog: 'gaia', sourcePath: 'gaia/Norder1/Npix5.eph', sourceKey: 'gaia', sourceKeys: ['gaia'], hipsOrder: 1, hipsPix: 5 },
+      provenance: {
+        catalog: 'gaia',
+        sourcePath: 'gaia/Norder1/Npix5.eph',
+        sourceKey: 'gaia',
+        sourceKeys: ['gaia'],
+        hipsOrder: 1,
+        hipsPix: 5,
+        hipsTiles: [{ sourceKey: 'gaia', order: 1, pix: 5 }, { sourceKey: 'gaia', order: 1, pix: 6 }],
+      },
     },
   ]
 
@@ -88,5 +96,19 @@ describe('module2 stars.c stars_list parity seam', () => {
     })
     expect(status).toBe('ok')
     expect(visited).toEqual(['gaia-1'])
+  })
+
+  it('matches hinted nuniq against merged hipsTiles provenance entries', () => {
+    const visited = []
+    const status = listRuntimeStarsFromTiles({
+      tiles,
+      source: 'gaia',
+      hintNuniq: healpixOrderPixToNuniq(1, 6),
+      visit: (star) => {
+        visited.push(star.id)
+      },
+    })
+    expect(status).toBe('ok')
+    expect(visited).toEqual(['gaia-1', 'gaia-2'])
   })
 })

@@ -57,6 +57,15 @@ export type SkyTileProvenance = {
    */
   sourceKeys?: string[]
   /**
+   * Source HiPS tile identities that contributed to this runtime tile payload.
+   * Used by `stars_list(..., hint=nuniq)` parity paths.
+   */
+  hipsTiles?: readonly {
+    sourceKey: string
+    order: number
+    pix: number
+  }[]
+  /**
    * Optional source-tile identity for `stars_list` hint traversal parity (`nuniq_to_pix`-decoded lookup).
    * Present when a runtime tile maps to a single upstream HiPS tile.
    */

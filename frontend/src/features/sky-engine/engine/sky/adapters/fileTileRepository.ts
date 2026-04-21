@@ -373,6 +373,16 @@ function mergeSurveyTiles(
     .map(({ tile }) => tile?.provenance?.sourcePath)
     .filter((sourcePath): sourcePath is string => Boolean(sourcePath))))
   const sourceKeys = Array.from(new Set(tilePayloads.map(({ survey }) => survey.key)))
+  const hipsTiles = tilePayloads.flatMap(({ survey, tile }) => {
+    if (!tile?.provenance?.hipsTiles || tile.provenance.hipsTiles.length === 0) {
+      return []
+    }
+    return tile.provenance.hipsTiles.map((hipsTile) => ({
+      sourceKey: hipsTile.sourceKey || survey.key,
+      order: hipsTile.order,
+      pix: hipsTile.pix,
+    }))
+  })
   const tierSet = Array.from(new Set(stars.map((star) => star.tier)))
   const surveyCatalogs = Array.from(new Set(tilePayloads.map(({ survey }) => survey.catalog)))
   const sourceRecordCount = tilePayloads.reduce((count, payload) => count + (payload.survey.sourceRecordCount ?? 0), 0)
@@ -393,6 +403,7 @@ function mergeSurveyTiles(
       sourcePath: sourcePaths.join(' + '),
       sourceKey: sourceKeys.length === 1 ? sourceKeys[0] : undefined,
       sourceKeys,
+      hipsTiles: hipsTiles.length > 0 ? hipsTiles : undefined,
       generator: manifest.generator,
       generatedAt: manifest.generatedAt,
       sourceRecordCount: sourceRecordCount > 0 ? sourceRecordCount : undefined,
@@ -558,6 +569,9 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
         labelCandidates: [],
         provenance: {
           catalog: 'gaia',
+          sourceKey: GAIA_SURVEY_KEY,
+          sourceKeys: [GAIA_SURVEY_KEY],
+          hipsTiles: selectedPixels.map((pix) => ({ sourceKey: GAIA_SURVEY_KEY, order, pix })),
           sourcePath: GAIA_SURVEY_BASE_PATH,
           generatedAt: gaiaSurvey.properties.releaseDate,
           tierSet: Array.from(new Set(stars.map((star) => star.tier))),

@@ -58,10 +58,17 @@ function resolveSourceKey(
 function resolveHintTile(
   tiles: readonly SkyTilePayload[],
   hintNuniq: bigint | number,
+  sourceKey: string | null,
 ): SkyTilePayload | null {
   const { order, pix } = nuniqToHealpixOrderAndPix(hintNuniq)
   for (const tile of tiles) {
-    if (tile.provenance?.hipsOrder === order && tile.provenance?.hipsPix === pix) {
+    const singleMatch = tile.provenance?.hipsOrder === order && tile.provenance?.hipsPix === pix
+    const multiMatch = (tile.provenance?.hipsTiles ?? []).some((hipsTile) => (
+      hipsTile.order === order &&
+      hipsTile.pix === pix &&
+      (sourceKey == null || hipsTile.sourceKey === sourceKey)
+    ))
+    if (singleMatch || multiMatch) {
       return tile
     }
   }
@@ -101,7 +108,7 @@ export function listRuntimeStarsFromTiles(options: StarsListOptions): StarsListS
   }
 
   if (options.hintNuniq != null) {
-    const hintTile = resolveHintTile(sourceTiles, options.hintNuniq)
+    const hintTile = resolveHintTile(sourceTiles, options.hintNuniq, sourceKey)
     if (!hintTile) {
       return 'again'
     }
