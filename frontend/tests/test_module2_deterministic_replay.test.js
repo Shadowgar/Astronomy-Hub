@@ -19,5 +19,7 @@ describe('Module 2 deterministic port replay (G4)', () => {
     expect(fingerprint).toContain('visitor-order:')
     expect(fingerprint).toContain('hip-lookup:')
     expect(fingerprint).toContain('catalog-astrom:')
+    expect(fingerprint).toContain('packet-signature:')
+    expect(fingerprint).toContain('tile-query-signature:')
   })
 })

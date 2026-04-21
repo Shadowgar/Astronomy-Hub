@@ -23,8 +23,11 @@ import {
   computeCatalogStarPvFromCatalogueUnits,
   starAstrometricIcrfVector,
 } from './starsCatalogAstrom'
+import { buildScenePacketSignature } from './modules/StarsModule'
+import { buildRuntimeTileQuerySignature } from '../../../sceneQueryState'
 import type { SkyScenePacket } from '../contracts/scene'
 import type { SkyTilePayload } from '../contracts/tiles'
+import type { SkyEngineQuery } from '../contracts/tiles'
 
 const DECIMALS = 12
 
@@ -201,6 +204,57 @@ function catalogAstrometrySlice(): string {
   ].join('|')
 }
 
+function projectionCacheSignatureSlice(): string {
+  const scenePacket: SkyScenePacket = {
+    stars: [
+      { id: 'sig-a', x: 0.2, y: 0.1, z: 1, mag: 1.2, tier: 'T0' },
+      { id: 'sig-b', x: -0.2, y: 0.4, z: 0.8, mag: 5.4, tier: 'T1' },
+      { id: 'sig-c', x: 0.6, y: -0.2, z: 0.7, mag: 9.1, tier: 'T2' },
+    ],
+    starTiles: [],
+    labels: [],
+    diagnostics: {
+      dataMode: 'multi-survey',
+      sourceLabel: 'fingerprint-signature',
+      limitingMagnitude: 7.125,
+      activeTiles: 3,
+      visibleStars: 3,
+      activeTiers: ['T0', 'T1', 'T2'],
+      tileLevels: [0, 1],
+      tilesPerLevel: { '0': 1, '1': 2 },
+      maxTileDepthReached: 1,
+      visibleTileIds: ['root-a', 'root-a-ne', 'root-a-se'],
+    },
+  }
+  return `packet-signature:${buildScenePacketSignature(scenePacket)}`
+}
+
+function runtimeTileQuerySignatureSlice(): string {
+  const query: SkyEngineQuery = {
+    observer: {
+      timestampUtc: '2026-07-15T02:00:00.000Z',
+      latitudeDeg: 44,
+      longitudeDeg: -123,
+      elevationM: 120,
+      fovDeg: 28,
+      centerAltDeg: 18,
+      centerAzDeg: 120,
+      projection: 'stereographic',
+    },
+    limitingMagnitude: 8.7,
+    activeTiers: ['T2', 'T0', 'T1'],
+    visibleTileIds: ['root-ne', 'root-ne-sw', 'root-ne-nw'],
+    maxTileLevel: 3,
+    hipsViewport: {
+      windowHeightPx: 1080,
+      projectionMat11: 2.345678901,
+      tileWidthPx: 256,
+    },
+  }
+  const signature = buildRuntimeTileQuerySignature(query, 'multi-survey')
+  return `tile-query-signature:${signature}`
+}
+
 /**
  * Must stay aligned with `resolveViewTier` in `runtimeFrame.ts` (StarsModule uses it for label LOD).
  * Inlined here so the fingerprint module does not import Babylon-backed runtime paths.
@@ -272,6 +326,8 @@ export function computeModule2PortFingerprint(): string {
   parts.push(visitorTraversalSlice())
   parts.push(hipLookupSlice())
   parts.push(catalogAstrometrySlice())
+  parts.push(projectionCacheSignatureSlice())
+  parts.push(runtimeTileQuerySignatureSlice())
 
   return parts.join('::')
 }
