@@ -17,6 +17,7 @@
     "@types/node": "^25.5.0"
   },
   "scripts": {
+    "dev:basic:local": "bash scripts/dev-basic-local.sh",
     "docker:stellarium:up": "bash scripts/prepare-stellarium-reference.sh && docker compose up -d --build stellarium-reference",
     "docker:stellarium:down": "docker compose rm -sf stellarium-reference",
     "docker:reference-stack:up": "bash scripts/prepare-stellarium-reference.sh && docker compose up -d --build backend frontend stellarium-reference",
