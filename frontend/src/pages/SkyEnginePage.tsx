@@ -152,6 +152,42 @@ function computeSceneOffsetSeconds(baseTimestampIso: string, snapshotTimestampIs
   return Math.round((snapshotTimestampMs - baseTimestampMs) / 1000)
 }
 
+function toFiniteNumberOr(value: string | undefined, fallback: number) {
+  if (!value) {
+    return fallback
+  }
+  const parsed = Number(value)
+  return Number.isFinite(parsed) ? parsed : fallback
+}
+
+function buildFallbackBackendScene(params: {
+  at: string
+  lat?: string
+  lon?: string
+  elevationFt?: string
+}): BackendSkyScenePayload {
+  return {
+    scope: 'sky',
+    engine: 'sky_engine',
+    filter: 'visible_now',
+    timestamp: params.at,
+    observer: {
+      label: 'Local observer (offline)',
+      latitude: toFiniteNumberOr(params.lat, 0),
+      longitude: toFiniteNumberOr(params.lon, 0),
+      elevation_ft: toFiniteNumberOr(params.elevationFt, 0),
+    },
+    scene_state: {
+      projection: 'stereographic',
+      center_alt_deg: 30,
+      center_az_deg: 180,
+      fov_deg: 60,
+      stars_ready: false,
+    },
+    objects: [],
+  }
+}
+
 type SkyEngineOwnershipStateProps = {
   title: string
   detail: string
@@ -742,6 +778,12 @@ export default function SkyEnginePage() {
     () => parseBackendSkyScenePayload(sceneQuery.data),
     [sceneQuery.data],
   )
+  const fallbackBackendScene = useMemo(() => buildFallbackBackendScene({
+    at: resolvedRouteAt,
+    lat: routeLat,
+    lon: routeLon,
+    elevationFt: routeElevationFt,
+  }), [resolvedRouteAt, routeLat, routeLon, routeElevationFt])
 
   if (sceneQuery.isPending) {
     return (
@@ -753,21 +795,11 @@ export default function SkyEnginePage() {
   }
 
   if (sceneQuery.isError) {
-    return (
-      <SkyEngineOwnershipState
-        title="Sky scene unavailable"
-        detail="Backend scene ownership failed to load; local observer and time are intentionally not used as fallback."
-      />
-    )
+    return <SkyEnginePageContent backendScene={fallbackBackendScene} />
   }
 
   if (!backendScene) {
-    return (
-      <SkyEngineOwnershipState
-        title="Sky scene invalid"
-        detail="Backend responded without the required sky scene ownership contract."
-      />
-    )
+    return <SkyEnginePageContent backendScene={fallbackBackendScene} />
   }
 
   return <SkyEnginePageContent backendScene={backendScene} />
