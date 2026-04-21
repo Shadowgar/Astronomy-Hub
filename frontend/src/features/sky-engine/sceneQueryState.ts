@@ -50,21 +50,19 @@ export function resolveScenePacketForQuery(config: {
   previousScenePacket: ScenePropsSnapshot['scenePacket']
 }) {
   const tileQuerySignature = buildRuntimeTileQuerySignature(config.query, config.repositoryMode)
+  // Only treat tile payloads as authoritative for this `query` when the active repository
+  // signature matches. A previous multi-survey "promotion" path reused `tileLoadResult` even
+  // when signatures diverged, which could pair a *new* `visibleTileIds` set with *stale*
+  // `runtimeTiles` — yielding empty star packets, **Listed 0**, and confusing HUD state.
   const matchingTileLoadResult = config.tileLoadResult != null && config.resolvedTileQuerySignature === tileQuerySignature
     ? config.tileLoadResult
     : null
-  const promotedSurveyLoadResult = config.tileLoadResult != null &&
-    config.tileLoadResult.mode === 'multi-survey' &&
-    config.repositoryMode === 'multi-survey'
-    ? config.tileLoadResult
-    : null
-  const effectiveLoadResult = matchingTileLoadResult ?? promotedSurveyLoadResult
 
   return {
     tileQuerySignature,
-    scenePacket: effectiveLoadResult == null
+    scenePacket: matchingTileLoadResult == null
       ? (config.previousScenePacket ?? null)
-      : assembleSkyScenePacket(config.query, config.runtimeTiles, effectiveLoadResult),
-    hasResolvedTilesForQuery: effectiveLoadResult != null,
+      : assembleSkyScenePacket(config.query, config.runtimeTiles, matchingTileLoadResult),
+    hasResolvedTilesForQuery: matchingTileLoadResult != null,
   }
 }

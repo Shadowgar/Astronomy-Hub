@@ -100,6 +100,25 @@ describe('scene query state', () => {
     expect(result.tileQuerySignature).toBe(buildRuntimeTileQuerySignature(BASE_QUERY, 'hipparcos'))
   })
 
+  it('does not reuse multi-survey tile payloads when the tile query signature is out of sync', () => {
+    const result = resolveScenePacketForQuery({
+      query: { ...BASE_QUERY, visibleTileIds: ['root-ne-ne-sw'] },
+      repositoryMode: 'multi-survey',
+      runtimeTiles: [],
+      tileLoadResult: {
+        mode: 'multi-survey',
+        sourceLabel: 'Multi',
+        sourceError: null,
+        tiles: [],
+      },
+      resolvedTileQuerySignature: 'stale-signature-not-matching',
+      previousScenePacket: PREVIOUS_SCENE_PACKET,
+    })
+
+    expect(result.hasResolvedTilesForQuery).toBe(false)
+    expect(result.scenePacket).toBe(PREVIOUS_SCENE_PACKET)
+  })
+
   it('assembles a fresh packet once matching tiles have been loaded for the query', () => {
     const query = {
       ...BASE_QUERY,

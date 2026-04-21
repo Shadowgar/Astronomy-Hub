@@ -752,6 +752,14 @@ function SkyEnginePageContent({
               Listed {snapshot.summary.starsListVisitCount}
             </div>
             <div className="sky-engine-page__progress-chip">Data {resolveRuntimeModeLabel(snapshot.summary.dataMode)}</div>
+            {snapshot.summary.fallbackActive ? (
+              <div
+                className="sky-engine-page__progress-chip sky-engine-page__progress-chip--warning"
+                title="Survey tiles failed to load for the current view; star counts may be stale or empty until the fetch succeeds."
+              >
+                Tiles error
+              </div>
+            ) : null}
           </div>
         </div>
 

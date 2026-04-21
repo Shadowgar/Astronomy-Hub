@@ -2,7 +2,7 @@
 
 **Purpose:** This file is the single entry point for a fresh agent (Codex 5.3 or any successor) taking over the runtime port without prior chat context. Read this file first, then the four "required reads" below, then start coding.
 
-**Last updated:** 2026-04-21, evidence **EV-0084** (HUD **Listed** chip + snapshot bridge for `starsListVisitCount`; module 2 bundle 47/47 / 12 files; typecheck + build + module 1/2 bundles PASS).
+**Last updated:** 2026-04-21, evidence **EV-0085** (tile signature / scene-packet consistency fix + Stellarium-like inspector dock + **Tiles error** HUD; module1 **46/46**, module2 **47/47**; typecheck + build PASS).
 
 ---
 
@@ -26,7 +26,7 @@ These constraints come from the top-level `AGENTS.md` §6.5 (Sky Engine Isolatio
 2. **`docs/runtime/port/README.md`** — canon rules + current module-completion state.
 3. **`docs/runtime/port/module2-source-contract.md`** — active module (§1–§2 source mapping, §5 gate status, §7 handoff / next coding targets / commands / evidence).
 4. **`docs/runtime/port/module-gates.md`** — gate-by-gate state per module + "Known residuals (repo-wide `npm test`)" section.
-5. **`docs/runtime/port/evidence-index.md`** — the evidence ledger. Cite an existing `EV-xxxx` when referencing work; add a new row for any new work you land (**next free ID: EV-0085**; `EV-0067` and `EV-0068` are intentionally unused).
+5. **`docs/runtime/port/evidence-index.md`** — the evidence ledger. Cite an existing `EV-xxxx` when referencing work; add a new row for any new work you land (**next free ID: EV-0086**; `EV-0067` and `EV-0068` are intentionally unused).
 
 Only open deeper files (inventory, blockers, source contract for module 0/1, per-plan files) when the task points at them.
 
