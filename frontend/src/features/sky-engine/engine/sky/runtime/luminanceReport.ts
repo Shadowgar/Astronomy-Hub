@@ -21,6 +21,8 @@ const BRIGHTNESS_STAR_MAGNITUDE_CUTOFF = 6.2
 const BRIGHTNESS_SOLAR_SYSTEM_MAGNITUDE_CUTOFF = 7.5
 const SKY_LUMINANCE_SAMPLE_COLUMNS = 8
 const SKY_LUMINANCE_SAMPLE_ROWS = 6
+/** Civil twilight reference (degrees below horizon) for capping sky luminance used in star adaptation while the sun is up. */
+const DAYLIGHT_STAR_ADAPTATION_SUN_ALTITUDE_RAD = (-6 * Math.PI) / 180
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -146,6 +148,19 @@ function evaluateVisibleSkyLuminance(
   moonObject: ScenePropsSnapshot['objects'][number] | null,
   baseline: ReturnType<typeof evaluateStellariumSkyBrightnessBaseline>,
 ) {
+  // Stellarium `atmosphere.c`: when the atmosphere module fader hits zero, `atmosphere_render`
+  // returns before sampling the bright sky grid or driving `core_report_luminance_in_fov`, so
+  // `core->lwsky_average` stays at the dark reset used for star tonemapping. Mirror that by
+  // skipping physical sky sampling whenever the aid explicitly hides the atmosphere dome.
+  if (props.aidVisibility?.atmosphere === false) {
+    const lum = baseline.nightSkyZenithLuminance
+    return {
+      averageLuminance: lum,
+      maxLuminance: lum,
+      sampleCount: SKY_LUMINANCE_SAMPLE_COLUMNS * SKY_LUMINANCE_SAMPLE_ROWS,
+    }
+  }
+
   const centerDirection = services.navigationService.getCenterDirection()
 
   if (
@@ -254,7 +269,32 @@ export function evaluateSceneLuminanceReport(
   })
 
   const centerDirection = services.navigationService.getCenterDirection()
-  const sky = evaluateVisibleSkyLuminance(props, services, moonObject, baseline)
+  let sky = evaluateVisibleSkyLuminance(props, services, moonObject, baseline)
+
+  // With the atmosphere dome visible under a high sun, physical zenith luminance is orders of
+  // magnitude above what human vision resolves for point stars. Stellarium still paints stars
+  // in planetarium-style views by driving point response from a tonemapper that is not solely
+  // the raw photometric zenith peak. Cap adaptation luminances to a civil-twilight-class zenith
+  // reference so limiting magnitude / lwmax stay in a range where bright stars remain visible
+  // over the rendered blue sky (backdrop colors stay on the Preetham path in `AtmosphereModule`).
+  const atmosphereAidVisible = props.aidVisibility?.atmosphere !== false
+  if (atmosphereAidVisible && props.sunState.phaseLabel === 'Daylight') {
+    const capBaseline = evaluateStellariumSkyBrightnessBaseline({
+      timestampIso: resolveTimestampIso(props),
+      latitudeDeg: resolveObserverLatitudeDeg(props),
+      observerElevationM: resolveObserverElevationMeters(props),
+      sunAltitudeRad: DAYLIGHT_STAR_ADAPTATION_SUN_ALTITUDE_RAD,
+      moonAltitudeRad,
+      moonMagnitude: moonObject?.magnitude,
+    })
+    const cap = capBaseline.zenithSkyLuminance
+    sky = {
+      averageLuminance: Math.min(sky.averageLuminance, cap),
+      maxLuminance: Math.min(sky.maxLuminance, cap),
+      sampleCount: sky.sampleCount,
+    }
+  }
+
   const star = estimateStarLuminanceContributor(props, currentFovDegrees)
   const solarSystem = estimateSolarSystemLuminanceContributor(props, currentFovDegrees, centerDirection)
   const target = Math.max(sky.maxLuminance, star.luminance, solarSystem.luminance)

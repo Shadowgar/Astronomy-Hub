@@ -69,6 +69,11 @@ function createProps(objects) {
       compass: true,
       altitudeRings: true,
       trajectories: true,
+      atmosphere: true,
+      landscape: true,
+      deepSky: true,
+      nightMode: false,
+      azimuthRing: false,
     },
     onSelectObject: () => {},
     onAtmosphereStatusChange: () => {},
@@ -124,5 +129,41 @@ describe('scene luminance report', () => {
     expect(report.skySampleCount).toBeGreaterThan(0)
     expect(report.starSampleCount).toBeLessThanOrEqual(640)
     expect(report.solarSystemSampleCount).toBeLessThanOrEqual(32)
+  })
+
+  it('uses dark-sky luminance for adaptation when the atmosphere aid is hidden (Stellarium atmosphere off)', () => {
+    const props = createProps([])
+    props.sunState = {
+      ...props.sunState,
+      altitudeDeg: 55,
+      isAboveHorizon: true,
+      phaseLabel: 'Daylight',
+      visualCalibration: { ...createVisualCalibration(), phaseLabel: 'Daylight' },
+    }
+    props.aidVisibility = { ...props.aidVisibility, atmosphere: false }
+
+    const report = evaluateSceneLuminanceReport(props, SERVICES)
+
+    expect(report.skyAverageLuminance).toBeLessThan(1)
+    expect(report.sky).toBeLessThan(1)
+    expect(report.skyBrightness).toBeLessThan(0.35)
+  })
+
+  it('caps daylight sky adaptation luminance while the atmosphere aid stays visible', () => {
+    const props = createProps([])
+    props.sunState = {
+      ...props.sunState,
+      altitudeDeg: 72,
+      isAboveHorizon: true,
+      phaseLabel: 'Daylight',
+      visualCalibration: { ...createVisualCalibration(), phaseLabel: 'Daylight' },
+    }
+    props.aidVisibility = { ...props.aidVisibility, atmosphere: true }
+
+    const report = evaluateSceneLuminanceReport(props, SERVICES)
+
+    expect(report.sky).toBeGreaterThan(0)
+    expect(report.sky).toBeLessThan(500)
+    expect(report.skyAverageLuminance).toBeLessThanOrEqual(report.sky)
   })
 })
