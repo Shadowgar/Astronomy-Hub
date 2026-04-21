@@ -47,6 +47,12 @@ export type SkyTileLabelCandidate = {
 export type SkyTileProvenance = {
   catalog: SkyTileCatalog
   sourcePath: string
+  /**
+   * Optional source-tile identity for `stars_list` hint traversal parity (`nuniq_to_pix`-decoded lookup).
+   * Present when a runtime tile maps to a single upstream HiPS tile.
+   */
+  hipsOrder?: number
+  hipsPix?: number
   generator?: string
   generatedAt?: string
   sourceRecordCount?: number
