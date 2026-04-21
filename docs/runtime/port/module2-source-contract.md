@@ -90,7 +90,7 @@ These are the **current** Hub implementations that correspond to the **spirit** 
 | G1 | **PASS** for §1–§2 mapping as written. |
 | G2 | **Partial** — **`bv_to_rgb`** (**EV-0038**); **`nuniq_to_pix`** via **`starsNuniq.ts`** (**EV-0039**); **`render_visitor` limit_mag policy** (**EV-0040**) plus native tile traversal loop / tile gates / point-clipped path on the runtime surface (**EV-0074**); **`hip_get_pix`** (**EV-0041**); **`eraStarpv` / `eraEpb2jd` / `compute_pv` / `star_get_astrom`** (**EV-0070**); **`painter_project(FRAME_ASTROM → FRAME_OBSERVED)`** apparent-place chain on EV-0070 pv output (**EV-0072**); remaining **`hip.c`** loader/list seams still open. |
 | G3 | **Partial** — Hipparcos **`mergeSurveyTiles`** uses **`runtimeStarMatchesHipHealpixLookup`** (**EV-0042**); `obj_get_by_hip` helper + scene wiring + stable HIP route identity + selection continuity (**EV-0044**, **EV-0045**, **EV-0046**, **EV-0047**) plus survey-wide `hip_get_pix(hip, 2)` bucketed traversal on loaded runtime tiles (**EV-0075**); scene assembler now uses Stellarium's `star_get_astrom` path for catalogue stars with a per-star pv cache (**EV-0070**); end-to-end `painter_project(FRAME_ASTROM, …)` apparent-place chain sealed over the EV-0070 pv output by regression test (**EV-0072**); active StarsModule path now consumes tile traversal output through `starsRenderVisitor.ts` (native parent→child visit order and descend gating, **EV-0074**); full **`stars.c`** / object graph still open. |
-| G4 | **Partial** — algorithm fingerprint **`computeModule2PortFingerprint`** (**EV-0043**, extended **EV-0054** with point-math + view-tier samples and **EV-0061** with perf-knob samples); full scene/`StarsModule` projection replay still open; tile-load replay remains module 1 **`computeModule1TileLoadFingerprint`** (**EV-0024**). |
+| G4 | **Partial** — algorithm fingerprint **`computeModule2PortFingerprint`** (**EV-0043**, extended **EV-0054** with point-math + view-tier samples, **EV-0061** with perf-knob samples, and **EV-0076** with deterministic render-visitor traversal, survey `obj_get_by_hip` lookup, and catalog-astrometry slices); full scene/`StarsModule` projection replay still open; tile-load replay remains module 1 **`computeModule1TileLoadFingerprint`** (**EV-0024**). |
 | G5–G7 | **FAIL** until parity closure + evidence for remaining §1 scope. |
 
 ---
@@ -103,7 +103,7 @@ Rows: **`src/hip.c`**, **`src/hip.h`**, **`src/modules/stars.c`**, **`src/algos/
 
 ## 7. Handoff for external agents (e.g. Codex / new chat)
 
-Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0075, noting EV-0067 / EV-0068 are intentionally unused IDs), **`module-gates.md`** "Known residuals" section for non-module-0/1/2 npm test failures that should be picked up by downstream modules, and this file §2–§5.
+Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0076, noting EV-0067 / EV-0068 are intentionally unused IDs), **`module-gates.md`** "Known residuals" section for non-module-0/1/2 npm test failures that should be picked up by downstream modules, and this file §2–§5.
 
 Hard constraints for continuation:
 - Port for exact parity (logic/UI behavior), not approximation.
@@ -172,6 +172,7 @@ Hard constraints for continuation:
 | EV-0072 | End-to-end `painter_project(FRAME_ASTROM → FRAME_OBSERVED)` regression test asserting the EV-0070 pv output flows through `eraLdsun` + `eraAb` + `bpn^T` + `ri2h` in `sceneAssembler.ts` (and the `plx ≤ 2 mas` fallback), plus `test:module2` bundle + CI path-filter extension |
 | EV-0074 | Native `stars.c::render_visitor` tile traversal port (`starsRenderVisitor.ts`) wired into `runtimeFrame.ts` / `StarsModule.ts` using tile-ordered scene packets from `sceneAssembler.ts`; regression coverage in `test_module2_stars_render_visitor.test.js`; `test:module2` now 35/35 across 10 files |
 | EV-0075 | Survey-wide `obj_get_by_hip` lookup keyed by `hip_get_pix(hip, 2)` buckets (`starsLookup.ts` cached index over loaded non-Gaia survey tiles) + regression coverage in `test_module2_stars_lookup_survey.test.js`; `test:module2` now 38/38 across 11 files |
+| EV-0076 | Extended `computeModule2PortFingerprint` deterministic replay slices for `stars.c::render_visitor` traversal output, survey-wide `obj_get_by_hip` lookup identity, and `compute_pv`/`star_get_astrom` astrometry samples; `test:module2` now 39/39 across 11 files |
 
 
 ### CI
@@ -181,7 +182,7 @@ Hard constraints for continuation:
 
 ### Suggested next coding targets (not done)
 
-1. **G4** — extend deterministic coverage further (e.g. visitor tile-order / projection cache signature / scene packet slice) beyond **`computeModule2PortFingerprint`** (**EV-0043**, **EV-0054**, **EV-0074**, **EV-0075**).
+1. **G4** — extend deterministic coverage further (e.g. projection cache signature / scene packet slice / frame-pacing traces) beyond **`computeModule2PortFingerprint`** (**EV-0043**, **EV-0054**, **EV-0074**, **EV-0075**, **EV-0076**).
 2. **`stars.c`** — `stars_list` / `stars_add_data_source` datasource/list seams (survey-wide loaded-tile `obj_get_by_hip` is now landed in **EV-0075**; traversal loop landed in **EV-0074**).
 3. **Tests** — synthetic fixtures: if a star uses a fake **`HIP N`** with coordinates that do not match **`PIX_ORDER_2`**, merge will drop it (**EV-0042**); use no-HIP ids or catalog-consistent RA/Dec.
 4. **Runtime blockers before deeper parity:** profile frame pacing with active sky scene + overlays now that primary toolbar toggles are runtime-wired; treat this as P0 before additional UI parity deltas.

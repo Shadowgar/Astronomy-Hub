@@ -10,7 +10,14 @@ describe('Module 2 deterministic port replay (G4)', () => {
     expect(a.length).toBeGreaterThan(80)
   })
 
-  it('matches golden snapshot (detect drift in BV / nuniq / HIP / limit policy)', () => {
+  it('matches golden snapshot (detect drift across module2 parity seams)', () => {
     expect(computeModule2PortFingerprint()).toMatchSnapshot()
+  })
+
+  it('includes deterministic slices for traversal, HIP lookup, and catalog astrometry seams', () => {
+    const fingerprint = computeModule2PortFingerprint()
+    expect(fingerprint).toContain('visitor-order:')
+    expect(fingerprint).toContain('hip-lookup:')
+    expect(fingerprint).toContain('catalog-astrom:')
   })
 })
