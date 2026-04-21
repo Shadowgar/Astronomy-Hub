@@ -55,6 +55,7 @@ function buildPacket(overrides = {}) {
       limitingMagnitude: 8,
       activeTiles: 4,
       visibleStars: 5,
+      starsListVisitCount: 0,
       activeTiers: ['bright'],
       tileLevels: [0, 1],
       tilesPerLevel: { '0': 2, '1': 2 },

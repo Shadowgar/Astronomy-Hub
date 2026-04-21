@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { healpixOrderPixToNuniq } from '../src/features/sky-engine/engine/sky/adapters/starsNuniq'
 import { listRuntimeStarsFromTiles } from '../src/features/sky-engine/engine/sky/adapters/starsList'
+import { assembleSkyScenePacket } from '../src/features/sky-engine/engine/sky/services/sceneAssembler.ts'
 
 describe('module2 stars.c stars_list parity seam', () => {
   const tiles = [
@@ -171,5 +172,27 @@ describe('module2 stars.c stars_list parity seam', () => {
     })
     expect(status).toBe('ok')
     expect(visited).toEqual(['hip-bright', 'hip-mid', 'hip-ok-1', 'hip-ok-2'])
+  })
+
+  it('scene packet diagnostics run stars_list visit count over visible tiles (live path)', () => {
+    const query = {
+      observer: {
+        timestampUtc: '2026-04-13T09:00:00.000Z',
+        latitudeDeg: 41.32,
+        longitudeDeg: -79.58,
+        elevationM: 400,
+        fovDeg: 60,
+        centerAltDeg: 45,
+        centerAzDeg: 180,
+        projection: 'stereographic',
+      },
+      limitingMagnitude: 6,
+      activeTiers: ['T0', 'T1', 'T2'],
+      visibleTileIds: ['root-hip', 'child-gaia'],
+      maxTileLevel: 3,
+    }
+    const repo = { mode: 'multi-survey', sourceLabel: 'fixture', sourceError: null }
+    const packet = assembleSkyScenePacket(query, tiles, repo)
+    expect(packet.diagnostics.starsListVisitCount).toBe(2)
   })
 })

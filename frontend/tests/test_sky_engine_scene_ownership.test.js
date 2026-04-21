@@ -172,8 +172,11 @@ vi.mock('../src/features/sky-engine/engine/sky', () => ({
     diagnostics: {
       dataMode: 'mock',
       sourceLabel: 'Mock tile repository',
+      limitingMagnitude: 5.5,
       visibleTileIds: [],
       activeTiles: 0,
+      visibleStars: 0,
+      starsListVisitCount: 0,
       activeTiers: ['T0'],
       tileLevels: [1],
       maxTileDepthReached: 1,

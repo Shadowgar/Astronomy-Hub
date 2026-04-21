@@ -255,10 +255,12 @@ describe('Sky star runtime ownership', () => {
         limitingMagnitude: 6.4,
         activeTiles: 1,
         visibleStars: 2,
+        starsListVisitCount: 0,
         activeTiers: ['T0', 'T1'],
         tileLevels: [0, 1],
         tilesPerLevel: { 0: 1, 1: 1 },
         maxTileDepthReached: 1,
+        visibleTileIds: [],
       },
     }
     const getProps = () => props

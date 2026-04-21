@@ -1,8 +1,27 @@
 import type { SkyScenePacket } from '../contracts/scene'
 import type { SkyEngineQuery, SkyTilePayload, SkyTileRepositoryLoadResult } from '../contracts/tiles'
+import { listRuntimeStarsFromTiles } from '../adapters/starsList'
 
 export type SkyDiagnosticsSnapshot = SkyScenePacket['diagnostics'] & {
   visibleTileIds: string[]
+}
+
+function countStarsListVisitsForVisibleTiles(
+  query: SkyEngineQuery,
+  tiles: readonly SkyTilePayload[],
+  maxMag: number,
+): number {
+  const visible = new Set(query.visibleTileIds)
+  const visibleTiles = tiles.filter((tile) => visible.has(tile.tileId))
+  let count = 0
+  listRuntimeStarsFromTiles({
+    tiles: visibleTiles,
+    maxMag,
+    visit: () => {
+      count += 1
+    },
+  })
+  return count
 }
 
 export function buildSkyDiagnostics(
@@ -18,6 +37,7 @@ export function buildSkyDiagnostics(
     return counts
   }, {})
   const maxTileDepthReached = tileLevels.reduce((maximumLevel, level) => Math.max(maximumLevel, level), 0)
+  const starsListVisitCount = countStarsListVisitsForVisibleTiles(query, tiles, query.limitingMagnitude)
 
   return {
     dataMode: repositoryState.mode,
@@ -26,6 +46,7 @@ export function buildSkyDiagnostics(
     limitingMagnitude: query.limitingMagnitude,
     activeTiles: tiles.length,
     visibleStars,
+    starsListVisitCount,
     activeTiers: [...query.activeTiers],
     tileLevels,
     tilesPerLevel,

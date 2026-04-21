@@ -36,6 +36,12 @@ export type SkyScenePacket = {
     limitingMagnitude: number
     activeTiles: number
     visibleStars: number
+    /**
+     * Count of `stars.c::stars_list` callback visits from `listRuntimeStarsFromTiles` in `starsList.ts`
+     * over **visible** tiles (`query.visibleTileIds`) at `limitingMagnitude` (no nuniq hint).
+     * Mirrors loaded-tile list semantics alongside deduped scene stars (counts may differ).
+     */
+    starsListVisitCount: number
     activeTiers: string[]
     tileLevels: number[]
     tilesPerLevel: Record<string, number>
