@@ -166,4 +166,23 @@ describe('scene luminance report', () => {
     expect(report.sky).toBeLessThan(500)
     expect(report.skyAverageLuminance).toBeLessThanOrEqual(report.sky)
   })
+
+  it('at 8° sun with atmosphere uses the daylight cap and fast-adaptation sky target (tone-test geometry)', () => {
+    const props = createProps([])
+    props.sunState = {
+      ...props.sunState,
+      altitudeDeg: 8,
+      isAboveHorizon: true,
+      phaseLabel: 'Daylight',
+      visualCalibration: { ...createVisualCalibration(), phaseLabel: 'Daylight' },
+    }
+    props.aidVisibility = { ...props.aidVisibility, atmosphere: true }
+
+    const report = evaluateSceneLuminanceReport(props, SERVICES)
+
+    expect(report.targetFastAdaptation).toBe(true)
+    expect(report.sky).toBeGreaterThan(100)
+    expect(report.sky).toBeLessThan(200)
+    expect(report.target).toBe(report.sky)
+  })
 })

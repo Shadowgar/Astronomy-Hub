@@ -476,6 +476,7 @@ function sceneLuminanceFingerprintSlice(): string {
     'scene-lum',
     formatCase(55, false),
     formatCase(72, true),
+    formatCase(8, true),
     formatCase(-18, true),
   ].join('|')
 }
