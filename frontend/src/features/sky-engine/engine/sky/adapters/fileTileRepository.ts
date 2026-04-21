@@ -289,9 +289,39 @@ function selectHealpixPixelsForBounds(tileId: string, bounds: SkyTileBounds, ord
   return selectedPixels
 }
 
+function compareSurveyByMaxVmag(left: RuntimeSurveyDefinition, right: RuntimeSurveyDefinition) {
+  const leftMax = Number.isFinite(left.maxVmag) ? left.maxVmag : Number.POSITIVE_INFINITY
+  const rightMax = Number.isFinite(right.maxVmag) ? right.maxVmag : Number.POSITIVE_INFINITY
+  return leftMax - rightMax || left.minVmag - right.minVmag || left.key.localeCompare(right.key)
+}
+
+function normalizeSurveyOrderingAndGaiaGate(
+  surveys: readonly RuntimeSurveyDefinition[],
+  options?: { skipGaiaVmagPromotion?: boolean },
+) {
+  const ordered = surveys
+    .slice()
+    .sort(compareSurveyByMaxVmag)
+  const gaiaSurvey = ordered.find((survey) => survey.catalog === 'gaia')
+  if (gaiaSurvey && options?.skipGaiaVmagPromotion !== true) {
+    for (const survey of ordered) {
+      if (survey.catalog === 'gaia') {
+        continue
+      }
+      if (!Number.isFinite(survey.maxVmag)) {
+        continue
+      }
+      gaiaSurvey.minVmag = Math.max(gaiaSurvey.minVmag, survey.maxVmag)
+    }
+  }
+  return ordered
+}
+
 export const __fileTileRepositoryInternals = {
   isRaWithinBounds,
   centerRaForBounds,
+  compareSurveyByMaxVmag,
+  normalizeSurveyOrderingAndGaiaGate,
 }
 
 function filterSurveyStarsByMagnitudeRange(stars: readonly RuntimeStar[], survey: { minVmag: number; maxVmag: number }) {
@@ -371,8 +401,6 @@ function mergeSurveyTiles(
 function resolveActiveSurveys(surveys: readonly RuntimeSurveyDefinition[], limitingMagnitude: number) {
   return surveys
     .filter((survey) => survey.minVmag <= limitingMagnitude)
-    .slice()
-    .sort((left, right) => left.maxVmag - right.maxVmag || left.minVmag - right.minVmag || left.key.localeCompare(right.key))
 }
 
 function buildSourceLabel(activeSurveys: readonly RuntimeSurveyDefinition[], manifest: SkyTileAssetManifest) {
@@ -580,7 +608,10 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
         }
       }
 
-      const activeSurveys = resolveActiveSurveys(surveys, query.limitingMagnitude)
+      const normalizedSurveys = normalizeSurveyOrderingAndGaiaGate(surveys, {
+        skipGaiaVmagPromotion: query.observer.fovDeg <= GAIA_FOV_ACTIVATION_DEG,
+      })
+      const activeSurveys = resolveActiveSurveys(normalizedSurveys, query.limitingMagnitude)
       const tiles = (await Promise.all(query.visibleTileIds.map(async (tileId) => {
         const tilePayloads = await Promise.all(activeSurveys.map(async (survey) => ({
           survey,
