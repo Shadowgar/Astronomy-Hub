@@ -9,6 +9,7 @@ import { encodeEphTileNuniq } from '../adapters/ephCodec'
 import { healpixOrderPixToNuniq, nuniqToHealpixOrderAndPix } from '../adapters/starsNuniq'
 import { hipGetPix } from '../adapters/hipGetPix'
 import { listRuntimeStarsFromTiles } from '../adapters/starsList'
+import { buildStarsSurveyLoadPlan, compareStarsSurveyByMaxVmag } from '../adapters/starsSurveyRegistry'
 import {
   STELLARIUM_TONEMAPPER_EXPOSURE,
   STELLARIUM_TONEMAPPER_LWMAX_MAX,
@@ -787,6 +788,44 @@ function starsProjectionReuseSlice(): string {
   ].join('|')
 }
 
+function starsSurveyRegistrySlice(): string {
+  const makeSurvey = (entry: {
+    key: string
+    catalog: 'hipparcos' | 'gaia'
+    minVmag: number
+    maxVmag: number
+  }) => ({
+    ...entry,
+    loadTile: async () => null,
+  })
+
+  const tiedOrder = [
+    makeSurvey({ key: 'b', catalog: 'hipparcos', minVmag: -2, maxVmag: 6.5 }),
+    makeSurvey({ key: 'a', catalog: 'hipparcos', minVmag: -2, maxVmag: 6.5 }),
+    makeSurvey({ key: 'deep', catalog: 'hipparcos', minVmag: 6.5, maxVmag: Number.NaN }),
+  ].sort(compareStarsSurveyByMaxVmag)
+
+  const loadPlan = buildStarsSurveyLoadPlan({
+    surveys: [
+      makeSurvey({ key: 'b', catalog: 'hipparcos', minVmag: -2, maxVmag: 6.5 }),
+      makeSurvey({ key: 'a', catalog: 'hipparcos', minVmag: -2, maxVmag: 6.5 }),
+      makeSurvey({ key: 'gaia', catalog: 'gaia', minVmag: 4, maxVmag: 20 }),
+    ],
+    limitingMagnitude: 6.6,
+    observerFovDeg: 70,
+    activationFovDeg: 40,
+    fallbackMinVmag: -2,
+  })
+
+  const gaiaMin = loadPlan.orderedSurveys.find((survey) => survey.catalog === 'gaia')?.minVmag ?? Number.NaN
+  return [
+    'survey-registry',
+    `cmp:${tiedOrder.map((survey) => survey.key).join(',')}`,
+    `plan:${loadPlan.orderedSurveys.map((survey) => survey.key).join(',')}`,
+    `gaia-min:${q(gaiaMin)}`,
+  ].join('|')
+}
+
 /**
  * Canonical string for the module 2 ported surface. Two runs on the same build MUST match bitwise.
  */
@@ -848,6 +887,7 @@ export function computeModule2PortFingerprint(): string {
   parts.push(sceneLuminanceFingerprintSlice())
   parts.push(starsProjectionReplaySlice())
   parts.push(starsProjectionReuseSlice())
+  parts.push(starsSurveyRegistrySlice())
 
   return parts.join('::')
 }

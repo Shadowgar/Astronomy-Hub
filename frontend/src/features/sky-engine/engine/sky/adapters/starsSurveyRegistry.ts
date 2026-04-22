@@ -27,7 +27,7 @@ export function compareStarsSurveyByMaxVmag<TLoadTile>(
 ) {
   const leftMax = resolveComparableSurveyMaxVmag(left.maxVmag)
   const rightMax = resolveComparableSurveyMaxVmag(right.maxVmag)
-  return leftMax - rightMax || left.minVmag - right.minVmag || left.key.localeCompare(right.key)
+  return leftMax - rightMax
 }
 
 export function sortStarsSurveysByMaxVmag<TLoadTile>(

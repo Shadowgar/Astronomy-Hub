@@ -33,14 +33,14 @@ describe('module2 stars_add_data_source survey ordering parity', () => {
     expect(ordered.map((survey) => survey.key)).toEqual(['bright', 'mid', 'deep'])
   })
 
-  it('breaks ties by minVmag then key', () => {
+  it('keeps insertion order when maxVmag ties (survey_cmp parity)', () => {
     const surveys = [
       makeSurvey({ key: 'b', maxVmag: 6.5, minVmag: -2 }),
       makeSurvey({ key: 'a', maxVmag: 6.5, minVmag: -2 }),
       makeSurvey({ key: 'c', maxVmag: 6.5, minVmag: -1.5 }),
     ]
     const ordered = surveys.slice().sort(compareStarsSurveyByMaxVmag)
-    expect(ordered.map((survey) => survey.key)).toEqual(['a', 'b', 'c'])
+    expect(ordered.map((survey) => survey.key)).toEqual(['b', 'a', 'c'])
   })
 
   it('promotes Gaia minVmag to brightest finite non-Gaia maxVmag', () => {
@@ -203,7 +203,7 @@ describe('module2 survey load-plan integration', () => {
     expect(active.map((survey) => survey.key)).toEqual(['hip-main', 'hip-deep'])
   })
 
-  it('keeps deterministic survey order for equal max/min by key', () => {
+  it('keeps insertion order for equal maxVmag in load-plan output', () => {
     const plan = buildStarsSurveyLoadPlan({
       surveys: [
         makeSurvey({ key: 'b', catalog: 'hipparcos', maxVmag: 6.5, minVmag: -2 }),
@@ -215,6 +215,6 @@ describe('module2 survey load-plan integration', () => {
       activationFovDeg: 40,
       fallbackMinVmag: -2,
     })
-    expect(plan.orderedSurveys.map((survey) => survey.key)).toEqual(['a', 'b', 'gaia'])
+    expect(plan.orderedSurveys.map((survey) => survey.key)).toEqual(['b', 'a', 'gaia'])
   })
 })
