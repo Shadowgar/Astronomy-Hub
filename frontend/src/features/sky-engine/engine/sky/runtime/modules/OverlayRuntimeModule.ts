@@ -2,14 +2,10 @@ import type { SkyModule } from '../SkyModule'
 import { prepareDirectOverlayFrame } from '../../../../directOverlayLayer'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import type { RuntimeProjectedSceneFrame } from './runtimeFrame'
+import { evaluateOverlayCadenceDecision } from '../overlayCadence'
 
 function toTenths(value: number) {
   return Math.round(value * 10)
-}
-
-function getCircularDeltaTenths(currentValue: number, previousValue: number) {
-  const directDelta = Math.abs(currentValue - previousValue)
-  return Math.min(directDelta, 3600 - directDelta)
 }
 
 function buildAidSignature(aidVisibility: ScenePropsSnapshot['aidVisibility']) {
@@ -63,24 +59,22 @@ export function createOverlayRuntimeModule(): SkyModule<ScenePropsSnapshot, Scen
       const aidSignature = buildAidSignature(latest.aidVisibility)
       const guidedSignature = buildGuidedSignature(latest.guidedObjectIds)
       const hintsLimitMag = runtime.corePainterLimits?.hintsLimitMag ?? Number.NaN
-      const forceSync =
-        cadenceState.lastSyncAtMs === 0 ||
-        propsVersion !== cadenceState.lastPropsVersion ||
-        latest.selectedObjectId !== cadenceState.lastSelectedObjectId ||
-        aidSignature !== cadenceState.lastAidSignature ||
-        guidedSignature !== cadenceState.lastGuidedSignature ||
-        latest.sunState.phaseLabel !== cadenceState.lastSunPhaseLabel ||
-        projectedFrame.projectedObjects !== cadenceState.lastProjectedObjectsRef ||
-        hintsLimitMag !== cadenceState.lastHintsLimitMag ||
-        projectedFrame.width !== cadenceState.lastViewportWidth ||
-        projectedFrame.height !== cadenceState.lastViewportHeight
-      const significantViewChange =
-        Number.isNaN(cadenceState.lastCenterAltTenths) ||
-        centerAltTenths !== cadenceState.lastCenterAltTenths ||
-        getCircularDeltaTenths(centerAzTenths, cadenceState.lastCenterAzTenths) > 0 ||
-        fovTenths !== cadenceState.lastFovTenths
+      const cadenceDecision = evaluateOverlayCadenceDecision(cadenceState, {
+        propsVersion,
+        selectedObjectId: latest.selectedObjectId,
+        aidSignature,
+        guidedSignature,
+        sunPhaseLabel: latest.sunState.phaseLabel,
+        centerAltTenths,
+        centerAzTenths,
+        fovTenths,
+        viewportWidth: projectedFrame.width,
+        viewportHeight: projectedFrame.height,
+        projectedObjectsRef: projectedFrame.projectedObjects,
+        hintsLimitMag,
+      })
 
-      if (!forceSync && !significantViewChange) {
+      if (!cadenceDecision.shouldSync) {
         runtime.visibleLabelIds = cadenceState.lastVisibleLabelIds
         runtime.trajectoryObjectId = cadenceState.lastTrajectoryObjectId
         return

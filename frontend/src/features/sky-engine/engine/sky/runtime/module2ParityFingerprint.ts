@@ -27,18 +27,17 @@ import {
 } from './starsCatalogAstrom'
 import { buildScenePacketSignature, evaluateStarsProjectionReuse } from './modules/StarsModule'
 import { buildRuntimeTileQuerySignature } from '../../../sceneQueryState'
+import { evaluateOverlayCadenceDecision } from './overlayCadence'
 import type { ScenePropsSnapshot, SkySceneRuntimeServices } from '../../../SkyEngineRuntimeBridge'
 import { horizontalToDirection } from '../../../projectionMath'
 import { deriveSunPhaseLabel, deriveSunVisualCalibration } from '../../../solar'
-import type { SkyEngineAidVisibility, SkyEngineObserver, SkyEngineSunState } from '../../../types'
+import type { SkyEngineAidVisibility, SkyEngineObserver, SkyEngineSceneObject, SkyEngineSunState } from '../../../types'
 import type { ObserverSnapshot } from '../contracts/observer'
 import { createObserverAstrometrySnapshot } from '../transforms/coordinates'
 import { evaluateSceneLuminanceReport } from './luminanceReport'
 import type { SkyScenePacket } from '../contracts/scene'
-import type { SkyTilePayload } from '../contracts/tiles'
-import type { SkyEngineQuery } from '../contracts/tiles'
+import type { SkyEngineQuery, SkyTilePayload } from '../contracts/tiles'
 import type { SkyBrightnessExposureState } from './types'
-import type { SkyEngineSceneObject } from '../../../types'
 
 const DECIMALS = 12
 
@@ -166,7 +165,7 @@ function hipLookupSlice(): string {
           sourceId: 'HIP 11767',
           raDeg: 37.954515,
           decDeg: 89.264109,
-          mag: 2.0,
+          mag: 2,
           tier: 'T0',
           catalog: 'hipparcos',
         },
@@ -826,13 +825,108 @@ function starsSurveyRegistrySlice(): string {
   ].join('|')
 }
 
+function overlayCadenceSlice(): string {
+  const state = {
+    lastSyncAtMs: 1000,
+    lastPropsVersion: 4,
+    lastSelectedObjectId: 'sel-1',
+    lastAidSignature: '1:0:1',
+    lastGuidedSignature: 'a|b',
+    lastSunPhaseLabel: 'night',
+    lastCenterAltTenths: 150,
+    lastCenterAzTenths: 3599,
+    lastFovTenths: 300,
+    lastViewportWidth: 1280,
+    lastViewportHeight: 720,
+    lastProjectedObjectsRef: { ref: 'same' },
+    lastHintsLimitMag: 6.2,
+  }
+
+  const noChange = evaluateOverlayCadenceDecision(state, {
+    propsVersion: 4,
+    selectedObjectId: 'sel-1',
+    aidSignature: '1:0:1',
+    guidedSignature: 'a|b',
+    sunPhaseLabel: 'night',
+    centerAltTenths: 150,
+    centerAzTenths: 3599,
+    fovTenths: 300,
+    viewportWidth: 1280,
+    viewportHeight: 720,
+    projectedObjectsRef: state.lastProjectedObjectsRef,
+    hintsLimitMag: 6.2,
+  })
+
+  const wrapAzChange = evaluateOverlayCadenceDecision(state, {
+    propsVersion: 4,
+    selectedObjectId: 'sel-1',
+    aidSignature: '1:0:1',
+    guidedSignature: 'a|b',
+    sunPhaseLabel: 'night',
+    centerAltTenths: 150,
+    centerAzTenths: 0,
+    fovTenths: 300,
+    viewportWidth: 1280,
+    viewportHeight: 720,
+    projectedObjectsRef: state.lastProjectedObjectsRef,
+    hintsLimitMag: 6.2,
+  })
+
+  const guidedChange = evaluateOverlayCadenceDecision(state, {
+    propsVersion: 4,
+    selectedObjectId: 'sel-1',
+    aidSignature: '1:0:1',
+    guidedSignature: 'a|c',
+    sunPhaseLabel: 'night',
+    centerAltTenths: 150,
+    centerAzTenths: 3599,
+    fovTenths: 300,
+    viewportWidth: 1280,
+    viewportHeight: 720,
+    projectedObjectsRef: state.lastProjectedObjectsRef,
+    hintsLimitMag: 6.2,
+  })
+
+  const firstSync = evaluateOverlayCadenceDecision(
+    {
+      ...state,
+      lastSyncAtMs: 0,
+      lastCenterAltTenths: Number.NaN,
+      lastCenterAzTenths: Number.NaN,
+      lastFovTenths: Number.NaN,
+    },
+    {
+      propsVersion: 4,
+      selectedObjectId: 'sel-1',
+      aidSignature: '1:0:1',
+      guidedSignature: 'a|b',
+      sunPhaseLabel: 'night',
+      centerAltTenths: 150,
+      centerAzTenths: 3599,
+      fovTenths: 300,
+      viewportWidth: 1280,
+      viewportHeight: 720,
+      projectedObjectsRef: state.lastProjectedObjectsRef,
+      hintsLimitMag: 6.2,
+    },
+  )
+
+  return [
+    'overlay-cadence',
+    `steady:${noChange.forceSync ? '1' : '0'}:${noChange.significantViewChange ? '1' : '0'}:${noChange.shouldSync ? '1' : '0'}`,
+    `wrap-az:${wrapAzChange.forceSync ? '1' : '0'}:${wrapAzChange.significantViewChange ? '1' : '0'}:${wrapAzChange.shouldSync ? '1' : '0'}`,
+    `guided:${guidedChange.forceSync ? '1' : '0'}:${guidedChange.significantViewChange ? '1' : '0'}:${guidedChange.shouldSync ? '1' : '0'}`,
+    `initial:${firstSync.forceSync ? '1' : '0'}:${firstSync.significantViewChange ? '1' : '0'}:${firstSync.shouldSync ? '1' : '0'}`,
+  ].join('|')
+}
+
 /**
  * Canonical string for the module 2 ported surface. Two runs on the same build MUST match bitwise.
  */
 export function computeModule2PortFingerprint(): string {
   const parts: string[] = []
 
-  const bvSamples = [-0.2, 0, 0.58, 1.2, 2.0]
+  const bvSamples = [-0.2, 0, 0.58, 1.2, 2]
   for (const bv of bvSamples) {
     parts.push(`bv:${bv}:${triplet(bvToRgb(bv))}`)
   }
@@ -863,7 +957,7 @@ export function computeModule2PortFingerprint(): string {
     lwmax: STELLARIUM_TONEMAPPER_LWMAX_MAX,
   }
   const fovSample = 60
-  for (const mag of [0.5, 4.2, 8.0]) {
+  for (const mag of [0.5, 4.2, 8]) {
     const pt = coreGetPointForMagnitude(mag, fovSample, tonemapper)
     parts.push(
       `pt:${mag}:${pt.visible ? '1' : '0'}:${q(pt.radiusPx)}:${q(pt.luminance)}:${q(pt.rawLuminance)}`,
@@ -888,6 +982,7 @@ export function computeModule2PortFingerprint(): string {
   parts.push(starsProjectionReplaySlice())
   parts.push(starsProjectionReuseSlice())
   parts.push(starsSurveyRegistrySlice())
+  parts.push(overlayCadenceSlice())
 
   return parts.join('::')
 }
