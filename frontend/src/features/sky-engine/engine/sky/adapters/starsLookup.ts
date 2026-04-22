@@ -3,7 +3,10 @@ import type { SkyTilePayload } from '../contracts/tiles'
 import { hipGetPix, parseHipIdFromRuntimeStar } from './hipGetPix'
 
 type HipLookupSurveyIndex = {
-  readonly byPixOrder2: Map<number, readonly RuntimeStar[]>
+  readonly byOrder: {
+    readonly 0: Map<number, readonly RuntimeStar[]>
+    readonly 1: Map<number, readonly RuntimeStar[]>
+  }
 }
 
 const hipLookupSurveyIndexCache = new WeakMap<readonly SkyTilePayload[], HipLookupSurveyIndex>()
@@ -21,7 +24,8 @@ export function resolveHipDetailRouteForRuntimeStar(star: RuntimeStar): string |
 }
 
 function buildHipLookupSurveyIndex(tiles: readonly SkyTilePayload[]): HipLookupSurveyIndex {
-  const byPixOrder2 = new Map<number, RuntimeStar[]>()
+  const byOrder0 = new Map<number, RuntimeStar[]>()
+  const byOrder1 = new Map<number, RuntimeStar[]>()
   const stableTiles = [...tiles].sort((a, b) => a.level - b.level || a.tileId.localeCompare(b.tileId))
   for (const tile of stableTiles) {
     for (const star of tile.stars) {
@@ -32,19 +36,32 @@ function buildHipLookupSurveyIndex(tiles: readonly SkyTilePayload[]): HipLookupS
       if (hip == null) {
         continue
       }
-      const pixOrder2 = hipGetPix(hip, 2)
-      if (pixOrder2 === -1) {
-        continue
+      const pixOrder0 = hipGetPix(hip, 0)
+      if (pixOrder0 !== -1) {
+        const current = byOrder0.get(pixOrder0)
+        if (current) {
+          current.push(star)
+        } else {
+          byOrder0.set(pixOrder0, [star])
+        }
       }
-      const current = byPixOrder2.get(pixOrder2)
-      if (current) {
-        current.push(star)
-      } else {
-        byPixOrder2.set(pixOrder2, [star])
+      const pixOrder1 = hipGetPix(hip, 1)
+      if (pixOrder1 !== -1) {
+        const current = byOrder1.get(pixOrder1)
+        if (current) {
+          current.push(star)
+        } else {
+          byOrder1.set(pixOrder1, [star])
+        }
       }
     }
   }
-  return { byPixOrder2 }
+  return {
+    byOrder: {
+      0: byOrder0,
+      1: byOrder1,
+    },
+  }
 }
 
 function getHipLookupSurveyIndex(tiles: readonly SkyTilePayload[]): HipLookupSurveyIndex {
@@ -61,8 +78,8 @@ function getHipLookupSurveyIndex(tiles: readonly SkyTilePayload[]): HipLookupSur
  * Hub helper mirroring Stellarium `stars.c` `obj_get_by_hip` search intent:
  * - invalid / missing HIP tile mapping (`hip_get_pix` = -1) returns null,
  * - Gaia rows are ignored,
- * - survey traversal is keyed by `hip_get_pix(hip, 2)` buckets so lookups
- *   do not linearly scan every loaded tile,
+ * - search order follows `obj_get_by_hip`: evaluate `hip_get_pix(hip, 0)`
+ *   before `hip_get_pix(hip, 1)`,
  * - first non-Gaia star matching HIP is returned (stable tile/row order).
  */
 export function findRuntimeStarByHipInTiles(
@@ -75,17 +92,19 @@ export function findRuntimeStarByHipInTiles(
     return null
   }
 
-  const pixOrder2 = hipGetPix(hip, 2)
-  if (pixOrder2 === -1) {
-    return null
-  }
   const index = getHipLookupSurveyIndex(tiles)
-  const candidates = index.byPixOrder2.get(pixOrder2) ?? []
-  // stars.c::obj_get_by_hip (lines 937-947): walk surveys/tiles and return
-  // the first non-Gaia HIP match.
-  for (const star of candidates) {
-    if (parseHipIdFromRuntimeStar(star) === hip) {
-      return star
+  // stars.c::obj_get_by_hip (lines 930-946): walk orders 0->1 and return
+  // first non-Gaia HIP match.
+  for (const order of [0, 1] as const) {
+    const pix = hipGetPix(hip, order)
+    if (pix === -1) {
+      continue
+    }
+    const candidates = index.byOrder[order].get(pix) ?? []
+    for (const star of candidates) {
+      if (parseHipIdFromRuntimeStar(star) === hip) {
+        return star
+      }
     }
   }
 

@@ -9,7 +9,7 @@ describe('module2 stars.c obj_get_by_hip survey traversal', () => {
     expect(result).toBe(null)
   })
 
-  it('uses hip_get_pix(hip,2)-keyed survey buckets instead of linear whole-tile scans', () => {
+  it('follows obj_get_by_hip order traversal (order 0 then order 1) before matching HIP', () => {
     const tiles = [
       {
         tileId: 'root-sw',
@@ -40,8 +40,41 @@ describe('module2 stars.c obj_get_by_hip survey traversal', () => {
     ]
 
     const result = findRuntimeStarByHipInTiles(tiles, 91262)
-    // stars.c::obj_get_by_hip (lines 931-944): iterate by hip_get_pix buckets and return first matching HIP object.
+    // stars.c::obj_get_by_hip (lines 930-946): evaluate order 0, then order 1.
     expect(result?.id).toBe('hip-91262')
+  })
+
+  it('returns order-0 match ahead of order-1 match for the same HIP', () => {
+    const result = findRuntimeStarByHipInTiles([
+      {
+        tileId: 'order-1-candidate',
+        level: 1,
+        parentTileId: 'root-ne',
+        childTileIds: [],
+        bounds: { raMinDeg: 180, raMaxDeg: 360, decMinDeg: 0, decMaxDeg: 90 },
+        magMin: 0,
+        magMax: 7,
+        starCount: 1,
+        stars: [
+          { id: 'hip-11767-order1', sourceId: 'HIP 11767', raDeg: 37.954515, decDeg: 89.264109, mag: 2.2, tier: 'T1', catalog: 'hipparcos' },
+        ],
+      },
+      {
+        tileId: 'order-0-candidate',
+        level: 0,
+        parentTileId: null,
+        childTileIds: [],
+        bounds: { raMinDeg: 180, raMaxDeg: 360, decMinDeg: 0, decMaxDeg: 90 },
+        magMin: 0,
+        magMax: 7,
+        starCount: 1,
+        stars: [
+          { id: 'hip-11767-order0', sourceId: 'HIP 11767', raDeg: 37.954515, decDeg: 89.264109, mag: 2.0, tier: 'T0', catalog: 'hipparcos' },
+        ],
+      },
+    ], 11767)
+
+    expect(result?.id).toBe('hip-11767-order0')
   })
 
   it('keeps non-Gaia precedence and returns first matching HIP in stable tile/row order', () => {
