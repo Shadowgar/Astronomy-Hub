@@ -1,3 +1,5 @@
+import { evaluateOverlayCadenceDecision as evaluateFramePacingOverlayCadenceDecision } from '../adapters/framePacingDecisions'
+
 export type OverlayCadenceState = {
   lastSyncAtMs: number
   lastPropsVersion: number
@@ -35,36 +37,9 @@ export type OverlayCadenceDecision = {
   shouldSync: boolean
 }
 
-function getCircularDeltaTenths(currentValue: number, previousValue: number) {
-  const directDelta = Math.abs(currentValue - previousValue)
-  return Math.min(directDelta, 3600 - directDelta)
-}
-
 export function evaluateOverlayCadenceDecision(
   previous: OverlayCadenceState,
   next: OverlayCadenceNext,
 ): OverlayCadenceDecision {
-  const forceSync =
-    previous.lastSyncAtMs === 0 ||
-    next.propsVersion !== previous.lastPropsVersion ||
-    next.selectedObjectId !== previous.lastSelectedObjectId ||
-    next.aidSignature !== previous.lastAidSignature ||
-    next.guidedSignature !== previous.lastGuidedSignature ||
-    next.sunPhaseLabel !== previous.lastSunPhaseLabel ||
-    next.projectedObjectsRef !== previous.lastProjectedObjectsRef ||
-    next.hintsLimitMag !== previous.lastHintsLimitMag ||
-    next.viewportWidth !== previous.lastViewportWidth ||
-    next.viewportHeight !== previous.lastViewportHeight
-
-  const significantViewChange =
-    Number.isNaN(previous.lastCenterAltTenths) ||
-    next.centerAltTenths !== previous.lastCenterAltTenths ||
-    getCircularDeltaTenths(next.centerAzTenths, previous.lastCenterAzTenths) > 0 ||
-    next.fovTenths !== previous.lastFovTenths
-
-  return {
-    forceSync,
-    significantViewChange,
-    shouldSync: forceSync || significantViewChange,
-  }
+  return evaluateFramePacingOverlayCadenceDecision(previous, next)
 }

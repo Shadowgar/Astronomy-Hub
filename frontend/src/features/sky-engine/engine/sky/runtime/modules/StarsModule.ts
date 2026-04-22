@@ -7,12 +7,7 @@ import {
   ensureSceneSurfaces,
   resolveViewTier,
 } from './runtimeFrame'
-
-const CENTER_REPROJECT_THRESHOLD_RAD = 0.002
-const FOV_REPROJECT_THRESHOLD_DEG = 0.2
-const LIMIT_MAG_REPROJECT_THRESHOLD = 0.02
-const MAX_PROJECTION_REUSE_STREAK = 2
-const SCENE_TIMESTAMP_REPROJECT_THRESHOLD_MS = 250
+import { evaluateStarsProjectionReuseDecision } from '../../adapters/framePacingDecisions'
 
 export interface StarsProjectionCacheEntry {
   readonly sceneTimestampMs: number
@@ -33,18 +28,6 @@ export interface StarsProjectionReuseDecision {
   readonly isSceneTimestampReusable: boolean
   readonly isProjectionCacheReusable: boolean
   readonly shouldReuseProjection: boolean
-}
-
-function clamp(value: number, minimum: number, maximum: number) {
-  return Math.min(maximum, Math.max(minimum, value))
-}
-
-function getAngularDeltaRadians(
-  left: { x: number; y: number; z: number },
-  right: { x: number; y: number; z: number },
-) {
-  const dot = left.x * right.x + left.y * right.y + left.z * right.z
-  return Math.acos(clamp(dot, -1, 1))
 }
 
 function q(value: number) {
@@ -95,39 +78,20 @@ export function evaluateStarsProjectionReuse(params: {
   }
   starsProjectionReuseStreak: number
 }): StarsProjectionReuseDecision {
-  const { previousProjectionCache, next, starsProjectionReuseStreak } = params
-  const centerDeltaRad = previousProjectionCache
-    ? getAngularDeltaRadians(previousProjectionCache.centerDirection, next.centerDirection)
-    : Number.POSITIVE_INFINITY
-  const fovDeltaDeg = previousProjectionCache
-    ? Math.abs(previousProjectionCache.fovDegrees - next.fovDegrees)
-    : Number.POSITIVE_INFINITY
-  const limitingMagnitudeDelta = previousProjectionCache
-    ? Math.abs(previousProjectionCache.limitingMagnitude - next.limitingMagnitude)
-    : Number.POSITIVE_INFINITY
-  const sceneTimestampDeltaMs = previousProjectionCache
-    ? Math.abs(previousProjectionCache.sceneTimestampMs - next.sceneTimestampMs)
-    : Number.POSITIVE_INFINITY
-  const isSceneTimestampReusable = !Number.isFinite(sceneTimestampDeltaMs) || sceneTimestampDeltaMs <= SCENE_TIMESTAMP_REPROJECT_THRESHOLD_MS
-  const isProjectionCacheReusable = Boolean(
-    previousProjectionCache &&
-    previousProjectionCache.objectSignature === next.objectSignature &&
-    isSceneTimestampReusable &&
-    previousProjectionCache.width === next.width &&
-    previousProjectionCache.height === next.height &&
-    fovDeltaDeg <= FOV_REPROJECT_THRESHOLD_DEG &&
-    limitingMagnitudeDelta <= LIMIT_MAG_REPROJECT_THRESHOLD &&
-    centerDeltaRad <= CENTER_REPROJECT_THRESHOLD_RAD,
-  )
-  const shouldReuseProjection = isProjectionCacheReusable && starsProjectionReuseStreak < MAX_PROJECTION_REUSE_STREAK
+  const decision = evaluateStarsProjectionReuseDecision({
+    previousProjectionCache: params.previousProjectionCache,
+    next: params.next,
+    starsProjectionReuseStreak: params.starsProjectionReuseStreak,
+  })
+
   return {
-    centerDeltaRad,
-    fovDeltaDeg,
-    limitingMagnitudeDelta,
-    sceneTimestampDeltaMs,
-    isSceneTimestampReusable,
-    isProjectionCacheReusable,
-    shouldReuseProjection,
+    centerDeltaRad: decision.centerDeltaRad,
+    fovDeltaDeg: decision.fovDeltaDeg,
+    limitingMagnitudeDelta: decision.limitingMagnitudeDelta,
+    sceneTimestampDeltaMs: decision.sceneTimestampDeltaMs,
+    isSceneTimestampReusable: decision.isSceneTimestampReusable,
+    isProjectionCacheReusable: decision.isProjectionCacheReusable,
+    shouldReuseProjection: decision.shouldReuseProjection,
   }
 }
 

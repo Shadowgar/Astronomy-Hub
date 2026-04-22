@@ -35,6 +35,18 @@ import {
   listStarsFromStarsCModule,
 } from '../adapters/starsCModuleRuntimePort'
 import {
+  buildStarsCFramePacingFixtureTraceRows,
+  computeStarsCFramePacingFixtureDigest,
+  computeStarsCFramePacingSingleStepDigest,
+  createStarsCFramePacingFixtureModelSyncNext,
+  createStarsCFramePacingFixtureModelSyncState,
+  createStarsCFramePacingFixtureOverlayNext,
+  createStarsCFramePacingFixtureOverlayState,
+  createStarsCFramePacingFixtureProjectionCache,
+  createStarsCFramePacingFixtureProjectionNext,
+  runStarsCFramePacingStep,
+} from '../adapters/framePacingDecisions'
+import {
   STELLARIUM_TONEMAPPER_EXPOSURE,
   STELLARIUM_TONEMAPPER_LWMAX_MAX,
   STELLARIUM_TONEMAPPER_P,
@@ -1280,6 +1292,64 @@ function starsCModuleRuntimeSlice(): string {
   ].join('|')
 }
 
+function starsCFramePacingSlice(): string {
+  const projectionCache = createStarsCFramePacingFixtureProjectionCache()
+  const overlayState = createStarsCFramePacingFixtureOverlayState()
+  const modelState = createStarsCFramePacingFixtureModelSyncState()
+
+  const baselineStep = runStarsCFramePacingStep({
+    projection: {
+      previousProjectionCache: projectionCache,
+      next: createStarsCFramePacingFixtureProjectionNext(),
+      starsProjectionReuseStreak: 1,
+    },
+    overlay: {
+      previous: overlayState,
+      next: createStarsCFramePacingFixtureOverlayNext(overlayState),
+    },
+    modelSync: {
+      previous: modelState,
+      next: createStarsCFramePacingFixtureModelSyncNext(modelState),
+    },
+  })
+
+  const forcedSyncStep = runStarsCFramePacingStep({
+    projection: {
+      previousProjectionCache: projectionCache,
+      next: createStarsCFramePacingFixtureProjectionNext({
+        sceneTimestampMs: 1400,
+        fovDegrees: 30.31,
+        limitingMagnitude: 6.35,
+      }),
+      starsProjectionReuseStreak: 2,
+    },
+    overlay: {
+      previous: overlayState,
+      next: createStarsCFramePacingFixtureOverlayNext(overlayState, {
+        guidedSignature: 'a|c',
+      }),
+    },
+    modelSync: {
+      previous: modelState,
+      next: createStarsCFramePacingFixtureModelSyncNext(modelState, {
+        force: true,
+        propsSignature: 'sig:forced',
+      }),
+    },
+  })
+
+  const traceRows = buildStarsCFramePacingFixtureTraceRows()
+
+  return [
+    'stars-c-frame-pacing',
+    `baseline:${baselineStep.projectionDecision.shouldReuseProjection ? '1' : '0'}:${baselineStep.overlayDecision.shouldSync ? '1' : '0'}:${baselineStep.modelSyncDecision.shouldSyncProps ? '1' : '0'}`,
+    `forced:${forcedSyncStep.projectionDecision.shouldReuseProjection ? '1' : '0'}:${forcedSyncStep.overlayDecision.shouldSync ? '1' : '0'}:${forcedSyncStep.modelSyncDecision.shouldSyncProps ? '1' : '0'}`,
+    `single:${computeStarsCFramePacingSingleStepDigest()}`,
+    `trace:${computeStarsCFramePacingFixtureDigest()}`,
+    `rows:${traceRows.length}`,
+  ].join('|')
+}
+
 /**
  * Canonical string for the module 2 ported surface. Two runs on the same build MUST match bitwise.
  */
@@ -1350,6 +1420,7 @@ export function computeModule2PortFingerprint(): string {
     starsCRuntimePortSlice(),
     starsCSurveyLifecycleSlice(),
     starsCModuleRuntimeSlice(),
+    starsCFramePacingSlice(),
   ]
 
   return parts.join('::')
