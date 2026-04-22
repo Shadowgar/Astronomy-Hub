@@ -11,6 +11,14 @@ import { hipGetPix } from '../adapters/hipGetPix'
 import { listRuntimeStarsFromTiles } from '../adapters/starsList'
 import { buildStarsSurveyLoadPlan, compareStarsSurveyByMaxVmag } from '../adapters/starsSurveyRegistry'
 import {
+  addStarsPortSurvey,
+  createLoadedTilesPortSurvey,
+  createStarsPortState,
+  findStarByHipFromPortSurveys,
+  listStarsFromPortSurvey,
+  resolveStarsPortSurveyBySource,
+} from '../adapters/starsCRuntimePort'
+import {
   STELLARIUM_TONEMAPPER_EXPOSURE,
   STELLARIUM_TONEMAPPER_LWMAX_MAX,
   STELLARIUM_TONEMAPPER_P,
@@ -920,36 +928,171 @@ function overlayCadenceSlice(): string {
   ].join('|')
 }
 
+function starsCRuntimePortSlice(): string {
+  const resolveTier = (mag: number): 'T0' | 'T1' | 'T2' => {
+    if (mag <= 4) {
+      return 'T0'
+    }
+    if (mag <= 7) {
+      return 'T1'
+    }
+    return 'T2'
+  }
+
+  const makeTile = (entry: {
+    tileId: string
+    level: number
+    order: number
+    pix: number
+    sourceKey: string
+    stars: Array<{ id: string; sourceId: string; mag: number; catalog: 'hipparcos' | 'gaia' }>
+    magMin?: number
+  }): SkyTilePayload => ({
+    tileId: entry.tileId,
+    level: entry.level,
+    parentTileId: null,
+    childTileIds: [],
+    bounds: { raMinDeg: 0, raMaxDeg: 1, decMinDeg: 0, decMaxDeg: 1 },
+    magMin: entry.magMin ?? 0,
+    magMax: 12,
+    starCount: entry.stars.length,
+    stars: entry.stars.map((star) => ({
+      id: star.id,
+      sourceId: star.sourceId,
+      raDeg: 0,
+      decDeg: 0,
+      mag: star.mag,
+      tier: resolveTier(star.mag),
+      catalog: star.catalog,
+    })),
+    provenance: {
+      catalog: 'multi-survey',
+      sourcePath: 'fingerprint/stars-c-runtime-port',
+      sourceKey: entry.sourceKey,
+      sourceKeys: [entry.sourceKey],
+      hipsTiles: [{ sourceKey: entry.sourceKey, order: entry.order, pix: entry.pix }],
+    },
+  })
+
+  const hipOrder0Pix = hipGetPix(11767, 0)
+  const hipOrder1Pix = hipGetPix(11767, 1)
+
+  const hipSurvey = createLoadedTilesPortSurvey({
+    key: 'hip-main',
+    isGaia: false,
+    minVmag: -2,
+    maxVmag: 6.5,
+    tiles: [
+      makeTile({
+        tileId: 'hip-root',
+        level: 0,
+        order: 0,
+        pix: hipOrder0Pix,
+        sourceKey: 'hip-main',
+        stars: [
+          { id: 'hip-11767', sourceId: 'HIP 11767', mag: 2.1, catalog: 'hipparcos' },
+          { id: 'hip-faint', sourceId: 'HIP 3', mag: 8.2, catalog: 'hipparcos' },
+        ],
+      }),
+      makeTile({
+        tileId: 'hip-child',
+        level: 1,
+        order: 1,
+        pix: hipOrder1Pix,
+        sourceKey: 'hip-main',
+        stars: [{ id: 'hip-11767-1', sourceId: 'HIP 11767', mag: 2.2, catalog: 'hipparcos' }],
+      }),
+    ],
+    missingHintCode: 404,
+  })
+
+  const gaiaSurvey = createLoadedTilesPortSurvey({
+    key: 'gaia',
+    isGaia: true,
+    minVmag: 4,
+    maxVmag: 20,
+    tiles: [
+      makeTile({
+        tileId: 'gaia-root',
+        level: 0,
+        order: 0,
+        pix: hipOrder0Pix,
+        sourceKey: 'gaia',
+        stars: [{ id: 'gaia-11767', sourceId: 'HIP 11767', mag: 2.05, catalog: 'gaia' }],
+      }),
+    ],
+    missingHintCode: 404,
+  })
+
+  let state = createStarsPortState([])
+  state = addStarsPortSurvey(state, gaiaSurvey)
+  state = addStarsPortSurvey(state, hipSurvey)
+
+  const ordered = state.surveys.map((survey) => survey.key).join(',')
+  const gaiaMin = q(state.surveys.find((survey) => survey.key === 'gaia')?.minVmag ?? Number.NaN)
+
+  const resolvedHip = resolveStarsPortSurveyBySource(state, 'hip-main')
+  const resolvedUnknown = resolveStarsPortSurveyBySource(state, 'unknown')
+
+  const listedDefault: string[] = []
+  const listDefaultStatus = listStarsFromPortSurvey({
+    survey: resolvedHip ?? hipSurvey,
+    maxMag: 6.5,
+    visit: (star) => {
+      listedDefault.push(star.id)
+    },
+  })
+
+  const listedHinted: string[] = []
+  const listHintStatus = listStarsFromPortSurvey({
+    survey: resolvedHip ?? hipSurvey,
+    hintNuniq: healpixOrderPixToNuniq(0, hipOrder0Pix),
+    maxMag: 1,
+    visit: (star) => {
+      listedHinted.push(star.id)
+      return star.id === 'hip-11767'
+    },
+  })
+
+  const lookup = findStarByHipFromPortSurveys(state, 11767)
+  const lookupStatus = lookup.status
+  const lookupId = lookup.status === 'found' ? lookup.star.id : 'none'
+  const lookupMissing = findStarByHipFromPortSurveys(state, 999999).status
+
+  return [
+    'stars-c-runtime',
+    `order:${ordered}`,
+    `gaia-min:${gaiaMin}`,
+    `resolve:hip=${resolvedHip?.key ?? 'null'}:fallback=${resolvedUnknown?.key ?? 'null'}`,
+    `list-default:${listDefaultStatus}:${listedDefault.join(',')}`,
+    `list-hint:${listHintStatus}:${listedHinted.join(',')}`,
+    `lookup:${lookupStatus}:${lookupId}`,
+    `lookup-miss:${lookupMissing}`,
+  ].join('|')
+}
+
 /**
  * Canonical string for the module 2 ported surface. Two runs on the same build MUST match bitwise.
  */
 export function computeModule2PortFingerprint(): string {
-  const parts: string[] = []
-
   const bvSamples = [-0.2, 0, 0.58, 1.2, 2]
-  for (const bv of bvSamples) {
-    parts.push(`bv:${bv}:${triplet(bvToRgb(bv))}`)
-  }
+  const bvParts = bvSamples.map((bv) => `bv:${bv}:${triplet(bvToRgb(bv))}`)
 
   const order = 3
   const pix = 42
   const nuniq = encodeEphTileNuniq(order, pix)
   const decoded = nuniqToHealpixOrderAndPix(nuniq)
   const roundTrip = encodeEphTileNuniq(decoded.order, decoded.pix)
-  parts.push(`nuniq:${nuniq.toString()}:${decoded.order}:${decoded.pix}:${roundTrip === nuniq ? '1' : '0'}`)
+  const nuniqPart = `nuniq:${nuniq.toString()}:${decoded.order}:${decoded.pix}:${roundTrip === nuniq ? '1' : '0'}`
 
-  parts.push(
+  const limParts = [
     `lim:${resolveStarsRenderLimitMagnitude(6.5, { starsLimitMag: 7.2, hardLimitMag: 99 })}`,
-  )
-  parts.push(`lim-null:${resolveStarsRenderLimitMagnitude(8, null)}`)
-  parts.push(
+    `lim-null:${resolveStarsRenderLimitMagnitude(8, null)}`,
     `lim-cap:${resolveStarsRenderLimitMagnitude(12, { starsLimitMag: 6, hardLimitMag: 10 })}`,
-  )
+  ]
 
   const hipSamples = [0, 1, 11767, 91262, 120415]
-  for (const hip of hipSamples) {
-    parts.push(`hip:${hip}:${hipGetPix(hip, 0)}:${hipGetPix(hip, 1)}:${hipGetPix(hip, 2)}`)
-  }
+  const hipParts = hipSamples.map((hip) => `hip:${hip}:${hipGetPix(hip, 0)}:${hipGetPix(hip, 1)}:${hipGetPix(hip, 2)}`)
 
   const tonemapper = {
     p: STELLARIUM_TONEMAPPER_P,
@@ -957,32 +1100,46 @@ export function computeModule2PortFingerprint(): string {
     lwmax: STELLARIUM_TONEMAPPER_LWMAX_MAX,
   }
   const fovSample = 60
+  const pointParts: string[] = []
   for (const mag of [0.5, 4.2, 8]) {
     const pt = coreGetPointForMagnitude(mag, fovSample, tonemapper)
-    parts.push(
+    pointParts.push(
       `pt:${mag}:${pt.visible ? '1' : '0'}:${q(pt.radiusPx)}:${q(pt.luminance)}:${q(pt.rawLuminance)}`,
     )
   }
 
+  const tierParts: string[] = []
   for (const fov of [8, 40, 95]) {
-    parts.push(`tier:${fov}:${resolveViewTierFingerprint(fov)}`)
+    tierParts.push(`tier:${fov}:${resolveViewTierFingerprint(fov)}`)
   }
 
-  parts.push(`syncCadenceMs:${RUNTIME_MODEL_SYNC_CADENCE_MS}`)
+  const starCapParts: string[] = []
   for (const fov of [10, 30, 60, 100]) {
-    parts.push(`starCap:${fov}:${resolveProjectedStarCapForFov(fov)}`)
+    starCapParts.push(`starCap:${fov}:${resolveProjectedStarCapForFov(fov)}`)
   }
-  parts.push(visitorTraversalSlice())
-  parts.push(hipLookupSlice())
-  parts.push(catalogAstrometrySlice())
-  parts.push(projectionCacheSignatureSlice())
-  parts.push(runtimeTileQuerySignatureSlice())
-  parts.push(starsListSlice())
-  parts.push(sceneLuminanceFingerprintSlice())
-  parts.push(starsProjectionReplaySlice())
-  parts.push(starsProjectionReuseSlice())
-  parts.push(starsSurveyRegistrySlice())
-  parts.push(overlayCadenceSlice())
+
+  const parts = [
+    ...bvParts,
+    nuniqPart,
+    ...limParts,
+    ...hipParts,
+    ...pointParts,
+    ...tierParts,
+    `syncCadenceMs:${RUNTIME_MODEL_SYNC_CADENCE_MS}`,
+    ...starCapParts,
+    visitorTraversalSlice(),
+    hipLookupSlice(),
+    catalogAstrometrySlice(),
+    projectionCacheSignatureSlice(),
+    runtimeTileQuerySignatureSlice(),
+    starsListSlice(),
+    sceneLuminanceFingerprintSlice(),
+    starsProjectionReplaySlice(),
+    starsProjectionReuseSlice(),
+    starsSurveyRegistrySlice(),
+    overlayCadenceSlice(),
+    starsCRuntimePortSlice(),
+  ]
 
   return parts.join('::')
 }
