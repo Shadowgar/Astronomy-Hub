@@ -26,5 +26,6 @@ describe('Module 2 deterministic port replay (G4)', () => {
     expect(fingerprint).toContain('stars-projection:')
     expect(fingerprint).toContain('stars-reuse|')
     expect(fingerprint).toContain('stars-c-runtime|')
+    expect(fingerprint).toContain('stars-c-survey-lifecycle|')
   })
 })

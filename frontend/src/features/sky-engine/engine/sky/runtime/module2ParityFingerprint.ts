@@ -19,6 +19,14 @@ import {
   resolveStarsPortSurveyBySource,
 } from '../adapters/starsCRuntimePort'
 import {
+  addStarsCSurveyFromProperties,
+  buildStarsCLifecycleFixture,
+  buildStarsCTileFixture,
+  createStarsCLifecycleState,
+  findStarByHipFromLifecycleState,
+  listStarsFromLifecycleState,
+} from '../adapters/starsCSurveyLifecyclePort'
+import {
   STELLARIUM_TONEMAPPER_EXPOSURE,
   STELLARIUM_TONEMAPPER_LWMAX_MAX,
   STELLARIUM_TONEMAPPER_P,
@@ -1071,6 +1079,108 @@ function starsCRuntimePortSlice(): string {
   ].join('|')
 }
 
+function starsCSurveyLifecycleSlice(): string {
+  const hipOrder0Pix = hipGetPix(11767, 0)
+  const hipOrder1Pix = hipGetPix(11767, 1)
+
+  const hipRootTile = buildStarsCTileFixture({
+    order: 0,
+    pix: hipOrder0Pix,
+    stars: [
+      { hip: 11767, mag: 2.1, ids: 'HIP 11767' },
+      { hip: 2, mag: 8.4, ids: 'HIP 2' },
+    ],
+  })
+  const hipChildTile = buildStarsCTileFixture({
+    order: 1,
+    pix: hipOrder1Pix,
+    stars: [
+      { hip: 11767, mag: 2.2, ids: 'HIP 11767|NAME Sample' },
+    ],
+  })
+
+  const gaiaRootTile = buildStarsCTileFixture({
+    order: 0,
+    pix: hipOrder0Pix,
+    isGaia: true,
+    minVmag: 4,
+    stars: [
+      { hip: 11767, gaia: BigInt('219547565555375488'), mag: 2.05, ids: 'GAIA 219547565555375488' },
+    ],
+  })
+
+  const hipFixture = buildStarsCLifecycleFixture({
+    key: 'hip-main',
+    maxVmag: 6.5,
+    tiles: [hipRootTile, hipChildTile],
+  })
+  const gaiaFixture = buildStarsCLifecycleFixture({
+    key: 'gaia',
+    isGaia: true,
+    minVmag: 4,
+    maxVmag: 20,
+    tiles: [gaiaRootTile],
+  })
+
+  const base = createStarsCLifecycleState([gaiaFixture.survey, hipFixture.survey])
+  const addResult = addStarsCSurveyFromProperties({
+    state: base,
+    key: 'hip-bright',
+    url: '/catalog/hip-bright',
+    propertiesText: [
+      'type = stars',
+      'hips_order_min = 0',
+      'min_vmag = -2',
+      'max_vmag = 6.5',
+      'hips_release_date = 2025-01-02T00:00Z',
+    ].join('\n'),
+    tileStore: hipFixture.store,
+  })
+
+  const state = addResult.status === 'ok' ? addResult.state : base
+  const ordered = state.surveys.map((survey) => survey.key).join(',')
+  const gaiaMin = q(state.surveys.find((survey) => survey.key === 'gaia')?.minVmag ?? Number.NaN)
+  const preloadCount = addResult.status === 'ok' ? addResult.preload.length : 0
+
+  const listedDefault: string[] = []
+  const listDefaultStatus = listStarsFromLifecycleState({
+    state,
+    sourceKey: 'hip-main',
+    maxMag: 6.5,
+    visit: (star) => {
+      listedDefault.push(star.id)
+    },
+  })
+
+  const listedHinted: string[] = []
+  const listHintStatus = listStarsFromLifecycleState({
+    state,
+    sourceKey: 'hip-main',
+    maxMag: 1,
+    hintNuniq: healpixOrderPixToNuniq(0, hipOrder0Pix),
+    visit: (star) => {
+      listedHinted.push(star.id)
+      return star.id === 'hip-11767'
+    },
+  })
+
+  const lookup = findStarByHipFromLifecycleState(state, 11767)
+  const lookupStatus = lookup.status
+  const lookupId = lookup.status === 'found' ? lookup.star.id : 'none'
+  const lookupMissing = findStarByHipFromLifecycleState(state, 999999).status
+
+  return [
+    'stars-c-survey-lifecycle',
+    `order:${ordered}`,
+    `gaia-min:${gaiaMin}`,
+    `preload:${preloadCount}`,
+    `list-default:${listDefaultStatus}:${listedDefault.join(',')}`,
+    `list-hint:${listHintStatus}:${listedHinted.join(',')}`,
+    `lookup:${lookupStatus}:${lookupId}`,
+    `lookup-miss:${lookupMissing}`,
+  ].join('|')
+}
+
 /**
  * Canonical string for the module 2 ported surface. Two runs on the same build MUST match bitwise.
  */
@@ -1139,6 +1249,7 @@ export function computeModule2PortFingerprint(): string {
     starsSurveyRegistrySlice(),
     overlayCadenceSlice(),
     starsCRuntimePortSlice(),
+    starsCSurveyLifecycleSlice(),
   ]
 
   return parts.join('::')
