@@ -14,6 +14,27 @@ const LIMIT_MAG_REPROJECT_THRESHOLD = 0.02
 const MAX_PROJECTION_REUSE_STREAK = 2
 const SCENE_TIMESTAMP_REPROJECT_THRESHOLD_MS = 250
 
+export interface StarsProjectionCacheEntry {
+  readonly sceneTimestampMs: number
+  readonly width: number
+  readonly height: number
+  readonly objectSignature: string
+  readonly centerDirection: { x: number; y: number; z: number }
+  readonly fovDegrees: number
+  readonly limitingMagnitude: number
+  readonly projectedStars: ReturnType<typeof collectProjectedStars>['projectedStars']
+}
+
+export interface StarsProjectionReuseDecision {
+  readonly centerDeltaRad: number
+  readonly fovDeltaDeg: number
+  readonly limitingMagnitudeDelta: number
+  readonly sceneTimestampDeltaMs: number
+  readonly isSceneTimestampReusable: boolean
+  readonly isProjectionCacheReusable: boolean
+  readonly shouldReuseProjection: boolean
+}
+
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
 }
@@ -61,6 +82,55 @@ function buildProjectionSignature(props: ScenePropsSnapshot) {
   ].join('::')
 }
 
+export function evaluateStarsProjectionReuse(params: {
+  previousProjectionCache: StarsProjectionCacheEntry | null
+  next: {
+    objectSignature: string
+    width: number
+    height: number
+    centerDirection: { x: number; y: number; z: number }
+    fovDegrees: number
+    limitingMagnitude: number
+    sceneTimestampMs: number
+  }
+  starsProjectionReuseStreak: number
+}): StarsProjectionReuseDecision {
+  const { previousProjectionCache, next, starsProjectionReuseStreak } = params
+  const centerDeltaRad = previousProjectionCache
+    ? getAngularDeltaRadians(previousProjectionCache.centerDirection, next.centerDirection)
+    : Number.POSITIVE_INFINITY
+  const fovDeltaDeg = previousProjectionCache
+    ? Math.abs(previousProjectionCache.fovDegrees - next.fovDegrees)
+    : Number.POSITIVE_INFINITY
+  const limitingMagnitudeDelta = previousProjectionCache
+    ? Math.abs(previousProjectionCache.limitingMagnitude - next.limitingMagnitude)
+    : Number.POSITIVE_INFINITY
+  const sceneTimestampDeltaMs = previousProjectionCache
+    ? Math.abs(previousProjectionCache.sceneTimestampMs - next.sceneTimestampMs)
+    : Number.POSITIVE_INFINITY
+  const isSceneTimestampReusable = !Number.isFinite(sceneTimestampDeltaMs) || sceneTimestampDeltaMs <= SCENE_TIMESTAMP_REPROJECT_THRESHOLD_MS
+  const isProjectionCacheReusable = Boolean(
+    previousProjectionCache &&
+    previousProjectionCache.objectSignature === next.objectSignature &&
+    isSceneTimestampReusable &&
+    previousProjectionCache.width === next.width &&
+    previousProjectionCache.height === next.height &&
+    fovDeltaDeg <= FOV_REPROJECT_THRESHOLD_DEG &&
+    limitingMagnitudeDelta <= LIMIT_MAG_REPROJECT_THRESHOLD &&
+    centerDeltaRad <= CENTER_REPROJECT_THRESHOLD_RAD,
+  )
+  const shouldReuseProjection = isProjectionCacheReusable && starsProjectionReuseStreak < MAX_PROJECTION_REUSE_STREAK
+  return {
+    centerDeltaRad,
+    fovDeltaDeg,
+    limitingMagnitudeDelta,
+    sceneTimestampDeltaMs,
+    isSceneTimestampReusable,
+    isProjectionCacheReusable,
+    shouldReuseProjection,
+  }
+}
+
 export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-stars-runtime-module',
@@ -93,30 +163,24 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
       const objectSignature = buildProjectionSignature(latest)
       const sceneTimestampMs = sceneTimestampIso ? Date.parse(sceneTimestampIso) : Number.NaN
       const previousProjectionCache = runtime.starsProjectionCache
-      const centerDeltaRad = previousProjectionCache
-        ? getAngularDeltaRadians(previousProjectionCache.centerDirection, centerDirection)
-        : Number.POSITIVE_INFINITY
-      const fovDeltaDeg = previousProjectionCache
-        ? Math.abs(previousProjectionCache.fovDegrees - currentFovDegrees)
-        : Number.POSITIVE_INFINITY
-      const limitingMagnitudeDelta = previousProjectionCache
-        ? Math.abs(previousProjectionCache.limitingMagnitude - limitingMagnitude)
-        : Number.POSITIVE_INFINITY
-      const sceneTimestampDeltaMs = previousProjectionCache
-        ? Math.abs(previousProjectionCache.sceneTimestampMs - sceneTimestampMs)
-        : Number.POSITIVE_INFINITY
-      const isSceneTimestampReusable = !Number.isFinite(sceneTimestampDeltaMs) || sceneTimestampDeltaMs <= SCENE_TIMESTAMP_REPROJECT_THRESHOLD_MS
-      const isProjectionCacheReusable = Boolean(
-        previousProjectionCache &&
-        previousProjectionCache.objectSignature === objectSignature &&
-        isSceneTimestampReusable &&
-        previousProjectionCache.width === width &&
-        previousProjectionCache.height === height &&
-        fovDeltaDeg <= FOV_REPROJECT_THRESHOLD_DEG &&
-        limitingMagnitudeDelta <= LIMIT_MAG_REPROJECT_THRESHOLD &&
-        centerDeltaRad <= CENTER_REPROJECT_THRESHOLD_RAD,
-      )
-      const shouldReuseProjection = isProjectionCacheReusable && runtime.starsProjectionReuseStreak < MAX_PROJECTION_REUSE_STREAK
+      const reuseDecision = evaluateStarsProjectionReuse({
+        previousProjectionCache,
+        next: {
+          objectSignature,
+          width,
+          height,
+          centerDirection: {
+            x: centerDirection.x,
+            y: centerDirection.y,
+            z: centerDirection.z,
+          },
+          fovDegrees: currentFovDegrees,
+          limitingMagnitude,
+          sceneTimestampMs,
+        },
+        starsProjectionReuseStreak: runtime.starsProjectionReuseStreak,
+      })
+      const shouldReuseProjection = reuseDecision.shouldReuseProjection
       let projectedStars = previousProjectionCache?.projectedStars ?? []
       let projectionElapsedMs = 0
       let projectionTransformMs = 0
@@ -194,10 +258,10 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           starsPainterLimitMag: runtime.corePainterLimits?.starsLimitMag ?? Number.NaN,
           collectProjectedStarsMs: projectionElapsedMs,
           starsProjectionReused: shouldReuseProjection ? 1 : 0,
-          starsProjectionCenterDeltaRad: centerDeltaRad,
-          starsProjectionFovDeltaDeg: fovDeltaDeg,
-          starsProjectionLimitingMagDelta: limitingMagnitudeDelta,
-          starsProjectionTimestampDeltaMs: sceneTimestampDeltaMs,
+          starsProjectionCenterDeltaRad: reuseDecision.centerDeltaRad,
+          starsProjectionFovDeltaDeg: reuseDecision.fovDeltaDeg,
+          starsProjectionLimitingMagDelta: reuseDecision.limitingMagnitudeDelta,
+          starsProjectionTimestampDeltaMs: reuseDecision.sceneTimestampDeltaMs,
           collectProjectedStarsTransformMs: projectionTransformMs,
           collectProjectedStarsMagnitudeFilterMs: projectionMagnitudeFilterMs,
           collectProjectedStarsVisibilityFilterMs: projectionVisibilityFilterMs,

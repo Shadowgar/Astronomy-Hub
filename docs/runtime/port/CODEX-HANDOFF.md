@@ -2,7 +2,7 @@
 
 **Purpose:** This file is the single entry point for a fresh agent (Codex 5.3 or any successor) taking over the runtime port without prior chat context. Read this file first, then the four "required reads" below, then start coding.
 
-**Last updated:** 2026-04-21, evidence **EV-0087** (non-star **geometric** horizon fade in `runtimeFrame.ts`; `test_runtime_frame_horizon` + `sky-engine-runtime-frame-projection` in **`test:module2`**; **66/66** / **16 files**; module1 **46/46**; typecheck + build PASS).
+**Last updated:** 2026-04-22, evidence **EV-0089** (G4 deterministic replay extension: projection-cache reuse decision slice via `evaluateStarsProjectionReuse` + `stars-reuse` fingerprint marker in `module2ParityFingerprint.ts`; deterministic replay snapshot/assertions updated in **`test:module2`**; **66/66** / **16 files**; module1 **46/46**; typecheck + build PASS).
 
 ---
 
@@ -26,7 +26,7 @@ These constraints come from the top-level `AGENTS.md` §6.5 (Sky Engine Isolatio
 2. **`docs/runtime/port/README.md`** — canon rules + current module-completion state.
 3. **`docs/runtime/port/module2-source-contract.md`** — active module (§1–§2 source mapping, §5 gate status, §7 handoff / next coding targets / commands / evidence).
 4. **`docs/runtime/port/module-gates.md`** — gate-by-gate state per module + "Known residuals (repo-wide `npm test`)" section.
-5. **`docs/runtime/port/evidence-index.md`** — the evidence ledger. Cite an existing `EV-xxxx` when referencing work; add a new row for any new work you land (**next free ID: EV-0088**; `EV-0067` and `EV-0068` are intentionally unused).
+5. **`docs/runtime/port/evidence-index.md`** — the evidence ledger. Cite an existing `EV-xxxx` when referencing work; add a new row for any new work you land (**next free ID: EV-0090**; `EV-0067` and `EV-0068` are intentionally unused).
 
 Only open deeper files (inventory, blockers, source contract for module 0/1, per-plan files) when the task points at them.
 
@@ -49,7 +49,7 @@ Never anchor a port claim to a moving branch — always diff against the pinned 
 |---|---|---|---|
 | `module0-foundation-lock` | **COMPLETE** (EV-0019) | `npm run test:module0` → **12/12** | Observer/time/matrix spine. No open `BLK-*`. |
 | `module1-hips-kernel` | **COMPLETE** (EV-0034) | `npm run test:module1` → **43/43** | EPH / HEALPix / tile / HiPS render-order spine. `test_close_fov_star_counts.test.js` is an intentionally-excluded asset-heavy probe (see `module1-source-contract.md` §3). |
-| `module2-stars-full` | **BLOCKED / partial** (active) | `npm run test:module2` → **66/66 / 16 files** | G0/G1 PASS (EV-0036). G2/G3/G4 partial (EV-0038–EV-0087). G5–G7 FAIL. See `module2-source-contract.md` §5 + §7. |
+| `module2-stars-full` | **BLOCKED / partial** (active) | `npm run test:module2` → **66/66 / 16 files** | G0/G1 PASS (EV-0036). G2/G3/G4 partial (EV-0038–EV-0089). G5–G7 FAIL. See `module2-source-contract.md` §5 + §7. |
 | `module3-dso-full` | N/A — not started | n/a | Some repo-wide `npm test` residuals belong here (see `module-gates.md` "Known residuals"). |
 | `module4-planets-moon-sun` | N/A | n/a | — |
 | `module5-satellites-full` | N/A | n/a | Some repo-wide residuals belong here. |
@@ -67,7 +67,7 @@ Modules are worked strictly in order. You are on **module 2**. Do not start modu
 
 Within module 2, the next concrete coding targets (from `module2-source-contract.md §7`, ordered) are:
 
-1. **Extend G4 deterministic coverage** (`runtime/module2ParityFingerprint.ts`) further (e.g. full `StarsModule` projection replay, frame-pacing traces) beyond EV-0076 + EV-0082 traversal/lookup/astrometry/`stars_list` slices.
+1. **Extend G4 deterministic coverage** (`runtime/module2ParityFingerprint.ts`) further (frame-pacing traces remain partially open) beyond EV-0076 + EV-0082 + EV-0088 + EV-0089 traversal/lookup/astrometry/`stars_list`/projection/reuse-decision slices.
 2. **`stars_list` / `stars_add_data_source` seams.** Live fetch lifecycle + full `stars.c` object graph remain open after loaded-tile adapter + G4 slice (**EV-0078**–**EV-0082**).
 3. **Runtime stabilization.** User-reported blockers (no visible stars at default observer, laggy interaction) are not yet tied to a specific evidence row — treat frame pacing as a P0 investigation after #1 and #2 are in place.
 
@@ -99,7 +99,7 @@ npm run typecheck        # tsc --noEmit — required before claiming done
 npm run build            # vite production build
 npm run test:module0     # 12/12 (module 0 gate bundle)
 npm run test:module1     # 43/43 (module 1 gate bundle)
-npm run test:module2     # 66/66 across 16 files (module 2 gate bundle as of EV-0087)
+npm run test:module2     # 66/66 across 16 files (module 2 gate bundle as of EV-0089)
 npm run dev              # Vite dev server on 4173
 npm run preview          # Preview build on 4173
 npm test                 # Full Vitest; has 10 known residuals in module 3/5/6/7/8 scope — see module-gates.md "Known residuals". Not a module 2 gate.
@@ -139,7 +139,7 @@ Module 2 function inventory (per-function `PORTED` / `BLOCKED` status against co
 ## 9. Evidence conventions
 
 - Every `PASS` gate must reference at least one evidence row (`module-gates.md` Rules).
-- When you land new work, append a new row to `evidence-index.md` with the next free ID (**next: EV-0088**). Use the existing column shape: `| Evidence ID | Module | Gate | Command / Probe | Artifact Path | Result | Notes |`.
+- When you land new work, append a new row to `evidence-index.md` with the next free ID (**next: EV-0090**). Use the existing column shape: `| Evidence ID | Module | Gate | Command / Probe | Artifact Path | Result | Notes |`.
 - Keep existing EV rows immutable. `EV-0067` and `EV-0068` are intentionally unused — do not reuse them.
 - Cite the new EV ID in every doc that references the landed surface: `module-inventory.md` (function table), `module-gates.md` (module row), `module2-source-contract.md` (§5 gate + §7 evidence table), and any README range bumps.
 

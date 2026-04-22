@@ -23,5 +23,7 @@ describe('Module 2 deterministic port replay (G4)', () => {
     expect(fingerprint).toContain('tile-query-signature:')
     expect(fingerprint).toContain('stars-list:')
     expect(fingerprint).toContain('scene-lum|')
+    expect(fingerprint).toContain('stars-projection:')
+    expect(fingerprint).toContain('stars-reuse|')
   })
 })

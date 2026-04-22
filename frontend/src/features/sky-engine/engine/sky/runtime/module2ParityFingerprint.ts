@@ -16,7 +16,7 @@ import {
   coreGetPointForMagnitude,
 } from '../core/stellariumVisualMath'
 import { resolveStarsRenderLimitMagnitude } from './stellariumPainterLimits'
-import { resolveProjectedStarCapForFov } from './modules/runtimeFrame'
+import { collectProjectedStars, resolveProjectedStarCapForFov } from './modules/runtimeFrame'
 import { RUNTIME_MODEL_SYNC_CADENCE_MS } from '../../../SkyEngineScene'
 import { visitStarsRenderTiles } from './starsRenderVisitor'
 import { findRuntimeStarByHipInTiles } from '../adapters/starsLookup'
@@ -24,7 +24,7 @@ import {
   computeCatalogStarPvFromCatalogueUnits,
   starAstrometricIcrfVector,
 } from './starsCatalogAstrom'
-import { buildScenePacketSignature } from './modules/StarsModule'
+import { buildScenePacketSignature, evaluateStarsProjectionReuse } from './modules/StarsModule'
 import { buildRuntimeTileQuerySignature } from '../../../sceneQueryState'
 import type { ScenePropsSnapshot, SkySceneRuntimeServices } from '../../../SkyEngineRuntimeBridge'
 import { horizontalToDirection } from '../../../projectionMath'
@@ -36,6 +36,8 @@ import { evaluateSceneLuminanceReport } from './luminanceReport'
 import type { SkyScenePacket } from '../contracts/scene'
 import type { SkyTilePayload } from '../contracts/tiles'
 import type { SkyEngineQuery } from '../contracts/tiles'
+import type { SkyBrightnessExposureState } from './types'
+import type { SkyEngineSceneObject } from '../../../types'
 
 const DECIMALS = 12
 
@@ -481,6 +483,262 @@ function sceneLuminanceFingerprintSlice(): string {
   ].join('|')
 }
 
+function starsProjectionReplaySlice(): string {
+  const toPacketStar = (id: string, altitudeDeg: number, azimuthDeg: number, mag: number, tier: 'T0' | 'T1' | 'T2') => {
+    const direction = horizontalToDirection(altitudeDeg, azimuthDeg)
+    return {
+      id,
+      x: direction.x,
+      y: direction.y,
+      z: direction.z,
+      mag,
+      tier,
+    } as const
+  }
+
+  const scenePacket: SkyScenePacket = {
+    stars: [
+      toPacketStar('proj-a', 38, 130, 1.4, 'T0'),
+      toPacketStar('proj-b', 34, 136, 4.8, 'T1'),
+      toPacketStar('proj-c', 10, 145, 8.1, 'T2'),
+    ],
+    starTiles: [
+      {
+        tileId: 'proj-root',
+        level: 0,
+        parentTileId: null,
+        childTileIds: ['proj-child'],
+        magMin: 1.4,
+        magMax: 8.1,
+        starIds: ['proj-a'],
+      },
+      {
+        tileId: 'proj-child',
+        level: 1,
+        parentTileId: 'proj-root',
+        childTileIds: [],
+        magMin: 4.8,
+        magMax: 8.1,
+        starIds: ['proj-b', 'proj-c'],
+      },
+    ],
+    labels: [],
+    diagnostics: {
+      dataMode: 'multi-survey',
+      sourceLabel: 'projection-fingerprint',
+      limitingMagnitude: 7,
+      activeTiles: 2,
+      visibleStars: 3,
+      starsListVisitCount: 0,
+      activeTiers: ['T0', 'T1', 'T2'],
+      tileLevels: [0, 1],
+      tilesPerLevel: { '0': 1, '1': 1 },
+      maxTileDepthReached: 1,
+      visibleTileIds: ['proj-root', 'proj-child'],
+    },
+  }
+
+  const objects: SkyEngineSceneObject[] = [
+    {
+      id: 'proj-a',
+      name: 'Proj A',
+      type: 'star',
+      altitudeDeg: 38,
+      azimuthDeg: 130,
+      magnitude: 1.4,
+      colorHex: '#ffffff',
+      colorIndexBV: 0.15,
+      summary: 'projection fingerprint star A',
+      description: 'projection fingerprint star A',
+      truthNote: 'projection fingerprint',
+      source: 'engine_catalog_tile',
+      trackingMode: 'fixed_equatorial',
+      isAboveHorizon: true,
+    },
+    {
+      id: 'proj-b',
+      name: 'Proj B',
+      type: 'star',
+      altitudeDeg: 34,
+      azimuthDeg: 136,
+      magnitude: 4.8,
+      colorHex: '#f6f8ff',
+      colorIndexBV: 0.63,
+      summary: 'projection fingerprint star B',
+      description: 'projection fingerprint star B',
+      truthNote: 'projection fingerprint',
+      source: 'engine_catalog_tile',
+      trackingMode: 'fixed_equatorial',
+      isAboveHorizon: true,
+    },
+    {
+      id: 'proj-c',
+      name: 'Proj C',
+      type: 'star',
+      altitudeDeg: 10,
+      azimuthDeg: 145,
+      magnitude: 8.1,
+      colorHex: '#dce7ff',
+      colorIndexBV: 1.12,
+      summary: 'projection fingerprint star C',
+      description: 'projection fingerprint star C',
+      truthNote: 'projection fingerprint',
+      source: 'engine_catalog_tile',
+      trackingMode: 'fixed_equatorial',
+      isAboveHorizon: true,
+    },
+  ]
+
+  const brightnessExposureState = {
+    skyBrightness: 0.05,
+    adaptationLevel: 0.95,
+    sceneContrast: 1,
+    limitingMagnitude: 6.3,
+    starVisibility: 1,
+    starFieldBrightness: 1,
+    atmosphereExposure: 1,
+    milkyWayVisibility: 1,
+    milkyWayContrast: 1,
+    backdropAlpha: 1,
+    nightSkyZenithLuminance: 0.0001,
+    nightSkyHorizonLuminance: 0.0002,
+    sceneLuminanceSkyContributor: 0.0001,
+    sceneLuminanceStarContributor: 0.0001,
+    sceneLuminanceSolarSystemContributor: 0.0001,
+    sceneLuminanceStarSampleCount: 1,
+    sceneLuminanceSolarSystemSampleCount: 1,
+    sceneLuminance: 0.0001,
+    adaptedSceneLuminance: 0.0001,
+    targetTonemapperLwmax: 1,
+    adaptationSmoothing: 1,
+    tonemapperP: STELLARIUM_TONEMAPPER_P,
+    tonemapperExposure: STELLARIUM_TONEMAPPER_EXPOSURE,
+    tonemapperLwmax: STELLARIUM_TONEMAPPER_LWMAX_MAX,
+    visualCalibration: deriveSunVisualCalibration(-12),
+  } as SkyBrightnessExposureState
+
+  const view = {
+    centerDirection: horizontalToDirection(35, 135),
+    fovRadians: (30 * Math.PI) / 180,
+    viewportWidth: 1280,
+    viewportHeight: 720,
+    projectionMode: 'stereographic' as const,
+  }
+  const projection = collectProjectedStars({
+    view,
+    objects,
+    scenePacket,
+    sunState: {
+      altitudeDeg: -12,
+      azimuthDeg: 220,
+      isAboveHorizon: false,
+      phaseLabel: deriveSunPhaseLabel(-12),
+      rightAscensionHours: 0,
+      declinationDeg: 0,
+      localSiderealTimeDeg: 0,
+      skyDirection: horizontalToDirection(-12, 220),
+      lightDirection: horizontalToDirection(12, 40),
+      visualCalibration: deriveSunVisualCalibration(-12),
+    },
+    brightnessExposureState,
+    corePainterLimits: {
+      starsLimitMag: 7.5,
+      hardLimitMag: 6.6,
+    },
+  })
+
+  const entrySlice = projection.projectedStars
+    .map((entry) => {
+      const visibilityAlpha = entry.visibilityAlpha ?? 0
+      return `${entry.object.id}:${q(entry.screenX)}:${q(entry.screenY)}:${q(entry.depth)}:${q(entry.markerRadiusPx)}:${q(entry.renderAlpha)}:${q(entry.renderedMagnitude ?? 0)}:${q(visibilityAlpha)}`
+    })
+    .join(',')
+  return `stars-projection:count:${projection.projectedStars.length}|lim:${q(projection.limitingMagnitude)}|entries:${entrySlice}`
+}
+
+function starsProjectionReuseSlice(): string {
+  const reusable = evaluateStarsProjectionReuse({
+    previousProjectionCache: {
+      sceneTimestampMs: 1000,
+      width: 1280,
+      height: 720,
+      objectSignature: 'obj:3:proj-a:proj-c::packet:3|s0:proj-a:1.400|s1:proj-c:8.100|lim:7.000|visible:3|tiles:2:1',
+      centerDirection: horizontalToDirection(35, 135),
+      fovDegrees: 30,
+      limitingMagnitude: 6.3,
+      projectedStars: [],
+    },
+    next: {
+      objectSignature: 'obj:3:proj-a:proj-c::packet:3|s0:proj-a:1.400|s1:proj-c:8.100|lim:7.000|visible:3|tiles:2:1',
+      width: 1280,
+      height: 720,
+      centerDirection: horizontalToDirection(35.04, 135.03),
+      fovDegrees: 30.08,
+      limitingMagnitude: 6.31,
+      sceneTimestampMs: 1180,
+    },
+    starsProjectionReuseStreak: 1,
+  })
+
+  const blockedByStreak = evaluateStarsProjectionReuse({
+    previousProjectionCache: {
+      sceneTimestampMs: 1000,
+      width: 1280,
+      height: 720,
+      objectSignature: 'obj:3:proj-a:proj-c::packet:3|s0:proj-a:1.400|s1:proj-c:8.100|lim:7.000|visible:3|tiles:2:1',
+      centerDirection: horizontalToDirection(35, 135),
+      fovDegrees: 30,
+      limitingMagnitude: 6.3,
+      projectedStars: [],
+    },
+    next: {
+      objectSignature: 'obj:3:proj-a:proj-c::packet:3|s0:proj-a:1.400|s1:proj-c:8.100|lim:7.000|visible:3|tiles:2:1',
+      width: 1280,
+      height: 720,
+      centerDirection: horizontalToDirection(35.04, 135.03),
+      fovDegrees: 30.08,
+      limitingMagnitude: 6.31,
+      sceneTimestampMs: 1180,
+    },
+    starsProjectionReuseStreak: 2,
+  })
+
+  const cacheMiss = evaluateStarsProjectionReuse({
+    previousProjectionCache: {
+      sceneTimestampMs: 1000,
+      width: 1280,
+      height: 720,
+      objectSignature: 'obj:3:proj-a:proj-c::packet:3|s0:proj-a:1.400|s1:proj-c:8.100|lim:7.000|visible:3|tiles:2:1',
+      centerDirection: horizontalToDirection(35, 135),
+      fovDegrees: 30,
+      limitingMagnitude: 6.3,
+      projectedStars: [],
+    },
+    next: {
+      objectSignature: 'obj:3:proj-a:proj-c::packet:3|s0:proj-a:1.400|s1:proj-c:8.100|lim:7.000|visible:3|tiles:2:1',
+      width: 1280,
+      height: 720,
+      centerDirection: horizontalToDirection(35.04, 135.03),
+      fovDegrees: 30.08,
+      limitingMagnitude: 6.31,
+      sceneTimestampMs: 1400,
+    },
+    starsProjectionReuseStreak: 0,
+  })
+
+  return [
+    'stars-reuse',
+    `reuse:${reusable.shouldReuseProjection ? '1' : '0'}`,
+    `cache:${reusable.isProjectionCacheReusable ? '1' : '0'}`,
+    `center:${q(reusable.centerDeltaRad)}`,
+    `fov:${q(reusable.fovDeltaDeg)}`,
+    `lim:${q(reusable.limitingMagnitudeDelta)}`,
+    `dt:${q(reusable.sceneTimestampDeltaMs)}`,
+    `streak-block:${blockedByStreak.shouldReuseProjection ? '0' : '1'}`,
+    `miss:${cacheMiss.isProjectionCacheReusable ? '0' : '1'}`,
+  ].join('|')
+}
+
 /**
  * Canonical string for the module 2 ported surface. Two runs on the same build MUST match bitwise.
  */
@@ -540,6 +798,8 @@ export function computeModule2PortFingerprint(): string {
   parts.push(runtimeTileQuerySignatureSlice())
   parts.push(starsListSlice())
   parts.push(sceneLuminanceFingerprintSlice())
+  parts.push(starsProjectionReplaySlice())
+  parts.push(starsProjectionReuseSlice())
 
   return parts.join('::')
 }
