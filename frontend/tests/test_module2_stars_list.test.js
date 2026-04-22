@@ -113,6 +113,21 @@ describe('module2 stars.c stars_list parity seam', () => {
     expect(visited).toEqual(['gaia-1'])
   })
 
+  it('does not apply max_mag filtering on hinted traversal (matches stars.c hint path)', () => {
+    const visited = []
+    const status = listRuntimeStarsFromTiles({
+      tiles,
+      source: 'gaia',
+      hintNuniq: healpixOrderPixToNuniq(1, 5),
+      maxMag: 8.5,
+      visit: (star) => {
+        visited.push(star.id)
+      },
+    })
+    expect(status).toBe('ok')
+    expect(visited).toEqual(['gaia-1', 'gaia-2'])
+  })
+
   it('matches hinted nuniq against merged hipsTiles provenance entries', () => {
     const visited = []
     const status = listRuntimeStarsFromTiles({

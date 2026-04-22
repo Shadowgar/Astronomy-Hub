@@ -147,9 +147,6 @@ export function listRuntimeStarsFromTiles(options: StarsListOptions): StarsListS
       if (sourceCatalog != null && star.catalog !== sourceCatalog) {
         continue
       }
-      if (star.mag > maxMag) {
-        continue
-      }
       if (options.visit(star)) {
         break
       }
