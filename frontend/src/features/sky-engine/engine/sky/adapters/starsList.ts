@@ -138,7 +138,6 @@ export function listRuntimeStarsFromTiles(options: StarsListOptions): StarsListS
   if (sourceTiles.length === 0) {
     return 'ok'
   }
-
   if (options.hintNuniq != null) {
     const hintTile = resolveHintTile(sourceTiles, options.hintNuniq, sourceKey)
     if (!hintTile) {

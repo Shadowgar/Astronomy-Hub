@@ -1,6 +1,11 @@
 import type { RuntimeStar } from '../contracts/stars'
 import type { SkyTilePayload } from '../contracts/tiles'
 import { hipGetPix, parseHipIdFromRuntimeStar } from './hipGetPix'
+import {
+  createLoadedTilesPortSurvey,
+  createStarsPortState,
+  findStarByHipFromPortSurveys,
+} from './starsCRuntimePort'
 
 type HipLookupSurveyIndex = {
   readonly byOrder: {
@@ -27,33 +32,33 @@ function buildHipLookupSurveyIndex(tiles: readonly SkyTilePayload[]): HipLookupS
   const byOrder0 = new Map<number, RuntimeStar[]>()
   const byOrder1 = new Map<number, RuntimeStar[]>()
   const stableTiles = [...tiles].sort((a, b) => a.level - b.level || a.tileId.localeCompare(b.tileId))
+  const add = (map: Map<number, RuntimeStar[]>, pix: number, star: RuntimeStar) => {
+    if (pix === -1) {
+      return
+    }
+    const current = map.get(pix)
+    if (current) {
+      current.push(star)
+      return
+    }
+    map.set(pix, [star])
+  }
+
+  const collect = (star: RuntimeStar) => {
+    if (star.catalog === 'gaia') {
+      return
+    }
+    const hip = parseHipIdFromRuntimeStar(star)
+    if (hip == null) {
+      return
+    }
+    add(byOrder0, hipGetPix(hip, 0), star)
+    add(byOrder1, hipGetPix(hip, 1), star)
+  }
+
   for (const tile of stableTiles) {
     for (const star of tile.stars) {
-      if (star.catalog === 'gaia') {
-        continue
-      }
-      const hip = parseHipIdFromRuntimeStar(star)
-      if (hip == null) {
-        continue
-      }
-      const pixOrder0 = hipGetPix(hip, 0)
-      if (pixOrder0 !== -1) {
-        const current = byOrder0.get(pixOrder0)
-        if (current) {
-          current.push(star)
-        } else {
-          byOrder0.set(pixOrder0, [star])
-        }
-      }
-      const pixOrder1 = hipGetPix(hip, 1)
-      if (pixOrder1 !== -1) {
-        const current = byOrder1.get(pixOrder1)
-        if (current) {
-          current.push(star)
-        } else {
-          byOrder1.set(pixOrder1, [star])
-        }
-      }
+      collect(star)
     }
   }
   return {
@@ -93,19 +98,55 @@ export function findRuntimeStarByHipInTiles(
   }
 
   const index = getHipLookupSurveyIndex(tiles)
-  // stars.c::obj_get_by_hip (lines 930-946): walk orders 0->1 and return
-  // first non-Gaia HIP match.
-  for (const order of [0, 1] as const) {
-    const pix = hipGetPix(hip, order)
-    if (pix === -1) {
-      continue
-    }
-    const candidates = index.byOrder[order].get(pix) ?? []
-    for (const star of candidates) {
-      if (parseHipIdFromRuntimeStar(star) === hip) {
-        return star
-      }
-    }
+
+  const order0Tiles = Array.from(index.byOrder[0].entries()).map(([pix, stars]) => ({
+    tileId: `lookup-o0-${pix}`,
+    level: 0,
+    parentTileId: null,
+    childTileIds: [],
+    bounds: { raMinDeg: 0, raMaxDeg: 1, decMinDeg: 0, decMaxDeg: 1 },
+    magMin: 0,
+    magMax: Number.POSITIVE_INFINITY,
+    starCount: stars.length,
+    stars: [...stars],
+    provenance: {
+      catalog: 'multi-survey' as const,
+      sourcePath: 'starsLookup-index',
+      sourceKey: 'hipparcos-index',
+      sourceKeys: ['hipparcos-index'],
+      hipsTiles: [{ sourceKey: 'hipparcos-index', order: 0, pix }],
+    },
+  }))
+
+  const order1Tiles = Array.from(index.byOrder[1].entries()).map(([pix, stars]) => ({
+    tileId: `lookup-o1-${pix}`,
+    level: 1,
+    parentTileId: null,
+    childTileIds: [],
+    bounds: { raMinDeg: 0, raMaxDeg: 1, decMinDeg: 0, decMaxDeg: 1 },
+    magMin: 0,
+    magMax: Number.POSITIVE_INFINITY,
+    starCount: stars.length,
+    stars: [...stars],
+    provenance: {
+      catalog: 'multi-survey' as const,
+      sourcePath: 'starsLookup-index',
+      sourceKey: 'hipparcos-index',
+      sourceKeys: ['hipparcos-index'],
+      hipsTiles: [{ sourceKey: 'hipparcos-index', order: 1, pix }],
+    },
+  }))
+
+  const survey = createLoadedTilesPortSurvey({
+    key: 'hipparcos-index',
+    tiles: [...order0Tiles, ...order1Tiles],
+    isGaia: false,
+    missingHintCode: 404,
+  })
+
+  const result = findStarByHipFromPortSurveys(createStarsPortState([survey]), hip)
+  if (result.status === 'found') {
+    return result.star
   }
 
   return null
