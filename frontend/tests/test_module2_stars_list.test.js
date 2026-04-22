@@ -127,7 +127,7 @@ describe('module2 stars.c stars_list parity seam', () => {
     expect(visited).toEqual(['gaia-1', 'gaia-2'])
   })
 
-  it('prunes tiles by magMin and breaks per-tile traversal once max_mag is exceeded', () => {
+  it('prunes tiles by magMin and continues per-tile traversal when rows above max_mag appear', () => {
     const visited = []
     const status = listRuntimeStarsFromTiles({
       tiles: [
@@ -171,7 +171,7 @@ describe('module2 stars.c stars_list parity seam', () => {
       },
     })
     expect(status).toBe('ok')
-    expect(visited).toEqual(['hip-bright', 'hip-mid', 'hip-ok-1', 'hip-ok-2'])
+    expect(visited).toEqual(['hip-bright', 'hip-mid', 'hip-ok-2', 'hip-ok-1'])
   })
 
   it('scene packet diagnostics run stars_list visit count over visible tiles (live path)', () => {

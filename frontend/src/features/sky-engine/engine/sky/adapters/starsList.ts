@@ -161,15 +161,12 @@ export function listRuntimeStarsFromTiles(options: StarsListOptions): StarsListS
     if (tile.magMin >= maxMag) {
       continue
     }
-    const starsInTile = tile.stars
-      .slice()
-      .sort((left, right) => left.mag - right.mag || left.id.localeCompare(right.id))
-    for (const star of starsInTile) {
+    for (const star of tile.stars) {
       if (sourceCatalog != null && star.catalog !== sourceCatalog) {
         continue
       }
       if (star.mag > maxMag) {
-        break
+        continue
       }
       if (options.visit(star)) {
         return 'ok'
