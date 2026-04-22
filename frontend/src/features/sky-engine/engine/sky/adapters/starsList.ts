@@ -1,6 +1,7 @@
 import type { RuntimeStar, RuntimeStarCatalog } from '../contracts/stars'
 import type { SkyTilePayload } from '../contracts/tiles'
 import { nuniqToHealpixOrderAndPix } from './starsNuniq'
+import { visitStarsListNoHintTraversal } from './starsListTraversal'
 
 export type StarsListStatus = 'ok' | 'again'
 
@@ -154,21 +155,21 @@ export function listRuntimeStarsFromTiles(options: StarsListOptions): StarsListS
     return 'ok'
   }
 
-  for (const tile of sourceTiles) {
-    if (tile.magMin >= maxMag) {
-      continue
-    }
-    for (const star of tile.stars) {
-      if (sourceCatalog != null && star.catalog !== sourceCatalog) {
-        continue
+  let interrupted = false
+  visitStarsListNoHintTraversal({
+    tiles: sourceTiles,
+    maxMag,
+    sourceCatalog,
+    visit: (star) => {
+      const shouldStop = Boolean(options.visit(star))
+      if (shouldStop) {
+        interrupted = true
       }
-      if (star.mag > maxMag) {
-        continue
-      }
-      if (options.visit(star)) {
-        return 'ok'
-      }
-    }
+      return shouldStop
+    },
+  })
+  if (interrupted) {
+    return 'ok'
   }
   return 'ok'
 }
