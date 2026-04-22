@@ -726,6 +726,52 @@ function starsProjectionReuseSlice(): string {
     starsProjectionReuseStreak: 0,
   })
 
+  const thresholdEdge = evaluateStarsProjectionReuse({
+    previousProjectionCache: {
+      sceneTimestampMs: 1000,
+      width: 1280,
+      height: 720,
+      objectSignature: 'obj:3:proj-a:proj-c::packet:3|s0:proj-a:1.400|s1:proj-c:8.100|lim:7.000|visible:3|tiles:2:1',
+      centerDirection: horizontalToDirection(35, 135),
+      fovDegrees: 30,
+      limitingMagnitude: 6.3,
+      projectedStars: [],
+    },
+    next: {
+      objectSignature: 'obj:3:proj-a:proj-c::packet:3|s0:proj-a:1.400|s1:proj-c:8.100|lim:7.000|visible:3|tiles:2:1',
+      width: 1280,
+      height: 720,
+      centerDirection: horizontalToDirection(35.02, 135.1),
+      fovDegrees: 30.2,
+      limitingMagnitude: 6.32,
+      sceneTimestampMs: 1250,
+    },
+    starsProjectionReuseStreak: 0,
+  })
+
+  const thresholdFail = evaluateStarsProjectionReuse({
+    previousProjectionCache: {
+      sceneTimestampMs: 1000,
+      width: 1280,
+      height: 720,
+      objectSignature: 'obj:3:proj-a:proj-c::packet:3|s0:proj-a:1.400|s1:proj-c:8.100|lim:7.000|visible:3|tiles:2:1',
+      centerDirection: horizontalToDirection(35, 135),
+      fovDegrees: 30,
+      limitingMagnitude: 6.3,
+      projectedStars: [],
+    },
+    next: {
+      objectSignature: 'obj:3:proj-a:proj-c::packet:3|s0:proj-a:1.400|s1:proj-c:8.100|lim:7.000|visible:3|tiles:2:1',
+      width: 1280,
+      height: 720,
+      centerDirection: horizontalToDirection(35.02, 135.1),
+      fovDegrees: 30.2001,
+      limitingMagnitude: 6.3201,
+      sceneTimestampMs: 1251,
+    },
+    starsProjectionReuseStreak: 0,
+  })
+
   return [
     'stars-reuse',
     `reuse:${reusable.shouldReuseProjection ? '1' : '0'}`,
@@ -736,6 +782,8 @@ function starsProjectionReuseSlice(): string {
     `dt:${q(reusable.sceneTimestampDeltaMs)}`,
     `streak-block:${blockedByStreak.shouldReuseProjection ? '0' : '1'}`,
     `miss:${cacheMiss.isProjectionCacheReusable ? '0' : '1'}`,
+    `edge:${thresholdEdge.shouldReuseProjection ? '1' : '0'}`,
+    `fail:${thresholdFail.isProjectionCacheReusable ? '0' : '1'}`,
   ].join('|')
 }
 
