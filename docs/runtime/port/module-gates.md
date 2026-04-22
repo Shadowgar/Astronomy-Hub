@@ -98,6 +98,8 @@ G4 stars runtime adapter replay extension (2026-04-22, **EV-0099**): `computeMod
 
 G2/G3/G4 lifecycle seam extension (2026-04-22, **EV-0100**): `starsCSurveyLifecyclePort.ts` now ports a larger source-faithful `stars.c` lifecycle surface (`on_file_tile_loaded` row normalization, `stars_add_data_source` property ordering + Gaia min-vmag promotion, `stars_list` hint/no-hint traversal, and `obj_get_by_hip` sync lookup semantics) with dedicated regression coverage in `test_module2_stars_c_survey_lifecycle_port.test.js`; deterministic replay now includes `stars-c-survey-lifecycle` in `module2ParityFingerprint.ts` + snapshot/assertion updates in `test_module2_deterministic_replay.test.js`. `npm run typecheck`, `npm run build`, `npm run test:module2` (141/141), and `npm run test:module1` (46/46) PASS.
 
+G2/G3/G4 module-runtime seam extension (2026-04-22, **EV-0101**): `starsCModuleRuntimePort.ts` now ports an additional large source-faithful `stars.c` runtime surface (data-source registration ordering, `stars_list` hint/no-hint behavior, `obj_get_by_hip` probe order, render-visitor traversal aggregation, and designation lookups) with dedicated regression coverage in `test_module2_stars_c_module_runtime_port.test.js`; deterministic replay now includes `stars-c-module-runtime` in `module2ParityFingerprint.ts` + snapshot/assertion updates in `test_module2_deterministic_replay.test.js`. `npm run typecheck`, `npm run build`, `npm run test:module2` (150/150), and `npm run test:module1` (46/46) PASS.
+
 ## Rules
 
 - A module can be `COMPLETE` only if every gate is `PASS`.

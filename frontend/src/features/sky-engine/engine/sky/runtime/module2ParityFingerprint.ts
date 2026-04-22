@@ -27,6 +27,14 @@ import {
   listStarsFromLifecycleState,
 } from '../adapters/starsCSurveyLifecyclePort'
 import {
+  STARS_C_MODULE_AGAIN,
+  addStarsCModuleDataSource,
+  buildStarsCModuleFixtureRuntime,
+  computeStarsCModuleRuntimeDigest,
+  findByDesignationFromStarsCModule,
+  listStarsFromStarsCModule,
+} from '../adapters/starsCModuleRuntimePort'
+import {
   STELLARIUM_TONEMAPPER_EXPOSURE,
   STELLARIUM_TONEMAPPER_LWMAX_MAX,
   STELLARIUM_TONEMAPPER_P,
@@ -1181,6 +1189,97 @@ function starsCSurveyLifecycleSlice(): string {
   ].join('|')
 }
 
+function starsCModuleRuntimeSlice(): string {
+  const hip11767Order0 = hipGetPix(11767, 0)
+  const hip11767Order1 = hipGetPix(11767, 1)
+
+  const runtime = buildStarsCModuleFixtureRuntime({
+    hintsMagOffset: 0.6,
+    surveys: [
+      {
+        key: 'hip-main',
+        minOrder: 0,
+        minVmag: -2,
+        maxVmag: 6.5,
+        tiles: [
+          {
+            order: 0,
+            pix: hip11767Order0,
+            stars: [
+              { hip: 11767, vmag: 2.1, raDeg: 0, decDeg: 0, names: ['HIP 11767'] },
+              { hip: 2, vmag: 8.2, raDeg: 5, decDeg: 0, names: ['HIP 2'] },
+            ],
+          },
+          {
+            order: 1,
+            pix: hip11767Order1,
+            stars: [
+              { hip: 11767, vmag: 2.2, raDeg: 2, decDeg: 1, names: ['HIP 11767', 'NAME Sample'] },
+            ],
+          },
+        ],
+      },
+      {
+        key: 'gaia',
+        isGaia: true,
+        minOrder: 0,
+        minVmag: 3,
+        maxVmag: 20,
+        tiles: [
+          {
+            order: 0,
+            pix: 3,
+            stars: [
+              {
+                gaia: BigInt('219547565555375488'),
+                vmag: 2.05,
+                raDeg: 0,
+                decDeg: 0,
+                names: ['GAIA 219547565555375488'],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  })
+
+  const digest = computeStarsCModuleRuntimeDigest({
+    runtime,
+    starsLimitMagnitude: 6.5,
+    hardLimitMagnitude: 6.2,
+    selectedStarId: 'hip-11767',
+  })
+
+  const listHint = listStarsFromStarsCModule({
+    runtime,
+    maxMag: 0,
+    hintNuniq: healpixOrderPixToNuniq(5, 777),
+  }).status
+
+  const designation = findByDesignationFromStarsCModule(runtime, 'gaia 219547565555375488')
+  const designationStatus = designation.status === 'found' ? designation.star.id : designation.status
+
+  const pendingProbe = addStarsCModuleDataSource(runtime, {
+    key: 'deep-remote',
+    url: '/catalog/deep-remote',
+    propertiesText: null,
+    tileStore: {
+      listTraversalTiles: () => [],
+      getTile: () => ({ tile: null, code: 0 }),
+      preloadRootLevel: () => undefined,
+    },
+  }).status
+
+  return [
+    'stars-c-module-runtime',
+    digest,
+    `hint-miss:${listHint === STARS_C_MODULE_AGAIN ? 'again' : String(listHint)}`,
+    `designation:${designationStatus}`,
+    `pending-add:${pendingProbe === STARS_C_MODULE_AGAIN ? 'again' : String(pendingProbe)}`,
+  ].join('|')
+}
+
 /**
  * Canonical string for the module 2 ported surface. Two runs on the same build MUST match bitwise.
  */
@@ -1250,6 +1349,7 @@ export function computeModule2PortFingerprint(): string {
     overlayCadenceSlice(),
     starsCRuntimePortSlice(),
     starsCSurveyLifecycleSlice(),
+    starsCModuleRuntimeSlice(),
   ]
 
   return parts.join('::')
