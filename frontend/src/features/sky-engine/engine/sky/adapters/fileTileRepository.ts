@@ -14,6 +14,13 @@ import { buildHipsTilePath, decodeEphTile, parseSurveyProperties, type SurveyPro
 import { formatHipsViewportKey, resolveGaiaHealpixOrder } from './hipsRenderOrder'
 import { healpixAngToPix, healpixPixToRaDec } from './healpix'
 import { runtimeStarMatchesHipHealpixLookup } from './hipGetPix'
+import {
+  buildStarsSurveyLoadPlan,
+  compareStarsSurveyByMaxVmag,
+  normalizeStarsSurveyOrdering,
+  resolveGaiaEntryMinVmag,
+  type StarsRuntimeSurveyDefinition,
+} from './starsSurveyRegistry'
 
 const DEFAULT_MANIFEST_PATH = '/sky-engine-assets/catalog/hipparcos/manifest.json'
 const GAIA_SURVEY_BASE_PATH = '/sky-engine-assets/catalog/gaia'
@@ -29,14 +36,9 @@ const HIPPARCOS_MIN_MAG = -2
 const HIPPARCOS_MAX_MAG = 6.5
 const GAIA_FOV_ACTIVATION_DEG = 40
 
-type RuntimeSurveyDefinition = {
-  key: string
-  catalog: Extract<SkyTileCatalog, 'hipparcos' | 'gaia'>
-  minVmag: number
-  maxVmag: number
-  sourceRecordCount?: number
-  loadTile: (tileId: string, query: SkyEngineQuery) => Promise<SkyTilePayload | null>
-}
+type RuntimeSurveyDefinition = StarsRuntimeSurveyDefinition<
+  (tileId: string, query: SkyEngineQuery) => Promise<SkyTilePayload | null>
+>
 
 type GaiaSurveyCache = {
   properties: SurveyProperties
@@ -289,39 +291,11 @@ function selectHealpixPixelsForBounds(tileId: string, bounds: SkyTileBounds, ord
   return selectedPixels
 }
 
-function compareSurveyByMaxVmag(left: RuntimeSurveyDefinition, right: RuntimeSurveyDefinition) {
-  const leftMax = Number.isFinite(left.maxVmag) ? left.maxVmag : Number.POSITIVE_INFINITY
-  const rightMax = Number.isFinite(right.maxVmag) ? right.maxVmag : Number.POSITIVE_INFINITY
-  return leftMax - rightMax || left.minVmag - right.minVmag || left.key.localeCompare(right.key)
-}
-
-function normalizeSurveyOrderingAndGaiaGate(
-  surveys: readonly RuntimeSurveyDefinition[],
-  options?: { skipGaiaVmagPromotion?: boolean },
-) {
-  const ordered = surveys
-    .slice()
-    .sort(compareSurveyByMaxVmag)
-  const gaiaSurvey = ordered.find((survey) => survey.catalog === 'gaia')
-  if (gaiaSurvey && options?.skipGaiaVmagPromotion !== true) {
-    for (const survey of ordered) {
-      if (survey.catalog === 'gaia') {
-        continue
-      }
-      if (!Number.isFinite(survey.maxVmag)) {
-        continue
-      }
-      gaiaSurvey.minVmag = Math.max(gaiaSurvey.minVmag, survey.maxVmag)
-    }
-  }
-  return ordered
-}
-
 export const __fileTileRepositoryInternals = {
   isRaWithinBounds,
   centerRaForBounds,
-  compareSurveyByMaxVmag,
-  normalizeSurveyOrderingAndGaiaGate,
+  compareSurveyByMaxVmag: compareStarsSurveyByMaxVmag,
+  normalizeSurveyOrderingAndGaiaGate: normalizeStarsSurveyOrdering,
 }
 
 function filterSurveyStarsByMagnitudeRange(stars: readonly RuntimeStar[], survey: { minVmag: number; maxVmag: number }) {
@@ -410,11 +384,6 @@ function mergeSurveyTiles(
       tierSet: tierSet.length > 0 ? tierSet : undefined,
     },
   }
-}
-
-function resolveActiveSurveys(surveys: readonly RuntimeSurveyDefinition[], limitingMagnitude: number) {
-  return surveys
-    .filter((survey) => survey.minVmag <= limitingMagnitude)
 }
 
 function buildSourceLabel(activeSurveys: readonly RuntimeSurveyDefinition[], manifest: SkyTileAssetManifest) {
@@ -599,19 +568,24 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
       }]
 
       let sourceError: string | null = null
-      const gaiaMinVmag = surveys.reduce((minimumMagnitude, survey) => (
-        survey.catalog === 'gaia' || !Number.isFinite(survey.maxVmag)
-          ? minimumMagnitude
-          : Math.max(minimumMagnitude, survey.maxVmag)
-      ), HIPPARCOS_MIN_MAG)
+      const preGaiaPlan = buildStarsSurveyLoadPlan({
+        surveys,
+        limitingMagnitude: query.limitingMagnitude,
+        observerFovDeg: query.observer.fovDeg,
+        activationFovDeg: GAIA_FOV_ACTIVATION_DEG,
+        fallbackMinVmag: HIPPARCOS_MIN_MAG,
+      })
 
-      const shouldActivateGaiaSurvey = query.limitingMagnitude >= gaiaMinVmag || query.observer.fovDeg <= GAIA_FOV_ACTIVATION_DEG
-      if (shouldActivateGaiaSurvey) {
+      if (preGaiaPlan.shouldActivateGaia) {
         try {
           const gaiaSurvey = await loadGaiaSurvey()
-          const gaiaEntryMinVmag = query.observer.fovDeg <= GAIA_FOV_ACTIVATION_DEG
-            ? HIPPARCOS_MIN_MAG
-            : Math.max(gaiaSurvey.properties.minVmag, gaiaMinVmag)
+          const gaiaEntryMinVmag = resolveGaiaEntryMinVmag({
+            observerFovDeg: query.observer.fovDeg,
+            activationFovDeg: GAIA_FOV_ACTIVATION_DEG,
+            fallbackMinVmag: HIPPARCOS_MIN_MAG,
+            activationFloorVmag: preGaiaPlan.activationFloorVmag,
+            gaiaPropertiesMinVmag: gaiaSurvey.properties.minVmag,
+          })
 
           surveys.push({
             key: GAIA_SURVEY_KEY,
@@ -625,10 +599,14 @@ export function createFileBackedSkyTileRepository(manifestPath = DEFAULT_MANIFES
         }
       }
 
-      const normalizedSurveys = normalizeSurveyOrderingAndGaiaGate(surveys, {
-        skipGaiaVmagPromotion: query.observer.fovDeg <= GAIA_FOV_ACTIVATION_DEG,
+      const finalPlan = buildStarsSurveyLoadPlan({
+        surveys,
+        limitingMagnitude: query.limitingMagnitude,
+        observerFovDeg: query.observer.fovDeg,
+        activationFovDeg: GAIA_FOV_ACTIVATION_DEG,
+        fallbackMinVmag: HIPPARCOS_MIN_MAG,
       })
-      const activeSurveys = resolveActiveSurveys(normalizedSurveys, query.limitingMagnitude)
+      const activeSurveys = finalPlan.activeSurveys
       const tiles = (await Promise.all(query.visibleTileIds.map(async (tileId) => {
         const tilePayloads = await Promise.all(activeSurveys.map(async (survey) => ({
           survey,
