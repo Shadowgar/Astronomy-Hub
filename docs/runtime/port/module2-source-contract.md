@@ -113,7 +113,7 @@ Rows: **`src/hip.c`**, **`src/hip.h`**, **`src/modules/stars.c`**, **`src/algos/
 
 ## 7. Handoff for external agents (e.g. Codex / new chat)
 
-Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0084, noting EV-0067 / EV-0068 are intentionally unused IDs), **`module-gates.md`** "Known residuals" section for non-module-0/1/2 npm test failures that should be picked up by downstream modules, and this file §2–§5.
+Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0087, noting EV-0067 / EV-0068 are intentionally unused IDs), **`module-gates.md`** "Known residuals" section for non-module-0/1/2 npm test failures that should be picked up by downstream modules, and this file §2–§5.
 
 Hard constraints for continuation:
 - Port for exact parity (logic/UI behavior), not approximation.
@@ -138,12 +138,13 @@ Hard constraints for continuation:
 | Stellarium simple-html UI assets (toolbar SVGs) | `frontend/public/stellarium-web/`, `frontend/src/pages/stellariumWebUiAssets.ts`, `frontend/src/pages/SkyEnginePage.tsx` (**EV-0053**) |
 | G4 port fingerprint | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts` (includes **`scene-lum|`** slice for `evaluateSceneLuminanceReport` — **EV-0086**); tests **`test_module2_deterministic_replay.test.js`** (**EV-0043**) |
 | Scene luminance / daytime star adaptation | `frontend/src/features/sky-engine/engine/sky/runtime/luminanceReport.ts`, `runtime/modules/SceneLuminanceReportModule.ts`, `frontend/src/features/sky-engine/solar.ts` (**EV-0086**) |
+| Non-star horizon mask + runtime projection tests | `runtime/modules/runtimeFrame.ts` (`getObjectHorizonFade`, `collectProjectedNonStarObjects`) (**EV-0087**); tests **`test_runtime_frame_horizon.test.js`**, **`sky-engine-runtime-frame-projection.test.js`** |
 
 ### Commands (from `frontend/`)
 
 - `npm run typecheck` — required before claiming done.
 - `npm run build` — production bundle (note: **`hipPixOrder2.generated.ts`** embeds ~120 KB table as base64; optional future work: lazy load).
-- `npm run test:module2` — module 2 Vitest bundle (BV, nuniq, limit mag, HIP, survey-wide HIP lookup regression `test_module2_stars_lookup_survey.test.js`, native `render_visitor` traversal regression `test_module2_stars_render_visitor.test.js`, deterministic replay, selection detail route, ERFA `eraStarpv` + `starsCatalogAstrom`, `painter_project(FRAME_ASTROM, …)` end-to-end, **`test_scene_luminance_report.test.js`** + **`test_tone_adaptation.test.js`** for atmosphere/daylight luminance + exposure adaptation (**EV-0086**)).
+- `npm run test:module2` — module 2 Vitest bundle (BV, nuniq, limit mag, HIP, survey-wide HIP lookup regression `test_module2_stars_lookup_survey.test.js`, native `render_visitor` traversal regression `test_module2_stars_render_visitor.test.js`, deterministic replay, selection detail route, ERFA `eraStarpv` + `starsCatalogAstrom`, `painter_project(FRAME_ASTROM, …)` end-to-end, **`test_scene_luminance_report.test.js`** + **`test_tone_adaptation.test.js`** for atmosphere/daylight luminance + exposure adaptation (**EV-0086**), **`test_runtime_frame_horizon.test.js`** + **`sky-engine-runtime-frame-projection.test.js`** for geometric horizon fade + projection collector fixtures (**EV-0087**)).
 - `npm run test:module1` — must stay green if **`fileTileRepository.ts`**, **`healpix.ts`**, or **`ephCodec.ts`** change.
 
 ### Evidence IDs already landed (do not duplicate unless changing behavior)
@@ -188,6 +189,7 @@ Hard constraints for continuation:
 | EV-0083 | Scene diagnostics invoke `listRuntimeStarsFromTiles`; `starsListVisitCount` on assembled packets |
 | EV-0084 | Snapshot bridge + HUD **Listed** chip + `formatSkyDiagnosticsSummary` list token |
 | EV-0086 | `luminanceReport.ts` + **`scene-lum|`** in `module2ParityFingerprint.ts`; daylight `solar.ts` star band calibration; `test_scene_luminance_report.test.js` + `test_tone_adaptation.test.js` in **`test:module2`** + CI path filter |
+| EV-0087 | `runtimeFrame.ts` geometric-altitude horizon fade for non-stars; `test_runtime_frame_horizon.test.js`; `sky-engine-runtime-frame-projection.test.js` aligned with collector + added to **`test:module2`** / CI path filter |
 
 
 ### CI

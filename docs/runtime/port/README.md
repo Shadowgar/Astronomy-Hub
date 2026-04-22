@@ -26,7 +26,7 @@ General Hub docs are frozen for this effort. If there is a conflict between this
 - `module-gates.md`: gate checklists and pass/fail per module (includes "Known residuals" for repo-wide `npm test` failures that belong to later modules).
 - `blockers.md`: blocker log with owner and unblock criteria.
 - `stellarium-web-engine-src.md`: pinned GitHub commit + `src/` paths for Stellarium Web Engine (module 2 reference; **EV-0037** / **`BLK-003`**).
-- `evidence-index.md`: evidence artifacts and command/output references. **Next free ID: EV-0077** (EV-0067 / EV-0068 are intentionally unused).
+- `evidence-index.md`: evidence artifacts and command/output references. **Next free ID: EV-0088** (EV-0067 / EV-0068 are intentionally unused).
 - `module0-source-contract.md`: **G1** frozen Hub ↔ source mapping for the module 0 observer/time/matrix spine (**PASS** for module 0 closure; see file §5–§6).
 - `module0-eraEpv00-port-plan.md`: staged work plan for **`eraEpv00`** (Earth heliocentric/barycentric PV) before `eraApco` / full `observer_update_full`.
 - `module0-eraApco-port-plan.md`: **`eraApco`** dependency graph (`eraApcs` … `eraPvtob`) and Hub `astrom` seam checklist.
