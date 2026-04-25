@@ -10,6 +10,11 @@ import {
 import { findRuntimeStarByHipInTiles } from '../adapters/starsLookup'
 import type { RuntimeStar } from '../contracts/stars'
 import type { SkyTilePayload } from '../contracts/tiles'
+import {
+	MODULE2_SIDE_BY_SIDE_BV_PROBES,
+	MODULE2_SIDE_BY_SIDE_HIP_PROBES,
+	MODULE2_SIDE_BY_SIDE_SOURCE_REVISION,
+} from './module2SideBySideReference.generated'
 
 type Module2BvProbe = {
 	readonly bv: number
@@ -138,7 +143,7 @@ export type Module2SideBySideResult = {
 	readonly mismatches: readonly Module2SideBySideMismatch[]
 }
 
-const SOURCE_REVISION = '63fb3279e85782158a6df63649f1c8a1837b7846'
+const SOURCE_REVISION = MODULE2_SIDE_BY_SIDE_SOURCE_REVISION
 
 function q(value: number, decimals = 12): number {
 	if (!Number.isFinite(value)) {
@@ -454,18 +459,10 @@ function buildSurveyDefinitions(): readonly StarsRuntimeSurveyDefinition<string>
 function buildReferenceVectors(): Module2SideBySideReference {
 	return {
 		sourceRevision: SOURCE_REVISION,
-		bvProbes: [
-			{ bv: -0.2, expectedRgb: [0.697764, 0.786929, 1] },
-			{ bv: 0, expectedRgb: [0.798196, 0.858824, 1] },
-			{ bv: 0.58, expectedRgb: [1, 0.998574, 0.997148] },
-			{ bv: 1.2, expectedRgb: [1, 0.931881, 0.854321] },
-			{ bv: 2, expectedRgb: [1, 0.81734, 0.596904] },
-			{ bv: 0.35, expectedRgb: [0.964444, 0.972549, 1] },
-			{ bv: 0.9, expectedRgb: [1, 0.981263, 0.960349] },
-			{ bv: 1.6, expectedRgb: [1, 0.867683, 0.716485] },
-			{ bv: -0.33, expectedRgb: [0.613529, 0.721569, 1] },
-			{ bv: 2.4, expectedRgb: [1, 0.782848, 0.533824] },
-		],
+		bvProbes: MODULE2_SIDE_BY_SIDE_BV_PROBES.map((probe) => ({
+			bv: probe.bv,
+			expectedRgb: [probe.expectedRgb[0], probe.expectedRgb[1], probe.expectedRgb[2]] as const,
+		})),
 		nuniqProbes: [
 			{ order: 0, pix: 0 },
 			{ order: 1, pix: 5 },
@@ -476,14 +473,14 @@ function buildReferenceVectors(): Module2SideBySideReference {
 			{ order: 6, pix: 4096 },
 			{ order: 7, pix: 32768 },
 		],
-		hipProbes: [
-			{ hip: 0, expectedByOrder: { 0: -1, 1: -1, 2: -1 } },
-			{ hip: 1, expectedByOrder: { 0: 4, 1: 19, 2: 76 } },
-			{ hip: 11767, expectedByOrder: { 0: 0, 1: 3, 2: 15 } },
-			{ hip: 91262, expectedByOrder: { 0: 3, 1: 14, 2: 58 } },
-			{ hip: 120415, expectedByOrder: { 0: 11, 1: 44, 2: 178 } },
-			{ hip: 999999, expectedByOrder: { 0: -1, 1: -1, 2: -1 } },
-		],
+		hipProbes: MODULE2_SIDE_BY_SIDE_HIP_PROBES.map((probe) => ({
+			hip: probe.hip,
+			expectedByOrder: {
+				0: probe.expectedByOrder[0],
+				1: probe.expectedByOrder[1],
+				2: probe.expectedByOrder[2],
+			},
+		})),
 		starsListProbes: [
 			{
 				id: 'default-hip-max6',

@@ -16,7 +16,8 @@
     "preview": "vite preview --port 4173 --strictPort",
     "type-check": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
-    "typecheck:watch": "tsc --noEmit --watch"
+    "typecheck:watch": "tsc --noEmit --watch",
+    "generate:module2-side-by-side-reference": "node scripts/generate_module2_side_by_side_reference.mjs"
   },
   "dependencies": {
     "@babylonjs/addons": "^9.1.0",
