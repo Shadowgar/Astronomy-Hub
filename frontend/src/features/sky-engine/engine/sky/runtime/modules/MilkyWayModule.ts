@@ -192,7 +192,7 @@ export function evaluateMilkyWayRenderState(
     1e-6,
     ((brightnessExposureState.nightSkyZenithLuminance + brightnessExposureState.nightSkyHorizonLuminance) * 0.5),
   )
-  const atmosphereVisibility = clamp(0.004 / lwskyAverageProxy, 0, 1)
+  const atmosphereVisibility = clamp(Math.pow(0.01 / lwskyAverageProxy, 0.55), 0.18, 1)
   return {
     visibility: clamp(brightnessExposureState.milkyWayVisibility * gate * fovVisibility * atmosphereVisibility, 0, 1),
     contrast: clamp(brightnessExposureState.milkyWayContrast, 0.06, 1),
@@ -247,8 +247,8 @@ function renderMilkyWayLayer(
     )
     const alpha = clamp(
       sample.alpha * renderState.visibility * renderState.contrast * wideFieldBlend * (0.74 + sample.coreWeight * 0.68),
-      0.006,
-      0.3,
+      0.012,
+      0.42,
     )
 
     if (alpha <= 0.005) {

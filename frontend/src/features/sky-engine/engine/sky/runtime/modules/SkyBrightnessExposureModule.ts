@@ -67,9 +67,15 @@ export function evaluateSkyBrightnessExposureState(
     tonemapperExposure: STELLARIUM_TONEMAPPER_EXPOSURE,
     tonemapperLwmax,
   })
-  const milkyWayVisibility = clamp(starVisibility * starFieldBrightness * (0.2 + visualAdaptationLevel * 0.8), 0, 1)
-  const milkyWayContrast = clamp(sceneContrast * (0.2 + starShare * 0.8 + solarSystemShare * 0.1), 0.04, 1)
-  const backdropAlpha = clamp(0.92 - starVisibility * 0.16 - starShare * 0.08 + skyShare * 0.04, 0.62, 0.94)
+  const milkyWayVisibility = clamp(
+    (0.32 + starVisibility * 0.68) *
+      (0.4 + starFieldBrightness * 0.6) *
+      (0.35 + visualAdaptationLevel * 0.65),
+    0,
+    1,
+  )
+  const milkyWayContrast = clamp(sceneContrast * (0.45 + starShare * 0.45 + solarSystemShare * 0.1), 0.08, 1)
+  const backdropAlpha = clamp(0.86 - starVisibility * 0.22 - starShare * 0.12 + skyShare * 0.03, 0.48, 0.9)
 
   return {
     skyBrightness: sceneLuminanceReport.skyBrightness,

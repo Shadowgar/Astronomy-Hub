@@ -1,4 +1,5 @@
 import { Color3 } from '@babylonjs/core/Maths/math.color'
+import { Constants } from '@babylonjs/core/Engines/constants'
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture'
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial'
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
@@ -63,9 +64,9 @@ function createStarTexture(scene: Scene) {
   const context = texture.getContext()
   const gradient = context.createRadialGradient(32, 32, 1, 32, 32, 31)
   gradient.addColorStop(0, 'rgba(255, 255, 255, 1)')
-  gradient.addColorStop(0.08, 'rgba(255, 255, 255, 0.96)')
-  gradient.addColorStop(0.22, 'rgba(255, 255, 255, 0.34)')
-  gradient.addColorStop(0.48, 'rgba(255, 255, 255, 0.06)')
+  gradient.addColorStop(0.06, 'rgba(255, 255, 255, 1)')
+  gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.54)')
+  gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.12)')
   gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
   context.clearRect(0, 0, 64, 64)
   context.fillStyle = gradient
@@ -112,6 +113,8 @@ export function createDirectStarLayer(scene: Scene) {
   markerMaterial.pointsCloud = false
   markerMaterial.emissiveColor = Color3.White()
   markerMaterial.alpha = 1
+  markerMaterial.alphaMode = Constants.ALPHA_ADD
+  markerMaterial.disableDepthWrite = true
 
   const markerMesh = MeshBuilder.CreatePlane('sky-engine-star-thin-instance-mesh', { width: 1, height: 1 }, scene)
   markerMesh.isPickable = false
@@ -123,6 +126,12 @@ export function createDirectStarLayer(scene: Scene) {
   let matrixBuffer = new Float32Array(0)
   let colorBuffer = new Float32Array(0)
   let capacity = 0
+  let buffersBound = false
+  let buffersNeedRebind = false
+  let previousProjectedStars: readonly ProjectedSceneObjectEntry[] | null = null
+  let previousViewportWidth = Number.NaN
+  let previousViewportHeight = Number.NaN
+  let previousSelectedObjectId: string | null = null
 
   const ensureCapacity = (nextCount: number) => {
     if (nextCount <= capacity) {
@@ -132,6 +141,7 @@ export function createDirectStarLayer(scene: Scene) {
     capacity = Math.max(nextCount, Math.ceil(capacity * 1.5), 128)
     matrixBuffer = new Float32Array(capacity * 16)
     colorBuffer = new Float32Array(capacity * 4)
+    buffersNeedRebind = true
   }
 
   return {
@@ -143,10 +153,30 @@ export function createDirectStarLayer(scene: Scene) {
       _animationTime: number,
     ): DirectStarLayerSyncTiming {
       const syncStartMs = performance.now()
+      const canReuseExistingInstanceData =
+        previousProjectedStars === projectedStars &&
+        previousViewportWidth === viewportWidth &&
+        previousViewportHeight === viewportHeight &&
+        previousSelectedObjectId === selectedObjectId
+
+      if (canReuseExistingInstanceData) {
+        return {
+          totalMs: performance.now() - syncStartMs,
+          instanceTransformMs: 0,
+          bufferUpdateMs: 0,
+          gpuUploadMs: 0,
+          selectionHighlightMs: 0,
+        }
+      }
+
       if (projectedStars.length === 0) {
         markerMesh.thinInstanceCount = 0
         markerMesh.isVisible = false
         selectionRing.mesh.isVisible = false
+        previousProjectedStars = projectedStars
+        previousViewportWidth = viewportWidth
+        previousViewportHeight = viewportHeight
+        previousSelectedObjectId = selectedObjectId
         return {
           totalMs: performance.now() - syncStartMs,
           instanceTransformMs: 0,
@@ -165,7 +195,8 @@ export function createDirectStarLayer(scene: Scene) {
       for (let index = 0; index < projectedStars.length; index += 1) {
         const entry = projectedStars[index]
         const isSelected = entry.object.id === selectedObjectId
-        const diameter = Math.max(0.9, entry.markerRadiusPx * 2)
+        const diameter = Math.max(1.8, entry.markerRadiusPx * 2.65)
+        const boostedAlpha = clamp(Math.pow(entry.renderAlpha, 0.62) * 1.35, 0.12, 1)
         const matrixOffset = index * 16
         const colorOffset = index * 4
         fillMatrix(
@@ -181,7 +212,7 @@ export function createDirectStarLayer(scene: Scene) {
           colorBuffer,
           colorOffset,
           entry.starProfile?.colorHex ?? entry.object.colorHex,
-          clamp(entry.renderAlpha, 0, 1),
+          boostedAlpha,
         )
 
         if (isSelected) {
@@ -191,14 +222,25 @@ export function createDirectStarLayer(scene: Scene) {
       const instanceTransformMs = performance.now() - transformStartMs
 
       const bufferUpdateStartMs = performance.now()
-      markerMesh.thinInstanceSetBuffer('matrix', matrixBuffer, 16, true)
-      markerMesh.thinInstanceSetBuffer('color', colorBuffer, 4, true)
+      if (!buffersBound || buffersNeedRebind) {
+        markerMesh.thinInstanceSetBuffer('matrix', matrixBuffer, 16, false)
+        markerMesh.thinInstanceSetBuffer('color', colorBuffer, 4, false)
+        buffersBound = true
+        buffersNeedRebind = false
+      } else {
+        markerMesh.thinInstanceBufferUpdated('matrix')
+        markerMesh.thinInstanceBufferUpdated('color')
+      }
       markerMesh.thinInstanceCount = projectedStars.length
       const bufferUpdateMs = performance.now() - bufferUpdateStartMs
       const selectionStartMs = performance.now()
 
       if (!selectedEntry) {
         selectionRing.mesh.isVisible = false
+        previousProjectedStars = projectedStars
+        previousViewportWidth = viewportWidth
+        previousViewportHeight = viewportHeight
+        previousSelectedObjectId = selectedObjectId
         return {
           totalMs: performance.now() - syncStartMs,
           instanceTransformMs,
@@ -218,6 +260,10 @@ export function createDirectStarLayer(scene: Scene) {
       selectionRing.mesh.scaling.set(selectionDiameter, selectionDiameter, 1)
       selectionRing.material.alpha = clamp(0.72 + selectedEntry.renderAlpha * 0.18, 0, 0.94)
       const selectionHighlightMs = performance.now() - selectionStartMs
+      previousProjectedStars = projectedStars
+      previousViewportWidth = viewportWidth
+      previousViewportHeight = viewportHeight
+      previousSelectedObjectId = selectedObjectId
       return {
         totalMs: performance.now() - syncStartMs,
         instanceTransformMs,
