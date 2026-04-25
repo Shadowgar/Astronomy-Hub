@@ -8,6 +8,12 @@ import type { ProjectedSceneObjectEntry } from './runtimeFrame'
 import type { SkyBrightnessExposureState } from '../types'
 import { computeHorizontalCoordinates } from '../../../../astronomy'
 import { loadDssManifest, type DssManifestPayload, type DssPatchRecord } from '../../adapters/dssRepository'
+import {
+  buildStellariumTelescopeState,
+  tonemapperMap,
+  STELLARIUM_DEFAULT_BORTLE_INDEX,
+} from '../../core/stellariumVisualMath'
+import { STELLARIUM_DEFAULT_DISPLAY_LIMIT_MAG } from '../stellariumPainterLimits'
 
 const SYNTHETIC_SKY_DENSITY_SAMPLES = buildSyntheticSkyDensityField(2800)
 const SYNTHETIC_STAR_OVERLAP_CELL_PX = 24
@@ -45,20 +51,48 @@ function computeDssDisplayLimitMagnitudeAlpha(limitingMagnitude: number) {
 }
 
 export function computeDssLayerAlpha(
-  fovDegrees: number,
-  limitingMagnitude: number,
+  params: {
+    fovDegrees: number
+    displayLimitMagnitude: number
+    tonemapperP: number
+    tonemapperExposure: number
+    tonemapperLwmax: number
+    sceneLuminanceSkyContributor: number
+    bortleIndex?: number
+  },
   brightnessExposureState: Pick<SkyBrightnessExposureState, 'milkyWayVisibility' | 'milkyWayContrast'>,
 ) {
-  // Source alignment (`modules/dss.c`): DSS fades in only on close FOV and is
-  // further gated by display limiting magnitude and adaptation-dependent contrast.
-  const fovVisibility = computeDssFovVisibilityAlpha(fovDegrees)
-  const limitingMagnitudeVisibility = computeDssDisplayLimitMagnitudeAlpha(limitingMagnitude)
-  const adaptationVisibility = clamp(
-    brightnessExposureState.milkyWayVisibility * (0.6 + brightnessExposureState.milkyWayContrast * 0.6),
+  // Source alignment (`modules/dss.c`):
+  // - base luminance path uses telescope + tonemapper
+  // - close-FOV visibility gate (20°->10°)
+  // - display limit magnitude gate uses `core->display_limit_mag` (hard painter limit)
+  // - atmosphere average luminance attenuates contrast
+  const telescope = buildStellariumTelescopeState(params.fovDegrees)
+  const tonemapper = {
+    p: params.tonemapperP,
+    exposure: params.tonemapperExposure,
+    lwmax: params.tonemapperLwmax,
+  }
+  const fovVisibility = computeDssFovVisibilityAlpha(params.fovDegrees)
+  const limitingMagnitudeVisibility = computeDssDisplayLimitMagnitudeAlpha(params.displayLimitMagnitude)
+  let luminance = 0.02
+  luminance *= telescope.lightGrasp
+  luminance /= Math.pow(Math.max(telescope.magnification, 1e-6), 2)
+  let contrast = tonemapperMap(luminance, tonemapper)
+  const bortleIndex = params.bortleIndex ?? STELLARIUM_DEFAULT_BORTLE_INDEX
+  contrast *= (8 / 6) * ((9 - bortleIndex) / 8)
+  contrast = Math.max(0, contrast)
+  contrast *= fovVisibility
+
+  const atmosphereAverage = Math.max(1e-6, params.sceneLuminanceSkyContributor)
+  contrast *= Math.min(0.004 / atmosphereAverage, 1)
+  contrast *= clamp(
+    brightnessExposureState.milkyWayVisibility * (0.55 + brightnessExposureState.milkyWayContrast * 0.45),
     0,
     1.2,
   )
-  return clamp(fovVisibility * limitingMagnitudeVisibility * adaptationVisibility, 0, 1.2)
+
+  return clamp(Math.min(contrast, 1.2) * limitingMagnitudeVisibility, 0, 1.2)
 }
 
 function hexToRgb(hex: string) {
@@ -183,9 +217,7 @@ function drawSyntheticDensityStars(
   context: CanvasRenderingContext2D,
   view: SkyProjectionView,
   projectedObjects: readonly ProjectedSceneObjectEntry[],
-  latest: ScenePropsSnapshot,
   brightnessExposureState: SkyBrightnessExposureState,
-  sceneTimestampIso: string | undefined,
   renderLimitingMagnitude: number,
   animationTime: number,
 ) {
@@ -290,8 +322,14 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
       backgroundContext.clearRect(0, 0, width, height)
 
       const dssBaseAlpha = computeDssLayerAlpha(
-        projectedFrame.currentFovDegrees,
-        projectedFrame.limitingMagnitude,
+        {
+          fovDegrees: projectedFrame.currentFovDegrees,
+          displayLimitMagnitude: runtime.corePainterLimits?.hardLimitMag ?? STELLARIUM_DEFAULT_DISPLAY_LIMIT_MAG,
+          tonemapperP: brightnessExposureState.tonemapperP,
+          tonemapperExposure: brightnessExposureState.tonemapperExposure,
+          tonemapperLwmax: brightnessExposureState.tonemapperLwmax,
+          sceneLuminanceSkyContributor: brightnessExposureState.sceneLuminanceSkyContributor,
+        },
         brightnessExposureState,
       )
       const activeSurveyVisible = dssManifest?.surveys.length
@@ -344,34 +382,9 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
           dssReady: dssReady ? 1 : 0,
           dssLoadError: dssLoadError ? 1 : 0,
           dssAlpha: dssBaseAlpha,
+          dssDisplayLimitMag: runtime.corePainterLimits?.hardLimitMag ?? STELLARIUM_DEFAULT_DISPLAY_LIMIT_MAG,
         },
       }
-      /*
-      const latest = getProps()
-      const projectedFrame = runtime.projectedSceneFrame
-      const brightnessExposureState = runtime.brightnessExposureState
-
-      if (!projectedFrame || !brightnessExposureState) {
-        return
-      }
-
-      const backgroundContext = runtime.backgroundCanvas.getContext('2d')
-
-      if (!backgroundContext) {
-        return
-      }
-
-      drawSyntheticDensityStars(
-        backgroundContext,
-        projectedFrame.view,
-        projectedFrame.projectedObjects,
-        latest,
-        brightnessExposureState,
-        projectedFrame.sceneTimestampIso,
-        projectedFrame.limitingMagnitude,
-        services.clockService.getAnimationTimeSeconds(),
-      )
-      */
     },
   }
 }
