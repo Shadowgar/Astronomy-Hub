@@ -9,8 +9,50 @@ const execFile = promisify(execFileCb)
 
 const PINNED_SOURCE_REVISION = '63fb3279e85782158a6df63649f1c8a1837b7846'
 
-const BV_PROBES = [-0.2, 0, 0.58, 1.2, 2, 0.35, 0.9, 1.6, -0.33, 2.4]
-const HIP_PROBES = [0, 1, 11767, 91262, 120415, 999999]
+function roundProbe(value) {
+  return Number(value.toFixed(6))
+}
+
+function buildBvProbes() {
+  const values = new Set([
+    -0.33,
+    -0.2,
+    0,
+    0.35,
+    0.58,
+    0.9,
+    1.2,
+    1.6,
+    2,
+    2.4,
+  ])
+
+  // Dense sampling across Stellarium's typical B-V operating range.
+  for (let value = -0.5; value <= 2.5; value += 0.02) {
+    values.add(roundProbe(value))
+  }
+
+  return Array.from(values).sort((left, right) => left - right)
+}
+
+function buildHipProbes() {
+  const values = new Set([0, 1, 11767, 91262, 120415, 999999])
+
+  // Broad contiguous sampling over low HIP ids.
+  for (let hip = 1; hip <= 700; hip += 1) {
+    values.add(hip)
+  }
+
+  // Sparse sampling over wider catalog space up through Stellarium's high ids.
+  for (let hip = 701; hip <= 120415; hip += 997) {
+    values.add(hip)
+  }
+
+  return Array.from(values).sort((left, right) => left - right)
+}
+
+const BV_PROBES = buildBvProbes()
+const HIP_PROBES = buildHipProbes()
 
 function resolveRepoRoot() {
   return path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..')

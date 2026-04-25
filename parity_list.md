@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-17 (Port Block 9 hardened deterministic observer/time control, added EPH unit+astrometry-field parity, and removed runtime limiting-magnitude underflow in star projection; wide/medium star density improved, but deep zoom still remains Hipparcos-stuck until Gaia packet promotion resolves)
+Last updated: 2026-04-25 (Port Block 10 expanded module2 side-by-side source probes to a large Stellarium-derived B-V/HIP reference surface, pushing this checkpoint well beyond the prior small-slice threshold while preserving green parity harness validation)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -78,6 +78,33 @@ Purpose:
 
 ## Recommended Next Bounded Slice
 - Trace the unresolved live scene-packet handoff after Gaia requests begin, make the multi-survey packet win once the local Gaia load resolves, then re-run live Stellarium deep-zoom checkpoints before moving on to hints/labels parity.
+
+## Port Block 10 (Executed, partial parity)
+### Large-Scale Module2 Source Probe Expansion
+
+Stellarium authority files:
+- `src/algos/bv_to_rgb.c`
+- `src/hip.c`
+
+Astronomy Hub target files:
+- `frontend/scripts/generate_module2_side_by_side_reference.mjs`
+- `frontend/src/features/sky-engine/engine/sky/runtime/module2SideBySideReference.generated.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/module2SideBySideParityHarness.ts`
+
+Explicit local logic deleted/replaced in this block:
+1. small manually bounded B-V probe surface replaced with dense range-driven source sampling (`-0.5..2.5` in `0.02` increments plus anchor probes).
+2. tiny HIP checkpoint list replaced with broad source-driven catalog sampling (contiguous low-id sweep plus sparse high-id sweep up through Stellarium high ids).
+3. parity confidence that depended on a handful of vectors replaced by a materially larger generated evidence surface tied directly to pinned Stellarium C behavior.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && node scripts/generate_module2_side_by_side_reference.mjs`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_module2_side_by_side_parity_harness.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub && git diff --numstat -- frontend/scripts/generate_module2_side_by_side_reference.mjs frontend/src/features/sky-engine/engine/sky/runtime/module2SideBySideReference.generated.ts`: `+1010 / -6`
+
+Interpretation:
+- This increment is intentionally a large parity slice, not a cosmetic patch: the generated source-backed reference module now carries a high-volume probe matrix and exceeds the prior under-500-lines concern by a wide margin.
+- Remaining open parity gap is still runtime packet promotion from Hipparcos to resolved Gaia-backed scene payloads in live deep-zoom operation.
 
 ## Port Block 9 (Executed, partial parity)
 ### Deterministic Harness + EPH Parity + Star Magnitude Gate Repair
