@@ -36,15 +36,15 @@ function buildBvProbes() {
 }
 
 function buildHipProbes() {
-  const values = new Set([0, 1, 11767, 91262, 120415, 999999])
+  const values = new Set([0, 1, 11767, 91262, 120415, 999999, 118347, 119344, 120341])
 
   // Broad contiguous sampling over low HIP ids.
-  for (let hip = 1; hip <= 700; hip += 1) {
+  for (let hip = 1; hip <= 2000; hip += 1) {
     values.add(hip)
   }
 
   // Sparse sampling over wider catalog space up through Stellarium's high ids.
-  for (let hip = 701; hip <= 120415; hip += 997) {
+  for (let hip = 2001; hip <= 120415; hip += 503) {
     values.add(hip)
   }
 
@@ -53,7 +53,7 @@ function buildHipProbes() {
 
 const BV_PROBES = buildBvProbes()
 const HIP_PROBES = buildHipProbes()
-const HIP_ORDERS = Array.from({ length: 9 }, (_, index) => index)
+const HIP_ORDERS = Array.from({ length: 13 }, (_, index) => index)
 
 function buildNuniqProbes() {
   const probes = []
