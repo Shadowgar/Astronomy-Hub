@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-25 (Port Block 12 replaced fixed HIP order assumptions with generated dynamic multi-order checkpoints (0..8), expanded source-derived HIP parity breadth, and kept full module2/typecheck validation green)
+Last updated: 2026-04-25 (Port Block 13 expanded HIP source probe density substantially, resolved generated-reference TypeScript inference blowup with explicit widened export typing, and revalidated module2 plus typecheck)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -78,6 +78,33 @@ Purpose:
 
 ## Recommended Next Bounded Slice
 - Trace the unresolved live scene-packet handoff after Gaia requests begin, make the multi-survey packet win once the local Gaia load resolves, then re-run live Stellarium deep-zoom checkpoints before moving on to hints/labels parity.
+
+## Port Block 13 (Executed, partial parity)
+### Large HIP Probe Expansion + Generated-Type Inference Stabilization
+
+Stellarium authority files:
+- `src/hip.c`
+- `src/modules/stars.c`
+
+Astronomy Hub target files:
+- `frontend/scripts/generate_module2_side_by_side_reference.mjs`
+- `frontend/src/features/sky-engine/engine/sky/runtime/module2SideBySideReference.generated.ts`
+
+Explicit local logic deleted/replaced in this block:
+1. medium HIP probe surface replaced by a much larger source-derived HIP probe matrix (contiguous low-ID sweep plus denser high-ID sparse sweep) to increase checkpoint breadth.
+2. generated-reference exports replaced from implicit literal-heavy inference to explicit widened `ReadonlyArray<...>` annotations to prevent TypeScript checker blowups.
+3. per-entry `as const` emission removed from generated arrays so large parity artifacts remain compiler-stable while preserving runtime equality checks.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && node scripts/generate_module2_side_by_side_reference.mjs`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_module2_side_by_side_parity_harness.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test:module2`: pass (`171/171`)
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck && echo TYPECHECK_OK`: pass (`TYPECHECK_OK`)
+- `cd /home/rocco/Astronomy-Hub && git diff --numstat -- frontend/scripts/generate_module2_side_by_side_reference.mjs frontend/src/features/sky-engine/engine/sky/runtime/module2SideBySideReference.generated.ts`: `+7047 / -3724`
+
+Interpretation:
+- Side-by-side HIP parity evidence is now substantially broader while keeping the generated-reference pipeline operational under typecheck constraints.
+- Remaining strict parity blocker remains live scene packet promotion to resolved Gaia-backed payload in deep zoom.
 
 ## Port Block 12 (Executed, partial parity)
 ### Dynamic HIP Multi-Order Side-by-Side Expansion
