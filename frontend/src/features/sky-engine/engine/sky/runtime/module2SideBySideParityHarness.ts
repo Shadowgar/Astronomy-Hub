@@ -25,6 +25,9 @@ type Module2BvProbe = {
 type Module2NuniqProbe = {
 	readonly order: number
 	readonly pix: number
+	readonly expectedNuniq: string
+	readonly expectedDecodedOrder: number
+	readonly expectedDecodedPix: number
 }
 
 type Module2HipProbe = {
@@ -33,6 +36,8 @@ type Module2HipProbe = {
 		readonly 0: number
 		readonly 1: number
 		readonly 2: number
+		readonly 3: number
+		readonly 4: number
 	}
 }
 
@@ -100,6 +105,8 @@ type Module2HipCheckpointItem = {
 		readonly 0: number
 		readonly 1: number
 		readonly 2: number
+		readonly 3: number
+		readonly 4: number
 	}
 }
 
@@ -468,6 +475,9 @@ function buildReferenceVectors(): Module2SideBySideReference {
 			...MODULE2_SIDE_BY_SIDE_NUNIQ_PROBES.map((probe) => ({
 				order: probe.order,
 				pix: probe.pix,
+				expectedNuniq: probe.nuniq,
+				expectedDecodedOrder: probe.decodedOrder,
+				expectedDecodedPix: probe.decodedPix,
 			})),
 		],
 		hipProbes: MODULE2_SIDE_BY_SIDE_HIP_PROBES.map((probe) => ({
@@ -476,6 +486,8 @@ function buildReferenceVectors(): Module2SideBySideReference {
 				0: probe.expectedByOrder[0],
 				1: probe.expectedByOrder[1],
 				2: probe.expectedByOrder[2],
+				3: probe.expectedByOrder[3],
+				4: probe.expectedByOrder[4],
 			},
 		})),
 		starsListProbes: [
@@ -601,6 +613,8 @@ function runHipCheckpoint(reference: Module2SideBySideReference): Module2Checkpo
 				0: hipGetPix(probe.hip, 0),
 				1: hipGetPix(probe.hip, 1),
 				2: hipGetPix(probe.hip, 2),
+				3: hipGetPix(probe.hip, 3),
+				4: hipGetPix(probe.hip, 4),
 			},
 		})),
 	}
@@ -705,17 +719,13 @@ export function computeModule2SideBySideReferenceCheckpoint(): Module2SideBySide
 		},
 		nuniq: {
 			id: 'module2-nuniq-side-by-side',
-			items: reference.nuniqProbes.map((probe) => {
-				const nuniq = encodeEphTileNuniq(probe.order, probe.pix)
-				const decoded = nuniqToHealpixOrderAndPix(nuniq)
-				return {
-					order: probe.order,
-					pix: probe.pix,
-					nuniq: nuniq.toString(),
-					decodedOrder: decoded.order,
-					decodedPix: decoded.pix,
-				}
-			}),
+			items: reference.nuniqProbes.map((probe) => ({
+				order: probe.order,
+				pix: probe.pix,
+				nuniq: probe.expectedNuniq,
+				decodedOrder: probe.expectedDecodedOrder,
+				decodedPix: probe.expectedDecodedPix,
+			})),
 		},
 		hip: {
 			id: 'module2-hip-side-by-side',
@@ -858,6 +868,8 @@ function compareHipSection(
 		compareNumber('hip', 'hub.o0', 'ref.o0', hubItem.byOrder[0], referenceItem.byOrder[0], mismatches)
 		compareNumber('hip', 'hub.o1', 'ref.o1', hubItem.byOrder[1], referenceItem.byOrder[1], mismatches)
 		compareNumber('hip', 'hub.o2', 'ref.o2', hubItem.byOrder[2], referenceItem.byOrder[2], mismatches)
+		compareNumber('hip', 'hub.o3', 'ref.o3', hubItem.byOrder[3], referenceItem.byOrder[3], mismatches)
+		compareNumber('hip', 'hub.o4', 'ref.o4', hubItem.byOrder[4], referenceItem.byOrder[4], mismatches)
 	}
 }
 
@@ -958,7 +970,7 @@ function serializeNuniqSection(section: Module2CheckpointSection<Module2NuniqChe
 
 function serializeHipSection(section: Module2CheckpointSection<Module2HipCheckpointItem>): string {
 	return section.items
-		.map((item) => `hip:${item.hip}:${item.byOrder[0]}:${item.byOrder[1]}:${item.byOrder[2]}`)
+		.map((item) => `hip:${item.hip}:${item.byOrder[0]}:${item.byOrder[1]}:${item.byOrder[2]}:${item.byOrder[3]}:${item.byOrder[4]}`)
 		.join('|')
 }
 

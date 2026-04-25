@@ -56,12 +56,12 @@ const HIP_PROBES = buildHipProbes()
 
 function buildNuniqProbes() {
   const probes = []
-  for (let order = 0; order <= 12; order += 1) {
+  for (let order = 0; order <= 13; order += 1) {
     const maxPix = 12 * (1 << (2 * order)) - 1
     const candidates = new Set([0, 1, 2, 3, 4, 5, 6, 7, maxPix])
 
-    for (let step = 1; step <= 24; step += 1) {
-      const ratio = step / 25
+    for (let step = 1; step <= 96; step += 1) {
+      const ratio = step / 97
       candidates.add(Math.max(0, Math.min(maxPix, Math.floor(maxPix * ratio))))
     }
 
@@ -135,7 +135,9 @@ int main(void) {
         const int o0 = hip_get_pix(hip, 0);
         const int o1 = hip_get_pix(hip, 1);
         const int o2 = hip_get_pix(hip, 2);
-        printf("HIP %d %d %d %d\n", hip, o0, o1, o2);
+      const int o3 = hip_get_pix(hip, 3);
+      const int o4 = hip_get_pix(hip, 4);
+      printf("HIP %d %d %d %d %d %d\n", hip, o0, o1, o2, o3, o4);
     }
 
       // Matches Stellarium formulas in stars.c / eph-file.c for NUNIQ decomposition.
@@ -181,13 +183,15 @@ function parseHelperOutput(stdout) {
       continue
     }
 
-    if (parts[0] === 'HIP' && parts.length === 5) {
+    if (parts[0] === 'HIP' && parts.length === 7) {
       hipProbes.push({
         hip: Number(parts[1]),
         expectedByOrder: {
           0: Number(parts[2]),
           1: Number(parts[3]),
           2: Number(parts[4]),
+          3: Number(parts[5]),
+          4: Number(parts[6]),
         },
       })
       continue
@@ -220,7 +224,7 @@ function formatGeneratedFile({ sourceRevision, bvProbes, hipProbes, nuniqProbes 
       const values = probe.expectedByOrder
       return (
         '  { hip: ' +
-        `${probe.hip}, expectedByOrder: { 0: ${values[0]}, 1: ${values[1]}, 2: ${values[2]} } as const },`
+        `${probe.hip}, expectedByOrder: { 0: ${values[0]}, 1: ${values[1]}, 2: ${values[2]}, 3: ${values[3]}, 4: ${values[4]} } as const },`
       )
     })
     .join('\n')

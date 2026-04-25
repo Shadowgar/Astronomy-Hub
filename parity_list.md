@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-25 (Port Block 10 expanded module2 side-by-side source probes to a large Stellarium-derived B-V/HIP reference surface, pushing this checkpoint well beyond the prior small-slice threshold while preserving green parity harness validation)
+Last updated: 2026-04-25 (Port Block 11 expanded module2 source-driven parity depth again by adding generated NUNIQ density across higher orders and extending HIP order checks to 0..4 while keeping the full module2 suite green)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -78,6 +78,35 @@ Purpose:
 
 ## Recommended Next Bounded Slice
 - Trace the unresolved live scene-packet handoff after Gaia requests begin, make the multi-survey packet win once the local Gaia load resolves, then re-run live Stellarium deep-zoom checkpoints before moving on to hints/labels parity.
+
+## Port Block 11 (Executed, partial parity)
+### Module2 NUNIQ Density + HIP Order Depth Expansion
+
+Stellarium authority files:
+- `src/modules/stars.c`
+- `src/eph-file.c`
+- `src/hip.c`
+
+Astronomy Hub target files:
+- `frontend/scripts/generate_module2_side_by_side_reference.mjs`
+- `frontend/src/features/sky-engine/engine/sky/runtime/module2SideBySideReference.generated.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/module2SideBySideParityHarness.ts`
+
+Explicit local logic deleted/replaced in this block:
+1. prior narrow NUNIQ probe set replaced by a denser generated source-equivalent probe surface spanning orders `0..13` with high fractional pix coverage per order.
+2. side-by-side reference NUNIQ section no longer re-derives expected values locally at comparison time; it now consumes generated expected `nuniq` and decoded fields directly from the source-derived artifact.
+3. HIP parity checkpoint depth extended from order `0..2` to order `0..4` in both generated references and harness comparison/digest paths.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && node scripts/generate_module2_side_by_side_reference.mjs`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_module2_side_by_side_parity_harness.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test:module2`: pass (`171/171`)
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub && git diff --shortstat -- frontend/scripts/generate_module2_side_by_side_reference.mjs frontend/src/features/sky-engine/engine/sky/runtime/module2SideBySideParityHarness.ts frontend/src/features/sky-engine/engine/sky/runtime/module2SideBySideReference.generated.ts`: `3 files changed, 2016 insertions(+), 1088 deletions(-)`
+
+Interpretation:
+- This continuation deepens strict formula parity evidence around NUNIQ/HEALPix and HIP pixel mapping behavior by substantially increasing generated source-backed checkpoint coverage.
+- Remaining blocker for full sky-density parity is still live runtime promotion from Hipparcos packet ownership to resolved Gaia-backed scene packet adoption under deep zoom.
 
 ## Port Block 10 (Executed, partial parity)
 ### Large-Scale Module2 Source Probe Expansion
