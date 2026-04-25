@@ -1,22 +1,17 @@
 import type { SkyModule } from '../SkyModule'
-import { projectDirectionToViewport, isProjectedPointVisible, horizontalToDirection, type SkyProjectionView } from '../../../../projectionMath'
-import { buildSyntheticSkyDensityField } from '../../../../syntheticStarField'
-import { computeVisibilityAlpha } from '../../../../starVisibility'
-import { getStarRenderProfileForMagnitude, type StarRenderProfile } from '../../../../starRenderer'
+import { directionToHorizontal, type SkyProjectionView } from '../../../../projectionMath'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
-import type { ProjectedSceneObjectEntry } from './runtimeFrame'
 import type { SkyBrightnessExposureState } from '../types'
-import { computeHorizontalCoordinates } from '../../../../astronomy'
-import { loadDssManifest, type DssManifestPayload, type DssPatchRecord } from '../../adapters/dssRepository'
+import { loadDssManifest, type DssManifestPayload, type DssSurveyRecord } from '../../adapters/dssRepository'
 import {
   buildStellariumTelescopeState,
   tonemapperMap,
   STELLARIUM_DEFAULT_BORTLE_INDEX,
 } from '../../core/stellariumVisualMath'
 import { STELLARIUM_DEFAULT_DISPLAY_LIMIT_MAG } from '../stellariumPainterLimits'
+import { renderHipsSurveyToCanvas } from './hipsImageLayer'
 
-const SYNTHETIC_SKY_DENSITY_SAMPLES = buildSyntheticSkyDensityField(2800)
-const SYNTHETIC_STAR_OVERLAP_CELL_PX = 24
+const DEFAULT_DSS_HIPS_BASE_URL = 'https://alasky.cds.unistra.fr/DSS/DSSColor'
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -95,194 +90,29 @@ export function computeDssLayerAlpha(
   return clamp(Math.min(contrast, 1.2) * limitingMagnitudeVisibility, 0, 1.2)
 }
 
-function hexToRgb(hex: string) {
+function buildObserverSnapshot(view: SkyProjectionView, latitudeDeg: number, longitudeDeg: number, timestampUtc: string) {
+  const centerHorizontal = directionToHorizontal(view.centerDirection)
+
   return {
-    red: Number.parseInt(hex.slice(1, 3), 16),
-    green: Number.parseInt(hex.slice(3, 5), 16),
-    blue: Number.parseInt(hex.slice(5, 7), 16),
+    timestampUtc,
+    latitudeDeg,
+    longitudeDeg,
+    fovDeg: (view.fovRadians * 180) / Math.PI,
+    centerAltDeg: centerHorizontal.altitudeDeg,
+    centerAzDeg: centerHorizontal.azimuthDeg,
+    projection: view.projectionMode ?? 'stereographic',
+  } as const
+}
+
+function resolveActiveDssSurvey(manifest: DssManifestPayload | null): DssSurveyRecord | null {
+  if (!manifest?.surveys.length) {
+    return null
   }
-}
-
-function hexToRgba(hex: string, alpha: number) {
-  const { red, green, blue } = hexToRgb(hex)
-  return `rgba(${red}, ${green}, ${blue}, ${alpha})`
-}
-
-function drawStar(
-  context: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  radius: number,
-  profile: StarRenderProfile,
-  alpha: number,
-) {
-  const starAlpha = clamp(alpha * (0.42 + profile.alpha * 0.82), 0.14, 0.98)
-  const haloRadius = Math.max(radius * (2.1 + profile.diameter * 1.8), profile.haloRadiusPx)
-  const coreRadius = Math.max(radius * 0.92, profile.coreRadiusPx)
-
-  context.save()
-  const halo = context.createRadialGradient(x, y, 0, x, y, haloRadius)
-  halo.addColorStop(0, hexToRgba(profile.colorHex, starAlpha))
-  halo.addColorStop(0.22, hexToRgba(profile.colorHex, starAlpha * 0.52))
-  halo.addColorStop(1, hexToRgba(profile.colorHex, 0))
-  context.fillStyle = halo
-  context.beginPath()
-  context.arc(x, y, haloRadius, 0, Math.PI * 2)
-  context.fill()
-
-  context.fillStyle = hexToRgba(profile.colorHex, clamp(starAlpha + 0.06, 0.18, 1))
-  context.beginPath()
-  context.arc(x, y, coreRadius, 0, Math.PI * 2)
-  context.fill()
-
-  context.fillStyle = `rgba(255, 255, 255, ${clamp(0.18 + starAlpha * 0.84, 0.22, 0.98)})`
-  context.beginPath()
-  context.arc(x, y, Math.max(0.42, Math.min(coreRadius * 0.52, profile.coreRadiusPx * 0.68)), 0, Math.PI * 2)
-  context.fill()
-  context.restore()
-}
-
-function getSyntheticDensityMagnitudeLimit(fovDegrees: number, renderLimitingMagnitude: number) {
-  const wideBlend = smoothstep(40, 85, fovDegrees)
-  const syntheticOffset = 0.35 * wideBlend
-  return clamp(renderLimitingMagnitude + syntheticOffset, -1, 14.6)
-}
-
-function getSyntheticDensityBudget(fovDegrees: number, brightnessExposureState: SkyBrightnessExposureState) {
-  const visibility = clamp(brightnessExposureState.starVisibility, 0, 1)
-  const brightness = clamp(brightnessExposureState.starFieldBrightness, 0, 1)
-  const wideBlend = smoothstep(45, 95, fovDegrees)
-  const baseBudget = mix(0, 900, wideBlend)
-
-  return Math.round(baseBudget * (0.3 + visibility * 0.7) * (0.34 + brightness * 0.66))
-}
-
-function buildProjectedStarOverlapGrid(projectedObjects: readonly ProjectedSceneObjectEntry[]) {
-  const grid = new Map<string, ProjectedSceneObjectEntry[]>()
-
-  projectedObjects.forEach((entry) => {
-    if (entry.object.type !== 'star') {
-      return
-    }
-
-    const cellX = Math.floor(entry.screenX / SYNTHETIC_STAR_OVERLAP_CELL_PX)
-    const cellY = Math.floor(entry.screenY / SYNTHETIC_STAR_OVERLAP_CELL_PX)
-    const key = `${cellX}:${cellY}`
-    const bucket = grid.get(key)
-
-    if (bucket) {
-      bucket.push(entry)
-      return
-    }
-
-    grid.set(key, [entry])
-  })
-
-  return grid
-}
-
-function overlapsProjectedStar(
-  overlapGrid: ReadonlyMap<string, readonly ProjectedSceneObjectEntry[]>,
-  screenX: number,
-  screenY: number,
-) {
-  const cellX = Math.floor(screenX / SYNTHETIC_STAR_OVERLAP_CELL_PX)
-  const cellY = Math.floor(screenY / SYNTHETIC_STAR_OVERLAP_CELL_PX)
-
-  for (let rowOffset = -1; rowOffset <= 1; rowOffset += 1) {
-    for (let columnOffset = -1; columnOffset <= 1; columnOffset += 1) {
-      const key = `${cellX + columnOffset}:${cellY + rowOffset}`
-      const bucket = overlapGrid.get(key)
-
-      if (!bucket) {
-        continue
-      }
-
-      for (const entry of bucket) {
-        const dx = entry.screenX - screenX
-        const dy = entry.screenY - screenY
-        const minimumDistance = Math.max(5.5, entry.markerRadiusPx * 0.9)
-
-        if (dx * dx + dy * dy < minimumDistance * minimumDistance) {
-          return true
-        }
-      }
-    }
-  }
-
-  return false
-}
-
-function drawSyntheticDensityStars(
-  context: CanvasRenderingContext2D,
-  view: SkyProjectionView,
-  projectedObjects: readonly ProjectedSceneObjectEntry[],
-  brightnessExposureState: SkyBrightnessExposureState,
-  renderLimitingMagnitude: number,
-  animationTime: number,
-) {
-  const fovDegrees = (view.fovRadians * 180) / Math.PI
-  const magnitudeLimit = getSyntheticDensityMagnitudeLimit(fovDegrees, renderLimitingMagnitude)
-  const densityBudget = getSyntheticDensityBudget(fovDegrees, brightnessExposureState)
-
-  if (densityBudget <= 0) {
-    return
-  }
-
-  const overlapGrid = buildProjectedStarOverlapGrid(projectedObjects)
-  const viewportCenterX = view.viewportWidth * 0.5
-  const viewportCenterY = view.viewportHeight * 0.5
-  const wideBlend = smoothstep(115, 185, fovDegrees)
-  const closeBlend = 1 - smoothstep(24, 90, fovDegrees)
-  let drawnCount = 0
-
-  for (const sample of SYNTHETIC_SKY_DENSITY_SAMPLES) {
-    const renderedMagnitude = sample.magnitude
-    const visibilityAlpha = computeVisibilityAlpha(renderedMagnitude, magnitudeLimit)
-
-    if (visibilityAlpha <= 0 || drawnCount >= densityBudget) {
-      if (drawnCount >= densityBudget) {
-        break
-      }
-
-      continue
-    }
-
-    const projected = projectDirectionToViewport(sample.direction, view)
-
-    if (!projected || !isProjectedPointVisible(projected, view, 20)) {
-      continue
-    }
-
-    if (overlapsProjectedStar(overlapGrid, projected.screenX, projected.screenY)) {
-      continue
-    }
-
-    const distanceToCenter = Math.hypot(projected.screenX - viewportCenterX, projected.screenY - viewportCenterY)
-    const normalizedCenterDistance = clamp(distanceToCenter / Math.max(view.viewportWidth, view.viewportHeight), 0, 1)
-    const centerFill = 1 + wideBlend * (1 - normalizedCenterDistance) * 0.38
-    const profile = getStarRenderProfileForMagnitude(
-      renderedMagnitude,
-      sample.colorIndexBV,
-      brightnessExposureState.visualCalibration,
-      brightnessExposureState,
-      Math.min(view.viewportWidth, view.viewportHeight),
-    )
-    const markerRadiusPx = clamp((profile.coreRadiusPx * 0.32 + sample.size * 0.34) * (0.88 + closeBlend * 0.18) * centerFill, 0.22, 1.55)
-    const twinkle = 1 + Math.sin(animationTime + sample.twinklePhase) * profile.twinkleAmplitude * 0.9
-    const alpha = clamp(
-      sample.alpha * profile.alpha * (0.18 + sample.bandWeight * 0.16) * (0.62 + closeBlend * 0.1) * centerFill,
-      0.016,
-      0.16,
-    )
-
-    drawStar(context, projected.screenX, projected.screenY, markerRadiusPx * twinkle, profile, alpha)
-    drawnCount += 1
-  }
+  const visible = manifest.surveys.find((survey) => survey.visibleByDefault)
+  return visible ?? manifest.surveys[0] ?? null
 }
 
 export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
-  let dssPatches: readonly DssPatchRecord[] = []
   let dssManifest: DssManifestPayload | null = null
   let dssReady = false
   let dssLoadError: string | null = null
@@ -294,13 +124,11 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
       void loadDssManifest()
         .then((manifest) => {
           dssManifest = manifest
-          dssPatches = manifest.patches
           dssReady = true
           dssLoadError = null
           requestRender()
         })
         .catch((error) => {
-          dssPatches = []
           dssReady = true
           dssLoadError = error instanceof Error ? error.message : String(error)
           requestRender()
@@ -317,9 +145,6 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
       if (!backgroundContext) {
         return
       }
-      const width = projectedFrame.width
-      const height = projectedFrame.height
-      backgroundContext.clearRect(0, 0, width, height)
 
       const dssBaseAlpha = computeDssLayerAlpha(
         {
@@ -332,57 +157,43 @@ export function createBackgroundRuntimeModule(): SkyModule<ScenePropsSnapshot, S
         },
         brightnessExposureState,
       )
-      const activeSurveyVisible = dssManifest?.surveys.length
-        ? dssManifest.surveys.some((survey) => survey.visibleByDefault)
-        : true
-      if (dssBaseAlpha <= (3 / 255) || !activeSurveyVisible) {
+      if (dssBaseAlpha <= (3 / 255)) {
         return
       }
-
-      for (const patch of dssPatches) {
-        const horizontal = computeHorizontalCoordinates(
-          latest.observer,
-          services.clockService.getSceneTimestampIso(),
-          patch.rightAscensionHours,
-          patch.declinationDeg,
-        )
-        if (!horizontal.isAboveHorizon) {
-          continue
-        }
-        const projected = projectDirectionToViewport(
-          horizontalToDirection(horizontal.altitudeDeg, horizontal.azimuthDeg),
-          projectedFrame.view,
-        )
-        if (!projected || !isProjectedPointVisible(projected, projectedFrame.view, 40)) {
-          continue
-        }
-        const patchRadiusPx = clamp((patch.radiusDeg / projectedFrame.currentFovDegrees) * width, 28, 260)
-        const gradient = backgroundContext.createRadialGradient(
-          projected.screenX,
-          projected.screenY,
-          patchRadiusPx * 0.12,
-          projected.screenX,
-          projected.screenY,
-          patchRadiusPx,
-        )
-        const alpha = clamp(dssBaseAlpha * patch.intensity, 0, 1)
-        gradient.addColorStop(0, `rgba(118, 146, 210, ${alpha})`)
-        gradient.addColorStop(0.45, `rgba(89, 124, 188, ${alpha * 0.45})`)
-        gradient.addColorStop(1, 'rgba(36, 50, 84, 0)')
-        backgroundContext.fillStyle = gradient
-        backgroundContext.beginPath()
-        backgroundContext.arc(projected.screenX, projected.screenY, patchRadiusPx, 0, Math.PI * 2)
-        backgroundContext.fill()
-      }
+      const survey = resolveActiveDssSurvey(dssManifest)
+      const timestampUtc = projectedFrame.sceneTimestampIso ?? services.clockService.getSceneTimestampIso()
+      const observerSnapshot = buildObserverSnapshot(
+        projectedFrame.view,
+        latest.observer.latitude,
+        latest.observer.longitude,
+        timestampUtc,
+      )
+      const hipsStats = renderHipsSurveyToCanvas({
+        context: backgroundContext,
+        view: projectedFrame.view,
+        observerSnapshot,
+        observerFrameAstrometry: latest.observerFrameAstrometry,
+        survey: {
+          id: survey?.id ?? 'dss-default',
+          baseUrl: survey?.hipsServiceUrl ?? DEFAULT_DSS_HIPS_BASE_URL,
+          extension: survey?.tileFormat ?? 'jpg',
+          minOrder: 0,
+          maxOrder: 9,
+          tileWidthPx: 512,
+        },
+        alpha: dssBaseAlpha,
+      })
       runtime.runtimePerfTelemetry.latest = {
         ...runtime.runtimePerfTelemetry.latest,
         stepMs: {
           ...runtime.runtimePerfTelemetry.latest.stepMs,
-          dssPatchCount: dssPatches.length,
+          dssPatchCount: hipsStats.requestedTileCount,
           dssReady: dssReady ? 1 : 0,
           dssLoadError: dssLoadError ? 1 : 0,
           dssAlpha: dssBaseAlpha,
           dssDisplayLimitMag: runtime.corePainterLimits?.hardLimitMag ?? STELLARIUM_DEFAULT_DISPLAY_LIMIT_MAG,
+          dssRenderedTiles: hipsStats.renderedTileCount,
+          dssFallbackTiles: hipsStats.fallbackTileCount,
         },
       }
     },
