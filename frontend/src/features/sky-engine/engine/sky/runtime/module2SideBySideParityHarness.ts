@@ -13,6 +13,7 @@ import type { SkyTilePayload } from '../contracts/tiles'
 import {
 	MODULE2_SIDE_BY_SIDE_BV_PROBES,
 	MODULE2_SIDE_BY_SIDE_HIP_PROBES,
+	MODULE2_SIDE_BY_SIDE_NUNIQ_PROBES,
 	MODULE2_SIDE_BY_SIDE_SOURCE_REVISION,
 } from './module2SideBySideReference.generated'
 
@@ -464,14 +465,10 @@ function buildReferenceVectors(): Module2SideBySideReference {
 			expectedRgb: [probe.expectedRgb[0], probe.expectedRgb[1], probe.expectedRgb[2]] as const,
 		})),
 		nuniqProbes: [
-			{ order: 0, pix: 0 },
-			{ order: 1, pix: 5 },
-			{ order: 2, pix: 9 },
-			{ order: 3, pix: 42 },
-			{ order: 4, pix: 255 },
-			{ order: 5, pix: 1024 },
-			{ order: 6, pix: 4096 },
-			{ order: 7, pix: 32768 },
+			...MODULE2_SIDE_BY_SIDE_NUNIQ_PROBES.map((probe) => ({
+				order: probe.order,
+				pix: probe.pix,
+			})),
 		],
 		hipProbes: MODULE2_SIDE_BY_SIDE_HIP_PROBES.map((probe) => ({
 			hip: probe.hip,
