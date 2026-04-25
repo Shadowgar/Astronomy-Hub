@@ -733,7 +733,7 @@ export function collectProjectedStars(input: CollectProjectedStarsInput): Projec
 
   const visitorEntries = visitStarsRenderTiles({
     scenePacket: input.scenePacket,
-    starsLimitMagnitude: input.brightnessExposureState.limitingMagnitude,
+    starsLimitMagnitude: limitingMagnitude,
     hardLimitMagnitude: input.corePainterLimits?.hardLimitMag ?? Number.POSITIVE_INFINITY,
     projectStar: (star) => {
       const transformStartMs = performance.now()

@@ -1,5 +1,8 @@
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../SkyEngineRuntimeBridge'
-import { computeStellariumCorePainterLimits } from './stellariumPainterLimits'
+import {
+  computeStellariumCorePainterLimits,
+  STELLARIUM_CORE_DEFAULT_PAINTER_PARAMS,
+} from './stellariumPainterLimits'
 
 /**
  * Stellarium `core_render` preamble (`core.c` ~521–571), control order only:
@@ -24,7 +27,18 @@ export function runStellariumCoreRenderSpine(
   services.observerService.syncObserver(latest.observer)
   runtime.observerAstrometry ??= services.observerService.getDerivedGeometry()
 
-  runtime.corePainterLimits = computeStellariumCorePainterLimits()
+  const currentFovDegrees = services.projectionService.getCurrentFovDegrees()
+  const viewportMinSizePx = Math.max(1, Math.min(width, height))
+  const brightness = runtime.brightnessExposureState
+
+  runtime.corePainterLimits = computeStellariumCorePainterLimits({
+    ...STELLARIUM_CORE_DEFAULT_PAINTER_PARAMS,
+    tonemapperP: brightness?.tonemapperP ?? STELLARIUM_CORE_DEFAULT_PAINTER_PARAMS.tonemapperP,
+    tonemapperExposure: brightness?.tonemapperExposure ?? STELLARIUM_CORE_DEFAULT_PAINTER_PARAMS.tonemapperExposure,
+    tonemapperLwmax: brightness?.tonemapperLwmax ?? STELLARIUM_CORE_DEFAULT_PAINTER_PARAMS.tonemapperLwmax,
+    fovDeg: currentFovDegrees,
+    viewportMinSizePx,
+  })
 
   runtime.visibleLabelIds = []
 }

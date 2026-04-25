@@ -1,4 +1,5 @@
 import { resolveLimitingMagnitudeForPointRadius } from '../core/magnitudePolicy'
+import { STELLARIUM_DEFAULT_SCREEN_SIZE_PX } from '../core/stellariumVisualMath'
 
 export interface StellariumCorePainterLimitParams {
   /** `core->star_linear_scale` (default 0.8) */
@@ -16,6 +17,10 @@ export interface StellariumCorePainterLimitParams {
   /** `core->telescope` — use unity for limits unless instrument port exists */
   telescopeLightGrasp: number
   telescopeMagnification: number
+  /** Active projection field-of-view in degrees (`core->fov` in Stellarium render path). */
+  fovDeg?: number
+  /** Minimum viewport axis in pixels used by Stellarium point-size math. */
+  viewportMinSizePx?: number
 }
 
 export const STELLARIUM_CORE_DEFAULT_PAINTER_PARAMS: StellariumCorePainterLimitParams = {
@@ -44,12 +49,17 @@ export function computeStellariumCorePainterLimits(
   hintsLimitMag: number
   hardLimitMag: number
 } {
+  const resolvedFovDeg = Number.isFinite(params.fovDeg) ? Math.max(0.1, params.fovDeg as number) : 60
+  const resolvedViewportMinSizePx = Number.isFinite(params.viewportMinSizePx)
+    ? Math.max(1, params.viewportMinSizePx as number)
+    : Math.max(1, params.starScaleScreenFactor * STELLARIUM_DEFAULT_SCREEN_SIZE_PX)
+
   const limitingMagnitudeInput = {
-    fovDeg: 60,
+    fovDeg: resolvedFovDeg,
     tonemapperP: params.tonemapperP,
     tonemapperExposure: params.tonemapperExposure,
     tonemapperLwmax: params.tonemapperLwmax,
-    viewportMinSizePx: params.starScaleScreenFactor * 1200,
+    viewportMinSizePx: resolvedViewportMinSizePx,
   }
   return {
     starsLimitMag: resolveLimitingMagnitudeForPointRadius(STELLARIUM_SKIP_POINT_RADIUS_PX, limitingMagnitudeInput),
