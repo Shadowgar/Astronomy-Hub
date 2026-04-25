@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-25 (Port Block 11 expanded module2 source-driven parity depth again by adding generated NUNIQ density across higher orders and extending HIP order checks to 0..4 while keeping the full module2 suite green)
+Last updated: 2026-04-25 (Port Block 12 replaced fixed HIP order assumptions with generated dynamic multi-order checkpoints (0..8), expanded source-derived HIP parity breadth, and kept full module2/typecheck validation green)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -78,6 +78,33 @@ Purpose:
 
 ## Recommended Next Bounded Slice
 - Trace the unresolved live scene-packet handoff after Gaia requests begin, make the multi-survey packet win once the local Gaia load resolves, then re-run live Stellarium deep-zoom checkpoints before moving on to hints/labels parity.
+
+## Port Block 12 (Executed, partial parity)
+### Dynamic HIP Multi-Order Side-by-Side Expansion
+
+Stellarium authority files:
+- `src/hip.c`
+- `src/modules/stars.c`
+
+Astronomy Hub target files:
+- `frontend/scripts/generate_module2_side_by_side_reference.mjs`
+- `frontend/src/features/sky-engine/engine/sky/runtime/module2SideBySideReference.generated.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/module2SideBySideParityHarness.ts`
+
+Explicit local logic deleted/replaced in this block:
+1. fixed HIP order assumptions (`0..4` hardcoded fields) replaced with generated dynamic order vectors, with helper output and parser keyed by an explicit generated order list.
+2. HIP side-by-side checkpoint logic replaced from static object field comparisons to dynamic per-order comparison loops, eliminating brittle fixed-order plumbing.
+3. HIP digest serialization replaced from fixed positional output to order-tagged deterministic serialization (`order=pix`) so added/removed orders remain explicit in drift signatures.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && node scripts/generate_module2_side_by_side_reference.mjs`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_module2_side_by_side_parity_harness.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test:module2`: pass (`171/171`)
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+
+Interpretation:
+- HIP parity evidence is now structurally scalable and source-driven, allowing order-depth changes without harness schema rewrites.
+- Remaining top-level strict parity blocker is still live runtime packet promotion to resolved Gaia-backed scene payload during deep zoom.
 
 ## Port Block 11 (Executed, partial parity)
 ### Module2 NUNIQ Density + HIP Order Depth Expansion

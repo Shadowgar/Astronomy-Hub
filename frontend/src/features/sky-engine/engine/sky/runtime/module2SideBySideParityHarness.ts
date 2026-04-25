@@ -32,13 +32,10 @@ type Module2NuniqProbe = {
 
 type Module2HipProbe = {
 	readonly hip: number
-	readonly expectedByOrder: {
-		readonly 0: number
-		readonly 1: number
-		readonly 2: number
-		readonly 3: number
-		readonly 4: number
-	}
+	readonly expectedByOrder: readonly {
+		readonly order: number
+		readonly pix: number
+	}[]
 }
 
 type Module2StarsListProbe = {
@@ -101,13 +98,10 @@ type Module2NuniqCheckpointItem = {
 
 type Module2HipCheckpointItem = {
 	readonly hip: number
-	readonly byOrder: {
-		readonly 0: number
-		readonly 1: number
-		readonly 2: number
-		readonly 3: number
-		readonly 4: number
-	}
+	readonly byOrder: readonly {
+		readonly order: number
+		readonly pix: number
+	}[]
 }
 
 type Module2StarsListCheckpointItem = {
@@ -482,13 +476,10 @@ function buildReferenceVectors(): Module2SideBySideReference {
 		],
 		hipProbes: MODULE2_SIDE_BY_SIDE_HIP_PROBES.map((probe) => ({
 			hip: probe.hip,
-			expectedByOrder: {
-				0: probe.expectedByOrder[0],
-				1: probe.expectedByOrder[1],
-				2: probe.expectedByOrder[2],
-				3: probe.expectedByOrder[3],
-				4: probe.expectedByOrder[4],
-			},
+			expectedByOrder: probe.expectedByOrder.map((entry) => ({
+				order: entry.order,
+				pix: entry.pix,
+			})),
 		})),
 		starsListProbes: [
 			{
@@ -609,13 +600,10 @@ function runHipCheckpoint(reference: Module2SideBySideReference): Module2Checkpo
 		id: 'module2-hip-side-by-side',
 		items: reference.hipProbes.map((probe) => ({
 			hip: probe.hip,
-			byOrder: {
-				0: hipGetPix(probe.hip, 0),
-				1: hipGetPix(probe.hip, 1),
-				2: hipGetPix(probe.hip, 2),
-				3: hipGetPix(probe.hip, 3),
-				4: hipGetPix(probe.hip, 4),
-			},
+			byOrder: probe.expectedByOrder.map((entry) => ({
+				order: entry.order,
+				pix: hipGetPix(probe.hip, entry.order),
+			})),
 		})),
 	}
 }
@@ -731,7 +719,10 @@ export function computeModule2SideBySideReferenceCheckpoint(): Module2SideBySide
 			id: 'module2-hip-side-by-side',
 			items: reference.hipProbes.map((probe) => ({
 				hip: probe.hip,
-				byOrder: probe.expectedByOrder,
+				byOrder: probe.expectedByOrder.map((entry) => ({
+					order: entry.order,
+					pix: entry.pix,
+				})),
 			})),
 		},
 		starsList: {
@@ -865,11 +856,35 @@ function compareHipSection(
 			continue
 		}
 		compareNumber('hip', 'hub.hip', 'ref.hip', hubItem.hip, referenceItem.hip, mismatches)
-		compareNumber('hip', 'hub.o0', 'ref.o0', hubItem.byOrder[0], referenceItem.byOrder[0], mismatches)
-		compareNumber('hip', 'hub.o1', 'ref.o1', hubItem.byOrder[1], referenceItem.byOrder[1], mismatches)
-		compareNumber('hip', 'hub.o2', 'ref.o2', hubItem.byOrder[2], referenceItem.byOrder[2], mismatches)
-		compareNumber('hip', 'hub.o3', 'ref.o3', hubItem.byOrder[3], referenceItem.byOrder[3], mismatches)
-		compareNumber('hip', 'hub.o4', 'ref.o4', hubItem.byOrder[4], referenceItem.byOrder[4], mismatches)
+
+		if (hubItem.byOrder.length !== referenceItem.byOrder.length) {
+			mismatches.push({
+				area: 'hip',
+				message: `order length mismatch for hip ${hubItem.hip}`,
+			})
+			continue
+		}
+
+		for (let orderIndex = 0; orderIndex < hubItem.byOrder.length; orderIndex += 1) {
+			const hubOrder = hubItem.byOrder[orderIndex]
+			const refOrder = referenceItem.byOrder[orderIndex]
+			if (!hubOrder || !refOrder) {
+				mismatches.push({
+					area: 'hip',
+					message: `missing order entry for hip ${hubItem.hip} at index ${orderIndex}`,
+				})
+				continue
+			}
+			compareNumber('hip', 'hub.order', 'ref.order', hubOrder.order, refOrder.order, mismatches)
+			compareNumber(
+				'hip',
+				`hub.pix(order=${hubOrder.order})`,
+				`ref.pix(order=${refOrder.order})`,
+				hubOrder.pix,
+				refOrder.pix,
+				mismatches,
+			)
+		}
 	}
 }
 
@@ -970,7 +985,10 @@ function serializeNuniqSection(section: Module2CheckpointSection<Module2NuniqChe
 
 function serializeHipSection(section: Module2CheckpointSection<Module2HipCheckpointItem>): string {
 	return section.items
-		.map((item) => `hip:${item.hip}:${item.byOrder[0]}:${item.byOrder[1]}:${item.byOrder[2]}:${item.byOrder[3]}:${item.byOrder[4]}`)
+		.map((item) => {
+			const orders = item.byOrder.map((entry) => `${entry.order}=${entry.pix}`).join(',')
+			return `hip:${item.hip}:${orders}`
+		})
 		.join('|')
 }
 

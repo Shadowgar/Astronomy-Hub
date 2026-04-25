@@ -53,6 +53,7 @@ function buildHipProbes() {
 
 const BV_PROBES = buildBvProbes()
 const HIP_PROBES = buildHipProbes()
+const HIP_ORDERS = Array.from({ length: 9 }, (_, index) => index)
 
 function buildNuniqProbes() {
   const probes = []
@@ -105,6 +106,7 @@ async function getSourceRevision(sourceRoot) {
 function buildHelperProgram() {
   const bvProbeInitializers = BV_PROBES.map((value) => `${value}`).join(', ')
   const hipProbeInitializers = HIP_PROBES.map((value) => `${value}`).join(', ')
+  const hipOrderInitializers = HIP_ORDERS.map((value) => `${value}`).join(', ')
   const nuniqOrderInitializers = NUNIQ_PROBES.map((probe) => `${probe.order}`).join(', ')
   const nuniqPixInitializers = NUNIQ_PROBES.map((probe) => `${probe.pix}`).join(', ')
 
@@ -118,8 +120,10 @@ int hip_get_pix(int hip, int order);
 int main(void) {
     const double bv_probes[] = { ${bvProbeInitializers} };
     const int hip_probes[] = { ${hipProbeInitializers} };
+    const int hip_orders[] = { ${hipOrderInitializers} };
     const int bv_count = sizeof(bv_probes) / sizeof(bv_probes[0]);
     const int hip_count = sizeof(hip_probes) / sizeof(hip_probes[0]);
+    const int hip_order_count = sizeof(hip_orders) / sizeof(hip_orders[0]);
     const int nuniq_orders[] = { ${nuniqOrderInitializers} };
     const int nuniq_pix[] = { ${nuniqPixInitializers} };
     const int nuniq_count = sizeof(nuniq_orders) / sizeof(nuniq_orders[0]);
@@ -132,12 +136,13 @@ int main(void) {
 
     for (int i = 0; i < hip_count; i++) {
         const int hip = hip_probes[i];
-        const int o0 = hip_get_pix(hip, 0);
-        const int o1 = hip_get_pix(hip, 1);
-        const int o2 = hip_get_pix(hip, 2);
-      const int o3 = hip_get_pix(hip, 3);
-      const int o4 = hip_get_pix(hip, 4);
-      printf("HIP %d %d %d %d %d %d\n", hip, o0, o1, o2, o3, o4);
+        printf("HIP %d", hip);
+        for (int j = 0; j < hip_order_count; j++) {
+            const int order = hip_orders[j];
+            const int pix = hip_get_pix(hip, order);
+            printf(" %d", pix);
+        }
+        printf("\n");
     }
 
       // Matches Stellarium formulas in stars.c / eph-file.c for NUNIQ decomposition.
@@ -183,16 +188,14 @@ function parseHelperOutput(stdout) {
       continue
     }
 
-    if (parts[0] === 'HIP' && parts.length === 7) {
+    if (parts[0] === 'HIP' && parts.length === HIP_ORDERS.length + 2) {
+      const expectedByOrder = HIP_ORDERS.map((order, index) => ({
+        order,
+        pix: Number(parts[index + 2]),
+      }))
       hipProbes.push({
         hip: Number(parts[1]),
-        expectedByOrder: {
-          0: Number(parts[2]),
-          1: Number(parts[3]),
-          2: Number(parts[4]),
-          3: Number(parts[5]),
-          4: Number(parts[6]),
-        },
+        expectedByOrder,
       })
       continue
     }
@@ -221,10 +224,12 @@ function formatGeneratedFile({ sourceRevision, bvProbes, hipProbes, nuniqProbes 
 
   const renderedHip = hipProbes
     .map((probe) => {
-      const values = probe.expectedByOrder
+      const renderedOrders = probe.expectedByOrder
+        .map((entry) => `{ order: ${entry.order}, pix: ${entry.pix} } as const`)
+        .join(', ')
       return (
         '  { hip: ' +
-        `${probe.hip}, expectedByOrder: { 0: ${values[0]}, 1: ${values[1]}, 2: ${values[2]}, 3: ${values[3]}, 4: ${values[4]} } as const },`
+        `${probe.hip}, expectedByOrder: [${renderedOrders}] as const },`
       )
     })
     .join('\n')
