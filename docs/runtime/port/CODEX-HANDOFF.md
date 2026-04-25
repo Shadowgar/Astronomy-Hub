@@ -2,7 +2,7 @@
 
 **Purpose:** This file is the single entry point for a fresh agent (Codex 5.3 or any successor) taking over the runtime port without prior chat context. Read this file first, then the four "required reads" below, then start coding.
 
-**Last updated:** 2026-04-22, evidence **EV-0101** (`starsCModuleRuntimePort.ts` lands a new large `stars.c` module-runtime seam and `module2ParityFingerprint.ts` now records deterministic `stars-c-module-runtime` outcomes; regression + snapshot updated; **150/150** / **23 files**; module1 **46/46**; typecheck + build PASS).
+**Last updated:** 2026-04-25, evidence **EV-0103** (`starsCLabelRuntimePort.ts` lands a new large module2 `stars.c` label/name/designation seam and `module2ParityFingerprint.ts` records `stars-c-label-runtime`; **test:module2 168/168** / **25 files**).
 
 ---
 
@@ -26,7 +26,7 @@ These constraints come from the top-level `AGENTS.md` §6.5 (Sky Engine Isolatio
 2. **`docs/runtime/port/README.md`** — canon rules + current module-completion state.
 3. **`docs/runtime/port/module2-source-contract.md`** — active module (§1–§2 source mapping, §5 gate status, §7 handoff / next coding targets / commands / evidence).
 4. **`docs/runtime/port/module-gates.md`** — gate-by-gate state per module + "Known residuals (repo-wide `npm test`)" section.
-5. **`docs/runtime/port/evidence-index.md`** — the evidence ledger. Cite an existing `EV-xxxx` when referencing work; add a new row for any new work you land (**next free ID: EV-0102**; `EV-0067` and `EV-0068` are intentionally unused).
+5. **`docs/runtime/port/evidence-index.md`** — the evidence ledger. Cite an existing `EV-xxxx` when referencing work; add a new row for any new work you land (**next free ID: EV-0104**; `EV-0067` and `EV-0068` are intentionally unused).
 
 Only open deeper files (inventory, blockers, source contract for module 0/1, per-plan files) when the task points at them.
 
@@ -49,7 +49,7 @@ Never anchor a port claim to a moving branch — always diff against the pinned 
 |---|---|---|---|
 | `module0-foundation-lock` | **COMPLETE** (EV-0019) | `npm run test:module0` → **12/12** | Observer/time/matrix spine. No open `BLK-*`. |
 | `module1-hips-kernel` | **COMPLETE** (EV-0034) | `npm run test:module1` → **46/46** | EPH / HEALPix / tile / HiPS render-order spine. `test_close_fov_star_counts.test.js` is an intentionally-excluded asset-heavy probe (see `module1-source-contract.md` §3). |
-| `module2-stars-full` | **BLOCKED / partial** (active) | `npm run test:module2` → **150/150 / 23 files** | G0/G1 PASS (EV-0036). G2/G3/G4 partial (EV-0038–EV-0101). G5–G7 FAIL. See `module2-source-contract.md` §5 + §7. |
+| `module2-stars-full` | **BLOCKED / partial** (active) | `npm run test:module2` → **168/168 / 25 files** | G0/G1 PASS (EV-0036). G2/G3/G4 partial (EV-0038–EV-0103). G5–G7 FAIL. See `module2-source-contract.md` §5 + §7. |
 | `module3-dso-full` | N/A — not started | n/a | Some repo-wide `npm test` residuals belong here (see `module-gates.md` "Known residuals"). |
 | `module4-planets-moon-sun` | N/A | n/a | — |
 | `module5-satellites-full` | N/A | n/a | Some repo-wide residuals belong here. |
@@ -67,9 +67,9 @@ Modules are worked strictly in order. You are on **module 2**. Do not start modu
 
 Within module 2, the next concrete coding targets (from `module2-source-contract.md §7`, ordered) are:
 
-1. **Extend G4 deterministic coverage** (`runtime/module2ParityFingerprint.ts`) further (frame-pacing traces remain partially open) beyond EV-0076 + EV-0082 + EV-0088 + EV-0089 + EV-0090 + EV-0096 + EV-0097 + EV-0099 + EV-0100 + EV-0101 traversal/lookup/astrometry/`stars_list`/projection/reuse/survey-registry/overlay-cadence/stars-c-runtime/stars-c-survey-lifecycle/stars-c-module-runtime slices.
-2. **`stars_list` / `stars_add_data_source` seams.** Live fetch lifecycle + full `stars.c` object graph remain open after loaded-tile adapter + iterator/loop-semantics hardening and survey-registry extraction (**EV-0078**–**EV-0082**, **EV-0092**, **EV-0093**, **EV-0094**, **EV-0095**, **EV-0096**).
-3. **Runtime stabilization.** User-reported blockers (no visible stars at default observer, laggy interaction) are not yet tied to a specific evidence row — treat frame pacing as a P0 investigation after #1 and #2 are in place.
+1. **G5 side-by-side parity harness.** Build a reproducible Hub-vs-pinned-Stellarium checkpoint for module2 stars surfaces so G5 can move from FAIL toward PASS; deterministic Hub-only replay is now extended through frame-pacing trace coverage (**EV-0102**) but is not a substitute for side-by-side parity.
+2. **`stars_list` / `stars_add_data_source` live lifecycle closure.** Live fetch lifecycle + full `stars.c` object graph remain open after loaded-tile adapter + iterator/loop-semantics hardening and survey-registry extraction (**EV-0078**–**EV-0082**, **EV-0092**, **EV-0093**, **EV-0094**, **EV-0095**, **EV-0096**, **EV-0100**, **EV-0101**).
+3. **Runtime stabilization.** User-reported blockers (no visible stars at default observer, laggy interaction) need active-scene profiling tied to a new evidence row; use the EV-0102 frame-pacing trace seam as the deterministic probe surface.
 
 Every landed change must:
 - Reference the exact Stellarium source line(s) it mirrors.
@@ -89,6 +89,7 @@ Every landed change must:
 6. **No scope expansion / speculative redesign.** See root `AGENTS.md` §7.
 7. **No module skipping.** See `module-gates.md` top of file.
 8. **Minimal diffs.** Touch only files required for the current step (root `AGENTS.md` §8).
+9. **Minimum port size.** Any accepted port slice must contribute at least **500 added implementation-code lines** (`Added`), excluding documentation-only and generated-evidence text, unless the user explicitly approves an exception.
 
 ---
 
@@ -99,7 +100,7 @@ npm run typecheck        # tsc --noEmit — required before claiming done
 npm run build            # vite production build
 npm run test:module0     # 12/12 (module 0 gate bundle)
 npm run test:module1     # 46/46 (module 1 gate bundle)
-npm run test:module2     # 150/150 across 23 files (module 2 gate bundle as of EV-0101)
+npm run test:module2     # 168/168 across 25 files (module 2 gate bundle as of EV-0103)
 npm run dev              # Vite dev server on 4173
 npm run preview          # Preview build on 4173
 npm test                 # Full Vitest; has 10 known residuals in module 3/5/6/7/8 scope — see module-gates.md "Known residuals". Not a module 2 gate.
@@ -126,11 +127,12 @@ CI gate workflows:
 | `painter_project(FRAME_ASTROM → FRAME_OBSERVED)` (`eraLdsun` + `eraAb` + `bpn^T` + `ri2h`) | `frontend/src/features/sky-engine/engine/sky/runtime/erfaAbLdsun.ts`, `transforms/coordinates.ts::convertObserverFrameVector` |
 | Per-star pv cache (`on_file_tile_loaded` once-per-tile behavior) | `frontend/src/features/sky-engine/engine/sky/services/sceneAssembler.ts` (`resolveCatalogPv` + `projectStarFromPv`) |
 | `obj_get_by_hip` (survey-wide loaded-tile lookup) | `frontend/src/features/sky-engine/engine/sky/adapters/starsLookup.ts` |
+| `star_render_name` / designations label seam | `frontend/src/features/sky-engine/engine/sky/adapters/starsCLabelRuntimePort.ts`; test `test_module2_stars_c_label_runtime_port.test.js` (EV-0103) |
 | HIP detail route + selection continuity | `frontend/src/features/sky-engine/engine/sky/adapters/starsLookup.ts` (`buildHipDetailRoute`), `frontend/src/features/sky-engine/SkyEngineScene.tsx` (`detailRoute`), `useSkyEngineSelection.ts` |
 | Hipparcos merge HIP ↔ HEALPix check | `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts` (`filterSurveyStarsForMerge` → `runtimeStarMatchesHipHealpixLookup`) |
 | Public module 2 exports | `frontend/src/features/sky-engine/engine/sky/index.ts` |
 | Stellarium simple-html UI assets | `frontend/public/stellarium-web/`, `frontend/src/pages/stellariumWebUiAssets.ts`, `frontend/src/pages/SkyEnginePage.tsx` (EV-0053) |
-| G4 deterministic fingerprint | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts`; test `test_module2_deterministic_replay.test.js` (EV-0043) |
+| G4 deterministic fingerprint | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts`; test `test_module2_deterministic_replay.test.js` (EV-0043); frame-pacing trace seam `framePacingDecisions.ts` + `test_module2_frame_pacing_decisions.test.js` (EV-0102); label runtime seam `starsCLabelRuntimePort.ts` + `test_module2_stars_c_label_runtime_port.test.js` (EV-0103) |
 
 Module 2 function inventory (per-function `PORTED` / `BLOCKED` status against concrete Hub paths, evidence, and tests) lives in **`module-inventory.md`** → "Module 2 Function Inventory (Stars Pipeline)".
 
@@ -139,7 +141,7 @@ Module 2 function inventory (per-function `PORTED` / `BLOCKED` status against co
 ## 9. Evidence conventions
 
 - Every `PASS` gate must reference at least one evidence row (`module-gates.md` Rules).
-- When you land new work, append a new row to `evidence-index.md` with the next free ID (**next: EV-0102**). Use the existing column shape: `| Evidence ID | Module | Gate | Command / Probe | Artifact Path | Result | Notes |`.
+- When you land new work, append a new row to `evidence-index.md` with the next free ID (**next: EV-0104**). Use the existing column shape: `| Evidence ID | Module | Gate | Command / Probe | Artifact Path | Result | Notes |`.
 - Keep existing EV rows immutable. `EV-0067` and `EV-0068` are intentionally unused — do not reuse them.
 - Cite the new EV ID in every doc that references the landed surface: `module-inventory.md` (function table), `module-gates.md` (module row), `module2-source-contract.md` (§5 gate + §7 evidence table), and any README range bumps.
 

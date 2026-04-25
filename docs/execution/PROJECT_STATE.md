@@ -30,25 +30,27 @@ PROJECT_STATE.md wins
 
 ```text
 Mode: FEATURE_EXECUTION
-Approach: bounded, architecture-aligned stabilization
+Approach: bounded, architecture-aligned Stellarium parity execution
 ```
 
 ---
 
 ## CURRENT OBJECTIVE
 
-Stabilize a usable product surface centered on:
+Complete Sky Engine Stellarium parity on the dedicated runtime surface:
 
 ```text
-Above Me Hub + self-contained Sky Engine viewport + correct engine routing
+/sky-engine runtime parity + correct ownership/routing + validated Stellarium-equivalent behavior
 ```
+
+Hub panel and viewport work on `/` is deferred until parity completion.
 
 ---
 
 ## ACTIVE FEATURE
 
 ```text
-Feature: Above Me Orchestration
+Feature: Sky Engine Stellarium Port
 Status: PARTIAL
 ```
 
@@ -58,23 +60,20 @@ Status: PARTIAL
 
 Focus only on fixing:
 
-* hub curation (must be small and meaningful)
-* correct object selection
+* Sky Engine parity behavior across core runtime modules
 * correct engine ownership and routing
-* meaningful object detail
-* viewport reflecting active engine
-* restoring Sky Engine runtime ownership behind a thin host mount
+* meaningful object selection/detail behavior within Sky Engine
+* `/sky-engine` viewport runtime correctness
+* replacing local heuristics where Stellarium source defines behavior
 
 ---
 
 ## KNOWN ISSUES
 
-* panel ownership unclear
-* feeds mixing domains incorrectly
-* hub not properly curated
-* detail behavior generic or incorrect
-* viewport not correctly tied to engine
-* Sky Engine runtime ownership blurred into page/component code
+* parity gaps across interaction shell and module behavior
+* object ownership/routing mismatches in some detail paths
+* non-parity heuristics still present in parts of the runtime
+* validation coverage incomplete for parity-sensitive behaviors
 
 ---
 
@@ -108,6 +107,7 @@ Do NOT:
 * bypass contracts
 * create placeholder UI
 * simulate correctness without validation
+* implement or refactor Hub home-route (`/`) panels/viewport until parity is complete
 
 ---
 
@@ -137,18 +137,18 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-Continue refining Above Me until:
+Continue Stellarium parity work in `/sky-engine` until:
 
-* outputs are curated
+* core behavior matches source-defined math, thresholds, and lifecycle
 * routing is correct
-* viewport reflects engine
+* viewport behavior is validated in runtime
 * detail is meaningful
-* Sky Engine owns its runtime again
+* Sky Engine ownership is fully isolated and stable
 
 Only then:
 
 ```text
-move to next feature
+unlock Hub integration work on '/'
 ```
 
 ---

@@ -27,24 +27,27 @@ LIVE_SESSION_BRIEF.md wins for current work
 
 ## Current Execution Status
 
-Astronomy Hub is in a **controlled product reset**.
+Astronomy Hub is in a **Sky Engine Stellarium Port Priority** cycle.
 
 This means:
 
+* `/sky-engine` parity work is the active lane
 * backend and data capabilities may be preserved
-* the product surface is being rebuilt
 * architecture is stable and must not be redefined
 * execution is constrained to a narrow scope
+* Hub surface integration on `/` is deferred until parity completion
 
 ---
 
 ## Active Product Definition
 
-The active product is:
+The active execution surface is:
 
 ```text
-Above Me Hub + Sky Engine viewport
+Sky Engine runtime at /sky-engine (port-first)
 ```
+
+The front-page Hub route (`/`) remains outside the active implementation scope during this cycle.
 
 ---
 
@@ -92,24 +95,22 @@ But it DOES:
 
 ### Front Page (Hub Mode)
 
-The front page must:
+For the current cycle:
 
-* act as a curated decision surface
-* present limited, high-value outputs
-* provide context through panels
-* allow interaction with the viewport
+* `/` is documentation/contract-only
+* no active implementation work is scheduled on Hub panels or Hub viewport composition
+* existing `/` behavior is not the parity target
 
 ---
 
 ### Engine Viewport Behavior
 
-The viewport:
+The active viewport target is `/sky-engine`:
 
-* renders the active engine
+* renders the Sky Engine runtime directly
 * supports interaction (click, focus, highlight)
-* updates based on feed interaction
-* does NOT expand into full engine mode by default
-* mounts Sky Engine as an engine-owned runtime, not as hub-owned rendering logic
+* preserves Stellarium-equivalent behavior for math, thresholds, and lifecycle
+* remains engine-owned runtime logic (no host-owned rendering logic)
 
 ---
 
@@ -196,17 +197,18 @@ Current work is LIMITED to:
 
 ### Allowed
 
-* building the Above Me Hub
-* implementing Sky Engine rendering (Babylon.js)
-* recovering Sky Engine as a self-contained Babylon.js runtime
-* connecting hub → engine interaction
-* enforcing architecture rules
+* porting Stellarium behavior into Sky Engine (`/sky-engine`)
+* implementing and validating Sky Engine rendering/runtime behavior (Babylon.js)
+* replacing non-parity local heuristics with Stellarium-equivalent logic
+* expanding parity coverage across high-use source modules and interaction shell
+* enforcing architecture rules and Sky Engine isolation
 * cleaning document authority
 
 ---
 
 ### Not Allowed
 
+* implementation work on `/` Hub panels or home-route viewport integration during this cycle
 * expanding all engines simultaneously
 * building full Earth Engine
 * adding new domains
@@ -218,21 +220,20 @@ Current work is LIMITED to:
 
 ## Current Output Constraints
 
-The Hub must remain:
+Current output must remain:
 
-* curated
-* small
-* intentional
+* parity-driven
+* source-traceable to Stellarium
+* validated by runtime and parity evidence
 
 ---
 
 ### Hard Constraints
 
-* no raw merged lists
-* no placeholder UI
 * no fake data
 * no dead controls
-* no uncontrolled object volume
+* no heuristic drift from Stellarium behavior in `/sky-engine`
+* no hub-coupled rendering logic inside Sky Engine
 
 ---
 
@@ -254,6 +255,21 @@ Active authority set:
 ### Vision Reference (NON-EXECUTION)
 
 * /docs/product/PRODUCT_VISION.md
+
+---
+
+## Porting Reprioritization (Active)
+
+Execution order for this cycle:
+
+1. Port and validate `/sky-engine` runtime parity end-to-end.
+2. Fix object ownership and routing contracts within Sky Engine boundaries.
+3. Port high-use Stellarium interaction shell modules relevant to `/sky-engine` behavior.
+4. Continue source-module parity until the Sky Engine is complete.
+
+Deferred until after parity:
+
+* Hub panel and viewport integration work on `/`
 
 ---
 

@@ -47,6 +47,12 @@ import {
   runStarsCFramePacingStep,
 } from '../adapters/framePacingDecisions'
 import {
+  buildStarsCLabelRuntimeFixtureCases,
+  computeStarsCLabelRuntimeFixtureDigest,
+  listStarsCDesignations,
+  selectStarsCLabelRuntimeDecision,
+} from '../adapters/starsCLabelRuntimePort'
+import {
   STELLARIUM_TONEMAPPER_EXPOSURE,
   STELLARIUM_TONEMAPPER_LWMAX_MAX,
   STELLARIUM_TONEMAPPER_P,
@@ -1350,6 +1356,26 @@ function starsCFramePacingSlice(): string {
   ].join('|')
 }
 
+function starsCLabelRuntimeSlice(): string {
+  const cases = buildStarsCLabelRuntimeFixtureCases()
+  const visibleCount = cases.reduce((count, fixture) => {
+    const decision = selectStarsCLabelRuntimeDecision(fixture.input)
+    return count + (decision.visible ? 1 : 0)
+  }, 0)
+  const designationCount = cases.reduce(
+    (count, fixture) => count + listStarsCDesignations(fixture.input.star).length,
+    0,
+  )
+
+  return [
+    'stars-c-label-runtime',
+    `cases:${cases.length}`,
+    `visible:${visibleCount}`,
+    `designations:${designationCount}`,
+    `digest:${computeStarsCLabelRuntimeFixtureDigest(cases)}`,
+  ].join('|')
+}
+
 /**
  * Canonical string for the module 2 ported surface. Two runs on the same build MUST match bitwise.
  */
@@ -1421,6 +1447,7 @@ export function computeModule2PortFingerprint(): string {
     starsCSurveyLifecycleSlice(),
     starsCModuleRuntimeSlice(),
     starsCFramePacingSlice(),
+    starsCLabelRuntimeSlice(),
   ]
 
   return parts.join('::')
