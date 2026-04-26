@@ -115,6 +115,11 @@ What is still missing for first-path painter integration:
 - Keep `directStarLayer.sync(...)` fully active as the rendering owner.
 - Gate: no visual behavior change, queue contains star-intent calls each frame.
 
+Status (EV-0113): PASS.
+- `StarsModule.render(...)` now emits an inert typed painter command (`paint_stars_draw_intent`) once final projected star draw data is available.
+- Existing Babylon thin-instance rendering remains unchanged and still executes through `directStarLayer.sync(...)`.
+- No `render_gl.c` backend execution or shader path was introduced in this slice.
+
 ### Stage 2 - Validate command counts and state via runtime telemetry
 
 - Compare per-frame projected star count vs painter point intent counts.

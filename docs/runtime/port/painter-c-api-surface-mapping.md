@@ -19,6 +19,7 @@ Queue model:
 - per-command payload shape mapped by callable
 - per-command batch snapshot placeholders (`mode`, `color`, `flags`, texture-slot bindings, projection/clipping state)
 - per-frame sequencing (`frameIndex`, monotonic `sequence`)
+- includes stars mirror command payload (`paint_stars_draw_intent`) for Stage 1 direct-path intent capture (count + source + magnitude + view snapshot)
 
 Lifecycle behavior:
 - `reset_for_frame(...)` clears mutable command storage and clears finalized command snapshots.
@@ -30,7 +31,8 @@ Lifecycle behavior:
 Validation:
 - `frontend/tests/test_sky_core_frame_lifecycle_order.test.js`
 - `frontend/tests/test_painter_port_command_queue.test.js`
-- Evidence: **EV-0111**.
+- `frontend/tests/sky-engine-stars-runtime.test.js` (stars mirror command emission + finalization + direct-path ownership)
+- Evidence: **EV-0111**, **EV-0113**.
 
 ## Enum Mapping (`painter.h`)
 

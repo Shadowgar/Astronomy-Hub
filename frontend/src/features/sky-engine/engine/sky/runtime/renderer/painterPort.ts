@@ -134,6 +134,38 @@ export interface SkyPainterCommandPayloadMap {
   readonly paint_texture: {
     readonly textureRef: string | null
   }
+  readonly paint_stars_draw_intent: {
+    readonly fromDirectStarPath: true
+    readonly starCount: number
+    readonly source: {
+      readonly dataMode: string | null
+      readonly sourceLabel: string | null
+      readonly scenePacketStarCount: number
+      readonly scenePacketTileCount: number
+      readonly diagnosticsActiveTiles: number | null
+      readonly diagnosticsVisibleTileIdsCount: number | null
+      readonly diagnosticsStarsListVisitCount: number | null
+    }
+    readonly magnitude: {
+      readonly limitingMagnitude: number
+      readonly minRenderedMagnitude: number | null
+      readonly maxRenderedMagnitude: number | null
+      readonly minRenderAlpha: number | null
+      readonly maxRenderAlpha: number | null
+    }
+    readonly view: {
+      readonly projectionMode: string | null
+      readonly fovDegrees: number
+      readonly viewportWidth: number
+      readonly viewportHeight: number
+      readonly centerDirection: {
+        readonly x: number
+        readonly y: number
+        readonly z: number
+      }
+      readonly sceneTimestampIso: string | null
+    }
+  }
   readonly paint_debug: {
     readonly value: boolean
   }
@@ -284,6 +316,13 @@ export class SkyPainterPortState {
   paint_text_bounds(): number { this.record('paint_text_bounds', {}); return 0 }
   paint_text(): number { this.record('paint_text', {}); return 0 }
   paint_texture(textureRef: string | null = null): number { this.record('paint_texture', { textureRef }); return 0 }
+  paint_stars_draw_intent(
+    payload: SkyPainterCommandPayloadMap['paint_stars_draw_intent'],
+  ): number {
+    this.mode = SkyPainterMode.MODE_POINTS
+    this.record('paint_stars_draw_intent', payload)
+    return 0
+  }
   paint_debug(value: boolean): void { this.debug = value; this.record('paint_debug', { value }) }
   painter_is_quad_clipped(): boolean { this.record('painter_is_quad_clipped', {}); return false }
   painter_is_healpix_clipped(): boolean { this.record('painter_is_healpix_clipped', {}); return false }

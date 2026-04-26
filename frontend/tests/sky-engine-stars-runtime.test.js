@@ -80,6 +80,7 @@ import { createDsoRuntimeModule } from '../src/features/sky-engine/engine/sky/ru
 import { createObjectRuntimeModule } from '../src/features/sky-engine/engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createPlanetRuntimeModule } from '../src/features/sky-engine/engine/sky/runtime/modules/PlanetRuntimeModule'
 import { createStarsModule } from '../src/features/sky-engine/engine/sky/runtime/modules/StarsModule'
+import { createSkyPainterPortState } from '../src/features/sky-engine/engine/sky/runtime/renderer/painterPort'
 import { collectProjectedStars } from '../src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame'
 
 function createBaseRuntime() {
@@ -280,6 +281,104 @@ describe('Sky star runtime ownership', () => {
 
     module.update({ runtime, services, getProps, getPropsVersion })
     expect(collectProjectedStars).toHaveBeenCalledTimes(2)
+  })
+
+  it('mirrors stars draw intent into painter queue while keeping direct star path active', () => {
+    const module = createStarsModule()
+    const runtime = {
+      ...createBaseRuntime(),
+      renderGlExecute: vi.fn(),
+    }
+    const services = createBaseServices()
+    const props = {
+      ...createBaseProps(),
+      projectionMode: 'stereographic',
+      scenePacket: {
+        stars: [
+          { id: 'star-1', x: 0, y: 0, z: 1, mag: 1.2, tier: 'T0' },
+        ],
+        starTiles: [
+          {
+            tileId: 'tile-0',
+            level: 0,
+            parentTileId: null,
+            childTileIds: [],
+            magMin: 0,
+            magMax: 6,
+            starIds: ['star-1'],
+          },
+        ],
+        labels: [],
+        diagnostics: {
+          dataMode: 'multi-survey',
+          sourceLabel: 'survey',
+          limitingMagnitude: 6.4,
+          activeTiles: 1,
+          visibleStars: 1,
+          starsListVisitCount: 4,
+          activeTiers: ['T0'],
+          tileLevels: [0],
+          tilesPerLevel: { 0: 1 },
+          maxTileDepthReached: 0,
+          visibleTileIds: ['tile-0'],
+        },
+      },
+    }
+    const getProps = () => props
+    const getPropsVersion = () => 1
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 42,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6.4,
+      hintsLimitMag: 6.4,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+
+    module.update({ runtime, services, getProps, getPropsVersion })
+    module.render({
+      runtime,
+      services,
+      getProps,
+      frameState: {
+        frameIndex: 42,
+        deltaSeconds: 0.016,
+        render: {
+          painter,
+          windowWidth: 800,
+          windowHeight: 400,
+          pixelScale: 1,
+          framebufferWidth: 800,
+          framebufferHeight: 400,
+          starsLimitMag: 6.4,
+          hintsLimitMag: 6.4,
+          hardLimitMag: 8,
+        },
+      },
+    })
+
+    const preFinishCommand = painter.drawQueue.find((entry) => entry.fn === 'paint_stars_draw_intent')
+    expect(preFinishCommand).toBeDefined()
+    expect(preFinishCommand?.frameIndex).toBe(42)
+    expect(preFinishCommand?.payload.starCount).toBe(1)
+    expect(preFinishCommand?.payload.source.scenePacketTileCount).toBe(1)
+    expect(preFinishCommand?.payload.source.diagnosticsActiveTiles).toBe(1)
+    expect(preFinishCommand?.payload.view.fovDegrees).toBe(60)
+    expect(preFinishCommand?.payload.fromDirectStarPath).toBe(true)
+    expect(painter.isFrameFinalized).toBe(false)
+    expect(painter.finalizedCommands).toHaveLength(0)
+
+    painter.paint_finish()
+    expect(painter.finalizedCommands.some((entry) => entry.fn === 'paint_stars_draw_intent')).toBe(true)
+
+    expect(runtime.directStarLayer.sync).toHaveBeenCalledTimes(1)
+    expect(runtime.renderGlExecute).not.toHaveBeenCalled()
   })
 
   it('ObjectRuntimeModule keeps stars, planets, and deep sky out of generic direct object sync', () => {

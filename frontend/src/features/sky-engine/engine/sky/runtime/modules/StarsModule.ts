@@ -95,6 +95,61 @@ export function evaluateStarsProjectionReuse(params: {
   }
 }
 
+function emitStarsDrawIntent(params: {
+  painter: NonNullable<Parameters<NonNullable<ReturnType<typeof createStarsModule>['render']>>[0]['frameState']>['render']['painter']
+  props: ScenePropsSnapshot
+  projectedStarsFrame: NonNullable<SceneRuntimeRefs['projectedStarsFrame']>
+}) {
+  let minRenderedMagnitude = Number.POSITIVE_INFINITY
+  let maxRenderedMagnitude = Number.NEGATIVE_INFINITY
+  let minRenderAlpha = Number.POSITIVE_INFINITY
+  let maxRenderAlpha = Number.NEGATIVE_INFINITY
+  for (const entry of params.projectedStarsFrame.projectedStars) {
+    const magnitude = entry.renderedMagnitude ?? entry.object.magnitude
+    if (Number.isFinite(magnitude)) {
+      minRenderedMagnitude = Math.min(minRenderedMagnitude, magnitude)
+      maxRenderedMagnitude = Math.max(maxRenderedMagnitude, magnitude)
+    }
+    if (Number.isFinite(entry.renderAlpha)) {
+      minRenderAlpha = Math.min(minRenderAlpha, entry.renderAlpha)
+      maxRenderAlpha = Math.max(maxRenderAlpha, entry.renderAlpha)
+    }
+  }
+
+  params.painter.paint_stars_draw_intent({
+    fromDirectStarPath: true,
+    starCount: params.projectedStarsFrame.projectedStars.length,
+    source: {
+      dataMode: params.props.scenePacket?.diagnostics.dataMode ?? null,
+      sourceLabel: params.props.scenePacket?.diagnostics.sourceLabel ?? null,
+      scenePacketStarCount: params.props.scenePacket?.stars.length ?? 0,
+      scenePacketTileCount: params.props.scenePacket?.starTiles.length ?? 0,
+      diagnosticsActiveTiles: params.props.scenePacket?.diagnostics.activeTiles ?? null,
+      diagnosticsVisibleTileIdsCount: params.props.scenePacket?.diagnostics.visibleTileIds.length ?? null,
+      diagnosticsStarsListVisitCount: params.props.scenePacket?.diagnostics.starsListVisitCount ?? null,
+    },
+    magnitude: {
+      limitingMagnitude: params.projectedStarsFrame.limitingMagnitude,
+      minRenderedMagnitude: Number.isFinite(minRenderedMagnitude) ? minRenderedMagnitude : null,
+      maxRenderedMagnitude: Number.isFinite(maxRenderedMagnitude) ? maxRenderedMagnitude : null,
+      minRenderAlpha: Number.isFinite(minRenderAlpha) ? minRenderAlpha : null,
+      maxRenderAlpha: Number.isFinite(maxRenderAlpha) ? maxRenderAlpha : null,
+    },
+    view: {
+      projectionMode: params.props.projectionMode ?? null,
+      fovDegrees: params.projectedStarsFrame.currentFovDegrees,
+      viewportWidth: params.projectedStarsFrame.width,
+      viewportHeight: params.projectedStarsFrame.height,
+      centerDirection: {
+        x: params.projectedStarsFrame.view.centerDirection.x,
+        y: params.projectedStarsFrame.view.centerDirection.y,
+        z: params.projectedStarsFrame.view.centerDirection.z,
+      },
+      sceneTimestampIso: params.projectedStarsFrame.sceneTimestampIso ?? null,
+    },
+  })
+}
+
 export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   return {
     id: 'sky-stars-runtime-module',
@@ -235,19 +290,29 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
         starCount: projectedStars.length,
       }
     },
-    render({ runtime, services, getProps }) {
+    render({ runtime, services, getProps, frameState }) {
       const projectedStarsFrame = runtime.projectedStarsFrame
+      const props = getProps()
+      const painter = frameState?.render.painter
 
       if (!projectedStarsFrame) {
         runtime.directStarLayer.sync([], 0, 0, null, services.clockService.getAnimationTimeSeconds())
         return
       }
 
+      if (painter) {
+        emitStarsDrawIntent({
+          painter,
+          props,
+          projectedStarsFrame,
+        })
+      }
+
       const syncMetrics = runtime.directStarLayer.sync(
         projectedStarsFrame.projectedStars,
         projectedStarsFrame.width,
         projectedStarsFrame.height,
-        getProps().selectedObjectId,
+        props.selectedObjectId,
         services.clockService.getAnimationTimeSeconds(),
       )
       const resolvedSyncMetrics = syncMetrics ?? {
