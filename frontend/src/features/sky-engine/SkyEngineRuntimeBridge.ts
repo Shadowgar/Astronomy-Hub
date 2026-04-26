@@ -20,6 +20,7 @@ import { createDirectBackgroundLayer } from './directBackgroundLayer'
 import { createDirectObjectLayer } from './directObjectLayer'
 import { createDirectOverlayLayer } from './directOverlayLayer'
 import { createDirectStarLayer } from './directStarLayer'
+import { createPainterStarsBackendLayer } from './engine/sky/runtime/renderer/painterStarsBackendLayer'
 import type { SkyScenePacket } from './engine/sky'
 import type { ObserverAstrometrySnapshot } from './engine/sky/transforms/coordinates'
 import type { SkyTileCatalog } from './engine/sky/contracts/tiles'
@@ -100,6 +101,7 @@ export interface SceneRuntimeRefs {
   directDsoLayer: ReturnType<typeof createDsoRenderer>
   directSatelliteLayer: ReturnType<typeof createSatelliteRenderer>
   directStarLayer: ReturnType<typeof createDirectStarLayer>
+  painterOwnedStarBackendLayer: ReturnType<typeof createPainterStarsBackendLayer>
   directObjectLayer: ReturnType<typeof createDirectObjectLayer>
   directOverlayLayer: ReturnType<typeof createDirectOverlayLayer>
   directPointerLayer: ReturnType<typeof createPointerRenderer>
@@ -181,6 +183,7 @@ export function createSceneRuntimeState({
     directDsoLayer: createDsoRenderer(scene),
     directSatelliteLayer: createSatelliteRenderer(scene),
     directStarLayer: createDirectStarLayer(scene),
+    painterOwnedStarBackendLayer: createPainterStarsBackendLayer(),
     directObjectLayer: createDirectObjectLayer(scene),
     directOverlayLayer: createDirectOverlayLayer(scene),
     directPointerLayer: createPointerRenderer(scene),
@@ -247,6 +250,7 @@ export function createSkySceneBridgeModule(): SkyModule<ScenePropsSnapshot, Scen
       runtime.directDsoLayer.dispose()
       runtime.directSatelliteLayer.dispose()
       runtime.directStarLayer.dispose()
+      runtime.painterOwnedStarBackendLayer.dispose()
       runtime.directObjectLayer.dispose()
       runtime.directOverlayLayer.dispose()
     },

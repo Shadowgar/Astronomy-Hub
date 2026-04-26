@@ -1,4 +1,5 @@
 import type { SkyPainterFinalizedBatch, SkyPainterStarsBatch } from './painterPort'
+import { buildPainterOwnedLayerSyncInput, type SkyPainterStarsBackendLayer } from './painterStarsBackendLayer'
 
 export const SKY_ENGINE_ENABLE_PAINTER_BACKEND_EXECUTION = 'SKY_ENGINE_ENABLE_PAINTER_BACKEND_EXECUTION'
 export const SKY_ENGINE_ENABLE_PAINTER_BACKEND_EXECUTION_QUERY_PARAM = 'painterBackendExecution'
@@ -7,6 +8,7 @@ export type SkyPainterBackendExecutionStatus =
   | 'mapped_not_executed'
   | 'execution_disabled'
   | 'executed_side_by_side'
+  | 'executed_side_by_side_painter_layer'
 export type SkyPainterUnsupportedBatchStatus = 'unsupported_not_executed'
 export type SkyPainterBackendPath = 'babylon-thin-instance-stars'
 
@@ -96,6 +98,10 @@ export interface SkyPainterBackendExecutionPlan {
     readonly unsupportedBatchCount: number
     readonly sideBySideExecutionCount: number
     readonly executionDisabledCount: number
+    readonly painterOwnedStarLayerCreated: boolean
+    readonly painterOwnedStarLayerSynced: boolean
+    readonly painterOwnedStarLayerStarCount: number
+    readonly directStarLayerStillActive: boolean
     readonly executionStatus: SkyPainterBackendExecutionStatus | SkyPainterUnsupportedBatchStatus
   }
 }
@@ -211,9 +217,13 @@ function buildExecutionSummaryStatus(params: {
   executionEnabled: boolean
   sideBySideExecutionCount: number
   executionDisabledCount: number
+  painterOwnedStarLayerSynced: boolean
   mappedBatchCount: number
   unsupportedBatchCount: number
 }): SkyPainterBackendExecutionStatus | SkyPainterUnsupportedBatchStatus {
+  if (params.painterOwnedStarLayerSynced) {
+    return 'executed_side_by_side_painter_layer'
+  }
   if (params.sideBySideExecutionCount > 0) {
     return 'executed_side_by_side'
   }
@@ -229,14 +239,31 @@ function buildExecutionSummaryStatus(params: {
   return 'mapped_not_executed'
 }
 
+function accumulatePainterOwnedSyncState(params: {
+  readonly syncResult: { created?: boolean; synced?: boolean; syncedStarCount?: number } | undefined
+  readonly current: {
+    created: boolean
+    synced: boolean
+    starCount: number
+  }
+}) {
+  return {
+    created: params.current.created || Boolean(params.syncResult?.created),
+    synced: params.current.synced || Boolean(params.syncResult?.synced),
+    starCount: params.current.starCount + (params.syncResult?.syncedStarCount ?? 0),
+  }
+}
+
 export function executePainterBackendPlan(params: {
   readonly finalizedBatches: ReadonlyArray<SkyPainterFinalizedBatch>
   readonly mappingPlan: SkyPainterBackendMappingPlan
   readonly executionEnabled: boolean
   readonly sideBySideRenderer?: SkyPainterBackendSideBySideAdapter | null
+  readonly painterOwnedStarLayer?: SkyPainterStarsBackendLayer | null
   readonly projectedStarsFrame?: SkyPainterBackendProjectedStarsFrameLike | null
   readonly selectedObjectId?: string | null
   readonly animationTimeSeconds?: number
+  readonly directStarLayerStillActive?: boolean
 }): SkyPainterBackendExecutionPlan {
   const byFrameAndKind = new Map<string, SkyPainterStarsBatch>()
   for (const batch of params.finalizedBatches) {
@@ -245,6 +272,9 @@ export function executePainterBackendPlan(params: {
 
   let sideBySideExecutionCount = 0
   let executionDisabledCount = 0
+  let painterOwnedStarLayerCreated = false
+  let painterOwnedStarLayerSynced = false
+  let painterOwnedStarLayerStarCount = 0
 
   const mappedBatches = params.mappingPlan.mappedBatches.map<SkyPainterStarsBackendExecutionResult>((mappedBatch) => {
     const finalizedStarsBatch = byFrameAndKind.get(
@@ -259,9 +289,34 @@ export function executePainterBackendPlan(params: {
     }
 
     if (!params.sideBySideRenderer || !params.projectedStarsFrame) {
+      if (!params.painterOwnedStarLayer || !finalizedStarsBatch) {
+        return {
+          ...mappedBatch,
+          executionStatus: 'mapped_not_executed',
+        }
+      }
+
+      const painterOwnedSync = params.painterOwnedStarLayer.syncFromMappedBatch(
+        buildPainterOwnedLayerSyncInput({
+          finalizedStarsBatch,
+          mappedBatch,
+        }),
+      )
+      const nextPainterOwnedSyncState = accumulatePainterOwnedSyncState({
+        syncResult: painterOwnedSync,
+        current: {
+          created: painterOwnedStarLayerCreated,
+          synced: painterOwnedStarLayerSynced,
+          starCount: painterOwnedStarLayerStarCount,
+        },
+      })
+      sideBySideExecutionCount += 1
+      painterOwnedStarLayerCreated = nextPainterOwnedSyncState.created
+      painterOwnedStarLayerSynced = nextPainterOwnedSyncState.synced
+      painterOwnedStarLayerStarCount = nextPainterOwnedSyncState.starCount
       return {
         ...mappedBatch,
-        executionStatus: 'mapped_not_executed',
+        executionStatus: 'executed_side_by_side_painter_layer',
       }
     }
 
@@ -272,6 +327,32 @@ export function executePainterBackendPlan(params: {
       params.selectedObjectId ?? null,
       params.animationTimeSeconds ?? 0,
     )
+
+    if (params.painterOwnedStarLayer && finalizedStarsBatch) {
+      const painterOwnedSync = params.painterOwnedStarLayer.syncFromMappedBatch(
+        buildPainterOwnedLayerSyncInput({
+          finalizedStarsBatch,
+          mappedBatch,
+        }),
+      )
+      const nextPainterOwnedSyncState = accumulatePainterOwnedSyncState({
+        syncResult: painterOwnedSync,
+        current: {
+          created: painterOwnedStarLayerCreated,
+          synced: painterOwnedStarLayerSynced,
+          starCount: painterOwnedStarLayerStarCount,
+        },
+      })
+      sideBySideExecutionCount += 1
+      painterOwnedStarLayerCreated = nextPainterOwnedSyncState.created
+      painterOwnedStarLayerSynced = nextPainterOwnedSyncState.synced
+      painterOwnedStarLayerStarCount = nextPainterOwnedSyncState.starCount
+      return {
+        ...mappedBatch,
+        executionStatus: 'executed_side_by_side_painter_layer',
+      }
+    }
+
     sideBySideExecutionCount += 1
     return {
       ...mappedBatch,
@@ -292,10 +373,15 @@ export function executePainterBackendPlan(params: {
       unsupportedBatchCount: params.mappingPlan.unsupportedBatches.length,
       sideBySideExecutionCount,
       executionDisabledCount,
+      painterOwnedStarLayerCreated,
+      painterOwnedStarLayerSynced,
+      painterOwnedStarLayerStarCount,
+      directStarLayerStillActive: params.directStarLayerStillActive ?? false,
       executionStatus: buildExecutionSummaryStatus({
         executionEnabled: params.executionEnabled,
         sideBySideExecutionCount,
         executionDisabledCount,
+        painterOwnedStarLayerSynced,
         mappedBatchCount: mappedBatches.length,
         unsupportedBatchCount: params.mappingPlan.unsupportedBatches.length,
       }),

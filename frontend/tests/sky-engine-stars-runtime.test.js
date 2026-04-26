@@ -100,6 +100,14 @@ function createBaseRuntime() {
     directStarLayer: {
       sync: vi.fn(),
     },
+    painterOwnedStarBackendLayer: {
+      syncFromMappedBatch: vi.fn((input) => ({
+        created: true,
+        synced: true,
+        syncedStarCount: input.starCount,
+      })),
+      dispose: vi.fn(),
+    },
     projectedStarsFrame: null,
     projectedSceneFrame: null,
     projectedNonStarObjects: [],
@@ -580,12 +588,18 @@ describe('Sky star runtime ownership', () => {
     expect(runtimePerf.painterStarTelemetry.backendExecutionStatus).toBe('execution_disabled')
     expect(runtimePerf.painterStarTelemetry.backendSideBySideExecutionCount).toBe(0)
     expect(runtimePerf.painterStarTelemetry.backendExecutionDisabledCount).toBe(1)
+    expect(runtimePerf.painterStarTelemetry.painterOwnedStarLayerCreated).toBe(false)
+    expect(runtimePerf.painterStarTelemetry.painterOwnedStarLayerSynced).toBe(false)
+    expect(runtimePerf.painterStarTelemetry.painterOwnedStarLayerStarCount).toBe(0)
+    expect(runtimePerf.painterStarTelemetry.directStarLayerStillActive).toBe(true)
     expect(runtimePerf.painterStarTelemetry.comparison.painterVsDirectDelta).toBe(0)
     expect(runtimePerf.painterStarTelemetry.comparison.batchVsDirectDelta).toBe(0)
     expect(runtimePerf.painterStarTelemetry.comparison.batchVsProjectedDelta).toBe(0)
     expect(runtimePerf.painterStarTelemetry.comparison.batchVsRenderedDelta).toBe(0)
     expect(runtimePerf.painterStarTelemetry.comparison.backendMappedVsDirectDelta).toBe(0)
     expect(runtimePerf.painterStarTelemetry.comparison.backendMappedVsBatchDelta).toBe(0)
+    expect(runtimePerf.painterStarTelemetry.comparison.painterOwnedVsDirectDelta).toBeNull()
+    expect(runtime.painterOwnedStarBackendLayer.syncFromMappedBatch).not.toHaveBeenCalled()
 
     reportingModule.dispose({ runtime })
   })
@@ -741,10 +755,16 @@ describe('Sky star runtime ownership', () => {
 
     const runtimePerf = JSON.parse(canvas.dataset.skyEngineRuntimePerf)
     expect(runtimePerf.painterStarTelemetry.backendExecutionEnabled).toBe(true)
-    expect(runtimePerf.painterStarTelemetry.backendExecutionStatus).toBe('executed_side_by_side')
+    expect(runtimePerf.painterStarTelemetry.backendExecutionStatus).toBe('executed_side_by_side_painter_layer')
     expect(runtimePerf.painterStarTelemetry.backendSideBySideExecutionCount).toBe(1)
     expect(runtimePerf.painterStarTelemetry.backendExecutionDisabledCount).toBe(0)
+    expect(runtimePerf.painterStarTelemetry.painterOwnedStarLayerCreated).toBe(true)
+    expect(runtimePerf.painterStarTelemetry.painterOwnedStarLayerSynced).toBe(true)
+    expect(runtimePerf.painterStarTelemetry.painterOwnedStarLayerStarCount).toBe(1)
+    expect(runtimePerf.painterStarTelemetry.directStarLayerStillActive).toBe(true)
+    expect(runtimePerf.painterStarTelemetry.comparison.painterOwnedVsDirectDelta).toBe(0)
     expect(runtime.directStarLayer.sync).toHaveBeenCalledTimes(1)
+    expect(runtime.painterOwnedStarBackendLayer.syncFromMappedBatch).toHaveBeenCalledTimes(1)
 
     reportingModule.dispose({ runtime })
   })

@@ -95,6 +95,7 @@ Stage 4B additions:
   - `mapped_not_executed`
   - `execution_disabled`
   - `executed_side_by_side`
+  - `executed_side_by_side_painter_layer`
   - `unsupported_not_executed`
 
 Execution semantics:
@@ -123,6 +124,29 @@ Validation:
 - `/home/rocco/Astronomy-Hub/.cursor-artifacts/parity-compare/stars-painter-backend-runtime-profile-on-2026-04-26.json`
 - `docs/runtime/port/stars-painter-backend-runtime-profile.md`
 - Evidence: **EV-0118**.
+
+## Stage 4D Painter-Owned Backend Layer Prototype (Slice 1F)
+
+Stage 4D adds a dedicated painter-owned backend layer boundary without replacing the direct stars path:
+- new file:
+  - `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterStarsBackendLayer.ts`
+- runtime wiring:
+  - `SkyEngineRuntimeBridge` now provisions `runtime.painterOwnedStarBackendLayer`
+- execution semantics:
+  - OFF mode: no painter-owned layer create/sync
+  - ON mode: side-by-side sync can target painter-owned layer and returns `executed_side_by_side_painter_layer`
+
+Telemetry additions:
+- `painterOwnedStarLayerCreated`
+- `painterOwnedStarLayerSynced`
+- `painterOwnedStarLayerStarCount`
+- `directStarLayerStillActive`
+- `painterOwnedVsDirectDelta`
+
+Validation:
+- `frontend/tests/test_painter_backend_port.test.js`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+- Evidence: **EV-0119**.
 
 ## Enum Mapping (`painter.h`)
 

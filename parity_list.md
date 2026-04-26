@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-26 (Port Block 19: Stars painter Stage 4C validates default-OFF and explicit-ON side-by-side runtime telemetry)
+Last updated: 2026-04-26 (Port Block 20: Stars painter Stage 4D adds painter-owned side-by-side backend layer prototype)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -229,6 +229,38 @@ Interpretation:
 - ON run confirms side-by-side-only execution (`backendExecutionEnabledShare.avg=1`, `backendExecutedSideBySideShare.avg=1`, `backendSideBySideExecutionCount.avg=1`).
 - Direct stars rendering remains active in both runs (`starThinInstanceCount.p50=9`), deltas remain zero (`batchVsDirectDelta.max=0`, `backendMappedVsDirectDelta.max=0`), and unsupported execution is absent (`backendUnsupportedBatchCount.max=0`).
 - No renderer replacement or visual-path ownership change is introduced.
+
+## Port Block 20 (Executed, partial parity)
+### Stars Painter Stage 4D Painter-Owned Babylon Render Object Prototype
+
+Stellarium authority files:
+- `src/render.h`
+- `src/render_gl.c`
+- `src/painter.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterStarsBackendLayer.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterBackendPort.ts`
+- `frontend/src/features/sky-engine/SkyEngineRuntimeBridge.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/SceneReportingModule.ts`
+- `frontend/tests/test_painter_backend_port.test.js`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+
+Explicit local logic deleted/replaced in this block:
+1. Added a dedicated painter-owned stars backend adapter shell with an explicit finalized-batch sync contract.
+2. Extended backend execution to support distinct Stage 4D side-by-side status `executed_side_by_side_painter_layer`.
+3. Added telemetry fields for painter-owned layer creation/sync/star-count and direct-path continuity checks.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_painter_backend_port.test.js tests/sky-engine-stars-runtime.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+
+Interpretation:
+- Stage 4D introduces a separate painter-owned backend object boundary behind the existing execution flag while keeping default OFF behavior.
+- OFF mode does not create/sync painter-owned layer and preserves Stage 4C behavior.
+- ON mode can sync painter-owned layer side-by-side while direct stars rendering remains active.
+- No renderer replacement, projection-math changes, load-path changes, or style changes were introduced.
 
 ## Port Block 13 (Executed, partial parity)
 ### Large HIP Probe Expansion + Generated-Type Inference Stabilization

@@ -54,6 +54,10 @@ type PainterStarTelemetrySnapshot = {
   backendExecutionStatus: string | null
   backendSideBySideExecutionCount: number
   backendExecutionDisabledCount: number
+  painterOwnedStarLayerCreated: boolean
+  painterOwnedStarLayerSynced: boolean
+  painterOwnedStarLayerStarCount: number
+  directStarLayerStillActive: boolean
   comparison: {
     painterVsDirectDelta: number | null
     painterVsProjectedDelta: number | null
@@ -63,6 +67,7 @@ type PainterStarTelemetrySnapshot = {
     batchVsRenderedDelta: number | null
     backendMappedVsDirectDelta: number | null
     backendMappedVsBatchDelta: number | null
+    painterOwnedVsDirectDelta: number | null
   }
 }
 
@@ -182,6 +187,10 @@ function buildPainterStarTelemetry(params: {
     backendExecutionStatus: params.backendExecutionPlan.summary.executionStatus,
     backendSideBySideExecutionCount: params.backendExecutionPlan.summary.sideBySideExecutionCount,
     backendExecutionDisabledCount: params.backendExecutionPlan.summary.executionDisabledCount,
+    painterOwnedStarLayerCreated: params.backendExecutionPlan.summary.painterOwnedStarLayerCreated,
+    painterOwnedStarLayerSynced: params.backendExecutionPlan.summary.painterOwnedStarLayerSynced,
+    painterOwnedStarLayerStarCount: params.backendExecutionPlan.summary.painterOwnedStarLayerStarCount,
+    directStarLayerStillActive: params.backendExecutionPlan.summary.directStarLayerStillActive,
     comparison: {
       painterVsDirectDelta: resolveNullableDelta(painterStarPayloadStarCount, directStarSyncCount),
       painterVsProjectedDelta: resolveNullableDelta(painterStarPayloadStarCount, params.projectedStarCount),
@@ -196,6 +205,12 @@ function buildPainterStarTelemetry(params: {
       backendMappedVsBatchDelta: resolveNullableDelta(
         params.backendExecutionPlan.summary.mappedStarsCount,
         batchStarCountForDelta,
+      ),
+      painterOwnedVsDirectDelta: resolveNullableDelta(
+        params.backendExecutionPlan.summary.painterOwnedStarLayerSynced
+          ? params.backendExecutionPlan.summary.painterOwnedStarLayerStarCount
+          : null,
+        directStarSyncCount,
       ),
     },
   }
@@ -340,6 +355,7 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
         mappingPlan: backendMappingPlan,
         executionEnabled: runtime.painterBackendExecutionEnabled,
         sideBySideRenderer: runtime.directStarLayer,
+        painterOwnedStarLayer: runtime.painterOwnedStarBackendLayer,
         projectedStarsFrame: runtime.projectedStarsFrame
           ? {
               projectedStars: runtime.projectedStarsFrame.projectedStars,
@@ -349,6 +365,7 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
           : null,
         selectedObjectId: latest.selectedObjectId,
         animationTimeSeconds: services.clockService.getAnimationTimeSeconds(),
+        directStarLayerStillActive: (latestPerf.stepMs.starLayerSyncCallCount ?? 0) > 0,
       })
       const painterStarTelemetry = buildPainterStarTelemetry({
         frameIndex: frameState.frameIndex,

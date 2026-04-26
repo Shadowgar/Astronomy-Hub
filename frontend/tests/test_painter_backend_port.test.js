@@ -126,12 +126,14 @@ describe('painterBackendPort mapping shell (inert)', () => {
       finalizedBatches: [starsBatch],
     })
     const sideBySideRenderer = { sync: vi.fn() }
+    const painterOwnedLayer = { syncFromMappedBatch: vi.fn() }
 
     const executionPlan = executePainterBackendPlan({
       finalizedBatches: [starsBatch],
       mappingPlan,
       executionEnabled: false,
       sideBySideRenderer,
+      painterOwnedStarLayer: painterOwnedLayer,
       projectedStarsFrame: {
         projectedStars: [{ object: { id: 'star-1' } }],
         width: 800,
@@ -142,6 +144,7 @@ describe('painterBackendPort mapping shell (inert)', () => {
     })
 
     expect(sideBySideRenderer.sync).not.toHaveBeenCalled()
+    expect(painterOwnedLayer.syncFromMappedBatch).not.toHaveBeenCalled()
     expect(executionPlan.summary.executionEnabled).toBe(false)
     expect(executionPlan.summary.executionStatus).toBe('execution_disabled')
     expect(executionPlan.summary.executionDisabledCount).toBe(1)
@@ -150,6 +153,43 @@ describe('painterBackendPort mapping shell (inert)', () => {
   })
 
   it('ON mode executes side-by-side and marks executed_side_by_side', () => {
+    const starsBatch = buildFinalizedStarsBatch()
+    const mappingPlan = mapPainterBatchesToBackendPlan({
+      finalizedBatches: [starsBatch],
+    })
+    const sideBySideRenderer = { sync: vi.fn() }
+    const painterOwnedLayer = {
+      syncFromMappedBatch: vi.fn(() => ({ created: true, synced: true, syncedStarCount: 3 })),
+    }
+
+    const executionPlan = executePainterBackendPlan({
+      finalizedBatches: [starsBatch],
+      mappingPlan,
+      executionEnabled: true,
+      sideBySideRenderer,
+      painterOwnedStarLayer: painterOwnedLayer,
+      projectedStarsFrame: {
+        projectedStars: [{ object: { id: 'star-1' } }],
+        width: 800,
+        height: 400,
+      },
+      selectedObjectId: 'star-1',
+      animationTimeSeconds: 1.2,
+    })
+
+    expect(sideBySideRenderer.sync).toHaveBeenCalledTimes(1)
+    expect(painterOwnedLayer.syncFromMappedBatch).toHaveBeenCalledTimes(1)
+    expect(executionPlan.summary.executionEnabled).toBe(true)
+    expect(executionPlan.summary.executionStatus).toBe('executed_side_by_side_painter_layer')
+    expect(executionPlan.summary.sideBySideExecutionCount).toBe(1)
+    expect(executionPlan.summary.executionDisabledCount).toBe(0)
+    expect(executionPlan.summary.painterOwnedStarLayerCreated).toBe(true)
+    expect(executionPlan.summary.painterOwnedStarLayerSynced).toBe(true)
+    expect(executionPlan.summary.painterOwnedStarLayerStarCount).toBe(3)
+    expect(executionPlan.mappedBatches[0].executionStatus).toBe('executed_side_by_side_painter_layer')
+  })
+
+  it('ON mode can still execute side-by-side without painter-owned layer', () => {
     const starsBatch = buildFinalizedStarsBatch()
     const mappingPlan = mapPainterBatchesToBackendPlan({
       finalizedBatches: [starsBatch],
@@ -171,11 +211,10 @@ describe('painterBackendPort mapping shell (inert)', () => {
     })
 
     expect(sideBySideRenderer.sync).toHaveBeenCalledTimes(1)
-    expect(executionPlan.summary.executionEnabled).toBe(true)
     expect(executionPlan.summary.executionStatus).toBe('executed_side_by_side')
-    expect(executionPlan.summary.sideBySideExecutionCount).toBe(1)
-    expect(executionPlan.summary.executionDisabledCount).toBe(0)
-    expect(executionPlan.mappedBatches[0].executionStatus).toBe('executed_side_by_side')
+    expect(executionPlan.summary.painterOwnedStarLayerCreated).toBe(false)
+    expect(executionPlan.summary.painterOwnedStarLayerSynced).toBe(false)
+    expect(executionPlan.summary.painterOwnedStarLayerStarCount).toBe(0)
   })
 
   it('unsupported batches remain not executed in execution phase', () => {
@@ -190,12 +229,14 @@ describe('painterBackendPort mapping shell (inert)', () => {
       finalizedBatches: [starsBatch, unsupportedBatch],
     })
     const sideBySideRenderer = { sync: vi.fn() }
+    const painterOwnedLayer = { syncFromMappedBatch: vi.fn() }
 
     const executionPlan = executePainterBackendPlan({
       finalizedBatches: [starsBatch],
       mappingPlan,
       executionEnabled: true,
       sideBySideRenderer,
+      painterOwnedStarLayer: painterOwnedLayer,
       projectedStarsFrame: {
         projectedStars: [{ object: { id: 'star-1' } }],
         width: 800,
@@ -208,5 +249,44 @@ describe('painterBackendPort mapping shell (inert)', () => {
     expect(executionPlan.unsupportedBatches).toHaveLength(1)
     expect(executionPlan.unsupportedBatches[0].status).toBe('unsupported_not_executed')
     expect(sideBySideRenderer.sync).toHaveBeenCalledTimes(1)
+    expect(painterOwnedLayer.syncFromMappedBatch).toHaveBeenCalledTimes(1)
+  })
+
+  it('unsupported-only batches do not create or sync painter-owned layer', () => {
+    const unsupportedBatch = {
+      kind: 'mesh',
+      frameIndex: 8,
+      sourceCommandKind: 'paint_mesh',
+      batch: { reason: 'future-stage' },
+    }
+    const mappingPlan = mapPainterBatchesToBackendPlan({
+      finalizedBatches: [unsupportedBatch],
+    })
+    const sideBySideRenderer = { sync: vi.fn() }
+    const painterOwnedLayer = { syncFromMappedBatch: vi.fn() }
+
+    const executionPlan = executePainterBackendPlan({
+      finalizedBatches: [],
+      mappingPlan,
+      executionEnabled: true,
+      sideBySideRenderer,
+      painterOwnedStarLayer: painterOwnedLayer,
+      projectedStarsFrame: {
+        projectedStars: [{ object: { id: 'star-1' } }],
+        width: 800,
+        height: 400,
+      },
+      selectedObjectId: null,
+      animationTimeSeconds: 1,
+    })
+
+    expect(executionPlan.mappedBatches).toHaveLength(0)
+    expect(executionPlan.unsupportedBatches).toHaveLength(1)
+    expect(executionPlan.summary.executionStatus).toBe('unsupported_not_executed')
+    expect(executionPlan.summary.painterOwnedStarLayerCreated).toBe(false)
+    expect(executionPlan.summary.painterOwnedStarLayerSynced).toBe(false)
+    expect(executionPlan.summary.painterOwnedStarLayerStarCount).toBe(0)
+    expect(sideBySideRenderer.sync).not.toHaveBeenCalled()
+    expect(painterOwnedLayer.syncFromMappedBatch).not.toHaveBeenCalled()
   })
 })

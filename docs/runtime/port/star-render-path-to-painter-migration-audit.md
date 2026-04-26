@@ -213,6 +213,33 @@ Status (EV-0118): PASS.
 - Unsupported execution remains absent (`backendUnsupportedBatchCount.max = 0`).
 - No renderer replacement was introduced.
 
+### Stage 4D - Painter-owned Babylon render object prototype (side-by-side)
+
+- Add a separate painter-owned stars backend layer contract behind the existing backend execution flag.
+- Keep direct stars rendering active in both OFF and ON modes.
+- Keep default execution OFF.
+
+Status (EV-0119): PASS.
+- Added a dedicated painter-owned backend layer adapter shell:
+  - `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterStarsBackendLayer.ts`
+- Runtime now owns both layers independently:
+  - direct layer: `runtime.directStarLayer`
+  - painter-owned side-by-side layer: `runtime.painterOwnedStarBackendLayer`
+- OFF mode:
+  - no painter-owned layer creation/sync
+  - telemetry reports `execution_disabled`
+- ON mode:
+  - side-by-side execution can sync painter-owned layer with finalized stars batch/backend-plan payload
+  - telemetry status is distinct: `executed_side_by_side_painter_layer`
+- Telemetry additions:
+  - `painterOwnedStarLayerCreated`
+  - `painterOwnedStarLayerSynced`
+  - `painterOwnedStarLayerStarCount`
+  - `painterOwnedVsDirectDelta`
+  - `directStarLayerStillActive`
+- Direct stars ownership remains active and unchanged (`StarsModule -> directStarLayer.sync(...)`).
+- No renderer replacement was introduced.
+
 ### Stage 5 - Remove old direct stars render path
 
 - Remove/bypass `directStarLayer.sync(...)` from stars module render ownership.

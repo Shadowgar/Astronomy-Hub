@@ -75,6 +75,7 @@ Execution statuses:
 - `mapped_not_executed`
 - `execution_disabled`
 - `executed_side_by_side`
+- `executed_side_by_side_painter_layer`
 - `unsupported_not_executed`
 
 Behavior:
@@ -86,6 +87,26 @@ Stage 4B boundaries:
 - direct stars render ownership remains `StarsModule -> directStarLayer.sync(...)`
 - no renderer replacement
 - no projection/math/loading/styling changes
+
+## Stage 4D Painter-Owned Layer Contract
+
+New adapter shell:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterStarsBackendLayer.ts`
+
+Contract:
+- accepts finalized stars batch + mapped backend metadata through explicit sync input
+- remains gated behind `painterBackendExecution` runtime flag
+- does not replace or mutate `directStarLayer`
+- exposes creation/sync state for telemetry
+
+Stage 4D behavior:
+- OFF mode:
+  - painter-owned layer is not created/synced
+  - execution status remains `execution_disabled`
+- ON mode:
+  - side-by-side path can sync painter-owned layer
+  - execution status becomes `executed_side_by_side_painter_layer`
+  - direct stars path remains active
 
 ## Stage 4C Runtime Profiling Validation
 
@@ -108,3 +129,4 @@ Evidence:
 - `EV-0116`
 - `EV-0117`
 - `EV-0118`
+- `EV-0119`
