@@ -611,3 +611,29 @@ Interpretation:
 - Do not upgrade parity status by naming similarity.
 - Do not count unwired/dormant files.
 - Do not claim parity without active runtime verification.
+
+## Port Block 15 (Executed, audit-only)
+### First Render Path Painter Integration Audit (Stars)
+
+Stellarium authority files:
+- `src/modules/stars.c`
+- `src/painter.c`
+- `src/render_gl.c`
+
+Astronomy Hub target files:
+- `docs/runtime/port/star-render-path-to-painter-migration-audit.md`
+- `docs/runtime/port/evidence-index.md`
+- `docs/runtime/port/README.md`
+- `docs/runtime/port/CODEX-HANDOFF.md`
+
+Explicit local logic deleted/replaced in this block:
+1. none (audit-only slice).
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_painter_port_command_queue.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+
+Interpretation:
+- This slice maps the active stars render path end-to-end (scene assembly, projection, Babylon thin-instance submission, and lifecycle envelope) and defines the staged migration sequence for painter integration.
+- No runtime behavior was changed; this is a bounded migration-audit step to guide the next implementation slices.
