@@ -1,6 +1,7 @@
 import type { SkyModule } from './SkyModule'
 import type {
   SkyCoreConfigWithServices,
+  SkyCoreFrameState,
   SkyCoreRenderRefs,
   SkyRuntimePerfTelemetrySnapshot,
   SkyCoreServicesUpdateContext,
@@ -28,6 +29,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
   private currentModuleCostMs: Record<string, number> = {}
   private currentModuleUpdateCostMs: Record<string, number> = {}
   private currentModuleRenderCostMs: Record<string, number> = {}
+  private frameCounter = 0
 
   constructor(config: SkyCoreConfigWithServices<TProps, TRuntime, TServices>) {
     this.config = config
@@ -117,6 +119,8 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       return
     }
 
+    const frameState = this.createFrameState(deltaSeconds)
+
     const servicesUpdateStartMs = performance.now()
     const markFrameDirty = () => {
       this.frameDirty = true
@@ -130,18 +134,18 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
 
     const skyCoreUpdateStartMs = performance.now()
     const updateStartMs = performance.now()
-    this.update(deltaSeconds)
+    this.update(deltaSeconds, frameState)
     const updateMs = performance.now() - updateStartMs
     const skyCoreUpdateTotalMs = performance.now() - skyCoreUpdateStartMs
 
     const skyCoreRenderStartMs = performance.now()
     const renderStartMs = performance.now()
-    this.render()
+    this.render(frameState)
     const renderModulesMs = performance.now() - renderStartMs
     const sceneRenderStartMs = performance.now()
     this.runtime.scene.render()
     const sceneRenderMs = performance.now() - sceneRenderStartMs
-    this.runModulePostRenders()
+    this.runModulePostRenders(frameState)
     const skyCoreRenderTotalMs = performance.now() - skyCoreRenderStartMs
     const frameTotalMs = performance.now() - frameStartMs
 
@@ -179,7 +183,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     this.started = false
   }
 
-  update(deltaSeconds: number) {
+  update(deltaSeconds: number, frameState: SkyCoreFrameState) {
     if (!this.runtime) {
       return
     }
@@ -196,8 +200,9 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     this.config.coreUpdatePreamble?.(preambleContext)
 
     const context: SkyUpdateContext<TProps, TRuntime, TServices> = {
-      ...this.getModuleContext(),
+      ...this.getModuleContext(frameState),
       deltaSeconds,
+      frameState,
     }
     this.modules.forEach((module) => {
       const startMs = performance.now()
@@ -208,12 +213,15 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     })
   }
 
-  render() {
+  render(frameState: SkyCoreFrameState) {
     if (!this.runtime) {
       return
     }
 
-    const context: SkyRenderContext<TProps, TRuntime, TServices> = this.getModuleContext()
+    const context: SkyRenderContext<TProps, TRuntime, TServices> = {
+      ...this.getModuleContext(frameState),
+      frameState,
+    }
     this.config.coreRenderPreamble?.(context)
     this.modules.forEach((module) => {
       const startMs = performance.now()
@@ -224,12 +232,15 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     })
   }
 
-  private runModulePostRenders() {
+  private runModulePostRenders(frameState: SkyCoreFrameState) {
     if (!this.runtime) {
       return
     }
 
-    const context: SkyRenderContext<TProps, TRuntime, TServices> = this.getModuleContext()
+    const context: SkyRenderContext<TProps, TRuntime, TServices> = {
+      ...this.getModuleContext(frameState),
+      frameState,
+    }
     this.modules.forEach((module) => {
       const startMs = performance.now()
       module.postRender?.(context)
@@ -292,7 +303,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     this.services = null
   }
 
-  private getModuleContext(): SkyModuleContext<TProps, TRuntime, TServices> {
+  private getModuleContext(frameState: SkyCoreFrameState | null = null): SkyModuleContext<TProps, TRuntime, TServices> {
     if (!this.runtime || !this.services) {
       throw new Error('SkyCore runtime is not started')
     }
@@ -300,6 +311,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     return {
       runtime: this.runtime,
       services: this.services,
+      frameState,
       getProps: () => this.latestProps,
       getPropsVersion: () => this.propsVersion,
       requestRender: () => {
@@ -309,6 +321,50 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
         this.frameDirty = true
       },
     }
+  }
+
+  private createFrameState(deltaSeconds: number): SkyCoreFrameState {
+    if (!this.runtime) {
+      throw new Error('SkyCore runtime is not started')
+    }
+
+    const engine = this.runtime.engine as unknown as {
+      getRenderWidth?: () => number
+      getRenderHeight?: () => number
+      getHardwareScalingLevel?: () => number
+    }
+    const windowWidth = this.resolveFinitePositiveValue(this.runtime.canvas.clientWidth, engine.getRenderWidth?.(), 1)
+    const windowHeight = this.resolveFinitePositiveValue(this.runtime.canvas.clientHeight, engine.getRenderHeight?.(), 1)
+    const hardwareScalingLevel = this.resolveFinitePositiveValue(engine.getHardwareScalingLevel?.(), 1, 1)
+    const pixelScale = hardwareScalingLevel > 0 ? 1 / hardwareScalingLevel : 1
+    const corePainterLimits = this.runtime.corePainterLimits ?? null
+
+    this.frameCounter += 1
+
+    return {
+      frameIndex: this.frameCounter,
+      deltaSeconds,
+      render: {
+        windowWidth,
+        windowHeight,
+        pixelScale,
+        framebufferWidth: windowWidth * pixelScale,
+        framebufferHeight: windowHeight * pixelScale,
+        starsLimitMag: corePainterLimits?.starsLimitMag ?? null,
+        hintsLimitMag: corePainterLimits?.hintsLimitMag ?? null,
+        hardLimitMag: corePainterLimits?.hardLimitMag ?? null,
+      },
+    }
+  }
+
+  private resolveFinitePositiveValue(primary: number | undefined, fallback: number | undefined, defaultValue: number): number {
+    if (primary !== undefined && Number.isFinite(primary) && primary > 0) {
+      return primary
+    }
+    if (fallback !== undefined && Number.isFinite(fallback) && fallback > 0) {
+      return fallback
+    }
+    return defaultValue
   }
 
   private getServicesLifecycleContext() {

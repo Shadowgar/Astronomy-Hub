@@ -23,6 +23,7 @@ Pinned source:
 | `dt = fmax(now - clock, 0.001)` | `SkyCore.ts` `deltaSeconds = Math.max((now - lastFrameTime) * 0.001, 0.001)` |
 | `DL_SORT(...); module->update` | `SkyCore.ts::update` (`sortModulesByRenderOrder` then `module.update`) |
 | `core_render` preamble | `SkyEngineScene.tsx` `coreRenderPreamble` -> `runStellariumCoreRenderSpine` |
+| `core_render` preamble state object (`painter_t` setup before `obj_render`) | `SkyCore.ts` `createFrameState` -> `SkyCoreFrameState.render` (shared in update/render/postRender contexts) |
 | `obj_render(module, painter)` | `SkyCore.ts::render` (`module.render` in sorted order) |
 | `paint_finish` + `post_render` | `SkyCore.ts` `runtime.scene.render()` then `runModulePostRenders()` |
 | Clock/time service step before update | `SkyEngineScene.tsx` `updateServices` -> `clockService.advanceFrame` |
@@ -33,3 +34,21 @@ Pinned source:
 - This pivot ports control flow and ordering only.
 - No painter/render_gl internals were touched.
 - No React/dirty-frame render gating remains in `SkyCore` lifecycle ownership.
+
+## `core_render` Preamble State Mapping (Slice 2)
+
+Source focus: `core.c:537-570` (window/pixel scale sync, projection/observer prep, painter limits and framebuffer values before `obj_render`).
+
+| Stellarium `core_render` pre-object value | SkyCore render-state field |
+|---|---|
+| `core->win_size[0/1]` (`core.c:537-538`) | `frameState.render.windowWidth` / `windowHeight` |
+| `core->win_pixels_scale` (`core.c:539`) | `frameState.render.pixelScale` |
+| `painter.fb_size` (`core.c:556`) | `frameState.render.framebufferWidth` / `framebufferHeight` |
+| `painter.stars_limit_mag` (`core.c:559`) | `frameState.render.starsLimitMag` (from runtime `corePainterLimits`) |
+| `painter.hints_limit_mag` (`core.c:560`) | `frameState.render.hintsLimitMag` (from runtime `corePainterLimits`) |
+| `painter.hard_limit_mag` (`core.c:561`) | `frameState.render.hardLimitMag` (from runtime `corePainterLimits`) |
+
+Implementation notes:
+- A single `SkyCoreFrameState` object is created once per frame inside `runFrameLifecycle` and passed unchanged to ordered module `update`, `render`, and `postRender` phases.
+- `Babylon scene.render()` remains between ordered `render` and ordered `postRender`.
+- `painter_update_clip_info` / `paint_prepare` / `render_gl` remain intentionally unported in this slice.

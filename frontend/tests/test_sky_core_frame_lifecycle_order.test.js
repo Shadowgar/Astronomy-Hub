@@ -21,6 +21,10 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
     withWindowEventStubs(() => {
       const order = []
       let loopCallback = null
+      const updateFrameStates = []
+      const renderFrameStates = []
+      const postRenderFrameStates = []
+      const preambleFrameStates = []
 
       const runtime = {
         canvas: {},
@@ -71,9 +75,35 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
         coreUpdatePreamble: () => {
           order.push('core.updatePreamble')
         },
-        coreRenderPreamble: () => {
+        coreRenderPreamble: (ctx) => {
           order.push('core.renderPreamble')
+          preambleFrameStates.push(ctx.frameState)
         },
+      })
+
+      moduleA.update = vi.fn((ctx) => {
+        order.push('module-a.update')
+        updateFrameStates.push(ctx.frameState)
+      })
+      moduleA.render = vi.fn((ctx) => {
+        order.push('module-a.render')
+        renderFrameStates.push(ctx.frameState)
+      })
+      moduleA.postRender = vi.fn((ctx) => {
+        order.push('module-a.postRender')
+        postRenderFrameStates.push(ctx.frameState)
+      })
+      moduleB.update = vi.fn((ctx) => {
+        order.push('module-b.update')
+        updateFrameStates.push(ctx.frameState)
+      })
+      moduleB.render = vi.fn((ctx) => {
+        order.push('module-b.render')
+        renderFrameStates.push(ctx.frameState)
+      })
+      moduleB.postRender = vi.fn((ctx) => {
+        order.push('module-b.postRender')
+        postRenderFrameStates.push(ctx.frameState)
       })
 
       core.registerModule(moduleA)
@@ -94,6 +124,22 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
       ])
 
       expect(loopCallback).toBeTypeOf('function')
+      expect(preambleFrameStates).toHaveLength(1)
+      expect(updateFrameStates).toHaveLength(2)
+      expect(renderFrameStates).toHaveLength(2)
+      expect(postRenderFrameStates).toHaveLength(2)
+
+      const singleFrameState = preambleFrameStates[0]
+      expect(singleFrameState).toBeTruthy()
+      expect(singleFrameState.frameIndex).toBe(1)
+      expect(singleFrameState.deltaSeconds).toBeGreaterThanOrEqual(0.001)
+
+      expect(updateFrameStates[0]).toBe(singleFrameState)
+      expect(updateFrameStates[1]).toBe(singleFrameState)
+      expect(renderFrameStates[0]).toBe(singleFrameState)
+      expect(renderFrameStates[1]).toBe(singleFrameState)
+      expect(postRenderFrameStates[0]).toBe(singleFrameState)
+      expect(postRenderFrameStates[1]).toBe(singleFrameState)
     })
   })
 })

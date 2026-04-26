@@ -9,7 +9,29 @@ export interface SkyCoreRenderRefs {
   readonly camera: UniversalCamera
   readonly canvas: HTMLCanvasElement
   readonly backgroundCanvas: HTMLCanvasElement
+  readonly corePainterLimits?: {
+    readonly starsLimitMag: number
+    readonly hintsLimitMag: number
+    readonly hardLimitMag: number
+  } | null
   readonly runtimePerfTelemetry?: SkyRuntimePerfTelemetry
+}
+
+export interface SkyCoreRenderState {
+  readonly windowWidth: number
+  readonly windowHeight: number
+  readonly pixelScale: number
+  readonly framebufferWidth: number
+  readonly framebufferHeight: number
+  readonly starsLimitMag: number | null
+  readonly hintsLimitMag: number | null
+  readonly hardLimitMag: number | null
+}
+
+export interface SkyCoreFrameState {
+  readonly frameIndex: number
+  readonly deltaSeconds: number
+  readonly render: SkyCoreRenderState
 }
 
 export interface SkyRuntimePerfTelemetrySnapshot {
@@ -86,6 +108,7 @@ export interface SkyCoreConfigWithServices<TProps, TRuntime extends SkyCoreRende
 export interface SkyModuleContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
   readonly runtime: TRuntime
   readonly services: TServices
+  readonly frameState: SkyCoreFrameState | null
   getProps: () => TProps
   getPropsVersion: () => number
   requestRender: () => void
@@ -94,9 +117,13 @@ export interface SkyModuleContext<TProps, TRuntime extends SkyCoreRenderRefs, TS
 
 export interface SkyUpdateContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices> extends SkyModuleContext<TProps, TRuntime, TServices> {
   readonly deltaSeconds: number
+  readonly frameState: SkyCoreFrameState
 }
 
-export interface SkyRenderContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices> extends SkyModuleContext<TProps, TRuntime, TServices> {}
+export interface SkyRenderContext<TProps, TRuntime extends SkyCoreRenderRefs, TServices>
+  extends SkyModuleContext<TProps, TRuntime, TServices> {
+  readonly frameState: SkyCoreFrameState
+}
 
 export interface SceneLuminanceReport {
   readonly skyBrightness: number
