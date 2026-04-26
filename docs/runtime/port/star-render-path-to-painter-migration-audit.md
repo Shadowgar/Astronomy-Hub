@@ -191,6 +191,28 @@ Status (EV-0117): PASS.
 - ON mode executes side-by-side only and reports `executed_side_by_side` while direct `StarsModule -> directStarLayer.sync(...)` remains active.
 - Runtime telemetry now distinguishes disabled vs side-by-side execution and reports execution counts.
 
+### Stage 4C - Runtime-flagged execution profiling (OFF vs ON)
+
+- Capture runtime telemetry profiles for default OFF mode and explicit ON side-by-side mode.
+- Validate that render ownership remains unchanged in both runs.
+- Validate that deltas remain zero and unsupported execution remains absent.
+
+Status (EV-0118): PASS.
+- OFF/default profile artifact:
+  - `/home/rocco/Astronomy-Hub/.cursor-artifacts/parity-compare/stars-painter-backend-runtime-profile-off-2026-04-26.json`
+  - `backendExecutionEnabledShare.avg = 0`
+  - `backendExecutionDisabledCount.avg = 1`
+  - `backendSideBySideExecutionCount.avg = 0`
+- ON/side-by-side profile artifact:
+  - `/home/rocco/Astronomy-Hub/.cursor-artifacts/parity-compare/stars-painter-backend-runtime-profile-on-2026-04-26.json`
+  - `backendExecutionEnabledShare.avg = 1`
+  - `backendExecutedSideBySideShare.avg = 1`
+  - `backendSideBySideExecutionCount.avg = 1`
+- Direct path remains active in both runs (`starThinInstanceCount.p50 = 9`).
+- Batch/direct and mapped/direct deltas remain zero in both runs.
+- Unsupported execution remains absent (`backendUnsupportedBatchCount.max = 0`).
+- No renderer replacement was introduced.
+
 ### Stage 5 - Remove old direct stars render path
 
 - Remove/bypass `directStarLayer.sync(...)` from stars module render ownership.

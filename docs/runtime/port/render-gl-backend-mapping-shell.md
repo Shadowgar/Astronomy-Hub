@@ -87,6 +87,17 @@ Stage 4B boundaries:
 - no renderer replacement
 - no projection/math/loading/styling changes
 
+## Stage 4C Runtime Profiling Validation
+
+Runtime profile commands:
+- `cd /home/rocco/Astronomy-Hub/frontend && SKY_ENGINE_PROFILE_URL='http://127.0.0.1:4173/sky-engine?debugTelemetry=1' npm run profile:sky-engine-runtime`
+- `cd /home/rocco/Astronomy-Hub/frontend && SKY_ENGINE_PROFILE_URL='http://127.0.0.1:4173/sky-engine?debugTelemetry=1&painterBackendExecution=1' npm run profile:sky-engine-runtime`
+
+Stage 4C assertions (EV-0118):
+- OFF/default run: backend execution disabled by default (`backendExecutionEnabledShare.avg = 0`, `backendExecutionDisabledCount.avg = 1`).
+- ON run: explicit side-by-side execution (`backendExecutionEnabledShare.avg = 1`, `backendSideBySideExecutionCount.avg = 1`).
+- Both runs: direct star rendering still active, no unsupported execution, zero batch/direct and mapped/direct deltas.
+
 ## Validation
 
 Commands:
@@ -96,3 +107,4 @@ Commands:
 Evidence:
 - `EV-0116`
 - `EV-0117`
+- `EV-0118`

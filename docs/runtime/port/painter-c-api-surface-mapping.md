@@ -107,6 +107,23 @@ Validation:
 - `frontend/tests/sky-engine-stars-runtime.test.js`
 - Evidence: **EV-0117**.
 
+## Stage 4C Runtime-Flagged Execution Profiling (Slice 1E)
+
+Stage 4C adds runtime proof for the Stage 4B execution contract via dual profile artifacts:
+- OFF/default run (`debugTelemetry=1`) proves backend execution remains disabled by default.
+- ON run (`debugTelemetry=1&painterBackendExecution=1`) proves side-by-side execution only.
+
+Stage 4C outcomes:
+- OFF: `backendExecutionEnabledShare.avg = 0`, `backendExecutionDisabledCount.avg = 1`, `backendSideBySideExecutionCount.avg = 0`.
+- ON: `backendExecutionEnabledShare.avg = 1`, `backendExecutedSideBySideShare.avg = 1`, `backendSideBySideExecutionCount.avg = 1`.
+- Both: direct render path remains active and comparison deltas stay zero; unsupported execution remains absent.
+
+Validation:
+- `/home/rocco/Astronomy-Hub/.cursor-artifacts/parity-compare/stars-painter-backend-runtime-profile-off-2026-04-26.json`
+- `/home/rocco/Astronomy-Hub/.cursor-artifacts/parity-compare/stars-painter-backend-runtime-profile-on-2026-04-26.json`
+- `docs/runtime/port/stars-painter-backend-runtime-profile.md`
+- Evidence: **EV-0118**.
+
 ## Enum Mapping (`painter.h`)
 
 | Stellarium enum group | Sky-Engine mapping |

@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-26 (Port Block 18: Stars painter Stage 4B adds default-off side-by-side backend execution prototype)
+Last updated: 2026-04-26 (Port Block 19: Stars painter Stage 4C validates default-OFF and explicit-ON side-by-side runtime telemetry)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -197,6 +197,38 @@ Validation evidence recorded for this block:
 Interpretation:
 - Stage 4B now supports a feature-flagged backend execution prototype that remains disabled by default and preserves Stage 4A behavior when OFF.
 - When ON, execution is side-by-side only and direct stars rendering ownership remains unchanged (`StarsModule -> directStarLayer.sync(...)`).
+
+## Port Block 19 (Executed, partial parity)
+### Stars Painter Stage 4C Runtime-Flagged Execution Profiling
+
+Stellarium authority files:
+- `src/render.h`
+- `src/render_gl.c`
+- `src/painter.c`
+
+Astronomy Hub target files:
+- `docs/runtime/port/stars-painter-backend-runtime-profile.md`
+- `docs/runtime/port/star-render-path-to-painter-migration-audit.md`
+- `.cursor-artifacts/parity-compare/stars-painter-backend-runtime-profile-off-2026-04-26.json`
+- `.cursor-artifacts/parity-compare/stars-painter-backend-runtime-profile-on-2026-04-26.json`
+
+Explicit local logic deleted/replaced in this block:
+1. Added dual-mode runtime profiling evidence for backend execution OFF(default) and ON(side-by-side) using the existing Stage 4B flag contract.
+2. Added telemetry comparison report that proves OFF mode remains disabled-by-default and ON mode executes side-by-side only.
+3. Added explicit artifact tracking and evidence linkage for OFF/ON runtime profile outputs.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_painter_backend_port.test.js tests/sky-engine-stars-runtime.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && SKY_ENGINE_PROFILE_URL='http://127.0.0.1:4173/sky-engine?debugTelemetry=1' npm run profile:sky-engine-runtime`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && SKY_ENGINE_PROFILE_URL='http://127.0.0.1:4173/sky-engine?debugTelemetry=1&painterBackendExecution=1' npm run profile:sky-engine-runtime`: pass
+
+Interpretation:
+- OFF/default run confirms backend execution stays disabled by default (`backendExecutionEnabledShare.avg=0`, `backendExecutionDisabledCount.avg=1`, `backendSideBySideExecutionCount.avg=0`).
+- ON run confirms side-by-side-only execution (`backendExecutionEnabledShare.avg=1`, `backendExecutedSideBySideShare.avg=1`, `backendSideBySideExecutionCount.avg=1`).
+- Direct stars rendering remains active in both runs (`starThinInstanceCount.p50=9`), deltas remain zero (`batchVsDirectDelta.max=0`, `backendMappedVsDirectDelta.max=0`), and unsupported execution is absent (`backendUnsupportedBatchCount.max=0`).
+- No renderer replacement or visual-path ownership change is introduced.
 
 ## Port Block 13 (Executed, partial parity)
 ### Large HIP Probe Expansion + Generated-Type Inference Stabilization
