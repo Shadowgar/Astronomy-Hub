@@ -55,6 +55,14 @@ function buildFinalizedStarsBatch() {
   return painter.finalizedBatches[0]
 }
 
+function buildPoint2d(x, y, size = 2) {
+  return {
+    pos: [x, y],
+    size,
+    color: [255, 255, 255, 255],
+  }
+}
+
 describe('painterBackendPort mapping shell (inert)', () => {
   it('defaults backend execution flag to OFF', () => {
     expect(resolvePainterBackendExecutionEnabled()).toBe(false)
@@ -288,5 +296,146 @@ describe('painterBackendPort mapping shell (inert)', () => {
     expect(executionPlan.summary.painterOwnedStarLayerStarCount).toBe(0)
     expect(sideBySideRenderer.sync).not.toHaveBeenCalled()
     expect(painterOwnedLayer.syncFromMappedBatch).not.toHaveBeenCalled()
+  })
+})
+
+describe('painterPort real point item pipeline (S1)', () => {
+  it('render_prepare-equivalent setup clears previous point items each frame', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 1,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    painter.paint_2d_points(1, [buildPoint2d(100, 80)])
+    expect(painter.pointItems).toHaveLength(1)
+
+    painter.paint_finish()
+    expect(painter.finalizedPointItems).toHaveLength(1)
+
+    painter.reset_for_frame({
+      frameIndex: 2,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+
+    expect(painter.pointItems).toHaveLength(0)
+    expect(painter.renderBackend.depthMin).toBe(Number.POSITIVE_INFINITY)
+    expect(painter.renderBackend.depthMax).toBe(Number.NEGATIVE_INFINITY)
+  })
+
+  it('paint_2d_points creates a real ITEM_POINTS backend item', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 3,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    painter.paint_2d_points(2, [buildPoint2d(100, 80), buildPoint2d(120, 90)])
+    painter.paint_finish()
+
+    expect(painter.finalizedPointItems).toHaveLength(1)
+    expect(painter.finalizedPointItems[0].type).toBe('ITEM_POINTS')
+    expect(painter.finalizedPointItems[0].pointCount).toBe(2)
+    expect(painter.renderBackend.flushReady).toBe(true)
+  })
+
+  it('get_item-equivalent batching reuses compatible point item allocations', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 4,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    painter.paint_2d_points(2, [buildPoint2d(100, 80), buildPoint2d(120, 90)])
+    painter.paint_2d_points(1, [buildPoint2d(140, 100)])
+
+    expect(painter.pointItems).toHaveLength(1)
+    expect(painter.pointItems[0].pointCount).toBe(3)
+    painter.paint_finish()
+    expect(painter.finalizedPointItems[0].pointCount).toBe(3)
+  })
+
+  it('finalized point item count and batch star count match star draw input', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 5,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    painter.paint_stars_draw_intent({
+      fromDirectStarPath: true,
+      starCount: 3,
+      source: {
+        dataMode: 'multi-survey',
+        sourceLabel: 'survey',
+        scenePacketStarCount: 3,
+        scenePacketTileCount: 1,
+        diagnosticsActiveTiles: 1,
+        diagnosticsVisibleTileIdsCount: 1,
+        diagnosticsStarsListVisitCount: 3,
+      },
+      magnitude: {
+        limitingMagnitude: 6,
+        minRenderedMagnitude: 1,
+        maxRenderedMagnitude: 2,
+        minRenderAlpha: 0.7,
+        maxRenderAlpha: 1,
+      },
+      view: {
+        projectionMode: 'stereographic',
+        fovDegrees: 40,
+        viewportWidth: 800,
+        viewportHeight: 400,
+        centerDirection: { x: 0, y: 0, z: 1 },
+        sceneTimestampIso: '2026-04-26T00:00:00Z',
+      },
+    })
+    painter.paint_2d_points(3, [buildPoint2d(100, 80), buildPoint2d(120, 90), buildPoint2d(140, 110)])
+    painter.paint_finish()
+
+    expect(painter.finalizedPointItems).toHaveLength(1)
+    expect(painter.finalizedPointItems[0].pointCount).toBe(3)
+    expect(painter.finalizedBatches).toHaveLength(1)
+    expect(painter.finalizedBatches[0].starCount).toBe(3)
   })
 })

@@ -69,6 +69,44 @@ export interface SkyPainterPoint3D {
   readonly color: [number, number, number, number]
 }
 
+export type SkyPainterRenderItemType = 'ITEM_POINTS' | 'ITEM_POINTS_3D'
+
+export interface SkyPainterPointItem2D {
+  readonly screenPos: [number, number]
+  readonly ndcPos: [number, number]
+  readonly size: number
+  readonly color: [number, number, number, number]
+}
+
+export interface SkyPainterPointItem3D {
+  readonly viewPos: [number, number, number]
+  readonly size: number
+  readonly color: [number, number, number, number]
+}
+
+export interface SkyPainterRenderPointItem {
+  readonly type: SkyPainterRenderItemType
+  readonly mode: SkyPainterMode.MODE_POINTS
+  readonly flags: number
+  readonly textureRef: string | null
+  readonly halo: number
+  readonly pointCount: number
+  readonly capacity: number
+  readonly points2d: ReadonlyArray<SkyPainterPointItem2D>
+  readonly points3d: ReadonlyArray<SkyPainterPointItem3D>
+}
+
+export interface SkyPainterRenderBackendFrame {
+  readonly framebufferWidth: number
+  readonly framebufferHeight: number
+  readonly scale: number
+  readonly cullFlipped: boolean
+  readonly depthMin: number
+  readonly depthMax: number
+  readonly pointItems: ReadonlyArray<SkyPainterRenderPointItem>
+  readonly flushReady: boolean
+}
+
 export interface SkyPainterFrameResetInput {
   readonly frameIndex: number
   readonly windowWidth: number
@@ -252,6 +290,11 @@ function resolveStarsFovBucket(fovDegrees: number): string {
   return 'deep'
 }
 
+function getLastEntry<T>(entries: readonly T[]): T | undefined {
+  const entriesWithAt = entries as unknown as { at: (index: number) => T | undefined }
+  return entriesWithAt.at(-1)
+}
+
 /**
  * Source-faithful boundary class that mirrors `painter.h` callable naming.
  * All methods are currently no-op queue/state mutations only.
@@ -266,6 +309,7 @@ export class SkyPainterPortState {
   pixelScale = 1
   flags = 0
   contrast = 1
+  pointsHalo = 7
   starsLimitMag: number | null = null
   hintsLimitMag: number | null = null
   hardLimitMag: number | null = null
@@ -277,6 +321,19 @@ export class SkyPainterPortState {
   private readonly frameCommands: SkyPainterQueuedCall[] = []
   private finalizedFrameCommands: ReadonlyArray<SkyPainterQueuedCall> = Object.freeze([])
   private finalizedFrameBatches: ReadonlyArray<SkyPainterFinalizedBatch> = Object.freeze([])
+  private renderBackendFrame: SkyPainterRenderBackendFrame = this.createEmptyRenderBackendFrame()
+  private finalizedRenderBackendFrame: SkyPainterRenderBackendFrame = this.createEmptyRenderBackendFrame()
+  private readonly mutableRenderItems: Array<{
+    type: SkyPainterRenderItemType
+    mode: SkyPainterMode.MODE_POINTS
+    flags: number
+    textureRef: string | null
+    halo: number
+    pointCount: number
+    capacity: number
+    points2d: SkyPainterPointItem2D[]
+    points3d: SkyPainterPointItem3D[]
+  }> = []
   private readonly textureBindings: Record<SkyPainterTextureSlot, string | null> = {
     [SkyPainterTextureSlot.PAINTER_TEX_COLOR]: null,
     [SkyPainterTextureSlot.PAINTER_TEX_NORMAL]: null,
@@ -292,6 +349,25 @@ export class SkyPainterPortState {
 
   get finalizedBatches(): ReadonlyArray<SkyPainterFinalizedBatch> {
     return this.finalizedFrameBatches
+  }
+
+  get pointItems(): ReadonlyArray<SkyPainterRenderPointItem> {
+    return this.frameFinalized ? this.finalizedRenderBackendFrame.pointItems : this.snapshotMutableRenderItems()
+  }
+
+  get finalizedPointItems(): ReadonlyArray<SkyPainterRenderPointItem> {
+    return this.finalizedRenderBackendFrame.pointItems
+  }
+
+  get renderBackend(): SkyPainterRenderBackendFrame {
+    if (this.frameFinalized) {
+      return this.finalizedRenderBackendFrame
+    }
+
+    return Object.freeze({
+      ...this.renderBackendFrame,
+      pointItems: this.snapshotMutableRenderItems(),
+    })
   }
 
   get isFrameFinalized(): boolean {
@@ -317,6 +393,9 @@ export class SkyPainterPortState {
     this.frameCommands.length = 0
     this.finalizedFrameCommands = Object.freeze([])
     this.finalizedFrameBatches = Object.freeze([])
+    this.mutableRenderItems.length = 0
+    this.renderBackendFrame = this.createEmptyRenderBackendFrame()
+    this.finalizedRenderBackendFrame = this.createEmptyRenderBackendFrame()
     this.textureBindings[SkyPainterTextureSlot.PAINTER_TEX_COLOR] = null
     this.textureBindings[SkyPainterTextureSlot.PAINTER_TEX_NORMAL] = null
   }
@@ -334,12 +413,14 @@ export class SkyPainterPortState {
       windowHeight: winH,
       pixelScale: scale,
     })
+    this.render_prepare(winW, winH, scale, false)
     return 0
   }
 
   // painter.c::paint_finish
   paint_finish(): number {
     this.record('paint_finish', { finalized: true })
+    this.render_finish()
     this.finalizeFrameCommands()
     return 0
   }
@@ -351,11 +432,13 @@ export class SkyPainterPortState {
   paint_2d_points(n: number, points: readonly SkyPainterPoint[]): number {
     this.mode = SkyPainterMode.MODE_POINTS
     this.record('paint_2d_points', { count: n, points })
+    this.render_points_2d(n, points)
     return 0
   }
   paint_3d_points(n: number, points: readonly SkyPainterPoint3D[]): number {
     this.mode = SkyPainterMode.MODE_POINTS
     this.record('paint_3d_points', { count: n, points })
+    this.render_points_3d(n, points)
     return 0
   }
   paint_quad(): number { this.mode = SkyPainterMode.MODE_TRIANGLES; this.record('paint_quad', {}); return 0 }
@@ -425,16 +508,66 @@ export class SkyPainterPortState {
 
     this.finalizedFrameCommands = Object.freeze([...this.frameCommands])
     this.finalizedFrameBatches = Object.freeze(this.buildFinalizedBatches(this.finalizedFrameCommands))
+    this.finalizedRenderBackendFrame = Object.freeze({
+      framebufferWidth: this.renderBackendFrame.framebufferWidth,
+      framebufferHeight: this.renderBackendFrame.framebufferHeight,
+      scale: this.renderBackendFrame.scale,
+      cullFlipped: this.renderBackendFrame.cullFlipped,
+      depthMin: this.renderBackendFrame.depthMin,
+      depthMax: this.renderBackendFrame.depthMax,
+      flushReady: true,
+      pointItems: Object.freeze(this.mutableRenderItems.map((item) => Object.freeze({
+        type: item.type,
+        mode: item.mode,
+        flags: item.flags,
+        textureRef: item.textureRef,
+        halo: item.halo,
+        pointCount: item.pointCount,
+        capacity: item.capacity,
+        points2d: Object.freeze([...item.points2d]),
+        points3d: Object.freeze([...item.points3d]),
+      }))),
+    })
     this.frameFinalized = true
   }
 
   private buildFinalizedBatches(commands: ReadonlyArray<SkyPainterQueuedCall>): SkyPainterFinalizedBatch[] {
-    const batches: SkyPainterFinalizedBatch[] = []
-    for (const command of commands) {
-      if (!isStarsDrawIntentQueuedCall(command)) {
-        continue
-      }
+    const starIntentCommands = commands.filter(isStarsDrawIntentQueuedCall)
+    const pointItems = this.finalizedRenderBackendFrame.pointItems
+    const totalPointCount = pointItems.reduce((sum, item) => sum + item.pointCount, 0)
 
+    if (totalPointCount > 0) {
+      const referenceIntent = getLastEntry(starIntentCommands)
+      const projectionMode = referenceIntent?.payload.view.projectionMode ?? null
+      const fovDegrees = referenceIntent?.payload.view.fovDegrees ?? 60
+      return [{
+        kind: 'stars',
+        sourceCommandKind: 'paint_stars_draw_intent',
+        frameIndex: this.frameIndex,
+        starCount: totalPointCount,
+        grouping: {
+          projectionMode,
+          fovDegrees,
+          fovBucket: resolveStarsFovBucket(fovDegrees),
+          magnitude: {
+            limitingMagnitude: referenceIntent?.payload.magnitude.limitingMagnitude ?? this.starsLimitMag ?? 0,
+            minRenderedMagnitude: referenceIntent?.payload.magnitude.minRenderedMagnitude ?? null,
+            maxRenderedMagnitude: referenceIntent?.payload.magnitude.maxRenderedMagnitude ?? null,
+          },
+          renderAlpha: {
+            minRenderAlpha: referenceIntent?.payload.magnitude.minRenderAlpha ?? null,
+            maxRenderAlpha: referenceIntent?.payload.magnitude.maxRenderAlpha ?? null,
+          },
+          textureRef: this.textureBindings[SkyPainterTextureSlot.PAINTER_TEX_COLOR],
+          materialRef: null,
+        },
+        sourcePath: 'direct-star-mirror',
+        executionStatus: 'not_executed',
+      }]
+    }
+
+    const batches: SkyPainterFinalizedBatch[] = []
+    for (const command of starIntentCommands) {
       batches.push({
         kind: 'stars',
         sourceCommandKind: 'paint_stars_draw_intent',
@@ -461,6 +594,177 @@ export class SkyPainterPortState {
       })
     }
     return batches
+  }
+
+  private createEmptyRenderBackendFrame(): SkyPainterRenderBackendFrame {
+    return Object.freeze({
+      framebufferWidth: 0,
+      framebufferHeight: 0,
+      scale: 1,
+      cullFlipped: false,
+      depthMin: Number.POSITIVE_INFINITY,
+      depthMax: Number.NEGATIVE_INFINITY,
+      pointItems: Object.freeze([]),
+      flushReady: false,
+    })
+  }
+
+  private snapshotMutableRenderItems(): ReadonlyArray<SkyPainterRenderPointItem> {
+    return Object.freeze(this.mutableRenderItems.map((item) => Object.freeze({
+      type: item.type,
+      mode: item.mode,
+      flags: item.flags,
+      textureRef: item.textureRef,
+      halo: item.halo,
+      pointCount: item.pointCount,
+      capacity: item.capacity,
+      points2d: Object.freeze([...item.points2d]),
+      points3d: Object.freeze([...item.points3d]),
+    })))
+  }
+
+  private render_prepare(winW: number, winH: number, scale: number, cullFlipped: boolean): void {
+    this.mutableRenderItems.length = 0
+    this.renderBackendFrame = Object.freeze({
+      framebufferWidth: winW * scale,
+      framebufferHeight: winH * scale,
+      scale,
+      cullFlipped,
+      depthMin: Number.POSITIVE_INFINITY,
+      depthMax: Number.NEGATIVE_INFINITY,
+      pointItems: Object.freeze([]),
+      flushReady: false,
+    })
+  }
+
+  private render_finish(): void {
+    this.renderBackendFrame = Object.freeze({
+      ...this.renderBackendFrame,
+      pointItems: Object.freeze(this.mutableRenderItems.map((item) => Object.freeze({
+        type: item.type,
+        mode: item.mode,
+        flags: item.flags,
+        textureRef: item.textureRef,
+        halo: item.halo,
+        pointCount: item.pointCount,
+        capacity: item.capacity,
+        points2d: Object.freeze([...item.points2d]),
+        points3d: Object.freeze([...item.points3d]),
+      }))),
+      flushReady: true,
+    })
+  }
+
+  private get_item(type: SkyPainterRenderItemType, pointCount: number, textureRef: string | null): {
+    type: SkyPainterRenderItemType
+    mode: SkyPainterMode.MODE_POINTS
+    flags: number
+    textureRef: string | null
+    halo: number
+    pointCount: number
+    capacity: number
+    points2d: SkyPainterPointItem2D[]
+    points3d: SkyPainterPointItem3D[]
+  } {
+    let index = this.mutableRenderItems.length - 1
+    while (index >= 0) {
+      const item = this.mutableRenderItems[index]
+      if (
+        item.type === type &&
+        item.capacity > item.pointCount + pointCount &&
+        item.textureRef === textureRef &&
+        item.halo === this.pointsHalo &&
+        item.flags === this.flags
+      ) {
+        return item
+      }
+      if ((item.flags & SkyPainterFlags.PAINTER_ALLOW_REORDER) === 0) {
+        break
+      }
+      index -= 1
+    }
+
+    const newItem = {
+      type,
+      mode: SkyPainterMode.MODE_POINTS as SkyPainterMode.MODE_POINTS,
+      flags: this.flags,
+      textureRef,
+      halo: this.pointsHalo,
+      pointCount: 0,
+      capacity: 4096,
+      points2d: [] as SkyPainterPointItem2D[],
+      points3d: [] as SkyPainterPointItem3D[],
+    }
+    this.mutableRenderItems.push(newItem)
+    return newItem
+  }
+
+  private window_to_ndc(win: [number, number]): [number, number] {
+    const fbWidth = this.renderBackendFrame.framebufferWidth > 0 ? this.renderBackendFrame.framebufferWidth : 1
+    const fbHeight = this.renderBackendFrame.framebufferHeight > 0 ? this.renderBackendFrame.framebufferHeight : 1
+    const x = (win[0] * this.renderBackendFrame.scale / fbWidth) * 2 - 1
+    const y = 1 - (win[1] * this.renderBackendFrame.scale / fbHeight) * 2
+    return [x, y]
+  }
+
+  private render_points_2d(n: number, points: readonly SkyPainterPoint[]): void {
+    const maxPoints = 4096
+    const count = Math.min(n, maxPoints, points.length)
+    if (count <= 0) {
+      return
+    }
+
+    const item = this.get_item(
+      'ITEM_POINTS',
+      count,
+      this.textureBindings[SkyPainterTextureSlot.PAINTER_TEX_COLOR],
+    )
+
+    for (let index = 0; index < count; index += 1) {
+      const point = points[index]
+      item.points2d.push({
+        screenPos: [point.pos[0], point.pos[1]],
+        ndcPos: this.window_to_ndc(point.pos),
+        size: point.size * this.renderBackendFrame.scale,
+        color: [point.color[0], point.color[1], point.color[2], point.color[3]],
+      })
+      item.pointCount += 1
+    }
+  }
+
+  private render_points_3d(n: number, points: readonly SkyPainterPoint3D[]): void {
+    const maxPoints = 4096
+    const count = Math.min(n, maxPoints, points.length)
+    if (count <= 0) {
+      return
+    }
+
+    const item = this.get_item(
+      'ITEM_POINTS_3D',
+      count,
+      this.textureBindings[SkyPainterTextureSlot.PAINTER_TEX_COLOR],
+    )
+
+    let nextDepthMin = this.renderBackendFrame.depthMin
+    let nextDepthMax = this.renderBackendFrame.depthMax
+
+    for (let index = 0; index < count; index += 1) {
+      const point = points[index]
+      item.points3d.push({
+        viewPos: [point.pos[0], point.pos[1], point.pos[2]],
+        size: point.size * this.renderBackendFrame.scale,
+        color: [point.color[0], point.color[1], point.color[2], point.color[3]],
+      })
+      item.pointCount += 1
+      nextDepthMin = Math.min(nextDepthMin, point.pos[2])
+      nextDepthMax = Math.max(nextDepthMax, point.pos[2])
+    }
+
+    this.renderBackendFrame = Object.freeze({
+      ...this.renderBackendFrame,
+      depthMin: nextDepthMin,
+      depthMax: nextDepthMax,
+    })
   }
 
   private snapshotBatchState(): SkyPainterBatchStateSnapshot {

@@ -1,5 +1,9 @@
 # Stage 4A Render Backend Mapping Shell (Stars)
 
+> Legacy scaffold notice (2026-04-26): this document describes the pre-S1 metadata-only mapping shell.
+> Slice S1 introduced a real internal point-item pipeline in `painterPort.ts` (render_prepare/get_item/render_points/render_finish equivalents).
+> The string-only `renderGlReference` markers documented below are now historical labels and are not parity proof.
+
 Date: 2026-04-26  
 Mode: Stellarium Port Mode ACTIVE  
 Scope: Stage 4A inert mapping shell + Stage 4B feature-flagged side-by-side execution prototype.

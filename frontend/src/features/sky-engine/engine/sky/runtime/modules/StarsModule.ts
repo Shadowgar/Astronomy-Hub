@@ -37,6 +37,11 @@ function q(value: number) {
   return value.toFixed(3)
 }
 
+function getLastEntry<T>(entries: readonly T[]): T | undefined {
+  const entriesWithAt = entries as unknown as { at: (index: number) => T | undefined }
+  return entriesWithAt.at(-1)
+}
+
 export function buildScenePacketSignature(scenePacket: ScenePropsSnapshot['scenePacket']) {
   if (!scenePacket) {
     return 'packet:none'
@@ -44,7 +49,7 @@ export function buildScenePacketSignature(scenePacket: ScenePropsSnapshot['scene
 
   const stars = scenePacket.stars
   const firstStar = stars[0]
-  const lastStar = stars[stars.length - 1]
+  const lastStar = getLastEntry(stars)
   const diagnostics = scenePacket.diagnostics
   return [
     `packet:${stars.length}`,
@@ -58,7 +63,7 @@ export function buildScenePacketSignature(scenePacket: ScenePropsSnapshot['scene
 
 function buildProjectionSignature(props: ScenePropsSnapshot) {
   const firstObject = props.objects[0]?.id ?? 'none'
-  const lastObject = props.objects[props.objects.length - 1]?.id ?? 'none'
+  const lastObject = getLastEntry(props.objects)?.id ?? 'none'
   return [
     `obj:${props.objects.length}:${firstObject}:${lastObject}`,
     buildScenePacketSignature(props.scenePacket),
@@ -148,6 +153,56 @@ function emitStarsDrawIntent(params: {
       sceneTimestampIso: params.projectedStarsFrame.sceneTimestampIso ?? null,
     },
   })
+}
+
+function parseHexChannel(hex: string): number {
+  const parsed = Number.parseInt(hex, 16)
+  if (!Number.isFinite(parsed)) {
+    return 255
+  }
+  return Math.max(0, Math.min(255, parsed))
+}
+
+function resolveHexRgb(hexColor: string | undefined): [number, number, number] {
+  if (!hexColor) {
+    return [255, 255, 255]
+  }
+
+  const normalized = hexColor.trim().replace(/^#/, '')
+  if (normalized.length === 6) {
+    return [
+      parseHexChannel(normalized.slice(0, 2)),
+      parseHexChannel(normalized.slice(2, 4)),
+      parseHexChannel(normalized.slice(4, 6)),
+    ]
+  }
+
+  if (normalized.length === 3) {
+    return [
+      parseHexChannel(`${normalized[0]}${normalized[0]}`),
+      parseHexChannel(`${normalized[1]}${normalized[1]}`),
+      parseHexChannel(`${normalized[2]}${normalized[2]}`),
+    ]
+  }
+
+  return [255, 255, 255]
+}
+
+function emitStarsPointItems(params: {
+  painter: NonNullable<Parameters<NonNullable<ReturnType<typeof createStarsModule>['render']>>[0]['frameState']>['render']['painter']
+  projectedStarsFrame: NonNullable<SceneRuntimeRefs['projectedStarsFrame']>
+}) {
+  const points = params.projectedStarsFrame.projectedStars.map((entry) => {
+    const [red, green, blue] = resolveHexRgb(entry.starProfile?.colorHex)
+    const alpha = Math.max(0, Math.min(255, Math.round((entry.renderAlpha ?? 1) * 255)))
+    return {
+      pos: [entry.screenX, entry.screenY] as [number, number],
+      size: entry.markerRadiusPx,
+      color: [red, green, blue, alpha] as [number, number, number, number],
+    }
+  })
+
+  params.painter.paint_2d_points(points.length, points)
 }
 
 export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
@@ -312,6 +367,10 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
         emitStarsDrawIntent({
           painter,
           props,
+          projectedStarsFrame,
+        })
+        emitStarsPointItems({
+          painter,
           projectedStarsFrame,
         })
       }

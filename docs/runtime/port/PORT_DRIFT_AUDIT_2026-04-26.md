@@ -192,3 +192,24 @@ Acceptance boundary (strict):
 - Stage work should remain halted.
 - Treat current 4B/4C/4D as prototype scaffolding.
 - Next approved work should be direct source-faithful backend item pipeline porting, starting with Slice S1 above.
+
+## Appendix A — S1 Status (2026-04-26)
+
+Status: **completed** (implementation + required validation pass).
+
+Delivered scope:
+- Real point-item pipeline landed in `painterPort.ts` with source-modeled seams:
+  - `render_prepare`-equivalent per-frame reset/init
+  - `get_item`-equivalent compatible item reuse for point batches
+  - `render_points_2d` / `render_points_3d`-equivalent point item population
+  - `render_finish`-equivalent flush boundary + finalized item snapshots
+- `paint_2d_points` / `paint_3d_points` now feed real backend point items.
+- Stars runtime now emits painter point items while preserving direct star rendering safety path.
+
+Validation commands:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_painter_backend_port.test.js tests/sky-engine-stars-runtime.test.js`
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`
+
+Result:
+- PASS (`22/22` targeted tests; typecheck/build green).

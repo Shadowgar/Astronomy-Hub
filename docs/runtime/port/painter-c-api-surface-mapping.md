@@ -148,6 +148,35 @@ Validation:
 - `frontend/tests/sky-engine-stars-runtime.test.js`
 - Evidence: **EV-0119**.
 
+## Stage S1 Real Point Item Pipeline (2026-04-26)
+
+Status: implemented (source-modeled backend behavior, still safety-gated for Babylon ownership changes).
+
+Source anchors:
+- `src/painter.c`: `paint_prepare`, `paint_2d_points`, `paint_3d_points`, `paint_finish`
+- `src/render_gl.c`: `render_prepare`, `get_item`, `render_points_2d`, `render_points_3d`, `render_finish`
+
+Hub implementation:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts`
+
+What changed from wrapper-only state:
+- `paint_prepare` now drives a real backend-frame reset (`render_prepare`-equivalent), including framebuffer scale state and depth min/max reset.
+- `paint_2d_points` and `paint_3d_points` now populate real point items (`ITEM_POINTS` / `ITEM_POINTS_3D`) rather than metadata-only intent records.
+- A `get_item`-equivalent compatible-item reuse path is implemented for point batches (type/flags/halo/texture/capacity compatibility).
+- `paint_finish` now performs a real flush/finalize boundary (`render_finish`-equivalent) and exposes finalized point-item snapshots.
+- Stars batch finalization now derives `starCount` from finalized point items when present, reducing dependency on wrapper-only markers.
+
+Safety and scope notes:
+- Direct star rendering ownership remains with `directStarLayer`.
+- No new wrapper stage names or telemetry stages were introduced.
+- Legacy `renderGlReference` string labels are no longer parity proof; parity evidence is now based on real finalized point items.
+
+Validation:
+- `npm run typecheck`
+- `npm run test -- tests/test_painter_backend_port.test.js tests/sky-engine-stars-runtime.test.js`
+- `npm run build`
+- Evidence: **EV-0120**.
+
 ## Enum Mapping (`painter.h`)
 
 | Stellarium enum group | Sky-Engine mapping |
