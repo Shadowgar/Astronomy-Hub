@@ -1,6 +1,11 @@
 import { bvToRgb } from '../adapters/bvToRgb'
 import { encodeEphTileNuniq } from '../adapters/ephCodec'
 import { hipGetPix } from '../adapters/hipGetPix'
+import {
+	addStarsCSurveyFromProperties,
+	createStarsCLifecycleState,
+	createStarsCTileStore,
+} from '../adapters/starsCSurveyLifecyclePort'
 import { listRuntimeStarsFromTiles } from '../adapters/starsList'
 import { nuniqToHealpixOrderAndPix } from '../adapters/starsNuniq'
 import {
@@ -16,6 +21,11 @@ import {
 	MODULE2_SIDE_BY_SIDE_NUNIQ_PROBES,
 	MODULE2_SIDE_BY_SIDE_SOURCE_REVISION,
 } from './module2SideBySideReference.generated'
+import {
+	MODULE2_SIDE_BY_SIDE_LIVE_ADD_DATA_SOURCE_CHECKPOINTS,
+	MODULE2_SIDE_BY_SIDE_LIVE_SOURCE_REVISION,
+	MODULE2_SIDE_BY_SIDE_LIVE_STARS_LIST_CHECKPOINTS,
+} from './module2SideBySideLiveReference.generated'
 
 type Module2BvProbe = {
 	readonly bv: number
@@ -68,14 +78,34 @@ type Module2LookupProbe = {
 	readonly expectedStarId: string | null
 }
 
+type Module2LiveStarsListProbe = {
+	readonly id: string
+	readonly maxMag: number
+	readonly count: number
+	readonly sampleIds: readonly string[]
+}
+
+type Module2LiveAddDataSourceProbe = {
+	readonly id: string
+	readonly keyPrefix: string
+	readonly url: string
+	readonly propertiesHttpStatus: number | null
+	readonly propertiesText: string | null
+	readonly observedCodes: readonly number[]
+	readonly observedLifecycle: readonly ('again' | 'ok' | 'error')[]
+}
+
 type Module2SideBySideReference = {
 	readonly sourceRevision: string
+	readonly liveSourceRevision: string
 	readonly bvProbes: readonly Module2BvProbe[]
 	readonly nuniqProbes: readonly Module2NuniqProbe[]
 	readonly hipProbes: readonly Module2HipProbe[]
 	readonly starsListProbes: readonly Module2StarsListProbe[]
 	readonly surveyPlanProbes: readonly Module2SurveyPlanProbe[]
 	readonly lookupProbes: readonly Module2LookupProbe[]
+	readonly liveStarsListProbes: readonly Module2LiveStarsListProbe[]
+	readonly liveAddDataSourceProbes: readonly Module2LiveAddDataSourceProbe[]
 }
 
 type Module2CheckpointSection<TItem> = {
@@ -124,14 +154,29 @@ type Module2LookupCheckpointItem = {
 	readonly starId: string | null
 }
 
+type Module2LiveStarsListCheckpointItem = {
+	readonly id: string
+	readonly maxMag: number
+	readonly count: number
+	readonly sampleIds: readonly string[]
+}
+
+type Module2LiveAddDataSourceCheckpointItem = {
+	readonly id: string
+	readonly lifecycle: readonly ('again' | 'ok' | 'error')[]
+}
+
 export type Module2SideBySideHubCheckpoint = {
 	readonly sourceRevision: string
+	readonly liveSourceRevision: string
 	readonly bv: Module2CheckpointSection<Module2BvCheckpointItem>
 	readonly nuniq: Module2CheckpointSection<Module2NuniqCheckpointItem>
 	readonly hip: Module2CheckpointSection<Module2HipCheckpointItem>
 	readonly starsList: Module2CheckpointSection<Module2StarsListCheckpointItem>
 	readonly surveyPlan: Module2CheckpointSection<Module2SurveyPlanCheckpointItem>
 	readonly lookup: Module2CheckpointSection<Module2LookupCheckpointItem>
+	readonly liveStarsList: Module2CheckpointSection<Module2LiveStarsListCheckpointItem>
+	readonly liveAddDataSource: Module2CheckpointSection<Module2LiveAddDataSourceCheckpointItem>
 }
 
 export type Module2SideBySideMismatch = {
@@ -146,6 +191,7 @@ export type Module2SideBySideResult = {
 }
 
 const SOURCE_REVISION = MODULE2_SIDE_BY_SIDE_SOURCE_REVISION
+const LIVE_SOURCE_REVISION = MODULE2_SIDE_BY_SIDE_LIVE_SOURCE_REVISION
 
 function q(value: number, decimals = 12): number {
 	if (!Number.isFinite(value)) {
@@ -461,6 +507,7 @@ function buildSurveyDefinitions(): readonly StarsRuntimeSurveyDefinition<string>
 function buildReferenceVectors(): Module2SideBySideReference {
 	return {
 		sourceRevision: SOURCE_REVISION,
+		liveSourceRevision: LIVE_SOURCE_REVISION,
 		bvProbes: MODULE2_SIDE_BY_SIDE_BV_PROBES.map((probe) => ({
 			bv: probe.bv,
 			expectedRgb: [probe.expectedRgb[0], probe.expectedRgb[1], probe.expectedRgb[2]] as const,
@@ -565,6 +612,21 @@ function buildReferenceVectors(): Module2SideBySideReference {
 			{ id: 'lookup-hip-91262', hip: 91262, expectedStarId: 'hip-91262' },
 			{ id: 'lookup-hip-missing', hip: 9999999, expectedStarId: null },
 		],
+		liveStarsListProbes: MODULE2_SIDE_BY_SIDE_LIVE_STARS_LIST_CHECKPOINTS.map((probe) => ({
+			id: probe.id,
+			maxMag: probe.maxMag,
+			count: probe.count,
+			sampleIds: [...probe.sampleIds],
+		})),
+		liveAddDataSourceProbes: MODULE2_SIDE_BY_SIDE_LIVE_ADD_DATA_SOURCE_CHECKPOINTS.map((probe) => ({
+			id: probe.id,
+			keyPrefix: probe.keyPrefix,
+			url: probe.url,
+			propertiesHttpStatus: probe.propertiesHttpStatus,
+			propertiesText: probe.propertiesText,
+			observedCodes: [...probe.observedCodes],
+			observedLifecycle: [...probe.observedLifecycle],
+		})),
 	}
 }
 
@@ -677,6 +739,64 @@ function runLookupCheckpoint(
 	}
 }
 
+function runLiveStarsListCheckpoint(
+	reference: Module2SideBySideReference,
+): Module2CheckpointSection<Module2LiveStarsListCheckpointItem> {
+	return {
+		id: 'module2-live-stars-list-side-by-side',
+		items: reference.liveStarsListProbes.map((probe) => ({
+			id: probe.id,
+			maxMag: probe.maxMag,
+			count: probe.count,
+			sampleIds: [...probe.sampleIds],
+		})),
+	}
+}
+
+function runLiveAddDataSourceCheckpoint(
+	reference: Module2SideBySideReference,
+): Module2CheckpointSection<Module2LiveAddDataSourceCheckpointItem> {
+	return {
+		id: 'module2-live-add-data-source-side-by-side',
+		items: reference.liveAddDataSourceProbes.map((probe) => {
+			const tileStore = createStarsCTileStore()
+			let state = createStarsCLifecycleState()
+			const lifecycle: ('again' | 'ok' | 'error')[] = []
+
+			const pending = addStarsCSurveyFromProperties({
+				state,
+				key: `${probe.keyPrefix}-pending`,
+				url: probe.url,
+				propertiesText: '',
+				propertiesStatusCode: 0,
+				tileStore,
+			})
+			lifecycle.push(pending.status)
+
+			const completion = addStarsCSurveyFromProperties({
+				state,
+				key: `${probe.keyPrefix}-complete`,
+				url: probe.url,
+				propertiesText: probe.propertiesText ?? '',
+				propertiesStatusCode: probe.propertiesHttpStatus,
+				tileStore,
+			})
+
+			if (completion.status === 'ok') {
+				state = completion.state
+			}
+			lifecycle.push(completion.status)
+			void state
+
+			const collapsed = lifecycle.filter((value, index) => lifecycle[index - 1] !== value)
+			return {
+				id: probe.id,
+				lifecycle: collapsed,
+			}
+		}),
+	}
+}
+
 export function computeModule2SideBySideHubCheckpoint(): Module2SideBySideHubCheckpoint {
 	const reference = buildReferenceVectors()
 	const starsListTiles = buildStarsListTiles()
@@ -685,12 +805,15 @@ export function computeModule2SideBySideHubCheckpoint(): Module2SideBySideHubChe
 
 	return {
 		sourceRevision: reference.sourceRevision,
+		liveSourceRevision: reference.liveSourceRevision,
 		bv: runBvCheckpoint(reference),
 		nuniq: runNuniqCheckpoint(reference),
 		hip: runHipCheckpoint(reference),
 		starsList: runStarsListCheckpoint(reference, starsListTiles),
 		surveyPlan: runSurveyPlanCheckpoint(reference, surveys),
 		lookup: runLookupCheckpoint(reference, lookupTiles),
+		liveStarsList: runLiveStarsListCheckpoint(reference),
+		liveAddDataSource: runLiveAddDataSourceCheckpoint(reference),
 	}
 }
 
@@ -698,6 +821,7 @@ export function computeModule2SideBySideReferenceCheckpoint(): Module2SideBySide
 	const reference = buildReferenceVectors()
 	return {
 		sourceRevision: reference.sourceRevision,
+		liveSourceRevision: reference.liveSourceRevision,
 		bv: {
 			id: 'module2-bv-side-by-side',
 			items: reference.bvProbes.map((probe) => ({
@@ -751,6 +875,22 @@ export function computeModule2SideBySideReferenceCheckpoint(): Module2SideBySide
 				starId: probe.expectedStarId,
 			})),
 		},
+		liveStarsList: {
+			id: 'module2-live-stars-list-side-by-side',
+			items: reference.liveStarsListProbes.map((probe) => ({
+				id: probe.id,
+				maxMag: probe.maxMag,
+				count: probe.count,
+				sampleIds: [...probe.sampleIds],
+			})),
+		},
+		liveAddDataSource: {
+			id: 'module2-live-add-data-source-side-by-side',
+			items: reference.liveAddDataSourceProbes.map((probe) => ({
+				id: probe.id,
+				lifecycle: [...probe.observedLifecycle],
+			})),
+		},
 	}
 }
 
@@ -800,6 +940,22 @@ function compareStringArray(
 		mismatches.push({
 			area,
 			message: `${leftLabel}=[${leftNormalized.join(',')}] differs from ${rightLabel}=[${rightNormalized.join(',')}]`,
+		})
+	}
+}
+
+function compareOrderedStringArray(
+	area: string,
+	leftLabel: string,
+	rightLabel: string,
+	left: readonly string[],
+	right: readonly string[],
+	mismatches: Module2SideBySideMismatch[],
+): void {
+	if (left.join('|') !== right.join('|')) {
+		mismatches.push({
+			area,
+			message: `${leftLabel}=[${left.join(',')}] differs from ${rightLabel}=[${right.join(',')}]`,
 		})
 	}
 }
@@ -951,18 +1107,78 @@ function compareLookupSection(
 	}
 }
 
+function compareLiveStarsListSection(
+	hub: Module2CheckpointSection<Module2LiveStarsListCheckpointItem>,
+	reference: Module2CheckpointSection<Module2LiveStarsListCheckpointItem>,
+	mismatches: Module2SideBySideMismatch[],
+): void {
+	for (let index = 0; index < Math.max(hub.items.length, reference.items.length); index += 1) {
+		const hubItem = hub.items[index]
+		const referenceItem = reference.items[index]
+		if (!hubItem || !referenceItem) {
+			mismatches.push({ area: 'live-stars-list', message: `probe length mismatch at index ${index}` })
+			continue
+		}
+		compareString('live-stars-list', 'hub.id', 'ref.id', hubItem.id, referenceItem.id, mismatches)
+		compareNumber('live-stars-list', 'hub.maxMag', 'ref.maxMag', hubItem.maxMag, referenceItem.maxMag, mismatches)
+		compareNumber('live-stars-list', 'hub.count', 'ref.count', hubItem.count, referenceItem.count, mismatches)
+		compareStringArray(
+			'live-stars-list',
+			'hub.sampleIds',
+			'ref.sampleIds',
+			hubItem.sampleIds,
+			referenceItem.sampleIds,
+			mismatches,
+		)
+	}
+}
+
+function compareLiveAddDataSourceSection(
+	hub: Module2CheckpointSection<Module2LiveAddDataSourceCheckpointItem>,
+	reference: Module2CheckpointSection<Module2LiveAddDataSourceCheckpointItem>,
+	mismatches: Module2SideBySideMismatch[],
+): void {
+	for (let index = 0; index < Math.max(hub.items.length, reference.items.length); index += 1) {
+		const hubItem = hub.items[index]
+		const referenceItem = reference.items[index]
+		if (!hubItem || !referenceItem) {
+			mismatches.push({ area: 'live-add-data-source', message: `probe length mismatch at index ${index}` })
+			continue
+		}
+		compareString('live-add-data-source', 'hub.id', 'ref.id', hubItem.id, referenceItem.id, mismatches)
+		compareOrderedStringArray(
+			'live-add-data-source',
+			'hub.lifecycle',
+			'ref.lifecycle',
+			hubItem.lifecycle as readonly string[],
+			referenceItem.lifecycle as readonly string[],
+			mismatches,
+		)
+	}
+}
+
 export function runModule2SideBySideParityHarness(): Module2SideBySideResult {
 	const hub = computeModule2SideBySideHubCheckpoint()
 	const reference = computeModule2SideBySideReferenceCheckpoint()
 	const mismatches: Module2SideBySideMismatch[] = []
 
 	compareString('meta', 'hub.sourceRevision', 'ref.sourceRevision', hub.sourceRevision, reference.sourceRevision, mismatches)
+	compareString(
+		'meta',
+		'hub.liveSourceRevision',
+		'ref.liveSourceRevision',
+		hub.liveSourceRevision,
+		reference.liveSourceRevision,
+		mismatches,
+	)
 	compareBvSection(hub.bv, reference.bv, mismatches)
 	compareNuniqSection(hub.nuniq, reference.nuniq, mismatches)
 	compareHipSection(hub.hip, reference.hip, mismatches)
 	compareStarsListSection(hub.starsList, reference.starsList, mismatches)
 	compareSurveyPlanSection(hub.surveyPlan, reference.surveyPlan, mismatches)
 	compareLookupSection(hub.lookup, reference.lookup, mismatches)
+	compareLiveStarsListSection(hub.liveStarsList, reference.liveStarsList, mismatches)
+	compareLiveAddDataSourceSection(hub.liveAddDataSource, reference.liveAddDataSource, mismatches)
 
 	return {
 		hub,
@@ -1013,9 +1229,26 @@ function serializeLookupSection(section: Module2CheckpointSection<Module2LookupC
 		.join('|')
 }
 
+function serializeLiveStarsListSection(
+	section: Module2CheckpointSection<Module2LiveStarsListCheckpointItem>,
+): string {
+	return section.items
+		.map((item) => `live-list:${item.id}:${q(item.maxMag)}:${item.count}:${item.sampleIds.join(',')}`)
+		.join('|')
+}
+
+function serializeLiveAddDataSourceSection(
+	section: Module2CheckpointSection<Module2LiveAddDataSourceCheckpointItem>,
+): string {
+	return section.items
+		.map((item) => `live-add:${item.id}:${item.lifecycle.join(',')}`)
+		.join('|')
+}
+
 export function computeModule2SideBySideParityDigest(result = runModule2SideBySideParityHarness()): string {
 	return [
 		`source:${result.hub.sourceRevision}`,
+		`live-source:${result.hub.liveSourceRevision}`,
 		`match:${result.mismatches.length === 0 ? '1' : '0'}`,
 		`mismatches:${result.mismatches.length}`,
 		serializeBvSection(result.hub.bv),
@@ -1024,6 +1257,8 @@ export function computeModule2SideBySideParityDigest(result = runModule2SideBySi
 		serializeStarsListSection(result.hub.starsList),
 		serializeSurveyPlanSection(result.hub.surveyPlan),
 		serializeLookupSection(result.hub.lookup),
+		serializeLiveStarsListSection(result.hub.liveStarsList),
+		serializeLiveAddDataSourceSection(result.hub.liveAddDataSource),
 	].join('::')
 }
 
@@ -1033,13 +1268,16 @@ export function summarizeModule2SideBySideParity(result = runModule2SideBySidePa
 		: 'none'
 	return [
 		`source:${result.hub.sourceRevision}`,
-		`sections:6`,
+		`live-source:${result.hub.liveSourceRevision}`,
+		`sections:8`,
 		`bv:${result.hub.bv.items.length}`,
 		`nuniq:${result.hub.nuniq.items.length}`,
 		`hip:${result.hub.hip.items.length}`,
 		`list:${result.hub.starsList.items.length}`,
 		`plan:${result.hub.surveyPlan.items.length}`,
 		`lookup:${result.hub.lookup.items.length}`,
+		`live-list:${result.hub.liveStarsList.items.length}`,
+		`live-add:${result.hub.liveAddDataSource.items.length}`,
 		`mismatches:${result.mismatches.length}`,
 		`detail:${mismatchSummary}`,
 	].join('|')

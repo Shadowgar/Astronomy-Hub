@@ -133,6 +133,23 @@ describe('module2 stars.c survey lifecycle port: properties and survey creation'
     expect(result.status).toBe('again')
   })
 
+  it('returns error when fetch status reports missing survey properties', () => {
+    const state = createStarsCLifecycleState()
+    const result = addStarsCSurveyFromProperties({
+      state,
+      key: 'missing',
+      url: '/survey/missing',
+      propertiesText: '',
+      propertiesStatusCode: 404,
+      tileStore: createStarsCTileStore(),
+    })
+
+    expect(result.status).toBe('error')
+    if (result.status === 'error') {
+      expect(result.reason).toContain('status 404')
+    }
+  })
+
   it('returns error for non-stars source types', () => {
     const state = createStarsCLifecycleState()
     const result = addStarsCSurveyFromProperties({

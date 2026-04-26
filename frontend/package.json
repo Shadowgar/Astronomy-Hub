@@ -17,7 +17,9 @@
     "type-check": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --watch",
-    "generate:module2-side-by-side-reference": "node scripts/generate_module2_side_by_side_reference.mjs"
+    "generate:module2-side-by-side-reference": "node scripts/generate_module2_side_by_side_reference.mjs",
+    "generate:module2-live-side-by-side-reference": "node scripts/generate_module2_live_side_by_side_reference.mjs",
+    "profile:sky-engine-runtime": "node scripts/profile_sky_engine_runtime_perf.mjs"
   },
   "dependencies": {
     "@babylonjs/addons": "^9.1.0",

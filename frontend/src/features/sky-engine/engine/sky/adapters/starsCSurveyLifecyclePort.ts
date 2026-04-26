@@ -476,11 +476,23 @@ export function addStarsCSurveyFromProperties(params: {
   key?: string | null
   url: string
   propertiesText: string
+  propertiesStatusCode?: number | null
   tileStore: StarsCTileStore
 }):
   | { status: 'ok'; state: StarsCLifecycleState; survey: StarsCSurveyRuntime; preload: readonly StarsCPreloadRequest[] }
   | { status: 'again' }
   | { status: 'error'; reason: string } {
+  if (params.propertiesStatusCode === 0) {
+    return { status: 'again' }
+  }
+
+  if (Number.isFinite(params.propertiesStatusCode) && (params.propertiesStatusCode ?? 200) >= 400) {
+    return {
+      status: 'error',
+      reason: `Failed to load survey properties (status ${params.propertiesStatusCode})`,
+    }
+  }
+
   if (!params.propertiesText || params.propertiesText.trim().length === 0) {
     return { status: 'again' }
   }

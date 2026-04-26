@@ -19,6 +19,8 @@ describe('module2 side-by-side parity harness (G5 scaffold)', () => {
     expect(result.hub.starsList.items.length).toBeGreaterThanOrEqual(6)
     expect(result.hub.surveyPlan.items.length).toBeGreaterThanOrEqual(3)
     expect(result.hub.lookup.items.length).toBeGreaterThanOrEqual(3)
+    expect(result.hub.liveStarsList.items.length).toBeGreaterThanOrEqual(3)
+    expect(result.hub.liveAddDataSource.items.length).toBeGreaterThanOrEqual(3)
 
     expect(result.mismatches).toEqual([])
   })
@@ -29,17 +31,20 @@ describe('module2 side-by-side parity harness (G5 scaffold)', () => {
 
     expect(digestA).toBe(digestB)
     expect(digestA).toContain('source:63fb3279e85782158a6df63649f1c8a1837b7846')
+    expect(digestA).toContain('live-source:63fb3279e85782158a6df63649f1c8a1837b7846')
     expect(digestA).toContain('match:1')
     expect(digestA).toContain('mismatches:0')
     expect(digestA).toContain('list:default-hip-max6:ok:hip-bright,hip-mid,hip-ok-2,hip-ok-1')
     expect(digestA).toContain('lookup:lookup-hip-11767:11767:hip-11767-a')
+    expect(digestA).toContain('live-add:add-stars-minimal:again,ok')
   })
 
   it('returns concise side-by-side summary with zero mismatches', () => {
     const summary = summarizeModule2SideBySideParity()
 
     expect(summary).toContain('source:63fb3279e85782158a6df63649f1c8a1837b7846')
-    expect(summary).toContain('sections:6')
+    expect(summary).toContain('live-source:63fb3279e85782158a6df63649f1c8a1837b7846')
+    expect(summary).toContain('sections:8')
     expect(summary).toContain('mismatches:0')
     expect(summary).toContain('detail:none')
   })

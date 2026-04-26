@@ -2,7 +2,7 @@
 
 **Purpose:** This file is the single entry point for a fresh agent (Codex 5.3 or any successor) taking over the runtime port without prior chat context. Read this file first, then the four "required reads" below, then start coding.
 
-**Last updated:** 2026-04-26, evidence **EV-0105** (`AUDIT-2026-04-26.md` re-audits local Stellarium source vs Hub runtime/docs; confirms 146 C/H source rows, only one file-level `PORTED` row, module2 still BLOCKED, and renderer/painter/runtime gaps are usability-critical).
+**Last updated:** 2026-04-26, evidence **EV-0106** (live module2 side-by-side checkpoints generated from pinned Stellarium runtime and wired into the parity harness, plus active `/sky-engine` telemetry profile tied to `core.c`/`painter.c`/`render_gl.c` parity gaps).
 
 ---
 
@@ -26,7 +26,7 @@ These constraints come from the top-level `AGENTS.md` §6.5 (Sky Engine Isolatio
 2. **`docs/runtime/port/README.md`** — canon rules + current module-completion state.
 3. **`docs/runtime/port/module2-source-contract.md`** — active module (§1–§2 source mapping, §5 gate status, §7 handoff / next coding targets / commands / evidence).
 4. **`docs/runtime/port/module-gates.md`** — gate-by-gate state per module + "Known residuals (repo-wide `npm test`)" section.
-5. **`docs/runtime/port/evidence-index.md`** — the evidence ledger. Cite an existing `EV-xxxx` when referencing work; add a new row for any new work you land (**next free ID: EV-0106**; `EV-0067` and `EV-0068` are intentionally unused).
+5. **`docs/runtime/port/evidence-index.md`** — the evidence ledger. Cite an existing `EV-xxxx` when referencing work; add a new row for any new work you land (**next free ID: EV-0107**; `EV-0067` and `EV-0068` are intentionally unused).
 6. **`docs/runtime/port/AUDIT-2026-04-26.md`** — latest full audit of source inventory, Hub runtime status, and usability/performance drift.
 
 Only open deeper files (inventory, blockers, source contract for module 0/1, per-plan files) when the task points at them.
@@ -50,7 +50,7 @@ Never anchor a port claim to a moving branch — always diff against the pinned 
 |---|---|---|---|
 | `module0-foundation-lock` | **COMPLETE** (EV-0019) | `npm run test:module0` → **12/12** | Observer/time/matrix spine. No open `BLK-*`. |
 | `module1-hips-kernel` | **COMPLETE** (EV-0034) | `npm run test:module1` → **46/46** | EPH / HEALPix / tile / HiPS render-order spine. `test_close_fov_star_counts.test.js` is an intentionally-excluded asset-heavy probe (see `module1-source-contract.md` §3). |
-| `module2-stars-full` | **BLOCKED / partial** (active) | `npm run test:module2` → **171/171 / 26 files** | G0/G1 PASS (EV-0036). G2/G3/G4 partial (EV-0038–EV-0104). G5–G7 FAIL. EV-0105 confirms this is not yet a usable/full source port. See `module2-source-contract.md` §5 + §7. |
+| `module2-stars-full` | **BLOCKED / partial** (active) | `npm run test:module2` → **172/172 / 26 files** | G0/G1 PASS (EV-0036). G2/G3/G4 partial (EV-0038–EV-0106). G5–G7 FAIL. EV-0105/EV-0106 confirm this is not yet a usable/full source port. See `module2-source-contract.md` §5 + §7. |
 | `module3-dso-full` | N/A — not started | n/a | Some repo-wide `npm test` residuals belong here (see `module-gates.md` "Known residuals"). |
 | `module4-planets-moon-sun` | N/A | n/a | — |
 | `module5-satellites-full` | N/A | n/a | Some repo-wide residuals belong here. |
@@ -68,9 +68,9 @@ Modules are worked strictly in order. You are on **module 2**. Do not start modu
 
 Within module 2, the next concrete coding targets (from `module2-source-contract.md §7`, ordered) are:
 
-1. **G5 side-by-side parity checkpoints from live pinned Stellarium output.** The baseline harness exists (**EV-0104**), but G5 remains open until checkpoint vectors come from the pinned Stellarium runtime rather than committed Hub-only fixture baselines.
-2. **`stars_list` / `stars_add_data_source` live lifecycle closure.** Live fetch lifecycle + full `stars.c` object graph remain open after loaded-tile adapter + iterator/loop-semantics hardening and survey-registry extraction (**EV-0078**–**EV-0082**, **EV-0092**, **EV-0093**, **EV-0094**, **EV-0095**, **EV-0096**, **EV-0100**, **EV-0101**).
-3. **Runtime stabilization tied to painter/render_gl parity.** User-reported blockers (no visible stars at default observer, laggy interaction) need active-scene profiling tied to a new evidence row. Do not document this as "no GPU": Babylon/WebGL thin-instance drawing exists, but the Stellarium `core.c` / `painter.c` / `render_gl.c` batching, clipping, shader, texture, and tonemapper contracts are not ported.
+1. **G5 side-by-side parity checkpoints from live pinned Stellarium output.** Live vectors are now generated and consumed by the harness (**EV-0106**), but G5 remains open until the checkpoint set expands beyond current list/add-data-source probes and reaches full module2 acceptance coverage.
+2. **`stars_list` / `stars_add_data_source` live lifecycle closure.** Live fetch lifecycle now captures `again→ok` and `again→error` branches and is consumed through `starsCSurveyLifecyclePort` (**EV-0106**); remaining gap is full `stars.c` object graph / callback lifecycle parity beyond the current probe set.
+3. **Runtime stabilization tied to painter/render_gl parity.** Active-scene telemetry capture is now landed (**EV-0106**). Do not document this as "no GPU": Babylon/WebGL thin-instance drawing exists, but Stellarium `core.c` / `painter.c` / `render_gl.c` batching, clipping, shader, texture, and tonemapper contracts are not ported.
 4. **Post-module2 module split.** Before claiming readiness for a full-source port beyond module2, split the broad `module7-remaining-swe` bucket into actionable renderer/painter/core/module-system/projection/utility gates. EV-0105 shows this bucket currently hides 90 blocked C/H file rows, including central rendering files.
 
 Every landed change must:
@@ -102,7 +102,9 @@ npm run typecheck        # tsc --noEmit — required before claiming done
 npm run build            # vite production build
 npm run test:module0     # 12/12 (module 0 gate bundle)
 npm run test:module1     # 46/46 (module 1 gate bundle)
-npm run test:module2     # 171/171 across 26 files (module 2 gate bundle as of EV-0104)
+npm run test:module2     # 172/172 across 26 files (module 2 gate bundle as of EV-0106)
+npm run generate:module2-live-side-by-side-reference  # refresh live Stellarium checkpoints (port 8080)
+npm run profile:sky-engine-runtime  # capture active-scene runtime telemetry artifact
 npm run dev              # Vite dev server on 4173
 npm run preview          # Preview build on 4173
 npm test                 # Full Vitest; has 10 known residuals in module 3/5/6/7/8 scope — see module-gates.md "Known residuals". Not a module 2 gate.
@@ -134,7 +136,7 @@ CI gate workflows:
 | Hipparcos merge HIP ↔ HEALPix check | `frontend/src/features/sky-engine/engine/sky/adapters/fileTileRepository.ts` (`filterSurveyStarsForMerge` → `runtimeStarMatchesHipHealpixLookup`) |
 | Public module 2 exports | `frontend/src/features/sky-engine/engine/sky/index.ts` |
 | Stellarium simple-html UI assets | `frontend/public/stellarium-web/`, `frontend/src/pages/stellariumWebUiAssets.ts`, `frontend/src/pages/SkyEnginePage.tsx` (EV-0053) |
-| G4 deterministic fingerprint | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts`; test `test_module2_deterministic_replay.test.js` (EV-0043); frame-pacing trace seam `framePacingDecisions.ts` + `test_module2_frame_pacing_decisions.test.js` (EV-0102); label runtime seam `starsCLabelRuntimePort.ts` + `test_module2_stars_c_label_runtime_port.test.js` (EV-0103); side-by-side harness baseline seam `module2SideBySideParityHarness.ts` + `test_module2_side_by_side_parity_harness.test.js` (EV-0104) |
+| G4 deterministic fingerprint | `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts`; test `test_module2_deterministic_replay.test.js` (EV-0043); frame-pacing trace seam `framePacingDecisions.ts` + `test_module2_frame_pacing_decisions.test.js` (EV-0102); label runtime seam `starsCLabelRuntimePort.ts` + `test_module2_stars_c_label_runtime_port.test.js` (EV-0103); side-by-side harness live-checkpoint seam `module2SideBySideParityHarness.ts` + `module2SideBySideLiveReference.generated.ts` + `test_module2_side_by_side_parity_harness.test.js` (EV-0106) |
 
 Module 2 function inventory (per-function `PORTED` / `BLOCKED` status against concrete Hub paths, evidence, and tests) lives in **`module-inventory.md`** → "Module 2 Function Inventory (Stars Pipeline)".
 
@@ -143,7 +145,7 @@ Module 2 function inventory (per-function `PORTED` / `BLOCKED` status against co
 ## 9. Evidence conventions
 
 - Every `PASS` gate must reference at least one evidence row (`module-gates.md` Rules).
-- When you land new work, append a new row to `evidence-index.md` with the next free ID (**next: EV-0106**). Use the existing column shape: `| Evidence ID | Module | Gate | Command / Probe | Artifact Path | Result | Notes |`.
+- When you land new work, append a new row to `evidence-index.md` with the next free ID (**next: EV-0107**). Use the existing column shape: `| Evidence ID | Module | Gate | Command / Probe | Artifact Path | Result | Notes |`.
 - Keep existing EV rows immutable. `EV-0067` and `EV-0068` are intentionally unused — do not reuse them.
 - Cite the new EV ID in every doc that references the landed surface: `module-inventory.md` (function table), `module-gates.md` (module row), `module2-source-contract.md` (§5 gate + §7 evidence table), and any README range bumps.
 
@@ -154,7 +156,7 @@ Module 2 function inventory (per-function `PORTED` / `BLOCKED` status against co
 These are documented so you don't spend context re-deriving them:
 
 - "No stars visible / very few stars." Native `render_visitor` traversal (EV-0074) and survey-wide loaded-tile `obj_get_by_hip` lookup are landed (EV-0075, tightened to source order traversal in EV-0091); G4 fingerprint coverage now also includes deterministic traversal/lookup/catalog-astrometry slices (EV-0076), and remaining `stars.c` list/datasource seams are still open, so keep runtime symptom claims scoped to evidence-backed changes only.
-- "Laggy / choppy interaction." Quantized `hipsViewport` signature (EV-0069) and per-star pv caching (EV-0070) removed two known thrash sources. The runtime does use GPU drawing through Babylon thin instances, but EV-0105 confirms the remaining risk is CPU-heavy TypeScript projection/model/buffer preparation plus unported Stellarium `painter.c` / `render_gl.c` lifecycle and batching. Further active-scene profiling is P0 after live G5 checkpoint work begins.
+- "Laggy / choppy interaction." Quantized `hipsViewport` signature (EV-0069) and per-star pv caching (EV-0070) removed two known thrash sources. The runtime does use GPU drawing through Babylon thin instances; EV-0106 live telemetry capture (`module2-live-runtime-profile-2026-04-26.json`) still points at projection/runtime-side CPU work as the dominant risk, and Stellarium `painter.c` / `render_gl.c` lifecycle+batches remain unported.
 - "Different from Stellarium visually." Expected until module 6 UI parity work. Simple-html assets are vendored (EV-0053) but shell/overlay drift tests live under `module-gates.md` "Known residuals" and belong to module 6 / module 8.
 
 ---
