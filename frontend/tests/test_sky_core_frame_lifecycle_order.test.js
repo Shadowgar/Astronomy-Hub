@@ -25,6 +25,9 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
       const renderFrameStates = []
       const postRenderFrameStates = []
       const preambleFrameStates = []
+      const preamblePainterRefs = []
+      const renderPainterRefs = []
+      const preambleQueueSnapshots = []
 
       const runtime = {
         canvas: {},
@@ -78,6 +81,8 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
         coreRenderPreamble: (ctx) => {
           order.push('core.renderPreamble')
           preambleFrameStates.push(ctx.frameState)
+          preamblePainterRefs.push(ctx.frameState.render.painter)
+          preambleQueueSnapshots.push(ctx.frameState.render.painter.drawQueue.map((entry) => entry.fn))
         },
       })
 
@@ -88,6 +93,8 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
       moduleA.render = vi.fn((ctx) => {
         order.push('module-a.render')
         renderFrameStates.push(ctx.frameState)
+        renderPainterRefs.push(ctx.frameState.render.painter)
+        ctx.frameState.render.painter.paint_text()
       })
       moduleA.postRender = vi.fn((ctx) => {
         order.push('module-a.postRender')
@@ -100,6 +107,8 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
       moduleB.render = vi.fn((ctx) => {
         order.push('module-b.render')
         renderFrameStates.push(ctx.frameState)
+        renderPainterRefs.push(ctx.frameState.render.painter)
+        ctx.frameState.render.painter.paint_text()
       })
       moduleB.postRender = vi.fn((ctx) => {
         order.push('module-b.postRender')
@@ -140,6 +149,20 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
       expect(renderFrameStates[1]).toBe(singleFrameState)
       expect(postRenderFrameStates[0]).toBe(singleFrameState)
       expect(postRenderFrameStates[1]).toBe(singleFrameState)
+
+      const firstFramePainter = preamblePainterRefs[0]
+      expect(firstFramePainter).toBe(renderPainterRefs[0])
+      expect(firstFramePainter).toBe(renderPainterRefs[1])
+      expect(preambleQueueSnapshots[0]).toEqual(['paint_prepare'])
+
+      firstFramePainter.paint_texture()
+      expect(firstFramePainter.drawQueue.some((entry) => entry.fn === 'paint_texture')).toBe(true)
+
+      loopCallback()
+
+      expect(preambleFrameStates).toHaveLength(2)
+      expect(preamblePainterRefs[1]).toBe(firstFramePainter)
+      expect(preambleQueueSnapshots[1]).toEqual(['paint_prepare'])
     })
   })
 })

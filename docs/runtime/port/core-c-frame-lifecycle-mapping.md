@@ -52,3 +52,5 @@ Implementation notes:
 - A single `SkyCoreFrameState` object is created once per frame inside `runFrameLifecycle` and passed unchanged to ordered module `update`, `render`, and `postRender` phases.
 - `Babylon scene.render()` remains between ordered `render` and ordered `postRender`.
 - `painter_update_clip_info` / `paint_prepare` / `render_gl` remain intentionally unported in this slice.
+
+For painter API boundary details, see `docs/runtime/port/painter-c-api-surface-mapping.md`.

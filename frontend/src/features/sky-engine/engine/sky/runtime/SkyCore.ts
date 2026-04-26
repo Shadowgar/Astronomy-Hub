@@ -10,6 +10,7 @@ import type {
   SkyUpdateContext,
 } from './types'
 import { commitRuntimePerfTelemetry } from './perfTelemetry'
+import { createSkyPainterPortState } from './renderer/painterPort'
 
 export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
   private readonly config: SkyCoreConfigWithServices<TProps, TRuntime, TServices>
@@ -30,6 +31,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
   private currentModuleUpdateCostMs: Record<string, number> = {}
   private currentModuleRenderCostMs: Record<string, number> = {}
   private frameCounter = 0
+  private readonly painterState = createSkyPainterPortState()
 
   constructor(config: SkyCoreConfigWithServices<TProps, TRuntime, TServices>) {
     this.config = config
@@ -222,6 +224,22 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       ...this.getModuleContext(frameState),
       frameState,
     }
+    context.frameState.render.painter.reset_for_frame({
+      frameIndex: context.frameState.frameIndex,
+      windowWidth: context.frameState.render.windowWidth,
+      windowHeight: context.frameState.render.windowHeight,
+      pixelScale: context.frameState.render.pixelScale,
+      framebufferWidth: context.frameState.render.framebufferWidth,
+      framebufferHeight: context.frameState.render.framebufferHeight,
+      starsLimitMag: context.frameState.render.starsLimitMag,
+      hintsLimitMag: context.frameState.render.hintsLimitMag,
+      hardLimitMag: context.frameState.render.hardLimitMag,
+    })
+    context.frameState.render.painter.paint_prepare(
+      context.frameState.render.windowWidth,
+      context.frameState.render.windowHeight,
+      context.frameState.render.pixelScale,
+    )
     this.config.coreRenderPreamble?.(context)
     this.modules.forEach((module) => {
       const startMs = performance.now()
@@ -345,6 +363,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       frameIndex: this.frameCounter,
       deltaSeconds,
       render: {
+        painter: this.painterState,
         windowWidth,
         windowHeight,
         pixelScale,

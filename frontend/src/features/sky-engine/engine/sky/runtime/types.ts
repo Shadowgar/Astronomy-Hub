@@ -2,6 +2,7 @@ import type { UniversalCamera } from '@babylonjs/core/Cameras/universalCamera'
 import type { Engine } from '@babylonjs/core/Engines/engine'
 import type { Scene } from '@babylonjs/core/scene'
 import type { SkyEngineVisualCalibration } from '../../../types'
+import type { SkyPainterPortState } from './renderer/painterPort'
 
 export interface SkyCoreRenderRefs {
   readonly scene: Scene
@@ -18,6 +19,7 @@ export interface SkyCoreRenderRefs {
 }
 
 export interface SkyCoreRenderState {
+  readonly painter: SkyPainterPortState
   readonly windowWidth: number
   readonly windowHeight: number
   readonly pixelScale: number
