@@ -5,7 +5,7 @@ import {
 } from '../../../../pickTargets'
 import type { SkyModule } from '../SkyModule'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
-import type { SkyPainterQueuedCall } from '../renderer/painterPort'
+import type { SkyPainterFinalizedBatch, SkyPainterQueuedCall } from '../renderer/painterPort'
 import {
   clearSceneState,
   serializeSceneState,
@@ -41,10 +41,17 @@ type PainterStarTelemetrySnapshot = {
   }
   finalizedCommandCountAfterPaintFinish: number
   finalizedPainterStarCommandCountAfterPaintFinish: number
+  finalizedPainterBatchCount: number
+  finalizedPainterStarsBatchCount: number
+  starsBatchStarCount: number | null
+  starsBatchExecutionStatus: string | null
   comparison: {
     painterVsDirectDelta: number | null
     painterVsProjectedDelta: number | null
     painterVsRenderedDelta: number | null
+    batchVsDirectDelta: number | null
+    batchVsProjectedDelta: number | null
+    batchVsRenderedDelta: number | null
   }
 }
 
@@ -52,6 +59,117 @@ type StarsDrawIntentCommand = SkyPainterQueuedCall<'paint_stars_draw_intent'>
 
 function isStarsDrawIntentCommand(command: SkyPainterQueuedCall): command is StarsDrawIntentCommand {
   return command.fn === 'paint_stars_draw_intent'
+}
+
+function isStarsBatch(batch: SkyPainterFinalizedBatch): batch is Extract<SkyPainterFinalizedBatch, { kind: 'stars' }> {
+  return batch.kind === 'stars'
+}
+
+function buildModuleBreakdown(latestPerf: SceneRuntimeRefs['runtimePerfTelemetry']['latest']) {
+  return Object.keys(latestPerf.moduleMs)
+    .sort((left, right) => left.localeCompare(right))
+    .reduce<Record<string, { updateMs: number; renderMs: number; totalMs: number }>>((accumulator, moduleId) => {
+      const updateMs = latestPerf.moduleUpdateMs[moduleId] ?? 0
+      const renderMs = latestPerf.moduleRenderMs[moduleId] ?? 0
+      accumulator[moduleId] = {
+        updateMs,
+        renderMs,
+        totalMs: updateMs + renderMs,
+      }
+      return accumulator
+    }, {})
+}
+
+type PainterBatchTelemetryState = {
+  readonly drawQueue: ReadonlyArray<SkyPainterQueuedCall>
+  readonly finalizedCommands: ReadonlyArray<SkyPainterQueuedCall>
+  readonly finalizedBatches: ReadonlyArray<SkyPainterFinalizedBatch>
+}
+
+function resolveNullableDelta(left: number | null, right: number | null): number | null {
+  if (left == null || right == null) {
+    return null
+  }
+  return left - right
+}
+
+function resolveBatchAggregate(finalizedStarsBatches: Array<Extract<SkyPainterFinalizedBatch, { kind: 'stars' }>>) {
+  let starsBatchStarCount = 0
+  let starsBatchExecutionStatus: string | null = null
+  for (const batch of finalizedStarsBatches) {
+    starsBatchStarCount += batch.starCount
+    starsBatchExecutionStatus = batch.executionStatus
+  }
+  return {
+    starsBatchStarCount,
+    starsBatchExecutionStatus,
+  }
+}
+
+function buildPainterStarTelemetry(params: {
+  frameIndex: number
+  painter: PainterBatchTelemetryState
+  latestPerf: SceneRuntimeRefs['runtimePerfTelemetry']['latest']
+  latestProjectionMode: string | null | undefined
+  projectedStarCount: number | null
+}): PainterStarTelemetrySnapshot {
+  const starIntentCommands = params.painter.drawQueue.filter(isStarsDrawIntentCommand)
+  const finalizedStarIntentCommands = params.painter.finalizedCommands.filter(isStarsDrawIntentCommand)
+  const finalizedBatches = params.painter.finalizedBatches
+  const finalizedStarsBatches = finalizedBatches.filter(isStarsBatch)
+
+  let lastStarIntentCommand: StarsDrawIntentCommand | null = null
+  for (const command of starIntentCommands) {
+    lastStarIntentCommand = command
+  }
+
+  const batchAggregate = resolveBatchAggregate(finalizedStarsBatches)
+
+  const painterStarPayloadStarCount = typeof lastStarIntentCommand?.payload.starCount === 'number'
+    ? lastStarIntentCommand.payload.starCount
+    : null
+  const directStarSyncCount = typeof params.latestPerf.stepMs.starLayerSyncCount === 'number'
+    ? params.latestPerf.stepMs.starLayerSyncCount
+    : params.projectedStarCount
+  const renderedStarCount = Number.isFinite(params.latestPerf.starCount) ? params.latestPerf.starCount : null
+  const batchStarCountForDelta = finalizedStarsBatches.length > 0 ? batchAggregate.starsBatchStarCount : null
+
+  return {
+    frameIndex: params.frameIndex,
+    hasPaintStarsDrawIntent: starIntentCommands.length > 0,
+    painterStarCommandCount: starIntentCommands.length,
+    painterStarPayloadStarCount,
+    directStarSyncCount,
+    projectedStarCount: params.projectedStarCount,
+    renderedStarCount,
+    magnitudeRange: {
+      limitingMagnitude: lastStarIntentCommand?.payload.magnitude.limitingMagnitude ?? null,
+      minRenderedMagnitude: lastStarIntentCommand?.payload.magnitude.minRenderedMagnitude ?? null,
+      maxRenderedMagnitude: lastStarIntentCommand?.payload.magnitude.maxRenderedMagnitude ?? null,
+    },
+    renderAlphaRange: {
+      minRenderAlpha: lastStarIntentCommand?.payload.magnitude.minRenderAlpha ?? null,
+      maxRenderAlpha: lastStarIntentCommand?.payload.magnitude.maxRenderAlpha ?? null,
+    },
+    view: {
+      fovDegrees: lastStarIntentCommand?.payload.view.fovDegrees ?? null,
+      projectionMode: lastStarIntentCommand?.payload.view.projectionMode ?? params.latestProjectionMode ?? null,
+    },
+    finalizedCommandCountAfterPaintFinish: params.painter.finalizedCommands.length,
+    finalizedPainterStarCommandCountAfterPaintFinish: finalizedStarIntentCommands.length,
+    finalizedPainterBatchCount: finalizedBatches.length,
+    finalizedPainterStarsBatchCount: finalizedStarsBatches.length,
+    starsBatchStarCount: batchStarCountForDelta,
+    starsBatchExecutionStatus: batchAggregate.starsBatchExecutionStatus,
+    comparison: {
+      painterVsDirectDelta: resolveNullableDelta(painterStarPayloadStarCount, directStarSyncCount),
+      painterVsProjectedDelta: resolveNullableDelta(painterStarPayloadStarCount, params.projectedStarCount),
+      painterVsRenderedDelta: resolveNullableDelta(painterStarPayloadStarCount, renderedStarCount),
+      batchVsDirectDelta: resolveNullableDelta(batchStarCountForDelta, directStarSyncCount),
+      batchVsProjectedDelta: resolveNullableDelta(batchStarCountForDelta, params.projectedStarCount),
+      batchVsRenderedDelta: resolveNullableDelta(batchStarCountForDelta, renderedStarCount),
+    },
+  }
 }
 
 function toDatasetKey(attribute: string) {
@@ -181,73 +299,17 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
       const projectionMs = (latestPerf.stepMs.collectProjectedStarsMs ?? 0) + (latestPerf.stepMs.collectProjectedNonStarObjectsMs ?? 0)
       const projectionShare = latestPerf.frameTotalMs > 0 ? projectionMs / latestPerf.frameTotalMs : 0
       const uiPerf = readUiPerfMetrics(runtime.canvas, reportingState)
-      const moduleBreakdown = Object.keys(latestPerf.moduleMs)
-        .sort((left, right) => left.localeCompare(right))
-        .reduce<Record<string, { updateMs: number; renderMs: number; totalMs: number }>>((accumulator, moduleId) => {
-          const updateMs = latestPerf.moduleUpdateMs[moduleId] ?? 0
-          const renderMs = latestPerf.moduleRenderMs[moduleId] ?? 0
-          accumulator[moduleId] = {
-            updateMs,
-            renderMs,
-            totalMs: updateMs + renderMs,
-          }
-          return accumulator
-        }, {})
+      const moduleBreakdown = buildModuleBreakdown(latestPerf)
 
       const latest = getProps()
       const painter = frameState.render.painter
-      const starIntentCommands = painter.drawQueue.filter(isStarsDrawIntentCommand)
-      const finalizedStarIntentCommands = painter.finalizedCommands.filter(isStarsDrawIntentCommand)
-      let lastStarIntentCommand: StarsDrawIntentCommand | null = null
-      for (const command of starIntentCommands) {
-        lastStarIntentCommand = command
-      }
-      const painterStarPayloadStarCount = typeof lastStarIntentCommand?.payload.starCount === 'number'
-        ? lastStarIntentCommand.payload.starCount
-        : null
-      const directStarSyncCount = typeof latestPerf.stepMs.starLayerSyncCount === 'number'
-        ? latestPerf.stepMs.starLayerSyncCount
-        : runtime.projectedStarsFrame?.projectedStars.length ?? null
-      const projectedStarCount = runtime.projectedStarsFrame?.projectedStars.length ?? null
-      const renderedStarCount = Number.isFinite(latestPerf.starCount) ? latestPerf.starCount : null
-      const painterStarTelemetry: PainterStarTelemetrySnapshot = {
+      const painterStarTelemetry = buildPainterStarTelemetry({
         frameIndex: frameState.frameIndex,
-        hasPaintStarsDrawIntent: starIntentCommands.length > 0,
-        painterStarCommandCount: starIntentCommands.length,
-        painterStarPayloadStarCount,
-        directStarSyncCount,
-        projectedStarCount,
-        renderedStarCount,
-        magnitudeRange: {
-          limitingMagnitude: lastStarIntentCommand?.payload.magnitude.limitingMagnitude ?? null,
-          minRenderedMagnitude: lastStarIntentCommand?.payload.magnitude.minRenderedMagnitude ?? null,
-          maxRenderedMagnitude: lastStarIntentCommand?.payload.magnitude.maxRenderedMagnitude ?? null,
-        },
-        renderAlphaRange: {
-          minRenderAlpha: lastStarIntentCommand?.payload.magnitude.minRenderAlpha ?? null,
-          maxRenderAlpha: lastStarIntentCommand?.payload.magnitude.maxRenderAlpha ?? null,
-        },
-        view: {
-          fovDegrees: lastStarIntentCommand?.payload.view.fovDegrees ?? null,
-          projectionMode: lastStarIntentCommand?.payload.view.projectionMode ?? latest.projectionMode ?? null,
-        },
-        finalizedCommandCountAfterPaintFinish: painter.finalizedCommands.length,
-        finalizedPainterStarCommandCountAfterPaintFinish: finalizedStarIntentCommands.length,
-        comparison: {
-          painterVsDirectDelta:
-            painterStarPayloadStarCount != null && directStarSyncCount != null
-              ? painterStarPayloadStarCount - directStarSyncCount
-              : null,
-          painterVsProjectedDelta:
-            painterStarPayloadStarCount != null && projectedStarCount != null
-              ? painterStarPayloadStarCount - projectedStarCount
-              : null,
-          painterVsRenderedDelta:
-            painterStarPayloadStarCount != null && renderedStarCount != null
-              ? painterStarPayloadStarCount - renderedStarCount
-              : null,
-        },
-      }
+        painter,
+        latestPerf,
+        latestProjectionMode: latest.projectionMode,
+        projectedStarCount: runtime.projectedStarsFrame?.projectedStars.length ?? null,
+      })
 
       const runtimePerfJson = JSON.stringify({
         latest: latestPerf,

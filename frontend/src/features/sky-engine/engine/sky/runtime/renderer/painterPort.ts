@@ -203,6 +203,55 @@ export type SkyPainterQueuedCall<K extends SkyPainterCommandKind = SkyPainterCom
   readonly batchState: SkyPainterBatchStateSnapshot
 }
 
+export type SkyPainterBatchKind = 'stars'
+export type SkyPainterBatchExecutionStatus = 'inert' | 'not_executed'
+
+export interface SkyPainterStarsBatch {
+  readonly kind: 'stars'
+  readonly sourceCommandKind: 'paint_stars_draw_intent'
+  readonly frameIndex: number
+  readonly starCount: number
+  readonly grouping: {
+    readonly projectionMode: string | null
+    readonly fovDegrees: number
+    readonly fovBucket: string
+    readonly magnitude: {
+      readonly limitingMagnitude: number
+      readonly minRenderedMagnitude: number | null
+      readonly maxRenderedMagnitude: number | null
+    }
+    readonly renderAlpha: {
+      readonly minRenderAlpha: number | null
+      readonly maxRenderAlpha: number | null
+    }
+    readonly textureRef: string | null
+    readonly materialRef: string | null
+  }
+  readonly sourcePath: 'direct-star-mirror'
+  readonly executionStatus: SkyPainterBatchExecutionStatus
+}
+
+export type SkyPainterFinalizedBatch = SkyPainterStarsBatch
+
+function isStarsDrawIntentQueuedCall(
+  command: SkyPainterQueuedCall,
+): command is SkyPainterQueuedCall<'paint_stars_draw_intent'> {
+  return command.kind === 'paint_stars_draw_intent'
+}
+
+function resolveStarsFovBucket(fovDegrees: number): string {
+  if (fovDegrees >= 90) {
+    return 'wide'
+  }
+  if (fovDegrees >= 45) {
+    return 'medium'
+  }
+  if (fovDegrees >= 20) {
+    return 'close'
+  }
+  return 'deep'
+}
+
 /**
  * Source-faithful boundary class that mirrors `painter.h` callable naming.
  * All methods are currently no-op queue/state mutations only.
@@ -227,6 +276,7 @@ export class SkyPainterPortState {
   private frameFinalized = false
   private readonly frameCommands: SkyPainterQueuedCall[] = []
   private finalizedFrameCommands: ReadonlyArray<SkyPainterQueuedCall> = Object.freeze([])
+  private finalizedFrameBatches: ReadonlyArray<SkyPainterFinalizedBatch> = Object.freeze([])
   private readonly textureBindings: Record<SkyPainterTextureSlot, string | null> = {
     [SkyPainterTextureSlot.PAINTER_TEX_COLOR]: null,
     [SkyPainterTextureSlot.PAINTER_TEX_NORMAL]: null,
@@ -238,6 +288,10 @@ export class SkyPainterPortState {
 
   get finalizedCommands(): ReadonlyArray<SkyPainterQueuedCall> {
     return this.finalizedFrameCommands
+  }
+
+  get finalizedBatches(): ReadonlyArray<SkyPainterFinalizedBatch> {
+    return this.finalizedFrameBatches
   }
 
   get isFrameFinalized(): boolean {
@@ -262,6 +316,7 @@ export class SkyPainterPortState {
     this.frameFinalized = false
     this.frameCommands.length = 0
     this.finalizedFrameCommands = Object.freeze([])
+    this.finalizedFrameBatches = Object.freeze([])
     this.textureBindings[SkyPainterTextureSlot.PAINTER_TEX_COLOR] = null
     this.textureBindings[SkyPainterTextureSlot.PAINTER_TEX_NORMAL] = null
   }
@@ -369,7 +424,43 @@ export class SkyPainterPortState {
     }
 
     this.finalizedFrameCommands = Object.freeze([...this.frameCommands])
+    this.finalizedFrameBatches = Object.freeze(this.buildFinalizedBatches(this.finalizedFrameCommands))
     this.frameFinalized = true
+  }
+
+  private buildFinalizedBatches(commands: ReadonlyArray<SkyPainterQueuedCall>): SkyPainterFinalizedBatch[] {
+    const batches: SkyPainterFinalizedBatch[] = []
+    for (const command of commands) {
+      if (!isStarsDrawIntentQueuedCall(command)) {
+        continue
+      }
+
+      batches.push({
+        kind: 'stars',
+        sourceCommandKind: 'paint_stars_draw_intent',
+        frameIndex: command.frameIndex,
+        starCount: command.payload.starCount,
+        grouping: {
+          projectionMode: command.payload.view.projectionMode,
+          fovDegrees: command.payload.view.fovDegrees,
+          fovBucket: resolveStarsFovBucket(command.payload.view.fovDegrees),
+          magnitude: {
+            limitingMagnitude: command.payload.magnitude.limitingMagnitude,
+            minRenderedMagnitude: command.payload.magnitude.minRenderedMagnitude,
+            maxRenderedMagnitude: command.payload.magnitude.maxRenderedMagnitude,
+          },
+          renderAlpha: {
+            minRenderAlpha: command.payload.magnitude.minRenderAlpha,
+            maxRenderAlpha: command.payload.magnitude.maxRenderAlpha,
+          },
+          textureRef: command.batchState.textureBindings[SkyPainterTextureSlot.PAINTER_TEX_COLOR],
+          materialRef: null,
+        },
+        sourcePath: 'direct-star-mirror',
+        executionStatus: 'not_executed',
+      })
+    }
+    return batches
   }
 
   private snapshotBatchState(): SkyPainterBatchStateSnapshot {

@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-26 (Port Block 15: Stars painter mirror Stage 2 telemetry now validates finalized-command parity against direct runtime counts)
+Last updated: 2026-04-26 (Port Block 16: Stars painter Stage 3 now derives inert finalized batch objects and validates batch parity telemetry)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -107,6 +107,36 @@ Validation evidence recorded for this block:
 Interpretation:
 - Stage 2 telemetry confirms painter star-intent payload counts match direct/projected/rendered counts in sampled runtime frames while keeping Babylon thin-instance rendering as the active draw path.
 - Finalized painter commands are now observable and reported after `paint_finish` without introducing any render backend execution.
+
+## Port Block 16 (Executed, partial parity)
+### Stars Painter Stage 3 Inert Batch Object Model
+
+Stellarium authority files:
+- `src/painter.c`
+- `src/render_gl.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/SceneReportingModule.ts`
+- `frontend/scripts/profile_sky_engine_runtime_perf.mjs`
+- `frontend/tests/test_painter_port_command_queue.test.js`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+
+Explicit local logic deleted/replaced in this block:
+1. `paint_finish` finalization now derives typed stars batch objects from finalized `paint_stars_draw_intent` commands and stores them separately from finalized commands.
+2. batch model now carries backend-ready grouping metadata (projection mode, FOV and bucket, magnitude/alpha ranges, texture/material placeholders) while remaining explicitly inert (`not_executed`).
+3. runtime telemetry and profile summary now include finalized batch counts, stars batch star counts, execution status, and batch-vs-direct/projected/rendered deltas.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_painter_port_command_queue.test.js tests/sky-engine-stars-runtime.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass
+- Artifact: `/home/rocco/Astronomy-Hub/.cursor-artifacts/parity-compare/module2-live-runtime-profile-2026-04-26.json`
+
+Interpretation:
+- Stage 3 now has CPU-side finalized stars batches that are available post-`paint_finish` and intentionally unexecuted.
+- Direct Babylon thin-instance rendering remains the active draw path; no `render_gl` backend ownership is introduced in this slice.
 
 ## Port Block 13 (Executed, partial parity)
 ### Large HIP Probe Expansion + Generated-Type Inference Stabilization

@@ -34,6 +34,35 @@ Validation:
 - `frontend/tests/sky-engine-stars-runtime.test.js` (stars mirror command emission + finalization + direct-path ownership)
 - Evidence: **EV-0111**, **EV-0113**.
 
+## Stage 3 Batch Object Model (Slice 1B)
+
+`frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts` now builds an inert finalized batch model from finalized frame commands at `paint_finish`.
+
+Batch behavior (current slice):
+- supported batch kind: `stars` only
+- source command mapping: `paint_stars_draw_intent` -> one finalized `stars` batch per finalized stars-intent command
+- backend ownership: none; status remains inert (`not_executed`)
+- storage: finalized batches are stored separately from finalized commands (`finalizedBatches`)
+
+Finalized stars batch shape:
+- `kind`: `stars`
+- `sourceCommandKind`: `paint_stars_draw_intent`
+- `frameIndex`
+- `starCount`
+- grouping metadata for later backend mapping:
+  - `projectionMode`
+  - exact `fovDegrees` and a categorical `fovBucket`
+  - magnitude range (`limitingMagnitude`, `minRenderedMagnitude`, `maxRenderedMagnitude`)
+  - render-alpha range (`minRenderAlpha`, `maxRenderAlpha`)
+  - texture/material placeholders (`textureRef`, `materialRef`)
+- `sourcePath`: `direct-star-mirror`
+- `executionStatus`: `not_executed`
+
+Validation:
+- `frontend/tests/test_painter_port_command_queue.test.js`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+- Evidence: **EV-0115**.
+
 ## Enum Mapping (`painter.h`)
 
 | Stellarium enum group | Sky-Engine mapping |

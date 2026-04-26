@@ -379,6 +379,15 @@ describe('Sky star runtime ownership', () => {
 
     painter.paint_finish()
     expect(painter.finalizedCommands.some((entry) => entry.fn === 'paint_stars_draw_intent')).toBe(true)
+    expect(painter.finalizedBatches).toHaveLength(1)
+    expect(painter.finalizedBatches[0]).toMatchObject({
+      kind: 'stars',
+      sourceCommandKind: 'paint_stars_draw_intent',
+      frameIndex: 42,
+      starCount: 1,
+      sourcePath: 'direct-star-mirror',
+      executionStatus: 'not_executed',
+    })
 
     expect(runtime.directStarLayer.sync).toHaveBeenCalledTimes(1)
     expect(runtime.renderGlExecute).not.toHaveBeenCalled()
@@ -540,7 +549,14 @@ describe('Sky star runtime ownership', () => {
     expect(runtimePerf.painterStarTelemetry.painterStarPayloadStarCount).toBe(1)
     expect(runtimePerf.painterStarTelemetry.finalizedCommandCountAfterPaintFinish).toBeGreaterThan(0)
     expect(runtimePerf.painterStarTelemetry.finalizedPainterStarCommandCountAfterPaintFinish).toBe(1)
+    expect(runtimePerf.painterStarTelemetry.finalizedPainterBatchCount).toBe(1)
+    expect(runtimePerf.painterStarTelemetry.finalizedPainterStarsBatchCount).toBe(1)
+    expect(runtimePerf.painterStarTelemetry.starsBatchStarCount).toBe(1)
+    expect(runtimePerf.painterStarTelemetry.starsBatchExecutionStatus).toBe('not_executed')
     expect(runtimePerf.painterStarTelemetry.comparison.painterVsDirectDelta).toBe(0)
+    expect(runtimePerf.painterStarTelemetry.comparison.batchVsDirectDelta).toBe(0)
+    expect(runtimePerf.painterStarTelemetry.comparison.batchVsProjectedDelta).toBe(0)
+    expect(runtimePerf.painterStarTelemetry.comparison.batchVsRenderedDelta).toBe(0)
 
     reportingModule.dispose({ runtime })
   })

@@ -37,6 +37,34 @@ describe('painterPort command queue (CPU-side)', () => {
     })
 
     painter.painter_set_texture(SkyPainterTextureSlot.PAINTER_TEX_COLOR, 'stars-atlas')
+    painter.paint_stars_draw_intent({
+      fromDirectStarPath: true,
+      starCount: 5,
+      source: {
+        dataMode: 'multi-survey',
+        sourceLabel: 'survey',
+        scenePacketStarCount: 5,
+        scenePacketTileCount: 1,
+        diagnosticsActiveTiles: 1,
+        diagnosticsVisibleTileIdsCount: 1,
+        diagnosticsStarsListVisitCount: 5,
+      },
+      magnitude: {
+        limitingMagnitude: 6,
+        minRenderedMagnitude: 1,
+        maxRenderedMagnitude: 2,
+        minRenderAlpha: 0.6,
+        maxRenderAlpha: 1,
+      },
+      view: {
+        projectionMode: 'stereographic',
+        fovDegrees: 60,
+        viewportWidth: 1280,
+        viewportHeight: 720,
+        centerDirection: { x: 0, y: 0, z: 1 },
+        sceneTimestampIso: '2026-04-26T00:00:00Z',
+      },
+    })
     painter.paint_mesh(SkyPainterMode.MODE_TRIANGLES)
     painter.paint_texture('stars-atlas')
 
@@ -57,12 +85,22 @@ describe('painterPort command queue (CPU-side)', () => {
       kind: 'paint_finish',
       payload: { finalized: true },
     })
+    expect(painter.finalizedBatches).toHaveLength(1)
+    expect(painter.finalizedBatches[0]).toMatchObject({
+      kind: 'stars',
+      sourceCommandKind: 'paint_stars_draw_intent',
+      frameIndex: 1,
+      starCount: 5,
+      sourcePath: 'direct-star-mirror',
+      executionStatus: 'not_executed',
+    })
 
     const finalizedCount = painter.finalizedCommands.length
     painter.paint_line()
     painter.paint_texture('should-not-record-after-finish')
     expect(painter.finalizedCommands).toHaveLength(finalizedCount)
     expect(painter.drawQueue).toHaveLength(finalizedCount)
+    expect(painter.finalizedBatches).toHaveLength(1)
     expect(painter.drawQueue.some((command) => command.kind === 'paint_line')).toBe(false)
 
     // Queue remains inert and CPU-side in this slice.
@@ -84,5 +122,6 @@ describe('painterPort command queue (CPU-side)', () => {
     expect(painter.isFrameFinalized).toBe(false)
     expect(painter.drawQueue).toHaveLength(0)
     expect(painter.finalizedCommands).toHaveLength(0)
+    expect(painter.finalizedBatches).toHaveLength(0)
   })
 })

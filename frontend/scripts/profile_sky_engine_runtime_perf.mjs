@@ -103,6 +103,16 @@ async function main() {
     const painterStarDirectDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.painterVsDirectDelta ?? 0))
     const painterStarProjectedDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.painterVsProjectedDelta ?? 0))
     const painterStarRenderedDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.painterVsRenderedDelta ?? 0))
+    const batchCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.finalizedPainterBatchCount ?? 0))
+    const starsBatchCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.finalizedPainterStarsBatchCount ?? 0))
+    const starsBatchStarCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.starsBatchStarCount ?? 0))
+    const batchExecutionNotExecutedSeries = samples.map((sample) => {
+      const status = sample.painterStarTelemetry?.starsBatchExecutionStatus ?? null
+      return status === 'not_executed' || status === 'inert' ? 1 : 0
+    })
+    const batchDirectDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.batchVsDirectDelta ?? 0))
+    const batchProjectedDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.batchVsProjectedDelta ?? 0))
+    const batchRenderedDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.batchVsRenderedDelta ?? 0))
     const finalizedCommandCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.finalizedCommandCountAfterPaintFinish ?? 0))
     const finalizedPainterStarCommandCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.finalizedPainterStarCommandCountAfterPaintFinish ?? 0))
 
@@ -125,6 +135,13 @@ async function main() {
         painterVsDirectDelta: summarizeSeries(painterStarDirectDeltaSeries),
         painterVsProjectedDelta: summarizeSeries(painterStarProjectedDeltaSeries),
         painterVsRenderedDelta: summarizeSeries(painterStarRenderedDeltaSeries),
+        finalizedPainterBatchCount: summarizeSeries(batchCountSeries),
+        finalizedPainterStarsBatchCount: summarizeSeries(starsBatchCountSeries),
+        starsBatchStarCount: summarizeSeries(starsBatchStarCountSeries),
+        starsBatchExecutionInertOrNotExecutedShare: summarizeSeries(batchExecutionNotExecutedSeries),
+        batchVsDirectDelta: summarizeSeries(batchDirectDeltaSeries),
+        batchVsProjectedDelta: summarizeSeries(batchProjectedDeltaSeries),
+        batchVsRenderedDelta: summarizeSeries(batchRenderedDeltaSeries),
         finalizedCommandCountAfterPaintFinish: summarizeSeries(finalizedCommandCountSeries),
         finalizedPainterStarCommandCountAfterPaintFinish: summarizeSeries(finalizedPainterStarCommandCountSeries),
       },

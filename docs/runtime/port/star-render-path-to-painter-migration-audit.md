@@ -144,6 +144,17 @@ Status (EV-0114): PASS.
 - Keep backend inert; batch objects are CPU-side staging only.
 - Gate: queue-to-batch build validated without enabling new draw backend.
 
+Status (EV-0115): PASS.
+- `paint_finish` finalization now derives typed finalized stars batches from finalized `paint_stars_draw_intent` commands.
+- Batch objects are stored separately from finalized commands and include:
+  - batch kind (`stars`)
+  - source command kind (`paint_stars_draw_intent`)
+  - frame index and star count
+  - grouping metadata (projection mode, exact FOV plus FOV bucket, magnitude range, render-alpha range, texture/material placeholders)
+  - source path marker (`direct-star-mirror`)
+  - backend execution status (`not_executed`)
+- Runtime telemetry now reports finalized batch counts, stars batch count/star count/execution status, and batch-vs-direct/projected/rendered deltas while direct thin-instance rendering remains active.
+
 ### Stage 4 - Backend mapping to Babylon/WebGL execution
 
 - Map painter star point batches to concrete backend draw execution path.
