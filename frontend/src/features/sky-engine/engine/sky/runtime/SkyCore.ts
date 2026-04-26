@@ -248,6 +248,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       this.currentModuleCostMs[module.id] = (this.currentModuleCostMs[module.id] ?? 0) + elapsedMs
       this.currentModuleRenderCostMs[module.id] = (this.currentModuleRenderCostMs[module.id] ?? 0) + elapsedMs
     })
+    context.frameState.render.painter.paint_finish()
   }
 
   private runModulePostRenders(frameState: SkyCoreFrameState) {

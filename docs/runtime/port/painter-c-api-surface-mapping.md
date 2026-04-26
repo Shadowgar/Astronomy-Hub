@@ -55,9 +55,11 @@ Represented methods:
 
 `SkyCore` now threads painter state through frame render state:
 - `SkyCoreFrameState.render.painter` references `SkyPainterPortState`.
-- During render preamble, `SkyCore.render(...)` performs:
+- During render lifecycle, `SkyCore.render(...)` performs:
   1. `painter.reset_for_frame(...)`
   2. `painter.paint_prepare(...)`
-  3. then configured `coreRenderPreamble(...)`
+  3. configured `coreRenderPreamble(...)`
+  4. ordered module `render(...)`
+  5. `painter.paint_finish(...)`
 
-This preserves the current render order and keeps `scene.render()` placement unchanged.
+`runFrameLifecycle(...)` then keeps `scene.render()` after `painter.paint_finish(...)` and before ordered `postRender(...)`.

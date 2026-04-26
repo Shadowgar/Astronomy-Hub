@@ -28,6 +28,7 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
       const preamblePainterRefs = []
       const renderPainterRefs = []
       const preambleQueueSnapshots = []
+      let paintFinishPatched = false
 
       const runtime = {
         canvas: {},
@@ -83,6 +84,15 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
           preambleFrameStates.push(ctx.frameState)
           preamblePainterRefs.push(ctx.frameState.render.painter)
           preambleQueueSnapshots.push(ctx.frameState.render.painter.drawQueue.map((entry) => entry.fn))
+          if (!paintFinishPatched) {
+            const painter = ctx.frameState.render.painter
+            const originalPaintFinish = painter.paint_finish.bind(painter)
+            painter.paint_finish = vi.fn(() => {
+              order.push('painter.paint_finish')
+              return originalPaintFinish()
+            })
+            paintFinishPatched = true
+          }
         },
       })
 
@@ -127,6 +137,7 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
         'core.renderPreamble',
         'module-b.render',
         'module-a.render',
+        'painter.paint_finish',
         'scene.render',
         'module-b.postRender',
         'module-a.postRender',
@@ -154,6 +165,7 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
       expect(firstFramePainter).toBe(renderPainterRefs[0])
       expect(firstFramePainter).toBe(renderPainterRefs[1])
       expect(preambleQueueSnapshots[0]).toEqual(['paint_prepare'])
+      expect(firstFramePainter.drawQueue.some((entry) => entry.fn === 'paint_finish')).toBe(true)
 
       firstFramePainter.paint_texture()
       expect(firstFramePainter.drawQueue.some((entry) => entry.fn === 'paint_texture')).toBe(true)

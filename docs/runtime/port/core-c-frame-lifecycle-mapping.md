@@ -25,7 +25,7 @@ Pinned source:
 | `core_render` preamble | `SkyEngineScene.tsx` `coreRenderPreamble` -> `runStellariumCoreRenderSpine` |
 | `core_render` preamble state object (`painter_t` setup before `obj_render`) | `SkyCore.ts` `createFrameState` -> `SkyCoreFrameState.render` (shared in update/render/postRender contexts) |
 | `obj_render(module, painter)` | `SkyCore.ts::render` (`module.render` in sorted order) |
-| `paint_finish` + `post_render` | `SkyCore.ts` `runtime.scene.render()` then `runModulePostRenders()` |
+| `paint_finish` + `post_render` | `SkyCore.ts` `render()` calls `frameState.render.painter.paint_finish()`, then `runtime.scene.render()`, then `runModulePostRenders()` |
 | Clock/time service step before update | `SkyEngineScene.tsx` `updateServices` -> `clockService.advanceFrame` |
 | Observer/nav update preamble | `SkyEngineScene.tsx` `coreUpdatePreamble` -> `runStellariumCoreUpdateObserverPreamble` |
 
@@ -50,7 +50,7 @@ Source focus: `core.c:537-570` (window/pixel scale sync, projection/observer pre
 
 Implementation notes:
 - A single `SkyCoreFrameState` object is created once per frame inside `runFrameLifecycle` and passed unchanged to ordered module `update`, `render`, and `postRender` phases.
-- `Babylon scene.render()` remains between ordered `render` and ordered `postRender`.
+- `Babylon scene.render()` remains between `painter.paint_finish()` and ordered `postRender`.
 - `painter_update_clip_info` / `paint_prepare` / `render_gl` remain intentionally unported in this slice.
 
 For painter API boundary details, see `docs/runtime/port/painter-c-api-surface-mapping.md`.
