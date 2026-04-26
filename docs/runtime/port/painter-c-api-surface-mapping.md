@@ -63,6 +63,24 @@ Validation:
 - `frontend/tests/sky-engine-stars-runtime.test.js`
 - Evidence: **EV-0115**.
 
+## Stage 4A Backend Mapping Shell (Slice 1C)
+
+`frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterBackendPort.ts` now defines an inert backend adapter shell that maps finalized painter batches to backend mapping plans without execution.
+
+Stage 4A shell behavior:
+- input model accepts finalized painter batches and explicit unsupported batch records.
+- stars mapping output preserves finalized stars batch grouping metadata and emits:
+  - intended backend path marker: `babylon-thin-instance-stars`
+  - execution status: `mapped_not_executed`
+  - render_gl marker references (`render_points_2d`/`render_points_3d`, `ITEM_POINTS`/`ITEM_POINTS_3D`, `render_finish`)
+- unsupported batches are reported with `unsupported_not_executed` and no fallback execution.
+- runtime integration is telemetry-only through `SceneReportingModule`; direct stars rendering ownership remains with `directStarLayer.sync(...)`.
+
+Validation:
+- `frontend/tests/test_painter_backend_port.test.js`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+- Evidence: **EV-0116**.
+
 ## Enum Mapping (`painter.h`)
 
 | Stellarium enum group | Sky-Engine mapping |

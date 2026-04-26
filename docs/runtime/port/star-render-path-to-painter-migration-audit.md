@@ -155,7 +155,27 @@ Status (EV-0115): PASS.
   - backend execution status (`not_executed`)
 - Runtime telemetry now reports finalized batch counts, stars batch count/star count/execution status, and batch-vs-direct/projected/rendered deltas while direct thin-instance rendering remains active.
 
-### Stage 4 - Backend mapping to Babylon/WebGL execution
+### Stage 4A - Backend mapping shell to Babylon/WebGL concepts
+
+- Add a backend adapter shell that consumes finalized painter batches and returns inert mapping-plan records only.
+- Keep all records non-executing and telemetry-facing.
+- Gate: finalized stars batches map to backend plan objects with explicit execution status `mapped_not_executed`.
+
+Status (EV-0116): PASS.
+- Added `renderer/painterBackendPort.ts` with source-mapped batch-input and mapping-result types:
+  - backend batch input (`SkyPainterBackendBatchInput`)
+  - stars mapping result (`SkyPainterStarsBackendMappingResult`)
+  - backend execution status (`mapped_not_executed`)
+  - unsupported batch status (`unsupported_not_executed`)
+- Mapping output now includes:
+  - batch kind
+  - star count
+  - preserved grouping metadata
+  - intended backend path marker (`babylon-thin-instance-stars`)
+  - render_gl reference markers (`render_points_2d`/`render_points_3d`, `ITEM_POINTS`/`ITEM_POINTS_3D`, `render_finish`)
+- Mapping is consumed in `SceneReportingModule` telemetry only; no backend draw execution path is called.
+
+### Stage 4B - Backend mapping to Babylon/WebGL execution
 
 - Map painter star point batches to concrete backend draw execution path.
 - Initial mapping may still target Babylon adapter path while preserving painter ownership contracts.

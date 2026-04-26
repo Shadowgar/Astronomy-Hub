@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-26 (Port Block 16: Stars painter Stage 3 now derives inert finalized batch objects and validates batch parity telemetry)
+Last updated: 2026-04-26 (Port Block 17: Stars painter Stage 4A now maps finalized batches to inert backend plans with telemetry-only status)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -137,6 +137,36 @@ Validation evidence recorded for this block:
 Interpretation:
 - Stage 3 now has CPU-side finalized stars batches that are available post-`paint_finish` and intentionally unexecuted.
 - Direct Babylon thin-instance rendering remains the active draw path; no `render_gl` backend ownership is introduced in this slice.
+
+## Port Block 17 (Executed, partial parity)
+### Stars Painter Stage 4A Backend Mapping Shell
+
+Stellarium authority files:
+- `src/render.h`
+- `src/render_gl.c`
+- `src/painter.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterBackendPort.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/SceneReportingModule.ts`
+- `frontend/scripts/profile_sky_engine_runtime_perf.mjs`
+- `frontend/tests/test_painter_backend_port.test.js`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+
+Explicit local logic deleted/replaced in this block:
+1. Added a source-mapped backend shell that consumes finalized painter batches and emits inert backend plan records (`mapped_not_executed`) without any rendering side effects.
+2. Added explicit unsupported-batch reporting (`unsupported_not_executed`) so non-stars batch kinds are surfaced without fallback execution.
+3. Added telemetry-only backend mapping status fields to runtime reporting so Stage 4A mapping parity can be measured while `directStarLayer` remains the active renderer.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_painter_port_command_queue.test.js tests/sky-engine-stars-runtime.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_painter_backend_port.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+
+Interpretation:
+- Stage 4A now has an inert backend mapping shell that preserves stars batch star counts/grouping and tags render_gl alignment markers for future execution work.
+- Direct Babylon thin-instance rendering remains unchanged and is still the only active stars draw path.
 
 ## Port Block 13 (Executed, partial parity)
 ### Large HIP Probe Expansion + Generated-Type Inference Stabilization

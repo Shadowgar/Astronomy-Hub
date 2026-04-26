@@ -113,6 +113,14 @@ async function main() {
     const batchDirectDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.batchVsDirectDelta ?? 0))
     const batchProjectedDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.batchVsProjectedDelta ?? 0))
     const batchRenderedDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.batchVsRenderedDelta ?? 0))
+    const backendMappedBatchCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.backendMappedBatchCount ?? 0))
+    const backendMappedStarsCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.backendMappedStarsCount ?? 0))
+    const backendUnsupportedBatchCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.backendUnsupportedBatchCount ?? 0))
+    const backendMappedExecutionShareSeries = samples.map((sample) => {
+      const status = sample.painterStarTelemetry?.backendExecutionStatus ?? null
+      return status === 'mapped_not_executed' ? 1 : 0
+    })
+    const backendMappedVsBatchDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.backendMappedVsBatchDelta ?? 0))
     const finalizedCommandCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.finalizedCommandCountAfterPaintFinish ?? 0))
     const finalizedPainterStarCommandCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.finalizedPainterStarCommandCountAfterPaintFinish ?? 0))
 
@@ -142,6 +150,11 @@ async function main() {
         batchVsDirectDelta: summarizeSeries(batchDirectDeltaSeries),
         batchVsProjectedDelta: summarizeSeries(batchProjectedDeltaSeries),
         batchVsRenderedDelta: summarizeSeries(batchRenderedDeltaSeries),
+        backendMappedBatchCount: summarizeSeries(backendMappedBatchCountSeries),
+        backendMappedStarsCount: summarizeSeries(backendMappedStarsCountSeries),
+        backendUnsupportedBatchCount: summarizeSeries(backendUnsupportedBatchCountSeries),
+        backendMappedExecutionShare: summarizeSeries(backendMappedExecutionShareSeries),
+        backendMappedVsBatchDelta: summarizeSeries(backendMappedVsBatchDeltaSeries),
         finalizedCommandCountAfterPaintFinish: summarizeSeries(finalizedCommandCountSeries),
         finalizedPainterStarCommandCountAfterPaintFinish: summarizeSeries(finalizedPainterStarCommandCountSeries),
       },

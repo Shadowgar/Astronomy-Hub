@@ -6,6 +6,7 @@ import {
 import type { SkyModule } from '../SkyModule'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import type { SkyPainterFinalizedBatch, SkyPainterQueuedCall } from '../renderer/painterPort'
+import { mapPainterBatchesToBackendPlan } from '../renderer/painterBackendPort'
 import {
   clearSceneState,
   serializeSceneState,
@@ -45,6 +46,11 @@ type PainterStarTelemetrySnapshot = {
   finalizedPainterStarsBatchCount: number
   starsBatchStarCount: number | null
   starsBatchExecutionStatus: string | null
+  backendMappedBatchCount: number
+  backendMappedStarsBatchCount: number
+  backendMappedStarsCount: number
+  backendUnsupportedBatchCount: number
+  backendExecutionStatus: string | null
   comparison: {
     painterVsDirectDelta: number | null
     painterVsProjectedDelta: number | null
@@ -52,6 +58,7 @@ type PainterStarTelemetrySnapshot = {
     batchVsDirectDelta: number | null
     batchVsProjectedDelta: number | null
     batchVsRenderedDelta: number | null
+    backendMappedVsBatchDelta: number | null
   }
 }
 
@@ -112,6 +119,7 @@ function buildPainterStarTelemetry(params: {
   latestPerf: SceneRuntimeRefs['runtimePerfTelemetry']['latest']
   latestProjectionMode: string | null | undefined
   projectedStarCount: number | null
+  backendMappingPlan: ReturnType<typeof mapPainterBatchesToBackendPlan>
 }): PainterStarTelemetrySnapshot {
   const starIntentCommands = params.painter.drawQueue.filter(isStarsDrawIntentCommand)
   const finalizedStarIntentCommands = params.painter.finalizedCommands.filter(isStarsDrawIntentCommand)
@@ -161,6 +169,11 @@ function buildPainterStarTelemetry(params: {
     finalizedPainterStarsBatchCount: finalizedStarsBatches.length,
     starsBatchStarCount: batchStarCountForDelta,
     starsBatchExecutionStatus: batchAggregate.starsBatchExecutionStatus,
+    backendMappedBatchCount: params.backendMappingPlan.summary.mappedBatchCount,
+    backendMappedStarsBatchCount: params.backendMappingPlan.summary.mappedStarsBatchCount,
+    backendMappedStarsCount: params.backendMappingPlan.summary.mappedStarsCount,
+    backendUnsupportedBatchCount: params.backendMappingPlan.summary.unsupportedBatchCount,
+    backendExecutionStatus: params.backendMappingPlan.summary.executionStatus,
     comparison: {
       painterVsDirectDelta: resolveNullableDelta(painterStarPayloadStarCount, directStarSyncCount),
       painterVsProjectedDelta: resolveNullableDelta(painterStarPayloadStarCount, params.projectedStarCount),
@@ -168,6 +181,10 @@ function buildPainterStarTelemetry(params: {
       batchVsDirectDelta: resolveNullableDelta(batchStarCountForDelta, directStarSyncCount),
       batchVsProjectedDelta: resolveNullableDelta(batchStarCountForDelta, params.projectedStarCount),
       batchVsRenderedDelta: resolveNullableDelta(batchStarCountForDelta, renderedStarCount),
+      backendMappedVsBatchDelta: resolveNullableDelta(
+        params.backendMappingPlan.summary.mappedStarsCount,
+        batchStarCountForDelta,
+      ),
     },
   }
 }
@@ -303,12 +320,16 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
 
       const latest = getProps()
       const painter = frameState.render.painter
+      const backendMappingPlan = mapPainterBatchesToBackendPlan({
+        finalizedBatches: painter.finalizedBatches,
+      })
       const painterStarTelemetry = buildPainterStarTelemetry({
         frameIndex: frameState.frameIndex,
         painter,
         latestPerf,
         latestProjectionMode: latest.projectionMode,
         projectedStarCount: runtime.projectedStarsFrame?.projectedStars.length ?? null,
+        backendMappingPlan,
       })
 
       const runtimePerfJson = JSON.stringify({
