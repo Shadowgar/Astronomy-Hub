@@ -71,9 +71,11 @@ async function main() {
           return null
         }
         const runtimePerf = JSON.parse(runtimePerfRaw)
+        const painterStarTelemetry = runtimePerf?.painterStarTelemetry ?? null
         return {
           atIso: new Date().toISOString(),
           runtimePerf,
+          painterStarTelemetry,
           sceneState: sceneStateRaw ? JSON.parse(sceneStateRaw) : null,
           starRenderMetrics: starMetricsRaw ? JSON.parse(starMetricsRaw) : null,
         }
@@ -96,6 +98,13 @@ async function main() {
     const projectionShareSeries = samples.map((sample) => Number(sample.runtimePerf?.projectionShare ?? 0))
     const starsListVisitSeries = samples.map((sample) => Number(sample.sceneState?.starsListVisitCount ?? 0))
     const renderedStarSeries = samples.map((sample) => Number(sample.starRenderMetrics?.starThinInstanceCount ?? 0))
+    const painterStarCommandSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.painterStarCommandCount ?? 0))
+    const painterStarPayloadCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.painterStarPayloadStarCount ?? 0))
+    const painterStarDirectDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.painterVsDirectDelta ?? 0))
+    const painterStarProjectedDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.painterVsProjectedDelta ?? 0))
+    const painterStarRenderedDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.painterVsRenderedDelta ?? 0))
+    const finalizedCommandCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.finalizedCommandCountAfterPaintFinish ?? 0))
+    const finalizedPainterStarCommandCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.finalizedPainterStarCommandCountAfterPaintFinish ?? 0))
 
     const report = {
       capturedAtIso: new Date().toISOString(),
@@ -111,8 +120,15 @@ async function main() {
         projectionShare: summarizeSeries(projectionShareSeries),
         starsListVisitCount: summarizeSeries(starsListVisitSeries),
         starThinInstanceCount: summarizeSeries(renderedStarSeries),
+        painterStarCommandCount: summarizeSeries(painterStarCommandSeries),
+        painterStarPayloadStarCount: summarizeSeries(painterStarPayloadCountSeries),
+        painterVsDirectDelta: summarizeSeries(painterStarDirectDeltaSeries),
+        painterVsProjectedDelta: summarizeSeries(painterStarProjectedDeltaSeries),
+        painterVsRenderedDelta: summarizeSeries(painterStarRenderedDeltaSeries),
+        finalizedCommandCountAfterPaintFinish: summarizeSeries(finalizedCommandCountSeries),
+        finalizedPainterStarCommandCountAfterPaintFinish: summarizeSeries(finalizedPainterStarCommandCountSeries),
       },
-      lastSample: samples[samples.length - 1] ?? null,
+      lastSample: samples.at(-1) ?? null,
       samples,
     }
 

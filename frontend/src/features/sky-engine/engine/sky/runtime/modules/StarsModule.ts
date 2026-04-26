@@ -297,6 +297,14 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
 
       if (!projectedStarsFrame) {
         runtime.directStarLayer.sync([], 0, 0, null, services.clockService.getAnimationTimeSeconds())
+        runtime.runtimePerfTelemetry.latest = {
+          ...runtime.runtimePerfTelemetry.latest,
+          stepMs: {
+            ...runtime.runtimePerfTelemetry.latest.stepMs,
+            starLayerSyncCallCount: 1,
+            starLayerSyncCount: 0,
+          },
+        }
         return
       }
 
@@ -326,6 +334,8 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
         ...runtime.runtimePerfTelemetry.latest,
         stepMs: {
           ...runtime.runtimePerfTelemetry.latest.stepMs,
+          starLayerSyncCallCount: 1,
+          starLayerSyncCount: projectedStarsFrame.projectedStars.length,
           starLayerSyncMs: resolvedSyncMetrics.totalMs,
           starLayerSyncInstanceTransformMs: resolvedSyncMetrics.instanceTransformMs,
           starLayerSyncBufferUpdateMs: resolvedSyncMetrics.bufferUpdateMs,

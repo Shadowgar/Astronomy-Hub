@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-25 (Port Block 14: DSS and Milky runtime modules now render real HiPS image tiles with parent fallback paths, replacing local patch/procedural synthesis)
+Last updated: 2026-04-26 (Port Block 15: Stars painter mirror Stage 2 telemetry now validates finalized-command parity against direct runtime counts)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -78,6 +78,35 @@ Purpose:
 
 ## Recommended Next Bounded Slice
 - Trace the unresolved live scene-packet handoff after Gaia requests begin, make the multi-survey packet win once the local Gaia load resolves, then re-run live Stellarium deep-zoom checkpoints before moving on to hints/labels parity.
+
+## Port Block 15 (Executed, partial parity)
+### Stars Painter Mirror Stage 2 Telemetry Validation
+
+Stellarium authority files:
+- `src/core.c`
+- `src/painter.c`
+- `src/modules/stars.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/SceneReportingModule.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/StarsModule.ts`
+- `frontend/scripts/profile_sky_engine_runtime_perf.mjs`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+
+Explicit local logic deleted/replaced in this block:
+1. runtime perf publication moved to include post-`paint_finish` telemetry fields from finalized painter command state.
+2. stars runtime telemetry now records direct sync call/count fields for deterministic comparison against painter star-intent payload counts.
+3. runtime profile artifact generation now extracts and summarizes painter-star telemetry series (command count, payload count, deltas, and finalized command counts).
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_painter_port_command_queue.test.js tests/sky-engine-stars-runtime.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && SKY_ENGINE_PROFILE_URL='http://127.0.0.1:4174/sky-engine?debugTelemetry=1' npm run profile:sky-engine-runtime`: pass
+- Artifact: `/home/rocco/Astronomy-Hub/.cursor-artifacts/parity-compare/module2-live-runtime-profile-2026-04-26.json`
+
+Interpretation:
+- Stage 2 telemetry confirms painter star-intent payload counts match direct/projected/rendered counts in sampled runtime frames while keeping Babylon thin-instance rendering as the active draw path.
+- Finalized painter commands are now observable and reported after `paint_finish` without introducing any render backend execution.
 
 ## Port Block 13 (Executed, partial parity)
 ### Large HIP Probe Expansion + Generated-Type Inference Stabilization

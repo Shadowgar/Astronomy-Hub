@@ -73,12 +73,15 @@ vi.mock('../src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame', ()
     mergeProjectedSceneObjects: vi.fn(() => [starEntry, moonEntry, planetEntry, dsoEntry]),
     ensureSceneSurfaces: vi.fn(() => ({ width: 800, height: 400 })),
     resolveViewTier: vi.fn(() => ({ tier: 'medium', labelCap: 8 })),
+    serializeSceneState: vi.fn((state) => JSON.stringify(state)),
+    clearSceneState: vi.fn(),
   }
 })
 
 import { createDsoRuntimeModule } from '../src/features/sky-engine/engine/sky/runtime/modules/DsoRuntimeModule'
 import { createObjectRuntimeModule } from '../src/features/sky-engine/engine/sky/runtime/modules/ObjectRuntimeModule'
 import { createPlanetRuntimeModule } from '../src/features/sky-engine/engine/sky/runtime/modules/PlanetRuntimeModule'
+import { createSceneReportingModule } from '../src/features/sky-engine/engine/sky/runtime/modules/SceneReportingModule'
 import { createStarsModule } from '../src/features/sky-engine/engine/sky/runtime/modules/StarsModule'
 import { createSkyPainterPortState } from '../src/features/sky-engine/engine/sky/runtime/renderer/painterPort'
 import { collectProjectedStars } from '../src/features/sky-engine/engine/sky/runtime/modules/runtimeFrame'
@@ -379,6 +382,167 @@ describe('Sky star runtime ownership', () => {
 
     expect(runtime.directStarLayer.sync).toHaveBeenCalledTimes(1)
     expect(runtime.renderGlExecute).not.toHaveBeenCalled()
+  })
+
+  it('publishes painter star telemetry with finalized command counts after paint_finish', () => {
+    const reportingModule = createSceneReportingModule()
+    const painter = createSkyPainterPortState()
+    const canvas = {
+      dataset: {},
+      closest: vi.fn(() => null),
+      removeAttribute: vi.fn(),
+    }
+
+    painter.reset_for_frame({
+      frameIndex: 17,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6.4,
+      hintsLimitMag: 6.4,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    painter.paint_stars_draw_intent({
+      fromDirectStarPath: true,
+      starCount: 1,
+      source: {
+        dataMode: 'multi-survey',
+        sourceLabel: 'survey',
+        scenePacketStarCount: 1,
+        scenePacketTileCount: 1,
+        diagnosticsActiveTiles: 1,
+        diagnosticsVisibleTileIdsCount: 1,
+        diagnosticsStarsListVisitCount: 4,
+      },
+      magnitude: {
+        limitingMagnitude: 6.4,
+        minRenderedMagnitude: 1.3,
+        maxRenderedMagnitude: 1.3,
+        minRenderAlpha: 0.8,
+        maxRenderAlpha: 0.8,
+      },
+      view: {
+        projectionMode: 'stereographic',
+        fovDegrees: 60,
+        viewportWidth: 800,
+        viewportHeight: 400,
+        centerDirection: { x: 0, y: 0, z: 1 },
+        sceneTimestampIso: '2026-04-10T00:00:00Z',
+      },
+    })
+
+    const runtime = {
+      ...createBaseRuntime(),
+      canvas,
+      scene: {
+        meshes: [],
+        materials: [],
+        textures: [],
+      },
+      projectedStarsFrame: {
+        width: 800,
+        height: 400,
+        currentFovDegrees: 60,
+        lod: { tier: 'medium', labelCap: 8 },
+        view: { centerDirection: { x: 0, y: 0, z: 1 } },
+        projectedStars: [{ object: { id: 'star-1', type: 'star', magnitude: 1.2 } }],
+        limitingMagnitude: 6.4,
+        sceneTimestampIso: '2026-04-10T00:00:00Z',
+      },
+      projectedSceneFrame: {
+        currentFovDegrees: 60,
+        lod: { tier: 'medium', labelCap: 8 },
+      },
+      runtimePerfTelemetry: {
+        latest: {
+          frameIndex: 17,
+          shouldRenderFrame: true,
+          updateMs: 0,
+          renderModulesMs: 0,
+          sceneRenderMs: 0,
+          frameTotalMs: 1,
+          moduleMs: {},
+          moduleUpdateMs: {},
+          moduleRenderMs: {},
+          stepMs: {
+            collectProjectedStarsMs: 0.1,
+            collectProjectedNonStarObjectsMs: 0.1,
+            starLayerSyncCount: 1,
+            starLayerSyncCallCount: 1,
+          },
+          starCount: 1,
+          objectCount: 1,
+        },
+        ema: {
+          frameIndex: 17,
+          shouldRenderFrame: true,
+          updateMs: 0,
+          renderModulesMs: 0,
+          sceneRenderMs: 0,
+          frameTotalMs: 1,
+          moduleMs: {},
+          moduleUpdateMs: {},
+          moduleRenderMs: {},
+          stepMs: {
+            collectProjectedStarsMs: 0.1,
+            collectProjectedNonStarObjectsMs: 0.1,
+            starLayerSyncCount: 1,
+            starLayerSyncCallCount: 1,
+          },
+          starCount: 1,
+          objectCount: 1,
+        },
+      },
+      projectedPickEntries: [],
+      brightnessExposureState: null,
+      trajectoryObjectId: null,
+      visibleLabelIds: [],
+    }
+    const services = createBaseServices()
+    const props = {
+      ...createBaseProps(),
+      projectionMode: 'stereographic',
+      backendStars: [],
+    }
+    const getProps = () => props
+
+    reportingModule.render({ runtime, services, getProps })
+    painter.paint_finish()
+    reportingModule.postRender({
+      runtime,
+      services,
+      getProps,
+      frameState: {
+        frameIndex: 17,
+        deltaSeconds: 0.016,
+        render: {
+          painter,
+          windowWidth: 800,
+          windowHeight: 400,
+          pixelScale: 1,
+          framebufferWidth: 800,
+          framebufferHeight: 400,
+          starsLimitMag: 6.4,
+          hintsLimitMag: 6.4,
+          hardLimitMag: 8,
+        },
+      },
+    })
+
+    const runtimePerf = JSON.parse(canvas.dataset.skyEngineRuntimePerf)
+    expect(runtimePerf.painterStarTelemetry).toBeDefined()
+    expect(runtimePerf.painterStarTelemetry.frameIndex).toBe(17)
+    expect(runtimePerf.painterStarTelemetry.hasPaintStarsDrawIntent).toBe(true)
+    expect(runtimePerf.painterStarTelemetry.painterStarCommandCount).toBe(1)
+    expect(runtimePerf.painterStarTelemetry.painterStarPayloadStarCount).toBe(1)
+    expect(runtimePerf.painterStarTelemetry.finalizedCommandCountAfterPaintFinish).toBeGreaterThan(0)
+    expect(runtimePerf.painterStarTelemetry.finalizedPainterStarCommandCountAfterPaintFinish).toBe(1)
+    expect(runtimePerf.painterStarTelemetry.comparison.painterVsDirectDelta).toBe(0)
+
+    reportingModule.dispose({ runtime })
   })
 
   it('ObjectRuntimeModule keeps stars, planets, and deep sky out of generic direct object sync', () => {

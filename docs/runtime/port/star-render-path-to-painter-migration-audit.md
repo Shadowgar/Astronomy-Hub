@@ -126,6 +126,18 @@ Status (EV-0113): PASS.
 - Add deterministic and runtime telemetry assertions for command/state drift.
 - Gate: stable per-frame count/state agreement under current scenes.
 
+Status (EV-0114): PASS.
+- Runtime telemetry now publishes per-frame `painterStarTelemetry` from finalized painter state (`postRender` after `paint_finish`), including:
+  - frame index
+  - star-intent command existence/count
+  - payload star count
+  - direct sync count and projected/rendered count comparisons
+  - magnitude and render-alpha ranges
+  - FOV/projection snapshot
+  - finalized command counts after `paint_finish`
+- Profile artifact capture now records and summarizes these fields in `.cursor-artifacts/parity-compare/module2-live-runtime-profile-2026-04-26.json`.
+- Live runtime profile shows stable agreement (`painterVsDirectDelta`, `painterVsProjectedDelta`, `painterVsRenderedDelta` all zero-centered in summary) while keeping direct thin-instance rendering active.
+
 ### Stage 3 - Introduce painter batch objects for star points
 
 - Add painter-internal star point batch object model matching queue semantics.

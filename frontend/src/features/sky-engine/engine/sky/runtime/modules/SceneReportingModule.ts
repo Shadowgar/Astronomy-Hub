@@ -5,6 +5,7 @@ import {
 } from '../../../../pickTargets'
 import type { SkyModule } from '../SkyModule'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
+import type { SkyPainterQueuedCall } from '../renderer/painterPort'
 import {
   clearSceneState,
   serializeSceneState,
@@ -16,6 +17,42 @@ const UI_PERF_METRICS_ATTRIBUTE = 'data-sky-engine-ui-perf'
 const REPORTING_CADENCE_MS = 250
 
 type UiPerfMetricsSnapshot = Record<string, number | boolean | string | null>
+
+type PainterStarTelemetrySnapshot = {
+  frameIndex: number
+  hasPaintStarsDrawIntent: boolean
+  painterStarCommandCount: number
+  painterStarPayloadStarCount: number | null
+  directStarSyncCount: number | null
+  projectedStarCount: number | null
+  renderedStarCount: number | null
+  magnitudeRange: {
+    limitingMagnitude: number | null
+    minRenderedMagnitude: number | null
+    maxRenderedMagnitude: number | null
+  }
+  renderAlphaRange: {
+    minRenderAlpha: number | null
+    maxRenderAlpha: number | null
+  }
+  view: {
+    fovDegrees: number | null
+    projectionMode: string | null
+  }
+  finalizedCommandCountAfterPaintFinish: number
+  finalizedPainterStarCommandCountAfterPaintFinish: number
+  comparison: {
+    painterVsDirectDelta: number | null
+    painterVsProjectedDelta: number | null
+    painterVsRenderedDelta: number | null
+  }
+}
+
+type StarsDrawIntentCommand = SkyPainterQueuedCall<'paint_stars_draw_intent'>
+
+function isStarsDrawIntentCommand(command: SkyPainterQueuedCall): command is StarsDrawIntentCommand {
+  return command.fn === 'paint_stars_draw_intent'
+}
 
 function toDatasetKey(attribute: string) {
   return attribute
@@ -29,12 +66,16 @@ function setDatasetAttribute(element: HTMLElement, attribute: string, value: str
   element.dataset[toDatasetKey(attribute)] = value
 }
 
+function isHtmlElement(value: unknown): value is HTMLElement {
+  return typeof HTMLElement !== 'undefined' && value instanceof HTMLElement
+}
+
 function readUiPerfMetrics(
   canvas: HTMLCanvasElement,
   state: { lastUiPerfRaw: string | null; lastUiPerfValue: UiPerfMetricsSnapshot | null },
 ) {
   const root = canvas.closest('.sky-engine-page')
-  if (!(root instanceof HTMLElement)) {
+  if (!isHtmlElement(root)) {
     return null
   }
 
@@ -64,6 +105,7 @@ function readUiPerfMetrics(
 export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   const reportingState = {
     lastPublishAtMs: 0,
+    shouldPublishRuntimePerfAtPostRender: false,
     lastSceneStateJson: null as string | null,
     lastStarMetricsJson: null as string | null,
     lastRuntimePerfJson: null as string | null,
@@ -86,7 +128,9 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
       const currentFovDegrees = Number(projectedFrame.currentFovDegrees.toFixed(1))
 
       const nowMs = performance.now()
-      if (reportingState.lastPublishAtMs !== 0 && nowMs - reportingState.lastPublishAtMs < REPORTING_CADENCE_MS) {
+      reportingState.shouldPublishRuntimePerfAtPostRender =
+        reportingState.lastPublishAtMs === 0 || nowMs - reportingState.lastPublishAtMs >= REPORTING_CADENCE_MS
+      if (!reportingState.shouldPublishRuntimePerfAtPostRender) {
         return
       }
       reportingState.lastPublishAtMs = nowMs
@@ -121,6 +165,17 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
         setDatasetAttribute(runtime.canvas, STAR_RENDER_METRICS_ATTRIBUTE, starRenderMetricsJson)
         reportingState.lastStarMetricsJson = starRenderMetricsJson
       }
+      const pickTargetsJson = JSON.stringify(buildSkyEnginePickTargets(runtime.projectedPickEntries))
+      if (pickTargetsJson !== reportingState.lastPickTargetsJson) {
+        setDatasetAttribute(runtime.canvas, getSkyEnginePickTargetsDataAttribute(), pickTargetsJson)
+        reportingState.lastPickTargetsJson = pickTargetsJson
+      }
+    },
+    postRender({ runtime, getProps, frameState }) {
+      if (!reportingState.shouldPublishRuntimePerfAtPostRender) {
+        return
+      }
+
       const latestPerf = runtime.runtimePerfTelemetry.latest
       const emaPerf = runtime.runtimePerfTelemetry.ema
       const projectionMs = (latestPerf.stepMs.collectProjectedStarsMs ?? 0) + (latestPerf.stepMs.collectProjectedNonStarObjectsMs ?? 0)
@@ -139,23 +194,73 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
           return accumulator
         }, {})
 
+      const latest = getProps()
+      const painter = frameState.render.painter
+      const starIntentCommands = painter.drawQueue.filter(isStarsDrawIntentCommand)
+      const finalizedStarIntentCommands = painter.finalizedCommands.filter(isStarsDrawIntentCommand)
+      let lastStarIntentCommand: StarsDrawIntentCommand | null = null
+      for (const command of starIntentCommands) {
+        lastStarIntentCommand = command
+      }
+      const painterStarPayloadStarCount = typeof lastStarIntentCommand?.payload.starCount === 'number'
+        ? lastStarIntentCommand.payload.starCount
+        : null
+      const directStarSyncCount = typeof latestPerf.stepMs.starLayerSyncCount === 'number'
+        ? latestPerf.stepMs.starLayerSyncCount
+        : runtime.projectedStarsFrame?.projectedStars.length ?? null
+      const projectedStarCount = runtime.projectedStarsFrame?.projectedStars.length ?? null
+      const renderedStarCount = Number.isFinite(latestPerf.starCount) ? latestPerf.starCount : null
+      const painterStarTelemetry: PainterStarTelemetrySnapshot = {
+        frameIndex: frameState.frameIndex,
+        hasPaintStarsDrawIntent: starIntentCommands.length > 0,
+        painterStarCommandCount: starIntentCommands.length,
+        painterStarPayloadStarCount,
+        directStarSyncCount,
+        projectedStarCount,
+        renderedStarCount,
+        magnitudeRange: {
+          limitingMagnitude: lastStarIntentCommand?.payload.magnitude.limitingMagnitude ?? null,
+          minRenderedMagnitude: lastStarIntentCommand?.payload.magnitude.minRenderedMagnitude ?? null,
+          maxRenderedMagnitude: lastStarIntentCommand?.payload.magnitude.maxRenderedMagnitude ?? null,
+        },
+        renderAlphaRange: {
+          minRenderAlpha: lastStarIntentCommand?.payload.magnitude.minRenderAlpha ?? null,
+          maxRenderAlpha: lastStarIntentCommand?.payload.magnitude.maxRenderAlpha ?? null,
+        },
+        view: {
+          fovDegrees: lastStarIntentCommand?.payload.view.fovDegrees ?? null,
+          projectionMode: lastStarIntentCommand?.payload.view.projectionMode ?? latest.projectionMode ?? null,
+        },
+        finalizedCommandCountAfterPaintFinish: painter.finalizedCommands.length,
+        finalizedPainterStarCommandCountAfterPaintFinish: finalizedStarIntentCommands.length,
+        comparison: {
+          painterVsDirectDelta:
+            painterStarPayloadStarCount != null && directStarSyncCount != null
+              ? painterStarPayloadStarCount - directStarSyncCount
+              : null,
+          painterVsProjectedDelta:
+            painterStarPayloadStarCount != null && projectedStarCount != null
+              ? painterStarPayloadStarCount - projectedStarCount
+              : null,
+          painterVsRenderedDelta:
+            painterStarPayloadStarCount != null && renderedStarCount != null
+              ? painterStarPayloadStarCount - renderedStarCount
+              : null,
+        },
+      }
+
       const runtimePerfJson = JSON.stringify({
         latest: latestPerf,
         ema: emaPerf,
         projectionShare,
         moduleBreakdown,
         brightnessExposureState: runtime.brightnessExposureState,
+        painterStarTelemetry,
         uiPerf,
       })
       if (runtimePerfJson !== reportingState.lastRuntimePerfJson) {
         setDatasetAttribute(runtime.canvas, RUNTIME_PERF_METRICS_ATTRIBUTE, runtimePerfJson)
         reportingState.lastRuntimePerfJson = runtimePerfJson
-      }
-
-      const pickTargetsJson = JSON.stringify(buildSkyEnginePickTargets(runtime.projectedPickEntries))
-      if (pickTargetsJson !== reportingState.lastPickTargetsJson) {
-        setDatasetAttribute(runtime.canvas, getSkyEnginePickTargetsDataAttribute(), pickTargetsJson)
-        reportingState.lastPickTargetsJson = pickTargetsJson
       }
     },
     dispose({ runtime }) {
@@ -170,6 +275,7 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
       reportingState.lastPickTargetsJson = null
       reportingState.lastUiPerfRaw = null
       reportingState.lastUiPerfValue = null
+      reportingState.shouldPublishRuntimePerfAtPostRender = false
     },
   }
 }
