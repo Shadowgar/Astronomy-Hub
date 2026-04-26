@@ -110,6 +110,7 @@ function createBaseRuntime() {
     projectedPickSourceRef: null,
     starsProjectionCache: null,
     starsProjectionReuseStreak: 0,
+    painterBackendExecutionEnabled: false,
     runtimePerfTelemetry: {
       latest: {
         frameIndex: 0,
@@ -222,6 +223,24 @@ describe('Sky star runtime ownership', () => {
     const [projectedStars] = runtime.directStarLayer.sync.mock.calls[0]
     expect(projectedStars).toHaveLength(1)
     expect(projectedStars[0].object.type).toBe('star')
+  })
+
+  it('keeps direct star layer active when backend execution flag is ON', () => {
+    const module = createStarsModule()
+    const runtime = {
+      ...createBaseRuntime(),
+      painterBackendExecutionEnabled: true,
+    }
+    const services = createBaseServices()
+    const props = createBaseProps()
+    const getProps = () => props
+    const getPropsVersion = () => 1
+
+    module.update({ runtime, services, getProps, getPropsVersion })
+    module.render({ runtime, services, getProps })
+
+    expect(runtime.projectedStarsFrame).not.toBeNull()
+    expect(runtime.directStarLayer.sync).toHaveBeenCalledTimes(1)
   })
 
   it('caps star limiting magnitude with Stellarium painter limits when present', () => {
@@ -557,12 +576,175 @@ describe('Sky star runtime ownership', () => {
     expect(runtimePerf.painterStarTelemetry.backendMappedStarsBatchCount).toBe(1)
     expect(runtimePerf.painterStarTelemetry.backendMappedStarsCount).toBe(1)
     expect(runtimePerf.painterStarTelemetry.backendUnsupportedBatchCount).toBe(0)
-    expect(runtimePerf.painterStarTelemetry.backendExecutionStatus).toBe('mapped_not_executed')
+    expect(runtimePerf.painterStarTelemetry.backendExecutionEnabled).toBe(false)
+    expect(runtimePerf.painterStarTelemetry.backendExecutionStatus).toBe('execution_disabled')
+    expect(runtimePerf.painterStarTelemetry.backendSideBySideExecutionCount).toBe(0)
+    expect(runtimePerf.painterStarTelemetry.backendExecutionDisabledCount).toBe(1)
     expect(runtimePerf.painterStarTelemetry.comparison.painterVsDirectDelta).toBe(0)
     expect(runtimePerf.painterStarTelemetry.comparison.batchVsDirectDelta).toBe(0)
     expect(runtimePerf.painterStarTelemetry.comparison.batchVsProjectedDelta).toBe(0)
     expect(runtimePerf.painterStarTelemetry.comparison.batchVsRenderedDelta).toBe(0)
+    expect(runtimePerf.painterStarTelemetry.comparison.backendMappedVsDirectDelta).toBe(0)
     expect(runtimePerf.painterStarTelemetry.comparison.backendMappedVsBatchDelta).toBe(0)
+
+    reportingModule.dispose({ runtime })
+  })
+
+  it('publishes side-by-side backend execution telemetry when flag is ON', () => {
+    const reportingModule = createSceneReportingModule()
+    const painter = createSkyPainterPortState()
+    const canvas = {
+      dataset: {},
+      closest: vi.fn(() => null),
+      removeAttribute: vi.fn(),
+    }
+
+    painter.reset_for_frame({
+      frameIndex: 18,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6.4,
+      hintsLimitMag: 6.4,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    painter.paint_stars_draw_intent({
+      fromDirectStarPath: true,
+      starCount: 1,
+      source: {
+        dataMode: 'multi-survey',
+        sourceLabel: 'survey',
+        scenePacketStarCount: 1,
+        scenePacketTileCount: 1,
+        diagnosticsActiveTiles: 1,
+        diagnosticsVisibleTileIdsCount: 1,
+        diagnosticsStarsListVisitCount: 4,
+      },
+      magnitude: {
+        limitingMagnitude: 6.4,
+        minRenderedMagnitude: 1.3,
+        maxRenderedMagnitude: 1.3,
+        minRenderAlpha: 0.8,
+        maxRenderAlpha: 0.8,
+      },
+      view: {
+        projectionMode: 'stereographic',
+        fovDegrees: 60,
+        viewportWidth: 800,
+        viewportHeight: 400,
+        centerDirection: { x: 0, y: 0, z: 1 },
+        sceneTimestampIso: '2026-04-10T00:00:00Z',
+      },
+    })
+
+    const runtime = {
+      ...createBaseRuntime(),
+      painterBackendExecutionEnabled: true,
+      canvas,
+      scene: {
+        meshes: [],
+        materials: [],
+        textures: [],
+      },
+      projectedStarsFrame: {
+        width: 800,
+        height: 400,
+        currentFovDegrees: 60,
+        lod: { tier: 'medium', labelCap: 8 },
+        view: { centerDirection: { x: 0, y: 0, z: 1 } },
+        projectedStars: [{ object: { id: 'star-1', type: 'star', magnitude: 1.2 } }],
+        limitingMagnitude: 6.4,
+        sceneTimestampIso: '2026-04-10T00:00:00Z',
+      },
+      projectedSceneFrame: {
+        currentFovDegrees: 60,
+        lod: { tier: 'medium', labelCap: 8 },
+      },
+      runtimePerfTelemetry: {
+        latest: {
+          frameIndex: 18,
+          shouldRenderFrame: true,
+          updateMs: 0,
+          renderModulesMs: 0,
+          sceneRenderMs: 0,
+          frameTotalMs: 1,
+          moduleMs: {},
+          moduleUpdateMs: {},
+          moduleRenderMs: {},
+          stepMs: {
+            collectProjectedStarsMs: 0.1,
+            collectProjectedNonStarObjectsMs: 0.1,
+            starLayerSyncCount: 1,
+            starLayerSyncCallCount: 1,
+          },
+          starCount: 1,
+          objectCount: 1,
+        },
+        ema: {
+          frameIndex: 18,
+          shouldRenderFrame: true,
+          updateMs: 0,
+          renderModulesMs: 0,
+          sceneRenderMs: 0,
+          frameTotalMs: 1,
+          moduleMs: {},
+          moduleUpdateMs: {},
+          moduleRenderMs: {},
+          stepMs: {
+            collectProjectedStarsMs: 0.1,
+            collectProjectedNonStarObjectsMs: 0.1,
+            starLayerSyncCount: 1,
+            starLayerSyncCallCount: 1,
+          },
+          starCount: 1,
+          objectCount: 1,
+        },
+      },
+      projectedPickEntries: [],
+      brightnessExposureState: null,
+      trajectoryObjectId: null,
+      visibleLabelIds: [],
+    }
+    const services = createBaseServices()
+    const props = {
+      ...createBaseProps(),
+      projectionMode: 'stereographic',
+      backendStars: [],
+    }
+    const getProps = () => props
+
+    reportingModule.render({ runtime, services, getProps })
+    painter.paint_finish()
+    reportingModule.postRender({
+      runtime,
+      services,
+      getProps,
+      frameState: {
+        frameIndex: 18,
+        deltaSeconds: 0.016,
+        render: {
+          painter,
+          windowWidth: 800,
+          windowHeight: 400,
+          pixelScale: 1,
+          framebufferWidth: 800,
+          framebufferHeight: 400,
+          starsLimitMag: 6.4,
+          hintsLimitMag: 6.4,
+          hardLimitMag: 8,
+        },
+      },
+    })
+
+    const runtimePerf = JSON.parse(canvas.dataset.skyEngineRuntimePerf)
+    expect(runtimePerf.painterStarTelemetry.backendExecutionEnabled).toBe(true)
+    expect(runtimePerf.painterStarTelemetry.backendExecutionStatus).toBe('executed_side_by_side')
+    expect(runtimePerf.painterStarTelemetry.backendSideBySideExecutionCount).toBe(1)
+    expect(runtimePerf.painterStarTelemetry.backendExecutionDisabledCount).toBe(0)
+    expect(runtime.directStarLayer.sync).toHaveBeenCalledTimes(1)
 
     reportingModule.dispose({ runtime })
   })

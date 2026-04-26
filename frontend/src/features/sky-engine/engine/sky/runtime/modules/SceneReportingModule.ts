@@ -6,7 +6,7 @@ import {
 import type { SkyModule } from '../SkyModule'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import type { SkyPainterFinalizedBatch, SkyPainterQueuedCall } from '../renderer/painterPort'
-import { mapPainterBatchesToBackendPlan } from '../renderer/painterBackendPort'
+import { executePainterBackendPlan, mapPainterBatchesToBackendPlan } from '../renderer/painterBackendPort'
 import {
   clearSceneState,
   serializeSceneState,
@@ -50,7 +50,10 @@ type PainterStarTelemetrySnapshot = {
   backendMappedStarsBatchCount: number
   backendMappedStarsCount: number
   backendUnsupportedBatchCount: number
+  backendExecutionEnabled: boolean
   backendExecutionStatus: string | null
+  backendSideBySideExecutionCount: number
+  backendExecutionDisabledCount: number
   comparison: {
     painterVsDirectDelta: number | null
     painterVsProjectedDelta: number | null
@@ -58,6 +61,7 @@ type PainterStarTelemetrySnapshot = {
     batchVsDirectDelta: number | null
     batchVsProjectedDelta: number | null
     batchVsRenderedDelta: number | null
+    backendMappedVsDirectDelta: number | null
     backendMappedVsBatchDelta: number | null
   }
 }
@@ -120,6 +124,7 @@ function buildPainterStarTelemetry(params: {
   latestProjectionMode: string | null | undefined
   projectedStarCount: number | null
   backendMappingPlan: ReturnType<typeof mapPainterBatchesToBackendPlan>
+  backendExecutionPlan: ReturnType<typeof executePainterBackendPlan>
 }): PainterStarTelemetrySnapshot {
   const starIntentCommands = params.painter.drawQueue.filter(isStarsDrawIntentCommand)
   const finalizedStarIntentCommands = params.painter.finalizedCommands.filter(isStarsDrawIntentCommand)
@@ -171,9 +176,12 @@ function buildPainterStarTelemetry(params: {
     starsBatchExecutionStatus: batchAggregate.starsBatchExecutionStatus,
     backendMappedBatchCount: params.backendMappingPlan.summary.mappedBatchCount,
     backendMappedStarsBatchCount: params.backendMappingPlan.summary.mappedStarsBatchCount,
-    backendMappedStarsCount: params.backendMappingPlan.summary.mappedStarsCount,
+    backendMappedStarsCount: params.backendExecutionPlan.summary.mappedStarsCount,
     backendUnsupportedBatchCount: params.backendMappingPlan.summary.unsupportedBatchCount,
-    backendExecutionStatus: params.backendMappingPlan.summary.executionStatus,
+    backendExecutionEnabled: params.backendExecutionPlan.summary.executionEnabled,
+    backendExecutionStatus: params.backendExecutionPlan.summary.executionStatus,
+    backendSideBySideExecutionCount: params.backendExecutionPlan.summary.sideBySideExecutionCount,
+    backendExecutionDisabledCount: params.backendExecutionPlan.summary.executionDisabledCount,
     comparison: {
       painterVsDirectDelta: resolveNullableDelta(painterStarPayloadStarCount, directStarSyncCount),
       painterVsProjectedDelta: resolveNullableDelta(painterStarPayloadStarCount, params.projectedStarCount),
@@ -181,8 +189,12 @@ function buildPainterStarTelemetry(params: {
       batchVsDirectDelta: resolveNullableDelta(batchStarCountForDelta, directStarSyncCount),
       batchVsProjectedDelta: resolveNullableDelta(batchStarCountForDelta, params.projectedStarCount),
       batchVsRenderedDelta: resolveNullableDelta(batchStarCountForDelta, renderedStarCount),
+      backendMappedVsDirectDelta: resolveNullableDelta(
+        params.backendExecutionPlan.summary.mappedStarsCount,
+        directStarSyncCount,
+      ),
       backendMappedVsBatchDelta: resolveNullableDelta(
-        params.backendMappingPlan.summary.mappedStarsCount,
+        params.backendExecutionPlan.summary.mappedStarsCount,
         batchStarCountForDelta,
       ),
     },
@@ -306,7 +318,7 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
         reportingState.lastPickTargetsJson = pickTargetsJson
       }
     },
-    postRender({ runtime, getProps, frameState }) {
+    postRender({ runtime, services, getProps, frameState }) {
       if (!reportingState.shouldPublishRuntimePerfAtPostRender) {
         return
       }
@@ -323,6 +335,21 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
       const backendMappingPlan = mapPainterBatchesToBackendPlan({
         finalizedBatches: painter.finalizedBatches,
       })
+      const backendExecutionPlan = executePainterBackendPlan({
+        finalizedBatches: painter.finalizedBatches,
+        mappingPlan: backendMappingPlan,
+        executionEnabled: runtime.painterBackendExecutionEnabled,
+        sideBySideRenderer: runtime.directStarLayer,
+        projectedStarsFrame: runtime.projectedStarsFrame
+          ? {
+              projectedStars: runtime.projectedStarsFrame.projectedStars,
+              width: runtime.projectedStarsFrame.width,
+              height: runtime.projectedStarsFrame.height,
+            }
+          : null,
+        selectedObjectId: latest.selectedObjectId,
+        animationTimeSeconds: services.clockService.getAnimationTimeSeconds(),
+      })
       const painterStarTelemetry = buildPainterStarTelemetry({
         frameIndex: frameState.frameIndex,
         painter,
@@ -330,6 +357,7 @@ export function createSceneReportingModule(): SkyModule<ScenePropsSnapshot, Scen
         latestProjectionMode: latest.projectionMode,
         projectedStarCount: runtime.projectedStarsFrame?.projectedStars.length ?? null,
         backendMappingPlan,
+        backendExecutionPlan,
       })
 
       const runtimePerfJson = JSON.stringify({

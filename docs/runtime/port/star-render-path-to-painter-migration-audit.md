@@ -178,8 +178,18 @@ Status (EV-0116): PASS.
 ### Stage 4B - Backend mapping to Babylon/WebGL execution
 
 - Map painter star point batches to concrete backend draw execution path.
-- Initial mapping may still target Babylon adapter path while preserving painter ownership contracts.
-- Gate: stars draw path executes from painter batches instead of direct module thin-instance sync.
+- Keep execution behind a runtime/dev feature flag that is OFF by default.
+- With flag OFF, preserve Stage 4A inert behavior and keep direct stars rendering unchanged.
+- With flag ON, allow side-by-side prototype execution only (no ownership transfer, no direct-path removal).
+
+Status (EV-0117): PASS.
+- Added runtime/dev flag contract via query/runtime flags (`painterBackendExecution=1` or `SKY_ENGINE_ENABLE_PAINTER_BACKEND_EXECUTION=1`) with default OFF resolution.
+- Added Stage 4B executor shell in `renderer/painterBackendPort.ts`:
+  - accepts finalized stars batches + backend mapping plan + execution flag + optional side-by-side adapter
+  - expanded statuses: `mapped_not_executed`, `execution_disabled`, `executed_side_by_side`, `unsupported_not_executed`
+- OFF mode (`executionEnabled=false`) now reports `execution_disabled` and performs no backend sync calls.
+- ON mode executes side-by-side only and reports `executed_side_by_side` while direct `StarsModule -> directStarLayer.sync(...)` remains active.
+- Runtime telemetry now distinguishes disabled vs side-by-side execution and reports execution counts.
 
 ### Stage 5 - Remove old direct stars render path
 

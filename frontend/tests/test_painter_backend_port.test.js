@@ -1,7 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import {
+  executePainterBackendPlan,
   mapPainterBatchesToBackendPlan,
+  resolvePainterBackendExecutionEnabled,
 } from '../src/features/sky-engine/engine/sky/runtime/renderer/painterBackendPort'
 import {
   createSkyPainterPortState,
@@ -54,6 +56,11 @@ function buildFinalizedStarsBatch() {
 }
 
 describe('painterBackendPort mapping shell (inert)', () => {
+  it('defaults backend execution flag to OFF', () => {
+    expect(resolvePainterBackendExecutionEnabled()).toBe(false)
+    expect(resolvePainterBackendExecutionEnabled({ envValue: undefined, queryString: null })).toBe(false)
+  })
+
   it('maps finalized stars batches into backend plan records without execution', () => {
     const starsBatch = buildFinalizedStarsBatch()
 
@@ -113,18 +120,93 @@ describe('painterBackendPort mapping shell (inert)', () => {
     expect(mappingPlan.summary.executionStatus).toBe('unsupported_not_executed')
   })
 
-  it('does not touch Babylon scene or direct star layer paths', () => {
+  it('OFF mode does not call side-by-side renderer through executor', () => {
     const starsBatch = buildFinalizedStarsBatch()
-    const runtime = {
-      directStarLayer: { sync: vi.fn() },
-      scene: { render: vi.fn() },
-    }
-
-    mapPainterBatchesToBackendPlan({
+    const mappingPlan = mapPainterBatchesToBackendPlan({
       finalizedBatches: [starsBatch],
     })
+    const sideBySideRenderer = { sync: vi.fn() }
 
-    expect(runtime.directStarLayer.sync).not.toHaveBeenCalled()
-    expect(runtime.scene.render).not.toHaveBeenCalled()
+    const executionPlan = executePainterBackendPlan({
+      finalizedBatches: [starsBatch],
+      mappingPlan,
+      executionEnabled: false,
+      sideBySideRenderer,
+      projectedStarsFrame: {
+        projectedStars: [{ object: { id: 'star-1' } }],
+        width: 800,
+        height: 400,
+      },
+      selectedObjectId: null,
+      animationTimeSeconds: 1,
+    })
+
+    expect(sideBySideRenderer.sync).not.toHaveBeenCalled()
+    expect(executionPlan.summary.executionEnabled).toBe(false)
+    expect(executionPlan.summary.executionStatus).toBe('execution_disabled')
+    expect(executionPlan.summary.executionDisabledCount).toBe(1)
+    expect(executionPlan.summary.sideBySideExecutionCount).toBe(0)
+    expect(executionPlan.mappedBatches[0].executionStatus).toBe('execution_disabled')
+  })
+
+  it('ON mode executes side-by-side and marks executed_side_by_side', () => {
+    const starsBatch = buildFinalizedStarsBatch()
+    const mappingPlan = mapPainterBatchesToBackendPlan({
+      finalizedBatches: [starsBatch],
+    })
+    const sideBySideRenderer = { sync: vi.fn() }
+
+    const executionPlan = executePainterBackendPlan({
+      finalizedBatches: [starsBatch],
+      mappingPlan,
+      executionEnabled: true,
+      sideBySideRenderer,
+      projectedStarsFrame: {
+        projectedStars: [{ object: { id: 'star-1' } }],
+        width: 800,
+        height: 400,
+      },
+      selectedObjectId: 'star-1',
+      animationTimeSeconds: 1.2,
+    })
+
+    expect(sideBySideRenderer.sync).toHaveBeenCalledTimes(1)
+    expect(executionPlan.summary.executionEnabled).toBe(true)
+    expect(executionPlan.summary.executionStatus).toBe('executed_side_by_side')
+    expect(executionPlan.summary.sideBySideExecutionCount).toBe(1)
+    expect(executionPlan.summary.executionDisabledCount).toBe(0)
+    expect(executionPlan.mappedBatches[0].executionStatus).toBe('executed_side_by_side')
+  })
+
+  it('unsupported batches remain not executed in execution phase', () => {
+    const starsBatch = buildFinalizedStarsBatch()
+    const unsupportedBatch = {
+      kind: 'mesh',
+      frameIndex: 8,
+      sourceCommandKind: 'paint_mesh',
+      batch: { reason: 'future-stage' },
+    }
+    const mappingPlan = mapPainterBatchesToBackendPlan({
+      finalizedBatches: [starsBatch, unsupportedBatch],
+    })
+    const sideBySideRenderer = { sync: vi.fn() }
+
+    const executionPlan = executePainterBackendPlan({
+      finalizedBatches: [starsBatch],
+      mappingPlan,
+      executionEnabled: true,
+      sideBySideRenderer,
+      projectedStarsFrame: {
+        projectedStars: [{ object: { id: 'star-1' } }],
+        width: 800,
+        height: 400,
+      },
+      selectedObjectId: null,
+      animationTimeSeconds: 1,
+    })
+
+    expect(executionPlan.unsupportedBatches).toHaveLength(1)
+    expect(executionPlan.unsupportedBatches[0].status).toBe('unsupported_not_executed')
+    expect(sideBySideRenderer.sync).toHaveBeenCalledTimes(1)
   })
 })

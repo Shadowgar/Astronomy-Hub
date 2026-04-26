@@ -1,6 +1,6 @@
 # Astronomy Hub vs Stellarium Web Engine - Strict Parity Tracker
 
-Last updated: 2026-04-26 (Port Block 17: Stars painter Stage 4A now maps finalized batches to inert backend plans with telemetry-only status)
+Last updated: 2026-04-26 (Port Block 18: Stars painter Stage 4B adds default-off side-by-side backend execution prototype)
 
 Authority sources:
 - Stellarium study source: `/home/rocco/Astronomy-Hub/study/stellarium-web-engine/source/stellarium-web-engine-master/src/**`
@@ -167,6 +167,36 @@ Validation evidence recorded for this block:
 Interpretation:
 - Stage 4A now has an inert backend mapping shell that preserves stars batch star counts/grouping and tags render_gl alignment markers for future execution work.
 - Direct Babylon thin-instance rendering remains unchanged and is still the only active stars draw path.
+
+## Port Block 18 (Executed, partial parity)
+### Stars Painter Stage 4B Feature-Flagged Backend Execution Prototype
+
+Stellarium authority files:
+- `src/render.h`
+- `src/render_gl.c`
+- `src/painter.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterBackendPort.ts`
+- `frontend/src/features/sky-engine/SkyEngineRuntimeBridge.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/SceneReportingModule.ts`
+- `frontend/tests/test_painter_backend_port.test.js`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+- `frontend/scripts/profile_sky_engine_runtime_perf.mjs`
+
+Explicit local logic deleted/replaced in this block:
+1. Added default-off runtime/dev backend execution flag resolution (`?painterBackendExecution=1` or `?SKY_ENGINE_ENABLE_PAINTER_BACKEND_EXECUTION=1`) and stored resolved state on runtime.
+2. Extended backend execution states to include `execution_disabled` and `executed_side_by_side`, while preserving `mapped_not_executed` and `unsupported_not_executed`.
+3. Added executor shell path that can run side-by-side sync against directStarLayer-compatible inputs only when flag is ON; OFF mode performs no sync calls.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_painter_port_command_queue.test.js tests/test_painter_backend_port.test.js tests/sky-engine-stars-runtime.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+
+Interpretation:
+- Stage 4B now supports a feature-flagged backend execution prototype that remains disabled by default and preserves Stage 4A behavior when OFF.
+- When ON, execution is side-by-side only and direct stars rendering ownership remains unchanged (`StarsModule -> directStarLayer.sync(...)`).
 
 ## Port Block 13 (Executed, partial parity)
 ### Large HIP Probe Expansion + Generated-Type Inference Stabilization

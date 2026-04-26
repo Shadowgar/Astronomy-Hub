@@ -40,6 +40,7 @@ import type { SkyObserverDerivedGeometry } from './engine/sky/runtime/observerDe
 import { SkyProjectionService } from './engine/sky/runtime/SkyProjectionService'
 import { createRuntimePerfTelemetry } from './engine/sky/runtime/perfTelemetry'
 import type { SceneLuminanceReport, SkyBrightnessExposureState } from './engine/sky/runtime/types'
+import { resolvePainterBackendExecutionEnabled } from './engine/sky/runtime/renderer/painterBackendPort'
 import {
   type ProjectedSceneObjectEntry,
   type RuntimeProjectedSceneFrame,
@@ -135,6 +136,7 @@ export interface SceneRuntimeRefs {
    */
   corePainterLimits: { starsLimitMag: number; hintsLimitMag: number; hardLimitMag: number } | null
   observerAstrometry: SkyObserverDerivedGeometry | null
+  painterBackendExecutionEnabled: boolean
 }
 
 export interface SkySceneRuntimeServices {
@@ -203,6 +205,7 @@ export function createSceneRuntimeState({
     starsProjectionReuseStreak: 0,
     corePainterLimits: null,
     observerAstrometry: null,
+    painterBackendExecutionEnabled: resolvePainterBackendExecutionEnabled(),
   } satisfies SceneRuntimeRefs
 }
 

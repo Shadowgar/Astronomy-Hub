@@ -81,6 +81,32 @@ Validation:
 - `frontend/tests/sky-engine-stars-runtime.test.js`
 - Evidence: **EV-0116**.
 
+## Stage 4B Feature-Flagged Execution Prototype (Slice 1D)
+
+`frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterBackendPort.ts` now includes a default-off execution prototype layered on top of the Stage 4A mapping shell.
+
+Stage 4B additions:
+- runtime/dev flag resolver:
+  - query/runtime flags: `?painterBackendExecution=1` or `?SKY_ENGINE_ENABLE_PAINTER_BACKEND_EXECUTION=1`
+  - default: OFF
+- execution entrypoint:
+  - `executePainterBackendPlan(...)`
+- expanded backend statuses:
+  - `mapped_not_executed`
+  - `execution_disabled`
+  - `executed_side_by_side`
+  - `unsupported_not_executed`
+
+Execution semantics:
+- OFF mode keeps Stage 4A inert behavior and returns `execution_disabled` without sync calls.
+- ON mode performs side-by-side prototype sync only and marks `executed_side_by_side`.
+- direct stars render ownership remains unchanged (`StarsModule` still calls `directStarLayer.sync(...)`).
+
+Validation:
+- `frontend/tests/test_painter_backend_port.test.js`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+- Evidence: **EV-0117**.
+
 ## Enum Mapping (`painter.h`)
 
 | Stellarium enum group | Sky-Engine mapping |

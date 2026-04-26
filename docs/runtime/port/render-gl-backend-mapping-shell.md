@@ -2,7 +2,7 @@
 
 Date: 2026-04-26  
 Mode: Stellarium Port Mode ACTIVE  
-Scope: Inert backend mapping shell only. No render execution.
+Scope: Stage 4A inert mapping shell + Stage 4B feature-flagged side-by-side execution prototype.
 
 ## Source Anchors
 
@@ -60,6 +60,33 @@ Not allowed in this stage:
 - no Babylon scene mutation
 - no direct-star path replacement
 
+## Stage 4B Prototype Execution Contract
+
+Execution flag:
+- runtime/dev query flags:
+  - `?painterBackendExecution=1`
+  - `?SKY_ENGINE_ENABLE_PAINTER_BACKEND_EXECUTION=1`
+- default: OFF
+
+Executor entrypoint:
+- `executePainterBackendPlan({ finalizedBatches, mappingPlan, executionEnabled, sideBySideRenderer, projectedStarsFrame, selectedObjectId, animationTimeSeconds })`
+
+Execution statuses:
+- `mapped_not_executed`
+- `execution_disabled`
+- `executed_side_by_side`
+- `unsupported_not_executed`
+
+Behavior:
+- OFF mode: returns `execution_disabled`; no side-by-side sync calls.
+- ON mode: executes side-by-side only (prototype), marks `executed_side_by_side`.
+- Unsupported batch kinds: remain `unsupported_not_executed`.
+
+Stage 4B boundaries:
+- direct stars render ownership remains `StarsModule -> directStarLayer.sync(...)`
+- no renderer replacement
+- no projection/math/loading/styling changes
+
 ## Validation
 
 Commands:
@@ -68,3 +95,4 @@ Commands:
 
 Evidence:
 - `EV-0116`
+- `EV-0117`

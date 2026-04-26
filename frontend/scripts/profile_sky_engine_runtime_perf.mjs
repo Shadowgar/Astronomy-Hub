@@ -116,10 +116,22 @@ async function main() {
     const backendMappedBatchCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.backendMappedBatchCount ?? 0))
     const backendMappedStarsCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.backendMappedStarsCount ?? 0))
     const backendUnsupportedBatchCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.backendUnsupportedBatchCount ?? 0))
+    const backendExecutionEnabledSeries = samples.map((sample) => sample.painterStarTelemetry?.backendExecutionEnabled ? 1 : 0)
     const backendMappedExecutionShareSeries = samples.map((sample) => {
       const status = sample.painterStarTelemetry?.backendExecutionStatus ?? null
       return status === 'mapped_not_executed' ? 1 : 0
     })
+    const backendExecutionDisabledShareSeries = samples.map((sample) => {
+      const status = sample.painterStarTelemetry?.backendExecutionStatus ?? null
+      return status === 'execution_disabled' ? 1 : 0
+    })
+    const backendExecutedSideBySideShareSeries = samples.map((sample) => {
+      const status = sample.painterStarTelemetry?.backendExecutionStatus ?? null
+      return status === 'executed_side_by_side' ? 1 : 0
+    })
+    const backendSideBySideExecutionCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.backendSideBySideExecutionCount ?? 0))
+    const backendExecutionDisabledCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.backendExecutionDisabledCount ?? 0))
+    const backendMappedVsDirectDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.backendMappedVsDirectDelta ?? 0))
     const backendMappedVsBatchDeltaSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.comparison?.backendMappedVsBatchDelta ?? 0))
     const finalizedCommandCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.finalizedCommandCountAfterPaintFinish ?? 0))
     const finalizedPainterStarCommandCountSeries = samples.map((sample) => Number(sample.painterStarTelemetry?.finalizedPainterStarCommandCountAfterPaintFinish ?? 0))
@@ -153,7 +165,13 @@ async function main() {
         backendMappedBatchCount: summarizeSeries(backendMappedBatchCountSeries),
         backendMappedStarsCount: summarizeSeries(backendMappedStarsCountSeries),
         backendUnsupportedBatchCount: summarizeSeries(backendUnsupportedBatchCountSeries),
+        backendExecutionEnabledShare: summarizeSeries(backendExecutionEnabledSeries),
         backendMappedExecutionShare: summarizeSeries(backendMappedExecutionShareSeries),
+        backendExecutionDisabledShare: summarizeSeries(backendExecutionDisabledShareSeries),
+        backendExecutedSideBySideShare: summarizeSeries(backendExecutedSideBySideShareSeries),
+        backendSideBySideExecutionCount: summarizeSeries(backendSideBySideExecutionCountSeries),
+        backendExecutionDisabledCount: summarizeSeries(backendExecutionDisabledCountSeries),
+        backendMappedVsDirectDelta: summarizeSeries(backendMappedVsDirectDeltaSeries),
         backendMappedVsBatchDelta: summarizeSeries(backendMappedVsBatchDeltaSeries),
         finalizedCommandCountAfterPaintFinish: summarizeSeries(finalizedCommandCountSeries),
         finalizedPainterStarCommandCountAfterPaintFinish: summarizeSeries(finalizedPainterStarCommandCountSeries),
