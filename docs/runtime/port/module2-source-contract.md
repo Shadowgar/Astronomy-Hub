@@ -127,7 +127,7 @@ Rows: **`src/hip.c`**, **`src/hip.h`**, **`src/modules/stars.c`**, **`src/algos/
 
 ## 7. Handoff for external agents (e.g. Codex / new chat)
 
-Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0104, noting EV-0067 / EV-0068 are intentionally unused IDs), **`module-gates.md`** "Known residuals" section for non-module-0/1/2 npm test failures that should be picked up by downstream modules, and this file §2–§5.
+Read first: **`docs/runtime/port/stellarium-web-engine-src.md`** (pinned commit), **`docs/runtime/port/evidence-index.md`** (EV-0038–EV-0105, noting EV-0067 / EV-0068 are intentionally unused IDs), **`AUDIT-2026-04-26.md`** for the current full-source-vs-Hub audit, **`module-gates.md`** "Known residuals" section for non-module-0/1/2 npm test failures that should be picked up by downstream modules, and this file §2–§5.
 
 Hard constraints for continuation:
 - Port for exact parity (logic/UI behavior), not approximation.
@@ -225,6 +225,7 @@ Hard constraints for continuation:
 | EV-0102 | `framePacingDecisions.ts` reconciles the large G4 frame-pacing trace seam (projection reuse, overlay cadence, runtime model sync, trace digests) with dedicated regression suite `test_module2_frame_pacing_decisions.test.js`; deterministic replay includes `stars-c-frame-pacing`, and module bundle is now **159/159 across 24 files** |
 | EV-0103 | `starsCLabelRuntimePort.ts` lands a new large source-faithful `stars.c` label/name/designation seam (`star_render_name` adjacent behavior) with dedicated regression suite `test_module2_stars_c_label_runtime_port.test.js`; deterministic replay includes `stars-c-label-runtime`, and module bundle is now **168/168 across 25 files** |
 | EV-0104 | `module2SideBySideParityHarness.ts` lands a new side-by-side parity harness baseline for module2 stars seams with dedicated regression suite `test_module2_side_by_side_parity_harness.test.js`; CI path filters and `test:module2` include the harness suite, and module bundle is now **171/171 across 26 files** |
+| EV-0105 | Full source-vs-Hub audit in `AUDIT-2026-04-26.md`: local pinned source has 146 C/H files and matches the pinned commit; `module-inventory.md` has 146 rows; only one file-level row is `PORTED`; module2 remains `BLOCKED`; active star drawing uses Babylon/WebGL thin instances but Stellarium `core.c` / `painter.c` / `render_gl.c` batching, clipping, shader, texture, and tonemapper contracts are not ported. |
 
 
 ### CI
@@ -234,10 +235,10 @@ Hard constraints for continuation:
 
 ### Suggested next coding targets (not done)
 
-1. **G5** — create side-by-side parity checkpoints against pinned Stellarium for the module2 stars surfaces; Hub-only deterministic replay is now extended through frame pacing (**EV-0102**) but does not close side-by-side parity.
+1. **G5** — create side-by-side parity checkpoints from live pinned Stellarium runtime output for the module2 stars surfaces; the baseline harness exists (**EV-0104**) but Hub-only deterministic replay and committed fixture vectors do not close side-by-side parity.
 2. **`stars.c`** — close live `stars_list` / `stars_add_data_source` datasource/list lifecycle gaps against real fetch behavior (survey-wide loaded-tile `obj_get_by_hip` is now landed in **EV-0075**; traversal loop landed in **EV-0074**).
-3. **Tests** — synthetic fixtures: if a star uses a fake **`HIP N`** with coordinates that do not match **`PIX_ORDER_2`**, merge will drop it (**EV-0042**); use no-HIP ids or catalog-consistent RA/Dec.
-4. **Runtime blockers before deeper parity:** profile frame pacing with active sky scene + overlays now that primary toolbar toggles are runtime-wired; treat this as P0 before additional UI parity deltas.
+3. **Runtime blockers before deeper parity:** profile active sky scene frame pacing using existing runtime telemetry and a new EV row. Treat the issue as CPU-heavy TypeScript projection/model/buffer prep plus missing Stellarium painter/render_gl parity, not as a simple absence of GPU rendering.
+4. **Tests** — synthetic fixtures: if a star uses a fake **`HIP N`** with coordinates that do not match **`PIX_ORDER_2`**, merge will drop it (**EV-0042**); use no-HIP ids or catalog-consistent RA/Dec.
 
 ### Fixture pitfall (tests)
 

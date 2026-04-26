@@ -106,9 +106,12 @@ G2/G4 label/name/designation seam extension (2026-04-25, **EV-0103**): `starsCLa
 
 G5/G6 side-by-side baseline harness (2026-04-25, **EV-0104**): `module2SideBySideParityHarness.ts` and `test_module2_side_by_side_parity_harness.test.js` establish a reproducible side-by-side checkpoint scaffold on pinned fixture vectors, wired into `test:module2` and `.github/workflows/module2-stars.yml` path filters. `npm run typecheck` and `npm run test:module2` PASS (**171/171 across 26 files**). This is baseline scaffolding only; full G5 closure still requires checkpoint vectors sourced from live pinned Stellarium runtime outputs.
 
+Full source/runtime audit (2026-04-26, **EV-0105**): `AUDIT-2026-04-26.md` rechecked the local pinned source tree and Hub runtime/docs. The pinned local source is commit `63fb3279e85782158a6df63649f1c8a1837b7846`; the source tree has **146** C/H files and `module-inventory.md` has **146** file rows. File-level inventory status remains overwhelmingly blocked: only `src/algos/deltat.c` is `PORTED`; all module2 file rows remain `BLOCKED` until live side-by-side parity closes. The audit also clarifies the performance/usability diagnosis: Babylon/WebGL thin-instance drawing exists, but Stellarium `core.c` / `painter.c` / `render_gl.c` batching, clipping, shader, texture, and tonemapper contracts are not ported. Module2 remains **BLOCKED** and G5-G7 stay **FAIL**.
+
 ## Rules
 
 - A module can be `COMPLETE` only if every gate is `PASS`.
 - Any `UNMAPPED` in module inventory forces `G0=FAIL`.
 - Active process blockers use **`BLK-***` rows in `blockers.md`**. **`BLOCKED`** status in `module-inventory.md` alone is normal deferred port work and does not require a **`BLK-***` unless it stops all forward progress.
 - Port-size floor: a landed port slice counts toward gate closure only when diff evidence shows at least **500 added implementation-code lines** (`Added`), excluding documentation-only and generated-evidence text, unless the user explicitly approves an exception.
+- Do not treat the broad `module7-remaining-swe` bucket as actionable enough for a full-port plan. Before module2 closure is used to unlock downstream work, split renderer/painter/core/module-system/projection/utility rows into smaller source-contract gates; EV-0105 shows that bucket currently hides 90 blocked C/H file rows.
