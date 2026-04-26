@@ -166,9 +166,13 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
       expect(firstFramePainter).toBe(renderPainterRefs[1])
       expect(preambleQueueSnapshots[0]).toEqual(['paint_prepare'])
       expect(firstFramePainter.drawQueue.some((entry) => entry.fn === 'paint_finish')).toBe(true)
+      expect(firstFramePainter.isFrameFinalized).toBe(true)
 
+      const finalizedQueueLength = firstFramePainter.drawQueue.length
       firstFramePainter.paint_texture()
-      expect(firstFramePainter.drawQueue.some((entry) => entry.fn === 'paint_texture')).toBe(true)
+      expect(firstFramePainter.drawQueue).toHaveLength(finalizedQueueLength)
+      expect(firstFramePainter.drawQueue.some((entry) => entry.fn === 'paint_texture')).toBe(false)
+      expect(firstFramePainter.finalizedCommands).toHaveLength(finalizedQueueLength)
 
       loopCallback()
 

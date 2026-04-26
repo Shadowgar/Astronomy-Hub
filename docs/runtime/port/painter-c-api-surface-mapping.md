@@ -10,6 +10,28 @@ Scope:
 - No `render_gl.c` batching/shader port in this slice.
 - No visual behavior redesign.
 
+## Command Queue Mapping (Slice 1A)
+
+`frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts` now records a typed CPU-side command queue for every exposed painter API callable.
+
+Queue model:
+- command type union keyed by source-faithful callable names (`paint_*`, `painter_*`)
+- per-command payload shape mapped by callable
+- per-command batch snapshot placeholders (`mode`, `color`, `flags`, texture-slot bindings, projection/clipping state)
+- per-frame sequencing (`frameIndex`, monotonic `sequence`)
+
+Lifecycle behavior:
+- `reset_for_frame(...)` clears mutable command storage and clears finalized command snapshots.
+- `paint_prepare(...)` records a typed `paint_prepare` lifecycle command.
+- representative draw intents (for example `paint_texture`, `paint_mesh`, `paint_text`) record typed inert commands only.
+- `paint_finish(...)` records `paint_finish` then finalizes the frame command list for later backend consumption.
+- after finalize, additional `paint_*` / `painter_*` calls in the same frame do not mutate the finalized list.
+
+Validation:
+- `frontend/tests/test_sky_core_frame_lifecycle_order.test.js`
+- `frontend/tests/test_painter_port_command_queue.test.js`
+- Evidence: **EV-0111**.
+
 ## Enum Mapping (`painter.h`)
 
 | Stellarium enum group | Sky-Engine mapping |

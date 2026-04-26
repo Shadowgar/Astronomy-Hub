@@ -51,6 +51,7 @@ Source focus: `core.c:537-570` (window/pixel scale sync, projection/observer pre
 Implementation notes:
 - A single `SkyCoreFrameState` object is created once per frame inside `runFrameLifecycle` and passed unchanged to ordered module `update`, `render`, and `postRender` phases.
 - `Babylon scene.render()` remains between `painter.paint_finish()` and ordered `postRender`.
+- `painter.paint_finish()` now also finalizes the CPU-side typed painter command list for backend handoff in later render slices (no `render_gl.c` execution in this step).
 - `painter_update_clip_info` / `paint_prepare` / `render_gl` remain intentionally unported in this slice.
 
 For painter API boundary details, see `docs/runtime/port/painter-c-api-surface-mapping.md`.
