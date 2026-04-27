@@ -2,7 +2,7 @@
 
 **Purpose:** This file is the single entry point for a fresh agent (Codex 5.3 or any successor) taking over the runtime port without prior chat context. Read this file first, then the four "required reads" below, then start coding.
 
-**Last updated:** 2026-04-27, evidence **EV-0123** (Stars Backend Slice S4 landed: `paint_prepare` now derives `cullFlipped` from projection flip parity and carries practical clip/projection state into render preamble; direct star safety path preserved).
+**Last updated:** 2026-04-27, evidence **EV-0124** (Stars Backend Slice S5 landed: `painter_update_clip_info` now stores real cap geometry data for the supported observed-frame subset and marks unsupported frame conversions explicitly; direct star safety path preserved).
 
 ---
 
@@ -26,7 +26,7 @@ These constraints come from the top-level `AGENTS.md` §6.5 (Sky Engine Isolatio
 2. **`docs/runtime/port/README.md`** — canon rules + current module-completion state.
 3. **`docs/runtime/port/module2-source-contract.md`** — active module (§1–§2 source mapping, §5 gate status, §7 handoff / next coding targets / commands / evidence).
 4. **`docs/runtime/port/module-gates.md`** — gate-by-gate state per module + "Known residuals (repo-wide `npm test`)" section.
-5. **`docs/runtime/port/evidence-index.md`** — the evidence ledger. Cite an existing `EV-xxxx` when referencing work; add a new row for any new work you land (**next free ID: EV-0124**; `EV-0067` and `EV-0068` are intentionally unused).
+5. **`docs/runtime/port/evidence-index.md`** — the evidence ledger. Cite an existing `EV-xxxx` when referencing work; add a new row for any new work you land (**next free ID: EV-0125**; `EV-0067` and `EV-0068` are intentionally unused).
 6. **`docs/runtime/port/AUDIT-2026-04-26.md`** — latest full audit of source inventory, Hub runtime status, and usability/performance drift.
 
 Only open deeper files (inventory, blockers, source contract for module 0/1, per-plan files) when the task points at them.
@@ -145,7 +145,7 @@ Module 2 function inventory (per-function `PORTED` / `BLOCKED` status against co
 ## 9. Evidence conventions
 
 - Every `PASS` gate must reference at least one evidence row (`module-gates.md` Rules).
-- When you land new work, append a new row to `evidence-index.md` with the next free ID (**next: EV-0124**). Use the existing column shape: `| Evidence ID | Module | Gate | Command / Probe | Artifact Path | Result | Notes |`.
+- When you land new work, append a new row to `evidence-index.md` with the next free ID (**next: EV-0125**). Use the existing column shape: `| Evidence ID | Module | Gate | Command / Probe | Artifact Path | Result | Notes |`.
 - Keep existing EV rows immutable. `EV-0067` and `EV-0068` are intentionally unused — do not reuse them.
 - Cite the new EV ID in every doc that references the landed surface: `module-inventory.md` (function table), `module-gates.md` (module row), `module2-source-contract.md` (§5 gate + §7 evidence table), and any README range bumps.
 

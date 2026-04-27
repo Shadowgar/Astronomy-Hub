@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  SkyPainterFrameId,
   SkyPainterMode,
   SkyPainterTextureSlot,
   createSkyPainterPortState,
@@ -33,8 +34,9 @@ describe('painterPort command queue (CPU-side)', () => {
         clipInfoValid: true,
         viewportWidth: 1280,
         viewportHeight: 720,
-        boundingCapComputed: true,
-        skyCapComputed: true,
+        activeFrameId: SkyPainterFrameId.FRAME_OBSERVED,
+        boundingCapValid: true,
+        skyCapValid: true,
       },
     })
     expect(painter.drawQueue[1]).toMatchObject({

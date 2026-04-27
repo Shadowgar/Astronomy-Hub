@@ -267,10 +267,7 @@ What changed in S4:
 - `paint_prepare` now computes `cullFlipped` from source-modeled flip flags:
   - `flipHorizontal XOR flipVertical`
   - removes the previous hardcoded `false` path.
-- `painter_update_clip_info` now implements the practical subset required by current point/star rendering:
-  - viewport dimensions
-  - `clipInfoValid`
-  - bounded `boundingCapComputed` / `skyCapComputed` placeholders
+- `painter_update_clip_info` now wires clip-info preamble lifecycle and projection-state handoff for later cap parity work.
 - render backend frame now carries explicit pre-render projection/clip/cull state:
   - `projectionMode`
   - `projectionFlags`
@@ -294,6 +291,45 @@ Validation:
 - `npm run test -- tests/test_painter_backend_port.test.js tests/sky-engine-stars-runtime.test.js`
 - `npm run build`
 - Evidence: **EV-0123**.
+
+## Slice S5 painter_update_clip_info Cap Geometry (2026-04-27)
+
+Status: implemented as a bounded cap-geometry parity slice for the supported observed-frame path.
+
+Source anchors:
+- `src/painter.c`: `compute_viewport_cap`, `compute_sky_cap`, `painter_update_clip_info`
+- `src/painter.h`: `clip_info[FRAMES_NB]` cap structures
+- `src/frames.h`: frame-id contracts (`FRAME_*`, `FRAMES_NB`)
+
+Hub implementation:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/SkyCore.ts`
+
+What changed in S5:
+- placeholder clip booleans were replaced with source-shaped cap data:
+  - per-frame clip entries (`frameId`, `frameName`, supported flag, explicit unsupported reason)
+  - `boundingCap` (`normal`, `limit`)
+  - `viewportCaps[]` side-plane caps (`normal`, `limit`)
+  - `skyCap` (`normal`, `limit = cos(91°)`)
+- `painter_update_clip_info` now computes practical `compute_viewport_cap` parity for supported frames using unprojected viewport corners and side-cap orientation against center direction.
+- clip-info now explicitly tracks unsupported frame-conversion paths instead of silently implying full frame parity.
+- invalid viewport dimensions (`<= 0`) now produce `clipInfoValid=false` and no cap payload.
+- SkyCore now forwards `centerDirection` and `fovRadians` into painter frame reset for cap computation stability.
+
+Bounded-support notes:
+- Current cap computation support is explicit for `FRAME_OBSERVED_GEOM` and `FRAME_OBSERVED`.
+- Other frame conversions remain explicit `frame_conversion_not_ported` until `convert_frame`-equivalent paths are ported.
+
+Behavior intentionally unchanged in S5:
+- S1/S2/S3 point item, reorder, and flush lifecycle semantics remain intact.
+- direct star rendering ownership remains with `directStarLayer`.
+- no backend draw execution and no renderer replacement.
+
+Validation:
+- `npm run typecheck`
+- `npm run test -- tests/test_painter_backend_port.test.js tests/test_painter_port_command_queue.test.js tests/test_sky_core_frame_lifecycle_order.test.js tests/sky-engine-stars-runtime.test.js`
+- `npm run build`
+- Evidence: **EV-0124**.
 
 ## Enum Mapping (`painter.h`)
 

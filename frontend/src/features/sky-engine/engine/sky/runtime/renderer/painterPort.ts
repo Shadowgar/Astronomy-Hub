@@ -1,3 +1,6 @@
+import { Vector3 } from '@babylonjs/core/Maths/math.vector'
+import { type SkyProjectionMode, unprojectViewportPoint } from '../../../../projectionMath'
+
 /**
  * Stellarium painter API surface boundary (slice 1).
  *
@@ -60,6 +63,18 @@ export enum SkyPainterTextureSlot {
 export const SKY_PROJ_FLIP_VERTICAL = 1 << 5
 export const SKY_PROJ_FLIP_HORIZONTAL = 1 << 6
 export const SKY_PROJ_HAS_DISCONTINUITY = 1 << 7
+export const SKY_FRAMES_NB = 8
+
+export enum SkyPainterFrameId {
+  FRAME_ASTROM = 0,
+  FRAME_ICRF = 1,
+  FRAME_CIRS = 2,
+  FRAME_JNOW = 3,
+  FRAME_OBSERVED_GEOM = 4,
+  FRAME_OBSERVED = 5,
+  FRAME_MOUNT = 6,
+  FRAME_VIEW = 7,
+}
 
 export interface SkyPainterPoint {
   readonly pos: [number, number]
@@ -156,6 +171,7 @@ export interface SkyPainterRenderBackendFrame {
   readonly flipHorizontal: boolean
   readonly flipVertical: boolean
   readonly clipInfoValid: boolean
+  readonly clipInfo: SkyPainterClipInfoSubset | null
   readonly depthMin: number
   readonly depthMax: number
   readonly pointItems: ReadonlyArray<SkyPainterRenderPointItem>
@@ -179,6 +195,12 @@ export interface SkyPainterFrameResetInput {
   readonly hardLimitMag: number | null
   readonly projectionMode?: string | null
   readonly projectionFlags?: number
+  readonly centerDirection?: {
+    readonly x: number
+    readonly y: number
+    readonly z: number
+  } | null
+  readonly fovRadians?: number | null
 }
 
 export interface SkyPainterProjectionState {
@@ -189,13 +211,32 @@ export interface SkyPainterProjectionState {
   readonly projectionFlags: number
   readonly flipHorizontal: boolean
   readonly flipVertical: boolean
+  readonly centerDirection: readonly [number, number, number]
+  readonly fovRadians: number
+}
+
+export interface SkyPainterCap {
+  readonly normal: readonly [number, number, number]
+  readonly limit: number
+  readonly valid: boolean
+  readonly sourceFrame: SkyPainterFrameId
+}
+
+export interface SkyPainterFrameClipInfo {
+  readonly frameId: SkyPainterFrameId
+  readonly frameName: string
+  readonly supported: boolean
+  readonly unsupportedReason: string | null
+  readonly boundingCap: SkyPainterCap | null
+  readonly viewportCaps: ReadonlyArray<SkyPainterCap>
+  readonly skyCap: SkyPainterCap | null
 }
 
 export interface SkyPainterClipInfoSubset {
   readonly viewportWidth: number
   readonly viewportHeight: number
-  readonly boundingCapComputed: boolean
-  readonly skyCapComputed: boolean
+  readonly activeFrameId: SkyPainterFrameId
+  readonly frames: ReadonlyArray<SkyPainterFrameClipInfo>
 }
 
 export interface SkyPainterClippingState {
@@ -294,11 +335,14 @@ export interface SkyPainterCommandPayloadMap {
   readonly painter_is_2d_circle_clipped: Record<string, never>
   readonly painter_is_cap_clipped: Record<string, never>
   readonly painter_update_clip_info: {
-    readonly clipInfoValid: true
+    readonly clipInfoValid: boolean
     readonly viewportWidth: number
     readonly viewportHeight: number
-    readonly boundingCapComputed: true
-    readonly skyCapComputed: true
+    readonly activeFrameId: SkyPainterFrameId
+    readonly supportedFrameCount: number
+    readonly unsupportedFrameCount: number
+    readonly boundingCapValid: boolean
+    readonly skyCapValid: boolean
   }
   readonly paint_orbit: Record<string, never>
   readonly paint_2d_ellipse: Record<string, never>
@@ -376,6 +420,46 @@ function resolveStarsFovBucket(fovDegrees: number): string {
 function getLastEntry<T>(entries: readonly T[]): T | undefined {
   const entriesWithAt = entries as unknown as { at: (index: number) => T | undefined }
   return entriesWithAt.at(-1)
+}
+
+const SKY_PAINTER_FRAME_NAMES: Record<SkyPainterFrameId, string> = {
+  [SkyPainterFrameId.FRAME_ASTROM]: 'FRAME_ASTROM',
+  [SkyPainterFrameId.FRAME_ICRF]: 'FRAME_ICRF',
+  [SkyPainterFrameId.FRAME_CIRS]: 'FRAME_CIRS',
+  [SkyPainterFrameId.FRAME_JNOW]: 'FRAME_JNOW',
+  [SkyPainterFrameId.FRAME_OBSERVED_GEOM]: 'FRAME_OBSERVED_GEOM',
+  [SkyPainterFrameId.FRAME_OBSERVED]: 'FRAME_OBSERVED',
+  [SkyPainterFrameId.FRAME_MOUNT]: 'FRAME_MOUNT',
+  [SkyPainterFrameId.FRAME_VIEW]: 'FRAME_VIEW',
+}
+
+const SKY_PAINTER_S4_SUPPORTED_CAP_FRAME_IDS = new Set<SkyPainterFrameId>([
+  SkyPainterFrameId.FRAME_OBSERVED_GEOM,
+  SkyPainterFrameId.FRAME_OBSERVED,
+])
+
+function normalizeVec3(vector: readonly [number, number, number]): [number, number, number] {
+  const length = Math.hypot(vector[0], vector[1], vector[2])
+  if (!Number.isFinite(length) || length <= 1e-12) {
+    return [0, 0, 1]
+  }
+  return [vector[0] / length, vector[1] / length, vector[2] / length]
+}
+
+function dotVec3(a: readonly [number, number, number], b: readonly [number, number, number]): number {
+  return (a[0] * b[0]) + (a[1] * b[1]) + (a[2] * b[2])
+}
+
+function crossVec3(a: readonly [number, number, number], b: readonly [number, number, number]): [number, number, number] {
+  return [
+    (a[1] * b[2]) - (a[2] * b[1]),
+    (a[2] * b[0]) - (a[0] * b[2]),
+    (a[0] * b[1]) - (a[1] * b[0]),
+  ]
+}
+
+function isFiniteVec3(vector: readonly [number, number, number]): boolean {
+  return Number.isFinite(vector[0]) && Number.isFinite(vector[1]) && Number.isFinite(vector[2])
 }
 
 function buildItemCompatibilityKey(params: {
@@ -489,6 +573,14 @@ export class SkyPainterPortState {
 
   reset_for_frame(input: SkyPainterFrameResetInput): void {
     const projectionFlags = input.projectionFlags ?? 0
+    const centerDirection = normalizeVec3([
+      input.centerDirection?.x ?? this.projectionState?.centerDirection[0] ?? 0,
+      input.centerDirection?.y ?? this.projectionState?.centerDirection[1] ?? 0,
+      input.centerDirection?.z ?? this.projectionState?.centerDirection[2] ?? 1,
+    ])
+    const fovRadians = Number.isFinite(input.fovRadians)
+      ? Math.max(1e-6, input.fovRadians as number)
+      : (this.projectionState?.fovRadians ?? (Math.PI / 3))
     this.frameIndex = input.frameIndex
     this.prepared = false
     this.fbSize = [input.framebufferWidth, input.framebufferHeight]
@@ -504,6 +596,8 @@ export class SkyPainterPortState {
       projectionFlags,
       flipHorizontal: (projectionFlags & SKY_PROJ_FLIP_HORIZONTAL) !== 0,
       flipVertical: (projectionFlags & SKY_PROJ_FLIP_VERTICAL) !== 0,
+      centerDirection,
+      fovRadians,
     }
     this.clippingState = { clipInfoValid: false, clipInfo: null }
     this.commandSequence = 0
@@ -531,6 +625,8 @@ export class SkyPainterPortState {
       projectionFlags: previousProjectionFlags,
       flipHorizontal: (previousProjectionFlags & SKY_PROJ_FLIP_HORIZONTAL) !== 0,
       flipVertical: (previousProjectionFlags & SKY_PROJ_FLIP_VERTICAL) !== 0,
+      centerDirection: this.projectionState?.centerDirection ?? [0, 0, 1],
+      fovRadians: this.projectionState?.fovRadians ?? (Math.PI / 3),
     }
     this.painter_update_clip_info()
     const cullFlipped = this.deriveCullFlippedFromProjectionFlags(this.projectionState.projectionFlags)
@@ -574,8 +670,20 @@ export class SkyPainterPortState {
   sync_projection_state(params: {
     readonly projectionMode?: string | null
     readonly projectionFlags?: number
+    readonly centerDirection?: {
+      readonly x: number
+      readonly y: number
+      readonly z: number
+    } | null
+    readonly fovRadians?: number | null
   }): void {
     const projectionFlags = params.projectionFlags ?? this.projectionState?.projectionFlags ?? 0
+    const centerDirection = params.centerDirection
+      ? normalizeVec3([params.centerDirection.x, params.centerDirection.y, params.centerDirection.z])
+      : (this.projectionState?.centerDirection ?? [0, 0, 1])
+    const fovRadians = Number.isFinite(params.fovRadians)
+      ? Math.max(1e-6, params.fovRadians as number)
+      : (this.projectionState?.fovRadians ?? (Math.PI / 3))
     this.projectionState = {
       windowWidth: this.projectionState?.windowWidth ?? 1,
       windowHeight: this.projectionState?.windowHeight ?? 1,
@@ -584,6 +692,8 @@ export class SkyPainterPortState {
       projectionFlags,
       flipHorizontal: (projectionFlags & SKY_PROJ_FLIP_HORIZONTAL) !== 0,
       flipVertical: (projectionFlags & SKY_PROJ_FLIP_VERTICAL) !== 0,
+      centerDirection,
+      fovRadians,
     }
   }
   paint_2d_points(n: number, points: readonly SkyPainterPoint[]): number {
@@ -633,20 +743,20 @@ export class SkyPainterPortState {
   painter_is_2d_circle_clipped(): boolean { this.record('painter_is_2d_circle_clipped', {}); return false }
   painter_is_cap_clipped(): boolean { this.record('painter_is_cap_clipped', {}); return false }
   painter_update_clip_info(): void {
-    const projection = this.projectionState
-    const clipInfo: SkyPainterClipInfoSubset = {
-      viewportWidth: projection?.windowWidth ?? this.renderBackendFrame.framebufferWidth,
-      viewportHeight: projection?.windowHeight ?? this.renderBackendFrame.framebufferHeight,
-      boundingCapComputed: true,
-      skyCapComputed: true,
-    }
-    this.clippingState = { clipInfoValid: true, clipInfo }
+    const clipInfo = this.buildClipInfoSubset()
+    const clipFrames = clipInfo?.frames ?? []
+    const activeFrameId = clipInfo?.activeFrameId ?? SkyPainterFrameId.FRAME_OBSERVED
+    const activeFrame = clipFrames.find((entry) => entry.frameId === activeFrameId) ?? null
+    this.clippingState = { clipInfoValid: clipInfo !== null, clipInfo }
     this.record('painter_update_clip_info', {
-      clipInfoValid: true,
-      viewportWidth: clipInfo.viewportWidth,
-      viewportHeight: clipInfo.viewportHeight,
-      boundingCapComputed: true,
-      skyCapComputed: true,
+      clipInfoValid: clipInfo !== null,
+      viewportWidth: clipInfo?.viewportWidth ?? 0,
+      viewportHeight: clipInfo?.viewportHeight ?? 0,
+      activeFrameId,
+      supportedFrameCount: clipFrames.filter((entry) => entry.supported).length,
+      unsupportedFrameCount: clipFrames.filter((entry) => !entry.supported).length,
+      boundingCapValid: activeFrame?.boundingCap?.valid ?? false,
+      skyCapValid: activeFrame?.skyCap?.valid ?? false,
     })
   }
   paint_orbit(): number { this.mode = SkyPainterMode.MODE_LINES; this.record('paint_orbit', {}); return 0 }
@@ -660,6 +770,161 @@ export class SkyPainterPortState {
   painter_project_ellipse(): void { this.record('painter_project_ellipse', {}) }
   painter_project(): boolean { this.record('painter_project', {}); return true }
   painter_unproject(): boolean { this.record('painter_unproject', {}); return true }
+
+  private buildClipInfoSubset(): SkyPainterClipInfoSubset | null {
+    const projection = this.projectionState
+    if (!projection) {
+      return null
+    }
+
+    const viewportWidth = projection.windowWidth
+    const viewportHeight = projection.windowHeight
+    const validViewport =
+      Number.isFinite(viewportWidth) &&
+      Number.isFinite(viewportHeight) &&
+      viewportWidth > 0 &&
+      viewportHeight > 0
+    if (!validViewport) {
+      return null
+    }
+
+    const frames: SkyPainterFrameClipInfo[] = []
+    for (let frameId = 0; frameId < SKY_FRAMES_NB; frameId += 1) {
+      const id = frameId as SkyPainterFrameId
+      const frameName = SKY_PAINTER_FRAME_NAMES[id]
+
+      if (!SKY_PAINTER_S4_SUPPORTED_CAP_FRAME_IDS.has(id)) {
+        frames.push({
+          frameId: id,
+          frameName,
+          supported: false,
+          unsupportedReason: 'frame_conversion_not_ported',
+          boundingCap: null,
+          viewportCaps: Object.freeze([]),
+          skyCap: null,
+        })
+        continue
+      }
+
+      const viewportCapData = this.computeViewportCapForFrame(id, projection)
+      const skyCap = this.computeSkyCapForFrame(id)
+      frames.push({
+        frameId: id,
+        frameName,
+        supported: viewportCapData !== null && skyCap !== null,
+        unsupportedReason: viewportCapData !== null && skyCap !== null ? null : 'clip_cap_computation_failed',
+        boundingCap: viewportCapData?.boundingCap ?? null,
+        viewportCaps: viewportCapData?.viewportCaps ?? Object.freeze([]),
+        skyCap,
+      })
+    }
+
+    return {
+      viewportWidth,
+      viewportHeight,
+      activeFrameId: SkyPainterFrameId.FRAME_OBSERVED,
+      frames: Object.freeze(frames),
+    }
+  }
+
+  private computeViewportCapForFrame(
+    frameId: SkyPainterFrameId,
+    projection: SkyPainterProjectionState,
+  ): { boundingCap: SkyPainterCap; viewportCaps: ReadonlyArray<SkyPainterCap> } | null {
+    const projectionMode = this.resolveProjectionModeForClipComputation(projection.projectionMode)
+    if (projectionMode === null) {
+      return null
+    }
+
+    const centerDirection = normalizeVec3(projection.centerDirection)
+    const view = {
+      centerDirection: new Vector3(centerDirection[0], centerDirection[1], centerDirection[2]),
+      fovRadians: projection.fovRadians,
+      viewportWidth: projection.windowWidth,
+      viewportHeight: projection.windowHeight,
+      projectionMode,
+    }
+
+    const centerVector = normalizeVec3([
+      view.centerDirection.x,
+      view.centerDirection.y,
+      view.centerDirection.z,
+    ])
+    const cornerScreenPoints: ReadonlyArray<readonly [number, number]> = [
+      [0, 0],
+      [view.viewportWidth, 0],
+      [view.viewportWidth, view.viewportHeight],
+      [0, view.viewportHeight],
+    ]
+
+    const cornerDirections: [number, number, number][] = []
+    for (const corner of cornerScreenPoints) {
+      const unprojected = unprojectViewportPoint(corner[0], corner[1], view)
+      const direction = normalizeVec3([unprojected.x, unprojected.y, unprojected.z])
+      if (!isFiniteVec3(direction)) {
+        return null
+      }
+      cornerDirections.push(direction)
+    }
+
+    let maxSeparation = 0
+    for (const corner of cornerDirections) {
+      const separation = Math.acos(Math.max(-1, Math.min(1, dotVec3(centerVector, corner))))
+      if (separation > maxSeparation) {
+        maxSeparation = separation
+      }
+    }
+
+    const boundingCap: SkyPainterCap = {
+      normal: centerVector,
+      limit: Math.cos(maxSeparation),
+      valid: true,
+      sourceFrame: frameId,
+    }
+
+    const viewportCaps: SkyPainterCap[] = []
+    if (maxSeparation <= (Math.PI / 2)) {
+      for (let index = 0; index < cornerDirections.length; index += 1) {
+        const current = cornerDirections[index]
+        const next = cornerDirections[(index + 1) % cornerDirections.length]
+        const normalizedCross = normalizeVec3(crossVec3(current, next))
+        const oriented = dotVec3(normalizedCross, centerVector) >= 0
+          ? normalizedCross
+          : ([-normalizedCross[0], -normalizedCross[1], -normalizedCross[2]] as [number, number, number])
+        viewportCaps.push({
+          normal: oriented,
+          limit: 0,
+          valid: true,
+          sourceFrame: frameId,
+        })
+      }
+    }
+
+    return {
+      boundingCap,
+      viewportCaps: Object.freeze(viewportCaps),
+    }
+  }
+
+  private computeSkyCapForFrame(frameId: SkyPainterFrameId): SkyPainterCap | null {
+    if (!SKY_PAINTER_S4_SUPPORTED_CAP_FRAME_IDS.has(frameId)) {
+      return null
+    }
+
+    return {
+      normal: [0, 0, 1],
+      limit: Math.cos((91 * Math.PI) / 180),
+      valid: true,
+      sourceFrame: frameId,
+    }
+  }
+
+  private resolveProjectionModeForClipComputation(mode: string | null): SkyProjectionMode | null {
+    if (mode === 'stereographic' || mode === 'gnomonic' || mode === 'orthographic') {
+      return mode
+    }
+    return null
+  }
 
   private record<K extends SkyPainterCommandKind>(kind: K, payload: SkyPainterCommandPayloadMap[K]): void {
     if (this.frameFinalized) {
@@ -694,6 +959,7 @@ export class SkyPainterPortState {
       flipHorizontal: this.renderBackendFrame.flipHorizontal,
       flipVertical: this.renderBackendFrame.flipVertical,
       clipInfoValid: this.renderBackendFrame.clipInfoValid,
+      clipInfo: this.renderBackendFrame.clipInfo,
       depthMin: this.renderBackendFrame.depthMin,
       depthMax: this.renderBackendFrame.depthMax,
       flushReady: true,
@@ -799,6 +1065,7 @@ export class SkyPainterPortState {
       flipHorizontal: false,
       flipVertical: false,
       clipInfoValid: false,
+      clipInfo: null,
       depthMin: Number.POSITIVE_INFINITY,
       depthMax: Number.NEGATIVE_INFINITY,
       pointItems: Object.freeze([]),
@@ -843,6 +1110,7 @@ export class SkyPainterPortState {
       flipHorizontal: this.projectionState?.flipHorizontal ?? false,
       flipVertical: this.projectionState?.flipVertical ?? false,
       clipInfoValid: this.clippingState.clipInfoValid,
+      clipInfo: this.clippingState.clipInfo,
       depthMin: Number.POSITIVE_INFINITY,
       depthMax: Number.NEGATIVE_INFINITY,
       pointItems: Object.freeze([]),

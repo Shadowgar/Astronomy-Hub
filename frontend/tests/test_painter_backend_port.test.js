@@ -8,6 +8,7 @@ import {
 import {
   SKY_PROJ_FLIP_HORIZONTAL,
   SKY_PROJ_FLIP_VERTICAL,
+  SkyPainterFrameId,
   SkyPainterFlags,
   SkyPainterTextureSlot,
   createSkyPainterPortState,
@@ -367,6 +368,26 @@ describe('painterPort real point item pipeline (S1)', () => {
     expect(painter.renderBackend.flipVertical).toBe(false)
     expect(painter.renderBackend.cullFlipped).toBe(false)
     expect(painter.renderBackend.clipInfoValid).toBe(true)
+    expect(painter.renderBackend.clipInfo).toBeTruthy()
+    const clipInfo = painter.renderBackend.clipInfo
+    if (!clipInfo) {
+      throw new Error('expected clipInfo to be available')
+    }
+    expect(clipInfo.activeFrameId).toBe(SkyPainterFrameId.FRAME_OBSERVED)
+    expect(clipInfo.frames).toHaveLength(8)
+    const observedFrame = clipInfo.frames.find((entry) => entry.frameId === SkyPainterFrameId.FRAME_OBSERVED)
+    expect(observedFrame).toBeTruthy()
+    if (!observedFrame) {
+      throw new Error('expected observed frame clip info')
+    }
+    expect(observedFrame.supported).toBe(true)
+    expect(observedFrame.boundingCap?.valid).toBe(true)
+    expect(observedFrame.boundingCap?.normal.every(Number.isFinite)).toBe(true)
+    expect(Number.isFinite(observedFrame.boundingCap?.limit ?? Number.NaN)).toBe(true)
+    expect(observedFrame.viewportCaps.length).toBeGreaterThan(0)
+    expect(observedFrame.viewportCaps.every((cap) => cap.normal.every(Number.isFinite))).toBe(true)
+    expect(observedFrame.skyCap?.valid).toBe(true)
+    expect(observedFrame.skyCap?.normal).toEqual([0, 0, 1])
 
     const clipInfoCommand = painter.drawQueue.find((entry) => entry.kind === 'painter_update_clip_info')
     expect(clipInfoCommand).toBeDefined()
@@ -375,9 +396,12 @@ describe('painterPort real point item pipeline (S1)', () => {
         clipInfoValid: true,
         viewportWidth: 800,
         viewportHeight: 400,
-        boundingCapComputed: true,
-        skyCapComputed: true,
+        activeFrameId: SkyPainterFrameId.FRAME_OBSERVED,
+        boundingCapValid: true,
+        skyCapValid: true,
       })
+      expect(clipInfoCommand.payload.supportedFrameCount).toBeGreaterThan(0)
+      expect(clipInfoCommand.payload.unsupportedFrameCount).toBeGreaterThan(0)
     }
 
     const prepareCommand = painter.drawQueue.find((entry) => entry.kind === 'paint_prepare')
@@ -470,8 +494,70 @@ describe('painterPort real point item pipeline (S1)', () => {
     painter.paint_prepare(800, 400, 1)
     expect(painter.renderBackend.cullFlipped).toBe(false)
     expect(painter.renderBackend.clipInfoValid).toBe(true)
+    expect(painter.renderBackend.clipInfo?.frames.some((entry) => entry.supported)).toBe(true)
     painter.paint_2d_points(1, [buildPoint2d(120, 90)])
     expect(painter.pointItems).toHaveLength(1)
+  })
+
+  it('painter_update_clip_info marks unsupported frame conversions explicitly', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 25,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+      projectionMode: 'stereographic',
+      projectionFlags: 0,
+    })
+    painter.paint_prepare(800, 400, 1)
+
+    const clipInfo = painter.renderBackend.clipInfo
+    expect(clipInfo).toBeTruthy()
+    if (!clipInfo) {
+      throw new Error('expected clip info for unsupported-frame assertions')
+    }
+    const unsupportedFrame = clipInfo.frames.find((entry) => entry.frameId === SkyPainterFrameId.FRAME_ASTROM)
+    expect(unsupportedFrame).toBeTruthy()
+    if (!unsupportedFrame) {
+      throw new Error('expected astrom frame clip info')
+    }
+    expect(unsupportedFrame.supported).toBe(false)
+    expect(unsupportedFrame.unsupportedReason).toBe('frame_conversion_not_ported')
+  })
+
+  it('painter_update_clip_info handles zero viewport dimensions safely', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 26,
+      windowWidth: 0,
+      windowHeight: 0,
+      pixelScale: 1,
+      framebufferWidth: 0,
+      framebufferHeight: 0,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+      projectionMode: 'stereographic',
+      projectionFlags: 0,
+    })
+    painter.paint_prepare(0, 0, 1)
+
+    expect(painter.renderBackend.clipInfoValid).toBe(false)
+    const clipInfo = painter.renderBackend.clipInfo
+    expect(clipInfo).toBeNull()
+    const clipInfoCommand = painter.drawQueue.find((entry) => entry.kind === 'painter_update_clip_info')
+    expect(clipInfoCommand).toBeDefined()
+    if (clipInfoCommand?.kind === 'painter_update_clip_info') {
+      expect(clipInfoCommand.payload.clipInfoValid).toBe(false)
+      expect(clipInfoCommand.payload.supportedFrameCount).toBe(0)
+    }
   })
 
   it('paint_2d_points creates a real ITEM_POINTS backend item', () => {

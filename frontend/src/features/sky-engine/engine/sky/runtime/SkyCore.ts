@@ -236,6 +236,8 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       hardLimitMag: context.frameState.render.hardLimitMag,
       projectionMode: this.resolveProjectionModeForPainter(context.services),
       projectionFlags: this.resolveProjectionFlagsForPainter(context.services),
+      centerDirection: this.resolveCenterDirectionForPainter(context.services),
+      fovRadians: this.resolveFovRadiansForPainter(context.services),
     })
     context.frameState.render.painter.paint_prepare(
       context.frameState.render.windowWidth,
@@ -367,6 +369,44 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       return 0
     }
     return projectionFlags | 0
+  }
+
+  private resolveCenterDirectionForPainter(services: TServices): { x: number; y: number; z: number } | null {
+    const navigationService = (services as {
+      navigationService?: { getCenterDirection?: () => unknown }
+    }).navigationService
+    if (!navigationService || typeof navigationService.getCenterDirection !== 'function') {
+      return null
+    }
+    const centerDirection = navigationService.getCenterDirection()
+    if (
+      typeof centerDirection !== 'object' ||
+      centerDirection === null ||
+      typeof (centerDirection as { x?: unknown }).x !== 'number' ||
+      typeof (centerDirection as { y?: unknown }).y !== 'number' ||
+      typeof (centerDirection as { z?: unknown }).z !== 'number'
+    ) {
+      return null
+    }
+    return {
+      x: (centerDirection as { x: number }).x,
+      y: (centerDirection as { y: number }).y,
+      z: (centerDirection as { z: number }).z,
+    }
+  }
+
+  private resolveFovRadiansForPainter(services: TServices): number | null {
+    const projectionService = (services as {
+      projectionService?: { getCurrentFov?: () => unknown }
+    }).projectionService
+    if (!projectionService || typeof projectionService.getCurrentFov !== 'function') {
+      return null
+    }
+    const fovRadians = projectionService.getCurrentFov()
+    if (typeof fovRadians !== 'number' || !Number.isFinite(fovRadians) || fovRadians <= 0) {
+      return null
+    }
+    return fovRadians
   }
 
   private createFrameState(deltaSeconds: number): SkyCoreFrameState {
