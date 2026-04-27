@@ -213,6 +213,41 @@ Validation:
 - `npm run build`
 - Evidence: **EV-0121**.
 
+## Slice S3 Flush / Resource Lifecycle Deepening (2026-04-27)
+
+Status: implemented as a deeper `render_finish` / `rend_flush` lifecycle model while remaining CPU-side.
+
+Source anchors:
+- `src/render_gl.c`: `rend_flush`, `render_finish`, per-item dispatch/release loop, post-flush GL reset seam
+- `src/painter.c`: `paint_finish`
+
+Hub implementation:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts`
+
+What changed in S3:
+- `render_finish` now models explicit ordered dispatch and release phases for each finalized point item.
+- point items now carry explicit terminal lifecycle fields:
+  - `dispatched`
+  - `released`
+  - `terminalState` (`queued` / `dispatched` / `released`)
+- backend frame now exposes source-modeled lifecycle records:
+  - `flushDispatches`
+  - `flushLifecycleEvents` (`dispatch`, `release`, `flush_complete`, `post_flush_state_reset`)
+  - `flushCompleteRecord`
+  - `postFlushStateResetRecord`
+- mutable queue cleanup now happens after lifecycle records are produced.
+
+Behavior intentionally unchanged in S3:
+- rendering remains CPU-side and inert for this path (no backend draw execution)
+- direct star rendering ownership remains with `directStarLayer`
+- no `render_gl.c` GPU/shader replacement introduced
+
+Validation:
+- `npm run typecheck`
+- `npm run test -- tests/test_painter_backend_port.test.js tests/sky-engine-stars-runtime.test.js`
+- `npm run build`
+- Evidence: **EV-0122**.
+
 ## Enum Mapping (`painter.h`)
 
 | Stellarium enum group | Sky-Engine mapping |

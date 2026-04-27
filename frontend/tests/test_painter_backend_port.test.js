@@ -522,7 +522,7 @@ describe('painterPort real point item pipeline (S1)', () => {
     expect(painter.pointItems[1].pointCount).toBe(10)
   })
 
-  it('render_finish flushes point items in queue order and marks release lifecycle', () => {
+  it('render_finish dispatches then releases items in queue order and marks terminal lifecycle', () => {
     const painter = createSkyPainterPortState()
 
     painter.reset_for_frame({
@@ -545,6 +545,20 @@ describe('painterPort real point item pipeline (S1)', () => {
 
     expect(painter.finalizedPointItems).toHaveLength(2)
     expect(painter.finalizedPointItems.every((item) => item.flushed)).toBe(true)
+    expect(painter.finalizedPointItems.every((item) => item.dispatched)).toBe(true)
+    expect(painter.finalizedPointItems.every((item) => item.released)).toBe(true)
+    expect(painter.finalizedPointItems.every((item) => item.terminalState === 'released')).toBe(true)
+    expect(painter.flushDispatches).toHaveLength(2)
+    expect(painter.flushDispatches[0]).toMatchObject({
+      orderIndex: 1,
+      dispatched: true,
+      textureRef: 'atlas-a',
+    })
+    expect(painter.flushDispatches[1]).toMatchObject({
+      orderIndex: 2,
+      dispatched: true,
+      textureRef: 'atlas-b',
+    })
     expect(painter.flushResults).toHaveLength(2)
     expect(painter.flushResults[0]).toMatchObject({
       orderIndex: 1,
@@ -558,6 +572,30 @@ describe('painterPort real point item pipeline (S1)', () => {
       released: true,
       textureRef: 'atlas-b',
     })
+
+    const dispatchEvents = painter.flushLifecycleEvents.filter((event) => event.phase === 'dispatch')
+    const releaseEvents = painter.flushLifecycleEvents.filter((event) => event.phase === 'release')
+    expect(dispatchEvents).toHaveLength(2)
+    expect(releaseEvents).toHaveLength(2)
+    expect(dispatchEvents[0].orderIndex).toBe(1)
+    expect(dispatchEvents[1].orderIndex).toBe(2)
+    expect(releaseEvents[0].orderIndex).toBe(1)
+    expect(releaseEvents[1].orderIndex).toBe(2)
+    expect(dispatchEvents[0].sequence).toBeLessThan(releaseEvents[0].sequence)
+    expect(dispatchEvents[1].sequence).toBeLessThan(releaseEvents[1].sequence)
+
+    expect(painter.renderBackend.flushCompleteRecord).toMatchObject({
+      frameIndex: 10,
+      flushedItemCount: 2,
+      dispatchCount: 2,
+      releaseCount: 2,
+    })
+    expect(painter.renderBackend.postFlushStateResetRecord).toMatchObject({
+      frameIndex: 10,
+      glStateResetMode: 'cpu_modeled',
+    })
+    expect(painter.flushLifecycleEvents.filter((event) => event.phase === 'flush_complete')).toHaveLength(1)
+    expect(painter.flushLifecycleEvents.filter((event) => event.phase === 'post_flush_state_reset')).toHaveLength(1)
   })
 
   it('flushed items are immutable after finish and cleared on next frame prepare', () => {
@@ -579,10 +617,12 @@ describe('painterPort real point item pipeline (S1)', () => {
     painter.paint_finish()
     const finalizedPointCount = painter.finalizedPointItems[0].pointCount
     const finalizedFlushCount = painter.flushResults.length
+    const finalizedDispatchCount = painter.flushDispatches.length
 
     painter.paint_2d_points(1, [buildPoint2d(120, 90)])
     expect(painter.finalizedPointItems[0].pointCount).toBe(finalizedPointCount)
     expect(painter.flushResults).toHaveLength(finalizedFlushCount)
+    expect(painter.flushDispatches).toHaveLength(finalizedDispatchCount)
 
     painter.reset_for_frame({
       frameIndex: 12,
@@ -597,7 +637,11 @@ describe('painterPort real point item pipeline (S1)', () => {
     })
     painter.paint_prepare(800, 400, 1)
     expect(painter.pointItems).toHaveLength(0)
+    expect(painter.flushDispatches).toHaveLength(0)
     expect(painter.flushResults).toHaveLength(0)
+    expect(painter.renderBackend.flushLifecycleEvents).toHaveLength(0)
+    expect(painter.renderBackend.flushCompleteRecord).toBeNull()
+    expect(painter.renderBackend.postFlushStateResetRecord).toBeNull()
     expect(painter.renderBackend.flushReady).toBe(false)
   })
 

@@ -95,6 +95,9 @@ export interface SkyPainterRenderPointItem {
   readonly pointCount: number
   readonly capacity: number
   readonly flushed: boolean
+  readonly dispatched: boolean
+  readonly released: boolean
+  readonly terminalState: 'queued' | 'dispatched' | 'released'
   readonly points2d: ReadonlyArray<SkyPainterPointItem2D>
   readonly points3d: ReadonlyArray<SkyPainterPointItem3D>
 }
@@ -110,6 +113,35 @@ export interface SkyPainterFlushResultItem {
   readonly released: true
 }
 
+export interface SkyPainterFlushDispatchItem {
+  readonly orderIndex: number
+  readonly compatibilityKey: string
+  readonly type: SkyPainterRenderItemType
+  readonly flags: number
+  readonly textureRef: string | null
+  readonly pointCount: number
+  readonly dispatched: true
+}
+
+export interface SkyPainterFlushLifecycleEvent {
+  readonly sequence: number
+  readonly phase: 'dispatch' | 'release' | 'flush_complete' | 'post_flush_state_reset'
+  readonly orderIndex: number | null
+  readonly type: SkyPainterRenderItemType | null
+}
+
+export interface SkyPainterFlushCompleteRecord {
+  readonly frameIndex: number
+  readonly flushedItemCount: number
+  readonly dispatchCount: number
+  readonly releaseCount: number
+}
+
+export interface SkyPainterPostFlushStateResetRecord {
+  readonly frameIndex: number
+  readonly glStateResetMode: 'cpu_modeled'
+}
+
 export interface SkyPainterRenderBackendFrame {
   readonly framebufferWidth: number
   readonly framebufferHeight: number
@@ -119,7 +151,11 @@ export interface SkyPainterRenderBackendFrame {
   readonly depthMax: number
   readonly pointItems: ReadonlyArray<SkyPainterRenderPointItem>
   readonly flushReady: boolean
+  readonly flushDispatches: ReadonlyArray<SkyPainterFlushDispatchItem>
   readonly flushResults: ReadonlyArray<SkyPainterFlushResultItem>
+  readonly flushLifecycleEvents: ReadonlyArray<SkyPainterFlushLifecycleEvent>
+  readonly flushCompleteRecord: SkyPainterFlushCompleteRecord | null
+  readonly postFlushStateResetRecord: SkyPainterPostFlushStateResetRecord | null
 }
 
 export interface SkyPainterFrameResetInput {
@@ -359,6 +395,9 @@ export class SkyPainterPortState {
     pointCount: number
     capacity: number
     flushed: boolean
+    dispatched: boolean
+    released: boolean
+    terminalState: 'queued' | 'dispatched' | 'released'
     points2d: SkyPainterPointItem2D[]
     points3d: SkyPainterPointItem3D[]
   }> = []
@@ -389,6 +428,16 @@ export class SkyPainterPortState {
 
   get flushResults(): ReadonlyArray<SkyPainterFlushResultItem> {
     return this.frameFinalized ? this.finalizedRenderBackendFrame.flushResults : this.renderBackendFrame.flushResults
+  }
+
+  get flushDispatches(): ReadonlyArray<SkyPainterFlushDispatchItem> {
+    return this.frameFinalized ? this.finalizedRenderBackendFrame.flushDispatches : this.renderBackendFrame.flushDispatches
+  }
+
+  get flushLifecycleEvents(): ReadonlyArray<SkyPainterFlushLifecycleEvent> {
+    return this.frameFinalized
+      ? this.finalizedRenderBackendFrame.flushLifecycleEvents
+      : this.renderBackendFrame.flushLifecycleEvents
   }
 
   get renderBackend(): SkyPainterRenderBackendFrame {
@@ -452,6 +501,9 @@ export class SkyPainterPortState {
 
   // painter.c::paint_finish
   paint_finish(): number {
+    if (this.frameFinalized) {
+      return 0
+    }
     this.record('paint_finish', { finalized: true })
     this.render_finish()
     this.finalizeFrameCommands()
@@ -459,16 +511,25 @@ export class SkyPainterPortState {
   }
 
   painter_set_texture(slot: SkyPainterTextureSlot = SkyPainterTextureSlot.PAINTER_TEX_COLOR, textureRef: string | null = null): void {
+    if (this.frameFinalized) {
+      return
+    }
     this.textureBindings[slot] = textureRef
     this.record('painter_set_texture', { slot, textureRef })
   }
   paint_2d_points(n: number, points: readonly SkyPainterPoint[]): number {
+    if (this.frameFinalized) {
+      return 0
+    }
     this.mode = SkyPainterMode.MODE_POINTS
     this.record('paint_2d_points', { count: n, points })
     this.render_points_2d(n, points)
     return 0
   }
   paint_3d_points(n: number, points: readonly SkyPainterPoint3D[]): number {
+    if (this.frameFinalized) {
+      return 0
+    }
     this.mode = SkyPainterMode.MODE_POINTS
     this.record('paint_3d_points', { count: n, points })
     this.render_points_3d(n, points)
@@ -549,7 +610,11 @@ export class SkyPainterPortState {
       depthMin: this.renderBackendFrame.depthMin,
       depthMax: this.renderBackendFrame.depthMax,
       flushReady: true,
+      flushDispatches: this.renderBackendFrame.flushDispatches,
       flushResults: this.renderBackendFrame.flushResults,
+      flushLifecycleEvents: this.renderBackendFrame.flushLifecycleEvents,
+      flushCompleteRecord: this.renderBackendFrame.flushCompleteRecord,
+      postFlushStateResetRecord: this.renderBackendFrame.postFlushStateResetRecord,
       pointItems: Object.freeze(this.renderBackendFrame.pointItems.map((item) => Object.freeze({
         type: item.type,
         mode: item.mode,
@@ -561,6 +626,9 @@ export class SkyPainterPortState {
         pointCount: item.pointCount,
         capacity: item.capacity,
         flushed: true,
+        dispatched: item.dispatched,
+        released: item.released,
+        terminalState: item.terminalState,
         points2d: Object.freeze([...item.points2d]),
         points3d: Object.freeze([...item.points3d]),
       }))),
@@ -643,7 +711,11 @@ export class SkyPainterPortState {
       depthMax: Number.NEGATIVE_INFINITY,
       pointItems: Object.freeze([]),
       flushReady: false,
+      flushDispatches: Object.freeze([]),
       flushResults: Object.freeze([]),
+      flushLifecycleEvents: Object.freeze([]),
+      flushCompleteRecord: null,
+      postFlushStateResetRecord: null,
     })
   }
 
@@ -659,6 +731,9 @@ export class SkyPainterPortState {
       pointCount: item.pointCount,
       capacity: item.capacity,
       flushed: item.flushed,
+      dispatched: item.dispatched,
+      released: item.released,
+      terminalState: item.terminalState,
       points2d: Object.freeze([...item.points2d]),
       points3d: Object.freeze([...item.points3d]),
     })))
@@ -675,11 +750,84 @@ export class SkyPainterPortState {
       depthMax: Number.NEGATIVE_INFINITY,
       pointItems: Object.freeze([]),
       flushReady: false,
+      flushDispatches: Object.freeze([]),
       flushResults: Object.freeze([]),
+      flushLifecycleEvents: Object.freeze([]),
+      flushCompleteRecord: null,
+      postFlushStateResetRecord: null,
     })
   }
 
   private render_finish(): void {
+    const lifecycleEvents: SkyPainterFlushLifecycleEvent[] = []
+    const flushDispatches: SkyPainterFlushDispatchItem[] = []
+    const flushResults: SkyPainterFlushResultItem[] = []
+    let lifecycleSequence = 0
+    for (const item of this.mutableRenderItems) {
+      item.dispatched = true
+      item.terminalState = 'dispatched'
+      lifecycleSequence += 1
+      lifecycleEvents.push(Object.freeze({
+        sequence: lifecycleSequence,
+        phase: 'dispatch',
+        orderIndex: item.orderIndex,
+        type: item.type,
+      }))
+      flushDispatches.push(Object.freeze({
+        orderIndex: item.orderIndex,
+        compatibilityKey: item.compatibilityKey,
+        type: item.type,
+        flags: item.flags,
+        textureRef: item.textureRef,
+        pointCount: item.pointCount,
+        dispatched: true as const,
+      }))
+
+      item.flushed = true
+      item.released = true
+      item.terminalState = 'released'
+      lifecycleSequence += 1
+      lifecycleEvents.push(Object.freeze({
+        sequence: lifecycleSequence,
+        phase: 'release',
+        orderIndex: item.orderIndex,
+        type: item.type,
+      }))
+      flushResults.push(Object.freeze({
+        orderIndex: item.orderIndex,
+        compatibilityKey: item.compatibilityKey,
+        type: item.type,
+        flags: item.flags,
+        textureRef: item.textureRef,
+        pointCount: item.pointCount,
+        flushed: true as const,
+        released: true as const,
+      }))
+    }
+    const flushCompleteRecord: SkyPainterFlushCompleteRecord = Object.freeze({
+      frameIndex: this.frameIndex,
+      flushedItemCount: this.mutableRenderItems.length,
+      dispatchCount: flushDispatches.length,
+      releaseCount: flushResults.length,
+    })
+    lifecycleSequence += 1
+    lifecycleEvents.push(Object.freeze({
+      sequence: lifecycleSequence,
+      phase: 'flush_complete',
+      orderIndex: null,
+      type: null,
+    }))
+    const postFlushStateResetRecord: SkyPainterPostFlushStateResetRecord = Object.freeze({
+      frameIndex: this.frameIndex,
+      glStateResetMode: 'cpu_modeled',
+    })
+    lifecycleSequence += 1
+    lifecycleEvents.push(Object.freeze({
+      sequence: lifecycleSequence,
+      phase: 'post_flush_state_reset',
+      orderIndex: null,
+      type: null,
+    }))
     const flushedPointItems = Object.freeze(this.mutableRenderItems.map((item) => Object.freeze({
       type: item.type,
       mode: item.mode,
@@ -690,24 +838,21 @@ export class SkyPainterPortState {
       halo: item.halo,
       pointCount: item.pointCount,
       capacity: item.capacity,
-      flushed: true,
+      flushed: item.flushed,
+      dispatched: item.dispatched,
+      released: item.released,
+      terminalState: item.terminalState,
       points2d: Object.freeze([...item.points2d]),
       points3d: Object.freeze([...item.points3d]),
-    })))
-    const flushResults = Object.freeze(this.mutableRenderItems.map((item) => Object.freeze({
-      orderIndex: item.orderIndex,
-      compatibilityKey: item.compatibilityKey,
-      type: item.type,
-      flags: item.flags,
-      textureRef: item.textureRef,
-      pointCount: item.pointCount,
-      flushed: true as const,
-      released: true as const,
     })))
     this.renderBackendFrame = Object.freeze({
       ...this.renderBackendFrame,
       pointItems: flushedPointItems,
-      flushResults,
+      flushDispatches: Object.freeze(flushDispatches),
+      flushResults: Object.freeze(flushResults),
+      flushLifecycleEvents: Object.freeze(lifecycleEvents),
+      flushCompleteRecord,
+      postFlushStateResetRecord,
       flushReady: true,
     })
     this.mutableRenderItems.length = 0
@@ -716,16 +861,19 @@ export class SkyPainterPortState {
   private get_item(type: SkyPainterRenderItemType, pointCount: number, textureRef: string | null): {
     type: SkyPainterRenderItemType
     mode: SkyPainterMode.MODE_POINTS
-      flags: number
-      textureRef: string | null
-      compatibilityKey: string
-      orderIndex: number
-      halo: number
-      pointCount: number
-      capacity: number
-      flushed: boolean
-      points2d: SkyPainterPointItem2D[]
-      points3d: SkyPainterPointItem3D[]
+    flags: number
+    textureRef: string | null
+    compatibilityKey: string
+    orderIndex: number
+    halo: number
+    pointCount: number
+    capacity: number
+    flushed: boolean
+    dispatched: boolean
+    released: boolean
+    terminalState: 'queued' | 'dispatched' | 'released'
+    points2d: SkyPainterPointItem2D[]
+    points3d: SkyPainterPointItem3D[]
   } {
     const desiredCompatibilityKey = buildItemCompatibilityKey({
       type,
@@ -762,6 +910,9 @@ export class SkyPainterPortState {
       pointCount: 0,
       capacity: 4096,
       flushed: false,
+      dispatched: false,
+      released: false,
+      terminalState: 'queued' as const,
       points2d: [] as SkyPainterPointItem2D[],
       points3d: [] as SkyPainterPointItem3D[],
     }

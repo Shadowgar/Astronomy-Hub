@@ -820,3 +820,36 @@ Validation evidence recorded for this block:
 Interpretation:
 - This slice maps the active stars render path end-to-end (scene assembly, projection, Babylon thin-instance submission, and lifecycle envelope) and defines the staged migration sequence for painter integration.
 - No runtime behavior was changed; this is a bounded migration-audit step to guide the next implementation slices.
+
+## Port Block 16 (Executed)
+### Stars Backend Slice S3 — Flush / Resource Lifecycle Deepening
+
+Stellarium authority files:
+- `src/render_gl.c` (`rend_flush`, `render_finish`, per-item dispatch/release loop, post-flush GL reset seam)
+- `src/render.h`
+- `src/painter.c` (`paint_finish`)
+- `src/painter.h`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts`
+- `frontend/tests/test_painter_backend_port.test.js`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+- `docs/runtime/port/S2_RENDER_GL_ITEM_LIFECYCLE_AUDIT_2026-04-26.md`
+- `docs/runtime/port/painter-c-api-surface-mapping.md`
+- `docs/runtime/port/render-gl-backend-mapping-shell.md`
+- `docs/runtime/port/evidence-index.md`
+- `docs/runtime/port/README.md`
+- `docs/runtime/port/CODEX-HANDOFF.md`
+
+Explicit local logic deleted/replaced in this block:
+1. Replaced S2 release-only flush finalization with explicit source-modeled CPU lifecycle: dispatch -> release -> flush_complete -> post_flush_state_reset.
+2. Replaced point-item flush-only terminal shape with explicit per-item terminal state (`queued`/`dispatched`/`released`) and terminal booleans (`dispatched`, `released`).
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_painter_backend_port.test.js tests/sky-engine-stars-runtime.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+
+Interpretation:
+- S3 reduces the S2 parity gap at the `render_finish` / `rend_flush` lifecycle seam by modeling dispatch/release/reset ordering and terminal item state transitions CPU-side.
+- This does not claim full `render_gl` parity: GPU draw dispatch/resource release internals remain unported, and direct star renderer ownership remains active by design.

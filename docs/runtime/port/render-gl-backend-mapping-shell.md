@@ -146,3 +146,15 @@ S2 adds:
 - flush/release lifecycle records at `render_finish` boundary
 
 Current parity evidence for these lifecycle semantics: **EV-0121**.
+
+## S3 Supersession Note (2026-04-27)
+
+S3 further supersedes S2's release-only lifecycle model by adding explicit CPU-side flush dispatcher lifecycle contracts in `painterPort.ts`:
+- ordered per-item `dispatch` then `release` records
+- per-item terminal state progression (`queued` -> `dispatched` -> `released`)
+- one `flush_complete` record per frame
+- one source-modeled post-flush state reset record per frame
+
+These are lifecycle-modeling seams only; no backend draw execution or renderer ownership replacement is introduced.
+
+Current parity evidence for S3 flush/resource lifecycle modeling: **EV-0122**.

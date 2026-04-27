@@ -190,3 +190,36 @@ Why not the other options first:
 
 Do not claim full `render_gl` parity from S2.  
 S2 reduces the identified gap but leaves native flush execution/resource lifecycle and projection/clip behavior materially incomplete.
+
+---
+
+## Appendix — S3 Status Update (EV-0122)
+
+Status: **S3 landed (deeper CPU-side flush/resource lifecycle parity, still not full `render_gl.c` parity)**.
+
+S3 changes in `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts`:
+- `render_finish` now models an explicit CPU-side dispatch loop before release records.
+- each flushed point item now carries terminal lifecycle fields:
+  - `dispatched`
+  - `released`
+  - `terminalState` (`queued` -> `dispatched` -> `released`)
+- backend frame now publishes explicit flush lifecycle artifacts:
+  - `flushDispatches`
+  - ordered `flushLifecycleEvents` (`dispatch`, `release`, `flush_complete`, `post_flush_state_reset`)
+  - `flushCompleteRecord` (once per frame)
+  - `postFlushStateResetRecord` (source-modeled GL reset seam, CPU-side only)
+- mutable queue is cleared only after dispatch/release/complete/reset records are finalized.
+- post-finish mutation remains blocked.
+
+S3 tests extended in `frontend/tests/test_painter_backend_port.test.js`:
+- verifies dispatch order and release order match source queue order.
+- verifies per-item dispatch happens before release.
+- verifies terminal item state is `released`.
+- verifies one flush-complete record and one post-flush-state-reset record per frame.
+- verifies lifecycle records are cleared by next-frame `reset_for_frame` + `paint_prepare`.
+- verifies post-finish mutation remains blocked.
+
+Validation run:
+- `npm run typecheck`
+- `npm run test -- tests/test_painter_backend_port.test.js tests/sky-engine-stars-runtime.test.js`
+- `npm run build`
