@@ -57,6 +57,10 @@ export enum SkyPainterTextureSlot {
   PAINTER_TEX_NORMAL = 1,
 }
 
+export const SKY_PROJ_FLIP_VERTICAL = 1 << 5
+export const SKY_PROJ_FLIP_HORIZONTAL = 1 << 6
+export const SKY_PROJ_HAS_DISCONTINUITY = 1 << 7
+
 export interface SkyPainterPoint {
   readonly pos: [number, number]
   readonly size: number
@@ -147,6 +151,11 @@ export interface SkyPainterRenderBackendFrame {
   readonly framebufferHeight: number
   readonly scale: number
   readonly cullFlipped: boolean
+  readonly projectionMode: string | null
+  readonly projectionFlags: number
+  readonly flipHorizontal: boolean
+  readonly flipVertical: boolean
+  readonly clipInfoValid: boolean
   readonly depthMin: number
   readonly depthMax: number
   readonly pointItems: ReadonlyArray<SkyPainterRenderPointItem>
@@ -168,16 +177,30 @@ export interface SkyPainterFrameResetInput {
   readonly starsLimitMag: number | null
   readonly hintsLimitMag: number | null
   readonly hardLimitMag: number | null
+  readonly projectionMode?: string | null
+  readonly projectionFlags?: number
 }
 
 export interface SkyPainterProjectionState {
   readonly windowWidth: number
   readonly windowHeight: number
   readonly pixelScale: number
+  readonly projectionMode: string | null
+  readonly projectionFlags: number
+  readonly flipHorizontal: boolean
+  readonly flipVertical: boolean
+}
+
+export interface SkyPainterClipInfoSubset {
+  readonly viewportWidth: number
+  readonly viewportHeight: number
+  readonly boundingCapComputed: boolean
+  readonly skyCapComputed: boolean
 }
 
 export interface SkyPainterClippingState {
   readonly clipInfoValid: boolean
+  readonly clipInfo: SkyPainterClipInfoSubset | null
 }
 
 export interface SkyPainterBatchStateSnapshot {
@@ -194,6 +217,11 @@ export interface SkyPainterCommandPayloadMap {
     readonly windowWidth: number
     readonly windowHeight: number
     readonly pixelScale: number
+    readonly projectionMode: string | null
+    readonly projectionFlags: number
+    readonly flipHorizontal: boolean
+    readonly flipVertical: boolean
+    readonly cullFlipped: boolean
   }
   readonly paint_finish: {
     readonly finalized: true
@@ -267,6 +295,10 @@ export interface SkyPainterCommandPayloadMap {
   readonly painter_is_cap_clipped: Record<string, never>
   readonly painter_update_clip_info: {
     readonly clipInfoValid: true
+    readonly viewportWidth: number
+    readonly viewportHeight: number
+    readonly boundingCapComputed: true
+    readonly skyCapComputed: true
   }
   readonly paint_orbit: Record<string, never>
   readonly paint_2d_ellipse: Record<string, never>
@@ -374,7 +406,7 @@ export class SkyPainterPortState {
   hintsLimitMag: number | null = null
   hardLimitMag: number | null = null
   projectionState: SkyPainterProjectionState | null = null
-  clippingState: SkyPainterClippingState = { clipInfoValid: false }
+  clippingState: SkyPainterClippingState = { clipInfoValid: false, clipInfo: null }
 
   private commandSequence = 0
   private frameFinalized = false
@@ -456,6 +488,7 @@ export class SkyPainterPortState {
   }
 
   reset_for_frame(input: SkyPainterFrameResetInput): void {
+    const projectionFlags = input.projectionFlags ?? 0
     this.frameIndex = input.frameIndex
     this.prepared = false
     this.fbSize = [input.framebufferWidth, input.framebufferHeight]
@@ -467,8 +500,12 @@ export class SkyPainterPortState {
       windowWidth: input.windowWidth,
       windowHeight: input.windowHeight,
       pixelScale: input.pixelScale,
+      projectionMode: input.projectionMode ?? this.projectionState?.projectionMode ?? 'stereographic',
+      projectionFlags,
+      flipHorizontal: (projectionFlags & SKY_PROJ_FLIP_HORIZONTAL) !== 0,
+      flipVertical: (projectionFlags & SKY_PROJ_FLIP_VERTICAL) !== 0,
     }
-    this.clippingState = { clipInfoValid: false }
+    this.clippingState = { clipInfoValid: false, clipInfo: null }
     this.commandSequence = 0
     this.frameFinalized = false
     this.itemCreateSequence = 0
@@ -484,18 +521,30 @@ export class SkyPainterPortState {
 
   // painter.c::paint_prepare
   paint_prepare(winW: number, winH: number, scale: number): number {
+    const previousProjectionFlags = this.projectionState?.projectionFlags ?? 0
     this.prepared = true
     this.projectionState = {
       windowWidth: winW,
       windowHeight: winH,
       pixelScale: scale,
+      projectionMode: this.projectionState?.projectionMode ?? 'stereographic',
+      projectionFlags: previousProjectionFlags,
+      flipHorizontal: (previousProjectionFlags & SKY_PROJ_FLIP_HORIZONTAL) !== 0,
+      flipVertical: (previousProjectionFlags & SKY_PROJ_FLIP_VERTICAL) !== 0,
     }
+    this.painter_update_clip_info()
+    const cullFlipped = this.deriveCullFlippedFromProjectionFlags(this.projectionState.projectionFlags)
     this.record('paint_prepare', {
       windowWidth: winW,
       windowHeight: winH,
       pixelScale: scale,
+      projectionMode: this.projectionState.projectionMode,
+      projectionFlags: this.projectionState.projectionFlags,
+      flipHorizontal: this.projectionState.flipHorizontal,
+      flipVertical: this.projectionState.flipVertical,
+      cullFlipped,
     })
-    this.render_prepare(winW, winH, scale, false)
+    this.render_prepare(winW, winH, scale, cullFlipped)
     return 0
   }
 
@@ -516,6 +565,26 @@ export class SkyPainterPortState {
     }
     this.textureBindings[slot] = textureRef
     this.record('painter_set_texture', { slot, textureRef })
+  }
+
+  /**
+   * Narrow runtime adapter for projection metadata used by Stellarium
+   * cull-flip derivation in `paint_prepare`.
+   */
+  sync_projection_state(params: {
+    readonly projectionMode?: string | null
+    readonly projectionFlags?: number
+  }): void {
+    const projectionFlags = params.projectionFlags ?? this.projectionState?.projectionFlags ?? 0
+    this.projectionState = {
+      windowWidth: this.projectionState?.windowWidth ?? 1,
+      windowHeight: this.projectionState?.windowHeight ?? 1,
+      pixelScale: this.projectionState?.pixelScale ?? 1,
+      projectionMode: params.projectionMode ?? this.projectionState?.projectionMode ?? null,
+      projectionFlags,
+      flipHorizontal: (projectionFlags & SKY_PROJ_FLIP_HORIZONTAL) !== 0,
+      flipVertical: (projectionFlags & SKY_PROJ_FLIP_VERTICAL) !== 0,
+    }
   }
   paint_2d_points(n: number, points: readonly SkyPainterPoint[]): number {
     if (this.frameFinalized) {
@@ -564,8 +633,21 @@ export class SkyPainterPortState {
   painter_is_2d_circle_clipped(): boolean { this.record('painter_is_2d_circle_clipped', {}); return false }
   painter_is_cap_clipped(): boolean { this.record('painter_is_cap_clipped', {}); return false }
   painter_update_clip_info(): void {
-    this.clippingState = { clipInfoValid: true }
-    this.record('painter_update_clip_info', { clipInfoValid: true })
+    const projection = this.projectionState
+    const clipInfo: SkyPainterClipInfoSubset = {
+      viewportWidth: projection?.windowWidth ?? this.renderBackendFrame.framebufferWidth,
+      viewportHeight: projection?.windowHeight ?? this.renderBackendFrame.framebufferHeight,
+      boundingCapComputed: true,
+      skyCapComputed: true,
+    }
+    this.clippingState = { clipInfoValid: true, clipInfo }
+    this.record('painter_update_clip_info', {
+      clipInfoValid: true,
+      viewportWidth: clipInfo.viewportWidth,
+      viewportHeight: clipInfo.viewportHeight,
+      boundingCapComputed: true,
+      skyCapComputed: true,
+    })
   }
   paint_orbit(): number { this.mode = SkyPainterMode.MODE_LINES; this.record('paint_orbit', {}); return 0 }
   paint_2d_ellipse(): number { this.mode = SkyPainterMode.MODE_LINES; this.record('paint_2d_ellipse', {}); return 0 }
@@ -607,6 +689,11 @@ export class SkyPainterPortState {
       framebufferHeight: this.renderBackendFrame.framebufferHeight,
       scale: this.renderBackendFrame.scale,
       cullFlipped: this.renderBackendFrame.cullFlipped,
+      projectionMode: this.renderBackendFrame.projectionMode,
+      projectionFlags: this.renderBackendFrame.projectionFlags,
+      flipHorizontal: this.renderBackendFrame.flipHorizontal,
+      flipVertical: this.renderBackendFrame.flipVertical,
+      clipInfoValid: this.renderBackendFrame.clipInfoValid,
       depthMin: this.renderBackendFrame.depthMin,
       depthMax: this.renderBackendFrame.depthMax,
       flushReady: true,
@@ -707,6 +794,11 @@ export class SkyPainterPortState {
       framebufferHeight: 0,
       scale: 1,
       cullFlipped: false,
+      projectionMode: null,
+      projectionFlags: 0,
+      flipHorizontal: false,
+      flipVertical: false,
+      clipInfoValid: false,
       depthMin: Number.POSITIVE_INFINITY,
       depthMax: Number.NEGATIVE_INFINITY,
       pointItems: Object.freeze([]),
@@ -746,6 +838,11 @@ export class SkyPainterPortState {
       framebufferHeight: winH * scale,
       scale,
       cullFlipped,
+      projectionMode: this.projectionState?.projectionMode ?? null,
+      projectionFlags: this.projectionState?.projectionFlags ?? 0,
+      flipHorizontal: this.projectionState?.flipHorizontal ?? false,
+      flipVertical: this.projectionState?.flipVertical ?? false,
+      clipInfoValid: this.clippingState.clipInfoValid,
       depthMin: Number.POSITIVE_INFINITY,
       depthMax: Number.NEGATIVE_INFINITY,
       pointItems: Object.freeze([]),
@@ -986,6 +1083,12 @@ export class SkyPainterPortState {
       depthMin: nextDepthMin,
       depthMax: nextDepthMax,
     })
+  }
+
+  private deriveCullFlippedFromProjectionFlags(projectionFlags: number): boolean {
+    const flipHorizontal = (projectionFlags & SKY_PROJ_FLIP_HORIZONTAL) !== 0
+    const flipVertical = (projectionFlags & SKY_PROJ_FLIP_VERTICAL) !== 0
+    return flipHorizontal !== flipVertical
   }
 
   private snapshotBatchState(): SkyPainterBatchStateSnapshot {

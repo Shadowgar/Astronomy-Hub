@@ -853,3 +853,40 @@ Validation evidence recorded for this block:
 Interpretation:
 - S3 reduces the S2 parity gap at the `render_finish` / `rend_flush` lifecycle seam by modeling dispatch/release/reset ordering and terminal item state transitions CPU-side.
 - This does not claim full `render_gl` parity: GPU draw dispatch/resource release internals remain unported, and direct star renderer ownership remains active by design.
+
+## Port Block 17 (Executed)
+### Stars Backend Slice S4 — painter_update_clip_info + Projection Flip/Cull Preamble
+
+Stellarium authority files:
+- `src/painter.c` (`painter_update_clip_info`, `paint_prepare` cull parity derivation)
+- `src/painter.h`
+- `src/render_gl.c` (`render_prepare` preamble state acceptance)
+- `src/render.h`
+- `src/projection.h` (`PROJ_FLIP_HORIZONTAL`, `PROJ_FLIP_VERTICAL`, `PROJ_HAS_DISCONTINUITY`)
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/SkyCore.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/SkyProjectionService.ts`
+- `frontend/tests/test_painter_backend_port.test.js`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+- `docs/runtime/port/S3_RENDER_GL_FLUSH_LIFECYCLE_AUDIT_2026-04-26.md`
+- `docs/runtime/port/painter-c-api-surface-mapping.md`
+- `docs/runtime/port/render-gl-backend-mapping-shell.md`
+- `docs/runtime/port/evidence-index.md`
+- `docs/runtime/port/README.md`
+- `docs/runtime/port/CODEX-HANDOFF.md`
+
+Explicit local logic deleted/replaced in this block:
+1. Replaced hardcoded `cullFlipped=false` in `paint_prepare` with source-modeled parity derivation:
+   `flipHorizontal XOR flipVertical`.
+2. Replaced clip-info no-op marker with practical active-path subset payload and backend frame state.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_painter_backend_port.test.js tests/sky-engine-stars-runtime.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+
+Interpretation:
+- S4 reduces pre-render contract drift by making cull parity source-modeled and by carrying practical projection/clip/cull state through the painter preamble.
+- This does not claim full projection or render backend execution parity; direct star renderer ownership remains unchanged.

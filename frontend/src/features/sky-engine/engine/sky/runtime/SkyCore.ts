@@ -234,6 +234,8 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       starsLimitMag: context.frameState.render.starsLimitMag,
       hintsLimitMag: context.frameState.render.hintsLimitMag,
       hardLimitMag: context.frameState.render.hardLimitMag,
+      projectionMode: this.resolveProjectionModeForPainter(context.services),
+      projectionFlags: this.resolveProjectionFlagsForPainter(context.services),
     })
     context.frameState.render.painter.paint_prepare(
       context.frameState.render.windowWidth,
@@ -340,6 +342,31 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
         this.frameDirty = true
       },
     }
+  }
+
+  private resolveProjectionModeForPainter(services: TServices): string | null {
+    const projectionService = (services as {
+      projectionService?: { getProjectionMode?: () => unknown }
+    }).projectionService
+    if (!projectionService || typeof projectionService.getProjectionMode !== 'function') {
+      return null
+    }
+    const projectionMode = projectionService.getProjectionMode()
+    return typeof projectionMode === 'string' ? projectionMode : null
+  }
+
+  private resolveProjectionFlagsForPainter(services: TServices): number {
+    const projectionService = (services as {
+      projectionService?: { getProjectionFlags?: () => unknown }
+    }).projectionService
+    if (!projectionService || typeof projectionService.getProjectionFlags !== 'function') {
+      return 0
+    }
+    const projectionFlags = projectionService.getProjectionFlags()
+    if (typeof projectionFlags !== 'number' || !Number.isFinite(projectionFlags)) {
+      return 0
+    }
+    return projectionFlags | 0
   }
 
   private createFrameState(deltaSeconds: number): SkyCoreFrameState {

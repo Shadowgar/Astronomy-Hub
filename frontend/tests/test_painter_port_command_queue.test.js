@@ -23,12 +23,25 @@ describe('painterPort command queue (CPU-side)', () => {
     })
 
     painter.paint_prepare(1280, 720, 1)
-    expect(painter.drawQueue).toHaveLength(1)
+    expect(painter.drawQueue).toHaveLength(2)
     expect(painter.drawQueue[0]).toMatchObject({
+      fn: 'painter_update_clip_info',
+      kind: 'painter_update_clip_info',
+      frameIndex: 1,
+      sequence: 1,
+      payload: {
+        clipInfoValid: true,
+        viewportWidth: 1280,
+        viewportHeight: 720,
+        boundingCapComputed: true,
+        skyCapComputed: true,
+      },
+    })
+    expect(painter.drawQueue[1]).toMatchObject({
       fn: 'paint_prepare',
       kind: 'paint_prepare',
       frameIndex: 1,
-      sequence: 1,
+      sequence: 2,
       payload: {
         windowWidth: 1280,
         windowHeight: 720,

@@ -158,3 +158,16 @@ S3 further supersedes S2's release-only lifecycle model by adding explicit CPU-s
 These are lifecycle-modeling seams only; no backend draw execution or renderer ownership replacement is introduced.
 
 Current parity evidence for S3 flush/resource lifecycle modeling: **EV-0122**.
+
+## S4 Supersession Note (2026-04-27)
+
+S4 extends parity work at the pre-render contract seam in `painterPort.ts`:
+- `paint_prepare` now computes `cullFlipped` from source-modeled projection flip parity
+  (`flipHorizontal XOR flipVertical`) instead of hardcoded `false`
+- `painter_update_clip_info` now provides a practical active-path subset
+  (viewport dimensions + clip validity placeholders)
+- `render_prepare` frame state now stores projection/flip/cull/clip preamble fields
+
+This remains CPU-side lifecycle/state modeling only; no backend draw execution or renderer replacement is introduced.
+
+Current parity evidence for S4 clip/cull preamble modeling: **EV-0123**.

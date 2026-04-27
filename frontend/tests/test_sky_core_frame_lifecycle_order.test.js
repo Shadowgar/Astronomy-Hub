@@ -164,7 +164,7 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
       const firstFramePainter = preamblePainterRefs[0]
       expect(firstFramePainter).toBe(renderPainterRefs[0])
       expect(firstFramePainter).toBe(renderPainterRefs[1])
-      expect(preambleQueueSnapshots[0]).toEqual(['paint_prepare'])
+      expect(preambleQueueSnapshots[0]).toEqual(['painter_update_clip_info', 'paint_prepare'])
       expect(firstFramePainter.drawQueue.some((entry) => entry.fn === 'paint_finish')).toBe(true)
       expect(firstFramePainter.isFrameFinalized).toBe(true)
 
@@ -178,7 +178,7 @@ describe('SkyCore frame lifecycle (core.c port)', () => {
 
       expect(preambleFrameStates).toHaveLength(2)
       expect(preamblePainterRefs[1]).toBe(firstFramePainter)
-      expect(preambleQueueSnapshots[1]).toEqual(['paint_prepare'])
+      expect(preambleQueueSnapshots[1]).toEqual(['painter_update_clip_info', 'paint_prepare'])
     })
   })
 })

@@ -6,6 +6,8 @@ import {
   resolvePainterBackendExecutionEnabled,
 } from '../src/features/sky-engine/engine/sky/runtime/renderer/painterBackendPort'
 import {
+  SKY_PROJ_FLIP_HORIZONTAL,
+  SKY_PROJ_FLIP_VERTICAL,
   SkyPainterFlags,
   SkyPainterTextureSlot,
   createSkyPainterPortState,
@@ -339,6 +341,137 @@ describe('painterPort real point item pipeline (S1)', () => {
     expect(painter.pointItems).toHaveLength(0)
     expect(painter.renderBackend.depthMin).toBe(Number.POSITIVE_INFINITY)
     expect(painter.renderBackend.depthMax).toBe(Number.NEGATIVE_INFINITY)
+  })
+
+  it('paint_prepare computes clip/projection state for non-flipped projection', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 2,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+      projectionMode: 'stereographic',
+      projectionFlags: 0,
+    })
+    painter.paint_prepare(800, 400, 1)
+
+    expect(painter.renderBackend.projectionMode).toBe('stereographic')
+    expect(painter.renderBackend.projectionFlags).toBe(0)
+    expect(painter.renderBackend.flipHorizontal).toBe(false)
+    expect(painter.renderBackend.flipVertical).toBe(false)
+    expect(painter.renderBackend.cullFlipped).toBe(false)
+    expect(painter.renderBackend.clipInfoValid).toBe(true)
+
+    const clipInfoCommand = painter.drawQueue.find((entry) => entry.kind === 'painter_update_clip_info')
+    expect(clipInfoCommand).toBeDefined()
+    if (clipInfoCommand?.kind === 'painter_update_clip_info') {
+      expect(clipInfoCommand.payload).toMatchObject({
+        clipInfoValid: true,
+        viewportWidth: 800,
+        viewportHeight: 400,
+        boundingCapComputed: true,
+        skyCapComputed: true,
+      })
+    }
+
+    const prepareCommand = painter.drawQueue.find((entry) => entry.kind === 'paint_prepare')
+    expect(prepareCommand).toBeDefined()
+    if (prepareCommand?.kind === 'paint_prepare') {
+      expect(prepareCommand.payload).toMatchObject({
+        projectionMode: 'stereographic',
+        projectionFlags: 0,
+        flipHorizontal: false,
+        flipVertical: false,
+        cullFlipped: false,
+      })
+    }
+  })
+
+  it('cullFlipped follows projection flip parity and render_prepare stores computed value', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 21,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+      projectionMode: 'stereographic',
+      projectionFlags: SKY_PROJ_FLIP_HORIZONTAL,
+    })
+    painter.paint_prepare(800, 400, 1)
+    expect(painter.renderBackend.flipHorizontal).toBe(true)
+    expect(painter.renderBackend.flipVertical).toBe(false)
+    expect(painter.renderBackend.cullFlipped).toBe(true)
+
+    painter.reset_for_frame({
+      frameIndex: 22,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+      projectionMode: 'stereographic',
+      projectionFlags: SKY_PROJ_FLIP_HORIZONTAL | SKY_PROJ_FLIP_VERTICAL,
+    })
+    painter.paint_prepare(800, 400, 1)
+    expect(painter.renderBackend.flipHorizontal).toBe(true)
+    expect(painter.renderBackend.flipVertical).toBe(true)
+    expect(painter.renderBackend.cullFlipped).toBe(false)
+  })
+
+  it('next-frame prepare recomputes clip/cull state and point item path remains active', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 23,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+      projectionMode: 'stereographic',
+      projectionFlags: SKY_PROJ_FLIP_VERTICAL,
+    })
+    painter.paint_prepare(800, 400, 1)
+    expect(painter.renderBackend.cullFlipped).toBe(true)
+    painter.paint_2d_points(1, [buildPoint2d(100, 80)])
+    expect(painter.pointItems).toHaveLength(1)
+
+    painter.reset_for_frame({
+      frameIndex: 24,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+      projectionMode: 'stereographic',
+      projectionFlags: 0,
+    })
+    painter.paint_prepare(800, 400, 1)
+    expect(painter.renderBackend.cullFlipped).toBe(false)
+    expect(painter.renderBackend.clipInfoValid).toBe(true)
+    painter.paint_2d_points(1, [buildPoint2d(120, 90)])
+    expect(painter.pointItems).toHaveLength(1)
   })
 
   it('paint_2d_points creates a real ITEM_POINTS backend item', () => {

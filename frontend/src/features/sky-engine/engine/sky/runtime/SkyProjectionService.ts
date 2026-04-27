@@ -15,6 +15,7 @@ import { clampSkyEngineFov, getSkyEngineFovDegrees, stepSkyEngineFov } from '../
 
 export class SkyProjectionService {
   private projectionMode: SkyProjectionMode
+  private projectionFlags = 0
   private viewportWidth = 1
   private viewportHeight = 1
   private currentFov: number
@@ -28,6 +29,14 @@ export class SkyProjectionService {
 
   syncProjectionMode(projectionMode?: SkyProjectionMode) {
     this.projectionMode = projectionMode ?? 'stereographic'
+  }
+
+  /**
+   * Narrow adapter surface for Stellarium projection flags mirrored into painter prep.
+   * Current sky-engine projection mode does not set flip flags by default.
+   */
+  syncProjectionFlags(projectionFlags?: number) {
+    this.projectionFlags = Number.isFinite(projectionFlags) ? (projectionFlags as number) | 0 : 0
   }
 
   syncViewport(viewportWidth: number, viewportHeight: number) {
@@ -63,6 +72,10 @@ export class SkyProjectionService {
 
   getProjectionMode() {
     return this.projectionMode
+  }
+
+  getProjectionFlags() {
+    return this.projectionFlags
   }
 
   getCurrentFov() {

@@ -248,6 +248,53 @@ Validation:
 - `npm run build`
 - Evidence: **EV-0122**.
 
+## Slice S4 painter_update_clip_info + Projection Flip/Cull (2026-04-27)
+
+Status: implemented as a projection/clip preamble parity slice for the active point/star path.
+
+Source anchors:
+- `src/painter.c`: `painter_update_clip_info`, `paint_prepare` cull parity derivation
+- `src/painter.h`: painter projection/clip state surface
+- `src/render_gl.c`: `render_prepare` cull/projection acceptance
+- `src/projection.h`: `PROJ_FLIP_HORIZONTAL`, `PROJ_FLIP_VERTICAL`, `PROJ_HAS_DISCONTINUITY`
+
+Hub implementation:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/SkyCore.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/SkyProjectionService.ts`
+
+What changed in S4:
+- `paint_prepare` now computes `cullFlipped` from source-modeled flip flags:
+  - `flipHorizontal XOR flipVertical`
+  - removes the previous hardcoded `false` path.
+- `painter_update_clip_info` now implements the practical subset required by current point/star rendering:
+  - viewport dimensions
+  - `clipInfoValid`
+  - bounded `boundingCapComputed` / `skyCapComputed` placeholders
+- render backend frame now carries explicit pre-render projection/clip/cull state:
+  - `projectionMode`
+  - `projectionFlags`
+  - `flipHorizontal`
+  - `flipVertical`
+  - `cullFlipped`
+  - `clipInfoValid`
+- added a narrow projection adapter seam (`sync_projection_state`) and SkyCore service bridge for projection metadata injection.
+
+Known limitation (explicit):
+- Sky-engine does not yet port full Stellarium projection struct/matrix/flag pipeline end-to-end.
+- Current runtime defaults projection flags to `0` unless injected through the narrow adapter path; this keeps behavior stable while enabling source-faithful cull derivation when flags are provided.
+
+Behavior intentionally unchanged in S4:
+- direct star rendering ownership remains with `directStarLayer`
+- CPU-side command/flush model remains in place
+- no backend draw execution or renderer replacement introduced
+
+Validation:
+- `npm run typecheck`
+- `npm run test -- tests/test_painter_backend_port.test.js tests/sky-engine-stars-runtime.test.js`
+- `npm run build`
+- Evidence: **EV-0123**.
+
 ## Enum Mapping (`painter.h`)
 
 | Stellarium enum group | Sky-Engine mapping |
