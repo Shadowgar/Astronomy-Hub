@@ -406,6 +406,9 @@ describe('Sky star runtime ownership', () => {
 
     painter.paint_finish()
     expect(painter.finalizedCommands.some((entry) => entry.fn === 'paint_stars_draw_intent')).toBe(true)
+    expect(painter.finalizedPointItems.length).toBeGreaterThan(0)
+    expect(painter.finalizedPointItems[0].type).toBe('ITEM_POINTS')
+    expect(painter.finalizedPointItems[0].pointCount).toBe(1)
     expect(painter.finalizedBatches).toHaveLength(1)
     expect(painter.finalizedBatches[0]).toMatchObject({
       kind: 'stars',

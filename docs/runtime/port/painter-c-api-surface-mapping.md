@@ -177,6 +177,42 @@ Validation:
 - `npm run build`
 - Evidence: **EV-0120**.
 
+## Slice S2 Render-Item Flags / Reorder / Flush Lifecycle (2026-04-27)
+
+Status: implemented as an S1 refinement focused on `render_gl.c` item lifecycle semantics.
+
+Source anchors:
+- `src/render_gl.c`: `get_item`, `render_points_2d`, `render_points_3d`, `render_finish`, `rend_flush`
+- `src/painter.c`: `paint_prepare`, `paint_finish`, `paint_2d_points`, `paint_3d_points`
+
+Hub implementation:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts`
+
+What changed in S2:
+- point-item records now track source-relevant lifecycle fields:
+  - `orderIndex`
+  - `compatibilityKey` (`type|flags|halo|texture`)
+  - `flushed`
+- `get_item` behavior is now explicitly modeled around:
+  - backward scan from newest queued item
+  - compatibility-key + capacity constraints
+  - reorder barrier stop unless `PAINTER_ALLOW_REORDER` permits crossing
+- `render_finish` now models a `rend_flush`-like lifecycle seam:
+  - produces ordered flushed item snapshots
+  - publishes flush/release result records for assertions
+  - clears mutable queue after flush so flushed items are no longer mutable
+
+Behavior kept intentionally unchanged in S2:
+- direct star rendering ownership remains with `directStarLayer`
+- no Babylon renderer replacement
+- no new wrapper stage and no telemetry-stage expansion
+
+Validation:
+- `npm run typecheck`
+- `npm run test -- tests/test_painter_backend_port.test.js tests/sky-engine-stars-runtime.test.js`
+- `npm run build`
+- Evidence: **EV-0121**.
+
 ## Enum Mapping (`painter.h`)
 
 | Stellarium enum group | Sky-Engine mapping |

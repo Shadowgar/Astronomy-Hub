@@ -89,11 +89,25 @@ export interface SkyPainterRenderPointItem {
   readonly mode: SkyPainterMode.MODE_POINTS
   readonly flags: number
   readonly textureRef: string | null
+  readonly compatibilityKey: string
+  readonly orderIndex: number
   readonly halo: number
   readonly pointCount: number
   readonly capacity: number
+  readonly flushed: boolean
   readonly points2d: ReadonlyArray<SkyPainterPointItem2D>
   readonly points3d: ReadonlyArray<SkyPainterPointItem3D>
+}
+
+export interface SkyPainterFlushResultItem {
+  readonly orderIndex: number
+  readonly compatibilityKey: string
+  readonly type: SkyPainterRenderItemType
+  readonly flags: number
+  readonly textureRef: string | null
+  readonly pointCount: number
+  readonly flushed: true
+  readonly released: true
 }
 
 export interface SkyPainterRenderBackendFrame {
@@ -105,6 +119,7 @@ export interface SkyPainterRenderBackendFrame {
   readonly depthMax: number
   readonly pointItems: ReadonlyArray<SkyPainterRenderPointItem>
   readonly flushReady: boolean
+  readonly flushResults: ReadonlyArray<SkyPainterFlushResultItem>
 }
 
 export interface SkyPainterFrameResetInput {
@@ -295,6 +310,15 @@ function getLastEntry<T>(entries: readonly T[]): T | undefined {
   return entriesWithAt.at(-1)
 }
 
+function buildItemCompatibilityKey(params: {
+  readonly type: SkyPainterRenderItemType
+  readonly flags: number
+  readonly halo: number
+  readonly textureRef: string | null
+}): string {
+  return `${params.type}|${params.flags}|${params.halo}|${params.textureRef ?? '__null__'}`
+}
+
 /**
  * Source-faithful boundary class that mirrors `painter.h` callable naming.
  * All methods are currently no-op queue/state mutations only.
@@ -323,14 +347,18 @@ export class SkyPainterPortState {
   private finalizedFrameBatches: ReadonlyArray<SkyPainterFinalizedBatch> = Object.freeze([])
   private renderBackendFrame: SkyPainterRenderBackendFrame = this.createEmptyRenderBackendFrame()
   private finalizedRenderBackendFrame: SkyPainterRenderBackendFrame = this.createEmptyRenderBackendFrame()
+  private itemCreateSequence = 0
   private readonly mutableRenderItems: Array<{
     type: SkyPainterRenderItemType
     mode: SkyPainterMode.MODE_POINTS
     flags: number
     textureRef: string | null
+    compatibilityKey: string
+    orderIndex: number
     halo: number
     pointCount: number
     capacity: number
+    flushed: boolean
     points2d: SkyPainterPointItem2D[]
     points3d: SkyPainterPointItem3D[]
   }> = []
@@ -357,6 +385,10 @@ export class SkyPainterPortState {
 
   get finalizedPointItems(): ReadonlyArray<SkyPainterRenderPointItem> {
     return this.finalizedRenderBackendFrame.pointItems
+  }
+
+  get flushResults(): ReadonlyArray<SkyPainterFlushResultItem> {
+    return this.frameFinalized ? this.finalizedRenderBackendFrame.flushResults : this.renderBackendFrame.flushResults
   }
 
   get renderBackend(): SkyPainterRenderBackendFrame {
@@ -390,6 +422,7 @@ export class SkyPainterPortState {
     this.clippingState = { clipInfoValid: false }
     this.commandSequence = 0
     this.frameFinalized = false
+    this.itemCreateSequence = 0
     this.frameCommands.length = 0
     this.finalizedFrameCommands = Object.freeze([])
     this.finalizedFrameBatches = Object.freeze([])
@@ -516,14 +549,18 @@ export class SkyPainterPortState {
       depthMin: this.renderBackendFrame.depthMin,
       depthMax: this.renderBackendFrame.depthMax,
       flushReady: true,
-      pointItems: Object.freeze(this.mutableRenderItems.map((item) => Object.freeze({
+      flushResults: this.renderBackendFrame.flushResults,
+      pointItems: Object.freeze(this.renderBackendFrame.pointItems.map((item) => Object.freeze({
         type: item.type,
         mode: item.mode,
         flags: item.flags,
         textureRef: item.textureRef,
+        compatibilityKey: item.compatibilityKey,
+        orderIndex: item.orderIndex,
         halo: item.halo,
         pointCount: item.pointCount,
         capacity: item.capacity,
+        flushed: true,
         points2d: Object.freeze([...item.points2d]),
         points3d: Object.freeze([...item.points3d]),
       }))),
@@ -606,6 +643,7 @@ export class SkyPainterPortState {
       depthMax: Number.NEGATIVE_INFINITY,
       pointItems: Object.freeze([]),
       flushReady: false,
+      flushResults: Object.freeze([]),
     })
   }
 
@@ -615,9 +653,12 @@ export class SkyPainterPortState {
       mode: item.mode,
       flags: item.flags,
       textureRef: item.textureRef,
+      compatibilityKey: item.compatibilityKey,
+      orderIndex: item.orderIndex,
       halo: item.halo,
       pointCount: item.pointCount,
       capacity: item.capacity,
+      flushed: item.flushed,
       points2d: Object.freeze([...item.points2d]),
       points3d: Object.freeze([...item.points3d]),
     })))
@@ -634,47 +675,72 @@ export class SkyPainterPortState {
       depthMax: Number.NEGATIVE_INFINITY,
       pointItems: Object.freeze([]),
       flushReady: false,
+      flushResults: Object.freeze([]),
     })
   }
 
   private render_finish(): void {
+    const flushedPointItems = Object.freeze(this.mutableRenderItems.map((item) => Object.freeze({
+      type: item.type,
+      mode: item.mode,
+      flags: item.flags,
+      textureRef: item.textureRef,
+      compatibilityKey: item.compatibilityKey,
+      orderIndex: item.orderIndex,
+      halo: item.halo,
+      pointCount: item.pointCount,
+      capacity: item.capacity,
+      flushed: true,
+      points2d: Object.freeze([...item.points2d]),
+      points3d: Object.freeze([...item.points3d]),
+    })))
+    const flushResults = Object.freeze(this.mutableRenderItems.map((item) => Object.freeze({
+      orderIndex: item.orderIndex,
+      compatibilityKey: item.compatibilityKey,
+      type: item.type,
+      flags: item.flags,
+      textureRef: item.textureRef,
+      pointCount: item.pointCount,
+      flushed: true as const,
+      released: true as const,
+    })))
     this.renderBackendFrame = Object.freeze({
       ...this.renderBackendFrame,
-      pointItems: Object.freeze(this.mutableRenderItems.map((item) => Object.freeze({
-        type: item.type,
-        mode: item.mode,
-        flags: item.flags,
-        textureRef: item.textureRef,
-        halo: item.halo,
-        pointCount: item.pointCount,
-        capacity: item.capacity,
-        points2d: Object.freeze([...item.points2d]),
-        points3d: Object.freeze([...item.points3d]),
-      }))),
+      pointItems: flushedPointItems,
+      flushResults,
       flushReady: true,
     })
+    this.mutableRenderItems.length = 0
   }
 
   private get_item(type: SkyPainterRenderItemType, pointCount: number, textureRef: string | null): {
     type: SkyPainterRenderItemType
     mode: SkyPainterMode.MODE_POINTS
-    flags: number
-    textureRef: string | null
-    halo: number
-    pointCount: number
-    capacity: number
-    points2d: SkyPainterPointItem2D[]
-    points3d: SkyPainterPointItem3D[]
+      flags: number
+      textureRef: string | null
+      compatibilityKey: string
+      orderIndex: number
+      halo: number
+      pointCount: number
+      capacity: number
+      flushed: boolean
+      points2d: SkyPainterPointItem2D[]
+      points3d: SkyPainterPointItem3D[]
   } {
+    const desiredCompatibilityKey = buildItemCompatibilityKey({
+      type,
+      flags: this.flags,
+      halo: this.pointsHalo,
+      textureRef,
+    })
+
     let index = this.mutableRenderItems.length - 1
     while (index >= 0) {
       const item = this.mutableRenderItems[index]
       if (
-        item.type === type &&
+        item.compatibilityKey === desiredCompatibilityKey &&
         item.capacity > item.pointCount + pointCount &&
-        item.textureRef === textureRef &&
-        item.halo === this.pointsHalo &&
-        item.flags === this.flags
+        !item.flushed
       ) {
         return item
       }
@@ -684,14 +750,18 @@ export class SkyPainterPortState {
       index -= 1
     }
 
+    this.itemCreateSequence += 1
     const newItem = {
       type,
       mode: SkyPainterMode.MODE_POINTS as SkyPainterMode.MODE_POINTS,
       flags: this.flags,
       textureRef,
+      compatibilityKey: desiredCompatibilityKey,
+      orderIndex: this.itemCreateSequence,
       halo: this.pointsHalo,
       pointCount: 0,
       capacity: 4096,
+      flushed: false,
       points2d: [] as SkyPainterPointItem2D[],
       points3d: [] as SkyPainterPointItem3D[],
     }

@@ -6,6 +6,8 @@ import {
   resolvePainterBackendExecutionEnabled,
 } from '../src/features/sky-engine/engine/sky/runtime/renderer/painterBackendPort'
 import {
+  SkyPainterFlags,
+  SkyPainterTextureSlot,
   createSkyPainterPortState,
 } from '../src/features/sky-engine/engine/sky/runtime/renderer/painterPort'
 
@@ -385,6 +387,218 @@ describe('painterPort real point item pipeline (S1)', () => {
     expect(painter.pointItems[0].pointCount).toBe(3)
     painter.paint_finish()
     expect(painter.finalizedPointItems[0].pointCount).toBe(3)
+  })
+
+  it('get_item does not cross reorder barrier when newest incompatible item disallows reorder', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 6,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    painter.painter_set_texture(SkyPainterTextureSlot.PAINTER_TEX_COLOR, 'atlas-a')
+    painter.paint_2d_points(1, [buildPoint2d(100, 80)])
+    painter.painter_set_texture(SkyPainterTextureSlot.PAINTER_TEX_COLOR, 'atlas-b')
+    painter.paint_2d_points(1, [buildPoint2d(120, 90)])
+    painter.painter_set_texture(SkyPainterTextureSlot.PAINTER_TEX_COLOR, 'atlas-a')
+    painter.paint_2d_points(1, [buildPoint2d(140, 100)])
+
+    expect(painter.pointItems).toHaveLength(3)
+    expect(painter.pointItems[0].pointCount).toBe(1)
+    expect(painter.pointItems[2].pointCount).toBe(1)
+    painter.paint_finish()
+  })
+
+  it('get_item can cross incompatible newest item when reorder is allowed', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 7,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    painter.flags = SkyPainterFlags.PAINTER_ALLOW_REORDER
+    painter.painter_set_texture(SkyPainterTextureSlot.PAINTER_TEX_COLOR, 'atlas-a')
+    painter.paint_2d_points(1, [buildPoint2d(100, 80)])
+    painter.painter_set_texture(SkyPainterTextureSlot.PAINTER_TEX_COLOR, 'atlas-b')
+    painter.paint_2d_points(1, [buildPoint2d(120, 90)])
+    painter.painter_set_texture(SkyPainterTextureSlot.PAINTER_TEX_COLOR, 'atlas-a')
+    painter.paint_2d_points(1, [buildPoint2d(140, 100)])
+
+    expect(painter.pointItems).toHaveLength(2)
+    expect(painter.pointItems[0].pointCount).toBe(2)
+    expect(painter.pointItems[1].pointCount).toBe(1)
+    painter.paint_finish()
+  })
+
+  it('incompatible flags create a new point item', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 8,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    painter.flags = 0
+    painter.paint_2d_points(1, [buildPoint2d(100, 80)])
+    painter.flags = SkyPainterFlags.PAINTER_ADD
+    painter.paint_2d_points(1, [buildPoint2d(120, 90)])
+
+    expect(painter.pointItems).toHaveLength(2)
+    expect(painter.pointItems[0].flags).toBe(0)
+    expect(painter.pointItems[1].flags).toBe(SkyPainterFlags.PAINTER_ADD)
+  })
+
+  it('incompatible texture creates a new point item', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 85,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    painter.painter_set_texture(SkyPainterTextureSlot.PAINTER_TEX_COLOR, 'atlas-a')
+    painter.paint_2d_points(1, [buildPoint2d(100, 80)])
+    painter.painter_set_texture(SkyPainterTextureSlot.PAINTER_TEX_COLOR, 'atlas-b')
+    painter.paint_2d_points(1, [buildPoint2d(120, 90)])
+
+    expect(painter.pointItems).toHaveLength(2)
+    expect(painter.pointItems[0].textureRef).toBe('atlas-a')
+    expect(painter.pointItems[1].textureRef).toBe('atlas-b')
+  })
+
+  it('capacity overflow creates a new point item', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 9,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    const nearCapacityPoints = Array.from({ length: 4090 }, (_, index) => buildPoint2d(100 + index, 80))
+    const overflowPoints = Array.from({ length: 10 }, (_, index) => buildPoint2d(200 + index, 90))
+
+    painter.paint_2d_points(nearCapacityPoints.length, nearCapacityPoints)
+    painter.paint_2d_points(overflowPoints.length, overflowPoints)
+
+    expect(painter.pointItems).toHaveLength(2)
+    expect(painter.pointItems[0].pointCount).toBe(4090)
+    expect(painter.pointItems[1].pointCount).toBe(10)
+  })
+
+  it('render_finish flushes point items in queue order and marks release lifecycle', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 10,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    painter.painter_set_texture(SkyPainterTextureSlot.PAINTER_TEX_COLOR, 'atlas-a')
+    painter.paint_2d_points(1, [buildPoint2d(100, 80)])
+    painter.painter_set_texture(SkyPainterTextureSlot.PAINTER_TEX_COLOR, 'atlas-b')
+    painter.paint_2d_points(1, [buildPoint2d(120, 90)])
+    painter.paint_finish()
+
+    expect(painter.finalizedPointItems).toHaveLength(2)
+    expect(painter.finalizedPointItems.every((item) => item.flushed)).toBe(true)
+    expect(painter.flushResults).toHaveLength(2)
+    expect(painter.flushResults[0]).toMatchObject({
+      orderIndex: 1,
+      flushed: true,
+      released: true,
+      textureRef: 'atlas-a',
+    })
+    expect(painter.flushResults[1]).toMatchObject({
+      orderIndex: 2,
+      flushed: true,
+      released: true,
+      textureRef: 'atlas-b',
+    })
+  })
+
+  it('flushed items are immutable after finish and cleared on next frame prepare', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 11,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    painter.paint_2d_points(1, [buildPoint2d(100, 80)])
+    painter.paint_finish()
+    const finalizedPointCount = painter.finalizedPointItems[0].pointCount
+    const finalizedFlushCount = painter.flushResults.length
+
+    painter.paint_2d_points(1, [buildPoint2d(120, 90)])
+    expect(painter.finalizedPointItems[0].pointCount).toBe(finalizedPointCount)
+    expect(painter.flushResults).toHaveLength(finalizedFlushCount)
+
+    painter.reset_for_frame({
+      frameIndex: 12,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+    })
+    painter.paint_prepare(800, 400, 1)
+    expect(painter.pointItems).toHaveLength(0)
+    expect(painter.flushResults).toHaveLength(0)
+    expect(painter.renderBackend.flushReady).toBe(false)
   })
 
   it('finalized point item count and batch star count match star draw input', () => {

@@ -3,6 +3,7 @@
 > Legacy scaffold notice (2026-04-26): this document describes the pre-S1 metadata-only mapping shell.
 > Slice S1 introduced a real internal point-item pipeline in `painterPort.ts` (render_prepare/get_item/render_points/render_finish equivalents).
 > The string-only `renderGlReference` markers documented below are now historical labels and are not parity proof.
+> Slice S2 (EV-0121) further supersedes label-only assumptions by adding source-modeled item compatibility keys, reorder barrier behavior, and flush/release lifecycle records in `painterPort.ts`.
 
 Date: 2026-04-26  
 Mode: Stellarium Port Mode ACTIVE  
@@ -134,3 +135,14 @@ Evidence:
 - `EV-0117`
 - `EV-0118`
 - `EV-0119`
+
+## S2 Supersession Note (2026-04-27)
+
+This document remains a historical record of backend-shell mapping behavior, but parity claims for item lifecycle must now reference `painterPort.ts` S1/S2 implementation and tests, not `renderGlReference` label fields.
+
+S2 adds:
+- explicit item compatibility keys for `get_item`-style reuse decisions
+- reorder-barrier crossing rules tied to `PAINTER_ALLOW_REORDER`
+- flush/release lifecycle records at `render_finish` boundary
+
+Current parity evidence for these lifecycle semantics: **EV-0121**.
