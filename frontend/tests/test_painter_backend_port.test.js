@@ -6,6 +6,7 @@ import {
   resolvePainterBackendExecutionEnabled,
 } from '../src/features/sky-engine/engine/sky/runtime/renderer/painterBackendPort'
 import {
+  SKY_FRAMES_NB,
   SKY_PROJ_FLIP_HORIZONTAL,
   SKY_PROJ_FLIP_VERTICAL,
   SkyPainterFrameId,
@@ -388,6 +389,10 @@ describe('painterPort real point item pipeline (S1)', () => {
     expect(observedFrame.viewportCaps.every((cap) => cap.normal.every(Number.isFinite))).toBe(true)
     expect(observedFrame.skyCap?.valid).toBe(true)
     expect(observedFrame.skyCap?.normal).toEqual([0, 0, 1])
+    const viewFrame = clipInfo.frames.find((entry) => entry.frameId === SkyPainterFrameId.FRAME_VIEW)
+    expect(viewFrame?.supported).toBe(true)
+    expect(viewFrame?.skyCap?.valid).toBe(true)
+    expect(viewFrame?.skyCap?.normal.every(Number.isFinite)).toBe(true)
 
     const clipInfoCommand = painter.drawQueue.find((entry) => entry.kind === 'painter_update_clip_info')
     expect(clipInfoCommand).toBeDefined()
@@ -529,6 +534,55 @@ describe('painterPort real point item pipeline (S1)', () => {
     }
     expect(unsupportedFrame.supported).toBe(false)
     expect(unsupportedFrame.unsupportedReason).toBe('frame_conversion_not_ported')
+  })
+
+  it('skyCap normals are frame-converted across bounded supported frame set', () => {
+    const painter = createSkyPainterPortState()
+
+    painter.reset_for_frame({
+      frameIndex: 27,
+      windowWidth: 800,
+      windowHeight: 400,
+      pixelScale: 1,
+      framebufferWidth: 800,
+      framebufferHeight: 400,
+      starsLimitMag: 6,
+      hintsLimitMag: 6,
+      hardLimitMag: 8,
+      projectionMode: 'stereographic',
+      projectionFlags: 0,
+      centerDirection: { x: 1, y: 0, z: 0 },
+      fovRadians: Math.PI / 2,
+    })
+    painter.paint_prepare(800, 400, 1)
+
+    const clipInfo = painter.renderBackend.clipInfo
+    expect(clipInfo).toBeTruthy()
+    if (!clipInfo) {
+      throw new Error('expected clip info for frame-conversion assertions')
+    }
+    expect(clipInfo.frames).toHaveLength(SKY_FRAMES_NB)
+    const observedFrame = clipInfo.frames.find((entry) => entry.frameId === SkyPainterFrameId.FRAME_OBSERVED)
+    const observedGeomFrame = clipInfo.frames.find((entry) => entry.frameId === SkyPainterFrameId.FRAME_OBSERVED_GEOM)
+    const viewFrame = clipInfo.frames.find((entry) => entry.frameId === SkyPainterFrameId.FRAME_VIEW)
+    expect(observedFrame?.supported).toBe(true)
+    expect(observedGeomFrame?.supported).toBe(true)
+    expect(viewFrame?.supported).toBe(true)
+    expect(viewFrame?.skyCap?.normal).not.toEqual(observedFrame?.skyCap?.normal)
+    expect(viewFrame?.skyCap?.normal.every((value) => Number.isFinite(value))).toBe(true)
+  })
+
+  it('frame identifiers match pinned frames.h expectations for clip-info path', () => {
+    expect(SKY_FRAMES_NB).toBe(8)
+    expect(SkyPainterFrameId.FRAME_ASTROM).toBe(0)
+    expect(SkyPainterFrameId.FRAME_ICRF).toBe(1)
+    expect(SkyPainterFrameId.FRAME_CIRS).toBe(2)
+    expect(SkyPainterFrameId.FRAME_JNOW).toBe(3)
+    expect(SkyPainterFrameId.FRAME_OBSERVED_GEOM).toBe(4)
+    expect(SkyPainterFrameId.FRAME_OBSERVED).toBe(5)
+    expect(SkyPainterFrameId.FRAME_MOUNT).toBe(6)
+    expect(SkyPainterFrameId.FRAME_VIEW).toBe(7)
+    expect(SkyPainterFrameId.FRAME_ECLIPTIC).toBe(8)
   })
 
   it('painter_update_clip_info handles zero viewport dimensions safely', () => {

@@ -331,6 +331,48 @@ Validation:
 - `npm run build`
 - Evidence: **EV-0124**.
 
+## Slice S6 Frame Conversion / FRAMES_NB Clip-Info (2026-04-27)
+
+Status: implemented as a bounded frame-conversion parity slice for clip-info vectors.
+
+Source anchors:
+- `src/painter.c`: `compute_sky_cap`, `painter_update_clip_info`
+- `src/frames.h`: `FRAME_*` ids, `FRAMES_NB`
+- `src/frames.c`: `convert_frame` behavior contracts (bounded subset only in this slice)
+
+Hub implementation:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/SkyCore.ts`
+
+What changed in S6:
+- frame identifiers now include full pinned enum values (`FRAME_ASTROM`..`FRAME_VIEW`, `FRAME_ECLIPTIC`) while clip-info iteration remains `FRAMES_NB=8` (`FRAME_VIEW+1`).
+- added bounded `convert_frame`-shaped adapter for clip vectors:
+  - observed -> observed (identity)
+  - observed -> observed_geom (bounded identity fallback pending full refraction-state seam)
+  - observed -> view (basis rotation using current center direction)
+  - all other paths explicit unsupported
+- `compute_sky_cap` now uses the frame-conversion adapter for supported frames (not a constant normal for all supported frames).
+- `compute_viewport_cap` now applies frame conversion to center and corner vectors before cap construction for supported frames.
+- supported frame set expanded from S5:
+  - `FRAME_OBSERVED`
+  - `FRAME_OBSERVED_GEOM`
+  - `FRAME_VIEW`
+
+Bounded-support notes:
+- S6 is still partial parity: full `frames.c` conversion chain (CIRS/JNOW/ICRF/ASTROM/mount/ecliptic and full observer-state effects) remains unported.
+- unsupported frames remain explicit and honest (`frame_conversion_not_ported`).
+
+Behavior intentionally unchanged in S6:
+- S1/S2/S3 point/reorder/flush lifecycle behavior remains unchanged.
+- direct star rendering ownership remains with `directStarLayer`.
+- no backend draw execution and no renderer replacement.
+
+Validation:
+- `npm run typecheck`
+- `npm run test -- tests/test_painter_backend_port.test.js tests/test_painter_port_command_queue.test.js tests/test_sky_core_frame_lifecycle_order.test.js tests/sky-engine-stars-runtime.test.js`
+- `npm run build`
+- Evidence: **EV-0125**.
+
 ## Enum Mapping (`painter.h`)
 
 | Stellarium enum group | Sky-Engine mapping |

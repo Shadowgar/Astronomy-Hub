@@ -1,5 +1,5 @@
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
-import { type SkyProjectionMode, unprojectViewportPoint } from '../../../../projectionMath'
+import { buildProjectionBasis, type SkyProjectionMode, unprojectViewportPoint } from '../../../../projectionMath'
 
 /**
  * Stellarium painter API surface boundary (slice 1).
@@ -74,6 +74,7 @@ export enum SkyPainterFrameId {
   FRAME_OBSERVED = 5,
   FRAME_MOUNT = 6,
   FRAME_VIEW = 7,
+  FRAME_ECLIPTIC = 8,
 }
 
 export interface SkyPainterPoint {
@@ -431,11 +432,13 @@ const SKY_PAINTER_FRAME_NAMES: Record<SkyPainterFrameId, string> = {
   [SkyPainterFrameId.FRAME_OBSERVED]: 'FRAME_OBSERVED',
   [SkyPainterFrameId.FRAME_MOUNT]: 'FRAME_MOUNT',
   [SkyPainterFrameId.FRAME_VIEW]: 'FRAME_VIEW',
+  [SkyPainterFrameId.FRAME_ECLIPTIC]: 'FRAME_ECLIPTIC',
 }
 
-const SKY_PAINTER_S4_SUPPORTED_CAP_FRAME_IDS = new Set<SkyPainterFrameId>([
+const SKY_PAINTER_S6_SUPPORTED_CAP_FRAME_IDS = new Set<SkyPainterFrameId>([
   SkyPainterFrameId.FRAME_OBSERVED_GEOM,
   SkyPainterFrameId.FRAME_OBSERVED,
+  SkyPainterFrameId.FRAME_VIEW,
 ])
 
 function normalizeVec3(vector: readonly [number, number, number]): [number, number, number] {
@@ -793,7 +796,7 @@ export class SkyPainterPortState {
       const id = frameId as SkyPainterFrameId
       const frameName = SKY_PAINTER_FRAME_NAMES[id]
 
-      if (!SKY_PAINTER_S4_SUPPORTED_CAP_FRAME_IDS.has(id)) {
+      if (!SKY_PAINTER_S6_SUPPORTED_CAP_FRAME_IDS.has(id)) {
         frames.push({
           frameId: id,
           frameName,
@@ -845,11 +848,19 @@ export class SkyPainterPortState {
       projectionMode,
     }
 
-    const centerVector = normalizeVec3([
+    const observedCenterVector = normalizeVec3([
       view.centerDirection.x,
       view.centerDirection.y,
       view.centerDirection.z,
     ])
+    const centerVector = this.convertFrameVectorForClipInfo({
+      originFrame: SkyPainterFrameId.FRAME_OBSERVED,
+      destinationFrame: frameId,
+      vector: observedCenterVector,
+    })
+    if (!centerVector) {
+      return null
+    }
     const cornerScreenPoints: ReadonlyArray<readonly [number, number]> = [
       [0, 0],
       [view.viewportWidth, 0],
@@ -860,7 +871,15 @@ export class SkyPainterPortState {
     const cornerDirections: [number, number, number][] = []
     for (const corner of cornerScreenPoints) {
       const unprojected = unprojectViewportPoint(corner[0], corner[1], view)
-      const direction = normalizeVec3([unprojected.x, unprojected.y, unprojected.z])
+      const observedDirection = normalizeVec3([unprojected.x, unprojected.y, unprojected.z])
+      const direction = this.convertFrameVectorForClipInfo({
+        originFrame: SkyPainterFrameId.FRAME_OBSERVED,
+        destinationFrame: frameId,
+        vector: observedDirection,
+      })
+      if (!direction) {
+        return null
+      }
       if (!isFiniteVec3(direction)) {
         return null
       }
@@ -907,16 +926,58 @@ export class SkyPainterPortState {
   }
 
   private computeSkyCapForFrame(frameId: SkyPainterFrameId): SkyPainterCap | null {
-    if (!SKY_PAINTER_S4_SUPPORTED_CAP_FRAME_IDS.has(frameId)) {
+    if (!SKY_PAINTER_S6_SUPPORTED_CAP_FRAME_IDS.has(frameId)) {
+      return null
+    }
+    const observedZenith: [number, number, number] = [0, 0, 1]
+    const normal = this.convertFrameVectorForClipInfo({
+      originFrame: SkyPainterFrameId.FRAME_OBSERVED,
+      destinationFrame: frameId,
+      vector: observedZenith,
+    })
+    if (!normal) {
       return null
     }
 
     return {
-      normal: [0, 0, 1],
+      normal,
       limit: Math.cos((91 * Math.PI) / 180),
       valid: true,
       sourceFrame: frameId,
     }
+  }
+
+  private convertFrameVectorForClipInfo(params: {
+    readonly originFrame: SkyPainterFrameId
+    readonly destinationFrame: SkyPainterFrameId
+    readonly vector: readonly [number, number, number]
+  }): [number, number, number] | null {
+    const vector = normalizeVec3(params.vector)
+    if (params.originFrame === params.destinationFrame) {
+      return vector
+    }
+
+    if (params.originFrame !== SkyPainterFrameId.FRAME_OBSERVED) {
+      return null
+    }
+
+    if (params.destinationFrame === SkyPainterFrameId.FRAME_OBSERVED_GEOM) {
+      // Bounded parity adapter: without full observer refraction state in this seam,
+      // OBSERVED -> OBSERVED_GEOM is treated as identity for cap-vector use only.
+      return vector
+    }
+
+    if (params.destinationFrame === SkyPainterFrameId.FRAME_VIEW) {
+      const centerDirection = this.projectionState?.centerDirection ?? [0, 0, 1]
+      const basis = buildProjectionBasis(new Vector3(centerDirection[0], centerDirection[1], centerDirection[2]))
+      return normalizeVec3([
+        dotVec3(vector, [basis.east.x, basis.east.y, basis.east.z]),
+        dotVec3(vector, [basis.north.x, basis.north.y, basis.north.z]),
+        dotVec3(vector, [basis.center.x, basis.center.y, basis.center.z]),
+      ])
+    }
+
+    return null
   }
 
   private resolveProjectionModeForClipComputation(mode: string | null): SkyProjectionMode | null {

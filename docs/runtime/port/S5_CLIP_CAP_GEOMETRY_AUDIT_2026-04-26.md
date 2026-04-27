@@ -203,3 +203,42 @@ Why not first:
 
 Do not claim full clip/projection parity from S5.  
 S5 materially reduced clip-info drift, but frame-conversion-backed cap parity remains unported.
+
+---
+
+## Appendix — S6 Status Update (EV-0125)
+
+Status: **S6 landed (partial frame-conversion/FRAMES_NB clip-info parity gain, still not full `frames.c` parity)**.
+
+S6 runtime changes:
+- `frontend/src/features/sky-engine/engine/sky/runtime/renderer/painterPort.ts`
+  - added source-shaped frame identifiers with pinned numeric mapping (`FRAME_ASTROM..FRAME_VIEW`, `FRAME_ECLIPTIC`).
+  - added bounded frame-conversion adapter for clip vectors:
+    - supports `FRAME_OBSERVED -> FRAME_OBSERVED` (identity)
+    - supports `FRAME_OBSERVED -> FRAME_OBSERVED_GEOM` (bounded identity fallback pending full refraction-state port)
+    - supports `FRAME_OBSERVED -> FRAME_VIEW` via view-basis rotation derived from current center direction
+    - leaves other frame conversions explicit as unsupported
+  - `compute_sky_cap` now routes zenith vector through frame conversion adapter for supported frames instead of constant normal for all supported cases.
+  - `compute_viewport_cap` now routes center/corner vectors through frame conversion adapter for supported frames.
+  - expanded bounded supported clip-frame set from S5 to include `FRAME_VIEW`.
+- `frontend/src/features/sky-engine/engine/sky/runtime/SkyCore.ts`
+  - continues forwarding `centerDirection` and `fovRadians` into painter reset path; this now feeds the new frame-conversion-backed clip computations.
+
+S6 tests added/extended:
+- `frontend/tests/test_painter_backend_port.test.js`
+  - verifies bounded supported set includes observed/observed_geom/view
+  - verifies view-frame sky-cap normal differs from observed normal when center direction changes (conversion path active)
+  - verifies `FRAMES_NB` count and frame IDs match pinned `frames.h` expectations
+  - preserves unsupported-frame explicitness, invalid viewport safety, cull parity, and S1/S2/S3/S4/S5 regressions
+- existing `frontend/tests/test_painter_port_command_queue.test.js` still validates clip-info command payload shape after S6.
+
+Validation:
+- `npm run typecheck`
+- `npm run test -- tests/test_painter_backend_port.test.js tests/test_painter_port_command_queue.test.js tests/test_sky_core_frame_lifecycle_order.test.js tests/sky-engine-stars-runtime.test.js`
+- `npm run build`
+
+Remaining gaps (outside S6 scope):
+- no full `convert_frame` parity across all frames and observer-state effects
+- bounded observed->observed_geom conversion still uses identity fallback until refraction-state seam is ported
+- unsupported frames remain explicit (`frame_conversion_not_ported`) by design
+- no backend draw execution parity.
