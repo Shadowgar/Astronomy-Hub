@@ -47,6 +47,7 @@ import {
   type RuntimeProjectedSceneFrame,
   type RuntimeProjectedStarsFrame,
 } from './engine/sky/runtime/modules/runtimeFrame'
+import type { StellariumPointRenderItem } from './engine/sky/renderer/renderItems'
 
 export interface SkyEngineSceneProps {
   readonly backendStars: readonly BackendSkySceneStarObject[]
@@ -139,6 +140,7 @@ export interface SceneRuntimeRefs {
   corePainterLimits: { starsLimitMag: number; hintsLimitMag: number; hardLimitMag: number } | null
   observerAstrometry: SkyObserverDerivedGeometry | null
   painterBackendExecutionEnabled: boolean
+  rendererBoundaryStarsPointItem: StellariumPointRenderItem | null
 }
 
 export interface SkySceneRuntimeServices {
@@ -209,6 +211,7 @@ export function createSceneRuntimeState({
     corePainterLimits: null,
     observerAstrometry: null,
     painterBackendExecutionEnabled: resolvePainterBackendExecutionEnabled(),
+    rendererBoundaryStarsPointItem: null,
   } satisfies SceneRuntimeRefs
 }
 

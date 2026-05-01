@@ -119,6 +119,7 @@ function createBaseRuntime() {
     starsProjectionCache: null,
     starsProjectionReuseStreak: 0,
     painterBackendExecutionEnabled: false,
+    rendererBoundaryStarsPointItem: null,
     runtimePerfTelemetry: {
       latest: {
         frameIndex: 0,
@@ -231,6 +232,11 @@ describe('Sky star runtime ownership', () => {
     const [projectedStars] = runtime.directStarLayer.sync.mock.calls[0]
     expect(projectedStars).toHaveLength(1)
     expect(projectedStars[0].object.type).toBe('star')
+    expect(runtime.rendererBoundaryStarsPointItem).toMatchObject({
+      sourceModule: 'stars',
+      pointCount: 1,
+      itemType: 'ITEM_POINTS',
+    })
   })
 
   it('keeps direct star layer active when backend execution flag is ON', () => {

@@ -7,6 +7,7 @@ import {
   ensureSceneSurfaces,
   resolveViewTier,
 } from './runtimeFrame'
+import { createStarsPointRenderItemFromProjectedStars } from '../../renderer/adapters/starsPointItemsAdapter'
 import { evaluateStarsProjectionReuseDecision } from '../../adapters/framePacingDecisions'
 /**
  * Temporary usability-only tuning: not a Stellarium parity claim.
@@ -378,6 +379,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
       const painter = frameState?.render.painter
 
       if (!projectedStarsFrame) {
+        runtime.rendererBoundaryStarsPointItem = null
         runtime.directStarLayer.sync([], 0, 0, null, services.clockService.getAnimationTimeSeconds())
         runtime.runtimePerfTelemetry.latest = {
           ...runtime.runtimePerfTelemetry.latest,
@@ -385,10 +387,15 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
             ...runtime.runtimePerfTelemetry.latest.stepMs,
             starLayerSyncCallCount: 1,
             starLayerSyncCount: 0,
+            rendererBoundaryStarsPointItemCount: 0,
           },
         }
         return
       }
+
+      runtime.rendererBoundaryStarsPointItem = createStarsPointRenderItemFromProjectedStars({
+        projectedStars: projectedStarsFrame.projectedStars,
+      })
 
       if (painter) {
         emitStarsDrawIntent({
@@ -427,6 +434,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           starLayerSyncBufferUpdateMs: resolvedSyncMetrics.bufferUpdateMs,
           starLayerSyncGpuUploadMs: resolvedSyncMetrics.gpuUploadMs,
           starLayerSyncSelectionHighlightMs: resolvedSyncMetrics.selectionHighlightMs,
+          rendererBoundaryStarsPointItemCount: runtime.rendererBoundaryStarsPointItem.pointCount,
         },
       }
     },

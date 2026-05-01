@@ -145,3 +145,27 @@ What this does not enable:
 Legacy path status:
 - directStarLayer remains the frozen active legacy rendering path.
 - No renderer replacement has occurred yet.
+
+## Renderer Reset Step 2 - Stars Point Item Feed
+
+Files added/changed:
+- frontend/src/features/sky-engine/engine/sky/renderer/adapters/starsPointItemsAdapter.ts (added)
+- frontend/src/features/sky-engine/engine/sky/runtime/modules/StarsModule.ts (changed)
+- frontend/src/features/sky-engine/SkyEngineRuntimeBridge.ts (changed)
+- frontend/tests/test_stellarium_renderer_adapter_contract.test.js (changed)
+- frontend/tests/sky-engine-stars-runtime.test.js (changed)
+
+What is now migrated:
+- Stars runtime now emits renderer-neutral point item diagnostics from projected star entries.
+- Adapter support exists for projected stars and painter 2D point command conversion.
+- Emitted items conform to the renderer boundary point item model (`ITEM_POINTS`, order, point count, deterministic vertex payload, stars source module).
+
+What remains legacy:
+- directStarLayer remains the active visual star output path.
+- painterPort remains active and available in the legacy runtime path.
+- No low-level Stellarium renderer draw path is enabled in production runtime.
+
+Current ownership and mode:
+- directStarLayer remains active.
+- Renderer boundary remains non-visual diagnostics only.
+- No visual parity claim is made for this step.
