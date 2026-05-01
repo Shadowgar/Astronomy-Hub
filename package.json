@@ -17,6 +17,15 @@
     "@types/node": "^25.5.0"
   },
   "scripts": {
+    "dev:frontend": "cd frontend && npm run dev -- --host 0.0.0.0",
+    "dev:backend": "python3 -m uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 8000",
+    "dev:wsl": "bash scripts/dev-wsl-stack.sh up",
+    "dev:wsl:down": "bash scripts/dev-wsl-stack.sh down",
+    "dev:wsl:restart": "bash scripts/dev-wsl-stack.sh restart",
+    "dev:wsl:status": "bash scripts/dev-wsl-stack.sh status",
+    "dev:wsl:logs": "bash scripts/dev-wsl-stack.sh logs",
+    "validate:sky-fast": "cd frontend && npm run typecheck && npm run test -- tests/sky-engine-runtime-frame-projection.test.js tests/sky-engine-stars-runtime.test.js tests/test_scene_query_state.test.js tests/test_painter_backend_port.test.js && npm run build",
+    "profile:sky-local": "cd frontend && npm run profile:sky-engine-runtime",
     "docker:dev-backend": "bash scripts/docker-dev-backend.sh",
     "docker:stellarium:up": "bash scripts/prepare-stellarium-reference.sh && docker compose up -d --build stellarium-reference",
     "docker:stellarium:down": "docker compose rm -sf stellarium-reference",
