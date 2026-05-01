@@ -51,6 +51,18 @@ function getTileOrder(scenePacket: SkyScenePacket, tilesById: Map<string, Packet
     }
   }
 
+  if (roots.length > 0) {
+    return roots
+  }
+
+  // Fallback: if diagnostics roots are absent, recover root tiles directly from
+  // scenePacket.starTiles so traversal still mirrors stars.c root->children walk.
+  for (const tile of scenePacket.starTiles) {
+    if (tile.parentTileId == null || !tilesById.has(tile.parentTileId)) {
+      roots.push(tile.tileId)
+    }
+  }
+
   return roots
 }
 

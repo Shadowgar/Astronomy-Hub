@@ -453,3 +453,74 @@ Run a bounded “Catalog Transition Reliability” mini-sprint (pre-S7), focused
 - `npm run test -- tests/sky-engine-stars-runtime.test.js` ✅
 - `npm run build` ✅
 - extended profile recaptures executed (`profile:sky-engine-runtime` with longer duration and URL variants) ✅
+
+## Catalog Transition Reliability Fix
+
+Fix date: 2026-05-01  
+Scope: catalog transition reliability only (no renderer ownership change, no parity claim).
+
+### Root cause
+
+`multi-survey` startup used the full computed limiting magnitude before first packet promotion, which activates Gaia-heavy loading early.  
+`scenePacket` promotion is signature-gated, so startup could stay `loading` while deep survey loads were still in flight.
+
+In practice this created long fallback-only windows:
+- `dataMode=loading`
+- `sourceLabel=Loading tiles…`
+- temporary seed stars still visible
+
+### Files changed
+
+- `frontend/src/features/sky-engine/sceneQueryState.ts`
+- `frontend/src/features/sky-engine/SkyEngineScene.tsx`
+- `frontend/tests/test_scene_query_state.test.js`
+- `docs/runtime/port/USABILITY_RECOVERY_AUDIT_2026-04-26.md`
+
+### Fix summary
+
+1. Added bounded bootstrap query mode for catalog takeover:
+- `resolveRepositoryQueryLimitingMagnitude(...)` now accepts `bootstrapCatalogOnly`.
+- When `repositoryMode === 'multi-survey'` and `bootstrapCatalogOnly=true`, query limiting magnitude is capped to `HIPPARCOS_QUERY_LIMITING_MAGNITUDE_MAX`.
+
+2. Enabled bootstrap cap only until first real packet:
+- `SkyEngineScene.buildSceneControllerModel(...)` now passes:
+  - `bootstrapCatalogOnly: config.previousScenePacket == null`
+- This ensures startup promotes a usable Hipparcos packet first.
+- After first packet exists, normal multi-survey limiting magnitude behavior resumes.
+
+3. Added focused transition tests:
+- bootstrap cap applies for multi-survey startup only.
+- post-bootstrap multi-survey remains uncapped.
+- unresolved -> resolved query path promotes from loading to hipparcos packet with expected signature.
+- existing stale-signature guard remains covered.
+
+### Before/after runtime transition behavior
+
+Before fix (repeated long captures):
+- remained `loading` / `Loading tiles…` for full sample windows.
+- fallback stars remained active; no observed hipparcos takeover.
+
+After fix:
+- transition trace captured in live runtime:
+  - `loading` -> `hipparcos` in ~0.6s
+  - artifact: `.cursor-artifacts/parity-compare/module2-live-runtime-profile-transition-trace-post-fix.json`
+- extended profile stayed catalog-backed:
+  - artifact: `.cursor-artifacts/parity-compare/module2-live-runtime-profile-2026-04-26-post-transition-fix.json`
+  - mode: `hipparcos`
+  - sourceLabel: `Hipparcos · 8,870 stars`
+  - direct star layer still active
+  - painter backend status still `execution_disabled`
+
+### Validation
+
+- `npm run typecheck` ✅
+- `npm run test -- tests/sky-engine-stars-runtime.test.js tests/test_scene_query_state.test.js` ✅
+- `npm run build` ✅
+- `npm run profile:sky-engine-runtime` ✅
+- extended profile capture + transition trace capture ✅
+
+### Remaining risks
+
+1. This fix targets startup reliability only; deeper multi-survey load timing/perf remains separate.
+2. Gaia/richer survey promotion behavior after Hipparcos bootstrap is not claimed as parity-complete.
+3. This is a usability reliability fix, not a Stellarium parity completion claim.

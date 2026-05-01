@@ -81,6 +81,21 @@ describe('scene query state', () => {
     expect(resolveRepositoryQueryLimitingMagnitude('multi-survey', 11.4)).toBe(11.4)
   })
 
+  it('caps multi-survey bootstrap queries to Hipparcos ceiling before first packet promotion', () => {
+    expect(resolveRepositoryQueryLimitingMagnitude('multi-survey', 11.4, {
+      bootstrapCatalogOnly: true,
+    })).toBe(HIPPARCOS_QUERY_LIMITING_MAGNITUDE_MAX)
+    expect(resolveRepositoryQueryLimitingMagnitude('multi-survey', 7.2, {
+      bootstrapCatalogOnly: true,
+    })).toBe(7.2)
+  })
+
+  it('keeps multi-survey uncapped after bootstrap handoff', () => {
+    expect(resolveRepositoryQueryLimitingMagnitude('multi-survey', 11.4, {
+      bootstrapCatalogOnly: false,
+    })).toBe(11.4)
+  })
+
   it('keeps the previous scene packet while a deeper tile query is still unresolved', () => {
     const result = resolveScenePacketForQuery({
       query: BASE_QUERY,
@@ -175,5 +190,75 @@ describe('scene query state', () => {
     expect(result.hasResolvedTilesForQuery).toBe(true)
     expect(result.scenePacket?.stars).toHaveLength(1)
     expect(result.scenePacket?.stars[0]?.id).toBe('hip-91262')
+  })
+
+  it('promotes from loading to hipparcos once matching runtime tiles resolve', () => {
+    const query = {
+      ...BASE_QUERY,
+      limitingMagnitude: 6.5,
+      visibleTileIds: ['root-ne-ne'],
+      activeTiers: ['T0', 'T1'],
+    }
+    const runtimeTiles = [{
+      tileId: 'root-ne-ne',
+      level: 2,
+      parentTileId: 'root-ne',
+      childTileIds: [],
+      bounds: {
+        raMinDeg: 270,
+        raMaxDeg: 315,
+        decMinDeg: 22.5,
+        decMaxDeg: 45,
+      },
+      magMin: 0.03,
+      magMax: 0.03,
+      starCount: 1,
+      stars: [{
+        id: 'hip-91262',
+        sourceId: 'HIP 91262',
+        raDeg: 279.23473479,
+        decDeg: 38.78368896,
+        mag: 0.03,
+        colorIndex: 0,
+        tier: 'T0',
+        properName: 'Vega',
+        catalog: 'hipparcos',
+      }],
+      labelCandidates: [{ starId: 'hip-91262', label: 'Vega', priority: 200 }],
+      provenance: {
+        catalog: 'hipparcos',
+        sourcePath: 'test',
+      },
+    }]
+    const unresolved = resolveScenePacketForQuery({
+      query,
+      repositoryMode: 'hipparcos',
+      runtimeTiles: [],
+      tileLoadResult: null,
+      resolvedTileQuerySignature: '',
+      previousScenePacket: null,
+    })
+    expect(unresolved.scenePacket).toBeNull()
+    expect(unresolved.hasResolvedTilesForQuery).toBe(false)
+
+    const resolvedSignature = buildRuntimeTileQuerySignature(query, 'hipparcos')
+    const resolved = resolveScenePacketForQuery({
+      query,
+      repositoryMode: 'hipparcos',
+      runtimeTiles,
+      tileLoadResult: {
+        mode: 'hipparcos',
+        sourceLabel: 'Hipparcos · 8,870 stars',
+        tiles: runtimeTiles,
+      },
+      resolvedTileQuerySignature: resolvedSignature,
+      previousScenePacket: unresolved.scenePacket,
+    })
+
+    expect(resolved.hasResolvedTilesForQuery).toBe(true)
+    expect(resolved.scenePacket).not.toBeNull()
+    expect(resolved.scenePacket?.diagnostics?.dataMode).toBe('hipparcos')
+    expect(resolved.scenePacket?.diagnostics?.sourceLabel).toContain('Hipparcos')
+    expect(resolved.scenePacket?.stars.length).toBeGreaterThan(0)
   })
 })

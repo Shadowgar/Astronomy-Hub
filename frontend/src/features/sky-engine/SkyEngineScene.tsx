@@ -382,6 +382,11 @@ function buildSceneControllerModel(config: {
       sunState,
       moonObject,
     }),
+    {
+      // Bootstrap startup on a bounded Hipparcos packet first so scenePacket promotion
+      // does not block on deeper multi-survey payload completion.
+      bootstrapCatalogOnly: config.previousScenePacket == null,
+    },
   )
   const derivedGeometry = deriveObserverGeometry(
     {

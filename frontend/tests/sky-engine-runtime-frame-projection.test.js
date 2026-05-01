@@ -214,6 +214,139 @@ describe('collectProjectedStars early exit', () => {
     expect(result.timing.sortingMs).toBe(0)
   })
 
+  it('preserves tile-star traversal order and early break semantics', () => {
+    projectDirectionToViewportMock.mockReset()
+    getSkyEngineFovDegreesMock.mockReset()
+    projectDirectionToViewportMock.mockReturnValue({
+      screenX: 240,
+      screenY: 180,
+      depth: 0.2,
+      angularDistanceRad: 0.1,
+      planeX: 0,
+      planeY: 0,
+    })
+    getSkyEngineFovDegreesMock.mockReturnValue(60)
+
+    const stars = [
+      { id: 'tile-star-c', type: 'star', source: 'catalog', magnitude: 3.3, altitudeDeg: 40, azimuthDeg: 110, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 'tile-star-a', type: 'star', source: 'catalog', magnitude: 1.1, altitudeDeg: 42, azimuthDeg: 112, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 'tile-star-b', type: 'star', source: 'catalog', magnitude: 2.2, altitudeDeg: 44, azimuthDeg: 114, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 'tile-star-dim', type: 'star', source: 'catalog', magnitude: 8.4, altitudeDeg: 46, azimuthDeg: 116, colorHex: '#ffffff', colorIndexBV: 0.2 },
+    ]
+
+    const result = collectProjectedStars({
+      view: createView(),
+      objects: stars,
+      scenePacket: {
+        stars: stars.map((star) => ({
+          id: star.id,
+          x: 0,
+          y: 0,
+          z: 1,
+          mag: star.magnitude,
+          colorIndex: star.colorIndexBV,
+          label: star.id,
+          tier: 'T0',
+        })),
+        starTiles: [{
+          tileId: 'order-root',
+          level: 0,
+          parentTileId: null,
+          childTileIds: [],
+          magMin: 1.1,
+          magMax: 8.4,
+          starIds: ['tile-star-c', 'tile-star-a', 'tile-star-b', 'tile-star-dim'],
+        }],
+        labels: [],
+        diagnostics: {
+          dataMode: 'test',
+          sourceLabel: 'test-order',
+          limitingMagnitude: 6.0,
+          activeTiles: 1,
+          visibleStars: 4,
+          starsListVisitCount: 0,
+          activeTiers: ['T0'],
+          tileLevels: [0],
+          tilesPerLevel: { '0': 1 },
+          maxTileDepthReached: 0,
+          visibleTileIds: ['order-root'],
+        },
+      },
+      sunState: { visualCalibration: { starFieldBrightness: 1 } },
+      brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+    })
+
+    expect(result.projectedStars.map((entry) => entry.object.id)).toEqual([
+      'tile-star-a',
+      'tile-star-b',
+      'tile-star-c',
+    ])
+    expect(projectDirectionToViewportMock).toHaveBeenCalledTimes(3)
+  })
+
+  it('recovers root traversal from starTiles when diagnostics visible roots are absent', () => {
+    projectDirectionToViewportMock.mockReset()
+    getSkyEngineFovDegreesMock.mockReset()
+    projectDirectionToViewportMock.mockReturnValue({
+      screenX: 300,
+      screenY: 200,
+      depth: 0.2,
+      angularDistanceRad: 0.1,
+      planeX: 0,
+      planeY: 0,
+    })
+    getSkyEngineFovDegreesMock.mockReturnValue(60)
+
+    const stars = [
+      { id: 'fallback-root-star', type: 'star', source: 'catalog', magnitude: 2.4, altitudeDeg: 42, azimuthDeg: 112, colorHex: '#ffffff', colorIndexBV: 0.2 },
+    ]
+
+    const result = collectProjectedStars({
+      view: createView(),
+      objects: stars,
+      scenePacket: {
+        stars: stars.map((star) => ({
+          id: star.id,
+          x: 0,
+          y: 0,
+          z: 1,
+          mag: star.magnitude,
+          colorIndex: star.colorIndexBV,
+          label: star.id,
+          tier: 'T0',
+        })),
+        starTiles: [{
+          tileId: 'fallback-root',
+          level: 0,
+          parentTileId: null,
+          childTileIds: [],
+          magMin: 2.4,
+          magMax: 2.5,
+          starIds: ['fallback-root-star'],
+        }],
+        labels: [],
+        diagnostics: {
+          dataMode: 'test',
+          sourceLabel: 'test-fallback-roots',
+          limitingMagnitude: 6.0,
+          activeTiles: 1,
+          visibleStars: 1,
+          starsListVisitCount: 0,
+          activeTiers: ['T0'],
+          tileLevels: [0],
+          tilesPerLevel: { '0': 1 },
+          maxTileDepthReached: 0,
+          visibleTileIds: [],
+        },
+      },
+      sunState: { visualCalibration: { starFieldBrightness: 1 } },
+      brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+    })
+
+    expect(result.projectedStars).toHaveLength(1)
+    expect(result.projectedStars[0].object.id).toBe('fallback-root-star')
+  })
+
   it('does not admit selected stars once they fail the Stellarium point gate', () => {
     projectDirectionToViewportMock.mockReset()
     getSkyEngineFovDegreesMock.mockReset()

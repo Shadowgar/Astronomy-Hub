@@ -13,7 +13,14 @@ const GAIA_SURVEY_ACTIVATION_MAGNITUDE = 8.5
 export function resolveRepositoryQueryLimitingMagnitude(
   repositoryMode: SkyEngineSceneProps['repositoryMode'],
   limitingMagnitude: number,
+  options?: {
+    bootstrapCatalogOnly?: boolean
+  },
 ) {
+  if (repositoryMode === 'multi-survey' && options?.bootstrapCatalogOnly === true) {
+    return Math.min(limitingMagnitude, HIPPARCOS_QUERY_LIMITING_MAGNITUDE_MAX)
+  }
+
   if (repositoryMode === 'hipparcos') {
     return Math.min(limitingMagnitude, HIPPARCOS_QUERY_LIMITING_MAGNITUDE_MAX)
   }
