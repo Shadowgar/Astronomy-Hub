@@ -269,6 +269,46 @@ describe('Sky star runtime ownership', () => {
     expect(runtime.projectedStarsFrame?.limitingMagnitude).toBe(5.1)
   })
 
+  it('keeps Hipparcos usability boost bounded and explicit non-parity behavior', () => {
+    const module = createStarsModule()
+    const runtime = createBaseRuntime()
+    runtime.corePainterLimits = {
+      starsLimitMag: 5.1,
+      hintsLimitMag: 4.8,
+      hardLimitMag: 5.2,
+    }
+    const services = createBaseServices()
+    const props = createBaseProps()
+    props.scenePacket = {
+      stars: [{ id: 'star-1', x: 0, y: 0, z: 1, mag: 1.2, tier: 'T0' }],
+      labels: [],
+      diagnostics: {
+        dataMode: 'hipparcos',
+        sourceLabel: 'Hipparcos',
+        limitingMagnitude: 6.4,
+        activeTiles: 1,
+        visibleStars: 1,
+        starsListVisitCount: 0,
+        activeTiers: ['T0'],
+        tileLevels: [0],
+        tilesPerLevel: { 0: 1 },
+        maxTileDepthReached: 0,
+        visibleTileIds: ['t0'],
+      },
+    }
+    const getProps = () => props
+    const getPropsVersion = () => 1
+
+    module.update({ runtime, services, getProps, getPropsVersion })
+
+    expect(runtime.projectedStarsFrame?.limitingMagnitude).toBe(5.2)
+    expect(runtime.runtimePerfTelemetry.latest.stepMs.starsExposureLimitMag).toBe(6.4)
+    expect(runtime.runtimePerfTelemetry.latest.stepMs.starsSourceShapedLimitMag).toBe(5.1)
+    expect(runtime.runtimePerfTelemetry.latest.stepMs.starsUsabilityAdjustedLimitMag).toBe(5.2)
+    const lastCallInput = vi.mocked(collectProjectedStars).mock.calls.at(-1)?.[0]
+    expect(lastCallInput?.resolvedStarsLimitMagnitude).toBe(5.2)
+  })
+
   it('reprojects stars when scene packet signature changes', () => {
     const module = createStarsModule()
     const runtime = createBaseRuntime()

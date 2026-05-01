@@ -8,6 +8,10 @@ import {
   resolveViewTier,
 } from './runtimeFrame'
 import { evaluateStarsProjectionReuseDecision } from '../../adapters/framePacingDecisions'
+/**
+ * Temporary usability-only tuning: not a Stellarium parity claim.
+ * Keep bounded by `hardLimitMag` and scoped to Hipparcos mode only.
+ */
 const HIPPARCOS_USABILITY_LIMITING_MAG_DELTA = 0.3
 
 export interface StarsProjectionCacheEntry {
@@ -227,22 +231,23 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
       if (!brightnessExposureState) {
         return
       }
-      const limitingMagnitude = resolveStarsRenderLimitMagnitude(
+      const starsExposureLimitMagnitude = brightnessExposureState.limitingMagnitude
+      const sourceShapedStarsLimitMagnitude = resolveStarsRenderLimitMagnitude(
         brightnessExposureState.limitingMagnitude,
         runtime.corePainterLimits,
       )
       const sceneDataMode = latest.scenePacket?.diagnostics?.dataMode ?? 'loading'
-      const usabilityLimitingMagnitude = sceneDataMode === 'hipparcos'
+      const usabilityAdjustedStarsLimitMagnitude = sceneDataMode === 'hipparcos'
         ? Math.min(
-            limitingMagnitude + HIPPARCOS_USABILITY_LIMITING_MAG_DELTA,
+            sourceShapedStarsLimitMagnitude + HIPPARCOS_USABILITY_LIMITING_MAG_DELTA,
             runtime.corePainterLimits?.hardLimitMag ?? Number.POSITIVE_INFINITY,
           )
-        : limitingMagnitude
-      const starsExposureState = usabilityLimitingMagnitude === brightnessExposureState.limitingMagnitude
+        : sourceShapedStarsLimitMagnitude
+      const starsExposureState = usabilityAdjustedStarsLimitMagnitude === starsExposureLimitMagnitude
         ? brightnessExposureState
         : {
           ...brightnessExposureState,
-          limitingMagnitude: usabilityLimitingMagnitude,
+          limitingMagnitude: usabilityAdjustedStarsLimitMagnitude,
         }
       const centerDirection = view.centerDirection
       const objectSignature = buildProjectionSignature(latest)
@@ -260,7 +265,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
             z: centerDirection.z,
           },
           fovDegrees: currentFovDegrees,
-          limitingMagnitude: usabilityLimitingMagnitude,
+          limitingMagnitude: usabilityAdjustedStarsLimitMagnitude,
           sceneTimestampMs,
         },
         starsProjectionReuseStreak: runtime.starsProjectionReuseStreak,
@@ -284,6 +289,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           scenePacket: latest.scenePacket,
           sunState: latest.sunState,
           brightnessExposureState: starsExposureState,
+          resolvedStarsLimitMagnitude: usabilityAdjustedStarsLimitMagnitude,
           corePainterLimits: runtime.corePainterLimits,
           observerAstrometry: runtime.observerAstrometry
             ? {
@@ -319,7 +325,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
             z: centerDirection.z,
           },
           fovDegrees: currentFovDegrees,
-          limitingMagnitude: usabilityLimitingMagnitude,
+          limitingMagnitude: usabilityAdjustedStarsLimitMagnitude,
           projectedStars,
         }
         runtime.starsProjectionReuseStreak = 0
@@ -340,14 +346,16 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
         lod: resolveViewTier(currentFovDegrees),
         view,
         projectedStars,
-        limitingMagnitude: usabilityLimitingMagnitude,
+        limitingMagnitude: usabilityAdjustedStarsLimitMagnitude,
         sceneTimestampIso,
       }
       runtime.runtimePerfTelemetry.latest = {
         ...runtime.runtimePerfTelemetry.latest,
         stepMs: {
           ...runtime.runtimePerfTelemetry.latest.stepMs,
-          starsExposureLimitMag: brightnessExposureState.limitingMagnitude,
+          starsExposureLimitMag: starsExposureLimitMagnitude,
+          starsSourceShapedLimitMag: sourceShapedStarsLimitMagnitude,
+          starsUsabilityAdjustedLimitMag: usabilityAdjustedStarsLimitMagnitude,
           starsPainterLimitMag: runtime.corePainterLimits?.starsLimitMag ?? Number.NaN,
           collectProjectedStarsMs: projectionElapsedMs,
           starsProjectionReused: shouldReuseProjection ? 1 : 0,

@@ -25,7 +25,7 @@ import type {
 } from '../../../../types'
 import type { SkyBrightnessExposureState } from '../types'
 import {
-  visitStarsRenderTiles,
+  visitStarsRenderSurveys,
   type StarsRenderVisitorProjectedPoint,
 } from '../starsRenderVisitor'
 
@@ -617,6 +617,7 @@ type CollectProjectedStarsInput = {
   scenePacket: SkyScenePacket | null
   sunState: SkyEngineSunState
   brightnessExposureState: SkyBrightnessExposureState
+  resolvedStarsLimitMagnitude?: number
   corePainterLimits?: { starsLimitMag: number; hardLimitMag: number } | null
   observerAstrometry?: ObserverAstrometrySnapshot
 }
@@ -796,13 +797,15 @@ export function collectProjectedStars(input: CollectProjectedStarsInput): Projec
   let allocationMs = 0
   const fovDegrees = getSkyEngineFovDegrees(input.view.fovRadians)
   const centerAltitudeDeg = directionToHorizontal(input.view.centerDirection).altitudeDeg
-  const limitingMagnitude = Math.min(
-    Math.min(
-      input.brightnessExposureState.limitingMagnitude,
-      input.corePainterLimits?.starsLimitMag ?? Number.POSITIVE_INFINITY,
-    ),
-    input.corePainterLimits?.hardLimitMag ?? Number.POSITIVE_INFINITY,
-  )
+  const limitingMagnitude = Number.isFinite(input.resolvedStarsLimitMagnitude)
+    ? Number(input.resolvedStarsLimitMagnitude)
+    : Math.min(
+      Math.min(
+        input.brightnessExposureState.limitingMagnitude,
+        input.corePainterLimits?.starsLimitMag ?? Number.POSITIVE_INFINITY,
+      ),
+      input.corePainterLimits?.hardLimitMag ?? Number.POSITIVE_INFINITY,
+    )
   const projectedStarCap = resolveProjectedStarCapForFov(fovDegrees)
   const projectedStars: ProjectedSceneObjectEntry[] = []
   const viewportMinSizePx = Math.min(input.view.viewportWidth, input.view.viewportHeight)
@@ -856,7 +859,7 @@ export function collectProjectedStars(input: CollectProjectedStarsInput): Projec
   const objectLookup = new Map(input.objects.map((object) => [object.id, object]))
   const packetStarLookup = new Map(input.scenePacket.stars.map((star) => [star.id, star] as const))
 
-  const visitorEntries = visitStarsRenderTiles({
+  const surveyVisitorResults = visitStarsRenderSurveys({
     scenePacket: input.scenePacket,
     starsLimitMagnitude: limitingMagnitude,
     hardLimitMagnitude: input.corePainterLimits?.hardLimitMag ?? Number.POSITIVE_INFINITY,
@@ -891,30 +894,35 @@ export function collectProjectedStars(input: CollectProjectedStarsInput): Projec
     },
   })
 
-  for (const entry of visitorEntries) {
-    const packetStar = packetStarLookup.get(entry.star.id)
-    const object = objectLookup.get(entry.star.id)
-    if (!packetStar || !object) {
-      continue
+  for (const surveyResult of surveyVisitorResults) {
+    for (const entry of surveyResult.entries) {
+      const packetStar = packetStarLookup.get(entry.star.id)
+      const object = objectLookup.get(entry.star.id)
+      if (!packetStar || !object) {
+        continue
+      }
+      const attempt = projectScenePacketStar(
+        packetStar,
+        entry.projectedPoint,
+        object,
+        input,
+        centerAltitudeDeg,
+        fovDegrees,
+        viewportMinSizePx,
+        { lastMagnitude, lastPointVisual },
+      )
+      magnitudeFilterMs += attempt.magnitudeFilterMs
+      allocationMs += attempt.allocationMs
+      lastMagnitude = attempt.lastMagnitude
+      lastPointVisual = attempt.lastPointVisual
+      if (!attempt.entry) {
+        continue
+      }
+      projectedStars.push(attempt.entry)
+      if (Number.isFinite(projectedStarCap) && projectedStars.length >= projectedStarCap) {
+        break
+      }
     }
-    const attempt = projectScenePacketStar(
-      packetStar,
-      entry.projectedPoint,
-      object,
-      input,
-      centerAltitudeDeg,
-      fovDegrees,
-      viewportMinSizePx,
-      { lastMagnitude, lastPointVisual },
-    )
-    magnitudeFilterMs += attempt.magnitudeFilterMs
-    allocationMs += attempt.allocationMs
-    lastMagnitude = attempt.lastMagnitude
-    lastPointVisual = attempt.lastPointVisual
-    if (!attempt.entry) {
-      continue
-    }
-    projectedStars.push(attempt.entry)
     if (Number.isFinite(projectedStarCap) && projectedStars.length >= projectedStarCap) {
       break
     }

@@ -426,6 +426,276 @@ describe('collectProjectedStars early exit', () => {
     expect(result.projectedStars[0].object.id).toBe('startup-star-1')
     expect(result.projectedStars[1].object.id).toBe('startup-star-2')
   })
+
+  it('traverses survey tiers in diagnostics order before tile visitor emission', () => {
+    projectDirectionToViewportMock.mockReset()
+    getSkyEngineFovDegreesMock.mockReset()
+    projectDirectionToViewportMock.mockReturnValue({
+      screenX: 210,
+      screenY: 160,
+      depth: 0.2,
+      angularDistanceRad: 0.1,
+      planeX: 0,
+      planeY: 0,
+    })
+    getSkyEngineFovDegreesMock.mockReturnValue(60)
+
+    const stars = [
+      { id: 't0-a', type: 'star', source: 'catalog', magnitude: 1.2, altitudeDeg: 40, azimuthDeg: 110, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 't0-b', type: 'star', source: 'catalog', magnitude: 3.5, altitudeDeg: 41, azimuthDeg: 111, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 't1-a', type: 'star', source: 'catalog', magnitude: 1.1, altitudeDeg: 42, azimuthDeg: 112, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 't1-b', type: 'star', source: 'catalog', magnitude: 2.6, altitudeDeg: 43, azimuthDeg: 113, colorHex: '#ffffff', colorIndexBV: 0.2 },
+    ]
+
+    const result = collectProjectedStars({
+      view: createView(),
+      objects: stars,
+      scenePacket: {
+        stars: [
+          { id: 't0-a', x: 0, y: 0, z: 1, mag: 1.2, colorIndex: 0.2, label: 't0-a', tier: 'T0' },
+          { id: 't0-b', x: 0, y: 0, z: 1, mag: 3.5, colorIndex: 0.2, label: 't0-b', tier: 'T0' },
+          { id: 't1-a', x: 0, y: 0, z: 1, mag: 1.1, colorIndex: 0.2, label: 't1-a', tier: 'T1' },
+          { id: 't1-b', x: 0, y: 0, z: 1, mag: 2.6, colorIndex: 0.2, label: 't1-b', tier: 'T1' },
+        ],
+        starTiles: [{
+          tileId: 'tier-root',
+          level: 0,
+          parentTileId: null,
+          childTileIds: [],
+          magMin: 1.1,
+          magMax: 3.5,
+          starIds: ['t0-b', 't1-b', 't0-a', 't1-a'],
+        }],
+        labels: [],
+        diagnostics: {
+          dataMode: 'test',
+          sourceLabel: 'test-tier-order',
+          limitingMagnitude: 6.0,
+          activeTiles: 1,
+          visibleStars: 4,
+          starsListVisitCount: 0,
+          activeTiers: ['T1', 'T0'],
+          tileLevels: [0],
+          tilesPerLevel: { '0': 1 },
+          maxTileDepthReached: 0,
+          visibleTileIds: ['tier-root'],
+        },
+      },
+      sunState: { visualCalibration: { starFieldBrightness: 1 } },
+      brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+    })
+
+    expect(result.projectedStars.map((entry) => entry.object.id)).toEqual([
+      't1-a',
+      't1-b',
+      't0-a',
+      't0-b',
+    ])
+  })
+
+  it('skips unloaded or too-dim survey tiers without breaking fallback-capable projection path', () => {
+    projectDirectionToViewportMock.mockReset()
+    getSkyEngineFovDegreesMock.mockReset()
+    projectDirectionToViewportMock.mockReturnValue({
+      screenX: 250,
+      screenY: 170,
+      depth: 0.2,
+      angularDistanceRad: 0.1,
+      planeX: 0,
+      planeY: 0,
+    })
+    getSkyEngineFovDegreesMock.mockReturnValue(60)
+
+    const stars = [
+      { id: 't0-visible', type: 'star', source: 'catalog', magnitude: 2.1, altitudeDeg: 40, azimuthDeg: 110, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 't1-dim', type: 'star', source: 'catalog', magnitude: 9.4, altitudeDeg: 42, azimuthDeg: 112, colorHex: '#ffffff', colorIndexBV: 0.2 },
+    ]
+
+    const result = collectProjectedStars({
+      view: createView(),
+      objects: stars,
+      scenePacket: {
+        stars: [
+          { id: 't0-visible', x: 0, y: 0, z: 1, mag: 2.1, colorIndex: 0.2, label: 't0-visible', tier: 'T0' },
+          { id: 't1-dim', x: 0, y: 0, z: 1, mag: 9.4, colorIndex: 0.2, label: 't1-dim', tier: 'T1' },
+        ],
+        starTiles: [{
+          tileId: 'dim-tier-root',
+          level: 0,
+          parentTileId: null,
+          childTileIds: [],
+          magMin: 2.1,
+          magMax: 9.4,
+          starIds: ['t0-visible', 't1-dim'],
+        }],
+        labels: [],
+        diagnostics: {
+          dataMode: 'test',
+          sourceLabel: 'test-tier-skip',
+          limitingMagnitude: 6.0,
+          activeTiles: 1,
+          visibleStars: 2,
+          starsListVisitCount: 0,
+          activeTiers: ['T2', 'T1', 'T0'],
+          tileLevels: [0],
+          tilesPerLevel: { '0': 1 },
+          maxTileDepthReached: 0,
+          visibleTileIds: ['dim-tier-root'],
+        },
+      },
+      sunState: { visualCalibration: { starFieldBrightness: 1 } },
+      brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+    })
+
+    expect(result.projectedStars).toHaveLength(1)
+    expect(result.projectedStars[0].object.id).toBe('t0-visible')
+    expect(projectDirectionToViewportMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('projects fewer stars at lower limiting magnitude and more stars at higher limiting magnitude', () => {
+    projectDirectionToViewportMock.mockReset()
+    getSkyEngineFovDegreesMock.mockReset()
+    projectDirectionToViewportMock.mockReturnValue({
+      screenX: 220,
+      screenY: 170,
+      depth: 0.2,
+      angularDistanceRad: 0.1,
+      planeX: 0,
+      planeY: 0,
+    })
+    getSkyEngineFovDegreesMock.mockReturnValue(60)
+
+    const stars = [
+      { id: 'mag-1', type: 'star', source: 'catalog', magnitude: 1.2, altitudeDeg: 40, azimuthDeg: 110, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 'mag-2', type: 'star', source: 'catalog', magnitude: 2.6, altitudeDeg: 41, azimuthDeg: 111, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 'mag-3', type: 'star', source: 'catalog', magnitude: 3.9, altitudeDeg: 42, azimuthDeg: 112, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 'mag-4', type: 'star', source: 'catalog', magnitude: 5.0, altitudeDeg: 43, azimuthDeg: 113, colorHex: '#ffffff', colorIndexBV: 0.2 },
+    ]
+
+    const scenePacket = {
+      stars: stars.map((star) => ({
+        id: star.id,
+        x: 0,
+        y: 0,
+        z: 1,
+        mag: star.magnitude,
+        colorIndex: star.colorIndexBV,
+        label: star.id,
+        tier: 'T0',
+      })),
+      starTiles: [{
+        tileId: 'mag-root',
+        level: 0,
+        parentTileId: null,
+        childTileIds: [],
+        magMin: 1.2,
+        magMax: 5.0,
+        starIds: stars.map((star) => star.id),
+      }],
+      labels: [],
+      diagnostics: {
+        dataMode: 'test',
+        sourceLabel: 'test-mag-response',
+        limitingMagnitude: 6.0,
+        activeTiles: 1,
+        visibleStars: 4,
+        starsListVisitCount: 0,
+        activeTiers: ['T0'],
+        tileLevels: [0],
+        tilesPerLevel: { '0': 1 },
+        maxTileDepthReached: 0,
+        visibleTileIds: ['mag-root'],
+      },
+    }
+
+    const lowLimit = collectProjectedStars({
+      view: createView(),
+      objects: stars,
+      scenePacket,
+      sunState: { visualCalibration: { starFieldBrightness: 1 } },
+      brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      resolvedStarsLimitMagnitude: 2.4,
+    })
+
+    const highLimit = collectProjectedStars({
+      view: createView(),
+      objects: stars,
+      scenePacket,
+      sunState: { visualCalibration: { starFieldBrightness: 1 } },
+      brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+      resolvedStarsLimitMagnitude: 5.1,
+    })
+
+    expect(lowLimit.projectedStars.length).toBe(1)
+    expect(highLimit.projectedStars.length).toBeGreaterThan(lowLimit.projectedStars.length)
+    expect(highLimit.projectedStars.map((entry) => entry.object.id)).toEqual(['mag-1', 'mag-2', 'mag-3', 'mag-4'])
+  })
+
+  it('applies painter stars limit to survey traversal filtering when exposure limit is higher', () => {
+    projectDirectionToViewportMock.mockReset()
+    getSkyEngineFovDegreesMock.mockReset()
+    projectDirectionToViewportMock.mockReturnValue({
+      screenX: 230,
+      screenY: 175,
+      depth: 0.2,
+      angularDistanceRad: 0.1,
+      planeX: 0,
+      planeY: 0,
+    })
+    getSkyEngineFovDegreesMock.mockReturnValue(60)
+
+    const stars = [
+      { id: 'paint-limit-1', type: 'star', source: 'catalog', magnitude: 1.1, altitudeDeg: 40, azimuthDeg: 110, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 'paint-limit-2', type: 'star', source: 'catalog', magnitude: 2.2, altitudeDeg: 41, azimuthDeg: 111, colorHex: '#ffffff', colorIndexBV: 0.2 },
+      { id: 'paint-limit-3', type: 'star', source: 'catalog', magnitude: 3.3, altitudeDeg: 42, azimuthDeg: 112, colorHex: '#ffffff', colorIndexBV: 0.2 },
+    ]
+
+    const result = collectProjectedStars({
+      view: createView(),
+      objects: stars,
+      scenePacket: {
+        stars: stars.map((star) => ({
+          id: star.id,
+          x: 0,
+          y: 0,
+          z: 1,
+          mag: star.magnitude,
+          colorIndex: star.colorIndexBV,
+          label: star.id,
+          tier: 'T0',
+        })),
+        starTiles: [{
+          tileId: 'paint-limit-root',
+          level: 0,
+          parentTileId: null,
+          childTileIds: [],
+          magMin: 1.1,
+          magMax: 3.3,
+          starIds: stars.map((star) => star.id),
+        }],
+        labels: [],
+        diagnostics: {
+          dataMode: 'test',
+          sourceLabel: 'test-painter-limit',
+          limitingMagnitude: 8.0,
+          activeTiles: 1,
+          visibleStars: 3,
+          starsListVisitCount: 0,
+          activeTiers: ['T0'],
+          tileLevels: [0],
+          tilesPerLevel: { '0': 1 },
+          maxTileDepthReached: 0,
+          visibleTileIds: ['paint-limit-root'],
+        },
+      },
+      sunState: { visualCalibration: { starFieldBrightness: 1 } },
+      brightnessExposureState: { limitingMagnitude: 8.0, visualCalibration: { starFieldBrightness: 1 } },
+      corePainterLimits: { starsLimitMag: 2.3, hardLimitMag: 99 },
+    })
+
+    expect(result.limitingMagnitude).toBe(2.3)
+    expect(result.projectedStars.map((entry) => entry.object.id)).toEqual(['paint-limit-1', 'paint-limit-2'])
+  })
 })
 
 describe('collectProjectedNonStarObjects LOD sizing', () => {

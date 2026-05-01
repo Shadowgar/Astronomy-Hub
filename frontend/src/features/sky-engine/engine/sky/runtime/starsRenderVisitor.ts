@@ -18,6 +18,11 @@ export type StarsRenderVisitorEntry = {
   readonly projectedPoint: StarsRenderVisitorProjectedPoint
 }
 
+export type StarsRenderSurveyVisitorResult = {
+  readonly surveyId: string
+  readonly entries: StarsRenderVisitorEntry[]
+}
+
 type VisitTileContext = {
   readonly tile: PacketStarTile
   readonly stars: readonly PacketStar[]
@@ -31,6 +36,8 @@ export type VisitStarsRenderTilesInput = {
   readonly isPointClipped: (projected: StarsRenderVisitorProjectedPoint) => boolean
   readonly isTileClipped?: (tile: PacketStarTile) => boolean
 }
+
+export type VisitStarsRenderSurveysInput = VisitStarsRenderTilesInput
 
 type VisitTileResult = {
   readonly entries: StarsRenderVisitorEntry[]
@@ -112,7 +119,10 @@ function visitTile({
   }
 }
 
-export function visitStarsRenderTiles(input: VisitStarsRenderTilesInput): StarsRenderVisitorEntry[] {
+function visitStarsRenderTilesForSurvey(
+  input: VisitStarsRenderTilesInput,
+  surveyId: string | null,
+): StarsRenderVisitorEntry[] {
   const scenePacket = input.scenePacket
   if (!scenePacket) {
     return []
@@ -138,6 +148,7 @@ export function visitStarsRenderTiles(input: VisitStarsRenderTilesInput): StarsR
     const stars = tile.starIds
       .map((starId) => starById.get(starId))
       .filter((star): star is PacketStar => Boolean(star))
+      .filter((star) => surveyId == null || star.tier === surveyId)
     const result = visitTile({ tile, stars }, input, limitMagnitude)
     entries.push(...result.entries)
 
@@ -157,4 +168,43 @@ export function visitStarsRenderTiles(input: VisitStarsRenderTilesInput): StarsR
   }
 
   return entries
+}
+
+function resolveSurveyTraversalOrder(scenePacket: SkyScenePacket) {
+  const packetTierSet = new Set<string>(scenePacket.stars.map((star) => star.tier))
+  const orderedFromDiagnostics = scenePacket.diagnostics.activeTiers
+    .filter((tier) => packetTierSet.has(tier))
+  const remaining = Array.from(packetTierSet)
+    .filter((tier) => !orderedFromDiagnostics.includes(tier))
+    .sort()
+  return [...orderedFromDiagnostics, ...remaining]
+}
+
+export function visitStarsRenderSurveys(input: VisitStarsRenderSurveysInput): StarsRenderSurveyVisitorResult[] {
+  const scenePacket = input.scenePacket
+  if (!scenePacket) {
+    return []
+  }
+
+  const surveyOrder = resolveSurveyTraversalOrder(scenePacket)
+  const results: StarsRenderSurveyVisitorResult[] = []
+  for (const surveyId of surveyOrder) {
+    // stars.c::stars_render (lines 734-735): survey-level min vmag pre-gate.
+    const surveyMinMagnitude = scenePacket.stars.reduce((minimum, star) => {
+      if (star.tier !== surveyId) {
+        return minimum
+      }
+      return Math.min(minimum, star.mag)
+    }, Number.POSITIVE_INFINITY)
+    if (!Number.isFinite(surveyMinMagnitude) || surveyMinMagnitude > input.starsLimitMagnitude) {
+      continue
+    }
+    const entries = visitStarsRenderTilesForSurvey(input, surveyId)
+    results.push({ surveyId, entries })
+  }
+  return results
+}
+
+export function visitStarsRenderTiles(input: VisitStarsRenderTilesInput): StarsRenderVisitorEntry[] {
+  return visitStarsRenderTilesForSurvey(input, null)
 }

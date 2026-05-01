@@ -137,3 +137,23 @@ Why this next:
 Not recommended yet:
 - (e) backend visual ownership switch, because direct layer ownership must remain active at this stage.
 
+
+## S8 Appendix — Survey Traversal Slice Landed
+
+Date: 2026-05-01  
+Scope: bounded `stars.c::stars_render` survey/source loop shaping only.
+
+What landed:
+1. Added `visitStarsRenderSurveys(...)` in `frontend/src/features/sky-engine/engine/sky/runtime/starsRenderVisitor.ts`.
+2. Made traversal explicit as diagnostics/source tier loop -> existing tile visitor -> entry emission.
+3. Added bounded survey pre-gate (`surveyMinMagnitude > starsLimitMagnitude`) mirroring native survey skip intent.
+4. Updated `collectProjectedStars(...)` in `runtimeFrame.ts` to consume survey-loop results while keeping S7 visitor behavior intact.
+
+What did not change:
+- `directStarLayer` remains visual owner.
+- painter backend default execution state unchanged.
+- startup fallback seed behavior unchanged.
+- Hipparcos bootstrap/catalog transition path unchanged.
+
+Parity scope note:
+- This remains a partial source-faithful slice and does not claim full `stars.c` parity.
