@@ -1,4 +1,5 @@
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
+import { createPointRenderItem } from '../../renderer/renderItems'
 import type { StellariumRendererContract } from '../../renderer/stellariumRendererContract'
 import type { SkyModule } from '../SkyModule'
 import type { WebGL2StarsHarnessMode } from '../../../../webgl2StarsHarnessConfig'
@@ -15,6 +16,8 @@ export interface WebGL2StarsHarnessDiagnostics {
   readonly directStarLayerStarCount: number
   readonly frameIndex: number
   readonly note: string | null
+  readonly syntheticDenseGridEnabled: boolean
+  readonly syntheticDensePointCount: number
 }
 
 const DEFAULT_PIXEL_RATIO = 1
@@ -23,6 +26,8 @@ export function createWebGL2StarsHarnessModule(input: {
   enabled: boolean
   comparisonMode: WebGL2StarsHarnessMode
   renderer: StellariumRendererContract
+  denseVerificationGridEnabled?: boolean
+  denseVerificationGridSize?: number
   onDiagnostics?: (diagnostics: WebGL2StarsHarnessDiagnostics) => void
 }): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   let initialized = false
@@ -36,6 +41,43 @@ export function createWebGL2StarsHarnessModule(input: {
       comparisonModeEnabled: input.enabled,
       comparisonMode: input.comparisonMode,
       ...diagnostics,
+    })
+  }
+
+  const denseGridSize = Math.max(4, Math.min(64, input.denseVerificationGridSize ?? 12))
+
+  const buildDenseVerificationPointItem = (width: number, height: number) => {
+    const columns = denseGridSize
+    const rows = denseGridSize
+    const payload: number[] = []
+    const xStep = width / (columns + 1)
+    const yStep = height / (rows + 1)
+
+    for (let row = 0; row < rows; row += 1) {
+      for (let column = 0; column < columns; column += 1) {
+        const x = (column + 1) * xStep
+        const y = (row + 1) * yStep
+        const normalizedDepth = row / Math.max(rows - 1, 1)
+        payload.push(
+          x,
+          y,
+          normalizedDepth,
+          2.8,
+          210,
+          255,
+          255,
+          225,
+        )
+      }
+    }
+
+    return createPointRenderItem({
+      order: 900,
+      pointCount: columns * rows,
+      vertexPayload: payload,
+      sourceModule: 'webgl2-harness-dense-grid',
+      sourceObjectId: null,
+      dimensions: '2d',
     })
   }
 
@@ -101,9 +143,14 @@ export function createWebGL2StarsHarnessModule(input: {
         },
       } as const
 
-      const renderItems = runtime.rendererBoundaryStarsPointItem
-        ? [runtime.rendererBoundaryStarsPointItem]
-        : []
+      const denseGridItem = input.denseVerificationGridEnabled
+        ? buildDenseVerificationPointItem(frameInput.viewport.width, frameInput.viewport.height)
+        : null
+      const renderItems = denseGridItem
+        ? [denseGridItem]
+        : runtime.rendererBoundaryStarsPointItem
+          ? [runtime.rendererBoundaryStarsPointItem]
+          : []
 
       try {
         input.renderer.prepareFrame(frameInput)
@@ -123,6 +170,8 @@ export function createWebGL2StarsHarnessModule(input: {
           directStarLayerStarCount: runtime.projectedStarsFrame?.projectedStars.length ?? 0,
           frameIndex: frameState.frameIndex,
           note: frameOutput.diagnostics.notes[frameOutput.diagnostics.notes.length - 1] ?? null,
+          syntheticDenseGridEnabled: Boolean(denseGridItem),
+          syntheticDensePointCount: denseGridItem?.pointCount ?? 0,
         })
       } catch (error) {
         emitDiagnostics({
@@ -135,6 +184,8 @@ export function createWebGL2StarsHarnessModule(input: {
           directStarLayerStarCount: runtime.projectedStarsFrame?.projectedStars.length ?? 0,
           frameIndex: frameState.frameIndex,
           note: error instanceof Error ? error.message : String(error),
+          syntheticDenseGridEnabled: Boolean(input.denseVerificationGridEnabled),
+          syntheticDensePointCount: input.denseVerificationGridEnabled ? denseGridSize * denseGridSize : 0,
         })
       }
     },

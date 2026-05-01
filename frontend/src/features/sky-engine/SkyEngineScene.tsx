@@ -98,6 +98,8 @@ const DEFAULT_WEBGL2_STARS_HARNESS_CONFIG: WebGL2StarsHarnessConfig = {
   enabled: false,
   mode: 'overlay',
   devOnly: true,
+  denseVerificationGridEnabled: false,
+  denseVerificationGridSize: 12,
 }
 
 interface SelectionMemory {
@@ -812,6 +814,8 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
         enabled: true,
         comparisonMode: webgl2StarsHarnessConfig.mode,
         renderer: webgl2HarnessRenderer,
+        denseVerificationGridEnabled: webgl2StarsHarnessConfig.denseVerificationGridEnabled,
+        denseVerificationGridSize: webgl2StarsHarnessConfig.denseVerificationGridSize,
         onDiagnostics: (diagnostics) => {
           const nextDiagnosticsKey = [
             diagnostics.backendActive ? '1' : '0',
@@ -819,6 +823,8 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
             diagnostics.submittedPointCount,
             diagnostics.drawnPointCount,
             diagnostics.directStarLayerStarCount,
+            diagnostics.syntheticDenseGridEnabled ? 'dense-grid-on' : 'dense-grid-off',
+            diagnostics.syntheticDensePointCount,
             diagnostics.comparisonMode,
           ].join(':')
 
@@ -891,6 +897,12 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
             <span>Direct stars: {webgl2HarnessDiagnostics?.directStarLayerStarCount ?? 0}</span>
             <span>Submitted points: {webgl2HarnessDiagnostics?.submittedPointCount ?? 0}</span>
             <span>Drawn points: {webgl2HarnessDiagnostics?.drawnPointCount ?? 0}</span>
+            <span>
+              Dense grid mode: {webgl2HarnessDiagnostics?.syntheticDenseGridEnabled ? 'ON' : 'OFF'}
+              {webgl2HarnessDiagnostics?.syntheticDenseGridEnabled
+                ? ` (${webgl2HarnessDiagnostics.syntheticDensePointCount} synthetic points)`
+                : ''}
+            </span>
             <span>Backend: {webgl2HarnessDiagnostics?.backendName ?? 'initializing'}</span>
             <small>Diagnostic harness only. No parity claim. directStarLayer remains default.</small>
           </div>

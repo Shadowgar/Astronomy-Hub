@@ -251,3 +251,125 @@ Known limitations:
 - Harness currently targets point item comparison only (`ITEM_POINTS`).
 - Non-point item lanes (mesh/text/texture) remain unimplemented in WebGL2 harness path.
 - Shader behavior remains shell-level and is not declared Stellarium parity.
+
+## Renderer Reset Step 6 - WebGL2 Harness Visual Verification
+
+Verification scope:
+- Runtime visual verification only (no renderer feature expansion).
+- Confirm harness mount gating, diagnostics counters, and side-by-side/overlay behavior while preserving default ownership.
+
+Runtime URLs tested:
+- `http://172.26.23.204:4174/sky-engine`
+- `http://172.26.23.204:4174/sky-engine?webgl2StarsHarness=1&webgl2StarsHarnessMode=overlay`
+- `http://172.26.23.204:4174/sky-engine?webgl2StarsHarness=1&webgl2StarsHarnessMode=side-by-side`
+
+Screenshot artifacts (tool URI evidence):
+- Default route (no harness): `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_uY1d9MsXIzoE2jyFjNJRCjpY/0/file.jpe`
+- Overlay mode: `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_JAB4rjdAUCl3CgSzDX9reOeY/0/file.jpe`
+- Side-by-side mode: `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_oEqb9L2IPPMfqCMw2OBKQ0NS/0/file.jpe`
+
+Diagnostics and counts observed:
+- Default route:
+  - Harness mount: not present.
+  - Base scene canvas: present.
+  - Progress chips: `Stars 2`, `Listed 0`, `Data Hipparcos`.
+- Overlay mode:
+  - Comparison label/status: present.
+  - Mode: `overlay`.
+  - Direct stars: `2`.
+  - Submitted points: `2`.
+  - Drawn points: `2`.
+  - Backend: `webgl2-stellarium-shell`.
+- Side-by-side mode:
+  - Comparison label/status: present.
+  - Mode: `side-by-side`.
+  - Direct stars: `2`.
+  - Submitted points: `2`.
+  - Drawn points: `2`.
+  - Backend: `webgl2-stellarium-shell`.
+
+Visual verification results:
+- `directStarLayer` remains active/visible in all tested routes.
+- Harness canvas mounts only when `webgl2StarsHarness=1` is present.
+- Default `/sky-engine` route remains unchanged (no harness UI/canvas).
+- WebGL2 point path is active (submitted and drawn counts match in both harness modes).
+- WebGL2 points are visible but sparse/faint in this runtime snapshot (low star count and bright sky scene).
+- No severe global coordinate drift or full-canvas offset was observed; overlay/split views remain spatially coherent at this density.
+
+Frame-time/regression check (quick runtime sample):
+- Default mode average frame delta (sampled): ~11.83 ms.
+- Overlay mode average frame delta (sampled): ~11.48 ms.
+- Side-by-side mode average frame delta (sampled): ~16.48 ms.
+- Result: no severe frame-time regression observed in this verification pass.
+
+Known visual gaps recorded (no fixes in this step):
+- Point visibility contrast is limited in bright-scene conditions.
+- With low rendered star count (`2`), precise per-point alignment confidence is limited; no gross mismatch observed.
+- Side-by-side mode currently provides hard split with tint/separator but no dedicated calibration overlay markers.
+
+Recommended next renderer implementation step:
+- Add a harness-only star debug calibration pass (toggleable crosshair/grid + configurable point size/alpha ramp) to improve visual alignment verification confidence before expanding item types.
+
+## Renderer Reset Step 7 - Dense WebGL2 Harness Verification
+
+Verification objective:
+- Evaluate WebGL2 harness under meaningfully dense point load while preserving default directStarLayer ownership.
+
+Routes/settings used:
+- Default route (ownership baseline):
+  - `http://172.26.23.204:4174/sky-engine`
+- Dense overlay harness:
+  - `http://172.26.23.204:4174/sky-engine?webgl2StarsHarness=1&webgl2StarsHarnessMode=overlay&webgl2StarsHarnessDenseGrid=1&webgl2StarsHarnessDenseGridSize=12`
+- Dense side-by-side harness:
+  - `http://172.26.23.204:4174/sky-engine?webgl2StarsHarness=1&webgl2StarsHarnessMode=side-by-side&webgl2StarsHarnessDenseGrid=1&webgl2StarsHarnessDenseGridSize=12`
+
+Dense mode note:
+- Existing runtime controls remained sparse in this environment (`Stars 2`, `Data Hipparcos`), so a dev-only deterministic synthetic verification grid was enabled for harness-only submission.
+- Synthetic grid is diagnostic-only and not production sky data.
+
+Screenshot/artifact evidence (tool URI):
+- Default route:
+  - `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_S86GyCBoLBJIkLdXUzfwz329/0/file.jpe`
+- Dense overlay:
+  - `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_FBSQi3TP1bu7zxcurMAm3Boc/0/file.jpe`
+- Dense side-by-side:
+  - `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_GCldQJr7w73uWq2qJpBXgh7i/0/file.jpe`
+
+Observed counts:
+- Default route:
+  - Harness mounted: no.
+  - Direct stars chip: `Stars 2`.
+- Dense overlay route:
+  - Direct stars: `2`.
+  - Submitted points: `144`.
+  - Drawn points: `144`.
+  - Dense grid mode status: `ON (144 synthetic points)`.
+- Dense side-by-side route:
+  - Direct stars: `2`.
+  - Submitted points: `144`.
+  - Drawn points: `144`.
+  - Dense grid mode status: `ON (144 synthetic points)`.
+
+Dense threshold result:
+- Achieved: yes (`144` points >= target `50`).
+
+Alignment/visual verdict:
+- Harness gating remains correct: default route unchanged; overlay/split mount only when flagged.
+- WebGL2 submitted and drawn counts remain equal under dense load.
+- Synthetic grid appears spatially stable across viewport and side-by-side half-surface.
+- Direct vs WebGL2 point counts are intentionally not close in this run due diagnostic synthetic-grid mode; this is expected and explainable.
+- Under synthetic dense verification, no gross coordinate or viewport-origin mismatch was observed.
+
+Issue classification from dense pass:
+- Coordinate mapping: no severe global mismatch observed in synthetic grid mode.
+- Viewport sizing: side-by-side clipping/split boundary behaves as expected.
+- Point size/color/alpha: visible and consistent, but not photometric/parity tuned.
+- Depth/order: no obvious ordering artifact in synthetic 2D grid mode.
+- Density/limiting magnitude: real runtime density remains constrained in this environment (sparse direct star source).
+- Shader behavior: shell shader remains basic and suitable for diagnostic verification only.
+
+Step 8 recommendation:
+- Prioritize real-data density enablement and point-style calibration before any ownership transition:
+  - restore/verify non-sparse runtime star source path,
+  - then tune WebGL2 point size/alpha/color response against directStarLayer under real dense sky frames,
+  - keep ownership feature-flagged until real-data dense alignment is verified.

@@ -153,4 +153,30 @@ describe('webgl2 stars harness module', () => {
       renderItems: [],
     }))
   })
+
+  it('submits deterministic synthetic dense grid points when dense verification mode is enabled', () => {
+    const renderer = createRendererMock()
+    const diagnostics = vi.fn()
+    const module = createWebGL2StarsHarnessModule({
+      enabled: true,
+      comparisonMode: 'overlay',
+      renderer,
+      denseVerificationGridEnabled: true,
+      denseVerificationGridSize: 8,
+      onDiagnostics: diagnostics,
+    })
+
+    const context = createRenderContext({ item: null })
+    module.render(context)
+
+    const submission = renderer.submitFrame.mock.calls[0][0]
+    expect(submission.renderItems).toHaveLength(1)
+    expect(submission.renderItems[0].pointCount).toBe(64)
+    expect(diagnostics).toHaveBeenCalledWith(expect.objectContaining({
+      syntheticDenseGridEnabled: true,
+      syntheticDensePointCount: 64,
+      submittedPointCount: 2,
+      drawnPointCount: 2,
+    }))
+  })
 })

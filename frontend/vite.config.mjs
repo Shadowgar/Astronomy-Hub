@@ -23,7 +23,7 @@ export default defineConfig({
   test: {
     environment: 'node',
     globals: true,
-    include: ['tests/**/*.test.js'],
+    include: ['tests/**/*.test.{js,jsx}'],
   },
   server: {
     host: '0.0.0.0',
