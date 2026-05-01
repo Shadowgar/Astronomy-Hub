@@ -41,6 +41,7 @@ import {
 } from '../features/sky-engine/aidVisibilityPersistence'
 import { persistSkyCultureId, readPersistedSkyCultureId } from '../features/sky-engine/skyCultureSelection'
 import { SKY_ENGINE_SKYCULTURES } from '../features/sky-engine/skycultures'
+import { resolveWebGL2StarsHarnessConfig } from '../features/sky-engine/webgl2StarsHarnessConfig'
 import { useSceneByScopeDataQuery, useSkyStarTileManifestDataQuery } from '../features/scene/queries'
 import {
   isFiniteNumber,
@@ -258,6 +259,7 @@ type SkyEngineViewportProps = {
   initialSkyCultureId: string
   debugTelemetryEnabled: boolean
   deterministicParityModeEnabled: boolean
+  webgl2StarsHarnessConfig: ReturnType<typeof resolveWebGL2StarsHarnessConfig>
 }
 
 const SkyEngineViewport = React.memo(function SkyEngineViewport({
@@ -275,6 +277,7 @@ const SkyEngineViewport = React.memo(function SkyEngineViewport({
   initialSkyCultureId,
   debugTelemetryEnabled,
   deterministicParityModeEnabled,
+  webgl2StarsHarnessConfig,
 }: Readonly<SkyEngineViewportProps>) {
   return (
     <SkyEngineScene
@@ -292,6 +295,7 @@ const SkyEngineViewport = React.memo(function SkyEngineViewport({
       initialSkyCultureId={initialSkyCultureId}
       debugTelemetryEnabled={debugTelemetryEnabled}
       deterministicParityMode={deterministicParityModeEnabled}
+      webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
     />
   )
 })
@@ -309,6 +313,11 @@ function SkyEnginePageContent({
   const snapshotStore = useMemo(() => createSkyEngineSnapshotStore(), [])
   const debugTelemetryEnabled = useMemo(() => resolveDebugTelemetryEnabled(), [])
   const deterministicParityModeEnabled = useMemo(() => resolveDeterministicParityModeEnabled(), [])
+  const webgl2StarsHarnessConfig = useMemo(() => resolveWebGL2StarsHarnessConfig({
+    search: globalThis.location?.search ?? '',
+    isDev: true,
+    devOnly: false,
+  }), [])
   const snapshot = useSkyEngineSnapshotPoll(snapshotStore)
   const skyStarTileManifestQuery = useSkyStarTileManifestDataQuery({ at: backendScene.timestamp })
   const [repositoryMode] = useState(() => resolveSkyTileRepositoryMode())
@@ -655,6 +664,7 @@ function SkyEnginePageContent({
           initialSkyCultureId={initialSkyCultureId}
           debugTelemetryEnabled={debugTelemetryEnabled}
           deterministicParityModeEnabled={deterministicParityModeEnabled}
+          webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
         />
 
         <div className="click-through sky-engine-page__gui-root">

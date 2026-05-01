@@ -1,4 +1,4 @@
-import React, { forwardRef, memo, useEffect, useImperativeHandle, useRef } from 'react'
+import React, { forwardRef, memo, useEffect, useImperativeHandle, useRef, useState } from 'react'
 
 import {
   computeBackendStarSceneObjects,
@@ -51,6 +51,11 @@ import { createSceneLuminanceReportModule } from './engine/sky/runtime/modules/S
 import { createSkyBrightnessExposureModule } from './engine/sky/runtime/modules/SkyBrightnessExposureModule'
 import { createSnapshotBridgeModule } from './engine/sky/runtime/modules/SnapshotBridgeModule'
 import { createStarsModule } from './engine/sky/runtime/modules/StarsModule'
+import {
+  createWebGL2StarsHarnessModule,
+  type WebGL2StarsHarnessDiagnostics,
+} from './engine/sky/runtime/modules/WebGL2StarsHarnessModule'
+import { WebGL2StellariumRenderer } from './engine/sky/renderer/webgl2/WebGL2StellariumRenderer'
 import { DEFAULT_SKY_ENGINE_AID_VISIBILITY } from './aidVisibilityPersistence'
 import {
   createSceneRuntimeState,
@@ -74,6 +79,7 @@ import {
 } from './sceneQueryState'
 import { resolveStarColorHex } from './starRenderer'
 import type { SkyEngineAidVisibility, SkyEngineSceneObject, SkyEngineSunState } from './types'
+import type { WebGL2StarsHarnessConfig } from './webgl2StarsHarnessConfig'
 
 const UI_SNAPSHOT_CADENCE_MS = 150
 export const RUNTIME_MODEL_SYNC_CADENCE_MS = 1000
@@ -87,6 +93,12 @@ const STARTUP_LOADING_STAR_SEED_OFFSETS = [
   { id: 'e', name: 'Seed E', dAlt: -11, dAz: -14, mag: 1.8 },
   { id: 'f', name: 'Seed F', dAlt: 14, dAz: -18, mag: 2.1 },
 ] as const
+
+const DEFAULT_WEBGL2_STARS_HARNESS_CONFIG: WebGL2StarsHarnessConfig = {
+  enabled: false,
+  mode: 'overlay',
+  devOnly: true,
+}
 
 interface SelectionMemory {
   objectId: string
@@ -490,11 +502,14 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     initialSkyCultureId = 'western',
     debugTelemetryEnabled = false,
     deterministicParityMode = false,
+    webgl2StarsHarnessConfig = DEFAULT_WEBGL2_STARS_HARNESS_CONFIG,
   },
   ref,
 ) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const backgroundCanvasRef = useRef<HTMLCanvasElement | null>(null)
+  const webgl2HarnessCanvasRef = useRef<HTMLCanvasElement | null>(null)
+  const harnessDiagnosticsKeyRef = useRef('')
   const coreRef = useRef<SkyCore<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> | null>(null)
   const propsVersionRef = useRef(0)
   const currentSceneObjectsRef = useRef<readonly SkyEngineSceneObject[]>([])
@@ -511,6 +526,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
   const lastPropsSignatureRef = useRef('')
   const stableScenePacketRef = useRef<ScenePropsSnapshot['scenePacket']>(null)
   const syncRuntimeModelRef = useRef<(force?: boolean) => void>(() => undefined)
+  const [webgl2HarnessDiagnostics, setWebgl2HarnessDiagnostics] = useState<WebGL2StarsHarnessDiagnostics | null>(null)
   const defaultDynamicModelRef = useRef<SceneControllerModel>(
     buildSceneControllerModel({
       backendStars,
@@ -605,6 +621,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
   useEffect(() => {
     const canvas = canvasRef.current
     const backgroundCanvas = backgroundCanvasRef.current
+    const webgl2HarnessCanvas = webgl2HarnessCanvasRef.current
 
     if (!canvas || !backgroundCanvas) {
       return undefined
@@ -789,6 +806,31 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     core.registerModule(createOverlayRuntimeModule())
     core.registerModule(createPointerRuntimeModule())
     core.registerModule(createSnapshotBridgeModule(snapshotStore, UI_SNAPSHOT_CADENCE_MS))
+    if (webgl2StarsHarnessConfig.enabled && webgl2HarnessCanvas) {
+      const webgl2HarnessRenderer = new WebGL2StellariumRenderer({ canvas: webgl2HarnessCanvas })
+      core.registerModule(createWebGL2StarsHarnessModule({
+        enabled: true,
+        comparisonMode: webgl2StarsHarnessConfig.mode,
+        renderer: webgl2HarnessRenderer,
+        onDiagnostics: (diagnostics) => {
+          const nextDiagnosticsKey = [
+            diagnostics.backendActive ? '1' : '0',
+            diagnostics.backendName ?? 'none',
+            diagnostics.submittedPointCount,
+            diagnostics.drawnPointCount,
+            diagnostics.directStarLayerStarCount,
+            diagnostics.comparisonMode,
+          ].join(':')
+
+          if (nextDiagnosticsKey === harnessDiagnosticsKeyRef.current) {
+            return
+          }
+
+          harnessDiagnosticsKeyRef.current = nextDiagnosticsKey
+          setWebgl2HarnessDiagnostics(diagnostics)
+        },
+      }))
+    }
     if (debugTelemetryEnabled) {
       core.registerModule(createSceneReportingModule())
     }
@@ -836,6 +878,24 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     <div className="sky-engine-scene">
       <canvas ref={backgroundCanvasRef} className="sky-engine-scene__background" />
       <canvas ref={canvasRef} className="sky-engine-scene__canvas" aria-label="Sky Engine scene" />
+      {webgl2StarsHarnessConfig.enabled ? (
+        <>
+          <canvas
+            ref={webgl2HarnessCanvasRef}
+            className={`sky-engine-scene__webgl2-harness-canvas sky-engine-scene__webgl2-harness-canvas--${webgl2StarsHarnessConfig.mode}`}
+            aria-label="WebGL2 stars comparison harness"
+          />
+          <div className="sky-engine-scene__webgl2-harness-status" data-testid="webgl2-stars-harness-status">
+            <strong>WebGL2 stars comparison</strong>
+            <span>Mode: {webgl2StarsHarnessConfig.mode}</span>
+            <span>Direct stars: {webgl2HarnessDiagnostics?.directStarLayerStarCount ?? 0}</span>
+            <span>Submitted points: {webgl2HarnessDiagnostics?.submittedPointCount ?? 0}</span>
+            <span>Drawn points: {webgl2HarnessDiagnostics?.drawnPointCount ?? 0}</span>
+            <span>Backend: {webgl2HarnessDiagnostics?.backendName ?? 'initializing'}</span>
+            <small>Diagnostic harness only. No parity claim. directStarLayer remains default.</small>
+          </div>
+        </>
+      ) : null}
     </div>
   )
 }))

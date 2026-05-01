@@ -42,6 +42,7 @@ import { SkyProjectionService } from './engine/sky/runtime/SkyProjectionService'
 import { createRuntimePerfTelemetry } from './engine/sky/runtime/perfTelemetry'
 import type { SceneLuminanceReport, SkyBrightnessExposureState } from './engine/sky/runtime/types'
 import { resolvePainterBackendExecutionEnabled } from './engine/sky/runtime/renderer/painterBackendPort'
+import type { WebGL2StarsHarnessConfig } from './webgl2StarsHarnessConfig'
 import {
   type ProjectedSceneObjectEntry,
   type RuntimeProjectedSceneFrame,
@@ -66,6 +67,7 @@ export interface SkyEngineSceneProps {
   readonly initialSkyCultureId?: string
   readonly debugTelemetryEnabled?: boolean
   readonly deterministicParityMode?: boolean
+  readonly webgl2StarsHarnessConfig?: WebGL2StarsHarnessConfig
 }
 
 export interface ScenePropsSnapshot {

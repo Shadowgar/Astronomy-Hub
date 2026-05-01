@@ -217,3 +217,37 @@ Shader parity status:
 
 Next step:
 - Expand WebGL2 point path toward richer point styling and batching behavior, then stage additional item types without changing default visual ownership.
+
+## Renderer Reset Step 5 - WebGL2 Side-by-Side Harness
+
+Flag and mode:
+- Query flag: `?webgl2StarsHarness=1`
+- Optional mode: `?webgl2StarsHarnessMode=overlay` (default) or `?webgl2StarsHarnessMode=side-by-side`
+- Harness is query-flagged and non-default.
+
+What is rendered:
+- Legacy `directStarLayer` remains active default visual output.
+- A separate WebGL2 harness canvas is mounted only when the flag is enabled.
+- Harness consumes `rendererBoundaryStarsPointItem` and renders point items via `WebGL2StellariumRenderer` for visual comparison.
+
+Diagnostics surfaced:
+- WebGL2 submitted point count.
+- WebGL2 drawn point count.
+- Direct star count (`projectedStarsFrame.projectedStars.length`) as comparison baseline.
+- Active backend status/name.
+- Comparison mode flag (`overlay` vs `side-by-side`).
+
+How to test visually:
+- Default route (no flag): `/sky-engine` (no harness canvas).
+- Overlay comparison: `/sky-engine?webgl2StarsHarness=1`.
+- Side-by-side comparison: `/sky-engine?webgl2StarsHarness=1&webgl2StarsHarnessMode=side-by-side`.
+
+Ownership and parity status:
+- `directStarLayer` remains default renderer owner.
+- No renderer-owner swap is performed in this step.
+- This is a diagnostic harness only and is not a parity completion claim.
+
+Known limitations:
+- Harness currently targets point item comparison only (`ITEM_POINTS`).
+- Non-point item lanes (mesh/text/texture) remain unimplemented in WebGL2 harness path.
+- Shader behavior remains shell-level and is not declared Stellarium parity.
