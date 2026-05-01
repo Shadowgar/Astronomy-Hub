@@ -52,6 +52,13 @@ export interface StellariumRendererInitInput {
 export interface StellariumRendererFrameSubmission {
   readonly frameInput: StellariumRendererFrameInput
   readonly renderItems: ReadonlyArray<StellariumRenderItem>
+  readonly pointStyleCalibration?: StellariumRendererPointStyleCalibration
+}
+
+export interface StellariumRendererPointStyleCalibration {
+  readonly pointScale: number
+  readonly alphaScale: number
+  readonly colorMode: 'payload' | 'white-hot' | 'grayscale'
 }
 
 export interface StellariumRendererHitResult {

@@ -42,6 +42,7 @@ import {
 import { persistSkyCultureId, readPersistedSkyCultureId } from '../features/sky-engine/skyCultureSelection'
 import { SKY_ENGINE_SKYCULTURES } from '../features/sky-engine/skycultures'
 import { resolveWebGL2StarsHarnessConfig } from '../features/sky-engine/webgl2StarsHarnessConfig'
+import { resolveSkyDebugVisualConfig } from '../features/sky-engine/skyDebugVisualConfig'
 import { useSceneByScopeDataQuery, useSkyStarTileManifestDataQuery } from '../features/scene/queries'
 import {
   isFiniteNumber,
@@ -260,6 +261,7 @@ type SkyEngineViewportProps = {
   debugTelemetryEnabled: boolean
   deterministicParityModeEnabled: boolean
   webgl2StarsHarnessConfig: ReturnType<typeof resolveWebGL2StarsHarnessConfig>
+  skyDebugVisualConfig: ReturnType<typeof resolveSkyDebugVisualConfig>
 }
 
 const SkyEngineViewport = React.memo(function SkyEngineViewport({
@@ -278,6 +280,7 @@ const SkyEngineViewport = React.memo(function SkyEngineViewport({
   debugTelemetryEnabled,
   deterministicParityModeEnabled,
   webgl2StarsHarnessConfig,
+  skyDebugVisualConfig,
 }: Readonly<SkyEngineViewportProps>) {
   return (
     <SkyEngineScene
@@ -296,6 +299,7 @@ const SkyEngineViewport = React.memo(function SkyEngineViewport({
       debugTelemetryEnabled={debugTelemetryEnabled}
       deterministicParityMode={deterministicParityModeEnabled}
       webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
+      debugVisualConfig={skyDebugVisualConfig}
     />
   )
 })
@@ -304,8 +308,15 @@ SkyEngineViewport.displayName = 'SkyEngineViewport'
 
 function SkyEnginePageContent({
   backendScene,
+  webgl2StarsHarnessConfig,
+  skyDebugVisualConfig,
   offlineFallbackMode = false,
-}: Readonly<{ backendScene: BackendSkyScenePayload; offlineFallbackMode?: boolean }>) {
+}: Readonly<{
+  backendScene: BackendSkyScenePayload
+  webgl2StarsHarnessConfig: ReturnType<typeof resolveWebGL2StarsHarnessConfig>
+  skyDebugVisualConfig: ReturnType<typeof resolveSkyDebugVisualConfig>
+  offlineFallbackMode?: boolean
+}>) {
   const rootRef = useRef<HTMLDivElement | null>(null)
   const sceneRef = useRef<SkyEngineSceneHandle | null>(null)
   const uiPerfRef = useRef<SkyEngineUiPerfState>(createSkyEngineUiPerfState())
@@ -313,11 +324,6 @@ function SkyEnginePageContent({
   const snapshotStore = useMemo(() => createSkyEngineSnapshotStore(), [])
   const debugTelemetryEnabled = useMemo(() => resolveDebugTelemetryEnabled(), [])
   const deterministicParityModeEnabled = useMemo(() => resolveDeterministicParityModeEnabled(), [])
-  const webgl2StarsHarnessConfig = useMemo(() => resolveWebGL2StarsHarnessConfig({
-    search: globalThis.location?.search ?? '',
-    isDev: true,
-    devOnly: false,
-  }), [])
   const snapshot = useSkyEngineSnapshotPoll(snapshotStore)
   const skyStarTileManifestQuery = useSkyStarTileManifestDataQuery({ at: backendScene.timestamp })
   const [repositoryMode] = useState(() => resolveSkyTileRepositoryMode())
@@ -665,6 +671,7 @@ function SkyEnginePageContent({
           debugTelemetryEnabled={debugTelemetryEnabled}
           deterministicParityModeEnabled={deterministicParityModeEnabled}
           webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
+          skyDebugVisualConfig={skyDebugVisualConfig}
         />
 
         <div className="click-through sky-engine-page__gui-root">
@@ -762,6 +769,22 @@ function SkyEnginePageContent({
               Listed {snapshot.summary.starsListVisitCount}
             </div>
             <div className="sky-engine-page__progress-chip">Data {resolveRuntimeModeLabel(snapshot.summary.dataMode)}</div>
+            {skyDebugVisualConfig.darkSkyOverrideEnabled ? (
+              <div
+                className="sky-engine-page__progress-chip sky-engine-page__progress-chip--warning"
+                title="Temporary development-only dark-sky background override is active."
+              >
+                Debug dark
+              </div>
+            ) : null}
+            {skyDebugVisualConfig.starsVisibleOverrideEnabled ? (
+              <div
+                className="sky-engine-page__progress-chip sky-engine-page__progress-chip--warning"
+                title="Temporary development-only stars visibility override is active."
+              >
+                Debug stars visible
+              </div>
+            ) : null}
             {snapshot.summary.fallbackActive ? (
               <div
                 className="sky-engine-page__progress-chip sky-engine-page__progress-chip--warning"
@@ -796,11 +819,34 @@ function SkyEnginePageContent({
 
 export default function SkyEnginePage() {
   const routeQueryParams = new URLSearchParams(globalThis.location?.search ?? '')
+  const host = globalThis.location?.hostname ?? ''
+  const port = globalThis.location?.port ?? ''
+  const isDevRuntime = host === 'localhost' || host === '127.0.0.1' || port === '4173' || port === '5173'
+  const webgl2StarsHarnessConfig = resolveWebGL2StarsHarnessConfig({
+    search: globalThis.location?.search ?? '',
+    isDev: isDevRuntime,
+    devOnly: false,
+  })
+  const skyDebugVisualConfig = resolveSkyDebugVisualConfig({
+    search: globalThis.location?.search ?? '',
+    isDev: isDevRuntime,
+    devOnly: false,
+  })
   const routeLat = routeQueryParams.get('lat')?.trim() || undefined
   const routeLon = routeQueryParams.get('lon')?.trim() || undefined
   const routeElevationFt = routeQueryParams.get('elevation_ft')?.trim() || undefined
   const routeAt = routeQueryParams.get('at')?.trim() || undefined
-  const resolvedRouteAt = useMemo(() => routeAt ?? new Date().toISOString(), [routeAt])
+  const resolvedRouteAt = useMemo(() => {
+    if (routeAt) {
+      return routeAt
+    }
+
+    if (webgl2StarsHarnessConfig.realCatalogDensePresetEnabled) {
+      return webgl2StarsHarnessConfig.realCatalogDensePresetAtIso
+    }
+
+    return new Date().toISOString()
+  }, [routeAt, webgl2StarsHarnessConfig.realCatalogDensePresetAtIso, webgl2StarsHarnessConfig.realCatalogDensePresetEnabled])
   const sceneQuery = useSceneByScopeDataQuery({
     scope: 'sky',
     engine: 'sky_engine',
@@ -830,12 +876,32 @@ export default function SkyEnginePage() {
   }
 
   if (sceneQuery.isError) {
-    return <SkyEnginePageContent backendScene={fallbackBackendScene} offlineFallbackMode />
+    return (
+      <SkyEnginePageContent
+        backendScene={fallbackBackendScene}
+        webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
+        skyDebugVisualConfig={skyDebugVisualConfig}
+        offlineFallbackMode
+      />
+    )
   }
 
   if (!backendScene) {
-    return <SkyEnginePageContent backendScene={fallbackBackendScene} offlineFallbackMode />
+    return (
+      <SkyEnginePageContent
+        backendScene={fallbackBackendScene}
+        webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
+        skyDebugVisualConfig={skyDebugVisualConfig}
+        offlineFallbackMode
+      />
+    )
   }
 
-  return <SkyEnginePageContent backendScene={backendScene} />
+  return (
+    <SkyEnginePageContent
+      backendScene={backendScene}
+      webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
+      skyDebugVisualConfig={skyDebugVisualConfig}
+    />
+  )
 }

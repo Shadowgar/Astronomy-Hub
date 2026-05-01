@@ -19,6 +19,13 @@ export function createLandscapeModule(): SkyModule<ScenePropsSnapshot, SceneRunt
         latest.sunState,
         projectedFrame.currentFovDegrees,
       )
+      if (latest.debugVisualConfig?.darkSkyOverrideEnabled) {
+        runtime.directBackgroundLayer.syncLandscape({
+          ...landscapeFrame,
+          ribbons: [],
+        })
+        return
+      }
       if (!latest.aidVisibility.landscape) {
         runtime.directBackgroundLayer.syncLandscape({
           ...landscapeFrame,

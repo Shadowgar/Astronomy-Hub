@@ -3,6 +3,7 @@ import type {
   StellariumRendererContract,
   StellariumRendererFrameInput,
   StellariumRendererFrameOutput,
+  StellariumRendererPointStyleCalibration,
   StellariumRendererFrameSubmission,
   StellariumRendererFrameTiming,
   StellariumRendererInitInput,
@@ -18,6 +19,12 @@ import {
 } from './webgl2Capabilities'
 
 const WEBGL2_BACKEND_NAME = 'webgl2-stellarium-shell'
+
+const DEFAULT_POINT_STYLE_CALIBRATION: StellariumRendererPointStyleCalibration = {
+  pointScale: 1,
+  alphaScale: 1,
+  colorMode: 'payload',
+}
 
 type RendererOptions = {
   canvas?: HTMLCanvasElement | null
@@ -43,6 +50,7 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
   private prepareFrameMs = 0
   private submitFrameMs = 0
   private renderFrameMs = 0
+  private pointStyleCalibration: StellariumRendererPointStyleCalibration = DEFAULT_POINT_STYLE_CALIBRATION
 
   constructor(options: RendererOptions = {}) {
     this.options = options
@@ -91,6 +99,7 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
     this.assertUsable()
     this.state.setPendingFrameInput(submission.frameInput)
     this.state.setSubmittedItems(submission.renderItems)
+    this.pointStyleCalibration = this.resolvePointStyleCalibration(submission.pointStyleCalibration)
 
     if (this.gl) {
       this.uploadPointItems(this.gl, submission.renderItems)
@@ -105,7 +114,7 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
 
     if (this.gl) {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT)
-      this.drawPointItems(this.gl, this.state.getSubmittedItems())
+      this.drawPointItems(this.gl, this.state.getSubmittedItems(), this.pointStyleCalibration)
     }
 
     this.renderFrameMs = nowMs() - start
@@ -164,7 +173,11 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
     }
   }
 
-  private drawPointItems(gl: WebGL2RenderingContext, items: ReadonlyArray<StellariumRenderItem>) {
+  private drawPointItems(
+    gl: WebGL2RenderingContext,
+    items: ReadonlyArray<StellariumRenderItem>,
+    pointStyleCalibration: StellariumRendererPointStyleCalibration,
+  ) {
     const viewport = this.state.getViewport()
     const submittedPointItemCount = items.filter((item) => item.itemType === 'ITEM_POINTS').length
     let drawnPointItemCount = 0
@@ -200,6 +213,9 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
       const sizeLocation = this.shaderProgram.getAttribLocation(gl, 'a_size')
       const colorLocation = this.shaderProgram.getAttribLocation(gl, 'a_color')
       const viewportUniform = this.shaderProgram.getUniformLocation(gl, 'u_viewport')
+      const pointScaleUniform = this.shaderProgram.getUniformLocation(gl, 'u_pointScale')
+      const alphaScaleUniform = this.shaderProgram.getUniformLocation(gl, 'u_alphaScale')
+      const colorModeUniform = this.shaderProgram.getUniformLocation(gl, 'u_colorMode')
 
       const strideBytes = 8 * 4
 
@@ -221,8 +237,17 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
         gl.vertexAttribPointer(colorLocation, 4, gl.FLOAT, false, strideBytes, 4 * 4)
       }
 
-      if (viewportUniform && viewport) {
+      if (viewportUniform !== null && viewport) {
         gl.uniform2f(viewportUniform, viewport.width, viewport.height)
+      }
+      if (pointScaleUniform !== null) {
+        gl.uniform1f(pointScaleUniform, pointStyleCalibration.pointScale)
+      }
+      if (alphaScaleUniform !== null) {
+        gl.uniform1f(alphaScaleUniform, pointStyleCalibration.alphaScale)
+      }
+      if (colorModeUniform !== null) {
+        gl.uniform1i(colorModeUniform, this.resolveColorModeValue(pointStyleCalibration.colorMode))
       }
 
       gl.drawArrays(gl.POINTS, 0, item.pointCount)
@@ -248,8 +273,34 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
       drawnPointItemCount,
       drawnPointCount,
       skippedUnsupportedItemCount,
-      note: `point_draw:${drawnPointCount}/${submittedPointItemCount}`,
+      note: `point_draw:${drawnPointCount}/${submittedPointItemCount};style:${pointStyleCalibration.colorMode}@${pointStyleCalibration.pointScale.toFixed(2)}x${pointStyleCalibration.alphaScale.toFixed(2)}`,
     })
+  }
+
+  private resolvePointStyleCalibration(
+    input: StellariumRendererFrameSubmission['pointStyleCalibration'],
+  ): StellariumRendererPointStyleCalibration {
+    if (!input) {
+      return DEFAULT_POINT_STYLE_CALIBRATION
+    }
+
+    return {
+      pointScale: Math.min(6, Math.max(0.25, Number.isFinite(input.pointScale) ? input.pointScale : 1)),
+      alphaScale: Math.min(4, Math.max(0.1, Number.isFinite(input.alphaScale) ? input.alphaScale : 1)),
+      colorMode: input.colorMode === 'white-hot' || input.colorMode === 'grayscale'
+        ? input.colorMode
+        : 'payload',
+    }
+  }
+
+  private resolveColorModeValue(colorMode: StellariumRendererPointStyleCalibration['colorMode']) {
+    if (colorMode === 'white-hot') {
+      return 1
+    }
+    if (colorMode === 'grayscale') {
+      return 2
+    }
+    return 0
   }
 
   private assertUsable() {

@@ -2,7 +2,8 @@ import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } fr
 import { createPointRenderItem } from '../../renderer/renderItems'
 import type { StellariumRendererContract } from '../../renderer/stellariumRendererContract'
 import type { SkyModule } from '../SkyModule'
-import type { WebGL2StarsHarnessMode } from '../../../../webgl2StarsHarnessConfig'
+import type { WebGL2StarsHarnessColorMode, WebGL2StarsHarnessMode } from '../../../../webgl2StarsHarnessConfig'
+import type { SkyTileCatalog } from '../../contracts/tiles'
 
 export interface WebGL2StarsHarnessDiagnostics {
   readonly comparisonModeEnabled: boolean
@@ -18,6 +19,18 @@ export interface WebGL2StarsHarnessDiagnostics {
   readonly note: string | null
   readonly syntheticDenseGridEnabled: boolean
   readonly syntheticDensePointCount: number
+  readonly repositoryMode: SkyTileCatalog
+  readonly scenePacketDataMode: ScenePropsSnapshot['scenePacket'] extends null ? never : string | null
+  readonly scenePacketSourceLabel: string | null
+  readonly scenePacketLimitingMagnitude: number | null
+  readonly scenePacketStarsListVisitCount: number | null
+  readonly scenePacketStarCount: number
+  readonly rendererBoundaryPointCount: number
+  readonly pointScale: number
+  readonly alphaScale: number
+  readonly colorMode: WebGL2StarsHarnessColorMode
+  readonly debugDarkModeEnabled: boolean
+  readonly debugStarsVisibleOverrideEnabled: boolean
 }
 
 const DEFAULT_PIXEL_RATIO = 1
@@ -25,9 +38,15 @@ const DEFAULT_PIXEL_RATIO = 1
 export function createWebGL2StarsHarnessModule(input: {
   enabled: boolean
   comparisonMode: WebGL2StarsHarnessMode
+  repositoryMode: SkyTileCatalog
   renderer: StellariumRendererContract
   denseVerificationGridEnabled?: boolean
   denseVerificationGridSize?: number
+  pointScale?: number
+  alphaScale?: number
+  colorMode?: WebGL2StarsHarnessColorMode
+  debugDarkModeEnabled?: boolean
+  debugStarsVisibleOverrideEnabled?: boolean
   onDiagnostics?: (diagnostics: WebGL2StarsHarnessDiagnostics) => void
 }): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
   let initialized = false
@@ -45,6 +64,9 @@ export function createWebGL2StarsHarnessModule(input: {
   }
 
   const denseGridSize = Math.max(4, Math.min(64, input.denseVerificationGridSize ?? 12))
+  const pointScale = Number.isFinite(input.pointScale) ? Math.max(0.25, Math.min(6, input.pointScale ?? 1)) : 1
+  const alphaScale = Number.isFinite(input.alphaScale) ? Math.max(0.1, Math.min(4, input.alphaScale ?? 1)) : 1
+  const colorMode: WebGL2StarsHarnessColorMode = input.colorMode ?? 'payload'
 
   const buildDenseVerificationPointItem = (width: number, height: number) => {
     const columns = denseGridSize
@@ -157,6 +179,11 @@ export function createWebGL2StarsHarnessModule(input: {
         input.renderer.submitFrame({
           frameInput,
           renderItems,
+          pointStyleCalibration: {
+            pointScale,
+            alphaScale,
+            colorMode,
+          },
         })
         const frameOutput = input.renderer.renderFrame()
 
@@ -172,6 +199,18 @@ export function createWebGL2StarsHarnessModule(input: {
           note: frameOutput.diagnostics.notes[frameOutput.diagnostics.notes.length - 1] ?? null,
           syntheticDenseGridEnabled: Boolean(denseGridItem),
           syntheticDensePointCount: denseGridItem?.pointCount ?? 0,
+          repositoryMode: input.repositoryMode,
+          scenePacketDataMode: props.scenePacket?.diagnostics?.dataMode ?? null,
+          scenePacketSourceLabel: props.scenePacket?.diagnostics?.sourceLabel ?? null,
+          scenePacketLimitingMagnitude: props.scenePacket?.diagnostics?.limitingMagnitude ?? null,
+          scenePacketStarsListVisitCount: props.scenePacket?.diagnostics?.starsListVisitCount ?? null,
+          scenePacketStarCount: props.scenePacket?.stars.length ?? 0,
+          rendererBoundaryPointCount: runtime.rendererBoundaryStarsPointItem?.pointCount ?? 0,
+          pointScale,
+          alphaScale,
+          colorMode,
+          debugDarkModeEnabled: Boolean(input.debugDarkModeEnabled),
+          debugStarsVisibleOverrideEnabled: Boolean(input.debugStarsVisibleOverrideEnabled),
         })
       } catch (error) {
         emitDiagnostics({
@@ -186,6 +225,18 @@ export function createWebGL2StarsHarnessModule(input: {
           note: error instanceof Error ? error.message : String(error),
           syntheticDenseGridEnabled: Boolean(input.denseVerificationGridEnabled),
           syntheticDensePointCount: input.denseVerificationGridEnabled ? denseGridSize * denseGridSize : 0,
+          repositoryMode: input.repositoryMode,
+          scenePacketDataMode: props.scenePacket?.diagnostics?.dataMode ?? null,
+          scenePacketSourceLabel: props.scenePacket?.diagnostics?.sourceLabel ?? null,
+          scenePacketLimitingMagnitude: props.scenePacket?.diagnostics?.limitingMagnitude ?? null,
+          scenePacketStarsListVisitCount: props.scenePacket?.diagnostics?.starsListVisitCount ?? null,
+          scenePacketStarCount: props.scenePacket?.stars.length ?? 0,
+          rendererBoundaryPointCount: runtime.rendererBoundaryStarsPointItem?.pointCount ?? 0,
+          pointScale,
+          alphaScale,
+          colorMode,
+          debugDarkModeEnabled: Boolean(input.debugDarkModeEnabled),
+          debugStarsVisibleOverrideEnabled: Boolean(input.debugStarsVisibleOverrideEnabled),
         })
       }
     },

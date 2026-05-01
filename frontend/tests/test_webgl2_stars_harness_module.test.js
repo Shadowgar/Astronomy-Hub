@@ -4,11 +4,18 @@ import { createPointRenderItem } from '../src/features/sky-engine/engine/sky/ren
 import { createWebGL2StarsHarnessModule } from '../src/features/sky-engine/engine/sky/runtime/modules/WebGL2StarsHarnessModule'
 
 function createRendererMock() {
+  let lastSubmittedPointCount = 0
+  let lastSubmittedItemCount = 0
+
   return {
     init: vi.fn(),
     resize: vi.fn(),
     prepareFrame: vi.fn(),
-    submitFrame: vi.fn(),
+    submitFrame: vi.fn((input) => {
+      const pointItems = input.renderItems.filter((item) => item.itemType === 'ITEM_POINTS')
+      lastSubmittedPointCount = pointItems.reduce((count, item) => count + item.pointCount, 0)
+      lastSubmittedItemCount = pointItems.length
+    }),
     renderFrame: vi.fn(() => ({
       pickResult: {
         objectId: null,
@@ -21,10 +28,10 @@ function createRendererMock() {
         acceptedMeshItemCount: 0,
         acceptedTextItemCount: 0,
         acceptedTextureItemCount: 0,
-        submittedPointItemCount: 1,
-        drawnPointItemCount: 1,
-        submittedPointCount: 2,
-        drawnPointCount: 2,
+        submittedPointItemCount: lastSubmittedItemCount,
+        drawnPointItemCount: lastSubmittedItemCount,
+        submittedPointCount: lastSubmittedPointCount,
+        drawnPointCount: lastSubmittedPointCount,
         skippedUnsupportedItemCount: 0,
         lastFrameSequence: 1,
         lastFrameProjectionMode: 'stereographic',
@@ -117,6 +124,7 @@ describe('webgl2 stars harness module', () => {
     const module = createWebGL2StarsHarnessModule({
       enabled: true,
       comparisonMode: 'overlay',
+      repositoryMode: 'multi-survey',
       renderer,
       onDiagnostics: diagnostics,
     })
@@ -127,14 +135,27 @@ describe('webgl2 stars harness module', () => {
     expect(renderer.init).toHaveBeenCalledTimes(1)
     expect(renderer.submitFrame).toHaveBeenCalledWith(expect.objectContaining({
       renderItems: [pointItem],
+      pointStyleCalibration: {
+        pointScale: 1,
+        alphaScale: 1,
+        colorMode: 'payload',
+      },
     }))
     expect(diagnostics).toHaveBeenCalledWith(expect.objectContaining({
       comparisonModeEnabled: true,
       comparisonMode: 'overlay',
       submittedPointCount: 2,
       drawnPointCount: 2,
+      rendererBoundaryPointCount: 2,
       directStarLayerStarCount: 2,
+      repositoryMode: 'multi-survey',
+      syntheticDenseGridEnabled: false,
       backendActive: true,
+      debugDarkModeEnabled: false,
+      debugStarsVisibleOverrideEnabled: false,
+      pointScale: 1,
+      alphaScale: 1,
+      colorMode: 'payload',
     }))
   })
 
@@ -143,6 +164,7 @@ describe('webgl2 stars harness module', () => {
     const module = createWebGL2StarsHarnessModule({
       enabled: true,
       comparisonMode: 'side-by-side',
+      repositoryMode: 'hipparcos',
       renderer,
     })
 
@@ -160,6 +182,7 @@ describe('webgl2 stars harness module', () => {
     const module = createWebGL2StarsHarnessModule({
       enabled: true,
       comparisonMode: 'overlay',
+      repositoryMode: 'multi-survey',
       renderer,
       denseVerificationGridEnabled: true,
       denseVerificationGridSize: 8,
@@ -175,8 +198,9 @@ describe('webgl2 stars harness module', () => {
     expect(diagnostics).toHaveBeenCalledWith(expect.objectContaining({
       syntheticDenseGridEnabled: true,
       syntheticDensePointCount: 64,
-      submittedPointCount: 2,
-      drawnPointCount: 2,
+      submittedPointCount: 64,
+      drawnPointCount: 64,
+      rendererBoundaryPointCount: 0,
     }))
   })
 })

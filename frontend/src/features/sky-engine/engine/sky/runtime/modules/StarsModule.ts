@@ -14,6 +14,7 @@ import { evaluateStarsProjectionReuseDecision } from '../../adapters/framePacing
  * Keep bounded by `hardLimitMag` and scoped to Hipparcos mode only.
  */
 const HIPPARCOS_USABILITY_LIMITING_MAG_DELTA = 0.3
+const DEBUG_STARS_VISIBLE_LIMITING_MAG_FLOOR = 5.8
 
 export interface StarsProjectionCacheEntry {
   readonly sceneTimestampMs: number
@@ -244,11 +245,18 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
             runtime.corePainterLimits?.hardLimitMag ?? Number.POSITIVE_INFINITY,
           )
         : sourceShapedStarsLimitMagnitude
-      const starsExposureState = usabilityAdjustedStarsLimitMagnitude === starsExposureLimitMagnitude
+      const debugStarsVisibleOverrideEnabled = latest.debugVisualConfig?.starsVisibleOverrideEnabled ?? false
+      const debugAdjustedStarsLimitMagnitude = debugStarsVisibleOverrideEnabled
+        ? Math.min(
+            Math.max(usabilityAdjustedStarsLimitMagnitude, DEBUG_STARS_VISIBLE_LIMITING_MAG_FLOOR),
+            runtime.corePainterLimits?.hardLimitMag ?? Number.POSITIVE_INFINITY,
+          )
+        : usabilityAdjustedStarsLimitMagnitude
+      const starsExposureState = debugAdjustedStarsLimitMagnitude === starsExposureLimitMagnitude
         ? brightnessExposureState
         : {
           ...brightnessExposureState,
-          limitingMagnitude: usabilityAdjustedStarsLimitMagnitude,
+          limitingMagnitude: debugAdjustedStarsLimitMagnitude,
         }
       const centerDirection = view.centerDirection
       const objectSignature = buildProjectionSignature(latest)
@@ -266,7 +274,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
             z: centerDirection.z,
           },
           fovDegrees: currentFovDegrees,
-          limitingMagnitude: usabilityAdjustedStarsLimitMagnitude,
+          limitingMagnitude: debugAdjustedStarsLimitMagnitude,
           sceneTimestampMs,
         },
         starsProjectionReuseStreak: runtime.starsProjectionReuseStreak,
@@ -290,7 +298,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           scenePacket: latest.scenePacket,
           sunState: latest.sunState,
           brightnessExposureState: starsExposureState,
-          resolvedStarsLimitMagnitude: usabilityAdjustedStarsLimitMagnitude,
+          resolvedStarsLimitMagnitude: debugAdjustedStarsLimitMagnitude,
           corePainterLimits: runtime.corePainterLimits,
           observerAstrometry: runtime.observerAstrometry
             ? {
@@ -326,7 +334,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
             z: centerDirection.z,
           },
           fovDegrees: currentFovDegrees,
-          limitingMagnitude: usabilityAdjustedStarsLimitMagnitude,
+          limitingMagnitude: debugAdjustedStarsLimitMagnitude,
           projectedStars,
         }
         runtime.starsProjectionReuseStreak = 0
@@ -347,7 +355,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
         lod: resolveViewTier(currentFovDegrees),
         view,
         projectedStars,
-        limitingMagnitude: usabilityAdjustedStarsLimitMagnitude,
+        limitingMagnitude: debugAdjustedStarsLimitMagnitude,
         sceneTimestampIso,
       }
       runtime.runtimePerfTelemetry.latest = {
@@ -357,6 +365,8 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           starsExposureLimitMag: starsExposureLimitMagnitude,
           starsSourceShapedLimitMag: sourceShapedStarsLimitMagnitude,
           starsUsabilityAdjustedLimitMag: usabilityAdjustedStarsLimitMagnitude,
+          starsDebugVisibleOverrideEnabled: debugStarsVisibleOverrideEnabled ? 1 : 0,
+          starsDebugAdjustedLimitMag: debugAdjustedStarsLimitMagnitude,
           starsPainterLimitMag: runtime.corePainterLimits?.starsLimitMag ?? Number.NaN,
           collectProjectedStarsMs: projectionElapsedMs,
           starsProjectionReused: shouldReuseProjection ? 1 : 0,

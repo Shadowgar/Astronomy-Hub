@@ -5,22 +5,34 @@ in float a_depth;
 in float a_size;
 in vec4 a_color;
 uniform vec2 u_viewport;
+uniform float u_pointScale;
 out vec4 v_color;
 void main() {
   float x = (a_position.x / u_viewport.x) * 2.0 - 1.0;
   float y = 1.0 - (a_position.y / u_viewport.y) * 2.0;
   float z = clamp(a_depth, 0.0, 1.0) * 2.0 - 1.0;
   gl_Position = vec4(x, y, z, 1.0);
-  gl_PointSize = max(1.0, a_size);
+  gl_PointSize = max(1.0, a_size * u_pointScale);
   v_color = a_color / 255.0;
 }`
 
 const FRAGMENT_SOURCE = `#version 300 es
 precision mediump float;
 in vec4 v_color;
+uniform float u_alphaScale;
+uniform int u_colorMode;
 out vec4 outColor;
 void main() {
-  outColor = v_color;
+  vec3 color = v_color.rgb;
+  if (u_colorMode == 1) {
+    float peak = max(max(color.r, color.g), color.b);
+    color = vec3(peak);
+  } else if (u_colorMode == 2) {
+    float luma = dot(color, vec3(0.2126, 0.7152, 0.0722));
+    color = vec3(luma);
+  }
+  float alpha = clamp(v_color.a * u_alphaScale, 0.0, 1.0);
+  outColor = vec4(color, alpha);
 }`
 
 function compileShader(

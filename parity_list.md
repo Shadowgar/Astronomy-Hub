@@ -418,6 +418,45 @@ Validation evidence recorded for this block:
 Interpretation:
 - Deterministic control-plane drift and EPH decoding parity are materially improved and now verified by tests.
 - Visual parity improved at wide/medium night checkpoints.
+
+## Port Block 21 (Executed, partial parity)
+### Temporary Dev Dark-Sky Override + WebGL2 Point Style Calibration (Step 9)
+
+Stellarium authority files:
+- `study/stellarium-web-engine/source/stellarium-web-engine-master/src/modules/stars.c`
+- `study/stellarium-web-engine/source/stellarium-web-engine-master/src/render_gl.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/skyDebugVisualConfig.ts`
+- `frontend/src/features/sky-engine/SkyEngineScene.tsx`
+- `frontend/src/features/sky-engine/SkyEngineRuntimeBridge.ts`
+- `frontend/src/pages/SkyEnginePage.tsx`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/AtmosphereModule.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/LandscapeModule.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/StarsModule.ts`
+- `frontend/src/features/sky-engine/webgl2StarsHarnessConfig.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/WebGL2StarsHarnessModule.ts`
+- `frontend/src/features/sky-engine/engine/sky/renderer/stellariumRendererContract.ts`
+- `frontend/src/features/sky-engine/engine/sky/renderer/webgl2/WebGL2StellariumRenderer.ts`
+- `frontend/src/features/sky-engine/engine/sky/renderer/webgl2/WebGL2ShaderProgram.ts`
+
+Explicit local logic deleted/replaced in this block:
+1. Added explicit dev-only visual override parsing (`skyDebugDark`, `skyDebugStarsVisible`) and runtime propagation into module diagnostics.
+2. Added narrow background-layer dark override path (atmosphere/landscape only) without changing catalog loading or renderer ownership.
+3. Added optional stars visibility floor override as an explicit separate dev flag for verification sessions.
+4. Added WebGL2 harness point style calibration controls (`pointScale`, `alphaScale`, `colorMode`) with clamping and safe defaults.
+5. Added shader/renderer uniform-driven style application and harness status surfacing for calibration state.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_webgl2_stars_harness_module.test.js tests/test_webgl2_stars_harness_flag.test.jsx tests/test_webgl2_stellarium_renderer.test.js tests/sky-engine-stars-runtime.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass
+- `cd /home/rocco/Astronomy-Hub && git diff --check`: pass
+
+Interpretation:
+- Development verification controls are now explicit and non-default, with status visibility in both harness diagnostics and runtime chips.
+- WebGL2 harness style tuning is now calibratable in-place against local Stellarium reference while preserving `directStarLayer` as active owner.
 - Deep zoom is still blocked by unresolved scene packet promotion to resolved Gaia-backed payload in the live runtime.
 
 ## Port Block 8 (Executed, partial parity)

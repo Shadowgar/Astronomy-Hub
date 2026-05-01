@@ -21,6 +21,26 @@ export function createAtmosphereModule(): SkyModule<ScenePropsSnapshot, SceneRun
         projectedFrame.currentFovDegrees,
         brightnessExposureState,
       )
+      if (latest.debugVisualConfig?.darkSkyOverrideEnabled) {
+        runtime.directBackgroundLayer.syncAtmosphere({
+          ...atmosphereFrame,
+          zenithColorHex: '#050812',
+          horizonColorHex: '#0a1328',
+          backgroundColorHex: '#03060e',
+          twilightBandColorHex: '#0a1020',
+          nightFloorTintHex: '#050a17',
+          backdropAlpha: 1,
+          exposureOpacity: 0.06,
+          twilightStrength: 0,
+          twilightLowerBandIntensity: 0,
+          horizonGlowStrength: 0.08,
+          zenithDarkening: 1,
+          nightFloorStrength: 0.35,
+          patches: [],
+          glare: null,
+        })
+        return
+      }
       if (!latest.aidVisibility.atmosphere) {
         runtime.directBackgroundLayer.syncAtmosphere({
           ...atmosphereFrame,

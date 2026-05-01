@@ -49,6 +49,8 @@ function createStubWebGL2Context() {
     }),
     getUniformLocation: vi.fn(() => ({ location: 'u_viewport' })),
     uniform2f: vi.fn(),
+    uniform1f: vi.fn(),
+    uniform1i: vi.fn(),
     enableVertexAttribArray: vi.fn(),
     vertexAttribPointer: vi.fn(),
     disableVertexAttribArray: vi.fn(),
@@ -134,6 +136,11 @@ describe('webgl2 stellarium renderer shell', () => {
         },
       },
       renderItems: [pointItem],
+      pointStyleCalibration: {
+        pointScale: 2,
+        alphaScale: 1.5,
+        colorMode: 'grayscale',
+      },
     })
 
     const output = renderer.renderFrame()
@@ -146,8 +153,12 @@ describe('webgl2 stellarium renderer shell', () => {
     expect(output.diagnostics.submittedPointCount).toBe(1)
     expect(output.diagnostics.drawnPointCount).toBe(1)
     expect(output.diagnostics.skippedUnsupportedItemCount).toBe(0)
+    expect(output.diagnostics.notes.some((note) => note.includes('style:grayscale@2.00x1.50'))).toBe(true)
     expect(gl.bufferData).toHaveBeenCalledTimes(2)
     expect(gl.drawArrays).toHaveBeenCalledWith(gl.POINTS, 0, 1)
+    expect(gl.uniform1f).toHaveBeenCalledWith(expect.any(Object), 2)
+    expect(gl.uniform1f).toHaveBeenCalledWith(expect.any(Object), 1.5)
+    expect(gl.uniform1i).toHaveBeenCalledWith(expect.any(Object), 2)
   })
 
   it('skips unsupported item types and reports diagnostics separation', () => {

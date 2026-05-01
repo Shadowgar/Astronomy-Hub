@@ -43,6 +43,7 @@ import { createRuntimePerfTelemetry } from './engine/sky/runtime/perfTelemetry'
 import type { SceneLuminanceReport, SkyBrightnessExposureState } from './engine/sky/runtime/types'
 import { resolvePainterBackendExecutionEnabled } from './engine/sky/runtime/renderer/painterBackendPort'
 import type { WebGL2StarsHarnessConfig } from './webgl2StarsHarnessConfig'
+import type { SkyDebugVisualConfig } from './skyDebugVisualConfig'
 import {
   type ProjectedSceneObjectEntry,
   type RuntimeProjectedSceneFrame,
@@ -61,13 +62,14 @@ export interface SkyEngineSceneProps {
     centerAzDeg: number
   }
   readonly projectionMode?: SkyProjectionMode
-  readonly repositoryMode: Extract<SkyTileCatalog, 'mock' | 'hipparcos' | 'multi-survey'>
+  readonly repositoryMode: SkyTileCatalog
   readonly snapshotStore: SkyEngineSnapshotStore
   readonly initialAidVisibility?: SkyEngineAidVisibility
   readonly initialSkyCultureId?: string
   readonly debugTelemetryEnabled?: boolean
   readonly deterministicParityMode?: boolean
   readonly webgl2StarsHarnessConfig?: WebGL2StarsHarnessConfig
+  readonly debugVisualConfig?: SkyDebugVisualConfig
 }
 
 export interface ScenePropsSnapshot {
@@ -91,6 +93,7 @@ export interface ScenePropsSnapshot {
   readonly onSelectObject: (objectId: string | null) => void
   /** CIO + aberration snapshot aligned with scene packet / tile query (Module 0). */
   readonly observerFrameAstrometry: ObserverAstrometrySnapshot
+  readonly debugVisualConfig: SkyDebugVisualConfig
 }
 
 export interface SceneRuntimeRefs {

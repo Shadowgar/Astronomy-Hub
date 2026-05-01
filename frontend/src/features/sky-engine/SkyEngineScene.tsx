@@ -80,6 +80,7 @@ import {
 import { resolveStarColorHex } from './starRenderer'
 import type { SkyEngineAidVisibility, SkyEngineSceneObject, SkyEngineSunState } from './types'
 import type { WebGL2StarsHarnessConfig } from './webgl2StarsHarnessConfig'
+import type { SkyDebugVisualConfig } from './skyDebugVisualConfig'
 
 const UI_SNAPSHOT_CADENCE_MS = 150
 export const RUNTIME_MODEL_SYNC_CADENCE_MS = 1000
@@ -100,6 +101,17 @@ const DEFAULT_WEBGL2_STARS_HARNESS_CONFIG: WebGL2StarsHarnessConfig = {
   devOnly: true,
   denseVerificationGridEnabled: false,
   denseVerificationGridSize: 12,
+  realCatalogDensePresetEnabled: false,
+  realCatalogDensePresetAtIso: '2026-05-01T02:00:00Z',
+  pointScale: 1,
+  alphaScale: 1,
+  colorMode: 'payload',
+}
+
+const DEFAULT_SKY_DEBUG_VISUAL_CONFIG: SkyDebugVisualConfig = {
+  darkSkyOverrideEnabled: false,
+  starsVisibleOverrideEnabled: false,
+  devOnly: true,
 }
 
 interface SelectionMemory {
@@ -128,6 +140,7 @@ interface PropsSignatureConfig {
   scenePacket: ScenePropsSnapshot['scenePacket']
   currentViewState: ScenePropsSnapshot['initialViewState']
   observerFrameAstrometry: ObserverAstrometrySnapshot
+  debugVisualConfig: SkyDebugVisualConfig
 }
 
 function resolveSceneQueryLimitingMagnitude(config: {
@@ -215,6 +228,8 @@ function buildPropsSignature(config: PropsSignatureConfig) {
     config.currentViewState.centerAltDeg.toFixed(1),
     config.currentViewState.centerAzDeg.toFixed(1),
     config.currentViewState.fovDegrees.toFixed(1),
+    config.debugVisualConfig.darkSkyOverrideEnabled ? 'dark-on' : 'dark-off',
+    config.debugVisualConfig.starsVisibleOverrideEnabled ? 'stars-visible-on' : 'stars-visible-off',
     computeObserverFrameAstrometrySignatureForPropSync(config.observerFrameAstrometry),
   ].join(':')
 }
@@ -505,6 +520,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     debugTelemetryEnabled = false,
     deterministicParityMode = false,
     webgl2StarsHarnessConfig = DEFAULT_WEBGL2_STARS_HARNESS_CONFIG,
+    debugVisualConfig = DEFAULT_SKY_DEBUG_VISUAL_CONFIG,
   },
   ref,
 ) {
@@ -564,6 +580,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
       selectedObjectIdRef.current = objectId
     },
     observerFrameAstrometry: defaultDynamicModelRef.current.observerFrameAstrometry,
+    debugVisualConfig,
   }
   const initialSnapshotRef = useRef(initialSnapshot)
 
@@ -770,6 +787,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
           syncRuntimeModelRef.current(true)
         },
         observerFrameAstrometry: nextModel.observerFrameAstrometry,
+        debugVisualConfig,
       }
       const nextSignature = buildPropsSignature({
         timestampIso: sceneTimestampIso,
@@ -781,6 +799,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
         scenePacket: nextProps.scenePacket,
         currentViewState,
         observerFrameAstrometry: nextProps.observerFrameAstrometry,
+        debugVisualConfig: nextProps.debugVisualConfig,
       })
 
       if (!force && nextSignature === lastPropsSignatureRef.current) {
@@ -813,9 +832,15 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
       core.registerModule(createWebGL2StarsHarnessModule({
         enabled: true,
         comparisonMode: webgl2StarsHarnessConfig.mode,
+        repositoryMode,
         renderer: webgl2HarnessRenderer,
         denseVerificationGridEnabled: webgl2StarsHarnessConfig.denseVerificationGridEnabled,
         denseVerificationGridSize: webgl2StarsHarnessConfig.denseVerificationGridSize,
+        pointScale: webgl2StarsHarnessConfig.pointScale,
+        alphaScale: webgl2StarsHarnessConfig.alphaScale,
+        colorMode: webgl2StarsHarnessConfig.colorMode,
+        debugDarkModeEnabled: debugVisualConfig.darkSkyOverrideEnabled,
+        debugStarsVisibleOverrideEnabled: debugVisualConfig.starsVisibleOverrideEnabled,
         onDiagnostics: (diagnostics) => {
           const nextDiagnosticsKey = [
             diagnostics.backendActive ? '1' : '0',
@@ -825,7 +850,17 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
             diagnostics.directStarLayerStarCount,
             diagnostics.syntheticDenseGridEnabled ? 'dense-grid-on' : 'dense-grid-off',
             diagnostics.syntheticDensePointCount,
+            diagnostics.scenePacketDataMode ?? 'none',
+            diagnostics.scenePacketLimitingMagnitude?.toFixed(2) ?? 'none',
+            diagnostics.scenePacketStarsListVisitCount ?? 0,
+            diagnostics.scenePacketStarCount,
+            diagnostics.rendererBoundaryPointCount,
             diagnostics.comparisonMode,
+            diagnostics.pointScale.toFixed(2),
+            diagnostics.alphaScale.toFixed(2),
+            diagnostics.colorMode,
+            diagnostics.debugDarkModeEnabled ? 'debug-dark-on' : 'debug-dark-off',
+            diagnostics.debugStarsVisibleOverrideEnabled ? 'debug-stars-visible-on' : 'debug-stars-visible-off',
           ].join(':')
 
           if (nextDiagnosticsKey === harnessDiagnosticsKeyRef.current) {
@@ -895,8 +930,26 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
             <strong>WebGL2 stars comparison</strong>
             <span>Mode: {webgl2StarsHarnessConfig.mode}</span>
             <span>Direct stars: {webgl2HarnessDiagnostics?.directStarLayerStarCount ?? 0}</span>
+            <span>Repository mode: {webgl2HarnessDiagnostics?.repositoryMode ?? repositoryMode}</span>
+            <span>Scene data mode: {webgl2HarnessDiagnostics?.scenePacketDataMode ?? 'loading'}</span>
+            <span>Source label: {webgl2HarnessDiagnostics?.scenePacketSourceLabel ?? 'Loading tiles…'}</span>
+            <span>
+              Query limiting magnitude: {webgl2HarnessDiagnostics?.scenePacketLimitingMagnitude?.toFixed(2) ?? 'n/a'}
+            </span>
+            <span>stars_list visits: {webgl2HarnessDiagnostics?.scenePacketStarsListVisitCount ?? 0}</span>
+            <span>Scene packet stars: {webgl2HarnessDiagnostics?.scenePacketStarCount ?? 0}</span>
+            <span>Renderer boundary points: {webgl2HarnessDiagnostics?.rendererBoundaryPointCount ?? 0}</span>
             <span>Submitted points: {webgl2HarnessDiagnostics?.submittedPointCount ?? 0}</span>
             <span>Drawn points: {webgl2HarnessDiagnostics?.drawnPointCount ?? 0}</span>
+            <span>Debug dark mode: {webgl2HarnessDiagnostics?.debugDarkModeEnabled ? 'ON' : 'OFF'}</span>
+            <span>
+              Debug stars-visible override: {webgl2HarnessDiagnostics?.debugStarsVisibleOverrideEnabled ? 'ON' : 'OFF'}
+            </span>
+            <span>
+              Point style: {webgl2HarnessDiagnostics?.colorMode ?? webgl2StarsHarnessConfig.colorMode}
+              {` @ size ${webgl2HarnessDiagnostics?.pointScale.toFixed(2) ?? webgl2StarsHarnessConfig.pointScale.toFixed(2)}`}
+              {` alpha ${webgl2HarnessDiagnostics?.alphaScale.toFixed(2) ?? webgl2StarsHarnessConfig.alphaScale.toFixed(2)}`}
+            </span>
             <span>
               Dense grid mode: {webgl2HarnessDiagnostics?.syntheticDenseGridEnabled ? 'ON' : 'OFF'}
               {webgl2HarnessDiagnostics?.syntheticDenseGridEnabled

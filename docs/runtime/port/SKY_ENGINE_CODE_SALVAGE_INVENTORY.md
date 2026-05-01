@@ -373,3 +373,156 @@ Step 8 recommendation:
   - restore/verify non-sparse runtime star source path,
   - then tune WebGL2 point size/alpha/color response against directStarLayer under real dense sky frames,
   - keep ownership feature-flagged until real-data dense alignment is verified.
+
+## Renderer Reset Step 8 - Real Star Density Restoration
+
+Goal:
+- Restore meaningful dense real-catalog WebGL2 harness input for visual comparison against `directStarLayer` without changing ownership defaults.
+
+Stellarium reference anchor used:
+- Local runtime reference: `http://localhost:8080/` (night-sky dense-star visual baseline captured).
+- Source reference under study tree:
+  - `study/stellarium-web-engine/source/stellarium-web-engine-master/src/core.c` (`core_render`: `stars_limit_mag`, `hard_limit_mag` inputs).
+  - `study/stellarium-web-engine/source/stellarium-web-engine-master/src/modules/stars.c` (`stars_render`, `stars_list`, `survey_cmp`, Gaia `min_vmag` promotion).
+
+Root cause of sparse real count:
+- Sparse harness runs (`Direct/Submitted/Drawn = 2`) were tied to bright/daytime scene conditions and low effective limiting magnitude, not WebGL2 submission failure.
+- In the sparse case, diagnostics showed:
+  - query limiting magnitude near `0.64`,
+  - scene data mode `hipparcos`,
+  - renderer boundary points `2`,
+  - submitted/drawn `2`.
+- This matches Stellarium behavior where star visibility is bounded by painter limiting magnitude (`core_render`) and survey traversal/render gates (`stars_render` / `stars_list`).
+
+Execution checks performed (real path trace):
+- Scene packet loaded mode: observed `hipparcos` in both sparse and dense runs.
+- Tile mode: tested `tileMode=multi-survey` and `tileMode=hipparcos`.
+- Catalog source label: observed `Hipparcos · 8,870 stars`.
+- Limiting magnitude: observed sparse `0.64` vs dense-night `5.78`.
+- StarsModule projected/direct count: observed in harness diagnostics (`Direct stars`).
+- `rendererBoundaryStarsPointItem` count: observed in harness diagnostics (`Renderer boundary points`).
+- WebGL2 submit/draw count: observed in harness diagnostics (`Submitted points`, `Drawn points`).
+
+URLs/settings tested:
+- Sparse daytime control (real data):
+  - `http://172.26.23.204:4173/sky-engine?webgl2StarsHarness=1&webgl2StarsHarnessMode=overlay&tileMode=multi-survey`
+- Dense real control using existing params:
+  - `http://172.26.23.204:4173/sky-engine?webgl2StarsHarness=1&webgl2StarsHarnessMode=overlay&tileMode=multi-survey&at=2026-05-01T02:00:00Z`
+- Dense real dev preset (new, opt-in):
+  - `http://172.26.23.204:4173/sky-engine?webgl2StarsHarness=1&webgl2StarsHarnessMode=overlay&tileMode=multi-survey&webgl2StarsHarnessRealCatalogDensePreset=1`
+  - `http://172.26.23.204:4173/sky-engine?webgl2StarsHarness=1&webgl2StarsHarnessMode=side-by-side&tileMode=multi-survey&webgl2StarsHarnessRealCatalogDensePreset=1`
+
+Before/after real-star counts:
+- Sparse daytime (real data):
+  - Direct stars: `2`
+  - Renderer boundary points: `2`
+  - Submitted points: `2`
+  - Drawn points: `2`
+- Dense real-night (existing `at` control):
+  - Direct stars: `138`
+  - Renderer boundary points: `138`
+  - Submitted points: `138`
+  - Drawn points: `138`
+- Dense real-night (dev preset route, overlay):
+  - Direct stars: `529`
+  - Renderer boundary points: `529`
+  - Submitted points: `529`
+  - Drawn points: `529`
+- Dense real-night (dev preset route, side-by-side):
+  - Direct stars: `529`
+  - Renderer boundary points: `529`
+  - Submitted points: `529`
+  - Drawn points: `529`
+
+Dense target outcome:
+- Achieved: yes (>= `50` real stars submitted/drawn).
+
+Distinction: real dense mode vs synthetic dense grid:
+- Real dense mode:
+  - uses actual scene packet / runtime catalog stars,
+  - synthetic grid stays `OFF`,
+  - renderer-boundary and submitted/drawn counts match real projected stars.
+- Synthetic dense grid mode:
+  - explicit stress/coordinate sanity path,
+  - uses deterministic generated points,
+  - remains opt-in and non-real.
+
+Artifacts:
+- Sparse daytime (real):
+  - `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_3AXFUo4L5iywA4tyBsAyhxND/0/file.jpe`
+- Dense real preset (overlay):
+  - `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_SZDlJ5PTWshiVqywVrWQetZh/0/file.jpe`
+- Dense real preset (side-by-side):
+  - `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_IovOknbONbTuESxISlMKHxxC/0/file.jpe`
+- Stellarium local reference (`localhost:8080`):
+  - `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_dyeOi9pLYWYNKTxL8QsOEfSI/0/file.jpe`
+
+Step 9 recommendation:
+- Keep default daytime route unchanged (still sparse by physics/limiting-magnitude conditions), and continue dense visual verification on explicit real-night routes (existing `at` control or the dev-only real-catalog preset) before any ownership decision.
+- Investigate why `stars_list` diagnostics remain `0` while scene packet stars are populated; treat this as a diagnostics parity gap, not a WebGL2 density blocker.
+
+## Renderer Reset Step 9 - WebGL2 Point Style Calibration + Temporary Dev Dark-Sky Override
+
+Objective:
+- Add development-only visual controls for renderer verification while keeping `directStarLayer` as the active owner and preserving default behavior when flags are absent.
+
+Stellarium comparison anchor used:
+- Local runtime reference: `http://localhost:8080/`.
+- Study source references:
+  - `study/stellarium-web-engine/source/stellarium-web-engine-master/src/modules/stars.c`
+  - `study/stellarium-web-engine/source/stellarium-web-engine-master/src/render_gl.c`
+
+Implemented controls:
+- Temporary dark sky override (dev visual only):
+  - `skyDebugDark=1`
+  - applied at atmosphere/landscape visual layer only.
+- Optional stars visibility override (separate explicit flag):
+  - `skyDebugStarsVisible=1`
+  - applies a bounded floor to rendered star limiting magnitude during projection only.
+- Step 9 WebGL2 harness point-style calibration controls:
+  - `webgl2StarsHarnessPointScale`
+  - `webgl2StarsHarnessAlphaScale`
+  - `webgl2StarsHarnessColorMode` (`payload`, `white-hot`, `grayscale`)
+
+Safety constraints verified:
+- Default behavior unchanged when flags are absent.
+- No renderer ownership swap: `directStarLayer` remains active.
+- Catalog/tile loading path unchanged.
+- Invalid style params are clamped safely.
+
+Runtime verification routes:
+- Baseline harness (no debug overrides):
+  - `http://172.26.23.204:4173/sky-engine?webgl2StarsHarness=1&webgl2StarsHarnessMode=overlay&at=2026-05-01T02:00:00Z`
+- Dark + stars-visible + style calibration:
+  - `http://172.26.23.204:4173/sky-engine?webgl2StarsHarness=1&webgl2StarsHarnessMode=overlay&at=2026-05-01T02:00:00Z&skyDebugDark=1&skyDebugStarsVisible=1&webgl2StarsHarnessPointScale=1.8&webgl2StarsHarnessAlphaScale=1.6&webgl2StarsHarnessColorMode=white-hot`
+- Stellarium local reference:
+  - `http://localhost:8080/`
+
+Observed diagnostic status:
+- Baseline harness:
+  - `Debug dark mode: OFF`
+  - `Debug stars-visible override: OFF`
+  - `Point style: payload @ size 1.00 alpha 1.00`
+- Override harness:
+  - `Debug dark mode: ON`
+  - `Debug stars-visible override: ON`
+  - `Point style: white-hot @ size 1.80 alpha 1.60`
+
+Screenshot artifacts (tool URI):
+- Baseline harness overlay:
+  - `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_AppD3tbhQzJbTODgvzKFb7sF/0/file.jpe`
+- Dark override + Step 9 calibration overlay:
+  - `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_VIghSKAFfA3yYYpmGulsor0C/0/file.jpe`
+- Stellarium local reference:
+  - `vscode-chat-response-resource://7673636f64652d636861742d73657373696f6e3a2f2f6c6f63616c2f5a474a6a4d4751774e4751744e54426c5a693030597a4a6d4c5467304e5445745a5441305a4467774d6a51794d6a5269/tool/call_9RP2NZpQf9jyiStPxrqVWA6S/0/file.jpe`
+
+Validation commands (executed):
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_webgl2_stars_harness_module.test.js tests/test_webgl2_stars_harness_flag.test.jsx tests/test_webgl2_stellarium_renderer.test.js tests/sky-engine-stars-runtime.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass
+- `cd /home/rocco/Astronomy-Hub && git diff --check`: pass
+
+Conclusion:
+- Temporary dev dark-sky and stars-visible overrides now provide explicit verification controls without altering default route behavior.
+- Step 9 style calibration controls are active in the WebGL2 harness path and surfaced in diagnostics/status, enabling direct visual comparison against local Stellarium while preserving current ownership boundaries.
