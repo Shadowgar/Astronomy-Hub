@@ -28,11 +28,11 @@ import {
 
 describe('module2 stars.c frame pacing port', () => {
   it('keeps exported thresholds aligned with runtime expectations', () => {
-    expect(STARS_C_CENTER_REPROJECT_THRESHOLD_RAD).toBe(0.002)
-    expect(STARS_C_FOV_REPROJECT_THRESHOLD_DEG).toBe(0.2)
+    expect(STARS_C_CENTER_REPROJECT_THRESHOLD_RAD).toBe(0.0035)
+    expect(STARS_C_FOV_REPROJECT_THRESHOLD_DEG).toBe(0.35)
     expect(STARS_C_LIMIT_MAG_REPROJECT_THRESHOLD).toBe(0.02)
     expect(STARS_C_SCENE_TIMESTAMP_REPROJECT_THRESHOLD_MS).toBe(250)
-    expect(STARS_C_MAX_PROJECTION_REUSE_STREAK).toBe(2)
+    expect(STARS_C_MAX_PROJECTION_REUSE_STREAK).toBe(6)
   })
 
   it('reuses projection cache when deltas are under threshold and streak allows', () => {

@@ -1,6 +1,7 @@
 import React, { forwardRef, memo, useEffect, useImperativeHandle, useRef } from 'react'
 
 import {
+  computeBackendStarSceneObjects,
   computeCometSceneObjects,
   computeDeepSkySceneObjects,
   computeMeteorShowerSceneObjects,
@@ -78,6 +79,14 @@ const UI_SNAPSHOT_CADENCE_MS = 150
 export const RUNTIME_MODEL_SYNC_CADENCE_MS = 1000
 const DEGREES_TO_RADIANS = Math.PI / 180
 const STELLARIUM_QUERY_TONEMAPPER_EXPOSURE = 2
+const STARTUP_LOADING_STAR_SEED_OFFSETS = [
+  { id: 'a', name: 'Seed A', dAlt: 0, dAz: 0, mag: 0.2 },
+  { id: 'b', name: 'Seed B', dAlt: 6, dAz: -8, mag: 0.8 },
+  { id: 'c', name: 'Seed C', dAlt: -5, dAz: 7, mag: 1.1 },
+  { id: 'd', name: 'Seed D', dAlt: 10, dAz: 12, mag: 1.4 },
+  { id: 'e', name: 'Seed E', dAlt: -11, dAz: -14, mag: 1.8 },
+  { id: 'f', name: 'Seed F', dAlt: 14, dAz: -18, mag: 2.1 },
+] as const
 
 interface SelectionMemory {
   objectId: string
@@ -298,6 +307,45 @@ function buildEngineStarSceneObjects(
   })
 }
 
+function buildStartupLoadingStarSceneObjects(config: {
+  scenePacket: ScenePropsSnapshot['scenePacket']
+  backendStars: SkyEngineSceneProps['backendStars']
+  observer: SkyEngineSceneProps['observer']
+  currentViewState: ScenePropsSnapshot['initialViewState']
+  sceneTimestampIso: string
+}): readonly SkyEngineSceneObject[] {
+  if (config.scenePacket) {
+    return []
+  }
+
+  if (config.backendStars.length > 0) {
+    return computeBackendStarSceneObjects(config.observer, config.sceneTimestampIso, config.backendStars)
+  }
+
+  const baseAlt = config.currentViewState.centerAltDeg
+  const baseAz = config.currentViewState.centerAzDeg
+  return STARTUP_LOADING_STAR_SEED_OFFSETS.map((seed, index) => {
+    const guidanceTier: SkyEngineSceneObject['guidanceTier'] = index === 0 ? 'guide' : 'none'
+    return {
+      id: `startup-seed-${seed.id}`,
+      name: seed.name,
+      type: 'star' as const,
+    altitudeDeg: Math.max(-85, Math.min(85, baseAlt + seed.dAlt)),
+    azimuthDeg: (((baseAz + seed.dAz) % 360) + 360) % 360,
+    magnitude: seed.mag,
+    colorHex: '#f4f7ff',
+    summary: 'Temporary startup star seed while tile-backed catalog is loading.',
+    description: 'This seed star is view-centered and temporary. It is removed automatically when runtime catalog stars become available.',
+    truthNote: 'Temporary startup seed used to avoid empty-star view during tile-load intervals. Not a full catalog or parity surface.',
+      source: 'temporary_scene_seed',
+      trackingMode: 'static' as const,
+      timestampIso: config.sceneTimestampIso,
+      isAboveHorizon: true,
+      guidanceTier,
+    } satisfies SkyEngineSceneObject
+  })
+}
+
 function buildSceneControllerModel(config: {
   backendStars: SkyEngineSceneProps['backendStars']
   backendSatellites: SkyEngineSceneProps['backendSatellites']
@@ -372,8 +420,16 @@ function buildSceneControllerModel(config: {
     config.runtimeTiles,
     config.sceneTimestampIso,
   )
+  const startupLoadingStarSceneObjects = buildStartupLoadingStarSceneObjects({
+    scenePacket,
+    backendStars: config.backendStars,
+    currentViewState: config.currentViewState,
+    observer: config.observer,
+    sceneTimestampIso: config.sceneTimestampIso,
+  })
   const baseSceneObjects = [
     ...engineStarSceneObjects,
+    ...startupLoadingStarSceneObjects,
     ...planetObjects,
     ...deepSkyObjects,
     ...satelliteObjects,

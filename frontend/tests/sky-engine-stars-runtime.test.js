@@ -313,6 +313,75 @@ describe('Sky star runtime ownership', () => {
     expect(collectProjectedStars).toHaveBeenCalledTimes(2)
   })
 
+  it('keeps last projected stars while scene packet is loading and projection returns empty', () => {
+    const module = createStarsModule()
+    const runtime = createBaseRuntime()
+    const services = createBaseServices()
+    const props = createBaseProps()
+    props.scenePacket = {
+      stars: [{ id: 'star-1', x: 0, y: 0, z: 1, mag: 1.2, tier: 'T0' }],
+      labels: [],
+      diagnostics: {
+        dataMode: 'hipparcos',
+        sourceLabel: 'hip',
+        limitingMagnitude: 6.4,
+        activeTiles: 1,
+        visibleStars: 1,
+        starsListVisitCount: 0,
+        activeTiers: ['T0'],
+        tileLevels: [0],
+        tilesPerLevel: { 0: 1 },
+        maxTileDepthReached: 0,
+        visibleTileIds: ['t0'],
+      },
+    }
+    const getProps = () => props
+    const getPropsVersion = () => 1
+    const mockedCollectProjectedStars = vi.mocked(collectProjectedStars)
+
+    mockedCollectProjectedStars.mockReturnValueOnce({
+      projectedStars: [{
+        object: { id: 'star-cached', type: 'star', magnitude: 1.1 },
+        screenX: 120,
+        screenY: 100,
+        depth: 0.2,
+        angularDistanceRad: 0.1,
+        markerRadiusPx: 2,
+        pickRadiusPx: 8,
+        renderAlpha: 0.8,
+      }],
+      limitingMagnitude: 6.4,
+      timing: {
+        transformMs: 0,
+        magnitudeFilterMs: 0,
+        visibilityFilterMs: 0,
+        sortingMs: 0,
+        allocationMs: 0,
+        totalMs: 0,
+      },
+    })
+    mockedCollectProjectedStars.mockReturnValueOnce({
+      projectedStars: [],
+      limitingMagnitude: 6.4,
+      timing: {
+        transformMs: 0,
+        magnitudeFilterMs: 0,
+        visibilityFilterMs: 0,
+        sortingMs: 0,
+        allocationMs: 0,
+        totalMs: 0,
+      },
+    })
+
+    module.update({ runtime, services, getProps, getPropsVersion })
+    expect(runtime.projectedStarsFrame?.projectedStars).toHaveLength(1)
+
+    props.scenePacket = null
+    module.update({ runtime, services, getProps, getPropsVersion })
+    expect(runtime.projectedStarsFrame?.projectedStars).toHaveLength(1)
+    expect(runtime.projectedStarsFrame?.projectedStars[0].object.id).toBe('star-cached')
+  })
+
   it('mirrors stars draw intent into painter queue while keeping direct star path active', () => {
     const module = createStarsModule()
     const runtime = {

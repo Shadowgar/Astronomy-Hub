@@ -707,6 +707,86 @@ function projectScenePacketStar(
   return { entry, magnitudeFilterMs, allocationMs, lastMagnitude, lastPointVisual }
 }
 
+function projectObjectStarDirect(
+  object: SkyEngineSceneObject,
+  input: CollectProjectedStarsInput,
+  centerAltitudeDeg: number,
+  fovDegrees: number,
+  viewportMinSizePx: number,
+  visualState: ProjectedStarVisualState,
+): ProjectedStarAttempt {
+  let magnitudeFilterMs = 0
+  let allocationMs = 0
+  let { lastMagnitude, lastPointVisual } = visualState
+
+  if (!shouldRenderObject(object, centerAltitudeDeg, fovDegrees, input.sunState, null, input.observerAstrometry)) {
+    return { entry: null, magnitudeFilterMs, allocationMs, lastMagnitude, lastPointVisual }
+  }
+
+  const transformStartMs = performance.now()
+  const centerDirection = horizontalToDirection(object.altitudeDeg, object.azimuthDeg)
+  const projectedPoint = projectDirectionToViewport(centerDirection, input.view)
+  const transformMs = performance.now() - transformStartMs
+  if (!projectedPoint || !isProjectedPointVisible(projectedPoint, input.view, 22)) {
+    return { entry: null, magnitudeFilterMs: magnitudeFilterMs + transformMs, allocationMs, lastMagnitude, lastPointVisual }
+  }
+  magnitudeFilterMs += transformMs
+
+  const magnitudeStartMs = performance.now()
+  const renderedMagnitude = object.magnitude
+  if (renderedMagnitude !== lastMagnitude || lastPointVisual == null) {
+    lastMagnitude = renderedMagnitude
+    lastPointVisual = computeStellariumPointVisual(
+      renderedMagnitude,
+      input.brightnessExposureState,
+      viewportMinSizePx,
+      fovDegrees,
+    )
+  }
+  const pointVisual = lastPointVisual
+  magnitudeFilterMs += performance.now() - magnitudeStartMs
+
+  if (!pointVisual.visible || pointVisual.luminance <= 0) {
+    return { entry: null, magnitudeFilterMs, allocationMs, lastMagnitude, lastPointVisual }
+  }
+
+  const allocationStartMs = performance.now()
+  const starProfile = getStarRenderProfileForMagnitude(
+    renderedMagnitude,
+    object.colorIndexBV,
+    input.brightnessExposureState.visualCalibration,
+    input.brightnessExposureState,
+    viewportMinSizePx,
+    pointVisual,
+  )
+  const renderAlpha = clamp(
+    getObjectHorizonFade(object, fovDegrees, input.observerAstrometry) * pointVisual.luminance,
+    0,
+    1,
+  )
+
+  if (renderAlpha <= 0) {
+    allocationMs += performance.now() - allocationStartMs
+    return { entry: null, magnitudeFilterMs, allocationMs, lastMagnitude, lastPointVisual }
+  }
+
+  const entry = {
+    object,
+    screenX: projectedPoint.screenX,
+    screenY: projectedPoint.screenY,
+    depth: projectedPoint.depth,
+    angularDistanceRad: projectedPoint.angularDistanceRad,
+    markerRadiusPx: pointVisual.radiusPx,
+    pickRadiusPx: getPickRadiusPx(object, pointVisual.radiusPx),
+    renderAlpha,
+    renderedMagnitude,
+    visibilityAlpha: pointVisual.luminance,
+    starProfile,
+  } satisfies ProjectedSceneObjectEntry
+  allocationMs += performance.now() - allocationStartMs
+  return { entry, magnitudeFilterMs, allocationMs, lastMagnitude, lastPointVisual }
+}
+
 export function collectProjectedStars(input: CollectProjectedStarsInput): ProjectedStarsResult {
   const totalStartMs = performance.now()
   let transformMs = 0
@@ -724,12 +804,57 @@ export function collectProjectedStars(input: CollectProjectedStarsInput): Projec
     input.corePainterLimits?.hardLimitMag ?? Number.POSITIVE_INFINITY,
   )
   const projectedStarCap = resolveProjectedStarCapForFov(fovDegrees)
-  const objectLookup = new Map(input.objects.map((object) => [object.id, object]))
-  const packetStarLookup = new Map((input.scenePacket?.stars ?? []).map((star) => [star.id, star] as const))
   const projectedStars: ProjectedSceneObjectEntry[] = []
   const viewportMinSizePx = Math.min(input.view.viewportWidth, input.view.viewportHeight)
   let lastMagnitude = Number.NaN
   let lastPointVisual = null as ReturnType<typeof computeStellariumPointVisual> | null
+
+  if (!input.scenePacket) {
+    const fallbackStars = input.objects.filter((object) =>
+      object.type === 'star' &&
+      object.source !== 'engine_catalog_tile' &&
+      object.magnitude <= limitingMagnitude,
+    )
+
+    for (const object of fallbackStars) {
+      const attempt = projectObjectStarDirect(
+        object,
+        input,
+        centerAltitudeDeg,
+        fovDegrees,
+        viewportMinSizePx,
+        { lastMagnitude, lastPointVisual },
+      )
+      magnitudeFilterMs += attempt.magnitudeFilterMs
+      allocationMs += attempt.allocationMs
+      lastMagnitude = attempt.lastMagnitude
+      lastPointVisual = attempt.lastPointVisual
+      if (!attempt.entry) {
+        continue
+      }
+      projectedStars.push(attempt.entry)
+      if (Number.isFinite(projectedStarCap) && projectedStars.length >= projectedStarCap) {
+        break
+      }
+    }
+
+    const totalMs = performance.now() - totalStartMs
+    return {
+      projectedStars,
+      limitingMagnitude,
+      timing: {
+        transformMs,
+        magnitudeFilterMs,
+        visibilityFilterMs,
+        sortingMs,
+        allocationMs,
+        totalMs,
+      },
+    }
+  }
+
+  const objectLookup = new Map(input.objects.map((object) => [object.id, object]))
+  const packetStarLookup = new Map(input.scenePacket.stars.map((star) => [star.id, star] as const))
 
   const visitorEntries = visitStarsRenderTiles({
     scenePacket: input.scenePacket,

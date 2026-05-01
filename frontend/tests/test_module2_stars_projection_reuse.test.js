@@ -48,7 +48,7 @@ describe('module2 stars projection cache reuse', () => {
         limitingMagnitude: 6.31,
         sceneTimestampMs: 1180,
       },
-      starsProjectionReuseStreak: 2,
+      starsProjectionReuseStreak: 6,
     })
 
     expect(blockedByStreak.isProjectionCacheReusable).toBe(true)
@@ -83,7 +83,7 @@ describe('module2 stars projection cache reuse', () => {
         width: 1280,
         height: 720,
         centerDirection: horizontalToDirection(35.04, 135.03),
-        fovDegrees: 30.2001,
+        fovDegrees: 30.3601,
         limitingMagnitude: 6.31,
         sceneTimestampMs: 1180,
       },

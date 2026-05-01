@@ -244,6 +244,55 @@ describe('collectProjectedStars early exit', () => {
     const ids = result.projectedStars.map((entry) => entry.object.id)
     expect(ids).not.toContain('star-selected-dim')
   })
+
+  it('projects non-engine star objects during startup when scene packet is unavailable', () => {
+    projectDirectionToViewportMock.mockReset()
+    getSkyEngineFovDegreesMock.mockReset()
+    projectDirectionToViewportMock.mockReturnValue({
+      screenX: 260,
+      screenY: 180,
+      depth: 0.2,
+      angularDistanceRad: 0.1,
+      planeX: 0,
+      planeY: 0,
+    })
+    getSkyEngineFovDegreesMock.mockReturnValue(60)
+
+    const stars = [
+      {
+        id: 'startup-star-1',
+        type: 'star',
+        source: 'computed_real_sky',
+        magnitude: 1.1,
+        altitudeDeg: 40,
+        azimuthDeg: 110,
+        colorHex: '#ffffff',
+        colorIndexBV: 0.2,
+      },
+      {
+        id: 'startup-star-2',
+        type: 'star',
+        source: 'backend_star_catalog',
+        magnitude: 2.2,
+        altitudeDeg: 42,
+        azimuthDeg: 112,
+        colorHex: '#ffffff',
+        colorIndexBV: 0.3,
+      },
+    ]
+
+    const result = collectProjectedStars({
+      view: createView(),
+      objects: stars,
+      scenePacket: null,
+      sunState: { visualCalibration: { starFieldBrightness: 1 } },
+      brightnessExposureState: { limitingMagnitude: 6.0, visualCalibration: { starFieldBrightness: 1 } },
+    })
+
+    expect(result.projectedStars).toHaveLength(2)
+    expect(result.projectedStars[0].object.id).toBe('startup-star-1')
+    expect(result.projectedStars[1].object.id).toBe('startup-star-2')
+  })
 })
 
 describe('collectProjectedNonStarObjects LOD sizing', () => {

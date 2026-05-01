@@ -8,6 +8,7 @@ import {
   resolveViewTier,
 } from './runtimeFrame'
 import { evaluateStarsProjectionReuseDecision } from '../../adapters/framePacingDecisions'
+const HIPPARCOS_USABILITY_LIMITING_MAG_DELTA = 0.3
 
 export interface StarsProjectionCacheEntry {
   readonly sceneTimestampMs: number
@@ -192,15 +193,18 @@ function emitStarsPointItems(params: {
   painter: NonNullable<Parameters<NonNullable<ReturnType<typeof createStarsModule>['render']>>[0]['frameState']>['render']['painter']
   projectedStarsFrame: NonNullable<SceneRuntimeRefs['projectedStarsFrame']>
 }) {
-  const points = params.projectedStarsFrame.projectedStars.map((entry) => {
+  const stars = params.projectedStarsFrame.projectedStars
+  const points = new Array(stars.length)
+  for (let index = 0; index < stars.length; index += 1) {
+    const entry = stars[index]
     const [red, green, blue] = resolveHexRgb(entry.starProfile?.colorHex)
     const alpha = Math.max(0, Math.min(255, Math.round((entry.renderAlpha ?? 1) * 255)))
-    return {
+    points[index] = {
       pos: [entry.screenX, entry.screenY] as [number, number],
       size: entry.markerRadiusPx,
       color: [red, green, blue, alpha] as [number, number, number, number],
     }
-  })
+  }
 
   params.painter.paint_2d_points(points.length, points)
 }
@@ -227,11 +231,18 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
         brightnessExposureState.limitingMagnitude,
         runtime.corePainterLimits,
       )
-      const starsExposureState = limitingMagnitude === brightnessExposureState.limitingMagnitude
+      const sceneDataMode = latest.scenePacket?.diagnostics?.dataMode ?? 'loading'
+      const usabilityLimitingMagnitude = sceneDataMode === 'hipparcos'
+        ? Math.min(
+            limitingMagnitude + HIPPARCOS_USABILITY_LIMITING_MAG_DELTA,
+            runtime.corePainterLimits?.hardLimitMag ?? Number.POSITIVE_INFINITY,
+          )
+        : limitingMagnitude
+      const starsExposureState = usabilityLimitingMagnitude === brightnessExposureState.limitingMagnitude
         ? brightnessExposureState
         : {
           ...brightnessExposureState,
-          limitingMagnitude,
+          limitingMagnitude: usabilityLimitingMagnitude,
         }
       const centerDirection = view.centerDirection
       const objectSignature = buildProjectionSignature(latest)
@@ -249,7 +260,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
             z: centerDirection.z,
           },
           fovDegrees: currentFovDegrees,
-          limitingMagnitude,
+          limitingMagnitude: usabilityLimitingMagnitude,
           sceneTimestampMs,
         },
         starsProjectionReuseStreak: runtime.starsProjectionReuseStreak,
@@ -308,10 +319,18 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
             z: centerDirection.z,
           },
           fovDegrees: currentFovDegrees,
-          limitingMagnitude,
+          limitingMagnitude: usabilityLimitingMagnitude,
           projectedStars,
         }
         runtime.starsProjectionReuseStreak = 0
+      }
+
+      if (
+        projectedStars.length === 0 &&
+        (sceneDataMode === 'loading' || latest.scenePacket == null) &&
+        previousProjectionCache?.projectedStars?.length
+      ) {
+        projectedStars = previousProjectionCache.projectedStars
       }
 
       runtime.projectedStarsFrame = {
@@ -321,7 +340,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
         lod: resolveViewTier(currentFovDegrees),
         view,
         projectedStars,
-        limitingMagnitude,
+        limitingMagnitude: usabilityLimitingMagnitude,
         sceneTimestampIso,
       }
       runtime.runtimePerfTelemetry.latest = {
