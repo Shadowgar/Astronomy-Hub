@@ -185,3 +185,23 @@ What did not change:
 
 Parity scope note:
 - S9 remains a bounded partial slice; no full `stars.c` parity claim.
+
+## S9 Appendix Addendum — Verify-and-Gap-Close (Option 1)
+
+Date: 2026-05-01  
+Scope: verification-first pass against existing S9 candidate state.
+
+What changed in this pass:
+1. Verified existing S9 runtime seams and tests without reimplementation.
+2. Patched S9 mapping completeness only:
+- added explicit `core_get_point_for_mag` anchor,
+- added explicit `core_report_luminance_in_fov` anchor,
+- added explicit `core_render` painter-limit handoff anchor.
+
+What did not change:
+- `StarsModule.ts` runtime behavior,
+- `runtimeFrame.ts` traversal/filter behavior,
+- `starsRenderVisitor.ts` traversal semantics,
+- direct star layer ownership,
+- painter backend default-disabled behavior,
+- catalog/bootstrap and usability recovery behaviors.

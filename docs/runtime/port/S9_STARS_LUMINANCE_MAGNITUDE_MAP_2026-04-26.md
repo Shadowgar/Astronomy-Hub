@@ -28,6 +28,12 @@ Core source shape to preserve:
 - point emission path: `src/painter.c:172-176` (`paint_2d_points`)
 
 ### `core.c`
+- point/luminance helper used by stars path:
+  - point-size/luminance derivation: `src/core.c:406-440` (`core_get_point_for_mag`)
+- luminance reporting sink used by stars path:
+  - luminance report update: `src/core.c:852-858` (`core_report_luminance_in_fov`)
+- painter limit handoff in render lifecycle:
+  - painter limit assignment in `core_render`: `src/core.c:553-561` (`stars_limit_mag`, `hints_limit_mag`, `hard_limit_mag`)
 - painter-related star-limit defaults source context:
   - core visual defaults influencing limit policy inputs (`star_*`, tonemapper, display limit): `src/core.c:173-185`, `:239`
 
@@ -98,4 +104,3 @@ Core source shape to preserve:
 - low vs high limiting magnitude response,
 - painter-limit-driven filtering response,
 - bounded Hipparcos usability delta behavior.
-
