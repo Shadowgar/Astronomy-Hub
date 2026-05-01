@@ -890,3 +890,210 @@ Validation evidence recorded for this block:
 Interpretation:
 - S4 reduces pre-render contract drift by making cull parity source-modeled and by carrying practical projection/clip/cull state through the painter preamble.
 - This does not claim full projection or render backend execution parity; direct star renderer ownership remains unchanged.
+
+## Port Block 18 (Executed)
+### Full Source Plan + Core Runtime Slice 1
+
+Stellarium authority files:
+- `src/core.c` (`core_init`, `core_release`, `core_update`, `core_render`, `core_add_task`, `core_get_proj`, `core_report_luminance_in_fov`)
+- `src/core.h` (`struct core`, `struct task`)
+
+Astronomy Hub target files:
+- `docs/runtime/port/FULL_STELLARIUM_SOURCE_PORT_PLAN.md`
+- `frontend/src/features/sky-engine/engine/sky/runtime/StellariumCoreRuntime.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/SkyCore.ts`
+- `frontend/tests/test_stellarium_core_runtime.test.js`
+- `frontend/package.json`
+- `.github/workflows/module2-stars.yml`
+- `docs/runtime/port/module-inventory.md`
+- `docs/runtime/port/evidence-index.md`
+
+Explicit local logic deleted/replaced in this block:
+1. Replaced `SkyCore`'s local frame counter with `StellariumCoreRuntime.core_render(...)` frame indexing.
+2. Replaced direct `SkyCore.update(...)` invocation in the frame lifecycle with a `StellariumCoreRuntime.core_update(...)` boundary that owns source-shaped task execution before ordered module updates.
+3. Replaced ad hoc render-surface frame-state construction ownership with `StellariumCoreRuntime.core_render(...)` projection/painter-limit state.
+4. Added a full source-file execution plan so future work is tied to source files/function groups instead of ad hoc slices.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_stellarium_core_runtime.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_stellarium_core_runtime.test.js tests/test_sky_core_frame_lifecycle_order.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test:module0`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/sky-engine-runtime-frame-projection.test.js tests/sky-engine-stars-runtime.test.js tests/test_scene_query_state.test.js tests/test_painter_backend_port.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass; artifact `.cursor-artifacts/parity-compare/module2-live-runtime-profile-2026-04-26.json` with 24 samples.
+
+Interpretation:
+- This starts the full source-order port with a partial but real `core.c/core.h` runtime owner for initialization, update tasks, render-state projection inputs, painter-limit handoff, and luminance reporting.
+- This does not claim full `core.c` parity: full `core_t`, module/object tree, input/search/selection, observer/projection immutability assertions, and renderer internals remain open.
+
+## Port Block 19 (Executed)
+### Module Runtime Slice 1
+
+Stellarium authority files:
+- `src/module.c` (`module_update`, `module_list_objs`, `module_list_objs2`, `module_add_data_source`, `module_get_render_order`, `module_add_global_listener`, `module_changed`, `module_add`, `module_add_new`, `module_remove`, `module_get_child`)
+- `src/module.h` (`MODULE_AGAIN`, module API declarations)
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/StellariumModuleRuntime.ts`
+- `frontend/tests/test_stellarium_module_runtime.test.js`
+- `frontend/package.json`
+- `.github/workflows/module2-stars.yml`
+- `docs/runtime/port/FULL_STELLARIUM_SOURCE_PORT_PLAN.md`
+- `docs/runtime/port/module-inventory.md`
+- `docs/runtime/port/evidence-index.md`
+
+Explicit local logic deleted/replaced in this block:
+1. Added a source-shaped module runtime instead of expanding `SkyModule.ts` wrapper semantics.
+2. Modeled `MODULE_AGAIN` retry scheduling through `StellariumCoreRuntime.core_add_task`.
+3. Modeled parent/child retain/release semantics for `module_add`, `module_remove`, and `module_get_child`.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_stellarium_module_runtime.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_stellarium_module_runtime.test.js tests/test_stellarium_core_runtime.test.js tests/test_sky_core_frame_lifecycle_order.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test:module0`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/sky-engine-runtime-frame-projection.test.js tests/sky-engine-stars-runtime.test.js tests/test_scene_query_state.test.js tests/test_painter_backend_port.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass; artifact `.cursor-artifacts/parity-compare/module2-live-runtime-profile-2026-04-26.json` with 20 samples.
+
+Interpretation:
+- This starts `module.c/module.h` parity without claiming full module-system completion.
+- `SkyCore` is not yet integrated through this runtime, and full `obj.c` class registry, JSON tree/path behavior, and object attributes remain open.
+
+## Port Block 20 (Executed)
+### Object Runtime Slice 1
+
+Stellarium authority files:
+- `src/obj.c` (`obj_register_`, `obj_get_all_klasses`, `obj_get_klass_by_name`, `obj_create`, `obj_create_str`, `obj_retain`, `obj_release`, `obj_clone`, `obj_render`, `obj_get_name`, `obj_get_id`, `obj_get_designations`, `obj_get_json_data`, `obj_get_json_data_str`, `obj_get_attr_`, `obj_foreach_attr`, `obj_has_attr`, `obj_call_json`, `obj_call_json_str`, `obj_get_pvo`, `obj_get_info`)
+- `src/obj.h` (`struct obj_klass`, `struct obj`, `attribute_t`, `OBJ_REGISTER` declarations)
+- `src/obj_info.h` (`INFO_PVO`, `INFO_RADEC`, `INFO_DISTANCE`, `INFO_SEARCH_VMAG`, `INFO_LHA`)
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/StellariumObjectRuntime.ts`
+- `frontend/tests/test_stellarium_object_runtime.test.js`
+- `frontend/package.json`
+- `.github/workflows/module2-stars.yml`
+- `docs/runtime/port/FULL_STELLARIUM_SOURCE_PORT_PLAN.md`
+- `docs/runtime/port/module-inventory.md`
+- `docs/runtime/port/evidence-index.md`
+
+Explicit local logic deleted/replaced in this block:
+1. Added a source-shaped object runtime instead of expanding wrapper module object helpers.
+2. Modeled `obj_create` class lookup by `id` or `model`, init callback ordering, and known-attribute application after init.
+3. Modeled `obj_retain` / `obj_release` reference semantics, null retain/release behavior, parent-owned release guard, and destructor dispatch at zero.
+4. Modeled class-table render/clone dispatch and `obj_get_name` designation scoring with `NAME ` preference.
+5. Modeled the first `obj_get_info` fallback group: direct class callback success/error handling, `INFO_RADEC` from `INFO_PVO[0]`, `INFO_DISTANCE` from PVO position norm, `INFO_SEARCH_VMAG` delegation to `INFO_VMAG`, and explicit `INFO_LHA` block until full `frames.c` conversion support.
+6. Modeled designation listing, immutable object JSON data, JSON string serialization, attribute lookup/listing, JSON attribute calls, and JSON-string attribute calls.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_stellarium_object_runtime.test.js`: pass after expected red on missing runtime module, missing `obj_get_info`, and missing designation/attribute helpers; final pass, 14 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_stellarium_object_runtime.test.js tests/test_stellarium_module_runtime.test.js tests/test_stellarium_core_runtime.test.js tests/test_sky_core_frame_lifecycle_order.test.js`: pass, 22 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test:module0`: pass, 33 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/sky-engine-runtime-frame-projection.test.js tests/sky-engine-stars-runtime.test.js tests/test_scene_query_state.test.js tests/test_painter_backend_port.test.js`: pass, 64 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass; artifact `.cursor-artifacts/parity-compare/module2-live-runtime-profile-2026-04-26.json` with 23 samples.
+
+Interpretation:
+- This starts `obj.c/obj.h` parity with a real source-order runtime owner for class registry/lifecycle/render/name/info/designation/attribute dispatch.
+- This does not claim full object-system parity: native member-offset attributes, variadic attr helpers, frame-backed `obj_get_pos` / `INFO_LHA`, object path/JSON tree output, and `SkyCore`/module integration through this object runtime remain open.
+
+## Port Block 21 (Executed)
+### Projection Runtime Slice 1
+
+Stellarium authority files:
+- `src/projection.c` (`proj_register_`, `projection_compute_fovs`, `projection_init`, `project_to_clip`, `project_to_win`, `project_to_win_xy`, `unproject`)
+- `src/projection.h` (`PROJ_*` constants, `PROJ_FLIP_*`, `PROJ_HAS_DISCONTINUITY`, `struct projection`, `struct projection_klass`)
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/StellariumProjectionRuntime.ts`
+- `frontend/tests/test_stellarium_projection_runtime.test.js`
+- `frontend/package.json`
+- `.github/workflows/module2-stars.yml`
+- `docs/runtime/port/FULL_STELLARIUM_SOURCE_PORT_PLAN.md`
+- `docs/runtime/port/module-inventory.md`
+- `docs/runtime/port/evidence-index.md`
+
+Explicit local logic deleted/replaced in this block:
+1. Added a source-shaped projection runtime instead of further extending `SkyProjectionService` directly.
+2. Modeled the projection class registry and `projection_compute_fovs` delegation.
+3. Modeled `projection_init` state reset/window/fovy/aspect init ordering.
+4. Modeled generic clip/window projection wrappers and `unproject` matrix inversion wrapper around class callbacks.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_stellarium_projection_runtime.test.js`: pass after expected red on missing runtime module; final pass, 4 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_stellarium_projection_runtime.test.js tests/test_stellarium_object_runtime.test.js tests/test_stellarium_module_runtime.test.js tests/test_stellarium_core_runtime.test.js tests/test_sky_core_frame_lifecycle_order.test.js`: pass, 26 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test:module0`: pass, 37 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/sky-engine-runtime-frame-projection.test.js tests/sky-engine-stars-runtime.test.js tests/test_scene_query_state.test.js tests/test_painter_backend_port.test.js`: pass, 64 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass; artifact `.cursor-artifacts/parity-compare/module2-live-runtime-profile-2026-04-26.json` with 23 samples.
+
+Interpretation:
+- This starts generic `projection.c/projection.h` parity with a real source-order runtime owner.
+- This does not claim full projection parity: active `SkyProjectionService` is not yet integrated through this runtime, and native `projections/*.c` projection classes remain open.
+
+## Port Block 22 (Executed)
+### Hammer Projection Slice 1
+
+Stellarium authority files:
+- `src/projections/proj_hammer.c` (`proj_hammer_project`, `proj_hammer_backward`, `proj_hammer_init`)
+- `src/projection.h` (`PROJ_HAMMER`, `PROJ_HAS_DISCONTINUITY`)
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/StellariumProjectionRuntime.ts`
+- `frontend/tests/test_stellarium_projection_runtime.test.js`
+- `docs/runtime/port/FULL_STELLARIUM_SOURCE_PORT_PLAN.md`
+- `docs/runtime/port/module-inventory.md`
+- `docs/runtime/port/evidence-index.md`
+
+Explicit local logic deleted/replaced in this block:
+1. Added the native Hammer projection class factory inside the source-shaped projection runtime.
+2. Ported `proj_hammer_project` and `proj_hammer_backward` formulas directly.
+3. Ported `proj_hammer_init` flag behavior (`PROJ_HAS_DISCONTINUITY`) while preserving the source file's matrix TODO as unchanged identity behavior in this isolated runtime.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_stellarium_projection_runtime.test.js`: pass after expected red on missing Hammer exports; final pass, 7 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_stellarium_projection_runtime.test.js tests/test_stellarium_object_runtime.test.js tests/test_stellarium_module_runtime.test.js tests/test_stellarium_core_runtime.test.js tests/test_sky_core_frame_lifecycle_order.test.js`: pass, 29 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test:module0`: pass, 40 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/sky-engine-runtime-frame-projection.test.js tests/sky-engine-stars-runtime.test.js tests/test_scene_query_state.test.js tests/test_painter_backend_port.test.js`: pass, 64 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass; artifact `.cursor-artifacts/parity-compare/module2-live-runtime-profile-2026-04-26.json` with 23 samples.
+
+Interpretation:
+- This starts native projection-class parity with `proj_hammer.c`.
+- This does not claim active runtime projection parity: Hammer is not yet exposed through `SkyProjectionService`, and the remaining projection classes are open.
+
+## Port Block 23 (Executed)
+### Mercator Projection Slice 1
+
+Stellarium authority files:
+- `src/projections/proj_mercator.c` (`proj_mercator_project`, `proj_mercator_backward`, `proj_mercator_init`)
+- `src/projection.h` (`PROJ_MERCATOR`, `PROJ_HAS_DISCONTINUITY`)
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/StellariumProjectionRuntime.ts`
+- `frontend/tests/test_stellarium_projection_runtime.test.js`
+- `docs/runtime/port/FULL_STELLARIUM_SOURCE_PORT_PLAN.md`
+- `docs/runtime/port/module-inventory.md`
+- `docs/runtime/port/evidence-index.md`
+
+Explicit local logic deleted/replaced in this block:
+1. Added the native Mercator projection class factory inside the source-shaped projection runtime.
+2. Ported `proj_mercator_project` and `proj_mercator_backward` formulas directly, including the native pole guard value.
+3. Ported `proj_mercator_init` flag behavior (`PROJ_HAS_DISCONTINUITY`) while preserving the source file's matrix TODO as unchanged identity behavior in this isolated runtime.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_stellarium_projection_runtime.test.js`: pass after expected red on missing Mercator exports; final pass, 10 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_stellarium_projection_runtime.test.js tests/test_stellarium_object_runtime.test.js tests/test_stellarium_module_runtime.test.js tests/test_stellarium_core_runtime.test.js tests/test_sky_core_frame_lifecycle_order.test.js`: pass, 32 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test:module0`: pass, 43 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/sky-engine-runtime-frame-projection.test.js tests/sky-engine-stars-runtime.test.js tests/test_scene_query_state.test.js tests/test_painter_backend_port.test.js`: pass, 64 tests
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass; artifact `.cursor-artifacts/parity-compare/module2-live-runtime-profile-2026-04-26.json` with 24 samples.
+
+Interpretation:
+- This continues native projection-class parity with `proj_mercator.c`.
+- This does not claim active runtime projection parity: Mercator is not yet exposed through `SkyProjectionService`, and the remaining projection classes are open.

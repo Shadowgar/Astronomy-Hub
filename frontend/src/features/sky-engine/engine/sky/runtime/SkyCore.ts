@@ -11,6 +11,7 @@ import type {
 } from './types'
 import { commitRuntimePerfTelemetry } from './perfTelemetry'
 import { createSkyPainterPortState } from './renderer/painterPort'
+import { StellariumCoreRuntime } from './StellariumCoreRuntime'
 
 export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
   private readonly config: SkyCoreConfigWithServices<TProps, TRuntime, TServices>
@@ -30,8 +31,8 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
   private currentModuleCostMs: Record<string, number> = {}
   private currentModuleUpdateCostMs: Record<string, number> = {}
   private currentModuleRenderCostMs: Record<string, number> = {}
-  private frameCounter = 0
   private readonly painterState = createSkyPainterPortState()
+  private readonly stellariumCoreRuntime = new StellariumCoreRuntime()
 
   constructor(config: SkyCoreConfigWithServices<TProps, TRuntime, TServices>) {
     this.config = config
@@ -73,6 +74,13 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     this.started = true
     this.renderedPropsVersion = -1
     this.lastFrameTime = performance.now()
+    const initialSurface = this.resolveRuntimeSurface()
+    this.stellariumCoreRuntime.core_init({
+      windowWidth: initialSurface.windowWidth,
+      windowHeight: initialSurface.windowHeight,
+      pixelScale: initialSurface.pixelScale,
+      clockSeconds: this.lastFrameTime * 0.001,
+    })
 
     const context = this.getModuleContext()
     this.config.startServices?.(this.getServicesLifecycleContext())
@@ -136,7 +144,12 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
 
     const skyCoreUpdateStartMs = performance.now()
     const updateStartMs = performance.now()
-    this.update(deltaSeconds, frameState)
+    this.stellariumCoreRuntime.core_update({
+      deltaSeconds,
+      updateModules: (coreDeltaSeconds) => {
+        this.update(coreDeltaSeconds, frameState)
+      },
+    })
     const updateMs = performance.now() - updateStartMs
     const skyCoreUpdateTotalMs = performance.now() - skyCoreUpdateStartMs
 
@@ -320,6 +333,7 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     const context = this.getModuleContext()
     this.modules.forEach((module) => module.dispose?.(context))
     this.config.disposeServices?.(this.getServicesLifecycleContext())
+    this.stellariumCoreRuntime.core_release()
     this.runtime.scene.dispose()
     this.runtime.engine.dispose()
     this.runtime = null
@@ -414,6 +428,43 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
       throw new Error('SkyCore runtime is not started')
     }
 
+    const surface = this.resolveRuntimeSurface()
+    const fovRadians = this.services ? this.resolveFovRadiansForPainter(this.services) : null
+    const renderState = this.stellariumCoreRuntime.core_render({
+      windowWidth: surface.windowWidth,
+      windowHeight: surface.windowHeight,
+      pixelScale: surface.pixelScale,
+      fovDegrees: fovRadians == null ? null : (fovRadians * 180) / Math.PI,
+      tonemapper: this.resolveTonemapperForCoreRuntime(),
+    })
+    const corePainterLimits = this.runtime.corePainterLimits ?? renderState.painterLimits
+
+    return {
+      frameIndex: renderState.frameIndex,
+      deltaSeconds,
+      render: {
+        painter: this.painterState,
+        windowWidth: renderState.projection.windowWidth,
+        windowHeight: renderState.projection.windowHeight,
+        pixelScale: renderState.projection.pixelScale,
+        framebufferWidth: renderState.projection.framebufferWidth,
+        framebufferHeight: renderState.projection.framebufferHeight,
+        starsLimitMag: corePainterLimits?.starsLimitMag ?? null,
+        hintsLimitMag: corePainterLimits?.hintsLimitMag ?? null,
+        hardLimitMag: corePainterLimits?.hardLimitMag ?? null,
+      },
+    }
+  }
+
+  private resolveRuntimeSurface() {
+    if (!this.runtime) {
+      return {
+        windowWidth: 1,
+        windowHeight: 1,
+        pixelScale: 1,
+      }
+    }
+
     const engine = this.runtime.engine as unknown as {
       getRenderWidth?: () => number
       getRenderHeight?: () => number
@@ -423,24 +474,28 @@ export class SkyCore<TProps, TRuntime extends SkyCoreRenderRefs, TServices> {
     const windowHeight = this.resolveFinitePositiveValue(this.runtime.canvas.clientHeight, engine.getRenderHeight?.(), 1)
     const hardwareScalingLevel = this.resolveFinitePositiveValue(engine.getHardwareScalingLevel?.(), 1, 1)
     const pixelScale = hardwareScalingLevel > 0 ? 1 / hardwareScalingLevel : 1
-    const corePainterLimits = this.runtime.corePainterLimits ?? null
-
-    this.frameCounter += 1
-
     return {
-      frameIndex: this.frameCounter,
-      deltaSeconds,
-      render: {
-        painter: this.painterState,
-        windowWidth,
-        windowHeight,
-        pixelScale,
-        framebufferWidth: windowWidth * pixelScale,
-        framebufferHeight: windowHeight * pixelScale,
-        starsLimitMag: corePainterLimits?.starsLimitMag ?? null,
-        hintsLimitMag: corePainterLimits?.hintsLimitMag ?? null,
-        hardLimitMag: corePainterLimits?.hardLimitMag ?? null,
-      },
+      windowWidth,
+      windowHeight,
+      pixelScale,
+    }
+  }
+
+  private resolveTonemapperForCoreRuntime() {
+    const brightnessExposureState = (this.runtime as {
+      brightnessExposureState?: {
+        tonemapperP?: number | null
+        tonemapperExposure?: number | null
+        tonemapperLwmax?: number | null
+      } | null
+    } | null)?.brightnessExposureState
+    if (!brightnessExposureState) {
+      return null
+    }
+    return {
+      p: brightnessExposureState.tonemapperP,
+      exposure: brightnessExposureState.tonemapperExposure,
+      lwmax: brightnessExposureState.tonemapperLwmax,
     }
   }
 
