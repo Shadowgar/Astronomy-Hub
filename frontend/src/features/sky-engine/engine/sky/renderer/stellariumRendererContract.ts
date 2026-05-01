@@ -45,6 +45,8 @@ export interface StellariumRendererFrameInput {
 export interface StellariumRendererInitInput {
   readonly viewport: StellariumRendererViewportInput
   readonly canvasId?: string | null
+  readonly canvas?: HTMLCanvasElement | null
+  readonly gl?: WebGL2RenderingContext | null
 }
 
 export interface StellariumRendererFrameSubmission {

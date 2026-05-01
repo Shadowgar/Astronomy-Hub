@@ -45,4 +45,20 @@ describe('stellarium renderer boundary guardrails', () => {
     expect(source).toContain('export function createDirectStarLayer')
     expect(source).toContain('thinInstance')
   })
+
+  it('webgl2 backend folder has no Babylon dependency', () => {
+    const webgl2Root = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/renderer/webgl2')
+    const files = collectFilesRecursively(webgl2Root)
+    const textFiles = files.filter((filePath) => filePath.endsWith('.ts') || filePath.endsWith('.js'))
+
+    const offenders = []
+    for (const filePath of textFiles) {
+      const source = fs.readFileSync(filePath, 'utf8')
+      if (/(@babylonjs|babylonjs)/i.test(source)) {
+        offenders.push(path.relative(process.cwd(), filePath))
+      }
+    }
+
+    expect(offenders).toEqual([])
+  })
 })

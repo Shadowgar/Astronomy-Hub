@@ -169,3 +169,30 @@ Current ownership and mode:
 - directStarLayer remains active.
 - Renderer boundary remains non-visual diagnostics only.
 - No visual parity claim is made for this step.
+
+## Renderer Reset Step 3 - WebGL2 Backend Shell
+
+Files added:
+- frontend/src/features/sky-engine/engine/sky/renderer/webgl2/WebGL2StellariumRenderer.ts
+- frontend/src/features/sky-engine/engine/sky/renderer/webgl2/WebGL2ShaderProgram.ts
+- frontend/src/features/sky-engine/engine/sky/renderer/webgl2/WebGL2BufferPool.ts
+- frontend/src/features/sky-engine/engine/sky/renderer/webgl2/WebGL2RendererState.ts
+- frontend/src/features/sky-engine/engine/sky/renderer/webgl2/webgl2Capabilities.ts
+- frontend/tests/test_webgl2_stellarium_renderer.test.js
+
+Files changed:
+- frontend/src/features/sky-engine/engine/sky/renderer/stellariumRendererContract.ts
+- frontend/tests/test_stellarium_renderer_boundary_guards.test.js
+
+Backend status:
+- WebGL2 backend exists as a shell implementation only.
+- It implements the renderer boundary contract, accepts point items, records diagnostics, supports resize, and disposes safely.
+- It is not active by default and is not wired as the active visual renderer path.
+
+Legacy ownership status:
+- directStarLayer remains the active visual star output path.
+- NoopStellariumRenderer remains available.
+- painterPort and legacy renderer paths remain in place.
+
+Next step:
+- Feed point items into actual WebGL2 draw path (first real point rendering pass) while keeping runtime ownership gates explicit.
