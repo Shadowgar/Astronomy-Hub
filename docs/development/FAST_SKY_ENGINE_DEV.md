@@ -18,9 +18,25 @@ One-command stack control from repo root:
 npm run dev:wsl
 npm run dev:wsl:restart
 npm run dev:wsl:down
+npm run dev:stellarium
+npm run dev:stellarium:restart
+npm run dev:stellarium:down
+npm run dev:parity
 ```
 
 Use `npm run dev:wsl:restart` after frontend code/config changes if the page looks stale.
+Use `npm run dev:stellarium:restart` if the Stellarium reference view gets stale.
+
+Side-by-side parity URLs:
+- Sky Engine: `http://127.0.0.1:4173/sky-engine`
+- Stellarium reference: `http://127.0.0.1:8080`
+
+For host browser access when localhost forwarding is flaky, use WSL-IP URLs shown by:
+
+```bash
+npm run dev:wsl:status
+npm run dev:stellarium:status
+```
 
 Frontend:
 

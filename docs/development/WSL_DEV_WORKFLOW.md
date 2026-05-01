@@ -165,6 +165,12 @@ Root `package.json` now includes WSL-native helpers:
 - `npm run dev:wsl:logs`
 - `npm run dev:wsl:restart`
 - `npm run dev:wsl:down`
+- `npm run dev:stellarium`
+- `npm run dev:stellarium:status`
+- `npm run dev:stellarium:logs`
+- `npm run dev:stellarium:restart`
+- `npm run dev:stellarium:down`
+- `npm run dev:parity` (start sky-engine stack + Stellarium reference)
 - `npm run validate:sky-fast`
 - `npm run profile:sky-local`
 
@@ -183,7 +189,15 @@ npm run dev:wsl:status
 npm run dev:wsl:logs
 npm run dev:wsl:restart
 npm run dev:wsl:down
+npm run dev:stellarium
+npm run dev:stellarium:status
+npm run dev:stellarium:restart
+npm run dev:stellarium:down
 ```
+
+Parity comparison URLs:
+- Sky Engine: `http://127.0.0.1:4173/sky-engine`
+- Stellarium reference: `http://127.0.0.1:8080`
 
 ## Docker Status
 
