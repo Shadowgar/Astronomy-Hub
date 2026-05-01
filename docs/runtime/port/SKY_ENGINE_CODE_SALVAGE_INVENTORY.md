@@ -196,3 +196,24 @@ Legacy ownership status:
 
 Next step:
 - Feed point items into actual WebGL2 draw path (first real point rendering pass) while keeping runtime ownership gates explicit.
+
+## Renderer Reset Step 4 - WebGL2 Point Drawing
+
+What draws now:
+- `ITEM_POINTS` submitted to `WebGL2StellariumRenderer` are uploaded into WebGL2 buffers and drawn with `gl.drawArrays(GL_POINTS, ...)`.
+- Renderer diagnostics now separate submitted vs drawn point item counts and point totals.
+- Unsupported item types are skipped safely and counted in diagnostics.
+
+What does not draw yet:
+- No mesh/text/texture draw implementation in WebGL2 backend shell.
+- No visual owner swap for `/sky-engine`; runtime path remains legacy-owner-first.
+
+Default ownership status:
+- directStarLayer remains active default visual output.
+- WebGL2 backend remains non-default and test/explicit-construction path only.
+
+Shader parity status:
+- Current point shader is an initial WebGL2 shell shader and is not declared as Stellarium shader parity.
+
+Next step:
+- Expand WebGL2 point path toward richer point styling and batching behavior, then stage additional item types without changing default visual ownership.

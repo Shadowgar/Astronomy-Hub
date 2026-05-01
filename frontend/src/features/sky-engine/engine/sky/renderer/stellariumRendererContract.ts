@@ -66,6 +66,11 @@ export interface StellariumRendererDiagnostics {
   readonly acceptedMeshItemCount: number
   readonly acceptedTextItemCount: number
   readonly acceptedTextureItemCount: number
+  readonly submittedPointItemCount: number
+  readonly drawnPointItemCount: number
+  readonly submittedPointCount: number
+  readonly drawnPointCount: number
+  readonly skippedUnsupportedItemCount: number
   readonly lastFrameSequence: number
   readonly lastFrameProjectionMode: string | null
   readonly notes: ReadonlyArray<string>

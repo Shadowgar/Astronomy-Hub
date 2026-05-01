@@ -1,14 +1,26 @@
 const VERTEX_SOURCE = `#version 300 es
+// Initial WebGL2 backend shell shader (not Stellarium parity shader).
 in vec2 a_position;
+in float a_depth;
+in float a_size;
+in vec4 a_color;
+uniform vec2 u_viewport;
+out vec4 v_color;
 void main() {
-  gl_Position = vec4(a_position, 0.0, 1.0);
+  float x = (a_position.x / u_viewport.x) * 2.0 - 1.0;
+  float y = 1.0 - (a_position.y / u_viewport.y) * 2.0;
+  float z = clamp(a_depth, 0.0, 1.0) * 2.0 - 1.0;
+  gl_Position = vec4(x, y, z, 1.0);
+  gl_PointSize = max(1.0, a_size);
+  v_color = a_color / 255.0;
 }`
 
 const FRAGMENT_SOURCE = `#version 300 es
 precision mediump float;
+in vec4 v_color;
 out vec4 outColor;
 void main() {
-  outColor = vec4(1.0);
+  outColor = v_color;
 }`
 
 function compileShader(
@@ -33,6 +45,8 @@ function compileShader(
 
 export class WebGL2ShaderProgram {
   private program: WebGLProgram | null = null
+  private attribLocationCache = new Map<string, number>()
+  private uniformLocationCache = new Map<string, WebGLUniformLocation | null>()
 
   init(gl: WebGL2RenderingContext) {
     const vertexShader = compileShader(gl, gl.VERTEX_SHADER, VERTEX_SOURCE)
@@ -67,10 +81,40 @@ export class WebGL2ShaderProgram {
     }
 
     this.program = program
+    this.attribLocationCache.clear()
+    this.uniformLocationCache.clear()
   }
 
   getProgram() {
     return this.program
+  }
+
+  getAttribLocation(gl: WebGL2RenderingContext, name: string) {
+    if (!this.program) {
+      return -1
+    }
+    if (!this.attribLocationCache.has(name)) {
+      this.attribLocationCache.set(name, gl.getAttribLocation(this.program, name))
+    }
+    return this.attribLocationCache.get(name) ?? -1
+  }
+
+  getUniformLocation(gl: WebGL2RenderingContext, name: string) {
+    if (!this.program) {
+      return null
+    }
+    if (!this.uniformLocationCache.has(name)) {
+      this.uniformLocationCache.set(name, gl.getUniformLocation(this.program, name))
+    }
+    return this.uniformLocationCache.get(name) ?? null
+  }
+
+  use(gl: WebGL2RenderingContext) {
+    if (!this.program) {
+      return false
+    }
+    gl.useProgram(this.program)
+    return true
   }
 
   dispose(gl: WebGL2RenderingContext | null) {
@@ -78,5 +122,7 @@ export class WebGL2ShaderProgram {
       gl.deleteProgram(this.program)
     }
     this.program = null
+    this.attribLocationCache.clear()
+    this.uniformLocationCache.clear()
   }
 }

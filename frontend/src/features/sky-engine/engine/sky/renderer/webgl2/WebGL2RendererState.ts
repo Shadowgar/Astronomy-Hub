@@ -19,6 +19,11 @@ function emptyDiagnostics(): StellariumRendererDiagnostics {
     acceptedMeshItemCount: 0,
     acceptedTextItemCount: 0,
     acceptedTextureItemCount: 0,
+    submittedPointItemCount: 0,
+    drawnPointItemCount: 0,
+    submittedPointCount: 0,
+    drawnPointCount: 0,
+    skippedUnsupportedItemCount: 0,
     lastFrameSequence: 0,
     lastFrameProjectionMode: null,
     notes: [],
@@ -48,10 +53,12 @@ export class WebGL2RendererState {
     let acceptedMeshItemCount = 0
     let acceptedTextItemCount = 0
     let acceptedTextureItemCount = 0
+    let submittedPointCount = 0
 
     for (const item of items) {
       if (item.itemType === 'ITEM_POINTS') {
         acceptedPointItemCount += 1
+        submittedPointCount += item.pointCount
       } else if (item.itemType === 'ITEM_MESH') {
         acceptedMeshItemCount += 1
       } else if (item.itemType === 'ITEM_TEXT') {
@@ -67,12 +74,34 @@ export class WebGL2RendererState {
       acceptedMeshItemCount,
       acceptedTextItemCount,
       acceptedTextureItemCount,
+      submittedPointItemCount: acceptedPointItemCount,
+      drawnPointItemCount: 0,
+      submittedPointCount,
+      drawnPointCount: 0,
+      skippedUnsupportedItemCount: acceptedMeshItemCount + acceptedTextItemCount + acceptedTextureItemCount,
       lastFrameSequence: this.frameSequence,
       lastFrameProjectionMode: this.pendingFrameInput?.projectionMode ?? null,
       notes: [
         `backend:webgl2-shell`,
         `viewport:${this.pendingFrameInput?.viewport.width ?? 0}x${this.pendingFrameInput?.viewport.height ?? 0}`,
       ],
+    }
+  }
+
+  setPointDrawResults(input: {
+    drawnPointItemCount: number
+    drawnPointCount: number
+    skippedUnsupportedItemCount: number
+    note?: string
+  }) {
+    this.diagnostics = {
+      ...this.diagnostics,
+      drawnPointItemCount: input.drawnPointItemCount,
+      drawnPointCount: input.drawnPointCount,
+      skippedUnsupportedItemCount: input.skippedUnsupportedItemCount,
+      notes: input.note
+        ? [...this.diagnostics.notes, input.note]
+        : this.diagnostics.notes,
     }
   }
 

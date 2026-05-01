@@ -29,6 +29,11 @@ function emptyDiagnostics(): StellariumRendererDiagnostics {
     acceptedMeshItemCount: 0,
     acceptedTextItemCount: 0,
     acceptedTextureItemCount: 0,
+    submittedPointItemCount: 0,
+    drawnPointItemCount: 0,
+    submittedPointCount: 0,
+    drawnPointCount: 0,
+    skippedUnsupportedItemCount: 0,
     lastFrameSequence: 0,
     lastFrameProjectionMode: null,
     notes: [],
@@ -118,6 +123,15 @@ export class NoopStellariumRenderer implements StellariumRendererContract {
       acceptedMeshItemCount: categorized.acceptedMeshItemCount,
       acceptedTextItemCount: categorized.acceptedTextItemCount,
       acceptedTextureItemCount: categorized.acceptedTextureItemCount,
+      submittedPointItemCount: categorized.acceptedPointItemCount,
+      drawnPointItemCount: 0,
+      submittedPointCount: this.submittedItems
+        .filter((item) => item.itemType === STELLARIUM_RENDER_ITEM_TYPES.POINTS)
+        .reduce((sum, item) => sum + item.pointCount, 0),
+      drawnPointCount: 0,
+      skippedUnsupportedItemCount: categorized.acceptedMeshItemCount
+        + categorized.acceptedTextItemCount
+        + categorized.acceptedTextureItemCount,
       lastFrameSequence: this.frameSequence,
       lastFrameProjectionMode: submission.frameInput.projectionMode,
       notes: [

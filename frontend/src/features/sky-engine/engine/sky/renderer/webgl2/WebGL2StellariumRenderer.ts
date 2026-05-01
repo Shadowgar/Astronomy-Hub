@@ -105,6 +105,7 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
 
     if (this.gl) {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT)
+      this.drawPointItems(this.gl, this.state.getSubmittedItems())
     }
 
     this.renderFrameMs = nowMs() - start
@@ -150,19 +151,105 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
   }
 
   private uploadPointItems(gl: WebGL2RenderingContext, items: ReadonlyArray<StellariumRenderItem>) {
+    // Shell behavior: eager upload for submit-stage diagnostics and validation.
     const vertexPayload: number[] = []
     for (const item of items) {
+      if (item.itemType === 'ITEM_POINTS') {
+        vertexPayload.push(...item.vertexPayload)
+      }
+    }
+
+    if (vertexPayload.length > 0) {
+      this.bufferPool.uploadFloat32(gl, 'point-items-submit', vertexPayload)
+    }
+  }
+
+  private drawPointItems(gl: WebGL2RenderingContext, items: ReadonlyArray<StellariumRenderItem>) {
+    const viewport = this.state.getViewport()
+    const submittedPointItemCount = items.filter((item) => item.itemType === 'ITEM_POINTS').length
+    let drawnPointItemCount = 0
+    let drawnPointCount = 0
+    let skippedUnsupportedItemCount = 0
+
+    for (const item of items) {
       if (item.itemType !== 'ITEM_POINTS') {
+        skippedUnsupportedItemCount += 1
         continue
       }
-      vertexPayload.push(...item.vertexPayload)
+
+      const expectedPointPayloadSize = item.pointCount * 8
+      if (item.pointCount <= 0 || item.vertexPayload.length < expectedPointPayloadSize) {
+        continue
+      }
+
+      const buffer = this.bufferPool.uploadFloat32(
+        gl,
+        `point-item-${drawnPointItemCount}`,
+        item.vertexPayload,
+      )
+      if (!buffer) {
+        continue
+      }
+
+      if (!this.shaderProgram.use(gl)) {
+        continue
+      }
+
+      const positionLocation = this.shaderProgram.getAttribLocation(gl, 'a_position')
+      const depthLocation = this.shaderProgram.getAttribLocation(gl, 'a_depth')
+      const sizeLocation = this.shaderProgram.getAttribLocation(gl, 'a_size')
+      const colorLocation = this.shaderProgram.getAttribLocation(gl, 'a_color')
+      const viewportUniform = this.shaderProgram.getUniformLocation(gl, 'u_viewport')
+
+      const strideBytes = 8 * 4
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+      if (positionLocation >= 0) {
+        gl.enableVertexAttribArray(positionLocation)
+        gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, strideBytes, 0)
+      }
+      if (depthLocation >= 0) {
+        gl.enableVertexAttribArray(depthLocation)
+        gl.vertexAttribPointer(depthLocation, 1, gl.FLOAT, false, strideBytes, 2 * 4)
+      }
+      if (sizeLocation >= 0) {
+        gl.enableVertexAttribArray(sizeLocation)
+        gl.vertexAttribPointer(sizeLocation, 1, gl.FLOAT, false, strideBytes, 3 * 4)
+      }
+      if (colorLocation >= 0) {
+        gl.enableVertexAttribArray(colorLocation)
+        gl.vertexAttribPointer(colorLocation, 4, gl.FLOAT, false, strideBytes, 4 * 4)
+      }
+
+      if (viewportUniform && viewport) {
+        gl.uniform2f(viewportUniform, viewport.width, viewport.height)
+      }
+
+      gl.drawArrays(gl.POINTS, 0, item.pointCount)
+
+      if (positionLocation >= 0) {
+        gl.disableVertexAttribArray(positionLocation)
+      }
+      if (depthLocation >= 0) {
+        gl.disableVertexAttribArray(depthLocation)
+      }
+      if (sizeLocation >= 0) {
+        gl.disableVertexAttribArray(sizeLocation)
+      }
+      if (colorLocation >= 0) {
+        gl.disableVertexAttribArray(colorLocation)
+      }
+
+      drawnPointItemCount += 1
+      drawnPointCount += item.pointCount
     }
 
-    if (vertexPayload.length === 0) {
-      return
-    }
-
-    this.bufferPool.uploadFloat32(gl, 'point-items', vertexPayload)
+    this.state.setPointDrawResults({
+      drawnPointItemCount,
+      drawnPointCount,
+      skippedUnsupportedItemCount,
+      note: `point_draw:${drawnPointCount}/${submittedPointItemCount}`,
+    })
   }
 
   private assertUsable() {

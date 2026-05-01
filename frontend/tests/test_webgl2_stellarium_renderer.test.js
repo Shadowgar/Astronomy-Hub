@@ -11,6 +11,8 @@ function createStubWebGL2Context() {
     ARRAY_BUFFER: 0x8892,
     STATIC_DRAW: 0x88E4,
     COLOR_BUFFER_BIT: 0x4000,
+    POINTS: 0x0000,
+    FLOAT: 0x1406,
     VERTEX_SHADER: 0x8B31,
     FRAGMENT_SHADER: 0x8B30,
 
@@ -29,6 +31,28 @@ function createStubWebGL2Context() {
     linkProgram: vi.fn(),
     getProgramParameter: vi.fn(() => true),
     deleteProgram: vi.fn(),
+    useProgram: vi.fn(),
+    getAttribLocation: vi.fn((_program, name) => {
+      if (name === 'a_position') {
+        return 0
+      }
+      if (name === 'a_depth') {
+        return 1
+      }
+      if (name === 'a_size') {
+        return 2
+      }
+      if (name === 'a_color') {
+        return 3
+      }
+      return -1
+    }),
+    getUniformLocation: vi.fn(() => ({ location: 'u_viewport' })),
+    uniform2f: vi.fn(),
+    enableVertexAttribArray: vi.fn(),
+    vertexAttribPointer: vi.fn(),
+    disableVertexAttribArray: vi.fn(),
+    drawArrays: vi.fn(),
 
     createBuffer: vi.fn(() => ({})),
     bindBuffer: vi.fn(),
@@ -117,7 +141,171 @@ describe('webgl2 stellarium renderer shell', () => {
     expect(output.activeBackendName).toBe('webgl2-stellarium-shell')
     expect(output.diagnostics.acceptedItemCount).toBe(1)
     expect(output.diagnostics.acceptedPointItemCount).toBe(1)
-    expect(gl.bufferData).toHaveBeenCalledTimes(1)
+    expect(output.diagnostics.submittedPointItemCount).toBe(1)
+    expect(output.diagnostics.drawnPointItemCount).toBe(1)
+    expect(output.diagnostics.submittedPointCount).toBe(1)
+    expect(output.diagnostics.drawnPointCount).toBe(1)
+    expect(output.diagnostics.skippedUnsupportedItemCount).toBe(0)
+    expect(gl.bufferData).toHaveBeenCalledTimes(2)
+    expect(gl.drawArrays).toHaveBeenCalledWith(gl.POINTS, 0, 1)
+  })
+
+  it('skips unsupported item types and reports diagnostics separation', () => {
+    const gl = createStubWebGL2Context()
+    const renderer = new WebGL2StellariumRenderer({ gl })
+
+    renderer.init({
+      viewport: {
+        width: 800,
+        height: 400,
+        pixelRatio: 1,
+      },
+    })
+
+    renderer.prepareFrame({
+      observer: {
+        latitudeDeg: 40,
+        longitudeDeg: -74,
+        elevationM: 10,
+      },
+      time: {
+        timestampIso: '2026-05-01T00:00:00Z',
+        animationTimeSeconds: 0,
+      },
+      projectionMode: 'stereographic',
+      fovDegrees: 70,
+      viewport: {
+        width: 800,
+        height: 400,
+        pixelRatio: 1,
+      },
+      camera: {
+        centerDirection: { x: 0, y: 0, z: 1 },
+      },
+    })
+
+    const pointItem = createPointRenderItem({
+      order: 5,
+      pointCount: 2,
+      vertexPayload: [100, 100, 0.2, 3, 255, 255, 255, 255, 120, 120, 0.3, 2, 255, 200, 150, 255],
+      sourceModule: 'stars',
+      sourceObjectId: null,
+      dimensions: '2d',
+    })
+
+    renderer.submitFrame({
+      frameInput: {
+        observer: {
+          latitudeDeg: 40,
+          longitudeDeg: -74,
+          elevationM: 10,
+        },
+        time: {
+          timestampIso: '2026-05-01T00:00:00Z',
+          animationTimeSeconds: 0,
+        },
+        projectionMode: 'stereographic',
+        fovDegrees: 70,
+        viewport: {
+          width: 800,
+          height: 400,
+          pixelRatio: 1,
+        },
+        camera: {
+          centerDirection: { x: 0, y: 0, z: 1 },
+        },
+      },
+      renderItems: [
+        pointItem,
+        {
+          itemType: 'ITEM_MESH',
+          flags: 0,
+          order: 8,
+          pointCount: 0,
+          vertexPayload: [],
+          textureIdentity: null,
+          materialIdentity: null,
+          sourceModule: 'mesh',
+          sourceObjectId: null,
+          meshPrimitive: 'triangles',
+        },
+      ],
+    })
+
+    const output = renderer.renderFrame()
+
+    expect(output.diagnostics.acceptedItemCount).toBe(2)
+    expect(output.diagnostics.submittedPointItemCount).toBe(1)
+    expect(output.diagnostics.drawnPointItemCount).toBe(1)
+    expect(output.diagnostics.submittedPointCount).toBe(2)
+    expect(output.diagnostics.drawnPointCount).toBe(2)
+    expect(output.diagnostics.skippedUnsupportedItemCount).toBe(1)
+    expect(gl.drawArrays).toHaveBeenCalledWith(gl.POINTS, 0, 2)
+  })
+
+  it('empty frame draws nothing safely', () => {
+    const gl = createStubWebGL2Context()
+    const renderer = new WebGL2StellariumRenderer({ gl })
+
+    renderer.init({
+      viewport: {
+        width: 400,
+        height: 200,
+        pixelRatio: 1,
+      },
+    })
+
+    renderer.prepareFrame({
+      observer: {
+        latitudeDeg: 0,
+        longitudeDeg: 0,
+        elevationM: 0,
+      },
+      time: {
+        timestampIso: '2026-05-01T00:00:00Z',
+        animationTimeSeconds: 0,
+      },
+      projectionMode: 'stereographic',
+      fovDegrees: 90,
+      viewport: {
+        width: 400,
+        height: 200,
+        pixelRatio: 1,
+      },
+      camera: {
+        centerDirection: { x: 0, y: 0, z: 1 },
+      },
+    })
+
+    renderer.submitFrame({
+      frameInput: {
+        observer: {
+          latitudeDeg: 0,
+          longitudeDeg: 0,
+          elevationM: 0,
+        },
+        time: {
+          timestampIso: '2026-05-01T00:00:00Z',
+          animationTimeSeconds: 0,
+        },
+        projectionMode: 'stereographic',
+        fovDegrees: 90,
+        viewport: {
+          width: 400,
+          height: 200,
+          pixelRatio: 1,
+        },
+        camera: {
+          centerDirection: { x: 0, y: 0, z: 1 },
+        },
+      },
+      renderItems: [],
+    })
+
+    const output = renderer.renderFrame()
+    expect(output.diagnostics.drawnPointCount).toBe(0)
+    expect(output.diagnostics.drawnPointItemCount).toBe(0)
+    expect(gl.drawArrays).not.toHaveBeenCalled()
   })
 
   it('resize updates viewport state and forwards viewport call', () => {
