@@ -132,6 +132,7 @@ export function createDirectStarLayer(scene: Scene) {
   let previousViewportWidth = Number.NaN
   let previousViewportHeight = Number.NaN
   let previousSelectedObjectId: string | null = null
+  let visible = true
 
   const ensureCapacity = (nextCount: number) => {
     if (nextCount <= capacity) {
@@ -188,7 +189,7 @@ export function createDirectStarLayer(scene: Scene) {
 
       ensureCapacity(projectedStars.length)
 
-      markerMesh.isVisible = true
+  markerMesh.isVisible = visible
       let selectedEntry: ProjectedSceneObjectEntry | null = null
       const transformStartMs = performance.now()
 
@@ -250,7 +251,7 @@ export function createDirectStarLayer(scene: Scene) {
         }
       }
 
-      selectionRing.mesh.isVisible = true
+      selectionRing.mesh.isVisible = visible
       selectionRing.mesh.position.set(
         selectedEntry.screenX - viewportWidth * 0.5,
         viewportHeight * 0.5 - selectedEntry.screenY,
@@ -270,6 +271,14 @@ export function createDirectStarLayer(scene: Scene) {
         bufferUpdateMs,
         gpuUploadMs: 0,
         selectionHighlightMs,
+      }
+    },
+
+    setVisible(nextVisible: boolean) {
+      visible = nextVisible
+      markerMesh.isVisible = visible && markerMesh.thinInstanceCount > 0
+      if (!visible) {
+        selectionRing.mesh.isVisible = false
       }
     },
 

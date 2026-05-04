@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { describe, expect, it, vi } from 'vitest'
 
 import { createPointRenderItem } from '../src/features/sky-engine/engine/sky/renderer/renderItems'
@@ -61,6 +63,20 @@ function createStubWebGL2Context() {
     bufferData: vi.fn(),
     deleteBuffer: vi.fn(),
   }
+}
+
+function collectFilesRecursively(rootDir) {
+  const output = []
+  const entries = fs.readdirSync(rootDir, { withFileTypes: true })
+  for (const entry of entries) {
+    const absPath = path.join(rootDir, entry.name)
+    if (entry.isDirectory()) {
+      output.push(...collectFilesRecursively(absPath))
+      continue
+    }
+    output.push(absPath)
+  }
+  return output
 }
 
 describe('webgl2 stellarium renderer shell', () => {
@@ -317,6 +333,22 @@ describe('webgl2 stellarium renderer shell', () => {
     expect(output.diagnostics.drawnPointCount).toBe(0)
     expect(output.diagnostics.drawnPointItemCount).toBe(0)
     expect(gl.drawArrays).not.toHaveBeenCalled()
+  })
+
+  it('webgl2 renderer folder remains Babylon-free', () => {
+    const webgl2Root = path.resolve(process.cwd(), 'src/features/sky-engine/engine/sky/renderer/webgl2')
+    const files = collectFilesRecursively(webgl2Root)
+    const textFiles = files.filter((filePath) => filePath.endsWith('.ts') || filePath.endsWith('.js'))
+
+    const offenders = []
+    for (const filePath of textFiles) {
+      const source = fs.readFileSync(filePath, 'utf8')
+      if (/(@babylonjs|babylonjs)/i.test(source)) {
+        offenders.push(path.relative(process.cwd(), filePath))
+      }
+    }
+
+    expect(offenders).toEqual([])
   })
 
   it('resize updates viewport state and forwards viewport call', () => {

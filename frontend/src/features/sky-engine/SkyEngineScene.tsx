@@ -55,6 +55,10 @@ import {
   createWebGL2StarsHarnessModule,
   type WebGL2StarsHarnessDiagnostics,
 } from './engine/sky/runtime/modules/WebGL2StarsHarnessModule'
+import {
+  createWebGL2StarsOwnerModule,
+  type WebGL2StarsOwnerDiagnostics,
+} from './engine/sky/runtime/modules/WebGL2StarsOwnerModule'
 import { WebGL2StellariumRenderer } from './engine/sky/renderer/webgl2/WebGL2StellariumRenderer'
 import { DEFAULT_SKY_ENGINE_AID_VISIBILITY } from './aidVisibilityPersistence'
 import {
@@ -80,6 +84,7 @@ import {
 import { resolveStarColorHex } from './starRenderer'
 import type { SkyEngineAidVisibility, SkyEngineSceneObject, SkyEngineSunState } from './types'
 import type { WebGL2StarsHarnessConfig } from './webgl2StarsHarnessConfig'
+import type { WebGL2StarsOwnerConfig } from './webgl2StarsOwnerConfig'
 import type { SkyDebugVisualConfig } from './skyDebugVisualConfig'
 
 const UI_SNAPSHOT_CADENCE_MS = 150
@@ -106,6 +111,12 @@ const DEFAULT_WEBGL2_STARS_HARNESS_CONFIG: WebGL2StarsHarnessConfig = {
   pointScale: 1,
   alphaScale: 1,
   colorMode: 'payload',
+}
+
+const DEFAULT_WEBGL2_STARS_OWNER_CONFIG: WebGL2StarsOwnerConfig = {
+  enabled: false,
+  devOnly: true,
+  forceFailure: false,
 }
 
 const DEFAULT_SKY_DEBUG_VISUAL_CONFIG: SkyDebugVisualConfig = {
@@ -520,13 +531,16 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     debugTelemetryEnabled = false,
     deterministicParityMode = false,
     webgl2StarsHarnessConfig = DEFAULT_WEBGL2_STARS_HARNESS_CONFIG,
+    webgl2StarsOwnerConfig = DEFAULT_WEBGL2_STARS_OWNER_CONFIG,
     debugVisualConfig = DEFAULT_SKY_DEBUG_VISUAL_CONFIG,
   },
   ref,
 ) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const backgroundCanvasRef = useRef<HTMLCanvasElement | null>(null)
+  const webgl2OwnerCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const webgl2HarnessCanvasRef = useRef<HTMLCanvasElement | null>(null)
+  const ownerDiagnosticsKeyRef = useRef('')
   const harnessDiagnosticsKeyRef = useRef('')
   const coreRef = useRef<SkyCore<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> | null>(null)
   const propsVersionRef = useRef(0)
@@ -544,6 +558,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
   const lastPropsSignatureRef = useRef('')
   const stableScenePacketRef = useRef<ScenePropsSnapshot['scenePacket']>(null)
   const syncRuntimeModelRef = useRef<(force?: boolean) => void>(() => undefined)
+  const [webgl2OwnerDiagnostics, setWebgl2OwnerDiagnostics] = useState<WebGL2StarsOwnerDiagnostics | null>(null)
   const [webgl2HarnessDiagnostics, setWebgl2HarnessDiagnostics] = useState<WebGL2StarsHarnessDiagnostics | null>(null)
   const defaultDynamicModelRef = useRef<SceneControllerModel>(
     buildSceneControllerModel({
@@ -640,6 +655,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
   useEffect(() => {
     const canvas = canvasRef.current
     const backgroundCanvas = backgroundCanvasRef.current
+    const webgl2OwnerCanvas = webgl2OwnerCanvasRef.current
     const webgl2HarnessCanvas = webgl2HarnessCanvasRef.current
 
     if (!canvas || !backgroundCanvas) {
@@ -827,6 +843,51 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     core.registerModule(createOverlayRuntimeModule())
     core.registerModule(createPointerRuntimeModule())
     core.registerModule(createSnapshotBridgeModule(snapshotStore, UI_SNAPSHOT_CADENCE_MS))
+    if (webgl2StarsOwnerConfig.enabled && webgl2OwnerCanvas) {
+      const webgl2OwnerRenderer = new WebGL2StellariumRenderer({ canvas: webgl2OwnerCanvas })
+      core.registerModule(createWebGL2StarsOwnerModule({
+        enabled: true,
+        comparisonHarnessEnabled: webgl2StarsHarnessConfig.enabled,
+        repositoryMode,
+        renderer: webgl2OwnerRenderer,
+        forceFailure: webgl2StarsOwnerConfig.forceFailure,
+        pointScale: webgl2StarsHarnessConfig.pointScale,
+        alphaScale: webgl2StarsHarnessConfig.alphaScale,
+        colorMode: webgl2StarsHarnessConfig.colorMode,
+        debugDarkModeEnabled: debugVisualConfig.darkSkyOverrideEnabled,
+        debugStarsVisibleOverrideEnabled: debugVisualConfig.starsVisibleOverrideEnabled,
+        onDiagnostics: (diagnostics) => {
+          const nextDiagnosticsKey = [
+            diagnostics.ownerTrialEnabled ? '1' : '0',
+            diagnostics.backendHealthy ? '1' : '0',
+            diagnostics.backendName ?? 'none',
+            diagnostics.submittedPointCount,
+            diagnostics.drawnPointCount,
+            diagnostics.directStarLayerStarCount,
+            diagnostics.directStarLayerStatus,
+            diagnostics.fallbackReason ?? 'none',
+            diagnostics.scenePacketDataMode ?? 'none',
+            diagnostics.scenePacketLimitingMagnitude?.toFixed(2) ?? 'none',
+            diagnostics.scenePacketStarsListVisitCount ?? 0,
+            diagnostics.scenePacketStarCount,
+            diagnostics.rendererBoundaryPointCount,
+            diagnostics.comparisonHarnessEnabled ? 'harness-on' : 'harness-off',
+            diagnostics.pointScale.toFixed(2),
+            diagnostics.alphaScale.toFixed(2),
+            diagnostics.colorMode,
+            diagnostics.debugDarkModeEnabled ? 'debug-dark-on' : 'debug-dark-off',
+            diagnostics.debugStarsVisibleOverrideEnabled ? 'debug-stars-visible-on' : 'debug-stars-visible-off',
+          ].join(':')
+
+          if (nextDiagnosticsKey === ownerDiagnosticsKeyRef.current) {
+            return
+          }
+
+          ownerDiagnosticsKeyRef.current = nextDiagnosticsKey
+          setWebgl2OwnerDiagnostics(diagnostics)
+        },
+      }))
+    }
     if (webgl2StarsHarnessConfig.enabled && webgl2HarnessCanvas) {
       const webgl2HarnessRenderer = new WebGL2StellariumRenderer({ canvas: webgl2HarnessCanvas })
       core.registerModule(createWebGL2StarsHarnessModule({
@@ -919,6 +980,41 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     <div className="sky-engine-scene">
       <canvas ref={backgroundCanvasRef} className="sky-engine-scene__background" />
       <canvas ref={canvasRef} className="sky-engine-scene__canvas" aria-label="Sky Engine scene" />
+      {webgl2StarsOwnerConfig.enabled ? (
+        <canvas
+          ref={webgl2OwnerCanvasRef}
+          className="sky-engine-scene__webgl2-owner-canvas"
+          aria-label="WebGL2 stars owner trial"
+        />
+      ) : null}
+      <div className="sky-engine-scene__webgl2-owner-status" data-testid="webgl2-stars-owner-status">
+        <strong>WebGL2 star ownership trial: {webgl2StarsOwnerConfig.enabled ? 'ON' : 'OFF'}</strong>
+        <span>Backend health: {webgl2StarsOwnerConfig.enabled ? (webgl2OwnerDiagnostics?.backendHealthy ? 'healthy' : 'fallback') : 'off'}</span>
+        <span>Backend: {webgl2OwnerDiagnostics?.backendName ?? (webgl2StarsOwnerConfig.enabled ? 'initializing' : 'not-mounted')}</span>
+        <span>Direct stars: {webgl2OwnerDiagnostics?.directStarLayerStarCount ?? 0}</span>
+        <span>Direct star layer: {webgl2OwnerDiagnostics?.directStarLayerStatus ?? 'visible'}</span>
+        <span>Renderer boundary points: {webgl2OwnerDiagnostics?.rendererBoundaryPointCount ?? 0}</span>
+        <span>Submitted points: {webgl2OwnerDiagnostics?.submittedPointCount ?? 0}</span>
+        <span>Drawn points: {webgl2OwnerDiagnostics?.drawnPointCount ?? 0}</span>
+        <span>Comparison harness: {webgl2OwnerDiagnostics?.comparisonHarnessEnabled ?? webgl2StarsHarnessConfig.enabled ? 'ON' : 'OFF'}</span>
+        <span>Debug dark mode: {webgl2OwnerDiagnostics?.debugDarkModeEnabled ?? debugVisualConfig.darkSkyOverrideEnabled ? 'ON' : 'OFF'}</span>
+        <span>
+          Debug stars-visible override: {webgl2OwnerDiagnostics?.debugStarsVisibleOverrideEnabled ?? debugVisualConfig.starsVisibleOverrideEnabled ? 'ON' : 'OFF'}
+        </span>
+        <span>
+          Point style: {webgl2OwnerDiagnostics?.colorMode ?? webgl2StarsHarnessConfig.colorMode}
+          {` @ size ${webgl2OwnerDiagnostics?.pointScale.toFixed(2) ?? webgl2StarsHarnessConfig.pointScale.toFixed(2)}`}
+          {` alpha ${webgl2OwnerDiagnostics?.alphaScale.toFixed(2) ?? webgl2StarsHarnessConfig.alphaScale.toFixed(2)}`}
+        </span>
+        <span>
+          Fallback reason: {webgl2OwnerDiagnostics
+            ? (webgl2OwnerDiagnostics.fallbackReason ?? 'none')
+            : (webgl2StarsOwnerConfig.enabled
+                ? 'Waiting for WebGL2 owner trial initialization.'
+                : 'Owner flag disabled; directStarLayer remains default.')}
+        </span>
+        <small>Non-default ownership trial only. Not parity complete. directStarLayer remains legacy fallback.</small>
+      </div>
       {webgl2StarsHarnessConfig.enabled ? (
         <>
           <canvas

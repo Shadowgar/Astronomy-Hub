@@ -42,6 +42,7 @@ import {
 import { persistSkyCultureId, readPersistedSkyCultureId } from '../features/sky-engine/skyCultureSelection'
 import { SKY_ENGINE_SKYCULTURES } from '../features/sky-engine/skycultures'
 import { resolveWebGL2StarsHarnessConfig } from '../features/sky-engine/webgl2StarsHarnessConfig'
+import { resolveWebGL2StarsOwnerConfig } from '../features/sky-engine/webgl2StarsOwnerConfig'
 import { resolveSkyDebugVisualConfig } from '../features/sky-engine/skyDebugVisualConfig'
 import { useSceneByScopeDataQuery, useSkyStarTileManifestDataQuery } from '../features/scene/queries'
 import {
@@ -261,6 +262,7 @@ type SkyEngineViewportProps = {
   debugTelemetryEnabled: boolean
   deterministicParityModeEnabled: boolean
   webgl2StarsHarnessConfig: ReturnType<typeof resolveWebGL2StarsHarnessConfig>
+  webgl2StarsOwnerConfig: ReturnType<typeof resolveWebGL2StarsOwnerConfig>
   skyDebugVisualConfig: ReturnType<typeof resolveSkyDebugVisualConfig>
 }
 
@@ -280,6 +282,7 @@ const SkyEngineViewport = React.memo(function SkyEngineViewport({
   debugTelemetryEnabled,
   deterministicParityModeEnabled,
   webgl2StarsHarnessConfig,
+  webgl2StarsOwnerConfig,
   skyDebugVisualConfig,
 }: Readonly<SkyEngineViewportProps>) {
   return (
@@ -299,6 +302,7 @@ const SkyEngineViewport = React.memo(function SkyEngineViewport({
       debugTelemetryEnabled={debugTelemetryEnabled}
       deterministicParityMode={deterministicParityModeEnabled}
       webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
+      webgl2StarsOwnerConfig={webgl2StarsOwnerConfig}
       debugVisualConfig={skyDebugVisualConfig}
     />
   )
@@ -309,11 +313,13 @@ SkyEngineViewport.displayName = 'SkyEngineViewport'
 function SkyEnginePageContent({
   backendScene,
   webgl2StarsHarnessConfig,
+  webgl2StarsOwnerConfig,
   skyDebugVisualConfig,
   offlineFallbackMode = false,
 }: Readonly<{
   backendScene: BackendSkyScenePayload
   webgl2StarsHarnessConfig: ReturnType<typeof resolveWebGL2StarsHarnessConfig>
+  webgl2StarsOwnerConfig: ReturnType<typeof resolveWebGL2StarsOwnerConfig>
   skyDebugVisualConfig: ReturnType<typeof resolveSkyDebugVisualConfig>
   offlineFallbackMode?: boolean
 }>) {
@@ -671,6 +677,7 @@ function SkyEnginePageContent({
           debugTelemetryEnabled={debugTelemetryEnabled}
           deterministicParityModeEnabled={deterministicParityModeEnabled}
           webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
+          webgl2StarsOwnerConfig={webgl2StarsOwnerConfig}
           skyDebugVisualConfig={skyDebugVisualConfig}
         />
 
@@ -827,6 +834,11 @@ export default function SkyEnginePage() {
     isDev: isDevRuntime,
     devOnly: false,
   })
+  const webgl2StarsOwnerConfig = resolveWebGL2StarsOwnerConfig({
+    search: globalThis.location?.search ?? '',
+    isDev: isDevRuntime,
+    devOnly: false,
+  })
   const skyDebugVisualConfig = resolveSkyDebugVisualConfig({
     search: globalThis.location?.search ?? '',
     isDev: isDevRuntime,
@@ -880,6 +892,7 @@ export default function SkyEnginePage() {
       <SkyEnginePageContent
         backendScene={fallbackBackendScene}
         webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
+        webgl2StarsOwnerConfig={webgl2StarsOwnerConfig}
         skyDebugVisualConfig={skyDebugVisualConfig}
         offlineFallbackMode
       />
@@ -891,6 +904,7 @@ export default function SkyEnginePage() {
       <SkyEnginePageContent
         backendScene={fallbackBackendScene}
         webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
+        webgl2StarsOwnerConfig={webgl2StarsOwnerConfig}
         skyDebugVisualConfig={skyDebugVisualConfig}
         offlineFallbackMode
       />
@@ -901,6 +915,7 @@ export default function SkyEnginePage() {
     <SkyEnginePageContent
       backendScene={backendScene}
       webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
+      webgl2StarsOwnerConfig={webgl2StarsOwnerConfig}
       skyDebugVisualConfig={skyDebugVisualConfig}
     />
   )

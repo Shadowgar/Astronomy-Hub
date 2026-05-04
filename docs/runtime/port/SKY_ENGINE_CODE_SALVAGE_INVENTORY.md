@@ -526,3 +526,124 @@ Validation commands (executed):
 Conclusion:
 - Temporary dev dark-sky and stars-visible overrides now provide explicit verification controls without altering default route behavior.
 - Step 9 style calibration controls are active in the WebGL2 harness path and surfaced in diagnostics/status, enabling direct visual comparison against local Stellarium while preserving current ownership boundaries.
+
+## Renderer Reset Step 10 - WebGL2 Star Ownership Trial
+
+Objective:
+- Promote the WebGL2 stars path from comparison-only harness to an explicit feature-flagged ownership trial while keeping `directStarLayer` as the default and legacy fallback.
+
+Flags:
+- Ownership trial: `webgl2StarsOwner=1`
+- Fallback verification aid (dev-only): `webgl2StarsOwnerForceFail=1`
+- Existing comparison harness remains separate: `webgl2StarsHarness=1`
+- Existing style controls reused by owner mode:
+  - `webgl2StarsHarnessPointScale`
+  - `webgl2StarsHarnessAlphaScale`
+  - `webgl2StarsHarnessColorMode`
+
+Default behavior:
+- `/sky-engine` keeps `directStarLayer` as the visible star owner.
+- Owner mode is `OFF` by default.
+- WebGL2 ownership canvas is not mounted unless `webgl2StarsOwner=1` is present.
+- Comparison harness remains unmounted unless `webgl2StarsHarness=1` is present.
+
+Owner behavior (`webgl2StarsOwner=1`):
+- A dedicated WebGL2 owner canvas mounts above the Babylon scene canvas.
+- WebGL2 consumes the existing `rendererBoundaryStarsPointItem` output from `StarsModule`.
+- `directStarLayer` remains initialized but is suppressed only after a healthy WebGL2 frame is submitted and drawn.
+- Owner diagnostics are always visible and explicitly state:
+  - `WebGL2 star ownership trial: ON/OFF`
+  - backend health
+  - backend name
+  - direct star layer status (`visible`, `suppressed`, `fallback`)
+  - renderer-boundary point count
+  - submitted and drawn point counts
+  - active point style calibration
+  - explicit `Non-default ownership trial only. Not parity complete.` wording
+
+Fallback behavior:
+- If renderer-boundary stars are not ready, `directStarLayer` stays visible.
+- If WebGL2 init/render throws, `directStarLayer` is forced back to visible and diagnostics switch to `fallback` with the reason shown in the UI.
+- Route remains stable; no ownership-mode crash was observed in the forced-failure verification route.
+
+Diagnostics added:
+- Owner status card in `SkyEngineScene` with ownership/fallback status.
+- Healthy owner state reports live counts from `WebGL2StellariumRenderer`.
+- Harness comparison card remains intact and independent.
+
+Tests added/updated:
+- `frontend/tests/test_webgl2_stars_harness_flag.test.jsx`
+  - default route leaves owner mode off
+  - owner flag mounts owner trial surface
+  - dark/style flags remain wired in owner mode
+  - forced-failure route stays dev-only
+- `frontend/tests/test_webgl2_stars_harness_module.test.js`
+  - owner mode suppresses `directStarLayer` only while healthy
+  - init/render failures restore fallback safely
+- `frontend/tests/test_webgl2_stellarium_renderer.test.js`
+  - WebGL2 renderer folder remains Babylon-free
+
+Visual routes and artifacts:
+- Default route:
+  - URL: `http://127.0.0.1:4173/sky-engine`
+  - Direct star count: `5`
+  - WebGL2 submitted count: `0`
+  - WebGL2 drawn count: `0`
+  - Owner mode: `OFF`
+  - Fallback status: `visible` (`Owner flag disabled; directStarLayer remains default.`)
+  - Screenshot: `/home/rocco/Astronomy-Hub/output/playwright/step10-webgl2-owner-trial/01-default.png`
+  - Visible result: legacy directStarLayer-only route with owner diagnostics card present and non-default note.
+- Dark legacy route:
+  - URL: `http://127.0.0.1:4173/sky-engine?skyDebugDark=1&skyDebugStarsVisible=1`
+  - Direct star count: `5`
+  - WebGL2 submitted count: `0`
+  - WebGL2 drawn count: `0`
+  - Owner mode: `OFF`
+  - Fallback status: `visible`
+  - Screenshot: `/home/rocco/Astronomy-Hub/output/playwright/step10-webgl2-owner-trial/02-dark-legacy.png`
+  - Visible result: legacy route with dark-sky and stars-visible debug overrides active; no ownership swap.
+- Harness side-by-side route:
+  - URL: `http://127.0.0.1:4173/sky-engine?webgl2StarsHarness=1&webgl2StarsHarnessMode=side-by-side&skyDebugDark=1&skyDebugStarsVisible=1&webgl2StarsHarnessRealCatalogDensePreset=1`
+  - Direct star count: `602`
+  - WebGL2 submitted count: `602`
+  - WebGL2 drawn count: `602`
+  - Owner mode: `OFF`
+  - Fallback status: `visible`
+  - Screenshot: `/home/rocco/Astronomy-Hub/output/playwright/step10-webgl2-owner-trial/03-harness-side-by-side.png`
+  - Visible result: comparison harness side-by-side remains separate; `directStarLayer` remains default.
+- Ownership trial route:
+  - URL: `http://127.0.0.1:4173/sky-engine?webgl2StarsOwner=1&skyDebugDark=1&skyDebugStarsVisible=1&webgl2StarsHarnessRealCatalogDensePreset=1&webgl2StarsHarnessPointScale=1.8&webgl2StarsHarnessAlphaScale=1.6&webgl2StarsHarnessColorMode=white-hot`
+  - Direct star count: `602`
+  - WebGL2 submitted count: `602`
+  - WebGL2 drawn count: `602`
+  - Owner mode: `ON`
+  - Fallback status: `suppressed` (`Fallback reason: none`)
+  - Screenshot: `/home/rocco/Astronomy-Hub/output/playwright/step10-webgl2-owner-trial/04-owner-trial.png`
+  - Visible result: WebGL2 points become the primary visible star layer while `directStarLayer` remains initialized and suppressed.
+- Ownership trial forced fallback route:
+  - URL: `http://127.0.0.1:4173/sky-engine?webgl2StarsOwner=1&webgl2StarsOwnerForceFail=1&skyDebugDark=1&skyDebugStarsVisible=1&webgl2StarsHarnessRealCatalogDensePreset=1&webgl2StarsHarnessPointScale=1.8&webgl2StarsHarnessAlphaScale=1.6&webgl2StarsHarnessColorMode=white-hot`
+  - Direct star count: `602`
+  - WebGL2 submitted count: `0`
+  - WebGL2 drawn count: `0`
+  - Owner mode: `ON`
+  - Fallback status: `fallback` (`WebGL2 owner trial forced failure for fallback verification.`)
+  - Screenshot: `/home/rocco/Astronomy-Hub/output/playwright/step10-webgl2-owner-trial/05-owner-fallback.png`
+  - Visible result: directStarLayer reappears without route failure.
+
+Validation results:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_webgl2_stars_harness_module.test.js tests/test_webgl2_stars_harness_flag.test.jsx tests/test_webgl2_stellarium_renderer.test.js tests/sky-engine-stars-runtime.test.js`: pass (`4` files, `31` tests)
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass
+  - artifact: `/home/rocco/Astronomy-Hub/.cursor-artifacts/parity-compare/module2-live-runtime-profile-2026-04-26.json`
+- `cd /home/rocco/Astronomy-Hub && git diff --check`: pass
+
+Readiness for broader ownership testing:
+- Ready for broader opt-in ownership testing on dense real-catalog routes only.
+- Not ready for default ownership.
+
+Remaining blockers:
+- Owner diagnostics off-route still report `directStarLayer` counts only through general runtime chips rather than a unified owner-module feed.
+- Renderer path still covers `ITEM_POINTS` only; non-point item lanes remain outside owner-trial scope.
+- Real scene packet still reports `hipparcos` in the captured dense route; this step does not resolve broader survey-parity limitations.
+- This step is explicitly non-parity and non-default.

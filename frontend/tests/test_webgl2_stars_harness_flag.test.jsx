@@ -4,9 +4,10 @@ import { describe, expect, it } from 'vitest'
 
 import SkyEngineScene from '../src/features/sky-engine/SkyEngineScene'
 import { resolveWebGL2StarsHarnessConfig } from '../src/features/sky-engine/webgl2StarsHarnessConfig'
+import { resolveWebGL2StarsOwnerConfig } from '../src/features/sky-engine/webgl2StarsOwnerConfig'
 import { resolveSkyDebugVisualConfig } from '../src/features/sky-engine/skyDebugVisualConfig'
 
-function createSceneProps(harnessConfig) {
+function createSceneProps(harnessConfig, ownerConfig) {
   return {
     backendStars: [],
     backendSatellites: [],
@@ -28,6 +29,7 @@ function createSceneProps(harnessConfig) {
       reset: () => undefined,
     },
     webgl2StarsHarnessConfig: harnessConfig,
+    webgl2StarsOwnerConfig: ownerConfig,
   }
 }
 
@@ -38,13 +40,22 @@ describe('webgl2 stars harness flag + mount behavior', () => {
       isDev: true,
       devOnly: true,
     })
+    const ownerConfig = resolveWebGL2StarsOwnerConfig({
+      search: '',
+      isDev: true,
+      devOnly: true,
+    })
 
     expect(config.enabled).toBe(false)
+    expect(ownerConfig.enabled).toBe(false)
     expect(config.denseVerificationGridEnabled).toBe(false)
     expect(config.realCatalogDensePresetEnabled).toBe(false)
 
-    const html = renderToStaticMarkup(React.createElement(SkyEngineScene, createSceneProps(config)))
+    const html = renderToStaticMarkup(React.createElement(SkyEngineScene, createSceneProps(config, ownerConfig)))
     expect(html).not.toContain('sky-engine-scene__webgl2-harness-canvas')
+    expect(html).not.toContain('sky-engine-scene__webgl2-owner-canvas')
+    expect(html).toContain('WebGL2 star ownership trial: OFF')
+    expect(html).toContain('Backend health: off')
   })
 
   it('query flag enables harness in dev mode', () => {
@@ -53,15 +64,53 @@ describe('webgl2 stars harness flag + mount behavior', () => {
       isDev: true,
       devOnly: true,
     })
+    const ownerConfig = resolveWebGL2StarsOwnerConfig({
+      search: '',
+      isDev: true,
+      devOnly: true,
+    })
 
     expect(config.enabled).toBe(true)
     expect(config.mode).toBe('side-by-side')
 
-    const html = renderToStaticMarkup(React.createElement(SkyEngineScene, createSceneProps(config)))
+    const html = renderToStaticMarkup(React.createElement(SkyEngineScene, createSceneProps(config, ownerConfig)))
     expect(html).toContain('sky-engine-scene__webgl2-harness-canvas')
     expect(html).toContain('WebGL2 stars comparison')
     expect(html).toContain('Diagnostic harness only. No parity claim. directStarLayer remains default.')
     expect(html).toContain('sky-engine-scene__canvas')
+  })
+
+  it('webgl2StarsOwner=1 enables explicit owner trial without changing default route behavior', () => {
+    const harnessConfig = resolveWebGL2StarsHarnessConfig({
+      search: '?webgl2StarsHarnessPointScale=1.8&webgl2StarsHarnessAlphaScale=1.6&webgl2StarsHarnessColorMode=white-hot',
+      isDev: true,
+      devOnly: true,
+    })
+    const ownerConfig = resolveWebGL2StarsOwnerConfig({
+      search: '?webgl2StarsOwner=1',
+      isDev: true,
+      devOnly: true,
+    })
+    const debugConfig = resolveSkyDebugVisualConfig({
+      search: '?skyDebugDark=1&skyDebugStarsVisible=1',
+      isDev: true,
+      devOnly: true,
+    })
+
+    expect(ownerConfig.enabled).toBe(true)
+
+    const html = renderToStaticMarkup(React.createElement(SkyEngineScene, {
+      ...createSceneProps(harnessConfig, ownerConfig),
+      debugVisualConfig: debugConfig,
+    }))
+
+    expect(html).toContain('sky-engine-scene__webgl2-owner-canvas')
+    expect(html).toContain('WebGL2 star ownership trial: ON')
+    expect(html).toContain('Comparison harness: OFF')
+    expect(html).toContain('Debug dark mode: ON')
+    expect(html).toContain('Debug stars-visible override: ON')
+    expect(html).toContain('Point style: white-hot @ size 1.80 alpha 1.60')
+    expect(html).toContain('Non-default ownership trial only. Not parity complete. directStarLayer remains legacy fallback.')
   })
 
   it('real catalog dense preset is dev-only and opt-in', () => {
@@ -117,5 +166,23 @@ describe('webgl2 stars harness flag + mount behavior', () => {
     })
     expect(prodConfig.darkSkyOverrideEnabled).toBe(false)
     expect(prodConfig.starsVisibleOverrideEnabled).toBe(false)
+  })
+
+  it('owner fallback simulation stays dev-only', () => {
+    const prodConfig = resolveWebGL2StarsOwnerConfig({
+      search: '?webgl2StarsOwner=1&webgl2StarsOwnerForceFail=1',
+      isDev: false,
+      devOnly: true,
+    })
+    expect(prodConfig.enabled).toBe(false)
+    expect(prodConfig.forceFailure).toBe(false)
+
+    const devConfig = resolveWebGL2StarsOwnerConfig({
+      search: '?webgl2StarsOwner=1&webgl2StarsOwnerForceFail=1',
+      isDev: true,
+      devOnly: true,
+    })
+    expect(devConfig.enabled).toBe(true)
+    expect(devConfig.forceFailure).toBe(true)
   })
 })

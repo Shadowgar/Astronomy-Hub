@@ -2,8 +2,9 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { createPointRenderItem } from '../src/features/sky-engine/engine/sky/renderer/renderItems'
 import { createWebGL2StarsHarnessModule } from '../src/features/sky-engine/engine/sky/runtime/modules/WebGL2StarsHarnessModule'
+import { createWebGL2StarsOwnerModule } from '../src/features/sky-engine/engine/sky/runtime/modules/WebGL2StarsOwnerModule'
 
-function createRendererMock() {
+function createRendererMock(overrides = {}) {
   let lastSubmittedPointCount = 0
   let lastSubmittedItemCount = 0
 
@@ -46,6 +47,7 @@ function createRendererMock() {
       activeBackendName: 'webgl2-stellarium-shell',
     })),
     dispose: vi.fn(),
+    ...overrides,
   }
 }
 
@@ -59,6 +61,9 @@ function createRenderContext({ item } = {}) {
       projectedStars: [{ object: { id: 'star-1' } }, { object: { id: 'star-2' } }],
     },
     rendererBoundaryStarsPointItem: item ?? null,
+    directStarLayer: {
+      setVisible: vi.fn(),
+    },
   }
 
   const services = {
@@ -201,6 +206,104 @@ describe('webgl2 stars harness module', () => {
       submittedPointCount: 64,
       drawnPointCount: 64,
       rendererBoundaryPointCount: 0,
+    }))
+  })
+
+  it('suppresses directStarLayer only while owner trial is healthy', () => {
+    const renderer = createRendererMock()
+    const diagnostics = vi.fn()
+    const pointItem = createPointRenderItem({
+      order: 20,
+      pointCount: 2,
+      vertexPayload: [100, 100, 0.1, 2, 255, 255, 255, 255, 110, 120, 0.2, 2, 255, 220, 200, 255],
+      sourceModule: 'stars',
+      dimensions: '2d',
+    })
+
+    const module = createWebGL2StarsOwnerModule({
+      enabled: true,
+      comparisonHarnessEnabled: false,
+      repositoryMode: 'multi-survey',
+      renderer,
+      pointScale: 1.8,
+      alphaScale: 1.6,
+      colorMode: 'white-hot',
+      debugDarkModeEnabled: true,
+      debugStarsVisibleOverrideEnabled: true,
+      onDiagnostics: diagnostics,
+    })
+
+    const context = createRenderContext({ item: pointItem })
+    module.render(context)
+
+    expect(context.runtime.directStarLayer.setVisible).toHaveBeenCalledWith(false)
+    expect(diagnostics).toHaveBeenCalledWith(expect.objectContaining({
+      ownerTrialEnabled: true,
+      backendHealthy: true,
+      directStarLayerStatus: 'suppressed',
+      submittedPointCount: 2,
+      drawnPointCount: 2,
+      pointScale: 1.8,
+      alphaScale: 1.6,
+      colorMode: 'white-hot',
+      debugDarkModeEnabled: true,
+      debugStarsVisibleOverrideEnabled: true,
+      fallbackReason: null,
+    }))
+  })
+
+  it('falls back safely when owner renderer init or render fails', () => {
+    const diagnostics = vi.fn()
+    const pointItem = createPointRenderItem({
+      order: 20,
+      pointCount: 1,
+      vertexPayload: [100, 100, 0.1, 2, 255, 255, 255, 255],
+      sourceModule: 'stars',
+      dimensions: '2d',
+    })
+
+    const initFailureRenderer = createRendererMock({
+      init: vi.fn(() => {
+        throw new Error('forced init failure')
+      }),
+    })
+    const initFailureModule = createWebGL2StarsOwnerModule({
+      enabled: true,
+      comparisonHarnessEnabled: false,
+      repositoryMode: 'multi-survey',
+      renderer: initFailureRenderer,
+      onDiagnostics: diagnostics,
+    })
+    const initFailureContext = createRenderContext({ item: pointItem })
+    initFailureModule.render(initFailureContext)
+
+    expect(initFailureContext.runtime.directStarLayer.setVisible).toHaveBeenCalledWith(true)
+    expect(diagnostics).toHaveBeenLastCalledWith(expect.objectContaining({
+      backendHealthy: false,
+      directStarLayerStatus: 'fallback',
+      fallbackReason: 'forced init failure',
+    }))
+
+    const renderFailureRenderer = createRendererMock({
+      renderFrame: vi.fn(() => {
+        throw new Error('forced render failure')
+      }),
+    })
+    const renderFailureModule = createWebGL2StarsOwnerModule({
+      enabled: true,
+      comparisonHarnessEnabled: false,
+      repositoryMode: 'multi-survey',
+      renderer: renderFailureRenderer,
+      onDiagnostics: diagnostics,
+    })
+    const renderFailureContext = createRenderContext({ item: pointItem })
+    renderFailureModule.render(renderFailureContext)
+
+    expect(renderFailureContext.runtime.directStarLayer.setVisible).toHaveBeenCalledWith(true)
+    expect(diagnostics).toHaveBeenLastCalledWith(expect.objectContaining({
+      backendHealthy: false,
+      directStarLayerStatus: 'fallback',
+      fallbackReason: 'forced render failure',
     }))
   })
 })

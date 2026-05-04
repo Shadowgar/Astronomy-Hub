@@ -459,6 +459,51 @@ Interpretation:
 - WebGL2 harness style tuning is now calibratable in-place against local Stellarium reference while preserving `directStarLayer` as active owner.
 - Deep zoom is still blocked by unresolved scene packet promotion to resolved Gaia-backed payload in the live runtime.
 
+## Port Block 22 (Executed, partial parity)
+### WebGL2 Star Ownership Trial + Fallback (Step 10)
+
+Stellarium authority files:
+- `study/stellarium-web-engine/source/stellarium-web-engine-master/src/modules/stars.c`
+- `study/stellarium-web-engine/source/stellarium-web-engine-master/src/render_gl.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/webgl2StarsOwnerConfig.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/WebGL2StarsOwnerModule.ts`
+- `frontend/src/features/sky-engine/directStarLayer.ts`
+- `frontend/src/features/sky-engine/SkyEngineRuntimeBridge.ts`
+- `frontend/src/features/sky-engine/SkyEngineScene.tsx`
+- `frontend/src/pages/SkyEnginePage.tsx`
+- `frontend/src/styles.css`
+- `frontend/tests/test_webgl2_stars_harness_module.test.js`
+- `frontend/tests/test_webgl2_stars_harness_flag.test.jsx`
+- `frontend/tests/test_webgl2_stellarium_renderer.test.js`
+
+Explicit local logic deleted/replaced in this block:
+1. comparison-only WebGL2 stars path replaced with an explicit default-off ownership-trial flag (`webgl2StarsOwner=1`) while preserving harness-only comparison mode.
+2. `directStarLayer` now exposes a bounded visibility toggle so ownership trial can suppress or restore the legacy layer without deleting or bypassing it.
+3. owner-mode render control now routes through a dedicated ownership module that restores `directStarLayer` on renderer-boundary absence or WebGL2 init/render failure.
+4. owner diagnostics now surface health, submitted/drawn counts, point-style calibration, direct-layer state, and explicit non-default/not-parity wording in the live route UI.
+5. added a dev-only forced-failure route (`webgl2StarsOwnerForceFail=1`) for fallback verification evidence.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_webgl2_stars_harness_module.test.js tests/test_webgl2_stars_harness_flag.test.jsx tests/test_webgl2_stellarium_renderer.test.js tests/sky-engine-stars-runtime.test.js`: pass (`31/31`)
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass
+- Visual evidence captured from built preview at `/home/rocco/Astronomy-Hub/output/playwright/step10-webgl2-owner-trial/`:
+   - `01-default.png`
+   - `02-dark-legacy.png`
+   - `03-harness-side-by-side.png`
+   - `04-owner-trial.png`
+   - `05-owner-fallback.png`
+- `cd /home/rocco/Astronomy-Hub && git diff --check`: pass
+
+Interpretation:
+- WebGL2 stars can now own the visible star layer on an explicit opt-in route while `directStarLayer` stays initialized, default, and available as fallback.
+- Comparison harness mode remains separate and unchanged as a non-owner diagnostic path.
+- This block is not a parity claim and does not make WebGL2 the default renderer.
+- Remaining blockers for any broader default decision are non-point renderer coverage, live survey-parity gaps, and broader runtime stability evidence beyond the bounded owner-trial routes.
+
 ## Port Block 8 (Executed, partial parity)
 ### Runtime Route Repair + Star/DSO/Satellite Corrective Pass
 
