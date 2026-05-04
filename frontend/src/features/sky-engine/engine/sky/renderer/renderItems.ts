@@ -13,7 +13,7 @@ export interface StellariumRenderItemBase {
   readonly flags: number
   readonly order: number
   readonly pointCount: number
-  readonly vertexPayload: ReadonlyArray<number>
+  readonly vertexPayload: ReadonlyArray<number> | Float32Array
   readonly textureIdentity: string | null
   readonly materialIdentity: string | null
   readonly sourceModule: string
@@ -50,7 +50,7 @@ export function createPointRenderItem(input: {
   order: number
   flags?: number
   pointCount: number
-  vertexPayload: ReadonlyArray<number>
+  vertexPayload: ReadonlyArray<number> | Float32Array
   textureIdentity?: string | null
   materialIdentity?: string | null
   sourceModule: string

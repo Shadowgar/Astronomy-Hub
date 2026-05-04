@@ -497,6 +497,7 @@ function sceneLuminanceFingerprintSlice(): string {
       hiddenSelectionName: null,
       onSelectObject: () => {},
       observerFrameAstrometry,
+      webgl2StarsRendererBoundaryEnabled: false,
       debugVisualConfig: {
         darkSkyOverrideEnabled: false,
         starsVisibleOverrideEnabled: false,

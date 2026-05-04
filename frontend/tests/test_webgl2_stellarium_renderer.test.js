@@ -12,6 +12,7 @@ function createStubWebGL2Context() {
     LINK_STATUS: 0x8B82,
     ARRAY_BUFFER: 0x8892,
     STATIC_DRAW: 0x88E4,
+    DYNAMIC_DRAW: 0x88E8,
     COLOR_BUFFER_BIT: 0x4000,
     POINTS: 0x0000,
     FLOAT: 0x1406,
@@ -61,6 +62,7 @@ function createStubWebGL2Context() {
     createBuffer: vi.fn(() => ({})),
     bindBuffer: vi.fn(),
     bufferData: vi.fn(),
+    bufferSubData: vi.fn(),
     deleteBuffer: vi.fn(),
   }
 }
@@ -170,11 +172,73 @@ describe('webgl2 stellarium renderer shell', () => {
     expect(output.diagnostics.drawnPointCount).toBe(1)
     expect(output.diagnostics.skippedUnsupportedItemCount).toBe(0)
     expect(output.diagnostics.notes.some((note) => note.includes('style:grayscale@2.00x1.50'))).toBe(true)
-    expect(gl.bufferData).toHaveBeenCalledTimes(2)
+    expect(gl.bufferData).toHaveBeenCalledTimes(1)
+    expect(gl.bufferSubData).not.toHaveBeenCalled()
     expect(gl.drawArrays).toHaveBeenCalledWith(gl.POINTS, 0, 1)
     expect(gl.uniform1f).toHaveBeenCalledWith(expect.any(Object), 2)
     expect(gl.uniform1f).toHaveBeenCalledWith(expect.any(Object), 1.5)
     expect(gl.uniform1i).toHaveBeenCalledWith(expect.any(Object), 2)
+  })
+
+  it('reuses the existing point-item buffer when payload capacity is unchanged', () => {
+    const gl = createStubWebGL2Context()
+    const renderer = new WebGL2StellariumRenderer({ gl })
+
+    renderer.init({
+      viewport: {
+        width: 800,
+        height: 400,
+        pixelRatio: 1,
+      },
+    })
+
+    const frameInput = {
+      observer: {
+        latitudeDeg: 40,
+        longitudeDeg: -74,
+        elevationM: 10,
+      },
+      time: {
+        timestampIso: '2026-05-01T00:00:00Z',
+        animationTimeSeconds: 0,
+      },
+      projectionMode: 'stereographic',
+      fovDegrees: 70,
+      viewport: {
+        width: 800,
+        height: 400,
+        pixelRatio: 1,
+      },
+      camera: {
+        centerDirection: { x: 0, y: 0, z: 1 },
+      },
+    }
+
+    const pointItem = createPointRenderItem({
+      order: 5,
+      pointCount: 1,
+      vertexPayload: [100, 100, 0.2, 3, 255, 255, 255, 255],
+      sourceModule: 'stars',
+      sourceObjectId: 'star-1',
+      dimensions: '2d',
+    })
+
+    renderer.prepareFrame(frameInput)
+    renderer.submitFrame({
+      frameInput,
+      renderItems: [pointItem],
+    })
+    renderer.renderFrame()
+
+    renderer.prepareFrame(frameInput)
+    renderer.submitFrame({
+      frameInput,
+      renderItems: [pointItem],
+    })
+    renderer.renderFrame()
+
+    expect(gl.bufferData).toHaveBeenCalledTimes(1)
+    expect(gl.bufferSubData).toHaveBeenCalledTimes(1)
   })
 
   it('skips unsupported item types and reports diagnostics separation', () => {

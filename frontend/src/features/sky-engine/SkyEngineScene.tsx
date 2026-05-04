@@ -89,6 +89,7 @@ import type { SkyDebugVisualConfig } from './skyDebugVisualConfig'
 
 const UI_SNAPSHOT_CADENCE_MS = 150
 export const RUNTIME_MODEL_SYNC_CADENCE_MS = 1000
+const WEBGL2_OWNER_DIAGNOSTICS_THROTTLE_MS = 250
 const DEGREES_TO_RADIANS = Math.PI / 180
 const STELLARIUM_QUERY_TONEMAPPER_EXPOSURE = 2
 const STARTUP_LOADING_STAR_SEED_OFFSETS = [
@@ -152,6 +153,13 @@ interface PropsSignatureConfig {
   currentViewState: ScenePropsSnapshot['initialViewState']
   observerFrameAstrometry: ObserverAstrometrySnapshot
   debugVisualConfig: SkyDebugVisualConfig
+}
+
+function formatDiagnosticsNumber(value: number | null | undefined, digits = 1) {
+  if (typeof value !== 'number' || !Number.isFinite(value)) {
+    return 'n/a'
+  }
+  return value.toFixed(digits)
 }
 
 function resolveSceneQueryLimitingMagnitude(config: {
@@ -596,6 +604,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     },
     observerFrameAstrometry: defaultDynamicModelRef.current.observerFrameAstrometry,
     debugVisualConfig,
+    webgl2StarsRendererBoundaryEnabled: webgl2StarsHarnessConfig.enabled || webgl2StarsOwnerConfig.enabled,
   }
   const initialSnapshotRef = useRef(initialSnapshot)
 
@@ -804,6 +813,7 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
         },
         observerFrameAstrometry: nextModel.observerFrameAstrometry,
         debugVisualConfig,
+        webgl2StarsRendererBoundaryEnabled: webgl2StarsHarnessConfig.enabled || webgl2StarsOwnerConfig.enabled,
       }
       const nextSignature = buildPropsSignature({
         timestampIso: sceneTimestampIso,
@@ -854,18 +864,32 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
         pointScale: webgl2StarsHarnessConfig.pointScale,
         alphaScale: webgl2StarsHarnessConfig.alphaScale,
         colorMode: webgl2StarsHarnessConfig.colorMode,
+        diagnosticsThrottleMs: WEBGL2_OWNER_DIAGNOSTICS_THROTTLE_MS,
         debugDarkModeEnabled: debugVisualConfig.darkSkyOverrideEnabled,
         debugStarsVisibleOverrideEnabled: debugVisualConfig.starsVisibleOverrideEnabled,
         onDiagnostics: (diagnostics) => {
           const nextDiagnosticsKey = [
             diagnostics.ownerTrialEnabled ? '1' : '0',
             diagnostics.backendHealthy ? '1' : '0',
+            diagnostics.fallbackActive ? 'fallback-on' : 'fallback-off',
             diagnostics.backendName ?? 'none',
+            diagnostics.submittedPointItemCount,
             diagnostics.submittedPointCount,
+            diagnostics.drawnPointItemCount,
             diagnostics.drawnPointCount,
+            diagnostics.skippedUnsupportedItemCount,
             diagnostics.directStarLayerStarCount,
+            diagnostics.directStarLayerAvailable ? 'direct-layer-available' : 'direct-layer-missing',
+            diagnostics.directStarLayerVisible ? 'direct-layer-visible' : 'direct-layer-hidden',
             diagnostics.directStarLayerStatus,
             diagnostics.fallbackReason ?? 'none',
+            diagnostics.frameRenderError ?? 'none',
+            diagnostics.lastSuccessfulFrameCount ?? 'none',
+            diagnostics.lastSuccessfulFrameAtIso ?? 'none',
+            formatDiagnosticsNumber(diagnostics.frameDeltaMs),
+            formatDiagnosticsNumber(diagnostics.approximateFps),
+            formatDiagnosticsNumber(diagnostics.totalFrameMs),
+            diagnostics.diagnosticsThrottled ? `throttle-${diagnostics.diagnosticsThrottleMs}` : 'throttle-off',
             diagnostics.scenePacketDataMode ?? 'none',
             diagnostics.scenePacketLimitingMagnitude?.toFixed(2) ?? 'none',
             diagnostics.scenePacketStarsListVisitCount ?? 0,
@@ -990,12 +1014,18 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
       <div className="sky-engine-scene__webgl2-owner-status" data-testid="webgl2-stars-owner-status">
         <strong>WebGL2 star ownership trial: {webgl2StarsOwnerConfig.enabled ? 'ON' : 'OFF'}</strong>
         <span>Backend health: {webgl2StarsOwnerConfig.enabled ? (webgl2OwnerDiagnostics?.backendHealthy ? 'healthy' : 'fallback') : 'off'}</span>
+        <span>Fallback active: {webgl2OwnerDiagnostics?.fallbackActive ? 'yes' : 'no'}</span>
         <span>Backend: {webgl2OwnerDiagnostics?.backendName ?? (webgl2StarsOwnerConfig.enabled ? 'initializing' : 'not-mounted')}</span>
         <span>Direct stars: {webgl2OwnerDiagnostics?.directStarLayerStarCount ?? 0}</span>
+        <span>Direct star layer available: {webgl2OwnerDiagnostics?.directStarLayerAvailable ?? true ? 'yes' : 'no'}</span>
+        <span>Direct star layer visible: {webgl2OwnerDiagnostics?.directStarLayerVisible ?? true ? 'yes' : 'no'}</span>
         <span>Direct star layer: {webgl2OwnerDiagnostics?.directStarLayerStatus ?? 'visible'}</span>
         <span>Renderer boundary points: {webgl2OwnerDiagnostics?.rendererBoundaryPointCount ?? 0}</span>
+        <span>Submitted items: {webgl2OwnerDiagnostics?.submittedPointItemCount ?? 0}</span>
         <span>Submitted points: {webgl2OwnerDiagnostics?.submittedPointCount ?? 0}</span>
+        <span>Drawn items: {webgl2OwnerDiagnostics?.drawnPointItemCount ?? 0}</span>
         <span>Drawn points: {webgl2OwnerDiagnostics?.drawnPointCount ?? 0}</span>
+        <span>Skipped items: {webgl2OwnerDiagnostics?.skippedUnsupportedItemCount ?? 0}</span>
         <span>Comparison harness: {webgl2OwnerDiagnostics?.comparisonHarnessEnabled ?? webgl2StarsHarnessConfig.enabled ? 'ON' : 'OFF'}</span>
         <span>Debug dark mode: {webgl2OwnerDiagnostics?.debugDarkModeEnabled ?? debugVisualConfig.darkSkyOverrideEnabled ? 'ON' : 'OFF'}</span>
         <span>
@@ -1012,6 +1042,20 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
             : (webgl2StarsOwnerConfig.enabled
                 ? 'Waiting for WebGL2 owner trial initialization.'
                 : 'Owner flag disabled; directStarLayer remains default.')}
+        </span>
+        <span>Frame render error: {webgl2OwnerDiagnostics?.frameRenderError ?? 'none'}</span>
+        <span>
+          Last successful frame: {webgl2OwnerDiagnostics?.lastSuccessfulFrameCount ?? 'none'}
+          {webgl2OwnerDiagnostics?.lastSuccessfulFrameAtIso ? ` @ ${webgl2OwnerDiagnostics.lastSuccessfulFrameAtIso}` : ''}
+        </span>
+        <span>Approx FPS: {formatDiagnosticsNumber(webgl2OwnerDiagnostics?.approximateFps, 1)}</span>
+        <span>Frame delta: {formatDiagnosticsNumber(webgl2OwnerDiagnostics?.frameDeltaMs, 1)} ms</span>
+        <span>
+          Renderer timing: total {formatDiagnosticsNumber(webgl2OwnerDiagnostics?.totalFrameMs, 2)} ms
+          {` (prepare ${formatDiagnosticsNumber(webgl2OwnerDiagnostics?.prepareFrameMs, 2)} / submit ${formatDiagnosticsNumber(webgl2OwnerDiagnostics?.submitFrameMs, 2)} / render ${formatDiagnosticsNumber(webgl2OwnerDiagnostics?.renderFrameMs, 2)})`}
+        </span>
+        <span>
+          Diagnostics throttle: {webgl2OwnerDiagnostics?.diagnosticsThrottled ? `ON (${webgl2OwnerDiagnostics.diagnosticsThrottleMs} ms)` : 'OFF'}
         </span>
         <small>Non-default ownership trial only. Not parity complete. directStarLayer remains legacy fallback.</small>
       </div>

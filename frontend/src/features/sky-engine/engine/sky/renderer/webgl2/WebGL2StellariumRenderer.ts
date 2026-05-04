@@ -101,10 +101,6 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
     this.state.setSubmittedItems(submission.renderItems)
     this.pointStyleCalibration = this.resolvePointStyleCalibration(submission.pointStyleCalibration)
 
-    if (this.gl) {
-      this.uploadPointItems(this.gl, submission.renderItems)
-    }
-
     this.submitFrameMs = nowMs() - start
   }
 
@@ -156,20 +152,6 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
       submitFrameMs: this.submitFrameMs,
       renderFrameMs: this.renderFrameMs,
       totalFrameMs: this.prepareFrameMs + this.submitFrameMs + this.renderFrameMs,
-    }
-  }
-
-  private uploadPointItems(gl: WebGL2RenderingContext, items: ReadonlyArray<StellariumRenderItem>) {
-    // Shell behavior: eager upload for submit-stage diagnostics and validation.
-    const vertexPayload: number[] = []
-    for (const item of items) {
-      if (item.itemType === 'ITEM_POINTS') {
-        vertexPayload.push(...item.vertexPayload)
-      }
-    }
-
-    if (vertexPayload.length > 0) {
-      this.bufferPool.uploadFloat32(gl, 'point-items-submit', vertexPayload)
     }
   }
 

@@ -216,6 +216,9 @@ function emitStarsPointItems(params: {
 }
 
 export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices> {
+  let lastProjectedStarsRef: readonly import('./runtimeFrame').ProjectedSceneObjectEntry[] | null = null
+  let lastRendererBoundaryStarsPointItem: ReturnType<typeof createStarsPointRenderItemFromProjectedStars> | null = null
+
   return {
     id: 'sky-stars-runtime-module',
     renderOrder: 20,
@@ -390,6 +393,8 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
 
       if (!projectedStarsFrame) {
         runtime.rendererBoundaryStarsPointItem = null
+        lastProjectedStarsRef = null
+        lastRendererBoundaryStarsPointItem = null
         runtime.directStarLayer.sync([], 0, 0, null, services.clockService.getAnimationTimeSeconds())
         runtime.runtimePerfTelemetry.latest = {
           ...runtime.runtimePerfTelemetry.latest,
@@ -403,9 +408,21 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
         return
       }
 
-      runtime.rendererBoundaryStarsPointItem = createStarsPointRenderItemFromProjectedStars({
-        projectedStars: projectedStarsFrame.projectedStars,
-      })
+      if (!props.webgl2StarsRendererBoundaryEnabled) {
+        runtime.rendererBoundaryStarsPointItem = null
+      } else if (
+        projectedStarsFrame.projectedStars === lastProjectedStarsRef
+        && lastRendererBoundaryStarsPointItem
+      ) {
+        runtime.rendererBoundaryStarsPointItem = lastRendererBoundaryStarsPointItem
+      } else {
+        const nextRendererBoundaryStarsPointItem = createStarsPointRenderItemFromProjectedStars({
+          projectedStars: projectedStarsFrame.projectedStars,
+        })
+        runtime.rendererBoundaryStarsPointItem = nextRendererBoundaryStarsPointItem
+        lastProjectedStarsRef = projectedStarsFrame.projectedStars
+        lastRendererBoundaryStarsPointItem = nextRendererBoundaryStarsPointItem
+      }
 
       if (painter) {
         emitStarsDrawIntent({
@@ -444,7 +461,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           starLayerSyncBufferUpdateMs: resolvedSyncMetrics.bufferUpdateMs,
           starLayerSyncGpuUploadMs: resolvedSyncMetrics.gpuUploadMs,
           starLayerSyncSelectionHighlightMs: resolvedSyncMetrics.selectionHighlightMs,
-          rendererBoundaryStarsPointItemCount: runtime.rendererBoundaryStarsPointItem.pointCount,
+          rendererBoundaryStarsPointItemCount: runtime.rendererBoundaryStarsPointItem?.pointCount ?? 0,
         },
       }
     },

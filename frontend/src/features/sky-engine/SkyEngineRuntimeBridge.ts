@@ -96,6 +96,7 @@ export interface ScenePropsSnapshot {
   /** CIO + aberration snapshot aligned with scene packet / tile query (Module 0). */
   readonly observerFrameAstrometry: ObserverAstrometrySnapshot
   readonly debugVisualConfig: SkyDebugVisualConfig
+  readonly webgl2StarsRendererBoundaryEnabled: boolean
 }
 
 export interface SceneRuntimeRefs {

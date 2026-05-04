@@ -504,6 +504,58 @@ Interpretation:
 - This block is not a parity claim and does not make WebGL2 the default renderer.
 - Remaining blockers for any broader default decision are non-point renderer coverage, live survey-parity gaps, and broader runtime stability evidence beyond the bounded owner-trial routes.
 
+## Port Block 23 (Executed, partial parity)
+### WebGL2 Star Ownership Hardening + FPS Gate (Step 11)
+
+Stellarium authority files:
+- `study/stellarium-web-engine/source/stellarium-web-engine-master/src/modules/stars.c`
+- `study/stellarium-web-engine/source/stellarium-web-engine-master/src/render_gl.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/WebGL2StarsOwnerModule.ts`
+- `frontend/src/features/sky-engine/engine/sky/renderer/webgl2/WebGL2BufferPool.ts`
+- `frontend/src/features/sky-engine/engine/sky/renderer/webgl2/WebGL2StellariumRenderer.ts`
+- `frontend/src/features/sky-engine/engine/sky/renderer/renderItems.ts`
+- `frontend/src/features/sky-engine/engine/sky/renderer/adapters/starsPointItemsAdapter.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/StarsModule.ts`
+- `frontend/src/features/sky-engine/SkyEngineRuntimeBridge.ts`
+- `frontend/src/features/sky-engine/SkyEngineScene.tsx`
+- `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts`
+- `frontend/tests/test_webgl2_stars_harness_module.test.js`
+- `frontend/tests/test_webgl2_stars_harness_flag.test.jsx`
+- `frontend/tests/test_webgl2_stellarium_renderer.test.js`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+
+Explicit local logic deleted/replaced in this block:
+1. one-shot owner diagnostics replaced with throttled diagnostics that preserve fallback, direct-layer, last-success, and frame-timing state across failures and recovery.
+2. WebGL2 point-buffer upload behavior replaced from repeated full `bufferData` churn to grow-once plus steady-state `bufferSubData` reuse.
+3. redundant submit-stage aggregate point upload removed from the shared WebGL2 renderer path.
+4. unconditional renderer-boundary star payload creation replaced with owner/harness-gated creation and reference-based point-item reuse.
+5. JS-array payload assembly and redundant deterministic re-sort replaced with direct `Float32Array` payload writes.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/sky-engine-stars-runtime.test.js tests/test_webgl2_stellarium_renderer.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_webgl2_stars_harness_module.test.js tests/test_webgl2_stars_harness_flag.test.jsx tests/test_webgl2_stellarium_renderer.test.js tests/sky-engine-stars-runtime.test.js`: pass (`36/36`)
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass
+
+Artifacts recorded for this block:
+- `/home/rocco/Astronomy-Hub/output/playwright/step11-webgl2-owner-gate/01-default.png`
+- `/home/rocco/Astronomy-Hub/output/playwright/step11-webgl2-owner-gate/02-dark-legacy.png`
+- `/home/rocco/Astronomy-Hub/output/playwright/step11-webgl2-owner-gate/03-harness-side-by-side.png`
+- `/home/rocco/Astronomy-Hub/output/playwright/step11-webgl2-owner-gate/04-owner-trial.png`
+- `/home/rocco/Astronomy-Hub/output/playwright/step11-webgl2-owner-gate/05-owner-fallback.png`
+- `/home/rocco/Astronomy-Hub/output/playwright/step11-webgl2-owner-gate/06-owner-after-panzoom.png`
+- `/home/rocco/Astronomy-Hub/output/playwright/step11-webgl2-owner-gate/static-metrics.json`
+- `/home/rocco/Astronomy-Hub/output/playwright/step11-webgl2-owner-gate/interaction-metrics.json`
+
+Interpretation:
+- The owner trial is now better instrumented and safer to diagnose, and the legacy fallback contract still works.
+- The severe lag gate is still red: owner and harness remain materially slower than legacy under the same dense dark-sky interaction routes.
+- This block therefore hardens the trial but does not justify any default-owner expansion.
+- `directStarLayer` remains the correct default owner after Step 11.
+
 ## Port Block 8 (Executed, partial parity)
 ### Runtime Route Repair + Star/DSO/Satellite Corrective Pass
 

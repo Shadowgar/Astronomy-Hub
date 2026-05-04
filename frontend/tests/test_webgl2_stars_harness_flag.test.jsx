@@ -56,6 +56,8 @@ describe('webgl2 stars harness flag + mount behavior', () => {
     expect(html).not.toContain('sky-engine-scene__webgl2-owner-canvas')
     expect(html).toContain('WebGL2 star ownership trial: OFF')
     expect(html).toContain('Backend health: off')
+    expect(html).toContain('Fallback active: no')
+    expect(html).toContain('Diagnostics throttle: OFF')
   })
 
   it('query flag enables harness in dev mode', () => {
@@ -111,6 +113,26 @@ describe('webgl2 stars harness flag + mount behavior', () => {
     expect(html).toContain('Debug stars-visible override: ON')
     expect(html).toContain('Point style: white-hot @ size 1.80 alpha 1.60')
     expect(html).toContain('Non-default ownership trial only. Not parity complete. directStarLayer remains legacy fallback.')
+  })
+
+  it('owner mode does not remove harness diagnostics when both modes are enabled', () => {
+    const harnessConfig = resolveWebGL2StarsHarnessConfig({
+      search: '?webgl2StarsHarness=1&webgl2StarsHarnessMode=side-by-side',
+      isDev: true,
+      devOnly: true,
+    })
+    const ownerConfig = resolveWebGL2StarsOwnerConfig({
+      search: '?webgl2StarsOwner=1',
+      isDev: true,
+      devOnly: true,
+    })
+
+    const html = renderToStaticMarkup(React.createElement(SkyEngineScene, createSceneProps(harnessConfig, ownerConfig)))
+
+    expect(html).toContain('sky-engine-scene__webgl2-owner-canvas')
+    expect(html).toContain('sky-engine-scene__webgl2-harness-canvas')
+    expect(html).toContain('WebGL2 stars comparison')
+    expect(html).toContain('Comparison harness: ON')
   })
 
   it('real catalog dense preset is dev-only and opt-in', () => {

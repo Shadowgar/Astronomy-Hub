@@ -1,0 +1,51 @@
+{
+  "interactionPerf": {
+    "owner": {
+      "averageFrameDeltaMs": 581.92,
+      "p95FrameDeltaMs": 979.2,
+      "approximateFps": 1.718,
+      "runtimeAverageFrameTotalMs": 14.573,
+      "runtimeAverageProjectionMs": 10.755,
+      "latestFrameTotalMs": 13.1
+    },
+    "harness": {
+      "averageFrameDeltaMs": 309.022,
+      "p95FrameDeltaMs": 965.3,
+      "approximateFps": 3.236,
+      "runtimeAverageFrameTotalMs": 8.116,
+      "runtimeAverageProjectionMs": 10.168,
+      "latestFrameTotalMs": 13.4
+    },
+    "legacy": {
+      "averageFrameDeltaMs": 56.256,
+      "p95FrameDeltaMs": 590.3,
+      "approximateFps": 17.776,
+      "runtimeAverageFrameTotalMs": 3.284,
+      "runtimeAverageProjectionMs": 9.472,
+      "latestFrameTotalMs": 4.6
+    }
+  },
+  "ownerAfterPanZoom": {
+    "screenshot": "/home/rocco/Astronomy-Hub/output/playwright/step11-webgl2-owner-gate/06-owner-after-panzoom.png",
+    "fovBefore": 120,
+    "fovAfter": 113,
+    "ownerApproxFps": 2.5,
+    "ownerFrameDeltaMs": 401.7,
+    "backendHealth": "healthy",
+    "fallbackActive": false,
+    "directStarLayerVisible": false
+  },
+  "interactionChecks": {
+    "panDragChangedView": true,
+    "zoomChangedView": true,
+    "resizeStableHealthy": true,
+    "resizeCanvasResized": false,
+    "legacyToOwnerPassed": true,
+    "ownerToFallbackPassed": true,
+    "fallbackToHealthyOwnerPassed": true
+  },
+  "notes": [
+    "The browser integration kept a fixed 635x458 viewport surface during resize probes, so resize verification is stability-only rather than responsive-layout evidence.",
+    "Owner and harness remain substantially slower than legacy under scripted pan/zoom despite the upload and boundary-payload fixes."
+  ]
+}

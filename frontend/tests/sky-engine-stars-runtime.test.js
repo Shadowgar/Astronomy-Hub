@@ -199,6 +199,7 @@ function createBaseProps() {
     sunState: { visualCalibration: { starVisibility: 1, starFieldBrightness: 1 } },
     selectedObjectId: null,
     guidedObjectIds: [],
+    webgl2StarsRendererBoundaryEnabled: false,
     aidVisibility: {
       constellations: true,
       azimuthRing: true,
@@ -221,6 +222,7 @@ describe('Sky star runtime ownership', () => {
     const runtime = createBaseRuntime()
     const services = createBaseServices()
     const props = createBaseProps()
+    props.webgl2StarsRendererBoundaryEnabled = true
     const getProps = () => props
     const getPropsVersion = () => 1
 

@@ -306,4 +306,193 @@ describe('webgl2 stars harness module', () => {
       fallbackReason: 'forced render failure',
     }))
   })
+
+  it('clears fallback reason and records last successful frame metadata after recovery', () => {
+    const diagnostics = vi.fn()
+    const pointItem = createPointRenderItem({
+      order: 20,
+      pointCount: 1,
+      vertexPayload: [100, 100, 0.1, 2, 255, 255, 255, 255],
+      sourceModule: 'stars',
+      dimensions: '2d',
+    })
+
+    const renderer = createRendererMock()
+    renderer.renderFrame
+      .mockImplementationOnce(() => {
+        throw new Error('temporary owner failure')
+      })
+      .mockImplementationOnce(() => ({
+        pickResult: {
+          objectId: null,
+          hit: false,
+          confidence: 0,
+        },
+        diagnostics: {
+          acceptedItemCount: 1,
+          acceptedPointItemCount: 1,
+          acceptedMeshItemCount: 0,
+          acceptedTextItemCount: 0,
+          acceptedTextureItemCount: 0,
+          submittedPointItemCount: 1,
+          drawnPointItemCount: 1,
+          submittedPointCount: 1,
+          drawnPointCount: 1,
+          skippedUnsupportedItemCount: 0,
+          lastFrameSequence: 7,
+          lastFrameProjectionMode: 'stereographic',
+          notes: ['recovered'],
+        },
+        timing: {
+          prepareFrameMs: 1,
+          submitFrameMs: 2,
+          renderFrameMs: 3,
+          totalFrameMs: 6,
+        },
+        activeBackendName: 'webgl2-stellarium-shell',
+      }))
+
+    const module = createWebGL2StarsOwnerModule({
+      enabled: true,
+      comparisonHarnessEnabled: false,
+      repositoryMode: 'multi-survey',
+      renderer,
+      diagnosticsThrottleMs: 0,
+      getNowMs: () => 1000,
+      getNowIso: () => '2026-05-01T00:00:07.000Z',
+      onDiagnostics: diagnostics,
+    })
+
+    const context = createRenderContext({ item: pointItem })
+    module.render(context)
+    module.render(context)
+
+    expect(diagnostics).toHaveBeenNthCalledWith(1, expect.objectContaining({
+      backendHealthy: false,
+      fallbackActive: true,
+      fallbackReason: 'temporary owner failure',
+      frameRenderError: 'temporary owner failure',
+      lastSuccessfulFrameCount: null,
+      lastSuccessfulFrameAtIso: null,
+    }))
+    expect(diagnostics).toHaveBeenNthCalledWith(2, expect.objectContaining({
+      backendHealthy: true,
+      fallbackActive: false,
+      fallbackReason: null,
+      frameRenderError: null,
+      lastSuccessfulFrameCount: 7,
+      lastSuccessfulFrameAtIso: '2026-05-01T00:00:07.000Z',
+    }))
+  })
+
+  it('reports owner timing fields and approximate fps', () => {
+    const diagnostics = vi.fn()
+    const pointItem = createPointRenderItem({
+      order: 20,
+      pointCount: 2,
+      vertexPayload: [100, 100, 0.1, 2, 255, 255, 255, 255, 110, 120, 0.2, 2, 255, 220, 200, 255],
+      sourceModule: 'stars',
+      dimensions: '2d',
+    })
+
+    let currentNowMs = 1000
+    const renderer = createRendererMock({
+      renderFrame: vi.fn(() => ({
+        pickResult: {
+          objectId: null,
+          hit: false,
+          confidence: 0,
+        },
+        diagnostics: {
+          acceptedItemCount: 1,
+          acceptedPointItemCount: 1,
+          acceptedMeshItemCount: 0,
+          acceptedTextItemCount: 0,
+          acceptedTextureItemCount: 0,
+          submittedPointItemCount: 1,
+          drawnPointItemCount: 1,
+          submittedPointCount: 2,
+          drawnPointCount: 2,
+          skippedUnsupportedItemCount: 0,
+          lastFrameSequence: 4,
+          lastFrameProjectionMode: 'stereographic',
+          notes: ['timing'],
+        },
+        timing: {
+          prepareFrameMs: 1.25,
+          submitFrameMs: 2.5,
+          renderFrameMs: 3.75,
+          totalFrameMs: 7.5,
+        },
+        activeBackendName: 'webgl2-stellarium-shell',
+      })),
+    })
+
+    const module = createWebGL2StarsOwnerModule({
+      enabled: true,
+      comparisonHarnessEnabled: false,
+      repositoryMode: 'multi-survey',
+      renderer,
+      diagnosticsThrottleMs: 0,
+      getNowMs: () => currentNowMs,
+      getNowIso: () => '2026-05-01T00:00:04.000Z',
+      onDiagnostics: diagnostics,
+    })
+
+    const context = createRenderContext({ item: pointItem })
+    module.render(context)
+    currentNowMs = 1016
+    module.render(context)
+
+    expect(diagnostics).toHaveBeenLastCalledWith(expect.objectContaining({
+      prepareFrameMs: 1.25,
+      submitFrameMs: 2.5,
+      renderFrameMs: 3.75,
+      totalFrameMs: 7.5,
+      frameDeltaMs: 16,
+      approximateFps: 62.5,
+      diagnosticsThrottled: false,
+      diagnosticsThrottleMs: 0,
+    }))
+  })
+
+  it('throttles owner diagnostics updates when configured', () => {
+    const diagnostics = vi.fn()
+    const pointItem = createPointRenderItem({
+      order: 20,
+      pointCount: 1,
+      vertexPayload: [100, 100, 0.1, 2, 255, 255, 255, 255],
+      sourceModule: 'stars',
+      dimensions: '2d',
+    })
+
+    let currentNowMs = 1000
+    const module = createWebGL2StarsOwnerModule({
+      enabled: true,
+      comparisonHarnessEnabled: false,
+      repositoryMode: 'multi-survey',
+      renderer: createRendererMock(),
+      diagnosticsThrottleMs: 250,
+      getNowMs: () => currentNowMs,
+      getNowIso: () => '2026-05-01T00:00:01.000Z',
+      onDiagnostics: diagnostics,
+    })
+
+    const context = createRenderContext({ item: pointItem })
+    module.render(context)
+    currentNowMs = 1100
+    module.render(context)
+    currentNowMs = 1300
+    module.render(context)
+
+    expect(diagnostics).toHaveBeenCalledTimes(2)
+    expect(diagnostics).toHaveBeenNthCalledWith(1, expect.objectContaining({
+      diagnosticsThrottled: true,
+      diagnosticsThrottleMs: 250,
+    }))
+    expect(diagnostics).toHaveBeenNthCalledWith(2, expect.objectContaining({
+      diagnosticsThrottled: true,
+      diagnosticsThrottleMs: 250,
+    }))
+  })
 })

@@ -41,35 +41,22 @@ function resolveHexRgb(hexColor: string | undefined): [number, number, number] {
   return [255, 255, 255]
 }
 
-function resolveDeterministicStarOrder(stars: readonly ProjectedSceneObjectEntry[]) {
-  return [...stars].sort((left, right) => {
-    if (left.object.id !== right.object.id) {
-      return left.object.id.localeCompare(right.object.id)
-    }
-    if (left.depth !== right.depth) {
-      return left.depth - right.depth
-    }
-    return left.markerRadiusPx - right.markerRadiusPx
-  })
-}
-
 function buildProjectedStarsPayload(stars: readonly ProjectedSceneObjectEntry[]) {
-  const orderedStars = resolveDeterministicStarOrder(stars)
-  const payload: number[] = []
+  const payload = new Float32Array(stars.length * 8)
 
-  for (const star of orderedStars) {
+  for (let index = 0; index < stars.length; index += 1) {
+    const star = stars[index]
     const [red, green, blue] = resolveHexRgb(star.starProfile?.colorHex ?? star.object.colorHex)
     const alpha = Math.max(0, Math.min(255, Math.round((star.renderAlpha ?? 1) * 255)))
-    payload.push(
-      star.screenX,
-      star.screenY,
-      star.depth,
-      star.markerRadiusPx,
-      red,
-      green,
-      blue,
-      alpha,
-    )
+    const offset = index * 8
+    payload[offset + 0] = star.screenX
+    payload[offset + 1] = star.screenY
+    payload[offset + 2] = star.depth
+    payload[offset + 3] = star.markerRadiusPx
+    payload[offset + 4] = red
+    payload[offset + 5] = green
+    payload[offset + 6] = blue
+    payload[offset + 7] = alpha
   }
 
   return payload
@@ -82,17 +69,17 @@ function isPaint2dPointsCommand(
 }
 
 function buildPainterPointsPayload(points: readonly SkyPainterPoint[]) {
-  const payload: number[] = []
-  for (const point of points) {
-    payload.push(
-      point.pos[0],
-      point.pos[1],
-      point.size,
-      point.color[0],
-      point.color[1],
-      point.color[2],
-      point.color[3],
-    )
+  const payload = new Float32Array(points.length * 7)
+  for (let index = 0; index < points.length; index += 1) {
+    const point = points[index]
+    const offset = index * 7
+    payload[offset + 0] = point.pos[0]
+    payload[offset + 1] = point.pos[1]
+    payload[offset + 2] = point.size
+    payload[offset + 3] = point.color[0]
+    payload[offset + 4] = point.color[1]
+    payload[offset + 5] = point.color[2]
+    payload[offset + 6] = point.color[3]
   }
   return payload
 }

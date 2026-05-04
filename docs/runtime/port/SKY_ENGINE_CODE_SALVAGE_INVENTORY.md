@@ -518,6 +518,103 @@ Screenshot artifacts (tool URI):
 
 Validation commands (executed):
 - `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+
+## Renderer Reset Step 11 - WebGL2 Star Ownership Hardening + FPS Gate
+
+Objective:
+- Harden the default-off WebGL2 star ownership trial with explicit diagnostics/fallback evidence and gate the trial against the current severe lag reports.
+- Do not make WebGL2 the default owner.
+
+Files changed:
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/WebGL2StarsOwnerModule.ts`
+- `frontend/src/features/sky-engine/engine/sky/renderer/webgl2/WebGL2BufferPool.ts`
+- `frontend/src/features/sky-engine/engine/sky/renderer/webgl2/WebGL2StellariumRenderer.ts`
+- `frontend/src/features/sky-engine/engine/sky/renderer/renderItems.ts`
+- `frontend/src/features/sky-engine/engine/sky/renderer/adapters/starsPointItemsAdapter.ts`
+- `frontend/src/features/sky-engine/engine/sky/runtime/modules/StarsModule.ts`
+- `frontend/src/features/sky-engine/SkyEngineRuntimeBridge.ts`
+- `frontend/src/features/sky-engine/SkyEngineScene.tsx`
+- `frontend/src/features/sky-engine/engine/sky/runtime/module2ParityFingerprint.ts`
+- `frontend/tests/test_webgl2_stars_harness_module.test.js`
+- `frontend/tests/test_webgl2_stars_harness_flag.test.jsx`
+- `frontend/tests/test_webgl2_stellarium_renderer.test.js`
+- `frontend/tests/sky-engine-stars-runtime.test.js`
+
+What was hardened in this step:
+- Owner diagnostics now surface fallback state, direct-layer availability/visibility, skipped items, frame render errors, last-success metadata, frame delta, approximate FPS, and throttled timing fields.
+- WebGL2 upload churn was reduced by reusing point buffers and switching steady-state updates to `bufferSubData(...)`.
+- Shared WebGL2 point submission stopped doing the extra aggregate upload in `submitFrame(...)`.
+- Renderer-boundary star payload generation is now skipped entirely when no owner/harness consumer is active.
+- Boundary point items are reused when the projected-star frame reference is unchanged.
+- Point payloads now build directly into `Float32Array` buffers instead of sorting and pushing fresh JS arrays every frame.
+
+Bottleneck attribution after Step 11:
+- The severe lag is still on the shared WebGL2 path, not just the owner overlay plumbing.
+- Harness and owner both remain materially slower than legacy under scripted pan/zoom.
+- Runtime telemetry stays around `8-15 ms` frame totals while browser-observed frame deltas jump to `309-582 ms`, so a large portion of the lag sits outside the narrow sky-core timing envelope.
+- The upload and payload-churn fixes removed known local waste, but they did not clear the gate.
+
+Before/after table for the gate routes:
+- Interpretation: `Before` = static route sample, `After` = scripted pan/zoom sample on the corresponding route.
+
+| Route | Before FPS (static) | After FPS (pan/zoom) | Before frame delta ms | After frame delta ms | Result |
+|---|---:|---:|---:|---:|---|
+| Legacy default | 81.1 | n/a | 12.3 | n/a | Healthy idle baseline |
+| Dark legacy | 68.7 | 17.8 | 14.6 | 56.3 | Degrades under interaction but remains materially faster than WebGL2 |
+| Harness side-by-side | 67.3 | 3.2 | 14.9 | 309.0 | Fails gate |
+| Owner trial | 2.0 | 1.7 | 504.7 | 581.9 | Fails gate |
+| Owner forced fallback | 1.9 | n/a | 531.3 | n/a | Fallback wiring works but route still stalls |
+
+Static route evidence:
+- Output folder: `/home/rocco/Astronomy-Hub/output/playwright/step11-webgl2-owner-gate/`
+- Screenshots:
+  - `01-default.png`
+  - `02-dark-legacy.png`
+  - `03-harness-side-by-side.png`
+  - `04-owner-trial.png`
+  - `05-owner-fallback.png`
+- Static metrics artifact:
+  - `static-metrics.json`
+
+Interaction evidence:
+- Scripted pan/zoom screenshot:
+  - `/home/rocco/Astronomy-Hub/output/playwright/step11-webgl2-owner-gate/06-owner-after-panzoom.png`
+- Interaction metrics artifact:
+  - `/home/rocco/Astronomy-Hub/output/playwright/step11-webgl2-owner-gate/interaction-metrics.json`
+- Scripted pan/zoom results:
+  - owner: `1.718 FPS`, average frame delta `581.92 ms`
+  - harness: `3.236 FPS`, average frame delta `309.022 ms`
+  - dark legacy: `17.776 FPS`, average frame delta `56.256 ms`
+
+Interaction checks:
+- Pan/drag: pass at functional level. The owner route remained healthy and changed FOV from `120` to `113`, but rendered at only `2.5 FPS` / `401.7 ms` frame delta after interaction.
+- Zoom: pass at functional level. FOV changed from `120` to `113`.
+- Resize: stable-only. The browser integration kept a fixed `635x458` viewport surface during the probe, so health stayed `healthy`/`fallback=no`, but responsive canvas resizing could not be proven in this harness.
+- Default -> owner: pass.
+- Owner -> fallback: pass.
+- Fallback -> healthy owner: pass.
+
+Validation commands executed:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/sky-engine-stars-runtime.test.js tests/test_webgl2_stellarium_renderer.test.js`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_webgl2_stars_harness_module.test.js tests/test_webgl2_stars_harness_flag.test.jsx tests/test_webgl2_stellarium_renderer.test.js tests/sky-engine-stars-runtime.test.js`: pass (`36/36`)
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass
+
+Profile artifact:
+- `/home/rocco/Astronomy-Hub/.cursor-artifacts/parity-compare/module2-live-runtime-profile-2026-04-26.json`
+
+Known limitations after this step:
+- Owner and harness remain too slow to be considered safe beyond the diagnostic trial routes.
+- Owner diagnostics timing fields often show near-zero renderer time while browser frame delta stays above `400-500 ms`, so deeper attribution is still required.
+- Resize evidence is stability-only because the integrated browser page did not expose a changing viewport during the resize probe.
+- The live dense route still reports `stars_list visits: 0`, which remains a diagnostics parity gap.
+
+Recommendation:
+- `NO-GO` for any broader rollout or default-owner change.
+- Keep `directStarLayer` as the default owner.
+- Keep WebGL2 owner mode explicit opt-in only.
+- Next bounded investigation should target the shared owner/harness runtime path that sits outside the currently measured renderer timing envelope rather than adding more owner-only diagnostics or widening scope.
 - `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_webgl2_stars_harness_module.test.js tests/test_webgl2_stars_harness_flag.test.jsx tests/test_webgl2_stellarium_renderer.test.js tests/sky-engine-stars-runtime.test.js`: pass
 - `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
 - `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass
