@@ -556,6 +556,42 @@ Interpretation:
 - This block therefore hardens the trial but does not justify any default-owner expansion.
 - `directStarLayer` remains the correct default owner after Step 11.
 
+## Port Block 24 (Executed, partial parity)
+### Browser/Main-Thread Lag Attribution (Step 12)
+
+Stellarium authority files:
+- `study/stellarium-web-engine/source/stellarium-web-engine-master/src/modules/stars.c`
+- `study/stellarium-web-engine/source/stellarium-web-engine-master/src/render_gl.c`
+
+Astronomy Hub target files:
+- `frontend/src/features/sky-engine/SkyEngineScene.tsx`
+- `frontend/src/features/sky-engine/SkyEngineRuntimeBridge.ts`
+- `frontend/src/features/sky-engine/webgl2StarsPerfTraceConfig.ts`
+- `frontend/src/features/sky-engine/webgl2StarsStatusUiThrottle.ts`
+- `frontend/src/pages/SkyEnginePage.tsx`
+- `frontend/tests/test_webgl2_stars_harness_flag.test.jsx`
+
+Explicit local logic deleted/replaced in this block:
+1. owner/harness diagnostics updates no longer rerender the full `SkyEngineScene` host; they publish into isolated memoized overlay components via imperative handles.
+2. high-churn timing/count fields no longer trigger immediate React commits; structural changes still publish immediately and numeric snapshots are cadence-limited to `1000 ms`.
+3. explicit perf-trace instrumentation now records diagnostics ingress / commit / suppressed counts on `data-webgl2-stars-perf-trace` without collapsing the route.
+4. page-level debug telemetry writes are now independently opt-out via `?webgl2StarsDiagnosticsWrites=0` for attribution probes.
+
+Validation evidence recorded for this block:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_webgl2_stars_harness_flag.test.jsx`: pass (`12/12`)
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+
+Artifacts recorded for this block:
+- `/home/rocco/Astronomy-Hub/output/playwright/step12-browser-main-thread-lag-attribution/static-metrics.json`
+- `/home/rocco/Astronomy-Hub/output/playwright/step12-browser-main-thread-lag-attribution/interaction-metrics.json`
+
+Interpretation:
+- Step 11's catastrophic browser-side lag was not a WebGL2 draw-time problem; it was diagnostics UI churn in the main scene shell.
+- After isolating the diagnostics overlays, owner healthy static improved from `1.982 FPS` to `39.098 FPS`, owner interaction improved from `1.718 FPS` to `43.680 FPS`, and harness interaction improved from `3.236 FPS` to `38.548 FPS`.
+- Legacy dark remained stable (`68.667 FPS` -> `67.883 FPS`), and owner forced fallback is now healthy (`57.250 FPS`) while keeping `directStarLayer` active.
+- This is a bounded trial-route fix, not a default-owner or parity approval.
+
 ## Port Block 8 (Executed, partial parity)
 ### Runtime Route Repair + Star/DSO/Satellite Corrective Pass
 

@@ -1,0 +1,47 @@
+{
+  "baselineStep11": {
+    "ownerHealthy": {
+      "approximateFps": 1.718,
+      "averageFrameDeltaMs": 581.92,
+      "p95FrameDeltaMs": 979.2,
+      "runtimeFrameTotalMs": 13.1
+    },
+    "harnessSideBySide": {
+      "approximateFps": 3.236,
+      "averageFrameDeltaMs": 309.022,
+      "p95FrameDeltaMs": 965.3,
+      "runtimeFrameTotalMs": 13.4
+    },
+    "legacyDark": {
+      "approximateFps": 17.776,
+      "averageFrameDeltaMs": 56.256,
+      "p95FrameDeltaMs": 590.3,
+      "runtimeFrameTotalMs": 4.6
+    }
+  },
+  "step12PostFix": {
+    "ownerHealthy": {
+      "approximateFps": 43.68,
+      "averageFrameDeltaMs": 22.894,
+      "p95FrameDeltaMs": 13.9,
+      "maxFrameDeltaMs": 979.2,
+      "longFrameCount": 5,
+      "runtimeFrameTotalMs": 1.8999999985098839,
+      "overlayMutationCount": 242
+    },
+    "harnessSideBySide": {
+      "approximateFps": 38.548,
+      "averageFrameDeltaMs": 25.942,
+      "p95FrameDeltaMs": 14.0,
+      "maxFrameDeltaMs": 923.6,
+      "longFrameCount": 6,
+      "runtimeFrameTotalMs": 2.2000000029802322,
+      "overlayMutationCount": 201
+    }
+  },
+  "summary": {
+    "ownerImprovementMultiple": 25.425,
+    "harnessImprovementMultiple": 11.912,
+    "legacyComparison": "Dark legacy remains faster on static idle, but owner and harness interaction are no longer catastrophic and no longer diverge from runtime frame timing by two orders of magnitude."
+  }
+}

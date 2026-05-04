@@ -43,6 +43,7 @@ import { persistSkyCultureId, readPersistedSkyCultureId } from '../features/sky-
 import { SKY_ENGINE_SKYCULTURES } from '../features/sky-engine/skycultures'
 import { resolveWebGL2StarsHarnessConfig } from '../features/sky-engine/webgl2StarsHarnessConfig'
 import { resolveWebGL2StarsOwnerConfig } from '../features/sky-engine/webgl2StarsOwnerConfig'
+import { resolveWebGL2StarsPerfTraceConfig } from '../features/sky-engine/webgl2StarsPerfTraceConfig'
 import { resolveSkyDebugVisualConfig } from '../features/sky-engine/skyDebugVisualConfig'
 import { useSceneByScopeDataQuery, useSkyStarTileManifestDataQuery } from '../features/scene/queries'
 import {
@@ -263,6 +264,7 @@ type SkyEngineViewportProps = {
   deterministicParityModeEnabled: boolean
   webgl2StarsHarnessConfig: ReturnType<typeof resolveWebGL2StarsHarnessConfig>
   webgl2StarsOwnerConfig: ReturnType<typeof resolveWebGL2StarsOwnerConfig>
+  webgl2StarsPerfTraceConfig: ReturnType<typeof resolveWebGL2StarsPerfTraceConfig>
   skyDebugVisualConfig: ReturnType<typeof resolveSkyDebugVisualConfig>
 }
 
@@ -283,6 +285,7 @@ const SkyEngineViewport = React.memo(function SkyEngineViewport({
   deterministicParityModeEnabled,
   webgl2StarsHarnessConfig,
   webgl2StarsOwnerConfig,
+  webgl2StarsPerfTraceConfig,
   skyDebugVisualConfig,
 }: Readonly<SkyEngineViewportProps>) {
   return (
@@ -303,6 +306,7 @@ const SkyEngineViewport = React.memo(function SkyEngineViewport({
       deterministicParityMode={deterministicParityModeEnabled}
       webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
       webgl2StarsOwnerConfig={webgl2StarsOwnerConfig}
+      webgl2StarsPerfTraceConfig={webgl2StarsPerfTraceConfig}
       debugVisualConfig={skyDebugVisualConfig}
     />
   )
@@ -314,12 +318,14 @@ function SkyEnginePageContent({
   backendScene,
   webgl2StarsHarnessConfig,
   webgl2StarsOwnerConfig,
+  webgl2StarsPerfTraceConfig,
   skyDebugVisualConfig,
   offlineFallbackMode = false,
 }: Readonly<{
   backendScene: BackendSkyScenePayload
   webgl2StarsHarnessConfig: ReturnType<typeof resolveWebGL2StarsHarnessConfig>
   webgl2StarsOwnerConfig: ReturnType<typeof resolveWebGL2StarsOwnerConfig>
+  webgl2StarsPerfTraceConfig: ReturnType<typeof resolveWebGL2StarsPerfTraceConfig>
   skyDebugVisualConfig: ReturnType<typeof resolveSkyDebugVisualConfig>
   offlineFallbackMode?: boolean
 }>) {
@@ -517,7 +523,7 @@ function SkyEnginePageContent({
   const publishUiPerfMetrics = useCallback(() => {
     const root = rootRef.current
 
-    if (!debugTelemetryEnabled || !root) {
+    if (!debugTelemetryEnabled || !webgl2StarsPerfTraceConfig.diagnosticsWritesEnabled || !root) {
       return
     }
 
@@ -548,7 +554,7 @@ function SkyEnginePageContent({
   }, [debugTelemetryEnabled])
 
   const handleUiProfilerRender = useCallback<ProfilerOnRenderCallback>((_id, _phase, actualDuration) => {
-    if (!debugTelemetryEnabled) {
+    if (!debugTelemetryEnabled || !webgl2StarsPerfTraceConfig.diagnosticsWritesEnabled) {
       return
     }
 
@@ -559,10 +565,10 @@ function SkyEnginePageContent({
     metrics.reactMaxCommitMs = Math.max(metrics.reactMaxCommitMs, actualDuration)
     metrics.pendingReactDurationMs += actualDuration
     metrics.sampleCount += 1
-  }, [debugTelemetryEnabled])
+  }, [debugTelemetryEnabled, webgl2StarsPerfTraceConfig.diagnosticsWritesEnabled])
 
   useEffect(() => {
-    if (!debugTelemetryEnabled) {
+    if (!debugTelemetryEnabled || !webgl2StarsPerfTraceConfig.diagnosticsWritesEnabled) {
       return undefined
     }
 
@@ -585,10 +591,10 @@ function SkyEnginePageContent({
     return () => {
       observerInstance.disconnect()
     }
-  }, [debugTelemetryEnabled])
+  }, [debugTelemetryEnabled, webgl2StarsPerfTraceConfig.diagnosticsWritesEnabled])
 
   useEffect(() => {
-    if (!debugTelemetryEnabled) {
+    if (!debugTelemetryEnabled || !webgl2StarsPerfTraceConfig.diagnosticsWritesEnabled) {
       return undefined
     }
 
@@ -613,7 +619,7 @@ function SkyEnginePageContent({
     return () => {
       globalThis.clearInterval(intervalHandle)
     }
-  }, [debugTelemetryEnabled, publishUiPerfMetrics])
+  }, [debugTelemetryEnabled, publishUiPerfMetrics, webgl2StarsPerfTraceConfig.diagnosticsWritesEnabled])
 
   useEffect(() => () => {
     if (rootRef.current) {
@@ -678,6 +684,7 @@ function SkyEnginePageContent({
           deterministicParityModeEnabled={deterministicParityModeEnabled}
           webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
           webgl2StarsOwnerConfig={webgl2StarsOwnerConfig}
+          webgl2StarsPerfTraceConfig={webgl2StarsPerfTraceConfig}
           skyDebugVisualConfig={skyDebugVisualConfig}
         />
 
@@ -839,6 +846,11 @@ export default function SkyEnginePage() {
     isDev: isDevRuntime,
     devOnly: false,
   })
+  const webgl2StarsPerfTraceConfig = resolveWebGL2StarsPerfTraceConfig({
+    search: globalThis.location?.search ?? '',
+    isDev: isDevRuntime,
+    devOnly: false,
+  })
   const skyDebugVisualConfig = resolveSkyDebugVisualConfig({
     search: globalThis.location?.search ?? '',
     isDev: isDevRuntime,
@@ -893,6 +905,7 @@ export default function SkyEnginePage() {
         backendScene={fallbackBackendScene}
         webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
         webgl2StarsOwnerConfig={webgl2StarsOwnerConfig}
+        webgl2StarsPerfTraceConfig={webgl2StarsPerfTraceConfig}
         skyDebugVisualConfig={skyDebugVisualConfig}
         offlineFallbackMode
       />
@@ -905,6 +918,7 @@ export default function SkyEnginePage() {
         backendScene={fallbackBackendScene}
         webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
         webgl2StarsOwnerConfig={webgl2StarsOwnerConfig}
+        webgl2StarsPerfTraceConfig={webgl2StarsPerfTraceConfig}
         skyDebugVisualConfig={skyDebugVisualConfig}
         offlineFallbackMode
       />
@@ -916,6 +930,7 @@ export default function SkyEnginePage() {
       backendScene={backendScene}
       webgl2StarsHarnessConfig={webgl2StarsHarnessConfig}
       webgl2StarsOwnerConfig={webgl2StarsOwnerConfig}
+      webgl2StarsPerfTraceConfig={webgl2StarsPerfTraceConfig}
       skyDebugVisualConfig={skyDebugVisualConfig}
     />
   )

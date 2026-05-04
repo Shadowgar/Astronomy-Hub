@@ -620,6 +620,73 @@ Recommendation:
 - `cd /home/rocco/Astronomy-Hub/frontend && npm run profile:sky-engine-runtime`: pass
 - `cd /home/rocco/Astronomy-Hub && git diff --check`: pass
 
+## Renderer Reset Step 12 - Browser/Main-Thread Lag Attribution
+
+Objective:
+- Identify the real source of the severe Step 11 owner/harness FPS collapse without changing default renderer ownership.
+- Produce explicit attribution instrumentation, measurements, a minimal proven fix, and a rollout recommendation in one pass.
+
+Files changed:
+- `frontend/src/features/sky-engine/SkyEngineScene.tsx`
+- `frontend/src/features/sky-engine/SkyEngineRuntimeBridge.ts`
+- `frontend/src/features/sky-engine/webgl2StarsPerfTraceConfig.ts`
+- `frontend/src/features/sky-engine/webgl2StarsStatusUiThrottle.ts`
+- `frontend/src/pages/SkyEnginePage.tsx`
+- `frontend/tests/test_webgl2_stars_harness_flag.test.jsx`
+
+Instrumentation added in this step:
+- Dev-only query flags:
+  - `?webgl2StarsPerfTrace=1`
+  - `?webgl2StarsStatusUi=0`
+  - `?webgl2StarsDiagnosticsWrites=0`
+- Scene-root perf trace dataset:
+  - `data-webgl2-stars-perf-trace`
+- Perf trace payload fields:
+  - status UI cadence
+  - owner ingress / commit / suppressed counts
+  - harness ingress / commit / suppressed counts
+  - status UI and diagnostics-write enablement state
+
+Root-cause attribution proven in this step:
+- Disabling diagnostics dataset writes alone did not fix the collapse.
+- Disabling the owner/harness status UI restored owner static from `1.982 FPS` to `62.143 FPS` and preserved healthy harness performance.
+- The real bottleneck was owner/harness diagnostics updates propagating through the main `SkyEngineScene` React shell, not WebGL2 draw timing.
+- Runtime frame totals stayed around `2 ms` after the fix, which matches the browser-visible recovery and removes the Step 11 `~2 FPS with ~0-15 ms renderer timing` contradiction.
+
+Minimal fix proven here:
+- Owner and harness diagnostics overlays are now isolated into memoized child components with imperative `publishDiagnostics(...)` handles, so owner/harness diagnostics no longer rerender the entire scene host.
+- Structural changes still publish immediately.
+- High-churn numeric fields are snapshotted at a `1000 ms` cadence for diagnostics continuity.
+- Perf trace publication remains explicit opt-in and no longer collapses the route when enabled.
+
+Before/after summary:
+
+| Route | Step 11 FPS | Step 12 FPS | Step 11 frame delta ms | Step 12 frame delta ms | Result |
+|---|---:|---:|---:|---:|---|
+| Dark legacy static | 68.667 | 67.883 | 14.563 | 14.731 | Stable baseline retained |
+| Owner healthy static | 1.982 | 39.098 | 504.650 | 25.577 | Main-thread collapse removed |
+| Owner forced fallback static | 1.882 | 57.250 | 531.250 | 17.467 | Fallback remains healthy |
+| Harness side-by-side static | 67.333 | 58.153 | 14.851 | 17.196 | Healthy explicit comparison route retained |
+| Owner interaction | 1.718 | 43.680 | 581.920 | 22.894 | Catastrophic interaction collapse removed |
+| Harness interaction | 3.236 | 38.548 | 309.022 | 25.942 | Catastrophic interaction collapse removed |
+
+Perf-trace evidence:
+- Owner healthy trace (`?webgl2StarsPerfTrace=1`): `17` diagnostics ingress events, `7` committed status snapshots, `10` suppressed updates, route still at `58.799 FPS`.
+- Harness side-by-side trace (`?webgl2StarsPerfTrace=1`): `374` diagnostics ingress events, `8` committed status snapshots, `366` suppressed updates, route still at `62.893 FPS`.
+
+Artifacts recorded for this block:
+- `/home/rocco/Astronomy-Hub/output/playwright/step12-browser-main-thread-lag-attribution/static-metrics.json`
+- `/home/rocco/Astronomy-Hub/output/playwright/step12-browser-main-thread-lag-attribution/interaction-metrics.json`
+
+Validation commands executed:
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run typecheck`: pass
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run test -- tests/test_webgl2_stars_harness_flag.test.jsx`: pass (`12/12`)
+- `cd /home/rocco/Astronomy-Hub/frontend && npm run build`: pass
+
+Recommendation:
+- `GO` to keep this Step 12 fix on the explicit opt-in owner/harness trial routes because it removes the real browser/main-thread lag source while preserving fallback and diagnostics.
+- `NO-GO` for making WebGL2 the default owner, removing fallback, or claiming parity. This step fixes a trial-route browser bottleneck only.
+
 Conclusion:
 - Temporary dev dark-sky and stars-visible overrides now provide explicit verification controls without altering default route behavior.
 - Step 9 style calibration controls are active in the WebGL2 harness path and surfaced in diagnostics/status, enabling direct visual comparison against local Stellarium while preserving current ownership boundaries.

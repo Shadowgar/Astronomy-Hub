@@ -1,0 +1,100 @@
+{
+  "baselineStep11": {
+    "legacyDark": {
+      "approximateFps": 68.667,
+      "averageFrameDeltaMs": 14.563,
+      "runtimeFrameTotalMs": 2.5
+    },
+    "harnessSideBySide": {
+      "approximateFps": 67.333,
+      "averageFrameDeltaMs": 14.851,
+      "runtimeFrameTotalMs": 2.2
+    },
+    "ownerHealthy": {
+      "approximateFps": 1.982,
+      "averageFrameDeltaMs": 504.65,
+      "runtimeFrameTotalMs": 12.3
+    },
+    "ownerFallback": {
+      "approximateFps": 1.882,
+      "averageFrameDeltaMs": 531.25,
+      "runtimeFrameTotalMs": 13.4
+    }
+  },
+  "step12PostFix": {
+    "legacyDark": {
+      "approximateFps": 67.883,
+      "averageFrameDeltaMs": 14.731,
+      "runtimeFrameTotalMs": 1.8000000044703484
+    },
+    "ownerHealthy": {
+      "approximateFps": 39.098,
+      "averageFrameDeltaMs": 25.577,
+      "maxFrameDeltaMs": 604.2,
+      "longFrameCount": 5,
+      "runtimeFrameTotalMs": 2.0,
+      "ownerStatusPresent": true
+    },
+    "ownerHealthyStatusUiOffProbe": {
+      "approximateFps": 62.143,
+      "averageFrameDeltaMs": 16.092,
+      "runtimeFrameTotalMs": 3.0,
+      "ownerStatusPresent": false
+    },
+    "ownerFallback": {
+      "approximateFps": 57.25,
+      "averageFrameDeltaMs": 17.467,
+      "runtimeFrameTotalMs": 1.6000000014901161,
+      "fallbackActive": true
+    },
+    "harnessSideBySide": {
+      "approximateFps": 58.153,
+      "averageFrameDeltaMs": 17.196,
+      "maxFrameDeltaMs": 569.5,
+      "longFrameCount": 4,
+      "runtimeFrameTotalMs": 13.800000004470348,
+      "ownerStatusPresent": true,
+      "harnessStatusPresent": true
+    },
+    "harnessSideBySideStatusUiOffProbe": {
+      "approximateFps": 57.5,
+      "averageFrameDeltaMs": 17.391,
+      "runtimeFrameTotalMs": 2.2000000029802322,
+      "ownerStatusPresent": false,
+      "harnessStatusPresent": false
+    }
+  },
+  "perfTrace": {
+    "ownerHealthy": {
+      "approximateFps": 58.799,
+      "averageFrameDeltaMs": 17.007,
+      "runtimeFrameTotalMs": 2.2999999970197678,
+      "trace": {
+        "statusUiCommitCadenceMs": 1000,
+        "owner": {
+          "ingressCount": 17,
+          "commitCount": 7,
+          "suppressedCount": 10
+        }
+      }
+    },
+    "harnessSideBySide": {
+      "approximateFps": 62.893,
+      "averageFrameDeltaMs": 15.9,
+      "runtimeFrameTotalMs": 2.5,
+      "trace": {
+        "statusUiCommitCadenceMs": 1000,
+        "harness": {
+          "ingressCount": 374,
+          "commitCount": 8,
+          "suppressedCount": 366
+        }
+      }
+    }
+  },
+  "summary": {
+    "attribution": "The severe browser-side FPS collapse was caused by owner/harness diagnostics React updates propagating through the main SkyEngineScene shell, not by WebGL2 draw timing.",
+    "fix": "Diagnostics overlays were isolated into memoized child components with imperative publishing, while perf-trace counters record ingress, commits, and suppressed updates without rerendering the scene host.",
+    "defaultOwnerRecommendation": "NO-GO"
+  }
+}

@@ -44,6 +44,7 @@ import type { SceneLuminanceReport, SkyBrightnessExposureState } from './engine/
 import { resolvePainterBackendExecutionEnabled } from './engine/sky/runtime/renderer/painterBackendPort'
 import type { WebGL2StarsHarnessConfig } from './webgl2StarsHarnessConfig'
 import type { WebGL2StarsOwnerConfig } from './webgl2StarsOwnerConfig'
+import type { WebGL2StarsPerfTraceConfig } from './webgl2StarsPerfTraceConfig'
 import type { SkyDebugVisualConfig } from './skyDebugVisualConfig'
 import {
   type ProjectedSceneObjectEntry,
@@ -71,6 +72,7 @@ export interface SkyEngineSceneProps {
   readonly deterministicParityMode?: boolean
   readonly webgl2StarsHarnessConfig?: WebGL2StarsHarnessConfig
   readonly webgl2StarsOwnerConfig?: WebGL2StarsOwnerConfig
+  readonly webgl2StarsPerfTraceConfig?: WebGL2StarsPerfTraceConfig
   readonly debugVisualConfig?: SkyDebugVisualConfig
 }
 
