@@ -102,15 +102,15 @@ The viewport:
 ## Current Product Anchor
 
 ```text id="c5t9kw"
-Sky Engine is the self-contained Babylon.js rendering foundation
+Hub shell remains active on '/'; '/sky-engine' is a clean placeholder pending a new mount from '/study'
 ```
 
 Current build order:
 
-1. Sky Engine runtime recovery
-2. Hub embedding through thin viewport integration
-3. Feed → Engine interaction
-4. Object exploration flow
+1. Mount a working runtime from `/study`
+2. Restore `/sky-engine` through the new placeholder boundary
+3. Reconnect feed → engine interaction after the new runtime is real
+4. Resume object exploration flow on top of the new runtime
 5. Additional engines
 
 ---
