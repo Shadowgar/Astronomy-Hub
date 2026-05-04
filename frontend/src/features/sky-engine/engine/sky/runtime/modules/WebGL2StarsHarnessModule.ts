@@ -2,6 +2,7 @@ import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } fr
 import { createPointRenderItem } from '../../renderer/renderItems'
 import type { StellariumRendererContract } from '../../renderer/stellariumRendererContract'
 import type { SkyModule } from '../SkyModule'
+import { incrementSkyInteractionTraceCount } from '../interactionTrace'
 import type { WebGL2StarsHarnessColorMode, WebGL2StarsHarnessMode } from '../../../../webgl2StarsHarnessConfig'
 import type { SkyTileCatalog } from '../../contracts/tiles'
 
@@ -186,6 +187,12 @@ export function createWebGL2StarsHarnessModule(input: {
           },
         })
         const frameOutput = input.renderer.renderFrame()
+        incrementSkyInteractionTraceCount(runtime.interactionTraceTelemetry, 'webgl2HarnessRenderFrameCount')
+        incrementSkyInteractionTraceCount(
+          runtime.interactionTraceTelemetry,
+          'webgl2HarnessBufferUploadCount',
+          frameOutput.diagnostics.submittedPointItemCount,
+        )
 
         emitDiagnostics({
           backendActive: true,

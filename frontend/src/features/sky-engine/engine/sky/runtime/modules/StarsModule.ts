@@ -1,5 +1,6 @@
 import type { SkyModule } from '../SkyModule'
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
+import { incrementSkyInteractionTraceCount } from '../interactionTrace'
 import { stellariumFrameAstrometryFromEraAstrom } from '../erfaAbLdsun'
 import { resolveStarsRenderLimitMagnitude } from '../stellariumPainterLimits'
 import {
@@ -294,6 +295,8 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
       if (shouldReuseProjection) {
         runtime.starsProjectionReuseStreak += 1
       } else {
+        incrementSkyInteractionTraceCount(runtime.interactionTraceTelemetry, 'projectionInvalidationCount')
+        incrementSkyInteractionTraceCount(runtime.interactionTraceTelemetry, 'collectProjectedStarsCallCount')
         const projectionStartMs = performance.now()
         const projectionResult = collectProjectedStars({
           view,
@@ -387,6 +390,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
       }
     },
     render({ runtime, services, getProps, frameState }) {
+      incrementSkyInteractionTraceCount(runtime.interactionTraceTelemetry, 'starsModuleRenderCount')
       const projectedStarsFrame = runtime.projectedStarsFrame
       const props = getProps()
       const painter = frameState?.render.painter
@@ -420,6 +424,7 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
           projectedStars: projectedStarsFrame.projectedStars,
         })
         runtime.rendererBoundaryStarsPointItem = nextRendererBoundaryStarsPointItem
+        incrementSkyInteractionTraceCount(runtime.interactionTraceTelemetry, 'rendererBoundaryPointItemRebuildCount')
         lastProjectedStarsRef = projectedStarsFrame.projectedStars
         lastRendererBoundaryStarsPointItem = nextRendererBoundaryStarsPointItem
       }
@@ -449,6 +454,14 @@ export function createStarsModule(): SkyModule<ScenePropsSnapshot, SceneRuntimeR
         bufferUpdateMs: 0,
         gpuUploadMs: 0,
         selectionHighlightMs: 0,
+      }
+      incrementSkyInteractionTraceCount(runtime.interactionTraceTelemetry, 'directStarLayerSyncCount')
+      if (
+        resolvedSyncMetrics.instanceTransformMs > 0 ||
+        resolvedSyncMetrics.bufferUpdateMs > 0 ||
+        resolvedSyncMetrics.selectionHighlightMs > 0
+      ) {
+        incrementSkyInteractionTraceCount(runtime.interactionTraceTelemetry, 'directStarLayerSyncWorkCount')
       }
       runtime.runtimePerfTelemetry.latest = {
         ...runtime.runtimePerfTelemetry.latest,

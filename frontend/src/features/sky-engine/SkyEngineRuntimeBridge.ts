@@ -39,6 +39,7 @@ import { SkyNavigationService } from './engine/sky/runtime/SkyNavigationService'
 import { SkyObserverService } from './engine/sky/runtime/SkyObserverService'
 import type { SkyObserverDerivedGeometry } from './engine/sky/runtime/observerDerivedGeometry'
 import { SkyProjectionService } from './engine/sky/runtime/SkyProjectionService'
+import { createSkyInteractionTraceTelemetry } from './engine/sky/runtime/interactionTrace'
 import { createRuntimePerfTelemetry } from './engine/sky/runtime/perfTelemetry'
 import type { SceneLuminanceReport, SkyBrightnessExposureState } from './engine/sky/runtime/types'
 import { resolvePainterBackendExecutionEnabled } from './engine/sky/runtime/renderer/painterBackendPort'
@@ -133,6 +134,7 @@ export interface SceneRuntimeRefs {
   trajectoryObjectId: string | null
   visibleLabelIds: readonly string[]
   runtimePerfTelemetry: ReturnType<typeof createRuntimePerfTelemetry>
+  interactionTraceTelemetry: ReturnType<typeof createSkyInteractionTraceTelemetry>
   starsProjectionCache: {
     sceneTimestampMs: number
     width: number
@@ -216,6 +218,7 @@ export function createSceneRuntimeState({
     trajectoryObjectId: null,
     visibleLabelIds: [],
     runtimePerfTelemetry: createRuntimePerfTelemetry(),
+    interactionTraceTelemetry: createSkyInteractionTraceTelemetry(),
     starsProjectionCache: null,
     starsProjectionReuseStreak: 0,
     corePainterLimits: null,

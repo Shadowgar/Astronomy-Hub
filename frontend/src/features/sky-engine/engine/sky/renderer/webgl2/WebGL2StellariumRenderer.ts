@@ -29,6 +29,7 @@ const DEFAULT_POINT_STYLE_CALIBRATION: StellariumRendererPointStyleCalibration =
 type RendererOptions = {
   canvas?: HTMLCanvasElement | null
   gl?: WebGL2RenderingContext | null
+  drawEnabled?: boolean
 }
 
 function nowMs() {
@@ -47,6 +48,7 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
   private initialized = false
   private disposed = false
   private gl: WebGL2RenderingContext | null = null
+  private readonly drawEnabled: boolean
   private prepareFrameMs = 0
   private submitFrameMs = 0
   private renderFrameMs = 0
@@ -54,6 +56,7 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
 
   constructor(options: RendererOptions = {}) {
     this.options = options
+    this.drawEnabled = options.drawEnabled !== false
   }
 
   init(input: StellariumRendererInitInput): void {
@@ -110,7 +113,16 @@ export class WebGL2StellariumRenderer implements StellariumRendererContract {
 
     if (this.gl) {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT)
-      this.drawPointItems(this.gl, this.state.getSubmittedItems(), this.pointStyleCalibration)
+      if (this.drawEnabled) {
+        this.drawPointItems(this.gl, this.state.getSubmittedItems(), this.pointStyleCalibration)
+      } else {
+        this.state.setPointDrawResults({
+          drawnPointItemCount: 0,
+          drawnPointCount: 0,
+          skippedUnsupportedItemCount: this.state.getDiagnostics().skippedUnsupportedItemCount,
+          note: 'point_draw:skipped;draw:disabled',
+        })
+      }
     }
 
     this.renderFrameMs = nowMs() - start

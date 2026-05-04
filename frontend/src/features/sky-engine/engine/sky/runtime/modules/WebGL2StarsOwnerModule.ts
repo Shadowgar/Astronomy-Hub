@@ -1,6 +1,7 @@
 import type { ScenePropsSnapshot, SceneRuntimeRefs, SkySceneRuntimeServices } from '../../../../SkyEngineRuntimeBridge'
 import type { StellariumRendererContract } from '../../renderer/stellariumRendererContract'
 import type { SkyModule } from '../SkyModule'
+import { incrementSkyInteractionTraceCount } from '../interactionTrace'
 import type { WebGL2StarsHarnessColorMode } from '../../../../webgl2StarsHarnessConfig'
 import type { SkyTileCatalog } from '../../contracts/tiles'
 
@@ -247,6 +248,12 @@ export function createWebGL2StarsOwnerModule(input: {
           },
         })
         const frameOutput = input.renderer.renderFrame()
+        incrementSkyInteractionTraceCount(runtime.interactionTraceTelemetry, 'webgl2OwnerRenderFrameCount')
+        incrementSkyInteractionTraceCount(
+          runtime.interactionTraceTelemetry,
+          'webgl2OwnerBufferUploadCount',
+          frameOutput.diagnostics.submittedPointItemCount,
+        )
 
         setDirectStarLayerVisible(runtime, false)
         lastSuccessfulFrameCount = frameOutput.diagnostics.lastFrameSequence

@@ -60,6 +60,7 @@ import {
   type WebGL2StarsOwnerDiagnostics,
 } from './engine/sky/runtime/modules/WebGL2StarsOwnerModule'
 import { WebGL2StellariumRenderer } from './engine/sky/renderer/webgl2/WebGL2StellariumRenderer'
+import { cloneSkyInteractionTraceSeed } from './engine/sky/runtime/interactionTrace'
 import { DEFAULT_SKY_ENGINE_AID_VISIBILITY } from './aidVisibilityPersistence'
 import {
   createSceneRuntimeState,
@@ -132,6 +133,10 @@ const DEFAULT_WEBGL2_STARS_PERF_TRACE_CONFIG: WebGL2StarsPerfTraceConfig = {
   perfTraceEnabled: false,
   statusUiEnabled: true,
   diagnosticsWritesEnabled: true,
+  interactionTraceEnabled: false,
+  coalescePointerMoveEnabled: false,
+  coalesceWheelEnabled: false,
+  drawEnabled: true,
   devOnly: true,
 }
 
@@ -785,6 +790,21 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
   const lastPropsSignatureRef = useRef('')
   const stableScenePacketRef = useRef<ScenePropsSnapshot['scenePacket']>(null)
   const syncRuntimeModelRef = useRef<(force?: boolean) => void>(() => undefined)
+  const interactionTraceSnapshotRef = useRef<{
+    runtimeSeed: ReturnType<typeof cloneSkyInteractionTraceSeed> | null
+    reactCommitCount: number
+    ownerIngressCount: number
+    ownerCommitCount: number
+    harnessIngressCount: number
+    harnessCommitCount: number
+  }>({
+    runtimeSeed: null,
+    reactCommitCount: 0,
+    ownerIngressCount: 0,
+    ownerCommitCount: 0,
+    harnessIngressCount: 0,
+    harnessCommitCount: 0,
+  })
   const defaultDynamicModelRef = useRef<SceneControllerModel>(
     buildSceneControllerModel({
       backendStars,
@@ -908,9 +928,13 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
           navigationService: services.navigationService,
           projectionService: services.projectionService,
           requestRender,
+          interactionTraceTelemetry: runtime.interactionTraceTelemetry,
+          coalescePointerMoveEnabled: webgl2StarsPerfTraceConfig.coalescePointerMoveEnabled,
+          coalesceWheelEnabled: webgl2StarsPerfTraceConfig.coalesceWheelEnabled,
         })
       },
       updateServices: ({ services, deltaSeconds }) => {
+        services.inputService.advanceFrame()
         services.clockService.advanceFrame(deltaSeconds)
       },
       coreUpdatePreamble: (ctx) => {
@@ -1071,7 +1095,10 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
     core.registerModule(createPointerRuntimeModule())
     core.registerModule(createSnapshotBridgeModule(snapshotStore, UI_SNAPSHOT_CADENCE_MS))
     if (webgl2StarsOwnerConfig.enabled && webgl2OwnerCanvas) {
-      const webgl2OwnerRenderer = new WebGL2StellariumRenderer({ canvas: webgl2OwnerCanvas })
+      const webgl2OwnerRenderer = new WebGL2StellariumRenderer({
+        canvas: webgl2OwnerCanvas,
+        drawEnabled: webgl2StarsPerfTraceConfig.drawEnabled,
+      })
       core.registerModule(createWebGL2StarsOwnerModule({
         enabled: true,
         comparisonHarnessEnabled: webgl2StarsHarnessConfig.enabled,
@@ -1108,7 +1135,10 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
       }))
     }
     if (webgl2StarsHarnessConfig.enabled && webgl2HarnessCanvas) {
-      const webgl2HarnessRenderer = new WebGL2StellariumRenderer({ canvas: webgl2HarnessCanvas })
+      const webgl2HarnessRenderer = new WebGL2StellariumRenderer({
+        canvas: webgl2HarnessCanvas,
+        drawEnabled: webgl2StarsPerfTraceConfig.drawEnabled,
+      })
       core.registerModule(createWebGL2StarsHarnessModule({
         enabled: true,
         comparisonMode: webgl2StarsHarnessConfig.mode,
@@ -1188,10 +1218,119 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
         sceneRoot.dataset.webgl2StarsPerfTrace = JSON.stringify({
           statusUiEnabled: webgl2StarsPerfTraceConfig.statusUiEnabled,
           diagnosticsWritesEnabled: webgl2StarsPerfTraceConfig.diagnosticsWritesEnabled,
+          interactionTraceEnabled: webgl2StarsPerfTraceConfig.interactionTraceEnabled,
+          drawEnabled: webgl2StarsPerfTraceConfig.drawEnabled,
           statusUiCommitCadenceMs: WEBGL2_STARS_STATUS_UI_COMMIT_CADENCE_MS,
           owner: ownerStatusUiPerfRef.current,
           harness: harnessStatusUiPerfRef.current,
         })
+      }, WEBGL2_STARS_PERF_TRACE_PUBLISH_CADENCE_MS)
+      : null
+    const interactionTracePublishHandle = webgl2StarsPerfTraceConfig.interactionTraceEnabled && sceneRootRef.current
+      ? globalThis.setInterval(() => {
+        const sceneRoot = sceneRootRef.current
+
+        if (!sceneRoot) {
+          return
+        }
+
+        const runtimeContext = core.withContext((runtime) => runtime)
+
+        if (!runtimeContext) {
+          return
+        }
+
+        const nowMs = resolveWebGL2StatusUiNowMs()
+        const previousSnapshot = interactionTraceSnapshotRef.current
+        const previousRuntimeSeed = previousSnapshot.runtimeSeed
+        const nextRuntimeSeed = cloneSkyInteractionTraceSeed(runtimeContext.interactionTraceTelemetry, nowMs)
+        const elapsedMs = previousRuntimeSeed == null
+          ? WEBGL2_STARS_PERF_TRACE_PUBLISH_CADENCE_MS
+          : Math.max(1, nextRuntimeSeed.atMs - previousRuntimeSeed.atMs)
+        const elapsedSeconds = elapsedMs / 1000
+        const resolveDeltaPerSecond = (
+          currentValue: number,
+          previousValue: number,
+        ) => (currentValue - previousValue) / elapsedSeconds
+        const runtimeCountRates = Object.keys(nextRuntimeSeed.counts)
+          .sort((left, right) => left.localeCompare(right))
+          .reduce<Record<string, number>>((accumulator, key) => {
+            accumulator[key] = resolveDeltaPerSecond(
+              nextRuntimeSeed.counts[key] ?? 0,
+              previousRuntimeSeed?.counts[key] ?? 0,
+            )
+            return accumulator
+          }, {})
+        const runtimeDurationRates = Object.keys(nextRuntimeSeed.durationsMs)
+          .sort((left, right) => left.localeCompare(right))
+          .reduce<Record<string, number>>((accumulator, key) => {
+            accumulator[key] = resolveDeltaPerSecond(
+              nextRuntimeSeed.durationsMs[key] ?? 0,
+              previousRuntimeSeed?.durationsMs[key] ?? 0,
+            )
+            return accumulator
+          }, {})
+        const pageRoot = sceneRoot.closest('.sky-engine-page')
+        let reactCommitCount = previousSnapshot.reactCommitCount
+        if (pageRoot instanceof HTMLElement && pageRoot.dataset.skyEngineUiPerf) {
+          try {
+            const parsedUiPerf = JSON.parse(pageRoot.dataset.skyEngineUiPerf) as { reactCommitCount?: number }
+            reactCommitCount = typeof parsedUiPerf.reactCommitCount === 'number'
+              ? parsedUiPerf.reactCommitCount
+              : reactCommitCount
+          } catch {
+            // keep last good UI counters when the debug dataset is transiently invalid.
+          }
+        }
+        const ownerPerf = ownerStatusUiPerfRef.current
+        const harnessPerf = harnessStatusUiPerfRef.current
+
+        sceneRoot.dataset.webgl2StarsInteractionTrace = JSON.stringify({
+          elapsedMs,
+          flags: {
+            coalescePointerMoveEnabled: webgl2StarsPerfTraceConfig.coalescePointerMoveEnabled,
+            coalesceWheelEnabled: webgl2StarsPerfTraceConfig.coalesceWheelEnabled,
+            drawEnabled: webgl2StarsPerfTraceConfig.drawEnabled,
+          },
+          ratesPerSecond: runtimeCountRates,
+          durationMsPerSecond: runtimeDurationRates,
+          totals: {
+            counts: nextRuntimeSeed.counts,
+            durationsMs: nextRuntimeSeed.durationsMs,
+          },
+          reactCommitCountPerSecond: resolveDeltaPerSecond(
+            reactCommitCount,
+            previousSnapshot.reactCommitCount,
+          ),
+          reactStateUpdateCountPerSecond: null,
+          ownerStatusUiIngressPerSecond: resolveDeltaPerSecond(
+            ownerPerf.ingressCount,
+            previousSnapshot.ownerIngressCount,
+          ),
+          ownerStatusUiCommitPerSecond: resolveDeltaPerSecond(
+            ownerPerf.commitCount,
+            previousSnapshot.ownerCommitCount,
+          ),
+          harnessStatusUiIngressPerSecond: resolveDeltaPerSecond(
+            harnessPerf.ingressCount,
+            previousSnapshot.harnessIngressCount,
+          ),
+          harnessStatusUiCommitPerSecond: resolveDeltaPerSecond(
+            harnessPerf.commitCount,
+            previousSnapshot.harnessCommitCount,
+          ),
+          latestStepMs: runtimeContext.runtimePerfTelemetry.latest.stepMs,
+          latestFrameMs: runtimeContext.runtimePerfTelemetry.latest.frameTotalMs,
+        })
+
+        interactionTraceSnapshotRef.current = {
+          runtimeSeed: nextRuntimeSeed,
+          reactCommitCount,
+          ownerIngressCount: ownerPerf.ingressCount,
+          ownerCommitCount: ownerPerf.commitCount,
+          harnessIngressCount: harnessPerf.ingressCount,
+          harnessCommitCount: harnessPerf.commitCount,
+        }
       }, WEBGL2_STARS_PERF_TRACE_PUBLISH_CADENCE_MS)
       : null
 
@@ -1201,8 +1340,12 @@ const SkyEngineScene = memo(forwardRef<SkyEngineSceneHandle, SkyEngineSceneProps
       if (perfTracePublishHandle != null) {
         globalThis.clearInterval(perfTracePublishHandle)
       }
+      if (interactionTracePublishHandle != null) {
+        globalThis.clearInterval(interactionTracePublishHandle)
+      }
       if (sceneRootRef.current) {
         delete sceneRootRef.current.dataset.webgl2StarsPerfTrace
+        delete sceneRootRef.current.dataset.webgl2StarsInteractionTrace
       }
       core.dispose()
       coreRef.current = null

@@ -302,9 +302,13 @@ describe('webgl2 stars harness flag + mount behavior', () => {
     expect(defaultConfig.perfTraceEnabled).toBe(false)
     expect(defaultConfig.statusUiEnabled).toBe(true)
     expect(defaultConfig.diagnosticsWritesEnabled).toBe(true)
+    expect(defaultConfig.interactionTraceEnabled).toBe(false)
+    expect(defaultConfig.coalescePointerMoveEnabled).toBe(false)
+    expect(defaultConfig.coalesceWheelEnabled).toBe(false)
+    expect(defaultConfig.drawEnabled).toBe(true)
 
     const devConfig = resolveWebGL2StarsPerfTraceConfig({
-      search: '?webgl2StarsPerfTrace=1&webgl2StarsStatusUi=0&webgl2StarsDiagnosticsWrites=0',
+      search: '?webgl2StarsPerfTrace=1&webgl2StarsStatusUi=0&webgl2StarsDiagnosticsWrites=0&webgl2StarsInteractionTrace=1&webgl2StarsCoalescePointerMove=1&webgl2StarsCoalesceWheel=1&webgl2StarsDraw=0',
       isDev: true,
       devOnly: true,
     })
@@ -312,7 +316,12 @@ describe('webgl2 stars harness flag + mount behavior', () => {
     expect(devConfig.perfTraceEnabled).toBe(true)
     expect(devConfig.statusUiEnabled).toBe(false)
     expect(devConfig.diagnosticsWritesEnabled).toBe(false)
+    expect(devConfig.interactionTraceEnabled).toBe(true)
+    expect(devConfig.coalescePointerMoveEnabled).toBe(true)
+    expect(devConfig.coalesceWheelEnabled).toBe(true)
+    expect(devConfig.drawEnabled).toBe(false)
   })
+
 
   it('owner status UI immediate key ignores per-frame counters and timing churn', () => {
     const baseline = createOwnerDiagnostics()

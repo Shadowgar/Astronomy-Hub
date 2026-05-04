@@ -83,6 +83,8 @@ export class SkyNavigationService {
     projectionService: SkyProjectionService,
     input: { clientX: number; clientY: number; deltaY: number },
   ) {
+    const previousCenterDirection = this.centerDirection
+    const previousFov = projectionService.getCurrentFov()
     const nextDesiredFov = projectionService.stepWheelFov(input.deltaY)
     const bounds = canvas.getBoundingClientRect()
     const previousPointerDirection = projectionService.unproject(
@@ -100,6 +102,11 @@ export class SkyNavigationService {
 
     this.centerDirection = rotateVectorTowardPointerAnchor(this.centerDirection, nextPointerDirection, previousPointerDirection).normalizeToNew()
     this.targetVector = null
+
+    return (
+      !this.centerDirection.equalsWithEpsilon(previousCenterDirection, 0.000001) ||
+      Math.abs(nextDesiredFov - previousFov) > 0.000001
+    )
   }
 
   beginPointerInteraction(
@@ -118,7 +125,8 @@ export class SkyNavigationService {
       this.dragStartY,
       this.dragBaseCenterDirection,
     )
-    canvas.setPointerCapture(input.pointerId)
+
+    return true
   }
 
   updatePointerInteraction(
@@ -127,7 +135,7 @@ export class SkyNavigationService {
     input: { pointerId: number; clientX: number; clientY: number },
   ) {
     if (this.activePointerId !== input.pointerId || !this.dragAnchorDirection || !this.dragBaseCenterDirection) {
-      return
+      return false
     }
 
     const bounds = canvas.getBoundingClientRect()
@@ -140,9 +148,10 @@ export class SkyNavigationService {
     }
 
     if (!this.dragMoved) {
-      return
+      return false
     }
 
+    const previousCenterDirection = this.centerDirection
     const nextPointerDirection = projectionService.unproject(screenX, screenY, this.dragBaseCenterDirection)
     this.centerDirection = rotateVectorTowardPointerAnchor(
       this.dragBaseCenterDirection,
@@ -150,6 +159,8 @@ export class SkyNavigationService {
       this.dragAnchorDirection,
     ).normalizeToNew()
     this.targetVector = null
+
+    return !this.centerDirection.equalsWithEpsilon(previousCenterDirection, 0.000001)
   }
 
   releasePointerInteraction(canvas: HTMLCanvasElement, pointerId: number) {
@@ -162,9 +173,6 @@ export class SkyNavigationService {
     this.dragBaseCenterDirection = null
     this.dragMoved = false
 
-    if (canvas.hasPointerCapture(pointerId)) {
-      canvas.releasePointerCapture(pointerId)
-    }
   }
 
   completePointerInteraction(
