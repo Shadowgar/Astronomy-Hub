@@ -29,6 +29,8 @@
     "dev:stellarium:restart": "bash scripts/dev-stellarium-local.sh restart",
     "dev:stellarium:status": "bash scripts/dev-stellarium-local.sh status",
     "dev:stellarium:logs": "bash scripts/dev-stellarium-local.sh logs",
+    "build:stellarium": "bash scripts/prepare-stellarium-reference.sh && cd vendor/stellarium-web-engine/apps/web-frontend && NODE_OPTIONS=--openssl-legacy-provider npm run build",
+    "serve:stellarium": "npm run dev:stellarium",
     "dev:parity": "npm run dev:wsl && npm run dev:stellarium",
     "validate:sky-fast": "cd frontend && npm run typecheck && npm run test -- tests/sky-engine-runtime-frame-projection.test.js tests/sky-engine-stars-runtime.test.js tests/test_scene_query_state.test.js tests/test_painter_backend_port.test.js && npm run build",
     "profile:sky-local": "cd frontend && npm run profile:sky-engine-runtime",

@@ -4,13 +4,32 @@ set -euo pipefail
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(cd "$script_dir/.." && pwd)"
-source_root="$repo_root/study/stellarium-web-engine/source/stellarium-web-engine-master"
+source_root="$repo_root/vendor/stellarium-web-engine"
 app_dir="$source_root/apps/web-frontend"
 assets_dir="$app_dir/src/assets/js"
 build_dir="$source_root/build"
 skydata_dir="$source_root/apps/test-skydata"
 js_image="astronomy-hub-stellarium-jsbuild"
 js_dockerfile="$repo_root/scripts/Dockerfile.stellarium-jsbuild"
+expected_vue_version="2.6.12"
+
+read_package_version() {
+    local package_dir="$1"
+
+    PACKAGE_DIR="$package_dir" node <<'NODE'
+const fs = require('fs')
+
+const packageDir = process.env.PACKAGE_DIR
+const packageJson = `${packageDir}/package.json`
+
+if (!fs.existsSync(packageJson)) {
+    process.exit(1)
+}
+
+const pkg = JSON.parse(fs.readFileSync(packageJson, 'utf8'))
+process.stdout.write(pkg.version || '')
+NODE
+}
 
 if [[ ! -f "$app_dir/package.json" ]]; then
   echo "Stellarium reference app not found at $app_dir" >&2
@@ -30,6 +49,17 @@ pkg.devDependencies['vue-template-compiler'] = '2.6.12'
 
 fs.writeFileSync(path, `${JSON.stringify(pkg, null, 2)}\n`)
 NODE
+
+vue_version="$(read_package_version "$app_dir/node_modules/vue" || true)"
+compiler_version="$(read_package_version "$app_dir/node_modules/vue-template-compiler" || true)"
+
+if [[ ! -d "$app_dir/node_modules" || "$vue_version" != "$expected_vue_version" || "$compiler_version" != "$expected_vue_version" ]]; then
+    echo "Installing Stellarium web-frontend dependencies in $app_dir"
+    (
+        cd "$app_dir"
+        npm install
+    )
+fi
 
 if [[ ! -f "$assets_dir/stellarium-web-engine.js" || ! -f "$assets_dir/stellarium-web-engine.wasm" ]]; then
   echo "Preparing Stellarium engine assets in $assets_dir"

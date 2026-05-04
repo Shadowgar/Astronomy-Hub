@@ -83,6 +83,7 @@ Thumbs.db
 !/study/module0-parity/requirements.txt
 !/study/module0-parity/verify_apco_vs_hub.py
 /study/stellarium-web-engine/
+/vendor/stellarium-web-engine/
 /data/sky-engine/hipparcos/source/
 data/
 !frontend/src/features/sky-engine/data/

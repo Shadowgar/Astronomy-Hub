@@ -2,12 +2,13 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP_DIR="$ROOT_DIR/study/stellarium-web-engine/source/stellarium-web-engine-master/apps/web-frontend"
+APP_DIR="$ROOT_DIR/vendor/stellarium-web-engine/apps/web-frontend"
 RUN_DIR="$ROOT_DIR/.run/dev-stellarium"
 LOG_DIR="$RUN_DIR/logs"
 PID_FILE="$RUN_DIR/stellarium.pid"
 LOG_FILE="$LOG_DIR/stellarium.log"
 PORT="8080"
+EXPECTED_VUE_VERSION="2.6.12"
 
 mkdir -p "$LOG_DIR"
 
@@ -23,6 +24,37 @@ port_in_use() {
 read_pid() {
   if [[ -f "$PID_FILE" ]]; then
     cat "$PID_FILE"
+  fi
+}
+
+read_package_version() {
+  local package_dir="$1"
+
+  PACKAGE_DIR="$package_dir" node <<'NODE'
+const fs = require('fs')
+
+const packageDir = process.env.PACKAGE_DIR
+const packageJson = `${packageDir}/package.json`
+
+if (!fs.existsSync(packageJson)) {
+  process.exit(1)
+}
+
+const pkg = JSON.parse(fs.readFileSync(packageJson, 'utf8'))
+process.stdout.write(pkg.version || '')
+NODE
+}
+
+validate_vue_toolchain() {
+  local vue_version compiler_version
+
+  vue_version="$(read_package_version "$APP_DIR/node_modules/vue" || true)"
+  compiler_version="$(read_package_version "$APP_DIR/node_modules/vue-template-compiler" || true)"
+
+  if [[ "$vue_version" != "$EXPECTED_VUE_VERSION" || "$compiler_version" != "$EXPECTED_VUE_VERSION" ]]; then
+    echo "Stellarium dependencies are out of sync (vue=$vue_version, vue-template-compiler=$compiler_version)." >&2
+    echo "Run: cd $APP_DIR && npm install" >&2
+    exit 1
   fi
 }
 
@@ -67,6 +99,8 @@ start() {
     exit 1
   fi
 
+  validate_vue_toolchain
+
   if [[ ! -f "$APP_DIR/src/assets/js/stellarium-web-engine.js" || ! -f "$APP_DIR/src/assets/js/stellarium-web-engine.wasm" ]]; then
     echo "Missing Stellarium engine assets in $APP_DIR/src/assets/js" >&2
     echo "Run: bash scripts/prepare-stellarium-reference.sh" >&2
@@ -89,11 +123,25 @@ start() {
   : > "$LOG_FILE"
   (
     cd "$APP_DIR"
-    nohup npm run dev -- --host 0.0.0.0 --port "$PORT" >>"$LOG_FILE" 2>&1 &
+    nohup env NODE_OPTIONS=--openssl-legacy-provider npm run dev -- --host 0.0.0.0 --port "$PORT" >>"$LOG_FILE" 2>&1 &
     echo $! > "$PID_FILE"
   )
 
-  echo "Stellarium started. Log: $LOG_FILE"
+  for _ in $(seq 1 40); do
+    pid="$(read_pid)"
+    if port_in_use; then
+      echo "Stellarium started. Log: $LOG_FILE"
+      return
+    fi
+    if ! is_running "$pid"; then
+      break
+    fi
+    sleep 0.25
+  done
+
+  echo "Stellarium failed to start. Log: $LOG_FILE" >&2
+  rm -f "$PID_FILE"
+  exit 1
 }
 
 stop() {

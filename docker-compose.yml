@@ -34,7 +34,7 @@ services:
 
   stellarium-reference:
     build:
-      context: ./study/stellarium-web-engine/source/stellarium-web-engine-master/apps/web-frontend
+      context: ./vendor/stellarium-web-engine/apps/web-frontend
       dockerfile: Dockerfile
     command: >-
       sh -lc "node -e \"const fs=require('fs');const path='/app/package.json';const pkg=JSON.parse(fs.readFileSync(path,'utf8'));pkg.dependencies=pkg.dependencies||{};pkg.devDependencies=pkg.devDependencies||{};pkg.dependencies.vue='2.6.12';pkg.devDependencies['vue-template-compiler']='2.6.12';fs.writeFileSync(path, JSON.stringify(pkg, null, 2)+'\\n');\" && yarn install && ./node_modules/.bin/vue-cli-service serve --host 0.0.0.0 --port 8080"
@@ -42,9 +42,9 @@ services:
       - "8080:8080"
       - "8888:8888"
     volumes:
-      - ./study/stellarium-web-engine/source/stellarium-web-engine-master/apps/web-frontend:/app
-      - ./study/stellarium-web-engine/source/stellarium-web-engine-master/apps/test-skydata:/skydata
-      - ./study/stellarium-web-engine/source/stellarium-web-engine-master/apps/test-skydata:/test-skydata
+      - ./vendor/stellarium-web-engine/apps/web-frontend:/app
+      - ./vendor/stellarium-web-engine/apps/test-skydata:/skydata
+      - ./vendor/stellarium-web-engine/apps/test-skydata:/test-skydata
       - stellarium_reference_node_modules:/app/node_modules
     user: "0:0"
     restart: unless-stopped
