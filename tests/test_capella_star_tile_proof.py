@@ -91,6 +91,10 @@ def test_build_capella_star_tile_proof_writes_normalized_rows_and_manifest(tmp_p
     assert manifest["source_key"] == "gaia-dr2-capella-region-proof"
     assert manifest["row_count"] == 2
     assert manifest["runtime_compatible_eph_emitted"] is False
+    assert manifest["writer_strategy"] == "C"
+    assert manifest["writer_discovery"]["writer_found"] is False
+    assert manifest["writer_discovery"]["strategy"] == "C"
+    assert manifest["writer_discovery"]["evidence"][0]["path"] == "vendor/stellarium-web-engine/src/eph-file.c"
     assert manifest["artifacts"][0]["path"] == str(normalized_rows_path)
     assert manifest["artifacts"][1]["path"] == str(manifest_path)
 

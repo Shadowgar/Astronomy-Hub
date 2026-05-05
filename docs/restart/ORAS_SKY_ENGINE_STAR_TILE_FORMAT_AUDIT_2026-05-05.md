@@ -223,7 +223,12 @@ Status for runtime-compatible `.eph` proof emission:
 Reason:
 
 - the read path is sufficiently understood for auditing and normalized export
+- the authoritative writer discovery pass found no checked-in local or vendored upstream star-tile writer
 - the write path is not present locally, so emitting guessed `.eph` bytes would violate the no-fabrication rule
+
+See also:
+
+- `docs/restart/ORAS_SKY_ENGINE_AUTHORITATIVE_EPH_WRITER_DISCOVERY_2026-05-05.md`
 
 ## Exact Next Step
 

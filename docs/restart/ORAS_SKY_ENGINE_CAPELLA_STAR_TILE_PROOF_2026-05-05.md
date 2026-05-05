@@ -21,6 +21,7 @@ Restart docs:
 
 - `docs/restart/ORAS_SKY_ENGINE_STAR_TILE_FORMAT_AUDIT_2026-05-05.md`
 - `docs/restart/ORAS_SKY_ENGINE_CAPELLA_STAR_TILE_PROOF_2026-05-05.md`
+- `docs/restart/ORAS_SKY_ENGINE_AUTHORITATIVE_EPH_WRITER_DISCOVERY_2026-05-05.md`
 
 Generated staged artifacts:
 
@@ -114,7 +115,8 @@ Status for the Capella star-tile proof slice:
 Reason:
 
 - staged proof artifacts were generated successfully from real imported Gaia rows
-- runtime-compatible `.eph` output remains blocked because no authoritative local writer exists
+- runtime-compatible `.eph` output remains blocked because the authoritative writer discovery pass ended on strategy `C`
+- no checked-in local or vendored upstream star-tile `.eph` writer was found
 
 ## What This Proves
 
@@ -133,6 +135,7 @@ The manifest records the blocker exactly as:
 
 ## Exact Next Step
 
-- obtain or implement an authoritative `.eph` star-tile writer
+- obtain the authoritative upstream star-pack writer or generator
+- or derive a minimal writer only after authoritative upstream write semantics are fully established
 - validate byte-for-byte compatibility against sampled live STAR tiles
 - only then attempt a staged Capella `.eph` proof pack outside the live runtime tree

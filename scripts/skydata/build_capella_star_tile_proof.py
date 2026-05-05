@@ -27,6 +27,28 @@ EPH_BLOCKER = (
     "and STAR chunk layout, but this repo does not contain a star-tile EPH writer to emit "
     "safe live-compatible bytes."
 )
+WRITER_DISCOVERY_EVIDENCE = [
+    {
+        "path": "vendor/stellarium-web-engine/src/eph-file.c",
+        "finding": "Defines the EPHE container read path and format checks only; no writer entrypoint is present.",
+    },
+    {
+        "path": "vendor/stellarium-web-engine/SConstruct",
+        "finding": "Invokes tools/make-assets.py before build, which packages preexisting assets but does not generate star tiles.",
+    },
+    {
+        "path": "vendor/stellarium-web-engine/tools/make-assets.py",
+        "finding": "Packages existing .eph files into compiled assets; it does not construct STAR chunks or tile payloads.",
+    },
+    {
+        "path": "vendor/stellarium-web-engine/tools/make-hip-lookup.py",
+        "finding": "Generates src/hip.inl lookup data only; it does not emit HiPS Norder*/Dir*/Npix*.eph files.",
+    },
+    {
+        "path": "scripts/sky-engine/build_hipparcos_tiles.py",
+        "finding": "Generates JSON tile assets under frontend/public/sky-engine-assets/catalog/hipparcos, not runtime-compatible .eph star tiles.",
+    },
+]
 
 
 def build_capella_star_tile_proof(
@@ -61,6 +83,8 @@ def build_capella_star_tile_proof(
         "row_count": len(normalized_rows),
         "output_root": str(output_dir),
         "runtime_compatible_eph_emitted": False,
+        "writer_strategy": "C",
+        "writer_discovery": _build_writer_discovery(),
         "blocker": EPH_BLOCKER,
         "artifacts": [
             {
@@ -86,6 +110,7 @@ def build_capella_star_tile_proof(
         "normalized_rows_path": str(normalized_rows_path),
         "manifest_path": str(manifest_path),
         "runtime_compatible_eph_emitted": False,
+        "writer_strategy": "C",
         "blocker": EPH_BLOCKER,
     }
 
@@ -163,6 +188,15 @@ def _normalize_rows(rows: list[GaiaDr2Source], *, source_key: str) -> list[dict[
         )
     )
     return normalized_rows
+
+
+def _build_writer_discovery() -> dict[str, Any]:
+    return {
+        "writer_found": False,
+        "strategy": "C",
+        "summary": "No authoritative in-repo or vendored upstream star-tile EPH writer was found; staged proof remains blocked at normalized JSONL plus manifest.",
+        "evidence": WRITER_DISCOVERY_EVIDENCE,
+    }
 
 
 def _utc_now() -> datetime:
