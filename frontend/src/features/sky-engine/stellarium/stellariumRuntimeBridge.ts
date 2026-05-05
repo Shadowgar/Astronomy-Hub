@@ -1,13 +1,24 @@
-import type { RuntimeDiscovery } from './stellariumRuntimeDiscovery'
+import type { RuntimeDiscovery, RuntimeKind } from './stellariumRuntimeDiscovery'
 
 const PROBE_TIMEOUT_MS = 2500
 
-export function getRuntimeFrameUrl(discovery: RuntimeDiscovery) {
-  return discovery.runtimeUrl
+export type RuntimeProbeResult = {
+  isAvailable: boolean
+  runtimeUrl: string
+  runtimeKind: RuntimeKind | null
 }
 
-export async function probeRuntime(discovery: RuntimeDiscovery) {
-  return new Promise((resolve) => {
+function getRuntimeProbeUrl(runtimeUrl: string) {
+  const normalizedRuntimeUrl = runtimeUrl.endsWith('/') ? runtimeUrl : `${runtimeUrl}/`
+  return `${normalizedRuntimeUrl}favicon.ico?probe=${Date.now()}`
+}
+
+export function getRuntimeFrameUrl(discovery: RuntimeDiscovery, runtimeKind: RuntimeKind = 'same-origin') {
+  return runtimeKind === 'same-origin' ? discovery.sameOriginRuntimeUrl : discovery.legacyRuntimeUrl
+}
+
+function probeRuntimeUrl(runtimeUrl: string) {
+  return new Promise<boolean>((resolve) => {
     const probeImage = new Image()
     const timeoutHandle = window.setTimeout(() => {
       cleanup(false)
@@ -22,6 +33,32 @@ export async function probeRuntime(discovery: RuntimeDiscovery) {
 
     probeImage.onload = () => cleanup(true)
     probeImage.onerror = () => cleanup(false)
-    probeImage.src = `${discovery.runtimeUrl}/favicon.ico?probe=${Date.now()}`
+    probeImage.src = getRuntimeProbeUrl(runtimeUrl)
   })
+}
+
+export async function probeRuntime(discovery: RuntimeDiscovery): Promise<RuntimeProbeResult> {
+  const sameOriginRuntimeUrl = getRuntimeFrameUrl(discovery, 'same-origin')
+  if (await probeRuntimeUrl(sameOriginRuntimeUrl)) {
+    return {
+      isAvailable: true,
+      runtimeUrl: sameOriginRuntimeUrl,
+      runtimeKind: 'same-origin',
+    }
+  }
+
+  const legacyRuntimeUrl = getRuntimeFrameUrl(discovery, 'legacy')
+  if (await probeRuntimeUrl(legacyRuntimeUrl)) {
+    return {
+      isAvailable: true,
+      runtimeUrl: legacyRuntimeUrl,
+      runtimeKind: 'legacy',
+    }
+  }
+
+  return {
+    isAvailable: false,
+    runtimeUrl: sameOriginRuntimeUrl,
+    runtimeKind: null,
+  }
 }

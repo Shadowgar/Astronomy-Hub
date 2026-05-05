@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { getRuntimeFrameUrl, probeRuntime } from './stellarium/stellariumRuntimeBridge'
-import { discoverRuntime, type RuntimeDiscovery } from './stellarium/stellariumRuntimeDiscovery'
+import { discoverRuntime, type RuntimeDiscovery, type RuntimeKind } from './stellarium/stellariumRuntimeDiscovery'
 
 const RECHECK_RUNTIME_MESSAGE = 'oras-sky-engine:recheck-runtime'
 const OPEN_STANDALONE_RUNTIME_MESSAGE = 'oras-sky-engine:open-standalone-runtime'
@@ -11,6 +11,8 @@ type RuntimeStatus = 'checking' | 'ready' | 'missing'
 type RuntimeState = {
   discovery: RuntimeDiscovery
   status: RuntimeStatus
+  runtimeKind: RuntimeKind | null
+  frameUrl: string
 }
 
 const shellStyle: React.CSSProperties = {
@@ -110,7 +112,8 @@ const detailListStyle: React.CSSProperties = {
 
 function createDiscovery() {
   const hostname = typeof window === 'undefined' ? '127.0.0.1' : window.location.hostname
-  return discoverRuntime(hostname)
+  const browserOrigin = typeof window === 'undefined' ? 'http://127.0.0.1:4173' : window.location.origin
+  return discoverRuntime(hostname, browserOrigin)
 }
 
 function isRuntimeMessage(message: unknown): message is string {
@@ -121,19 +124,26 @@ export default function RuntimeHost() {
   const [runtimeState, setRuntimeState] = useState<RuntimeState>({
     discovery: createDiscovery(),
     status: 'checking',
+    runtimeKind: null,
+    frameUrl: createDiscovery().sameOriginRuntimeUrl,
   })
 
   useEffect(() => {
     let cancelled = false
     const discovery = createDiscovery()
 
-    setRuntimeState({ discovery, status: 'checking' })
+    setRuntimeState({ discovery, status: 'checking', runtimeKind: null, frameUrl: discovery.sameOriginRuntimeUrl })
 
-    probeRuntime(discovery).then((isAvailable) => {
+    probeRuntime(discovery).then((probeResult) => {
       if (cancelled) {
         return
       }
-      setRuntimeState({ discovery, status: isAvailable ? 'ready' : 'missing' })
+      setRuntimeState({
+        discovery,
+        status: probeResult.isAvailable ? 'ready' : 'missing',
+        runtimeKind: probeResult.runtimeKind,
+        frameUrl: probeResult.runtimeUrl,
+      })
     })
 
     return () => {
@@ -143,23 +153,30 @@ export default function RuntimeHost() {
 
   const retryDiscovery = () => {
     const discovery = createDiscovery()
-    setRuntimeState({ discovery, status: 'checking' })
-    void probeRuntime(discovery).then((isAvailable) => {
-      setRuntimeState({ discovery, status: isAvailable ? 'ready' : 'missing' })
+    setRuntimeState({ discovery, status: 'checking', runtimeKind: null, frameUrl: discovery.sameOriginRuntimeUrl })
+    void probeRuntime(discovery).then((probeResult) => {
+      setRuntimeState({
+        discovery,
+        status: probeResult.isAvailable ? 'ready' : 'missing',
+        runtimeKind: probeResult.runtimeKind,
+        frameUrl: probeResult.runtimeUrl,
+      })
     })
   }
 
   const openStandaloneRuntime = () => {
     const discovery = createDiscovery()
-    window.open(getRuntimeFrameUrl(discovery), '_blank', 'noopener,noreferrer')
+    const runtimeKind = runtimeState.status === 'ready' && runtimeState.runtimeKind ? runtimeState.runtimeKind : 'same-origin'
+    window.open(getRuntimeFrameUrl(discovery, runtimeKind), '_blank', 'noopener,noreferrer')
   }
 
   useEffect(() => {
     const handleRuntimeMessage = (event: MessageEvent) => {
       const discovery = createDiscovery()
-      const runtimeOrigin = new URL(discovery.runtimeUrl).origin
+      const sameOriginRuntimeOrigin = new URL(discovery.sameOriginRuntimeUrl).origin
+      const legacyRuntimeOrigin = new URL(discovery.legacyRuntimeUrl).origin
 
-      if (event.origin !== runtimeOrigin || !isRuntimeMessage(event.data)) {
+      if ((event.origin !== sameOriginRuntimeOrigin && event.origin !== legacyRuntimeOrigin) || !isRuntimeMessage(event.data)) {
         return
       }
 
@@ -178,7 +195,7 @@ export default function RuntimeHost() {
     }
   }, [])
 
-  const frameUrl = getRuntimeFrameUrl(runtimeState.discovery)
+  const frameUrl = runtimeState.frameUrl
 
   if (runtimeState.status === 'ready') {
     return (
