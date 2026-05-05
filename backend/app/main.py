@@ -15,7 +15,7 @@ from .core.logging import (
     set_request_id,
 )
 
-from .routes import assets, alerts, conditions, health, location, news, objects, passes, scene, scopes, targets
+from .routes import assets, alerts, conditions, health, location, news, objects, passes, scene, scopes, sky, targets
 
 
 app = FastAPI(title="astronomy-hub-backend")
@@ -98,3 +98,4 @@ app.include_router(alerts.router, prefix="/api/v1")
 app.include_router(news.router, prefix="/api/v1")
 app.include_router(location.router, prefix="/api/v1")
 app.include_router(assets.router, prefix="/api/v1")
+app.include_router(sky.router, prefix="/api")

@@ -16,4 +16,5 @@ __all__ = [
     "news",
     "location",
     "assets",
+    "sky",
 ]

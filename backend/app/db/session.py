@@ -1,14 +1,14 @@
 from contextlib import contextmanager
 
-from . import DEFAULT_DATABASE_URL, create_engine_from_url
+from . import create_engine_from_url
 
 
-def get_engine(database_url: str = DEFAULT_DATABASE_URL):
+def get_engine(database_url: str | None = None):
     """Return the canonical SQLAlchemy engine for DB sessions."""
     return create_engine_from_url(database_url)
 
 
-def get_session_factory(database_url: str = DEFAULT_DATABASE_URL):
+def get_session_factory(database_url: str | None = None):
     """Return a SQLAlchemy sessionmaker bound to the engine."""
     from sqlalchemy.orm import sessionmaker
 
@@ -29,7 +29,7 @@ def build_nearby_spatial_features_query(
 
 
 @contextmanager
-def session_scope(database_url: str = DEFAULT_DATABASE_URL):
+def session_scope(database_url: str | None = None):
     """Provide a transactional scope around a series of operations."""
     session_factory = get_session_factory(database_url)
     session = session_factory()

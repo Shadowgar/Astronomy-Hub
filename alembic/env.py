@@ -5,7 +5,7 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 
 config = context.config
-override_url = os.getenv("ALEMBIC_DATABASE_URL")
+override_url = os.getenv("ALEMBIC_DATABASE_URL") or os.getenv("DATABASE_URL")
 if override_url:
     config.set_main_option("sqlalchemy.url", override_url)
 
