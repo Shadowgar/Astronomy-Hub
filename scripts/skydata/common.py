@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_OUTPUT_ROOT = REPO_ROOT / "data/sky-engine/oras-mirror"
+DEFAULT_OUTPUT_ROOT = REPO_ROOT / "data"
 RUNTIME_SKYDATA_ROOT = REPO_ROOT / "frontend/public/oras-sky-engine/skydata"
 DEFAULT_LARGE_DOWNLOAD_THRESHOLD_BYTES = 100 * 1024 * 1024
 DEFAULT_MAX_SOURCE_BYTES = 2 * 1024 * 1024 * 1024
@@ -202,7 +202,7 @@ def build_report_path(output_root: str | Path, manifest_name: str) -> Path:
     safe_name = "".join(char.lower() if char.isalnum() else "-" for char in manifest_name).strip("-")
     if not safe_name:
         safe_name = "skydata-manifest"
-    return resolve_output_root(output_root) / "reports" / f"{safe_name}.download-report.json"
+    return resolve_output_root(output_root) / "manifests" / f"{safe_name}.mirror-status.json"
 
 
 def _resolve_repo_path(path_value: str | Path) -> Path:

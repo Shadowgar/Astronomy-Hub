@@ -23,14 +23,14 @@ Build an ORAS-owned skydata pipeline that:
 
 | Dataset class | Public class observed | Official / open replacement | ORAS ownership model | Local storage target | Runtime delivery shape | Legal note |
 | --- | --- | --- | --- | --- | --- | --- |
-| Deep star source catalog | public star packs plus Gaia survey metadata | ESA Gaia Archive bulk downloads and partner data access | ingest verified Gaia export slices into ORAS DB and pack builder | `data/sky-engine/oras-mirror/raw/gaia/` and `normalized/catalog/` | ORAS-generated star runtime packs, not direct frontend table load | Gaia citation and archive terms apply; review before bulk automation |
-| Gaia density / sky maps | public `/surveys/gaia/v1/*` | CDS HiPS / HiPS catalog services for Gaia DR2 / EDR3 / DR3 density products | ORAS chooses explicit Gaia-compatible survey products and caches them | `data/sky-engine/oras-mirror/raw/cds/gaia/` and `runtime/surveys/gaia/` | same-origin survey tiles after ORAS cache build | CDS terms and survey-specific terms require review |
-| General surveys / HiPS imagery | public Milky Way and other survey-style classes | CDS HiPS registry and source survey hosts | ORAS mirrors only selected approved surveys | `data/sky-engine/oras-mirror/raw/cds/surveys/` and `runtime/surveys/` | same-origin tile roots with ORAS metadata | survey-by-survey review required |
-| Satellite elements | public `tle_satellite.jsonl.gz` bundle | CelesTrak GP queries in JSON, CSV, XML, or KVN OMM-compatible forms | ORAS fetches only required groups or IDs on approved cadence and compiles runtime bundle | `data/sky-engine/oras-mirror/raw/celestrak/` and `normalized/satellites/` | generated `tle_satellite.jsonl.gz` replacement bundle | CelesTrak usage limits and cadence rules must be respected |
-| Minor planets | public `mpcorb.dat` | MPC `MPCORB.DAT.gz` or extended formats | ORAS mirrors official MPC files and normalizes freshness metadata | `data/sky-engine/oras-mirror/raw/mpc/` and `normalized/minor-planets/` | generated runtime-compatible minor-planet file | MPC acknowledgement requested; terms review still required |
-| Comets | public `CometEls.txt` | MPC `CometEls.txt` or JSON equivalent | ORAS mirrors official MPC files and records timestamps | `data/sky-engine/oras-mirror/raw/mpc/` and `normalized/comets/` | generated runtime-compatible comet file | MPC acknowledgement requested; terms review still required |
+| Deep star source catalog | public star packs plus Gaia survey metadata | ESA Gaia Archive bulk downloads and partner data access | ingest verified Gaia export slices into ORAS DB and pack builder | `data/raw/gaia/` and Postgres search metadata | ORAS-generated star runtime packs, not direct frontend table load | Gaia citation and archive terms apply; review before bulk automation |
+| Gaia density / sky maps | public `/surveys/gaia/v1/*` | CDS HiPS / HiPS catalog services for Gaia DR2 / EDR3 / DR3 density products | ORAS chooses explicit Gaia-compatible survey products and caches them | `data/raw/hips/` and `data/mirrors/hips/` | same-origin survey tiles after ORAS cache build | CDS terms and survey-specific terms require review |
+| General surveys / HiPS imagery | public Milky Way and other survey-style classes | CDS HiPS registry and source survey hosts | ORAS mirrors only selected approved surveys | `data/raw/hips/` and `data/mirrors/hips/` | same-origin tile roots with ORAS metadata | survey-by-survey review required |
+| Satellite elements | public `tle_satellite.jsonl.gz` bundle | CelesTrak GP queries in JSON, CSV, XML, or KVN OMM-compatible forms | ORAS fetches only required groups or IDs on approved cadence and compiles runtime bundle | `data/raw/satellites/` and Postgres snapshot tables | generated `tle_satellite.jsonl.gz` replacement bundle | CelesTrak usage limits and cadence rules must be respected |
+| Minor planets | public `mpcorb.dat` | MPC `MPCORB.DAT.gz` or extended formats | ORAS mirrors official MPC files and normalizes freshness metadata | `data/raw/sso/` and Postgres freshness metadata | generated runtime-compatible minor-planet file | MPC acknowledgement requested; terms review still required |
+| Comets | public `CometEls.txt` | MPC `CometEls.txt` or JSON equivalent | ORAS mirrors official MPC files and records timestamps | `data/raw/sso/` and Postgres freshness metadata | generated runtime-compatible comet file | MPC acknowledgement requested; terms review still required |
 | Object search metadata | public NoctuaSky API | ORAS-owned Postgres catalog built from Gaia, DSO, MPC, satellite, and alias datasets | ORAS backend owns search contracts | `normalized/catalog/` and Postgres tables | FastAPI search and detail endpoints | ORAS-owned contract; no external runtime dependency |
-| Future flight layer | not part of public Stellarium boot path | OpenSky or other ADS-B source evaluated separately | keep isolated from satellite ingest | `raw/opensky/` and `normalized/flights/` | separate backend API only; no runtime coupling yet | OpenSky access, redistribution, and rate limits need explicit review |
+| Future flight layer | not part of public Stellarium boot path | OpenSky or other ADS-B source evaluated separately | keep isolated from satellite ingest | `data/raw/satellites/future-flight/` and future backend tables | separate backend API only; no runtime coupling yet | OpenSky access, redistribution, and rate limits need explicit review |
 
 ## Proposed Local Filesystem Layout
 
@@ -42,28 +42,21 @@ Proposed layout:
 data/
   manifests/
     oras_skydata_sources.template.json
-  sky-engine/
-    oras-mirror/
-      raw/
-        gaia/
-        cds/
-        celestrak/
-        mpc/
-        opensky/
-      normalized/
-        catalog/
-        satellites/
-        surveys/
-        minor-planets/
-        comets/
-      runtime/
-        stars/
-        dso/
-        surveys/
-        satellites/
-      staging/
-      reports/
-      proofs/
+    mirror_status.json
+  raw/
+    gaia/
+    hips/
+    satellites/
+    dso/
+    sso/
+  mirrors/
+    hips/
+    stellarium-web-compatible/
+  processed/
+    gaia_tiles/
+    search_indexes/
+    runtime_packs/
+  proofs/
 frontend/
   public/
     oras-sky-engine/
@@ -72,9 +65,10 @@ frontend/
 
 Write policy:
 
-- downloader default output root is `data/sky-engine/oras-mirror/`
+- downloader default output root is `data/`
+- manifest entries must land in the explicit `raw/`, `mirrors/`, or `processed/` subtrees
 - `frontend/public/oras-sky-engine/skydata/` stays protected unless an explicit promotion step is approved
-- promotion from `data/sky-engine/oras-mirror/runtime/` into the live same-origin runtime is a separate proof step
+- promotion from `data/processed/runtime_packs/` into the live same-origin runtime is a separate proof step
 
 ## Downloader Foundation Requirements
 
@@ -137,6 +131,25 @@ What this proof explicitly does not do:
 - full Gaia import
 - giant browser-memory catalog load
 - direct public Stellarium tile cloning into production
+
+Current local star baseline for the proof:
+
+- `max_vmag = 7.0`
+- local orders: `Norder0` and `Norder1`
+- current local star file count: `45` total files under `skydata/stars`
+- of those, `44` are actual star tile files and `1` is the root `properties` file
+
+Public behavior that drives the density gap:
+
+- the public site booted `minimal`, `base`, and `extended` star-pack classes
+- those classes imply layered star density rather than a single shallow local pack
+- the public site also exposed Gaia survey metadata, which indicates a separate Gaia-related survey class beyond the current local bundle
+
+Required ORAS replacement options:
+
+- generate Stellarium-compatible star tiles from bounded Gaia source data under ORAS control
+- or mirror a compatible star-tile service from approved official sources into `data/mirrors/stellarium-web-compatible/` only after licensing review
+- in either case, Postgres still owns searchable metadata and the frontend still consumes prepared packs, not raw Gaia tables
 
 ## Backend Ownership Plan
 

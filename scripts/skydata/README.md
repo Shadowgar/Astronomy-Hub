@@ -45,6 +45,6 @@ python3 scripts/skydata/verify_mirror.py path/to/manifest.json
 
 ## Promotion Boundary
 
-The downloader writes into `data/sky-engine/oras-mirror/` by default.
+The downloader writes into `data/` by default, using manifest-controlled paths such as `raw/`, `mirrors/`, `processed/`, and `manifests/`.
 
 Promotion into the live same-origin runtime tree is intentionally separate from downloading.
