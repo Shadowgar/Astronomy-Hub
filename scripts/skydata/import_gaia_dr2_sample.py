@@ -5,11 +5,15 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from sqlalchemy import select
+
+if __package__ in {None, ""}:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from backend.app.db.models import CatalogSource, GaiaDr2Source, ImportJob
 from backend.app.db.session import session_scope

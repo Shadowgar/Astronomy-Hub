@@ -78,6 +78,32 @@ def test_seeded_sample_row_returns_normalized_gaia_object_json(tmp_path: Path, m
     assert body["data"]["dec"] == 45.99799147
 
 
+def test_catalog_status_returns_partial_when_gaia_rows_exist(tmp_path: Path, monkeypatch) -> None:
+    database_url = _setup_database(tmp_path, monkeypatch)
+    sample_path = tmp_path / "gaia_sample.csv"
+    sample_path.write_text(
+        "source_id,ra,dec,phot_g_mean_mag\n"
+        f"{PROOF_SOURCE_ID},79.17232794,45.99799147,0.08\n",
+        encoding="utf-8",
+    )
+
+    import_gaia_dr2_sample(
+        sample_path,
+        database_url=database_url,
+        source_key="gaia-proof-sample",
+        display_name="Gaia proof sample",
+        license_note="test fixture",
+    )
+
+    response = client.get("/api/sky/catalog/status", headers={"User-Agent": "pytest"})
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["data"]["gaia_dr2"]["status"] == "partial"
+    assert body["data"]["gaia_dr2"]["row_count"] == 1
+    assert body["data"]["gaia_dr2"]["source_summary"]["source_key"] == "gaia-proof-sample"
+
+
 def test_search_endpoint_routes_gaia_query_to_lookup(tmp_path: Path, monkeypatch) -> None:
     _setup_database(tmp_path, monkeypatch)
 

@@ -1,6 +1,6 @@
 """gaia catalog proof foundation
 
-Revision ID: 0004_gaia_catalog_proof_foundation
+Revision ID: 0004_gaia_catalog_proof
 Revises: 0003_asset_metadata_foundation
 Create Date: 2026-05-05 00:00:03.000000
 """
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = "0004_gaia_catalog_proof_foundation"
+revision = "0004_gaia_catalog_proof"
 down_revision = "0003_asset_metadata_foundation"
 branch_labels = None
 depends_on = None
