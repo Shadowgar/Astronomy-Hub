@@ -14,6 +14,38 @@ from scripts.skydata.import_gaia_dr2_sample import import_gaia_dr2_sample
 
 client = TestClient(app)
 PROOF_SOURCE_ID = 2252802052894084352
+CAPELLA_SAMPLE_ROWS = [
+    {
+        "source_id": 211830059081750912,
+        "ra": 79.453040955059,
+        "dec": 46.128056184134806,
+        "phot_g_mean_mag": 6.7439685,
+        "bp_rp": 1.6090889,
+        "parallax": 1.209696060409849,
+        "pmra": 1.6115235208660101,
+        "pmdec": -5.258662863605085,
+    },
+    {
+        "source_id": 211805079552264832,
+        "ra": 79.11282501139576,
+        "dec": 46.416054042611535,
+        "phot_g_mean_mag": 6.780578,
+        "bp_rp": 0.37873316,
+        "parallax": 1.388628722286814,
+        "pmra": -2.955296380012802,
+        "pmdec": -1.2872072849237268,
+    },
+    {
+        "source_id": 211785975537756800,
+        "ra": 79.13256768314334,
+        "dec": 46.14071649899965,
+        "phot_g_mean_mag": 7.9662633,
+        "bp_rp": 0.4654603,
+        "parallax": 9.466858509695495,
+        "pmra": 7.273185084330786,
+        "pmdec": -55.337341318715424,
+    },
+]
 
 
 def test_gaia_dr2_query_parser_recognizes_supported_formats() -> None:
@@ -148,6 +180,81 @@ def test_importer_refuses_missing_ra_dec(tmp_path: Path) -> None:
         assert "missing ra" in str(exc)
     else:
         raise AssertionError("Expected missing ra validation error")
+
+
+def test_importer_can_import_multiple_capella_style_rows(tmp_path: Path, monkeypatch) -> None:
+    database_url = _setup_database(tmp_path, monkeypatch)
+    sample_path = tmp_path / "capella_region_sample.csv"
+    _write_gaia_sample_csv(sample_path, CAPELLA_SAMPLE_ROWS)
+
+    result = import_gaia_dr2_sample(
+        sample_path,
+        database_url=database_url,
+        source_key="gaia-dr2-capella-region-proof",
+        display_name="Gaia DR2 Capella region proof",
+        license_note="test fixture",
+    )
+
+    assert result["rows_seen"] == 3
+    assert result["rows_imported"] == 3
+    with session_scope(database_url) as session:
+        imported_count = session.query(GaiaDr2Source).count()
+    assert imported_count == 3
+
+
+def test_catalog_status_row_count_reflects_multiple_gaia_rows(tmp_path: Path, monkeypatch) -> None:
+    database_url = _setup_database(tmp_path, monkeypatch)
+    sample_path = tmp_path / "capella_region_sample.csv"
+    _write_gaia_sample_csv(sample_path, CAPELLA_SAMPLE_ROWS)
+    import_gaia_dr2_sample(
+        sample_path,
+        database_url=database_url,
+        source_key="gaia-dr2-capella-region-proof",
+        display_name="Gaia DR2 Capella region proof",
+        license_note="test fixture",
+    )
+
+    response = client.get("/api/sky/catalog/status", headers={"User-Agent": "pytest"})
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["data"]["gaia_dr2"]["status"] == "partial"
+    assert body["data"]["gaia_dr2"]["row_count"] == 3
+    assert body["data"]["gaia_dr2"]["source_summary"]["source_key"] == "gaia-dr2-capella-region-proof"
+
+
+def test_gaia_exact_lookup_works_for_multiple_source_ids(tmp_path: Path, monkeypatch) -> None:
+    database_url = _setup_database(tmp_path, monkeypatch)
+    sample_path = tmp_path / "capella_region_sample.csv"
+    _write_gaia_sample_csv(sample_path, CAPELLA_SAMPLE_ROWS)
+    import_gaia_dr2_sample(
+        sample_path,
+        database_url=database_url,
+        source_key="gaia-dr2-capella-region-proof",
+        display_name="Gaia DR2 Capella region proof",
+        license_note="test fixture",
+    )
+
+    for row in CAPELLA_SAMPLE_ROWS:
+        response = client.get(
+            f"/api/sky/object/gaia-dr2/{row['source_id']}",
+            headers={"User-Agent": "pytest"},
+        )
+        assert response.status_code == 200
+        body = response.json()
+        assert body["data"]["indexed"] is True
+        assert body["data"]["source_id"] == row["source_id"]
+        assert body["data"]["provenance"]["source_key"] == "gaia-dr2-capella-region-proof"
+
+
+def _write_gaia_sample_csv(path: Path, rows: list[dict[str, float | int]]) -> None:
+    header = "source_id,ra,dec,phot_g_mean_mag,bp_rp,parallax,pmra,pmdec\n"
+    lines = [header]
+    for row in rows:
+        lines.append(
+            f"{row['source_id']},{row['ra']},{row['dec']},{row['phot_g_mean_mag']},{row['bp_rp']},{row['parallax']},{row['pmra']},{row['pmdec']}\n"
+        )
+    path.write_text("".join(lines), encoding="utf-8")
 
 
 def _setup_database(tmp_path: Path, monkeypatch) -> str:
