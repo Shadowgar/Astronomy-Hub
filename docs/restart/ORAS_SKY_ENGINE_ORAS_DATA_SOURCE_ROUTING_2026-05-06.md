@@ -103,9 +103,18 @@ This keeps the vendored runtime self-host-ready without reintroducing a default 
 
 Current repository reality remains:
 
-- bundled `frontend/public/oras-sky-engine/skydata/surveys` contains `milkyway/` and `sso/` only
-- no local DSS survey tree is committed yet
+- bundled `frontend/public/oras-sky-engine/skydata/surveys` now contains `milkyway/`, `sso/`, and a bounded DSS proof at `dss/v1/`
+- vendored source `vendor/stellarium-web-engine/apps/test-skydata/surveys/dss/v1/` now carries the same bounded DSS proof so rebuilds preserve it
 - object detail cards still expose only a type icon plus summary text, not a thumbnail/media panel
+
+Bounded DSS proof details now in place:
+
+- source: official CDS DSS colored HiPS root
+- target: `M31`
+- mirrored orders: `0..7`
+- mirrored tile count: `179`
+- runtime proof confirmed visible same-origin DSS imagery in the standalone ORAS runtime
+- runtime proof confirmed no non-origin resource requests during the M31 proof session
 
 ## Indexed PostGIS Proof
 

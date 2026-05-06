@@ -16,6 +16,7 @@ Rules enforced by the tooling:
 - `download_with_manifest.py`: run a dry-run or download plan from a manifest
 - `verify_mirror.py`: verify enabled manifest files on disk
 - `audit_public_stellarium_endpoints.py`: group observed public resource URLs by class for audit work
+- `mirror_dss_hips_proof.py`: mirror a bounded DSS HiPS proof into `data/raw/` and `data/processed/` without writing directly into the live runtime tree
 
 ## Basic Usage
 
@@ -43,8 +44,22 @@ Verify enabled files in a manifest:
 python3 scripts/skydata/verify_mirror.py path/to/manifest.json
 ```
 
+Dry-run the bounded M31 DSS proof:
+
+```bash
+python3 scripts/skydata/mirror_dss_hips_proof.py --target m31 --dry-run
+```
+
+Run the real bounded M31 DSS proof mirror:
+
+```bash
+python3 scripts/skydata/mirror_dss_hips_proof.py --target m31 --confirm-download
+```
+
 ## Promotion Boundary
 
 The downloader writes into `data/` by default, using manifest-controlled paths such as `raw/`, `mirrors/`, `processed/`, and `manifests/`.
 
 Promotion into the live same-origin runtime tree is intentionally separate from downloading.
+
+For the DSS proof specifically, promotion must stage the generated runtime-ready tree into the vendored test-skydata source of truth before running `npm run build:stellarium`, because `scripts/sync-stellarium-runtime.sh` removes `frontend/public/oras-sky-engine` before copying the rebuilt dist output.

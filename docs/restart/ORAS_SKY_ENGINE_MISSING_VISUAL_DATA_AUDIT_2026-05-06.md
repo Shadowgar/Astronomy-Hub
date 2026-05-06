@@ -43,6 +43,27 @@ This audit does not claim full survey parity or a complete mirror of public Stel
 - vendored source `vendor/stellarium-web-engine/apps/test-skydata/` matches that limitation and also contains no local DSS tree
 - local `skydata/dso/` is an object catalog (`.eph` tiles plus `properties`), not an image/media pack
 
+## Update After Bounded DSS Proof
+
+This audit state changed later on the same date.
+
+Current repository state now includes a bounded local DSS proof at:
+
+- `vendor/stellarium-web-engine/apps/test-skydata/surveys/dss/v1/`
+- `frontend/public/oras-sky-engine/skydata/surveys/dss/v1/`
+
+Proven update:
+
+- the standalone ORAS runtime now renders visible local DSS background imagery for `M31`
+- the runtime fetches same-origin DSS resources from `/oras-sky-engine/skydata/surveys/dss/v1`
+- no external runtime resource URLs were observed during the M31 proof session
+
+Boundary remains:
+
+- this is a bounded M31 proof, not a full-survey mirror
+- selected-object cards still do not expose a thumbnail/media panel
+- local DSO object-media assets are still missing
+
 ## Selected-Object UI Findings
 
 - `selected-object-info.vue` renders one `<img :src="icon">` for the object type icon
@@ -91,7 +112,7 @@ This audit did not capture a definitive public DSS tile request for `M31` at the
 
 ## Still Missing After This Slice
 
-- committed local DSS/HiPS survey tiles under `frontend/public/oras-sky-engine/skydata/surveys/dss/v1/`
+- broad DSS/HiPS survey coverage beyond the bounded M31 proof under `frontend/public/oras-sky-engine/skydata/surveys/dss/v1/`
 - committed local DSO object-media or thumbnail assets
 - committed local object-summary corpus to replace the disabled Wikipedia feed
 
