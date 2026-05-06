@@ -31,6 +31,8 @@
     "dev:stellarium:logs": "bash scripts/dev-stellarium-local.sh logs",
     "prepare:stellarium-runtime": "bash scripts/sync-stellarium-runtime.sh",
     "build:stellarium": "bash scripts/prepare-stellarium-reference.sh && cd vendor/stellarium-web-engine/apps/web-frontend && ORAS_RUNTIME_PUBLIC_PATH=/oras-sky-engine/ NODE_OPTIONS=--openssl-legacy-provider npm run build && cd /home/rocco/Astronomy-Hub && npm run prepare:stellarium-runtime",
+    "scan:runtime-external-deps": ".venv/bin/python scripts/skydata/scan_runtime_external_dependencies.py",
+    "scan:runtime-external-deps:fail": ".venv/bin/python scripts/skydata/scan_runtime_external_dependencies.py --fail-on-runtime-forbidden",
     "serve:stellarium": "npm run dev:stellarium",
     "dev:parity": "npm run dev:wsl && npm run dev:stellarium",
     "validate:sky-fast": "cd frontend && npm run typecheck && npm run test -- tests/sky-engine-runtime-frame-projection.test.js tests/sky-engine-stars-runtime.test.js tests/test_scene_query_state.test.js tests/test_painter_backend_port.test.js && npm run build",

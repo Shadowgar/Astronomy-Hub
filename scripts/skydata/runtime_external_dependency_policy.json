@@ -1,0 +1,241 @@
+{
+  "ignored_dir_names": [
+    ".git",
+    ".hg",
+    ".svn",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "node_modules"
+  ],
+  "ignored_file_names": [
+    "bun.lockb",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock"
+  ],
+  "ignored_suffixes": [
+    ".eph",
+    ".gz",
+    ".ico",
+    ".jpeg",
+    ".jpg",
+    ".map",
+    ".png",
+    ".svg",
+    ".ttf",
+    ".wasm",
+    ".webp",
+    ".woff",
+    ".woff2"
+  ],
+  "runtime_context_hints": [
+    "fetch(",
+    "jsonp(",
+    "url:",
+    "href=",
+    "link =",
+    "link=",
+    "adddatasource",
+    "service_url",
+    "hips_service_url",
+    "proxy",
+    "target:",
+    "vue_app_",
+    "remote_",
+    "tile-layer"
+  ],
+  "attribution_hints": [
+    "target=\"_blank\"",
+    "rel=\"noopener\"",
+    "this work has made use",
+    "all data comes from",
+    "all images from",
+    "copyright",
+    "citation",
+    "references",
+    "operated at cds"
+  ],
+  "namespace_hints": [
+    "xmlns",
+    "rdf:resource",
+    "creativecommons.org/ns#",
+    "w3.org/1999",
+    "w3.org/2000/svg",
+    "purl.org/dc/"
+  ],
+  "dev_only_hosts": [
+    "127.0.0.1",
+    "0.0.0.0",
+    "localhost"
+  ],
+  "runtime_forbidden_hosts": [
+    {
+      "match": "stellarium-web.org",
+      "reason": "Public Stellarium Web host must not remain a runtime dependency."
+    },
+    {
+      "match": "data.stellarium.org",
+      "reason": "Public Stellarium data host must not remain a runtime dependency."
+    },
+    {
+      "match": "noctuasky",
+      "reason": "NoctuaSky endpoints must be replaced by ORAS-owned APIs."
+    },
+    {
+      "match": "freegeoip.stellarium.org",
+      "reason": "External GeoIP services must be removed from runtime location detection."
+    },
+    {
+      "match": "nominatim.openstreetmap.org",
+      "reason": "External reverse geocoding must not remain in runtime location flows."
+    },
+    {
+      "match": "tile.osm.org",
+      "reason": "External map tiles must not remain in runtime location flows."
+    },
+    {
+      "match": "en.wikipedia.org",
+      "reason": "Wikipedia summaries must be localized or disabled in runtime."
+    },
+    {
+      "match": "gea.esac.esa.int",
+      "reason": "Gaia Archive live calls are admin/import-only, never runtime."
+    },
+    {
+      "match": "cds",
+      "reason": "CDS live calls are admin/import-only, never runtime."
+    },
+    {
+      "match": "celestrak",
+      "reason": "CelesTrak live calls are admin/import-only, never runtime."
+    },
+    {
+      "match": "minorplanetcenter",
+      "reason": "MPC live calls are admin/import-only, never runtime."
+    },
+    {
+      "match": "opensky",
+      "reason": "OpenSky live calls are admin/import-only, never runtime."
+    }
+  ],
+  "admin_import_allowed_hosts": [
+    {
+      "match": "gea.esac.esa.int",
+      "path_pattern": "(?:^|/)(?:admin|docs|scripts)(?:/|$)",
+      "reason": "Gaia Archive access is allowed only for admin or import paths."
+    },
+    {
+      "match": "cds",
+      "path_pattern": "(?:^|/)(?:admin|docs|scripts)(?:/|$)",
+      "reason": "CDS access is allowed only for admin or import paths."
+    },
+    {
+      "match": "celestrak",
+      "path_pattern": "(?:^|/)(?:admin|docs|scripts)(?:/|$)",
+      "reason": "CelesTrak access is allowed only for admin or import paths."
+    },
+    {
+      "match": "minorplanetcenter",
+      "path_pattern": "(?:^|/)(?:admin|docs|scripts)(?:/|$)",
+      "reason": "MPC access is allowed only for admin or import paths."
+    },
+    {
+      "match": "opensky",
+      "path_pattern": "(?:^|/)(?:admin|docs|scripts)(?:/|$)",
+      "reason": "OpenSky access is allowed only for admin or import paths."
+    }
+  ],
+  "attribution_allowed_hosts": [
+    {
+      "match": "cosmos.esa.int",
+      "path_pattern": "data-credits-dialog\\.vue$",
+      "reason": "Gaia attribution links are allowed in source credit dialogs."
+    },
+    {
+      "match": "gea.esac.esa.int",
+      "path_pattern": "data-credits-dialog\\.vue$",
+      "reason": "Gaia bibliography links are allowed in source credit dialogs."
+    },
+    {
+      "match": "cdsweb.u-strasbg.fr",
+      "path_pattern": "data-credits-dialog\\.vue$",
+      "reason": "Hipparcos attribution links are allowed in source credit dialogs."
+    },
+    {
+      "match": "cdsarc.u-strasbg.fr",
+      "path_pattern": "data-credits-dialog\\.vue$",
+      "reason": "Bright Star catalogue attribution links are allowed in source credit dialogs."
+    },
+    {
+      "match": "leda.univ-lyon1.fr",
+      "path_pattern": "data-credits-dialog\\.vue$",
+      "reason": "HyperLeda attribution links are allowed in source credit dialogs."
+    },
+    {
+      "match": "adsabs.harvard.edu",
+      "path_pattern": "data-credits-dialog\\.vue$",
+      "reason": "Bibliography citation links are allowed in source credit dialogs."
+    },
+    {
+      "match": "github.com",
+      "path_pattern": "data-credits-dialog\\.vue$",
+      "reason": "OpenNGC project attribution links are allowed in source credit dialogs."
+    },
+    {
+      "match": "fr.wikipedia.org",
+      "path_pattern": "data-credits-dialog\\.vue$",
+      "reason": "Caldwell catalogue attribution links are allowed in source credit dialogs."
+    },
+    {
+      "match": "www.minorplanetcenter.net",
+      "path_pattern": "data-credits-dialog\\.vue$",
+      "reason": "Minor Planet Center attribution links are allowed in source credit dialogs."
+    },
+    {
+      "match": "stellarium-labs.com",
+      "path_pattern": "data-credits-dialog\\.vue$",
+      "reason": "Stellarium Labs attribution links are allowed in source credit dialogs."
+    }
+  ],
+  "allowed_attribution_patterns": [
+    {
+      "path_pattern": "frontend/public/oras-sky-engine/js/app\\.[^.]+\\.js$",
+      "url_pattern": "https://www\\.cosmos\\.esa\\.int/(gaia|web/gaia/dpac/consortium)",
+      "reason": "Built Gaia attribution links are allowed in the compiled credit dialog."
+    },
+    {
+      "path_pattern": "frontend/public/oras-sky-engine/js/app\\.[^.]+\\.js$",
+      "url_pattern": "https://gea\\.esac\\.esa\\.int/archive/documentation/GDR2/bib\\.html#bib(15|173)",
+      "reason": "Built Gaia bibliography links are allowed in the compiled credit dialog."
+    },
+    {
+      "path_pattern": "frontend/public/oras-sky-engine/js/app\\.[^.]+\\.js$",
+      "url_pattern": "http://cdsweb\\.u-strasbg\\.fr/ftp/cats/I/239|http://cdsarc\\.u-strasbg\\.fr/ftp/pub/cats/V/50/|http://leda\\.univ-lyon1\\.fr",
+      "reason": "Built catalogue attribution links are allowed in the compiled credit dialog."
+    },
+    {
+      "path_pattern": "frontend/public/oras-sky-engine/js/app\\.[^.]+\\.js$",
+      "url_pattern": "http://adsabs\\.harvard\\.edu/abs/2014A%26A\\.\\.\\.570A\\.\\.13M|https://fr\\.wikipedia\\.org/wiki/Liste_des_objets_de_Caldwell|https://github\\.com/mattiaverga/OpenNGC|https://stellarium-labs\\.com|https://www\\.minorplanetcenter\\.net/data",
+      "reason": "Built credit-dialog citation and attribution links are allowed in the compiled runtime bundle."
+    }
+  ],
+  "known_unknowns": [
+    {
+      "path_pattern": "selected-object-info\\.vue$",
+      "url_pattern": "https://en\\.wikipedia\\.org/wiki/",
+      "reason": "Wikipedia article links are user-facing navigation, not runtime data fetches."
+    },
+    {
+      "path_pattern": "frontend/public/oras-sky-engine/js/chunk-vendors\\.[^.]+\\.js$",
+      "url_pattern": "https://leafletjs\\.com",
+      "reason": "Bundled Leaflet attribution text is a library default string, not a runtime fetch dependency."
+    },
+    {
+      "path_pattern": "frontend/src/features/sky-engine/stellarium/stellariumRuntimeDiscovery\\.ts$",
+      "url_pattern": "http://\\$\\{resolvedHost\\}:\\$\\{STELLARIUM_RUNTIME_PORT\\}",
+      "reason": "Legacy runtime discovery URL is local-development-only guidance, not a production dependency."
+    }
+  ]
+}

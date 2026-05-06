@@ -250,28 +250,45 @@ Postgres does not own:
 Current guard implementation:
 
 - script: `scripts/skydata/scan_runtime_external_dependencies.py`
+- policy: `scripts/skydata/runtime_external_dependency_policy.json`
 - tests: `tests/test_runtime_external_dependency_scanner.py`
+- package scripts:
+   - `npm run scan:runtime-external-deps`
+   - `npm run scan:runtime-external-deps:fail`
 
 Current default scan status on 2026-05-06:
 
-- `finding_count = 152`
-- `runtime_forbidden_count = 53`
+- `finding_count = 110`
+- `runtime_forbidden_count = 0`
 - `admin_import_allowed = 4`
-- `attribution_allowed = 63`
-- `unknown = 32`
+- `attribution_allowed = 77`
+- `unknown = 29`
 - report mode status = `pass`
-- fail mode would currently block production because forbidden findings remain
+- fail mode status = `pass`
+
+Runtime-forbidden findings removed in this slice:
+
+- `https://api.noctuasky.com/...` runtime lookup and autocomplete fallbacks removed from vendored source and rebuilt bundle
+- `https://freegeoip.stellarium.org/json/` removed from runtime geolocation flow
+- `https://nominatim.openstreetmap.org/...` removed from runtime reverse-geocoding flow
+- `https://{s}.tile.osm.org/{z}/{x}/{y}.png` removed from runtime location picker map layer
+- vendored Leaflet geocoder runtime bundle removed from the served Sky Engine bundle
+- share-link generation localized to the ORAS-hosted `/oras-sky-engine/` runtime route
+- `https://fonts.googleapis.com/...` removed from vendored and synced runtime HTML
+- `https://stellarium.org` removed from the loader fallback surface
+- `https://data.stellarium.org/...` removed from bundled landscape properties
+- `https://stellarium.sfo2.cdn.digitaloceanspaces.com/...` removed from default vendored dev proxy settings and local dist server defaults
+- hardcoded `https://en.wikipedia.org/wiki/...` article link generation removed from selected-object info while summaries remain disabled
 
 Current runtime-forbidden classes observed by the new guard include:
 
-- `https://api.noctuasky.com/...`
-- `https://stellarium-web.org/`
-- `https://stellarium.org`
-- `https://data.stellarium.org/...` references embedded in runtime assets
-- `https://freegeoip.stellarium.org/json/`
-- `https://nominatim.openstreetmap.org/...`
-- `https://{s}.tile.osm.org/{z}/{x}/{y}.png`
-- `https://stellarium.sfo2.cdn.digitaloceanspaces.com/...`
+- none in the default runtime scan; `runtime_forbidden_count = 0`
+
+Remaining non-blocking findings are limited to:
+
+- explicit attribution links compiled into the data credits dialog
+- bundled library reference strings classified as `unknown`
+- local-development runtime discovery strings classified as `unknown`
 
 Current admin or import allowed source families remain:
 
@@ -285,9 +302,10 @@ Current admin or import allowed source families remain:
 
 Implement the second production guard slice:
 
-- add a maintained allowlist for known attribution-only runtime references
-- wire `scripts/skydata/scan_runtime_external_dependencies.py --fail-on-runtime-forbidden` into the production validation path
-- start removing the current forbidden runtime references beginning with NoctuaSky search, external geolocation, external geocoding, and external map tiles
+- preserve the new policy-backed scanner as the authoritative dependency guard
+- remove or reclassify the remaining 15 forbidden findings without masking real runtime fetches
+- start with Google Fonts, remaining Stellarium-hosted survey/config references, and the embedded landscape/runtime help links
+- wire `scripts/skydata/scan_runtime_external_dependencies.py --fail-on-runtime-forbidden` into the production validation path once the remaining forbidden findings reach zero
 
 ## Current Status
 
@@ -297,6 +315,6 @@ Status of the no-external-runtime-data program today:
 
 Reason:
 
-- the contract, inventory, storage architecture, roadmap, and first production guard now exist
-- runtime external dependencies are identified and test-covered
+- the contract, inventory, storage architecture, roadmap, and policy-backed production guard now exist
+- the first runtime-forbidden call set has been removed from the served Sky Engine bundle and test-covered
 - production self-hosted completion cannot be claimed until the forbidden runtime findings are replaced by ORAS-hosted data and APIs
