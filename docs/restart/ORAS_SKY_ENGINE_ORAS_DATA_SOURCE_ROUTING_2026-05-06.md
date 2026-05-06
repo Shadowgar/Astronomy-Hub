@@ -91,6 +91,22 @@ Existing same-origin runtime static roots remain unchanged:
 
 This slice does not modify live promoted star assets under `/oras-sky-engine/skydata/stars`.
 
+## Visual Survey Routing
+
+ORAS DSS survey routing now resolves in this order:
+
+1. bundled local survey root at `/oras-sky-engine/skydata/surveys/dss/v1` when a local `properties` file exists
+2. configured remote survey base from `VUE_APP_ORAS_RUNTIME_REMOTE_DATA_BASE`
+3. no DSS source registration when neither exists
+
+This keeps the vendored runtime self-host-ready without reintroducing a default public runtime dependency.
+
+Current repository reality remains:
+
+- bundled `frontend/public/oras-sky-engine/skydata/surveys` contains `milkyway/` and `sso/` only
+- no local DSS survey tree is committed yet
+- object detail cards still expose only a type icon plus summary text, not a thumbnail/media panel
+
 ## Indexed PostGIS Proof
 
 Real local catalog proof completed against the seeded PostGIS database at:

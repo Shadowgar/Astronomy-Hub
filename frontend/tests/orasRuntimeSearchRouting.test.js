@@ -4,6 +4,7 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 import {
+  ORAS_BUNDLED_DSS_SURVEY_ROOT,
   ORAS_CATALOG_STATUS_API,
   ORAS_DATA_ROOT,
   ORAS_OBJECT_API_ROOT,
@@ -11,6 +12,7 @@ import {
   ORAS_SEARCH_API,
   buildOrasSearchUrl,
   normalizeOrasSearchQuery,
+  resolveOrasDssSurveyUrl,
   toOrasSkySource,
 } from '../../vendor/stellarium-web-engine/apps/web-frontend/src/assets/oras_data_config.js'
 
@@ -24,13 +26,56 @@ const skySourceSearchPath = path.resolve(
   '../vendor/stellarium-web-engine/apps/web-frontend/src/components/skysource-search.vue'
 )
 
+const appVuePath = path.resolve(
+  process.cwd(),
+  '../vendor/stellarium-web-engine/apps/web-frontend/src/App.vue'
+)
+
 describe('oras runtime search routing', () => {
   it('uses only local ORAS runtime and backend paths in config', () => {
     expect(ORAS_DATA_ROOT).toBe('/oras-sky-engine/skydata')
+    expect(ORAS_BUNDLED_DSS_SURVEY_ROOT).toBe('/oras-sky-engine/skydata/surveys/dss/v1')
     expect(ORAS_SEARCH_API).toBe('/api/sky/search')
     expect(ORAS_OBJECT_API_ROOT).toBe('/api/sky/object')
     expect(ORAS_CATALOG_STATUS_API).toBe('/api/sky/catalog/status')
     expect(ORAS_RUNTIME_MODE).toBe('oras-local')
+  })
+
+  it('prefers a bundled ORAS DSS survey before any remote fallback', async () => {
+    const fetchCalls = []
+    const surveyUrl = await resolveOrasDssSurveyUrl({
+      remoteSurveyDataBase: 'https://remote.example',
+      fetchImpl: async (url, init) => {
+        fetchCalls.push({ url, init })
+        return { ok: true }
+      }
+    })
+
+    expect(fetchCalls).toEqual([
+      {
+        url: '/oras-sky-engine/skydata/surveys/dss/v1/properties',
+        init: { method: 'HEAD' }
+      }
+    ])
+    expect(surveyUrl).toBe('/oras-sky-engine/skydata/surveys/dss/v1')
+  })
+
+  it('falls back to the configured remote DSS survey when no bundled survey exists', async () => {
+    const surveyUrl = await resolveOrasDssSurveyUrl({
+      remoteSurveyDataBase: 'https://remote.example',
+      fetchImpl: async () => ({ ok: false })
+    })
+
+    expect(surveyUrl).toBe('https://remote.example/surveys/dss/v1')
+  })
+
+  it('keeps the vendored runtime DSS registration behind the ORAS resolver', () => {
+    const source = fs.readFileSync(appVuePath, 'utf8')
+
+    expect(source).toContain("import { resolveOrasDssSurveyUrl } from '@/assets/oras_data_config.js'")
+    expect(source).toContain('resolveOrasDssSurveyUrl({ remoteSurveyDataBase }).then(dssSurveyUrl => {')
+    expect(source).toContain('core.dss.addDataSource({ url: dssSurveyUrl })')
+    expect(source).not.toContain("core.dss.addDataSource({ url: remoteSurveyDataBase + '/surveys/dss/v1' })")
   })
 
   it('normalizes Gaia aliases and builds same-origin ORAS search urls', () => {
