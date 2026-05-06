@@ -78,6 +78,26 @@ describe('oras runtime search routing', () => {
     })
 
     expect(roundedNumericSkySource.names[1]).toBe('GAIA 2252802052894084352')
+
+    const indexedSkySource = toOrasSkySource({
+      catalog: 'Gaia DR2',
+      source_id: '2252802052894084352',
+      display_name: 'Gaia DR2 2252802052894084352',
+      indexed: true,
+      status: 'indexed',
+      provenance: { source_key: 'gaia-dr2-proof-2252802052894084352' },
+    })
+
+    expect(indexedSkySource).toMatchObject({
+      names: ['Gaia DR2 2252802052894084352', 'GAIA 2252802052894084352'],
+      indexed: true,
+      status: 'indexed',
+    })
+    expect(indexedSkySource.model_data).toMatchObject({
+      oras_status: 'indexed',
+      oras_indexed: true,
+      provenance: { source_key: 'gaia-dr2-proof-2252802052894084352' },
+    })
   })
 
   it('routes vendored runtime search through ORAS backend first and keeps local-only fallback', () => {
