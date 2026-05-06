@@ -4,9 +4,9 @@
 
 This audit records the public request classes observed from `https://stellarium-web.org/` during controlled browser inspection.
 
-This document is evidence only.
+This document is evidence only for the public Stellarium Web parity reference.
 
-It does not authorize production dependence on `stellarium-web.org`.
+It does not authorize production dependence on public Stellarium Web.
 
 It does not authorize blind mirroring from public Stellarium infrastructure.
 
@@ -14,7 +14,11 @@ Its purpose is to answer three bounded questions:
 
 - what data classes the public site actually loads
 - which of those classes are missing or shallower in current ORAS local skydata
-- which classes need ORAS-owned replacements or controlled mirrors
+- which classes need ORAS-owned mirrors or controlled replacements from official or permitted sources
+
+Companion contract:
+
+- `docs/restart/ORAS_SKY_ENGINE_NO_EXTERNAL_RUNTIME_DATA_CONTRACT_2026-05-05.md`
 
 ## Method
 
@@ -107,12 +111,12 @@ Conclusion:
 
 Production rules derived from this audit:
 
-- do not depend on `stellarium-web.org` or its current CDN hosts in production
+- do not depend on public Stellarium Web or its current CDN hosts in production
 - do not treat public Stellarium static files as authoritative ORAS upstreams
 - do treat the public request classes as evidence of what the runtime expects
 - replace each public class with one of:
   - ORAS-owned locally generated runtime packs
-  - ORAS-owned mirrors from official/open upstream providers
+  - ORAS-owned mirrors from official or permitted upstream providers
   - ORAS backend APIs serving normalized metadata and readiness state
 
 ## Audit Summary

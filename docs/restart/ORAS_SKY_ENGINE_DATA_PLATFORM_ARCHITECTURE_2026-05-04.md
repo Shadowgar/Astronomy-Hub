@@ -16,8 +16,12 @@ It does not authorize:
 - Babylon reintroduction into the React host boundary
 - frontend-owned Gaia-scale catalog loading
 - rendering logic in Postgres
-- final dependence on `stellarium-web.org`
+- final dependence on public Stellarium Web or other third-party runtime data hosts
 - full Gaia import in this task
+
+Companion contract:
+
+- `docs/restart/ORAS_SKY_ENGINE_NO_EXTERNAL_RUNTIME_DATA_CONTRACT_2026-05-05.md`
 
 This architecture follows the current system laws:
 
@@ -187,7 +191,7 @@ Current Vite behavior:
 
 ## Architecture Decision
 
-ORAS Sky-Engine will follow Stellarium’s proven pattern:
+ORAS Sky-Engine will follow Stellarium’s proven pattern as a public parity reference:
 
 - runtime renderer
 - static skydata / survey service
@@ -205,6 +209,12 @@ ORAS will improve that pattern by making the data platform ORAS-owned:
 - ORAS-specific observing intelligence on top of the renderer
 
 The vendored runtime remains the renderer. ORAS owns the data platform around it.
+
+Production rule for this architecture:
+
+- no runtime external dependency remains after the ORAS-owned mirror program is complete
+- public Stellarium Web remains a parity reference, not a production dependency
+- official or otherwise permitted upstream sources feed admin or import jobs only
 
 ## Target Architecture
 
@@ -226,7 +236,7 @@ Runtime responsibilities:
 
 Purpose:
 
-- serve large, versioned, mostly static data efficiently
+- serve large, versioned, mostly static data efficiently from ORAS-owned storage
 
 Responsibilities:
 
