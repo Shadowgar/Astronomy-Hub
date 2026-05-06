@@ -7,6 +7,7 @@ import pytest
 
 from scripts.skydata.mirror_dss_hips_proof import (
     ConfirmationRequiredError,
+    apply_target_tile_overrides,
     build_runtime_properties_text,
     get_target,
     mirror_dss_hips_proof,
@@ -139,6 +140,26 @@ def test_runtime_properties_strip_external_urls() -> None:
     assert 'https://' not in text
 
 
+def test_m31_tile_overrides_expand_bounded_plan() -> None:
+    selected_tiles = {
+        0: [0],
+        1: [2],
+        2: [10],
+        3: [40],
+        4: [163],
+        5: [653],
+    }
+
+    apply_target_tile_overrides(selected_tiles, target='m31', order_min=0, order_max=5)
+
+    assert {0, 2, 3, 4}.issubset(set(selected_tiles[0]))
+    assert {2, 9, 11, 13, 14, 15, 19}.issubset(set(selected_tiles[1]))
+    assert {10, 39, 45, 47, 53, 55, 58, 59, 61, 62, 63, 79}.issubset(set(selected_tiles[2]))
+    assert {40, 44, 45, 46, 157, 159, 181, 182, 183, 213, 238, 239, 250, 251, 317, 319}.issubset(set(selected_tiles[3]))
+    assert {163, 162, 164, 165, 167, 171, 173, 178, 637, 639, 725, 727, 958, 959, 1002, 1003}.issubset(set(selected_tiles[4]))
+    assert {653, 659, 665, 670}.issubset(set(selected_tiles[5]))
+
+
 def _write_fake_dss_root(tmp_path: Path) -> Path:
     source_root = tmp_path / 'source'
     (source_root / 'Norder0' / 'Dir0').mkdir(parents=True, exist_ok=True)
@@ -158,10 +179,19 @@ def _write_fake_dss_root(tmp_path: Path) -> Path:
     )
     for relative_path in (
         'Norder0/Dir0/Npix0.jpg',
+        'Norder0/Dir0/Npix2.jpg',
+        'Norder0/Dir0/Npix3.jpg',
+        'Norder0/Dir0/Npix4.jpg',
         'Norder0/Dir0/Npix1.jpg',
         'Norder1/Dir0/Npix0.jpg',
         'Norder1/Dir0/Npix1.jpg',
         'Norder1/Dir0/Npix2.jpg',
+        'Norder1/Dir0/Npix9.jpg',
+        'Norder1/Dir0/Npix11.jpg',
+        'Norder1/Dir0/Npix13.jpg',
+        'Norder1/Dir0/Npix14.jpg',
+        'Norder1/Dir0/Npix15.jpg',
+        'Norder1/Dir0/Npix19.jpg',
         'Norder1/Dir0/Npix3.jpg',
     ):
         path = source_root / relative_path

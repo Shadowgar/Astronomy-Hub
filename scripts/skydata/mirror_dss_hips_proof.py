@@ -52,6 +52,17 @@ TARGETS: dict[str, dict[str, Any]] = {
     },
 }
 
+TARGET_TILE_OVERRIDES: dict[str, dict[int, set[int]]] = {
+    'm31': {
+        0: {2, 3, 4},
+        1: {9, 11, 13, 14, 15, 19},
+        2: {8, 9, 11, 39, 45, 47, 53, 55, 58, 59, 61, 62, 63, 79},
+        3: {35, 38, 44, 45, 46, 157, 159, 181, 182, 183, 213, 238, 239, 250, 251, 317, 319},
+        4: {162, 164, 165, 167, 171, 173, 178, 637, 639, 725, 727, 958, 959, 1002, 1003},
+        5: {659, 665, 670},
+    },
+}
+
 FALLBACK_SURVEY_METADATA = {
     'obs_collection': 'DSS colored',
     'obs_title': 'DSS colored',
@@ -115,6 +126,7 @@ def mirror_dss_hips_proof(
         order_max=order_max,
         sample_step_deg=sample_step_deg,
     )
+    apply_target_tile_overrides(selected_tiles, target=proof_target.key, order_min=order_min, order_max=order_max)
     relative_tile_paths = build_relative_tile_paths(selected_tiles, ext='jpg')
     properties_relative_path = 'properties'
     source_properties_url = f'{normalized_source_root}/properties'
@@ -283,6 +295,22 @@ def build_relative_tile_paths(selected_tiles: dict[int, list[int]], *, ext: str)
             dir_value = (pix // 10000) * 10000
             relative_paths.append(f'Norder{order}/Dir{dir_value}/Npix{pix}.{ext}')
     return relative_paths
+
+
+def apply_target_tile_overrides(
+    selected_tiles: dict[int, list[int]],
+    *,
+    target: str,
+    order_min: int,
+    order_max: int,
+) -> None:
+    override_tiles = TARGET_TILE_OVERRIDES.get(target, {})
+    for order, pix_values in override_tiles.items():
+        if order < order_min or order > order_max:
+            continue
+        merged_values = set(selected_tiles.get(order, []))
+        merged_values.update(pix_values)
+        selected_tiles[order] = sorted(merged_values)
 
 
 def ang2pix_nest(order: int, ra_deg: float, dec_deg: float) -> int:

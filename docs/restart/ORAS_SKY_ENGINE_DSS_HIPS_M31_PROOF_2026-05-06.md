@@ -54,8 +54,9 @@ Mirror settings used for the committed proof:
 - center: `RA 10.6847083`, `Dec 41.26875`
 - radius: `2.5 deg`
 - mirrored orders: `0..7`
-- tile count: `179`
-- staged byte count: `14996170`
+- tile count: `237`
+- staged byte count: `17586060`
+- seeded viewport-neighborhood overrides were added for `M31` at orders `0..5` to cover the coarse and mid-order tiles the runtime actually requests during public-like framing
 
 The mirror script emits:
 
@@ -78,6 +79,18 @@ Observed standalone runtime proof on `http://127.0.0.1:4173/oras-sky-engine/` af
   - `Norder3/Dir0/Npix43.jpg`
 - browser resource inspection returned no non-origin runtime resource URLs for the session
 - visible M31 galaxy background imagery rendered behind the selected-object overlay in the standalone ORAS runtime
+
+Important runtime detail discovered after the first proof run and then corrected in the widened proof:
+
+- the runtime requests a wider DSS neighborhood than the initial object-centered tile plan mirrored
+- under the frontend Vite dev server, missing `.jpg` survey paths can return `200 text/html` with the app shell instead of a true `404`
+- example:
+  - missing tile `Norder0/Dir0/Npix2.jpg` returned `200`, `content-type: text/html`, `byteLength: 567`
+  - present tile `Norder3/Dir0/Npix40.jpg` returned `200`, `content-type: image/jpeg`, `byteLength: 39402`
+- because of that fallback behavior, simple browser resource success logs overstate real survey coverage
+- the first proof was therefore viable but too narrow for public-runtime-like framing around `M31`
+- after seeding the observed wider M31 neighborhood into the mirror plan, previously missing tiles such as `Norder0/Dir0/Npix2.jpg` and `Norder4/Dir0/Npix637.jpg` now resolve as real `image/jpeg` responses
+- the widened local pack now renders a materially sharper M31 background in the standalone ORAS runtime
 
 Note:
 
@@ -134,8 +147,8 @@ Command:
 Result:
 
 - `downloaded = true`
-- `tile_count = 179`
-- `byte_count = 14996170`
+- `tile_count = 237`
+- `byte_count = 17586060`
 
 ### 4. Rebuild proof
 
@@ -168,4 +181,14 @@ Result:
 - the ORAS standalone runtime can now load real local DSS background imagery from `/oras-sky-engine/skydata/surveys/dss/v1`
 - the bounded proof is same-origin only at runtime
 - the proof does not modify or regenerate any live promoted star assets
-- remaining work for a future slice is broader survey coverage, not first-proof viability
+- remaining work for a future slice is production-quality survey coverage, not first-proof viability
+
+## Root Cause Of The Remaining Detail Gap
+
+- the initial mirror strategy was an object-centered bounded proof, not a renderer-coverage import
+- public-looking framing around `M31` caused the renderer to request a much wider low-order and mid-order DSS neighborhood than the first proof staged
+- that gap has now been partially corrected by seeding the observed coarse and mid-order `M31` neighborhood into the mirror plan
+- public/detail richness is also not only DSS:
+  - the local `dso/` pack is catalog-only, not an image pack
+  - local selected-object cards still have no object-photo/media panel
+  - local Wikipedia-backed summary text remains intentionally disabled

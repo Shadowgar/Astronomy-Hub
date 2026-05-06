@@ -57,10 +57,14 @@ Proven update:
 - the standalone ORAS runtime now renders visible local DSS background imagery for `M31`
 - the runtime fetches same-origin DSS resources from `/oras-sky-engine/skydata/surveys/dss/v1`
 - no external runtime resource URLs were observed during the M31 proof session
+- the current bounded proof still under-covers the wider tile neighborhood used by public-like `M31` framing
+- under the frontend Vite dev server, missing DSS `.jpg` paths can return the app shell as `200 text/html`, which masks missing coverage unless content type is checked
+- the widened M31 proof now seeds the coarse and mid-order neighborhood that the runtime actually requested, and the local M31 background is materially sharper after that restage
 
 Boundary remains:
 
 - this is a bounded M31 proof, not a full-survey mirror
+- this is still not full public parity, but it is no longer limited to the original over-tight center-disc proof
 - selected-object cards still do not expose a thumbnail/media panel
 - local DSO object-media assets are still missing
 
@@ -99,10 +103,11 @@ This audit did not capture a definitive public DSS tile request for `M31` at the
 
 ## Root Cause Summary
 
-- ORAS currently ships no bundled local DSS survey tree
+- ORAS originally shipped no bundled local DSS survey tree
 - `App.vue` previously mounted `core.dss` only when `VUE_APP_ORAS_RUNTIME_REMOTE_DATA_BASE` was configured
 - ORAS currently ships no bundled object-media or thumbnail source for DSO detail cards
 - ORAS intentionally disables Wikipedia summaries without a local replacement source
+- the current bounded DSS proof mirrors too little of the low-order and mid-order neighborhood that the runtime actually requests around `M31`
 
 ## Bounded Fix Applied In This Slice
 
