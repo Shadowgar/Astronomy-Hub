@@ -17,4 +17,5 @@ __all__ = [
     "location",
     "assets",
     "sky",
+    "sky_mirror",
 ]

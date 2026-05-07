@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import hashlib
 import json
 import shutil
 import sys
+import threading
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -69,6 +71,23 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--order-min", type=int, default=0, help="HiPS order min (default: 0).")
     parser.add_argument("--order-max", type=int, default=7, help="HiPS order max (default: 7).")
     parser.add_argument("--full", "--download-all", action="store_true", dest="full", help="Download all missing files in order range.")
+    parser.add_argument("--progress", action="store_true", help="Enable human-readable progress output.")
+    parser.add_argument("--workers", type=int, default=1, help="Download workers for missing files (default: 1).")
+    parser.add_argument(
+        "--rate-limit-per-worker",
+        type=float,
+        default=0.0,
+        help="Optional per-worker delay in seconds between downloads (default: none).",
+    )
+    parser.add_argument(
+        "--progress-interval",
+        type=int,
+        default=10,
+        help="Progress print interval seconds (default: 10).",
+    )
+    parser.add_argument("--quiet", action="store_true", help="Suppress progress output except final JSON summary.")
+    parser.add_argument("--jsonl-progress", action="store_true", help="Emit JSONL progress events.")
+    parser.add_argument("--status", action="store_true", help="Read latest mirror-status.json for the selected class and exit.")
     parser.add_argument("--retry-count", type=int, default=3, help="Retry attempts per file (default: 3).")
     parser.add_argument("--request-timeout", type=int, default=20, help="HTTP timeout seconds per request (default: 20).")
     parser.add_argument("--verbose", action="store_true", help="Print per-file output.")
@@ -142,6 +161,13 @@ def maybe_write(path: Path, payload: bytes, dry_run: bool) -> None:
     path.write_bytes(payload)
 
 
+def write_atomic(path: Path, payload: bytes) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    part_path = path.with_name(path.name + ".part")
+    part_path.write_bytes(payload)
+    part_path.replace(path)
+
+
 def dir_file_count_and_size(root: Path) -> tuple[int, int]:
     if not root.exists():
         return 0, 0
@@ -160,6 +186,14 @@ def summarize_status(missing_after: int, failed_count: int) -> str:
     if failed_count > 0:
         return "incomplete_with_failures"
     return "blocked"
+
+
+def format_hms(seconds: float) -> str:
+    total = max(0, int(seconds))
+    h = total // 3600
+    m = (total % 3600) // 60
+    s = total % 60
+    return f"{h:02d}:{m:02d}:{s:02d}"
 
 
 def class_roots(class_cfg: dict[str, Any]) -> tuple[Path, Path, Path, Path, Path]:
@@ -192,6 +226,12 @@ def process_hips_class(
     retry_count: int = 3,
     request_timeout: int = 20,
     verbose: bool = False,
+    workers: int = 1,
+    rate_limit_per_worker: float = 0.0,
+    progress_interval: int = 10,
+    progress: bool = False,
+    quiet: bool = False,
+    jsonl_progress: bool = False,
 ) -> dict[str, Any]:
     base_url = str(class_cfg.get("public_base_url") or "").rstrip("/")
     if not base_url:
@@ -203,6 +243,7 @@ def process_hips_class(
     log_path = runtime_pack_root / "download-log.jsonl"
     checksum_path = runtime_pack_root / "checksums.json"
     failed_path = runtime_pack_root / "failed-files.json"
+    status_path = runtime_pack_root / "mirror-status.json"
 
     if not dry_run and not resume:
         shutil.rmtree(raw_root, ignore_errors=True)
@@ -267,71 +308,197 @@ def process_hips_class(
     missing_files_before = len(missing_stems)
     start = time.time()
     last_progress = 0.0
-    processed_missing = 0
-    for stem, order_value, rel_candidates in missing_stems:
-        if full and max_files == 0:
-            pass
-        if max_files > 0 and downloaded >= max_files:
-            break
-        if max_bytes > 0 and byte_count >= max_bytes:
-            break
-        processed_missing += 1
-        downloaded_this = False
+    capped_missing = missing_stems[:max_files] if max_files > 0 else missing_stems
+    workers = max(1, int(workers))
+    progress_interval = max(1, int(progress_interval))
+    progress_enabled = (progress or full) and not quiet
+    interrupted = False
+    completed_candidates = 0
+    last_completed: str | None = None
+    status_state: dict[str, Any] = {
+        "started_at": utc_now(),
+        "updated_at": utc_now(),
+        "class": class_name,
+        "source_root": base_url,
+        "order_min": order_min,
+        "order_max": order_max,
+        "expected_files": expected_files,
+        "existing_files": existing_files,
+        "missing_files_before": missing_files_before,
+        "downloaded_files": 0,
+        "failed_files": 0,
+        "remaining_estimate": len(capped_missing),
+        "percent_complete": 0.0,
+        "bytes_downloaded": byte_count,
+        "bytes_per_second": 0.0,
+        "files_per_second": 0.0,
+        "eta_seconds": None,
+        "workers": workers,
+        "complete": False,
+        "interrupted": False,
+        "failed_files_path": str(failed_path),
+        "checksum_path": str(checksum_path) if checksum_manifest else None,
+        "download_log_path": str(log_path),
+    }
+
+    def write_status() -> None:
+        if dry_run:
+            return
+        runtime_pack_root.mkdir(parents=True, exist_ok=True)
+        status_state["updated_at"] = utc_now()
+        write_json(status_path, status_state)
+
+    def print_progress(current_order: int) -> None:
+        nonlocal last_progress
+        now = time.time()
+        if now - last_progress < progress_interval:
+            return
+        elapsed = max(0.001, now - start)
+        remaining = max(0, len(capped_missing) - completed_candidates)
+        files_per_second = downloaded / elapsed
+        mb_per_second = (byte_count / (1024 * 1024)) / elapsed
+        eta_seconds = (remaining / files_per_second) if files_per_second > 0 else None
+        active_workers = max(0, min(workers, remaining))
+        percent = (completed_candidates / max(1, len(capped_missing))) * 100
+        line = (
+            f"[{class_name}] elapsed={format_hms(elapsed)} workers={workers} active={active_workers} order={current_order} "
+            f"files={completed_candidates}/{len(capped_missing)} {percent:.2f}% expected={expected_files} existing={existing_files} "
+            f"missing_before={missing_files_before} downloaded={downloaded} failed={len(failed_files)} remaining={remaining} "
+            f"speed={files_per_second:.2f} files/s {mb_per_second:.2f} MB/s eta={format_hms(eta_seconds or 0) if eta_seconds is not None else '--:--:--'}"
+            f"{f' last={last_completed}' if last_completed else ''}"
+        )
+        if progress_enabled:
+            print(line, flush=True)
+        if jsonl_progress and not quiet:
+            print(
+                json.dumps(
+                    {
+                        "event": "progress",
+                        "class": class_name,
+                        "elapsed_seconds": elapsed,
+                        "workers": workers,
+                        "current_order": current_order,
+                        "completed": completed_candidates,
+                        "total": len(capped_missing),
+                        "downloaded": downloaded,
+                        "failed": len(failed_files),
+                        "remaining": remaining,
+                        "percent": percent,
+                        "files_per_second": files_per_second,
+                        "mb_per_second": mb_per_second,
+                        "eta_seconds": eta_seconds,
+                        "last_completed": last_completed,
+                    },
+                    sort_keys=True,
+                ),
+                flush=True,
+            )
+        status_state.update(
+            {
+                "downloaded_files": downloaded,
+                "failed_files": len(failed_files),
+                "remaining_estimate": remaining,
+                "percent_complete": round(percent, 4),
+                "bytes_downloaded": byte_count,
+                "bytes_per_second": mb_per_second * 1024 * 1024,
+                "files_per_second": files_per_second,
+                "eta_seconds": eta_seconds,
+                "complete": False,
+                "interrupted": interrupted,
+            }
+        )
+        write_status()
+        last_progress = now
+
+    def process_one(stem: str, order_value: int, rel_candidates: list[str]) -> dict[str, Any]:
         last_error = ""
         for rel_try in rel_candidates:
             url = f"{base_url}/{rel_try}"
-            attempts = 0
-            while attempts < max(1, retry_count):
-                attempts += 1
+            for attempt in range(1, max(1, retry_count) + 1):
                 try:
                     payload = fetch_bytes(url, max_bytes=0, timeout=request_timeout)
                     if max_bytes > 0 and (byte_count + len(payload)) > max_bytes:
-                        break
+                        return {"status": "blocked_max_bytes", "order": order_value}
+                    write_atomic(raw_root / rel_try, payload)
+                    write_atomic(processed_root / rel_try, payload)
+                    write_atomic(runtime_ready_root / rel_try, payload)
                     digest = sha256_bytes(payload)
-                    checksums[rel_try] = digest
-                    record = {
-                        "timestamp": utc_now(),
-                        "class": class_name,
+                    if rate_limit_per_worker > 0:
+                        time.sleep(rate_limit_per_worker)
+                    return {
+                        "status": "downloaded",
                         "order": order_value,
-                        "url": url,
                         "relative_path": rel_try,
+                        "url": url,
                         "bytes": len(payload),
                         "sha256": digest,
-                        "status": "downloaded",
                     }
-                    record_log.append(record)
-                    maybe_write(raw_root / rel_try, payload, dry_run)
-                    maybe_write(processed_root / rel_try, payload, dry_run)
-                    maybe_write(runtime_ready_root / rel_try, payload, dry_run)
-                    downloaded += 1
-                    byte_count += len(payload)
-                    downloaded_this = True
-                    if verbose:
-                        print(json.dumps(record, sort_keys=True))
-                    break
                 except HTTPError as exc:
-                    if exc.code in {403, 404}:
-                        last_error = f"http_{exc.code}"
-                        break
                     last_error = f"http_{exc.code}"
-                    if attempts >= retry_count:
+                    if exc.code in {403, 404} or attempt >= retry_count:
                         break
                 except Exception as exc:  # noqa: BLE001
                     last_error = str(exc)
-                    if attempts >= retry_count:
+                    if attempt >= retry_count:
                         break
-            if downloaded_this:
-                break
-        if not downloaded_this:
-            failed_files.append({"stem": stem, "order": order_value, "candidates": rel_candidates, "error": last_error})
-        now = time.time()
-        if now - last_progress >= 5:
-            complete = processed_missing / max(1, missing_files_before)
-            print(
-                f"[{class_name}] order={order_value} planned={len(planned_rel)} existing={existing_files} "
-                f"downloaded={downloaded} failed={len(failed_files)} percent={complete*100:.1f}% bytes={byte_count}"
+        return {"status": "failed", "stem": stem, "order": order_value, "candidates": rel_candidates, "error": last_error}
+
+    def consume_item(item: dict[str, Any]) -> None:
+        nonlocal downloaded, byte_count, completed_candidates, last_completed
+        completed_candidates += 1
+        current_order = int(item.get("order", order_min))
+        if item["status"] == "downloaded":
+            downloaded += 1
+            byte_count += int(item["bytes"])
+            checksums[item["relative_path"]] = item["sha256"]
+            last_completed = item["relative_path"]
+            record = {
+                "timestamp": utc_now(),
+                "class": class_name,
+                "order": current_order,
+                "url": item["url"],
+                "relative_path": item["relative_path"],
+                "bytes": int(item["bytes"]),
+                "sha256": item["sha256"],
+                "status": "downloaded",
+            }
+            record_log.append(record)
+            if verbose and not quiet:
+                print(json.dumps(record, sort_keys=True), flush=True)
+        elif item["status"] == "failed":
+            failed_files.append(
+                {
+                    "stem": item.get("stem", ""),
+                    "order": current_order,
+                    "candidates": item.get("candidates", []),
+                    "error": item.get("error", "unknown"),
+                }
             )
-            last_progress = now
+        print_progress(current_order)
+
+    try:
+        if workers == 1:
+            for stem, order_value, rel_candidates in capped_missing:
+                consume_item(process_one(stem, order_value, rel_candidates))
+        else:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+                futures_map = {
+                    pool.submit(process_one, stem, order_value, rel_candidates): (stem, order_value)
+                    for stem, order_value, rel_candidates in capped_missing
+                }
+                for fut in concurrent.futures.as_completed(futures_map):
+                    try:
+                        consume_item(fut.result())
+                    except KeyboardInterrupt:
+                        interrupted = True
+                        for pending in futures_map:
+                            pending.cancel()
+                        break
+                    except Exception as exc:  # noqa: BLE001
+                        stem, order_value = futures_map[fut]
+                        consume_item({"status": "failed", "stem": stem, "order": order_value, "error": str(exc), "candidates": []})
+    except KeyboardInterrupt:
+        interrupted = True
 
     if not dry_run:
         runtime_pack_root.mkdir(parents=True, exist_ok=True)
@@ -343,7 +510,25 @@ def process_hips_class(
             write_json(checksum_path, {"class": class_name, "generated_at": utc_now(), "checksums": checksums})
     runtime_file_count, runtime_size = dir_file_count_and_size(runtime_ready_root)
     missing_files_after = max(0, missing_files_before - downloaded)
-    complete = missing_files_after == 0 and not failed_files
+    complete = missing_files_after == 0 and not failed_files and not interrupted
+    elapsed_seconds = round(time.time() - start, 2)
+    files_per_second = round(downloaded / max(0.001, elapsed_seconds), 3)
+    mb_per_second = round((byte_count / (1024 * 1024)) / max(0.001, elapsed_seconds), 3)
+    status_state.update(
+        {
+            "downloaded_files": downloaded,
+            "failed_files": len(failed_files),
+            "remaining_estimate": missing_files_after,
+            "percent_complete": round((downloaded / max(1, missing_files_before)) * 100, 4),
+            "bytes_downloaded": byte_count,
+            "bytes_per_second": mb_per_second * 1024 * 1024,
+            "files_per_second": files_per_second,
+            "eta_seconds": None,
+            "complete": complete,
+            "interrupted": interrupted,
+        }
+    )
+    write_status()
 
     return {
         "class": class_name,
@@ -360,6 +545,7 @@ def process_hips_class(
         "complete": complete,
         "resumed_files": resumed,
         "bytes": byte_count,
+        "workers": workers,
         "order_min": order_min,
         "order_max": order_max,
         "runtime_ready_root": str(runtime_ready_root),
@@ -367,7 +553,11 @@ def process_hips_class(
         "log_path": str(log_path),
         "failed_path": str(failed_path),
         "checksum_path": str(checksum_path) if checksum_manifest else None,
-        "elapsed_seconds": round(time.time() - start, 2),
+        "status_path": str(status_path),
+        "interrupted": interrupted,
+        "elapsed_seconds": elapsed_seconds,
+        "files_per_second": files_per_second,
+        "mb_per_second": mb_per_second,
     }
 
 
@@ -592,10 +782,24 @@ def promote_runtime_class(class_name: str, class_cfg: dict[str, Any]) -> dict[st
     }
 
 
+def status_path_for_class(class_cfg: dict[str, Any]) -> Path:
+    _, _, runtime_pack_root, _, _ = class_roots(class_cfg)
+    return runtime_pack_root / "mirror-status.json"
+
+
 def main() -> int:
     args = parse_args()
     manifest = load_manifest()
     classes = args.classes or ["dss_survey"]
+    if args.status:
+        class_name = classes[0]
+        class_cfg = manifest["classes"][class_name]
+        status_path = status_path_for_class(class_cfg)
+        if not status_path.exists():
+            print(f"No status file found for {class_name}: {status_path}")
+            return 0
+        print(json.dumps(json.loads(status_path.read_text(encoding="utf-8")), indent=2, sort_keys=True))
+        return 0
     results: list[dict[str, Any]] = []
     for class_name in classes:
         class_cfg = manifest["classes"][class_name]
@@ -616,6 +820,12 @@ def main() -> int:
                 retry_count=args.retry_count,
                 request_timeout=args.request_timeout,
                 verbose=args.verbose,
+                workers=args.workers,
+                rate_limit_per_worker=args.rate_limit_per_worker,
+                progress_interval=args.progress_interval,
+                progress=args.progress,
+                quiet=args.quiet,
+                jsonl_progress=args.jsonl_progress,
             )
         elif source_type == "eph-pack":
             result = process_eph_pack_class(

@@ -257,3 +257,116 @@ cd /home/rocco/Astronomy-Hub
   --order-max 7 \
   --max-files 500
 ```
+
+## Execution Update (2026-05-07, Full-Mode Conversion)
+
+### Why batch mode was insufficient
+
+- Existing `--max-files` batch loops required repeated manual runs and did not satisfy full-class mirroring goals.
+- Full mirror needed deterministic scan of all expected DSS tile paths for the selected order range, with resume-aware download accounting.
+
+### New full mirror mode
+
+- Added CLI: `--full` (alias `--download-all`)
+- Added retry/timeout controls: `--retry-count` and `--request-timeout`
+- Added failed file manifest:
+  - `data/runtime-packs/surveys/dss/v1/failed-files.json`
+- Added status fields in class report:
+  - `expected_files`, `existing_files`, `missing_files_before`, `downloaded_files`, `failed_files`, `missing_files_after`, `runtime_file_count`, `runtime_size`, `complete`
+- `--max-files` now applies to newly downloaded files only.
+
+### Exact full mirror command executed
+
+```bash
+cd /home/rocco/Astronomy-Hub
+.venv/bin/python scripts/skydata/mirror_public_runtime_data.py \
+  --class dss_survey \
+  --confirm-download \
+  --resume \
+  --checksum-manifest \
+  --promote-runtime-pack \
+  --order-min 0 \
+  --order-max 7 \
+  --full
+```
+
+## Execution Update (2026-05-07, Mirror Manager Page)
+
+- Mirror manager route added: `http://localhost:4173/sky-engine/mirror-progress`
+- Backend API endpoints added:
+  - `GET /api/sky/mirror/status`
+  - `GET /api/sky/mirror/status/{class_name}`
+  - `POST /api/sky/mirror/start`
+  - `POST /api/sky/mirror/start-all`
+  - `POST /api/sky/mirror/pause`
+  - `POST /api/sky/mirror/resume`
+  - `POST /api/sky/mirror/cancel`
+  - `POST /api/sky/mirror/cancel-all`
+  - `GET /api/sky/mirror/classes`
+  - `GET /api/sky/mirror/logs/{class_name}`
+  - `GET /api/sky/mirror/failures/{class_name}`
+  - `POST /api/sky/mirror/promote/{class_name}`
+  - `POST /api/sky/mirror/verify/{class_name}`
+  - `POST /api/sky/mirror/scan`
+  - `GET /api/sky/mirror/stream` (SSE realtime)
+- Manager wraps existing CLI mirror tool and reads:
+  - `data/manifests/public_stellarium_runtime_parity_manifest.json`
+  - `data/runtime-packs/**/mirror-status.json`
+  - `data/runtime-packs/**/download-log.jsonl`
+  - `failed-files.json`
+  - `checksums.json`
+- Live page controls:
+  - Start All Required
+  - Resume All
+  - Cancel All
+  - Refresh
+  - Verify Runtime Packs
+- Safety note shown on page and status API:
+  - Admin mirror jobs may fetch external sources.
+  - User runtime remains ORAS-hosted only.
+- Autostart support:
+  - `/sky-engine/mirror-progress?autostart=1`
+  - starts/resumes required classes in order: `dss_survey`, `star_pack_minimal`, `star_pack_base`, `dso_pack_base`
+- Monitoring from shell:
+  - or watch realtime browser updates via SSE stream endpoint.
+
+```bash
+watch -n 10 '.venv/bin/python scripts/skydata/mirror_public_runtime_data.py --class dss_survey --status'
+```
+
+or
+
+```bash
+watch -n 10 'cat data/runtime-packs/surveys/dss/v1/mirror-status.json'
+```
+
+### Current full-run state from this execution window
+
+- expected file count (orders 0..7 with properties): `262141`
+- baseline runtime count before run: `1587`
+- baseline runtime size before run: `69M`
+- run progressed through orders 4 and 5 with ongoing new downloads, but was manually stopped before completion to avoid leaving an indefinite live session in this turn
+- runtime promoted count after stop: unchanged at `1587`
+- runtime size after stop: unchanged at `69M`
+- completion status: `incomplete` (run interrupted)
+- failed file count recorded in this interrupted run: no finalized failed manifest from this pass
+
+### Runtime verification and scanner
+
+- scanner baseline remains pass (`runtime_forbidden = 0`)
+- full end-to-end runtime visual verification must be repeated after a completed `--full` run finishes and promotes
+
+### Next command
+
+```bash
+cd /home/rocco/Astronomy-Hub
+.venv/bin/python scripts/skydata/mirror_public_runtime_data.py \
+  --class dss_survey \
+  --confirm-download \
+  --resume \
+  --checksum-manifest \
+  --promote-runtime-pack \
+  --order-min 0 \
+  --order-max 7 \
+  --full
+```

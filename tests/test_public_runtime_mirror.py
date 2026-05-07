@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
 
 from scripts.skydata import mirror_public_runtime_data as mirror
@@ -329,3 +330,376 @@ def test_full_status_report_fields_present(tmp_path: Path, monkeypatch) -> None:
         "complete",
     ):
         assert key in payload
+
+
+def test_workers_option_parses(monkeypatch) -> None:
+    monkeypatch.setattr("sys.argv", ["mirror_public_runtime_data.py", "--class", "dss_survey", "--workers", "16"])
+    args = mirror.parse_args()
+    assert args.workers == 16
+
+
+def test_workers_default_is_one(monkeypatch) -> None:
+    monkeypatch.setattr("sys.argv", ["mirror_public_runtime_data.py", "--class", "dss_survey"])
+    args = mirror.parse_args()
+    assert args.workers == 1
+
+
+def test_progress_options_parse(monkeypatch) -> None:
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "mirror_public_runtime_data.py",
+            "--class",
+            "dss_survey",
+            "--progress",
+            "--progress-interval",
+            "2",
+            "--quiet",
+            "--jsonl-progress",
+        ],
+    )
+    args = mirror.parse_args()
+    assert args.progress is True
+    assert args.progress_interval == 2
+    assert args.quiet is True
+    assert args.jsonl_progress is True
+
+
+def test_default_progress_enabled_for_full_unless_quiet(tmp_path: Path, monkeypatch, capsys) -> None:
+    base_url = _write_hips_fixture(tmp_path)
+    cfg = {
+        "source_type": "hips-survey",
+        "public_base_url": base_url,
+        "raw_mirror_path": "data/raw/test-dss",
+        "processed_path": "data/processed/test-dss",
+        "oras_runtime_target_path": "/oras-sky-engine/skydata/surveys/dss/v1",
+    }
+    monkeypatch.setattr(mirror, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(mirror, "RUNTIME_PACKS_ROOT", tmp_path / "data/runtime-packs")
+    mirror.process_hips_class(
+        "dss_survey",
+        cfg,
+        dry_run=False,
+        confirm_download=True,
+        resume=False,
+        checksum_manifest=False,
+        max_files=2,
+        max_bytes=0,
+        order_min=0,
+        order_max=0,
+        full=True,
+        progress_interval=1,
+        workers=1,
+    )
+    out = capsys.readouterr().out
+    assert "elapsed=" in out
+    assert "eta=" in out
+
+    mirror.process_hips_class(
+        "dss_survey",
+        cfg,
+        dry_run=False,
+        confirm_download=True,
+        resume=True,
+        checksum_manifest=False,
+        max_files=1,
+        max_bytes=0,
+        order_min=0,
+        order_max=0,
+        full=True,
+        quiet=True,
+        progress_interval=1,
+        workers=1,
+    )
+    out2 = capsys.readouterr().out
+    assert out2.strip() == ""
+
+
+def test_parallel_schedules_missing_only(tmp_path: Path, monkeypatch) -> None:
+    base_url = _write_hips_fixture(tmp_path)
+    cfg = {
+        "source_type": "hips-survey",
+        "public_base_url": base_url,
+        "raw_mirror_path": "data/raw/test-dss",
+        "processed_path": "data/processed/test-dss",
+        "oras_runtime_target_path": "/oras-sky-engine/skydata/surveys/dss/v1",
+    }
+    monkeypatch.setattr(mirror, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(mirror, "RUNTIME_PACKS_ROOT", tmp_path / "data/runtime-packs")
+    raw_root, _, _, _, _ = mirror.class_roots(cfg)
+    pre = raw_root / "Norder0/Dir0/Npix0.webp"
+    pre.parent.mkdir(parents=True, exist_ok=True)
+    pre.write_bytes(b"existing")
+
+    calls: list[str] = []
+    real_fetch = mirror.fetch_bytes
+
+    def _fetch(url: str, **kwargs):
+        calls.append(url)
+        return real_fetch(url, **kwargs)
+
+    monkeypatch.setattr(mirror, "fetch_bytes", _fetch)
+    payload = mirror.process_hips_class(
+        "dss_survey",
+        cfg,
+        dry_run=False,
+        confirm_download=True,
+        resume=True,
+        checksum_manifest=False,
+        max_files=2,
+        max_bytes=0,
+        order_min=0,
+        order_max=0,
+        workers=4,
+    )
+    assert payload["downloaded_files"] == 2
+    assert all(not u.endswith("/Norder0/Dir0/Npix0.webp") for u in calls)
+
+
+def test_part_files_are_renamed_atomically_on_success(tmp_path: Path, monkeypatch) -> None:
+    base_url = _write_hips_fixture(tmp_path)
+    cfg = {
+        "source_type": "hips-survey",
+        "public_base_url": base_url,
+        "raw_mirror_path": "data/raw/test-dss",
+        "processed_path": "data/processed/test-dss",
+        "oras_runtime_target_path": "/oras-sky-engine/skydata/surveys/dss/v1",
+    }
+    monkeypatch.setattr(mirror, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(mirror, "RUNTIME_PACKS_ROOT", tmp_path / "data/runtime-packs")
+    payload = mirror.process_hips_class(
+        "dss_survey",
+        cfg,
+        dry_run=False,
+        confirm_download=True,
+        resume=False,
+        checksum_manifest=False,
+        max_files=1,
+        max_bytes=0,
+        order_min=0,
+        order_max=0,
+        workers=2,
+    )
+    assert payload["downloaded_files"] == 1
+    assert not list(tmp_path.rglob("*.part"))
+
+
+def test_dry_run_does_not_start_workers(tmp_path: Path, monkeypatch) -> None:
+    base_url = _write_hips_fixture(tmp_path)
+    cfg = {
+        "source_type": "hips-survey",
+        "public_base_url": base_url,
+        "raw_mirror_path": "data/raw/test-dss",
+        "processed_path": "data/processed/test-dss",
+        "oras_runtime_target_path": "/oras-sky-engine/skydata/surveys/dss/v1",
+    }
+
+    class _BombPool:
+        def __init__(self, *args, **kwargs):
+            raise AssertionError("workers should not start in dry-run")
+
+    monkeypatch.setattr(mirror.concurrent.futures, "ThreadPoolExecutor", _BombPool)
+    payload = mirror.process_hips_class(
+        "dss_survey",
+        cfg,
+        dry_run=True,
+        confirm_download=False,
+        resume=False,
+        checksum_manifest=False,
+        max_files=0,
+        max_bytes=0,
+        order_min=0,
+        order_max=0,
+        workers=24,
+    )
+    assert payload["status"] == "ok"
+    status_path = tmp_path / "data/runtime-packs/surveys/dss/v1/mirror-status.json"
+    assert not status_path.exists()
+
+
+def test_progress_line_has_percent_and_eta(tmp_path: Path, monkeypatch, capsys) -> None:
+    base_url = _write_hips_fixture(tmp_path)
+    cfg = {
+        "source_type": "hips-survey",
+        "public_base_url": base_url,
+        "raw_mirror_path": "data/raw/test-dss",
+        "processed_path": "data/processed/test-dss",
+        "oras_runtime_target_path": "/oras-sky-engine/skydata/surveys/dss/v1",
+    }
+    monkeypatch.setattr(mirror, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(mirror, "RUNTIME_PACKS_ROOT", tmp_path / "data/runtime-packs")
+    mirror.process_hips_class(
+        "dss_survey",
+        cfg,
+        dry_run=False,
+        confirm_download=True,
+        resume=False,
+        checksum_manifest=False,
+        max_files=2,
+        max_bytes=0,
+        order_min=0,
+        order_max=0,
+        progress=True,
+        progress_interval=1,
+        workers=1,
+    )
+    out = capsys.readouterr().out
+    assert "%" in out
+    assert "eta=" in out
+
+
+def test_mirror_status_json_is_written(tmp_path: Path, monkeypatch) -> None:
+    base_url = _write_hips_fixture(tmp_path)
+    cfg = {
+        "source_type": "hips-survey",
+        "public_base_url": base_url,
+        "raw_mirror_path": "data/raw/test-dss",
+        "processed_path": "data/processed/test-dss",
+        "oras_runtime_target_path": "/oras-sky-engine/skydata/surveys/dss/v1",
+    }
+    monkeypatch.setattr(mirror, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(mirror, "RUNTIME_PACKS_ROOT", tmp_path / "data/runtime-packs")
+    payload = mirror.process_hips_class(
+        "dss_survey",
+        cfg,
+        dry_run=False,
+        confirm_download=True,
+        resume=False,
+        checksum_manifest=False,
+        max_files=1,
+        max_bytes=0,
+        order_min=0,
+        order_max=0,
+        workers=1,
+    )
+    status_path = Path(payload["status_path"])
+    assert status_path.exists()
+    data = json.loads(status_path.read_text(encoding="utf-8"))
+    assert data["class"] == "dss_survey"
+    assert "percent_complete" in data
+
+
+def test_status_command_reads_status_file(tmp_path: Path, monkeypatch, capsys) -> None:
+    manifest_path = tmp_path / "manifest.json"
+    _write_manifest(manifest_path, _write_hips_fixture(tmp_path))
+    monkeypatch.setattr(mirror, "MANIFEST_PATH", manifest_path)
+    monkeypatch.setattr(mirror, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(mirror, "RUNTIME_PACKS_ROOT", tmp_path / "data/runtime-packs")
+    cfg = mirror.load_manifest()["classes"]["dss_survey"]
+    status_path = mirror.status_path_for_class(cfg)
+    status_path.parent.mkdir(parents=True, exist_ok=True)
+    status_path.write_text(json.dumps({"class": "dss_survey", "percent_complete": 12.3}), encoding="utf-8")
+    monkeypatch.setattr("sys.argv", ["mirror_public_runtime_data.py", "--class", "dss_survey", "--status"])
+    rc = mirror.main()
+    assert rc == 0
+    out = capsys.readouterr().out
+    assert "percent_complete" in out
+
+
+def test_jsonl_progress_emits_parseable_json(tmp_path: Path, monkeypatch, capsys) -> None:
+    base_url = _write_hips_fixture(tmp_path)
+    cfg = {
+        "source_type": "hips-survey",
+        "public_base_url": base_url,
+        "raw_mirror_path": "data/raw/test-dss",
+        "processed_path": "data/processed/test-dss",
+        "oras_runtime_target_path": "/oras-sky-engine/skydata/surveys/dss/v1",
+    }
+    monkeypatch.setattr(mirror, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(mirror, "RUNTIME_PACKS_ROOT", tmp_path / "data/runtime-packs")
+    mirror.process_hips_class(
+        "dss_survey",
+        cfg,
+        dry_run=False,
+        confirm_download=True,
+        resume=False,
+        checksum_manifest=False,
+        max_files=2,
+        max_bytes=0,
+        order_min=0,
+        order_max=0,
+        jsonl_progress=True,
+        progress=True,
+        progress_interval=1,
+        workers=1,
+    )
+    lines = [line for line in capsys.readouterr().out.splitlines() if line.strip().startswith("{")]
+    assert lines
+    payload = json.loads(lines[-1])
+    assert payload["event"] == "progress"
+
+
+def test_interrupt_marks_status_interrupted(tmp_path: Path, monkeypatch) -> None:
+    base_url = _write_hips_fixture(tmp_path)
+    cfg = {
+        "source_type": "hips-survey",
+        "public_base_url": base_url,
+        "raw_mirror_path": "data/raw/test-dss",
+        "processed_path": "data/processed/test-dss",
+        "oras_runtime_target_path": "/oras-sky-engine/skydata/surveys/dss/v1",
+    }
+    monkeypatch.setattr(mirror, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(mirror, "RUNTIME_PACKS_ROOT", tmp_path / "data/runtime-packs")
+    real_fetch = mirror.fetch_bytes
+
+    def _interrupting_fetch(url: str, **kwargs):
+        if "Norder" in url:
+            raise KeyboardInterrupt()
+        return real_fetch(url, **kwargs)
+
+    monkeypatch.setattr(mirror, "fetch_bytes", _interrupting_fetch)
+    payload = mirror.process_hips_class(
+        "dss_survey",
+        cfg,
+        dry_run=False,
+        confirm_download=True,
+        resume=False,
+        checksum_manifest=False,
+        max_files=2,
+        max_bytes=0,
+        order_min=0,
+        order_max=0,
+        workers=1,
+    )
+    assert payload["interrupted"] is True
+    data = json.loads(Path(payload["status_path"]).read_text(encoding="utf-8"))
+    assert data["interrupted"] is True
+
+
+def test_promotion_happens_after_downloads_finish(monkeypatch) -> None:
+    calls: list[str] = []
+
+    def _load_manifest():
+        return {
+            "classes": {
+                "dss_survey": {
+                    "source_type": "hips-survey",
+                    "public_base_url": "file:///tmp/irrelevant",
+                    "raw_mirror_path": "data/raw/test",
+                    "processed_path": "data/processed/test",
+                    "oras_runtime_target_path": "/oras-sky-engine/skydata/surveys/dss/v1",
+                }
+            }
+        }
+
+    def _process(*args, **kwargs):
+        calls.append("process_start")
+        time.sleep(0.01)
+        calls.append("process_done")
+        return {"status": "ok", "class": "dss_survey"}
+
+    def _promote(*args, **kwargs):
+        calls.append("promote")
+        return {"promoted": True}
+
+    monkeypatch.setattr(mirror, "load_manifest", _load_manifest)
+    monkeypatch.setattr(mirror, "process_hips_class", _process)
+    monkeypatch.setattr(mirror, "promote_runtime_class", _promote)
+    monkeypatch.setattr(mirror, "write_json", lambda *a, **k: None)
+    monkeypatch.setattr(
+        "sys.argv",
+        ["mirror_public_runtime_data.py", "--class", "dss_survey", "--confirm-download", "--promote-runtime-pack"],
+    )
+    rc = mirror.main()
+    assert rc == 0
+    assert calls == ["process_start", "process_done", "promote"]
