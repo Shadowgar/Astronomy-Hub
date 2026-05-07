@@ -90,6 +90,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--status", action="store_true", help="Read latest mirror-status.json for the selected class and exit.")
     parser.add_argument("--retry-count", type=int, default=3, help="Retry attempts per file (default: 3).")
     parser.add_argument("--request-timeout", type=int, default=20, help="HTTP timeout seconds per request (default: 20).")
+    parser.add_argument("--resource-list", type=str, default="", help="Mirror exact resources from TXT/JSON/JSONL URL list.")
     parser.add_argument("--verbose", action="store_true", help="Print per-file output.")
     return parser.parse_args()
 
@@ -188,6 +189,16 @@ def summarize_status(missing_after: int, failed_count: int) -> str:
     return "blocked"
 
 
+def summarize_eph_status(missing_after: int, hard_failed: int, sparse_missing: int) -> str:
+    if missing_after == 0 and hard_failed == 0:
+        return "complete"
+    if hard_failed > 0:
+        return "incomplete_with_failures"
+    if sparse_missing > 0:
+        return "partial_sparse"
+    return "partial"
+
+
 def format_hms(seconds: float) -> str:
     total = max(0, int(seconds))
     h = total // 3600
@@ -208,6 +219,65 @@ def class_roots(class_cfg: dict[str, Any]) -> tuple[Path, Path, Path, Path, Path
     runtime_pack_root = RUNTIME_PACKS_ROOT / sky_rel
     runtime_ready_root = runtime_pack_root / "runtime-ready" / sky_rel
     return raw_root, processed_root, runtime_pack_root, runtime_ready_root, sky_rel
+
+
+def load_resource_list(path: str) -> list[str]:
+    source = Path(path)
+    if not source.exists():
+        raise FileNotFoundError(f"resource-list file not found: {path}")
+    text = source.read_text(encoding="utf-8", errors="replace")
+    urls: list[str] = []
+    if source.suffix.lower() in {".json", ".jsonl"}:
+        if source.suffix.lower() == ".jsonl":
+            rows = []
+            for line in text.splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    rows.append(json.loads(line))
+                except Exception:
+                    continue
+        else:
+            parsed = json.loads(text)
+            rows = parsed if isinstance(parsed, list) else [parsed]
+        for row in rows:
+            if isinstance(row, str):
+                urls.append(row.strip())
+                continue
+            if not isinstance(row, dict):
+                continue
+            for key in ("url", "name"):
+                value = row.get(key)
+                if isinstance(value, str) and value.strip():
+                    urls.append(value.strip())
+    else:
+        for line in text.splitlines():
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            urls.append(line)
+    return [u for u in urls if u.startswith(("http://", "https://", "file://"))]
+
+
+def resource_relative_paths(base_url: str, resources: list[str], extension: str) -> list[str]:
+    root = base_url.rstrip("/")
+    wanted = extension.lower().lstrip(".")
+    out: list[str] = ["properties"]
+    seen = {"properties"}
+    for url in resources:
+        if not url.startswith(root + "/"):
+            continue
+        rel = url[len(root) + 1 :].split("?", 1)[0].split("#", 1)[0]
+        if not rel:
+            continue
+        if rel == "properties":
+            continue
+        if rel.lower().endswith(f".{wanted}"):
+            if rel not in seen:
+                out.append(rel)
+                seen.add(rel)
+    return out
 
 
 def process_hips_class(
@@ -242,8 +312,8 @@ def process_hips_class(
     raw_root, processed_root, runtime_pack_root, runtime_ready_root, _ = class_roots(class_cfg)
     log_path = runtime_pack_root / "download-log.jsonl"
     checksum_path = runtime_pack_root / "checksums.json"
-    failed_path = runtime_pack_root / "failed-files.json"
     status_path = runtime_pack_root / "mirror-status.json"
+    failed_path = runtime_pack_root / "failed-files.json"
 
     if not dry_run and not resume:
         shutil.rmtree(raw_root, ignore_errors=True)
@@ -576,6 +646,7 @@ def process_eph_pack_class(
     full: bool = False,
     retry_count: int = 3,
     request_timeout: int = 20,
+    resource_list: str = "",
     verbose: bool = False,
 ) -> dict[str, Any]:
     base_url = str(class_cfg.get("public_base_url") or "").rstrip("/")
@@ -587,6 +658,7 @@ def process_eph_pack_class(
     raw_root, processed_root, runtime_pack_root, runtime_ready_root, _ = class_roots(class_cfg)
     log_path = runtime_pack_root / "download-log.jsonl"
     checksum_path = runtime_pack_root / "checksums.json"
+    status_path = runtime_pack_root / "mirror-status.json"
 
     if not dry_run and not resume:
         shutil.rmtree(raw_root, ignore_errors=True)
@@ -607,7 +679,10 @@ def process_eph_pack_class(
     props = parse_properties(properties_text)
     if "eph" not in props.get("hips_tile_format", "").lower():
         return {"class": class_name, "status": "blocked", "reason": "properties hips_tile_format does not include eph"}
-    planned_rel = tile_rel_paths(order_min, order_max, "eph")
+    full_candidates = tile_rel_paths(order_min, order_max, "eph")
+    observed_resources = load_resource_list(resource_list) if resource_list else []
+    observed_candidates = resource_relative_paths(base_url, observed_resources, "eph") if observed_resources else []
+    planned_rel = observed_candidates if observed_candidates else full_candidates
 
     if dry_run:
         return {
@@ -618,6 +693,9 @@ def process_eph_pack_class(
             "expected_format": "eph",
             "downloaded_files": 0,
             "planned_files": len(planned_rel),
+            "planned_required": len(observed_candidates) if observed_candidates else 1,
+            "planned_candidate": len(full_candidates) + 1,
+            "observed_known": len(observed_candidates),
             "first_tile_url_planned": f"{base_url}/{planned_rel[0]}" if planned_rel else None,
             "bytes": len(properties_raw),
             "order_min": order_min,
@@ -630,6 +708,7 @@ def process_eph_pack_class(
 
     record_log: list[dict[str, Any]] = []
     failed_files: list[dict[str, Any]] = []
+    sparse_missing_files: list[dict[str, Any]] = []
     checksums: dict[str, str] = {"properties": sha256_bytes(properties_raw)}
     downloaded = 0
     resumed = 0
@@ -644,6 +723,8 @@ def process_eph_pack_class(
     maybe_write(runtime_ready_root / "properties", properties_raw, dry_run)
 
     for rel in planned_rel:
+        if rel == "properties":
+            continue
         if max_files > 0 and downloaded >= max_files:
             break
         if max_bytes > 0 and byte_count >= max_bytes:
@@ -674,7 +755,11 @@ def process_eph_pack_class(
                     if attempt >= retry_count:
                         break
             if status != "downloaded":
-                failed_files.append({"relative_path": rel, "order": int(rel.split('/', 1)[0].replace('Norder', '')), "url": url, "error": failure})
+                row = {"relative_path": rel, "order": int(rel.split('/', 1)[0].replace('Norder', '')), "url": url, "error": failure}
+                if failure == "http_404":
+                    sparse_missing_files.append(row)
+                else:
+                    failed_files.append(row)
                 continue
             downloaded += 1
             byte_count += len(payload)
@@ -702,11 +787,11 @@ def process_eph_pack_class(
             print(json.dumps(record_log[-1], sort_keys=True))
         now = time.time()
         if now - last_progress >= 5:
-            done = downloaded + resumed + len(failed_files)
+            done = downloaded + resumed + len(failed_files) + len(sparse_missing_files)
             percent = (done / max(1, total_planned)) * 100
             print(
                 f"[{class_name}] planned={total_planned} existing={resumed} downloaded={downloaded} "
-                f"failed={len(failed_files)} percent={percent:.1f}% bytes={byte_count}"
+                f"failed={len(failed_files)} sparse_missing={len(sparse_missing_files)} percent={percent:.1f}% bytes={byte_count}"
             )
             last_progress = now
 
@@ -714,7 +799,15 @@ def process_eph_pack_class(
     with log_path.open("a", encoding="utf-8") as handle:
         for row in record_log:
             handle.write(json.dumps(row, sort_keys=True) + "\n")
-    write_json(failed_path, {"class": class_name, "failed_files": failed_files, "generated_at": utc_now()})
+    write_json(
+        failed_path,
+        {
+            "class": class_name,
+            "failed_files": failed_files,
+            "sparse_missing_files": sparse_missing_files,
+            "generated_at": utc_now(),
+        },
+    )
     if checksum_manifest:
         write_json(checksum_path, {"class": class_name, "generated_at": utc_now(), "checksums": checksums})
     runtime_file_count, runtime_size = dir_file_count_and_size(runtime_ready_root)
@@ -723,18 +816,53 @@ def process_eph_pack_class(
     missing_files_before = len(planned_rel) - resumed
     missing_files_after = max(0, missing_files_before - downloaded)
     complete = missing_files_after == 0 and not failed_files
+    write_json(
+        status_path,
+        {
+            "started_at": utc_now(),
+            "updated_at": utc_now(),
+            "class": class_name,
+            "source_root": base_url,
+            "order_min": order_min,
+            "order_max": order_max,
+            "expected_files": expected_files,
+            "existing_files": existing_files,
+            "missing_files_before": missing_files_before,
+            "downloaded_files": downloaded,
+            "failed_files": len(failed_files),
+            "sparse_missing_files": len(sparse_missing_files),
+            "remaining_estimate": missing_files_after,
+            "percent_complete": round((downloaded / max(1, missing_files_before)) * 100, 4),
+            "bytes_downloaded": byte_count,
+            "runtime_file_count": runtime_file_count,
+            "runtime_size": runtime_size,
+            "planned_required": len(observed_candidates) if observed_candidates else 1,
+            "planned_candidate": len(full_candidates) + 1,
+            "observed_known": len(observed_candidates),
+            "complete": complete,
+            "interrupted": False,
+            "failed_files_path": str(failed_path),
+            "checksum_path": str(checksum_path) if checksum_manifest else None,
+            "download_log_path": str(log_path),
+            "status": summarize_eph_status(missing_files_after, len(failed_files), len(sparse_missing_files)),
+        },
+    )
 
     return {
         "class": class_name,
-        "status": summarize_status(missing_files_after, len(failed_files)),
+        "status": summarize_eph_status(missing_files_after, len(failed_files), len(sparse_missing_files)),
         "base_url": base_url,
         "properties_url": properties_url,
         "expected_format": "eph",
         "expected_files": expected_files,
+        "planned_required": len(observed_candidates) if observed_candidates else 1,
+        "planned_candidate": len(full_candidates) + 1,
+        "observed_known": len(observed_candidates),
         "existing_files": existing_files,
         "missing_files_before": missing_files_before,
         "downloaded_files": downloaded,
         "failed_files": len(failed_files),
+        "sparse_missing_files": len(sparse_missing_files),
         "missing_files_after": missing_files_after,
         "runtime_file_count": runtime_file_count,
         "runtime_size": runtime_size,
@@ -748,6 +876,7 @@ def process_eph_pack_class(
         "log_path": str(log_path),
         "failed_path": str(failed_path),
         "checksum_path": str(checksum_path) if checksum_manifest else None,
+        "status_path": str(status_path),
         "elapsed_seconds": round(time.time() - start, 2),
     }
 
@@ -842,6 +971,7 @@ def main() -> int:
                 full=args.full,
                 retry_count=args.retry_count,
                 request_timeout=args.request_timeout,
+                resource_list=args.resource_list,
                 verbose=args.verbose,
             )
         else:

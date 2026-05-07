@@ -362,6 +362,7 @@ class SkyMirrorManager:
             expected = int(status_payload.get("expected_files", 0) or 0)
             downloaded = int(status_payload.get("downloaded_files", 0) or 0)
             failed = int(status_payload.get("failed_files", 0) or 0)
+            sparse_missing = int(status_payload.get("sparse_missing_files", 0) or 0)
             missing_before = int(status_payload.get("missing_files_before", 0) or 0)
             remaining = int(status_payload.get("remaining_estimate", max(0, missing_before - downloaded)) or 0)
             percent = float(status_payload.get("percent_complete", 0.0) or 0.0)
@@ -432,6 +433,7 @@ class SkyMirrorManager:
                     "downloaded_files": downloaded,
                     "downloaded_this_run": downloaded,
                     "failed_files": failed,
+                    "sparse_missing_files": sparse_missing,
                     "failure_breakdown": failure_breakdown,
                     "remaining_files": remaining,
                     "percent_complete": percent,

@@ -459,3 +459,144 @@ Current observed runtime state remains:
 1. Enable Playwright/browser capture in this workspace and run side-by-side official/local resource capture for Epsilon Persei, Capella, and M31 (`fov=0.8`) to finalize the URL/order/format/status table.
 2. Continue DSS field-priority cache around the tested targets, then broader order expansion.
 3. Continue base/minimal pack mirroring with alternate reachable roots where available; for extended packs, obtain alternate source root or shift to ORAS-owned ingestion.
+
+## Execution Update (2026-05-07, EPH Failure Classification + Runtime Density Verification)
+
+### Base star failure classification
+
+Observed from `data/runtime-packs/packs/base/stars/failed-files.json` after rerun (`order 0..3`):
+
+- HTTP 404: `0`
+- HTTP 403: `960`
+- timeout: `0`
+- connection reset: `0`
+- invalid URL: `0`
+- wrong extension: `0`
+- other: `0`
+
+Conclusion: the current base-star failure mode is access blocking (`403`) at higher orders, not sparse 404 or malformed URL generation.
+
+First 20 failed URLs (all `http_403`) begin at:
+
+- `.../stars/Norder2/Dir0/Npix0.eph`
+- `.../stars/Norder2/Dir0/Npix1.eph`
+- `.../stars/Norder2/Dir0/Npix2.eph`
+- `.../stars/Norder2/Dir0/Npix3.eph`
+- `.../stars/Norder2/Dir0/Npix4.eph`
+- `.../stars/Norder2/Dir0/Npix5.eph`
+- `.../stars/Norder2/Dir0/Npix6.eph`
+- `.../stars/Norder2/Dir0/Npix7.eph`
+- `.../stars/Norder2/Dir0/Npix8.eph`
+- `.../stars/Norder2/Dir0/Npix9.eph`
+- `.../stars/Norder2/Dir0/Npix10.eph`
+- `.../stars/Norder2/Dir0/Npix11.eph`
+- `.../stars/Norder2/Dir0/Npix12.eph`
+- `.../stars/Norder2/Dir0/Npix13.eph`
+- `.../stars/Norder2/Dir0/Npix14.eph`
+- `.../stars/Norder2/Dir0/Npix15.eph`
+- `.../stars/Norder2/Dir0/Npix16.eph`
+- `.../stars/Norder2/Dir0/Npix17.eph`
+- `.../stars/Norder2/Dir0/Npix18.eph`
+- `.../stars/Norder2/Dir0/Npix19.eph`
+
+### EPH planner + classification fix
+
+Changes landed in `scripts/skydata/mirror_public_runtime_data.py`:
+
+- Added EPH-specific status classification:
+  - `complete`
+  - `partial_sparse` (404 sparse candidates)
+  - `incomplete_with_failures` (hard failures like 403/timeouts)
+- Added sparse vs hard separation in failed manifest:
+  - `failed_files`
+  - `sparse_missing_files`
+- Added EPH status file output (`mirror-status.json`) with:
+  - `planned_required`, `planned_candidate`, `observed_known`
+  - `sparse_missing_files`
+  - runtime count/size and progress fields
+- Kept `properties` mandatory and separated from tile loops.
+
+### Resource-list mirroring mode
+
+Added CLI option:
+
+- `--resource-list PATH`
+
+Behavior:
+
+- Reads TXT/JSON/JSONL URL lists.
+- Filters to selected class root.
+- Mirrors exact listed EPH tiles + properties.
+- Preserves relative paths and supports normal promotion.
+
+Added helper script:
+
+- `scripts/skydata/extract_runtime_resource_urls.py`
+
+It extracts `swe-data-packs/*/(stars|dso)` URLs from pasted/resource logs into one-URL-per-line output.
+
+### Source root verification
+
+Direct probe results (2026-05-07):
+
+- minimal stars root:
+  - `properties`: 200
+  - `Norder0`: 200
+  - `Norder1`: 200
+  - `Norder2`: 403
+- base stars root:
+  - `properties`: 200
+  - `Norder0`: 200
+  - `Norder1`: 200
+  - `Norder2`: 403
+- base dso root:
+  - `properties`: 200
+  - `Norder0`: 200
+  - `Norder1`: 403
+- extended stars root:
+  - `properties`: 403
+- extended dso root:
+  - `properties`: 403
+
+Interpretation: current mirror failures at deeper orders are source-access blocked, not local path/promotion corruption.
+
+### Star pack counts after rerun
+
+`star_pack_base`:
+
+- runtime path: `frontend/public/oras-sky-engine/skydata/packs/base/stars`
+- files: `61`
+- size: `2.0M`
+
+`star_pack_minimal`:
+
+- runtime path: `frontend/public/oras-sky-engine/skydata/packs/minimal/stars`
+- files: `41`
+- size: `1.1M`
+
+### Runtime local request evidence
+
+Using `scripts/skydata/capture_runtime_resources.js` at target `Epsilon Persei` and `Capella`, `fov=0.8`:
+
+- Observed local requests (200):
+  - `/oras-sky-engine/skydata/packs/minimal/stars/properties`
+  - `/oras-sky-engine/skydata/packs/base/stars/properties`
+  - `/oras-sky-engine/skydata/packs/base/stars/Norder...eph`
+- Forbidden runtime sources observed in local capture:
+  - `stellarium.sfo2.cdn.digitaloceanspaces.com`: no
+  - `data.stellarium.org`: no
+  - `stellarium-web.org`: no
+  - `api.noctuasky.com`: no
+
+Note: minimal `Norder` tile requests were not observed in these captures, while base `Norder` tile requests were observed.
+
+### Visual comparison result
+
+- Local runtime now clearly requests local base star tiles (200), but visible density still trails official in tested fields.
+- Remaining gap is consistent with source blocking beyond reachable orders (`Norder2+` returning 403 for current pack roots) and extended-pack 403 blockers.
+
+### Remaining blocker
+
+- `star_pack_extended` and `dso_pack_extended` remain blocked (`403`) at properties root.
+- Deeper base/minimal coverage is also blocked at current public roots for tested higher orders.
+- Next path for parity-density requires alternate reachable roots/version hashes or ORAS-owned ingestion for equivalent catalogs.

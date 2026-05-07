@@ -219,6 +219,85 @@ def test_eph_pack_path_traversal_rejected(tmp_path: Path) -> None:
         raise AssertionError("Expected traversal rejection")
 
 
+def test_eph_pack_404_is_classified_sparse_missing(tmp_path: Path, monkeypatch) -> None:
+    cfg = _eph_cfg("https://example.invalid/pack/stars")
+    monkeypatch.setattr(mirror, "RUNTIME_PACKS_ROOT", tmp_path / "runtime-packs")
+    def _fetch(url: str, **kwargs):
+        if url.endswith("/properties"):
+            return b"hips_tile_format = eph\n"
+        if "/Norder0/" in url:
+            return b"eph0"
+        if "/Norder1/" in url:
+            return b"eph1"
+        if "/Norder2/" in url:
+            raise mirror.HTTPError(url, 404, "not found", hdrs=None, fp=None)
+        raise mirror.HTTPError(url, 404, "not found", hdrs=None, fp=None)
+
+    monkeypatch.setattr(mirror, "fetch_bytes", _fetch)
+    payload = mirror.process_eph_pack_class(
+        "star_pack_minimal",
+        cfg,
+        dry_run=False,
+        confirm_download=True,
+        resume=False,
+        checksum_manifest=False,
+        max_files=0,
+        max_bytes=0,
+        order_min=0,
+        order_max=2,
+        retry_count=1,
+    )
+    failed = json.loads(Path(payload["failed_path"]).read_text(encoding="utf-8"))
+    assert payload["status"] == "partial_sparse"
+    assert payload["failed_files"] == 0
+    assert payload["sparse_missing_files"] > 0
+    assert len(failed["failed_files"]) == 0
+    assert len(failed["sparse_missing_files"]) > 0
+
+
+def test_eph_pack_resource_list_mode_downloads_only_listed_tiles(tmp_path: Path, monkeypatch) -> None:
+    base = _write_eph_fixture(tmp_path)
+    cfg = _eph_cfg(base)
+    monkeypatch.setattr(mirror, "RUNTIME_PACKS_ROOT", tmp_path / "runtime-packs")
+    resource_list = tmp_path / "resources.txt"
+    resource_list.write_text(
+        "\n".join(
+            [
+                f"{base}/properties",
+                f"{base}/Norder0/Dir0/Npix0.eph",
+                f"{base}/Norder1/Dir0/Npix0.eph",
+                "https://example.invalid/not-this-pack/Norder0/Dir0/Npix0.eph",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    payload = mirror.process_eph_pack_class(
+        "star_pack_minimal",
+        cfg,
+        dry_run=False,
+        confirm_download=True,
+        resume=False,
+        checksum_manifest=False,
+        max_files=0,
+        max_bytes=0,
+        order_min=0,
+        order_max=4,
+        resource_list=str(resource_list),
+    )
+    assert payload["observed_known"] == 3
+    assert payload["planned_required"] == 3
+    assert payload["downloaded_files"] == 2
+    assert payload["failed_files"] == 0
+    assert payload["sparse_missing_files"] == 0
+
+
+def test_local_pack_roots_remain_configured() -> None:
+    source = Path("vendor/stellarium-web-engine/apps/web-frontend/src/assets/oras_data_config.js").read_text(encoding="utf-8")
+    assert "ORAS_PACKS_ROOT + '/minimal'" in source
+    assert "ORAS_PACKS_ROOT + '/base'" in source
+    assert "ORAS_PACKS_ROOT + '/extended'" in source
+
+
 def test_full_flag_exists(monkeypatch) -> None:
     monkeypatch.setattr("sys.argv", ["mirror_public_runtime_data.py", "--class", "dss_survey", "--full"])
     args = mirror.parse_args()
