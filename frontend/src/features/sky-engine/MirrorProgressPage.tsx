@@ -5,11 +5,18 @@ type MirrorClassRow = {
   class: string
   display_name: string
   status: string
+  metadata_only: boolean
   expected_files: number
+  expected_files_known: boolean
   existing_files: number
+  runtime_file_count: number
+  runtime_size: number
+  runtime_path_exists: boolean
   missing_files_before: number
   downloaded_files: number
+  downloaded_this_run: number
   failed_files: number
+  failure_breakdown: Record<string, number>
   remaining_files: number
   percent_complete: number
   bytes_downloaded: number
@@ -309,8 +316,13 @@ export default function MirrorProgressPage() {
                     <div style={smallStyle}>{pct.toFixed(2)}%</div>
                   </td>
                   <td style={tdStyle}>
-                    <div>{row.downloaded_files}/{row.expected_files || 0}</div>
+                    <div>runtime {row.runtime_file_count} / {formatBytes(row.runtime_size || 0)}</div>
+                    <div style={smallStyle}>expected {row.expected_files_known ? row.expected_files : 'unknown'} / cached {row.existing_files}</div>
+                    <div style={smallStyle}>downloaded this run {row.downloaded_this_run}</div>
                     <div style={smallStyle}>failed {row.failed_files} / remaining {row.remaining_files}</div>
+                    {Object.keys(row.failure_breakdown || {}).length > 0 ? (
+                      <div style={smallStyle}>failures {Object.entries(row.failure_breakdown).map(([k, v]) => `${k}:${v}`).join(', ')}</div>
+                    ) : null}
                   </td>
                   <td style={tdStyle}>
                     <div>{(row.speed_files_per_sec || 0).toFixed(2)} files/s</div>
@@ -371,6 +383,8 @@ function StatusBadge({ status }: { status: string }) {
     failed: '#dc2626',
     interrupted: '#d97706',
     paused: '#d97706',
+    unknown: '#a16207',
+    missing: '#334155',
     queued: '#475569',
     not_started: '#475569',
     cancelled: '#6b7280',

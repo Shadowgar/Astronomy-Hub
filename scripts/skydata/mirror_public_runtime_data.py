@@ -851,7 +851,14 @@ def main() -> int:
                 "reason": f"unsupported source_type={source_type}",
             }
         results.append(result)
-        if args.promote_runtime_pack and result.get("status") == "ok" and not args.dry_run:
+        should_promote = result.get("status") == "ok" or (
+            result.get("status") not in {"blocked"} and (
+            int(result.get("runtime_file_count", 0) or 0) > 0
+            or int(result.get("downloaded_files", 0) or 0) > 0
+            or int(result.get("resumed_files", 0) or 0) > 0
+            )
+        )
+        if args.promote_runtime_pack and should_promote and not args.dry_run:
             results.append(promote_runtime_class(class_name, class_cfg))
 
     report = {"generated_at": utc_now(), "classes": classes, "results": results}

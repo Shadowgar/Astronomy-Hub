@@ -56,6 +56,18 @@ def _tail_jsonl(path: Path, limit: int = 200) -> list[dict[str, Any]]:
     return out
 
 
+def _dir_file_count_and_size(root: Path) -> tuple[int, int]:
+    if not root.exists():
+        return 0, 0
+    file_count = 0
+    byte_count = 0
+    for p in root.rglob("*"):
+        if p.is_file():
+            file_count += 1
+            byte_count += p.stat().st_size
+    return file_count, byte_count
+
+
 def _class_target_paths(class_cfg: dict[str, Any]) -> tuple[str, str]:
     rel = class_cfg.get("oras_runtime_target_path", "").lstrip("/")
     if rel.startswith("oras-sky-engine/skydata/"):
@@ -138,6 +150,16 @@ class SkyMirrorManager:
         if not root:
             return None
         return root / "mirror-status.json"
+
+    def _runtime_public_target_for(self, class_name: str) -> Path | None:
+        cfg = self._manifest_cache.get(class_name)
+        if not cfg:
+            return None
+        target = cfg.get("oras_runtime_target_path", "").lstrip("/")
+        if not target.startswith("oras-sky-engine/skydata/"):
+            return None
+        rel = target[len("oras-sky-engine/skydata/") :]
+        return PUBLIC_SKYDATA_ROOT / rel
 
     def _command_for(self, class_name: str, options: dict[str, Any] | None = None) -> list[str]:
         options = options or {}
@@ -312,9 +334,9 @@ class SkyMirrorManager:
             with urlopen(Request(url, headers=headers), timeout=6) as _:
                 result = {"status": "ok"}
         except HTTPError as exc:
-            result = {"status": "blocked", "blocker": f"properties HTTP {exc.code}"}
+            result = {"status": "blocked", "blocker": f"{url} HTTP {exc.code}"}
         except Exception as exc:  # noqa: BLE001
-            result = {"status": "blocked", "blocker": str(exc)}
+            result = {"status": "blocked", "blocker": f"{url} {exc}"}
         self._class_probe_cache[class_name] = (now, result)
         return result
 
@@ -345,6 +367,20 @@ class SkyMirrorManager:
             percent = float(status_payload.get("percent_complete", 0.0) or 0.0)
             bytes_downloaded = int(status_payload.get("bytes_downloaded", 0) or 0)
             total_bytes += bytes_downloaded
+            runtime_target = self._runtime_public_target_for(class_name)
+            runtime_file_count = 0
+            runtime_size = 0
+            runtime_path_exists = False
+            if runtime_target:
+                runtime_path_exists = runtime_target.exists()
+                runtime_file_count, runtime_size = _dir_file_count_and_size(runtime_target)
+            failed_payload = _read_json(Path(failed_path)) if failed_path and Path(failed_path).exists() else {}
+            failure_breakdown: dict[str, int] = {}
+            for item in failed_payload.get("failed_files", []) or []:
+                key = str(item.get("error") or "unknown")
+                failure_breakdown[key] = failure_breakdown.get(key, 0) + 1
+            expected_known = expected > 0
+            metadata_only = class_name == "object_summaries_media"
             class_status = "not_started"
             if job and job.status == "running":
                 class_status = "running"
@@ -352,7 +388,7 @@ class SkyMirrorManager:
             elif job and job.status in {"paused", "cancelled", "failed", "complete"}:
                 class_status = job.status
             elif status_payload:
-                if bool(status_payload.get("complete")):
+                if bool(status_payload.get("complete")) and (metadata_only or runtime_file_count > 0 or runtime_size > 0):
                     class_status = "complete"
                 elif bool(status_payload.get("interrupted")):
                     class_status = "interrupted"
@@ -360,10 +396,18 @@ class SkyMirrorManager:
                     class_status = "partial"
                 elif downloaded > 0:
                     class_status = "partial"
+                elif expected_known:
+                    class_status = "partial"
+                else:
+                    class_status = "unknown"
+            if class_status == "complete" and not metadata_only and runtime_file_count == 0 and runtime_size == 0:
+                class_status = "partial"
             if class_status == "not_started" and class_name in {"star_pack_extended", "dso_pack_extended"}:
                 probe = self._probe_blocker(class_name)
                 if probe.get("status") == "blocked":
                     class_status = "blocked"
+            elif class_status == "not_started" and runtime_target and not runtime_path_exists:
+                class_status = "missing"
             if class_status == "complete":
                 completed_classes += 1
             if class_status == "partial":
@@ -377,11 +421,18 @@ class SkyMirrorManager:
                     "class": class_name,
                     "display_name": entry["display_name"],
                     "status": class_status,
+                    "metadata_only": metadata_only,
                     "expected_files": expected,
+                    "expected_files_known": expected_known,
                     "existing_files": int(status_payload.get("existing_files", 0) or 0),
+                    "runtime_file_count": runtime_file_count,
+                    "runtime_size": runtime_size,
+                    "runtime_path_exists": runtime_path_exists,
                     "missing_files_before": missing_before,
                     "downloaded_files": downloaded,
+                    "downloaded_this_run": downloaded,
                     "failed_files": failed,
+                    "failure_breakdown": failure_breakdown,
                     "remaining_files": remaining,
                     "percent_complete": percent,
                     "bytes_downloaded": bytes_downloaded,

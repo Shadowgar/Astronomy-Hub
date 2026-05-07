@@ -370,3 +370,92 @@ cd /home/rocco/Astronomy-Hub
   --order-max 7 \
   --full
 ```
+
+## Execution Update (2026-05-07, Survey/Star Density + Mirror Truth)
+
+### Official vs local visual comparison (current pass)
+
+- Target fields requested: Epsilon Persei, Capella, M31 at `fov=0.8`.
+- Official-vs-local browser network capture is currently blocked in this workspace because Playwright is not installed in the active Node runtime (`Cannot find module 'playwright'`), so full side-by-side request tables are pending browser-tool enablement.
+- Local runtime behavior remains consistent with lower perceived density because local base star pack remains sparse and DSS remains partial.
+
+### Exact reason local looked lower quality
+
+- DSS exists locally but coverage is incomplete; high-order tile completeness in visible fields is not proven and likely falls back to lower-order parent tiles.
+- Star packs are not parity-complete:
+  - `star_pack_base` mirror from 0..3 currently shows `61` runtime files (properties + resumed) and `960` failed tile fetches in this run.
+  - `star_pack_minimal` remains at `41` files (`1.1M`) after attempted expansion run.
+- Extended packs are still blocked by source permissions (HTTP 403), so GAIA/TYC/SAO/HIP-like dense expansion from those roots is not reachable from current URLs.
+
+### Local star pack request/mount evidence
+
+- Vendor runtime mount code confirms local pack roots are mounted:
+  - `vendor/stellarium-web-engine/apps/web-frontend/src/App.vue` uses `listOrasPackRoots()` and mounts `.../stars` + `.../dso`.
+  - `vendor/stellarium-web-engine/apps/web-frontend/src/assets/oras_data_config.js` returns `/oras-sky-engine/skydata/packs/{minimal,base,extended}`.
+- Local files present after promotion:
+  - `frontend/public/oras-sky-engine/skydata/packs/base/stars`: `61` files, `2.0M`
+  - `vendor/stellarium-web-engine/apps/test-skydata/packs/base/stars`: `61` files, `2.0M`
+  - `frontend/public/oras-sky-engine/skydata/packs/minimal/stars`: `41` files, `1.1M`
+
+### Local DSS tile order evidence
+
+- Manifest and runtime paths confirm DSS source root and order-based tiling:
+  - root: `https://alasky.cds.unistra.fr/DSS/DSSColor`
+  - local target: `/oras-sky-engine/skydata/surveys/dss/v1`
+- Mirror tooling now records and exposes order progress and expected/missing counts in status payloads (`order_min`, `order_max`, `expected_files`, `missing_files_before/after`, `percent_complete`).
+
+### Base star pack mirror result (this run)
+
+Command executed:
+
+```bash
+.venv/bin/python scripts/skydata/mirror_public_runtime_data.py \
+  --class star_pack_base \
+  --confirm-download \
+  --resume \
+  --checksum-manifest \
+  --promote-runtime-pack \
+  --order-min 0 \
+  --order-max 3 \
+  --workers 8 \
+  --max-files 5000 \
+  --progress \
+  --jsonl-progress
+```
+
+Result summary:
+- status: `incomplete_with_failures`
+- expected files: `1021`
+- runtime-ready count: `61`
+- failed files: `960`
+- promotion: now succeeds even on partial results with runtime files (bugfix applied)
+
+### Minimal star pack mirror result (this run)
+
+Command executed with `order-max 4` and `max-files 5000`; run did not complete in this execution window and was stopped.
+
+Current observed runtime state remains:
+- `frontend/public/oras-sky-engine/skydata/packs/minimal/stars`: `41` files, `1.1M`
+- `vendor/.../test-skydata/packs/minimal/stars`: `41` files, `1.1M`
+
+### Extended blocker status
+
+- `star_pack_extended`: blocked (`properties fetch failed: 403`)
+- `dso_pack_extended`: blocked (`properties fetch failed: 403`)
+- blocker status is surfaced as `blocked` (not `failed`) with explicit URL/status formatting in Mirror Manager probe messages.
+
+### Mirror Manager truth fixes landed
+
+- Status aggregation now reads real runtime path existence/file count/size and avoids `complete` when runtime size/file count is zero (unless metadata-only class).
+- Added row fields for truthful UI:
+  - `runtime_file_count`, `runtime_size`, `runtime_path_exists`
+  - `expected_files_known`
+  - `downloaded_this_run`
+  - `failure_breakdown`
+- Blocked probe reason now includes exact properties URL and HTTP status.
+
+### Next action
+
+1. Enable Playwright/browser capture in this workspace and run side-by-side official/local resource capture for Epsilon Persei, Capella, and M31 (`fov=0.8`) to finalize the URL/order/format/status table.
+2. Continue DSS field-priority cache around the tested targets, then broader order expansion.
+3. Continue base/minimal pack mirroring with alternate reachable roots where available; for extended packs, obtain alternate source root or shift to ORAS-owned ingestion.

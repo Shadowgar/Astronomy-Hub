@@ -703,3 +703,40 @@ def test_promotion_happens_after_downloads_finish(monkeypatch) -> None:
     rc = mirror.main()
     assert rc == 0
     assert calls == ["process_start", "process_done", "promote"]
+
+
+def test_promotion_happens_for_partial_results_with_runtime_files(monkeypatch) -> None:
+    calls: list[str] = []
+
+    def _load_manifest():
+        return {
+            "classes": {
+                "star_pack_base": {
+                    "source_type": "eph-pack",
+                    "public_base_url": "file:///tmp/irrelevant",
+                    "raw_mirror_path": "data/raw/test",
+                    "processed_path": "data/processed/test",
+                    "oras_runtime_target_path": "/oras-sky-engine/skydata/packs/base/stars",
+                }
+            }
+        }
+
+    def _process(*args, **kwargs):
+        calls.append("process_done")
+        return {"status": "incomplete_with_failures", "class": "star_pack_base", "runtime_file_count": 61, "downloaded_files": 0, "resumed_files": 60}
+
+    def _promote(*args, **kwargs):
+        calls.append("promote")
+        return {"promoted": True}
+
+    monkeypatch.setattr(mirror, "load_manifest", _load_manifest)
+    monkeypatch.setattr(mirror, "process_eph_pack_class", _process)
+    monkeypatch.setattr(mirror, "promote_runtime_class", _promote)
+    monkeypatch.setattr(mirror, "write_json", lambda *a, **k: None)
+    monkeypatch.setattr(
+        "sys.argv",
+        ["mirror_public_runtime_data.py", "--class", "star_pack_base", "--confirm-download", "--promote-runtime-pack"],
+    )
+    rc = mirror.main()
+    assert rc == 0
+    assert calls == ["process_done", "promote"]
