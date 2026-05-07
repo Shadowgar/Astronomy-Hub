@@ -12,6 +12,9 @@ pip-wheel-metadata/
 .venv-*/
 venv/
 ENV/
+captured_assets/
+docs/audits/
+frontend/public/oras-sky-engine/skydata/*
 env/
 env.bak/
 venv.bak/

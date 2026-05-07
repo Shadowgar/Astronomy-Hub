@@ -148,6 +148,7 @@ def fetch_bytes(url: str, *, resume_to: Path | None = None, max_bytes: int = 0, 
     parsed = urlparse(url)
     if parsed.netloc == "stellarium.sfo2.cdn.digitaloceanspaces.com":
         headers["Origin"] = "https://stellarium-web.org"
+        headers["Referer"] = "https://stellarium-web.org/"
     with urlopen(Request(url, headers=headers), timeout=timeout) as response:
         payload = response.read()
     if max_bytes > 0 and len(payload) > max_bytes:
@@ -330,7 +331,13 @@ def process_hips_class(
     properties_text = properties_raw.decode("utf-8", errors="replace")
     props = parse_properties(properties_text)
     tile_exts = resolve_tile_extension(props)
-    planned_rel = tile_rel_paths(order_min, order_max, tile_exts[0])
+    declared_order_raw = props.get("hips_order")
+    try:
+        declared_order = int(declared_order_raw) if declared_order_raw is not None else None
+    except ValueError:
+        declared_order = None
+    effective_order_max = order_max if declared_order is None else min(order_max, declared_order)
+    planned_rel = tile_rel_paths(order_min, effective_order_max, tile_exts[0])
     if dry_run:
         return {
             "class": class_name,
@@ -340,7 +347,7 @@ def process_hips_class(
             "planned_files": len(planned_rel),
             "bytes": len(properties_raw),
             "order_min": order_min,
-            "order_max": order_max,
+            "order_max": effective_order_max,
             "runtime_ready_root": str(runtime_ready_root),
             "runtime_pack_root": str(runtime_pack_root),
             "log_path": str(log_path),
@@ -349,6 +356,7 @@ def process_hips_class(
 
     record_log: list[dict[str, Any]] = []
     failed_files: list[dict[str, Any]] = []
+    sparse_missing_files: list[dict[str, Any]] = []
     checksums: dict[str, str] = {"properties": sha256_bytes(properties_raw)}
     downloaded = 0
     resumed = 0
@@ -391,7 +399,7 @@ def process_hips_class(
         "class": class_name,
         "source_root": base_url,
         "order_min": order_min,
-        "order_max": order_max,
+        "order_max": effective_order_max,
         "expected_files": expected_files,
         "existing_files": existing_files,
         "missing_files_before": missing_files_before,
@@ -425,8 +433,9 @@ def process_hips_class(
             return
         elapsed = max(0.001, now - start)
         remaining = max(0, len(capped_missing) - completed_candidates)
-        files_per_second = downloaded / elapsed
-        mb_per_second = (byte_count / (1024 * 1024)) / elapsed
+        files_per_second = completed_candidates / elapsed
+        downloaded_bytes_only = max(0, byte_count - len(properties_raw))
+        mb_per_second = (downloaded_bytes_only / (1024 * 1024)) / elapsed
         eta_seconds = (remaining / files_per_second) if files_per_second > 0 else None
         active_workers = max(0, min(workers, remaining))
         percent = (completed_candidates / max(1, len(capped_missing))) * 100
@@ -452,6 +461,7 @@ def process_hips_class(
                         "total": len(capped_missing),
                         "downloaded": downloaded,
                         "failed": len(failed_files),
+                        "sparse_missing": len(sparse_missing_files),
                         "remaining": remaining,
                         "percent": percent,
                         "files_per_second": files_per_second,
@@ -467,9 +477,10 @@ def process_hips_class(
             {
                 "downloaded_files": downloaded,
                 "failed_files": len(failed_files),
+                "sparse_missing_files": len(sparse_missing_files),
                 "remaining_estimate": remaining,
                 "percent_complete": round(percent, 4),
-                "bytes_downloaded": byte_count,
+                "bytes_downloaded": downloaded_bytes_only,
                 "bytes_per_second": mb_per_second * 1024 * 1024,
                 "files_per_second": files_per_second,
                 "eta_seconds": eta_seconds,
@@ -536,14 +547,16 @@ def process_hips_class(
             if verbose and not quiet:
                 print(json.dumps(record, sort_keys=True), flush=True)
         elif item["status"] == "failed":
-            failed_files.append(
-                {
-                    "stem": item.get("stem", ""),
-                    "order": current_order,
-                    "candidates": item.get("candidates", []),
-                    "error": item.get("error", "unknown"),
-                }
-            )
+            row = {
+                "stem": item.get("stem", ""),
+                "order": current_order,
+                "candidates": item.get("candidates", []),
+                "error": item.get("error", "unknown"),
+            }
+            if row["error"] in {"http_403", "http_404"}:
+                sparse_missing_files.append(row)
+            else:
+                failed_files.append(row)
         print_progress(current_order)
 
     try:
@@ -575,22 +588,35 @@ def process_hips_class(
         with log_path.open("a", encoding="utf-8") as handle:
             for row in record_log:
                 handle.write(json.dumps(row, sort_keys=True) + "\n")
-        write_json(failed_path, {"class": class_name, "failed_files": failed_files, "generated_at": utc_now()})
+        write_json(
+            failed_path,
+            {
+                "class": class_name,
+                "failed_files": failed_files,
+                "sparse_missing_files": sparse_missing_files,
+                "generated_at": utc_now(),
+            },
+        )
         if checksum_manifest:
             write_json(checksum_path, {"class": class_name, "generated_at": utc_now(), "checksums": checksums})
     runtime_file_count, runtime_size = dir_file_count_and_size(runtime_ready_root)
-    missing_files_after = max(0, missing_files_before - downloaded)
+    missing_files_after = max(0, len(capped_missing) - completed_candidates)
     complete = missing_files_after == 0 and not failed_files and not interrupted
     elapsed_seconds = round(time.time() - start, 2)
-    files_per_second = round(downloaded / max(0.001, elapsed_seconds), 3)
-    mb_per_second = round((byte_count / (1024 * 1024)) / max(0.001, elapsed_seconds), 3)
+    files_per_second = round(completed_candidates / max(0.001, elapsed_seconds), 3)
+    downloaded_bytes_only = max(0, byte_count - len(properties_raw))
+    mb_per_second = round((downloaded_bytes_only / (1024 * 1024)) / max(0.001, elapsed_seconds), 3)
     status_state.update(
         {
             "downloaded_files": downloaded,
             "failed_files": len(failed_files),
+            "sparse_missing_files": len(sparse_missing_files),
+            "resumed_files": resumed,
+            "processed_candidates": completed_candidates,
+            "total_candidates": len(capped_missing),
             "remaining_estimate": missing_files_after,
-            "percent_complete": round((downloaded / max(1, missing_files_before)) * 100, 4),
-            "bytes_downloaded": byte_count,
+            "percent_complete": round((completed_candidates / max(1, len(capped_missing))) * 100, 4),
+            "bytes_downloaded": downloaded_bytes_only,
             "bytes_per_second": mb_per_second * 1024 * 1024,
             "files_per_second": files_per_second,
             "eta_seconds": None,
@@ -602,22 +628,25 @@ def process_hips_class(
 
     return {
         "class": class_name,
-        "status": summarize_status(missing_files_after, len(failed_files)),
+        "status": summarize_eph_status(missing_files_after, len(failed_files), len(sparse_missing_files)),
         "base_url": base_url,
         "expected_files": expected_files,
         "existing_files": existing_files,
         "missing_files_before": missing_files_before,
         "downloaded_files": downloaded,
         "failed_files": len(failed_files),
+        "sparse_missing_files": len(sparse_missing_files),
+        "resumed_files": resumed,
+        "processed_candidates": completed_candidates,
+        "total_candidates": len(capped_missing),
         "missing_files_after": missing_files_after,
         "runtime_file_count": runtime_file_count,
         "runtime_size": runtime_size,
         "complete": complete,
-        "resumed_files": resumed,
-        "bytes": byte_count,
+        "bytes": downloaded_bytes_only,
         "workers": workers,
         "order_min": order_min,
-        "order_max": order_max,
+        "order_max": effective_order_max,
         "runtime_ready_root": str(runtime_ready_root),
         "runtime_pack_root": str(runtime_pack_root),
         "log_path": str(log_path),
@@ -650,6 +679,9 @@ def process_eph_pack_class(
     verbose: bool = False,
 ) -> dict[str, Any]:
     base_url = str(class_cfg.get("public_base_url") or "").rstrip("/")
+    query_suffix = str(class_cfg.get("query_suffix") or "").strip()
+    if query_suffix and not query_suffix.startswith("?"):
+        query_suffix = f"?{query_suffix}"
     if not base_url:
         return {"class": class_name, "status": "blocked", "reason": "missing public_base_url"}
     if base_url.startswith("http") and not confirm_download and not dry_run:
@@ -735,7 +767,7 @@ def process_eph_pack_class(
             resumed += 1
             status = "resumed"
         else:
-            url = f"{base_url}/{rel}"
+            url = f"{base_url}/{rel}{query_suffix}"
             payload = b""
             status = "failed"
             failure = ""
@@ -756,7 +788,7 @@ def process_eph_pack_class(
                         break
             if status != "downloaded":
                 row = {"relative_path": rel, "order": int(rel.split('/', 1)[0].replace('Norder', '')), "url": url, "error": failure}
-                if failure == "http_404":
+                if failure in {"http_403", "http_404"}:
                     sparse_missing_files.append(row)
                 else:
                     failed_files.append(row)
@@ -773,7 +805,7 @@ def process_eph_pack_class(
                 "timestamp": utc_now(),
                 "class": class_name,
                 "order": order_value,
-                "url": f"{base_url}/{rel}",
+                "url": f"{base_url}/{rel}{query_suffix}",
                 "relative_path": rel,
                 "bytes": len(payload),
                 "sha256": digest,
@@ -789,9 +821,14 @@ def process_eph_pack_class(
         if now - last_progress >= 5:
             done = downloaded + resumed + len(failed_files) + len(sparse_missing_files)
             percent = (done / max(1, total_planned)) * 100
+            elapsed = max(0.001, time.time() - start)
+            files_per_second = done / elapsed
+            downloaded_bytes_only = max(0, byte_count - len(properties_raw))
+            mb_per_second = (downloaded_bytes_only / (1024 * 1024)) / elapsed
             print(
                 f"[{class_name}] planned={total_planned} existing={resumed} downloaded={downloaded} "
-                f"failed={len(failed_files)} sparse_missing={len(sparse_missing_files)} percent={percent:.1f}% bytes={byte_count}"
+                f"failed={len(failed_files)} sparse_missing={len(sparse_missing_files)} percent={percent:.1f}% "
+                f"bytes={downloaded_bytes_only} speed={files_per_second:.2f} files/s {mb_per_second:.2f} MB/s"
             )
             last_progress = now
 
@@ -833,7 +870,7 @@ def process_eph_pack_class(
             "sparse_missing_files": len(sparse_missing_files),
             "remaining_estimate": missing_files_after,
             "percent_complete": round((downloaded / max(1, missing_files_before)) * 100, 4),
-            "bytes_downloaded": byte_count,
+            "bytes_downloaded": max(0, byte_count - len(properties_raw)),
             "runtime_file_count": runtime_file_count,
             "runtime_size": runtime_size,
             "planned_required": len(observed_candidates) if observed_candidates else 1,
@@ -868,7 +905,7 @@ def process_eph_pack_class(
         "runtime_size": runtime_size,
         "complete": complete,
         "resumed_files": resumed,
-        "bytes": byte_count,
+        "bytes": max(0, byte_count - len(properties_raw)),
         "order_min": order_min,
         "order_max": order_max,
         "runtime_ready_root": str(runtime_ready_root),

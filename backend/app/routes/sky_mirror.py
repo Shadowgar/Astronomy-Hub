@@ -43,7 +43,12 @@ async def start_mirror_job(payload: dict[str, Any] = Body(default_factory=dict))
 @router.post("/sky/mirror/start-all")
 async def start_all_mirror_jobs(payload: dict[str, Any] = Body(default_factory=dict)):
     autostart = bool(payload.get("autostart", False))
-    return {"data": get_sky_mirror_manager().start_all_required(autostart=autostart), "error": None, "meta": {}}
+    profile = str(payload.get("profile", "required"))
+    return {
+        "data": get_sky_mirror_manager().start_all_required(autostart=autostart, profile=profile),
+        "error": None,
+        "meta": {},
+    }
 
 
 @router.post("/sky/mirror/pause")

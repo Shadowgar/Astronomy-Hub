@@ -16,6 +16,7 @@ type MirrorClassRow = {
   downloaded_files: number
   downloaded_this_run: number
   failed_files: number
+  sparse_missing_files: number
   failure_breakdown: Record<string, number>
   remaining_files: number
   percent_complete: number
@@ -55,6 +56,24 @@ type MirrorStatusPayload = {
     last_updated: string
   }
   classes: MirrorClassRow[]
+}
+
+type VerifyCheck = {
+  class: string
+  status: string
+  ok: boolean
+  issues: string[]
+  expected_files: number
+  existing_files: number
+  runtime_file_count: number
+  failed_files: number
+  remaining_files: number
+}
+
+type VerifyPayload = {
+  ok: boolean
+  checked_classes: number
+  checks: VerifyCheck[]
 }
 
 const API = '/api/sky/mirror'
@@ -111,6 +130,7 @@ export default function MirrorProgressPage() {
   const [busy, setBusy] = React.useState(false)
   const [selectedClass, setSelectedClass] = React.useState<string | null>(null)
   const [logPanel, setLogPanel] = React.useState<{ logs: string[]; failures: unknown[] } | null>(null)
+  const [verifyPanel, setVerifyPanel] = React.useState<{ className: string; payload: VerifyPayload } | null>(null)
   const autostartDone = React.useRef(false)
 
   const refresh = React.useCallback(async () => {
@@ -196,6 +216,18 @@ export default function MirrorProgressPage() {
       setBusy(false)
     }
   }
+  const startProfile = async (profile: 'required' | 'all_fast' | 'all_full', autostart = false) => {
+    try {
+      setBusy(true)
+      await post('/start-all', { autostart, profile })
+      await refresh()
+      setError(null)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : `Failed to start profile: ${profile}`)
+    } finally {
+      setBusy(false)
+    }
+  }
   const resumeAll = async () => {
     try {
       setBusy(true)
@@ -235,7 +267,11 @@ export default function MirrorProgressPage() {
   const verifyClass = async (className: string) => {
     try {
       setBusy(true)
-      await post(`/verify/${className}`)
+      const response = await post(`/verify/${className}`)
+      const payload = (response as { data?: VerifyPayload })?.data
+      if (payload) {
+        setVerifyPanel({ className, payload })
+      }
       await refresh()
       setError(null)
     } catch (err) {
@@ -286,6 +322,8 @@ export default function MirrorProgressPage() {
 
       <section style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
         <button disabled={busy} onClick={() => void startRequired(false)}>Start Required</button>
+        <button disabled={busy} onClick={() => void startProfile('all_fast', true)}>Start All Fast</button>
+        <button disabled={busy} onClick={() => void startProfile('all_full', true)}>Start All Full</button>
         <button disabled={busy} onClick={() => void resumeAll()}>Resume All</button>
         <button disabled={busy} onClick={() => void cancelAll()}>Cancel All</button>
         <button disabled={busy} onClick={() => void refresh()}>Refresh</button>
@@ -319,7 +357,7 @@ export default function MirrorProgressPage() {
                     <div>runtime {row.runtime_file_count} / {formatBytes(row.runtime_size || 0)}</div>
                     <div style={smallStyle}>expected {row.expected_files_known ? row.expected_files : 'unknown'} / cached {row.existing_files}</div>
                     <div style={smallStyle}>downloaded this run {row.downloaded_this_run}</div>
-                    <div style={smallStyle}>failed {row.failed_files} / remaining {row.remaining_files}</div>
+                    <div style={smallStyle}>failed {row.failed_files} / sparse {row.sparse_missing_files} / remaining {row.remaining_files}</div>
                     {Object.keys(row.failure_breakdown || {}).length > 0 ? (
                       <div style={smallStyle}>failures {Object.entries(row.failure_breakdown).map(([k, v]) => `${k}:${v}`).join(', ')}</div>
                     ) : null}
@@ -359,6 +397,21 @@ export default function MirrorProgressPage() {
           <pre style={{ maxHeight: 220, overflow: 'auto', background: '#0a1322', padding: 10 }}>{(logPanel.logs || []).slice(-40).join('\n')}</pre>
           <h4>Failed entries</h4>
           <pre style={{ maxHeight: 220, overflow: 'auto', background: '#0a1322', padding: 10 }}>{JSON.stringify((logPanel.failures || []).slice(0, 100), null, 2)}</pre>
+        </section>
+      )}
+
+      {verifyPanel && (
+        <section style={{ marginTop: 16, background: '#101a2b', border: '1px solid #27415f', borderRadius: 8, padding: 12 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <strong>Verify Results — {verifyPanel.className}</strong>
+            <button onClick={() => setVerifyPanel(null)}>Close</button>
+          </div>
+          <div style={{ marginTop: 6, ...smallStyle }}>
+            overall: {verifyPanel.payload.ok ? 'ok' : 'issues found'} / checked classes: {verifyPanel.payload.checked_classes}
+          </div>
+          <pre style={{ maxHeight: 260, overflow: 'auto', background: '#0a1322', padding: 10, marginTop: 8 }}>
+            {JSON.stringify(verifyPanel.payload, null, 2)}
+          </pre>
         </section>
       )}
     </main>

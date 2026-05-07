@@ -175,17 +175,64 @@ class SkyMirrorManager:
             cmd.extend(["--max-files", str(options["max_files"])])
         cmd.extend(["--order-min", str(options.get("order_min", 0)), "--order-max", str(options.get("order_max", 7))])
         cmd.extend(["--workers", str(options.get("workers", 16))])
+        cmd.extend(["--retry-count", str(options.get("retry_count", 2))])
+        cmd.extend(["--request-timeout", str(options.get("request_timeout", 12))])
+        if options.get("rate_limit_per_worker") is not None:
+            cmd.extend(["--rate-limit-per-worker", str(options.get("rate_limit_per_worker", 0.0))])
         cmd.extend(["--progress", "--progress-interval", str(options.get("progress_interval", 5)), "--jsonl-progress"])
         return cmd
 
     def _default_options_for(self, class_name: str) -> dict[str, Any]:
         if class_name == "dss_survey":
-            return {"full": True, "workers": 16, "order_min": 0, "order_max": 7, "promote": True, "progress_interval": 5}
+            return {
+                "full": True,
+                "workers": 48,
+                "order_min": 0,
+                "order_max": 4,
+                "retry_count": 2,
+                "request_timeout": 12,
+                "rate_limit_per_worker": 0.0,
+                "promote": True,
+                "progress_interval": 3,
+            }
         if class_name in {"star_pack_minimal", "star_pack_base", "dso_pack_base"}:
-            return {"full": False, "workers": 8, "order_min": 0, "order_max": 1, "max_files": 1000, "promote": True, "progress_interval": 5}
+            return {
+                "full": False,
+                "workers": 24,
+                "order_min": 0,
+                "order_max": 4,
+                "max_files": 0,
+                "retry_count": 2,
+                "request_timeout": 12,
+                "rate_limit_per_worker": 0.0,
+                "promote": True,
+                "progress_interval": 3,
+            }
         if class_name in {"star_pack_extended", "dso_pack_extended"}:
-            return {"full": False, "workers": 4, "order_min": 0, "order_max": 0, "max_files": 200, "promote": True, "progress_interval": 5}
-        return {"full": False, "workers": 4, "order_min": 0, "order_max": 0, "promote": True, "progress_interval": 5}
+            return {
+                "full": False,
+                "workers": 24,
+                "order_min": 0,
+                "order_max": 4,
+                "max_files": 0,
+                "retry_count": 2,
+                "request_timeout": 12,
+                "rate_limit_per_worker": 0.0,
+                "promote": True,
+                "progress_interval": 3,
+            }
+        return {
+            "full": False,
+            "workers": 12,
+            "order_min": 0,
+            "order_max": 2,
+            "max_files": 0,
+            "retry_count": 2,
+            "request_timeout": 12,
+            "rate_limit_per_worker": 0.0,
+            "promote": True,
+            "progress_interval": 3,
+        }
 
     def _start_reader_threads(self, job: MirrorJob) -> None:
         assert job.process is not None
@@ -269,16 +316,48 @@ class SkyMirrorManager:
             options = job.last_launch_options if job else {}
         return self.start(class_name, options=options)
 
-    def start_all_required(self, autostart: bool = False) -> dict[str, Any]:
-        required = ["dss_survey", "star_pack_minimal", "star_pack_base", "dso_pack_base"]
+    def start_all_required(self, autostart: bool = False, profile: str = "required") -> dict[str, Any]:
+        profile = (profile or "required").strip().lower()
+        profile_classes: dict[str, list[str]] = {
+            "required": ["dss_survey", "star_pack_minimal", "star_pack_base", "dso_pack_base"],
+            "all_fast": [
+                "dss_survey",
+                "star_pack_minimal",
+                "star_pack_base",
+                "star_pack_extended",
+                "dso_pack_base",
+                "dso_pack_extended",
+                "milkyway_survey",
+                "moon_survey",
+                "landscape_guereins",
+            ],
+            "all_full": [
+                "dss_survey",
+                "star_pack_minimal",
+                "star_pack_base",
+                "star_pack_extended",
+                "dso_pack_base",
+                "dso_pack_extended",
+                "milkyway_survey",
+                "moon_survey",
+                "landscape_guereins",
+            ],
+        }
+        classes = profile_classes.get(profile, profile_classes["required"])
         results = []
-        for class_name in required:
-            results.append(self.start(class_name))
+        for class_name in classes:
+            options: dict[str, Any] = {}
+            if profile == "all_full":
+                if class_name == "dss_survey":
+                    options = {"order_max": 7, "workers": 64, "full": True}
+                elif class_name in {"star_pack_minimal", "star_pack_base", "star_pack_extended", "dso_pack_base", "dso_pack_extended"}:
+                    options = {"order_max": 7, "workers": 40}
+            results.append(self.start(class_name, options=options))
         if autostart:
             for class_name in ["star_pack_extended", "dso_pack_extended"]:
                 block = self._probe_blocker(class_name)
                 results.append({"class": class_name, **block})
-        return {"ok": True, "results": results}
+        return {"ok": True, "profile": profile, "results": results}
 
     def cancel_all(self) -> dict[str, Any]:
         with self._lock:
@@ -384,8 +463,19 @@ class SkyMirrorManager:
             metadata_only = class_name == "object_summaries_media"
             class_status = "not_started"
             if job and job.status == "running":
-                class_status = "running"
-                active_jobs += 1
+                # If there is no remaining work, report complete immediately
+                # instead of transient "running 0%" while process exits.
+                if expected_known and remaining == 0 and failed == 0 and (
+                    metadata_only
+                    or (
+                        int(status_payload.get("existing_files", 0) or 0) >= expected
+                        and runtime_file_count >= int(status_payload.get("existing_files", 0) or 0)
+                    )
+                ):
+                    class_status = "complete"
+                else:
+                    class_status = "running"
+                    active_jobs += 1
             elif job and job.status in {"paused", "cancelled", "failed", "complete"}:
                 class_status = job.status
             elif status_payload:
@@ -401,8 +491,13 @@ class SkyMirrorManager:
                     class_status = "partial"
                 else:
                     class_status = "unknown"
-            if class_status == "complete" and not metadata_only and runtime_file_count == 0 and runtime_size == 0:
-                class_status = "partial"
+            existing_files = int(status_payload.get("existing_files", 0) or 0)
+            if class_status == "complete" and not metadata_only:
+                if runtime_file_count == 0 and runtime_size == 0:
+                    class_status = "partial"
+                elif existing_files > 0 and runtime_file_count < existing_files:
+                    # Do not report complete if promoted/runtime tree lags behind cached mirror files.
+                    class_status = "partial"
             if class_status == "not_started" and class_name in {"star_pack_extended", "dso_pack_extended"}:
                 probe = self._probe_blocker(class_name)
                 if probe.get("status") == "blocked":
@@ -443,7 +538,11 @@ class SkyMirrorManager:
                     "speed_mb_per_sec": float(status_payload.get("bytes_per_second", 0.0) or 0.0) / (1024 * 1024),
                     "eta_seconds": status_payload.get("eta_seconds"),
                     "workers": int(status_payload.get("workers", 0) or 0),
-                    "active_workers": int(last_progress_event.get("workers", 0) or 0) if class_status == "running" else 0,
+                    "active_workers": (
+                        int(last_progress_event.get("workers", 0) or 0)
+                        if class_status == "running" and remaining > 0
+                        else 0
+                    ),
                     "current_order": last_progress_event.get("current_order", status_payload.get("order_max")),
                     "source_root": status_payload.get("source_root"),
                     "runtime_target_path": entry["runtime_target_path"],
@@ -502,10 +601,48 @@ class SkyMirrorManager:
 
     def verify(self, class_name: str | None = None) -> dict[str, Any]:
         snapshot = self.status()
+        classes = snapshot.get("classes", [])
         if class_name:
-            matched = [c for c in snapshot["classes"] if c["class"] == class_name]
-            return {"ok": True, "classes": matched}
-        return {"ok": True, **snapshot}
+            classes = [c for c in classes if c.get("class") == class_name]
+
+        checks: list[dict[str, Any]] = []
+        for row in classes:
+            expected = int(row.get("expected_files", 0) or 0)
+            existing = int(row.get("existing_files", 0) or 0)
+            runtime_count = int(row.get("runtime_file_count", 0) or 0)
+            failed = int(row.get("failed_files", 0) or 0)
+            remaining = int(row.get("remaining_files", 0) or 0)
+            status = str(row.get("status") or "unknown")
+            issues: list[str] = []
+            if failed > 0:
+                issues.append(f"failed_files={failed}")
+            if remaining > 0:
+                issues.append(f"remaining_files={remaining}")
+            if expected > 0 and existing < expected:
+                issues.append(f"cache_incomplete existing={existing} expected={expected}")
+            if existing > 0 and runtime_count < existing:
+                issues.append(f"runtime_not_fully_promoted runtime={runtime_count} cached={existing}")
+            if status == "complete" and issues:
+                issues.append("status_marked_complete_with_issues")
+            checks.append(
+                {
+                    "class": row.get("class"),
+                    "status": status,
+                    "ok": len(issues) == 0,
+                    "issues": issues,
+                    "expected_files": expected,
+                    "existing_files": existing,
+                    "runtime_file_count": runtime_count,
+                    "failed_files": failed,
+                    "remaining_files": remaining,
+                }
+            )
+
+        return {
+            "ok": all(item["ok"] for item in checks),
+            "checked_classes": len(checks),
+            "checks": checks,
+        }
 
     def run_scanner(self) -> dict[str, Any]:
         cmd = ["npm", "run", "scan:runtime-external-deps:fail"]
