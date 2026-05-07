@@ -126,3 +126,8 @@ This audit did not capture a definitive public DSS tile request for `M31` at the
 - mirror a bounded ORAS-owned survey proof set into `/oras-sky-engine/skydata/surveys/dss/v1/`
 - use a scripted import path only; do not add new default runtime calls to public survey services
 - define a local object-summary/media manifest for high-value DSO targets such as `M31` and `C 6`
+## Update (2026-05-07)
+
+- Added explicit parity classes and mirror-path contract in `data/manifests/public_stellarium_runtime_parity_manifest.json`.
+- Added a resumable mirror runner `scripts/skydata/mirror_public_runtime_data.py` with class selection, guards, checksums, and explicit promotion.
+- Local object summaries are now seeded and wired under `/oras-sky-engine/skydata/object-media/summaries`.

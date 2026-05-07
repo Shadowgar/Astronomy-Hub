@@ -12,6 +12,12 @@ This proof is limited to:
 
 This proof does not claim full DSS mirror coverage or general survey parity.
 
+## Follow-On (2026-05-07)
+
+- Generalized mirror path now exists in `scripts/skydata/mirror_public_runtime_data.py`.
+- Parity class map now exists in `data/manifests/public_stellarium_runtime_parity_manifest.json`.
+- M31 proof remains valid as a bounded baseline; full DSS 0..7 expansion proceeds through resumable mirror batches and explicit promotion.
+
 ## Authority And Source
 
 Authoritative runtime contract:

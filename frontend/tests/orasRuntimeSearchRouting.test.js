@@ -41,10 +41,9 @@ describe('oras runtime search routing', () => {
     expect(ORAS_RUNTIME_MODE).toBe('oras-local')
   })
 
-  it('prefers a bundled ORAS DSS survey before any remote fallback', async () => {
+it('prefers a bundled ORAS DSS survey root when local properties exist', async () => {
     const fetchCalls = []
     const surveyUrl = await resolveOrasDssSurveyUrl({
-      remoteSurveyDataBase: 'https://remote.example',
       fetchImpl: async (url, init) => {
         fetchCalls.push({ url, init })
         return { ok: true }
@@ -60,22 +59,21 @@ describe('oras runtime search routing', () => {
     expect(surveyUrl).toBe('/oras-sky-engine/skydata/surveys/dss/v1')
   })
 
-  it('falls back to the configured remote DSS survey when no bundled survey exists', async () => {
+  it('returns undefined when no local DSS survey exists', async () => {
     const surveyUrl = await resolveOrasDssSurveyUrl({
-      remoteSurveyDataBase: 'https://remote.example',
       fetchImpl: async () => ({ ok: false })
     })
 
-    expect(surveyUrl).toBe('https://remote.example/surveys/dss/v1')
+    expect(surveyUrl).toBeUndefined()
   })
 
   it('keeps the vendored runtime DSS registration behind the ORAS resolver', () => {
     const source = fs.readFileSync(appVuePath, 'utf8')
 
-    expect(source).toContain("import { resolveOrasDssSurveyUrl } from '@/assets/oras_data_config.js'")
-    expect(source).toContain('resolveOrasDssSurveyUrl({ remoteSurveyDataBase }).then(dssSurveyUrl => {')
+    expect(source).toContain("import { listOrasPackRoots, resolveOrasDssSurveyUrl } from '@/assets/oras_data_config.js'")
+    expect(source).toContain('resolveOrasDssSurveyUrl().then(dssSurveyUrl => {')
     expect(source).toContain('core.dss.addDataSource({ url: dssSurveyUrl })')
-    expect(source).not.toContain("core.dss.addDataSource({ url: remoteSurveyDataBase + '/surveys/dss/v1' })")
+    expect(source).not.toContain('VUE_APP_ORAS_RUNTIME_REMOTE_DATA_BASE')
   })
 
   it('normalizes Gaia aliases and builds same-origin ORAS search urls', () => {

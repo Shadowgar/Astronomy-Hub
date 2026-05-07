@@ -189,3 +189,11 @@ Related backend authority already in place:
 - `backend/app/routes/sky.py`
 - `backend/app/services/sky_catalog_service.py`
 - `backend/tests/test_gaia_sky_catalog.py`
+## Update (2026-05-07)
+
+- Runtime DSS routing remains same-origin only via local survey root resolution.
+- Runtime pack routing now includes local public-style pack mounts:
+  - `/oras-sky-engine/skydata/packs/minimal`
+  - `/oras-sky-engine/skydata/packs/base`
+  - `/oras-sky-engine/skydata/packs/extended`
+- Selected-object summaries are now local-only and no longer rely on Wikipedia endpoints.

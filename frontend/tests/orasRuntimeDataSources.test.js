@@ -26,6 +26,7 @@ describe('oras runtime data sources', () => {
     expect(source).not.toContain("remoteDataBase + '/swe-data-packs")
     expect(source).not.toContain("remoteDataBase + '/mpc/v1/mpcorb.dat'")
     expect(source).not.toContain("remoteDataBase + '/mpc/v1/CometEls.txt'")
-    expect(source).toContain('const remoteSurveyDataBase = process.env.VUE_APP_ORAS_RUNTIME_REMOTE_DATA_BASE')
+    expect(source).toContain("listOrasPackRoots().forEach((packRoot) => {")
+    expect(source).not.toContain('VUE_APP_ORAS_RUNTIME_REMOTE_DATA_BASE')
   })
 })
