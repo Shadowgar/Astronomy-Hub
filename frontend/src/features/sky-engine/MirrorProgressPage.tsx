@@ -291,7 +291,7 @@ export default function MirrorProgressPage() {
       setBusy(false)
     }
   }
-  const startProfile = async (profile: 'required' | 'all_fast' | 'all_full', autostart = false) => {
+  const startProfile = async (profile: 'required' | 'all_fast' | 'all_full' | 'live_stream', autostart = false) => {
     try {
       setBusy(true)
       await post('/start-all', { autostart, profile })
@@ -411,6 +411,7 @@ export default function MirrorProgressPage() {
 
       <section style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
         <button disabled={busy} onClick={() => void startRequired(false)}>Start Required</button>
+        <button disabled={busy} onClick={() => void startProfile('live_stream', true)}>Start Live Stream</button>
         <button disabled={busy} onClick={() => void startProfile('all_fast', true)}>Start All Fast</button>
         <button disabled={busy} onClick={() => void startProfile('all_full', true)}>Start All Full</button>
         <button disabled={busy} onClick={() => void resumeAll()}>Resume All</button>

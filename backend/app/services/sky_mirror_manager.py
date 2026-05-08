@@ -192,64 +192,64 @@ class SkyMirrorManager:
         if class_name == "dss_survey":
             return {
                 "full": True,
-                "workers": 128,
+                "workers": 256,
                 "order_min": 0,
-                "order_max": 7,
-                "retry_count": 1,
-                "request_timeout": 8,
+                "order_max": 8,
+                "retry_count": 2,
+                "request_timeout": 12,
                 "rate_limit_per_worker": 0.0,
                 "promote": True,
-                "progress_interval": 2,
+                "progress_interval": 1,
             }
         if class_name == "gaia_survey":
             return {
                 "full": True,
-                "workers": 24,
+                "workers": 96,
                 "order_min": 0,
-                "order_max": 8,
+                "order_max": 9,
                 "retry_count": 4,
                 "request_timeout": 20,
                 "rate_limit_per_worker": 0.0,
                 "promote": True,
-                "progress_interval": 2,
+                "progress_interval": 1,
             }
         if class_name in {"star_pack_minimal", "star_pack_base", "dso_pack_base"}:
             return {
                 "full": False,
-                "workers": 24,
+                "workers": 48,
                 "order_min": 0,
-                "order_max": 4,
+                "order_max": 7,
                 "max_files": 0,
                 "retry_count": 2,
                 "request_timeout": 12,
                 "rate_limit_per_worker": 0.0,
                 "promote": True,
-                "progress_interval": 3,
+                "progress_interval": 1,
             }
         if class_name in {"star_pack_extended", "dso_pack_extended"}:
             return {
                 "full": False,
-                "workers": 24,
+                "workers": 48,
                 "order_min": 0,
-                "order_max": 4,
+                "order_max": 7,
                 "max_files": 0,
                 "retry_count": 2,
                 "request_timeout": 12,
                 "rate_limit_per_worker": 0.0,
                 "promote": True,
-                "progress_interval": 3,
+                "progress_interval": 1,
             }
         return {
             "full": False,
-            "workers": 12,
+            "workers": 24,
             "order_min": 0,
-            "order_max": 2,
+            "order_max": 4,
             "max_files": 0,
             "retry_count": 2,
             "request_timeout": 12,
             "rate_limit_per_worker": 0.0,
             "promote": True,
-            "progress_interval": 3,
+            "progress_interval": 1,
         }
 
     def _start_reader_threads(self, job: MirrorJob) -> None:
@@ -270,10 +270,6 @@ class SkyMirrorManager:
     def start(self, class_name: str, options: dict[str, Any] | None = None) -> dict[str, Any]:
         if class_name not in SUPPORTED_CLASSES:
             return {"ok": False, "error": f"unsupported class: {class_name}"}
-        if class_name in {"star_pack_extended", "dso_pack_extended"}:
-            block = self._probe_blocker(class_name)
-            if block.get("status") == "blocked":
-                return {"ok": False, "class": class_name, **block}
         with self._lock:
             existing = self._jobs.get(class_name)
             if existing and existing.process and existing.process.poll() is None:
@@ -362,6 +358,18 @@ class SkyMirrorManager:
                 "moon_survey",
                 "landscape_guereins",
             ],
+            "live_stream": [
+                "dss_survey",
+                "gaia_survey",
+                "star_pack_minimal",
+                "star_pack_base",
+                "star_pack_extended",
+                "dso_pack_base",
+                "dso_pack_extended",
+                "milkyway_survey",
+                "moon_survey",
+                "landscape_guereins",
+            ],
         }
         classes = profile_classes.get(profile, profile_classes["required"])
         results = []
@@ -374,6 +382,47 @@ class SkyMirrorManager:
                     options = {"order_max": 8, "workers": 24, "retry_count": 4, "request_timeout": 20, "full": True}
                 elif class_name in {"star_pack_minimal", "star_pack_base", "star_pack_extended", "dso_pack_base", "dso_pack_extended"}:
                     options = {"order_max": 7, "workers": 40}
+            elif profile == "live_stream":
+                if class_name == "dss_survey":
+                    options = {
+                        "full": True,
+                        "order_min": 0,
+                        "order_max": 9,
+                        "workers": 320,
+                        "retry_count": 2,
+                        "request_timeout": 12,
+                        "progress_interval": 1,
+                    }
+                elif class_name == "gaia_survey":
+                    options = {
+                        "full": True,
+                        "order_min": 0,
+                        "order_max": 10,
+                        "workers": 128,
+                        "retry_count": 4,
+                        "request_timeout": 20,
+                        "progress_interval": 1,
+                    }
+                elif class_name in {"star_pack_minimal", "star_pack_base", "star_pack_extended", "dso_pack_base", "dso_pack_extended"}:
+                    options = {
+                        "full": False,
+                        "order_min": 0,
+                        "order_max": 8,
+                        "workers": 64,
+                        "retry_count": 3,
+                        "request_timeout": 14,
+                        "progress_interval": 1,
+                    }
+                else:
+                    options = {
+                        "full": True,
+                        "order_min": 0,
+                        "order_max": 8,
+                        "workers": 96,
+                        "retry_count": 3,
+                        "request_timeout": 14,
+                        "progress_interval": 1,
+                    }
             results.append(self.start(class_name, options=options))
         if autostart:
             for class_name in ["star_pack_extended", "dso_pack_extended"]:
@@ -537,7 +586,7 @@ class SkyMirrorManager:
                     class_status = "complete_bounded"
             if class_name in {"star_pack_extended", "dso_pack_extended"} and class_status in {"not_started", "complete", "partial", "unknown", "missing"}:
                 probe = self._probe_blocker(class_name)
-                if probe.get("status") == "blocked":
+                if probe.get("status") == "blocked" and not (job and job.status == "running"):
                     class_status = "blocked"
             elif class_status == "not_started" and runtime_target and not runtime_path_exists:
                 class_status = "missing"
