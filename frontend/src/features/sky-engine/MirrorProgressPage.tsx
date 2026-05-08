@@ -7,6 +7,7 @@ type MirrorClassRow = {
   status: string
   metadata_only: boolean
   expected_files: number
+  full_candidate_files: number
   expected_files_known: boolean
   existing_files: number
   runtime_file_count: number
@@ -76,6 +77,24 @@ type VerifyPayload = {
   checks: VerifyCheck[]
 }
 
+type MirrorLogsPayload = {
+  data?: {
+    class: string
+    job?: {
+      status?: string
+      stdout_tail?: string[]
+      stderr_tail?: string[]
+    }
+    download_log_tail?: unknown[]
+  }
+}
+
+type MirrorFailuresPayload = {
+  data?: {
+    failed_files?: unknown[]
+  }
+}
+
 const API = '/api/sky/mirror'
 
 function formatBytes(bytes: number): string {
@@ -129,8 +148,9 @@ export default function MirrorProgressPage() {
   const [error, setError] = React.useState<string | null>(null)
   const [busy, setBusy] = React.useState(false)
   const [selectedClass, setSelectedClass] = React.useState<string | null>(null)
-  const [logPanel, setLogPanel] = React.useState<{ logs: string[]; failures: unknown[] } | null>(null)
+  const [logPanel, setLogPanel] = React.useState<{ logs: string[]; failures: unknown[]; downloadLog: unknown[] } | null>(null)
   const [verifyPanel, setVerifyPanel] = React.useState<{ className: string; payload: VerifyPayload } | null>(null)
+  const [speedHistory, setSpeedHistory] = React.useState<Record<string, Array<{ t: number; files: number; mb: number }>>>({})
   const autostartDone = React.useRef(false)
 
   const refresh = React.useCallback(async () => {
@@ -147,13 +167,28 @@ export default function MirrorProgressPage() {
 
   React.useEffect(() => {
     void refresh()
-  }, [refresh])
+  }, [refresh, selectedClass])
 
   React.useEffect(() => {
     const source = new EventSource(`${API}/stream`)
     source.onmessage = (event) => {
       try {
-        setPayload(JSON.parse(event.data) as MirrorStatusPayload)
+        const next = JSON.parse(event.data) as MirrorStatusPayload
+        setPayload(next)
+        setSpeedHistory((prev) => {
+          const out: Record<string, Array<{ t: number; files: number; mb: number }>> = { ...prev }
+          const now = Date.now()
+          for (const row of next.classes || []) {
+            const arr = out[row.class] ? [...out[row.class]] : []
+            arr.push({ t: now, files: row.speed_files_per_sec || 0, mb: row.speed_mb_per_sec || 0 })
+            out[row.class] = arr.slice(-120)
+          }
+          return out
+        })
+        if (!selectedClass) {
+          const running = (next.classes || []).find((r) => r.status === 'running')
+          if (running) setSelectedClass(running.class)
+        }
       } catch {
         // fallback polling handles bad frames
       }
@@ -168,14 +203,54 @@ export default function MirrorProgressPage() {
     return () => source.close()
   }, [refresh])
 
-  const startClass = async (className: string) => {
+  const startClass = async (row: MirrorClassRow) => {
     try {
       setBusy(true)
-      await post('/start', { class: className })
+      const options: Record<string, unknown> = {}
+      if (row.class === 'dss_survey') {
+        options.full = true
+        options.order_max = 7
+        options.workers = 64
+      } else if (row.class === 'gaia_survey') {
+        options.full = true
+        options.order_max = 8
+        options.workers = 24
+        options.retry_count = 4
+        options.request_timeout = 20
+      } else if (row.class.includes('star_pack') || row.class.includes('dso_pack')) {
+        options.order_max = 7
+        options.workers = 40
+      }
+      await post('/start', { class: row.class, options })
       await refresh()
       setError(null)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to start job')
+    } finally {
+      setBusy(false)
+    }
+  }
+  const redownloadClass = async (row: MirrorClassRow) => {
+    try {
+      setBusy(true)
+      const options: Record<string, unknown> = { resume: false, full: true }
+      if (row.class === 'dss_survey') {
+        options.order_max = 7
+        options.workers = 64
+      } else if (row.class === 'gaia_survey') {
+        options.order_max = 8
+        options.workers = 24
+        options.retry_count = 4
+        options.request_timeout = 20
+      } else if (row.class.includes('star_pack') || row.class.includes('dso_pack')) {
+        options.order_max = 7
+        options.workers = 40
+      }
+      await post('/start', { class: row.class, options })
+      await refresh()
+      setError(null)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to restart download')
     } finally {
       setBusy(false)
     }
@@ -285,16 +360,30 @@ export default function MirrorProgressPage() {
       setSelectedClass(className)
       const logsRes = await fetch(`${API}/logs/${className}`)
       const logsText = await logsRes.text()
-      const logs = logsText ? JSON.parse(logsText) : {}
+      const logs = (logsText ? JSON.parse(logsText) : {}) as MirrorLogsPayload
       const failRes = await fetch(`${API}/failures/${className}`)
       const failText = await failRes.text()
-      const fails = failText ? JSON.parse(failText) : {}
-      setLogPanel({ logs: logs.data?.job?.stdout_tail || [], failures: fails.data?.failed_files || [] })
+      const fails = (failText ? JSON.parse(failText) : {}) as MirrorFailuresPayload
+      const stdout = logs.data?.job?.stdout_tail || []
+      const stderr = logs.data?.job?.stderr_tail || []
+      setLogPanel({
+        logs: [...stdout, ...stderr],
+        failures: fails.data?.failed_files || [],
+        downloadLog: logs.data?.download_log_tail || [],
+      })
       setError(null)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load logs')
     }
   }
+
+  React.useEffect(() => {
+    if (!selectedClass) return
+    const id = setInterval(() => {
+      void openLogs(selectedClass)
+    }, 2000)
+    return () => clearInterval(id)
+  }, [selectedClass])
 
   React.useEffect(() => {
     if (autostartDone.current) return
@@ -355,7 +444,7 @@ export default function MirrorProgressPage() {
                   </td>
                   <td style={tdStyle}>
                     <div>runtime {row.runtime_file_count} / {formatBytes(row.runtime_size || 0)}</div>
-                    <div style={smallStyle}>expected {row.expected_files_known ? row.expected_files : 'unknown'} / cached {row.existing_files}</div>
+                    <div style={smallStyle}>expected {row.expected_files_known ? row.expected_files : 'unknown'} / full {row.full_candidate_files || 'unknown'} / cached {row.existing_files}</div>
                     <div style={smallStyle}>downloaded this run {row.downloaded_this_run}</div>
                     <div style={smallStyle}>failed {row.failed_files} / sparse {row.sparse_missing_files} / remaining {row.remaining_files}</div>
                     {Object.keys(row.failure_breakdown || {}).length > 0 ? (
@@ -365,6 +454,9 @@ export default function MirrorProgressPage() {
                   <td style={tdStyle}>
                     <div>{(row.speed_files_per_sec || 0).toFixed(2)} files/s</div>
                     <div style={smallStyle}>{(row.speed_mb_per_sec || 0).toFixed(2)} MB/s</div>
+                    <div style={{ marginTop: 4 }}>
+                      <SpeedSparkline data={speedHistory[row.class] || []} />
+                    </div>
                   </td>
                   <td style={tdStyle}>{formatEta(row.eta_seconds)}</td>
                   <td style={tdStyle}>{row.workers} / {row.active_workers || 0}</td>
@@ -373,10 +465,11 @@ export default function MirrorProgressPage() {
                   <td style={tdStyle}><div style={smallStyle}>{row.last_updated || '--'}</div><div style={smallStyle}>{row.last_completed || ''}</div>{row.blocker ? <div style={{ color: '#ff9d9d', fontSize: 11 }}>{row.blocker}</div> : null}</td>
                   <td style={tdStyle}>
                     <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                      <button disabled={busy} onClick={() => void startClass(row.class)}>Start</button>
+                      <button disabled={busy} onClick={() => void startClass(row)}>Start</button>
+                      <button disabled={busy} onClick={() => void redownloadClass(row)}>Redownload</button>
                       <button disabled={busy} onClick={() => void resumeClass(row.class)}>Resume</button>
                       <button disabled={busy} onClick={() => void cancelClass(row.class)}>Cancel</button>
-                      <button disabled={busy} onClick={() => void openLogs(row.class)}>View Logs</button>
+                      <button disabled={busy} onClick={() => { setSelectedClass(row.class); void openLogs(row.class) }}>View Logs</button>
                       <button disabled={busy} onClick={() => void verifyClass(row.class)}>Verify</button>
                     </div>
                   </td>
@@ -395,6 +488,8 @@ export default function MirrorProgressPage() {
           </div>
           <h4>Recent logs</h4>
           <pre style={{ maxHeight: 220, overflow: 'auto', background: '#0a1322', padding: 10 }}>{(logPanel.logs || []).slice(-40).join('\n')}</pre>
+          <h4>Download events (JSONL)</h4>
+          <pre style={{ maxHeight: 220, overflow: 'auto', background: '#0a1322', padding: 10 }}>{JSON.stringify((logPanel.downloadLog || []).slice(-100), null, 2)}</pre>
           <h4>Failed entries</h4>
           <pre style={{ maxHeight: 220, overflow: 'auto', background: '#0a1322', padding: 10 }}>{JSON.stringify((logPanel.failures || []).slice(0, 100), null, 2)}</pre>
         </section>
@@ -418,6 +513,26 @@ export default function MirrorProgressPage() {
   )
 }
 
+function SpeedSparkline({ data }: { data: Array<{ t: number; files: number; mb: number }> }) {
+  if (!data.length) return <div style={smallStyle}>no samples</div>
+  const files = data.map((d) => d.files)
+  const max = Math.max(1, ...files)
+  const w = 120
+  const h = 24
+  const points = files
+    .map((v, i) => {
+      const x = (i / Math.max(1, files.length - 1)) * w
+      const y = h - (v / max) * h
+      return `${x.toFixed(1)},${y.toFixed(1)}`
+    })
+    .join(' ')
+  return (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{ display: 'block' }}>
+      <polyline points={points} fill="none" stroke="#34d399" strokeWidth="1.5" />
+    </svg>
+  )
+}
+
 function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ padding: 10, background: '#142036', border: '1px solid #243f62', borderRadius: 8 }}>
@@ -431,6 +546,7 @@ function StatusBadge({ status }: { status: string }) {
   const colors: Record<string, string> = {
     running: '#16a34a',
     complete: '#2563eb',
+    complete_bounded: '#0ea5e9',
     partial: '#7c3aed',
     blocked: '#7f1d1d',
     failed: '#dc2626',

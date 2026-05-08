@@ -29,6 +29,7 @@ PUBLIC_SKYDATA_ROOT = REPO_ROOT / "frontend/public/oras-sky-engine/skydata"
 
 SUPPORTED_CLASSES = {
     "dss_survey",
+    "gaia_survey",
     "star_pack_minimal",
     "star_pack_base",
     "star_pack_extended",
@@ -137,8 +138,23 @@ def tile_rel_paths(order_min: int, order_max: int, extension: str) -> list[str]:
     for order in range(order_min, order_max + 1):
         npix_count = 12 * (4 ** order)
         for npix in range(npix_count):
-            rel.append(f"Norder{order}/Dir{npix // 10000}/Npix{npix}.{extension}")
+            rel.append(f"Norder{order}/Dir{(npix // 10000) * 10000}/Npix{npix}.{extension}")
     return rel
+
+
+def iter_tile_rel_paths(order_min: int, order_max: int, extension: str):
+    for order in range(order_min, order_max + 1):
+        n_pix = 12 * (4 ** order)
+        for pix in range(n_pix):
+            bucket = (pix // 10000) * 10000
+            yield f"Norder{order}/Dir{bucket}/Npix{pix}.{extension}"
+
+
+def tile_count(order_min: int, order_max: int) -> int:
+    total = 0
+    for order in range(order_min, order_max + 1):
+        total += 12 * (4 ** order)
+    return total
 
 
 def fetch_bytes(url: str, *, resume_to: Path | None = None, max_bytes: int = 0, timeout: int = 20) -> bytes:
@@ -191,7 +207,7 @@ def summarize_status(missing_after: int, failed_count: int) -> str:
 
 
 def summarize_eph_status(missing_after: int, hard_failed: int, sparse_missing: int) -> str:
-    if missing_after == 0 and hard_failed == 0:
+    if missing_after == 0 and hard_failed == 0 and sparse_missing == 0:
         return "complete"
     if hard_failed > 0:
         return "incomplete_with_failures"
@@ -305,6 +321,9 @@ def process_hips_class(
     jsonl_progress: bool = False,
 ) -> dict[str, Any]:
     base_url = str(class_cfg.get("public_base_url") or "").rstrip("/")
+    query_suffix = str(class_cfg.get("query_suffix") or "").strip()
+    if query_suffix and not query_suffix.startswith("?"):
+        query_suffix = f"?{query_suffix}"
     if not base_url:
         return {"class": class_name, "status": "blocked", "reason": "missing public_base_url"}
     if base_url.startswith("http") and not confirm_download and not dry_run:
@@ -338,6 +357,68 @@ def process_hips_class(
         declared_order = None
     effective_order_max = order_max if declared_order is None else min(order_max, declared_order)
     planned_rel = tile_rel_paths(order_min, effective_order_max, tile_exts[0])
+
+    # Fast source-access preflight: if no candidate tile can be fetched, fail early.
+    preflight_samples = [
+        ("Norder0/Dir0/Npix0", 0),
+        ("Norder0/Dir0/Npix1", 0),
+        ("Norder1/Dir0/Npix0", 1),
+    ]
+    preflight_errors: list[str] = []
+    preflight_ok = False
+    for stem, _ in preflight_samples:
+        for ext in tile_exts[:3]:
+            rel_try = f"{stem}.{ext}"
+            url = f"{base_url}/{rel_try}{query_suffix}"
+            try:
+                fetch_bytes(url, max_bytes=0, timeout=max(4, min(request_timeout, 10)))
+                preflight_ok = True
+                break
+            except HTTPError as exc:
+                preflight_errors.append(f"http_{exc.code}")
+            except Exception as exc:  # noqa: BLE001
+                preflight_errors.append(str(exc))
+        if preflight_ok:
+            break
+    if not preflight_ok:
+        all_acl_denied = bool(preflight_errors) and all(err in {"http_403", "http_404"} for err in preflight_errors)
+        if not all_acl_denied:
+            blocked_reason = "tile preflight failed"
+            if preflight_errors:
+                blocked_reason = f"tile preflight failed: {preflight_errors[0]}"
+            if not dry_run:
+                runtime_pack_root.mkdir(parents=True, exist_ok=True)
+                write_json(
+                    status_path,
+                    {
+                        "started_at": utc_now(),
+                        "updated_at": utc_now(),
+                        "class": class_name,
+                        "source_root": base_url,
+                        "order_min": order_min,
+                        "order_max": effective_order_max,
+                        "expected_files": 0,
+                        "full_candidate_files": 0,
+                        "existing_files": 0,
+                        "missing_files_before": 0,
+                        "downloaded_files": 0,
+                        "failed_files": 0,
+                        "sparse_missing_files": 0,
+                        "remaining_estimate": 0,
+                        "percent_complete": 0.0,
+                        "bytes_downloaded": 0,
+                        "bytes_per_second": 0.0,
+                        "files_per_second": 0.0,
+                        "eta_seconds": None,
+                        "workers": max(1, int(workers)),
+                        "complete": False,
+                        "interrupted": False,
+                        "download_log_path": str(log_path),
+                        "status": "blocked",
+                        "reason": blocked_reason,
+                    },
+                )
+            return {"class": class_name, "status": "blocked", "reason": blocked_reason}
     if dry_run:
         return {
             "class": class_name,
@@ -348,6 +429,8 @@ def process_hips_class(
             "bytes": len(properties_raw),
             "order_min": order_min,
             "order_max": effective_order_max,
+            "full_candidate_order_max": declared_order if declared_order is not None else effective_order_max,
+            "full_candidate_files": tile_count(order_min, declared_order if declared_order is not None else effective_order_max) + 1,
             "runtime_ready_root": str(runtime_ready_root),
             "runtime_pack_root": str(runtime_pack_root),
             "log_path": str(log_path),
@@ -367,8 +450,24 @@ def process_hips_class(
     maybe_write(runtime_ready_root / "properties", properties_raw, dry_run)
 
     expected_files = len(planned_rel) + 1
+    full_candidate_order_max = declared_order if declared_order is not None else effective_order_max
+    full_candidate_files = tile_count(order_min, full_candidate_order_max) + 1
     existing_files = 1 if (raw_root / "properties").exists() else 0
     missing_stems: list[tuple[str, int, list[str]]] = []
+    known_sparse_stems: set[str] = set()
+    if resume and failed_path.exists():
+        try:
+            prior_failed = json.loads(failed_path.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            prior_failed = {}
+        for row in prior_failed.get("sparse_missing_files", []) or []:
+            stem = str(row.get("stem") or "")
+            if stem:
+                known_sparse_stems.add(stem)
+            for rel in row.get("candidates", []) or []:
+                rel_str = str(rel)
+                if rel_str:
+                    known_sparse_stems.add(rel_str.rsplit(".", 1)[0])
     for rel in planned_rel:
         stem = rel.rsplit(".", 1)[0]
         local_existing_rel = None
@@ -380,6 +479,8 @@ def process_hips_class(
         if local_existing_rel:
             resumed += 1
             existing_files += 1
+            continue
+        if stem in known_sparse_stems:
             continue
         order_value = int(stem.split("/", 1)[0].replace("Norder", ""))
         missing_stems.append((stem, order_value, [f"{stem}.{ext}" for ext in tile_exts]))
@@ -396,10 +497,13 @@ def process_hips_class(
     status_state: dict[str, Any] = {
         "started_at": utc_now(),
         "updated_at": utc_now(),
+        "status": "running",
         "class": class_name,
         "source_root": base_url,
         "order_min": order_min,
         "order_max": effective_order_max,
+        "full_candidate_order_max": full_candidate_order_max,
+        "full_candidate_files": full_candidate_files,
         "expected_files": expected_files,
         "existing_files": existing_files,
         "missing_files_before": missing_files_before,
@@ -433,7 +537,7 @@ def process_hips_class(
             return
         elapsed = max(0.001, now - start)
         remaining = max(0, len(capped_missing) - completed_candidates)
-        files_per_second = completed_candidates / elapsed
+        files_per_second = downloaded / elapsed
         downloaded_bytes_only = max(0, byte_count - len(properties_raw))
         mb_per_second = (downloaded_bytes_only / (1024 * 1024)) / elapsed
         eta_seconds = (remaining / files_per_second) if files_per_second > 0 else None
@@ -494,7 +598,7 @@ def process_hips_class(
     def process_one(stem: str, order_value: int, rel_candidates: list[str]) -> dict[str, Any]:
         last_error = ""
         for rel_try in rel_candidates:
-            url = f"{base_url}/{rel_try}"
+            url = f"{base_url}/{rel_try}{query_suffix}"
             for attempt in range(1, max(1, retry_count) + 1):
                 try:
                     payload = fetch_bytes(url, max_bytes=0, timeout=request_timeout)
@@ -565,21 +669,40 @@ def process_hips_class(
                 consume_item(process_one(stem, order_value, rel_candidates))
         else:
             with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-                futures_map = {
-                    pool.submit(process_one, stem, order_value, rel_candidates): (stem, order_value)
-                    for stem, order_value, rel_candidates in capped_missing
-                }
-                for fut in concurrent.futures.as_completed(futures_map):
-                    try:
-                        consume_item(fut.result())
-                    except KeyboardInterrupt:
-                        interrupted = True
-                        for pending in futures_map:
-                            pending.cancel()
+                inflight_limit = max(workers * 8, 64)
+                pending_iter = iter(capped_missing)
+                futures_map: dict[concurrent.futures.Future, tuple[str, int]] = {}
+
+                def schedule_more() -> None:
+                    while len(futures_map) < inflight_limit:
+                        try:
+                            stem, order_value, rel_candidates = next(pending_iter)
+                        except StopIteration:
+                            break
+                        fut = pool.submit(process_one, stem, order_value, rel_candidates)
+                        futures_map[fut] = (stem, order_value)
+
+                schedule_more()
+                while futures_map:
+                    done, _ = concurrent.futures.wait(
+                        futures_map.keys(),
+                        return_when=concurrent.futures.FIRST_COMPLETED,
+                    )
+                    for fut in done:
+                        stem, order_value = futures_map.pop(fut)
+                        try:
+                            consume_item(fut.result())
+                        except KeyboardInterrupt:
+                            interrupted = True
+                            for pending in futures_map:
+                                pending.cancel()
+                            futures_map.clear()
+                            break
+                        except Exception as exc:  # noqa: BLE001
+                            consume_item({"status": "failed", "stem": stem, "order": order_value, "error": str(exc), "candidates": []})
+                    if interrupted:
                         break
-                    except Exception as exc:  # noqa: BLE001
-                        stem, order_value = futures_map[fut]
-                        consume_item({"status": "failed", "stem": stem, "order": order_value, "error": str(exc), "candidates": []})
+                    schedule_more()
     except KeyboardInterrupt:
         interrupted = True
 
@@ -603,9 +726,10 @@ def process_hips_class(
     missing_files_after = max(0, len(capped_missing) - completed_candidates)
     complete = missing_files_after == 0 and not failed_files and not interrupted
     elapsed_seconds = round(time.time() - start, 2)
-    files_per_second = round(completed_candidates / max(0.001, elapsed_seconds), 3)
+    files_per_second = round(downloaded / max(0.001, elapsed_seconds), 3)
     downloaded_bytes_only = max(0, byte_count - len(properties_raw))
     mb_per_second = round((downloaded_bytes_only / (1024 * 1024)) / max(0.001, elapsed_seconds), 3)
+    final_status = summarize_eph_status(missing_files_after, len(failed_files), len(sparse_missing_files))
     status_state.update(
         {
             "downloaded_files": downloaded,
@@ -622,13 +746,14 @@ def process_hips_class(
             "eta_seconds": None,
             "complete": complete,
             "interrupted": interrupted,
+            "status": final_status,
         }
     )
     write_status()
 
     return {
         "class": class_name,
-        "status": summarize_eph_status(missing_files_after, len(failed_files), len(sparse_missing_files)),
+        "status": final_status,
         "base_url": base_url,
         "expected_files": expected_files,
         "existing_files": existing_files,
@@ -647,6 +772,8 @@ def process_hips_class(
         "workers": workers,
         "order_min": order_min,
         "order_max": effective_order_max,
+        "full_candidate_order_max": full_candidate_order_max,
+        "full_candidate_files": full_candidate_files,
         "runtime_ready_root": str(runtime_ready_root),
         "runtime_pack_root": str(runtime_pack_root),
         "log_path": str(log_path),
@@ -698,6 +825,37 @@ def process_eph_pack_class(
         shutil.rmtree(runtime_pack_root, ignore_errors=True)
 
     properties_url = f"{base_url}/properties"
+    if not dry_run:
+        runtime_pack_root.mkdir(parents=True, exist_ok=True)
+        write_json(
+            status_path,
+            {
+                "started_at": utc_now(),
+                "updated_at": utc_now(),
+                "class": class_name,
+                "source_root": base_url,
+                "order_min": order_min,
+                "order_max": order_max,
+                "expected_files": 0,
+                "full_candidate_files": 0,
+                "existing_files": 0,
+                "missing_files_before": 0,
+                "downloaded_files": 0,
+                "failed_files": 0,
+                "sparse_missing_files": 0,
+                "remaining_estimate": 0,
+                "percent_complete": 0.0,
+                "bytes_downloaded": 0,
+                "bytes_per_second": 0.0,
+                "files_per_second": 0.0,
+                "eta_seconds": None,
+                "workers": 1,
+                "complete": False,
+                "interrupted": False,
+                "download_log_path": str(log_path),
+                "status": "fetching_properties",
+            },
+        )
     try:
         properties_raw = fetch_bytes(
             properties_url,
@@ -711,10 +869,12 @@ def process_eph_pack_class(
     props = parse_properties(properties_text)
     if "eph" not in props.get("hips_tile_format", "").lower():
         return {"class": class_name, "status": "blocked", "reason": "properties hips_tile_format does not include eph"}
-    full_candidates = tile_rel_paths(order_min, order_max, "eph")
+    full_candidate_count = tile_count(order_min, order_max)
+    full_candidates = tile_rel_paths(order_min, order_min, "eph")
     observed_resources = load_resource_list(resource_list) if resource_list else []
     observed_candidates = resource_relative_paths(base_url, observed_resources, "eph") if observed_resources else []
-    planned_rel = observed_candidates if observed_candidates else full_candidates
+    planned_rel = observed_candidates if observed_candidates else None
+    total_planned = len(observed_candidates) if observed_candidates else full_candidate_count
 
     if dry_run:
         return {
@@ -724,11 +884,11 @@ def process_eph_pack_class(
             "properties_url": properties_url,
             "expected_format": "eph",
             "downloaded_files": 0,
-            "planned_files": len(planned_rel),
+            "planned_files": total_planned,
             "planned_required": len(observed_candidates) if observed_candidates else 1,
-            "planned_candidate": len(full_candidates) + 1,
+            "planned_candidate": full_candidate_count + 1,
             "observed_known": len(observed_candidates),
-            "first_tile_url_planned": f"{base_url}/{planned_rel[0]}" if planned_rel else None,
+            "first_tile_url_planned": f"{base_url}/{(planned_rel[0] if planned_rel else (full_candidates[0] if full_candidates else ''))}" if (planned_rel or full_candidates) else None,
             "bytes": len(properties_raw),
             "order_min": order_min,
             "order_max": order_max,
@@ -748,13 +908,50 @@ def process_eph_pack_class(
     failed_path = runtime_pack_root / "failed-files.json"
     start = time.time()
     last_progress = 0.0
-    total_planned = len(planned_rel)
+    workers = 1
 
     maybe_write(raw_root / "properties", properties_raw, dry_run)
     maybe_write(processed_root / "properties", properties_raw, dry_run)
     maybe_write(runtime_ready_root / "properties", properties_raw, dry_run)
 
-    for rel in planned_rel:
+    status_state: dict[str, Any] = {
+        "started_at": utc_now(),
+        "updated_at": utc_now(),
+        "class": class_name,
+        "source_root": base_url,
+        "order_min": order_min,
+        "order_max": order_max,
+        "expected_files": total_planned + 1,
+        "full_candidate_files": full_candidate_count + 1,
+        "existing_files": 1,
+        "missing_files_before": total_planned,
+        "downloaded_files": 0,
+        "failed_files": 0,
+        "sparse_missing_files": 0,
+        "remaining_estimate": total_planned,
+        "percent_complete": 0.0,
+        "bytes_downloaded": 0,
+        "bytes_per_second": 0.0,
+        "files_per_second": 0.0,
+        "eta_seconds": None,
+        "workers": workers,
+        "complete": False,
+        "interrupted": False,
+        "failed_files_path": str(failed_path),
+        "checksum_path": str(checksum_path) if checksum_manifest else None,
+        "download_log_path": str(log_path),
+    }
+
+    def write_status() -> None:
+        if dry_run:
+            return
+        runtime_pack_root.mkdir(parents=True, exist_ok=True)
+        status_state["updated_at"] = utc_now()
+        write_json(status_path, status_state)
+    write_status()
+
+    rel_iter = iter(planned_rel) if planned_rel is not None else iter_tile_rel_paths(order_min, order_max, "eph")
+    for rel in rel_iter:
         if rel == "properties":
             continue
         if max_files > 0 and downloaded >= max_files:
@@ -822,9 +1019,29 @@ def process_eph_pack_class(
             done = downloaded + resumed + len(failed_files) + len(sparse_missing_files)
             percent = (done / max(1, total_planned)) * 100
             elapsed = max(0.001, time.time() - start)
-            files_per_second = done / elapsed
+            files_per_second = downloaded / elapsed
             downloaded_bytes_only = max(0, byte_count - len(properties_raw))
             mb_per_second = (downloaded_bytes_only / (1024 * 1024)) / elapsed
+            remaining = max(0, total_planned - done)
+            eta_seconds = (remaining / files_per_second) if files_per_second > 0 else None
+            status_state.update(
+                {
+                    "status": "running",
+                    "existing_files": 1 + resumed,
+                    "downloaded_files": downloaded,
+                    "failed_files": len(failed_files),
+                    "sparse_missing_files": len(sparse_missing_files),
+                    "remaining_estimate": remaining,
+                    "percent_complete": round(percent, 4),
+                    "bytes_downloaded": downloaded_bytes_only,
+                    "bytes_per_second": mb_per_second * 1024 * 1024,
+                    "files_per_second": files_per_second,
+                    "eta_seconds": eta_seconds,
+                    "complete": False,
+                    "interrupted": False,
+                }
+            )
+            write_status()
             print(
                 f"[{class_name}] planned={total_planned} existing={resumed} downloaded={downloaded} "
                 f"failed={len(failed_files)} sparse_missing={len(sparse_missing_files)} percent={percent:.1f}% "
@@ -848,16 +1065,13 @@ def process_eph_pack_class(
     if checksum_manifest:
         write_json(checksum_path, {"class": class_name, "generated_at": utc_now(), "checksums": checksums})
     runtime_file_count, runtime_size = dir_file_count_and_size(runtime_ready_root)
-    expected_files = len(planned_rel) + 1
+    expected_files = total_planned + 1
     existing_files = 1 + resumed
-    missing_files_before = len(planned_rel) - resumed
+    missing_files_before = total_planned - resumed
     missing_files_after = max(0, missing_files_before - downloaded)
     complete = missing_files_after == 0 and not failed_files
-    write_json(
-        status_path,
+    status_state.update(
         {
-            "started_at": utc_now(),
-            "updated_at": utc_now(),
             "class": class_name,
             "source_root": base_url,
             "order_min": order_min,
@@ -874,7 +1088,7 @@ def process_eph_pack_class(
             "runtime_file_count": runtime_file_count,
             "runtime_size": runtime_size,
             "planned_required": len(observed_candidates) if observed_candidates else 1,
-            "planned_candidate": len(full_candidates) + 1,
+            "planned_candidate": full_candidate_count + 1,
             "observed_known": len(observed_candidates),
             "complete": complete,
             "interrupted": False,
@@ -882,8 +1096,9 @@ def process_eph_pack_class(
             "checksum_path": str(checksum_path) if checksum_manifest else None,
             "download_log_path": str(log_path),
             "status": summarize_eph_status(missing_files_after, len(failed_files), len(sparse_missing_files)),
-        },
+        }
     )
+    write_status()
 
     return {
         "class": class_name,
@@ -893,7 +1108,7 @@ def process_eph_pack_class(
         "expected_format": "eph",
         "expected_files": expected_files,
         "planned_required": len(observed_candidates) if observed_candidates else 1,
-        "planned_candidate": len(full_candidates) + 1,
+        "planned_candidate": full_candidate_count + 1,
         "observed_known": len(observed_candidates),
         "existing_files": existing_files,
         "missing_files_before": missing_files_before,

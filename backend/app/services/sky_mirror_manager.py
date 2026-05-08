@@ -21,6 +21,7 @@ PUBLIC_SKYDATA_ROOT = REPO_ROOT / "frontend/public/oras-sky-engine/skydata"
 
 SUPPORTED_CLASSES = [
     "dss_survey",
+    "gaia_survey",
     "star_pack_minimal",
     "star_pack_base",
     "star_pack_extended",
@@ -166,7 +167,12 @@ class SkyMirrorManager:
         python = str(REPO_ROOT / ".venv/bin/python")
         cmd = [python, "scripts/skydata/mirror_public_runtime_data.py", "--class", class_name]
         if class_name in self._manifest_cache:
-            cmd.extend(["--confirm-download", "--resume", "--checksum-manifest"])
+            if options.get("confirm_download", True):
+                cmd.append("--confirm-download")
+            if options.get("resume", True):
+                cmd.append("--resume")
+            if options.get("checksum_manifest", True):
+                cmd.append("--checksum-manifest")
         if options.get("promote", True):
             cmd.append("--promote-runtime-pack")
         if options.get("full", True):
@@ -186,14 +192,26 @@ class SkyMirrorManager:
         if class_name == "dss_survey":
             return {
                 "full": True,
-                "workers": 48,
+                "workers": 128,
                 "order_min": 0,
-                "order_max": 4,
-                "retry_count": 2,
-                "request_timeout": 12,
+                "order_max": 7,
+                "retry_count": 1,
+                "request_timeout": 8,
                 "rate_limit_per_worker": 0.0,
                 "promote": True,
-                "progress_interval": 3,
+                "progress_interval": 2,
+            }
+        if class_name == "gaia_survey":
+            return {
+                "full": True,
+                "workers": 24,
+                "order_min": 0,
+                "order_max": 8,
+                "retry_count": 4,
+                "request_timeout": 20,
+                "rate_limit_per_worker": 0.0,
+                "promote": True,
+                "progress_interval": 2,
             }
         if class_name in {"star_pack_minimal", "star_pack_base", "dso_pack_base"}:
             return {
@@ -319,9 +337,10 @@ class SkyMirrorManager:
     def start_all_required(self, autostart: bool = False, profile: str = "required") -> dict[str, Any]:
         profile = (profile or "required").strip().lower()
         profile_classes: dict[str, list[str]] = {
-            "required": ["dss_survey", "star_pack_minimal", "star_pack_base", "dso_pack_base"],
+            "required": ["dss_survey", "gaia_survey", "star_pack_minimal", "star_pack_base", "dso_pack_base"],
             "all_fast": [
                 "dss_survey",
+                "gaia_survey",
                 "star_pack_minimal",
                 "star_pack_base",
                 "star_pack_extended",
@@ -333,6 +352,7 @@ class SkyMirrorManager:
             ],
             "all_full": [
                 "dss_survey",
+                "gaia_survey",
                 "star_pack_minimal",
                 "star_pack_base",
                 "star_pack_extended",
@@ -350,6 +370,8 @@ class SkyMirrorManager:
             if profile == "all_full":
                 if class_name == "dss_survey":
                     options = {"order_max": 7, "workers": 64, "full": True}
+                elif class_name == "gaia_survey":
+                    options = {"order_max": 8, "workers": 24, "retry_count": 4, "request_timeout": 20, "full": True}
                 elif class_name in {"star_pack_minimal", "star_pack_base", "star_pack_extended", "dso_pack_base", "dso_pack_extended"}:
                     options = {"order_max": 7, "workers": 40}
             results.append(self.start(class_name, options=options))
@@ -439,6 +461,7 @@ class SkyMirrorManager:
             checksum_path = status_payload.get("checksum_path")
             log_path = status_payload.get("download_log_path")
             expected = int(status_payload.get("expected_files", 0) or 0)
+            full_candidate_files = int(status_payload.get("full_candidate_files", expected) or expected)
             downloaded = int(status_payload.get("downloaded_files", 0) or 0)
             failed = int(status_payload.get("failed_files", 0) or 0)
             sparse_missing = int(status_payload.get("sparse_missing_files", 0) or 0)
@@ -479,10 +502,18 @@ class SkyMirrorManager:
             elif job and job.status in {"paused", "cancelled", "failed", "complete"}:
                 class_status = job.status
             elif status_payload:
+                payload_status = str(status_payload.get("status") or "").strip().lower()
                 if bool(status_payload.get("complete")) and (metadata_only or runtime_file_count > 0 or runtime_size > 0):
                     class_status = "complete"
+                elif payload_status in {"cancelled", "failed", "paused"}:
+                    class_status = payload_status
                 elif bool(status_payload.get("interrupted")):
                     class_status = "interrupted"
+                elif payload_status == "running":
+                    # Process is no longer alive; do not surface stale "running".
+                    class_status = "interrupted"
+                elif payload_status in {"partial_sparse", "partial"}:
+                    class_status = "partial"
                 elif failed > 0:
                     class_status = "partial"
                 elif downloaded > 0:
@@ -498,7 +529,13 @@ class SkyMirrorManager:
                 elif existing_files > 0 and runtime_file_count < existing_files:
                     # Do not report complete if promoted/runtime tree lags behind cached mirror files.
                     class_status = "partial"
-            if class_status == "not_started" and class_name in {"star_pack_extended", "dso_pack_extended"}:
+                elif failed > 0:
+                    # Any hard failures means data is still incomplete even if bounded range reached.
+                    class_status = "partial"
+                elif expected > 0 and full_candidate_files > expected:
+                    # Completed bounded range, but not full candidate inventory.
+                    class_status = "complete_bounded"
+            if class_name in {"star_pack_extended", "dso_pack_extended"} and class_status in {"not_started", "complete", "partial", "unknown", "missing"}:
                 probe = self._probe_blocker(class_name)
                 if probe.get("status") == "blocked":
                     class_status = "blocked"
@@ -519,6 +556,7 @@ class SkyMirrorManager:
                     "status": class_status,
                     "metadata_only": metadata_only,
                     "expected_files": expected,
+                    "full_candidate_files": full_candidate_files,
                     "expected_files_known": expected_known,
                     "existing_files": int(status_payload.get("existing_files", 0) or 0),
                     "runtime_file_count": runtime_file_count,

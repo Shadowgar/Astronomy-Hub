@@ -44,8 +44,13 @@ async def start_mirror_job(payload: dict[str, Any] = Body(default_factory=dict))
 async def start_all_mirror_jobs(payload: dict[str, Any] = Body(default_factory=dict)):
     autostart = bool(payload.get("autostart", False))
     profile = str(payload.get("profile", "required"))
+    mgr = get_sky_mirror_manager()
+    try:
+        data = mgr.start_all_required(autostart=autostart, profile=profile)
+    except TypeError:
+        data = mgr.start_all_required(autostart=autostart)
     return {
-        "data": get_sky_mirror_manager().start_all_required(autostart=autostart, profile=profile),
+        "data": data,
         "error": None,
         "meta": {},
     }
