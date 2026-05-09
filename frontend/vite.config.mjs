@@ -57,8 +57,29 @@ export function isOrasRuntimeSpaPath(requestPath) {
   return !fs.existsSync(staticCandidatePath)
 }
 
+export function isMissingOrasRuntimeDataAsset(requestPath) {
+  if (!requestPath.startsWith('/oras-sky-engine/skydata/')) {
+    return false
+  }
+
+  const cleanPath = requestPath.split('?')[0]
+  const relativeRuntimePath = cleanPath.replace(/^\/oras-sky-engine\/?/, '')
+  if (!path.extname(relativeRuntimePath)) {
+    return false
+  }
+
+  const staticCandidatePath = path.join(runtimePublicDir, relativeRuntimePath)
+  return !fs.existsSync(staticCandidatePath)
+}
+
 function serveOrasRuntimeIndex(req, res, next) {
   const requestPath = req.url || ''
+
+  if (isMissingOrasRuntimeDataAsset(requestPath)) {
+    res.statusCode = 404
+    res.end('ORAS runtime data asset not found')
+    return
+  }
 
   if (!isOrasRuntimeSpaPath(requestPath) || !fs.existsSync(runtimeIndexHtml)) {
     next()
