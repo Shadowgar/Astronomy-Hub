@@ -121,6 +121,10 @@ Astronomy Hub can therefore plan image-survey pipelines separately from `.eph` p
 - `replace locally`: object search/index APIs
 - `unresolved`: `.eph` writer provenance
 
+Current implementation note:
+
+- local backend search now resolves deterministic named objects for bright stars and core Messier entries (for example, `Capella` and `M31`) while Gaia source-ID lookup remains supported.
+
 ## Validation Boundary
 
 This strategy is evidence-backed but not a completion claim. It is anchored to:

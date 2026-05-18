@@ -266,7 +266,7 @@ Candidate local-pack inputs remain plausible only after a writer is proven:
 
 ## Coverage Gaps And Parity Risks
 
-- HiDEF remains `not yet observed`; do not claim parity coverage.
+- HiDEF deep-zoom behavior is now observed via DSS `Norder8`/`Norder9` in focused M31 evidence; treat remaining risk as mirror completeness rather than unknown family behavior.
 - Moon, Moon-normal, Sun, Jupiter, Io, and Callisto survey families are now observed live through focused routes.
 - Named-object lookup is observed live through `api.noctuasky.com`; autocomplete remains source-defined but not separately exercised.
 - `403` responses remain part of observed public behavior; this audit did not bypass or enumerate protected paths.

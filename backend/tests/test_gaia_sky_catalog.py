@@ -151,6 +151,42 @@ def test_search_endpoint_routes_gaia_query_to_lookup(tmp_path: Path, monkeypatch
     assert body["data"]["results"][0]["status"] == "not_indexed"
 
 
+def test_search_endpoint_resolves_m31_from_local_named_index(tmp_path: Path, monkeypatch) -> None:
+    _setup_database(tmp_path, monkeypatch)
+
+    response = client.get(
+        "/api/sky/search?q=M31",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["data"]["recognized_query"] is False
+    assert len(body["data"]["results"]) >= 1
+    first = body["data"]["results"][0]
+    assert "M31" in first["display_name"]
+    assert first["indexed"] is True
+    assert first["status"] == "indexed"
+
+
+def test_search_endpoint_resolves_capella_from_local_bright_star_index(tmp_path: Path, monkeypatch) -> None:
+    _setup_database(tmp_path, monkeypatch)
+
+    response = client.get(
+        "/api/sky/search?q=Capella",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["data"]["recognized_query"] is False
+    assert len(body["data"]["results"]) >= 1
+    first = body["data"]["results"][0]
+    assert first["display_name"] == "Capella"
+    assert first["indexed"] is True
+    assert first["status"] == "indexed"
+
+
 def test_importer_dry_run_validates_temporary_sample_csv(tmp_path: Path) -> None:
     sample_path = tmp_path / "gaia_sample.csv"
     sample_path.write_text(

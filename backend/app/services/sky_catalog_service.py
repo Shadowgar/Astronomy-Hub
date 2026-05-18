@@ -7,10 +7,46 @@ from sqlalchemy import func, inspect, select
 
 from backend.app.db.models import CatalogSource, GaiaDr2Source
 from backend.app.db.session import get_engine, session_scope
+from backend.app.services.sky_star_catalog import BRIGHT_STAR_SCENE_OBJECTS
 
 GAIA_DR2_QUERY_RE = re.compile(r"^\s*(gaia\s*dr2|gaiadr2)\s+([0-9]+)\s*$", re.IGNORECASE)
 REPO_ROOT = Path(__file__).resolve().parents[3]
 RUNTIME_SKYDATA_ROOT = REPO_ROOT / "frontend/public/oras-sky-engine/skydata"
+
+LOCAL_MESSIER_SEARCH_OBJECTS = [
+    {
+        "catalog": "M31",
+        "name": "Andromeda Galaxy",
+        "ra_hours": 0.712,
+        "dec_deg": 41.269,
+        "magnitude": 3.4,
+        "object_type": "galaxy",
+    },
+    {
+        "catalog": "M42",
+        "name": "Orion Nebula",
+        "ra_hours": 5.588,
+        "dec_deg": -5.391,
+        "magnitude": 4.0,
+        "object_type": "nebula",
+    },
+    {
+        "catalog": "M45",
+        "name": "Pleiades",
+        "ra_hours": 3.792,
+        "dec_deg": 24.117,
+        "magnitude": 1.6,
+        "object_type": "open_cluster",
+    },
+    {
+        "catalog": "M57",
+        "name": "Ring Nebula",
+        "ra_hours": 18.893,
+        "dec_deg": 33.028,
+        "magnitude": 8.8,
+        "object_type": "planetary_nebula",
+    },
+]
 
 
 def parse_gaia_dr2_query(query: str | None) -> int | None:
@@ -149,6 +185,18 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
             "meta": {"match_type": "gaia_dr2_source_id"},
         }
 
+    local_results = _lookup_local_named_objects(query)
+    if local_results:
+        return {
+            "status": "ok",
+            "data": {
+                "query": query,
+                "recognized_query": False,
+                "results": local_results,
+            },
+            "meta": {"match_type": "local_named_object"},
+        }
+
     return {
         "status": "ok",
         "data": {
@@ -180,3 +228,105 @@ def _isoformat(value) -> str | None:
     if value is None:
         return None
     return value.isoformat()
+
+
+def _normalize_search_text(value: str | None) -> str:
+    if not isinstance(value, str):
+        return ""
+    normalized = re.sub(r"[^a-z0-9]+", "", value.lower())
+    return normalized
+
+
+def _build_local_search_candidates() -> list[dict]:
+    candidates: list[dict] = []
+
+    for star in BRIGHT_STAR_SCENE_OBJECTS:
+        name = str(star.get("name") or "").strip()
+        if not name:
+            continue
+        ra_hours = star.get("right_ascension")
+        ra_degrees = float(ra_hours) * 15.0 if isinstance(ra_hours, (int, float)) else None
+        aliases = [name]
+        candidates.append(
+            {
+                "result": {
+                    "catalog": "Bright Star Catalog (local)",
+                    "source_id": star.get("id"),
+                    "display_name": name,
+                    "ra": ra_degrees,
+                    "dec": star.get("declination"),
+                    "phot_g_mean_mag": star.get("magnitude"),
+                    "indexed": True,
+                    "status": "indexed",
+                    "message": "Resolved from local bright-star index.",
+                    "provenance": {"source_key": "bright_star_catalog"},
+                },
+                "aliases": aliases,
+            }
+        )
+
+    for obj in LOCAL_MESSIER_SEARCH_OBJECTS:
+        catalog = str(obj.get("catalog") or "").strip()
+        name = str(obj.get("name") or "").strip()
+        if not catalog or not name:
+            continue
+        aliases = [catalog, name, f"Messier {catalog[1:]}"] if catalog.startswith("M") else [catalog, name]
+        candidates.append(
+            {
+                "result": {
+                    "catalog": "Messier (local)",
+                    "source_id": catalog,
+                    "display_name": f"{catalog} {name}",
+                    "ra": float(obj["ra_hours"]) * 15.0,
+                    "dec": obj["dec_deg"],
+                    "phot_g_mean_mag": obj["magnitude"],
+                    "indexed": True,
+                    "status": "indexed",
+                    "message": "Resolved from local Messier index.",
+                    "provenance": {"source_key": "messier_local_seed"},
+                },
+                "aliases": aliases,
+            }
+        )
+
+    return candidates
+
+
+def _lookup_local_named_objects(query: str, limit: int = 10) -> list[dict]:
+    normalized_query = _normalize_search_text(query)
+    if not normalized_query:
+        return []
+
+    scored: list[tuple[int, dict]] = []
+    for candidate in _build_local_search_candidates():
+        aliases = candidate["aliases"]
+        normalized_aliases = [_normalize_search_text(alias) for alias in aliases]
+
+        best_score = 0
+        for alias in normalized_aliases:
+            if not alias:
+                continue
+            if alias == normalized_query:
+                best_score = max(best_score, 3)
+            elif alias.startswith(normalized_query):
+                best_score = max(best_score, 2)
+            elif normalized_query in alias:
+                best_score = max(best_score, 1)
+
+        if best_score > 0:
+            scored.append((best_score, candidate["result"]))
+
+    scored.sort(key=lambda item: (-item[0], str(item[1].get("display_name") or "")))
+
+    unique_results: list[dict] = []
+    seen_display_names: set[str] = set()
+    for _, result in scored:
+        display_name = str(result.get("display_name") or "")
+        if display_name in seen_display_names:
+            continue
+        seen_display_names.add(display_name)
+        unique_results.append(result)
+        if len(unique_results) >= limit:
+            break
+
+    return unique_results
