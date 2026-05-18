@@ -145,6 +145,45 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     })
   })
 
+  it('maps local Messier and bright-star payloads without Gaia aliases', () => {
+    const messierSkySource = toOrasSkySource({
+      catalog: 'Messier (local)',
+      source_id: 'M31',
+      display_name: 'M31 Andromeda Galaxy',
+      ra: 10.68,
+      dec: 41.269,
+      indexed: true,
+      status: 'indexed',
+      provenance: { source_key: 'messier_local_seed' }
+    })
+
+    expect(messierSkySource).toMatchObject({
+      names: ['M31 Andromeda Galaxy', 'M31', 'M 31'],
+      types: ['dso'],
+      model: 'dso',
+      status: 'indexed'
+    })
+    expect(messierSkySource.names.join(' ')).not.toContain('GAIA')
+
+    const brightStarSkySource = toOrasSkySource({
+      catalog: 'Bright Stars (local)',
+      source_id: 'star-capella',
+      display_name: 'Capella',
+      ra: 79.172,
+      dec: 45.998,
+      indexed: true,
+      status: 'indexed'
+    })
+
+    expect(brightStarSkySource).toMatchObject({
+      names: ['Capella', 'NAME Capella'],
+      types: ['*'],
+      model: 'star',
+      status: 'indexed'
+    })
+    expect(brightStarSkySource.names.join(' ')).not.toContain('GAIA')
+  })
+
   it('routes vendored runtime search through ORAS backend first and keeps local-only fallback', () => {
     const source = fs.readFileSync(swHelpersPath, 'utf8')
 

@@ -21,6 +21,7 @@ LOCAL_MESSIER_SEARCH_OBJECTS = [
         "dec_deg": 41.269,
         "magnitude": 3.4,
         "object_type": "galaxy",
+        "aliases": ["Andromeda", "NGC 224"],
     },
     {
         "catalog": "M42",
@@ -29,6 +30,61 @@ LOCAL_MESSIER_SEARCH_OBJECTS = [
         "dec_deg": -5.391,
         "magnitude": 4.0,
         "object_type": "nebula",
+        "aliases": ["NGC 1976"],
+    },
+    {
+        "catalog": "M13",
+        "name": "Hercules Cluster",
+        "ra_hours": 16.698,
+        "dec_deg": 36.467,
+        "magnitude": 5.8,
+        "object_type": "globular_cluster",
+        "aliases": ["NGC 6205", "Great Globular Cluster in Hercules"],
+    },
+    {
+        "catalog": "M8",
+        "name": "Lagoon Nebula",
+        "ra_hours": 18.060,
+        "dec_deg": -24.380,
+        "magnitude": 6.0,
+        "object_type": "nebula",
+        "aliases": ["NGC 6523"],
+    },
+    {
+        "catalog": "M17",
+        "name": "Omega Nebula",
+        "ra_hours": 18.346,
+        "dec_deg": -16.171,
+        "magnitude": 6.0,
+        "object_type": "nebula",
+        "aliases": ["NGC 6618", "Swan Nebula"],
+    },
+    {
+        "catalog": "M20",
+        "name": "Trifid Nebula",
+        "ra_hours": 18.038,
+        "dec_deg": -23.023,
+        "magnitude": 6.3,
+        "object_type": "nebula",
+        "aliases": ["NGC 6514"],
+    },
+    {
+        "catalog": "M22",
+        "name": "Sagittarius Cluster",
+        "ra_hours": 18.607,
+        "dec_deg": -23.904,
+        "magnitude": 5.1,
+        "object_type": "globular_cluster",
+        "aliases": ["NGC 6656"],
+    },
+    {
+        "catalog": "M27",
+        "name": "Dumbbell Nebula",
+        "ra_hours": 19.993,
+        "dec_deg": 22.721,
+        "magnitude": 7.5,
+        "object_type": "planetary_nebula",
+        "aliases": ["NGC 6853"],
     },
     {
         "catalog": "M45",
@@ -37,6 +93,7 @@ LOCAL_MESSIER_SEARCH_OBJECTS = [
         "dec_deg": 24.117,
         "magnitude": 1.6,
         "object_type": "open_cluster",
+        "aliases": ["Seven Sisters"],
     },
     {
         "catalog": "M57",
@@ -45,6 +102,34 @@ LOCAL_MESSIER_SEARCH_OBJECTS = [
         "dec_deg": 33.028,
         "magnitude": 8.8,
         "object_type": "planetary_nebula",
+        "aliases": ["NGC 6720"],
+    },
+    {
+        "catalog": "M81",
+        "name": "Bode's Galaxy",
+        "ra_hours": 9.926,
+        "dec_deg": 69.065,
+        "magnitude": 6.9,
+        "object_type": "galaxy",
+        "aliases": ["NGC 3031"],
+    },
+    {
+        "catalog": "M82",
+        "name": "Cigar Galaxy",
+        "ra_hours": 9.936,
+        "dec_deg": 69.679,
+        "magnitude": 8.4,
+        "object_type": "galaxy",
+        "aliases": ["NGC 3034"],
+    },
+    {
+        "catalog": "M92",
+        "name": "Hercules Cluster (M92)",
+        "ra_hours": 17.285,
+        "dec_deg": 43.136,
+        "magnitude": 6.4,
+        "object_type": "globular_cluster",
+        "aliases": ["NGC 6341"],
     },
 ]
 
@@ -270,7 +355,10 @@ def _build_local_search_candidates() -> list[dict]:
         name = str(obj.get("name") or "").strip()
         if not catalog or not name:
             continue
-        aliases = [catalog, name, f"Messier {catalog[1:]}"] if catalog.startswith("M") else [catalog, name]
+        aliases: list[str] = [catalog, name]
+        if catalog.startswith("M"):
+            aliases.extend([f"Messier {catalog[1:]}", f"M {catalog[1:]}".strip()])
+        aliases.extend(str(alias).strip() for alias in obj.get("aliases", []) if str(alias).strip())
         candidates.append(
             {
                 "result": {
