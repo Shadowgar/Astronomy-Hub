@@ -41,6 +41,7 @@
     "docker:stellarium:up": "bash scripts/prepare-stellarium-reference.sh && docker compose up -d --build stellarium-reference",
     "docker:stellarium:down": "docker compose rm -sf stellarium-reference",
     "docker:reference-stack:up": "bash scripts/prepare-stellarium-reference.sh && docker compose up -d --build backend frontend stellarium-reference",
+    "deploy:remote:prod": "bash scripts/deploy-remote-prod.sh",
     "snyk:test": "snyk test --all-projects --exclude=.venv --command=python3",
     "push:github": "bash scripts/push-to-github.sh",
     "fix:git-cred": "bash scripts/fix-git-credential-wsl-once.sh"
