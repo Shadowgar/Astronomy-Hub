@@ -1,0 +1,13 @@
+{
+  "run_id": "skydata-audit-20260515T180112Z",
+  "profiles": [
+    "matrix",
+    "max_zoom_izar",
+    "focused_unobserved"
+  ],
+  "started_at": "2026-05-15T18:01:12.493Z",
+  "ended_at": "2026-05-15T18:04:35.313Z",
+  "target_url": "https://stellarium-web.org",
+  "notes": "fresh measured skydata audit with focused follow-up",
+  "output_root": "/home/rocco/Astronomy-Hub/study/web/stellarium_web_skydata_audit_2026-05-15"
+}

@@ -1,0 +1,75 @@
+[
+  {
+    "label": "local",
+    "url": "http://127.0.0.1:4173/oras-sky-engine/?date=2025-01-15T03:00:00Z&lat=40.71&lng=-74.01&elev=10&az=-62.71977983410069&alt=35.48707792339301&fov=0.02",
+    "count": 0,
+    "orders": [],
+    "maxOrder": null,
+    "responses": []
+  },
+  {
+    "label": "official",
+    "url": "https://stellarium-web.org/?date=2025-01-15T03:00:00Z&lat=40.71&lng=-74.01&elev=10&az=-62.71977983410069&alt=35.48707792339301&fov=0.02",
+    "count": 12,
+    "orders": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "maxOrder": 9,
+    "responses": [
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/properties"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder3/Dir0/Npix164.webp?v=57153"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder3/Dir0/Npix42.webp?v=57153"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder4/Dir0/Npix169.webp?v=57153"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder5/Dir0/Npix677.webp?v=57153"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder6/Dir0/Npix2709.webp?v=57153"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder7/Dir10000/Npix10836.webp?v=57153"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder8/Dir40000/Npix43344.webp?v=57153"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder8/Dir40000/Npix43345.webp?v=57153"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder9/Dir170000/Npix173379.webp?v=57153"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder9/Dir170000/Npix173377.webp?v=57153"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder9/Dir170000/Npix173380.webp?v=57153"
+      }
+    ]
+  }
+]

@@ -10,9 +10,12 @@ BACKEND_LOG="$LOG_DIR/backend.log"
 FRONTEND_LOG="$LOG_DIR/frontend.log"
 BACKEND_PORT="8000"
 FRONTEND_PORT="4173"
+FRONTEND_RUNTIME_PATH="/oras-sky-engine/"
 
 BACKEND_CMD=("$ROOT_DIR/.venv/bin/python" -m uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 8000)
-FRONTEND_CMD=(npm run dev -- --host 0.0.0.0)
+# The VS Code remote extension host can consume almost the entire inotify budget
+# in this workspace; polling keeps the local frontend usable in that state.
+FRONTEND_CMD=(env CHOKIDAR_USEPOLLING=1 npm run dev -- --host 0.0.0.0)
 
 mkdir -p "$LOG_DIR"
 
@@ -24,6 +27,30 @@ is_running() {
 port_in_use() {
   local port="$1"
   ss -ltn "sport = :$port" 2>/dev/null | tail -n +2 | grep -q LISTEN
+}
+
+wait_for_port() {
+  local name="$1"
+  local port="$2"
+  local pid_file="$3"
+  local log_file="$4"
+  local pid
+
+  for _ in $(seq 1 40); do
+    pid="$(read_pid "$pid_file")"
+    if port_in_use "$port"; then
+      return 0
+    fi
+    if ! is_running "$pid"; then
+      echo "$name failed to start. Log: $log_file" >&2
+      rm -f "$pid_file"
+      return 1
+    fi
+    sleep 0.25
+  done
+
+  echo "$name did not open port $port in time. Log: $log_file" >&2
+  return 1
 }
 
 read_pid() {
@@ -60,6 +87,7 @@ start_backend() {
     echo $! > "$BACKEND_PID_FILE"
   )
 
+  wait_for_port "Backend" "$BACKEND_PORT" "$BACKEND_PID_FILE" "$BACKEND_LOG"
   echo "Backend started. Log: $BACKEND_LOG"
 }
 
@@ -89,6 +117,7 @@ start_frontend() {
     echo $! > "$FRONTEND_PID_FILE"
   )
 
+  wait_for_port "Frontend" "$FRONTEND_PORT" "$FRONTEND_PID_FILE" "$FRONTEND_LOG"
   echo "Frontend started. Log: $FRONTEND_LOG"
 }
 
@@ -184,10 +213,10 @@ status() {
   fi
 
   echo "Backend URL: http://127.0.0.1:8000"
-  echo "Frontend URL: http://127.0.0.1:4173/sky-engine"
+  echo "Frontend URL: http://127.0.0.1:4173$FRONTEND_RUNTIME_PATH"
   if [[ -n "$wsl_ip" ]]; then
     echo "Backend URL (WSL IP): http://$wsl_ip:8000"
-    echo "Frontend URL (WSL IP): http://$wsl_ip:4173/sky-engine"
+    echo "Frontend URL (WSL IP): http://$wsl_ip:4173$FRONTEND_RUNTIME_PATH"
   fi
 }
 

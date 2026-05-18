@@ -14,6 +14,9 @@ venv/
 ENV/
 captured_assets/
 docs/audits/
+!docs/audits/
+docs/audits/*
+!docs/audits/STELLARIUM_WEB_SKYDATA_LOADING_MAP.md
 frontend/public/oras-sky-engine/skydata/*
 env/
 env.bak/
@@ -82,6 +85,17 @@ Thumbs.db
 
 #study files
 /study/*
+!/study/web/
+/study/web/*
+!/study/web/stellarium_web_skydata_audit_2026-05-15/
+/study/web/stellarium_web_skydata_audit_2026-05-15/*
+!/study/web/stellarium_web_skydata_audit_2026-05-15/manifest.jsonl
+!/study/web/stellarium_web_skydata_audit_2026-05-15/asset_taxonomy.json
+!/study/web/stellarium_web_skydata_audit_2026-05-15/browser_storage_metadata.json
+!/study/web/stellarium_web_skydata_audit_2026-05-15/capture_run.json
+!/study/web/stellarium_web_skydata_audit_2026-05-15/coverage_ledger.json
+!/study/web/stellarium_web_skydata_audit_2026-05-15/manifest_summary.md
+!/study/web/stellarium_web_skydata_audit_2026-05-15/STELLARIUM_WEB_RUNTIME_TRAFFIC_AUDIT.md
 !/study/module0-parity/
 !/study/module0-parity/requirements.txt
 !/study/module0-parity/verify_apco_vs_hub.py

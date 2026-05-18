@@ -1,0 +1,127 @@
+{
+  "boot": {
+    "attempted": true,
+    "request_count": 117,
+    "successful_response_count": 117,
+    "observed_live": true,
+    "notes": []
+  },
+  "pan_zoom": {
+    "attempted": true,
+    "request_count": 21,
+    "successful_response_count": 21,
+    "observed_live": true,
+    "notes": []
+  },
+  "faint_stars": {
+    "attempted": true,
+    "request_count": 62,
+    "successful_response_count": 62,
+    "observed_live": true,
+    "notes": []
+  },
+  "star_search": {
+    "attempted": true,
+    "request_count": 12,
+    "successful_response_count": 12,
+    "observed_live": true,
+    "notes": []
+  },
+  "dso_search": {
+    "attempted": true,
+    "request_count": 18,
+    "successful_response_count": 18,
+    "observed_live": true,
+    "notes": []
+  },
+  "dss": {
+    "attempted": true,
+    "request_count": 0,
+    "successful_response_count": 0,
+    "observed_live": false,
+    "notes": [
+      "scenario attempted but no scenario-scoped response observed"
+    ]
+  },
+  "hidef": {
+    "attempted": true,
+    "request_count": 0,
+    "successful_response_count": 0,
+    "observed_live": false,
+    "notes": [
+      "scenario attempted but no scenario-scoped response observed",
+      "no dedicated UI automation path identified in checked-out frontend source"
+    ]
+  },
+  "milky_way": {
+    "attempted": true,
+    "request_count": 0,
+    "successful_response_count": 0,
+    "observed_live": false,
+    "notes": [
+      "scenario attempted but no scenario-scoped response observed"
+    ]
+  },
+  "planet_views": {
+    "attempted": true,
+    "request_count": 165,
+    "successful_response_count": 165,
+    "observed_live": true,
+    "notes": []
+  },
+  "moon_views": {
+    "attempted": true,
+    "request_count": 148,
+    "successful_response_count": 148,
+    "observed_live": true,
+    "notes": []
+  },
+  "sun_views": {
+    "attempted": true,
+    "request_count": 132,
+    "successful_response_count": 132,
+    "observed_live": true,
+    "notes": []
+  },
+  "skycultures": {
+    "attempted": true,
+    "request_count": 0,
+    "successful_response_count": 0,
+    "observed_live": false,
+    "notes": [
+      "scenario attempted but no scenario-scoped response observed"
+    ]
+  },
+  "landscapes": {
+    "attempted": true,
+    "request_count": 0,
+    "successful_response_count": 0,
+    "observed_live": false,
+    "notes": [
+      "scenario attempted but no scenario-scoped response observed"
+    ]
+  },
+  "time_date": {
+    "attempted": true,
+    "request_count": 129,
+    "successful_response_count": 129,
+    "observed_live": true,
+    "notes": []
+  },
+  "observer_location": {
+    "attempted": true,
+    "request_count": 0,
+    "successful_response_count": 0,
+    "observed_live": false,
+    "notes": [
+      "scenario attempted but no scenario-scoped response observed"
+    ]
+  },
+  "object_search": {
+    "attempted": true,
+    "request_count": 154,
+    "successful_response_count": 154,
+    "observed_live": true,
+    "notes": []
+  }
+}

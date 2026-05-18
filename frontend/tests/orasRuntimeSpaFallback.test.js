@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
-import { isMissingOrasRuntimeDataAsset, isOrasRuntimeSpaPath } from '../vite.config.mjs'
+import {
+  getOrasRuntimeRemoteFallbackPath,
+  isMissingOrasRuntimeDataAsset,
+  isOrasRuntimeSpaPath,
+} from '../vite.config.mjs'
 
 describe('oras runtime SPA fallback', () => {
   it('does not treat same-origin remote-data requests as SPA routes', () => {
@@ -16,5 +20,14 @@ describe('oras runtime SPA fallback', () => {
   it('does not serve the SPA shell for missing runtime data assets', () => {
     expect(isMissingOrasRuntimeDataAsset('/oras-sky-engine/skydata/packs/extended/stars/Norder99/Dir0/Npix0.eph')).toBe(true)
     expect(isOrasRuntimeSpaPath('/oras-sky-engine/skydata/packs/extended/stars/Norder99/Dir0/Npix0.eph')).toBe(false)
+  })
+
+  it('falls back missing known runtime assets to the public Stellarium CDN proxy', () => {
+    expect(getOrasRuntimeRemoteFallbackPath('/oras-sky-engine/skydata/surveys/dss/v1/Norder8/Dir40000/Npix43344.webp'))
+      .toBe('/oras-sky-engine/remote-data/surveys/dss/v1/Norder8/Dir40000/Npix43344.webp')
+    expect(getOrasRuntimeRemoteFallbackPath('/oras-sky-engine/skydata/packs/extended/dso/Norder2/Dir0/Npix10.eph'))
+      .toBeUndefined()
+    expect(getOrasRuntimeRemoteFallbackPath('/oras-sky-engine/skydata/surveys/sso/moon/Norder1/Dir0/Npix0.webp'))
+      .toBe('/oras-sky-engine/remote-data/surveys/sso/moon/v1/Norder1/Dir0/Npix0.webp')
   })
 })

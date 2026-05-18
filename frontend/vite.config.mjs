@@ -72,10 +72,50 @@ export function isMissingOrasRuntimeDataAsset(requestPath) {
   return !fs.existsSync(staticCandidatePath)
 }
 
+export function getOrasRuntimeRemoteFallbackPath(requestPath) {
+  if (!isMissingOrasRuntimeDataAsset(requestPath)) {
+    return undefined
+  }
+
+  const cleanPath = requestPath.split('?')[0]
+  const relativeSkydataPath = cleanPath.replace(/^\/oras-sky-engine\/skydata\/?/, '')
+  const query = requestPath.includes('?') ? requestPath.slice(requestPath.indexOf('?')) : ''
+  const remoteMappings = [
+    ['packs/minimal/stars/', 'swe-data-packs/minimal/2020-09-01/minimal_2020-09-01_186e7ee2/stars/'],
+    ['packs/base/stars/', 'swe-data-packs/base/2020-09-01/base_2020-09-01_1aa210df/stars/'],
+    ['packs/extended/stars/', 'swe-data-packs/extended/2020-03-11/extended_2020-03-11_26aa5ab8/stars/'],
+    ['packs/base/dso/', 'swe-data-packs/base/2020-09-01/base_2020-09-01_1aa210df/dso/'],
+    ['packs/extended/dso/', 'swe-data-packs/extended/2020-03-11/extended_2020-03-11_26aa5ab8/dso/'],
+    ['surveys/dss/v1/', 'surveys/dss/v1/'],
+    ['surveys/gaia/v1/', 'surveys/gaia/v1/'],
+    ['surveys/milkyway/', 'surveys/milkyway/v1/'],
+    ['surveys/sso/', 'surveys/sso/'],
+    ['landscapes/guereins/', 'landscapes/v1/guereins/'],
+  ]
+
+  for (const [localPrefix, remotePrefix] of remoteMappings) {
+    if (relativeSkydataPath.startsWith(localPrefix)) {
+      const suffix = relativeSkydataPath.slice(localPrefix.length)
+      const normalizedSuffix = localPrefix === 'surveys/sso/' && !suffix.includes('/v1/')
+        ? suffix.replace(/^([^/]+)\//, '$1/v1/')
+        : suffix
+      return `/oras-sky-engine/remote-data/${remotePrefix}${normalizedSuffix}${query}`
+    }
+  }
+
+  return undefined
+}
+
 function serveOrasRuntimeIndex(req, res, next) {
   const requestPath = req.url || ''
 
   if (isMissingOrasRuntimeDataAsset(requestPath)) {
+    const remoteFallbackPath = getOrasRuntimeRemoteFallbackPath(requestPath)
+    if (remoteFallbackPath) {
+      req.url = remoteFallbackPath
+      next()
+      return
+    }
     res.statusCode = 404
     res.end('ORAS runtime data asset not found')
     return
@@ -111,6 +151,17 @@ export default defineConfig({
     host: '0.0.0.0',
     port: frontendPort,
     strictPort: true,
+    watch: {
+      // The promoted Stellarium runtime can contain hundreds of thousands of
+      // static tiles. Polling those files stalls local asset delivery.
+      ignored: [
+        '**/public/oras-sky-engine/skydata/**',
+        '**/public/oras-sky-engine/js/**',
+        '**/public/oras-sky-engine/css/**',
+        '**/public/oras-sky-engine/fonts/**',
+        '**/public/oras-sky-engine/img/**',
+      ],
+    },
     proxy: apiProxy,
   },
   preview: {

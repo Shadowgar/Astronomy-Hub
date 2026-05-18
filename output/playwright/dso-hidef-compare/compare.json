@@ -1,0 +1,167 @@
+[
+  {
+    "label": "local",
+    "url": "http://127.0.0.1:4173/oras-sky-engine/skysource/M31?fov=0.02",
+    "error": null,
+    "count": 3,
+    "dssCount": 1,
+    "orders": [],
+    "maxOrder": null,
+    "responses": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/oras-sky-engine/skysource/M31?fov=0.02",
+        "type": "document"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/api/sky/search?q=M31",
+        "type": "fetch"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/oras-sky-engine/skydata/surveys/dss/v1/properties",
+        "type": "fetch"
+      }
+    ]
+  },
+  {
+    "label": "official",
+    "url": "https://stellarium-web.org/skysource/M31?fov=0.02",
+    "error": null,
+    "count": 24,
+    "dssCount": 15,
+    "orders": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "maxOrder": 9,
+    "responses": [
+      {
+        "status": 200,
+        "url": "https://stellarium-web.org/skysource/M31?fov=0.02",
+        "type": "document"
+      },
+      {
+        "status": 204,
+        "url": "https://analytics.google.com/g/collect?v=2&tid=G-19N96YD6RN&gtm=45je65d0h1v9134462614za20g&_p=1779103699008&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAIAGAC&are=1&cid=1347065391.1779103700&frm=0&pscdl=noapi&rcb=18&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&gaf=2&_s=1&tag_exp=0~115938465~115938468&sid=1779103699&sct=1&seg=0&dl=https%3A%2F%2Fstellarium-web.org%2Fskysource%2FM31%3Ffov%3D0.02&dt=Stellarium%20Web%20Online%20Star%20Map&_tu=QA&en=page_view&_fv=1&_ss=1&ep.anonymize_ip=true&tfd=1150",
+        "type": "fetch"
+      },
+      {
+        "status": 200,
+        "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/974868566/?random=1779103699681&cv=11&fst=1779103699681&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be65d0h1v899637685za200xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=0~115938465~115938469&u_w=1280&u_h=720&url=https%3A%2F%2Fstellarium-web.org%2Fskysource%2FM31%3Ffov%3D0.02&rcb=8&frm=0&tiba=Stellarium%20Web%20Online%20Star%20Map&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1528097317.1779103700&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uamb=0&uam=&uap=Linux&uapv=&uaw=0&data=event%3Dgtag.config&rfmt=3&fmt=4",
+        "type": "script"
+      },
+      {
+        "status": 200,
+        "url": "https://www.google.com/ccm/collect?rcb=8&frm=0&en=page_view&dl=https%3A%2F%2Fstellarium-web.org%2Fskysource%2FM31&scrsrc=www.googletagmanager.com&rnd=1797773702.1779103700&dt=Stellarium%20Web%20Online%20Star%20Map&auid=1528097317.1779103700&navt=n&npa=0&gtm=45be65d0h1v899637685za200xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=0~115938465~115938469&apve=1&apvf=f&apvc=1&tids=AW-974868566&tid=AW-974868566&tft=1779103699763&tfd=1268",
+        "type": "fetch"
+      },
+      {
+        "status": 200,
+        "url": "https://www.google.com/rmkt/collect/974868566/?random=1779103699681&cv=11&fst=1779103699681&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be65d0h1v899637685za200xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=0~115938465~115938469&u_w=1280&u_h=720&url=https%3A%2F%2Fstellarium-web.org%2Fskysource%2FM31%3Ffov%3D0.02&rcb=8&frm=0&tiba=Stellarium%20Web%20Online%20Star%20Map&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1528097317.1779103700&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uamb=0&uam=&uap=Linux&uapv=&uaw=0&data=event%3Dgtag.config&gcp=5",
+        "type": "fetch"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/skysources/v1/tle_satellite.jsonl.gz?v=2019-09-16",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/properties",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://api.noctuasky.com/api/v1/skysources/name/M31",
+        "type": "fetch"
+      },
+      {
+        "status": 200,
+        "url": "https://www.google.com/pagead/1p-user-list/974868566/?random=1779103699681&cv=11&fst=1779102000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be65d0h1v899637685za200xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=0~115938465~115938469&u_w=1280&u_h=720&url=https%3A%2F%2Fstellarium-web.org%2Fskysource%2FM31%3Ffov%3D0.02&rcb=8&frm=0&tiba=Stellarium%20Web%20Online%20Star%20Map&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1528097317.1779103700&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uamb=0&uam=&uap=Linux&uapv=&uaw=0&data=event%3Dgtag.config&rfmt=3&fmt=3&is_vtc=1&cid=CAQS1AEABaugfaUTH2HeSoE1M1Lx8w5I3aZxt-iJZl0l5iPL0gEvIHfMG1Ivmjcwxsn0ao28DQdX3lmj6HoEPZ4n8mkxBbYCazlethDMnA779WLgkokpJHMcBmi2F9HzrSNTNSu1tIu__furmc8bGqY7pQCl2tS0PrrkRC5ELar5ryhDPy8iX78k-_BqvUUmF3qAPNtXOjMdCu-gHd3yqmIgpgdTtYMLiJE4QszwMhGmZTXzcqY7dmDH7Y2WsFUZlxavfiXyExYnLfW3CJMiJN7nCED_t0dxtg&random=1040099170&rmt_tld=0&ipr=y",
+        "type": "image"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder3/Dir0/Npix127.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://api.noctuasky.com/api/v1/skysources/name/NAME%20Andromeda%20Galaxy",
+        "type": "fetch"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder3/Dir0/Npix59.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder3/Dir0/Npix47.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder3/Dir0/Npix46.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder3/Dir0/Npix43.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder3/Dir0/Npix42.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder4/Dir0/Npix169.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder5/Dir0/Npix677.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder6/Dir0/Npix2709.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder7/Dir10000/Npix10836.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder8/Dir40000/Npix43344.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder8/Dir40000/Npix43345.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder9/Dir170000/Npix173377.webp?v=57153",
+        "type": "xhr"
+      },
+      {
+        "status": 200,
+        "url": "https://stellarium.sfo2.cdn.digitaloceanspaces.com/surveys/dss/v1/Norder9/Dir170000/Npix173380.webp?v=57153",
+        "type": "xhr"
+      }
+    ]
+  }
+]

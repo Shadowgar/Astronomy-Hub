@@ -70,7 +70,9 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
   it('keeps the vendored runtime DSS registration behind the ORAS resolver', () => {
     const source = fs.readFileSync(appVuePath, 'utf8')
 
-    expect(source).toContain("import { listOrasPackRoots, resolveOrasDssSurveyUrl } from '@/assets/oras_data_config.js'")
+    expect(source).toContain('ORAS_BUNDLED_GAIA_SURVEY_ROOT')
+    expect(source).toContain('listOrasPackRoots')
+    expect(source).toContain('resolveOrasDssSurveyUrl')
     expect(source).toContain('resolveOrasDssSurveyUrl().then(dssSurveyUrl => {')
     expect(source).toContain('core.dss.addDataSource({ url: dssSurveyUrl })')
     expect(source).not.toContain('VUE_APP_ORAS_RUNTIME_REMOTE_DATA_BASE')

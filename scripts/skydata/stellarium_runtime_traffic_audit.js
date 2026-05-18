@@ -8,8 +8,26 @@ const ROOT = path.resolve(__dirname, '..', '..');
 const DEFAULT_OUT_DIR = path.join(ROOT, 'captured_assets');
 const DEFAULT_DOC_PATH = path.join(ROOT, 'docs', 'audits', 'STELLARIUM_WEB_RUNTIME_TRAFFIC_AUDIT.md');
 const DEFAULT_PROFILE_DIR = path.join(ROOT, '.playwright-profiles', 'stellarium-web');
-const REQUIRED_FIELDS = ['url', 'status', 'method', 'mime_type', 'size', 'content_encoding', 'initiator', 'timestamp'];
-const ALLOWED_PROFILES = new Set(['baseline', 'max_zoom_izar']);
+const REQUIRED_FIELDS = ['url', 'status', 'method', 'mime_type', 'size', 'content_encoding', 'initiator', 'timestamp', 'scenario'];
+const ALLOWED_PROFILES = new Set(['baseline', 'max_zoom_izar', 'matrix', 'focused_unobserved']);
+const REQUIRED_COVERAGE_FAMILIES = [
+  'boot',
+  'pan_zoom',
+  'faint_stars',
+  'star_search',
+  'dso_search',
+  'dss',
+  'hidef',
+  'milky_way',
+  'planet_views',
+  'moon_views',
+  'sun_views',
+  'skycultures',
+  'landscapes',
+  'time_date',
+  'observer_location',
+  'object_search',
+];
 
 const ALLOWED_EXT = new Set([
   '.json', '.bin', '.dat', '.wasm', '.js', '.css', '.png', '.jpg', '.jpeg', '.webp', '.ktx', '.ktx2', '.fits', '.gz', '.br',
@@ -161,6 +179,113 @@ async function runBaselineProfile(page) {
   return actions;
 }
 
+async function withScenario(setScenario, name, fn) {
+  setScenario(name);
+  await fn();
+}
+
+async function runMatrixProfile(page, setScenario) {
+  const actions = [];
+  const add = (x) => actions.push(x);
+  await withScenario(setScenario, 'boot', async () => {
+    await page.waitForTimeout(5000);
+  });
+
+  await withScenario(setScenario, 'pan_zoom', async () => {
+    await page.mouse.move(960, 540);
+    for (let i = 0; i < 6; i++) {
+      await page.mouse.wheel(0, -900);
+      await page.waitForTimeout(300);
+    }
+    await page.mouse.down();
+    await page.mouse.move(1300, 620, { steps: 20 });
+    await page.mouse.move(650, 350, { steps: 20 });
+    await page.mouse.up();
+    await page.waitForTimeout(1000);
+  });
+  add('panned and zoomed');
+
+  await withScenario(setScenario, 'faint_stars', async () => {
+    await page.mouse.move(960, 540);
+    for (let i = 0; i < 35; i++) {
+      await page.mouse.wheel(0, -1200);
+      await page.waitForTimeout(80);
+    }
+    await page.waitForTimeout(5000);
+  });
+  add('requested faint-star depth');
+
+  for (const [scenario, target] of [
+    ['star_search', 'Sirius'],
+    ['dso_search', 'M31'],
+    ['planet_views', 'Jupiter'],
+    ['moon_views', 'Moon'],
+    ['sun_views', 'Sun'],
+    ['object_search', 'ISS'],
+  ]) {
+    await withScenario(setScenario, scenario, async () => {
+      try {
+        await page.keyboard.press('Control+f');
+        await page.waitForTimeout(250);
+        await page.keyboard.type(target);
+        await page.keyboard.press('Enter');
+        await page.waitForTimeout(2200);
+        await page.keyboard.press('Escape');
+      } catch {}
+    });
+    add(`searched ${target}`);
+  }
+
+  await withScenario(setScenario, 'dss', async () => {
+    try { await page.keyboard.press('d'); } catch {}
+    await page.waitForTimeout(2500);
+  });
+  add('attempted DSS toggle');
+
+  await withScenario(setScenario, 'hidef', async () => {
+    await page.waitForTimeout(1800);
+  });
+  add('reserved HiDEF observation window');
+
+  await withScenario(setScenario, 'milky_way', async () => {
+    try { await page.keyboard.press('m'); } catch {}
+    await page.waitForTimeout(1800);
+  });
+  add('attempted Milky Way toggle');
+
+  await withScenario(setScenario, 'skycultures', async () => {
+    try { await page.keyboard.press('c'); } catch {}
+    await page.waitForTimeout(1500);
+  });
+  add('attempted skyculture-affecting control');
+
+  await withScenario(setScenario, 'landscapes', async () => {
+    try { await page.keyboard.press('g'); } catch {}
+    await page.waitForTimeout(1500);
+  });
+  add('attempted landscape toggle');
+
+  await withScenario(setScenario, 'time_date', async () => {
+    for (const key of ['j', 'k', 'l']) {
+      try { await page.keyboard.press(key); } catch {}
+      await page.waitForTimeout(350);
+    }
+  });
+  add('attempted time/date shortcuts');
+
+  await withScenario(setScenario, 'observer_location', async () => {
+    for (const key of ['8', '6', '4', '2']) {
+      try { await page.keyboard.press(key); } catch {}
+      await page.waitForTimeout(250);
+    }
+  });
+  add('attempted observer-location shortcuts');
+
+  setScenario('idle');
+  await page.waitForTimeout(3000);
+  return actions;
+}
+
 async function runMaxZoomIzarProfile(page) {
   const actions = [];
   const add = (x) => actions.push(x);
@@ -198,6 +323,51 @@ async function runMaxZoomIzarProfile(page) {
 
   await page.waitForTimeout(12000);
   add('high-zoom dwell complete');
+  return actions;
+}
+
+async function runFocusedUnobservedProfile(page, setScenario, targetUrl) {
+  const actions = [];
+  const add = (x) => actions.push(x);
+  const baseUrl = targetUrl.endsWith('/') ? targetUrl : `${targetUrl}/`;
+  const gotoFocusedRoute = async (url) => {
+    await page.goto(url, {
+      waitUntil: 'commit',
+      timeout: 30000,
+    });
+  };
+
+  await withScenario(setScenario, 'time_date', async () => {
+    await gotoFocusedRoute(`${baseUrl}?date=2025-01-15T03:00:00Z&lat=40.71&lng=-74.01&elev=10`);
+    await page.waitForTimeout(6000);
+  });
+  add('loaded explicit date/location URL');
+
+  for (const [scenario, objectName] of [
+    ['moon_views', 'NAME%20Moon'],
+    ['sun_views', 'NAME%20Sun'],
+  ]) {
+    await withScenario(setScenario, scenario, async () => {
+      await gotoFocusedRoute(`${baseUrl}skysource/${objectName}?fov=0.05&date=2025-01-15T03:00:00Z&lat=40.71&lng=-74.01&elev=10`);
+      await page.waitForTimeout(9000);
+    });
+    add(`loaded ${objectName} focused route`);
+  }
+
+  await withScenario(setScenario, 'planet_views', async () => {
+    await gotoFocusedRoute(`${baseUrl}skysource/NAME%20Jupiter?fov=0.05&date=2025-01-15T03:00:00Z&lat=40.71&lng=-74.01&elev=10`);
+    await page.waitForTimeout(9000);
+  });
+  add('loaded Jupiter focused route');
+
+  await withScenario(setScenario, 'object_search', async () => {
+    await gotoFocusedRoute(`${baseUrl}skysource/NAME%20Moon?fov=5&date=2025-01-15T03:00:00Z&lat=40.71&lng=-74.01&elev=10`);
+    await page.waitForTimeout(5000);
+  });
+  add('loaded object lookup route');
+
+  setScenario('idle');
+  await page.waitForTimeout(2000);
   return actions;
 }
 
@@ -250,6 +420,54 @@ function buildSummary(entries, runMeta) {
   for (const [k, v] of Object.entries(byTax).sort((a, b) => a[0].localeCompare(b[0]))) lines.push(`- ${k}: ${v}`);
   lines.push('');
   return lines.join('\n');
+}
+
+function buildCoverageLedger(entries, profileActions) {
+  const byScenario = {};
+  for (const family of REQUIRED_COVERAGE_FAMILIES) {
+    byScenario[family] = {
+      attempted: false,
+      request_count: 0,
+      successful_response_count: 0,
+      observed_live: false,
+      notes: [],
+    };
+  }
+  for (const [profile, actions] of Object.entries(profileActions)) {
+    if (profile !== 'matrix' && profile !== 'focused_unobserved') continue;
+    for (const action of actions) {
+      if (action.includes('panned and zoomed')) byScenario.pan_zoom.attempted = true;
+      if (action.includes('faint-star')) byScenario.faint_stars.attempted = true;
+      if (action.includes('Sirius')) byScenario.star_search.attempted = true;
+      if (action.includes('M31')) byScenario.dso_search.attempted = true;
+      if (action.includes('Jupiter')) byScenario.planet_views.attempted = true;
+      if (action.includes('Moon')) byScenario.moon_views.attempted = true;
+      if (action.includes('Sun')) byScenario.sun_views.attempted = true;
+      if (action.includes('ISS')) byScenario.object_search.attempted = true;
+      if (action.includes('DSS')) byScenario.dss.attempted = true;
+      if (action.includes('HiDEF')) byScenario.hidef.attempted = true;
+      if (action.includes('Milky Way')) byScenario.milky_way.attempted = true;
+      if (action.includes('skyculture')) byScenario.skycultures.attempted = true;
+      if (action.includes('landscape')) byScenario.landscapes.attempted = true;
+      if (action.includes('time/date')) byScenario.time_date.attempted = true;
+      if (action.includes('observer-location')) byScenario.observer_location.attempted = true;
+    }
+  }
+  byScenario.boot.attempted = true;
+  for (const entry of entries) {
+    if (!byScenario[entry.scenario]) continue;
+    byScenario[entry.scenario].request_count += 1;
+    if (entry.status >= 200 && entry.status < 300) {
+      byScenario[entry.scenario].successful_response_count += 1;
+      byScenario[entry.scenario].observed_live = true;
+    }
+  }
+  for (const [name, row] of Object.entries(byScenario)) {
+    if (row.attempted && !row.observed_live) row.notes.push('scenario attempted but no scenario-scoped response observed');
+    if (!row.attempted) row.notes.push('scenario not attempted by capture script');
+    if (name === 'hidef') row.notes.push('no dedicated UI automation path identified in checked-out frontend source');
+  }
+  return byScenario;
 }
 
 function writeAudit(auditPath, entries, storage, profileActions, runMeta) {
@@ -307,6 +525,7 @@ function writeAudit(auditPath, entries, storage, profileActions, runMeta) {
 
 async function runProfile(profile, options, entries, bodiesDir) {
   const profileActions = [];
+  let currentScenario = profile === 'matrix' ? 'boot' : profile;
   const profileDir = path.join(options.profileRoot, profile);
   fs.mkdirSync(profileDir, { recursive: true });
   const browserContext = await chromium.launchPersistentContext(profileDir, {
@@ -362,6 +581,7 @@ async function runProfile(profile, options, entries, bodiesDir) {
       last_modified: normalized['last-modified'] || null,
       content_encoding: normalized['content-encoding'] || null,
       initiator: req.resourceType(),
+      scenario: currentScenario,
       taxonomy: classify(url, mimeType),
       body_path: bodyPath,
       body_sha256: bodySha,
@@ -369,16 +589,34 @@ async function runProfile(profile, options, entries, bodiesDir) {
   });
 
   await page.goto(options.targetUrl, { waitUntil: 'domcontentloaded', timeout: 120000 });
-  await page.waitForLoadState('networkidle', { timeout: 120000 });
+  // Stellarium Web keeps long-lived background traffic active; a bounded settle
+  // window is more reliable than waiting for networkidle indefinitely.
+  await page.waitForTimeout(6000);
 
   if (profile === 'baseline') {
     profileActions.push(...(await runBaselineProfile(page)));
   } else if (profile === 'max_zoom_izar') {
     profileActions.push(...(await runMaxZoomIzarProfile(page)));
+  } else if (profile === 'matrix') {
+    profileActions.push(...(await runMatrixProfile(page, (name) => { currentScenario = name; })));
+  } else if (profile === 'focused_unobserved') {
+    profileActions.push(...(await runFocusedUnobservedProfile(page, (name) => { currentScenario = name; }, options.targetUrl)));
   }
 
   await page.waitForTimeout(3000);
-  const storage = await captureStorage(page);
+  let storage;
+  try {
+    storage = await captureStorage(page);
+  } catch (error) {
+    storage = {
+      localStorage: {},
+      sessionStorage: {},
+      indexedDB: [],
+      cacheStorage: [],
+      serviceWorkers: [],
+      capture_error: String(error && error.message ? error.message : error),
+    };
+  }
   await browserContext.close();
   return { actions: profileActions, storage };
 }
@@ -392,6 +630,7 @@ async function runProfile(profile, options, entries, bodiesDir) {
   const taxonomyPath = path.join(outDir, 'asset_taxonomy.json');
   const storagePath = path.join(outDir, 'browser_storage_metadata.json');
   const runMetaPath = path.join(outDir, 'capture_run.json');
+  const coveragePath = path.join(outDir, 'coverage_ledger.json');
 
   fs.mkdirSync(outDir, { recursive: true });
   fs.mkdirSync(bodiesDir, { recursive: true });
@@ -431,6 +670,7 @@ async function runProfile(profile, options, entries, bodiesDir) {
   };
   fs.writeFileSync(runMetaPath, JSON.stringify(runMeta, null, 2), 'utf8');
   fs.writeFileSync(storagePath, JSON.stringify(storageByProfile, null, 2), 'utf8');
+  fs.writeFileSync(coveragePath, JSON.stringify(buildCoverageLedger(entries, profileActions), null, 2), 'utf8');
 
   fs.writeFileSync(summaryPath, buildSummary(entries, runMeta), 'utf8');
   const primaryStorage = storageByProfile[options.profiles[0]] || {};
@@ -442,6 +682,7 @@ async function runProfile(profile, options, entries, bodiesDir) {
     taxonomy: taxonomyPath,
     storage: storagePath,
     run_meta: runMetaPath,
+    coverage: coveragePath,
     audit: options.auditPath,
     requests: entries.length,
     profiles: options.profiles,

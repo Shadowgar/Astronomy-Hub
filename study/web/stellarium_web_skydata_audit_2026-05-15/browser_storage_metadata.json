@@ -1,0 +1,29 @@
+{
+  "matrix": {
+    "localStorage": {
+      "_gcl_ls": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1778866744186},\"expires\":1786642744186}}"
+    },
+    "sessionStorage": {},
+    "indexedDB": [],
+    "cacheStorage": [],
+    "serviceWorkers": []
+  },
+  "max_zoom_izar": {
+    "localStorage": {
+      "_gcl_ls": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1778189260061},\"expires\":1785965260061}}"
+    },
+    "sessionStorage": {},
+    "indexedDB": [],
+    "cacheStorage": [],
+    "serviceWorkers": []
+  },
+  "focused_unobserved": {
+    "localStorage": {
+      "_gcl_ls": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1778868225051},\"expires\":1786644225051}}"
+    },
+    "sessionStorage": {},
+    "indexedDB": [],
+    "cacheStorage": [],
+    "serviceWorkers": []
+  }
+}
