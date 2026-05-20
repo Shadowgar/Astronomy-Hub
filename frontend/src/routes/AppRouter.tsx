@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import App from '../App'
+import MirrorLiteProgressPage from '../features/sky-engine/MirrorLiteProgressPage'
 import MirrorProgressPage from '../features/sky-engine/MirrorProgressPage'
 import SkyOverOrasNowRedirect from '../features/sky-engine/SkyOverOrasNowRedirect'
 import SkyEnginePage from '../features/sky-engine/SkyEnginePage'
@@ -16,6 +17,7 @@ export default function AppRouter() {
         <Route path="/sky-engine" element={<SkyEnginePage />} />
         <Route path="/sky-engine/oras-now" element={<SkyOverOrasNowRedirect />} />
         <Route path="/sky-over-oras-now" element={<SkyOverOrasNowRedirect />} />
+        <Route path="/sky-engine/download-progress" element={<MirrorLiteProgressPage />} />
         <Route path="/sky-engine/mirror-progress" element={<MirrorProgressPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
