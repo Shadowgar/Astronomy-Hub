@@ -219,6 +219,22 @@ def test_search_endpoint_resolves_messier_spelling_alias(tmp_path: Path, monkeyp
     assert first["status"] == "indexed"
 
 
+def test_named_object_endpoint_resolves_local_summary(tmp_path: Path, monkeypatch) -> None:
+    _setup_database(tmp_path, monkeypatch)
+
+    response = client.get(
+        "/api/sky/object/name/M31",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["data"]["display_name"].startswith("M31")
+    assert body["data"]["indexed"] is True
+    assert body["data"]["summary"]["title"] == "M31 Andromeda Galaxy"
+    assert body["data"]["summary"]["source"] == "ORAS local summary seed"
+
+
 def test_importer_dry_run_validates_temporary_sample_csv(tmp_path: Path) -> None:
     sample_path = tmp_path / "gaia_sample.csv"
     sample_path.write_text(

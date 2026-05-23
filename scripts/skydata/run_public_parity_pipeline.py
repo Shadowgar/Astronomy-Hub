@@ -17,6 +17,7 @@ DEFAULT_CLASSES = [
     "star_pack_extended",
     "dso_pack_base",
     "dso_pack_extended",
+    "gaia_survey",
     "milkyway_survey",
     "dss_survey",
     "moon_survey",
@@ -26,7 +27,10 @@ DEFAULT_CLASSES = [
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Run capture -> mirror -> parity diff pipeline.")
-    p.add_argument("--profiles", default="baseline,max_zoom_izar")
+    p.add_argument(
+        "--profiles",
+        default="baseline,matrix,max_zoom_izar,focused_unobserved,parity_57_cygni,parity_deep_fields,parity_solar_system,parity_minor_bodies",
+    )
     p.add_argument("--classes", default=",".join(DEFAULT_CLASSES))
     p.add_argument("--output-root", type=Path, default=Path("captured_assets"))
     p.add_argument("--target-url", default="https://stellarium-web.org")
@@ -80,7 +84,7 @@ def build_mirror_cmd(
         "--request-timeout",
         str(request_timeout),
     ]
-    if class_name in {"dss_survey", "milkyway_survey", "moon_survey", "landscape_guereins"}:
+    if class_name in {"gaia_survey", "dss_survey", "milkyway_survey", "moon_survey", "landscape_guereins"}:
         cmd.extend(["--workers", str(max(1, hips_workers))])
         if hips_rate_limit > 0:
             cmd.extend(["--rate-limit-per-worker", str(hips_rate_limit)])

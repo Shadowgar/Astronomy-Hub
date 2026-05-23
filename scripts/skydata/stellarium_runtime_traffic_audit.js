@@ -9,11 +9,25 @@ const DEFAULT_OUT_DIR = path.join(ROOT, 'captured_assets');
 const DEFAULT_DOC_PATH = path.join(ROOT, 'docs', 'audits', 'STELLARIUM_WEB_RUNTIME_TRAFFIC_AUDIT.md');
 const DEFAULT_PROFILE_DIR = path.join(ROOT, '.playwright-profiles', 'stellarium-web');
 const REQUIRED_FIELDS = ['url', 'status', 'method', 'mime_type', 'size', 'content_encoding', 'initiator', 'timestamp', 'scenario'];
-const ALLOWED_PROFILES = new Set(['baseline', 'max_zoom_izar', 'matrix', 'focused_unobserved']);
+const ALLOWED_PROFILES = new Set([
+  'baseline',
+  'max_zoom_izar',
+  'matrix',
+  'focused_unobserved',
+  'parity_57_cygni',
+  'parity_deep_fields',
+  'parity_solar_system',
+  'parity_minor_bodies',
+]);
 const REQUIRED_COVERAGE_FAMILIES = [
   'boot',
   'pan_zoom',
   'faint_stars',
+  'cygnus_57_fov_00443',
+  'dense_milky_way',
+  'high_latitude_field',
+  'dense_cluster',
+  'galaxy_field',
   'star_search',
   'dso_search',
   'dss',
@@ -24,6 +38,9 @@ const REQUIRED_COVERAGE_FAMILIES = [
   'sun_views',
   'skycultures',
   'landscapes',
+  'satellites',
+  'minor_planets',
+  'object_summary_panel',
   'time_date',
   'observer_location',
   'object_search',
@@ -45,6 +62,7 @@ function parseArgs() {
     profileRoot: DEFAULT_PROFILE_DIR,
     auditPath: DEFAULT_DOC_PATH,
     headless: true,
+    saveBodies: true,
   };
   for (let i = 0; i < args.length; i += 1) {
     const a = args[i];
@@ -56,6 +74,7 @@ function parseArgs() {
     else if (a === '--profile-root' && args[i + 1]) out.profileRoot = path.resolve(args[++i]);
     else if (a === '--audit-path' && args[i + 1]) out.auditPath = path.resolve(args[++i]);
     else if (a === '--headed') out.headless = false;
+    else if (a === '--no-bodies') out.saveBodies = false;
   }
   for (const p of out.profiles) {
     if (!ALLOWED_PROFILES.has(p)) throw new Error(`unsupported profile: ${p}`);
@@ -184,6 +203,23 @@ async function withScenario(setScenario, name, fn) {
   await fn();
 }
 
+async function searchAndDwell(page, target, dwellMs = 2500) {
+  await page.keyboard.press('Control+f');
+  await page.waitForTimeout(250);
+  await page.keyboard.type(target);
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(dwellMs);
+  await page.keyboard.press('Escape');
+}
+
+async function gotoRuntimeUrl(page, targetUrl, routeAndQuery) {
+  const baseUrl = targetUrl.endsWith('/') ? targetUrl : `${targetUrl}/`;
+  await page.goto(`${baseUrl}${routeAndQuery}`, {
+    waitUntil: 'commit',
+    timeout: 30000,
+  });
+}
+
 async function runMatrixProfile(page, setScenario) {
   const actions = [];
   const add = (x) => actions.push(x);
@@ -283,6 +319,113 @@ async function runMatrixProfile(page, setScenario) {
 
   setScenario('idle');
   await page.waitForTimeout(3000);
+  return actions;
+}
+
+async function runParity57CygniProfile(page, setScenario, targetUrl) {
+  const actions = [];
+  const add = (x) => actions.push(x);
+
+  await withScenario(setScenario, 'cygnus_57_fov_00443', async () => {
+    await gotoRuntimeUrl(page, targetUrl, 'skysource/57%20Cygni?fov=0.0443&date=2026-05-23T04:04:05Z&lat=41.412&lng=-80.372&elev=300');
+    await page.waitForTimeout(7000);
+    await page.mouse.move(960, 540);
+    for (let i = 0; i < 10; i++) {
+      await page.mouse.wheel(0, -600);
+      await page.waitForTimeout(120);
+    }
+    await page.waitForTimeout(6000);
+  });
+  add('loaded 57 Cygni FOV 0.0443 regression field');
+
+  for (const gaiaId of [
+    'Gaia DR2 2162953261210433024',
+    'Gaia DR2 2162953261210433536',
+    'Gaia DR2 2162953261210433152',
+    'Gaia DR2 2162953402941703936',
+  ]) {
+    await withScenario(setScenario, 'object_search', async () => {
+      try { await searchAndDwell(page, gaiaId, 1800); } catch {}
+    });
+    add(`searched missing-star target ${gaiaId}`);
+  }
+
+  setScenario('idle');
+  await page.waitForTimeout(2000);
+  return actions;
+}
+
+async function runParityDeepFieldsProfile(page, setScenario, targetUrl) {
+  const actions = [];
+  const add = (x) => actions.push(x);
+  const fields = [
+    ['dense_milky_way', '?fov=0.08&date=2026-07-01T04:00:00Z&lat=35.0&lng=-105.0&elev=2000&az=180&alt=45', 'dense Milky Way field'],
+    ['high_latitude_field', '?fov=0.08&date=2026-03-01T04:00:00Z&lat=35.0&lng=-105.0&elev=2000&az=20&alt=65', 'high-latitude sparse field'],
+    ['dense_cluster', 'skysource/M13?fov=0.08&date=2026-06-01T04:00:00Z&lat=35.0&lng=-105.0&elev=2000', 'M13 dense cluster field'],
+    ['galaxy_field', 'skysource/M31?fov=0.2&date=2026-10-01T04:00:00Z&lat=35.0&lng=-105.0&elev=2000', 'M31 galaxy field'],
+    ['dso_search', 'skysource/M42?fov=0.2&date=2026-01-15T04:00:00Z&lat=35.0&lng=-105.0&elev=2000', 'M42 nebula field'],
+    ['dso_search', 'skysource/M45?fov=0.2&date=2026-01-15T04:00:00Z&lat=35.0&lng=-105.0&elev=2000', 'M45 open cluster field'],
+  ];
+
+  for (const [scenario, route, label] of fields) {
+    await withScenario(setScenario, scenario, async () => {
+      await gotoRuntimeUrl(page, targetUrl, route);
+      await page.waitForTimeout(7000);
+      await page.mouse.move(960, 540);
+      await page.mouse.wheel(0, -900);
+      await page.waitForTimeout(2500);
+    });
+    add(`loaded ${label}`);
+  }
+
+  setScenario('idle');
+  await page.waitForTimeout(2000);
+  return actions;
+}
+
+async function runParitySolarSystemProfile(page, setScenario, targetUrl) {
+  const actions = [];
+  const add = (x) => actions.push(x);
+  for (const [scenario, objectName] of [
+    ['moon_views', 'NAME%20Moon'],
+    ['sun_views', 'NAME%20Sun'],
+    ['planet_views', 'NAME%20Jupiter'],
+    ['planet_views', 'NAME%20Mars'],
+    ['planet_views', 'NAME%20Saturn'],
+  ]) {
+    await withScenario(setScenario, scenario, async () => {
+      await gotoRuntimeUrl(page, targetUrl, `skysource/${objectName}?fov=0.05&date=2026-05-23T04:00:00Z&lat=41.412&lng=-80.372&elev=300`);
+      await page.waitForTimeout(7000);
+    });
+    add(`loaded ${objectName} solar-system parity route`);
+  }
+
+  await withScenario(setScenario, 'object_summary_panel', async () => {
+    try { await searchAndDwell(page, 'Jupiter', 3000); } catch {}
+  });
+  add('opened solar-system object summary panel');
+
+  setScenario('idle');
+  await page.waitForTimeout(2000);
+  return actions;
+}
+
+async function runParityMinorBodiesProfile(page, setScenario) {
+  const actions = [];
+  const add = (x) => actions.push(x);
+  for (const [scenario, target] of [
+    ['satellites', 'ISS'],
+    ['minor_planets', 'Ceres'],
+    ['minor_planets', 'Halley'],
+  ]) {
+    await withScenario(setScenario, scenario, async () => {
+      try { await searchAndDwell(page, target, 4000); } catch {}
+    });
+    add(`searched ${target} minor-body/satellite parity target`);
+  }
+
+  setScenario('idle');
+  await page.waitForTimeout(2000);
   return actions;
 }
 
@@ -434,16 +577,31 @@ function buildCoverageLedger(entries, profileActions) {
     };
   }
   for (const [profile, actions] of Object.entries(profileActions)) {
-    if (profile !== 'matrix' && profile !== 'focused_unobserved') continue;
+    if (![
+      'matrix',
+      'focused_unobserved',
+      'parity_57_cygni',
+      'parity_deep_fields',
+      'parity_solar_system',
+      'parity_minor_bodies',
+    ].includes(profile)) continue;
     for (const action of actions) {
       if (action.includes('panned and zoomed')) byScenario.pan_zoom.attempted = true;
       if (action.includes('faint-star')) byScenario.faint_stars.attempted = true;
+      if (action.includes('57 Cygni')) byScenario.cygnus_57_fov_00443.attempted = true;
+      if (action.includes('dense Milky Way')) byScenario.dense_milky_way.attempted = true;
+      if (action.includes('high-latitude')) byScenario.high_latitude_field.attempted = true;
+      if (action.includes('dense cluster')) byScenario.dense_cluster.attempted = true;
+      if (action.includes('galaxy field')) byScenario.galaxy_field.attempted = true;
       if (action.includes('Sirius')) byScenario.star_search.attempted = true;
       if (action.includes('M31')) byScenario.dso_search.attempted = true;
       if (action.includes('Jupiter')) byScenario.planet_views.attempted = true;
       if (action.includes('Moon')) byScenario.moon_views.attempted = true;
       if (action.includes('Sun')) byScenario.sun_views.attempted = true;
       if (action.includes('ISS')) byScenario.object_search.attempted = true;
+      if (action.includes('ISS')) byScenario.satellites.attempted = true;
+      if (action.includes('Ceres') || action.includes('Halley')) byScenario.minor_planets.attempted = true;
+      if (action.includes('summary panel')) byScenario.object_summary_panel.attempted = true;
       if (action.includes('DSS')) byScenario.dss.attempted = true;
       if (action.includes('HiDEF')) byScenario.hidef.attempted = true;
       if (action.includes('Milky Way')) byScenario.milky_way.attempted = true;
@@ -548,7 +706,7 @@ async function runProfile(profile, options, entries, bodiesDir) {
     let bodyPath = null;
     let bodySha = null;
     let bodyBuffer = null;
-    if (status >= 200 && status < 300 && ext) {
+    if (options.saveBodies && status >= 200 && status < 300 && ext) {
       try {
         bodyBuffer = await resp.body();
         if (bodyBuffer && bodyBuffer.length > 0) {
@@ -601,9 +759,22 @@ async function runProfile(profile, options, entries, bodiesDir) {
     profileActions.push(...(await runMatrixProfile(page, (name) => { currentScenario = name; })));
   } else if (profile === 'focused_unobserved') {
     profileActions.push(...(await runFocusedUnobservedProfile(page, (name) => { currentScenario = name; }, options.targetUrl)));
+  } else if (profile === 'parity_57_cygni') {
+    profileActions.push(...(await runParity57CygniProfile(page, (name) => { currentScenario = name; }, options.targetUrl)));
+  } else if (profile === 'parity_deep_fields') {
+    profileActions.push(...(await runParityDeepFieldsProfile(page, (name) => { currentScenario = name; }, options.targetUrl)));
+  } else if (profile === 'parity_solar_system') {
+    profileActions.push(...(await runParitySolarSystemProfile(page, (name) => { currentScenario = name; }, options.targetUrl)));
+  } else if (profile === 'parity_minor_bodies') {
+    profileActions.push(...(await runParityMinorBodiesProfile(page, (name) => { currentScenario = name; })));
   }
 
   await page.waitForTimeout(3000);
+  try {
+    const screenshotDir = path.join(options.outputRoot, 'screenshots');
+    fs.mkdirSync(screenshotDir, { recursive: true });
+    await page.screenshot({ path: path.join(screenshotDir, `${profile}.png`), fullPage: false });
+  } catch {}
   let storage;
   try {
     storage = await captureStorage(page);
@@ -666,8 +837,9 @@ async function runProfile(profile, options, entries, bodiesDir) {
     ended_at: endedAt,
     target_url: options.targetUrl,
     notes: options.notes,
-    output_root: outDir,
-  };
+      output_root: outDir,
+      save_bodies: options.saveBodies,
+    };
   fs.writeFileSync(runMetaPath, JSON.stringify(runMeta, null, 2), 'utf8');
   fs.writeFileSync(storagePath, JSON.stringify(storageByProfile, null, 2), 'utf8');
   fs.writeFileSync(coveragePath, JSON.stringify(buildCoverageLedger(entries, profileActions), null, 2), 'utf8');

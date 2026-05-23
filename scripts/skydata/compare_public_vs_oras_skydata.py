@@ -8,6 +8,8 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+IMAGE_EQUIV_EXTS = {".jpg", ".jpeg", ".webp", ".png"}
+
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Compare mirrored public Stellarium assets against ORAS skydata.")
@@ -85,10 +87,27 @@ def collect_oras_files(oras_root: Path) -> dict[str, Path]:
     return files
 
 
+def image_stem_for_equivalence(rel: str) -> str | None:
+    path = Path(rel)
+    suffix = path.suffix.lower()
+    if suffix not in IMAGE_EQUIV_EXTS:
+        return None
+    rel_lower = rel.lower()
+    if not (
+        rel_lower.startswith("surveys/dss/")
+        or rel_lower.startswith("surveys/milkyway/")
+        or "hips" in rel_lower
+    ):
+        return None
+    return path.with_suffix("").as_posix()
+
+
 def build_parity_diff(mirror_root: Path, oras_root: Path) -> dict[str, Any]:
     mirror = collect_mirror_files(mirror_root)
     oras = collect_oras_files(oras_root)
     keys = sorted(set(mirror) | set(oras))
+    matched_mirror: set[str] = set()
+    matched_oras: set[str] = set()
 
     rows: list[dict[str, Any]] = []
     status_counts = Counter()
@@ -96,7 +115,50 @@ def build_parity_diff(mirror_root: Path, oras_root: Path) -> dict[str, Any]:
     family_status_counts: dict[str, Counter] = defaultdict(Counter)
     bytes_by_status = Counter()
 
+    oras_equiv_by_stem: dict[str, list[str]] = defaultdict(list)
+    for rel in oras:
+        stem = image_stem_for_equivalence(rel)
+        if stem:
+            oras_equiv_by_stem[stem].append(rel)
+
+    # Equivalence pass: treat same survey tile stem with different image extension as parity-equivalent.
+    for mirror_rel in sorted(mirror.keys()):
+        if mirror_rel in oras:
+            continue
+        stem = image_stem_for_equivalence(mirror_rel)
+        if not stem:
+            continue
+        oras_candidates = [candidate for candidate in sorted(oras_equiv_by_stem.get(stem, [])) if candidate not in matched_oras]
+        if not oras_candidates:
+            continue
+        oras_rel = oras_candidates[0]
+        m = mirror[mirror_rel]
+        o = oras[oras_rel]
+        mirror_size = m.stat().st_size
+        oras_size = o.stat().st_size
+        row = {
+            "relative_path": mirror_rel,
+            "family": classify_family(mirror_rel),
+            "status": "format_equivalent",
+            "mirror_path": str(m),
+            "oras_path": str(o),
+            "mirror_size": mirror_size,
+            "oras_size": oras_size,
+            "mirror_sha256": sha256_file(m),
+            "oras_sha256": sha256_file(o),
+            "equivalent_oras_relative_path": oras_rel,
+        }
+        rows.append(row)
+        matched_mirror.add(mirror_rel)
+        matched_oras.add(oras_rel)
+        status_counts["format_equivalent"] += 1
+        family_counts[row["family"]] += 1
+        family_status_counts[row["family"]]["format_equivalent"] += 1
+        bytes_by_status["format_equivalent"] += int(mirror_size)
+
     for rel in keys:
+        if rel in matched_mirror or rel in matched_oras:
+            continue
         m = mirror.get(rel)
         o = oras.get(rel)
         family = classify_family(rel)
@@ -162,7 +224,7 @@ def build_summary(diff: dict[str, Any]) -> str:
         "## Status counts",
         "",
     ]
-    for k in ["present_both", "missing_local", "extra_local", "checksum_mismatch"]:
+    for k in ["present_both", "format_equivalent", "missing_local", "extra_local", "checksum_mismatch"]:
         lines.append(f"- {k}: {diff['status_counts'].get(k, 0)}")
     lines += ["", "## Family rollup", ""]
     for family in sorted(diff["family_counts"].keys()):

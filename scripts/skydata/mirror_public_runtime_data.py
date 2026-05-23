@@ -359,27 +359,37 @@ def process_hips_class(
     planned_rel = tile_rel_paths(order_min, effective_order_max, tile_exts[0])
 
     # Fast source-access preflight: if no candidate tile can be fetched, fail early.
+    # In resume mode, an existing local tile already proves the source class and
+    # avoids wasting a network request on a file we intentionally skip later.
     preflight_samples = [
         ("Norder0/Dir0/Npix0", 0),
         ("Norder0/Dir0/Npix1", 0),
         ("Norder1/Dir0/Npix0", 1),
     ]
     preflight_errors: list[str] = []
-    preflight_ok = False
-    for stem, _ in preflight_samples:
-        for ext in tile_exts[:3]:
-            rel_try = f"{stem}.{ext}"
-            url = f"{base_url}/{rel_try}{query_suffix}"
-            try:
-                fetch_bytes(url, max_bytes=0, timeout=max(4, min(request_timeout, 10)))
-                preflight_ok = True
+    preflight_ok = bool(
+        resume
+        and any(
+            (raw_root / f"{stem}.{ext}").exists()
+            for stem, _ in preflight_samples
+            for ext in tile_exts[:3]
+        )
+    )
+    if not preflight_ok:
+        for stem, _ in preflight_samples:
+            for ext in tile_exts[:3]:
+                rel_try = f"{stem}.{ext}"
+                url = f"{base_url}/{rel_try}{query_suffix}"
+                try:
+                    fetch_bytes(url, max_bytes=0, timeout=max(4, min(request_timeout, 10)))
+                    preflight_ok = True
+                    break
+                except HTTPError as exc:
+                    preflight_errors.append(f"http_{exc.code}")
+                except Exception as exc:  # noqa: BLE001
+                    preflight_errors.append(str(exc))
+            if preflight_ok:
                 break
-            except HTTPError as exc:
-                preflight_errors.append(f"http_{exc.code}")
-            except Exception as exc:  # noqa: BLE001
-                preflight_errors.append(str(exc))
-        if preflight_ok:
-            break
     if not preflight_ok:
         all_acl_denied = bool(preflight_errors) and all(err in {"http_403", "http_404"} for err in preflight_errors)
         if not all_acl_denied:

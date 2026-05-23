@@ -15,6 +15,9 @@
     "pnpm-lock.yaml",
     "yarn.lock"
   ],
+  "ignored_paths": [
+    "scripts/skydata/runtime_external_dependency_policy.json"
+  ],
   "ignored_suffixes": [
     ".eph",
     ".gz",
@@ -122,6 +125,16 @@
   ],
   "admin_import_allowed_hosts": [
     {
+      "match": "stellarium-web.org",
+      "path_pattern": "(?:^|/)scripts/skydata/",
+      "reason": "Public Stellarium Web access is allowed only for parity capture/import tooling."
+    },
+    {
+      "match": "stellarium.sfo2.cdn.digitaloceanspaces.com",
+      "path_pattern": "(?:^|/)scripts/skydata/(?:mirror_public_runtime_data|high_speed_public_mirror|run_public_parity_pipeline)\\.\\w+$",
+      "reason": "Public Stellarium CDN access is allowed only for controlled mirror/import tooling."
+    },
+    {
       "match": "gea.esac.esa.int",
       "path_pattern": "(?:^|/)(?:admin|docs|scripts)(?:/|$)",
       "reason": "Gaia Archive access is allowed only for admin or import paths."
@@ -192,6 +205,21 @@
       "match": "www.minorplanetcenter.net",
       "path_pattern": "data-credits-dialog\\.vue$",
       "reason": "Minor Planet Center attribution links are allowed in source credit dialogs."
+    },
+    {
+      "match": "wikidata.org",
+      "path_pattern": "object-media/summaries/.*\\.json$",
+      "reason": "Cached ORAS object summaries may expose attribution/source links."
+    },
+    {
+      "match": "simbad.cds.unistra.fr",
+      "path_pattern": "object-media/summaries/.*\\.json$",
+      "reason": "Cached ORAS object summaries may expose SIMBAD attribution/source links."
+    },
+    {
+      "match": "ssd.jpl.nasa.gov",
+      "path_pattern": "object-media/summaries/.*\\.json$",
+      "reason": "Cached ORAS object summaries may expose NASA/JPL attribution/source links."
     },
     {
       "match": "stellarium-labs.com",

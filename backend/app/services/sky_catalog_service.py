@@ -293,6 +293,36 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
     }
 
 
+def build_named_object_lookup_payload(name: str, database_url: str | None = None) -> dict:
+    gaia_source_id = parse_gaia_dr2_query(name)
+    if gaia_source_id is not None:
+        return build_gaia_lookup_payload(str(gaia_source_id), database_url)
+
+    results = _lookup_local_named_objects(name, limit=1)
+    if results:
+        result = results[0]
+        return {
+            "status": "ok",
+            "data": {
+                **result,
+                "summary": _lookup_local_summary(result),
+            },
+            "meta": {"match_type": "local_named_object"},
+        }
+
+    return {
+        "status": "ok",
+        "data": {
+            "display_name": name,
+            "indexed": False,
+            "status": "not_indexed",
+            "message": "Object is not present in the local ORAS catalog yet.",
+            "summary": None,
+        },
+        "meta": {"match_type": "none"},
+    }
+
+
 def _not_indexed_payload(source_id: int) -> dict:
     return {
         "catalog": "Gaia DR2",
@@ -418,3 +448,45 @@ def _lookup_local_named_objects(query: str, limit: int = 10) -> list[dict]:
             break
 
     return unique_results
+
+
+def _lookup_local_summary(result: dict) -> dict | None:
+    summary_index_path = RUNTIME_SKYDATA_ROOT / "object-media/summaries/index.json"
+    if not summary_index_path.exists():
+        return None
+    try:
+        import json
+
+        index = json.loads(summary_index_path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+    alias_to_file = index.get("alias_to_file", {})
+    if not isinstance(alias_to_file, dict):
+        return None
+
+    aliases = [
+        result.get("display_name"),
+        result.get("source_id"),
+        result.get("catalog"),
+    ]
+    display_name = str(result.get("display_name") or "")
+    if display_name:
+        aliases.extend(display_name.split())
+
+    for alias in aliases:
+        normalized = str(alias or "").strip().lower()
+        if not normalized:
+            continue
+        filename = alias_to_file.get(normalized)
+        if not filename:
+            continue
+        summary_path = RUNTIME_SKYDATA_ROOT / "object-media/summaries" / str(filename)
+        if not summary_path.exists():
+            continue
+        try:
+            return json.loads(summary_path.read_text(encoding="utf-8"))
+        except Exception:
+            return None
+
+    return None

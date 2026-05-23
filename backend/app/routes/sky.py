@@ -5,6 +5,7 @@ from backend.app.schemas.response_envelope import ResponseEnvelope
 from backend.app.services.sky_catalog_service import (
     build_catalog_status_payload,
     build_gaia_lookup_payload,
+    build_named_object_lookup_payload,
     build_sky_search_payload,
 )
 
@@ -26,6 +27,11 @@ async def get_gaia_dr2_source(source_id: str):
             code="invalid_request",
             message="invalid Gaia DR2 source_id",
         )
+
+
+@router.get("/sky/object/name/{name}", response_model=ResponseEnvelope)
+async def get_named_sky_object(name: str):
+    return build_named_object_lookup_payload(name)
 
 
 @router.get("/sky/search", response_model=ResponseEnvelope)

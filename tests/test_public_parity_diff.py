@@ -33,6 +33,9 @@ def test_build_parity_diff_statuses(tmp_path: Path) -> None:
 
     # missing_local
     _write(mirror_root / "c/runtime-ready/oras-sky-engine/skydata/surveys/dss/v1/Norder0/Dir0/Npix0.jpg", b"img")
+    # format_equivalent
+    _write(mirror_root / "c/runtime-ready/oras-sky-engine/skydata/surveys/dss/v1/Norder0/Dir0/Npix1.jpg", b"img-jpg")
+    _write(oras_root / "surveys/dss/v1/Norder0/Dir0/Npix1.webp", b"img-webp")
 
     # extra_local
     _write(oras_root / "skycultures/western/index.json", b"{}")
@@ -43,11 +46,13 @@ def test_build_parity_diff_statuses(tmp_path: Path) -> None:
     assert diff["status_counts"]["checksum_mismatch"] == 1
     assert diff["status_counts"]["missing_local"] == 1
     assert diff["status_counts"]["extra_local"] == 1
+    assert diff["status_counts"]["format_equivalent"] == 1
 
     statuses = {row["relative_path"]: row["status"] for row in diff["rows"]}
     assert statuses["stars/properties"] == "present_both"
     assert statuses["dso/properties"] == "checksum_mismatch"
     assert statuses["surveys/dss/v1/Norder0/Dir0/Npix0.jpg"] == "missing_local"
+    assert statuses["surveys/dss/v1/Norder0/Dir0/Npix1.jpg"] == "format_equivalent"
     assert statuses["skycultures/western/index.json"] == "extra_local"
 
     # Ensure serializable for pipeline output.

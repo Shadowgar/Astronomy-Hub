@@ -2,8 +2,9 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Preserve current package layout inside the container.
-COPY . ./backend/
+# Preserve the runtime package layout inside the container.
+COPY backend ./backend/
+COPY scripts ./scripts/
 
 # Install runtime dependencies from requirements.txt
 RUN python3 -m pip install --upgrade pip && \

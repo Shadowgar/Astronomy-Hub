@@ -50,6 +50,7 @@ def test_manifest_contains_required_classes() -> None:
         "milkyway_survey",
         "landscape_guereins",
         "moon_survey",
+        "gaia_survey",
         "dss_survey",
     }
     assert required.issubset(set(payload["classes"].keys()))

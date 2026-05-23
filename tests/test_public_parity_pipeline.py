@@ -13,3 +13,10 @@ def test_build_mirror_cmd() -> None:
     assert "--request-timeout" in cmd and cmd[cmd.index("--request-timeout") + 1] == "30"
     assert "--workers" in cmd
     assert "--progress" in cmd
+
+
+def test_build_mirror_cmd_treats_gaia_as_parallel_survey() -> None:
+    cmd = build_mirror_cmd("python3", "gaia_survey", 0, 7, 12, 0.0, 4, 30)
+    assert "--workers" in cmd
+    assert cmd[cmd.index("--workers") + 1] == "12"
+    assert "--progress" in cmd
