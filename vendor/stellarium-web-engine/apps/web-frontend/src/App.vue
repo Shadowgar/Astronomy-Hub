@@ -380,12 +380,10 @@ export default {
             // Set all default data sources
             const core = that.$stel.core
             const bundledDataBase = process.env.BASE_URL + 'skydata'
-            // Keep DSO bounded to the base pack by default:
-            // - legacy root /dso uses hips_order=0, which this runtime treats as
-            //   effectively unbounded
-            // - base /packs/base/dso uses hips_order=1 with matching tile depth
-            // - extended DSO stays disabled until validated
+            // Match Stellarium-Web DSO behavior with bounded packs only:
+            // keep legacy root /dso disabled and load base + extended packs.
             core.dsos.addDataSource({ url: bundledDataBase + '/packs/base/dso' })
+            core.dsos.addDataSource({ url: bundledDataBase + '/packs/extended/dso' })
             listOrasPackRoots().forEach((packRoot) => {
               core.stars.addDataSource({ url: packRoot + '/stars' })
             })
