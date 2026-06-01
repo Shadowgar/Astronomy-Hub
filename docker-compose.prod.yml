@@ -16,6 +16,8 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - "${PUBLIC_HTTP_PORT:-4173}:80"
+    volumes:
+      - ./frontend/public/oras-sky-engine/skydata:/usr/share/nginx/html/oras-sky-engine/skydata:ro
     depends_on:
       - backend
     restart: unless-stopped
