@@ -4,5 +4,8 @@ node_modules
 .env
 .DS_Store
 npm-debug.log
+dist
+dev
+test-results
 public/oras-sky-engine/skydata
 public/oras-sky-engine/js/*.map
