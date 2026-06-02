@@ -12,6 +12,7 @@ skydata_dir="$source_root/apps/test-skydata"
 js_image="astronomy-hub-stellarium-jsbuild"
 js_dockerfile="$repo_root/scripts/Dockerfile.stellarium-jsbuild"
 expected_vue_version="2.6.12"
+skip_host_npm_install="${STELLARIUM_SKIP_HOST_NPM_INSTALL:-0}"
 
 read_package_version() {
     local package_dir="$1"
@@ -53,7 +54,9 @@ NODE
 vue_version="$(read_package_version "$app_dir/node_modules/vue" || true)"
 compiler_version="$(read_package_version "$app_dir/node_modules/vue-template-compiler" || true)"
 
-if [[ ! -d "$app_dir/node_modules" || "$vue_version" != "$expected_vue_version" || "$compiler_version" != "$expected_vue_version" ]]; then
+if [[ "$skip_host_npm_install" == "1" ]]; then
+    echo "Skipping host-side Stellarium npm install; safe builder will install in staged workspace."
+elif [[ ! -d "$app_dir/node_modules" || "$vue_version" != "$expected_vue_version" || "$compiler_version" != "$expected_vue_version" ]]; then
     echo "Installing Stellarium web-frontend dependencies in $app_dir"
     (
         cd "$app_dir"

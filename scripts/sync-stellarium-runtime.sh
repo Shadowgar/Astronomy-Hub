@@ -13,8 +13,8 @@ if [[ ! -f "$runtime_dist_dir/index.html" ]]; then
   exit 1
 fi
 
-rm -rf "$target_dir"
 mkdir -p "$target_dir"
-cp -a "$runtime_dist_dir/." "$target_dir/"
+# Keep mounted skydata intact while replacing generated runtime shell files.
+rsync -a --delete --exclude 'skydata/' "$runtime_dist_dir/." "$target_dir/"
 
 echo "Synced ORAS Sky-Engine runtime to $target_dir"
