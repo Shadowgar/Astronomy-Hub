@@ -32,7 +32,6 @@
     "prepare:stellarium-runtime": "bash scripts/sync-stellarium-runtime.sh",
     "build:stellarium": "bash scripts/build-stellarium-safe.sh",
     "build:stellarium:legacy": "bash scripts/prepare-stellarium-reference.sh && cd vendor/stellarium-web-engine/apps/web-frontend && ORAS_RUNTIME_PUBLIC_PATH=/oras-sky-engine/ NODE_OPTIONS='--openssl-legacy-provider --max-old-space-size=3072' npm run build && cd \"$INIT_CWD\" && npm run prepare:stellarium-runtime",
-    "release:oras-frontend:prod": "bash scripts/rebuild-oras-frontend-prod.sh",
     "scan:runtime-external-deps": ".venv/bin/python scripts/skydata/scan_runtime_external_dependencies.py",
     "scan:runtime-external-deps:fail": ".venv/bin/python scripts/skydata/scan_runtime_external_dependencies.py --fail-on-runtime-forbidden",
     "serve:stellarium": "npm run dev:stellarium",
