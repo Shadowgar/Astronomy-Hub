@@ -110,6 +110,42 @@ def test_seeded_sample_row_returns_normalized_gaia_object_json(tmp_path: Path, m
     assert body["data"]["dec"] == 45.99799147
 
 
+def test_exact_object_endpoint_resolves_m31_from_stable_identity(tmp_path: Path, monkeypatch) -> None:
+    _setup_database(tmp_path, monkeypatch)
+
+    response = client.get(
+        "/api/sky/object?catalog=Messier%20(local)&source_id=M31&model=dso",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["data"]["catalog"] == "Messier (local)"
+    assert body["data"]["source_id"] == "M31"
+    assert body["data"]["model"] == "dso"
+    assert body["data"]["display_name"].startswith("M31")
+    assert body["data"]["ra"] == 10.68
+    assert body["data"]["dec"] == 41.269
+
+
+def test_exact_object_endpoint_resolves_betelgeuse_from_stable_identity(tmp_path: Path, monkeypatch) -> None:
+    _setup_database(tmp_path, monkeypatch)
+
+    response = client.get(
+        "/api/sky/object?catalog=Bright%20Star%20Catalog%20(local)&source_id=star-betelgeuse&model=star",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["data"]["catalog"] == "Bright Star Catalog (local)"
+    assert body["data"]["source_id"] == "star-betelgeuse"
+    assert body["data"]["model"] == "star"
+    assert body["data"]["display_name"] == "Betelgeuse"
+    assert body["data"]["ra"] == 88.7925
+    assert body["data"]["dec"] == 7.4071
+
+
 def test_catalog_status_returns_partial_when_gaia_rows_exist(tmp_path: Path, monkeypatch) -> None:
     database_url = _setup_database(tmp_path, monkeypatch)
     sample_path = tmp_path / "gaia_sample.csv"

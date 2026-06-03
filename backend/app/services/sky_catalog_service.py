@@ -218,6 +218,19 @@ def build_gaia_lookup_payload(source_id: str, database_url: str | None = None) -
     }
 
 
+def build_exact_object_lookup_payload(
+    catalog: str,
+    source_id: str,
+    model: str,
+    database_url: str | None = None,
+) -> dict:
+    return {
+        "status": "ok",
+        "data": lookup_exact_object(catalog, source_id, model, database_url),
+        "meta": {},
+    }
+
+
 def lookup_gaia_dr2_source(source_id: int, database_url: str | None = None) -> dict:
     engine = get_engine(database_url)
     inspector = inspect(engine)
@@ -243,6 +256,9 @@ def lookup_gaia_dr2_source(source_id: int, database_url: str | None = None) -> d
         "catalog": "Gaia DR2",
         "source_id": gaia_source.source_id,
         "display_name": f"Gaia DR2 {gaia_source.source_id}",
+        "model": "star",
+        "names": [f"Gaia DR2 {gaia_source.source_id}", f"GAIA {gaia_source.source_id}"],
+        "types": ["*"],
         "ra": gaia_source.ra,
         "dec": gaia_source.dec,
         "phot_g_mean_mag": gaia_source.phot_g_mean_mag,
@@ -293,11 +309,43 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
     }
 
 
+def lookup_exact_object(
+    catalog: str,
+    source_id: str,
+    model: str,
+    database_url: str | None = None,
+) -> dict:
+    normalized_catalog = str(catalog or "").strip().lower()
+    normalized_source_id = str(source_id or "").strip()
+    normalized_model = str(model or "").strip().lower()
+
+    if not normalized_catalog or not normalized_source_id or not normalized_model:
+        raise ValueError("catalog, source_id, and model are required")
+
+    if normalized_catalog == "gaia dr2":
+        result = lookup_gaia_dr2_source(parse_gaia_dr2_source_id(normalized_source_id), database_url)
+        result["model"] = normalized_model or "star"
+        return result
+
+    local_result = _lookup_local_named_object_by_identity(
+        normalized_catalog,
+        normalized_source_id,
+        normalized_model,
+    )
+    if local_result:
+        return local_result
+
+    raise ValueError("object not found")
+
+
 def _not_indexed_payload(source_id: int) -> dict:
     return {
         "catalog": "Gaia DR2",
         "source_id": source_id,
         "display_name": f"Gaia DR2 {source_id}",
+        "model": "star",
+        "names": [f"Gaia DR2 {source_id}", f"GAIA {source_id}"],
+        "types": ["*"],
         "indexed": False,
         "status": "not_indexed",
         "message": "Gaia DR2 source is not present in the local ORAS catalog yet.",
@@ -331,13 +379,21 @@ def _build_local_search_candidates() -> list[dict]:
             continue
         ra_hours = star.get("right_ascension")
         ra_degrees = float(ra_hours) * 15.0 if isinstance(ra_hours, (int, float)) else None
-        aliases = [name]
+        aliases = [str(alias).strip() for alias in star.get("aliases", []) if str(alias).strip()]
+        aliases.extend([f"NAME {name}", name])
+        canonical_names: list[str] = []
+        for alias in aliases:
+            if alias and alias not in canonical_names:
+                canonical_names.append(alias)
         candidates.append(
             {
                 "result": {
                     "catalog": "Bright Star Catalog (local)",
                     "source_id": star.get("id"),
                     "display_name": name,
+                    "model": "star",
+                    "names": canonical_names,
+                    "types": ["*"],
                     "ra": ra_degrees,
                     "dec": star.get("declination"),
                     "phot_g_mean_mag": star.get("magnitude"),
@@ -355,16 +411,28 @@ def _build_local_search_candidates() -> list[dict]:
         name = str(obj.get("name") or "").strip()
         if not catalog or not name:
             continue
-        aliases: list[str] = [catalog, name]
+        aliases: list[str] = []
+        aliases.extend(str(alias).strip() for alias in obj.get("aliases", []) if str(alias).strip())
+        aliases.append(name)
+        aliases.append(catalog)
         if catalog.startswith("M"):
             aliases.extend([f"Messier {catalog[1:]}", f"M {catalog[1:]}".strip()])
-        aliases.extend(str(alias).strip() for alias in obj.get("aliases", []) if str(alias).strip())
+        canonical_names = []
+        for alias in aliases:
+            if alias and alias not in canonical_names:
+                canonical_names.append(alias)
+        if display_name := f"{catalog} {name}":
+            if display_name not in canonical_names:
+                canonical_names.append(display_name)
         candidates.append(
             {
                 "result": {
                     "catalog": "Messier (local)",
                     "source_id": catalog,
                     "display_name": f"{catalog} {name}",
+                    "model": "dso",
+                    "names": canonical_names,
+                    "types": ["dso"],
                     "ra": float(obj["ra_hours"]) * 15.0,
                     "dec": obj["dec_deg"],
                     "phot_g_mean_mag": obj["magnitude"],
@@ -378,6 +446,25 @@ def _build_local_search_candidates() -> list[dict]:
         )
 
     return candidates
+
+
+def _lookup_local_named_object_by_identity(catalog: str, source_id: str, model: str) -> dict | None:
+    normalized_source_id = source_id.strip().lower()
+
+    for candidate in _build_local_search_candidates():
+        result = candidate["result"]
+        result_catalog = str(result.get("catalog") or "").strip().lower()
+        result_source_id = str(result.get("source_id") or "").strip().lower()
+        result_model = str(result.get("model") or "").strip().lower()
+
+        if (
+            result_catalog == catalog
+            and result_source_id == normalized_source_id
+            and result_model == model
+        ):
+            return dict(result)
+
+    return None
 
 
 def _lookup_local_named_objects(query: str, limit: int = 10) -> list[dict]:

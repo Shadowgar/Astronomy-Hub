@@ -10,6 +10,7 @@ import {
   ORAS_OBJECT_API_ROOT,
   ORAS_RUNTIME_MODE,
   ORAS_SEARCH_API,
+  buildOrasObjectLookupUrl,
   buildOrasSearchUrl,
   normalizeOrasSearchQuery,
   resolveOrasDssSurveyUrl,
@@ -81,6 +82,20 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
   it('normalizes Gaia aliases and builds same-origin ORAS search urls', () => {
     expect(normalizeOrasSearchQuery('  GAIA 2252802052894084352  ')).toBe('Gaia DR2 2252802052894084352')
     expect(buildOrasSearchUrl('Gaia DR2 2252802052894084352')).toBe('/api/sky/search?q=Gaia+DR2+2252802052894084352')
+  })
+
+  it('builds same-origin ORAS object lookup urls from stable identity fields', () => {
+    expect(buildOrasObjectLookupUrl({
+      catalog: 'Messier (local)',
+      sourceId: 'M31',
+      model: 'dso'
+    })).toBe('/api/sky/object?catalog=Messier+%28local%29&source_id=M31&model=dso')
+
+    expect(buildOrasObjectLookupUrl({
+      catalog: 'Bright Star Catalog (local)',
+      sourceId: 'star-betelgeuse',
+      model: 'star'
+    })).toBe('/api/sky/object?catalog=Bright+Star+Catalog+%28local%29&source_id=star-betelgeuse&model=star')
   })
 
   it('maps backend Gaia payloads into runtime sky-source objects', () => {
@@ -188,11 +203,26 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     const source = fs.readFileSync(swHelpersPath, 'utf8')
 
     expect(source).toContain('fetchOrasSkySearch: function (query)')
+    expect(source).toContain('fetchOrasSkySourceByIdentity: function ({ catalog, sourceId, model })')
     expect(source).toContain('return fetch(searchUrl, {')
     expect(source).toContain('return this.localQueryResults(normalized, limit)')
     expect(source).not.toContain('api.noctuasky.com')
     expect(source).not.toContain('nominatim')
     expect(source).not.toContain('wikipedia.org')
+  })
+
+  it('uses stable identity fields in generated share links and route startup selection', () => {
+    const helpersSource = fs.readFileSync(swHelpersPath, 'utf8')
+    const appSource = fs.readFileSync(appVuePath, 'utf8')
+
+    expect(helpersSource).toContain("link += '&catalog=' +")
+    expect(helpersSource).toContain("link += '&source_id=' +")
+    expect(helpersSource).toContain("link += '&model=' +")
+    expect(helpersSource).toContain("link += '&ra=' +")
+    expect(helpersSource).toContain("link += '&dec=' +")
+
+    expect(appSource).toContain('const routeIdentity = this.skySourceRouteIdentity()')
+    expect(appSource).toContain('return this.selectSkySourceRouteTargetByIdentity(routeIdentity)')
   })
 
   it('preserves raw query text for backend-compatible Gaia searches', () => {

@@ -266,7 +266,31 @@ export default {
       if (this.$route.path.startsWith('/skysource/')) {
         const name = decodeURIComponent(this.$route.path.substring(11))
         console.log('Will select object: ' + name)
+        const routeIdentity = this.skySourceRouteIdentity()
+        if (routeIdentity) {
+          return this.selectSkySourceRouteTargetByIdentity(routeIdentity)
+        }
         return this.selectSkySourceRouteTarget(name)
+      }
+    },
+
+    skySourceRouteIdentity: function () {
+      const catalog = typeof this.$route.query.catalog === 'string' ? this.$route.query.catalog.trim() : ''
+      const sourceId = typeof this.$route.query.source_id === 'string' ? this.$route.query.source_id.trim() : ''
+      const model = typeof this.$route.query.model === 'string' ? this.$route.query.model.trim() : ''
+      const ra = this.$route.query.ra == null ? null : Number(this.$route.query.ra)
+      const dec = this.$route.query.dec == null ? null : Number(this.$route.query.dec)
+
+      if (!catalog || !sourceId || !model) {
+        return undefined
+      }
+
+      return {
+        catalog,
+        sourceId,
+        model,
+        ra: Number.isFinite(ra) ? ra : null,
+        dec: Number.isFinite(dec) ? dec : null
       }
     },
 
@@ -302,6 +326,51 @@ export default {
         }
         console.log(err)
         console.log("Couldn't find skysource for name: " + name)
+      })
+    },
+
+    selectSkySourceRouteTargetByIdentity: function (identity, attempt = 0) {
+      const retryDelayMs = 250
+      const maxAttempts = 80
+
+      return swh.fetchOrasSkySourceByIdentity(identity).then(ss => {
+        if (!ss || !swh.skySourceMatchesIdentity(ss, identity)) {
+          throw new Error('Resolved sky source did not match requested identity')
+        }
+
+        let obj = swh.skySource2SweObj(ss)
+        if (!obj) {
+          throw new Error("Exact sky source target is not ready yet")
+        }
+        swh.setSweObjAsSelection(obj)
+      }, err => {
+        if (attempt < maxAttempts) {
+          return new Promise(resolve => setTimeout(resolve, retryDelayMs))
+            .then(() => this.selectSkySourceRouteTargetByIdentity(identity, attempt + 1))
+        }
+        const fallback = Object.assign({
+          match: identity.sourceId,
+          names: [identity.sourceId],
+          types: [identity.model === 'dso' ? 'dso' : '*'],
+          model: identity.model,
+          model_data: {},
+          catalog: identity.catalog,
+          source_id: identity.sourceId,
+          display_name: identity.sourceId,
+          ra: identity.ra,
+          dec: identity.dec,
+        }, {
+          ra: identity.ra,
+          dec: identity.dec,
+        })
+        const fallbackObj = this.$stel.createObj(fallback.model, fallback)
+        if (fallbackObj) {
+          this.$selectionLayer.add(fallbackObj)
+          swh.setSweObjAsSelection(fallbackObj)
+          return
+        }
+        console.log(err)
+        console.log("Couldn't find skysource for identity: " + identity.catalog + ' ' + identity.sourceId)
       })
     }
   },
@@ -398,7 +467,7 @@ export default {
               core.skycultures.addDataSource({ url: process.env.BASE_URL + 'skydata/skycultures/western', key: 'western' })
             }
 
-            resolveOrasDssSurveyUrl({ providerId: that.$route.query.hips }).then(dssSurveyUrl => {
+            resolveOrasDssSurveyUrl().then(dssSurveyUrl => {
               if (dssSurveyUrl) {
                 core.dss.addDataSource({ url: dssSurveyUrl })
               }

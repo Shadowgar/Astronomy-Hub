@@ -2,8 +2,9 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Preserve current package layout inside the container.
-COPY . ./backend/
+# Preserve current package layout and the repo-level skydata helpers used at runtime.
+COPY backend ./backend
+COPY scripts ./scripts
 
 # Install runtime dependencies from requirements.txt
 RUN python3 -m pip install --upgrade pip && \
