@@ -33,6 +33,21 @@ export function isOrasRuntimeProxyPath(requestPath) {
   return requestPath.startsWith('/oras-sky-engine/remote-data')
 }
 
+export function getExistingOrasRuntimeStaticPath(requestPath) {
+  if (!requestPath.startsWith('/oras-sky-engine')) {
+    return undefined
+  }
+
+  const cleanPath = requestPath.split('?')[0]
+  const relativeRuntimePath = cleanPath.replace(/^\/oras-sky-engine\/?/, '')
+  if (!relativeRuntimePath) {
+    return undefined
+  }
+
+  const staticCandidatePath = path.join(runtimePublicDir, relativeRuntimePath)
+  return fs.existsSync(staticCandidatePath) ? staticCandidatePath : undefined
+}
+
 export function isOrasRuntimeSpaPath(requestPath) {
   if (!requestPath.startsWith('/oras-sky-engine')) {
     return false
@@ -53,8 +68,7 @@ export function isOrasRuntimeSpaPath(requestPath) {
     return false
   }
 
-  const staticCandidatePath = path.join(runtimePublicDir, relativeRuntimePath)
-  return !fs.existsSync(staticCandidatePath)
+  return !getExistingOrasRuntimeStaticPath(requestPath)
 }
 
 export function isMissingOrasRuntimeDataAsset(requestPath) {
@@ -106,8 +120,23 @@ export function getOrasRuntimeRemoteFallbackPath(requestPath) {
   return undefined
 }
 
-function serveOrasRuntimeIndex(req, res, next) {
+export function serveOrasRuntimeRequest(req, res, next) {
   const requestPath = req.url || ''
+  const staticRuntimePath = getExistingOrasRuntimeStaticPath(requestPath)
+
+  if (staticRuntimePath) {
+    const cleanPath = requestPath.split('?')[0]
+    const relativeRuntimePath = cleanPath.replace(/^\/oras-sky-engine\/?/, '')
+
+    if (!path.extname(relativeRuntimePath)) {
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8')
+      res.end(fs.readFileSync(staticRuntimePath))
+      return
+    }
+
+    next()
+    return
+  }
 
   if (isMissingOrasRuntimeDataAsset(requestPath)) {
     const remoteFallbackPath = getOrasRuntimeRemoteFallbackPath(requestPath)
@@ -133,10 +162,10 @@ function serveOrasRuntimeIndex(req, res, next) {
 const orasRuntimeSpaPlugin = {
   name: 'oras-runtime-spa',
   configureServer(server) {
-    server.middlewares.use(serveOrasRuntimeIndex)
+    server.middlewares.use(serveOrasRuntimeRequest)
   },
   configurePreviewServer(server) {
-    server.middlewares.use(serveOrasRuntimeIndex)
+    server.middlewares.use(serveOrasRuntimeRequest)
   },
 }
 
