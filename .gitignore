@@ -46,6 +46,7 @@ logs/
 .code-workspace
 AGENTS.md
 .*
+!.dockerignore
 
 # Local binaries (e.g. accidentally copied Snyk CLI; use npx snyk or a global install)
 /snyk

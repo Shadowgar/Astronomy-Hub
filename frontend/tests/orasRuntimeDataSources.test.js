@@ -14,7 +14,9 @@ describe('oras runtime data sources', () => {
 
     expect(source).toContain("const bundledDataBase = process.env.BASE_URL + 'skydata'")
     expect(source).not.toContain("core.stars.addDataSource({ url: bundledDataBase + '/stars' })")
-    expect(source).toContain("core.dsos.addDataSource({ url: bundledDataBase + '/dso' })")
+    expect(source).not.toContain("core.dsos.addDataSource({ url: bundledDataBase + '/dso' })")
+    expect(source).toContain("core.dsos.addDataSource({ url: bundledDataBase + '/packs/base/dso' })")
+    expect(source).toContain("core.dsos.addDataSource({ url: bundledDataBase + '/packs/extended/dso' })")
     expect(source).toContain("core.stars.addDataSource({ url: ORAS_BUNDLED_GAIA_SURVEY_ROOT, key: 'gaia' })")
     expect(source).toContain("core.minor_planets.addDataSource({ url: bundledDataBase + '/mpcorb.dat', key: 'mpc_asteroids' })")
     expect(source).toContain("core.comets.addDataSource({ url: bundledDataBase + '/CometEls.txt', key: 'mpc_comets' })")

@@ -340,9 +340,15 @@ export default {
 
         let obj = swh.skySource2SweObj(ss)
         if (!obj) {
-          throw new Error("Exact sky source target is not ready yet")
+          const fallbackObj = this.$stel.createObj(ss.model, ss)
+          if (!fallbackObj) {
+            throw new Error('Exact sky source target is not ready yet')
+          }
+          obj = fallbackObj
+          this.$selectionLayer.add(obj)
         }
-        swh.setSweObjAsSelection(obj)
+        obj.__orasSkySourceData = ss
+        swh.setSweObjAsSelection(obj, ss)
       }, err => {
         if (attempt < maxAttempts) {
           return new Promise(resolve => setTimeout(resolve, retryDelayMs))
@@ -358,10 +364,10 @@ export default {
           source_id: identity.sourceId,
           display_name: identity.sourceId,
           ra: identity.ra,
-          dec: identity.dec,
+          dec: identity.dec
         }, {
           ra: identity.ra,
-          dec: identity.dec,
+          dec: identity.dec
         })
         const fallbackObj = this.$stel.createObj(fallback.model, fallback)
         if (fallbackObj) {

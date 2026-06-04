@@ -184,6 +184,7 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
       catalog: 'Bright Stars (local)',
       source_id: 'star-capella',
       display_name: 'Capella',
+      names: ['HD 34029', 'Capella'],
       ra: 79.172,
       dec: 45.998,
       indexed: true,
@@ -191,11 +192,13 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     })
 
     expect(brightStarSkySource).toMatchObject({
-      names: ['Capella', 'NAME Capella'],
+      names: ['Capella', 'HD 34029'],
       types: ['*'],
       model: 'star',
       status: 'indexed'
     })
+    expect(brightStarSkySource.names[0]).toBe('Capella')
+    expect(brightStarSkySource.names).toContain('HD 34029')
     expect(brightStarSkySource.names.join(' ')).not.toContain('GAIA')
   })
 
@@ -223,6 +226,22 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
 
     expect(appSource).toContain('const routeIdentity = this.skySourceRouteIdentity()')
     expect(appSource).toContain('return this.selectSkySourceRouteTargetByIdentity(routeIdentity)')
+  })
+
+  it('preserves exact ORAS identity after route selection updates the panel', () => {
+    const helpersSource = fs.readFileSync(swHelpersPath, 'utf8')
+    const appSource = fs.readFileSync(appVuePath, 'utf8')
+
+    expect(appSource).toContain('obj.__orasSkySourceData = ss')
+    expect(appSource).toContain('swh.setSweObjAsSelection(obj, ss)')
+    expect(appSource).toContain('const fallbackObj = this.$stel.createObj(ss.model, ss)')
+    expect(helpersSource).toContain('Object.assign({}, obj.__orasSkySourceData || obj.jsonData || {})')
+    expect(helpersSource).toContain('const exactSelection = this.exactSkySourceSelection')
+    expect(helpersSource).toContain('return Promise.resolve(exactSelection)')
+    expect(helpersSource).toContain('setSweObjAsSelection: function (obj, exactSkySource)')
+    expect(helpersSource).toContain('this.exactSkySourceSelection = exactSkySource || undefined')
+    expect(helpersSource).toContain('if (obj.__orasSkySourceData && obj.__orasSkySourceData.catalog && obj.__orasSkySourceData.source_id && obj.__orasSkySourceData.model)')
+    expect(helpersSource).toContain('return Promise.resolve(buildLocalSkySource(obj.__orasSkySourceData.match || obj.__orasSkySourceData.display_name || names[0]))')
   })
 
   it('preserves raw query text for backend-compatible Gaia searches', () => {
