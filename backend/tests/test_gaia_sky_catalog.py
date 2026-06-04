@@ -123,6 +123,7 @@ def test_exact_object_endpoint_resolves_m31_from_stable_identity(tmp_path: Path,
     assert body["data"]["catalog"] == "Messier (local)"
     assert body["data"]["source_id"] == "M31"
     assert body["data"]["model"] == "dso"
+    assert body["data"]["types"] == ["G"]
     assert body["data"]["display_name"].startswith("M31")
     assert body["data"]["ra"] == 10.68
     assert body["data"]["dec"] == 41.269

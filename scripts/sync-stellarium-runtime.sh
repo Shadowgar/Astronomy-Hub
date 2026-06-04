@@ -13,6 +13,12 @@ if [[ ! -f "$runtime_dist_dir/index.html" ]]; then
   exit 1
 fi
 
+if [[ ! -f "$runtime_dist_dir/oras-runtime-build.json" ]]; then
+  echo "Same-origin runtime build marker is missing: $runtime_dist_dir/oras-runtime-build.json" >&2
+  echo "Run: cd $repo_root && npm run build:stellarium" >&2
+  exit 1
+fi
+
 mkdir -p "$target_dir"
 # Keep mounted skydata intact while replacing generated runtime shell files.
 rsync -a --delete --exclude 'skydata/' "$runtime_dist_dir/." "$target_dir/"

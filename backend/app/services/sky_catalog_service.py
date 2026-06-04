@@ -432,7 +432,7 @@ def _build_local_search_candidates() -> list[dict]:
                     "display_name": f"{catalog} {name}",
                     "model": "dso",
                     "names": canonical_names,
-                    "types": ["dso"],
+                    "types": ["G"],
                     "ra": float(obj["ra_hours"]) * 15.0,
                     "dec": obj["dec_deg"],
                     "phot_g_mean_mag": obj["magnitude"],

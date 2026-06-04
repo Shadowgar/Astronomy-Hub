@@ -9,6 +9,7 @@ app_dir="$source_root/apps/web-frontend"
 assets_dir="$app_dir/src/assets/js"
 build_dir="$source_root/build"
 skydata_dir="$source_root/apps/test-skydata"
+public_skydata_dir="$repo_root/frontend/public/oras-sky-engine/skydata"
 js_image="astronomy-hub-stellarium-jsbuild"
 js_dockerfile="$repo_root/scripts/Dockerfile.stellarium-jsbuild"
 expected_vue_version="2.6.12"
@@ -76,19 +77,22 @@ fi
 # Build a compatibility satellite feed for this pinned SWE version.
 # New upstream JSONL entries include launch_date values in a format that this
 # runtime cannot parse; stripping the field avoids rejecting most satellites.
+# Vite serves .gz assets with Content-Encoding: gzip, so browser fetches hand
+# SWE a decoded payload. Double wrapping leaves an inner gzip stream for SWE's
+# z_uncompress_gz call.
 tmp_tle_gz="$(mktemp)"
 curl -fsSL "https://stellarium.sfo2.cdn.digitaloceanspaces.com/skysources/v1/tle_satellite.jsonl.gz" -o "$tmp_tle_gz"
-python3 - "$tmp_tle_gz" "$skydata_dir/tle_satellite.jsonl.gz" <<'PY'
+python3 - "$tmp_tle_gz" "$skydata_dir/tle_satellite.jsonl.gz" "$public_skydata_dir/tle_satellite.jsonl.gz" <<'PY'
 import gzip
 import json
 import os
 import sys
 
 src_path = sys.argv[1]
-dst_path = sys.argv[2]
-tmp_path = f"{dst_path}.tmp"
+dst_paths = sys.argv[2:]
 
-with gzip.open(src_path, "rt", encoding="utf-8", errors="ignore") as source_stream, gzip.open(tmp_path, "wt", encoding="utf-8") as output_stream:
+inner_payload_path = f"{dst_paths[0]}.inner.tmp"
+with gzip.open(src_path, "rt", encoding="utf-8", errors="ignore") as source_stream, gzip.open(inner_payload_path, "wt", encoding="utf-8") as output_stream:
     for raw_line in source_stream:
         line = raw_line.strip()
         if not line:
@@ -102,7 +106,16 @@ with gzip.open(src_path, "rt", encoding="utf-8", errors="ignore") as source_stre
             model_data.pop("launch_date", None)
         output_stream.write(json.dumps(record, separators=(",", ":")) + "\n")
 
-os.replace(tmp_path, dst_path)
+for dst_path in dst_paths:
+    if not dst_path:
+        continue
+    os.makedirs(os.path.dirname(dst_path), exist_ok=True)
+    tmp_path = f"{dst_path}.tmp"
+    with open(inner_payload_path, "rb") as inner_stream, gzip.open(tmp_path, "wb") as output_stream:
+        output_stream.write(inner_stream.read())
+    os.replace(tmp_path, dst_path)
+
+os.unlink(inner_payload_path)
 PY
 rm -f "$tmp_tle_gz"
 

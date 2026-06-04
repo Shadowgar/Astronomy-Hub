@@ -174,7 +174,7 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
 
     expect(messierSkySource).toMatchObject({
       names: ['M31 Andromeda Galaxy', 'M31', 'M 31'],
-      types: ['dso'],
+      types: ['G'],
       model: 'dso',
       status: 'indexed'
     })
