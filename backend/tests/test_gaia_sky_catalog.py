@@ -147,6 +147,28 @@ def test_exact_object_endpoint_resolves_known_messier_types(tmp_path: Path, monk
     assert m13_response.json()["data"]["types"] == ["GlC"]
 
 
+def test_exact_object_endpoint_resolves_expanded_messier_validation_targets(tmp_path: Path, monkeypatch) -> None:
+    _setup_database(tmp_path, monkeypatch)
+
+    expected = {
+        "M45": ("Pleiades", ["OpC"]),
+        "M57": ("Ring Nebula", ["PN"]),
+        "M81": ("Bode's Galaxy", ["G"]),
+        "M82": ("Cigar Galaxy", ["G"]),
+    }
+
+    for source_id, (name, types) in expected.items():
+        response = client.get(
+            f"/api/sky/object?catalog=Messier%20(local)&source_id={source_id}&model=dso",
+            headers={"User-Agent": "pytest"},
+        )
+        assert response.status_code == 200
+        body = response.json()
+        assert body["data"]["source_id"] == source_id
+        assert name in body["data"]["display_name"]
+        assert body["data"]["types"] == types
+
+
 def test_exact_object_endpoint_resolves_betelgeuse_from_stable_identity(tmp_path: Path, monkeypatch) -> None:
     _setup_database(tmp_path, monkeypatch)
 
@@ -163,6 +185,43 @@ def test_exact_object_endpoint_resolves_betelgeuse_from_stable_identity(tmp_path
     assert body["data"]["display_name"] == "Betelgeuse"
     assert body["data"]["ra"] == 88.7925
     assert body["data"]["dec"] == 7.4071
+
+
+def test_exact_object_endpoint_resolves_expanded_bright_star_validation_targets(tmp_path: Path, monkeypatch) -> None:
+    _setup_database(tmp_path, monkeypatch)
+
+    expected = {
+        "star-sirius": ("Sirius", 101.2875, -16.7161),
+        "star-vega": ("Vega", 279.234, 38.7837),
+        "star-antares": ("Antares", 247.3515, -26.4319),
+    }
+
+    for source_id, (name, ra, dec) in expected.items():
+        response = client.get(
+            f"/api/sky/object?catalog=Bright%20Star%20Catalog%20(local)&source_id={source_id}&model=star",
+            headers={"User-Agent": "pytest"},
+        )
+        assert response.status_code == 200
+        body = response.json()
+        assert body["data"]["source_id"] == source_id
+        assert body["data"]["display_name"] == name
+        assert body["data"]["types"] == ["*"]
+        assert abs(body["data"]["ra"] - ra) < 0.000001
+        assert abs(body["data"]["dec"] - dec) < 0.000001
+
+
+def test_exact_object_endpoint_documents_unavailable_validation_targets(tmp_path: Path, monkeypatch) -> None:
+    _setup_database(tmp_path, monkeypatch)
+
+    unavailable_requests = [
+        "/api/sky/object?catalog=Bright%20Star%20Catalog%20(local)&source_id=star-polaris&model=star",
+        "/api/sky/object?catalog=Caldwell%20(local)&source_id=C6&model=dso",
+    ]
+
+    for path in unavailable_requests:
+        response = client.get(path, headers={"User-Agent": "pytest"})
+        assert response.status_code == 404
+        assert response.json()["error"]["code"] == "not_found"
 
 
 def test_catalog_status_returns_partial_when_gaia_rows_exist(tmp_path: Path, monkeypatch) -> None:

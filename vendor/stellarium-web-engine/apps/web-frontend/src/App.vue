@@ -73,7 +73,7 @@
 import _ from 'lodash'
 import Gui from '@/components/gui.vue'
 import GuiLoader from '@/components/gui-loader.vue'
-import { ORAS_BUNDLED_GAIA_SURVEY_ROOT, listOrasPackRoots, resolveOrasDssSurveyUrl } from '@/assets/oras_data_config.js'
+import { ORAS_BUNDLED_GAIA_SURVEY_ROOT, listOrasPackRoots, resolveOrasDssSurveyUrl, withOrasRouteIdentityFallback } from '@/assets/oras_data_config.js'
 import swh from '@/assets/sw_helpers.js'
 import Moment from 'moment'
 
@@ -334,6 +334,7 @@ export default {
       const maxAttempts = 80
 
       return swh.fetchOrasSkySourceByIdentity(identity).then(ss => {
+        ss = withOrasRouteIdentityFallback(ss, identity)
         if (!ss || !swh.skySourceMatchesIdentity(ss, identity)) {
           throw new Error('Resolved sky source did not match requested identity')
         }

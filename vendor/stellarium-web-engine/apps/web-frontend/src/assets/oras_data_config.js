@@ -206,3 +206,40 @@ export function toOrasSkySource (result) {
     provenance: result.provenance || null
   }
 }
+
+export function withOrasRouteIdentityFallback (skySource, identity) {
+  if (!skySource || !identity) {
+    return skySource
+  }
+
+  const routeRa = numberOrNull(identity.ra)
+  const routeDec = numberOrNull(identity.dec)
+  const skySourceRa = numberOrNull(skySource.ra)
+  const skySourceDec = numberOrNull(skySource.dec)
+  const hasRouteCoordinates = routeRa != null && routeDec != null
+  const needsRouteCoordinates = hasRouteCoordinates && (skySourceRa == null || skySourceDec == null)
+
+  if (!needsRouteCoordinates) {
+    return skySource
+  }
+
+  const exactSkySource = Object.assign({}, skySource, {
+    ra: skySourceRa == null ? routeRa : skySource.ra,
+    dec: skySourceDec == null ? routeDec : skySource.dec,
+    model_data: Object.assign({}, skySource.model_data || {})
+  })
+
+  if (String(exactSkySource.model || '').toLowerCase() === 'star') {
+    if (numberOrNull(exactSkySource.model_data.ra) == null) {
+      exactSkySource.model_data.ra = exactSkySource.ra
+    }
+    if (numberOrNull(exactSkySource.model_data.de) == null) {
+      exactSkySource.model_data.de = exactSkySource.dec
+    }
+    if (exactSkySource.model_data.epoch == null) {
+      exactSkySource.model_data.epoch = 2000
+    }
+  }
+
+  return exactSkySource
+}

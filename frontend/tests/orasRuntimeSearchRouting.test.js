@@ -15,6 +15,7 @@ import {
   normalizeOrasSearchQuery,
   resolveOrasDssSurveyUrl,
   toOrasSkySource,
+  withOrasRouteIdentityFallback,
 } from '../../vendor/stellarium-web-engine/apps/web-frontend/src/assets/oras_data_config.js'
 
 const swHelpersPath = path.resolve(
@@ -162,6 +163,41 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     })
   })
 
+  it('uses route ra/dec to materialize controlled not-indexed Gaia identity links', () => {
+    const skySource = toOrasSkySource({
+      catalog: 'Gaia DR2',
+      source_id: '999999999999999999',
+      display_name: 'Gaia DR2 999999999999999999',
+      indexed: false,
+      status: 'not_indexed',
+      message: 'Gaia DR2 source is not present in the local ORAS catalog yet.',
+    })
+
+    const exactSkySource = withOrasRouteIdentityFallback(skySource, {
+      catalog: 'Gaia DR2',
+      sourceId: '999999999999999999',
+      model: 'star',
+      ra: 123.45,
+      dec: -54.321,
+    })
+
+    expect(exactSkySource).toMatchObject({
+      catalog: 'Gaia DR2',
+      source_id: '999999999999999999',
+      indexed: false,
+      status: 'not_indexed',
+      ra: 123.45,
+      dec: -54.321,
+    })
+    expect(exactSkySource.model_data).toMatchObject({
+      source_id: '999999999999999999',
+      oras_status: 'not_indexed',
+      oras_indexed: false,
+      ra: 123.45,
+      de: -54.321,
+    })
+  })
+
   it('maps local Messier and bright-star payloads without Gaia aliases', () => {
     const messierSkySource = toOrasSkySource({
       catalog: 'Messier (local)',
@@ -234,6 +270,7 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
 
     expect(appSource).toContain('const routeIdentity = this.skySourceRouteIdentity()')
     expect(appSource).toContain('return this.selectSkySourceRouteTargetByIdentity(routeIdentity)')
+    expect(appSource).toContain('withOrasRouteIdentityFallback(ss, identity)')
   })
 
   it('preserves exact ORAS identity after route selection updates the panel', () => {
@@ -245,6 +282,7 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     expect(appSource).toContain('const fallbackObj = this.$stel.createObj(ss.model, ss)')
     expect(helpersSource).toContain('Object.assign({}, obj.__orasSkySourceData || obj.jsonData || {})')
     expect(helpersSource).toContain('const exactSelection = this.exactSkySourceSelection')
+    expect(helpersSource).toContain('currentSelection.v === obj.v')
     expect(helpersSource).toContain('return Promise.resolve(exactSelection)')
     expect(helpersSource).toContain('setSweObjAsSelection: function (obj, exactSkySource)')
     expect(helpersSource).toContain('this.exactSkySourceSelection = exactSkySource || undefined')

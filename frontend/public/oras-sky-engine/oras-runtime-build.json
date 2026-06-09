@@ -1,12 +1,12 @@
 {
   "runtime": "oras-sky-engine",
   "source": "vendor/stellarium-web-engine/apps/web-frontend",
-  "source_hash": "de710ecc12d8f8fd08297a0466c3a9b538d30d3f3cbd1206bbdffa945a997a0e",
+  "source_hash": "8cb77dde60fc14410b3894999950e392518bf368ecd3b551d1d3b09971c1ecbd",
   "docker_image": "node:20-bookworm-slim",
   "memory_mb": 4096,
   "memory_swap_mb": -1,
   "node_old_space_mb": 3072,
   "host_fallback_enabled": true,
   "host_node_old_space_mb": 8192,
-  "built_at": "2026-06-09T04:25:05.391Z"
+  "built_at": "2026-06-09T04:49:07.813Z"
 }
