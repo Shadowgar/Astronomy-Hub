@@ -24,6 +24,10 @@ const satelliteFeedPath = path.resolve(
   process.cwd(),
   'public/oras-sky-engine/skydata/tle_satellite.jsonl.gz'
 )
+const deepLinkValidationScriptPath = path.resolve(
+  process.cwd(),
+  '../scripts/skydata/validate_oras_deep_links.js'
+)
 
 describe('oras runtime data sources', () => {
   it('uses bundled same-origin skydata for local catalogs', () => {
@@ -90,5 +94,23 @@ describe('oras runtime data sources', () => {
     expect(vueConfig).toContain('if (shouldCopySkydata)')
     expect(vueConfig).toContain('productionSourceMap: false')
     expect(vueConfig).toContain('config.optimization.minimize(false)')
+  })
+
+  it('validates exact deep links, satellite parsing, and known DSO detail types', () => {
+    const source = fs.readFileSync(deepLinkValidationScriptPath, 'utf8')
+
+    expect(source).toContain("name: 'M31'")
+    expect(source).toContain("'Andromeda Galaxy'")
+    expect(source).toContain("'M 31'")
+    expect(source).not.toContain("'M31 Andromeda Galaxy'")
+    expect(source).toContain("name: 'Betelgeuse'")
+    expect(source).toContain("name: 'Achernar'")
+    expect(source).toContain("name: 'Gaia proof star'")
+    expect(source).toContain("name: 'M42'")
+    expect(source).toContain("name: 'M13'")
+    expect(source).toContain('validateTargetCoordinates')
+    expect(source).toContain('Parsed ([0-9]+) satellites')
+    expect(source).toContain('Cannot uncompress gz file')
+    expect(source).toContain('Unknown Type')
   })
 })

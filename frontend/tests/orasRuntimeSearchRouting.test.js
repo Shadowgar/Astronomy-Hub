@@ -138,6 +138,8 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     })
 
     expect(roundedNumericSkySource.names[1]).toBe('GAIA 2252802052894084352')
+    expect(roundedNumericSkySource.source_id).toBe('2252802052894084352')
+    expect(roundedNumericSkySource.model_data.source_id).toBe('2252802052894084352')
 
     const indexedSkySource = toOrasSkySource({
       catalog: 'Gaia DR2',
@@ -187,6 +189,7 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
       names: ['HD 34029', 'Capella'],
       ra: 79.172,
       dec: 45.998,
+      phot_g_mean_mag: 0.08,
       indexed: true,
       status: 'indexed'
     })
@@ -200,6 +203,11 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     expect(brightStarSkySource.names[0]).toBe('Capella')
     expect(brightStarSkySource.names).toContain('HD 34029')
     expect(brightStarSkySource.names.join(' ')).not.toContain('GAIA')
+    expect(brightStarSkySource.model_data).toMatchObject({
+      ra: 79.172,
+      de: 45.998,
+      Vmag: 0.08
+    })
   })
 
   it('routes vendored runtime search through ORAS backend first and keeps local-only fallback', () => {

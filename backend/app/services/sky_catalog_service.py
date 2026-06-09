@@ -370,6 +370,17 @@ def _normalize_search_text(value: str | None) -> str:
     return normalized
 
 
+def _messier_otype(object_type: str | None) -> str:
+    mapping = {
+        "galaxy": "G",
+        "nebula": "BNe",
+        "globular_cluster": "GlC",
+        "open_cluster": "OpC",
+        "planetary_nebula": "PN",
+    }
+    return mapping.get(str(object_type or "").strip().lower(), "G")
+
+
 def _build_local_search_candidates() -> list[dict]:
     candidates: list[dict] = []
 
@@ -432,7 +443,7 @@ def _build_local_search_candidates() -> list[dict]:
                     "display_name": f"{catalog} {name}",
                     "model": "dso",
                     "names": canonical_names,
-                    "types": ["G"],
+                    "types": [_messier_otype(str(obj.get("object_type") or ""))],
                     "ra": float(obj["ra_hours"]) * 15.0,
                     "dec": obj["dec_deg"],
                     "phot_g_mean_mag": obj["magnitude"],

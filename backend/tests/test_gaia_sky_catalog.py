@@ -129,6 +129,24 @@ def test_exact_object_endpoint_resolves_m31_from_stable_identity(tmp_path: Path,
     assert body["data"]["dec"] == 41.269
 
 
+def test_exact_object_endpoint_resolves_known_messier_types(tmp_path: Path, monkeypatch) -> None:
+    _setup_database(tmp_path, monkeypatch)
+
+    m42_response = client.get(
+        "/api/sky/object?catalog=Messier%20(local)&source_id=M42&model=dso",
+        headers={"User-Agent": "pytest"},
+    )
+    m13_response = client.get(
+        "/api/sky/object?catalog=Messier%20(local)&source_id=M13&model=dso",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert m42_response.status_code == 200
+    assert m13_response.status_code == 200
+    assert m42_response.json()["data"]["types"] == ["BNe"]
+    assert m13_response.json()["data"]["types"] == ["GlC"]
+
+
 def test_exact_object_endpoint_resolves_betelgeuse_from_stable_identity(tmp_path: Path, monkeypatch) -> None:
     _setup_database(tmp_path, monkeypatch)
 
