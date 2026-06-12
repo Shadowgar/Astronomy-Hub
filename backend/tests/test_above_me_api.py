@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 
 from backend.app.main import app
 from backend.app.services.sky_engine_links import build_sky_engine_object_url
+from backend.app.services.sky_star_catalog import BRIGHT_STAR_SCENE_OBJECTS
 
 
 client = TestClient(app)
@@ -50,6 +51,7 @@ def test_above_me_returns_linkable_catalog_backed_objects() -> None:
     assert body["status"] == "ok"
     assert body["meta"]["object_sources"]["messier_local"]["status"] == "included"
     assert body["meta"]["object_sources"]["bright_star_local"]["status"] == "included"
+    assert body["meta"]["object_sources"]["hipparcos_tier2_local"]["status"] == "included"
     assert body["meta"]["object_sources"]["planets"]["status"] == "gap"
     assert body["meta"]["object_sources"]["satellites"]["status"] == "gap"
 
@@ -101,6 +103,51 @@ def test_above_me_known_star_link_generation() -> None:
     assert "catalog=Bright+Star+Catalog+%28local%29" in vega["sky_engine_url"]
     assert "source_id=star-vega" in vega["sky_engine_url"]
     assert "model=star" in vega["sky_engine_url"]
+
+
+def test_above_me_tier2_stars_are_ranked_and_linkable_when_visible() -> None:
+    response = client.get(
+        "/api/above-me?lat=41.44&lng=-79.69&time=2026-06-04T02:16:04Z&limit=100",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    tier2 = [
+        item
+        for item in body["data"]["objects"]
+        if item["catalog"] == "Hipparcos Tier 2 (local)"
+    ]
+
+    assert tier2
+    first = tier2[0]
+    assert first["source_id"] == str(first["source_id"])
+    assert first["source_id"].startswith("hip-")
+    assert first["model"] == "star"
+    assert first["type"] == "star"
+    assert 0.0 <= first["ra"] < 360.0
+    assert -90.0 <= first["dec"] <= 90.0
+    assert first["is_visible"] is True
+    assert "catalog=Hipparcos+Tier+2+%28local%29" in first["sky_engine_url"]
+    assert f"source_id={first['source_id']}" in first["sky_engine_url"]
+    assert "model=star" in first["sky_engine_url"]
+
+
+def test_above_me_tier2_uses_existing_catalog_without_expanding_bright_star_seeds() -> None:
+    assert len(BRIGHT_STAR_SCENE_OBJECTS) == 24
+
+    response = client.get(
+        "/api/above-me?lat=41.44&lng=-79.69&time=2026-06-04T02:16:04Z&limit=100",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    objects = response.json()["data"]["objects"]
+    assert any(
+        item["catalog"] == "Hipparcos Tier 2 (local)"
+        and item["source_id"] == "hip-67194"
+        for item in objects
+    )
 
 
 def test_above_me_rejects_invalid_location_without_partial_payload() -> None:
