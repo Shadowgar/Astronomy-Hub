@@ -15,5 +15,17 @@
       "file": "conditions.schema.json",
       "description": "Observational conditions and visibility data"
     }
+  ],
+  "documents": [
+    {
+      "name": "sky_engine_link_contract",
+      "file": "sky_engine_link_contract.md",
+      "description": "Stable ORAS Sky Engine object deep-link contract"
+    },
+    {
+      "name": "above_me_api_contract",
+      "file": "above_me_api_contract.md",
+      "description": "Backend discovery contract for linkable objects above an observer"
+    }
   ]
 }
