@@ -210,6 +210,27 @@ def test_exact_object_endpoint_resolves_expanded_bright_star_validation_targets(
         assert abs(body["data"]["dec"] - dec) < 0.000001
 
 
+def test_exact_object_endpoint_resolves_hipparcos_tier2_identity(tmp_path: Path, monkeypatch) -> None:
+    _setup_database(tmp_path, monkeypatch)
+
+    response = client.get(
+        "/api/sky/object?catalog=Hipparcos%20Tier%202%20(local)&source_id=hip-67194&model=star",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["data"]["catalog"] == "Hipparcos Tier 2 (local)"
+    assert body["data"]["source_id"] == "hip-67194"
+    assert body["data"]["model"] == "star"
+    assert body["data"]["display_name"]
+    assert body["data"]["types"] == ["*"]
+    assert 0.0 <= body["data"]["ra"] < 360.0
+    assert -90.0 <= body["data"]["dec"] <= 90.0
+    assert body["data"]["indexed"] is True
+    assert body["data"]["provenance"]["source_key"] == "hipparcos_tier2_local"
+
+
 def test_exact_object_endpoint_documents_unavailable_validation_targets(tmp_path: Path, monkeypatch) -> None:
     _setup_database(tmp_path, monkeypatch)
 

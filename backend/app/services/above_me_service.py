@@ -172,7 +172,7 @@ def _build_tier2_star_candidates(*, observer: Observer, as_of: datetime, limit: 
 
     ranked.sort(key=lambda item: item[0])
     candidates: list[dict[str, Any]] = []
-    for _, star in ranked[: max(1, int(limit))]:
+    for _, star in ranked[: max(1, limit)]:
         candidates.append(
             _build_candidate(
                 catalog="Hipparcos Tier 2 (local)",

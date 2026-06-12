@@ -7,7 +7,7 @@ from sqlalchemy import func, inspect, select
 
 from backend.app.db.models import CatalogSource, GaiaDr2Source
 from backend.app.db.session import get_engine, session_scope
-from backend.app.services.sky_star_catalog import BRIGHT_STAR_SCENE_OBJECTS
+from backend.app.services.sky_star_catalog import BRIGHT_STAR_SCENE_OBJECTS, build_tier2_mid_star_scene_objects
 
 GAIA_DR2_QUERY_RE = re.compile(r"^\s*(gaia\s*dr2|gaiadr2)\s+([0-9]+)\s*$", re.IGNORECASE)
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -327,6 +327,11 @@ def lookup_exact_object(
         result["model"] = normalized_model or "star"
         return result
 
+    if normalized_catalog == "hipparcos tier 2 (local)":
+        result = _lookup_hipparcos_tier2_by_identity(normalized_source_id, normalized_model)
+        if result:
+            return result
+
     local_result = _lookup_local_named_object_by_identity(
         normalized_catalog,
         normalized_source_id,
@@ -474,6 +479,45 @@ def _lookup_local_named_object_by_identity(catalog: str, source_id: str, model: 
             and result_model == model
         ):
             return dict(result)
+
+    return None
+
+
+def _lookup_hipparcos_tier2_by_identity(source_id: str, model: str) -> dict | None:
+    if model != "star":
+        return None
+
+    normalized_source_id = source_id.strip().lower()
+    for star in build_tier2_mid_star_scene_objects():
+        star_id = str(star.get("id") or "").strip()
+        if star_id.lower() != normalized_source_id:
+            continue
+
+        try:
+            ra_degrees = float(star["right_ascension"]) * 15.0
+            dec_degrees = float(star["declination"])
+            magnitude = float(star["magnitude"])
+        except Exception:
+            return None
+
+        display_name = str(star.get("name") or star_id).strip() or star_id
+        names = [display_name, star_id]
+        return {
+            "catalog": "Hipparcos Tier 2 (local)",
+            "source_id": star_id,
+            "display_name": display_name,
+            "model": "star",
+            "names": [name for name in names if name],
+            "types": ["*"],
+            "ra": ra_degrees,
+            "dec": dec_degrees,
+            "phot_g_mean_mag": magnitude,
+            "bp_rp": star.get("color_index"),
+            "indexed": True,
+            "status": "indexed",
+            "message": "Resolved from local Hipparcos Tier 2 index.",
+            "provenance": {"source_key": "hipparcos_tier2_local"},
+        }
 
     return None
 
