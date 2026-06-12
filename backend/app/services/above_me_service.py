@@ -248,7 +248,14 @@ def _parse_float(value: str | float | int | None, field_name: str) -> float:
 def _parse_time(value: str | None) -> datetime:
     if isinstance(value, str) and value.strip():
         try:
-            return datetime.fromisoformat(value.strip().replace("Z", "+00:00")).astimezone(timezone.utc)
+            parsed = datetime.fromisoformat(value.strip().replace("Z", "+00:00"))
+            if parsed.tzinfo is None:
+                raise ValueError("time must include timezone")
+            return parsed.astimezone(timezone.utc)
+        except ValueError as exc:
+            if "timezone" in str(exc):
+                raise ValueError("time must include timezone (Z or offset)") from exc
+            raise ValueError("time must be ISO-8601") from exc
         except Exception as exc:
             raise ValueError("time must be ISO-8601") from exc
     return datetime.now(timezone.utc)

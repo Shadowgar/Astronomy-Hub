@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from urllib.parse import parse_qs, urlparse
 
+import pytest
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
@@ -39,6 +40,17 @@ def test_sky_engine_url_builder_preserves_large_gaia_source_id_as_string() -> No
     assert query["date"] == ["2026-06-04T02:16:04Z"]
 
 
+def test_sky_engine_url_builder_rejects_missing_source_id() -> None:
+    with pytest.raises(ValueError, match="source_id is required"):
+        build_sky_engine_object_url(
+            catalog="Gaia DR2",
+            source_id=None,
+            model="star",
+            ra=79.17232794,
+            dec=45.99799147,
+        )
+
+
 def test_above_me_returns_linkable_catalog_backed_objects() -> None:
     response = client.get(
         "/api/above-me?lat=41.44&lng=-79.69&time=2026-06-04T02:16:04Z&limit=20",
@@ -58,7 +70,7 @@ def test_above_me_returns_linkable_catalog_backed_objects() -> None:
     assert len(objects) <= 20
     assert all(item["is_visible"] is True for item in objects)
     assert all(item["sky_engine_url"].startswith("/oras-sky-engine/skysource/") for item in objects)
-    assert all(item["source_id"] == str(item["source_id"]) for item in objects)
+    assert all(isinstance(item["source_id"], str) for item in objects)
     assert all(item["ra"] is not None and item["dec"] is not None for item in objects)
 
     models = {item["model"] for item in objects}
@@ -111,6 +123,17 @@ def test_above_me_rejects_invalid_location_without_partial_payload() -> None:
 
     assert response.status_code == 400
     assert response.json()["error"]["code"] == "invalid_request"
+
+
+def test_above_me_rejects_timezone_naive_time_without_partial_payload() -> None:
+    response = client.get(
+        "/api/above-me?lat=41.44&lng=-79.69&time=2026-06-04T02:16:04",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 400
+    assert response.json()["error"]["code"] == "invalid_request"
+    assert "timezone" in response.json()["error"]["message"].lower()
 
 
 def test_above_me_clamps_limit_to_maximum() -> None:
