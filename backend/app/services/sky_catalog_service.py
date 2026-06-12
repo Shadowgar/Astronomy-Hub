@@ -7,6 +7,10 @@ from sqlalchemy import func, inspect, select
 
 from backend.app.db.models import CatalogSource, GaiaDr2Source
 from backend.app.db.session import get_engine, session_scope
+from backend.app.services.solar_system_catalog_service import (
+    build_solar_system_object_payload,
+    is_solar_system_identity,
+)
 from backend.app.services.sky_star_catalog import BRIGHT_STAR_SCENE_OBJECTS
 
 GAIA_DR2_QUERY_RE = re.compile(r"^\s*(gaia\s*dr2|gaiadr2)\s+([0-9]+)\s*$", re.IGNORECASE)
@@ -223,10 +227,23 @@ def build_exact_object_lookup_payload(
     source_id: str,
     model: str,
     database_url: str | None = None,
+    lat: str | float | None = None,
+    lng: str | float | None = None,
+    time: str | None = None,
+    elev: str | float | None = None,
 ) -> dict:
     return {
         "status": "ok",
-        "data": lookup_exact_object(catalog, source_id, model, database_url),
+        "data": lookup_exact_object(
+            catalog,
+            source_id,
+            model,
+            database_url,
+            lat=lat,
+            lng=lng,
+            time=time,
+            elev=elev,
+        ),
         "meta": {},
     }
 
@@ -314,6 +331,10 @@ def lookup_exact_object(
     source_id: str,
     model: str,
     database_url: str | None = None,
+    lat: str | float | None = None,
+    lng: str | float | None = None,
+    time: str | None = None,
+    elev: str | float | None = None,
 ) -> dict:
     normalized_catalog = str(catalog or "").strip().lower()
     normalized_source_id = str(source_id or "").strip()
@@ -321,6 +342,16 @@ def lookup_exact_object(
 
     if not normalized_catalog or not normalized_source_id or not normalized_model:
         raise ValueError("catalog, source_id, and model are required")
+
+    if is_solar_system_identity(catalog):
+        return build_solar_system_object_payload(
+            source_id=normalized_source_id,
+            model=normalized_model,
+            lat=lat,
+            lng=lng,
+            time=time,
+            elev=elev,
+        )
 
     if normalized_catalog == "gaia dr2":
         result = lookup_gaia_dr2_source(parse_gaia_dr2_source_id(normalized_source_id), database_url)

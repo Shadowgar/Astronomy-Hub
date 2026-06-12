@@ -280,6 +280,10 @@ export default {
       const model = typeof this.$route.query.model === 'string' ? this.$route.query.model.trim() : ''
       const ra = this.$route.query.ra == null ? null : Number(this.$route.query.ra)
       const dec = this.$route.query.dec == null ? null : Number(this.$route.query.dec)
+      const time = typeof this.$route.query.date === 'string' ? this.$route.query.date.trim() : ''
+      const lat = this.$route.query.lat == null ? null : Number(this.$route.query.lat)
+      const lng = this.$route.query.lng == null ? null : Number(this.$route.query.lng)
+      const elev = this.$route.query.elev == null ? null : Number(this.$route.query.elev)
 
       if (!catalog || !sourceId || !model) {
         return undefined
@@ -290,7 +294,11 @@ export default {
         sourceId,
         model,
         ra: Number.isFinite(ra) ? ra : null,
-        dec: Number.isFinite(dec) ? dec : null
+        dec: Number.isFinite(dec) ? dec : null,
+        time: time || null,
+        lat: Number.isFinite(lat) ? lat : null,
+        lng: Number.isFinite(lng) ? lng : null,
+        elev: Number.isFinite(elev) ? elev : null
       }
     },
 

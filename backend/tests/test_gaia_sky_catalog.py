@@ -8,6 +8,7 @@ from sqlalchemy import create_engine
 from backend.app.db.models import Base, CatalogSource, DataHealthCheck, GaiaDr2Source, ImportJob
 from backend.app.db.session import session_scope
 from backend.app.main import app
+from backend.app.services import solar_system_catalog_service
 from backend.app.services.sky_catalog_service import parse_gaia_dr2_query
 from scripts.skydata.import_gaia_dr2_sample import import_gaia_dr2_sample
 
@@ -222,6 +223,73 @@ def test_exact_object_endpoint_documents_unavailable_validation_targets(tmp_path
         response = client.get(path, headers={"User-Agent": "pytest"})
         assert response.status_code == 404
         assert response.json()["error"]["code"] == "not_found"
+
+
+def test_exact_object_endpoint_resolves_solar_system_identity_from_jpl(monkeypatch) -> None:
+    monkeypatch.setattr(
+        solar_system_catalog_service.live_providers,
+        "fetch_jpl_ephemeris",
+        lambda lat, lon, elevation_ft=None, as_of=None: [
+            {
+                "id": "mars",
+                "name": "Mars",
+                "ra": 39.78916667,
+                "dec": 14.88,
+                "azimuth": 220.0,
+                "elevation": 31.0,
+                "source": "jpl_ephemeris",
+                "time_basis": "2026-06-04T02:00:00Z",
+            }
+        ],
+    )
+
+    response = client.get(
+        "/api/sky/object?catalog=Solar%20System%20(JPL)&source_id=mars&model=planet"
+        "&lat=41.44&lng=-79.69&time=2026-06-04T02:16:04Z&elev=0",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    data = response.json()["data"]
+    assert data["catalog"] == "Solar System (JPL)"
+    assert data["source_id"] == "mars"
+    assert data["model"] == "planet"
+    assert data["display_name"] == "Mars"
+    assert data["names"] == ["NAME Mars", "Mars"]
+    assert data["types"] == ["SSO"]
+    assert data["ra"] == 39.78916667
+    assert data["dec"] == 14.88
+    assert data["alt"] == 31.0
+    assert data["az"] == 220.0
+    assert data["time_basis"] == "2026-06-04T02:00:00Z"
+    assert "catalog=Solar+System+%28JPL%29" in data["sky_engine_url"]
+    assert "source_id=mars" in data["sky_engine_url"]
+    assert "model=planet" in data["sky_engine_url"]
+
+
+def test_exact_object_endpoint_rejects_solar_system_without_real_ra_dec(monkeypatch) -> None:
+    monkeypatch.setattr(
+        solar_system_catalog_service.live_providers,
+        "fetch_jpl_ephemeris",
+        lambda lat, lon, elevation_ft=None, as_of=None: [
+            {
+                "id": "mars",
+                "name": "Mars",
+                "azimuth": 220.0,
+                "elevation": 31.0,
+                "source": "jpl_ephemeris",
+            }
+        ],
+    )
+
+    response = client.get(
+        "/api/sky/object?catalog=Solar%20System%20(JPL)&source_id=mars&model=planet"
+        "&lat=41.44&lng=-79.69&time=2026-06-04T02:16:04Z&elev=0",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 404
+    assert "RA/Dec" in response.json()["error"]["message"]
 
 
 def test_catalog_status_returns_partial_when_gaia_rows_exist(tmp_path: Path, monkeypatch) -> None:

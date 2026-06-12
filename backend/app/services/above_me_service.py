@@ -5,6 +5,8 @@ from datetime import datetime, timezone
 import math
 from typing import Any
 
+from backend.app.services import live_providers
+from backend.app.services.solar_system_catalog_service import SOLAR_SYSTEM_BODIES, SOLAR_SYSTEM_CATALOG
 from backend.app.services.sky_catalog_service import LOCAL_MESSIER_SEARCH_OBJECTS
 from backend.app.services.sky_engine_links import build_sky_engine_object_url
 from backend.app.services.sky_star_catalog import (
@@ -62,6 +64,7 @@ def build_above_me_payload(
 
 def _build_catalog_candidates(*, observer: Observer, as_of: datetime, tier2_limit: int) -> list[dict[str, Any]]:
     candidates: list[dict[str, Any]] = []
+    candidates.extend(_build_solar_system_candidates(observer=observer, as_of=as_of))
     candidates.extend(_build_bright_star_candidates(observer=observer, as_of=as_of))
     candidates.extend(_build_tier2_star_candidates(observer=observer, as_of=as_of, limit=tier2_limit))
     candidates.extend(_build_messier_candidates(observer=observer, as_of=as_of))
@@ -236,6 +239,59 @@ def _build_messier_candidates(*, observer: Observer, as_of: datetime) -> list[di
     return candidates
 
 
+def _build_solar_system_candidates(*, observer: Observer, as_of: datetime) -> list[dict[str, Any]]:
+    try:
+        ephemeris = live_providers.fetch_jpl_ephemeris(
+            observer.lat,
+            observer.lng,
+            elevation_ft=observer.elev * 3.280839895,
+            as_of=as_of,
+        )
+    except Exception:
+        return []
+
+    candidates: list[dict[str, Any]] = []
+    for body in ephemeris:
+        source_id = str(body.get("id") or "").strip().lower()
+        body_config = SOLAR_SYSTEM_BODIES.get(source_id)
+        if not body_config:
+            continue
+        try:
+            ra = float(body["ra"])
+            dec = float(body["dec"])
+            alt = float(body["elevation"])
+            az = float(body["azimuth"])
+        except Exception:
+            continue
+
+        model = body_config["model"]
+        name = body_config["name"]
+        object_type = model
+        reason = f"JPL Horizons {name} position at {alt:.1f} deg altitude."
+        if source_id == "sun":
+            reason += " Daylight/safety object; observe only with a proper solar filter."
+
+        candidates.append(
+            _build_candidate(
+                catalog=SOLAR_SYSTEM_CATALOG,
+                source_id=source_id,
+                model=model,
+                name=name,
+                object_type=object_type,
+                ra=ra,
+                dec=dec,
+                alt=alt,
+                az=az,
+                magnitude=_optional_magnitude(body.get("magnitude")),
+                observer=observer,
+                as_of=as_of,
+                reason=reason,
+                source_boost=0.12 if source_id != "sun" else 0.03,
+            )
+        )
+    return candidates
+
+
 def _build_candidate(
     *,
     catalog: str,
@@ -247,7 +303,7 @@ def _build_candidate(
     dec: float,
     alt: float,
     az: float,
-    magnitude: float,
+    magnitude: float | None,
     observer: Observer,
     as_of: datetime,
     reason: str,
@@ -266,7 +322,7 @@ def _build_candidate(
         "dec": round(float(dec), 8),
         "alt": round(float(alt), 3),
         "az": round(float(az), 3),
-        "magnitude": round(float(magnitude), 3),
+        "magnitude": round(float(magnitude), 3) if magnitude is not None else None,
         "is_visible": is_visible,
         "priority": priority,
         "reason": reason,
@@ -305,12 +361,12 @@ def _object_source_inventory() -> dict[str, dict[str, str]]:
             "reason": "Exact lookup exists, but broad indexed discovery/ranking is not implemented in this pass.",
         },
         "planets": {
-            "status": "gap",
-            "reason": "JPL ephemeris exists, but the backend does not yet expose exact Sky Engine identity plus RA/Dec for planets.",
+            "status": "included",
+            "reason": "JPL Horizons observer ephemeris provides planet RA/Dec and alt/az when provider data is reachable.",
         },
         "moon_sun": {
-            "status": "gap",
-            "reason": "Moon ephemeris exists; Sun exact-link identity and RA/Dec adapter are not implemented yet.",
+            "status": "included",
+            "reason": "JPL Horizons observer ephemeris provides Moon/Sun RA/Dec and alt/az when provider data is reachable.",
         },
         "satellites": {
             "status": "gap",
@@ -357,13 +413,24 @@ def _parse_limit(value: int | str | None) -> int:
     return max(1, min(MAX_LIMIT, parsed))
 
 
-def _priority(*, alt: float, magnitude: float, source_boost: float) -> float:
+def _optional_magnitude(value: Any) -> float | None:
+    if value in (None, ""):
+        return None
+    try:
+        return float(value)
+    except Exception:
+        return None
+
+
+def _priority(*, alt: float, magnitude: float | None, source_boost: float) -> float:
     altitude_score = max(0.0, min(1.0, alt / 90.0))
-    magnitude_score = max(0.0, min(1.0, (9.0 - magnitude) / 11.0))
+    magnitude_score = 0.45 if magnitude is None else max(0.0, min(1.0, (9.0 - magnitude) / 11.0))
     return round(max(0.0, min(1.0, (0.65 * altitude_score) + (0.25 * magnitude_score) + source_boost)), 5)
 
 
 def _default_fov(*, model: str, object_type: str) -> float:
+    if model in {"planet", "moon", "sun"}:
+        return 1.5 if model in {"moon", "sun"} else 1.0
     if model == "star":
         return 2.0
     if object_type == "galaxy":

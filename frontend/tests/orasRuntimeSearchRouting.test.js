@@ -97,6 +97,16 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
       sourceId: 'star-betelgeuse',
       model: 'star'
     })).toBe('/api/sky/object?catalog=Bright+Star+Catalog+%28local%29&source_id=star-betelgeuse&model=star')
+
+    expect(buildOrasObjectLookupUrl({
+      catalog: 'Solar System (JPL)',
+      sourceId: 'mars',
+      model: 'planet',
+      time: '2026-06-04T02:16:04Z',
+      lat: 41.44,
+      lng: -79.69,
+      elev: 0
+    })).toBe('/api/sky/object?catalog=Solar+System+%28JPL%29&source_id=mars&model=planet&time=2026-06-04T02%3A16%3A04Z&lat=41.44&lng=-79.69&elev=0')
   })
 
   it('maps backend Gaia payloads into runtime sky-source objects', () => {
@@ -250,7 +260,7 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     const source = fs.readFileSync(swHelpersPath, 'utf8')
 
     expect(source).toContain('fetchOrasSkySearch: function (query)')
-    expect(source).toContain('fetchOrasSkySourceByIdentity: function ({ catalog, sourceId, model })')
+    expect(source).toContain('fetchOrasSkySourceByIdentity: function ({ catalog, sourceId, model, time, lat, lng, elev })')
     expect(source).toContain('return fetch(searchUrl, {')
     expect(source).toContain('return this.localQueryResults(normalized, limit)')
     expect(source).not.toContain('api.noctuasky.com')
