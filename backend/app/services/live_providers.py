@@ -30,6 +30,7 @@ PROVIDER_CACHE_TTL_SECONDS: dict[str, int] = {
 }
 
 JPL_EPHEMERIS_BODIES: tuple[tuple[str, str], ...] = (
+    ("10", "Sun"),
     ("301", "Moon"),
     ("199", "Mercury"),
     ("299", "Venus"),
@@ -602,7 +603,24 @@ def fetch_wheretheiss_active(*, limit: int = 500) -> list[dict[str, Any]]:
     return out
 
 
-def _parse_horizons_first_row(result_text: str) -> tuple[float, float] | None:
+def _parse_hms_to_degrees(hours: str, minutes: str, seconds: str) -> float:
+    return (abs(float(hours)) + (float(minutes) / 60.0) + (float(seconds) / 3600.0)) * 15.0
+
+
+def _parse_dms_to_degrees(degrees: str, minutes: str, seconds: str) -> float:
+    sign = -1.0 if str(degrees).strip().startswith("-") else 1.0
+    return sign * (abs(float(degrees)) + (float(minutes) / 60.0) + (float(seconds) / 3600.0))
+
+
+def _is_float_token(value: str) -> bool:
+    try:
+        float(value)
+    except Exception:
+        return False
+    return True
+
+
+def _parse_horizons_first_row(result_text: str) -> dict[str, float] | None:
     if "$$SOE" not in result_text or "$$EOE" not in result_text:
         return None
     section = result_text.split("$$SOE", 1)[1].split("$$EOE", 1)[0]
@@ -613,10 +631,22 @@ def _parse_horizons_first_row(result_text: str) -> tuple[float, float] | None:
         parts = line.split()
         if len(parts) < 5:
             continue
+        ra_offset = 2 if len(parts) >= 10 and _is_float_token(parts[2]) else 3
+        if len(parts) >= ra_offset + 8:
+            try:
+                return {
+                    "ra": _parse_hms_to_degrees(parts[ra_offset], parts[ra_offset + 1], parts[ra_offset + 2]),
+                    "dec": _parse_dms_to_degrees(parts[ra_offset + 3], parts[ra_offset + 4], parts[ra_offset + 5]),
+                    "azimuth": float(parts[ra_offset + 6]),
+                    "elevation": float(parts[ra_offset + 7]),
+                }
+            except Exception:
+                pass
         try:
-            az = float(parts[3])
-            el = float(parts[4])
-            return (az, el)
+            az_offset = 2 if _is_float_token(parts[2]) else 3
+            az = float(parts[az_offset])
+            el = float(parts[az_offset + 1])
+            return {"azimuth": az, "elevation": el}
         except Exception:
             continue
     return None
@@ -657,21 +687,21 @@ def fetch_jpl_ephemeris(
                     "START_TIME": f"'{start}'",
                     "STOP_TIME": f"'{stop}'",
                     "STEP_SIZE": "'1 h'",
-                    "QUANTITIES": "'4,20,23'",
+                    "QUANTITIES": "'2,4,20,23'",
                 },
                 timeout_s=4.0,
             )
             result_text = str(payload.get("result") or "")
-            az_el = _parse_horizons_first_row(result_text)
-            if az_el is None:
+            row = _parse_horizons_first_row(result_text)
+            if row is None:
                 continue
-            azimuth, elevation = az_el
             out.append(
                 {
                     "id": body_name.lower(),
                     "name": body_name,
-                    "azimuth": azimuth,
-                    "elevation": elevation,
+                    "source": "jpl_ephemeris",
+                    "time_basis": now.isoformat().replace("+00:00", "Z"),
+                    **row,
                 }
             )
         except Exception:

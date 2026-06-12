@@ -416,8 +416,8 @@ const swh = {
     })
   },
 
-  fetchOrasSkySourceByIdentity: function ({ catalog, sourceId, model }) {
-    const lookupUrl = buildOrasObjectLookupUrl({ catalog, sourceId, model })
+  fetchOrasSkySourceByIdentity: function ({ catalog, sourceId, model, time, lat, lng, elev }) {
+    const lookupUrl = buildOrasObjectLookupUrl({ catalog, sourceId, model, time, lat, lng, elev })
 
     if (!lookupUrl) {
       return Promise.reject(new Error('Sky source identity is incomplete'))

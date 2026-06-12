@@ -56,7 +56,7 @@ export function buildOrasSearchUrl (query) {
   return ORAS_SEARCH_API + '?' + params.toString()
 }
 
-export function buildOrasObjectLookupUrl ({ catalog, sourceId, model }) {
+export function buildOrasObjectLookupUrl ({ catalog, sourceId, model, time, lat, lng, elev }) {
   const normalizedCatalog = typeof catalog === 'string' ? catalog.trim() : ''
   const normalizedSourceId = sourceId == null ? '' : String(sourceId).trim()
   const normalizedModel = typeof model === 'string' ? model.trim() : ''
@@ -70,6 +70,18 @@ export function buildOrasObjectLookupUrl ({ catalog, sourceId, model }) {
     source_id: normalizedSourceId,
     model: normalizedModel
   })
+  if (time != null && String(time).trim() !== '') {
+    params.set('time', String(time).trim())
+  }
+  if (lat != null && String(lat).trim() !== '') {
+    params.set('lat', String(lat).trim())
+  }
+  if (lng != null && String(lng).trim() !== '') {
+    params.set('lng', String(lng).trim())
+  }
+  if (elev != null && String(elev).trim() !== '') {
+    params.set('elev', String(elev).trim())
+  }
   return ORAS_OBJECT_API_ROOT + '?' + params.toString()
 }
 

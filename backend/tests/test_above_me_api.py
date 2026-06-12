@@ -6,11 +6,21 @@ import pytest
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
+from backend.app.services import above_me_service
 from backend.app.services.sky_engine_links import build_sky_engine_object_url
 from backend.app.services.sky_star_catalog import BRIGHT_STAR_SCENE_OBJECTS
 
 
 client = TestClient(app)
+
+
+@pytest.fixture(autouse=True)
+def _disable_live_solar_ephemeris(monkeypatch) -> None:
+    monkeypatch.setattr(
+        above_me_service.live_providers,
+        "fetch_jpl_ephemeris",
+        lambda lat, lon, elevation_ft=None, as_of=None: [],
+    )
 
 
 def test_sky_engine_url_builder_preserves_large_gaia_source_id_as_string() -> None:
@@ -64,7 +74,8 @@ def test_above_me_returns_linkable_catalog_backed_objects() -> None:
     assert body["meta"]["object_sources"]["messier_local"]["status"] == "included"
     assert body["meta"]["object_sources"]["bright_star_local"]["status"] == "included"
     assert body["meta"]["object_sources"]["hipparcos_tier2_local"]["status"] == "included"
-    assert body["meta"]["object_sources"]["planets"]["status"] == "gap"
+    assert body["meta"]["object_sources"]["planets"]["status"] == "included"
+    assert body["meta"]["object_sources"]["moon_sun"]["status"] == "included"
     assert body["meta"]["object_sources"]["satellites"]["status"] == "gap"
 
     objects = body["data"]["objects"]
@@ -77,6 +88,66 @@ def test_above_me_returns_linkable_catalog_backed_objects() -> None:
 
     models = {item["model"] for item in objects}
     assert {"star", "dso"}.issubset(models)
+
+
+def test_above_me_includes_visible_solar_system_objects_from_jpl(monkeypatch) -> None:
+    monkeypatch.setattr(
+        above_me_service.live_providers,
+        "fetch_jpl_ephemeris",
+        lambda lat, lon, elevation_ft=None, as_of=None: [
+            {
+                "id": "moon",
+                "name": "Moon",
+                "ra": 164.125,
+                "dec": 6.25,
+                "azimuth": 180.0,
+                "elevation": 42.0,
+                "source": "jpl_ephemeris",
+                "time_basis": "2026-06-04T02:00:00Z",
+            },
+            {
+                "id": "mars",
+                "name": "Mars",
+                "ra": 39.78916667,
+                "dec": 14.88,
+                "azimuth": 220.0,
+                "elevation": 31.0,
+                "source": "jpl_ephemeris",
+                "time_basis": "2026-06-04T02:00:00Z",
+            },
+            {
+                "id": "sun",
+                "name": "Sun",
+                "ra": 72.0,
+                "dec": 22.0,
+                "azimuth": 90.0,
+                "elevation": 12.0,
+                "source": "jpl_ephemeris",
+                "time_basis": "2026-06-04T02:00:00Z",
+            },
+        ],
+    )
+
+    response = client.get(
+        "/api/above-me?lat=41.44&lng=-79.69&time=2026-06-04T02:16:04Z&limit=100",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    objects = response.json()["data"]["objects"]
+    solar = {item["source_id"]: item for item in objects if item["catalog"] == "Solar System (JPL)"}
+
+    assert {"moon", "mars", "sun"}.issubset(solar)
+    assert solar["moon"]["model"] == "moon"
+    assert solar["mars"]["model"] == "planet"
+    assert solar["sun"]["model"] == "sun"
+    assert solar["mars"]["source_id"] == "mars"
+    assert 0.0 <= solar["mars"]["ra"] < 360.0
+    assert -90.0 <= solar["mars"]["dec"] <= 90.0
+    assert "catalog=Solar+System+%28JPL%29" in solar["mars"]["sky_engine_url"]
+    assert "source_id=mars" in solar["mars"]["sky_engine_url"]
+    assert "model=planet" in solar["mars"]["sky_engine_url"]
+    assert "solar filter" in solar["sun"]["reason"].lower()
 
 
 def test_above_me_known_dso_link_generation() -> None:

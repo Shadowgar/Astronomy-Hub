@@ -30,9 +30,17 @@ async def get_gaia_dr2_source(source_id: str):
 
 
 @router.get("/sky/object", response_model=ResponseEnvelope)
-async def get_exact_object(catalog: str, source_id: str, model: str):
+async def get_exact_object(
+    catalog: str,
+    source_id: str,
+    model: str,
+    lat: str | None = None,
+    lng: str | None = None,
+    time: str | None = None,
+    elev: str | None = None,
+):
     try:
-        return build_exact_object_lookup_payload(catalog, source_id, model)
+        return build_exact_object_lookup_payload(catalog, source_id, model, lat=lat, lng=lng, time=time, elev=elev)
     except ValueError as error:
         message = str(error)
         status_code = 400 if "required" in message or "invalid" in message else 404
