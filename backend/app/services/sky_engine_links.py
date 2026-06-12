@@ -30,7 +30,7 @@ def build_sky_engine_object_url(
 
     identity = {
         "catalog": _required_text(catalog, "catalog"),
-        "source_id": _required_text(str(source_id), "source_id"),
+        "source_id": _required_text(source_id, "source_id"),
         "model": _required_text(model, "model"),
     }
     ra_value = _required_float(ra, "ra")
@@ -57,7 +57,9 @@ def build_sky_engine_object_url(
     return f"{normalized_base}/skysource/{slug}?{urlencode(query)}"
 
 
-def _required_text(value: str, field_name: str) -> str:
+def _required_text(value: str | None, field_name: str) -> str:
+    if value is None:
+        raise ValueError(f"{field_name} is required")
     normalized = str(value or "").strip()
     if not normalized:
         raise ValueError(f"{field_name} is required")
