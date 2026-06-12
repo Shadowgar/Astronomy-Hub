@@ -101,6 +101,21 @@ def test_solar_system_slice_filters_non_moon_objects_below_five_degrees():
     assert "mars" not in ids
 
 
+def test_solar_system_slice_excludes_sun_from_planet_recommendations():
+    objects = _build_solar_system_engine_slice(
+        live_inputs={
+            "ephemeris": [
+                {"id": "sun", "name": "Sun", "azimuth": 180.0, "elevation": 45.0, "source": "jpl_ephemeris"},
+                {"id": "jupiter", "name": "Jupiter", "azimuth": 140.0, "elevation": 12.0, "source": "jpl_ephemeris"},
+            ]
+        }
+    )
+
+    ids = {obj.get("id") for obj in objects}
+    assert "sun" not in ids
+    assert "jupiter" in ids
+
+
 def test_solar_system_slice_relevance_includes_conditions_influence():
     payload = {
         "ephemeris": [

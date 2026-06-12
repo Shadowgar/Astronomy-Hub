@@ -528,6 +528,8 @@ def _build_solar_system_engine_slice(
         if not name:
             continue
         body_slug = _slugify(entry.get("id") or name)
+        if body_slug in {"sun", "10"}:
+            continue
         body_type = "moon" if body_slug in {"moon", "301"} else "planet"
         object_id = "moon" if body_type == "moon" else body_slug
         try:
