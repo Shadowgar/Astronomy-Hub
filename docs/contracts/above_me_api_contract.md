@@ -78,6 +78,7 @@ Current MVP-supported sources:
 | --- | --- | --- |
 | Local Messier DSOs | included | Stable identity and RA/Dec exist. |
 | Local bright stars | included | Stable identity and RA/Dec exist. |
+| Hipparcos Tier 2 stars | included | Existing local dataset provides stable string IDs, RA/Dec, and magnitude. |
 | Gaia DR2 | lookup only | Exact object lookup exists, but broad ranked discovery is not implemented in this pass. |
 | Planets | gap | JPL ephemeris exists, but exact Sky Engine identity plus RA/Dec adapter is missing. |
 | Moon/Sun | gap | Moon ephemeris exists; Sun exact-link support and RA/Dec adapter are missing. |

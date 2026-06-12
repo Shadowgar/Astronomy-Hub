@@ -7,7 +7,10 @@ from typing import Any
 
 from backend.app.services.sky_catalog_service import LOCAL_MESSIER_SEARCH_OBJECTS
 from backend.app.services.sky_engine_links import build_sky_engine_object_url
-from backend.app.services.sky_star_catalog import BRIGHT_STAR_SCENE_OBJECTS
+from backend.app.services.sky_star_catalog import (
+    BRIGHT_STAR_SCENE_OBJECTS,
+    build_tier2_mid_star_scene_objects,
+)
 
 DEFAULT_LIMIT = 25
 MAX_LIMIT = 100
@@ -32,10 +35,10 @@ def build_above_me_payload(
     as_of = _parse_time(time)
     max_items = _parse_limit(limit)
 
-    candidates = _build_catalog_candidates(observer=observer, as_of=as_of)
+    tier2_limit = max(1, max_items // 2)
+    candidates = _build_catalog_candidates(observer=observer, as_of=as_of, tier2_limit=tier2_limit)
     visible = [candidate for candidate in candidates if candidate["is_visible"]]
-    visible.sort(key=lambda item: (-float(item["priority"]), float(item["magnitude"] or 99.0), item["name"]))
-    selected = visible[:max_items]
+    selected = _select_curated_visible_objects(visible, limit=max_items)
 
     return {
         "status": "ok",
@@ -57,11 +60,34 @@ def build_above_me_payload(
     }
 
 
-def _build_catalog_candidates(*, observer: Observer, as_of: datetime) -> list[dict[str, Any]]:
+def _build_catalog_candidates(*, observer: Observer, as_of: datetime, tier2_limit: int) -> list[dict[str, Any]]:
     candidates: list[dict[str, Any]] = []
     candidates.extend(_build_bright_star_candidates(observer=observer, as_of=as_of))
+    candidates.extend(_build_tier2_star_candidates(observer=observer, as_of=as_of, limit=tier2_limit))
     candidates.extend(_build_messier_candidates(observer=observer, as_of=as_of))
     return candidates
+
+
+def _select_curated_visible_objects(objects: list[dict[str, Any]], *, limit: int) -> list[dict[str, Any]]:
+    sorted_objects = sorted(objects, key=_candidate_sort_key)
+    tier2_cap = max(1, limit // 2)
+    tier2_count = 0
+    selected: list[dict[str, Any]] = []
+
+    for candidate in sorted_objects:
+        if candidate["catalog"] == "Hipparcos Tier 2 (local)":
+            if tier2_count >= tier2_cap:
+                continue
+            tier2_count += 1
+        selected.append(candidate)
+        if len(selected) >= limit:
+            break
+
+    return selected
+
+
+def _candidate_sort_key(item: dict[str, Any]) -> tuple[float, float, str]:
+    return (-float(item["priority"]), float(item["magnitude"] or 99.0), str(item["name"]))
 
 
 def _build_bright_star_candidates(*, observer: Observer, as_of: datetime) -> list[dict[str, Any]]:
@@ -100,6 +126,69 @@ def _build_bright_star_candidates(*, observer: Observer, as_of: datetime) -> lis
                 as_of=as_of,
                 reason=f"Bright local star at {alt:.1f} deg altitude.",
                 source_boost=0.15,
+            )
+        )
+    return candidates
+
+
+def _build_tier2_star_candidates(*, observer: Observer, as_of: datetime, limit: int) -> list[dict[str, Any]]:
+    ranked: list[tuple[tuple[float, float, str], dict[str, Any]]] = []
+    for star in build_tier2_mid_star_scene_objects():
+        try:
+            ra_hours = float(star["right_ascension"])
+            dec_deg = float(star["declination"])
+            magnitude = float(star["magnitude"])
+        except Exception:
+            continue
+
+        ra_deg = ra_hours * 15.0
+        alt, az = _ra_dec_to_alt_az(
+            ra_hours=ra_hours,
+            dec_deg=dec_deg,
+            observer_lat_deg=observer.lat,
+            observer_lon_deg=observer.lng,
+            dt=as_of,
+        )
+        if alt <= 0.0:
+            continue
+
+        name = str(star.get("name") or star.get("id") or "Hipparcos star").strip()
+        source_id = str(star.get("id") or name).strip()
+        priority = _priority(alt=alt, magnitude=magnitude, source_boost=0.0)
+        ranked.append(
+            (
+                (-priority, magnitude, name),
+                {
+                    "source_id": source_id,
+                    "name": name,
+                    "ra": ra_deg,
+                    "dec": dec_deg,
+                    "alt": alt,
+                    "az": az,
+                    "magnitude": magnitude,
+                },
+            )
+        )
+
+    ranked.sort(key=lambda item: item[0])
+    candidates: list[dict[str, Any]] = []
+    for _, star in ranked[: max(1, limit)]:
+        candidates.append(
+            _build_candidate(
+                catalog="Hipparcos Tier 2 (local)",
+                source_id=star["source_id"],
+                model="star",
+                name=star["name"],
+                object_type="star",
+                ra=star["ra"],
+                dec=star["dec"],
+                alt=star["alt"],
+                az=star["az"],
+                magnitude=star["magnitude"],
+                observer=observer,
+                as_of=as_of,
+                reason=f"Hipparcos Tier 2 star at {star['alt']:.1f} deg altitude.",
+                source_boost=0.0,
             )
         )
     return candidates
@@ -206,6 +295,10 @@ def _object_source_inventory() -> dict[str, dict[str, str]]:
         "bright_star_local": {
             "status": "included",
             "reason": "Local bright-star seed objects have stable identity and RA/Dec.",
+        },
+        "hipparcos_tier2_local": {
+            "status": "included",
+            "reason": "Existing Hipparcos Tier 2 dataset provides stable string IDs, RA/Dec, and magnitude.",
         },
         "gaia_dr2": {
             "status": "lookup_only",
