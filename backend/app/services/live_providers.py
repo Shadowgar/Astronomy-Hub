@@ -612,6 +612,14 @@ def _parse_dms_to_degrees(degrees: str, minutes: str, seconds: str) -> float:
     return sign * (abs(float(degrees)) + (float(minutes) / 60.0) + (float(seconds) / 3600.0))
 
 
+def _is_float_token(value: str) -> bool:
+    try:
+        float(value)
+    except Exception:
+        return False
+    return True
+
+
 def _parse_horizons_first_row(result_text: str) -> dict[str, float] | None:
     if "$$SOE" not in result_text or "$$EOE" not in result_text:
         return None
@@ -623,19 +631,21 @@ def _parse_horizons_first_row(result_text: str) -> dict[str, float] | None:
         parts = line.split()
         if len(parts) < 5:
             continue
-        if len(parts) >= 11:
+        ra_offset = 2 if len(parts) >= 10 and _is_float_token(parts[2]) else 3
+        if len(parts) >= ra_offset + 8:
             try:
                 return {
-                    "ra": _parse_hms_to_degrees(parts[3], parts[4], parts[5]),
-                    "dec": _parse_dms_to_degrees(parts[6], parts[7], parts[8]),
-                    "azimuth": float(parts[9]),
-                    "elevation": float(parts[10]),
+                    "ra": _parse_hms_to_degrees(parts[ra_offset], parts[ra_offset + 1], parts[ra_offset + 2]),
+                    "dec": _parse_dms_to_degrees(parts[ra_offset + 3], parts[ra_offset + 4], parts[ra_offset + 5]),
+                    "azimuth": float(parts[ra_offset + 6]),
+                    "elevation": float(parts[ra_offset + 7]),
                 }
             except Exception:
                 pass
         try:
-            az = float(parts[3])
-            el = float(parts[4])
+            az_offset = 2 if _is_float_token(parts[2]) else 3
+            az = float(parts[az_offset])
+            el = float(parts[az_offset + 1])
             return {"azimuth": az, "elevation": el}
         except Exception:
             continue

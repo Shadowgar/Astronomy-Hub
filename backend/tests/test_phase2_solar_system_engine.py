@@ -66,6 +66,37 @@ def test_jpl_ephemeris_parses_horizons_ra_dec_from_observer_quantities(monkeypat
     assert first["time_basis"] == "2026-06-04T02:00:00Z"
 
 
+def test_jpl_ephemeris_parses_horizons_ra_dec_without_daylight_marker(monkeypatch):
+    monkeypatch.setattr(live_providers, "_cache_get", lambda key: None)
+    monkeypatch.setattr(live_providers, "_cache_set", lambda key, payload, ttl_seconds: None)
+
+    def _http_get_json(url, *, params=None, timeout_s=5.0):
+        assert str((params or {}).get("QUANTITIES")) == "'2,4,20,23'"
+        return {
+            "result": (
+                "$$SOE\n"
+                "2026-Jun-04 02:00   02 39 09.40 +14 52 48.0  340.700916 -31.540467 1.1 2.2 3.3\n"
+                "$$EOE"
+            )
+        }
+
+    monkeypatch.setattr(live_providers, "_http_get_json", _http_get_json)
+
+    payload = live_providers.fetch_jpl_ephemeris(
+        40.0,
+        -75.0,
+        elevation_ft=100.0,
+        as_of=datetime(2026, 6, 4, 2, 16, tzinfo=timezone.utc),
+    )
+
+    assert payload
+    first = payload[0]
+    assert abs(first["ra"] - 39.7891666667) < 0.000001
+    assert abs(first["dec"] - 14.88) < 0.000001
+    assert first["azimuth"] == 340.700916
+    assert first["elevation"] == -31.540467
+
+
 def test_solar_system_slice_filters_below_horizon_and_keeps_provider_source():
     objects = _build_solar_system_engine_slice(
         live_inputs={
