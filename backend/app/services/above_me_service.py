@@ -7,6 +7,11 @@ from typing import Any
 
 from backend.app.services import live_providers
 from backend.app.services.solar_system_catalog_service import SOLAR_SYSTEM_BODIES, SOLAR_SYSTEM_CATALOG
+from backend.app.services.satellite_propagation_service import (
+    DEFAULT_SATELLITE_RESULT_LIMIT,
+    SatelliteObserver,
+    build_visible_satellite_candidates,
+)
 from backend.app.services.sky_catalog_service import LOCAL_MESSIER_SEARCH_OBJECTS
 from backend.app.services.sky_engine_links import build_sky_engine_object_url
 from backend.app.services.sky_star_catalog import (
@@ -38,7 +43,13 @@ def build_above_me_payload(
     max_items = _parse_limit(limit)
 
     tier2_limit = max(1, max_items // 2)
-    candidates = _build_catalog_candidates(observer=observer, as_of=as_of, tier2_limit=tier2_limit)
+    satellite_limit = max(1, min(DEFAULT_SATELLITE_RESULT_LIMIT, max_items // 3 or 1))
+    candidates = _build_catalog_candidates(
+        observer=observer,
+        as_of=as_of,
+        tier2_limit=tier2_limit,
+        satellite_limit=satellite_limit,
+    )
     visible = [candidate for candidate in candidates if candidate["is_visible"]]
     selected = _select_curated_visible_objects(visible, limit=max_items)
 
@@ -62,12 +73,19 @@ def build_above_me_payload(
     }
 
 
-def _build_catalog_candidates(*, observer: Observer, as_of: datetime, tier2_limit: int) -> list[dict[str, Any]]:
+def _build_catalog_candidates(
+    *,
+    observer: Observer,
+    as_of: datetime,
+    tier2_limit: int,
+    satellite_limit: int,
+) -> list[dict[str, Any]]:
     candidates: list[dict[str, Any]] = []
     candidates.extend(_build_solar_system_candidates(observer=observer, as_of=as_of))
     candidates.extend(_build_bright_star_candidates(observer=observer, as_of=as_of))
     candidates.extend(_build_tier2_star_candidates(observer=observer, as_of=as_of, limit=tier2_limit))
     candidates.extend(_build_messier_candidates(observer=observer, as_of=as_of))
+    candidates.extend(_build_satellite_candidates(observer=observer, as_of=as_of, limit=satellite_limit))
     return candidates
 
 
@@ -292,6 +310,18 @@ def _build_solar_system_candidates(*, observer: Observer, as_of: datetime) -> li
     return candidates
 
 
+def _build_satellite_candidates(*, observer: Observer, as_of: datetime, limit: int) -> list[dict[str, Any]]:
+    try:
+        satellite_observer = SatelliteObserver(lat=observer.lat, lng=observer.lng, elev=observer.elev)
+        return build_visible_satellite_candidates(
+            observer=satellite_observer,
+            as_of=as_of,
+            limit=limit,
+        )
+    except Exception:
+        return []
+
+
 def _build_candidate(
     *,
     catalog: str,
@@ -369,8 +399,8 @@ def _object_source_inventory() -> dict[str, dict[str, str]]:
             "reason": "JPL Horizons observer ephemeris provides Moon/Sun RA/Dec and alt/az when provider data is reachable.",
         },
         "satellites": {
-            "status": "gap",
-            "reason": "TLE ingestion exists, but exact satellite identity, topocentric RA/Dec, and Sky Engine selection contract are not implemented yet.",
+            "status": "included",
+            "reason": "Local TLE feed is propagated with Skyfield for bounded visible satellite discovery.",
         },
     }
 

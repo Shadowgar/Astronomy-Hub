@@ -5,6 +5,7 @@ const apiBaseUrl = process.env.ORAS_API_BASE_URL || 'http://127.0.0.1:8000'
 const timeoutMs = Number(process.env.ORAS_DEEP_LINK_TIMEOUT_MS || 90000)
 const cameraToleranceRad = Number(process.env.ORAS_DEEP_LINK_CAMERA_TOLERANCE_RAD || 0.02)
 const solarSystemTestTime = '2027-01-15T02:00:00Z'
+const visibleSatelliteTestTime = '2026-06-04T00:00:00Z'
 const solarSystemLocation = { lat: '41.44', lng: '-79.69', elev: '0' }
 
 const cases = [
@@ -343,6 +344,12 @@ async function validateRuntimeTargetState(page, testCase) {
   if (testCase.requiredStatus && lastState.selectedObject.status !== testCase.requiredStatus) {
     throw new Error(`${testCase.name} status mismatch: ${JSON.stringify(lastState.selectedObject)}`)
   }
+  if (testCase.requireTleModelData) {
+    const modelData = lastState.selectedObject.model_data
+    if (!modelData || !Array.isArray(modelData.tle) || modelData.tle.length !== 2) {
+      throw new Error(`${testCase.name} selected object did not preserve TLE model data: ${JSON.stringify(lastState.selectedObject)}`)
+    }
+  }
 }
 
 async function waitForSatelliteParse(consoleMessages) {
@@ -481,14 +488,67 @@ async function validateSatelliteApiCases() {
   }
 }
 
+function assertAboveMeSatelliteCandidate(candidate) {
+  if (candidate.catalog !== 'Satellite TLE (local)' || candidate.model !== 'tle_satellite') {
+    throw new Error(`Above-me satellite returned wrong identity: ${JSON.stringify(candidate)}`)
+  }
+  if (typeof candidate.source_id !== 'string' || candidate.source_id !== candidate.norad_id) {
+    throw new Error(`Above-me satellite did not preserve string NORAD identity: ${JSON.stringify(candidate)}`)
+  }
+  for (const key of ['ra', 'dec', 'alt', 'az', 'range_km']) {
+    if (!Number.isFinite(candidate[key])) {
+      throw new Error(`Above-me satellite did not return finite ${key}: ${JSON.stringify(candidate)}`)
+    }
+  }
+  if (candidate.alt <= 0 || candidate.is_visible !== true) {
+    throw new Error(`Above-me satellite was not above horizon: ${JSON.stringify(candidate)}`)
+  }
+  if (!candidate.sky_engine_url || !candidate.sky_engine_url.includes(`source_id=${encodeURIComponent(candidate.source_id)}`)) {
+    throw new Error(`Above-me satellite did not return stable Sky Engine URL: ${JSON.stringify(candidate)}`)
+  }
+}
+
+async function buildVisibleSatelliteRuntimeCase() {
+  const query = new URLSearchParams({
+    lat: solarSystemLocation.lat,
+    lng: solarSystemLocation.lng,
+    elev: solarSystemLocation.elev,
+    time: visibleSatelliteTestTime,
+    limit: '50',
+  })
+  const response = await fetch(buildApiUrl(`/api/above-me?${query.toString()}`))
+  const body = await response.json().catch(() => ({}))
+  if (!response.ok || body.status !== 'ok' || !body.data || !Array.isArray(body.data.objects)) {
+    throw new Error(`Above-me visible satellite lookup failed: ${JSON.stringify(body)}`)
+  }
+
+  const candidate = body.data.objects.find((item) => item.model === 'tle_satellite')
+  if (!candidate) {
+    throw new Error(`Above-me did not return a visible satellite for ${visibleSatelliteTestTime}: ${JSON.stringify(body)}`)
+  }
+  assertAboveMeSatelliteCandidate(candidate)
+  console.log(`API_PASS visible satellite ${candidate.name} norad=${candidate.source_id} alt=${candidate.alt} az=${candidate.az}`)
+
+  return {
+    name: `Visible satellite ${candidate.name}`,
+    path: candidate.sky_engine_url,
+    identity: { catalog: candidate.catalog, sourceId: candidate.source_id, model: candidate.model },
+    requiredText: [candidate.name, 'LAT 41.440', 'FOV 1.00'],
+    forbiddenText: ['Unknown Type'],
+    requireIndexed: true,
+    requireTleModelData: true,
+  }
+}
+
 async function main() {
   await validateSolarSystemApiCases()
   await validateSatelliteApiCases()
   await validateUnavailableCases()
+  const visibleSatelliteCase = await buildVisibleSatelliteRuntimeCase()
 
   const browser = await chromium.launch({ headless: true })
   try {
-    for (const testCase of cases) {
+    for (const testCase of [...cases, visibleSatelliteCase]) {
       if (!testCase.identity || !testCase.identity.catalog || !testCase.identity.sourceId || !testCase.identity.model) {
         throw new Error(`${testCase.name} is missing exact identity metadata`)
       }
