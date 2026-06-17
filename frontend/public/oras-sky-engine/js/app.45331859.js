@@ -832,12 +832,12 @@ var es_array_concat = __webpack_require__("99af");
 // EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
 var vue_esm = __webpack_require__("a026");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=8f1815c2&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=1def0904&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[_c('v-navigation-drawer',{attrs:{"app":"","stateless":"","width":"300"},model:{value:(_vm.nav),callback:function ($$v) {_vm.nav=$$v},expression:"nav"}},[_c('v-layout',{attrs:{"column":"","fill-height":""}},[_c('v-list',{attrs:{"dense":""}},[_vm._l((_vm.menuItems),function(item,i){return [(_vm.$store.state[item.store_show_menu_item] === false)?void 0:(item.header)?_c('v-subheader',{key:i,staticClass:"grey--text text--darken-1",domProps:{"textContent":_vm._s(item.header)}}):(item.divider)?_c('v-divider',{key:i,staticClass:"divider_menu"}):(item.switch)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-action',[_c('v-switch',{attrs:{"value":"","input-value":_vm.getStoreValue(item.store_var_name),"label":""}})],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.title))])],1)],1):[(item.link)?_c('v-list-item',{key:i,attrs:{"target":"_blank","rel":"noopener","href":item.link}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}}),_c('v-icon',{attrs:{"disabled":""}},[_vm._v("mdi-open-in-new")])],1):(item.footer===undefined)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.handleMenuItemClick(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]]})],2),_vm._l((_vm.menuComponents),function(item,i){return [_c(item,{key:i,tag:"component"})]}),_c('v-spacer'),_c('v-list',{attrs:{"dense":""}},[_c('v-divider',{staticClass:"divider_menu"}),_vm._l((_vm.menuItems),function(item,i){return [(item.footer)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]})],2)],2)],1),_c('v-main',[_c('v-container',{staticClass:"fill-height",staticStyle:{"padding":"0"},attrs:{"fluid":""}},[_c('div',{class:{ right_panel: _vm.$store.state.showSidePanel },attrs:{"id":"stel"}},[_c('div',{staticStyle:{"position":"relative","width":"100%","height":"100%"}},[_c(_vm.guiComponent,{tag:"component"}),_c('canvas',{ref:"stelCanvas",attrs:{"id":"stel-canvas"}})],1)])])],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=8f1815c2&
+// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=1def0904&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__("3835");
@@ -935,6 +935,9 @@ var stellarium_web_engine = __webpack_require__("c074");
 var moment = __webpack_require__("c1df");
 var moment_default = /*#__PURE__*/__webpack_require__.n(moment);
 
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
+var esm_typeof = __webpack_require__("53ca");
+
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__("1da1");
 
@@ -945,6 +948,7 @@ var runtime = __webpack_require__("96cf");
 var es_regexp_to_string = __webpack_require__("25f0");
 
 // CONCATENATED MODULE: ./src/assets/oras_data_config.js
+
 
 
 
@@ -1029,7 +1033,11 @@ function buildOrasSearchUrl(query) {
 function buildOrasObjectLookupUrl(_ref) {
   var catalog = _ref.catalog,
       sourceId = _ref.sourceId,
-      model = _ref.model;
+      model = _ref.model,
+      time = _ref.time,
+      lat = _ref.lat,
+      lng = _ref.lng,
+      elev = _ref.elev;
   var normalizedCatalog = typeof catalog === 'string' ? catalog.trim() : '';
   var normalizedSourceId = sourceId == null ? '' : String(sourceId).trim();
   var normalizedModel = typeof model === 'string' ? model.trim() : '';
@@ -1043,6 +1051,23 @@ function buildOrasObjectLookupUrl(_ref) {
     source_id: normalizedSourceId,
     model: normalizedModel
   });
+
+  if (time != null && String(time).trim() !== '') {
+    params.set('time', String(time).trim());
+  }
+
+  if (lat != null && String(lat).trim() !== '') {
+    params.set('lat', String(lat).trim());
+  }
+
+  if (lng != null && String(lng).trim() !== '') {
+    params.set('lng', String(lng).trim());
+  }
+
+  if (elev != null && String(elev).trim() !== '') {
+    params.set('elev', String(elev).trim());
+  }
+
   return ORAS_OBJECT_API_ROOT + '?' + params.toString();
 }
 function resolveOrasDssSurveyUrl() {
@@ -1149,6 +1174,7 @@ function numberOrNull(value) {
 }
 
 function buildOrasModelData(result, model, sourceId) {
+  var normalizedModel = String(model || '').toLowerCase();
   var modelData = {
     source_id: sourceId == null ? null : sourceId,
     phot_g_mean_mag: result.phot_g_mean_mag == null ? null : result.phot_g_mean_mag,
@@ -1162,7 +1188,11 @@ function buildOrasModelData(result, model, sourceId) {
     provenance: result.provenance || null
   };
 
-  if (String(model || '').toLowerCase() === 'star') {
+  if (normalizedModel === 'tle_satellite' && result.model_data && Object(esm_typeof["a" /* default */])(result.model_data) === 'object') {
+    Object.assign(modelData, result.model_data);
+  }
+
+  if (normalizedModel === 'star') {
     var ra = numberOrNull(result.ra);
     var de = numberOrNull(result.dec);
     var vmag = numberOrNull(result.phot_g_mean_mag);
@@ -1763,11 +1793,19 @@ var swh = {
   fetchOrasSkySourceByIdentity: function fetchOrasSkySourceByIdentity(_ref) {
     var catalog = _ref.catalog,
         sourceId = _ref.sourceId,
-        model = _ref.model;
+        model = _ref.model,
+        time = _ref.time,
+        lat = _ref.lat,
+        lng = _ref.lng,
+        elev = _ref.elev;
     var lookupUrl = buildOrasObjectLookupUrl({
       catalog: catalog,
       sourceId: sourceId,
-      model: model
+      model: model,
+      time: time,
+      lat: lat,
+      lng: lng,
+      elev: elev
     });
 
     if (!lookupUrl) {
@@ -5040,6 +5078,10 @@ installComponents_default()(gui_loader_component, {VCard: VCard["a" /* default *
       var model = typeof this.$route.query.model === 'string' ? this.$route.query.model.trim() : '';
       var ra = this.$route.query.ra == null ? null : Number(this.$route.query.ra);
       var dec = this.$route.query.dec == null ? null : Number(this.$route.query.dec);
+      var time = typeof this.$route.query.date === 'string' ? this.$route.query.date.trim() : '';
+      var lat = this.$route.query.lat == null ? null : Number(this.$route.query.lat);
+      var lng = this.$route.query.lng == null ? null : Number(this.$route.query.lng);
+      var elev = this.$route.query.elev == null ? null : Number(this.$route.query.elev);
 
       if (!catalog || !sourceId || !model) {
         return undefined;
@@ -5050,7 +5092,11 @@ installComponents_default()(gui_loader_component, {VCard: VCard["a" /* default *
         sourceId: sourceId,
         model: model,
         ra: Number.isFinite(ra) ? ra : null,
-        dec: Number.isFinite(dec) ? dec : null
+        dec: Number.isFinite(dec) ? dec : null,
+        time: time || null,
+        lat: Number.isFinite(lat) ? lat : null,
+        lng: Number.isFinite(lng) ? lng : null,
+        elev: Number.isFinite(elev) ? elev : null
       };
     },
     selectSkySourceRouteTarget: function selectSkySourceRouteTarget(name) {

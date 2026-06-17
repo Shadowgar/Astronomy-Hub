@@ -11,6 +11,10 @@ from backend.app.services.solar_system_catalog_service import (
     build_solar_system_object_payload,
     is_solar_system_identity,
 )
+from backend.app.services.satellite_tle_catalog_service import (
+    is_satellite_tle_identity,
+    lookup_satellite_tle,
+)
 from backend.app.services.sky_star_catalog import BRIGHT_STAR_SCENE_OBJECTS, build_tier2_mid_star_scene_objects
 
 GAIA_DR2_QUERY_RE = re.compile(r"^\s*(gaia\s*dr2|gaiadr2)\s+([0-9]+)\s*$", re.IGNORECASE)
@@ -350,6 +354,15 @@ def lookup_exact_object(
             lat=lat,
             lng=lng,
             time=time,
+            elev=elev,
+        )
+
+    if is_satellite_tle_identity(catalog, normalized_model):
+        return lookup_satellite_tle(
+            normalized_source_id,
+            time=time,
+            lat=lat,
+            lng=lng,
             elev=elev,
         )
 

@@ -256,6 +256,54 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     })
   })
 
+  it('preserves satellite TLE model data for exact Sky Engine identity links', () => {
+    const skySource = toOrasSkySource({
+      catalog: 'Satellite TLE (local)',
+      source_id: '25544',
+      display_name: 'International Space Station',
+      names: ['NAME International Space Station', 'NAME ISS', 'NORAD 25544'],
+      types: ['Asa'],
+      model: 'tle_satellite',
+      norad_id: '25544',
+      model_data: {
+        norad_number: 25544,
+        tle: [
+          '1 25544U 98067A   26154.70949191  .00008646  00000-0  16154-3 0  9992',
+          '2 25544  51.6330   6.8180 0007089 128.9940 231.1681 15.49585865569660',
+        ],
+        mag: -1.3,
+        status: 'Operational',
+        group: ['Station'],
+      },
+      indexed: true,
+      status: 'indexed',
+      link_status: 'exact_link_ready',
+    })
+
+    expect(skySource).toMatchObject({
+      match: 'International Space Station',
+      names: ['International Space Station', 'NAME International Space Station', 'NAME ISS', 'NORAD 25544'],
+      types: ['Asa'],
+      model: 'tle_satellite',
+      catalog: 'Satellite TLE (local)',
+      source_id: '25544',
+      indexed: true,
+      status: 'indexed',
+    })
+    expect(skySource.model_data).toMatchObject({
+      source_id: '25544',
+      norad_number: 25544,
+      tle: [
+        '1 25544U 98067A   26154.70949191  .00008646  00000-0  16154-3 0  9992',
+        '2 25544  51.6330   6.8180 0007089 128.9940 231.1681 15.49585865569660',
+      ],
+      group: ['Station'],
+      oras_catalog: 'Satellite TLE (local)',
+      oras_status: 'indexed',
+      oras_indexed: true,
+    })
+  })
+
   it('routes vendored runtime search through ORAS backend first and keeps local-only fallback', () => {
     const source = fs.readFileSync(swHelpersPath, 'utf8')
 

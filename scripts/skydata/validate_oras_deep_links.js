@@ -174,6 +174,15 @@ const cases = [
     coordinatePatterns: [/00h\s+3[67]m/i, /\+01°/],
     requireIndexed: true,
   },
+  {
+    name: 'ISS',
+    path: 'skysource/InternationalSpaceStation?catalog=Satellite%20TLE%20(local)&source_id=25544&model=tle_satellite&fov=1.00&date=2026-06-04T02%3A16%3A04Z&lat=41.44&lng=-79.69&elev=0',
+    identity: { catalog: 'Satellite TLE (local)', sourceId: '25544', model: 'tle_satellite' },
+    requiredText: ['International Space Station', 'NORAD 25544', 'LAT 41.440', 'FOV 1.00'],
+    forbiddenText: ['Unknown Type'],
+    requireIndexed: true,
+    skipCameraCentering: true,
+  },
 ]
 
 const solarSystemApiCases = [
@@ -182,6 +191,10 @@ const solarSystemApiCases = [
   { name: 'Mars', sourceId: 'mars', model: 'planet' },
   { name: 'Jupiter', sourceId: 'jupiter', model: 'planet' },
   { name: 'Saturn', sourceId: 'saturn', model: 'planet' },
+]
+
+const satelliteApiCases = [
+  { name: 'ISS', sourceId: '25544', model: 'tle_satellite' },
 ]
 
 const unavailableCases = [
@@ -309,7 +322,7 @@ async function validateRuntimeTargetState(page, testCase) {
 
   while (Date.now() < deadline) {
     lastState = await readRuntimeTargetState(page, testCase.identity)
-    if (lastState.ready && lastState.identityMatches && lastState.cameraCentered) {
+    if (lastState.ready && lastState.identityMatches && (testCase.skipCameraCentering || lastState.cameraCentered)) {
       break
     }
     await new Promise(resolve => setTimeout(resolve, 250))
@@ -321,7 +334,7 @@ async function validateRuntimeTargetState(page, testCase) {
   if (!lastState.identityMatches) {
     throw new Error(`${testCase.name} selected wrong identity: ${JSON.stringify(lastState.selectedObject)}`)
   }
-  if (!lastState.cameraCentered) {
+  if (!testCase.skipCameraCentering && !lastState.cameraCentered) {
     throw new Error(`${testCase.name} selected panel but camera did not center: ${JSON.stringify(lastState)}`)
   }
   if (typeof testCase.requireIndexed === 'boolean' && Boolean(lastState.selectedObject.indexed) !== testCase.requireIndexed) {
@@ -432,8 +445,45 @@ async function validateSolarSystemApiCases() {
   }
 }
 
+async function validateSatelliteApiCases() {
+  for (const testCase of satelliteApiCases) {
+    const query = new URLSearchParams({
+      catalog: 'Satellite TLE (local)',
+      source_id: testCase.sourceId,
+      model: testCase.model,
+      lat: '41.44',
+      lng: '-79.69',
+      time: '2026-06-04T02:16:04Z',
+      elev: '0',
+    })
+    const response = await fetch(buildApiUrl(`/api/sky/object?${query.toString()}`))
+    const body = await response.json().catch(() => ({}))
+    if (!response.ok || body.status !== 'ok' || !body.data) {
+      throw new Error(`${testCase.name} exact satellite lookup failed: ${JSON.stringify(body)}`)
+    }
+
+    const data = body.data
+    if (data.catalog !== 'Satellite TLE (local)' || data.source_id !== testCase.sourceId || data.model !== testCase.model) {
+      throw new Error(`${testCase.name} exact lookup returned wrong identity: ${JSON.stringify(data)}`)
+    }
+    if (!data.model_data || !Array.isArray(data.model_data.tle) || data.model_data.tle.length !== 2) {
+      throw new Error(`${testCase.name} exact lookup did not preserve TLE model data: ${JSON.stringify(data)}`)
+    }
+    for (const key of ['ra', 'dec', 'alt', 'az']) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        throw new Error(`${testCase.name} exact lookup fabricated ${key}: ${JSON.stringify(data)}`)
+      }
+    }
+    if (data.link_status !== 'exact_link_ready' || data.visibility_status !== 'propagation_pending') {
+      throw new Error(`${testCase.name} exact lookup returned wrong link status: ${JSON.stringify(data)}`)
+    }
+    console.log(`API_PASS ${testCase.name} norad=${data.norad_id}`)
+  }
+}
+
 async function main() {
   await validateSolarSystemApiCases()
+  await validateSatelliteApiCases()
   await validateUnavailableCases()
 
   const browser = await chromium.launch({ headless: true })

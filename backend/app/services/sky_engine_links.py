@@ -57,6 +57,43 @@ def build_sky_engine_object_url(
     return f"{normalized_base}/skysource/{slug}?{urlencode(query)}"
 
 
+def build_sky_engine_identity_url(
+    *,
+    catalog: str,
+    source_id: str,
+    model: str,
+    name: str | None = None,
+    time: str | None = None,
+    fov: float | None = None,
+    lat: float | None = None,
+    lng: float | None = None,
+    elev: float | int | None = None,
+    base_path: str = DEFAULT_SKY_ENGINE_BASE_PATH,
+) -> str:
+    """Build an exact Sky Engine URL when propagated coordinates are unavailable."""
+
+    identity = {
+        "catalog": _required_text(catalog, "catalog"),
+        "source_id": _required_text(source_id, "source_id"),
+        "model": _required_text(model, "model"),
+    }
+    query: dict[str, str] = dict(identity)
+    if fov is not None:
+        query["fov"] = _format_float(_required_float(fov, "fov"))
+    if time:
+        query["date"] = str(time).strip()
+    if lat is not None:
+        query["lat"] = _format_float(_required_float(lat, "lat"))
+    if lng is not None:
+        query["lng"] = _format_float(_required_float(lng, "lng"))
+    if elev is not None:
+        query["elev"] = _format_float(_required_float(elev, "elev"))
+
+    normalized_base = "/" + str(base_path or DEFAULT_SKY_ENGINE_BASE_PATH).strip("/")
+    slug = _slugify(name or identity["source_id"])
+    return f"{normalized_base}/skysource/{slug}?{urlencode(query)}"
+
+
 def _required_text(value: str | None, field_name: str) -> str:
     if value is None:
         raise ValueError(f"{field_name} is required")
