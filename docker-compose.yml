@@ -6,8 +6,11 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/astronomy_hub
       REDIS_URL: redis://redis:6379/0
+      SATELLITE_TLE_FEED_PATH: /runtime/oras-sky-engine/skydata/tle_satellite.jsonl.gz
     ports:
       - "8000:8000"
+    volumes:
+      - ./frontend/public/oras-sky-engine/skydata:/runtime/oras-sky-engine/skydata:ro
     depends_on:
       - postgres
       - redis

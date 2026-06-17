@@ -4,6 +4,8 @@ const baseUrl = process.env.ORAS_SKY_ENGINE_BASE_URL || 'http://127.0.0.1:4173/o
 const apiBaseUrl = process.env.ORAS_API_BASE_URL || 'http://127.0.0.1:8000'
 const timeoutMs = Number(process.env.ORAS_DEEP_LINK_TIMEOUT_MS || 90000)
 const cameraToleranceRad = Number(process.env.ORAS_DEEP_LINK_CAMERA_TOLERANCE_RAD || 0.02)
+const solarSystemTestTime = '2027-01-15T02:00:00Z'
+const solarSystemLocation = { lat: '41.44', lng: '-79.69', elev: '0' }
 
 const cases = [
   {
@@ -127,6 +129,72 @@ const cases = [
     forbiddenText: ['Unknown Type'],
     requireIndexed: true,
   },
+  {
+    name: 'Moon',
+    path: `skysource/Moon?catalog=Solar%20System%20(JPL)&source_id=moon&model=moon&ra=11.8477916667&dec=9.4291666667&fov=1.20&date=${encodeURIComponent(solarSystemTestTime)}&lat=${solarSystemLocation.lat}&lng=${solarSystemLocation.lng}&elev=${solarSystemLocation.elev}`,
+    identity: { catalog: 'Solar System (JPL)', sourceId: 'moon', model: 'moon' },
+    requiredText: ['Moon', 'Solar System Object', 'Ra/Dec', 'LAT 41.440', 'FOV 1.20'],
+    forbiddenText: ['Unknown Type'],
+    coordinatePatterns: [/00h\s+47m/i, /\+09°/],
+    requireIndexed: true,
+  },
+  {
+    name: 'Venus',
+    path: `skysource/Venus?catalog=Solar%20System%20(JPL)&source_id=venus&model=planet&ra=246.9777916667&dec=-18.5039166667&fov=1.00&date=${encodeURIComponent(solarSystemTestTime)}&lat=${solarSystemLocation.lat}&lng=${solarSystemLocation.lng}&elev=${solarSystemLocation.elev}`,
+    identity: { catalog: 'Solar System (JPL)', sourceId: 'venus', model: 'planet' },
+    requiredText: ['Venus', 'Solar System Object', 'Ra/Dec', 'LAT 41.440', 'FOV 1.00'],
+    forbiddenText: ['Unknown Type'],
+    coordinatePatterns: [/16h\s+2[78]m/i, /-18°/],
+    requireIndexed: true,
+  },
+  {
+    name: 'Mars',
+    path: `skysource/Mars?catalog=Solar%20System%20(JPL)&source_id=mars&model=planet&ra=163.2622916667&dec=11.1885277778&fov=1.00&date=${encodeURIComponent(solarSystemTestTime)}&lat=${solarSystemLocation.lat}&lng=${solarSystemLocation.lng}&elev=${solarSystemLocation.elev}`,
+    identity: { catalog: 'Solar System (JPL)', sourceId: 'mars', model: 'planet' },
+    requiredText: ['Mars', 'Solar System Object', 'Ra/Dec', 'LAT 41.440', 'FOV 1.00'],
+    forbiddenText: ['Unknown Type'],
+    coordinatePatterns: [/10h\s+5[23]m/i, /\+11°/],
+    requireIndexed: true,
+  },
+  {
+    name: 'Jupiter',
+    path: `skysource/Jupiter?catalog=Solar%20System%20(JPL)&source_id=jupiter&model=planet&ra=147.9171666667&dec=14.0108611111&fov=1.00&date=${encodeURIComponent(solarSystemTestTime)}&lat=${solarSystemLocation.lat}&lng=${solarSystemLocation.lng}&elev=${solarSystemLocation.elev}`,
+    identity: { catalog: 'Solar System (JPL)', sourceId: 'jupiter', model: 'planet' },
+    requiredText: ['Jupiter', 'Solar System Object', 'Ra/Dec', 'LAT 41.440', 'FOV 1.00'],
+    forbiddenText: ['Unknown Type'],
+    coordinatePatterns: [/09h\s+5[12]m/i, /\+14°/],
+    requireIndexed: true,
+  },
+  {
+    name: 'Saturn',
+    path: `skysource/Saturn?catalog=Solar%20System%20(JPL)&source_id=saturn&model=planet&ra=9.24125&dec=1.3732222222&fov=1.00&date=${encodeURIComponent(solarSystemTestTime)}&lat=${solarSystemLocation.lat}&lng=${solarSystemLocation.lng}&elev=${solarSystemLocation.elev}`,
+    identity: { catalog: 'Solar System (JPL)', sourceId: 'saturn', model: 'planet' },
+    requiredText: ['Saturn', 'Solar System Object', 'Ra/Dec', 'LAT 41.440', 'FOV 1.00'],
+    forbiddenText: ['Unknown Type'],
+    coordinatePatterns: [/00h\s+3[67]m/i, /\+01°/],
+    requireIndexed: true,
+  },
+  {
+    name: 'ISS',
+    path: 'skysource/InternationalSpaceStation?catalog=Satellite%20TLE%20(local)&source_id=25544&model=tle_satellite&fov=1.00&date=2026-06-04T02%3A16%3A04Z&lat=41.44&lng=-79.69&elev=0',
+    identity: { catalog: 'Satellite TLE (local)', sourceId: '25544', model: 'tle_satellite' },
+    requiredText: ['International Space Station', 'NORAD 25544', 'LAT 41.440', 'FOV 1.00'],
+    forbiddenText: ['Unknown Type'],
+    requireIndexed: true,
+    skipCameraCentering: true,
+  },
+]
+
+const solarSystemApiCases = [
+  { name: 'Moon', sourceId: 'moon', model: 'moon' },
+  { name: 'Venus', sourceId: 'venus', model: 'planet' },
+  { name: 'Mars', sourceId: 'mars', model: 'planet' },
+  { name: 'Jupiter', sourceId: 'jupiter', model: 'planet' },
+  { name: 'Saturn', sourceId: 'saturn', model: 'planet' },
+]
+
+const satelliteApiCases = [
+  { name: 'ISS', sourceId: '25544', model: 'tle_satellite' },
 ]
 
 const unavailableCases = [
@@ -153,6 +221,19 @@ function buildUrl(path) {
 
 function buildApiUrl(path) {
   return new URL(path, apiBaseUrl).toString()
+}
+
+function buildSolarSystemApiPath(testCase) {
+  const query = new URLSearchParams({
+    catalog: 'Solar System (JPL)',
+    source_id: testCase.sourceId,
+    model: testCase.model,
+    lat: solarSystemLocation.lat,
+    lng: solarSystemLocation.lng,
+    time: solarSystemTestTime,
+    elev: solarSystemLocation.elev,
+  })
+  return `/api/sky/object?${query.toString()}`
 }
 
 function normalizeText(text) {
@@ -241,7 +322,7 @@ async function validateRuntimeTargetState(page, testCase) {
 
   while (Date.now() < deadline) {
     lastState = await readRuntimeTargetState(page, testCase.identity)
-    if (lastState.ready && lastState.identityMatches && lastState.cameraCentered) {
+    if (lastState.ready && lastState.identityMatches && (testCase.skipCameraCentering || lastState.cameraCentered)) {
       break
     }
     await new Promise(resolve => setTimeout(resolve, 250))
@@ -253,7 +334,7 @@ async function validateRuntimeTargetState(page, testCase) {
   if (!lastState.identityMatches) {
     throw new Error(`${testCase.name} selected wrong identity: ${JSON.stringify(lastState.selectedObject)}`)
   }
-  if (!lastState.cameraCentered) {
+  if (!testCase.skipCameraCentering && !lastState.cameraCentered) {
     throw new Error(`${testCase.name} selected panel but camera did not center: ${JSON.stringify(lastState)}`)
   }
   if (typeof testCase.requireIndexed === 'boolean' && Boolean(lastState.selectedObject.indexed) !== testCase.requireIndexed) {
@@ -333,7 +414,76 @@ async function validateUnavailableCases() {
   }
 }
 
+function assertFiniteNumber(data, key, testName) {
+  if (!Number.isFinite(data[key])) {
+    throw new Error(`${testName} exact lookup did not return numeric ${key}: ${JSON.stringify(data)}`)
+  }
+}
+
+async function validateSolarSystemApiCases() {
+  for (const testCase of solarSystemApiCases) {
+    const response = await fetch(buildApiUrl(buildSolarSystemApiPath(testCase)))
+    const body = await response.json().catch(() => ({}))
+    if (!response.ok || body.status !== 'ok' || !body.data) {
+      throw new Error(`${testCase.name} exact solar-system lookup failed: ${JSON.stringify(body)}`)
+    }
+
+    const data = body.data
+    if (data.catalog !== 'Solar System (JPL)' || data.source_id !== testCase.sourceId || data.model !== testCase.model) {
+      throw new Error(`${testCase.name} exact lookup returned wrong identity: ${JSON.stringify(data)}`)
+    }
+    for (const key of ['ra', 'dec', 'alt', 'az']) {
+      assertFiniteNumber(data, key, testCase.name)
+    }
+    if (data.ra < 0 || data.ra >= 360 || data.dec < -90 || data.dec > 90 || data.alt < -90 || data.alt > 90 || data.az < 0 || data.az >= 360) {
+      throw new Error(`${testCase.name} exact lookup returned invalid coordinates: ${JSON.stringify(data)}`)
+    }
+    if (!data.sky_engine_url || !data.sky_engine_url.includes(`source_id=${encodeURIComponent(testCase.sourceId)}`) || !data.sky_engine_url.includes(`model=${encodeURIComponent(testCase.model)}`)) {
+      throw new Error(`${testCase.name} exact lookup did not include a stable Sky Engine URL: ${JSON.stringify(data)}`)
+    }
+    console.log(`API_PASS ${testCase.name} alt=${data.alt} az=${data.az}`)
+  }
+}
+
+async function validateSatelliteApiCases() {
+  for (const testCase of satelliteApiCases) {
+    const query = new URLSearchParams({
+      catalog: 'Satellite TLE (local)',
+      source_id: testCase.sourceId,
+      model: testCase.model,
+      lat: '41.44',
+      lng: '-79.69',
+      time: '2026-06-04T02:16:04Z',
+      elev: '0',
+    })
+    const response = await fetch(buildApiUrl(`/api/sky/object?${query.toString()}`))
+    const body = await response.json().catch(() => ({}))
+    if (!response.ok || body.status !== 'ok' || !body.data) {
+      throw new Error(`${testCase.name} exact satellite lookup failed: ${JSON.stringify(body)}`)
+    }
+
+    const data = body.data
+    if (data.catalog !== 'Satellite TLE (local)' || data.source_id !== testCase.sourceId || data.model !== testCase.model) {
+      throw new Error(`${testCase.name} exact lookup returned wrong identity: ${JSON.stringify(data)}`)
+    }
+    if (!data.model_data || !Array.isArray(data.model_data.tle) || data.model_data.tle.length !== 2) {
+      throw new Error(`${testCase.name} exact lookup did not preserve TLE model data: ${JSON.stringify(data)}`)
+    }
+    for (const key of ['ra', 'dec', 'alt', 'az']) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        throw new Error(`${testCase.name} exact lookup fabricated ${key}: ${JSON.stringify(data)}`)
+      }
+    }
+    if (data.link_status !== 'exact_link_ready' || data.visibility_status !== 'propagation_pending') {
+      throw new Error(`${testCase.name} exact lookup returned wrong link status: ${JSON.stringify(data)}`)
+    }
+    console.log(`API_PASS ${testCase.name} norad=${data.norad_id}`)
+  }
+}
+
 async function main() {
+  await validateSolarSystemApiCases()
+  await validateSatelliteApiCases()
   await validateUnavailableCases()
 
   const browser = await chromium.launch({ headless: true })

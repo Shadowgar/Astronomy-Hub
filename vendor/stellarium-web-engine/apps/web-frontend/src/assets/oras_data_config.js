@@ -139,6 +139,7 @@ function numberOrNull (value) {
 }
 
 function buildOrasModelData (result, model, sourceId) {
+  const normalizedModel = String(model || '').toLowerCase()
   const modelData = {
     source_id: sourceId == null ? null : sourceId,
     phot_g_mean_mag: result.phot_g_mean_mag == null ? null : result.phot_g_mean_mag,
@@ -152,7 +153,11 @@ function buildOrasModelData (result, model, sourceId) {
     provenance: result.provenance || null
   }
 
-  if (String(model || '').toLowerCase() === 'star') {
+  if (normalizedModel === 'tle_satellite' && result.model_data && typeof result.model_data === 'object') {
+    Object.assign(modelData, result.model_data)
+  }
+
+  if (normalizedModel === 'star') {
     const ra = numberOrNull(result.ra)
     const de = numberOrNull(result.dec)
     const vmag = numberOrNull(result.phot_g_mean_mag)
