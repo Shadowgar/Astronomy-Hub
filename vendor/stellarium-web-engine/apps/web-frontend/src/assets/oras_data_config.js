@@ -8,6 +8,34 @@ export const ORAS_CATALOG_STATUS_API = '/api/sky/catalog/status'
 export const ORAS_RUNTIME_MODE = 'oras-local'
 export const ORAS_OBJECT_MEDIA_ROOT = ORAS_DATA_ROOT + '/object-media'
 
+const ORAS_DSS_SURVEY_PROVIDERS = [
+  {
+    key: 'dss',
+    label: 'DSS colored',
+    url: ORAS_BUNDLED_DSS_SURVEY_ROOT,
+    isDefault: true,
+    source: 'bundled'
+  },
+  {
+    key: 'panstarrs-dr1-color-z-zg-g',
+    label: 'Pan-STARRS DR1 color z-zg-g',
+    url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-z-zg-g',
+    hipsOrder: 11,
+    tileFormat: 'jpeg',
+    coverage: 0.78125,
+    source: 'external-query-only'
+  },
+  {
+    key: 'panstarrs-dr1-color-i-r-g',
+    label: 'Pan-STARRS DR1 color i-r-g',
+    url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-i-r-g',
+    hipsOrder: 11,
+    tileFormat: 'jpeg',
+    coverage: 0.76386,
+    source: 'external-query-only'
+  }
+]
+
 const GAIA_SOURCE_ALIAS_RE = /^\s*gaia\s+([0-9]+)\s*$/i
 const GAIA_DISPLAY_NAME_RE = /^Gaia DR2 ([0-9]+)$/
 const MESSIER_ID_RE = /^M\s*([0-9]+)$/i
@@ -85,9 +113,38 @@ export function buildOrasObjectLookupUrl ({ catalog, sourceId, model, time, lat,
   return ORAS_OBJECT_API_ROOT + '?' + params.toString()
 }
 
-export async function resolveOrasDssSurveyUrl (options = {}) {
-  const localSurveyRoot = options.localSurveyRoot || ORAS_BUNDLED_DSS_SURVEY_ROOT
+export function listOrasDssSurveyProviders () {
+  return ORAS_DSS_SURVEY_PROVIDERS.map(provider => Object.assign({}, provider))
+}
+
+export function getOrasDssSurveyProvider (requestedKey) {
+  const normalizedKey = typeof requestedKey === 'string' ? requestedKey.trim().toLowerCase() : ''
+  return ORAS_DSS_SURVEY_PROVIDERS.find(provider => provider.key === normalizedKey) ||
+    ORAS_DSS_SURVEY_PROVIDERS.find(provider => provider.isDefault)
+}
+
+export async function resolveOrasDssSurveyUrl (requestedKeyOrOptions = undefined, maybeOptions = {}) {
+  const options = requestedKeyOrOptions && typeof requestedKeyOrOptions === 'object'
+    ? requestedKeyOrOptions
+    : maybeOptions
+  const requestedKey = typeof requestedKeyOrOptions === 'string' ? requestedKeyOrOptions : undefined
+  const provider = getOrasDssSurveyProvider(requestedKey)
   const fetchImpl = options.fetchImpl || (typeof fetch === 'function' ? fetch : undefined)
+
+  if (provider && provider.source === 'external-query-only') {
+    if (typeof fetchImpl !== 'function') {
+      return provider.url
+    }
+    try {
+      const response = await fetchImpl(provider.url + '/properties', { method: 'GET' })
+      if (response && response.ok) {
+        return provider.url
+      }
+    } catch (error) {
+    }
+  }
+
+  const localSurveyRoot = options.localSurveyRoot || ORAS_BUNDLED_DSS_SURVEY_ROOT
 
   if (typeof fetchImpl === 'function') {
     try {

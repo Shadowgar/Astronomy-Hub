@@ -832,12 +832,12 @@ var es_array_concat = __webpack_require__("99af");
 // EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
 var vue_esm = __webpack_require__("a026");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=1def0904&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=0b7914b8&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[_c('v-navigation-drawer',{attrs:{"app":"","stateless":"","width":"300"},model:{value:(_vm.nav),callback:function ($$v) {_vm.nav=$$v},expression:"nav"}},[_c('v-layout',{attrs:{"column":"","fill-height":""}},[_c('v-list',{attrs:{"dense":""}},[_vm._l((_vm.menuItems),function(item,i){return [(_vm.$store.state[item.store_show_menu_item] === false)?void 0:(item.header)?_c('v-subheader',{key:i,staticClass:"grey--text text--darken-1",domProps:{"textContent":_vm._s(item.header)}}):(item.divider)?_c('v-divider',{key:i,staticClass:"divider_menu"}):(item.switch)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-action',[_c('v-switch',{attrs:{"value":"","input-value":_vm.getStoreValue(item.store_var_name),"label":""}})],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.title))])],1)],1):[(item.link)?_c('v-list-item',{key:i,attrs:{"target":"_blank","rel":"noopener","href":item.link}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}}),_c('v-icon',{attrs:{"disabled":""}},[_vm._v("mdi-open-in-new")])],1):(item.footer===undefined)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.handleMenuItemClick(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]]})],2),_vm._l((_vm.menuComponents),function(item,i){return [_c(item,{key:i,tag:"component"})]}),_c('v-spacer'),_c('v-list',{attrs:{"dense":""}},[_c('v-divider',{staticClass:"divider_menu"}),_vm._l((_vm.menuItems),function(item,i){return [(item.footer)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]})],2)],2)],1),_c('v-main',[_c('v-container',{staticClass:"fill-height",staticStyle:{"padding":"0"},attrs:{"fluid":""}},[_c('div',{class:{ right_panel: _vm.$store.state.showSidePanel },attrs:{"id":"stel"}},[_c('div',{staticStyle:{"position":"relative","width":"100%","height":"100%"}},[_c(_vm.guiComponent,{tag:"component"}),_c('canvas',{ref:"stelCanvas",attrs:{"id":"stel-canvas"}})],1)])])],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=1def0904&
+// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=0b7914b8&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__("3835");
@@ -968,6 +968,7 @@ var es_regexp_to_string = __webpack_require__("25f0");
 
 
 
+
 var ORAS_DATA_ROOT = '/oras-sky-engine/skydata';
 var ORAS_BUNDLED_DSS_SURVEY_ROOT = ORAS_DATA_ROOT + '/surveys/dss/v1';
 var ORAS_BUNDLED_GAIA_SURVEY_ROOT = ORAS_DATA_ROOT + '/surveys/gaia/v1';
@@ -977,6 +978,29 @@ var ORAS_OBJECT_API_ROOT = '/api/sky/object';
 var ORAS_CATALOG_STATUS_API = '/api/sky/catalog/status';
 var ORAS_RUNTIME_MODE = 'oras-local';
 var ORAS_OBJECT_MEDIA_ROOT = ORAS_DATA_ROOT + '/object-media';
+var ORAS_DSS_SURVEY_PROVIDERS = [{
+  key: 'dss',
+  label: 'DSS colored',
+  url: ORAS_BUNDLED_DSS_SURVEY_ROOT,
+  isDefault: true,
+  source: 'bundled'
+}, {
+  key: 'panstarrs-dr1-color-z-zg-g',
+  label: 'Pan-STARRS DR1 color z-zg-g',
+  url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-z-zg-g',
+  hipsOrder: 11,
+  tileFormat: 'jpeg',
+  coverage: 0.78125,
+  source: 'external-query-only'
+}, {
+  key: 'panstarrs-dr1-color-i-r-g',
+  label: 'Pan-STARRS DR1 color i-r-g',
+  url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-i-r-g',
+  hipsOrder: 11,
+  tileFormat: 'jpeg',
+  coverage: 0.76386,
+  source: 'external-query-only'
+}];
 var GAIA_SOURCE_ALIAS_RE = /^\s*gaia\s+([0-9]+)\s*$/i;
 var GAIA_DISPLAY_NAME_RE = /^Gaia DR2 ([0-9]+)$/;
 var MESSIER_ID_RE = /^M\s*([0-9]+)$/i;
@@ -1070,63 +1094,125 @@ function buildOrasObjectLookupUrl(_ref) {
 
   return ORAS_OBJECT_API_ROOT + '?' + params.toString();
 }
+function listOrasDssSurveyProviders() {
+  return ORAS_DSS_SURVEY_PROVIDERS.map(function (provider) {
+    return Object.assign({}, provider);
+  });
+}
+function getOrasDssSurveyProvider(requestedKey) {
+  var normalizedKey = typeof requestedKey === 'string' ? requestedKey.trim().toLowerCase() : '';
+  return ORAS_DSS_SURVEY_PROVIDERS.find(function (provider) {
+    return provider.key === normalizedKey;
+  }) || ORAS_DSS_SURVEY_PROVIDERS.find(function (provider) {
+    return provider.isDefault;
+  });
+}
 function resolveOrasDssSurveyUrl() {
   return _resolveOrasDssSurveyUrl.apply(this, arguments);
 }
 
 function _resolveOrasDssSurveyUrl() {
   _resolveOrasDssSurveyUrl = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var options,
-        localSurveyRoot,
+    var requestedKeyOrOptions,
+        maybeOptions,
+        options,
+        requestedKey,
+        provider,
         fetchImpl,
         response,
+        localSurveyRoot,
+        _response,
         _args = arguments;
+
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            options = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
-            localSurveyRoot = options.localSurveyRoot || ORAS_BUNDLED_DSS_SURVEY_ROOT;
+            requestedKeyOrOptions = _args.length > 0 && _args[0] !== undefined ? _args[0] : undefined;
+            maybeOptions = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+            options = requestedKeyOrOptions && Object(esm_typeof["a" /* default */])(requestedKeyOrOptions) === 'object' ? requestedKeyOrOptions : maybeOptions;
+            requestedKey = typeof requestedKeyOrOptions === 'string' ? requestedKeyOrOptions : undefined;
+            provider = getOrasDssSurveyProvider(requestedKey);
             fetchImpl = options.fetchImpl || (typeof fetch === 'function' ? fetch : undefined);
 
-            if (!(typeof fetchImpl === 'function')) {
-              _context.next = 14;
+            if (!(provider && provider.source === 'external-query-only')) {
+              _context.next = 19;
               break;
             }
 
-            _context.prev = 4;
-            _context.next = 7;
+            if (!(typeof fetchImpl !== 'function')) {
+              _context.next = 9;
+              break;
+            }
+
+            return _context.abrupt("return", provider.url);
+
+          case 9:
+            _context.prev = 9;
+            _context.next = 12;
+            return fetchImpl(provider.url + '/properties', {
+              method: 'GET'
+            });
+
+          case 12:
+            response = _context.sent;
+
+            if (!(response && response.ok)) {
+              _context.next = 15;
+              break;
+            }
+
+            return _context.abrupt("return", provider.url);
+
+          case 15:
+            _context.next = 19;
+            break;
+
+          case 17:
+            _context.prev = 17;
+            _context.t0 = _context["catch"](9);
+
+          case 19:
+            localSurveyRoot = options.localSurveyRoot || ORAS_BUNDLED_DSS_SURVEY_ROOT;
+
+            if (!(typeof fetchImpl === 'function')) {
+              _context.next = 31;
+              break;
+            }
+
+            _context.prev = 21;
+            _context.next = 24;
             return fetchImpl(localSurveyRoot + '/properties', {
               method: 'HEAD'
             });
 
-          case 7:
-            response = _context.sent;
+          case 24:
+            _response = _context.sent;
 
-            if (!(response && response.ok)) {
-              _context.next = 10;
+            if (!(_response && _response.ok)) {
+              _context.next = 27;
               break;
             }
 
             return _context.abrupt("return", localSurveyRoot);
 
-          case 10:
-            _context.next = 14;
+          case 27:
+            _context.next = 31;
             break;
 
-          case 12:
-            _context.prev = 12;
-            _context.t0 = _context["catch"](4);
+          case 29:
+            _context.prev = 29;
+            _context.t1 = _context["catch"](21);
 
-          case 14:
+          case 31:
             return _context.abrupt("return", undefined);
 
-          case 15:
+          case 32:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[4, 12]]);
+    }, _callee, null, [[9, 17], [21, 29]]);
   }));
   return _resolveOrasDssSurveyUrl.apply(this, arguments);
 }
@@ -5328,7 +5414,7 @@ installComponents_default()(gui_loader_component, {VCard: VCard["a" /* default *
               });
             }
 
-            resolveOrasDssSurveyUrl().then(function (dssSurveyUrl) {
+            resolveOrasDssSurveyUrl(that.$route.query.hips).then(function (dssSurveyUrl) {
               if (dssSurveyUrl) {
                 core.dss.addDataSource({
                   url: dssSurveyUrl

@@ -10,6 +10,8 @@ import {
   ORAS_OBJECT_API_ROOT,
   ORAS_RUNTIME_MODE,
   ORAS_SEARCH_API,
+  getOrasDssSurveyProvider,
+  listOrasDssSurveyProviders,
   buildOrasObjectLookupUrl,
   buildOrasSearchUrl,
   normalizeOrasSearchQuery,
@@ -43,7 +45,7 @@ describe('oras runtime search routing', () => {
     expect(ORAS_RUNTIME_MODE).toBe('oras-local')
   })
 
-it('prefers a bundled ORAS DSS survey root when local properties exist', async () => {
+  it('prefers a bundled ORAS DSS survey root when local properties exist', async () => {
     const fetchCalls = []
     const surveyUrl = await resolveOrasDssSurveyUrl({
       fetchImpl: async (url, init) => {
@@ -53,6 +55,77 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     })
 
     expect(fetchCalls).toEqual([
+      {
+        url: '/oras-sky-engine/skydata/surveys/dss/v1/properties',
+        init: { method: 'HEAD' }
+      }
+    ])
+    expect(surveyUrl).toBe('/oras-sky-engine/skydata/surveys/dss/v1')
+  })
+
+  it('keeps Pan-STARRS survey options hidden behind explicit query keys', () => {
+    expect(listOrasDssSurveyProviders()).toEqual([
+      expect.objectContaining({
+        key: 'dss',
+        url: '/oras-sky-engine/skydata/surveys/dss/v1',
+        isDefault: true
+      }),
+      expect.objectContaining({
+        key: 'panstarrs-dr1-color-z-zg-g',
+        url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-z-zg-g'
+      }),
+      expect.objectContaining({
+        key: 'panstarrs-dr1-color-i-r-g',
+        url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-i-r-g'
+      })
+    ])
+
+    expect(getOrasDssSurveyProvider('panstarrs-dr1-color-z-zg-g')).toMatchObject({
+      key: 'panstarrs-dr1-color-z-zg-g',
+      label: 'Pan-STARRS DR1 color z-zg-g'
+    })
+    expect(getOrasDssSurveyProvider('bad-value')).toMatchObject({
+      key: 'dss',
+      url: '/oras-sky-engine/skydata/surveys/dss/v1'
+    })
+    expect(getOrasDssSurveyProvider()).toMatchObject({
+      key: 'dss',
+      url: '/oras-sky-engine/skydata/surveys/dss/v1'
+    })
+  })
+
+  it('resolves Pan-STARRS query-only surveys only after a properties probe', async () => {
+    const fetchCalls = []
+    const surveyUrl = await resolveOrasDssSurveyUrl('panstarrs-dr1-color-i-r-g', {
+      fetchImpl: async (url, init) => {
+        fetchCalls.push({ url, init })
+        return { ok: true }
+      }
+    })
+
+    expect(fetchCalls).toEqual([
+      {
+        url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-i-r-g/properties',
+        init: { method: 'GET' }
+      }
+    ])
+    expect(surveyUrl).toBe('https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-i-r-g')
+  })
+
+  it('falls back to bundled DSS when a query-only survey probe fails', async () => {
+    const fetchCalls = []
+    const surveyUrl = await resolveOrasDssSurveyUrl('panstarrs-dr1-color-i-r-g', {
+      fetchImpl: async (url, init) => {
+        fetchCalls.push({ url, init })
+        return { ok: !url.includes('Pan-STARRS') }
+      }
+    })
+
+    expect(fetchCalls).toEqual([
+      {
+        url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-i-r-g/properties',
+        init: { method: 'GET' }
+      },
       {
         url: '/oras-sky-engine/skydata/surveys/dss/v1/properties',
         init: { method: 'HEAD' }
@@ -75,7 +148,7 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     expect(source).toContain('ORAS_BUNDLED_GAIA_SURVEY_ROOT')
     expect(source).toContain('listOrasPackRoots')
     expect(source).toContain('resolveOrasDssSurveyUrl')
-    expect(source).toContain('resolveOrasDssSurveyUrl().then(dssSurveyUrl => {')
+    expect(source).toContain('resolveOrasDssSurveyUrl(that.$route.query.hips).then(dssSurveyUrl => {')
     expect(source).toContain('core.dss.addDataSource({ url: dssSurveyUrl })')
     expect(source).not.toContain('VUE_APP_ORAS_RUNTIME_REMOTE_DATA_BASE')
   })

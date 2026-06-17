@@ -482,7 +482,7 @@ export default {
               core.skycultures.addDataSource({ url: process.env.BASE_URL + 'skydata/skycultures/western', key: 'western' })
             }
 
-            resolveOrasDssSurveyUrl().then(dssSurveyUrl => {
+            resolveOrasDssSurveyUrl(that.$route.query.hips).then(dssSurveyUrl => {
               if (dssSurveyUrl) {
                 core.dss.addDataSource({ url: dssSurveyUrl })
               }
