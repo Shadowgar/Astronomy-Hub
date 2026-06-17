@@ -77,6 +77,7 @@ def test_above_me_returns_linkable_catalog_backed_objects() -> None:
     assert body["meta"]["object_sources"]["planets"]["status"] == "included"
     assert body["meta"]["object_sources"]["moon_sun"]["status"] == "included"
     assert body["meta"]["object_sources"]["satellites"]["status"] == "included"
+    assert body["meta"]["object_sources"]["openngc_local"]["status"] == "included"
 
     objects = body["data"]["objects"]
     assert objects
@@ -204,6 +205,33 @@ def test_above_me_known_dso_link_generation() -> None:
     assert "catalog=Messier+%28local%29" in m81["sky_engine_url"]
     assert "source_id=M81" in m81["sky_engine_url"]
     assert "model=dso" in m81["sky_engine_url"]
+
+
+def test_above_me_includes_openngc_dso_candidates_without_replacing_messier() -> None:
+    response = client.get(
+        "/api/above-me?lat=41.44&lng=-79.69&time=2026-06-04T02:16:04Z&limit=100",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    objects = body["data"]["objects"]
+    openngc = [item for item in objects if item["catalog"] in {"NGC (OpenNGC)", "IC (OpenNGC)"}]
+
+    assert openngc
+    assert len(objects) <= body["meta"]["limit"]
+    assert any(item["catalog"] == "Messier (local)" and item["source_id"] == "M81" for item in objects)
+
+    first = openngc[0]
+    assert first["model"] == "dso"
+    assert first["source_id"].startswith(("NGC", "IC"))
+    assert first["is_visible"] is True
+    assert first["type"] in {"galaxy", "nebula", "planetary_nebula", "open_cluster", "globular_cluster", "group_of_galaxies", "multiple_objects"}
+    assert 0.0 <= first["ra"] < 360.0
+    assert -90.0 <= first["dec"] <= 90.0
+    assert "catalog=" in first["sky_engine_url"]
+    assert f"source_id={first['source_id']}" in first["sky_engine_url"]
+    assert "model=dso" in first["sky_engine_url"]
 
 
 def test_above_me_known_star_link_generation() -> None:
