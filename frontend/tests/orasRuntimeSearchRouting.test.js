@@ -299,6 +299,12 @@ describe('oras runtime search routing', () => {
       model: 'dso',
       status: 'indexed'
     })
+    expect(messierSkySource.model_data).toMatchObject({
+      ra: 10.68,
+      de: 41.269,
+      source_id: 'M31',
+      oras_catalog: 'Messier (local)'
+    })
     expect(messierSkySource.names.join(' ')).not.toContain('GAIA')
 
     const brightStarSkySource = toOrasSkySource({
@@ -326,6 +332,83 @@ describe('oras runtime search routing', () => {
       ra: 79.172,
       de: 45.998,
       Vmag: 0.08
+    })
+  })
+
+  it('maps fallback-created DSO payloads into Stellarium-compatible model data', () => {
+    const openNgcSkySource = toOrasSkySource({
+      catalog: 'NGC (OpenNGC)',
+      source_id: 'NGC7000',
+      display_name: 'NGC 7000 North America Nebula',
+      names: ['NGC 7000', 'NGC7000', 'North America Nebula'],
+      types: ['BNe'],
+      model: 'dso',
+      ra: 314.8214166667,
+      dec: 44.5287777778,
+      phot_g_mean_mag: 4.0,
+      angular_size: {
+        major_arcmin: 120.0,
+        minor_arcmin: 30.0,
+        position_angle_deg: 15.0
+      },
+      indexed: true,
+      status: 'indexed',
+      provenance: { source_key: 'openngc_local' }
+    })
+
+    expect(openNgcSkySource).toMatchObject({
+      names: ['NGC 7000 North America Nebula', 'NGC 7000', 'NGC7000', 'North America Nebula'],
+      types: ['BNe'],
+      model: 'dso',
+      ra: 314.8214166667,
+      dec: 44.5287777778
+    })
+    expect(openNgcSkySource.model_data).toMatchObject({
+      source_id: 'NGC7000',
+      ra: 314.8214166667,
+      de: 44.5287777778,
+      Vmag: 4.0,
+      dimx: 120.0,
+      dimy: 30.0,
+      angle: 15.0,
+      oras_catalog: 'NGC (OpenNGC)',
+      oras_status: 'indexed',
+      provenance: { source_key: 'openngc_local' }
+    })
+  })
+
+  it('uses route ra/dec to materialize DSO identity links without backend coordinates', () => {
+    const skySource = toOrasSkySource({
+      catalog: 'NGC (OpenNGC)',
+      source_id: 'NGC9999',
+      display_name: 'NGC 9999',
+      model: 'dso',
+      types: ['G'],
+      indexed: false,
+      status: 'not_indexed'
+    })
+
+    const exactSkySource = withOrasRouteIdentityFallback(skySource, {
+      catalog: 'NGC (OpenNGC)',
+      sourceId: 'NGC9999',
+      model: 'dso',
+      ra: 210.25,
+      dec: -12.5,
+    })
+
+    expect(exactSkySource).toMatchObject({
+      catalog: 'NGC (OpenNGC)',
+      source_id: 'NGC9999',
+      model: 'dso',
+      ra: 210.25,
+      dec: -12.5,
+    })
+    expect(exactSkySource.model_data).toMatchObject({
+      source_id: 'NGC9999',
+      ra: 210.25,
+      de: -12.5,
+      oras_status: 'not_indexed',
+      oras_indexed: false,
     })
   })
 

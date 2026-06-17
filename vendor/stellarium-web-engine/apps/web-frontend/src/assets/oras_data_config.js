@@ -197,6 +197,7 @@ function numberOrNull (value) {
 
 function buildOrasModelData (result, model, sourceId) {
   const normalizedModel = String(model || '').toLowerCase()
+  const resultModelData = result.model_data && typeof result.model_data === 'object' ? result.model_data : undefined
   const modelData = {
     source_id: sourceId == null ? null : sourceId,
     phot_g_mean_mag: result.phot_g_mean_mag == null ? null : result.phot_g_mean_mag,
@@ -210,8 +211,8 @@ function buildOrasModelData (result, model, sourceId) {
     provenance: result.provenance || null
   }
 
-  if (normalizedModel === 'tle_satellite' && result.model_data && typeof result.model_data === 'object') {
-    Object.assign(modelData, result.model_data)
+  if (normalizedModel === 'tle_satellite' && resultModelData) {
+    Object.assign(modelData, resultModelData)
   }
 
   if (normalizedModel === 'star') {
@@ -229,6 +230,28 @@ function buildOrasModelData (result, model, sourceId) {
     if (pmRa != null) modelData.pm_ra = pmRa
     if (pmDe != null) modelData.pm_de = pmDe
     modelData.epoch = 2000
+  }
+
+  if (normalizedModel === 'dso') {
+    if (resultModelData) {
+      Object.assign(modelData, resultModelData)
+    }
+    const ra = numberOrNull(result.ra)
+    const de = numberOrNull(result.dec)
+    const vmag = numberOrNull(result.phot_g_mean_mag == null ? result.magnitude : result.phot_g_mean_mag)
+    const angularSize = result.angular_size && typeof result.angular_size === 'object'
+      ? result.angular_size
+      : {}
+    const dimx = numberOrNull(angularSize.major_arcmin)
+    const dimy = numberOrNull(angularSize.minor_arcmin)
+    const angle = numberOrNull(angularSize.position_angle_deg)
+
+    if (ra != null && numberOrNull(modelData.ra) == null) modelData.ra = ra
+    if (de != null && numberOrNull(modelData.de) == null) modelData.de = de
+    if (vmag != null && numberOrNull(modelData.Vmag) == null) modelData.Vmag = vmag
+    if (dimx != null && numberOrNull(modelData.dimx) == null) modelData.dimx = dimx
+    if (dimy != null && numberOrNull(modelData.dimy) == null) modelData.dimy = dimy
+    if (angle != null && numberOrNull(modelData.angle) == null) modelData.angle = angle
   }
 
   return modelData
@@ -303,7 +326,8 @@ export function withOrasRouteIdentityFallback (skySource, identity) {
     model_data: Object.assign({}, skySource.model_data || {})
   })
 
-  if (String(exactSkySource.model || '').toLowerCase() === 'star') {
+  const exactModel = String(exactSkySource.model || '').toLowerCase()
+  if (exactModel === 'star') {
     if (numberOrNull(exactSkySource.model_data.ra) == null) {
       exactSkySource.model_data.ra = exactSkySource.ra
     }
@@ -312,6 +336,15 @@ export function withOrasRouteIdentityFallback (skySource, identity) {
     }
     if (exactSkySource.model_data.epoch == null) {
       exactSkySource.model_data.epoch = 2000
+    }
+  }
+
+  if (exactModel === 'dso') {
+    if (numberOrNull(exactSkySource.model_data.ra) == null) {
+      exactSkySource.model_data.ra = exactSkySource.ra
+    }
+    if (numberOrNull(exactSkySource.model_data.de) == null) {
+      exactSkySource.model_data.de = exactSkySource.dec
     }
   }
 

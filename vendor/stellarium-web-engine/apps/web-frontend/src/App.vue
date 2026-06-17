@@ -368,7 +368,9 @@ export default {
           names: [identity.sourceId],
           types: [identity.model === 'dso' ? 'dso' : '*'],
           model: identity.model,
-          model_data: {},
+          model_data: identity.model === 'dso' && identity.ra != null && identity.dec != null
+            ? { ra: identity.ra, de: identity.dec, source_id: identity.sourceId }
+            : {},
           catalog: identity.catalog,
           source_id: identity.sourceId,
           display_name: identity.sourceId,
