@@ -76,7 +76,7 @@ def test_above_me_returns_linkable_catalog_backed_objects() -> None:
     assert body["meta"]["object_sources"]["hipparcos_tier2_local"]["status"] == "included"
     assert body["meta"]["object_sources"]["planets"]["status"] == "included"
     assert body["meta"]["object_sources"]["moon_sun"]["status"] == "included"
-    assert body["meta"]["object_sources"]["satellites"]["status"] == "gap"
+    assert body["meta"]["object_sources"]["satellites"]["status"] == "included"
 
     objects = body["data"]["objects"]
     assert objects
@@ -88,6 +88,43 @@ def test_above_me_returns_linkable_catalog_backed_objects() -> None:
 
     models = {item["model"] for item in objects}
     assert {"star", "dso"}.issubset(models)
+
+
+def test_above_me_includes_bounded_visible_satellites_with_real_propagation() -> None:
+    response = client.get(
+        "/api/above-me?lat=41.44&lng=-79.69&time=2026-06-04T00:00:00Z&limit=20",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    satellites = [item for item in body["data"]["objects"] if item["model"] == "tle_satellite"]
+
+    assert satellites
+    assert len(satellites) <= 8
+    assert len(body["data"]["objects"]) <= body["meta"]["limit"]
+    assert body["meta"]["object_sources"]["satellites"]["status"] == "included"
+
+    first = satellites[0]
+    assert first["id"] == f"Satellite TLE (local):{first['source_id']}"
+    assert first["catalog"] == "Satellite TLE (local)"
+    assert isinstance(first["source_id"], str)
+    assert first["source_id"] == first["norad_id"]
+    assert first["type"] == "satellite"
+    assert isinstance(first["groups"], list)
+    assert first["is_visible"] is True
+    assert first["alt"] > 0.0
+    assert 0.0 <= first["ra"] < 360.0
+    assert -90.0 <= first["dec"] <= 90.0
+    assert 0.0 <= first["az"] < 360.0
+    assert first["range_km"] > 0.0
+    assert first["propagated_at"] == "2026-06-04T00:00:00Z"
+    assert first["tle_epoch"]
+    assert "catalog=Satellite+TLE+%28local%29" in first["sky_engine_url"]
+    assert f"source_id={first['source_id']}" in first["sky_engine_url"]
+    assert "model=tle_satellite" in first["sky_engine_url"]
+    assert "ra=" in first["sky_engine_url"]
+    assert "dec=" in first["sky_engine_url"]
 
 
 def test_above_me_includes_visible_solar_system_objects_from_jpl(monkeypatch) -> None:
