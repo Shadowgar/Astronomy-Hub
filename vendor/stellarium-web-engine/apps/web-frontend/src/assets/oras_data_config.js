@@ -212,7 +212,7 @@ export async function resolveOrasDssSurveyUrl (requestedKeyOrOptions = undefined
     return resolveOrasAutoDssSurveyUrl(provider, fetchImpl, localSurveyRoot)
   }
 
-  if (provider && provider.url === localSurveyRoot) {
+  if (provider && provider.source === 'bundled') {
     return resolveOrasBundledDssSurveyUrl(fetchImpl, localSurveyRoot)
   }
 

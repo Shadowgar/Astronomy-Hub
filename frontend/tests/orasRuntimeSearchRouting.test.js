@@ -143,6 +143,25 @@ describe('oras runtime search routing', () => {
     expect(surveyUrl).toBe('/oras-sky-engine/skydata/surveys/dss/v1')
   })
 
+  it('resolves explicit bundled DSS aliases through a configured local survey root', async () => {
+    const fetchCalls = []
+    const surveyUrl = await resolveOrasDssSurveyUrl('dss-colored', {
+      localSurveyRoot: '/custom/oras-dss',
+      fetchImpl: async (url, init) => {
+        fetchCalls.push({ url, init })
+        return { ok: true }
+      }
+    })
+
+    expect(fetchCalls).toEqual([
+      {
+        url: '/custom/oras-dss/properties',
+        init: { method: 'HEAD' }
+      }
+    ])
+    expect(surveyUrl).toBe('/custom/oras-dss')
+  })
+
   it('falls back to bundled DSS when a query-only survey probe fails', async () => {
     const fetchCalls = []
     const surveyUrl = await resolveOrasDssSurveyUrl('panstarrs-dr1-color-i-r-g', {

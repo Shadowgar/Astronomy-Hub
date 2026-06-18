@@ -1412,7 +1412,7 @@ function _resolveOrasDssSurveyUrl() {
             return _context5.abrupt("return", resolveOrasAutoDssSurveyUrl(provider, fetchImpl, localSurveyRoot));
 
           case 9:
-            if (!(provider && provider.url === localSurveyRoot)) {
+            if (!(provider && provider.source === 'bundled')) {
               _context5.next = 11;
               break;
             }
