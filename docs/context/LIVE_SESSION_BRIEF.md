@@ -1,320 +1,207 @@
-# `LIVE_SESSION_BRIEF.md`
-
-
----
-
 # LIVE SESSION BRIEF
-
----
 
 ## Purpose
 
-This document defines the **current active execution state** for Astronomy Hub.
+This document defines the current active execution state for Astronomy Hub.
 
-It is always loaded with:
+It is always loaded with `docs/context/CORE_CONTEXT.md`.
 
-```text
-CORE_CONTEXT.md
-```
-
-If this file conflicts with any other execution, phase, or tracker document:
-
-```text
-LIVE_SESSION_BRIEF.md wins for current work
-```
-
----
+If this document conflicts with older execution, phase, tracker, or vision
+documents, this document wins for current work unless
+`docs/validation/SYSTEM_VALIDATION_SPEC.md`, `AGENTS.md`, or an explicitly
+activated override mode says otherwise.
 
 ## Current Execution Status
 
-Astronomy Hub is in a **Sky Engine Stellarium Port Priority** cycle.
+Astronomy Hub is in an ORAS Sky Engine modernization and high-definition data
+cycle.
 
-This means:
-
-* `/sky-engine` parity work is the active lane
-* backend and data capabilities may be preserved
-* architecture is stable and must not be redefined
-* execution is constrained to a narrow scope
-* Hub surface integration on `/` is deferred until parity completion
-
----
-
-## Active Product Definition
-
-The active execution surface is:
+The active public sky runtime is:
 
 ```text
-Sky Engine runtime at /sky-engine (port-first)
+/oras-sky-engine/
 ```
 
-The front-page Hub route (`/`) remains outside the active implementation scope during this cycle.
+This is the ORAS-hosted Stellarium Web / Stellarium Web Engine runtime.
 
----
+The current active work is not the old `/sky-engine` BabylonJS lane.
 
-### The Above Me Hub
+The current active work is not a full Hub homepage build.
 
-The Hub is a **decision layer**.
+Current focus:
 
-It shows:
+- preserve and improve the contained Stellarium runtime
+- expand source-backed astronomy data
+- improve object discovery through `/api/above-me`
+- improve exact-link behavior into `/oras-sky-engine/`
+- improve survey imagery and visual parity
+- keep WordPress/ORAS shortcode integration deferred until explicitly started
 
-* the most relevant objects
-* from the selected location and time
-* in a curated, ranked format
+## Current Product Definition
 
----
+The active product direction is:
 
-### The Viewport (CRITICAL)
+- a source-backed astronomy intelligence layer
+- a contained ORAS Sky Engine runtime at `/oras-sky-engine/`
+- stable object links that open the Sky Engine centered on the correct object
+- curated Above Me object discovery through `/api/above-me`
+- future WordPress/ORAS display consuming `/api/above-me`
 
-The interface includes a central viewport:
+Primary user-facing flow:
 
 ```text
-Center Viewport = Active Engine Scene
+user asks what is above me
+-> backend computes and ranks visible objects
+-> UI or WordPress page renders curated cards/list
+-> user clicks object
+-> /oras-sky-engine/ opens centered on that object
 ```
 
----
+The front-page Hub route `/` is not the current implementation target unless
+explicitly approved.
 
-### Important Clarification
+## Active Execution Surface
 
-The front page is:
+Active runtime surface:
 
-* NOT a full immersive engine page
-* NOT a raw dashboard
-* NOT a data dump
+- `/oras-sky-engine/`
 
-But it DOES:
+Supporting API surfaces:
 
-* contain a controlled engine viewport
-* allow object interaction
-* reflect the active engine context
+- `/api/sky/object`
+- `/api/above-me`
 
----
+Supporting runtime paths:
 
-## Current UI Model
+- `vendor/stellarium-web-engine/apps/web-frontend`
+- `vendor/stellarium-web-engine/src`
+- `frontend/public/oras-sky-engine`
 
----
+Supporting backend paths:
 
-### Front Page (Hub Mode)
+- `backend/app/routes`
+- `backend/app/services`
+- `backend/app/data/sky`
+- `backend/tests`
 
-For the current cycle:
+Supporting validation paths:
 
-* `/` is documentation/contract-only
-* no active implementation work is scheduled on Hub panels or Hub viewport composition
-* existing `/` behavior is not the parity target
+- `scripts/skydata/validate_oras_deep_links.js`
+- `frontend/tests`
+- backend tests
 
----
+## Explicit Stale Assumption Corrections
 
-### Engine Viewport Behavior
+These assumptions are stale and must not drive current work:
 
-The active viewport target is `/sky-engine`:
+- active surface is `/sky-engine`
+- Sky Engine is BabylonJS
+- current goal is a BabylonJS port
+- Hub homepage `/` is the active implementation target
+- the Sky Engine should become a shared Hub renderer
+- production objects should be hand-registered
+- visual parity should be blocked by stale phase documents
 
-* renders the Sky Engine runtime directly
-* supports interaction (click, focus, highlight)
-* preserves Stellarium-equivalent behavior for math, thresholds, and lifecycle
-* remains engine-owned runtime logic (no host-owned rendering logic)
+Correct current assumptions:
 
----
+- active surface is `/oras-sky-engine/`
+- runtime is contained Stellarium Web / Stellarium Web Engine
+- Hub is API/decision layer
+- Sky Engine owns its own scene/rendering/runtime behavior
+- data must be source-backed and scalable
+- Docker/runtime validation is authoritative for runtime-sensitive claims
+- browser/runtime validation must prove visual behavior when claimed
 
-### Engine Pages (Expanded Mode)
-
-Full immersive experiences belong in engine pages.
-
-Examples:
-
-* Earth Engine → globe interaction
-* Solar System Engine → planetary exploration
-* Deep Sky Engine → catalog exploration
-
----
-
-## Active Architectural Boundaries
-
-The following rules are active:
-
----
+## Active Boundaries
 
 ### Hub
 
-* decision layer only
-* no raw rendering ownership
-* no object flood
+Allowed:
 
----
+- decision layer
+- object filtering/ranking
+- curated output
+- stable engine links
+- API consumption
 
-### Engines
+Not allowed:
 
-* own domain logic
-* own scene behavior
-* control rendering
+- raw rendering ownership
+- full scene rendering
+- raw object flood
+- fake visibility
+- duplicate Sky Engine calculations
 
----
+### ORAS Sky Engine
 
-### Rendering
+Allowed:
 
-```text
-Viewport = Active Engine Scene
-```
+- own contained Stellarium runtime
+- own rendering and scene lifecycle
+- own selection/camera behavior
+- own visual math and thresholds
+- consume defined observer/time/location/config/object inputs
 
----
+Not allowed:
 
-### Engine Relationships
+- become BabylonJS
+- become a shared Hub renderer
+- depend on Hub internals for rendering
+- accept fake coordinates or fake visibility
 
-```text
-Earth (primary)
- ├─ Satellite
- ├─ Flight
- └─ Conditions
+### Backend / API
 
-Sky = default entry engine
-```
+Allowed:
 
----
+- normalize data
+- provide `/api/sky/object`
+- provide `/api/above-me`
+- generate stable Sky Engine URLs
+- compute validated visibility/ranking where implemented
 
-### Data Rules
+Not allowed:
 
-* canonical object model required
-* canonical contracts required
-* no fabricated data
+- fake coordinates
+- fake visibility
+- fake object availability
+- hand-register production catalogs as a substitute for scalable data
 
----
+## Active Work Lanes
 
-## Active Runtime Authority
+Current allowed lanes:
 
-The system uses:
+- ORAS Sky Engine runtime stability
+- exact-link correctness
+- source-backed `/api/above-me` data expansion
+- high-definition data and survey imagery evaluation
+- runtime/browser validation
 
-```text
-FastAPI (single runtime)
-```
+Current deferred lanes:
 
-No parallel backend authority allowed.
+- WordPress shortcode/page
+- Hub homepage UI
+- credits-update work
+- DESI promotion
+- TheSkyLive scraping
+- broad OpenNGC/Pan-STARRS UI expansion unless explicitly approved
 
----
+## Current Validation Rule
 
-## Active Scope of Work
+Runtime-sensitive claims require Docker/runtime evidence.
 
-Current work is LIMITED to:
+For Sky Engine changes, expected proof can include:
 
----
+- running Docker services
+- API responses
+- frontend/backend tests
+- `npm run validate:oras-deep-links`
+- browser screenshots or Playwright validation
 
-### Allowed
-
-* porting Stellarium behavior into Sky Engine (`/sky-engine`)
-* implementing and validating Sky Engine rendering/runtime behavior (Babylon.js)
-* replacing non-parity local heuristics with Stellarium-equivalent logic
-* expanding parity coverage across high-use source modules and interaction shell
-* enforcing architecture rules and Sky Engine isolation
-* cleaning document authority
-
----
-
-### Not Allowed
-
-* implementation work on `/` Hub panels or home-route viewport integration during this cycle
-* expanding all engines simultaneously
-* building full Earth Engine
-* adding new domains
-* phase progression work
-* speculative architecture changes
-* turning the Hub into a shared engine runtime
-
----
-
-## Current Output Constraints
-
-Current output must remain:
-
-* parity-driven
-* source-traceable to Stellarium
-* validated by runtime and parity evidence
-
----
-
-### Hard Constraints
-
-* no fake data
-* no dead controls
-* no heuristic drift from Stellarium behavior in `/sky-engine`
-* no hub-coupled rendering logic inside Sky Engine
-
----
-
-## Current Authority Documents
-
-Active authority set:
-
-1. CORE_CONTEXT.md
-2. LIVE_SESSION_BRIEF.md
-3. ARCHITECTURE_OVERVIEW.md
-4. ENGINE_SPEC.md
-5. ENGINE_CATALOG.md
-6. OBJECT_MODEL.md
-7. DATA_CONTRACTS.md
-8. INGESTION_STRATEGY.md
-
----
-
-### Vision Reference (NON-EXECUTION)
-
-* /docs/product/PRODUCT_VISION.md
-
----
-
-## Porting Reprioritization (Active)
-
-Execution order for this cycle:
-
-1. Port and validate `/sky-engine` runtime parity end-to-end.
-2. Fix object ownership and routing contracts within Sky Engine boundaries.
-3. Port high-use Stellarium interaction shell modules relevant to `/sky-engine` behavior.
-4. Continue source-module parity until the Sky Engine is complete.
-
-Deferred until after parity:
-
-* Hub panel and viewport integration work on `/`
-
----
-
-## Current Failure Conditions
-
-Work is invalid if:
-
-* hub becomes a data dump
-* hub renders full engine scenes uncontrolled
-* engine and hub responsibilities mix
-* viewport behavior is inconsistent
-* new data contracts are invented
-* placeholder UI exists
-* scope expands beyond Sky Engine + Hub
-
----
-
-## Current Review Standard
-
-Evaluate all work using:
-
-1. Does it follow CORE_CONTEXT?
-2. Does it follow architecture docs?
-3. Does it improve the active product surface?
-4. Does it avoid scope expansion?
-5. Does it avoid authority drift?
-
----
-
-## Immediate Working Direction
-
-The system is being stabilized by:
-
-* locking architecture rules
-* building Sky Engine as the rendering core
-* establishing Hub + Viewport interaction
-* preventing scope expansion
-* eliminating document conflicts
-
----
+Do not mark behavior complete from panel text alone when camera/object centering
+or visual behavior is part of the claim.
 
 ## Final Rule
 
-```text
-Build the smallest correct system first:
-Sky Engine + Above Me Hub + Controlled Viewport.
-```
----
+Current work must align future Hub/WordPress linking around source-backed
+objects and stable `/oras-sky-engine/` URLs, without starting that UI work until
+explicitly approved.
