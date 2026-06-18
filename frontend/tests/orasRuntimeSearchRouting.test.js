@@ -10,6 +10,8 @@ import {
   ORAS_OBJECT_API_ROOT,
   ORAS_RUNTIME_MODE,
   ORAS_SEARCH_API,
+  getOrasDssSurveyProvider,
+  listOrasDssSurveyProviders,
   buildOrasObjectLookupUrl,
   buildOrasSearchUrl,
   normalizeOrasSearchQuery,
@@ -43,7 +45,7 @@ describe('oras runtime search routing', () => {
     expect(ORAS_RUNTIME_MODE).toBe('oras-local')
   })
 
-it('prefers a bundled ORAS DSS survey root when local properties exist', async () => {
+  it('prefers a bundled ORAS DSS survey root when local properties exist', async () => {
     const fetchCalls = []
     const surveyUrl = await resolveOrasDssSurveyUrl({
       fetchImpl: async (url, init) => {
@@ -53,6 +55,77 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     })
 
     expect(fetchCalls).toEqual([
+      {
+        url: '/oras-sky-engine/skydata/surveys/dss/v1/properties',
+        init: { method: 'HEAD' }
+      }
+    ])
+    expect(surveyUrl).toBe('/oras-sky-engine/skydata/surveys/dss/v1')
+  })
+
+  it('keeps Pan-STARRS survey options hidden behind explicit query keys', () => {
+    expect(listOrasDssSurveyProviders()).toEqual([
+      expect.objectContaining({
+        key: 'dss',
+        url: '/oras-sky-engine/skydata/surveys/dss/v1',
+        isDefault: true
+      }),
+      expect.objectContaining({
+        key: 'panstarrs-dr1-color-z-zg-g',
+        url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-z-zg-g'
+      }),
+      expect.objectContaining({
+        key: 'panstarrs-dr1-color-i-r-g',
+        url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-i-r-g'
+      })
+    ])
+
+    expect(getOrasDssSurveyProvider('panstarrs-dr1-color-z-zg-g')).toMatchObject({
+      key: 'panstarrs-dr1-color-z-zg-g',
+      label: 'Pan-STARRS DR1 color z-zg-g'
+    })
+    expect(getOrasDssSurveyProvider('bad-value')).toMatchObject({
+      key: 'dss',
+      url: '/oras-sky-engine/skydata/surveys/dss/v1'
+    })
+    expect(getOrasDssSurveyProvider()).toMatchObject({
+      key: 'dss',
+      url: '/oras-sky-engine/skydata/surveys/dss/v1'
+    })
+  })
+
+  it('resolves Pan-STARRS query-only surveys only after a properties probe', async () => {
+    const fetchCalls = []
+    const surveyUrl = await resolveOrasDssSurveyUrl('panstarrs-dr1-color-i-r-g', {
+      fetchImpl: async (url, init) => {
+        fetchCalls.push({ url, init })
+        return { ok: true }
+      }
+    })
+
+    expect(fetchCalls).toEqual([
+      {
+        url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-i-r-g/properties',
+        init: { method: 'GET' }
+      }
+    ])
+    expect(surveyUrl).toBe('https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-i-r-g')
+  })
+
+  it('falls back to bundled DSS when a query-only survey probe fails', async () => {
+    const fetchCalls = []
+    const surveyUrl = await resolveOrasDssSurveyUrl('panstarrs-dr1-color-i-r-g', {
+      fetchImpl: async (url, init) => {
+        fetchCalls.push({ url, init })
+        return { ok: !url.includes('Pan-STARRS') }
+      }
+    })
+
+    expect(fetchCalls).toEqual([
+      {
+        url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-i-r-g/properties',
+        init: { method: 'GET' }
+      },
       {
         url: '/oras-sky-engine/skydata/surveys/dss/v1/properties',
         init: { method: 'HEAD' }
@@ -75,7 +148,7 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
     expect(source).toContain('ORAS_BUNDLED_GAIA_SURVEY_ROOT')
     expect(source).toContain('listOrasPackRoots')
     expect(source).toContain('resolveOrasDssSurveyUrl')
-    expect(source).toContain('resolveOrasDssSurveyUrl().then(dssSurveyUrl => {')
+    expect(source).toContain('resolveOrasDssSurveyUrl(that.$route.query.hips).then(dssSurveyUrl => {')
     expect(source).toContain('core.dss.addDataSource({ url: dssSurveyUrl })')
     expect(source).not.toContain('VUE_APP_ORAS_RUNTIME_REMOTE_DATA_BASE')
   })
@@ -226,6 +299,12 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
       model: 'dso',
       status: 'indexed'
     })
+    expect(messierSkySource.model_data).toMatchObject({
+      ra: 10.68,
+      de: 41.269,
+      source_id: 'M31',
+      oras_catalog: 'Messier (local)'
+    })
     expect(messierSkySource.names.join(' ')).not.toContain('GAIA')
 
     const brightStarSkySource = toOrasSkySource({
@@ -253,6 +332,83 @@ it('prefers a bundled ORAS DSS survey root when local properties exist', async (
       ra: 79.172,
       de: 45.998,
       Vmag: 0.08
+    })
+  })
+
+  it('maps fallback-created DSO payloads into Stellarium-compatible model data', () => {
+    const openNgcSkySource = toOrasSkySource({
+      catalog: 'NGC (OpenNGC)',
+      source_id: 'NGC7000',
+      display_name: 'NGC 7000 North America Nebula',
+      names: ['NGC 7000', 'NGC7000', 'North America Nebula'],
+      types: ['BNe'],
+      model: 'dso',
+      ra: 314.8214166667,
+      dec: 44.5287777778,
+      phot_g_mean_mag: 4.0,
+      angular_size: {
+        major_arcmin: 120.0,
+        minor_arcmin: 30.0,
+        position_angle_deg: 15.0
+      },
+      indexed: true,
+      status: 'indexed',
+      provenance: { source_key: 'openngc_local' }
+    })
+
+    expect(openNgcSkySource).toMatchObject({
+      names: ['NGC 7000 North America Nebula', 'NGC 7000', 'NGC7000', 'North America Nebula'],
+      types: ['BNe'],
+      model: 'dso',
+      ra: 314.8214166667,
+      dec: 44.5287777778
+    })
+    expect(openNgcSkySource.model_data).toMatchObject({
+      source_id: 'NGC7000',
+      ra: 314.8214166667,
+      de: 44.5287777778,
+      Vmag: 4.0,
+      dimx: 120.0,
+      dimy: 30.0,
+      angle: 15.0,
+      oras_catalog: 'NGC (OpenNGC)',
+      oras_status: 'indexed',
+      provenance: { source_key: 'openngc_local' }
+    })
+  })
+
+  it('uses route ra/dec to materialize DSO identity links without backend coordinates', () => {
+    const skySource = toOrasSkySource({
+      catalog: 'NGC (OpenNGC)',
+      source_id: 'NGC9999',
+      display_name: 'NGC 9999',
+      model: 'dso',
+      types: ['G'],
+      indexed: false,
+      status: 'not_indexed'
+    })
+
+    const exactSkySource = withOrasRouteIdentityFallback(skySource, {
+      catalog: 'NGC (OpenNGC)',
+      sourceId: 'NGC9999',
+      model: 'dso',
+      ra: 210.25,
+      dec: -12.5,
+    })
+
+    expect(exactSkySource).toMatchObject({
+      catalog: 'NGC (OpenNGC)',
+      source_id: 'NGC9999',
+      model: 'dso',
+      ra: 210.25,
+      dec: -12.5,
+    })
+    expect(exactSkySource.model_data).toMatchObject({
+      source_id: 'NGC9999',
+      ra: 210.25,
+      de: -12.5,
+      oras_status: 'not_indexed',
+      oras_indexed: false,
     })
   })
 

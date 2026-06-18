@@ -7,6 +7,11 @@ from sqlalchemy import func, inspect, select
 
 from backend.app.db.models import CatalogSource, GaiaDr2Source
 from backend.app.db.session import get_engine, session_scope
+from backend.app.services.openngc_dso_catalog_service import (
+    is_openngc_identity,
+    lookup_openngc_dso,
+    search_openngc_dso,
+)
 from backend.app.services.solar_system_catalog_service import (
     build_solar_system_object_payload,
     is_solar_system_identity,
@@ -319,6 +324,18 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
             "meta": {"match_type": "local_named_object"},
         }
 
+    openngc_results = search_openngc_dso(query)
+    if openngc_results:
+        return {
+            "status": "ok",
+            "data": {
+                "query": query,
+                "recognized_query": False,
+                "results": openngc_results,
+            },
+            "meta": {"match_type": "openngc_named_object"},
+        }
+
     return {
         "status": "ok",
         "data": {
@@ -365,6 +382,9 @@ def lookup_exact_object(
             lng=lng,
             elev=elev,
         )
+
+    if is_openngc_identity(catalog, normalized_model):
+        return lookup_openngc_dso(normalized_source_id, catalog=catalog)
 
     if normalized_catalog == "gaia dr2":
         result = lookup_gaia_dr2_source(parse_gaia_dr2_source_id(normalized_source_id), database_url)

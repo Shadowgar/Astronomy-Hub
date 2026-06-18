@@ -368,7 +368,9 @@ export default {
           names: [identity.sourceId],
           types: [identity.model === 'dso' ? 'dso' : '*'],
           model: identity.model,
-          model_data: {},
+          model_data: identity.model === 'dso' && identity.ra != null && identity.dec != null
+            ? { ra: identity.ra, de: identity.dec, source_id: identity.sourceId }
+            : {},
           catalog: identity.catalog,
           source_id: identity.sourceId,
           display_name: identity.sourceId,
@@ -482,7 +484,7 @@ export default {
               core.skycultures.addDataSource({ url: process.env.BASE_URL + 'skydata/skycultures/western', key: 'western' })
             }
 
-            resolveOrasDssSurveyUrl().then(dssSurveyUrl => {
+            resolveOrasDssSurveyUrl(that.$route.query.hips).then(dssSurveyUrl => {
               if (dssSurveyUrl) {
                 core.dss.addDataSource({ url: dssSurveyUrl })
               }

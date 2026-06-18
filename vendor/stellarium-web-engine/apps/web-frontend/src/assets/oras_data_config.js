@@ -8,6 +8,34 @@ export const ORAS_CATALOG_STATUS_API = '/api/sky/catalog/status'
 export const ORAS_RUNTIME_MODE = 'oras-local'
 export const ORAS_OBJECT_MEDIA_ROOT = ORAS_DATA_ROOT + '/object-media'
 
+const ORAS_DSS_SURVEY_PROVIDERS = [
+  {
+    key: 'dss',
+    label: 'DSS colored',
+    url: ORAS_BUNDLED_DSS_SURVEY_ROOT,
+    isDefault: true,
+    source: 'bundled'
+  },
+  {
+    key: 'panstarrs-dr1-color-z-zg-g',
+    label: 'Pan-STARRS DR1 color z-zg-g',
+    url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-z-zg-g',
+    hipsOrder: 11,
+    tileFormat: 'jpeg',
+    coverage: 0.78125,
+    source: 'external-query-only'
+  },
+  {
+    key: 'panstarrs-dr1-color-i-r-g',
+    label: 'Pan-STARRS DR1 color i-r-g',
+    url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-i-r-g',
+    hipsOrder: 11,
+    tileFormat: 'jpeg',
+    coverage: 0.76386,
+    source: 'external-query-only'
+  }
+]
+
 const GAIA_SOURCE_ALIAS_RE = /^\s*gaia\s+([0-9]+)\s*$/i
 const GAIA_DISPLAY_NAME_RE = /^Gaia DR2 ([0-9]+)$/
 const MESSIER_ID_RE = /^M\s*([0-9]+)$/i
@@ -85,9 +113,38 @@ export function buildOrasObjectLookupUrl ({ catalog, sourceId, model, time, lat,
   return ORAS_OBJECT_API_ROOT + '?' + params.toString()
 }
 
-export async function resolveOrasDssSurveyUrl (options = {}) {
-  const localSurveyRoot = options.localSurveyRoot || ORAS_BUNDLED_DSS_SURVEY_ROOT
+export function listOrasDssSurveyProviders () {
+  return ORAS_DSS_SURVEY_PROVIDERS.map(provider => Object.assign({}, provider))
+}
+
+export function getOrasDssSurveyProvider (requestedKey) {
+  const normalizedKey = typeof requestedKey === 'string' ? requestedKey.trim().toLowerCase() : ''
+  return ORAS_DSS_SURVEY_PROVIDERS.find(provider => provider.key === normalizedKey) ||
+    ORAS_DSS_SURVEY_PROVIDERS.find(provider => provider.isDefault)
+}
+
+export async function resolveOrasDssSurveyUrl (requestedKeyOrOptions = undefined, maybeOptions = {}) {
+  const options = requestedKeyOrOptions && typeof requestedKeyOrOptions === 'object'
+    ? requestedKeyOrOptions
+    : maybeOptions
+  const requestedKey = typeof requestedKeyOrOptions === 'string' ? requestedKeyOrOptions : undefined
+  const provider = getOrasDssSurveyProvider(requestedKey)
   const fetchImpl = options.fetchImpl || (typeof fetch === 'function' ? fetch : undefined)
+
+  if (provider && provider.source === 'external-query-only') {
+    if (typeof fetchImpl !== 'function') {
+      return provider.url
+    }
+    try {
+      const response = await fetchImpl(provider.url + '/properties', { method: 'GET' })
+      if (response && response.ok) {
+        return provider.url
+      }
+    } catch (error) {
+    }
+  }
+
+  const localSurveyRoot = options.localSurveyRoot || ORAS_BUNDLED_DSS_SURVEY_ROOT
 
   if (typeof fetchImpl === 'function') {
     try {
@@ -140,6 +197,7 @@ function numberOrNull (value) {
 
 function buildOrasModelData (result, model, sourceId) {
   const normalizedModel = String(model || '').toLowerCase()
+  const resultModelData = result.model_data && typeof result.model_data === 'object' ? result.model_data : undefined
   const modelData = {
     source_id: sourceId == null ? null : sourceId,
     phot_g_mean_mag: result.phot_g_mean_mag == null ? null : result.phot_g_mean_mag,
@@ -153,8 +211,8 @@ function buildOrasModelData (result, model, sourceId) {
     provenance: result.provenance || null
   }
 
-  if (normalizedModel === 'tle_satellite' && result.model_data && typeof result.model_data === 'object') {
-    Object.assign(modelData, result.model_data)
+  if (normalizedModel === 'tle_satellite' && resultModelData) {
+    Object.assign(modelData, resultModelData)
   }
 
   if (normalizedModel === 'star') {
@@ -172,6 +230,28 @@ function buildOrasModelData (result, model, sourceId) {
     if (pmRa != null) modelData.pm_ra = pmRa
     if (pmDe != null) modelData.pm_de = pmDe
     modelData.epoch = 2000
+  }
+
+  if (normalizedModel === 'dso') {
+    if (resultModelData) {
+      Object.assign(modelData, resultModelData)
+    }
+    const ra = numberOrNull(result.ra)
+    const de = numberOrNull(result.dec)
+    const vmag = numberOrNull(result.phot_g_mean_mag == null ? result.magnitude : result.phot_g_mean_mag)
+    const angularSize = result.angular_size && typeof result.angular_size === 'object'
+      ? result.angular_size
+      : {}
+    const dimx = numberOrNull(angularSize.major_arcmin)
+    const dimy = numberOrNull(angularSize.minor_arcmin)
+    const angle = numberOrNull(angularSize.position_angle_deg)
+
+    if (ra != null && numberOrNull(modelData.ra) == null) modelData.ra = ra
+    if (de != null && numberOrNull(modelData.de) == null) modelData.de = de
+    if (vmag != null && numberOrNull(modelData.Vmag) == null) modelData.Vmag = vmag
+    if (dimx != null && numberOrNull(modelData.dimx) == null) modelData.dimx = dimx
+    if (dimy != null && numberOrNull(modelData.dimy) == null) modelData.dimy = dimy
+    if (angle != null && numberOrNull(modelData.angle) == null) modelData.angle = angle
   }
 
   return modelData
@@ -246,7 +326,8 @@ export function withOrasRouteIdentityFallback (skySource, identity) {
     model_data: Object.assign({}, skySource.model_data || {})
   })
 
-  if (String(exactSkySource.model || '').toLowerCase() === 'star') {
+  const exactModel = String(exactSkySource.model || '').toLowerCase()
+  if (exactModel === 'star') {
     if (numberOrNull(exactSkySource.model_data.ra) == null) {
       exactSkySource.model_data.ra = exactSkySource.ra
     }
@@ -255,6 +336,15 @@ export function withOrasRouteIdentityFallback (skySource, identity) {
     }
     if (exactSkySource.model_data.epoch == null) {
       exactSkySource.model_data.epoch = 2000
+    }
+  }
+
+  if (exactModel === 'dso') {
+    if (numberOrNull(exactSkySource.model_data.ra) == null) {
+      exactSkySource.model_data.ra = exactSkySource.ra
+    }
+    if (numberOrNull(exactSkySource.model_data.de) == null) {
+      exactSkySource.model_data.de = exactSkySource.dec
     }
   }
 

@@ -6,6 +6,7 @@ import math
 from typing import Any
 
 from backend.app.services import live_providers
+from backend.app.services.openngc_dso_catalog_service import build_openngc_above_me_seed_records
 from backend.app.services.solar_system_catalog_service import SOLAR_SYSTEM_BODIES, SOLAR_SYSTEM_CATALOG
 from backend.app.services.satellite_propagation_service import (
     DEFAULT_SATELLITE_RESULT_LIMIT,
@@ -44,11 +45,13 @@ def build_above_me_payload(
 
     tier2_limit = max(1, max_items // 2)
     satellite_limit = max(1, min(DEFAULT_SATELLITE_RESULT_LIMIT, max_items // 3 or 1))
+    openngc_limit = max(1, min(12, max_items // 4 or 1))
     candidates = _build_catalog_candidates(
         observer=observer,
         as_of=as_of,
         tier2_limit=tier2_limit,
         satellite_limit=satellite_limit,
+        openngc_limit=openngc_limit,
     )
     visible = [candidate for candidate in candidates if candidate["is_visible"]]
     selected = _select_curated_visible_objects(visible, limit=max_items)
@@ -79,12 +82,14 @@ def _build_catalog_candidates(
     as_of: datetime,
     tier2_limit: int,
     satellite_limit: int,
+    openngc_limit: int,
 ) -> list[dict[str, Any]]:
     candidates: list[dict[str, Any]] = []
     candidates.extend(_build_solar_system_candidates(observer=observer, as_of=as_of))
     candidates.extend(_build_bright_star_candidates(observer=observer, as_of=as_of))
     candidates.extend(_build_tier2_star_candidates(observer=observer, as_of=as_of, limit=tier2_limit))
     candidates.extend(_build_messier_candidates(observer=observer, as_of=as_of))
+    candidates.extend(_build_openngc_dso_candidates(observer=observer, as_of=as_of, limit=openngc_limit))
     candidates.extend(_build_satellite_candidates(observer=observer, as_of=as_of, limit=satellite_limit))
     return candidates
 
@@ -251,10 +256,59 @@ def _build_messier_candidates(*, observer: Observer, as_of: datetime) -> list[di
                 observer=observer,
                 as_of=as_of,
                 reason=f"Local Messier {object_type.replace('_', ' ')} at {alt:.1f} deg altitude.",
-                source_boost=0.1,
+                source_boost=0.2,
             )
         )
     return candidates
+
+
+def _build_openngc_dso_candidates(*, observer: Observer, as_of: datetime, limit: int) -> list[dict[str, Any]]:
+    ranked: list[tuple[tuple[float, float, str], dict[str, Any]]] = []
+    for obj in build_openngc_above_me_seed_records(limit=700):
+        try:
+            ra_deg = float(obj["ra"])
+            dec_deg = float(obj["dec"])
+            magnitude = float(obj["magnitude"])
+        except Exception:
+            continue
+
+        alt, az = _ra_dec_to_alt_az(
+            ra_hours=ra_deg / 15.0,
+            dec_deg=dec_deg,
+            observer_lat_deg=observer.lat,
+            observer_lon_deg=observer.lng,
+            dt=as_of,
+        )
+        if alt <= 0.0:
+            continue
+
+        common_names = obj.get("common_names") if isinstance(obj.get("common_names"), list) else []
+        name = str((common_names[0] if common_names else None) or obj.get("display_name") or obj["source_id"]).strip()
+        priority = _priority(alt=alt, magnitude=magnitude, source_boost=0.06)
+        ranked.append(
+            (
+                (-priority, magnitude, name),
+                _build_candidate(
+                    catalog=str(obj["catalog"]),
+                    source_id=str(obj["source_id"]),
+                    model="dso",
+                    name=name,
+                    object_type=str(obj.get("object_type") or "dso"),
+                    ra=ra_deg,
+                    dec=dec_deg,
+                    alt=alt,
+                    az=az,
+                    magnitude=magnitude,
+                    observer=observer,
+                    as_of=as_of,
+                    reason=f"OpenNGC {obj.get('object_type', 'dso')} at {alt:.1f} deg altitude.",
+                    source_boost=0.06,
+                ),
+            )
+        )
+
+    ranked.sort(key=lambda item: item[0])
+    return [candidate for _, candidate in ranked[: max(1, limit)]]
 
 
 def _build_solar_system_candidates(*, observer: Observer, as_of: datetime) -> list[dict[str, Any]]:
@@ -377,6 +431,10 @@ def _object_source_inventory() -> dict[str, dict[str, str]]:
         "messier_local": {
             "status": "included",
             "reason": "Local Messier seed objects have stable identity and RA/Dec.",
+        },
+        "openngc_local": {
+            "status": "included",
+            "reason": "Normalized OpenNGC local catalog provides bounded visible DSO discovery and exact NGC/IC identity links.",
         },
         "bright_star_local": {
             "status": "included",
