@@ -7,14 +7,30 @@ export const ORAS_OBJECT_API_ROOT = '/api/sky/object'
 export const ORAS_CATALOG_STATUS_API = '/api/sky/catalog/status'
 export const ORAS_RUNTIME_MODE = 'oras-local'
 export const ORAS_OBJECT_MEDIA_ROOT = ORAS_DATA_ROOT + '/object-media'
+export const ORAS_DEFAULT_DSS_SURVEY_KEY = 'oras-hd-auto'
+
+const ORAS_DEFAULT_SURVEY_MIN_COVERAGE = 0.99
 
 const ORAS_DSS_SURVEY_PROVIDERS = [
+  {
+    key: ORAS_DEFAULT_DSS_SURVEY_KEY,
+    label: 'ORAS HD auto',
+    source: 'auto',
+    isDefault: true,
+    preferredProviderKeys: ['panstarrs-dr1-color-z-zg-g']
+  },
   {
     key: 'dss',
     label: 'DSS colored',
     url: ORAS_BUNDLED_DSS_SURVEY_ROOT,
-    isDefault: true,
     source: 'bundled'
+  },
+  {
+    key: 'dss-colored',
+    label: 'DSS colored',
+    url: ORAS_BUNDLED_DSS_SURVEY_ROOT,
+    source: 'bundled',
+    aliasFor: 'dss'
   },
   {
     key: 'panstarrs-dr1-color-z-zg-g',
@@ -119,8 +135,68 @@ export function listOrasDssSurveyProviders () {
 
 export function getOrasDssSurveyProvider (requestedKey) {
   const normalizedKey = typeof requestedKey === 'string' ? requestedKey.trim().toLowerCase() : ''
+  if (!normalizedKey) {
+    return ORAS_DSS_SURVEY_PROVIDERS.find(provider => provider.isDefault)
+  }
   return ORAS_DSS_SURVEY_PROVIDERS.find(provider => provider.key === normalizedKey) ||
-    ORAS_DSS_SURVEY_PROVIDERS.find(provider => provider.isDefault)
+    ORAS_DSS_SURVEY_PROVIDERS.find(provider => provider.key === 'dss')
+}
+
+function isProviderSafeForDefault (provider) {
+  return provider &&
+    provider.source === 'external-query-only' &&
+    Number(provider.coverage) >= ORAS_DEFAULT_SURVEY_MIN_COVERAGE
+}
+
+async function probeOrasSurveyProvider (provider, fetchImpl) {
+  if (!provider || !provider.url) {
+    return undefined
+  }
+  if (provider.source !== 'external-query-only') {
+    return provider.url
+  }
+  if (typeof fetchImpl !== 'function') {
+    return provider.url
+  }
+  try {
+    const response = await fetchImpl(provider.url + '/properties', { method: 'GET' })
+    if (response && response.ok) {
+      return provider.url
+    }
+  } catch (error) {
+  }
+  return undefined
+}
+
+async function resolveOrasAutoDssSurveyUrl (provider, fetchImpl, localSurveyRoot) {
+  const preferredProviderKeys = Array.isArray(provider.preferredProviderKeys)
+    ? provider.preferredProviderKeys
+    : []
+  for (const preferredProviderKey of preferredProviderKeys) {
+    const preferredProvider = ORAS_DSS_SURVEY_PROVIDERS.find(item => item.key === preferredProviderKey)
+    if (!isProviderSafeForDefault(preferredProvider)) {
+      continue
+    }
+    const surveyUrl = await probeOrasSurveyProvider(preferredProvider, fetchImpl)
+    if (surveyUrl) {
+      return surveyUrl
+    }
+  }
+  return resolveOrasBundledDssSurveyUrl(fetchImpl, localSurveyRoot)
+}
+
+async function resolveOrasBundledDssSurveyUrl (fetchImpl, localSurveyRoot) {
+  if (typeof fetchImpl === 'function') {
+    try {
+      const response = await fetchImpl(localSurveyRoot + '/properties', { method: 'HEAD' })
+      if (response && response.ok) {
+        return localSurveyRoot
+      }
+    } catch (error) {
+    }
+  }
+
+  return undefined
 }
 
 export async function resolveOrasDssSurveyUrl (requestedKeyOrOptions = undefined, maybeOptions = {}) {
@@ -130,30 +206,23 @@ export async function resolveOrasDssSurveyUrl (requestedKeyOrOptions = undefined
   const requestedKey = typeof requestedKeyOrOptions === 'string' ? requestedKeyOrOptions : undefined
   const provider = getOrasDssSurveyProvider(requestedKey)
   const fetchImpl = options.fetchImpl || (typeof fetch === 'function' ? fetch : undefined)
-
-  if (provider && provider.source === 'external-query-only') {
-    if (typeof fetchImpl !== 'function') {
-      return provider.url
-    }
-    try {
-      const response = await fetchImpl(provider.url + '/properties', { method: 'GET' })
-      if (response && response.ok) {
-        return provider.url
-      }
-    } catch (error) {
-    }
-  }
-
   const localSurveyRoot = options.localSurveyRoot || ORAS_BUNDLED_DSS_SURVEY_ROOT
 
-  if (typeof fetchImpl === 'function') {
-    try {
-      const response = await fetchImpl(localSurveyRoot + '/properties', { method: 'HEAD' })
-      if (response && response.ok) {
-        return localSurveyRoot
-      }
-    } catch (error) {
-    }
+  if (provider && provider.source === 'auto') {
+    return resolveOrasAutoDssSurveyUrl(provider, fetchImpl, localSurveyRoot)
+  }
+
+  if (provider && provider.url === localSurveyRoot) {
+    return resolveOrasBundledDssSurveyUrl(fetchImpl, localSurveyRoot)
+  }
+
+  const requestedSurveyUrl = await probeOrasSurveyProvider(provider, fetchImpl)
+  if (requestedSurveyUrl) {
+    return requestedSurveyUrl
+  }
+
+  if (!provider || provider.source === 'external-query-only') {
+    return resolveOrasBundledDssSurveyUrl(fetchImpl, localSurveyRoot)
   }
 
   return undefined

@@ -969,6 +969,7 @@ var es_regexp_to_string = __webpack_require__("25f0");
 
 
 
+
 var ORAS_DATA_ROOT = '/oras-sky-engine/skydata';
 var ORAS_BUNDLED_DSS_SURVEY_ROOT = ORAS_DATA_ROOT + '/surveys/dss/v1';
 var ORAS_BUNDLED_GAIA_SURVEY_ROOT = ORAS_DATA_ROOT + '/surveys/gaia/v1';
@@ -978,12 +979,25 @@ var ORAS_OBJECT_API_ROOT = '/api/sky/object';
 var ORAS_CATALOG_STATUS_API = '/api/sky/catalog/status';
 var ORAS_RUNTIME_MODE = 'oras-local';
 var ORAS_OBJECT_MEDIA_ROOT = ORAS_DATA_ROOT + '/object-media';
+var ORAS_DEFAULT_DSS_SURVEY_KEY = 'oras-hd-auto';
+var ORAS_DEFAULT_SURVEY_MIN_COVERAGE = 0.99;
 var ORAS_DSS_SURVEY_PROVIDERS = [{
+  key: ORAS_DEFAULT_DSS_SURVEY_KEY,
+  label: 'ORAS HD auto',
+  source: 'auto',
+  isDefault: true,
+  preferredProviderKeys: ['panstarrs-dr1-color-z-zg-g']
+}, {
   key: 'dss',
   label: 'DSS colored',
   url: ORAS_BUNDLED_DSS_SURVEY_ROOT,
-  isDefault: true,
   source: 'bundled'
+}, {
+  key: 'dss-colored',
+  label: 'DSS colored',
+  url: ORAS_BUNDLED_DSS_SURVEY_ROOT,
+  source: 'bundled',
+  aliasFor: 'dss'
 }, {
   key: 'panstarrs-dr1-color-z-zg-g',
   label: 'Pan-STARRS DR1 color z-zg-g',
@@ -1101,118 +1115,341 @@ function listOrasDssSurveyProviders() {
 }
 function getOrasDssSurveyProvider(requestedKey) {
   var normalizedKey = typeof requestedKey === 'string' ? requestedKey.trim().toLowerCase() : '';
+
+  if (!normalizedKey) {
+    return ORAS_DSS_SURVEY_PROVIDERS.find(function (provider) {
+      return provider.isDefault;
+    });
+  }
+
   return ORAS_DSS_SURVEY_PROVIDERS.find(function (provider) {
     return provider.key === normalizedKey;
   }) || ORAS_DSS_SURVEY_PROVIDERS.find(function (provider) {
-    return provider.isDefault;
+    return provider.key === 'dss';
   });
 }
+
+function isProviderSafeForDefault(provider) {
+  return provider && provider.source === 'external-query-only' && Number(provider.coverage) >= ORAS_DEFAULT_SURVEY_MIN_COVERAGE;
+}
+
+function probeOrasSurveyProvider(_x, _x2) {
+  return _probeOrasSurveyProvider.apply(this, arguments);
+}
+
+function _probeOrasSurveyProvider() {
+  _probeOrasSurveyProvider = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(provider, fetchImpl) {
+    var response;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!(!provider || !provider.url)) {
+              _context.next = 2;
+              break;
+            }
+
+            return _context.abrupt("return", undefined);
+
+          case 2:
+            if (!(provider.source !== 'external-query-only')) {
+              _context.next = 4;
+              break;
+            }
+
+            return _context.abrupt("return", provider.url);
+
+          case 4:
+            if (!(typeof fetchImpl !== 'function')) {
+              _context.next = 6;
+              break;
+            }
+
+            return _context.abrupt("return", provider.url);
+
+          case 6:
+            _context.prev = 6;
+            _context.next = 9;
+            return fetchImpl(provider.url + '/properties', {
+              method: 'GET'
+            });
+
+          case 9:
+            response = _context.sent;
+
+            if (!(response && response.ok)) {
+              _context.next = 12;
+              break;
+            }
+
+            return _context.abrupt("return", provider.url);
+
+          case 12:
+            _context.next = 16;
+            break;
+
+          case 14:
+            _context.prev = 14;
+            _context.t0 = _context["catch"](6);
+
+          case 16:
+            return _context.abrupt("return", undefined);
+
+          case 17:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[6, 14]]);
+  }));
+  return _probeOrasSurveyProvider.apply(this, arguments);
+}
+
+function resolveOrasAutoDssSurveyUrl(_x3, _x4, _x5) {
+  return _resolveOrasAutoDssSurveyUrl.apply(this, arguments);
+}
+
+function _resolveOrasAutoDssSurveyUrl() {
+  _resolveOrasAutoDssSurveyUrl = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(provider, fetchImpl, localSurveyRoot) {
+    var preferredProviderKeys, _iterator, _step, _loop, _ret;
+
+    return regeneratorRuntime.wrap(function _callee2$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            preferredProviderKeys = Array.isArray(provider.preferredProviderKeys) ? provider.preferredProviderKeys : [];
+            _iterator = Object(createForOfIteratorHelper["a" /* default */])(preferredProviderKeys);
+            _context3.prev = 2;
+            _loop = /*#__PURE__*/regeneratorRuntime.mark(function _loop() {
+              var preferredProviderKey, preferredProvider, surveyUrl;
+              return regeneratorRuntime.wrap(function _loop$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      preferredProviderKey = _step.value;
+                      preferredProvider = ORAS_DSS_SURVEY_PROVIDERS.find(function (item) {
+                        return item.key === preferredProviderKey;
+                      });
+
+                      if (isProviderSafeForDefault(preferredProvider)) {
+                        _context2.next = 4;
+                        break;
+                      }
+
+                      return _context2.abrupt("return", "continue");
+
+                    case 4:
+                      _context2.next = 6;
+                      return probeOrasSurveyProvider(preferredProvider, fetchImpl);
+
+                    case 6:
+                      surveyUrl = _context2.sent;
+
+                      if (!surveyUrl) {
+                        _context2.next = 9;
+                        break;
+                      }
+
+                      return _context2.abrupt("return", {
+                        v: surveyUrl
+                      });
+
+                    case 9:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _loop);
+            });
+
+            _iterator.s();
+
+          case 5:
+            if ((_step = _iterator.n()).done) {
+              _context3.next = 14;
+              break;
+            }
+
+            return _context3.delegateYield(_loop(), "t0", 7);
+
+          case 7:
+            _ret = _context3.t0;
+
+            if (!(_ret === "continue")) {
+              _context3.next = 10;
+              break;
+            }
+
+            return _context3.abrupt("continue", 12);
+
+          case 10:
+            if (!(Object(esm_typeof["a" /* default */])(_ret) === "object")) {
+              _context3.next = 12;
+              break;
+            }
+
+            return _context3.abrupt("return", _ret.v);
+
+          case 12:
+            _context3.next = 5;
+            break;
+
+          case 14:
+            _context3.next = 19;
+            break;
+
+          case 16:
+            _context3.prev = 16;
+            _context3.t1 = _context3["catch"](2);
+
+            _iterator.e(_context3.t1);
+
+          case 19:
+            _context3.prev = 19;
+
+            _iterator.f();
+
+            return _context3.finish(19);
+
+          case 22:
+            return _context3.abrupt("return", resolveOrasBundledDssSurveyUrl(fetchImpl, localSurveyRoot));
+
+          case 23:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee2, null, [[2, 16, 19, 22]]);
+  }));
+  return _resolveOrasAutoDssSurveyUrl.apply(this, arguments);
+}
+
+function resolveOrasBundledDssSurveyUrl(_x6, _x7) {
+  return _resolveOrasBundledDssSurveyUrl.apply(this, arguments);
+}
+
+function _resolveOrasBundledDssSurveyUrl() {
+  _resolveOrasBundledDssSurveyUrl = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(fetchImpl, localSurveyRoot) {
+    var response;
+    return regeneratorRuntime.wrap(function _callee3$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            if (!(typeof fetchImpl === 'function')) {
+              _context4.next = 11;
+              break;
+            }
+
+            _context4.prev = 1;
+            _context4.next = 4;
+            return fetchImpl(localSurveyRoot + '/properties', {
+              method: 'HEAD'
+            });
+
+          case 4:
+            response = _context4.sent;
+
+            if (!(response && response.ok)) {
+              _context4.next = 7;
+              break;
+            }
+
+            return _context4.abrupt("return", localSurveyRoot);
+
+          case 7:
+            _context4.next = 11;
+            break;
+
+          case 9:
+            _context4.prev = 9;
+            _context4.t0 = _context4["catch"](1);
+
+          case 11:
+            return _context4.abrupt("return", undefined);
+
+          case 12:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee3, null, [[1, 9]]);
+  }));
+  return _resolveOrasBundledDssSurveyUrl.apply(this, arguments);
+}
+
 function resolveOrasDssSurveyUrl() {
   return _resolveOrasDssSurveyUrl.apply(this, arguments);
 }
 
 function _resolveOrasDssSurveyUrl() {
-  _resolveOrasDssSurveyUrl = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+  _resolveOrasDssSurveyUrl = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
     var requestedKeyOrOptions,
         maybeOptions,
         options,
         requestedKey,
         provider,
         fetchImpl,
-        response,
         localSurveyRoot,
-        _response,
-        _args = arguments;
-
-    return regeneratorRuntime.wrap(function _callee$(_context) {
+        requestedSurveyUrl,
+        _args5 = arguments;
+    return regeneratorRuntime.wrap(function _callee4$(_context5) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context5.prev = _context5.next) {
           case 0:
-            requestedKeyOrOptions = _args.length > 0 && _args[0] !== undefined ? _args[0] : undefined;
-            maybeOptions = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+            requestedKeyOrOptions = _args5.length > 0 && _args5[0] !== undefined ? _args5[0] : undefined;
+            maybeOptions = _args5.length > 1 && _args5[1] !== undefined ? _args5[1] : {};
             options = requestedKeyOrOptions && Object(esm_typeof["a" /* default */])(requestedKeyOrOptions) === 'object' ? requestedKeyOrOptions : maybeOptions;
             requestedKey = typeof requestedKeyOrOptions === 'string' ? requestedKeyOrOptions : undefined;
             provider = getOrasDssSurveyProvider(requestedKey);
             fetchImpl = options.fetchImpl || (typeof fetch === 'function' ? fetch : undefined);
-
-            if (!(provider && provider.source === 'external-query-only')) {
-              _context.next = 19;
-              break;
-            }
-
-            if (!(typeof fetchImpl !== 'function')) {
-              _context.next = 9;
-              break;
-            }
-
-            return _context.abrupt("return", provider.url);
-
-          case 9:
-            _context.prev = 9;
-            _context.next = 12;
-            return fetchImpl(provider.url + '/properties', {
-              method: 'GET'
-            });
-
-          case 12:
-            response = _context.sent;
-
-            if (!(response && response.ok)) {
-              _context.next = 15;
-              break;
-            }
-
-            return _context.abrupt("return", provider.url);
-
-          case 15:
-            _context.next = 19;
-            break;
-
-          case 17:
-            _context.prev = 17;
-            _context.t0 = _context["catch"](9);
-
-          case 19:
             localSurveyRoot = options.localSurveyRoot || ORAS_BUNDLED_DSS_SURVEY_ROOT;
 
-            if (!(typeof fetchImpl === 'function')) {
-              _context.next = 31;
+            if (!(provider && provider.source === 'auto')) {
+              _context5.next = 9;
               break;
             }
 
-            _context.prev = 21;
-            _context.next = 24;
-            return fetchImpl(localSurveyRoot + '/properties', {
-              method: 'HEAD'
-            });
+            return _context5.abrupt("return", resolveOrasAutoDssSurveyUrl(provider, fetchImpl, localSurveyRoot));
 
-          case 24:
-            _response = _context.sent;
-
-            if (!(_response && _response.ok)) {
-              _context.next = 27;
+          case 9:
+            if (!(provider && provider.url === localSurveyRoot)) {
+              _context5.next = 11;
               break;
             }
 
-            return _context.abrupt("return", localSurveyRoot);
+            return _context5.abrupt("return", resolveOrasBundledDssSurveyUrl(fetchImpl, localSurveyRoot));
 
-          case 27:
-            _context.next = 31;
-            break;
+          case 11:
+            _context5.next = 13;
+            return probeOrasSurveyProvider(provider, fetchImpl);
 
-          case 29:
-            _context.prev = 29;
-            _context.t1 = _context["catch"](21);
+          case 13:
+            requestedSurveyUrl = _context5.sent;
 
-          case 31:
-            return _context.abrupt("return", undefined);
+            if (!requestedSurveyUrl) {
+              _context5.next = 16;
+              break;
+            }
 
-          case 32:
+            return _context5.abrupt("return", requestedSurveyUrl);
+
+          case 16:
+            if (!(!provider || provider.source === 'external-query-only')) {
+              _context5.next = 18;
+              break;
+            }
+
+            return _context5.abrupt("return", resolveOrasBundledDssSurveyUrl(fetchImpl, localSurveyRoot));
+
+          case 18:
+            return _context5.abrupt("return", undefined);
+
+          case 19:
           case "end":
-            return _context.stop();
+            return _context5.stop();
         }
       }
-    }, _callee, null, [[9, 17], [21, 29]]);
+    }, _callee4);
   }));
   return _resolveOrasDssSurveyUrl.apply(this, arguments);
 }

@@ -7,6 +7,7 @@ import {
   ORAS_BUNDLED_DSS_SURVEY_ROOT,
   ORAS_CATALOG_STATUS_API,
   ORAS_DATA_ROOT,
+  ORAS_DEFAULT_DSS_SURVEY_KEY,
   ORAS_OBJECT_API_ROOT,
   ORAS_RUNTIME_MODE,
   ORAS_SEARCH_API,
@@ -45,7 +46,7 @@ describe('oras runtime search routing', () => {
     expect(ORAS_RUNTIME_MODE).toBe('oras-local')
   })
 
-  it('prefers a bundled ORAS DSS survey root when local properties exist', async () => {
+  it('uses ORAS HD auto by default but falls back to bundled DSS when no HD provider is full-coverage safe', async () => {
     const fetchCalls = []
     const surveyUrl = await resolveOrasDssSurveyUrl({
       fetchImpl: async (url, init) => {
@@ -60,15 +61,24 @@ describe('oras runtime search routing', () => {
         init: { method: 'HEAD' }
       }
     ])
+    expect(ORAS_DEFAULT_DSS_SURVEY_KEY).toBe('oras-hd-auto')
     expect(surveyUrl).toBe('/oras-sky-engine/skydata/surveys/dss/v1')
   })
 
-  it('keeps Pan-STARRS survey options hidden behind explicit query keys', () => {
+  it('keeps HD survey options hidden behind explicit query keys', () => {
     expect(listOrasDssSurveyProviders()).toEqual([
+      expect.objectContaining({
+        key: 'oras-hd-auto',
+        isDefault: true,
+        source: 'auto'
+      }),
       expect.objectContaining({
         key: 'dss',
         url: '/oras-sky-engine/skydata/surveys/dss/v1',
-        isDefault: true
+      }),
+      expect.objectContaining({
+        key: 'dss-colored',
+        url: '/oras-sky-engine/skydata/surveys/dss/v1',
       }),
       expect.objectContaining({
         key: 'panstarrs-dr1-color-z-zg-g',
@@ -84,11 +94,14 @@ describe('oras runtime search routing', () => {
       key: 'panstarrs-dr1-color-z-zg-g',
       label: 'Pan-STARRS DR1 color z-zg-g'
     })
-    expect(getOrasDssSurveyProvider('bad-value')).toMatchObject({
-      key: 'dss',
+    expect(getOrasDssSurveyProvider()).toMatchObject({
+      key: 'oras-hd-auto'
+    })
+    expect(getOrasDssSurveyProvider('dss-colored')).toMatchObject({
+      key: 'dss-colored',
       url: '/oras-sky-engine/skydata/surveys/dss/v1'
     })
-    expect(getOrasDssSurveyProvider()).toMatchObject({
+    expect(getOrasDssSurveyProvider('bad-value')).toMatchObject({
       key: 'dss',
       url: '/oras-sky-engine/skydata/surveys/dss/v1'
     })
@@ -110,6 +123,24 @@ describe('oras runtime search routing', () => {
       }
     ])
     expect(surveyUrl).toBe('https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-i-r-g')
+  })
+
+  it('resolves explicit DSS colored alias through the bundled DSS properties probe', async () => {
+    const fetchCalls = []
+    const surveyUrl = await resolveOrasDssSurveyUrl('dss-colored', {
+      fetchImpl: async (url, init) => {
+        fetchCalls.push({ url, init })
+        return { ok: true }
+      }
+    })
+
+    expect(fetchCalls).toEqual([
+      {
+        url: '/oras-sky-engine/skydata/surveys/dss/v1/properties',
+        init: { method: 'HEAD' }
+      }
+    ])
+    expect(surveyUrl).toBe('/oras-sky-engine/skydata/surveys/dss/v1')
   })
 
   it('falls back to bundled DSS when a query-only survey probe fails', async () => {
