@@ -1,210 +1,199 @@
-# `SYSTEM_VALIDATION_SPEC.md`
+# SYSTEM VALIDATION SPEC - AUTHORITATIVE
 
----
-
-# SYSTEM VALIDATION SPEC (AUTHORITATIVE)
-
----
-
-## 1. VALIDATION PRINCIPLE
+## 1. Validation Principle
 
 A claim is valid only when it is:
 
 1. implemented
 2. architecture-aligned
-3. runtime-proven
+3. runtime-proven when runtime behavior is claimed
 4. source-traceable
 5. evidence-backed
 
-If any dimension is missing:
+If any dimension is missing, status must be one of:
 
-```text
-Status must be PARTIAL, FAKE, or BLOCKED
-```
+- PARTIAL
+- FAKE
+- BLOCKED
 
----
-
-## 2. PROOF REQUIREMENTS (MANDATORY)
+## 2. Proof Requirements
 
 Every completion claim must include:
 
-* exact file references
-* exact commands run
-* exact observed outputs
-* explicit pass/fail statement
+- exact file references
+- exact commands run
+- exact observed outputs or pass/fail counts
+- explicit pass/fail statement
+- known gaps
 
 Preferred proof bundle:
 
-* API response snippets
-* UI screenshots (if UI claimed)
-* test output
-* build output
+- API response snippets
+- UI screenshots when UI is claimed
+- test output
+- build output when builds are required
+- browser/runtime output for visual or route behavior
 
----
+## 3. Authority Resolution
 
-## 3. AUTHORITY RESOLUTION
+Resolve conflicts in this order:
 
-On conflict, resolve in this order:
+1. `docs/validation/SYSTEM_VALIDATION_SPEC.md`
+2. `docs/context/CORE_CONTEXT.md`
+3. `docs/context/LIVE_SESSION_BRIEF.md`
+4. `docs/context/CONTEXT_MANIFEST.yaml`
+5. `docs/DOCUMENT_INDEX.md`
+6. `docs/execution/PROJECT_STATE.md`
+7. `docs/execution/MASTER_PLAN.md`
+8. relevant feature, architecture, contract, object, and ingestion documents
+9. legacy documents
 
-1. SYSTEM_VALIDATION_SPEC.md
-2. CORE_CONTEXT.md
-3. LIVE_SESSION_BRIEF.md
-4. CONTEXT_MANIFEST.yaml
-5. PROJECT_STATE.md
-6. MASTER_PLAN.md
-7. features/*
-8. architecture/* + contracts/*
-9. legacy docs
+Runtime evidence must be reported when it conflicts with stale documentation.
 
----
+## 4. Required System Models
 
-## 4. ARCHITECTURE VALIDATION
-
-Must preserve:
+Preserve:
 
 ```text
-Scope → Engine → Filter → Scene → Object → Detail
+Scope -> Engine -> Filter -> Scene -> Object -> Detail -> Assets
 ```
 
 And:
 
 ```text
-Ingestion → Normalization → Storage → Cache → API → Client Rendering
+Ingestion -> Normalization -> Storage -> Cache -> API -> Client Rendering
 ```
 
----
+Hard failures:
 
-### HARD FAILURES
+- UI invents truth outside backend/source data
+- raw provider payload reaches user-facing UI without normalization
+- object identity chain breaks
+- engine ownership is incorrect
+- scene does not match active engine
+- fake coordinates or fake visibility are returned as real data
 
-* UI invents truth outside backend
-* raw provider payload reaches UI
-* object identity chain breaks
-* engine ownership is incorrect
-* scene does not match active engine
+## 5. Active Runtime Validation
 
----
-
-## 5. VIEWPORT VALIDATION (NEW — CRITICAL)
+The active public ORAS sky runtime is:
 
 ```text
-Viewport = Active Engine Scene
+/oras-sky-engine/
 ```
 
-Must pass:
+This is the ORAS-hosted Stellarium Web / Stellarium Web Engine runtime.
 
-* correct engine is rendered
-* scene matches engine
-* interaction updates scene correctly
-* hub does not override engine rendering
-* hub does not own engine-internal render loop or module composition
+Validation must not assume:
 
----
+- `/sky-engine`
+- BabylonJS as the active Sky Engine
+- Hub-owned sky rendering
 
-### FAILURE IF:
+If a task affects `/oras-sky-engine/`, validation must prove the relevant
+runtime behavior instead of relying only on static code inspection.
 
-* wrong engine is displayed
-* multiple engine scenes appear
-* hub acts as rendering layer
-* viewport state inconsistent
-* hub directly owns engine-internal runtime behavior
+## 6. Sky Engine Runtime Validation
 
----
+For `/oras-sky-engine/`, validate the behavior being claimed:
 
-## 6. ROUTING VALIDATION (NEW — CRITICAL)
+- page loads
+- data sources load
+- object identity resolves through `catalog + source_id + model`
+- copied exact links open the intended object
+- selected object identity matches the requested object
+- camera centering/locking works when claimed
+- detail panel shows meaningful type/metadata for known objects
+- survey provider fallback works when survey behavior is claimed
+- no persistent loader appears
+- no fatal JavaScript errors appear
 
-Must verify:
+Panel selection alone is not proof of correct camera centering.
 
-* object → correct engine
-* engine switching works
-* sub-engine activation correct
+## 7. API Validation
 
----
+For `/api/sky/object` and `/api/above-me`, validate:
 
-### FAILURE IF:
+- response shape
+- source-backed identity
+- stable string IDs for large identifiers
+- no fabricated coordinates
+- no fabricated visibility
+- bounded response size
+- explicit missing-data behavior
+- generated `/oras-sky-engine/` URLs when links are claimed
 
-* object opens wrong engine
-* routing ambiguous
-* ownership unclear
+## 8. Docker Runtime Authority
 
----
+Docker is the authoritative runtime.
 
-## 7. RUNTIME VALIDATION
+Local tests are supporting evidence. Runtime-sensitive completion claims require
+runtime-level proof unless the task explicitly says local-only.
 
-Minimum checks:
+Expected runtime checks may include:
 
-* backend routes respond
-* frontend renders behavior
-* viewport reflects engine
-* deterministic variation works (time/location/scope)
-* degraded behavior is explicit
+- `docker compose ps`
+- `COMPOSE_BAKE=false docker compose up -d --build ...`
+- `curl` checks for API/runtime endpoints
+- backend tests
+- frontend tests
+- browser/Playwright validation
+- `npm run validate:oras-deep-links`
 
----
+## 9. High-Definition Data and Imagery Validation
 
-## 8. FEATURE CLASSIFICATION LAW
+High-definition data and imagery work must report:
 
-Only allowed states:
+- source/dataset inspected
+- license/access note when relevant
+- storage or mounting strategy
+- fallback behavior
+- coverage gaps
+- runtime/browser proof if visual improvement is claimed
 
-* REAL
-* PARTIAL
-* FAKE
-* BLOCKED
+Do not claim full coverage from partial survey or catalog support.
 
----
+DSS remains the safe fallback unless a validated replacement is explicitly
+approved.
 
-## 9. REQUIRED FEATURE EVIDENCE CARD
+DESI must not be promoted unless explicitly approved.
 
-Each feature must declare:
+Credits-update work is not part of data/imagery validation unless explicitly
+requested.
 
-* Feature
-* User-visible output
-* Entry point
-* Backend path
-* Data source
-* Routing behavior
-* Viewport behavior
-* Truth gaps
-* Proof artifacts
-* Status
+## 10. WordPress / ORAS Integration Validation
 
----
+WordPress shortcode/page work is deferred until explicitly approved.
 
-## 10. EXECUTION BLOCK RULE
-
-If any failure occurs:
+When approved, it must validate the API-first path:
 
 ```text
-STOP → record → fix → re-validate
+WordPress/ORAS surface
+-> /api/above-me
+-> curated object result
+-> sky_engine_url
+-> /oras-sky-engine/ exact-link route
 ```
 
----
+It must not duplicate sky calculations or hardcode production objects.
 
-## 11. NON-NEGOTIABLE RULE
+## 11. Feature Classification Law
+
+Only these states are allowed:
+
+- REAL
+- PARTIAL
+- FAKE
+- BLOCKED
+
+## 12. Execution Block Rule
+
+If validation fails:
 
 ```text
-If it cannot be proven from runtime behavior, it is not complete.
+STOP -> record -> fix -> re-validate
 ```
 
----
+## Final Principle
 
-## 12. ROLE BOUNDARY
-
-This document:
-
-* defines validation authority
-* defines truth classification
-
-It does NOT:
-
-* define scope
-* define execution order
-* replace feature definitions
-
----
-
-## FINAL PRINCIPLE
-
-```text
-Validation defines truth.
-```
-
----
+If it cannot be proven from runtime behavior and source-backed data, it is not
+complete.

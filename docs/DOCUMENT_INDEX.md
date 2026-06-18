@@ -1,286 +1,212 @@
-# `DOCUMENT_INDEX.md` 
+# DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
----
+## 1. Purpose
 
-# DOCUMENT INDEX (AUTHORITATIVE CONTROL MAP)
+This document defines:
 
----
+- document authority
+- execution control flow
+- product definition hierarchy
+- context loading rules
 
-## 1. PURPOSE
+It prevents execution drift, product drift, authority conflicts, and stale
+runtime assumptions.
 
-Defines:
+## 2. Core Law
 
-* document authority
-* execution control flow
-* product definition hierarchy
-* context loading rules
-
-This document prevents:
-
-* execution drift
-* product drift
-* authority conflicts
-* AI misinterpretation
-
----
-
-## 2. CORE LAW
-
-```text id="b7h2yz"
 Only specific documents control execution.
+
 All others are reference.
-```
 
----
+## 3. Product Model
 
-## 3. PRODUCT MODEL (LOCKED)
-
-Astronomy Hub is:
-
-```text id="p1h6vk"
-A location-aware observatory command center
-```
+Astronomy Hub is a location-aware astronomy intelligence system.
 
 Core question:
 
-```text id="u9n4fc"
+```text
 What can I see right now, and what should I observe?
 ```
 
----
+System model:
 
-### System Model
-
-```text id="v4q8lp"
-Hub → Engine → Scene → Object → Detail → Exploration
+```text
+Scope -> Engine -> Filter -> Scene -> Object -> Detail -> Assets
 ```
 
----
+Data model:
 
-### Rendering Law
-
-```text id="m3z7rf"
-Viewport = Active Engine Scene
+```text
+Ingestion -> Normalization -> Storage -> Cache -> API -> Client Rendering
 ```
 
----
+## 4. Current Runtime Anchor
 
-## 4. AUTHORITY TIERS
+The active public ORAS sky runtime is:
 
----
-
-### TIER 1 — CORE CONTROL (HIGHEST)
-
-These define execution truth.
-
-```text id="v7g3mn"
-docs/validation/SYSTEM_VALIDATION_SPEC.md
-docs/context/CORE_CONTEXT.md
-docs/context/LIVE_SESSION_BRIEF.md
-docs/context/CONTEXT_MANIFEST.yaml
-docs/execution/PROJECT_STATE.md
+```text
+/oras-sky-engine/
 ```
 
----
+`/oras-sky-engine/` is the ORAS-hosted Stellarium Web / Stellarium Web Engine
+runtime.
 
-### TIER 2 — PRODUCT DEFINITION
+Stale assumptions that must not control execution:
 
-Defines what the system is.
+- active route is `/sky-engine`
+- active Sky Engine is BabylonJS
+- Hub owns Sky Engine rendering
+- Sky Engine is a shared visualization layer
 
-```text id="t4w9kd"
-docs/DOCUMENT_INDEX.md
-docs/README.md
-docs/ASTRONOMY_HUB_DIAGRAM.md
-docs/execution/MASTER_PLAN.md
-```
+Current rules:
 
----
+- Sky Engine remains isolated
+- Hub remains the decision layer
+- backend/API provides source-backed object identity and curated discovery
+- no fake data
+- Docker/runtime validation remains authoritative
 
-### TIER 3 — EXECUTION MODEL
+## 5. Authority Tiers
 
-Defines how work is done.
+### Tier 1 - Core Control
 
-```text id="r6n3qa"
-docs/features/FEATURE_EXECUTION_MODEL.md
-docs/features/FEATURE_ACCEPTANCE.md
-docs/features/FEATURE_TRACKER.md
-docs/features/FEATURE_CATALOG.md
-```
+These define execution truth:
 
----
+- `docs/validation/SYSTEM_VALIDATION_SPEC.md`
+- `docs/context/CORE_CONTEXT.md`
+- `docs/context/LIVE_SESSION_BRIEF.md`
+- `docs/context/CONTEXT_MANIFEST.yaml`
+- `docs/DOCUMENT_INDEX.md`
+- `docs/execution/PROJECT_STATE.md`
+- `docs/execution/MASTER_PLAN.md`
 
-### TIER 4 — ENGINE AUTHORITY
+### Tier 2 - Product Definition
 
-Defines system behavior.
+These define product and architecture reference:
 
-```text id="n2k8uz"
-docs/architecture/*
-docs/contracts/*
-```
+- `docs/README.md`
+- `docs/ASTRONOMY_HUB_DIAGRAM.md`
+- `docs/architecture/*`
+- `docs/contracts/*`
 
----
+### Tier 3 - Execution Model
 
-### TIER 5 — SUPPORT
+These define how work is performed:
 
-Guidance only.
+- `docs/features/FEATURE_EXECUTION_MODEL.md`
+- `docs/features/FEATURE_ACCEPTANCE.md`
+- `docs/features/FEATURE_TRACKER.md`
+- `docs/features/FEATURE_CATALOG.md`
 
-```text id="g5x2cr"
-docs/product/*
-docs/runtime/*
-docs/corrective/*
-docs/enforcement/*
-docs/ai/*
-docs/tools/*
-docs/DOC_INVENTORY.md
-docs/full_audit.md
-docs/features/FEATURE_SPEC_TEMPLATE.md
-docs/features/FEATURE_MIGRATION_MAP.md
-```
+### Tier 4 - Support
 
----
+These are guidance only:
 
-### TIER 6 — LEGACY
+- `docs/product/*`
+- `docs/runtime/*`
+- `docs/corrective/*`
+- `docs/enforcement/*`
+- `docs/ai/*`
+- `docs/tools/*`
+- `docs/DOC_INVENTORY.md`
+- `docs/full_audit.md`
+- `docs/features/FEATURE_SPEC_TEMPLATE.md`
+- `docs/features/FEATURE_MIGRATION_MAP.md`
 
-Non-authoritative.
+### Tier 5 - Legacy
 
-```text id="f3y6mb"
-docs/phases/*
-docs/PHASE_STRUCTURE.md
-```
+These are non-authoritative:
 
----
+- `docs/phases/*`
+- `docs/PHASE_STRUCTURE.md`
 
-## 5. LOADING RULES (CRITICAL)
-
----
-
-### Rule 1 — Mandatory Context
+## 6. Loading Rules
 
 Always load:
 
-```text id="x9p2cz"
-CORE_CONTEXT.md
-LIVE_SESSION_BRIEF.md
+- `docs/context/CORE_CONTEXT.md`
+- `docs/context/LIVE_SESSION_BRIEF.md`
+
+Then load only the matching task pack from:
+
+- `docs/context/CONTEXT_MANIFEST.yaml`
+
+Do not:
+
+- load the full `docs/` directory
+- load legacy docs by default
+- load unrelated feature docs
+
+Before starting a task, agents must list loaded documents, confirm the task pack,
+and confirm that no extra documents were loaded.
+
+## 7. Execution Flow
+
+```text
+Context -> Architecture -> Feature/Task -> Validation
 ```
 
----
+Docs-only cleanup follows:
 
-### Rule 2 — Task-Based Loading
-
-Load only what is required:
-
-| Task       | Required Docs                        |
-| ---------- | ------------------------------------ |
-| Frontend   | architecture + diagram + execution   |
-| Backend    | architecture + contracts + execution |
-| Validation | validation + execution               |
-| Docs       | index + inventory                    |
-
----
-
-### Rule 3 — No Overloading
-
-Do NOT:
-
-* load entire docs directory
-* load legacy docs
-* load unrelated features
-
----
-
-### Rule 4 — Architecture First
-
-```text id="h8v3yn"
-Architecture must be loaded before execution
+```text
+Context -> Target files -> Markdown validation -> Git diff proof
 ```
 
----
+## 8. Current Product Anchor
 
-## 6. EXECUTION FLOW
+The current product anchor is:
 
-```text id="z2r6kj"
-Context → Architecture → Feature → Validation
+```text
+Hub decision layer + contained ORAS Sky Engine runtime at /oras-sky-engine/
 ```
 
----
+The Hub:
 
-## 7. CURRENT PRODUCT ANCHOR
+- ranks and curates source-backed objects
+- consumes `/api/above-me`
+- links objects into `/oras-sky-engine/`
 
-```text id="p7y4qm"
-Sky Engine is the self-contained Babylon.js rendering foundation
-```
+The ORAS Sky Engine:
 
-Rules:
+- owns Stellarium runtime behavior
+- owns scene/rendering/camera/selection behavior
+- consumes validated observer/time/location/config/object inputs
 
-* build Sky Engine runtime first
-* mount it into the hub through thin interfaces
-* hub does not render scenes
-* hub does not own engine render loops
+## 9. Deferred Work
 
----
+Do not start without explicit approval:
 
-## 8. EXECUTION SYSTEM RULE
+- WordPress shortcode/page
+- Hub homepage UI
+- DESI promotion
+- TheSkyLive scraping
+- credits-update work
 
-Every slice must:
+High-definition data and imagery remain a future active lane, but still require
+bounded tasks, source/license review, no fake data, and runtime validation.
 
-* identify engine
-* identify feature
-* verify runtime truth
-* implement minimal change
-* prove behavior
-* update tracker
-
----
-
-## 9. CONFLICT RESOLUTION
+## 10. Conflict Resolution
 
 If documents conflict:
 
 1. follow authority tier
-2. prefer CORE_CONTROL
-3. prefer PRODUCT_DEFINITION over execution
-4. record conflict
-5. revalidate
+2. prefer current runtime evidence over stale assumptions
+3. report the conflict
+4. revalidate after changes
 
----
+## 11. Forbidden Execution
 
-## 10. FORBIDDEN EXECUTION
+Do not:
 
-Do NOT:
+- follow legacy phase instructions as current authority
+- treat Hub as the Sky Engine renderer
+- treat `/sky-engine` as active
+- treat BabylonJS as the active ORAS Sky Engine
+- bypass contracts
+- fake data
+- mark completion without proof
 
-* follow legacy phase instructions
-* treat hub as rendering engine
-* treat engines as filters
-* bypass contracts
-* mark completion without proof
+## Final Rule
 
----
-
-## 11. COMPATIBILITY ALIAS RULE
-
-These exist only for backward compatibility:
-
-```text id="t1n8vx"
-docs/PROJECT_STATE.md
-docs/MASTER_PLAN.md
-docs/STACK_OVERVIEW.md
-```
-
-They must NOT:
-
-* control execution
-* hold active state
-
----
-
-## 12. FINAL PRINCIPLE
-
-```text id="q6x2re"
-Control documents define truth.
-Product documents define the system.
-Engine documents define behavior.
-Support documents assist.
-Legacy documents are ignored.
-```
-
----
+Future agents must treat `/oras-sky-engine/` as the active ORAS-hosted
+Stellarium Web runtime unless a later authority document explicitly changes it.
