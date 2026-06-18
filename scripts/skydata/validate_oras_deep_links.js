@@ -105,6 +105,7 @@ const cases = [
     requiredText: ['Pleiades', 'Cluster', 'Ra/Dec', 'FOV 2.00'],
     forbiddenText: ['Unknown Type'],
     requireIndexed: true,
+    coordinateToleranceDeg: 0.2,
   },
   {
     name: 'M57',
@@ -131,6 +132,30 @@ const cases = [
     requireIndexed: true,
   },
   {
+    name: 'NGC 6543',
+    path: 'skysource/NGC6543CatsEyeNebula?catalog=NGC%20%28OpenNGC%29&source_id=NGC6543&model=dso&ra=269.639125&dec=66.6331944444&fov=1.00&date=2026-06-04T02%3A17%3A13Z&lat=41.44&lng=-79.69&elev=0',
+    identity: { catalog: 'NGC (OpenNGC)', sourceId: 'NGC6543', model: 'dso' },
+    requiredText: ["Cat's Eye Nebula", 'Nebula', 'Ra/Dec', 'FOV 1.00'],
+    forbiddenText: ['Unknown Type'],
+    requireIndexed: true,
+  },
+  {
+    name: 'NGC 7000',
+    path: 'skysource/NGC7000NorthAmericaNebula?catalog=NGC%20%28OpenNGC%29&source_id=NGC7000&model=dso&ra=314.8214166667&dec=44.5287777778&fov=4.00&date=2026-06-04T02%3A17%3A13Z&lat=41.44&lng=-79.69&elev=0',
+    identity: { catalog: 'NGC (OpenNGC)', sourceId: 'NGC7000', model: 'dso' },
+    requiredText: ['North America Nebula', 'Nebula', 'Ra/Dec', 'FOV 4.00'],
+    forbiddenText: ['Unknown Type'],
+    requireIndexed: true,
+  },
+  {
+    name: 'NGC 6960',
+    path: 'skysource/NGC6960VeilNebula?catalog=NGC%20%28OpenNGC%29&source_id=NGC6960&model=dso&ra=311.4924166667&dec=30.5951388889&fov=4.00&date=2026-06-04T02%3A17%3A13Z&lat=41.44&lng=-79.69&elev=0',
+    identity: { catalog: 'NGC (OpenNGC)', sourceId: 'NGC6960', model: 'dso' },
+    requiredText: ['Veil Nebula', 'Ra/Dec', 'FOV 4.00'],
+    forbiddenText: ['Unknown Type'],
+    requireIndexed: true,
+  },
+  {
     name: 'Moon',
     path: `skysource/Moon?catalog=Solar%20System%20(JPL)&source_id=moon&model=moon&ra=11.8477916667&dec=9.4291666667&fov=1.20&date=${encodeURIComponent(solarSystemTestTime)}&lat=${solarSystemLocation.lat}&lng=${solarSystemLocation.lng}&elev=${solarSystemLocation.elev}`,
     identity: { catalog: 'Solar System (JPL)', sourceId: 'moon', model: 'moon' },
@@ -138,6 +163,7 @@ const cases = [
     forbiddenText: ['Unknown Type'],
     coordinatePatterns: [/00h\s+47m/i, /\+09°/],
     requireIndexed: true,
+    coordinateToleranceDeg: 1.0,
   },
   {
     name: 'Venus',
@@ -147,6 +173,7 @@ const cases = [
     forbiddenText: ['Unknown Type'],
     coordinatePatterns: [/16h\s+2[78]m/i, /-18°/],
     requireIndexed: true,
+    coordinateToleranceDeg: 1.0,
   },
   {
     name: 'Mars',
@@ -156,6 +183,7 @@ const cases = [
     forbiddenText: ['Unknown Type'],
     coordinatePatterns: [/10h\s+5[23]m/i, /\+11°/],
     requireIndexed: true,
+    coordinateToleranceDeg: 1.0,
   },
   {
     name: 'Jupiter',
@@ -165,6 +193,7 @@ const cases = [
     forbiddenText: ['Unknown Type'],
     coordinatePatterns: [/09h\s+5[12]m/i, /\+14°/],
     requireIndexed: true,
+    coordinateToleranceDeg: 1.0,
   },
   {
     name: 'Saturn',
@@ -174,6 +203,7 @@ const cases = [
     forbiddenText: ['Unknown Type'],
     coordinatePatterns: [/00h\s+3[67]m/i, /\+01°/],
     requireIndexed: true,
+    coordinateToleranceDeg: 1.0,
   },
   {
     name: 'ISS',
@@ -285,8 +315,24 @@ async function readRuntimeTargetState(page, identity) {
 
     let yawDiff = null
     let pitchDiff = null
+    let targetRaDeg = null
+    let targetDecDeg = null
+    let targetCoordinateDiffDeg = null
     try {
       const radec = selection.getInfo('radec')
+      const targetSpherical = stel.c2s(radec)
+      targetRaDeg = ((targetSpherical[0] * 180 / Math.PI) % 360 + 360) % 360
+      targetDecDeg = targetSpherical[1] * 180 / Math.PI
+      if (Number.isFinite(expectedIdentity.expectedRaDeg) && Number.isFinite(expectedIdentity.expectedDecDeg)) {
+        const normalizeDegree = (angle) => {
+          while (angle <= -180) angle += 360
+          while (angle > 180) angle -= 360
+          return angle
+        }
+        const raDiff = Math.abs(normalizeDegree(targetRaDeg - expectedIdentity.expectedRaDeg))
+        const decDiff = Math.abs(targetDecDeg - expectedIdentity.expectedDecDeg)
+        targetCoordinateDiffDeg = Math.max(raDiff, decDiff)
+      }
       const observed = stel.convertFrame(stel.core.observer, 'ICRF', 'OBSERVED', radec)
       const azalt = stel.c2s(observed)
       const normalizeAngle = (angle) => {
@@ -302,6 +348,9 @@ async function readRuntimeTargetState(page, identity) {
         identityMatches,
         selectedObject,
         cameraCentered: false,
+        targetRaDeg,
+        targetDecDeg,
+        targetCoordinateDiffDeg,
         reason: String(error && error.message ? error.message : error),
       }
     }
@@ -311,6 +360,10 @@ async function readRuntimeTargetState(page, identity) {
       identityMatches,
       selectedObject,
       cameraCentered: yawDiff != null && pitchDiff != null && yawDiff <= expectedIdentity.cameraToleranceRad && pitchDiff <= expectedIdentity.cameraToleranceRad,
+      targetCoordinatesMatch: targetCoordinateDiffDeg == null || targetCoordinateDiffDeg <= expectedIdentity.coordinateToleranceDeg,
+      targetRaDeg,
+      targetDecDeg,
+      targetCoordinateDiffDeg,
       yawDiff,
       pitchDiff,
     }
@@ -320,10 +373,20 @@ async function readRuntimeTargetState(page, identity) {
 async function validateRuntimeTargetState(page, testCase) {
   const deadline = Date.now() + timeoutMs
   let lastState = null
+  const routeUrl = new URL(testCase.path, baseUrl)
+  const expectedRaParam = routeUrl.searchParams.get('ra')
+  const expectedDecParam = routeUrl.searchParams.get('dec')
+  const expectedRaDeg = expectedRaParam == null ? NaN : Number(expectedRaParam)
+  const expectedDecDeg = expectedDecParam == null ? NaN : Number(expectedDecParam)
+  const expectedIdentity = Object.assign({}, testCase.identity, {
+    expectedRaDeg: !testCase.skipTargetCoordinateValidation && Number.isFinite(expectedRaDeg) ? expectedRaDeg : undefined,
+    expectedDecDeg: !testCase.skipTargetCoordinateValidation && Number.isFinite(expectedDecDeg) ? expectedDecDeg : undefined,
+    coordinateToleranceDeg: testCase.coordinateToleranceDeg || 0.05,
+  })
 
   while (Date.now() < deadline) {
-    lastState = await readRuntimeTargetState(page, testCase.identity)
-    if (lastState.ready && lastState.identityMatches && (testCase.skipCameraCentering || lastState.cameraCentered)) {
+    lastState = await readRuntimeTargetState(page, expectedIdentity)
+    if (lastState.ready && lastState.identityMatches && lastState.targetCoordinatesMatch && (testCase.skipCameraCentering || lastState.cameraCentered)) {
       break
     }
     await new Promise(resolve => setTimeout(resolve, 250))
@@ -337,6 +400,9 @@ async function validateRuntimeTargetState(page, testCase) {
   }
   if (!testCase.skipCameraCentering && !lastState.cameraCentered) {
     throw new Error(`${testCase.name} selected panel but camera did not center: ${JSON.stringify(lastState)}`)
+  }
+  if (!lastState.targetCoordinatesMatch) {
+    throw new Error(`${testCase.name} selected object coordinates did not match requested link coordinates: ${JSON.stringify(lastState)}`)
   }
   if (typeof testCase.requireIndexed === 'boolean' && Boolean(lastState.selectedObject.indexed) !== testCase.requireIndexed) {
     throw new Error(`${testCase.name} indexed state mismatch: ${JSON.stringify(lastState.selectedObject)}`)
@@ -537,6 +603,7 @@ async function buildVisibleSatelliteRuntimeCase() {
     forbiddenText: ['Unknown Type'],
     requireIndexed: true,
     requireTleModelData: true,
+    skipTargetCoordinateValidation: true,
   }
 }
 

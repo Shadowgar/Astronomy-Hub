@@ -832,12 +832,12 @@ var es_array_concat = __webpack_require__("99af");
 // EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
 var vue_esm = __webpack_require__("a026");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=0b7914b8&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=28b6a9c4&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[_c('v-navigation-drawer',{attrs:{"app":"","stateless":"","width":"300"},model:{value:(_vm.nav),callback:function ($$v) {_vm.nav=$$v},expression:"nav"}},[_c('v-layout',{attrs:{"column":"","fill-height":""}},[_c('v-list',{attrs:{"dense":""}},[_vm._l((_vm.menuItems),function(item,i){return [(_vm.$store.state[item.store_show_menu_item] === false)?void 0:(item.header)?_c('v-subheader',{key:i,staticClass:"grey--text text--darken-1",domProps:{"textContent":_vm._s(item.header)}}):(item.divider)?_c('v-divider',{key:i,staticClass:"divider_menu"}):(item.switch)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-action',[_c('v-switch',{attrs:{"value":"","input-value":_vm.getStoreValue(item.store_var_name),"label":""}})],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.title))])],1)],1):[(item.link)?_c('v-list-item',{key:i,attrs:{"target":"_blank","rel":"noopener","href":item.link}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}}),_c('v-icon',{attrs:{"disabled":""}},[_vm._v("mdi-open-in-new")])],1):(item.footer===undefined)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.handleMenuItemClick(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]]})],2),_vm._l((_vm.menuComponents),function(item,i){return [_c(item,{key:i,tag:"component"})]}),_c('v-spacer'),_c('v-list',{attrs:{"dense":""}},[_c('v-divider',{staticClass:"divider_menu"}),_vm._l((_vm.menuItems),function(item,i){return [(item.footer)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]})],2)],2)],1),_c('v-main',[_c('v-container',{staticClass:"fill-height",staticStyle:{"padding":"0"},attrs:{"fluid":""}},[_c('div',{class:{ right_panel: _vm.$store.state.showSidePanel },attrs:{"id":"stel"}},[_c('div',{staticStyle:{"position":"relative","width":"100%","height":"100%"}},[_c(_vm.guiComponent,{tag:"component"}),_c('canvas',{ref:"stelCanvas",attrs:{"id":"stel-canvas"}})],1)])])],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=0b7914b8&
+// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=28b6a9c4&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__("3835");
@@ -1261,6 +1261,7 @@ function numberOrNull(value) {
 
 function buildOrasModelData(result, model, sourceId) {
   var normalizedModel = String(model || '').toLowerCase();
+  var resultModelData = result.model_data && Object(esm_typeof["a" /* default */])(result.model_data) === 'object' ? result.model_data : undefined;
   var modelData = {
     source_id: sourceId == null ? null : sourceId,
     phot_g_mean_mag: result.phot_g_mean_mag == null ? null : result.phot_g_mean_mag,
@@ -1274,8 +1275,8 @@ function buildOrasModelData(result, model, sourceId) {
     provenance: result.provenance || null
   };
 
-  if (normalizedModel === 'tle_satellite' && result.model_data && Object(esm_typeof["a" /* default */])(result.model_data) === 'object') {
-    Object.assign(modelData, result.model_data);
+  if (normalizedModel === 'tle_satellite' && resultModelData) {
+    Object.assign(modelData, resultModelData);
   }
 
   if (normalizedModel === 'star') {
@@ -1292,6 +1293,29 @@ function buildOrasModelData(result, model, sourceId) {
     if (pmRa != null) modelData.pm_ra = pmRa;
     if (pmDe != null) modelData.pm_de = pmDe;
     modelData.epoch = 2000;
+  }
+
+  if (normalizedModel === 'dso') {
+    if (resultModelData) {
+      Object.assign(modelData, resultModelData);
+    }
+
+    var _ra = numberOrNull(result.ra);
+
+    var _de = numberOrNull(result.dec);
+
+    var _vmag = numberOrNull(result.phot_g_mean_mag == null ? result.magnitude : result.phot_g_mean_mag);
+
+    var angularSize = result.angular_size && Object(esm_typeof["a" /* default */])(result.angular_size) === 'object' ? result.angular_size : {};
+    var dimx = numberOrNull(angularSize.major_arcmin);
+    var dimy = numberOrNull(angularSize.minor_arcmin);
+    var angle = numberOrNull(angularSize.position_angle_deg);
+    if (_ra != null && numberOrNull(modelData.ra) == null) modelData.ra = _ra;
+    if (_de != null && numberOrNull(modelData.de) == null) modelData.de = _de;
+    if (_vmag != null && numberOrNull(modelData.Vmag) == null) modelData.Vmag = _vmag;
+    if (dimx != null && numberOrNull(modelData.dimx) == null) modelData.dimx = dimx;
+    if (dimy != null && numberOrNull(modelData.dimy) == null) modelData.dimy = dimy;
+    if (angle != null && numberOrNull(modelData.angle) == null) modelData.angle = angle;
   }
 
   return modelData;
@@ -1353,8 +1377,9 @@ function withOrasRouteIdentityFallback(skySource, identity) {
     dec: skySourceDec == null ? routeDec : skySource.dec,
     model_data: Object.assign({}, skySource.model_data || {})
   });
+  var exactModel = String(exactSkySource.model || '').toLowerCase();
 
-  if (String(exactSkySource.model || '').toLowerCase() === 'star') {
+  if (exactModel === 'star') {
     if (numberOrNull(exactSkySource.model_data.ra) == null) {
       exactSkySource.model_data.ra = exactSkySource.ra;
     }
@@ -1365,6 +1390,16 @@ function withOrasRouteIdentityFallback(skySource, identity) {
 
     if (exactSkySource.model_data.epoch == null) {
       exactSkySource.model_data.epoch = 2000;
+    }
+  }
+
+  if (exactModel === 'dso') {
+    if (numberOrNull(exactSkySource.model_data.ra) == null) {
+      exactSkySource.model_data.ra = exactSkySource.ra;
+    }
+
+    if (numberOrNull(exactSkySource.model_data.de) == null) {
+      exactSkySource.model_data.de = exactSkySource.dec;
     }
   }
 
@@ -5272,7 +5307,11 @@ installComponents_default()(gui_loader_component, {VCard: VCard["a" /* default *
           names: [identity.sourceId],
           types: [identity.model === 'dso' ? 'dso' : '*'],
           model: identity.model,
-          model_data: {},
+          model_data: identity.model === 'dso' && identity.ra != null && identity.dec != null ? {
+            ra: identity.ra,
+            de: identity.dec,
+            source_id: identity.sourceId
+          } : {},
           catalog: identity.catalog,
           source_id: identity.sourceId,
           display_name: identity.sourceId,
