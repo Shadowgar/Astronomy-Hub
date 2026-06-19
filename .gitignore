@@ -17,6 +17,7 @@ docs/audits/
 !docs/audits/
 docs/audits/*
 !docs/audits/STELLARIUM_WEB_SKYDATA_LOADING_MAP.md
+frontend/public/oras-sky-engine/skydata/
 frontend/public/oras-sky-engine/skydata/*
 env/
 env.bak/
@@ -44,9 +45,13 @@ logs/
 .env.*.local
 .env.local
 .code-workspace
-AGENTS.md
 .*
+!.gitignore
 !.dockerignore
+!.github/
+!.github/**
+backend/AGENTS.md
+frontend/AGENTS.md
 
 # Local binaries (e.g. accidentally copied Snyk CLI; use npx snyk or a global install)
 /snyk
@@ -101,6 +106,8 @@ Thumbs.db
 !/study/module0-parity/requirements.txt
 !/study/module0-parity/verify_apco_vs_hub.py
 /study/stellarium-web-engine/
+# Keep the full vendored Stellarium tree ignored. Commit exact edited source
+# files with `git add -f` and keep bulk vendor/build/data content out of git.
 /vendor/stellarium-web-engine/
 /data/sky-engine/hipparcos/source/
 data/
