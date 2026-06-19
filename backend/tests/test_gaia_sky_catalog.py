@@ -76,7 +76,7 @@ def test_gaia_object_endpoint_returns_not_indexed_when_absent(tmp_path: Path, mo
 
     assert response.status_code == 200
     body = response.json()
-    assert body["data"]["source_id"] == PROOF_SOURCE_ID
+    assert body["data"]["source_id"] == str(PROOF_SOURCE_ID)
     assert body["data"]["indexed"] is False
     assert body["data"]["status"] == "not_indexed"
 
@@ -104,6 +104,7 @@ def test_seeded_sample_row_returns_normalized_gaia_object_json(tmp_path: Path, m
     assert response.status_code == 200
     body = response.json()
     assert body["data"]["catalog"] == "Gaia DR2"
+    assert body["data"]["source_id"] == str(PROOF_SOURCE_ID)
     assert body["data"]["display_name"] == f"Gaia DR2 {PROOF_SOURCE_ID}"
     assert body["data"]["indexed"] is True
     assert body["data"]["provenance"]["source_key"] == "gaia-proof-sample"
@@ -514,7 +515,7 @@ def test_gaia_exact_lookup_works_for_multiple_source_ids(tmp_path: Path, monkeyp
         assert response.status_code == 200
         body = response.json()
         assert body["data"]["indexed"] is True
-        assert body["data"]["source_id"] == row["source_id"]
+        assert body["data"]["source_id"] == str(row["source_id"])
         assert body["data"]["provenance"]["source_key"] == "gaia-dr2-capella-region-proof"
 
 

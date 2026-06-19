@@ -104,6 +104,9 @@ Thumbs.db
 /vendor/stellarium-web-engine/
 /data/sky-engine/hipparcos/source/
 data/
+!backend/app/data/
+!backend/app/data/sky/
+!backend/app/data/sky/gaia_dr3_pilot_manifest.json
 !frontend/src/features/sky-engine/data/
 !frontend/src/features/sky-engine/data/minorPlanetsCatalog.ts
 !frontend/src/features/sky-engine/data/cometsCatalog.ts

@@ -7,6 +7,7 @@ from typing import Any
 
 from backend.app.services import live_providers
 from backend.app.services.openngc_dso_catalog_service import build_openngc_above_me_seed_records
+from backend.app.services.openngc_dso_catalog_service import find_openngc_record_by_messier_id
 from backend.app.services.solar_system_catalog_service import SOLAR_SYSTEM_BODIES, SOLAR_SYSTEM_CATALOG
 from backend.app.services.satellite_propagation_service import (
     DEFAULT_SATELLITE_RESULT_LIMIT,
@@ -18,6 +19,11 @@ from backend.app.services.sky_engine_links import build_sky_engine_object_url
 from backend.app.services.sky_star_catalog import (
     BRIGHT_STAR_SCENE_OBJECTS,
     build_tier2_mid_star_scene_objects,
+)
+from backend.app.services.sky_object_enrichment import (
+    enrich_messier_payload,
+    enrich_openngc_payload,
+    object_type_label,
 )
 
 DEFAULT_LIMIT = 25
@@ -241,6 +247,12 @@ def _build_messier_candidates(*, observer: Observer, as_of: datetime) -> list[di
         name = str(obj.get("name") or obj.get("catalog") or "Messier object").strip()
         catalog_id = str(obj.get("catalog") or name).strip()
         object_type = str(obj.get("object_type") or "dso").strip()
+        seed_payload = {
+            "source_id": catalog_id,
+            "object_type": object_type,
+            "names": [name, catalog_id],
+        }
+        enriched = enrich_messier_payload(seed_payload, find_openngc_record_by_messier_id(catalog_id))
         candidates.append(
             _build_candidate(
                 catalog="Messier (local)",
@@ -257,6 +269,7 @@ def _build_messier_candidates(*, observer: Observer, as_of: datetime) -> list[di
                 as_of=as_of,
                 reason=f"Local Messier {object_type.replace('_', ' ')} at {alt:.1f} deg altitude.",
                 source_boost=0.2,
+                extra_fields=_above_me_enrichment_fields(enriched),
             )
         )
     return candidates
@@ -303,6 +316,7 @@ def _build_openngc_dso_candidates(*, observer: Observer, as_of: datetime, limit:
                     as_of=as_of,
                     reason=f"OpenNGC {obj.get('object_type', 'dso')} at {alt:.1f} deg altitude.",
                     source_boost=0.06,
+                    extra_fields=_above_me_enrichment_fields(enrich_openngc_payload(obj, obj)),
                 ),
             )
         )
@@ -392,10 +406,11 @@ def _build_candidate(
     as_of: datetime,
     reason: str,
     source_boost: float,
+    extra_fields: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     is_visible = alt > 0.0
     priority = _priority(alt=alt, magnitude=magnitude, source_boost=source_boost)
-    return {
+    payload = {
         "id": f"{catalog}:{source_id}",
         "catalog": catalog,
         "source_id": str(source_id),
@@ -424,6 +439,28 @@ def _build_candidate(
             elev=observer.elev,
         ),
     }
+    if extra_fields:
+        payload.update(extra_fields)
+    return payload
+
+
+def _above_me_enrichment_fields(payload: dict[str, Any]) -> dict[str, Any]:
+    fields: dict[str, Any] = {
+        "object_type_label": payload.get("object_type_label") or object_type_label(str(payload.get("object_type") or "dso")),
+    }
+    for key in (
+        "aliases",
+        "common_names",
+        "constellation",
+        "angular_size",
+        "source_attribution",
+        "data_sources",
+        "enrichment_status",
+    ):
+        value = payload.get(key)
+        if value:
+            fields[key] = value
+    return fields
 
 
 def _object_source_inventory() -> dict[str, dict[str, str]]:

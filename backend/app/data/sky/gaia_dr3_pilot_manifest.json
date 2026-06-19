@@ -1,0 +1,106 @@
+{
+  "catalog": "Gaia DR3",
+  "schema_version": 1,
+  "purpose": "Define a bounded Gaia DR3/EDR3 pilot ingestion slice for ORAS Sky Engine catalog superiority work without committing full Gaia catalog data.",
+  "source_acquisition": {
+    "method": "Gaia Archive TAP/ADQL export into mounted or cached backend data",
+    "tap_service_url": "https://gea.esac.esa.int/tap-server/tap",
+    "documentation_url": "https://gea.esac.esa.int/archive/documentation/GDR3/Gaia_archive/chap_datamodel/sec_dm_main_source_catalogue/ssec_dm_gaia_source.html",
+    "source_table": "gaiadr3.gaia_source",
+    "notes": [
+      "source_id is a 64-bit Gaia release-local identifier and must be stored and serialized as a string.",
+      "ra and dec are ICRS degrees at the Gaia reference epoch.",
+      "Do not download or commit full Gaia DR3."
+    ]
+  },
+  "identity": {
+    "catalog_namespace": "Gaia DR3",
+    "model": "star",
+    "source_id_type": "string",
+    "authoritative_identity": [
+      "catalog",
+      "source_id",
+      "model"
+    ]
+  },
+  "allowed_columns": [
+    "source_id",
+    "designation",
+    "ra",
+    "dec",
+    "phot_g_mean_mag",
+    "bp_rp",
+    "parallax",
+    "pmra",
+    "pmdec",
+    "radial_velocity",
+    "ruwe",
+    "ref_epoch"
+  ],
+  "pilot_limits": {
+    "max_rows_per_field": 5000,
+    "default_magnitude_limit": 17.0,
+    "hard_magnitude_limit": 19.0,
+    "max_field_radius_deg": 2.0
+  },
+  "pilot_fields": [
+    {
+      "name": "m31_field",
+      "ra_center_deg": 10.6847083,
+      "dec_center_deg": 41.26875,
+      "radius_deg": 1.5,
+      "magnitude_limit": 18.0
+    },
+    {
+      "name": "m42_field",
+      "ra_center_deg": 83.8220833,
+      "dec_center_deg": -5.3911111,
+      "radius_deg": 1.5,
+      "magnitude_limit": 18.0
+    },
+    {
+      "name": "dense_milky_way_field",
+      "ra_center_deg": 266.41683,
+      "dec_center_deg": -29.00781,
+      "radius_deg": 1.0,
+      "magnitude_limit": 17.0
+    },
+    {
+      "name": "sparse_north_field",
+      "ra_center_deg": 210.0,
+      "dec_center_deg": 70.0,
+      "radius_deg": 2.0,
+      "magnitude_limit": 18.0
+    }
+  ],
+  "tiling_strategy": {
+    "index": "healpix",
+    "order": 8,
+    "runtime_loading": "zoom_aware_tiles_or_backend_lookup",
+    "compression": "zstd_or_gzip_jsonl",
+    "frontend_policy": "no_large_json_dump"
+  },
+  "storage_strategy": {
+    "commit_raw_catalog": false,
+    "frontend_json_dump": false,
+    "commit_manifest_only": true,
+    "mounted_path_hint": "data/gaia/dr3/pilot/",
+    "backend_lookup": "database_or_mounted_tile_index"
+  },
+  "docker_strategy": "mounted_or_cached_data_only",
+  "test_strategy": [
+    "validate manifest columns",
+    "import a bounded source-backed pilot export",
+    "preserve source_id as string",
+    "exact lookup returns stable Sky Engine URL",
+    "runtime deep-link harness validates one pilot source"
+  ],
+  "source_attribution": [
+    {
+      "name": "Gaia Archive",
+      "operator": "European Space Agency",
+      "url": "https://gea.esac.esa.int/archive/",
+      "documentation_url": "https://gea.esac.esa.int/archive/documentation/GDR3/"
+    }
+  ]
+}

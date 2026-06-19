@@ -8,6 +8,7 @@ from sqlalchemy import func, inspect, select
 from backend.app.db.models import CatalogSource, GaiaDr2Source
 from backend.app.db.session import get_engine, session_scope
 from backend.app.services.openngc_dso_catalog_service import (
+    find_openngc_record_by_messier_id,
     is_openngc_identity,
     lookup_openngc_dso,
     search_openngc_dso,
@@ -21,6 +22,7 @@ from backend.app.services.satellite_tle_catalog_service import (
     lookup_satellite_tle,
 )
 from backend.app.services.sky_star_catalog import BRIGHT_STAR_SCENE_OBJECTS, build_tier2_mid_star_scene_objects
+from backend.app.services.sky_object_enrichment import enrich_messier_payload
 
 GAIA_DR2_QUERY_RE = re.compile(r"^\s*(gaia\s*dr2|gaiadr2)\s+([0-9]+)\s*$", re.IGNORECASE)
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -280,7 +282,7 @@ def lookup_gaia_dr2_source(source_id: int, database_url: str | None = None) -> d
     }
     return {
         "catalog": "Gaia DR2",
-        "source_id": gaia_source.source_id,
+        "source_id": str(gaia_source.source_id),
         "display_name": f"Gaia DR2 {gaia_source.source_id}",
         "model": "star",
         "names": [f"Gaia DR2 {gaia_source.source_id}", f"GAIA {gaia_source.source_id}"],
@@ -311,6 +313,19 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
             },
             "meta": {"match_type": "gaia_dr2_source_id"},
         }
+
+    if _is_compact_caldwell_query(query):
+        openngc_results = search_openngc_dso(query)
+        if openngc_results:
+            return {
+                "status": "ok",
+                "data": {
+                    "query": query,
+                    "recognized_query": False,
+                    "results": openngc_results,
+                },
+                "meta": {"match_type": "openngc_named_object"},
+            }
 
     local_results = _lookup_local_named_objects(query)
     if local_results:
@@ -410,7 +425,7 @@ def lookup_exact_object(
 def _not_indexed_payload(source_id: int) -> dict:
     return {
         "catalog": "Gaia DR2",
-        "source_id": source_id,
+        "source_id": str(source_id),
         "display_name": f"Gaia DR2 {source_id}",
         "model": "star",
         "names": [f"Gaia DR2 {source_id}", f"GAIA {source_id}"],
@@ -437,6 +452,10 @@ def _normalize_search_text(value: str | None) -> str:
         return ""
     normalized = re.sub(r"[^a-z0-9]+", "", value.lower())
     return normalized
+
+
+def _is_compact_caldwell_query(value: str | None) -> bool:
+    return re.fullmatch(r"\s*c\s*0*[1-9][0-9]*\s*", str(value or ""), flags=re.IGNORECASE) is not None
 
 
 def _messier_otype(object_type: str | None) -> str:
@@ -516,6 +535,8 @@ def _build_local_search_candidates() -> list[dict]:
                     "ra": float(obj["ra_hours"]) * 15.0,
                     "dec": obj["dec_deg"],
                     "phot_g_mean_mag": obj["magnitude"],
+                    "magnitude": obj["magnitude"],
+                    "object_type": obj.get("object_type"),
                     "indexed": True,
                     "status": "indexed",
                     "message": "Resolved from local Messier index.",
@@ -524,6 +545,16 @@ def _build_local_search_candidates() -> list[dict]:
                 "aliases": aliases,
             }
         )
+
+    for candidate in candidates:
+        result = candidate["result"]
+        if str(result.get("catalog") or "").strip().lower() != "messier (local)":
+            continue
+        record = find_openngc_record_by_messier_id(str(result.get("source_id") or ""))
+        enriched = enrich_messier_payload(result, record)
+        candidate["result"] = enriched
+        if enriched.get("aliases"):
+            candidate["aliases"] = list(dict.fromkeys([*candidate["aliases"], *enriched["aliases"]]))
 
     return candidates
 
