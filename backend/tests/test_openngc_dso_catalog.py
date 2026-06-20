@@ -58,6 +58,7 @@ def test_openngc_exact_lookup_resolves_ngc_and_ic_objects() -> None:
 def test_openngc_exact_lookup_normalizes_compact_catalog_ids() -> None:
     assert lookup_openngc_dso("NGC224", catalog="NGC (OpenNGC)")["source_id"] == "NGC0224"
     assert lookup_openngc_dso("IC342", catalog="IC (OpenNGC)")["source_id"] == "IC0342"
+    assert lookup_openngc_dso(f"IC{'0' * 1000}342", catalog="IC (OpenNGC)")["source_id"] == "IC0342"
 
 
 def test_openngc_exact_lookup_preserves_messier_cross_ids_without_replacing_identity() -> None:
