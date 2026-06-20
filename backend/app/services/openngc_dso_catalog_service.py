@@ -9,6 +9,7 @@ import re
 from typing import Any
 
 from backend.app.services.sky_engine_links import build_sky_engine_object_url
+from backend.app.services.sky_object_enrichment import caldwell_aliases, enrich_openngc_payload
 
 
 OPENNGC_LICENSE_NOTE = "OpenNGC by Mattia Verga, CC-BY-SA-4.0"
@@ -21,6 +22,7 @@ DEFAULT_OPENNGC_CATALOG_PATH = REPO_ROOT / "backend/app/data/sky/openngc_dso_cat
 @dataclass(frozen=True)
 class OpenNgcCatalog:
     records_by_source_id: dict[str, dict[str, Any]]
+    records_by_messier_id: dict[str, dict[str, Any]]
     search_candidates: list[dict[str, Any]]
     count: int
     skipped_count: int
@@ -34,6 +36,7 @@ def load_openngc_catalog(path: str | Path | None = None) -> OpenNgcCatalog:
     payload = _read_json(catalog_path)
     records = payload.get("records") if isinstance(payload.get("records"), list) else []
     records_by_source_id: dict[str, dict[str, Any]] = {}
+    records_by_messier_id: dict[str, dict[str, Any]] = {}
     type_counts: dict[str, int] = {}
     search_candidates: list[dict[str, Any]] = []
 
@@ -45,18 +48,24 @@ def load_openngc_catalog(path: str | Path | None = None) -> OpenNgcCatalog:
             continue
         record = dict(raw)
         records_by_source_id[source_id.upper()] = record
+        messier_id = str(record.get("messier_id") or "").strip().upper().replace(" ", "")
+        if messier_id:
+            records_by_messier_id[messier_id] = record
         object_type = str(record.get("object_type") or "dso")
         type_counts[object_type] = type_counts.get(object_type, 0) + 1
+        search_aliases = _search_aliases(record)
         search_candidates.append(
             {
                 "result": _to_search_payload(record),
-                "aliases": _search_aliases(record),
+                "aliases": search_aliases,
+                "normalized_aliases": [_normalize_search_text(alias) for alias in search_aliases],
             }
         )
 
     source = payload.get("source") if isinstance(payload.get("source"), dict) else {}
     return OpenNgcCatalog(
         records_by_source_id=records_by_source_id,
+        records_by_messier_id=records_by_messier_id,
         search_candidates=search_candidates,
         count=len(records_by_source_id),
         skipped_count=int(payload.get("skipped_count") or 0),
@@ -100,15 +109,14 @@ def search_openngc_dso(query: str, *, limit: int = 10) -> list[dict[str, Any]]:
     scored: list[tuple[int, dict[str, Any]]] = []
     for candidate in load_openngc_catalog().search_candidates:
         best_score = 0
-        for alias in candidate["aliases"]:
-            normalized_alias = _normalize_search_text(alias)
+        for normalized_alias in candidate["normalized_aliases"]:
             if not normalized_alias:
                 continue
             if normalized_alias == normalized_query:
                 best_score = max(best_score, 3)
             elif normalized_alias.startswith(normalized_query):
                 best_score = max(best_score, 2)
-            elif normalized_query in normalized_alias:
+            elif len(normalized_query) >= 3 and normalized_query in normalized_alias:
                 best_score = max(best_score, 1)
         if best_score > 0:
             scored.append((best_score, candidate["result"]))
@@ -125,6 +133,15 @@ def search_openngc_dso(query: str, *, limit: int = 10) -> list[dict[str, Any]]:
         if len(results) >= limit:
             break
     return results
+
+
+def find_openngc_record_by_messier_id(messier_id: str | None) -> dict[str, Any] | None:
+    normalized_messier_id = str(messier_id or "").strip().upper().replace(" ", "")
+    if not normalized_messier_id:
+        return None
+
+    record = load_openngc_catalog().records_by_messier_id.get(normalized_messier_id)
+    return dict(record) if record is not None else None
 
 
 def build_openngc_above_me_seed_records(*, limit: int = 600) -> list[dict[str, Any]]:
@@ -152,11 +169,13 @@ def _to_exact_payload(record: dict[str, Any], *, catalog: str) -> dict[str, Any]
         name=payload["display_name"],
         fov=_default_fov(str(payload.get("object_type") or "")),
     )
-    return payload
+    return enrich_openngc_payload(payload, record)
 
 
 def _to_search_payload(record: dict[str, Any]) -> dict[str, Any]:
     magnitude = record.get("magnitude")
+    aliases = list(record.get("aliases") or [])
+    aliases.extend(caldwell_aliases(record))
     payload = {
         "catalog": record["catalog"],
         "source_id": str(record["source_id"]),
@@ -174,6 +193,7 @@ def _to_search_payload(record: dict[str, Any]) -> dict[str, Any]:
         "angular_size": record.get("angular_size"),
         "messier_id": record.get("messier_id"),
         "identifiers": list(record.get("identifiers") or []),
+        "aliases": list(dict.fromkeys(alias for alias in aliases if alias)),
         "common_names": list(record.get("common_names") or []),
         "indexed": True,
         "status": "indexed",
@@ -184,6 +204,7 @@ def _to_search_payload(record: dict[str, Any]) -> dict[str, Any]:
 
 def _search_aliases(record: dict[str, Any]) -> list[str]:
     aliases = list(record.get("aliases") or [])
+    aliases.extend(caldwell_aliases(record))
     aliases.extend(record.get("names") or [])
     aliases.append(record.get("display_name"))
     aliases.append(_spaced_catalog_id(str(record.get("source_id") or "")))
