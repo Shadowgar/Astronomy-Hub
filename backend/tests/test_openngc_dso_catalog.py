@@ -5,7 +5,11 @@ from backend.app.services.openngc_dso_catalog_service import (
     load_openngc_catalog,
     lookup_openngc_dso,
 )
-from backend.app.services.sky_catalog_service import build_exact_object_lookup_payload, build_sky_search_payload
+from backend.app.services.sky_catalog_service import (
+    _is_compact_caldwell_query,
+    build_exact_object_lookup_payload,
+    build_sky_search_payload,
+)
 
 
 def test_openngc_catalog_loads_normalized_dso_records() -> None:
@@ -82,6 +86,11 @@ def test_openngc_search_resolves_compact_caldwell_aliases() -> None:
     assert first["source_id"] == "NGC6543"
     assert "C6" in first["aliases"]
     assert "Caldwell 6" in first["aliases"]
+
+
+def test_compact_caldwell_query_rejects_unbounded_whitespace() -> None:
+    assert _is_compact_caldwell_query(" C 006 ") is True
+    assert _is_compact_caldwell_query(f"C{' ' * 10_000}6") is False
 
 
 def test_openngc_exact_lookup_returns_source_backed_enrichment_fields() -> None:

@@ -455,7 +455,12 @@ def _normalize_search_text(value: str | None) -> str:
 
 
 def _is_compact_caldwell_query(value: str | None) -> bool:
-    return re.fullmatch(r"\s*c\s*0*[1-9][0-9]*\s*", str(value or ""), flags=re.IGNORECASE) is not None
+    text = str(value or "").strip().lower()
+    if len(text) > 16 or not text.startswith("c"):
+        return False
+
+    digits = text[1:].strip()
+    return bool(digits) and digits.isascii() and digits.isdigit() and any(digit != "0" for digit in digits)
 
 
 def _messier_otype(object_type: str | None) -> str:
