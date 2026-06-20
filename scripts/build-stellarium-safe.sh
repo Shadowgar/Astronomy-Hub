@@ -78,7 +78,10 @@ package_lock_hash="$(
 )"
 
 echo "Preparing Stellarium reference workspace"
-run_cmd env STELLARIUM_SKIP_HOST_NPM_INSTALL=1 bash "$repo_root/scripts/prepare-stellarium-reference.sh"
+run_cmd env \
+  STELLARIUM_SKIP_HOST_NPM_INSTALL=1 \
+  STELLARIUM_SKIP_TLE_REFRESH=1 \
+  bash "$repo_root/scripts/prepare-stellarium-reference.sh"
 
 echo "Staging web frontend on internal storage: $staging_app_dir"
 run_cmd mkdir -p "$staging_app_dir" "$npm_cache_dir"

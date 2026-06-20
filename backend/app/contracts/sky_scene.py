@@ -44,6 +44,7 @@ class SkySceneStarObject(BaseModel):
     declination: float = Field(..., ge=-90.0, le=90.0)
     magnitude: float
     color_index: float | None = None
+    aliases: list[str] = Field(default_factory=list)
 
     class Config:
         extra = "forbid"

@@ -13,6 +13,7 @@ REQUIRED_ENGINE_SCENES = (
     ("earth", "satellites"),
 )
 DETAIL_FIELDS = ("description", "media", "related_objects")
+SCENE_AT = "2026-03-31T12:00:00Z"
 
 
 def _request_json(path):
@@ -24,7 +25,7 @@ def _build_required_scene(scope_slug, engine_slug):
     status, payload = _request_json(
         "/api/v1/scene"
         f"?scope={scope_slug}&engine={engine_slug}&filter=visible_now"
-        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+        f"&lat=40.0&lon=-75.0&at={SCENE_AT}"
     )
     assert status == 200
     scene = {
@@ -72,7 +73,7 @@ def test_object_endpoint_resolves_representative_ids_from_all_required_engines()
 
     for engine_slug, object_id in representative_ids.items():
         status, payload = _request_json(
-            f"/api/v1/object/{quote(object_id, safe='')}?lat=40.0&lon=-75.0"
+            f"/api/v1/object/{quote(object_id, safe='')}?lat=40.0&lon=-75.0&at={SCENE_AT}"
         )
         assert status == 200
         assert payload.get("status") == "ok"
@@ -109,7 +110,7 @@ def test_object_resolution_is_stable_across_repeated_requests():
     for _ in range(2):
         for object_id in representative_ids:
             status, payload = _request_json(
-                f"/api/v1/object/{quote(object_id, safe='')}?lat=40.0&lon=-75.0"
+                f"/api/v1/object/{quote(object_id, safe='')}?lat=40.0&lon=-75.0&at={SCENE_AT}"
             )
             assert status == 200
             assert payload.get("status") == "ok"
@@ -120,14 +121,14 @@ def test_moon_object_detail_includes_solar_activity_fields_via_api():
     status, payload = _request_json(
         "/api/v1/scene"
         "?scope=sun&engine=moon&filter=visible_now"
-        "&lat=40.0&lon=-75.0&at=2026-03-31T12:00:00Z"
+        f"&lat=40.0&lon=-75.0&at={SCENE_AT}"
     )
     assert status == 200
     scene_objects = payload.get("objects") or []
     moon = next((obj for obj in scene_objects if str(obj.get("id") or "") == "moon"), None)
     assert isinstance(moon, dict)
 
-    status, payload = _request_json("/api/v1/object/moon?lat=40.0&lon=-75.0")
+    status, payload = _request_json(f"/api/v1/object/moon?lat=40.0&lon=-75.0&at={SCENE_AT}")
     assert status == 200
     assert payload.get("status") == "ok"
 

@@ -324,7 +324,8 @@ export default {
           this.$selectionLayer.add(obj)
         }
         if (!obj) {
-          console.warning("Can't find object in SWE: " + ss.names[0])
+          console.warn("Can't find object in SWE: " + ss.names[0])
+          return
         }
         swh.setSweObjAsSelection(obj)
       }, err => {
@@ -515,8 +516,11 @@ export default {
         })
       } catch (e) {
         console.error(e)
-        this.$store.commit('setValue', { varName: 'wasmSupport', newValue: false })
+        that.$store.commit('setValue', { varName: 'wasmSupport', newValue: false })
       }
+    }).catch((error) => {
+      console.error(error)
+      that.$store.commit('setValue', { varName: 'wasmSupport', newValue: false })
     })
   }
 }

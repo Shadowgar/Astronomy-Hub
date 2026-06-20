@@ -49,6 +49,7 @@ def normalize(payload: Any) -> List[Dict[str, Any]]:
             'name': name,
             'type': category,
             'engine': t.get('engine') or 'mock',
+            'provider_source': t.get('provider_source') or 'mock_targets',
             'summary': t.get('reason') or t.get('summary') or '',
             'position': None,
             'visibility': None,

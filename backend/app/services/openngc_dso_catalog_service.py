@@ -220,7 +220,7 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 def _normalize_source_id(value: str | None) -> str:
     text = str(value or "").strip().upper()
-    text = re.sub(r"^(NGC|IC)\s+(\d+)(.*)$", lambda m: f"{m.group(1)}{int(m.group(2)):04d}{m.group(3)}", text)
+    text = re.sub(r"^(NGC|IC)\s*(\d+)(.*)$", lambda m: f"{m.group(1)}{int(m.group(2)):04d}{m.group(3)}", text)
     text = re.sub(r"\s+", " ", text)
     return text
 

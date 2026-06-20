@@ -36,6 +36,11 @@ const appVuePath = path.resolve(
   '../vendor/stellarium-web-engine/apps/web-frontend/src/App.vue'
 )
 
+const targetSearchPath = path.resolve(
+  process.cwd(),
+  '../vendor/stellarium-web-engine/apps/web-frontend/src/components/target-search.vue'
+)
+
 describe('oras runtime search routing', () => {
   it('uses only local ORAS runtime and backend paths in config', () => {
     expect(ORAS_DATA_ROOT).toBe('/oras-sky-engine/skydata')
@@ -552,6 +557,22 @@ describe('oras runtime search routing', () => {
     expect(helpersSource).toContain('this.exactSkySourceSelection = exactSkySource || undefined')
     expect(helpersSource).toContain('if (obj.__orasSkySourceData && obj.__orasSkySourceData.catalog && obj.__orasSkySourceData.source_id && obj.__orasSkySourceData.model)')
     expect(helpersSource).toContain('return Promise.resolve(buildLocalSkySource(obj.__orasSkySourceData.match || obj.__orasSkySourceData.display_name || names[0]))')
+  })
+
+  it('stops selection when SWE object creation fails', () => {
+    const runtimeSources = [appVuePath, targetSearchPath].map(sourcePath => fs.readFileSync(sourcePath, 'utf8'))
+
+    for (const source of runtimeSources) {
+      expect(source).not.toContain('console.warning(')
+      expect(source).toMatch(/if \(!obj\) \{\s+console\.warn\([^}]+\)\s+return\s+\}/)
+    }
+  })
+
+  it('handles rejected WASM imports without leaving the loader active', () => {
+    const appSource = fs.readFileSync(appVuePath, 'utf8')
+
+    expect(appSource).toMatch(/import\('@\/assets\/js\/stellarium-web-engine\.wasm'\)[\s\S]+?\.catch\(\(error\) => \{/)
+    expect(appSource).toContain("that.$store.commit('setValue', { varName: 'wasmSupport', newValue: false })")
   })
 
   it('preserves raw query text for backend-compatible Gaia searches', () => {

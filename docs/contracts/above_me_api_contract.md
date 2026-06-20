@@ -11,7 +11,7 @@ records that can open ORAS Sky Engine on the exact target.
 ## Endpoint
 
 ```text
-GET /api/above-me?lat=<lat>&lng=<lng>&time=<iso8601>&limit=<n>
+GET /api/above-me?lat=<lat>&lng=<lng>&elev=<meters>&time=<iso8601>&limit=<n>
 ```
 
 ## Query Parameters
@@ -48,7 +48,7 @@ The endpoint uses the standard `ResponseEnvelope`.
         "is_visible": true,
         "priority": 0.8,
         "reason": "Local Messier galaxy at 50.0 deg altitude.",
-        "sky_engine_url": "/oras-sky-engine/skysource/AndromedaGalaxy?catalog=Messier+%28local%29&source_id=M31&model=dso&ra=10.68&dec=41.269"
+        "sky_engine_url": "/oras-sky-engine/skysource/AndromedaGalaxy?catalog=Messier+%28local%29&source_id=M31&model=dso&ra=10.68&dec=41.269&lat=41.44&lng=-79.69&elev=0"
       }
     ]
   },
@@ -62,7 +62,16 @@ The endpoint uses the standard `ResponseEnvelope`.
     "limit": 25,
     "total_candidates": 40,
     "visible_candidates": 12,
-    "object_sources": {}
+    "object_sources": {
+      "messier_local": {"status": "included"},
+      "openngc_local": {"status": "included"},
+      "bright_star_local": {"status": "included"},
+      "hipparcos_tier2_local": {"status": "included"},
+      "gaia_dr2": {"status": "lookup_only"},
+      "planets": {"status": "included"},
+      "moon_sun": {"status": "included"},
+      "satellites": {"status": "included"}
+    }
   }
 }
 ```
@@ -77,12 +86,17 @@ Current MVP-supported sources:
 | Source | Status | Reason |
 | --- | --- | --- |
 | Local Messier DSOs | included | Stable identity and RA/Dec exist. |
+| OpenNGC DSOs | included | Normalized NGC/IC records provide bounded discovery and exact identity. |
 | Local bright stars | included | Stable identity and RA/Dec exist. |
 | Hipparcos Tier 2 stars | included | Existing local dataset provides stable string IDs, RA/Dec, and magnitude. |
 | Gaia DR2 | lookup only | Exact object lookup exists, but broad ranked discovery is not implemented in this pass. |
-| Planets | gap | JPL ephemeris exists, but exact Sky Engine identity plus RA/Dec adapter is missing. |
-| Moon/Sun | gap | Moon ephemeris exists; Sun exact-link support and RA/Dec adapter are missing. |
-| Satellites | gap | TLE ingestion exists, but exact satellite identity, topocentric RA/Dec, and Sky Engine selection contract are missing. |
+| Planets | included when provider available | JPL Horizons supplies observer-specific RA/Dec and alt/az. |
+| Moon/Sun | included when provider available | JPL Horizons supplies observer-specific RA/Dec and alt/az. Sun results include a safety warning. |
+| Satellites | included | Local TLE records are propagated with Skyfield for bounded visible discovery. |
+
+`meta.object_sources` describes configured capabilities, not proof that every
+provider returned candidates for a particular request. JPL-dependent results may
+be absent when the upstream provider is unavailable; those failures are logged.
 
 ## Non-Goals
 
@@ -91,4 +105,4 @@ This contract does not define:
 - WordPress shortcode rendering.
 - Hub homepage UI.
 - Survey imagery UI.
-- DESI, Pan-STARRS, OpenNGC, or TheSkyLive ingestion.
+- DESI, Pan-STARRS, or TheSkyLive ingestion.

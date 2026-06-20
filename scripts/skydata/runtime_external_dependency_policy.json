@@ -221,6 +221,13 @@
       "reason": "Built credit-dialog citation and attribution links are allowed in the compiled runtime bundle."
     }
   ],
+  "runtime_approved_patterns": [
+    {
+      "path_pattern": "(?:vendor/stellarium-web-engine/apps/web-frontend/src/assets/oras_data_config\\.js|frontend/public/oras-sky-engine/js/app\\.[^.]+\\.js)$",
+      "url_pattern": "https://alasky\\.cds\\.unistra\\.fr/Pan-STARRS/DR1/color-(?:z-zg-g|i-r-g)",
+      "reason": "Official Pan-STARRS HiPS providers are approved only for explicit query-selected ORAS survey use."
+    }
+  ],
   "known_unknowns": [
     {
       "path_pattern": "selected-object-info\\.vue$",
