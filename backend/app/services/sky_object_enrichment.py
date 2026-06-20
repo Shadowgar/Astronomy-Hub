@@ -128,6 +128,8 @@ def caldwell_aliases(record: dict[str, Any]) -> list[str]:
         if not match:
             continue
         number = int(match.group(1))
+        if number > 109:
+            continue
         aliases.extend(
             [
                 f"C{number}",

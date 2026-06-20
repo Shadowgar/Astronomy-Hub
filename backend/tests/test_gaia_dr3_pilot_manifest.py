@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 
-MANIFEST_PATH = Path("backend/app/data/sky/gaia_dr3_pilot_manifest.json")
+MANIFEST_PATH = Path(__file__).resolve().parents[1] / "app/data/sky/gaia_dr3_pilot_manifest.json"
 
 
 def test_gaia_dr3_pilot_manifest_defines_safe_source_backed_slice() -> None:

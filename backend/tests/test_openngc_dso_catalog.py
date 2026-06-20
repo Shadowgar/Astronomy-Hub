@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from backend.app.services.openngc_dso_catalog_service import (
     OPENNGC_LICENSE_NOTE,
+    find_openngc_record_by_messier_id,
     load_openngc_catalog,
     lookup_openngc_dso,
 )
@@ -10,6 +11,7 @@ from backend.app.services.sky_catalog_service import (
     build_exact_object_lookup_payload,
     build_sky_search_payload,
 )
+from backend.app.services.sky_object_enrichment import caldwell_aliases
 
 
 def test_openngc_catalog_loads_normalized_dso_records() -> None:
@@ -20,6 +22,13 @@ def test_openngc_catalog_loads_normalized_dso_records() -> None:
     assert "NGC6543" in catalog.records_by_source_id
     assert "IC0342" in catalog.records_by_source_id
     assert catalog.type_counts["galaxy"] > 1000
+
+
+def test_openngc_catalog_indexes_messier_cross_ids() -> None:
+    catalog = load_openngc_catalog()
+
+    assert catalog.records_by_messier_id["M31"]["source_id"] == "NGC0224"
+    assert find_openngc_record_by_messier_id("M 31")["source_id"] == "NGC0224"
 
 
 def test_openngc_exact_lookup_resolves_ngc_and_ic_objects() -> None:
@@ -90,7 +99,17 @@ def test_openngc_search_resolves_compact_caldwell_aliases() -> None:
 
 def test_compact_caldwell_query_rejects_unbounded_whitespace() -> None:
     assert _is_compact_caldwell_query(" C 006 ") is True
+    assert _is_compact_caldwell_query("C109") is True
+    assert _is_compact_caldwell_query("C110") is False
     assert _is_compact_caldwell_query(f"C{' ' * 10_000}6") is False
+
+
+def test_caldwell_aliases_exclude_ids_outside_catalog_range() -> None:
+    aliases = caldwell_aliases({"identifiers": ["C109", "C110", "C9999"]})
+
+    assert "C109" in aliases
+    assert "C110" not in aliases
+    assert "C9999" not in aliases
 
 
 def test_openngc_exact_lookup_returns_source_backed_enrichment_fields() -> None:

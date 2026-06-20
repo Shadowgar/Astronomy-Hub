@@ -460,7 +460,9 @@ def _is_compact_caldwell_query(value: str | None) -> bool:
         return False
 
     digits = text[1:].strip()
-    return bool(digits) and digits.isascii() and digits.isdigit() and any(digit != "0" for digit in digits)
+    if not digits or not digits.isascii() or not digits.isdigit():
+        return False
+    return 1 <= int(digits) <= 109
 
 
 def _messier_otype(object_type: str | None) -> str:
