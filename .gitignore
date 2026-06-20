@@ -49,9 +49,9 @@ logs/
 !.gitignore
 !.dockerignore
 !.github/
-!.github/**
-backend/AGENTS.md
-frontend/AGENTS.md
+!.github/workflows/
+!.github/workflows/*.yml
+!.github/workflows/*.yaml
 
 # Local binaries (e.g. accidentally copied Snyk CLI; use npx snyk or a global install)
 /snyk
