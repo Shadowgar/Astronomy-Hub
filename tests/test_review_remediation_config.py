@@ -45,6 +45,15 @@ def test_stellarium_prepare_creates_satellite_output_directories_before_writing(
     assert mkdir_position < inner_write_position
 
 
+def test_stellarium_prepare_bounds_satellite_download_retries() -> None:
+    script = (REPO_ROOT / "scripts/prepare-stellarium-reference.sh").read_text(encoding="utf-8")
+
+    assert "--retry 3" in script
+    assert "--retry-delay 2" in script
+    assert "--connect-timeout 10" in script
+    assert "--max-time 120" in script
+
+
 def test_stellarium_build_does_not_refresh_satellite_data() -> None:
     script = (REPO_ROOT / "scripts/build-stellarium-safe.sh").read_text(encoding="utf-8")
 

@@ -5,7 +5,7 @@ Date: 2026-06-20
 ## Scope
 
 This audit reviewed GitHub review threads and check feedback for pull requests
-#1 through #26, then verified each actionable finding against the current
+`#1` through `#26`, then verified each actionable finding against the current
 `main` code rather than applying stale suggestions mechanically.
 
 ## Disposition

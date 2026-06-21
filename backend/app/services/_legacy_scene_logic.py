@@ -1601,22 +1601,9 @@ def build_phase1_scene_state(parsed_location=None, as_of: str | None = None):
         "objects": objects,
     }
 
-    from backend.app.contracts.phase1 import SceneContract
+    from backend.app.contracts.phase1 import SceneContract, SceneObjectSummary
 
-    contract_keys = (
-        "id",
-        "name",
-        "type",
-        "engine",
-        "provider_source",
-        "summary",
-        "time_relevance",
-        "reason_for_inclusion",
-        "detail_route",
-        "position",
-        "visibility",
-        "relevance_score",
-    )
+    contract_keys = SceneObjectSummary.__fields__
     contract_scene = dict(scene)
     contract_scene["objects"] = [
         {key: obj.get(key) for key in contract_keys if key in obj}

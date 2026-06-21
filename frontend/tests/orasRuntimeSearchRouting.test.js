@@ -564,7 +564,10 @@ describe('oras runtime search routing', () => {
 
     for (const source of runtimeSources) {
       expect(source).not.toContain('console.warning(')
-      expect(source).toMatch(/if \(!obj\) \{\s+console\.warn\([^}]+\)\s+return\s+\}/)
+      expect(source).toMatch(/obj = this\.\$stel\.createObj\(ss\.model, ss\)\s+if \(obj\) \{\s+this\.\$selectionLayer\.add\(obj\)\s+\}/)
+      expect(source).toContain('const label = Array.isArray(ss.names)')
+      expect(source).toContain("ss.display_name || String(ss.source_id || 'unknown')")
+      expect(source).toMatch(/if \(!obj\) \{\s+const label =[\s\S]+?console\.warn\([^}]+\)\s+return\s+\}/)
     }
   })
 

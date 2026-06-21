@@ -83,7 +83,13 @@ fi
 # z_uncompress_gz call.
 if [[ "$skip_tle_refresh" != "1" ]]; then
   tmp_tle_gz="$(mktemp)"
-  curl -fsSL "https://stellarium.sfo2.cdn.digitaloceanspaces.com/skysources/v1/tle_satellite.jsonl.gz" -o "$tmp_tle_gz"
+  curl -fSL \
+    --retry 3 \
+    --retry-delay 2 \
+    --connect-timeout 10 \
+    --max-time 120 \
+    "https://stellarium.sfo2.cdn.digitaloceanspaces.com/skysources/v1/tle_satellite.jsonl.gz" \
+    -o "$tmp_tle_gz"
   python3 - "$tmp_tle_gz" "$skydata_dir/tle_satellite.jsonl.gz" "$public_skydata_dir/tle_satellite.jsonl.gz" <<'PY'
 import gzip
 import json
