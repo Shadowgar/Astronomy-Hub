@@ -14,6 +14,7 @@ js_image="astronomy-hub-stellarium-jsbuild"
 js_dockerfile="$repo_root/scripts/Dockerfile.stellarium-jsbuild"
 expected_vue_version="2.6.12"
 skip_host_npm_install="${STELLARIUM_SKIP_HOST_NPM_INSTALL:-0}"
+skip_tle_refresh="${STELLARIUM_SKIP_TLE_REFRESH:-0}"
 
 read_package_version() {
     local package_dir="$1"
@@ -80,9 +81,16 @@ fi
 # Vite serves .gz assets with Content-Encoding: gzip, so browser fetches hand
 # SWE a decoded payload. Double wrapping leaves an inner gzip stream for SWE's
 # z_uncompress_gz call.
-tmp_tle_gz="$(mktemp)"
-curl -fsSL "https://stellarium.sfo2.cdn.digitaloceanspaces.com/skysources/v1/tle_satellite.jsonl.gz" -o "$tmp_tle_gz"
-python3 - "$tmp_tle_gz" "$skydata_dir/tle_satellite.jsonl.gz" "$public_skydata_dir/tle_satellite.jsonl.gz" <<'PY'
+if [[ "$skip_tle_refresh" != "1" ]]; then
+  tmp_tle_gz="$(mktemp)"
+  curl -fSL \
+    --retry 3 \
+    --retry-delay 2 \
+    --connect-timeout 10 \
+    --max-time 120 \
+    "https://stellarium.sfo2.cdn.digitaloceanspaces.com/skysources/v1/tle_satellite.jsonl.gz" \
+    -o "$tmp_tle_gz"
+  python3 - "$tmp_tle_gz" "$skydata_dir/tle_satellite.jsonl.gz" "$public_skydata_dir/tle_satellite.jsonl.gz" <<'PY'
 import gzip
 import json
 import os
@@ -90,6 +98,10 @@ import sys
 
 src_path = sys.argv[1]
 dst_paths = sys.argv[2:]
+
+for dst_path in dst_paths:
+    if dst_path:
+        os.makedirs(os.path.dirname(dst_path), exist_ok=True)
 
 inner_payload_path = f"{dst_paths[0]}.inner.tmp"
 with gzip.open(src_path, "rt", encoding="utf-8", errors="ignore") as source_stream, gzip.open(inner_payload_path, "wt", encoding="utf-8") as output_stream:
@@ -109,7 +121,6 @@ with gzip.open(src_path, "rt", encoding="utf-8", errors="ignore") as source_stre
 for dst_path in dst_paths:
     if not dst_path:
         continue
-    os.makedirs(os.path.dirname(dst_path), exist_ok=True)
     tmp_path = f"{dst_path}.tmp"
     with open(inner_payload_path, "rb") as inner_stream, gzip.open(tmp_path, "wb") as output_stream:
         output_stream.write(inner_stream.read())
@@ -117,6 +128,9 @@ for dst_path in dst_paths:
 
 os.unlink(inner_payload_path)
 PY
-rm -f "$tmp_tle_gz"
+  rm -f "$tmp_tle_gz"
+else
+  echo "Skipping satellite feed refresh during Stellarium runtime build."
+fi
 
 echo "Stellarium reference workspace is prepared."

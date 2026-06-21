@@ -39,22 +39,27 @@ That prevents Docker from traversing generated runtime output and other large lo
 ### Full local production refresh
 
 ```bash
-cd /home/rocco/external-drive/Astronomy-Hub
-bash scripts/rebuild-oras-frontend-prod.sh
+cd <repository-path>
+npm run build:stellarium
+docker compose -f docker-compose.prod.yml build frontend
+docker compose -f docker-compose.prod.yml up -d --no-deps --force-recreate frontend
 ```
 
 ### Validation only
 
 ```bash
-cd /home/rocco/external-drive/Astronomy-Hub
-bash scripts/rebuild-oras-frontend-prod.sh --validate-only
+cd <repository-path>
+docker compose -f docker-compose.prod.yml ps frontend
+curl --fail --silent --show-error http://127.0.0.1/oras-sky-engine/ >/dev/null
+curl --fail --silent --show-error http://127.0.0.1/oras-sky-engine/skydata/packs/base/dso/properties
 ```
 
 ### Reuse current Stellarium runtime, but rebuild frontend image and recreate container
 
 ```bash
-cd /home/rocco/external-drive/Astronomy-Hub
-bash scripts/rebuild-oras-frontend-prod.sh --skip-stellarium-build
+cd <repository-path>
+docker compose -f docker-compose.prod.yml build frontend
+docker compose -f docker-compose.prod.yml up -d --no-deps --force-recreate frontend
 ```
 
 ## Validation gate
@@ -69,6 +74,6 @@ The release is considered healthy only if all of the following are true:
 
 ## Notes
 
-- Do not use `npm run build:stellarium:legacy` on this Pi for normal production work.
+- Use `npm run build:stellarium`; the legacy build path is unsupported for normal production work.
 - If the external drive is not mounted after reboot, the frontend container will bind-mount an empty local `skydata` directory and the ORAS runtime will appear loaded but broken.
-- This workflow standardizes the frontend/runtime side only. The separate `postgres` restart issue is outside this release path and should be handled independently.
+- This workflow standardizes the frontend/runtime side only. Check database health separately with `docker compose -f docker-compose.prod.yml ps postgres`.

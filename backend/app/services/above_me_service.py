@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
+import logging
 import math
 from typing import Any
 
@@ -28,6 +29,7 @@ from backend.app.services.sky_object_enrichment import (
 
 DEFAULT_LIMIT = 25
 MAX_LIMIT = 100
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -129,7 +131,7 @@ def _build_bright_star_candidates(*, observer: Observer, as_of: datetime) -> lis
             ra_hours = float(star["right_ascension"])
             dec_deg = float(star["declination"])
             magnitude = float(star["magnitude"])
-        except Exception:
+        except (KeyError, TypeError, ValueError):
             continue
 
         ra_deg = ra_hours * 15.0
@@ -170,7 +172,7 @@ def _build_tier2_star_candidates(*, observer: Observer, as_of: datetime, limit: 
             ra_hours = float(star["right_ascension"])
             dec_deg = float(star["declination"])
             magnitude = float(star["magnitude"])
-        except Exception:
+        except (KeyError, TypeError, ValueError):
             continue
 
         ra_deg = ra_hours * 15.0
@@ -233,7 +235,7 @@ def _build_messier_candidates(*, observer: Observer, as_of: datetime) -> list[di
             ra_hours = float(obj["ra_hours"])
             dec_deg = float(obj["dec_deg"])
             magnitude = float(obj["magnitude"])
-        except Exception:
+        except (KeyError, TypeError, ValueError):
             continue
 
         ra_deg = ra_hours * 15.0
@@ -282,7 +284,7 @@ def _build_openngc_dso_candidates(*, observer: Observer, as_of: datetime, limit:
             ra_deg = float(obj["ra"])
             dec_deg = float(obj["dec"])
             magnitude = float(obj["magnitude"])
-        except Exception:
+        except (KeyError, TypeError, ValueError):
             continue
 
         alt, az = _ra_dec_to_alt_az(
@@ -334,6 +336,7 @@ def _build_solar_system_candidates(*, observer: Observer, as_of: datetime) -> li
             as_of=as_of,
         )
     except Exception:
+        logger.exception("JPL ephemeris lookup failed while building above-me candidates")
         return []
 
     candidates: list[dict[str, Any]] = []
@@ -347,7 +350,7 @@ def _build_solar_system_candidates(*, observer: Observer, as_of: datetime) -> li
             dec = float(body["dec"])
             alt = float(body["elevation"])
             az = float(body["azimuth"])
-        except Exception:
+        except (KeyError, TypeError, ValueError):
             continue
 
         model = body_config["model"]
@@ -387,6 +390,7 @@ def _build_satellite_candidates(*, observer: Observer, as_of: datetime, limit: i
             limit=limit,
         )
     except Exception:
+        logger.exception("Satellite propagation failed while building above-me candidates")
         return []
 
 
@@ -515,7 +519,7 @@ def _parse_observer(*, lat: str | float, lng: str | float, elev: str | float | N
 def _parse_float(value: str | float | int | None, field_name: str) -> float:
     try:
         return float(value)
-    except Exception as exc:
+    except (TypeError, ValueError) as exc:
         raise ValueError(f"{field_name} must be numeric") from exc
 
 
@@ -530,8 +534,6 @@ def _parse_time(value: str | None) -> datetime:
             if "timezone" in str(exc):
                 raise ValueError("time must include timezone (Z or offset)") from exc
             raise ValueError("time must be ISO-8601") from exc
-        except Exception as exc:
-            raise ValueError("time must be ISO-8601") from exc
     return datetime.now(timezone.utc)
 
 
@@ -540,7 +542,7 @@ def _parse_limit(value: int | str | None) -> int:
         return DEFAULT_LIMIT
     try:
         parsed = int(value)
-    except Exception as exc:
+    except (TypeError, ValueError) as exc:
         raise ValueError("limit must be an integer") from exc
     return max(1, min(MAX_LIMIT, parsed))
 
@@ -550,7 +552,7 @@ def _optional_magnitude(value: Any) -> float | None:
         return None
     try:
         return float(value)
-    except Exception:
+    except (TypeError, ValueError):
         return None
 
 

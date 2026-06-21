@@ -8,12 +8,12 @@ from .response_envelope import ResponseEnvelope
 class ConditionsResponse(ResponseEnvelope):
     """Minimal Conditions response model.
 
-    Inherits the canonical ResponseEnvelope and keeps `data` permissive
-    to avoid breaking the existing route during incremental migration.
+    Inherits the canonical ResponseEnvelope while rejecting unknown envelope
+    fields. The route-specific `data` payload remains intentionally flexible.
     """
 
     data: Optional[Any] = None
     meta: Optional[Dict[str, Any]] = None
 
     class Config:
-        extra = "allow"
+        extra = "forbid"

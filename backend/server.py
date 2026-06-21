@@ -277,7 +277,11 @@ def _build_satellite_engine_slice():
             'name': name,
             'type': 'satellite',
             'engine': 'satellite',
+            'provider_source': 'mock_passes',
             'summary': f"Visible pass from {p.get('start_direction') or '?'} to {p.get('end_direction') or '?'} at {p.get('start_time') or 'unknown time'}",
+            'time_relevance': f"window_start:{p.get('start_time')}" if p.get('start_time') else 'currently_visible',
+            'reason_for_inclusion': f"Visible pass reaches {max_el:.1f} degrees elevation.",
+            'detail_route': f"/object/{_slugify(name)}",
             'position': {'elevation': max_el},
             'visibility': {
                 'is_visible': True,
@@ -664,7 +668,7 @@ def _get_phase2_object_lookup(parsed_location=None):
 
 def _build_phase1_scene_state(parsed_location=None):
     """Assemble the unified backend-owned Phase 1 scene state."""
-    from datetime import datetime
+    from datetime import datetime, timezone
 
     # Merge limited Phase 1 engine slices.
     satellite_objects = _build_satellite_engine_slice()
@@ -680,7 +684,7 @@ def _build_phase1_scene_state(parsed_location=None):
         'scope': 'above_me',
         'engine': 'main',
         'filter': 'visible',
-        'timestamp': datetime.utcnow().isoformat() + 'Z',
+        'timestamp': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
         'objects': objects,
     }
 

@@ -23,7 +23,7 @@ def test_planets_scope_falls_back_to_planet_lookup_when_phase1_scene_is_starved(
     monkeypatch.setattr(
         scene_service,
         "get_phase2_object_lookup",
-        lambda parsed_location=None: {
+        lambda parsed_location=None, as_of=None: {
             "jupiter": {
                 "id": "jupiter",
                 "name": "Jupiter",
@@ -72,7 +72,7 @@ def test_deep_sky_scope_falls_back_to_lookup_when_phase1_scene_is_starved(monkey
     monkeypatch.setattr(
         scene_service,
         "get_phase2_object_lookup",
-        lambda parsed_location=None: {
+        lambda parsed_location=None, as_of=None: {
             "m42": {
                 "id": "m42",
                 "name": "M42 Orion Nebula",

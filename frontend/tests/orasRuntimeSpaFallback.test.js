@@ -44,7 +44,7 @@ describe('oras runtime SPA fallback', () => {
     expect(getOrasRuntimeRemoteFallbackPath('/oras-sky-engine/skydata/surveys/dss/v1/Norder99/Dir0/Npix0.webp'))
       .toBe('/oras-sky-engine/remote-data/surveys/dss/v1/Norder99/Dir0/Npix0.webp')
     expect(getOrasRuntimeRemoteFallbackPath('/oras-sky-engine/skydata/packs/extended/dso/Norder2/Dir0/Npix10.eph'))
-      .toBeUndefined()
+      .toBe('/oras-sky-engine/remote-data/swe-data-packs/extended/2020-03-11/extended_2020-03-11_26aa5ab8/dso/Norder2/Dir0/Npix10.eph')
     expect(getOrasRuntimeRemoteFallbackPath('/oras-sky-engine/skydata/surveys/sso/moon/Norder1/Dir0/Npix0.webp'))
       .toBe('/oras-sky-engine/remote-data/surveys/sso/moon/v1/Norder1/Dir0/Npix0.webp')
   })

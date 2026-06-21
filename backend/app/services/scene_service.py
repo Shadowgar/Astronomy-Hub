@@ -1,5 +1,6 @@
 from copy import deepcopy
 
+from backend.app.contracts.phase1 import SceneContract, SceneObjectSummary
 from backend.app.contracts.sky_scene import SkySceneContract, SkyStarTileManifestContract
 from backend.app.services._legacy_scene_logic import (
     _resolve_location,
@@ -128,7 +129,14 @@ def build_above_me_scene_payload(
     state = build_phase1_scene_state(parsed_location=parsed_location, as_of=as_of)
     scene = state.get("scene") if isinstance(state, dict) else None
     if isinstance(scene, dict):
-        return scene
+        contract_keys = SceneObjectSummary.__fields__
+        contract_scene = dict(scene)
+        contract_scene["objects"] = [
+            {key: obj[key] for key in contract_keys if key in obj}
+            for obj in scene.get("objects", [])
+            if isinstance(obj, dict)
+        ]
+        return SceneContract.parse_obj(contract_scene).dict()
 
     # Defensive fallback: preserve contract shape if upstream assembly fails unexpectedly.
     return {

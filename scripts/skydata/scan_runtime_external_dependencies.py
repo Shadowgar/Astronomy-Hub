@@ -27,7 +27,13 @@ DEFAULT_SCAN_ROOTS = [
 ALLOW_MARKER = "ORAS_EXTERNAL_DEPENDENCY_ALLOW:"
 URL_PATTERN = re.compile(r"https?://[^\s\"'<>`]+")
 MARKDOWN_URL_PATTERN = re.compile(r"\[[^\]]+\]\((https?://[^)]+)\)")
-SUPPORTED_CLASSIFICATIONS = {"runtime_forbidden", "admin_import_allowed", "attribution_allowed", "unknown"}
+SUPPORTED_CLASSIFICATIONS = {
+    "runtime_forbidden",
+    "runtime_approved",
+    "admin_import_allowed",
+    "attribution_allowed",
+    "unknown",
+}
 
 
 def scan_runtime_external_dependencies(
@@ -50,6 +56,7 @@ def scan_runtime_external_dependencies(
     findings.sort(key=lambda item: (item["path"], item["line"], item["url"]))
     classification_counts = {
         "runtime_forbidden": sum(1 for item in findings if item["classification"] == "runtime_forbidden"),
+        "runtime_approved": sum(1 for item in findings if item["classification"] == "runtime_approved"),
         "admin_import_allowed": sum(1 for item in findings if item["classification"] == "admin_import_allowed"),
         "attribution_allowed": sum(1 for item in findings if item["classification"] == "attribution_allowed"),
         "unknown": sum(1 for item in findings if item["classification"] == "unknown"),
@@ -114,6 +121,8 @@ def _scan_root(root: Path, allowlist: list[dict[str, str]], policy: dict[str, An
 def _iter_files(root: Path, policy: dict[str, Any]):
     for path in root.rglob("*"):
         if path.is_dir():
+            continue
+        if path.resolve() == policy["policy_path"].resolve():
             continue
         if _should_skip_path(path, policy):
             continue
@@ -339,6 +348,9 @@ def _load_policy(path: str | Path | None) -> dict[str, Any]:
     )
     policy["explicit_rules"].extend(
         _normalize_classified_rules(raw_policy.get("allowed_attribution_patterns", []), "attribution_allowed")
+    )
+    policy["explicit_rules"].extend(
+        _normalize_classified_rules(raw_policy.get("runtime_approved_patterns", []), "runtime_approved")
     )
     policy["explicit_rules"].extend(
         _normalize_classified_rules(raw_policy.get("known_unknowns", []), "unknown")

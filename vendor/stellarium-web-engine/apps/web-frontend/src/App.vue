@@ -321,10 +321,16 @@ export default {
         let obj = swh.skySource2SweObj(ss)
         if (!obj) {
           obj = this.$stel.createObj(ss.model, ss)
-          this.$selectionLayer.add(obj)
+          if (obj) {
+            this.$selectionLayer.add(obj)
+          }
         }
         if (!obj) {
-          console.warning("Can't find object in SWE: " + ss.names[0])
+          const label = Array.isArray(ss.names) && ss.names.length
+            ? ss.names[0]
+            : (ss.display_name || String(ss.source_id || 'unknown'))
+          console.warn("Can't find object in SWE: " + label)
+          return
         }
         swh.setSweObjAsSelection(obj)
       }, err => {
@@ -515,8 +521,11 @@ export default {
         })
       } catch (e) {
         console.error(e)
-        this.$store.commit('setValue', { varName: 'wasmSupport', newValue: false })
+        that.$store.commit('setValue', { varName: 'wasmSupport', newValue: false })
       }
+    }).catch((error) => {
+      console.error(error)
+      that.$store.commit('setValue', { varName: 'wasmSupport', newValue: false })
     })
   }
 }

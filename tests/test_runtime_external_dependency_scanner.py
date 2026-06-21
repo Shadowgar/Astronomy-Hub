@@ -144,6 +144,46 @@ def test_scanner_loads_known_unknown_rule_from_policy(tmp_path: Path) -> None:
     assert report["findings"][0]["reason"] == "Local legacy runtime discovery only."
 
 
+def test_scanner_supports_narrow_runtime_approved_rules(tmp_path: Path) -> None:
+    policy_path = tmp_path / "policy.json"
+    policy_path.write_text(
+        json.dumps(
+            {
+                "ignored_dir_names": [],
+                "ignored_file_names": [],
+                "ignored_suffixes": [],
+                "runtime_context_hints": ["url:"],
+                "attribution_hints": [],
+                "namespace_hints": [],
+                "dev_only_hosts": [],
+                "runtime_forbidden_hosts": [{"match": "cds", "reason": "CDS is blocked by default."}],
+                "admin_import_allowed_hosts": [],
+                "attribution_allowed_hosts": [],
+                "allowed_attribution_patterns": [],
+                "runtime_approved_patterns": [
+                    {
+                        "path_pattern": "oras_data_config\\.js$",
+                        "url_pattern": "https://alasky\\.cds\\.unistra\\.fr/Pan-STARRS/DR1/color-z-zg-g",
+                        "reason": "Approved query-only Pan-STARRS provider.",
+                    }
+                ],
+                "known_unknowns": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    runtime_file = tmp_path / "oras_data_config.js"
+    runtime_file.write_text(
+        "const provider = { url: 'https://alasky.cds.unistra.fr/Pan-STARRS/DR1/color-z-zg-g' }\n",
+        encoding="utf-8",
+    )
+
+    report = scan_runtime_external_dependencies(scan_roots=[tmp_path], policy_path=policy_path)
+
+    assert report["runtime_forbidden_count"] == 0
+    assert report["findings"][0]["classification"] == "runtime_approved"
+
+
 def test_scanner_allows_attribution_and_admin_fixture(tmp_path: Path) -> None:
     credits_file = tmp_path / "credits" / "data-credits-dialog.vue"
     credits_file.parent.mkdir(parents=True)
