@@ -226,53 +226,46 @@ Rules:
 
 ---
 
-### PRIMARY RENDERING ENGINE
+### ACTIVE SKY RENDERING ENGINE
 
 ```text id="gnw2xz"
-Babylon.js
+Stellarium Web / Stellarium Web Engine
 ```
 
 ---
 
-### Responsibilities
+### Active Runtime
 
-Babylon.js handles:
+The ORAS Sky Engine at `/oras-sky-engine/` owns:
 
 * Sky Engine runtime rendering
-* Solar system rendering
-* Object interaction
-* Scene transitions
-* Future Earth rendering (if unified approach maintained)
+* sky object interaction and selection
+* camera, projection, and scene lifecycle
+* survey imagery and runtime data loading
 
 ---
 
-### WHY BABYLON
+### Other Engine Renderers
 
-* modern WebGL engine
-* actively maintained
-* supports complex 3D scenes
-* flexible for all engines
-* single unified rendering layer
+Future Earth, solar-system, or other explicitly approved engines may use a
+suitable engine-specific renderer. That choice does not replace or control the
+contained ORAS Sky Engine runtime.
 
 ---
 
 ### RULES
 
-* Babylon.js is the **primary 3D rendering system**
-* Primary 3D engines may own isolated Babylon.js runtimes mounted by the host
-* No competing 3D engines allowed
+* each primary engine owns its renderer and runtime lifecycle
+* `/oras-sky-engine/` remains isolated from Hub rendering abstractions
+* renderer choices for future engines require explicit approval
 * The Hub must not become a shared universal 3D rendering core
 
 ---
 
 ### PROHIBITED
 
-Do NOT use:
-
-* Three.js as an active rendering system
-* Cesium as a competing rendering layer
-
-(If Earth rendering later requires Cesium-level precision, it must be integrated carefully—not replace Babylon as system core.)
+Do NOT replace Stellarium Web Engine at `/oras-sky-engine/` with a Hub-owned or
+shared renderer.
 
 ---
 
@@ -392,7 +385,7 @@ Implementation is invalid if:
 ## 12. FINAL PRINCIPLE
 
 ```text id="x7w2pd"
-One system. One rendering core. One source of truth.
+One system. Engine-owned rendering. One source of truth.
 ```
 
 ---

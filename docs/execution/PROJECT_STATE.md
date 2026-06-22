@@ -29,28 +29,29 @@ PROJECT_STATE.md wins
 ## CURRENT MODE
 
 ```text
-Mode: FEATURE_EXECUTION
-Approach: bounded, architecture-aligned Stellarium parity execution
+Mode: ORAS_SKY_ENGINE_MODERNIZATION
+Approach: reconcile authority before the next catalog/data superiority pass
 ```
 
 ---
 
 ## CURRENT OBJECTIVE
 
-Complete Sky Engine Stellarium parity on the dedicated runtime surface:
+Keep the contained ORAS Sky Engine aligned with its active runtime surface:
 
 ```text
-/sky-engine runtime parity + correct ownership/routing + validated Stellarium-equivalent behavior
+/oras-sky-engine/ = ORAS-hosted Stellarium Web / Stellarium Web Engine
 ```
 
-Hub panel and viewport work on `/` is deferred until parity completion.
+The Hub remains the decision layer. Hub homepage and WordPress shortcode work
+remain deferred until explicitly approved.
 
 ---
 
 ## ACTIVE FEATURE
 
 ```text
-Feature: Sky Engine Stellarium Port
+Feature: ORAS Sky Engine Runtime and Data Parity
 Status: PARTIAL
 ```
 
@@ -58,22 +59,24 @@ Status: PARTIAL
 
 ## CURRENT PRIORITY
 
-Focus only on fixing:
+Complete this docs reconciliation, then move to a separately approved,
+source-backed catalog/data superiority pass. Current runtime priorities remain:
 
-* Sky Engine parity behavior across core runtime modules
-* correct engine ownership and routing
-* meaningful object selection/detail behavior within Sky Engine
-* `/sky-engine` viewport runtime correctness
-* replacing local heuristics where Stellarium source defines behavior
+* preserve exact object identity and centering at `/oras-sky-engine/`
+* expand catalog depth through scalable ingestion and indexes
+* improve high-definition imagery without overstating survey coverage
+* keep DSS as the safe full-sky fallback, not the long-term visual ceiling
+* keep Pan-STARRS query-only and experimental
+* preserve validated satellite and solar-system behavior
 
 ---
 
 ## KNOWN ISSUES
 
-* parity gaps across interaction shell and module behavior
-* object ownership/routing mismatches in some detail paths
-* non-parity heuristics still present in parts of the runtime
-* validation coverage incomplete for parity-sensitive behaviors
+* Gaia DR3-scale ingestion and zoom-aware star delivery are not complete
+* DSO media and higher-definition imagery remain incomplete
+* Pan-STARRS does not provide safe full-sky default coverage
+* WordPress consumption of `/api/above-me` has not started
 
 ---
 
@@ -93,6 +96,8 @@ And:
 * hub mounts engines but does not own engine runtimes
 * backend owns meaning
 * contracts must be deterministic
+* `/api/above-me` is the public object-discovery contract
+* `/api/v1/scene/above-me` is legacy scene support, not the future public product API
 
 ---
 
@@ -107,7 +112,11 @@ Do NOT:
 * bypass contracts
 * create placeholder UI
 * simulate correctness without validation
-* implement or refactor Hub home-route (`/`) panels/viewport until parity is complete
+* implement or refactor Hub home-route (`/`) panels/viewport without explicit approval
+* fabricate catalog, coordinate, visibility, magnitude, or survey data
+* commit raw Gaia bulk or giant browser catalog dumps
+* bake bulk skydata into Docker images
+* add the full upstream vendor tree when only maintained runtime sources are needed
 
 ---
 
@@ -137,19 +146,17 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-Continue Stellarium parity work in `/sky-engine` until:
+After this docs-only reconciliation, prepare a bounded catalog/data superiority
+pass for `/oras-sky-engine/` and `/api/above-me` that:
 
-* core behavior matches source-defined math, thresholds, and lifecycle
-* routing is correct
-* viewport behavior is validated in runtime
-* detail is meaningful
-* Sky Engine ownership is fully isolated and stable
+* uses source-backed, license-compatible inputs
+* keeps large catalogs tiled, indexed, mounted, or streamed
+* preserves `catalog + source_id + model` identity
+* keeps Gaia and other large identifiers as strings
+* validates runtime impact before claiming parity
 
-Only then:
-
-```text
-unlock Hub integration work on '/'
-```
+Do not start the Gaia DR3 importer, WordPress integration, or Hub homepage work
+without a separately approved task.
 
 ---
 

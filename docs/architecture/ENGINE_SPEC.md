@@ -137,9 +137,13 @@ A primary engine may be mounted inside the Hub viewport, but the mounted surface
 Primary engine ownership includes:
 
 * render loop ownership
-* BabylonJS scene ownership
+* renderer-specific scene ownership
 * internal module graph ownership
 * engine-internal observer / projection / navigation services
+
+The active Sky Engine owns a contained Stellarium Web / Stellarium Web Engine
+runtime at `/oras-sky-engine/`. It must not be replaced by another renderer or
+moved into the Hub renderer.
 
 The host may provide:
 

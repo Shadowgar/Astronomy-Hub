@@ -78,13 +78,13 @@ They do NOT define build order.
 * constellations
 * visible planets
 * deep sky objects
-* self-contained Stellarium-like runtime structure
+* contained Stellarium Web / Stellarium Web Engine runtime at `/oras-sky-engine/`
 
 ---
 
 ### 3. Scene Rendering
 
-* Babylon.js engine-owned rendering
+* engine-owned rendering; the active Sky Engine uses contained Stellarium Web Engine
 * interactive viewport
 * object selection and focus
 * thin host ↔ engine mount interfaces
@@ -96,6 +96,8 @@ They do NOT define build order.
 * multi-engine aggregation
 * ranking and filtering
 * visibility logic
+* public discovery through `/api/above-me`
+* stable links into `/oras-sky-engine/`
 
 ---
 

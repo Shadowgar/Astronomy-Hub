@@ -157,10 +157,9 @@ User interacts
 
 Responsibilities:
 
-* rendering (Babylon / WebGL / visualization layer)
+* hosting engine-owned rendering surfaces
 * interaction handling
-* scene control
-* engine switching
+* routing and engine switching
 * UI composition
 
 ---

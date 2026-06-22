@@ -282,7 +282,7 @@ Legacy docs:
 Frontend work must start from:
 
 ```text
-Sky Engine + Babylon.js
+Hub decision layer + contained ORAS Stellarium runtime at /oras-sky-engine/
 ```
 
 ---
