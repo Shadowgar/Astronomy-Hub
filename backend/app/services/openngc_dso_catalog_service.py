@@ -8,6 +8,10 @@ from pathlib import Path
 import re
 from typing import Any
 
+from backend.app.services.catalog_registry_service import (
+    CatalogAliasExpansion,
+    expand_source_backed_aliases,
+)
 from backend.app.services.sky_engine_links import build_sky_engine_object_url
 from backend.app.services.sky_object_enrichment import caldwell_aliases, enrich_openngc_payload
 
@@ -176,6 +180,7 @@ def _to_search_payload(record: dict[str, Any]) -> dict[str, Any]:
     magnitude = record.get("magnitude")
     aliases = list(record.get("aliases") or [])
     aliases.extend(caldwell_aliases(record))
+    aliases.extend(_catalog_alias_expansion(record).aliases)
     payload = {
         "catalog": record["catalog"],
         "source_id": str(record["source_id"]),
@@ -205,10 +210,20 @@ def _to_search_payload(record: dict[str, Any]) -> dict[str, Any]:
 def _search_aliases(record: dict[str, Any]) -> list[str]:
     aliases = list(record.get("aliases") or [])
     aliases.extend(caldwell_aliases(record))
+    aliases.extend(_catalog_alias_expansion(record).aliases)
     aliases.extend(record.get("names") or [])
     aliases.append(record.get("display_name"))
     aliases.append(_spaced_catalog_id(str(record.get("source_id") or "")))
     return [alias for alias in aliases if str(alias or "").strip()]
+
+
+def _catalog_alias_expansion(record: dict[str, Any]) -> CatalogAliasExpansion:
+    return expand_source_backed_aliases(
+        [
+            *(record.get("identifiers") or []),
+            *(record.get("aliases") or []),
+        ]
+    )
 
 
 def _read_json(path: Path) -> dict[str, Any]:

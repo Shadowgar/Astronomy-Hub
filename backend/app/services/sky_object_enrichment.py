@@ -3,6 +3,11 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from backend.app.services.catalog_registry_service import (
+    CatalogAliasExpansion,
+    expand_source_backed_aliases,
+)
+
 
 OPENNGC_SOURCE_ATTRIBUTION = {
     "name": "OpenNGC",
@@ -34,7 +39,14 @@ OBJECT_TYPE_LABELS = {
 
 def enrich_openngc_payload(payload: dict[str, Any], record: dict[str, Any]) -> dict[str, Any]:
     enriched = dict(payload)
-    aliases = _unique([*(record.get("aliases") or []), *caldwell_aliases(record)])
+    catalog_aliases = _catalog_alias_expansion(record)
+    aliases = _unique(
+        [
+            *(record.get("aliases") or []),
+            *caldwell_aliases(record),
+            *catalog_aliases.aliases,
+        ]
+    )
     common_names = list(record.get("common_names") or [])
     object_type = str(record.get("object_type") or "dso")
 
@@ -46,12 +58,23 @@ def enrich_openngc_payload(payload: dict[str, Any], record: dict[str, Any]) -> d
             "object_type_label": object_type_label(object_type),
             "description": None,
             "observing_notes": None,
-            "source_attribution": [dict(OPENNGC_SOURCE_ATTRIBUTION)],
+            "catalog_family": "deep_sky_object",
+            "source_attribution": [
+                dict(OPENNGC_SOURCE_ATTRIBUTION),
+                *[dict(source) for source in catalog_aliases.source_attribution],
+            ],
             "data_sources": {
                 "identity": ["OpenNGC"],
                 "position": ["OpenNGC"],
                 "photometry": ["OpenNGC"],
-                "aliases": ["OpenNGC"],
+                "aliases": [
+                    "OpenNGC",
+                    *[
+                        str(source.get("name"))
+                        for source in catalog_aliases.source_attribution
+                        if source.get("name")
+                    ],
+                ],
                 "upstream": ["NED", "HyperLEDA", "SIMBAD", "HEASARC"],
             },
             "enrichment_status": {
@@ -86,16 +109,19 @@ def enrich_messier_payload(payload: dict[str, Any], openngc_record: dict[str, An
     if not openngc_record:
         return enriched
 
+    catalog_aliases = _catalog_alias_expansion(openngc_record)
     aliases = _unique(
         [
             *(payload.get("names") or []),
             *(openngc_record.get("aliases") or []),
             *caldwell_aliases(openngc_record),
+            *catalog_aliases.aliases,
         ]
     )
     common_names = list(openngc_record.get("common_names") or [])
     source_attribution = list(enriched["source_attribution"])
     source_attribution.append(dict(OPENNGC_SOURCE_ATTRIBUTION))
+    source_attribution.extend(dict(source) for source in catalog_aliases.source_attribution)
     enriched.update(
         {
             "aliases": aliases,
@@ -112,7 +138,15 @@ def enrich_messier_payload(payload: dict[str, Any], openngc_record: dict[str, An
                 "identity": ["Messier local seed"],
                 "position": ["Messier local seed", "OpenNGC"],
                 "photometry": ["Messier local seed", "OpenNGC"],
-                "aliases": ["Messier local seed", "OpenNGC"],
+                "aliases": [
+                    "Messier local seed",
+                    "OpenNGC",
+                    *[
+                        str(source.get("name"))
+                        for source in catalog_aliases.source_attribution
+                        if source.get("name")
+                    ],
+                ],
                 "upstream": ["NED", "HyperLEDA", "SIMBAD", "HEASARC"],
             },
         }
@@ -140,6 +174,15 @@ def caldwell_aliases(record: dict[str, Any]) -> list[str]:
             ]
         )
     return _unique(aliases)
+
+
+def _catalog_alias_expansion(record: dict[str, Any]) -> CatalogAliasExpansion:
+    return expand_source_backed_aliases(
+        [
+            *(record.get("identifiers") or []),
+            *(record.get("aliases") or []),
+        ]
+    )
 
 
 def object_type_label(object_type: str | None) -> str:
