@@ -108,10 +108,14 @@ Rules:
 
 For a primary engine:
 
-* the engine may own its own BabylonJS runtime
+* the engine owns its renderer-specific runtime
 * the engine owns its render loop and internal module graph
 * the host provides mount surface, context, and routing only
 * the host must not absorb engine-internal rendering behavior
+
+The active ORAS Sky Engine is the contained Stellarium Web / Stellarium Web
+Engine runtime at `/oras-sky-engine/`. Other future engines may select a
+different renderer only when explicitly authorized.
 
 ---
 
@@ -167,10 +171,9 @@ User interacts
 
 Responsibilities:
 
-* rendering (Babylon / WebGL / visualization layer)
+* hosting engine-owned rendering surfaces
 * interaction handling
-* scene control
-* engine switching
+* routing and engine switching
 * UI composition
 
 ---

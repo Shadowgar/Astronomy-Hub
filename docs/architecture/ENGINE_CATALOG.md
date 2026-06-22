@@ -41,7 +41,7 @@ This is the **default engine of the system** and the foundation of the "Above Me
 
 ### Visualization
 
-* self-contained Babylon.js sky runtime
+* contained Stellarium Web / Stellarium Web Engine runtime at `/oras-sky-engine/`
 
 ### Responsibilities
 
@@ -53,10 +53,10 @@ This is the **default engine of the system** and the foundation of the "Above Me
 
 ### Notes
 
-* All “Above Me” rendering originates from this engine
-* Other engines may feed data into this context, but do not replace it
+* `/api/above-me` provides curated discovery; the Sky Engine renders selected sky objects
+* Other engines may provide source-backed candidates, but do not control Sky Engine rendering
 * Sky Engine must remain self-contained and mounted through thin Hub interfaces
-* Target internal shape is Stellarium-like: core → observer → projection → modules → render
+* The runtime follows Stellarium's own core → observer → projection → modules → render lifecycle
 
 ---
 
@@ -322,8 +322,8 @@ Conditions Engine (Primary + Sub)
 | Star               | Sky Engine                       |
 | Planet (sky view)  | Sky Engine                       |
 | Planet (deep view) | Solar System Engine              |
-| Deep Sky Object    | Deep Sky Engine                  |
-| Satellite          | Earth Engine → Satellite Layer   |
+| Deep Sky Object    | Sky Engine (current sky view)    |
+| Satellite          | Sky Engine (current sky view)    |
 | Flight             | Earth Engine → Flight Layer      |
 | Conditions         | Conditions Engine OR Earth Layer |
 | Solar Event        | Solar Engine                     |
@@ -334,7 +334,7 @@ Conditions Engine (Primary + Sub)
 
 Primary engines own rendering context:
 
-* Sky Engine → sky rendering (Babylon.js)
+* Sky Engine → contained Stellarium Web Engine rendering
 * Earth Engine → globe rendering
 * Solar System Engine → planetary rendering
 * Solar Engine → solar visualization

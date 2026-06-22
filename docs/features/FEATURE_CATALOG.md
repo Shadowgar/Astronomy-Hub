@@ -61,7 +61,7 @@ A feature represents a user-visible capability, not a system component.
 
 ### 3. Scene Rendering (Viewport System)
 
-* Babylon.js rendering
+* engine-owned rendering; Stellarium Web Engine for the active Sky Engine
 * active engine viewport
 * object interaction
 * scene transitions
