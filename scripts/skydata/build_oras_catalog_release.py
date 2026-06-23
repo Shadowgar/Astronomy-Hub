@@ -9,6 +9,8 @@ from scripts.skydata.catalog_pack import (
     build_catalog_release,
     validate_catalog_release,
 )
+from scripts.skydata.catalog_sources.acquisition import default_release_inputs
+from scripts.skydata.catalog_sources.release import build_source_release
 
 
 def build_from_config(config_path: str | Path, output_root: str | Path) -> dict:
@@ -43,13 +45,30 @@ def build_from_config(config_path: str | Path, output_root: str | Path) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build mounted ORAS catalog release packs")
-    parser.add_argument("config", type=Path)
+    parser.add_argument("config", type=Path, nargs="?")
     parser.add_argument("--output", type=Path, default=Path("data/runtime-packs/catalog-packs"))
+    parser.add_argument("--source-backed", action="store_true")
+    parser.add_argument(
+        "--source-root",
+        type=Path,
+        default=Path("data/catalog-sources/oras-major-catalog-update-1"),
+    )
+    parser.add_argument("--repo-root", type=Path, default=Path("."))
+    parser.add_argument("--release-version", default="2026.06.1")
     parser.add_argument("--validate-only", action="store_true")
     args = parser.parse_args()
 
     if not args.validate_only:
-        manifest = build_from_config(args.config, args.output)
+        if args.source_backed:
+            manifest = build_source_release(
+                default_release_inputs(args.source_root, args.repo_root),
+                args.output,
+                release_version=args.release_version,
+            )
+        elif args.config:
+            manifest = build_from_config(args.config, args.output)
+        else:
+            parser.error("config is required unless --source-backed is used")
         print(json.dumps(manifest, indent=2, sort_keys=True))
     errors = validate_catalog_release(args.output)
     if errors:
