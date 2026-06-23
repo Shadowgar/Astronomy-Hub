@@ -11,6 +11,7 @@ import _ from 'lodash'
 import StelWebEngine from '@/assets/js/stellarium-web-engine.js'
 import Moment from 'moment'
 import { ORAS_OBJECT_MEDIA_ROOT, buildOrasObjectLookupUrl, buildOrasSearchUrl, normalizeOrasSearchQuery, toOrasSkySource } from '@/assets/oras_data_config.js'
+import { orasCatalogPacks } from '@/assets/oras_catalog_packs.js'
 
 var DDDate = Date
 DDDate.prototype.getJD = function () {
@@ -553,14 +554,35 @@ const swh = {
       return Promise.resolve([])
     }
 
+    const packResults = orasCatalogPacks.search(normalized, limit).map(toOrasSkySource).filter(Boolean)
+
     return this.fetchOrasSkySearch(normalized).then(searchResponse => {
-      if (searchResponse.results.length) {
-        return searchResponse.results.slice(0, limit)
-      }
-      return this.localQueryResults(normalized, limit)
+      return this.mergeSkySourceResults(
+        searchResponse.results,
+        packResults,
+        this.localQueryResults(normalized, limit)
+      ).slice(0, limit)
     }, () => {
-      return this.localQueryResults(normalized, limit)
+      return this.mergeSkySourceResults(packResults, this.localQueryResults(normalized, limit)).slice(0, limit)
     })
+  },
+
+  mergeSkySourceResults: function (...groups) {
+    const results = []
+    const identities = new Set()
+    for (const group of groups) {
+      for (const result of group || []) {
+        const identity = [result.catalog, result.source_id, result.model]
+          .map(value => String(value || '').trim().toLowerCase())
+          .join('\u0000')
+        const fallbackIdentity = String((result.names && result.names[0]) || result.match || '').trim().toLowerCase()
+        const key = identity === '\u0000\u0000' ? fallbackIdentity : identity
+        if (!key || identities.has(key)) continue
+        identities.add(key)
+        results.push(result)
+      }
+    }
+    return results
   },
 
   skySourceMatchesIdentity: function (ss, identity) {

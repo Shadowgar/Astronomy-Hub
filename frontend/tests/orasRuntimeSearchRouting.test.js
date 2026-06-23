@@ -42,6 +42,45 @@ const targetSearchPath = path.resolve(
 )
 
 describe('oras runtime search routing', () => {
+  it('preserves source-backed catalog-pack enrichment through SWE materialization', () => {
+    const sourceId = '5853498713190525696'
+    const skySource = toOrasSkySource({
+      catalog: 'Gaia DR3',
+      source_id: sourceId,
+      model: 'star',
+      display_name: `Gaia DR3 ${sourceId}`,
+      names: [`Gaia DR3 ${sourceId}`],
+      aliases: [`Gaia ${sourceId}`],
+      common_names: ['Release star'],
+      catalog_ids: [`Gaia DR3 ${sourceId}`],
+      category: 'stars',
+      object_type: 'star',
+      types: ['*'],
+      ra: 217.392,
+      dec: -62.676,
+      magnitude: 7.1,
+      color_index: 0.82,
+      spectral_type: 'G2V',
+      mass_solar: 1.02,
+      source_attribution: [{ name: 'ESA Gaia Archive', source_key: 'gaia_dr3' }],
+      pack_id: 'stars-core',
+      pack_version: '2026.06',
+      indexed: true,
+      status: 'indexed'
+    })
+
+    expect(skySource.source_id).toBe(sourceId)
+    expect(skySource.names).toContain('Release star')
+    expect(skySource.aliases).toContain(`Gaia ${sourceId}`)
+    expect(skySource.source_attribution[0].source_key).toBe('gaia_dr3')
+    expect(skySource.pack_id).toBe('stars-core')
+    expect(skySource.pack_version).toBe('2026.06')
+    expect(skySource.category).toBe('stars')
+    expect(skySource.spectral_type).toBe('G2V')
+    expect(skySource.mass_solar).toBe(1.02)
+    expect(skySource.model_data.spect_t).toBe('G2V')
+    expect(skySource.model_data.oras_pack_id).toBe('stars-core')
+  })
   it('uses only local ORAS runtime and backend paths in config', () => {
     expect(ORAS_DATA_ROOT).toBe('/oras-sky-engine/skydata')
     expect(ORAS_BUNDLED_DSS_SURVEY_ROOT).toBe('/oras-sky-engine/skydata/surveys/dss/v1')
@@ -521,7 +560,9 @@ describe('oras runtime search routing', () => {
     expect(source).toContain('fetchOrasSkySearch: function (query)')
     expect(source).toContain('fetchOrasSkySourceByIdentity: function ({ catalog, sourceId, model, time, lat, lng, elev })')
     expect(source).toContain('return fetch(searchUrl, {')
-    expect(source).toContain('return this.localQueryResults(normalized, limit)')
+    expect(source).toContain(
+      'this.mergeSkySourceResults(packResults, this.localQueryResults(normalized, limit))',
+    )
     expect(source).not.toContain('api.noctuasky.com')
     expect(source).not.toContain('nominatim')
     expect(source).not.toContain('wikipedia.org')

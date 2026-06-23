@@ -75,7 +75,7 @@ import _ from 'lodash'
 import Gui from '@/components/gui.vue'
 import GuiLoader from '@/components/gui-loader.vue'
 import OrasCatalogStatusDialog from '@/components/oras-catalog-status-dialog.vue'
-import { ORAS_BUNDLED_GAIA_SURVEY_ROOT, listOrasPackRoots, resolveOrasDssSurveyUrl, withOrasRouteIdentityFallback } from '@/assets/oras_data_config.js'
+import { ORAS_BUNDLED_GAIA_SURVEY_ROOT, listOrasPackRoots, resolveOrasDssSurveyUrl, toOrasSkySource, withOrasRouteIdentityFallback } from '@/assets/oras_data_config.js'
 import { orasCatalogPacks } from '@/assets/oras_catalog_packs.js'
 import swh from '@/assets/sw_helpers.js'
 import Moment from 'moment'
@@ -99,7 +99,8 @@ export default {
       startTimeIsSet: false,
       initDone: false,
       dataSourceInitDone: false,
-      showCatalogPacks: false
+      showCatalogPacks: false,
+      orasOverlayObjects: []
     }
   },
   components: { Gui, GuiLoader, OrasCatalogStatusDialog },
@@ -241,6 +242,18 @@ export default {
       }
 
       window.open(window.location.href, '_blank', 'noopener,noreferrer')
+    },
+    materializeOrasCatalogOverlays: function () {
+      for (const record of orasCatalogPacks.overlayRecords()) {
+        const source = toOrasSkySource(record)
+        if (!source || !['star', 'dso'].includes(source.model)) continue
+        if (swh.skySource2SweObj(source)) continue
+        const obj = this.$stel.createObj(source.model, source)
+        if (!obj) continue
+        obj.__orasSkySourceData = source
+        this.$selectionLayer.add(obj)
+        this.orasOverlayObjects.push(obj)
+      }
     },
     setStateFromQueryArgs: function () {
       // Check whether the observing panel must be displayed
@@ -531,6 +544,7 @@ export default {
             core.satellites.addDataSource({ url: bundledDataBase + '/tle_satellite.jsonl.gz', key: 'jsonl/sat' })
             core.satellites.hints_mag_offset = 2
             that.dataSourceInitDone = true
+            orasCatalogPacks.load().then(() => that.materializeOrasCatalogOverlays())
           }
         })
       } catch (e) {

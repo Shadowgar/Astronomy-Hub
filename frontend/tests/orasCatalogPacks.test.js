@@ -15,6 +15,22 @@ const statusDialogPath = path.resolve(
   process.cwd(),
   '../vendor/stellarium-web-engine/apps/web-frontend/src/components/oras-catalog-status-dialog.vue'
 )
+const searchComponentPath = path.resolve(
+  process.cwd(),
+  '../vendor/stellarium-web-engine/apps/web-frontend/src/components/skysource-search.vue'
+)
+const detailComponentPath = path.resolve(
+  process.cwd(),
+  '../vendor/stellarium-web-engine/apps/web-frontend/src/components/selected-object-info.vue'
+)
+const targetSearchPath = path.resolve(
+  process.cwd(),
+  '../vendor/stellarium-web-engine/apps/web-frontend/src/components/target-search.vue'
+)
+const swHelpersPath = path.resolve(
+  process.cwd(),
+  '../vendor/stellarium-web-engine/apps/web-frontend/src/assets/sw_helpers.js'
+)
 
 function record (overrides = {}) {
   return Object.assign({
@@ -97,6 +113,7 @@ describe('ORAS catalog pack runtime', () => {
       pack_id: 'stars-core'
     })
     expect(typeof results[0].source_id).toBe('string')
+    expect(manager.overlayRecords()).toHaveLength(1)
   })
 
   it('fails a bad pack independently without throwing from runtime startup', async () => {
@@ -134,5 +151,25 @@ describe('ORAS catalog pack runtime', () => {
     expect(dialogSource).toContain('Loaded objects')
     expect(dialogSource).toContain('Data source')
     expect(dialogSource).toContain('Generated')
+  })
+
+  it('wires direct pack search, catalog badges, enhanced details, and overlay materialization', () => {
+    const appSource = fs.readFileSync(appVuePath, 'utf8')
+    const searchSource = fs.readFileSync(searchComponentPath, 'utf8')
+    const detailSource = fs.readFileSync(detailComponentPath, 'utf8')
+    const targetSource = fs.readFileSync(targetSearchPath, 'utf8')
+    const helperSource = fs.readFileSync(swHelpersPath, 'utf8')
+
+    expect(helperSource).toContain('orasCatalogPacks.search(normalized, limit)')
+    expect(helperSource).toContain('mergeSkySourceResults')
+    expect(searchSource).toContain('source.catalog')
+    expect(searchSource).toContain('ORAS Enhanced')
+    expect(detailSource).toContain('ORAS Enhanced')
+    expect(detailSource).toContain('Source attribution')
+    expect(detailSource).toContain('Unavailable from mounted sources')
+    expect(targetSource).toContain('obj.__orasSkySourceData = ss')
+    expect(targetSource).toContain('swh.setSweObjAsSelection(obj, ss)')
+    expect(appSource).toContain('materializeOrasCatalogOverlays')
+    expect(appSource).toContain('orasCatalogPacks.overlayRecords()')
   })
 })

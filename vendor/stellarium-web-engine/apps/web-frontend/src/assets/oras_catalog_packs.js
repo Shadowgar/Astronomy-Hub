@@ -163,13 +163,27 @@ export function createOrasCatalogPackManager (options = {}) {
     return match ? Object.assign({}, match) : undefined
   }
 
+  function overlayRecords () {
+    const results = []
+    for (const pack of snapshot.packs.filter(pack => pack.status === 'loaded')) {
+      const manifestPack = records.filter(record => record.pack_id === pack.packId)
+      const limit = manifestPack.length ? Number(manifestPack[0].pack_overlay_limit) || 0 : 0
+      results.push(...manifestPack
+        .filter(record => record.render_hint !== 'hidden')
+        .sort((a, b) => magnitude(a) - magnitude(b) || a.display_name.localeCompare(b.display_name))
+        .slice(0, limit)
+        .map(record => Object.assign({}, record)))
+    }
+    return results
+  }
+
   function subscribe (listener) {
     listeners.add(listener)
     listener(getSnapshot())
     return () => listeners.delete(listener)
   }
 
-  return { load, search, find, subscribe, getSnapshot }
+  return { load, search, find, overlayRecords, subscribe, getSnapshot }
 }
 
 function validateManifest (manifest) {
@@ -197,6 +211,7 @@ function validateRecord (record, pack) {
     dec: Number(record.dec),
     pack_id: String(pack.pack_id),
     pack_version: String(pack.version),
+    pack_overlay_limit: Number(pack.overlay_limit) || 0,
     pack_sources: Array.isArray(pack.sources) ? pack.sources.map(source => Object.assign({}, source)) : [],
     indexed: true,
     status: 'indexed',

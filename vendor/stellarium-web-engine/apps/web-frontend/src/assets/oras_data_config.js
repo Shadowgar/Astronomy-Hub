@@ -280,6 +280,11 @@ function buildOrasModelData (result, model, sourceId) {
     provenance: result.provenance || null
   }
 
+  if (result.pack_id) modelData.oras_pack_id = result.pack_id
+  if (result.pack_version) modelData.oras_pack_version = result.pack_version
+  if (result.category) modelData.oras_category = result.category
+  if (result.source_attribution) modelData.oras_source_attribution = result.source_attribution
+
   if (normalizedModel === 'tle_satellite' && resultModelData) {
     Object.assign(modelData, resultModelData)
   }
@@ -298,6 +303,11 @@ function buildOrasModelData (result, model, sourceId) {
     if (plx != null) modelData.plx = plx
     if (pmRa != null) modelData.pm_ra = pmRa
     if (pmDe != null) modelData.pm_de = pmDe
+    if (result.spectral_type) modelData.spect_t = result.spectral_type
+    if (numberOrNull(result.color_index) != null) modelData.color_index = numberOrNull(result.color_index)
+    if (numberOrNull(result.mass_solar) != null) modelData.mass_solar = numberOrNull(result.mass_solar)
+    if (numberOrNull(result.radius_solar) != null) modelData.radius_solar = numberOrNull(result.radius_solar)
+    if (numberOrNull(result.temperature_k) != null) modelData.temperature_k = numberOrNull(result.temperature_k)
     modelData.epoch = 2000
   }
 
@@ -348,13 +358,19 @@ export function toOrasSkySource (result) {
   const isLocalMessierResult = String(result.catalog || '').toLowerCase().includes('messier')
   const skySourceModel = isLocalMessierResult ? 'dso' : 'star'
   const model = result.model || skySourceModel
-  const names = Array.isArray(result.names) && result.names.length
-    ? preferDisplayNameFirst(result.names, displayName)
+  const enrichedNames = [
+    ...(Array.isArray(result.names) ? result.names : []),
+    ...(Array.isArray(result.aliases) ? result.aliases : []),
+    ...(Array.isArray(result.common_names) ? result.common_names : []),
+    ...(Array.isArray(result.catalog_ids) ? result.catalog_ids : [])
+  ]
+  const names = enrichedNames.length
+    ? preferDisplayNameFirst(enrichedNames, displayName)
     : buildOrasNames(result, displayName, sourceId, isGaiaResult)
 
   const types = normalizeOrasSkySourceTypes(result.types, model)
 
-  return {
+  const skySource = {
     match: displayName,
     names,
     types,
@@ -365,12 +381,26 @@ export function toOrasSkySource (result) {
     display_name: displayName,
     ra: result.ra == null ? null : result.ra,
     dec: result.dec == null ? null : result.dec,
-    phot_g_mean_mag: result.phot_g_mean_mag == null ? null : result.phot_g_mean_mag,
+    phot_g_mean_mag: result.phot_g_mean_mag == null ? (result.magnitude == null ? null : result.magnitude) : result.phot_g_mean_mag,
     indexed: Boolean(result.indexed),
     status: result.status || null,
     message: result.message || null,
     provenance: result.provenance || null
   }
+
+  const enrichmentFields = [
+    'aliases', 'common_names', 'catalog_ids', 'category', 'object_type',
+    'source_attribution', 'pack_id', 'pack_version', 'pack_sources',
+    'magnitude', 'magnitude_band', 'color_index', 'spectral_type', 'parallax',
+    'distance_pc', 'proper_motion_ra', 'proper_motion_dec',
+    'radial_velocity_km_s', 'temperature_k', 'mass_solar', 'radius_solar',
+    'variability', 'angular_size', 'double_star', 'period_seconds', 'redshift',
+    'flux', 'candidate_status', 'description'
+  ]
+  enrichmentFields.forEach(field => {
+    if (result[field] != null) skySource[field] = result[field]
+  })
+  return skySource
 }
 
 export function withOrasRouteIdentityFallback (skySource, identity) {
