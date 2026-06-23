@@ -13,6 +13,10 @@ from backend.app.services.openngc_dso_catalog_service import (
     lookup_openngc_dso,
     search_openngc_dso,
 )
+from backend.app.services.catalog_pack_service import (
+    lookup_catalog_pack_object,
+    search_catalog_packs,
+)
 from backend.app.services.solar_system_catalog_service import (
     build_solar_system_object_payload,
     is_solar_system_identity,
@@ -314,6 +318,8 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
             "meta": {"match_type": "gaia_dr2_source_id"},
         }
 
+    pack_results = search_catalog_packs(query)
+
     if _is_compact_caldwell_query(query):
         openngc_results = search_openngc_dso(query)
         if openngc_results:
@@ -322,7 +328,7 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
                 "data": {
                     "query": query,
                     "recognized_query": False,
-                    "results": openngc_results,
+                    "results": _merge_search_results(openngc_results, pack_results),
                 },
                 "meta": {"match_type": "openngc_named_object"},
             }
@@ -334,7 +340,7 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
             "data": {
                 "query": query,
                 "recognized_query": False,
-                "results": local_results,
+                "results": _merge_search_results(local_results, pack_results),
             },
             "meta": {"match_type": "local_named_object"},
         }
@@ -346,7 +352,7 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
             "data": {
                 "query": query,
                 "recognized_query": False,
-                "results": openngc_results,
+                "results": _merge_search_results(openngc_results, pack_results),
             },
             "meta": {"match_type": "openngc_named_object"},
         }
@@ -356,7 +362,7 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
         "data": {
             "query": query,
             "recognized_query": False,
-            "results": [],
+            "results": pack_results,
         },
         "meta": {},
     }
@@ -419,7 +425,31 @@ def lookup_exact_object(
     if local_result:
         return local_result
 
+    try:
+        return lookup_catalog_pack_object(catalog, normalized_source_id, normalized_model)
+    except ValueError:
+        pass
+
     raise ValueError("object not found")
+
+
+def _merge_search_results(*groups: list[dict]) -> list[dict]:
+    merged: list[dict] = []
+    seen: set[tuple[str, str, str]] = set()
+    for group in groups:
+        for result in group:
+            identity = (
+                str(result.get("catalog") or "").strip().casefold(),
+                str(result.get("source_id") or "").strip().casefold(),
+                str(result.get("model") or "").strip().casefold(),
+            )
+            if identity in seen:
+                continue
+            seen.add(identity)
+            merged.append(result)
+            if len(merged) >= 10:
+                return merged
+    return merged
 
 
 def _not_indexed_payload(source_id: int) -> dict:
