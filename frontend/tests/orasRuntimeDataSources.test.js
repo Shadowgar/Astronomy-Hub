@@ -54,6 +54,13 @@ describe('oras runtime data sources', () => {
     expect(source).not.toContain('VUE_APP_ORAS_RUNTIME_REMOTE_DATA_BASE')
   })
 
+  it('loads mounted ORAS catalog packs directly in the runtime', () => {
+    const source = fs.readFileSync(appVuePath, 'utf8')
+
+    expect(source).toContain("import { orasCatalogPacks } from '@/assets/oras_catalog_packs.js'")
+    expect(source).toContain('orasCatalogPacks.load()')
+  })
+
   it('retries local skysource route selection after star pack registration', () => {
     const source = fs.readFileSync(appVuePath, 'utf8')
 
