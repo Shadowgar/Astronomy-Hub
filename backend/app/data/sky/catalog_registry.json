@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_key": "gaia_dr2",
+      "display_name": "Gaia DR2",
+      "catalog_family": "stellar_astrometry",
+      "source_authority": "ESA Gaia Archive",
+      "source_url": "https://gea.esac.esa.int/archive/",
+      "acquisition_method": "database-backed indexed import",
+      "license_note": "Gaia data policy and acknowledgement requirements apply.",
+      "enrichment_status": "partial_index"
+    },
+    {
+      "source_key": "gaia_dr3_pilot",
+      "display_name": "Gaia DR3 pilot",
+      "catalog_family": "stellar_astrometry",
+      "source_authority": "ESA Gaia Archive",
+      "source_url": "https://www.cosmos.esa.int/web/gaia/dr3",
+      "acquisition_method": "bounded manifest-driven pilot",
+      "license_note": "Gaia data policy and acknowledgement requirements apply.",
+      "enrichment_status": "manifest_only"
+    },
+    {
+      "source_key": "hipparcos_tier2_local",
+      "display_name": "Hipparcos Tier 2",
+      "catalog_family": "stellar_astrometry",
+      "source_authority": "ESA Hipparcos / CDS VizieR I/239",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "acquisition_method": "normalized local magnitude-bounded subset",
+      "license_note": "Catalog source acknowledgement required.",
+      "enrichment_status": "active"
+    },
+    {
+      "source_key": "bright_star_catalog",
+      "display_name": "Bright Star Catalogue",
+      "catalog_family": "bright_stars",
+      "source_authority": "Yale Bright Star Catalogue / CDS VizieR V/50",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/V/50",
+      "acquisition_method": "normalized local runtime data",
+      "license_note": "Catalog source acknowledgement required.",
+      "enrichment_status": "active"
+    },
+    {
+      "source_key": "messier_local_seed",
+      "display_name": "Messier local compatibility",
+      "catalog_family": "deep_sky_object",
+      "source_authority": "ORAS normalized Messier compatibility data",
+      "source_url": "https://github.com/Shadowgar/Astronomy-Hub",
+      "acquisition_method": "bounded compatibility records cross-enriched from OpenNGC",
+      "license_note": "Repository license applies; OpenNGC attribution applies to cross-enrichment.",
+      "enrichment_status": "active"
+    },
+    {
+      "source_key": "openngc_local",
+      "display_name": "OpenNGC",
+      "catalog_family": "deep_sky_object",
+      "source_authority": "OpenNGC by Mattia Verga",
+      "source_url": "https://github.com/mattiaverga/OpenNGC",
+      "acquisition_method": "normalized compact local catalog",
+      "license_note": "CC-BY-SA-4.0",
+      "enrichment_status": "active",
+      "supports_common_names": true,
+      "compact_id_normalization": true,
+      "optional_metadata_fields": [
+        "magnitude",
+        "angular_size",
+        "constellation",
+        "object_type"
+      ],
+      "importer_route": "scripts/skydata/build_openngc_dso_catalog.py"
+    },
+    {
+      "source_key": "lbn_vii_9",
+      "display_name": "Lynds Bright Nebula",
+      "catalog_family": "bright_nebula",
+      "source_authority": "CDS VizieR VII/9; Lynds (1965)",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VII/9",
+      "acquisition_method": "OpenNGC source-backed cross-identifiers only",
+      "license_note": "Cross-identifiers are distributed through OpenNGC under CC-BY-SA-4.0; cite Lynds (1965) and CDS VII/9 for the original catalog.",
+      "enrichment_status": "crossmatch_only",
+      "supports_common_names": false,
+      "compact_id_normalization": true,
+      "optional_metadata_fields": [
+        "angular_size",
+        "brightness",
+        "color",
+        "cross_ids"
+      ],
+      "importer_route": "planned:lbn_vii_9",
+      "prefix_patterns": [
+        {
+          "pattern": "^\\s*LBN\\s*0*([1-9][0-9]*)\\s*$",
+          "number_min": 1,
+          "number_max": 1125,
+          "alias_templates": [
+            "LBN {number}",
+            "LBN{number}",
+            "Lynds Bright Nebula {number}"
+          ]
+        }
+      ]
+    },
+    {
+      "source_key": "satellite_tle_local",
+      "display_name": "Satellite TLE",
+      "catalog_family": "artificial_satellite",
+      "source_authority": "local source-backed TLE feed",
+      "source_url": null,
+      "acquisition_method": "mounted compressed JSON Lines feed",
+      "license_note": "Upstream TLE provider attribution and redistribution terms apply.",
+      "enrichment_status": "active"
+    },
+    {
+      "source_key": "solar_system_jpl",
+      "display_name": "Solar System (JPL)",
+      "catalog_family": "solar_system",
+      "source_authority": "NASA/JPL ephemeris data",
+      "source_url": "https://ssd.jpl.nasa.gov/",
+      "acquisition_method": "validated ephemeris calculations",
+      "license_note": "NASA/JPL source acknowledgement applies.",
+      "enrichment_status": "active"
+    }
+  ]
+}

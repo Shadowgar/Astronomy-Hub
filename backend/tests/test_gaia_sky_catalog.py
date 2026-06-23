@@ -423,6 +423,36 @@ def test_search_endpoint_resolves_messier_spelling_alias(tmp_path: Path, monkeyp
     assert first["status"] == "indexed"
 
 
+def test_search_endpoint_resolves_source_backed_lbn_long_name(tmp_path: Path, monkeypatch) -> None:
+    _setup_database(tmp_path, monkeypatch)
+
+    response = client.get(
+        "/api/sky/search?q=Lynds%20Bright%20Nebula%20350",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    first = response.json()["data"]["results"][0]
+    assert first["catalog"] == "IC (OpenNGC)"
+    assert first["source_id"] == "IC5070"
+    assert "Lynds Bright Nebula 350" in first["aliases"]
+
+
+def test_exact_object_endpoint_exposes_lbn_source_attribution(tmp_path: Path, monkeypatch) -> None:
+    _setup_database(tmp_path, monkeypatch)
+
+    response = client.get(
+        "/api/sky/object?catalog=IC%20(OpenNGC)&source_id=IC5070&model=dso",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    data = response.json()["data"]
+    assert data["source_id"] == "IC5070"
+    assert "Lynds Bright Nebula 350" in data["aliases"]
+    assert any(source["source_key"] == "lbn_vii_9" for source in data["source_attribution"])
+
+
 def test_importer_dry_run_validates_temporary_sample_csv(tmp_path: Path) -> None:
     sample_path = tmp_path / "gaia_sample.csv"
     sample_path.write_text(

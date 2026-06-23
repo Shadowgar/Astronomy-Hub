@@ -103,6 +103,24 @@ def test_openngc_search_resolves_compact_caldwell_aliases() -> None:
     assert "Caldwell 6" in first["aliases"]
 
 
+def test_openngc_search_resolves_source_backed_lynds_bright_nebula_alias() -> None:
+    results = build_sky_search_payload("Lynds Bright Nebula 350")["data"]["results"]
+
+    assert results
+    first = results[0]
+    assert first["catalog"] == "IC (OpenNGC)"
+    assert first["source_id"] == "IC5070"
+    assert "LBN 350" in first["aliases"]
+    assert "LBN350" in first["aliases"]
+    assert "Lynds Bright Nebula 350" in first["aliases"]
+
+
+def test_openngc_search_does_not_invent_unknown_lynds_aliases() -> None:
+    results = build_sky_search_payload("Lynds Bright Nebula 99999")["data"]["results"]
+
+    assert results == []
+
+
 def test_compact_caldwell_query_rejects_unbounded_whitespace() -> None:
     assert _is_compact_caldwell_query(" C 006 ") is True
     assert _is_compact_caldwell_query("C109") is True
@@ -133,6 +151,19 @@ def test_openngc_exact_lookup_returns_source_backed_enrichment_fields() -> None:
     assert cats_eye["data_sources"]["identity"] == ["OpenNGC"]
     assert "HyperLEDA" in cats_eye["data_sources"]["upstream"]
     assert "SIMBAD" in cats_eye["data_sources"]["upstream"]
+
+
+def test_openngc_exact_lookup_exposes_source_backed_lbn_attribution() -> None:
+    pelican = lookup_openngc_dso("IC5070", catalog="IC (OpenNGC)")
+
+    assert pelican["catalog_family"] == "deep_sky_object"
+    assert "Lynds Bright Nebula 350" in pelican["aliases"]
+    assert "Lynds Bright Nebula" in pelican["data_sources"]["aliases"]
+    assert any(
+        source["source_key"] == "lbn_vii_9"
+        and source["source_url"] == "https://cdsarc.cds.unistra.fr/viz-bin/cat/VII/9"
+        for source in pelican["source_attribution"]
+    )
 
 
 def test_messier_exact_lookup_inherits_openngc_enrichment_without_replacing_identity() -> None:
