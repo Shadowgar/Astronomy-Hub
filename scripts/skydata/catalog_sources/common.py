@@ -87,6 +87,8 @@ def sexagesimal_ra(value: str) -> float | None:
         hours, minutes, seconds = (float(part) for part in value.strip().split(":"))
     except (TypeError, ValueError):
         return None
+    if not 0 <= hours < 24 or not 0 <= minutes < 60 or not 0 <= seconds < 60:
+        return None
     return (hours + minutes / 60 + seconds / 3600) * 15
 
 
@@ -96,5 +98,9 @@ def sexagesimal_dec(value: str) -> float | None:
     try:
         degrees, minutes, seconds = (float(part) for part in text.lstrip("+-").split(":"))
     except (TypeError, ValueError):
+        return None
+    if not 0 <= degrees <= 90 or not 0 <= minutes < 60 or not 0 <= seconds < 60:
+        return None
+    if degrees == 90 and (minutes != 0 or seconds != 0):
         return None
     return sign * (degrees + minutes / 60 + seconds / 3600)

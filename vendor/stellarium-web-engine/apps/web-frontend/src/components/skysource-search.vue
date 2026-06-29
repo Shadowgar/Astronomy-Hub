@@ -118,6 +118,15 @@ export default {
     }
     const guiParent = document.querySelector('stel') || document.body
     guiParent.addEventListener('click', onClick, false)
+    this.guiParent = guiParent
+    this.guiParentClickHandler = onClick
+  },
+  beforeDestroy: function () {
+    if (this.guiParent && this.guiParentClickHandler) {
+      this.guiParent.removeEventListener('click', this.guiParentClickHandler, false)
+    }
+    this.guiParent = undefined
+    this.guiParentClickHandler = undefined
   },
   directives: {
     clickOutside: vClickOutside.directive

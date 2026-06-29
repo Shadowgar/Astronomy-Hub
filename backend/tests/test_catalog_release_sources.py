@@ -4,12 +4,19 @@ import gzip
 import json
 from pathlib import Path
 
+import pytest
+
+from scripts.skydata.catalog_sources.common import sexagesimal_dec, sexagesimal_ra
 from scripts.skydata.catalog_sources.dsos import load_openngc, load_vizier_dsos
 from scripts.skydata.catalog_sources.doubles import load_wds
 from scripts.skydata.catalog_sources.stars import load_hipparcos, load_vizier_stars
 from scripts.skydata.catalog_sources.unusual import load_atnf, load_vizier_unusual
 from scripts.skydata.catalog_sources.release import CatalogReleaseInputs, build_source_release, drop_ambiguous_identities
-from scripts.skydata.catalog_sources.acquisition import VIZIER_ACQUISITIONS, default_release_inputs
+from scripts.skydata.catalog_sources.acquisition import (
+    VIZIER_ACQUISITIONS,
+    _validate_download_payload,
+    default_release_inputs,
+)
 
 
 def _write_vizier(path: Path, columns: list[str], rows: list[list[str]]) -> Path:
@@ -148,6 +155,14 @@ def test_unusual_adapters_cover_atnf_quasar_and_blackcat(tmp_path: Path) -> None
     assert quasar["object_type"] == "quasar"
     assert quasar["redshift"] == 0.845
 
+    zero_mag_path = _write_vizier(
+        tmp_path / "milliquas_zero.tsv",
+        ["_RAJ2000", "_DEJ2000", "Name", "Type", "Rmag", "Bmag", "z"],
+        [["0.0006286", "+35.5178439", "ZERO QSO", "Q", "0.0", "19.00", "0.1"]],
+    )
+    zero_mag = list(load_vizier_unusual(zero_mag_path, "milliquas"))[0]
+    assert zero_mag["magnitude"] == 0.0
+
     blackcat_path = _write_vizier(
         tmp_path / "blackcat.tsv",
         ["_RAJ2000", "_DEJ2000", "Name", "Dist", "Noutb"],
@@ -267,6 +282,29 @@ def test_acquisition_manifest_covers_required_release_families(tmp_path: Path) -
     assert inputs.atnf.name == "psrcat.db"
     expensive_profiles = {"gaia_dr3", "tycho2", "wds", "milliquas"}
     assert all(source.sort is None for source in VIZIER_ACQUISITIONS if source.profile in expensive_profiles)
+
+
+def test_vizier_download_validation_rejects_html_and_malformed_tsv(tmp_path: Path) -> None:
+    with pytest.raises(RuntimeError, match="HTML"):
+        _validate_download_payload(b"<html>blocked</html>", url="https://example.test", destination=tmp_path / "bad.tsv")
+
+    with pytest.raises(RuntimeError, match="expected VizieR TSV"):
+        _validate_download_payload(b"name,value\none,two\n", url="https://example.test", destination=tmp_path / "bad.tsv")
+
+    _validate_download_payload(
+        b"_RAJ2000\t_DEJ2000\tName\n1\t2\tok\n",
+        url="https://example.test",
+        destination=tmp_path / "good.tsv",
+    )
+
+
+def test_sexagesimal_parsers_reject_impossible_values() -> None:
+    assert sexagesimal_ra("04:37:15.9") is not None
+    assert sexagesimal_dec("-47:15:09") is not None
+    assert sexagesimal_ra("99:99:99") is None
+    assert sexagesimal_ra("24:00:00") is None
+    assert sexagesimal_dec("+90:00:01") is None
+    assert sexagesimal_dec("-91:00:00") is None
 
 
 def test_release_omits_ambiguous_source_identities_instead_of_fabricating_suffixes() -> None:

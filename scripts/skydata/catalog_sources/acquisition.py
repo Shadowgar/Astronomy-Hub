@@ -107,6 +107,7 @@ def _download(url: str, destination: Path) -> None:
         payload = response.read()
     if not payload:
         raise RuntimeError(f"empty catalog response from {url}")
+    _validate_download_payload(payload, url=url, destination=destination)
     destination.with_suffix(destination.suffix + ".tmp").write_bytes(payload)
     destination.with_suffix(destination.suffix + ".tmp").replace(destination)
 
@@ -135,3 +136,17 @@ def _file_manifest(path: Path, url: str, profile: str, family: str) -> dict:
         "byte_size": len(payload),
         "sha256": hashlib.sha256(payload).hexdigest(),
     }
+
+
+def _validate_download_payload(payload: bytes, *, url: str, destination: Path) -> None:
+    if destination.suffix != ".tsv":
+        return
+    try:
+        text = payload[:4096].decode("utf-8", errors="strict")
+    except UnicodeDecodeError as error:
+        raise RuntimeError(f"catalog response from {url} is not UTF-8 TSV") from error
+    normalized = text.lstrip().lower()
+    if normalized.startswith("<!doctype") or normalized.startswith("<html") or "<html" in normalized[:512]:
+        raise RuntimeError(f"catalog response from {url} looks like HTML, not TSV")
+    if "_RAJ2000" not in text or "_DEJ2000" not in text or "\t" not in text:
+        raise RuntimeError(f"catalog response from {url} does not look like expected VizieR TSV")

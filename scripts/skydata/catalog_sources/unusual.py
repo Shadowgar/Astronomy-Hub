@@ -75,7 +75,9 @@ def load_vizier_unusual(path: str | Path, profile: str) -> Iterable[dict]:
                 source_url="https://cdsarc.cds.unistra.fr/viz-bin/cat/VII/290",
                 license_note="Cite Milliquas v7.2, Flesch (2021), and the CDS catalogue.",
             )
-            magnitude = finite(row.get("Rmag")) or finite(row.get("Bmag"))
+            magnitude = finite(row.get("Rmag"))
+            if magnitude is None:
+                magnitude = finite(row.get("Bmag"))
             if magnitude is not None:
                 record["magnitude"] = magnitude
             redshift = finite(row.get("z"))

@@ -544,7 +544,11 @@ export default {
             core.satellites.addDataSource({ url: bundledDataBase + '/tle_satellite.jsonl.gz', key: 'jsonl/sat' })
             core.satellites.hints_mag_offset = 2
             that.dataSourceInitDone = true
-            orasCatalogPacks.load().then(() => that.materializeOrasCatalogOverlays())
+            orasCatalogPacks.load()
+              .then(() => that.materializeOrasCatalogOverlays())
+              .catch(error => {
+                console.warn('Failed to materialize ORAS catalog overlays', error)
+              })
           }
         })
       } catch (e) {

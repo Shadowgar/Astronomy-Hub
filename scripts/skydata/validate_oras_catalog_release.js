@@ -6,7 +6,7 @@ const baseUrl = process.env.ORAS_SKY_ENGINE_BASE_URL || 'http://127.0.0.1:4173/o
 const apiBaseUrl = process.env.ORAS_API_BASE_URL || 'http://127.0.0.1:8000'
 const timeoutMs = Number(process.env.ORAS_CATALOG_RELEASE_TIMEOUT_MS || 240000)
 const artifactRoot = path.resolve(process.env.ORAS_CATALOG_RELEASE_ARTIFACT_DIR || 'output/playwright/catalog-release')
-const expectedSatelliteMessage = 'Parsed 14281 satellites'
+const satelliteParsePattern = /Parsed (\d+) satellites/
 
 const apiSearchCases = [
   { query: 'M31', expected: 'Andromeda Galaxy' },
@@ -64,10 +64,16 @@ function apiUrl (route) {
 }
 
 async function fetchJson (url) {
-  const response = await fetch(url)
-  const body = await response.json().catch(() => ({}))
-  if (!response.ok) throw new Error(`${url} returned ${response.status}: ${JSON.stringify(body)}`)
-  return body
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    const response = await fetch(url, { signal: controller.signal })
+    const body = await response.json().catch(() => ({}))
+    if (!response.ok) throw new Error(`${url} returned ${response.status}: ${JSON.stringify(body)}`)
+    return body
+  } finally {
+    clearTimeout(timeout)
+  }
 }
 
 async function validateApi () {
@@ -168,12 +174,16 @@ async function validateBrowser () {
       await selectSearchResult(page, testCase)
     }
     await page.waitForFunction(
-      expected => performance.getEntriesByType('resource').some(entry => entry.name.includes('tle_satellite.jsonl.gz')) || document.body.innerText.includes(expected),
-      expectedSatelliteMessage,
+      () => performance.getEntriesByType('resource').some(entry => entry.name.includes('tle_satellite.jsonl.gz')),
+      null,
       { timeout: timeoutMs }
     )
-    const satelliteMessage = consoleMessages.find(message => message.includes(expectedSatelliteMessage))
-    if (!satelliteMessage) throw new Error(`${expectedSatelliteMessage} was not logged`)
+    const satelliteMessage = consoleMessages.find(message => satelliteParsePattern.test(message))
+    if (!satelliteMessage) throw new Error('satellite parse count was not logged')
+    const satelliteCount = Number((satelliteMessage.match(satelliteParsePattern) || [])[1])
+    if (!Number.isFinite(satelliteCount) || satelliteCount < 1) {
+      throw new Error(`invalid satellite parse count: ${satelliteMessage}`)
+    }
     if (fatalErrors.length) throw new Error(`fatal browser errors: ${fatalErrors.join(' | ')}`)
     const forbidden = consoleMessages.find(message => /Cannot uncompress gz file|Parsed -1 satellites|Failed to resolve exact sky source route/i.test(message))
     if (forbidden) throw new Error(`forbidden runtime console message: ${forbidden}`)

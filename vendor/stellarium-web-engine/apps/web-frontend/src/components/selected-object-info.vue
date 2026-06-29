@@ -53,10 +53,13 @@
       <template v-for="item in items">
         <v-row style="width: 100%" :key="item.key" no-gutters>
           <v-col cols="4" style="color: #dddddd">{{ item.key }}</v-col>
-          <v-col cols="8" style="font-weight: 500" class="white--text"><span v-html="item.value"></span></v-col>
+          <v-col cols="8" style="font-weight: 500" class="white--text">
+            <span v-if="item.html" v-html="item.value"></span>
+            <span v-else>{{ item.value }}</span>
+          </v-col>
         </v-row>
       </template>
-      <div style="margin-top: 15px" class="white--text" v-html="wikipediaSummary"></div>
+      <div style="margin-top: 15px" class="white--text">{{ wikipediaSummary }}</div>
     </v-card-text>
     <v-card-actions style="margin-top: -25px">
       <v-spacer/>
@@ -112,7 +115,10 @@ export default {
       shareLink: undefined,
       showShareLinkDialog: false,
       copied: false,
-      items: []
+      items: [],
+      windowMouseupHandler: undefined,
+      timer: undefined,
+      zoomTimeout: undefined
     }
   },
   computed: {
@@ -179,12 +185,12 @@ export default {
     },
     wikipediaSummary: function () {
       if (!this.wikipediaData) return ''
-      if (this.wikipediaData.summary) return String(this.wikipediaData.summary)
+      if (this.wikipediaData.summary) return this.stripHtml(this.wikipediaData.summary)
       const query = this.wikipediaData.query
       if (!query || !query.pages) return ''
       const page = query.pages[Object.keys(query.pages)[0]]
       if (!page || !page.extract) return ''
-      return page.extract.replace(/<p>/g, '').replace(/<\/p>/g, '')
+      return this.stripHtml(page.extract)
     },
     type: function () {
       if (!this.selectedObject) return this.$t('Unknown')
@@ -241,8 +247,11 @@ export default {
       if (that.timer) clearInterval(that.timer)
       that.timer = setInterval(() => { that.items = that.computeItems() }, 1000)
 
-      swh.getSkySourceSummaryFromWikipedia(s).then(data => {
-        that.wikipediaData = data
+      const requestedSelection = s
+      swh.getSkySourceSummaryFromWikipedia(requestedSelection).then(data => {
+        if (that.selectedObject === requestedSelection) {
+          that.wikipediaData = data
+        }
       }, reason => { })
     },
     stelSelectionId: function (s) {
@@ -269,36 +278,41 @@ export default {
 
       const ret = []
 
-      const addAttr = (key, attr, format) => {
+      const addAttr = (key, attr, format, html = false) => {
         const v = obj.getInfo(attr)
-        if (v && !isNaN(v)) {
+        const number = Number(v)
+        if (v != null && !isNaN(number)) {
           ret.push({
             key: key,
-            value: format ? format(v) : v.toString()
+            value: format ? format(number) : number.toString(),
+            html
           })
         }
       }
 
       addAttr(that.$t('Magnitude'), 'vmag', this.formatMagnitude)
-      addAttr(that.$t('Distance'), 'distance', this.formatDistance)
+      addAttr(that.$t('Distance'), 'distance', this.formatDistance, true)
       if (this.selectedObject.model_data) {
         if (this.selectedObject.model_data.radius) {
           ret.push({
             key: that.$t('Radius'),
-            value: this.selectedObject.model_data.radius.toString() + ' Km'
+            value: this.selectedObject.model_data.radius.toString() + ' Km',
+            html: false
           })
         }
         if (this.selectedObject.model_data.spect_t) {
           ret.push({
             key: that.$t('Spectral Type'),
-            value: this.selectedObject.model_data.spect_t
+            value: this.selectedObject.model_data.spect_t,
+            html: false
           })
         }
         if (this.selectedObject.model_data.dimx) {
           const dimy = this.selectedObject.model_data.dimy ? this.selectedObject.model_data.dimy : this.selectedObject.model_data.dimx
           ret.push({
             key: that.$t('Size'),
-            value: this.selectedObject.model_data.dimx.toString() + "' x " + dimy.toString() + "'"
+            value: this.selectedObject.model_data.dimx.toString() + "' x " + dimy.toString() + "'",
+            html: false
           })
         }
       }
@@ -324,14 +338,16 @@ export default {
       const decCIRS = this.$stel.anpm(radecCIRS[1])
       ret.push({
         key: that.$t('Ra/Dec'),
-        value: formatRA(raCIRS) + '&nbsp;&nbsp;&nbsp;' + formatDec(decCIRS)
+        value: formatRA(raCIRS) + '&nbsp;&nbsp;&nbsp;' + formatDec(decCIRS),
+        html: true
       })
       const azalt = this.$stel.c2s(this.$stel.convertFrame(this.$stel.core.observer, 'ICRF', 'OBSERVED', obj.getInfo('radec')))
       const az = this.$stel.anp(azalt[0])
       const alt = this.$stel.anpm(azalt[1])
       ret.push({
         key: that.$t('Az/Alt'),
-        value: formatAz(az) + '&nbsp;&nbsp;&nbsp;' + formatDec(alt)
+        value: formatAz(az) + '&nbsp;&nbsp;&nbsp;' + formatDec(alt),
+        html: true
       })
       addAttr(that.$t('Phase'), 'phase', this.formatPhase)
       const vis = obj.computeVisibility()
@@ -345,7 +361,8 @@ export default {
       }
       ret.push({
         key: that.$t('Visibility'),
-        value: str
+        value: str,
+        html: true
       })
       return ret
     },
@@ -353,7 +370,7 @@ export default {
       return (v * 100).toFixed(0) + '%'
     },
     formatMagnitude: function (v) {
-      if (!v) {
+      if (v == null || isNaN(v)) {
         return 'Unknown'
       }
       return v.toFixed(2)
@@ -375,6 +392,9 @@ export default {
         return (meter / 1000).toFixed(2) + '<span class="radecUnit"> km</span>'
       }
       return meter.toFixed(2) + '<span class="radecUnit"> m</span>'
+    },
+    stripHtml: function (value) {
+      return String(value || '').replace(/<[^>]*>/g, '').trim()
     },
     formatTime: function (jdm) {
       var d = new Date()
@@ -422,10 +442,19 @@ export default {
     }
   },
   mounted: function () {
-    const that = this
-    window.addEventListener('mouseup', function (event) {
-      that.stopZoom()
-    })
+    this.windowMouseupHandler = () => this.stopZoom()
+    window.addEventListener('mouseup', this.windowMouseupHandler)
+  },
+  beforeDestroy: function () {
+    if (this.windowMouseupHandler) {
+      window.removeEventListener('mouseup', this.windowMouseupHandler)
+      this.windowMouseupHandler = undefined
+    }
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.timer = undefined
+    }
+    this.stopZoom()
   }
 }
 </script>

@@ -152,6 +152,28 @@ describe('ORAS catalog pack runtime', () => {
     expect(manager.search('Gaia DR3')).toEqual([])
   })
 
+  it('rejects unsafe browser chunk paths and invalid coordinates when explicitly loading records', async () => {
+    const unsafe = releaseFixture()
+    unsafe.manifest.packs[0].chunks[0].path = '../escape.jsonl'
+    const unsafeManager = managerForFixture(unsafe, { loadRecords: true })
+
+    const unsafeSnapshot = await unsafeManager.load()
+
+    expect(unsafeSnapshot.packs[0].status).toBe('failed')
+    expect(unsafeSnapshot.packs[0].error).toContain('unsafe chunk path')
+
+    const invalidCoordinate = releaseFixture()
+    invalidCoordinate.chunkText = JSON.stringify(record({ ra: 360 })) + '\n'
+    invalidCoordinate.manifest.packs[0].chunks[0].byte_size = Buffer.byteLength(invalidCoordinate.chunkText)
+    invalidCoordinate.manifest.packs[0].chunks[0].sha256 = crypto.createHash('sha256').update(invalidCoordinate.chunkText).digest('hex')
+    const invalidManager = managerForFixture(invalidCoordinate, { loadRecords: true })
+
+    const invalidSnapshot = await invalidManager.load()
+
+    expect(invalidSnapshot.packs[0].status).toBe('failed')
+    expect(invalidSnapshot.packs[0].error).toContain('coordinates are out of range')
+  })
+
   it('reports an absent mount without failing the Sky Engine', async () => {
     const manager = createOrasCatalogPackManager({
       fetchImpl: async () => response('', false)
@@ -213,6 +235,7 @@ describe('ORAS catalog pack runtime', () => {
     }
     expect(harnessSource).toContain('ORAS Catalog Packs')
     expect(harnessSource).toContain('Physical properties: Unavailable from mounted sources')
-    expect(harnessSource).toContain('Parsed 14281 satellites')
+    expect(harnessSource).toContain('satelliteParsePattern')
+    expect(harnessSource).toContain('satelliteCount < 1')
   })
 })

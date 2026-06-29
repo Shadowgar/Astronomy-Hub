@@ -292,7 +292,7 @@ function buildOrasModelData (result, model, sourceId) {
   if (normalizedModel === 'star') {
     const ra = numberOrNull(result.ra)
     const de = numberOrNull(result.dec)
-    const vmag = numberOrNull(result.phot_g_mean_mag)
+    const vmag = numberOrNull(result.phot_g_mean_mag == null ? result.magnitude : result.phot_g_mean_mag)
     const plx = numberOrNull(result.parallax)
     const pmRa = numberOrNull(result.pmra)
     const pmDe = numberOrNull(result.pmdec)

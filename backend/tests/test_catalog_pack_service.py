@@ -113,6 +113,33 @@ def test_catalog_pack_index_isolates_a_tampered_pack(tmp_path: Path) -> None:
     assert search_catalog_packs("Arp 220", path=tmp_path) == []
 
 
+def test_catalog_pack_index_reloads_when_chunk_file_changes(tmp_path: Path) -> None:
+    _build_release(tmp_path)
+    assert search_catalog_packs("Arp 220", path=tmp_path)
+    manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+    bad_chunk = tmp_path / manifest["packs"][1]["chunks"][0]["path"]
+    bad_chunk.write_text("{}\n", encoding="utf-8")
+
+    assert search_catalog_packs("Arp 220", path=tmp_path) == []
+
+
+def test_catalog_pack_loader_rejects_symlink_chunk_escape(tmp_path: Path) -> None:
+    _build_release(tmp_path)
+    manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+    outside = tmp_path.parent / f"{tmp_path.name}-outside.jsonl"
+    outside.write_text("{}\n", encoding="utf-8")
+    linked = tmp_path / "packs" / "stars-core" / "chunk-escape.jsonl"
+    linked.symlink_to(outside)
+    manifest["packs"][0]["chunks"][0]["path"] = "packs/stars-core/chunk-escape.jsonl"
+    (tmp_path / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+    index = load_catalog_pack_index(tmp_path)
+
+    assert index.object_count == 1
+    assert index.pack_statuses[0]["status"] == "failed"
+    assert "unsafe chunk path" in index.pack_statuses[0]["error"]
+
+
 def test_missing_catalog_pack_mount_falls_back_without_breaking_existing_search(
     tmp_path: Path,
     monkeypatch,

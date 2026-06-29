@@ -281,15 +281,24 @@ def _validate_chunk(
     if not chunk_path.is_file():
         return [f"{pack_id}: missing chunk {relative_path.as_posix()}"], 0
 
-    payload = chunk_path.read_bytes()
     errors: list[str] = []
+    try:
+        payload = chunk_path.read_bytes()
+    except OSError as error:
+        return [f"{pack_id}: cannot read chunk {relative_path.as_posix()}: {error}"], 0
+
     if len(payload) != chunk.get("byte_size"):
         errors.append(f"{pack_id}: byte size mismatch for {relative_path.as_posix()}")
     if hashlib.sha256(payload).hexdigest() != chunk.get("sha256"):
         errors.append(f"{pack_id}: checksum mismatch for {relative_path.as_posix()}")
 
     count = 0
-    for line_number, line in enumerate(payload.decode("utf-8").splitlines(), start=1):
+    try:
+        lines = payload.decode("utf-8").splitlines()
+    except UnicodeDecodeError as error:
+        return [*errors, f"{pack_id}: chunk {relative_path.as_posix()} is not UTF-8: {error}"], 0
+
+    for line_number, line in enumerate(lines, start=1):
         try:
             record = _normalize_record(json.loads(line), expected_category=category)
         except (ValueError, json.JSONDecodeError) as error:

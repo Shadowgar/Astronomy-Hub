@@ -145,3 +145,18 @@ def test_catalog_release_validation_reports_tampered_chunks(tmp_path: Path) -> N
 
     assert any("checksum mismatch" in error for error in errors)
     assert any("byte size mismatch" in error for error in errors)
+
+
+def test_catalog_release_validation_reports_non_utf8_chunks(tmp_path: Path) -> None:
+    manifest = build_catalog_release(
+        tmp_path,
+        release_version="2026.06",
+        generated_at="2026-06-23T06:00:00Z",
+        packs=[(_spec(), [_record("1")])],
+    )
+    chunk_path = tmp_path / manifest["packs"][0]["chunks"][0]["path"]
+    chunk_path.write_bytes(b"\xff\xfe\xfd")
+
+    errors = validate_catalog_release(tmp_path)
+
+    assert any("not UTF-8" in error for error in errors)

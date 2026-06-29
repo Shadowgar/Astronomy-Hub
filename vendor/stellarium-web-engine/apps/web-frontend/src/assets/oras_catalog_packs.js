@@ -111,16 +111,17 @@ export function createOrasCatalogPackManager (options = {}) {
     const packRecords = []
     try {
       for (const chunk of pack.chunks || []) {
-        const chunkResponse = await fetchImpl(root + '/' + chunk.path, { cache: 'no-store' })
-        if (!chunkResponse || !chunkResponse.ok) throw new Error('chunk request failed: ' + chunk.path)
+        const chunkPath = validateChunkPath(chunk.path)
+        const chunkResponse = await fetchImpl(root + '/' + chunkPath, { cache: 'no-store' })
+        if (!chunkResponse || !chunkResponse.ok) throw new Error('chunk request failed: ' + chunkPath)
         const text = await chunkResponse.text()
         const byteSize = new TextEncoder().encode(text).byteLength
-        if (byteSize !== Number(chunk.byte_size)) throw new Error('byte size mismatch: ' + chunk.path)
+        if (byteSize !== Number(chunk.byte_size)) throw new Error('byte size mismatch: ' + chunkPath)
         const digest = await digestImpl(text)
-        if (digest !== chunk.sha256) throw new Error('checksum mismatch: ' + chunk.path)
+        if (digest !== chunk.sha256) throw new Error('checksum mismatch: ' + chunkPath)
         const chunkRecords = text.split('\n').filter(Boolean).map(line => JSON.parse(line))
         if (chunkRecords.length !== Number(chunk.object_count)) {
-          throw new Error('object count mismatch: ' + chunk.path)
+          throw new Error('object count mismatch: ' + chunkPath)
         }
         chunkRecords.forEach(record => packRecords.push(validateRecord(record, pack)))
       }
@@ -214,10 +215,15 @@ function validateRecord (record, pack) {
   if (!Number.isFinite(Number(record.ra)) || !Number.isFinite(Number(record.dec))) {
     throw new Error('catalog record coordinates are required')
   }
+  const ra = Number(record.ra)
+  const dec = Number(record.dec)
+  if (ra < 0 || ra >= 360 || dec < -90 || dec > 90) {
+    throw new Error('catalog record coordinates are out of range')
+  }
   return Object.assign({}, record, {
     source_id: String(record.source_id),
-    ra: Number(record.ra),
-    dec: Number(record.dec),
+    ra,
+    dec,
     pack_id: String(pack.pack_id),
     pack_version: String(pack.version),
     pack_overlay_limit: Number(pack.overlay_limit) || 0,
@@ -226,6 +232,14 @@ function validateRecord (record, pack) {
     status: 'indexed',
     provenance: { source_key: 'oras_catalog_pack', pack_id: String(pack.pack_id), pack_version: String(pack.version) }
   })
+}
+
+function validateChunkPath (value) {
+  const text = String(value || '').trim()
+  if (!text || text.startsWith('/') || text.includes('\\') || text.split('/').includes('..')) {
+    throw new Error('unsafe chunk path')
+  }
+  return text
 }
 
 function recordAliases (record) {

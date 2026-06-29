@@ -25,6 +25,7 @@ class CatalogPackIndex:
     object_count: int
     records_by_identity: dict[tuple[str, str, str], dict[str, Any]]
     search_candidates: tuple[dict[str, Any], ...]
+    search_alias_index: dict[str, tuple[dict[str, Any], ...]]
     pack_statuses: tuple[dict[str, Any], ...]
 
 
@@ -34,9 +35,8 @@ def load_catalog_pack_index(path: str | Path | None = None) -> CatalogPackIndex:
     )
     manifest_path = root / "manifest.json"
     if not manifest_path.is_file():
-        return CatalogPackIndex(False, None, None, 0, {}, (), ())
-    stat = manifest_path.stat()
-    return _load_catalog_pack_index_cached(str(root.resolve()), stat.st_mtime_ns, stat.st_size)
+        return CatalogPackIndex(False, None, None, 0, {}, (), {}, ())
+    return _load_catalog_pack_index_cached(str(root.resolve()), _catalog_pack_fingerprint(root, manifest_path))
 
 
 def build_catalog_pack_status_payload(path: str | Path | None = None) -> dict[str, Any]:
@@ -64,18 +64,31 @@ def search_catalog_packs(
     if not normalized_query or limit < 1:
         return []
 
+    index = load_catalog_pack_index(path)
     scored: list[tuple[int, dict[str, Any]]] = []
-    for candidate in load_catalog_pack_index(path).search_candidates:
-        best_score = 0
-        for alias in candidate["normalized_aliases"]:
-            if alias == normalized_query:
-                best_score = max(best_score, 4)
-            elif alias.startswith(normalized_query):
-                best_score = max(best_score, 3)
-            elif len(normalized_query) >= 3 and normalized_query in alias:
-                best_score = max(best_score, 2)
-        if best_score:
-            scored.append((best_score, candidate["record"]))
+    seen: set[tuple[str, str, str]] = set()
+
+    def add_matches(records: tuple[dict[str, Any], ...], score: int) -> None:
+        for record in records:
+            identity = _identity_key(record["catalog"], record["source_id"], record["model"])
+            if identity in seen:
+                continue
+            seen.add(identity)
+            scored.append((score, record))
+
+    add_matches(index.search_alias_index.get(normalized_query, ()), 4)
+    if len(scored) < limit:
+        for alias, records in index.search_alias_index.items():
+            if alias != normalized_query and alias.startswith(normalized_query):
+                add_matches(records, 3)
+                if len(scored) >= limit * 4:
+                    break
+    if len(scored) < limit and len(normalized_query) >= 3:
+        for alias, records in index.search_alias_index.items():
+            if normalized_query in alias and not alias.startswith(normalized_query):
+                add_matches(records, 2)
+                if len(scored) >= limit * 4:
+                    break
 
     scored.sort(
         key=lambda item: (
@@ -104,10 +117,9 @@ def lookup_catalog_pack_object(
 @lru_cache(maxsize=8)
 def _load_catalog_pack_index_cached(
     root_value: str,
-    manifest_mtime_ns: int,
-    manifest_size: int,
+    fingerprint: tuple[tuple[str, int, int], ...],
 ) -> CatalogPackIndex:
-    del manifest_mtime_ns, manifest_size
+    del fingerprint
     root = Path(root_value)
     manifest_path = root / "manifest.json"
     try:
@@ -120,11 +132,13 @@ def _load_catalog_pack_index_cached(
             0,
             {},
             (),
+            {},
             ({"pack_id": "manifest", "status": "failed", "error": str(error)},),
         )
 
     records_by_identity: dict[tuple[str, str, str], dict[str, Any]] = {}
     search_candidates: list[dict[str, Any]] = []
+    search_alias_index: dict[str, list[dict[str, Any]]] = {}
     pack_statuses: list[dict[str, Any]] = []
     for pack in manifest.get("packs") or []:
         status, records = _load_pack(root, pack)
@@ -153,6 +167,10 @@ def _load_catalog_pack_index_cached(
                     ),
                 }
             )
+            for alias in _record_aliases(record):
+                normalized_alias = _normalize_search_text(alias)
+                if normalized_alias:
+                    search_alias_index.setdefault(normalized_alias, []).append(record)
 
     return CatalogPackIndex(
         mounted=True,
@@ -161,6 +179,7 @@ def _load_catalog_pack_index_cached(
         object_count=len(records_by_identity),
         records_by_identity=records_by_identity,
         search_candidates=tuple(search_candidates),
+        search_alias_index={alias: tuple(records) for alias, records in search_alias_index.items()},
         pack_statuses=tuple(pack_statuses),
     )
 
@@ -202,7 +221,10 @@ def _load_chunk(root: Path, pack: dict[str, Any], chunk: Any) -> list[dict[str, 
     relative_path = Path(str(chunk.get("path") or ""))
     if relative_path.is_absolute() or ".." in relative_path.parts:
         raise ValueError("unsafe chunk path")
-    chunk_path = root / relative_path
+    root_path = root.resolve()
+    chunk_path = (root / relative_path).resolve()
+    if not chunk_path.is_relative_to(root_path):
+        raise ValueError("unsafe chunk path")
     payload = chunk_path.read_bytes()
     if hashlib.sha256(payload).hexdigest() != chunk.get("sha256"):
         suffix = " and byte size mismatch" if len(payload) != chunk.get("byte_size") else ""
@@ -344,3 +366,34 @@ def _magnitude_sort(record: dict[str, Any]) -> float:
 
 def _default_type(record: dict[str, Any]) -> str:
     return "*" if str(record.get("model") or "").casefold() == "star" else "G"
+
+
+def _catalog_pack_fingerprint(root: Path, manifest_path: Path) -> tuple[tuple[str, int, int], ...]:
+    entries: list[tuple[str, int, int]] = []
+    try:
+        manifest_stat = manifest_path.stat()
+        entries.append(("manifest.json", manifest_stat.st_mtime_ns, manifest_stat.st_size))
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return tuple(entries)
+
+    for pack in manifest.get("packs") or []:
+        if not isinstance(pack, dict):
+            continue
+        for chunk in pack.get("chunks") or []:
+            if not isinstance(chunk, dict):
+                continue
+            relative_path = Path(str(chunk.get("path") or ""))
+            if relative_path.is_absolute() or ".." in relative_path.parts:
+                entries.append((relative_path.as_posix(), -1, -1))
+                continue
+            try:
+                chunk_path = (root / relative_path).resolve()
+                if not chunk_path.is_relative_to(root.resolve()):
+                    entries.append((relative_path.as_posix(), -1, -1))
+                    continue
+                stat = chunk_path.stat()
+                entries.append((relative_path.as_posix(), stat.st_mtime_ns, stat.st_size))
+            except OSError:
+                entries.append((relative_path.as_posix(), -1, -1))
+    return tuple(entries)
