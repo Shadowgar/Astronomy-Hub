@@ -19,6 +19,9 @@ docs/audits/*
 !docs/audits/STELLARIUM_WEB_SKYDATA_LOADING_MAP.md
 frontend/public/oras-sky-engine/skydata/
 frontend/public/oras-sky-engine/skydata/*
+!frontend/public/oras-sky-engine/skydata/
+!frontend/public/oras-sky-engine/skydata/catalog-packs/
+!frontend/public/oras-sky-engine/skydata/catalog-packs/.gitkeep
 env/
 env.bak/
 venv.bak/
@@ -48,6 +51,7 @@ logs/
 .*
 !.gitignore
 !.dockerignore
+!frontend/public/oras-sky-engine/skydata/catalog-packs/.gitkeep
 !.github/
 !.github/workflows/
 !.github/workflows/*.yml
@@ -111,6 +115,8 @@ Thumbs.db
 /vendor/stellarium-web-engine/
 /data/sky-engine/hipparcos/source/
 data/
+# Generated catalog release packs are mounted at runtime, never committed.
+/data/runtime-packs/catalog-packs/
 !backend/app/data/
 !backend/app/data/sky/
 !backend/app/data/sky/gaia_dr3_pilot_manifest.json

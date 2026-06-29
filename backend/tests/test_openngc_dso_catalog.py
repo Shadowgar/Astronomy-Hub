@@ -90,6 +90,10 @@ def test_openngc_search_resolves_common_name_and_ngc_alias() -> None:
     assert first["catalog"] == "NGC (OpenNGC)"
     assert first["source_id"] == "NGC6543"
     assert first["status"] == "indexed"
+    assert first["source_attribution"][0]["source_key"] == "openngc_local"
+    assert first["sky_engine_url"].startswith("/oras-sky-engine/skysource/")
+    assert "source_id=NGC6543" in first["sky_engine_url"]
+    assert "model=dso" in first["sky_engine_url"]
 
 
 def test_openngc_search_resolves_compact_caldwell_aliases() -> None:
@@ -101,6 +105,8 @@ def test_openngc_search_resolves_compact_caldwell_aliases() -> None:
     assert first["source_id"] == "NGC6543"
     assert "C6" in first["aliases"]
     assert "Caldwell 6" in first["aliases"]
+    assert any(source["source_key"] == "openngc_local" for source in first["source_attribution"])
+    assert "source_id=NGC6543" in first["sky_engine_url"]
 
 
 def test_openngc_search_resolves_source_backed_lynds_bright_nebula_alias() -> None:
@@ -113,6 +119,8 @@ def test_openngc_search_resolves_source_backed_lynds_bright_nebula_alias() -> No
     assert "LBN 350" in first["aliases"]
     assert "LBN350" in first["aliases"]
     assert "Lynds Bright Nebula 350" in first["aliases"]
+    assert any(source["source_key"] == "lbn_vii_9" for source in first["source_attribution"])
+    assert "source_id=IC5070" in first["sky_engine_url"]
 
 
 def test_openngc_search_does_not_invent_unknown_lynds_aliases() -> None:

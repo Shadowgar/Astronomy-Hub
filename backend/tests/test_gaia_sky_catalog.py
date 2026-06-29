@@ -371,6 +371,10 @@ def test_search_endpoint_resolves_m31_from_local_named_index(tmp_path: Path, mon
     assert "M31" in first["display_name"]
     assert first["indexed"] is True
     assert first["status"] == "indexed"
+    assert first["sky_engine_url"].startswith("/oras-sky-engine/skysource/")
+    assert "catalog=Messier+%28local%29" in first["sky_engine_url"]
+    assert "source_id=M31" in first["sky_engine_url"]
+    assert "model=dso" in first["sky_engine_url"]
 
 
 def test_search_endpoint_resolves_capella_from_local_bright_star_index(tmp_path: Path, monkeypatch) -> None:
@@ -389,6 +393,10 @@ def test_search_endpoint_resolves_capella_from_local_bright_star_index(tmp_path:
     assert first["display_name"] == "Capella"
     assert first["indexed"] is True
     assert first["status"] == "indexed"
+    assert first["sky_engine_url"].startswith("/oras-sky-engine/skysource/")
+    assert "catalog=Bright+Star+Catalog+%28local%29" in first["sky_engine_url"]
+    assert "source_id=star-capella" in first["sky_engine_url"]
+    assert "model=star" in first["sky_engine_url"]
 
 
 def test_search_endpoint_resolves_ngc_alias_to_m31(tmp_path: Path, monkeypatch) -> None:

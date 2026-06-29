@@ -102,6 +102,146 @@
       ]
     },
     {
+      "source_key": "gaia_dr3",
+      "display_name": "Gaia DR3 bright mounted release",
+      "catalog_family": "stellar_astrometry",
+      "source_authority": "ESA Gaia DR3 via CDS VizieR I/355",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/355",
+      "acquisition_method": "bounded magnitude-sorted VizieR TSV; generated mounted pack",
+      "license_note": "Gaia data policy and CDS catalogue acknowledgement requirements apply.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "tycho2",
+      "display_name": "Tycho-2 bright mounted release",
+      "catalog_family": "stellar_astrometry",
+      "source_authority": "Tycho-2 via CDS VizieR I/259",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/259",
+      "acquisition_method": "bounded magnitude-sorted VizieR TSV; generated mounted pack",
+      "license_note": "Tycho-2 and CDS catalogue acknowledgement requirements apply.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "gliese_cns3",
+      "display_name": "Gliese Catalogue of Nearby Stars",
+      "catalog_family": "nearby_stars",
+      "source_authority": "Gliese and Jahreiss CNS3 via CDS VizieR V/70A",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/V/70A",
+      "acquisition_method": "complete small VizieR TSV; generated mounted pack",
+      "license_note": "Catalog source acknowledgement required.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "dias_open_clusters",
+      "display_name": "Dias Open Clusters",
+      "catalog_family": "open_clusters",
+      "source_authority": "Dias et al. via CDS VizieR B/ocl",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/B/ocl",
+      "acquisition_method": "complete VizieR TSV; generated mounted pack",
+      "license_note": "Catalog source acknowledgement required.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "barnard_vii_220a",
+      "display_name": "Barnard Dark Objects",
+      "catalog_family": "dark_nebula",
+      "source_authority": "Barnard catalogue via CDS VizieR VII/220A",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VII/220A",
+      "acquisition_method": "complete VizieR TSV; generated mounted pack",
+      "license_note": "Catalog source acknowledgement required.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "ldn_vii_7a",
+      "display_name": "Lynds Dark Nebulae",
+      "catalog_family": "dark_nebula",
+      "source_authority": "Lynds catalogue via CDS VizieR VII/7A",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VII/7A",
+      "acquisition_method": "complete VizieR TSV; generated mounted pack",
+      "license_note": "Catalog source acknowledgement required.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "sharpless_vii_20",
+      "display_name": "Sharpless H II Regions",
+      "catalog_family": "bright_nebula",
+      "source_authority": "Sharpless catalogue via CDS VizieR VII/20",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VII/20",
+      "acquisition_method": "complete VizieR TSV; generated mounted pack",
+      "license_note": "Catalog source acknowledgement required.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "arp_vii_74a",
+      "display_name": "Atlas of Peculiar Galaxies",
+      "catalog_family": "peculiar_galaxies",
+      "source_authority": "Arp catalogue via CDS VizieR VII/74A",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VII/74A",
+      "acquisition_method": "complete VizieR TSV; generated mounted pack",
+      "license_note": "Catalog source acknowledgement required.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "markarian_vii_61a",
+      "display_name": "Markarian Galaxies",
+      "catalog_family": "active_galaxies",
+      "source_authority": "Markarian catalogue via CDS VizieR VII/61A",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VII/61A",
+      "acquisition_method": "complete VizieR TSV; generated mounted pack",
+      "license_note": "Catalog source acknowledgement required.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "3c_viii_1a",
+      "display_name": "Third Cambridge 3C Catalogue",
+      "catalog_family": "radio_sources",
+      "source_authority": "3C/3CR via CDS VizieR VIII/1A",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VIII/1A",
+      "acquisition_method": "complete VizieR TSV; generated mounted pack",
+      "license_note": "Catalog source acknowledgement required.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "wds",
+      "display_name": "Washington Double Star Catalog bright release",
+      "catalog_family": "double_stars",
+      "source_authority": "USNO WDS via CDS VizieR B/wds",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/B/wds",
+      "acquisition_method": "bounded primary-magnitude VizieR TSV; generated mounted pack",
+      "license_note": "Acknowledge the Washington Double Star Catalog maintained at the U.S. Naval Observatory.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "atnf_psrcat",
+      "display_name": "ATNF Pulsar Catalogue",
+      "catalog_family": "pulsars",
+      "source_authority": "CSIRO Australia Telescope National Facility",
+      "source_url": "https://www.atnf.csiro.au/research/pulsar/psrcat/",
+      "acquisition_method": "official PSRCAT package; generated mounted pack",
+      "license_note": "CSIRO notice applies; cite Manchester et al. (2005) and PSRCAT.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "milliquas_v7_2",
+      "display_name": "Million Quasars v7.2 bright release",
+      "catalog_family": "quasars",
+      "source_authority": "Milliquas v7.2 via CDS VizieR VII/290",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VII/290",
+      "acquisition_method": "bounded magnitude-sorted VizieR TSV; generated mounted pack",
+      "license_note": "Cite Milliquas v7.2, Flesch (2021), and the CDS catalogue.",
+      "enrichment_status": "mounted_release"
+    },
+    {
+      "source_key": "blackcat",
+      "display_name": "BlackCAT",
+      "catalog_family": "black_hole_candidates",
+      "source_authority": "Corral-Santana et al. via CDS VizieR J/A+A/587/A61",
+      "source_url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/587/A61",
+      "acquisition_method": "complete VizieR TSV; generated mounted pack",
+      "license_note": "Cite Corral-Santana et al. (2016) and BlackCAT.",
+      "enrichment_status": "mounted_release"
+    },
+    {
       "source_key": "satellite_tle_local",
       "display_name": "Satellite TLE",
       "catalog_family": "artificial_satellite",

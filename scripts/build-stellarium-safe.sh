@@ -89,6 +89,10 @@ run_cmd rsync -a --delete \
   --exclude 'dist/' \
   --exclude 'node_modules/' \
   "$app_dir/" "$staging_app_dir/"
+if [[ -L "$app_dir/vue.config.js" ]]; then
+  run_cmd rm -f "$staging_app_dir/vue.config.js"
+  run_cmd cp -L "$app_dir/vue.config.js" "$staging_app_dir/vue.config.js"
+fi
 
 needs_install=1
 if [[ -d "$staging_app_dir/node_modules" && -f "$hash_file" ]]; then
@@ -130,6 +134,10 @@ if ! run_cmd nice -n 15 "${docker_run_cmd[@]}"; then
     exit 1
   fi
   echo "Docker Stellarium build failed; retrying in staged workspace on host Node."
+  run_cmd docker run --rm \
+    -v "$staging_app_dir:/work" \
+    "$docker_image" \
+    bash -lc "rm -rf /work/dist"
   run_cmd bash -lc "
     set -euo pipefail
     cd '$staging_app_dir'

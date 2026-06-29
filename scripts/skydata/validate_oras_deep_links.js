@@ -64,12 +64,12 @@ const cases = [
     requireIndexed: true,
   },
   {
-    name: 'Gaia proof star',
-    path: 'skysource/GaiaDR22252802052894084352?catalog=Gaia%20DR2&source_id=2252802052894084352&model=star&ra=287.3080617529185&dec=63.94083283337751&fov=1.50&date=2026-06-04T02%3A16%3A04Z&lat=41.44&lng=-79.69&elev=0',
-    identity: { catalog: 'Gaia DR2', sourceId: '2252802052894084352', model: 'star' },
-    requiredText: ['Gaia DR2 2252802052894084352', 'Star', 'Ra/Dec', 'FOV 1.50'],
+    name: 'Gaia DR3 indexed pack star',
+    path: 'skysource/GaiaDR31576683529448755328?catalog=Gaia%20DR3&source_id=1576683529448755328&model=star&ra=193.5081784678&dec=55.9597847789&fov=1.50&date=2026-06-04T02%3A16%3A04Z&lat=41.44&lng=-79.69&elev=0',
+    identity: { catalog: 'Gaia DR3', sourceId: '1576683529448755328', model: 'star' },
+    requiredText: ['Gaia DR3 1576683529448755328', 'Star', 'Ra/Dec', 'FOV 1.50'],
     forbiddenText: ['Unknown Type'],
-    coordinatePatterns: [/19h\s+09m/i, /\+63°/],
+    coordinatePatterns: [/12h\s+5[45]m/i, /\+55°/],
     requireIndexed: true,
   },
   {

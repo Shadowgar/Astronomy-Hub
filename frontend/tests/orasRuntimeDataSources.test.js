@@ -54,6 +54,13 @@ describe('oras runtime data sources', () => {
     expect(source).not.toContain('VUE_APP_ORAS_RUNTIME_REMOTE_DATA_BASE')
   })
 
+  it('loads mounted ORAS catalog packs directly in the runtime', () => {
+    const source = fs.readFileSync(appVuePath, 'utf8')
+
+    expect(source).toContain("import { orasCatalogPacks } from '@/assets/oras_catalog_packs.js'")
+    expect(source).toContain('orasCatalogPacks.load()')
+  })
+
   it('retries local skysource route selection after star pack registration', () => {
     const source = fs.readFileSync(appVuePath, 'utf8')
 
@@ -81,6 +88,8 @@ describe('oras runtime data sources', () => {
     expect(buildScript).not.toContain('--memory-swap "${memory_mb}m"')
     expect(buildScript).toContain('oras-runtime-build.json')
     expect(buildScript).toContain('STELLARIUM_BUILD_ALLOW_HOST_FALLBACK')
+    expect(buildScript).toContain('cp -L "$app_dir/vue.config.js" "$staging_app_dir/vue.config.js"')
+    expect(buildScript).toContain("rm -rf /work/dist")
     expect(buildScript).toContain('ORAS_RUNTIME_COPY_SKYDATA=0')
     expect(buildScript).not.toContain('staging_skydata_dir')
     expect(buildScript).not.toContain('rsync -a --delete "$skydata_dir/"')
@@ -108,7 +117,7 @@ describe('oras runtime data sources', () => {
     expect(source).toContain("name: 'Achernar'")
     expect(source).toContain("name: 'Vega'")
     expect(source).toContain("name: 'Antares'")
-    expect(source).toContain("name: 'Gaia proof star'")
+    expect(source).toContain("name: 'Gaia DR3 indexed pack star'")
     expect(source).toContain("name: 'Gaia controlled not-indexed star'")
     expect(source).toContain("name: 'M42'")
     expect(source).toContain("name: 'M13'")

@@ -9,6 +9,7 @@
 <template>
 
 <v-app>
+  <oras-catalog-status-dialog v-model="showCatalogPacks"></oras-catalog-status-dialog>
   <v-navigation-drawer v-model="nav" app stateless width="300">
     <v-layout column fill-height>
       <v-list dense>
@@ -73,7 +74,9 @@
 import _ from 'lodash'
 import Gui from '@/components/gui.vue'
 import GuiLoader from '@/components/gui-loader.vue'
-import { ORAS_BUNDLED_GAIA_SURVEY_ROOT, listOrasPackRoots, resolveOrasDssSurveyUrl, withOrasRouteIdentityFallback } from '@/assets/oras_data_config.js'
+import OrasCatalogStatusDialog from '@/components/oras-catalog-status-dialog.vue'
+import { ORAS_BUNDLED_GAIA_SURVEY_ROOT, listOrasPackRoots, resolveOrasDssSurveyUrl, toOrasSkySource, withOrasRouteIdentityFallback } from '@/assets/oras_data_config.js'
+import { orasCatalogPacks } from '@/assets/oras_catalog_packs.js'
 import swh from '@/assets/sw_helpers.js'
 import Moment from 'moment'
 
@@ -84,6 +87,7 @@ export default {
         { title: this.$t('Hub Frontpage'), icon: 'mdi-home-variant-outline', action: 'hubFrontpage' },
         { title: this.$t('Recheck Runtime'), icon: 'mdi-refresh', action: 'recheckRuntime' },
         { title: this.$t('Open Standalone Runtime'), icon: 'mdi-open-in-new', action: 'openStandaloneRuntime' },
+        { title: this.$t('ORAS Catalog Packs'), icon: 'mdi-database-search', action: 'catalogPacks' },
         { title: this.$t('View Settings'), icon: 'mdi-settings', store_var_name: 'showViewSettingsDialog', store_show_menu_item: 'showViewSettingsMenuItem' },
         { title: this.$t('Planets Tonight'), icon: 'mdi-panorama-fisheye', store_var_name: 'showPlanetsVisibilityDialog', store_show_menu_item: 'showPlanetsVisibilityMenuItem' },
         { divider: true }
@@ -94,10 +98,12 @@ export default {
       guiComponent: 'GuiLoader',
       startTimeIsSet: false,
       initDone: false,
-      dataSourceInitDone: false
+      dataSourceInitDone: false,
+      showCatalogPacks: false,
+      orasOverlayObjects: []
     }
   },
-  components: { Gui, GuiLoader },
+  components: { Gui, GuiLoader, OrasCatalogStatusDialog },
   methods: {
     getPluginsMenuItems: function () {
       let res = []
@@ -133,6 +139,11 @@ export default {
       }
       if (item.action === 'openStandaloneRuntime') {
         this.openStandaloneRuntime()
+        return
+      }
+      if (item.action === 'catalogPacks') {
+        this.closeNavigationDrawer()
+        this.showCatalogPacks = true
         return
       }
       if (item.store_var_name) {
@@ -231,6 +242,18 @@ export default {
       }
 
       window.open(window.location.href, '_blank', 'noopener,noreferrer')
+    },
+    materializeOrasCatalogOverlays: function () {
+      for (const record of orasCatalogPacks.overlayRecords()) {
+        const source = toOrasSkySource(record)
+        if (!source || !['star', 'dso'].includes(source.model)) continue
+        if (swh.skySource2SweObj(source)) continue
+        const obj = this.$stel.createObj(source.model, source)
+        if (!obj) continue
+        obj.__orasSkySourceData = source
+        this.$selectionLayer.add(obj)
+        this.orasOverlayObjects.push(obj)
+      }
     },
     setStateFromQueryArgs: function () {
       // Check whether the observing panel must be displayed
@@ -436,6 +459,10 @@ export default {
   mounted: function () {
     var that = this
 
+    orasCatalogPacks.load().catch(error => {
+      console.warn('Failed to load ORAS catalog packs', error)
+    })
+
     for (const i in this.$stellariumWebPlugins()) {
       const plugin = this.$stellariumWebPlugins()[i]
       if (plugin.onAppMounted) {
@@ -517,6 +544,11 @@ export default {
             core.satellites.addDataSource({ url: bundledDataBase + '/tle_satellite.jsonl.gz', key: 'jsonl/sat' })
             core.satellites.hints_mag_offset = 2
             that.dataSourceInitDone = true
+            orasCatalogPacks.load()
+              .then(() => that.materializeOrasCatalogOverlays())
+              .catch(error => {
+                console.warn('Failed to materialize ORAS catalog overlays', error)
+              })
           }
         })
       } catch (e) {

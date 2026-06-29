@@ -41,7 +41,8 @@ export default {
         console.warn("Can't find object in SWE: " + label)
         return
       }
-      swh.setSweObjAsSelection(obj)
+      obj.__orasSkySourceData = ss
+      swh.setSweObjAsSelection(obj, ss)
     }
   },
   components: { SkysourceSearch }

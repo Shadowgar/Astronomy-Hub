@@ -8,6 +8,7 @@ from backend.app.services.sky_catalog_service import (
     build_gaia_lookup_payload,
     build_sky_search_payload,
 )
+from backend.app.services.catalog_pack_service import build_catalog_pack_status_payload
 
 router = APIRouter()
 
@@ -15,6 +16,11 @@ router = APIRouter()
 @router.get("/sky/catalog/status", response_model=ResponseEnvelope)
 async def get_catalog_status():
     return build_catalog_status_payload()
+
+
+@router.get("/sky/catalog-packs", response_model=ResponseEnvelope)
+async def get_catalog_packs():
+    return build_catalog_pack_status_payload()
 
 
 @router.get("/sky/object/gaia-dr2/{source_id}", response_model=ResponseEnvelope)
