@@ -13,8 +13,9 @@ function emptySnapshot (phase = 'idle') {
 
 export function createOrasCatalogPackManager (options = {}) {
   const root = String(options.root || ORAS_CATALOG_PACKS_ROOT).replace(/\/$/, '')
-  const fetchImpl = options.fetchImpl || (typeof fetch === 'function' ? fetch.bind(globalThis) : undefined)
+  const fetchImpl = options.fetchImpl || (typeof window !== 'undefined' && typeof window.fetch === 'function' ? window.fetch.bind(window) : undefined)
   const digestImpl = options.digestImpl || digestText
+  const loadRecords = options.loadRecords === true
   let snapshot = emptySnapshot()
   let records = []
   let searchCandidates = []
@@ -70,12 +71,16 @@ export function createOrasCatalogPackManager (options = {}) {
       }))
     }
 
-    const packStatuses = []
-    for (const pack of manifest.packs) {
-      const status = await loadPack(pack)
-      packStatuses.push(status)
+    const packStatuses = loadRecords ? [] : manifest.packs.map(pack => manifestPackStatus(pack))
+    if (loadRecords) {
+      for (const pack of manifest.packs) {
+        const status = await loadPack(pack)
+        packStatuses.push(status)
+      }
     }
-    const loadedCount = packStatuses.reduce((total, pack) => total + pack.loadedObjectCount, 0)
+    const loadedCount = loadRecords
+      ? packStatuses.reduce((total, pack) => total + pack.loadedObjectCount, 0)
+      : Number(manifest.object_count) || packStatuses.reduce((total, pack) => total + pack.loadedObjectCount, 0)
     return publish({
       phase: packStatuses.some(pack => pack.status === 'failed') ? 'degraded' : 'loaded',
       mounted: true,
@@ -86,19 +91,23 @@ export function createOrasCatalogPackManager (options = {}) {
     })
   }
 
-  async function loadPack (pack) {
-    const status = {
+  function manifestPackStatus (pack) {
+    return {
       packId: String(pack.pack_id),
       label: String(pack.label || pack.pack_id),
       category: String(pack.category || 'unknown'),
       version: String(pack.version || ''),
       generatedAt: pack.generated_at || null,
       declaredObjectCount: Number(pack.object_count) || 0,
-      loadedObjectCount: 0,
+      loadedObjectCount: Number(pack.object_count) || 0,
       sources: Array.isArray(pack.sources) ? pack.sources.map(source => Object.assign({}, source)) : [],
       status: 'loaded',
       error: null
     }
+  }
+
+  async function loadPack (pack) {
+    const status = Object.assign(manifestPackStatus(pack), { loadedObjectCount: 0 })
     const packRecords = []
     try {
       for (const chunk of pack.chunks || []) {
@@ -249,8 +258,8 @@ function magnitude (record) {
 }
 
 async function digestText (text) {
-  if (!globalThis.crypto || !globalThis.crypto.subtle) throw new Error('Web Crypto is unavailable')
-  const digest = await globalThis.crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
+  if (typeof window === 'undefined' || !window.crypto || !window.crypto.subtle) throw new Error('Web Crypto is unavailable')
+  const digest = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
   return Array.from(new Uint8Array(digest)).map(value => value.toString(16).padStart(2, '0')).join('')
 }
 

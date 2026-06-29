@@ -25,6 +25,7 @@ from backend.app.services.satellite_tle_catalog_service import (
     is_satellite_tle_identity,
     lookup_satellite_tle,
 )
+from backend.app.services.sky_engine_links import build_sky_engine_object_url
 from backend.app.services.sky_star_catalog import BRIGHT_STAR_SCENE_OBJECTS, build_tier2_mid_star_scene_objects
 from backend.app.services.sky_object_enrichment import enrich_messier_payload
 
@@ -438,6 +439,7 @@ def _merge_search_results(*groups: list[dict]) -> list[dict]:
     seen: set[tuple[str, str, str]] = set()
     for group in groups:
         for result in group:
+            result = _with_sky_engine_url(result)
             identity = (
                 str(result.get("catalog") or "").strip().casefold(),
                 str(result.get("source_id") or "").strip().casefold(),
@@ -450,6 +452,29 @@ def _merge_search_results(*groups: list[dict]) -> list[dict]:
             if len(merged) >= 10:
                 return merged
     return merged
+
+
+def _with_sky_engine_url(result: dict) -> dict:
+    if result.get("sky_engine_url"):
+        return result
+    required = ("catalog", "source_id", "model", "ra", "dec")
+    if any(result.get(field) is None for field in required):
+        return result
+    try:
+        sky_engine_url = build_sky_engine_object_url(
+            catalog=str(result["catalog"]),
+            source_id=str(result["source_id"]),
+            model=str(result["model"]),
+            ra=float(result["ra"]),
+            dec=float(result["dec"]),
+            name=str(result.get("display_name") or result.get("name") or result["source_id"]),
+            fov=2.5,
+        )
+    except (TypeError, ValueError):
+        return result
+    enriched = dict(result)
+    enriched["sky_engine_url"] = sky_engine_url
+    return enriched
 
 
 def _not_indexed_payload(source_id: int) -> dict:

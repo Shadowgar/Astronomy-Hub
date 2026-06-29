@@ -63,3 +63,55 @@ The downloader writes into `data/` by default, using manifest-controlled paths s
 Promotion into the live same-origin runtime tree is intentionally separate from downloading.
 
 For the DSS proof specifically, promotion must stage the generated runtime-ready tree into the vendored test-skydata source of truth before running `npm run build:stellarium`, because `scripts/sync-stellarium-runtime.sh` removes `frontend/public/oras-sky-engine` before copying the rebuilt dist output.
+
+## ORAS Major Catalog Release
+
+The catalog release is generated from public upstream sources into ignored,
+mounted storage. It is not copied into either Docker image.
+
+Acquire or refresh source files:
+
+```bash
+.venv/bin/python -m scripts.skydata.acquire_oras_catalog_sources
+```
+
+Build and validate the four runtime packs:
+
+```bash
+.venv/bin/python -m scripts.skydata.build_oras_catalog_release \
+  --source-backed \
+  --release-version 2026.06.1 \
+  --output data/runtime-packs/catalog-packs
+```
+
+The default release uses complete small/medium catalogs and bounded bright
+slices for catalogs that cannot safely be loaded as complete browser indexes:
+
+| Pack | Generated objects | Sources |
+|---|---:|---|
+| `stars-core` | 99,635 | Hipparcos Tier 2, Gaia DR3 bright 10,000, Tycho-2 bright 25,000, Gliese CNS3 |
+| `dso-expanded` | 20,539 | OpenNGC, Dias open clusters, Barnard, LBN, LDN, Sharpless, Arp, Markarian, 3C |
+| `double-stars` | 25,000 | WDS records with primary magnitude at most 10 |
+| `unusual-objects` | 13,043 | coordinate-valid ATNF pulsars, Milliquas bright 10,000, BlackCAT |
+
+Gaia, Tycho-2, WDS, and Milliquas have production acquisition/normalization
+paths but are intentionally bounded for this browser-index release. Full dense
+renderer ingestion requires HATS/native SWE tiling rather than a giant JSON
+browser index.
+
+Docker Compose mounts the same generated directory read-only at:
+
+- backend: `/runtime/oras-catalog-packs`
+- frontend: `/app/public/oras-sky-engine/skydata/catalog-packs`
+
+Override the host directory with `ORAS_CATALOG_PACKS_HOST_DIR`. If the mount is
+missing, standard Stellarium catalogs remain available and the status dialog
+reports that ORAS packs are not mounted.
+
+After the stack is running, validate API and normal-user browser behavior:
+
+```bash
+npm run validate:oras-catalog-release
+```
+
+Artifacts are written to `output/playwright/catalog-release/`.

@@ -35,6 +35,7 @@
     "scan:runtime-external-deps": ".venv/bin/python scripts/skydata/scan_runtime_external_dependencies.py",
     "scan:runtime-external-deps:fail": ".venv/bin/python scripts/skydata/scan_runtime_external_dependencies.py --fail-on-runtime-forbidden",
     "validate:oras-deep-links": "node scripts/skydata/validate_oras_deep_links.js",
+    "validate:oras-catalog-release": "node scripts/skydata/validate_oras_catalog_release.js",
     "serve:stellarium": "npm run dev:stellarium",
     "dev:parity": "npm run dev:wsl && npm run dev:stellarium",
     "validate:sky-fast": "cd frontend && npm run typecheck && npm run test -- tests/sky-engine-runtime-frame-projection.test.js tests/sky-engine-stars-runtime.test.js tests/test_scene_query_state.test.js tests/test_painter_backend_port.test.js && npm run build",

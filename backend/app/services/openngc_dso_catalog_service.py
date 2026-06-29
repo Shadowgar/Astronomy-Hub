@@ -204,7 +204,7 @@ def _to_search_payload(record: dict[str, Any]) -> dict[str, Any]:
         "status": "indexed",
         "provenance": dict(record.get("provenance") or {"source_key": "openngc_local"}),
     }
-    return payload
+    return enrich_openngc_payload(payload, record)
 
 
 def _search_aliases(record: dict[str, Any]) -> list[str]:

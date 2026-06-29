@@ -19,7 +19,7 @@
           <v-list-item-subtitle>
             {{ subtitleForSkySource(source) }}
             <v-chip v-if="source.catalog" x-small outlined class="ml-1">{{ source.catalog }}</v-chip>
-            <v-chip v-if="source.pack_id" x-small color="cyan darken-3" text-color="white" class="ml-1">ORAS Enhanced</v-chip>
+            <v-chip v-if="source.pack_id || source.source_attribution" x-small color="cyan darken-3" text-color="white" class="ml-1">ORAS Enhanced</v-chip>
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>

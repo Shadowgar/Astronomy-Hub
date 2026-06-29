@@ -11,6 +11,10 @@ const appVuePath = path.resolve(
   process.cwd(),
   '../vendor/stellarium-web-engine/apps/web-frontend/src/App.vue'
 )
+const runtimeModulePath = path.resolve(
+  process.cwd(),
+  '../vendor/stellarium-web-engine/apps/web-frontend/src/assets/oras_catalog_packs.js'
+)
 const statusDialogPath = path.resolve(
   process.cwd(),
   '../vendor/stellarium-web-engine/apps/web-frontend/src/components/oras-catalog-status-dialog.vue'
@@ -31,6 +35,11 @@ const swHelpersPath = path.resolve(
   process.cwd(),
   '../vendor/stellarium-web-engine/apps/web-frontend/src/assets/sw_helpers.js'
 )
+const catalogHarnessPath = path.resolve(
+  process.cwd(),
+  '../scripts/skydata/validate_oras_catalog_release.js'
+)
+const rootPackagePath = path.resolve(process.cwd(), '../package.json')
 
 function record (overrides = {}) {
   return Object.assign({
@@ -83,7 +92,7 @@ function releaseFixture ({ badChecksum = false } = {}) {
   return { manifest, chunkText }
 }
 
-function managerForFixture (fixture) {
+function managerForFixture (fixture, options = {}) {
   const fetchImpl = async (url) => {
     if (url.endsWith('/manifest.json')) return response(JSON.stringify(fixture.manifest))
     if (url.endsWith('/packs/stars-core/chunk-00000.jsonl')) return response(fixture.chunkText)
@@ -92,13 +101,28 @@ function managerForFixture (fixture) {
   return createOrasCatalogPackManager({
     root: '/oras-sky-engine/skydata/catalog-packs',
     fetchImpl,
-    digestImpl: async (text) => crypto.createHash('sha256').update(text).digest('hex')
+    digestImpl: async (text) => crypto.createHash('sha256').update(text).digest('hex'),
+    ...options
   })
 }
 
 describe('ORAS catalog pack runtime', () => {
-  it('loads and validates mounted pack records for direct runtime search', async () => {
+  it('loads mounted release manifest without forcing all pack records into browser memory', async () => {
+    expect(fs.readFileSync(runtimeModulePath, 'utf8')).not.toContain('globalThis')
     const manager = managerForFixture(releaseFixture())
+
+    const snapshot = await manager.load()
+
+    expect(snapshot.mounted).toBe(true)
+    expect(snapshot.releaseVersion).toBe('2026.06')
+    expect(snapshot.objectCount).toBe(1)
+    expect(snapshot.packs[0]).toMatchObject({ packId: 'stars-core', status: 'loaded', loadedObjectCount: 1 })
+    expect(manager.search('Gaia DR3 5853498713190525696')).toEqual([])
+    expect(manager.overlayRecords()).toHaveLength(0)
+  })
+
+  it('can explicitly load and validate mounted pack records for focused fixtures', async () => {
+    const manager = managerForFixture(releaseFixture(), { loadRecords: true })
 
     const snapshot = await manager.load()
     const results = manager.search('Gaia DR3 5853498713190525696')
@@ -117,7 +141,7 @@ describe('ORAS catalog pack runtime', () => {
   })
 
   it('fails a bad pack independently without throwing from runtime startup', async () => {
-    const manager = managerForFixture(releaseFixture({ badChecksum: true }))
+    const manager = managerForFixture(releaseFixture({ badChecksum: true }), { loadRecords: true })
 
     const snapshot = await manager.load()
 
@@ -163,6 +187,7 @@ describe('ORAS catalog pack runtime', () => {
     expect(helperSource).toContain('orasCatalogPacks.search(normalized, limit)')
     expect(helperSource).toContain('mergeSkySourceResults')
     expect(searchSource).toContain('source.catalog')
+    expect(searchSource).toContain('source.pack_id || source.source_attribution')
     expect(searchSource).toContain('ORAS Enhanced')
     expect(detailSource).toContain('ORAS Enhanced')
     expect(detailSource).toContain('Source attribution')
@@ -171,5 +196,23 @@ describe('ORAS catalog pack runtime', () => {
     expect(targetSource).toContain('swh.setSweObjAsSelection(obj, ss)')
     expect(appSource).toContain('materializeOrasCatalogOverlays')
     expect(appSource).toContain('orasCatalogPacks.overlayRecords()')
+  })
+
+  it('provides a catalog release browser acceptance command with representative families', () => {
+    const harnessSource = fs.readFileSync(catalogHarnessPath, 'utf8')
+    const packageJson = JSON.parse(fs.readFileSync(rootPackagePath, 'utf8'))
+
+    expect(packageJson.scripts['validate:oras-catalog-release']).toBe(
+      'node scripts/skydata/validate_oras_catalog_release.js'
+    )
+    for (const query of [
+      'Caldwell 6', 'LBN350', 'Collinder 140', 'Gaia DR3', 'TYC 1-1015-1',
+      'Gliese 1', 'WDS ', 'STF 1', 'PSR J0437-4715', 'IGR J17454-2919'
+    ]) {
+      expect(harnessSource).toContain(query)
+    }
+    expect(harnessSource).toContain('ORAS Catalog Packs')
+    expect(harnessSource).toContain('Physical properties: Unavailable from mounted sources')
+    expect(harnessSource).toContain('Parsed 14281 satellites')
   })
 })
