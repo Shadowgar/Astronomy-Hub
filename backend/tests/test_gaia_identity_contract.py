@@ -3,8 +3,10 @@ from __future__ import annotations
 from pathlib import Path
 
 from sqlalchemy import create_engine
+from sqlalchemy.exc import SQLAlchemyError
 
 from backend.app.db.models import Base, CatalogSource, DataHealthCheck, GaiaDr2Source, ImportJob
+from backend.app.services import sky_catalog_service
 from backend.app.services.sky_catalog_service import lookup_gaia_dr2_source
 from scripts.skydata.import_gaia_dr2_sample import import_gaia_dr2_sample
 
@@ -39,6 +41,19 @@ def test_gaia_source_id_serializes_as_string_for_indexed_and_missing_payloads(tm
     assert indexed["indexed"] is True
     assert indexed["ra"] == 79.17232794
     assert indexed["dec"] == 45.99799147
+
+
+def test_gaia_lookup_falls_back_to_not_indexed_when_database_is_unavailable(monkeypatch) -> None:
+    def raise_unavailable(database_url=None):
+        raise SQLAlchemyError("database unavailable")
+
+    monkeypatch.setattr(sky_catalog_service, "get_engine", raise_unavailable)
+
+    missing = lookup_gaia_dr2_source(PROOF_SOURCE_ID)
+
+    assert missing["source_id"] == str(PROOF_SOURCE_ID)
+    assert missing["indexed"] is False
+    assert missing["status"] == "not_indexed"
 
 
 def _setup_gaia_database(tmp_path: Path) -> str:

@@ -4,6 +4,7 @@ import re
 from pathlib import Path
 
 from sqlalchemy import func, inspect, select
+from sqlalchemy.exc import SQLAlchemyError
 
 from backend.app.db.models import CatalogSource, GaiaDr2Source
 from backend.app.db.session import get_engine, session_scope
@@ -265,17 +266,23 @@ def build_exact_object_lookup_payload(
 
 
 def lookup_gaia_dr2_source(source_id: int, database_url: str | None = None) -> dict:
-    engine = get_engine(database_url)
-    inspector = inspect(engine)
+    try:
+        engine = get_engine(database_url)
+        inspector = inspect(engine)
+    except SQLAlchemyError:
+        return _not_indexed_payload(source_id)
     if not inspector.has_table("gaia_dr2_sources"):
         return _not_indexed_payload(source_id)
 
-    with session_scope(database_url) as session:
-        result = session.execute(
-            select(GaiaDr2Source, CatalogSource)
-            .outerjoin(CatalogSource, CatalogSource.id == GaiaDr2Source.catalog_source_id)
-            .where(GaiaDr2Source.source_id == source_id)
-        ).first()
+    try:
+        with session_scope(database_url) as session:
+            result = session.execute(
+                select(GaiaDr2Source, CatalogSource)
+                .outerjoin(CatalogSource, CatalogSource.id == GaiaDr2Source.catalog_source_id)
+                .where(GaiaDr2Source.source_id == source_id)
+            ).first()
+    except SQLAlchemyError:
+        return _not_indexed_payload(source_id)
 
     if result is None:
         return _not_indexed_payload(source_id)
