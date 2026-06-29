@@ -394,7 +394,7 @@ export default {
       return meter.toFixed(2) + '<span class="radecUnit"> m</span>'
     },
     stripHtml: function (value) {
-      return String(value || '').replace(/<[^>]*>/g, '').trim()
+      return String(value || '').replace(/[<>]/g, '').trim()
     },
     formatTime: function (jdm) {
       var d = new Date()
