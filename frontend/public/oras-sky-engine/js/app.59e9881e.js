@@ -839,12 +839,12 @@ var es_array_concat = __webpack_require__("99af");
 // EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
 var vue_esm = __webpack_require__("a026");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=09dffa34&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[_c('oras-catalog-status-dialog',{model:{value:(_vm.showCatalogPacks),callback:function ($$v) {_vm.showCatalogPacks=$$v},expression:"showCatalogPacks"}}),_c('v-navigation-drawer',{attrs:{"app":"","stateless":"","width":"300"},model:{value:(_vm.nav),callback:function ($$v) {_vm.nav=$$v},expression:"nav"}},[_c('v-layout',{attrs:{"column":"","fill-height":""}},[_c('v-list',{attrs:{"dense":""}},[_vm._l((_vm.menuItems),function(item,i){return [(_vm.$store.state[item.store_show_menu_item] === false)?void 0:(item.header)?_c('v-subheader',{key:i,staticClass:"grey--text text--darken-1",domProps:{"textContent":_vm._s(item.header)}}):(item.divider)?_c('v-divider',{key:i,staticClass:"divider_menu"}):(item.switch)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-action',[_c('v-switch',{attrs:{"value":"","input-value":_vm.getStoreValue(item.store_var_name),"label":""}})],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.title))])],1)],1):[(item.link)?_c('v-list-item',{key:i,attrs:{"target":"_blank","rel":"noopener","href":item.link}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}}),_c('v-icon',{attrs:{"disabled":""}},[_vm._v("mdi-open-in-new")])],1):(item.footer===undefined)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.handleMenuItemClick(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]]})],2),_vm._l((_vm.menuComponents),function(item,i){return [_c(item,{key:i,tag:"component"})]}),_c('v-spacer'),_c('v-list',{attrs:{"dense":""}},[_c('v-divider',{staticClass:"divider_menu"}),_vm._l((_vm.menuItems),function(item,i){return [(item.footer)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]})],2)],2)],1),_c('v-main',[_c('v-container',{staticClass:"fill-height",staticStyle:{"padding":"0"},attrs:{"fluid":""}},[_c('div',{class:{ right_panel: _vm.$store.state.showSidePanel },attrs:{"id":"stel"}},[_c('div',{staticStyle:{"position":"relative","width":"100%","height":"100%"}},[_c(_vm.guiComponent,{tag:"component"}),_c('canvas',{ref:"stelCanvas",attrs:{"id":"stel-canvas"}})],1)])])],1)],1)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=4dc0512d&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[_c('oras-catalog-status-dialog',{model:{value:(_vm.showCatalogPacks),callback:function ($$v) {_vm.showCatalogPacks=$$v},expression:"showCatalogPacks"}}),_c('oras-dense-stars-status-dialog',{model:{value:(_vm.showDenseStars),callback:function ($$v) {_vm.showDenseStars=$$v},expression:"showDenseStars"}}),_c('v-navigation-drawer',{attrs:{"app":"","stateless":"","width":"300"},model:{value:(_vm.nav),callback:function ($$v) {_vm.nav=$$v},expression:"nav"}},[_c('v-layout',{attrs:{"column":"","fill-height":""}},[_c('v-list',{attrs:{"dense":""}},[_vm._l((_vm.menuItems),function(item,i){return [(_vm.$store.state[item.store_show_menu_item] === false)?void 0:(item.header)?_c('v-subheader',{key:i,staticClass:"grey--text text--darken-1",domProps:{"textContent":_vm._s(item.header)}}):(item.divider)?_c('v-divider',{key:i,staticClass:"divider_menu"}):(item.switch)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-action',[_c('v-switch',{attrs:{"value":"","input-value":_vm.getStoreValue(item.store_var_name),"label":""}})],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.title))])],1)],1):[(item.link)?_c('v-list-item',{key:i,attrs:{"target":"_blank","rel":"noopener","href":item.link}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}}),_c('v-icon',{attrs:{"disabled":""}},[_vm._v("mdi-open-in-new")])],1):(item.footer===undefined)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.handleMenuItemClick(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]]})],2),_vm._l((_vm.menuComponents),function(item,i){return [_c(item,{key:i,tag:"component"})]}),_c('v-spacer'),_c('v-list',{attrs:{"dense":""}},[_c('v-divider',{staticClass:"divider_menu"}),_vm._l((_vm.menuItems),function(item,i){return [(item.footer)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]})],2)],2)],1),_c('v-main',[_c('v-container',{staticClass:"fill-height",staticStyle:{"padding":"0"},attrs:{"fluid":""}},[_c('div',{class:{ right_panel: _vm.$store.state.showSidePanel },attrs:{"id":"stel"}},[_c('div',{staticStyle:{"position":"relative","width":"100%","height":"100%"}},[_c(_vm.guiComponent,{tag:"component"}),_c('canvas',{ref:"stelCanvas",attrs:{"id":"stel-canvas"}})],1)])])],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=09dffa34&
+// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=4dc0512d&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__("3835");
@@ -2516,6 +2516,7 @@ var swh = {
           store.commit('replaceStelWebEngine', tree);
         });
         vue_esm["a" /* default */].prototype.$stel = lstel;
+        window.__ORAS_STEL = lstel;
         vue_esm["a" /* default */].prototype.$selectionLayer = lstel.createLayer({
           id: 'slayer',
           z: 50,
@@ -6238,6 +6239,433 @@ var oras_catalog_status_dialog_component = Object(componentNormalizer["a" /* def
 
 installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAlert["a" /* default */],VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardActions: components_VCard["a" /* VCardActions */],VCardSubtitle: components_VCard["b" /* VCardSubtitle */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VChip: VChip["a" /* default */],VDialog: VDialog["a" /* default */],VSimpleTable: VSimpleTable["a" /* default */],VSpacer: VSpacer["a" /* default */]})
 
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/oras-dense-stars-status-dialog.vue?vue&type=template&id=a6350db6&scoped=true&
+var oras_dense_stars_status_dialogvue_type_template_id_a6350db6_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"value":_vm.value,"max-width":"760"},on:{"input":function($event){return _vm.$emit('input', $event)}}},[_c('v-card',{staticClass:"oras-dense-stars-status"},[_c('v-card-title',[_vm._v(" ORAS Dense Stars "),_c('v-spacer'),_c('v-chip',{attrs:{"small":"","color":_vm.statusColor,"text-color":"white"}},[_vm._v(_vm._s(_vm.statusLabel))])],1),_c('v-card-subtitle',[_vm._v(" Native path: native SWE star tiles · Release "+_vm._s(_vm.snapshot.releaseVersion || 'not mounted')+" ")]),_c('v-card-text',[(!_vm.snapshot.mounted)?_c('v-alert',{attrs:{"type":"info","text":""}},[_vm._v(" Dense Stars is degraded: missing generated dense star release. Standard Stellarium star surveys remain available. ")]):(!_vm.snapshot.enabled)?_c('v-alert',{attrs:{"type":"warning","text":""}},[_vm._v(" ORAS dense star rendering is off. Toggle it on and recheck the runtime to register the mounted native survey. ")]):_c('v-alert',{attrs:{"type":"success","text":""}},[_vm._v(" ORAS dense stars are loaded through native SWE star tiles. The browser loads the manifest first; tile payloads are requested by Stellarium as needed. ")]),_c('v-simple-table',{attrs:{"dense":""}},[_c('tbody',[_c('tr',[_c('td',[_c('strong',[_vm._v("Rendering path")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.renderingPath || 'Unavailable'))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Stars")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.starCount.toLocaleString()))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Tiles")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.tileCount.toLocaleString()))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Magnitude limit")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.magnitudeLimit == null ? 'Unavailable' : _vm.snapshot.magnitudeLimit))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Tile order")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.tileOrder == null ? 'Unavailable' : _vm.snapshot.tileOrder))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Sources")])]),_c('td',[_vm._v(_vm._s(_vm.sourceCatalogSummary))])]),(_vm.snapshot.error)?_c('tr',[_c('td',[_c('strong',[_vm._v("Error")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.error))])]):_vm._e()])])],1),_c('v-card-actions',[_c('v-btn',{attrs:{"text":""},on:{"click":_vm.refresh}},[_vm._v("Refresh")]),_c('v-spacer'),_c('v-btn',{attrs:{"text":""},on:{"click":function($event){return _vm.$emit('input', false)}}},[_vm._v("Close")])],1)],1)],1)}
+var oras_dense_stars_status_dialogvue_type_template_id_a6350db6_scoped_true_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/oras-dense-stars-status-dialog.vue?vue&type=template&id=a6350db6&scoped=true&
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.entries.js
+var es_object_entries = __webpack_require__("4fad");
+
+// CONCATENATED MODULE: ./src/assets/oras_dense_stars.js
+
+
+
+
+
+
+
+
+
+
+
+
+var ORAS_DENSE_STARS_ROOT = '/oras-sky-engine/skydata/dense-star-tiles';
+var STORAGE_KEY = 'orasDenseStarsEnabled';
+
+function oras_dense_stars_emptySnapshot() {
+  var phase = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'idle';
+  return {
+    phase: phase,
+    mounted: false,
+    enabled: defaultDenseStarsEnabled(),
+    releaseVersion: null,
+    generatedAt: null,
+    renderingPath: 'native_swe_star_tiles',
+    sourceCatalogs: {},
+    sourceAttribution: [],
+    starCount: 0,
+    tileCount: 0,
+    magnitudeLimit: null,
+    tileOrder: null,
+    error: null
+  };
+}
+
+function defaultDenseStarsEnabled() {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return window.localStorage.getItem(STORAGE_KEY) !== '0';
+    }
+  } catch (error) {}
+
+  return true;
+}
+function persistDenseStarsEnabled(enabled) {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem(STORAGE_KEY, enabled ? '1' : '0');
+    }
+  } catch (error) {}
+}
+function createOrasDenseStarsManager() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var root = String(options.root || ORAS_DENSE_STARS_ROOT).replace(/\/$/, '');
+  var fetchImpl = options.fetchImpl || (typeof window !== 'undefined' && typeof window.fetch === 'function' ? window.fetch.bind(window) : undefined);
+  var snapshot = oras_dense_stars_emptySnapshot();
+  var loadingPromise;
+  var listeners = new Set();
+
+  function publish(nextSnapshot) {
+    snapshot = Object.assign({}, nextSnapshot, {
+      sourceCatalogs: Object.assign({}, nextSnapshot.sourceCatalogs || {}),
+      sourceAttribution: (nextSnapshot.sourceAttribution || []).map(function (source) {
+        return Object.assign({}, source);
+      })
+    });
+    listeners.forEach(function (listener) {
+      return listener(getSnapshot());
+    });
+    return getSnapshot();
+  }
+
+  function getSnapshot() {
+    return Object.assign({}, snapshot, {
+      sourceCatalogs: Object.assign({}, snapshot.sourceCatalogs || {}),
+      sourceAttribution: (snapshot.sourceAttribution || []).map(function (source) {
+        return Object.assign({}, source);
+      })
+    });
+  }
+
+  function load() {
+    return _load.apply(this, arguments);
+  }
+
+  function _load() {
+    _load = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!loadingPromise) {
+                _context.next = 2;
+                break;
+              }
+
+              return _context.abrupt("return", loadingPromise);
+
+            case 2:
+              loadingPromise = loadRelease().finally(function () {
+                loadingPromise = undefined;
+              });
+              return _context.abrupt("return", loadingPromise);
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _load.apply(this, arguments);
+  }
+
+  function loadRelease() {
+    return _loadRelease.apply(this, arguments);
+  }
+
+  function _loadRelease() {
+    _loadRelease = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+      var response, manifest;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              publish(Object.assign(oras_dense_stars_emptySnapshot('loading'), {
+                mounted: snapshot.mounted,
+                enabled: snapshot.enabled
+              }));
+
+              if (!(typeof fetchImpl !== 'function')) {
+                _context2.next = 3;
+                break;
+              }
+
+              return _context2.abrupt("return", publish(oras_dense_stars_emptySnapshot('not-mounted')));
+
+            case 3:
+              _context2.prev = 3;
+              _context2.next = 6;
+              return fetchImpl(root + '/manifest.json', {
+                cache: 'no-store'
+              });
+
+            case 6:
+              response = _context2.sent;
+              _context2.next = 12;
+              break;
+
+            case 9:
+              _context2.prev = 9;
+              _context2.t0 = _context2["catch"](3);
+              return _context2.abrupt("return", publish(oras_dense_stars_emptySnapshot('not-mounted')));
+
+            case 12:
+              if (!(!response || !response.ok)) {
+                _context2.next = 14;
+                break;
+              }
+
+              return _context2.abrupt("return", publish(oras_dense_stars_emptySnapshot('not-mounted')));
+
+            case 14:
+              _context2.prev = 14;
+              _context2.t1 = JSON;
+              _context2.next = 18;
+              return response.text();
+
+            case 18:
+              _context2.t2 = _context2.sent;
+              manifest = _context2.t1.parse.call(_context2.t1, _context2.t2);
+              oras_dense_stars_validateManifest(manifest);
+              return _context2.abrupt("return", publish({
+                phase: snapshot.enabled ? 'loaded' : 'off',
+                mounted: true,
+                enabled: snapshot.enabled,
+                releaseVersion: String(manifest.release_version),
+                generatedAt: manifest.generated_at || null,
+                renderingPath: 'native_swe_star_tiles',
+                sourceCatalogs: Object.assign({}, manifest.source_catalogs || {}),
+                sourceAttribution: Array.isArray(manifest.source_attribution) ? manifest.source_attribution.map(function (source) {
+                  return Object.assign({}, source);
+                }) : [],
+                starCount: Number(manifest.star_count) || 0,
+                tileCount: Number(manifest.tile_count) || 0,
+                magnitudeLimit: Number(manifest.magnitude_limit),
+                tileOrder: Number(manifest.tile_order),
+                error: null
+              }));
+
+            case 24:
+              _context2.prev = 24;
+              _context2.t3 = _context2["catch"](14);
+              return _context2.abrupt("return", publish(Object.assign(oras_dense_stars_emptySnapshot('failed'), {
+                mounted: true,
+                error: _context2.t3.message
+              })));
+
+            case 27:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[3, 9], [14, 24]]);
+    }));
+    return _loadRelease.apply(this, arguments);
+  }
+
+  function setEnabled(enabled) {
+    persistDenseStarsEnabled(enabled);
+    publish(Object.assign(getSnapshot(), {
+      enabled: enabled,
+      phase: enabled ? snapshot.mounted ? 'loaded' : snapshot.phase : 'off'
+    }));
+  }
+
+  function getSurveyRoot() {
+    return root;
+  }
+
+  function isReadyForNativeRegistration() {
+    return snapshot.mounted && snapshot.enabled && snapshot.renderingPath === 'native_swe_star_tiles';
+  }
+
+  function subscribe(listener) {
+    listeners.add(listener);
+    listener(getSnapshot());
+    return function () {
+      return listeners.delete(listener);
+    };
+  }
+
+  return {
+    getSnapshot: getSnapshot,
+    getSurveyRoot: getSurveyRoot,
+    isReadyForNativeRegistration: isReadyForNativeRegistration,
+    load: load,
+    setEnabled: setEnabled,
+    subscribe: subscribe
+  };
+}
+
+function oras_dense_stars_validateManifest(manifest) {
+  if (!manifest || manifest.schema_version !== 1) throw new Error('unsupported dense star manifest schema');
+  if (manifest.rendering_path !== 'native_swe_star_tiles') throw new Error('unsupported dense star rendering path');
+  if (manifest.source_id_type !== 'string') throw new Error('dense star source IDs must remain strings');
+  if (!Number.isFinite(Number(manifest.star_count)) || Number(manifest.star_count) < 1) throw new Error('dense star count must be positive');
+  if (!Number.isFinite(Number(manifest.tile_count)) || Number(manifest.tile_count) < 1) throw new Error('dense star tile count must be positive');
+}
+
+var orasDenseStars = createOrasDenseStarsManager();
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/oras-dense-stars-status-dialog.vue?vue&type=script&lang=js&
+
+
+
+
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ var oras_dense_stars_status_dialogvue_type_script_lang_js_ = ({
+  name: 'OrasDenseStarsStatusDialog',
+  props: {
+    value: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      snapshot: orasDenseStars.getSnapshot(),
+      unsubscribe: undefined
+    };
+  },
+  computed: {
+    statusLabel: function statusLabel() {
+      return this.snapshot.phase.replace('-', ' ');
+    },
+    statusColor: function statusColor() {
+      if (this.snapshot.phase === 'loaded') return 'green';
+      if (this.snapshot.phase === 'failed' || this.snapshot.phase === 'degraded') return 'orange';
+      if (this.snapshot.phase === 'off') return 'blue-grey';
+      return 'blue-grey';
+    },
+    sourceCatalogSummary: function sourceCatalogSummary() {
+      var entries = Object.entries(this.snapshot.sourceCatalogs || {});
+      return entries.length ? entries.map(function (_ref) {
+        var _ref2 = Object(slicedToArray["a" /* default */])(_ref, 2),
+            name = _ref2[0],
+            count = _ref2[1];
+
+        return name + ': ' + Number(count).toLocaleString();
+      }).join(', ') : 'Unavailable';
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    this.unsubscribe = orasDenseStars.subscribe(function (snapshot) {
+      _this.snapshot = snapshot;
+    });
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (this.unsubscribe) this.unsubscribe();
+  },
+  methods: {
+    refresh: function refresh() {
+      orasDenseStars.load();
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/oras-dense-stars-status-dialog.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_oras_dense_stars_status_dialogvue_type_script_lang_js_ = (oras_dense_stars_status_dialogvue_type_script_lang_js_);
+// EXTERNAL MODULE: ./src/components/oras-dense-stars-status-dialog.vue?vue&type=style&index=0&id=a6350db6&scoped=true&lang=css&
+var oras_dense_stars_status_dialogvue_type_style_index_0_id_a6350db6_scoped_true_lang_css_ = __webpack_require__("a57b");
+
+// CONCATENATED MODULE: ./src/components/oras-dense-stars-status-dialog.vue
+
+
+
+
+
+
+/* normalize component */
+
+var oras_dense_stars_status_dialog_component = Object(componentNormalizer["a" /* default */])(
+  components_oras_dense_stars_status_dialogvue_type_script_lang_js_,
+  oras_dense_stars_status_dialogvue_type_template_id_a6350db6_scoped_true_render,
+  oras_dense_stars_status_dialogvue_type_template_id_a6350db6_scoped_true_staticRenderFns,
+  false,
+  null,
+  "a6350db6",
+  null
+
+)
+
+/* harmony default export */ var oras_dense_stars_status_dialog = (oras_dense_stars_status_dialog_component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+
+
+
+
+installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: VAlert["a" /* default */],VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardActions: components_VCard["a" /* VCardActions */],VCardSubtitle: components_VCard["b" /* VCardSubtitle */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VChip: VChip["a" /* default */],VDialog: VDialog["a" /* default */],VSimpleTable: VSimpleTable["a" /* default */],VSpacer: VSpacer["a" /* default */]})
+
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=script&lang=js&
 
 
@@ -6323,6 +6751,9 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
 //
 //
 //
+//
+
+
 
 
 
@@ -6351,6 +6782,14 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
         icon: 'mdi-database-search',
         action: 'catalogPacks'
       }, {
+        title: this.$t('ORAS Dense Stars'),
+        icon: 'mdi-star-four-points',
+        action: 'denseStars'
+      }, {
+        title: this.$t('ORAS Dense Stars Enabled'),
+        switch: true,
+        store_var_name: 'showOrasDenseStars'
+      }, {
         title: this.$t('View Settings'),
         icon: 'mdi-settings',
         store_var_name: 'showViewSettingsDialog',
@@ -6374,13 +6813,16 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
       initDone: false,
       dataSourceInitDone: false,
       showCatalogPacks: false,
+      showDenseStars: false,
+      denseStarSurveyRegistered: false,
       orasOverlayObjects: []
     };
   },
   components: {
     Gui: gui,
     GuiLoader: gui_loader,
-    OrasCatalogStatusDialog: oras_catalog_status_dialog
+    OrasCatalogStatusDialog: oras_catalog_status_dialog,
+    OrasDenseStarsStatusDialog: oras_dense_stars_status_dialog
   },
   methods: {
     getPluginsMenuItems: function getPluginsMenuItems() {
@@ -6411,6 +6853,11 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
     },
     toggleStoreValue: function toggleStoreValue(storeVarName) {
       this.$store.commit('toggleBool', storeVarName);
+
+      if (storeVarName === 'showOrasDenseStars') {
+        orasDenseStars.setEnabled(this.$store.state.showOrasDenseStars);
+        window.location.reload();
+      }
     },
     handleMenuItemClick: function handleMenuItemClick(item) {
       if (item.action === 'hubFrontpage') {
@@ -6434,9 +6881,36 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
         return;
       }
 
+      if (item.action === 'denseStars') {
+        this.closeNavigationDrawer();
+        this.showDenseStars = true;
+        return;
+      }
+
       if (item.store_var_name) {
         this.toggleStoreValue(item.store_var_name);
       }
+    },
+    registerOrasDenseStarSurvey: function registerOrasDenseStarSurvey(core) {
+      var _this = this;
+
+      if (this.denseStarSurveyRegistered || !this.$store.state.showOrasDenseStars) {
+        return;
+      }
+
+      orasDenseStars.load().then(function () {
+        if (!orasDenseStars.isReadyForNativeRegistration() || _this.denseStarSurveyRegistered) {
+          return;
+        }
+
+        core.stars.addDataSource({
+          url: orasDenseStars.getSurveyRoot(),
+          key: 'oras-dense-stars'
+        });
+        _this.denseStarSurveyRegistered = true;
+      }, function (error) {
+        console.warn('Failed to load ORAS dense star survey', error);
+      });
     },
     getStoreValue: function getStoreValue(storeVarName) {
       return lodash_default.a.get(this.$store.state, storeVarName);
@@ -6632,7 +7106,7 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
       };
     },
     selectSkySourceRouteTarget: function selectSkySourceRouteTarget(name) {
-      var _this = this;
+      var _this2 = this;
 
       var attempt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var retryDelayMs = 250;
@@ -6652,10 +7126,10 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
         var obj = sw_helpers.skySource2SweObj(ss);
 
         if (!obj) {
-          obj = _this.$stel.createObj(ss.model, ss);
+          obj = _this2.$stel.createObj(ss.model, ss);
 
           if (obj) {
-            _this.$selectionLayer.add(obj);
+            _this2.$selectionLayer.add(obj);
           }
         }
 
@@ -6671,7 +7145,7 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
           return new Promise(function (resolve) {
             return setTimeout(resolve, retryDelayMs);
           }).then(function () {
-            return _this.selectSkySourceRouteTarget(name, attempt + 1);
+            return _this2.selectSkySourceRouteTarget(name, attempt + 1);
           });
         }
 
@@ -6680,7 +7154,7 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
       });
     },
     selectSkySourceRouteTargetByIdentity: function selectSkySourceRouteTargetByIdentity(identity) {
-      var _this2 = this;
+      var _this3 = this;
 
       var attempt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var retryDelayMs = 250;
@@ -6695,7 +7169,7 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
         var obj = sw_helpers.skySource2SweObj(ss);
 
         if (!obj) {
-          var fallbackObj = _this2.$stel.createObj(ss.model, ss);
+          var fallbackObj = _this3.$stel.createObj(ss.model, ss);
 
           if (!fallbackObj) {
             throw new Error('Exact sky source target is not ready yet');
@@ -6703,7 +7177,7 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
 
           obj = fallbackObj;
 
-          _this2.$selectionLayer.add(obj);
+          _this3.$selectionLayer.add(obj);
         }
 
         obj.__orasSkySourceData = ss;
@@ -6713,7 +7187,7 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
           return new Promise(function (resolve) {
             return setTimeout(resolve, retryDelayMs);
           }).then(function () {
-            return _this2.selectSkySourceRouteTargetByIdentity(identity, attempt + 1);
+            return _this3.selectSkySourceRouteTargetByIdentity(identity, attempt + 1);
           });
         }
 
@@ -6737,10 +7211,10 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
           dec: identity.dec
         });
 
-        var fallbackObj = _this2.$stel.createObj(fallback.model, fallback);
+        var fallbackObj = _this3.$stel.createObj(fallback.model, fallback);
 
         if (fallbackObj) {
-          _this2.$selectionLayer.add(fallbackObj);
+          _this3.$selectionLayer.add(fallbackObj);
 
           sw_helpers.setSweObjAsSelection(fallbackObj);
           return;
@@ -6794,6 +7268,9 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
     var that = this;
     orasCatalogPacks.load().catch(function (error) {
       console.warn('Failed to load ORAS catalog packs', error);
+    });
+    orasDenseStars.load().catch(function (error) {
+      console.warn('Failed to load ORAS dense stars', error);
     });
 
     for (var i in this.$stellariumWebPlugins()) {
@@ -6850,6 +7327,7 @@ installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAler
                 url: packRoot + '/stars'
               });
             });
+            that.registerOrasDenseStarSurvey(core);
             core.stars.addDataSource({
               url: ORAS_BUNDLED_GAIA_SURVEY_ROOT,
               key: 'gaia'
@@ -7033,6 +7511,14 @@ var vuex_esm = __webpack_require__("2f62");
 
 vue_esm["a" /* default */].use(vuex_esm["a" /* default */]);
 
+function defaultShowOrasDenseStars() {
+  try {
+    return typeof window === 'undefined' || !window.localStorage || window.localStorage.getItem('orasDenseStarsEnabled') !== '0';
+  } catch (error) {
+    return true;
+  }
+}
+
 var store_createStore = function createStore() {
   var pluginsModules = {};
 
@@ -7055,6 +7541,7 @@ var store_createStore = function createStore() {
       showViewSettingsDialog: false,
       showPlanetsVisibilityDialog: false,
       showLocationDialog: false,
+      showOrasDenseStars: defaultShowOrasDenseStars(),
       selectedObject: undefined,
       showSidePanel: false,
       showMainToolBar: true,
@@ -7385,6 +7872,13 @@ module.exports = JSON.parse("{\"View Settings\":\"Einstellungen anzeigen\",\"Pla
 
 /***/ }),
 
+/***/ "7842":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "7aa7":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7457,6 +7951,17 @@ webpackEmptyContext.id = "7d49";
 /* harmony import */ var _node_modules_cache_loader_dist_cjs_js_ref_13_0_node_modules_thread_loader_dist_cjs_js_node_modules_babel_loader_lib_index_js_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_data_credits_dialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("c5ac");
 /* harmony import */ var _node_modules_cache_loader_dist_cjs_js_ref_13_0_node_modules_thread_loader_dist_cjs_js_node_modules_babel_loader_lib_index_js_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_data_credits_dialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_cache_loader_dist_cjs_js_ref_13_0_node_modules_thread_loader_dist_cjs_js_node_modules_babel_loader_lib_index_js_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_data_credits_dialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
  /* harmony default export */ __webpack_exports__["default"] = (_node_modules_cache_loader_dist_cjs_js_ref_13_0_node_modules_thread_loader_dist_cjs_js_node_modules_babel_loader_lib_index_js_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_data_credits_dialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "a57b":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_oras_dense_stars_status_dialog_vue_vue_type_style_index_0_id_a6350db6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("7842");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_oras_dense_stars_status_dialog_vue_vue_type_style_index_0_id_a6350db6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_oras_dense_stars_status_dialog_vue_vue_type_style_index_0_id_a6350db6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
 
 /***/ }),
 

@@ -76,6 +76,51 @@ async function fetchJson (url) {
   }
 }
 
+async function writeElementTextArtifact (page, selector, filename) {
+  const target = page.locator(selector).first()
+  await target.waitFor({ state: 'visible', timeout: timeoutMs })
+  const text = await target.innerText()
+  fs.writeFileSync(path.join(artifactRoot, filename), `${text}\n`)
+}
+
+async function writeCanvasArtifact (page, filename) {
+  const dataUrl = await page.evaluate(() => {
+    const canvas = document.querySelector('#stel-canvas')
+    return canvas && typeof canvas.toDataURL === 'function' ? canvas.toDataURL('image/png') : null
+  })
+  if (!dataUrl || !dataUrl.startsWith('data:image/png;base64,')) {
+    fs.writeFileSync(path.join(artifactRoot, `${filename}.txt`), 'Canvas PNG export unavailable\n')
+    return
+  }
+  fs.writeFileSync(path.join(artifactRoot, filename), Buffer.from(dataUrl.split(',')[1], 'base64'))
+}
+
+async function fillSearchInput (page, value) {
+  const input = page.locator('.tsearch input').first()
+  await input.waitFor({ state: 'visible', timeout: timeoutMs })
+  await page.evaluate((query) => {
+    const field = document.querySelector('.tsearch input')
+    if (!field) throw new Error('search input not found')
+    field.focus()
+    field.value = query
+    field.dispatchEvent(new Event('input', { bubbles: true }))
+    field.dispatchEvent(new Event('change', { bubbles: true }))
+  }, value)
+}
+
+async function clickSearchChoice (page, expectedText) {
+  return page.evaluate((needle) => {
+    const choices = Array.from(document.querySelectorAll('.tsearch .v-list-item'))
+    const choice = choices.find(element => element.textContent.includes(needle))
+    if (!choice) {
+      throw new Error(`search choice not found for ${needle}; choices=${choices.map(element => element.textContent.trim()).join(' | ')}`)
+    }
+    const text = choice.textContent.trim()
+    choice.click()
+    return text
+  }, expectedText)
+}
+
 async function validateApi () {
   const status = await fetchJson(apiUrl('/api/sky/catalog-packs'))
   const data = status.data || {}
@@ -107,12 +152,17 @@ async function validateApi () {
 }
 
 async function openCatalogStatus (page) {
-  const menuButton = page.locator('button:has(.mdi-menu)').first()
-  await menuButton.waitFor({ state: 'visible', timeout: timeoutMs })
-  await menuButton.click()
+  console.log('CATALOG_STEP status-dialog')
+  await page.waitForSelector('button .mdi-menu', { state: 'visible', timeout: timeoutMs })
+  await page.evaluate(() => document.querySelector('button .mdi-menu').closest('button').click())
   const packsItem = page.getByText('ORAS Catalog Packs', { exact: true }).last()
   await packsItem.waitFor({ state: 'visible', timeout: timeoutMs })
-  await packsItem.click()
+  await page.evaluate(() => {
+    const item = Array.from(document.querySelectorAll('.v-list-item'))
+      .find(element => element.textContent.trim() === 'ORAS Catalog Packs')
+    if (!item) throw new Error('ORAS Catalog Packs menu item not found')
+    item.click()
+  })
   const dialog = page.locator('.oras-catalog-status')
   await dialog.waitFor({ state: 'visible', timeout: timeoutMs })
   await page.waitForFunction(() => document.body.innerText.includes('Loaded objects 158,217'), null, { timeout: timeoutMs })
@@ -120,25 +170,21 @@ async function openCatalogStatus (page) {
   for (const expected of ['ORAS Stars Core', 'ORAS Expanded DSOs', 'ORAS Double Stars', 'ORAS Pulsars, Quasars, and Black Holes']) {
     if (!text.includes(expected)) throw new Error(`catalog status missing ${expected}`)
   }
-  await page.screenshot({ path: path.join(artifactRoot, 'catalog-pack-status.png'), fullPage: true })
-  await dialog.getByText('Close', { exact: true }).click()
+  await writeElementTextArtifact(page, '.oras-catalog-status', 'catalog-pack-status.txt')
+  await dialog.getByText('Close', { exact: true }).evaluate(element => element.click())
 }
 
 async function selectSearchResult (page, testCase) {
+  console.log(`CATALOG_STEP search ${testCase.query}`)
   const input = page.locator('.tsearch input').first()
   await input.waitFor({ state: 'visible', timeout: timeoutMs })
-  await input.fill(testCase.query)
+  await fillSearchInput(page, testCase.query)
   const choices = page.locator('.tsearch .v-list-item')
   await choices.first().waitFor({ state: 'visible', timeout: timeoutMs })
-  const choice = testCase.expectedText
-    ? choices.filter({ hasText: testCase.expectedText }).first()
-    : choices.filter({ hasText: testCase.expectedCatalog }).first()
-  await choice.waitFor({ state: 'visible', timeout: timeoutMs })
-  const choiceText = await choice.innerText()
+  const choiceText = await clickSearchChoice(page, testCase.expectedText || testCase.expectedCatalog)
   if (!choiceText.includes('ORAS Enhanced') || !choiceText.includes(testCase.expectedCatalog)) {
     throw new Error(`search result lacks ORAS catalog badges for ${testCase.query}: ${choiceText}`)
   }
-  await choice.click()
   const details = page.locator('.oras-enhanced-panel')
   await details.waitFor({ state: 'visible', timeout: timeoutMs })
   const detailText = await details.innerText()
@@ -154,7 +200,8 @@ async function selectSearchResult (page, testCase) {
   if (testCase.requireUnavailableProperties && !detailText.includes('Physical properties: Unavailable from mounted sources')) {
     throw new Error(`missing-field honesty not visible for ${testCase.query}`)
   }
-  await page.screenshot({ path: path.join(artifactRoot, testCase.artifact), fullPage: true })
+  await writeElementTextArtifact(page, '.oras-enhanced-panel', testCase.artifact.replace(/\.png$/, '.txt'))
+  console.log(`CATALOG_STEP selected ${testCase.query}`)
 }
 
 async function validateBrowser () {
@@ -178,6 +225,7 @@ async function validateBrowser () {
       null,
       { timeout: timeoutMs }
     )
+    console.log('CATALOG_STEP satellite-log')
     const satelliteMessage = consoleMessages.find(message => satelliteParsePattern.test(message))
     if (!satelliteMessage) throw new Error('satellite parse count was not logged')
     const satelliteCount = Number((satelliteMessage.match(satelliteParsePattern) || [])[1])
@@ -187,7 +235,7 @@ async function validateBrowser () {
     if (fatalErrors.length) throw new Error(`fatal browser errors: ${fatalErrors.join(' | ')}`)
     const forbidden = consoleMessages.find(message => /Cannot uncompress gz file|Parsed -1 satellites|Failed to resolve exact sky source route/i.test(message))
     if (forbidden) throw new Error(`forbidden runtime console message: ${forbidden}`)
-    await page.screenshot({ path: path.join(artifactRoot, 'satellite-regression.png'), fullPage: true })
+    await writeCanvasArtifact(page, 'satellite-regression.png')
     return { satelliteMessage, consoleMessages: consoleMessages.length }
   } finally {
     await browser.close()

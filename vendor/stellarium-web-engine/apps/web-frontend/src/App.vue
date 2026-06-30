@@ -10,6 +10,7 @@
 
 <v-app>
   <oras-catalog-status-dialog v-model="showCatalogPacks"></oras-catalog-status-dialog>
+  <oras-dense-stars-status-dialog v-model="showDenseStars"></oras-dense-stars-status-dialog>
   <v-navigation-drawer v-model="nav" app stateless width="300">
     <v-layout column fill-height>
       <v-list dense>
@@ -75,8 +76,10 @@ import _ from 'lodash'
 import Gui from '@/components/gui.vue'
 import GuiLoader from '@/components/gui-loader.vue'
 import OrasCatalogStatusDialog from '@/components/oras-catalog-status-dialog.vue'
+import OrasDenseStarsStatusDialog from '@/components/oras-dense-stars-status-dialog.vue'
 import { ORAS_BUNDLED_GAIA_SURVEY_ROOT, listOrasPackRoots, resolveOrasDssSurveyUrl, toOrasSkySource, withOrasRouteIdentityFallback } from '@/assets/oras_data_config.js'
 import { orasCatalogPacks } from '@/assets/oras_catalog_packs.js'
+import { orasDenseStars } from '@/assets/oras_dense_stars.js'
 import swh from '@/assets/sw_helpers.js'
 import Moment from 'moment'
 
@@ -88,6 +91,8 @@ export default {
         { title: this.$t('Recheck Runtime'), icon: 'mdi-refresh', action: 'recheckRuntime' },
         { title: this.$t('Open Standalone Runtime'), icon: 'mdi-open-in-new', action: 'openStandaloneRuntime' },
         { title: this.$t('ORAS Catalog Packs'), icon: 'mdi-database-search', action: 'catalogPacks' },
+        { title: this.$t('ORAS Dense Stars'), icon: 'mdi-star-four-points', action: 'denseStars' },
+        { title: this.$t('ORAS Dense Stars Enabled'), switch: true, store_var_name: 'showOrasDenseStars' },
         { title: this.$t('View Settings'), icon: 'mdi-settings', store_var_name: 'showViewSettingsDialog', store_show_menu_item: 'showViewSettingsMenuItem' },
         { title: this.$t('Planets Tonight'), icon: 'mdi-panorama-fisheye', store_var_name: 'showPlanetsVisibilityDialog', store_show_menu_item: 'showPlanetsVisibilityMenuItem' },
         { divider: true }
@@ -100,10 +105,12 @@ export default {
       initDone: false,
       dataSourceInitDone: false,
       showCatalogPacks: false,
+      showDenseStars: false,
+      denseStarSurveyRegistered: false,
       orasOverlayObjects: []
     }
   },
-  components: { Gui, GuiLoader, OrasCatalogStatusDialog },
+  components: { Gui, GuiLoader, OrasCatalogStatusDialog, OrasDenseStarsStatusDialog },
   methods: {
     getPluginsMenuItems: function () {
       let res = []
@@ -127,6 +134,10 @@ export default {
     },
     toggleStoreValue: function (storeVarName) {
       this.$store.commit('toggleBool', storeVarName)
+      if (storeVarName === 'showOrasDenseStars') {
+        orasDenseStars.setEnabled(this.$store.state.showOrasDenseStars)
+        window.location.reload()
+      }
     },
     handleMenuItemClick: function (item) {
       if (item.action === 'hubFrontpage') {
@@ -146,9 +157,28 @@ export default {
         this.showCatalogPacks = true
         return
       }
+      if (item.action === 'denseStars') {
+        this.closeNavigationDrawer()
+        this.showDenseStars = true
+        return
+      }
       if (item.store_var_name) {
         this.toggleStoreValue(item.store_var_name)
       }
+    },
+    registerOrasDenseStarSurvey: function (core) {
+      if (this.denseStarSurveyRegistered || !this.$store.state.showOrasDenseStars) {
+        return
+      }
+      orasDenseStars.load().then(() => {
+        if (!orasDenseStars.isReadyForNativeRegistration() || this.denseStarSurveyRegistered) {
+          return
+        }
+        core.stars.addDataSource({ url: orasDenseStars.getSurveyRoot(), key: 'oras-dense-stars' })
+        this.denseStarSurveyRegistered = true
+      }, error => {
+        console.warn('Failed to load ORAS dense star survey', error)
+      })
     },
     getStoreValue: function (storeVarName) {
       return _.get(this.$store.state, storeVarName)
@@ -462,6 +492,9 @@ export default {
     orasCatalogPacks.load().catch(error => {
       console.warn('Failed to load ORAS catalog packs', error)
     })
+    orasDenseStars.load().catch(error => {
+      console.warn('Failed to load ORAS dense stars', error)
+    })
 
     for (const i in this.$stellariumWebPlugins()) {
       const plugin = this.$stellariumWebPlugins()[i]
@@ -506,6 +539,7 @@ export default {
             listOrasPackRoots().forEach((packRoot) => {
               core.stars.addDataSource({ url: packRoot + '/stars' })
             })
+            that.registerOrasDenseStarSurvey(core)
             core.stars.addDataSource({ url: ORAS_BUNDLED_GAIA_SURVEY_ROOT, key: 'gaia' })
 
             // Allow to specify a custom path for sky culture data

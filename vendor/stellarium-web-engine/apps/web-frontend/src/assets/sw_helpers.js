@@ -47,6 +47,7 @@ const swh = {
           store.commit('replaceStelWebEngine', tree)
         })
         Vue.prototype.$stel = lstel
+        window.__ORAS_STEL = lstel
         Vue.prototype.$selectionLayer = lstel.createLayer({ id: 'slayer', z: 50, visible: true })
         Vue.prototype.$observingLayer = lstel.createLayer({ id: 'obslayer', z: 40, visible: true })
         Vue.prototype.$skyHintsLayer = lstel.createLayer({ id: 'skyhintslayer', z: 38, visible: true })
