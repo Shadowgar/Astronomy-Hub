@@ -95,6 +95,7 @@ def test_catalog_pack_deployment_scripts_exist_and_expose_safe_commands() -> Non
     assert "--validate-only" in install_script
     assert "find" in install_script and "cp -a" in install_script
     assert "chmod -R a+rX" in install_script
+    assert 'mv "$BACKUP" "$TARGET_DIR"' in install_script
     assert "build_oras_catalog_release" in validate_script
     assert package["scripts"]["catalog:build"] == "bash scripts/skydata/build_oras_catalog_release.sh"
     assert package["scripts"]["catalog:install"] == "bash scripts/skydata/install_oras_catalog_release.sh"

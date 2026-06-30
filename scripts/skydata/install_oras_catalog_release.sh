@@ -48,6 +48,9 @@ STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 STAGING="$(mktemp -d "$TARGET_PARENT/.catalog-pack-install-$STAMP.XXXXXX")"
 BACKUP=""
 cleanup() {
+  if [[ -n "${BACKUP:-}" && -d "$BACKUP" && ! -e "$TARGET_DIR" ]]; then
+    mv "$BACKUP" "$TARGET_DIR"
+  fi
   if [[ -n "${STAGING:-}" && -d "$STAGING" ]]; then
     rm -rf "$STAGING"
   fi
