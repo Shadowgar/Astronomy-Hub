@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 PYTHON_BIN="${PYTHON_BIN:-$ROOT_DIR/.venv/bin/python}"
-SOURCE_DIR="${1:-${ORAS_CATALOG_RELEASE_SOURCE_DIR:-$ROOT_DIR/data/runtime-packs/catalog-packs}}"
+SOURCE_DIR="${1:-${ORAS_CATALOG_RELEASE_SOURCE_DIR:-$ROOT_DIR/data/runtime-packs/catalog-pack-build}}"
 TARGET_INPUT="${2:-${ORAS_CATALOG_PACKS_HOST_DIR:-$ROOT_DIR/data/runtime-packs/catalog-packs}}"
 
 if [[ ! -x "$PYTHON_BIN" ]]; then

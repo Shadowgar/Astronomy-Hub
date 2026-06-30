@@ -39,6 +39,12 @@ Default host path:
 data/runtime-packs/catalog-packs
 ```
 
+Default build/staging path:
+
+```bash
+data/runtime-packs/catalog-pack-build
+```
+
 Override host path:
 
 ```bash
@@ -87,7 +93,7 @@ Equivalent direct command:
 ```bash
 ORAS_CATALOG_RELEASE_VERSION=2026.06.1 \
 ORAS_CATALOG_SOURCE_ROOT=data/catalog-sources/oras-major-catalog-update-1 \
-ORAS_CATALOG_RELEASE_DIR=data/runtime-packs/catalog-packs \
+ORAS_CATALOG_RELEASE_DIR=data/runtime-packs/catalog-pack-build \
 bash scripts/skydata/build_oras_catalog_release.sh
 ```
 
@@ -98,13 +104,17 @@ The build wrapper:
 3. validates the generated manifest, chunks, object counts, checksums, and
    UTF-8 JSONL records
 
+By default, build output goes to `data/runtime-packs/catalog-pack-build`, not
+the live mounted path. Use `install_oras_catalog_release.sh` to publish a
+validated build into the runtime mount.
+
 ## Install
 
 Install from a built release into the mounted runtime path:
 
 ```bash
 bash scripts/skydata/install_oras_catalog_release.sh \
-  data/runtime-packs/catalog-packs \
+  data/runtime-packs/catalog-pack-build \
   /srv/oras/catalog-packs/current
 ```
 
@@ -145,6 +155,15 @@ ORAS_CATALOG_STATUS_URL=http://127.0.0.1:8000/api/sky/catalog-packs \
 bash scripts/skydata/validate_oras_catalog_release.sh data/runtime-packs/catalog-packs
 ```
 
+For `docker-compose.prod.yml`, only the frontend publishes a host port and
+nginx proxies `/api/` to the backend. Validate through the exposed frontend
+port:
+
+```bash
+ORAS_CATALOG_STATUS_URL=http://127.0.0.1:${PUBLIC_HTTP_PORT:-4173}/api/sky/catalog-packs \
+bash scripts/skydata/validate_oras_catalog_release.sh /srv/oras/catalog-packs/current
+```
+
 Runtime/browser acceptance:
 
 ```bash
@@ -170,6 +189,12 @@ Check directly:
 
 ```bash
 curl -sS http://127.0.0.1:8000/api/sky/catalog-packs
+```
+
+For production compose:
+
+```bash
+curl -sS http://127.0.0.1:${PUBLIC_HTTP_PORT:-4173}/api/sky/catalog-packs
 ```
 
 ## Update Without Rebuilding Docker
@@ -199,7 +224,7 @@ Rollback:
 ```bash
 mv /srv/oras/catalog-packs/current /srv/oras/catalog-packs/bad-$(date -u +%Y%m%dT%H%M%SZ)
 mv /srv/oras/catalog-packs/current.previous-20260630T120000Z /srv/oras/catalog-packs/current
-ORAS_CATALOG_STATUS_URL=http://127.0.0.1:8000/api/sky/catalog-packs \
+ORAS_CATALOG_STATUS_URL=http://127.0.0.1:${PUBLIC_HTTP_PORT:-4173}/api/sky/catalog-packs \
 bash scripts/skydata/validate_oras_catalog_release.sh /srv/oras/catalog-packs/current
 ```
 
@@ -239,11 +264,11 @@ images. Use `ORAS_CATALOG_PACKS_HOST_DIR` and read-only mounts.
 ## Production Checklist
 
 1. `npm run catalog:build`
-2. `bash scripts/skydata/install_oras_catalog_release.sh <build-dir> <host-mount-dir>`
+2. `bash scripts/skydata/install_oras_catalog_release.sh data/runtime-packs/catalog-pack-build <host-mount-dir>`
 3. `ORAS_CATALOG_PACKS_HOST_DIR=<host-mount-dir> COMPOSE_BAKE=false docker compose -f docker-compose.prod.yml up -d --build`
-4. `curl -sS http://127.0.0.1:8000/api/sky/catalog-packs`
+4. `curl -sS http://127.0.0.1:${PUBLIC_HTTP_PORT:-4173}/api/sky/catalog-packs`
 5. confirm `object_count` is `158217`
-6. run `npm run validate:oras-catalog-release`
+6. run `ORAS_API_BASE_URL=http://127.0.0.1:${PUBLIC_HTTP_PORT:-4173} npm run validate:oras-catalog-release`
 7. open `/oras-sky-engine/`
 8. open the `ORAS Catalog Packs` status dialog
 9. confirm the release and loaded pack counts

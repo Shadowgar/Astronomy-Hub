@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 PYTHON_BIN="${PYTHON_BIN:-$ROOT_DIR/.venv/bin/python}"
 SOURCE_ROOT="${ORAS_CATALOG_SOURCE_ROOT:-$ROOT_DIR/data/catalog-sources/oras-major-catalog-update-1}"
-OUTPUT_DIR="${ORAS_CATALOG_RELEASE_DIR:-$ROOT_DIR/data/runtime-packs/catalog-packs}"
+OUTPUT_DIR="${ORAS_CATALOG_RELEASE_DIR:-$ROOT_DIR/data/runtime-packs/catalog-pack-build}"
 RELEASE_VERSION="${ORAS_CATALOG_RELEASE_VERSION:-2026.06.1}"
 
 if [[ ! -x "$PYTHON_BIN" ]]; then

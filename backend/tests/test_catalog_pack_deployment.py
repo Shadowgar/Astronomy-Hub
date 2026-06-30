@@ -86,9 +86,11 @@ def test_catalog_pack_deployment_scripts_exist_and_expose_safe_commands() -> Non
     package = json.loads((REPO_ROOT / "package.json").read_text(encoding="utf-8"))
 
     assert "acquire_oras_catalog_sources" in build_script
+    assert "data/runtime-packs/catalog-pack-build" in build_script
     assert "build_oras_catalog_release" in build_script
     assert "validate_oras_catalog_release.sh" in build_script
     assert "manifest.json" in install_script
+    assert "data/runtime-packs/catalog-pack-build" in install_script
     assert "catalog-pack-install" in install_script
     assert "--validate-only" in install_script
     assert "find" in install_script and "cp -a" in install_script
@@ -165,3 +167,15 @@ def test_release_artifact_manifest_template_documents_required_fields() -> None:
     ):
         assert field in template
     assert template["packs"][0]["files"][0]["sha256"].startswith("sha256:")
+
+
+def test_production_runbook_uses_staged_build_and_exposed_frontend_api() -> None:
+    runbook = (REPO_ROOT / "docs/runtime/ORAS_CATALOG_PACK_DEPLOYMENT.md").read_text(
+        encoding="utf-8"
+    )
+    checklist = runbook.split("## Production Checklist", maxsplit=1)[1]
+
+    assert "data/runtime-packs/catalog-pack-build" in runbook
+    assert "PUBLIC_HTTP_PORT:-4173" in checklist
+    assert "http://127.0.0.1:8000" not in checklist
+    assert "ORAS_API_BASE_URL=http://127.0.0.1:${PUBLIC_HTTP_PORT:-4173}" in checklist
