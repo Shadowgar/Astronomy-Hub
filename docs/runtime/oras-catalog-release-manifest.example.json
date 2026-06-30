@@ -1,0 +1,53 @@
+{
+  "release_version": "2026.06.1",
+  "generated_at": "2026-06-30T12:00:00Z",
+  "object_count": 158217,
+  "pack_count": 4,
+  "packs": [
+    {
+      "pack_id": "stars-core",
+      "label": "ORAS Stars Core",
+      "object_count": 99635,
+      "files": [
+        {
+          "path": "packs/stars-core/chunk-00000.jsonl",
+          "byte_size": 1234567,
+          "sha256": "sha256:replace-with-actual-chunk-digest"
+        }
+      ]
+    }
+  ],
+  "source_catalogs": [
+    "Hipparcos Tier 2",
+    "Gaia DR3 bright bounded slice",
+    "Tycho-2 bright bounded slice",
+    "Gliese CNS3",
+    "OpenNGC",
+    "WDS",
+    "ATNF Pulsar",
+    "Milliquas",
+    "BlackCAT"
+  ],
+  "source_acquisition_profiles": [
+    {
+      "profile_id": "oras-major-catalog-update-1",
+      "command": ".venv/bin/python -m scripts.skydata.acquire_oras_catalog_sources --output data/catalog-sources/oras-major-catalog-update-1"
+    }
+  ],
+  "attribution": [
+    {
+      "name": "ESA Gaia Archive",
+      "license_note": "Gaia source attribution required by release manifest records"
+    }
+  ],
+  "build": {
+    "command": "bash scripts/skydata/build_oras_catalog_release.sh",
+    "builder": "scripts.skydata.build_oras_catalog_release",
+    "schema_version": 1
+  },
+  "runtime_compatibility": {
+    "oras_sky_engine_path": "/oras-sky-engine/",
+    "runtime_bundle": "frontend/public/oras-sky-engine/js/app.a2a9173a.js",
+    "requires_manifest_schema_version": 1
+  }
+}

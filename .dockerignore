@@ -1,5 +1,8 @@
 *
 
+# Generated catalog releases are mounted at runtime, not baked into images.
+data/runtime-packs/catalog-packs
+
 !backend/
 !backend/**
 !scripts/
