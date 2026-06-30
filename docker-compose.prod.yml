@@ -7,8 +7,10 @@ services:
       DATABASE_URL: postgresql+psycopg://postgres:${POSTGRES_PASSWORD}@postgres:5432/astronomy_hub
       REDIS_URL: redis://redis:6379/0
       SATELLITE_TLE_FEED_PATH: /runtime/oras-sky-engine/skydata/tle_satellite.jsonl.gz
+      ORAS_CATALOG_PACKS_DIR: /runtime/oras-catalog-packs
     volumes:
       - ./frontend/public/oras-sky-engine/skydata:/runtime/oras-sky-engine/skydata:ro
+      - ${ORAS_CATALOG_PACKS_HOST_DIR:-./data/runtime-packs/catalog-packs}:/runtime/oras-catalog-packs:ro
     depends_on:
       - postgres
       - redis
@@ -22,6 +24,7 @@ services:
       - "${PUBLIC_HTTP_PORT:-4173}:80"
     volumes:
       - ./frontend/public/oras-sky-engine/skydata:/usr/share/nginx/html/oras-sky-engine/skydata:ro
+      - ${ORAS_CATALOG_PACKS_HOST_DIR:-./data/runtime-packs/catalog-packs}:/usr/share/nginx/html/oras-sky-engine/skydata/catalog-packs:ro
     healthcheck:
       test:
         - CMD-SHELL
