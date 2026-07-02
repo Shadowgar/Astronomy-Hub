@@ -9,16 +9,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import _ from 'lodash'
+import { defaultDenseStarsProfile } from '@/assets/oras_dense_stars.js'
 
 Vue.use(Vuex)
-
-function defaultShowOrasDenseStars () {
-  try {
-    return typeof window === 'undefined' || !window.localStorage || window.localStorage.getItem('orasDenseStarsEnabled') !== '0'
-  } catch (error) {
-    return true
-  }
-}
 
 const createStore = () => {
   var pluginsModules = {}
@@ -42,7 +35,7 @@ const createStore = () => {
       showViewSettingsDialog: false,
       showPlanetsVisibilityDialog: false,
       showLocationDialog: false,
-      showOrasDenseStars: defaultShowOrasDenseStars(),
+      orasDenseStarsProfile: defaultDenseStarsProfile(),
       selectedObject: undefined,
 
       showSidePanel: false,

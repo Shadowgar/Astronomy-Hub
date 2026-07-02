@@ -68,9 +68,15 @@ Unsupported or limited:
   API
 - full Gaia DR3 all-sky ingestion is intentionally out of scope for this pass
 
-Because per-survey removal is not exposed, the ORAS Dense Stars toggle persists
-the enabled state and reloads/rechecks the runtime so the native survey is
-either registered or skipped at startup.
+Because per-survey removal is not exposed, ORAS Dense Stars uses startup
+profiles. The selected profile is persisted and the runtime is reloaded so the
+native survey is either skipped (`off`) or registered from the selected mounted
+profile directory.
+
+Dense profile labels are suppressed in generated native tiles. Catalog-pack
+search/detail keeps Gaia, Tycho, Hipparcos, and other source IDs searchable;
+the dense native tiles are for rendering density and must not blanket the sky
+with numeric labels.
 
 ## Selected Implementation
 
@@ -80,16 +86,20 @@ The first bounded release is generated from the mounted ORAS catalog-pack
 `stars-core` records. This is source-backed and avoids full Gaia DR3 bulk
 downloads in normal development/test runs.
 
-Current generated release:
+Current generated release profiles:
 
 | Field | Value |
 |---|---:|
 | rendering path | `native_swe_star_tiles` |
-| magnitude limit | `13.0` |
 | tile order | `3` |
-| star count | `98,922` |
-| tile count | `768` |
-| generated size | about `5.1 MB` on disk |
+| default profile | `visual-default` |
+| visual-default magnitude limit | `5.5` |
+| visual-default star count | `7,116` |
+| binocular magnitude limit | `8.5` |
+| binocular star count | `78,079` |
+| deep-catalog magnitude limit | `13.0` |
+| deep-catalog star count | `98,922` |
+| generated size | about `5.6 MB` on disk |
 
 Source catalogs in the generated release:
 
@@ -105,9 +115,20 @@ Generated dense-star runtime data lives outside git:
 ```text
 data/runtime-packs/dense-star-tiles/
   manifest.json
-  properties
   build-report.json
-  Norder3/Dir0/Npix*.eph
+  profiles/
+    visual-default/
+      manifest.json
+      properties
+      Norder3/Dir0/Npix*.eph
+    binocular/
+      manifest.json
+      properties
+      Norder3/Dir0/Npix*.eph
+    deep-catalog/
+      manifest.json
+      properties
+      Norder3/Dir0/Npix*.eph
 ```
 
 Committed files are limited to:
@@ -175,11 +196,15 @@ Runtime survey URL:
 The navigation drawer now includes:
 
 - `ORAS Dense Stars`
-- `ORAS Dense Stars Enabled`
+- `Dense Stars: Off`
+- `Dense Stars: Visual`
+- `Dense Stars: Binocular`
+- `Dense Stars: Deep Catalog`
 
 The status dialog reports:
 
 - loaded/degraded/off state
+- active profile
 - native SWE star tile rendering path
 - release version
 - source catalogs
@@ -187,6 +212,7 @@ The status dialog reports:
 - tile count
 - magnitude limit
 - tile order
+- label mode
 
 Missing generated tiles are explicit degraded mode. Standard Stellarium star
 surveys remain available.
@@ -197,9 +223,12 @@ This pass is complete only if runtime validation proves:
 
 - `/oras-sky-engine/` loads
 - dense-star manifest is mounted and status appears
-- native dense survey registers when enabled
-- native star count for the runtime view is measurable
-- toggling ORAS Dense Stars changes startup registration state
+- default profile is `visual-default`, not `deep-catalog`
+- native dense survey registers only for the selected profile
+- dense labels are suppressed
+- Visual profile does not load deep-catalog tiles at startup
+- Off / Visual / Deep changes startup registration state
+- visual profile white-pixel ratio stays below the acceptance threshold
 - generated dense-star data is not committed or baked into Docker images
 - catalog-pack behavior from PR #33/#34 still works
 - deep links still work

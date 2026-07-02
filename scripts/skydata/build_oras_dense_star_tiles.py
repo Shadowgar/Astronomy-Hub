@@ -9,6 +9,7 @@ import json
 import math
 import os
 import shutil
+import stat
 import struct
 import tempfile
 import zlib
@@ -24,6 +25,30 @@ DEFAULT_OUTPUT_ROOT = REPO_ROOT / "data/runtime-packs/dense-star-tiles"
 DEFAULT_RELEASE_VERSION = "2026.06.native-stars.1"
 DEFAULT_MAGNITUDE_LIMIT = 13.0
 DEFAULT_TILE_ORDER = 3
+DEFAULT_PROFILE = "visual-default"
+DENSE_STAR_PROFILES = [
+    {
+        "profile_id": "visual-default",
+        "label": "Visual",
+        "magnitude_limit": 5.5,
+        "profile_intent": "default",
+        "label_mode": "suppressed",
+    },
+    {
+        "profile_id": "binocular",
+        "label": "Binocular",
+        "magnitude_limit": 8.5,
+        "profile_intent": "opt-in",
+        "label_mode": "suppressed",
+    },
+    {
+        "profile_id": "deep-catalog",
+        "label": "Deep Catalog",
+        "magnitude_limit": 13.0,
+        "profile_intent": "opt-in",
+        "label_mode": "suppressed",
+    },
+]
 
 EPH_RAD = 1 << 16
 EPH_ARCSEC = EPH_RAD | 1 | 2 | 4
@@ -154,7 +179,9 @@ def parse_gaia_id(record: dict[str, Any]) -> int:
     return 0
 
 
-def native_names(record: dict[str, Any]) -> str:
+def native_names(record: dict[str, Any], include_labels: bool = False) -> str:
+    if not include_labels:
+        return ""
     names = [record.get("display_name"), record.get("source_id")]
     names.extend(record.get("names") or [])
     names.extend(record.get("aliases") or [])
@@ -166,7 +193,12 @@ def native_names(record: dict[str, Any]) -> str:
     return "|".join(cleaned)[:255]
 
 
-def normalize_star_record(record: dict[str, Any], magnitude_limit: float, minimum_magnitude: float | None) -> tuple[dict[str, Any] | None, str | None]:
+def normalize_star_record(
+    record: dict[str, Any],
+    magnitude_limit: float,
+    minimum_magnitude: float | None,
+    include_labels: bool = False,
+) -> tuple[dict[str, Any] | None, str | None]:
     if record.get("model") != "star":
         return None, "not_star"
     ra = safe_float(record.get("ra"))
@@ -193,7 +225,7 @@ def normalize_star_record(record: dict[str, Any], magnitude_limit: float, minimu
         "source_id": source_id,
         "display_name": str(record.get("display_name") or source_id),
         "gaia": parse_gaia_id(record),
-        "hip": parse_hip_number(record),
+        "hip": parse_hip_number(record) if include_labels else 0,
         "vmag": magnitude,
         "gmag": magnitude,
         "ra_rad": math.radians(ra),
@@ -203,7 +235,7 @@ def normalize_star_record(record: dict[str, Any], magnitude_limit: float, minimu
         "pde_rad_year": pm_dec_mas * (math.pi / (180.0 * 3600.0 * 1000.0)),
         "epoch": native_epoch(record),
         "bv": color_index if color_index is not None else math.nan,
-        "ids": native_names(record),
+        "ids": native_names(record, include_labels=include_labels),
         "spectral_type": str(record.get("spectral_type") or "")[:31],
     }, None
 
@@ -316,13 +348,30 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def build_dense_star_tiles(
+def make_release_tree_readable(root: Path) -> None:
+    """Make generated mounted runtime data readable by non-owner containers."""
+    for dirpath, dirnames, filenames in os.walk(root):
+        directory = Path(dirpath)
+        directory.chmod(stat.S_IMODE(directory.stat().st_mode) | 0o755)
+        for dirname in dirnames:
+            child = directory / dirname
+            child.chmod(stat.S_IMODE(child.stat().st_mode) | 0o755)
+        for filename in filenames:
+            child = directory / filename
+            child.chmod(stat.S_IMODE(child.stat().st_mode) | 0o644)
+
+
+def _build_profile_tiles(
     source_root: Path,
     output_root: Path,
     magnitude_limit: float = DEFAULT_MAGNITUDE_LIMIT,
     tile_order: int = DEFAULT_TILE_ORDER,
     release_version: str = DEFAULT_RELEASE_VERSION,
     minimum_magnitude: float | None = None,
+    profile_id: str = "custom",
+    profile_label: str = "Custom",
+    profile_intent: str = "opt-in",
+    label_mode: str = "suppressed",
 ) -> dict[str, Any]:
     source_root = Path(source_root)
     output_root = Path(output_root)
@@ -341,7 +390,12 @@ def build_dense_star_tiles(
     try:
         for record in iter_catalog_records(source_root):
             source_count += 1
-            star, reason = normalize_star_record(record, magnitude_limit, minimum_magnitude)
+            star, reason = normalize_star_record(
+                record,
+                magnitude_limit,
+                minimum_magnitude,
+                include_labels=label_mode != "suppressed",
+            )
             if not star:
                 skipped[str(reason)] += 1
                 continue
@@ -372,6 +426,10 @@ def build_dense_star_tiles(
             "release_version": release_version,
             "generated_at": utc_now(),
             "rendering_path": "native_swe_star_tiles",
+            "profile_id": profile_id,
+            "profile_label": profile_label,
+            "profile_intent": profile_intent,
+            "label_mode": label_mode,
             "source_root": str(source_root),
             "source_pack": "stars-core",
             "source_id_type": "string",
@@ -398,6 +456,10 @@ def build_dense_star_tiles(
         }
         (tmp_root / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         report = {
+            "profile_id": profile_id,
+            "profile_label": profile_label,
+            "profile_intent": profile_intent,
+            "label_mode": label_mode,
             "source_count": source_count,
             "star_count": star_count,
             "skipped_count": sum(skipped.values()),
@@ -407,11 +469,118 @@ def build_dense_star_tiles(
             "release_version": release_version,
             "magnitude_limit": magnitude_limit,
             "minimum_magnitude": minimum_magnitude,
+            "min_magnitude": min_mag,
+            "max_magnitude": max_mag,
             "source_catalogs": dict(sorted(source_catalogs.items())),
             "byte_size": sum(path.stat().st_size for path in tile_files) + (tmp_root / "manifest.json").stat().st_size + (tmp_root / "properties").stat().st_size,
         }
         (tmp_root / "build-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
+        make_release_tree_readable(tmp_root)
+        if output_root.exists():
+            shutil.rmtree(output_root)
+        tmp_root.rename(output_root)
+        return report
+    except Exception:
+        shutil.rmtree(tmp_root, ignore_errors=True)
+        raise
+
+
+def build_dense_star_tiles(
+    source_root: Path,
+    output_root: Path,
+    magnitude_limit: float = DEFAULT_MAGNITUDE_LIMIT,
+    tile_order: int = DEFAULT_TILE_ORDER,
+    release_version: str = DEFAULT_RELEASE_VERSION,
+    minimum_magnitude: float | None = None,
+) -> dict[str, Any]:
+    source_root = Path(source_root)
+    output_root = Path(output_root)
+    if not (source_root / "manifest.json").is_file():
+        raise FileNotFoundError(f"catalog pack manifest not found: {source_root / 'manifest.json'}")
+    if tile_order < 0 or tile_order > 8:
+        raise ValueError("tile_order must be between 0 and 8")
+
+    tmp_root = Path(tempfile.mkdtemp(prefix="oras-dense-star-release-", dir=str(output_root.parent if output_root.parent.exists() else Path.cwd())))
+    profiles: dict[str, dict[str, Any]] = {}
+    try:
+        for profile in DENSE_STAR_PROFILES:
+            profile_id = str(profile["profile_id"])
+            profile_root = tmp_root / "profiles" / profile_id
+            profile_root.parent.mkdir(parents=True, exist_ok=True)
+            profile_report = _build_profile_tiles(
+                source_root=source_root,
+                output_root=profile_root,
+                magnitude_limit=float(profile["magnitude_limit"]),
+                tile_order=tile_order,
+                release_version=release_version,
+                minimum_magnitude=minimum_magnitude,
+                profile_id=profile_id,
+                profile_label=str(profile["label"]),
+                profile_intent=str(profile["profile_intent"]),
+                label_mode=str(profile["label_mode"]),
+            )
+            profiles[profile_id] = {
+                "profile_id": profile_id,
+                "label": profile["label"],
+                "profile_intent": profile["profile_intent"],
+                "label_mode": profile["label_mode"],
+                "path": f"profiles/{profile_id}",
+                "star_count": profile_report["star_count"],
+                "source_count": profile_report["source_count"],
+                "skipped_count": profile_report["skipped_count"],
+                "skipped_reasons": profile_report["skipped_reasons"],
+                "source_catalogs": profile_report["source_catalogs"],
+                "tile_order": tile_order,
+                "tile_count": profile_report["tile_count"],
+                "magnitude_limit": profile_report["magnitude_limit"],
+                "minimum_magnitude": profile_report["minimum_magnitude"],
+                "min_magnitude": profile_report["min_magnitude"],
+                "max_magnitude": profile_report["max_magnitude"],
+                "byte_size": profile_report["byte_size"],
+            }
+
+        deep_profile = profiles.get("deep-catalog") or next(iter(profiles.values()))
+        manifest = {
+            "schema_version": 1,
+            "release_version": release_version,
+            "generated_at": utc_now(),
+            "rendering_path": "native_swe_star_tiles",
+            "source_root": str(source_root),
+            "source_pack": "stars-core",
+            "source_id_type": "string",
+            "default_profile": DEFAULT_PROFILE,
+            "profiles": profiles,
+            "star_count": deep_profile["star_count"],
+            "tile_count": deep_profile["tile_count"],
+            "magnitude_limit": deep_profile["magnitude_limit"],
+            "tile_order": tile_order,
+            "source_catalogs": deep_profile["source_catalogs"],
+            "source_attribution": [
+                {
+                    "name": "ORAS catalog packs stars-core",
+                    "source_key": "oras_catalog_pack_stars_core",
+                    "license_note": "Derived from source-backed catalog packs; see catalog pack manifest for upstream attribution.",
+                }
+            ],
+        }
+        (tmp_root / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        report = {
+            "release_version": release_version,
+            "default_profile": DEFAULT_PROFILE,
+            "profiles": profiles,
+            "source_count": deep_profile["source_count"],
+            "star_count": deep_profile["star_count"],
+            "tile_count": deep_profile["tile_count"],
+            "output_root": str(output_root),
+            "magnitude_limit": deep_profile["magnitude_limit"],
+            "minimum_magnitude": minimum_magnitude,
+            "source_catalogs": deep_profile["source_catalogs"],
+            "byte_size": sum(profile["byte_size"] for profile in profiles.values()) + (tmp_root / "manifest.json").stat().st_size,
+        }
+        (tmp_root / "build-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+        make_release_tree_readable(tmp_root)
         if output_root.exists():
             shutil.rmtree(output_root)
         tmp_root.rename(output_root)

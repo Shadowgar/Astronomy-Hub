@@ -13,15 +13,22 @@
         <v-alert v-if="!snapshot.mounted" type="info" text>
           Dense Stars is degraded: missing generated dense star release. Standard Stellarium star surveys remain available.
         </v-alert>
-        <v-alert v-else-if="!snapshot.enabled" type="warning" text>
-          ORAS dense star rendering is off. Toggle it on and recheck the runtime to register the mounted native survey.
+        <v-alert v-else-if="snapshot.activeProfile === 'off'" type="warning" text>
+          ORAS dense star rendering is off. Select Visual, Binocular, or Deep Catalog and recheck the runtime to register a mounted native survey.
+        </v-alert>
+        <v-alert v-else-if="snapshot.activeProfile === 'deep-catalog'" type="warning" text>
+          Deep Catalog is opt-in and may show many faint stars at wide FOV. Use Visual for normal naked-eye style observing.
         </v-alert>
         <v-alert v-else type="success" text>
-          ORAS dense stars are loaded through native SWE star tiles. The browser loads the manifest first; tile payloads are requested by Stellarium as needed.
+          ORAS dense stars are loaded through native SWE star tiles using the {{ snapshot.activeProfile }} profile. Dense catalog labels are suppressed; standard Stellarium labels remain available for named bright stars.
         </v-alert>
 
         <v-simple-table dense>
           <tbody>
+            <tr>
+              <td><strong>Active profile</strong></td>
+              <td>{{ snapshot.activeProfile }}</td>
+            </tr>
             <tr>
               <td><strong>Rendering path</strong></td>
               <td>{{ snapshot.renderingPath || 'Unavailable' }}</td>
@@ -37,6 +44,10 @@
             <tr>
               <td><strong>Magnitude limit</strong></td>
               <td>{{ snapshot.magnitudeLimit == null ? 'Unavailable' : snapshot.magnitudeLimit }}</td>
+            </tr>
+            <tr>
+              <td><strong>Labels</strong></td>
+              <td>{{ snapshot.labelMode || 'suppressed' }}</td>
             </tr>
             <tr>
               <td><strong>Tile order</strong></td>

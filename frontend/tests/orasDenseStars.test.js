@@ -22,29 +22,35 @@ const denseStarsValidationScriptPath = path.resolve(
 )
 
 describe('ORAS dense native star runtime integration', () => {
-  it('registers mounted native dense star tiles with SWE after manifest validation', () => {
+  it('registers the selected mounted native dense star profile with SWE after manifest validation', () => {
     const source = fs.readFileSync(appVuePath, 'utf8')
 
     expect(source).toContain("import { orasDenseStars } from '@/assets/oras_dense_stars.js'")
     expect(source).toContain('orasDenseStars.load()')
     expect(source).toContain('that.registerOrasDenseStarSurvey(core)')
-    expect(source).toContain("core.stars.addDataSource({ url: orasDenseStars.getSurveyRoot(), key: 'oras-dense-stars' })")
+    expect(source).toContain("core.stars.addDataSource({ url: orasDenseStars.getSurveyRoot(), key: orasDenseStars.getSurveyKey() })")
   })
 
-  it('exposes a visible dense stars status dialog and toggle', () => {
+  it('exposes visible dense stars profile controls instead of a deep all-sky default toggle', () => {
     const source = fs.readFileSync(appVuePath, 'utf8')
     const dialog = fs.readFileSync(denseStarsDialogPath, 'utf8')
 
     expect(source).toContain('<oras-dense-stars-status-dialog v-model="showDenseStars"')
     expect(source).toContain("title: this.$t('ORAS Dense Stars')")
     expect(source).toContain("action: 'denseStars'")
-    expect(source).toContain("store_var_name: 'showOrasDenseStars'")
+    expect(source).toContain("profile: 'off'")
+    expect(source).toContain("profile: 'visual-default'")
+    expect(source).toContain("profile: 'binocular'")
+    expect(source).toContain("profile: 'deep-catalog'")
+    expect(source).not.toContain("store_var_name: 'showOrasDenseStars'")
     expect(dialog).toContain('Dense Stars')
     expect(dialog).toContain('native SWE star tiles')
     expect(dialog).toContain('missing generated dense star release')
+    expect(dialog).toContain('Active profile')
+    expect(dialog).toContain('Labels')
   })
 
-  it('dense star manager loads manifest only at startup and chunks stay native-loaded by SWE', () => {
+  it('dense star manager defaults to visual profile and loads only the selected profile natively', () => {
     const source = fs.readFileSync(denseStarsAssetPath, 'utf8')
 
     expect(source).toContain("ORAS_DENSE_STARS_ROOT = '/oras-sky-engine/skydata/dense-star-tiles'")
@@ -52,18 +58,23 @@ describe('ORAS dense native star runtime integration', () => {
     expect(source).not.toContain('Npix')
     expect(source).not.toContain('.eph')
     expect(source).toContain("renderingPath: 'native_swe_star_tiles'")
-    expect(source).toContain('enabled')
+    expect(source).toContain("DEFAULT_PROFILE = 'visual-default'")
+    expect(source).toContain("OFF_PROFILE = 'off'")
+    expect(source).toContain('activeProfile')
+    expect(source).toContain('getSurveyKey')
     expect(source).toContain('subscribe')
   })
 
-  it('browser validation checks dense status, toggle, and native tile loading', () => {
+  it('browser validation checks profiles, label count, brightness, and native tile loading', () => {
     const source = fs.readFileSync(denseStarsValidationScriptPath, 'utf8')
 
     expect(source).toContain('ORAS Dense Stars')
-    expect(source).toContain('showOrasDenseStars')
+    expect(source).toContain('visual-default')
+    expect(source).toContain('deep-catalog')
     expect(source).toContain('validateDenseStars')
     expect(source).toContain('getDenseStarManifest')
-    expect(source).toContain('releaseStarCount')
-    expect(source).toContain('enabledDenseResourceCount')
+    expect(source).toContain('labelCount')
+    expect(source).toContain('whitePixelRatio')
+    expect(source).toContain('profileResourceCount')
   })
 })

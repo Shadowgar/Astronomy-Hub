@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import os
+import stat
 from pathlib import Path
 
 
@@ -112,31 +113,72 @@ def test_dense_star_tile_builder_writes_native_eph_release(tmp_path: Path) -> No
     report = builder.build_dense_star_tiles(
         source_root=source_root,
         output_root=output_root,
-        magnitude_limit=9.0,
         tile_order=1,
         release_version="test.1",
     )
 
     assert report["source_count"] == 4
     assert report["star_count"] == 2
-    assert report["skipped_count"] == 2
+    assert report["profiles"]["deep-catalog"]["skipped_count"] == 2
     assert report["tile_count"] >= 1
     assert (output_root / "manifest.json").is_file()
-    assert (output_root / "properties").is_file()
-    assert list(output_root.glob("Norder1/Dir0/Npix*.eph"))
+    assert (output_root / "profiles/deep-catalog/properties").is_file()
+    assert list((output_root / "profiles/deep-catalog").glob("Norder1/Dir0/Npix*.eph"))
 
     manifest = json.loads((output_root / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["schema_version"] == 1
     assert manifest["rendering_path"] == "native_swe_star_tiles"
     assert manifest["star_count"] == 2
-    assert manifest["magnitude_limit"] == 9.0
+    assert manifest["magnitude_limit"] == 13.0
     assert manifest["source_catalogs"]["Gaia DR3"] == 1
     assert manifest["source_catalogs"]["Tycho-2"] == 1
     assert manifest["source_id_type"] == "string"
+    assert manifest["default_profile"] == "visual-default"
+    assert manifest["profiles"]["visual-default"]["star_count"] == 1
+    assert manifest["profiles"]["deep-catalog"]["star_count"] == 2
 
     validation = validator.validate_dense_star_tiles(output_root)
     assert validation["star_count"] == 2
     assert validation["tile_count"] == report["tile_count"]
+
+
+def test_dense_star_builder_writes_visibility_profiles(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles")
+    validator = _load_module(VALIDATOR_PATH, "validate_oras_dense_star_tiles")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root)
+
+    report = builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=1,
+        release_version="test.profiles",
+    )
+
+    assert report["default_profile"] == "visual-default"
+    assert set(report["profiles"]) == {"visual-default", "binocular", "deep-catalog"}
+    assert report["profiles"]["visual-default"]["magnitude_limit"] == 5.5
+    assert report["profiles"]["binocular"]["magnitude_limit"] == 8.5
+    assert report["profiles"]["deep-catalog"]["magnitude_limit"] == 13.0
+    assert report["profiles"]["visual-default"]["star_count"] < report["profiles"]["deep-catalog"]["star_count"]
+
+    manifest = json.loads((output_root / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["default_profile"] == "visual-default"
+    assert manifest["profiles"]["visual-default"]["path"] == "profiles/visual-default"
+    assert manifest["profiles"]["visual-default"]["label_mode"] == "suppressed"
+    assert manifest["profiles"]["deep-catalog"]["profile_intent"] == "opt-in"
+    assert (output_root / "profiles/visual-default/properties").is_file()
+    assert (output_root / "profiles/binocular/properties").is_file()
+    assert (output_root / "profiles/deep-catalog/properties").is_file()
+    assert stat.S_IMODE(output_root.stat().st_mode) & 0o005 == 0o005
+    assert stat.S_IMODE((output_root / "profiles/visual-default").stat().st_mode) & 0o005 == 0o005
+    assert stat.S_IMODE((output_root / "manifest.json").stat().st_mode) & 0o004 == 0o004
+
+    validation = validator.validate_dense_star_tiles(output_root)
+    assert validation["default_profile"] == "visual-default"
+    assert validation["profiles"]["visual-default"]["star_count"] == 1
+    assert validation["profiles"]["deep-catalog"]["star_count"] == 2
 
 
 def test_dense_star_runtime_data_is_ignored_and_not_baked() -> None:

@@ -92,7 +92,10 @@ export default {
         { title: this.$t('Open Standalone Runtime'), icon: 'mdi-open-in-new', action: 'openStandaloneRuntime' },
         { title: this.$t('ORAS Catalog Packs'), icon: 'mdi-database-search', action: 'catalogPacks' },
         { title: this.$t('ORAS Dense Stars'), icon: 'mdi-star-four-points', action: 'denseStars' },
-        { title: this.$t('ORAS Dense Stars Enabled'), switch: true, store_var_name: 'showOrasDenseStars' },
+        { title: this.$t('Dense Stars: Off'), icon: 'mdi-star-off-outline', profile: 'off' },
+        { title: this.$t('Dense Stars: Visual'), icon: 'mdi-eye-outline', profile: 'visual-default' },
+        { title: this.$t('Dense Stars: Binocular'), icon: 'mdi-binoculars', profile: 'binocular' },
+        { title: this.$t('Dense Stars: Deep Catalog'), icon: 'mdi-telescope', profile: 'deep-catalog' },
         { title: this.$t('View Settings'), icon: 'mdi-settings', store_var_name: 'showViewSettingsDialog', store_show_menu_item: 'showViewSettingsMenuItem' },
         { title: this.$t('Planets Tonight'), icon: 'mdi-panorama-fisheye', store_var_name: 'showPlanetsVisibilityDialog', store_show_menu_item: 'showPlanetsVisibilityMenuItem' },
         { divider: true }
@@ -134,10 +137,6 @@ export default {
     },
     toggleStoreValue: function (storeVarName) {
       this.$store.commit('toggleBool', storeVarName)
-      if (storeVarName === 'showOrasDenseStars') {
-        orasDenseStars.setEnabled(this.$store.state.showOrasDenseStars)
-        window.location.reload()
-      }
     },
     handleMenuItemClick: function (item) {
       if (item.action === 'hubFrontpage') {
@@ -162,19 +161,27 @@ export default {
         this.showDenseStars = true
         return
       }
+      if (item.profile) {
+        this.closeNavigationDrawer()
+        orasDenseStars.setProfile(item.profile)
+        this.$store.commit('setValue', { varName: 'orasDenseStarsProfile', newValue: item.profile })
+        window.location.reload()
+        return
+      }
       if (item.store_var_name) {
         this.toggleStoreValue(item.store_var_name)
       }
     },
     registerOrasDenseStarSurvey: function (core) {
-      if (this.denseStarSurveyRegistered || !this.$store.state.showOrasDenseStars) {
+      if (this.denseStarSurveyRegistered || this.$store.state.orasDenseStarsProfile === 'off') {
         return
       }
+      orasDenseStars.setProfile(this.$store.state.orasDenseStarsProfile)
       orasDenseStars.load().then(() => {
         if (!orasDenseStars.isReadyForNativeRegistration() || this.denseStarSurveyRegistered) {
           return
         }
-        core.stars.addDataSource({ url: orasDenseStars.getSurveyRoot(), key: 'oras-dense-stars' })
+        core.stars.addDataSource({ url: orasDenseStars.getSurveyRoot(), key: orasDenseStars.getSurveyKey() })
         this.denseStarSurveyRegistered = true
       }, error => {
         console.warn('Failed to load ORAS dense star survey', error)
