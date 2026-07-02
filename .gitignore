@@ -22,6 +22,8 @@ frontend/public/oras-sky-engine/skydata/*
 !frontend/public/oras-sky-engine/skydata/
 !frontend/public/oras-sky-engine/skydata/catalog-packs/
 !frontend/public/oras-sky-engine/skydata/catalog-packs/.gitkeep
+!frontend/public/oras-sky-engine/skydata/dense-star-tiles/
+!frontend/public/oras-sky-engine/skydata/dense-star-tiles/.gitkeep
 env/
 env.bak/
 venv.bak/
@@ -89,6 +91,7 @@ Thumbs.db
 /test-results/
 /playwright-report/
 /blob-report/
+/output/
 /playwright/.cache/
 /playwright/.auth/
 /frontend/public/sky-engine-assets/catalog/gaia/
@@ -117,6 +120,7 @@ Thumbs.db
 data/
 # Generated catalog release packs are mounted at runtime, never committed.
 /data/runtime-packs/catalog-packs/
+/data/runtime-packs/dense-star-tiles/
 !backend/app/data/
 !backend/app/data/sky/
 !backend/app/data/sky/gaia_dr3_pilot_manifest.json

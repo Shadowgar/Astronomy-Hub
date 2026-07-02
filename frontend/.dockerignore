@@ -9,4 +9,5 @@ dev
 test-results
 public/oras-sky-engine/skydata
 public/oras-sky-engine/skydata/catalog-packs
+public/oras-sky-engine/skydata/dense-star-tiles
 public/oras-sky-engine/js/*.map

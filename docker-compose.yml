@@ -24,6 +24,7 @@ services:
     volumes:
       - ./frontend/public/oras-sky-engine/skydata:/app/public/oras-sky-engine/skydata:ro
       - ${ORAS_CATALOG_PACKS_HOST_DIR:-./data/runtime-packs/catalog-packs}:/app/public/oras-sky-engine/skydata/catalog-packs:ro
+      - ${ORAS_DENSE_STAR_TILES_HOST_DIR:-./data/runtime-packs/dense-star-tiles}:/app/public/oras-sky-engine/skydata/dense-star-tiles:ro
     env_file:
       - .env
     environment:
