@@ -17,8 +17,12 @@ async function writeElementTextArtifact (page, selector, filename) {
 
 async function canvasDataUrl (page) {
   return page.evaluate(() => {
-    const canvas = document.querySelector('#stel-canvas')
-    return canvas && typeof canvas.toDataURL === 'function' ? canvas.toDataURL('image/png') : null
+    try {
+      const canvas = document.querySelector('#stel-canvas')
+      return canvas && typeof canvas.toDataURL === 'function' ? canvas.toDataURL('image/png') : null
+    } catch (error) {
+      return null
+    }
   })
 }
 
@@ -36,7 +40,11 @@ async function whitePixelRatio (page) {
     const source = document.querySelector('#stel-canvas')
     if (!source || typeof source.toDataURL !== 'function') return null
     const image = new Image()
-    image.src = source.toDataURL('image/png')
+    try {
+      image.src = source.toDataURL('image/png')
+    } catch (error) {
+      return null
+    }
     await image.decode()
     const canvas = document.createElement('canvas')
     canvas.width = Math.min(320, image.width)
@@ -70,11 +78,15 @@ async function openRuntimePage (browser, profile) {
 }
 
 async function getDenseStarManifest (page) {
-  return page.evaluate(async () => {
-    const response = await fetch('/oras-sky-engine/skydata/dense-star-tiles/manifest.json', { cache: 'no-store' })
+  const manifestUrl = new URL(
+    'skydata/dense-star-tiles/manifest.json',
+    baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`
+  ).toString()
+  return page.evaluate(async (url) => {
+    const response = await fetch(url, { cache: 'no-store' })
     if (!response.ok) throw new Error(`dense star manifest returned ${response.status}`)
     return response.json()
-  })
+  }, manifestUrl)
 }
 
 async function profileResourceCount (page, profile) {

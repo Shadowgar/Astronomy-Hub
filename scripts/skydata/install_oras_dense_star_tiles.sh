@@ -28,19 +28,58 @@ rm -rf "$staging_dir"
 .venv/bin/python scripts/skydata/validate_oras_dense_star_tiles.py "$source_dir"
 
 mkdir -p "$staging_dir"
-(
-  cd "$source_dir"
-  find . -type d -exec mkdir -p "$staging_dir/{}" \;
-  find . -type f ! -name manifest.json -exec cp -p "{}" "$staging_dir/{}" \;
-  cp -p manifest.json "$staging_dir/manifest.json"
-)
+python3 - "$source_dir" "$staging_dir" <<'PY'
+import json
+import shutil
+import sys
+from pathlib import Path
+
+source = Path(sys.argv[1])
+staging = Path(sys.argv[2])
+
+
+def safe_path(rel_path: str) -> Path:
+    rel = Path(rel_path)
+    if rel.is_absolute() or ".." in rel.parts:
+        raise ValueError(f"unsafe release path: {rel_path}")
+    return rel
+
+
+manifest = json.loads((source / "manifest.json").read_text(encoding="utf-8"))
+for profile in (manifest.get("profiles") or {}).values():
+    profile_root = safe_path(str(profile.get("path", "")))
+    profile_manifest_path = source / profile_root / "manifest.json"
+    profile_manifest = json.loads(profile_manifest_path.read_text(encoding="utf-8"))
+    for rel_path in [profile_root / "manifest.json", profile_root / "properties"]:
+        destination = staging / rel_path
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source / rel_path, destination)
+    for entry in profile_manifest.get("tile_entries", []):
+        tile_path = profile_root / safe_path(str(entry.get("path", "")))
+        destination = staging / tile_path
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source / tile_path, destination)
+
+shutil.copy2(source / "manifest.json", staging / "manifest.json")
+PY
 
 .venv/bin/python scripts/skydata/validate_oras_dense_star_tiles.py "$staging_dir"
 
+previous_dir=""
 if [[ -e "$target_dir" ]]; then
-  mv "$target_dir" "${target_dir}.previous-${timestamp}"
+  previous_dir="${target_dir}.previous-${timestamp}"
+  mv "$target_dir" "$previous_dir"
 fi
+rollback() {
+  if [[ -n "$previous_dir" && -e "$previous_dir" ]]; then
+    rm -rf "$target_dir"
+    mv "$previous_dir" "$target_dir"
+  fi
+}
+trap rollback ERR
+
 mv "$staging_dir" "$target_dir"
 chmod -R a+rX "$target_dir"
 
 .venv/bin/python scripts/skydata/validate_oras_dense_star_tiles.py "$target_dir"
+trap - ERR

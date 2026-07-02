@@ -6513,7 +6513,7 @@ function createOrasDenseStarsManager() {
   }
 
   function isReadyForNativeRegistration() {
-    return snapshot.mounted && snapshot.activeProfile !== OFF_PROFILE && !!snapshot.profile && snapshot.renderingPath === 'native_swe_star_tiles';
+    return snapshot.phase === 'loaded' && snapshot.mounted && snapshot.activeProfile !== OFF_PROFILE && !!snapshot.profile && snapshot.renderingPath === 'native_swe_star_tiles';
   }
 
   function subscribe(listener) {

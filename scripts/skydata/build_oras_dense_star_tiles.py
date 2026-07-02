@@ -25,6 +25,7 @@ DEFAULT_OUTPUT_ROOT = REPO_ROOT / "data/runtime-packs/dense-star-tiles"
 DEFAULT_RELEASE_VERSION = "2026.06.native-stars.1"
 DEFAULT_MAGNITUDE_LIMIT = 13.0
 DEFAULT_TILE_ORDER = 3
+SOURCE_PACK_ID = "stars-core"
 DEFAULT_PROFILE = "visual-default"
 DENSE_STAR_PROFILES = [
     {
@@ -244,7 +245,7 @@ def iter_catalog_records(source_root: Path) -> Iterable[dict[str, Any]]:
     manifest_path = source_root / "manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     for pack in manifest.get("packs", []):
-        if pack.get("pack_id") != "stars-core" and pack.get("category") != "stars":
+        if pack.get("pack_id") != SOURCE_PACK_ID:
             continue
         for chunk in pack.get("chunks", []):
             chunk_path = source_root / str(chunk.get("path", ""))
@@ -361,6 +362,24 @@ def make_release_tree_readable(root: Path) -> None:
             child.chmod(stat.S_IMODE(child.stat().st_mode) | 0o644)
 
 
+def promote_release_tree(tmp_root: Path, output_root: Path) -> None:
+    backup_root: Path | None = None
+    if output_root.exists():
+        backup_root = output_root.with_name(f"{output_root.name}.previous-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}")
+        if backup_root.exists():
+            shutil.rmtree(backup_root)
+        output_root.rename(backup_root)
+    try:
+        tmp_root.rename(output_root)
+    except Exception:
+        if backup_root and backup_root.exists() and not output_root.exists():
+            backup_root.rename(output_root)
+        raise
+    else:
+        if backup_root and backup_root.exists():
+            shutil.rmtree(backup_root, ignore_errors=True)
+
+
 def _build_profile_tiles(
     source_root: Path,
     output_root: Path,
@@ -409,6 +428,8 @@ def _build_profile_tiles(
             write_star_tile(tile_path(tmp_root, tile_order, pix), tile_order, pix, stars)
 
         star_count = sum(len(stars) for stars in tiles.values())
+        if star_count <= 0:
+            raise ValueError(f"dense star profile {profile_id} produced no stars")
         min_mag = min(magnitudes) if magnitudes else None
         max_mag = max(magnitudes) if magnitudes else None
         write_properties(tmp_root, release_version, magnitude_limit, tile_order, star_count, min_mag, max_mag)
@@ -430,8 +451,7 @@ def _build_profile_tiles(
             "profile_label": profile_label,
             "profile_intent": profile_intent,
             "label_mode": label_mode,
-            "source_root": str(source_root),
-            "source_pack": "stars-core",
+            "source_pack": SOURCE_PACK_ID,
             "source_id_type": "string",
             "star_count": star_count,
             "source_count": source_count,
@@ -448,7 +468,7 @@ def _build_profile_tiles(
             "tile_entries": tile_entries,
             "source_attribution": [
                 {
-                    "name": "ORAS catalog packs stars-core",
+                    "name": f"ORAS catalog packs {SOURCE_PACK_ID}",
                     "source_key": "oras_catalog_pack_stars_core",
                     "license_note": "Derived from source-backed catalog packs; see catalog pack manifest for upstream attribution.",
                 }
@@ -477,9 +497,7 @@ def _build_profile_tiles(
         (tmp_root / "build-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
         make_release_tree_readable(tmp_root)
-        if output_root.exists():
-            shutil.rmtree(output_root)
-        tmp_root.rename(output_root)
+        promote_release_tree(tmp_root, output_root)
         return report
     except Exception:
         shutil.rmtree(tmp_root, ignore_errors=True)
@@ -546,8 +564,7 @@ def build_dense_star_tiles(
             "release_version": release_version,
             "generated_at": utc_now(),
             "rendering_path": "native_swe_star_tiles",
-            "source_root": str(source_root),
-            "source_pack": "stars-core",
+            "source_pack": SOURCE_PACK_ID,
             "source_id_type": "string",
             "default_profile": DEFAULT_PROFILE,
             "profiles": profiles,
@@ -558,7 +575,7 @@ def build_dense_star_tiles(
             "source_catalogs": deep_profile["source_catalogs"],
             "source_attribution": [
                 {
-                    "name": "ORAS catalog packs stars-core",
+                    "name": f"ORAS catalog packs {SOURCE_PACK_ID}",
                     "source_key": "oras_catalog_pack_stars_core",
                     "license_note": "Derived from source-backed catalog packs; see catalog pack manifest for upstream attribution.",
                 }
@@ -581,9 +598,7 @@ def build_dense_star_tiles(
         (tmp_root / "build-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
         make_release_tree_readable(tmp_root)
-        if output_root.exists():
-            shutil.rmtree(output_root)
-        tmp_root.rename(output_root)
+        promote_release_tree(tmp_root, output_root)
         return report
     except Exception:
         shutil.rmtree(tmp_root, ignore_errors=True)

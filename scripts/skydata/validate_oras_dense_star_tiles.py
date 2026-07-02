@@ -101,6 +101,16 @@ def validate_star_chunk(payload: bytes, expected_order: int, expected_pix: int) 
     return row_count
 
 
+def read_properties(path: Path) -> dict[str, str]:
+    properties: dict[str, str] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        properties[key.strip()] = value.strip()
+    return properties
+
+
 def validate_profile_tiles(profile_root: Path) -> dict[str, Any]:
     manifest_path = profile_root / "manifest.json"
     properties_path = profile_root / "properties"
@@ -109,6 +119,7 @@ def validate_profile_tiles(profile_root: Path) -> dict[str, Any]:
     if not properties_path.is_file():
         raise FileNotFoundError(f"dense star profile properties not found: {properties_path}")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    properties = read_properties(properties_path)
     if manifest.get("schema_version") != 1:
         raise ValueError("unsupported dense star manifest schema")
     if manifest.get("rendering_path") != "native_swe_star_tiles":
@@ -120,11 +131,24 @@ def validate_profile_tiles(profile_root: Path) -> dict[str, Any]:
     entries = manifest.get("tile_entries")
     if not isinstance(entries, list):
         raise ValueError("tile_entries must be a list")
+    expected_tile_order = int(manifest.get("tile_order", -1))
+    if properties.get("type") != "stars":
+        raise ValueError("dense star properties type must be stars")
+    if properties.get("hips_tile_format") != "eph":
+        raise ValueError("dense star properties tile format must be eph")
+    if int(properties.get("hips_order", -1)) != expected_tile_order:
+        raise ValueError("dense star properties hips_order mismatch")
 
     star_count = 0
+    seen_paths: set[str] = set()
     for entry in entries:
         path_text = str(entry.get("path", ""))
+        if path_text in seen_paths:
+            raise ValueError(f"duplicate dense star tile entry: {path_text}")
+        seen_paths.add(path_text)
         order, pix = validate_tile_path(path_text)
+        if order != expected_tile_order:
+            raise ValueError(f"dense star tile order mismatch: {path_text}")
         tile_file = profile_root / path_text
         if not tile_file.is_file():
             raise FileNotFoundError(f"dense star tile missing: {path_text}")

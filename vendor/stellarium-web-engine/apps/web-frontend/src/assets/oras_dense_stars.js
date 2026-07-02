@@ -162,7 +162,8 @@ export function createOrasDenseStarsManager (options = {}) {
   }
 
   function isReadyForNativeRegistration () {
-    return snapshot.mounted &&
+    return snapshot.phase === 'loaded' &&
+      snapshot.mounted &&
       snapshot.activeProfile !== OFF_PROFILE &&
       !!snapshot.profile &&
       snapshot.renderingPath === 'native_swe_star_tiles'

@@ -58,7 +58,6 @@ logs/
 !.github/workflows/
 !.github/workflows/*.yml
 !.github/workflows/*.yaml
-!frontend/public/oras-sky-engine/skydata/dense-star-tiles/.gitkeep
 
 # Local binaries (e.g. accidentally copied Snyk CLI; use npx snyk or a global install)
 /snyk

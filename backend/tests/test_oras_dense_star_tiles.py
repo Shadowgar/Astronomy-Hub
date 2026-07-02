@@ -23,6 +23,8 @@ def _load_module(path: Path, name: str):
 def _write_catalog_pack_release(root: Path) -> None:
     chunk_dir = root / "packs/stars-core"
     chunk_dir.mkdir(parents=True)
+    extra_chunk_dir = root / "packs/stars-extra"
+    extra_chunk_dir.mkdir(parents=True)
     records = [
         {
             "catalog": "Gaia DR3",
@@ -78,6 +80,18 @@ def _write_catalog_pack_release(root: Path) -> None:
     chunk_path = chunk_dir / "chunk-00000.jsonl"
     text = "".join(json.dumps(record, separators=(",", ":")) + "\n" for record in records)
     chunk_path.write_text(text, encoding="utf-8")
+    extra_record = {
+        "catalog": "Future Stars",
+        "source_id": "future-should-not-load",
+        "model": "star",
+        "category": "stars",
+        "display_name": "Future unrelated star",
+        "ra": 12.0,
+        "dec": 12.0,
+        "magnitude": 4.0,
+    }
+    extra_text = json.dumps(extra_record, separators=(",", ":")) + "\n"
+    (extra_chunk_dir / "chunk-00000.jsonl").write_text(extra_text, encoding="utf-8")
     manifest = {
         "schema_version": 1,
         "release_version": "test",
@@ -99,7 +113,23 @@ def _write_catalog_pack_release(root: Path) -> None:
                 ],
             }
         ],
+        "extra_packs": [
+            {
+                "pack_id": "stars-extra",
+                "category": "stars",
+                "object_count": 1,
+                "chunks": [
+                    {
+                        "path": "packs/stars-extra/chunk-00000.jsonl",
+                        "object_count": 1,
+                        "byte_size": len(extra_text.encode("utf-8")),
+                        "sha256": "test-not-used-by-builder",
+                    }
+                ],
+            }
+        ],
     }
+    manifest["packs"].extend(manifest.pop("extra_packs"))
     (root / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
 
 
@@ -132,6 +162,7 @@ def test_dense_star_tile_builder_writes_native_eph_release(tmp_path: Path) -> No
     assert manifest["magnitude_limit"] == 13.0
     assert manifest["source_catalogs"]["Gaia DR3"] == 1
     assert manifest["source_catalogs"]["Tycho-2"] == 1
+    assert "source_root" not in manifest
     assert manifest["source_id_type"] == "string"
     assert manifest["default_profile"] == "visual-default"
     assert manifest["profiles"]["visual-default"]["star_count"] == 1
@@ -174,6 +205,7 @@ def test_dense_star_builder_writes_visibility_profiles(tmp_path: Path) -> None:
     assert stat.S_IMODE(output_root.stat().st_mode) & 0o005 == 0o005
     assert stat.S_IMODE((output_root / "profiles/visual-default").stat().st_mode) & 0o005 == 0o005
     assert stat.S_IMODE((output_root / "manifest.json").stat().st_mode) & 0o004 == 0o004
+    assert "source_root" not in manifest
 
     validation = validator.validate_dense_star_tiles(output_root)
     assert validation["default_profile"] == "visual-default"
@@ -208,3 +240,46 @@ def test_dense_star_package_commands_exist() -> None:
 
 def test_generated_dense_star_release_is_not_staged() -> None:
     assert os.system("git check-ignore -q data/runtime-packs/dense-star-tiles/manifest.json") == 0
+
+
+def test_dense_star_builder_rejects_empty_releases(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root)
+    original_profiles = builder.DENSE_STAR_PROFILES
+    builder.DENSE_STAR_PROFILES = [
+        {
+            "profile_id": "empty",
+            "label": "Empty",
+            "magnitude_limit": -10.0,
+            "profile_intent": "test",
+            "label_mode": "suppressed",
+        }
+    ]
+
+    try:
+        builder.build_dense_star_tiles(
+            source_root=source_root,
+            output_root=output_root,
+            tile_order=1,
+            release_version="test.empty",
+        )
+    except ValueError as exc:
+        assert "produced no stars" in str(exc)
+    else:
+        raise AssertionError("empty dense star release was not rejected")
+    finally:
+        builder.DENSE_STAR_PROFILES = original_profiles
+
+    assert not output_root.exists()
+
+
+def test_dense_star_installer_uses_manifest_driven_copy_and_rollback() -> None:
+    installer = (REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh").read_text(encoding="utf-8")
+
+    assert "profile_manifest.get(\"tile_entries\", [])" in installer
+    assert "shutil.copy2(source / \"manifest.json\", staging / \"manifest.json\")" in installer
+    assert "trap rollback ERR" in installer
+    assert "mv \"$previous_dir\" \"$target_dir\"" in installer
+    assert "find . -type f" not in installer

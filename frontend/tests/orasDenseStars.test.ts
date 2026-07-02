@@ -3,6 +3,8 @@ import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
+import { createOrasDenseStarsManager } from '../../vendor/stellarium-web-engine/apps/web-frontend/src/assets/oras_dense_stars.js'
+
 const repoRoot = path.resolve(process.cwd(), '..')
 const appVuePath = path.resolve(
   repoRoot,
@@ -63,6 +65,27 @@ describe('ORAS dense native star runtime integration', () => {
     expect(source).toContain('activeProfile')
     expect(source).toContain('getSurveyKey')
     expect(source).toContain('subscribe')
+  })
+
+  it('does not mark invalid dense star manifests as native-registration ready', async () => {
+    const manager = createOrasDenseStarsManager({
+      fetchImpl: async () => ({
+        ok: true,
+        text: async () => JSON.stringify({
+          schema_version: 1,
+          rendering_path: 'native_swe_star_tiles',
+          source_id_type: 'string',
+          default_profile: 'bad-default',
+          profiles: {}
+        })
+      })
+    })
+
+    await manager.load()
+    const snapshot = manager.getSnapshot()
+
+    expect(snapshot.phase).toBe('failed')
+    expect(manager.isReadyForNativeRegistration()).toBe(false)
   })
 
   it('browser validation checks profiles, label count, brightness, and native tile loading', () => {
