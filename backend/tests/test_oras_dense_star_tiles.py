@@ -34,7 +34,7 @@ def _write_catalog_pack_release(root: Path) -> None:
             "display_name": "Gaia DR3 1000786929690996352",
             "ra": 104.3047389065407,
             "dec": 57.5632863118362,
-            "magnitude": 5.461836,
+            "magnitude": 4.761836,
             "color_index": 1.688078,
             "parallax": 3.1727,
             "proper_motion_ra": 11.681,
@@ -153,7 +153,13 @@ def test_dense_star_tile_builder_writes_native_eph_release(tmp_path: Path) -> No
     assert report["tile_count"] >= 1
     assert (output_root / "manifest.json").is_file()
     assert (output_root / "profiles/deep-catalog/properties").is_file()
-    assert list((output_root / "profiles/deep-catalog").glob("Norder1/Dir0/Npix*.eph"))
+    deep_tiles = list((output_root / "profiles/deep-catalog").glob("Norder1/Dir0/Npix*.eph"))
+    assert deep_tiles
+    tile_bytes = deep_tiles[0].read_bytes()
+    assert b"gaiaQ" in tile_bytes
+    assert b"vmagf" in tile_bytes
+    assert b"gmagf" in tile_bytes
+    assert b"\0mag" not in tile_bytes
 
     manifest = json.loads((output_root / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["schema_version"] == 1
@@ -189,7 +195,7 @@ def test_dense_star_builder_writes_visibility_profiles(tmp_path: Path) -> None:
 
     assert report["default_profile"] == "visual-default"
     assert set(report["profiles"]) == {"visual-default", "binocular", "deep-catalog"}
-    assert report["profiles"]["visual-default"]["magnitude_limit"] == 5.5
+    assert report["profiles"]["visual-default"]["magnitude_limit"] <= 4.8
     assert report["profiles"]["binocular"]["magnitude_limit"] == 8.5
     assert report["profiles"]["deep-catalog"]["magnitude_limit"] == 13.0
     assert report["profiles"]["visual-default"]["star_count"] < report["profiles"]["deep-catalog"]["star_count"]
@@ -198,6 +204,7 @@ def test_dense_star_builder_writes_visibility_profiles(tmp_path: Path) -> None:
     assert manifest["default_profile"] == "visual-default"
     assert manifest["profiles"]["visual-default"]["path"] == "profiles/visual-default"
     assert manifest["profiles"]["visual-default"]["label_mode"] == "suppressed"
+    assert manifest["profiles"]["visual-default"]["profile_intent"] == "default"
     assert manifest["profiles"]["deep-catalog"]["profile_intent"] == "opt-in"
     assert (output_root / "profiles/visual-default/properties").is_file()
     assert (output_root / "profiles/binocular/properties").is_file()

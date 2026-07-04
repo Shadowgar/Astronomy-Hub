@@ -22,7 +22,7 @@ from typing import Any, Iterable
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SOURCE_ROOT = REPO_ROOT / "data/runtime-packs/catalog-packs"
 DEFAULT_OUTPUT_ROOT = REPO_ROOT / "data/runtime-packs/dense-star-tiles"
-DEFAULT_RELEASE_VERSION = "2026.06.native-stars.1"
+DEFAULT_RELEASE_VERSION = "2026.06.native-stars.2"
 DEFAULT_MAGNITUDE_LIMIT = 13.0
 DEFAULT_TILE_ORDER = 3
 SOURCE_PACK_ID = "stars-core"
@@ -31,7 +31,7 @@ DENSE_STAR_PROFILES = [
     {
         "profile_id": "visual-default",
         "label": "Visual",
-        "magnitude_limit": 5.5,
+        "magnitude_limit": 4.8,
         "profile_intent": "default",
         "label_mode": "suppressed",
     },
@@ -270,6 +270,11 @@ def pack_fixed_string(value: str, size: int) -> bytes:
     return data + b"\0" * (size - len(data))
 
 
+def pack_fixed_bytes(value: str, size: int) -> bytes:
+    data = value.encode("ascii", errors="ignore")[:size]
+    return data + b"\0" * (size - len(data))
+
+
 def write_eph_chunk(chunk_type: bytes, payload: bytes) -> bytes:
     return chunk_type + struct.pack("<i", len(payload)) + payload + struct.pack("<I", zlib.crc32(payload) & 0xFFFFFFFF)
 
@@ -310,8 +315,8 @@ def write_star_tile(path: Path, order: int, pix: int, stars: list[dict[str, Any]
         rows.extend(pack_fixed_string(star["spectral_type"], 32))
     table_header = struct.pack("<iiii", 0, row_size, len(columns), len(stars))
     for name, type_name, unit, start, size in columns:
-        table_header += pack_fixed_string(name, 4)
-        table_header += pack_fixed_string(type_name, 4)
+        table_header += pack_fixed_bytes(name, 4)
+        table_header += pack_fixed_bytes(type_name, 4)
         table_header += struct.pack("<iii", unit, start, size)
     compressed = zlib.compress(bytes(rows), level=9)
     table_block = table_header + struct.pack("<ii", len(rows), len(compressed)) + compressed
