@@ -14,13 +14,17 @@
           Dense Stars is degraded: missing generated dense star release. Standard Stellarium star surveys remain available.
         </v-alert>
         <v-alert v-else-if="snapshot.activeProfile === 'off'" type="warning" text>
-          ORAS dense star rendering is off. Select Visual, Binocular, or Deep Catalog and recheck the runtime to register a mounted native survey.
+          ORAS dense star rendering is off. Select Visual Sky, Binocular Depth, or Deep Catalog and recheck the runtime to register a mounted native survey.
         </v-alert>
         <v-alert v-else-if="snapshot.activeProfile === 'deep-catalog'" type="warning" text>
-          Deep Catalog is opt-in and may show many faint stars at wide FOV. Use Visual for normal naked-eye style observing.
+          Deep Catalog is opt-in and may show many faint stars at wide FOV. Use Visual Sky for normal naked-eye style observing.
         </v-alert>
         <v-alert v-else type="success" text>
           ORAS dense stars are loaded through native SWE star tiles using the {{ snapshot.activeProfile }} profile. Dense catalog labels are suppressed; standard Stellarium labels remain available for named bright stars.
+        </v-alert>
+
+        <v-alert type="info" text>
+          Visual Sky is the realistic default. Binocular Depth and Deep Catalog are intentionally denser opt-in profiles. Labels are suppressed for generated dense stars to avoid ID flooding.
         </v-alert>
 
         <v-simple-table dense>

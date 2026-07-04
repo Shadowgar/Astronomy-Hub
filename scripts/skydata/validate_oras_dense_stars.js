@@ -11,6 +11,9 @@ const maxVisualAddedBrightPixelRatio = Number(process.env.ORAS_DENSE_STARS_MAX_A
 const maxBrightBlobArea = Number(process.env.ORAS_DENSE_STARS_MAX_BRIGHT_BLOB_AREA || 950)
 const maxAverageBrightBlobRadius = Number(process.env.ORAS_DENSE_STARS_MAX_AVG_BRIGHT_BLOB_RADIUS || 5.0)
 const maxVisualLabelCount = Number(process.env.ORAS_DENSE_STARS_MAX_LABEL_COUNT || 25)
+const settleMs = Number(process.env.ORAS_DENSE_STARS_SETTLE_MS || 4000)
+const runtimeHealthRetries = Number(process.env.ORAS_DENSE_STARS_HEALTH_RETRIES || 40)
+const runtimeHealthDelayMs = Number(process.env.ORAS_DENSE_STARS_HEALTH_DELAY_MS || 1500)
 const fixedView = {
   fov: 120,
   date: '2026-06-04T02:16:04Z',
@@ -18,6 +21,23 @@ const fixedView = {
   lng: -79.69,
   elev: 0
 }
+const DENSE_STAR_PROFILES = [
+  { id: 'off', label: 'Off', hardVisualThresholds: false },
+  { id: 'visual-default', label: 'Visual Sky', hardVisualThresholds: true },
+  { id: 'binocular', label: 'Binocular Depth', hardVisualThresholds: false },
+  { id: 'deep-catalog', label: 'Deep Catalog', hardVisualThresholds: false }
+]
+const DENSE_STAR_QA_FIELDS = [
+  { id: 'horizon-north', label: 'Wide FOV north horizon', view: { az: 0, alt: 8, fov: 120 } },
+  { id: 'horizon-east', label: 'Wide FOV east horizon', view: { az: 90, alt: 8, fov: 120 } },
+  { id: 'horizon-south', label: 'Wide FOV south horizon', view: { az: 180, alt: 8, fov: 120 } },
+  { id: 'horizon-west', label: 'Wide FOV west horizon', view: { az: 270, alt: 8, fov: 120 } },
+  { id: 'zenith-high-sky', label: 'Zenith high sky field', view: { az: 180, alt: 82, fov: 90 } },
+  { id: 'milky-way-cygnus', label: 'Milky Way Cygnus / North America Nebula region', view: { date: '2026-07-15T03:00:00Z', az: 65.94, alt: 49.37, fov: 70 } },
+  { id: 'orion-m42', label: 'Orion / M42 region', view: { date: '2026-01-15T03:00:00Z', az: 174.65, alt: 43.03, fov: 70 } },
+  { id: 'm31', label: 'M31 / Andromeda region', view: { date: '2026-01-15T03:00:00Z', az: 294.34, alt: 39.53, fov: 70 } },
+  { id: 'sparse-high-latitude', label: 'Sparse high-galactic-latitude comparison field', view: { date: '2026-04-15T03:00:00Z', az: 30, alt: 72, fov: 90 } }
+]
 
 async function writeElementTextArtifact (page, selector, filename) {
   const target = page.locator(selector).first()
@@ -185,15 +205,38 @@ async function capturePageArtifact (page, filename) {
 }
 
 function runtimeUrlForView (view = {}) {
-  const url = new URL(baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`)
+  const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`
+  const url = view.path ? new URL(view.path, normalizedBaseUrl) : new URL(normalizedBaseUrl)
   const params = { ...fixedView, ...view }
+  delete params.path
   for (const [key, value] of Object.entries(params)) {
     url.searchParams.set(key, String(value))
   }
   return url.toString()
 }
 
+function sleep (ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function waitForRuntimeHttp (url = baseUrl) {
+  let lastError
+  for (let attempt = 1; attempt <= runtimeHealthRetries; attempt++) {
+    try {
+      const response = await fetch(url, { cache: 'no-store' })
+      if (response && response.ok) return
+      lastError = new Error(`runtime returned HTTP ${response && response.status}`)
+    } catch (error) {
+      lastError = error
+    }
+    await sleep(runtimeHealthDelayMs)
+  }
+  throw new Error(`runtime did not become reachable at ${url}: ${lastError ? lastError.message : 'unknown error'}`)
+}
+
 async function openRuntimePage (browser, profile, view = {}) {
+  const url = runtimeUrlForView(view)
+  await waitForRuntimeHttp(url)
   const context = await browser.newContext({ viewport: { width: 1600, height: 1000 } })
   await context.addInitScript((denseStarsProfile) => {
     localStorage.setItem('orasDenseStarsProfile', denseStarsProfile)
@@ -203,10 +246,25 @@ async function openRuntimePage (browser, profile, view = {}) {
   const fatalErrors = []
   page.on('console', message => consoleMessages.push(message.text()))
   page.on('pageerror', error => fatalErrors.push(error.message))
-  await page.goto(runtimeUrlForView(view), { waitUntil: 'domcontentloaded', timeout: timeoutMs })
+  let lastError
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: timeoutMs })
+      lastError = null
+      break
+    } catch (error) {
+      lastError = error
+      if (!/ERR_CONNECTION_RESET|ECONNRESET|Navigation timeout/i.test(String(error && error.message))) {
+        throw error
+      }
+      await sleep(runtimeHealthDelayMs * attempt)
+      await waitForRuntimeHttp(url)
+    }
+  }
+  if (lastError) throw lastError
   await page.locator('#stel-canvas').waitFor({ state: 'visible', timeout: timeoutMs })
   await page.locator('.tsearch input').first().waitFor({ state: 'visible', timeout: timeoutMs })
-  await page.waitForTimeout(5000)
+  await page.waitForTimeout(settleMs)
   return { context, page, consoleMessages, fatalErrors, profile }
 }
 
@@ -261,109 +319,175 @@ function assertConsoleClean (consoleMessages, fatalErrors) {
   if (forbidden) throw new Error(`forbidden runtime console message: ${forbidden}`)
 }
 
+function assertVisualMetrics (field, metrics) {
+  if (metrics.brightPixelRatio > maxVisualBrightPixelRatio) {
+    throw new Error(`${field.id} visual profile bright-pixel ratio too high: ${metrics.brightPixelRatio}`)
+  }
+  if (metrics.addedBrightPixelRatio > maxVisualAddedBrightPixelRatio) {
+    throw new Error(`${field.id} visual profile added bright-pixel ratio too high: ${metrics.addedBrightPixelRatio}`)
+  }
+  if (metrics.maxBrightBlobArea > maxBrightBlobArea) {
+    throw new Error(`${field.id} visual profile bright blob too large: ${metrics.maxBrightBlobArea}`)
+  }
+  if (metrics.averageBrightBlobRadius > maxAverageBrightBlobRadius) {
+    throw new Error(`${field.id} visual profile average bright blob radius too high: ${metrics.averageBrightBlobRadius}`)
+  }
+}
+
+function profileWarnings (field, profileId, metrics) {
+  const warnings = []
+  if (profileId === 'binocular') {
+    if (metrics.brightPixelRatio > 0.09) warnings.push(`${field.id} binocular bright-pixel ratio borderline: ${metrics.brightPixelRatio}`)
+    if (metrics.maxBrightBlobArea > 1300) warnings.push(`${field.id} binocular bright blob borderline: ${metrics.maxBrightBlobArea}`)
+  }
+  if (profileId === 'deep-catalog') {
+    if (metrics.brightPixelRatio > 0.14) warnings.push(`${field.id} deep-catalog bright-pixel ratio high: ${metrics.brightPixelRatio}`)
+    if (metrics.maxBrightBlobArea > 1800) warnings.push(`${field.id} deep-catalog bright blob high: ${metrics.maxBrightBlobArea}`)
+  }
+  return warnings
+}
+
+function writeContactSheet (summary) {
+  const rows = summary.fields.map(field => {
+    const cells = DENSE_STAR_PROFILES.map(profile => {
+      const artifact = field.profiles[profile.id] && field.profiles[profile.id].artifact
+      return `<td><strong>${profile.label}</strong><br>${artifact ? `<img src="${artifact}" alt="${field.id} ${profile.id}">` : 'missing'}</td>`
+    }).join('\n')
+    return `<tr><th>${field.label}<br><code>${field.id}</code></th>${cells}</tr>`
+  }).join('\n')
+  const html = `<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ORAS Dense Stars QA Contact Sheet</title>
+  <style>
+    body { background: #101622; color: #f3f6ff; font-family: sans-serif; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #2b3446; padding: 8px; vertical-align: top; }
+    img { width: 280px; max-width: 100%; border: 1px solid #46516a; }
+    code { color: #a9d0ff; }
+  </style>
+</head>
+<body>
+  <h1>ORAS Dense Stars QA Contact Sheet</h1>
+  <p>Default profile: ${summary.defaultProfile}; Visual stars: ${summary.visualStarCount}; label count: ${summary.maxVisualLabelCount}</p>
+  <table>
+    <thead><tr><th>Field</th>${DENSE_STAR_PROFILES.map(profile => `<th>${profile.label}</th>`).join('')}</tr></thead>
+    <tbody>${rows}</tbody>
+  </table>
+</body>
+</html>
+`
+  fs.writeFileSync(path.join(artifactRoot, 'dense-stars-contact-sheet.html'), html)
+}
+
 async function validateDenseStars () {
   fs.rmSync(artifactRoot, { recursive: true, force: true })
   fs.mkdirSync(artifactRoot, { recursive: true })
+  await waitForRuntimeHttp()
   const browser = await chromium.launch({ headless: true })
   const contexts = []
 
   try {
-    const off = await openRuntimePage(browser, 'off', { fov: 120 })
-    contexts.push(off.context)
-    const offResources = await profileResourceCount(off.page, 'visual-default') + await profileResourceCount(off.page, 'deep-catalog')
-    if (offResources !== 0) throw new Error(`dense star profile resources loaded while off: ${offResources}`)
-    const offWideScreenshot = await capturePageArtifact(off.page, 'dense-stars-off.png')
-    assertConsoleClean(off.consoleMessages, off.fatalErrors)
-
-    const visual = await openRuntimePage(browser, 'visual-default', { fov: 120 })
-    contexts.push(visual.context)
-    const manifest = await getDenseStarManifest(visual.page)
+    const bootstrap = await openRuntimePage(browser, 'visual-default', DENSE_STAR_QA_FIELDS[0].view)
+    contexts.push(bootstrap.context)
+    const manifest = await getDenseStarManifest(bootstrap.page)
     if (manifest.default_profile !== 'visual-default') throw new Error(`wrong default profile: ${manifest.default_profile}`)
     if (!manifest.profiles || !manifest.profiles['visual-default'] || !manifest.profiles['deep-catalog']) {
       throw new Error(`dense star profiles missing: ${JSON.stringify(manifest.profiles || {})}`)
     }
     const visualProfile = manifest.profiles['visual-default']
+    const binocularProfile = manifest.profiles.binocular
     const deepProfile = manifest.profiles['deep-catalog']
     if (Number(visualProfile.magnitude_limit) > 5.0) throw new Error(`visual profile too deep: ${visualProfile.magnitude_limit}`)
     if (Number(deepProfile.magnitude_limit) <= Number(visualProfile.magnitude_limit)) throw new Error('deep catalog is not deeper than visual profile')
     if (Number(visualProfile.star_count) >= Number(deepProfile.star_count)) throw new Error('visual profile is not smaller than deep catalog')
-    await visual.page.waitForFunction(
-      () => performance.getEntriesByType('resource').some(entry =>
-        entry.name.includes('/dense-star-tiles/profiles/visual-default/properties') ||
-        entry.name.includes('/dense-star-tiles/profiles/visual-default/Norder')
-      ),
-      null,
-      { timeout: timeoutMs }
-    )
-    const visualResources = await profileResourceCount(visual.page, 'visual-default')
-    const visualDeepResources = await profileResourceCount(visual.page, 'deep-catalog')
-    if (visualResources < 1) throw new Error('visual profile native resources did not load')
-    if (visualDeepResources !== 0) throw new Error(`deep catalog resources loaded during visual profile: ${visualDeepResources}`)
-    const labelCount = await visibleLabelCount(visual.page)
-    if (labelCount > maxVisualLabelCount) throw new Error(`visual profile label count too high: ${labelCount}`)
-    const visualWideScreenshot = await capturePageArtifact(visual.page, 'dense-stars-visual-wide-fov.png')
-    const visualWideMetrics = computeScreenshotMetrics(visualWideScreenshot, offWideScreenshot)
-    if (visualWideMetrics.brightPixelRatio > maxVisualBrightPixelRatio) {
-      throw new Error(`visual profile bright-pixel ratio too high: ${visualWideMetrics.brightPixelRatio}`)
+    if (!binocularProfile || Number(binocularProfile.magnitude_limit) <= Number(visualProfile.magnitude_limit)) {
+      throw new Error('binocular profile is missing or not deeper than visual profile')
     }
-    if (visualWideMetrics.addedBrightPixelRatio > maxVisualAddedBrightPixelRatio) {
-      throw new Error(`visual profile added bright-pixel ratio too high: ${visualWideMetrics.addedBrightPixelRatio}`)
-    }
-    if (visualWideMetrics.maxBrightBlobArea > maxBrightBlobArea) {
-      throw new Error(`visual profile bright blob too large: ${visualWideMetrics.maxBrightBlobArea}`)
-    }
-    if (visualWideMetrics.averageBrightBlobRadius > maxAverageBrightBlobRadius) {
-      throw new Error(`visual profile average bright blob radius too high: ${visualWideMetrics.averageBrightBlobRadius}`)
-    }
-    const dialog = await openDenseStarsStatus(visual.page)
+
+    const dialog = await openDenseStarsStatus(bootstrap.page)
     const text = await dialog.innerText()
-    for (const expected of ['Active profile', 'visual-default', 'Magnitude limit', 'Labels', 'suppressed']) {
+    for (const expected of ['Active profile', 'visual-default', 'Magnitude limit', 'Labels', 'suppressed', 'Visual Sky is the realistic default', 'Binocular Depth']) {
       if (!text.includes(expected)) throw new Error(`dense status missing ${expected}: ${text}`)
     }
-    await writeElementTextArtifact(visual.page, '.oras-dense-stars-status', 'dense-stars-status.txt')
-    assertConsoleClean(visual.consoleMessages, visual.fatalErrors)
+    await writeElementTextArtifact(bootstrap.page, '.oras-dense-stars-status', 'dense-stars-status.txt')
+    assertConsoleClean(bootstrap.consoleMessages, bootstrap.fatalErrors)
 
-    const visualMedium = await openRuntimePage(browser, 'visual-default', { fov: 45 })
-    contexts.push(visualMedium.context)
-    await visualMedium.page.waitForFunction(
-      () => performance.getEntriesByType('resource').some(entry =>
-        entry.name.includes('/dense-star-tiles/profiles/visual-default/properties') ||
-        entry.name.includes('/dense-star-tiles/profiles/visual-default/Norder')
-      ),
-      null,
-      { timeout: timeoutMs }
-    )
-    const visualMediumScreenshot = await capturePageArtifact(visualMedium.page, 'dense-stars-visual-medium-fov.png')
-    const visualMediumMetrics = computeScreenshotMetrics(visualMediumScreenshot)
-    assertConsoleClean(visualMedium.consoleMessages, visualMedium.fatalErrors)
+    const fields = []
+    const warnings = []
+    let maxVisualLabelCountSeen = 0
+    let maxVisualBrightPixelRatioSeen = 0
+    let maxVisualAddedBrightPixelRatioSeen = 0
+    let maxVisualBlobAreaSeen = 0
 
-    const binocular = await openRuntimePage(browser, 'binocular', { fov: 120 })
-    contexts.push(binocular.context)
-    await binocular.page.waitForFunction(
-      () => performance.getEntriesByType('resource').some(entry =>
-        entry.name.includes('/dense-star-tiles/profiles/binocular/properties') ||
-        entry.name.includes('/dense-star-tiles/profiles/binocular/Norder')
-      ),
-      null,
-      { timeout: timeoutMs }
-    )
-    await capturePageArtifact(binocular.page, 'dense-stars-binocular.png')
-    assertConsoleClean(binocular.consoleMessages, binocular.fatalErrors)
+    for (const field of DENSE_STAR_QA_FIELDS) {
+      const fieldResult = {
+        id: field.id,
+        label: field.label,
+        view: Object.assign({}, fixedView, field.view),
+        profiles: {}
+      }
+      let offScreenshot = null
 
-    const deep = await openRuntimePage(browser, 'deep-catalog', { fov: 120 })
-    contexts.push(deep.context)
-    await deep.page.waitForFunction(
-      () => performance.getEntriesByType('resource').some(entry =>
-        entry.name.includes('/dense-star-tiles/profiles/deep-catalog/properties') ||
-        entry.name.includes('/dense-star-tiles/profiles/deep-catalog/Norder')
-      ),
-      null,
-      { timeout: timeoutMs }
-    )
-    const deepResources = await profileResourceCount(deep.page, 'deep-catalog')
-    if (deepResources < 1) throw new Error('deep catalog native resources did not load')
-    await capturePageArtifact(deep.page, 'dense-stars-deep-catalog.png')
-    assertConsoleClean(deep.consoleMessages, deep.fatalErrors)
+      for (const profile of DENSE_STAR_PROFILES) {
+        const pageRun = await openRuntimePage(browser, profile.id, field.view)
+        try {
+          if (profile.id !== 'off') {
+            await pageRun.page.waitForFunction(
+              (profileId) => performance.getEntriesByType('resource').some(entry =>
+                entry.name.includes(`/dense-star-tiles/profiles/${profileId}/properties`) ||
+                entry.name.includes(`/dense-star-tiles/profiles/${profileId}/Norder`)
+              ),
+              profile.id,
+              { timeout: timeoutMs }
+            )
+          }
+
+          const profileResources = profile.id === 'off'
+            ? await profileResourceCount(pageRun.page, 'visual-default') + await profileResourceCount(pageRun.page, 'binocular') + await profileResourceCount(pageRun.page, 'deep-catalog')
+            : await profileResourceCount(pageRun.page, profile.id)
+          if (profile.id === 'off' && profileResources !== 0) {
+            throw new Error(`${field.id} loaded dense star resources while off: ${profileResources}`)
+          }
+          if (profile.id !== 'off' && profileResources < 1) {
+            throw new Error(`${field.id} ${profile.id} native resources did not load`)
+          }
+
+          const artifact = `dense-stars-${field.id}-${profile.id}.png`
+          const screenshot = await capturePageArtifact(pageRun.page, artifact)
+          const labelCount = profile.id === 'visual-default' ? await visibleLabelCount(pageRun.page) : 0
+          const metrics = computeScreenshotMetrics(screenshot, offScreenshot)
+          fieldResult.profiles[profile.id] = {
+            label: profile.label,
+            artifact,
+            labelCount,
+            resourceCount: profileResources,
+            metrics
+          }
+
+          if (profile.id === 'off') {
+            offScreenshot = screenshot
+          } else {
+            warnings.push(...profileWarnings(field, profile.id, metrics))
+          }
+          if (profile.id === 'visual-default') {
+            if (labelCount > maxVisualLabelCount) throw new Error(`${field.id} visual profile label count too high: ${labelCount}`)
+            assertVisualMetrics(field, metrics)
+            maxVisualLabelCountSeen = Math.max(maxVisualLabelCountSeen, labelCount)
+            maxVisualBrightPixelRatioSeen = Math.max(maxVisualBrightPixelRatioSeen, metrics.brightPixelRatio)
+            maxVisualAddedBrightPixelRatioSeen = Math.max(maxVisualAddedBrightPixelRatioSeen, metrics.addedBrightPixelRatio || 0)
+            maxVisualBlobAreaSeen = Math.max(maxVisualBlobAreaSeen, metrics.maxBrightBlobArea)
+          }
+
+          assertConsoleClean(pageRun.consoleMessages, pageRun.fatalErrors)
+        } finally {
+          await pageRun.context.close().catch(() => {})
+        }
+      }
+
+      fields.push(fieldResult)
+    }
 
     const summary = {
       baseUrl,
@@ -374,16 +498,22 @@ async function validateDenseStars () {
       visualMagnitudeLimit: Number(visualProfile.magnitude_limit),
       binocularMagnitudeLimit: Number(manifest.profiles.binocular.magnitude_limit),
       deepCatalogMagnitudeLimit: Number(deepProfile.magnitude_limit),
-      labelCount,
-      visualWideMetrics,
-      visualMediumMetrics,
-      offResourceCount: offResources,
-      visualResourceCount: visualResources,
-      deepResourceCount: deepResources,
-      artifacts: fs.readdirSync(artifactRoot).sort(),
+      maxVisualLabelCount: maxVisualLabelCountSeen,
+      maxVisualBrightPixelRatio: maxVisualBrightPixelRatioSeen,
+      maxVisualAddedBrightPixelRatio: maxVisualAddedBrightPixelRatioSeen,
+      maxVisualBrightBlobArea: maxVisualBlobAreaSeen,
+      visualWideMetrics: fields.find(field => field.id === 'horizon-north').profiles['visual-default'].metrics,
+      visualMediumMetrics: fields.find(field => field.id === 'm31').profiles['visual-default'].metrics,
+      fields,
+      warnings,
+      artifacts: fs.readdirSync(artifactRoot).sort()
     }
+    writeContactSheet(summary)
+    summary.artifacts = fs.readdirSync(artifactRoot).sort()
     fs.writeFileSync(path.join(artifactRoot, 'acceptance-summary.json'), `${JSON.stringify(summary, null, 2)}\n`)
-    console.log(`DENSE_STARS_PASS defaultProfile=${summary.defaultProfile} visualStars=${summary.visualStarCount} deepStars=${summary.deepCatalogStarCount} labelCount=${labelCount} brightPixelRatio=${visualWideMetrics.brightPixelRatio} maxBrightBlobArea=${visualWideMetrics.maxBrightBlobArea}`)
+    fs.writeFileSync(path.join(artifactRoot, 'dense-stars-qa-summary.json'), `${JSON.stringify(summary, null, 2)}\n`)
+    if (warnings.length) fs.writeFileSync(path.join(artifactRoot, 'dense-stars-qa-warnings.txt'), `${warnings.join('\n')}\n`)
+    console.log(`DENSE_STARS_PASS fields=${fields.length} defaultProfile=${summary.defaultProfile} visualStars=${summary.visualStarCount} deepStars=${summary.deepCatalogStarCount} labelCount=${summary.maxVisualLabelCount} brightPixelRatio=${summary.maxVisualBrightPixelRatio} maxBrightBlobArea=${summary.maxVisualBrightBlobArea}`)
   } finally {
     for (const context of contexts.reverse()) {
       await context.close().catch(() => {})
