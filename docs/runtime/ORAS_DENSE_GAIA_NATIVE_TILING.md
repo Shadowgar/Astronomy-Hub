@@ -86,6 +86,12 @@ The first bounded release is generated from the mounted ORAS catalog-pack
 `stars-core` records. This is source-backed and avoids full Gaia DR3 bulk
 downloads in normal development/test runs.
 
+The native EPHE column headers must use exact four-byte field names such as
+`gaia`, `vmag`, `gmag`, `ra`, and `de`. If those names are NUL-truncated,
+Stellarium Web Engine treats the fields as absent and defaults numeric values to
+zero, causing dense stars to render as oversized bright blobs at incorrect
+positions. The generator and tests protect this contract.
+
 Current generated release profiles:
 
 | Field | Value |
@@ -93,13 +99,13 @@ Current generated release profiles:
 | rendering path | `native_swe_star_tiles` |
 | tile order | `3` |
 | default profile | `visual-default` |
-| visual-default magnitude limit | `5.5` |
-| visual-default star count | `7,116` |
+| visual-default magnitude limit | `4.8` |
+| visual-default star count | `3,239` |
 | binocular magnitude limit | `8.5` |
 | binocular star count | `78,079` |
 | deep-catalog magnitude limit | `13.0` |
 | deep-catalog star count | `98,922` |
-| generated size | about `5.6 MB` on disk |
+| generated size | about `5.5 MB` on disk |
 
 Source catalogs in the generated release:
 

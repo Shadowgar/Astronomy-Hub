@@ -199,6 +199,11 @@ def validate_dense_star_tiles(release_root: Path = DEFAULT_RELEASE_ROOT) -> dict
     default_profile = manifest.get("default_profile")
     if default_profile != "visual-default":
         raise ValueError("dense star default profile must be visual-default")
+    visual_profile = profiles.get("visual-default")
+    if not isinstance(visual_profile, dict):
+        raise ValueError("dense star release must define visual-default profile")
+    if float(visual_profile.get("magnitude_limit", 99)) > 4.8:
+        raise ValueError("dense star visual-default profile must stay at mag 4.8 or brighter")
 
     profile_reports: dict[str, Any] = {}
     for profile_id, profile in profiles.items():
