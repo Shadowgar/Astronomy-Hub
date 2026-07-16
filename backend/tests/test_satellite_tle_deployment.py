@@ -128,3 +128,24 @@ def test_install_rejects_symlinked_source_content_and_target(tmp_path: Path) -> 
 
     assert target_result.returncode != 0
     assert "symlink target" in target_result.stdout.lower()
+
+
+def test_satellite_pipeline_commands_mounts_and_generated_data_exclusions_are_declared() -> None:
+    package = json.loads((REPO_ROOT / "package.json").read_text(encoding="utf-8"))
+    scripts = package["scripts"]
+    assert "build_oras_satellite_tle_release.py" in scripts["satellites:build"]
+    assert "--validate-only" in scripts["satellites:validate"]
+    assert "install_oras_satellite_tle_release.sh" in scripts["satellites:install"]
+
+    for compose_name in ("docker-compose.yml", "docker-compose.prod.yml"):
+        compose = (REPO_ROOT / compose_name).read_text(encoding="utf-8")
+        assert "ORAS_SATELLITE_TLE_HOST_DIR" in compose
+        assert "/runtime/oras-satellite-tle:ro" in compose
+        assert "ORAS_SATELLITE_TLE_MANIFEST_PATH" in compose
+        assert "tle_satellite.jsonl.gz:ro" in compose
+
+    assert "/data/runtime-packs/satellite-tle/" in (REPO_ROOT / ".gitignore").read_text(encoding="utf-8")
+    assert "data/runtime-packs/satellite-tle" in (REPO_ROOT / ".dockerignore").read_text(encoding="utf-8")
+    assert "public/oras-sky-engine/skydata/tle_satellite.jsonl.gz" in (
+        REPO_ROOT / "frontend/.dockerignore"
+    ).read_text(encoding="utf-8")

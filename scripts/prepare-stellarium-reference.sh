@@ -8,13 +8,10 @@ source_root="$repo_root/vendor/stellarium-web-engine"
 app_dir="$source_root/apps/web-frontend"
 assets_dir="$app_dir/src/assets/js"
 build_dir="$source_root/build"
-skydata_dir="$source_root/apps/test-skydata"
-public_skydata_dir="$repo_root/frontend/public/oras-sky-engine/skydata"
 js_image="astronomy-hub-stellarium-jsbuild"
 js_dockerfile="$repo_root/scripts/Dockerfile.stellarium-jsbuild"
 expected_vue_version="2.6.12"
 skip_host_npm_install="${STELLARIUM_SKIP_HOST_NPM_INSTALL:-0}"
-skip_tle_refresh="${STELLARIUM_SKIP_TLE_REFRESH:-0}"
 
 read_package_version() {
     local package_dir="$1"
@@ -75,62 +72,9 @@ if [[ ! -f "$assets_dir/stellarium-web-engine.js" || ! -f "$assets_dir/stellariu
   cp "$build_dir/stellarium-web-engine.wasm" "$assets_dir/stellarium-web-engine.wasm"
 fi
 
-# Build a compatibility satellite feed for this pinned SWE version.
-# New upstream JSONL entries include launch_date values in a format that this
-# runtime cannot parse; stripping the field avoids rejecting most satellites.
-# Vite serves .gz assets with Content-Encoding: gzip, so browser fetches hand
-# SWE a decoded payload. Double wrapping leaves an inner gzip stream for SWE's
-# z_uncompress_gz call.
-if [[ "$skip_tle_refresh" != "1" ]]; then
-  tmp_tle_gz="$(mktemp)"
-  curl -fSL \
-    --retry 3 \
-    --retry-delay 2 \
-    --connect-timeout 10 \
-    --max-time 120 \
-    "https://stellarium.sfo2.cdn.digitaloceanspaces.com/skysources/v1/tle_satellite.jsonl.gz" \
-    -o "$tmp_tle_gz"
-  python3 - "$tmp_tle_gz" "$skydata_dir/tle_satellite.jsonl.gz" "$public_skydata_dir/tle_satellite.jsonl.gz" <<'PY'
-import gzip
-import json
-import os
-import sys
-
-src_path = sys.argv[1]
-dst_paths = sys.argv[2:]
-
-for dst_path in dst_paths:
-    if dst_path:
-        os.makedirs(os.path.dirname(dst_path), exist_ok=True)
-
-inner_payload_path = f"{dst_paths[0]}.inner.tmp"
-with gzip.open(src_path, "rt", encoding="utf-8", errors="ignore") as source_stream, gzip.open(inner_payload_path, "wt", encoding="utf-8") as output_stream:
-    for raw_line in source_stream:
-        line = raw_line.strip()
-        if not line:
-            continue
-        try:
-            record = json.loads(line)
-        except json.JSONDecodeError:
-            continue
-        model_data = record.get("model_data")
-        if isinstance(model_data, dict):
-            model_data.pop("launch_date", None)
-        output_stream.write(json.dumps(record, separators=(",", ":")) + "\n")
-
-for dst_path in dst_paths:
-    if not dst_path:
-        continue
-    tmp_path = f"{dst_path}.tmp"
-    with open(inner_payload_path, "rb") as inner_stream, gzip.open(tmp_path, "wb") as output_stream:
-        output_stream.write(inner_stream.read())
-    os.replace(tmp_path, dst_path)
-
-os.unlink(inner_payload_path)
-PY
-  rm -f "$tmp_tle_gz"
-else
-  echo "Skipping satellite feed refresh during Stellarium runtime build."
-fi
+# Satellite releases are acquired independently and mounted at runtime. Keeping
+# network data out of the runtime build makes builds reproducible and prevents
+# unreviewed upstream data from being baked into Docker images.
+echo "Satellite feed is managed by npm run satellites:build and a read-only runtime mount."
 
 echo "Stellarium reference workspace is prepared."

@@ -121,6 +121,7 @@ data/
 # Generated catalog release packs are mounted at runtime, never committed.
 /data/runtime-packs/catalog-packs/
 /data/runtime-packs/dense-star-tiles/
+/data/runtime-packs/satellite-tle/
 !backend/app/data/
 !backend/app/data/sky/
 !backend/app/data/sky/gaia_dr3_pilot_manifest.json

@@ -16,6 +16,10 @@ const syncScriptPath = path.resolve(
   process.cwd(),
   '../scripts/sync-stellarium-runtime.sh'
 )
+const prepareScriptPath = path.resolve(
+  process.cwd(),
+  '../scripts/prepare-stellarium-reference.sh'
+)
 const runtimeVueConfigPath = path.resolve(
   process.cwd(),
   '../vendor/stellarium-web-engine/apps/web-frontend/vue.config.js'
@@ -94,6 +98,13 @@ describe('oras runtime data sources', () => {
     expect(buildScript).not.toContain('staging_skydata_dir')
     expect(buildScript).not.toContain('rsync -a --delete "$skydata_dir/"')
     expect(syncScript).toContain('oras-runtime-build.json')
+  })
+
+  it('uses the source-backed satellite pipeline instead of Stellarium CDN refresh', () => {
+    const source = fs.readFileSync(prepareScriptPath, 'utf8')
+
+    expect(source).not.toContain('stellarium.sfo2.cdn.digitaloceanspaces.com/skysources/v1/tle_satellite')
+    expect(source).toContain('satellites:build')
   })
 
   it('keeps the vendored Vue production build within local memory limits', () => {
