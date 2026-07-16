@@ -12,6 +12,7 @@ from scripts.skydata.build_oras_satellite_tle_release import (
     parse_celestrak_3le,
     validate_release,
 )
+from backend.app.services.satellite_tle_catalog_service import _normalize_satellite_record
 
 
 ISS_LINE_1 = "1 25544U 98067A   26154.70949191  .00008646  00000-0  16154-3 0  9992"
@@ -69,6 +70,19 @@ def test_parser_adds_starlink_group_only_from_source_name() -> None:
 
     assert records[0]["model_data"]["group"] == ["Starlink"]
     assert records[0]["model_data"]["subtype"] == "Starlink"
+
+
+def test_runtime_normalization_preserves_celestrak_provenance() -> None:
+    records, _ = parse_celestrak_3le(_fixture_payload())
+
+    normalized = _normalize_satellite_record(records[1])
+
+    assert normalized is not None
+    assert normalized["provenance"] == {
+        "source_key": "celestrak_active_gp",
+        "source_url": DEFAULT_SOURCE_URL,
+    }
+    assert "Pass 4B" not in normalized["message"]
 
 
 def test_build_release_is_deterministic_double_gzip_and_manifest_backed(tmp_path: Path) -> None:
