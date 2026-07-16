@@ -13,8 +13,10 @@ def test_production_backend_mounts_satellite_feed() -> None:
     assert "dockerfile: backend/Dockerfile" in compose
     assert "postgresql+psycopg://" in compose
     assert "postgresql+psycopg2://" not in compose
-    assert "SATELLITE_TLE_FEED_PATH: /runtime/oras-sky-engine/skydata/tle_satellite.jsonl.gz" in compose
-    assert "./frontend/public/oras-sky-engine/skydata:/runtime/oras-sky-engine/skydata:ro" in compose
+    assert "SATELLITE_TLE_FEED_PATH: /runtime/oras-satellite-tle/tle_satellite.jsonl.gz" in compose
+    assert "ORAS_SATELLITE_TLE_MANIFEST_PATH: /runtime/oras-satellite-tle/manifest.json" in compose
+    assert "ORAS_SATELLITE_TLE_HOST_DIR" in compose
+    assert ":/runtime/oras-satellite-tle:ro" in compose
 
 
 def test_production_frontend_healthcheck_requires_runtime_skydata() -> None:
@@ -37,27 +39,25 @@ def test_runtime_sync_checks_rsync_dependency() -> None:
     assert "command -v rsync" in script
 
 
-def test_stellarium_prepare_creates_satellite_output_directories_before_writing() -> None:
+def test_stellarium_prepare_does_not_write_satellite_runtime_data() -> None:
     script = (REPO_ROOT / "scripts/prepare-stellarium-reference.sh").read_text(encoding="utf-8")
 
-    mkdir_position = script.index("os.makedirs(os.path.dirname(dst_path), exist_ok=True)")
-    inner_write_position = script.index('gzip.open(inner_payload_path, "wt"')
-    assert mkdir_position < inner_write_position
+    assert "satellites:build" in script
+    assert "tle_satellite.jsonl.gz" not in script
+    assert "gzip.open" not in script
 
 
-def test_stellarium_prepare_bounds_satellite_download_retries() -> None:
+def test_stellarium_prepare_does_not_download_satellites() -> None:
     script = (REPO_ROOT / "scripts/prepare-stellarium-reference.sh").read_text(encoding="utf-8")
 
-    assert "--retry 3" in script
-    assert "--retry-delay 2" in script
-    assert "--connect-timeout 10" in script
-    assert "--max-time 120" in script
+    assert "curl" not in script
+    assert "stellarium.sfo2.cdn.digitaloceanspaces.com" not in script
 
 
 def test_stellarium_build_does_not_refresh_satellite_data() -> None:
     script = (REPO_ROOT / "scripts/build-stellarium-safe.sh").read_text(encoding="utf-8")
 
-    assert "STELLARIUM_SKIP_TLE_REFRESH=1" in script
+    assert "STELLARIUM_SKIP_TLE_REFRESH" not in script
 
 
 def test_production_runbook_uses_existing_commands() -> None:

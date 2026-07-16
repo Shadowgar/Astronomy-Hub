@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 
 import pytest
 
@@ -43,7 +44,7 @@ def _run_install(
     minimum_count: str | None = "2",
 ) -> subprocess.CompletedProcess[str]:
     env = os.environ.copy()
-    env["PYTHON_BIN"] = str(REPO_ROOT / ".venv/bin/python")
+    env["PYTHON_BIN"] = sys.executable
     if minimum_count is None:
         env.pop("ORAS_SATELLITE_MINIMUM_COUNT", None)
     else:
