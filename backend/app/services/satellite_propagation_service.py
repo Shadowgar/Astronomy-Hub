@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from functools import lru_cache
 import math
 from typing import Any
 
@@ -17,6 +18,7 @@ from backend.app.services.sky_engine_links import build_sky_engine_object_url
 
 DEFAULT_PROPAGATION_SCAN_LIMIT = 800
 DEFAULT_SATELLITE_RESULT_LIMIT = 8
+MAX_TLE_AGE_DAYS = 14.0
 STARLINK_PROPAGATION_CAP = 40
 HIGH_INTEREST_SOURCE_IDS = {"25544", "20580"}
 HIGH_INTEREST_KEYWORDS = (
@@ -60,7 +62,7 @@ def propagate_satellite_record(
     try:
         line1, line2 = _tle_lines(record)
         as_of_utc = _as_utc(as_of)
-        satellite = EarthSatellite(line1, line2, str(record.get("display_name") or "Satellite"), _TIMESCALE)
+        satellite = _build_earth_satellite(line1, line2, str(record.get("display_name") or "Satellite"))
         observer_site = wgs84.latlon(observer.lat, observer.lng, elevation_m=observer.elev)
         topocentric = (satellite - observer_site).at(_TIMESCALE.from_datetime(as_of_utc))
         alt, az, distance = topocentric.altaz()
@@ -83,6 +85,7 @@ def propagate_satellite_record(
             "magnitude": _optional_magnitude(record),
             "propagated_at": _format_utc(as_of_utc),
             "tle_epoch": satellite.epoch.utc_iso(),
+            "tle_age_days": round(abs((as_of_utc - satellite.epoch.utc_datetime()).total_seconds()) / 86400.0, 3),
         }
         propagated["is_visible"] = propagated["alt"] > 0.0
         propagated["sky_engine_url"] = build_sky_engine_object_url(
@@ -113,12 +116,18 @@ def build_visible_satellite_candidates(
     max_results = max(0, min(DEFAULT_SATELLITE_RESULT_LIMIT, int(limit)))
     if max_results <= 0:
         return []
+    if satellite_feed_freshness(as_of)["freshness_status"] != "fresh":
+        return []
 
     records = _prioritized_scan_records(scan_limit=scan_limit)
     visible: list[dict[str, Any]] = []
     for record in records:
         propagated = propagate_satellite_record(record, observer=observer, as_of=as_of)
-        if not propagated or not propagated["is_visible"]:
+        if (
+            not propagated
+            or propagated["tle_age_days"] > MAX_TLE_AGE_DAYS
+            or not propagated["is_visible"]
+        ):
             continue
         propagated["priority"] = _satellite_priority(propagated)
         propagated["reason"] = (
@@ -132,11 +141,7 @@ def build_visible_satellite_candidates(
 
 
 def _prioritized_scan_records(*, scan_limit: int) -> list[dict[str, Any]]:
-    catalog = load_satellite_tle_catalog()
-    scored_records = sorted(
-        catalog.records_by_norad.values(),
-        key=lambda record: (-_prepropagation_score(record), str(record.get("display_name") or "")),
-    )
+    scored_records = _prioritized_catalog_records()
     selected: list[dict[str, Any]] = []
     starlink_count = 0
     for record in scored_records:
@@ -149,6 +154,58 @@ def _prioritized_scan_records(*, scan_limit: int) -> list[dict[str, Any]]:
         if len(selected) >= max(1, scan_limit):
             break
     return selected
+
+
+@lru_cache(maxsize=1)
+def _prioritized_catalog_records() -> tuple[dict[str, Any], ...]:
+    catalog = load_satellite_tle_catalog()
+    return tuple(
+        sorted(
+            catalog.records_by_norad.values(),
+            key=lambda record: (-_prepropagation_score(record), str(record.get("display_name") or "")),
+        )
+    )
+
+
+@lru_cache(maxsize=2048)
+def _build_earth_satellite(line1: str, line2: str, name: str) -> EarthSatellite:
+    return EarthSatellite(line1, line2, name, _TIMESCALE)
+
+
+def satellite_feed_freshness(as_of: datetime) -> dict[str, Any]:
+    newest_epoch = _newest_tle_epoch()
+    as_of_utc = _as_utc(as_of)
+    if newest_epoch is None:
+        return {"freshness_status": "unavailable", "newest_tle_epoch": None, "newest_tle_age_days": None}
+
+    age_days = abs((as_of_utc - newest_epoch).total_seconds()) / 86400.0
+    return {
+        "freshness_status": "fresh" if age_days <= MAX_TLE_AGE_DAYS else "stale",
+        "newest_tle_epoch": _format_utc(newest_epoch),
+        "newest_tle_age_days": round(age_days, 3),
+    }
+
+
+@lru_cache(maxsize=1)
+def _newest_tle_epoch() -> datetime | None:
+    epochs = []
+    for record in load_satellite_tle_catalog().records_by_norad.values():
+        try:
+            line1, _ = _tle_lines(record)
+            epochs.append(_parse_tle_epoch(line1))
+        except (TypeError, ValueError):
+            continue
+    return max(epochs) if epochs else None
+
+
+def _parse_tle_epoch(line1: str) -> datetime:
+    token = line1[18:32].strip()
+    if len(token) < 5:
+        raise ValueError("missing TLE epoch")
+    year_short = int(token[:2])
+    year = 1900 + year_short if year_short >= 57 else 2000 + year_short
+    day_of_year = float(token[2:])
+    return datetime(year, 1, 1, tzinfo=timezone.utc) + timedelta(days=day_of_year - 1.0)
 
 
 def _prepropagation_score(record: dict[str, Any]) -> float:

@@ -3,7 +3,9 @@ from __future__ import annotations
 from datetime import datetime, timezone
 import math
 
+from backend.app.services import satellite_propagation_service as propagation_service
 from backend.app.services.satellite_propagation_service import (
+    MAX_TLE_AGE_DAYS,
     SatelliteObserver,
     build_visible_satellite_candidates,
     propagate_satellite_record,
@@ -72,6 +74,22 @@ def test_visible_satellite_candidates_are_real_propagated_and_bounded() -> None:
     assert all(math.isfinite(candidate["ra"]) and math.isfinite(candidate["dec"]) for candidate in candidates)
     assert all(math.isfinite(candidate["az"]) and math.isfinite(candidate["range_km"]) for candidate in candidates)
     assert all(candidate["sky_engine_url"].startswith("/oras-sky-engine/skysource/") for candidate in candidates)
+    assert all(candidate["tle_age_days"] <= MAX_TLE_AGE_DAYS for candidate in candidates)
+
+
+def test_stale_tle_satellites_are_excluded_before_propagation(monkeypatch) -> None:
+    monkeypatch.setattr(
+        propagation_service,
+        "_prioritized_scan_records",
+        lambda **kwargs: (_ for _ in ()).throw(AssertionError("stale feed should not propagate")),
+    )
+    candidates = build_visible_satellite_candidates(
+        observer=ORAS_OBSERVER,
+        as_of=datetime(2026, 7, 16, 12, 0, 0, tzinfo=timezone.utc),
+        limit=8,
+    )
+
+    assert candidates == []
 
 
 def test_below_horizon_satellites_are_excluded_by_default() -> None:

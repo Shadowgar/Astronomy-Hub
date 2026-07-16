@@ -1,12 +1,15 @@
 from __future__ import annotations
 
+import asyncio
 from urllib.parse import parse_qs, urlparse
 
 import pytest
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
+from backend.app.routes import above_me as above_me_route
 from backend.app.services import above_me_service
+from backend.app.services.satellite_propagation_service import MAX_TLE_AGE_DAYS
 from backend.app.services.sky_engine_links import build_sky_engine_object_url
 from backend.app.services.sky_star_catalog import BRIGHT_STAR_SCENE_OBJECTS
 
@@ -89,6 +92,65 @@ def test_above_me_returns_linkable_catalog_backed_objects() -> None:
 
     models = {item["model"] for item in objects}
     assert {"star", "dso"}.issubset(models)
+
+
+def test_above_me_route_runs_sync_catalog_assembly_off_event_loop(monkeypatch) -> None:
+    calls = []
+
+    async def _run_in_threadpool(function, **kwargs):
+        calls.append((function, kwargs))
+        return {"status": "ok", "data": {"objects": []}, "meta": {}}
+
+    monkeypatch.setattr(above_me_route, "run_in_threadpool", _run_in_threadpool)
+
+    payload = asyncio.run(above_me_route.above_me(lat="41.44", lng="-79.69"))
+
+    assert payload["status"] == "ok"
+    assert calls == [
+        (
+            above_me_service.build_above_me_payload,
+            {"lat": "41.44", "lng": "-79.69", "time": None, "limit": None, "elev": None},
+        )
+    ]
+
+
+def test_above_me_deduplicates_cross_catalog_dso_aliases() -> None:
+    response = client.get(
+        "/api/above-me?lat=41.44&lng=-79.69&time=2026-06-04T02:16:04Z&limit=100",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    objects = response.json()["data"]["objects"]
+    m13_representations = [
+        item
+        for item in objects
+        if item["model"] == "dso"
+        and (
+            {"m13", "ngc6205"}
+            & {
+                str(value).lower().replace(" ", "")
+                for value in [item["source_id"], *item.get("aliases", [])]
+            }
+        )
+    ]
+
+    assert len(m13_representations) == 1
+
+
+def test_above_me_reports_stale_satellite_feed_as_degraded() -> None:
+    response = client.get(
+        "/api/above-me?lat=41.44&lng=-79.69&time=2026-07-16T12:00:00Z&limit=100",
+        headers={"User-Agent": "pytest"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert not any(item["model"] == "tle_satellite" for item in body["data"]["objects"])
+    satellite_source = body["meta"]["object_sources"]["satellites"]
+    assert satellite_source["status"] == "degraded"
+    assert satellite_source["freshness_status"] == "stale"
+    assert satellite_source["newest_tle_age_days"] > MAX_TLE_AGE_DAYS
 
 
 def test_above_me_includes_bounded_visible_satellites_with_real_propagation() -> None:

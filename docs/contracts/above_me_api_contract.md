@@ -70,7 +70,12 @@ The endpoint uses the standard `ResponseEnvelope`.
       "gaia_dr2": {"status": "lookup_only"},
       "planets": {"status": "included"},
       "moon_sun": {"status": "included"},
-      "satellites": {"status": "included"}
+      "satellites": {
+        "status": "included",
+        "freshness_status": "fresh",
+        "newest_tle_epoch": "2026-06-05T23:36:57Z",
+        "newest_tle_age_days": 1.89
+      }
     }
   }
 }
@@ -92,11 +97,15 @@ Current MVP-supported sources:
 | Gaia DR2 | lookup only | Exact object lookup exists, but broad ranked discovery is not implemented in this pass. |
 | Planets | included when provider available | JPL Horizons supplies observer-specific RA/Dec and alt/az. |
 | Moon/Sun | included when provider available | JPL Horizons supplies observer-specific RA/Dec and alt/az. Sun results include a safety warning. |
-| Satellites | included | Local TLE records are propagated with Skyfield for bounded visible discovery. |
+| Satellites | included when feed is fresh | Local TLE records are propagated with Skyfield for bounded visible discovery. TLEs older than 14 days are excluded rather than presented as current positions. |
 
 `meta.object_sources` describes configured capabilities, not proof that every
 provider returned candidates for a particular request. JPL-dependent results may
 be absent when the upstream provider is unavailable; those failures are logged.
+Satellite source metadata reports `freshness_status`, `newest_tle_epoch`, and
+`newest_tle_age_days`. A stale feed reports `status: degraded` and returns no
+satellite visibility candidates until refreshed; exact TLE identity lookup
+remains available.
 
 ## Non-Goals
 

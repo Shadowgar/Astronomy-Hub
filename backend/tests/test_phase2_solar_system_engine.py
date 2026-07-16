@@ -1,4 +1,6 @@
 from datetime import datetime, timezone
+import threading
+import time
 
 from backend.app.services import live_providers
 from backend.app.services._legacy_scene_logic import (
@@ -31,6 +33,38 @@ def test_jpl_ephemeris_fetches_expected_body_set(monkeypatch):
     returned_ids = {str(item.get("id") or "") for item in payload}
     assert expected_ids.issubset(returned_ids)
     assert set(seen_commands) == {body_id for body_id, _ in live_providers.JPL_EPHEMERIS_BODIES}
+
+
+def test_jpl_ephemeris_serializes_requests_for_provider_fair_use(monkeypatch):
+    monkeypatch.setattr(live_providers, "_cache_get", lambda key: None)
+    monkeypatch.setattr(live_providers, "_cache_set", lambda key, payload, ttl_seconds: None)
+
+    lock = threading.Lock()
+    active = 0
+    max_active = 0
+
+    def _http_get_json(url, *, params=None, timeout_s=5.0):
+        nonlocal active, max_active
+        with lock:
+            active += 1
+            max_active = max(max_active, active)
+        time.sleep(0.03)
+        with lock:
+            active -= 1
+        return {"result": "$$SOE\n2026-Mar-31 00:00 A 180.0 45.0\n$$EOE"}
+
+    monkeypatch.setattr(live_providers, "_http_get_json", _http_get_json)
+
+    payload = live_providers.fetch_jpl_ephemeris(
+        40.0,
+        -75.0,
+        elevation_ft=100.0,
+        as_of=datetime(2026, 6, 4, 2, 16, tzinfo=timezone.utc),
+    )
+
+    assert len(payload) == len(live_providers.JPL_EPHEMERIS_BODIES)
+    assert max_active == 1
+    assert [item["name"] for item in payload] == [name for _, name in live_providers.JPL_EPHEMERIS_BODIES]
 
 
 def test_jpl_ephemeris_parses_horizons_ra_dec_from_observer_quantities(monkeypatch):

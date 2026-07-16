@@ -1,7 +1,9 @@
 from urllib.parse import quote
 from fastapi.testclient import TestClient
+import pytest
 
 from backend.app.main import app
+from backend.app.services import live_ingestion
 
 client = TestClient(app)
 
@@ -14,6 +16,22 @@ REQUIRED_ENGINE_SCENES = (
 )
 DETAIL_FIELDS = ("description", "media", "related_objects")
 SCENE_AT = "2026-03-31T12:00:00Z"
+
+
+@pytest.fixture(autouse=True)
+def _deterministic_solar_ephemeris(monkeypatch):
+    live_ingestion._clear_ingestion_cache_for_tests()
+
+    def _ephemeris(lat, lon, elevation_ft=None, as_of=None):
+        hour = float(as_of.hour if as_of is not None else 0.0)
+        return [
+            {"id": "sun", "name": "Sun", "azimuth": hour * 10.0, "elevation": 25.0, "source": "jpl_ephemeris"},
+            {"id": "moon", "name": "Moon", "azimuth": hour * 10.0 + 2.0, "elevation": 45.0, "source": "jpl_ephemeris"},
+            {"id": "mars", "name": "Mars", "azimuth": hour * 10.0 + 4.0, "elevation": 40.0, "source": "jpl_ephemeris"},
+            {"id": "jupiter", "name": "Jupiter", "azimuth": hour * 10.0 + 6.0, "elevation": 35.0, "source": "jpl_ephemeris"},
+        ]
+
+    monkeypatch.setattr(live_ingestion, "fetch_jpl_ephemeris", _ephemeris)
 
 
 def _request_json(path):
