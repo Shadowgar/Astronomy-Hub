@@ -4,6 +4,7 @@ const zlib = require('zlib')
 const { chromium } = require('playwright')
 
 const baseUrl = process.env.ORAS_SKY_ENGINE_BASE_URL || 'http://127.0.0.1:4173/oras-sky-engine/'
+const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`
 const timeoutMs = Number(process.env.ORAS_DENSE_STARS_TIMEOUT_MS || 180000)
 const artifactRoot = path.resolve(process.env.ORAS_DENSE_STARS_ARTIFACT_DIR || 'output/playwright/dense-stars')
 const maxVisualBrightPixelRatio = Number(process.env.ORAS_DENSE_STARS_MAX_BRIGHT_PIXEL_RATIO || 0.055)
@@ -22,10 +23,10 @@ const fixedView = {
   elev: 0
 }
 const DENSE_STAR_PROFILES = [
-  { id: 'off', label: 'Off', hardVisualThresholds: false },
-  { id: 'visual-default', label: 'Visual Sky', hardVisualThresholds: true },
-  { id: 'binocular', label: 'Binocular Depth', hardVisualThresholds: false },
-  { id: 'deep-catalog', label: 'Deep Catalog', hardVisualThresholds: false }
+  { id: 'off', label: 'Off' },
+  { id: 'visual-default', label: 'Visual Sky' },
+  { id: 'binocular', label: 'Binocular Depth' },
+  { id: 'deep-catalog', label: 'Deep Catalog' }
 ]
 const DENSE_STAR_QA_FIELDS = [
   { id: 'horizon-north', label: 'Wide FOV north horizon', view: { az: 0, alt: 8, fov: 120 } },
@@ -205,7 +206,6 @@ async function capturePageArtifact (page, filename) {
 }
 
 function runtimeUrlForView (view = {}) {
-  const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`
   const url = view.path ? new URL(view.path, normalizedBaseUrl) : new URL(normalizedBaseUrl)
   const params = { ...fixedView, ...view }
   delete params.path
@@ -219,7 +219,7 @@ function sleep (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-async function waitForRuntimeHttp (url = baseUrl) {
+async function waitForRuntimeHttp (url = normalizedBaseUrl) {
   let lastError
   for (let attempt = 1; attempt <= runtimeHealthRetries; attempt++) {
     try {
@@ -271,7 +271,7 @@ async function openRuntimePage (browser, profile, view = {}) {
 async function getDenseStarManifest (page) {
   const manifestUrl = new URL(
     'skydata/dense-star-tiles/manifest.json',
-    baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`
+    normalizedBaseUrl
   ).toString()
   return page.evaluate(async (url) => {
     const response = await fetch(url, { cache: 'no-store' })
