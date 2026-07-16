@@ -14,6 +14,7 @@ from backend.app.services.satellite_propagation_service import (
     DEFAULT_SATELLITE_RESULT_LIMIT,
     SatelliteObserver,
     build_visible_satellite_candidates,
+    satellite_feed_freshness,
 )
 from backend.app.services.sky_catalog_service import LOCAL_MESSIER_SEARCH_OBJECTS
 from backend.app.services.sky_engine_links import build_sky_engine_object_url
@@ -79,7 +80,7 @@ def build_above_me_payload(
             "limit": max_items,
             "total_candidates": len(candidates),
             "visible_candidates": len(visible),
-            "object_sources": _object_source_inventory(),
+            "object_sources": _object_source_inventory(as_of=as_of),
         },
     }
 
@@ -107,17 +108,40 @@ def _select_curated_visible_objects(objects: list[dict[str, Any]], *, limit: int
     tier2_cap = max(1, limit // 2)
     tier2_count = 0
     selected: list[dict[str, Any]] = []
+    selected_dso_tokens: set[str] = set()
 
     for candidate in sorted_objects:
+        dso_tokens = _dso_identity_tokens(candidate)
+        if dso_tokens and selected_dso_tokens.intersection(dso_tokens):
+            continue
         if candidate["catalog"] == "Hipparcos Tier 2 (local)":
             if tier2_count >= tier2_cap:
                 continue
             tier2_count += 1
         selected.append(candidate)
+        selected_dso_tokens.update(dso_tokens)
         if len(selected) >= limit:
             break
 
     return selected
+
+
+def _dso_identity_tokens(candidate: dict[str, Any]) -> set[str]:
+    if candidate.get("model") != "dso":
+        return set()
+
+    values = [candidate.get("source_id"), *(candidate.get("aliases") or [])]
+    tokens: set[str] = set()
+    for value in values:
+        normalized = "".join(character for character in str(value or "").upper() if character.isalnum())
+        for prefix in ("MESSIER", "NGC", "IC"):
+            if normalized.startswith(prefix) and normalized[len(prefix):].isdigit():
+                number = int(normalized[len(prefix):])
+                canonical_prefix = "M" if prefix == "MESSIER" else prefix
+                tokens.add(f"{canonical_prefix}{number}")
+        if normalized.startswith("M") and normalized[1:].isdigit():
+            tokens.add(f"M{int(normalized[1:])}")
+    return tokens
 
 
 def _candidate_sort_key(item: dict[str, Any]) -> tuple[float, float, str]:
@@ -467,7 +491,9 @@ def _above_me_enrichment_fields(payload: dict[str, Any]) -> dict[str, Any]:
     return fields
 
 
-def _object_source_inventory() -> dict[str, dict[str, str]]:
+def _object_source_inventory(*, as_of: datetime) -> dict[str, dict[str, Any]]:
+    satellite_freshness = satellite_feed_freshness(as_of)
+    satellite_is_fresh = satellite_freshness["freshness_status"] == "fresh"
     return {
         "messier_local": {
             "status": "included",
@@ -498,8 +524,13 @@ def _object_source_inventory() -> dict[str, dict[str, str]]:
             "reason": "JPL Horizons observer ephemeris provides Moon/Sun RA/Dec and alt/az when provider data is reachable.",
         },
         "satellites": {
-            "status": "included",
-            "reason": "Local TLE feed is propagated with Skyfield for bounded visible satellite discovery.",
+            "status": "included" if satellite_is_fresh else "degraded",
+            "reason": (
+                "Local TLE feed is propagated with Skyfield for bounded visible satellite discovery."
+                if satellite_is_fresh
+                else "Local TLE feed is stale; visible satellite discovery is disabled until the feed is refreshed."
+            ),
+            **satellite_freshness,
         },
     }
 

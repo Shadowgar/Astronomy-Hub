@@ -13,6 +13,7 @@ import httpx
 
 _CACHE_LOCK = threading.Lock()
 _CACHE: dict[str, tuple[float, Any]] = {}
+_JPL_REQUEST_LOCK = threading.Lock()
 
 PROVIDER_CACHE_TTL_SECONDS: dict[str, int] = {
     "open_meteo": 300,
@@ -668,47 +669,55 @@ def fetch_jpl_ephemeris(
     if isinstance(cached, list):
         return cached
 
-    elev_km = float(elevation_ft or 0.0) * 0.0003048
-    start = now.strftime("%Y-%m-%d %H:%M")
-    stop = (now + timedelta(hours=1)).strftime("%Y-%m-%d %H:%M")
-    site_coord = f"{lon:.6f},{lat:.6f},{elev_km:.6f}"
-    out: list[dict[str, Any]] = []
+    # JPL SSD's fair-use policy permits only one API request at a time. The
+    # process lock also prevents concurrent cache misses from multiplying the
+    # nine-body Horizons request sequence.
+    with _JPL_REQUEST_LOCK:
+        cached = _cache_get(cache_key)
+        if isinstance(cached, list):
+            return cached
 
-    for body_id, body_name in JPL_EPHEMERIS_BODIES:
-        try:
-            payload = _http_get_json(
-                "https://ssd.jpl.nasa.gov/api/horizons.api",
-                params={
-                    "format": "json",
-                    "COMMAND": f"'{body_id}'",
-                    "EPHEM_TYPE": "OBSERVER",
-                    "CENTER": "'coord@399'",
-                    "SITE_COORD": f"'{site_coord}'",
-                    "START_TIME": f"'{start}'",
-                    "STOP_TIME": f"'{stop}'",
-                    "STEP_SIZE": "'1 h'",
-                    "QUANTITIES": "'2,4,20,23'",
-                },
-                timeout_s=4.0,
-            )
-            result_text = str(payload.get("result") or "")
-            row = _parse_horizons_first_row(result_text)
-            if row is None:
+        elev_km = float(elevation_ft or 0.0) * 0.0003048
+        start = now.strftime("%Y-%m-%d %H:%M")
+        stop = (now + timedelta(hours=1)).strftime("%Y-%m-%d %H:%M")
+        site_coord = f"{lon:.6f},{lat:.6f},{elev_km:.6f}"
+        out: list[dict[str, Any]] = []
+
+        for body_id, body_name in JPL_EPHEMERIS_BODIES:
+            try:
+                payload = _http_get_json(
+                    "https://ssd.jpl.nasa.gov/api/horizons.api",
+                    params={
+                        "format": "json",
+                        "COMMAND": f"'{body_id}'",
+                        "EPHEM_TYPE": "OBSERVER",
+                        "CENTER": "'coord@399'",
+                        "SITE_COORD": f"'{site_coord}'",
+                        "START_TIME": f"'{start}'",
+                        "STOP_TIME": f"'{stop}'",
+                        "STEP_SIZE": "'1 h'",
+                        "QUANTITIES": "'2,4,20,23'",
+                    },
+                    timeout_s=4.0,
+                )
+                result_text = str(payload.get("result") or "")
+                row = _parse_horizons_first_row(result_text)
+                if row is None:
+                    continue
+                out.append(
+                    {
+                        "id": body_name.lower(),
+                        "name": body_name,
+                        "source": "jpl_ephemeris",
+                        "time_basis": now.isoformat().replace("+00:00", "Z"),
+                        **row,
+                    }
+                )
+            except Exception:
                 continue
-            out.append(
-                {
-                    "id": body_name.lower(),
-                    "name": body_name,
-                    "source": "jpl_ephemeris",
-                    "time_basis": now.isoformat().replace("+00:00", "Z"),
-                    **row,
-                }
-            )
-        except Exception:
-            continue
 
-    _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["jpl_ephemeris"])
-    return out
+        _cache_set(cache_key, out, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["jpl_ephemeris"])
+        return out
 
 
 def fetch_swpc_alerts(limit: int = 3) -> list[dict[str, Any]]:

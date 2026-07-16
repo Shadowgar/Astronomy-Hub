@@ -109,6 +109,14 @@ def test_openngc_search_resolves_compact_caldwell_aliases() -> None:
     assert "source_id=NGC6543" in first["sky_engine_url"]
 
 
+def test_exact_star_name_ranks_before_partial_dso_names() -> None:
+    results = build_sky_search_payload("Polaris")["data"]["results"]
+
+    assert results
+    assert results[0]["model"] == "star"
+    assert results[0]["display_name"] == "Polaris"
+
+
 def test_openngc_search_resolves_source_backed_lynds_bright_nebula_alias() -> None:
     results = build_sky_search_payload("Lynds Bright Nebula 350")["data"]["results"]
 

@@ -64,6 +64,16 @@ const cases = [
     requireIndexed: true,
   },
   {
+    name: 'Polaris',
+    path: 'skysource/Polaris?catalog=Hipparcos%20Tier%202%20(local)&source_id=hip-11767&model=star&ra=37.946145&dec=89.264138&fov=1.50&date=2026-06-04T02%3A16%3A04Z&lat=41.44&lng=-79.69&elev=0',
+    identity: { catalog: 'Hipparcos Tier 2 (local)', sourceId: 'hip-11767', model: 'star' },
+    requiredText: ['Polaris', 'Star', 'Ra/Dec', 'LAT 41.440', 'FOV 1.50'],
+    forbiddenText: ['Unknown Type'],
+    // SWE displays precessed equinox-of-date coordinates in the detail panel.
+    coordinatePatterns: [/03h\s+0[34]m/i, /\+89°/],
+    requireIndexed: true,
+  },
+  {
     name: 'Gaia DR3 indexed pack star',
     path: 'skysource/GaiaDR31576683529448755328?catalog=Gaia%20DR3&source_id=1576683529448755328&model=star&ra=193.5081784678&dec=55.9597847789&fov=1.50&date=2026-06-04T02%3A16%3A04Z&lat=41.44&lng=-79.69&elev=0',
     identity: { catalog: 'Gaia DR3', sourceId: '1576683529448755328', model: 'star' },
@@ -228,14 +238,16 @@ const satelliteApiCases = [
   { name: 'ISS', sourceId: '25544', model: 'tle_satellite' },
 ]
 
-const unavailableCases = [
+const searchAliasCases = [
   {
     name: 'Polaris',
-    apiPath: '/api/sky/object?catalog=Bright%20Star%20Catalog%20(local)&source_id=star-polaris&model=star',
+    query: 'Polaris',
+    expected: { catalog: 'Hipparcos Tier 2 (local)', sourceId: 'hip-11767', model: 'star' },
   },
   {
     name: "C6 / Cat's Eye Nebula",
-    apiPath: '/api/sky/object?catalog=Caldwell%20(local)&source_id=C6&model=dso',
+    query: 'C6',
+    expected: { catalog: 'NGC (OpenNGC)', sourceId: 'NGC6543', model: 'dso' },
   },
 ]
 
@@ -324,14 +336,16 @@ async function readRuntimeTargetState(page, identity) {
       targetRaDeg = ((targetSpherical[0] * 180 / Math.PI) % 360 + 360) % 360
       targetDecDeg = targetSpherical[1] * 180 / Math.PI
       if (Number.isFinite(expectedIdentity.expectedRaDeg) && Number.isFinite(expectedIdentity.expectedDecDeg)) {
-        const normalizeDegree = (angle) => {
-          while (angle <= -180) angle += 360
-          while (angle > 180) angle -= 360
-          return angle
-        }
-        const raDiff = Math.abs(normalizeDegree(targetRaDeg - expectedIdentity.expectedRaDeg))
-        const decDiff = Math.abs(targetDecDeg - expectedIdentity.expectedDecDeg)
-        targetCoordinateDiffDeg = Math.max(raDiff, decDiff)
+        const radians = Math.PI / 180
+        const targetRa = targetRaDeg * radians
+        const targetDec = targetDecDeg * radians
+        const expectedRa = expectedIdentity.expectedRaDeg * radians
+        const expectedDec = expectedIdentity.expectedDecDeg * radians
+        const cosSeparation = Math.max(-1, Math.min(1,
+          Math.sin(targetDec) * Math.sin(expectedDec) +
+          Math.cos(targetDec) * Math.cos(expectedDec) * Math.cos(targetRa - expectedRa)
+        ))
+        targetCoordinateDiffDeg = Math.acos(cosSeparation) / radians
       }
       const observed = stel.convertFrame(stel.core.observer, 'ICRF', 'OBSERVED', radec)
       const azalt = stel.c2s(observed)
@@ -473,17 +487,22 @@ async function validateCase(browser, testCase) {
   return { satelliteCount }
 }
 
-async function validateUnavailableCases() {
-  for (const unavailableCase of unavailableCases) {
-    const response = await fetch(buildApiUrl(unavailableCase.apiPath))
+async function validateSearchAliasCases() {
+  for (const searchCase of searchAliasCases) {
+    const response = await fetch(buildApiUrl(`/api/sky/search?q=${encodeURIComponent(searchCase.query)}`))
     const body = await response.json().catch(() => ({}))
-    if (response.ok) {
-      throw new Error(`${unavailableCase.name} is now available; add it as a positive exact-link validation case`)
+    const result = body.data && Array.isArray(body.data.results) ? body.data.results[0] : null
+    if (!response.ok || body.status !== 'ok' || !result) {
+      throw new Error(`${searchCase.name} search alias did not resolve: ${JSON.stringify(body)}`)
     }
-    if (!body.error || body.error.code !== 'not_found') {
-      throw new Error(`${unavailableCase.name} did not return controlled not_found: ${JSON.stringify(body)}`)
+    if (
+      result.catalog !== searchCase.expected.catalog ||
+      result.source_id !== searchCase.expected.sourceId ||
+      result.model !== searchCase.expected.model
+    ) {
+      throw new Error(`${searchCase.name} search alias returned wrong identity: ${JSON.stringify(result)}`)
     }
-    console.log(`SKIP_UNAVAILABLE ${unavailableCase.name} reason=${body.error.message}`)
+    console.log(`SEARCH_PASS ${searchCase.name} source_id=${result.source_id}`)
   }
 }
 
@@ -610,7 +629,7 @@ async function buildVisibleSatelliteRuntimeCase() {
 async function main() {
   await validateSolarSystemApiCases()
   await validateSatelliteApiCases()
-  await validateUnavailableCases()
+  await validateSearchAliasCases()
   const visibleSatelliteCase = await buildVisibleSatelliteRuntimeCase()
 
   const browser = await chromium.launch({ headless: true })

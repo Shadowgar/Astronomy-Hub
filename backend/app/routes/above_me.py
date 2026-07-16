@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from fastapi import APIRouter
+from starlette.concurrency import run_in_threadpool
 
 from backend.app.routes._contract import error_response
 from backend.app.schemas.response_envelope import ResponseEnvelope
@@ -18,7 +19,8 @@ async def above_me(
     elev: str | None = None,
 ):
     try:
-        return build_above_me_payload(
+        return await run_in_threadpool(
+            build_above_me_payload,
             lat=lat,
             lng=lng,
             time=time,

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+from functools import lru_cache
 from pathlib import Path
 
 from sqlalchemy import func, inspect, select
@@ -336,19 +337,22 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
                 "data": {
                     "query": query,
                     "recognized_query": False,
-                    "results": _merge_search_results(openngc_results, pack_results),
+                    "results": _rank_search_results(query, _merge_search_results(openngc_results, pack_results)),
                 },
                 "meta": {"match_type": "openngc_named_object"},
             }
 
-    local_results = _lookup_local_named_objects(query)
+    local_results = _merge_search_results(
+        _lookup_local_named_objects(query),
+        _lookup_tier2_named_objects(query),
+    )
     if local_results:
         return {
             "status": "ok",
             "data": {
                 "query": query,
                 "recognized_query": False,
-                "results": _merge_search_results(local_results, pack_results),
+                "results": _rank_search_results(query, _merge_search_results(local_results, pack_results)),
             },
             "meta": {"match_type": "local_named_object"},
         }
@@ -360,7 +364,7 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
             "data": {
                 "query": query,
                 "recognized_query": False,
-                "results": _merge_search_results(openngc_results, pack_results),
+                "results": _rank_search_results(query, _merge_search_results(openngc_results, pack_results)),
             },
             "meta": {"match_type": "openngc_named_object"},
         }
@@ -370,7 +374,7 @@ def build_sky_search_payload(query: str, database_url: str | None = None) -> dic
         "data": {
             "query": query,
             "recognized_query": False,
-            "results": pack_results,
+            "results": _rank_search_results(query, pack_results),
         },
         "meta": {},
     }
@@ -456,9 +460,33 @@ def _merge_search_results(*groups: list[dict]) -> list[dict]:
                 continue
             seen.add(identity)
             merged.append(result)
-            if len(merged) >= 10:
-                return merged
     return merged
+
+
+def _rank_search_results(query: str, results: list[dict]) -> list[dict]:
+    normalized_query = _normalize_search_text(query)
+    if not normalized_query:
+        return results
+
+    def match_score(result: dict) -> int:
+        values = [
+            result.get("display_name"),
+            result.get("name"),
+            *(result.get("names") or []),
+            *(result.get("aliases") or []),
+        ]
+        best = 0
+        for value in values:
+            normalized = _normalize_search_text(str(value or ""))
+            if normalized == normalized_query:
+                best = max(best, 3)
+            elif normalized.startswith(normalized_query):
+                best = max(best, 2)
+            elif normalized_query in normalized:
+                best = max(best, 1)
+        return best
+
+    return sorted(results, key=lambda result: -match_score(result))[:10]
 
 
 def _with_sky_engine_url(result: dict) -> dict:
@@ -724,3 +752,67 @@ def _lookup_local_named_objects(query: str, limit: int = 10) -> list[dict]:
             break
 
     return unique_results
+
+
+def _lookup_tier2_named_objects(query: str, limit: int = 10) -> list[dict]:
+    normalized_query = _normalize_search_text(query)
+    if not normalized_query:
+        return []
+
+    scored: list[tuple[int, float, dict]] = []
+    for normalized_aliases, magnitude, result in _tier2_search_index():
+        best_score = 0
+        for normalized in normalized_aliases:
+            if normalized == normalized_query:
+                best_score = max(best_score, 3)
+            elif normalized.startswith(normalized_query):
+                best_score = max(best_score, 2)
+            elif normalized_query in normalized:
+                best_score = max(best_score, 1)
+        if best_score <= 0:
+            continue
+        scored.append((best_score, magnitude, result))
+
+    scored.sort(key=lambda item: (-item[0], item[1], str(item[2]["display_name"])))
+    return [_with_sky_engine_url(result) for _, _, result in scored[: max(1, limit)]]
+
+
+@lru_cache(maxsize=1)
+def _tier2_search_index() -> tuple[tuple[tuple[str, ...], float, dict], ...]:
+    rows = []
+    for star in build_tier2_mid_star_scene_objects():
+        source_id = str(star.get("id") or "").strip()
+        display_name = str(star.get("name") or source_id).strip()
+        if not source_id or not display_name:
+            continue
+        try:
+            ra = float(star["right_ascension"]) * 15.0
+            dec = float(star["declination"])
+            magnitude = float(star["magnitude"])
+        except (KeyError, TypeError, ValueError):
+            continue
+
+        aliases = [display_name, source_id]
+        rows.append(
+            (
+                tuple(_normalize_search_text(alias) for alias in aliases),
+                magnitude,
+                {
+                    "catalog": "Hipparcos Tier 2 (local)",
+                    "source_id": source_id,
+                    "display_name": display_name,
+                    "model": "star",
+                    "names": aliases,
+                    "types": ["*"],
+                    "ra": ra,
+                    "dec": dec,
+                    "phot_g_mean_mag": magnitude,
+                    "bp_rp": star.get("color_index"),
+                    "indexed": True,
+                    "status": "indexed",
+                    "message": "Resolved from local Hipparcos Tier 2 index.",
+                    "provenance": {"source_key": "hipparcos_tier2_local"},
+                },
+            )
+        )
+    return tuple(rows)
