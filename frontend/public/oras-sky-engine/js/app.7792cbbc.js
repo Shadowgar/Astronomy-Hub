@@ -778,6 +778,13 @@ webpackContext.id = "49f8";
 
 /***/ }),
 
+/***/ "4ca5":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "4d1c":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -839,12 +846,12 @@ var es_array_concat = __webpack_require__("99af");
 // EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
 var vue_esm = __webpack_require__("a026");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=aaf66b74&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=3cc3ed3c&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[_c('oras-catalog-status-dialog',{model:{value:(_vm.showCatalogPacks),callback:function ($$v) {_vm.showCatalogPacks=$$v},expression:"showCatalogPacks"}}),_c('oras-dense-stars-status-dialog',{model:{value:(_vm.showDenseStars),callback:function ($$v) {_vm.showDenseStars=$$v},expression:"showDenseStars"}}),_c('v-navigation-drawer',{attrs:{"app":"","stateless":"","width":"300"},model:{value:(_vm.nav),callback:function ($$v) {_vm.nav=$$v},expression:"nav"}},[_c('v-layout',{attrs:{"column":"","fill-height":""}},[_c('v-list',{attrs:{"dense":""}},[_vm._l((_vm.menuItems),function(item,i){return [(_vm.$store.state[item.store_show_menu_item] === false)?void 0:(item.header)?_c('v-subheader',{key:i,staticClass:"grey--text text--darken-1",domProps:{"textContent":_vm._s(item.header)}}):(item.divider)?_c('v-divider',{key:i,staticClass:"divider_menu"}):(item.switch)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-action',[_c('v-switch',{attrs:{"value":"","input-value":_vm.getStoreValue(item.store_var_name),"label":""}})],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.title))])],1)],1):[(item.link)?_c('v-list-item',{key:i,attrs:{"target":"_blank","rel":"noopener","href":item.link}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}}),_c('v-icon',{attrs:{"disabled":""}},[_vm._v("mdi-open-in-new")])],1):(item.footer===undefined)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.handleMenuItemClick(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]]})],2),_vm._l((_vm.menuComponents),function(item,i){return [_c(item,{key:i,tag:"component"})]}),_c('v-spacer'),_c('v-list',{attrs:{"dense":""}},[_c('v-divider',{staticClass:"divider_menu"}),_vm._l((_vm.menuItems),function(item,i){return [(item.footer)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]})],2)],2)],1),_c('v-main',[_c('v-container',{staticClass:"fill-height",staticStyle:{"padding":"0"},attrs:{"fluid":""}},[_c('div',{class:{ right_panel: _vm.$store.state.showSidePanel },attrs:{"id":"stel"}},[_c('div',{staticStyle:{"position":"relative","width":"100%","height":"100%"}},[_c(_vm.guiComponent,{tag:"component"}),_c('canvas',{ref:"stelCanvas",attrs:{"id":"stel-canvas"}})],1)])])],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=aaf66b74&
+// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=3cc3ed3c&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__("3835");
@@ -6239,12 +6246,12 @@ var oras_catalog_status_dialog_component = Object(componentNormalizer["a" /* def
 
 installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAlert["a" /* default */],VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardActions: components_VCard["a" /* VCardActions */],VCardSubtitle: components_VCard["b" /* VCardSubtitle */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VChip: VChip["a" /* default */],VDialog: VDialog["a" /* default */],VSimpleTable: VSimpleTable["a" /* default */],VSpacer: VSpacer["a" /* default */]})
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/oras-dense-stars-status-dialog.vue?vue&type=template&id=7c0e9042&scoped=true&
-var oras_dense_stars_status_dialogvue_type_template_id_7c0e9042_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"value":_vm.value,"max-width":"760"},on:{"input":function($event){return _vm.$emit('input', $event)}}},[_c('v-card',{staticClass:"oras-dense-stars-status"},[_c('v-card-title',[_vm._v(" ORAS Dense Stars "),_c('v-spacer'),_c('v-chip',{attrs:{"small":"","color":_vm.statusColor,"text-color":"white"}},[_vm._v(_vm._s(_vm.statusLabel))])],1),_c('v-card-subtitle',[_vm._v(" Native path: native SWE star tiles · Release "+_vm._s(_vm.snapshot.releaseVersion || 'not mounted')+" ")]),_c('v-card-text',[(!_vm.snapshot.mounted)?_c('v-alert',{attrs:{"type":"info","text":""}},[_vm._v(" Dense Stars is degraded: missing generated dense star release. Standard Stellarium star surveys remain available. ")]):(_vm.snapshot.activeProfile === 'off')?_c('v-alert',{attrs:{"type":"warning","text":""}},[_vm._v(" ORAS dense star rendering is off. Select Visual, Binocular, or Deep Catalog and recheck the runtime to register a mounted native survey. ")]):(_vm.snapshot.activeProfile === 'deep-catalog')?_c('v-alert',{attrs:{"type":"warning","text":""}},[_vm._v(" Deep Catalog is opt-in and may show many faint stars at wide FOV. Use Visual for normal naked-eye style observing. ")]):_c('v-alert',{attrs:{"type":"success","text":""}},[_vm._v(" ORAS dense stars are loaded through native SWE star tiles using the "+_vm._s(_vm.snapshot.activeProfile)+" profile. Dense catalog labels are suppressed; standard Stellarium labels remain available for named bright stars. ")]),_c('v-simple-table',{attrs:{"dense":""}},[_c('tbody',[_c('tr',[_c('td',[_c('strong',[_vm._v("Active profile")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.activeProfile))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Rendering path")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.renderingPath || 'Unavailable'))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Stars")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.starCount.toLocaleString()))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Tiles")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.tileCount.toLocaleString()))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Magnitude limit")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.magnitudeLimit == null ? 'Unavailable' : _vm.snapshot.magnitudeLimit))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Labels")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.labelMode || 'suppressed'))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Tile order")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.tileOrder == null ? 'Unavailable' : _vm.snapshot.tileOrder))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Sources")])]),_c('td',[_vm._v(_vm._s(_vm.sourceCatalogSummary))])]),(_vm.snapshot.error)?_c('tr',[_c('td',[_c('strong',[_vm._v("Error")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.error))])]):_vm._e()])])],1),_c('v-card-actions',[_c('v-btn',{attrs:{"text":""},on:{"click":_vm.refresh}},[_vm._v("Refresh")]),_c('v-spacer'),_c('v-btn',{attrs:{"text":""},on:{"click":function($event){return _vm.$emit('input', false)}}},[_vm._v("Close")])],1)],1)],1)}
-var oras_dense_stars_status_dialogvue_type_template_id_7c0e9042_scoped_true_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/oras-dense-stars-status-dialog.vue?vue&type=template&id=0e713f36&scoped=true&
+var oras_dense_stars_status_dialogvue_type_template_id_0e713f36_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"value":_vm.value,"max-width":"760"},on:{"input":function($event){return _vm.$emit('input', $event)}}},[_c('v-card',{staticClass:"oras-dense-stars-status"},[_c('v-card-title',[_vm._v(" ORAS Dense Stars "),_c('v-spacer'),_c('v-chip',{attrs:{"small":"","color":_vm.statusColor,"text-color":"white"}},[_vm._v(_vm._s(_vm.statusLabel))])],1),_c('v-card-subtitle',[_vm._v(" Native path: native SWE star tiles · Release "+_vm._s(_vm.snapshot.releaseVersion || 'not mounted')+" ")]),_c('v-card-text',[(!_vm.snapshot.mounted)?_c('v-alert',{attrs:{"type":"info","text":""}},[_vm._v(" Dense Stars is degraded: missing generated dense star release. Standard Stellarium star surveys remain available. ")]):(_vm.snapshot.activeProfile === 'off')?_c('v-alert',{attrs:{"type":"warning","text":""}},[_vm._v(" ORAS dense star rendering is off. Select Visual Sky, Binocular Depth, or Deep Catalog and recheck the runtime to register a mounted native survey. ")]):(_vm.snapshot.activeProfile === 'deep-catalog')?_c('v-alert',{attrs:{"type":"warning","text":""}},[_vm._v(" Deep Catalog is opt-in and may show many faint stars at wide FOV. Use Visual Sky for normal naked-eye style observing. ")]):_c('v-alert',{attrs:{"type":"success","text":""}},[_vm._v(" ORAS dense stars are loaded through native SWE star tiles using the "+_vm._s(_vm.snapshot.activeProfile)+" profile. Dense catalog labels are suppressed; standard Stellarium labels remain available for named bright stars. ")]),_c('v-alert',{attrs:{"type":"info","text":""}},[_vm._v(" Visual Sky is the realistic default. Binocular Depth and Deep Catalog are intentionally denser opt-in profiles. Labels are suppressed for generated dense stars to avoid ID flooding. ")]),_c('v-simple-table',{attrs:{"dense":""}},[_c('tbody',[_c('tr',[_c('td',[_c('strong',[_vm._v("Active profile")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.activeProfile))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Rendering path")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.renderingPath || 'Unavailable'))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Stars")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.starCount.toLocaleString()))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Tiles")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.tileCount.toLocaleString()))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Magnitude limit")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.magnitudeLimit == null ? 'Unavailable' : _vm.snapshot.magnitudeLimit))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Labels")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.labelMode || 'suppressed'))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Tile order")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.tileOrder == null ? 'Unavailable' : _vm.snapshot.tileOrder))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Sources")])]),_c('td',[_vm._v(_vm._s(_vm.sourceCatalogSummary))])]),(_vm.snapshot.error)?_c('tr',[_c('td',[_c('strong',[_vm._v("Error")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.error))])]):_vm._e()])])],1),_c('v-card-actions',[_c('v-btn',{attrs:{"text":""},on:{"click":_vm.refresh}},[_vm._v("Refresh")]),_c('v-spacer'),_c('v-btn',{attrs:{"text":""},on:{"click":function($event){return _vm.$emit('input', false)}}},[_vm._v("Close")])],1)],1)],1)}
+var oras_dense_stars_status_dialogvue_type_template_id_0e713f36_scoped_true_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/oras-dense-stars-status-dialog.vue?vue&type=template&id=7c0e9042&scoped=true&
+// CONCATENATED MODULE: ./src/components/oras-dense-stars-status-dialog.vue?vue&type=template&id=0e713f36&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.entries.js
 var es_object_entries = __webpack_require__("4fad");
@@ -6646,6 +6653,10 @@ var orasDenseStars = createOrasDenseStarsManager();
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ var oras_dense_stars_status_dialogvue_type_script_lang_js_ = ({
   name: 'OrasDenseStarsStatusDialog',
@@ -6699,9 +6710,9 @@ var orasDenseStars = createOrasDenseStarsManager();
   }
 });
 // CONCATENATED MODULE: ./src/components/oras-dense-stars-status-dialog.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_oras_dense_stars_status_dialogvue_type_script_lang_js_ = (oras_dense_stars_status_dialogvue_type_script_lang_js_);
-// EXTERNAL MODULE: ./src/components/oras-dense-stars-status-dialog.vue?vue&type=style&index=0&id=7c0e9042&scoped=true&lang=css&
-var oras_dense_stars_status_dialogvue_type_style_index_0_id_7c0e9042_scoped_true_lang_css_ = __webpack_require__("9ab3");
+ /* harmony default export */ var components_oras_dense_stars_status_dialogvue_type_script_lang_js_ = (oras_dense_stars_status_dialogvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/oras-dense-stars-status-dialog.vue?vue&type=style&index=0&id=0e713f36&scoped=true&lang=css&
+var oras_dense_stars_status_dialogvue_type_style_index_0_id_0e713f36_scoped_true_lang_css_ = __webpack_require__("e4c8");
 
 // CONCATENATED MODULE: ./src/components/oras-dense-stars-status-dialog.vue
 
@@ -6714,13 +6725,13 @@ var oras_dense_stars_status_dialogvue_type_style_index_0_id_7c0e9042_scoped_true
 
 var oras_dense_stars_status_dialog_component = Object(componentNormalizer["a" /* default */])(
   components_oras_dense_stars_status_dialogvue_type_script_lang_js_,
-  oras_dense_stars_status_dialogvue_type_template_id_7c0e9042_scoped_true_render,
-  oras_dense_stars_status_dialogvue_type_template_id_7c0e9042_scoped_true_staticRenderFns,
+  oras_dense_stars_status_dialogvue_type_template_id_0e713f36_scoped_true_render,
+  oras_dense_stars_status_dialogvue_type_template_id_0e713f36_scoped_true_staticRenderFns,
   false,
   null,
-  "7c0e9042",
+  "0e713f36",
   null
-
+  
 )
 
 /* harmony default export */ var oras_dense_stars_status_dialog = (oras_dense_stars_status_dialog_component.exports);
@@ -6864,11 +6875,11 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
         icon: 'mdi-star-off-outline',
         profile: 'off'
       }, {
-        title: this.$t('Dense Stars: Visual'),
+        title: this.$t('Dense Stars: Visual Sky'),
         icon: 'mdi-eye-outline',
         profile: 'visual-default'
       }, {
-        title: this.$t('Dense Stars: Binocular'),
+        title: this.$t('Dense Stars: Binocular Depth'),
         icon: 'mdi-binoculars',
         profile: 'binocular'
       }, {
@@ -8009,13 +8020,6 @@ webpackEmptyContext.id = "7d49";
 
 /***/ }),
 
-/***/ "8639":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "89fa":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8037,17 +8041,6 @@ webpackEmptyContext.id = "7d49";
 /* harmony import */ var _node_modules_cache_loader_dist_cjs_js_ref_13_0_node_modules_thread_loader_dist_cjs_js_node_modules_babel_loader_lib_index_js_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_data_credits_dialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("c5ac");
 /* harmony import */ var _node_modules_cache_loader_dist_cjs_js_ref_13_0_node_modules_thread_loader_dist_cjs_js_node_modules_babel_loader_lib_index_js_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_data_credits_dialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_cache_loader_dist_cjs_js_ref_13_0_node_modules_thread_loader_dist_cjs_js_node_modules_babel_loader_lib_index_js_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_data_credits_dialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
  /* harmony default export */ __webpack_exports__["default"] = (_node_modules_cache_loader_dist_cjs_js_ref_13_0_node_modules_thread_loader_dist_cjs_js_node_modules_babel_loader_lib_index_js_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_data_credits_dialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "9ab3":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_oras_dense_stars_status_dialog_vue_vue_type_style_index_0_id_7c0e9042_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("8639");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_oras_dense_stars_status_dialog_vue_vue_type_style_index_0_id_7c0e9042_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_oras_dense_stars_status_dialog_vue_vue_type_style_index_0_id_7c0e9042_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
 
 /***/ }),
 
@@ -13231,6 +13224,17 @@ module.exports = __webpack_require__.p + "img/btn-landscape.8fc552f5.svg";
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "e4c8":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_oras_dense_stars_status_dialog_vue_vue_type_style_index_0_id_0e713f36_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("4ca5");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_oras_dense_stars_status_dialog_vue_vue_type_style_index_0_id_0e713f36_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_oras_dense_stars_status_dialog_vue_vue_type_style_index_0_id_0e713f36_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
 
 /***/ }),
 
