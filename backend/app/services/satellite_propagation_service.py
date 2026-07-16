@@ -174,8 +174,29 @@ def _build_earth_satellite(line1: str, line2: str, name: str) -> EarthSatellite:
     return EarthSatellite(line1, line2, name, _TIMESCALE)
 
 
-def satellite_feed_freshness(as_of: datetime) -> dict[str, Any]:
-    epochs = _tle_epochs()
+def satellite_feed_freshness(as_of: datetime, feed_path: str | None = None) -> dict[str, Any]:
+    epochs = _tle_epochs() if feed_path is None else _tle_epochs(feed_path)
+    return _satellite_feed_freshness_from_epochs(as_of, epochs)
+
+
+def satellite_feed_freshness_from_records(
+    as_of: datetime,
+    records: list[dict[str, Any]],
+) -> dict[str, Any]:
+    epochs = []
+    for record in records:
+        try:
+            line1, _ = _tle_lines(record)
+            epochs.append(_parse_tle_epoch(line1))
+        except (TypeError, ValueError):
+            continue
+    return _satellite_feed_freshness_from_epochs(as_of, tuple(sorted(epochs)))
+
+
+def _satellite_feed_freshness_from_epochs(
+    as_of: datetime,
+    epochs: tuple[datetime, ...],
+) -> dict[str, Any]:
     as_of_utc = _as_utc(as_of)
     if not epochs:
         return {
@@ -199,10 +220,10 @@ def satellite_feed_freshness(as_of: datetime) -> dict[str, Any]:
     }
 
 
-@lru_cache(maxsize=1)
-def _tle_epochs() -> tuple[datetime, ...]:
+@lru_cache(maxsize=4)
+def _tle_epochs(feed_path: str | None = None) -> tuple[datetime, ...]:
     epochs = []
-    for record in load_satellite_tle_catalog().records_by_norad.values():
+    for record in load_satellite_tle_catalog(feed_path).records_by_norad.values():
         try:
             line1, _ = _tle_lines(record)
             epochs.append(_parse_tle_epoch(line1))

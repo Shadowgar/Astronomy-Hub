@@ -5,7 +5,7 @@ const apiBaseUrl = process.env.ORAS_API_BASE_URL || 'http://127.0.0.1:8000'
 const timeoutMs = Number(process.env.ORAS_DEEP_LINK_TIMEOUT_MS || 90000)
 const cameraToleranceRad = Number(process.env.ORAS_DEEP_LINK_CAMERA_TOLERANCE_RAD || 0.02)
 const solarSystemTestTime = '2027-01-15T02:00:00Z'
-const visibleSatelliteTestTime = '2026-06-04T00:00:00Z'
+const visibleSatelliteTestTime = process.env.ORAS_SATELLITE_VALIDATION_TIME || new Date().toISOString()
 const solarSystemLocation = { lat: '41.44', lng: '-79.69', elev: '0' }
 
 const cases = [
@@ -214,15 +214,6 @@ const cases = [
     coordinatePatterns: [/00h\s+3[67]m/i, /\+01°/],
     requireIndexed: true,
     coordinateToleranceDeg: 1.0,
-  },
-  {
-    name: 'ISS',
-    path: 'skysource/InternationalSpaceStation?catalog=Satellite%20TLE%20(local)&source_id=25544&model=tle_satellite&fov=1.00&date=2026-06-04T02%3A16%3A04Z&lat=41.44&lng=-79.69&elev=0',
-    identity: { catalog: 'Satellite TLE (local)', sourceId: '25544', model: 'tle_satellite' },
-    requiredText: ['International Space Station', 'NORAD 25544', 'LAT 41.440', 'FOV 1.00'],
-    forbiddenText: ['Unknown Type'],
-    requireIndexed: true,
-    skipCameraCentering: true,
   },
 ]
 
@@ -538,6 +529,7 @@ async function validateSolarSystemApiCases() {
 }
 
 async function validateSatelliteApiCases() {
+  const runtimeCases = []
   for (const testCase of satelliteApiCases) {
     const query = new URLSearchParams({
       catalog: 'Satellite TLE (local)',
@@ -569,8 +561,19 @@ async function validateSatelliteApiCases() {
     if (data.link_status !== 'exact_link_ready' || data.visibility_status !== 'propagation_pending') {
       throw new Error(`${testCase.name} exact lookup returned wrong link status: ${JSON.stringify(data)}`)
     }
+    runtimeCases.push({
+      name: testCase.name,
+      path: data.sky_engine_url,
+      identity: { catalog: data.catalog, sourceId: data.source_id, model: data.model },
+      requiredText: [data.display_name, `NORAD ${data.source_id}`, 'LAT 41.440', 'FOV 1.00'],
+      forbiddenText: ['Unknown Type'],
+      requireIndexed: true,
+      requireTleModelData: true,
+      skipCameraCentering: true,
+    })
     console.log(`API_PASS ${testCase.name} norad=${data.norad_id}`)
   }
+  return runtimeCases
 }
 
 function assertAboveMeSatelliteCandidate(candidate) {
@@ -599,7 +602,7 @@ async function buildVisibleSatelliteRuntimeCase() {
     lng: solarSystemLocation.lng,
     elev: solarSystemLocation.elev,
     time: visibleSatelliteTestTime,
-    limit: '50',
+    limit: '100',
   })
   const response = await fetch(buildApiUrl(`/api/above-me?${query.toString()}`))
   const body = await response.json().catch(() => ({}))
@@ -628,13 +631,13 @@ async function buildVisibleSatelliteRuntimeCase() {
 
 async function main() {
   await validateSolarSystemApiCases()
-  await validateSatelliteApiCases()
+  const exactSatelliteCases = await validateSatelliteApiCases()
   await validateSearchAliasCases()
   const visibleSatelliteCase = await buildVisibleSatelliteRuntimeCase()
 
   const browser = await chromium.launch({ headless: true })
   try {
-    for (const testCase of [...cases, visibleSatelliteCase]) {
+    for (const testCase of [...cases, ...exactSatelliteCases, visibleSatelliteCase]) {
       if (!testCase.identity || !testCase.identity.catalog || !testCase.identity.sourceId || !testCase.identity.model) {
         throw new Error(`${testCase.name} is missing exact identity metadata`)
       }

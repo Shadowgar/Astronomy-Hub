@@ -6,12 +6,14 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/astronomy_hub
       REDIS_URL: redis://redis:6379/0
-      SATELLITE_TLE_FEED_PATH: /runtime/oras-sky-engine/skydata/tle_satellite.jsonl.gz
+      SATELLITE_TLE_FEED_PATH: /runtime/oras-satellite-tle/tle_satellite.jsonl.gz
+      ORAS_SATELLITE_TLE_MANIFEST_PATH: /runtime/oras-satellite-tle/manifest.json
       ORAS_CATALOG_PACKS_DIR: /runtime/oras-catalog-packs
     ports:
       - "8000:8000"
     volumes:
       - ./frontend/public/oras-sky-engine/skydata:/runtime/oras-sky-engine/skydata:ro
+      - ${ORAS_SATELLITE_TLE_HOST_DIR:-./frontend/public/oras-sky-engine/skydata}:/runtime/oras-satellite-tle:ro
       - ${ORAS_CATALOG_PACKS_HOST_DIR:-./data/runtime-packs/catalog-packs}:/runtime/oras-catalog-packs:ro
     depends_on:
       - postgres
@@ -23,6 +25,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./frontend/public/oras-sky-engine/skydata:/app/public/oras-sky-engine/skydata:ro
+      - ${ORAS_SATELLITE_TLE_HOST_DIR:-./frontend/public/oras-sky-engine/skydata}/tle_satellite.jsonl.gz:/app/public/oras-sky-engine/skydata/tle_satellite.jsonl.gz:ro
       - ${ORAS_CATALOG_PACKS_HOST_DIR:-./data/runtime-packs/catalog-packs}:/app/public/oras-sky-engine/skydata/catalog-packs:ro
       - ${ORAS_DENSE_STAR_TILES_HOST_DIR:-./data/runtime-packs/dense-star-tiles}:/app/public/oras-sky-engine/skydata/dense-star-tiles:ro
     env_file:

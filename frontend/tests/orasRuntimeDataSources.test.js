@@ -16,6 +16,10 @@ const syncScriptPath = path.resolve(
   process.cwd(),
   '../scripts/sync-stellarium-runtime.sh'
 )
+const prepareScriptPath = path.resolve(
+  process.cwd(),
+  '../scripts/prepare-stellarium-reference.sh'
+)
 const runtimeVueConfigPath = path.resolve(
   process.cwd(),
   '../vendor/stellarium-web-engine/apps/web-frontend/vue.config.js'
@@ -96,6 +100,13 @@ describe('oras runtime data sources', () => {
     expect(syncScript).toContain('oras-runtime-build.json')
   })
 
+  it('uses the source-backed satellite pipeline instead of Stellarium CDN refresh', () => {
+    const source = fs.readFileSync(prepareScriptPath, 'utf8')
+
+    expect(source).not.toContain('stellarium.sfo2.cdn.digitaloceanspaces.com/skysources/v1/tle_satellite')
+    expect(source).toContain('satellites:build')
+  })
+
   it('keeps the vendored Vue production build within local memory limits', () => {
     const vueConfig = fs.readFileSync(runtimeVueConfigPath, 'utf8')
 
@@ -135,6 +146,12 @@ describe('oras runtime data sources', () => {
     expect(source).toContain("sourceId: 'hip-11767'")
     expect(source).toContain("sourceId: 'NGC6543'")
     expect(source).toContain('Parsed ([0-9]+) satellites')
+    expect(source).toContain('ORAS_SATELLITE_VALIDATION_TIME')
+    expect(source).toContain('new Date().toISOString()')
+    expect(source).toContain("limit: '100'")
+    expect(source).toContain('const exactSatelliteCases = await validateSatelliteApiCases()')
+    expect(source).toContain('...exactSatelliteCases')
+    expect(source).not.toContain("const visibleSatelliteTestTime = '2026-06-04T00:00:00Z'")
     expect(source).toContain('Cannot uncompress gz file')
     expect(source).toContain('Unknown Type')
   })

@@ -150,6 +150,14 @@ def _normalize_satellite_record(raw: dict[str, Any]) -> dict[str, Any] | None:
     normalized_model_data["norad_number"] = int(norad_id)
     normalized_model_data["tle"] = tle_lines
     normalized_model_data["source_id"] = norad_id
+    source_provenance = raw.get("provenance") if isinstance(raw.get("provenance"), dict) else {}
+    provenance = {
+        key: str(source_provenance[key]).strip()
+        for key in ("source_key", "source_url")
+        if str(source_provenance.get(key) or "").strip()
+    }
+    if not provenance:
+        provenance = {"source_key": "tle_satellite_local_bundle"}
 
     return {
         "catalog": SATELLITE_TLE_CATALOG,
@@ -168,8 +176,8 @@ def _normalize_satellite_record(raw: dict[str, Any]) -> dict[str, Any] | None:
         "status": "indexed",
         "link_status": "exact_link_ready",
         "visibility_status": "propagation_pending",
-        "message": "Resolved from local TLE feed. Topocentric propagation is pending Pass 4B.",
-        "provenance": {"source_key": "tle_satellite_local_bundle"},
+        "message": "Resolved from the mounted TLE feed. Observer-specific propagation requires time and location.",
+        "provenance": provenance,
     }
 
 

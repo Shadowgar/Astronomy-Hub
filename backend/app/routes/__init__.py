@@ -18,4 +18,5 @@ __all__ = [
     "assets",
     "sky",
     "sky_mirror",
+    "satellite_feed",
 ]

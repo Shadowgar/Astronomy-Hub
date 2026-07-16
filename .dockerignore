@@ -3,6 +3,7 @@
 # Generated catalog releases are mounted at runtime, not baked into images.
 data/runtime-packs/catalog-packs
 data/runtime-packs/dense-star-tiles
+data/runtime-packs/satellite-tle
 
 !backend/
 !backend/**

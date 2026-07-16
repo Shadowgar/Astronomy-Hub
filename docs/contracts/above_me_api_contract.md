@@ -110,6 +110,29 @@ on the nearest record epoch, while every candidate is independently age-checked
 before propagation. A stale feed reports `status: degraded`; exact TLE identity
 lookup remains available.
 
+## Satellite Feed Deployment Status
+
+```text
+GET /api/sky/satellite-feed?time=<iso8601>
+```
+
+This endpoint validates the independently mounted satellite release and returns
+its source, release version, acquisition time, record count, checksum, epoch
+range, required-ID status, and freshness for the requested time. It does not
+return the bulk satellite catalog.
+
+Status meanings:
+
+| Status | Meaning |
+| --- | --- |
+| `ready` | Manifest/feed validation passes and the nearest TLE epoch is fresh. |
+| `degraded` with `mounted: true` | Release is mounted but stale or invalid. |
+| `degraded` with `mounted: false` | Feed or manifest mount is missing. |
+
+The source-backed CelesTrak Active release is built and installed outside
+Docker images. See `docs/runtime/ORAS_SATELLITE_TLE_DEPLOYMENT.md` for the
+acquisition, validation, atomic install, mount, refresh, and rollback contract.
+
 ## Non-Goals
 
 This contract does not define:
