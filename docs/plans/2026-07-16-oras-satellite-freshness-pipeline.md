@@ -1,6 +1,6 @@
 # ORAS Satellite Freshness Pipeline Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> Implement each task sequentially and require its stated validation before continuing.
 
 **Goal:** Build, validate, atomically install, mount, and report a fresh source-backed CelesTrak TLE release for ORAS Sky Engine.
 
@@ -10,7 +10,7 @@
 
 ---
 
-### Task 1: Deterministic CelesTrak Release Builder
+## Task 1: Deterministic CelesTrak Release Builder
 
 **Files:**
 - Create: `scripts/skydata/build_oras_satellite_tle_release.py`
@@ -54,7 +54,7 @@ git add scripts/skydata/build_oras_satellite_tle_release.py backend/tests/test_s
 git commit -m "Add deterministic CelesTrak satellite release builder"
 ```
 
-### Task 2: Release Validation And Atomic Install
+## Task 2: Release Validation And Atomic Install
 
 **Files:**
 - Modify: `scripts/skydata/build_oras_satellite_tle_release.py`
@@ -92,7 +92,7 @@ git add scripts/skydata/build_oras_satellite_tle_release.py scripts/skydata/inst
 git commit -m "Add satellite release validation and atomic install"
 ```
 
-### Task 3: Satellite Feed Status API
+## Task 3: Satellite Feed Status API
 
 **Files:**
 - Create: `backend/app/services/satellite_feed_status_service.py`
@@ -131,7 +131,7 @@ git add backend/app/services/satellite_feed_status_service.py backend/app/routes
 git commit -m "Expose ORAS satellite feed deployment status"
 ```
 
-### Task 4: Runtime Mounts, Commands, And Data Exclusions
+## Task 4: Runtime Mounts, Commands, And Data Exclusions
 
 **Files:**
 - Modify: `docker-compose.yml`
@@ -176,7 +176,7 @@ git add docker-compose.yml docker-compose.prod.yml package.json .gitignore .dock
 git commit -m "Mount satellite TLE releases outside Docker images"
 ```
 
-### Task 5: Deployment Runbook And Real Release
+## Task 5: Deployment Runbook And Real Release
 
 **Files:**
 - Create: `docs/runtime/ORAS_SATELLITE_TLE_DEPLOYMENT.md`
@@ -214,7 +214,7 @@ git add docs/runtime/ORAS_SATELLITE_TLE_DEPLOYMENT.md docs/contracts/above_me_ap
 git commit -m "Document ORAS satellite TLE deployment"
 ```
 
-### Task 6: Full Runtime Verification And PR
+## Task 6: Full Runtime Verification And PR
 
 **Files:**
 - No new production files expected.

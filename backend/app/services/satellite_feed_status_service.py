@@ -6,12 +6,13 @@ import os
 from pathlib import Path
 from typing import Any
 
-from backend.app.services.satellite_propagation_service import satellite_feed_freshness
-from scripts.skydata.build_oras_satellite_tle_release import validate_release
+from backend.app.services.satellite_propagation_service import satellite_feed_freshness_from_records
+from scripts.skydata.build_oras_satellite_tle_release import DEFAULT_MINIMUM_COUNT, read_validated_release
 
 
 MANIFEST_PATH_ENV = "ORAS_SATELLITE_TLE_MANIFEST_PATH"
 FEED_PATH_ENV = "SATELLITE_TLE_FEED_PATH"
+MINIMUM_COUNT_ENV = "ORAS_SATELLITE_MINIMUM_COUNT"
 
 
 def build_satellite_feed_status(*, time: str | None = None) -> dict[str, Any]:
@@ -31,21 +32,22 @@ def build_satellite_feed_status(*, time: str | None = None) -> dict[str, Any]:
         )
 
     try:
-        manifest = validate_release(manifest_path.parent, minimum_count=1)
-        freshness = satellite_feed_freshness(as_of, str(feed_path))
-    except json.JSONDecodeError:
-        reason_type = "manifest.json is invalid"
-        return _response(
-            {
-                "mounted": True,
-                "status": "degraded",
-                "reason": f"Satellite release validation failed: {reason_type}",
-                "record_count": 0,
-                "freshness_status": "unavailable",
-            }
+        if feed_path.parent.resolve() != manifest_path.parent.resolve():
+            raise ValueError("satellite feed and manifest must share the same release directory")
+        minimum_count = int(os.getenv(MINIMUM_COUNT_ENV, str(DEFAULT_MINIMUM_COUNT)))
+        if minimum_count < 1:
+            raise ValueError("satellite minimum count must be positive")
+        manifest, records = read_validated_release(
+            manifest_path.parent,
+            minimum_count=minimum_count,
         )
+        freshness = satellite_feed_freshness_from_records(as_of, records)
     except (OSError, TypeError, ValueError) as exc:
-        reason_type = str(exc).strip() or "release data is invalid"
+        reason_type = (
+            "manifest.json is invalid"
+            if isinstance(exc, json.JSONDecodeError)
+            else str(exc).strip() or "release data is invalid"
+        )
         return _response(
             {
                 "mounted": True,
@@ -58,6 +60,8 @@ def build_satellite_feed_status(*, time: str | None = None) -> dict[str, Any]:
 
     is_fresh = freshness["freshness_status"] == "fresh"
     data = {
+        **manifest,
+        **freshness,
         "mounted": True,
         "status": "ready" if is_fresh else "degraded",
         "reason": (
@@ -65,8 +69,6 @@ def build_satellite_feed_status(*, time: str | None = None) -> dict[str, Any]:
             if is_fresh
             else "Mounted CelesTrak satellite release is valid but stale for the requested time."
         ),
-        **manifest,
-        **freshness,
     }
     return _response(data)
 

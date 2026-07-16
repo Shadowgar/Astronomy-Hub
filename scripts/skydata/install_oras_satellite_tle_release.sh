@@ -5,7 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 PYTHON_BIN="${PYTHON_BIN:-$ROOT_DIR/.venv/bin/python}"
 SOURCE_INPUT="${1:-${ORAS_SATELLITE_RELEASE_SOURCE_DIR:-$ROOT_DIR/data/runtime-packs/satellite-tle/build}}"
 TARGET_INPUT="${2:-${ORAS_SATELLITE_TLE_HOST_DIR:-$ROOT_DIR/data/runtime-packs/satellite-tle/current}}"
-MINIMUM_COUNT="${ORAS_SATELLITE_MINIMUM_COUNT:-1}"
+MINIMUM_COUNT="${ORAS_SATELLITE_MINIMUM_COUNT:-1000}"
 BUILDER="$ROOT_DIR/scripts/skydata/build_oras_satellite_tle_release.py"
 
 if [[ ! -x "$PYTHON_BIN" ]]; then
@@ -28,7 +28,11 @@ if [[ -L "$TARGET_DIR" ]]; then
   echo "Refusing to install into symlink target: $TARGET_DIR" >&2
   exit 1
 fi
-if [[ -e "$TARGET_DIR" && "$(cd "$TARGET_DIR" && pwd -P)" == "$SOURCE_DIR" ]]; then
+if [[ -e "$TARGET_DIR" && ! -d "$TARGET_DIR" ]]; then
+  echo "Refusing to install: target exists and is not a directory: $TARGET_DIR" >&2
+  exit 1
+fi
+if [[ -d "$TARGET_DIR" && "$(cd "$TARGET_DIR" && pwd -P)" == "$SOURCE_DIR" ]]; then
   echo "Source and target satellite release directories must be different" >&2
   exit 1
 fi

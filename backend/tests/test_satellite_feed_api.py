@@ -38,6 +38,7 @@ def test_satellite_feed_status_reports_mounted_release_without_bulk_records(tmp_
     _build_fixture_release(release)
     monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
     monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
+    monkeypatch.setenv("ORAS_SATELLITE_MINIMUM_COUNT", "2")
 
     response = client.get("/api/sky/satellite-feed?time=2026-06-04T02:16:04Z")
 
@@ -76,6 +77,7 @@ def test_satellite_feed_status_reports_corrupt_manifest_or_feed(tmp_path: Path, 
     _build_fixture_release(release)
     monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
     monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
+    monkeypatch.setenv("ORAS_SATELLITE_MINIMUM_COUNT", "2")
     manifest_path = release / "manifest.json"
     manifest_path.write_text("not-json", encoding="utf-8")
 
@@ -101,8 +103,62 @@ def test_satellite_feed_status_rejects_naive_time(tmp_path: Path, monkeypatch) -
     _build_fixture_release(release)
     monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
     monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
+    monkeypatch.setenv("ORAS_SATELLITE_MINIMUM_COUNT", "2")
 
     response = client.get("/api/sky/satellite-feed?time=2026-06-04T02:16:04")
 
     assert response.status_code == 400
     assert response.json()["error"]["code"] == "invalid_request"
+
+
+def test_satellite_feed_status_rejects_fixture_sized_release_by_default(tmp_path: Path, monkeypatch) -> None:
+    release = tmp_path / "current"
+    _build_fixture_release(release)
+    monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
+    monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(release / "manifest.json"))
+    monkeypatch.delenv("ORAS_SATELLITE_MINIMUM_COUNT", raising=False)
+
+    response = client.get("/api/sky/satellite-feed?time=2026-06-04T02:16:04Z")
+
+    assert response.status_code == 200
+    data = response.json()["data"]
+    assert data["status"] == "degraded"
+    assert "minimum" in data["reason"].lower()
+
+
+def test_satellite_feed_status_rejects_split_release_paths(tmp_path: Path, monkeypatch) -> None:
+    release = tmp_path / "current"
+    _build_fixture_release(release)
+    other = tmp_path / "other"
+    other.mkdir()
+    (other / "manifest.json").write_bytes((release / "manifest.json").read_bytes())
+    monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
+    monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(other / "manifest.json"))
+    monkeypatch.setenv("ORAS_SATELLITE_MINIMUM_COUNT", "2")
+
+    response = client.get("/api/sky/satellite-feed")
+
+    assert response.status_code == 200
+    data = response.json()["data"]
+    assert data["status"] == "degraded"
+    assert "same release directory" in data["reason"].lower()
+
+
+def test_satellite_feed_status_manifest_cannot_override_contract_fields(tmp_path: Path, monkeypatch) -> None:
+    release = tmp_path / "current"
+    _build_fixture_release(release)
+    manifest_path = release / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest.update({"mounted": False, "status": "forged", "reason": "forged"})
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    monkeypatch.setenv("SATELLITE_TLE_FEED_PATH", str(release / "tle_satellite.jsonl.gz"))
+    monkeypatch.setenv("ORAS_SATELLITE_TLE_MANIFEST_PATH", str(manifest_path))
+    monkeypatch.setenv("ORAS_SATELLITE_MINIMUM_COUNT", "2")
+
+    response = client.get("/api/sky/satellite-feed?time=2026-06-04T02:16:04Z")
+
+    assert response.status_code == 200
+    data = response.json()["data"]
+    assert data["mounted"] is True
+    assert data["status"] == "ready"
+    assert data["reason"].startswith("Mounted CelesTrak")

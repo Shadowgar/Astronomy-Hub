@@ -6,8 +6,11 @@ import hashlib
 import json
 from pathlib import Path
 
+import pytest
+
 from scripts.skydata.build_oras_satellite_tle_release import (
     DEFAULT_SOURCE_URL,
+    _download_source,
     build_release,
     parse_celestrak_3le,
     validate_release,
@@ -83,6 +86,11 @@ def test_runtime_normalization_preserves_celestrak_provenance() -> None:
         "source_url": DEFAULT_SOURCE_URL,
     }
     assert "Pass 4B" not in normalized["message"]
+
+
+def test_downloader_rejects_non_http_source_urls(tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="HTTP or HTTPS"):
+        _download_source("file:///etc/passwd", tmp_path / "active.tle")
 
 
 def test_build_release_is_deterministic_double_gzip_and_manifest_backed(tmp_path: Path) -> None:

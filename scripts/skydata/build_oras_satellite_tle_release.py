@@ -11,11 +11,13 @@ from pathlib import Path
 import tempfile
 from typing import Any, Iterable
 import urllib.request
+from urllib.parse import urlparse
 
 
 DEFAULT_SOURCE_URL = "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=TLE"
 DEFAULT_OUTPUT_DIR = Path("data/runtime-packs/satellite-tle/build")
 DEFAULT_REQUIRED_NORAD = ("25544", "20580")
+DEFAULT_MINIMUM_COUNT = 1000
 FEED_FILENAME = "tle_satellite.jsonl.gz"
 MANIFEST_FILENAME = "manifest.json"
 
@@ -208,12 +210,12 @@ def _read_nested_records(feed_path: Path) -> list[dict[str, Any]]:
     return [json.loads(line) for line in payload.splitlines() if line.strip()]
 
 
-def validate_release(
+def read_validated_release(
     output_dir: Path,
     *,
     minimum_count: int = 1,
     required_norad: tuple[str, ...] = DEFAULT_REQUIRED_NORAD,
-) -> dict[str, Any]:
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     manifest_path = output_dir / MANIFEST_FILENAME
     feed_path = output_dir / FEED_FILENAME
     if not manifest_path.is_file() or not feed_path.is_file():
@@ -231,10 +233,26 @@ def validate_release(
     missing = [source_id for source_id in required_norad if source_id not in identities]
     if missing:
         raise ValueError(f"required NORAD IDs are missing: {', '.join(missing)}")
+    return manifest, records
+
+
+def validate_release(
+    output_dir: Path,
+    *,
+    minimum_count: int = 1,
+    required_norad: tuple[str, ...] = DEFAULT_REQUIRED_NORAD,
+) -> dict[str, Any]:
+    manifest, _ = read_validated_release(
+        output_dir,
+        minimum_count=minimum_count,
+        required_norad=required_norad,
+    )
     return manifest
 
 
 def _download_source(url: str, destination: Path) -> None:
+    if urlparse(url).scheme.lower() not in {"http", "https"}:
+        raise ValueError("Satellite source URL must use HTTP or HTTPS")
     request = urllib.request.Request(url, headers={"User-Agent": "ORAS-Astronomy-Hub/1.0 satellite-import"})
     with urllib.request.urlopen(request, timeout=120) as response:
         payload = response.read()
@@ -249,7 +267,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--release-version", default=os.getenv("ORAS_SATELLITE_RELEASE_VERSION"))
     parser.add_argument("--acquired-at")
-    parser.add_argument("--minimum-count", type=int, default=1000)
+    parser.add_argument("--minimum-count", type=int, default=DEFAULT_MINIMUM_COUNT)
     parser.add_argument("--required-norad", action="append")
     parser.add_argument("--source-url", default=DEFAULT_SOURCE_URL)
     parser.add_argument("--validate-only", action="store_true")

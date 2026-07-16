@@ -36,9 +36,18 @@ def _fixture_release(path: Path, version: str = "test-1") -> None:
     )
 
 
-def _run_install(source: Path, target: Path) -> subprocess.CompletedProcess[str]:
+def _run_install(
+    source: Path,
+    target: Path,
+    *,
+    minimum_count: str | None = "2",
+) -> subprocess.CompletedProcess[str]:
     env = os.environ.copy()
     env["PYTHON_BIN"] = str(REPO_ROOT / ".venv/bin/python")
+    if minimum_count is None:
+        env.pop("ORAS_SATELLITE_MINIMUM_COUNT", None)
+    else:
+        env["ORAS_SATELLITE_MINIMUM_COUNT"] = minimum_count
     return subprocess.run(
         ["bash", str(INSTALL_SCRIPT), str(source), str(target)],
         cwd=REPO_ROOT,
@@ -128,6 +137,23 @@ def test_install_rejects_symlinked_source_content_and_target(tmp_path: Path) -> 
 
     assert target_result.returncode != 0
     assert "symlink target" in target_result.stdout.lower()
+
+
+def test_install_uses_production_minimum_and_rejects_non_directory_target(tmp_path: Path) -> None:
+    source = tmp_path / "source"
+    _fixture_release(source)
+
+    production_result = _run_install(source, tmp_path / "current", minimum_count=None)
+
+    assert production_result.returncode != 0
+    assert "minimum" in production_result.stdout.lower()
+
+    target_file = tmp_path / "target-file"
+    target_file.write_text("not a directory", encoding="utf-8")
+    target_result = _run_install(source, target_file)
+
+    assert target_result.returncode != 0
+    assert "not a directory" in target_result.stdout.lower()
 
 
 def test_satellite_pipeline_commands_mounts_and_generated_data_exclusions_are_declared() -> None:
