@@ -11,6 +11,7 @@ import pytest
 from scripts.skydata.build_oras_satellite_tle_release import (
     DEFAULT_SOURCE_URL,
     _download_source,
+    _nested_gzip_jsonl,
     build_release,
     parse_celestrak_3le,
     validate_release,
@@ -134,3 +135,30 @@ def test_build_release_is_deterministic_double_gzip_and_manifest_backed(tmp_path
     records = _read_nested_jsonl(output_path / "tle_satellite.jsonl.gz")
     assert [record["model_data"]["source_id"] for record in records] == ["20580", "25544"]
     assert validate_release(output_path, minimum_count=2, required_norad=("25544", "20580"))["record_count"] == 2
+
+
+def test_validator_rejects_source_identity_that_does_not_match_embedded_tle(tmp_path: Path) -> None:
+    input_path = tmp_path / "active.tle"
+    output_path = tmp_path / "release"
+    input_path.write_text(_fixture_payload(), encoding="utf-8")
+    build_release(
+        input_path=input_path,
+        output_dir=output_path,
+        release_version="test-mismatch",
+        acquired_at=datetime(2026, 6, 4, 3, 0, tzinfo=timezone.utc),
+        minimum_count=2,
+        required_norad=("25544", "20580"),
+    )
+    records = _read_nested_jsonl(output_path / "tle_satellite.jsonl.gz")
+    records[0]["model_data"]["tle"] = records[1]["model_data"]["tle"]
+    feed_payload = _nested_gzip_jsonl(records)
+    feed_path = output_path / "tle_satellite.jsonl.gz"
+    feed_path.write_bytes(feed_payload)
+    manifest_path = output_path / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["sha256"] = hashlib.sha256(feed_payload).hexdigest()
+    manifest["byte_size"] = len(feed_payload)
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="does not match embedded TLE"):
+        validate_release(output_path, minimum_count=2, required_norad=("25544", "20580"))

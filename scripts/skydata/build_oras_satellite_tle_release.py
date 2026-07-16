@@ -242,13 +242,37 @@ def read_validated_release(
     records = _read_nested_records(feed_path)
     if len(records) != manifest.get("record_count") or len(records) < minimum_count:
         raise ValueError("satellite feed record count does not match manifest or minimum")
-    identities = [str(record.get("model_data", {}).get("source_id") or "") for record in records]
+    identities = [_validate_release_record(record) for record in records]
     if len(identities) != len(set(identities)):
         raise ValueError("satellite feed contains duplicate NORAD identities")
     missing = [source_id for source_id in required_norad if source_id not in identities]
     if missing:
         raise ValueError(f"required NORAD IDs are missing: {', '.join(missing)}")
     return manifest, records
+
+
+def _validate_release_record(record: dict[str, Any]) -> str:
+    if record.get("model") != "tle_satellite":
+        raise ValueError("satellite release contains a record with an invalid model")
+    model_data = record.get("model_data")
+    if not isinstance(model_data, dict):
+        raise ValueError("satellite release record is missing model_data")
+    source_id = str(model_data.get("source_id") or "").strip()
+    tle = model_data.get("tle")
+    if not source_id.isdigit() or not isinstance(tle, list) or len(tle) != 2:
+        raise ValueError("satellite release record has invalid identity or TLE data")
+    normalized = _normalize_record(
+        str(record.get("short_name") or f"NORAD {source_id}"),
+        str(tle[0]),
+        str(tle[1]),
+    )
+    embedded_source_id = normalized["model_data"]["source_id"]
+    norad_number = str(model_data.get("norad_number") or "").strip()
+    if source_id != embedded_source_id or norad_number != source_id:
+        raise ValueError(
+            f"satellite source_id {source_id} does not match embedded TLE identity {embedded_source_id}"
+        )
+    return source_id
 
 
 def validate_release(
