@@ -5,6 +5,7 @@ import argparse
 from datetime import datetime, timedelta, timezone
 import gzip
 import hashlib
+import io
 import json
 import os
 from pathlib import Path
@@ -141,7 +142,21 @@ def _nested_gzip_jsonl(records: Iterable[dict[str, Any]]) -> bytes:
         json.dumps(record, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("ascii") + b"\n"
         for record in records
     )
-    return gzip.compress(gzip.compress(jsonl, compresslevel=9, mtime=0), compresslevel=9, mtime=0)
+    inner = _gzip_with_filename(jsonl, "tle_satellite.jsonl")
+    return _gzip_with_filename(inner, FEED_FILENAME)
+
+
+def _gzip_with_filename(payload: bytes, filename: str) -> bytes:
+    output = io.BytesIO()
+    with gzip.GzipFile(
+        filename=filename,
+        mode="wb",
+        compresslevel=9,
+        fileobj=output,
+        mtime=0,
+    ) as stream:
+        stream.write(payload)
+    return output.getvalue()
 
 
 def _atomic_write(path: Path, payload: bytes) -> None:

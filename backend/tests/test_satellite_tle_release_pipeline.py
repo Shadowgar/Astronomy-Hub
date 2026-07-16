@@ -118,6 +118,9 @@ def test_build_release_is_deterministic_double_gzip_and_manifest_backed(tmp_path
     )
 
     assert first_bytes == (output_path / "tle_satellite.jsonl.gz").read_bytes()
+    inner_gzip = gzip.decompress(first_bytes)
+    assert inner_gzip[3] == 8
+    assert inner_gzip[10:].split(b"\0", 1)[0] == b"tle_satellite.jsonl"
     assert manifest == second_manifest
     assert manifest["source_url"] == DEFAULT_SOURCE_URL
     assert manifest["record_count"] == 2
