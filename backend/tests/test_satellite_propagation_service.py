@@ -78,10 +78,16 @@ def test_visible_satellite_candidates_are_real_propagated_and_bounded() -> None:
 
 
 def test_stale_tle_satellites_are_excluded_before_propagation(monkeypatch) -> None:
+    catalog = load_satellite_tle_catalog()
     monkeypatch.setattr(
         propagation_service,
         "_prioritized_scan_records",
-        lambda **kwargs: (_ for _ in ()).throw(AssertionError("stale feed should not propagate")),
+        lambda **kwargs: [catalog.records_by_norad["25544"]],
+    )
+    monkeypatch.setattr(
+        propagation_service,
+        "propagate_satellite_record",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("stale record should not propagate")),
     )
     candidates = build_visible_satellite_candidates(
         observer=ORAS_OBSERVER,
@@ -90,6 +96,52 @@ def test_stale_tle_satellites_are_excluded_before_propagation(monkeypatch) -> No
     )
 
     assert candidates == []
+
+
+def test_historical_request_uses_record_near_requested_time_not_newest_feed_epoch(monkeypatch) -> None:
+    catalog = load_satellite_tle_catalog()
+    record = dict(catalog.records_by_norad["25544"])
+    model_data = dict(record["model_data"])
+    line1 = model_data["tle"][0]
+    model_data["tle"] = [f"{line1[:18]}26121.00000000{line1[32:]}", model_data["tle"][1]]
+    record["model_data"] = model_data
+    as_of = datetime(2026, 5, 1, 0, 0, 0, tzinfo=timezone.utc)
+
+    monkeypatch.setattr(propagation_service, "_prioritized_scan_records", lambda **kwargs: [record])
+    monkeypatch.setattr(
+        propagation_service,
+        "propagate_satellite_record",
+        lambda *args, **kwargs: {
+            "source_id": "25544",
+            "name": "ISS",
+            "is_visible": True,
+            "tle_age_days": 0.0,
+            "alt": 45.0,
+            "magnitude": None,
+            "range_km": 500.0,
+        },
+    )
+
+    candidates = build_visible_satellite_candidates(observer=ORAS_OBSERVER, as_of=as_of, limit=1)
+
+    assert [candidate["source_id"] for candidate in candidates] == ["25544"]
+
+
+def test_feed_freshness_uses_epoch_nearest_requested_time(monkeypatch) -> None:
+    epochs = (
+        datetime(2026, 5, 1, tzinfo=timezone.utc),
+        datetime(2026, 6, 5, tzinfo=timezone.utc),
+    )
+    monkeypatch.setattr(propagation_service, "_tle_epochs", lambda: epochs)
+
+    freshness = propagation_service.satellite_feed_freshness(
+        datetime(2026, 5, 2, tzinfo=timezone.utc)
+    )
+
+    assert freshness["freshness_status"] == "fresh"
+    assert freshness["nearest_tle_epoch"] == "2026-05-01T00:00:00Z"
+    assert freshness["nearest_tle_age_days"] == 1.0
+    assert freshness["newest_tle_epoch"] == "2026-06-05T00:00:00Z"
 
 
 def test_below_horizon_satellites_are_excluded_by_default() -> None:

@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from concurrent.futures import ThreadPoolExecutor
 import threading
 import time
 
@@ -55,16 +56,23 @@ def test_jpl_ephemeris_serializes_requests_for_provider_fair_use(monkeypatch):
 
     monkeypatch.setattr(live_providers, "_http_get_json", _http_get_json)
 
-    payload = live_providers.fetch_jpl_ephemeris(
-        40.0,
-        -75.0,
-        elevation_ft=100.0,
-        as_of=datetime(2026, 6, 4, 2, 16, tzinfo=timezone.utc),
-    )
+    def _fetch(offset):
+        return live_providers.fetch_jpl_ephemeris(
+            40.0 + offset,
+            -75.0,
+            elevation_ft=100.0,
+            as_of=datetime(2026, 6, 4, 2, 16, tzinfo=timezone.utc),
+        )
 
-    assert len(payload) == len(live_providers.JPL_EPHEMERIS_BODIES)
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        payloads = list(executor.map(_fetch, (0.0, 0.1)))
+
+    assert all(len(payload) == len(live_providers.JPL_EPHEMERIS_BODIES) for payload in payloads)
     assert max_active == 1
-    assert [item["name"] for item in payload] == [name for _, name in live_providers.JPL_EPHEMERIS_BODIES]
+    assert all(
+        [item["name"] for item in payload] == [name for _, name in live_providers.JPL_EPHEMERIS_BODIES]
+        for payload in payloads
+    )
 
 
 def test_jpl_ephemeris_parses_horizons_ra_dec_from_observer_quantities(monkeypatch):
