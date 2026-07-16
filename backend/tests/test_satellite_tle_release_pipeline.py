@@ -12,6 +12,7 @@ from scripts.skydata.build_oras_satellite_tle_release import (
     DEFAULT_SOURCE_URL,
     _download_source,
     _nested_gzip_jsonl,
+    _validate_release_record,
     build_release,
     parse_celestrak_3le,
     validate_release,
@@ -23,6 +24,8 @@ ISS_LINE_1 = "1 25544U 98067A   26154.70949191  .00008646  00000-0  16154-3 0  9
 ISS_LINE_2 = "2 25544  51.6330   6.8180 0007089 128.9940 231.1681 15.49585865569660"
 HST_LINE_1 = "1 20580U 90037B   26153.34296606  .00005773  00000-0  18209-3 0  9992"
 HST_LINE_2 = "2 20580  28.4711 182.0162 0001701 354.7953   5.2625 15.30586461786296"
+CALSPHERE_LINE_1 = "1 00900U 64063C   26197.17517874  .00000380  00000+0  37681-3 0  9991"
+CALSPHERE_LINE_2 = "2 00900  90.2209  72.4501 0024061 200.9054 257.7090 13.76651700 75418"
 
 
 def _fixture_payload(*, include_duplicate: bool = False, include_malformed: bool = False) -> str:
@@ -92,6 +95,16 @@ def test_runtime_normalization_preserves_celestrak_provenance() -> None:
 def test_downloader_rejects_non_http_source_urls(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="HTTP or HTTPS"):
         _download_source("file:///etc/passwd", tmp_path / "active.tle")
+
+
+def test_release_validation_preserves_leading_zero_source_identity() -> None:
+    records, _ = parse_celestrak_3le(
+        f"CALSPHERE 1\n{CALSPHERE_LINE_1}\n{CALSPHERE_LINE_2}\n"
+    )
+
+    assert records[0]["model_data"]["source_id"] == "00900"
+    assert records[0]["model_data"]["norad_number"] == 900
+    assert _validate_release_record(records[0]) == "00900"
 
 
 def test_build_release_is_deterministic_double_gzip_and_manifest_backed(tmp_path: Path) -> None:

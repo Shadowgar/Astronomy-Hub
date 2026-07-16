@@ -267,8 +267,11 @@ def _validate_release_record(record: dict[str, Any]) -> str:
         str(tle[1]),
     )
     embedded_source_id = normalized["model_data"]["source_id"]
-    norad_number = str(model_data.get("norad_number") or "").strip()
-    if source_id != embedded_source_id or norad_number != source_id:
+    try:
+        norad_matches = int(model_data.get("norad_number")) == int(source_id)
+    except (TypeError, ValueError):
+        norad_matches = False
+    if source_id != embedded_source_id or not norad_matches:
         raise ValueError(
             f"satellite source_id {source_id} does not match embedded TLE identity {embedded_source_id}"
         )
