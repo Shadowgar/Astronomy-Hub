@@ -345,13 +345,31 @@ def test_dense_star_tile_builder_writes_native_eph_release(tmp_path: Path) -> No
     assert manifest["source_catalogs"]["Tycho-2"] == 1
     assert "source_root" not in manifest
     assert manifest["source_id_type"] == "string"
+    assert manifest["catalog_mode"] == "canonical_replacement"
+    assert manifest["native_continuation"] == {
+        "key": "gaia",
+        "source": "bundled-gaia",
+    }
     assert manifest["default_profile"] == "visual-default"
     assert manifest["profiles"]["visual-default"]["star_count"] == 1
     assert manifest["profiles"]["deep-catalog"]["star_count"] == 2
+    assert manifest["profiles"]["deep-catalog"]["catalog_mode"] == "canonical_replacement"
+    assert manifest["profiles"]["deep-catalog"]["identity_reconciliation"] == {
+        "canonical_records": 4,
+        "merged_records": 0,
+        "skipped_missing_photometry": 0,
+        "skipped_unmatched_supplemental": 0,
+        "source_records": 4,
+    }
+    assert manifest["profiles"]["deep-catalog"]["photometry_sources"] == {
+        "catalog_magnitude_only": 4,
+    }
 
     validation = validator.validate_dense_star_tiles(output_root)
     assert validation["star_count"] == 2
     assert validation["tile_count"] == report["tile_count"]
+    assert validation["catalog_mode"] == "canonical_replacement"
+    assert validation["native_continuation"]["key"] == "gaia"
 
 
 def test_dense_star_builder_writes_visibility_profiles(tmp_path: Path) -> None:

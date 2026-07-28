@@ -16,6 +16,8 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_RELEASE_ROOT = REPO_ROOT / "data/runtime-packs/dense-star-tiles"
 SAFE_TILE_RE = re.compile(r"^Norder([0-9]+)/Dir([0-9]+)/Npix([0-9]+)\.eph$")
+CATALOG_MODE = "canonical_replacement"
+NATIVE_CONTINUATION_KEY = "gaia"
 
 
 def sha256_file(path: Path) -> str:
@@ -126,6 +128,11 @@ def validate_profile_tiles(profile_root: Path) -> dict[str, Any]:
         raise ValueError("dense star release must use native_swe_star_tiles")
     if manifest.get("source_id_type") != "string":
         raise ValueError("dense star source IDs must be string-preserved")
+    if manifest.get("catalog_mode") != CATALOG_MODE:
+        raise ValueError("dense star profile must replace the bright native catalog chain")
+    continuation = manifest.get("native_continuation")
+    if not isinstance(continuation, dict) or continuation.get("key") != NATIVE_CONTINUATION_KEY:
+        raise ValueError("dense star profile must declare the native Gaia continuation")
     if manifest.get("label_mode") != "suppressed":
         raise ValueError("dense star profile labels must be suppressed by default")
     entries = manifest.get("tile_entries")
@@ -178,6 +185,8 @@ def validate_profile_tiles(profile_root: Path) -> dict[str, Any]:
         "tile_count": len(entries),
         "magnitude_limit": manifest.get("magnitude_limit"),
         "rendering_path": manifest.get("rendering_path"),
+        "catalog_mode": manifest.get("catalog_mode"),
+        "native_continuation": continuation,
     }
 
 
@@ -193,6 +202,11 @@ def validate_dense_star_tiles(release_root: Path = DEFAULT_RELEASE_ROOT) -> dict
         raise ValueError("dense star release must use native_swe_star_tiles")
     if manifest.get("source_id_type") != "string":
         raise ValueError("dense star source IDs must be string-preserved")
+    if manifest.get("catalog_mode") != CATALOG_MODE:
+        raise ValueError("dense star release must replace the bright native catalog chain")
+    continuation = manifest.get("native_continuation")
+    if not isinstance(continuation, dict) or continuation.get("key") != NATIVE_CONTINUATION_KEY:
+        raise ValueError("dense star release must declare the native Gaia continuation")
     profiles = manifest.get("profiles")
     if not isinstance(profiles, dict) or not profiles:
         raise ValueError("dense star release must define profiles")
@@ -227,6 +241,8 @@ def validate_dense_star_tiles(release_root: Path = DEFAULT_RELEASE_ROOT) -> dict
         "tile_count": deep_report["tile_count"],
         "magnitude_limit": deep_report["magnitude_limit"],
         "rendering_path": manifest.get("rendering_path"),
+        "catalog_mode": manifest.get("catalog_mode"),
+        "native_continuation": continuation,
     }
 
 

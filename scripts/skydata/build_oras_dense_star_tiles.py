@@ -27,6 +27,8 @@ DEFAULT_MAGNITUDE_LIMIT = 13.0
 DEFAULT_TILE_ORDER = 3
 SOURCE_PACK_ID = "stars-core"
 DEFAULT_PROFILE = "visual-default"
+CATALOG_MODE = "canonical_replacement"
+NATIVE_CONTINUATION = {"key": "gaia", "source": "bundled-gaia"}
 SUPPLEMENTAL_RENDER_CATALOGS = {"gliese cns3"}
 GAIA_BP_RP_RANGE = (-0.5, 5.0)
 JOHNSON_BV_RANGE = (-0.4, 3.3)
@@ -714,11 +716,17 @@ def _build_profile_tiles(
     skipped: Counter[str] = Counter()
     source_catalogs: Counter[str] = Counter()
     source_count = 0
+    reconciliation: dict[str, int] = {}
+    photometry_sources: Counter[str] = Counter()
     nside = 1 << tile_order
     magnitudes: list[float] = []
     try:
         source_records = list(iter_catalog_records(source_root))
         canonical_records, reconciliation = reconcile_star_records(source_records)
+        photometry_sources.update(
+            str(record.get("photometry_source") or "unknown")
+            for record in canonical_records
+        )
         source_count = len(source_records)
         skipped["unmatched_supplemental"] += reconciliation["skipped_unmatched_supplemental"]
         skipped["missing_photometry"] += reconciliation["skipped_missing_photometry"]
@@ -761,6 +769,8 @@ def _build_profile_tiles(
             "release_version": release_version,
             "generated_at": utc_now(),
             "rendering_path": "native_swe_star_tiles",
+            "catalog_mode": CATALOG_MODE,
+            "native_continuation": NATIVE_CONTINUATION,
             "profile_id": profile_id,
             "profile_label": profile_label,
             "profile_intent": profile_intent,
@@ -772,6 +782,8 @@ def _build_profile_tiles(
             "skipped_count": sum(skipped.values()),
             "skipped_reasons": dict(sorted(skipped.items())),
             "source_catalogs": dict(sorted(source_catalogs.items())),
+            "identity_reconciliation": reconciliation,
+            "photometry_sources": dict(sorted(photometry_sources.items())),
             "tile_order": tile_order,
             "tile_count": len(tile_files),
             "magnitude_limit": magnitude_limit,
@@ -794,6 +806,8 @@ def _build_profile_tiles(
             "profile_label": profile_label,
             "profile_intent": profile_intent,
             "label_mode": label_mode,
+            "catalog_mode": CATALOG_MODE,
+            "native_continuation": NATIVE_CONTINUATION,
             "source_count": source_count,
             "star_count": star_count,
             "skipped_count": sum(skipped.values()),
@@ -806,6 +820,8 @@ def _build_profile_tiles(
             "min_magnitude": min_mag,
             "max_magnitude": max_mag,
             "source_catalogs": dict(sorted(source_catalogs.items())),
+            "identity_reconciliation": reconciliation,
+            "photometry_sources": dict(sorted(photometry_sources.items())),
             "byte_size": sum(path.stat().st_size for path in tile_files) + (tmp_root / "manifest.json").stat().st_size + (tmp_root / "properties").stat().st_size,
         }
         (tmp_root / "build-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -857,12 +873,16 @@ def build_dense_star_tiles(
                 "label": profile["label"],
                 "profile_intent": profile["profile_intent"],
                 "label_mode": profile["label_mode"],
+                "catalog_mode": profile_report["catalog_mode"],
+                "native_continuation": profile_report["native_continuation"],
                 "path": f"profiles/{profile_id}",
                 "star_count": profile_report["star_count"],
                 "source_count": profile_report["source_count"],
                 "skipped_count": profile_report["skipped_count"],
                 "skipped_reasons": profile_report["skipped_reasons"],
                 "source_catalogs": profile_report["source_catalogs"],
+                "identity_reconciliation": profile_report["identity_reconciliation"],
+                "photometry_sources": profile_report["photometry_sources"],
                 "tile_order": tile_order,
                 "tile_count": profile_report["tile_count"],
                 "magnitude_limit": profile_report["magnitude_limit"],
@@ -878,6 +898,8 @@ def build_dense_star_tiles(
             "release_version": release_version,
             "generated_at": utc_now(),
             "rendering_path": "native_swe_star_tiles",
+            "catalog_mode": CATALOG_MODE,
+            "native_continuation": NATIVE_CONTINUATION,
             "source_pack": SOURCE_PACK_ID,
             "source_id_type": "string",
             "default_profile": DEFAULT_PROFILE,
@@ -887,6 +909,8 @@ def build_dense_star_tiles(
             "magnitude_limit": deep_profile["magnitude_limit"],
             "tile_order": tile_order,
             "source_catalogs": deep_profile["source_catalogs"],
+            "identity_reconciliation": deep_profile["identity_reconciliation"],
+            "photometry_sources": deep_profile["photometry_sources"],
             "source_attribution": [
                 {
                     "name": f"ORAS catalog packs {SOURCE_PACK_ID}",
@@ -899,6 +923,8 @@ def build_dense_star_tiles(
         report = {
             "release_version": release_version,
             "default_profile": DEFAULT_PROFILE,
+            "catalog_mode": CATALOG_MODE,
+            "native_continuation": NATIVE_CONTINUATION,
             "profiles": profiles,
             "source_count": deep_profile["source_count"],
             "star_count": deep_profile["star_count"],
