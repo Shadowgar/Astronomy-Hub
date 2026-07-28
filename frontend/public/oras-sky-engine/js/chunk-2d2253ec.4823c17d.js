@@ -3,7 +3,7 @@
 /***/ "e429":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "js/stellarium-web-engine.b334f7cf.wasm";
+module.exports = __webpack_require__.p + "js/stellarium-web-engine.d3c35371.wasm";
 
 /***/ })
 

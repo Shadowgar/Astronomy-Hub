@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/" + ({}[chunkId]||chunkId) + "." + {"chunk-2d2253ec":"1c11398a"}[chunkId] + ".js"
+/******/ 		return __webpack_require__.p + "js/" + ({}[chunkId]||chunkId) + "." + {"chunk-2d2253ec":"4823c17d"}[chunkId] + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -846,12 +846,12 @@ var es_array_concat = __webpack_require__("99af");
 // EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
 var vue_esm = __webpack_require__("a026");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=3cc3ed3c&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=36f6d1be&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[_c('oras-catalog-status-dialog',{model:{value:(_vm.showCatalogPacks),callback:function ($$v) {_vm.showCatalogPacks=$$v},expression:"showCatalogPacks"}}),_c('oras-dense-stars-status-dialog',{model:{value:(_vm.showDenseStars),callback:function ($$v) {_vm.showDenseStars=$$v},expression:"showDenseStars"}}),_c('v-navigation-drawer',{attrs:{"app":"","stateless":"","width":"300"},model:{value:(_vm.nav),callback:function ($$v) {_vm.nav=$$v},expression:"nav"}},[_c('v-layout',{attrs:{"column":"","fill-height":""}},[_c('v-list',{attrs:{"dense":""}},[_vm._l((_vm.menuItems),function(item,i){return [(_vm.$store.state[item.store_show_menu_item] === false)?void 0:(item.header)?_c('v-subheader',{key:i,staticClass:"grey--text text--darken-1",domProps:{"textContent":_vm._s(item.header)}}):(item.divider)?_c('v-divider',{key:i,staticClass:"divider_menu"}):(item.switch)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-action',[_c('v-switch',{attrs:{"value":"","input-value":_vm.getStoreValue(item.store_var_name),"label":""}})],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.title))])],1)],1):[(item.link)?_c('v-list-item',{key:i,attrs:{"target":"_blank","rel":"noopener","href":item.link}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}}),_c('v-icon',{attrs:{"disabled":""}},[_vm._v("mdi-open-in-new")])],1):(item.footer===undefined)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.handleMenuItemClick(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]]})],2),_vm._l((_vm.menuComponents),function(item,i){return [_c(item,{key:i,tag:"component"})]}),_c('v-spacer'),_c('v-list',{attrs:{"dense":""}},[_c('v-divider',{staticClass:"divider_menu"}),_vm._l((_vm.menuItems),function(item,i){return [(item.footer)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]})],2)],2)],1),_c('v-main',[_c('v-container',{staticClass:"fill-height",staticStyle:{"padding":"0"},attrs:{"fluid":""}},[_c('div',{class:{ right_panel: _vm.$store.state.showSidePanel },attrs:{"id":"stel"}},[_c('div',{staticStyle:{"position":"relative","width":"100%","height":"100%"}},[_c(_vm.guiComponent,{tag:"component"}),_c('canvas',{ref:"stelCanvas",attrs:{"id":"stel-canvas"}})],1)])])],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=3cc3ed3c&
+// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=36f6d1be&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__("3835");
@@ -933,14 +933,14 @@ var es_string_replace = __webpack_require__("5319");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.to-fixed.js
 var es_number_to_fixed = __webpack_require__("b680");
 
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.includes.js
+var es_string_includes = __webpack_require__("2532");
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
 var es_array_slice = __webpack_require__("fb6a");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.find.js
 var es_array_find = __webpack_require__("7db0");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.includes.js
-var es_string_includes = __webpack_require__("2532");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.search.js
 var es_string_search = __webpack_require__("841c");
@@ -2805,6 +2805,22 @@ var swh = {
 
       var candidateNames = [];
       var compactMessierPattern = /^M\d+$/i;
+      var sourceId = String(ss.source_id || '').trim();
+      var catalog = String(ss.catalog || '').toLowerCase();
+
+      if (ss.model === 'star' && sourceId) {
+        if (catalog.includes('gaia') && /^\d+$/.test(sourceId)) {
+          candidateNames.push('GAIA ' + sourceId);
+        }
+
+        if (catalog.includes('hipparcos') || /^hip-/i.test(sourceId)) {
+          candidateNames.push('HIP ' + sourceId.replace(/^hip-/i, ''));
+        }
+
+        if (catalog.includes('tycho') || /^tyc\s*/i.test(sourceId)) {
+          candidateNames.push('TYC ' + sourceId.replace(/^tyc\s*/i, ''));
+        }
+      }
 
       for (var _i = 0, _baseNames = baseNames; _i < _baseNames.length; _i++) {
         var rawName = _baseNames[_i];
@@ -6541,6 +6557,67 @@ function createOrasDenseStarsManager() {
     subscribe: subscribe
   };
 }
+function registerOrasStarCatalogChain(_x) {
+  return _registerOrasStarCatalogChain.apply(this, arguments);
+}
+
+function _registerOrasStarCatalogChain() {
+  _registerOrasStarCatalogChain = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(core) {
+    var options,
+        manager,
+        fallbackRoots,
+        gaiaRoot,
+        mode,
+        _args3 = arguments;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            options = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
+            manager = options.manager || orasDenseStars;
+            fallbackRoots = Array.isArray(options.fallbackRoots) ? options.fallbackRoots : [];
+            gaiaRoot = String(options.gaiaRoot || '');
+            manager.setProfile(options.profile);
+            _context3.next = 7;
+            return manager.load();
+
+          case 7:
+            mode = 'stock_fallback';
+
+            if (manager.isReadyForNativeRegistration()) {
+              core.stars.addDataSource({
+                url: manager.getSurveyRoot(),
+                key: manager.getSurveyKey()
+              });
+              mode = 'canonical_replacement';
+            } else {
+              fallbackRoots.forEach(function (packRoot) {
+                core.stars.addDataSource({
+                  url: packRoot + '/stars'
+                });
+              });
+            }
+
+            if (gaiaRoot) {
+              core.stars.addDataSource({
+                url: gaiaRoot,
+                key: 'gaia'
+              });
+            }
+
+            return _context3.abrupt("return", {
+              mode: mode
+            });
+
+          case 11:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return _registerOrasStarCatalogChain.apply(this, arguments);
+}
 
 function resolveActiveProfile(profile, profiles) {
   var value = normalizeProfile(profile);
@@ -6554,6 +6631,8 @@ function oras_dense_stars_validateManifest(manifest) {
   if (!manifest || manifest.schema_version !== 1) throw new Error('unsupported dense star manifest schema');
   if (manifest.rendering_path !== 'native_swe_star_tiles') throw new Error('unsupported dense star rendering path');
   if (manifest.source_id_type !== 'string') throw new Error('dense star source IDs must remain strings');
+  if (manifest.catalog_mode !== 'canonical_replacement') throw new Error('dense star release must replace the bright catalog chain');
+  if (!manifest.native_continuation || manifest.native_continuation.key !== 'gaia') throw new Error('dense star release must declare the native Gaia continuation');
   if (manifest.default_profile !== DEFAULT_PROFILE) throw new Error('dense star default profile must be visual-default');
   if (!manifest.profiles || Object(esm_typeof["a" /* default */])(manifest.profiles) !== 'object') throw new Error('dense star profiles are required');
 
@@ -6911,7 +6990,9 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
       dataSourceInitDone: false,
       showCatalogPacks: false,
       showDenseStars: false,
-      denseStarSurveyRegistered: false,
+      starDataSourcesReady: Promise.resolve({
+        mode: 'not-started'
+      }),
       orasOverlayObjects: []
     };
   },
@@ -6993,28 +7074,6 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
       if (item.store_var_name) {
         this.toggleStoreValue(item.store_var_name);
       }
-    },
-    registerOrasDenseStarSurvey: function registerOrasDenseStarSurvey(core) {
-      var _this = this;
-
-      if (this.denseStarSurveyRegistered || this.$store.state.orasDenseStarsProfile === 'off') {
-        return;
-      }
-
-      orasDenseStars.setProfile(this.$store.state.orasDenseStarsProfile);
-      orasDenseStars.load().then(function () {
-        if (!orasDenseStars.isReadyForNativeRegistration() || _this.denseStarSurveyRegistered) {
-          return;
-        }
-
-        core.stars.addDataSource({
-          url: orasDenseStars.getSurveyRoot(),
-          key: orasDenseStars.getSurveyKey()
-        });
-        _this.denseStarSurveyRegistered = true;
-      }, function (error) {
-        console.warn('Failed to load ORAS dense star survey', error);
-      });
     },
     getStoreValue: function getStoreValue(storeVarName) {
       return lodash_default.a.get(this.$store.state, storeVarName);
@@ -7210,7 +7269,7 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
       };
     },
     selectSkySourceRouteTarget: function selectSkySourceRouteTarget(name) {
-      var _this2 = this;
+      var _this = this;
 
       var attempt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var retryDelayMs = 250;
@@ -7230,10 +7289,10 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
         var obj = sw_helpers.skySource2SweObj(ss);
 
         if (!obj) {
-          obj = _this2.$stel.createObj(ss.model, ss);
+          obj = _this.$stel.createObj(ss.model, ss);
 
           if (obj) {
-            _this2.$selectionLayer.add(obj);
+            _this.$selectionLayer.add(obj);
           }
         }
 
@@ -7249,12 +7308,45 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
           return new Promise(function (resolve) {
             return setTimeout(resolve, retryDelayMs);
           }).then(function () {
-            return _this2.selectSkySourceRouteTarget(name, attempt + 1);
+            return _this.selectSkySourceRouteTarget(name, attempt + 1);
           });
         }
 
         console.log(err);
         console.log("Couldn't find skysource for name: " + name);
+      });
+    },
+    resolveExactSkySourceRouteObject: function resolveExactSkySourceRouteObject(ss, identity) {
+      var _this2 = this;
+
+      var attempt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+      var maxNativeAttempts = 40;
+      var retryDelayMs = 125;
+      var dataSourcesReady = identity.model === 'star' ? this.starDataSourcesReady : Promise.resolve();
+      return Promise.resolve(dataSourcesReady).then(function () {
+        var nativeObj = sw_helpers.skySource2SweObj(ss);
+
+        if (nativeObj) {
+          return nativeObj;
+        }
+
+        if (identity.model === 'star' && attempt < maxNativeAttempts) {
+          return new Promise(function (resolve) {
+            return setTimeout(resolve, retryDelayMs);
+          }).then(function () {
+            return _this2.resolveExactSkySourceRouteObject(ss, identity, attempt + 1);
+          });
+        }
+
+        var fallbackObj = _this2.$stel.createObj(ss.model, ss);
+
+        if (!fallbackObj) {
+          throw new Error('Exact sky source target is not ready yet');
+        }
+
+        _this2.$selectionLayer.add(fallbackObj);
+
+        return fallbackObj;
       });
     },
     selectSkySourceRouteTargetByIdentity: function selectSkySourceRouteTargetByIdentity(identity) {
@@ -7270,22 +7362,10 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
           throw new Error('Resolved sky source did not match requested identity');
         }
 
-        var obj = sw_helpers.skySource2SweObj(ss);
-
-        if (!obj) {
-          var fallbackObj = _this3.$stel.createObj(ss.model, ss);
-
-          if (!fallbackObj) {
-            throw new Error('Exact sky source target is not ready yet');
-          }
-
-          obj = fallbackObj;
-
-          _this3.$selectionLayer.add(obj);
-        }
-
-        obj.__orasSkySourceData = ss;
-        sw_helpers.setSweObjAsSelection(obj, ss);
+        return _this3.resolveExactSkySourceRouteObject(ss, identity).then(function (obj) {
+          obj.__orasSkySourceData = ss;
+          sw_helpers.setSweObjAsSelection(obj, ss);
+        });
       }, function (err) {
         if (attempt < maxAttempts) {
           return new Promise(function (resolve) {
@@ -7426,15 +7506,16 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
             core.dsos.addDataSource({
               url: bundledDataBase + '/packs/extended/dso'
             });
-            listOrasPackRoots().forEach(function (packRoot) {
-              core.stars.addDataSource({
-                url: packRoot + '/stars'
-              });
-            });
-            that.registerOrasDenseStarSurvey(core);
-            core.stars.addDataSource({
-              url: ORAS_BUNDLED_GAIA_SURVEY_ROOT,
-              key: 'gaia'
+            that.starDataSourcesReady = registerOrasStarCatalogChain(core, {
+              manager: orasDenseStars,
+              profile: that.$store.state.orasDenseStarsProfile,
+              fallbackRoots: listOrasPackRoots(),
+              gaiaRoot: ORAS_BUNDLED_GAIA_SURVEY_ROOT
+            }).catch(function (error) {
+              console.warn('Failed to register ORAS canonical star chain', error);
+              return {
+                mode: 'failed'
+              };
             }); // Allow to specify a custom path for sky culture data
 
             if (that.$route.query.sc) {
@@ -10134,8 +10215,8 @@ var StelWebEngine = function () {
       Module["HEAPF64"] = HEAPF64 = new Float64Array(buf);
     }
 
-    var DYNAMIC_BASE = 5807104,
-        DYNAMICTOP_PTR = 564064;
+    var DYNAMIC_BASE = 5807152,
+        DYNAMICTOP_PTR = 564112;
     var INITIAL_INITIAL_MEMORY = Module["INITIAL_MEMORY"] || 16777216;
 
     if (Module["wasmMemory"]) {
