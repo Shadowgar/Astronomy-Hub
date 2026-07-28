@@ -3,7 +3,10 @@ import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
-import { createOrasDenseStarsManager } from '../../vendor/stellarium-web-engine/apps/web-frontend/src/assets/oras_dense_stars.js'
+import {
+  createOrasDenseStarsManager,
+  registerOrasStarCatalogChain,
+} from '../../vendor/stellarium-web-engine/apps/web-frontend/src/assets/oras_dense_stars.js'
 
 const repoRoot = path.resolve(process.cwd(), '..')
 const appVuePath = path.resolve(
@@ -22,15 +25,77 @@ const denseStarsValidationScriptPath = path.resolve(
   repoRoot,
   'scripts/skydata/validate_oras_dense_stars.js'
 )
+const nativeStarsSourcePath = path.resolve(
+  repoRoot,
+  'vendor/stellarium-web-engine/src/modules/stars.c'
+)
 
 describe('ORAS dense native star runtime integration', () => {
   it('registers the selected mounted native dense star profile with SWE after manifest validation', () => {
     const source = fs.readFileSync(appVuePath, 'utf8')
 
-    expect(source).toContain("import { orasDenseStars } from '@/assets/oras_dense_stars.js'")
+    expect(source).toContain("import { orasDenseStars, registerOrasStarCatalogChain } from '@/assets/oras_dense_stars.js'")
     expect(source).toContain('orasDenseStars.load()')
-    expect(source).toContain('that.registerOrasDenseStarSurvey(core)')
-    expect(source).toContain("core.stars.addDataSource({ url: orasDenseStars.getSurveyRoot(), key: orasDenseStars.getSurveyKey() })")
+    expect(source).toContain('that.starDataSourcesReady = registerOrasStarCatalogChain(core')
+  })
+
+  it('replaces stock bright packs with one canonical profile and keeps Gaia as the faint continuation', async () => {
+    const calls: Array<{ url: string, key?: string }> = []
+    const manager = {
+      setProfile: () => {},
+      load: async () => {},
+      isReadyForNativeRegistration: () => true,
+      getSurveyRoot: () => '/dense/profiles/visual-default',
+      getSurveyKey: () => 'oras-dense-stars-visual-default',
+    }
+    const result = await registerOrasStarCatalogChain(
+      { stars: { addDataSource: (source: { url: string, key?: string }) => calls.push(source) } },
+      {
+        manager,
+        profile: 'visual-default',
+        fallbackRoots: ['/packs/minimal', '/packs/base', '/packs/extended'],
+        gaiaRoot: '/surveys/gaia/v1',
+      },
+    )
+
+    expect(result.mode).toBe('canonical_replacement')
+    expect(calls).toEqual([
+      { url: '/dense/profiles/visual-default', key: 'oras-dense-stars-visual-default' },
+      { url: '/surveys/gaia/v1', key: 'gaia' },
+    ])
+  })
+
+  it('uses the stock bright chain only when the mounted canonical profile is unavailable or off', async () => {
+    const calls: Array<{ url: string, key?: string }> = []
+    const manager = {
+      setProfile: () => {},
+      load: async () => {},
+      isReadyForNativeRegistration: () => false,
+    }
+    const result = await registerOrasStarCatalogChain(
+      { stars: { addDataSource: (source: { url: string, key?: string }) => calls.push(source) } },
+      {
+        manager,
+        profile: 'off',
+        fallbackRoots: ['/packs/minimal', '/packs/base'],
+        gaiaRoot: '/surveys/gaia/v1',
+      },
+    )
+
+    expect(result.mode).toBe('stock_fallback')
+    expect(calls).toEqual([
+      { url: '/packs/minimal/stars' },
+      { url: '/packs/base/stars' },
+      { url: '/surveys/gaia/v1', key: 'gaia' },
+    ])
+  })
+
+  it('suppresses survey labels without removing native star identities', () => {
+    const source = fs.readFileSync(nativeStarsSourcePath, 'utf8')
+
+    expect(source).toContain('bool    show_labels;')
+    expect(source).toContain('properties_get_bool(args, "oras_show_labels", true)')
+    expect(source).toContain('survey->show_labels')
   })
 
   it('exposes visible dense stars profile controls instead of a deep all-sky default toggle', () => {

@@ -646,6 +646,7 @@ def write_properties(root: Path, release_version: str, magnitude_limit: float, t
         f"max_vmag                 = {max_vmag}",
         "type                     = stars",
         "hips_tile_format         = eph",
+        "oras_show_labels         = false",
         f"oras_release_version     = {release_version}",
         f"oras_star_count          = {star_count}",
         "",
