@@ -372,6 +372,36 @@ def test_dense_star_tile_builder_writes_native_eph_release(tmp_path: Path) -> No
     assert validation["native_continuation"]["key"] == "gaia"
 
 
+def test_dense_star_builder_restores_source_backed_bright_hipparcos_tail(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_bright_tail")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    bright_source = tmp_path / "hipparcos_bright.tsv"
+    _write_catalog_pack_release(source_root)
+    bright_source.write_text(
+        "# VizieR fixture\n"
+        "_RAJ2000\t_DEJ2000\tHIP\tVmag\tB-V\tPlx\tpmRA\tpmDE\tSpType\n"
+        "deg\tdeg\t\tmag\tmag\tmas\tmas/yr\tmas/yr\t\n"
+        "----------\t----------\t---\t----\t---\t---\t----\t----\t------\n"
+        "101.287155\t-16.716116\t32349\t-1.46\t0.001\t379.21\t-546.01\t-1223.07\tA1V\n",
+        encoding="utf-8",
+    )
+
+    report = builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=1,
+        release_version="test.bright",
+        bright_star_source=bright_source,
+    )
+
+    visual = report["profiles"]["visual-default"]
+    assert report["source_count"] == 5
+    assert visual["min_magnitude"] == -1.46
+    assert visual["identity_reconciliation"]["source_records"] == 5
+    assert visual["source_catalogs"]["Hipparcos (CDS)"] == 1
+
+
 def test_dense_star_builder_writes_visibility_profiles(tmp_path: Path) -> None:
     builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles")
     validator = _load_module(VALIDATOR_PATH, "validate_oras_dense_star_tiles")

@@ -130,6 +130,19 @@ def test_star_adapters_preserve_string_ids_and_source_backed_fields(tmp_path: Pa
     assert tycho[0]["tycho_vt_mag"] == 7.2
     assert tycho[0]["coordinate_epoch"] == 2000.0
 
+    bright_hip_path = _write_vizier(
+        tmp_path / "hipparcos_bright.tsv",
+        ["_RAJ2000", "_DEJ2000", "HIP", "Vmag", "B-V", "Plx", "pmRA", "pmDE", "SpType"],
+        [["101.287155", "-16.716116", "32349", "-1.46", "0.001", "379.21", "-546.01", "-1223.07", "A1V"]],
+    )
+    bright_hip = list(load_vizier_stars(bright_hip_path, "hipparcos_bright"))
+    assert bright_hip[0]["source_id"] == "hip-32349"
+    assert bright_hip[0]["hip_id"] == "32349"
+    assert bright_hip[0]["johnson_v_mag"] == -1.46
+    assert bright_hip[0]["johnson_bv"] == 0.001
+    assert bright_hip[0]["spectral_type"] == "A1V"
+    assert bright_hip[0]["coordinate_epoch"] == 2000.0
+
 
 def test_dso_adapters_cover_openngc_and_named_catalog_families(tmp_path: Path) -> None:
     openngc_path = tmp_path / "openngc.json.gz"
@@ -325,6 +338,7 @@ def test_acquisition_manifest_covers_required_release_families(tmp_path: Path) -
         ("stars", "gaia_dr3"),
         ("stars", "tycho2"),
         ("stars", "gliese"),
+        ("dense-stars", "hipparcos_bright"),
         ("dsos", "open_clusters"),
         ("dsos", "barnard"),
         ("dsos", "lbn"),
@@ -343,6 +357,10 @@ def test_acquisition_manifest_covers_required_release_families(tmp_path: Path) -
     assert inputs.atnf.name == "psrcat.db"
     expensive_profiles = {"gaia_dr3", "tycho2", "wds", "milliquas"}
     assert all(source.sort is None for source in VIZIER_ACQUISITIONS if source.profile in expensive_profiles)
+    hipparcos_bright = next(
+        source for source in VIZIER_ACQUISITIONS if source.profile == "hipparcos_bright"
+    )
+    assert hipparcos_bright.constraints == (("Vmag", "-2..1.63"),)
 
 
 def test_vizier_download_validation_rejects_html_and_malformed_tsv(tmp_path: Path) -> None:

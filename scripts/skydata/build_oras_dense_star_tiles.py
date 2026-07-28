@@ -11,6 +11,7 @@ import os
 import shutil
 import stat
 import struct
+import sys
 import tempfile
 import zlib
 from collections import Counter, defaultdict
@@ -18,10 +19,19 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.skydata.catalog_sources.stars import load_vizier_stars
+
+
 DEFAULT_SOURCE_ROOT = REPO_ROOT / "data/runtime-packs/catalog-packs"
 DEFAULT_OUTPUT_ROOT = REPO_ROOT / "data/runtime-packs/dense-star-tiles"
+DEFAULT_BRIGHT_STAR_SOURCE = (
+    REPO_ROOT
+    / "data/catalog-sources/oras-major-catalog-update-1/hipparcos_bright.tsv"
+)
 DEFAULT_RELEASE_VERSION = "2026.06.native-stars.2"
 DEFAULT_MAGNITUDE_LIMIT = 13.0
 DEFAULT_TILE_ORDER = 3
@@ -704,6 +714,7 @@ def _build_profile_tiles(
     profile_label: str = "Custom",
     profile_intent: str = "opt-in",
     label_mode: str = "suppressed",
+    bright_star_source: Path | None = None,
 ) -> dict[str, Any]:
     source_root = Path(source_root)
     output_root = Path(output_root)
@@ -723,6 +734,10 @@ def _build_profile_tiles(
     magnitudes: list[float] = []
     try:
         source_records = list(iter_catalog_records(source_root))
+        if bright_star_source and Path(bright_star_source).is_file():
+            source_records.extend(
+                load_vizier_stars(bright_star_source, "hipparcos_bright")
+            )
         canonical_records, reconciliation = reconcile_star_records(source_records)
         photometry_sources.update(
             str(record.get("photometry_source") or "unknown")
@@ -842,6 +857,7 @@ def build_dense_star_tiles(
     tile_order: int = DEFAULT_TILE_ORDER,
     release_version: str = DEFAULT_RELEASE_VERSION,
     minimum_magnitude: float | None = None,
+    bright_star_source: Path | None = None,
 ) -> dict[str, Any]:
     source_root = Path(source_root)
     output_root = Path(output_root)
@@ -868,6 +884,7 @@ def build_dense_star_tiles(
                 profile_label=str(profile["label"]),
                 profile_intent=str(profile["profile_intent"]),
                 label_mode=str(profile["label_mode"]),
+                bright_star_source=bright_star_source,
             )
             profiles[profile_id] = {
                 "profile_id": profile_id,
@@ -954,6 +971,16 @@ def main() -> int:
     parser.add_argument("--minimum-magnitude", type=float, default=os.environ.get("ORAS_DENSE_STAR_MIN_MAG"))
     parser.add_argument("--tile-order", type=int, default=int(os.environ.get("ORAS_DENSE_STAR_TILE_ORDER", DEFAULT_TILE_ORDER)))
     parser.add_argument("--release-version", default=os.environ.get("ORAS_DENSE_STAR_RELEASE_VERSION", DEFAULT_RELEASE_VERSION))
+    parser.add_argument(
+        "--bright-star-source",
+        type=Path,
+        default=Path(
+            os.environ.get(
+                "ORAS_DENSE_STAR_BRIGHT_SOURCE",
+                DEFAULT_BRIGHT_STAR_SOURCE,
+            )
+        ),
+    )
     args = parser.parse_args()
     minimum_magnitude = args.minimum_magnitude
     if minimum_magnitude is not None:
@@ -965,6 +992,7 @@ def main() -> int:
         tile_order=args.tile_order,
         release_version=args.release_version,
         minimum_magnitude=minimum_magnitude,
+        bright_star_source=args.bright_star_source,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0

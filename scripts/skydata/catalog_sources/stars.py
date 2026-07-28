@@ -55,7 +55,37 @@ def load_vizier_stars(path: str | Path, profile: str) -> Iterable[dict]:
         if position is None:
             continue
         ra, dec = position
-        if profile == "gaia_dr3":
+        if profile == "hipparcos_bright":
+            hip_id = str(row.get("HIP") or "").strip()
+            if not hip_id:
+                continue
+            label = f"HIP {hip_id}"
+            record = _star_record(
+                catalog="Hipparcos (CDS)",
+                source_id=f"hip-{hip_id}",
+                display_name=label,
+                ra=ra,
+                dec=dec,
+                aliases=[label],
+                source_key="hipparcos_bright",
+                source_name="ESA Hipparcos Catalogue via CDS I/239",
+                source_url="https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+            )
+            record["hip_id"] = hip_id
+            record["magnitude_band"] = "V"
+            record["coordinate_epoch"] = 2000.0
+            _copy_number(record, row, "Vmag", "magnitude")
+            _copy_number(record, row, "Vmag", "johnson_v_mag")
+            _copy_number(record, row, "B-V", "color_index")
+            _copy_number(record, row, "B-V", "johnson_bv")
+            _copy_number(record, row, "Plx", "parallax")
+            _copy_number(record, row, "pmRA", "proper_motion_ra")
+            _copy_number(record, row, "pmDE", "proper_motion_dec")
+            spectral = str(row.get("SpType") or "").strip()
+            if spectral:
+                record["spectral_type"] = spectral
+            yield record
+        elif profile == "gaia_dr3":
             source_id = str(row.get("Source") or "").strip()
             if not source_id:
                 continue
