@@ -89,6 +89,7 @@ describe('oras runtime data sources', () => {
   it('builds through source-controlled runtime scripts with a build marker and configurable swap', () => {
     const buildScript = fs.readFileSync(buildScriptPath, 'utf8')
     const syncScript = fs.readFileSync(syncScriptPath, 'utf8')
+    const prepareScript = fs.readFileSync(prepareScriptPath, 'utf8')
 
     expect(buildScript).toContain('STELLARIUM_BUILD_MEMORY_SWAP_MB')
     expect(buildScript).not.toContain('--memory-swap "${memory_mb}m"')
@@ -99,6 +100,12 @@ describe('oras runtime data sources', () => {
     expect(buildScript).toContain('ORAS_RUNTIME_COPY_SKYDATA=0')
     expect(buildScript).not.toContain('staging_skydata_dir')
     expect(buildScript).not.toContain('rsync -a --delete "$skydata_dir/"')
+    expect(buildScript).toContain('native_source_hash')
+    expect(buildScript).toContain('native_source_hash: nativeSourceHash')
+    expect(prepareScript).toContain('native_hash_file')
+    expect(prepareScript).toContain('"$source_root/src" "$source_root/ext_src"')
+    expect(prepareScript).toContain('"$(cat "$native_hash_file")" != "$native_source_hash"')
+    expect(prepareScript).toContain("printf '%s\\n' \"$native_source_hash\" > \"$native_hash_file\"")
     expect(syncScript).toContain('oras-runtime-build.json')
   })
 

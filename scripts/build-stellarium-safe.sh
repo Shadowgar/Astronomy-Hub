@@ -6,6 +6,7 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(cd "$script_dir/.." && pwd)"
 app_dir="$repo_root/vendor/stellarium-web-engine/apps/web-frontend"
 dist_dir="$app_dir/dist"
+native_hash_file="$repo_root/vendor/stellarium-web-engine/build/.oras-native-source.sha256"
 staging_root="${STELLARIUM_BUILD_WORK_ROOT:-/var/tmp/astronomy-hub-stellarium-build}"
 staging_app_dir="$staging_root/web-frontend"
 npm_cache_dir="$staging_root/npm-cache"
@@ -157,18 +158,20 @@ run_cmd mkdir -p "$dist_dir"
 run_cmd rsync -a --delete "$staging_app_dir/dist/" "$dist_dir/"
 
 if [[ "$dry_run" -eq 0 ]]; then
+  native_source_hash="$(cat "$native_hash_file")"
   source_hash="$(
     {
       find "$app_dir/src" -type f -print0
       printf '%s\0' "$app_dir/package.json" "$app_dir/package-lock.json"
     } | sort -z | xargs -0 sha256sum | sha256sum | awk '{print $1}'
   )"
-  node - "$dist_dir/$build_marker" "$source_hash" "$docker_image" "$memory_mb" "$memory_swap_mb" "$node_old_space_mb" "$allow_host_fallback" "$host_node_old_space_mb" <<'NODE'
+  node - "$dist_dir/$build_marker" "$source_hash" "$native_source_hash" "$docker_image" "$memory_mb" "$memory_swap_mb" "$node_old_space_mb" "$allow_host_fallback" "$host_node_old_space_mb" <<'NODE'
 const fs = require('fs')
 
 const [
   markerPath,
   sourceHash,
+  nativeSourceHash,
   dockerImage,
   memoryMb,
   memorySwapMb,
@@ -181,6 +184,7 @@ const marker = {
   runtime: 'oras-sky-engine',
   source: 'vendor/stellarium-web-engine/apps/web-frontend',
   source_hash: sourceHash,
+  native_source_hash: nativeSourceHash,
   docker_image: dockerImage,
   memory_mb: Number(memoryMb),
   memory_swap_mb: memorySwapMb === '-1' ? -1 : Number(memorySwapMb),
