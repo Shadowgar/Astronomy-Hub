@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import math
 import os
 import stat
 from pathlib import Path
@@ -131,6 +132,180 @@ def _write_catalog_pack_release(root: Path) -> None:
     }
     manifest["packs"].extend(manifest.pop("extra_packs"))
     (root / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+
+def test_dense_star_builder_reconciles_authoritative_cross_ids_without_position_merging() -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_canonical")
+    records = [
+        {
+            "catalog": "Hipparcos Tier 2 (local)",
+            "source_id": "hip-65378",
+            "hip_id": "65378",
+            "model": "star",
+            "display_name": "Mizar A",
+            "ra": 200.981429,
+            "dec": 54.925362,
+            "johnson_v_mag": 2.23,
+            "johnson_bv": 0.057,
+            "coordinate_epoch": 2000.0,
+            "aliases": ["HIP 65378", "Mizar A"],
+        },
+        {
+            "catalog": "Tycho-2",
+            "source_id": "3850-257-1",
+            "tycho2_id": "3850-257-1",
+            "hip_id": "65378",
+            "model": "star",
+            "display_name": "TYC 3850-257-1",
+            "ra": 200.98151,
+            "dec": 54.92541,
+            "tycho_bt_mag": 2.30,
+            "tycho_vt_mag": 2.24,
+            "coordinate_epoch": 2000.0,
+            "aliases": ["HIP 65378", "TYC 3850-257-1"],
+        },
+        {
+            "catalog": "Gaia DR3",
+            "source_id": "1561616035378447232",
+            "hip_id": "65378",
+            "tycho2_id": "3850-257-1",
+            "model": "star",
+            "display_name": "Gaia DR3 1561616035378447232",
+            "ra": 200.981425,
+            "dec": 54.925358,
+            "gaia_g_mag": 2.282647,
+            "gaia_bp_rp": 0.534339,
+            "coordinate_epoch": 2000.0,
+            "aliases": ["HIP 65378", "TYC 3850-257-1"],
+        },
+        {
+            "catalog": "Gaia DR3",
+            "source_id": "1561616035378447360",
+            "model": "star",
+            "display_name": "Mizar B",
+            "ra": 200.983741,
+            "dec": 54.921829,
+            "gaia_g_mag": 3.88,
+            "gaia_bp_rp": 0.42,
+            "coordinate_epoch": 2000.0,
+        },
+        {
+            "catalog": "Gliese CNS3",
+            "source_id": "NN 3783",
+            "model": "star",
+            "display_name": "NN 3783",
+            "ra": 200.9822,
+            "dec": 54.9258,
+            "johnson_v_mag": 2.25,
+            "johnson_bv": 0.02,
+            "coordinate_epoch": 2000.0,
+        },
+    ]
+
+    canonical, stats = builder.reconcile_star_records(records)
+
+    assert len(canonical) == 2
+    assert stats["source_records"] == 5
+    assert stats["canonical_records"] == 2
+    assert stats["merged_records"] == 2
+    assert stats["skipped_unmatched_supplemental"] == 1
+    mizar_a = next(record for record in canonical if record["hip_id"] == "65378")
+    mizar_b = next(record for record in canonical if record["source_id"] == "1561616035378447360")
+    assert mizar_a["gaia_id"] == "1561616035378447232"
+    assert mizar_a["tycho2_id"] == "3850-257-1"
+    assert mizar_a["render_vmag"] == 2.23
+    assert mizar_a["render_bv"] == 0.057
+    assert mizar_a["photometry_source"] == "johnson"
+    assert {"HIP 65378", "TYC 3850-257-1", "Gaia DR3 1561616035378447232"} <= set(mizar_a["aliases"])
+    assert mizar_b["source_id"] == "1561616035378447360"
+
+
+def test_dense_star_builder_uses_source_backed_photometric_transformations() -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_photometry")
+    gaia_record = {
+        "catalog": "Gaia DR3",
+        "source_id": "5853498713190525696",
+        "model": "star",
+        "display_name": "Gaia DR3 5853498713190525696",
+        "ra": 217.392,
+        "dec": -62.676,
+        "gaia_g_mag": 7.10,
+        "gaia_bp_rp": 0.82,
+        "coordinate_epoch": 2000.0,
+    }
+    tycho_record = {
+        "catalog": "Tycho-2",
+        "source_id": "9012-1234-1",
+        "tycho2_id": "9012-1234-1",
+        "model": "star",
+        "display_name": "TYC 9012-1234-1",
+        "ra": 120.0,
+        "dec": 12.0,
+        "tycho_bt_mag": 7.75,
+        "tycho_vt_mag": 7.20,
+        "coordinate_epoch": 2000.0,
+    }
+    invalid_gaia_color = {
+        **gaia_record,
+        "source_id": "5853498713190525700",
+        "ra": 218.0,
+        "gaia_bp_rp": 9.0,
+    }
+
+    canonical, _ = builder.reconcile_star_records([gaia_record, tycho_record, invalid_gaia_color])
+    by_id = {record["source_id"]: record for record in canonical}
+
+    gaia = by_id["5853498713190525696"]
+    assert gaia["render_gmag"] == 7.1
+    assert gaia["render_vmag"] != gaia["render_gmag"]
+    assert gaia["render_bv"] != gaia_record["gaia_bp_rp"]
+    assert gaia["photometry_source"] == "gaia_edr3_transformed"
+    assert math.isfinite(gaia["render_bv"])
+
+    tycho = by_id["9012-1234-1"]
+    assert tycho["render_vmag"] == 7.20 - 0.09 * (7.75 - 7.20)
+    assert tycho["render_bv"] == 0.85 * (7.75 - 7.20)
+    assert tycho["photometry_source"] == "tycho_transformed"
+
+    invalid = by_id["5853498713190525700"]
+    assert invalid["render_vmag"] == invalid["render_gmag"]
+    assert math.isnan(invalid["render_bv"])
+    assert invalid["photometry_source"] == "gaia_g_only"
+
+
+def test_normalized_canonical_star_keeps_native_identity_when_labels_are_suppressed() -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_identity")
+    record = {
+        "catalog": "Gaia DR3",
+        "source_id": "1561616035378447232",
+        "gaia_id": "1561616035378447232",
+        "hip_id": "65378",
+        "tycho2_id": "3850-257-1",
+        "model": "star",
+        "display_name": "Mizar A",
+        "aliases": ["HIP 65378", "TYC 3850-257-1"],
+        "ra": 200.981425,
+        "dec": 54.925358,
+        "coordinate_epoch": 2000.0,
+        "render_vmag": 2.23,
+        "render_gmag": 2.282647,
+        "render_bv": 0.057,
+        "photometry_source": "johnson",
+    }
+
+    star, reason = builder.normalize_star_record(
+        record,
+        magnitude_limit=4.8,
+        minimum_magnitude=None,
+        include_labels=False,
+    )
+
+    assert reason is None
+    assert star
+    assert star["gaia"] == 1561616035378447232
+    assert star["hip"] == 65378
+    assert "HIP 65378" in star["ids"]
+    assert "TYC 3850-257-1" in star["ids"]
 
 
 def test_dense_star_tile_builder_writes_native_eph_release(tmp_path: Path) -> None:
