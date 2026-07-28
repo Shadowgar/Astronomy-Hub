@@ -57,17 +57,78 @@ def test_star_adapters_preserve_string_ids_and_source_backed_fields(tmp_path: Pa
     assert hip[0]["source_id"] == "hip-25336"
     assert hip[0]["ra"] == 81.28278
     assert hip[0]["color_index"] == -0.224
+    assert hip[0]["hip_id"] == "25336"
+    assert hip[0]["johnson_v_mag"] == 1.64
+    assert hip[0]["johnson_bv"] == -0.224
+    assert hip[0]["coordinate_epoch"] == 2000.0
 
     gaia_path = _write_vizier(
         tmp_path / "gaia.tsv",
-        ["_RAJ2000", "_DEJ2000", "Source", "Gmag", "BP-RP", "Plx", "pmRA", "pmDE", "RV", "Teff"],
-        [["217.392", "-62.676", "5853498713190525696", "7.10", "0.82", "12.5", "-15.2", "4.1", "22.3", "5772"]],
+        [
+            "_RAJ2000",
+            "_DEJ2000",
+            "Source",
+            "Gmag",
+            "BP-RP",
+            "Plx",
+            "pmRA",
+            "pmDE",
+            "RV",
+            "Teff",
+            "HIP",
+            "TYC2",
+        ],
+        [
+            [
+                "217.392",
+                "-62.676",
+                "5853498713190525696",
+                "7.10",
+                "0.82",
+                "12.5",
+                "-15.2",
+                "4.1",
+                "22.3",
+                "5772",
+                "71683",
+                "9012-1234-1",
+            ]
+        ],
     )
     gaia = list(load_vizier_stars(gaia_path, "gaia_dr3"))
     assert gaia[0]["source_id"] == "5853498713190525696"
     assert isinstance(gaia[0]["source_id"], str)
     assert gaia[0]["catalog"] == "Gaia DR3"
     assert gaia[0]["temperature_k"] == 5772.0
+    assert gaia[0]["gaia_g_mag"] == 7.1
+    assert gaia[0]["gaia_bp_rp"] == 0.82
+    assert gaia[0]["hip_id"] == "71683"
+    assert gaia[0]["tycho2_id"] == "9012-1234-1"
+    assert gaia[0]["coordinate_epoch"] == 2000.0
+    assert "HIP 71683" in gaia[0]["aliases"]
+    assert "TYC 9012-1234-1" in gaia[0]["aliases"]
+
+    tycho_path = _write_vizier(
+        tmp_path / "tycho.tsv",
+        [
+            "_RAJ2000",
+            "_DEJ2000",
+            "TYC1",
+            "TYC2",
+            "TYC3",
+            "BTmag",
+            "VTmag",
+            "HIP",
+        ],
+        [["217.392", "-62.676", "9012", "1234", "1", "7.75", "7.20", "71683"]],
+    )
+    tycho = list(load_vizier_stars(tycho_path, "tycho2"))
+    assert tycho[0]["source_id"] == "9012-1234-1"
+    assert tycho[0]["tycho2_id"] == "9012-1234-1"
+    assert tycho[0]["hip_id"] == "71683"
+    assert tycho[0]["tycho_bt_mag"] == 7.75
+    assert tycho[0]["tycho_vt_mag"] == 7.2
+    assert tycho[0]["coordinate_epoch"] == 2000.0
 
 
 def test_dso_adapters_cover_openngc_and_named_catalog_families(tmp_path: Path) -> None:
