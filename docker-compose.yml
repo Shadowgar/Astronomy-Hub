@@ -9,12 +9,14 @@ services:
       SATELLITE_TLE_FEED_PATH: /runtime/oras-satellite-tle/tle_satellite.jsonl.gz
       ORAS_SATELLITE_TLE_MANIFEST_PATH: /runtime/oras-satellite-tle/manifest.json
       ORAS_CATALOG_PACKS_DIR: /runtime/oras-catalog-packs
+      ORAS_PLANETARY_EPHEMERIS_DIR: /runtime/oras-planetary-ephemeris
     ports:
       - "8000:8000"
     volumes:
       - ./frontend/public/oras-sky-engine/skydata:/runtime/oras-sky-engine/skydata:ro
       - ${ORAS_SATELLITE_TLE_HOST_DIR:-./frontend/public/oras-sky-engine/skydata}:/runtime/oras-satellite-tle:ro
       - ${ORAS_CATALOG_PACKS_HOST_DIR:-./data/runtime-packs/catalog-packs}:/runtime/oras-catalog-packs:ro
+      - ${ORAS_PLANETARY_EPHEMERIS_HOST_DIR:-./data/runtime-packs/planetary-ephemeris/release}:/runtime/oras-planetary-ephemeris:ro
     depends_on:
       - postgres
       - redis

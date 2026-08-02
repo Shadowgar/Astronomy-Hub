@@ -9,6 +9,7 @@ from backend.app.services.sky_catalog_service import (
     build_sky_search_payload,
 )
 from backend.app.services.catalog_pack_service import build_catalog_pack_status_payload
+from backend.app.services.planetary_ephemeris_service import get_planetary_ephemeris_status
 
 router = APIRouter()
 
@@ -21,6 +22,15 @@ async def get_catalog_status():
 @router.get("/sky/catalog-packs", response_model=ResponseEnvelope)
 async def get_catalog_packs():
     return build_catalog_pack_status_payload()
+
+
+@router.get("/sky/planetary-ephemeris", response_model=ResponseEnvelope)
+async def get_planetary_ephemeris():
+    return {
+        "status": "ok",
+        "data": get_planetary_ephemeris_status(),
+        "meta": {},
+    }
 
 
 @router.get("/sky/object/gaia-dr2/{source_id}", response_model=ResponseEnvelope)

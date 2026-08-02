@@ -73,6 +73,14 @@ def build_solar_system_object_payload(
     az = _optional_float(body.get("azimuth"))
     name = SOLAR_SYSTEM_BODIES[normalized_source_id]["name"]
     time_basis = str(body.get("time_basis") or as_of.isoformat().replace("+00:00", "Z"))
+    ephemeris_source = str(body.get("ephemeris_source") or "jpl_horizons")
+    target_reference = str(body.get("target_reference") or name)
+    distance_au = _optional_float(body.get("distance_au"))
+    source_label = (
+        "local JPL DE442s ephemeris"
+        if ephemeris_source == "jpl_de442s_local"
+        else "JPL Horizons observer ephemeris"
+    )
 
     return {
         "catalog": SOLAR_SYSTEM_CATALOG,
@@ -89,8 +97,14 @@ def build_solar_system_object_payload(
         "indexed": True,
         "status": "indexed",
         "time_basis": time_basis,
-        "message": "Resolved from JPL Horizons observer ephemeris.",
-        "provenance": {"source_key": "jpl_horizons"},
+        "ephemeris_source": ephemeris_source,
+        "target_reference": target_reference,
+        "distance_au": distance_au,
+        "message": f"Resolved from {source_label}.",
+        "provenance": {
+            "source_key": ephemeris_source,
+            "target_reference": target_reference,
+        },
         "sky_engine_url": build_sky_engine_object_url(
             catalog=SOLAR_SYSTEM_CATALOG,
             source_id=normalized_source_id,

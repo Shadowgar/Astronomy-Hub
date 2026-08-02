@@ -122,6 +122,7 @@ data/
 /data/runtime-packs/catalog-packs/
 /data/runtime-packs/dense-star-tiles/
 /data/runtime-packs/satellite-tle/
+/data/runtime-packs/planetary-ephemeris/
 !backend/app/data/
 !backend/app/data/sky/
 !backend/app/data/sky/gaia_dr3_pilot_manifest.json
