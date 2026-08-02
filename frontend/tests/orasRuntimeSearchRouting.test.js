@@ -601,14 +601,30 @@ describe('oras runtime search routing', () => {
 
   it('routes exact-object resolution failures through the bounded retry handler', () => {
     const appSource = fs.readFileSync(appVuePath, 'utf8')
-    const method = appSource.slice(
-      appSource.indexOf('selectSkySourceRouteTargetByIdentity: function'),
-      appSource.indexOf('\n    }\n  },', appSource.indexOf('selectSkySourceRouteTargetByIdentity: function')),
-    )
+    const methodStart = appSource.indexOf('selectSkySourceRouteTargetByIdentity: function')
+    const methodEnd = appSource.indexOf('\n    }\n  },', methodStart)
+
+    expect(methodStart).toBeGreaterThanOrEqual(0)
+    expect(methodEnd).toBeGreaterThan(methodStart)
+    const method = appSource.slice(methodStart, methodEnd)
 
     expect(method).toContain('return swh.fetchOrasSkySourceByIdentity(identity).then(ss => {')
     expect(method).toContain('}).catch(err => {')
     expect(method).not.toContain('}, err => {')
+  })
+
+  it('materializes exhausted exact-star fallbacks with native astrometry only', () => {
+    const appSource = fs.readFileSync(appVuePath, 'utf8')
+    const methodStart = appSource.indexOf('selectSkySourceRouteTargetByIdentity: function')
+    const methodEnd = appSource.indexOf('\n    }\n  },', methodStart)
+
+    expect(methodStart).toBeGreaterThanOrEqual(0)
+    expect(methodEnd).toBeGreaterThan(methodStart)
+    const method = appSource.slice(methodStart, methodEnd)
+
+    expect(method).toContain("identity.model === 'star' && (identity.ra == null || identity.dec == null)")
+    expect(method).toContain("identity.model === 'star' || identity.model === 'dso'")
+    expect(method).toContain('{ ra: identity.ra, de: identity.dec, source_id: identity.sourceId }')
   })
 
   it('preserves exact ORAS identity after route selection updates the panel', () => {

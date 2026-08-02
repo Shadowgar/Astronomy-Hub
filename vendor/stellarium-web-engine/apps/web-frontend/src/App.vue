@@ -430,14 +430,20 @@ export default {
           return new Promise(resolve => setTimeout(resolve, retryDelayMs))
             .then(() => this.selectSkySourceRouteTargetByIdentity(identity, attempt + 1))
         }
+        if (identity.model === 'star' && (identity.ra == null || identity.dec == null)) {
+          console.log(err)
+          console.log("Couldn't materialize star without coordinates: " + identity.catalog + ' ' + identity.sourceId)
+          return
+        }
+        const fallbackModelData = (identity.model === 'star' || identity.model === 'dso') && identity.ra != null && identity.dec != null
+          ? { ra: identity.ra, de: identity.dec, source_id: identity.sourceId }
+          : {}
         const fallback = Object.assign({
           match: identity.sourceId,
           names: [identity.sourceId],
           types: [identity.model === 'dso' ? 'dso' : '*'],
           model: identity.model,
-          model_data: identity.model === 'dso' && identity.ra != null && identity.dec != null
-            ? { ra: identity.ra, de: identity.dec, source_id: identity.sourceId }
-            : {},
+          model_data: fallbackModelData,
           catalog: identity.catalog,
           source_id: identity.sourceId,
           display_name: identity.sourceId,
