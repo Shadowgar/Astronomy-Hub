@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { spawnSync } from 'node:child_process'
 
 import { describe, expect, it } from 'vitest'
 
@@ -192,5 +193,23 @@ describe('ORAS dense native star runtime integration', () => {
     expect(source).toContain('brightPixelRetentionRatio')
     expect(source).toContain('profileResourceCount')
     expect(source).not.toContain("entry.name.includes(`/dense-star-tiles/profiles/${profileId}/properties`)")
+  })
+
+  it.each([
+    ['ORAS_DENSE_STARS_MIN_BRIGHT_PIXEL_RETENTION', 'not-a-number'],
+    ['ORAS_DENSE_STARS_MIN_BRIGHT_PIXEL_RETENTION', '0'],
+    ['ORAS_DENSE_STARS_MIN_BRIGHT_PIXEL_RETENTION', '1.1'],
+    ['ORAS_DENSE_STARS_SETTLE_MS', '-1'],
+    ['ORAS_DENSE_STARS_TILE_SETTLE_MS', 'not-a-number'],
+  ])('rejects invalid browser-validation configuration in %s', (name, value) => {
+    const result = spawnSync(process.execPath, [denseStarsValidationScriptPath], {
+      cwd: repoRoot,
+      encoding: 'utf8',
+      env: { ...process.env, [name]: value },
+    })
+
+    expect(result.status).toBe(1)
+    expect(result.stderr).toContain(`invalid ${name}`)
+    expect(result.stderr).not.toContain('browserType.launch')
   })
 })

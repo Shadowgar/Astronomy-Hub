@@ -17,6 +17,23 @@ const settleMs = Number(process.env.ORAS_DENSE_STARS_SETTLE_MS || 4000)
 const tileSettleMs = Number(process.env.ORAS_DENSE_STARS_TILE_SETTLE_MS || 1000)
 const runtimeHealthRetries = Number(process.env.ORAS_DENSE_STARS_HEALTH_RETRIES || 40)
 const runtimeHealthDelayMs = Number(process.env.ORAS_DENSE_STARS_HEALTH_DELAY_MS || 1500)
+
+function assertValidationConfiguration () {
+  if (!Number.isFinite(minimumVisualBrightPixelRetention) || minimumVisualBrightPixelRetention <= 0 || minimumVisualBrightPixelRetention > 1) {
+    throw new Error('invalid ORAS_DENSE_STARS_MIN_BRIGHT_PIXEL_RETENTION: expected a finite value greater than 0 and at most 1')
+  }
+  for (const [name, value] of [
+    ['ORAS_DENSE_STARS_SETTLE_MS', settleMs],
+    ['ORAS_DENSE_STARS_TILE_SETTLE_MS', tileSettleMs]
+  ]) {
+    if (!Number.isFinite(value) || value < 0) {
+      throw new Error(`invalid ${name}: expected a finite non-negative value`)
+    }
+  }
+}
+
+assertValidationConfiguration()
+
 const fixedView = {
   fov: 120,
   date: '2026-06-04T02:16:04Z',
