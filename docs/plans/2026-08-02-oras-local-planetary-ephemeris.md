@@ -1,6 +1,6 @@
 # ORAS Local Planetary Ephemeris Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> Execute this plan task-by-task, preserving the listed validation checkpoints.
 
 **Goal:** Serve source-backed Sun, Moon, and major-planet positions locally from a mounted JPL DE442s kernel, with controlled Horizons fallback.
 

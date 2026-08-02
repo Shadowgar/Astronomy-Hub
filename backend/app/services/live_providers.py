@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+import logging
 import math
 import os
 import threading
@@ -13,6 +14,7 @@ import httpx
 from backend.app.services import planetary_ephemeris_service
 
 
+logger = logging.getLogger(__name__)
 _CACHE_LOCK = threading.Lock()
 _CACHE: dict[str, tuple[float, Any]] = {}
 _JPL_REQUEST_LOCK = threading.Lock()
@@ -661,16 +663,16 @@ def fetch_jpl_ephemeris(
     elevation_ft: float | None = None,
     as_of: datetime | None = None,
 ) -> list[dict[str, Any]]:
+    request_hour = (
+        as_of.astimezone(timezone.utc)
+        if isinstance(as_of, datetime)
+        else datetime.now(timezone.utc)
+    ).replace(minute=0, second=0, microsecond=0)
     local_release_dir = os.getenv("ORAS_PLANETARY_EPHEMERIS_DIR")
     if local_release_dir:
-        local_time = (
-            as_of.astimezone(timezone.utc)
-            if isinstance(as_of, datetime)
-            else datetime.now(timezone.utc)
-        )
         local_cache_key = (
             f"jpl-local:{round(lat, 3)}:{round(lon, 3)}:{elevation_ft or 0}:"
-            f"{local_time.isoformat()}"
+            f"{request_hour.strftime('%Y%m%d%H')}"
         )
         cached_local = _cache_get(local_cache_key)
         if isinstance(cached_local, list):
@@ -680,7 +682,7 @@ def fetch_jpl_ephemeris(
                 lat,
                 lon,
                 elevation_ft=elevation_ft,
-                as_of=local_time,
+                as_of=request_hour,
                 release_dir=local_release_dir,
             )
             normalized_local = [
@@ -699,15 +701,15 @@ def fetch_jpl_ephemeris(
                 ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["jpl_ephemeris"],
             )
             return normalized_local
-        except Exception:
+        except planetary_ephemeris_service.EphemerisUnavailableError as exc:
             # A missing, corrupt, or out-of-coverage local release falls back
             # to the existing Horizons path; no coordinates are synthesized.
-            pass
+            logger.warning(
+                "Local DE442s ephemeris unavailable, falling back to Horizons: %s",
+                exc,
+            )
 
-    if isinstance(as_of, datetime):
-        now = as_of.astimezone(timezone.utc).replace(minute=0, second=0, microsecond=0)
-    else:
-        now = datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
+    now = request_hour
     now_hour = now.strftime("%Y%m%d%H")
     cache_key = f"jpl:{round(lat, 3)}:{round(lon, 3)}:{elevation_ft or 0}:{now_hour}"
     cached = _cache_get(cache_key)

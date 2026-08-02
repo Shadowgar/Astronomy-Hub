@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import logging
+
+import pytest
 
 from backend.app.services import above_me_service, live_providers
 from backend.app.services.planetary_ephemeris_service import EphemerisUnavailableError
@@ -50,13 +53,21 @@ def test_fetch_jpl_ephemeris_prefers_configured_local_release(monkeypatch) -> No
 
     result = live_providers.fetch_jpl_ephemeris(41.44, -79.69, elevation_ft=0.0, as_of=AS_OF)
 
-    assert seen == [(41.44, -79.69, 0.0, AS_OF, "/runtime/test-de442s")]
+    assert seen == [
+        (
+            41.44,
+            -79.69,
+            0.0,
+            AS_OF.replace(minute=0, second=0, microsecond=0),
+            "/runtime/test-de442s",
+        )
+    ]
     assert result[0]["source"] == "jpl_ephemeris"
     assert result[0]["ephemeris_source"] == "jpl_de442s_local"
     assert result[0]["target_reference"] == "Mars barycenter"
 
 
-def test_fetch_jpl_ephemeris_falls_back_to_horizons(monkeypatch) -> None:
+def test_fetch_jpl_ephemeris_falls_back_to_horizons(monkeypatch, caplog) -> None:
     _disable_cache(monkeypatch)
     monkeypatch.setenv("ORAS_PLANETARY_EPHEMERIS_DIR", "/runtime/missing")
     monkeypatch.setattr(
@@ -72,11 +83,41 @@ def test_fetch_jpl_ephemeris_falls_back_to_horizons(monkeypatch) -> None:
         },
     )
 
-    result = live_providers.fetch_jpl_ephemeris(41.44, -79.69, elevation_ft=0.0, as_of=AS_OF)
+    with caplog.at_level(logging.WARNING, logger=live_providers.__name__):
+        result = live_providers.fetch_jpl_ephemeris(
+            41.44,
+            -79.69,
+            elevation_ft=0.0,
+            as_of=AS_OF,
+        )
 
     assert len(result) == len(live_providers.JPL_EPHEMERIS_BODIES)
     assert all(body["source"] == "jpl_ephemeris" for body in result)
     assert all(body["ephemeris_source"] == "jpl_horizons" for body in result)
+    assert "falling back to Horizons" in caplog.text
+
+
+def test_fetch_jpl_ephemeris_does_not_hide_unexpected_local_errors(monkeypatch) -> None:
+    _disable_cache(monkeypatch)
+    monkeypatch.setenv("ORAS_PLANETARY_EPHEMERIS_DIR", "/runtime/broken-code")
+    monkeypatch.setattr(
+        live_providers.planetary_ephemeris_service,
+        "compute_local_planetary_ephemeris",
+        lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("programming error")),
+    )
+    monkeypatch.setattr(
+        live_providers,
+        "_http_get_json",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("Horizons must not run")),
+    )
+
+    with pytest.raises(RuntimeError, match="programming error"):
+        live_providers.fetch_jpl_ephemeris(
+            41.44,
+            -79.69,
+            elevation_ft=0.0,
+            as_of=AS_OF,
+        )
 
 
 def test_exact_solar_object_exposes_local_ephemeris_provenance(monkeypatch) -> None:

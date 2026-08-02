@@ -70,6 +70,8 @@ def validate_release(
         raise ValueError("planetary ephemeris release files must not be symlinks")
 
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if not isinstance(manifest, dict):
+        raise ValueError("planetary ephemeris manifest must be a JSON object")
     missing = REQUIRED_FIELDS.difference(manifest)
     if missing:
         raise ValueError(f"planetary ephemeris manifest is missing: {', '.join(sorted(missing))}")
@@ -77,7 +79,7 @@ def validate_release(
         raise ValueError("unsupported planetary ephemeris manifest schema")
     if manifest["source_key"] != "jpl_de442s_local":
         raise ValueError("unexpected planetary ephemeris source key")
-    if manifest["source_url"] != DEFAULT_SOURCE_URL:
+    if enforce_official_release and manifest["source_url"] != DEFAULT_SOURCE_URL:
         raise ValueError("unexpected planetary ephemeris source URL")
     if manifest["kernel_filename"] != KERNEL_FILENAME:
         raise ValueError("unexpected planetary ephemeris kernel filename")

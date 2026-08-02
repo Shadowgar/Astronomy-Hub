@@ -40,6 +40,7 @@ def test_ephemeris_status_endpoint_reports_bounded_loaded_metadata(monkeypatch) 
     assert body["data"]["loaded"] is True
     assert body["data"]["object_count"] == 9
     assert "kernel" not in body["data"]
+    assert "release_dir" not in body["data"]
 
 
 def test_compose_mounts_ephemeris_read_only_and_images_exclude_runtime_data() -> None:

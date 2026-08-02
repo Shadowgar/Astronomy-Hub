@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from backend.app.services import planetary_ephemeris_service
 from backend.app.services.planetary_ephemeris_service import (
     EphemerisOutOfRangeError,
     compute_local_planetary_ephemeris,
@@ -26,6 +27,7 @@ def test_missing_local_release_reports_explicit_degraded_status(tmp_path: Path) 
     assert status["source_key"] == "jpl_de442s_local"
     assert status["fallback_source"] == "jpl_horizons"
     assert status["object_count"] == 0
+    assert "release_dir" not in status
 
 
 def test_corrupt_local_release_is_rejected_without_coordinates(tmp_path: Path) -> None:
@@ -55,6 +57,66 @@ def test_corrupt_local_release_is_rejected_without_coordinates(tmp_path: Path) -
     assert status["status"] == "degraded"
     assert status["object_count"] == 0
     assert "checksum" in status["message"]
+
+
+def test_runtime_cache_closes_evicted_kernels(monkeypatch, tmp_path: Path) -> None:
+    kernels = []
+
+    class FakeKernel:
+        def __init__(self) -> None:
+            self.closed = False
+
+        def names(self):
+            return {10: ["Sun"], 301: ["Moon"], 399: ["Earth"]}
+
+        def close(self) -> None:
+            self.closed = True
+
+    class FakeLoader:
+        def __init__(self, *args, **kwargs) -> None:
+            pass
+
+        def timescale(self, *, builtin):
+            assert builtin is True
+            return object()
+
+    def fake_load_file(path):
+        kernel = FakeKernel()
+        kernels.append(kernel)
+        return kernel
+
+    monkeypatch.setattr(
+        planetary_ephemeris_service,
+        "validate_release",
+        lambda *args, **kwargs: {"release_version": "test"},
+    )
+    monkeypatch.setattr(planetary_ephemeris_service, "load_file", fake_load_file)
+    monkeypatch.setattr(planetary_ephemeris_service, "Loader", FakeLoader)
+
+    planetary_ephemeris_service._clear_runtime_cache()
+    try:
+        first = planetary_ephemeris_service._load_runtime_cached(
+            str(tmp_path / "release-0"),
+            0,
+            0,
+        )
+        assert planetary_ephemeris_service._load_runtime_cached(
+            str(tmp_path / "release-0"),
+            0,
+            0,
+        ) is first
+        for index in range(1, 5):
+            planetary_ephemeris_service._load_runtime_cached(
+                str(tmp_path / f"release-{index}"), index, index
+            )
+
+        assert len(kernels) == 5
+        assert kernels[0].closed is True
+        assert all(kernel.closed is False for kernel in kernels[1:])
+    finally:
+        planetary_ephemeris_service._clear_runtime_cache()
+
+    assert all(kernel.closed is True for kernel in kernels)
 
 
 @pytest.mark.skipif(not HAS_LOCAL_RELEASE, reason="ignored DE442s runtime pack is not built")

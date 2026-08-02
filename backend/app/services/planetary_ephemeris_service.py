@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+from collections import OrderedDict
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from functools import lru_cache
 import os
 from pathlib import Path
+import threading
 from typing import Any
 
 from skyfield.api import Loader, load_file, wgs84
@@ -45,6 +46,11 @@ class _Runtime:
     timescale: Any
 
 
+_RUNTIME_CACHE: OrderedDict[tuple[str, int, int], _Runtime] = OrderedDict()
+_RUNTIME_CACHE_MAXSIZE = 4
+_RUNTIME_CACHE_LOCK = threading.RLock()
+
+
 def _release_dir(release_dir: Path | str | None = None) -> Path:
     if release_dir is not None:
         return Path(release_dir)
@@ -56,22 +62,46 @@ def _parse_utc(value: str) -> datetime:
     return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
 
 
-@lru_cache(maxsize=4)
 def _load_runtime_cached(
     release_path: str,
     manifest_mtime_ns: int,
     kernel_mtime_ns: int,
 ) -> _Runtime:
-    del manifest_mtime_ns, kernel_mtime_ns
-    release_dir = Path(release_path)
-    manifest = validate_release(release_dir, validate_kernel=False)
-    kernel = load_file(str(release_dir / KERNEL_FILENAME))
-    names = kernel.names()
-    if 10 not in names or 399 not in names or 301 not in names:
-        kernel.close()
-        raise ValueError("planetary ephemeris kernel lacks Sun, Earth, or Moon targets")
-    timescale = Loader(str(release_dir), verbose=False).timescale(builtin=True)
-    return _Runtime(manifest=manifest, kernel=kernel, timescale=timescale)
+    cache_key = (release_path, manifest_mtime_ns, kernel_mtime_ns)
+    with _RUNTIME_CACHE_LOCK:
+        cached = _RUNTIME_CACHE.get(cache_key)
+        if cached is not None:
+            _RUNTIME_CACHE.move_to_end(cache_key)
+            return cached
+
+        release_dir = Path(release_path)
+        manifest = validate_release(release_dir, validate_kernel=False)
+        kernel = None
+        try:
+            kernel = load_file(str(release_dir / KERNEL_FILENAME))
+            names = kernel.names()
+            if 10 not in names or 399 not in names or 301 not in names:
+                raise ValueError("planetary ephemeris kernel lacks Sun, Earth, or Moon targets")
+            timescale = Loader(str(release_dir), verbose=False).timescale(builtin=True)
+        except Exception:
+            if kernel is not None:
+                kernel.close()
+            raise
+
+        runtime = _Runtime(manifest=manifest, kernel=kernel, timescale=timescale)
+        _RUNTIME_CACHE[cache_key] = runtime
+        if len(_RUNTIME_CACHE) > _RUNTIME_CACHE_MAXSIZE:
+            _, evicted = _RUNTIME_CACHE.popitem(last=False)
+            evicted.kernel.close()
+        return runtime
+
+
+def _clear_runtime_cache() -> None:
+    with _RUNTIME_CACHE_LOCK:
+        runtimes = list(_RUNTIME_CACHE.values())
+        _RUNTIME_CACHE.clear()
+    for runtime in runtimes:
+        runtime.kernel.close()
 
 
 def _load_runtime(release_dir: Path) -> _Runtime:
@@ -79,11 +109,14 @@ def _load_runtime(release_dir: Path) -> _Runtime:
     kernel_path = release_dir / KERNEL_FILENAME
     if not manifest_path.is_file() or not kernel_path.is_file():
         raise EphemerisUnavailableError("local DE442s release is not mounted")
-    return _load_runtime_cached(
-        str(release_dir.resolve()),
-        manifest_path.stat().st_mtime_ns,
-        kernel_path.stat().st_mtime_ns,
-    )
+    try:
+        return _load_runtime_cached(
+            str(release_dir.resolve()),
+            manifest_path.stat().st_mtime_ns,
+            kernel_path.stat().st_mtime_ns,
+        )
+    except (KeyError, OSError, ValueError) as exc:
+        raise EphemerisUnavailableError(f"local DE442s release is invalid: {exc}") from exc
 
 
 def get_planetary_ephemeris_status(
@@ -99,7 +132,6 @@ def get_planetary_ephemeris_status(
             "source_key": SOURCE_KEY,
             "fallback_source": FALLBACK_SOURCE_KEY,
             "object_count": 0,
-            "release_dir": str(path),
             "message": str(exc),
         }
 
@@ -110,7 +142,6 @@ def get_planetary_ephemeris_status(
         "source_key": SOURCE_KEY,
         "fallback_source": FALLBACK_SOURCE_KEY,
         "object_count": len(BODY_TARGETS),
-        "release_dir": str(path),
         "release_version": manifest["release_version"],
         "coverage_start": manifest["coverage_start"],
         "coverage_end": manifest["coverage_end"],

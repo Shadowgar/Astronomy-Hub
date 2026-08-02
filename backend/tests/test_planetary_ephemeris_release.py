@@ -87,6 +87,45 @@ def test_release_validation_rejects_corruption_and_invalid_coverage(tmp_path: Pa
             enforce_official_release=False,
         )
 
+
+def test_release_validation_requires_manifest_object(tmp_path: Path) -> None:
+    release = tmp_path / "release"
+    release.mkdir()
+    (release / KERNEL_FILENAME).write_bytes(b"kernel")
+    (release / MANIFEST_FILENAME).write_text("[]", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="JSON object"):
+        validate_release(
+            release,
+            validate_kernel=False,
+            enforce_official_release=False,
+        )
+
+
+def test_non_official_release_allows_source_backed_custom_url(tmp_path: Path) -> None:
+    release = tmp_path / "release"
+    release.mkdir()
+    kernel = release / KERNEL_FILENAME
+    kernel.write_bytes(b"kernel")
+    manifest = {
+        "schema_version": 1,
+        "release_version": "de442s-mirror-test",
+        "source_key": "jpl_de442s_local",
+        "source_url": "https://example.invalid/source-backed/de442s.bsp",
+        "kernel_filename": KERNEL_FILENAME,
+        "byte_size": kernel.stat().st_size,
+        "sha256": hashlib.sha256(kernel.read_bytes()).hexdigest(),
+        "coverage_start": "1849-12-26T00:00:00Z",
+        "coverage_end": "2150-01-22T00:00:00Z",
+    }
+    (release / MANIFEST_FILENAME).write_text(json.dumps(manifest), encoding="utf-8")
+
+    assert validate_release(
+        release,
+        validate_kernel=False,
+        enforce_official_release=False,
+    ) == manifest
+
     kernel.write_bytes(b"kernel")
     manifest["coverage_start"] = "2150-01-22T00:00:00Z"
     manifest["coverage_end"] = "1849-12-26T00:00:00Z"
