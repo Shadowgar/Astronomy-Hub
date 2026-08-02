@@ -12,7 +12,9 @@ const maxVisualAddedBrightPixelRatio = Number(process.env.ORAS_DENSE_STARS_MAX_A
 const maxBrightBlobArea = Number(process.env.ORAS_DENSE_STARS_MAX_BRIGHT_BLOB_AREA || 950)
 const maxAverageBrightBlobRadius = Number(process.env.ORAS_DENSE_STARS_MAX_AVG_BRIGHT_BLOB_RADIUS || 5.0)
 const maxVisualLabelCount = Number(process.env.ORAS_DENSE_STARS_MAX_LABEL_COUNT || 25)
+const minimumVisualBrightPixelRetention = Number(process.env.ORAS_DENSE_STARS_MIN_BRIGHT_PIXEL_RETENTION || 0.9)
 const settleMs = Number(process.env.ORAS_DENSE_STARS_SETTLE_MS || 4000)
+const tileSettleMs = Number(process.env.ORAS_DENSE_STARS_TILE_SETTLE_MS || 1000)
 const runtimeHealthRetries = Number(process.env.ORAS_DENSE_STARS_HEALTH_RETRIES || 40)
 const runtimeHealthDelayMs = Number(process.env.ORAS_DENSE_STARS_HEALTH_DELAY_MS || 1500)
 const fixedView = {
@@ -167,6 +169,7 @@ function computeScreenshotMetrics (screenshotBuffer, baselineBuffer = null) {
   const pixelCount = image.width * image.height
   const brightMask = new Uint8Array(pixelCount)
   let brightPixels = 0
+  let baselineBrightPixels = 0
   let addedBrightPixels = 0
   let weightedLuminance = 0
   for (let pixel = 0; pixel < pixelCount; pixel++) {
@@ -177,7 +180,9 @@ function computeScreenshotMetrics (screenshotBuffer, baselineBuffer = null) {
       brightPixels++
     }
     if (baseline) {
-      const delta = luma - luminanceAt(baseline, pixel)
+      const baselineLuma = luminanceAt(baseline, pixel)
+      if (baselineLuma >= 120) baselineBrightPixels++
+      const delta = luma - baselineLuma
       if (luma >= 95 && delta >= 18) addedBrightPixels++
     }
   }
@@ -189,6 +194,8 @@ function computeScreenshotMetrics (screenshotBuffer, baselineBuffer = null) {
     width: image.width,
     height: image.height,
     brightPixelRatio: brightPixels / pixelCount,
+    baselineBrightPixelCount: baseline ? baselineBrightPixels : null,
+    brightPixelRetentionRatio: baseline && baselineBrightPixels > 0 ? brightPixels / baselineBrightPixels : null,
     addedBrightPixelRatio: baseline ? addedBrightPixels / pixelCount : null,
     maxBrightBlobArea: components[0] || 0,
     averageBrightBlobRadius,
@@ -283,10 +290,8 @@ async function getDenseStarManifest (page) {
 async function profileResourceCount (page, profile) {
   return page.evaluate((profileId) => performance
     .getEntriesByType('resource')
-    .filter(entry =>
-      entry.name.includes(`/dense-star-tiles/profiles/${profileId}/properties`) ||
-      entry.name.includes(`/dense-star-tiles/profiles/${profileId}/Norder`)
-    ).length, profile)
+    .filter(entry => entry.name.includes(`/dense-star-tiles/profiles/${profileId}/Norder`))
+    .length, profile)
 }
 
 async function visibleLabelCount (page) {
@@ -320,6 +325,9 @@ function assertConsoleClean (consoleMessages, fatalErrors) {
 }
 
 function assertVisualMetrics (field, metrics) {
+  if (!Number.isFinite(metrics.brightPixelRetentionRatio) || metrics.brightPixelRetentionRatio < minimumVisualBrightPixelRetention) {
+    throw new Error(`${field.id} visual profile retained too few baseline bright pixels: ${metrics.brightPixelRetentionRatio}`)
+  }
   if (metrics.brightPixelRatio > maxVisualBrightPixelRatio) {
     throw new Error(`${field.id} visual profile bright-pixel ratio too high: ${metrics.brightPixelRatio}`)
   }
@@ -420,6 +428,7 @@ async function validateDenseStars () {
     let maxVisualBrightPixelRatioSeen = 0
     let maxVisualAddedBrightPixelRatioSeen = 0
     let maxVisualBlobAreaSeen = 0
+    let minimumVisualBrightPixelRetentionSeen = Number.POSITIVE_INFINITY
 
     for (const field of DENSE_STAR_QA_FIELDS) {
       const fieldResult = {
@@ -436,12 +445,12 @@ async function validateDenseStars () {
           if (profile.id !== 'off') {
             await pageRun.page.waitForFunction(
               (profileId) => performance.getEntriesByType('resource').some(entry =>
-                entry.name.includes(`/dense-star-tiles/profiles/${profileId}/properties`) ||
                 entry.name.includes(`/dense-star-tiles/profiles/${profileId}/Norder`)
               ),
               profile.id,
               { timeout: timeoutMs }
             )
+            await pageRun.page.waitForTimeout(tileSettleMs)
           }
 
           const profileResources = profile.id === 'off'
@@ -478,6 +487,7 @@ async function validateDenseStars () {
             maxVisualBrightPixelRatioSeen = Math.max(maxVisualBrightPixelRatioSeen, metrics.brightPixelRatio)
             maxVisualAddedBrightPixelRatioSeen = Math.max(maxVisualAddedBrightPixelRatioSeen, metrics.addedBrightPixelRatio || 0)
             maxVisualBlobAreaSeen = Math.max(maxVisualBlobAreaSeen, metrics.maxBrightBlobArea)
+            minimumVisualBrightPixelRetentionSeen = Math.min(minimumVisualBrightPixelRetentionSeen, metrics.brightPixelRetentionRatio)
           }
 
           assertConsoleClean(pageRun.consoleMessages, pageRun.fatalErrors)
@@ -502,6 +512,7 @@ async function validateDenseStars () {
       maxVisualBrightPixelRatio: maxVisualBrightPixelRatioSeen,
       maxVisualAddedBrightPixelRatio: maxVisualAddedBrightPixelRatioSeen,
       maxVisualBrightBlobArea: maxVisualBlobAreaSeen,
+      minimumVisualBrightPixelRetention: minimumVisualBrightPixelRetentionSeen,
       visualWideMetrics: fields.find(field => field.id === 'horizon-north').profiles['visual-default'].metrics,
       visualMediumMetrics: fields.find(field => field.id === 'm31').profiles['visual-default'].metrics,
       fields,
@@ -513,7 +524,7 @@ async function validateDenseStars () {
     fs.writeFileSync(path.join(artifactRoot, 'acceptance-summary.json'), `${JSON.stringify(summary, null, 2)}\n`)
     fs.writeFileSync(path.join(artifactRoot, 'dense-stars-qa-summary.json'), `${JSON.stringify(summary, null, 2)}\n`)
     if (warnings.length) fs.writeFileSync(path.join(artifactRoot, 'dense-stars-qa-warnings.txt'), `${warnings.join('\n')}\n`)
-    console.log(`DENSE_STARS_PASS fields=${fields.length} defaultProfile=${summary.defaultProfile} visualStars=${summary.visualStarCount} deepStars=${summary.deepCatalogStarCount} labelCount=${summary.maxVisualLabelCount} brightPixelRatio=${summary.maxVisualBrightPixelRatio} maxBrightBlobArea=${summary.maxVisualBrightBlobArea}`)
+    console.log(`DENSE_STARS_PASS fields=${fields.length} defaultProfile=${summary.defaultProfile} visualStars=${summary.visualStarCount} deepStars=${summary.deepCatalogStarCount} labelCount=${summary.maxVisualLabelCount} brightPixelRatio=${summary.maxVisualBrightPixelRatio} brightPixelRetention=${summary.minimumVisualBrightPixelRetention} maxBrightBlobArea=${summary.maxVisualBrightBlobArea}`)
   } finally {
     for (const context of contexts.reverse()) {
       await context.close().catch(() => {})
