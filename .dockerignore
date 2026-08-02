@@ -4,6 +4,7 @@
 data/runtime-packs/catalog-packs
 data/runtime-packs/dense-star-tiles
 data/runtime-packs/satellite-tle
+data/runtime-packs/planetary-ephemeris
 
 !backend/
 !backend/**

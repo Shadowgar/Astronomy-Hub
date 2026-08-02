@@ -10,6 +10,8 @@ from typing import Any
 
 import httpx
 
+from backend.app.services import planetary_ephemeris_service
+
 
 _CACHE_LOCK = threading.Lock()
 _CACHE: dict[str, tuple[float, Any]] = {}
@@ -659,6 +661,49 @@ def fetch_jpl_ephemeris(
     elevation_ft: float | None = None,
     as_of: datetime | None = None,
 ) -> list[dict[str, Any]]:
+    local_release_dir = os.getenv("ORAS_PLANETARY_EPHEMERIS_DIR")
+    if local_release_dir:
+        local_time = (
+            as_of.astimezone(timezone.utc)
+            if isinstance(as_of, datetime)
+            else datetime.now(timezone.utc)
+        )
+        local_cache_key = (
+            f"jpl-local:{round(lat, 3)}:{round(lon, 3)}:{elevation_ft or 0}:"
+            f"{local_time.isoformat()}"
+        )
+        cached_local = _cache_get(local_cache_key)
+        if isinstance(cached_local, list):
+            return cached_local
+        try:
+            local_payload = planetary_ephemeris_service.compute_local_planetary_ephemeris(
+                lat,
+                lon,
+                elevation_ft=elevation_ft,
+                as_of=local_time,
+                release_dir=local_release_dir,
+            )
+            normalized_local = [
+                {
+                    **body,
+                    # Preserve the existing provider contract while exposing
+                    # the authoritative local source separately.
+                    "source": "jpl_ephemeris",
+                    "ephemeris_source": "jpl_de442s_local",
+                }
+                for body in local_payload
+            ]
+            _cache_set(
+                local_cache_key,
+                normalized_local,
+                ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["jpl_ephemeris"],
+            )
+            return normalized_local
+        except Exception:
+            # A missing, corrupt, or out-of-coverage local release falls back
+            # to the existing Horizons path; no coordinates are synthesized.
+            pass
+
     if isinstance(as_of, datetime):
         now = as_of.astimezone(timezone.utc).replace(minute=0, second=0, microsecond=0)
     else:
@@ -709,6 +754,8 @@ def fetch_jpl_ephemeris(
                         "id": body_name.lower(),
                         "name": body_name,
                         "source": "jpl_ephemeris",
+                        "ephemeris_source": "jpl_horizons",
+                        "target_reference": body_name,
                         "time_basis": now.isoformat().replace("+00:00", "Z"),
                         **row,
                     }

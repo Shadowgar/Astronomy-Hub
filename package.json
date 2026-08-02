@@ -43,6 +43,8 @@
     "satellites:build": ".venv/bin/python scripts/skydata/build_oras_satellite_tle_release.py",
     "satellites:install": "bash scripts/skydata/install_oras_satellite_tle_release.sh",
     "satellites:validate": ".venv/bin/python scripts/skydata/build_oras_satellite_tle_release.py --validate-only --output data/runtime-packs/satellite-tle/build",
+    "ephemeris:build": ".venv/bin/python scripts/skydata/build_oras_planetary_ephemeris.py",
+    "ephemeris:validate": ".venv/bin/python scripts/skydata/validate_oras_planetary_ephemeris.py",
     "validate:oras-deep-links": "node scripts/skydata/validate_oras_deep_links.js",
     "validate:oras-catalog-release": "node scripts/skydata/validate_oras_catalog_release.js",
     "validate:oras-dense-stars": "node scripts/skydata/validate_oras_dense_stars.js",

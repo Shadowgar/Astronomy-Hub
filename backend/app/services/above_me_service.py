@@ -7,6 +7,7 @@ import math
 from typing import Any
 
 from backend.app.services import live_providers
+from backend.app.services.planetary_ephemeris_service import get_planetary_ephemeris_status
 from backend.app.services.openngc_dso_catalog_service import build_openngc_above_me_seed_records
 from backend.app.services.openngc_dso_catalog_service import find_openngc_record_by_messier_id
 from backend.app.services.solar_system_catalog_service import SOLAR_SYSTEM_BODIES, SOLAR_SYSTEM_CATALOG
@@ -380,9 +381,18 @@ def _build_solar_system_candidates(*, observer: Observer, as_of: datetime) -> li
         model = body_config["model"]
         name = body_config["name"]
         object_type = model
-        reason = f"JPL Horizons {name} position at {alt:.1f} deg altitude."
+        ephemeris_source = str(body.get("ephemeris_source") or "jpl_horizons")
+        source_label = "JPL DE442s" if ephemeris_source == "jpl_de442s_local" else "JPL Horizons"
+        reason = f"{source_label} {name} position at {alt:.1f} deg altitude."
         if source_id == "sun":
             reason += " Daylight/safety object; observe only with a proper solar filter."
+
+        extra_fields: dict[str, Any] = {"ephemeris_source": ephemeris_source}
+        if target_reference := body.get("target_reference"):
+            extra_fields["target_reference"] = str(target_reference)
+        distance_au = _optional_magnitude(body.get("distance_au"))
+        if distance_au is not None:
+            extra_fields["distance_au"] = distance_au
 
         candidates.append(
             _build_candidate(
@@ -400,6 +410,7 @@ def _build_solar_system_candidates(*, observer: Observer, as_of: datetime) -> li
                 as_of=as_of,
                 reason=reason,
                 source_boost=0.12 if source_id != "sun" else 0.03,
+                extra_fields=extra_fields,
             )
         )
     return candidates
@@ -494,6 +505,12 @@ def _above_me_enrichment_fields(payload: dict[str, Any]) -> dict[str, Any]:
 def _object_source_inventory(*, as_of: datetime) -> dict[str, dict[str, Any]]:
     satellite_freshness = satellite_feed_freshness(as_of)
     satellite_is_fresh = satellite_freshness["freshness_status"] == "fresh"
+    planetary_status = get_planetary_ephemeris_status()
+    planetary_source = (
+        "Local JPL DE442s is loaded; Horizons remains the controlled fallback."
+        if planetary_status["loaded"]
+        else "Local JPL DE442s is degraded; JPL Horizons is the controlled fallback."
+    )
     return {
         "messier_local": {
             "status": "included",
@@ -517,11 +534,13 @@ def _object_source_inventory(*, as_of: datetime) -> dict[str, dict[str, Any]]:
         },
         "planets": {
             "status": "included",
-            "reason": "JPL Horizons observer ephemeris provides planet RA/Dec and alt/az when provider data is reachable.",
+            "reason": planetary_source,
+            "ephemeris": planetary_status,
         },
         "moon_sun": {
             "status": "included",
-            "reason": "JPL Horizons observer ephemeris provides Moon/Sun RA/Dec and alt/az when provider data is reachable.",
+            "reason": planetary_source,
+            "ephemeris": planetary_status,
         },
         "satellites": {
             "status": "included" if satellite_is_fresh else "degraded",
