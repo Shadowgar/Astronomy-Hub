@@ -176,7 +176,10 @@ def native_epoch(record: dict[str, Any]) -> float:
 
 
 def parse_hip_number(record: dict[str, Any]) -> int:
-    values = [record.get("hip_id"), record.get("source_id"), record.get("display_name")]
+    hip_id = _clean_identifier(record.get("hip_id"), "HIP")
+    if hip_id.isdigit():
+        return int(hip_id)
+    values = [record.get("source_id"), record.get("display_name")]
     values.extend(record.get("names") or [])
     values.extend(record.get("aliases") or [])
     for value in values:
@@ -283,19 +286,32 @@ def _gaia_bp_rp_to_johnson_bv(bp_rp: float) -> float | None:
     if not GAIA_BP_RP_RANGE[0] <= bp_rp <= GAIA_BP_RP_RANGE[1]:
         return None
     target = _gaia_g_minus_v(bp_rp)
-    low, high = JOHNSON_BV_RANGE
-    low_value = _johnson_g_minus_v(low)
-    high_value = _johnson_g_minus_v(high)
-    if not min(low_value, high_value) <= target <= max(low_value, high_value):
+    # The Johnson polynomial has a shallow maximum in the blue-star range, so
+    # invert each monotonic branch independently instead of bisecting the full
+    # domain as though it were monotonic.
+    derivative_discriminant = 0.5802**2 + 4 * 0.06024 * 0.0124
+    turning_point = (0.5802 - math.sqrt(derivative_discriminant)) / (2 * 0.06024)
+    candidates: list[float] = []
+    for low, high in (
+        (JOHNSON_BV_RANGE[0], turning_point),
+        (turning_point, JOHNSON_BV_RANGE[1]),
+    ):
+        low_value = _johnson_g_minus_v(low)
+        high_value = _johnson_g_minus_v(high)
+        if not min(low_value, high_value) <= target <= max(low_value, high_value):
+            continue
+        increasing = low_value < high_value
+        for _ in range(60):
+            midpoint = (low + high) / 2
+            value = _johnson_g_minus_v(midpoint)
+            if (value < target) == increasing:
+                low = midpoint
+            else:
+                high = midpoint
+        candidates.append((low + high) / 2)
+    if not candidates:
         return None
-    for _ in range(60):
-        midpoint = (low + high) / 2
-        value = _johnson_g_minus_v(midpoint)
-        if value > target:
-            low = midpoint
-        else:
-            high = midpoint
-    return (low + high) / 2
+    return min(candidates, key=lambda candidate: abs(candidate - bp_rp))
 
 
 def _first_finite(records: list[dict[str, Any]], field: str) -> float | None:
@@ -316,9 +332,10 @@ def _resolve_photometry(records: list[dict[str, Any]]) -> dict[str, Any] | None:
         bv = safe_float(record.get("johnson_bv"))
         if bv is None and str(record.get("magnitude_band") or "") == "V":
             bv = safe_float(record.get("color_index"))
+        gaia_g_mag = _first_finite(records, "gaia_g_mag")
         return {
             "render_vmag": vmag,
-            "render_gmag": _first_finite(records, "gaia_g_mag") or vmag,
+            "render_gmag": gaia_g_mag if gaia_g_mag is not None else vmag,
             "render_bv": bv if bv is not None else math.nan,
             "photometry_source": "johnson",
         }

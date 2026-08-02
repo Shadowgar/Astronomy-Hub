@@ -98,6 +98,17 @@ describe('ORAS dense native star runtime integration', () => {
     expect(source).toContain('survey->show_labels')
   })
 
+  it('resolves HIP anchors from canonical order-three tiles and allocates point buffers safely', () => {
+    const source = fs.readFileSync(nativeStarsSourcePath, 'utf8')
+
+    expect(source).toContain('parent_pix = hip_get_pix(hip, 2)')
+    expect(source).toContain('child_count = 1 << (2 * (order - 2))')
+    expect(source).toContain('pix = parent_pix * child_count + child')
+    expect(source).toContain('if ((size_t)tile->nb > SIZE_MAX / sizeof(*points)) goto end;')
+    expect(source).toContain('points = calloc(tile->nb, sizeof(*points));')
+    expect(source).toContain('if (!points) goto end;')
+  })
+
   it('exposes visible dense stars profile controls instead of a deep all-sky default toggle', () => {
     const source = fs.readFileSync(appVuePath, 'utf8')
     const dialog = fs.readFileSync(denseStarsDialogPath, 'utf8')

@@ -425,7 +425,7 @@ export default {
           obj.__orasSkySourceData = ss
           swh.setSweObjAsSelection(obj, ss)
         })
-      }, err => {
+      }).catch(err => {
         if (attempt < maxAttempts) {
           return new Promise(resolve => setTimeout(resolve, retryDelayMs))
             .then(() => this.selectSkySourceRouteTargetByIdentity(identity, attempt + 1))

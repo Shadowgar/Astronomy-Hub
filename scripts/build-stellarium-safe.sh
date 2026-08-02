@@ -83,6 +83,11 @@ run_cmd env \
   STELLARIUM_SKIP_HOST_NPM_INSTALL=1 \
   bash "$repo_root/scripts/prepare-stellarium-reference.sh"
 
+if [[ "$dry_run" -eq 0 && ! -f "$native_hash_file" ]]; then
+  echo "Missing native source hash file at $native_hash_file; prepare-stellarium-reference.sh must complete first." >&2
+  exit 1
+fi
+
 echo "Staging web frontend on internal storage: $staging_app_dir"
 run_cmd mkdir -p "$staging_app_dir" "$npm_cache_dir"
 run_cmd rsync -a --delete \

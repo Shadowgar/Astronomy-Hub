@@ -656,6 +656,7 @@ static int render_visitor(stars_t *stars, survey_t *survey,
     double p_win[4], size = 0, luminance = 0, vmag = -DBL_MAX;
     double color[3];
     double v[3];
+    point_t *points;
     double limit_mag = fmin(painter.stars_limit_mag, painter.hard_limit_mag);
     bool selected;
 
@@ -671,7 +672,10 @@ static int render_visitor(stars_t *stars, survey_t *survey,
     if (!tile) goto end;
     if (tile->mag_min > limit_mag) goto end;
 
-    point_t *points = malloc(tile->nb * sizeof(*points));
+    if (tile->nb <= 0) goto end;
+    if ((size_t)tile->nb > SIZE_MAX / sizeof(*points)) goto end;
+    points = calloc(tile->nb, sizeof(*points));
+    if (!points) goto end;
     for (i = 0; i < tile->nb; i++) {
         s = &tile->sources[i];
         if (s->vmag > limit_mag) break;
@@ -941,25 +945,41 @@ static int stars_add_data_source(obj_t *obj, const char *url, const char *key)
 
 obj_t *obj_get_by_hip(int hip, int *code)
 {
-    int order, pix, i;
+    int order, pix, i, child, child_count, parent_pix;
     stars_t *stars = g_stars;
     survey_t *survey;
     tile_t *tile;
 
-    for (order = 0; order < 2; order++) {
-        pix = hip_get_pix(hip, order);
-        if (pix == -1) {
-            *code = 404;
-            return NULL;
-        }
-        for (survey = stars->surveys; survey; survey = survey->next) {
-            if (survey->is_gaia) continue;
-            tile = get_tile(survey, order, pix, true, code);
-            if (*code == 0) return NULL; // Still loading.
-            if (!tile) continue;
-            for (i = 0; i < tile->nb; i++) {
-                if (tile->sources[i].hip == hip) {
-                    return obj_retain(&tile->sources[i].obj);
+    for (survey = stars->surveys; survey; survey = survey->next) {
+        if (survey->is_gaia) continue;
+        for (order = survey->min_order;
+             order <= (survey->min_order < 1 ? 1 : survey->min_order);
+             order++) {
+            if (order <= 2) {
+                parent_pix = hip_get_pix(hip, order);
+                child_count = 1;
+            } else if (order == 3) {
+                parent_pix = hip_get_pix(hip, 2);
+                child_count = 1 << (2 * (order - 2));
+            } else {
+                // Deeper surveys need a dedicated HIP identity index to avoid
+                // scanning an exponentially growing set of descendant tiles.
+                continue;
+            }
+            if (parent_pix == -1) {
+                *code = 404;
+                return NULL;
+            }
+            for (child = 0; child < child_count; child++) {
+                pix = parent_pix * child_count + child;
+                if (order <= 2) pix = parent_pix;
+                tile = get_tile(survey, order, pix, true, code);
+                if (*code == 0) return NULL; // Still loading.
+                if (!tile) continue;
+                for (i = 0; i < tile->nb; i++) {
+                    if (tile->sources[i].hip == hip) {
+                        return obj_retain(&tile->sources[i].obj);
+                    }
                 }
             }
         }

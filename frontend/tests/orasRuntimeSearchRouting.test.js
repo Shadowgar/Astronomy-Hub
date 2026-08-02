@@ -599,6 +599,18 @@ describe('oras runtime search routing', () => {
     expect(helpersSource).toContain("candidateNames.push('TYC ' + sourceId.replace(/^tyc\\s*/i, ''))")
   })
 
+  it('routes exact-object resolution failures through the bounded retry handler', () => {
+    const appSource = fs.readFileSync(appVuePath, 'utf8')
+    const method = appSource.slice(
+      appSource.indexOf('selectSkySourceRouteTargetByIdentity: function'),
+      appSource.indexOf('\n    }\n  },', appSource.indexOf('selectSkySourceRouteTargetByIdentity: function')),
+    )
+
+    expect(method).toContain('return swh.fetchOrasSkySourceByIdentity(identity).then(ss => {')
+    expect(method).toContain('}).catch(err => {')
+    expect(method).not.toContain('}, err => {')
+  })
+
   it('preserves exact ORAS identity after route selection updates the panel', () => {
     const helpersSource = fs.readFileSync(swHelpersPath, 'utf8')
     const appSource = fs.readFileSync(appVuePath, 'utf8')

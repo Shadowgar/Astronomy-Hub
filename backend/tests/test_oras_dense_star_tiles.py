@@ -273,6 +273,43 @@ def test_dense_star_builder_uses_source_backed_photometric_transformations() -> 
     assert invalid["photometry_source"] == "gaia_g_only"
 
 
+def test_dense_star_builder_parses_bare_numeric_hip_identifier() -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_hip_identifier")
+
+    assert builder.parse_hip_number({"hip_id": "32349", "source_id": "catalog-row-1"}) == 32349
+
+
+def test_dense_star_builder_preserves_zero_gaia_magnitude() -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_edge_photometry")
+    records = [
+        {
+            "catalog": "Hipparcos",
+            "source_id": "hip-32349",
+            "hip_id": "32349",
+            "johnson_v_mag": -1.44,
+            "johnson_bv": 0.01,
+        },
+        {
+            "catalog": "Gaia DR3",
+            "source_id": "2947050466531873024",
+            "gaia_g_mag": 0.0,
+        },
+    ]
+
+    photometry = builder._resolve_photometry(records)
+    assert photometry is not None
+    assert photometry["render_gmag"] == 0.0
+
+
+def test_dense_star_builder_preserves_blue_gaia_color_solution() -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_blue_photometry")
+
+    blue_bv = builder._gaia_bp_rp_to_johnson_bv(-0.3)
+
+    assert blue_bv is not None
+    assert -0.4 <= blue_bv < 0.0
+
+
 def test_normalized_canonical_star_keeps_native_identity_when_labels_are_suppressed() -> None:
     builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_identity")
     record = {

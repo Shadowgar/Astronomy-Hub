@@ -9,6 +9,7 @@ app_dir="$source_root/apps/web-frontend"
 assets_dir="$app_dir/src/assets/js"
 build_dir="$source_root/build"
 native_hash_file="$build_dir/.oras-native-source.sha256"
+required_native_source_dirs=("$source_root/src" "$source_root/ext_src")
 js_image="astronomy-hub-stellarium-jsbuild"
 js_dockerfile="$repo_root/scripts/Dockerfile.stellarium-jsbuild"
 expected_vue_version="2.6.12"
@@ -36,6 +37,14 @@ if [[ ! -f "$app_dir/package.json" ]]; then
   echo "Stellarium reference app not found at $app_dir" >&2
   exit 1
 fi
+
+for native_source_dir in "${required_native_source_dirs[@]}"; do
+  if [[ ! -d "$native_source_dir" ]]; then
+    echo "Missing required Stellarium native source directory: $native_source_dir" >&2
+    echo "Restore the vendored Stellarium Web Engine source before rebuilding WASM assets." >&2
+    exit 1
+  fi
+done
 
 PACKAGE_JSON="$app_dir/package.json" node <<'NODE'
 const fs = require('fs')
@@ -66,7 +75,7 @@ fi
 
 native_source_hash="$(
   {
-    find "$source_root/src" "$source_root/ext_src" -type f -print0
+    find "${required_native_source_dirs[@]}" -type f -print0
     printf '%s\0' "$source_root/Makefile" "$source_root/SConstruct"
   } | sort -z | xargs -0 sha256sum | sha256sum | awk '{print $1}'
 )"
