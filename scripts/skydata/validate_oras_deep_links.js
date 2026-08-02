@@ -5,7 +5,8 @@ const apiBaseUrl = process.env.ORAS_API_BASE_URL || 'http://127.0.0.1:8000'
 const timeoutMs = Number(process.env.ORAS_DEEP_LINK_TIMEOUT_MS || 90000)
 const cameraToleranceRad = Number(process.env.ORAS_DEEP_LINK_CAMERA_TOLERANCE_RAD || 0.02)
 const solarSystemTestTime = '2027-01-15T02:00:00Z'
-const visibleSatelliteTestTime = process.env.ORAS_SATELLITE_VALIDATION_TIME || new Date().toISOString()
+const defaultVisibleSatelliteTestTime = '2026-06-04T00:00:00Z'
+const visibleSatelliteTestTime = process.env.ORAS_SATELLITE_VALIDATION_TIME || defaultVisibleSatelliteTestTime
 const solarSystemLocation = { lat: '41.44', lng: '-79.69', elev: '0' }
 
 const cases = [
@@ -320,12 +321,30 @@ async function readRuntimeTargetState(page, identity) {
     let pitchDiff = null
     let targetRaDeg = null
     let targetDecDeg = null
+    let runtimeTargetRaDeg = null
+    let runtimeTargetDecDeg = null
     let targetCoordinateDiffDeg = null
     try {
       const radec = selection.getInfo('radec')
-      const targetSpherical = stel.c2s(radec)
-      targetRaDeg = ((targetSpherical[0] * 180 / Math.PI) % 360 + 360) % 360
-      targetDecDeg = targetSpherical[1] * 180 / Math.PI
+      const runtimeTargetSpherical = stel.c2s(radec)
+      runtimeTargetRaDeg = ((runtimeTargetSpherical[0] * 180 / Math.PI) % 360 + 360) % 360
+      runtimeTargetDecDeg = runtimeTargetSpherical[1] * 180 / Math.PI
+
+      // Exact links carry catalog coordinates, while SWE reports an apparent,
+      // equinox-of-date position for the live selection. Validate the catalog
+      // coordinates materialized into the object, then validate the camera
+      // independently against SWE's live position below.
+      const materializedModelData = selectedObject.model_data || {}
+      const finiteCoordinate = (...values) => {
+        for (const value of values) {
+          if (value == null || value === '') continue
+          const number = Number(value)
+          if (Number.isFinite(number)) return number
+        }
+        return null
+      }
+      targetRaDeg = finiteCoordinate(materializedModelData.ra, selectedObject.ra, runtimeTargetRaDeg)
+      targetDecDeg = finiteCoordinate(materializedModelData.de, materializedModelData.dec, selectedObject.dec, runtimeTargetDecDeg)
       if (Number.isFinite(expectedIdentity.expectedRaDeg) && Number.isFinite(expectedIdentity.expectedDecDeg)) {
         const radians = Math.PI / 180
         const targetRa = targetRaDeg * radians
@@ -355,6 +374,8 @@ async function readRuntimeTargetState(page, identity) {
         cameraCentered: false,
         targetRaDeg,
         targetDecDeg,
+        runtimeTargetRaDeg,
+        runtimeTargetDecDeg,
         targetCoordinateDiffDeg,
         reason: String(error && error.message ? error.message : error),
       }
@@ -368,6 +389,8 @@ async function readRuntimeTargetState(page, identity) {
       targetCoordinatesMatch: targetCoordinateDiffDeg == null || targetCoordinateDiffDeg <= expectedIdentity.coordinateToleranceDeg,
       targetRaDeg,
       targetDecDeg,
+      runtimeTargetRaDeg,
+      runtimeTargetDecDeg,
       targetCoordinateDiffDeg,
       yawDiff,
       pitchDiff,
