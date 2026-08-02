@@ -300,6 +300,17 @@ def test_curated_selection_fill_preserves_tier2_cap_and_dso_deduplication() -> N
     selected = above_me_service._select_curated_visible_objects(candidates, limit=9)
 
     assert len(selected) == 9
+    assert [item["source_id"] for item in selected] == [
+        "venus",
+        "M31",
+        "star-betelgeuse",
+        "25544",
+        "hip-0",
+        "hip-1",
+        "hip-2",
+        "hip-3",
+        "M13",
+    ]
     assert sum(item["catalog"] == "Hipparcos Tier 2 (local)" for item in selected) <= 4
     assert sum(
         item["source_id"] in {"M13", "NGC6205"}
