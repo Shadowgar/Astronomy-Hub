@@ -31,6 +31,8 @@ from backend.app.services.sky_object_enrichment import (
 
 DEFAULT_LIMIT = 25
 MAX_LIMIT = 100
+BRIGHT_STAR_CATALOG = "Bright Star Catalog (local)"
+CURATED_PRIMARY_CATEGORIES = ("solar_system", "dso", "bright_star", "satellite")
 logger = logging.getLogger(__name__)
 
 
@@ -105,26 +107,78 @@ def _build_catalog_candidates(
 
 
 def _select_curated_visible_objects(objects: list[dict[str, Any]], *, limit: int) -> list[dict[str, Any]]:
+    if limit <= 0:
+        return []
+
     sorted_objects = sorted(objects, key=_candidate_sort_key)
     tier2_cap = max(1, limit // 2)
     tier2_count = 0
     selected: list[dict[str, Any]] = []
+    selected_identities: set[tuple[str, str, str]] = set()
     selected_dso_tokens: set[str] = set()
 
-    for candidate in sorted_objects:
+    def select(candidate: dict[str, Any]) -> bool:
+        nonlocal tier2_count
+
+        identity = _candidate_identity(candidate)
+        if identity in selected_identities:
+            return False
         dso_tokens = _dso_identity_tokens(candidate)
         if dso_tokens and selected_dso_tokens.intersection(dso_tokens):
-            continue
+            return False
         if candidate["catalog"] == "Hipparcos Tier 2 (local)":
             if tier2_count >= tier2_cap:
-                continue
+                return False
             tier2_count += 1
         selected.append(candidate)
+        selected_identities.add(identity)
         selected_dso_tokens.update(dso_tokens)
+        return True
+
+    representatives: dict[str, dict[str, Any]] = {}
+    for candidate in sorted_objects:
+        category = _curated_primary_category(candidate)
+        if category is not None and category not in representatives:
+            representatives[category] = candidate
+
+    ranked_representatives = sorted(
+        (
+            representatives[category]
+            for category in CURATED_PRIMARY_CATEGORIES
+            if category in representatives
+        ),
+        key=_candidate_sort_key,
+    )
+    for candidate in ranked_representatives[:limit]:
+        select(candidate)
+
+    for candidate in sorted_objects:
         if len(selected) >= limit:
             break
+        select(candidate)
 
-    return selected
+    return sorted(selected, key=_candidate_sort_key)
+
+
+def _curated_primary_category(candidate: dict[str, Any]) -> str | None:
+    model = candidate.get("model")
+    if model in {"planet", "moon", "sun"}:
+        return "solar_system"
+    if model == "dso":
+        return "dso"
+    if model == "star" and candidate.get("catalog") == BRIGHT_STAR_CATALOG:
+        return "bright_star"
+    if model == "tle_satellite":
+        return "satellite"
+    return None
+
+
+def _candidate_identity(candidate: dict[str, Any]) -> tuple[str, str, str]:
+    return (
+        str(candidate.get("catalog") or ""),
+        str(candidate.get("source_id") or ""),
+        str(candidate.get("model") or ""),
+    )
 
 
 def _dso_identity_tokens(candidate: dict[str, Any]) -> set[str]:
