@@ -303,6 +303,19 @@ const swh = {
 
       const candidateNames = []
       const compactMessierPattern = /^M\d+$/i
+      const sourceId = String(ss.source_id || '').trim()
+      const catalog = String(ss.catalog || '').toLowerCase()
+      if (ss.model === 'star' && sourceId) {
+        if (catalog.includes('gaia') && /^\d+$/.test(sourceId)) {
+          candidateNames.push('GAIA ' + sourceId)
+        }
+        if (catalog.includes('hipparcos') || /^hip-/i.test(sourceId)) {
+          candidateNames.push('HIP ' + sourceId.replace(/^hip-/i, ''))
+        }
+        if (catalog.includes('tycho') || /^tyc\s*/i.test(sourceId)) {
+          candidateNames.push('TYC ' + sourceId.replace(/^tyc\s*/i, ''))
+        }
+      }
       for (const rawName of baseNames) {
         const name = String(rawName || '').trim()
         if (!name) {

@@ -26,12 +26,14 @@ def load_hipparcos(path: str | Path) -> Iterable[dict]:
         record = {
             "catalog": "Hipparcos Tier 2 (local)",
             "source_id": source_id,
+            "hip_id": source_id.removeprefix("hip-"),
             "model": "star",
             "display_name": name,
             "category": "stars",
             "object_type": "star",
             "ra": ra_hours * 15,
             "dec": dec,
+            "coordinate_epoch": 2000.0,
             "names": [name],
             "aliases": unique_strings(source_id, source_id.replace("hip-", "HIP ")),
             "types": ["*"],
@@ -40,8 +42,10 @@ def load_hipparcos(path: str | Path) -> Iterable[dict]:
         if finite(row.get("magnitude")) is not None:
             record["magnitude"] = finite(row["magnitude"])
             record["magnitude_band"] = "V"
+            record["johnson_v_mag"] = finite(row["magnitude"])
         if finite(row.get("color_index")) is not None:
             record["color_index"] = finite(row["color_index"])
+            record["johnson_bv"] = finite(row["color_index"])
         yield record
 
 
@@ -51,18 +55,55 @@ def load_vizier_stars(path: str | Path, profile: str) -> Iterable[dict]:
         if position is None:
             continue
         ra, dec = position
-        if profile == "gaia_dr3":
+        if profile == "hipparcos_bright":
+            hip_id = str(row.get("HIP") or "").strip()
+            if not hip_id:
+                continue
+            label = f"HIP {hip_id}"
+            record = _star_record(
+                catalog="Hipparcos (CDS)",
+                source_id=f"hip-{hip_id}",
+                display_name=label,
+                ra=ra,
+                dec=dec,
+                aliases=[label],
+                source_key="hipparcos_bright",
+                source_name="ESA Hipparcos Catalogue via CDS I/239",
+                source_url="https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+            )
+            record["hip_id"] = hip_id
+            record["magnitude_band"] = "V"
+            record["coordinate_epoch"] = 2000.0
+            _copy_number(record, row, "Vmag", "magnitude")
+            _copy_number(record, row, "Vmag", "johnson_v_mag")
+            _copy_number(record, row, "B-V", "color_index")
+            _copy_number(record, row, "B-V", "johnson_bv")
+            _copy_number(record, row, "Plx", "parallax")
+            _copy_number(record, row, "pmRA", "proper_motion_ra")
+            _copy_number(record, row, "pmDE", "proper_motion_dec")
+            spectral = str(row.get("SpType") or "").strip()
+            if spectral:
+                record["spectral_type"] = spectral
+            yield record
+        elif profile == "gaia_dr3":
             source_id = str(row.get("Source") or "").strip()
             if not source_id:
                 continue
             label = f"Gaia DR3 {source_id}"
+            hip_id = str(row.get("HIP") or "").strip()
+            tycho2_id = str(row.get("TYC2") or "").strip()
+            aliases = [f"Gaia {source_id}"]
+            if hip_id:
+                aliases.append(f"HIP {hip_id}")
+            if tycho2_id:
+                aliases.append(f"TYC {tycho2_id}")
             record = _star_record(
                 catalog="Gaia DR3",
                 source_id=source_id,
                 display_name=label,
                 ra=ra,
                 dec=dec,
-                aliases=[f"Gaia {source_id}"],
+                aliases=aliases,
                 source_key="gaia_dr3",
                 source_name="ESA Gaia DR3 via CDS I/355",
                 source_url="https://cdsarc.cds.unistra.fr/viz-bin/cat/I/355",
@@ -70,11 +111,18 @@ def load_vizier_stars(path: str | Path, profile: str) -> Iterable[dict]:
             _copy_number(record, row, "Gmag", "magnitude")
             record["magnitude_band"] = "Gaia G"
             _copy_number(record, row, "BP-RP", "color_index")
+            _copy_number(record, row, "Gmag", "gaia_g_mag")
+            _copy_number(record, row, "BP-RP", "gaia_bp_rp")
             _copy_number(record, row, "Plx", "parallax")
             _copy_number(record, row, "pmRA", "proper_motion_ra")
             _copy_number(record, row, "pmDE", "proper_motion_dec")
             _copy_number(record, row, "RV", "radial_velocity_km_s")
             _copy_number(record, row, "Teff", "temperature_k")
+            record["coordinate_epoch"] = 2000.0
+            if hip_id:
+                record["hip_id"] = hip_id
+            if tycho2_id:
+                record["tycho2_id"] = tycho2_id
             yield record
         elif profile == "tycho2":
             parts = [str(row.get(field) or "").strip() for field in ("TYC1", "TYC2", "TYC3")]
@@ -99,8 +147,14 @@ def load_vizier_stars(path: str | Path, profile: str) -> Iterable[dict]:
             )
             _copy_number(record, row, "VTmag", "magnitude")
             record["magnitude_band"] = "Tycho V_T"
+            _copy_number(record, row, "BTmag", "tycho_bt_mag")
+            _copy_number(record, row, "VTmag", "tycho_vt_mag")
             _copy_number(record, row, "pmRA", "proper_motion_ra")
             _copy_number(record, row, "pmDE", "proper_motion_dec")
+            record["tycho2_id"] = source_id
+            record["coordinate_epoch"] = 2000.0
+            if hip:
+                record["hip_id"] = hip
             yield record
         elif profile == "gliese":
             source_id = str(row.get("Name") or "").strip()
@@ -121,8 +175,11 @@ def load_vizier_stars(path: str | Path, profile: str) -> Iterable[dict]:
             _copy_number(record, row, "Vmag", "magnitude")
             record["magnitude_band"] = "V"
             _copy_number(record, row, "B-V", "color_index")
+            _copy_number(record, row, "Vmag", "johnson_v_mag")
+            _copy_number(record, row, "B-V", "johnson_bv")
             _copy_number(record, row, "plx", "parallax")
             _copy_number(record, row, "RV", "radial_velocity_km_s")
+            record["coordinate_epoch"] = 2000.0
             spectral = str(row.get("Sp") or "").strip()
             if spectral:
                 record["spectral_type"] = spectral

@@ -178,6 +178,33 @@ export function createOrasDenseStarsManager (options = {}) {
   return { getSnapshot, getSurveyKey, getSurveyRoot, isReadyForNativeRegistration, load, setProfile, subscribe }
 }
 
+export async function registerOrasStarCatalogChain (core, options = {}) {
+  const manager = options.manager || orasDenseStars
+  const fallbackRoots = Array.isArray(options.fallbackRoots) ? options.fallbackRoots : []
+  const gaiaRoot = String(options.gaiaRoot || '')
+
+  manager.setProfile(options.profile)
+  await manager.load()
+
+  let mode = 'stock_fallback'
+  if (manager.isReadyForNativeRegistration()) {
+    core.stars.addDataSource({
+      url: manager.getSurveyRoot(),
+      key: manager.getSurveyKey()
+    })
+    mode = 'canonical_replacement'
+  } else {
+    fallbackRoots.forEach(packRoot => {
+      core.stars.addDataSource({ url: packRoot + '/stars' })
+    })
+  }
+
+  if (gaiaRoot) {
+    core.stars.addDataSource({ url: gaiaRoot, key: 'gaia' })
+  }
+  return { mode }
+}
+
 function resolveActiveProfile (profile, profiles) {
   const value = normalizeProfile(profile)
   if (value === OFF_PROFILE) return OFF_PROFILE
@@ -190,6 +217,8 @@ function validateManifest (manifest) {
   if (!manifest || manifest.schema_version !== 1) throw new Error('unsupported dense star manifest schema')
   if (manifest.rendering_path !== 'native_swe_star_tiles') throw new Error('unsupported dense star rendering path')
   if (manifest.source_id_type !== 'string') throw new Error('dense star source IDs must remain strings')
+  if (manifest.catalog_mode !== 'canonical_replacement') throw new Error('dense star release must replace the bright catalog chain')
+  if (!manifest.native_continuation || manifest.native_continuation.key !== 'gaia') throw new Error('dense star release must declare the native Gaia continuation')
   if (manifest.default_profile !== DEFAULT_PROFILE) throw new Error('dense star default profile must be visual-default')
   if (!manifest.profiles || typeof manifest.profiles !== 'object') throw new Error('dense star profiles are required')
   for (const [profileId, profile] of Object.entries(manifest.profiles)) {

@@ -8,6 +8,8 @@ source_root="$repo_root/vendor/stellarium-web-engine"
 app_dir="$source_root/apps/web-frontend"
 assets_dir="$app_dir/src/assets/js"
 build_dir="$source_root/build"
+native_hash_file="$build_dir/.oras-native-source.sha256"
+required_native_source_dirs=("$source_root/src" "$source_root/ext_src")
 js_image="astronomy-hub-stellarium-jsbuild"
 js_dockerfile="$repo_root/scripts/Dockerfile.stellarium-jsbuild"
 expected_vue_version="2.6.12"
@@ -36,6 +38,14 @@ if [[ ! -f "$app_dir/package.json" ]]; then
   exit 1
 fi
 
+for native_source_dir in "${required_native_source_dirs[@]}"; do
+  if [[ ! -d "$native_source_dir" ]]; then
+    echo "Missing required Stellarium native source directory: $native_source_dir" >&2
+    echo "Restore the vendored Stellarium Web Engine source before rebuilding WASM assets." >&2
+    exit 1
+  fi
+done
+
 PACKAGE_JSON="$app_dir/package.json" node <<'NODE'
 const fs = require('fs')
 
@@ -63,13 +73,26 @@ elif [[ ! -d "$app_dir/node_modules" || "$vue_version" != "$expected_vue_version
     )
 fi
 
-if [[ ! -f "$assets_dir/stellarium-web-engine.js" || ! -f "$assets_dir/stellarium-web-engine.wasm" ]]; then
+native_source_hash="$(
+  {
+    find "${required_native_source_dirs[@]}" -type f -print0
+    printf '%s\0' "$source_root/Makefile" "$source_root/SConstruct"
+  } | sort -z | xargs -0 sha256sum | sha256sum | awk '{print $1}'
+)"
+
+if [[
+  ! -f "$assets_dir/stellarium-web-engine.js"
+  || ! -f "$assets_dir/stellarium-web-engine.wasm"
+  || ! -f "$native_hash_file"
+  || "$(cat "$native_hash_file")" != "$native_source_hash"
+]]; then
   echo "Preparing Stellarium engine assets in $assets_dir"
   docker build -f "$js_dockerfile" -t "$js_image" "$repo_root"
   docker run --rm -v "$source_root:/app" "$js_image" /bin/bash -lc "source /emsdk/emsdk_env.sh && make js-es6"
   mkdir -p "$assets_dir"
   cp "$build_dir/stellarium-web-engine.js" "$assets_dir/stellarium-web-engine.js"
   cp "$build_dir/stellarium-web-engine.wasm" "$assets_dir/stellarium-web-engine.wasm"
+  printf '%s\n' "$native_source_hash" > "$native_hash_file"
 fi
 
 # Satellite releases are acquired independently and mounted at runtime. Keeping

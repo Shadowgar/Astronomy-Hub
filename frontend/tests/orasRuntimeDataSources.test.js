@@ -42,7 +42,9 @@ describe('oras runtime data sources', () => {
     expect(source).not.toContain("core.dsos.addDataSource({ url: bundledDataBase + '/dso' })")
     expect(source).toContain("core.dsos.addDataSource({ url: bundledDataBase + '/packs/base/dso' })")
     expect(source).toContain("core.dsos.addDataSource({ url: bundledDataBase + '/packs/extended/dso' })")
-    expect(source).toContain("core.stars.addDataSource({ url: ORAS_BUNDLED_GAIA_SURVEY_ROOT, key: 'gaia' })")
+    expect(source).toContain('registerOrasStarCatalogChain(core, {')
+    expect(source).toContain('fallbackRoots: listOrasPackRoots()')
+    expect(source).toContain('gaiaRoot: ORAS_BUNDLED_GAIA_SURVEY_ROOT')
     expect(source).toContain("core.minor_planets.addDataSource({ url: bundledDataBase + '/mpcorb.dat', key: 'mpc_asteroids' })")
     expect(source).toContain("core.comets.addDataSource({ url: bundledDataBase + '/CometEls.txt', key: 'mpc_comets' })")
     expect(source).toContain("core.satellites.addDataSource({ url: bundledDataBase + '/tle_satellite.jsonl.gz', key: 'jsonl/sat' })")
@@ -54,7 +56,7 @@ describe('oras runtime data sources', () => {
     expect(source).not.toContain("remoteDataBase + '/swe-data-packs")
     expect(source).not.toContain("remoteDataBase + '/mpc/v1/mpcorb.dat'")
     expect(source).not.toContain("remoteDataBase + '/mpc/v1/CometEls.txt'")
-    expect(source).toContain("listOrasPackRoots().forEach((packRoot) => {")
+    expect(source).toContain('fallbackRoots: listOrasPackRoots()')
     expect(source).not.toContain('VUE_APP_ORAS_RUNTIME_REMOTE_DATA_BASE')
   })
 
@@ -87,6 +89,7 @@ describe('oras runtime data sources', () => {
   it('builds through source-controlled runtime scripts with a build marker and configurable swap', () => {
     const buildScript = fs.readFileSync(buildScriptPath, 'utf8')
     const syncScript = fs.readFileSync(syncScriptPath, 'utf8')
+    const prepareScript = fs.readFileSync(prepareScriptPath, 'utf8')
 
     expect(buildScript).toContain('STELLARIUM_BUILD_MEMORY_SWAP_MB')
     expect(buildScript).not.toContain('--memory-swap "${memory_mb}m"')
@@ -97,6 +100,14 @@ describe('oras runtime data sources', () => {
     expect(buildScript).toContain('ORAS_RUNTIME_COPY_SKYDATA=0')
     expect(buildScript).not.toContain('staging_skydata_dir')
     expect(buildScript).not.toContain('rsync -a --delete "$skydata_dir/"')
+    expect(buildScript).toContain('native_source_hash')
+    expect(buildScript).toContain('native_source_hash: nativeSourceHash')
+    expect(buildScript).toContain('Missing native source hash file')
+    expect(prepareScript).toContain('native_hash_file')
+    expect(prepareScript).toContain('required_native_source_dirs=("$source_root/src" "$source_root/ext_src")')
+    expect(prepareScript).toContain('Missing required Stellarium native source directory')
+    expect(prepareScript).toContain('"$(cat "$native_hash_file")" != "$native_source_hash"')
+    expect(prepareScript).toContain("printf '%s\\n' \"$native_source_hash\" > \"$native_hash_file\"")
     expect(syncScript).toContain('oras-runtime-build.json')
   })
 

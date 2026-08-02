@@ -79,7 +79,7 @@ import OrasCatalogStatusDialog from '@/components/oras-catalog-status-dialog.vue
 import OrasDenseStarsStatusDialog from '@/components/oras-dense-stars-status-dialog.vue'
 import { ORAS_BUNDLED_GAIA_SURVEY_ROOT, listOrasPackRoots, resolveOrasDssSurveyUrl, toOrasSkySource, withOrasRouteIdentityFallback } from '@/assets/oras_data_config.js'
 import { orasCatalogPacks } from '@/assets/oras_catalog_packs.js'
-import { orasDenseStars } from '@/assets/oras_dense_stars.js'
+import { orasDenseStars, registerOrasStarCatalogChain } from '@/assets/oras_dense_stars.js'
 import swh from '@/assets/sw_helpers.js'
 import Moment from 'moment'
 
@@ -109,7 +109,7 @@ export default {
       dataSourceInitDone: false,
       showCatalogPacks: false,
       showDenseStars: false,
-      denseStarSurveyRegistered: false,
+      starDataSourcesReady: Promise.resolve({ mode: 'not-started' }),
       orasOverlayObjects: []
     }
   },
@@ -171,21 +171,6 @@ export default {
       if (item.store_var_name) {
         this.toggleStoreValue(item.store_var_name)
       }
-    },
-    registerOrasDenseStarSurvey: function (core) {
-      if (this.denseStarSurveyRegistered || this.$store.state.orasDenseStarsProfile === 'off') {
-        return
-      }
-      orasDenseStars.setProfile(this.$store.state.orasDenseStarsProfile)
-      orasDenseStars.load().then(() => {
-        if (!orasDenseStars.isReadyForNativeRegistration() || this.denseStarSurveyRegistered) {
-          return
-        }
-        core.stars.addDataSource({ url: orasDenseStars.getSurveyRoot(), key: orasDenseStars.getSurveyKey() })
-        this.denseStarSurveyRegistered = true
-      }, error => {
-        console.warn('Failed to load ORAS dense star survey', error)
-      })
     },
     getStoreValue: function (storeVarName) {
       return _.get(this.$store.state, storeVarName)
@@ -403,6 +388,29 @@ export default {
       })
     },
 
+    resolveExactSkySourceRouteObject: function (ss, identity, attempt = 0) {
+      const maxNativeAttempts = 40
+      const retryDelayMs = 125
+      const dataSourcesReady = identity.model === 'star' ? this.starDataSourcesReady : Promise.resolve()
+
+      return Promise.resolve(dataSourcesReady).then(() => {
+        const nativeObj = swh.skySource2SweObj(ss)
+        if (nativeObj) {
+          return nativeObj
+        }
+        if (identity.model === 'star' && attempt < maxNativeAttempts) {
+          return new Promise(resolve => setTimeout(resolve, retryDelayMs))
+            .then(() => this.resolveExactSkySourceRouteObject(ss, identity, attempt + 1))
+        }
+        const fallbackObj = this.$stel.createObj(ss.model, ss)
+        if (!fallbackObj) {
+          throw new Error('Exact sky source target is not ready yet')
+        }
+        this.$selectionLayer.add(fallbackObj)
+        return fallbackObj
+      })
+    },
+
     selectSkySourceRouteTargetByIdentity: function (identity, attempt = 0) {
       const retryDelayMs = 250
       const maxAttempts = 80
@@ -413,30 +421,29 @@ export default {
           throw new Error('Resolved sky source did not match requested identity')
         }
 
-        let obj = swh.skySource2SweObj(ss)
-        if (!obj) {
-          const fallbackObj = this.$stel.createObj(ss.model, ss)
-          if (!fallbackObj) {
-            throw new Error('Exact sky source target is not ready yet')
-          }
-          obj = fallbackObj
-          this.$selectionLayer.add(obj)
-        }
-        obj.__orasSkySourceData = ss
-        swh.setSweObjAsSelection(obj, ss)
-      }, err => {
+        return this.resolveExactSkySourceRouteObject(ss, identity).then(obj => {
+          obj.__orasSkySourceData = ss
+          swh.setSweObjAsSelection(obj, ss)
+        })
+      }).catch(err => {
         if (attempt < maxAttempts) {
           return new Promise(resolve => setTimeout(resolve, retryDelayMs))
             .then(() => this.selectSkySourceRouteTargetByIdentity(identity, attempt + 1))
         }
+        if (identity.model === 'star' && (identity.ra == null || identity.dec == null)) {
+          console.log(err)
+          console.log("Couldn't materialize star without coordinates: " + identity.catalog + ' ' + identity.sourceId)
+          return
+        }
+        const fallbackModelData = (identity.model === 'star' || identity.model === 'dso') && identity.ra != null && identity.dec != null
+          ? { ra: identity.ra, de: identity.dec, source_id: identity.sourceId }
+          : {}
         const fallback = Object.assign({
           match: identity.sourceId,
           names: [identity.sourceId],
           types: [identity.model === 'dso' ? 'dso' : '*'],
           model: identity.model,
-          model_data: identity.model === 'dso' && identity.ra != null && identity.dec != null
-            ? { ra: identity.ra, de: identity.dec, source_id: identity.sourceId }
-            : {},
+          model_data: fallbackModelData,
           catalog: identity.catalog,
           source_id: identity.sourceId,
           display_name: identity.sourceId,
@@ -543,11 +550,15 @@ export default {
             // keep legacy root /dso disabled and load base + extended packs.
             core.dsos.addDataSource({ url: bundledDataBase + '/packs/base/dso' })
             core.dsos.addDataSource({ url: bundledDataBase + '/packs/extended/dso' })
-            listOrasPackRoots().forEach((packRoot) => {
-              core.stars.addDataSource({ url: packRoot + '/stars' })
+            that.starDataSourcesReady = registerOrasStarCatalogChain(core, {
+              manager: orasDenseStars,
+              profile: that.$store.state.orasDenseStarsProfile,
+              fallbackRoots: listOrasPackRoots(),
+              gaiaRoot: ORAS_BUNDLED_GAIA_SURVEY_ROOT
+            }).catch(error => {
+              console.warn('Failed to register ORAS canonical star chain', error)
+              return { mode: 'failed' }
             })
-            that.registerOrasDenseStarSurvey(core)
-            core.stars.addDataSource({ url: ORAS_BUNDLED_GAIA_SURVEY_ROOT, key: 'gaia' })
 
             // Allow to specify a custom path for sky culture data
             if (that.$route.query.sc) {

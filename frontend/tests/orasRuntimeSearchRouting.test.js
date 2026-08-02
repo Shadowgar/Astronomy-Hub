@@ -583,6 +583,50 @@ describe('oras runtime search routing', () => {
     expect(appSource).toContain('withOrasRouteIdentityFallback(ss, identity)')
   })
 
+  it('waits for native star registration and retries native identity before creating a fallback star', () => {
+    const helpersSource = fs.readFileSync(swHelpersPath, 'utf8')
+    const appSource = fs.readFileSync(appVuePath, 'utf8')
+
+    expect(appSource).toContain('resolveExactSkySourceRouteObject: function (ss, identity, attempt = 0)')
+    expect(appSource).toContain("identity.model === 'star' ? this.starDataSourcesReady : Promise.resolve()")
+    expect(appSource).toContain('this.resolveExactSkySourceRouteObject(ss, identity, attempt + 1)')
+    expect(appSource).toContain('return this.resolveExactSkySourceRouteObject(ss, identity).then(obj => {')
+    expect(appSource.indexOf('swh.skySource2SweObj(ss)')).toBeLessThan(
+      appSource.indexOf('const fallbackObj = this.$stel.createObj(ss.model, ss)'),
+    )
+    expect(helpersSource).toContain("candidateNames.push('GAIA ' + sourceId)")
+    expect(helpersSource).toContain("candidateNames.push('HIP ' + sourceId.replace(/^hip-/i, ''))")
+    expect(helpersSource).toContain("candidateNames.push('TYC ' + sourceId.replace(/^tyc\\s*/i, ''))")
+  })
+
+  it('routes exact-object resolution failures through the bounded retry handler', () => {
+    const appSource = fs.readFileSync(appVuePath, 'utf8')
+    const methodStart = appSource.indexOf('selectSkySourceRouteTargetByIdentity: function')
+    const methodEnd = appSource.indexOf('\n    }\n  },', methodStart)
+
+    expect(methodStart).toBeGreaterThanOrEqual(0)
+    expect(methodEnd).toBeGreaterThan(methodStart)
+    const method = appSource.slice(methodStart, methodEnd)
+
+    expect(method).toContain('return swh.fetchOrasSkySourceByIdentity(identity).then(ss => {')
+    expect(method).toContain('}).catch(err => {')
+    expect(method).not.toContain('}, err => {')
+  })
+
+  it('materializes exhausted exact-star fallbacks with native astrometry only', () => {
+    const appSource = fs.readFileSync(appVuePath, 'utf8')
+    const methodStart = appSource.indexOf('selectSkySourceRouteTargetByIdentity: function')
+    const methodEnd = appSource.indexOf('\n    }\n  },', methodStart)
+
+    expect(methodStart).toBeGreaterThanOrEqual(0)
+    expect(methodEnd).toBeGreaterThan(methodStart)
+    const method = appSource.slice(methodStart, methodEnd)
+
+    expect(method).toContain("identity.model === 'star' && (identity.ra == null || identity.dec == null)")
+    expect(method).toContain("identity.model === 'star' || identity.model === 'dso'")
+    expect(method).toContain('{ ra: identity.ra, de: identity.dec, source_id: identity.sourceId }')
+  })
+
   it('preserves exact ORAS identity after route selection updates the panel', () => {
     const helpersSource = fs.readFileSync(swHelpersPath, 'utf8')
     const appSource = fs.readFileSync(appVuePath, 'utf8')

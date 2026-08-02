@@ -41,6 +41,13 @@ class VizieRAcquisition:
 
 
 VIZIER_ACQUISITIONS = (
+    VizieRAcquisition(
+        "dense-stars",
+        "hipparcos_bright",
+        "I/239/hip_main",
+        "hipparcos_bright.tsv",
+        constraints=(("Vmag", "-2..1.63"),),
+    ),
     VizieRAcquisition("stars", "gaia_dr3", "I/355/gaiadr3", "gaia_dr3_bright.tsv", "10000", constraints=(("Gmag", "..10"),)),
     VizieRAcquisition("stars", "tycho2", "I/259/tyc2", "tycho2_bright.tsv", "25000", constraints=(("VTmag", "..10"),)),
     VizieRAcquisition("stars", "gliese", "V/70A/catalog", "gliese_cns3.tsv"),
