@@ -185,6 +185,8 @@ function computeScreenshotMetrics (screenshotBuffer, baselineBuffer = null) {
   }
   const pixelCount = image.width * image.height
   const brightMask = new Uint8Array(pixelCount)
+  const retentionMask = new Uint8Array(pixelCount)
+  const baselineBrightPixelIndices = []
   let brightPixels = 0
   let baselineBrightPixels = 0
   let addedBrightPixels = 0
@@ -196,12 +198,36 @@ function computeScreenshotMetrics (screenshotBuffer, baselineBuffer = null) {
       brightMask[pixel] = 1
       brightPixels++
     }
+    if (luma >= 95) retentionMask[pixel] = 1
     if (baseline) {
       const baselineLuma = luminanceAt(baseline, pixel)
-      if (baselineLuma >= 120) baselineBrightPixels++
+      if (baselineLuma >= 120) {
+        baselineBrightPixels++
+        baselineBrightPixelIndices.push(pixel)
+      }
       const delta = luma - baselineLuma
       if (luma >= 95 && delta >= 18) addedBrightPixels++
     }
+  }
+  let retainedBaselineBrightPixels = 0
+  const retentionRadius = 2
+  for (const pixel of baselineBrightPixelIndices) {
+    const x = pixel % image.width
+    const y = Math.floor(pixel / image.width)
+    let retained = false
+    for (let dy = -retentionRadius; dy <= retentionRadius && !retained; dy++) {
+      const nearY = y + dy
+      if (nearY < 0 || nearY >= image.height) continue
+      for (let dx = -retentionRadius; dx <= retentionRadius; dx++) {
+        const nearX = x + dx
+        if (nearX < 0 || nearX >= image.width) continue
+        if (retentionMask[nearY * image.width + nearX]) {
+          retained = true
+          break
+        }
+      }
+    }
+    if (retained) retainedBaselineBrightPixels++
   }
   const components = computeComponents(brightMask, image.width, image.height)
   const averageBrightBlobRadius = components.length
@@ -212,7 +238,8 @@ function computeScreenshotMetrics (screenshotBuffer, baselineBuffer = null) {
     height: image.height,
     brightPixelRatio: brightPixels / pixelCount,
     baselineBrightPixelCount: baseline ? baselineBrightPixels : null,
-    brightPixelRetentionRatio: baseline && baselineBrightPixels > 0 ? brightPixels / baselineBrightPixels : null,
+    retainedBaselineBrightPixels: baseline ? retainedBaselineBrightPixels : null,
+    brightPixelRetentionRatio: baseline && baselineBrightPixels > 0 ? retainedBaselineBrightPixels / baselineBrightPixels : null,
     addedBrightPixelRatio: baseline ? addedBrightPixels / pixelCount : null,
     maxBrightBlobArea: components[0] || 0,
     averageBrightBlobRadius,

@@ -191,6 +191,7 @@ describe('ORAS dense native star runtime integration', () => {
     expect(source).toContain('addedBrightPixelRatio')
     expect(source).toContain('minimumVisualBrightPixelRetention')
     expect(source).toContain('brightPixelRetentionRatio')
+    expect(source).toContain('retainedBaselineBrightPixels')
     expect(source).toContain('profileResourceCount')
     expect(source).not.toContain("entry.name.includes(`/dense-star-tiles/profiles/${profileId}/properties`)")
   })
