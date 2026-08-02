@@ -14,6 +14,12 @@ records that can open ORAS Sky Engine on the exact target.
 GET /api/above-me?lat=<lat>&lng=<lng>&elev=<meters>&time=<iso8601>&limit=<n>
 ```
 
+Contract version: `above-me.v1`.
+
+Additive fields may be introduced within v1. Existing identity, coordinate,
+visibility, link, and metadata fields must not be removed or change meaning
+without a new contract version.
+
 ## Query Parameters
 
 | Field | Required | Rule |
@@ -53,6 +59,7 @@ The endpoint uses the standard `ResponseEnvelope`.
     ]
   },
   "meta": {
+    "contract_version": "above-me.v1",
     "observer": {
       "lat": 41.44,
       "lng": -79.69,
@@ -62,6 +69,23 @@ The endpoint uses the standard `ResponseEnvelope`.
     "limit": 25,
     "total_candidates": 40,
     "visible_candidates": 12,
+    "cache": {
+      "status": "miss",
+      "ttl_seconds": 30,
+      "key_version": "v1"
+    },
+    "curation": {
+      "policy": "balanced-v1",
+      "available_categories": ["solar_system", "dso", "bright_star", "satellite"],
+      "selected_category_counts": {
+        "solar_system": 1,
+        "dso": 7,
+        "bright_star": 1,
+        "satellite": 1
+      },
+      "missing_categories": [],
+      "reservation_satisfied": true
+    },
     "object_sources": {
       "messier_local": {"status": "included"},
       "openngc_local": {"status": "included"},
@@ -97,18 +121,54 @@ Current MVP-supported sources:
 | Local bright stars | included | Stable identity and RA/Dec exist. |
 | Hipparcos Tier 2 stars | included | Existing local dataset provides stable string IDs, RA/Dec, and magnitude. |
 | Gaia DR2 | lookup only | Exact object lookup exists, but broad ranked discovery is not implemented in this pass. |
-| Planets | included when provider available | JPL Horizons supplies observer-specific RA/Dec and alt/az. |
-| Moon/Sun | included when provider available | JPL Horizons supplies observer-specific RA/Dec and alt/az. Sun results include a safety warning. |
+| Planets | included when provider available | Mounted JPL DE442s supplies observer-specific RA/Dec and alt/az; controlled JPL Horizons fallback remains available. |
+| Moon/Sun | included when provider available | Mounted JPL DE442s supplies observer-specific RA/Dec and alt/az; controlled JPL Horizons fallback remains available. Sun results include a safety warning. |
 | Satellites | included when feed is fresh | Local TLE records are propagated with Skyfield for bounded visible discovery. TLEs older than 14 days are excluded rather than presented as current positions. |
 
 `meta.object_sources` describes configured capabilities, not proof that every
 provider returned candidates for a particular request. JPL-dependent results may
-be absent when the upstream provider is unavailable; those failures are logged.
+be absent when both the mounted ephemeris and controlled upstream fallback are
+unavailable; those failures are logged.
 Satellite source metadata reports `freshness_status`, nearest and newest TLE
 epochs, and their age in days relative to the requested time. Freshness is based
 on the nearest record epoch, while every candidate is independently age-checked
 before propagation. A stale feed reports `status: degraded`; exact TLE identity
 lookup remains available.
+
+## Curation Metadata
+
+`meta.curation` describes the real category coverage for the request:
+
+- `available_categories` contains primary categories with at least one visible,
+  source-backed candidate.
+- `selected_category_counts` reports how many selected objects belong to each
+  primary category.
+- `missing_categories` contains primary categories with no visible candidate.
+- `reservation_satisfied` is true when every available primary category is
+  represented in the bounded result.
+
+The primary curation categories are `solar_system`, `dso`, `bright_star`, and
+`satellite`. A small `limit` can make complete reservation impossible; the API
+then preserves the highest-ranked category representatives and reports
+`reservation_satisfied: false`.
+
+## Cache Behavior
+
+Successful responses use a private backend Redis cache with a 30-second TTL.
+The cache key uses exact normalized observer values, parsed limit, contract
+version, and requested time, then stores only a SHA-256 digest in the key name.
+
+- Explicit request times are exact and are never rounded together.
+- Requests without `time` share only their server-generated 30-second UTC time
+  bucket.
+- `cache.status=hit` means a validated payload was reused.
+- `cache.status=miss` means the payload was generated and stored.
+- `cache.status=degraded` means Redis was unavailable or storage failed; the
+  returned astronomy payload is still computed normally.
+- Invalid or incompatible cached JSON is ignored and replaced.
+
+This backend cache does not authorize shared CDN caching of observer-specific
+responses.
 
 ## Satellite Feed Deployment Status
 

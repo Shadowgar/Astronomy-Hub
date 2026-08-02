@@ -2,10 +2,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
+import hashlib
+import json
 import logging
 import math
 from typing import Any
 
+from backend.app.cache.redis_cache import cache_get, cache_set
 from backend.app.services import live_providers
 from backend.app.services.planetary_ephemeris_service import get_planetary_ephemeris_status
 from backend.app.services.openngc_dso_catalog_service import build_openngc_above_me_seed_records
@@ -31,6 +34,10 @@ from backend.app.services.sky_object_enrichment import (
 
 DEFAULT_LIMIT = 25
 MAX_LIMIT = 100
+ABOVE_ME_CONTRACT_VERSION = "above-me.v1"
+ABOVE_ME_CACHE_KEY_VERSION = "v1"
+ABOVE_ME_CACHE_TTL_SECONDS = 30
+ABOVE_ME_CURATION_POLICY = "balanced-v1"
 BRIGHT_STAR_CATALOG = "Bright Star Catalog (local)"
 CURATED_PRIMARY_CATEGORIES = ("solar_system", "dso", "bright_star", "satellite")
 logger = logging.getLogger(__name__)
@@ -54,6 +61,15 @@ def build_above_me_payload(
     observer = _parse_observer(lat=lat, lng=lng, elev=elev)
     as_of = _parse_time(time)
     max_items = _parse_limit(limit)
+    cache_key = _build_above_me_cache_key(
+        observer=observer,
+        as_of=as_of,
+        limit=max_items,
+        explicit_time=isinstance(time, str) and bool(time.strip()),
+    )
+    cached_payload = _load_cached_above_me_payload(cache_key)
+    if cached_payload is not None:
+        return cached_payload
 
     tier2_limit = max(1, max_items // 2)
     satellite_limit = max(1, min(DEFAULT_SATELLITE_RESULT_LIMIT, max_items // 3 or 1))
@@ -68,12 +84,13 @@ def build_above_me_payload(
     visible = [candidate for candidate in candidates if candidate["is_visible"]]
     selected = _select_curated_visible_objects(visible, limit=max_items)
 
-    return {
+    payload = {
         "status": "ok",
         "data": {
             "objects": selected,
         },
         "meta": {
+            "contract_version": ABOVE_ME_CONTRACT_VERSION,
             "observer": {
                 "lat": observer.lat,
                 "lng": observer.lng,
@@ -84,7 +101,114 @@ def build_above_me_payload(
             "total_candidates": len(candidates),
             "visible_candidates": len(visible),
             "object_sources": _object_source_inventory(as_of=as_of),
+            "curation": _build_curation_metadata(visible=visible, selected=selected),
         },
+    }
+    cache_status = "miss" if _store_above_me_cache(cache_key, payload) else "degraded"
+    payload["meta"]["cache"] = _cache_metadata(cache_status)
+    return payload
+
+
+def _build_above_me_cache_key(
+    *,
+    observer: Observer,
+    as_of: datetime,
+    limit: int,
+    explicit_time: bool,
+) -> str:
+    normalized_time = (
+        as_of.astimezone(timezone.utc).isoformat()
+        if explicit_time
+        else f"bucket:{int(as_of.timestamp()) // ABOVE_ME_CACHE_TTL_SECONDS}"
+    )
+    key_payload = {
+        "contract_version": ABOVE_ME_CONTRACT_VERSION,
+        "lat": _canonical_cache_float(observer.lat),
+        "lng": _canonical_cache_float(observer.lng),
+        "elev": _canonical_cache_float(observer.elev),
+        "time": normalized_time,
+        "limit": limit,
+    }
+    encoded = json.dumps(key_payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    digest = hashlib.sha256(encoded).hexdigest()
+    return f"above-me:{ABOVE_ME_CACHE_KEY_VERSION}:{digest}"
+
+
+def _canonical_cache_float(value: float) -> str:
+    normalized = 0.0 if value == 0.0 else value
+    return repr(normalized)
+
+
+def _load_cached_above_me_payload(cache_key: str) -> dict[str, Any] | None:
+    cached = cache_get(cache_key)
+    if cached is None:
+        return None
+    try:
+        payload = json.loads(cached)
+    except (TypeError, ValueError):
+        return None
+    if not _is_valid_cached_above_me_payload(payload):
+        return None
+
+    payload["meta"]["cache"] = _cache_metadata("hit")
+    return payload
+
+
+def _is_valid_cached_above_me_payload(payload: Any) -> bool:
+    return (
+        isinstance(payload, dict)
+        and payload.get("status") == "ok"
+        and isinstance(payload.get("data"), dict)
+        and isinstance(payload["data"].get("objects"), list)
+        and isinstance(payload.get("meta"), dict)
+        and payload["meta"].get("contract_version") == ABOVE_ME_CONTRACT_VERSION
+    )
+
+
+def _store_above_me_cache(cache_key: str, payload: dict[str, Any]) -> bool:
+    try:
+        serialized = json.dumps(payload, sort_keys=True, separators=(",", ":"))
+    except (TypeError, ValueError):
+        logger.exception("Unable to serialize above-me response for cache")
+        return False
+    return cache_set(cache_key, serialized, ttl_seconds=ABOVE_ME_CACHE_TTL_SECONDS)
+
+
+def _cache_metadata(status: str) -> dict[str, Any]:
+    return {
+        "status": status,
+        "ttl_seconds": ABOVE_ME_CACHE_TTL_SECONDS,
+        "key_version": ABOVE_ME_CACHE_KEY_VERSION,
+    }
+
+
+def _build_curation_metadata(
+    *,
+    visible: list[dict[str, Any]],
+    selected: list[dict[str, Any]],
+) -> dict[str, Any]:
+    available = {
+        category
+        for candidate in visible
+        if (category := _curated_primary_category(candidate)) is not None
+    }
+    selected_counts = {category: 0 for category in CURATED_PRIMARY_CATEGORIES}
+    for candidate in selected:
+        category = _curated_primary_category(candidate)
+        if category is not None:
+            selected_counts[category] += 1
+
+    available_categories = [
+        category for category in CURATED_PRIMARY_CATEGORIES if category in available
+    ]
+    return {
+        "policy": ABOVE_ME_CURATION_POLICY,
+        "available_categories": available_categories,
+        "selected_category_counts": selected_counts,
+        "missing_categories": [
+            category for category in CURATED_PRIMARY_CATEGORIES if category not in available
+        ],
+        "reservation_satisfied": all(selected_counts[category] > 0 for category in available),
     }
 
 

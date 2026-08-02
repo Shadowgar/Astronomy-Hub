@@ -45,6 +45,13 @@ def _disable_live_solar_ephemeris(monkeypatch) -> None:
         "fetch_jpl_ephemeris",
         lambda lat, lon, elevation_ft=None, as_of=None: [],
     )
+    monkeypatch.setattr(above_me_service, "cache_get", lambda key: None, raising=False)
+    monkeypatch.setattr(
+        above_me_service,
+        "cache_set",
+        lambda key, value, ttl_seconds=None: False,
+        raising=False,
+    )
 
 
 def test_sky_engine_url_builder_preserves_large_gaia_source_id_as_string() -> None:
@@ -316,6 +323,203 @@ def test_curated_selection_fill_preserves_tier2_cap_and_dso_deduplication() -> N
         item["source_id"] in {"M13", "NGC6205"}
         for item in selected
     ) == 1
+
+
+def test_above_me_caches_identical_explicit_requests_with_contract_metadata(monkeypatch) -> None:
+    stored: dict[str, str] = {}
+    cache_set_calls: list[tuple[str, int | None]] = []
+    build_calls = 0
+    candidates = [
+        _visible_candidate(
+            catalog="Solar System (JPL)",
+            source_id="jupiter",
+            model="planet",
+            priority=4.0,
+        ),
+        _visible_candidate(
+            catalog="Messier (local)",
+            source_id="M31",
+            model="dso",
+            priority=3.0,
+        ),
+        _visible_candidate(
+            catalog="Bright Star Catalog (local)",
+            source_id="star-vega",
+            model="star",
+            priority=2.0,
+        ),
+        _visible_candidate(
+            catalog="Satellite TLE (local)",
+            source_id="25544",
+            model="tle_satellite",
+            priority=1.0,
+        ),
+    ]
+
+    def _build_candidates(**kwargs):
+        nonlocal build_calls
+        build_calls += 1
+        return candidates
+
+    def _cache_set(key: str, value: str, ttl_seconds: int | None = None) -> bool:
+        stored[key] = value
+        cache_set_calls.append((key, ttl_seconds))
+        return True
+
+    monkeypatch.setattr(above_me_service, "_build_catalog_candidates", _build_candidates)
+    monkeypatch.setattr(above_me_service, "_object_source_inventory", lambda as_of: {})
+    monkeypatch.setattr(above_me_service, "cache_get", stored.get)
+    monkeypatch.setattr(above_me_service, "cache_set", _cache_set)
+
+    first = above_me_service.build_above_me_payload(
+        lat=41.44,
+        lng=-79.69,
+        elev=0,
+        time="2026-06-04T02:16:04Z",
+        limit=4,
+    )
+    second = above_me_service.build_above_me_payload(
+        lat=41.44,
+        lng=-79.69,
+        elev=0,
+        time="2026-06-04T02:16:04Z",
+        limit=4,
+    )
+
+    assert build_calls == 1
+    assert cache_set_calls == [(next(iter(stored)), 30)]
+    assert first["meta"]["contract_version"] == "above-me.v1"
+    assert first["meta"]["cache"] == {
+        "status": "miss",
+        "ttl_seconds": 30,
+        "key_version": "v1",
+    }
+    assert second["meta"]["cache"]["status"] == "hit"
+    assert second["data"] == first["data"]
+    assert first["meta"]["curation"] == {
+        "policy": "balanced-v1",
+        "available_categories": ["solar_system", "dso", "bright_star", "satellite"],
+        "selected_category_counts": {
+            "solar_system": 1,
+            "dso": 1,
+            "bright_star": 1,
+            "satellite": 1,
+        },
+        "missing_categories": [],
+        "reservation_satisfied": True,
+    }
+
+
+def test_above_me_cache_key_preserves_explicit_time_and_buckets_only_server_time() -> None:
+    observer = above_me_service.Observer(lat=41.44, lng=-79.69, elev=0.0)
+    nearby_observer = above_me_service.Observer(
+        lat=41.4400000000001,
+        lng=-79.69,
+        elev=0.0,
+    )
+    first = above_me_service._parse_time("2026-06-04T02:16:04Z")
+    next_second = above_me_service._parse_time("2026-06-04T02:16:05Z")
+    same_bucket = above_me_service._parse_time("2026-06-04T02:16:29Z")
+    next_bucket = above_me_service._parse_time("2026-06-04T02:16:30Z")
+
+    explicit_first = above_me_service._build_above_me_cache_key(
+        observer=observer,
+        as_of=first,
+        limit=25,
+        explicit_time=True,
+    )
+    explicit_next = above_me_service._build_above_me_cache_key(
+        observer=observer,
+        as_of=next_second,
+        limit=25,
+        explicit_time=True,
+    )
+    current_first = above_me_service._build_above_me_cache_key(
+        observer=observer,
+        as_of=first,
+        limit=25,
+        explicit_time=False,
+    )
+    current_same_bucket = above_me_service._build_above_me_cache_key(
+        observer=observer,
+        as_of=same_bucket,
+        limit=25,
+        explicit_time=False,
+    )
+    current_next_bucket = above_me_service._build_above_me_cache_key(
+        observer=observer,
+        as_of=next_bucket,
+        limit=25,
+        explicit_time=False,
+    )
+    nearby_location = above_me_service._build_above_me_cache_key(
+        observer=nearby_observer,
+        as_of=first,
+        limit=25,
+        explicit_time=True,
+    )
+
+    assert explicit_first != explicit_next
+    assert explicit_first != nearby_location
+    assert current_first == current_same_bucket
+    assert current_first != current_next_bucket
+    assert "41.44" not in explicit_first
+    assert "-79.69" not in explicit_first
+
+
+def test_above_me_recomputes_corrupt_cache_entry(monkeypatch) -> None:
+    build_calls = 0
+
+    def _build_candidates(**kwargs):
+        nonlocal build_calls
+        build_calls += 1
+        return []
+
+    monkeypatch.setattr(above_me_service, "_build_catalog_candidates", _build_candidates)
+    monkeypatch.setattr(above_me_service, "_object_source_inventory", lambda as_of: {})
+    monkeypatch.setattr(above_me_service, "cache_get", lambda key: "not-json")
+    monkeypatch.setattr(
+        above_me_service,
+        "cache_set",
+        lambda key, value, ttl_seconds=None: True,
+    )
+
+    payload = above_me_service.build_above_me_payload(
+        lat=41.44,
+        lng=-79.69,
+        time="2026-06-04T02:16:04Z",
+        limit=4,
+    )
+
+    assert build_calls == 1
+    assert payload["status"] == "ok"
+    assert payload["meta"]["cache"]["status"] == "miss"
+
+
+def test_above_me_cache_failure_is_non_fatal_and_reported(monkeypatch) -> None:
+    monkeypatch.setattr(above_me_service, "_build_catalog_candidates", lambda **kwargs: [])
+    monkeypatch.setattr(above_me_service, "_object_source_inventory", lambda as_of: {})
+    monkeypatch.setattr(above_me_service, "cache_get", lambda key: None)
+    monkeypatch.setattr(
+        above_me_service,
+        "cache_set",
+        lambda key, value, ttl_seconds=None: False,
+    )
+
+    payload = above_me_service.build_above_me_payload(
+        lat=41.44,
+        lng=-79.69,
+        time="2026-06-04T02:16:04Z",
+        limit=4,
+    )
+
+    assert payload["status"] == "ok"
+    assert payload["data"]["objects"] == []
+    assert payload["meta"]["cache"] == {
+        "status": "degraded",
+        "ttl_seconds": 30,
+        "key_version": "v1",
+    }
 
 
 def test_above_me_reports_stale_satellite_feed_as_degraded() -> None:
