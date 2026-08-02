@@ -737,6 +737,8 @@ def _build_profile_tiles(
     output_root = Path(output_root)
     if not (source_root / "manifest.json").is_file():
         raise FileNotFoundError(f"catalog pack manifest not found: {source_root / 'manifest.json'}")
+    if bright_star_source is not None and not Path(bright_star_source).is_file():
+        raise FileNotFoundError(f"bright star source not found: {bright_star_source}")
     if tile_order < 0 or tile_order > 8:
         raise ValueError("tile_order must be between 0 and 8")
 
@@ -751,7 +753,7 @@ def _build_profile_tiles(
     magnitudes: list[float] = []
     try:
         source_records = list(iter_catalog_records(source_root))
-        if bright_star_source and Path(bright_star_source).is_file():
+        if bright_star_source:
             source_records.extend(
                 load_vizier_stars(bright_star_source, "hipparcos_bright")
             )

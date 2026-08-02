@@ -7,6 +7,8 @@ import os
 import stat
 from pathlib import Path
 
+import pytest
+
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 BUILDER_PATH = REPO_ROOT / "scripts/skydata/build_oras_dense_star_tiles.py"
@@ -437,6 +439,25 @@ def test_dense_star_builder_restores_source_backed_bright_hipparcos_tail(tmp_pat
     assert visual["min_magnitude"] == -1.46
     assert visual["identity_reconciliation"]["source_records"] == 5
     assert visual["source_catalogs"]["Hipparcos (CDS)"] == 1
+
+
+def test_dense_star_builder_rejects_missing_configured_bright_source(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_missing_bright")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    missing_source = tmp_path / "missing-hipparcos-bright.tsv"
+    _write_catalog_pack_release(source_root)
+
+    with pytest.raises(FileNotFoundError, match="bright star source not found"):
+        builder.build_dense_star_tiles(
+            source_root=source_root,
+            output_root=output_root,
+            tile_order=1,
+            release_version="test.missing-bright",
+            bright_star_source=missing_source,
+        )
+
+    assert not output_root.exists()
 
 
 def test_dense_star_builder_writes_visibility_profiles(tmp_path: Path) -> None:
