@@ -17,6 +17,27 @@ from backend.app.services.sky_star_catalog import BRIGHT_STAR_SCENE_OBJECTS
 client = TestClient(app)
 
 
+def _visible_candidate(
+    *,
+    catalog: str,
+    source_id: str,
+    model: str,
+    priority: float,
+    magnitude: float = 5.0,
+    aliases: list[str] | None = None,
+) -> dict:
+    return {
+        "catalog": catalog,
+        "source_id": source_id,
+        "model": model,
+        "name": source_id,
+        "priority": priority,
+        "magnitude": magnitude,
+        "aliases": aliases or [],
+        "is_visible": True,
+    }
+
+
 @pytest.fixture(autouse=True)
 def _disable_live_solar_ephemeris(monkeypatch) -> None:
     monkeypatch.setattr(
@@ -136,6 +157,154 @@ def test_above_me_deduplicates_cross_catalog_dso_aliases() -> None:
     ]
 
     assert len(m13_representations) == 1
+
+
+def test_curated_selection_reserves_each_available_primary_category() -> None:
+    candidates = [
+        *[
+            _visible_candidate(
+                catalog="Hipparcos Tier 2 (local)",
+                source_id=f"hip-{index}",
+                model="star",
+                priority=100.0 - index,
+            )
+            for index in range(6)
+        ],
+        _visible_candidate(
+            catalog="Solar System (JPL)",
+            source_id="jupiter",
+            model="planet",
+            priority=4.0,
+        ),
+        _visible_candidate(
+            catalog="Messier (local)",
+            source_id="M31",
+            model="dso",
+            priority=3.0,
+        ),
+        _visible_candidate(
+            catalog="Bright Star Catalog (local)",
+            source_id="star-vega",
+            model="star",
+            priority=2.0,
+        ),
+        _visible_candidate(
+            catalog="Satellite TLE (local)",
+            source_id="25544",
+            model="tle_satellite",
+            priority=1.0,
+        ),
+    ]
+
+    selected = above_me_service._select_curated_visible_objects(candidates, limit=4)
+
+    assert len(selected) == 4
+    assert {item["source_id"] for item in selected} == {
+        "jupiter",
+        "M31",
+        "star-vega",
+        "25544",
+    }
+
+
+def test_curated_selection_small_limit_uses_best_category_representatives() -> None:
+    candidates = [
+        _visible_candidate(
+            catalog="Solar System (JPL)",
+            source_id="mars",
+            model="planet",
+            priority=20.0,
+        ),
+        _visible_candidate(
+            catalog="Messier (local)",
+            source_id="M42",
+            model="dso",
+            priority=30.0,
+        ),
+        _visible_candidate(
+            catalog="Bright Star Catalog (local)",
+            source_id="star-sirius",
+            model="star",
+            priority=40.0,
+        ),
+        _visible_candidate(
+            catalog="Satellite TLE (local)",
+            source_id="20580",
+            model="tle_satellite",
+            priority=50.0,
+        ),
+    ]
+
+    selected = above_me_service._select_curated_visible_objects(candidates, limit=2)
+
+    assert [item["source_id"] for item in selected] == ["20580", "star-sirius"]
+
+
+def test_curated_selection_fill_preserves_tier2_cap_and_dso_deduplication() -> None:
+    candidates = [
+        _visible_candidate(
+            catalog="Solar System (JPL)",
+            source_id="venus",
+            model="planet",
+            priority=100.0,
+        ),
+        _visible_candidate(
+            catalog="Messier (local)",
+            source_id="M31",
+            model="dso",
+            priority=90.0,
+        ),
+        _visible_candidate(
+            catalog="Bright Star Catalog (local)",
+            source_id="star-betelgeuse",
+            model="star",
+            priority=80.0,
+        ),
+        _visible_candidate(
+            catalog="Satellite TLE (local)",
+            source_id="25544",
+            model="tle_satellite",
+            priority=70.0,
+        ),
+        *[
+            _visible_candidate(
+                catalog="Hipparcos Tier 2 (local)",
+                source_id=f"hip-{index}",
+                model="star",
+                priority=60.0 - index,
+            )
+            for index in range(6)
+        ],
+        _visible_candidate(
+            catalog="Messier (local)",
+            source_id="M13",
+            model="dso",
+            priority=50.0,
+            aliases=["NGC 6205"],
+        ),
+        _visible_candidate(
+            catalog="NGC (OpenNGC)",
+            source_id="NGC6205",
+            model="dso",
+            priority=49.0,
+            aliases=["M 13"],
+        ),
+        _visible_candidate(
+            catalog="Gaia DR3 (indexed)",
+            source_id="1234567890123456789",
+            model="star",
+            priority=40.0,
+        ),
+    ]
+
+    selected = above_me_service._select_curated_visible_objects(candidates, limit=9)
+
+    assert len(selected) == 9
+    assert sum(item["catalog"] == "Hipparcos Tier 2 (local)" for item in selected) <= 4
+    assert sum(
+        item["source_id"] in {"M13", "NGC6205"}
+        for item in selected
+    ) == 1
 
 
 def test_above_me_reports_stale_satellite_feed_as_degraded() -> None:
