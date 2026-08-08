@@ -11,6 +11,8 @@ import pytest
 from scripts.skydata.build_oras_satellite_tle_release import (
     DEFAULT_SOURCE_URL,
     _download_source,
+    _nested_gzip_jsonl,
+    _validate_release_record,
     build_release,
     parse_celestrak_3le,
     validate_release,
@@ -22,6 +24,8 @@ ISS_LINE_1 = "1 25544U 98067A   26154.70949191  .00008646  00000-0  16154-3 0  9
 ISS_LINE_2 = "2 25544  51.6330   6.8180 0007089 128.9940 231.1681 15.49585865569660"
 HST_LINE_1 = "1 20580U 90037B   26153.34296606  .00005773  00000-0  18209-3 0  9992"
 HST_LINE_2 = "2 20580  28.4711 182.0162 0001701 354.7953   5.2625 15.30586461786296"
+CALSPHERE_LINE_1 = "1 00900U 64063C   26197.17517874  .00000380  00000+0  37681-3 0  9991"
+CALSPHERE_LINE_2 = "2 00900  90.2209  72.4501 0024061 200.9054 257.7090 13.76651700 75418"
 
 
 def _fixture_payload(*, include_duplicate: bool = False, include_malformed: bool = False) -> str:
@@ -93,6 +97,16 @@ def test_downloader_rejects_non_http_source_urls(tmp_path: Path) -> None:
         _download_source("file:///etc/passwd", tmp_path / "active.tle")
 
 
+def test_release_validation_preserves_leading_zero_source_identity() -> None:
+    records, _ = parse_celestrak_3le(
+        f"CALSPHERE 1\n{CALSPHERE_LINE_1}\n{CALSPHERE_LINE_2}\n"
+    )
+
+    assert records[0]["model_data"]["source_id"] == "00900"
+    assert records[0]["model_data"]["norad_number"] == 900
+    assert _validate_release_record(records[0]) == "00900"
+
+
 def test_build_release_is_deterministic_double_gzip_and_manifest_backed(tmp_path: Path) -> None:
     input_path = tmp_path / "active.tle"
     output_path = tmp_path / "release"
@@ -134,3 +148,30 @@ def test_build_release_is_deterministic_double_gzip_and_manifest_backed(tmp_path
     records = _read_nested_jsonl(output_path / "tle_satellite.jsonl.gz")
     assert [record["model_data"]["source_id"] for record in records] == ["20580", "25544"]
     assert validate_release(output_path, minimum_count=2, required_norad=("25544", "20580"))["record_count"] == 2
+
+
+def test_validator_rejects_source_identity_that_does_not_match_embedded_tle(tmp_path: Path) -> None:
+    input_path = tmp_path / "active.tle"
+    output_path = tmp_path / "release"
+    input_path.write_text(_fixture_payload(), encoding="utf-8")
+    build_release(
+        input_path=input_path,
+        output_dir=output_path,
+        release_version="test-mismatch",
+        acquired_at=datetime(2026, 6, 4, 3, 0, tzinfo=timezone.utc),
+        minimum_count=2,
+        required_norad=("25544", "20580"),
+    )
+    records = _read_nested_jsonl(output_path / "tle_satellite.jsonl.gz")
+    records[0]["model_data"]["tle"] = records[1]["model_data"]["tle"]
+    feed_payload = _nested_gzip_jsonl(records)
+    feed_path = output_path / "tle_satellite.jsonl.gz"
+    feed_path.write_bytes(feed_payload)
+    manifest_path = output_path / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["sha256"] = hashlib.sha256(feed_payload).hexdigest()
+    manifest["byte_size"] = len(feed_payload)
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="does not match embedded TLE"):
+        validate_release(output_path, minimum_count=2, required_norad=("25544", "20580"))
