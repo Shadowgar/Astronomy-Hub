@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/" + ({}[chunkId]||chunkId) + "." + {"chunk-2d2253ec":"a2cf8001"}[chunkId] + ".js"
+/******/ 		return __webpack_require__.p + "js/" + ({}[chunkId]||chunkId) + "." + {"chunk-2d2253ec":"1b0c9439"}[chunkId] + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -412,7 +412,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   null,
   null
-  
+
 )
 
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
@@ -846,18 +846,24 @@ var es_array_concat = __webpack_require__("99af");
 // EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
 var vue_esm = __webpack_require__("a026");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=19238a5c&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[_c('oras-catalog-status-dialog',{model:{value:(_vm.showCatalogPacks),callback:function ($$v) {_vm.showCatalogPacks=$$v},expression:"showCatalogPacks"}}),_c('oras-dense-stars-status-dialog',{model:{value:(_vm.showDenseStars),callback:function ($$v) {_vm.showDenseStars=$$v},expression:"showDenseStars"}}),_c('v-navigation-drawer',{attrs:{"app":"","stateless":"","width":"300"},model:{value:(_vm.nav),callback:function ($$v) {_vm.nav=$$v},expression:"nav"}},[_c('v-layout',{attrs:{"column":"","fill-height":""}},[_c('v-list',{attrs:{"dense":""}},[_vm._l((_vm.menuItems),function(item,i){return [(_vm.$store.state[item.store_show_menu_item] === false)?void 0:(item.header)?_c('v-subheader',{key:i,staticClass:"grey--text text--darken-1",domProps:{"textContent":_vm._s(item.header)}}):(item.divider)?_c('v-divider',{key:i,staticClass:"divider_menu"}):(item.switch)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-action',[_c('v-switch',{attrs:{"value":"","input-value":_vm.getStoreValue(item.store_var_name),"label":""}})],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.title))])],1)],1):[(item.link)?_c('v-list-item',{key:i,attrs:{"target":"_blank","rel":"noopener","href":item.link}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}}),_c('v-icon',{attrs:{"disabled":""}},[_vm._v("mdi-open-in-new")])],1):(item.footer===undefined)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.handleMenuItemClick(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]]})],2),_vm._l((_vm.menuComponents),function(item,i){return [_c(item,{key:i,tag:"component"})]}),_c('v-spacer'),_c('v-list',{attrs:{"dense":""}},[_c('v-divider',{staticClass:"divider_menu"}),_vm._l((_vm.menuItems),function(item,i){return [(item.footer)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]})],2)],2)],1),_c('v-main',[_c('v-container',{staticClass:"fill-height",staticStyle:{"padding":"0"},attrs:{"fluid":""}},[_c('div',{class:{ right_panel: _vm.$store.state.showSidePanel },attrs:{"id":"stel"}},[_c('div',{staticStyle:{"position":"relative","width":"100%","height":"100%"}},[_c(_vm.guiComponent,{tag:"component"}),_c('canvas',{ref:"stelCanvas",attrs:{"id":"stel-canvas"}})],1)])])],1)],1)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=9306c1b0&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[(_vm.starLookupMessage)?_c('v-alert',{staticClass:"oras-star-lookup-status",attrs:{"role":"status","type":"info","dismissible":""},on:{"input":function($event){_vm.starLookupMessage = ''}}},[_vm._v(_vm._s(_vm.starLookupMessage))]):_vm._e(),_c('oras-catalog-status-dialog',{model:{value:(_vm.showCatalogPacks),callback:function ($$v) {_vm.showCatalogPacks=$$v},expression:"showCatalogPacks"}}),_c('oras-dense-stars-status-dialog',{model:{value:(_vm.showDenseStars),callback:function ($$v) {_vm.showDenseStars=$$v},expression:"showDenseStars"}}),_c('v-navigation-drawer',{attrs:{"app":"","stateless":"","width":"300"},model:{value:(_vm.nav),callback:function ($$v) {_vm.nav=$$v},expression:"nav"}},[_c('v-layout',{attrs:{"column":"","fill-height":""}},[_c('v-list',{attrs:{"dense":""}},[_vm._l((_vm.menuItems),function(item,i){return [(_vm.$store.state[item.store_show_menu_item] === false)?void 0:(item.header)?_c('v-subheader',{key:i,staticClass:"grey--text text--darken-1",domProps:{"textContent":_vm._s(item.header)}}):(item.divider)?_c('v-divider',{key:i,staticClass:"divider_menu"}):(item.switch)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-action',[_c('v-switch',{attrs:{"value":"","input-value":_vm.getStoreValue(item.store_var_name),"label":""}})],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.title))])],1)],1):[(item.link)?_c('v-list-item',{key:i,attrs:{"target":"_blank","rel":"noopener","href":item.link}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}}),_c('v-icon',{attrs:{"disabled":""}},[_vm._v("mdi-open-in-new")])],1):(item.footer===undefined)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.handleMenuItemClick(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]]})],2),_vm._l((_vm.menuComponents),function(item,i){return [_c(item,{key:i,tag:"component"})]}),_c('v-spacer'),_c('v-list',{attrs:{"dense":""}},[_c('v-divider',{staticClass:"divider_menu"}),_vm._l((_vm.menuItems),function(item,i){return [(item.footer)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]})],2)],2)],1),_c('v-main',[_c('v-container',{staticClass:"fill-height",staticStyle:{"padding":"0"},attrs:{"fluid":""}},[_c('div',{class:{ right_panel: _vm.$store.state.showSidePanel },attrs:{"id":"stel"}},[_c('div',{staticStyle:{"position":"relative","width":"100%","height":"100%"}},[_c(_vm.guiComponent,{tag:"component"}),_c('canvas',{ref:"stelCanvas",attrs:{"id":"stel-canvas"}})],1)])])],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=19238a5c&
+// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=9306c1b0&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__("3835");
 
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__("1da1");
+
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createForOfIteratorHelper.js
 var createForOfIteratorHelper = __webpack_require__("b85c");
+
+// EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
+var runtime = __webpack_require__("96cf");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.url.js
 var web_url = __webpack_require__("2b3d");
@@ -904,12 +910,12 @@ var toolbarvue_type_template_id_6acce61a_staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/components/toolbar.vue?vue&type=template&id=6acce61a&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/target-search.vue?vue&type=template&id=5d761524&
-var target_searchvue_type_template_id_5d761524_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tsearch"},[_c('skysource-search',{attrs:{"floatingList":"true"},model:{value:(_vm.obsSkySource),callback:function ($$v) {_vm.obsSkySource=$$v},expression:"obsSkySource"}})],1)}
-var target_searchvue_type_template_id_5d761524_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/target-search.vue?vue&type=template&id=1531b74a&
+var target_searchvue_type_template_id_1531b74a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tsearch"},[_c('skysource-search',{attrs:{"floatingList":"true"},model:{value:(_vm.obsSkySource),callback:function ($$v) {_vm.obsSkySource=$$v},expression:"obsSkySource"}})],1)}
+var target_searchvue_type_template_id_1531b74a_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/target-search.vue?vue&type=template&id=5d761524&
+// CONCATENATED MODULE: ./src/components/target-search.vue?vue&type=template&id=1531b74a&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/skysource-search.vue?vue&type=template&id=829e5c8c&
 var skysource_searchvue_type_template_id_829e5c8c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"click-outside",rawName:"v-click-outside",value:(_vm.resetSearch),expression:"resetSearch"}],staticStyle:{"position":"relative"}},[_c('v-text-field',{attrs:{"prepend-icon":"mdi-magnify","label":_vm.$t('Search...'),"hide-details":"","single-line":""},nativeOn:{"keyup":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"esc",27,$event.key,["Esc","Escape"])){ return null; }return _vm.resetSearch()}},model:{value:(_vm.searchText),callback:function ($$v) {_vm.searchText=$$v},expression:"searchText"}}),(_vm.showList)?_c('v-list',{style:(_vm.listStyle),attrs:{"dense":"","two-line":""}},_vm._l((_vm.autoCompleteChoices),function(source){return _c('v-list-item',{key:source.names[0],on:{"click":function($event){return _vm.sourceClicked(source)}}},[_c('v-list-item-action',[_c('img',{attrs:{"src":_vm.iconForSkySource(source)}})]),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(_vm.nameForSkySource(source)))]),_c('v-list-item-subtitle',[_vm._v(" "+_vm._s(_vm.subtitleForSkySource(source))+" "),(source.catalog)?_c('v-chip',{staticClass:"ml-1",attrs:{"x-small":"","outlined":""}},[_vm._v(_vm._s(source.catalog))]):_vm._e(),(source.pack_id || source.source_attribution)?_c('v-chip',{staticClass:"ml-1",attrs:{"x-small":"","color":"cyan darken-3","text-color":"white"}},[_vm._v("ORAS Enhanced")]):_vm._e()],1)],1)],1)}),1):_vm._e()],1)}
@@ -917,9 +923,6 @@ var skysource_searchvue_type_template_id_829e5c8c_staticRenderFns = []
 
 
 // CONCATENATED MODULE: ./src/components/skysource-search.vue?vue&type=template&id=829e5c8c&
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__("2909");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
 var es_array_filter = __webpack_require__("4de4");
@@ -933,14 +936,14 @@ var es_string_replace = __webpack_require__("5319");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.to-fixed.js
 var es_number_to_fixed = __webpack_require__("b680");
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.includes.js
-var es_string_includes = __webpack_require__("2532");
-
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
 var es_array_slice = __webpack_require__("fb6a");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.find.js
 var es_array_find = __webpack_require__("7db0");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.includes.js
+var es_string_includes = __webpack_require__("2532");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.search.js
 var es_string_search = __webpack_require__("841c");
@@ -961,11 +964,8 @@ var moment_default = /*#__PURE__*/__webpack_require__.n(moment);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
 var esm_typeof = __webpack_require__("53ca");
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__("1da1");
-
-// EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
-var runtime = __webpack_require__("96cf");
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
+var toConsumableArray = __webpack_require__("2909");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.to-string.js
 var es_regexp_to_string = __webpack_require__("25f0");
@@ -1235,14 +1235,14 @@ function resolveOrasAutoDssSurveyUrl(_x3, _x4, _x5) {
 
 function _resolveOrasAutoDssSurveyUrl() {
   _resolveOrasAutoDssSurveyUrl = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(provider, fetchImpl, localSurveyRoot) {
-    var preferredProviderKeys, _iterator, _step, _loop, _ret;
+    var preferredProviderKeys, _iterator2, _step2, _loop, _ret;
 
     return regeneratorRuntime.wrap(function _callee2$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             preferredProviderKeys = Array.isArray(provider.preferredProviderKeys) ? provider.preferredProviderKeys : [];
-            _iterator = Object(createForOfIteratorHelper["a" /* default */])(preferredProviderKeys);
+            _iterator2 = Object(createForOfIteratorHelper["a" /* default */])(preferredProviderKeys);
             _context3.prev = 2;
             _loop = /*#__PURE__*/regeneratorRuntime.mark(function _loop() {
               var preferredProviderKey, preferredProvider, surveyUrl;
@@ -1250,7 +1250,7 @@ function _resolveOrasAutoDssSurveyUrl() {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:
-                      preferredProviderKey = _step.value;
+                      preferredProviderKey = _step2.value;
                       preferredProvider = ORAS_DSS_SURVEY_PROVIDERS.find(function (item) {
                         return item.key === preferredProviderKey;
                       });
@@ -1286,10 +1286,10 @@ function _resolveOrasAutoDssSurveyUrl() {
               }, _loop);
             });
 
-            _iterator.s();
+            _iterator2.s();
 
           case 5:
-            if ((_step = _iterator.n()).done) {
+            if ((_step2 = _iterator2.n()).done) {
               _context3.next = 14;
               break;
             }
@@ -1326,12 +1326,12 @@ function _resolveOrasAutoDssSurveyUrl() {
             _context3.prev = 16;
             _context3.t1 = _context3["catch"](2);
 
-            _iterator.e(_context3.t1);
+            _iterator2.e(_context3.t1);
 
           case 19:
             _context3.prev = 19;
 
-            _iterator.f();
+            _iterator2.f();
 
             return _context3.finish(19);
 
@@ -1545,24 +1545,34 @@ function buildOrasModelData(result, model, sourceId) {
   }
 
   if (normalizedModel === 'star') {
-    var ra = numberOrNull(result.ra);
-    var de = numberOrNull(result.dec);
-    var vmag = numberOrNull(result.phot_g_mean_mag == null ? result.magnitude : result.phot_g_mean_mag);
-    var plx = numberOrNull(result.parallax);
-    var pmRa = numberOrNull(result.pmra);
-    var pmDe = numberOrNull(result.pmdec);
+    var science = result.star_science;
+    var ra = numberOrNull(science ? science.ra : result.ra);
+    var de = numberOrNull(science ? science.dec : result.dec); // The native renderer requires Vmag; the contract retains any fallback band.
+
+    var vmag = numberOrNull(science ? science.render_magnitude : result.magnitude);
+    var plx = numberOrNull(science ? science.parallax_mas : result.parallax);
+    var pmRa = numberOrNull(science ? science.proper_motion_ra_mas_per_year : result.proper_motion_ra);
+    var pmDe = numberOrNull(science ? science.proper_motion_dec_mas_per_year : result.proper_motion_dec);
+    var epoch = numberOrNull(science ? science.coordinate_epoch : result.coordinate_epoch);
+    var bv = numberOrNull(science ? science.bv : null);
     if (ra != null) modelData.ra = ra;
     if (de != null) modelData.de = de;
     if (vmag != null) modelData.Vmag = vmag;
     if (plx != null) modelData.plx = plx;
     if (pmRa != null) modelData.pm_ra = pmRa;
     if (pmDe != null) modelData.pm_de = pmDe;
-    if (result.spectral_type) modelData.spect_t = result.spectral_type;
-    if (numberOrNull(result.color_index) != null) modelData.color_index = numberOrNull(result.color_index);
+    if (epoch != null) modelData.epoch = epoch;
+    if (bv != null) modelData.BVMag = bv;
+
+    if (science) {
+      if (science.spectral_type) modelData.spect_t = science.spectral_type;
+      if (science.gaia_id) modelData.gaia = String(science.gaia_id);
+      if (science.hip_id) modelData.hip = Number(science.hip_id);
+    } else if (result.spectral_type) modelData.spect_t = result.spectral_type;
+
     if (numberOrNull(result.mass_solar) != null) modelData.mass_solar = numberOrNull(result.mass_solar);
     if (numberOrNull(result.radius_solar) != null) modelData.radius_solar = numberOrNull(result.radius_solar);
     if (numberOrNull(result.temperature_k) != null) modelData.temperature_k = numberOrNull(result.temperature_k);
-    modelData.epoch = 2000;
   }
 
   if (normalizedModel === 'dso') {
@@ -1595,11 +1605,11 @@ function listOrasPackRoots() {
   return [ORAS_PACKS_ROOT + '/minimal', ORAS_PACKS_ROOT + '/base', ORAS_PACKS_ROOT + '/extended'];
 }
 function toOrasSkySource(result) {
-  if (!result || !result.display_name) {
+  if (!result || !result.display_name && result.source_id == null) {
     return undefined;
   }
 
-  var displayName = String(result.display_name).trim();
+  var displayName = String(result.display_name || result.source_id).trim();
   var displayNameMatch = displayName.match(GAIA_DISPLAY_NAME_RE);
   var sourceId = displayNameMatch ? displayNameMatch[1] : result.source_id == null ? undefined : String(result.source_id).trim();
   var isGaiaResult = Boolean(displayNameMatch || String(result.catalog || '').toLowerCase().includes('gaia'));
@@ -1620,13 +1630,13 @@ function toOrasSkySource(result) {
     display_name: displayName,
     ra: result.ra == null ? null : result.ra,
     dec: result.dec == null ? null : result.dec,
-    phot_g_mean_mag: result.phot_g_mean_mag == null ? result.magnitude == null ? null : result.magnitude : result.phot_g_mean_mag,
+    phot_g_mean_mag: result.phot_g_mean_mag == null ? null : result.phot_g_mean_mag,
     indexed: Boolean(result.indexed),
     status: result.status || null,
     message: result.message || null,
     provenance: result.provenance || null
   };
-  var enrichmentFields = ['aliases', 'common_names', 'catalog_ids', 'category', 'object_type', 'source_attribution', 'pack_id', 'pack_version', 'pack_sources', 'magnitude', 'magnitude_band', 'color_index', 'spectral_type', 'parallax', 'distance_pc', 'proper_motion_ra', 'proper_motion_dec', 'radial_velocity_km_s', 'temperature_k', 'mass_solar', 'radius_solar', 'variability', 'angular_size', 'double_star', 'period_seconds', 'redshift', 'flux', 'candidate_status', 'description'];
+  var enrichmentFields = ['star_science', 'coordinate_epoch', 'coordinate_frame', 'color_index_band', 'aliases', 'common_names', 'catalog_ids', 'category', 'object_type', 'source_attribution', 'pack_id', 'pack_version', 'pack_sources', 'magnitude', 'magnitude_band', 'color_index', 'spectral_type', 'parallax', 'distance_pc', 'proper_motion_ra', 'proper_motion_dec', 'radial_velocity_km_s', 'temperature_k', 'mass_solar', 'radius_solar', 'variability', 'angular_size', 'double_star', 'period_seconds', 'redshift', 'flux', 'candidate_status', 'description'];
   enrichmentFields.forEach(function (field) {
     if (result[field] != null) skySource[field] = result[field];
   });
@@ -1680,6 +1690,60 @@ function withOrasRouteIdentityFallback(skySource, identity) {
   }
 
   return exactSkySource;
+} // Exact identities first; star lookup never invents DSO designations.
+
+function buildOrasNativeCandidates(source) {
+  var candidates = [];
+
+  var add = function add(value) {
+    var name = String(value || '').trim();
+    if (name && !candidates.includes(name)) candidates.push(name);
+  };
+
+  var science = source.star_science || {};
+  var catalog = String(source.catalog || '').toLowerCase();
+  var id = String(source.source_id || '').trim();
+
+  if (source.model === 'star') {
+    if (catalog.includes('gaia') && /^\d+$/.test(id)) add('GAIA ' + id);
+    if (catalog.includes('hipparcos') || /^hip-/i.test(id)) add('HIP ' + id.replace(/^hip-?/i, ''));
+    if (catalog.includes('tycho')) add('TYC ' + id.replace(/^tyc\s*/i, ''));
+    if (science.hip_id) add('HIP ' + science.hip_id);
+    if (science.gaia_id) add('GAIA ' + science.gaia_id);
+    if (science.tycho2_id) add('TYC ' + science.tycho2_id);
+  }
+
+  for (var _i = 0, _arr = [].concat(Object(toConsumableArray["a" /* default */])(source.names || []), [source.display_name, id]); _i < _arr.length; _i++) {
+    var name = _arr[_i];
+    if (!name) continue;
+    add(name);
+    add('NAME ' + String(name).replace(/^NAME /, ''));
+
+    if (source.model === 'dso') {
+      var designation = String(name).match(/^(M|NGC|IC)\s*(\d+)$/i);
+      if (designation) add(designation[1].toUpperCase() + ' ' + designation[2]);
+    }
+  }
+
+  return candidates.slice(0, source.model === 'star' ? 12 : 32);
+}
+function findOrasNativeCandidate(stel, source) {
+  var _iterator = Object(createForOfIteratorHelper["a" /* default */])(buildOrasNativeCandidates(source)),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var candidate = _step.value;
+      var obj = stel.getObj(candidate);
+      if (obj) return obj;
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  return undefined;
 }
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.split.js
 var es_string_split = __webpack_require__("1276");
@@ -2451,3828 +2515,14 @@ function _digestText() {
 }
 
 var orasCatalogPacks = createOrasCatalogPackManager();
-// CONCATENATED MODULE: ./src/assets/sw_helpers.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Stellarium Web - Copyright (c) 2022 - Stellarium Labs SRL
-//
-// This program is licensed under the terms of the GNU AGPL v3, or
-// alternatively under a commercial licence.
-//
-// The terms of the AGPL v3 license can be found in the main directory of this
-// repository.
-
-
-
-
-
-
-var DDDate = Date;
-
-DDDate.prototype.getJD = function () {
-  return this.getTime() / 86400000 + 2440587.5;
-};
-
-DDDate.prototype.setJD = function (jd) {
-  this.setTime((jd - 2440587.5) * 86400000);
-};
-
-DDDate.prototype.getMJD = function () {
-  return this.getJD() - 2400000.5;
-};
-
-DDDate.prototype.setMJD = function (mjd) {
-  this.setJD(mjd + 2400000.5);
-};
-
-var swh = {
-  initStelWebEngine: function initStelWebEngine(store, wasmFile, canvasElem, callBackOnDone) {
-    Object(stellarium_web_engine["a" /* default */])({
-      wasmFile: wasmFile,
-      canvas: canvasElem,
-      translateFn: function translateFn(domain, str) {
-        return str; // return i18next.t(str, {ns: domain});
-      },
-      onReady: function onReady(lstel) {
-        store.commit('replaceStelWebEngine', lstel.getTree());
-        lstel.onValueChanged(function (path, value) {
-          var tree = store.state.stel;
-
-          lodash_default.a.set(tree, path, value);
-
-          store.commit('replaceStelWebEngine', tree);
-        });
-        vue_esm["a" /* default */].prototype.$stel = lstel;
-        window.__ORAS_STEL = lstel;
-        vue_esm["a" /* default */].prototype.$selectionLayer = lstel.createLayer({
-          id: 'slayer',
-          z: 50,
-          visible: true
-        });
-        vue_esm["a" /* default */].prototype.$observingLayer = lstel.createLayer({
-          id: 'obslayer',
-          z: 40,
-          visible: true
-        });
-        vue_esm["a" /* default */].prototype.$skyHintsLayer = lstel.createLayer({
-          id: 'skyhintslayer',
-          z: 38,
-          visible: true
-        });
-        callBackOnDone();
-      }
-    });
-  },
-  monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  astroConstants: {
-    // Light time for 1 au in s
-    ERFA_AULT: 499.004782,
-    // Seconds per day
-    ERFA_DAYSEC: 86400.0,
-    // Days per Julian year
-    ERFA_DJY: 365.25,
-    // Astronomical unit in m
-    ERFA_DAU: 149597870000
-  },
-  iconForSkySourceTypes: function iconForSkySourceTypes(skySourceTypes) {
-    // Array sorted by specificity, i.e. the most generic names at the end
-    var iconForType = {
-      // Stars
-      'Pec?': 'star',
-      '**?': 'double_star',
-      '**': 'double_star',
-      'V*': 'variable_star',
-      'V*?': 'variable_star',
-      '*': 'star',
-      // Candidates
-      'As?': 'group_of_stars',
-      'SC?': 'group_of_galaxies',
-      'Gr?': 'group_of_galaxies',
-      'C?G': 'group_of_galaxies',
-      'G?': 'galaxy',
-      // Multiple objects
-      reg: 'region_defined_in_the_sky',
-      SCG: 'group_of_galaxies',
-      ClG: 'group_of_galaxies',
-      GrG: 'group_of_galaxies',
-      IG: 'interacting_galaxy',
-      PaG: 'pair_of_galaxies',
-      'C?*': 'open_galactic_cluster',
-      'Gl?': 'globular_cluster',
-      GlC: 'globular_cluster',
-      OpC: 'open_galactic_cluster',
-      'Cl*': 'open_galactic_cluster',
-      'As*': 'group_of_stars',
-      mul: 'multiple_objects',
-      // Interstellar matter
-      'PN?': 'planetary_nebula',
-      PN: 'planetary_nebula',
-      SNR: 'planetary_nebula',
-      'SR?': 'planetary_nebula',
-      ISM: 'interstellar_matter',
-      // Galaxies
-      PoG: 'part_of_galaxy',
-      QSO: 'quasar',
-      G: 'galaxy',
-      dso: 'deep_sky',
-      // Solar System
-      Asa: 'artificial_satellite',
-      Moo: 'moon',
-      Sun: 'sun',
-      Pla: 'planet',
-      DPl: 'planet',
-      Com: 'comet',
-      MPl: 'minor_planet',
-      SSO: 'minor_planet',
-      Con: 'constellation'
-    };
-
-    for (var i in skySourceTypes) {
-      if (skySourceTypes[i] in iconForType) {
-        return "/oras-sky-engine/" + 'images/svg/target_types/' + iconForType[skySourceTypes[i]] + '.svg';
-      }
-    }
-
-    return "/oras-sky-engine/" + 'images/svg/target_types/unknown.svg';
-  },
-  iconForSkySource: function iconForSkySource(skySource) {
-    return swh.iconForSkySourceTypes(skySource.types);
-  },
-  iconForObservation: function iconForObservation(obs) {
-    if (obs && obs.target) {
-      return this.iconForSkySource(obs.target);
-    } else {
-      return this.iconForSkySourceTypes(['reg']);
-    }
-  },
-  cleanupOneSkySourceName: function cleanupOneSkySourceName(name, flags) {
-    flags = flags || 4;
-    return vue_esm["a" /* default */].prototype.$stel.designationCleanup(name, flags);
-  },
-  nameForSkySource: function nameForSkySource(skySource) {
-    if (!skySource || !skySource.names) {
-      return '?';
-    }
-
-    return this.cleanupOneSkySourceName(skySource.names[0]);
-  },
-  culturalNameToList: function culturalNameToList(cn) {
-    var res = [];
-
-    var formatNative = function formatNative(_cn) {
-      if (cn.name_native && cn.name_pronounce) {
-        return cn.name_native + ', <i>' + cn.name_pronounce + '</i>';
-      }
-
-      if (cn.name_native) {
-        return cn.name_native;
-      }
-
-      if (cn.name_pronounce) {
-        return cn.name_pronounce;
-      }
-    };
-
-    var nativeName = formatNative(cn);
-
-    if (cn.user_prefer_native && nativeName) {
-      res.push(nativeName);
-    }
-
-    if (cn.name_translated) {
-      res.push(cn.name_translated);
-    }
-
-    if (!cn.user_prefer_native && nativeName) {
-      res.push(nativeName);
-    }
-
-    return res;
-  },
-  namesForSkySource: function namesForSkySource(ss, flags) {
-    // Return a list of cleaned up names
-    if (!ss || !ss.names) {
-      return [];
-    }
-
-    if (!flags) flags = 10;
-    var res = [];
-
-    if (ss.culturalNames) {
-      for (var i in ss.culturalNames) {
-        res = res.concat(this.culturalNameToList(ss.culturalNames[i]));
-      }
-    }
-
-    res = res.concat(ss.names.map(function (n) {
-      return vue_esm["a" /* default */].prototype.$stel.designationCleanup(n, flags);
-    })); // Remove duplicates, this can happen between * and V* catalogs
-
-    res = res.filter(function (v, i) {
-      return res.indexOf(v) === i;
-    });
-    res = res.filter(function (v, i) {
-      return !v.startsWith('CON ');
-    });
-    return res;
-  },
-  nameForSkySourceType: function nameForSkySourceType(otype) {
-    var $stel = vue_esm["a" /* default */].prototype.$stel;
-    var res = $stel.otypeToStr(otype);
-    return res || 'Unknown Type';
-  },
-  nameForGalaxyMorpho: function nameForGalaxyMorpho(morpho) {
-    var galTab = {
-      E: 'Elliptical',
-      SB: 'Barred Spiral',
-      SAB: 'Intermediate Spiral',
-      SA: 'Spiral',
-      S0: 'Lenticular',
-      S: 'Spiral',
-      Im: 'Irregular',
-      dSph: 'Dwarf Spheroidal',
-      dE: 'Dwarf Elliptical'
-    };
-
-    for (var morp in galTab) {
-      if (morpho.startsWith(morp)) {
-        return galTab[morp];
-      }
-    }
-
-    return '';
-  },
-  getShareLink: function getShareLink(context) {
-    var origin = typeof window !== 'undefined' && window.location ? window.location.origin : '';
-    var basePath = "/oras-sky-engine/" || false;
-    var link = origin + (basePath.endsWith('/') ? basePath : basePath + '/');
-    var selectedObject = context.$store.state.selectedObject;
-
-    if (selectedObject) {
-      link += 'skysource/' + this.cleanupOneSkySourceName(selectedObject.names[0], 5).replace(/\s+/g, '');
-    }
-
-    link += '?';
-    link += 'fov=' + (context.$store.state.stel.fov * 180 / Math.PI).toPrecision(5);
-    var d = new Date();
-    d.setMJD(context.$stel.core.observer.utc);
-    link += '&date=' + new moment_default.a(d).utc().format();
-    link += '&lat=' + (context.$stel.core.observer.latitude * 180 / Math.PI).toFixed(2);
-    link += '&lng=' + (context.$stel.core.observer.longitude * 180 / Math.PI).toFixed(2);
-    link += '&elev=' + context.$stel.core.observer.elevation;
-
-    if (selectedObject) {
-      if (selectedObject.catalog) {
-        link += '&catalog=' + encodeURIComponent(selectedObject.catalog);
-      }
-
-      if (selectedObject.source_id != null) {
-        link += '&source_id=' + encodeURIComponent(String(selectedObject.source_id));
-      }
-
-      if (selectedObject.model) {
-        link += '&model=' + encodeURIComponent(selectedObject.model);
-      }
-
-      if (selectedObject.ra != null) {
-        link += '&ra=' + encodeURIComponent(String(selectedObject.ra));
-      }
-
-      if (selectedObject.dec != null) {
-        link += '&dec=' + encodeURIComponent(String(selectedObject.dec));
-      }
-    }
-
-    if (!selectedObject) {
-      link += '&az=' + (context.$stel.core.observer.yaw * 180 / Math.PI).toPrecision(5);
-      link += '&alt=' + (context.$stel.core.observer.pitch * 180 / Math.PI).toPrecision(5);
-    }
-
-    return link;
-  },
-  // Return a SweObj matching a passed sky source JSON object if it's already instanciated in SWE
-  skySource2SweObj: function skySource2SweObj(ss) {
-    if (!ss || !ss.model) {
-      return undefined;
-    }
-
-    var $stel = vue_esm["a" /* default */].prototype.$stel;
-    var obj;
-
-    if (ss.model === 'tle_satellite') {
-      var id = 'NORAD ' + ss.model_data.norad_number;
-      obj = $stel.getObj(id);
-    } else if (ss.model === 'constellation' && ss.model_data.iau_abbreviation) {
-      var _id = 'CON western ' + ss.model_data.iau_abbreviation;
-
-      obj = $stel.getObj(_id);
-    }
-
-    if (!obj) {
-      var baseNames = [];
-
-      if (Array.isArray(ss.names)) {
-        baseNames.push.apply(baseNames, Object(toConsumableArray["a" /* default */])(ss.names));
-      }
-
-      if (ss.display_name) {
-        baseNames.push(ss.display_name);
-      }
-
-      if (ss.source_id != null) {
-        baseNames.push(String(ss.source_id));
-      }
-
-      var candidateNames = [];
-      var compactMessierPattern = /^M\d+$/i;
-      var sourceId = String(ss.source_id || '').trim();
-      var catalog = String(ss.catalog || '').toLowerCase();
-
-      if (ss.model === 'star' && sourceId) {
-        if (catalog.includes('gaia') && /^\d+$/.test(sourceId)) {
-          candidateNames.push('GAIA ' + sourceId);
-        }
-
-        if (catalog.includes('hipparcos') || /^hip-/i.test(sourceId)) {
-          candidateNames.push('HIP ' + sourceId.replace(/^hip-/i, ''));
-        }
-
-        if (catalog.includes('tycho') || /^tyc\s*/i.test(sourceId)) {
-          candidateNames.push('TYC ' + sourceId.replace(/^tyc\s*/i, ''));
-        }
-      }
-
-      for (var _i = 0, _baseNames = baseNames; _i < _baseNames.length; _i++) {
-        var rawName = _baseNames[_i];
-        var name = String(rawName || '').trim();
-
-        if (!name) {
-          continue;
-        }
-
-        candidateNames.push(name);
-        candidateNames.push(this.cleanupOneSkySourceName(name, 5));
-        candidateNames.push('NAME ' + name);
-        candidateNames.push('* ' + name);
-        var compactName = name.replace(/\s+/g, '');
-
-        if (compactMessierPattern.test(compactName)) {
-          var messierNumber = compactName.slice(1);
-          candidateNames.push('M' + messierNumber);
-          candidateNames.push('M ' + messierNumber);
-        }
-
-        candidateNames.push('M ' + name.replace(/^M\s*/i, ''));
-        candidateNames.push('NGC ' + name.replace(/^NGC\s*/i, ''));
-        candidateNames.push('IC ' + name.replace(/^IC\s*/i, ''));
-      }
-
-      obj = candidateNames.map(function (candidate) {
-        return String(candidate || '').trim();
-      }).filter(function (candidate, index, all) {
-        return candidate !== '' && all.indexOf(candidate) === index;
-      }).map(function (candidate) {
-        return $stel.getObj(candidate);
-      }).find(Boolean);
-    }
-
-    if (!obj && ss.names[0].startsWith('Gaia DR2 ')) {
-      var gname = ss.names[0].replace(/^Gaia DR2 /, 'GAIA ');
-      obj = $stel.getObj(gname);
-    }
-
-    if (obj === null) return undefined;
-    return obj;
-  },
-  localSolarSystemCatalog: function localSolarSystemCatalog() {
-    return [{
-      match: 'Sun',
-      names: ['NAME Sun', 'Sun']
-    }, {
-      match: 'Moon',
-      names: ['NAME Moon', 'Moon']
-    }, {
-      match: 'Mercury',
-      names: ['NAME Mercury', 'Mercury']
-    }, {
-      match: 'Venus',
-      names: ['NAME Venus', 'Venus']
-    }, {
-      match: 'Earth',
-      names: ['NAME Earth', 'Earth']
-    }, {
-      match: 'Mars',
-      names: ['NAME Mars', 'Mars']
-    }, {
-      match: 'Jupiter',
-      names: ['NAME Jupiter', 'Jupiter']
-    }, {
-      match: 'Saturn',
-      names: ['NAME Saturn', 'Saturn']
-    }, {
-      match: 'Uranus',
-      names: ['NAME Uranus', 'Uranus']
-    }, {
-      match: 'Neptune',
-      names: ['NAME Neptune', 'Neptune']
-    }];
-  },
-  localSkySourceFromSweObj: function localSkySourceFromSweObj(obj, match) {
-    if (!obj) {
-      return undefined;
-    }
-
-    var ss = Object.assign({}, obj.__orasSkySourceData || obj.jsonData || {});
-    ss.match = match || ss.match || this.cleanupOneSkySourceName(ss.names && ss.names[0] || obj.designations()[0], 5);
-    ss.names = ss.names || obj.designations();
-    ss.types = ss.types || (obj.type ? [obj.type] : ['SSO']);
-    ss.model = ss.model || 'jpl_sso';
-    ss.model_data = ss.model_data || {};
-    ss.culturalNames = obj.culturalDesignations();
-    return ss;
-  },
-  localQueryResults: function localQueryResults(query, limit) {
-    var results = [];
-    var exactLocalResult = this.lookupSkySourceLocallyByName(query);
-
-    if (exactLocalResult) {
-      results.push(exactLocalResult);
-    }
-
-    var localMatches = this.queryLocalSkySources(query, limit);
-
-    var _iterator = Object(createForOfIteratorHelper["a" /* default */])(localMatches),
-        _step;
-
-    try {
-      var _loop = function _loop() {
-        var localMatch = _step.value;
-
-        if (!results.find(function (existing) {
-          return existing.names[0] === localMatch.names[0];
-        })) {
-          results.push(localMatch);
-        }
-      };
-
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        _loop();
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-
-    return results.slice(0, limit || 10);
-  },
-  fetchOrasSkySearch: function fetchOrasSkySearch(query) {
-    var normalized = normalizeOrasSearchQuery(query);
-    var searchUrl = buildOrasSearchUrl(normalized);
-
-    if (!searchUrl) {
-      return Promise.resolve({
-        results: [],
-        recognizedQuery: false
-      });
-    }
-
-    if (typeof fetch !== 'function') {
-      return Promise.reject(new Error('fetch is not available'));
-    }
-
-    return fetch(searchUrl, {
-      headers: {
-        Accept: 'application/json'
-      }
-    }).then(function (response) {
-      if (!response.ok) {
-        throw new Error('ORAS sky search request failed with status ' + response.status);
-      }
-
-      return response.json();
-    }).then(function (payload) {
-      var data = payload && payload.data ? payload.data : {};
-      var rawResults = Array.isArray(data.results) ? data.results : [];
-      return {
-        recognizedQuery: Boolean(data.recognized_query),
-        results: rawResults.map(toOrasSkySource).filter(Boolean)
-      };
-    });
-  },
-  fetchOrasSkySourceByIdentity: function fetchOrasSkySourceByIdentity(_ref) {
-    var catalog = _ref.catalog,
-        sourceId = _ref.sourceId,
-        model = _ref.model,
-        time = _ref.time,
-        lat = _ref.lat,
-        lng = _ref.lng,
-        elev = _ref.elev;
-    var lookupUrl = buildOrasObjectLookupUrl({
-      catalog: catalog,
-      sourceId: sourceId,
-      model: model,
-      time: time,
-      lat: lat,
-      lng: lng,
-      elev: elev
-    });
-
-    if (!lookupUrl) {
-      return Promise.reject(new Error('Sky source identity is incomplete'));
-    }
-
-    if (typeof fetch !== 'function') {
-      return Promise.reject(new Error('fetch is not available'));
-    }
-
-    return fetch(lookupUrl, {
-      headers: {
-        Accept: 'application/json'
-      }
-    }).then(function (response) {
-      if (!response.ok) {
-        throw new Error('ORAS sky object request failed with status ' + response.status);
-      }
-
-      return response.json();
-    }).then(function (payload) {
-      return toOrasSkySource(payload && payload.data ? payload.data : undefined);
-    });
-  },
-  shouldPreferLocalSkySourceFallback: function shouldPreferLocalSkySourceFallback() {
-    if (typeof window === 'undefined' || !window.location) {
-      return false;
-    }
-
-    var hostname = window.location.hostname || '';
-    return hostname === '127.0.0.1' || hostname === 'localhost';
-  },
-  lookupSkySourceLocallyByName: function lookupSkySourceLocallyByName(name) {
-    var localResult = this.lookupLocalSkySourceByName(name);
-
-    if (localResult) {
-      return localResult;
-    }
-
-    var $stel = vue_esm["a" /* default */].prototype.$stel;
-
-    if (!$stel || !name) {
-      return undefined;
-    }
-
-    var candidates = [name, this.cleanupOneSkySourceName(name, 5), 'NAME ' + name, '*' + ' ' + name, 'M ' + name.replace(/^M\s*/i, ''), 'NGC ' + name.replace(/^NGC\s*/i, ''), 'IC ' + name.replace(/^IC\s*/i, '')].filter(Boolean);
-    var obj = candidates.map(function (candidate) {
-      return String(candidate).trim();
-    }).filter(function (candidate, index, array) {
-      return candidate !== '' && array.indexOf(candidate) === index;
-    }).map(function (candidate) {
-      return $stel.getObj(candidate);
-    }).find(Boolean);
-    return this.localSkySourceFromSweObj(obj, name);
-  },
-  lookupLocalSkySourceByName: function lookupLocalSkySourceByName(name) {
-    var $stel = vue_esm["a" /* default */].prototype.$stel;
-
-    if (!$stel || !name) {
-      return undefined;
-    }
-
-    var normalized = String(name).trim().toUpperCase().replace(/\s+/g, '');
-    var entry = this.localSolarSystemCatalog().find(function (candidate) {
-      return candidate.names.some(function (candidateName) {
-        return candidateName.toUpperCase().replace(/\s+/g, '') === normalized;
-      }) || candidate.match.toUpperCase().replace(/\s+/g, '') === normalized;
-    });
-
-    if (!entry) {
-      return undefined;
-    }
-
-    var obj = entry.names.map(function (candidateName) {
-      return $stel.getObj(candidateName);
-    }).find(Boolean);
-    return this.localSkySourceFromSweObj(obj, entry.match);
-  },
-  queryLocalSkySources: function queryLocalSkySources(str, limit) {
-    var _this = this;
-
-    var $stel = vue_esm["a" /* default */].prototype.$stel;
-
-    if (!$stel || !str) {
-      return [];
-    }
-
-    var normalized = String(str).trim().toUpperCase().replace(/\s+/g, '');
-
-    if (!normalized) {
-      return [];
-    }
-
-    return this.localSolarSystemCatalog().filter(function (candidate) {
-      return candidate.match.toUpperCase().replace(/\s+/g, '').includes(normalized) || candidate.names.some(function (candidateName) {
-        return candidateName.toUpperCase().replace(/\s+/g, '').includes(normalized);
-      });
-    }).map(function (candidate) {
-      var obj = candidate.names.map(function (candidateName) {
-        return $stel.getObj(candidateName);
-      }).find(Boolean);
-      return _this.localSkySourceFromSweObj(obj, candidate.match);
-    }).filter(Boolean).slice(0, limit || 10);
-  },
-  lookupSkySourceByName: function lookupSkySourceByName(name) {
-    var _this2 = this;
-
-    var normalized = normalizeOrasSearchQuery(name);
-
-    if (!normalized) {
-      return Promise.reject(new Error('Sky source name is required'));
-    }
-
-    var findLocalResult = function findLocalResult() {
-      var localResult = _this2.lookupSkySourceLocallyByName(normalized);
-
-      if (localResult) {
-        return Promise.resolve(localResult);
-      }
-
-      return Promise.reject(new Error('Local sky source not found'));
-    };
-
-    return this.fetchOrasSkySearch(normalized).then(function (searchResponse) {
-      if (searchResponse.results.length) {
-        return searchResponse.results[0];
-      }
-
-      return findLocalResult();
-    }, function () {
-      return findLocalResult();
-    });
-  },
-  querySkySources: function querySkySources(str, limit) {
-    var _this3 = this;
-
-    limit = limit || 10;
-    var normalized = normalizeOrasSearchQuery(str);
-
-    if (!normalized) {
-      return Promise.resolve([]);
-    }
-
-    var packResults = orasCatalogPacks.search(normalized, limit).map(toOrasSkySource).filter(Boolean);
-    return this.fetchOrasSkySearch(normalized).then(function (searchResponse) {
-      return _this3.mergeSkySourceResults(searchResponse.results, packResults, _this3.localQueryResults(normalized, limit)).slice(0, limit);
-    }, function () {
-      return _this3.mergeSkySourceResults(packResults, _this3.localQueryResults(normalized, limit)).slice(0, limit);
-    });
-  },
-  mergeSkySourceResults: function mergeSkySourceResults() {
-    var results = [];
-    var identities = new Set();
-
-    for (var _len = arguments.length, groups = new Array(_len), _key = 0; _key < _len; _key++) {
-      groups[_key] = arguments[_key];
-    }
-
-    for (var _i2 = 0, _groups = groups; _i2 < _groups.length; _i2++) {
-      var group = _groups[_i2];
-
-      var _iterator2 = Object(createForOfIteratorHelper["a" /* default */])(group || []),
-          _step2;
-
-      try {
-        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-          var result = _step2.value;
-          var identity = [result.catalog, result.source_id, result.model].map(function (value) {
-            return String(value || '').trim().toLowerCase();
-          }).join("\0");
-          var fallbackIdentity = String(result.names && result.names[0] || result.match || '').trim().toLowerCase();
-          var key = identity === "\0\0" ? fallbackIdentity : identity;
-          if (!key || identities.has(key)) continue;
-          identities.add(key);
-          results.push(result);
-        }
-      } catch (err) {
-        _iterator2.e(err);
-      } finally {
-        _iterator2.f();
-      }
-    }
-
-    return results;
-  },
-  skySourceMatchesIdentity: function skySourceMatchesIdentity(ss, identity) {
-    if (!ss || !identity) {
-      return false;
-    }
-
-    var ssCatalog = String(ss.catalog || '').trim().toLowerCase();
-    var ssSourceId = ss.source_id == null ? '' : String(ss.source_id).trim().toLowerCase();
-    var ssModel = String(ss.model || '').trim().toLowerCase();
-    return ssCatalog === String(identity.catalog || '').trim().toLowerCase() && ssSourceId === String(identity.sourceId || '').trim().toLowerCase() && ssModel === String(identity.model || '').trim().toLowerCase();
-  },
-  sweObj2SkySource: function sweObj2SkySource(obj) {
-    var names = obj.designations();
-    var that = this;
-    var exactSelection = this.exactSkySourceSelection;
-    var currentSelection = vue_esm["a" /* default */].prototype.$stel && vue_esm["a" /* default */].prototype.$stel.core.selection;
-    var isCurrentSelection = currentSelection === obj || currentSelection && obj && currentSelection.v === obj.v;
-
-    if (exactSelection && isCurrentSelection) {
-      exactSelection.culturalNames = obj.culturalDesignations();
-      return Promise.resolve(exactSelection);
-    }
-
-    var buildLocalSkySource = function buildLocalSkySource(fallbackName) {
-      var ss = that.localSkySourceFromSweObj(obj, fallbackName || names[0]);
-
-      if (!ss) {
-        return undefined;
-      }
-
-      if (!ss.model_data) {
-        ss.model_data = {};
-      }
-
-      for (var i in ss.names) {
-        if (ss.names[i].startsWith('GAIA')) {
-          ss.names[i] = ss.names[i].replace(/^GAIA /, 'Gaia DR2 ');
-        }
-      }
-
-      ss.culturalNames = obj.culturalDesignations();
-      return ss;
-    };
-
-    if (obj.__orasSkySourceData && obj.__orasSkySourceData.catalog && obj.__orasSkySourceData.source_id && obj.__orasSkySourceData.model) {
-      return Promise.resolve(buildLocalSkySource(obj.__orasSkySourceData.match || obj.__orasSkySourceData.display_name || names[0]));
-    }
-
-    if (!names || !names.length) {
-      throw new Error("Can't find object without names");
-    } // Several artifical satellites share the same common name, so we use
-    // the unambiguous NORAD number instead
-
-
-    for (var j in names) {
-      if (names[j].startsWith('NORAD ')) {
-        var tmpName = names[0];
-        names[0] = names[j];
-        names[j] = tmpName;
-      }
-    }
-
-    var printErr = function printErr(n) {
-      console.log("Couldn't find ORAS skysource data for name: " + n);
-      return buildLocalSkySource(n);
-    };
-
-    return that.lookupSkySourceByName(names[0]).then(function (res) {
-      return res;
-    }, function () {
-      if (names.length === 1) return printErr(names);
-      return that.lookupSkySourceByName(names[1]).then(function (res) {
-        return res;
-      }, function () {
-        if (names.length === 2) return printErr(names);
-        return that.lookupSkySourceByName(names[2]).then(function (res) {
-          return res;
-        }, function () {
-          return printErr(names[2]);
-        });
-      });
-    }).then(function (res) {
-      res.culturalNames = obj.culturalDesignations();
-      return res;
-    });
-  },
-  setSweObjAsSelection: function setSweObjAsSelection(obj, exactSkySource) {
-    var $stel = vue_esm["a" /* default */].prototype.$stel;
-    this.exactSkySourceSelection = exactSkySource || undefined;
-    $stel.core.selection = obj;
-    $stel.pointAndLock(obj);
-  },
-  // Get data for a SkySource from wikipedia
-  getSkySourceSummaryFromWikipedia: function getSkySourceSummaryFromWikipedia(ss) {
-    var aliases = [];
-
-    for (var i in ss.names || []) {
-      aliases.push(String(ss.names[i]).trim());
-    }
-
-    if (ss.display_name) aliases.push(String(ss.display_name).trim());
-    if (ss.source_id) aliases.push('Gaia DR2 ' + String(ss.source_id).trim());
-    if (!aliases.length) return Promise.reject(new Error('No aliases available for local summary lookup'));
-    var url = ORAS_OBJECT_MEDIA_ROOT + '/summaries/index.json';
-    return fetch(url).then(function (res) {
-      if (!res.ok) throw new Error('No local summary for selection');
-      return res.json();
-    }).then(function (index) {
-      var keyMap = index && index.alias_to_file ? index.alias_to_file : {};
-
-      for (var _i3 = 0, _aliases = aliases; _i3 < _aliases.length; _i3++) {
-        var alias = _aliases[_i3];
-        var normalized = alias.toLowerCase();
-
-        if (keyMap[normalized]) {
-          return fetch(ORAS_OBJECT_MEDIA_ROOT + '/summaries/' + keyMap[normalized]).then(function (r) {
-            if (!r.ok) throw new Error('Failed to read local summary file');
-            return r.json();
-          });
-        }
-      }
-
-      throw new Error('No local summary for selection');
-    });
-  },
-  getGeolocation: function getGeolocation() {
-    console.log('Getting geolocalization');
-
-    if (!navigator.geolocation) {
-      return Promise.reject(new Error('Cannot detect position'));
-    }
-
-    return new Promise(function (resolve, reject) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        resolve({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-          accuracy: position.coords.accuracy
-        });
-      }, function () {
-        reject(new Error('Cannot detect position'));
-      }, {
-        enableHighAccuracy: true
-      });
-    });
-  },
-  delay: function delay(t, v) {
-    return new Promise(function (resolve) {
-      setTimeout(resolve.bind(null, v), t);
-    });
-  },
-  geoCodePosition: function geoCodePosition(pos, ctx) {
-    console.log('Geocoding position... ');
-    var ll = ctx.$t('Lat {0}° Lon {1}°', [pos.lat.toFixed(3), pos.lng.toFixed(3)]);
-    var loc = {
-      short_name: pos.accuracy > 500 ? ctx.$t('Near {0}', [ll]) : ll,
-      country: 'Unknown',
-      lng: pos.lng,
-      lat: pos.lat,
-      alt: pos.alt ? pos.alt : 0,
-      accuracy: pos.accuracy,
-      street_address: ''
-    };
-    return Promise.resolve(loc);
-  },
-  getDistanceFromLatLonInM: function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
-    var deg2rad = function deg2rad(deg) {
-      return deg * (Math.PI / 180);
-    };
-
-    var R = 6371000; // Radius of the earth in m
-
-    var dLat = deg2rad(lat2 - lat1);
-    var dLon = deg2rad(lon2 - lon1);
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c; // Distance in m
-
-    return d;
-  },
-  // Look for the next time starting from now on when the night Sky is visible
-  // i.e. when sun is more than 10 degree below horizon.
-  // If no such time was found (e.g. in a northern country in summer),
-  // we default to current time.
-  getTimeAfterSunset: function getTimeAfterSunset(stel) {
-    var sun = stel.getObj('NAME Sun');
-    var obs = stel.observer.clone();
-    var utc = Math.floor(obs.utc * 24 * 60 / 5) / (24 * 60 / 5);
-    var i;
-
-    for (i = 0; i < 24 * 60 / 5 + 1; i++) {
-      obs.utc = utc + 1.0 / (24 * 60) * (i * 5);
-      var sunRadec = sun.getInfo('RADEC', obs);
-      var azalt = stel.convertFrame(obs, 'ICRF', 'OBSERVED', sunRadec);
-      var alt = stel.anpm(stel.c2s(azalt)[1]);
-
-      if (alt < -13 * Math.PI / 180) {
-        break;
-      }
-    }
-
-    if (i === 0 || i === 24 * 60 / 5 + 1) {
-      return stel.observer.utc;
-    }
-
-    return obs.utc;
-  },
-  // Get the list of circumpolar stars in a given magnitude range
-  //
-  // Arguments:
-  //   obs      - An observer.
-  //   maxMag   - The maximum magnitude above which objects are discarded.
-  //   filter   - a function called for each object returning false if the
-  //              object must be filtered out.
-  //
-  // Return:
-  //   An array SweObject. It is the responsibility of the caller to properly
-  //   destroy all the objects of the list when they are not needed, by calling
-  //   obj.destroy() on each of them.
-  //
-  // Example code:
-  //   // Return all cicumpolar stars between mag -2 and 4
-  //   let res = swh.getCircumpolarStars(this.$stel.observer, -2, 4)
-  //   // Do something with the stars
-  //   console.log(res.length)
-  //   // Destroy the objects (don't forget this line!)
-  //   res.map(e => e.destroy())
-  getCircumpolarStars: function getCircumpolarStars(obs, minMag, maxMag) {
-    var $stel = vue_esm["a" /* default */].prototype.$stel;
-
-    var filter = function filter(obj) {
-      if (obj.getInfo('vmag', obs) <= minMag) {
-        return false;
-      }
-
-      var posJNOW = $stel.convertFrame(obs, 'ICRF', 'JNOW', obj.getInfo('radec'));
-      var radecJNOW = $stel.c2s(posJNOW);
-      var decJNOW = $stel.anpm(radecJNOW[1]);
-
-      if (obs.latitude >= 0) {
-        return decJNOW >= Math.PI / 2 - obs.latitude;
-      } else {
-        return decJNOW <= -Math.PI / 2 + obs.latitude;
-      }
-    };
-
-    return $stel.core.stars.listObjs(obs, maxMag, filter);
-  },
-  circumpolarMask: undefined,
-  showCircumpolarMask: function showCircumpolarMask(obs, show) {
-    if (show === undefined) {
-      show = true;
-    }
-
-    var layer = vue_esm["a" /* default */].prototype.$skyHintsLayer;
-    var $stel = vue_esm["a" /* default */].prototype.$stel;
-
-    if (this.circumpolarMask) {
-      layer.remove(this.circumpolarMask);
-      this.circumpolarMask = undefined;
-    }
-
-    if (show) {
-      var diam = 2.0 * Math.PI - Math.abs(obs.latitude) * 2;
-      var shapeParams = {
-        pos: [0, 0, obs.latitude > 0 ? -1 : 1, 0],
-        frame: $stel.FRAME_JNOW,
-        size: [diam, diam],
-        color: [0.1, 0.1, 0.1, 0.8],
-        border_color: [0.1, 0.1, 0.6, 1]
-      };
-      this.circumpolarMask = layer.add('circle', shapeParams);
-    }
-  }
-};
-/* harmony default export */ var sw_helpers = (swh);
-// EXTERNAL MODULE: ./node_modules/v-click-outside/dist/v-click-outside.umd.js
-var v_click_outside_umd = __webpack_require__("c28b");
-var v_click_outside_umd_default = /*#__PURE__*/__webpack_require__.n(v_click_outside_umd);
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/skysource-search.vue?vue&type=script&lang=js&
-
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ var skysource_searchvue_type_script_lang_js_ = ({
-  data: function data() {
-    return {
-      autoCompleteChoices: [],
-      searchText: '',
-      lastQuery: undefined
-    };
-  },
-  props: ['value', 'floatingList'],
-  watch: {
-    searchText: function searchText() {
-      if (this.searchText === '') {
-        this.autoCompleteChoices = [];
-        this.lastQuery = undefined;
-        return;
-      }
-
-      this.refresh();
-    }
-  },
-  computed: {
-    listStyle: function listStyle() {
-      return this.floatingList ? 'position: absolute; z-index: 1000; margin-top: 8px' : '';
-    },
-    showList: function showList() {
-      return this.searchText.trim() !== '';
-    }
-  },
-  methods: {
-    sourceClicked: function sourceClicked(val) {
-      this.$emit('input', val);
-      this.resetSearch();
-    },
-    resetSearch: function resetSearch() {
-      this.searchText = '';
-    },
-    refresh: lodash_default.a.debounce(function () {
-      var that = this;
-      var rawQuery = that.searchText.trim();
-
-      if (!rawQuery) {
-        that.autoCompleteChoices = [];
-        that.lastQuery = undefined;
-        return;
-      }
-
-      if (this.lastQuery === rawQuery) {
-        return;
-      }
-
-      this.lastQuery = rawQuery;
-      sw_helpers.querySkySources(rawQuery, 10).then(function (results) {
-        if (rawQuery !== that.lastQuery) {
-          console.log('Cancelled query: ' + rawQuery);
-          return;
-        }
-
-        that.autoCompleteChoices = results;
-      }, function (err) {
-        console.log(err);
-      });
-    }, 200),
-    nameForSkySource: function nameForSkySource(s) {
-      var cn = sw_helpers.cleanupOneSkySourceName(s.match);
-      var n = sw_helpers.nameForSkySource(s);
-
-      if (cn === n) {
-        return n;
-      } else {
-        return cn + ' (' + n + ')';
-      }
-    },
-    typeToName: function typeToName(t) {
-      return sw_helpers.nameForSkySourceType(t);
-    },
-    subtitleForSkySource: function subtitleForSkySource(s) {
-      if (s && s.status === 'not_indexed') {
-        return 'Not indexed in local ORAS catalog yet';
-      }
-
-      return this.typeToName(s.types[0]);
-    },
-    iconForSkySource: function iconForSkySource(s) {
-      return sw_helpers.iconForSkySource(s);
-    }
-  },
-  mounted: function mounted() {
-    var that = this;
-
-    var onClick = function onClick(e) {
-      if (that.searchText !== '') {
-        that.searchText = '';
-      }
-    };
-
-    var guiParent = document.querySelector('stel') || document.body;
-    guiParent.addEventListener('click', onClick, false);
-    this.guiParent = guiParent;
-    this.guiParentClickHandler = onClick;
-  },
-  beforeDestroy: function beforeDestroy() {
-    if (this.guiParent && this.guiParentClickHandler) {
-      this.guiParent.removeEventListener('click', this.guiParentClickHandler, false);
-    }
-
-    this.guiParent = undefined;
-    this.guiParentClickHandler = undefined;
-  },
-  directives: {
-    clickOutside: v_click_outside_umd_default.a.directive
-  }
-});
-// CONCATENATED MODULE: ./src/components/skysource-search.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_skysource_searchvue_type_script_lang_js_ = (skysource_searchvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__("2877");
-
-// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installComponents.js
-var installComponents = __webpack_require__("6544");
-var installComponents_default = /*#__PURE__*/__webpack_require__.n(installComponents);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__("cc20");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VList.js
-var VList = __webpack_require__("8860");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItem.js
-var VListItem = __webpack_require__("da13");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemAction.js
-var VListItemAction = __webpack_require__("1800");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js + 6 modules
-var components_VList = __webpack_require__("5d23");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
-var VTextField = __webpack_require__("8654");
-
-// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installDirectives.js
-var installDirectives = __webpack_require__("269a");
-var installDirectives_default = /*#__PURE__*/__webpack_require__.n(installDirectives);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/click-outside/index.js
-var click_outside = __webpack_require__("a293");
-
-// CONCATENATED MODULE: ./src/components/skysource-search.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_skysource_searchvue_type_script_lang_js_,
-  skysource_searchvue_type_template_id_829e5c8c_render,
-  skysource_searchvue_type_template_id_829e5c8c_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var skysource_search = (component.exports);
-
-/* vuetify-loader */
-
-
-
-
-
-
-
-
-
-installComponents_default()(component, {VChip: VChip["a" /* default */],VList: VList["a" /* default */],VListItem: VListItem["a" /* default */],VListItemAction: VListItemAction["a" /* default */],VListItemContent: components_VList["a" /* VListItemContent */],VListItemSubtitle: components_VList["b" /* VListItemSubtitle */],VListItemTitle: components_VList["c" /* VListItemTitle */],VTextField: VTextField["a" /* default */]})
-
-
-/* vuetify-loader */
-
-
-installDirectives_default()(component, {ClickOutside: click_outside["a" /* default */]})
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/target-search.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ var target_searchvue_type_script_lang_js_ = ({
-  data: function data() {
-    return {
-      obsSkySource: undefined
-    };
-  },
-  watch: {
-    obsSkySource: function obsSkySource(ss) {
-      if (!ss) {
-        return;
-      }
-
-      var obj = sw_helpers.skySource2SweObj(ss);
-
-      if (!obj) {
-        obj = this.$stel.createObj(ss.model, ss);
-
-        if (obj) {
-          this.$selectionLayer.add(obj);
-        }
-      }
-
-      if (!obj) {
-        var label = Array.isArray(ss.names) && ss.names.length ? ss.names[0] : ss.display_name || String(ss.source_id || 'unknown');
-        console.warn("Can't find object in SWE: " + label);
-        return;
-      }
-
-      obj.__orasSkySourceData = ss;
-      sw_helpers.setSweObjAsSelection(obj, ss);
-    }
-  },
-  components: {
-    SkysourceSearch: skysource_search
-  }
-});
-// CONCATENATED MODULE: ./src/components/target-search.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_target_searchvue_type_script_lang_js_ = (target_searchvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/target-search.vue?vue&type=style&index=0&lang=css&
-var target_searchvue_type_style_index_0_lang_css_ = __webpack_require__("4654");
-
-// CONCATENATED MODULE: ./src/components/target-search.vue
-
-
-
-
-
-
-/* normalize component */
-
-var target_search_component = Object(componentNormalizer["a" /* default */])(
-  components_target_searchvue_type_script_lang_js_,
-  target_searchvue_type_template_id_5d761524_render,
-  target_searchvue_type_template_id_5d761524_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var target_search = (target_search_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/toolbar.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ var toolbarvue_type_script_lang_js_ = ({
-  data: function data() {
-    return {};
-  },
-  computed: {
-    fov: function fov() {
-      if (!this.$store.state.stel) return '-';
-      var fov = this.$store.state.stel.fov * 180 / Math.PI;
-      return fov.toPrecision(3) + '°';
-    }
-  },
-  methods: {
-    toggleNavigationDrawer: function toggleNavigationDrawer() {
-      this.$store.commit('toggleBool', 'showNavigationDrawer');
-    }
-  },
-  components: {
-    TargetSearch: target_search
-  }
-});
-// CONCATENATED MODULE: ./src/components/toolbar.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_toolbarvue_type_script_lang_js_ = (toolbarvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/toolbar.vue?vue&type=style&index=0&lang=css&
-var toolbarvue_type_style_index_0_lang_css_ = __webpack_require__("3658");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAppBar/VAppBarNavIcon.js
-var VAppBarNavIcon = __webpack_require__("5bc1");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__("8336");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__("132d");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__("2fa4");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/VToolbar.js
-var VToolbar = __webpack_require__("71d9");
-
-// CONCATENATED MODULE: ./src/components/toolbar.vue
-
-
-
-
-
-
-/* normalize component */
-
-var toolbar_component = Object(componentNormalizer["a" /* default */])(
-  components_toolbarvue_type_script_lang_js_,
-  toolbarvue_type_template_id_6acce61a_render,
-  toolbarvue_type_template_id_6acce61a_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var toolbar = (toolbar_component.exports);
-
-/* vuetify-loader */
-
-
-
-
-
-
-installComponents_default()(toolbar_component, {VAppBarNavIcon: VAppBarNavIcon["a" /* default */],VBtn: VBtn["a" /* default */],VIcon: VIcon["a" /* default */],VSpacer: VSpacer["a" /* default */],VToolbar: VToolbar["a" /* default */]})
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/bottom-bar.vue?vue&type=template&id=0430beac&
-var bottom_barvue_type_template_id_0430beac_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticStyle:{"position":"absolute","display":"flex","align-items":"flex-end"}},[(_vm.$store.state.showLocationButton)?_c('div',{staticClass:"tbtcontainer",staticStyle:{"max-width":"300px","display":"flex","align-items":"flex-end"}},[_c('v-btn',{staticClass:"tmenubt",attrs:{"color":"secondary"},nativeOn:{"click":function($event){$event.stopPropagation();return _vm.locationClicked()}}},[_c('v-icon',{staticClass:"hidden-sm-and-up"},[_vm._v("mdi-map-marker")]),_c('span',{staticClass:"hidden-xs-only"},[_vm._v(_vm._s(_vm.$store.state.currentLocation.short_name))])],1)],1):_vm._e(),_c('v-spacer'),(_vm.$store.state.showConstellationsLinesButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Constellations'),"img":__webpack_require__("d8fb"),"img_alt":"Constellations Button","toggled":_vm.$store.state.stel.constellations.lines_visible},on:{"clicked":function (b) { _vm.$stel.core.constellations.lines_visible = b; _vm.$stel.core.constellations.labels_visible = b }}}):_vm._e(),(_vm.$store.state.showConstellationsArtButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Constellations Art'),"img":__webpack_require__("00b8"),"img_alt":"Constellations Art Button","toggled":_vm.$store.state.stel.constellations.images_visible},on:{"clicked":function (b) { _vm.$stel.core.constellations.images_visible = b }}}):_vm._e(),(_vm.$store.state.showAtmosphereButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Atmosphere'),"img":__webpack_require__("49e1"),"img_alt":"Atmosphere Button","toggled":_vm.$store.state.stel.atmosphere.visible},on:{"clicked":function (b) { _vm.$stel.core.atmosphere.visible = b }}}):_vm._e(),(_vm.$store.state.showLandscapeButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Landscape'),"img":__webpack_require__("dbeb"),"img_alt":"Landscape Button","toggled":_vm.$store.state.stel.landscapes.visible},on:{"clicked":function (b) { _vm.$stel.core.landscapes.visible = b }}}):_vm._e(),(_vm.$store.state.showAzimuthalGridButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Azimuthal Grid'),"img":__webpack_require__("aca8"),"img_alt":"Azimuthal Button","toggled":_vm.$store.state.stel.lines.azimuthal.visible},on:{"clicked":function (b) { _vm.$stel.core.lines.azimuthal.visible = b }}}):_vm._e(),(_vm.$store.state.showEquatorialGridButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Equatorial Grid'),"img":__webpack_require__("1541"),"img_alt":"Equatorial Grid Button","toggled":_vm.$store.state.stel.lines.equatorial_jnow.visible},on:{"clicked":function (b) { _vm.$stel.core.lines.equatorial_jnow.visible = b }}}):_vm._e(),(_vm.$store.state.showEquatorialJ2000GridButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Equatorial J2000 Grid'),"img":__webpack_require__("1541"),"img_alt":"Equatorial J2000 Grid Button","toggled":_vm.$store.state.stel.lines.equatorial.visible},on:{"clicked":function (b) { _vm.$stel.core.lines.equatorial.visible = b }}}):_vm._e(),_c('bottom-button',{staticClass:"mr-auto",attrs:{"label":_vm.$t('Deep Sky Objects'),"img":__webpack_require__("5ae2"),"img_alt":"Deep Sky Objects Button","toggled":_vm.$store.state.stel.dsos.visible},on:{"clicked":function (b) { _vm.$stel.core.dsos.visible = b }}}),(_vm.$store.state.showNightmodeButton !== false)?_c('bottom-button',{staticClass:"mr-auto",attrs:{"label":_vm.$t('Night Mode'),"img":__webpack_require__("13ba"),"img_alt":"Night Mode Button","toggled":_vm.$store.state.nightmode},on:{"clicked":function (b) { _vm.setNightMode(b) }}}):_vm._e(),_c('bottom-button',{staticClass:"mr-auto hidden-xs-only",attrs:{"label":_vm.$t('Fullscreen'),"img":_vm.fullscreenBtnImage,"img_alt":"Fullscreen Button","toggled":_vm.$store.state.fullscreen},on:{"clicked":function (b) { _vm.setFullscreen(b) }}}),_c('v-spacer'),(_vm.$store.state.showTimeButtons)?_c('v-menu',{attrs:{"close-on-content-click":false,"transition":"v-slide-y-transition","offset-y":"","top":"","left":""},scopedSlots:_vm._u([{key:"activator",fn:function(ref){
-var on = ref.on;
-return [_c('v-btn',_vm._g({staticClass:"tmenubt",attrs:{"large":"","color":"secondary"}},on),[_c('v-icon',{staticClass:"hidden-sm-and-up"},[_vm._v("mdi-clock-outline")]),_c('span',{staticClass:"hidden-xs-only"},[_c('div',{staticClass:"text-subtitle-2"},[_vm._v(_vm._s(_vm.time))]),_c('div',{staticClass:"text-caption"},[_vm._v(_vm._s(_vm.date))])])],1)]}}],null,false,4035027993)},[_c('date-time-picker',{attrs:{"location":_vm.$store.state.currentLocation},model:{value:(_vm.pickerDate),callback:function ($$v) {_vm.pickerDate=$$v},expression:"pickerDate"}})],1):_vm._e()],1)}
-var bottom_barvue_type_template_id_0430beac_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/bottom-bar.vue?vue&type=template&id=0430beac&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/bottom-button.vue?vue&type=template&id=54804bb2&
-var bottom_buttonvue_type_template_id_54804bb2_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"bottom-button",class:{on: _vm.toggled}},[_c('a',{on:{"click":_vm.clicked}},[_c('img',{attrs:{"src":_vm.img,"alt":_vm.img_alt}})]),_c('div',{staticClass:"hint"},[_vm._v(_vm._s(_vm.label))])])}
-var bottom_buttonvue_type_template_id_54804bb2_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/bottom-button.vue?vue&type=template&id=54804bb2&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/bottom-button.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ var bottom_buttonvue_type_script_lang_js_ = ({
-  name: 'bottom-button',
-  props: ['label', 'img', 'toggled', 'img_alt'],
-  methods: {
-    clicked: function clicked() {
-      var b = !this.toggled;
-      this.$emit('clicked', b);
-    }
-  }
-});
-// CONCATENATED MODULE: ./src/components/bottom-button.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_bottom_buttonvue_type_script_lang_js_ = (bottom_buttonvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/bottom-button.vue?vue&type=style&index=0&lang=css&
-var bottom_buttonvue_type_style_index_0_lang_css_ = __webpack_require__("2435");
-
-// CONCATENATED MODULE: ./src/components/bottom-button.vue
-
-
-
-
-
-
-/* normalize component */
-
-var bottom_button_component = Object(componentNormalizer["a" /* default */])(
-  components_bottom_buttonvue_type_script_lang_js_,
-  bottom_buttonvue_type_template_id_54804bb2_render,
-  bottom_buttonvue_type_template_id_54804bb2_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var bottom_button = (bottom_button_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/date-time-picker.vue?vue&type=template&id=003a55bb&
-var date_time_pickervue_type_template_id_003a55bb_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-card',{attrs:{"width":"400"}},[_c('v-container',[_c('v-row',{staticClass:"ma-3",attrs:{"justify":"space-between","no-gutters":""}},[_c('div',[_c('v-btn',{staticClass:"up_down_bt",staticStyle:{"margin-left":"16px"},attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.incTime('years')},"touchstart":function($event){$event.preventDefault();return _vm.incTime('years')}}},[_c('v-icon',[_vm._v("mdi-menu-up")])],1),_c('v-btn',{staticClass:"up_down_bt",staticStyle:{"margin-left":"21px"},attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.incTime('months')},"touchstart":function($event){$event.preventDefault();return _vm.incTime('months')}}},[_c('v-icon',[_vm._v("mdi-menu-up")])],1),_c('v-btn',{staticClass:"up_down_bt",staticStyle:{"margin-left":"8px"},attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.incTime('days')},"touchstart":function($event){$event.preventDefault();return _vm.incTime('days')}}},[_c('v-icon',[_vm._v("mdi-menu-up")])],1),_c('h1',[_vm._v(_vm._s(_vm.date))]),_c('v-btn',{staticClass:"up_down_bt",staticStyle:{"margin-left":"16px"},attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.decTime('years')},"touchstart":function($event){$event.preventDefault();return _vm.decTime('years')}}},[_c('v-icon',[_vm._v("mdi-menu-down")])],1),_c('v-btn',{staticClass:"up_down_bt",staticStyle:{"margin-left":"21px"},attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.decTime('months')},"touchstart":function($event){$event.preventDefault();return _vm.decTime('months')}}},[_c('v-icon',[_vm._v("mdi-menu-down")])],1),_c('v-btn',{staticClass:"up_down_bt",staticStyle:{"margin-left":"8px"},attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.decTime('days')},"touchstart":function($event){$event.preventDefault();return _vm.decTime('days')}}},[_c('v-icon',[_vm._v("mdi-menu-down")])],1)],1),_c('div',[_c('div',[_c('v-tooltip',{attrs:{"top":""},scopedSlots:_vm._u([{key:"activator",fn:function(ref){
-var on = ref.on;
-return [_c('v-btn',_vm._g({staticStyle:{"margin-top":"5px"},attrs:{"text":"","icon":""},on:{"click":_vm.resetTime}},on),[_c('v-icon',[_vm._v("mdi-history")])],1)]}}])},[_c('span',[_vm._v(_vm._s(_vm.$t('Back to real time')))])])],1),_c('div',[_c('v-tooltip',{attrs:{"top":""},scopedSlots:_vm._u([{key:"activator",fn:function(ref){
-var on = ref.on;
-return [_c('v-btn',_vm._g({staticStyle:{"margin-top":"0px"},attrs:{"text":"","icon":""},on:{"click":_vm.togglePauseTime}},on),[_c('v-icon',[_vm._v(_vm._s(_vm.togglePauseTimeIcon))])],1)]}}])},[_c('span',[_vm._v(_vm._s(_vm.$t('Pause/unpause time')))])])],1)]),_c('div',[_c('v-btn',{staticClass:"up_down_bt",attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.incTime('hours')},"touchstart":function($event){$event.preventDefault();return _vm.incTime('hours')}}},[_c('v-icon',[_vm._v("mdi-menu-up")])],1),_c('v-btn',{staticClass:"up_down_bt ml-1",attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.incTime('minutes')},"touchstart":function($event){$event.preventDefault();return _vm.incTime('minutes')}}},[_c('v-icon',[_vm._v("mdi-menu-up")])],1),_c('v-btn',{staticClass:"up_down_bt ml-1",attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.incTime('seconds')},"touchstart":function($event){$event.preventDefault();return _vm.incTime('seconds')}}},[_c('v-icon',[_vm._v("mdi-menu-up")])],1),_c('h1',{staticClass:"ml-2"},[_vm._v(_vm._s(_vm.time))]),_c('v-btn',{staticClass:"up_down_bt",attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.decTime('hours')},"touchstart":function($event){$event.preventDefault();return _vm.decTime('hours')}}},[_c('v-icon',[_vm._v("mdi-menu-down")])],1),_c('v-btn',{staticClass:"up_down_bt ml-1",attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.decTime('minutes')},"touchstart":function($event){$event.preventDefault();return _vm.decTime('minutes')}}},[_c('v-icon',[_vm._v("mdi-menu-down")])],1),_c('v-btn',{staticClass:"up_down_bt ml-1",attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.decTime('seconds')},"touchstart":function($event){$event.preventDefault();return _vm.decTime('seconds')}}},[_c('v-icon',[_vm._v("mdi-menu-down")])],1)],1)])],1),_c('div',{staticStyle:{"padding":"20px"}},[_c('div',{staticStyle:{"position":"absolute"}},[_c('svg',{attrs:{"height":"30","width":"360"}},[_c('defs',[_c('linearGradient',{attrs:{"id":"grad1","x1":"0%","y1":"0%","x2":"100%","y2":"0%"}},_vm._l((_vm.stops),function(stop){return _c('stop',{key:stop.percent,style:(stop.style),attrs:{"offset":stop.percent}})}),1)],1),_c('rect',{attrs:{"width":"100%","height":"100%","fill":"url(#grad1)"}})])]),_c('v-slider',{staticStyle:{"padding":"0px","width":"360px"},attrs:{"min":"0","max":"1439","hint":_vm.sliderHint,"persistent-hint":""},model:{value:(_vm.timeMinute),callback:function ($$v) {_vm.timeMinute=$$v},expression:"timeMinute"}})],1)],1)}
-var date_time_pickervue_type_template_id_003a55bb_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/date-time-picker.vue?vue&type=template&id=003a55bb&
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.math.log10.js
-var es_math_log10 = __webpack_require__("6b93");
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/date-time-picker.vue?vue&type=script&lang=js&
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-var clickTimeout;
-var nbClickRepeat = 0;
-/* harmony default export */ var date_time_pickervue_type_script_lang_js_ = ({
-  data: function data() {
-    return {
-      stops: [],
-      stopCacheKey: {
-        sliderStartTime: undefined,
-        location: undefined
-      }
-    };
-  },
-  props: ['value', 'location'],
-  computed: {
-    // The MomentJS time in local time
-    localTime: {
-      get: function get() {
-        var m = moment_default()(this.value);
-        m.local();
-        return m;
-      },
-      set: function set(newValue) {
-        this.$emit('input', newValue.format());
-      }
-    },
-    time: {
-      get: function get() {
-        return this.localTime.format('HH:mm:ss');
-      }
-    },
-    date: {
-      get: function get() {
-        return this.localTime.format('YYYY-MM-DD');
-      }
-    },
-    timeMinute: {
-      get: function get() {
-        // 0 means 12:00, 720 means midnight, 1440 (=24*60) means 12:00 the day after
-        var t = this.localTime;
-        return t.hours() < 12 ? (t.hours() + 12) * 60 + t.minutes() : (t.hours() - 12) * 60 + t.minutes();
-      },
-      set: function set(newValue) {
-        var t = moment_default()(this.sliderStartTime);
-        t.add(newValue, 'minutes');
-        this.$emit('input', t.format());
-      }
-    },
-    sliderStartTime: function sliderStartTime() {
-      var t = this.localTime.clone();
-
-      if (t.hours() < 12) {
-        t.subtract(1, 'days');
-      }
-
-      t.hours(12);
-      t.minutes(0);
-      t.seconds(0);
-      t.milliseconds(0);
-      return t;
-    },
-    sliderHint: function sliderHint() {
-      var tm = this.timeMinute;
-      var stop = this.stops[Math.floor(tm * this.stops.length / 1440)];
-      if (!stop) return '';
-
-      if (stop.sunAlt > 0) {
-        return this.$t('Daylight');
-      }
-
-      if (stop.sunAlt < -16) {
-        return stop.moonAlt < 5 ? this.$t('Dark night') : this.$t('Moonlight');
-      }
-
-      return tm > 720 ? this.$t('Dawn') : this.$t('Twilight');
-    },
-    isTimePaused: function isTimePaused() {
-      return this.$store.state.stel.time_speed === 0;
-    },
-    togglePauseTimeIcon: function togglePauseTimeIcon() {
-      return this.isTimePaused ? 'mdi-play' : 'mdi-pause';
-    }
-  },
-  methods: {
-    resetTime: function resetTime() {
-      var m = moment_default()();
-      m.local();
-      this.$emit('input', m.format());
-    },
-    togglePauseTime: function togglePauseTime() {
-      this.$stel.core.time_speed = this.$stel.core.time_speed === 0 ? 1 : 0;
-    },
-    incTime: function incTime(unit) {
-      this.startIncTime(1, unit);
-    },
-    decTime: function decTime(unit) {
-      this.startIncTime(-1, unit);
-    },
-    startIncTime: function startIncTime(v, unit) {
-      var _this = this;
-
-      var that = this;
-      clickTimeout = setTimeout(function (_) {
-        var t = _this.localTime.clone();
-
-        t.add(v, unit);
-
-        _this.$emit('input', t.format());
-
-        nbClickRepeat++;
-        that.startIncTime(v, unit);
-      }, nbClickRepeat === 0 ? 0 : nbClickRepeat === 1 ? 500 : nbClickRepeat < 10 ? 100 : nbClickRepeat < 100 ? 50 : 20);
-    },
-    stopIncTime: function stopIncTime() {
-      if (clickTimeout) {
-        clearTimeout(clickTimeout);
-        clickTimeout = undefined;
-        nbClickRepeat = 0;
-      }
-    },
-    // 0 means 12:00, 720 means midnight, 1440 (=24*60) means 12:00 the day after
-    timeMinuteRangeToUTC: function timeMinuteRangeToUTC(tm) {
-      return this.sliderStartTime.toDate().getMJD() + tm * 1 / (24 * 60);
-    },
-    refreshStops: function refreshStops() {
-      if (this.stopCacheKey.sliderStartTime === this.sliderStartTime.format() && this.stopCacheKey.location === JSON.stringify(this.location)) {
-        return;
-      }
-
-      var res = [];
-      var nbStop = 49;
-      var obs = this.$stel.core.observer.clone();
-      var sun = this.$stel.getObj('NAME Sun');
-      var moon = this.$stel.getObj('NAME Moon');
-
-      for (var i = 0; i <= nbStop; ++i) {
-        obs.utc = this.timeMinuteRangeToUTC(1440 * i / nbStop);
-        var sunAlt = this.$stel.anpm(this.$stel.c2s(this.$stel.convertFrame(obs, 'ICRF', 'OBSERVED', sun.getInfo('radec', obs)))[1]) * 180.0 / Math.PI;
-        var moonAlt = this.$stel.anpm(this.$stel.c2s(this.$stel.convertFrame(obs, 'ICRF', 'OBSERVED', moon.getInfo('radec', obs)))[1]) * 180.0 / Math.PI;
-
-        var brightnessForAltitude = function brightnessForAltitude(sunAlt, moonAlt) {
-          var moonBrightness = moonAlt < 0 ? 0 : 2 / 35 * Math.min(20, moonAlt) / 20;
-          if (sunAlt > 0) return Math.min(10, 1 + sunAlt) + moonBrightness;
-          if (sunAlt < -16) return moonBrightness;
-          if (sunAlt < -10) return 1 / 35 * (16 + sunAlt) / 6 + moonBrightness;
-          return (1 - 1 / 35) * (10 + sunAlt) / 10 + 1 / 35 + moonBrightness;
-        };
-
-        var brightness = Math.log10(1 + brightnessForAltitude(sunAlt, moonAlt) * 10) / 2;
-        res.push({
-          percent: i / nbStop,
-          style: 'stop-color:rgb(64,209,255);stop-opacity:' + brightness,
-          sunAlt: sunAlt,
-          moonAlt: moonAlt
-        });
-      }
-
-      obs.destroy();
-      this.stopCacheKey.sliderStartTime = this.sliderStartTime.format();
-      this.stopCacheKey.location = JSON.stringify(this.location);
-      this.stops = res;
-    }
-  },
-  mounted: function mounted() {
-    this.refreshStops();
-    var that = this;
-    window.addEventListener('mouseup', function (event) {
-      that.stopIncTime();
-    });
-    window.addEventListener('touchend', function (event) {
-      that.stopIncTime();
-    });
-  },
-  watch: {
-    sliderStartTime: function sliderStartTime() {
-      this.refreshStops();
-    },
-    location: function location() {
-      this.refreshStops();
-    }
-  }
-});
-// CONCATENATED MODULE: ./src/components/date-time-picker.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_date_time_pickervue_type_script_lang_js_ = (date_time_pickervue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/date-time-picker.vue?vue&type=style&index=0&lang=css&
-var date_time_pickervue_type_style_index_0_lang_css_ = __webpack_require__("3cdf");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__("b0af");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
-var VContainer = __webpack_require__("a523");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__("0fd9");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlider/VSlider.js
-var VSlider = __webpack_require__("ba0d");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTooltip/VTooltip.js
-var VTooltip = __webpack_require__("3a2f");
-
-// CONCATENATED MODULE: ./src/components/date-time-picker.vue
-
-
-
-
-
-
-/* normalize component */
-
-var date_time_picker_component = Object(componentNormalizer["a" /* default */])(
-  components_date_time_pickervue_type_script_lang_js_,
-  date_time_pickervue_type_template_id_003a55bb_render,
-  date_time_pickervue_type_template_id_003a55bb_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var date_time_picker = (date_time_picker_component.exports);
-
-/* vuetify-loader */
-
-
-
-
-
-
-
-
-installComponents_default()(date_time_picker_component, {VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VContainer: VContainer["a" /* default */],VIcon: VIcon["a" /* default */],VRow: VRow["a" /* default */],VSlider: VSlider["a" /* default */],VTooltip: VTooltip["a" /* default */]})
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/bottom-bar.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ var bottom_barvue_type_script_lang_js_ = ({
-  components: {
-    BottomButton: bottom_button,
-    DateTimePicker: date_time_picker
-  },
-  data: function data() {
-    return {};
-  },
-  computed: {
-    time: {
-      get: function get() {
-        return this.getLocalTime().format('HH:mm:ss');
-      }
-    },
-    date: {
-      get: function get() {
-        return this.getLocalTime().format('YYYY-MM-DD');
-      }
-    },
-    fullscreenBtnImage: function fullscreenBtnImage() {
-      return this.$store.state.fullscreen ? __webpack_require__("4d1c") : __webpack_require__("602b");
-    },
-    pickerDate: {
-      get: function get() {
-        var t = this.getLocalTime();
-        t.milliseconds(0);
-        return t.format();
-      },
-      set: function set(v) {
-        var m = moment_default()(v);
-        m.local();
-        m.milliseconds(this.getLocalTime().milliseconds());
-        this.$stel.core.observer.utc = m.toDate().getMJD();
-      }
-    }
-  },
-  methods: {
-    // The MomentJS time in local time
-    getLocalTime: function getLocalTime() {
-      var d = new Date();
-      d.setMJD(this.$store.state.stel.observer.utc);
-      var m = moment_default()(d);
-      m.local();
-      return m;
-    },
-    locationClicked: function locationClicked() {
-      this.$store.commit('toggleBool', 'showLocationDialog');
-    },
-    setFullscreen: function setFullscreen(b) {
-      this.$fullscreen.toggle(document.body, {
-        wrap: false,
-        callback: this.onFullscreenChange
-      });
-    },
-    setNightMode: function setNightMode(b) {
-      this.$store.commit('toggleBool', 'nightmode');
-
-      if (window.navigator.userAgent.indexOf('Edge') > -1) {
-        document.getElementById('nightmode').style.opacity = b ? '0.5' : '0';
-      }
-
-      document.getElementById('nightmode').style.visibility = b ? 'visible' : 'hidden';
-    },
-    onFullscreenChange: function onFullscreenChange(b) {
-      if (this.$store.state.fullscreen === b) return;
-      this.$store.commit('toggleBool', 'fullscreen');
-    }
-  }
-});
-// CONCATENATED MODULE: ./src/components/bottom-bar.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_bottom_barvue_type_script_lang_js_ = (bottom_barvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/bottom-bar.vue?vue&type=style&index=0&lang=css&
-var bottom_barvue_type_style_index_0_lang_css_ = __webpack_require__("85df");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
-var VMenu = __webpack_require__("e449");
-
-// CONCATENATED MODULE: ./src/components/bottom-bar.vue
-
-
-
-
-
-
-/* normalize component */
-
-var bottom_bar_component = Object(componentNormalizer["a" /* default */])(
-  components_bottom_barvue_type_script_lang_js_,
-  bottom_barvue_type_template_id_0430beac_render,
-  bottom_barvue_type_template_id_0430beac_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var bottom_bar = (bottom_bar_component.exports);
-
-/* vuetify-loader */
-
-
-
-
-
-installComponents_default()(bottom_bar_component, {VBtn: VBtn["a" /* default */],VIcon: VIcon["a" /* default */],VMenu: VMenu["a" /* default */],VSpacer: VSpacer["a" /* default */]})
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/selected-object-info.vue?vue&type=template&id=5611141b&
-var selected_object_infovue_type_template_id_5611141b_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.selectedObject)?_c('v-card',{staticStyle:{"background":"rgba(66, 66, 66, 0.3)"},attrs:{"transparent":""}},[_c('v-btn',{staticStyle:{"position":"absolute","right":"0"},attrs:{"icon":""},nativeOn:{"click":function($event){return _vm.unselect()}}},[_c('v-icon',[_vm._v("mdi-close")])],1),_c('v-card-title',{attrs:{"primary-title":""}},[_c('div',{staticStyle:{"width":"100%"}},[_c('img',{staticStyle:{"margin-top":"3px","margin-right":"10px"},attrs:{"src":_vm.icon,"height":"48","width":"48","align":"left"}}),_c('div',{staticStyle:{"overflow":"hidden","text-overflow":"ellipsis"}},[_c('div',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.title))]),_c('div',{staticClass:"grey--text text-body-2"},[_vm._v(_vm._s(_vm.type))])])])]),_c('v-card-text',{staticStyle:{"padding-bottom":"5px"}},[(_vm.otherNames.length > 1)?_c('v-row',{staticStyle:{"width":"100%"}},[_c('v-col',{attrs:{"cols":"12"}},[_c('span',{staticStyle:{"position":"absolute"}},[_vm._v(_vm._s(_vm.$t('Also known as')))]),_c('span',{staticStyle:{"padding-left":"33.3333%"}}),_vm._l((_vm.otherNames1to7),function(mname){return _c('span',{key:mname,staticClass:"text-caption white--text",staticStyle:{"margin-right":"15px","font-weight":"500"}},[_vm._v(_vm._s(mname))])}),(_vm.otherNames.length > 8)?_c('v-btn',{staticClass:"grey--text",staticStyle:{"margin-top":"-5px","margin-bottom":"-5px"},attrs:{"small":"","icon":""},nativeOn:{"click":function($event){_vm.showMinorNames = !_vm.showMinorNames}}},[_c('v-icon',[_vm._v("mdi-dots-horizontal")])],1):_vm._e(),_vm._l((_vm.otherNames8andMore),function(mname){return _c('span',{key:mname,staticClass:"text-caption white--text",staticStyle:{"margin-right":"15px","font-weight":"500"}},[_vm._v(_vm._s(mname))])})],2)],1):_vm._e()],1),(_vm.orasMetadata)?_c('v-card-text',{staticClass:"oras-enhanced-panel"},[_c('v-chip',{staticClass:"mb-2",attrs:{"x-small":"","color":"cyan darken-3","text-color":"white"}},[_vm._v("ORAS Enhanced")]),_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v("Catalog IDs")]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(_vm.orasMetadata.catalogIds.join(', ')))])],1),_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v("Source attribution")]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(_vm.orasMetadata.sources.join(', ')))])],1),(_vm.orasMetadata.pack)?_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v("Catalog pack")]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(_vm.orasMetadata.pack))])],1):_vm._e(),_vm._l((_vm.orasProperties),function(property){return _c('v-row',{key:property.key,attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v(_vm._s(property.key))]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(property.value))])],1)}),(_vm.orasProperties.length === 0)?_c('div',{staticClass:"grey--text text-caption mt-2"},[_vm._v(" Physical properties: Unavailable from mounted sources ")]):_vm._e()],2):_vm._e(),_c('v-card-text',[_vm._l((_vm.items),function(item){return [_c('v-row',{key:item.key,staticStyle:{"width":"100%"},attrs:{"no-gutters":""}},[_c('v-col',{staticStyle:{"color":"#dddddd"},attrs:{"cols":"4"}},[_vm._v(_vm._s(item.key))]),_c('v-col',{staticClass:"white--text",staticStyle:{"font-weight":"500"},attrs:{"cols":"8"}},[(item.html)?_c('span',{domProps:{"innerHTML":_vm._s(item.value)}}):_c('span',[_vm._v(_vm._s(item.value))])])],1)]}),_c('div',{staticClass:"white--text",staticStyle:{"margin-top":"15px"}},[_vm._v(_vm._s(_vm.wikipediaSummary))])],2),_c('v-card-actions',{staticStyle:{"margin-top":"-25px"}},[_c('v-spacer'),_vm._l((_vm.pluginsSelectedInfoExtraGuiComponents),function(item){return [_c(item,{key:item,tag:"component"})]})],2),_c('v-dialog',{attrs:{"width":"500px","absolute":""},model:{value:(_vm.showShareLinkDialog),callback:function ($$v) {_vm.showShareLinkDialog=$$v},expression:"showShareLinkDialog"}},[_c('v-card',{staticClass:"secondary white--text",staticStyle:{"height":"180px"}},[_c('v-card-title',{attrs:{"primary-title":""}},[_c('div',[_c('h3',{staticClass:"text-h5 mb-0"},[_vm._v("Share link")])])]),_c('v-card-text',{staticStyle:{"width":"100%"}},[_c('v-row',{staticStyle:{"width":"100%"}},[_c('v-text-field',{attrs:{"id":"link_inputid","label":"Link","solo":"","readonly":""},model:{value:(_vm.shareLink),callback:function ($$v) {_vm.shareLink=$$v},expression:"shareLink"}}),_c('v-btn',{nativeOn:{"click":function($event){$event.stopPropagation();return _vm.copyLink($event)}}},[_vm._v("Copy")])],1)],1)],1)],1),(_vm.$store.state.showSelectedInfoButtons)?_c('div',{staticStyle:{"position":"absolute","right":"0px","bottom":"-50px"}},[(!_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},nativeOn:{"click":function($event){_vm.showShareLinkDialog = !_vm.showShareLinkDialog}}},[_c('v-icon',[_vm._v("mdi-link")])],1):_vm._e(),(_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},nativeOn:{"click":function($event){return _vm.lockToSelection()}}},[_c('img',{staticStyle:{"min-height":"40px"},attrs:{"src":__webpack_require__("4f57"),"height":"40px"}})]):_vm._e(),(!_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},on:{"mousedown":function($event){return _vm.zoomOutButtonClicked()}}},[_c('img',{class:{bt_disabled: !_vm.zoomOutButtonEnabled},staticStyle:{"min-height":"40px"},attrs:{"src":__webpack_require__("7aa7"),"height":"40px"}})]):_vm._e(),(!_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},on:{"mousedown":function($event){return _vm.zoomInButtonClicked()}}},[_c('img',{class:{bt_disabled: !_vm.zoomInButtonEnabled},staticStyle:{"min-height":"40px"},attrs:{"src":__webpack_require__("f6ce"),"height":"40px"}})]):_vm._e()],1):_vm._e(),_c('v-snackbar',{attrs:{"bottom":"","left":"","timeout":2000,"color":"secondary"},model:{value:(_vm.copied),callback:function ($$v) {_vm.copied=$$v},expression:"copied"}},[_vm._v(" Link copied ")])],1):_vm._e()}
-var selected_object_infovue_type_template_id_5611141b_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/selected-object-info.vue?vue&type=template&id=5611141b&
-
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
 var es_object_keys = __webpack_require__("b64b");
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/selected-object-info.vue?vue&type=script&lang=js&
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ var selected_object_infovue_type_script_lang_js_ = ({
-  data: function data() {
-    return {
-      showMinorNames: false,
-      wikipediaData: undefined,
-      shareLink: undefined,
-      showShareLinkDialog: false,
-      copied: false,
-      items: [],
-      windowMouseupHandler: undefined,
-      timer: undefined,
-      zoomTimeout: undefined
-    };
-  },
-  computed: {
-    selectedObject: function selectedObject() {
-      return this.$store.state.selectedObject;
-    },
-    stelSelectionId: function stelSelectionId() {
-      return this.$store.state.stel && this.$store.state.stel.selection ? this.$store.state.stel.selection : undefined;
-    },
-    title: function title() {
-      return this.selectedObject ? this.otherNames[0] : 'Selection';
-    },
-    otherNames: function otherNames() {
-      return this.selectedObject ? sw_helpers.namesForSkySource(this.selectedObject, 26) : undefined;
-    },
-    otherNames1to7: function otherNames1to7() {
-      return this.otherNames.slice(1, 8);
-    },
-    otherNames8andMore: function otherNames8andMore() {
-      return this.showMinorNames ? this.otherNames.slice(8) : [];
-    },
-    orasMetadata: function orasMetadata() {
-      var source = this.selectedObject;
-      if (!source || !source.pack_id && !source.source_attribution) return undefined;
-      var catalogIds = [source.catalog && source.source_id ? source.catalog + ' ' + source.source_id : undefined].concat(Object(toConsumableArray["a" /* default */])(source.catalog_ids || [])).filter(function (value, index, all) {
-        return value && all.indexOf(value) === index;
-      });
-      var sources = (source.source_attribution || []).map(function (attribution) {
-        return attribution.name;
-      }).filter(function (value, index, all) {
-        return value && all.indexOf(value) === index;
-      });
-      return {
-        catalogIds: catalogIds,
-        sources: sources.length ? sources : ['Unavailable'],
-        pack: source.pack_id ? source.pack_id + ' ' + (source.pack_version || '') : undefined
-      };
-    },
-    orasProperties: function orasProperties() {
-      var _this = this;
-
-      if (!this.selectedObject) return [];
-      var fields = [['Spectral type', 'spectral_type'], ['Color index', 'color_index'], ['Parallax', 'parallax'], ['Distance', 'distance_pc'], ['Mass', 'mass_solar'], ['Radius', 'radius_solar'], ['Temperature', 'temperature_k'], ['Radial velocity', 'radial_velocity_km_s'], ['Variability', 'variability'], ['Period', 'period_seconds'], ['Redshift', 'redshift'], ['Flux', 'flux'], ['Candidate status', 'candidate_status']];
-      var properties = fields.filter(function (_ref) {
-        var _ref2 = Object(slicedToArray["a" /* default */])(_ref, 2),
-            field = _ref2[1];
-
-        return _this.selectedObject[field] != null;
-      }).map(function (_ref3) {
-        var _ref4 = Object(slicedToArray["a" /* default */])(_ref3, 2),
-            key = _ref4[0],
-            field = _ref4[1];
-
-        return {
-          key: key,
-          value: String(_this.selectedObject[field])
-        };
-      });
-
-      if (this.selectedObject.double_star) {
-        var double = this.selectedObject.double_star;
-        if (double.separation_arcsec != null) properties.push({
-          key: 'Separation',
-          value: double.separation_arcsec + ' arcsec'
-        });
-        if (double.position_angle_deg != null) properties.push({
-          key: 'Position angle',
-          value: double.position_angle_deg + ' deg'
-        });
-      }
-
-      return properties;
-    },
-    wikipediaSummary: function wikipediaSummary() {
-      if (!this.wikipediaData) return '';
-      if (this.wikipediaData.summary) return this.stripHtml(this.wikipediaData.summary);
-      var query = this.wikipediaData.query;
-      if (!query || !query.pages) return '';
-      var page = query.pages[Object.keys(query.pages)[0]];
-      if (!page || !page.extract) return '';
-      return this.stripHtml(page.extract);
-    },
-    type: function type() {
-      if (!this.selectedObject) return this.$t('Unknown');
-      var morpho = '';
-
-      if (this.selectedObject.model_data && this.selectedObject.model_data.morpho) {
-        morpho = sw_helpers.nameForGalaxyMorpho(this.selectedObject.model_data.morpho);
-
-        if (morpho) {
-          morpho = morpho + ' ';
-        }
-      }
-
-      return morpho + sw_helpers.nameForSkySourceType(this.selectedObject.types[0]);
-    },
-    icon: function icon() {
-      return sw_helpers.iconForSkySource(this.selectedObject);
-    },
-    showPointToButton: function showPointToButton() {
-      if (!this.$store.state.stel.lock) return true;
-      if (this.$store.state.stel.lock !== this.$store.state.stel.selection) return true;
-      return false;
-    },
-    zoomInButtonEnabled: function zoomInButtonEnabled() {
-      if (!this.$store.state.stel.lock || !this.selectedObject) return false;
-      return true;
-    },
-    zoomOutButtonEnabled: function zoomOutButtonEnabled() {
-      if (!this.$store.state.stel.lock || !this.selectedObject) return false;
-      return true;
-    },
-    extraButtons: function extraButtons() {
-      return sw_helpers.selectedObjectExtraButtons;
-    },
-    pluginsSelectedInfoExtraGuiComponents: function pluginsSelectedInfoExtraGuiComponents() {
-      var res = [];
-
-      for (var i in this.$stellariumWebPlugins()) {
-        var plugin = this.$stellariumWebPlugins()[i];
-
-        if (plugin.selectedInfoExtraGuiComponents) {
-          res = res.concat(plugin.selectedInfoExtraGuiComponents);
-        }
-      }
-
-      return res;
-    }
-  },
-  watch: {
-    selectedObject: function selectedObject(s) {
-      this.showMinorNames = false;
-      this.wikipediaData = undefined;
-
-      if (!s) {
-        if (this.timer) clearInterval(this.timer);
-        this.timer = undefined;
-        return;
-      }
-
-      var that = this;
-      that.items = that.computeItems();
-      if (that.timer) clearInterval(that.timer);
-      that.timer = setInterval(function () {
-        that.items = that.computeItems();
-      }, 1000);
-      var requestedSelection = s;
-      sw_helpers.getSkySourceSummaryFromWikipedia(requestedSelection).then(function (data) {
-        if (that.selectedObject === requestedSelection) {
-          that.wikipediaData = data;
-        }
-      }, function (reason) {});
-    },
-    stelSelectionId: function stelSelectionId(s) {
-      var _this2 = this;
-
-      if (!this.$stel.core.selection) {
-        this.$store.commit('setSelectedObject', 0);
-        return;
-      }
-
-      sw_helpers.sweObj2SkySource(this.$stel.core.selection).then(function (res) {
-        _this2.$store.commit('setSelectedObject', res);
-      }, function (err) {
-        console.log("Couldn't find info for object " + s + ':' + err);
-
-        _this2.$store.commit('setSelectedObject', 0);
-      });
-    },
-    showShareLinkDialog: function showShareLinkDialog(b) {
-      this.shareLink = sw_helpers.getShareLink(this);
-    }
-  },
-  methods: {
-    computeItems: function computeItems() {
-      var obj = this.$stel.core.selection;
-      if (!obj) return [];
-      var that = this;
-      var ret = [];
-
-      var addAttr = function addAttr(key, attr, format) {
-        var html = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-        var v = obj.getInfo(attr);
-        var number = Number(v);
-
-        if (v != null && !isNaN(number)) {
-          ret.push({
-            key: key,
-            value: format ? format(number) : number.toString(),
-            html: html
-          });
-        }
-      };
-
-      addAttr(that.$t('Magnitude'), 'vmag', this.formatMagnitude);
-      addAttr(that.$t('Distance'), 'distance', this.formatDistance, true);
-
-      if (this.selectedObject.model_data) {
-        if (this.selectedObject.model_data.radius) {
-          ret.push({
-            key: that.$t('Radius'),
-            value: this.selectedObject.model_data.radius.toString() + ' Km',
-            html: false
-          });
-        }
-
-        if (this.selectedObject.model_data.spect_t) {
-          ret.push({
-            key: that.$t('Spectral Type'),
-            value: this.selectedObject.model_data.spect_t,
-            html: false
-          });
-        }
-
-        if (this.selectedObject.model_data.dimx) {
-          var dimy = this.selectedObject.model_data.dimy ? this.selectedObject.model_data.dimy : this.selectedObject.model_data.dimx;
-          ret.push({
-            key: that.$t('Size'),
-            value: this.selectedObject.model_data.dimx.toString() + "' x " + dimy.toString() + "'",
-            html: false
-          });
-        }
-      }
-
-      var formatInt = function formatInt(num, padLen) {
-        var pad = new Array(1 + padLen).join('0');
-        return (pad + num).slice(-pad.length);
-      };
-
-      var formatRA = function formatRA(a) {
-        var raf = that.$stel.a2tf(a, 1);
-        return '<div class="radecVal">' + formatInt(raf.hours, 2) + '<span class="radecUnit">h</span>&nbsp;</div><div class="radecVal">' + formatInt(raf.minutes, 2) + '<span class="radecUnit">m</span></div><div class="radecVal">' + formatInt(raf.seconds, 2) + '.' + raf.fraction + '<span class="radecUnit">s</span></div>';
-      };
-
-      var formatAz = function formatAz(a) {
-        var raf = that.$stel.a2af(a, 1);
-        return '<div class="radecVal">' + formatInt(raf.degrees < 0 ? raf.degrees + 180 : raf.degrees, 3) + '<span class="radecUnit">°</span></div><div class="radecVal">' + formatInt(raf.arcminutes, 2) + '<span class="radecUnit">\'</span></div><div class="radecVal">' + formatInt(raf.arcseconds, 2) + '.' + raf.fraction + '<span class="radecUnit">"</span></div>';
-      };
-
-      var formatDec = function formatDec(a) {
-        var raf = that.$stel.a2af(a, 1);
-        return '<div class="radecVal">' + raf.sign + formatInt(raf.degrees, 2) + '<span class="radecUnit">°</span></div><div class="radecVal">' + formatInt(raf.arcminutes, 2) + '<span class="radecUnit">\'</span></div><div class="radecVal">' + formatInt(raf.arcseconds, 2) + '.' + raf.fraction + '<span class="radecUnit">"</span></div>';
-      };
-
-      var posCIRS = this.$stel.convertFrame(this.$stel.core.observer, 'ICRF', 'JNOW', obj.getInfo('radec'));
-      var radecCIRS = this.$stel.c2s(posCIRS);
-      var raCIRS = this.$stel.anp(radecCIRS[0]);
-      var decCIRS = this.$stel.anpm(radecCIRS[1]);
-      ret.push({
-        key: that.$t('Ra/Dec'),
-        value: formatRA(raCIRS) + '&nbsp;&nbsp;&nbsp;' + formatDec(decCIRS),
-        html: true
-      });
-      var azalt = this.$stel.c2s(this.$stel.convertFrame(this.$stel.core.observer, 'ICRF', 'OBSERVED', obj.getInfo('radec')));
-      var az = this.$stel.anp(azalt[0]);
-      var alt = this.$stel.anpm(azalt[1]);
-      ret.push({
-        key: that.$t('Az/Alt'),
-        value: formatAz(az) + '&nbsp;&nbsp;&nbsp;' + formatDec(alt),
-        html: true
-      });
-      addAttr(that.$t('Phase'), 'phase', this.formatPhase);
-      var vis = obj.computeVisibility();
-      var str = '';
-
-      if (vis.length === 0) {
-        str = that.$t('Not visible tonight');
-      } else if (vis[0].rise === null) {
-        str = that.$t('Always visible tonight');
-      } else {
-        str = that.$t('Rise: {0}&nbsp;&nbsp;&nbsp; Set: {1}', [this.formatTime(vis[0].rise), this.formatTime(vis[0].set)]);
-      }
-
-      ret.push({
-        key: that.$t('Visibility'),
-        value: str,
-        html: true
-      });
-      return ret;
-    },
-    formatPhase: function formatPhase(v) {
-      return (v * 100).toFixed(0) + '%';
-    },
-    formatMagnitude: function formatMagnitude(v) {
-      if (v == null || isNaN(v)) {
-        return 'Unknown';
-      }
-
-      return v.toFixed(2);
-    },
-    formatDistance: function formatDistance(d) {
-      // d is in AU
-      if (!d) {
-        return 'NAN';
-      }
-
-      var ly = d * sw_helpers.astroConstants.ERFA_AULT / sw_helpers.astroConstants.ERFA_DAYSEC / sw_helpers.astroConstants.ERFA_DJY;
-
-      if (ly >= 0.1) {
-        return ly.toFixed(2) + '<span class="radecUnit"> light years</span>';
-      }
-
-      if (d >= 0.1) {
-        return d.toFixed(2) + '<span class="radecUnit"> AU</span>';
-      }
-
-      var meter = d * sw_helpers.astroConstants.ERFA_DAU;
-
-      if (meter >= 1000) {
-        return (meter / 1000).toFixed(2) + '<span class="radecUnit"> km</span>';
-      }
-
-      return meter.toFixed(2) + '<span class="radecUnit"> m</span>';
-    },
-    stripHtml: function stripHtml(value) {
-      return String(value || '').replace(/[<>]/g, '').trim();
-    },
-    formatTime: function formatTime(jdm) {
-      var d = new Date();
-      d.setMJD(jdm);
-      var utc = new moment_default.a(d);
-      utc.utcOffset(this.$store.state.stel.utcoffset);
-      return utc.format('HH:mm');
-    },
-    unselect: function unselect() {
-      this.$stel.core.selection = 0;
-    },
-    lockToSelection: function lockToSelection() {
-      if (this.$stel.core.selection) {
-        this.$stel.pointAndLock(this.$stel.core.selection, 0.5);
-      }
-    },
-    zoomInButtonClicked: function zoomInButtonClicked() {
-      var currentFov = this.$store.state.stel.fov * 180 / Math.PI;
-      this.$stel.zoomTo(currentFov * 0.3 * Math.PI / 180, 0.4);
-      var that = this;
-      this.zoomTimeout = setTimeout(function (_) {
-        that.zoomInButtonClicked();
-      }, 300);
-    },
-    zoomOutButtonClicked: function zoomOutButtonClicked() {
-      var currentFov = this.$store.state.stel.fov * 180 / Math.PI;
-      this.$stel.zoomTo(currentFov * 3 * Math.PI / 180, 0.6);
-      var that = this;
-      this.zoomTimeout = setTimeout(function (_) {
-        that.zoomOutButtonClicked();
-      }, 200);
-    },
-    stopZoom: function stopZoom() {
-      if (this.zoomTimeout) {
-        clearTimeout(this.zoomTimeout);
-        this.zoomTimeout = undefined;
-      }
-    },
-    extraButtonClicked: function extraButtonClicked(btn) {
-      btn.callback();
-    },
-    copyLink: function copyLink() {
-      var input = document.querySelector('#link_inputid');
-      input.focus();
-      input.select();
-      this.copied = document.execCommand('copy');
-      window.getSelection().removeAllRanges();
-      this.showShareLinkDialog = false;
-    }
-  },
-  mounted: function mounted() {
-    var _this3 = this;
-
-    this.windowMouseupHandler = function () {
-      return _this3.stopZoom();
-    };
-
-    window.addEventListener('mouseup', this.windowMouseupHandler);
-  },
-  beforeDestroy: function beforeDestroy() {
-    if (this.windowMouseupHandler) {
-      window.removeEventListener('mouseup', this.windowMouseupHandler);
-      this.windowMouseupHandler = undefined;
-    }
-
-    if (this.timer) {
-      clearInterval(this.timer);
-      this.timer = undefined;
-    }
-
-    this.stopZoom();
-  }
-});
-// CONCATENATED MODULE: ./src/components/selected-object-info.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_selected_object_infovue_type_script_lang_js_ = (selected_object_infovue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/selected-object-info.vue?vue&type=style&index=0&lang=css&
-var selected_object_infovue_type_style_index_0_lang_css_ = __webpack_require__("202c");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__("99d9");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__("62ad");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__("169a");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js
-var VSnackbar = __webpack_require__("2db4");
-
-// CONCATENATED MODULE: ./src/components/selected-object-info.vue
-
-
-
-
-
-
-/* normalize component */
-
-var selected_object_info_component = Object(componentNormalizer["a" /* default */])(
-  components_selected_object_infovue_type_script_lang_js_,
-  selected_object_infovue_type_template_id_5611141b_render,
-  selected_object_infovue_type_template_id_5611141b_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var selected_object_info = (selected_object_info_component.exports);
-
-/* vuetify-loader */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-installComponents_default()(selected_object_info_component, {VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardActions: components_VCard["a" /* VCardActions */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VChip: VChip["a" /* default */],VCol: VCol["a" /* default */],VDialog: VDialog["a" /* default */],VIcon: VIcon["a" /* default */],VRow: VRow["a" /* default */],VSnackbar: VSnackbar["a" /* default */],VSpacer: VSpacer["a" /* default */],VTextField: VTextField["a" /* default */]})
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/progress-bars.vue?vue&type=template&id=551a0743&
-var progress_barsvue_type_template_id_551a0743_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',_vm._l((_vm.progressBars),function(bar){return _c('div',{key:bar.id,staticClass:"tfaders"},[_c('transition',{attrs:{"name":"fade"}},[(bar.value != bar.total)?_c('div',{staticClass:"tfader"},[_c('span',{staticClass:"text-caption",staticStyle:{"right":"4px","position":"relative"}},[_vm._v(_vm._s(bar.label))]),_c('v-progress-circular',{attrs:{"rotate":-90,"size":"18","value":bar.value / bar.total * 100}})],1):_vm._e()])],1)}),0)}
-var progress_barsvue_type_template_id_551a0743_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/progress-bars.vue?vue&type=template&id=551a0743&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/progress-bars.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ var progress_barsvue_type_script_lang_js_ = ({
-  name: 'progress-bars',
-  data: function data() {
-    return {};
-  },
-  computed: {
-    progressBars: function progressBars() {
-      return this.$store.state.stel.progressbars;
-    }
-  }
-});
-// CONCATENATED MODULE: ./src/components/progress-bars.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_progress_barsvue_type_script_lang_js_ = (progress_barsvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/progress-bars.vue?vue&type=style&index=0&lang=css&
-var progress_barsvue_type_style_index_0_lang_css_ = __webpack_require__("6fb1");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__("490a");
-
-// CONCATENATED MODULE: ./src/components/progress-bars.vue
-
-
-
-
-
-
-/* normalize component */
-
-var progress_bars_component = Object(componentNormalizer["a" /* default */])(
-  components_progress_barsvue_type_script_lang_js_,
-  progress_barsvue_type_template_id_551a0743_render,
-  progress_barsvue_type_template_id_551a0743_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var progress_bars = (progress_bars_component.exports);
-
-/* vuetify-loader */
-
-
-installComponents_default()(progress_bars_component, {VProgressCircular: VProgressCircular["a" /* default */]})
-
-// EXTERNAL MODULE: ./src/components/data-credits-dialog.vue
-var data_credits_dialog = __webpack_require__("41a1");
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/view-settings-dialog.vue?vue&type=template&id=bcf743b4&
-var view_settings_dialogvue_type_template_id_bcf743b4_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"max-width":"600"},model:{value:(_vm.$store.state.showViewSettingsDialog),callback:function ($$v) {_vm.$set(_vm.$store.state, "showViewSettingsDialog", $$v)},expression:"$store.state.showViewSettingsDialog"}},[(_vm.$store.state.showViewSettingsDialog)?_c('v-card',{staticClass:"secondary white--text"},[_c('v-card-title',[_c('div',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.$t('View settings')))])]),_c('v-card-text',[_c('v-checkbox',{attrs:{"hide-details":"","label":_vm.$t('Milky Way')},model:{value:(_vm.milkyWayOn),callback:function ($$v) {_vm.milkyWayOn=$$v},expression:"milkyWayOn"}}),_c('v-checkbox',{attrs:{"hide-details":"","label":_vm.$t('DSS')},model:{value:(_vm.dssOn),callback:function ($$v) {_vm.dssOn=$$v},expression:"dssOn"}}),_c('v-checkbox',{attrs:{"hide-details":"","label":_vm.$t('Meridian Line')},model:{value:(_vm.meridianOn),callback:function ($$v) {_vm.meridianOn=$$v},expression:"meridianOn"}}),_c('v-checkbox',{attrs:{"hide-details":"","label":_vm.$t('Ecliptic Line')},model:{value:(_vm.eclipticOn),callback:function ($$v) {_vm.eclipticOn=$$v},expression:"eclipticOn"}})],1),_c('v-card-actions',[_c('v-spacer'),_c('v-btn',{staticClass:"blue--text darken-1",attrs:{"text":""},nativeOn:{"click":function($event){_vm.$store.state.showViewSettingsDialog = false}}},[_vm._v("Close")])],1)],1):_vm._e()],1)}
-var view_settings_dialogvue_type_template_id_bcf743b4_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/view-settings-dialog.vue?vue&type=template&id=bcf743b4&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/view-settings-dialog.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ var view_settings_dialogvue_type_script_lang_js_ = ({
-  data: function data() {
-    return {};
-  },
-  computed: {
-    dssOn: {
-      get: function get() {
-        return this.$store.state.stel.dss.visible;
-      },
-      set: function set(newValue) {
-        this.$stel.core.dss.visible = newValue;
-      }
-    },
-    milkyWayOn: {
-      get: function get() {
-        return this.$store.state.stel.milkyway.visible;
-      },
-      set: function set(newValue) {
-        this.$stel.core.milkyway.visible = newValue;
-      }
-    },
-    meridianOn: {
-      get: function get() {
-        return this.$store.state.stel.lines.meridian.visible;
-      },
-      set: function set(newValue) {
-        this.$stel.core.lines.meridian.visible = newValue;
-      }
-    },
-    eclipticOn: {
-      get: function get() {
-        return this.$store.state.stel.lines.ecliptic.visible;
-      },
-      set: function set(newValue) {
-        this.$stel.core.lines.ecliptic.visible = newValue;
-      }
-    }
-  }
-});
-// CONCATENATED MODULE: ./src/components/view-settings-dialog.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_view_settings_dialogvue_type_script_lang_js_ = (view_settings_dialogvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/view-settings-dialog.vue?vue&type=style&index=0&lang=css&
-var view_settings_dialogvue_type_style_index_0_lang_css_ = __webpack_require__("85ad");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__("ac7c");
-
-// CONCATENATED MODULE: ./src/components/view-settings-dialog.vue
-
-
-
-
-
-
-/* normalize component */
-
-var view_settings_dialog_component = Object(componentNormalizer["a" /* default */])(
-  components_view_settings_dialogvue_type_script_lang_js_,
-  view_settings_dialogvue_type_template_id_bcf743b4_render,
-  view_settings_dialogvue_type_template_id_bcf743b4_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var view_settings_dialog = (view_settings_dialog_component.exports);
-
-/* vuetify-loader */
-
-
-
-
-
-
-
-
-
-installComponents_default()(view_settings_dialog_component, {VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardActions: components_VCard["a" /* VCardActions */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VCheckbox: VCheckbox["a" /* default */],VDialog: VDialog["a" /* default */],VSpacer: VSpacer["a" /* default */]})
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/planets-visibility.vue?vue&type=template&id=bcefbd4a&
-var planets_visibilityvue_type_template_id_bcefbd4a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"max-width":"600"},model:{value:(_vm.$store.state.showPlanetsVisibilityDialog),callback:function ($$v) {_vm.$set(_vm.$store.state, "showPlanetsVisibilityDialog", $$v)},expression:"$store.state.showPlanetsVisibilityDialog"}},[(_vm.$store.state.showPlanetsVisibilityDialog)?_c('v-card',{staticClass:"secondary white--text",attrs:{"transparent":""}},[_c('v-card-title',[_c('div',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.$t('Planets Visibility')))])]),_c('v-card-text',[_vm._v(_vm._s(_vm.$t('Night from {0} to {1}', [_vm.startDate.format('MMMM Do'), _vm.endDate.format('MMMM Do')])))]),_c('v-card-text',[_c('div',[_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"1","offset":"2"}},[_c('span',[_vm._v(_vm._s(_vm.$t('Rise')))])]),_c('v-col',{attrs:{"cols":"1"}},[_c('span',[_vm._v(_vm._s(_vm.$t('Set')))])]),_c('v-col',{attrs:{"cols":"8"}},[_c('v-row',{attrs:{"justify":"space-between"}},[_c('span',[_vm._v("12:00")]),_c('span',[_vm._v("18:00")]),_c('span',[_vm._v("00:00")]),_c('span',[_vm._v("06:00")]),_c('span',[_vm._v("12:00")])])],1)],1),_vm._l((_vm.objs),function(obj){return [_c('v-row',{key:obj.v,attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"2"}},[_vm._v(_vm._s(_vm.cleanName(obj)))]),_c('v-col',{attrs:{"cols":"1"}},[_vm._v(_vm._s(_vm.formatTime(obj.computeVisibility()[0].rise)))]),_c('v-col',{attrs:{"cols":"1"}},[_vm._v(_vm._s(_vm.formatTime(obj.computeVisibility()[0].set)))]),_c('v-col',{attrs:{"cols":"8"}},[_c('div',{style:(_vm.sunBackgroundStr)},[_vm._v(" "),_c('div',{domProps:{"innerHTML":_vm._s(_vm.planetBackgroundStr(obj))}})])])],1)]})],2)]),_c('v-card-actions',[_c('v-spacer'),_c('v-btn',{staticClass:"blue--text darken-1",attrs:{"text":""},nativeOn:{"click":function($event){_vm.$store.state.showPlanetsVisibilityDialog = false}}},[_vm._v("Close")])],1)],1):_vm._e()],1)}
-var planets_visibilityvue_type_template_id_bcefbd4a_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/planets-visibility.vue?vue&type=template&id=bcefbd4a&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/planets-visibility.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ var planets_visibilityvue_type_script_lang_js_ = ({
-  data: function data() {
-    return {
-      objs: [this.$stel.getObj('NAME Sun'), this.$stel.getObj('NAME Moon'), this.$stel.getObj('NAME Mercury'), this.$stel.getObj('NAME Venus'), this.$stel.getObj('NAME Mars'), this.$stel.getObj('NAME Jupiter'), this.$stel.getObj('NAME Saturn')]
-    };
-  },
-  methods: {
-    formatTime: function formatTime(jdm) {
-      var d = new Date();
-      d.setMJD(jdm);
-      var utc = moment_default.a.utc(d);
-      utc.local();
-      return utc.format('HH:mm');
-    },
-    cleanName: function cleanName(obj) {
-      return sw_helpers.cleanupOneSkySourceName(obj.designations()[0]);
-    },
-    planetBackgroundStr: function planetBackgroundStr(obj) {
-      var d = new Date();
-      d.setMJD(obj.computeVisibility()[0].rise);
-      var rise = moment_default.a.utc(d);
-      rise.local();
-      d.setMJD(obj.computeVisibility()[0].set);
-      var set = moment_default.a.utc(d);
-      set.local();
-
-      var hourToPercent = function hourToPercent(h) {
-        return h >= 12 ? Math.round((h - 12) / 24 * 100) : Math.round((h + 12) / 24 * 100);
-      };
-
-      var riseP = hourToPercent(rise.hours());
-      var setP = hourToPercent(set.hours());
-
-      if (setP > riseP) {
-        return "<div style='z-index: 100; position: absolute; background-color: rgb(200, 200, 50); left: " + riseP + '%; min-width: ' + (setP - riseP) + "%; top: 7px; height: 8px;'></div>";
-      } else {
-        var ret = "<div style='z-index: 100; position: absolute; background-color: rgb(200, 200, 50); left: 0%; min-width: " + setP + "%; top: 7px; height: 8px;'></div>";
-        ret += "<div style='z-index: 100; position: absolute; background-color: rgb(200, 200, 50); right: 0%; min-width: " + (100 - riseP) + "%; top: 7px; height: 8px;'></div>";
-        return ret;
-      }
-    }
-  },
-  computed: {
-    sunBackgroundStr: function sunBackgroundStr() {
-      var sun = this.$stel.getObj('NAME Sun');
-      var brightness = [];
-      var d = new moment_default.a(this.startDate);
-      var obs = this.$stel.core.observer.clone();
-
-      for (var i = 0; i < 25; i++) {
-        obs.utc = d.toDate().getMJD();
-        d.local();
-        var azalt = this.$stel.convertFrame(obs, 'ICRF', 'OBSERVED', sun.getInfo('radec', obs));
-        var alt = this.$stel.anpm(this.$stel.c2s(azalt)[1]) * 180.0 / Math.PI;
-        brightness.push(alt / (Math.PI / 2));
-        d.add(1, 'hours');
-      }
-
-      obs.destroy();
-      var txt = 'position: relative; background: linear-gradient(to right, ';
-
-      for (var _i = 0; _i < 25; _i++) {
-        var bi = (brightness[_i] + 0.1) * 5;
-        bi = bi > 1 ? 1 : bi;
-        bi = bi < 0 ? 0 : bi;
-        txt += 'rgb(' + Math.round(53 * bi) + ', ' + Math.round(173 * bi) + ', ' + Math.round(211 * bi) + ') ' + Math.round(_i / 24 * 100) + '% ';
-
-        if (_i !== 24) {
-          txt += ',';
-        }
-      }
-
-      txt += '); min-width: 100%; height: 100%';
-      return txt;
-    },
-    startDate: function startDate() {
-      var sun = this.$stel.getObj('NAME Sun');
-      var u = this.$store.state.stel.observer.utc;
-
-      if (u < sun.rise) {
-        // It's still night (in the morning), display last night's planets visibility
-        u = u - 1;
-      }
-
-      var d = new Date();
-      d.setMJD(u);
-      d = new moment_default.a(d);
-      d.local();
-      d.hours(12);
-      d.minutes(0);
-      d.seconds(0);
-      return d;
-    },
-    endDate: function endDate() {
-      var d = new moment_default.a(this.startDate);
-      d.add(1, 'd');
-      return d;
-    }
-  }
-});
-// CONCATENATED MODULE: ./src/components/planets-visibility.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_planets_visibilityvue_type_script_lang_js_ = (planets_visibilityvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/planets-visibility.vue?vue&type=style&index=0&lang=css&
-var planets_visibilityvue_type_style_index_0_lang_css_ = __webpack_require__("0c3e");
-
-// CONCATENATED MODULE: ./src/components/planets-visibility.vue
-
-
-
-
-
-
-/* normalize component */
-
-var planets_visibility_component = Object(componentNormalizer["a" /* default */])(
-  components_planets_visibilityvue_type_script_lang_js_,
-  planets_visibilityvue_type_template_id_bcefbd4a_render,
-  planets_visibilityvue_type_template_id_bcefbd4a_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var planets_visibility = (planets_visibility_component.exports);
-
-/* vuetify-loader */
-
-
-
-
-
-
-
-
-
-
-installComponents_default()(planets_visibility_component, {VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardActions: components_VCard["a" /* VCardActions */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VCol: VCol["a" /* default */],VDialog: VDialog["a" /* default */],VRow: VRow["a" /* default */],VSpacer: VSpacer["a" /* default */]})
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/location-dialog.vue?vue&type=template&id=2f806b57&
-var location_dialogvue_type_template_id_2f806b57_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"max-width":"600"},model:{value:(_vm.$store.state.showLocationDialog),callback:function ($$v) {_vm.$set(_vm.$store.state, "showLocationDialog", $$v)},expression:"$store.state.showLocationDialog"}},[(_vm.$store.state.showLocationDialog)?_c('v-container',{staticClass:"secondary white--text"},[_c('v-card',{attrs:{"color":"secondary","flat":""}},[_c('v-switch',{attrs:{"label":_vm.$t('Use Autolocation')},model:{value:(_vm.useAutoLocation),callback:function ($$v) {_vm.useAutoLocation=$$v},expression:"useAutoLocation"}})],1),_c('location-mgr',{attrs:{"knownLocations":[],"startLocation":_vm.$store.state.currentLocation,"realLocation":_vm.$store.state.autoDetectedLocation},on:{"locationSelected":_vm.setLocation}})],1):_vm._e()],1)}
-var location_dialogvue_type_template_id_2f806b57_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/location-dialog.vue?vue&type=template&id=2f806b57&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/location-mgr.vue?vue&type=template&id=66dbcf8f&
-var location_mgrvue_type_template_id_66dbcf8f_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('v-row',{attrs:{"justify":"space-around"}},[(_vm.doShowMyLocation)?_c('v-col',{attrs:{"cols":"4"}},[_c('v-list',{attrs:{"two-line":"","subheader":""}},[_c('v-subheader',[_vm._v(_vm._s(_vm.$t('My Locations')))]),_vm._l((_vm.knownLocations),function(item){return _c('v-list-item',{key:item.id,style:((item && _vm.knownLocationMode && _vm.selectedKnownLocation && item.id === _vm.selectedKnownLocation.id) ? 'background-color: #455a64' : ''),attrs:{"href":"javascript:;"},nativeOn:{"click":function($event){$event.stopPropagation();return _vm.selectKnownLocation(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v("mdi-map-marker")])],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.short_name))]),_c('v-list-item-subtitle',[_vm._v(_vm._s(item.country))])],1)],1)})],2)],1):_vm._e(),_c('v-col',{attrs:{"cols":"doShowMyLocation ? 8 : 12"}},[_c('v-card',{staticClass:"blue-grey darken-2 white--text"},[_c('v-card-title',{attrs:{"primary-title":""}},[_c('v-container',{attrs:{"fluid":""}},[_c('v-row',[_c('v-col',[_c('div',[_c('div',{staticClass:"text-h5",staticStyle:{"overflow":"hidden","white-space":"nowrap","text-overflow":"ellipsis"}},[_vm._v(_vm._s(_vm.locationForDetail ? _vm.locationForDetail.short_name + ', ' + _vm.locationForDetail.country : '-'))]),_c('v-btn',{staticStyle:{"position":"absolute","right":"20px"},nativeOn:{"click":function($event){$event.stopPropagation();return _vm.useLocation()}}},[_c('v-icon',[_vm._v("mdi-chevron-right")]),_vm._v(" "+_vm._s(_vm.$t('Use this location')))],1),(_vm.locationForDetail.street_address)?_c('div',{staticClass:"grey--text text-subtitle-2"},[_vm._v(_vm._s(_vm.locationForDetail ? (_vm.locationForDetail.street_address ? _vm.locationForDetail.street_address : _vm.$t('Unknown Address')) : '-'))]):_vm._e(),_c('div',{staticClass:"grey--text text-subtitle-2"},[_vm._v(_vm._s(_vm.locationForDetail ? _vm.locationForDetail.lat.toFixed(5) + ' ' + _vm.locationForDetail.lng.toFixed(5) : '-'))])],1)])],1)],1)],1),_c('div',{staticStyle:{"height":"375px"}},[_c('v-btn',{staticClass:"mx-0 pa-0",staticStyle:{"position":"absolute","z-index":"10000","bottom":"16px","right":"12px"},attrs:{"light":"","fab":""},nativeOn:{"click":function($event){$event.stopPropagation();return _vm.centerOnRealPosition()}}},[_c('v-icon',[_vm._v("mdi-crosshairs-gps")])],1),_c('l-map',{ref:"myMap",staticClass:"black--text",staticStyle:{"width":"100%","height":"375px"},attrs:{"center":_vm.mapCenter,"zoom":10,"options":{zoomControl: false}}},[_c('l-control-zoom',{attrs:{"position":"topright"}}),_vm._l((_vm.knownLocations),function(loc){return _c('l-marker',{key:loc.id,attrs:{"lat-lng":[ loc.lat, loc.lng ],"clickable":true,"opacity":(!_vm.pickLocationMode && _vm.selectedKnownLocation && _vm.selectedKnownLocation === loc ? 1.0 : 0.25),"draggable":!_vm.pickLocationMode && _vm.selectedKnownLocation && _vm.selectedKnownLocation === loc},on:{"click":function($event){return _vm.selectKnownLocation(loc)},"dragend":_vm.dragEnd}})}),(_vm.startLocation)?_c('l-circle',{attrs:{"lat-lng":[ _vm.startLocation.lat, _vm.startLocation.lng ],"radius":_vm.startLocation.accuracy,"options":{
-                strokeColor: '#0000FF',
-                strokeOpacity: 0.5,
-                strokeWeight: 1,
-                fillColor: '#0000FF',
-                fillOpacity: 0.08}}}):_vm._e(),(_vm.pickLocationMode && _vm.pickLocation)?_c('l-marker',{attrs:{"lat-lng":[ _vm.pickLocation.lat, _vm.pickLocation.lng ],"draggable":true},on:{"dragend":_vm.dragEnd}},[_c('l-tooltip',[_c('div',{staticClass:"black--text"},[_vm._v("Drag to adjust")])])],1):_vm._e()],2)],1)],1)],1)],1)],1)}
-var location_mgrvue_type_template_id_66dbcf8f_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/location-mgr.vue?vue&type=template&id=66dbcf8f&
-
-// EXTERNAL MODULE: ./node_modules/vue2-leaflet/dist/components/LMap.js
-var LMap = __webpack_require__("2699");
-
-// EXTERNAL MODULE: ./node_modules/vue2-leaflet/dist/components/LMarker.js
-var LMarker = __webpack_require__("4e2b");
-
-// EXTERNAL MODULE: ./node_modules/vue2-leaflet/dist/components/LCircle.js
-var LCircle = __webpack_require__("0dbd");
-
-// EXTERNAL MODULE: ./node_modules/vue2-leaflet/dist/components/LTooltip.js
-var LTooltip = __webpack_require__("31dc");
-
-// EXTERNAL MODULE: ./node_modules/vue2-leaflet/dist/components/LControlZoom.js
-var LControlZoom = __webpack_require__("c8b6");
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/location-mgr.vue?vue&type=script&lang=js&
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ var location_mgrvue_type_script_lang_js_ = ({
-  data: function data() {
-    return {
-      mode: 'pick',
-      pickLocation: undefined,
-      selectedKnownLocation: undefined,
-      mapCenter: [43.6, 1.4333]
-    };
-  },
-  props: ['showMyLocation', 'knownLocations', 'startLocation', 'realLocation'],
-  computed: {
-    doShowMyLocation: function doShowMyLocation() {
-      return this.showMyLocation === undefined ? false : this.showMyLocation;
-    },
-    pickLocationMode: function pickLocationMode() {
-      return this.mode === 'pick';
-    },
-    knownLocationMode: function knownLocationMode() {
-      return this.mode === 'known';
-    },
-    locationForDetail: function locationForDetail() {
-      if (this.pickLocationMode && this.pickLocation === undefined) {
-        return this.startLocation;
-      }
-
-      return this.pickLocationMode ? this.pickLocation : this.selectedKnownLocation;
-    }
-  },
-  watch: {
-    startLocation: function startLocation() {
-      this.setPickLocation(this.startLocation);
-    }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.setPickLocation(this.startLocation);
-    this.$nextTick(function () {
-      var map = _this.$refs.myMap.mapObject;
-
-      map._onResize();
-    });
-  },
-  methods: {
-    selectKnownLocation: function selectKnownLocation(loc) {
-      this.selectedKnownLocation = loc;
-      this.setKnownLocationMode();
-      this.mapCenter = [loc.lat, loc.lng];
-    },
-    useLocation: function useLocation() {
-      this.$emit('locationSelected', this.locationForDetail);
-    },
-    setPickLocationMode: function setPickLocationMode() {
-      this.mode = 'pick';
-    },
-    setKnownLocationMode: function setKnownLocationMode() {
-      this.mode = 'known';
-    },
-    setPickLocation: function setPickLocation(loc) {
-      if (loc.accuracy < 100) {
-        var _iterator = Object(createForOfIteratorHelper["a" /* default */])(this.knownLocations),
-            _step;
-
-        try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var l = _step.value;
-            var d = sw_helpers.getDistanceFromLatLonInM(l.lat, l.lng, loc.lat, loc.lng);
-
-            if (d < 100) {
-              this.selectKnownLocation(l);
-              return;
-            }
-          }
-        } catch (err) {
-          _iterator.e(err);
-        } finally {
-          _iterator.f();
-        }
-      }
-
-      var pos = {
-        lat: loc.lat,
-        lng: loc.lng
-      };
-      this.mapCenter = [pos.lat, pos.lng];
-      this.pickLocation = loc;
-      this.setPickLocationMode();
-    },
-    // Called when the user clicks on the small cross button
-    centerOnRealPosition: function centerOnRealPosition() {
-      this.setPickLocation(this.realLocation);
-    },
-    dragEnd: function dragEnd(event) {
-      var that = this;
-      var pos = {
-        lat: event.target._latlng.lat,
-        lng: event.target._latlng.lng,
-        accuracy: 0
-      };
-      sw_helpers.geoCodePosition(pos, that).then(function (p) {
-        that.pickLocation = p;
-        that.setPickLocationMode();
-      });
-    }
-  },
-  components: {
-    LMap: LMap["a" /* default */],
-    LMarker: LMarker["a" /* default */],
-    LCircle: LCircle["a" /* default */],
-    LTooltip: LTooltip["a" /* default */],
-    LControlZoom: LControlZoom["a" /* default */]
-  }
-});
-// CONCATENATED MODULE: ./src/components/location-mgr.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_location_mgrvue_type_script_lang_js_ = (location_mgrvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemIcon.js
-var VListItemIcon = __webpack_require__("34c3");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSubheader/VSubheader.js
-var VSubheader = __webpack_require__("e0c7");
-
-// CONCATENATED MODULE: ./src/components/location-mgr.vue
-
-
-
-
-
-/* normalize component */
-
-var location_mgr_component = Object(componentNormalizer["a" /* default */])(
-  components_location_mgrvue_type_script_lang_js_,
-  location_mgrvue_type_template_id_66dbcf8f_render,
-  location_mgrvue_type_template_id_66dbcf8f_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var location_mgr = (location_mgr_component.exports);
-
-/* vuetify-loader */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-installComponents_default()(location_mgr_component, {VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardTitle: components_VCard["d" /* VCardTitle */],VCol: VCol["a" /* default */],VContainer: VContainer["a" /* default */],VIcon: VIcon["a" /* default */],VList: VList["a" /* default */],VListItem: VListItem["a" /* default */],VListItemContent: components_VList["a" /* VListItemContent */],VListItemIcon: VListItemIcon["a" /* default */],VListItemSubtitle: components_VList["b" /* VListItemSubtitle */],VListItemTitle: components_VList["c" /* VListItemTitle */],VRow: VRow["a" /* default */],VSubheader: VSubheader["a" /* default */]})
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/location-dialog.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ var location_dialogvue_type_script_lang_js_ = ({
-  data: function data() {
-    return {};
-  },
-  computed: {
-    useAutoLocation: {
-      get: function get() {
-        return this.$store.state.useAutoLocation;
-      },
-      set: function set(b) {
-        this.$store.commit('setUseAutoLocation', b);
-      }
-    }
-  },
-  mounted: function mounted() {},
-  methods: {
-    setLocation: function setLocation(loc) {
-      this.$store.commit('setCurrentLocation', loc);
-      this.$store.commit('toggleBool', 'showLocationDialog');
-    }
-  },
-  components: {
-    LocationMgr: location_mgr
-  }
-});
-// CONCATENATED MODULE: ./src/components/location-dialog.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_location_dialogvue_type_script_lang_js_ = (location_dialogvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__("b73d");
-
-// CONCATENATED MODULE: ./src/components/location-dialog.vue
-
-
-
-
-
-/* normalize component */
-
-var location_dialog_component = Object(componentNormalizer["a" /* default */])(
-  components_location_dialogvue_type_script_lang_js_,
-  location_dialogvue_type_template_id_2f806b57_render,
-  location_dialogvue_type_template_id_2f806b57_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var location_dialog = (location_dialog_component.exports);
-
-/* vuetify-loader */
-
-
-
-
-
-installComponents_default()(location_dialog_component, {VCard: VCard["a" /* default */],VContainer: VContainer["a" /* default */],VDialog: VDialog["a" /* default */],VSwitch: VSwitch["a" /* default */]})
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/observing-panel.vue?vue&type=template&id=6d052627&
-var observing_panelvue_type_template_id_6d052627_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"get-click",class:{observingpanelhidden: !_vm.$store.state.showSidePanel},attrs:{"id":"observing-panel-container"}},[(_vm.$store.state.showObservingPanelTabsButtons)?_c('div',{staticClass:"observing-panel-tabsbtn"},_vm._l((_vm.tabs),function(tab){return _c('v-btn',{key:tab.tabName,staticClass:"tab-bt",attrs:{"small":"","to":tab.url,"active-class":"tab-bt-active"}},[_vm._v(_vm._s(_vm.$t(tab.tabName)))])}),1):_vm._e(),_c('div',{attrs:{"id":"observing-panel"}},[_c('router-view',{staticStyle:{"height":"100%"}})],1)])}
-var observing_panelvue_type_template_id_6d052627_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/observing-panel.vue?vue&type=template&id=6d052627&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/observing-panel.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ var observing_panelvue_type_script_lang_js_ = ({
-  data: function data() {
-    return {};
-  },
-  computed: {
-    showObservingPanel: function showObservingPanel() {
-      return this.$store.state.showSidePanel;
-    },
-    tabs: function tabs() {
-      var res = [];
-
-      for (var i in this.$stellariumWebPlugins()) {
-        var plugin = this.$stellariumWebPlugins()[i];
-
-        if (plugin.panelRoutes) {
-          for (var j in plugin.panelRoutes) {
-            var r = plugin.panelRoutes[j];
-
-            if (r.meta && r.meta.tabName) {
-              res.push({
-                tabName: r.meta.tabName,
-                url: r.path
-              });
-            }
-          }
-        }
-      }
-
-      return res;
-    }
-  }
-});
-// CONCATENATED MODULE: ./src/components/observing-panel.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_observing_panelvue_type_script_lang_js_ = (observing_panelvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/observing-panel.vue?vue&type=style&index=0&lang=css&
-var observing_panelvue_type_style_index_0_lang_css_ = __webpack_require__("6806");
-
-// CONCATENATED MODULE: ./src/components/observing-panel.vue
-
-
-
-
-
-
-/* normalize component */
-
-var observing_panel_component = Object(componentNormalizer["a" /* default */])(
-  components_observing_panelvue_type_script_lang_js_,
-  observing_panelvue_type_template_id_6d052627_render,
-  observing_panelvue_type_template_id_6d052627_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var observing_panel = (observing_panel_component.exports);
-
-/* vuetify-loader */
-
-
-installComponents_default()(observing_panel_component, {VBtn: VBtn["a" /* default */]})
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/gui.vue?vue&type=script&lang=js&
-
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
-
-
-
-/* harmony default export */ var guivue_type_script_lang_js_ = ({
-  data: function data() {
-    return {};
-  },
-  methods: {},
-  computed: {
-    pluginsGuiComponents: function pluginsGuiComponents() {
-      var res = [];
-
-      for (var i in this.$stellariumWebPlugins()) {
-        var plugin = this.$stellariumWebPlugins()[i];
-
-        if (plugin.guiComponents) {
-          res = res.concat(plugin.guiComponents);
-        }
-      }
-
-      return res;
-    },
-    dialogs: function dialogs() {
-      var res = ['data-credits-dialog', 'view-settings-dialog', 'planets-visibility', 'location-dialog'];
-
-      for (var i in this.$stellariumWebPlugins()) {
-        var plugin = this.$stellariumWebPlugins()[i];
-
-        if (plugin.dialogs) {
-          res = res.concat(plugin.dialogs.map(function (d) {
-            return d.name;
-          }));
-        }
-      }
-
-      return res;
-    }
-  },
-  components: {
-    Toolbar: toolbar,
-    BottomBar: bottom_bar,
-    DataCreditsDialog: data_credits_dialog["default"],
-    ViewSettingsDialog: view_settings_dialog,
-    PlanetsVisibility: planets_visibility,
-    SelectedObjectInfo: selected_object_info,
-    LocationDialog: location_dialog,
-    ProgressBars: progress_bars,
-    ObservingPanel: observing_panel
-  }
-});
-// CONCATENATED MODULE: ./src/components/gui.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_guivue_type_script_lang_js_ = (guivue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/components/gui.vue
-
-
-
-
-
-/* normalize component */
-
-var gui_component = Object(componentNormalizer["a" /* default */])(
-  components_guivue_type_script_lang_js_,
-  guivue_type_template_id_28d988c2_render,
-  guivue_type_template_id_28d988c2_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var gui = (gui_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/gui-loader.vue?vue&type=template&id=3ff106c6&
-var gui_loadervue_type_template_id_3ff106c6_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"secondary",staticStyle:{"position":"absolute","width":"100%","height":"100%"}},[_c('v-container',{staticStyle:{"width":"100%","height":"100%"}},[_c('v-layout',{staticStyle:{"width":"100%","height":"100%"},attrs:{"column":"","align-center":""}},[_c('div',{staticClass:"oras-loader-title text-h2",staticStyle:{"padding-top":"10%"}},[_vm._v("ORAS Sky-Engine")]),(_vm.$store.state.wasmSupport)?_c('div',{staticStyle:{"margin":"auto"}},[_c('div',{staticStyle:{"display":"flex","justify-content":"center"}},[_c('p',{staticClass:"grey--text"},[_c('i18n',{attrs:{"path":"Loading {0}, the online Star Map"}},[_c('span',[_vm._v("ORAS Sky-Engine")])])],1)]),_c('div',{staticStyle:{"display":"flex","justify-content":"center"}},[_c('v-progress-circular',{staticClass:"grey--text",attrs:{"indeterminate":"","size":70,"width":7}})],1)]):_c('v-card',{staticStyle:{"margin":"auto"}},[_c('v-card-title',{attrs:{"primary-title":""}},[_c('div',{staticClass:"text-h5"},[_c('h1',[_vm._v(_vm._s(_vm.$t('Could not show the Online Star Map')))])]),_c('div',{staticClass:"text-h5",staticStyle:{"margin-top":"30px"}},[_c('v-icon',{attrs:{"large":""}},[_vm._v("error")]),_vm._v(" "+_vm._s(_vm.$t('It seems that your browser cannot load Web Assembly!')))],1)]),_c('v-card-text',[_c('v-layout',{staticStyle:{"width":"100%","height":"100%"},attrs:{"column":"","align-center":""}},[_c('p',{staticClass:"grey--text"},[_vm._v(_vm._s(_vm.$t('Web assembly is necessary for ORAS Sky-Engine to display the star map. Please upgrade your web browser and try again!')))]),_c('p',[_c('i18n',{attrs:{"path":"In the meantime, you can try the {0}!"}},[_c('span',[_vm._v(_vm._s(_vm.$t('desktop version')))])])],1)])],1)],1)],1)],1)],1)}
-var gui_loadervue_type_template_id_3ff106c6_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/gui-loader.vue?vue&type=template&id=3ff106c6&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/gui-loader.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ var gui_loadervue_type_script_lang_js_ = ({});
-// CONCATENATED MODULE: ./src/components/gui-loader.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_gui_loadervue_type_script_lang_js_ = (gui_loadervue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/gui-loader.vue?vue&type=style&index=0&lang=css&
-var gui_loadervue_type_style_index_0_lang_css_ = __webpack_require__("cbeb");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VLayout.js
-var VLayout = __webpack_require__("a722");
-
-// CONCATENATED MODULE: ./src/components/gui-loader.vue
-
-
-
-
-
-
-/* normalize component */
-
-var gui_loader_component = Object(componentNormalizer["a" /* default */])(
-  components_gui_loadervue_type_script_lang_js_,
-  gui_loadervue_type_template_id_3ff106c6_render,
-  gui_loadervue_type_template_id_3ff106c6_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var gui_loader = (gui_loader_component.exports);
-
-/* vuetify-loader */
-
-
-
-
-
-
-
-
-installComponents_default()(gui_loader_component, {VCard: VCard["a" /* default */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VContainer: VContainer["a" /* default */],VIcon: VIcon["a" /* default */],VLayout: VLayout["a" /* default */],VProgressCircular: VProgressCircular["a" /* default */]})
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/oras-catalog-status-dialog.vue?vue&type=template&id=f9af96b2&scoped=true&
-var oras_catalog_status_dialogvue_type_template_id_f9af96b2_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"value":_vm.value,"max-width":"760"},on:{"input":function($event){return _vm.$emit('input', $event)}}},[_c('v-card',{staticClass:"oras-catalog-status"},[_c('v-card-title',[_vm._v(" ORAS Catalog Packs "),_c('v-spacer'),_c('v-chip',{attrs:{"small":"","color":_vm.statusColor,"text-color":"white"}},[_vm._v(_vm._s(_vm.statusLabel))])],1),_c('v-card-subtitle',[_vm._v(" Release "+_vm._s(_vm.snapshot.releaseVersion || 'not mounted')+" · Loaded objects "+_vm._s(_vm.snapshot.objectCount.toLocaleString())+" ")]),_c('v-card-text',[(!_vm.snapshot.mounted)?_c('v-alert',{attrs:{"type":"info","text":""}},[_vm._v(" No generated catalog release is mounted. The standard Stellarium catalogs remain available. ")]):_c('v-simple-table',{attrs:{"dense":""}},[_c('thead',[_c('tr',[_c('th',[_vm._v("Pack")]),_c('th',[_vm._v("Status")]),_c('th',[_vm._v("Loaded objects")]),_c('th',[_vm._v("Data source")]),_c('th',[_vm._v("Generated")])])]),_c('tbody',_vm._l((_vm.snapshot.packs),function(pack){return _c('tr',{key:pack.packId},[_c('td',[_c('strong',[_vm._v(_vm._s(pack.label))]),_c('br'),_c('small',[_vm._v(_vm._s(pack.version))])]),_c('td',[_c('v-chip',{attrs:{"x-small":"","color":pack.status === 'loaded' ? 'green' : 'red',"text-color":"white"}},[_vm._v(_vm._s(pack.status))])],1),_c('td',[_vm._v(_vm._s(pack.loadedObjectCount.toLocaleString()))]),_c('td',[_vm._v(_vm._s(_vm.sourceNames(pack)))]),_c('td',[_vm._v(_vm._s(pack.generatedAt || 'Unavailable'))])])}),0)])],1),_c('v-card-actions',[_c('v-btn',{attrs:{"text":""},on:{"click":_vm.refresh}},[_vm._v("Refresh")]),_c('v-spacer'),_c('v-btn',{attrs:{"text":""},on:{"click":function($event){return _vm.$emit('input', false)}}},[_vm._v("Close")])],1)],1)],1)}
-var oras_catalog_status_dialogvue_type_template_id_f9af96b2_scoped_true_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/oras-catalog-status-dialog.vue?vue&type=template&id=f9af96b2&scoped=true&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/oras-catalog-status-dialog.vue?vue&type=script&lang=js&
-
-
-
-
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ var oras_catalog_status_dialogvue_type_script_lang_js_ = ({
-  name: 'OrasCatalogStatusDialog',
-  props: {
-    value: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data: function data() {
-    return {
-      snapshot: orasCatalogPacks.getSnapshot(),
-      unsubscribe: undefined
-    };
-  },
-  computed: {
-    statusLabel: function statusLabel() {
-      return this.snapshot.phase.replace('-', ' ');
-    },
-    statusColor: function statusColor() {
-      if (this.snapshot.phase === 'loaded') return 'green';
-      if (this.snapshot.phase === 'degraded' || this.snapshot.phase === 'failed') return 'orange';
-      return 'blue-grey';
-    }
-  },
-  created: function created() {
-    var _this = this;
-
-    this.unsubscribe = orasCatalogPacks.subscribe(function (snapshot) {
-      _this.snapshot = snapshot;
-    });
-  },
-  beforeDestroy: function beforeDestroy() {
-    if (this.unsubscribe) this.unsubscribe();
-  },
-  methods: {
-    refresh: function refresh() {
-      orasCatalogPacks.load();
-    },
-    sourceNames: function sourceNames(pack) {
-      var names = (pack.sources || []).map(function (source) {
-        return source.name;
-      }).filter(Boolean);
-      return names.length ? names.join(', ') : 'Unavailable';
-    }
-  }
-});
-// CONCATENATED MODULE: ./src/components/oras-catalog-status-dialog.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_oras_catalog_status_dialogvue_type_script_lang_js_ = (oras_catalog_status_dialogvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/oras-catalog-status-dialog.vue?vue&type=style&index=0&id=f9af96b2&scoped=true&lang=css&
-var oras_catalog_status_dialogvue_type_style_index_0_id_f9af96b2_scoped_true_lang_css_ = __webpack_require__("b41d");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js + 1 modules
-var VAlert = __webpack_require__("0798");
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VSimpleTable.js
-var VSimpleTable = __webpack_require__("1f4f");
-
-// CONCATENATED MODULE: ./src/components/oras-catalog-status-dialog.vue
-
-
-
-
-
-
-/* normalize component */
-
-var oras_catalog_status_dialog_component = Object(componentNormalizer["a" /* default */])(
-  components_oras_catalog_status_dialogvue_type_script_lang_js_,
-  oras_catalog_status_dialogvue_type_template_id_f9af96b2_scoped_true_render,
-  oras_catalog_status_dialogvue_type_template_id_f9af96b2_scoped_true_staticRenderFns,
-  false,
-  null,
-  "f9af96b2",
-  null
-  
-)
-
-/* harmony default export */ var oras_catalog_status_dialog = (oras_catalog_status_dialog_component.exports);
-
-/* vuetify-loader */
-
-
-
-
-
-
-
-
-
-
-
-
-installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAlert["a" /* default */],VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardActions: components_VCard["a" /* VCardActions */],VCardSubtitle: components_VCard["b" /* VCardSubtitle */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VChip: VChip["a" /* default */],VDialog: VDialog["a" /* default */],VSimpleTable: VSimpleTable["a" /* default */],VSpacer: VSpacer["a" /* default */]})
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/oras-dense-stars-status-dialog.vue?vue&type=template&id=0e713f36&scoped=true&
-var oras_dense_stars_status_dialogvue_type_template_id_0e713f36_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"value":_vm.value,"max-width":"760"},on:{"input":function($event){return _vm.$emit('input', $event)}}},[_c('v-card',{staticClass:"oras-dense-stars-status"},[_c('v-card-title',[_vm._v(" ORAS Dense Stars "),_c('v-spacer'),_c('v-chip',{attrs:{"small":"","color":_vm.statusColor,"text-color":"white"}},[_vm._v(_vm._s(_vm.statusLabel))])],1),_c('v-card-subtitle',[_vm._v(" Native path: native SWE star tiles · Release "+_vm._s(_vm.snapshot.releaseVersion || 'not mounted')+" ")]),_c('v-card-text',[(!_vm.snapshot.mounted)?_c('v-alert',{attrs:{"type":"info","text":""}},[_vm._v(" Dense Stars is degraded: missing generated dense star release. Standard Stellarium star surveys remain available. ")]):(_vm.snapshot.activeProfile === 'off')?_c('v-alert',{attrs:{"type":"warning","text":""}},[_vm._v(" ORAS dense star rendering is off. Select Visual Sky, Binocular Depth, or Deep Catalog and recheck the runtime to register a mounted native survey. ")]):(_vm.snapshot.activeProfile === 'deep-catalog')?_c('v-alert',{attrs:{"type":"warning","text":""}},[_vm._v(" Deep Catalog is opt-in and may show many faint stars at wide FOV. Use Visual Sky for normal naked-eye style observing. ")]):_c('v-alert',{attrs:{"type":"success","text":""}},[_vm._v(" ORAS dense stars are loaded through native SWE star tiles using the "+_vm._s(_vm.snapshot.activeProfile)+" profile. Dense catalog labels are suppressed; standard Stellarium labels remain available for named bright stars. ")]),_c('v-alert',{attrs:{"type":"info","text":""}},[_vm._v(" Visual Sky is the realistic default. Binocular Depth and Deep Catalog are intentionally denser opt-in profiles. Labels are suppressed for generated dense stars to avoid ID flooding. ")]),_c('v-simple-table',{attrs:{"dense":""}},[_c('tbody',[_c('tr',[_c('td',[_c('strong',[_vm._v("Active profile")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.activeProfile))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Rendering path")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.renderingPath || 'Unavailable'))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Stars")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.starCount.toLocaleString()))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Tiles")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.tileCount.toLocaleString()))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Magnitude limit")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.magnitudeLimit == null ? 'Unavailable' : _vm.snapshot.magnitudeLimit))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Labels")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.labelMode || 'suppressed'))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Tile order")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.tileOrder == null ? 'Unavailable' : _vm.snapshot.tileOrder))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Sources")])]),_c('td',[_vm._v(_vm._s(_vm.sourceCatalogSummary))])]),(_vm.snapshot.error)?_c('tr',[_c('td',[_c('strong',[_vm._v("Error")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.error))])]):_vm._e()])])],1),_c('v-card-actions',[_c('v-btn',{attrs:{"text":""},on:{"click":_vm.refresh}},[_vm._v("Refresh")]),_c('v-spacer'),_c('v-btn',{attrs:{"text":""},on:{"click":function($event){return _vm.$emit('input', false)}}},[_vm._v("Close")])],1)],1)],1)}
-var oras_dense_stars_status_dialogvue_type_template_id_0e713f36_scoped_true_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/oras-dense-stars-status-dialog.vue?vue&type=template&id=0e713f36&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.entries.js
 var es_object_entries = __webpack_require__("4fad");
 
 // CONCATENATED MODULE: ./src/assets/oras_dense_stars.js
+
 
 
 
@@ -6642,13 +2892,3937 @@ function oras_dense_stars_validateManifest(manifest) {
         profile = _Object$entries$_i[1];
 
     if (!profile || !profile.path) throw new Error('dense star profile path is required: ' + profileId);
-    if (profile.label_mode !== 'suppressed') throw new Error('dense star profile labels must be suppressed: ' + profileId);
+    if (!['named', 'suppressed'].includes(profile.label_mode)) throw new Error('dense star profile labels must be named or suppressed: ' + profileId);
     if (!Number.isFinite(Number(profile.star_count)) || Number(profile.star_count) < 1) throw new Error('dense star profile count must be positive: ' + profileId);
     if (!Number.isFinite(Number(profile.tile_count)) || Number(profile.tile_count) < 1) throw new Error('dense star profile tile count must be positive: ' + profileId);
   }
 }
 
 var orasDenseStars = createOrasDenseStarsManager();
+// CONCATENATED MODULE: ./src/assets/sw_helpers.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Stellarium Web - Copyright (c) 2022 - Stellarium Labs SRL
+//
+// This program is licensed under the terms of the GNU AGPL v3, or
+// alternatively under a commercial licence.
+//
+// The terms of the AGPL v3 license can be found in the main directory of this
+// repository.
+
+
+
+
+
+
+
+var DDDate = Date;
+
+DDDate.prototype.getJD = function () {
+  return this.getTime() / 86400000 + 2440587.5;
+};
+
+DDDate.prototype.setJD = function (jd) {
+  this.setTime((jd - 2440587.5) * 86400000);
+};
+
+DDDate.prototype.getMJD = function () {
+  return this.getJD() - 2400000.5;
+};
+
+DDDate.prototype.setMJD = function (mjd) {
+  this.setJD(mjd + 2400000.5);
+};
+
+var swh = {
+  initStelWebEngine: function initStelWebEngine(store, wasmFile, canvasElem, callBackOnDone) {
+    Object(stellarium_web_engine["a" /* default */])({
+      wasmFile: wasmFile,
+      canvas: canvasElem,
+      translateFn: function translateFn(domain, str) {
+        return str; // return i18next.t(str, {ns: domain});
+      },
+      onReady: function onReady(lstel) {
+        store.commit('replaceStelWebEngine', lstel.getTree());
+        lstel.onValueChanged(function (path, value) {
+          var tree = store.state.stel;
+
+          lodash_default.a.set(tree, path, value);
+
+          store.commit('replaceStelWebEngine', tree);
+        });
+        vue_esm["a" /* default */].prototype.$stel = lstel;
+        window.__ORAS_STEL = lstel;
+        vue_esm["a" /* default */].prototype.$selectionLayer = lstel.createLayer({
+          id: 'slayer',
+          z: 50,
+          visible: true
+        });
+        vue_esm["a" /* default */].prototype.$observingLayer = lstel.createLayer({
+          id: 'obslayer',
+          z: 40,
+          visible: true
+        });
+        vue_esm["a" /* default */].prototype.$skyHintsLayer = lstel.createLayer({
+          id: 'skyhintslayer',
+          z: 38,
+          visible: true
+        });
+        callBackOnDone();
+      }
+    });
+  },
+  monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  astroConstants: {
+    // Light time for 1 au in s
+    ERFA_AULT: 499.004782,
+    // Seconds per day
+    ERFA_DAYSEC: 86400.0,
+    // Days per Julian year
+    ERFA_DJY: 365.25,
+    // Astronomical unit in m
+    ERFA_DAU: 149597870000
+  },
+  iconForSkySourceTypes: function iconForSkySourceTypes(skySourceTypes) {
+    // Array sorted by specificity, i.e. the most generic names at the end
+    var iconForType = {
+      // Stars
+      'Pec?': 'star',
+      '**?': 'double_star',
+      '**': 'double_star',
+      'V*': 'variable_star',
+      'V*?': 'variable_star',
+      '*': 'star',
+      // Candidates
+      'As?': 'group_of_stars',
+      'SC?': 'group_of_galaxies',
+      'Gr?': 'group_of_galaxies',
+      'C?G': 'group_of_galaxies',
+      'G?': 'galaxy',
+      // Multiple objects
+      reg: 'region_defined_in_the_sky',
+      SCG: 'group_of_galaxies',
+      ClG: 'group_of_galaxies',
+      GrG: 'group_of_galaxies',
+      IG: 'interacting_galaxy',
+      PaG: 'pair_of_galaxies',
+      'C?*': 'open_galactic_cluster',
+      'Gl?': 'globular_cluster',
+      GlC: 'globular_cluster',
+      OpC: 'open_galactic_cluster',
+      'Cl*': 'open_galactic_cluster',
+      'As*': 'group_of_stars',
+      mul: 'multiple_objects',
+      // Interstellar matter
+      'PN?': 'planetary_nebula',
+      PN: 'planetary_nebula',
+      SNR: 'planetary_nebula',
+      'SR?': 'planetary_nebula',
+      ISM: 'interstellar_matter',
+      // Galaxies
+      PoG: 'part_of_galaxy',
+      QSO: 'quasar',
+      G: 'galaxy',
+      dso: 'deep_sky',
+      // Solar System
+      Asa: 'artificial_satellite',
+      Moo: 'moon',
+      Sun: 'sun',
+      Pla: 'planet',
+      DPl: 'planet',
+      Com: 'comet',
+      MPl: 'minor_planet',
+      SSO: 'minor_planet',
+      Con: 'constellation'
+    };
+
+    for (var i in skySourceTypes) {
+      if (skySourceTypes[i] in iconForType) {
+        return "/oras-sky-engine/" + 'images/svg/target_types/' + iconForType[skySourceTypes[i]] + '.svg';
+      }
+    }
+
+    return "/oras-sky-engine/" + 'images/svg/target_types/unknown.svg';
+  },
+  iconForSkySource: function iconForSkySource(skySource) {
+    return swh.iconForSkySourceTypes(skySource.types);
+  },
+  iconForObservation: function iconForObservation(obs) {
+    if (obs && obs.target) {
+      return this.iconForSkySource(obs.target);
+    } else {
+      return this.iconForSkySourceTypes(['reg']);
+    }
+  },
+  cleanupOneSkySourceName: function cleanupOneSkySourceName(name, flags) {
+    flags = flags || 4;
+    return vue_esm["a" /* default */].prototype.$stel.designationCleanup(name, flags);
+  },
+  nameForSkySource: function nameForSkySource(skySource) {
+    if (!skySource || !skySource.names) {
+      return '?';
+    }
+
+    return this.cleanupOneSkySourceName(skySource.names[0]);
+  },
+  culturalNameToList: function culturalNameToList(cn) {
+    var res = [];
+
+    var formatNative = function formatNative(_cn) {
+      if (cn.name_native && cn.name_pronounce) {
+        return cn.name_native + ', <i>' + cn.name_pronounce + '</i>';
+      }
+
+      if (cn.name_native) {
+        return cn.name_native;
+      }
+
+      if (cn.name_pronounce) {
+        return cn.name_pronounce;
+      }
+    };
+
+    var nativeName = formatNative(cn);
+
+    if (cn.user_prefer_native && nativeName) {
+      res.push(nativeName);
+    }
+
+    if (cn.name_translated) {
+      res.push(cn.name_translated);
+    }
+
+    if (!cn.user_prefer_native && nativeName) {
+      res.push(nativeName);
+    }
+
+    return res;
+  },
+  namesForSkySource: function namesForSkySource(ss, flags) {
+    // Return a list of cleaned up names
+    if (!ss || !ss.names) {
+      return [];
+    }
+
+    if (!flags) flags = 10;
+    var res = [];
+
+    if (ss.culturalNames) {
+      for (var i in ss.culturalNames) {
+        res = res.concat(this.culturalNameToList(ss.culturalNames[i]));
+      }
+    }
+
+    res = res.concat(ss.names.map(function (n) {
+      return vue_esm["a" /* default */].prototype.$stel.designationCleanup(n, flags);
+    })); // Remove duplicates, this can happen between * and V* catalogs
+
+    res = res.filter(function (v, i) {
+      return res.indexOf(v) === i;
+    });
+    res = res.filter(function (v, i) {
+      return !v.startsWith('CON ');
+    });
+    return res;
+  },
+  nameForSkySourceType: function nameForSkySourceType(otype) {
+    var $stel = vue_esm["a" /* default */].prototype.$stel;
+    var res = $stel.otypeToStr(otype);
+    return res || 'Unknown Type';
+  },
+  nameForGalaxyMorpho: function nameForGalaxyMorpho(morpho) {
+    var galTab = {
+      E: 'Elliptical',
+      SB: 'Barred Spiral',
+      SAB: 'Intermediate Spiral',
+      SA: 'Spiral',
+      S0: 'Lenticular',
+      S: 'Spiral',
+      Im: 'Irregular',
+      dSph: 'Dwarf Spheroidal',
+      dE: 'Dwarf Elliptical'
+    };
+
+    for (var morp in galTab) {
+      if (morpho.startsWith(morp)) {
+        return galTab[morp];
+      }
+    }
+
+    return '';
+  },
+  getShareLink: function getShareLink(context) {
+    var origin = typeof window !== 'undefined' && window.location ? window.location.origin : '';
+    var basePath = "/oras-sky-engine/" || false;
+    var link = origin + (basePath.endsWith('/') ? basePath : basePath + '/');
+    var selectedObject = context.$store.state.selectedObject;
+
+    if (selectedObject) {
+      link += 'skysource/' + this.cleanupOneSkySourceName(selectedObject.names[0], 5).replace(/\s+/g, '');
+    }
+
+    link += '?';
+    link += 'fov=' + (context.$store.state.stel.fov * 180 / Math.PI).toPrecision(5);
+    var d = new Date();
+    d.setMJD(context.$stel.core.observer.utc);
+    link += '&date=' + new moment_default.a(d).utc().format();
+    link += '&lat=' + (context.$stel.core.observer.latitude * 180 / Math.PI).toFixed(2);
+    link += '&lng=' + (context.$stel.core.observer.longitude * 180 / Math.PI).toFixed(2);
+    link += '&elev=' + context.$stel.core.observer.elevation;
+
+    if (selectedObject) {
+      if (selectedObject.catalog) {
+        link += '&catalog=' + encodeURIComponent(selectedObject.catalog);
+      }
+
+      if (selectedObject.source_id != null) {
+        link += '&source_id=' + encodeURIComponent(String(selectedObject.source_id));
+      }
+
+      if (selectedObject.model) {
+        link += '&model=' + encodeURIComponent(selectedObject.model);
+      }
+
+      if (selectedObject.ra != null) {
+        link += '&ra=' + encodeURIComponent(String(selectedObject.ra));
+      }
+
+      if (selectedObject.dec != null) {
+        link += '&dec=' + encodeURIComponent(String(selectedObject.dec));
+      }
+    }
+
+    if (!selectedObject) {
+      link += '&az=' + (context.$stel.core.observer.yaw * 180 / Math.PI).toPrecision(5);
+      link += '&alt=' + (context.$stel.core.observer.pitch * 180 / Math.PI).toPrecision(5);
+    }
+
+    return link;
+  },
+  // Return a SweObj matching a passed sky source JSON object if it's already instanciated in SWE
+  resolveCanonicalStar: function () {
+    var _resolveCanonicalStar = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(source) {
+      var stel, science, hint, snapshot, lookup, status, deadline, ptr, obj;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              stel = vue_esm["a" /* default */].prototype.$stel;
+              science = source.star_science;
+              hint = science && science.native_tile;
+
+              if (hint) {
+                _context.next = 5;
+                break;
+              }
+
+              return _context.abrupt("return", this.skySource2SweObj(source));
+
+            case 5:
+              snapshot = orasDenseStars.getSnapshot();
+
+              if (!(!orasDenseStars.isReadyForNativeRegistration() || science.render_magnitude > snapshot.magnitudeLimit)) {
+                _context.next = 8;
+                break;
+              }
+
+              return _context.abrupt("return", undefined);
+
+            case 8:
+              lookup = stel.cwrap('stars_get_by_identity', 'number', ['string', 'string', 'number', 'number', 'number']);
+              status = stel._malloc(4);
+              deadline = performance.now() + 1500;
+              _context.prev = 11;
+
+            case 12:
+              ptr = lookup(orasDenseStars.getSurveyKey(), hint.identity, hint.order, hint.pix, status);
+
+              if (!ptr) {
+                _context.next = 17;
+                break;
+              }
+
+              obj = new stel.SweObj(ptr);
+              obj.__orasOwnedLookup = true;
+              return _context.abrupt("return", obj);
+
+            case 17:
+              if (!(stel.HEAP32[status >> 2] !== 0)) {
+                _context.next = 19;
+                break;
+              }
+
+              return _context.abrupt("return", undefined);
+
+            case 19:
+              _context.next = 21;
+              return new Promise(function (resolve) {
+                return setTimeout(resolve, 25);
+              });
+
+            case 21:
+              if (performance.now() < deadline) {
+                _context.next = 12;
+                break;
+              }
+
+            case 22:
+              return _context.abrupt("return", undefined);
+
+            case 23:
+              _context.prev = 23;
+
+              stel._free(status);
+
+              return _context.finish(23);
+
+            case 26:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this, [[11,, 23, 26]]);
+    }));
+
+    function resolveCanonicalStar(_x) {
+      return _resolveCanonicalStar.apply(this, arguments);
+    }
+
+    return resolveCanonicalStar;
+  }(),
+  skySource2SweObj: function skySource2SweObj(ss) {
+    if (!ss || !ss.model) {
+      return undefined;
+    }
+
+    var $stel = vue_esm["a" /* default */].prototype.$stel;
+    var obj;
+
+    if (ss.model === 'tle_satellite') {
+      var id = 'NORAD ' + ss.model_data.norad_number;
+      obj = $stel.getObj(id);
+    } else if (ss.model === 'constellation' && ss.model_data.iau_abbreviation) {
+      var _id = 'CON western ' + ss.model_data.iau_abbreviation;
+
+      obj = $stel.getObj(_id);
+    }
+
+    if (!obj) {
+      obj = findOrasNativeCandidate($stel, ss);
+    }
+
+    if (obj === null) return undefined;
+    return obj;
+  },
+  localSolarSystemCatalog: function localSolarSystemCatalog() {
+    return [{
+      match: 'Sun',
+      names: ['NAME Sun', 'Sun']
+    }, {
+      match: 'Moon',
+      names: ['NAME Moon', 'Moon']
+    }, {
+      match: 'Mercury',
+      names: ['NAME Mercury', 'Mercury']
+    }, {
+      match: 'Venus',
+      names: ['NAME Venus', 'Venus']
+    }, {
+      match: 'Earth',
+      names: ['NAME Earth', 'Earth']
+    }, {
+      match: 'Mars',
+      names: ['NAME Mars', 'Mars']
+    }, {
+      match: 'Jupiter',
+      names: ['NAME Jupiter', 'Jupiter']
+    }, {
+      match: 'Saturn',
+      names: ['NAME Saturn', 'Saturn']
+    }, {
+      match: 'Uranus',
+      names: ['NAME Uranus', 'Uranus']
+    }, {
+      match: 'Neptune',
+      names: ['NAME Neptune', 'Neptune']
+    }];
+  },
+  localSkySourceFromSweObj: function localSkySourceFromSweObj(obj, match) {
+    if (!obj) {
+      return undefined;
+    }
+
+    var ss = Object.assign({}, obj.__orasSkySourceData || obj.jsonData || {});
+    ss.match = match || ss.match || this.cleanupOneSkySourceName(ss.names && ss.names[0] || obj.designations()[0], 5);
+    ss.names = ss.names || obj.designations();
+    ss.types = ss.types || (obj.type ? [obj.type] : ['SSO']);
+    ss.model = ss.model || 'jpl_sso';
+    ss.model_data = ss.model_data || {};
+    ss.culturalNames = obj.culturalDesignations();
+    return ss;
+  },
+  localQueryResults: function localQueryResults(query, limit) {
+    var results = [];
+    var exactLocalResult = this.lookupSkySourceLocallyByName(query);
+
+    if (exactLocalResult) {
+      results.push(exactLocalResult);
+    }
+
+    var localMatches = this.queryLocalSkySources(query, limit);
+
+    var _iterator = Object(createForOfIteratorHelper["a" /* default */])(localMatches),
+        _step;
+
+    try {
+      var _loop = function _loop() {
+        var localMatch = _step.value;
+
+        if (!results.find(function (existing) {
+          return existing.names[0] === localMatch.names[0];
+        })) {
+          results.push(localMatch);
+        }
+      };
+
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        _loop();
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return results.slice(0, limit || 10);
+  },
+  fetchOrasSkySearch: function fetchOrasSkySearch(query) {
+    var normalized = normalizeOrasSearchQuery(query);
+    var searchUrl = buildOrasSearchUrl(normalized);
+
+    if (!searchUrl) {
+      return Promise.resolve({
+        results: [],
+        recognizedQuery: false
+      });
+    }
+
+    if (typeof fetch !== 'function') {
+      return Promise.reject(new Error('fetch is not available'));
+    }
+
+    return fetch(searchUrl, {
+      headers: {
+        Accept: 'application/json'
+      }
+    }).then(function (response) {
+      if (!response.ok) {
+        throw new Error('ORAS sky search request failed with status ' + response.status);
+      }
+
+      return response.json();
+    }).then(function (payload) {
+      var data = payload && payload.data ? payload.data : {};
+      var rawResults = Array.isArray(data.results) ? data.results : [];
+      return {
+        recognizedQuery: Boolean(data.recognized_query),
+        results: rawResults.map(toOrasSkySource).filter(Boolean)
+      };
+    });
+  },
+  fetchOrasSkySourceByIdentity: function fetchOrasSkySourceByIdentity(_ref) {
+    var catalog = _ref.catalog,
+        sourceId = _ref.sourceId,
+        model = _ref.model,
+        time = _ref.time,
+        lat = _ref.lat,
+        lng = _ref.lng,
+        elev = _ref.elev;
+    var lookupUrl = buildOrasObjectLookupUrl({
+      catalog: catalog,
+      sourceId: sourceId,
+      model: model,
+      time: time,
+      lat: lat,
+      lng: lng,
+      elev: elev
+    });
+
+    if (!lookupUrl) {
+      return Promise.reject(new Error('Sky source identity is incomplete'));
+    }
+
+    if (typeof fetch !== 'function') {
+      return Promise.reject(new Error('fetch is not available'));
+    }
+
+    return fetch(lookupUrl, {
+      headers: {
+        Accept: 'application/json'
+      }
+    }).then(function (response) {
+      if (!response.ok) {
+        throw new Error('ORAS sky object request failed with status ' + response.status);
+      }
+
+      return response.json();
+    }).then(function (payload) {
+      return toOrasSkySource(payload && payload.data ? payload.data : undefined);
+    });
+  },
+  shouldPreferLocalSkySourceFallback: function shouldPreferLocalSkySourceFallback() {
+    if (typeof window === 'undefined' || !window.location) {
+      return false;
+    }
+
+    var hostname = window.location.hostname || '';
+    return hostname === '127.0.0.1' || hostname === 'localhost';
+  },
+  lookupSkySourceLocallyByName: function lookupSkySourceLocallyByName(name) {
+    var localResult = this.lookupLocalSkySourceByName(name);
+
+    if (localResult) {
+      return localResult;
+    }
+
+    var $stel = vue_esm["a" /* default */].prototype.$stel;
+
+    if (!$stel || !name) {
+      return undefined;
+    }
+
+    var candidates = [name, this.cleanupOneSkySourceName(name, 5), 'NAME ' + name, '*' + ' ' + name, 'M ' + name.replace(/^M\s*/i, ''), 'NGC ' + name.replace(/^NGC\s*/i, ''), 'IC ' + name.replace(/^IC\s*/i, '')].filter(Boolean);
+    var obj = candidates.map(function (candidate) {
+      return String(candidate).trim();
+    }).filter(function (candidate, index, array) {
+      return candidate !== '' && array.indexOf(candidate) === index;
+    }).map(function (candidate) {
+      return $stel.getObj(candidate);
+    }).find(Boolean);
+    return this.localSkySourceFromSweObj(obj, name);
+  },
+  lookupLocalSkySourceByName: function lookupLocalSkySourceByName(name) {
+    var $stel = vue_esm["a" /* default */].prototype.$stel;
+
+    if (!$stel || !name) {
+      return undefined;
+    }
+
+    var normalized = String(name).trim().toUpperCase().replace(/\s+/g, '');
+    var entry = this.localSolarSystemCatalog().find(function (candidate) {
+      return candidate.names.some(function (candidateName) {
+        return candidateName.toUpperCase().replace(/\s+/g, '') === normalized;
+      }) || candidate.match.toUpperCase().replace(/\s+/g, '') === normalized;
+    });
+
+    if (!entry) {
+      return undefined;
+    }
+
+    var obj = entry.names.map(function (candidateName) {
+      return $stel.getObj(candidateName);
+    }).find(Boolean);
+    return this.localSkySourceFromSweObj(obj, entry.match);
+  },
+  queryLocalSkySources: function queryLocalSkySources(str, limit) {
+    var _this = this;
+
+    var $stel = vue_esm["a" /* default */].prototype.$stel;
+
+    if (!$stel || !str) {
+      return [];
+    }
+
+    var normalized = String(str).trim().toUpperCase().replace(/\s+/g, '');
+
+    if (!normalized) {
+      return [];
+    }
+
+    return this.localSolarSystemCatalog().filter(function (candidate) {
+      return candidate.match.toUpperCase().replace(/\s+/g, '').includes(normalized) || candidate.names.some(function (candidateName) {
+        return candidateName.toUpperCase().replace(/\s+/g, '').includes(normalized);
+      });
+    }).map(function (candidate) {
+      var obj = candidate.names.map(function (candidateName) {
+        return $stel.getObj(candidateName);
+      }).find(Boolean);
+      return _this.localSkySourceFromSweObj(obj, candidate.match);
+    }).filter(Boolean).slice(0, limit || 10);
+  },
+  lookupSkySourceByName: function lookupSkySourceByName(name) {
+    var _this2 = this;
+
+    var normalized = normalizeOrasSearchQuery(name);
+
+    if (!normalized) {
+      return Promise.reject(new Error('Sky source name is required'));
+    }
+
+    var findLocalResult = function findLocalResult() {
+      var localResult = _this2.lookupSkySourceLocallyByName(normalized);
+
+      if (localResult) {
+        return Promise.resolve(localResult);
+      }
+
+      return Promise.reject(new Error('Local sky source not found'));
+    };
+
+    return this.fetchOrasSkySearch(normalized).then(function (searchResponse) {
+      if (searchResponse.results.length) {
+        return searchResponse.results[0];
+      }
+
+      return findLocalResult();
+    }, function () {
+      return findLocalResult();
+    });
+  },
+  querySkySources: function querySkySources(str, limit) {
+    var _this3 = this;
+
+    limit = limit || 10;
+    var normalized = normalizeOrasSearchQuery(str);
+
+    if (!normalized) {
+      return Promise.resolve([]);
+    }
+
+    var packResults = orasCatalogPacks.search(normalized, limit).map(toOrasSkySource).filter(Boolean);
+    return this.fetchOrasSkySearch(normalized).then(function (searchResponse) {
+      return _this3.mergeSkySourceResults(searchResponse.results, packResults, _this3.localQueryResults(normalized, limit)).slice(0, limit);
+    }, function () {
+      return _this3.mergeSkySourceResults(packResults, _this3.localQueryResults(normalized, limit)).slice(0, limit);
+    });
+  },
+  mergeSkySourceResults: function mergeSkySourceResults() {
+    var results = [];
+    var identities = new Set();
+
+    for (var _len = arguments.length, groups = new Array(_len), _key = 0; _key < _len; _key++) {
+      groups[_key] = arguments[_key];
+    }
+
+    for (var _i = 0, _groups = groups; _i < _groups.length; _i++) {
+      var group = _groups[_i];
+
+      var _iterator2 = Object(createForOfIteratorHelper["a" /* default */])(group || []),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var result = _step2.value;
+          var identity = [result.catalog, result.source_id, result.model].map(function (value) {
+            return String(value || '').trim().toLowerCase();
+          }).join("\0");
+          var fallbackIdentity = String(result.names && result.names[0] || result.match || '').trim().toLowerCase();
+          var key = identity === "\0\0" ? fallbackIdentity : identity;
+          if (!key || identities.has(key)) continue;
+          identities.add(key);
+          results.push(result);
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+    }
+
+    return results;
+  },
+  skySourceMatchesIdentity: function skySourceMatchesIdentity(ss, identity) {
+    if (!ss || !identity) {
+      return false;
+    }
+
+    var ssCatalog = String(ss.catalog || '').trim().toLowerCase();
+    var ssSourceId = ss.source_id == null ? '' : String(ss.source_id).trim().toLowerCase();
+    var ssModel = String(ss.model || '').trim().toLowerCase();
+    return ssCatalog === String(identity.catalog || '').trim().toLowerCase() && ssSourceId === String(identity.sourceId || '').trim().toLowerCase() && ssModel === String(identity.model || '').trim().toLowerCase();
+  },
+  sweObj2SkySource: function sweObj2SkySource(obj) {
+    var names = obj.designations();
+    var that = this;
+    var exactSelection = this.exactSkySourceSelection;
+    var currentSelection = vue_esm["a" /* default */].prototype.$stel && vue_esm["a" /* default */].prototype.$stel.core.selection;
+    var isCurrentSelection = currentSelection === obj || currentSelection && obj && currentSelection.v === obj.v;
+
+    if (exactSelection && isCurrentSelection) {
+      exactSelection.culturalNames = obj.culturalDesignations();
+      return Promise.resolve(exactSelection);
+    }
+
+    var buildLocalSkySource = function buildLocalSkySource(fallbackName) {
+      var ss = that.localSkySourceFromSweObj(obj, fallbackName || names[0]);
+
+      if (!ss) {
+        return undefined;
+      }
+
+      if (!ss.model_data) {
+        ss.model_data = {};
+      }
+
+      for (var i in ss.names) {
+        if (ss.names[i].startsWith('GAIA')) {
+          ss.names[i] = ss.names[i].replace(/^GAIA /, 'Gaia DR2 ');
+        }
+      }
+
+      ss.culturalNames = obj.culturalDesignations();
+      return ss;
+    };
+
+    if (obj.__orasSkySourceData && obj.__orasSkySourceData.catalog && obj.__orasSkySourceData.source_id && obj.__orasSkySourceData.model) {
+      return Promise.resolve(buildLocalSkySource(obj.__orasSkySourceData.match || obj.__orasSkySourceData.display_name || names[0]));
+    }
+
+    if (!names || !names.length) {
+      throw new Error("Can't find object without names");
+    } // Several artifical satellites share the same common name, so we use
+    // the unambiguous NORAD number instead
+
+
+    for (var j in names) {
+      if (names[j].startsWith('NORAD ')) {
+        var tmpName = names[0];
+        names[0] = names[j];
+        names[j] = tmpName;
+      }
+    }
+
+    var printErr = function printErr(n) {
+      console.log("Couldn't find ORAS skysource data for name: " + n);
+      return buildLocalSkySource(n);
+    };
+
+    return that.lookupSkySourceByName(names[0]).then(function (res) {
+      return res;
+    }, function () {
+      if (names.length === 1) return printErr(names);
+      return that.lookupSkySourceByName(names[1]).then(function (res) {
+        return res;
+      }, function () {
+        if (names.length === 2) return printErr(names);
+        return that.lookupSkySourceByName(names[2]).then(function (res) {
+          return res;
+        }, function () {
+          return printErr(names[2]);
+        });
+      });
+    }).then(function (res) {
+      res.culturalNames = obj.culturalDesignations();
+      return res;
+    });
+  },
+  setSweObjAsSelection: function setSweObjAsSelection(obj, exactSkySource) {
+    var $stel = vue_esm["a" /* default */].prototype.$stel;
+    this.exactSkySourceSelection = exactSkySource || undefined;
+    $stel.core.selection = obj;
+    $stel.pointAndLock(obj);
+
+    if (obj.__orasOwnedLookup) {
+      // Selection and lock retain their own references; release the lookup's.
+      obj.__orasOwnedLookup = false;
+      obj.destroy();
+    }
+  },
+  // Get data for a SkySource from wikipedia
+  getSkySourceSummaryFromWikipedia: function getSkySourceSummaryFromWikipedia(ss) {
+    var aliases = [];
+
+    for (var i in ss.names || []) {
+      aliases.push(String(ss.names[i]).trim());
+    }
+
+    if (ss.display_name) aliases.push(String(ss.display_name).trim());
+    if (ss.source_id) aliases.push('Gaia DR2 ' + String(ss.source_id).trim());
+    if (!aliases.length) return Promise.reject(new Error('No aliases available for local summary lookup'));
+    var url = ORAS_OBJECT_MEDIA_ROOT + '/summaries/index.json';
+    return fetch(url).then(function (res) {
+      if (!res.ok) throw new Error('No local summary for selection');
+      return res.json();
+    }).then(function (index) {
+      var keyMap = index && index.alias_to_file ? index.alias_to_file : {};
+
+      for (var _i2 = 0, _aliases = aliases; _i2 < _aliases.length; _i2++) {
+        var alias = _aliases[_i2];
+        var normalized = alias.toLowerCase();
+
+        if (keyMap[normalized]) {
+          return fetch(ORAS_OBJECT_MEDIA_ROOT + '/summaries/' + keyMap[normalized]).then(function (r) {
+            if (!r.ok) throw new Error('Failed to read local summary file');
+            return r.json();
+          });
+        }
+      }
+
+      throw new Error('No local summary for selection');
+    });
+  },
+  getGeolocation: function getGeolocation() {
+    console.log('Getting geolocalization');
+
+    if (!navigator.geolocation) {
+      return Promise.reject(new Error('Cannot detect position'));
+    }
+
+    return new Promise(function (resolve, reject) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        resolve({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+          accuracy: position.coords.accuracy
+        });
+      }, function () {
+        reject(new Error('Cannot detect position'));
+      }, {
+        enableHighAccuracy: true
+      });
+    });
+  },
+  delay: function delay(t, v) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve.bind(null, v), t);
+    });
+  },
+  geoCodePosition: function geoCodePosition(pos, ctx) {
+    console.log('Geocoding position... ');
+    var ll = ctx.$t('Lat {0}° Lon {1}°', [pos.lat.toFixed(3), pos.lng.toFixed(3)]);
+    var loc = {
+      short_name: pos.accuracy > 500 ? ctx.$t('Near {0}', [ll]) : ll,
+      country: 'Unknown',
+      lng: pos.lng,
+      lat: pos.lat,
+      alt: pos.alt ? pos.alt : 0,
+      accuracy: pos.accuracy,
+      street_address: ''
+    };
+    return Promise.resolve(loc);
+  },
+  getDistanceFromLatLonInM: function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
+    var deg2rad = function deg2rad(deg) {
+      return deg * (Math.PI / 180);
+    };
+
+    var R = 6371000; // Radius of the earth in m
+
+    var dLat = deg2rad(lat2 - lat1);
+    var dLon = deg2rad(lon2 - lon1);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c; // Distance in m
+
+    return d;
+  },
+  // Look for the next time starting from now on when the night Sky is visible
+  // i.e. when sun is more than 10 degree below horizon.
+  // If no such time was found (e.g. in a northern country in summer),
+  // we default to current time.
+  getTimeAfterSunset: function getTimeAfterSunset(stel) {
+    var sun = stel.getObj('NAME Sun');
+    var obs = stel.observer.clone();
+    var utc = Math.floor(obs.utc * 24 * 60 / 5) / (24 * 60 / 5);
+    var i;
+
+    for (i = 0; i < 24 * 60 / 5 + 1; i++) {
+      obs.utc = utc + 1.0 / (24 * 60) * (i * 5);
+      var sunRadec = sun.getInfo('RADEC', obs);
+      var azalt = stel.convertFrame(obs, 'ICRF', 'OBSERVED', sunRadec);
+      var alt = stel.anpm(stel.c2s(azalt)[1]);
+
+      if (alt < -13 * Math.PI / 180) {
+        break;
+      }
+    }
+
+    if (i === 0 || i === 24 * 60 / 5 + 1) {
+      return stel.observer.utc;
+    }
+
+    return obs.utc;
+  },
+  // Get the list of circumpolar stars in a given magnitude range
+  //
+  // Arguments:
+  //   obs      - An observer.
+  //   maxMag   - The maximum magnitude above which objects are discarded.
+  //   filter   - a function called for each object returning false if the
+  //              object must be filtered out.
+  //
+  // Return:
+  //   An array SweObject. It is the responsibility of the caller to properly
+  //   destroy all the objects of the list when they are not needed, by calling
+  //   obj.destroy() on each of them.
+  //
+  // Example code:
+  //   // Return all cicumpolar stars between mag -2 and 4
+  //   let res = swh.getCircumpolarStars(this.$stel.observer, -2, 4)
+  //   // Do something with the stars
+  //   console.log(res.length)
+  //   // Destroy the objects (don't forget this line!)
+  //   res.map(e => e.destroy())
+  getCircumpolarStars: function getCircumpolarStars(obs, minMag, maxMag) {
+    var $stel = vue_esm["a" /* default */].prototype.$stel;
+
+    var filter = function filter(obj) {
+      if (obj.getInfo('vmag', obs) <= minMag) {
+        return false;
+      }
+
+      var posJNOW = $stel.convertFrame(obs, 'ICRF', 'JNOW', obj.getInfo('radec'));
+      var radecJNOW = $stel.c2s(posJNOW);
+      var decJNOW = $stel.anpm(radecJNOW[1]);
+
+      if (obs.latitude >= 0) {
+        return decJNOW >= Math.PI / 2 - obs.latitude;
+      } else {
+        return decJNOW <= -Math.PI / 2 + obs.latitude;
+      }
+    };
+
+    return $stel.core.stars.listObjs(obs, maxMag, filter);
+  },
+  circumpolarMask: undefined,
+  showCircumpolarMask: function showCircumpolarMask(obs, show) {
+    if (show === undefined) {
+      show = true;
+    }
+
+    var layer = vue_esm["a" /* default */].prototype.$skyHintsLayer;
+    var $stel = vue_esm["a" /* default */].prototype.$stel;
+
+    if (this.circumpolarMask) {
+      layer.remove(this.circumpolarMask);
+      this.circumpolarMask = undefined;
+    }
+
+    if (show) {
+      var diam = 2.0 * Math.PI - Math.abs(obs.latitude) * 2;
+      var shapeParams = {
+        pos: [0, 0, obs.latitude > 0 ? -1 : 1, 0],
+        frame: $stel.FRAME_JNOW,
+        size: [diam, diam],
+        color: [0.1, 0.1, 0.1, 0.8],
+        border_color: [0.1, 0.1, 0.6, 1]
+      };
+      this.circumpolarMask = layer.add('circle', shapeParams);
+    }
+  }
+};
+/* harmony default export */ var sw_helpers = (swh);
+// EXTERNAL MODULE: ./node_modules/v-click-outside/dist/v-click-outside.umd.js
+var v_click_outside_umd = __webpack_require__("c28b");
+var v_click_outside_umd_default = /*#__PURE__*/__webpack_require__.n(v_click_outside_umd);
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/skysource-search.vue?vue&type=script&lang=js&
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ var skysource_searchvue_type_script_lang_js_ = ({
+  data: function data() {
+    return {
+      autoCompleteChoices: [],
+      searchText: '',
+      lastQuery: undefined
+    };
+  },
+  props: ['value', 'floatingList'],
+  watch: {
+    searchText: function searchText() {
+      if (this.searchText === '') {
+        this.autoCompleteChoices = [];
+        this.lastQuery = undefined;
+        return;
+      }
+
+      this.refresh();
+    }
+  },
+  computed: {
+    listStyle: function listStyle() {
+      return this.floatingList ? 'position: absolute; z-index: 1000; margin-top: 8px' : '';
+    },
+    showList: function showList() {
+      return this.searchText.trim() !== '';
+    }
+  },
+  methods: {
+    sourceClicked: function sourceClicked(val) {
+      this.$emit('input', val);
+      this.resetSearch();
+    },
+    resetSearch: function resetSearch() {
+      this.searchText = '';
+    },
+    refresh: lodash_default.a.debounce(function () {
+      var that = this;
+      var rawQuery = that.searchText.trim();
+
+      if (!rawQuery) {
+        that.autoCompleteChoices = [];
+        that.lastQuery = undefined;
+        return;
+      }
+
+      if (this.lastQuery === rawQuery) {
+        return;
+      }
+
+      this.lastQuery = rawQuery;
+      sw_helpers.querySkySources(rawQuery, 10).then(function (results) {
+        if (rawQuery !== that.lastQuery) {
+          console.log('Cancelled query: ' + rawQuery);
+          return;
+        }
+
+        that.autoCompleteChoices = results;
+      }, function (err) {
+        console.log(err);
+      });
+    }, 200),
+    nameForSkySource: function nameForSkySource(s) {
+      var cn = sw_helpers.cleanupOneSkySourceName(s.match);
+      var n = sw_helpers.nameForSkySource(s);
+
+      if (cn === n) {
+        return n;
+      } else {
+        return cn + ' (' + n + ')';
+      }
+    },
+    typeToName: function typeToName(t) {
+      return sw_helpers.nameForSkySourceType(t);
+    },
+    subtitleForSkySource: function subtitleForSkySource(s) {
+      if (s && s.status === 'not_indexed') {
+        return 'Not indexed in local ORAS catalog yet';
+      }
+
+      return this.typeToName(s.types[0]);
+    },
+    iconForSkySource: function iconForSkySource(s) {
+      return sw_helpers.iconForSkySource(s);
+    }
+  },
+  mounted: function mounted() {
+    var that = this;
+
+    var onClick = function onClick(e) {
+      if (that.searchText !== '') {
+        that.searchText = '';
+      }
+    };
+
+    var guiParent = document.querySelector('stel') || document.body;
+    guiParent.addEventListener('click', onClick, false);
+    this.guiParent = guiParent;
+    this.guiParentClickHandler = onClick;
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (this.guiParent && this.guiParentClickHandler) {
+      this.guiParent.removeEventListener('click', this.guiParentClickHandler, false);
+    }
+
+    this.guiParent = undefined;
+    this.guiParentClickHandler = undefined;
+  },
+  directives: {
+    clickOutside: v_click_outside_umd_default.a.directive
+  }
+});
+// CONCATENATED MODULE: ./src/components/skysource-search.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_skysource_searchvue_type_script_lang_js_ = (skysource_searchvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__("2877");
+
+// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installComponents.js
+var installComponents = __webpack_require__("6544");
+var installComponents_default = /*#__PURE__*/__webpack_require__.n(installComponents);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__("cc20");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VList.js
+var VList = __webpack_require__("8860");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItem.js
+var VListItem = __webpack_require__("da13");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemAction.js
+var VListItemAction = __webpack_require__("1800");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js + 6 modules
+var components_VList = __webpack_require__("5d23");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
+var VTextField = __webpack_require__("8654");
+
+// EXTERNAL MODULE: ./node_modules/vuetify-loader/lib/runtime/installDirectives.js
+var installDirectives = __webpack_require__("269a");
+var installDirectives_default = /*#__PURE__*/__webpack_require__.n(installDirectives);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/click-outside/index.js
+var click_outside = __webpack_require__("a293");
+
+// CONCATENATED MODULE: ./src/components/skysource-search.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_skysource_searchvue_type_script_lang_js_,
+  skysource_searchvue_type_template_id_829e5c8c_render,
+  skysource_searchvue_type_template_id_829e5c8c_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var skysource_search = (component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+
+installComponents_default()(component, {VChip: VChip["a" /* default */],VList: VList["a" /* default */],VListItem: VListItem["a" /* default */],VListItemAction: VListItemAction["a" /* default */],VListItemContent: components_VList["a" /* VListItemContent */],VListItemSubtitle: components_VList["b" /* VListItemSubtitle */],VListItemTitle: components_VList["c" /* VListItemTitle */],VTextField: VTextField["a" /* default */]})
+
+
+/* vuetify-loader */
+
+
+installDirectives_default()(component, {ClickOutside: click_outside["a" /* default */]})
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/target-search.vue?vue&type=script&lang=js&
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ var target_searchvue_type_script_lang_js_ = ({
+  data: function data() {
+    return {
+      obsSkySource: undefined
+    };
+  },
+  watch: {
+    obsSkySource: function () {
+      var _obsSkySource = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(ss) {
+        var obj, label;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (ss) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 2:
+                if (!(ss.model === 'star')) {
+                  _context.next = 8;
+                  break;
+                }
+
+                _context.next = 5;
+                return sw_helpers.resolveCanonicalStar(ss);
+
+              case 5:
+                _context.t0 = _context.sent;
+                _context.next = 9;
+                break;
+
+              case 8:
+                _context.t0 = sw_helpers.skySource2SweObj(ss);
+
+              case 9:
+                obj = _context.t0;
+
+                if (!(ss !== this.obsSkySource)) {
+                  _context.next = 12;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 12:
+                if (!obj) {
+                  obj = this.$stel.createObj(ss.model, ss);
+
+                  if (obj) {
+                    this.$selectionLayer.add(obj);
+                  }
+                }
+
+                if (obj) {
+                  _context.next = 17;
+                  break;
+                }
+
+                label = Array.isArray(ss.names) && ss.names.length ? ss.names[0] : ss.display_name || String(ss.source_id || 'unknown');
+                console.warn("Can't find object in SWE: " + label);
+                return _context.abrupt("return");
+
+              case 17:
+                obj.__orasSkySourceData = ss;
+                sw_helpers.setSweObjAsSelection(obj, ss);
+
+              case 19:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function obsSkySource(_x) {
+        return _obsSkySource.apply(this, arguments);
+      }
+
+      return obsSkySource;
+    }()
+  },
+  components: {
+    SkysourceSearch: skysource_search
+  }
+});
+// CONCATENATED MODULE: ./src/components/target-search.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_target_searchvue_type_script_lang_js_ = (target_searchvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/target-search.vue?vue&type=style&index=0&lang=css&
+var target_searchvue_type_style_index_0_lang_css_ = __webpack_require__("4654");
+
+// CONCATENATED MODULE: ./src/components/target-search.vue
+
+
+
+
+
+
+/* normalize component */
+
+var target_search_component = Object(componentNormalizer["a" /* default */])(
+  components_target_searchvue_type_script_lang_js_,
+  target_searchvue_type_template_id_1531b74a_render,
+  target_searchvue_type_template_id_1531b74a_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var target_search = (target_search_component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/toolbar.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ var toolbarvue_type_script_lang_js_ = ({
+  data: function data() {
+    return {};
+  },
+  computed: {
+    fov: function fov() {
+      if (!this.$store.state.stel) return '-';
+      var fov = this.$store.state.stel.fov * 180 / Math.PI;
+      return fov.toPrecision(3) + '°';
+    }
+  },
+  methods: {
+    toggleNavigationDrawer: function toggleNavigationDrawer() {
+      this.$store.commit('toggleBool', 'showNavigationDrawer');
+    }
+  },
+  components: {
+    TargetSearch: target_search
+  }
+});
+// CONCATENATED MODULE: ./src/components/toolbar.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_toolbarvue_type_script_lang_js_ = (toolbarvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/toolbar.vue?vue&type=style&index=0&lang=css&
+var toolbarvue_type_style_index_0_lang_css_ = __webpack_require__("3658");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAppBar/VAppBarNavIcon.js
+var VAppBarNavIcon = __webpack_require__("5bc1");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__("8336");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__("132d");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__("2fa4");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/VToolbar.js
+var VToolbar = __webpack_require__("71d9");
+
+// CONCATENATED MODULE: ./src/components/toolbar.vue
+
+
+
+
+
+
+/* normalize component */
+
+var toolbar_component = Object(componentNormalizer["a" /* default */])(
+  components_toolbarvue_type_script_lang_js_,
+  toolbarvue_type_template_id_6acce61a_render,
+  toolbarvue_type_template_id_6acce61a_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var toolbar = (toolbar_component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+
+installComponents_default()(toolbar_component, {VAppBarNavIcon: VAppBarNavIcon["a" /* default */],VBtn: VBtn["a" /* default */],VIcon: VIcon["a" /* default */],VSpacer: VSpacer["a" /* default */],VToolbar: VToolbar["a" /* default */]})
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/bottom-bar.vue?vue&type=template&id=0430beac&
+var bottom_barvue_type_template_id_0430beac_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticStyle:{"position":"absolute","display":"flex","align-items":"flex-end"}},[(_vm.$store.state.showLocationButton)?_c('div',{staticClass:"tbtcontainer",staticStyle:{"max-width":"300px","display":"flex","align-items":"flex-end"}},[_c('v-btn',{staticClass:"tmenubt",attrs:{"color":"secondary"},nativeOn:{"click":function($event){$event.stopPropagation();return _vm.locationClicked()}}},[_c('v-icon',{staticClass:"hidden-sm-and-up"},[_vm._v("mdi-map-marker")]),_c('span',{staticClass:"hidden-xs-only"},[_vm._v(_vm._s(_vm.$store.state.currentLocation.short_name))])],1)],1):_vm._e(),_c('v-spacer'),(_vm.$store.state.showConstellationsLinesButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Constellations'),"img":__webpack_require__("d8fb"),"img_alt":"Constellations Button","toggled":_vm.$store.state.stel.constellations.lines_visible},on:{"clicked":function (b) { _vm.$stel.core.constellations.lines_visible = b; _vm.$stel.core.constellations.labels_visible = b }}}):_vm._e(),(_vm.$store.state.showConstellationsArtButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Constellations Art'),"img":__webpack_require__("00b8"),"img_alt":"Constellations Art Button","toggled":_vm.$store.state.stel.constellations.images_visible},on:{"clicked":function (b) { _vm.$stel.core.constellations.images_visible = b }}}):_vm._e(),(_vm.$store.state.showAtmosphereButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Atmosphere'),"img":__webpack_require__("49e1"),"img_alt":"Atmosphere Button","toggled":_vm.$store.state.stel.atmosphere.visible},on:{"clicked":function (b) { _vm.$stel.core.atmosphere.visible = b }}}):_vm._e(),(_vm.$store.state.showLandscapeButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Landscape'),"img":__webpack_require__("dbeb"),"img_alt":"Landscape Button","toggled":_vm.$store.state.stel.landscapes.visible},on:{"clicked":function (b) { _vm.$stel.core.landscapes.visible = b }}}):_vm._e(),(_vm.$store.state.showAzimuthalGridButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Azimuthal Grid'),"img":__webpack_require__("aca8"),"img_alt":"Azimuthal Button","toggled":_vm.$store.state.stel.lines.azimuthal.visible},on:{"clicked":function (b) { _vm.$stel.core.lines.azimuthal.visible = b }}}):_vm._e(),(_vm.$store.state.showEquatorialGridButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Equatorial Grid'),"img":__webpack_require__("1541"),"img_alt":"Equatorial Grid Button","toggled":_vm.$store.state.stel.lines.equatorial_jnow.visible},on:{"clicked":function (b) { _vm.$stel.core.lines.equatorial_jnow.visible = b }}}):_vm._e(),(_vm.$store.state.showEquatorialJ2000GridButton !== false)?_c('bottom-button',{attrs:{"label":_vm.$t('Equatorial J2000 Grid'),"img":__webpack_require__("1541"),"img_alt":"Equatorial J2000 Grid Button","toggled":_vm.$store.state.stel.lines.equatorial.visible},on:{"clicked":function (b) { _vm.$stel.core.lines.equatorial.visible = b }}}):_vm._e(),_c('bottom-button',{staticClass:"mr-auto",attrs:{"label":_vm.$t('Deep Sky Objects'),"img":__webpack_require__("5ae2"),"img_alt":"Deep Sky Objects Button","toggled":_vm.$store.state.stel.dsos.visible},on:{"clicked":function (b) { _vm.$stel.core.dsos.visible = b }}}),(_vm.$store.state.showNightmodeButton !== false)?_c('bottom-button',{staticClass:"mr-auto",attrs:{"label":_vm.$t('Night Mode'),"img":__webpack_require__("13ba"),"img_alt":"Night Mode Button","toggled":_vm.$store.state.nightmode},on:{"clicked":function (b) { _vm.setNightMode(b) }}}):_vm._e(),_c('bottom-button',{staticClass:"mr-auto hidden-xs-only",attrs:{"label":_vm.$t('Fullscreen'),"img":_vm.fullscreenBtnImage,"img_alt":"Fullscreen Button","toggled":_vm.$store.state.fullscreen},on:{"clicked":function (b) { _vm.setFullscreen(b) }}}),_c('v-spacer'),(_vm.$store.state.showTimeButtons)?_c('v-menu',{attrs:{"close-on-content-click":false,"transition":"v-slide-y-transition","offset-y":"","top":"","left":""},scopedSlots:_vm._u([{key:"activator",fn:function(ref){
+var on = ref.on;
+return [_c('v-btn',_vm._g({staticClass:"tmenubt",attrs:{"large":"","color":"secondary"}},on),[_c('v-icon',{staticClass:"hidden-sm-and-up"},[_vm._v("mdi-clock-outline")]),_c('span',{staticClass:"hidden-xs-only"},[_c('div',{staticClass:"text-subtitle-2"},[_vm._v(_vm._s(_vm.time))]),_c('div',{staticClass:"text-caption"},[_vm._v(_vm._s(_vm.date))])])],1)]}}],null,false,4035027993)},[_c('date-time-picker',{attrs:{"location":_vm.$store.state.currentLocation},model:{value:(_vm.pickerDate),callback:function ($$v) {_vm.pickerDate=$$v},expression:"pickerDate"}})],1):_vm._e()],1)}
+var bottom_barvue_type_template_id_0430beac_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/bottom-bar.vue?vue&type=template&id=0430beac&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/bottom-button.vue?vue&type=template&id=54804bb2&
+var bottom_buttonvue_type_template_id_54804bb2_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"bottom-button",class:{on: _vm.toggled}},[_c('a',{on:{"click":_vm.clicked}},[_c('img',{attrs:{"src":_vm.img,"alt":_vm.img_alt}})]),_c('div',{staticClass:"hint"},[_vm._v(_vm._s(_vm.label))])])}
+var bottom_buttonvue_type_template_id_54804bb2_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/bottom-button.vue?vue&type=template&id=54804bb2&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/bottom-button.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ var bottom_buttonvue_type_script_lang_js_ = ({
+  name: 'bottom-button',
+  props: ['label', 'img', 'toggled', 'img_alt'],
+  methods: {
+    clicked: function clicked() {
+      var b = !this.toggled;
+      this.$emit('clicked', b);
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/bottom-button.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_bottom_buttonvue_type_script_lang_js_ = (bottom_buttonvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/bottom-button.vue?vue&type=style&index=0&lang=css&
+var bottom_buttonvue_type_style_index_0_lang_css_ = __webpack_require__("2435");
+
+// CONCATENATED MODULE: ./src/components/bottom-button.vue
+
+
+
+
+
+
+/* normalize component */
+
+var bottom_button_component = Object(componentNormalizer["a" /* default */])(
+  components_bottom_buttonvue_type_script_lang_js_,
+  bottom_buttonvue_type_template_id_54804bb2_render,
+  bottom_buttonvue_type_template_id_54804bb2_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var bottom_button = (bottom_button_component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/date-time-picker.vue?vue&type=template&id=003a55bb&
+var date_time_pickervue_type_template_id_003a55bb_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-card',{attrs:{"width":"400"}},[_c('v-container',[_c('v-row',{staticClass:"ma-3",attrs:{"justify":"space-between","no-gutters":""}},[_c('div',[_c('v-btn',{staticClass:"up_down_bt",staticStyle:{"margin-left":"16px"},attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.incTime('years')},"touchstart":function($event){$event.preventDefault();return _vm.incTime('years')}}},[_c('v-icon',[_vm._v("mdi-menu-up")])],1),_c('v-btn',{staticClass:"up_down_bt",staticStyle:{"margin-left":"21px"},attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.incTime('months')},"touchstart":function($event){$event.preventDefault();return _vm.incTime('months')}}},[_c('v-icon',[_vm._v("mdi-menu-up")])],1),_c('v-btn',{staticClass:"up_down_bt",staticStyle:{"margin-left":"8px"},attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.incTime('days')},"touchstart":function($event){$event.preventDefault();return _vm.incTime('days')}}},[_c('v-icon',[_vm._v("mdi-menu-up")])],1),_c('h1',[_vm._v(_vm._s(_vm.date))]),_c('v-btn',{staticClass:"up_down_bt",staticStyle:{"margin-left":"16px"},attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.decTime('years')},"touchstart":function($event){$event.preventDefault();return _vm.decTime('years')}}},[_c('v-icon',[_vm._v("mdi-menu-down")])],1),_c('v-btn',{staticClass:"up_down_bt",staticStyle:{"margin-left":"21px"},attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.decTime('months')},"touchstart":function($event){$event.preventDefault();return _vm.decTime('months')}}},[_c('v-icon',[_vm._v("mdi-menu-down")])],1),_c('v-btn',{staticClass:"up_down_bt",staticStyle:{"margin-left":"8px"},attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.decTime('days')},"touchstart":function($event){$event.preventDefault();return _vm.decTime('days')}}},[_c('v-icon',[_vm._v("mdi-menu-down")])],1)],1),_c('div',[_c('div',[_c('v-tooltip',{attrs:{"top":""},scopedSlots:_vm._u([{key:"activator",fn:function(ref){
+var on = ref.on;
+return [_c('v-btn',_vm._g({staticStyle:{"margin-top":"5px"},attrs:{"text":"","icon":""},on:{"click":_vm.resetTime}},on),[_c('v-icon',[_vm._v("mdi-history")])],1)]}}])},[_c('span',[_vm._v(_vm._s(_vm.$t('Back to real time')))])])],1),_c('div',[_c('v-tooltip',{attrs:{"top":""},scopedSlots:_vm._u([{key:"activator",fn:function(ref){
+var on = ref.on;
+return [_c('v-btn',_vm._g({staticStyle:{"margin-top":"0px"},attrs:{"text":"","icon":""},on:{"click":_vm.togglePauseTime}},on),[_c('v-icon',[_vm._v(_vm._s(_vm.togglePauseTimeIcon))])],1)]}}])},[_c('span',[_vm._v(_vm._s(_vm.$t('Pause/unpause time')))])])],1)]),_c('div',[_c('v-btn',{staticClass:"up_down_bt",attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.incTime('hours')},"touchstart":function($event){$event.preventDefault();return _vm.incTime('hours')}}},[_c('v-icon',[_vm._v("mdi-menu-up")])],1),_c('v-btn',{staticClass:"up_down_bt ml-1",attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.incTime('minutes')},"touchstart":function($event){$event.preventDefault();return _vm.incTime('minutes')}}},[_c('v-icon',[_vm._v("mdi-menu-up")])],1),_c('v-btn',{staticClass:"up_down_bt ml-1",attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.incTime('seconds')},"touchstart":function($event){$event.preventDefault();return _vm.incTime('seconds')}}},[_c('v-icon',[_vm._v("mdi-menu-up")])],1),_c('h1',{staticClass:"ml-2"},[_vm._v(_vm._s(_vm.time))]),_c('v-btn',{staticClass:"up_down_bt",attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.decTime('hours')},"touchstart":function($event){$event.preventDefault();return _vm.decTime('hours')}}},[_c('v-icon',[_vm._v("mdi-menu-down")])],1),_c('v-btn',{staticClass:"up_down_bt ml-1",attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.decTime('minutes')},"touchstart":function($event){$event.preventDefault();return _vm.decTime('minutes')}}},[_c('v-icon',[_vm._v("mdi-menu-down")])],1),_c('v-btn',{staticClass:"up_down_bt ml-1",attrs:{"text":"","icon":""},on:{"mousedown":function($event){return _vm.decTime('seconds')},"touchstart":function($event){$event.preventDefault();return _vm.decTime('seconds')}}},[_c('v-icon',[_vm._v("mdi-menu-down")])],1)],1)])],1),_c('div',{staticStyle:{"padding":"20px"}},[_c('div',{staticStyle:{"position":"absolute"}},[_c('svg',{attrs:{"height":"30","width":"360"}},[_c('defs',[_c('linearGradient',{attrs:{"id":"grad1","x1":"0%","y1":"0%","x2":"100%","y2":"0%"}},_vm._l((_vm.stops),function(stop){return _c('stop',{key:stop.percent,style:(stop.style),attrs:{"offset":stop.percent}})}),1)],1),_c('rect',{attrs:{"width":"100%","height":"100%","fill":"url(#grad1)"}})])]),_c('v-slider',{staticStyle:{"padding":"0px","width":"360px"},attrs:{"min":"0","max":"1439","hint":_vm.sliderHint,"persistent-hint":""},model:{value:(_vm.timeMinute),callback:function ($$v) {_vm.timeMinute=$$v},expression:"timeMinute"}})],1)],1)}
+var date_time_pickervue_type_template_id_003a55bb_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/date-time-picker.vue?vue&type=template&id=003a55bb&
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.math.log10.js
+var es_math_log10 = __webpack_require__("6b93");
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/date-time-picker.vue?vue&type=script&lang=js&
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var clickTimeout;
+var nbClickRepeat = 0;
+/* harmony default export */ var date_time_pickervue_type_script_lang_js_ = ({
+  data: function data() {
+    return {
+      stops: [],
+      stopCacheKey: {
+        sliderStartTime: undefined,
+        location: undefined
+      }
+    };
+  },
+  props: ['value', 'location'],
+  computed: {
+    // The MomentJS time in local time
+    localTime: {
+      get: function get() {
+        var m = moment_default()(this.value);
+        m.local();
+        return m;
+      },
+      set: function set(newValue) {
+        this.$emit('input', newValue.format());
+      }
+    },
+    time: {
+      get: function get() {
+        return this.localTime.format('HH:mm:ss');
+      }
+    },
+    date: {
+      get: function get() {
+        return this.localTime.format('YYYY-MM-DD');
+      }
+    },
+    timeMinute: {
+      get: function get() {
+        // 0 means 12:00, 720 means midnight, 1440 (=24*60) means 12:00 the day after
+        var t = this.localTime;
+        return t.hours() < 12 ? (t.hours() + 12) * 60 + t.minutes() : (t.hours() - 12) * 60 + t.minutes();
+      },
+      set: function set(newValue) {
+        var t = moment_default()(this.sliderStartTime);
+        t.add(newValue, 'minutes');
+        this.$emit('input', t.format());
+      }
+    },
+    sliderStartTime: function sliderStartTime() {
+      var t = this.localTime.clone();
+
+      if (t.hours() < 12) {
+        t.subtract(1, 'days');
+      }
+
+      t.hours(12);
+      t.minutes(0);
+      t.seconds(0);
+      t.milliseconds(0);
+      return t;
+    },
+    sliderHint: function sliderHint() {
+      var tm = this.timeMinute;
+      var stop = this.stops[Math.floor(tm * this.stops.length / 1440)];
+      if (!stop) return '';
+
+      if (stop.sunAlt > 0) {
+        return this.$t('Daylight');
+      }
+
+      if (stop.sunAlt < -16) {
+        return stop.moonAlt < 5 ? this.$t('Dark night') : this.$t('Moonlight');
+      }
+
+      return tm > 720 ? this.$t('Dawn') : this.$t('Twilight');
+    },
+    isTimePaused: function isTimePaused() {
+      return this.$store.state.stel.time_speed === 0;
+    },
+    togglePauseTimeIcon: function togglePauseTimeIcon() {
+      return this.isTimePaused ? 'mdi-play' : 'mdi-pause';
+    }
+  },
+  methods: {
+    resetTime: function resetTime() {
+      var m = moment_default()();
+      m.local();
+      this.$emit('input', m.format());
+    },
+    togglePauseTime: function togglePauseTime() {
+      this.$stel.core.time_speed = this.$stel.core.time_speed === 0 ? 1 : 0;
+    },
+    incTime: function incTime(unit) {
+      this.startIncTime(1, unit);
+    },
+    decTime: function decTime(unit) {
+      this.startIncTime(-1, unit);
+    },
+    startIncTime: function startIncTime(v, unit) {
+      var _this = this;
+
+      var that = this;
+      clickTimeout = setTimeout(function (_) {
+        var t = _this.localTime.clone();
+
+        t.add(v, unit);
+
+        _this.$emit('input', t.format());
+
+        nbClickRepeat++;
+        that.startIncTime(v, unit);
+      }, nbClickRepeat === 0 ? 0 : nbClickRepeat === 1 ? 500 : nbClickRepeat < 10 ? 100 : nbClickRepeat < 100 ? 50 : 20);
+    },
+    stopIncTime: function stopIncTime() {
+      if (clickTimeout) {
+        clearTimeout(clickTimeout);
+        clickTimeout = undefined;
+        nbClickRepeat = 0;
+      }
+    },
+    // 0 means 12:00, 720 means midnight, 1440 (=24*60) means 12:00 the day after
+    timeMinuteRangeToUTC: function timeMinuteRangeToUTC(tm) {
+      return this.sliderStartTime.toDate().getMJD() + tm * 1 / (24 * 60);
+    },
+    refreshStops: function refreshStops() {
+      if (this.stopCacheKey.sliderStartTime === this.sliderStartTime.format() && this.stopCacheKey.location === JSON.stringify(this.location)) {
+        return;
+      }
+
+      var res = [];
+      var nbStop = 49;
+      var obs = this.$stel.core.observer.clone();
+      var sun = this.$stel.getObj('NAME Sun');
+      var moon = this.$stel.getObj('NAME Moon');
+
+      for (var i = 0; i <= nbStop; ++i) {
+        obs.utc = this.timeMinuteRangeToUTC(1440 * i / nbStop);
+        var sunAlt = this.$stel.anpm(this.$stel.c2s(this.$stel.convertFrame(obs, 'ICRF', 'OBSERVED', sun.getInfo('radec', obs)))[1]) * 180.0 / Math.PI;
+        var moonAlt = this.$stel.anpm(this.$stel.c2s(this.$stel.convertFrame(obs, 'ICRF', 'OBSERVED', moon.getInfo('radec', obs)))[1]) * 180.0 / Math.PI;
+
+        var brightnessForAltitude = function brightnessForAltitude(sunAlt, moonAlt) {
+          var moonBrightness = moonAlt < 0 ? 0 : 2 / 35 * Math.min(20, moonAlt) / 20;
+          if (sunAlt > 0) return Math.min(10, 1 + sunAlt) + moonBrightness;
+          if (sunAlt < -16) return moonBrightness;
+          if (sunAlt < -10) return 1 / 35 * (16 + sunAlt) / 6 + moonBrightness;
+          return (1 - 1 / 35) * (10 + sunAlt) / 10 + 1 / 35 + moonBrightness;
+        };
+
+        var brightness = Math.log10(1 + brightnessForAltitude(sunAlt, moonAlt) * 10) / 2;
+        res.push({
+          percent: i / nbStop,
+          style: 'stop-color:rgb(64,209,255);stop-opacity:' + brightness,
+          sunAlt: sunAlt,
+          moonAlt: moonAlt
+        });
+      }
+
+      obs.destroy();
+      this.stopCacheKey.sliderStartTime = this.sliderStartTime.format();
+      this.stopCacheKey.location = JSON.stringify(this.location);
+      this.stops = res;
+    }
+  },
+  mounted: function mounted() {
+    this.refreshStops();
+    var that = this;
+    window.addEventListener('mouseup', function (event) {
+      that.stopIncTime();
+    });
+    window.addEventListener('touchend', function (event) {
+      that.stopIncTime();
+    });
+  },
+  watch: {
+    sliderStartTime: function sliderStartTime() {
+      this.refreshStops();
+    },
+    location: function location() {
+      this.refreshStops();
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/date-time-picker.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_date_time_pickervue_type_script_lang_js_ = (date_time_pickervue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/date-time-picker.vue?vue&type=style&index=0&lang=css&
+var date_time_pickervue_type_style_index_0_lang_css_ = __webpack_require__("3cdf");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__("b0af");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
+var VContainer = __webpack_require__("a523");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
+var VRow = __webpack_require__("0fd9");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlider/VSlider.js
+var VSlider = __webpack_require__("ba0d");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTooltip/VTooltip.js
+var VTooltip = __webpack_require__("3a2f");
+
+// CONCATENATED MODULE: ./src/components/date-time-picker.vue
+
+
+
+
+
+
+/* normalize component */
+
+var date_time_picker_component = Object(componentNormalizer["a" /* default */])(
+  components_date_time_pickervue_type_script_lang_js_,
+  date_time_pickervue_type_template_id_003a55bb_render,
+  date_time_pickervue_type_template_id_003a55bb_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var date_time_picker = (date_time_picker_component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+installComponents_default()(date_time_picker_component, {VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VContainer: VContainer["a" /* default */],VIcon: VIcon["a" /* default */],VRow: VRow["a" /* default */],VSlider: VSlider["a" /* default */],VTooltip: VTooltip["a" /* default */]})
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/bottom-bar.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ var bottom_barvue_type_script_lang_js_ = ({
+  components: {
+    BottomButton: bottom_button,
+    DateTimePicker: date_time_picker
+  },
+  data: function data() {
+    return {};
+  },
+  computed: {
+    time: {
+      get: function get() {
+        return this.getLocalTime().format('HH:mm:ss');
+      }
+    },
+    date: {
+      get: function get() {
+        return this.getLocalTime().format('YYYY-MM-DD');
+      }
+    },
+    fullscreenBtnImage: function fullscreenBtnImage() {
+      return this.$store.state.fullscreen ? __webpack_require__("4d1c") : __webpack_require__("602b");
+    },
+    pickerDate: {
+      get: function get() {
+        var t = this.getLocalTime();
+        t.milliseconds(0);
+        return t.format();
+      },
+      set: function set(v) {
+        var m = moment_default()(v);
+        m.local();
+        m.milliseconds(this.getLocalTime().milliseconds());
+        this.$stel.core.observer.utc = m.toDate().getMJD();
+      }
+    }
+  },
+  methods: {
+    // The MomentJS time in local time
+    getLocalTime: function getLocalTime() {
+      var d = new Date();
+      d.setMJD(this.$store.state.stel.observer.utc);
+      var m = moment_default()(d);
+      m.local();
+      return m;
+    },
+    locationClicked: function locationClicked() {
+      this.$store.commit('toggleBool', 'showLocationDialog');
+    },
+    setFullscreen: function setFullscreen(b) {
+      this.$fullscreen.toggle(document.body, {
+        wrap: false,
+        callback: this.onFullscreenChange
+      });
+    },
+    setNightMode: function setNightMode(b) {
+      this.$store.commit('toggleBool', 'nightmode');
+
+      if (window.navigator.userAgent.indexOf('Edge') > -1) {
+        document.getElementById('nightmode').style.opacity = b ? '0.5' : '0';
+      }
+
+      document.getElementById('nightmode').style.visibility = b ? 'visible' : 'hidden';
+    },
+    onFullscreenChange: function onFullscreenChange(b) {
+      if (this.$store.state.fullscreen === b) return;
+      this.$store.commit('toggleBool', 'fullscreen');
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/bottom-bar.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_bottom_barvue_type_script_lang_js_ = (bottom_barvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/bottom-bar.vue?vue&type=style&index=0&lang=css&
+var bottom_barvue_type_style_index_0_lang_css_ = __webpack_require__("85df");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
+var VMenu = __webpack_require__("e449");
+
+// CONCATENATED MODULE: ./src/components/bottom-bar.vue
+
+
+
+
+
+
+/* normalize component */
+
+var bottom_bar_component = Object(componentNormalizer["a" /* default */])(
+  components_bottom_barvue_type_script_lang_js_,
+  bottom_barvue_type_template_id_0430beac_render,
+  bottom_barvue_type_template_id_0430beac_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var bottom_bar = (bottom_bar_component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+installComponents_default()(bottom_bar_component, {VBtn: VBtn["a" /* default */],VIcon: VIcon["a" /* default */],VMenu: VMenu["a" /* default */],VSpacer: VSpacer["a" /* default */]})
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/selected-object-info.vue?vue&type=template&id=35e96997&
+var selected_object_infovue_type_template_id_35e96997_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.selectedObject)?_c('v-card',{staticStyle:{"background":"rgba(66, 66, 66, 0.3)"},attrs:{"transparent":""}},[_c('v-btn',{staticStyle:{"position":"absolute","right":"0"},attrs:{"icon":""},nativeOn:{"click":function($event){return _vm.unselect()}}},[_c('v-icon',[_vm._v("mdi-close")])],1),_c('v-card-title',{attrs:{"primary-title":""}},[_c('div',{staticStyle:{"width":"100%"}},[_c('img',{staticStyle:{"margin-top":"3px","margin-right":"10px"},attrs:{"src":_vm.icon,"height":"48","width":"48","align":"left"}}),_c('div',{staticStyle:{"overflow":"hidden","text-overflow":"ellipsis"}},[_c('div',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.title))]),_c('div',{staticClass:"grey--text text-body-2"},[_vm._v(_vm._s(_vm.type))])])])]),_c('v-card-text',{staticStyle:{"padding-bottom":"5px"}},[(_vm.otherNames.length > 1)?_c('v-row',{staticStyle:{"width":"100%"}},[_c('v-col',{attrs:{"cols":"12"}},[_c('span',{staticStyle:{"position":"absolute"}},[_vm._v(_vm._s(_vm.$t('Also known as')))]),_c('span',{staticStyle:{"padding-left":"33.3333%"}}),_vm._l((_vm.otherNames1to7),function(mname){return _c('span',{key:mname,staticClass:"text-caption white--text",staticStyle:{"margin-right":"15px","font-weight":"500"}},[_vm._v(_vm._s(mname))])}),(_vm.otherNames.length > 8)?_c('v-btn',{staticClass:"grey--text",staticStyle:{"margin-top":"-5px","margin-bottom":"-5px"},attrs:{"small":"","icon":""},nativeOn:{"click":function($event){_vm.showMinorNames = !_vm.showMinorNames}}},[_c('v-icon',[_vm._v("mdi-dots-horizontal")])],1):_vm._e(),_vm._l((_vm.otherNames8andMore),function(mname){return _c('span',{key:mname,staticClass:"text-caption white--text",staticStyle:{"margin-right":"15px","font-weight":"500"}},[_vm._v(_vm._s(mname))])})],2)],1):_vm._e()],1),(_vm.orasMetadata)?_c('v-card-text',{staticClass:"oras-enhanced-panel"},[_c('v-chip',{staticClass:"mb-2",attrs:{"x-small":"","color":"cyan darken-3","text-color":"white"}},[_vm._v("ORAS Enhanced")]),_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v("Catalog IDs")]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(_vm.orasMetadata.catalogIds.join(', ')))])],1),_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v("Source attribution")]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(_vm.orasMetadata.sources.join(', ')))])],1),(_vm.orasMetadata.pack)?_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v("Catalog pack")]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(_vm.orasMetadata.pack))])],1):_vm._e(),_vm._l((_vm.orasProperties),function(property){return _c('v-row',{key:property.key,attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v(_vm._s(property.key))]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(property.value))])],1)}),(_vm.orasProperties.length === 0)?_c('div',{staticClass:"grey--text text-caption mt-2"},[_vm._v(" Physical properties: Unavailable from mounted sources ")]):_vm._e()],2):_vm._e(),_c('v-card-text',[_vm._l((_vm.items),function(item){return [_c('v-row',{key:item.key,staticStyle:{"width":"100%"},attrs:{"no-gutters":""}},[_c('v-col',{staticStyle:{"color":"#dddddd"},attrs:{"cols":"4"}},[_vm._v(_vm._s(item.key))]),_c('v-col',{staticClass:"white--text",staticStyle:{"font-weight":"500"},attrs:{"cols":"8"}},[(item.html)?_c('span',{domProps:{"innerHTML":_vm._s(item.value)}}):_c('span',[_vm._v(_vm._s(item.value))])])],1)]}),_c('div',{staticClass:"white--text",staticStyle:{"margin-top":"15px"}},[_vm._v(_vm._s(_vm.wikipediaSummary))])],2),_c('v-card-actions',{staticStyle:{"margin-top":"-25px"}},[_c('v-spacer'),_vm._l((_vm.pluginsSelectedInfoExtraGuiComponents),function(item){return [_c(item,{key:item,tag:"component"})]})],2),_c('v-dialog',{attrs:{"width":"500px","absolute":""},model:{value:(_vm.showShareLinkDialog),callback:function ($$v) {_vm.showShareLinkDialog=$$v},expression:"showShareLinkDialog"}},[_c('v-card',{staticClass:"secondary white--text",staticStyle:{"height":"180px"}},[_c('v-card-title',{attrs:{"primary-title":""}},[_c('div',[_c('h3',{staticClass:"text-h5 mb-0"},[_vm._v("Share link")])])]),_c('v-card-text',{staticStyle:{"width":"100%"}},[_c('v-row',{staticStyle:{"width":"100%"}},[_c('v-text-field',{attrs:{"id":"link_inputid","label":"Link","solo":"","readonly":""},model:{value:(_vm.shareLink),callback:function ($$v) {_vm.shareLink=$$v},expression:"shareLink"}}),_c('v-btn',{nativeOn:{"click":function($event){$event.stopPropagation();return _vm.copyLink($event)}}},[_vm._v("Copy")])],1)],1)],1)],1),(_vm.$store.state.showSelectedInfoButtons)?_c('div',{staticStyle:{"position":"absolute","right":"0px","bottom":"-50px"}},[(!_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},nativeOn:{"click":function($event){_vm.showShareLinkDialog = !_vm.showShareLinkDialog}}},[_c('v-icon',[_vm._v("mdi-link")])],1):_vm._e(),(_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},nativeOn:{"click":function($event){return _vm.lockToSelection()}}},[_c('img',{staticStyle:{"min-height":"40px"},attrs:{"src":__webpack_require__("4f57"),"height":"40px"}})]):_vm._e(),(!_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},on:{"mousedown":function($event){return _vm.zoomOutButtonClicked()}}},[_c('img',{class:{bt_disabled: !_vm.zoomOutButtonEnabled},staticStyle:{"min-height":"40px"},attrs:{"src":__webpack_require__("7aa7"),"height":"40px"}})]):_vm._e(),(!_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},on:{"mousedown":function($event){return _vm.zoomInButtonClicked()}}},[_c('img',{class:{bt_disabled: !_vm.zoomInButtonEnabled},staticStyle:{"min-height":"40px"},attrs:{"src":__webpack_require__("f6ce"),"height":"40px"}})]):_vm._e()],1):_vm._e(),_c('v-snackbar',{attrs:{"bottom":"","left":"","timeout":2000,"color":"secondary"},model:{value:(_vm.copied),callback:function ($$v) {_vm.copied=$$v},expression:"copied"}},[_vm._v(" Link copied ")])],1):_vm._e()}
+var selected_object_infovue_type_template_id_35e96997_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/selected-object-info.vue?vue&type=template&id=35e96997&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/selected-object-info.vue?vue&type=script&lang=js&
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ var selected_object_infovue_type_script_lang_js_ = ({
+  data: function data() {
+    return {
+      showMinorNames: false,
+      wikipediaData: undefined,
+      shareLink: undefined,
+      showShareLinkDialog: false,
+      copied: false,
+      items: [],
+      windowMouseupHandler: undefined,
+      timer: undefined,
+      zoomTimeout: undefined
+    };
+  },
+  computed: {
+    selectedObject: function selectedObject() {
+      return this.$store.state.selectedObject;
+    },
+    stelSelectionId: function stelSelectionId() {
+      return this.$store.state.stel && this.$store.state.stel.selection ? this.$store.state.stel.selection : undefined;
+    },
+    title: function title() {
+      return this.selectedObject ? this.otherNames[0] : 'Selection';
+    },
+    otherNames: function otherNames() {
+      return this.selectedObject ? sw_helpers.namesForSkySource(this.selectedObject, 26) : undefined;
+    },
+    otherNames1to7: function otherNames1to7() {
+      return this.otherNames.slice(1, 8);
+    },
+    otherNames8andMore: function otherNames8andMore() {
+      return this.showMinorNames ? this.otherNames.slice(8) : [];
+    },
+    orasMetadata: function orasMetadata() {
+      var source = this.selectedObject;
+      if (!source || !source.pack_id && !source.source_attribution && !source.star_science) return undefined;
+      var catalogIds = [source.catalog && source.source_id ? source.catalog + ' ' + source.source_id : undefined].concat(Object(toConsumableArray["a" /* default */])(source.catalog_ids || [])).filter(function (value, index, all) {
+        return value && all.indexOf(value) === index;
+      });
+      var sources = (source.source_attribution || []).map(function (attribution) {
+        return attribution.name;
+      }).filter(function (value, index, all) {
+        return value && all.indexOf(value) === index;
+      });
+      return {
+        catalogIds: catalogIds,
+        sources: sources.length ? sources : ['Unavailable'],
+        pack: source.pack_id ? source.pack_id + ' ' + (source.pack_version || '') : undefined
+      };
+    },
+    orasProperties: function orasProperties() {
+      var _this = this;
+
+      if (!this.selectedObject) return [];
+      var fields = [['Spectral type', 'spectral_type'], ['Color index', 'color_index'], ['Parallax', 'parallax'], ['Distance', 'distance_pc'], ['Mass', 'mass_solar'], ['Radius', 'radius_solar'], ['Temperature', 'temperature_k'], ['Radial velocity', 'radial_velocity_km_s'], ['Variability', 'variability'], ['Period', 'period_seconds'], ['Redshift', 'redshift'], ['Flux', 'flux'], ['Candidate status', 'candidate_status']];
+      var properties = fields.filter(function (_ref) {
+        var _ref2 = Object(slicedToArray["a" /* default */])(_ref, 2),
+            field = _ref2[1];
+
+        return _this.selectedObject[field] != null;
+      }).map(function (_ref3) {
+        var _ref4 = Object(slicedToArray["a" /* default */])(_ref3, 2),
+            key = _ref4[0],
+            field = _ref4[1];
+
+        return {
+          key: key,
+          value: String(_this.selectedObject[field])
+        };
+      });
+      var science = this.selectedObject.star_science;
+
+      if (science) {
+        var add = function add(key, value) {
+          var unit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+          return properties.push({
+            key: key,
+            value: value == null ? 'Unavailable' : String(value) + unit
+          });
+        };
+
+        add('Source magnitude', science.source_magnitude, ' ' + (science.source_magnitude_band || 'unknown band'));
+        add('Render magnitude', science.render_magnitude, ' ' + (science.render_magnitude_band || 'unknown band'));
+        add('Magnitude method', science.render_magnitude_method);
+        add('Source color', science.color_index, ' ' + (science.color_index_band || 'unknown band'));
+        add('B−V', science.bv);
+        add('B−V method', science.bv_method);
+        add('Coordinate epoch', science.coordinate_epoch, ' (Julian year)');
+        add('Coordinate frame', science.coordinate_frame);
+        add('Proper motion RA cos Dec', science.proper_motion_ra_mas_per_year, ' mas/year');
+        add('Proper motion Dec', science.proper_motion_dec_mas_per_year, ' mas/year');
+        add('Parallax (canonical)', science.parallax_mas, ' mas');
+        add('Radial velocity (source)', science.radial_velocity_km_s, ' km/s');
+        add('Spectrum (canonical)', science.spectral_type);
+      }
+
+      if (this.selectedObject.double_star) {
+        var double = this.selectedObject.double_star;
+        if (double.separation_arcsec != null) properties.push({
+          key: 'Separation',
+          value: double.separation_arcsec + ' arcsec'
+        });
+        if (double.position_angle_deg != null) properties.push({
+          key: 'Position angle',
+          value: double.position_angle_deg + ' deg'
+        });
+      }
+
+      return properties;
+    },
+    wikipediaSummary: function wikipediaSummary() {
+      if (!this.wikipediaData) return '';
+      if (this.wikipediaData.summary) return this.stripHtml(this.wikipediaData.summary);
+      var query = this.wikipediaData.query;
+      if (!query || !query.pages) return '';
+      var page = query.pages[Object.keys(query.pages)[0]];
+      if (!page || !page.extract) return '';
+      return this.stripHtml(page.extract);
+    },
+    type: function type() {
+      if (!this.selectedObject) return this.$t('Unknown');
+      var morpho = '';
+
+      if (this.selectedObject.model_data && this.selectedObject.model_data.morpho) {
+        morpho = sw_helpers.nameForGalaxyMorpho(this.selectedObject.model_data.morpho);
+
+        if (morpho) {
+          morpho = morpho + ' ';
+        }
+      }
+
+      return morpho + sw_helpers.nameForSkySourceType(this.selectedObject.types[0]);
+    },
+    icon: function icon() {
+      return sw_helpers.iconForSkySource(this.selectedObject);
+    },
+    showPointToButton: function showPointToButton() {
+      if (!this.$store.state.stel.lock) return true;
+      if (this.$store.state.stel.lock !== this.$store.state.stel.selection) return true;
+      return false;
+    },
+    zoomInButtonEnabled: function zoomInButtonEnabled() {
+      if (!this.$store.state.stel.lock || !this.selectedObject) return false;
+      return true;
+    },
+    zoomOutButtonEnabled: function zoomOutButtonEnabled() {
+      if (!this.$store.state.stel.lock || !this.selectedObject) return false;
+      return true;
+    },
+    extraButtons: function extraButtons() {
+      return sw_helpers.selectedObjectExtraButtons;
+    },
+    pluginsSelectedInfoExtraGuiComponents: function pluginsSelectedInfoExtraGuiComponents() {
+      var res = [];
+
+      for (var i in this.$stellariumWebPlugins()) {
+        var plugin = this.$stellariumWebPlugins()[i];
+
+        if (plugin.selectedInfoExtraGuiComponents) {
+          res = res.concat(plugin.selectedInfoExtraGuiComponents);
+        }
+      }
+
+      return res;
+    }
+  },
+  watch: {
+    selectedObject: function selectedObject(s) {
+      this.showMinorNames = false;
+      this.wikipediaData = undefined;
+
+      if (!s) {
+        if (this.timer) clearInterval(this.timer);
+        this.timer = undefined;
+        return;
+      }
+
+      var that = this;
+      that.items = that.computeItems();
+      if (that.timer) clearInterval(that.timer);
+      that.timer = setInterval(function () {
+        that.items = that.computeItems();
+      }, 1000);
+      var requestedSelection = s;
+      sw_helpers.getSkySourceSummaryFromWikipedia(requestedSelection).then(function (data) {
+        if (that.selectedObject === requestedSelection) {
+          that.wikipediaData = data;
+        }
+      }, function (reason) {});
+    },
+    stelSelectionId: function stelSelectionId(s) {
+      var _this2 = this;
+
+      if (!this.$stel.core.selection) {
+        this.$store.commit('setSelectedObject', 0);
+        return;
+      }
+
+      sw_helpers.sweObj2SkySource(this.$stel.core.selection).then(function (res) {
+        _this2.$store.commit('setSelectedObject', res);
+      }, function (err) {
+        console.log("Couldn't find info for object " + s + ':' + err);
+
+        _this2.$store.commit('setSelectedObject', 0);
+      });
+    },
+    showShareLinkDialog: function showShareLinkDialog(b) {
+      this.shareLink = sw_helpers.getShareLink(this);
+    }
+  },
+  methods: {
+    computeItems: function computeItems() {
+      var obj = this.$stel.core.selection;
+      if (!obj) return [];
+      var that = this;
+      var ret = [];
+
+      var addAttr = function addAttr(key, attr, format) {
+        var html = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+        var v = obj.getInfo(attr);
+        var number = Number(v);
+
+        if (v != null && !isNaN(number)) {
+          ret.push({
+            key: key,
+            value: format ? format(number) : number.toString(),
+            html: html
+          });
+        }
+      };
+
+      addAttr(that.$t(this.selectedObject.star_science ? 'Rendered magnitude' : 'Magnitude'), 'vmag', this.formatMagnitude);
+      addAttr(that.$t('Distance'), 'distance', this.formatDistance, true);
+
+      if (this.selectedObject.model_data) {
+        if (this.selectedObject.model_data.radius) {
+          ret.push({
+            key: that.$t('Radius'),
+            value: this.selectedObject.model_data.radius.toString() + ' Km',
+            html: false
+          });
+        }
+
+        if (this.selectedObject.model_data.spect_t) {
+          ret.push({
+            key: that.$t('Spectral Type'),
+            value: this.selectedObject.model_data.spect_t,
+            html: false
+          });
+        }
+
+        if (this.selectedObject.model_data.dimx) {
+          var dimy = this.selectedObject.model_data.dimy ? this.selectedObject.model_data.dimy : this.selectedObject.model_data.dimx;
+          ret.push({
+            key: that.$t('Size'),
+            value: this.selectedObject.model_data.dimx.toString() + "' x " + dimy.toString() + "'",
+            html: false
+          });
+        }
+      }
+
+      var formatInt = function formatInt(num, padLen) {
+        var pad = new Array(1 + padLen).join('0');
+        return (pad + num).slice(-pad.length);
+      };
+
+      var formatRA = function formatRA(a) {
+        var raf = that.$stel.a2tf(a, 1);
+        return '<div class="radecVal">' + formatInt(raf.hours, 2) + '<span class="radecUnit">h</span>&nbsp;</div><div class="radecVal">' + formatInt(raf.minutes, 2) + '<span class="radecUnit">m</span></div><div class="radecVal">' + formatInt(raf.seconds, 2) + '.' + raf.fraction + '<span class="radecUnit">s</span></div>';
+      };
+
+      var formatAz = function formatAz(a) {
+        var raf = that.$stel.a2af(a, 1);
+        return '<div class="radecVal">' + formatInt(raf.degrees < 0 ? raf.degrees + 180 : raf.degrees, 3) + '<span class="radecUnit">°</span></div><div class="radecVal">' + formatInt(raf.arcminutes, 2) + '<span class="radecUnit">\'</span></div><div class="radecVal">' + formatInt(raf.arcseconds, 2) + '.' + raf.fraction + '<span class="radecUnit">"</span></div>';
+      };
+
+      var formatDec = function formatDec(a) {
+        var raf = that.$stel.a2af(a, 1);
+        return '<div class="radecVal">' + raf.sign + formatInt(raf.degrees, 2) + '<span class="radecUnit">°</span></div><div class="radecVal">' + formatInt(raf.arcminutes, 2) + '<span class="radecUnit">\'</span></div><div class="radecVal">' + formatInt(raf.arcseconds, 2) + '.' + raf.fraction + '<span class="radecUnit">"</span></div>';
+      };
+
+      var posCIRS = this.$stel.convertFrame(this.$stel.core.observer, 'ICRF', 'JNOW', obj.getInfo('radec'));
+      var radecCIRS = this.$stel.c2s(posCIRS);
+      var raCIRS = this.$stel.anp(radecCIRS[0]);
+      var decCIRS = this.$stel.anpm(radecCIRS[1]);
+      ret.push({
+        key: that.$t('Ra/Dec'),
+        value: formatRA(raCIRS) + '&nbsp;&nbsp;&nbsp;' + formatDec(decCIRS),
+        html: true
+      });
+      var azalt = this.$stel.c2s(this.$stel.convertFrame(this.$stel.core.observer, 'ICRF', 'OBSERVED', obj.getInfo('radec')));
+      var az = this.$stel.anp(azalt[0]);
+      var alt = this.$stel.anpm(azalt[1]);
+      ret.push({
+        key: that.$t('Az/Alt'),
+        value: formatAz(az) + '&nbsp;&nbsp;&nbsp;' + formatDec(alt),
+        html: true
+      });
+      addAttr(that.$t('Phase'), 'phase', this.formatPhase);
+      var vis = obj.computeVisibility();
+      var str = '';
+
+      if (vis.length === 0) {
+        str = that.$t('Not visible tonight');
+      } else if (vis[0].rise === null) {
+        str = that.$t('Always visible tonight');
+      } else {
+        str = that.$t('Rise: {0}&nbsp;&nbsp;&nbsp; Set: {1}', [this.formatTime(vis[0].rise), this.formatTime(vis[0].set)]);
+      }
+
+      ret.push({
+        key: that.$t('Visibility'),
+        value: str,
+        html: true
+      });
+      return ret;
+    },
+    formatPhase: function formatPhase(v) {
+      return (v * 100).toFixed(0) + '%';
+    },
+    formatMagnitude: function formatMagnitude(v) {
+      if (v == null || isNaN(v)) {
+        return 'Unknown';
+      }
+
+      return v.toFixed(2);
+    },
+    formatDistance: function formatDistance(d) {
+      // d is in AU
+      if (!d) {
+        return 'NAN';
+      }
+
+      var ly = d * sw_helpers.astroConstants.ERFA_AULT / sw_helpers.astroConstants.ERFA_DAYSEC / sw_helpers.astroConstants.ERFA_DJY;
+
+      if (ly >= 0.1) {
+        return ly.toFixed(2) + '<span class="radecUnit"> light years</span>';
+      }
+
+      if (d >= 0.1) {
+        return d.toFixed(2) + '<span class="radecUnit"> AU</span>';
+      }
+
+      var meter = d * sw_helpers.astroConstants.ERFA_DAU;
+
+      if (meter >= 1000) {
+        return (meter / 1000).toFixed(2) + '<span class="radecUnit"> km</span>';
+      }
+
+      return meter.toFixed(2) + '<span class="radecUnit"> m</span>';
+    },
+    stripHtml: function stripHtml(value) {
+      return String(value || '').replace(/[<>]/g, '').trim();
+    },
+    formatTime: function formatTime(jdm) {
+      var d = new Date();
+      d.setMJD(jdm);
+      var utc = new moment_default.a(d);
+      utc.utcOffset(this.$store.state.stel.utcoffset);
+      return utc.format('HH:mm');
+    },
+    unselect: function unselect() {
+      this.$stel.core.selection = 0;
+    },
+    lockToSelection: function lockToSelection() {
+      if (this.$stel.core.selection) {
+        this.$stel.pointAndLock(this.$stel.core.selection, 0.5);
+      }
+    },
+    zoomInButtonClicked: function zoomInButtonClicked() {
+      var currentFov = this.$store.state.stel.fov * 180 / Math.PI;
+      this.$stel.zoomTo(currentFov * 0.3 * Math.PI / 180, 0.4);
+      var that = this;
+      this.zoomTimeout = setTimeout(function (_) {
+        that.zoomInButtonClicked();
+      }, 300);
+    },
+    zoomOutButtonClicked: function zoomOutButtonClicked() {
+      var currentFov = this.$store.state.stel.fov * 180 / Math.PI;
+      this.$stel.zoomTo(currentFov * 3 * Math.PI / 180, 0.6);
+      var that = this;
+      this.zoomTimeout = setTimeout(function (_) {
+        that.zoomOutButtonClicked();
+      }, 200);
+    },
+    stopZoom: function stopZoom() {
+      if (this.zoomTimeout) {
+        clearTimeout(this.zoomTimeout);
+        this.zoomTimeout = undefined;
+      }
+    },
+    extraButtonClicked: function extraButtonClicked(btn) {
+      btn.callback();
+    },
+    copyLink: function copyLink() {
+      var input = document.querySelector('#link_inputid');
+      input.focus();
+      input.select();
+      this.copied = document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+      this.showShareLinkDialog = false;
+    }
+  },
+  mounted: function mounted() {
+    var _this3 = this;
+
+    this.windowMouseupHandler = function () {
+      return _this3.stopZoom();
+    };
+
+    window.addEventListener('mouseup', this.windowMouseupHandler);
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (this.windowMouseupHandler) {
+      window.removeEventListener('mouseup', this.windowMouseupHandler);
+      this.windowMouseupHandler = undefined;
+    }
+
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = undefined;
+    }
+
+    this.stopZoom();
+  }
+});
+// CONCATENATED MODULE: ./src/components/selected-object-info.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_selected_object_infovue_type_script_lang_js_ = (selected_object_infovue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/selected-object-info.vue?vue&type=style&index=0&lang=css&
+var selected_object_infovue_type_style_index_0_lang_css_ = __webpack_require__("202c");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__("99d9");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
+var VCol = __webpack_require__("62ad");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
+var VDialog = __webpack_require__("169a");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js
+var VSnackbar = __webpack_require__("2db4");
+
+// CONCATENATED MODULE: ./src/components/selected-object-info.vue
+
+
+
+
+
+
+/* normalize component */
+
+var selected_object_info_component = Object(componentNormalizer["a" /* default */])(
+  components_selected_object_infovue_type_script_lang_js_,
+  selected_object_infovue_type_template_id_35e96997_render,
+  selected_object_infovue_type_template_id_35e96997_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var selected_object_info = (selected_object_info_component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+installComponents_default()(selected_object_info_component, {VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardActions: components_VCard["a" /* VCardActions */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VChip: VChip["a" /* default */],VCol: VCol["a" /* default */],VDialog: VDialog["a" /* default */],VIcon: VIcon["a" /* default */],VRow: VRow["a" /* default */],VSnackbar: VSnackbar["a" /* default */],VSpacer: VSpacer["a" /* default */],VTextField: VTextField["a" /* default */]})
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/progress-bars.vue?vue&type=template&id=551a0743&
+var progress_barsvue_type_template_id_551a0743_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',_vm._l((_vm.progressBars),function(bar){return _c('div',{key:bar.id,staticClass:"tfaders"},[_c('transition',{attrs:{"name":"fade"}},[(bar.value != bar.total)?_c('div',{staticClass:"tfader"},[_c('span',{staticClass:"text-caption",staticStyle:{"right":"4px","position":"relative"}},[_vm._v(_vm._s(bar.label))]),_c('v-progress-circular',{attrs:{"rotate":-90,"size":"18","value":bar.value / bar.total * 100}})],1):_vm._e()])],1)}),0)}
+var progress_barsvue_type_template_id_551a0743_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/progress-bars.vue?vue&type=template&id=551a0743&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/progress-bars.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ var progress_barsvue_type_script_lang_js_ = ({
+  name: 'progress-bars',
+  data: function data() {
+    return {};
+  },
+  computed: {
+    progressBars: function progressBars() {
+      return this.$store.state.stel.progressbars;
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/progress-bars.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_progress_barsvue_type_script_lang_js_ = (progress_barsvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/progress-bars.vue?vue&type=style&index=0&lang=css&
+var progress_barsvue_type_style_index_0_lang_css_ = __webpack_require__("6fb1");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
+var VProgressCircular = __webpack_require__("490a");
+
+// CONCATENATED MODULE: ./src/components/progress-bars.vue
+
+
+
+
+
+
+/* normalize component */
+
+var progress_bars_component = Object(componentNormalizer["a" /* default */])(
+  components_progress_barsvue_type_script_lang_js_,
+  progress_barsvue_type_template_id_551a0743_render,
+  progress_barsvue_type_template_id_551a0743_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var progress_bars = (progress_bars_component.exports);
+
+/* vuetify-loader */
+
+
+installComponents_default()(progress_bars_component, {VProgressCircular: VProgressCircular["a" /* default */]})
+
+// EXTERNAL MODULE: ./src/components/data-credits-dialog.vue
+var data_credits_dialog = __webpack_require__("41a1");
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/view-settings-dialog.vue?vue&type=template&id=bcf743b4&
+var view_settings_dialogvue_type_template_id_bcf743b4_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"max-width":"600"},model:{value:(_vm.$store.state.showViewSettingsDialog),callback:function ($$v) {_vm.$set(_vm.$store.state, "showViewSettingsDialog", $$v)},expression:"$store.state.showViewSettingsDialog"}},[(_vm.$store.state.showViewSettingsDialog)?_c('v-card',{staticClass:"secondary white--text"},[_c('v-card-title',[_c('div',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.$t('View settings')))])]),_c('v-card-text',[_c('v-checkbox',{attrs:{"hide-details":"","label":_vm.$t('Milky Way')},model:{value:(_vm.milkyWayOn),callback:function ($$v) {_vm.milkyWayOn=$$v},expression:"milkyWayOn"}}),_c('v-checkbox',{attrs:{"hide-details":"","label":_vm.$t('DSS')},model:{value:(_vm.dssOn),callback:function ($$v) {_vm.dssOn=$$v},expression:"dssOn"}}),_c('v-checkbox',{attrs:{"hide-details":"","label":_vm.$t('Meridian Line')},model:{value:(_vm.meridianOn),callback:function ($$v) {_vm.meridianOn=$$v},expression:"meridianOn"}}),_c('v-checkbox',{attrs:{"hide-details":"","label":_vm.$t('Ecliptic Line')},model:{value:(_vm.eclipticOn),callback:function ($$v) {_vm.eclipticOn=$$v},expression:"eclipticOn"}})],1),_c('v-card-actions',[_c('v-spacer'),_c('v-btn',{staticClass:"blue--text darken-1",attrs:{"text":""},nativeOn:{"click":function($event){_vm.$store.state.showViewSettingsDialog = false}}},[_vm._v("Close")])],1)],1):_vm._e()],1)}
+var view_settings_dialogvue_type_template_id_bcf743b4_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/view-settings-dialog.vue?vue&type=template&id=bcf743b4&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/view-settings-dialog.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ var view_settings_dialogvue_type_script_lang_js_ = ({
+  data: function data() {
+    return {};
+  },
+  computed: {
+    dssOn: {
+      get: function get() {
+        return this.$store.state.stel.dss.visible;
+      },
+      set: function set(newValue) {
+        this.$stel.core.dss.visible = newValue;
+      }
+    },
+    milkyWayOn: {
+      get: function get() {
+        return this.$store.state.stel.milkyway.visible;
+      },
+      set: function set(newValue) {
+        this.$stel.core.milkyway.visible = newValue;
+      }
+    },
+    meridianOn: {
+      get: function get() {
+        return this.$store.state.stel.lines.meridian.visible;
+      },
+      set: function set(newValue) {
+        this.$stel.core.lines.meridian.visible = newValue;
+      }
+    },
+    eclipticOn: {
+      get: function get() {
+        return this.$store.state.stel.lines.ecliptic.visible;
+      },
+      set: function set(newValue) {
+        this.$stel.core.lines.ecliptic.visible = newValue;
+      }
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/view-settings-dialog.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_view_settings_dialogvue_type_script_lang_js_ = (view_settings_dialogvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/view-settings-dialog.vue?vue&type=style&index=0&lang=css&
+var view_settings_dialogvue_type_style_index_0_lang_css_ = __webpack_require__("85ad");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
+var VCheckbox = __webpack_require__("ac7c");
+
+// CONCATENATED MODULE: ./src/components/view-settings-dialog.vue
+
+
+
+
+
+
+/* normalize component */
+
+var view_settings_dialog_component = Object(componentNormalizer["a" /* default */])(
+  components_view_settings_dialogvue_type_script_lang_js_,
+  view_settings_dialogvue_type_template_id_bcf743b4_render,
+  view_settings_dialogvue_type_template_id_bcf743b4_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var view_settings_dialog = (view_settings_dialog_component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+
+installComponents_default()(view_settings_dialog_component, {VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardActions: components_VCard["a" /* VCardActions */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VCheckbox: VCheckbox["a" /* default */],VDialog: VDialog["a" /* default */],VSpacer: VSpacer["a" /* default */]})
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/planets-visibility.vue?vue&type=template&id=bcefbd4a&
+var planets_visibilityvue_type_template_id_bcefbd4a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"max-width":"600"},model:{value:(_vm.$store.state.showPlanetsVisibilityDialog),callback:function ($$v) {_vm.$set(_vm.$store.state, "showPlanetsVisibilityDialog", $$v)},expression:"$store.state.showPlanetsVisibilityDialog"}},[(_vm.$store.state.showPlanetsVisibilityDialog)?_c('v-card',{staticClass:"secondary white--text",attrs:{"transparent":""}},[_c('v-card-title',[_c('div',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.$t('Planets Visibility')))])]),_c('v-card-text',[_vm._v(_vm._s(_vm.$t('Night from {0} to {1}', [_vm.startDate.format('MMMM Do'), _vm.endDate.format('MMMM Do')])))]),_c('v-card-text',[_c('div',[_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"1","offset":"2"}},[_c('span',[_vm._v(_vm._s(_vm.$t('Rise')))])]),_c('v-col',{attrs:{"cols":"1"}},[_c('span',[_vm._v(_vm._s(_vm.$t('Set')))])]),_c('v-col',{attrs:{"cols":"8"}},[_c('v-row',{attrs:{"justify":"space-between"}},[_c('span',[_vm._v("12:00")]),_c('span',[_vm._v("18:00")]),_c('span',[_vm._v("00:00")]),_c('span',[_vm._v("06:00")]),_c('span',[_vm._v("12:00")])])],1)],1),_vm._l((_vm.objs),function(obj){return [_c('v-row',{key:obj.v,attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"2"}},[_vm._v(_vm._s(_vm.cleanName(obj)))]),_c('v-col',{attrs:{"cols":"1"}},[_vm._v(_vm._s(_vm.formatTime(obj.computeVisibility()[0].rise)))]),_c('v-col',{attrs:{"cols":"1"}},[_vm._v(_vm._s(_vm.formatTime(obj.computeVisibility()[0].set)))]),_c('v-col',{attrs:{"cols":"8"}},[_c('div',{style:(_vm.sunBackgroundStr)},[_vm._v(" "),_c('div',{domProps:{"innerHTML":_vm._s(_vm.planetBackgroundStr(obj))}})])])],1)]})],2)]),_c('v-card-actions',[_c('v-spacer'),_c('v-btn',{staticClass:"blue--text darken-1",attrs:{"text":""},nativeOn:{"click":function($event){_vm.$store.state.showPlanetsVisibilityDialog = false}}},[_vm._v("Close")])],1)],1):_vm._e()],1)}
+var planets_visibilityvue_type_template_id_bcefbd4a_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/planets-visibility.vue?vue&type=template&id=bcefbd4a&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/planets-visibility.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ var planets_visibilityvue_type_script_lang_js_ = ({
+  data: function data() {
+    return {
+      objs: [this.$stel.getObj('NAME Sun'), this.$stel.getObj('NAME Moon'), this.$stel.getObj('NAME Mercury'), this.$stel.getObj('NAME Venus'), this.$stel.getObj('NAME Mars'), this.$stel.getObj('NAME Jupiter'), this.$stel.getObj('NAME Saturn')]
+    };
+  },
+  methods: {
+    formatTime: function formatTime(jdm) {
+      var d = new Date();
+      d.setMJD(jdm);
+      var utc = moment_default.a.utc(d);
+      utc.local();
+      return utc.format('HH:mm');
+    },
+    cleanName: function cleanName(obj) {
+      return sw_helpers.cleanupOneSkySourceName(obj.designations()[0]);
+    },
+    planetBackgroundStr: function planetBackgroundStr(obj) {
+      var d = new Date();
+      d.setMJD(obj.computeVisibility()[0].rise);
+      var rise = moment_default.a.utc(d);
+      rise.local();
+      d.setMJD(obj.computeVisibility()[0].set);
+      var set = moment_default.a.utc(d);
+      set.local();
+
+      var hourToPercent = function hourToPercent(h) {
+        return h >= 12 ? Math.round((h - 12) / 24 * 100) : Math.round((h + 12) / 24 * 100);
+      };
+
+      var riseP = hourToPercent(rise.hours());
+      var setP = hourToPercent(set.hours());
+
+      if (setP > riseP) {
+        return "<div style='z-index: 100; position: absolute; background-color: rgb(200, 200, 50); left: " + riseP + '%; min-width: ' + (setP - riseP) + "%; top: 7px; height: 8px;'></div>";
+      } else {
+        var ret = "<div style='z-index: 100; position: absolute; background-color: rgb(200, 200, 50); left: 0%; min-width: " + setP + "%; top: 7px; height: 8px;'></div>";
+        ret += "<div style='z-index: 100; position: absolute; background-color: rgb(200, 200, 50); right: 0%; min-width: " + (100 - riseP) + "%; top: 7px; height: 8px;'></div>";
+        return ret;
+      }
+    }
+  },
+  computed: {
+    sunBackgroundStr: function sunBackgroundStr() {
+      var sun = this.$stel.getObj('NAME Sun');
+      var brightness = [];
+      var d = new moment_default.a(this.startDate);
+      var obs = this.$stel.core.observer.clone();
+
+      for (var i = 0; i < 25; i++) {
+        obs.utc = d.toDate().getMJD();
+        d.local();
+        var azalt = this.$stel.convertFrame(obs, 'ICRF', 'OBSERVED', sun.getInfo('radec', obs));
+        var alt = this.$stel.anpm(this.$stel.c2s(azalt)[1]) * 180.0 / Math.PI;
+        brightness.push(alt / (Math.PI / 2));
+        d.add(1, 'hours');
+      }
+
+      obs.destroy();
+      var txt = 'position: relative; background: linear-gradient(to right, ';
+
+      for (var _i = 0; _i < 25; _i++) {
+        var bi = (brightness[_i] + 0.1) * 5;
+        bi = bi > 1 ? 1 : bi;
+        bi = bi < 0 ? 0 : bi;
+        txt += 'rgb(' + Math.round(53 * bi) + ', ' + Math.round(173 * bi) + ', ' + Math.round(211 * bi) + ') ' + Math.round(_i / 24 * 100) + '% ';
+
+        if (_i !== 24) {
+          txt += ',';
+        }
+      }
+
+      txt += '); min-width: 100%; height: 100%';
+      return txt;
+    },
+    startDate: function startDate() {
+      var sun = this.$stel.getObj('NAME Sun');
+      var u = this.$store.state.stel.observer.utc;
+
+      if (u < sun.rise) {
+        // It's still night (in the morning), display last night's planets visibility
+        u = u - 1;
+      }
+
+      var d = new Date();
+      d.setMJD(u);
+      d = new moment_default.a(d);
+      d.local();
+      d.hours(12);
+      d.minutes(0);
+      d.seconds(0);
+      return d;
+    },
+    endDate: function endDate() {
+      var d = new moment_default.a(this.startDate);
+      d.add(1, 'd');
+      return d;
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/planets-visibility.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_planets_visibilityvue_type_script_lang_js_ = (planets_visibilityvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/planets-visibility.vue?vue&type=style&index=0&lang=css&
+var planets_visibilityvue_type_style_index_0_lang_css_ = __webpack_require__("0c3e");
+
+// CONCATENATED MODULE: ./src/components/planets-visibility.vue
+
+
+
+
+
+
+/* normalize component */
+
+var planets_visibility_component = Object(componentNormalizer["a" /* default */])(
+  components_planets_visibilityvue_type_script_lang_js_,
+  planets_visibilityvue_type_template_id_bcefbd4a_render,
+  planets_visibilityvue_type_template_id_bcefbd4a_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var planets_visibility = (planets_visibility_component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+
+
+installComponents_default()(planets_visibility_component, {VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardActions: components_VCard["a" /* VCardActions */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VCol: VCol["a" /* default */],VDialog: VDialog["a" /* default */],VRow: VRow["a" /* default */],VSpacer: VSpacer["a" /* default */]})
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/location-dialog.vue?vue&type=template&id=2f806b57&
+var location_dialogvue_type_template_id_2f806b57_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"max-width":"600"},model:{value:(_vm.$store.state.showLocationDialog),callback:function ($$v) {_vm.$set(_vm.$store.state, "showLocationDialog", $$v)},expression:"$store.state.showLocationDialog"}},[(_vm.$store.state.showLocationDialog)?_c('v-container',{staticClass:"secondary white--text"},[_c('v-card',{attrs:{"color":"secondary","flat":""}},[_c('v-switch',{attrs:{"label":_vm.$t('Use Autolocation')},model:{value:(_vm.useAutoLocation),callback:function ($$v) {_vm.useAutoLocation=$$v},expression:"useAutoLocation"}})],1),_c('location-mgr',{attrs:{"knownLocations":[],"startLocation":_vm.$store.state.currentLocation,"realLocation":_vm.$store.state.autoDetectedLocation},on:{"locationSelected":_vm.setLocation}})],1):_vm._e()],1)}
+var location_dialogvue_type_template_id_2f806b57_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/location-dialog.vue?vue&type=template&id=2f806b57&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/location-mgr.vue?vue&type=template&id=66dbcf8f&
+var location_mgrvue_type_template_id_66dbcf8f_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('v-row',{attrs:{"justify":"space-around"}},[(_vm.doShowMyLocation)?_c('v-col',{attrs:{"cols":"4"}},[_c('v-list',{attrs:{"two-line":"","subheader":""}},[_c('v-subheader',[_vm._v(_vm._s(_vm.$t('My Locations')))]),_vm._l((_vm.knownLocations),function(item){return _c('v-list-item',{key:item.id,style:((item && _vm.knownLocationMode && _vm.selectedKnownLocation && item.id === _vm.selectedKnownLocation.id) ? 'background-color: #455a64' : ''),attrs:{"href":"javascript:;"},nativeOn:{"click":function($event){$event.stopPropagation();return _vm.selectKnownLocation(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v("mdi-map-marker")])],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.short_name))]),_c('v-list-item-subtitle',[_vm._v(_vm._s(item.country))])],1)],1)})],2)],1):_vm._e(),_c('v-col',{attrs:{"cols":"doShowMyLocation ? 8 : 12"}},[_c('v-card',{staticClass:"blue-grey darken-2 white--text"},[_c('v-card-title',{attrs:{"primary-title":""}},[_c('v-container',{attrs:{"fluid":""}},[_c('v-row',[_c('v-col',[_c('div',[_c('div',{staticClass:"text-h5",staticStyle:{"overflow":"hidden","white-space":"nowrap","text-overflow":"ellipsis"}},[_vm._v(_vm._s(_vm.locationForDetail ? _vm.locationForDetail.short_name + ', ' + _vm.locationForDetail.country : '-'))]),_c('v-btn',{staticStyle:{"position":"absolute","right":"20px"},nativeOn:{"click":function($event){$event.stopPropagation();return _vm.useLocation()}}},[_c('v-icon',[_vm._v("mdi-chevron-right")]),_vm._v(" "+_vm._s(_vm.$t('Use this location')))],1),(_vm.locationForDetail.street_address)?_c('div',{staticClass:"grey--text text-subtitle-2"},[_vm._v(_vm._s(_vm.locationForDetail ? (_vm.locationForDetail.street_address ? _vm.locationForDetail.street_address : _vm.$t('Unknown Address')) : '-'))]):_vm._e(),_c('div',{staticClass:"grey--text text-subtitle-2"},[_vm._v(_vm._s(_vm.locationForDetail ? _vm.locationForDetail.lat.toFixed(5) + ' ' + _vm.locationForDetail.lng.toFixed(5) : '-'))])],1)])],1)],1)],1),_c('div',{staticStyle:{"height":"375px"}},[_c('v-btn',{staticClass:"mx-0 pa-0",staticStyle:{"position":"absolute","z-index":"10000","bottom":"16px","right":"12px"},attrs:{"light":"","fab":""},nativeOn:{"click":function($event){$event.stopPropagation();return _vm.centerOnRealPosition()}}},[_c('v-icon',[_vm._v("mdi-crosshairs-gps")])],1),_c('l-map',{ref:"myMap",staticClass:"black--text",staticStyle:{"width":"100%","height":"375px"},attrs:{"center":_vm.mapCenter,"zoom":10,"options":{zoomControl: false}}},[_c('l-control-zoom',{attrs:{"position":"topright"}}),_vm._l((_vm.knownLocations),function(loc){return _c('l-marker',{key:loc.id,attrs:{"lat-lng":[ loc.lat, loc.lng ],"clickable":true,"opacity":(!_vm.pickLocationMode && _vm.selectedKnownLocation && _vm.selectedKnownLocation === loc ? 1.0 : 0.25),"draggable":!_vm.pickLocationMode && _vm.selectedKnownLocation && _vm.selectedKnownLocation === loc},on:{"click":function($event){return _vm.selectKnownLocation(loc)},"dragend":_vm.dragEnd}})}),(_vm.startLocation)?_c('l-circle',{attrs:{"lat-lng":[ _vm.startLocation.lat, _vm.startLocation.lng ],"radius":_vm.startLocation.accuracy,"options":{
+                strokeColor: '#0000FF',
+                strokeOpacity: 0.5,
+                strokeWeight: 1,
+                fillColor: '#0000FF',
+                fillOpacity: 0.08}}}):_vm._e(),(_vm.pickLocationMode && _vm.pickLocation)?_c('l-marker',{attrs:{"lat-lng":[ _vm.pickLocation.lat, _vm.pickLocation.lng ],"draggable":true},on:{"dragend":_vm.dragEnd}},[_c('l-tooltip',[_c('div',{staticClass:"black--text"},[_vm._v("Drag to adjust")])])],1):_vm._e()],2)],1)],1)],1)],1)],1)}
+var location_mgrvue_type_template_id_66dbcf8f_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/location-mgr.vue?vue&type=template&id=66dbcf8f&
+
+// EXTERNAL MODULE: ./node_modules/vue2-leaflet/dist/components/LMap.js
+var LMap = __webpack_require__("2699");
+
+// EXTERNAL MODULE: ./node_modules/vue2-leaflet/dist/components/LMarker.js
+var LMarker = __webpack_require__("4e2b");
+
+// EXTERNAL MODULE: ./node_modules/vue2-leaflet/dist/components/LCircle.js
+var LCircle = __webpack_require__("0dbd");
+
+// EXTERNAL MODULE: ./node_modules/vue2-leaflet/dist/components/LTooltip.js
+var LTooltip = __webpack_require__("31dc");
+
+// EXTERNAL MODULE: ./node_modules/vue2-leaflet/dist/components/LControlZoom.js
+var LControlZoom = __webpack_require__("c8b6");
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/location-mgr.vue?vue&type=script&lang=js&
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ var location_mgrvue_type_script_lang_js_ = ({
+  data: function data() {
+    return {
+      mode: 'pick',
+      pickLocation: undefined,
+      selectedKnownLocation: undefined,
+      mapCenter: [43.6, 1.4333]
+    };
+  },
+  props: ['showMyLocation', 'knownLocations', 'startLocation', 'realLocation'],
+  computed: {
+    doShowMyLocation: function doShowMyLocation() {
+      return this.showMyLocation === undefined ? false : this.showMyLocation;
+    },
+    pickLocationMode: function pickLocationMode() {
+      return this.mode === 'pick';
+    },
+    knownLocationMode: function knownLocationMode() {
+      return this.mode === 'known';
+    },
+    locationForDetail: function locationForDetail() {
+      if (this.pickLocationMode && this.pickLocation === undefined) {
+        return this.startLocation;
+      }
+
+      return this.pickLocationMode ? this.pickLocation : this.selectedKnownLocation;
+    }
+  },
+  watch: {
+    startLocation: function startLocation() {
+      this.setPickLocation(this.startLocation);
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.setPickLocation(this.startLocation);
+    this.$nextTick(function () {
+      var map = _this.$refs.myMap.mapObject;
+
+      map._onResize();
+    });
+  },
+  methods: {
+    selectKnownLocation: function selectKnownLocation(loc) {
+      this.selectedKnownLocation = loc;
+      this.setKnownLocationMode();
+      this.mapCenter = [loc.lat, loc.lng];
+    },
+    useLocation: function useLocation() {
+      this.$emit('locationSelected', this.locationForDetail);
+    },
+    setPickLocationMode: function setPickLocationMode() {
+      this.mode = 'pick';
+    },
+    setKnownLocationMode: function setKnownLocationMode() {
+      this.mode = 'known';
+    },
+    setPickLocation: function setPickLocation(loc) {
+      if (loc.accuracy < 100) {
+        var _iterator = Object(createForOfIteratorHelper["a" /* default */])(this.knownLocations),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var l = _step.value;
+            var d = sw_helpers.getDistanceFromLatLonInM(l.lat, l.lng, loc.lat, loc.lng);
+
+            if (d < 100) {
+              this.selectKnownLocation(l);
+              return;
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+
+      var pos = {
+        lat: loc.lat,
+        lng: loc.lng
+      };
+      this.mapCenter = [pos.lat, pos.lng];
+      this.pickLocation = loc;
+      this.setPickLocationMode();
+    },
+    // Called when the user clicks on the small cross button
+    centerOnRealPosition: function centerOnRealPosition() {
+      this.setPickLocation(this.realLocation);
+    },
+    dragEnd: function dragEnd(event) {
+      var that = this;
+      var pos = {
+        lat: event.target._latlng.lat,
+        lng: event.target._latlng.lng,
+        accuracy: 0
+      };
+      sw_helpers.geoCodePosition(pos, that).then(function (p) {
+        that.pickLocation = p;
+        that.setPickLocationMode();
+      });
+    }
+  },
+  components: {
+    LMap: LMap["a" /* default */],
+    LMarker: LMarker["a" /* default */],
+    LCircle: LCircle["a" /* default */],
+    LTooltip: LTooltip["a" /* default */],
+    LControlZoom: LControlZoom["a" /* default */]
+  }
+});
+// CONCATENATED MODULE: ./src/components/location-mgr.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_location_mgrvue_type_script_lang_js_ = (location_mgrvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemIcon.js
+var VListItemIcon = __webpack_require__("34c3");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSubheader/VSubheader.js
+var VSubheader = __webpack_require__("e0c7");
+
+// CONCATENATED MODULE: ./src/components/location-mgr.vue
+
+
+
+
+
+/* normalize component */
+
+var location_mgr_component = Object(componentNormalizer["a" /* default */])(
+  components_location_mgrvue_type_script_lang_js_,
+  location_mgrvue_type_template_id_66dbcf8f_render,
+  location_mgrvue_type_template_id_66dbcf8f_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var location_mgr = (location_mgr_component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+installComponents_default()(location_mgr_component, {VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardTitle: components_VCard["d" /* VCardTitle */],VCol: VCol["a" /* default */],VContainer: VContainer["a" /* default */],VIcon: VIcon["a" /* default */],VList: VList["a" /* default */],VListItem: VListItem["a" /* default */],VListItemContent: components_VList["a" /* VListItemContent */],VListItemIcon: VListItemIcon["a" /* default */],VListItemSubtitle: components_VList["b" /* VListItemSubtitle */],VListItemTitle: components_VList["c" /* VListItemTitle */],VRow: VRow["a" /* default */],VSubheader: VSubheader["a" /* default */]})
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/location-dialog.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ var location_dialogvue_type_script_lang_js_ = ({
+  data: function data() {
+    return {};
+  },
+  computed: {
+    useAutoLocation: {
+      get: function get() {
+        return this.$store.state.useAutoLocation;
+      },
+      set: function set(b) {
+        this.$store.commit('setUseAutoLocation', b);
+      }
+    }
+  },
+  mounted: function mounted() {},
+  methods: {
+    setLocation: function setLocation(loc) {
+      this.$store.commit('setCurrentLocation', loc);
+      this.$store.commit('toggleBool', 'showLocationDialog');
+    }
+  },
+  components: {
+    LocationMgr: location_mgr
+  }
+});
+// CONCATENATED MODULE: ./src/components/location-dialog.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_location_dialogvue_type_script_lang_js_ = (location_dialogvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
+var VSwitch = __webpack_require__("b73d");
+
+// CONCATENATED MODULE: ./src/components/location-dialog.vue
+
+
+
+
+
+/* normalize component */
+
+var location_dialog_component = Object(componentNormalizer["a" /* default */])(
+  components_location_dialogvue_type_script_lang_js_,
+  location_dialogvue_type_template_id_2f806b57_render,
+  location_dialogvue_type_template_id_2f806b57_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var location_dialog = (location_dialog_component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+installComponents_default()(location_dialog_component, {VCard: VCard["a" /* default */],VContainer: VContainer["a" /* default */],VDialog: VDialog["a" /* default */],VSwitch: VSwitch["a" /* default */]})
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/observing-panel.vue?vue&type=template&id=6d052627&
+var observing_panelvue_type_template_id_6d052627_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"get-click",class:{observingpanelhidden: !_vm.$store.state.showSidePanel},attrs:{"id":"observing-panel-container"}},[(_vm.$store.state.showObservingPanelTabsButtons)?_c('div',{staticClass:"observing-panel-tabsbtn"},_vm._l((_vm.tabs),function(tab){return _c('v-btn',{key:tab.tabName,staticClass:"tab-bt",attrs:{"small":"","to":tab.url,"active-class":"tab-bt-active"}},[_vm._v(_vm._s(_vm.$t(tab.tabName)))])}),1):_vm._e(),_c('div',{attrs:{"id":"observing-panel"}},[_c('router-view',{staticStyle:{"height":"100%"}})],1)])}
+var observing_panelvue_type_template_id_6d052627_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/observing-panel.vue?vue&type=template&id=6d052627&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/observing-panel.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ var observing_panelvue_type_script_lang_js_ = ({
+  data: function data() {
+    return {};
+  },
+  computed: {
+    showObservingPanel: function showObservingPanel() {
+      return this.$store.state.showSidePanel;
+    },
+    tabs: function tabs() {
+      var res = [];
+
+      for (var i in this.$stellariumWebPlugins()) {
+        var plugin = this.$stellariumWebPlugins()[i];
+
+        if (plugin.panelRoutes) {
+          for (var j in plugin.panelRoutes) {
+            var r = plugin.panelRoutes[j];
+
+            if (r.meta && r.meta.tabName) {
+              res.push({
+                tabName: r.meta.tabName,
+                url: r.path
+              });
+            }
+          }
+        }
+      }
+
+      return res;
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/observing-panel.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_observing_panelvue_type_script_lang_js_ = (observing_panelvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/observing-panel.vue?vue&type=style&index=0&lang=css&
+var observing_panelvue_type_style_index_0_lang_css_ = __webpack_require__("6806");
+
+// CONCATENATED MODULE: ./src/components/observing-panel.vue
+
+
+
+
+
+
+/* normalize component */
+
+var observing_panel_component = Object(componentNormalizer["a" /* default */])(
+  components_observing_panelvue_type_script_lang_js_,
+  observing_panelvue_type_template_id_6d052627_render,
+  observing_panelvue_type_template_id_6d052627_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var observing_panel = (observing_panel_component.exports);
+
+/* vuetify-loader */
+
+
+installComponents_default()(observing_panel_component, {VBtn: VBtn["a" /* default */]})
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/gui.vue?vue&type=script&lang=js&
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+
+/* harmony default export */ var guivue_type_script_lang_js_ = ({
+  data: function data() {
+    return {};
+  },
+  methods: {},
+  computed: {
+    pluginsGuiComponents: function pluginsGuiComponents() {
+      var res = [];
+
+      for (var i in this.$stellariumWebPlugins()) {
+        var plugin = this.$stellariumWebPlugins()[i];
+
+        if (plugin.guiComponents) {
+          res = res.concat(plugin.guiComponents);
+        }
+      }
+
+      return res;
+    },
+    dialogs: function dialogs() {
+      var res = ['data-credits-dialog', 'view-settings-dialog', 'planets-visibility', 'location-dialog'];
+
+      for (var i in this.$stellariumWebPlugins()) {
+        var plugin = this.$stellariumWebPlugins()[i];
+
+        if (plugin.dialogs) {
+          res = res.concat(plugin.dialogs.map(function (d) {
+            return d.name;
+          }));
+        }
+      }
+
+      return res;
+    }
+  },
+  components: {
+    Toolbar: toolbar,
+    BottomBar: bottom_bar,
+    DataCreditsDialog: data_credits_dialog["default"],
+    ViewSettingsDialog: view_settings_dialog,
+    PlanetsVisibility: planets_visibility,
+    SelectedObjectInfo: selected_object_info,
+    LocationDialog: location_dialog,
+    ProgressBars: progress_bars,
+    ObservingPanel: observing_panel
+  }
+});
+// CONCATENATED MODULE: ./src/components/gui.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_guivue_type_script_lang_js_ = (guivue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/components/gui.vue
+
+
+
+
+
+/* normalize component */
+
+var gui_component = Object(componentNormalizer["a" /* default */])(
+  components_guivue_type_script_lang_js_,
+  guivue_type_template_id_28d988c2_render,
+  guivue_type_template_id_28d988c2_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var gui = (gui_component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/gui-loader.vue?vue&type=template&id=3ff106c6&
+var gui_loadervue_type_template_id_3ff106c6_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"secondary",staticStyle:{"position":"absolute","width":"100%","height":"100%"}},[_c('v-container',{staticStyle:{"width":"100%","height":"100%"}},[_c('v-layout',{staticStyle:{"width":"100%","height":"100%"},attrs:{"column":"","align-center":""}},[_c('div',{staticClass:"oras-loader-title text-h2",staticStyle:{"padding-top":"10%"}},[_vm._v("ORAS Sky-Engine")]),(_vm.$store.state.wasmSupport)?_c('div',{staticStyle:{"margin":"auto"}},[_c('div',{staticStyle:{"display":"flex","justify-content":"center"}},[_c('p',{staticClass:"grey--text"},[_c('i18n',{attrs:{"path":"Loading {0}, the online Star Map"}},[_c('span',[_vm._v("ORAS Sky-Engine")])])],1)]),_c('div',{staticStyle:{"display":"flex","justify-content":"center"}},[_c('v-progress-circular',{staticClass:"grey--text",attrs:{"indeterminate":"","size":70,"width":7}})],1)]):_c('v-card',{staticStyle:{"margin":"auto"}},[_c('v-card-title',{attrs:{"primary-title":""}},[_c('div',{staticClass:"text-h5"},[_c('h1',[_vm._v(_vm._s(_vm.$t('Could not show the Online Star Map')))])]),_c('div',{staticClass:"text-h5",staticStyle:{"margin-top":"30px"}},[_c('v-icon',{attrs:{"large":""}},[_vm._v("error")]),_vm._v(" "+_vm._s(_vm.$t('It seems that your browser cannot load Web Assembly!')))],1)]),_c('v-card-text',[_c('v-layout',{staticStyle:{"width":"100%","height":"100%"},attrs:{"column":"","align-center":""}},[_c('p',{staticClass:"grey--text"},[_vm._v(_vm._s(_vm.$t('Web assembly is necessary for ORAS Sky-Engine to display the star map. Please upgrade your web browser and try again!')))]),_c('p',[_c('i18n',{attrs:{"path":"In the meantime, you can try the {0}!"}},[_c('span',[_vm._v(_vm._s(_vm.$t('desktop version')))])])],1)])],1)],1)],1)],1)],1)}
+var gui_loadervue_type_template_id_3ff106c6_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/gui-loader.vue?vue&type=template&id=3ff106c6&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/gui-loader.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ var gui_loadervue_type_script_lang_js_ = ({});
+// CONCATENATED MODULE: ./src/components/gui-loader.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_gui_loadervue_type_script_lang_js_ = (gui_loadervue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/gui-loader.vue?vue&type=style&index=0&lang=css&
+var gui_loadervue_type_style_index_0_lang_css_ = __webpack_require__("cbeb");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VLayout.js
+var VLayout = __webpack_require__("a722");
+
+// CONCATENATED MODULE: ./src/components/gui-loader.vue
+
+
+
+
+
+
+/* normalize component */
+
+var gui_loader_component = Object(componentNormalizer["a" /* default */])(
+  components_gui_loadervue_type_script_lang_js_,
+  gui_loadervue_type_template_id_3ff106c6_render,
+  gui_loadervue_type_template_id_3ff106c6_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+
+)
+
+/* harmony default export */ var gui_loader = (gui_loader_component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+installComponents_default()(gui_loader_component, {VCard: VCard["a" /* default */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VContainer: VContainer["a" /* default */],VIcon: VIcon["a" /* default */],VLayout: VLayout["a" /* default */],VProgressCircular: VProgressCircular["a" /* default */]})
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/oras-catalog-status-dialog.vue?vue&type=template&id=f9af96b2&scoped=true&
+var oras_catalog_status_dialogvue_type_template_id_f9af96b2_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"value":_vm.value,"max-width":"760"},on:{"input":function($event){return _vm.$emit('input', $event)}}},[_c('v-card',{staticClass:"oras-catalog-status"},[_c('v-card-title',[_vm._v(" ORAS Catalog Packs "),_c('v-spacer'),_c('v-chip',{attrs:{"small":"","color":_vm.statusColor,"text-color":"white"}},[_vm._v(_vm._s(_vm.statusLabel))])],1),_c('v-card-subtitle',[_vm._v(" Release "+_vm._s(_vm.snapshot.releaseVersion || 'not mounted')+" · Loaded objects "+_vm._s(_vm.snapshot.objectCount.toLocaleString())+" ")]),_c('v-card-text',[(!_vm.snapshot.mounted)?_c('v-alert',{attrs:{"type":"info","text":""}},[_vm._v(" No generated catalog release is mounted. The standard Stellarium catalogs remain available. ")]):_c('v-simple-table',{attrs:{"dense":""}},[_c('thead',[_c('tr',[_c('th',[_vm._v("Pack")]),_c('th',[_vm._v("Status")]),_c('th',[_vm._v("Loaded objects")]),_c('th',[_vm._v("Data source")]),_c('th',[_vm._v("Generated")])])]),_c('tbody',_vm._l((_vm.snapshot.packs),function(pack){return _c('tr',{key:pack.packId},[_c('td',[_c('strong',[_vm._v(_vm._s(pack.label))]),_c('br'),_c('small',[_vm._v(_vm._s(pack.version))])]),_c('td',[_c('v-chip',{attrs:{"x-small":"","color":pack.status === 'loaded' ? 'green' : 'red',"text-color":"white"}},[_vm._v(_vm._s(pack.status))])],1),_c('td',[_vm._v(_vm._s(pack.loadedObjectCount.toLocaleString()))]),_c('td',[_vm._v(_vm._s(_vm.sourceNames(pack)))]),_c('td',[_vm._v(_vm._s(pack.generatedAt || 'Unavailable'))])])}),0)])],1),_c('v-card-actions',[_c('v-btn',{attrs:{"text":""},on:{"click":_vm.refresh}},[_vm._v("Refresh")]),_c('v-spacer'),_c('v-btn',{attrs:{"text":""},on:{"click":function($event){return _vm.$emit('input', false)}}},[_vm._v("Close")])],1)],1)],1)}
+var oras_catalog_status_dialogvue_type_template_id_f9af96b2_scoped_true_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/oras-catalog-status-dialog.vue?vue&type=template&id=f9af96b2&scoped=true&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/oras-catalog-status-dialog.vue?vue&type=script&lang=js&
+
+
+
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ var oras_catalog_status_dialogvue_type_script_lang_js_ = ({
+  name: 'OrasCatalogStatusDialog',
+  props: {
+    value: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      snapshot: orasCatalogPacks.getSnapshot(),
+      unsubscribe: undefined
+    };
+  },
+  computed: {
+    statusLabel: function statusLabel() {
+      return this.snapshot.phase.replace('-', ' ');
+    },
+    statusColor: function statusColor() {
+      if (this.snapshot.phase === 'loaded') return 'green';
+      if (this.snapshot.phase === 'degraded' || this.snapshot.phase === 'failed') return 'orange';
+      return 'blue-grey';
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    this.unsubscribe = orasCatalogPacks.subscribe(function (snapshot) {
+      _this.snapshot = snapshot;
+    });
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (this.unsubscribe) this.unsubscribe();
+  },
+  methods: {
+    refresh: function refresh() {
+      orasCatalogPacks.load();
+    },
+    sourceNames: function sourceNames(pack) {
+      var names = (pack.sources || []).map(function (source) {
+        return source.name;
+      }).filter(Boolean);
+      return names.length ? names.join(', ') : 'Unavailable';
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/oras-catalog-status-dialog.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_oras_catalog_status_dialogvue_type_script_lang_js_ = (oras_catalog_status_dialogvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/oras-catalog-status-dialog.vue?vue&type=style&index=0&id=f9af96b2&scoped=true&lang=css&
+var oras_catalog_status_dialogvue_type_style_index_0_id_f9af96b2_scoped_true_lang_css_ = __webpack_require__("b41d");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js + 1 modules
+var VAlert = __webpack_require__("0798");
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VSimpleTable.js
+var VSimpleTable = __webpack_require__("1f4f");
+
+// CONCATENATED MODULE: ./src/components/oras-catalog-status-dialog.vue
+
+
+
+
+
+
+/* normalize component */
+
+var oras_catalog_status_dialog_component = Object(componentNormalizer["a" /* default */])(
+  components_oras_catalog_status_dialogvue_type_script_lang_js_,
+  oras_catalog_status_dialogvue_type_template_id_f9af96b2_scoped_true_render,
+  oras_catalog_status_dialogvue_type_template_id_f9af96b2_scoped_true_staticRenderFns,
+  false,
+  null,
+  "f9af96b2",
+  null
+
+)
+
+/* harmony default export */ var oras_catalog_status_dialog = (oras_catalog_status_dialog_component.exports);
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+
+
+
+
+installComponents_default()(oras_catalog_status_dialog_component, {VAlert: VAlert["a" /* default */],VBtn: VBtn["a" /* default */],VCard: VCard["a" /* default */],VCardActions: components_VCard["a" /* VCardActions */],VCardSubtitle: components_VCard["b" /* VCardSubtitle */],VCardText: components_VCard["c" /* VCardText */],VCardTitle: components_VCard["d" /* VCardTitle */],VChip: VChip["a" /* default */],VDialog: VDialog["a" /* default */],VSimpleTable: VSimpleTable["a" /* default */],VSpacer: VSpacer["a" /* default */]})
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/oras-dense-stars-status-dialog.vue?vue&type=template&id=0e713f36&scoped=true&
+var oras_dense_stars_status_dialogvue_type_template_id_0e713f36_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-dialog',{attrs:{"value":_vm.value,"max-width":"760"},on:{"input":function($event){return _vm.$emit('input', $event)}}},[_c('v-card',{staticClass:"oras-dense-stars-status"},[_c('v-card-title',[_vm._v(" ORAS Dense Stars "),_c('v-spacer'),_c('v-chip',{attrs:{"small":"","color":_vm.statusColor,"text-color":"white"}},[_vm._v(_vm._s(_vm.statusLabel))])],1),_c('v-card-subtitle',[_vm._v(" Native path: native SWE star tiles · Release "+_vm._s(_vm.snapshot.releaseVersion || 'not mounted')+" ")]),_c('v-card-text',[(!_vm.snapshot.mounted)?_c('v-alert',{attrs:{"type":"info","text":""}},[_vm._v(" Dense Stars is degraded: missing generated dense star release. Standard Stellarium star surveys remain available. ")]):(_vm.snapshot.activeProfile === 'off')?_c('v-alert',{attrs:{"type":"warning","text":""}},[_vm._v(" ORAS dense star rendering is off. Select Visual Sky, Binocular Depth, or Deep Catalog and recheck the runtime to register a mounted native survey. ")]):(_vm.snapshot.activeProfile === 'deep-catalog')?_c('v-alert',{attrs:{"type":"warning","text":""}},[_vm._v(" Deep Catalog is opt-in and may show many faint stars at wide FOV. Use Visual Sky for normal naked-eye style observing. ")]):_c('v-alert',{attrs:{"type":"success","text":""}},[_vm._v(" ORAS dense stars are loaded through native SWE star tiles using the "+_vm._s(_vm.snapshot.activeProfile)+" profile. Dense catalog labels are suppressed; standard Stellarium labels remain available for named bright stars. ")]),_c('v-alert',{attrs:{"type":"info","text":""}},[_vm._v(" Visual Sky is the realistic default. Binocular Depth and Deep Catalog are intentionally denser opt-in profiles. Labels are suppressed for generated dense stars to avoid ID flooding. ")]),_c('v-simple-table',{attrs:{"dense":""}},[_c('tbody',[_c('tr',[_c('td',[_c('strong',[_vm._v("Active profile")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.activeProfile))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Rendering path")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.renderingPath || 'Unavailable'))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Stars")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.starCount.toLocaleString()))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Tiles")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.tileCount.toLocaleString()))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Magnitude limit")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.magnitudeLimit == null ? 'Unavailable' : _vm.snapshot.magnitudeLimit))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Labels")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.labelMode || 'suppressed'))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Tile order")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.tileOrder == null ? 'Unavailable' : _vm.snapshot.tileOrder))])]),_c('tr',[_c('td',[_c('strong',[_vm._v("Sources")])]),_c('td',[_vm._v(_vm._s(_vm.sourceCatalogSummary))])]),(_vm.snapshot.error)?_c('tr',[_c('td',[_c('strong',[_vm._v("Error")])]),_c('td',[_vm._v(_vm._s(_vm.snapshot.error))])]):_vm._e()])])],1),_c('v-card-actions',[_c('v-btn',{attrs:{"text":""},on:{"click":_vm.refresh}},[_vm._v("Refresh")]),_c('v-spacer'),_c('v-btn',{attrs:{"text":""},on:{"click":function($event){return _vm.$emit('input', false)}}},[_vm._v("Close")])],1)],1)],1)}
+var oras_dense_stars_status_dialogvue_type_template_id_0e713f36_scoped_true_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/oras-dense-stars-status-dialog.vue?vue&type=template&id=0e713f36&scoped=true&
+
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/oras-dense-stars-status-dialog.vue?vue&type=script&lang=js&
 
 
@@ -6810,7 +6984,7 @@ var oras_dense_stars_status_dialog_component = Object(componentNormalizer["a" /*
   null,
   "0e713f36",
   null
-  
+
 )
 
 /* harmony default export */ var oras_dense_stars_status_dialog = (oras_dense_stars_status_dialog_component.exports);
@@ -6844,6 +7018,9 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
 
 
 
+
+
+//
 //
 //
 //
@@ -6990,6 +7167,7 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
       dataSourceInitDone: false,
       showCatalogPacks: false,
       showDenseStars: false,
+      starLookupMessage: '',
       starDataSourcesReady: Promise.resolve({
         mode: 'not-started'
       }),
@@ -7319,42 +7497,69 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
     resolveExactSkySourceRouteObject: function resolveExactSkySourceRouteObject(ss, identity) {
       var _this2 = this;
 
-      var attempt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-      var maxNativeAttempts = 40;
-      var retryDelayMs = 125;
       var dataSourcesReady = identity.model === 'star' ? this.starDataSourcesReady : Promise.resolve();
-      return Promise.resolve(dataSourcesReady).then(function () {
-        var nativeObj = sw_helpers.skySource2SweObj(ss);
+      return Promise.resolve(dataSourcesReady).then( /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var nativeObj, fallbackObj;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(identity.model === 'star')) {
+                  _context.next = 6;
+                  break;
+                }
 
-        if (nativeObj) {
-          return nativeObj;
-        }
+                _context.next = 3;
+                return sw_helpers.resolveCanonicalStar(ss);
 
-        if (identity.model === 'star' && attempt < maxNativeAttempts) {
-          return new Promise(function (resolve) {
-            return setTimeout(resolve, retryDelayMs);
-          }).then(function () {
-            return _this2.resolveExactSkySourceRouteObject(ss, identity, attempt + 1);
-          });
-        }
+              case 3:
+                _context.t0 = _context.sent;
+                _context.next = 7;
+                break;
 
-        var fallbackObj = _this2.$stel.createObj(ss.model, ss);
+              case 6:
+                _context.t0 = sw_helpers.skySource2SweObj(ss);
 
-        if (!fallbackObj) {
-          throw new Error('Exact sky source target is not ready yet');
-        }
+              case 7:
+                nativeObj = _context.t0;
 
-        _this2.$selectionLayer.add(fallbackObj);
+                if (!nativeObj) {
+                  _context.next = 10;
+                  break;
+                }
 
-        return fallbackObj;
-      });
+                return _context.abrupt("return", nativeObj);
+
+              case 10:
+                fallbackObj = _this2.$stel.createObj(ss.model, ss);
+
+                if (fallbackObj) {
+                  _context.next = 13;
+                  break;
+                }
+
+                throw new Error('Exact sky source target is not ready yet');
+
+              case 13:
+                _this2.$selectionLayer.add(fallbackObj);
+
+                return _context.abrupt("return", fallbackObj);
+
+              case 15:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      })));
     },
     selectSkySourceRouteTargetByIdentity: function selectSkySourceRouteTargetByIdentity(identity) {
       var _this3 = this;
 
       var attempt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var retryDelayMs = 250;
-      var maxAttempts = 80;
+      var maxAttempts = identity.model === 'star' ? 0 : 80;
+      this.starLookupMessage = '';
       return sw_helpers.fetchOrasSkySourceByIdentity(identity).then(function (ss) {
         ss = withOrasRouteIdentityFallback(ss, identity);
 
@@ -7362,11 +7567,22 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
           throw new Error('Resolved sky source did not match requested identity');
         }
 
+        if (identity.model === 'star' && (!ss.star_science || ss.star_science.render_magnitude == null)) {
+          _this3.starLookupMessage = 'Star data unavailable for ' + identity.catalog + ' ' + identity.sourceId + '. This object is not materialized without source-backed star data.';
+          return;
+        }
+
         return _this3.resolveExactSkySourceRouteObject(ss, identity).then(function (obj) {
           obj.__orasSkySourceData = ss;
           sw_helpers.setSweObjAsSelection(obj, ss);
         });
       }).catch(function (err) {
+        if (identity.model === 'star') {
+          _this3.starLookupMessage = 'Star lookup unavailable for ' + identity.catalog + ' ' + identity.sourceId + '.';
+          console.warn(_this3.starLookupMessage, err);
+          return;
+        }
+
         if (attempt < maxAttempts) {
           return new Promise(function (resolve) {
             return setTimeout(resolve, retryDelayMs);
@@ -7561,10 +7777,10 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
             });
             var localPlanetSurveyBase = bundledDataBase + '/surveys/sso';
             var planetSurveySources = [['moon', localPlanetSurveyBase + '/moon'], ['sun', localPlanetSurveyBase + '/sun'], ['mercury', localPlanetSurveyBase + '/mercury'], ['venus', localPlanetSurveyBase + '/venus'], ['mars', localPlanetSurveyBase + '/mars'], ['jupiter', localPlanetSurveyBase + '/jupiter'], ['saturn', localPlanetSurveyBase + '/saturn'], ['uranus', localPlanetSurveyBase + '/uranus'], ['neptune', localPlanetSurveyBase + '/neptune']];
-            planetSurveySources.forEach(function (_ref) {
-              var _ref2 = Object(slicedToArray["a" /* default */])(_ref, 2),
-                  key = _ref2[0],
-                  url = _ref2[1];
+            planetSurveySources.forEach(function (_ref2) {
+              var _ref3 = Object(slicedToArray["a" /* default */])(_ref2, 2),
+                  key = _ref3[0],
+                  url = _ref3[1];
 
               return core.planets.addDataSource({
                 url: url,
@@ -7638,7 +7854,7 @@ var App_component = Object(componentNormalizer["a" /* default */])(
   null,
   null,
   null
-  
+
 )
 
 /* harmony default export */ var App = (App_component.exports);
@@ -7661,7 +7877,8 @@ var App_component = Object(componentNormalizer["a" /* default */])(
 
 
 
-installComponents_default()(App_component, {VApp: VApp["a" /* default */],VContainer: VContainer["a" /* default */],VDivider: VDivider["a" /* default */],VIcon: VIcon["a" /* default */],VLayout: VLayout["a" /* default */],VList: VList["a" /* default */],VListItem: VListItem["a" /* default */],VListItemAction: VListItemAction["a" /* default */],VListItemContent: components_VList["a" /* VListItemContent */],VListItemIcon: VListItemIcon["a" /* default */],VListItemTitle: components_VList["c" /* VListItemTitle */],VMain: VMain["a" /* default */],VNavigationDrawer: VNavigationDrawer["a" /* default */],VSpacer: VSpacer["a" /* default */],VSubheader: VSubheader["a" /* default */],VSwitch: VSwitch["a" /* default */]})
+
+installComponents_default()(App_component, {VAlert: VAlert["a" /* default */],VApp: VApp["a" /* default */],VContainer: VContainer["a" /* default */],VDivider: VDivider["a" /* default */],VIcon: VIcon["a" /* default */],VLayout: VLayout["a" /* default */],VList: VList["a" /* default */],VListItem: VListItem["a" /* default */],VListItemAction: VListItemAction["a" /* default */],VListItemContent: components_VList["a" /* VListItemContent */],VListItemIcon: VListItemIcon["a" /* default */],VListItemTitle: components_VList["c" /* VListItemTitle */],VMain: VMain["a" /* default */],VNavigationDrawer: VNavigationDrawer["a" /* default */],VSpacer: VSpacer["a" /* default */],VSubheader: VSubheader["a" /* default */],VSwitch: VSwitch["a" /* default */]})
 
 // EXTERNAL MODULE: ./node_modules/@mdi/font/css/materialdesignicons.css
 var materialdesignicons = __webpack_require__("5363");
@@ -10222,8 +10439,8 @@ var StelWebEngine = function () {
       Module["HEAPF64"] = HEAPF64 = new Float64Array(buf);
     }
 
-    var DYNAMIC_BASE = 5807152,
-        DYNAMICTOP_PTR = 564112;
+    var DYNAMIC_BASE = 5807184,
+        DYNAMICTOP_PTR = 564144;
     var INITIAL_INITIAL_MEMORY = Module["INITIAL_MEMORY"] || 16777216;
 
     if (Module["wasmMemory"]) {
@@ -13015,44 +13232,48 @@ var StelWebEngine = function () {
       return (_geojson_survey_query_rendered_features = Module["_geojson_survey_query_rendered_features"] = Module["asm"]["Hb"]).apply(null, arguments);
     };
 
+    var _stars_get_by_identity = Module["_stars_get_by_identity"] = function () {
+      return (_stars_get_by_identity = Module["_stars_get_by_identity"] = Module["asm"]["Ib"]).apply(null, arguments);
+    };
+
     var _setThrew = Module["_setThrew"] = function () {
-      return (_setThrew = Module["_setThrew"] = Module["asm"]["Ib"]).apply(null, arguments);
+      return (_setThrew = Module["_setThrew"] = Module["asm"]["Jb"]).apply(null, arguments);
     };
 
     var stackSave = Module["stackSave"] = function () {
-      return (stackSave = Module["stackSave"] = Module["asm"]["Jb"]).apply(null, arguments);
+      return (stackSave = Module["stackSave"] = Module["asm"]["Kb"]).apply(null, arguments);
     };
 
     var stackRestore = Module["stackRestore"] = function () {
-      return (stackRestore = Module["stackRestore"] = Module["asm"]["Kb"]).apply(null, arguments);
+      return (stackRestore = Module["stackRestore"] = Module["asm"]["Lb"]).apply(null, arguments);
     };
 
     var stackAlloc = Module["stackAlloc"] = function () {
-      return (stackAlloc = Module["stackAlloc"] = Module["asm"]["Lb"]).apply(null, arguments);
+      return (stackAlloc = Module["stackAlloc"] = Module["asm"]["Mb"]).apply(null, arguments);
     };
 
     var dynCall_vi = Module["dynCall_vi"] = function () {
-      return (dynCall_vi = Module["dynCall_vi"] = Module["asm"]["Mb"]).apply(null, arguments);
+      return (dynCall_vi = Module["dynCall_vi"] = Module["asm"]["Nb"]).apply(null, arguments);
     };
 
     var dynCall_vii = Module["dynCall_vii"] = function () {
-      return (dynCall_vii = Module["dynCall_vii"] = Module["asm"]["Nb"]).apply(null, arguments);
+      return (dynCall_vii = Module["dynCall_vii"] = Module["asm"]["Ob"]).apply(null, arguments);
     };
 
     var dynCall_viiiii = Module["dynCall_viiiii"] = function () {
-      return (dynCall_viiiii = Module["dynCall_viiiii"] = Module["asm"]["Ob"]).apply(null, arguments);
+      return (dynCall_viiiii = Module["dynCall_viiiii"] = Module["asm"]["Pb"]).apply(null, arguments);
     };
 
     var dynCall_ii = Module["dynCall_ii"] = function () {
-      return (dynCall_ii = Module["dynCall_ii"] = Module["asm"]["Pb"]).apply(null, arguments);
+      return (dynCall_ii = Module["dynCall_ii"] = Module["asm"]["Qb"]).apply(null, arguments);
     };
 
     var dynCall_iii = Module["dynCall_iii"] = function () {
-      return (dynCall_iii = Module["dynCall_iii"] = Module["asm"]["Qb"]).apply(null, arguments);
+      return (dynCall_iii = Module["dynCall_iii"] = Module["asm"]["Rb"]).apply(null, arguments);
     };
 
     var dynCall_viiii = Module["dynCall_viiii"] = function () {
-      return (dynCall_viiii = Module["dynCall_viiii"] = Module["asm"]["Rb"]).apply(null, arguments);
+      return (dynCall_viiii = Module["dynCall_viiii"] = Module["asm"]["Sb"]).apply(null, arguments);
     };
 
     function invoke_vii(index, a1, a2) {

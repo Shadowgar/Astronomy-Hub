@@ -10,8 +10,9 @@ import Vue from 'vue'
 import _ from 'lodash'
 import StelWebEngine from '@/assets/js/stellarium-web-engine.js'
 import Moment from 'moment'
-import { ORAS_OBJECT_MEDIA_ROOT, buildOrasObjectLookupUrl, buildOrasSearchUrl, normalizeOrasSearchQuery, toOrasSkySource } from '@/assets/oras_data_config.js'
+import { ORAS_OBJECT_MEDIA_ROOT, findOrasNativeCandidate, buildOrasObjectLookupUrl, buildOrasSearchUrl, normalizeOrasSearchQuery, toOrasSkySource } from '@/assets/oras_data_config.js'
 import { orasCatalogPacks } from '@/assets/oras_catalog_packs.js'
+import { orasDenseStars } from '@/assets/oras_dense_stars.js'
 
 var DDDate = Date
 DDDate.prototype.getJD = function () {
@@ -276,6 +277,34 @@ const swh = {
   },
 
   // Return a SweObj matching a passed sky source JSON object if it's already instanciated in SWE
+  resolveCanonicalStar: async function (source) {
+    const stel = Vue.prototype.$stel
+    const science = source.star_science
+    const hint = science && science.native_tile
+    if (!hint) return this.skySource2SweObj(source)
+    const snapshot = orasDenseStars.getSnapshot()
+    if (!orasDenseStars.isReadyForNativeRegistration() || science.render_magnitude > snapshot.magnitudeLimit) return undefined
+    const lookup = stel.cwrap('stars_get_by_identity', 'number', ['string', 'string', 'number', 'number', 'number'])
+    const status = stel._malloc(4)
+    const deadline = performance.now() + 1500
+    try {
+      do {
+        const ptr = lookup(orasDenseStars.getSurveyKey(), hint.identity, hint.order, hint.pix, status)
+        if (ptr) {
+          const obj = new stel.SweObj(ptr)
+          obj.__orasOwnedLookup = true
+          return obj
+        }
+        // Only an outstanding tile request is retryable. An absent identity is final.
+        if (stel.HEAP32[status >> 2] !== 0) return undefined
+        await new Promise(resolve => setTimeout(resolve, 25))
+      } while (performance.now() < deadline)
+      return undefined
+    } finally {
+      stel._free(status)
+    }
+  },
+
   skySource2SweObj: function (ss) {
     if (!ss || !ss.model) {
       return undefined
@@ -290,64 +319,7 @@ const swh = {
       obj = $stel.getObj(id)
     }
     if (!obj) {
-      const baseNames = []
-      if (Array.isArray(ss.names)) {
-        baseNames.push(...ss.names)
-      }
-      if (ss.display_name) {
-        baseNames.push(ss.display_name)
-      }
-      if (ss.source_id != null) {
-        baseNames.push(String(ss.source_id))
-      }
-
-      const candidateNames = []
-      const compactMessierPattern = /^M\d+$/i
-      const sourceId = String(ss.source_id || '').trim()
-      const catalog = String(ss.catalog || '').toLowerCase()
-      if (ss.model === 'star' && sourceId) {
-        if (catalog.includes('gaia') && /^\d+$/.test(sourceId)) {
-          candidateNames.push('GAIA ' + sourceId)
-        }
-        if (catalog.includes('hipparcos') || /^hip-/i.test(sourceId)) {
-          candidateNames.push('HIP ' + sourceId.replace(/^hip-/i, ''))
-        }
-        if (catalog.includes('tycho') || /^tyc\s*/i.test(sourceId)) {
-          candidateNames.push('TYC ' + sourceId.replace(/^tyc\s*/i, ''))
-        }
-      }
-      for (const rawName of baseNames) {
-        const name = String(rawName || '').trim()
-        if (!name) {
-          continue
-        }
-
-        candidateNames.push(name)
-        candidateNames.push(this.cleanupOneSkySourceName(name, 5))
-        candidateNames.push('NAME ' + name)
-        candidateNames.push('* ' + name)
-
-        const compactName = name.replace(/\s+/g, '')
-        if (compactMessierPattern.test(compactName)) {
-          const messierNumber = compactName.slice(1)
-          candidateNames.push('M' + messierNumber)
-          candidateNames.push('M ' + messierNumber)
-        }
-
-        candidateNames.push('M ' + name.replace(/^M\s*/i, ''))
-        candidateNames.push('NGC ' + name.replace(/^NGC\s*/i, ''))
-        candidateNames.push('IC ' + name.replace(/^IC\s*/i, ''))
-      }
-
-      obj = candidateNames
-        .map(candidate => String(candidate || '').trim())
-        .filter((candidate, index, all) => candidate !== '' && all.indexOf(candidate) === index)
-        .map(candidate => $stel.getObj(candidate))
-        .find(Boolean)
-    }
-    if (!obj && ss.names[0].startsWith('Gaia DR2 ')) {
-      const gname = ss.names[0].replace(/^Gaia DR2 /, 'GAIA ')
-      obj = $stel.getObj(gname)
+      obj = findOrasNativeCandidate($stel, ss)
     }
     if (obj === null) return undefined
     return obj
@@ -692,6 +664,11 @@ const swh = {
     this.exactSkySourceSelection = exactSkySource || undefined
     $stel.core.selection = obj
     $stel.pointAndLock(obj)
+    if (obj.__orasOwnedLookup) {
+      // Selection and lock retain their own references; release the lookup's.
+      obj.__orasOwnedLookup = false
+      obj.destroy()
+    }
   },
 
   // Get data for a SkySource from wikipedia

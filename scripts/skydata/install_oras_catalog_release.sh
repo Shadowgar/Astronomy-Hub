@@ -67,11 +67,7 @@ chmod -R a+rX "$STAGING"
   --validate-only \
   --output "$STAGING"
 
-if [[ -e "$TARGET_DIR" ]]; then
-  BACKUP="$TARGET_PARENT/$TARGET_NAME.previous-$STAMP"
-  mv "$TARGET_DIR" "$BACKUP"
-fi
-mv "$STAGING" "$TARGET_DIR"
+"$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/promote_runtime_release.py" "$STAGING" "$TARGET_DIR"
 STAGING=""
 
 "$PYTHON_BIN" -m scripts.skydata.build_oras_catalog_release \

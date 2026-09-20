@@ -142,7 +142,7 @@ export default {
     },
     orasMetadata: function () {
       const source = this.selectedObject
-      if (!source || (!source.pack_id && !source.source_attribution)) return undefined
+      if (!source || (!source.pack_id && !source.source_attribution && !source.star_science)) return undefined
       const catalogIds = [
         source.catalog && source.source_id ? source.catalog + ' ' + source.source_id : undefined,
         ...(source.catalog_ids || [])
@@ -176,6 +176,23 @@ export default {
       const properties = fields
         .filter(([, field]) => this.selectedObject[field] != null)
         .map(([key, field]) => ({ key, value: String(this.selectedObject[field]) }))
+      const science = this.selectedObject.star_science
+      if (science) {
+        const add = (key, value, unit = '') => properties.push({ key, value: value == null ? 'Unavailable' : String(value) + unit })
+        add('Source magnitude', science.source_magnitude, ' ' + (science.source_magnitude_band || 'unknown band'))
+        add('Render magnitude', science.render_magnitude, ' ' + (science.render_magnitude_band || 'unknown band'))
+        add('Magnitude method', science.render_magnitude_method)
+        add('Source color', science.color_index, ' ' + (science.color_index_band || 'unknown band'))
+        add('B−V', science.bv)
+        add('B−V method', science.bv_method)
+        add('Coordinate epoch', science.coordinate_epoch, ' (Julian year)')
+        add('Coordinate frame', science.coordinate_frame)
+        add('Proper motion RA cos Dec', science.proper_motion_ra_mas_per_year, ' mas/year')
+        add('Proper motion Dec', science.proper_motion_dec_mas_per_year, ' mas/year')
+        add('Parallax (canonical)', science.parallax_mas, ' mas')
+        add('Radial velocity (source)', science.radial_velocity_km_s, ' km/s')
+        add('Spectrum (canonical)', science.spectral_type)
+      }
       if (this.selectedObject.double_star) {
         const double = this.selectedObject.double_star
         if (double.separation_arcsec != null) properties.push({ key: 'Separation', value: double.separation_arcsec + ' arcsec' })
@@ -290,7 +307,7 @@ export default {
         }
       }
 
-      addAttr(that.$t('Magnitude'), 'vmag', this.formatMagnitude)
+      addAttr(that.$t(this.selectedObject.star_science ? 'Rendered magnitude' : 'Magnitude'), 'vmag', this.formatMagnitude)
       addAttr(that.$t('Distance'), 'distance', this.formatDistance, true)
       if (this.selectedObject.model_data) {
         if (this.selectedObject.model_data.radius) {

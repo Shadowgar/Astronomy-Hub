@@ -5,6 +5,7 @@ import json
 import math
 import os
 import stat
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -37,7 +38,7 @@ def _write_catalog_pack_release(root: Path) -> None:
             "display_name": "Gaia DR3 1000786929690996352",
             "ra": 104.3047389065407,
             "dec": 57.5632863118362,
-            "magnitude": 4.761836,
+            "magnitude": 3.5,
             "color_index": 1.688078,
             "parallax": 3.1727,
             "proper_motion_ra": 11.681,
@@ -59,13 +60,13 @@ def _write_catalog_pack_release(root: Path) -> None:
         },
         {
             "catalog": "Gaia DR3",
-            "source_id": "bad-coordinates",
+            "source_id": "faint-edge",
             "model": "star",
             "category": "stars",
-            "display_name": "Bad coordinates",
-            "ra": 999.0,
+            "display_name": "Faint edge",
+            "ra": 359.0,
             "dec": 0.0,
-            "magnitude": 9.0,
+            "magnitude": 16.0,
             "source_attribution": [{"name": "ESA Gaia DR3 via CDS I/355", "source_key": "gaia_dr3"}],
         },
         {
@@ -80,6 +81,10 @@ def _write_catalog_pack_release(root: Path) -> None:
             "source_attribution": [{"name": "ESA Gaia DR3 via CDS I/355", "source_key": "gaia_dr3"}],
         },
     ]
+    for record in records:
+        record.update(coordinate_epoch=2000.0, coordinate_frame="ICRS")
+        record["magnitude_band"] = "Gaia G" if record["catalog"] == "Gaia DR3" else "Tycho V_T"
+        record["color_index_band"] = "Gaia BP-RP" if record["catalog"] == "Gaia DR3" else "Tycho B_T-V_T"
     chunk_path = chunk_dir / "chunk-00000.jsonl"
     text = "".join(json.dumps(record, separators=(",", ":")) + "\n" for record in records)
     chunk_path.write_text(text, encoding="utf-8")
@@ -149,6 +154,7 @@ def test_dense_star_builder_reconciles_authoritative_cross_ids_without_position_
             "dec": 54.925362,
             "johnson_v_mag": 2.23,
             "johnson_bv": 0.057,
+            "coordinate_frame": "ICRS",
             "coordinate_epoch": 2000.0,
             "aliases": ["HIP 65378", "Mizar A"],
         },
@@ -163,6 +169,7 @@ def test_dense_star_builder_reconciles_authoritative_cross_ids_without_position_
             "dec": 54.92541,
             "tycho_bt_mag": 2.30,
             "tycho_vt_mag": 2.24,
+            "coordinate_frame": "ICRS",
             "coordinate_epoch": 2000.0,
             "aliases": ["HIP 65378", "TYC 3850-257-1"],
         },
@@ -177,6 +184,7 @@ def test_dense_star_builder_reconciles_authoritative_cross_ids_without_position_
             "dec": 54.925358,
             "gaia_g_mag": 2.282647,
             "gaia_bp_rp": 0.534339,
+            "coordinate_frame": "ICRS",
             "coordinate_epoch": 2000.0,
             "aliases": ["HIP 65378", "TYC 3850-257-1"],
         },
@@ -189,6 +197,7 @@ def test_dense_star_builder_reconciles_authoritative_cross_ids_without_position_
             "dec": 54.921829,
             "gaia_g_mag": 3.88,
             "gaia_bp_rp": 0.42,
+            "coordinate_frame": "ICRS",
             "coordinate_epoch": 2000.0,
         },
         {
@@ -200,6 +209,7 @@ def test_dense_star_builder_reconciles_authoritative_cross_ids_without_position_
             "dec": 54.9258,
             "johnson_v_mag": 2.25,
             "johnson_bv": 0.02,
+            "coordinate_frame": "ICRS",
             "coordinate_epoch": 2000.0,
         },
     ]
@@ -233,7 +243,8 @@ def test_dense_star_builder_uses_source_backed_photometric_transformations() -> 
         "dec": -62.676,
         "gaia_g_mag": 7.10,
         "gaia_bp_rp": 0.82,
-        "coordinate_epoch": 2000.0,
+        "coordinate_frame": "ICRS",
+            "coordinate_epoch": 2000.0,
     }
     tycho_record = {
         "catalog": "Tycho-2",
@@ -245,7 +256,8 @@ def test_dense_star_builder_uses_source_backed_photometric_transformations() -> 
         "dec": 12.0,
         "tycho_bt_mag": 7.75,
         "tycho_vt_mag": 7.20,
-        "coordinate_epoch": 2000.0,
+        "coordinate_frame": "ICRS",
+            "coordinate_epoch": 2000.0,
     }
     invalid_gaia_color = {
         **gaia_record,
@@ -271,7 +283,7 @@ def test_dense_star_builder_uses_source_backed_photometric_transformations() -> 
 
     invalid = by_id["5853498713190525700"]
     assert invalid["render_vmag"] == invalid["render_gmag"]
-    assert math.isnan(invalid["render_bv"])
+    assert invalid["render_bv"] is None
     assert invalid["photometry_source"] == "gaia_g_only"
 
 
@@ -298,7 +310,8 @@ def test_dense_star_builder_preserves_zero_gaia_magnitude() -> None:
         },
     ]
 
-    photometry = builder._resolve_photometry(records)
+    from backend.app.services.star_science import _resolve_photometry
+    photometry = _resolve_photometry(records)
     assert photometry is not None
     assert photometry["render_gmag"] == 0.0
 
@@ -306,7 +319,8 @@ def test_dense_star_builder_preserves_zero_gaia_magnitude() -> None:
 def test_dense_star_builder_preserves_blue_gaia_color_solution() -> None:
     builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_blue_photometry")
 
-    blue_bv = builder._gaia_bp_rp_to_johnson_bv(-0.3)
+    from backend.app.services.star_science import _gaia_bp_rp_to_johnson_bv
+    blue_bv = _gaia_bp_rp_to_johnson_bv(-0.3)
 
     assert blue_bv is not None
     assert -0.4 <= blue_bv < 0.0
@@ -325,7 +339,11 @@ def test_normalized_canonical_star_keeps_native_identity_when_labels_are_suppres
         "aliases": ["HIP 65378", "TYC 3850-257-1"],
         "ra": 200.981425,
         "dec": 54.925358,
-        "coordinate_epoch": 2000.0,
+        "coordinate_frame": "ICRS",
+            "coordinate_epoch": 2000.0,
+        "johnson_v_mag": 2.23,
+        "johnson_bv": 0.057,
+        "gaia_g_mag": 2.282647,
         "render_vmag": 2.23,
         "render_gmag": 2.282647,
         "render_bv": 0.057,
@@ -395,13 +413,16 @@ def test_dense_star_tile_builder_writes_native_eph_release(tmp_path: Path) -> No
     assert manifest["profiles"]["deep-catalog"]["catalog_mode"] == "canonical_replacement"
     assert manifest["profiles"]["deep-catalog"]["identity_reconciliation"] == {
         "canonical_records": 4,
+        "ambiguous_cross_id_records": 0,
         "merged_records": 0,
         "skipped_missing_photometry": 0,
         "skipped_unmatched_supplemental": 0,
         "source_records": 4,
     }
     assert manifest["profiles"]["deep-catalog"]["photometry_sources"] == {
-        "catalog_magnitude_only": 4,
+        "gaia_edr3_transformed": 1,
+        "gaia_g_only": 2,
+        "tycho_vt_only": 1,
     }
 
     validation = validator.validate_dense_star_tiles(output_root)
@@ -484,7 +505,7 @@ def test_dense_star_builder_writes_visibility_profiles(tmp_path: Path) -> None:
     manifest = json.loads((output_root / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["default_profile"] == "visual-default"
     assert manifest["profiles"]["visual-default"]["path"] == "profiles/visual-default"
-    assert manifest["profiles"]["visual-default"]["label_mode"] == "suppressed"
+    assert manifest["profiles"]["visual-default"]["label_mode"] == "named"
     assert manifest["profiles"]["visual-default"]["profile_intent"] == "default"
     assert manifest["profiles"]["deep-catalog"]["profile_intent"] == "opt-in"
     assert (output_root / "profiles/visual-default/properties").is_file()
@@ -563,11 +584,34 @@ def test_dense_star_builder_rejects_empty_releases(tmp_path: Path) -> None:
     assert not output_root.exists()
 
 
-def test_dense_star_installer_uses_manifest_driven_copy_and_rollback() -> None:
-    installer = (REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh").read_text(encoding="utf-8")
+def test_dense_star_installer_preserves_previous_validated_generation(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_install")
+    source, generated, active = tmp_path / "source", tmp_path / "generated", tmp_path / "active"
+    _write_catalog_pack_release(source)
+    installer = REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh"
+    for version in ["test.old", "test.new"]:
+        builder.build_dense_star_tiles(source_root=source, output_root=generated,
+                                       tile_order=1, release_version=version)
+        subprocess.run(["bash", str(installer), str(generated), str(active)],
+                       cwd=REPO_ROOT, check=True, capture_output=True, text=True)
+    assert json.loads((active / "manifest.json").read_text())["release_version"] == "test.new"
+    previous = list(tmp_path.glob("active.previous-*"))
+    assert len(previous) == 1
+    assert json.loads((previous[0] / "manifest.json").read_text())["release_version"] == "test.old"
+    validator = _load_module(VALIDATOR_PATH, "validate_dense_star_install")
+    validator.validate_dense_star_tiles(active)
+    validator.validate_dense_star_tiles(previous[0])
 
-    assert "profile_manifest.get(\"tile_entries\", [])" in installer
-    assert "shutil.copy2(source / \"manifest.json\", staging / \"manifest.json\")" in installer
-    assert "trap rollback ERR" in installer
-    assert "mv \"$previous_dir\" \"$target_dir\"" in installer
-    assert "find . -type f" not in installer
+
+def test_dense_star_builder_rejects_invalid_coordinate_contract(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_invalid_contract")
+    source, output = tmp_path / "source", tmp_path / "output"
+    _write_catalog_pack_release(source)
+    path = source / "packs/stars-core/chunk-00000.jsonl"
+    records = [json.loads(line) for line in path.read_text().splitlines()]
+    records[0]["ra"] = 999.0
+    path.write_text("\n".join(json.dumps(row) for row in records) + "\n")
+    with pytest.raises(ValueError, match="coordinates must be finite and in range"):
+        builder.build_dense_star_tiles(source_root=source, output_root=output,
+                                       tile_order=1, release_version="test.invalid")
+    assert not output.exists()

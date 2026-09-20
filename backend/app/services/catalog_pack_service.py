@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import lru_cache
 import hashlib
 import json
@@ -11,6 +11,7 @@ import re
 from typing import Any
 
 from backend.app.services.sky_engine_links import build_sky_engine_object_url
+from backend.app.services.star_science import validate_star_science
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -27,6 +28,7 @@ class CatalogPackIndex:
     search_candidates: tuple[dict[str, Any], ...]
     search_alias_index: dict[str, tuple[dict[str, Any], ...]]
     pack_statuses: tuple[dict[str, Any], ...]
+    supplemental_star_records: dict[tuple[str, str, str], dict[str, Any]] = field(default_factory=dict)
 
 
 def load_catalog_pack_index(path: str | Path | None = None) -> CatalogPackIndex:
@@ -108,10 +110,61 @@ def lookup_catalog_pack_object(
     path: str | Path | None = None,
 ) -> dict[str, Any]:
     identity = _identity_key(catalog, source_id, model)
-    record = load_catalog_pack_index(path).records_by_identity.get(identity)
+    index = load_catalog_pack_index(path)
+    record = index.records_by_identity.get(identity) or index.supplemental_star_records.get(identity)
     if record is None:
         raise ValueError("object not found")
     return _to_api_payload(record, exact=True)
+
+
+def enrich_star_science_payload(payload: dict[str, Any], *, path: str | Path | None = None) -> dict[str, Any]:
+    """Resolve legacy bright/Hipparcos identities against installed source science.
+
+    Only an exact identity or an unambiguous source alias is accepted. Coordinates
+    and display-name similarity are never used to infer catalog cross-identities.
+    """
+    if payload.get("model") != "star" or payload.get("star_science"):
+        return payload
+    catalog = str(payload.get("catalog") or "").casefold()
+    if catalog not in {"bright star catalog (local)", "hipparcos tier 2 (local)"}:
+        return payload
+    index = load_catalog_pack_index(path)
+    key = _identity_key(payload.get("catalog"), payload.get("source_id"), "star")
+    record = index.records_by_identity.get(key)
+    if record is None:
+        candidates = {}
+        aliases = ([payload.get("display_name")] if catalog == "bright star catalog (local)"
+                   else [payload.get("source_id")])
+        for alias in aliases:
+            for candidate in index.search_alias_index.get(_normalize_search_text(alias), ()):
+                science = candidate.get("star_science")
+                if candidate.get("model") != "star" or not science:
+                    continue
+                canonical = (science.get("canonical_catalog", science["source_catalog"]),
+                             science.get("canonical_source_id", science["source_id"]))
+                candidates[canonical] = candidate
+        if len(candidates) == 1:
+            record = next(iter(candidates.values()))
+    result = dict(payload)
+    # These legacy payload keys previously mislabeled Johnson V/B-V as Gaia.
+    result.pop("phot_g_mean_mag", None)
+    result.pop("bp_rp", None)
+    if record is None or not record.get("star_science"):
+        result["star_science_status"] = "unavailable"
+        return result
+    science = record["star_science"]
+    for field in ("star_science", "source_star_science", "magnitude", "magnitude_band",
+                  "color_index", "color_index_band", "source_attribution", "hip_id", "gaia_id", "tycho2_id"):
+        if field in record:
+            result[field] = record[field]
+    result.update(ra=science["ra"], dec=science["dec"], coordinate_epoch=science["coordinate_epoch"],
+                  coordinate_frame=science["coordinate_frame"], star_science_status="available")
+    result["sky_engine_url"] = build_sky_engine_object_url(
+        catalog=result["catalog"], source_id=result["source_id"], model=result["model"],
+        ra=science["ra"], dec=science["dec"], name=result.get("display_name"), fov=2.5,
+    )
+    result["provenance"] = {"source_key": "oras_catalog_pack", "pack_id": record["pack_id"], "pack_version": record["pack_version"]}
+    return result
 
 
 @lru_cache(maxsize=8)
@@ -172,6 +225,20 @@ def _load_catalog_pack_index_cached(
                 if normalized_alias:
                     search_alias_index.setdefault(normalized_alias, []).append(record)
 
+    supplemental_star_records = {}
+    if manifest.get("supplemental_stars"):
+        try:
+            supplemental = _load_chunk(root, {
+                "pack_id": "star-science-supplement", "version": manifest["release_version"], "sources": [],
+            }, manifest["supplemental_stars"])
+            for record in supplemental:
+                supplemental_star_records[_identity_key(record["catalog"], record["source_id"], record["model"])] = record
+                for alias in _record_aliases(record):
+                    search_alias_index.setdefault(_normalize_search_text(alias), []).append(record)
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError):
+            # No unchecked supplementary science may escape through aliases.
+            supplemental_star_records = {}
+
     return CatalogPackIndex(
         mounted=True,
         release_version=str(manifest.get("release_version") or "") or None,
@@ -181,6 +248,7 @@ def _load_catalog_pack_index_cached(
         search_candidates=tuple(search_candidates),
         search_alias_index={alias: tuple(records) for alias, records in search_alias_index.items()},
         pack_statuses=tuple(pack_statuses),
+        supplemental_star_records=supplemental_star_records,
     )
 
 
@@ -264,6 +332,9 @@ def _validate_runtime_record(
     dec = _finite_coordinate(raw_record.get("dec"), "dec")
     if not 0 <= ra < 360 or not -90 <= dec <= 90:
         raise ValueError("catalog record coordinates are out of range")
+    for field in ("star_science", "source_star_science"):
+        if field in raw_record:
+            validate_star_science(raw_record[field])
     record = dict(raw_record)
     record.update(
         {
@@ -295,7 +366,15 @@ def _to_api_payload(record: dict[str, Any], *, exact: bool = False) -> dict[str,
             },
         }
     )
-    if record.get("magnitude") is not None:
+    if record.get("model") == "star":
+        if record.get("gaia_g_mag") is not None:
+            payload["phot_g_mean_mag"] = record["gaia_g_mag"]
+        science = record.get("star_science")
+        if isinstance(science, dict):
+            payload["ra"], payload["dec"] = science["ra"], science["dec"]
+            payload["coordinate_epoch"] = science["coordinate_epoch"]
+            payload["coordinate_frame"] = science["coordinate_frame"]
+    elif record.get("magnitude") is not None:
         payload.setdefault("phot_g_mean_mag", record["magnitude"])
     if exact:
         payload["message"] = f"Resolved from mounted ORAS catalog pack {record['pack_id']}."
@@ -377,7 +456,10 @@ def _catalog_pack_fingerprint(root: Path, manifest_path: Path) -> tuple[tuple[st
     except (OSError, json.JSONDecodeError):
         return tuple(entries)
 
-    for pack in manifest.get("packs") or []:
+    fingerprint_packs = list(manifest.get("packs") or [])
+    if manifest.get("supplemental_stars"):
+        fingerprint_packs.append({"chunks": [manifest["supplemental_stars"]]})
+    for pack in fingerprint_packs:
         if not isinstance(pack, dict):
             continue
         for chunk in pack.get("chunks") or []:

@@ -23,11 +23,12 @@ export default {
     }
   },
   watch: {
-    obsSkySource: function (ss) {
+    obsSkySource: async function (ss) {
       if (!ss) {
         return
       }
-      let obj = swh.skySource2SweObj(ss)
+      let obj = ss.model === 'star' ? await swh.resolveCanonicalStar(ss) : swh.skySource2SweObj(ss)
+      if (ss !== this.obsSkySource) return
       if (!obj) {
         obj = this.$stel.createObj(ss.model, ss)
         if (obj) {

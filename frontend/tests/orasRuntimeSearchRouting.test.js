@@ -408,7 +408,9 @@ describe('oras runtime search routing', () => {
       names: ['HD 34029', 'Capella'],
       ra: 79.172,
       dec: 45.998,
-      phot_g_mean_mag: 0.08,
+      magnitude: 0.08,
+      magnitude_band: 'V',
+      coordinate_epoch: 2000,
       indexed: true,
       status: 'indexed'
     })
@@ -583,20 +585,15 @@ describe('oras runtime search routing', () => {
     expect(appSource).toContain('withOrasRouteIdentityFallback(ss, identity)')
   })
 
-  it('waits for native star registration and retries native identity before creating a fallback star', () => {
+  it('waits for registration and uses one bounded canonical tile lookup', () => {
     const helpersSource = fs.readFileSync(swHelpersPath, 'utf8')
     const appSource = fs.readFileSync(appVuePath, 'utf8')
-
-    expect(appSource).toContain('resolveExactSkySourceRouteObject: function (ss, identity, attempt = 0)')
     expect(appSource).toContain("identity.model === 'star' ? this.starDataSourcesReady : Promise.resolve()")
-    expect(appSource).toContain('this.resolveExactSkySourceRouteObject(ss, identity, attempt + 1)')
-    expect(appSource).toContain('return this.resolveExactSkySourceRouteObject(ss, identity).then(obj => {')
-    expect(appSource.indexOf('swh.skySource2SweObj(ss)')).toBeLessThan(
-      appSource.indexOf('const fallbackObj = this.$stel.createObj(ss.model, ss)'),
-    )
-    expect(helpersSource).toContain("candidateNames.push('GAIA ' + sourceId)")
-    expect(helpersSource).toContain("candidateNames.push('HIP ' + sourceId.replace(/^hip-/i, ''))")
-    expect(helpersSource).toContain("candidateNames.push('TYC ' + sourceId.replace(/^tyc\\s*/i, ''))")
+    expect(appSource).toContain('await swh.resolveCanonicalStar(ss)')
+    expect(appSource).not.toContain('maxNativeAttempts = 40')
+    expect(helpersSource).toContain("stel.cwrap('stars_get_by_identity'")
+    expect(helpersSource).toContain("stel.HEAP32[status >> 2] !== 0")
+    expect(helpersSource).toContain('hint.order, hint.pix, status')
   })
 
   it('routes exact-object resolution failures through the bounded retry handler', () => {

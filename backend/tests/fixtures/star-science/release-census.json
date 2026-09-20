@@ -1,0 +1,79 @@
+{
+  "baseline": {
+    "ambiguous_groups_before_guard": 134,
+    "unsafe_union_edges_before_guard": 253,
+    "source_records": 99661,
+    "merge_edges": {
+      "HIP/Tycho": 4671,
+      "ambiguous-same-catalog": 134,
+      "exact-ID": 0,
+      "Gaia/HIP": 0,
+      "Gaia/Tycho": 0
+    },
+    "positional_merges": 0,
+    "malformed_rejected": 0,
+    "duplicate_source_identity_records": 0,
+    "stats": {
+      "source_records": 99661,
+      "canonical_records": 91896,
+      "merged_records": 4805,
+      "skipped_unmatched_supplemental": 2960,
+      "skipped_missing_photometry": 0
+    },
+    "group_compositions": {
+      "Gaia": 10000,
+      "HIP": 57030,
+      "HIP+Tycho": 4671,
+      "Tycho": 20195
+    },
+    "canonical_catalogs": {
+      "Gaia DR3": 10000,
+      "Hipparcos (CDS)": 26,
+      "Hipparcos Tier 2 (local)": 61675,
+      "Tycho-2": 20195
+    }
+  },
+  "rebuilt_current_rules": {
+    "ambiguous_groups_before_guard": 135,
+    "unsafe_union_edges_before_guard": 268,
+    "source_records": 99661,
+    "merge_edges": {
+      "Gaia/HIP": 7981,
+      "Gaia/Tycho": 635,
+      "HIP/Tycho": 3956,
+      "exact-ID": 0,
+      "ambiguous-same-catalog": 0
+    },
+    "positional_merges": 0,
+    "malformed_rejected": 0,
+    "duplicate_source_identity_records": 0,
+    "stats": {
+      "source_records": 99661,
+      "canonical_records": 84129,
+      "merged_records": 12572,
+      "skipped_unmatched_supplemental": 2960,
+      "skipped_missing_photometry": 0,
+      "ambiguous_cross_id_records": 283
+    },
+    "group_compositions": {
+      "Gaia+HIP": 7386,
+      "Gaia": 1979,
+      "Gaia+HIP+Tycho": 623,
+      "HIP": 49764,
+      "Tycho": 20437,
+      "Gaia+Tycho": 12,
+      "HIP+Tycho": 3928
+    },
+    "canonical_catalogs": {
+      "Gaia DR3": 10000,
+      "Hipparcos (CDS)": 25,
+      "Hipparcos Tier 2 (local)": 53667,
+      "Tycho-2": 20437
+    }
+  },
+  "method": "Deterministic spanning forest: same-catalog edges first, then catalog-pair lexical order; same-catalog foreign-ID collapses are labeled ambiguous, never exact duplicates. Each successful union counted once. No coordinate/name edges.",
+  "manifests": {
+    "data/runtime-packs/catalog-packs/manifest.json": "e286212acbd9b86bf30d92fe73744bfb451bce56912bca0f58b7cc560ced6f7f",
+    "data/runtime-packs/dense-star-tiles/manifest.json": "99097c330f779ba64aa571edda20f4e0e8b53755c4a8e50094bbc0dff8cb4323"
+  }
+}

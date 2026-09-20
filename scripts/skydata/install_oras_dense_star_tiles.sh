@@ -65,21 +65,6 @@ PY
 
 .venv/bin/python scripts/skydata/validate_oras_dense_star_tiles.py "$staging_dir"
 
-previous_dir=""
-if [[ -e "$target_dir" ]]; then
-  previous_dir="${target_dir}.previous-${timestamp}"
-  mv "$target_dir" "$previous_dir"
-fi
-rollback() {
-  if [[ -n "$previous_dir" && -e "$previous_dir" ]]; then
-    rm -rf "$target_dir"
-    mv "$previous_dir" "$target_dir"
-  fi
-}
-trap rollback ERR
-
-mv "$staging_dir" "$target_dir"
-chmod -R a+rX "$target_dir"
-
+chmod -R a+rX "$staging_dir"
+.venv/bin/python scripts/skydata/promote_runtime_release.py "$staging_dir" "$target_dir"
 .venv/bin/python scripts/skydata/validate_oras_dense_star_tiles.py "$target_dir"
-trap - ERR

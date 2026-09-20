@@ -60,7 +60,7 @@ def test_star_adapters_preserve_string_ids_and_source_backed_fields(tmp_path: Pa
     assert hip[0]["hip_id"] == "25336"
     assert hip[0]["johnson_v_mag"] == 1.64
     assert hip[0]["johnson_bv"] == -0.224
-    assert hip[0]["coordinate_epoch"] == 2000.0
+    assert hip[0]["coordinate_epoch"] == 1991.25
 
     gaia_path = _write_vizier(
         tmp_path / "gaia.tsv",
@@ -393,3 +393,59 @@ def test_release_omits_ambiguous_source_identities_instead_of_fabricating_suffix
         {"catalog": "Gliese CNS3", "source_id": "Gl 5", "model": "star", "ra": 3},
     ]
     assert drop_ambiguous_identities(records) == [records[2]]
+
+
+def test_star_adapters_declare_frames_and_prefer_explicit_icrs_j2000(tmp_path):
+    source = _write_vizier(tmp_path / 'gaia-frame.tsv',
+        ['_RAJ2000', '_DEJ2000', 'RAJ2000', 'DEJ2000', 'RA_ICRS', 'DE_ICRS', 'Source', 'Gmag'],
+        [['20', '30', '20.0001', '30.0001', '20.002', '30.002', '5853498713190525696', '0']])
+    record = next(iter(load_vizier_stars(source, 'gaia_dr3')))
+    assert record.get('coordinate_frame') == 'ICRS'
+    assert record['coordinate_epoch'] == 2000.0
+    assert record['ra'] == 20.0001
+    assert record['star_science']['source_magnitude_band'] == 'Gaia G'
+    assert record['star_science']['visual_magnitude'] is None
+    assert record['star_science']['render_magnitude'] == 0.0
+    assert record['source_attribution'][0]['sha256']
+
+
+def test_tycho_does_not_mislabel_observed_epoch_as_j2000(tmp_path):
+    source = _write_vizier(tmp_path / 'tycho-frame.tsv',
+        ['_RAJ2000', '_DEJ2000', 'RA(ICRS)', 'DE(ICRS)', 'TYC1', 'TYC2', 'TYC3', 'VTmag', 'pmRA', 'pmDE'],
+        [['20', '30', '19.999', '29.999', '1', '2', '1', '5', '13', '-17']])
+    record = next(iter(load_vizier_stars(source, 'tycho2')))
+    assert record.get('coordinate_frame') == 'ICRS'
+    assert record['coordinate_epoch'] == 2000.0
+    assert record['source_coordinate_frame'] == 'FK5'
+    assert record['source_ra'] == 20.0
+    assert abs(record['ra'] - 20.0) < 0.0001
+    assert record['proper_motion_ra'] == 13.0
+    assert record['star_science']['proper_motion_dec_mas_per_year'] == -17.0
+
+
+def test_local_hipparcos_subset_epoch_matches_independent_cds_native_samples():
+    from scripts.skydata.catalog_sources.common import read_vizier_tsv
+    fixture = Path(__file__).parent / 'fixtures/star-science/hipparcos_epoch_sample.tsv'
+    local = {r['source_id']: r for r in load_hipparcos(Path(__file__).parents[1] / 'app/data/sky/hipparcos_tier2_subset.json')}
+    samples = list(read_vizier_tsv(fixture))
+    samples = [r for r in samples if r.get('HIP', '').isdigit()]
+    assert len(samples) == 4
+    for sample in samples:
+        row = local['hip-' + sample['HIP']]
+        assert row['coordinate_epoch'] == 1991.25
+        assert row['ra'] == pytest.approx(float(sample['RAICRS']), abs=0.000008)
+        assert row['dec'] == pytest.approx(float(sample['DEICRS']), abs=0.00000051)
+    high_pm = local['hip-108870']
+    sample = next(r for r in samples if r['HIP'] == '108870')
+    assert abs(high_pm['ra'] - float(sample['_RA.icrs'])) > 0.01
+
+
+def test_existing_native_star_names_enrich_source_ids_without_a_hand_catalog(tmp_path):
+    source = _write_vizier(tmp_path / 'hip-names.tsv',
+        ['_RAJ2000', '_DEJ2000', '_RA.icrs', '_DE.icrs', 'HIP', 'Vmag'],
+        [['24.4', '-57.2', '24.4', '-57.2', '7588', '0.46']])
+    record = next(iter(load_vizier_stars(source, 'hipparcos_bright')))
+    assert 'Achernar' in record.get('common_names', [])
+    assert 'NAME Achernar' in record['aliases']
+    names_source = next(s for s in record['source_attribution'] if s['source_key'] == 'swe_existing_star_names')
+    assert len(names_source['sha256']) == 64

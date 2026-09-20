@@ -24,6 +24,10 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.skydata.catalog_sources.stars import load_vizier_stars
+from backend.app.services.star_science import (
+    healpix_ang2pix, native_epoch, parse_hip_number, parse_gaia_id,
+    safe_float, reconcile_star_records, normalize_star_science,
+)
 
 
 DEFAULT_SOURCE_ROOT = REPO_ROOT / "data/runtime-packs/catalog-packs"
@@ -32,7 +36,7 @@ DEFAULT_BRIGHT_STAR_SOURCE = (
     REPO_ROOT
     / "data/catalog-sources/oras-major-catalog-update-1/hipparcos_bright.tsv"
 )
-DEFAULT_RELEASE_VERSION = "2026.06.native-stars.2"
+DEFAULT_RELEASE_VERSION = "2026.09.native-stars.4"
 DEFAULT_MAGNITUDE_LIMIT = 13.0
 DEFAULT_TILE_ORDER = 3
 SOURCE_PACK_ID = "stars-core"
@@ -49,21 +53,21 @@ DENSE_STAR_PROFILES = [
         "label": "Visual",
         "magnitude_limit": 4.8,
         "profile_intent": "default",
-        "label_mode": "suppressed",
+        "label_mode": "named",
     },
     {
         "profile_id": "binocular",
         "label": "Binocular",
         "magnitude_limit": 8.5,
         "profile_intent": "opt-in",
-        "label_mode": "suppressed",
+        "label_mode": "named",
     },
     {
         "profile_id": "deep-catalog",
         "label": "Deep Catalog",
         "magnitude_limit": 13.0,
         "profile_intent": "opt-in",
-        "label_mode": "suppressed",
+        "label_mode": "named",
     },
 ]
 
@@ -73,139 +77,12 @@ EPH_VMAG = 3 << 16
 EPH_RAD_PER_YEAR = 6 << 16
 EPH_YEAR = 7 << 16
 
-def _build_utab() -> list[int]:
-    values: list[int] = []
-    for m in range(256):
-        value = (
-            (m & 0x01)
-            | ((m & 0x02) << 1)
-            | ((m & 0x04) << 2)
-            | ((m & 0x08) << 3)
-            | ((m & 0x10) << 4)
-            | ((m & 0x20) << 5)
-            | ((m & 0x40) << 6)
-            | ((m & 0x80) << 7)
-        )
-        values.append(value)
-    return values
-
-
-UTAB = _build_utab()
-
-
-def healpix_xyf2nest(nside: int, ix: int, iy: int, face_num: int) -> int:
-    return (
-        face_num * nside * nside
-        + (UTAB[ix & 0xFF] | (UTAB[ix >> 8] << 16) | (UTAB[iy & 0xFF] << 1) | (UTAB[iy >> 8] << 17))
-    )
-
-
-def _fmodulo(value: float, divisor: float) -> float:
-    if value >= 0:
-        return value if value < divisor else math.fmod(value, divisor)
-    result = math.fmod(value, divisor) + divisor
-    return 0.0 if result == divisor else result
-
-
-def healpix_ang2pix(nside: int, theta: float, phi: float) -> int:
-    z = math.cos(theta)
-    za = abs(z)
-    tt = _fmodulo(phi, 2 * math.pi) * (2 / math.pi)
-
-    if za <= 2.0 / 3.0:
-        temp1 = nside * (0.5 + tt)
-        temp2 = nside * (z * 0.75)
-        jp = int(temp1 - temp2)
-        jm = int(temp1 + temp2)
-        ifp = jp // nside
-        ifm = jm // nside
-        face_num = (ifp | 4) if ifp == ifm else (ifp if ifp < ifm else ifm + 8)
-        ix = jm & (nside - 1)
-        iy = nside - (jp & (nside - 1)) - 1
-    else:
-        ntt = int(tt)
-        if ntt >= 4:
-            ntt = 3
-        tp = tt - ntt
-        tmp = nside * math.sqrt(3 * (1 - za))
-        jp = int(tp * tmp)
-        jm = int((1.0 - tp) * tmp)
-        if jp >= nside:
-            jp = nside - 1
-        if jm >= nside:
-            jm = nside - 1
-        if z >= 0:
-            face_num = ntt
-            ix = nside - jm - 1
-            iy = nside - jp - 1
-        else:
-            face_num = ntt + 8
-            ix = jp
-            iy = jm
-
-    return healpix_xyf2nest(nside, ix, iy, face_num)
-
-
 def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
-def safe_float(value: Any) -> float | None:
-    try:
-        number = float(value)
-    except (TypeError, ValueError):
-        return None
-    if not math.isfinite(number):
-        return None
-    return number
-
-
-def native_epoch(record: dict[str, Any]) -> float:
-    if safe_float(record.get("coordinate_epoch")) is not None:
-        return float(record["coordinate_epoch"])
-    if safe_float(record.get("epoch")) is not None:
-        return float(record["epoch"])
-    catalog = str(record.get("catalog") or "").lower()
-    if "gaia" in catalog:
-        return 2016.0
-    if "hipparcos" in catalog:
-        return 1991.25
-    if "tycho" in catalog:
-        return 1991.25
-    return 2000.0
-
-
-def parse_hip_number(record: dict[str, Any]) -> int:
-    hip_id = _clean_identifier(record.get("hip_id"), "HIP")
-    if hip_id.isdigit():
-        return int(hip_id)
-    values = [record.get("source_id"), record.get("display_name")]
-    values.extend(record.get("names") or [])
-    values.extend(record.get("aliases") or [])
-    for value in values:
-        text = str(value or "").strip().upper()
-        if text.startswith("HIP-"):
-            text = "HIP " + text[4:]
-        if text.startswith("HIP "):
-            digits = "".join(ch for ch in text[4:] if ch.isdigit())
-            if digits:
-                return int(digits)
-    return 0
-
-
-def parse_gaia_id(record: dict[str, Any]) -> int:
-    gaia_id = str(record.get("gaia_id") or "").strip()
-    if gaia_id.isdigit():
-        return int(gaia_id)
-    if str(record.get("catalog") or "").lower().startswith("gaia"):
-        source_id = str(record.get("source_id") or "").strip()
-        if source_id.isdigit():
-            return int(source_id)
-    return 0
-
-
 def native_names(record: dict[str, Any], include_labels: bool = False) -> str:
-    names = []
+    names = [f"NAME {name}" for name in (record.get("common_names") or [])] if include_labels else []
     gaia_id = str(record.get("gaia_id") or "").strip()
     hip_id = str(record.get("hip_id") or "").strip()
     tycho2_id = str(record.get("tycho2_id") or "").strip()
@@ -227,302 +104,6 @@ def native_names(record: dict[str, Any], include_labels: bool = False) -> str:
     return "|".join(cleaned)[:255]
 
 
-def _clean_identifier(value: Any, prefix: str = "") -> str:
-    text = str(value or "").strip()
-    if prefix and text.upper().startswith(prefix.upper() + " "):
-        text = text[len(prefix) + 1 :].strip()
-    if prefix and text.upper().startswith(prefix.upper() + "-"):
-        text = text[len(prefix) + 1 :].strip()
-    return text
-
-
-def _record_identity(record: dict[str, Any]) -> dict[str, str]:
-    catalog = str(record.get("catalog") or "").casefold()
-    source_id = str(record.get("source_id") or "").strip()
-    identity: dict[str, str] = {}
-    gaia_id = _clean_identifier(record.get("gaia_id"))
-    if not gaia_id and catalog.startswith("gaia") and source_id.isdigit():
-        gaia_id = source_id
-    if gaia_id.isdigit():
-        identity["gaia_id"] = gaia_id
-
-    hip_id = _clean_identifier(record.get("hip_id"), "HIP")
-    if not hip_id:
-        parsed_hip = parse_hip_number(record)
-        hip_id = str(parsed_hip) if parsed_hip else ""
-    if hip_id.isdigit():
-        identity["hip_id"] = hip_id
-
-    tycho2_id = _clean_identifier(record.get("tycho2_id"), "TYC")
-    if not tycho2_id and "tycho" in catalog:
-        tycho2_id = _clean_identifier(source_id, "TYC")
-    if tycho2_id:
-        identity["tycho2_id"] = tycho2_id
-    return identity
-
-
-def _record_priority(record: dict[str, Any]) -> tuple[int, str, str]:
-    catalog = str(record.get("catalog") or "").casefold()
-    if catalog.startswith("gaia"):
-        rank = 0
-    elif "hipparcos" in catalog:
-        rank = 1
-    elif "tycho" in catalog:
-        rank = 2
-    else:
-        rank = 3
-    return rank, catalog, str(record.get("source_id") or "")
-
-
-def _gaia_g_minus_v(bp_rp: float) -> float:
-    return -0.02704 + 0.01424 * bp_rp - 0.2156 * bp_rp**2 + 0.01426 * bp_rp**3
-
-
-def _johnson_g_minus_v(bv: float) -> float:
-    return -0.04749 - 0.0124 * bv - 0.2901 * bv**2 + 0.02008 * bv**3
-
-
-def _gaia_bp_rp_to_johnson_bv(bp_rp: float) -> float | None:
-    if not GAIA_BP_RP_RANGE[0] <= bp_rp <= GAIA_BP_RP_RANGE[1]:
-        return None
-    target = _gaia_g_minus_v(bp_rp)
-    # The Johnson polynomial has a shallow maximum in the blue-star range, so
-    # invert each monotonic branch independently instead of bisecting the full
-    # domain as though it were monotonic.
-    derivative_discriminant = 0.5802**2 + 4 * 0.06024 * 0.0124
-    turning_point = (0.5802 - math.sqrt(derivative_discriminant)) / (2 * 0.06024)
-    candidates: list[float] = []
-    for low, high in (
-        (JOHNSON_BV_RANGE[0], turning_point),
-        (turning_point, JOHNSON_BV_RANGE[1]),
-    ):
-        low_value = _johnson_g_minus_v(low)
-        high_value = _johnson_g_minus_v(high)
-        if not min(low_value, high_value) <= target <= max(low_value, high_value):
-            continue
-        increasing = low_value < high_value
-        for _ in range(60):
-            midpoint = (low + high) / 2
-            value = _johnson_g_minus_v(midpoint)
-            if (value < target) == increasing:
-                low = midpoint
-            else:
-                high = midpoint
-        candidates.append((low + high) / 2)
-    if not candidates:
-        return None
-    return min(candidates, key=lambda candidate: abs(candidate - bp_rp))
-
-
-def _first_finite(records: list[dict[str, Any]], field: str) -> float | None:
-    for record in records:
-        value = safe_float(record.get(field))
-        if value is not None:
-            return value
-    return None
-
-
-def _resolve_photometry(records: list[dict[str, Any]]) -> dict[str, Any] | None:
-    for record in records:
-        vmag = safe_float(record.get("johnson_v_mag"))
-        if vmag is None and str(record.get("magnitude_band") or "") == "V":
-            vmag = safe_float(record.get("magnitude"))
-        if vmag is None:
-            continue
-        bv = safe_float(record.get("johnson_bv"))
-        if bv is None and str(record.get("magnitude_band") or "") == "V":
-            bv = safe_float(record.get("color_index"))
-        gaia_g_mag = _first_finite(records, "gaia_g_mag")
-        return {
-            "render_vmag": vmag,
-            "render_gmag": gaia_g_mag if gaia_g_mag is not None else vmag,
-            "render_bv": bv if bv is not None else math.nan,
-            "photometry_source": "johnson",
-        }
-
-    for record in records:
-        bt_mag = safe_float(record.get("tycho_bt_mag"))
-        vt_mag = safe_float(record.get("tycho_vt_mag"))
-        if vt_mag is None and str(record.get("magnitude_band") or "") == "Tycho V_T":
-            vt_mag = safe_float(record.get("magnitude"))
-        if vt_mag is None:
-            continue
-        if bt_mag is None:
-            return {
-                "render_vmag": vt_mag,
-                "render_gmag": vt_mag,
-                "render_bv": math.nan,
-                "photometry_source": "tycho_vt_only",
-            }
-        color = bt_mag - vt_mag
-        if not TYCHO_BT_VT_RANGE[0] <= color <= TYCHO_BT_VT_RANGE[1]:
-            return {
-                "render_vmag": vt_mag,
-                "render_gmag": vt_mag,
-                "render_bv": math.nan,
-                "photometry_source": "tycho_vt_only",
-            }
-        return {
-            "render_vmag": vt_mag - 0.09 * color,
-            "render_gmag": vt_mag,
-            "render_bv": 0.85 * color,
-            "photometry_source": "tycho_transformed",
-        }
-
-    for record in records:
-        gmag = safe_float(record.get("gaia_g_mag"))
-        if gmag is None and str(record.get("magnitude_band") or "") == "Gaia G":
-            gmag = safe_float(record.get("magnitude"))
-        if gmag is None:
-            continue
-        bp_rp = safe_float(record.get("gaia_bp_rp"))
-        if bp_rp is None and str(record.get("magnitude_band") or "") == "Gaia G":
-            bp_rp = safe_float(record.get("color_index"))
-        bv = _gaia_bp_rp_to_johnson_bv(bp_rp) if bp_rp is not None else None
-        if bv is None:
-            return {
-                "render_vmag": gmag,
-                "render_gmag": gmag,
-                "render_bv": math.nan,
-                "photometry_source": "gaia_g_only",
-            }
-        return {
-            "render_vmag": gmag - _gaia_g_minus_v(bp_rp),
-            "render_gmag": gmag,
-            "render_bv": bv,
-            "photometry_source": "gaia_edr3_transformed",
-        }
-
-    for record in records:
-        magnitude = safe_float(record.get("magnitude"))
-        if magnitude is not None:
-            return {
-                "render_vmag": magnitude,
-                "render_gmag": magnitude,
-                "render_bv": math.nan,
-                "photometry_source": "catalog_magnitude_only",
-            }
-    return None
-
-
-def _merge_star_group(records: list[dict[str, Any]]) -> dict[str, Any] | None:
-    ordered = sorted(records, key=_record_priority)
-    astrometry = next(
-        (
-            record
-            for record in ordered
-            if safe_float(record.get("ra")) is not None and safe_float(record.get("dec")) is not None
-        ),
-        None,
-    )
-    photometry = _resolve_photometry(ordered)
-    if not astrometry or not photometry:
-        return None
-
-    identity: dict[str, str] = {}
-    aliases: list[str] = []
-    for record in ordered:
-        identity.update({key: value for key, value in _record_identity(record).items() if key not in identity})
-        values = [record.get("display_name"), record.get("source_id")]
-        values.extend(record.get("names") or [])
-        values.extend(record.get("aliases") or [])
-        for value in values:
-            text = str(value or "").strip()
-            if text and text not in aliases:
-                aliases.append(text)
-    if identity.get("gaia_id"):
-        aliases.append(f"Gaia DR3 {identity['gaia_id']}")
-    if identity.get("hip_id"):
-        aliases.append(f"HIP {identity['hip_id']}")
-    if identity.get("tycho2_id"):
-        aliases.append(f"TYC {identity['tycho2_id']}")
-    aliases = list(dict.fromkeys(aliases))
-
-    primary = ordered[0]
-    result = {
-        "catalog": str(primary.get("catalog") or "Unknown"),
-        "source_id": str(primary.get("source_id") or ""),
-        "model": "star",
-        "display_name": str(primary.get("display_name") or primary.get("source_id") or "Star"),
-        "aliases": aliases,
-        "ra": float(astrometry["ra"]),
-        "dec": float(astrometry["dec"]),
-        "coordinate_epoch": native_epoch(astrometry),
-        **identity,
-        **photometry,
-    }
-    for field in (
-        "proper_motion_ra",
-        "proper_motion_dec",
-        "parallax",
-        "spectral_type",
-    ):
-        for record in ordered:
-            value = record.get(field)
-            if value not in (None, ""):
-                result[field] = value
-                break
-    return result
-
-
-def reconcile_star_records(records: Iterable[dict[str, Any]]) -> tuple[list[dict[str, Any]], dict[str, int]]:
-    source_records = [record for record in records if record.get("model") == "star"]
-    eligible: list[dict[str, Any]] = []
-    skipped_unmatched_supplemental = 0
-    for record in source_records:
-        identity = _record_identity(record)
-        catalog = str(record.get("catalog") or "").casefold()
-        if catalog in SUPPLEMENTAL_RENDER_CATALOGS and not identity:
-            skipped_unmatched_supplemental += 1
-            continue
-        eligible.append(record)
-
-    parents = list(range(len(eligible)))
-
-    def find(index: int) -> int:
-        while parents[index] != index:
-            parents[index] = parents[parents[index]]
-            index = parents[index]
-        return index
-
-    def union(left: int, right: int) -> None:
-        left_root = find(left)
-        right_root = find(right)
-        if left_root != right_root:
-            parents[right_root] = left_root
-
-    owners: dict[tuple[str, str], int] = {}
-    for index, record in enumerate(eligible):
-        for key, value in _record_identity(record).items():
-            identity_key = (key, value)
-            if identity_key in owners:
-                union(index, owners[identity_key])
-            else:
-                owners[identity_key] = index
-
-    groups: dict[int, list[dict[str, Any]]] = defaultdict(list)
-    for index, record in enumerate(eligible):
-        groups[find(index)].append(record)
-
-    canonical = []
-    skipped_missing_photometry = 0
-    for group in groups.values():
-        merged = _merge_star_group(group)
-        if merged:
-            canonical.append(merged)
-        else:
-            skipped_missing_photometry += len(group)
-    canonical.sort(key=lambda record: (record["catalog"], record["source_id"]))
-    stats = {
-        "source_records": len(source_records),
-        "canonical_records": len(canonical),
-        "merged_records": len(eligible) - len(groups),
-        "skipped_unmatched_supplemental": skipped_unmatched_supplemental,
-        "skipped_missing_photometry": skipped_missing_photometry,
-    }
-    return canonical, stats
-
-
 def normalize_star_record(
     record: dict[str, Any],
     magnitude_limit: float,
@@ -531,11 +112,10 @@ def normalize_star_record(
 ) -> tuple[dict[str, Any] | None, str | None]:
     if record.get("model") != "star":
         return None, "not_star"
-    ra = safe_float(record.get("ra"))
-    dec = safe_float(record.get("dec"))
-    magnitude = safe_float(record.get("render_vmag"))
-    if magnitude is None:
-        magnitude = safe_float(record.get("magnitude"))
+    science = record.get("star_science") or normalize_star_science(record)
+    ra = safe_float(science.get("ra"))
+    dec = safe_float(science.get("dec"))
+    magnitude = safe_float(science.get("render_magnitude"))
     source_id = str(record.get("source_id") or "").strip()
     if not source_id:
         return None, "missing_source_id"
@@ -548,19 +128,17 @@ def normalize_star_record(
     if minimum_magnitude is not None and magnitude < minimum_magnitude:
         return None, "minimum_magnitude"
 
-    pm_ra_mas = safe_float(record.get("proper_motion_ra")) or 0.0
-    pm_dec_mas = safe_float(record.get("proper_motion_dec")) or 0.0
-    parallax_mas = safe_float(record.get("parallax"))
+    pm_ra_mas = safe_float(science.get("proper_motion_ra_mas_per_year")) or 0.0
+    pm_dec_mas = safe_float(science.get("proper_motion_dec_mas_per_year")) or 0.0
+    parallax_mas = safe_float(science.get("parallax_mas"))
     gmag = safe_float(record.get("render_gmag"))
-    color_index = safe_float(record.get("render_bv"))
-    if color_index is None and str(record.get("magnitude_band") or "") == "V":
-        color_index = safe_float(record.get("color_index"))
+    color_index = safe_float(science.get("bv"))
     return {
         "catalog": str(record.get("catalog") or "Unknown"),
         "source_id": source_id,
         "display_name": str(record.get("display_name") or source_id),
-        "gaia": parse_gaia_id(record),
-        "hip": parse_hip_number(record),
+        "gaia": int(science.get("gaia_id") or 0),
+        "hip": int(science.get("hip_id") or 0),
         "vmag": magnitude,
         "gmag": gmag if gmag is not None else magnitude,
         "ra_rad": math.radians(ra),
@@ -568,10 +146,10 @@ def normalize_star_record(
         "plx_arcsec": (parallax_mas / 1000.0) if parallax_mas is not None else math.nan,
         "pra_rad_year": pm_ra_mas * (math.pi / (180.0 * 3600.0 * 1000.0)),
         "pde_rad_year": pm_dec_mas * (math.pi / (180.0 * 3600.0 * 1000.0)),
-        "epoch": native_epoch(record),
+        "epoch": native_epoch(science),
         "bv": color_index if color_index is not None else math.nan,
         "ids": native_names(record, include_labels=include_labels),
-        "spectral_type": str(record.get("spectral_type") or "")[:31],
+        "spectral_type": str(science.get("spectral_type") or "")[:31],
     }, None
 
 
@@ -661,7 +239,7 @@ def write_star_tile(path: Path, order: int, pix: int, stars: list[dict[str, Any]
     path.write_bytes(content)
 
 
-def write_properties(root: Path, release_version: str, magnitude_limit: float, tile_order: int, star_count: int, min_mag: float | None, max_mag: float | None) -> None:
+def write_properties(root: Path, release_version: str, magnitude_limit: float, tile_order: int, star_count: int, min_mag: float | None, max_mag: float | None, label_mode: str = "named") -> None:
     min_vmag = min_mag if min_mag is not None else -2.0
     max_vmag = max_mag if max_mag is not None else magnitude_limit
     properties = "\n".join([
@@ -673,7 +251,7 @@ def write_properties(root: Path, release_version: str, magnitude_limit: float, t
         f"max_vmag                 = {max_vmag}",
         "type                     = stars",
         "hips_tile_format         = eph",
-        "oras_show_labels         = false",
+        f"oras_show_labels         = {'true' if label_mode == 'named' else 'false'}",
         f"oras_release_version     = {release_version}",
         f"oras_star_count          = {star_count}",
         "",
@@ -703,21 +281,11 @@ def make_release_tree_readable(root: Path) -> None:
 
 
 def promote_release_tree(tmp_root: Path, output_root: Path) -> None:
-    backup_root: Path | None = None
-    if output_root.exists():
-        backup_root = output_root.with_name(f"{output_root.name}.previous-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}")
-        if backup_root.exists():
-            shutil.rmtree(backup_root)
-        output_root.rename(backup_root)
-    try:
-        tmp_root.rename(output_root)
-    except Exception:
-        if backup_root and backup_root.exists() and not output_root.exists():
-            backup_root.rename(output_root)
-        raise
-    else:
-        if backup_root and backup_root.exists():
-            shutil.rmtree(backup_root, ignore_errors=True)
+    from scripts.skydata.promote_runtime_release import promote_release
+    from scripts.skydata.validate_oras_dense_star_tiles import validate_dense_star_tiles, validate_profile_tiles
+    manifest = json.loads((tmp_root / 'manifest.json').read_text())
+    (validate_dense_star_tiles if 'profiles' in manifest else validate_profile_tiles)(tmp_root)
+    promote_release(tmp_root, output_root)
 
 
 def _build_profile_tiles(
@@ -789,7 +357,7 @@ def _build_profile_tiles(
             raise ValueError(f"dense star profile {profile_id} produced no stars")
         min_mag = min(magnitudes) if magnitudes else None
         max_mag = max(magnitudes) if magnitudes else None
-        write_properties(tmp_root, release_version, magnitude_limit, tile_order, star_count, min_mag, max_mag)
+        write_properties(tmp_root, release_version, magnitude_limit, tile_order, star_count, min_mag, max_mag, label_mode)
         tile_files = sorted(tmp_root.glob(f"Norder{tile_order}/Dir*/Npix*.eph"))
         tile_entries = [
             {
@@ -810,6 +378,8 @@ def _build_profile_tiles(
             "profile_label": profile_label,
             "profile_intent": profile_intent,
             "label_mode": label_mode,
+            "science_schema_version": 1,
+            "source_manifest_sha256": sha256_file(source_root / "manifest.json"),
             "source_pack": SOURCE_PACK_ID,
             "source_id_type": "string",
             "star_count": star_count,
@@ -937,6 +507,8 @@ def build_dense_star_tiles(
             "rendering_path": "native_swe_star_tiles",
             "catalog_mode": CATALOG_MODE,
             "native_continuation": NATIVE_CONTINUATION,
+            "science_schema_version": 1,
+            "source_manifest_sha256": sha256_file(source_root / "manifest.json"),
             "source_pack": SOURCE_PACK_ID,
             "source_id_type": "string",
             "default_profile": DEFAULT_PROFILE,

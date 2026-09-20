@@ -10,6 +10,9 @@ import re
 from typing import Any, Iterable, Sequence
 
 
+from backend.app.services.star_science import validate_star_science
+
+
 PACK_ID_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 REQUIRED_TEXT_FIELDS = ("catalog", "model", "display_name", "category")
 STRING_LIST_FIELDS = ("names", "aliases", "common_names", "types", "catalog_ids")
@@ -45,6 +48,16 @@ OPTIONAL_FIELDS = (
     "candidate_status",
     "description",
     "render_hint",
+    "star_science",
+    "source_star_science",
+    "gaia_id",
+    "coordinate_frame",
+    "coordinate_method",
+    "color_index_band",
+    "source_ra",
+    "source_dec",
+    "source_coordinate_frame",
+    "source_coordinate_epoch",
 )
 
 
@@ -66,6 +79,7 @@ def build_catalog_release(
     packs: Sequence[tuple[CatalogPackSpec, Iterable[dict[str, Any]]]],
     generated_at: str | None = None,
     chunk_size: int = 2_000,
+    supplemental_stars: Iterable[dict[str, Any]] = (),
 ) -> dict[str, Any]:
     root = Path(output_root)
     if chunk_size < 1:
@@ -96,6 +110,17 @@ def build_catalog_release(
         "object_count": sum(pack["object_count"] for pack in manifest_packs),
         "packs": manifest_packs,
     }
+    # The existing dense bright-star supplement is lookup science, not an
+    # additional metadata pack. Keep its provenance and checksum in the release.
+    supplement = [_normalize_record(r, expected_category="stars") for r in supplemental_stars]
+    if supplement:
+        payload = "".join(json.dumps(r, sort_keys=True, allow_nan=False) + "\n" for r in supplement).encode()
+        relative = "star-science-supplement.jsonl"
+        (root / relative).write_bytes(payload)
+        manifest["supplemental_stars"] = {
+            "path": relative, "object_count": len(supplement), "byte_size": len(payload),
+            "sha256": hashlib.sha256(payload).hexdigest(),
+        }
     _write_json(root / "manifest.json", manifest)
     return manifest
 
@@ -150,6 +175,9 @@ def validate_catalog_release(output_root: str | Path) -> list[str]:
         errors.append("release object count mismatch")
     if len(packs) != manifest.get("pack_count"):
         errors.append("release pack count mismatch")
+    if manifest.get("supplemental_stars"):
+        extra_errors, _ = _validate_chunk(root, "star-science-supplement", "stars", manifest["supplemental_stars"], set())
+        errors.extend(extra_errors)
     return errors
 
 
@@ -206,6 +234,10 @@ def _normalize_record(raw_record: Any, *, expected_category: str) -> dict[str, A
         if value is not None:
             record[field] = value
 
+    for field in ("star_science", "source_star_science"):
+        if field in record:
+            validate_star_science(record[field])
+
     # Reject NaN/Infinity and non-serializable values before writing chunks.
     json.dumps(record, allow_nan=False)
     return record
@@ -219,7 +251,7 @@ def _normalize_source(raw_source: Any) -> dict[str, Any]:
         "source_key": _required_text(raw_source.get("source_key"), "source attribution key is required"),
         "license_note": _required_text(raw_source.get("license_note"), "source license_note is required"),
     }
-    for field in ("source_url", "version"):
+    for field in ("source_url", "version", "sha256"):
         value = str(raw_source.get(field) or "").strip()
         if value:
             source[field] = value

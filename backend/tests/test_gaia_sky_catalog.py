@@ -568,6 +568,8 @@ def _write_gaia_sample_csv(path: Path, rows: list[dict[str, float | int]]) -> No
 
 
 def _setup_database(tmp_path: Path, monkeypatch) -> str:
+    # Legacy endpoint fixtures must not inherit an operator's mounted release.
+    monkeypatch.setenv("ORAS_CATALOG_PACKS_DIR", str(tmp_path / "no-mounted-packs"))
     database_path = tmp_path / "gaia_catalog.sqlite3"
     database_url = f"sqlite:///{database_path}"
     monkeypatch.setenv("DATABASE_URL", database_url)

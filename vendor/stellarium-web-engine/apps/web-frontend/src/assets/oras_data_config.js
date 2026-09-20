@@ -290,12 +290,16 @@ function buildOrasModelData (result, model, sourceId) {
   }
 
   if (normalizedModel === 'star') {
-    const ra = numberOrNull(result.ra)
-    const de = numberOrNull(result.dec)
-    const vmag = numberOrNull(result.phot_g_mean_mag == null ? result.magnitude : result.phot_g_mean_mag)
-    const plx = numberOrNull(result.parallax)
-    const pmRa = numberOrNull(result.pmra)
-    const pmDe = numberOrNull(result.pmdec)
+    const science = result.star_science
+    const ra = numberOrNull(science ? science.ra : result.ra)
+    const de = numberOrNull(science ? science.dec : result.dec)
+    // The native renderer requires Vmag; the contract retains any fallback band.
+    const vmag = numberOrNull(science ? science.render_magnitude : result.magnitude)
+    const plx = numberOrNull(science ? science.parallax_mas : result.parallax)
+    const pmRa = numberOrNull(science ? science.proper_motion_ra_mas_per_year : result.proper_motion_ra)
+    const pmDe = numberOrNull(science ? science.proper_motion_dec_mas_per_year : result.proper_motion_dec)
+    const epoch = numberOrNull(science ? science.coordinate_epoch : result.coordinate_epoch)
+    const bv = numberOrNull(science ? science.bv : null)
 
     if (ra != null) modelData.ra = ra
     if (de != null) modelData.de = de
@@ -303,12 +307,16 @@ function buildOrasModelData (result, model, sourceId) {
     if (plx != null) modelData.plx = plx
     if (pmRa != null) modelData.pm_ra = pmRa
     if (pmDe != null) modelData.pm_de = pmDe
-    if (result.spectral_type) modelData.spect_t = result.spectral_type
-    if (numberOrNull(result.color_index) != null) modelData.color_index = numberOrNull(result.color_index)
+    if (epoch != null) modelData.epoch = epoch
+    if (bv != null) modelData.BVMag = bv
+    if (science) {
+      if (science.spectral_type) modelData.spect_t = science.spectral_type
+      if (science.gaia_id) modelData.gaia = String(science.gaia_id)
+      if (science.hip_id) modelData.hip = Number(science.hip_id)
+    } else if (result.spectral_type) modelData.spect_t = result.spectral_type
     if (numberOrNull(result.mass_solar) != null) modelData.mass_solar = numberOrNull(result.mass_solar)
     if (numberOrNull(result.radius_solar) != null) modelData.radius_solar = numberOrNull(result.radius_solar)
     if (numberOrNull(result.temperature_k) != null) modelData.temperature_k = numberOrNull(result.temperature_k)
-    modelData.epoch = 2000
   }
 
   if (normalizedModel === 'dso') {
@@ -345,11 +353,11 @@ export function listOrasPackRoots () {
 }
 
 export function toOrasSkySource (result) {
-  if (!result || !result.display_name) {
+  if (!result || (!result.display_name && result.source_id == null)) {
     return undefined
   }
 
-  const displayName = String(result.display_name).trim()
+  const displayName = String(result.display_name || result.source_id).trim()
   const displayNameMatch = displayName.match(GAIA_DISPLAY_NAME_RE)
   const sourceId = displayNameMatch
     ? displayNameMatch[1]
@@ -381,7 +389,7 @@ export function toOrasSkySource (result) {
     display_name: displayName,
     ra: result.ra == null ? null : result.ra,
     dec: result.dec == null ? null : result.dec,
-    phot_g_mean_mag: result.phot_g_mean_mag == null ? (result.magnitude == null ? null : result.magnitude) : result.phot_g_mean_mag,
+    phot_g_mean_mag: result.phot_g_mean_mag == null ? null : result.phot_g_mean_mag,
     indexed: Boolean(result.indexed),
     status: result.status || null,
     message: result.message || null,
@@ -389,6 +397,7 @@ export function toOrasSkySource (result) {
   }
 
   const enrichmentFields = [
+    'star_science', 'coordinate_epoch', 'coordinate_frame', 'color_index_band',
     'aliases', 'common_names', 'catalog_ids', 'category', 'object_type',
     'source_attribution', 'pack_id', 'pack_version', 'pack_sources',
     'magnitude', 'magnitude_band', 'color_index', 'spectral_type', 'parallax',
@@ -448,4 +457,42 @@ export function withOrasRouteIdentityFallback (skySource, identity) {
   }
 
   return exactSkySource
+}
+
+// Exact identities first; star lookup never invents DSO designations.
+export function buildOrasNativeCandidates (source) {
+  const candidates = []
+  const add = value => {
+    const name = String(value || '').trim()
+    if (name && !candidates.includes(name)) candidates.push(name)
+  }
+  const science = source.star_science || {}
+  const catalog = String(source.catalog || '').toLowerCase()
+  const id = String(source.source_id || '').trim()
+  if (source.model === 'star') {
+    if (catalog.includes('gaia') && /^\d+$/.test(id)) add('GAIA ' + id)
+    if (catalog.includes('hipparcos') || /^hip-/i.test(id)) add('HIP ' + id.replace(/^hip-?/i, ''))
+    if (catalog.includes('tycho')) add('TYC ' + id.replace(/^tyc\s*/i, ''))
+    if (science.hip_id) add('HIP ' + science.hip_id)
+    if (science.gaia_id) add('GAIA ' + science.gaia_id)
+    if (science.tycho2_id) add('TYC ' + science.tycho2_id)
+  }
+  for (const name of [...(source.names || []), source.display_name, id]) {
+    if (!name) continue
+    add(name)
+    add('NAME ' + String(name).replace(/^NAME /, ''))
+    if (source.model === 'dso') {
+      const designation = String(name).match(/^(M|NGC|IC)\s*(\d+)$/i)
+      if (designation) add(designation[1].toUpperCase() + ' ' + designation[2])
+    }
+  }
+  return candidates.slice(0, source.model === 'star' ? 12 : 32)
+}
+
+export function findOrasNativeCandidate (stel, source) {
+  for (const candidate of buildOrasNativeCandidates(source)) {
+    const obj = stel.getObj(candidate)
+    if (obj) return obj
+  }
+  return undefined
 }

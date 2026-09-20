@@ -148,6 +148,19 @@ describe('ORAS dense native star runtime integration', () => {
     expect(source).toContain('subscribe')
   })
 
+  it('registers named-only profiles while rejecting unrestricted labels', async () => {
+    for (const [labelMode, ready] of [['named', true], ['all', false]] as const) {
+      const manager = createOrasDenseStarsManager({ fetchImpl: async () => ({ ok: true, text: async () => JSON.stringify({
+        schema_version: 1, rendering_path: 'native_swe_star_tiles', source_id_type: 'string',
+        catalog_mode: 'canonical_replacement', native_continuation: { key: 'gaia' },
+        release_version: 'fixture', default_profile: 'visual-default',
+        profiles: { 'visual-default': { path: 'profiles/visual-default', label_mode: labelMode, star_count: 10, tile_count: 3 } }
+      }) }) })
+      await manager.load()
+      expect(manager.isReadyForNativeRegistration()).toBe(ready)
+    }
+  })
+
   it('does not mark invalid dense star manifests as native-registration ready', async () => {
     const manager = createOrasDenseStarsManager({
       fetchImpl: async () => ({
