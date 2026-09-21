@@ -3248,7 +3248,7 @@ var swh = {
                 break;
               }
 
-              return _context.abrupt("return", undefined);
+              return _context.abrupt("return", this.skySource2SweObj(source));
 
             case 8:
               lookup = stel.cwrap('stars_get_by_identity', 'number', ['string', 'string', 'number', 'number', 'number']);
@@ -3277,7 +3277,7 @@ var swh = {
                 break;
               }
 
-              return _context.abrupt("return", undefined);
+              return _context.abrupt("return", this.skySource2SweObj(source));
 
             case 22:
               _context.next = 24;
@@ -3292,7 +3292,7 @@ var swh = {
               }
 
             case 25:
-              return _context.abrupt("return", undefined);
+              return _context.abrupt("return", this.skySource2SweObj(source));
 
             case 26:
               _context.prev = 26;

@@ -557,6 +557,27 @@ def test_dense_star_validator_rejects_profile_from_different_catalog_manifest(
         validator.validate_dense_star_tiles(output_root)
 
 
+def test_dense_star_validator_rejects_profile_metadata_drift(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_profile_metadata")
+    validator = _load_module(VALIDATOR_PATH, "validate_oras_dense_star_tiles_profile_metadata")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root, native_tile_order=3)
+    builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=3,
+        release_version="test.profile-metadata",
+    )
+    manifest_path = output_root / "manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    manifest["profiles"]["visual-default"]["magnitude_limit"] = 1.0
+    manifest_path.write_text(json.dumps(manifest))
+
+    with pytest.raises(ValueError, match="profile metadata mismatch: visual-default magnitude_limit"):
+        validator.validate_dense_star_tiles(output_root)
+
+
 @pytest.mark.parametrize(('catalog_order', 'dense_order'), [(3, 4), (4, 3)])
 def test_dense_star_builder_rejects_catalog_tile_order_mismatch(
     tmp_path: Path,

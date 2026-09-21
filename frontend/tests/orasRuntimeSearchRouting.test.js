@@ -85,6 +85,16 @@ function compileExactRouteMethod(swh, warningConsole = console) {
   )(swh, (skySource) => skySource, warningConsole)
 }
 
+function compileCanonicalStarMethod(stel, denseStars) {
+  const source = fs.readFileSync(swHelpersPath, 'utf8')
+  const functionSource = extractFunction(source, 'resolveCanonicalStar: async function')
+  return new Function(
+    'Vue',
+    'orasDenseStars',
+    `return (${functionSource})`,
+  )({ prototype: { $stel: stel } }, denseStars)
+}
+
 function exactStarIdentity() {
   return {
     catalog: 'Hipparcos (CDS)',
@@ -659,6 +669,31 @@ describe('oras runtime search routing', () => {
     expect(helpersSource).toContain('hint.order, hint.pix, status')
     expect(helpersSource).toContain('const maxLookupAttempts = 60')
     expect(helpersSource).toContain('lookupAttempts < maxLookupAttempts')
+  })
+
+  it.each([
+    ['active profile excludes the star', true, 4.8],
+    ['dense profile is disabled', false, 20],
+  ])('searches native continuations when %s', async (_label, ready, magnitudeLimit) => {
+    const native = { v: 17 }
+    const context = { skySource2SweObj: vi.fn(() => native) }
+    const method = compileCanonicalStarMethod(
+      { cwrap: vi.fn(), _malloc: vi.fn(), _free: vi.fn() },
+      {
+        getSnapshot: vi.fn(() => ({ magnitudeLimit })),
+        isReadyForNativeRegistration: vi.fn(() => ready),
+      },
+    )
+    const source = {
+      model: 'star',
+      star_science: {
+        render_magnitude: 10,
+        native_tile: { identity: 'GAIA 42', order: 3, pix: 7 },
+      },
+    }
+
+    await expect(method.call(context, source)).resolves.toBe(native)
+    expect(context.skySource2SweObj).toHaveBeenCalledWith(source)
   })
 
   it('retries a transient exact-star API failure and selects the successful response', async () => {

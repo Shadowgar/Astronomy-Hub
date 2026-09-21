@@ -283,7 +283,7 @@ const swh = {
     const hint = science && science.native_tile
     if (!hint) return this.skySource2SweObj(source)
     const snapshot = orasDenseStars.getSnapshot()
-    if (!orasDenseStars.isReadyForNativeRegistration() || science.render_magnitude > snapshot.magnitudeLimit) return undefined
+    if (!orasDenseStars.isReadyForNativeRegistration() || science.render_magnitude > snapshot.magnitudeLimit) return this.skySource2SweObj(source)
     const lookup = stel.cwrap('stars_get_by_identity', 'number', ['string', 'string', 'number', 'number', 'number'])
     const status = stel._malloc(4)
     const deadline = performance.now() + 1500
@@ -299,10 +299,10 @@ const swh = {
           return obj
         }
         // Only an outstanding tile request is retryable. An absent identity is final.
-        if (stel.HEAP32[status >> 2] !== 0) return undefined
+        if (stel.HEAP32[status >> 2] !== 0) return this.skySource2SweObj(source)
         await new Promise(resolve => setTimeout(resolve, 25))
       } while (lookupAttempts < maxLookupAttempts && performance.now() < deadline)
-      return undefined
+      return this.skySource2SweObj(source)
     } finally {
       stel._free(status)
     }

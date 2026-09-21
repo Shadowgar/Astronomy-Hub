@@ -208,6 +208,7 @@ def validate_profile_tiles(profile_root: Path) -> dict[str, Any]:
         "release_root": str(profile_root),
         "release_version": manifest.get("release_version"),
         "profile_id": manifest.get("profile_id"),
+        "profile_label": manifest.get("profile_label"),
         "profile_intent": manifest.get("profile_intent"),
         "label_mode": manifest.get("label_mode"),
         "tile_order": expected_tile_order,
@@ -215,6 +216,9 @@ def validate_profile_tiles(profile_root: Path) -> dict[str, Any]:
         "star_count": star_count,
         "tile_count": len(entries),
         "magnitude_limit": manifest.get("magnitude_limit"),
+        "minimum_magnitude": manifest.get("minimum_magnitude"),
+        "min_magnitude": manifest.get("min_magnitude"),
+        "max_magnitude": manifest.get("max_magnitude"),
         "rendering_path": manifest.get("rendering_path"),
         "catalog_mode": manifest.get("catalog_mode"),
         "native_continuation": continuation,
@@ -276,6 +280,21 @@ def validate_dense_star_tiles(release_root: Path = DEFAULT_RELEASE_ROOT) -> dict
             raise ValueError(
                 f"dense star profile catalog manifest digest mismatch: {profile_id}"
             )
+        metadata_fields = (
+            ("profile_id", "profile_id"),
+            ("label", "profile_label"),
+            ("profile_intent", "profile_intent"),
+            ("label_mode", "label_mode"),
+            ("magnitude_limit", "magnitude_limit"),
+            ("minimum_magnitude", "minimum_magnitude"),
+            ("min_magnitude", "min_magnitude"),
+            ("max_magnitude", "max_magnitude"),
+        )
+        for profile_field, report_field in metadata_fields:
+            if profile.get(profile_field) != profile_report[report_field]:
+                raise ValueError(
+                    f"dense star profile metadata mismatch: {profile_id} {profile_field}"
+                )
         if profile_report["star_count"] != int(profile.get("star_count", -1)):
             raise ValueError(f"dense star profile star count mismatch: {profile_id}")
         if profile_report["tile_count"] != int(profile.get("tile_count", -1)):
