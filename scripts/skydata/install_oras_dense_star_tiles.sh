@@ -12,6 +12,7 @@ target_parent="$(dirname "$target_dir")"
 timestamp="$(date -u +%Y%m%dT%H%M%SZ)"
 staging_dir="${target_dir}.staging-${timestamp}"
 catalog_dir="${ORAS_CATALOG_PACKS_HOST_DIR:-$PWD/data/runtime-packs/catalog-packs}"
+python_bin="${PYTHON_BIN:-.venv/bin/python}"
 
 if [[ ! -d "$source_dir" ]]; then
   echo "Source release directory does not exist: $source_dir" >&2
@@ -26,9 +27,9 @@ fi
 mkdir -p "$target_parent"
 rm -rf "$staging_dir"
 
-.venv/bin/python scripts/skydata/validate_oras_dense_star_tiles.py "$source_dir"
+"$python_bin" scripts/skydata/validate_oras_dense_star_tiles.py "$source_dir"
 if [[ -f "$catalog_dir/manifest.json" ]]; then
-  .venv/bin/python scripts/skydata/star_release_compatibility.py "$catalog_dir" "$source_dir"
+  "$python_bin" scripts/skydata/star_release_compatibility.py "$catalog_dir" "$source_dir"
 fi
 
 mkdir -p "$staging_dir"
@@ -67,8 +68,18 @@ for profile in (manifest.get("profiles") or {}).values():
 shutil.copy2(source / "manifest.json", staging / "manifest.json")
 PY
 
-.venv/bin/python scripts/skydata/validate_oras_dense_star_tiles.py "$staging_dir"
+"$python_bin" scripts/skydata/validate_oras_dense_star_tiles.py "$staging_dir"
 
 chmod -R a+rX "$staging_dir"
-.venv/bin/python scripts/skydata/promote_runtime_release.py "$staging_dir" "$target_dir"
-.venv/bin/python scripts/skydata/validate_oras_dense_star_tiles.py "$target_dir"
+backup_path="$("$python_bin" scripts/skydata/promote_runtime_release.py \
+  "$staging_dir" "$target_dir" --print-backup-only)"
+if ! "$python_bin" scripts/skydata/validate_oras_dense_star_tiles.py "$target_dir"; then
+  echo "Final dense-star validation failed; restoring previous generation" >&2
+  if [[ -n "$backup_path" && -d "$backup_path" ]]; then
+    "$python_bin" scripts/skydata/promote_runtime_release.py "$backup_path" "$target_dir" >/dev/null
+  else
+    mv "$target_dir" "$staging_dir"
+    rm -rf "$staging_dir"
+  fi
+  exit 1
+fi

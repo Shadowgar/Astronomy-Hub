@@ -40,6 +40,7 @@
     "dense-stars:build": ".venv/bin/python scripts/skydata/build_oras_dense_star_tiles.py",
     "dense-stars:install": "bash scripts/skydata/install_oras_dense_star_tiles.sh",
     "dense-stars:validate": ".venv/bin/python scripts/skydata/validate_oras_dense_star_tiles.py",
+    "stars:install-pair": ".venv/bin/python scripts/skydata/install_oras_star_release_pair.py",
     "satellites:build": ".venv/bin/python scripts/skydata/build_oras_satellite_tle_release.py",
     "satellites:install": "bash scripts/skydata/install_oras_satellite_tle_release.sh",
     "satellites:validate": ".venv/bin/python scripts/skydata/build_oras_satellite_tle_release.py --validate-only --output data/runtime-packs/satellite-tle/build",

@@ -30,6 +30,7 @@ def _write_catalog_pack_release(
     *,
     native_tile_order: int = 1,
     supplemental_stars: list[dict] | None = None,
+    release_version: str = "test",
 ) -> None:
     chunk_dir = root / "packs/stars-core"
     chunk_dir.mkdir(parents=True)
@@ -91,6 +92,8 @@ def _write_catalog_pack_release(
         record.update(coordinate_epoch=2000.0, coordinate_frame="ICRS")
         record["magnitude_band"] = "Gaia G" if record["catalog"] == "Gaia DR3" else "Tycho V_T"
         record["color_index_band"] = "Gaia BP-RP" if record["catalog"] == "Gaia DR3" else "Tycho B_T-V_T"
+        for source in record["source_attribution"]:
+            source["license_note"] = "Test fixture terms"
     chunk_path = chunk_dir / "chunk-00000.jsonl"
     text = "".join(json.dumps(record, separators=(",", ":")) + "\n" for record in records)
     chunk_path.write_text(text, encoding="utf-8")
@@ -103,20 +106,30 @@ def _write_catalog_pack_release(
         "ra": 12.0,
         "dec": 12.0,
         "magnitude": 4.0,
+        "magnitude_band": "V",
+        "coordinate_epoch": 2000.0,
+        "coordinate_frame": "ICRS",
+        "source_attribution": [{
+            "name": "Future test source",
+            "source_key": "future",
+            "license_note": "Test fixture terms",
+        }],
     }
     extra_text = json.dumps(extra_record, separators=(",", ":")) + "\n"
     (extra_chunk_dir / "chunk-00000.jsonl").write_text(extra_text, encoding="utf-8")
     manifest = {
         "schema_version": 1,
-        "release_version": "test",
+        "release_version": release_version,
         "generated_at": "2026-06-30T00:00:00Z",
         "native_star_tile_order": native_tile_order,
-        "object_count": len(records),
+        "pack_count": 2,
+        "object_count": len(records) + 1,
         "packs": [
             {
                 "pack_id": "stars-core",
                 "category": "stars",
                 "object_count": len(records),
+                "browser_index_count": len(records),
                 "sources": [{"name": "Test source", "source_key": "test"}],
                 "chunks": [
                     {
@@ -133,6 +146,7 @@ def _write_catalog_pack_release(
                 "pack_id": "stars-extra",
                 "category": "stars",
                 "object_count": 1,
+                "browser_index_count": 1,
                 "chunks": [
                     {
                         "path": "packs/stars-extra/chunk-00000.jsonl",
@@ -733,6 +747,7 @@ def test_dense_star_package_commands_exist() -> None:
     assert scripts["dense-stars:validate"] == ".venv/bin/python scripts/skydata/validate_oras_dense_star_tiles.py"
     assert scripts["dense-stars:install"] == "bash scripts/skydata/install_oras_dense_star_tiles.sh"
     assert scripts["validate:oras-dense-stars"] == "node scripts/skydata/validate_oras_dense_stars.js"
+    assert scripts["stars:install-pair"] == ".venv/bin/python scripts/skydata/install_oras_star_release_pair.py"
 
 
 def test_generated_dense_star_release_is_not_staged() -> None:
@@ -791,6 +806,101 @@ def test_dense_star_installer_preserves_previous_validated_generation(tmp_path: 
     validator = _load_module(VALIDATOR_PATH, "validate_dense_star_install")
     validator.validate_dense_star_tiles(active)
     validator.validate_dense_star_tiles(previous[0])
+
+
+def test_dense_star_installer_restores_previous_generation_after_final_validation_failure(
+    tmp_path: Path,
+) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_rollback")
+    source, generated, active = tmp_path / "source", tmp_path / "generated", tmp_path / "active"
+    _write_catalog_pack_release(source)
+    installer = REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh"
+    env = os.environ.copy()
+    env["ORAS_CATALOG_PACKS_HOST_DIR"] = str(source)
+    builder.build_dense_star_tiles(
+        source_root=source, output_root=generated, tile_order=1, release_version="test.old"
+    )
+    subprocess.run(
+        ["bash", str(installer), str(generated), str(active)],
+        cwd=REPO_ROOT, env=env, check=True, capture_output=True, text=True,
+    )
+    builder.build_dense_star_tiles(
+        source_root=source, output_root=generated, tile_order=1, release_version="test.new"
+    )
+    wrapper = tmp_path / "python-wrapper.sh"
+    wrapper.write_text(
+        "#!/usr/bin/env bash\n"
+        "set -euo pipefail\n"
+        "if [[ \"${1:-}\" == *validate_oras_dense_star_tiles.py && \"${2:-}\" == \"$ACTIVE_RELEASE\" ]]; then\n"
+        "  printf '{}\\n' > \"$ACTIVE_RELEASE/manifest.json\"\n"
+        "fi\n"
+        "exec \"$REAL_PYTHON\" \"$@\"\n",
+        encoding="utf-8",
+    )
+    wrapper.chmod(0o755)
+    env["PYTHON_BIN"] = str(wrapper)
+    env["REAL_PYTHON"] = str(REPO_ROOT / ".venv/bin/python")
+    env["ACTIVE_RELEASE"] = str(active)
+
+    result = subprocess.run(
+        ["bash", str(installer), str(generated), str(active)],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+
+    assert result.returncode != 0
+    assert json.loads((active / "manifest.json").read_text())["release_version"] == "test.old"
+
+
+def test_paired_star_release_installer_atomically_upgrades_compatible_pair(
+    tmp_path: Path,
+) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_pair")
+    installer = REPO_ROOT / "scripts/skydata/install_oras_star_release_pair.py"
+    active = tmp_path / "active-star-release"
+    for version in ("old", "new"):
+        catalog = tmp_path / f"catalog-{version}"
+        dense = tmp_path / f"dense-{version}"
+        _write_catalog_pack_release(
+            catalog,
+            native_tile_order=3,
+            release_version=f"catalog.{version}",
+        )
+        builder.build_dense_star_tiles(
+            source_root=catalog,
+            output_root=dense,
+            tile_order=3,
+            release_version=f"dense.{version}",
+        )
+        subprocess.run(
+            [
+                str(REPO_ROOT / ".venv/bin/python"),
+                str(installer),
+                str(catalog),
+                str(dense),
+                str(active),
+            ],
+            cwd=REPO_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+    assert json.loads((active / "catalog-packs/manifest.json").read_text())[
+        "release_version"
+    ] == "catalog.new"
+    assert json.loads((active / "dense-star-tiles/manifest.json").read_text())[
+        "release_version"
+    ] == "dense.new"
+    previous = list(tmp_path.glob("active-star-release.previous-*"))
+    assert len(previous) == 1
+    assert json.loads((previous[0] / "catalog-packs/manifest.json").read_text())[
+        "release_version"
+    ] == "catalog.old"
 
 
 def test_dense_star_installer_rejects_mismatched_active_catalog_tile_order(tmp_path: Path) -> None:

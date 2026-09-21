@@ -52,6 +52,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('staging', type=Path)
     parser.add_argument('active', type=Path)
+    parser.add_argument('--print-backup-only', action='store_true')
     args = parser.parse_args()
     previous = promote_release(args.staging, args.active)
-    print(f'Promoted {args.active}; rollback generation: {previous}')
+    if args.print_backup_only:
+        print(previous or '')
+    else:
+        print(f'Promoted {args.active}; rollback generation: {previous}')
