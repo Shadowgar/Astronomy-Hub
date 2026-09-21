@@ -85,6 +85,12 @@ function compileExactRouteMethod(swh, warningConsole = console) {
   )(swh, (skySource) => skySource, warningConsole)
 }
 
+function compileResolveExactRouteObjectMethod(swh) {
+  const source = fs.readFileSync(appVuePath, 'utf8')
+  const functionSource = extractFunction(source, 'resolveExactSkySourceRouteObject: function')
+  return new Function('swh', `return (${functionSource})`)(swh)
+}
+
 function compileCanonicalStarMethod(stel, denseStars) {
   const source = fs.readFileSync(swHelpersPath, 'utf8')
   const functionSource = extractFunction(source, 'resolveCanonicalStar: async function')
@@ -928,6 +934,33 @@ describe('oras runtime search routing', () => {
     expect(ownedObject.destroy).toHaveBeenCalledTimes(1)
     expect(ownedObject.__orasOwnedLookup).toBe(false)
     expect(swh.setSweObjAsSelection).not.toHaveBeenCalled()
+  })
+
+  it('does not materialize a manual fallback after the exact route changes', async () => {
+    const firstIdentity = exactStarIdentity()
+    const secondIdentity = { ...firstIdentity, sourceId: 'hip-84' }
+    let resolveNativeLookup
+    let currentIdentity = firstIdentity
+    const swh = {
+      resolveCanonicalStar: vi.fn(() => new Promise(resolve => { resolveNativeLookup = resolve })),
+      skySource2SweObj: vi.fn(),
+    }
+    const method = compileResolveExactRouteObjectMethod(swh)
+    const context = {
+      starDataSourcesReady: Promise.resolve(),
+      skySourceRouteIdentity: vi.fn(() => currentIdentity),
+      $stel: { createObj: vi.fn(() => ({ v: 42 })) },
+      $selectionLayer: { add: vi.fn() },
+    }
+
+    const pending = method.call(context, indexedStarSource(), firstIdentity)
+    await vi.waitFor(() => expect(resolveNativeLookup).toBeTypeOf('function'))
+    currentIdentity = secondIdentity
+    resolveNativeLookup(undefined)
+
+    await expect(pending).rejects.toThrow('route changed before fallback materialization')
+    expect(context.$stel.createObj).not.toHaveBeenCalled()
+    expect(context.$selectionLayer.add).not.toHaveBeenCalled()
   })
 
   it('releases a stale owned canonical lookup object without selecting it', async () => {

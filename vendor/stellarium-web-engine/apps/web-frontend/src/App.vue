@@ -400,6 +400,13 @@ export default {
         if (nativeObj) {
           return nativeObj
         }
+        const currentIdentity = this.skySourceRouteIdentity()
+        if (!currentIdentity ||
+          currentIdentity.catalog !== identity.catalog ||
+          currentIdentity.sourceId !== identity.sourceId ||
+          currentIdentity.model !== identity.model) {
+          throw new Error('Exact sky source route changed before fallback materialization')
+        }
         const fallbackObj = this.$stel.createObj(ss.model, ss)
         if (!fallbackObj) {
           throw new Error('Exact sky source target is not ready yet')
