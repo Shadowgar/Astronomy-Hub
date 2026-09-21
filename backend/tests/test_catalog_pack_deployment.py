@@ -36,11 +36,12 @@ def _record(source_id: str) -> dict:
     }
 
 
-def _build_fixture_release(root: Path) -> None:
+def _build_fixture_release(root: Path, *, native_tile_order: int = 3) -> None:
     build_catalog_release(
         root,
         release_version="2026.06.deploy-test",
         generated_at="2026-06-30T12:00:00Z",
+        native_star_tile_order=native_tile_order,
         chunk_size=1,
         packs=[
             (
@@ -106,6 +107,8 @@ def test_install_script_validates_and_installs_manifest_last(tmp_path: Path) -> 
     source = tmp_path / "source"
     target = tmp_path / "mounted"
     _build_fixture_release(source)
+    env = os.environ.copy()
+    env["ORAS_DENSE_STAR_TILES_HOST_DIR"] = str(tmp_path / "no-dense-release")
 
     result = subprocess.run(
         [
@@ -115,6 +118,7 @@ def test_install_script_validates_and_installs_manifest_last(tmp_path: Path) -> 
             str(target),
         ],
         cwd=REPO_ROOT,
+        env=env,
         text=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
@@ -127,6 +131,39 @@ def test_install_script_validates_and_installs_manifest_last(tmp_path: Path) -> 
     installed = json.loads((target / "manifest.json").read_text(encoding="utf-8"))
     assert installed["object_count"] == 2
     assert build_catalog_pack_status_payload(target)["data"]["object_count"] == 2
+
+
+def test_catalog_install_rejects_mismatched_active_dense_tile_order(tmp_path: Path) -> None:
+    source = tmp_path / "source"
+    target = tmp_path / "mounted"
+    dense = tmp_path / "dense-star-tiles"
+    dense.mkdir()
+    _build_fixture_release(source, native_tile_order=4)
+    (dense / "manifest.json").write_text(
+        json.dumps({"schema_version": 1, "tile_order": 3}),
+        encoding="utf-8",
+    )
+    env = os.environ.copy()
+    env["ORAS_DENSE_STAR_TILES_HOST_DIR"] = str(dense)
+
+    result = subprocess.run(
+        [
+            "bash",
+            str(REPO_ROOT / "scripts/skydata/install_oras_catalog_release.sh"),
+            str(source),
+            str(target),
+        ],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+
+    assert result.returncode != 0
+    assert "native star tile order mismatch" in result.stdout
+    assert not target.exists()
 
 
 def test_validate_script_reports_missing_release_without_creating_data(tmp_path: Path) -> None:

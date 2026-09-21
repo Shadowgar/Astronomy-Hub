@@ -28,6 +28,7 @@ from backend.app.services.star_science import (
     healpix_ang2pix, native_epoch, parse_hip_number, parse_gaia_id,
     safe_float, reconcile_star_records, normalize_star_science,
 )
+from scripts.skydata.star_release_compatibility import validate_catalog_build_order
 
 
 DEFAULT_SOURCE_ROOT = REPO_ROOT / "data/runtime-packs/catalog-packs"
@@ -309,6 +310,7 @@ def _build_profile_tiles(
         raise FileNotFoundError(f"bright star source not found: {bright_star_source}")
     if tile_order < 0 or tile_order > 8:
         raise ValueError("tile_order must be between 0 and 8")
+    validate_catalog_build_order(source_root, tile_order)
 
     tmp_root = Path(tempfile.mkdtemp(prefix="oras-dense-star-tiles-", dir=str(output_root.parent if output_root.parent.exists() else Path.cwd())))
     tiles: dict[int, list[dict[str, Any]]] = defaultdict(list)
@@ -457,6 +459,7 @@ def build_dense_star_tiles(
         raise FileNotFoundError(f"catalog pack manifest not found: {source_root / 'manifest.json'}")
     if tile_order < 0 or tile_order > 8:
         raise ValueError("tile_order must be between 0 and 8")
+    validate_catalog_build_order(source_root, tile_order)
 
     tmp_root = Path(tempfile.mkdtemp(prefix="oras-dense-star-release-", dir=str(output_root.parent if output_root.parent.exists() else Path.cwd())))
     profiles: dict[str, dict[str, Any]] = {}
@@ -541,6 +544,7 @@ def build_dense_star_tiles(
             "source_count": deep_profile["source_count"],
             "star_count": deep_profile["star_count"],
             "tile_count": deep_profile["tile_count"],
+            "tile_order": tile_order,
             "output_root": str(output_root),
             "magnitude_limit": deep_profile["magnitude_limit"],
             "minimum_magnitude": minimum_magnitude,

@@ -182,6 +182,42 @@ def test_native_tile_hint_is_omitted_without_a_canonical_identity(science):
         science.validate_star_science(contract)
 
 
+@pytest.mark.parametrize(
+    ('ra', 'dec'),
+    [
+        (120.5, -20.0),
+        ('120.5', '-20.0'),
+    ],
+)
+def test_science_coordinate_validation_uses_finite_converted_values(science, ra, dec):
+    contract = science.normalize_star_science(star())
+    contract['ra'] = ra
+    contract['dec'] = dec
+
+    science.validate_star_science(contract)
+
+
+@pytest.mark.parametrize(
+    ('field', 'value'),
+    [
+        ('ra', 'not-a-number'),
+        ('dec', 'not-a-number'),
+        ('ra', float('nan')),
+        ('dec', float('inf')),
+        ('ra', -0.01),
+        ('ra', 360.0),
+        ('dec', -90.01),
+        ('dec', 90.01),
+    ],
+)
+def test_science_coordinate_validation_rejects_invalid_values_with_value_error(science, field, value):
+    contract = science.normalize_star_science(star())
+    contract[field] = value
+
+    with pytest.raises(ValueError):
+        science.validate_star_science(contract)
+
+
 @pytest.mark.parametrize('field,value', [('coordinate_epoch', None), ('coordinate_frame', 'FK5'), ('source_id', 5853498713190525696), ('bv', float('nan'))])
 def test_invalid_nested_science_is_rejected_before_loading(science, field, value):
     contract = science.normalize_star_science(star())

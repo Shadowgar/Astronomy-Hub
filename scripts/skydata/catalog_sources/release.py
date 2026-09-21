@@ -89,6 +89,7 @@ def build_source_release(
         chunk_size=chunk_size,
         packs=packs,
         supplemental_stars=supplemental_stars,
+        native_star_tile_order=native_tile_order,
     )
     errors = validate_catalog_release(output_root)
     if errors:

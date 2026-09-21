@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 PYTHON_BIN="${PYTHON_BIN:-$ROOT_DIR/.venv/bin/python}"
 SOURCE_DIR="${1:-${ORAS_CATALOG_RELEASE_SOURCE_DIR:-$ROOT_DIR/data/runtime-packs/catalog-pack-build}}"
 TARGET_INPUT="${2:-${ORAS_CATALOG_PACKS_HOST_DIR:-$ROOT_DIR/data/runtime-packs/catalog-packs}}"
+DENSE_RELEASE_DIR="${ORAS_DENSE_STAR_TILES_HOST_DIR:-$ROOT_DIR/data/runtime-packs/dense-star-tiles}"
 
 if [[ ! -x "$PYTHON_BIN" ]]; then
   echo "Python runtime not found: $PYTHON_BIN" >&2
@@ -43,6 +44,11 @@ fi
 "$PYTHON_BIN" -m scripts.skydata.build_oras_catalog_release \
   --validate-only \
   --output "$SOURCE_DIR"
+
+if [[ -f "$DENSE_RELEASE_DIR/manifest.json" ]]; then
+  "$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/star_release_compatibility.py" \
+    "$SOURCE_DIR" "$DENSE_RELEASE_DIR"
+fi
 
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 STAGING="$(mktemp -d "$TARGET_PARENT/.catalog-pack-install-$STAMP.XXXXXX")"

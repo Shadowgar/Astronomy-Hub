@@ -14,7 +14,12 @@ from scripts.skydata.catalog_sources.acquisition import default_release_inputs
 from scripts.skydata.catalog_sources.release import build_source_release
 
 
-def build_from_config(config_path: str | Path, output_root: str | Path) -> dict:
+def build_from_config(
+    config_path: str | Path,
+    output_root: str | Path,
+    *,
+    native_tile_order: int,
+) -> dict:
     path = Path(config_path)
     config = json.loads(path.read_text(encoding="utf-8"))
     packs = []
@@ -41,6 +46,7 @@ def build_from_config(config_path: str | Path, output_root: str | Path) -> dict:
         generated_at=config.get("generated_at"),
         chunk_size=int(config.get("chunk_size") or 2_000),
         packs=packs,
+        native_star_tile_order=native_tile_order,
     )
 
 
@@ -73,7 +79,11 @@ def main() -> int:
                 native_tile_order=args.native_tile_order,
             )
         elif args.config:
-            manifest = build_from_config(args.config, args.output)
+            manifest = build_from_config(
+                args.config,
+                args.output,
+                native_tile_order=args.native_tile_order,
+            )
         else:
             parser.error("config is required unless --source-backed is used")
         print(json.dumps(manifest, indent=2, sort_keys=True))

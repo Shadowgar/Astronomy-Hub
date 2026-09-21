@@ -24,7 +24,7 @@ def _load_module(path: Path, name: str):
     return module
 
 
-def _write_catalog_pack_release(root: Path) -> None:
+def _write_catalog_pack_release(root: Path, *, native_tile_order: int = 1) -> None:
     chunk_dir = root / "packs/stars-core"
     chunk_dir.mkdir(parents=True)
     extra_chunk_dir = root / "packs/stars-extra"
@@ -104,6 +104,7 @@ def _write_catalog_pack_release(root: Path) -> None:
         "schema_version": 1,
         "release_version": "test",
         "generated_at": "2026-06-30T00:00:00Z",
+        "native_star_tile_order": native_tile_order,
         "object_count": len(records),
         "packs": [
             {
@@ -432,6 +433,50 @@ def test_dense_star_tile_builder_writes_native_eph_release(tmp_path: Path) -> No
     assert validation["native_continuation"]["key"] == "gaia"
 
 
+@pytest.mark.parametrize('order', [2, 3, 4])
+def test_dense_star_builder_accepts_matching_catalog_tile_order(tmp_path: Path, order: int) -> None:
+    builder = _load_module(BUILDER_PATH, f"build_oras_dense_star_tiles_matching_{order}")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root, native_tile_order=order)
+
+    report = builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=order,
+        release_version=f"test.order-{order}",
+    )
+
+    manifest = json.loads((output_root / "manifest.json").read_text(encoding="utf-8"))
+    assert report["tile_order"] == order
+    assert manifest["tile_order"] == order
+
+
+@pytest.mark.parametrize(('catalog_order', 'dense_order'), [(3, 4), (4, 3)])
+def test_dense_star_builder_rejects_catalog_tile_order_mismatch(
+    tmp_path: Path,
+    catalog_order: int,
+    dense_order: int,
+) -> None:
+    builder = _load_module(
+        BUILDER_PATH,
+        f"build_oras_dense_star_tiles_mismatch_{catalog_order}_{dense_order}",
+    )
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root, native_tile_order=catalog_order)
+
+    with pytest.raises(ValueError, match='native star tile order mismatch'):
+        builder.build_dense_star_tiles(
+            source_root=source_root,
+            output_root=output_root,
+            tile_order=dense_order,
+            release_version="test.mismatch",
+        )
+
+    assert not output_root.exists()
+
+
 def test_dense_star_builder_restores_source_backed_bright_hipparcos_tail(tmp_path: Path) -> None:
     builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_bright_tail")
     source_root = tmp_path / "catalog-packs"
@@ -589,11 +634,13 @@ def test_dense_star_installer_preserves_previous_validated_generation(tmp_path: 
     source, generated, active = tmp_path / "source", tmp_path / "generated", tmp_path / "active"
     _write_catalog_pack_release(source)
     installer = REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh"
+    env = os.environ.copy()
+    env["ORAS_CATALOG_PACKS_HOST_DIR"] = str(source)
     for version in ["test.old", "test.new"]:
         builder.build_dense_star_tiles(source_root=source, output_root=generated,
                                        tile_order=1, release_version=version)
         subprocess.run(["bash", str(installer), str(generated), str(active)],
-                       cwd=REPO_ROOT, check=True, capture_output=True, text=True)
+                       cwd=REPO_ROOT, env=env, check=True, capture_output=True, text=True)
     assert json.loads((active / "manifest.json").read_text())["release_version"] == "test.new"
     previous = list(tmp_path.glob("active.previous-*"))
     assert len(previous) == 1
@@ -601,6 +648,43 @@ def test_dense_star_installer_preserves_previous_validated_generation(tmp_path: 
     validator = _load_module(VALIDATOR_PATH, "validate_dense_star_install")
     validator.validate_dense_star_tiles(active)
     validator.validate_dense_star_tiles(previous[0])
+
+
+def test_dense_star_installer_rejects_mismatched_active_catalog_tile_order(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_install_mismatch")
+    source = tmp_path / "source"
+    generated = tmp_path / "generated"
+    active = tmp_path / "active"
+    mounted_catalog = tmp_path / "mounted-catalog"
+    _write_catalog_pack_release(source, native_tile_order=4)
+    _write_catalog_pack_release(mounted_catalog, native_tile_order=3)
+    builder.build_dense_star_tiles(
+        source_root=source,
+        output_root=generated,
+        tile_order=4,
+        release_version="test.mismatch",
+    )
+    env = os.environ.copy()
+    env["ORAS_CATALOG_PACKS_HOST_DIR"] = str(mounted_catalog)
+
+    result = subprocess.run(
+        [
+            "bash",
+            str(REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh"),
+            str(generated),
+            str(active),
+        ],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+
+    assert result.returncode != 0
+    assert "native star tile order mismatch" in result.stdout
+    assert not active.exists()
 
 
 def test_dense_star_builder_rejects_invalid_coordinate_contract(tmp_path: Path) -> None:

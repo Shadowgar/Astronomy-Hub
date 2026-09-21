@@ -589,10 +589,15 @@ def validate_star_science(science: Any) -> None:
     """Fail closed on a serialized contract; never infer missing source semantics."""
     if not isinstance(science, dict) or science.get('schema_version') != SCHEMA_VERSION:
         raise ValueError('unsupported star_science schema_version')
+    required_numbers: dict[str, float] = {}
     for field in ('ra', 'dec', 'coordinate_epoch'):
-        if safe_float(science.get(field)) is None:
+        value = safe_float(science.get(field))
+        if value is None:
             raise ValueError(f'star_science {field} must be finite')
-    if not 0 <= science['ra'] < 360 or not -90 <= science['dec'] <= 90:
+        required_numbers[field] = value
+    ra = required_numbers['ra']
+    dec = required_numbers['dec']
+    if not 0 <= ra < 360 or not -90 <= dec <= 90:
         raise ValueError('star_science coordinates out of range')
     if science.get('coordinate_frame') != 'ICRS':
         raise ValueError('star_science coordinate_frame must be ICRS')
@@ -615,8 +620,8 @@ def validate_star_science(science: Any) -> None:
             raise ValueError('star_science native_tile order is invalid')
         expected = healpix_ang2pix(
             1 << order,
-            math.radians(90-science['dec']),
-            math.radians(science['ra']),
+            math.radians(90 - dec),
+            math.radians(ra),
         )
         allowed_identities = _allowed_native_identities(science)
         if tile.get('pix') != expected:

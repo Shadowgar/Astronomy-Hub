@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -111,6 +112,46 @@ def test_catalog_pack_index_isolates_a_tampered_pack(tmp_path: Path) -> None:
     assert "checksum" in index.pack_statuses[1]["error"]
     assert search_catalog_packs("Gaia DR3", path=tmp_path)
     assert search_catalog_packs("Arp 220", path=tmp_path) == []
+
+
+def test_catalog_pack_index_isolates_invalid_star_science_coordinates(tmp_path: Path) -> None:
+    from backend.app.services.star_science import normalize_star_science
+
+    star = _record("Hipparcos (CDS)", "hip-42", "star", "Fixture", "stars")
+    star.update(
+        hip_id="42",
+        magnitude=1.0,
+        magnitude_band="V",
+        coordinate_epoch=2000.0,
+        coordinate_frame="ICRS",
+    )
+    star["star_science"] = normalize_star_science(star)
+    build_catalog_release(
+        tmp_path,
+        release_version="science-isolation-test",
+        packs=[
+            (_spec("stars-core", "stars"), [star]),
+            (_spec("dso-expanded", "dsos"), [_record("Arp", "Arp 220", "dso", "Arp 220", "dsos")]),
+        ],
+    )
+    manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+    star_chunk = manifest["packs"][0]["chunks"][0]
+    chunk_path = tmp_path / star_chunk["path"]
+    record = json.loads(chunk_path.read_text(encoding="utf-8"))
+    record["star_science"]["ra"] = "not-a-number"
+    payload = (json.dumps(record, sort_keys=True) + "\n").encode("utf-8")
+    chunk_path.write_bytes(payload)
+    star_chunk["byte_size"] = len(payload)
+    star_chunk["sha256"] = hashlib.sha256(payload).hexdigest()
+    (tmp_path / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+    index = load_catalog_pack_index(tmp_path)
+    statuses = {status["pack_id"]: status for status in index.pack_statuses}
+
+    assert statuses["stars-core"]["status"] == "failed"
+    assert "must be finite" in statuses["stars-core"]["error"]
+    assert statuses["dso-expanded"]["status"] == "loaded"
+    assert index.object_count == 1
 
 
 def test_catalog_pack_index_reloads_when_chunk_file_changes(tmp_path: Path) -> None:

@@ -11,6 +11,7 @@ target_dir="$(realpath -m "$2")"
 target_parent="$(dirname "$target_dir")"
 timestamp="$(date -u +%Y%m%dT%H%M%SZ)"
 staging_dir="${target_dir}.staging-${timestamp}"
+catalog_dir="${ORAS_CATALOG_PACKS_HOST_DIR:-$PWD/data/runtime-packs/catalog-packs}"
 
 if [[ ! -d "$source_dir" ]]; then
   echo "Source release directory does not exist: $source_dir" >&2
@@ -26,6 +27,9 @@ mkdir -p "$target_parent"
 rm -rf "$staging_dir"
 
 .venv/bin/python scripts/skydata/validate_oras_dense_star_tiles.py "$source_dir"
+if [[ -f "$catalog_dir/manifest.json" ]]; then
+  .venv/bin/python scripts/skydata/star_release_compatibility.py "$catalog_dir" "$source_dir"
+fi
 
 mkdir -p "$staging_dir"
 python3 - "$source_dir" "$staging_dir" <<'PY'

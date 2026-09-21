@@ -325,6 +325,7 @@ def test_source_release_builds_four_valid_packs(tmp_path: Path) -> None:
 
     assert manifest["pack_count"] == 4
     assert manifest["object_count"] == 7
+    assert manifest["native_star_tile_order"] == 4
     assert {pack["pack_id"] for pack in manifest["packs"]} == {
         "stars-core",
         "dso-expanded",
