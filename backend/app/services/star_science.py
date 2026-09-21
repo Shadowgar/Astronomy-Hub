@@ -11,6 +11,7 @@ import math
 from typing import Any, Iterable
 
 SCHEMA_VERSION = 1
+DEFAULT_NATIVE_TILE_ORDER = 3
 SUPPLEMENTAL_RENDER_CATALOGS = {"gliese cns3"}
 GAIA_BP_RP_RANGE = (-0.5, 5.0)
 JOHNSON_BV_RANGE = (-0.4, 3.3)
@@ -167,6 +168,53 @@ def _record_identity(record: dict[str, Any]) -> dict[str, str]:
     if tycho2_id:
         identity["tycho2_id"] = tycho2_id
     return identity
+
+
+def _allowed_native_identities(identity: dict[str, Any]) -> set[str]:
+    allowed: set[str] = set()
+    for field, prefix in (
+        ('hip_id', 'HIP'),
+        ('gaia_id', 'GAIA'),
+        ('tycho2_id', 'TYC'),
+    ):
+        value = identity.get(field)
+        if isinstance(value, str) and value:
+            allowed.add(f'{prefix} {value}')
+    return allowed
+
+
+def _native_tile_hint(
+    identity: dict[str, Any],
+    ra: float,
+    dec: float,
+    order: int,
+) -> dict[str, Any] | None:
+    if isinstance(order, bool) or not isinstance(order, int) or not 0 <= order <= 8:
+        raise ValueError('native tile order must be an integer between 0 and 8')
+    allowed = _allowed_native_identities(identity)
+    native_identity = next(
+        (
+            candidate
+            for candidate in (
+                f"HIP {identity['hip_id']}" if identity.get('hip_id') else None,
+                f"GAIA {identity['gaia_id']}" if identity.get('gaia_id') else None,
+                f"TYC {identity['tycho2_id']}" if identity.get('tycho2_id') else None,
+            )
+            if candidate in allowed
+        ),
+        None,
+    )
+    if native_identity is None:
+        return None
+    return {
+        'order': order,
+        'pix': healpix_ang2pix(
+            1 << order,
+            math.radians(90 - dec),
+            math.radians(ra),
+        ),
+        'identity': native_identity,
+    }
 
 
 def _record_priority(record: dict[str, Any]) -> tuple[int, str, str]:
@@ -343,7 +391,12 @@ def _source_color(record: dict[str, Any]) -> tuple[float | None, str | None]:
     return None, None
 
 
-def normalize_star_science(record: dict[str, Any], *, photometry_records: list[dict[str, Any]] | None = None) -> dict[str, Any]:
+def normalize_star_science(
+    record: dict[str, Any],
+    *,
+    photometry_records: list[dict[str, Any]] | None = None,
+    native_tile_order: int = DEFAULT_NATIVE_TILE_ORDER,
+) -> dict[str, Any]:
     """Normalize one explicitly dated ICRS astrometric solution without inventing values."""
     epoch = native_epoch(record)
     frame = str(record.get('coordinate_frame') or '')
@@ -359,9 +412,6 @@ def normalize_star_science(record: dict[str, Any], *, photometry_records: list[d
     render_band = 'V' if visual_method else {'gaia_g_only': 'Gaia G', 'tycho_vt_only': 'Tycho V_T'}.get(method, record.get('magnitude_band'))
     color, color_band = _source_color(record)
     ids = _record_identity(record)
-    identity = (f"HIP {ids['hip_id']}" if ids.get('hip_id') else
-                f"GAIA {ids['gaia_id']}" if ids.get('gaia_id') else
-                f"TYC {ids['tycho2_id']}" if ids.get('tycho2_id') else None)
     bv = safe_float(photometry.get('render_bv')) if photometry else None
     science = {
         'schema_version': SCHEMA_VERSION, 'ra': ra, 'dec': dec,
@@ -384,18 +434,21 @@ def normalize_star_science(record: dict[str, Any], *, photometry_records: list[d
         'color_index': color, 'color_index_band': color_band,
         'bv': bv, 'bv_method': method if bv is not None else None,
         'gaia_id': ids.get('gaia_id'), 'hip_id': ids.get('hip_id'), 'tycho2_id': ids.get('tycho2_id'),
-        'native_tile': {'order': 3, 'pix': healpix_ang2pix(8, math.radians(90-dec), math.radians(ra)), 'identity': identity} if identity else None,
+        'native_tile': _native_tile_hint(ids, ra, dec, native_tile_order),
     }
     return science
 
 
-def _merge_star_group(records: list[dict[str, Any]]) -> dict[str, Any] | None:
+def _merge_star_group(
+    records: list[dict[str, Any]],
+    native_tile_order: int,
+) -> dict[str, Any] | None:
     ordered = sorted(records, key=_record_priority)
     astrometry = ordered[0]
     # Validate every contributing record, including inputs whose astrometry loses
     # reconciliation. A stale row must not silently become a plausible new tile.
     for record in ordered:
-        normalize_star_science(record)
+        normalize_star_science(record, native_tile_order=native_tile_order)
     photometry = _resolve_photometry(ordered)
     if photometry is None:
         return None
@@ -409,7 +462,11 @@ def _merge_star_group(records: list[dict[str, Any]]) -> dict[str, Any] | None:
     common_names = list(dict.fromkeys(name for record in ordered for name in record.get('common_names', [])))
     aliases = list(dict.fromkeys([*('NAME '+name for name in common_names), *aliases]))
     result = {**astrometry, **ids, **photometry, 'aliases': aliases, 'common_names': common_names}
-    science = normalize_star_science(result, photometry_records=ordered)
+    science = normalize_star_science(
+        result,
+        photometry_records=ordered,
+        native_tile_order=native_tile_order,
+    )
     science['ambiguous_cross_ids'] = astrometry.get('ambiguous_cross_ids') or {}
     science['canonical_catalog'] = str(astrometry['catalog'])
     science['canonical_source_id'] = str(astrometry['source_id'])
@@ -475,7 +532,11 @@ def _isolate_ambiguous_components(group: list[dict[str, Any]]) -> tuple[list[lis
     return _identity_groups(isolated), affected
 
 
-def reconcile_star_records(records: Iterable[dict[str, Any]]) -> tuple[list[dict[str, Any]], dict[str, int]]:
+def reconcile_star_records(
+    records: Iterable[dict[str, Any]],
+    *,
+    native_tile_order: int = DEFAULT_NATIVE_TILE_ORDER,
+) -> tuple[list[dict[str, Any]], dict[str, int]]:
     """Reconcile explicit, unambiguous cross-identifiers; retain distinct components."""
     source_records = [r for r in records if r.get('model') == 'star']
     eligible = [r for r in source_records if str(r.get('catalog') or '').casefold() not in SUPPLEMENTAL_RENDER_CATALOGS or _record_identity(r)]
@@ -486,7 +547,7 @@ def reconcile_star_records(records: Iterable[dict[str, Any]]) -> tuple[list[dict
         ambiguous_count += affected
     canonical, skipped = [], 0
     for group in groups:
-        merged = _merge_star_group(group)
+        merged = _merge_star_group(group, native_tile_order)
         if merged is not None:
             canonical.append(merged)
         else:
@@ -501,7 +562,12 @@ def reconcile_star_records(records: Iterable[dict[str, Any]]) -> tuple[list[dict
     }
 
 
-def attach_canonical_star_science(source_records: Iterable[dict[str, Any]], canonical_records: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
+def attach_canonical_star_science(
+    source_records: Iterable[dict[str, Any]],
+    canonical_records: Iterable[dict[str, Any]],
+    *,
+    native_tile_order: int = DEFAULT_NATIVE_TILE_ORDER,
+) -> list[dict[str, Any]]:
     by_id, by_source = {}, {}
     for canonical in canonical_records:
         by_source[(canonical['catalog'], canonical['source_id'])] = canonical
@@ -510,7 +576,7 @@ def attach_canonical_star_science(source_records: Iterable[dict[str, Any]], cano
     result = []
     source_fields = ('source_catalog', 'source_id', 'source_magnitude', 'source_magnitude_band', 'color_index', 'color_index_band')
     for record in source_records:
-        source = normalize_star_science(record)
+        source = normalize_star_science(record, native_tile_order=native_tile_order)
         canonical = by_source.get((record['catalog'], record['source_id']))
         canonical = canonical or next((by_id[(k, v)] for k, v in _record_identity(record).items() if (k, v) in by_id), None)
         contract = dict(canonical['star_science']) if canonical else dict(source)
@@ -544,6 +610,16 @@ def validate_star_science(science: Any) -> None:
         raise ValueError('star_science visual magnitude requires a known V method')
     if science.get('native_tile') is not None:
         tile = science['native_tile']
-        expected = healpix_ang2pix(8, math.radians(90-science['dec']), math.radians(science['ra']))
-        if not isinstance(tile, dict) or tile.get('order') != 3 or tile.get('pix') != expected or not isinstance(tile.get('identity'), str):
+        order = tile.get('order') if isinstance(tile, dict) else None
+        if isinstance(order, bool) or not isinstance(order, int) or not 0 <= order <= 8:
+            raise ValueError('star_science native_tile order is invalid')
+        expected = healpix_ang2pix(
+            1 << order,
+            math.radians(90-science['dec']),
+            math.radians(science['ra']),
+        )
+        allowed_identities = _allowed_native_identities(science)
+        if tile.get('pix') != expected:
             raise ValueError('star_science native_tile disagrees with canonical coordinates')
+        if tile.get('identity') not in allowed_identities:
+            raise ValueError('star_science native_tile identity is not canonical')

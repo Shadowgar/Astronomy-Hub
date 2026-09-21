@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 
 from scripts.skydata.catalog_pack import (
@@ -55,6 +56,11 @@ def main() -> int:
     )
     parser.add_argument("--repo-root", type=Path, default=Path("."))
     parser.add_argument("--release-version", default="2026.06.1")
+    parser.add_argument(
+        "--native-tile-order",
+        type=int,
+        default=int(os.environ.get("ORAS_DENSE_STAR_TILE_ORDER", "3")),
+    )
     parser.add_argument("--validate-only", action="store_true")
     args = parser.parse_args()
 
@@ -64,6 +70,7 @@ def main() -> int:
                 default_release_inputs(args.source_root, args.repo_root),
                 args.output,
                 release_version=args.release_version,
+                native_tile_order=args.native_tile_order,
             )
         elif args.config:
             manifest = build_from_config(args.config, args.output)

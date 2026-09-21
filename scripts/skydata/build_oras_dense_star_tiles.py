@@ -325,7 +325,10 @@ def _build_profile_tiles(
             source_records.extend(
                 load_vizier_stars(bright_star_source, "hipparcos_bright")
             )
-        canonical_records, reconciliation = reconcile_star_records(source_records)
+        canonical_records, reconciliation = reconcile_star_records(
+            source_records,
+            native_tile_order=tile_order,
+        )
         photometry_sources.update(
             str(record.get("photometry_source") or "unknown")
             for record in canonical_records

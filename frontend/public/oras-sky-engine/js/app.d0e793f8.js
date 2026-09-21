@@ -846,12 +846,12 @@ var es_array_concat = __webpack_require__("99af");
 // EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
 var vue_esm = __webpack_require__("a026");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=9306c1b0&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=d1b6c7c4&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[(_vm.starLookupMessage)?_c('v-alert',{staticClass:"oras-star-lookup-status",attrs:{"role":"status","type":"info","dismissible":""},on:{"input":function($event){_vm.starLookupMessage = ''}}},[_vm._v(_vm._s(_vm.starLookupMessage))]):_vm._e(),_c('oras-catalog-status-dialog',{model:{value:(_vm.showCatalogPacks),callback:function ($$v) {_vm.showCatalogPacks=$$v},expression:"showCatalogPacks"}}),_c('oras-dense-stars-status-dialog',{model:{value:(_vm.showDenseStars),callback:function ($$v) {_vm.showDenseStars=$$v},expression:"showDenseStars"}}),_c('v-navigation-drawer',{attrs:{"app":"","stateless":"","width":"300"},model:{value:(_vm.nav),callback:function ($$v) {_vm.nav=$$v},expression:"nav"}},[_c('v-layout',{attrs:{"column":"","fill-height":""}},[_c('v-list',{attrs:{"dense":""}},[_vm._l((_vm.menuItems),function(item,i){return [(_vm.$store.state[item.store_show_menu_item] === false)?void 0:(item.header)?_c('v-subheader',{key:i,staticClass:"grey--text text--darken-1",domProps:{"textContent":_vm._s(item.header)}}):(item.divider)?_c('v-divider',{key:i,staticClass:"divider_menu"}):(item.switch)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-action',[_c('v-switch',{attrs:{"value":"","input-value":_vm.getStoreValue(item.store_var_name),"label":""}})],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.title))])],1)],1):[(item.link)?_c('v-list-item',{key:i,attrs:{"target":"_blank","rel":"noopener","href":item.link}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}}),_c('v-icon',{attrs:{"disabled":""}},[_vm._v("mdi-open-in-new")])],1):(item.footer===undefined)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.handleMenuItemClick(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]]})],2),_vm._l((_vm.menuComponents),function(item,i){return [_c(item,{key:i,tag:"component"})]}),_c('v-spacer'),_c('v-list',{attrs:{"dense":""}},[_c('v-divider',{staticClass:"divider_menu"}),_vm._l((_vm.menuItems),function(item,i){return [(item.footer)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]})],2)],2)],1),_c('v-main',[_c('v-container',{staticClass:"fill-height",staticStyle:{"padding":"0"},attrs:{"fluid":""}},[_c('div',{class:{ right_panel: _vm.$store.state.showSidePanel },attrs:{"id":"stel"}},[_c('div',{staticStyle:{"position":"relative","width":"100%","height":"100%"}},[_c(_vm.guiComponent,{tag:"component"}),_c('canvas',{ref:"stelCanvas",attrs:{"id":"stel-canvas"}})],1)])])],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=9306c1b0&
+// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=d1b6c7c4&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__("3835");
@@ -910,12 +910,12 @@ var toolbarvue_type_template_id_6acce61a_staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/components/toolbar.vue?vue&type=template&id=6acce61a&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/target-search.vue?vue&type=template&id=1531b74a&
-var target_searchvue_type_template_id_1531b74a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tsearch"},[_c('skysource-search',{attrs:{"floatingList":"true"},model:{value:(_vm.obsSkySource),callback:function ($$v) {_vm.obsSkySource=$$v},expression:"obsSkySource"}})],1)}
-var target_searchvue_type_template_id_1531b74a_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/target-search.vue?vue&type=template&id=75b70564&
+var target_searchvue_type_template_id_75b70564_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tsearch"},[_c('skysource-search',{attrs:{"floatingList":"true"},model:{value:(_vm.obsSkySource),callback:function ($$v) {_vm.obsSkySource=$$v},expression:"obsSkySource"}})],1)}
+var target_searchvue_type_template_id_75b70564_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/target-search.vue?vue&type=template&id=1531b74a&
+// CONCATENATED MODULE: ./src/components/target-search.vue?vue&type=template&id=75b70564&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/skysource-search.vue?vue&type=template&id=829e5c8c&
 var skysource_searchvue_type_template_id_829e5c8c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"click-outside",rawName:"v-click-outside",value:(_vm.resetSearch),expression:"resetSearch"}],staticStyle:{"position":"relative"}},[_c('v-text-field',{attrs:{"prepend-icon":"mdi-magnify","label":_vm.$t('Search...'),"hide-details":"","single-line":""},nativeOn:{"keyup":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"esc",27,$event.key,["Esc","Escape"])){ return null; }return _vm.resetSearch()}},model:{value:(_vm.searchText),callback:function ($$v) {_vm.searchText=$$v},expression:"searchText"}}),(_vm.showList)?_c('v-list',{style:(_vm.listStyle),attrs:{"dense":"","two-line":""}},_vm._l((_vm.autoCompleteChoices),function(source){return _c('v-list-item',{key:source.names[0],on:{"click":function($event){return _vm.sourceClicked(source)}}},[_c('v-list-item-action',[_c('img',{attrs:{"src":_vm.iconForSkySource(source)}})]),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(_vm.nameForSkySource(source)))]),_c('v-list-item-subtitle',[_vm._v(" "+_vm._s(_vm.subtitleForSkySource(source))+" "),(source.catalog)?_c('v-chip',{staticClass:"ml-1",attrs:{"x-small":"","outlined":""}},[_vm._v(_vm._s(source.catalog))]):_vm._e(),(source.pack_id || source.source_attribution)?_c('v-chip',{staticClass:"ml-1",attrs:{"x-small":"","color":"cyan darken-3","text-color":"white"}},[_vm._v("ORAS Enhanced")]):_vm._e()],1)],1)],1)}),1):_vm._e()],1)}
@@ -3223,7 +3223,7 @@ var swh = {
   // Return a SweObj matching a passed sky source JSON object if it's already instanciated in SWE
   resolveCanonicalStar: function () {
     var _resolveCanonicalStar = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(source) {
-      var stel, science, hint, snapshot, lookup, status, deadline, ptr, obj;
+      var stel, science, hint, snapshot, lookup, status, deadline, maxLookupAttempts, lookupAttempts, ptr, obj;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -3253,13 +3253,16 @@ var swh = {
               lookup = stel.cwrap('stars_get_by_identity', 'number', ['string', 'string', 'number', 'number', 'number']);
               status = stel._malloc(4);
               deadline = performance.now() + 1500;
-              _context.prev = 11;
+              maxLookupAttempts = 60;
+              lookupAttempts = 0;
+              _context.prev = 13;
 
-            case 12:
+            case 14:
+              lookupAttempts += 1;
               ptr = lookup(orasDenseStars.getSurveyKey(), hint.identity, hint.order, hint.pix, status);
 
               if (!ptr) {
-                _context.next = 17;
+                _context.next = 20;
                 break;
               }
 
@@ -3267,42 +3270,42 @@ var swh = {
               obj.__orasOwnedLookup = true;
               return _context.abrupt("return", obj);
 
-            case 17:
+            case 20:
               if (!(stel.HEAP32[status >> 2] !== 0)) {
-                _context.next = 19;
+                _context.next = 22;
                 break;
               }
 
               return _context.abrupt("return", undefined);
 
-            case 19:
-              _context.next = 21;
+            case 22:
+              _context.next = 24;
               return new Promise(function (resolve) {
                 return setTimeout(resolve, 25);
               });
 
-            case 21:
-              if (performance.now() < deadline) {
-                _context.next = 12;
+            case 24:
+              if (lookupAttempts < maxLookupAttempts && performance.now() < deadline) {
+                _context.next = 14;
                 break;
               }
 
-            case 22:
+            case 25:
               return _context.abrupt("return", undefined);
 
-            case 23:
-              _context.prev = 23;
+            case 26:
+              _context.prev = 26;
 
               stel._free(status);
 
-              return _context.finish(23);
+              return _context.finish(26);
 
-            case 26:
+            case 29:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, this, [[11,, 23, 26]]);
+      }, _callee, this, [[13,, 26, 29]]);
     }));
 
     function resolveCanonicalStar(_x) {
@@ -4219,13 +4222,18 @@ installDirectives_default()(component, {ClickOutside: click_outside["a" /* defau
                 obj = _context.t0;
 
                 if (!(ss !== this.obsSkySource)) {
-                  _context.next = 12;
+                  _context.next = 13;
                   break;
+                }
+
+                if (obj && obj.__orasOwnedLookup) {
+                  obj.__orasOwnedLookup = false;
+                  obj.destroy();
                 }
 
                 return _context.abrupt("return");
 
-              case 12:
+              case 13:
                 if (!obj) {
                   obj = this.$stel.createObj(ss.model, ss);
 
@@ -4235,7 +4243,7 @@ installDirectives_default()(component, {ClickOutside: click_outside["a" /* defau
                 }
 
                 if (obj) {
-                  _context.next = 17;
+                  _context.next = 18;
                   break;
                 }
 
@@ -4243,11 +4251,11 @@ installDirectives_default()(component, {ClickOutside: click_outside["a" /* defau
                 console.warn("Can't find object in SWE: " + label);
                 return _context.abrupt("return");
 
-              case 17:
+              case 18:
                 obj.__orasSkySourceData = ss;
                 sw_helpers.setSweObjAsSelection(obj, ss);
 
-              case 19:
+              case 20:
               case "end":
                 return _context.stop();
             }
@@ -4282,8 +4290,8 @@ var target_searchvue_type_style_index_0_lang_css_ = __webpack_require__("4654");
 
 var target_search_component = Object(componentNormalizer["a" /* default */])(
   components_target_searchvue_type_script_lang_js_,
-  target_searchvue_type_template_id_1531b74a_render,
-  target_searchvue_type_template_id_1531b74a_staticRenderFns,
+  target_searchvue_type_template_id_75b70564_render,
+  target_searchvue_type_template_id_75b70564_staticRenderFns,
   false,
   null,
   null,
@@ -7558,9 +7566,30 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
 
       var attempt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var retryDelayMs = 250;
-      var maxAttempts = identity.model === 'star' ? 0 : 80;
+      var maxAttempts = identity.model === 'star' ? 2 : 80;
       this.starLookupMessage = '';
-      return sw_helpers.fetchOrasSkySourceByIdentity(identity).then(function (ss) {
+      var request = sw_helpers.fetchOrasSkySourceByIdentity(identity).catch(function (err) {
+        if (identity.model !== 'star') {
+          throw err;
+        }
+
+        if (attempt < maxAttempts) {
+          return new Promise(function (resolve) {
+            return setTimeout(resolve, retryDelayMs);
+          }).then(function () {
+            return _this3.selectSkySourceRouteTargetByIdentity(identity, attempt + 1);
+          });
+        }
+
+        _this3.starLookupMessage = 'Star lookup unavailable for ' + identity.catalog + ' ' + identity.sourceId + '.';
+        console.warn('Star lookup request failed.', err);
+        return undefined;
+      });
+      return request.then(function (ss) {
+        if (!ss) {
+          return;
+        }
+
         ss = withOrasRouteIdentityFallback(ss, identity);
 
         if (!ss || !sw_helpers.skySourceMatchesIdentity(ss, identity)) {
@@ -7579,7 +7608,7 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
       }).catch(function (err) {
         if (identity.model === 'star') {
           _this3.starLookupMessage = 'Star lookup unavailable for ' + identity.catalog + ' ' + identity.sourceId + '.';
-          console.warn(_this3.starLookupMessage, err);
+          console.warn('Star route resolution failed.', err);
           return;
         }
 

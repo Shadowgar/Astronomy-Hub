@@ -28,7 +28,13 @@ export default {
         return
       }
       let obj = ss.model === 'star' ? await swh.resolveCanonicalStar(ss) : swh.skySource2SweObj(ss)
-      if (ss !== this.obsSkySource) return
+      if (ss !== this.obsSkySource) {
+        if (obj && obj.__orasOwnedLookup) {
+          obj.__orasOwnedLookup = false
+          obj.destroy()
+        }
+        return
+      }
       if (!obj) {
         obj = this.$stel.createObj(ss.model, ss)
         if (obj) {

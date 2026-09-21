@@ -2,6 +2,7 @@
 import importlib
 import importlib.util
 import json
+import math
 
 import pytest
 
@@ -13,9 +14,11 @@ def science():
 
 
 def star(**changes):
-    return dict(catalog='Hipparcos (CDS)', source_id='hip-42', hip_id='42', model='star',
-                ra=120.5, dec=-20.0, coordinate_epoch=2000.0, coordinate_frame='ICRS',
-                magnitude=0.0, magnitude_band='V', **changes)
+    row = dict(catalog='Hipparcos (CDS)', source_id='hip-42', hip_id='42', model='star',
+               ra=120.5, dec=-20.0, coordinate_epoch=2000.0, coordinate_frame='ICRS',
+               magnitude=0.0, magnitude_band='V')
+    row.update(changes)
+    return row
 
 
 @pytest.mark.parametrize('value', [-1.46, 0.0])
@@ -112,6 +115,71 @@ def test_nonfinite_optional_values_become_null(science):
 
 def test_shared_contract_module_exists():
     assert importlib.util.find_spec('backend.app.services.star_science'), 'shared star science contract is missing'
+
+
+@pytest.mark.parametrize('order', [2, 3, 4])
+def test_native_tile_hint_uses_explicit_release_order(science, order):
+    contract = science.normalize_star_science(star(), native_tile_order=order)
+
+    assert contract['native_tile'] == {
+        'order': order,
+        'pix': science.healpix_ang2pix(
+            1 << order,
+            math.radians(90 - contract['dec']),
+            math.radians(contract['ra']),
+        ),
+        'identity': 'HIP 42',
+    }
+    science.validate_star_science(contract)
+
+
+@pytest.mark.parametrize(
+    ('row', 'expected_identity'),
+    [
+        (star(), 'HIP 42'),
+        (
+            {
+                **star(catalog='Gaia DR3', source_id='5853498713190525696'),
+                'hip_id': None,
+                'gaia_id': '5853498713190525696',
+            },
+            'GAIA 5853498713190525696',
+        ),
+        (
+            {
+                **star(catalog='Tycho-2 (CDS)', source_id='9012-1234-1'),
+                'hip_id': None,
+                'tycho2_id': '9012-1234-1',
+            },
+            'TYC 9012-1234-1',
+        ),
+    ],
+)
+def test_native_tile_identity_must_match_contract_identity(science, row, expected_identity):
+    contract = science.normalize_star_science(row)
+    assert contract['native_tile']['identity'] == expected_identity
+    science.validate_star_science(contract)
+
+    contract['native_tile']['identity'] = expected_identity + '-wrong'
+    with pytest.raises(ValueError, match='identity'):
+        science.validate_star_science(contract)
+
+
+def test_native_tile_hint_is_omitted_without_a_canonical_identity(science):
+    row = star(catalog='Unidentified source', source_id='source-42')
+    row['hip_id'] = None
+    contract = science.normalize_star_science(row)
+
+    assert contract['native_tile'] is None
+    science.validate_star_science(contract)
+
+    contract['native_tile'] = {
+        'order': 3,
+        'pix': science.healpix_ang2pix(8, math.radians(110), math.radians(120.5)),
+        'identity': 'HIP 42',
+    }
+    with pytest.raises(ValueError, match='identity'):
+        science.validate_star_science(contract)
 
 
 @pytest.mark.parametrize('field,value', [('coordinate_epoch', None), ('coordinate_frame', 'FK5'), ('source_id', 5853498713190525696), ('bv', float('nan'))])

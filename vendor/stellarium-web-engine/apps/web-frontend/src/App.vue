@@ -411,10 +411,26 @@ export default {
 
     selectSkySourceRouteTargetByIdentity: function (identity, attempt = 0) {
       const retryDelayMs = 250
-      const maxAttempts = identity.model === 'star' ? 0 : 80
+      const maxAttempts = identity.model === 'star' ? 2 : 80
       this.starLookupMessage = ''
 
-      return swh.fetchOrasSkySourceByIdentity(identity).then(ss => {
+      const request = swh.fetchOrasSkySourceByIdentity(identity).catch(err => {
+        if (identity.model !== 'star') {
+          throw err
+        }
+        if (attempt < maxAttempts) {
+          return new Promise(resolve => setTimeout(resolve, retryDelayMs))
+            .then(() => this.selectSkySourceRouteTargetByIdentity(identity, attempt + 1))
+        }
+        this.starLookupMessage = 'Star lookup unavailable for ' + identity.catalog + ' ' + identity.sourceId + '.'
+        console.warn('Star lookup request failed.', err)
+        return undefined
+      })
+
+      return request.then(ss => {
+        if (!ss) {
+          return
+        }
         ss = withOrasRouteIdentityFallback(ss, identity)
         if (!ss || !swh.skySourceMatchesIdentity(ss, identity)) {
           throw new Error('Resolved sky source did not match requested identity')
@@ -431,7 +447,7 @@ export default {
       }).catch(err => {
         if (identity.model === 'star') {
           this.starLookupMessage = 'Star lookup unavailable for ' + identity.catalog + ' ' + identity.sourceId + '.'
-          console.warn(this.starLookupMessage, err)
+          console.warn('Star route resolution failed.', err)
           return
         }
         if (attempt < maxAttempts) {

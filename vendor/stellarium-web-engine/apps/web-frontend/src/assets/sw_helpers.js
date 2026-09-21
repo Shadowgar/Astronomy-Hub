@@ -287,8 +287,11 @@ const swh = {
     const lookup = stel.cwrap('stars_get_by_identity', 'number', ['string', 'string', 'number', 'number', 'number'])
     const status = stel._malloc(4)
     const deadline = performance.now() + 1500
+    const maxLookupAttempts = 60
+    let lookupAttempts = 0
     try {
       do {
+        lookupAttempts += 1
         const ptr = lookup(orasDenseStars.getSurveyKey(), hint.identity, hint.order, hint.pix, status)
         if (ptr) {
           const obj = new stel.SweObj(ptr)
@@ -298,7 +301,7 @@ const swh = {
         // Only an outstanding tile request is retryable. An absent identity is final.
         if (stel.HEAP32[status >> 2] !== 0) return undefined
         await new Promise(resolve => setTimeout(resolve, 25))
-      } while (performance.now() < deadline)
+      } while (lookupAttempts < maxLookupAttempts && performance.now() < deadline)
       return undefined
     } finally {
       stel._free(status)

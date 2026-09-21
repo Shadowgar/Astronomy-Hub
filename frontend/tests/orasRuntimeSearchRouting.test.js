@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import {
   ORAS_BUNDLED_DSS_SURVEY_ROOT,
@@ -40,6 +40,69 @@ const targetSearchPath = path.resolve(
   process.cwd(),
   '../vendor/stellarium-web-engine/apps/web-frontend/src/components/target-search.vue'
 )
+
+function extractFunction(source, signature) {
+  const signatureStart = source.indexOf(signature)
+  expect(signatureStart).toBeGreaterThanOrEqual(0)
+  const asyncStart = source.indexOf('async function', signatureStart)
+  const plainStart = source.indexOf('function', signatureStart)
+  const functionStart = asyncStart >= 0 && asyncStart < plainStart ? asyncStart : plainStart
+  const bodyStart = source.indexOf('{', functionStart)
+  let depth = 0
+  let quote = null
+  let escaped = false
+  for (let index = bodyStart; index < source.length; index += 1) {
+    const character = source[index]
+    if (quote) {
+      if (escaped) {
+        escaped = false
+      } else if (character === '\\') {
+        escaped = true
+      } else if (character === quote) {
+        quote = null
+      }
+      continue
+    }
+    if (character === "'" || character === '"' || character === '`') {
+      quote = character
+      continue
+    }
+    if (character === '{') depth += 1
+    if (character === '}') depth -= 1
+    if (depth === 0) return source.slice(functionStart, index + 1)
+  }
+  throw new Error(`Could not extract ${signature}`)
+}
+
+function compileExactRouteMethod(swh, warningConsole = console) {
+  const source = fs.readFileSync(appVuePath, 'utf8')
+  const functionSource = extractFunction(source, 'selectSkySourceRouteTargetByIdentity: function')
+  return new Function(
+    'swh',
+    'withOrasRouteIdentityFallback',
+    'console',
+    `return (${functionSource})`,
+  )(swh, (skySource) => skySource, warningConsole)
+}
+
+function exactStarIdentity() {
+  return {
+    catalog: 'Hipparcos (CDS)',
+    sourceId: 'hip-42',
+    model: 'star',
+    ra: 120.5,
+    dec: -20,
+  }
+}
+
+function indexedStarSource() {
+  return {
+    catalog: 'Hipparcos (CDS)',
+    source_id: 'hip-42',
+    model: 'star',
+    star_science: { render_magnitude: 1.0 },
+  }
+}
 
 describe('oras runtime search routing', () => {
   it('preserves source-backed catalog-pack enrichment through SWE materialization', () => {
@@ -594,6 +657,133 @@ describe('oras runtime search routing', () => {
     expect(helpersSource).toContain("stel.cwrap('stars_get_by_identity'")
     expect(helpersSource).toContain("stel.HEAP32[status >> 2] !== 0")
     expect(helpersSource).toContain('hint.order, hint.pix, status')
+    expect(helpersSource).toContain('const maxLookupAttempts = 60')
+    expect(helpersSource).toContain('lookupAttempts < maxLookupAttempts')
+  })
+
+  it('retries a transient exact-star API failure and selects the successful response', async () => {
+    vi.useFakeTimers()
+    try {
+      const skySource = indexedStarSource()
+      const obj = { v: 42 }
+      const swh = {
+        fetchOrasSkySourceByIdentity: vi.fn()
+          .mockRejectedValueOnce(new Error('backend starting'))
+          .mockResolvedValueOnce(skySource),
+        skySourceMatchesIdentity: vi.fn(() => true),
+        setSweObjAsSelection: vi.fn(),
+      }
+      const method = compileExactRouteMethod(swh, { warn: vi.fn() })
+      const context = {
+        starLookupMessage: '',
+        resolveExactSkySourceRouteObject: vi.fn().mockResolvedValue(obj),
+      }
+      context.selectSkySourceRouteTargetByIdentity = method
+
+      const pending = method.call(context, exactStarIdentity())
+      await vi.runAllTimersAsync()
+      await pending
+
+      expect(swh.fetchOrasSkySourceByIdentity).toHaveBeenCalledTimes(2)
+      expect(swh.setSweObjAsSelection).toHaveBeenCalledWith(obj, skySource)
+      expect(context.starLookupMessage).toBe('')
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('ends permanent exact-star request failures in a controlled unavailable state', async () => {
+    vi.useFakeTimers()
+    try {
+      const warningConsole = { warn: vi.fn() }
+      const swh = {
+        fetchOrasSkySourceByIdentity: vi.fn().mockRejectedValue(new Error('service unavailable')),
+        skySourceMatchesIdentity: vi.fn(() => true),
+        setSweObjAsSelection: vi.fn(),
+      }
+      const method = compileExactRouteMethod(swh, warningConsole)
+      const context = {
+        starLookupMessage: '',
+        resolveExactSkySourceRouteObject: vi.fn(),
+      }
+      context.selectSkySourceRouteTargetByIdentity = method
+
+      const pending = method.call(context, exactStarIdentity())
+      await vi.runAllTimersAsync()
+      await pending
+
+      expect(swh.fetchOrasSkySourceByIdentity).toHaveBeenCalledTimes(3)
+      expect(context.starLookupMessage).toBe('Star lookup unavailable for Hipparcos (CDS) hip-42.')
+      expect(warningConsole.warn).toHaveBeenCalledWith(
+        'Star lookup request failed.',
+        expect.any(Error),
+      )
+      expect(context.resolveExactSkySourceRouteObject).not.toHaveBeenCalled()
+      expect(swh.setSweObjAsSelection).not.toHaveBeenCalled()
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('treats a successful not-indexed exact-star response as final', async () => {
+    const unavailable = {
+      catalog: 'Gaia DR2',
+      source_id: '2252802052894084352',
+      model: 'star',
+      indexed: false,
+      status: 'not_indexed',
+    }
+    const swh = {
+      fetchOrasSkySourceByIdentity: vi.fn().mockResolvedValue(unavailable),
+      skySourceMatchesIdentity: vi.fn(() => true),
+      setSweObjAsSelection: vi.fn(),
+    }
+    const method = compileExactRouteMethod(swh, { warn: vi.fn() })
+    const context = {
+      starLookupMessage: '',
+      resolveExactSkySourceRouteObject: vi.fn(),
+    }
+    context.selectSkySourceRouteTargetByIdentity = method
+
+    await method.call(context, {
+      ...exactStarIdentity(),
+      catalog: 'Gaia DR2',
+      sourceId: '2252802052894084352',
+    })
+
+    expect(swh.fetchOrasSkySourceByIdentity).toHaveBeenCalledTimes(1)
+    expect(context.starLookupMessage).toContain('Star data unavailable for Gaia DR2')
+    expect(context.resolveExactSkySourceRouteObject).not.toHaveBeenCalled()
+  })
+
+  it('releases a stale owned canonical lookup object without selecting it', async () => {
+    const source = fs.readFileSync(targetSearchPath, 'utf8')
+    const watcherSource = extractFunction(source, 'obsSkySource: async function')
+    const ownedObject = { __orasOwnedLookup: true, destroy: vi.fn() }
+    let resolveLookup
+    const swh = {
+      resolveCanonicalStar: vi.fn(() => new Promise(resolve => { resolveLookup = resolve })),
+      skySource2SweObj: vi.fn(),
+      setSweObjAsSelection: vi.fn(),
+    }
+    const watcher = new Function('swh', `return (${watcherSource})`)(swh)
+    const first = { model: 'star', source_id: 'first' }
+    const second = { model: 'star', source_id: 'second' }
+    const context = {
+      obsSkySource: first,
+      $selectionLayer: { add: vi.fn() },
+      $stel: { createObj: vi.fn() },
+    }
+
+    const pending = watcher.call(context, first)
+    context.obsSkySource = second
+    resolveLookup(ownedObject)
+    await pending
+
+    expect(ownedObject.destroy).toHaveBeenCalledTimes(1)
+    expect(ownedObject.__orasOwnedLookup).toBe(false)
+    expect(swh.setSweObjAsSelection).not.toHaveBeenCalled()
+    expect(context.$selectionLayer.add).not.toHaveBeenCalled()
   })
 
   it('routes exact-object resolution failures through the bounded retry handler', () => {
@@ -605,8 +795,11 @@ describe('oras runtime search routing', () => {
     expect(methodEnd).toBeGreaterThan(methodStart)
     const method = appSource.slice(methodStart, methodEnd)
 
-    expect(method).toContain('return swh.fetchOrasSkySourceByIdentity(identity).then(ss => {')
-    expect(method).toContain('}).catch(err => {')
+    expect(method).toContain('const request = swh.fetchOrasSkySourceByIdentity(identity).catch(err => {')
+    expect(method).toContain('return request.then(ss => {')
+    expect(method).toContain("if (identity.model !== 'star')")
+    expect(method).toContain("console.warn('Star lookup request failed.', err)")
+    expect(method).toContain("console.warn('Star route resolution failed.', err)")
     expect(method).not.toContain('}, err => {')
   })
 

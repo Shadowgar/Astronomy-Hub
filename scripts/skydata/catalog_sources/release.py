@@ -32,6 +32,7 @@ def build_source_release(
     release_version: str,
     generated_at: str | None = None,
     chunk_size: int = 2_000,
+    native_tile_order: int = 3,
 ) -> dict:
     stars = list(load_hipparcos(inputs.hipparcos))
     for profile, path in inputs.star_sources:
@@ -39,9 +40,20 @@ def build_source_release(
     stars = drop_ambiguous_identities(stars)
     supplemental_stars = [record for profile, path in inputs.supplemental_star_sources
                           for record in load_vizier_stars(path, profile)]
-    canonical, _science_stats = reconcile_star_records([*stars, *supplemental_stars])
-    stars = attach_canonical_star_science(stars, canonical)
-    supplemental_stars = attach_canonical_star_science(supplemental_stars, canonical)
+    canonical, _science_stats = reconcile_star_records(
+        [*stars, *supplemental_stars],
+        native_tile_order=native_tile_order,
+    )
+    stars = attach_canonical_star_science(
+        stars,
+        canonical,
+        native_tile_order=native_tile_order,
+    )
+    supplemental_stars = attach_canonical_star_science(
+        supplemental_stars,
+        canonical,
+        native_tile_order=native_tile_order,
+    )
 
     dsos = list(load_openngc(inputs.openngc))
     for profile, path in inputs.dso_sources:

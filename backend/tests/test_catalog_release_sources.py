@@ -320,6 +320,7 @@ def test_source_release_builds_four_valid_packs(tmp_path: Path) -> None:
         release_version="2026.06-test",
         generated_at="2026-06-23T00:00:00Z",
         chunk_size=2,
+        native_tile_order=4,
     )
 
     assert manifest["pack_count"] == 4
@@ -330,6 +331,18 @@ def test_source_release_builds_four_valid_packs(tmp_path: Path) -> None:
         "double-stars",
         "unusual-objects",
     }
+    stars_pack = next(pack for pack in manifest["packs"] if pack["pack_id"] == "stars-core")
+    star_records = [
+        json.loads(line)
+        for chunk in stars_pack["chunks"]
+        for line in (tmp_path / "release" / chunk["path"]).read_text(encoding="utf-8").splitlines()
+        if line
+    ]
+    assert {
+        record["star_science"]["native_tile"]["order"]
+        for record in star_records
+        if record["star_science"]["native_tile"]
+    } == {4}
 
 
 def test_acquisition_manifest_covers_required_release_families(tmp_path: Path) -> None:

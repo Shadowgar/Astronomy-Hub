@@ -12,6 +12,7 @@ import struct
 
 def verify(metadata, dense, reader):
     manifest=json.loads((metadata/'manifest.json').read_text())
+    dense_manifest=json.loads((dense/'manifest.json').read_text())
     records=[]
     for pack in manifest['packs']:
         if pack['pack_id']=='stars-core':
@@ -26,9 +27,12 @@ def verify(metadata, dense, reader):
         s=record['star_science']
         if s.get('native_tile'):
             science[(s['native_tile']['pix'],s['native_tile']['identity'])]=s
-    profile=dense/'profiles/deep-catalog'
+    profile_id='deep-catalog' if 'deep-catalog' in dense_manifest.get('profiles', {}) else dense_manifest.get('default_profile')
+    profile_manifest=dense_manifest.get('profiles', {}).get(profile_id, dense_manifest)
+    tile_order=int(profile_manifest['tile_order'])
+    profile=dense/str(profile_manifest.get('path', '.'))
     decoded=[]
-    for tile in sorted(profile.glob('Norder3/Dir*/Npix*.eph')):
+    for tile in sorted(profile.glob(f'Norder{tile_order}/Dir*/Npix*.eph')):
         pix=int(tile.stem[4:])
         output=subprocess.check_output([str(reader.resolve()),str(tile)])
         decoded.extend((pix,json.loads(line)) for line in output.splitlines())
@@ -51,7 +55,8 @@ def verify(metadata, dense, reader):
             targets.append({'identity':identity,'science':s,'native':row})
     assert len(decoded)==84129, 'census must match explained corrected count'
     assert len(gaia_ids)==10000 and epochs=={'2000':10000}, epochs
-    return {'catalog_version':manifest['release_version'],'dense_version':json.loads((dense/'manifest.json').read_text())['release_version'],
+    return {'catalog_version':manifest['release_version'],'dense_version':dense_manifest['release_version'],
+            'tile_order':tile_order,
             'native_rows':len(decoded),'scalar_comparisons':comparisons,'gaia_count':len(gaia_ids),'gaia_epochs':dict(epochs),'targets':targets}
 
 if __name__=='__main__':
