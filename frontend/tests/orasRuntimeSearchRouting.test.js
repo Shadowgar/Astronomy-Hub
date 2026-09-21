@@ -740,6 +740,7 @@ describe('oras runtime search routing', () => {
       const method = compileExactRouteMethod(swh, warningConsole)
       const context = {
         starLookupMessage: '',
+        skySourceRouteIdentity: vi.fn(() => exactStarIdentity()),
         resolveExactSkySourceRouteObject: vi.fn(),
       }
       context.selectSkySourceRouteTargetByIdentity = method
@@ -777,6 +778,11 @@ describe('oras runtime search routing', () => {
     const method = compileExactRouteMethod(swh, { warn: vi.fn() })
     const context = {
       starLookupMessage: '',
+      skySourceRouteIdentity: vi.fn(() => ({
+        ...exactStarIdentity(),
+        catalog: 'Gaia DR2',
+        sourceId: '2252802052894084352',
+      })),
       resolveExactSkySourceRouteObject: vi.fn(),
     }
     context.selectSkySourceRouteTargetByIdentity = method
@@ -790,6 +796,63 @@ describe('oras runtime search routing', () => {
     expect(swh.fetchOrasSkySourceByIdentity).toHaveBeenCalledTimes(1)
     expect(context.starLookupMessage).toContain('Star data unavailable for Gaia DR2')
     expect(context.resolveExactSkySourceRouteObject).not.toHaveBeenCalled()
+  })
+
+  it('does not publish a stale not-indexed star status after the route changes', async () => {
+    const firstIdentity = exactStarIdentity()
+    const secondIdentity = { ...firstIdentity, sourceId: 'hip-84' }
+    let resolveRequest
+    let currentIdentity = firstIdentity
+    const swh = {
+      fetchOrasSkySourceByIdentity: vi.fn(() => new Promise(resolve => { resolveRequest = resolve })),
+      skySourceMatchesIdentity: vi.fn(() => true),
+      setSweObjAsSelection: vi.fn(),
+    }
+    const method = compileExactRouteMethod(swh, { warn: vi.fn() })
+    const context = {
+      starLookupMessage: '',
+      skySourceRouteIdentity: vi.fn(() => currentIdentity),
+      resolveExactSkySourceRouteObject: vi.fn(),
+    }
+    context.selectSkySourceRouteTargetByIdentity = method
+
+    const pending = method.call(context, firstIdentity)
+    currentIdentity = secondIdentity
+    context.starLookupMessage = 'Current route ready.'
+    resolveRequest({ ...indexedStarSource(), status: 'not_indexed' })
+    await pending
+
+    expect(context.starLookupMessage).toBe('Current route ready.')
+    expect(context.resolveExactSkySourceRouteObject).not.toHaveBeenCalled()
+  })
+
+  it('does not publish a stale star request error after the route changes', async () => {
+    const firstIdentity = exactStarIdentity()
+    const secondIdentity = { ...firstIdentity, sourceId: 'hip-84' }
+    let rejectRequest
+    let currentIdentity = firstIdentity
+    const warningConsole = { warn: vi.fn() }
+    const swh = {
+      fetchOrasSkySourceByIdentity: vi.fn(() => new Promise((_resolve, reject) => { rejectRequest = reject })),
+      skySourceMatchesIdentity: vi.fn(() => true),
+      setSweObjAsSelection: vi.fn(),
+    }
+    const method = compileExactRouteMethod(swh, warningConsole)
+    const context = {
+      starLookupMessage: '',
+      skySourceRouteIdentity: vi.fn(() => currentIdentity),
+      resolveExactSkySourceRouteObject: vi.fn(),
+    }
+    context.selectSkySourceRouteTargetByIdentity = method
+
+    const pending = method.call(context, firstIdentity, 2)
+    currentIdentity = secondIdentity
+    context.starLookupMessage = 'Current route ready.'
+    rejectRequest(new Error('late failure'))
+    await pending
+
+    expect(context.starLookupMessage).toBe('Current route ready.')
+    expect(warningConsole.warn).not.toHaveBeenCalled()
   })
 
   it('selects an indexed Gaia response that uses the legacy source-backed fields', async () => {
