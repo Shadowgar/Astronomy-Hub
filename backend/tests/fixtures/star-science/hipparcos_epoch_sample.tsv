@@ -1,0 +1,45 @@
+#
+#   VizieR Astronomical Server vizier.cds.unistra.fr
+#    Date: 2026-09-20T22:27:45 [V7.6]
+#   In case of problem, please report to:	cds-question@unistra.fr
+#
+#
+#Coosys	J2000:	eq_FK5 J2000
+#INFO	service_protocol=ASU	  IVOID of the protocol through which the data was retrieved
+#INFO	request_date=2026-09-20T22:27:45	  Query execution date
+#INFO	request=https://vizier.cds.unistra.fr/viz-bin/asu-tsv?-source=I%2F239%2Fhip_main&HIP=25336%2C108870%2C16537%2C11767&-out=HIP%2C_RAJ2000%2C_DEJ2000%2CRAICRS%2CDEICRS%2C_RA.icrs%2C_DE.icrs%2CpmRA%2CpmDE	  Full request URL
+#INFO	contact=cds-question@unistra.fr	  Email or URL to contact publisher
+#INFO	server_software=VizieR/7.6	  Software version
+#INFO	publisher=CDS	  Data centre that produced the VOTable
+#INFO	MaxTuples=50000
+
+#RESOURCE=yCat_1239
+#Name: I/239
+#Title: The Hipparcos and Tycho Catalogues (ESA 1997)
+#INFO	ivoid=ivo://cds.vizier/i/239	    IVOID of underlying data collection
+#INFO	data_ivoid=ivo://cds.vizier/i/239	    IVOID of underlying data collection
+#INFO	creator=ESA 1997	    First author or institution
+#INFO	cites=1997HIP...C......0E	    Article or Data origin sources
+#INFO	reference_url=https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239	    Dataset landing page
+#INFO	publication_date=2021-11-18	    Date of first publication in the data centre
+#INFO	rights_uri=https://cds.unistra.fr/vizier-org/licences_vizier.html	    Licence URI
+#Coosys	H_1991.250:	ICRS
+#Table	I_239_hip_main:
+#Name: I/239/hip_main
+#Title: The Hipparcos Main Catalogue
+#Column	HIP	(I6)	Identifier (HIP number) (H1)	[ucd=meta.id;meta.main]
+#Column	_RAJ2000	(F14.10)	Right ascension (FK5, Equinox=J2000.0) at Epoch=J2000, proper motions taken into account 	[ucd=pos.eq.ra]
+#Column	_DEJ2000	(F14.10)	Declination (FK5, Equinox=J2000.0) at Epoch=J2000, proper motions taken into account 	[ucd=pos.eq.dec]
+#Column	RAICRS	(F12.8)	? alpha, degrees (ICRS, Epoch=J1991.25) (H8)	[ucd=pos.eq.ra;meta.main]
+#Column	DEICRS	(F12.8)	? delta, degrees (ICRS, Epoch=J1991.25) (H9)	[ucd=pos.eq.dec;meta.main]
+#Column	_RA.icrs	(F12.8)	Right ascension (ICRS) at Epoch=J2000, proper motions taken into account	[ucd=pos.eq.ra]
+#Column	_DE.icrs	(F12.8)	Declination (ICRS) at Epoch=J2000, proper motions taken into account	[ucd=pos.eq.dec]
+#Column	pmRA	(F8.2)	*? Proper motion mu_alpha.cos(delta), ICRS(H12)	[ucd=pos.pm;pos.eq.ra]
+#Column	pmDE	(F8.2)	*? Proper motion mu_delta, ICRS (H13)	[ucd=pos.pm;pos.eq.dec]
+HIP	_RAJ2000	_DEJ2000	RAICRS	DEICRS	_RA.icrs	_DE.icrs	pmRA	pmDE
+	deg	deg	deg	deg	deg	deg	mas/yr	mas/yr
+------	--------------	--------------	------------	------------	------------	------------	--------	--------
+ 11767	037.9545153525	+89.2641095074	037.94614689	+89.26413805	037.95451535	+89.26410951	   44.22	  -11.74
+ 16537	053.2326840901	-09.4582621547	053.23509009	-09.45830584	053.23268409	-09.45826215	 -976.44	   17.97
+ 25336	081.2827627614	+06.3497022322	081.28278416	+06.34973451	081.28276276	+06.34970223	   -8.75	  -13.28
+108870	330.8402361536	-56.7859755769	330.82266498	-56.77980602	330.84023615	-56.78597558	 3959.97	-2538.84

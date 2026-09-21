@@ -67,6 +67,7 @@ def test_catalog_release_writes_bounded_chunks_and_checksums(tmp_path: Path) -> 
     pack = manifest["packs"][0]
     assert manifest["schema_version"] == 1
     assert manifest["release_version"] == "2026.06"
+    assert manifest["native_star_tile_order"] == 3
     assert pack["object_count"] == 3
     assert pack["browser_index_count"] == 3
     assert [chunk["object_count"] for chunk in pack["chunks"]] == [2, 1]

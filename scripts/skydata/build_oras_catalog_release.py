@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 
 from scripts.skydata.catalog_pack import (
@@ -13,7 +14,12 @@ from scripts.skydata.catalog_sources.acquisition import default_release_inputs
 from scripts.skydata.catalog_sources.release import build_source_release
 
 
-def build_from_config(config_path: str | Path, output_root: str | Path) -> dict:
+def build_from_config(
+    config_path: str | Path,
+    output_root: str | Path,
+    *,
+    native_tile_order: int,
+) -> dict:
     path = Path(config_path)
     config = json.loads(path.read_text(encoding="utf-8"))
     packs = []
@@ -40,6 +46,7 @@ def build_from_config(config_path: str | Path, output_root: str | Path) -> dict:
         generated_at=config.get("generated_at"),
         chunk_size=int(config.get("chunk_size") or 2_000),
         packs=packs,
+        native_star_tile_order=native_tile_order,
     )
 
 
@@ -55,6 +62,11 @@ def main() -> int:
     )
     parser.add_argument("--repo-root", type=Path, default=Path("."))
     parser.add_argument("--release-version", default="2026.06.1")
+    parser.add_argument(
+        "--native-tile-order",
+        type=int,
+        default=int(os.environ.get("ORAS_DENSE_STAR_TILE_ORDER", "3")),
+    )
     parser.add_argument("--validate-only", action="store_true")
     args = parser.parse_args()
 
@@ -64,9 +76,14 @@ def main() -> int:
                 default_release_inputs(args.source_root, args.repo_root),
                 args.output,
                 release_version=args.release_version,
+                native_tile_order=args.native_tile_order,
             )
         elif args.config:
-            manifest = build_from_config(args.config, args.output)
+            manifest = build_from_config(
+                args.config,
+                args.output,
+                native_tile_order=args.native_tile_order,
+            )
         else:
             parser.error("config is required unless --source-backed is used")
         print(json.dumps(manifest, indent=2, sort_keys=True))

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import subprocess
@@ -36,11 +37,17 @@ def _record(source_id: str) -> dict:
     }
 
 
-def _build_fixture_release(root: Path) -> None:
+def _build_fixture_release(
+    root: Path,
+    *,
+    native_tile_order: int = 3,
+    release_version: str = "2026.06.deploy-test",
+) -> None:
     build_catalog_release(
         root,
-        release_version="2026.06.deploy-test",
+        release_version=release_version,
         generated_at="2026-06-30T12:00:00Z",
+        native_star_tile_order=native_tile_order,
         chunk_size=1,
         packs=[
             (
@@ -106,6 +113,8 @@ def test_install_script_validates_and_installs_manifest_last(tmp_path: Path) -> 
     source = tmp_path / "source"
     target = tmp_path / "mounted"
     _build_fixture_release(source)
+    env = os.environ.copy()
+    env["ORAS_DENSE_STAR_TILES_HOST_DIR"] = str(tmp_path / "no-dense-release")
 
     result = subprocess.run(
         [
@@ -115,6 +124,7 @@ def test_install_script_validates_and_installs_manifest_last(tmp_path: Path) -> 
             str(target),
         ],
         cwd=REPO_ROOT,
+        env=env,
         text=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
@@ -127,6 +137,136 @@ def test_install_script_validates_and_installs_manifest_last(tmp_path: Path) -> 
     installed = json.loads((target / "manifest.json").read_text(encoding="utf-8"))
     assert installed["object_count"] == 2
     assert build_catalog_pack_status_payload(target)["data"]["object_count"] == 2
+
+
+def test_catalog_installer_restores_previous_generation_after_final_validation_failure(
+    tmp_path: Path,
+) -> None:
+    old_source = tmp_path / "source-old"
+    new_source = tmp_path / "source-new"
+    target = tmp_path / "mounted"
+    installer = REPO_ROOT / "scripts/skydata/install_oras_catalog_release.sh"
+    _build_fixture_release(old_source, release_version="catalog.old")
+    _build_fixture_release(new_source, release_version="catalog.new")
+    env = os.environ.copy()
+    env["ORAS_DENSE_STAR_TILES_HOST_DIR"] = str(tmp_path / "no-dense-release")
+    subprocess.run(
+        ["bash", str(installer), str(old_source), str(target)],
+        cwd=REPO_ROOT,
+        env=env,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    wrapper = tmp_path / "python-wrapper.sh"
+    wrapper.write_text(
+        "#!/usr/bin/env bash\n"
+        "set -euo pipefail\n"
+        "if [[ \"${1:-}\" == '-m' && \"${2:-}\" == 'scripts.skydata.build_oras_catalog_release' && \"${5:-}\" == \"$ACTIVE_RELEASE\" ]]; then\n"
+        "  printf '{}\\n' > \"$ACTIVE_RELEASE/manifest.json\"\n"
+        "fi\n"
+        "exec \"$REAL_PYTHON\" \"$@\"\n",
+        encoding="utf-8",
+    )
+    wrapper.chmod(0o755)
+    env["PYTHON_BIN"] = str(wrapper)
+    env["REAL_PYTHON"] = str(REPO_ROOT / ".venv/bin/python")
+    env["ACTIVE_RELEASE"] = str(target)
+
+    result = subprocess.run(
+        ["bash", str(installer), str(new_source), str(target)],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+
+    assert result.returncode != 0
+    assert json.loads((target / "manifest.json").read_text())["release_version"] == "catalog.old"
+
+
+def test_catalog_install_rejects_mismatched_active_dense_tile_order(tmp_path: Path) -> None:
+    source = tmp_path / "source"
+    target = tmp_path / "mounted"
+    dense = tmp_path / "dense-star-tiles"
+    dense.mkdir()
+    _build_fixture_release(source, native_tile_order=4)
+    (dense / "manifest.json").write_text(
+        json.dumps({"schema_version": 1, "tile_order": 3}),
+        encoding="utf-8",
+    )
+    env = os.environ.copy()
+    env["ORAS_DENSE_STAR_TILES_HOST_DIR"] = str(dense)
+
+    result = subprocess.run(
+        [
+            "bash",
+            str(REPO_ROOT / "scripts/skydata/install_oras_catalog_release.sh"),
+            str(source),
+            str(target),
+        ],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+
+    assert result.returncode != 0
+    assert "native star tile order mismatch" in result.stdout
+    assert not target.exists()
+
+
+def test_catalog_install_rejects_active_dense_from_different_manifest_same_order(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "source"
+    other_catalog = tmp_path / "other-catalog"
+    target = tmp_path / "mounted"
+    dense = tmp_path / "dense-star-tiles"
+    dense.mkdir()
+    _build_fixture_release(source, native_tile_order=3)
+    _build_fixture_release(other_catalog, native_tile_order=3)
+    other_manifest = json.loads((other_catalog / "manifest.json").read_text())
+    other_manifest["release_version"] = "different-catalog"
+    (other_catalog / "manifest.json").write_text(json.dumps(other_manifest))
+    source_digest = hashlib.sha256(
+        (other_catalog / "manifest.json").read_bytes()
+    ).hexdigest()
+    (dense / "manifest.json").write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "tile_order": 3,
+                "source_manifest_sha256": source_digest,
+            }
+        ),
+        encoding="utf-8",
+    )
+    env = os.environ.copy()
+    env["ORAS_DENSE_STAR_TILES_HOST_DIR"] = str(dense)
+
+    result = subprocess.run(
+        [
+            "bash",
+            str(REPO_ROOT / "scripts/skydata/install_oras_catalog_release.sh"),
+            str(source),
+            str(target),
+        ],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+
+    assert result.returncode != 0
+    assert "catalog manifest digest mismatch" in result.stdout
+    assert not target.exists()
 
 
 def test_validate_script_reports_missing_release_without_creating_data(tmp_path: Path) -> None:

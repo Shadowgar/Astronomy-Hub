@@ -10,6 +10,13 @@ import re
 from typing import Any, Iterable, Sequence
 
 
+from backend.app.services.star_science import DEFAULT_NATIVE_TILE_ORDER, validate_star_science
+from scripts.skydata.star_release_compatibility import (
+    CATALOG_TILE_ORDER_FIELD,
+    require_tile_order,
+)
+
+
 PACK_ID_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 REQUIRED_TEXT_FIELDS = ("catalog", "model", "display_name", "category")
 STRING_LIST_FIELDS = ("names", "aliases", "common_names", "types", "catalog_ids")
@@ -45,6 +52,16 @@ OPTIONAL_FIELDS = (
     "candidate_status",
     "description",
     "render_hint",
+    "star_science",
+    "source_star_science",
+    "gaia_id",
+    "coordinate_frame",
+    "coordinate_method",
+    "color_index_band",
+    "source_ra",
+    "source_dec",
+    "source_coordinate_frame",
+    "source_coordinate_epoch",
 )
 
 
@@ -66,6 +83,8 @@ def build_catalog_release(
     packs: Sequence[tuple[CatalogPackSpec, Iterable[dict[str, Any]]]],
     generated_at: str | None = None,
     chunk_size: int = 2_000,
+    supplemental_stars: Iterable[dict[str, Any]] = (),
+    native_star_tile_order: int = DEFAULT_NATIVE_TILE_ORDER,
 ) -> dict[str, Any]:
     root = Path(output_root)
     if chunk_size < 1:
@@ -73,6 +92,11 @@ def build_catalog_release(
     release_version = _required_text(release_version, "release_version")
     generated_at = generated_at or _utc_now()
     _validate_generated_at(generated_at)
+    native_star_tile_order = require_tile_order(
+        {CATALOG_TILE_ORDER_FIELD: native_star_tile_order},
+        CATALOG_TILE_ORDER_FIELD,
+        "catalog release",
+    )
     root.mkdir(parents=True, exist_ok=True)
 
     manifest_packs: list[dict[str, Any]] = []
@@ -83,7 +107,12 @@ def build_catalog_release(
         if spec.pack_id in pack_ids:
             raise ValueError(f"duplicate pack_id: {spec.pack_id}")
         pack_ids.add(spec.pack_id)
-        normalized = _normalize_pack(spec, records, release_identities)
+        normalized = _normalize_pack(
+            spec,
+            records,
+            release_identities,
+            native_star_tile_order=native_star_tile_order,
+        )
         manifest_packs.append(
             _write_pack(root, spec, normalized, generated_at=generated_at, chunk_size=chunk_size)
         )
@@ -92,10 +121,29 @@ def build_catalog_release(
         "schema_version": 1,
         "release_version": release_version,
         "generated_at": generated_at,
+        CATALOG_TILE_ORDER_FIELD: native_star_tile_order,
         "pack_count": len(manifest_packs),
         "object_count": sum(pack["object_count"] for pack in manifest_packs),
         "packs": manifest_packs,
     }
+    # The existing dense bright-star supplement is lookup science, not an
+    # additional metadata pack. Keep its provenance and checksum in the release.
+    supplement = [
+        _normalize_record_for_release(
+            r,
+            expected_category="stars",
+            native_star_tile_order=native_star_tile_order,
+        )
+        for r in supplemental_stars
+    ]
+    if supplement:
+        payload = "".join(json.dumps(r, sort_keys=True, allow_nan=False) + "\n" for r in supplement).encode()
+        relative = "star-science-supplement.jsonl"
+        (root / relative).write_bytes(payload)
+        manifest["supplemental_stars"] = {
+            "path": relative, "object_count": len(supplement), "byte_size": len(payload),
+            "sha256": hashlib.sha256(payload).hexdigest(),
+        }
     _write_json(root / "manifest.json", manifest)
     return manifest
 
@@ -114,6 +162,15 @@ def validate_catalog_release(output_root: str | Path) -> list[str]:
     errors: list[str] = []
     if manifest.get("schema_version") != 1:
         errors.append("unsupported manifest schema_version")
+    try:
+        native_star_tile_order = require_tile_order(
+            manifest,
+            CATALOG_TILE_ORDER_FIELD,
+            "catalog release",
+        )
+    except ValueError as error:
+        errors.append(str(error))
+        native_star_tile_order = None
     packs = manifest.get("packs")
     if not isinstance(packs, list):
         return [*errors, "manifest packs must be a list"]
@@ -137,6 +194,7 @@ def validate_catalog_release(output_root: str | Path) -> list[str]:
                 str(pack.get("category") or ""),
                 chunk,
                 seen_identities,
+                native_star_tile_order=native_star_tile_order,
             )
             errors.extend(chunk_errors)
             pack_total += chunk_count
@@ -150,6 +208,16 @@ def validate_catalog_release(output_root: str | Path) -> list[str]:
         errors.append("release object count mismatch")
     if len(packs) != manifest.get("pack_count"):
         errors.append("release pack count mismatch")
+    if manifest.get("supplemental_stars"):
+        extra_errors, _ = _validate_chunk(
+            root,
+            "star-science-supplement",
+            "stars",
+            manifest["supplemental_stars"],
+            set(),
+            native_star_tile_order=native_star_tile_order,
+        )
+        errors.extend(extra_errors)
     return errors
 
 
@@ -157,11 +225,17 @@ def _normalize_pack(
     spec: CatalogPackSpec,
     records: Iterable[dict[str, Any]],
     release_identities: set[tuple[str, str, str]],
+    *,
+    native_star_tile_order: int,
 ) -> list[dict[str, Any]]:
     _validate_spec(spec)
     normalized: list[dict[str, Any]] = []
     for raw_record in records:
-        record = _normalize_record(raw_record, expected_category=spec.category)
+        record = _normalize_record_for_release(
+            raw_record,
+            expected_category=spec.category,
+            native_star_tile_order=native_star_tile_order,
+        )
         identity = (record["catalog"], record["source_id"], record["model"])
         if identity in release_identities:
             raise ValueError(f"duplicate catalog identity: {identity}")
@@ -169,6 +243,24 @@ def _normalize_pack(
         normalized.append(record)
     normalized.sort(key=lambda record: (record["catalog"], record["source_id"], record["model"]))
     return normalized
+
+
+def _normalize_record_for_release(
+    raw_record: Any,
+    *,
+    expected_category: str,
+    native_star_tile_order: int,
+) -> dict[str, Any]:
+    record = _normalize_record(raw_record, expected_category=expected_category)
+    for field in ("star_science", "source_star_science"):
+        science = record.get(field)
+        tile = science.get("native_tile") if isinstance(science, dict) else None
+        if tile is not None and tile.get("order") != native_star_tile_order:
+            raise ValueError(
+                f"{field} native tile order {tile.get('order')} does not match "
+                f"catalog release order {native_star_tile_order}"
+            )
+    return record
 
 
 def _normalize_record(raw_record: Any, *, expected_category: str) -> dict[str, Any]:
@@ -206,6 +298,10 @@ def _normalize_record(raw_record: Any, *, expected_category: str) -> dict[str, A
         if value is not None:
             record[field] = value
 
+    for field in ("star_science", "source_star_science"):
+        if field in record:
+            validate_star_science(record[field])
+
     # Reject NaN/Infinity and non-serializable values before writing chunks.
     json.dumps(record, allow_nan=False)
     return record
@@ -219,7 +315,7 @@ def _normalize_source(raw_source: Any) -> dict[str, Any]:
         "source_key": _required_text(raw_source.get("source_key"), "source attribution key is required"),
         "license_note": _required_text(raw_source.get("license_note"), "source license_note is required"),
     }
-    for field in ("source_url", "version"):
+    for field in ("source_url", "version", "sha256"):
         value = str(raw_source.get(field) or "").strip()
         if value:
             source[field] = value
@@ -280,6 +376,8 @@ def _validate_chunk(
     category: str,
     chunk: Any,
     seen_identities: set[tuple[str, str, str]],
+    *,
+    native_star_tile_order: int | None,
 ) -> tuple[list[str], int]:
     if not isinstance(chunk, dict):
         return [f"{pack_id}: chunk entry must be an object"], 0
@@ -309,7 +407,13 @@ def _validate_chunk(
 
     for line_number, line in enumerate(lines, start=1):
         try:
-            record = _normalize_record(json.loads(line), expected_category=category)
+            if native_star_tile_order is None:
+                raise ValueError("catalog release native star tile order is invalid")
+            record = _normalize_record_for_release(
+                json.loads(line),
+                expected_category=category,
+                native_star_tile_order=native_star_tile_order,
+            )
         except (ValueError, json.JSONDecodeError) as error:
             errors.append(f"{pack_id}: invalid record at line {line_number}: {error}")
             continue

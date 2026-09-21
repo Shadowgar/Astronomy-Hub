@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -113,6 +114,46 @@ def test_catalog_pack_index_isolates_a_tampered_pack(tmp_path: Path) -> None:
     assert search_catalog_packs("Arp 220", path=tmp_path) == []
 
 
+def test_catalog_pack_index_isolates_invalid_star_science_coordinates(tmp_path: Path) -> None:
+    from backend.app.services.star_science import normalize_star_science
+
+    star = _record("Hipparcos (CDS)", "hip-42", "star", "Fixture", "stars")
+    star.update(
+        hip_id="42",
+        magnitude=1.0,
+        magnitude_band="V",
+        coordinate_epoch=2000.0,
+        coordinate_frame="ICRS",
+    )
+    star["star_science"] = normalize_star_science(star)
+    build_catalog_release(
+        tmp_path,
+        release_version="science-isolation-test",
+        packs=[
+            (_spec("stars-core", "stars"), [star]),
+            (_spec("dso-expanded", "dsos"), [_record("Arp", "Arp 220", "dso", "Arp 220", "dsos")]),
+        ],
+    )
+    manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+    star_chunk = manifest["packs"][0]["chunks"][0]
+    chunk_path = tmp_path / star_chunk["path"]
+    record = json.loads(chunk_path.read_text(encoding="utf-8"))
+    record["star_science"]["ra"] = "not-a-number"
+    payload = (json.dumps(record, sort_keys=True) + "\n").encode("utf-8")
+    chunk_path.write_bytes(payload)
+    star_chunk["byte_size"] = len(payload)
+    star_chunk["sha256"] = hashlib.sha256(payload).hexdigest()
+    (tmp_path / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+    index = load_catalog_pack_index(tmp_path)
+    statuses = {status["pack_id"]: status for status in index.pack_statuses}
+
+    assert statuses["stars-core"]["status"] == "failed"
+    assert "must be finite" in statuses["stars-core"]["error"]
+    assert statuses["dso-expanded"]["status"] == "loaded"
+    assert index.object_count == 1
+
+
 def test_catalog_pack_index_reloads_when_chunk_file_changes(tmp_path: Path) -> None:
     _build_release(tmp_path)
     assert search_catalog_packs("Arp 220", path=tmp_path)
@@ -176,3 +217,72 @@ def test_catalog_pack_api_and_sky_search_use_mounted_release(tmp_path: Path, mon
     assert search_response.json()["data"]["results"][0]["source_id"] == "Arp 220"
     assert exact_response.status_code == 200
     assert exact_response.json()["data"]["pack_id"] == "dso-expanded"
+
+
+def test_catalog_science_roundtrip_keeps_passbands_and_canonical_coordinates(tmp_path):
+    from backend.app.services.star_science import normalize_star_science
+    record = _record('Hipparcos (CDS)', 'hip-42', 'star', 'Fixture', 'stars')
+    record.update(hip_id='42', magnitude=0.0, magnitude_band='V', coordinate_epoch=2000.0, coordinate_frame='ICRS')
+    record['star_science'] = normalize_star_science({**record, 'ra': 11.0})
+    build_catalog_release(tmp_path, release_version='science-test', packs=[(_spec('stars-core', 'stars'), [record])])
+    result = lookup_catalog_pack_object('Hipparcos (CDS)', 'hip-42', 'star', path=tmp_path)
+    assert result.get('star_science') == record['star_science']
+    assert 'phot_g_mean_mag' not in result
+    assert result['ra'] == 11.0
+    assert result['magnitude'] == 0.0
+
+
+def test_supplemental_science_is_checksummed_without_changing_pack_counts(tmp_path):
+    from backend.app.services.star_science import normalize_star_science
+    from scripts.skydata.catalog_pack import validate_catalog_release
+    record = _record('Hipparcos (CDS)', 'hip-42', 'star', 'Fixture', 'stars')
+    record.update(hip_id='42', magnitude=-1.0, magnitude_band='V', coordinate_epoch=2000.0, coordinate_frame='ICRS')
+    record['star_science'] = normalize_star_science(record)
+    manifest = build_catalog_release(tmp_path, release_version='science-test',
+        packs=[(_spec('stars-core', 'stars'), [])], supplemental_stars=[record])
+    assert manifest['object_count'] == 0 and manifest['pack_count'] == 1
+    assert manifest['supplemental_stars']['object_count'] == 1
+    assert validate_catalog_release(tmp_path) == []
+    exact = lookup_catalog_pack_object('Hipparcos (CDS)', 'hip-42', 'star', path=tmp_path)
+    assert exact['star_science']['render_magnitude'] == -1
+    assert load_catalog_pack_index(tmp_path).object_count == 0
+    chunk = tmp_path / manifest['supplemental_stars']['path']
+    chunk.write_text('{}\n')
+    assert any('checksum' in error for error in validate_catalog_release(tmp_path))
+    assert load_catalog_pack_index(tmp_path).supplemental_star_records == {}
+
+
+def test_legacy_bright_and_hipparcos_apis_use_installed_canonical_science(tmp_path, monkeypatch):
+    from backend.app.services.star_science import normalize_star_science
+    from backend.app.services.sky_catalog_service import lookup_exact_object
+    record = _record('Hipparcos (CDS)', 'hip-32349', 'star', 'Sirius', 'stars')
+    record.update(hip_id='32349', magnitude=-1.44, magnitude_band='V', coordinate_epoch=2000.0, coordinate_frame='ICRS', color_index=-0.009, color_index_band='Johnson B-V')
+    record['star_science'] = normalize_star_science(record)
+    build_catalog_release(tmp_path, release_version='science-test', packs=[(_spec('stars-core', 'stars'), [])], supplemental_stars=[record])
+    monkeypatch.setenv('ORAS_CATALOG_PACKS_DIR', str(tmp_path))
+    result = lookup_exact_object('Bright Star Catalog (local)', 'star-sirius', 'star')
+    assert result.get('star_science') == record['star_science']
+    assert result['catalog'] == 'Bright Star Catalog (local)'
+    assert result['source_id'] == 'star-sirius'
+    assert 'source_id=star-sirius' in result.get('sky_engine_url', '')
+    assert 'ra=10.5' in result['sky_engine_url']
+    assert result['ra'] == record['star_science']['ra']
+    assert result['magnitude'] == -1.44
+    assert 'phot_g_mean_mag' not in result
+    search = build_sky_search_payload('Sirius')['data']['results']
+    assert search[0]['star_science']['native_tile']['identity'] == 'HIP 32349'
+
+
+def test_legacy_incorrect_secondary_alias_does_not_override_exact_common_name(tmp_path, monkeypatch):
+    from backend.app.services.star_science import normalize_star_science
+    from backend.app.services.sky_catalog_service import lookup_exact_object
+    records = []
+    for hip, name in [('27989', 'Betelgeuse'), ('30324', 'Mirzam')]:
+        record = _record('Hipparcos (CDS)', 'hip-'+hip, 'star', name, 'stars')
+        record.update(hip_id=hip, magnitude=1.0, magnitude_band='V', coordinate_epoch=2000.0, coordinate_frame='ICRS')
+        record['star_science'] = normalize_star_science(record)
+        records.append(record)
+    build_catalog_release(tmp_path, release_version='science-test', packs=[(_spec('stars-core', 'stars'), records)])
+    monkeypatch.setenv('ORAS_CATALOG_PACKS_DIR', str(tmp_path))
+    result = lookup_exact_object('Bright Star Catalog (local)', 'star-betelgeuse', 'star')
+    assert result.get('star_science', {}).get('hip_id') == '27989'

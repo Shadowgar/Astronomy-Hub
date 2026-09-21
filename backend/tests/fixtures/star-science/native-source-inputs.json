@@ -1,0 +1,12 @@
+{
+  "ext_src/erfa/erfa.c": "ba1347a743359a3697c3371c6f195a28424765b13ef6ee4090dc32e12d7d4299",
+  "ext_src/json/json-builder.c": "f9be20dcfbca3befafa2c55829e0b98f0b995723f2039218514af597543d0eb2",
+  "ext_src/json/json-builder.h": "2361c064305ce527a94044ad3968ece0a7a2fb565ed12f8bc6c3a4de54dd8c06",
+  "ext_src/json/json.c": "2660742ddd6b222809054252358fedac24c81a2c94fd6268ea545db8aa002981",
+  "ext_src/json/json.h": "31e840f849462809caa228d5d9c3a9f3e7fd0eaa5842c60eb6b4ad85939d8edd",
+  "src/eph-file.c": "74c26e60446281bf139b6dd238ce1a06fe556098f5715501e84ffd7fada412f9",
+  "src/eph-file.h": "7169949fb4a3e24b873f370271b02b20ad3f34aaaf17552f0ea263ccc28f6256",
+  "src/hips.c": "279c89e8916b5ccbcd27800dfd135e6b4dc7f2c76aa6e0aaf3361ccfc4676b9c",
+  "src/swe.h": "faf8921aa0b8f0db728c9e8a005d542d5527fe7bcd11b69de2a5c4251968a97e",
+  "src/utils/utils_json.c": "023402ac9762f4d7d214902d95a69de4e9970b07fe0792c3a2f3907535d1a7fc"
+}

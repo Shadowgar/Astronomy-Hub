@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 import math
 import os
 import stat
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -23,7 +25,13 @@ def _load_module(path: Path, name: str):
     return module
 
 
-def _write_catalog_pack_release(root: Path) -> None:
+def _write_catalog_pack_release(
+    root: Path,
+    *,
+    native_tile_order: int = 1,
+    supplemental_stars: list[dict] | None = None,
+    release_version: str = "test",
+) -> None:
     chunk_dir = root / "packs/stars-core"
     chunk_dir.mkdir(parents=True)
     extra_chunk_dir = root / "packs/stars-extra"
@@ -37,7 +45,7 @@ def _write_catalog_pack_release(root: Path) -> None:
             "display_name": "Gaia DR3 1000786929690996352",
             "ra": 104.3047389065407,
             "dec": 57.5632863118362,
-            "magnitude": 4.761836,
+            "magnitude": 3.5,
             "color_index": 1.688078,
             "parallax": 3.1727,
             "proper_motion_ra": 11.681,
@@ -59,13 +67,13 @@ def _write_catalog_pack_release(root: Path) -> None:
         },
         {
             "catalog": "Gaia DR3",
-            "source_id": "bad-coordinates",
+            "source_id": "faint-edge",
             "model": "star",
             "category": "stars",
-            "display_name": "Bad coordinates",
-            "ra": 999.0,
+            "display_name": "Faint edge",
+            "ra": 359.0,
             "dec": 0.0,
-            "magnitude": 9.0,
+            "magnitude": 16.0,
             "source_attribution": [{"name": "ESA Gaia DR3 via CDS I/355", "source_key": "gaia_dr3"}],
         },
         {
@@ -80,6 +88,12 @@ def _write_catalog_pack_release(root: Path) -> None:
             "source_attribution": [{"name": "ESA Gaia DR3 via CDS I/355", "source_key": "gaia_dr3"}],
         },
     ]
+    for record in records:
+        record.update(coordinate_epoch=2000.0, coordinate_frame="ICRS")
+        record["magnitude_band"] = "Gaia G" if record["catalog"] == "Gaia DR3" else "Tycho V_T"
+        record["color_index_band"] = "Gaia BP-RP" if record["catalog"] == "Gaia DR3" else "Tycho B_T-V_T"
+        for source in record["source_attribution"]:
+            source["license_note"] = "Test fixture terms"
     chunk_path = chunk_dir / "chunk-00000.jsonl"
     text = "".join(json.dumps(record, separators=(",", ":")) + "\n" for record in records)
     chunk_path.write_text(text, encoding="utf-8")
@@ -92,26 +106,37 @@ def _write_catalog_pack_release(root: Path) -> None:
         "ra": 12.0,
         "dec": 12.0,
         "magnitude": 4.0,
+        "magnitude_band": "V",
+        "coordinate_epoch": 2000.0,
+        "coordinate_frame": "ICRS",
+        "source_attribution": [{
+            "name": "Future test source",
+            "source_key": "future",
+            "license_note": "Test fixture terms",
+        }],
     }
     extra_text = json.dumps(extra_record, separators=(",", ":")) + "\n"
     (extra_chunk_dir / "chunk-00000.jsonl").write_text(extra_text, encoding="utf-8")
     manifest = {
         "schema_version": 1,
-        "release_version": "test",
+        "release_version": release_version,
         "generated_at": "2026-06-30T00:00:00Z",
-        "object_count": len(records),
+        "native_star_tile_order": native_tile_order,
+        "pack_count": 2,
+        "object_count": len(records) + 1,
         "packs": [
             {
                 "pack_id": "stars-core",
                 "category": "stars",
                 "object_count": len(records),
+                "browser_index_count": len(records),
                 "sources": [{"name": "Test source", "source_key": "test"}],
                 "chunks": [
                     {
                         "path": "packs/stars-core/chunk-00000.jsonl",
                         "object_count": len(records),
                         "byte_size": len(text.encode("utf-8")),
-                        "sha256": "test-not-used-by-builder",
+                        "sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
                     }
                 ],
             }
@@ -121,18 +146,32 @@ def _write_catalog_pack_release(root: Path) -> None:
                 "pack_id": "stars-extra",
                 "category": "stars",
                 "object_count": 1,
+                "browser_index_count": 1,
                 "chunks": [
                     {
                         "path": "packs/stars-extra/chunk-00000.jsonl",
                         "object_count": 1,
                         "byte_size": len(extra_text.encode("utf-8")),
-                        "sha256": "test-not-used-by-builder",
+                        "sha256": hashlib.sha256(extra_text.encode("utf-8")).hexdigest(),
                     }
                 ],
             }
         ],
     }
     manifest["packs"].extend(manifest.pop("extra_packs"))
+    if supplemental_stars:
+        supplemental_payload = "".join(
+            json.dumps(record, separators=(",", ":")) + "\n"
+            for record in supplemental_stars
+        ).encode("utf-8")
+        supplemental_path = root / "star-science-supplement.jsonl"
+        supplemental_path.write_bytes(supplemental_payload)
+        manifest["supplemental_stars"] = {
+            "path": supplemental_path.name,
+            "object_count": len(supplemental_stars),
+            "byte_size": len(supplemental_payload),
+            "sha256": hashlib.sha256(supplemental_payload).hexdigest(),
+        }
     (root / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
 
 
@@ -149,6 +188,7 @@ def test_dense_star_builder_reconciles_authoritative_cross_ids_without_position_
             "dec": 54.925362,
             "johnson_v_mag": 2.23,
             "johnson_bv": 0.057,
+            "coordinate_frame": "ICRS",
             "coordinate_epoch": 2000.0,
             "aliases": ["HIP 65378", "Mizar A"],
         },
@@ -163,6 +203,7 @@ def test_dense_star_builder_reconciles_authoritative_cross_ids_without_position_
             "dec": 54.92541,
             "tycho_bt_mag": 2.30,
             "tycho_vt_mag": 2.24,
+            "coordinate_frame": "ICRS",
             "coordinate_epoch": 2000.0,
             "aliases": ["HIP 65378", "TYC 3850-257-1"],
         },
@@ -177,6 +218,7 @@ def test_dense_star_builder_reconciles_authoritative_cross_ids_without_position_
             "dec": 54.925358,
             "gaia_g_mag": 2.282647,
             "gaia_bp_rp": 0.534339,
+            "coordinate_frame": "ICRS",
             "coordinate_epoch": 2000.0,
             "aliases": ["HIP 65378", "TYC 3850-257-1"],
         },
@@ -189,6 +231,7 @@ def test_dense_star_builder_reconciles_authoritative_cross_ids_without_position_
             "dec": 54.921829,
             "gaia_g_mag": 3.88,
             "gaia_bp_rp": 0.42,
+            "coordinate_frame": "ICRS",
             "coordinate_epoch": 2000.0,
         },
         {
@@ -200,6 +243,7 @@ def test_dense_star_builder_reconciles_authoritative_cross_ids_without_position_
             "dec": 54.9258,
             "johnson_v_mag": 2.25,
             "johnson_bv": 0.02,
+            "coordinate_frame": "ICRS",
             "coordinate_epoch": 2000.0,
         },
     ]
@@ -233,7 +277,8 @@ def test_dense_star_builder_uses_source_backed_photometric_transformations() -> 
         "dec": -62.676,
         "gaia_g_mag": 7.10,
         "gaia_bp_rp": 0.82,
-        "coordinate_epoch": 2000.0,
+        "coordinate_frame": "ICRS",
+            "coordinate_epoch": 2000.0,
     }
     tycho_record = {
         "catalog": "Tycho-2",
@@ -245,7 +290,8 @@ def test_dense_star_builder_uses_source_backed_photometric_transformations() -> 
         "dec": 12.0,
         "tycho_bt_mag": 7.75,
         "tycho_vt_mag": 7.20,
-        "coordinate_epoch": 2000.0,
+        "coordinate_frame": "ICRS",
+            "coordinate_epoch": 2000.0,
     }
     invalid_gaia_color = {
         **gaia_record,
@@ -271,7 +317,7 @@ def test_dense_star_builder_uses_source_backed_photometric_transformations() -> 
 
     invalid = by_id["5853498713190525700"]
     assert invalid["render_vmag"] == invalid["render_gmag"]
-    assert math.isnan(invalid["render_bv"])
+    assert invalid["render_bv"] is None
     assert invalid["photometry_source"] == "gaia_g_only"
 
 
@@ -298,7 +344,8 @@ def test_dense_star_builder_preserves_zero_gaia_magnitude() -> None:
         },
     ]
 
-    photometry = builder._resolve_photometry(records)
+    from backend.app.services.star_science import _resolve_photometry
+    photometry = _resolve_photometry(records)
     assert photometry is not None
     assert photometry["render_gmag"] == 0.0
 
@@ -306,7 +353,8 @@ def test_dense_star_builder_preserves_zero_gaia_magnitude() -> None:
 def test_dense_star_builder_preserves_blue_gaia_color_solution() -> None:
     builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_blue_photometry")
 
-    blue_bv = builder._gaia_bp_rp_to_johnson_bv(-0.3)
+    from backend.app.services.star_science import _gaia_bp_rp_to_johnson_bv
+    blue_bv = _gaia_bp_rp_to_johnson_bv(-0.3)
 
     assert blue_bv is not None
     assert -0.4 <= blue_bv < 0.0
@@ -325,7 +373,11 @@ def test_normalized_canonical_star_keeps_native_identity_when_labels_are_suppres
         "aliases": ["HIP 65378", "TYC 3850-257-1"],
         "ra": 200.981425,
         "dec": 54.925358,
-        "coordinate_epoch": 2000.0,
+        "coordinate_frame": "ICRS",
+            "coordinate_epoch": 2000.0,
+        "johnson_v_mag": 2.23,
+        "johnson_bv": 0.057,
+        "gaia_g_mag": 2.282647,
         "render_vmag": 2.23,
         "render_gmag": 2.282647,
         "render_bv": 0.057,
@@ -395,13 +447,16 @@ def test_dense_star_tile_builder_writes_native_eph_release(tmp_path: Path) -> No
     assert manifest["profiles"]["deep-catalog"]["catalog_mode"] == "canonical_replacement"
     assert manifest["profiles"]["deep-catalog"]["identity_reconciliation"] == {
         "canonical_records": 4,
+        "ambiguous_cross_id_records": 0,
         "merged_records": 0,
         "skipped_missing_photometry": 0,
         "skipped_unmatched_supplemental": 0,
         "source_records": 4,
     }
     assert manifest["profiles"]["deep-catalog"]["photometry_sources"] == {
-        "catalog_magnitude_only": 4,
+        "gaia_edr3_transformed": 1,
+        "gaia_g_only": 2,
+        "tycho_vt_only": 1,
     }
 
     validation = validator.validate_dense_star_tiles(output_root)
@@ -411,19 +466,205 @@ def test_dense_star_tile_builder_writes_native_eph_release(tmp_path: Path) -> No
     assert validation["native_continuation"]["key"] == "gaia"
 
 
+@pytest.mark.parametrize('order', [2, 3, 4])
+def test_dense_star_builder_accepts_matching_catalog_tile_order(tmp_path: Path, order: int) -> None:
+    builder = _load_module(BUILDER_PATH, f"build_oras_dense_star_tiles_matching_{order}")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root, native_tile_order=order)
+
+    report = builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=order,
+        release_version=f"test.order-{order}",
+    )
+
+    manifest = json.loads((output_root / "manifest.json").read_text(encoding="utf-8"))
+    assert report["tile_order"] == order
+    assert manifest["tile_order"] == order
+
+
+def test_dense_star_validator_rejects_profile_order_mismatching_release(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_profile_order")
+    validator = _load_module(VALIDATOR_PATH, "validate_oras_dense_star_tiles_profile_order")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root, native_tile_order=3)
+    builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=3,
+        release_version="test.profile-order",
+    )
+    manifest_path = output_root / "manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    manifest["profiles"]["visual-default"]["tile_order"] = 4
+    manifest_path.write_text(json.dumps(manifest))
+
+    with pytest.raises(ValueError, match="profile tile order mismatch: visual-default"):
+        validator.validate_dense_star_tiles(output_root)
+
+
+def test_dense_star_validator_rejects_actual_profile_order_mismatching_release(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_actual_profile_order")
+    validator = _load_module(VALIDATOR_PATH, "validate_oras_dense_star_tiles_actual_profile_order")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root, native_tile_order=3)
+    builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=3,
+        release_version="test.actual-profile-order",
+    )
+    original = validator.validate_profile_tiles
+
+    def mismatched_profile(path: Path) -> dict:
+        report = original(path)
+        if path.name == "visual-default":
+            report["tile_order"] = 4
+        return report
+
+    monkeypatch.setattr(validator, "validate_profile_tiles", mismatched_profile)
+    with pytest.raises(ValueError, match="actual tile order mismatch: visual-default"):
+        validator.validate_dense_star_tiles(output_root)
+
+
+def test_dense_star_validator_rejects_profile_from_different_catalog_manifest(
+    tmp_path: Path,
+) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_profile_digest")
+    validator = _load_module(VALIDATOR_PATH, "validate_oras_dense_star_tiles_profile_digest")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root, native_tile_order=3)
+    builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=3,
+        release_version="test.profile-digest",
+    )
+    profile_manifest_path = output_root / "profiles/visual-default/manifest.json"
+    profile_manifest = json.loads(profile_manifest_path.read_text())
+    profile_manifest["source_manifest_sha256"] = "0" * 64
+    profile_manifest_path.write_text(json.dumps(profile_manifest))
+
+    with pytest.raises(ValueError, match="profile catalog manifest digest mismatch: visual-default"):
+        validator.validate_dense_star_tiles(output_root)
+
+
+def test_dense_star_validator_rejects_profile_metadata_drift(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_profile_metadata")
+    validator = _load_module(VALIDATOR_PATH, "validate_oras_dense_star_tiles_profile_metadata")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root, native_tile_order=3)
+    builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=3,
+        release_version="test.profile-metadata",
+    )
+    manifest_path = output_root / "manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    manifest["profiles"]["visual-default"]["magnitude_limit"] = 1.0
+    manifest_path.write_text(json.dumps(manifest))
+
+    with pytest.raises(ValueError, match="profile metadata mismatch: visual-default magnitude_limit"):
+        validator.validate_dense_star_tiles(output_root)
+
+
+@pytest.mark.parametrize(('catalog_order', 'dense_order'), [(3, 4), (4, 3)])
+def test_dense_star_builder_rejects_catalog_tile_order_mismatch(
+    tmp_path: Path,
+    catalog_order: int,
+    dense_order: int,
+) -> None:
+    builder = _load_module(
+        BUILDER_PATH,
+        f"build_oras_dense_star_tiles_mismatch_{catalog_order}_{dense_order}",
+    )
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root, native_tile_order=catalog_order)
+
+    with pytest.raises(ValueError, match='native star tile order mismatch'):
+        builder.build_dense_star_tiles(
+            source_root=source_root,
+            output_root=output_root,
+            tile_order=dense_order,
+            release_version="test.mismatch",
+        )
+
+    assert not output_root.exists()
+
+
+def test_dense_star_builder_rejects_missing_recorded_core_chunk(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_missing_core")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root)
+    (source_root / "packs/stars-core/chunk-00000.jsonl").unlink()
+
+    with pytest.raises(FileNotFoundError, match="recorded catalog core chunk is unavailable"):
+        builder.build_dense_star_tiles(
+            source_root=source_root,
+            output_root=output_root,
+            tile_order=1,
+            release_version="test.missing-core",
+        )
+
+    assert not output_root.exists()
+
+
+def test_dense_star_builder_rejects_modified_recorded_core_chunk(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_modified_core")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root)
+    chunk = source_root / "packs/stars-core/chunk-00000.jsonl"
+    payload = chunk.read_bytes()
+    changed = payload.replace(b'"ra":104.3047389065407', b'"ra":105.3047389065407', 1)
+    assert len(changed) == len(payload) and changed != payload
+    chunk.write_bytes(changed)
+
+    with pytest.raises(ValueError, match="recorded catalog core chunk checksum mismatch"):
+        builder.build_dense_star_tiles(
+            source_root=source_root,
+            output_root=output_root,
+            tile_order=1,
+            release_version="test.modified-core",
+        )
+
+    assert not output_root.exists()
+
+
 def test_dense_star_builder_restores_source_backed_bright_hipparcos_tail(tmp_path: Path) -> None:
     builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_bright_tail")
     source_root = tmp_path / "catalog-packs"
     output_root = tmp_path / "dense-star-tiles"
-    bright_source = tmp_path / "hipparcos_bright.tsv"
-    _write_catalog_pack_release(source_root)
-    bright_source.write_text(
-        "# VizieR fixture\n"
-        "_RAJ2000\t_DEJ2000\tHIP\tVmag\tB-V\tPlx\tpmRA\tpmDE\tSpType\n"
-        "deg\tdeg\t\tmag\tmag\tmas\tmas/yr\tmas/yr\t\n"
-        "----------\t----------\t---\t----\t---\t---\t----\t----\t------\n"
-        "101.287155\t-16.716116\t32349\t-1.46\t0.001\t379.21\t-546.01\t-1223.07\tA1V\n",
-        encoding="utf-8",
+    _write_catalog_pack_release(
+        source_root,
+        supplemental_stars=[
+            {
+                "catalog": "Hipparcos (CDS)",
+                "source_id": "hip-32349",
+                "hip_id": "32349",
+                "model": "star",
+                "display_name": "Sirius",
+                "ra": 101.287155,
+                "dec": -16.716116,
+                "coordinate_epoch": 2000.0,
+                "coordinate_frame": "ICRS",
+                "magnitude": -1.46,
+                "magnitude_band": "V",
+                "johnson_bv": 0.001,
+            }
+        ],
     )
 
     report = builder.build_dense_star_tiles(
@@ -431,7 +672,6 @@ def test_dense_star_builder_restores_source_backed_bright_hipparcos_tail(tmp_pat
         output_root=output_root,
         tile_order=1,
         release_version="test.bright",
-        bright_star_source=bright_source,
     )
 
     visual = report["profiles"]["visual-default"]
@@ -441,20 +681,96 @@ def test_dense_star_builder_restores_source_backed_bright_hipparcos_tail(tmp_pat
     assert visual["source_catalogs"]["Hipparcos (CDS)"] == 1
 
 
-def test_dense_star_builder_rejects_missing_configured_bright_source(tmp_path: Path) -> None:
-    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_missing_bright")
+def test_dense_star_builder_uses_recorded_supplement_not_mutable_raw_source(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_recorded_supplement")
     source_root = tmp_path / "catalog-packs"
     output_root = tmp_path / "dense-star-tiles"
-    missing_source = tmp_path / "missing-hipparcos-bright.tsv"
-    _write_catalog_pack_release(source_root)
+    bright_source = tmp_path / "hipparcos_bright.tsv"
+    recorded = {
+        "catalog": "Hipparcos (CDS)",
+        "source_id": "hip-32349",
+        "hip_id": "32349",
+        "model": "star",
+        "display_name": "Sirius recorded",
+        "ra": 101.287155,
+        "dec": -16.716116,
+        "coordinate_epoch": 2000.0,
+        "coordinate_frame": "ICRS",
+        "magnitude": -1.46,
+        "magnitude_band": "V",
+        "johnson_bv": 0.001,
+    }
+    _write_catalog_pack_release(
+        source_root,
+        native_tile_order=1,
+        supplemental_stars=[recorded],
+    )
+    bright_source.write_text(
+        "# VizieR fixture\n"
+        "_RAJ2000\t_DEJ2000\tHIP\tVmag\tB-V\tPlx\tpmRA\tpmDE\tSpType\n"
+        "deg\tdeg\t\tmag\tmag\tmas\tmas/yr\tmas/yr\t\n"
+        "----------\t----------\t---\t----\t---\t---\t----\t----\t------\n"
+        "201.287155\t16.716116\t32349\t-1.46\t0.001\t379.21\t-546.01\t-1223.07\tA1V\n",
+        encoding="utf-8",
+    )
+    captured: list[list[dict]] = []
+    reconcile = builder.reconcile_star_records
 
-    with pytest.raises(FileNotFoundError, match="bright star source not found"):
+    def capture(records, **kwargs):
+        materialized = list(records)
+        captured.append(materialized)
+        return reconcile(materialized, **kwargs)
+
+    monkeypatch.setattr(builder, "reconcile_star_records", capture)
+
+    builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=1,
+        release_version="test.recorded-supplement",
+    )
+
+    assert captured
+    for records in captured:
+        sirius = [record for record in records if record.get("hip_id") == "32349"]
+        assert [(record["ra"], record["dec"]) for record in sirius] == [
+            (recorded["ra"], recorded["dec"]),
+        ]
+
+
+def test_dense_star_builder_rejects_missing_recorded_supplement(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_missing_supplement")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(
+        source_root,
+        supplemental_stars=[
+            {
+                "catalog": "Hipparcos (CDS)",
+                "source_id": "hip-32349",
+                "hip_id": "32349",
+                "model": "star",
+                "display_name": "Sirius",
+                "ra": 101.287155,
+                "dec": -16.716116,
+                "coordinate_epoch": 2000.0,
+                "coordinate_frame": "ICRS",
+                "magnitude": -1.46,
+                "magnitude_band": "V",
+            }
+        ],
+    )
+    (source_root / "star-science-supplement.jsonl").unlink()
+
+    with pytest.raises(FileNotFoundError, match="recorded catalog star supplement"):
         builder.build_dense_star_tiles(
             source_root=source_root,
             output_root=output_root,
             tile_order=1,
             release_version="test.missing-bright",
-            bright_star_source=missing_source,
         )
 
     assert not output_root.exists()
@@ -484,7 +800,7 @@ def test_dense_star_builder_writes_visibility_profiles(tmp_path: Path) -> None:
     manifest = json.loads((output_root / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["default_profile"] == "visual-default"
     assert manifest["profiles"]["visual-default"]["path"] == "profiles/visual-default"
-    assert manifest["profiles"]["visual-default"]["label_mode"] == "suppressed"
+    assert manifest["profiles"]["visual-default"]["label_mode"] == "named"
     assert manifest["profiles"]["visual-default"]["profile_intent"] == "default"
     assert manifest["profiles"]["deep-catalog"]["profile_intent"] == "opt-in"
     assert (output_root / "profiles/visual-default/properties").is_file()
@@ -524,6 +840,7 @@ def test_dense_star_package_commands_exist() -> None:
     assert scripts["dense-stars:validate"] == ".venv/bin/python scripts/skydata/validate_oras_dense_star_tiles.py"
     assert scripts["dense-stars:install"] == "bash scripts/skydata/install_oras_dense_star_tiles.sh"
     assert scripts["validate:oras-dense-stars"] == "node scripts/skydata/validate_oras_dense_stars.js"
+    assert scripts["stars:install-pair"] == ".venv/bin/python scripts/skydata/install_oras_star_release_pair.py"
 
 
 def test_generated_dense_star_release_is_not_staged() -> None:
@@ -563,11 +880,216 @@ def test_dense_star_builder_rejects_empty_releases(tmp_path: Path) -> None:
     assert not output_root.exists()
 
 
-def test_dense_star_installer_uses_manifest_driven_copy_and_rollback() -> None:
-    installer = (REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh").read_text(encoding="utf-8")
+def test_dense_star_installer_preserves_previous_validated_generation(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_install")
+    source, generated, active = tmp_path / "source", tmp_path / "generated", tmp_path / "active"
+    _write_catalog_pack_release(source)
+    installer = REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh"
+    env = os.environ.copy()
+    env["ORAS_CATALOG_PACKS_HOST_DIR"] = str(source)
+    for version in ["test.old", "test.new"]:
+        builder.build_dense_star_tiles(source_root=source, output_root=generated,
+                                       tile_order=1, release_version=version)
+        subprocess.run(["bash", str(installer), str(generated), str(active)],
+                       cwd=REPO_ROOT, env=env, check=True, capture_output=True, text=True)
+    assert json.loads((active / "manifest.json").read_text())["release_version"] == "test.new"
+    previous = list(tmp_path.glob("active.previous-*"))
+    assert len(previous) == 1
+    assert json.loads((previous[0] / "manifest.json").read_text())["release_version"] == "test.old"
+    validator = _load_module(VALIDATOR_PATH, "validate_dense_star_install")
+    validator.validate_dense_star_tiles(active)
+    validator.validate_dense_star_tiles(previous[0])
 
-    assert "profile_manifest.get(\"tile_entries\", [])" in installer
-    assert "shutil.copy2(source / \"manifest.json\", staging / \"manifest.json\")" in installer
-    assert "trap rollback ERR" in installer
-    assert "mv \"$previous_dir\" \"$target_dir\"" in installer
-    assert "find . -type f" not in installer
+
+def test_dense_star_installer_restores_previous_generation_after_final_validation_failure(
+    tmp_path: Path,
+) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_rollback")
+    source, generated, active = tmp_path / "source", tmp_path / "generated", tmp_path / "active"
+    _write_catalog_pack_release(source)
+    installer = REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh"
+    env = os.environ.copy()
+    env["ORAS_CATALOG_PACKS_HOST_DIR"] = str(source)
+    builder.build_dense_star_tiles(
+        source_root=source, output_root=generated, tile_order=1, release_version="test.old"
+    )
+    subprocess.run(
+        ["bash", str(installer), str(generated), str(active)],
+        cwd=REPO_ROOT, env=env, check=True, capture_output=True, text=True,
+    )
+    builder.build_dense_star_tiles(
+        source_root=source, output_root=generated, tile_order=1, release_version="test.new"
+    )
+    wrapper = tmp_path / "python-wrapper.sh"
+    wrapper.write_text(
+        "#!/usr/bin/env bash\n"
+        "set -euo pipefail\n"
+        "if [[ \"${1:-}\" == *validate_oras_dense_star_tiles.py && \"${2:-}\" == \"$ACTIVE_RELEASE\" ]]; then\n"
+        "  printf '{}\\n' > \"$ACTIVE_RELEASE/manifest.json\"\n"
+        "fi\n"
+        "exec \"$REAL_PYTHON\" \"$@\"\n",
+        encoding="utf-8",
+    )
+    wrapper.chmod(0o755)
+    env["PYTHON_BIN"] = str(wrapper)
+    env["REAL_PYTHON"] = str(REPO_ROOT / ".venv/bin/python")
+    env["ACTIVE_RELEASE"] = str(active)
+
+    result = subprocess.run(
+        ["bash", str(installer), str(generated), str(active)],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+
+    assert result.returncode != 0
+    assert json.loads((active / "manifest.json").read_text())["release_version"] == "test.old"
+
+
+def test_paired_star_release_installer_atomically_upgrades_compatible_pair(
+    tmp_path: Path,
+) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_pair")
+    installer = REPO_ROOT / "scripts/skydata/install_oras_star_release_pair.py"
+    active = tmp_path / "active-star-release"
+    for version in ("old", "new"):
+        catalog = tmp_path / f"catalog-{version}"
+        dense = tmp_path / f"dense-{version}"
+        _write_catalog_pack_release(
+            catalog,
+            native_tile_order=3,
+            release_version=f"catalog.{version}",
+        )
+        builder.build_dense_star_tiles(
+            source_root=catalog,
+            output_root=dense,
+            tile_order=3,
+            release_version=f"dense.{version}",
+        )
+        subprocess.run(
+            [
+                str(REPO_ROOT / ".venv/bin/python"),
+                str(installer),
+                str(catalog),
+                str(dense),
+                str(active),
+            ],
+            cwd=REPO_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+    assert json.loads((active / "catalog-packs/manifest.json").read_text())[
+        "release_version"
+    ] == "catalog.new"
+    assert json.loads((active / "dense-star-tiles/manifest.json").read_text())[
+        "release_version"
+    ] == "dense.new"
+    previous = list(tmp_path.glob("active-star-release.previous-*"))
+    assert len(previous) == 1
+    assert json.loads((previous[0] / "catalog-packs/manifest.json").read_text())[
+        "release_version"
+    ] == "catalog.old"
+
+
+def test_dense_star_installer_rejects_mismatched_active_catalog_tile_order(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_install_mismatch")
+    source = tmp_path / "source"
+    generated = tmp_path / "generated"
+    active = tmp_path / "active"
+    mounted_catalog = tmp_path / "mounted-catalog"
+    _write_catalog_pack_release(source, native_tile_order=4)
+    _write_catalog_pack_release(mounted_catalog, native_tile_order=3)
+    builder.build_dense_star_tiles(
+        source_root=source,
+        output_root=generated,
+        tile_order=4,
+        release_version="test.mismatch",
+    )
+    env = os.environ.copy()
+    env["ORAS_CATALOG_PACKS_HOST_DIR"] = str(mounted_catalog)
+
+    result = subprocess.run(
+        [
+            "bash",
+            str(REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh"),
+            str(generated),
+            str(active),
+        ],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+
+    assert result.returncode != 0
+    assert "native star tile order mismatch" in result.stdout
+    assert not active.exists()
+
+
+def test_dense_star_installer_rejects_different_catalog_manifest_same_order(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_install_digest")
+    source = tmp_path / "source"
+    generated = tmp_path / "generated"
+    active = tmp_path / "active"
+    mounted_catalog = tmp_path / "mounted-catalog"
+    _write_catalog_pack_release(source, native_tile_order=3)
+    _write_catalog_pack_release(mounted_catalog, native_tile_order=3)
+    mounted_manifest = json.loads((mounted_catalog / "manifest.json").read_text())
+    mounted_manifest["release_version"] = "different-catalog"
+    (mounted_catalog / "manifest.json").write_text(json.dumps(mounted_manifest))
+    builder.build_dense_star_tiles(
+        source_root=source,
+        output_root=generated,
+        tile_order=3,
+        release_version="test.digest-mismatch",
+    )
+    env = os.environ.copy()
+    env["ORAS_CATALOG_PACKS_HOST_DIR"] = str(mounted_catalog)
+
+    result = subprocess.run(
+        [
+            "bash",
+            str(REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh"),
+            str(generated),
+            str(active),
+        ],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+
+    assert result.returncode != 0
+    assert "catalog manifest digest mismatch" in result.stdout
+    assert not active.exists()
+
+
+def test_dense_star_builder_rejects_invalid_coordinate_contract(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_invalid_contract")
+    source, output = tmp_path / "source", tmp_path / "output"
+    _write_catalog_pack_release(source)
+    path = source / "packs/stars-core/chunk-00000.jsonl"
+    records = [json.loads(line) for line in path.read_text().splitlines()]
+    records[0]["ra"] = 999.0
+    path.write_text("\n".join(json.dumps(row) for row in records) + "\n")
+    payload = path.read_bytes()
+    manifest_path = source / "manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    manifest["packs"][0]["chunks"][0].update(
+        byte_size=len(payload),
+        sha256=hashlib.sha256(payload).hexdigest(),
+    )
+    manifest_path.write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match="coordinates must be finite and in range"):
+        builder.build_dense_star_tiles(source_root=source, output_root=output,
+                                       tile_order=1, release_version="test.invalid")
+    assert not output.exists()

@@ -16,6 +16,7 @@ from backend.app.services.openngc_dso_catalog_service import (
     search_openngc_dso,
 )
 from backend.app.services.catalog_pack_service import (
+    enrich_star_science_payload,
     lookup_catalog_pack_object,
     search_catalog_packs,
 )
@@ -427,7 +428,7 @@ def lookup_exact_object(
     if normalized_catalog == "hipparcos tier 2 (local)":
         result = _lookup_hipparcos_tier2_by_identity(normalized_source_id, normalized_model)
         if result:
-            return result
+            return enrich_star_science_payload(result)
 
     local_result = _lookup_local_named_object_by_identity(
         normalized_catalog,
@@ -435,7 +436,7 @@ def lookup_exact_object(
         normalized_model,
     )
     if local_result:
-        return local_result
+        return enrich_star_science_payload(local_result)
 
     try:
         return lookup_catalog_pack_object(catalog, normalized_source_id, normalized_model)
@@ -490,6 +491,7 @@ def _rank_search_results(query: str, results: list[dict]) -> list[dict]:
 
 
 def _with_sky_engine_url(result: dict) -> dict:
+    result = enrich_star_science_payload(result)
     if result.get("sky_engine_url"):
         return result
     required = ("catalog", "source_id", "model", "ra", "dec")

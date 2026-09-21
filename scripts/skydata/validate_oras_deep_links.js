@@ -87,9 +87,9 @@ const cases = [
     name: 'Gaia controlled not-indexed star',
     path: 'skysource/GaiaDR2999999999999999999?catalog=Gaia%20DR2&source_id=999999999999999999&model=star&ra=123.45&dec=-54.321&fov=1.50&date=2026-06-04T02%3A16%3A04Z&lat=41.44&lng=-79.69&elev=0',
     identity: { catalog: 'Gaia DR2', sourceId: '999999999999999999', model: 'star' },
-    requiredText: ['Gaia DR2 999999999999999999', 'Star', 'Ra/Dec', 'FOV 1.50'],
+    requiredText: ['Star data unavailable for Gaia DR2 999999999999999999'],
     forbiddenText: ['Unknown Type'],
-    coordinatePatterns: [/08h\s+1[34]m/i, /-54°/],
+    expectUnavailable: true,
     requireIndexed: false,
     requiredStatus: 'not_indexed',
   },
@@ -475,6 +475,19 @@ async function validateCase(browser, testCase) {
   })
 
   await page.goto(buildUrl(testCase.path), { waitUntil: 'domcontentloaded', timeout: timeoutMs })
+
+  if (testCase.expectUnavailable) {
+    const query = new URLSearchParams({ catalog: testCase.identity.catalog, source_id: testCase.identity.sourceId, model: 'star' })
+    const response = await fetch(buildApiUrl('/api/sky/object?' + query))
+    const data = (await response.json()).data
+    if (data.status !== 'not_indexed' || data.star_science) throw new Error('unknown star must remain controlled not_indexed')
+    await waitForPageText(page, testCase.requiredText[0])
+    const selected = await page.evaluate(() => !!window.__ORAS_STEL.core.selection)
+    if (selected) throw new Error('unknown star was materialized with invented science')
+    const satelliteCount = await waitForSatelliteParse(consoleMessages)
+    await context.close()
+    return { satelliteCount }
+  }
 
   for (const text of testCase.requiredText) {
     await waitForPageText(page, text)
