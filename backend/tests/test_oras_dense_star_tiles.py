@@ -485,6 +485,55 @@ def test_dense_star_builder_accepts_matching_catalog_tile_order(tmp_path: Path, 
     assert manifest["tile_order"] == order
 
 
+def test_dense_star_validator_rejects_profile_order_mismatching_release(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_profile_order")
+    validator = _load_module(VALIDATOR_PATH, "validate_oras_dense_star_tiles_profile_order")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root, native_tile_order=3)
+    builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=3,
+        release_version="test.profile-order",
+    )
+    manifest_path = output_root / "manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    manifest["profiles"]["visual-default"]["tile_order"] = 4
+    manifest_path.write_text(json.dumps(manifest))
+
+    with pytest.raises(ValueError, match="profile tile order mismatch: visual-default"):
+        validator.validate_dense_star_tiles(output_root)
+
+
+def test_dense_star_validator_rejects_actual_profile_order_mismatching_release(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_actual_profile_order")
+    validator = _load_module(VALIDATOR_PATH, "validate_oras_dense_star_tiles_actual_profile_order")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root, native_tile_order=3)
+    builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=3,
+        release_version="test.actual-profile-order",
+    )
+    original = validator.validate_profile_tiles
+
+    def mismatched_profile(path: Path) -> dict:
+        report = original(path)
+        if path.name == "visual-default":
+            report["tile_order"] = 4
+        return report
+
+    monkeypatch.setattr(validator, "validate_profile_tiles", mismatched_profile)
+    with pytest.raises(ValueError, match="actual tile order mismatch: visual-default"):
+        validator.validate_dense_star_tiles(output_root)
+
+
 @pytest.mark.parametrize(('catalog_order', 'dense_order'), [(3, 4), (4, 3)])
 def test_dense_star_builder_rejects_catalog_tile_order_mismatch(
     tmp_path: Path,

@@ -48,6 +48,8 @@ fi
 if [[ -f "$DENSE_RELEASE_DIR/manifest.json" ]]; then
   "$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/star_release_compatibility.py" \
     "$SOURCE_DIR" "$DENSE_RELEASE_DIR"
+  "$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/validate_oras_dense_star_tiles.py" \
+    "$DENSE_RELEASE_DIR" >/dev/null
 fi
 
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
@@ -73,12 +75,26 @@ chmod -R a+rX "$STAGING"
   --validate-only \
   --output "$STAGING"
 
-"$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/promote_runtime_release.py" "$STAGING" "$TARGET_DIR"
+BACKUP="$("$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/promote_runtime_release.py" \
+  "$STAGING" "$TARGET_DIR" --print-backup-only)"
 STAGING=""
 
-"$PYTHON_BIN" -m scripts.skydata.build_oras_catalog_release \
+if ! "$PYTHON_BIN" -m scripts.skydata.build_oras_catalog_release \
   --validate-only \
-  --output "$TARGET_DIR"
+  --output "$TARGET_DIR"; then
+  echo "Final catalog validation failed; restoring previous generation" >&2
+  if [[ -n "$BACKUP" && -d "$BACKUP" ]]; then
+    "$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/promote_runtime_release.py" \
+      "$BACKUP" "$TARGET_DIR" >/dev/null
+  else
+    STAGING="$(mktemp -d "$TARGET_PARENT/.catalog-pack-invalid-$STAMP.XXXXXX")"
+    rmdir "$STAGING"
+    mv "$TARGET_DIR" "$STAGING"
+    rm -rf "$STAGING"
+    STAGING=""
+  fi
+  exit 1
+fi
 
 if [[ -n "$BACKUP" ]]; then
   echo "Previous ORAS catalog release moved to $BACKUP"

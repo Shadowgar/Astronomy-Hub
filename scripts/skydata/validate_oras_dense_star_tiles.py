@@ -210,6 +210,7 @@ def validate_profile_tiles(profile_root: Path) -> dict[str, Any]:
         "profile_id": manifest.get("profile_id"),
         "profile_intent": manifest.get("profile_intent"),
         "label_mode": manifest.get("label_mode"),
+        "tile_order": expected_tile_order,
         "star_count": star_count,
         "tile_count": len(entries),
         "magnitude_limit": manifest.get("magnitude_limit"),
@@ -247,13 +248,26 @@ def validate_dense_star_tiles(release_root: Path = DEFAULT_RELEASE_ROOT) -> dict
         raise ValueError("dense star release must define visual-default profile")
     if float(visual_profile.get("magnitude_limit", 99)) > 4.8:
         raise ValueError("dense star visual-default profile must stay at mag 4.8 or brighter")
+    release_tile_order = manifest.get("tile_order")
+    if (
+        isinstance(release_tile_order, bool)
+        or not isinstance(release_tile_order, int)
+        or not 0 <= release_tile_order <= 8
+    ):
+        raise ValueError("dense star release tile_order must be an integer between 0 and 8")
 
     profile_reports: dict[str, Any] = {}
     for profile_id, profile in profiles.items():
+        if not isinstance(profile, dict):
+            raise ValueError(f"dense star profile entry must be an object: {profile_id}")
+        if profile.get("tile_order") != release_tile_order:
+            raise ValueError(f"dense star profile tile order mismatch: {profile_id}")
         profile_path = str(profile.get("path", ""))
         if profile_path.startswith("/") or "\\" in profile_path or ".." in profile_path.split("/"):
             raise ValueError(f"unsafe dense star profile path: {profile_path}")
         profile_report = validate_profile_tiles(release_root / profile_path)
+        if profile_report["tile_order"] != release_tile_order:
+            raise ValueError(f"dense star profile actual tile order mismatch: {profile_id}")
         if profile_report["star_count"] != int(profile.get("star_count", -1)):
             raise ValueError(f"dense star profile star count mismatch: {profile_id}")
         if profile_report["tile_count"] != int(profile.get("tile_count", -1)):

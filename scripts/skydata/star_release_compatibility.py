@@ -84,6 +84,27 @@ def validate_release_pair(
             "catalog manifest digest mismatch: "
             f"catalog={catalog_digest} dense_source={expected_digest}"
         )
+    profiles = dense_manifest.get("profiles")
+    if not isinstance(profiles, dict) or not profiles:
+        raise ValueError("dense-star release must define profiles")
+    dense_root = Path(dense_root)
+    for profile_id, profile in profiles.items():
+        if not isinstance(profile, dict) or profile.get("tile_order") != dense_order:
+            raise ValueError(f"dense-star profile tile order mismatch: {profile_id}")
+        relative_path = Path(str(profile.get("path") or ""))
+        if relative_path.is_absolute() or ".." in relative_path.parts:
+            raise ValueError(f"dense-star profile path is unsafe: {profile_id}")
+        profile_manifest = read_manifest(
+            dense_root / relative_path,
+            f"dense-star profile {profile_id}",
+        )
+        profile_order = require_tile_order(
+            profile_manifest,
+            DENSE_TILE_ORDER_FIELD,
+            f"dense-star profile {profile_id}",
+        )
+        if profile_order != dense_order:
+            raise ValueError(f"dense-star profile actual tile order mismatch: {profile_id}")
     return {
         "catalog_order": catalog_order,
         "dense_order": dense_order,

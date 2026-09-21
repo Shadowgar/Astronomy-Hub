@@ -37,10 +37,15 @@ def _record(source_id: str) -> dict:
     }
 
 
-def _build_fixture_release(root: Path, *, native_tile_order: int = 3) -> None:
+def _build_fixture_release(
+    root: Path,
+    *,
+    native_tile_order: int = 3,
+    release_version: str = "2026.06.deploy-test",
+) -> None:
     build_catalog_release(
         root,
-        release_version="2026.06.deploy-test",
+        release_version=release_version,
         generated_at="2026-06-30T12:00:00Z",
         native_star_tile_order=native_tile_order,
         chunk_size=1,
@@ -132,6 +137,54 @@ def test_install_script_validates_and_installs_manifest_last(tmp_path: Path) -> 
     installed = json.loads((target / "manifest.json").read_text(encoding="utf-8"))
     assert installed["object_count"] == 2
     assert build_catalog_pack_status_payload(target)["data"]["object_count"] == 2
+
+
+def test_catalog_installer_restores_previous_generation_after_final_validation_failure(
+    tmp_path: Path,
+) -> None:
+    old_source = tmp_path / "source-old"
+    new_source = tmp_path / "source-new"
+    target = tmp_path / "mounted"
+    installer = REPO_ROOT / "scripts/skydata/install_oras_catalog_release.sh"
+    _build_fixture_release(old_source, release_version="catalog.old")
+    _build_fixture_release(new_source, release_version="catalog.new")
+    env = os.environ.copy()
+    env["ORAS_DENSE_STAR_TILES_HOST_DIR"] = str(tmp_path / "no-dense-release")
+    subprocess.run(
+        ["bash", str(installer), str(old_source), str(target)],
+        cwd=REPO_ROOT,
+        env=env,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    wrapper = tmp_path / "python-wrapper.sh"
+    wrapper.write_text(
+        "#!/usr/bin/env bash\n"
+        "set -euo pipefail\n"
+        "if [[ \"${1:-}\" == '-m' && \"${2:-}\" == 'scripts.skydata.build_oras_catalog_release' && \"${5:-}\" == \"$ACTIVE_RELEASE\" ]]; then\n"
+        "  printf '{}\\n' > \"$ACTIVE_RELEASE/manifest.json\"\n"
+        "fi\n"
+        "exec \"$REAL_PYTHON\" \"$@\"\n",
+        encoding="utf-8",
+    )
+    wrapper.chmod(0o755)
+    env["PYTHON_BIN"] = str(wrapper)
+    env["REAL_PYTHON"] = str(REPO_ROOT / ".venv/bin/python")
+    env["ACTIVE_RELEASE"] = str(target)
+
+    result = subprocess.run(
+        ["bash", str(installer), str(new_source), str(target)],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+
+    assert result.returncode != 0
+    assert json.loads((target / "manifest.json").read_text())["release_version"] == "catalog.old"
 
 
 def test_catalog_install_rejects_mismatched_active_dense_tile_order(tmp_path: Path) -> None:
