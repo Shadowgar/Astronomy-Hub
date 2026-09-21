@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 import math
 import os
@@ -24,7 +25,12 @@ def _load_module(path: Path, name: str):
     return module
 
 
-def _write_catalog_pack_release(root: Path, *, native_tile_order: int = 1) -> None:
+def _write_catalog_pack_release(
+    root: Path,
+    *,
+    native_tile_order: int = 1,
+    supplemental_stars: list[dict] | None = None,
+) -> None:
     chunk_dir = root / "packs/stars-core"
     chunk_dir.mkdir(parents=True)
     extra_chunk_dir = root / "packs/stars-extra"
@@ -139,6 +145,19 @@ def _write_catalog_pack_release(root: Path, *, native_tile_order: int = 1) -> No
         ],
     }
     manifest["packs"].extend(manifest.pop("extra_packs"))
+    if supplemental_stars:
+        supplemental_payload = "".join(
+            json.dumps(record, separators=(",", ":")) + "\n"
+            for record in supplemental_stars
+        ).encode("utf-8")
+        supplemental_path = root / "star-science-supplement.jsonl"
+        supplemental_path.write_bytes(supplemental_payload)
+        manifest["supplemental_stars"] = {
+            "path": supplemental_path.name,
+            "object_count": len(supplemental_stars),
+            "byte_size": len(supplemental_payload),
+            "sha256": hashlib.sha256(supplemental_payload).hexdigest(),
+        }
     (root / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
 
 
@@ -481,15 +500,24 @@ def test_dense_star_builder_restores_source_backed_bright_hipparcos_tail(tmp_pat
     builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_bright_tail")
     source_root = tmp_path / "catalog-packs"
     output_root = tmp_path / "dense-star-tiles"
-    bright_source = tmp_path / "hipparcos_bright.tsv"
-    _write_catalog_pack_release(source_root)
-    bright_source.write_text(
-        "# VizieR fixture\n"
-        "_RAJ2000\t_DEJ2000\tHIP\tVmag\tB-V\tPlx\tpmRA\tpmDE\tSpType\n"
-        "deg\tdeg\t\tmag\tmag\tmas\tmas/yr\tmas/yr\t\n"
-        "----------\t----------\t---\t----\t---\t---\t----\t----\t------\n"
-        "101.287155\t-16.716116\t32349\t-1.46\t0.001\t379.21\t-546.01\t-1223.07\tA1V\n",
-        encoding="utf-8",
+    _write_catalog_pack_release(
+        source_root,
+        supplemental_stars=[
+            {
+                "catalog": "Hipparcos (CDS)",
+                "source_id": "hip-32349",
+                "hip_id": "32349",
+                "model": "star",
+                "display_name": "Sirius",
+                "ra": 101.287155,
+                "dec": -16.716116,
+                "coordinate_epoch": 2000.0,
+                "coordinate_frame": "ICRS",
+                "magnitude": -1.46,
+                "magnitude_band": "V",
+                "johnson_bv": 0.001,
+            }
+        ],
     )
 
     report = builder.build_dense_star_tiles(
@@ -497,7 +525,6 @@ def test_dense_star_builder_restores_source_backed_bright_hipparcos_tail(tmp_pat
         output_root=output_root,
         tile_order=1,
         release_version="test.bright",
-        bright_star_source=bright_source,
     )
 
     visual = report["profiles"]["visual-default"]
@@ -507,20 +534,96 @@ def test_dense_star_builder_restores_source_backed_bright_hipparcos_tail(tmp_pat
     assert visual["source_catalogs"]["Hipparcos (CDS)"] == 1
 
 
-def test_dense_star_builder_rejects_missing_configured_bright_source(tmp_path: Path) -> None:
-    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_missing_bright")
+def test_dense_star_builder_uses_recorded_supplement_not_mutable_raw_source(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_recorded_supplement")
     source_root = tmp_path / "catalog-packs"
     output_root = tmp_path / "dense-star-tiles"
-    missing_source = tmp_path / "missing-hipparcos-bright.tsv"
-    _write_catalog_pack_release(source_root)
+    bright_source = tmp_path / "hipparcos_bright.tsv"
+    recorded = {
+        "catalog": "Hipparcos (CDS)",
+        "source_id": "hip-32349",
+        "hip_id": "32349",
+        "model": "star",
+        "display_name": "Sirius recorded",
+        "ra": 101.287155,
+        "dec": -16.716116,
+        "coordinate_epoch": 2000.0,
+        "coordinate_frame": "ICRS",
+        "magnitude": -1.46,
+        "magnitude_band": "V",
+        "johnson_bv": 0.001,
+    }
+    _write_catalog_pack_release(
+        source_root,
+        native_tile_order=1,
+        supplemental_stars=[recorded],
+    )
+    bright_source.write_text(
+        "# VizieR fixture\n"
+        "_RAJ2000\t_DEJ2000\tHIP\tVmag\tB-V\tPlx\tpmRA\tpmDE\tSpType\n"
+        "deg\tdeg\t\tmag\tmag\tmas\tmas/yr\tmas/yr\t\n"
+        "----------\t----------\t---\t----\t---\t---\t----\t----\t------\n"
+        "201.287155\t16.716116\t32349\t-1.46\t0.001\t379.21\t-546.01\t-1223.07\tA1V\n",
+        encoding="utf-8",
+    )
+    captured: list[list[dict]] = []
+    reconcile = builder.reconcile_star_records
 
-    with pytest.raises(FileNotFoundError, match="bright star source not found"):
+    def capture(records, **kwargs):
+        materialized = list(records)
+        captured.append(materialized)
+        return reconcile(materialized, **kwargs)
+
+    monkeypatch.setattr(builder, "reconcile_star_records", capture)
+
+    builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=1,
+        release_version="test.recorded-supplement",
+    )
+
+    assert captured
+    for records in captured:
+        sirius = [record for record in records if record.get("hip_id") == "32349"]
+        assert [(record["ra"], record["dec"]) for record in sirius] == [
+            (recorded["ra"], recorded["dec"]),
+        ]
+
+
+def test_dense_star_builder_rejects_missing_recorded_supplement(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_missing_supplement")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(
+        source_root,
+        supplemental_stars=[
+            {
+                "catalog": "Hipparcos (CDS)",
+                "source_id": "hip-32349",
+                "hip_id": "32349",
+                "model": "star",
+                "display_name": "Sirius",
+                "ra": 101.287155,
+                "dec": -16.716116,
+                "coordinate_epoch": 2000.0,
+                "coordinate_frame": "ICRS",
+                "magnitude": -1.46,
+                "magnitude_band": "V",
+            }
+        ],
+    )
+    (source_root / "star-science-supplement.jsonl").unlink()
+
+    with pytest.raises(FileNotFoundError, match="recorded catalog star supplement"):
         builder.build_dense_star_tiles(
             source_root=source_root,
             output_root=output_root,
             tile_order=1,
             release_version="test.missing-bright",
-            bright_star_source=missing_source,
         )
 
     assert not output_root.exists()

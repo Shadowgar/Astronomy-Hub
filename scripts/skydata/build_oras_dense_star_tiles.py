@@ -23,7 +23,6 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.skydata.catalog_sources.stars import load_vizier_stars
 from backend.app.services.star_science import (
     healpix_ang2pix, native_epoch, parse_hip_number, parse_gaia_id,
     safe_float, reconcile_star_records, normalize_star_science,
@@ -33,10 +32,6 @@ from scripts.skydata.star_release_compatibility import validate_catalog_build_or
 
 DEFAULT_SOURCE_ROOT = REPO_ROOT / "data/runtime-packs/catalog-packs"
 DEFAULT_OUTPUT_ROOT = REPO_ROOT / "data/runtime-packs/dense-star-tiles"
-DEFAULT_BRIGHT_STAR_SOURCE = (
-    REPO_ROOT
-    / "data/catalog-sources/oras-major-catalog-update-1/hipparcos_bright.tsv"
-)
 DEFAULT_RELEASE_VERSION = "2026.09.native-stars.4"
 DEFAULT_MAGNITUDE_LIMIT = 13.0
 DEFAULT_TILE_ORDER = 3
@@ -168,6 +163,29 @@ def iter_catalog_records(source_root: Path) -> Iterable[dict[str, Any]]:
                 for line in handle:
                     if line.strip():
                         yield json.loads(line)
+    supplement = manifest.get("supplemental_stars")
+    if supplement is None:
+        return
+    if not isinstance(supplement, dict):
+        raise ValueError("catalog star supplement manifest entry must be an object")
+    relative_path = Path(str(supplement.get("path") or ""))
+    if relative_path.is_absolute() or ".." in relative_path.parts:
+        raise ValueError("catalog star supplement path is unsafe")
+    supplement_path = source_root / relative_path
+    try:
+        payload = supplement_path.read_bytes()
+    except OSError as error:
+        raise FileNotFoundError(
+            f"recorded catalog star supplement is unavailable: {supplement_path}"
+        ) from error
+    if len(payload) != supplement.get("byte_size"):
+        raise ValueError("recorded catalog star supplement byte size mismatch")
+    if hashlib.sha256(payload).hexdigest() != supplement.get("sha256"):
+        raise ValueError("recorded catalog star supplement checksum mismatch")
+    records = [json.loads(line) for line in payload.decode("utf-8").splitlines() if line.strip()]
+    if len(records) != supplement.get("object_count"):
+        raise ValueError("recorded catalog star supplement object count mismatch")
+    yield from records
 
 
 def tile_path(root: Path, order: int, pix: int) -> Path:
@@ -300,14 +318,11 @@ def _build_profile_tiles(
     profile_label: str = "Custom",
     profile_intent: str = "opt-in",
     label_mode: str = "suppressed",
-    bright_star_source: Path | None = None,
 ) -> dict[str, Any]:
     source_root = Path(source_root)
     output_root = Path(output_root)
     if not (source_root / "manifest.json").is_file():
         raise FileNotFoundError(f"catalog pack manifest not found: {source_root / 'manifest.json'}")
-    if bright_star_source is not None and not Path(bright_star_source).is_file():
-        raise FileNotFoundError(f"bright star source not found: {bright_star_source}")
     if tile_order < 0 or tile_order > 8:
         raise ValueError("tile_order must be between 0 and 8")
     validate_catalog_build_order(source_root, tile_order)
@@ -323,10 +338,6 @@ def _build_profile_tiles(
     magnitudes: list[float] = []
     try:
         source_records = list(iter_catalog_records(source_root))
-        if bright_star_source:
-            source_records.extend(
-                load_vizier_stars(bright_star_source, "hipparcos_bright")
-            )
         canonical_records, reconciliation = reconcile_star_records(
             source_records,
             native_tile_order=tile_order,
@@ -451,7 +462,6 @@ def build_dense_star_tiles(
     tile_order: int = DEFAULT_TILE_ORDER,
     release_version: str = DEFAULT_RELEASE_VERSION,
     minimum_magnitude: float | None = None,
-    bright_star_source: Path | None = None,
 ) -> dict[str, Any]:
     source_root = Path(source_root)
     output_root = Path(output_root)
@@ -479,7 +489,6 @@ def build_dense_star_tiles(
                 profile_label=str(profile["label"]),
                 profile_intent=str(profile["profile_intent"]),
                 label_mode=str(profile["label_mode"]),
-                bright_star_source=bright_star_source,
             )
             profiles[profile_id] = {
                 "profile_id": profile_id,
@@ -569,16 +578,6 @@ def main() -> int:
     parser.add_argument("--minimum-magnitude", type=float, default=os.environ.get("ORAS_DENSE_STAR_MIN_MAG"))
     parser.add_argument("--tile-order", type=int, default=int(os.environ.get("ORAS_DENSE_STAR_TILE_ORDER", DEFAULT_TILE_ORDER)))
     parser.add_argument("--release-version", default=os.environ.get("ORAS_DENSE_STAR_RELEASE_VERSION", DEFAULT_RELEASE_VERSION))
-    parser.add_argument(
-        "--bright-star-source",
-        type=Path,
-        default=Path(
-            os.environ.get(
-                "ORAS_DENSE_STAR_BRIGHT_SOURCE",
-                DEFAULT_BRIGHT_STAR_SOURCE,
-            )
-        ),
-    )
     args = parser.parse_args()
     minimum_magnitude = args.minimum_magnitude
     if minimum_magnitude is not None:
@@ -590,7 +589,6 @@ def main() -> int:
         tile_order=args.tile_order,
         release_version=args.release_version,
         minimum_magnitude=minimum_magnitude,
-        bright_star_source=args.bright_star_source,
     )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0

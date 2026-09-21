@@ -2,8 +2,10 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 import math
+import os
 from pathlib import Path
 import shutil
 import struct
@@ -13,6 +15,9 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 SWE = ROOT / "vendor/stellarium-web-engine"
+NATIVE_SOURCE_INPUTS = (
+    ROOT / "backend/tests/fixtures/star-science/native-source-inputs.json"
+)
 
 
 def module(name):
@@ -20,6 +25,34 @@ def module(name):
     result = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(result)
     return result
+
+
+@pytest.fixture(scope="session")
+def native_source_root():
+    configured = os.getenv("ORAS_STELLARIUM_NATIVE_SOURCE_DIR")
+    root = Path(configured).resolve() if configured else SWE
+    expected = json.loads(NATIVE_SOURCE_INPUTS.read_text(encoding="utf-8"))
+    missing = [relative for relative in expected if not (root / relative).is_file()]
+    if missing:
+        message = (
+            "native conformance source tree is not provisioned; set "
+            "ORAS_STELLARIUM_NATIVE_SOURCE_DIR to the pinned Stellarium source tree; "
+            f"missing: {', '.join(missing)}"
+        )
+        if configured:
+            pytest.fail(message)
+        pytest.skip(message)
+    mismatched = [
+        relative
+        for relative, digest in expected.items()
+        if hashlib.sha256((root / relative).read_bytes()).hexdigest() != digest
+    ]
+    if mismatched:
+        pytest.fail(
+            "native conformance source inputs do not match pinned checksums: "
+            + ", ".join(mismatched)
+        )
+    return root
 
 
 @pytest.fixture
@@ -73,15 +106,15 @@ def test_rejects_invalid_star_table_header(golden_tile, offset, value):
 
 
 @pytest.fixture(scope="session")
-def native_reader(tmp_path_factory):
+def native_reader(tmp_path_factory, native_source_root):
     compiler = shutil.which("cc")
     assert compiler, "Native conformance requires a C compiler; do not silently skip"
     exe = tmp_path_factory.mktemp("native-star-reader") / "probe"
-    include = [SWE / "src", *(SWE / "ext_src" / p for p in ["json", "uthash", "erfa", "inih"])]
+    include = [native_source_root / "src", *(native_source_root / "ext_src" / p for p in ["json", "uthash", "erfa", "inih"])]
     command = [compiler, "-std=gnu99", "-O2", "-D_GNU_SOURCE", *[f"-I{p}" for p in include],
                str(ROOT / "scripts/skydata/native_star_reader_probe.c"),
-               str(SWE / "src/eph-file.c"),
-               str(SWE / "ext_src/json/json.c"), "-lz", "-lm", "-o", str(exe)]
+               str(native_source_root / "src/eph-file.c"),
+               str(native_source_root / "ext_src/json/json.c"), "-lz", "-lm", "-o", str(exe)]
     result = subprocess.run(command, capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
     return exe
@@ -106,7 +139,7 @@ def test_golden_values_round_trip_through_actual_native_reader(golden_tile, nati
 
 
 @pytest.fixture(scope="session")
-def native_behavior(tmp_path_factory):
+def native_behavior(tmp_path_factory, native_source_root):
     work = tmp_path_factory.mktemp("native-star-behavior")
     source = (SWE / "src/modules/stars.c").read_text()
     # Compile the actual functions, omitting only GL-bound class registration.
@@ -115,17 +148,17 @@ def native_behavior(tmp_path_factory):
     binding = work / "binding.c"
     binding.write_text(source.split(marker)[0] + (ROOT / "scripts/skydata/native_star_behavior_probe.c").read_text())
     # The actual HiPS iterator is also used; transport is the stub above.
-    hips = (SWE / "src/hips.c").read_text()
+    hips = (native_source_root / "src/hips.c").read_text()
     begin = hips.index("void hips_iter_init(")
     end = hips.index("\n}", hips.index("void hips_iter_push_children(", begin)) + 2
     with binding.open("a") as handle:
         handle.write("\n" + hips[begin:end])
     exe = work / "probe"
-    includes = [SWE / "src", *(SWE / "ext_src" / p for p in ["json", "uthash", "erfa", "inih"])]
+    includes = [native_source_root / "src", *(native_source_root / "ext_src" / p for p in ["json", "uthash", "erfa", "inih"])]
     command = ["cc", "-std=gnu99", "-O2", "-D_GNU_SOURCE", "-ffunction-sections", "-fdata-sections",
                *[f"-I{p}" for p in includes], str(binding),
-               str(SWE / "src/utils/utils_json.c"), str(SWE / "src/eph-file.c"), str(SWE / "ext_src/json/json.c"),
-               str(SWE / "ext_src/json/json-builder.c"), str(SWE / "ext_src/erfa/erfa.c"),
+               str(native_source_root / "src/utils/utils_json.c"), str(native_source_root / "src/eph-file.c"), str(native_source_root / "ext_src/json/json.c"),
+               str(native_source_root / "ext_src/json/json-builder.c"), str(native_source_root / "ext_src/erfa/erfa.c"),
                "-Wl,--gc-sections", "-lm", "-lz", "-o", str(exe)]
     result = subprocess.run(command, capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
