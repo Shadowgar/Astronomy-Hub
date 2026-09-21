@@ -711,6 +711,7 @@ describe('oras runtime search routing', () => {
       const method = compileExactRouteMethod(swh, { warn: vi.fn() })
       const context = {
         starLookupMessage: '',
+        skySourceRouteIdentity: vi.fn(() => exactStarIdentity()),
         resolveExactSkySourceRouteObject: vi.fn().mockResolvedValue(obj),
       }
       context.selectSkySourceRouteTargetByIdentity = method
@@ -812,6 +813,11 @@ describe('oras runtime search routing', () => {
     const method = compileExactRouteMethod(swh, { warn: vi.fn() })
     const context = {
       starLookupMessage: '',
+      skySourceRouteIdentity: vi.fn(() => ({
+        ...exactStarIdentity(),
+        catalog: 'Gaia DR2',
+        sourceId: '2252802052894084352',
+      })),
       resolveExactSkySourceRouteObject: vi.fn().mockResolvedValue(obj),
     }
     context.selectSkySourceRouteTargetByIdentity = method
@@ -828,6 +834,37 @@ describe('oras runtime search routing', () => {
     )
     expect(swh.setSweObjAsSelection).toHaveBeenCalledWith(obj, indexed)
     expect(context.starLookupMessage).toBe('')
+  })
+
+  it('releases a stale owned exact-route object without selecting it', async () => {
+    const firstIdentity = exactStarIdentity()
+    const secondIdentity = { ...firstIdentity, sourceId: 'hip-84' }
+    const skySource = indexedStarSource()
+    const ownedObject = { __orasOwnedLookup: true, destroy: vi.fn() }
+    let resolveLookup
+    let currentIdentity = firstIdentity
+    const swh = {
+      fetchOrasSkySourceByIdentity: vi.fn().mockResolvedValue(skySource),
+      skySourceMatchesIdentity: vi.fn(() => true),
+      setSweObjAsSelection: vi.fn(),
+    }
+    const method = compileExactRouteMethod(swh, { warn: vi.fn() })
+    const context = {
+      starLookupMessage: '',
+      skySourceRouteIdentity: vi.fn(() => currentIdentity),
+      resolveExactSkySourceRouteObject: vi.fn(() => new Promise(resolve => { resolveLookup = resolve })),
+    }
+    context.selectSkySourceRouteTargetByIdentity = method
+
+    const pending = method.call(context, firstIdentity)
+    await vi.waitFor(() => expect(resolveLookup).toBeTypeOf('function'))
+    currentIdentity = secondIdentity
+    resolveLookup(ownedObject)
+    await pending
+
+    expect(ownedObject.destroy).toHaveBeenCalledTimes(1)
+    expect(ownedObject.__orasOwnedLookup).toBe(false)
+    expect(swh.setSweObjAsSelection).not.toHaveBeenCalled()
   })
 
   it('releases a stale owned canonical lookup object without selecting it', async () => {

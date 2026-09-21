@@ -441,6 +441,18 @@ export default {
         }
 
         return this.resolveExactSkySourceRouteObject(ss, identity).then(obj => {
+          const currentIdentity = this.skySourceRouteIdentity()
+          const routeStillMatches = currentIdentity &&
+            currentIdentity.catalog === identity.catalog &&
+            currentIdentity.sourceId === identity.sourceId &&
+            currentIdentity.model === identity.model
+          if (!routeStillMatches) {
+            if (obj.__orasOwnedLookup) {
+              obj.__orasOwnedLookup = false
+              obj.destroy()
+            }
+            return
+          }
           obj.__orasSkySourceData = ss
           swh.setSweObjAsSelection(obj, ss)
         })
