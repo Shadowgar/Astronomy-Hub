@@ -295,6 +295,7 @@ function buildOrasModelData (result, model, sourceId) {
     const de = numberOrNull(science ? science.dec : result.dec)
     // The native renderer requires Vmag; the contract retains any fallback band.
     const vmag = numberOrNull(science ? science.render_magnitude : result.magnitude)
+    const gmag = numberOrNull(science ? null : result.phot_g_mean_mag)
     const plx = numberOrNull(science ? science.parallax_mas : result.parallax)
     const pmRa = numberOrNull(science ? science.proper_motion_ra_mas_per_year : result.proper_motion_ra)
     const pmDe = numberOrNull(science ? science.proper_motion_dec_mas_per_year : result.proper_motion_dec)
@@ -304,6 +305,7 @@ function buildOrasModelData (result, model, sourceId) {
     if (ra != null) modelData.ra = ra
     if (de != null) modelData.de = de
     if (vmag != null) modelData.Vmag = vmag
+    else if (gmag != null) modelData.Gmag = gmag
     if (plx != null) modelData.plx = plx
     if (pmRa != null) modelData.pm_ra = pmRa
     if (pmDe != null) modelData.pm_de = pmDe

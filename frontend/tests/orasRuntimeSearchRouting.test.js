@@ -756,6 +756,45 @@ describe('oras runtime search routing', () => {
     expect(context.resolveExactSkySourceRouteObject).not.toHaveBeenCalled()
   })
 
+  it('selects an indexed Gaia response that uses the legacy source-backed fields', async () => {
+    const indexed = toOrasSkySource({
+      catalog: 'Gaia DR2',
+      source_id: '2252802052894084352',
+      model: 'star',
+      indexed: true,
+      status: 'indexed',
+      ra: 79.17232794,
+      dec: 45.99799147,
+      phot_g_mean_mag: 0.08,
+    })
+    expect(indexed.model_data.Gmag).toBe(0.08)
+    const obj = { v: 42 }
+    const swh = {
+      fetchOrasSkySourceByIdentity: vi.fn().mockResolvedValue(indexed),
+      skySourceMatchesIdentity: vi.fn(() => true),
+      setSweObjAsSelection: vi.fn(),
+    }
+    const method = compileExactRouteMethod(swh, { warn: vi.fn() })
+    const context = {
+      starLookupMessage: '',
+      resolveExactSkySourceRouteObject: vi.fn().mockResolvedValue(obj),
+    }
+    context.selectSkySourceRouteTargetByIdentity = method
+
+    await method.call(context, {
+      ...exactStarIdentity(),
+      catalog: 'Gaia DR2',
+      sourceId: '2252802052894084352',
+    })
+
+    expect(context.resolveExactSkySourceRouteObject).toHaveBeenCalledWith(
+      indexed,
+      expect.objectContaining({ catalog: 'Gaia DR2' }),
+    )
+    expect(swh.setSweObjAsSelection).toHaveBeenCalledWith(obj, indexed)
+    expect(context.starLookupMessage).toBe('')
+  })
+
   it('releases a stale owned canonical lookup object without selecting it', async () => {
     const source = fs.readFileSync(targetSearchPath, 'utf8')
     const watcherSource = extractFunction(source, 'obsSkySource: async function')

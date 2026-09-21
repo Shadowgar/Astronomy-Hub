@@ -435,7 +435,7 @@ export default {
         if (!ss || !swh.skySourceMatchesIdentity(ss, identity)) {
           throw new Error('Resolved sky source did not match requested identity')
         }
-        if (identity.model === 'star' && (!ss.star_science || ss.star_science.render_magnitude == null)) {
+        if (identity.model === 'star' && ss.status === 'not_indexed') {
           this.starLookupMessage = 'Star data unavailable for ' + identity.catalog + ' ' + identity.sourceId + '. This object is not materialized without source-backed star data.'
           return
         }
