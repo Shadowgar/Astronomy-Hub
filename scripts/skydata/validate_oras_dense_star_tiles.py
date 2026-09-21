@@ -211,6 +211,7 @@ def validate_profile_tiles(profile_root: Path) -> dict[str, Any]:
         "profile_intent": manifest.get("profile_intent"),
         "label_mode": manifest.get("label_mode"),
         "tile_order": expected_tile_order,
+        "source_manifest_sha256": manifest.get("source_manifest_sha256"),
         "star_count": star_count,
         "tile_count": len(entries),
         "magnitude_limit": manifest.get("magnitude_limit"),
@@ -255,6 +256,9 @@ def validate_dense_star_tiles(release_root: Path = DEFAULT_RELEASE_ROOT) -> dict
         or not 0 <= release_tile_order <= 8
     ):
         raise ValueError("dense star release tile_order must be an integer between 0 and 8")
+    release_source_digest = manifest.get("source_manifest_sha256")
+    if not isinstance(release_source_digest, str) or len(release_source_digest) != 64:
+        raise ValueError("dense star release source_manifest_sha256 must be a SHA-256 digest")
 
     profile_reports: dict[str, Any] = {}
     for profile_id, profile in profiles.items():
@@ -268,6 +272,10 @@ def validate_dense_star_tiles(release_root: Path = DEFAULT_RELEASE_ROOT) -> dict
         profile_report = validate_profile_tiles(release_root / profile_path)
         if profile_report["tile_order"] != release_tile_order:
             raise ValueError(f"dense star profile actual tile order mismatch: {profile_id}")
+        if profile_report["source_manifest_sha256"] != release_source_digest:
+            raise ValueError(
+                f"dense star profile catalog manifest digest mismatch: {profile_id}"
+            )
         if profile_report["star_count"] != int(profile.get("star_count", -1)):
             raise ValueError(f"dense star profile star count mismatch: {profile_id}")
         if profile_report["tile_count"] != int(profile.get("tile_count", -1)):

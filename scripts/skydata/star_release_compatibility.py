@@ -105,6 +105,10 @@ def validate_release_pair(
         )
         if profile_order != dense_order:
             raise ValueError(f"dense-star profile actual tile order mismatch: {profile_id}")
+        if profile_manifest.get("source_manifest_sha256") != catalog_digest:
+            raise ValueError(
+                f"dense-star profile catalog manifest digest mismatch: {profile_id}"
+            )
     return {
         "catalog_order": catalog_order,
         "dense_order": dense_order,
