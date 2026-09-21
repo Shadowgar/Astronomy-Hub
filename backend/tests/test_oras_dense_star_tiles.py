@@ -123,7 +123,7 @@ def _write_catalog_pack_release(
                         "path": "packs/stars-core/chunk-00000.jsonl",
                         "object_count": len(records),
                         "byte_size": len(text.encode("utf-8")),
-                        "sha256": "test-not-used-by-builder",
+                        "sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
                     }
                 ],
             }
@@ -138,7 +138,7 @@ def _write_catalog_pack_release(
                         "path": "packs/stars-extra/chunk-00000.jsonl",
                         "object_count": 1,
                         "byte_size": len(extra_text.encode("utf-8")),
-                        "sha256": "test-not-used-by-builder",
+                        "sha256": hashlib.sha256(extra_text.encode("utf-8")).hexdigest(),
                     }
                 ],
             }
@@ -496,6 +496,46 @@ def test_dense_star_builder_rejects_catalog_tile_order_mismatch(
     assert not output_root.exists()
 
 
+def test_dense_star_builder_rejects_missing_recorded_core_chunk(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_missing_core")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root)
+    (source_root / "packs/stars-core/chunk-00000.jsonl").unlink()
+
+    with pytest.raises(FileNotFoundError, match="recorded catalog core chunk is unavailable"):
+        builder.build_dense_star_tiles(
+            source_root=source_root,
+            output_root=output_root,
+            tile_order=1,
+            release_version="test.missing-core",
+        )
+
+    assert not output_root.exists()
+
+
+def test_dense_star_builder_rejects_modified_recorded_core_chunk(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_modified_core")
+    source_root = tmp_path / "catalog-packs"
+    output_root = tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root)
+    chunk = source_root / "packs/stars-core/chunk-00000.jsonl"
+    payload = chunk.read_bytes()
+    changed = payload.replace(b'"ra":104.3047389065407', b'"ra":105.3047389065407', 1)
+    assert len(changed) == len(payload) and changed != payload
+    chunk.write_bytes(changed)
+
+    with pytest.raises(ValueError, match="recorded catalog core chunk checksum mismatch"):
+        builder.build_dense_star_tiles(
+            source_root=source_root,
+            output_root=output_root,
+            tile_order=1,
+            release_version="test.modified-core",
+        )
+
+    assert not output_root.exists()
+
+
 def test_dense_star_builder_restores_source_backed_bright_hipparcos_tail(tmp_path: Path) -> None:
     builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_bright_tail")
     source_root = tmp_path / "catalog-packs"
@@ -790,6 +830,46 @@ def test_dense_star_installer_rejects_mismatched_active_catalog_tile_order(tmp_p
     assert not active.exists()
 
 
+def test_dense_star_installer_rejects_different_catalog_manifest_same_order(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_install_digest")
+    source = tmp_path / "source"
+    generated = tmp_path / "generated"
+    active = tmp_path / "active"
+    mounted_catalog = tmp_path / "mounted-catalog"
+    _write_catalog_pack_release(source, native_tile_order=3)
+    _write_catalog_pack_release(mounted_catalog, native_tile_order=3)
+    mounted_manifest = json.loads((mounted_catalog / "manifest.json").read_text())
+    mounted_manifest["release_version"] = "different-catalog"
+    (mounted_catalog / "manifest.json").write_text(json.dumps(mounted_manifest))
+    builder.build_dense_star_tiles(
+        source_root=source,
+        output_root=generated,
+        tile_order=3,
+        release_version="test.digest-mismatch",
+    )
+    env = os.environ.copy()
+    env["ORAS_CATALOG_PACKS_HOST_DIR"] = str(mounted_catalog)
+
+    result = subprocess.run(
+        [
+            "bash",
+            str(REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh"),
+            str(generated),
+            str(active),
+        ],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+
+    assert result.returncode != 0
+    assert "catalog manifest digest mismatch" in result.stdout
+    assert not active.exists()
+
+
 def test_dense_star_builder_rejects_invalid_coordinate_contract(tmp_path: Path) -> None:
     builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_invalid_contract")
     source, output = tmp_path / "source", tmp_path / "output"
@@ -798,6 +878,14 @@ def test_dense_star_builder_rejects_invalid_coordinate_contract(tmp_path: Path) 
     records = [json.loads(line) for line in path.read_text().splitlines()]
     records[0]["ra"] = 999.0
     path.write_text("\n".join(json.dumps(row) for row in records) + "\n")
+    payload = path.read_bytes()
+    manifest_path = source / "manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    manifest["packs"][0]["chunks"][0].update(
+        byte_size=len(payload),
+        sha256=hashlib.sha256(payload).hexdigest(),
+    )
+    manifest_path.write_text(json.dumps(manifest))
     with pytest.raises(ValueError, match="coordinates must be finite and in range"):
         builder.build_dense_star_tiles(source_root=source, output_root=output,
                                        tile_order=1, release_version="test.invalid")

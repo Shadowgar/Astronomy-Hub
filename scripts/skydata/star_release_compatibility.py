@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -49,14 +50,19 @@ def validate_catalog_build_order(catalog_root: str | Path, dense_tile_order: int
     return catalog_order
 
 
-def validate_release_pair(catalog_root: str | Path, dense_root: str | Path) -> dict[str, int]:
+def validate_release_pair(
+    catalog_root: str | Path,
+    dense_root: str | Path,
+) -> dict[str, int | str]:
+    catalog_root = Path(catalog_root)
     catalog_order = require_tile_order(
         read_manifest(catalog_root, "catalog release"),
         CATALOG_TILE_ORDER_FIELD,
         "catalog release",
     )
+    dense_manifest = read_manifest(dense_root, "dense-star release")
     dense_order = require_tile_order(
-        read_manifest(dense_root, "dense-star release"),
+        dense_manifest,
         DENSE_TILE_ORDER_FIELD,
         "dense-star release",
     )
@@ -65,7 +71,24 @@ def validate_release_pair(catalog_root: str | Path, dense_root: str | Path) -> d
             "native star tile order mismatch: "
             f"catalog={catalog_order} dense={dense_order}"
         )
-    return {"catalog_order": catalog_order, "dense_order": dense_order}
+    expected_digest = dense_manifest.get("source_manifest_sha256")
+    if not isinstance(expected_digest, str) or len(expected_digest) != 64:
+        raise ValueError(
+            "dense-star release source_manifest_sha256 must be a SHA-256 digest"
+        )
+    catalog_digest = hashlib.sha256(
+        (catalog_root / "manifest.json").read_bytes()
+    ).hexdigest()
+    if catalog_digest != expected_digest:
+        raise ValueError(
+            "catalog manifest digest mismatch: "
+            f"catalog={catalog_digest} dense_source={expected_digest}"
+        )
+    return {
+        "catalog_order": catalog_order,
+        "dense_order": dense_order,
+        "catalog_manifest_sha256": catalog_digest,
+    }
 
 
 def main() -> int:

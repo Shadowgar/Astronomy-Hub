@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import subprocess
@@ -163,6 +164,55 @@ def test_catalog_install_rejects_mismatched_active_dense_tile_order(tmp_path: Pa
 
     assert result.returncode != 0
     assert "native star tile order mismatch" in result.stdout
+    assert not target.exists()
+
+
+def test_catalog_install_rejects_active_dense_from_different_manifest_same_order(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "source"
+    other_catalog = tmp_path / "other-catalog"
+    target = tmp_path / "mounted"
+    dense = tmp_path / "dense-star-tiles"
+    dense.mkdir()
+    _build_fixture_release(source, native_tile_order=3)
+    _build_fixture_release(other_catalog, native_tile_order=3)
+    other_manifest = json.loads((other_catalog / "manifest.json").read_text())
+    other_manifest["release_version"] = "different-catalog"
+    (other_catalog / "manifest.json").write_text(json.dumps(other_manifest))
+    source_digest = hashlib.sha256(
+        (other_catalog / "manifest.json").read_bytes()
+    ).hexdigest()
+    (dense / "manifest.json").write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "tile_order": 3,
+                "source_manifest_sha256": source_digest,
+            }
+        ),
+        encoding="utf-8",
+    )
+    env = os.environ.copy()
+    env["ORAS_DENSE_STAR_TILES_HOST_DIR"] = str(dense)
+
+    result = subprocess.run(
+        [
+            "bash",
+            str(REPO_ROOT / "scripts/skydata/install_oras_catalog_release.sh"),
+            str(source),
+            str(target),
+        ],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+
+    assert result.returncode != 0
+    assert "catalog manifest digest mismatch" in result.stdout
     assert not target.exists()
 
 

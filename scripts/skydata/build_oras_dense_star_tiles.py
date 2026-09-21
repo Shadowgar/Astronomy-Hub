@@ -149,6 +149,38 @@ def normalize_star_record(
     }, None
 
 
+def _read_recorded_jsonl(
+    source_root: Path,
+    entry: dict[str, Any],
+    *,
+    label: str,
+) -> list[dict[str, Any]]:
+    if not isinstance(entry, dict):
+        raise ValueError(f"{label} manifest entry must be an object")
+    relative_path = Path(str(entry.get("path") or ""))
+    if relative_path.is_absolute() or ".." in relative_path.parts:
+        raise ValueError(f"{label} path is unsafe")
+    artifact_path = source_root / relative_path
+    try:
+        payload = artifact_path.read_bytes()
+    except OSError as error:
+        raise FileNotFoundError(
+            f"{label} is unavailable: {artifact_path}"
+        ) from error
+    if len(payload) != entry.get("byte_size"):
+        raise ValueError(f"{label} byte size mismatch")
+    if hashlib.sha256(payload).hexdigest() != entry.get("sha256"):
+        raise ValueError(f"{label} checksum mismatch")
+    records = [
+        json.loads(line)
+        for line in payload.decode("utf-8").splitlines()
+        if line.strip()
+    ]
+    if len(records) != entry.get("object_count"):
+        raise ValueError(f"{label} object count mismatch")
+    return records
+
+
 def iter_catalog_records(source_root: Path) -> Iterable[dict[str, Any]]:
     manifest_path = source_root / "manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -156,36 +188,19 @@ def iter_catalog_records(source_root: Path) -> Iterable[dict[str, Any]]:
         if pack.get("pack_id") != SOURCE_PACK_ID:
             continue
         for chunk in pack.get("chunks", []):
-            chunk_path = source_root / str(chunk.get("path", ""))
-            if not chunk_path.is_file():
-                continue
-            with chunk_path.open("r", encoding="utf-8") as handle:
-                for line in handle:
-                    if line.strip():
-                        yield json.loads(line)
+            yield from _read_recorded_jsonl(
+                source_root,
+                chunk,
+                label="recorded catalog core chunk",
+            )
     supplement = manifest.get("supplemental_stars")
     if supplement is None:
         return
-    if not isinstance(supplement, dict):
-        raise ValueError("catalog star supplement manifest entry must be an object")
-    relative_path = Path(str(supplement.get("path") or ""))
-    if relative_path.is_absolute() or ".." in relative_path.parts:
-        raise ValueError("catalog star supplement path is unsafe")
-    supplement_path = source_root / relative_path
-    try:
-        payload = supplement_path.read_bytes()
-    except OSError as error:
-        raise FileNotFoundError(
-            f"recorded catalog star supplement is unavailable: {supplement_path}"
-        ) from error
-    if len(payload) != supplement.get("byte_size"):
-        raise ValueError("recorded catalog star supplement byte size mismatch")
-    if hashlib.sha256(payload).hexdigest() != supplement.get("sha256"):
-        raise ValueError("recorded catalog star supplement checksum mismatch")
-    records = [json.loads(line) for line in payload.decode("utf-8").splitlines() if line.strip()]
-    if len(records) != supplement.get("object_count"):
-        raise ValueError("recorded catalog star supplement object count mismatch")
-    yield from records
+    yield from _read_recorded_jsonl(
+        source_root,
+        supplement,
+        label="recorded catalog star supplement",
+    )
 
 
 def tile_path(root: Path, order: int, pix: int) -> Path:
