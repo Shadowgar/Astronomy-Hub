@@ -40,7 +40,7 @@ from backend.app.services.sky_object_enrichment import (
 DEFAULT_LIMIT = 25
 MAX_LIMIT = 100
 ABOVE_ME_CONTRACT_VERSION = "above-me.v1"
-ABOVE_ME_CACHE_KEY_VERSION = "v2"
+ABOVE_ME_CACHE_KEY_VERSION = "v3"
 ABOVE_ME_CACHE_TTL_SECONDS = 30
 ABOVE_ME_CURATION_POLICY = "balanced-v1"
 BRIGHT_STAR_CATALOG = "Bright Star Catalog (local)"
@@ -181,6 +181,9 @@ def _is_valid_cached_above_me_payload(payload: Any) -> bool:
         and payload["meta"].get("contract_version") == ABOVE_ME_CONTRACT_VERSION
         and isinstance(payload["meta"].get("observability_context"), dict)
         and payload["meta"]["observability_context"].get("schema_version") == observability_service.SCHEMA_VERSION
+        and isinstance(payload["meta"]["observability_context"].get("moon"), dict)
+        and "ra_icrf_deg" in payload["meta"]["observability_context"]["moon"]
+        and "dec_icrf_deg" in payload["meta"]["observability_context"]["moon"]
         and all(isinstance(item, dict) and isinstance(item.get("observability"), dict)
                 and item.get("above_geometric_horizon") is True
                 for item in payload["data"]["objects"])

@@ -116,7 +116,7 @@ describe('Observe page states', () => {
         observability_context: {
           schema_version: 'observability.v1', horizon_model: 'geometric', site_horizon_status: 'not_modeled',
           sky_darkness: { state: 'astronomical_night', sun_altitude_deg: -22.4, in_astronomical_darkness: true, source: 'jpl_de442s_local' },
-          moon: { altitude_deg: 31.2, azimuth_deg: 220, above_geometric_horizon: true, ra_deg: 20, dec_deg: 30, source: 'jpl_de442s_local' },
+          moon: { altitude_deg: 31.2, azimuth_deg: 220, above_geometric_horizon: true, ra_deg: 20, dec_deg: 30, ra_icrf_deg: 20, dec_icrf_deg: 30, source: 'jpl_de442s_local' },
           weather: { status: 'current_fresh', source: 'open_meteo_current', last_updated: '2026-09-27T06:00:00Z', cloud_cover_pct: 0 },
           limitations: [],
         },
@@ -138,7 +138,7 @@ describe('Observe page states', () => {
       schema_version: 'observability.v1' as const, horizon_model: 'geometric' as const,
       site_horizon_status: 'not_modeled' as const,
       sky_darkness: { state: 'civil_twilight' as const, sun_altitude_deg: -3, in_astronomical_darkness: false, source: 'jpl_de442s_local' },
-      moon: { altitude_deg: -2, azimuth_deg: 100, above_geometric_horizon: false, ra_deg: 20, dec_deg: 30, source: 'jpl_de442s_local' },
+      moon: { altitude_deg: -2, azimuth_deg: 100, above_geometric_horizon: false, ra_deg: 20, dec_deg: 30, ra_icrf_deg: 20, dec_icrf_deg: 30, source: 'jpl_de442s_local' },
       weather: { status: 'not_evaluated_for_selected_time' as const, source: 'open_meteo_current', last_updated: null },
       limitations: [], observer: payload.observer,
     } }
@@ -159,7 +159,7 @@ describe('Observe page states', () => {
       schema_version: 'observability.v1' as const, observer: payload.observer,
       horizon_model: 'geometric' as const, site_horizon_status: 'not_modeled' as const,
       sky_darkness: { state: state as 'daylight', sun_altitude_deg: -3, in_astronomical_darkness: false, source: 'jpl_de442s_local' },
-      moon: { altitude_deg: null, azimuth_deg: null, above_geometric_horizon: null, ra_deg: null, dec_deg: null, source: null },
+      moon: { altitude_deg: null, azimuth_deg: null, above_geometric_horizon: null, ra_deg: null, dec_deg: null, ra_icrf_deg: null, dec_icrf_deg: null, source: null },
       weather: { status: 'unavailable' as const, source: 'open_meteo_current', last_updated: null }, limitations: [],
     } }
     const html = render({ payload: contextual })

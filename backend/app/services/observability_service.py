@@ -113,6 +113,8 @@ def build_observability_context(
             "above_geometric_horizon": moon_alt > 0 if moon_alt is not None else None,
             "ra_deg": _finite(moon_body.get("ra")),
             "dec_deg": _finite(moon_body.get("dec")),
+            "ra_icrf_deg": _finite(moon_body.get("ra_icrf")),
+            "dec_icrf_deg": _finite(moon_body.get("dec_icrf")),
             "source": source if moon_alt is not None else None,
         },
         "weather": _weather_context(lat=lat, lng=lng, explicit_time=explicit_time),
@@ -131,6 +133,14 @@ def qualify_target(target: dict[str, Any], context: dict[str, Any]) -> dict[str,
         f"above_horizon_{state}" if above is True and state != "unknown" else "unknown"
     )
     moon = context["moon"]
+    model = target.get("model")
+    # Solar links use apparent equinox-of-date RA/Dec; catalog and TLE targets use ICRF axes.
+    if model in {"sun", "moon", "planet", "solar_system"}:
+        moon_ra, moon_dec = moon.get("ra_deg"), moon.get("dec_deg")
+    elif model in {"star", "dso", "tle_satellite"}:
+        moon_ra, moon_dec = moon.get("ra_icrf_deg"), moon.get("dec_icrf_deg")
+    else:
+        moon_ra = moon_dec = None
     return {
         "above_geometric_horizon": above,
         "altitude_deg": altitude,
@@ -138,7 +148,7 @@ def qualify_target(target: dict[str, Any], context: dict[str, Any]) -> dict[str,
         "sky_state": state,
         "in_astronomical_darkness": context["sky_darkness"]["in_astronomical_darkness"],
         "moon_angular_separation_deg": angular_separation_deg(
-            target.get("ra"), target.get("dec"), moon["ra_deg"], moon["dec_deg"],
+            target.get("ra"), target.get("dec"), moon_ra, moon_dec,
         ),
         "assessment": assessment,
         "limitations": ["geometric_horizon_only", "detectability_not_evaluated"],

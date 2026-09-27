@@ -396,7 +396,7 @@ def test_above_me_caches_identical_explicit_requests_with_contract_metadata(monk
     assert first["meta"]["cache"] == {
         "status": "miss",
         "ttl_seconds": 30,
-        "key_version": "v2",
+        "key_version": "v3",
     }
     assert second["meta"]["cache"]["status"] == "hit"
     assert second["data"] == first["data"]
@@ -522,7 +522,7 @@ def test_above_me_cache_failure_is_non_fatal_and_reported(monkeypatch) -> None:
     assert payload["meta"]["cache"] == {
         "status": "degraded",
         "ttl_seconds": 30,
-        "key_version": "v2",
+        "key_version": "v3",
     }
 
 

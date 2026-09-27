@@ -96,6 +96,7 @@ The numbers below illustrate field shape; they are not an observation record.
         "altitude_deg": 31.2, "azimuth_deg": 220.0,
         "above_geometric_horizon": true,
         "ra_deg": 30.0, "dec_deg": 10.0,
+        "ra_icrf_deg": 29.7, "dec_icrf_deg": 9.9,
         "source": "jpl_de442s_local"
       },
       "weather": {
@@ -107,7 +108,7 @@ The numbers below illustrate field shape; they are not an observation record.
     "cache": {
       "status": "miss",
       "ttl_seconds": 30,
-      "key_version": "v2"
+      "key_version": "v3"
     },
     "curation": {
       "policy": "balanced-v1",
@@ -169,9 +170,13 @@ instant. If only the controlled Horizons fallback is available, a candidate is
 included only when its provider `time_basis` equals the requested instant;
 hourly fallback positions are omitted for other selected times.
 
-Moon altitude/azimuth and target separation are geometric facts. Separation is
-the great-circle angle between source-backed target and Moon RA/Dec, clamped to
-[0°, 180°], or `null` if either coordinate is unavailable. The per-target
+Moon altitude/azimuth and target separation are geometric facts. The Moon's
+`ra_deg/dec_deg` are apparent equinox-of-date coordinates used by the existing
+solar-system links. Its `ra_icrf_deg/dec_icrf_deg` are astrometric ICRF
+coordinates from the same Skyfield observation. Separation uses the
+equinox-of-date pair for solar-system targets and the ICRF pair for catalog
+stars, DSOs, and TLE satellites. Other or missing coordinate frames yield
+`null`. The resulting great-circle angle is clamped to [0°, 180°]. The per-target
 `observability.assessment` is a deterministic context enum:
 `below_geometric_horizon`, `above_horizon_daylight`,
 `above_horizon_civil_twilight`, `above_horizon_nautical_twilight`,
@@ -238,7 +243,7 @@ then preserves the highest-ranked category representatives and reports
 Successful responses use a private backend Redis cache with a 30-second TTL.
 The cache key uses exact normalized observer values, parsed limit, contract
 version, and requested time, then stores only a SHA-256 digest in the key name.
-The internal key version is `v2` to exclude pre-observability payloads.
+The internal key version is `v3` to exclude payloads with older Moon-frame semantics.
 
 - Explicit request times are exact and are never rounded together.
 - Requests without `time` share only their server-generated 30-second UTC time

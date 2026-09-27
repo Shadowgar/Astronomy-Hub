@@ -35,6 +35,21 @@ def test_geometric_horizon_preserves_unrounded_legacy_decision():
     assert target["above_geometric_horizon"] is True
 
 
+def test_moon_separation_uses_target_coordinate_frame():
+    context = {
+        "sky_darkness": {"state": "astronomical_night", "in_astronomical_darkness": True},
+        "moon": {"ra_deg": 0, "dec_deg": 0, "ra_icrf_deg": 10, "dec_icrf_deg": 0},
+    }
+    star = service.qualify_target({"model": "star", "alt": 30, "az": 90, "ra": 10, "dec": 0}, context)
+    satellite = service.qualify_target({"model": "tle_satellite", "alt": 30, "az": 90, "ra": 10, "dec": 0}, context)
+    planet = service.qualify_target({"model": "planet", "alt": 30, "az": 90, "ra": 0, "dec": 0}, context)
+    assert star["moon_angular_separation_deg"] == pytest.approx(0)
+    assert satellite["moon_angular_separation_deg"] == pytest.approx(0)
+    assert planet["moon_angular_separation_deg"] == pytest.approx(0)
+    del context["moon"]["ra_icrf_deg"]
+    assert service.qualify_target({"model": "star", "alt": 30, "az": 90, "ra": 10, "dec": 0}, context)["moon_angular_separation_deg"] is None
+
+
 def test_context_uses_exact_local_ephemeris_and_selected_time_skips_weather(monkeypatch):
     instant = datetime(2026, 9, 27, 1, 23, 45, tzinfo=timezone.utc)
     calls = []
@@ -44,6 +59,7 @@ def test_context_uses_exact_local_ephemeris_and_selected_time_skips_weather(monk
         return [
             {"id": "sun", "elevation": -18, "ephemeris_source": "jpl_de442s_local"},
             {"id": "moon", "elevation": 31, "azimuth": 210, "ra": 20, "dec": 30,
+             "ra_icrf": 20, "dec_icrf": 30,
              "ephemeris_source": "jpl_de442s_local"},
         ]
 
@@ -55,7 +71,7 @@ def test_context_uses_exact_local_ephemeris_and_selected_time_skips_weather(monk
     assert context["sky_darkness"]["state"] == "astronomical_night"
     assert context["moon"]["above_geometric_horizon"] is True
     assert context["weather"]["status"] == "not_evaluated_for_selected_time"
-    target = service.qualify_target({"alt": 12, "az": 90, "ra": 110, "dec": 30}, context)
+    target = service.qualify_target({"model": "star", "alt": 12, "az": 90, "ra": 110, "dec": 30}, context)
     assert target["assessment"] == "above_horizon_astronomical_night"
     assert target["moon_angular_separation_deg"] == pytest.approx(75.5224878)
     assert "potentially_observable" not in target
@@ -118,7 +134,7 @@ def test_above_me_adds_context_without_changing_exact_links_or_curation(monkeypa
     })
     result = above_me_service.build_above_me_payload(lat=41.3, lng=-79.6, time="2026-09-27T12:00:00Z")
     assert result["meta"]["observability_context"]["schema_version"] == "observability.v1"
-    assert result["meta"]["cache"]["key_version"] == "v2"
+    assert result["meta"]["cache"]["key_version"] == "v3"
     target = result["data"]["objects"][0]
     assert target["above_geometric_horizon"] is True
     assert target["is_visible"] is True
@@ -157,6 +173,11 @@ def test_missing_provider_field_is_not_reported_as_observed_weather(monkeypatch)
 def test_cached_above_me_requires_observability_v1_shape():
     legacy = {"status": "ok", "data": {"objects": []}, "meta": {"contract_version": "above-me.v1"}}
     assert above_me_service._is_valid_cached_above_me_payload(legacy) is False
+    prior = {"status": "ok", "data": {"objects": []}, "meta": {
+        "contract_version": "above-me.v1",
+        "observability_context": {"schema_version": "observability.v1", "moon": {"ra_deg": 10, "dec_deg": 20}},
+    }}
+    assert above_me_service._is_valid_cached_above_me_payload(prior) is False
 
 
 def test_missing_weather_observation_time_does_not_claim_freshness(monkeypatch):

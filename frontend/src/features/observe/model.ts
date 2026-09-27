@@ -11,7 +11,7 @@ export interface ObservabilityContext {
   horizon_model: 'geometric'
   site_horizon_status: 'not_modeled'
   sky_darkness: { state: SkyDarknessState; sun_altitude_deg: number | null; in_astronomical_darkness: boolean | null; source: string | null }
-  moon: { altitude_deg: number | null; azimuth_deg: number | null; above_geometric_horizon: boolean | null; ra_deg: number | null; dec_deg: number | null; source: string | null }
+  moon: { altitude_deg: number | null; azimuth_deg: number | null; above_geometric_horizon: boolean | null; ra_deg: number | null; dec_deg: number | null; ra_icrf_deg: number | null; dec_icrf_deg: number | null; source: string | null }
   weather: { status: 'current_fresh' | 'stale' | 'unavailable' | 'degraded' | 'not_evaluated_for_selected_time'; source: string; last_updated: string | null; cloud_cover_pct?: number; visibility_m?: number; temperature_c?: number; humidity_pct?: number; wind_mph?: number; dew_point_c?: number; weather_code?: number }
   limitations: string[]
 }
