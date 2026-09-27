@@ -13,7 +13,10 @@ export const API_BASE_URL = resolveApiBaseUrl()
 
 function buildUrl(path: string, query?: QueryParams): string {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`
-  const url = new URL(`${API_BASE_URL}${normalizedPath}`, window.location.origin)
+  const url = new URL(
+    normalizedPath.startsWith('/api/') ? normalizedPath : `${API_BASE_URL}${normalizedPath}`,
+    window.location.origin
+  )
 
   if (query) {
     Object.entries(query).forEach(([key, value]) => {

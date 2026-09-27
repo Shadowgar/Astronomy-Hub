@@ -1,8 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import useDisplayModeState from '../../../state/displayModeState'
 import useGlobalUiState from '../../../state/globalUiState'
 import { useConditionsDataQuery } from '../../../features/conditions/queries'
 import { parseLocationQuery } from '../../../features/shared/locationQuery'
+import { getObservePath } from '../../../features/observe/model'
 import { useScopesQuery } from '../../../features/scopes/queries'
 
 const COMMAND_ACTIONS = [
@@ -84,6 +86,7 @@ export default function TopControlBar() {
       <header className="app-header app-header-utility foundation-header-row" role="banner">
         <div className="foundation-header-main">
           <h1>Astronomy Hub</h1>
+          <Link className="foundation-observe-link" to={getObservePath(locationQuery)}>Observe at ORAS</Link>
           <span className="foundation-header-user">User / Settings</span>
         </div>
         <div className="header-controls" aria-label="Top control bar">

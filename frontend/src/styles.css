@@ -45,6 +45,9 @@
 .topbar-loc-error{color:var(--text-main)}
 .progress-nav{margin-left:var(--token-space-3)}
 .progress-link{color:var(--token-color-action-primary);text-decoration:none;font-size:var(--token-font-2)}
+.foundation-observe-link{display:inline-flex;align-items:center;padding:var(--token-space-2) var(--token-space-4);border:var(--token-border-subtle);border-radius:var(--token-radius-pill);color:var(--text-main);background:var(--surface-panel);font-size:var(--token-font-2);font-weight:var(--token-font-weight-bold);text-decoration:none}
+.foundation-observe-link:hover{text-decoration:underline}
+.foundation-observe-link:focus-visible{outline:var(--token-border-width-medium) solid var(--action-primary-bg);outline-offset:var(--token-space-1)}
 .app-main-flow{margin-top:var(--gap)}
 .content-grid{display:grid;grid-template-columns:var(--layout-grid-main-columns);gap:var(--space-6)}
 .content-grid.app-main-flow{grid-template-columns:1fr}

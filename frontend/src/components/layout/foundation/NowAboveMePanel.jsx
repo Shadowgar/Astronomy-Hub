@@ -1,12 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PlaceholderItemRow from './PlaceholderItemRow'
 import PanelSection from './PanelSection'
 import { useSceneByScopeDataQuery } from '../../../features/scene/queries'
 import { parseLocationQuery } from '../../../features/shared/locationQuery'
+import { getObservePath } from '../../../features/observe/model'
 import useGlobalUiState from '../../../state/globalUiState'
 
 export default function NowAboveMePanel() {
-  const { activeFilter, selectedObjectId, setSelectedObjectId, setActiveScope, setActiveEngine, setActiveFilter } = useGlobalUiState()
+  const { activeFilter, selectedObjectId, setSelectedObjectId } = useGlobalUiState()
   const locationQuery = typeof window !== 'undefined' ? window.location.search : ''
   const queryParams = parseLocationQuery(locationQuery)
   const filter = activeFilter || 'visible_now'
@@ -35,18 +37,9 @@ export default function NowAboveMePanel() {
             />
           ))}
         </ul>
-        <button
-          type="button"
-          className="foundation-panel-link"
-          onClick={() => {
-            setActiveScope('above_me')
-            setActiveEngine('above_me')
-            setActiveFilter('visible_now')
-            setSelectedObjectId(null)
-          }}
-        >
+        <Link className="foundation-panel-link" to={getObservePath(locationQuery)}>
           See all visible objects
-        </button>
+        </Link>
       </div>
     </PanelSection>
   )
