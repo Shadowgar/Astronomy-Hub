@@ -162,7 +162,8 @@ def test_catalog_installer_restores_previous_generation_after_final_validation_f
     wrapper.write_text(
         "#!/usr/bin/env bash\n"
         "set -euo pipefail\n"
-        "if [[ \"${1:-}\" == '-m' && \"${2:-}\" == 'scripts.skydata.build_oras_catalog_release' && \"${5:-}\" == \"$ACTIVE_RELEASE\" ]]; then\n"
+        "if [[ \"${1:-}\" == '-m' && \"${2:-}\" == 'scripts.skydata.build_oras_catalog_release' && \"${5:-}\" == \"$ACTIVE_RELEASE\" && ! -e \"$INJECT_MARKER\" ]]; then\n"
+        "  touch \"$INJECT_MARKER\"\n"
         "  printf '{}\\n' > \"$ACTIVE_RELEASE/manifest.json\"\n"
         "fi\n"
         "exec \"$REAL_PYTHON\" \"$@\"\n",
@@ -172,6 +173,7 @@ def test_catalog_installer_restores_previous_generation_after_final_validation_f
     env["PYTHON_BIN"] = str(wrapper)
     env["REAL_PYTHON"] = str(REPO_ROOT / ".venv/bin/python")
     env["ACTIVE_RELEASE"] = str(target)
+    env["INJECT_MARKER"] = str(tmp_path / "final-validation-injected")
 
     result = subprocess.run(
         ["bash", str(installer), str(new_source), str(target)],

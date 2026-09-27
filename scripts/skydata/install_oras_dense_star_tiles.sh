@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
+
 if [[ $# -ne 2 ]]; then
   echo "Usage: $0 <source-release-dir> <target-runtime-dir>" >&2
   exit 2
@@ -23,6 +25,15 @@ if find "$source_dir" -type l -print -quit | grep -q .; then
   echo "Source release contains symlinks; refusing install" >&2
   exit 1
 fi
+
+lock_file="${ORAS_STAR_RELEASE_LOCK_FILE:-$root_dir/data/runtime-packs/.star-release-promotion.lock}"
+mkdir -p "$(dirname "$lock_file")"
+if [[ -L "$lock_file" ]]; then
+  echo "Refusing symlink star release lock: $lock_file" >&2
+  exit 1
+fi
+exec {star_release_lock_fd}>"$lock_file"
+flock -x "$star_release_lock_fd"
 
 mkdir -p "$target_parent"
 rm -rf "$staging_dir"
@@ -71,15 +82,51 @@ PY
 "$python_bin" scripts/skydata/validate_oras_dense_star_tiles.py "$staging_dir"
 
 chmod -R a+rX "$staging_dir"
+promoted=0
+validate_runtime() {
+  "$python_bin" scripts/skydata/validate_oras_dense_star_tiles.py "$target_dir" >/dev/null || return
+  if [[ -f "$catalog_dir/manifest.json" ]]; then
+    "$python_bin" scripts/skydata/star_release_compatibility.py \
+      "$catalog_dir" "$target_dir" || return
+  fi
+}
+rollback_dense() {
+  if [[ -n "$backup_path" && -d "$backup_path" ]]; then
+    "$python_bin" scripts/skydata/promote_runtime_release.py \
+      "$backup_path" "$target_dir" >/dev/null || return
+  else
+    mv "$target_dir" "$staging_dir" || return
+    rm -rf "$staging_dir" || return
+  fi
+  if [[ -f "$target_dir/manifest.json" ]]; then
+    validate_runtime || return
+  else
+    [[ ! -e "$target_dir" ]] || return
+    if [[ -f "$catalog_dir/manifest.json" ]]; then
+      "$python_bin" -m scripts.skydata.build_oras_catalog_release \
+        --validate-only --output "$catalog_dir" >/dev/null || return
+    fi
+  fi
+}
+cleanup() {
+  local status="$1"
+  trap - EXIT
+  set +e
+  if [[ "$promoted" == 1 ]]; then
+    echo "Final dense-star/pair validation failed; restoring previous generation" >&2
+    rollback_dense
+    if [[ $? -ne 0 ]]; then
+      echo "Dense-star rollback or restored runtime validation failed" >&2
+      status=1
+    fi
+  fi
+  exit "$status"
+}
+trap 'cleanup $?' EXIT
 backup_path="$("$python_bin" scripts/skydata/promote_runtime_release.py \
   "$staging_dir" "$target_dir" --print-backup-only)"
-if ! "$python_bin" scripts/skydata/validate_oras_dense_star_tiles.py "$target_dir"; then
-  echo "Final dense-star validation failed; restoring previous generation" >&2
-  if [[ -n "$backup_path" && -d "$backup_path" ]]; then
-    "$python_bin" scripts/skydata/promote_runtime_release.py "$backup_path" "$target_dir" >/dev/null
-  else
-    mv "$target_dir" "$staging_dir"
-    rm -rf "$staging_dir"
-  fi
+promoted=1
+if ! validate_runtime; then
   exit 1
 fi
+promoted=0

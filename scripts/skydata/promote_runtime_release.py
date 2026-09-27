@@ -13,6 +13,28 @@ import fcntl
 import os
 from pathlib import Path
 import uuid
+from contextlib import contextmanager
+
+
+DEFAULT_STAR_RELEASE_LOCK_FILE = (
+    Path(__file__).resolve().parents[2]
+    / 'data/runtime-packs/.star-release-promotion.lock'
+)
+
+
+@contextmanager
+def star_release_promotion_lock():
+    """Serialize all catalog, dense, and paired release transactions."""
+    path = Path(os.environ.get('ORAS_STAR_RELEASE_LOCK_FILE', DEFAULT_STAR_RELEASE_LOCK_FILE))
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.is_symlink():
+        raise ValueError(f'refusing symlink star release lock: {path}')
+    with path.open('a') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(lock, fcntl.LOCK_UN)
 
 
 def _exchange(left: Path, right: Path) -> None:

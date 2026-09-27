@@ -317,6 +317,15 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def require_catalog_generation(source_root: Path, expected_digest: str) -> None:
+    try:
+        current_digest = sha256_file(source_root / "manifest.json")
+    except OSError as error:
+        raise ValueError("catalog generation changed: source manifest unavailable") from error
+    if current_digest != expected_digest:
+        raise ValueError("catalog generation changed during dense-star build")
+
+
 def make_release_tree_readable(root: Path) -> None:
     """Make generated mounted runtime data readable by non-owner containers."""
     for dirpath, dirnames, filenames in os.walk(root):
@@ -330,17 +339,26 @@ def make_release_tree_readable(root: Path) -> None:
             child.chmod(stat.S_IMODE(child.stat().st_mode) | 0o644)
 
 
-def promote_release_tree(tmp_root: Path, output_root: Path) -> None:
+def promote_release_tree(
+    tmp_root: Path,
+    output_root: Path,
+    *,
+    source_root: Path | None = None,
+    expected_source_manifest_sha256: str | None = None,
+) -> None:
     from scripts.skydata.promote_runtime_release import promote_release
     from scripts.skydata.validate_oras_dense_star_tiles import validate_dense_star_tiles, validate_profile_tiles
     manifest = json.loads((tmp_root / 'manifest.json').read_text())
     (validate_dense_star_tiles if 'profiles' in manifest else validate_profile_tiles)(tmp_root)
+    if source_root is not None and expected_source_manifest_sha256 is not None:
+        require_catalog_generation(source_root, expected_source_manifest_sha256)
     promote_release(tmp_root, output_root)
 
 
 def _build_profile_tiles(
     source_root: Path,
     output_root: Path,
+    expected_source_manifest_sha256: str,
     magnitude_limit: float = DEFAULT_MAGNITUDE_LIMIT,
     tile_order: int = DEFAULT_TILE_ORDER,
     release_version: str = DEFAULT_RELEASE_VERSION,
@@ -368,7 +386,9 @@ def _build_profile_tiles(
     nside = 1 << tile_order
     magnitudes: list[float] = []
     try:
+        require_catalog_generation(source_root, expected_source_manifest_sha256)
         source_records = list(iter_catalog_records(source_root))
+        require_catalog_generation(source_root, expected_source_manifest_sha256)
         canonical_records, reconciliation = reconcile_star_records(
             source_records,
             native_tile_order=tile_order,
@@ -426,7 +446,7 @@ def _build_profile_tiles(
             "profile_intent": profile_intent,
             "label_mode": label_mode,
             "science_schema_version": 1,
-            "source_manifest_sha256": sha256_file(source_root / "manifest.json"),
+            "source_manifest_sha256": expected_source_manifest_sha256,
             "source_pack": SOURCE_PACK_ID,
             "source_id_type": "string",
             "star_count": star_count,
@@ -500,6 +520,7 @@ def build_dense_star_tiles(
         raise FileNotFoundError(f"catalog pack manifest not found: {source_root / 'manifest.json'}")
     if tile_order < 0 or tile_order > 8:
         raise ValueError("tile_order must be between 0 and 8")
+    expected_source_manifest_sha256 = sha256_file(source_root / "manifest.json")
     validate_catalog_build_order(source_root, tile_order)
 
     tmp_root = Path(tempfile.mkdtemp(prefix="oras-dense-star-release-", dir=str(output_root.parent if output_root.parent.exists() else Path.cwd())))
@@ -512,6 +533,7 @@ def build_dense_star_tiles(
             profile_report = _build_profile_tiles(
                 source_root=source_root,
                 output_root=profile_root,
+                expected_source_manifest_sha256=expected_source_manifest_sha256,
                 magnitude_limit=min(float(profile["magnitude_limit"]), magnitude_limit),
                 tile_order=tile_order,
                 release_version=release_version,
@@ -554,7 +576,7 @@ def build_dense_star_tiles(
             "catalog_mode": CATALOG_MODE,
             "native_continuation": NATIVE_CONTINUATION,
             "science_schema_version": 1,
-            "source_manifest_sha256": sha256_file(source_root / "manifest.json"),
+            "source_manifest_sha256": expected_source_manifest_sha256,
             "source_pack": SOURCE_PACK_ID,
             "source_id_type": "string",
             "default_profile": DEFAULT_PROFILE,
@@ -594,7 +616,11 @@ def build_dense_star_tiles(
         (tmp_root / "build-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
         make_release_tree_readable(tmp_root)
-        promote_release_tree(tmp_root, output_root)
+        promote_release_tree(
+            tmp_root, output_root,
+            source_root=source_root,
+            expected_source_manifest_sha256=expected_source_manifest_sha256,
+        )
         return report
     except Exception:
         shutil.rmtree(tmp_root, ignore_errors=True)

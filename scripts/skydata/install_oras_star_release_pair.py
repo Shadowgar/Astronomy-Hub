@@ -16,7 +16,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.skydata.catalog_pack import validate_catalog_release
-from scripts.skydata.promote_runtime_release import promote_release
+from scripts.skydata.promote_runtime_release import promote_release, star_release_promotion_lock
 from scripts.skydata.star_release_compatibility import validate_release_pair
 from scripts.skydata.validate_oras_dense_star_tiles import validate_dense_star_tiles
 
@@ -48,6 +48,11 @@ def _make_runtime_readable(root: Path) -> None:
 
 
 def install_pair(catalog_source: Path, dense_source: Path, active: Path) -> Path | None:
+    with star_release_promotion_lock():
+        return _install_pair_locked(catalog_source, dense_source, active)
+
+
+def _install_pair_locked(catalog_source: Path, dense_source: Path, active: Path) -> Path | None:
     catalog_source = Path(catalog_source).resolve()
     dense_source = Path(dense_source).resolve()
     active = Path(active).absolute()
@@ -82,6 +87,7 @@ def install_pair(catalog_source: Path, dense_source: Path, active: Path) -> Path
         except Exception:
             if backup is not None and backup.is_dir():
                 promote_release(backup, active)
+                _validate_pair(active)
             else:
                 quarantine = active.with_name(
                     f"{active.name}.invalid-"

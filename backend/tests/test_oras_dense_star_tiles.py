@@ -5,10 +5,12 @@ import hashlib
 import json
 import math
 import os
+import shutil
 import stat
 import struct
 import subprocess
 import sys
+import time
 import zlib
 from pathlib import Path
 
@@ -922,6 +924,79 @@ def test_dense_star_builder_writes_visibility_profiles(tmp_path: Path) -> None:
     assert validation["profiles"]["deep-catalog"]["star_count"] == 2
 
 
+@pytest.mark.parametrize("change_point", ["before", "after", "between", "final"])
+def test_dense_build_rejects_catalog_generation_change(
+    tmp_path: Path, monkeypatch, change_point: str,
+) -> None:
+    builder = _load_module(BUILDER_PATH, f"dense_generation_{change_point}")
+    source, output = tmp_path / "catalog", tmp_path / "dense"
+    _write_catalog_pack_release(source, native_tile_order=1)
+    builder.build_dense_star_tiles(source, output, tile_order=1, release_version="old")
+    old_manifest = (output / "manifest.json").read_bytes()
+    source_manifest = source / "manifest.json"
+
+    def change_generation() -> None:
+        manifest = json.loads(source_manifest.read_text())
+        manifest["release_version"] = f"changed-{change_point}"
+        source_manifest.write_text(json.dumps(manifest))
+
+    if change_point == "before":
+        original = builder._build_profile_tiles
+
+        def before_profile(*args, **kwargs):
+            change_generation()
+            return original(*args, **kwargs)
+
+        monkeypatch.setattr(builder, "_build_profile_tiles", before_profile)
+    elif change_point == "after":
+        original = builder.iter_catalog_records
+
+        def after_read(root):
+            records = list(original(root))
+            change_generation()
+            yield from records
+
+        monkeypatch.setattr(builder, "iter_catalog_records", after_read)
+    elif change_point == "between":
+        original = builder._build_profile_tiles
+        calls = 0
+
+        def between_profiles(*args, **kwargs):
+            nonlocal calls
+            result = original(*args, **kwargs)
+            calls += 1
+            if calls == 1:
+                change_generation()
+            return result
+
+        monkeypatch.setattr(builder, "_build_profile_tiles", between_profiles)
+    else:
+        original = builder.make_release_tree_readable
+
+        def before_promotion(root):
+            original(root)
+            change_generation()
+
+        monkeypatch.setattr(builder, "make_release_tree_readable", before_promotion)
+
+    with pytest.raises(ValueError, match="catalog generation changed"):
+        builder.build_dense_star_tiles(source, output, tile_order=1, release_version="new")
+    assert (output / "manifest.json").read_bytes() == old_manifest
+
+
+def test_dense_build_records_one_captured_catalog_generation(tmp_path: Path) -> None:
+    builder = _load_module(BUILDER_PATH, "dense_captured_generation")
+    source, output = tmp_path / "catalog", tmp_path / "dense"
+    _write_catalog_pack_release(source, native_tile_order=1)
+    expected = hashlib.sha256((source / "manifest.json").read_bytes()).hexdigest()
+    builder.build_dense_star_tiles(source, output, tile_order=1)
+    manifest = json.loads((output / "manifest.json").read_text())
+    assert manifest["source_manifest_sha256"] == expected
+    for profile in manifest["profiles"].values():
+        profile_manifest = json.loads((output / profile["path"] / "manifest.json").read_text())
+        assert profile_manifest["source_manifest_sha256"] == expected
+
+
 @pytest.mark.parametrize(
     ("requested_limit", "expected_limits", "expected_deep_count"),
     [
@@ -1107,7 +1182,8 @@ def test_dense_star_installer_restores_previous_generation_after_final_validatio
     wrapper.write_text(
         "#!/usr/bin/env bash\n"
         "set -euo pipefail\n"
-        "if [[ \"${1:-}\" == *validate_oras_dense_star_tiles.py && \"${2:-}\" == \"$ACTIVE_RELEASE\" ]]; then\n"
+        "if [[ \"${1:-}\" == *validate_oras_dense_star_tiles.py && \"${2:-}\" == \"$ACTIVE_RELEASE\" && ! -e \"$INJECT_MARKER\" ]]; then\n"
+        "  touch \"$INJECT_MARKER\"\n"
         "  printf '{}\\n' > \"$ACTIVE_RELEASE/manifest.json\"\n"
         "fi\n"
         "exec \"$REAL_PYTHON\" \"$@\"\n",
@@ -1117,6 +1193,7 @@ def test_dense_star_installer_restores_previous_generation_after_final_validatio
     env["PYTHON_BIN"] = str(wrapper)
     env["REAL_PYTHON"] = str(REPO_ROOT / ".venv/bin/python")
     env["ACTIVE_RELEASE"] = str(active)
+    env["INJECT_MARKER"] = str(tmp_path / "final-validation-injected")
 
     result = subprocess.run(
         ["bash", str(installer), str(generated), str(active)],
@@ -1130,6 +1207,204 @@ def test_dense_star_installer_restores_previous_generation_after_final_validatio
 
     assert result.returncode != 0
     assert json.loads((active / "manifest.json").read_text())["release_version"] == "test.old"
+
+
+@pytest.mark.parametrize("side", ["catalog", "dense"])
+@pytest.mark.parametrize("has_prior", [True, False])
+def test_standalone_final_pair_failure_restores_promoted_side(
+    tmp_path: Path, side: str, has_prior: bool,
+) -> None:
+    builder = _load_module(BUILDER_PATH, f"standalone_final_pair_{side}")
+    catalog, dense = tmp_path / "catalog", tmp_path / "dense"
+    _write_catalog_pack_release(catalog, native_tile_order=1)
+    builder.build_dense_star_tiles(catalog, dense, tile_order=1)
+    catalog_source, dense_source = tmp_path / "catalog-source", tmp_path / "dense-source"
+    shutil.copytree(catalog, catalog_source)
+    shutil.copytree(dense, dense_source)
+    if side == "catalog":
+        (catalog / "generation-marker").write_text("old")
+        (catalog_source / "generation-marker").write_text("new")
+        installer = REPO_ROOT / "scripts/skydata/install_oras_catalog_release.sh"
+        command = ["bash", str(installer), str(catalog_source), str(catalog)]
+        failure_argument = str(catalog)
+    else:
+        (dense / "generation-marker").write_text("old")
+        (dense_source / "generation-marker").write_text("new")
+        installer = REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh"
+        command = ["bash", str(installer), str(dense_source), str(dense)]
+        failure_argument = str(dense)
+    active = catalog if side == "catalog" else dense
+    if not has_prior:
+        shutil.rmtree(active)
+    wrapper = tmp_path / "python-wrapper.sh"
+    wrapper.write_text(
+        "#!/usr/bin/env bash\nset -euo pipefail\n"
+        "if [[ \"$SIDE\" == catalog && \"${1:-}\" == *validate_oras_dense_star_tiles.py* && \"${2:-}\" == \"$COUNTERPART\" ]] || "
+        "[[ \"$SIDE\" == dense && \"${1:-}\" == -m && \"${2:-}\" == scripts.skydata.build_oras_catalog_release && \"${5:-}\" == \"$COUNTERPART\" ]]; then\n"
+        "  echo checked >> \"$COUNTERPART_CHECK_LOG\"\n"
+        "fi\n"
+        "if [[ \"${1:-}\" == *star_release_compatibility.py* ]] && { "
+        "[[ \"$SIDE\" == catalog && \"${2:-}\" == \"$FAILURE_ARGUMENT\" ]] || "
+        "[[ \"$SIDE\" == dense && \"${3:-}\" == \"$FAILURE_ARGUMENT\" ]]; }; then\n"
+        "  if [[ ! -e \"$FAIL_ONCE_MARKER\" ]]; then\n"
+        "    touch \"$FAIL_ONCE_MARKER\"\n"
+        "    echo 'injected final pair incompatibility' >&2\n"
+        "    exit 1\n"
+        "  fi\n"
+        "  touch \"$RESTORED_PAIR_CHECK_MARKER\"\n"
+        "fi\n"
+        "exec \"$REAL_PYTHON\" \"$@\"\n",
+        encoding="utf-8",
+    )
+    wrapper.chmod(0o755)
+    marker = tmp_path / "final-pair-called"
+    restored_marker = tmp_path / "restored-pair-checked"
+    counterpart_check_log = tmp_path / "counterpart-checks"
+    env = os.environ.copy()
+    env.update({
+        "PYTHON_BIN": str(wrapper),
+        "REAL_PYTHON": str(REPO_ROOT / ".venv/bin/python"),
+        "ORAS_CATALOG_PACKS_HOST_DIR": str(catalog),
+        "ORAS_DENSE_STAR_TILES_HOST_DIR": str(dense),
+        "ORAS_STAR_RELEASE_LOCK_FILE": str(tmp_path / "promotion.lock"),
+        "FAILURE_ARGUMENT": failure_argument,
+        "SIDE": side,
+        "FAIL_ONCE_MARKER": str(marker),
+        "RESTORED_PAIR_CHECK_MARKER": str(restored_marker),
+        "COUNTERPART": str(dense if side == "catalog" else catalog),
+        "COUNTERPART_CHECK_LOG": str(counterpart_check_log),
+    })
+    result = subprocess.run(command, cwd=REPO_ROOT, env=env, capture_output=True, text=True)
+    assert marker.exists(), result.stdout + result.stderr
+    assert result.returncode != 0
+    if has_prior:
+        assert restored_marker.exists(), result.stdout + result.stderr
+        assert (active / "generation-marker").read_text() == "old"
+    else:
+        assert not active.exists()
+        checks = counterpart_check_log.read_text().splitlines() if counterpart_check_log.exists() else []
+        assert len(checks) >= (3 if side == "catalog" else 1), result.stdout + result.stderr
+
+
+@pytest.mark.parametrize("second_install", ["dense", "pair"])
+def test_star_release_transactions_share_lock_across_install_paths(
+    tmp_path: Path, monkeypatch, second_install: str,
+) -> None:
+    from scripts.skydata import install_oras_star_release_pair as pair_installer
+
+    builder = _load_module(BUILDER_PATH, f"shared_lock_{second_install}")
+    old_catalog, old_dense = tmp_path / "old-catalog", tmp_path / "old-dense"
+    _write_catalog_pack_release(old_catalog, native_tile_order=1, release_version="old")
+    builder.build_dense_star_tiles(old_catalog, old_dense, tile_order=1)
+    active = tmp_path / "active-pair"
+    lock_path = tmp_path / "promotion.lock"
+    monkeypatch.setenv("ORAS_STAR_RELEASE_LOCK_FILE", str(lock_path))
+    pair_installer.install_pair(old_catalog, old_dense, active)
+
+    paused = tmp_path / "precheck-entered"
+    proceed = tmp_path / "continue-precheck"
+    wrapper = tmp_path / "pausing-python.sh"
+    wrapper.write_text(
+        "#!/usr/bin/env bash\nset -euo pipefail\n"
+        "if [[ \"${1:-}\" == *star_release_compatibility.py* && \"${2:-}\" == \"$CATALOG_SOURCE\" ]]; then\n"
+        "  touch \"$PRECHECK_ENTERED\"\n"
+        "  while [[ ! -e \"$CONTINUE_PRECHECK\" ]]; do sleep 0.02; done\n"
+        "fi\n"
+        "exec \"$REAL_PYTHON\" \"$@\"\n",
+        encoding="utf-8",
+    )
+    wrapper.chmod(0o755)
+    env = os.environ.copy()
+    env.update({
+        "PYTHON_BIN": str(wrapper),
+        "REAL_PYTHON": str(REPO_ROOT / ".venv/bin/python"),
+        "ORAS_CATALOG_PACKS_HOST_DIR": str(active / "catalog-packs"),
+        "ORAS_DENSE_STAR_TILES_HOST_DIR": str(active / "dense-star-tiles"),
+        "CATALOG_SOURCE": str(old_catalog),
+        "PRECHECK_ENTERED": str(paused),
+        "CONTINUE_PRECHECK": str(proceed),
+    })
+    first = subprocess.Popen(
+        ["bash", str(REPO_ROOT / "scripts/skydata/install_oras_catalog_release.sh"),
+         str(old_catalog), str(active / "catalog-packs")],
+        cwd=REPO_ROOT, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+    )
+    second = None
+    try:
+        deadline = time.monotonic() + 10
+        while not paused.exists() and first.poll() is None and time.monotonic() < deadline:
+            time.sleep(0.02)
+        assert paused.exists(), first.stdout.read() if first.poll() is not None else "precheck timeout"
+        second_env = {**env, "PYTHON_BIN": str(REPO_ROOT / ".venv/bin/python")}
+        second_lock_attempt = tmp_path / "second-lock-attempt"
+        if second_install == "dense":
+            dense_source = tmp_path / "dense-source"
+            builder.build_dense_star_tiles(old_catalog, dense_source, tile_order=1,
+                                           release_version="new")
+            bin_dir = tmp_path / "bin"
+            bin_dir.mkdir()
+            flock_wrapper = bin_dir / "flock"
+            flock_wrapper.write_text(
+                "#!/usr/bin/env bash\n"
+                "touch \"$SECOND_LOCK_ATTEMPT\"\n"
+                "exec /usr/bin/flock \"$@\"\n",
+                encoding="utf-8",
+            )
+            flock_wrapper.chmod(0o755)
+            second_env["PATH"] = f"{bin_dir}:{second_env['PATH']}"
+            second_env["SECOND_LOCK_ATTEMPT"] = str(second_lock_attempt)
+            command = ["bash", str(REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh"),
+                       str(dense_source), str(active / "dense-star-tiles")]
+        else:
+            new_catalog, new_dense = tmp_path / "new-catalog", tmp_path / "new-dense"
+            _write_catalog_pack_release(new_catalog, native_tile_order=1, release_version="new")
+            builder.build_dense_star_tiles(new_catalog, new_dense, tile_order=1)
+            pair_runner = tmp_path / "marked-pair-install.py"
+            pair_runner.write_text(
+                "from contextlib import contextmanager\n"
+                "from pathlib import Path\n"
+                "import sys\n"
+                "from scripts.skydata import install_oras_star_release_pair as pair\n"
+                "original = pair.star_release_promotion_lock\n"
+                "@contextmanager\n"
+                "def marked_lock():\n"
+                "    Path(sys.argv[4]).touch()\n"
+                "    with original():\n"
+                "        yield\n"
+                "pair.star_release_promotion_lock = marked_lock\n"
+                "pair.install_pair(*map(Path, sys.argv[1:4]))\n",
+                encoding="utf-8",
+            )
+            second_env["PYTHONPATH"] = str(REPO_ROOT) + os.pathsep + second_env.get("PYTHONPATH", "")
+            command = [str(REPO_ROOT / ".venv/bin/python"),
+                       str(pair_runner), str(new_catalog), str(new_dense), str(active),
+                       str(second_lock_attempt)]
+        second = subprocess.Popen(
+            command, cwd=REPO_ROOT, env=second_env,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+        )
+        deadline = time.monotonic() + 10
+        while not second_lock_attempt.exists() and second.poll() is None and time.monotonic() < deadline:
+            time.sleep(0.02)
+        assert second_lock_attempt.exists(), second.stdout.read() if second.poll() is not None else "lock attempt timeout"
+        assert second.poll() is None, second.stdout.read()
+        assert json.loads((active / "catalog-packs/manifest.json").read_text())["release_version"] == "old"
+        assert json.loads((active / "dense-star-tiles/manifest.json").read_text())[
+            "release_version"
+        ] != "new"
+    finally:
+        proceed.touch()
+        first_output, _ = first.communicate(timeout=20)
+        if second is not None:
+            second_output, _ = second.communicate(timeout=20)
+    assert first.returncode == 0, first_output
+    assert second is not None and second.returncode == 0, second_output
+    if second_install == "dense":
+        assert json.loads((active / "dense-star-tiles/manifest.json").read_text())[
+            "release_version"
+        ] == "new"
+    else:
+        assert json.loads((active / "catalog-packs/manifest.json").read_text())["release_version"] == "new"
 
 
 def test_paired_star_release_installer_atomically_upgrades_compatible_pair(
@@ -1241,15 +1516,20 @@ def test_paired_installer_restores_previous_pair_after_final_validation_failure(
             continue
 
         validate_pair = installer._validate_pair
+        active_checks = 0
 
         def fail_final_validation(root: Path) -> None:
+            nonlocal active_checks
             if root == active:
-                raise ValueError("injected final validation failure")
+                active_checks += 1
+                if active_checks == 1:
+                    raise ValueError("injected final validation failure")
             validate_pair(root)
 
         monkeypatch.setattr(installer, "_validate_pair", fail_final_validation)
         with pytest.raises(ValueError, match="injected final validation failure"):
             installer.install_pair(catalog, dense, active)
+        assert active_checks == 2
 
     assert json.loads((active / "catalog-packs/manifest.json").read_text())[
         "release_version"
