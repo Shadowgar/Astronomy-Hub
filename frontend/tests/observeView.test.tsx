@@ -101,4 +101,70 @@ describe('Observe page states', () => {
     expect(render({ error: true, timeOverride: true })).toContain('Observing data for the selected time could not be loaded')
     expect(render({ payload: { ...payload, objects: [] }, timeOverride: true })).toContain('No matching objects are above the horizon at the selected time')
   })
+
+  it('shows factual darkness, Moon, weather, and selected target limitations', () => {
+    const qualified = normalizeObservePayload({
+      status: 'ok',
+      data: { objects: [{ ...objects[0], above_geometric_horizon: true, observability: {
+        above_geometric_horizon: true, altitude_deg: 52.3, azimuth_deg: 101.2,
+        sky_state: 'astronomical_night', in_astronomical_darkness: true,
+        moon_angular_separation_deg: 73.4, assessment: 'above_horizon_astronomical_night',
+        limitations: ['geometric_horizon_only'],
+      } }] },
+      meta: {
+        time: '2026-09-27T06:00:00Z', observer: { lat: 41.321903, lng: -79.585394, elev: 432.816 },
+        observability_context: {
+          schema_version: 'observability.v1', horizon_model: 'geometric', site_horizon_status: 'not_modeled',
+          sky_darkness: { state: 'astronomical_night', sun_altitude_deg: -22.4, in_astronomical_darkness: true, source: 'jpl_de442s_local' },
+          moon: { altitude_deg: 31.2, azimuth_deg: 220, above_geometric_horizon: true, ra_deg: 20, dec_deg: 30, source: 'jpl_de442s_local' },
+          weather: { status: 'current_fresh', source: 'open_meteo_current', last_updated: '2026-09-27T06:00:00Z', cloud_cover_pct: 0 },
+          limitations: [],
+        },
+      },
+    })
+    const html = render({ payload: qualified })
+    expect(html).toContain('Astronomical night')
+    expect(html).toContain('−22.4°')
+    expect(html).toContain('Clouds 0%')
+    expect(html).toContain('Observing Context')
+    expect(html).toContain('73.4°')
+    expect(html).toContain('Not modeled')
+    expect(html).toContain('source_id=M31')
+    expect(html).not.toContain('Excellent')
+  })
+
+  it('does not show current weather for selected time', () => {
+    const selected = { ...payload, observabilityContext: {
+      schema_version: 'observability.v1' as const, horizon_model: 'geometric' as const,
+      site_horizon_status: 'not_modeled' as const,
+      sky_darkness: { state: 'civil_twilight' as const, sun_altitude_deg: -3, in_astronomical_darkness: false, source: 'jpl_de442s_local' },
+      moon: { altitude_deg: -2, azimuth_deg: 100, above_geometric_horizon: false, ra_deg: 20, dec_deg: 30, source: 'jpl_de442s_local' },
+      weather: { status: 'not_evaluated_for_selected_time' as const, source: 'open_meteo_current', last_updated: null },
+      limitations: [], observer: payload.observer,
+    } }
+    const html = render({ payload: selected, timeOverride: true })
+    expect(html).toContain('Civil twilight')
+    expect(html).toContain('Weather not evaluated for selected time')
+    expect(html).not.toContain('Clouds 0%')
+  })
+
+  it.each([
+    ['daylight', 'Daylight'],
+    ['civil_twilight', 'Civil twilight'],
+    ['nautical_twilight', 'Nautical twilight'],
+    ['astronomical_twilight', 'Astronomical twilight'],
+    ['astronomical_night', 'Astronomical night'],
+  ])('renders %s without a quality claim', (state, label) => {
+    const contextual = { ...payload, observabilityContext: {
+      schema_version: 'observability.v1' as const, observer: payload.observer,
+      horizon_model: 'geometric' as const, site_horizon_status: 'not_modeled' as const,
+      sky_darkness: { state: state as 'daylight', sun_altitude_deg: -3, in_astronomical_darkness: false, source: 'jpl_de442s_local' },
+      moon: { altitude_deg: null, azimuth_deg: null, above_geometric_horizon: null, ra_deg: null, dec_deg: null, source: null },
+      weather: { status: 'unavailable' as const, source: 'open_meteo_current', last_updated: null }, limitations: [],
+    } }
+    const html = render({ payload: contextual })
+    expect(html).toContain(label)
+    expect(html).toContain('Weather unavailable')
+    expect(html).not.toContain('Excellent')
+  })
 })

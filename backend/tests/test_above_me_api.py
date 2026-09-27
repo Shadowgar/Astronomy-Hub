@@ -35,6 +35,10 @@ def _visible_candidate(
         "magnitude": magnitude,
         "aliases": aliases or [],
         "is_visible": True,
+        "alt": 30.0,
+        "az": 90.0,
+        "ra": 10.0,
+        "dec": 20.0,
     }
 
 
@@ -392,7 +396,7 @@ def test_above_me_caches_identical_explicit_requests_with_contract_metadata(monk
     assert first["meta"]["cache"] == {
         "status": "miss",
         "ttl_seconds": 30,
-        "key_version": "v1",
+        "key_version": "v2",
     }
     assert second["meta"]["cache"]["status"] == "hit"
     assert second["data"] == first["data"]
@@ -518,7 +522,7 @@ def test_above_me_cache_failure_is_non_fatal_and_reported(monkeypatch) -> None:
     assert payload["meta"]["cache"] == {
         "status": "degraded",
         "ttl_seconds": 30,
-        "key_version": "v1",
+        "key_version": "v2",
     }
 
 
@@ -576,6 +580,11 @@ def test_above_me_includes_bounded_visible_satellites_with_real_propagation() ->
 
 def test_above_me_includes_visible_solar_system_objects_from_jpl(monkeypatch) -> None:
     monkeypatch.setattr(
+        above_me_service,
+        "compute_local_planetary_ephemeris",
+        lambda *args, **kwargs: (_ for _ in ()).throw(above_me_service.EphemerisUnavailableError("test fallback")),
+    )
+    monkeypatch.setattr(
         above_me_service.live_providers,
         "fetch_jpl_ephemeris",
         lambda lat, lon, elevation_ft=None, as_of=None: [
@@ -613,7 +622,7 @@ def test_above_me_includes_visible_solar_system_objects_from_jpl(monkeypatch) ->
     )
 
     response = client.get(
-        "/api/above-me?lat=41.44&lng=-79.69&time=2026-06-04T02:16:04Z&limit=100",
+        "/api/above-me?lat=41.44&lng=-79.69&time=2026-06-04T02:00:00Z&limit=100",
         headers={"User-Agent": "pytest"},
     )
 

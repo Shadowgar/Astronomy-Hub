@@ -10,7 +10,12 @@ from typing import Any
 
 from backend.app.cache.redis_cache import cache_get, cache_set
 from backend.app.services import live_providers
-from backend.app.services.planetary_ephemeris_service import get_planetary_ephemeris_status
+from backend.app.services import observability_service
+from backend.app.services.planetary_ephemeris_service import (
+    EphemerisUnavailableError,
+    compute_local_planetary_ephemeris,
+    get_planetary_ephemeris_status,
+)
 from backend.app.services.openngc_dso_catalog_service import build_openngc_above_me_seed_records
 from backend.app.services.openngc_dso_catalog_service import find_openngc_record_by_messier_id
 from backend.app.services.solar_system_catalog_service import SOLAR_SYSTEM_BODIES, SOLAR_SYSTEM_CATALOG
@@ -35,7 +40,7 @@ from backend.app.services.sky_object_enrichment import (
 DEFAULT_LIMIT = 25
 MAX_LIMIT = 100
 ABOVE_ME_CONTRACT_VERSION = "above-me.v1"
-ABOVE_ME_CACHE_KEY_VERSION = "v1"
+ABOVE_ME_CACHE_KEY_VERSION = "v2"
 ABOVE_ME_CACHE_TTL_SECONDS = 30
 ABOVE_ME_CURATION_POLICY = "balanced-v1"
 BRIGHT_STAR_CATALOG = "Bright Star Catalog (local)"
@@ -83,6 +88,17 @@ def build_above_me_payload(
     )
     visible = [candidate for candidate in candidates if candidate["is_visible"]]
     selected = _select_curated_visible_objects(visible, limit=max_items)
+    observability_context = observability_service.build_observability_context(
+        lat=observer.lat,
+        lng=observer.lng,
+        elev=observer.elev,
+        as_of=as_of,
+        explicit_time=isinstance(time, str) and bool(time.strip()),
+    )
+    for candidate in selected:
+        qualification = observability_service.qualify_target(candidate, observability_context)
+        candidate["above_geometric_horizon"] = qualification["above_geometric_horizon"]
+        candidate["observability"] = qualification
 
     payload = {
         "status": "ok",
@@ -100,6 +116,7 @@ def build_above_me_payload(
             "limit": max_items,
             "total_candidates": len(candidates),
             "visible_candidates": len(visible),
+            "observability_context": observability_context,
             "object_sources": _object_source_inventory(as_of=as_of),
             "curation": _build_curation_metadata(visible=visible, selected=selected),
         },
@@ -162,6 +179,11 @@ def _is_valid_cached_above_me_payload(payload: Any) -> bool:
         and isinstance(payload["data"].get("objects"), list)
         and isinstance(payload.get("meta"), dict)
         and payload["meta"].get("contract_version") == ABOVE_ME_CONTRACT_VERSION
+        and isinstance(payload["meta"].get("observability_context"), dict)
+        and payload["meta"]["observability_context"].get("schema_version") == observability_service.SCHEMA_VERSION
+        and all(isinstance(item, dict) and isinstance(item.get("observability"), dict)
+                and item.get("above_geometric_horizon") is True
+                for item in payload["data"]["objects"])
     )
 
 
@@ -532,14 +554,25 @@ def _build_openngc_dso_candidates(*, observer: Observer, as_of: datetime, limit:
 
 def _build_solar_system_candidates(*, observer: Observer, as_of: datetime) -> list[dict[str, Any]]:
     try:
-        ephemeris = live_providers.fetch_jpl_ephemeris(
+        ephemeris = compute_local_planetary_ephemeris(
             observer.lat,
             observer.lng,
             elevation_ft=observer.elev * 3.280839895,
             as_of=as_of,
         )
+    except EphemerisUnavailableError:
+        try:
+            ephemeris = live_providers.fetch_jpl_ephemeris(
+                observer.lat,
+                observer.lng,
+                elevation_ft=observer.elev * 3.280839895,
+                as_of=as_of,
+            )
+        except Exception:
+            logger.exception("JPL ephemeris lookup failed while building above-me candidates")
+            return []
     except Exception:
-        logger.exception("JPL ephemeris lookup failed while building above-me candidates")
+        logger.exception("Local ephemeris lookup failed while building above-me candidates")
         return []
 
     candidates: list[dict[str, Any]] = []
@@ -560,6 +593,9 @@ def _build_solar_system_candidates(*, observer: Observer, as_of: datetime) -> li
         name = body_config["name"]
         object_type = model
         ephemeris_source = str(body.get("ephemeris_source") or "jpl_horizons")
+        requested_time = as_of.isoformat().replace("+00:00", "Z")
+        if ephemeris_source != "jpl_de442s_local" and body.get("time_basis") != requested_time:
+            continue
         source_label = "JPL DE442s" if ephemeris_source == "jpl_de442s_local" else "JPL Horizons"
         reason = f"{source_label} {name} position at {alt:.1f} deg altitude."
         if source_id == "sun":

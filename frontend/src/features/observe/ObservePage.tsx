@@ -31,6 +31,20 @@ function degrees(value: number): string {
   return `${value.toFixed(1)}°`
 }
 
+function signedDegrees(value: number): string {
+  return `${value < 0 ? '−' : ''}${Math.abs(value).toFixed(1)}°`
+}
+
+function skyStateLabel(state: string): string {
+  return state === 'unknown' ? 'Sky state unavailable' : state.replace(/_/g, ' ').replace(/^\w/, (letter) => letter.toUpperCase())
+}
+
+function weatherLabel(status: string, cloudCover?: number): string {
+  if (status === 'not_evaluated_for_selected_time') return 'Weather not evaluated for selected time'
+  if (status === 'current_fresh' && typeof cloudCover === 'number') return `Clouds ${cloudCover}%`
+  return status === 'stale' ? 'Weather observation stale' : 'Weather unavailable'
+}
+
 function compass(azimuth: number): string {
   const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
   return directions[Math.round(((azimuth % 360) + 360) % 360 / 45) % 8]
@@ -93,6 +107,15 @@ export function ObserveView({
         </div>
         {payload ? <span className="observe-count">{allObjects.length} objects in view</span> : null}
       </section>
+
+      {payload?.observabilityContext ? (
+        <section className="observe-observing-summary" aria-label="Observing context summary">
+          <div><span>Sky</span><strong>{skyStateLabel(payload.observabilityContext.sky_darkness.state)}</strong></div>
+          <div><span>Sun</span><strong>{payload.observabilityContext.sky_darkness.sun_altitude_deg === null ? 'Unavailable' : signedDegrees(payload.observabilityContext.sky_darkness.sun_altitude_deg)}</strong></div>
+          <div><span>Moon</span><strong>{payload.observabilityContext.moon.above_geometric_horizon === false ? 'Below horizon' : payload.observabilityContext.moon.altitude_deg === null ? 'Unavailable' : `${signedDegrees(payload.observabilityContext.moon.altitude_deg)} altitude`}</strong></div>
+          <div><span>Weather</span><strong>{weatherLabel(payload.observabilityContext.weather.status, payload.observabilityContext.weather.cloud_cover_pct)}</strong></div>
+        </section>
+      ) : null}
 
       {loading ? <div className="observe-message" role="status">{isOras ? 'Loading the sky above ORAS…' : 'Loading the sky above this location…'}</div> : null}
       {error ? (
@@ -193,6 +216,22 @@ export function ObserveView({
                     <p className="observe-identifier">{selected.catalog} · {selected.source_id}</p>
                     {selected.aliases?.length ? <p>Also known as {selected.aliases.slice(0, 3).join(', ')}</p> : null}
                   </section>
+                  {payload.observabilityContext ? (
+                    <section>
+                      <h4>Observing Context</h4>
+                      <dl className="observe-detail-facts">
+                        <div><dt>Geometric horizon</dt><dd>{(selected.above_geometric_horizon ?? selected.is_visible) ? 'Above' : 'Below'}</dd></div>
+                        <div><dt>Sky state</dt><dd>{skyStateLabel(payload.observabilityContext.sky_darkness.state)}</dd></div>
+                        <div><dt>Sun altitude</dt><dd>{payload.observabilityContext.sky_darkness.sun_altitude_deg === null ? 'Unavailable' : signedDegrees(payload.observabilityContext.sky_darkness.sun_altitude_deg)}</dd></div>
+                        <div><dt>Moon separation</dt><dd>{selected.observability?.moon_angular_separation_deg == null ? 'Unavailable' : degrees(selected.observability.moon_angular_separation_deg)}</dd></div>
+                        <div><dt>Moon altitude</dt><dd>{payload.observabilityContext.moon.altitude_deg === null ? 'Unavailable' : signedDegrees(payload.observabilityContext.moon.altitude_deg)}</dd></div>
+                        <div><dt>Actual site horizon</dt><dd>Not modeled</dd></div>
+                        <div><dt>Weather</dt><dd>{weatherLabel(payload.observabilityContext.weather.status, payload.observabilityContext.weather.cloud_cover_pct)}</dd></div>
+                      </dl>
+                      <p>Above the geometric horizon does not account for local terrain, trees, or buildings.</p>
+                      {payload.observabilityContext.weather.status === 'not_evaluated_for_selected_time' ? <p>Current weather is not applied to this selected observing time.</p> : null}
+                    </section>
+                  ) : null}
                   {selectedUrl ? <a className="observe-detail-cta" href={selectedUrl}>Open {selected.name} in Sky <span aria-hidden="true">↗</span></a> : null}
                   <p className="observe-detail-note">Catalog magnitudes may use different photometric bands. Altitude is a geometric horizon measure.</p>
                 </aside>
@@ -275,7 +314,7 @@ export default function ObservePage() {
             onShowMore={() => setVisibleCount((count) => count + INITIAL_VISIBLE_COUNT)}
             onRetry={() => { void query.refetch() }}
           />
-          <p className="observe-science-note">Above the horizon does not necessarily mean easily observable. Darkness, Moon interference, weather, and observing quality are part of the next observing intelligence layer.</p>
+          <p className="observe-science-note">Geometric horizon position does not guarantee detectability. The actual site terrain and tree horizon and equipment suitability are not yet modeled. Tonight recommendations are not part of Observe.</p>
         </div>
       </main>
       <footer className="observe-footer">ORAS Astronomy Hub · {context.at ? 'Sky position at the selected time' : 'Current sky position'}, source-backed objects</footer>

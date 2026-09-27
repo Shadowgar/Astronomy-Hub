@@ -33,6 +33,7 @@ without a new contract version.
 ## Response Shape
 
 The endpoint uses the standard `ResponseEnvelope`.
+The numbers below illustrate field shape; they are not an observation record.
 
 ```json
 {
@@ -52,6 +53,17 @@ The endpoint uses the standard `ResponseEnvelope`.
         "az": 60.0,
         "magnitude": 3.4,
         "is_visible": true,
+        "above_geometric_horizon": true,
+        "observability": {
+          "above_geometric_horizon": true,
+          "altitude_deg": 50.0,
+          "azimuth_deg": 60.0,
+          "sky_state": "astronomical_night",
+          "in_astronomical_darkness": true,
+          "moon_angular_separation_deg": 72.4,
+          "assessment": "above_horizon_astronomical_night",
+          "limitations": ["geometric_horizon_only", "detectability_not_evaluated"]
+        },
         "priority": 0.8,
         "reason": "Local Messier galaxy at 50.0 deg altitude.",
         "sky_engine_url": "/oras-sky-engine/skysource/AndromedaGalaxy?catalog=Messier+%28local%29&source_id=M31&model=dso&ra=10.68&dec=41.269&lat=41.44&lng=-79.69&elev=0"
@@ -69,10 +81,33 @@ The endpoint uses the standard `ResponseEnvelope`.
     "limit": 25,
     "total_candidates": 40,
     "visible_candidates": 12,
+    "observability_context": {
+      "schema_version": "observability.v1",
+      "observer": {"lat": 41.44, "lng": -79.69, "elev": 0.0},
+      "horizon_model": "geometric",
+      "site_horizon_status": "not_modeled",
+      "sky_darkness": {
+        "state": "astronomical_night",
+        "sun_altitude_deg": -22.4,
+        "in_astronomical_darkness": true,
+        "source": "jpl_de442s_local"
+      },
+      "moon": {
+        "altitude_deg": 31.2, "azimuth_deg": 220.0,
+        "above_geometric_horizon": true,
+        "ra_deg": 30.0, "dec_deg": 10.0,
+        "source": "jpl_de442s_local"
+      },
+      "weather": {
+        "status": "not_evaluated_for_selected_time",
+        "source": "open_meteo_current", "last_updated": null
+      },
+      "limitations": ["Actual site terrain, trees, and buildings are not modeled.", "Equipment-specific detectability is not evaluated."]
+    },
     "cache": {
       "status": "miss",
       "ttl_seconds": 30,
-      "key_version": "v1"
+      "key_version": "v2"
     },
     "curation": {
       "policy": "balanced-v1",
@@ -106,6 +141,52 @@ The endpoint uses the standard `ResponseEnvelope`.
   }
 }
 ```
+
+## Observability Semantics (`observability.v1`)
+
+`is_visible` is retained for compatibility and means **only** altitude greater
+than 0° above the geometric horizon. It does not mean optical detectability,
+good viewing, or recommendation. `above_geometric_horizon` expresses that same
+fact unambiguously. The actual ORAS terrain, tree, and building horizon is not
+modeled, even for a target with positive altitude.
+
+`meta.observability_context` holds site/time facts once for the response.
+Sun and Moon positions are computed for the requested instant and observer from
+the mounted local JPL DE442s kernel through Skyfield. If that source is absent,
+invalid, or outside coverage, darkness is `unknown` and unavailable Moon values
+are `null`; clock time is never used as a substitute. The Sun altitude policy is:
+
+| Sun altitude | `sky_darkness.state` |
+| --- | --- |
+| > 0° | `daylight` |
+| 0° through -6° | `civil_twilight` |
+| below -6° through -12° | `nautical_twilight` |
+| below -12° through above -18° | `astronomical_twilight` |
+| <= -18° | `astronomical_night` |
+
+Solar-system candidates also use the local ephemeris at the exact requested
+instant. If only the controlled Horizons fallback is available, a candidate is
+included only when its provider `time_basis` equals the requested instant;
+hourly fallback positions are omitted for other selected times.
+
+Moon altitude/azimuth and target separation are geometric facts. Separation is
+the great-circle angle between source-backed target and Moon RA/Dec, clamped to
+[0°, 180°], or `null` if either coordinate is unavailable. The per-target
+`observability.assessment` is a deterministic context enum:
+`below_geometric_horizon`, `above_horizon_daylight`,
+`above_horizon_civil_twilight`, `above_horizon_nautical_twilight`,
+`above_horizon_astronomical_twilight`,
+`above_horizon_astronomical_night`, or `unknown`. It is not a quality grade.
+No `potentially_observable=true` or score is claimed.
+
+`weather.status` is `current_fresh`, `stale`, `unavailable`, `degraded`, or
+`not_evaluated_for_selected_time`. Current Open-Meteo facts are included only
+for requests without explicit `time` when the provider timestamp is at most
+30 minutes old. An explicit selected time never receives current weather.
+Only reported factual fields are included: cloud cover, visibility,
+temperature, humidity, wind, dew point, and weather code. Legacy heuristic
+observing score, transparency, seeing, and smoke do not enter this contract.
+Weather and Moon facts do not alter target order or create a recommendation.
 
 ## MVP Inclusion Rule
 
@@ -157,6 +238,7 @@ then preserves the highest-ranked category representatives and reports
 Successful responses use a private backend Redis cache with a 30-second TTL.
 The cache key uses exact normalized observer values, parsed limit, contract
 version, and requested time, then stores only a SHA-256 digest in the key name.
+The internal key version is `v2` to exclude pre-observability payloads.
 
 - Explicit request times are exact and are never rounded together.
 - Requests without `time` share only their server-generated 30-second UTC time
