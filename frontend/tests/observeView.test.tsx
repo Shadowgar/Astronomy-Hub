@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
-import { ObserveView } from '../src/features/observe/ObservePage'
+import { ObserveView, formatObserveTime } from '../src/features/observe/ObservePage'
 import { normalizeObservePayload } from '../src/features/observe/model'
 
 const objects = [
@@ -60,6 +60,35 @@ describe('Observe page states', () => {
     expect(html).not.toContain('Andromeda Galaxy')
     expect(html).toContain('Solar System (JPL)')
     expect(html).not.toContain('Satellites</button>')
+  })
+
+  it('shows a satellite category only when the TLE model is present', () => {
+    const withSatellite = normalizeObservePayload({
+      status: 'ok',
+      data: { objects: [...objects, {
+        catalog: 'Local TLE', source_id: '25544', model: 'tle_satellite',
+        name: 'ISS', type: 'satellite', alt: 35, az: 220, is_visible: true,
+        sky_engine_url: '/oras-sky-engine/skysource/ISS?catalog=Local+TLE&source_id=25544&model=tle_satellite&ra=10&dec=20',
+      }] },
+      meta: { time: '2026-09-27T06:00:00Z', observer: { lat: 41.321903, lng: -79.585394, elev: 432.816 } },
+    })
+    const html = render({ payload: withSatellite, category: 'satellites' })
+    expect(html).toContain('Satellites')
+    expect(html).toContain('ISS')
+    expect(html).not.toContain('Andromeda Galaxy')
+  })
+
+  it('falls back to All when a refreshed category has no objects', () => {
+    const html = render({ payload, category: 'satellites' })
+    expect(html).toContain('Andromeda Galaxy')
+    expect(html).toContain('Moon')
+    expect(html).toContain('aria-pressed="true"')
+    expect(html).not.toContain('No matching objects')
+  })
+
+  it('labels custom-site time in UTC instead of implying an unknown local zone', () => {
+    expect(formatObserveTime('2026-09-27T06:00:00Z', false)).toContain('UTC')
+    expect(formatObserveTime('2026-09-27T06:00:00Z', true)).toContain('EDT')
   })
 
   it('labels an explicit time override without claiming the scene is current', () => {

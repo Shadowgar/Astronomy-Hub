@@ -31,7 +31,7 @@ export interface ObservePayload {
 export interface ObserveContext {
   latitude: number
   longitude: number
-  elevationMeters: number
+  elevationMeters?: number
   at?: string
   isOras: boolean
 }
@@ -55,7 +55,7 @@ export function getObserveContext(search: string): ObserveContext {
   return {
     latitude: isOras ? ORAS_SITE.latitude : lat,
     longitude: isOras ? ORAS_SITE.longitude : lon,
-    elevationMeters: isOras || elevationFeet === null ? ORAS_SITE.elevationMeters : elevationFeet * 0.3048,
+    elevationMeters: isOras ? ORAS_SITE.elevationMeters : elevationFeet === null ? undefined : elevationFeet * 0.3048,
     at: query.at,
     isOras,
   }
@@ -109,7 +109,7 @@ export function categoryForObject(object: Pick<ObserveObject, 'model'>): Observe
   if (['sun', 'moon', 'planet', 'solar_system'].includes(object.model)) return 'solar-system'
   if (object.model === 'dso') return 'deep-sky'
   if (object.model === 'star') return 'stars'
-  if (object.model === 'satellite') return 'satellites'
+  if (object.model === 'tle_satellite') return 'satellites'
   return null
 }
 

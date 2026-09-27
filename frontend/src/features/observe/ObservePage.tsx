@@ -36,11 +36,11 @@ function compass(azimuth: number): string {
   return directions[Math.round(((azimuth % 360) + 360) % 360 / 45) % 8]
 }
 
-function localTime(value: string): string {
+export function formatObserveTime(value: string, isOras: boolean): string {
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return 'Time unavailable'
   return new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York', month: 'short', day: 'numeric',
+    timeZone: isOras ? 'America/New_York' : 'UTC', month: 'short', day: 'numeric',
     hour: 'numeric', minute: '2-digit', timeZoneName: 'short',
   }).format(date)
 }
@@ -75,9 +75,10 @@ export function ObserveView({
 }: ObserveViewProps) {
   const allObjects = payload?.objects || []
   const categories = categoriesForObjects(allObjects)
-  const filtered = category === 'all'
+  const activeCategory = categories.includes(category) ? category : 'all'
+  const filtered = activeCategory === 'all'
     ? allObjects
-    : allObjects.filter((object) => categoryForObject(object) === category)
+    : allObjects.filter((object) => categoryForObject(object) === activeCategory)
   const visible = filtered.slice(0, visibleCount)
   const selected = filtered.find((object) => objectKey(object) === selectedKey) || filtered[0] || null
   const selectedUrl = selected ? skyEngineUrlForObject(selected) : null
@@ -111,7 +112,7 @@ export function ObserveView({
                   : allObjects.filter((object) => categoryForObject(object) === item).length
                 return (
                   <button
-                    key={item} type="button" aria-pressed={category === item}
+                    key={item} type="button" aria-pressed={activeCategory === item}
                     onClick={() => onCategoryChange(item)}
                   >
                     {CATEGORY_LABELS[item]} <span>{count}</span>
@@ -127,7 +128,7 @@ export function ObserveView({
             <div className="observe-content">
               <div className="observe-results">
                 <div className="observe-results-heading">
-                  <h3>{CATEGORY_LABELS[category]}</h3>
+                  <h3>{CATEGORY_LABELS[activeCategory]}</h3>
                   <span>{timeOverride ? 'Altitude · azimuth at selected time' : 'Current altitude · azimuth'}</span>
                 </div>
                 <div className="observe-card-grid">
@@ -220,6 +221,14 @@ export default function ObservePage() {
   }, [location.search])
 
   useEffect(() => {
+    if (payload && !categoriesForObjects(payload.objects).includes(category)) {
+      setCategory('all')
+      setSelectedKey(null)
+      setVisibleCount(INITIAL_VISIBLE_COUNT)
+    }
+  }, [payload, category])
+
+  useEffect(() => {
     const previousTitle = document.title
     document.title = context.isOras ? 'Observe at ORAS · Astronomy Hub' : 'Observe · Astronomy Hub'
     return () => { document.title = previousTitle }
@@ -246,8 +255,8 @@ export default function ObservePage() {
               <span>Observing site</span>
               <strong>{context.isOras ? ORAS_SITE.label : 'Custom location'}</strong>
               <p>{coordinate(context.latitude, 'latitude')} · {coordinate(context.longitude, 'longitude')}</p>
-              <p>{context.elevationMeters.toFixed(1)} m elevation</p>
-              <span className="observe-context-time">{payload ? localTime(payload.time) : context.at ? 'Selected sky · ORAS local time' : 'Current sky · ORAS local time'}</span>
+              <p>{context.elevationMeters === undefined ? 'Elevation not specified' : `${context.elevationMeters.toFixed(1)} m elevation`}</p>
+              <span className="observe-context-time">{payload ? formatObserveTime(payload.time, context.isOras) : `${context.at ? 'Selected' : 'Current'} sky · ${context.isOras ? 'ORAS local time' : 'UTC'}`}</span>
             </div>
           </div>
         </section>
