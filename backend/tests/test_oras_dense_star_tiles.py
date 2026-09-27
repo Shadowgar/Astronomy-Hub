@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import fcntl
 import hashlib
 import json
 import math
@@ -997,6 +998,169 @@ def test_dense_build_records_one_captured_catalog_generation(tmp_path: Path) -> 
         assert profile_manifest["source_manifest_sha256"] == expected
 
 
+@pytest.mark.parametrize("contender", ["pair", "catalog", "dense"])
+def test_dense_builder_serializes_final_check_and_promotion_with_installers(
+    tmp_path: Path, monkeypatch, contender: str,
+) -> None:
+    from scripts.skydata.install_oras_star_release_pair import install_pair
+
+    builder = _load_module(BUILDER_PATH, f"builder_lock_fixture_{contender}")
+    source, old_dense, active = tmp_path / "catalog", tmp_path / "old-dense", tmp_path / "active"
+    _write_catalog_pack_release(source, native_tile_order=1)
+    builder.build_dense_star_tiles(source, old_dense, tile_order=1, release_version="old")
+    lock_path = tmp_path / "star-release.lock"
+    monkeypatch.setenv("ORAS_STAR_RELEASE_LOCK_FILE", str(lock_path))
+    install_pair(source, old_dense, active)
+
+    checked, resume = tmp_path / "final-check-done", tmp_path / "resume-builder"
+    attempted = tmp_path / "installer-lock-attempt"
+    runner = tmp_path / "paused-builder.py"
+    runner.write_text(
+        "import sys, time\n"
+        "from pathlib import Path\n"
+        "from scripts.skydata import build_oras_dense_star_tiles as builder\n"
+        "source, output, checked, resume = map(Path, sys.argv[1:])\n"
+        "original = builder.require_catalog_generation\n"
+        "checks = 0\n"
+        "def marked_check(root, digest):\n"
+        "    global checks\n"
+        "    original(root, digest)\n"
+        "    checks += 1\n"
+        "    if checks == 7:\n"
+        "        checked.touch()\n"
+        "        while not resume.exists(): time.sleep(0.01)\n"
+        "builder.require_catalog_generation = marked_check\n"
+        "builder.build_dense_star_tiles(source, output, tile_order=1, release_version='new')\n",
+        encoding="utf-8",
+    )
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(REPO_ROOT) + os.pathsep + env.get("PYTHONPATH", "")
+    env["ORAS_STAR_RELEASE_LOCK_FILE"] = str(lock_path)
+    build = subprocess.Popen(
+        [sys.executable, str(runner), str(source), str(active / "dense-star-tiles"),
+         str(checked), str(resume)], cwd=REPO_ROOT, env=env,
+        stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+    )
+    contender_process = None
+    try:
+        deadline = time.monotonic() + 20
+        while not checked.exists() and build.poll() is None and time.monotonic() < deadline:
+            time.sleep(0.01)
+        assert checked.exists(), build.stdout.read() if build.poll() is not None else "builder timeout"
+
+        # A second process must see the same global lock after the final check.
+        with lock_path.open("a") as probe:
+            with pytest.raises(BlockingIOError):
+                fcntl.flock(probe, fcntl.LOCK_EX | fcntl.LOCK_NB)
+
+        if contender == "pair":
+            marker = tmp_path / "marked-pair.py"
+            marker.write_text(
+                "from contextlib import contextmanager\n"
+                "from pathlib import Path\n"
+                "import sys\n"
+                "from scripts.skydata import install_oras_star_release_pair as pair\n"
+                "original = pair.star_release_promotion_lock\n"
+                "@contextmanager\n"
+                "def marked_lock():\n"
+                "    Path(sys.argv[4]).touch()\n"
+                "    with original(): yield\n"
+                "pair.star_release_promotion_lock = marked_lock\n"
+                "pair.install_pair(*map(Path, sys.argv[1:4]))\n",
+                encoding="utf-8",
+            )
+            command = [sys.executable, str(marker), str(source), str(old_dense), str(active), str(attempted)]
+        else:
+            bin_dir = tmp_path / "bin"
+            bin_dir.mkdir()
+            flock_wrapper = bin_dir / "flock"
+            flock_wrapper.write_text(
+                "#!/usr/bin/env bash\n"
+                "touch \"$INSTALLER_LOCK_ATTEMPT\"\n"
+                "exec /usr/bin/flock \"$@\"\n",
+                encoding="utf-8",
+            )
+            flock_wrapper.chmod(0o755)
+            env["PATH"] = f"{bin_dir}:{env['PATH']}"
+            env["INSTALLER_LOCK_ATTEMPT"] = str(attempted)
+            env["ORAS_CATALOG_PACKS_HOST_DIR"] = str(active / "catalog-packs")
+            env["ORAS_DENSE_STAR_TILES_HOST_DIR"] = str(active / "dense-star-tiles")
+            script = f"install_oras_{'catalog_release' if contender == 'catalog' else 'dense_star_tiles'}.sh"
+            target = active / ("catalog-packs" if contender == "catalog" else "dense-star-tiles")
+            command = ["bash", str(REPO_ROOT / "scripts/skydata" / script),
+                       str(source if contender == "catalog" else old_dense), str(target)]
+        contender_process = subprocess.Popen(
+            command, cwd=REPO_ROOT, env=env,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+        )
+        deadline = time.monotonic() + 20
+        while not attempted.exists() and contender_process.poll() is None and time.monotonic() < deadline:
+            time.sleep(0.01)
+        assert attempted.exists(), "installer did not reach the shared lock"
+        assert contender_process.poll() is None, "installer passed the builder's final check"
+    finally:
+        resume.touch()
+        build_output, _ = build.communicate(timeout=30)
+        contender_output = ""
+        if contender_process is not None:
+            contender_output, _ = contender_process.communicate(timeout=30)
+    assert build.returncode == 0, build_output
+    assert contender_process is not None and contender_process.returncode == 0, contender_output
+
+
+def test_dense_builder_rechecks_generation_after_waiting_for_shared_lock(
+    tmp_path: Path, monkeypatch,
+) -> None:
+    builder = _load_module(BUILDER_PATH, "builder_wait_fixture")
+    source, output = tmp_path / "catalog", tmp_path / "dense"
+    _write_catalog_pack_release(source, native_tile_order=1)
+    builder.build_dense_star_tiles(source, output, tile_order=1, release_version="old")
+    old_manifest = (output / "manifest.json").read_bytes()
+    lock_path, validated = tmp_path / "star-release.lock", tmp_path / "final-validation-done"
+    monkeypatch.setenv("ORAS_STAR_RELEASE_LOCK_FILE", str(lock_path))
+    runner = tmp_path / "waiting-builder.py"
+    runner.write_text(
+        "import json, sys\n"
+        "from pathlib import Path\n"
+        "from scripts.skydata import build_oras_dense_star_tiles as builder\n"
+        "from scripts.skydata import validate_oras_dense_star_tiles as validator\n"
+        "source, output, validated = map(Path, sys.argv[1:])\n"
+        "original = validator.validate_dense_star_tiles\n"
+        "def marked_validate(root):\n"
+        "    result = original(root)\n"
+        "    validated.touch()\n"
+        "    return result\n"
+        "validator.validate_dense_star_tiles = marked_validate\n"
+        "builder.build_dense_star_tiles(source, output, tile_order=1, release_version='new')\n",
+        encoding="utf-8",
+    )
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(REPO_ROOT) + os.pathsep + env.get("PYTHONPATH", "")
+    env["ORAS_STAR_RELEASE_LOCK_FILE"] = str(lock_path)
+    with lock_path.open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        process = subprocess.Popen(
+            [sys.executable, str(runner), str(source), str(output), str(validated)],
+            cwd=REPO_ROOT, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+        )
+        try:
+            deadline = time.monotonic() + 20
+            while not validated.exists() and process.poll() is None and time.monotonic() < deadline:
+                time.sleep(0.01)
+            assert validated.exists(), process.stdout.read() if process.poll() is not None else "builder timeout"
+            assert process.poll() is None, "profile-local promotion waited for the global lock"
+            source_manifest = source / "manifest.json"
+            manifest = json.loads(source_manifest.read_text())
+            manifest["release_version"] = "changed-while-builder-waited"
+            source_manifest.write_text(json.dumps(manifest))
+        finally:
+            fcntl.flock(lock, fcntl.LOCK_UN)
+        output_text, _ = process.communicate(timeout=30)
+    assert process.returncode != 0, output_text
+    assert "catalog generation changed" in output_text
+    assert (output / "manifest.json").read_bytes() == old_manifest
+
+
 @pytest.mark.parametrize(
     ("requested_limit", "expected_limits", "expected_deep_count"),
     [
@@ -1301,6 +1465,16 @@ def test_star_release_transactions_share_lock_across_install_paths(
     monkeypatch.setenv("ORAS_STAR_RELEASE_LOCK_FILE", str(lock_path))
     pair_installer.install_pair(old_catalog, old_dense, active)
 
+    # Prepare fixture releases before the first installer holds the global lock.
+    if second_install == "dense":
+        dense_source = tmp_path / "dense-source"
+        builder.build_dense_star_tiles(old_catalog, dense_source, tile_order=1,
+                                       release_version="new")
+    else:
+        new_catalog, new_dense = tmp_path / "new-catalog", tmp_path / "new-dense"
+        _write_catalog_pack_release(new_catalog, native_tile_order=1, release_version="new")
+        builder.build_dense_star_tiles(new_catalog, new_dense, tile_order=1)
+
     paused = tmp_path / "precheck-entered"
     proceed = tmp_path / "continue-precheck"
     wrapper = tmp_path / "pausing-python.sh"
@@ -1338,9 +1512,6 @@ def test_star_release_transactions_share_lock_across_install_paths(
         second_env = {**env, "PYTHON_BIN": str(REPO_ROOT / ".venv/bin/python")}
         second_lock_attempt = tmp_path / "second-lock-attempt"
         if second_install == "dense":
-            dense_source = tmp_path / "dense-source"
-            builder.build_dense_star_tiles(old_catalog, dense_source, tile_order=1,
-                                           release_version="new")
             bin_dir = tmp_path / "bin"
             bin_dir.mkdir()
             flock_wrapper = bin_dir / "flock"
@@ -1356,9 +1527,6 @@ def test_star_release_transactions_share_lock_across_install_paths(
             command = ["bash", str(REPO_ROOT / "scripts/skydata/install_oras_dense_star_tiles.sh"),
                        str(dense_source), str(active / "dense-star-tiles")]
         else:
-            new_catalog, new_dense = tmp_path / "new-catalog", tmp_path / "new-dense"
-            _write_catalog_pack_release(new_catalog, native_tile_order=1, release_version="new")
-            builder.build_dense_star_tiles(new_catalog, new_dense, tile_order=1)
             pair_runner = tmp_path / "marked-pair-install.py"
             pair_runner.write_text(
                 "from contextlib import contextmanager\n"

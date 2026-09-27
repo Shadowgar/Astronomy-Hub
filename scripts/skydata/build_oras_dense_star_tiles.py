@@ -346,13 +346,16 @@ def promote_release_tree(
     source_root: Path | None = None,
     expected_source_manifest_sha256: str | None = None,
 ) -> None:
-    from scripts.skydata.promote_runtime_release import promote_release
+    from scripts.skydata.promote_runtime_release import promote_release, star_release_promotion_lock
     from scripts.skydata.validate_oras_dense_star_tiles import validate_dense_star_tiles, validate_profile_tiles
     manifest = json.loads((tmp_root / 'manifest.json').read_text())
     (validate_dense_star_tiles if 'profiles' in manifest else validate_profile_tiles)(tmp_root)
     if source_root is not None and expected_source_manifest_sha256 is not None:
-        require_catalog_generation(source_root, expected_source_manifest_sha256)
-    promote_release(tmp_root, output_root)
+        with star_release_promotion_lock():
+            require_catalog_generation(source_root, expected_source_manifest_sha256)
+            promote_release(tmp_root, output_root)
+    else:
+        promote_release(tmp_root, output_root)
 
 
 def _build_profile_tiles(
