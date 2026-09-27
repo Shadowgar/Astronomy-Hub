@@ -78,26 +78,42 @@ def utc_now() -> str:
 
 
 def native_names(record: dict[str, Any], include_labels: bool = False) -> str:
-    names = [f"NAME {name}" for name in (record.get("common_names") or [])] if include_labels else []
+    mandatory: list[str] = []
     gaia_id = str(record.get("gaia_id") or "").strip()
     hip_id = str(record.get("hip_id") or "").strip()
     tycho2_id = str(record.get("tycho2_id") or "").strip()
     if gaia_id:
-        names.append(f"Gaia DR3 {gaia_id}")
+        mandatory.append(f"Gaia DR3 {gaia_id}")
     if hip_id:
-        names.append(f"HIP {hip_id}")
+        mandatory.append(f"HIP {hip_id}")
     if tycho2_id:
-        names.append(f"TYC {tycho2_id}")
+        mandatory.append(f"TYC {tycho2_id}")
+    optional: list[Any] = []
     if include_labels:
-        names.extend([record.get("display_name"), record.get("source_id")])
-        names.extend(record.get("names") or [])
-        names.extend(record.get("aliases") or [])
-    cleaned: list[str] = []
-    for value in names:
+        optional.extend(f"NAME {name}" for name in (record.get("common_names") or []))
+        optional.extend([record.get("display_name"), record.get("source_id")])
+        optional.extend(record.get("names") or [])
+        optional.extend(record.get("aliases") or [])
+    packed: list[str] = []
+    seen: set[str] = set()
+    byte_length = 0
+    for value in [*mandatory, *optional]:
         text = str(value or "").strip()
-        if text and "|" not in text and text not in cleaned:
-            cleaned.append(text)
-    return "|".join(cleaned)[:255]
+        if not text or text in seen:
+            continue
+        if "|" in text or "\0" in text:
+            if value in mandatory:
+                raise ValueError("canonical native star identity contains a delimiter or NUL")
+            continue
+        token_size = len(text.encode("utf-8")) + (1 if packed else 0)
+        if byte_length + token_size > 255:
+            if value in mandatory:
+                raise ValueError("canonical native star identities exceed 255 bytes")
+            continue
+        packed.append(text)
+        seen.add(text)
+        byte_length += token_size
+    return "|".join(packed)
 
 
 def normalize_star_record(

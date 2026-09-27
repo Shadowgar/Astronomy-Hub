@@ -200,6 +200,32 @@ def test_direct_lookup_uses_one_tile_and_preserves_large_identity(native_behavio
     assert native_output(native_behavior, "lookup") == "1 200 1 1 404 1 0 1 400"
 
 
+def test_long_label_tile_keeps_tycho_identity_for_native_lookup_and_named_label(
+    tmp_path, native_reader, native_behavior,
+):
+    builder = module("build_oras_dense_star_tiles")
+    tycho_id = "3850-257-1"
+    ids = builder.native_names({
+        "tycho2_id": tycho_id,
+        "common_names": ["Sirius", "L" * 300],
+        "aliases": ["short alias"],
+    }, include_labels=True)
+    tile = tmp_path / "long-label.eph"
+    builder.write_star_tile(tile, 3, 447, [dict(
+        gaia=0, hip=0, vmag=1.0, gmag=1.0, ra_rad=1.0, de_rad=0.5,
+        plx_arcsec=0.1, pra_rad_year=0.0, pde_rad_year=0.0,
+        epoch=2000.0, bv=0.5, ids=ids, spectral_type="G2V",
+    )])
+
+    read = subprocess.run([str(native_reader), str(tile)], check=True, capture_output=True, text=True)
+    assert json.loads(read.stdout)["ids"] == ids
+    result = subprocess.run(
+        [str(native_behavior), "lookup-generated", str(tile), f"TYC {tycho_id}"],
+        check=True, capture_output=True, text=True,
+    )
+    assert result.stdout.strip() == "1 200 1 Sirius"
+
+
 def test_familiar_labels_skip_numeric_aliases_but_selection_still_labels(native_behavior):
     assert native_output(native_behavior, "labels") == "Sirius||HIP 2|Betelgeuse"
 

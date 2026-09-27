@@ -97,6 +97,30 @@ int main(int argc, char **argv)
         printf("%d %d ", found == NULL, code);
         found = stars_get_by_identity("canonical", "GAIA 4034171629042489088", 3, -1, &code);
         printf("%d %d\n", found == NULL, code);
+    } else if (!strcmp(argv[1], "lookup-generated")) {
+        hips_t hips = {.order=3, .order_min=3};
+        survey_t survey = {.hips=&hips, .min_order=3, .key="canonical"};
+        stars_t stars = {.surveys=&survey};
+        core_t engine = {0};
+        painter_t painter = {.hints_limit_mag=10};
+        tile_t *tile = NULL;
+        int transparency, code = -1;
+        long size;
+        void *data;
+        obj_t *found;
+        double pos[3] = {0}, win[2] = {0}, rgb[3] = {1, 1, 1};
+        FILE *file = fopen(argv[2], "rb");
+        assert(file);
+        fseek(file, 0, SEEK_END); size = ftell(file); rewind(file);
+        data = malloc(size); assert(fread(data, 1, size, file) == size); fclose(file);
+        assert(eph_load(data, size, USER_PASS(&survey, &tile, &transparency), on_file_tile_loaded) == 0);
+        assert(tile && tile->nb == 1);
+        fixture_tile = *tile;
+        core = &engine; g_stars = &stars;
+        found = stars_get_by_identity("canonical", argv[3], 3, 447, &code);
+        star_render_name(&painter, &tile->sources[0], 0, pos, win, 1, rgb);
+        printf("%d %d %d %s\n", found == &tile->sources[0].obj,
+               code, tile_calls, captured_label);
     } else if (!strcmp(argv[1], "pending-registration")) {
         stars_t stars = {0};
         int code = -1;

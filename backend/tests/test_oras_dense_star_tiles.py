@@ -451,6 +451,59 @@ def test_normalized_canonical_star_keeps_native_identity_when_labels_are_suppres
     assert "TYC 3850-257-1" in star["ids"]
 
 
+@pytest.mark.parametrize(
+    ("field", "expected"),
+    [
+        ("gaia_id", "Gaia DR3 1561616035378447232"),
+        ("hip_id", "HIP 65378"),
+        ("tycho2_id", "TYC 3850-257-1"),
+    ],
+)
+def test_native_names_preserve_each_canonical_id_after_long_labels(field: str, expected: str) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_long_ids")
+    record = {field: expected.split(" ", 2)[-1] if field == "gaia_id" else expected.split(" ", 1)[-1],
+              "common_names": ["L" * 300], "aliases": ["short alias"]}
+
+    encoded = builder.native_names(record, include_labels=True)
+    tokens = encoded.split("|")
+
+    assert tokens[0] == expected
+    assert "short alias" in tokens
+    assert all(token in {expected, "short alias"} for token in tokens)
+    assert len(encoded.encode("utf-8")) <= 255
+
+
+def test_native_names_pack_all_canonical_ids_and_only_complete_optional_tokens() -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_packed_ids")
+    record = {
+        "gaia_id": "1561616035378447232",
+        "hip_id": "65378",
+        "tycho2_id": "3850-257-1",
+        "common_names": ["Sirius", "X" * 220, "Étoile" * 30],
+        "display_name": "Sirius",
+        "source_id": "1561616035378447232",
+        "aliases": ["short alias", "TYC 3850-257-1"],
+    }
+    encoded = builder.native_names(record, include_labels=True)
+    tokens = encoded.split("|")
+
+    assert tokens[:3] == ["Gaia DR3 1561616035378447232", "HIP 65378", "TYC 3850-257-1"]
+    assert tokens.count("TYC 3850-257-1") == 1
+    assert "NAME Sirius" in tokens
+    assert "short alias" in tokens
+    assert "X" * 220 not in tokens
+    assert all(token in {"Gaia DR3 1561616035378447232", "HIP 65378", "TYC 3850-257-1",
+                         "NAME Sirius", "Sirius", "1561616035378447232", "short alias"}
+               for token in tokens)
+    assert len(encoded.encode("utf-8")) <= 255
+
+
+def test_native_names_reject_canonical_identity_that_cannot_fit() -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_overflow_id")
+    with pytest.raises(ValueError, match="canonical.*255"):
+        builder.native_names({"gaia_id": "9" * 250}, include_labels=True)
+
+
 def test_dense_star_tile_builder_writes_native_eph_release(tmp_path: Path) -> None:
     builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles")
     validator = _load_module(VALIDATOR_PATH, "validate_oras_dense_star_tiles")
