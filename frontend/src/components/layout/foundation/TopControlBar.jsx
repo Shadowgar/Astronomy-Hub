@@ -86,7 +86,7 @@ export default function TopControlBar() {
       <header className="app-header app-header-utility foundation-header-row" role="banner">
         <div className="foundation-header-main">
           <h1>Astronomy Hub</h1>
-          <Link className="foundation-panel-link foundation-panel-link--launch" to={getObservePath(locationQuery)}>Observe at ORAS</Link>
+          <Link className="foundation-panel-link foundation-panel-link--launch" to={getObservePath(locationQuery)}>Observe</Link>
           <span className="foundation-header-user">User / Settings</span>
         </div>
         <div className="header-controls" aria-label="Top control bar">
