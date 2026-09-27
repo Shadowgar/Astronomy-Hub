@@ -6,7 +6,10 @@ import json
 import math
 import os
 import stat
+import struct
 import subprocess
+import sys
+import zlib
 from pathlib import Path
 
 import pytest
@@ -31,6 +34,7 @@ def _write_catalog_pack_release(
     native_tile_order: int = 1,
     supplemental_stars: list[dict] | None = None,
     release_version: str = "test",
+    cap_boundary_stars: bool = False,
 ) -> None:
     chunk_dir = root / "packs/stars-core"
     chunk_dir.mkdir(parents=True)
@@ -88,6 +92,30 @@ def _write_catalog_pack_release(
             "source_attribution": [{"name": "ESA Gaia DR3 via CDS I/355", "source_key": "gaia_dr3"}],
         },
     ]
+    if cap_boundary_stars:
+        records.extend([{
+            "catalog": "Gaia DR3",
+            "source_id": "1000786929690996353",
+            "model": "star",
+            "category": "stars",
+            "display_name": "Bright cap fixture",
+            "ra": 25.0,
+            "dec": 15.0,
+            "magnitude": 0.0,
+            "color_index": 0.0,
+            "source_attribution": [{"name": "ESA Gaia DR3 via CDS I/355", "source_key": "gaia_dr3"}],
+        }, {
+            "catalog": "Gaia DR3",
+            "source_id": "1000786929690996354",
+            "model": "star",
+            "category": "stars",
+            "display_name": "Faint cap fixture",
+            "ra": 30.0,
+            "dec": 20.0,
+            "magnitude": 12.0,
+            "color_index": 0.0,
+            "source_attribution": [{"name": "ESA Gaia DR3 via CDS I/355", "source_key": "gaia_dr3"}],
+        }])
     for record in records:
         record.update(coordinate_epoch=2000.0, coordinate_frame="ICRS")
         record["magnitude_band"] = "Gaia G" if record["catalog"] == "Gaia DR3" else "Tycho V_T"
@@ -173,6 +201,30 @@ def _write_catalog_pack_release(
             "sha256": hashlib.sha256(supplemental_payload).hexdigest(),
         }
     (root / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+
+def _emitted_tile_magnitudes(profile_root: Path) -> list[float]:
+    magnitudes = []
+    for tile in profile_root.glob("Norder*/Dir*/Npix*.eph"):
+        data = tile.read_bytes()
+        assert data[:4] == b"EPHE"
+        offset = 8
+        while offset < len(data):
+            chunk_type = data[offset:offset + 4]
+            chunk_size = struct.unpack_from("<i", data, offset + 4)[0]
+            payload = data[offset + 8:offset + 8 + chunk_size]
+            offset += 8 + chunk_size + 4
+            if chunk_type != b"STAR":
+                continue
+            _, row_size, column_count, row_count = struct.unpack_from("<iiii", payload, 12)
+            compressed_offset = 12 + 16 + 20 * column_count
+            _, compressed_size = struct.unpack_from("<ii", payload, compressed_offset)
+            rows = zlib.decompress(payload[compressed_offset + 8:compressed_offset + 8 + compressed_size])
+            magnitudes.extend(
+                struct.unpack_from("<f", rows, row * row_size + 16)[0]
+                for row in range(row_count)
+            )
+    return magnitudes
 
 
 def test_dense_star_builder_reconciles_authoritative_cross_ids_without_position_merging() -> None:
@@ -815,6 +867,84 @@ def test_dense_star_builder_writes_visibility_profiles(tmp_path: Path) -> None:
     assert validation["default_profile"] == "visual-default"
     assert validation["profiles"]["visual-default"]["star_count"] == 1
     assert validation["profiles"]["deep-catalog"]["star_count"] == 2
+
+
+@pytest.mark.parametrize(
+    ("requested_limit", "expected_limits", "expected_deep_count"),
+    [
+        (None, (4.8, 8.5, 13.0), 4),
+        (10.0, (4.8, 8.5, 10.0), 3),
+        (7.0, (4.8, 7.0, 7.0), 2),
+        (4.0, (4.0, 4.0, 4.0), 1),
+    ],
+)
+def test_dense_star_builder_caps_each_profile_and_reports_emitted_magnitudes(
+    tmp_path: Path,
+    requested_limit: float | None,
+    expected_limits: tuple[float, float, float],
+    expected_deep_count: int,
+) -> None:
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_capped_profiles")
+    source_root, output_root = tmp_path / "catalog-packs", tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root, cap_boundary_stars=True)
+    kwargs = {} if requested_limit is None else {"magnitude_limit": requested_limit}
+
+    report = builder.build_dense_star_tiles(
+        source_root=source_root,
+        output_root=output_root,
+        tile_order=1,
+        release_version="test.capped-profiles",
+        **kwargs,
+    )
+
+    manifest = json.loads((output_root / "manifest.json").read_text(encoding="utf-8"))
+    stored_report = json.loads((output_root / "build-report.json").read_text(encoding="utf-8"))
+    for profile_id, effective_limit in zip(
+        ("visual-default", "binocular", "deep-catalog"), expected_limits,
+    ):
+        profile_root = output_root / "profiles" / profile_id
+        profile_manifest = json.loads((profile_root / "manifest.json").read_text(encoding="utf-8"))
+        profile_report = json.loads((profile_root / "build-report.json").read_text(encoding="utf-8"))
+        magnitudes = _emitted_tile_magnitudes(profile_root)
+        assert magnitudes
+        assert len(magnitudes) == profile_manifest["star_count"]
+        assert all(magnitude <= effective_limit + 1e-5 for magnitude in magnitudes)
+        assert report["profiles"][profile_id]["magnitude_limit"] == effective_limit
+        assert manifest["profiles"][profile_id]["magnitude_limit"] == effective_limit
+        assert stored_report["profiles"][profile_id]["magnitude_limit"] == effective_limit
+        assert profile_manifest["magnitude_limit"] == effective_limit
+        assert profile_report["magnitude_limit"] == effective_limit
+        assert profile_manifest["max_magnitude"] == pytest.approx(max(magnitudes), abs=1e-5)
+    assert report["star_count"] == expected_deep_count
+    assert manifest["magnitude_limit"] == expected_limits[-1]
+    assert stored_report["magnitude_limit"] == expected_limits[-1]
+    assert report["magnitude_limit"] == expected_limits[-1]
+
+
+@pytest.mark.parametrize(
+    ("cli_override", "expected_limit"),
+    [(False, 7.0), (True, 10.0)],
+)
+def test_dense_star_builder_cli_honors_env_cap_and_explicit_override(
+    tmp_path: Path, cli_override: bool, expected_limit: float,
+) -> None:
+    source_root, output_root = tmp_path / "catalog-packs", tmp_path / "dense-star-tiles"
+    _write_catalog_pack_release(source_root)
+    command = [
+        sys.executable, str(BUILDER_PATH), "--source-root", str(source_root),
+        "--output-root", str(output_root), "--tile-order", "1",
+    ]
+    if cli_override:
+        command.extend(["--magnitude-limit", "10.0"])
+    result = subprocess.run(
+        command, cwd=REPO_ROOT, env={**os.environ, "ORAS_DENSE_STAR_MAG_LIMIT": "7.0"},
+        capture_output=True, text=True, check=True,
+    )
+
+    report = json.loads(result.stdout)
+    manifest = json.loads((output_root / "manifest.json").read_text(encoding="utf-8"))
+    assert report["magnitude_limit"] == expected_limit
+    assert manifest["magnitude_limit"] == expected_limit
 
 
 def test_dense_star_runtime_data_is_ignored_and_not_baked() -> None:

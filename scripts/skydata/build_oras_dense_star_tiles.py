@@ -496,7 +496,7 @@ def build_dense_star_tiles(
             profile_report = _build_profile_tiles(
                 source_root=source_root,
                 output_root=profile_root,
-                magnitude_limit=float(profile["magnitude_limit"]),
+                magnitude_limit=min(float(profile["magnitude_limit"]), magnitude_limit),
                 tile_order=tile_order,
                 release_version=release_version,
                 minimum_magnitude=minimum_magnitude,
