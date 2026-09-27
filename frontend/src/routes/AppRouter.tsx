@@ -7,6 +7,7 @@ import MirrorProgressPage from '../features/sky-engine/MirrorProgressPage'
 import SkyOverOrasNowRedirect from '../features/sky-engine/SkyOverOrasNowRedirect'
 import SkyEnginePage from '../features/sky-engine/SkyEnginePage'
 import Progress from '../pages/Progress'
+import ObservePage from '../features/observe/ObservePage'
 
 export default function AppRouter() {
   return (
@@ -14,6 +15,7 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/progress" element={<Progress />} />
+        <Route path="/observe" element={<ObservePage />} />
         <Route path="/sky-engine" element={<SkyEnginePage />} />
         <Route path="/sky-engine/oras-now" element={<SkyOverOrasNowRedirect />} />
         <Route path="/sky-over-oras-now" element={<SkyOverOrasNowRedirect />} />

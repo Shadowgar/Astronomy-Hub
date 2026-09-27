@@ -14,6 +14,7 @@ describe('sky over ORAS now route builder', () => {
     expect(params.get('lat')).toBe(String(ORAS_OBSERVATORY_COORDINATES.latitude))
     expect(params.get('lng')).toBe(String(ORAS_OBSERVATORY_COORDINATES.longitude))
     expect(params.get('elev')).toBe(String(ORAS_OBSERVATORY_COORDINATES.elevationMeters))
+    expect(params.get('elev')).toBe('432.816')
     expect(params.get('fov')).toBe('120')
   })
 })
