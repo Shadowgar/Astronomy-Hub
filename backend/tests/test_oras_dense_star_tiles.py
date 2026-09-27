@@ -996,6 +996,86 @@ def test_paired_star_release_installer_atomically_upgrades_compatible_pair(
     ] == "catalog.old"
 
 
+def test_paired_installer_normalizes_only_staged_restrictive_release_before_validation(
+    tmp_path: Path, monkeypatch,
+) -> None:
+    from scripts.skydata import install_oras_star_release_pair as installer
+
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_restrictive_pair")
+    catalog, dense, active = (tmp_path / name for name in ("catalog", "dense", "active"))
+    _write_catalog_pack_release(catalog, native_tile_order=3)
+    builder.build_dense_star_tiles(
+        source_root=catalog, output_root=dense, tile_order=3, release_version="dense.restrictive",
+    )
+    sources = [catalog, dense]
+    for source in sources:
+        for path in [source, *source.rglob("*")]:
+            path.chmod(0o700 if path.is_dir() else 0o600)
+    source_modes = {
+        path: stat.S_IMODE(path.stat().st_mode)
+        for source in sources for path in [source, *source.rglob("*")]
+    }
+
+    validate_pair = installer._validate_pair
+    staged_modes_checked = []
+
+    def check_staged_modes(root: Path) -> None:
+        staged_modes_checked.append(root)
+        for path in [root, *root.rglob("*")]:
+            mode = stat.S_IMODE(path.stat().st_mode)
+            assert mode & 0o002 == 0
+            if path.is_dir():
+                assert mode & 0o005 == 0o005
+            else:
+                assert mode & 0o004 == 0o004
+        validate_pair(root)
+
+    monkeypatch.setattr(installer, "_validate_pair", check_staged_modes)
+    assert installer.install_pair(catalog, dense, active) is None
+    assert staged_modes_checked[0] != active
+    assert staged_modes_checked[1] == active
+    assert {path: stat.S_IMODE(path.stat().st_mode) for path in source_modes} == source_modes
+    assert json.loads((active / "catalog-packs/manifest.json").read_text())[
+        "release_version"
+    ] == "test"
+
+
+def test_paired_installer_restores_previous_pair_after_final_validation_failure(
+    tmp_path: Path, monkeypatch,
+) -> None:
+    from scripts.skydata import install_oras_star_release_pair as installer
+
+    builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_pair_rollback")
+    active = tmp_path / "active"
+    for version in ("old", "new"):
+        catalog, dense = (tmp_path / f"{part}-{version}" for part in ("catalog", "dense"))
+        _write_catalog_pack_release(catalog, native_tile_order=3, release_version=f"catalog.{version}")
+        builder.build_dense_star_tiles(
+            source_root=catalog, output_root=dense, tile_order=3, release_version=f"dense.{version}",
+        )
+        if version == "old":
+            installer.install_pair(catalog, dense, active)
+            continue
+
+        validate_pair = installer._validate_pair
+
+        def fail_final_validation(root: Path) -> None:
+            if root == active:
+                raise ValueError("injected final validation failure")
+            validate_pair(root)
+
+        monkeypatch.setattr(installer, "_validate_pair", fail_final_validation)
+        with pytest.raises(ValueError, match="injected final validation failure"):
+            installer.install_pair(catalog, dense, active)
+
+    assert json.loads((active / "catalog-packs/manifest.json").read_text())[
+        "release_version"
+    ] == "catalog.old"
+    assert json.loads((active / "dense-star-tiles/manifest.json").read_text())[
+        "release_version"
+    ] == "dense.old"
+
+
 def test_dense_star_installer_rejects_mismatched_active_catalog_tile_order(tmp_path: Path) -> None:
     builder = _load_module(BUILDER_PATH, "build_oras_dense_star_tiles_install_mismatch")
     source = tmp_path / "source"

@@ -29,6 +29,7 @@ class CatalogPackIndex:
     search_alias_index: dict[str, tuple[dict[str, Any], ...]]
     pack_statuses: tuple[dict[str, Any], ...]
     supplemental_star_records: dict[tuple[str, str, str], dict[str, Any]] = field(default_factory=dict)
+    supplemental_alias_index: dict[str, tuple[dict[str, Any], ...]] = field(default_factory=dict)
 
 
 def load_catalog_pack_index(path: str | Path | None = None) -> CatalogPackIndex:
@@ -136,7 +137,11 @@ def enrich_star_science_payload(payload: dict[str, Any], *, path: str | Path | N
         aliases = ([payload.get("display_name")] if catalog == "bright star catalog (local)"
                    else [payload.get("source_id")])
         for alias in aliases:
-            for candidate in index.search_alias_index.get(_normalize_search_text(alias), ()):
+            normalized_alias = _normalize_search_text(alias)
+            for candidate in (
+                *index.search_alias_index.get(normalized_alias, ()),
+                *index.supplemental_alias_index.get(normalized_alias, ()),
+            ):
                 science = candidate.get("star_science")
                 if candidate.get("model") != "star" or not science:
                     continue
@@ -226,6 +231,7 @@ def _load_catalog_pack_index_cached(
                     search_alias_index.setdefault(normalized_alias, []).append(record)
 
     supplemental_star_records = {}
+    supplemental_alias_index: dict[str, list[dict[str, Any]]] = {}
     if manifest.get("supplemental_stars"):
         try:
             supplemental = _load_chunk(root, {
@@ -234,10 +240,13 @@ def _load_catalog_pack_index_cached(
             for record in supplemental:
                 supplemental_star_records[_identity_key(record["catalog"], record["source_id"], record["model"])] = record
                 for alias in _record_aliases(record):
-                    search_alias_index.setdefault(_normalize_search_text(alias), []).append(record)
+                    normalized_alias = _normalize_search_text(alias)
+                    if normalized_alias:
+                        supplemental_alias_index.setdefault(normalized_alias, []).append(record)
         except (OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError):
             # No unchecked supplementary science may escape through aliases.
             supplemental_star_records = {}
+            supplemental_alias_index = {}
 
     return CatalogPackIndex(
         mounted=True,
@@ -249,6 +258,7 @@ def _load_catalog_pack_index_cached(
         search_alias_index={alias: tuple(records) for alias, records in search_alias_index.items()},
         pack_statuses=tuple(pack_statuses),
         supplemental_star_records=supplemental_star_records,
+        supplemental_alias_index={alias: tuple(records) for alias, records in supplemental_alias_index.items()},
     )
 
 

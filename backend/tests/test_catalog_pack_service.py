@@ -92,6 +92,7 @@ def test_catalog_pack_index_loads_status_search_and_exact_identity(tmp_path: Pat
     assert [pack["status"] for pack in index.pack_statuses] == ["loaded", "loaded"]
     assert results[0]["source_id"] == "5853498713190525696"
     assert isinstance(results[0]["source_id"], str)
+    assert search_catalog_packs("Alias Arp 220", path=tmp_path)[0]["source_id"] == "Arp 220"
     assert exact["pack_id"] == "stars-core"
     assert exact["pack_version"] == "2026.06"
     assert exact["indexed"] is True
@@ -270,7 +271,12 @@ def test_legacy_bright_and_hipparcos_apis_use_installed_canonical_science(tmp_pa
     assert result['magnitude'] == -1.44
     assert 'phot_g_mean_mag' not in result
     search = build_sky_search_payload('Sirius')['data']['results']
+    assert [(item['catalog'], item['source_id']) for item in search] == [
+        ('Bright Star Catalog (local)', 'star-sirius'),
+    ]
     assert search[0]['star_science']['native_tile']['identity'] == 'HIP 32349'
+    assert lookup_catalog_pack_object('Hipparcos (CDS)', 'hip-32349', 'star', path=tmp_path)['star_science'] == record['star_science']
+    assert load_catalog_pack_index(tmp_path).object_count == 0
 
 
 def test_legacy_incorrect_secondary_alias_does_not_override_exact_common_name(tmp_path, monkeypatch):

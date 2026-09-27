@@ -6,6 +6,7 @@ import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 import shutil
+import stat
 import sys
 import tempfile
 
@@ -39,6 +40,13 @@ def _validate_pair(root: Path) -> None:
     validate_release_pair(catalog, dense)
 
 
+def _make_runtime_readable(root: Path) -> None:
+    _reject_symlinks(root, "staged pair")
+    for path in [root, *root.rglob("*")]:
+        mode = stat.S_IMODE(path.stat().st_mode)
+        path.chmod(mode | (0o555 if path.is_dir() else 0o444))
+
+
 def install_pair(catalog_source: Path, dense_source: Path, active: Path) -> Path | None:
     catalog_source = Path(catalog_source).resolve()
     dense_source = Path(dense_source).resolve()
@@ -65,6 +73,7 @@ def install_pair(catalog_source: Path, dense_source: Path, active: Path) -> Path
     try:
         shutil.copytree(catalog_source, staging / CATALOG_DIR)
         shutil.copytree(dense_source, staging / DENSE_DIR)
+        _make_runtime_readable(staging)
         _validate_pair(staging)
         backup = promote_release(staging, active)
         promoted = True
