@@ -232,10 +232,11 @@ def _load_catalog_pack_index_cached(
 
     supplemental_star_records = {}
     supplemental_alias_index: dict[str, list[dict[str, Any]]] = {}
-    if manifest.get("supplemental_stars"):
+    release_version = manifest.get("release_version")
+    if manifest.get("supplemental_stars") and isinstance(release_version, str) and release_version.strip():
         try:
             supplemental = _load_chunk(root, {
-                "pack_id": "star-science-supplement", "version": manifest["release_version"], "sources": [],
+                "pack_id": "star-science-supplement", "version": release_version, "sources": [],
             }, manifest["supplemental_stars"])
             for record in supplemental:
                 supplemental_star_records[_identity_key(record["catalog"], record["source_id"], record["model"])] = record

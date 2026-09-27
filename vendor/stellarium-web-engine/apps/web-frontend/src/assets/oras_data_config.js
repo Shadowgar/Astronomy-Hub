@@ -297,8 +297,8 @@ function buildOrasModelData (result, model, sourceId) {
     const vmag = numberOrNull(science ? science.render_magnitude : result.magnitude)
     const gmag = numberOrNull(science ? null : result.phot_g_mean_mag)
     const plx = numberOrNull(science ? science.parallax_mas : result.parallax)
-    const pmRa = numberOrNull(science ? science.proper_motion_ra_mas_per_year : result.proper_motion_ra)
-    const pmDe = numberOrNull(science ? science.proper_motion_dec_mas_per_year : result.proper_motion_dec)
+    const pmRa = numberOrNull(science ? science.proper_motion_ra_mas_per_year : (result.proper_motion_ra ?? result.pmra))
+    const pmDe = numberOrNull(science ? science.proper_motion_dec_mas_per_year : (result.proper_motion_dec ?? result.pmdec))
     const epoch = numberOrNull(science ? science.coordinate_epoch : result.coordinate_epoch)
     const bv = numberOrNull(science ? science.bv : null)
 

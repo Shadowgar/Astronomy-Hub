@@ -32,6 +32,31 @@ describe('star science and bounded native navigation', () => {
     expect(source.model_data.BVMag).toBeUndefined()
     expect(source.model_data.hip).toBe(1)
   })
+  it('keeps source-backed science proper motion authoritative', () => {
+    const source = toOrasSkySource({catalog: 'Gaia DR2', source_id: '123', model: 'star',
+      star_science: {ra: 1, dec: 2, render_magnitude: 3,
+        proper_motion_ra_mas_per_year: 11, proper_motion_dec_mas_per_year: -12},
+      proper_motion_ra: 21, proper_motion_dec: -22, pmra: 31, pmdec: -32})
+    expect(source.model_data.pm_ra).toBe(11)
+    expect(source.model_data.pm_de).toBe(-12)
+  })
+  it.each([
+    ['normalized fields', {proper_motion_ra: 21, proper_motion_dec: -22}, 21, -22],
+    ['legacy Gaia fields', {pmra: 31, pmdec: -32}, 31, -32],
+    ['normalized precedence', {proper_motion_ra: 21, proper_motion_dec: -22, pmra: 31, pmdec: -32}, 21, -22],
+    ['explicit zero', {proper_motion_ra: 0, proper_motion_dec: 0, pmra: 31, pmdec: -32}, 0, 0]
+  ])('maps %s to native motion fields', (_label, motion, expectedRa, expectedDe) => {
+    const source = toOrasSkySource({catalog: 'Gaia DR2', source_id: '123', model: 'star',
+      ra: 1, dec: 2, magnitude: 3, ...motion})
+    expect(source.model_data.pm_ra).toBe(expectedRa)
+    expect(source.model_data.pm_de).toBe(expectedDe)
+  })
+  it('leaves native motion absent when no supported field exists', () => {
+    const source = toOrasSkySource({catalog: 'Gaia DR2', source_id: '123', model: 'star',
+      ra: 1, dec: 2, magnitude: 3})
+    expect(source.model_data).not.toHaveProperty('pm_ra')
+    expect(source.model_data).not.toHaveProperty('pm_de')
+  })
   it('never expands a star into Messier/NGC/IC candidates or corrupts large IDs', () => {
     const candidates=buildOrasNativeCandidates({model:'star',catalog:'Gaia DR3',source_id:'4034171629042489088',names:['Betelgeuse','Martial Star','HIP 27989']})
     expect(candidates[0]).toBe('GAIA 4034171629042489088')

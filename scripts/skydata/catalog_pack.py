@@ -162,6 +162,8 @@ def validate_catalog_release(output_root: str | Path) -> list[str]:
     errors: list[str] = []
     if manifest.get("schema_version") != 1:
         errors.append("unsupported manifest schema_version")
+    if not isinstance(manifest.get("release_version"), str) or not manifest["release_version"].strip():
+        errors.append("manifest release_version is required")
     try:
         native_star_tile_order = require_tile_order(
             manifest,

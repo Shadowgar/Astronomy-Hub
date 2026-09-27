@@ -253,6 +253,44 @@ def test_supplemental_science_is_checksummed_without_changing_pack_counts(tmp_pa
     assert load_catalog_pack_index(tmp_path).supplemental_star_records == {}
 
 
+def test_missing_release_version_rejects_supplement_without_hiding_public_packs(tmp_path, monkeypatch):
+    from backend.app.services.star_science import normalize_star_science
+    from scripts.skydata.catalog_pack import validate_catalog_release
+
+    star = _record('Hipparcos (CDS)', 'hip-42', 'star', 'Supplement fixture', 'stars')
+    star.update(hip_id='42', magnitude=1.0, magnitude_band='V', coordinate_epoch=2000.0, coordinate_frame='ICRS')
+    star['star_science'] = normalize_star_science(star)
+    build_catalog_release(
+        tmp_path,
+        release_version='science-test',
+        packs=[(_spec('dso-expanded', 'dsos'), [_record('Arp', 'Arp 220', 'dso', 'Arp 220', 'dsos')])],
+        supplemental_stars=[star],
+    )
+    manifest_path = tmp_path / 'manifest.json'
+    manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+    del manifest['release_version']
+    manifest_path.write_text(json.dumps(manifest), encoding='utf-8')
+
+    assert 'manifest release_version is required' in validate_catalog_release(tmp_path)
+    index = load_catalog_pack_index(tmp_path)
+    assert index.mounted is True
+    assert index.release_version is None
+    assert index.object_count == 1
+    assert index.pack_statuses[0]['status'] == 'loaded'
+    assert index.supplemental_star_records == {}
+    assert index.supplemental_alias_index == {}
+    assert search_catalog_packs('Alias Arp 220', path=tmp_path)[0]['source_id'] == 'Arp 220'
+    assert search_catalog_packs('Supplement fixture', path=tmp_path) == []
+
+    monkeypatch.setenv('ORAS_CATALOG_PACKS_DIR', str(tmp_path))
+    status = client.get('/api/sky/catalog-packs', headers={'User-Agent': 'pytest'})
+    search = client.get('/api/sky/search?q=Arp%20220', headers={'User-Agent': 'pytest'})
+    assert status.status_code == 200
+    assert status.json()['data']['object_count'] == 1
+    assert search.status_code == 200
+    assert search.json()['data']['results'][0]['source_id'] == 'Arp 220'
+
+
 def test_legacy_bright_and_hipparcos_apis_use_installed_canonical_science(tmp_path, monkeypatch):
     from backend.app.services.star_science import normalize_star_science
     from backend.app.services.sky_catalog_service import lookup_exact_object
