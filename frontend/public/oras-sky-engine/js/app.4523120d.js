@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/" + ({}[chunkId]||chunkId) + "." + {"chunk-2d2253ec":"a2cf8001"}[chunkId] + ".js"
+/******/ 		return __webpack_require__.p + "js/" + ({}[chunkId]||chunkId) + "." + {"chunk-2d2253ec":"1b0c9439"}[chunkId] + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -846,18 +846,24 @@ var es_array_concat = __webpack_require__("99af");
 // EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
 var vue_esm = __webpack_require__("a026");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=19238a5c&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[_c('oras-catalog-status-dialog',{model:{value:(_vm.showCatalogPacks),callback:function ($$v) {_vm.showCatalogPacks=$$v},expression:"showCatalogPacks"}}),_c('oras-dense-stars-status-dialog',{model:{value:(_vm.showDenseStars),callback:function ($$v) {_vm.showDenseStars=$$v},expression:"showDenseStars"}}),_c('v-navigation-drawer',{attrs:{"app":"","stateless":"","width":"300"},model:{value:(_vm.nav),callback:function ($$v) {_vm.nav=$$v},expression:"nav"}},[_c('v-layout',{attrs:{"column":"","fill-height":""}},[_c('v-list',{attrs:{"dense":""}},[_vm._l((_vm.menuItems),function(item,i){return [(_vm.$store.state[item.store_show_menu_item] === false)?void 0:(item.header)?_c('v-subheader',{key:i,staticClass:"grey--text text--darken-1",domProps:{"textContent":_vm._s(item.header)}}):(item.divider)?_c('v-divider',{key:i,staticClass:"divider_menu"}):(item.switch)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-action',[_c('v-switch',{attrs:{"value":"","input-value":_vm.getStoreValue(item.store_var_name),"label":""}})],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.title))])],1)],1):[(item.link)?_c('v-list-item',{key:i,attrs:{"target":"_blank","rel":"noopener","href":item.link}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}}),_c('v-icon',{attrs:{"disabled":""}},[_vm._v("mdi-open-in-new")])],1):(item.footer===undefined)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.handleMenuItemClick(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]]})],2),_vm._l((_vm.menuComponents),function(item,i){return [_c(item,{key:i,tag:"component"})]}),_c('v-spacer'),_c('v-list',{attrs:{"dense":""}},[_c('v-divider',{staticClass:"divider_menu"}),_vm._l((_vm.menuItems),function(item,i){return [(item.footer)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]})],2)],2)],1),_c('v-main',[_c('v-container',{staticClass:"fill-height",staticStyle:{"padding":"0"},attrs:{"fluid":""}},[_c('div',{class:{ right_panel: _vm.$store.state.showSidePanel },attrs:{"id":"stel"}},[_c('div',{staticStyle:{"position":"relative","width":"100%","height":"100%"}},[_c(_vm.guiComponent,{tag:"component"}),_c('canvas',{ref:"stelCanvas",attrs:{"id":"stel-canvas"}})],1)])])],1)],1)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=fa0b58a6&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',[(_vm.starLookupMessage)?_c('v-alert',{staticClass:"oras-star-lookup-status",attrs:{"role":"status","type":"info","dismissible":""},on:{"input":function($event){_vm.starLookupMessage = ''}}},[_vm._v(_vm._s(_vm.starLookupMessage))]):_vm._e(),_c('oras-catalog-status-dialog',{model:{value:(_vm.showCatalogPacks),callback:function ($$v) {_vm.showCatalogPacks=$$v},expression:"showCatalogPacks"}}),_c('oras-dense-stars-status-dialog',{model:{value:(_vm.showDenseStars),callback:function ($$v) {_vm.showDenseStars=$$v},expression:"showDenseStars"}}),_c('v-navigation-drawer',{attrs:{"app":"","stateless":"","width":"300"},model:{value:(_vm.nav),callback:function ($$v) {_vm.nav=$$v},expression:"nav"}},[_c('v-layout',{attrs:{"column":"","fill-height":""}},[_c('v-list',{attrs:{"dense":""}},[_vm._l((_vm.menuItems),function(item,i){return [(_vm.$store.state[item.store_show_menu_item] === false)?void 0:(item.header)?_c('v-subheader',{key:i,staticClass:"grey--text text--darken-1",domProps:{"textContent":_vm._s(item.header)}}):(item.divider)?_c('v-divider',{key:i,staticClass:"divider_menu"}):(item.switch)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-action',[_c('v-switch',{attrs:{"value":"","input-value":_vm.getStoreValue(item.store_var_name),"label":""}})],1),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(item.title))])],1)],1):[(item.link)?_c('v-list-item',{key:i,attrs:{"target":"_blank","rel":"noopener","href":item.link}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}}),_c('v-icon',{attrs:{"disabled":""}},[_vm._v("mdi-open-in-new")])],1):(item.footer===undefined)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.handleMenuItemClick(item)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]]})],2),_vm._l((_vm.menuComponents),function(item,i){return [_c(item,{key:i,tag:"component"})]}),_c('v-spacer'),_c('v-list',{attrs:{"dense":""}},[_c('v-divider',{staticClass:"divider_menu"}),_vm._l((_vm.menuItems),function(item,i){return [(item.footer)?_c('v-list-item',{key:i,on:{"click":function($event){$event.stopPropagation();return _vm.toggleStoreValue(item.store_var_name)}}},[_c('v-list-item-icon',[_c('v-icon',[_vm._v(_vm._s(item.icon))])],1),_c('v-list-item-title',{domProps:{"textContent":_vm._s(item.title)}})],1):_vm._e()]})],2)],2)],1),_c('v-main',[_c('v-container',{staticClass:"fill-height",staticStyle:{"padding":"0"},attrs:{"fluid":""}},[_c('div',{class:{ right_panel: _vm.$store.state.showSidePanel },attrs:{"id":"stel"}},[_c('div',{staticStyle:{"position":"relative","width":"100%","height":"100%"}},[_c(_vm.guiComponent,{tag:"component"}),_c('canvas',{ref:"stelCanvas",attrs:{"id":"stel-canvas"}})],1)])])],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=19238a5c&
+// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=fa0b58a6&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__("3835");
 
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__("1da1");
+
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createForOfIteratorHelper.js
 var createForOfIteratorHelper = __webpack_require__("b85c");
+
+// EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
+var runtime = __webpack_require__("96cf");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.url.js
 var web_url = __webpack_require__("2b3d");
@@ -904,12 +910,12 @@ var toolbarvue_type_template_id_6acce61a_staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/components/toolbar.vue?vue&type=template&id=6acce61a&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/target-search.vue?vue&type=template&id=5d761524&
-var target_searchvue_type_template_id_5d761524_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tsearch"},[_c('skysource-search',{attrs:{"floatingList":"true"},model:{value:(_vm.obsSkySource),callback:function ($$v) {_vm.obsSkySource=$$v},expression:"obsSkySource"}})],1)}
-var target_searchvue_type_template_id_5d761524_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/target-search.vue?vue&type=template&id=75b70564&
+var target_searchvue_type_template_id_75b70564_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tsearch"},[_c('skysource-search',{attrs:{"floatingList":"true"},model:{value:(_vm.obsSkySource),callback:function ($$v) {_vm.obsSkySource=$$v},expression:"obsSkySource"}})],1)}
+var target_searchvue_type_template_id_75b70564_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/target-search.vue?vue&type=template&id=5d761524&
+// CONCATENATED MODULE: ./src/components/target-search.vue?vue&type=template&id=75b70564&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/skysource-search.vue?vue&type=template&id=829e5c8c&
 var skysource_searchvue_type_template_id_829e5c8c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"click-outside",rawName:"v-click-outside",value:(_vm.resetSearch),expression:"resetSearch"}],staticStyle:{"position":"relative"}},[_c('v-text-field',{attrs:{"prepend-icon":"mdi-magnify","label":_vm.$t('Search...'),"hide-details":"","single-line":""},nativeOn:{"keyup":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"esc",27,$event.key,["Esc","Escape"])){ return null; }return _vm.resetSearch()}},model:{value:(_vm.searchText),callback:function ($$v) {_vm.searchText=$$v},expression:"searchText"}}),(_vm.showList)?_c('v-list',{style:(_vm.listStyle),attrs:{"dense":"","two-line":""}},_vm._l((_vm.autoCompleteChoices),function(source){return _c('v-list-item',{key:source.names[0],on:{"click":function($event){return _vm.sourceClicked(source)}}},[_c('v-list-item-action',[_c('img',{attrs:{"src":_vm.iconForSkySource(source)}})]),_c('v-list-item-content',[_c('v-list-item-title',[_vm._v(_vm._s(_vm.nameForSkySource(source)))]),_c('v-list-item-subtitle',[_vm._v(" "+_vm._s(_vm.subtitleForSkySource(source))+" "),(source.catalog)?_c('v-chip',{staticClass:"ml-1",attrs:{"x-small":"","outlined":""}},[_vm._v(_vm._s(source.catalog))]):_vm._e(),(source.pack_id || source.source_attribution)?_c('v-chip',{staticClass:"ml-1",attrs:{"x-small":"","color":"cyan darken-3","text-color":"white"}},[_vm._v("ORAS Enhanced")]):_vm._e()],1)],1)],1)}),1):_vm._e()],1)}
@@ -917,9 +923,6 @@ var skysource_searchvue_type_template_id_829e5c8c_staticRenderFns = []
 
 
 // CONCATENATED MODULE: ./src/components/skysource-search.vue?vue&type=template&id=829e5c8c&
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__("2909");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
 var es_array_filter = __webpack_require__("4de4");
@@ -933,14 +936,14 @@ var es_string_replace = __webpack_require__("5319");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.to-fixed.js
 var es_number_to_fixed = __webpack_require__("b680");
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.includes.js
-var es_string_includes = __webpack_require__("2532");
-
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
 var es_array_slice = __webpack_require__("fb6a");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.find.js
 var es_array_find = __webpack_require__("7db0");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.includes.js
+var es_string_includes = __webpack_require__("2532");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.search.js
 var es_string_search = __webpack_require__("841c");
@@ -961,11 +964,8 @@ var moment_default = /*#__PURE__*/__webpack_require__.n(moment);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
 var esm_typeof = __webpack_require__("53ca");
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__("1da1");
-
-// EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
-var runtime = __webpack_require__("96cf");
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
+var toConsumableArray = __webpack_require__("2909");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.to-string.js
 var es_regexp_to_string = __webpack_require__("25f0");
@@ -1235,14 +1235,14 @@ function resolveOrasAutoDssSurveyUrl(_x3, _x4, _x5) {
 
 function _resolveOrasAutoDssSurveyUrl() {
   _resolveOrasAutoDssSurveyUrl = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(provider, fetchImpl, localSurveyRoot) {
-    var preferredProviderKeys, _iterator, _step, _loop, _ret;
+    var preferredProviderKeys, _iterator2, _step2, _loop, _ret;
 
     return regeneratorRuntime.wrap(function _callee2$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             preferredProviderKeys = Array.isArray(provider.preferredProviderKeys) ? provider.preferredProviderKeys : [];
-            _iterator = Object(createForOfIteratorHelper["a" /* default */])(preferredProviderKeys);
+            _iterator2 = Object(createForOfIteratorHelper["a" /* default */])(preferredProviderKeys);
             _context3.prev = 2;
             _loop = /*#__PURE__*/regeneratorRuntime.mark(function _loop() {
               var preferredProviderKey, preferredProvider, surveyUrl;
@@ -1250,7 +1250,7 @@ function _resolveOrasAutoDssSurveyUrl() {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:
-                      preferredProviderKey = _step.value;
+                      preferredProviderKey = _step2.value;
                       preferredProvider = ORAS_DSS_SURVEY_PROVIDERS.find(function (item) {
                         return item.key === preferredProviderKey;
                       });
@@ -1286,10 +1286,10 @@ function _resolveOrasAutoDssSurveyUrl() {
               }, _loop);
             });
 
-            _iterator.s();
+            _iterator2.s();
 
           case 5:
-            if ((_step = _iterator.n()).done) {
+            if ((_step2 = _iterator2.n()).done) {
               _context3.next = 14;
               break;
             }
@@ -1326,12 +1326,12 @@ function _resolveOrasAutoDssSurveyUrl() {
             _context3.prev = 16;
             _context3.t1 = _context3["catch"](2);
 
-            _iterator.e(_context3.t1);
+            _iterator2.e(_context3.t1);
 
           case 19:
             _context3.prev = 19;
 
-            _iterator.f();
+            _iterator2.f();
 
             return _context3.finish(19);
 
@@ -1545,24 +1545,37 @@ function buildOrasModelData(result, model, sourceId) {
   }
 
   if (normalizedModel === 'star') {
-    var ra = numberOrNull(result.ra);
-    var de = numberOrNull(result.dec);
-    var vmag = numberOrNull(result.phot_g_mean_mag == null ? result.magnitude : result.phot_g_mean_mag);
-    var plx = numberOrNull(result.parallax);
-    var pmRa = numberOrNull(result.pmra);
-    var pmDe = numberOrNull(result.pmdec);
+    var _result$proper_motion, _result$proper_motion2;
+
+    var science = result.star_science;
+    var ra = numberOrNull(science ? science.ra : result.ra);
+    var de = numberOrNull(science ? science.dec : result.dec); // The native renderer requires Vmag; the contract retains any fallback band.
+
+    var vmag = numberOrNull(science ? science.render_magnitude : result.magnitude);
+    var gmag = numberOrNull(science ? null : result.phot_g_mean_mag);
+    var plx = numberOrNull(science ? science.parallax_mas : result.parallax);
+    var pmRa = numberOrNull(science ? science.proper_motion_ra_mas_per_year : (_result$proper_motion = result.proper_motion_ra) !== null && _result$proper_motion !== void 0 ? _result$proper_motion : result.pmra);
+    var pmDe = numberOrNull(science ? science.proper_motion_dec_mas_per_year : (_result$proper_motion2 = result.proper_motion_dec) !== null && _result$proper_motion2 !== void 0 ? _result$proper_motion2 : result.pmdec);
+    var epoch = numberOrNull(science ? science.coordinate_epoch : result.coordinate_epoch);
+    var bv = numberOrNull(science ? science.bv : null);
     if (ra != null) modelData.ra = ra;
     if (de != null) modelData.de = de;
-    if (vmag != null) modelData.Vmag = vmag;
+    if (vmag != null) modelData.Vmag = vmag;else if (gmag != null) modelData.Gmag = gmag;
     if (plx != null) modelData.plx = plx;
     if (pmRa != null) modelData.pm_ra = pmRa;
     if (pmDe != null) modelData.pm_de = pmDe;
-    if (result.spectral_type) modelData.spect_t = result.spectral_type;
-    if (numberOrNull(result.color_index) != null) modelData.color_index = numberOrNull(result.color_index);
+    if (epoch != null) modelData.epoch = epoch;
+    if (bv != null) modelData.BVMag = bv;
+
+    if (science) {
+      if (science.spectral_type) modelData.spect_t = science.spectral_type;
+      if (science.gaia_id) modelData.gaia = String(science.gaia_id);
+      if (science.hip_id) modelData.hip = Number(science.hip_id);
+    } else if (result.spectral_type) modelData.spect_t = result.spectral_type;
+
     if (numberOrNull(result.mass_solar) != null) modelData.mass_solar = numberOrNull(result.mass_solar);
     if (numberOrNull(result.radius_solar) != null) modelData.radius_solar = numberOrNull(result.radius_solar);
     if (numberOrNull(result.temperature_k) != null) modelData.temperature_k = numberOrNull(result.temperature_k);
-    modelData.epoch = 2000;
   }
 
   if (normalizedModel === 'dso') {
@@ -1595,11 +1608,11 @@ function listOrasPackRoots() {
   return [ORAS_PACKS_ROOT + '/minimal', ORAS_PACKS_ROOT + '/base', ORAS_PACKS_ROOT + '/extended'];
 }
 function toOrasSkySource(result) {
-  if (!result || !result.display_name) {
+  if (!result || !result.display_name && result.source_id == null) {
     return undefined;
   }
 
-  var displayName = String(result.display_name).trim();
+  var displayName = String(result.display_name || result.source_id).trim();
   var displayNameMatch = displayName.match(GAIA_DISPLAY_NAME_RE);
   var sourceId = displayNameMatch ? displayNameMatch[1] : result.source_id == null ? undefined : String(result.source_id).trim();
   var isGaiaResult = Boolean(displayNameMatch || String(result.catalog || '').toLowerCase().includes('gaia'));
@@ -1620,13 +1633,13 @@ function toOrasSkySource(result) {
     display_name: displayName,
     ra: result.ra == null ? null : result.ra,
     dec: result.dec == null ? null : result.dec,
-    phot_g_mean_mag: result.phot_g_mean_mag == null ? result.magnitude == null ? null : result.magnitude : result.phot_g_mean_mag,
+    phot_g_mean_mag: result.phot_g_mean_mag == null ? null : result.phot_g_mean_mag,
     indexed: Boolean(result.indexed),
     status: result.status || null,
     message: result.message || null,
     provenance: result.provenance || null
   };
-  var enrichmentFields = ['aliases', 'common_names', 'catalog_ids', 'category', 'object_type', 'source_attribution', 'pack_id', 'pack_version', 'pack_sources', 'magnitude', 'magnitude_band', 'color_index', 'spectral_type', 'parallax', 'distance_pc', 'proper_motion_ra', 'proper_motion_dec', 'radial_velocity_km_s', 'temperature_k', 'mass_solar', 'radius_solar', 'variability', 'angular_size', 'double_star', 'period_seconds', 'redshift', 'flux', 'candidate_status', 'description'];
+  var enrichmentFields = ['star_science', 'coordinate_epoch', 'coordinate_frame', 'color_index_band', 'aliases', 'common_names', 'catalog_ids', 'category', 'object_type', 'source_attribution', 'pack_id', 'pack_version', 'pack_sources', 'magnitude', 'magnitude_band', 'color_index', 'spectral_type', 'parallax', 'distance_pc', 'proper_motion_ra', 'proper_motion_dec', 'radial_velocity_km_s', 'temperature_k', 'mass_solar', 'radius_solar', 'variability', 'angular_size', 'double_star', 'period_seconds', 'redshift', 'flux', 'candidate_status', 'description'];
   enrichmentFields.forEach(function (field) {
     if (result[field] != null) skySource[field] = result[field];
   });
@@ -1680,6 +1693,60 @@ function withOrasRouteIdentityFallback(skySource, identity) {
   }
 
   return exactSkySource;
+} // Exact identities first; star lookup never invents DSO designations.
+
+function buildOrasNativeCandidates(source) {
+  var candidates = [];
+
+  var add = function add(value) {
+    var name = String(value || '').trim();
+    if (name && !candidates.includes(name)) candidates.push(name);
+  };
+
+  var science = source.star_science || {};
+  var catalog = String(source.catalog || '').toLowerCase();
+  var id = String(source.source_id || '').trim();
+
+  if (source.model === 'star') {
+    if (catalog.includes('gaia') && /^\d+$/.test(id)) add('GAIA ' + id);
+    if (catalog.includes('hipparcos') || /^hip-/i.test(id)) add('HIP ' + id.replace(/^hip-?/i, ''));
+    if (catalog.includes('tycho')) add('TYC ' + id.replace(/^tyc\s*/i, ''));
+    if (science.hip_id) add('HIP ' + science.hip_id);
+    if (science.gaia_id) add('GAIA ' + science.gaia_id);
+    if (science.tycho2_id) add('TYC ' + science.tycho2_id);
+  }
+
+  for (var _i = 0, _arr = [].concat(Object(toConsumableArray["a" /* default */])(source.names || []), [source.display_name, id]); _i < _arr.length; _i++) {
+    var name = _arr[_i];
+    if (!name) continue;
+    add(name);
+    add('NAME ' + String(name).replace(/^NAME /, ''));
+
+    if (source.model === 'dso') {
+      var designation = String(name).match(/^(M|NGC|IC)\s*(\d+)$/i);
+      if (designation) add(designation[1].toUpperCase() + ' ' + designation[2]);
+    }
+  }
+
+  return candidates.slice(0, source.model === 'star' ? 12 : 32);
+}
+function findOrasNativeCandidate(stel, source) {
+  var _iterator = Object(createForOfIteratorHelper["a" /* default */])(buildOrasNativeCandidates(source)),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var candidate = _step.value;
+      var obj = stel.getObj(candidate);
+      if (obj) return obj;
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  return undefined;
 }
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.split.js
 var es_string_split = __webpack_require__("1276");
@@ -2451,7 +2518,392 @@ function _digestText() {
 }
 
 var orasCatalogPacks = createOrasCatalogPackManager();
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
+var es_object_keys = __webpack_require__("b64b");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.entries.js
+var es_object_entries = __webpack_require__("4fad");
+
+// CONCATENATED MODULE: ./src/assets/oras_dense_stars.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var ORAS_DENSE_STARS_ROOT = '/oras-sky-engine/skydata/dense-star-tiles';
+var OFF_PROFILE = 'off';
+var DEFAULT_PROFILE = 'visual-default';
+var PROFILE_STORAGE_KEY = 'orasDenseStarsProfile';
+var LEGACY_ENABLED_STORAGE_KEY = 'orasDenseStarsEnabled';
+
+function normalizeProfile(profile) {
+  var value = String(profile || '').trim();
+  return value || DEFAULT_PROFILE;
+}
+
+function defaultDenseStarsProfile() {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      var stored = window.localStorage.getItem(PROFILE_STORAGE_KEY);
+      if (stored) return normalizeProfile(stored);
+      if (window.localStorage.getItem(LEGACY_ENABLED_STORAGE_KEY) === '0') return OFF_PROFILE;
+    }
+  } catch (error) {}
+
+  return DEFAULT_PROFILE;
+}
+function persistDenseStarsProfile(profile) {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem(PROFILE_STORAGE_KEY, normalizeProfile(profile));
+    }
+  } catch (error) {}
+}
+
+function oras_dense_stars_emptySnapshot() {
+  var phase = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'idle';
+  return {
+    phase: phase,
+    mounted: false,
+    activeProfile: defaultDenseStarsProfile(),
+    defaultProfile: DEFAULT_PROFILE,
+    profile: undefined,
+    profiles: {},
+    releaseVersion: null,
+    generatedAt: null,
+    renderingPath: 'native_swe_star_tiles',
+    sourceCatalogs: {},
+    sourceAttribution: [],
+    starCount: 0,
+    tileCount: 0,
+    magnitudeLimit: null,
+    tileOrder: null,
+    labelMode: 'suppressed',
+    error: null
+  };
+}
+
+function createOrasDenseStarsManager() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var root = String(options.root || ORAS_DENSE_STARS_ROOT).replace(/\/$/, '');
+  var fetchImpl = options.fetchImpl || (typeof window !== 'undefined' && typeof window.fetch === 'function' ? window.fetch.bind(window) : undefined);
+  var snapshot = oras_dense_stars_emptySnapshot();
+  var loadingPromise;
+  var listeners = new Set();
+
+  function publish(nextSnapshot) {
+    snapshot = Object.assign({}, nextSnapshot, {
+      sourceCatalogs: Object.assign({}, nextSnapshot.sourceCatalogs || {}),
+      sourceAttribution: (nextSnapshot.sourceAttribution || []).map(function (source) {
+        return Object.assign({}, source);
+      }),
+      profiles: Object.assign({}, nextSnapshot.profiles || {})
+    });
+    listeners.forEach(function (listener) {
+      return listener(getSnapshot());
+    });
+    return getSnapshot();
+  }
+
+  function getSnapshot() {
+    return Object.assign({}, snapshot, {
+      sourceCatalogs: Object.assign({}, snapshot.sourceCatalogs || {}),
+      sourceAttribution: (snapshot.sourceAttribution || []).map(function (source) {
+        return Object.assign({}, source);
+      }),
+      profiles: Object.assign({}, snapshot.profiles || {})
+    });
+  }
+
+  function load() {
+    return _load.apply(this, arguments);
+  }
+
+  function _load() {
+    _load = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!loadingPromise) {
+                _context.next = 2;
+                break;
+              }
+
+              return _context.abrupt("return", loadingPromise);
+
+            case 2:
+              loadingPromise = loadRelease().finally(function () {
+                loadingPromise = undefined;
+              });
+              return _context.abrupt("return", loadingPromise);
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _load.apply(this, arguments);
+  }
+
+  function loadRelease() {
+    return _loadRelease.apply(this, arguments);
+  }
+
+  function _loadRelease() {
+    _loadRelease = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+      var response, manifest, profiles, activeProfile, profile;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              publish(Object.assign(oras_dense_stars_emptySnapshot('loading'), {
+                mounted: snapshot.mounted,
+                activeProfile: snapshot.activeProfile
+              }));
+
+              if (!(typeof fetchImpl !== 'function')) {
+                _context2.next = 3;
+                break;
+              }
+
+              return _context2.abrupt("return", publish(oras_dense_stars_emptySnapshot('not-mounted')));
+
+            case 3:
+              _context2.prev = 3;
+              _context2.next = 6;
+              return fetchImpl(root + '/manifest.json', {
+                cache: 'no-store'
+              });
+
+            case 6:
+              response = _context2.sent;
+              _context2.next = 12;
+              break;
+
+            case 9:
+              _context2.prev = 9;
+              _context2.t0 = _context2["catch"](3);
+              return _context2.abrupt("return", publish(oras_dense_stars_emptySnapshot('not-mounted')));
+
+            case 12:
+              if (!(!response || !response.ok)) {
+                _context2.next = 14;
+                break;
+              }
+
+              return _context2.abrupt("return", publish(oras_dense_stars_emptySnapshot('not-mounted')));
+
+            case 14:
+              _context2.prev = 14;
+              _context2.t1 = JSON;
+              _context2.next = 18;
+              return response.text();
+
+            case 18:
+              _context2.t2 = _context2.sent;
+              manifest = _context2.t1.parse.call(_context2.t1, _context2.t2);
+              oras_dense_stars_validateManifest(manifest);
+              profiles = Object.assign({}, manifest.profiles || {});
+              activeProfile = resolveActiveProfile(snapshot.activeProfile, profiles);
+              profile = profiles[activeProfile];
+              return _context2.abrupt("return", publish({
+                phase: activeProfile === OFF_PROFILE ? 'off' : 'loaded',
+                mounted: true,
+                activeProfile: activeProfile,
+                defaultProfile: String(manifest.default_profile || DEFAULT_PROFILE),
+                profile: profile ? Object.assign({}, profile) : undefined,
+                profiles: profiles,
+                releaseVersion: String(manifest.release_version),
+                generatedAt: manifest.generated_at || null,
+                renderingPath: 'native_swe_star_tiles',
+                sourceCatalogs: Object.assign({}, profile && profile.source_catalogs || manifest.source_catalogs || {}),
+                sourceAttribution: Array.isArray(manifest.source_attribution) ? manifest.source_attribution.map(function (source) {
+                  return Object.assign({}, source);
+                }) : [],
+                starCount: Number(profile && profile.star_count) || 0,
+                tileCount: Number(profile && profile.tile_count) || 0,
+                magnitudeLimit: Number(profile && profile.magnitude_limit),
+                tileOrder: Number(profile && profile.tile_order),
+                labelMode: String(profile && profile.label_mode || 'suppressed'),
+                error: null
+              }));
+
+            case 27:
+              _context2.prev = 27;
+              _context2.t3 = _context2["catch"](14);
+              return _context2.abrupt("return", publish(Object.assign(oras_dense_stars_emptySnapshot('failed'), {
+                mounted: true,
+                error: _context2.t3.message
+              })));
+
+            case 30:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[3, 9], [14, 27]]);
+    }));
+    return _loadRelease.apply(this, arguments);
+  }
+
+  function setProfile(profile) {
+    var activeProfile = normalizeProfile(profile);
+    persistDenseStarsProfile(activeProfile);
+    var profiles = snapshot.profiles || {};
+    var selectedProfile = profiles[activeProfile];
+    publish(Object.assign(getSnapshot(), {
+      activeProfile: activeProfile,
+      profile: selectedProfile ? Object.assign({}, selectedProfile) : undefined,
+      phase: activeProfile === OFF_PROFILE ? 'off' : snapshot.mounted ? 'loaded' : snapshot.phase,
+      starCount: Number(selectedProfile && selectedProfile.star_count) || 0,
+      tileCount: Number(selectedProfile && selectedProfile.tile_count) || 0,
+      magnitudeLimit: Number(selectedProfile && selectedProfile.magnitude_limit),
+      tileOrder: Number(selectedProfile && selectedProfile.tile_order),
+      labelMode: String(selectedProfile && selectedProfile.label_mode || 'suppressed')
+    }));
+  }
+
+  function getSurveyRoot() {
+    var profile = snapshot.profile;
+    return profile && profile.path ? root + '/' + String(profile.path).replace(/^\/+/, '') : root;
+  }
+
+  function getSurveyKey() {
+    return 'oras-dense-stars-' + snapshot.activeProfile;
+  }
+
+  function isReadyForNativeRegistration() {
+    return snapshot.phase === 'loaded' && snapshot.mounted && snapshot.activeProfile !== OFF_PROFILE && !!snapshot.profile && snapshot.renderingPath === 'native_swe_star_tiles';
+  }
+
+  function subscribe(listener) {
+    listeners.add(listener);
+    listener(getSnapshot());
+    return function () {
+      return listeners.delete(listener);
+    };
+  }
+
+  return {
+    getSnapshot: getSnapshot,
+    getSurveyKey: getSurveyKey,
+    getSurveyRoot: getSurveyRoot,
+    isReadyForNativeRegistration: isReadyForNativeRegistration,
+    load: load,
+    setProfile: setProfile,
+    subscribe: subscribe
+  };
+}
+function registerOrasStarCatalogChain(_x) {
+  return _registerOrasStarCatalogChain.apply(this, arguments);
+}
+
+function _registerOrasStarCatalogChain() {
+  _registerOrasStarCatalogChain = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(core) {
+    var options,
+        manager,
+        fallbackRoots,
+        gaiaRoot,
+        mode,
+        _args3 = arguments;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            options = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
+            manager = options.manager || orasDenseStars;
+            fallbackRoots = Array.isArray(options.fallbackRoots) ? options.fallbackRoots : [];
+            gaiaRoot = String(options.gaiaRoot || '');
+            manager.setProfile(options.profile);
+            _context3.next = 7;
+            return manager.load();
+
+          case 7:
+            mode = 'stock_fallback';
+
+            if (manager.isReadyForNativeRegistration()) {
+              core.stars.addDataSource({
+                url: manager.getSurveyRoot(),
+                key: manager.getSurveyKey()
+              });
+              mode = 'canonical_replacement';
+            } else {
+              fallbackRoots.forEach(function (packRoot) {
+                core.stars.addDataSource({
+                  url: packRoot + '/stars'
+                });
+              });
+            }
+
+            if (gaiaRoot) {
+              core.stars.addDataSource({
+                url: gaiaRoot,
+                key: 'gaia'
+              });
+            }
+
+            return _context3.abrupt("return", {
+              mode: mode
+            });
+
+          case 11:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return _registerOrasStarCatalogChain.apply(this, arguments);
+}
+
+function resolveActiveProfile(profile, profiles) {
+  var value = normalizeProfile(profile);
+  if (value === OFF_PROFILE) return OFF_PROFILE;
+  if (profiles[value]) return value;
+  if (profiles[DEFAULT_PROFILE]) return DEFAULT_PROFILE;
+  return Object.keys(profiles)[0] || OFF_PROFILE;
+}
+
+function oras_dense_stars_validateManifest(manifest) {
+  if (!manifest || manifest.schema_version !== 1) throw new Error('unsupported dense star manifest schema');
+  if (manifest.rendering_path !== 'native_swe_star_tiles') throw new Error('unsupported dense star rendering path');
+  if (manifest.source_id_type !== 'string') throw new Error('dense star source IDs must remain strings');
+  if (manifest.catalog_mode !== 'canonical_replacement') throw new Error('dense star release must replace the bright catalog chain');
+  if (!manifest.native_continuation || manifest.native_continuation.key !== 'gaia') throw new Error('dense star release must declare the native Gaia continuation');
+  if (manifest.default_profile !== DEFAULT_PROFILE) throw new Error('dense star default profile must be visual-default');
+  if (!manifest.profiles || Object(esm_typeof["a" /* default */])(manifest.profiles) !== 'object') throw new Error('dense star profiles are required');
+
+  for (var _i = 0, _Object$entries = Object.entries(manifest.profiles); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = Object(slicedToArray["a" /* default */])(_Object$entries[_i], 2),
+        profileId = _Object$entries$_i[0],
+        profile = _Object$entries$_i[1];
+
+    if (!profile || !profile.path) throw new Error('dense star profile path is required: ' + profileId);
+    if (!['named', 'suppressed'].includes(profile.label_mode)) throw new Error('dense star profile labels must be named or suppressed: ' + profileId);
+    if (!Number.isFinite(Number(profile.star_count)) || Number(profile.star_count) < 1) throw new Error('dense star profile count must be positive: ' + profileId);
+    if (!Number.isFinite(Number(profile.tile_count)) || Number(profile.tile_count) < 1) throw new Error('dense star profile tile count must be positive: ' + profileId);
+  }
+}
+
+var orasDenseStars = createOrasDenseStarsManager();
 // CONCATENATED MODULE: ./src/assets/sw_helpers.js
+
 
 
 
@@ -2481,6 +2933,7 @@ var orasCatalogPacks = createOrasCatalogPackManager();
 //
 // The terms of the AGPL v3 license can be found in the main directory of this
 // repository.
+
 
 
 
@@ -2771,6 +3224,99 @@ var swh = {
     return link;
   },
   // Return a SweObj matching a passed sky source JSON object if it's already instanciated in SWE
+  resolveCanonicalStar: function () {
+    var _resolveCanonicalStar = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(source) {
+      var stel, science, hint, snapshot, lookup, status, deadline, maxLookupAttempts, lookupAttempts, ptr, obj;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              stel = vue_esm["a" /* default */].prototype.$stel;
+              science = source.star_science;
+              hint = science && science.native_tile;
+
+              if (hint) {
+                _context.next = 5;
+                break;
+              }
+
+              return _context.abrupt("return", this.skySource2SweObj(source));
+
+            case 5:
+              snapshot = orasDenseStars.getSnapshot();
+
+              if (!(!orasDenseStars.isReadyForNativeRegistration() || science.render_magnitude > snapshot.magnitudeLimit)) {
+                _context.next = 8;
+                break;
+              }
+
+              return _context.abrupt("return", this.skySource2SweObj(source));
+
+            case 8:
+              lookup = stel.cwrap('stars_get_by_identity', 'number', ['string', 'string', 'number', 'number', 'number']);
+              status = stel._malloc(4);
+              deadline = performance.now() + 1500;
+              maxLookupAttempts = 60;
+              lookupAttempts = 0;
+              _context.prev = 13;
+
+            case 14:
+              lookupAttempts += 1;
+              ptr = lookup(orasDenseStars.getSurveyKey(), hint.identity, hint.order, hint.pix, status);
+
+              if (!ptr) {
+                _context.next = 20;
+                break;
+              }
+
+              obj = new stel.SweObj(ptr);
+              obj.__orasOwnedLookup = true;
+              return _context.abrupt("return", obj);
+
+            case 20:
+              if (!(stel.HEAP32[status >> 2] !== 0)) {
+                _context.next = 22;
+                break;
+              }
+
+              return _context.abrupt("return", this.skySource2SweObj(source));
+
+            case 22:
+              _context.next = 24;
+              return new Promise(function (resolve) {
+                return setTimeout(resolve, 25);
+              });
+
+            case 24:
+              if (lookupAttempts < maxLookupAttempts && performance.now() < deadline) {
+                _context.next = 14;
+                break;
+              }
+
+            case 25:
+              return _context.abrupt("return", this.skySource2SweObj(source));
+
+            case 26:
+              _context.prev = 26;
+
+              stel._free(status);
+
+              return _context.finish(26);
+
+            case 29:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this, [[13,, 26, 29]]);
+    }));
+
+    function resolveCanonicalStar(_x) {
+      return _resolveCanonicalStar.apply(this, arguments);
+    }
+
+    return resolveCanonicalStar;
+  }(),
   skySource2SweObj: function skySource2SweObj(ss) {
     if (!ss || !ss.model) {
       return undefined;
@@ -2789,76 +3335,7 @@ var swh = {
     }
 
     if (!obj) {
-      var baseNames = [];
-
-      if (Array.isArray(ss.names)) {
-        baseNames.push.apply(baseNames, Object(toConsumableArray["a" /* default */])(ss.names));
-      }
-
-      if (ss.display_name) {
-        baseNames.push(ss.display_name);
-      }
-
-      if (ss.source_id != null) {
-        baseNames.push(String(ss.source_id));
-      }
-
-      var candidateNames = [];
-      var compactMessierPattern = /^M\d+$/i;
-      var sourceId = String(ss.source_id || '').trim();
-      var catalog = String(ss.catalog || '').toLowerCase();
-
-      if (ss.model === 'star' && sourceId) {
-        if (catalog.includes('gaia') && /^\d+$/.test(sourceId)) {
-          candidateNames.push('GAIA ' + sourceId);
-        }
-
-        if (catalog.includes('hipparcos') || /^hip-/i.test(sourceId)) {
-          candidateNames.push('HIP ' + sourceId.replace(/^hip-/i, ''));
-        }
-
-        if (catalog.includes('tycho') || /^tyc\s*/i.test(sourceId)) {
-          candidateNames.push('TYC ' + sourceId.replace(/^tyc\s*/i, ''));
-        }
-      }
-
-      for (var _i = 0, _baseNames = baseNames; _i < _baseNames.length; _i++) {
-        var rawName = _baseNames[_i];
-        var name = String(rawName || '').trim();
-
-        if (!name) {
-          continue;
-        }
-
-        candidateNames.push(name);
-        candidateNames.push(this.cleanupOneSkySourceName(name, 5));
-        candidateNames.push('NAME ' + name);
-        candidateNames.push('* ' + name);
-        var compactName = name.replace(/\s+/g, '');
-
-        if (compactMessierPattern.test(compactName)) {
-          var messierNumber = compactName.slice(1);
-          candidateNames.push('M' + messierNumber);
-          candidateNames.push('M ' + messierNumber);
-        }
-
-        candidateNames.push('M ' + name.replace(/^M\s*/i, ''));
-        candidateNames.push('NGC ' + name.replace(/^NGC\s*/i, ''));
-        candidateNames.push('IC ' + name.replace(/^IC\s*/i, ''));
-      }
-
-      obj = candidateNames.map(function (candidate) {
-        return String(candidate || '').trim();
-      }).filter(function (candidate, index, all) {
-        return candidate !== '' && all.indexOf(candidate) === index;
-      }).map(function (candidate) {
-        return $stel.getObj(candidate);
-      }).find(Boolean);
-    }
-
-    if (!obj && ss.names[0].startsWith('Gaia DR2 ')) {
-      var gname = ss.names[0].replace(/^Gaia DR2 /, 'GAIA ');
-      obj = $stel.getObj(gname);
+      obj = findOrasNativeCandidate($stel, ss);
     }
 
     if (obj === null) return undefined;
@@ -3154,8 +3631,8 @@ var swh = {
       groups[_key] = arguments[_key];
     }
 
-    for (var _i2 = 0, _groups = groups; _i2 < _groups.length; _i2++) {
-      var group = _groups[_i2];
+    for (var _i = 0, _groups = groups; _i < _groups.length; _i++) {
+      var group = _groups[_i];
 
       var _iterator2 = Object(createForOfIteratorHelper["a" /* default */])(group || []),
           _step2;
@@ -3271,6 +3748,12 @@ var swh = {
     this.exactSkySourceSelection = exactSkySource || undefined;
     $stel.core.selection = obj;
     $stel.pointAndLock(obj);
+
+    if (obj.__orasOwnedLookup) {
+      // Selection and lock retain their own references; release the lookup's.
+      obj.__orasOwnedLookup = false;
+      obj.destroy();
+    }
   },
   // Get data for a SkySource from wikipedia
   getSkySourceSummaryFromWikipedia: function getSkySourceSummaryFromWikipedia(ss) {
@@ -3290,8 +3773,8 @@ var swh = {
     }).then(function (index) {
       var keyMap = index && index.alias_to_file ? index.alias_to_file : {};
 
-      for (var _i3 = 0, _aliases = aliases; _i3 < _aliases.length; _i3++) {
-        var alias = _aliases[_i3];
+      for (var _i2 = 0, _aliases = aliases; _i2 < _aliases.length; _i2++) {
+        var alias = _aliases[_i2];
         var normalized = alias.toLowerCase();
 
         if (keyMap[normalized]) {
@@ -3682,6 +4165,8 @@ installComponents_default()(component, {VChip: VChip["a" /* default */],VList: V
 installDirectives_default()(component, {ClickOutside: click_outside["a" /* default */]})
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/target-search.vue?vue&type=script&lang=js&
+
+
 //
 //
 //
@@ -3705,30 +4190,88 @@ installDirectives_default()(component, {ClickOutside: click_outside["a" /* defau
     };
   },
   watch: {
-    obsSkySource: function obsSkySource(ss) {
-      if (!ss) {
-        return;
+    obsSkySource: function () {
+      var _obsSkySource = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(ss) {
+        var obj, label;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (ss) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 2:
+                if (!(ss.model === 'star')) {
+                  _context.next = 8;
+                  break;
+                }
+
+                _context.next = 5;
+                return sw_helpers.resolveCanonicalStar(ss);
+
+              case 5:
+                _context.t0 = _context.sent;
+                _context.next = 9;
+                break;
+
+              case 8:
+                _context.t0 = sw_helpers.skySource2SweObj(ss);
+
+              case 9:
+                obj = _context.t0;
+
+                if (!(ss !== this.obsSkySource)) {
+                  _context.next = 13;
+                  break;
+                }
+
+                if (obj && obj.__orasOwnedLookup) {
+                  obj.__orasOwnedLookup = false;
+                  obj.destroy();
+                }
+
+                return _context.abrupt("return");
+
+              case 13:
+                if (!obj) {
+                  obj = this.$stel.createObj(ss.model, ss);
+
+                  if (obj) {
+                    this.$selectionLayer.add(obj);
+                  }
+                }
+
+                if (obj) {
+                  _context.next = 18;
+                  break;
+                }
+
+                label = Array.isArray(ss.names) && ss.names.length ? ss.names[0] : ss.display_name || String(ss.source_id || 'unknown');
+                console.warn("Can't find object in SWE: " + label);
+                return _context.abrupt("return");
+
+              case 18:
+                obj.__orasSkySourceData = ss;
+                sw_helpers.setSweObjAsSelection(obj, ss);
+
+              case 20:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function obsSkySource(_x) {
+        return _obsSkySource.apply(this, arguments);
       }
 
-      var obj = sw_helpers.skySource2SweObj(ss);
-
-      if (!obj) {
-        obj = this.$stel.createObj(ss.model, ss);
-
-        if (obj) {
-          this.$selectionLayer.add(obj);
-        }
-      }
-
-      if (!obj) {
-        var label = Array.isArray(ss.names) && ss.names.length ? ss.names[0] : ss.display_name || String(ss.source_id || 'unknown');
-        console.warn("Can't find object in SWE: " + label);
-        return;
-      }
-
-      obj.__orasSkySourceData = ss;
-      sw_helpers.setSweObjAsSelection(obj, ss);
-    }
+      return obsSkySource;
+    }()
   },
   components: {
     SkysourceSearch: skysource_search
@@ -3750,8 +4293,8 @@ var target_searchvue_type_style_index_0_lang_css_ = __webpack_require__("4654");
 
 var target_search_component = Object(componentNormalizer["a" /* default */])(
   components_target_searchvue_type_script_lang_js_,
-  target_searchvue_type_template_id_5d761524_render,
-  target_searchvue_type_template_id_5d761524_staticRenderFns,
+  target_searchvue_type_template_id_75b70564_render,
+  target_searchvue_type_template_id_75b70564_staticRenderFns,
   false,
   null,
   null,
@@ -4487,15 +5030,12 @@ var bottom_bar_component = Object(componentNormalizer["a" /* default */])(
 
 installComponents_default()(bottom_bar_component, {VBtn: VBtn["a" /* default */],VIcon: VIcon["a" /* default */],VMenu: VMenu["a" /* default */],VSpacer: VSpacer["a" /* default */]})
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/selected-object-info.vue?vue&type=template&id=5611141b&
-var selected_object_infovue_type_template_id_5611141b_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.selectedObject)?_c('v-card',{staticStyle:{"background":"rgba(66, 66, 66, 0.3)"},attrs:{"transparent":""}},[_c('v-btn',{staticStyle:{"position":"absolute","right":"0"},attrs:{"icon":""},nativeOn:{"click":function($event){return _vm.unselect()}}},[_c('v-icon',[_vm._v("mdi-close")])],1),_c('v-card-title',{attrs:{"primary-title":""}},[_c('div',{staticStyle:{"width":"100%"}},[_c('img',{staticStyle:{"margin-top":"3px","margin-right":"10px"},attrs:{"src":_vm.icon,"height":"48","width":"48","align":"left"}}),_c('div',{staticStyle:{"overflow":"hidden","text-overflow":"ellipsis"}},[_c('div',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.title))]),_c('div',{staticClass:"grey--text text-body-2"},[_vm._v(_vm._s(_vm.type))])])])]),_c('v-card-text',{staticStyle:{"padding-bottom":"5px"}},[(_vm.otherNames.length > 1)?_c('v-row',{staticStyle:{"width":"100%"}},[_c('v-col',{attrs:{"cols":"12"}},[_c('span',{staticStyle:{"position":"absolute"}},[_vm._v(_vm._s(_vm.$t('Also known as')))]),_c('span',{staticStyle:{"padding-left":"33.3333%"}}),_vm._l((_vm.otherNames1to7),function(mname){return _c('span',{key:mname,staticClass:"text-caption white--text",staticStyle:{"margin-right":"15px","font-weight":"500"}},[_vm._v(_vm._s(mname))])}),(_vm.otherNames.length > 8)?_c('v-btn',{staticClass:"grey--text",staticStyle:{"margin-top":"-5px","margin-bottom":"-5px"},attrs:{"small":"","icon":""},nativeOn:{"click":function($event){_vm.showMinorNames = !_vm.showMinorNames}}},[_c('v-icon',[_vm._v("mdi-dots-horizontal")])],1):_vm._e(),_vm._l((_vm.otherNames8andMore),function(mname){return _c('span',{key:mname,staticClass:"text-caption white--text",staticStyle:{"margin-right":"15px","font-weight":"500"}},[_vm._v(_vm._s(mname))])})],2)],1):_vm._e()],1),(_vm.orasMetadata)?_c('v-card-text',{staticClass:"oras-enhanced-panel"},[_c('v-chip',{staticClass:"mb-2",attrs:{"x-small":"","color":"cyan darken-3","text-color":"white"}},[_vm._v("ORAS Enhanced")]),_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v("Catalog IDs")]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(_vm.orasMetadata.catalogIds.join(', ')))])],1),_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v("Source attribution")]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(_vm.orasMetadata.sources.join(', ')))])],1),(_vm.orasMetadata.pack)?_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v("Catalog pack")]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(_vm.orasMetadata.pack))])],1):_vm._e(),_vm._l((_vm.orasProperties),function(property){return _c('v-row',{key:property.key,attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v(_vm._s(property.key))]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(property.value))])],1)}),(_vm.orasProperties.length === 0)?_c('div',{staticClass:"grey--text text-caption mt-2"},[_vm._v(" Physical properties: Unavailable from mounted sources ")]):_vm._e()],2):_vm._e(),_c('v-card-text',[_vm._l((_vm.items),function(item){return [_c('v-row',{key:item.key,staticStyle:{"width":"100%"},attrs:{"no-gutters":""}},[_c('v-col',{staticStyle:{"color":"#dddddd"},attrs:{"cols":"4"}},[_vm._v(_vm._s(item.key))]),_c('v-col',{staticClass:"white--text",staticStyle:{"font-weight":"500"},attrs:{"cols":"8"}},[(item.html)?_c('span',{domProps:{"innerHTML":_vm._s(item.value)}}):_c('span',[_vm._v(_vm._s(item.value))])])],1)]}),_c('div',{staticClass:"white--text",staticStyle:{"margin-top":"15px"}},[_vm._v(_vm._s(_vm.wikipediaSummary))])],2),_c('v-card-actions',{staticStyle:{"margin-top":"-25px"}},[_c('v-spacer'),_vm._l((_vm.pluginsSelectedInfoExtraGuiComponents),function(item){return [_c(item,{key:item,tag:"component"})]})],2),_c('v-dialog',{attrs:{"width":"500px","absolute":""},model:{value:(_vm.showShareLinkDialog),callback:function ($$v) {_vm.showShareLinkDialog=$$v},expression:"showShareLinkDialog"}},[_c('v-card',{staticClass:"secondary white--text",staticStyle:{"height":"180px"}},[_c('v-card-title',{attrs:{"primary-title":""}},[_c('div',[_c('h3',{staticClass:"text-h5 mb-0"},[_vm._v("Share link")])])]),_c('v-card-text',{staticStyle:{"width":"100%"}},[_c('v-row',{staticStyle:{"width":"100%"}},[_c('v-text-field',{attrs:{"id":"link_inputid","label":"Link","solo":"","readonly":""},model:{value:(_vm.shareLink),callback:function ($$v) {_vm.shareLink=$$v},expression:"shareLink"}}),_c('v-btn',{nativeOn:{"click":function($event){$event.stopPropagation();return _vm.copyLink($event)}}},[_vm._v("Copy")])],1)],1)],1)],1),(_vm.$store.state.showSelectedInfoButtons)?_c('div',{staticStyle:{"position":"absolute","right":"0px","bottom":"-50px"}},[(!_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},nativeOn:{"click":function($event){_vm.showShareLinkDialog = !_vm.showShareLinkDialog}}},[_c('v-icon',[_vm._v("mdi-link")])],1):_vm._e(),(_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},nativeOn:{"click":function($event){return _vm.lockToSelection()}}},[_c('img',{staticStyle:{"min-height":"40px"},attrs:{"src":__webpack_require__("4f57"),"height":"40px"}})]):_vm._e(),(!_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},on:{"mousedown":function($event){return _vm.zoomOutButtonClicked()}}},[_c('img',{class:{bt_disabled: !_vm.zoomOutButtonEnabled},staticStyle:{"min-height":"40px"},attrs:{"src":__webpack_require__("7aa7"),"height":"40px"}})]):_vm._e(),(!_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},on:{"mousedown":function($event){return _vm.zoomInButtonClicked()}}},[_c('img',{class:{bt_disabled: !_vm.zoomInButtonEnabled},staticStyle:{"min-height":"40px"},attrs:{"src":__webpack_require__("f6ce"),"height":"40px"}})]):_vm._e()],1):_vm._e(),_c('v-snackbar',{attrs:{"bottom":"","left":"","timeout":2000,"color":"secondary"},model:{value:(_vm.copied),callback:function ($$v) {_vm.copied=$$v},expression:"copied"}},[_vm._v(" Link copied ")])],1):_vm._e()}
-var selected_object_infovue_type_template_id_5611141b_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"dec867b4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/selected-object-info.vue?vue&type=template&id=35e96997&
+var selected_object_infovue_type_template_id_35e96997_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.selectedObject)?_c('v-card',{staticStyle:{"background":"rgba(66, 66, 66, 0.3)"},attrs:{"transparent":""}},[_c('v-btn',{staticStyle:{"position":"absolute","right":"0"},attrs:{"icon":""},nativeOn:{"click":function($event){return _vm.unselect()}}},[_c('v-icon',[_vm._v("mdi-close")])],1),_c('v-card-title',{attrs:{"primary-title":""}},[_c('div',{staticStyle:{"width":"100%"}},[_c('img',{staticStyle:{"margin-top":"3px","margin-right":"10px"},attrs:{"src":_vm.icon,"height":"48","width":"48","align":"left"}}),_c('div',{staticStyle:{"overflow":"hidden","text-overflow":"ellipsis"}},[_c('div',{staticClass:"text-h5"},[_vm._v(_vm._s(_vm.title))]),_c('div',{staticClass:"grey--text text-body-2"},[_vm._v(_vm._s(_vm.type))])])])]),_c('v-card-text',{staticStyle:{"padding-bottom":"5px"}},[(_vm.otherNames.length > 1)?_c('v-row',{staticStyle:{"width":"100%"}},[_c('v-col',{attrs:{"cols":"12"}},[_c('span',{staticStyle:{"position":"absolute"}},[_vm._v(_vm._s(_vm.$t('Also known as')))]),_c('span',{staticStyle:{"padding-left":"33.3333%"}}),_vm._l((_vm.otherNames1to7),function(mname){return _c('span',{key:mname,staticClass:"text-caption white--text",staticStyle:{"margin-right":"15px","font-weight":"500"}},[_vm._v(_vm._s(mname))])}),(_vm.otherNames.length > 8)?_c('v-btn',{staticClass:"grey--text",staticStyle:{"margin-top":"-5px","margin-bottom":"-5px"},attrs:{"small":"","icon":""},nativeOn:{"click":function($event){_vm.showMinorNames = !_vm.showMinorNames}}},[_c('v-icon',[_vm._v("mdi-dots-horizontal")])],1):_vm._e(),_vm._l((_vm.otherNames8andMore),function(mname){return _c('span',{key:mname,staticClass:"text-caption white--text",staticStyle:{"margin-right":"15px","font-weight":"500"}},[_vm._v(_vm._s(mname))])})],2)],1):_vm._e()],1),(_vm.orasMetadata)?_c('v-card-text',{staticClass:"oras-enhanced-panel"},[_c('v-chip',{staticClass:"mb-2",attrs:{"x-small":"","color":"cyan darken-3","text-color":"white"}},[_vm._v("ORAS Enhanced")]),_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v("Catalog IDs")]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(_vm.orasMetadata.catalogIds.join(', ')))])],1),_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v("Source attribution")]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(_vm.orasMetadata.sources.join(', ')))])],1),(_vm.orasMetadata.pack)?_c('v-row',{attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v("Catalog pack")]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(_vm.orasMetadata.pack))])],1):_vm._e(),_vm._l((_vm.orasProperties),function(property){return _c('v-row',{key:property.key,attrs:{"no-gutters":""}},[_c('v-col',{attrs:{"cols":"4"}},[_vm._v(_vm._s(property.key))]),_c('v-col',{staticClass:"white--text",attrs:{"cols":"8"}},[_vm._v(_vm._s(property.value))])],1)}),(_vm.orasProperties.length === 0)?_c('div',{staticClass:"grey--text text-caption mt-2"},[_vm._v(" Physical properties: Unavailable from mounted sources ")]):_vm._e()],2):_vm._e(),_c('v-card-text',[_vm._l((_vm.items),function(item){return [_c('v-row',{key:item.key,staticStyle:{"width":"100%"},attrs:{"no-gutters":""}},[_c('v-col',{staticStyle:{"color":"#dddddd"},attrs:{"cols":"4"}},[_vm._v(_vm._s(item.key))]),_c('v-col',{staticClass:"white--text",staticStyle:{"font-weight":"500"},attrs:{"cols":"8"}},[(item.html)?_c('span',{domProps:{"innerHTML":_vm._s(item.value)}}):_c('span',[_vm._v(_vm._s(item.value))])])],1)]}),_c('div',{staticClass:"white--text",staticStyle:{"margin-top":"15px"}},[_vm._v(_vm._s(_vm.wikipediaSummary))])],2),_c('v-card-actions',{staticStyle:{"margin-top":"-25px"}},[_c('v-spacer'),_vm._l((_vm.pluginsSelectedInfoExtraGuiComponents),function(item){return [_c(item,{key:item,tag:"component"})]})],2),_c('v-dialog',{attrs:{"width":"500px","absolute":""},model:{value:(_vm.showShareLinkDialog),callback:function ($$v) {_vm.showShareLinkDialog=$$v},expression:"showShareLinkDialog"}},[_c('v-card',{staticClass:"secondary white--text",staticStyle:{"height":"180px"}},[_c('v-card-title',{attrs:{"primary-title":""}},[_c('div',[_c('h3',{staticClass:"text-h5 mb-0"},[_vm._v("Share link")])])]),_c('v-card-text',{staticStyle:{"width":"100%"}},[_c('v-row',{staticStyle:{"width":"100%"}},[_c('v-text-field',{attrs:{"id":"link_inputid","label":"Link","solo":"","readonly":""},model:{value:(_vm.shareLink),callback:function ($$v) {_vm.shareLink=$$v},expression:"shareLink"}}),_c('v-btn',{nativeOn:{"click":function($event){$event.stopPropagation();return _vm.copyLink($event)}}},[_vm._v("Copy")])],1)],1)],1)],1),(_vm.$store.state.showSelectedInfoButtons)?_c('div',{staticStyle:{"position":"absolute","right":"0px","bottom":"-50px"}},[(!_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},nativeOn:{"click":function($event){_vm.showShareLinkDialog = !_vm.showShareLinkDialog}}},[_c('v-icon',[_vm._v("mdi-link")])],1):_vm._e(),(_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},nativeOn:{"click":function($event){return _vm.lockToSelection()}}},[_c('img',{staticStyle:{"min-height":"40px"},attrs:{"src":__webpack_require__("4f57"),"height":"40px"}})]):_vm._e(),(!_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},on:{"mousedown":function($event){return _vm.zoomOutButtonClicked()}}},[_c('img',{class:{bt_disabled: !_vm.zoomOutButtonEnabled},staticStyle:{"min-height":"40px"},attrs:{"src":__webpack_require__("7aa7"),"height":"40px"}})]):_vm._e(),(!_vm.showPointToButton)?_c('v-btn',{attrs:{"fab":"","small":"","color":"transparent"},on:{"mousedown":function($event){return _vm.zoomInButtonClicked()}}},[_c('img',{class:{bt_disabled: !_vm.zoomInButtonEnabled},staticStyle:{"min-height":"40px"},attrs:{"src":__webpack_require__("f6ce"),"height":"40px"}})]):_vm._e()],1):_vm._e(),_c('v-snackbar',{attrs:{"bottom":"","left":"","timeout":2000,"color":"secondary"},model:{value:(_vm.copied),callback:function ($$v) {_vm.copied=$$v},expression:"copied"}},[_vm._v(" Link copied ")])],1):_vm._e()}
+var selected_object_infovue_type_template_id_35e96997_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/selected-object-info.vue?vue&type=template&id=5611141b&
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
-var es_object_keys = __webpack_require__("b64b");
+// CONCATENATED MODULE: ./src/components/selected-object-info.vue?vue&type=template&id=35e96997&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/selected-object-info.vue?vue&type=script&lang=js&
 
@@ -4655,7 +5195,7 @@ var es_object_keys = __webpack_require__("b64b");
     },
     orasMetadata: function orasMetadata() {
       var source = this.selectedObject;
-      if (!source || !source.pack_id && !source.source_attribution) return undefined;
+      if (!source || !source.pack_id && !source.source_attribution && !source.star_science) return undefined;
       var catalogIds = [source.catalog && source.source_id ? source.catalog + ' ' + source.source_id : undefined].concat(Object(toConsumableArray["a" /* default */])(source.catalog_ids || [])).filter(function (value, index, all) {
         return value && all.indexOf(value) === index;
       });
@@ -4690,6 +5230,31 @@ var es_object_keys = __webpack_require__("b64b");
           value: String(_this.selectedObject[field])
         };
       });
+      var science = this.selectedObject.star_science;
+
+      if (science) {
+        var add = function add(key, value) {
+          var unit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+          return properties.push({
+            key: key,
+            value: value == null ? 'Unavailable' : String(value) + unit
+          });
+        };
+
+        add('Source magnitude', science.source_magnitude, ' ' + (science.source_magnitude_band || 'unknown band'));
+        add('Render magnitude', science.render_magnitude, ' ' + (science.render_magnitude_band || 'unknown band'));
+        add('Magnitude method', science.render_magnitude_method);
+        add('Source color', science.color_index, ' ' + (science.color_index_band || 'unknown band'));
+        add('B−V', science.bv);
+        add('B−V method', science.bv_method);
+        add('Coordinate epoch', science.coordinate_epoch, ' (Julian year)');
+        add('Coordinate frame', science.coordinate_frame);
+        add('Proper motion RA cos Dec', science.proper_motion_ra_mas_per_year, ' mas/year');
+        add('Proper motion Dec', science.proper_motion_dec_mas_per_year, ' mas/year');
+        add('Parallax (canonical)', science.parallax_mas, ' mas');
+        add('Radial velocity (source)', science.radial_velocity_km_s, ' km/s');
+        add('Spectrum (canonical)', science.spectral_type);
+      }
 
       if (this.selectedObject.double_star) {
         var double = this.selectedObject.double_star;
@@ -4826,7 +5391,7 @@ var es_object_keys = __webpack_require__("b64b");
         }
       };
 
-      addAttr(that.$t('Magnitude'), 'vmag', this.formatMagnitude);
+      addAttr(that.$t(this.selectedObject.star_science ? 'Rendered magnitude' : 'Magnitude'), 'vmag', this.formatMagnitude);
       addAttr(that.$t('Distance'), 'distance', this.formatDistance, true);
 
       if (this.selectedObject.model_data) {
@@ -5049,8 +5614,8 @@ var VSnackbar = __webpack_require__("2db4");
 
 var selected_object_info_component = Object(componentNormalizer["a" /* default */])(
   components_selected_object_infovue_type_script_lang_js_,
-  selected_object_infovue_type_template_id_5611141b_render,
-  selected_object_infovue_type_template_id_5611141b_staticRenderFns,
+  selected_object_infovue_type_template_id_35e96997_render,
+  selected_object_infovue_type_template_id_35e96997_staticRenderFns,
   false,
   null,
   null,
@@ -6269,386 +6834,6 @@ var oras_dense_stars_status_dialogvue_type_template_id_0e713f36_scoped_true_stat
 
 // CONCATENATED MODULE: ./src/components/oras-dense-stars-status-dialog.vue?vue&type=template&id=0e713f36&scoped=true&
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.entries.js
-var es_object_entries = __webpack_require__("4fad");
-
-// CONCATENATED MODULE: ./src/assets/oras_dense_stars.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var ORAS_DENSE_STARS_ROOT = '/oras-sky-engine/skydata/dense-star-tiles';
-var OFF_PROFILE = 'off';
-var DEFAULT_PROFILE = 'visual-default';
-var PROFILE_STORAGE_KEY = 'orasDenseStarsProfile';
-var LEGACY_ENABLED_STORAGE_KEY = 'orasDenseStarsEnabled';
-
-function normalizeProfile(profile) {
-  var value = String(profile || '').trim();
-  return value || DEFAULT_PROFILE;
-}
-
-function defaultDenseStarsProfile() {
-  try {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      var stored = window.localStorage.getItem(PROFILE_STORAGE_KEY);
-      if (stored) return normalizeProfile(stored);
-      if (window.localStorage.getItem(LEGACY_ENABLED_STORAGE_KEY) === '0') return OFF_PROFILE;
-    }
-  } catch (error) {}
-
-  return DEFAULT_PROFILE;
-}
-function persistDenseStarsProfile(profile) {
-  try {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      window.localStorage.setItem(PROFILE_STORAGE_KEY, normalizeProfile(profile));
-    }
-  } catch (error) {}
-}
-
-function oras_dense_stars_emptySnapshot() {
-  var phase = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'idle';
-  return {
-    phase: phase,
-    mounted: false,
-    activeProfile: defaultDenseStarsProfile(),
-    defaultProfile: DEFAULT_PROFILE,
-    profile: undefined,
-    profiles: {},
-    releaseVersion: null,
-    generatedAt: null,
-    renderingPath: 'native_swe_star_tiles',
-    sourceCatalogs: {},
-    sourceAttribution: [],
-    starCount: 0,
-    tileCount: 0,
-    magnitudeLimit: null,
-    tileOrder: null,
-    labelMode: 'suppressed',
-    error: null
-  };
-}
-
-function createOrasDenseStarsManager() {
-  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var root = String(options.root || ORAS_DENSE_STARS_ROOT).replace(/\/$/, '');
-  var fetchImpl = options.fetchImpl || (typeof window !== 'undefined' && typeof window.fetch === 'function' ? window.fetch.bind(window) : undefined);
-  var snapshot = oras_dense_stars_emptySnapshot();
-  var loadingPromise;
-  var listeners = new Set();
-
-  function publish(nextSnapshot) {
-    snapshot = Object.assign({}, nextSnapshot, {
-      sourceCatalogs: Object.assign({}, nextSnapshot.sourceCatalogs || {}),
-      sourceAttribution: (nextSnapshot.sourceAttribution || []).map(function (source) {
-        return Object.assign({}, source);
-      }),
-      profiles: Object.assign({}, nextSnapshot.profiles || {})
-    });
-    listeners.forEach(function (listener) {
-      return listener(getSnapshot());
-    });
-    return getSnapshot();
-  }
-
-  function getSnapshot() {
-    return Object.assign({}, snapshot, {
-      sourceCatalogs: Object.assign({}, snapshot.sourceCatalogs || {}),
-      sourceAttribution: (snapshot.sourceAttribution || []).map(function (source) {
-        return Object.assign({}, source);
-      }),
-      profiles: Object.assign({}, snapshot.profiles || {})
-    });
-  }
-
-  function load() {
-    return _load.apply(this, arguments);
-  }
-
-  function _load() {
-    _load = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              if (!loadingPromise) {
-                _context.next = 2;
-                break;
-              }
-
-              return _context.abrupt("return", loadingPromise);
-
-            case 2:
-              loadingPromise = loadRelease().finally(function () {
-                loadingPromise = undefined;
-              });
-              return _context.abrupt("return", loadingPromise);
-
-            case 4:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-    return _load.apply(this, arguments);
-  }
-
-  function loadRelease() {
-    return _loadRelease.apply(this, arguments);
-  }
-
-  function _loadRelease() {
-    _loadRelease = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-      var response, manifest, profiles, activeProfile, profile;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              publish(Object.assign(oras_dense_stars_emptySnapshot('loading'), {
-                mounted: snapshot.mounted,
-                activeProfile: snapshot.activeProfile
-              }));
-
-              if (!(typeof fetchImpl !== 'function')) {
-                _context2.next = 3;
-                break;
-              }
-
-              return _context2.abrupt("return", publish(oras_dense_stars_emptySnapshot('not-mounted')));
-
-            case 3:
-              _context2.prev = 3;
-              _context2.next = 6;
-              return fetchImpl(root + '/manifest.json', {
-                cache: 'no-store'
-              });
-
-            case 6:
-              response = _context2.sent;
-              _context2.next = 12;
-              break;
-
-            case 9:
-              _context2.prev = 9;
-              _context2.t0 = _context2["catch"](3);
-              return _context2.abrupt("return", publish(oras_dense_stars_emptySnapshot('not-mounted')));
-
-            case 12:
-              if (!(!response || !response.ok)) {
-                _context2.next = 14;
-                break;
-              }
-
-              return _context2.abrupt("return", publish(oras_dense_stars_emptySnapshot('not-mounted')));
-
-            case 14:
-              _context2.prev = 14;
-              _context2.t1 = JSON;
-              _context2.next = 18;
-              return response.text();
-
-            case 18:
-              _context2.t2 = _context2.sent;
-              manifest = _context2.t1.parse.call(_context2.t1, _context2.t2);
-              oras_dense_stars_validateManifest(manifest);
-              profiles = Object.assign({}, manifest.profiles || {});
-              activeProfile = resolveActiveProfile(snapshot.activeProfile, profiles);
-              profile = profiles[activeProfile];
-              return _context2.abrupt("return", publish({
-                phase: activeProfile === OFF_PROFILE ? 'off' : 'loaded',
-                mounted: true,
-                activeProfile: activeProfile,
-                defaultProfile: String(manifest.default_profile || DEFAULT_PROFILE),
-                profile: profile ? Object.assign({}, profile) : undefined,
-                profiles: profiles,
-                releaseVersion: String(manifest.release_version),
-                generatedAt: manifest.generated_at || null,
-                renderingPath: 'native_swe_star_tiles',
-                sourceCatalogs: Object.assign({}, profile && profile.source_catalogs || manifest.source_catalogs || {}),
-                sourceAttribution: Array.isArray(manifest.source_attribution) ? manifest.source_attribution.map(function (source) {
-                  return Object.assign({}, source);
-                }) : [],
-                starCount: Number(profile && profile.star_count) || 0,
-                tileCount: Number(profile && profile.tile_count) || 0,
-                magnitudeLimit: Number(profile && profile.magnitude_limit),
-                tileOrder: Number(profile && profile.tile_order),
-                labelMode: String(profile && profile.label_mode || 'suppressed'),
-                error: null
-              }));
-
-            case 27:
-              _context2.prev = 27;
-              _context2.t3 = _context2["catch"](14);
-              return _context2.abrupt("return", publish(Object.assign(oras_dense_stars_emptySnapshot('failed'), {
-                mounted: true,
-                error: _context2.t3.message
-              })));
-
-            case 30:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, null, [[3, 9], [14, 27]]);
-    }));
-    return _loadRelease.apply(this, arguments);
-  }
-
-  function setProfile(profile) {
-    var activeProfile = normalizeProfile(profile);
-    persistDenseStarsProfile(activeProfile);
-    var profiles = snapshot.profiles || {};
-    var selectedProfile = profiles[activeProfile];
-    publish(Object.assign(getSnapshot(), {
-      activeProfile: activeProfile,
-      profile: selectedProfile ? Object.assign({}, selectedProfile) : undefined,
-      phase: activeProfile === OFF_PROFILE ? 'off' : snapshot.mounted ? 'loaded' : snapshot.phase,
-      starCount: Number(selectedProfile && selectedProfile.star_count) || 0,
-      tileCount: Number(selectedProfile && selectedProfile.tile_count) || 0,
-      magnitudeLimit: Number(selectedProfile && selectedProfile.magnitude_limit),
-      tileOrder: Number(selectedProfile && selectedProfile.tile_order),
-      labelMode: String(selectedProfile && selectedProfile.label_mode || 'suppressed')
-    }));
-  }
-
-  function getSurveyRoot() {
-    var profile = snapshot.profile;
-    return profile && profile.path ? root + '/' + String(profile.path).replace(/^\/+/, '') : root;
-  }
-
-  function getSurveyKey() {
-    return 'oras-dense-stars-' + snapshot.activeProfile;
-  }
-
-  function isReadyForNativeRegistration() {
-    return snapshot.phase === 'loaded' && snapshot.mounted && snapshot.activeProfile !== OFF_PROFILE && !!snapshot.profile && snapshot.renderingPath === 'native_swe_star_tiles';
-  }
-
-  function subscribe(listener) {
-    listeners.add(listener);
-    listener(getSnapshot());
-    return function () {
-      return listeners.delete(listener);
-    };
-  }
-
-  return {
-    getSnapshot: getSnapshot,
-    getSurveyKey: getSurveyKey,
-    getSurveyRoot: getSurveyRoot,
-    isReadyForNativeRegistration: isReadyForNativeRegistration,
-    load: load,
-    setProfile: setProfile,
-    subscribe: subscribe
-  };
-}
-function registerOrasStarCatalogChain(_x) {
-  return _registerOrasStarCatalogChain.apply(this, arguments);
-}
-
-function _registerOrasStarCatalogChain() {
-  _registerOrasStarCatalogChain = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(core) {
-    var options,
-        manager,
-        fallbackRoots,
-        gaiaRoot,
-        mode,
-        _args3 = arguments;
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            options = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
-            manager = options.manager || orasDenseStars;
-            fallbackRoots = Array.isArray(options.fallbackRoots) ? options.fallbackRoots : [];
-            gaiaRoot = String(options.gaiaRoot || '');
-            manager.setProfile(options.profile);
-            _context3.next = 7;
-            return manager.load();
-
-          case 7:
-            mode = 'stock_fallback';
-
-            if (manager.isReadyForNativeRegistration()) {
-              core.stars.addDataSource({
-                url: manager.getSurveyRoot(),
-                key: manager.getSurveyKey()
-              });
-              mode = 'canonical_replacement';
-            } else {
-              fallbackRoots.forEach(function (packRoot) {
-                core.stars.addDataSource({
-                  url: packRoot + '/stars'
-                });
-              });
-            }
-
-            if (gaiaRoot) {
-              core.stars.addDataSource({
-                url: gaiaRoot,
-                key: 'gaia'
-              });
-            }
-
-            return _context3.abrupt("return", {
-              mode: mode
-            });
-
-          case 11:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
-  return _registerOrasStarCatalogChain.apply(this, arguments);
-}
-
-function resolveActiveProfile(profile, profiles) {
-  var value = normalizeProfile(profile);
-  if (value === OFF_PROFILE) return OFF_PROFILE;
-  if (profiles[value]) return value;
-  if (profiles[DEFAULT_PROFILE]) return DEFAULT_PROFILE;
-  return Object.keys(profiles)[0] || OFF_PROFILE;
-}
-
-function oras_dense_stars_validateManifest(manifest) {
-  if (!manifest || manifest.schema_version !== 1) throw new Error('unsupported dense star manifest schema');
-  if (manifest.rendering_path !== 'native_swe_star_tiles') throw new Error('unsupported dense star rendering path');
-  if (manifest.source_id_type !== 'string') throw new Error('dense star source IDs must remain strings');
-  if (manifest.catalog_mode !== 'canonical_replacement') throw new Error('dense star release must replace the bright catalog chain');
-  if (!manifest.native_continuation || manifest.native_continuation.key !== 'gaia') throw new Error('dense star release must declare the native Gaia continuation');
-  if (manifest.default_profile !== DEFAULT_PROFILE) throw new Error('dense star default profile must be visual-default');
-  if (!manifest.profiles || Object(esm_typeof["a" /* default */])(manifest.profiles) !== 'object') throw new Error('dense star profiles are required');
-
-  for (var _i = 0, _Object$entries = Object.entries(manifest.profiles); _i < _Object$entries.length; _i++) {
-    var _Object$entries$_i = Object(slicedToArray["a" /* default */])(_Object$entries[_i], 2),
-        profileId = _Object$entries$_i[0],
-        profile = _Object$entries$_i[1];
-
-    if (!profile || !profile.path) throw new Error('dense star profile path is required: ' + profileId);
-    if (profile.label_mode !== 'suppressed') throw new Error('dense star profile labels must be suppressed: ' + profileId);
-    if (!Number.isFinite(Number(profile.star_count)) || Number(profile.star_count) < 1) throw new Error('dense star profile count must be positive: ' + profileId);
-    if (!Number.isFinite(Number(profile.tile_count)) || Number(profile.tile_count) < 1) throw new Error('dense star profile tile count must be positive: ' + profileId);
-  }
-}
-
-var orasDenseStars = createOrasDenseStarsManager();
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/oras-dense-stars-status-dialog.vue?vue&type=script&lang=js&
 
 
@@ -6844,6 +7029,9 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
 
 
 
+
+
+//
 //
 //
 //
@@ -6990,6 +7178,7 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
       dataSourceInitDone: false,
       showCatalogPacks: false,
       showDenseStars: false,
+      starLookupMessage: '',
       starDataSourcesReady: Promise.resolve({
         mode: 'not-started'
       }),
@@ -7319,54 +7508,151 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
     resolveExactSkySourceRouteObject: function resolveExactSkySourceRouteObject(ss, identity) {
       var _this2 = this;
 
-      var attempt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-      var maxNativeAttempts = 40;
-      var retryDelayMs = 125;
       var dataSourcesReady = identity.model === 'star' ? this.starDataSourcesReady : Promise.resolve();
-      return Promise.resolve(dataSourcesReady).then(function () {
-        var nativeObj = sw_helpers.skySource2SweObj(ss);
+      return Promise.resolve(dataSourcesReady).then( /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var nativeObj, currentIdentity, fallbackObj;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(identity.model === 'star')) {
+                  _context.next = 6;
+                  break;
+                }
 
-        if (nativeObj) {
-          return nativeObj;
-        }
+                _context.next = 3;
+                return sw_helpers.resolveCanonicalStar(ss);
 
-        if (identity.model === 'star' && attempt < maxNativeAttempts) {
-          return new Promise(function (resolve) {
-            return setTimeout(resolve, retryDelayMs);
-          }).then(function () {
-            return _this2.resolveExactSkySourceRouteObject(ss, identity, attempt + 1);
-          });
-        }
+              case 3:
+                _context.t0 = _context.sent;
+                _context.next = 7;
+                break;
 
-        var fallbackObj = _this2.$stel.createObj(ss.model, ss);
+              case 6:
+                _context.t0 = sw_helpers.skySource2SweObj(ss);
 
-        if (!fallbackObj) {
-          throw new Error('Exact sky source target is not ready yet');
-        }
+              case 7:
+                nativeObj = _context.t0;
 
-        _this2.$selectionLayer.add(fallbackObj);
+                if (!nativeObj) {
+                  _context.next = 10;
+                  break;
+                }
 
-        return fallbackObj;
-      });
+                return _context.abrupt("return", nativeObj);
+
+              case 10:
+                currentIdentity = _this2.skySourceRouteIdentity();
+
+                if (!(!currentIdentity || currentIdentity.catalog !== identity.catalog || currentIdentity.sourceId !== identity.sourceId || currentIdentity.model !== identity.model)) {
+                  _context.next = 13;
+                  break;
+                }
+
+                throw new Error('Exact sky source route changed before fallback materialization');
+
+              case 13:
+                fallbackObj = _this2.$stel.createObj(ss.model, ss);
+
+                if (fallbackObj) {
+                  _context.next = 16;
+                  break;
+                }
+
+                throw new Error('Exact sky source target is not ready yet');
+
+              case 16:
+                _this2.$selectionLayer.add(fallbackObj);
+
+                return _context.abrupt("return", fallbackObj);
+
+              case 18:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      })));
     },
     selectSkySourceRouteTargetByIdentity: function selectSkySourceRouteTargetByIdentity(identity) {
       var _this3 = this;
 
       var attempt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var retryDelayMs = 250;
-      var maxAttempts = 80;
-      return sw_helpers.fetchOrasSkySourceByIdentity(identity).then(function (ss) {
+      var maxAttempts = identity.model === 'star' ? 2 : 80;
+
+      var routeStillMatches = function routeStillMatches() {
+        var currentIdentity = _this3.skySourceRouteIdentity();
+
+        return currentIdentity && currentIdentity.catalog === identity.catalog && currentIdentity.sourceId === identity.sourceId && currentIdentity.model === identity.model;
+      };
+
+      if (routeStillMatches()) {
+        this.starLookupMessage = '';
+      }
+
+      var request = sw_helpers.fetchOrasSkySourceByIdentity(identity).catch(function (err) {
+        if (identity.model !== 'star') {
+          throw err;
+        }
+
+        if (attempt < maxAttempts && routeStillMatches()) {
+          return new Promise(function (resolve) {
+            return setTimeout(resolve, retryDelayMs);
+          }).then(function () {
+            return _this3.selectSkySourceRouteTargetByIdentity(identity, attempt + 1);
+          });
+        }
+
+        if (routeStillMatches()) {
+          _this3.starLookupMessage = 'Star lookup unavailable for ' + identity.catalog + ' ' + identity.sourceId + '.';
+          console.warn('Star lookup request failed.', err);
+        }
+
+        return undefined;
+      });
+      return request.then(function (ss) {
+        if (!ss) {
+          return;
+        }
+
         ss = withOrasRouteIdentityFallback(ss, identity);
 
         if (!ss || !sw_helpers.skySourceMatchesIdentity(ss, identity)) {
           throw new Error('Resolved sky source did not match requested identity');
         }
 
+        if (identity.model === 'star' && ss.status === 'not_indexed') {
+          if (routeStillMatches()) {
+            _this3.starLookupMessage = 'Star data unavailable for ' + identity.catalog + ' ' + identity.sourceId + '. This object is not materialized without source-backed star data.';
+          }
+
+          return;
+        }
+
         return _this3.resolveExactSkySourceRouteObject(ss, identity).then(function (obj) {
+          if (!routeStillMatches()) {
+            if (obj.__orasOwnedLookup) {
+              obj.__orasOwnedLookup = false;
+              obj.destroy();
+            }
+
+            return;
+          }
+
           obj.__orasSkySourceData = ss;
           sw_helpers.setSweObjAsSelection(obj, ss);
         });
       }).catch(function (err) {
+        if (identity.model === 'star') {
+          if (routeStillMatches()) {
+            _this3.starLookupMessage = 'Star lookup unavailable for ' + identity.catalog + ' ' + identity.sourceId + '.';
+            console.warn('Star route resolution failed.', err);
+          }
+
+          return;
+        }
+
         if (attempt < maxAttempts) {
           return new Promise(function (resolve) {
             return setTimeout(resolve, retryDelayMs);
@@ -7561,10 +7847,10 @@ installComponents_default()(oras_dense_stars_status_dialog_component, {VAlert: V
             });
             var localPlanetSurveyBase = bundledDataBase + '/surveys/sso';
             var planetSurveySources = [['moon', localPlanetSurveyBase + '/moon'], ['sun', localPlanetSurveyBase + '/sun'], ['mercury', localPlanetSurveyBase + '/mercury'], ['venus', localPlanetSurveyBase + '/venus'], ['mars', localPlanetSurveyBase + '/mars'], ['jupiter', localPlanetSurveyBase + '/jupiter'], ['saturn', localPlanetSurveyBase + '/saturn'], ['uranus', localPlanetSurveyBase + '/uranus'], ['neptune', localPlanetSurveyBase + '/neptune']];
-            planetSurveySources.forEach(function (_ref) {
-              var _ref2 = Object(slicedToArray["a" /* default */])(_ref, 2),
-                  key = _ref2[0],
-                  url = _ref2[1];
+            planetSurveySources.forEach(function (_ref2) {
+              var _ref3 = Object(slicedToArray["a" /* default */])(_ref2, 2),
+                  key = _ref3[0],
+                  url = _ref3[1];
 
               return core.planets.addDataSource({
                 url: url,
@@ -7661,7 +7947,8 @@ var App_component = Object(componentNormalizer["a" /* default */])(
 
 
 
-installComponents_default()(App_component, {VApp: VApp["a" /* default */],VContainer: VContainer["a" /* default */],VDivider: VDivider["a" /* default */],VIcon: VIcon["a" /* default */],VLayout: VLayout["a" /* default */],VList: VList["a" /* default */],VListItem: VListItem["a" /* default */],VListItemAction: VListItemAction["a" /* default */],VListItemContent: components_VList["a" /* VListItemContent */],VListItemIcon: VListItemIcon["a" /* default */],VListItemTitle: components_VList["c" /* VListItemTitle */],VMain: VMain["a" /* default */],VNavigationDrawer: VNavigationDrawer["a" /* default */],VSpacer: VSpacer["a" /* default */],VSubheader: VSubheader["a" /* default */],VSwitch: VSwitch["a" /* default */]})
+
+installComponents_default()(App_component, {VAlert: VAlert["a" /* default */],VApp: VApp["a" /* default */],VContainer: VContainer["a" /* default */],VDivider: VDivider["a" /* default */],VIcon: VIcon["a" /* default */],VLayout: VLayout["a" /* default */],VList: VList["a" /* default */],VListItem: VListItem["a" /* default */],VListItemAction: VListItemAction["a" /* default */],VListItemContent: components_VList["a" /* VListItemContent */],VListItemIcon: VListItemIcon["a" /* default */],VListItemTitle: components_VList["c" /* VListItemTitle */],VMain: VMain["a" /* default */],VNavigationDrawer: VNavigationDrawer["a" /* default */],VSpacer: VSpacer["a" /* default */],VSubheader: VSubheader["a" /* default */],VSwitch: VSwitch["a" /* default */]})
 
 // EXTERNAL MODULE: ./node_modules/@mdi/font/css/materialdesignicons.css
 var materialdesignicons = __webpack_require__("5363");
@@ -10222,8 +10509,8 @@ var StelWebEngine = function () {
       Module["HEAPF64"] = HEAPF64 = new Float64Array(buf);
     }
 
-    var DYNAMIC_BASE = 5807152,
-        DYNAMICTOP_PTR = 564112;
+    var DYNAMIC_BASE = 5807184,
+        DYNAMICTOP_PTR = 564144;
     var INITIAL_INITIAL_MEMORY = Module["INITIAL_MEMORY"] || 16777216;
 
     if (Module["wasmMemory"]) {
@@ -13015,44 +13302,48 @@ var StelWebEngine = function () {
       return (_geojson_survey_query_rendered_features = Module["_geojson_survey_query_rendered_features"] = Module["asm"]["Hb"]).apply(null, arguments);
     };
 
+    var _stars_get_by_identity = Module["_stars_get_by_identity"] = function () {
+      return (_stars_get_by_identity = Module["_stars_get_by_identity"] = Module["asm"]["Ib"]).apply(null, arguments);
+    };
+
     var _setThrew = Module["_setThrew"] = function () {
-      return (_setThrew = Module["_setThrew"] = Module["asm"]["Ib"]).apply(null, arguments);
+      return (_setThrew = Module["_setThrew"] = Module["asm"]["Jb"]).apply(null, arguments);
     };
 
     var stackSave = Module["stackSave"] = function () {
-      return (stackSave = Module["stackSave"] = Module["asm"]["Jb"]).apply(null, arguments);
+      return (stackSave = Module["stackSave"] = Module["asm"]["Kb"]).apply(null, arguments);
     };
 
     var stackRestore = Module["stackRestore"] = function () {
-      return (stackRestore = Module["stackRestore"] = Module["asm"]["Kb"]).apply(null, arguments);
+      return (stackRestore = Module["stackRestore"] = Module["asm"]["Lb"]).apply(null, arguments);
     };
 
     var stackAlloc = Module["stackAlloc"] = function () {
-      return (stackAlloc = Module["stackAlloc"] = Module["asm"]["Lb"]).apply(null, arguments);
+      return (stackAlloc = Module["stackAlloc"] = Module["asm"]["Mb"]).apply(null, arguments);
     };
 
     var dynCall_vi = Module["dynCall_vi"] = function () {
-      return (dynCall_vi = Module["dynCall_vi"] = Module["asm"]["Mb"]).apply(null, arguments);
+      return (dynCall_vi = Module["dynCall_vi"] = Module["asm"]["Nb"]).apply(null, arguments);
     };
 
     var dynCall_vii = Module["dynCall_vii"] = function () {
-      return (dynCall_vii = Module["dynCall_vii"] = Module["asm"]["Nb"]).apply(null, arguments);
+      return (dynCall_vii = Module["dynCall_vii"] = Module["asm"]["Ob"]).apply(null, arguments);
     };
 
     var dynCall_viiiii = Module["dynCall_viiiii"] = function () {
-      return (dynCall_viiiii = Module["dynCall_viiiii"] = Module["asm"]["Ob"]).apply(null, arguments);
+      return (dynCall_viiiii = Module["dynCall_viiiii"] = Module["asm"]["Pb"]).apply(null, arguments);
     };
 
     var dynCall_ii = Module["dynCall_ii"] = function () {
-      return (dynCall_ii = Module["dynCall_ii"] = Module["asm"]["Pb"]).apply(null, arguments);
+      return (dynCall_ii = Module["dynCall_ii"] = Module["asm"]["Qb"]).apply(null, arguments);
     };
 
     var dynCall_iii = Module["dynCall_iii"] = function () {
-      return (dynCall_iii = Module["dynCall_iii"] = Module["asm"]["Qb"]).apply(null, arguments);
+      return (dynCall_iii = Module["dynCall_iii"] = Module["asm"]["Rb"]).apply(null, arguments);
     };
 
     var dynCall_viiii = Module["dynCall_viiii"] = function () {
-      return (dynCall_viiii = Module["dynCall_viiii"] = Module["asm"]["Rb"]).apply(null, arguments);
+      return (dynCall_viiii = Module["dynCall_viiii"] = Module["asm"]["Sb"]).apply(null, arguments);
     };
 
     function invoke_vii(index, a1, a2) {

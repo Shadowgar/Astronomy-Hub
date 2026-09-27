@@ -223,7 +223,7 @@ function validateManifest (manifest) {
   if (!manifest.profiles || typeof manifest.profiles !== 'object') throw new Error('dense star profiles are required')
   for (const [profileId, profile] of Object.entries(manifest.profiles)) {
     if (!profile || !profile.path) throw new Error('dense star profile path is required: ' + profileId)
-    if (profile.label_mode !== 'suppressed') throw new Error('dense star profile labels must be suppressed: ' + profileId)
+    if (!['named', 'suppressed'].includes(profile.label_mode)) throw new Error('dense star profile labels must be named or suppressed: ' + profileId)
     if (!Number.isFinite(Number(profile.star_count)) || Number(profile.star_count) < 1) throw new Error('dense star profile count must be positive: ' + profileId)
     if (!Number.isFinite(Number(profile.tile_count)) || Number(profile.tile_count) < 1) throw new Error('dense star profile tile count must be positive: ' + profileId)
   }

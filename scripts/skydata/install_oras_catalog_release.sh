@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 PYTHON_BIN="${PYTHON_BIN:-$ROOT_DIR/.venv/bin/python}"
 SOURCE_DIR="${1:-${ORAS_CATALOG_RELEASE_SOURCE_DIR:-$ROOT_DIR/data/runtime-packs/catalog-pack-build}}"
 TARGET_INPUT="${2:-${ORAS_CATALOG_PACKS_HOST_DIR:-$ROOT_DIR/data/runtime-packs/catalog-packs}}"
+DENSE_RELEASE_DIR="${ORAS_DENSE_STAR_TILES_HOST_DIR:-$ROOT_DIR/data/runtime-packs/dense-star-tiles}"
 
 if [[ ! -x "$PYTHON_BIN" ]]; then
   echo "Python runtime not found: $PYTHON_BIN" >&2
@@ -40,22 +41,82 @@ if find "$SOURCE_DIR" -type l -print -quit | grep -q .; then
   exit 1
 fi
 
+LOCK_FILE="${ORAS_STAR_RELEASE_LOCK_FILE:-$ROOT_DIR/data/runtime-packs/.star-release-promotion.lock}"
+mkdir -p "$(dirname "$LOCK_FILE")"
+if [[ -L "$LOCK_FILE" ]]; then
+  echo "Refusing symlink star release lock: $LOCK_FILE" >&2
+  exit 1
+fi
+exec {STAR_RELEASE_LOCK_FD}>"$LOCK_FILE"
+flock -x "$STAR_RELEASE_LOCK_FD"
+
 "$PYTHON_BIN" -m scripts.skydata.build_oras_catalog_release \
   --validate-only \
   --output "$SOURCE_DIR"
 
+if [[ -f "$DENSE_RELEASE_DIR/manifest.json" ]]; then
+  "$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/star_release_compatibility.py" \
+    "$SOURCE_DIR" "$DENSE_RELEASE_DIR"
+  "$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/validate_oras_dense_star_tiles.py" \
+    "$DENSE_RELEASE_DIR" >/dev/null
+fi
+
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 STAGING="$(mktemp -d "$TARGET_PARENT/.catalog-pack-install-$STAMP.XXXXXX")"
 BACKUP=""
+PROMOTED=0
+validate_runtime() {
+  "$PYTHON_BIN" -m scripts.skydata.build_oras_catalog_release \
+    --validate-only --output "$TARGET_DIR" || return
+  if [[ -f "$DENSE_RELEASE_DIR/manifest.json" ]]; then
+    "$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/validate_oras_dense_star_tiles.py" \
+      "$DENSE_RELEASE_DIR" >/dev/null || return
+    "$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/star_release_compatibility.py" \
+      "$TARGET_DIR" "$DENSE_RELEASE_DIR" || return
+  fi
+}
+rollback_catalog() {
+  if [[ -n "$BACKUP" && -d "$BACKUP" ]]; then
+    "$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/promote_runtime_release.py" \
+      "$BACKUP" "$TARGET_DIR" >/dev/null || return
+  else
+    local quarantine
+    quarantine="$(mktemp -d "$TARGET_PARENT/.catalog-pack-invalid-$STAMP.XXXXXX")" || return
+    rmdir "$quarantine" || return
+    mv "$TARGET_DIR" "$quarantine" || return
+    rm -rf "$quarantine" || return
+  fi
+  if [[ -f "$TARGET_DIR/manifest.json" ]]; then
+    validate_runtime || return
+  else
+    [[ ! -e "$TARGET_DIR" ]] || return
+    if [[ -f "$DENSE_RELEASE_DIR/manifest.json" ]]; then
+      "$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/validate_oras_dense_star_tiles.py" \
+        "$DENSE_RELEASE_DIR" >/dev/null || return
+    fi
+  fi
+}
 cleanup() {
+  local status="$1"
+  trap - EXIT
+  set +e
+  if [[ "$PROMOTED" == 1 ]]; then
+    echo "Final catalog/pair validation failed; restoring previous generation" >&2
+    rollback_catalog
+    if [[ $? -ne 0 ]]; then
+      echo "Catalog rollback or restored runtime validation failed" >&2
+      status=1
+    fi
+  fi
   if [[ -n "${BACKUP:-}" && -d "$BACKUP" && ! -e "$TARGET_DIR" ]]; then
     mv "$BACKUP" "$TARGET_DIR"
   fi
   if [[ -n "${STAGING:-}" && -d "$STAGING" ]]; then
     rm -rf "$STAGING"
   fi
+  exit "$status"
 }
-trap cleanup EXIT
+trap 'cleanup $?' EXIT
 
 # Copy all chunk/payload artifacts first; manifest.json is installed last so
 # readers never see a new manifest pointing at incomplete chunk files.
@@ -67,16 +128,15 @@ chmod -R a+rX "$STAGING"
   --validate-only \
   --output "$STAGING"
 
-if [[ -e "$TARGET_DIR" ]]; then
-  BACKUP="$TARGET_PARENT/$TARGET_NAME.previous-$STAMP"
-  mv "$TARGET_DIR" "$BACKUP"
-fi
-mv "$STAGING" "$TARGET_DIR"
+BACKUP="$("$PYTHON_BIN" "$ROOT_DIR/scripts/skydata/promote_runtime_release.py" \
+  "$STAGING" "$TARGET_DIR" --print-backup-only)"
 STAGING=""
+PROMOTED=1
 
-"$PYTHON_BIN" -m scripts.skydata.build_oras_catalog_release \
-  --validate-only \
-  --output "$TARGET_DIR"
+if ! validate_runtime; then
+  exit 1
+fi
+PROMOTED=0
 
 if [[ -n "$BACKUP" ]]; then
   echo "Previous ORAS catalog release moved to $BACKUP"

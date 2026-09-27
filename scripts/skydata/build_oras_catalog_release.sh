@@ -5,7 +5,8 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 PYTHON_BIN="${PYTHON_BIN:-$ROOT_DIR/.venv/bin/python}"
 SOURCE_ROOT="${ORAS_CATALOG_SOURCE_ROOT:-$ROOT_DIR/data/catalog-sources/oras-major-catalog-update-1}"
 OUTPUT_DIR="${ORAS_CATALOG_RELEASE_DIR:-$ROOT_DIR/data/runtime-packs/catalog-pack-build}"
-RELEASE_VERSION="${ORAS_CATALOG_RELEASE_VERSION:-2026.06.1}"
+RELEASE_VERSION="${ORAS_CATALOG_RELEASE_VERSION:-2026.09.star-contract.2}"
+NATIVE_TILE_ORDER="${ORAS_DENSE_STAR_TILE_ORDER:-3}"
 
 if [[ ! -x "$PYTHON_BIN" ]]; then
   echo "Python runtime not found: $PYTHON_BIN" >&2
@@ -22,6 +23,7 @@ echo "Building ORAS catalog release $RELEASE_VERSION into $OUTPUT_DIR"
   --source-root "$SOURCE_ROOT" \
   --repo-root "$ROOT_DIR" \
   --release-version "$RELEASE_VERSION" \
+  --native-tile-order "$NATIVE_TILE_ORDER" \
   --output "$OUTPUT_DIR"
 
 "$ROOT_DIR/scripts/skydata/validate_oras_catalog_release.sh" "$OUTPUT_DIR"

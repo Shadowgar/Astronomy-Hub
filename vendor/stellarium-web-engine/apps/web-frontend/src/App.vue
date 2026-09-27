@@ -9,6 +9,7 @@
 <template>
 
 <v-app>
+  <v-alert v-if="starLookupMessage" role="status" class="oras-star-lookup-status" type="info" dismissible @input="starLookupMessage = ''">{{ starLookupMessage }}</v-alert>
   <oras-catalog-status-dialog v-model="showCatalogPacks"></oras-catalog-status-dialog>
   <oras-dense-stars-status-dialog v-model="showDenseStars"></oras-dense-stars-status-dialog>
   <v-navigation-drawer v-model="nav" app stateless width="300">
@@ -109,6 +110,7 @@ export default {
       dataSourceInitDone: false,
       showCatalogPacks: false,
       showDenseStars: false,
+      starLookupMessage: '',
       starDataSourcesReady: Promise.resolve({ mode: 'not-started' }),
       orasOverlayObjects: []
     }
@@ -388,19 +390,22 @@ export default {
       })
     },
 
-    resolveExactSkySourceRouteObject: function (ss, identity, attempt = 0) {
-      const maxNativeAttempts = 40
-      const retryDelayMs = 125
+    resolveExactSkySourceRouteObject: function (ss, identity) {
       const dataSourcesReady = identity.model === 'star' ? this.starDataSourcesReady : Promise.resolve()
 
-      return Promise.resolve(dataSourcesReady).then(() => {
-        const nativeObj = swh.skySource2SweObj(ss)
+      return Promise.resolve(dataSourcesReady).then(async () => {
+        const nativeObj = identity.model === 'star'
+          ? await swh.resolveCanonicalStar(ss)
+          : swh.skySource2SweObj(ss)
         if (nativeObj) {
           return nativeObj
         }
-        if (identity.model === 'star' && attempt < maxNativeAttempts) {
-          return new Promise(resolve => setTimeout(resolve, retryDelayMs))
-            .then(() => this.resolveExactSkySourceRouteObject(ss, identity, attempt + 1))
+        const currentIdentity = this.skySourceRouteIdentity()
+        if (!currentIdentity ||
+          currentIdentity.catalog !== identity.catalog ||
+          currentIdentity.sourceId !== identity.sourceId ||
+          currentIdentity.model !== identity.model) {
+          throw new Error('Exact sky source route changed before fallback materialization')
         }
         const fallbackObj = this.$stel.createObj(ss.model, ss)
         if (!fallbackObj) {
@@ -413,19 +418,67 @@ export default {
 
     selectSkySourceRouteTargetByIdentity: function (identity, attempt = 0) {
       const retryDelayMs = 250
-      const maxAttempts = 80
+      const maxAttempts = identity.model === 'star' ? 2 : 80
+      const routeStillMatches = () => {
+        const currentIdentity = this.skySourceRouteIdentity()
+        return currentIdentity &&
+          currentIdentity.catalog === identity.catalog &&
+          currentIdentity.sourceId === identity.sourceId &&
+          currentIdentity.model === identity.model
+      }
+      if (routeStillMatches()) {
+        this.starLookupMessage = ''
+      }
 
-      return swh.fetchOrasSkySourceByIdentity(identity).then(ss => {
+      const request = swh.fetchOrasSkySourceByIdentity(identity).catch(err => {
+        if (identity.model !== 'star') {
+          throw err
+        }
+        if (attempt < maxAttempts && routeStillMatches()) {
+          return new Promise(resolve => setTimeout(resolve, retryDelayMs))
+            .then(() => this.selectSkySourceRouteTargetByIdentity(identity, attempt + 1))
+        }
+        if (routeStillMatches()) {
+          this.starLookupMessage = 'Star lookup unavailable for ' + identity.catalog + ' ' + identity.sourceId + '.'
+          console.warn('Star lookup request failed.', err)
+        }
+        return undefined
+      })
+
+      return request.then(ss => {
+        if (!ss) {
+          return
+        }
         ss = withOrasRouteIdentityFallback(ss, identity)
         if (!ss || !swh.skySourceMatchesIdentity(ss, identity)) {
           throw new Error('Resolved sky source did not match requested identity')
         }
+        if (identity.model === 'star' && ss.status === 'not_indexed') {
+          if (routeStillMatches()) {
+            this.starLookupMessage = 'Star data unavailable for ' + identity.catalog + ' ' + identity.sourceId + '. This object is not materialized without source-backed star data.'
+          }
+          return
+        }
 
         return this.resolveExactSkySourceRouteObject(ss, identity).then(obj => {
+          if (!routeStillMatches()) {
+            if (obj.__orasOwnedLookup) {
+              obj.__orasOwnedLookup = false
+              obj.destroy()
+            }
+            return
+          }
           obj.__orasSkySourceData = ss
           swh.setSweObjAsSelection(obj, ss)
         })
       }).catch(err => {
+        if (identity.model === 'star') {
+          if (routeStillMatches()) {
+            this.starLookupMessage = 'Star lookup unavailable for ' + identity.catalog + ' ' + identity.sourceId + '.'
+            console.warn('Star route resolution failed.', err)
+          }
+          return
+        }
         if (attempt < maxAttempts) {
           return new Promise(resolve => setTimeout(resolve, retryDelayMs))
             .then(() => this.selectSkySourceRouteTargetByIdentity(identity, attempt + 1))
@@ -616,6 +669,7 @@ export default {
 </script>
 
 <style>
+.oras-star-lookup-status { position: fixed; top: 70px; left: 16px; right: 16px; z-index: 20; }
 
 a {
   color: #82b1ff;

@@ -80,6 +80,7 @@ def default_release_inputs(source_root: str | Path, repo_root: str | Path) -> Ca
         wds=wds,
         atnf=root / "psrcat.db",
         unusual_sources=tuple(by_family["unusual-objects"]),
+        supplemental_star_sources=tuple(by_family["dense-stars"]),
     )
 
 

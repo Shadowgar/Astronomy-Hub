@@ -1,6 +1,13 @@
 from __future__ import annotations
 
 import json
+import hashlib
+import math
+
+import erfa
+
+from backend.app.services.star_science import normalize_star_science
+from scripts.skydata.star_names import attach_existing_names
 from pathlib import Path
 from typing import Iterable
 
@@ -14,6 +21,7 @@ def load_hipparcos(path: str | Path) -> Iterable[dict]:
         source_url="https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
         license_note="Hipparcos catalogue source acknowledgement required.",
     )
+    source[0]["sha256"] = hashlib.sha256(Path(path).read_bytes()).hexdigest()
     for row in json.loads(Path(path).read_text(encoding="utf-8")):
         ra_hours = finite(row.get("right_ascension"))
         dec = finite(row.get("declination"))
@@ -33,7 +41,9 @@ def load_hipparcos(path: str | Path) -> Iterable[dict]:
             "object_type": "star",
             "ra": ra_hours * 15,
             "dec": dec,
-            "coordinate_epoch": 2000.0,
+            "coordinate_epoch": 1991.25,
+            "coordinate_frame": "ICRS",
+            "coordinate_method": "Hipparcos native ICRS J1991.25; rounded local subset",
             "names": [name],
             "aliases": unique_strings(source_id, source_id.replace("hip-", "HIP ")),
             "types": ["*"],
@@ -46,10 +56,13 @@ def load_hipparcos(path: str | Path) -> Iterable[dict]:
         if finite(row.get("color_index")) is not None:
             record["color_index"] = finite(row["color_index"])
             record["johnson_bv"] = finite(row["color_index"])
-        yield record
+        record["color_index_band"] = "Johnson B-V"
+        record["star_science"] = normalize_star_science(record)
+        yield attach_existing_names(record)
 
 
 def load_vizier_stars(path: str | Path, profile: str) -> Iterable[dict]:
+    source_hash = hashlib.sha256(Path(path).read_bytes()).hexdigest()
     for row in read_vizier_tsv(path):
         position = coordinates(row)
         if position is None:
@@ -84,7 +97,7 @@ def load_vizier_stars(path: str | Path, profile: str) -> Iterable[dict]:
             spectral = str(row.get("SpType") or "").strip()
             if spectral:
                 record["spectral_type"] = spectral
-            yield record
+            yield _finish_star(record, row, profile, source_hash)
         elif profile == "gaia_dr3":
             source_id = str(row.get("Source") or "").strip()
             if not source_id:
@@ -123,7 +136,7 @@ def load_vizier_stars(path: str | Path, profile: str) -> Iterable[dict]:
                 record["hip_id"] = hip_id
             if tycho2_id:
                 record["tycho2_id"] = tycho2_id
-            yield record
+            yield _finish_star(record, row, profile, source_hash)
         elif profile == "tycho2":
             parts = [str(row.get(field) or "").strip() for field in ("TYC1", "TYC2", "TYC3")]
             if not all(parts):
@@ -155,7 +168,7 @@ def load_vizier_stars(path: str | Path, profile: str) -> Iterable[dict]:
             record["coordinate_epoch"] = 2000.0
             if hip:
                 record["hip_id"] = hip
-            yield record
+            yield _finish_star(record, row, profile, source_hash)
         elif profile == "gliese":
             source_id = str(row.get("Name") or "").strip()
             if not source_id or source_id.casefold() == "sun":
@@ -183,7 +196,7 @@ def load_vizier_stars(path: str | Path, profile: str) -> Iterable[dict]:
             spectral = str(row.get("Sp") or "").strip()
             if spectral:
                 record["spectral_type"] = spectral
-            yield record
+            yield _finish_star(record, row, profile, source_hash)
         else:
             raise ValueError(f"unknown star profile: {profile}")
 
@@ -211,3 +224,42 @@ def _copy_number(target: dict, source: dict[str, str], source_field: str, target
     value = finite(source.get(source_field))
     if value is not None:
         target[target_field] = value
+
+
+def _finish_star(record: dict, row: dict, profile: str, source_hash: str) -> dict:
+    # CDS publishes ICRS coordinates propagated to J2000 for Gaia and Hipparcos.
+    # Tycho RA(ICRS)/DE(ICRS) are observed positions at epochs absent from this
+    # extract: use the explicitly dated _RAJ2000/_DEJ2000 pair instead.
+    columns = {"gaia_dr3": ("RAJ2000", "DEJ2000"), "hipparcos_bright": ("_RA.icrs", "_DE.icrs")}.get(profile)
+    position = tuple(finite(row.get(c)) for c in columns) if columns else (None, None)
+    record["source_ra"], record["source_dec"] = record["ra"], record["dec"]
+    record["source_coordinate_epoch"] = 2000.0
+    if all(v is not None for v in position):
+        record["ra"], record["dec"] = position
+        record["source_coordinate_frame"] = "ICRS"
+        record["source_ra"], record["source_dec"] = position
+        record["coordinate_method"] = "CDS ICRS J2000 columns " + ",".join(columns)
+    else:
+        # The acquired column metadata declares FK5/equinox J2000/epoch J2000.
+        # ERFA fk5hip gives P_Hipparcos = r5h * P_FK5. Source pmRA/pmDE
+        # are already ICRS (Tycho/Hipparcos/Gaia), so do not apply FK5 spin
+        # to those values. https://github.com/liberfa/erfa/blob/v2.0.1/src/fk5hip.c
+        rotation, _spin = erfa.fk5hip()
+        ra, dec = erfa.c2s(erfa.rxp(rotation, erfa.s2c(math.radians(record["ra"]), math.radians(record["dec"]))))
+        record["ra"], record["dec"] = math.degrees(ra) % 360, math.degrees(dec)
+        record["source_coordinate_frame"] = "FK5"
+        record["coordinate_method"] = "ERFA fk5hip rotation of CDS FK5 J2000; source proper motion already ICRS"
+    record["coordinate_frame"] = "ICRS"
+    record["source_attribution"][0]["sha256"] = source_hash
+    if profile == "gaia_dr3":
+        record["gaia_id"] = str(record["source_id"])
+        record["color_index_band"] = "Gaia BP-RP"
+    elif profile == "tycho2":
+        bt, vt = finite(row.get("BTmag")), finite(row.get("VTmag"))
+        if bt is not None and vt is not None:
+            record["color_index"] = bt - vt
+        record["color_index_band"] = "Tycho B_T-V_T"
+    else:
+        record["color_index_band"] = "Johnson B-V"
+    record["star_science"] = normalize_star_science(record)
+    return attach_existing_names(record)

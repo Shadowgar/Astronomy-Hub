@@ -15,6 +15,7 @@
 
 #include <regex.h>
 #include <zlib.h>
+#include <ctype.h>
 
 #define URL_MAX_SIZE 4096
 
@@ -30,6 +31,8 @@ typedef struct {
     float   vmag;
     float   plx;    // Parallax (arcsec) (Note: could be computed from pvo).
     float   bv;
+    float   epoch; // Julian coordinate epoch of the source values.
+    float   pra, pde; // Source proper motion in rad/year, including cos(dec).
     float   illuminance; // (lux)
     // Normalized Astrometric direction + movement.
     double  pvo[2][3];
@@ -132,9 +135,29 @@ static void compute_pv(double ra, double de, double pra, double pde,
     }
 
     // Apply proper motion to bring from catalog epoch to 2000.0 epoch
-    eraEpb2jd(epoch, &djm0, &djm);
+    eraEpj2jd(epoch, &djm0, &djm);
     double dt = ERFA_DJM00 - djm;
     vec3_addk(s->pvo[0], s->pvo[1], dt, s->pvo[0]);
+}
+
+/* Both EPHE and selected objects use the same float32 source values and
+ * inherited parallax policy. JSON metadata retains the original science
+ * contract; this is the renderer's normalized representation. */
+static void star_set_source(star_t *star, double ra, double de,
+                            double pra, double pde, double plx, double epoch,
+                            double vmag, double bv)
+{
+    plx = (float)plx;
+    if (!isnan(plx) && plx < 0.002) plx = 0;
+    star->vmag = vmag;
+    star->bv = bv;
+    star->plx = plx;
+    star->epoch = isfinite(epoch) && epoch != 0 ? epoch : 2000;
+    star->pra = pra;
+    star->pde = pde;
+    compute_pv((float)ra, (float)de, star->pra, star->pde, star->plx,
+               star->epoch, star);
+    star->illuminance = core_mag_to_illuminance(star->vmag);
 }
 
 // Turn a json array of string into a '\0' separated C string.
@@ -159,21 +182,29 @@ static int star_init(obj_t *obj, json_value *args)
     // Support creating a star using noctuasky model data json values.
     star_t *star = (star_t*)obj;
     json_value *model, *names;
-    double epoch, ra, de, pra, pde;
+    double epoch, ra, de, pra, pde, plx, vmag, bv;
+    const char *spectrum, *gaia;
+
+    star->bv = NAN;
 
     model= json_get_attr(args, "model_data", json_object);
     if (model) {
         ra = json_get_attr_f(model, "ra", 0) * DD2R;
         de = json_get_attr_f(model, "de", 0) * DD2R;
-        star->plx = json_get_attr_f(model, "plx", 0) / 1000.0;
+        plx = json_get_attr_f(model, "plx", NAN) / 1000.0;
         pra = json_get_attr_f(model, "pm_ra", 0) * ERFA_DMAS2R;
         pde = json_get_attr_f(model, "pm_de", 0) * ERFA_DMAS2R;
-        star->vmag = json_get_attr_f(model, "Vmag", NAN);
+        vmag = json_get_attr_f(model, "Vmag", NAN);
         epoch = json_get_attr_f(model, "epoch", 2000);
-        if (isnan(star->vmag))
-            star->vmag = json_get_attr_f(model, "Bmag", NAN);
-        star->illuminance = core_mag_to_illuminance(star->vmag);
-        compute_pv(ra, de, pra, pde, star->plx, epoch, star);
+        if (isnan(vmag)) vmag = json_get_attr_f(model, "Gmag", NAN);
+        if (!isfinite(vmag)) return -1;
+        bv = json_get_attr_f(model, "BVMag", NAN);
+        star_set_source(star, ra, de, pra, pde, plx, epoch, vmag, bv);
+        spectrum = json_get_attr_s(model, "spect_t");
+        if (spectrum && *spectrum) star->sp_type = strdup(spectrum);
+        star->hip = json_get_attr_i(model, "hip", 0);
+        gaia = json_get_attr_s(model, "gaia");
+        if (gaia) star->gaia = strtoull(gaia, NULL, 10);
     }
 
     names = json_get_attr(args, "names", json_array);
@@ -231,6 +262,12 @@ static json_value *star_get_json_data(const obj_t *obj)
     const star_t *star = (const star_t*)obj;
     json_value* ret = json_object_new(0);
     json_value* md = json_object_new(0);
+    json_object_push(md, "Vmag", json_double_new(star->vmag));
+    json_object_push(md, "epoch", json_double_new(star->epoch));
+    if (isfinite(star->pra))
+        json_object_push(md, "pm_ra", json_double_new(star->pra * DR2MAS));
+    if (isfinite(star->pde))
+        json_object_push(md, "pm_de", json_double_new(star->pde * DR2MAS));
     if (!isnan(star->plx)) {
         json_object_push(md, "plx", json_double_new(star->plx * 1000));
     }
@@ -273,6 +310,23 @@ static bool star_get_skycultural_name(const star_t *s, char *out, int size)
 
 static bool name_is_bayer(const char* name) {
     return strncmp(name, "* ", 2) == 0 || strncmp(name, "V* ", 3) == 0;
+}
+
+/* Common names may introduce an ordinary label when no current sky-culture
+ * name exists. Existing native tiles use bare names, ORAS uses NAME prefixes.
+ * Numeric catalog and Bayer/Flamsteed identifiers remain selection-only. */
+static const char *star_familiar_name(const star_t *s)
+{
+    const char *name = s->names, *value, *p;
+    while (name && *name) {
+        value = !strncmp(name, "NAME ", 5) ? name + 5 : name;
+        if (isalpha((unsigned char)*value)) {
+            for (p = value; *p && !isdigit((unsigned char)*p); p++);
+            if (!*p) return name;
+        }
+        name += strlen(name) + 1;
+    }
+    return NULL;
 }
 
 /*
@@ -341,7 +395,10 @@ static void star_render_name(const painter_t *painter, const star_t *s,
     if (!buf[0] && !skycultures_fallback_to_international_names())
         return;
 
-    first_name = s->names && s->names[0] ? s->names : NULL;
+    first_name = star_familiar_name(s);
+    if (!first_name && selected)
+        first_name = s->names && s->names[0] ? s->names : NULL;
+    if (!selected && !buf[0] && !first_name) return;
 
     // Fallback to international common names/bayer names
     if (first_name && !buf[0]) {
@@ -525,18 +582,11 @@ static int on_file_tile_loaded(const char type[4],
         if (isnan(vmag)) vmag = gmag;
         assert(!isnan(vmag));
 
-        // Ignore plx values that are too low.  This is mostly because the
-        // current data has some wrong values.
-        if (!isnan(plx) && (plx < 2.0 / 1000)) plx = 0.0;
-
         // Avoid overlapping stars from Gaia survey.
         if (survey->is_gaia && vmag < survey->min_vmag) continue;
 
         if (!*s->obj.type) strncpy(s->obj.type, "*", 4); // Default type.
-        epoch = epoch ?: 2000; // Default epoch.
-        s->vmag = vmag;
-        s->plx = plx;
-        s->bv = bv;
+        star_set_source(s, ra, de, pra, pde, plx, epoch, vmag, bv);
 
         // Turn '|' separated ids into '\0' separated values.
         if (*ids) {
@@ -555,9 +605,6 @@ static int on_file_tile_loaded(const char type[4],
             s->names = calloc(1, 16);
             snprintf(s->names, 15, "HIP %d", s->hip);
         }
-
-        compute_pv(ra, de, pra, pde, plx, epoch, s);
-        s->illuminance = core_mag_to_illuminance(vmag);
 
         tile->illuminance += s->illuminance;
         tile->mag_min = fmin(tile->mag_min, vmag);
@@ -760,6 +807,32 @@ static int stars_render(obj_t *obj, const painter_t *painter_)
     return 0;
 }
 
+/* Depth-first traversal keeps the stack bounded even for a survey whose first
+ * level has more cells than the generic HiPS iterator's fixed queue. Absent
+ * ancestors below min_order are structural, not missing catalog coverage. */
+static int stars_list_tile(survey_t *survey, int order, int pix, double max_mag,
+                           void *user, int (*f)(void *user, obj_t *obj))
+{
+    int i, result, code;
+    tile_t *tile;
+    if (order >= survey->min_order) {
+        tile = get_tile(survey, order, pix, false, &code);
+        if (!tile || tile->mag_min >= max_mag) return 0;
+        for (i = 0; i < tile->nb; i++) {
+            if (tile->sources[i].vmag > max_mag) continue;
+            result = f(user, &tile->sources[i].obj);
+            if (result) return result;
+        }
+    }
+    if (survey->hips && order >= survey->hips->order) return 0;
+    for (i = 0; i < 4; i++) {
+        result = stars_list_tile(survey, order + 1, pix * 4 + i,
+                                 max_mag, user, f);
+        if (result) return result;
+    }
+    return 0;
+}
+
 static int stars_list(const obj_t *obj,
                       double max_mag, uint64_t hint, const char *source,
                       void *user, int (*f)(void *user, obj_t *obj))
@@ -767,7 +840,6 @@ static int stars_list(const obj_t *obj,
     int order, pix, i, r, code;
     tile_t *tile;
     const stars_t *stars = (const stars_t*)obj;
-    hips_iterator_t iter;
     survey_t *survey = NULL;
 
     if (isnan(max_mag)) max_mag = DBL_MAX;
@@ -779,23 +851,15 @@ static int stars_list(const obj_t *obj,
                 break;
         }
     }
+    if (source && !survey) return -1;
     if (!survey) survey = stars->surveys;
     if (!survey) return 0;
 
     // Without hint, we have to iter all the tiles.
     if (!hint) {
-        hips_iter_init(&iter);
-        while (hips_iter_next(&iter, &order, &pix)) {
-            tile = get_tile(survey, order, pix, false, &code);
-            if (!tile || tile->mag_min >= max_mag) continue;
-            for (i = 0; i < tile->nb; i++) {
-                if (tile->sources[i].vmag > max_mag) continue;
-                r = f(user, &tile->sources[i].obj);
-                if (r) break;
-            }
-            if (i < tile->nb) break;
-            hips_iter_push_children(&iter, order, pix);
-        }
+        if (!survey->hips) return MODULE_AGAIN;
+        for (pix = 0; pix < 12; pix++)
+            if (stars_list_tile(survey, 0, pix, max_mag, user, f)) break;
         return 0;
     }
 
@@ -986,6 +1050,58 @@ obj_t *obj_get_by_hip(int hip, int *code)
     }
     *code = 404;
     return NULL;
+}
+
+/* Exact canonical navigation: one declared tile, never a global alias scan.
+ * The returned pointer owns one reference, like core_search/obj_get_by_hip.
+ * code: 0 pending, 200 found, 404 absent, 400 invalid caller arguments.
+ * Identifiers stay strings across JS/WASM, preserving all uint64 Gaia bits. */
+EMSCRIPTEN_KEEPALIVE
+obj_t *stars_get_by_identity(const char *survey_key, const char *identity,
+                             int order, int pix, int *code)
+{
+    survey_t *survey;
+    tile_t *tile;
+    star_t *star;
+    const char *name;
+    char designation[64];
+    int i;
+    if (!code) return NULL;
+    *code = 400;
+    if (!survey_key || !*survey_key || !identity || !*identity ||
+        order < 0 || order > 13 || pix < 0 ||
+        (uint64_t)pix >= 12 * (UINT64_C(1) << (2 * order))) return NULL;
+    *code = 0;
+    if (!g_stars) return NULL;
+    survey = get_survey(g_stars, survey_key);
+    // Registration queues a properties request; absent survey is pending until
+    // the bounded caller deadline, not a deterministic missing star.
+    *code = 0;
+    if (!survey) return NULL;
+    if (!survey->hips) return NULL;
+    *code = 404;
+    if (order < survey->min_order || order > survey->hips->order) return NULL;
+    tile = hips_get_tile(survey->hips, order, pix,
+                         HIPS_NO_DELAY | HIPS_LOAD_IN_THREAD, code);
+    if (!tile) return NULL;
+    for (i = 0; i < tile->nb; i++) {
+        star = &tile->sources[i];
+        if (star->gaia) {
+            snprintf(designation, sizeof(designation), "GAIA %" PRIu64, star->gaia);
+            if (!strcasecmp(identity, designation)) goto found;
+        }
+        if (star->hip) {
+            snprintf(designation, sizeof(designation), "HIP %d", star->hip);
+            if (!strcasecmp(identity, designation)) goto found;
+        }
+        for (name = star->names; name && *name; name += strlen(name) + 1)
+            if (!strcasecmp(identity, name)) goto found;
+    }
+    *code = 404;
+    return NULL;
+found:
+    *code = 200;
+    return obj_retain(&star->obj);
 }
 
 /*

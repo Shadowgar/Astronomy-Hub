@@ -5,6 +5,7 @@ from collections import Counter
 from pathlib import Path
 
 from scripts.skydata.catalog_pack import CatalogPackSpec, build_catalog_release, validate_catalog_release
+from backend.app.services.star_science import attach_canonical_star_science, reconcile_star_records
 
 from .dsos import load_openngc, load_vizier_dsos
 from .doubles import load_wds
@@ -21,6 +22,7 @@ class CatalogReleaseInputs:
     wds: Path
     atnf: Path
     unusual_sources: tuple[tuple[str, Path], ...]
+    supplemental_star_sources: tuple[tuple[str, Path], ...] = ()
 
 
 def build_source_release(
@@ -30,11 +32,28 @@ def build_source_release(
     release_version: str,
     generated_at: str | None = None,
     chunk_size: int = 2_000,
+    native_tile_order: int = 3,
 ) -> dict:
     stars = list(load_hipparcos(inputs.hipparcos))
     for profile, path in inputs.star_sources:
         stars.extend(load_vizier_stars(path, profile))
     stars = drop_ambiguous_identities(stars)
+    supplemental_stars = [record for profile, path in inputs.supplemental_star_sources
+                          for record in load_vizier_stars(path, profile)]
+    canonical, _science_stats = reconcile_star_records(
+        [*stars, *supplemental_stars],
+        native_tile_order=native_tile_order,
+    )
+    stars = attach_canonical_star_science(
+        stars,
+        canonical,
+        native_tile_order=native_tile_order,
+    )
+    supplemental_stars = attach_canonical_star_science(
+        supplemental_stars,
+        canonical,
+        native_tile_order=native_tile_order,
+    )
 
     dsos = list(load_openngc(inputs.openngc))
     for profile, path in inputs.dso_sources:
@@ -69,6 +88,8 @@ def build_source_release(
         generated_at=generated_at,
         chunk_size=chunk_size,
         packs=packs,
+        supplemental_stars=supplemental_stars,
+        native_star_tile_order=native_tile_order,
     )
     errors = validate_catalog_release(output_root)
     if errors:
