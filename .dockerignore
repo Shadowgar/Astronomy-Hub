@@ -10,3 +10,9 @@ data/runtime-packs/planetary-ephemeris
 !backend/**
 !scripts/
 !scripts/**
+
+# Shared canonical observing site only.
+!frontend/
+!frontend/src/
+!frontend/src/config/
+!frontend/src/config/orasSite.json

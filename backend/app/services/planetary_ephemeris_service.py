@@ -214,3 +214,58 @@ def compute_local_planetary_ephemeris(
             }
         )
     return results
+
+class LocalNightEphemeris:
+    """Bounded, vectorized local-kernel access for night planning (no network fallback)."""
+
+    def __init__(
+        self, lat: float, lon: float, elevation_m: float, start: datetime, end: datetime
+    ):
+        self.runtime = _load_runtime(_release_dir())
+        if not (
+            _parse_utc(self.runtime.manifest["coverage_start"])
+            <= start
+            <= end
+            <= _parse_utc(self.runtime.manifest["coverage_end"])
+        ):
+            raise EphemerisOutOfRangeError(
+                "requested night is outside local DE442s coverage"
+            )
+        self.observer = self.runtime.kernel["earth"] + wgs84.latlon(
+            lat, lon, elevation_m=elevation_m
+        )
+        self.targets = {source_id: target for source_id, _, target, _ in BODY_TARGETS}
+        self._positions: dict[tuple[str, float], dict[str, float]] = {}
+
+    def prime(self, source_id: str, timestamps: list[float]) -> None:
+        instants = [datetime.fromtimestamp(s, timezone.utc) for s in timestamps]
+        t = self.runtime.timescale.from_datetimes(instants)
+        astrometric = self.observer.at(t).observe(
+            self.runtime.kernel[self.targets[source_id]]
+        )
+        apparent = astrometric.apparent()
+        ra, dec, _ = apparent.radec(epoch="date")
+        ra_i, dec_i, _ = astrometric.radec()
+        alt, az, _ = apparent.altaz()
+        for i, s in enumerate(timestamps):
+            self._positions[source_id, s] = dict(
+                alt=float(alt.degrees[i]),
+                az=float(az.degrees[i]),
+                ra=float(ra.hours[i] * 15) % 360,
+                dec=float(dec.degrees[i]),
+                ra_icrf=float(ra_i.hours[i] * 15) % 360,
+                dec_icrf=float(dec_i.degrees[i]),
+            )
+
+    def position(self, source_id: str, timestamp: float) -> dict[str, float]:
+        if (source_id, timestamp) not in self._positions:
+            self.prime(source_id, [timestamp])
+        return self._positions[source_id, timestamp]
+
+    def moon_illumination(self, timestamp: float) -> float:
+        from skyfield.almanac import fraction_illuminated
+
+        t = self.runtime.timescale.from_datetime(
+            datetime.fromtimestamp(timestamp, timezone.utc)
+        )
+        return float(fraction_illuminated(self.runtime.kernel, "moon", t))
