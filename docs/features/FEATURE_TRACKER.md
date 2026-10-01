@@ -71,7 +71,7 @@ FEATURE_ACCEPTANCE.md
 
 ```text id="c93ptl"
 Feature: Shared public shell and ORAS decision homepage
-Status: UI behavior qualified; PARTIAL for legacy Sky console-clean acceptance
+Status: PARTIAL
 ```
 
 Reason:
@@ -208,8 +208,8 @@ conditions use qualified current weather facts from Observe's shared cache.
 No quality score or fabricated astronomy is exposed. Foundation components
 remain in the repository without being rendered as the public homepage.
 
-Status: UI behavior qualified (155 frontend tests and 16 Docker browser tests);
-PARTIAL for blanket console-clean acceptance because unchanged standalone and
+Status: PARTIAL. UI behavior is qualified (155 frontend tests and 16 Docker
+browser tests). Blanket console-clean acceptance remains partial because unchanged standalone and
 embedded Sky emit missing dense-star tile 404s. This is a Category B unrelated
 follow-up; see PROJECT_STATE.md for exact evidence. Standalone
 `/oras-sky-engine/`, scientific contracts and backend algorithms are unchanged.

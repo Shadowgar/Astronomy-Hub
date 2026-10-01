@@ -51,7 +51,7 @@ WordPress remains deferred.
 ```text
 Feature: Shared public shell and ORAS decision homepage
 Branch: hub-public-shell-homepage-1
-Status: UI behavior qualified; PARTIAL for blanket console-clean acceptance (legacy Sky tiles)
+Status: PARTIAL
 ```
 
 ## CURRENT PRIORITY
