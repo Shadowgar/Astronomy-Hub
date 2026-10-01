@@ -87,6 +87,7 @@ export default function TopControlBar() {
         <div className="foundation-header-main">
           <h1>Astronomy Hub</h1>
           <Link className="foundation-panel-link foundation-panel-link--launch" to={getObservePath(locationQuery)}>Observe</Link>
+          <Link className="foundation-panel-link foundation-panel-link--launch" to="/tonight">Tonight at ORAS</Link>
           <span className="foundation-header-user">User / Settings</span>
         </div>
         <div className="header-controls" aria-label="Top control bar">

@@ -166,3 +166,11 @@ without a separately approved task.
 If the system is not usable from the user's perspective,
 the feature is not complete.
 ```
+
+## Current bounded task — Tonight at ORAS (2026-10-01)
+
+User-authorized milestone following merged PR #50: `/tonight` and `tonight.v1`.
+This overrides the older catalog-pass next action for this task only. No new
+catalog installation or rendering changes. Runtime qualification is recorded
+in `docs/validation/TONIGHT_MVP_EVIDENCE.md`; broader Hub integration is next
+and remains outside this PR.

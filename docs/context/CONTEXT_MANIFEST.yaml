@@ -32,6 +32,7 @@ tasks:
     - docs/architecture/ENGINE_CATALOG.md
     - docs/architecture/OBJECT_MODEL.md
     - docs/architecture/DATA_CONTRACTS.md
+    - docs/architecture/TONIGHT_CONTRACT.md
     - docs/architecture/INGESTION_STRATEGY.md
     - docs/architecture/STACK_OVERVIEW.md
     - docs/execution/PROJECT_STATE.md
@@ -52,6 +53,7 @@ tasks:
     - docs/architecture/ENGINE_CATALOG.md
     - docs/architecture/OBJECT_MODEL.md
     - docs/architecture/DATA_CONTRACTS.md
+    - docs/architecture/TONIGHT_CONTRACT.md
     - docs/architecture/STACK_OVERVIEW.md
     - docs/execution/PROJECT_STATE.md
     - docs/execution/MASTER_PLAN.md

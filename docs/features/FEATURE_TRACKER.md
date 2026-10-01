@@ -186,3 +186,11 @@ Current parity anchor (as of 2026-04-12):
 - Stars moved from Hipparcos-only ceiling (~8,870) to multi-survey sequencing (~61.7k visible ceiling with current datasets).
 - Synthetic deep background star fallback is disabled; real catalog surveys now drive deep star density.
 - Remaining star parity gap is deep-survey coverage beyond mag 8.5 and full hint/label limiting-magnitude chain parity.
+
+## Tonight at ORAS — bounded MVP (2026-10-01)
+
+`/tonight` consumes `tonight.v1` with local full-night geometry, independent
+hourly forecast, and exact peak-time Sky handoffs. Qualification evidence and
+known limits are in `docs/validation/TONIGHT_MVP_EVIDENCE.md`. Runtime/browser
+checks and final performance revalidation have passed; PR review remains
+pending. Status: PARTIAL until the requested PR checks/review gate is settled. This entry does not change the broader legacy Hub status inventory.

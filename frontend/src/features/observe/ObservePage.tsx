@@ -280,6 +280,7 @@ export default function ObservePage() {
         <nav aria-label="Observe navigation">
           <Link to={`/${location.search}`}>Hub</Link>
           <span aria-current="page">Observe</span>
+          <Link to="/tonight">Tonight at ORAS</Link>
         </nav>
       </header>
       <main>

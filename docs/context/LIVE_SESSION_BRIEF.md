@@ -205,3 +205,12 @@ or visual behavior is part of the claim.
 Current work must align future Hub/WordPress linking around source-backed
 objects and stable `/oras-sky-engine/` URLs, without starting that UI work until
 explicitly approved.
+
+## Authorized Tonight milestone (2026-10-01)
+
+The active bounded task is Tonight at ORAS (`/tonight`, `tonight.v1`) following
+merged Observe observability PR #50. This explicitly authorizes the night-planning
+API/page and minimal Hub/Observe entry links; homepage redesign, satellite passes,
+WordPress, equipment recommendations, and integrations remain deferred.
+See `docs/architecture/TONIGHT_CONTRACT.md` for semantics and limitations.
+Completion requires Docker/browser proof and an unmerged review-ready PR.

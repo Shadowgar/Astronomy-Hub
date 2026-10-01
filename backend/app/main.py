@@ -17,6 +17,7 @@ from .core.logging import (
 
 from .routes import (
     above_me,
+    tonight,
     assets,
     alerts,
     conditions,
@@ -115,6 +116,7 @@ app.include_router(news.router, prefix="/api/v1")
 app.include_router(location.router, prefix="/api/v1")
 app.include_router(assets.router, prefix="/api/v1")
 app.include_router(above_me.router, prefix="/api")
+app.include_router(tonight.router, prefix="/api")
 app.include_router(sky.router, prefix="/api")
 app.include_router(satellite_feed.router, prefix="/api")
 app.include_router(sky_mirror.router, prefix="/api")
