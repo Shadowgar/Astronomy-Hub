@@ -30,7 +30,7 @@ describe('Public application shell', () => {
   }
   it('renders Home decisions immediately while independent modules load', () => {
     const html=render('/')
-    for(const text of ['The sky over the ORAS observatory','Observe now','Plan tonight','Open interactive sky','Planning tonight at ORAS','Checking the sky above ORAS','Checking current conditions']) expect(html.replace(/<[^>]*>/g,'')).toContain(text)
+    for(const text of ['The sky over the','ORAS observatory','Observe now','Plan tonight','Open interactive sky','Planning tonight at ORAS','Checking the sky above ORAS','Checking current conditions']) expect(html).toContain(text)
     expect(html).not.toContain('<iframe')
     expect(html).not.toContain('Scope')
   })
