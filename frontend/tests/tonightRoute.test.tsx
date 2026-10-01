@@ -16,8 +16,8 @@ describe('Tonight route and public navigation',()=>{
   expect(html).toContain('Tonight route matched')
  })
  it('links from Hub and Observe and back to both',()=>{
-  for (const path of ['src/components/layout/foundation/TopControlBar.jsx','src/features/observe/ObservePage.tsx']) expect(readFileSync(new URL('../'+path,import.meta.url),'utf8')).toContain('to="/tonight"')
-  const page=readFileSync(new URL('../src/features/tonight/TonightPage.tsx',import.meta.url),'utf8')
-  expect(page).toContain('to="/observe"');expect(page).toContain('to="/"')
+  for (const path of ['src/components/layout/foundation/TopControlBar.jsx','src/components/shell/OrasAppShell.tsx']) expect(readFileSync(new URL('../'+path,import.meta.url),'utf8')).toMatch(/(?:to="\/tonight"|tonightPath)/)
+  const page=readFileSync(new URL('../src/components/shell/OrasAppShell.tsx',import.meta.url),'utf8')
+  expect(page).toContain('observePath');expect(page).toContain('to="/"')
  })
 })

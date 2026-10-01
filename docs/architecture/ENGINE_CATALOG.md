@@ -356,11 +356,9 @@ Sub-engines:
 
 ## DEFAULT SYSTEM ENTRY
 
-The system always starts in:
-
-```text
-Sky Engine (Above Me context)
-```
+The public entry is Home, the ORAS decision surface. Sky remains the primary
+observational engine; its runtime is mounted when the user opens Sky, not
+preloaded on Home.
 
 ---
 

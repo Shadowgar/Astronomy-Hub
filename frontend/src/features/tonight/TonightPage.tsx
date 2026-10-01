@@ -95,8 +95,6 @@ export default function TonightPage() {
  useEffect(()=>{const old=document.title;document.title='Tonight at ORAS · Astronomy Hub';return ()=>{document.title=old}},[])
  const night=query.data?.data.night
  return <div className="observe-page tonight-page">
-  <header className="observe-header"><Link to="/" className="observe-brand">ORAS <span>ASTRONOMY HUB</span></Link><nav aria-label="Tonight navigation"><Link to="/">Hub</Link><Link to="/observe">Observe</Link><span aria-current="page">Tonight</span></nav></header>
-  <main>
    <section className="observe-hero"><div className="observe-hero-inner"><div><p className="observe-eyebrow">Plan an evening under the stars</p><h1>Tonight <em>at ORAS</em></h1><p className="observe-hero-copy">Find when a target reaches its highest point in astronomical darkness, then open that exact moment in Sky Engine.</p></div>
     <div className="observe-context-card"><span>Observing evening</span><strong>{night?.night_date || date || 'Current observing night'}</strong><p>{ORAS_SITE.label}</p><p>{ORAS_SITE.latitude}° N · {Math.abs(ORAS_SITE.longitude)}° W</p><p>{ORAS_SITE.elevationMeters.toFixed(1)} m elevation</p><span className="observe-context-time">Evening date · {ORAS_SITE.timezone}</span></div>
    </div></section>
@@ -105,6 +103,5 @@ export default function TonightPage() {
     {query.isError ? <div className="observe-message" role="alert"><p>The night plan could not be loaded. Use a valid evening date or try again.</p><Link to="/tonight">Current observing night</Link><button onClick={()=>{void query.refetch()}}>Retry</button></div> : null}
     {query.data ? <TonightView key={night?.night_date} payload={query.data}/> : null}
    </div>
-  </main><footer className="observe-footer">ORAS Astronomy Hub · Plan by the night, explore by the moment</footer>
  </div>
 }

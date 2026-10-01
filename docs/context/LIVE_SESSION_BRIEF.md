@@ -1,216 +1,74 @@
 # LIVE SESSION BRIEF
 
-## Purpose
+## Authority and current execution
 
-This document defines the current active execution state for Astronomy Hub.
+Load with `CORE_CONTEXT.md`, then the task pack in `CONTEXT_MANIFEST.yaml`.
+Validation authority and proven runtime behavior govern completion claims.
 
-It is always loaded with `docs/context/CORE_CONTEXT.md`.
+The user-authorized task is the shared public shell and decision homepage on
+`hub-public-shell-homepage-1`, based on main
+`1e341746b05609b3237388514691fe3c5edecaf3` after PR #51 merged. PRs #48–#51
+provide the existing identity, Observe, observability, and Tonight foundations.
+The public Hub homepage is now authorized and is no longer a deferred lane.
 
-If this document conflicts with older execution, phase, tracker, or vision
-documents, this document wins for current work unless
-`docs/validation/SYSTEM_VALIDATION_SPEC.md`, `AGENTS.md`, or an explicitly
-activated override mode says otherwise.
+## Public product
 
-## Current Execution Status
+- Home `/`: ORAS decision surface with Tonight, Observe Now, current weather
+  facts, and entry to the interactive sky.
+- Observe `/observe`: current or explicitly selected location/time sky inventory,
+  categories, source-backed detail, and canonical object links.
+- Tonight `/tonight`: ORAS-specific full-night planning through `tonight.v1`;
+  existing evening date, noon rollover, DST, geometry, and forecast semantics.
+- Sky `/sky-engine`: embedded host with shared Hub navigation around the renderer.
 
-Astronomy Hub is in an ORAS Sky Engine modernization and high-definition data
-cycle.
+All four routes share ORAS identity, text navigation, focus/skip behavior,
+content tokens and a responsive shell. Home has no engine/configuration wall,
+quality score, heavyweight sky preview, or invented astronomy. Tonight loads
+independently. Observe Now and current conditions share the existing Observe
+React Query request; conditions use qualified `observability.v1` weather facts,
+not legacy observing-score/seeing/transparency judgments. A weather-provider
+failure leaves astronomy available; an Above Me HTTP failure affects both of
+its summaries while Tonight and Sky remain usable.
 
-The active public sky runtime is:
+## Engine authority
 
-```text
-/oras-sky-engine/
-```
+The active contained sky renderer remains `/oras-sky-engine/`: ORAS-hosted
+Stellarium Web / Stellarium Web Engine. `/sky-engine` is its Hub host route,
+not a replacement renderer or a BabylonJS surface.
 
-This is the ORAS-hosted Stellarium Web / Stellarium Web Engine runtime.
-
-The current active work is not the old `/sky-engine` BabylonJS lane.
-
-The current active work is not a full Hub homepage build.
-
-Current focus:
-
-- preserve and improve the contained Stellarium runtime
-- expand source-backed astronomy data
-- improve object discovery through `/api/above-me`
-- improve exact-link behavior into `/oras-sky-engine/`
-- improve survey imagery and visual parity
-- keep WordPress/ORAS shortcode integration deferred until explicitly started
-
-## Current Product Definition
-
-The active product direction is:
-
-- a source-backed astronomy intelligence layer
-- a contained ORAS Sky Engine runtime at `/oras-sky-engine/`
-- stable object links that open the Sky Engine centered on the correct object
-- curated Above Me object discovery through `/api/above-me`
-- future WordPress/ORAS display consuming `/api/above-me`
-
-Primary user-facing flow:
-
-```text
-user asks what is above me
--> backend computes and ranks visible objects
--> UI or WordPress page renders curated cards/list
--> user clicks object
--> /oras-sky-engine/ opens centered on that object
-```
-
-The front-page Hub route `/` is not the current implementation target unless
-explicitly approved.
-
-## Active Execution Surface
-
-Active runtime surface:
-
-- `/oras-sky-engine/`
-
-Supporting API surfaces:
-
-- `/api/sky/object`
-- `/api/above-me`
-
-Supporting runtime paths:
+Runtime source/integration paths remain:
 
 - `vendor/stellarium-web-engine/apps/web-frontend`
 - `vendor/stellarium-web-engine/src`
 - `frontend/public/oras-sky-engine`
+- `/api/sky/object`, `/api/above-me`, `/api/tonight`
 
-Supporting backend paths:
+The Hub owns decisions/navigation and approved URL input. Stellarium owns
+rendering, scene lifecycle, selection, camera, survey imagery and visual math.
+Preserve `catalog + source_id + model`, string IDs, validated RA/Dec fallback,
+observer/time/site handoffs, and both core system models. Standalone runtime,
+star catalogs, mounted bulk data and backend astronomy are outside this UI pass.
 
-- `backend/app/routes`
-- `backend/app/services`
-- `backend/app/data/sky`
-- `backend/tests`
+## Execution and qualification
 
-Supporting validation paths:
+See `PROJECT_STATE.md` and `FEATURE_TRACKER.md` for this pass's runtime evidence.
+Completion requires focused/full frontend tests, typecheck/build, Docker and
+real desktop/mobile browser acceptance. Open the requested PR; do not merge.
+Frontend tests (155), typecheck/build and Docker browser tests (16) passed.
+The console-clean gate remains partial: unchanged standalone and embedded Sky
+have missing mounted dense-star tile 404s, a Category B follow-up outside UI scope.
+One normal Codex review is sufficient. Category A correctness/security/
+accessibility/regression findings block; Category B polish, abstraction,
+micro-optimization and unrelated legacy cleanup are documented follow-ups.
 
-- `scripts/skydata/validate_oras_deep_links.js`
-- `frontend/tests`
-- backend tests
+## Next milestone and deferred lanes
 
-## Explicit Stale Assumption Corrections
+Next planned scientific differentiator: `oras_horizon.v1`, a calibrated/measured
+ORAS azimuth horizon and eventual panorama alignment. It is not implemented or
+started in this task and needs its own authorization and scientific contract.
 
-These assumptions are stale and must not drive current work:
-
-- active surface is `/sky-engine`
-- Sky Engine is BabylonJS
-- current goal is a BabylonJS port
-- Hub homepage `/` is the active implementation target
-- the Sky Engine should become a shared Hub renderer
-- production objects should be hand-registered
-- visual parity should be blocked by stale phase documents
-
-Correct current assumptions:
-
-- active surface is `/oras-sky-engine/`
-- runtime is contained Stellarium Web / Stellarium Web Engine
-- Hub is API/decision layer
-- Sky Engine owns its own scene/rendering/runtime behavior
-- data must be source-backed and scalable
-- Docker/runtime validation is authoritative for runtime-sensitive claims
-- browser/runtime validation must prove visual behavior when claimed
-
-## Active Boundaries
-
-### Hub
-
-Allowed:
-
-- decision layer
-- object filtering/ranking
-- curated output
-- stable engine links
-- API consumption
-
-Not allowed:
-
-- raw rendering ownership
-- full scene rendering
-- raw object flood
-- fake visibility
-- duplicate Sky Engine calculations
-
-### ORAS Sky Engine
-
-Allowed:
-
-- own contained Stellarium runtime
-- own rendering and scene lifecycle
-- own selection/camera behavior
-- own visual math and thresholds
-- consume defined observer/time/location/config/object inputs
-
-Not allowed:
-
-- become BabylonJS
-- become a shared Hub renderer
-- depend on Hub internals for rendering
-- accept fake coordinates or fake visibility
-
-### Backend / API
-
-Allowed:
-
-- normalize data
-- provide `/api/sky/object`
-- provide `/api/above-me`
-- generate stable Sky Engine URLs
-- compute validated visibility/ranking where implemented
-
-Not allowed:
-
-- fake coordinates
-- fake visibility
-- fake object availability
-- hand-register production catalogs as a substitute for scalable data
-
-## Active Work Lanes
-
-Current allowed lanes:
-
-- ORAS Sky Engine runtime stability
-- exact-link correctness
-- source-backed `/api/above-me` data expansion
-- high-definition data and survey imagery evaluation
-- runtime/browser validation
-
-Current deferred lanes:
-
-- WordPress shortcode/page
-- Hub homepage UI
-- credits-update work
-- DESI promotion
-- TheSkyLive scraping
-- broad OpenNGC/Pan-STARRS UI expansion unless explicitly approved
-
-## Current Validation Rule
-
-Runtime-sensitive claims require Docker/runtime evidence.
-
-For Sky Engine changes, expected proof can include:
-
-- running Docker services
-- API responses
-- frontend/backend tests
-- `npm run validate:oras-deep-links`
-- browser screenshots or Playwright validation
-
-Do not mark behavior complete from panel text alone when camera/object centering
-or visual behavior is part of the claim.
-
-## Final Rule
-
-Current work must align future Hub/WordPress linking around source-backed
-objects and stable `/oras-sky-engine/` URLs, without starting that UI work until
-explicitly approved.
-
-## Authorized Tonight milestone (2026-10-01)
-
-The active bounded task is Tonight at ORAS (`/tonight`, `tonight.v1`) following
-merged Observe observability PR #50. This explicitly authorizes the night-planning
-API/page and minimal Hub/Observe entry links; homepage redesign, satellite passes,
-WordPress, equipment recommendations, and integrations remain deferred.
-See `docs/architecture/TONIGHT_CONTRACT.md` for semantics and limitations.
-Completion requires Docker/browser proof and an unmerged review-ready PR.
+WordPress, equipment, telescope control, AI/Member Hub, event workflows, new
+catalogs, satellite overhaul, DESI promotion and landscape/toolbar redesign
+remain outside this task. DSS remains the safe fallback; experimental survey
+providers retain their existing restrictions. No fake coordinates, visibility,
+weather, catalog identity, survey coverage or production object registrations.

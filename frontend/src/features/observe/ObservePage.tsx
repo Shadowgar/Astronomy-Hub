@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import { ORAS_SITE } from '../../config/orasSite'
 import {
@@ -275,15 +275,6 @@ export default function ObservePage() {
 
   return (
     <div className="observe-page">
-      <header className="observe-header">
-        <Link to={`/${location.search}`} className="observe-brand">ORAS <span>ASTRONOMY HUB</span></Link>
-        <nav aria-label="Observe navigation">
-          <Link to={`/${location.search}`}>Hub</Link>
-          <span aria-current="page">Observe</span>
-          <Link to="/tonight">Tonight at ORAS</Link>
-        </nav>
-      </header>
-      <main>
         <section className="observe-hero">
           <div className="observe-hero-inner">
             <div>
@@ -309,7 +300,7 @@ export default function ObservePage() {
             onSelect={(key) => {
               setSelectedKey(key)
               if (window.matchMedia('(max-width: 740px)').matches) {
-                requestAnimationFrame(() => document.getElementById('observe-selected-detail')?.scrollIntoView({ behavior: 'smooth' }))
+                requestAnimationFrame(() => document.getElementById('observe-selected-detail')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }))
               }
             }}
             onShowMore={() => setVisibleCount((count) => count + INITIAL_VISIBLE_COUNT)}
@@ -317,8 +308,6 @@ export default function ObservePage() {
           />
           <p className="observe-science-note">Geometric horizon position does not guarantee detectability. The actual site terrain and tree horizon and equipment suitability are not yet modeled. Tonight recommendations are not part of Observe.</p>
         </div>
-      </main>
-      <footer className="observe-footer">ORAS Astronomy Hub · {context.at ? 'Sky position at the selected time' : 'Current sky position'}, source-backed objects</footer>
     </div>
   )
 }
