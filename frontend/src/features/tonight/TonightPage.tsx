@@ -80,7 +80,7 @@ export function TonightView({payload}: {payload:TonightPayload}) {
     </>}
    </section>
   </div>
-  {payload.status==='partial' ? <p className="observe-message" role="status">Some catalog sources are unavailable. This plan includes the supported sources that loaded.</p> : null}
+  {payload.status==='partial' ? <p className="observe-message" role="status">Some astronomy data could not be evaluated. This plan includes the targets with supported calculations.</p> : null}
   {night.status==='available' && targets.length===0 ? <p className="observe-message">No supported targets above the geometric horizon during astronomical darkness.</p> : null}
   <TargetGroup title="Top opportunities tonight" targets={top} hours={hours}/>
   {(Object.keys(CATEGORY_LABELS) as (keyof typeof CATEGORY_LABELS)[]).map(category=><TargetGroup key={`${night.night_date}:${category}`} title={CATEGORY_LABELS[category]} targets={targets.filter(t=>t.category===category)} hours={hours}/>)}

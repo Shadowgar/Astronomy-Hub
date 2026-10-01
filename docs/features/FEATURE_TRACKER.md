@@ -192,5 +192,6 @@ Current parity anchor (as of 2026-04-12):
 `/tonight` consumes `tonight.v1` with local full-night geometry, independent
 hourly forecast, and exact peak-time Sky handoffs. Qualification evidence and
 known limits are in `docs/validation/TONIGHT_MVP_EVIDENCE.md`. Runtime/browser
-checks and final performance revalidation have passed; PR review remains
-pending. Status: PARTIAL until the requested PR checks/review gate is settled. This entry does not change the broader legacy Hub status inventory.
+checks and final performance revalidation have passed. Runtime status: REAL
+for the bounded behavior and limits documented in the evidence. PR #51 remains
+unmerged; current CI/review state is authoritative on the PR. This entry does not change the broader legacy Hub status inventory.

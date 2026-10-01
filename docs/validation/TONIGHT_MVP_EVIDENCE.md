@@ -162,3 +162,91 @@ Final optimized browser revalidation: 3 passed in 58.6s, using
 - `frontend/tests/tonight.test.tsx`
 - `frontend/tests/tonightRoute.test.tsx`
 - `frontend/tsconfig.json`
+
+## PR review correction
+
+PR: https://github.com/Shadowgar/Astronomy-Hub/pull/51 (unmerged).
+Initial head 99dba4f3: CI/CodeQL passed; Codex completed. Copilot identified two
+valid issues, both inside Tonight scope: corrupt forecast caches suppressing
+fresh retrieval, and partial-plan text incorrectly attributing all degradation
+to catalog failures. Both were reproduced with failing regressions and fixed.
+The cache now validates the public Forecast model, aware timestamps and finite
+facts, treating invalid entries as misses. Valid fresh entries still avoid the
+provider. Partial UI wording covers all astronomy evaluation failures.
+
+Final frontend after review: 123 passed, typecheck exit 0. Vite compiled the
+same shell (119 modules, JS 443.04 kB / gzip 131.72 kB) with unchanged bulk
+public data copying disabled, in 9.27s. Initial standard `npm run build` above
+included the full static copy and passed. Review build command:
+
+```
+node --input-type=module - <<'JS'
+import { build } from './frontend/node_modules/vite/dist/node/index.js'
+await build({root:'frontend',build:{copyPublicDir:false}})
+JS
+```
+
+Forecast regressions: 9 passed, including four malformed-cache variants and
+valid-cache/invalid-hour recovery. Full backend and Docker/browser checks were
+rerun for this correction. Full backend: 558 passed, 25 existing deprecation
+warnings in 209.46s. Frontend: 123 passed across 15 files; typecheck exit 0.
+`git diff --check` and Ruff on the changed forecast service passed.
+
+`COMPOSE_BAKE=false docker compose up -d --build backend frontend` completed
+with exit 0 after the review correction. `docker compose ps` shows both running,
+frontend healthy. This additional rebuild was required to qualify the actual
+review fixes rather than reuse results from the previous code.
+
+Scoped malformed-cache recovery in the running container:
+
+```sh
+docker compose exec -T backend python - <<'PY'
+from datetime import datetime
+from backend.app.cache.redis_cache import cache_set
+from backend.app.services.oras_site import ORAS_SITE
+from backend.app.services.tonight_forecast import fetch_forecast, iso
+start=datetime.fromisoformat('2026-10-02T00:31:49+00:00')
+end=datetime.fromisoformat('2026-10-02T09:44:16+00:00')
+key=f"tonight-forecast:v1:{ORAS_SITE['latitude']}:{ORAS_SITE['longitude']}:{iso(start)}:{iso(end)}"
+cache_set(key,'not-json',ttl_seconds=60)
+result=fetch_forecast(start=start,end=end)
+assert result['status'] in ('available','partial'),result
+assert result['hours'],result
+print({'status':result['status'],'hours':len(result['hours']),'coverage_start':result['coverage_start'],'coverage_end':result['coverage_end']})
+PY
+```
+
+Exit 0: invalid-cache warning followed by fresh provider status `available`,
+11 hourly rows, coverage `2026-10-02T00:00:00Z` to `2026-10-02T10:00:00Z`.
+Only that disposable forecast key was replaced; no catalog or other cache data
+was cleared.
+
+Final Docker browser command:
+
+```sh
+PLAYWRIGHT_BASE_URL=http://127.0.0.1:4173 PLAYWRIGHT_SKIP_WEBSERVER=1 npm --prefix frontend run test:e2e -- tests/e2e/tonight.spec.ts --output=../output/playwright/test-results
+```
+
+Exit 0: 3 passed in 52.2s. Desktop, mobile and all six identity/time/site/camera
+handoffs passed on the review-corrected Docker runtime.
+
+Loaded documents, exact paths:
+
+- docs/context/CORE_CONTEXT.md
+- docs/context/LIVE_SESSION_BRIEF.md
+- docs/context/CONTEXT_MANIFEST.yaml
+- docs/validation/SYSTEM_VALIDATION_SPEC.md
+- docs/ASTRONOMY_HUB_DIAGRAM.md
+- docs/architecture/ARCHITECTURE_OVERVIEW.md
+- docs/architecture/ENGINE_SPEC.md
+- docs/architecture/ENGINE_CATALOG.md
+- docs/architecture/OBJECT_MODEL.md
+- docs/architecture/DATA_CONTRACTS.md
+- docs/architecture/INGESTION_STRATEGY.md
+- docs/architecture/STACK_OVERVIEW.md
+- docs/execution/PROJECT_STATE.md
+- docs/execution/MASTER_PLAN.md
+- docs/features/FEATURE_EXECUTION_MODEL.md
+- docs/features/FEATURE_CATALOG.md
+- docs/features/FEATURE_ACCEPTANCE.md
+- docs/features/FEATURE_TRACKER.md

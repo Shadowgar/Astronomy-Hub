@@ -22,7 +22,7 @@ Preserve string catalog identities, geometric horizon limitations, and existing 
   Tests: frontend/tests/tonight*.test.tsx.
 - [x] Validation: full backend/frontend suites, typecheck/build/diff, one Docker rebuild,
   curl timing, desktop/mobile browser and representative exact identity/time/site/camera proofs.
-- [ ] Documentation and delivery: contract/policy/limitations/evidence; commit only task files,
+- [x] Documentation and delivery: contract/policy/limitations/evidence; commit only task files,
   push bounded branch, open PR, inspect CI/CodeQL/review threads, repair valid Tonight findings.
 
 Review focus: DST evenings; polar darkness/no darkness; later-rising targets; missing/malformed hourly
@@ -42,3 +42,7 @@ Final local/backend/frontend/browser gates passed: 553 backend, 122 frontend,
 3 browser tests, typecheck/build/diff. PR delivery/checks remain pending.
 Performance ruling: runtime profiling justified backend-only revalidation after
 reducing unnecessary boundary searches; fresh cold 10.97s, warm 0.37s.
+
+PR #51 opened. Codex completed and initial CI/CodeQL passed. Two valid Copilot
+findings were reproduced and corrected; final revalidation and review thread
+resolution are recorded in the evidence and live PR. No next milestone started.

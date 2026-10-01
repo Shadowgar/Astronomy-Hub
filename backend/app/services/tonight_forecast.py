@@ -7,6 +7,7 @@ import math
 from datetime import datetime, timezone
 
 from backend.app.cache.redis_cache import cache_get, cache_set
+from backend.app.schemas.tonight import Forecast
 from backend.app.services.live_providers import _http_get_json
 from backend.app.services.oras_site import ORAS_SITE
 
@@ -103,12 +104,34 @@ def fetch_forecast(*, start, end):
     try:
         cached = cache_get(key)
         if cached:
-            payload = json.loads(cached)
-            fetched = datetime.fromisoformat(
-                payload["fetched_at"].replace("Z", "+00:00")
-            )
-            if 0 <= (now - fetched).total_seconds() <= TTL_SECONDS:
-                return payload
+            try:
+                payload = Forecast.parse_raw(cached).dict()
+                fetched = datetime.fromisoformat(
+                    payload["fetched_at"].replace("Z", "+00:00")
+                )
+                timestamps = [
+                    datetime.fromisoformat(row["time"].replace("Z", "+00:00"))
+                    for row in payload["hours"]
+                ]
+                valid = (
+                    payload["status"] in {"available", "partial"}
+                    and payload["provider"] == "open_meteo_hourly"
+                    and bool(timestamps)
+                    and all(t.tzinfo is not None for t in timestamps)
+                    and all(
+                        math.isfinite(value)
+                        for row in payload["hours"]
+                        for key, value in row.items()
+                        if key != "time" and value is not None
+                    )
+                    and 0 <= (now - fetched).total_seconds() <= TTL_SECONDS
+                )
+                if valid:
+                    return payload
+            except (ValueError, TypeError, KeyError, AttributeError):
+                logger.warning(
+                    "Invalid Tonight forecast cache entry; fetching fresh hourly facts"
+                )
         raw = _http_get_json(
             "https://api.open-meteo.com/v1/forecast",
             params={

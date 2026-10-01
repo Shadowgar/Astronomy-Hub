@@ -45,6 +45,12 @@ describe('Tonight product',()=>{
   expect(render({...payload,data:{...payload.data,targets:[],night:{...payload.data.night,status:'no_astronomical_darkness'}}})).toContain('No astronomical darkness')
   expect(render({...payload,data:{...payload.data,targets:[],night:{...payload.data.night,status:'ephemeris_unavailable'}}})).toContain('Night astronomy unavailable')
  })
+ it('describes all partial astronomy failures without blaming catalogs',()=>{
+  const html=render({...payload,status:'partial'})
+  expect(html).toContain('Some astronomy data could not be evaluated')
+  expect(html).not.toContain('Some catalog sources are unavailable')
+  expect(html).toContain('Andromeda Galaxy')
+ })
  it('navigates local evening dates across months and DST',()=>{
   expect(shiftNightDate('2026-10-31',1)).toBe('2026-11-01')
   expect(shiftNightDate('2026-03-08',-1)).toBe('2026-03-07')

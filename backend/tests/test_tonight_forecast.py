@@ -77,3 +77,44 @@ def test_weather_provider_failure_and_single_request(monkeypatch):
         lambda *a, **kw: (_ for _ in ()).throw(RuntimeError()),
     )
     assert forecast.fetch_forecast(start=START, end=END)["status"] == "unavailable"
+
+
+@pytest.mark.parametrize(
+    "cached",
+    [
+        "not-json",
+        "{}",
+        '{"fetched_at":"invalid"}',
+        '{"fetched_at":"2026-10-02T00:00:00"}',
+    ],
+)
+def test_corrupt_cache_recovers_from_live_provider(monkeypatch, cached):
+    calls = []
+    monkeypatch.setattr(forecast, "cache_get", lambda k: cached)
+    monkeypatch.setattr(forecast, "cache_set", lambda *a, **kw: True)
+    monkeypatch.setattr(
+        forecast, "_http_get_json", lambda *a, **kw: calls.append(kw) or raw()
+    )
+    result = forecast.fetch_forecast(start=START, end=END)
+    assert len(calls) == 1
+    assert result["status"] == "available"
+
+
+def test_valid_cached_forecast_avoids_provider_and_invalid_hour_recovers(monkeypatch):
+    import json
+    from datetime import datetime, timezone
+
+    cached = forecast.normalize_forecast(
+        raw(), START, END, fetched_at=datetime.now(timezone.utc)
+    )
+    calls = []
+    monkeypatch.setattr(forecast, "cache_get", lambda k: json.dumps(cached))
+    monkeypatch.setattr(forecast, "cache_set", lambda *a, **kw: True)
+    monkeypatch.setattr(
+        forecast, "_http_get_json", lambda *a, **kw: calls.append(kw) or raw()
+    )
+    assert forecast.fetch_forecast(start=START, end=END)["status"] == "available"
+    assert calls == []
+    cached["hours"][0]["time"] = "invalid"
+    assert forecast.fetch_forecast(start=START, end=END)["status"] == "available"
+    assert len(calls) == 1
