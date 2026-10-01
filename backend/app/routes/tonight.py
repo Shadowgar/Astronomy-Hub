@@ -14,5 +14,9 @@ router = APIRouter()
 async def tonight(date: str | None = None):
     try:
         return await run_in_threadpool(build_tonight_payload, date=date)
-    except ValueError as exc:
-        return error_response(status_code=400, code="invalid_request", message=str(exc))
+    except ValueError:
+        return error_response(
+            status_code=400,
+            code="invalid_request",
+            message="Invalid observing-night request. Use a valid YYYY-MM-DD evening date that allows a following calendar day.",
+        )
