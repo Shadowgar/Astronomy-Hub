@@ -254,9 +254,16 @@ def test_no_darkness_and_partial_body_failure_preserve_honest_night(
     monkeypatch.setattr(service, "LocalNightEphemeris", Ephemeris)
     monkeypatch.setattr(service, "cache_get", lambda k: None)
     monkeypatch.setattr(service, "cache_set", lambda *a, **kw: False)
-    monkeypatch.setattr(service, "fixed_targets", lambda: ([], {}))
+    from backend.app.services.tonight_catalog import CatalogSnapshot
+
+    snapshot = CatalogSnapshot("[]", "{}", "empty")
+    monkeypatch.setattr(service, "get_catalog_snapshot", lambda: snapshot)
     result = service.build_astronomy(resolve_night_date("2026-10-01"))
     assert result["status"] == status
+    assert snapshot.materialize() == ([], {})
+    other_night = service.build_astronomy(resolve_night_date("2026-10-02"))
+    assert other_night["status"] == status
+    assert snapshot.materialize() == ([], {})
     if broken_body:
         assert result["night"]["status"] == "available"
         assert result["targets"]

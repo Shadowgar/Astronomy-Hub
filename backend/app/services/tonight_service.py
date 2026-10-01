@@ -20,7 +20,7 @@ from backend.app.services.solar_system_catalog_service import (
     SOLAR_SYSTEM_BODIES,
     SOLAR_SYSTEM_CATALOG,
 )
-from backend.app.services.tonight_catalog import fixed_targets
+from backend.app.services.tonight_catalog import get_catalog_snapshot
 from backend.app.services.tonight_forecast import (
     fetch_forecast,
     iso,
@@ -40,7 +40,7 @@ CONTRACT_VERSION = "tonight.v1"
 POLICY_VERSION = "tonight-opportunity.v1"
 PLANNING_ALTITUDE_DEG = 20
 ASTRONOMY_TTL_SECONDS = 3600
-ASTRONOMY_CACHE_KEY_VERSION = "v2"
+ASTRONOMY_CACHE_KEY_VERSION = "v3"
 CATEGORIES = ("solar-system", "deep-sky", "stars")
 LIMITATIONS = [
     "Actual site terrain, trees, and buildings are not modeled.",
@@ -160,9 +160,9 @@ def evaluate_target(target, position, dark_windows, interval, ephemeris):
 def build_astronomy(night_date):
     start, end = night_interval(night_date)
     a, b = start.timestamp(), end.timestamp()
-    targets, sources = fixed_targets()
+    catalog_snapshot = get_catalog_snapshot()
     ephemeris_status = get_planetary_ephemeris_status()
-    sources["solar_system"] = {
+    solar_source = {
         k: ephemeris_status.get(k)
         for k in (
             "loaded",
@@ -179,8 +179,8 @@ def build_astronomy(night_date):
             "policy": POLICY_VERSION,
             "site": ORAS_SITE,
             "date": str(night_date),
-            "sources": sources,
-            "targets": targets,
+            "solar_system": solar_source,
+            "catalog": catalog_snapshot.fingerprint,
         },
         sort_keys=True,
     )
@@ -201,6 +201,8 @@ def build_astronomy(night_date):
                 return result
         except (ValueError, KeyError, TypeError):
             pass
+    targets, sources = catalog_snapshot.materialize()
+    sources["solar_system"] = solar_source
     night = {
         "night_date": str(night_date),
         "timezone": TIMEZONE,
