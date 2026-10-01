@@ -153,6 +153,8 @@ def test_local_de442s_propagates_all_supported_bodies_deterministically() -> Non
     assert all(isinstance(body["id"], str) for body in first)
     assert all(0.0 <= body["ra"] < 360.0 for body in first)
     assert all(-90.0 <= body["dec"] <= 90.0 for body in first)
+    assert all(0.0 <= body["ra_icrf"] < 360.0 for body in first)
+    assert all(-90.0 <= body["dec_icrf"] <= 90.0 for body in first)
     assert all(-90.0 <= body["elevation"] <= 90.0 for body in first)
     assert all(0.0 <= body["azimuth"] < 360.0 for body in first)
     assert all(body["distance_au"] > 0.0 for body in first)

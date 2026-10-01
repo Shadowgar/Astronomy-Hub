@@ -145,8 +145,8 @@ def test_exact_solar_object_exposes_local_ephemeris_provenance(monkeypatch) -> N
 
 def test_above_me_candidate_exposes_local_ephemeris_source(monkeypatch) -> None:
     monkeypatch.setattr(
-        above_me_service.live_providers,
-        "fetch_jpl_ephemeris",
+        above_me_service,
+        "compute_local_planetary_ephemeris",
         lambda *args, **kwargs: [dict(LOCAL_MARS)],
     )
 

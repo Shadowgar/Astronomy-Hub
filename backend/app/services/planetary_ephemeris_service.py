@@ -191,8 +191,10 @@ def compute_local_planetary_ephemeris(
 
     results: list[dict[str, Any]] = []
     for source_id, name, target_name, target_reference in BODY_TARGETS:
-        apparent = observer.at(time).observe(runtime.kernel[target_name]).apparent()
+        astrometric = observer.at(time).observe(runtime.kernel[target_name])
+        apparent = astrometric.apparent()
         ra, dec, distance = apparent.radec(epoch="date")
+        ra_icrf, dec_icrf, _ = astrometric.radec()
         altitude, azimuth, _ = apparent.altaz()
         results.append(
             {
@@ -204,6 +206,8 @@ def compute_local_planetary_ephemeris(
                 "time_basis": time_basis,
                 "ra": float(ra.hours * 15.0) % 360.0,
                 "dec": float(dec.degrees),
+                "ra_icrf": float(ra_icrf.hours * 15.0) % 360.0,
+                "dec_icrf": float(dec_icrf.degrees),
                 "azimuth": float(azimuth.degrees) % 360.0,
                 "elevation": float(altitude.degrees),
                 "distance_au": float(distance.au),

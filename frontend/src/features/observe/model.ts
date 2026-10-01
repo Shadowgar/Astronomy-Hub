@@ -3,6 +3,30 @@ import { parseLocationQuery } from '../shared/locationQuery'
 
 export type ObserveCategory = 'all' | 'solar-system' | 'deep-sky' | 'stars' | 'satellites'
 
+export type SkyDarknessState = 'daylight' | 'civil_twilight' | 'nautical_twilight' | 'astronomical_twilight' | 'astronomical_night' | 'unknown'
+
+export interface ObservabilityContext {
+  schema_version: 'observability.v1'
+  observer: { lat: number; lng: number; elev: number }
+  horizon_model: 'geometric'
+  site_horizon_status: 'not_modeled'
+  sky_darkness: { state: SkyDarknessState; sun_altitude_deg: number | null; in_astronomical_darkness: boolean | null; source: string | null }
+  moon: { altitude_deg: number | null; azimuth_deg: number | null; above_geometric_horizon: boolean | null; ra_deg: number | null; dec_deg: number | null; ra_icrf_deg: number | null; dec_icrf_deg: number | null; source: string | null }
+  weather: { status: 'current_fresh' | 'stale' | 'unavailable' | 'degraded' | 'not_evaluated_for_selected_time'; source: string; last_updated: string | null; cloud_cover_pct?: number; visibility_m?: number; temperature_c?: number; humidity_pct?: number; wind_mph?: number; dew_point_c?: number; weather_code?: number }
+  limitations: string[]
+}
+
+export interface TargetObservability {
+  above_geometric_horizon: boolean | null
+  altitude_deg: number | null
+  azimuth_deg: number | null
+  sky_state: SkyDarknessState
+  in_astronomical_darkness: boolean | null
+  moon_angular_separation_deg: number | null
+  assessment: string
+  limitations: string[]
+}
+
 export interface ObserveObject {
   catalog: string
   source_id: string
@@ -12,6 +36,8 @@ export interface ObserveObject {
   alt: number
   az: number
   is_visible: true
+  above_geometric_horizon?: boolean
+  observability?: TargetObservability
   sky_engine_url?: string
   magnitude?: number | null
   reason?: string
@@ -26,6 +52,7 @@ export interface ObservePayload {
   objects: ObserveObject[]
   time: string
   observer: { lat: number; lng: number; elev: number }
+  observabilityContext?: ObservabilityContext
 }
 
 export interface ObserveContext {
@@ -102,6 +129,7 @@ export function normalizeObservePayload(payload: unknown): ObservePayload {
     objects,
     time: meta.time,
     observer: { lat: observer.lat, lng: observer.lng, elev: observer.elev },
+    observabilityContext: meta.observability_context as ObservabilityContext | undefined,
   }
 }
 

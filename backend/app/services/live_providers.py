@@ -125,7 +125,7 @@ def fetch_open_meteo_conditions(lat: float, lon: float) -> dict[str, Any] | None
     if not isinstance(current, dict):
         return None
 
-    cloud_cover = int(round(float(current.get("cloud_cover") or 100)))
+    cloud_cover = int(round(float(current["cloud_cover"]))) if current.get("cloud_cover") is not None else 100
     visibility_m = int(round(float(current.get("visibility") or 0)))
     temperature_c = float(current.get("temperature_2m") or 0.0)
     temperature_f = (temperature_c * 9.0 / 5.0) + 32.0
@@ -133,7 +133,7 @@ def fetch_open_meteo_conditions(lat: float, lon: float) -> dict[str, Any] | None
     humidity_pct = int(round(float(current.get("relative_humidity_2m") or 0)))
     wind_speed_kmh = float(current.get("wind_speed_10m") or 0.0)
     wind_mph = wind_speed_kmh * 0.621371
-    dew_point_c = float(current.get("dew_point_2m") or temperature_c)
+    dew_point_c = float(current["dew_point_2m"]) if current.get("dew_point_2m") is not None else temperature_c
 
     # Deterministic observing label from cloud/visibility.
     if cloud_cover <= 20 and visibility_m >= 12000:
@@ -174,6 +174,17 @@ def fetch_open_meteo_conditions(lat: float, lon: float) -> dict[str, Any] | None
         smoke = "high"
 
     result = {
+        "factual_fields_available": [
+            output for source, output in (
+                ("cloud_cover", "cloud_cover_pct"),
+                ("visibility", "visibility_m"),
+                ("temperature_2m", "temperature_c"),
+                ("relative_humidity_2m", "humidity_pct"),
+                ("wind_speed_10m", "wind_mph"),
+                ("dew_point_2m", "dew_point_c"),
+                ("weather_code", "weather_code"),
+            ) if current.get(source) is not None
+        ],
         "cloud_cover_pct": max(0, min(100, cloud_cover)),
         "visibility_m": max(0, visibility_m),
         "temperature_c": temperature_c,
@@ -189,7 +200,7 @@ def fetch_open_meteo_conditions(lat: float, lon: float) -> dict[str, Any] | None
             f"Live weather: cloud {cloud_cover}% visibility {visibility_m}m "
             f"temp {temperature_c:.1f}C / {temperature_f:.1f}F"
         ),
-        "last_updated": current.get("time") or datetime.now(timezone.utc).isoformat(),
+        "last_updated": current.get("time"),
     }
     _cache_set(cache_key, result, ttl_seconds=PROVIDER_CACHE_TTL_SECONDS["open_meteo"])
     return result
