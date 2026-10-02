@@ -18,8 +18,8 @@ class AircraftRecord(BaseModel):
     lon: float | None = Field(default=None, ge=-180, le=180)
     alt_geom: float | None = None
     alt_baro: float | str | None = None
-    seen: float | None = None
-    seen_pos: float | None = None
+    seen: float | None = Field(default=None, ge=0)
+    seen_pos: float | None = Field(default=None, ge=0)
     gs: float | None = None
     track: float | None = None
     baro_rate: float | None = None

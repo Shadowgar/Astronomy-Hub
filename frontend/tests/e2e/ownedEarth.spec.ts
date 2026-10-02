@@ -8,13 +8,14 @@ async function providers(page:any){
  await page.route('https://celestrak.org/**',(route:any)=>route.fulfill({contentType:'text/plain',body:tle}))
  await page.route('https://api.open-meteo.com/**',(route:any)=>route.fulfill({json:{current:{temperature_2m:12,cloud_cover:50,weather_code:3,time:new Date().toISOString().slice(0,16)}}}))
 }
-for(const [label,width,height] of [['desktop',1440,900],['mobile',390,844]] as const){
+for(const [label,width,height] of [['desktop',1440,900],['mobile',390,844]] as const){test.describe(label,()=>{
+ test.use({viewport:{width,height},isMobile:label==='mobile',hasTouch:label==='mobile'});
  test(`owned Earth core and selective adapters fixture ${label}`,async({page})=>{
   test.setTimeout(120000);await page.setViewportSize({width,height});await providers(page);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/earth');
   await expect(page.locator('[data-runtime-status=ready]')).toBeVisible({timeout:90000});const earth=page.frames().find(f=>f.url().includes('/earth-runtime/'))!;
   const diagnostics=await earth.evaluate(()=> (window as any).orasEarthDiagnostics());expect(diagnostics.owner).toBe('Astronomy Hub');expect(diagnostics.site).toEqual({lat:41.321903,lon:-79.585394,elevationM:432.816});expect(diagnostics.layers).toHaveLength(4);
-  await expect(earth.locator('#attributions')).toContainText('Natural Earth');await expect(earth.locator('#attributions')).toContainText('God’s Eye MIT');await expect(earth.locator('#app-header,#data-panel,#control-panel-toggle')).toHaveCount(0);
-  const canvas=earth.locator('canvas').first(),box=await canvas.boundingBox();await canvas.click({position:{x:box!.width/2,y:box!.height/2}});await expect(earth.locator('#selected-name')).toContainText('Oil Region');
+  await expect(earth.locator('#attributions')).toContainText('Natural Earth');const creditsBox=await earth.locator('#credits').boundingBox(),attributionBox=await earth.locator('#attributions').boundingBox();expect(creditsBox!.y+creditsBox!.height).toBeLessThanOrEqual(attributionBox!.y+1);await expect(earth.locator('#attributions')).toContainText('God’s Eye MIT');await expect(earth.locator('#app-header,#data-panel,#control-panel-toggle')).toHaveCount(0);
+  const canvas=earth.locator('canvas').first(),box=await canvas.boundingBox();if(label==='mobile')await page.touchscreen.tap(box!.x+box!.width/2,box!.y+box!.height/2);else await canvas.click({position:{x:box!.width/2,y:box!.height/2}});await expect(earth.locator('#selected-name')).toContainText('Oil Region');
   await earth.getByRole('button',{name:'Track',exact:true}).click();expect((await earth.evaluate(()=> (window as any).orasEarthDiagnostics())).tracking).toBe('oras-site');await earth.getByRole('button',{name:'Stop tracking'}).click();await earth.getByRole('button',{name:'Focus',exact:true}).click();await earth.getByRole('button',{name:'Return to ORAS'}).click();
   for(const [id,title] of [['aircraft','Aircraft near ORAS'],['satellites','Satellites · stations'],['weather','Weather at ORAS']]){
    await earth.getByRole('checkbox',{name:title,exact:true}).check();const row=earth.locator(`[data-layer-id=${id}]`);await expect(row.locator('[data-provider-status=ready]')).toBeVisible({timeout:20000});await expect(row).toContainText('LIVE_ONLY');await expect(earth.locator('#attributions')).toContainText(id==='aircraft'?'ODbL':id==='weather'?'Open-Meteo':'CelesTrak');
@@ -59,4 +60,4 @@ for(const [label,width,height] of [['desktop',1440,900],['mobile',390,844]] as c
  test(`standalone Sky and owned Earth ${label}`,async({page})=>{
   test.setTimeout(150000);await page.setViewportSize({width,height});for(const url of ['/oras-sky-engine/','/earth-runtime/']){await page.goto(url);await expect(page.locator('canvas').first()).toBeVisible({timeout:90000});await page.reload();await expect(page.locator('canvas').first()).toBeVisible({timeout:90000});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true)}
  })
-}
+})}

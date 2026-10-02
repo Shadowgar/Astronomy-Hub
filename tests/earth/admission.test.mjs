@@ -9,6 +9,7 @@ test('unknown altitude, invalid coords/identity and stale source epoch are not d
 test('upstream Number(null) coercion cannot manufacture weather temperature or epoch',()=>{
  assert.equal(weatherPayloadValid({current:{temperature_2m:null,time:'2026-10-02T12:00'}}),false);
  assert.equal(weatherPayloadValid({current:{temperature_2m:12,time:'bad'}}),false);
+ assert.equal(weatherPayloadValid({current:{temperature_2m:12,time:'2026-02-30T12:00'}}),false);
  assert.equal(weatherPayloadValid({current:{temperature_2m:12,time:'2026-10-02T12:00'}}),true);
 });
 test('TLE catalog rejects checksum corruption and cross-object line pairs',()=>{

@@ -3,6 +3,8 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
 work_root="${ORAS_SKY_BUILD_DIR:-/var/tmp/oras-phase-c/sky-reconstruction}"
 anchor=023e3b26babf7ffddf45f39293230b14cfe96993
+expected_builder="$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["sky"]["reconstruction"]["build_image_id"])' "$repo_root/integrations/renderers.lock.json")"
+[[ "$(docker image inspect astronomy-hub-stellarium-jsbuild --format '{{.Id}}')" == "$expected_builder" ]] || { echo 'Sky builder identity differs from qualified lock' >&2; exit 1; }
 if [[ -e "$work_root" ]]; then echo 'Choose a fresh ORAS_SKY_BUILD_DIR' >&2; exit 1; fi
 mkdir -p "$work_root"
 git clone --no-checkout https://github.com/Stellarium/stellarium-web-engine.git "$work_root/upstream"
