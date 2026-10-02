@@ -133,8 +133,8 @@ For a primary engine:
 The active ORAS Sky Engine is the contained Stellarium Web / Stellarium Web
 Engine runtime at `/oras-sky-engine/`. God's Eye Earth and Cesium Planet Mode
 are approved future directions; implementation requires the compatibility study
-and a bounded task. Both upstream renderers are pinned/qualified and immutable
-by default, with Hub additions outside upstream code.
+and a bounded task. Future upstream integrations must use pinned/qualified
+revisions and immutable-default source, with Hub additions outside upstream code.
 
 ---
 

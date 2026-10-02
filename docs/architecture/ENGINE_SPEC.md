@@ -204,9 +204,10 @@ Switching engines:
 
 ---
 
-## ENGINE OUTPUT TO HUB
+## CANDIDATE DISCOVERY OUTPUT TO HUB
 
-Engines provide **candidate objects or signals only**.
+For curated discovery, engines provide **candidate objects or signals only**.
+This bounds the Above Me feed, not the complete applicable upstream Earth runtime.
 
 The Hub:
 

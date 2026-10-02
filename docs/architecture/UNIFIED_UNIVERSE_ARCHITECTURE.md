@@ -63,8 +63,8 @@ scientific or backend API contract. Existing shared-shell qualification remains
 PARTIAL for the blanket console-clean gate because of documented dense-star
 tile 404s; no fresh runtime qualification is claimed here.
 
-These current source references were inspected for route/runtime and satellite/
-flight foundation claims; they are supporting evidence, not a fresh runtime test.
+Route/host and satellite/flight source excerpts were inspected to confirm the
+foundation claims; this is supporting evidence, not a fresh runtime test.
 Current code anchors are `frontend/src/routes/AppRouter.tsx`,
 `frontend/src/features/sky-engine/SkyEnginePage.tsx`,
 `vendor/stellarium-web-engine/apps/web-frontend`,

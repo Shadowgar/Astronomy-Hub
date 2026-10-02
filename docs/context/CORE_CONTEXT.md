@@ -116,7 +116,7 @@ Exact schema and bridge topology remain open. Engines realize these intents
 through qualified adapters and own their internal camera, selection and scene
 behavior. Shared product intent is not permission to modify renderer internals.
 
-The Hub:
+Its Above Me decision capability:
 
 - receives candidate objects
 - filters by visibility and constraints
@@ -138,10 +138,12 @@ The Hub must not:
 - render full engine scenes
 - own engine-internal render loops
 - modify Sky Engine scene internals
-- display raw uncurated engine lists as the product
+- present raw uncurated provider lists as curated Above Me decisions
 - fake object visibility, coordinates, or catalog identity
 
-Hub output must be small, curated, decision-ready, source-backed, and routeable.
+Above Me discovery output must be small, curated, decision-ready, source-backed,
+and routeable. This bounds the observing decision feed, not the complete applicable
+Earth feature set or the unified product's exploration capabilities.
 
 ## ORAS Sky Engine Isolation Rule
 

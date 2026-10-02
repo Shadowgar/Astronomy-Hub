@@ -52,8 +52,8 @@ Scope → Engine → Filter → Scene → Object → Detail
 
 Rules:
 
-* FastAPI is the only backend runtime
-* All endpoints must exist inside FastAPI routers
+* FastAPI is the Hub backend runtime
+* Hub backend endpoints must exist inside FastAPI routers
 * The Hub backend remains FastAPI. Whether upstream God's Eye provider/build
   runtime is isolated or adapted remains OPEN for the compatibility study; no
   second Hub backend or runtime addition is authorized by this checkpoint.

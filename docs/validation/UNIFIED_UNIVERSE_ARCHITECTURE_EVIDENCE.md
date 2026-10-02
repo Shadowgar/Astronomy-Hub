@@ -156,16 +156,18 @@ upstream build, internal architecture audit or compatibility study occurred.
 ## Required limits and review
 
 Frontend/backend suites, Docker runtime validation and browser validation were
-not run: this is docs-only and makes no changed runtime/visual claim. Prior PR
+not run locally: this is docs-only and makes no changed runtime/visual claim.
+Repository-configured CI runs independently when the PR opens. Prior PR
 #52 counts and dense-star 404 gaps remain explicitly historical.
 
-Perform one separate single-agent author review cycle against the supplied
+One separate single-agent author review cycle was performed against the supplied
 Category A blockers: authority/renderer consistency; current/planned honesty;
 complete applicable God's Eye feature preservation; SWE/God's Eye upgradeability;
 no horizon-next authority; docs-only scope; source-backed licensing; and truthful
 SWE/Observe/Tonight foundation. No review delegation or subagents. Author review
-is not independent external approval; final GitHub checks/review threads are
-reported separately and do not authorize merge.
+is not independent external approval. Opening the PR automatically triggered the
+repository-configured Codex review; no additional review or agent was requested.
+Final GitHub checks/review threads are reported separately and do not authorize merge.
 
 Category B follow-ups outside this checkpoint: optional diagram/wording polish,
 existing absent-path inventory cleanup, and historical dense-star runtime resource
@@ -174,3 +176,42 @@ implementation or an invented answer.
 
 Explicit next task: **God's Eye + SWE compatibility/upgradeability study**.
 Stop after this PR/review; no study, integration, horizon or feature work here.
+
+
+## Author review findings and bounded fix pass
+
+- Corrected the high-authority core rule so small curated output applies to
+  Above Me discovery, not the complete applicable God's Eye Earth feature set.
+  The engine discovery-output section uses the same scope.
+- Corrected pinning language so planned God's Eye integration is not implied
+  already pinned/qualified. Scoped FastAPI endpoint rules to the Hub backend
+  so future upstream provider/build topology remains open for the study.
+- Clarified that route/host and satellite/flight source excerpts were inspected;
+  no broad vendor runtime/compatibility audit is claimed.
+
+All are documentation fixes within the same review cycle. Local scope/link/manifest
+and whitespace checks must pass again after the fix pass. No runtime code changes.
+
+## One normal review cycle outcome
+
+The automatically triggered Codex review completed on initial commit `2abc6805`
+with no findings or inline review threads. No second review was requested. The
+single author pass identified the scope/evidence wording fixes above, which are
+verified locally in the final fix commit; external review of that later commit
+is not claimed.
+
+Read-only review/check commands included:
+
+```bash
+gh pr view 53 --json reviews,comments,statusCheckRollup,headRefOid
+gh api repos/Shadowgar/Astronomy-Hub/pulls/53/comments --jq 'length'
+gh api repos/Shadowgar/Astronomy-Hub/issues/53/reactions --jq '.[] | {user:.user.login,content}'
+gh pr checks 53
+```
+
+GraphQL `pullRequest.reviewThreads(first: 100)` returned an empty node list;
+inline comment count was 0. No Category A blocker remained after the bounded
+wording fix pass. Initial-commit checks: four CodeQL analysis jobs, Playwright
+`test`, and GitGuardian succeeded; CodeQL aggregation was neutral; CodeRabbit
+reported review skipped (not review approval). No formal approval was recorded.
+Final-head check state is reported from GitHub at handoff; no merge authorized.
