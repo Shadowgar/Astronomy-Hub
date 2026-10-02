@@ -110,7 +110,7 @@ an application build. Its final counts are recorded below after running it with
 this evidence file present:
 
 The command above now uses the committed Phase B documentation validator. It
-uses the existing Python/PyYAML tooling and validates a stable checkpoint document
+uses only the Python standard library and validates a stable checkpoint document
 set; the historical Phase A results below are retained unchanged. Git scope and
 owner editor preservation are checked separately in the Phase B evidence.
 

@@ -1,9 +1,18 @@
 #!/usr/bin/env python3
-"""Validate checkpoint documentation with the existing Python/PyYAML tooling.
+"""Validate architecture checkpoints using Python standard library only.
 
-Defaults to the docs_change manifest pack plus the Phase A evidence. No Git
-history, owner editor settings, scratch files, or running application is required.
---manifest accepts a temporary manifest for bounded negative qualification.
+Supported manifest subset (not general YAML): spaces-only indentation; blank
+lines/full-line comments; unique top-level global/tasks/rules/failure_conditions;
+global.always path list at two spaces; named tasks at two spaces with one load
+path list at four spaces; unindented rule lists with literal true/false; and
+unindented failure identifier lists. Names are lowercase snake_case; paths are
+unquoted docs/ Markdown/YAML paths. Ordering is preserved. Tabs, other indentation,
+quoted scalars, inline comments, flow collections, anchors, tags, multiline
+scalars and all other syntax are rejected. Structural validation follows parsing.
+
+Defaults to docs_change plus Phase A evidence; no Git history, owner settings,
+scratch tooling, site-packages or running application is required. --manifest
+accepts a temporary manifest for bounded negative qualification.
 """
 import argparse
 from pathlib import Path
@@ -11,7 +20,6 @@ import re
 import sys
 from urllib.parse import unquote, urlsplit
 
-import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
 ARCHITECTURE = 'docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md'
@@ -23,21 +31,68 @@ ADR_NAMES = (
 )
 
 
-class UniqueKeyLoader(yaml.SafeLoader):
-    pass
+def parse_manifest(text):
+    """Parse only the manifest subset documented above; reject everything else."""
+    manifest = {}
+    section = None
+    task = None
+    rules_seen = set()
+    identifier = r'[a-z][a-z0-9_]*'
+    document = r'docs/[A-Za-z0-9_./-]+\.(?:md|yaml)'
 
+    def fail(number, reason):
+        raise ValueError(f'manifest line {number}: {reason}')
 
-def mapping(loader, node, deep=False):
-    result = {}
-    for key_node, value_node in node.value:
-        key = loader.construct_object(key_node, deep=deep)
-        if key in result:
-            raise ValueError(f'duplicate YAML key: {key}')
-        result[key] = loader.construct_object(value_node, deep=deep)
-    return result
-
-
-UniqueKeyLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, mapping)
+    for number, raw in enumerate(text.splitlines(), 1):
+        if '\t' in raw:
+            fail(number, 'tabs are unsupported')
+        if not raw.strip() or raw.lstrip(' ').startswith('#'):
+            continue
+        if raw != raw.rstrip(' '):
+            fail(number, 'trailing spaces are unsupported')
+        indent = len(raw) - len(raw.lstrip(' '))
+        line = raw[indent:]
+        if indent == 0 and line in ('global:', 'tasks:', 'rules:', 'failure_conditions:'):
+            section = line[:-1]
+            if section in manifest:
+                fail(number, f'duplicate top-level key {section}')
+            manifest[section] = {} if section in ('global', 'tasks') else []
+            task = None
+        elif section == 'global' and indent == 2 and line == 'always:':
+            if 'always' in manifest['global']:
+                fail(number, 'duplicate global key always')
+            manifest['global']['always'] = []
+        elif section == 'global' and indent == 2 and re.fullmatch('- '+document, line):
+            if 'always' not in manifest['global']:
+                fail(number, 'document before always key')
+            manifest['global']['always'].append(line[2:])
+        elif section == 'tasks' and indent == 2 and re.fullmatch(identifier+':', line):
+            task = line[:-1]
+            if task in manifest['tasks']:
+                fail(number, f'duplicate task {task}')
+            manifest['tasks'][task] = {}
+        elif section == 'tasks' and task is not None and indent == 4 and line == 'load:':
+            if 'load' in manifest['tasks'][task]:
+                fail(number, f'duplicate task key {task}.load')
+            manifest['tasks'][task]['load'] = []
+        elif section == 'tasks' and task is not None and indent == 4 and re.fullmatch('- '+document, line):
+            if 'load' not in manifest['tasks'][task]:
+                fail(number, f'document before {task}.load')
+            manifest['tasks'][task]['load'].append(line[2:])
+        elif section == 'rules' and indent == 0:
+            match = re.fullmatch(r'- ('+identifier+r'): (true|false)', line)
+            if match is None:
+                fail(number, 'malformed rule/boolean or unsupported syntax')
+            name, boolean = match.groups()
+            if name in rules_seen:
+                fail(number, f'duplicate rule {name}')
+            rules_seen.add(name)
+            manifest['rules'].append({name: boolean == 'true'})
+        elif section == 'failure_conditions' and indent == 0 and re.fullmatch('- '+identifier, line):
+            manifest['failure_conditions'].append(line[2:])
+        else:
+            fail(number, 'unexpected key, indentation, list item or unsupported syntax')
+    return manifest
 
 
 def require(condition, message):
@@ -89,7 +144,7 @@ def markdown_links(name):
 
 
 def validate(manifest_path):
-    manifest = yaml.load(manifest_path.read_text(), Loader=UniqueKeyLoader)
+    manifest = parse_manifest(manifest_path.read_text())
     require(isinstance(manifest, dict), 'manifest: expected mapping')
     require(set(manifest) == {'global', 'tasks', 'rules', 'failure_conditions'}, 'manifest: invalid top-level structure')
     require(isinstance(manifest['global'], dict) and set(manifest['global']) == {'always'}, 'manifest: invalid global structure')
@@ -115,6 +170,8 @@ def validate(manifest_path):
             'docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md',
             'docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md')),
             f'{task}: missing Phase B study/evidence')
+    require('docs/architecture/STACK_OVERVIEW.md' in tasks['review']['load'],
+            'review: missing stack authority')
     docs = sorted(set(p for p in tasks['docs_change']['load'] if p.endswith('.md')) |
                   {'docs/validation/UNIFIED_UNIVERSE_ARCHITECTURE_EVIDENCE.md'})
     links = sum(markdown_links(name) for name in docs)
@@ -130,7 +187,7 @@ def main():
     args = parser.parse_args()
     try:
         validate(args.manifest)
-    except (ValueError, OSError, yaml.YAMLError) as exc:
+    except (ValueError, OSError) as exc:
         print(f'FAIL: {exc}', file=sys.stderr)
         return 1
     return 0

@@ -132,6 +132,7 @@ tasks:
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md
+    - docs/architecture/STACK_OVERVIEW.md
     - docs/architecture/OBJECT_MODEL.md
     - docs/architecture/DATA_CONTRACTS.md
     - docs/execution/PROJECT_STATE.md

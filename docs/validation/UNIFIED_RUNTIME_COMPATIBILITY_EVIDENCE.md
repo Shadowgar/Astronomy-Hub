@@ -226,49 +226,51 @@ correction below. Repository checks are reported separately at handoff; they do
 not qualify runtime integration. Review fixes do not authorize Phase C execution.
 
 
-## Final reproducible documentation validation
+## Final standard-library documentation validation
 
-The only tooling addition is the committed lightweight validator at
-`scripts/validation/validate_architecture_docs.py`. Run it from a clean repository
-checkout with the existing Python/PyYAML tooling already used for these checks;
-no package dependency was added. It needs neither Git history nor owner editor
-state nor scratch tooling. Its stable Markdown set is the `docs_change` pack plus
-Phase A evidence, including unchanged checkpoint references. Relative links in
-rendered Markdown (including image/reference targets) and balanced fences are
-checked; examples inside fences are excluded. This explains why the link count
-below differs from the earlier touched-document count.
+The committed lightweight validator is
+`scripts/validation/validate_architecture_docs.py`. It uses only Python standard
+library modules, with no dependency declaration, installation, site-packages,
+network access or external YAML tools. The earlier exported-tree proof reused
+local PyYAML; it was not a clean-environment proof. That dependency has now been
+removed. The authoritative reproducibility command is `python3 -S` below; the
+normal command passes with identical output.
 
-Manifest validation covers structure, unique YAML keys, mandatory context and
-architecture, existing document paths, duplicate entries within packs, all eight
-expected task packs, and study/evidence availability in the six required packs.
-The entry total includes global entries as well as every task-pack load entry.
-All eight specifically named ADRs must exist. Failures return nonzero.
+The supported manifest subset is documented in the module docstring: spaces-only
+indentation, blank/full-comment lines, four unique top-level sections, global
+always paths at two spaces, task names at two spaces with load paths at four,
+unindented rules with literal true/false, and failure identifiers. Ordered plain
+path lists are preserved. Duplicate top-level/task/load/rule keys, tabs, malformed
+booleans/lists, unexpected indentation and unsupported YAML syntax are rejected.
+It is deliberately not a general YAML parser.
 
-Final scope was regenerated against PR base `origin/main`
-(`0ba481f5b16f8f8637ca73628cbc2b3abaad1710`), including the new helper before staging.
-After commit the same Git comparison and validator were rerun. No product/runtime
-implementation or architecture decision changed.
+All prior structure/path/duplicate/context, study availability and ADR checks
+remain. Review additionally requires STACK_OVERVIEW, now explicitly listed after
+ENGINE_CATALOG. Other packs and the strict unlisted-document rule are unchanged.
+The stable Markdown set is docs_change plus Phase A evidence: unchanged checkpoint
+references are included, while fenced examples are excluded from link checks.
 
-Commands:
+Counts and scope were regenerated against PR base `origin/main`
+(`0ba481f5b16f8f8637ca73628cbc2b3abaad1710`). Commands:
 
 ```bash
-git rev-parse origin/main
 git diff --name-only origin/main -- . ':!.vscode/settings.json'
 python3 scripts/validation/validate_architecture_docs.py
+python3 -S scripts/validation/validate_architecture_docs.py
 git diff --check
 git diff --cached --check
-git status --short
 sha256sum .vscode/settings.json
+git status --short
 ```
 
-Observed validator output:
+Both validator commands return exit 0 with:
 
 ```text
-PASS: manifest structure/paths/duplicates; 153 document-path entries (151 task entries + 2 global entries); 8 task packs.
+PASS: manifest structure/paths/duplicates; 154 document-path entries (152 task entries + 2 global entries); 8 task packs.
 PASS: 32 checkpoint Markdown documents; 67 relative links; code fences balanced; 8 expected ADRs.
 ```
 
-Changed paths (25: 24 documentation/control files and one validator):
+Current PR paths (25: 24 documentation/control files + one helper):
 
 ```text
 AGENTS.md
@@ -298,42 +300,76 @@ docs/validation/UNIFIED_UNIVERSE_ARCHITECTURE_EVIDENCE.md
 scripts/validation/validate_architecture_docs.py
 ```
 
-Scope proof excludes only the preserved unrelated editor file and permits only
-`AGENTS.md`, documentation Markdown/YAML, and this exact validation helper.
-Whitespace checks passed with no output. The editor file remains modified and
-uncommitted, unchanged at SHA-256
+Whitespace checks pass with no output. Scope permits only AGENTS.md,
+documentation Markdown/YAML and this exact validation helper. No package,
+backend/frontend behavior, provider, vendor, runtime asset or Docker change.
+Editor settings remain modified and uncommitted, unchanged at SHA-256
 `6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
-No application, provider, vendor, runtime asset, package dependency or Docker
-behavior changed. No application/Docker/browser validation or runtime claim.
+Phase A historical results remain unchanged; its current command is valid.
+No application/Docker/browser validation or Phase C implementation is claimed.
 
-### Bounded negative proof
+### Reproducible bounded negative and clean-tree proofs
 
-The following creates a temporary manifest only; tracked docs remain unchanged:
+Stage the correction before running the following. It uses only standard library
+and creates temporary copies; no tracked file is modified to manufacture failure.
+The staged tree is exported without Git metadata or owner editor state and checked
+using `python3 -S`. After commit the same qualification is repeated against the
+committed index tree.
 
 ```bash
-python3 - <<'PY_NEGATIVE'
+python3 -S - <<'PY_PROOF'
 from pathlib import Path
-import subprocess, tempfile, yaml
-manifest = yaml.safe_load(Path('docs/context/CONTEXT_MANIFEST.yaml').read_text())
-manifest['tasks']['review']['load'].append(manifest['tasks']['review']['load'][0])
-with tempfile.TemporaryDirectory(prefix='architecture-docs-negative-') as directory:
-    path = Path(directory) / 'duplicate.yaml'
-    path.write_text(yaml.safe_dump(manifest))
-    result = subprocess.run(['python3', 'scripts/validation/validate_architecture_docs.py',
-                             '--manifest', str(path)], capture_output=True, text=True)
-    print(result.stderr.strip())
-    print('Negative proof exit:', result.returncode)
-    assert result.returncode == 1
-PY_NEGATIVE
+import io, subprocess, tarfile, tempfile
+
+command = ['python3', '-S', 'scripts/validation/validate_architecture_docs.py']
+text = Path('docs/context/CONTEXT_MANIFEST.yaml').read_text()
+cases = {
+    'duplicate document': text.replace('    - docs/context/CORE_CONTEXT.md\n', '    - docs/context/CORE_CONTEXT.md\n' * 2, 1),
+    'duplicate top key': text + '\nglobal:\n',
+    'malformed key': text.replace('tasks:\n', 'tasks: {}\n', 1),
+    'duplicate task': text.replace('  backend_change:\n', '  docs_change:\n', 1),
+    'duplicate task key': text.replace('    load:\n', '    load:\n    load:\n', 1),
+    'duplicate rule': text.replace('failure_conditions:\n', '- do_not_load_unlisted_documents: true\n\nfailure_conditions:\n', 1),
+    'malformed boolean': text.replace(': true\n', ': yes\n', 1),
+    'tabs': text.replace('  always:', '\talways:', 1),
+    'unexpected indent': text.replace('  always:', '   always:', 1),
+    'malformed list': text.replace('  - docs/context/CORE_CONTEXT.md', '  docs/context/CORE_CONTEXT.md', 1),
+    'unsupported anchor': text.replace('tasks:\n', 'tasks: &anchor\n', 1),
+}
+with tempfile.TemporaryDirectory(prefix='architecture-stdlib-proof-') as directory:
+    root = Path(directory)
+    for name, content in cases.items():
+        path = root / 'invalid.yaml'
+        path.write_text(content)
+        result = subprocess.run(command + ['--manifest', str(path)], capture_output=True, text=True)
+        assert result.returncode == 1, (name, result.stdout, result.stderr)
+        print(f'PASS negative {name}: exit 1; {result.stderr.strip()}')
+    tree = subprocess.check_output(['git', 'write-tree'], text=True).strip()
+    exported = root / 'clean'
+    exported.mkdir()
+    with tarfile.open(fileobj=io.BytesIO(subprocess.check_output(['git', 'archive', tree]))) as bundle:
+        bundle.extractall(exported, filter='data')
+    subprocess.run(command, cwd=exported, check=True)
+    doc = exported / 'docs/architecture/ENGINE_SPEC.md'
+    doc.write_text(doc.read_text() + '\n[Negative link](missing-negative.md)\n')
+    result = subprocess.run(command, cwd=exported, capture_output=True, text=True)
+    assert result.returncode == 1, (result.stdout, result.stderr)
+    print(f'PASS negative broken link: exit 1; {result.stderr.strip()}')
+PY_PROOF
 ```
 
-Observed: `FAIL: review: duplicate document entry`; `Negative proof exit: 1`.
-The staged tree was exported with `git write-tree` and `git archive` into a
-clean temporary directory: the default validator passed with the same output.
-Appending a broken relative link only to that exported copy of ENGINE_SPEC
-returned exit 1: `FAIL: docs/architecture/ENGINE_SPEC.md: broken relative link
-missing-architecture-negative.md`. No tracked document was changed for either
-negative proof.
-A clean exported committed tree is also checked with this repository command;
-no temporary validator or owner settings are needed. The final review/check
-state is reported separately at handoff and does not qualify Phase C.
+Observed: the clean exported tree passes with the exact totals above. All 12
+negative cases return exit 1: duplicate document, duplicate top-level key,
+malformed key, duplicate task, duplicate task load key, duplicate rule, malformed
+boolean, tab, unexpected indentation, malformed list, unsupported anchor, broken
+relative Markdown link. The key required failures are:
+
+```text
+FAIL: docs_change: duplicate document entry
+FAIL: manifest line 199: duplicate top-level key global
+FAIL: manifest line 8: unexpected key, indentation, list item or unsupported syntax
+FAIL: docs/architecture/ENGINE_SPEC.md: broken relative link missing-negative.md
+```
+
+The final Codex review/check state is reported separately at handoff; validation
+of documents does not qualify planned runtime integration.
