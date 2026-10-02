@@ -112,7 +112,10 @@ The Hub owns the product shell, navigation, and Above Me decision layer.
 
 The approved future Hub-owned universal state is small: mode, time, observer,
 selected entity/body, camera intent, applicable layers, and history/context.
-Exact schema and bridge topology remain open. Engines realize these intents
+The [Phase B study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md) recommends
+a versioned capability bridge between independently built, same-origin runtime
+frames with only the active heavy renderer mounted. Exact schema and runtime
+qualification remain open. Engines realize these intents
 through qualified adapters and own their internal camera, selection and scene
 behavior. Shared product intent is not permission to modify renderer internals.
 

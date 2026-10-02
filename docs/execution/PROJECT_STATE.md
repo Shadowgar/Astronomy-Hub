@@ -25,42 +25,37 @@ Proven runtime conflicts must be reported, not silently overwritten.
 ## CURRENT MODE
 
 ```text
-Mode: UNIFIED_UNIVERSE_ARCHITECTURE_DOCS
-Approach: docs-only approved product/renderer boundary checkpoint
+Mode: UNIFIED_RUNTIME_COMPATIBILITY_STUDY
+Approach: Phase B source-backed research; documentation/control changes only
 ```
 
 ## CURRENT OBJECTIVE
 
-Document the approved unified astronomy, Earth, and planetary exploration
-workspace before feature implementation resumes. Detailed authority is
-[Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
-
-Baseline: merged PR #52, main `7c54596f59b2d43afda561cbad1b0d587d7407f6`.
-Home `/`, Observe `/observe`, Tonight `/tonight`, and Sky host `/sky-engine`
-share the ORAS shell. `/oras-sky-engine/` is the contained SWE renderer.
-These foundations remain implemented; the historical shared-shell blanket
-console-clean gate remains PARTIAL. No new runtime evidence is claimed here.
+Complete the [God's Eye / SWE compatibility study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md)
+after merged PR #53, baseline `0ba481f5b16f8f8637ca73628cbc2b3abaad1710`.
+Existing Home/Observe/Tonight/Sky and standalone SWE remain implemented; historical
+console-clean status remains PARTIAL. No runtime integration occurs in this task.
 
 ## ACTIVE TASK
 
 ```text
-Task: Unified Universe Architecture documentation
-Branch: unified-universe-architecture-1
-Scope: documentation/control files only; no runtime feature implementation
+Task: God's Eye + SWE compatibility/upgradeability study
+Branch: unified-runtime-compatibility-study-1
+Scope: docs/control only; isolated external source/fixture experiments permitted
 ```
 
-Earth/God's Eye integration, Planet/Cesium surfaces, universal state, external
-astronomy registry, and cross-engine handoffs are APPROVED / PLANNED, not
-implemented. Git/build consumption mechanism, bridge topology, exact schema/API,
-handoff animation and solar-system-scale renderer are OPEN / UNDECIDED.
-Architecture lifecycle labels do not grant REAL feature status.
+Study resolves preferred external pinned source/full-app build, same-origin frames,
+versioned capability bridge and active-only heavy renderer lifetime. Implementation
+is PLANNED. Exact protocol, base-path/browser qualification, provider permissions,
+SWE ignored-source reconstruction and solar-system scale remain OPEN.
 
 ## CURRENT PRIORITY
 
-Reconcile authority and roadmap, validate the docs-only diff/links/context, open
-the requested PR, and perform one single-agent review cycle. Do not merge.
-No frontend/backend suites, Docker builds, or browser qualification are required
-for this docs-only checkpoint; it claims no changed runtime behavior.
+Validate documentation scope/links, open the study PR, inspect one normal review
+cycle and stop without merging. Source evidence and three isolated Node probe
+groups do not constitute Docker/browser qualification. The next recommended task
+is Phase C skeleton in study section 29, starting with source/artifact gates;
+no Phase C execution is authorized by this study. Preserve editor settings.
 
 ## KNOWN ISSUES
 

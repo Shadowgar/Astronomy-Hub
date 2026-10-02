@@ -140,9 +140,10 @@ The renderer-centered flagship workspace is planned.
 
 ## 9. Current Sequence and Deferred Work
 
-The active task is the docs-only architecture checkpoint. The next bounded task
-after its PR is **God's Eye + SWE compatibility/upgradeability study**. Runtime
-skeleton, ISS handoff, Mars proof, then astronomy extensions follow that study.
+The active task is the docs-only [Phase B compatibility study](studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md),
+with [source/fixture evidence](validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md).
+It resolves preferred runtime topology/consumption/lifetime. The next recommended
+task is its bounded Phase C skeleton; ISS, Mars and astronomy extensions follow.
 `oras_horizon.v1` remains approved but is deferred to the astronomy-extension
 phase; it is not next. Consult the unified architecture for the complete A–F order.
 

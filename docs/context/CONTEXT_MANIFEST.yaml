@@ -14,6 +14,8 @@ tasks:
     - docs/DOC_INVENTORY.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
+    - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
+    - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md
@@ -157,6 +159,8 @@ tasks:
     - docs/DOCUMENT_INDEX.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
+    - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
+    - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md

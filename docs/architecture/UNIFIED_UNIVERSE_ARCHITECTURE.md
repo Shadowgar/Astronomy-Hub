@@ -11,6 +11,21 @@ This is the detailed architecture reference for renderer and engine work.
 [validation spec](../validation/SYSTEM_VALIDATION_SPEC.md) controls proof.
 Approval of this direction does not authorize implementation of later phases.
 
+## Phase B decision update — 2026-10-02
+
+Phase A is merged in PR #53. The [compatibility study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md)
+resolves the preferred consumption/topology/lifecycle direction: separately pinned
+external upstream checkout, independently built complete God's Eye runtime,
+same-origin disposable frames, versioned capability bridge, small Hub product
+state and only the active heavy renderer mounted. Extensions remain external,
+with a proposed generic standalone catalog hook; no integration is implemented.
+This dated update supersedes corresponding OPEN/next-task wording in the original
+Phase A tables and ADR consequences below, without changing their product scope.
+Exact protocol, browser/base-path qualification, SWE source reconstruction,
+provider permissions, satellite simulation clock and solar-system scale remain
+open. Next recommended task is the bounded Phase C plan in study section 29;
+this study does not authorize its execution.
+
 ## 1. Product principle
 
 Astronomy Hub is a unified, continuously navigable astronomy, Earth, and
