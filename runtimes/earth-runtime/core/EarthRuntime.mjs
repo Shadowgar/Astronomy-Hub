@@ -1,0 +1,43 @@
+import {Cartesian3,Color,JulianDate,TileMapServiceImageryProvider} from 'cesium';
+import {ViewerController} from './ViewerController.mjs';
+import {CameraController} from './CameraController.mjs';
+import {LayerRegistry} from './LayerRegistry.mjs';
+import {SelectionStore} from './SelectionStore.mjs';
+import {AttributionManager} from './AttributionManager.mjs';
+import {ProviderStatusRegistry} from './ProviderStatusRegistry.mjs';
+import {RuntimeLifecycle} from './RuntimeLifecycle.mjs';
+export const ORAS_SITE=Object.freeze({lat:41.321903,lon:-79.585394,elevationM:432.816});
+export class EarthRuntime {
+  constructor(){this.ready=false;this.lifecycle=new RuntimeLifecycle();this.site={...ORAS_SITE};this.observer={...ORAS_SITE};this.timings={moduleLoadedMs:performance.now()};this.layerRows=new Map();this.selectionMetadata=null;}
+  async initialize(){
+    this.controller=new ViewerController(document.querySelector('#viewer'),document.querySelector('#credits'));this.viewer=this.controller.viewer;this.lifecycle.add(()=>this.controller.destroy());
+    this.camera=new CameraController(this.viewer);this.lifecycle.add(()=>this.camera.destroy());this.camera.home(this.site);
+    this.attribution=new AttributionManager(document.querySelector('#attributions'));this.lifecycle.add(()=>this.attribution.destroy());
+    this.attribution.set('code','God’s Eye MIT modules','/earth-runtime/LICENSE-gods-eye.txt');
+    this.attribution.set('base','Natural Earth · public domain','https://www.naturalearthdata.com/about/terms-of-use/');
+    this.selection=new SelectionStore(this.viewer,this.camera,metadata=>this.showSelection(metadata));this.lifecycle.add(()=>this.selection.destroy());
+    this.providerStatus=new ProviderStatusRegistry((id,status)=>this.showProvider(id,status));
+    this.context={viewer:this.viewer,camera:this.camera,selection:this.selection,attribution:this.attribution,providerStatus:this.providerStatus,observer:()=>this.observer,time:()=>this.viewer.clock.currentTime,abortSignal:this.lifecycle.controller.signal};
+    this.registry=new LayerRegistry(this.context,rows=>this.showLayers(rows));this.lifecycle.add(()=>this.registry.destroy());
+    const definitions=[
+      {id:'oras-site',title:'ORAS site',category:'Site context',capabilities:['selection','focus'],attribution:'ORAS canonical site',load:async()=>this.siteLayer()},
+      {id:'aircraft',title:'Aircraft near ORAS',category:'Live Earth',capabilities:['selection','tracking','live-only'],attribution:'adsb.lol · ODbL 1.0',load:async()=>{const {createFlightsAdapter}=await import('../layers/GodsEyeFlightsAdapter.mjs');return createFlightsAdapter(this.context);}},
+      {id:'satellites',title:'Satellites · stations',category:'Live Earth',capabilities:['selection','tracking','live-only'],attribution:'CelesTrak · satellite.js',load:async()=>{const {createSatellitesAdapter}=await import('../layers/GodsEyeSatellitesAdapter.mjs');return createSatellitesAdapter(this.context);}},
+      {id:'weather',title:'Weather at ORAS',category:'Environment',capabilities:['selection','live-only'],attribution:'Open-Meteo · CC BY 4.0',load:async()=>{const {createWeatherAdapter}=await import('../layers/GodsEyeWeatherAdapter.mjs');return createWeatherAdapter(this.context);}},
+    ];
+    for(const definition of definitions)this.registry.register(definition);this.registry.notify();
+    this.bind('#home',()=>this.camera.home(this.site));this.bind('#focus',()=>{if(this.selection.value)this.camera.focus(this.selection.value)});this.bind('#track',()=>{if(this.selection.value)this.camera.track(this.selection.value)});this.bind('#stop',()=>this.camera.stopTracking());
+    this.timings.shellInteractiveMs=performance.now();this.setTime(new Date().toISOString());await this.registry.enable('oras-site');
+    this.ready=true;this.timings.viewerReadyMs=performance.now();document.querySelector('#loading').hidden=true;document.querySelector('#earth').dataset.status='ready';
+    // Imagery is optional and never blocks the core Viewer or bridge.
+    void TileMapServiceImageryProvider.fromUrl('/earth-runtime/cesium/Assets/Textures/NaturalEarthII').then(provider=>{if(!this.lifecycle.closed)this.viewer.imageryLayers.addImageryProvider(provider)}).catch(()=>{if(!this.lifecycle.closed)document.querySelector('.terrain').textContent='Imagery unavailable · Ellipsoid terrain'});
+  }
+  bind(selector,listener){const node=document.querySelector(selector);node.addEventListener('click',listener);this.lifecycle.add(()=>node.removeEventListener('click',listener));}
+  siteLayer(){let entity;return {initialize(){},enable:()=>{entity=this.viewer.entities.add({id:'oras-site',name:'Oil Region Astronomical Society',position:Cartesian3.fromDegrees(this.site.lon,this.site.lat,this.site.elevationM),point:{pixelSize:12,color:Color.CYAN}});entity.orasMetadata={layerId:'oras-site',name:'Oil Region Astronomical Society',detail:`${this.site.lat}, ${this.site.lon} · site elevation ${this.site.elevationM} m; no measured horizon`,site:{...this.site}};this.viewer.scene.requestRender();},disable:()=>{this.selection.clearLayer('oras-site');if(entity)this.viewer.entities.remove(entity);},destroy:()=>{if(entity)this.viewer.entities.remove(entity);},update:()=>{if(entity)entity.position=Cartesian3.fromDegrees(this.site.lon,this.site.lat,this.site.elevationM)}};}
+  showLayers(rows){for(const row of rows){let node=this.layerRows.get(row.id);if(!node){node=document.createElement('div');node.dataset.layerId=row.id;const label=document.createElement('label'),input=document.createElement('input');input.type='checkbox';input.setAttribute('aria-label',row.title);label.append(input,document.createTextNode(' '+row.title));const status=document.createElement('small');status.dataset.providerStatus='disabled';status.textContent='Disabled';const retry=document.createElement('button');retry.textContent='Retry '+row.title;retry.hidden=true;node.append(label,status,retry);document.querySelector('#layers').append(node);const change=()=>{if(input.checked){this.timings.firstLayerEnabledMs??=performance.now();void this.registry.enable(row.id);}else {void this.registry.disable(row.id);status.textContent='Disabled';status.dataset.providerStatus='disabled';retry.hidden=true}};input.addEventListener('change',change);const retryLayer=async()=>{await this.registry.disable(row.id);void this.registry.enable(row.id)};retry.addEventListener('click',retryLayer);this.lifecycle.add(()=>{input.removeEventListener('change',change);retry.removeEventListener('click',retryLayer)});this.layerRows.set(row.id,node);}if(row.id==='oras-site'){const label=node.querySelector('small');label.dataset.providerStatus=row.status;label.textContent=row.status==='ready'?'Canonical ORAS site · 432.816 m':'Disabled';}node.dataset.layerStatus=row.status;node.querySelector('input').checked=['loading','ready','unavailable'].includes(row.status);if(row.status==='unavailable')this.showProvider(row.id,{status:'unavailable',message:'Layer could not load. Retry.'});}}
+  showProvider(id,status){const node=this.layerRows.get(id);if(!node)return;const text=node.querySelector('small');text.dataset.providerStatus=status.status;text.textContent=status.status==='ready'?`${status.count} records · ${status.temporalMode} · ${status.observedAt??'timestamp unavailable'}`:status.status==='unavailable'?status.message:'Loading source…';node.querySelector('button').hidden=status.status!=='unavailable';if(status.status==='ready'&&!this.timings.firstLayerReadyMs&&id!=='oras-site'){this.timings.firstLayerReadyMs=performance.now();this.timings.firstLayerActivationMs=this.timings.firstLayerReadyMs-(this.timings.firstLayerEnabledMs??this.timings.firstLayerReadyMs);}}
+  showSelection(metadata){this.selectionMetadata=metadata;document.querySelector('#selection').hidden=!metadata;if(metadata){document.querySelector('#selected-name').textContent=metadata.name;document.querySelector('#selected-detail').textContent=metadata.detail;}}
+  setTime(utc){if(this.lifecycle.closed)throw Error('Disposed');this.viewer.clock.currentTime=JulianDate.fromIso8601(utc);this.viewer.clock.shouldAnimate=false;document.querySelector('#time').textContent='Requested time: '+utc+' · live layers use source time';this.viewer.scene.requestRender();return {ok:true,temporalMode:'CONTROLLED',effectiveTime:JulianDate.toDate(this.viewer.clock.currentTime).toISOString()};}
+  async setObserver(value){if(this.lifecycle.closed)throw Error('Disposed');this.observer={...value};await this.registry.update(this.context);return {ok:true,effectiveObserver:{...this.observer}};}
+  async destroy(){await this.lifecycle.destroy();this.ready=false;document.querySelector('#earth').dataset.status='destroyed';}
+}
