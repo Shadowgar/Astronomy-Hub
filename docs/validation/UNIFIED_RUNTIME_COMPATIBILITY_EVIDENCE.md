@@ -184,7 +184,7 @@ sha256sum /tmp/runtime-compatibility-study/probe.mjs
 Use the existing lightweight checkpoint helper from the prior architecture task:
 
 ```bash
-python3 /tmp/astronomy-unified-architecture/validate_docs.py
+python3 scripts/validation/validate_architecture_docs.py
 git diff --check
 git diff --name-only
 git status --short
@@ -226,40 +226,49 @@ correction below. Repository checks are reported separately at handoff; they do
 not qualify runtime integration. Review fixes do not authorize Phase C execution.
 
 
-## Final authority correction validation
+## Final reproducible documentation validation
 
-The final correction reconciles live topology/lifecycle summaries with the
-completed Phase B study. It does not change architecture decisions or implemented
-runtime status. Original Phase A passages explicitly superseded by the dated
-Phase B update in the unified architecture remain historical reference.
+The only tooling addition is the committed lightweight validator at
+`scripts/validation/validate_architecture_docs.py`. Run it from a clean repository
+checkout with the existing Python/PyYAML tooling already used for these checks;
+no package dependency was added. It needs neither Git history nor owner editor
+state nor scratch tooling. Its stable Markdown set is the `docs_change` pack plus
+Phase A evidence, including unchanged checkpoint references. Relative links in
+rendered Markdown (including image/reference targets) and balanced fences are
+checked; examples inside fences are excluded. This explains why the link count
+below differs from the earlier touched-document count.
 
-These results were regenerated from the final correction tree against PR base
-`origin/main` (`0ba481f5b16f8f8637ca73628cbc2b3abaad1710`), rather than copied from an earlier review.
-The evidence file itself is already among the changed paths; recording this
-section adds no path or relative Markdown link. The same helper is rerun after
-this record and after commit to confirm the committed tree matches these counts.
+Manifest validation covers structure, unique YAML keys, mandatory context and
+architecture, existing document paths, duplicate entries within packs, all eight
+expected task packs, and study/evidence availability in the six required packs.
+The entry total includes global entries as well as every task-pack load entry.
+All eight specifically named ADRs must exist. Failures return nonzero.
+
+Final scope was regenerated against PR base `origin/main`
+(`0ba481f5b16f8f8637ca73628cbc2b3abaad1710`), including the new helper before staging.
+After commit the same Git comparison and validator were rerun. No product/runtime
+implementation or architecture decision changed.
 
 Commands:
 
 ```bash
 git rev-parse origin/main
 git diff --name-only origin/main -- . ':!.vscode/settings.json'
-python3 /tmp/astronomy-unified-architecture/validate_docs.py
+python3 scripts/validation/validate_architecture_docs.py
 git diff --check
 git diff --cached --check
 git status --short
 sha256sum .vscode/settings.json
 ```
 
-Observed validation output:
+Observed validator output:
 
 ```text
-PASS: 23 documentation/control files; runtime/application changes 0; editor settings checksum preserved.
-PASS: 58 relative Markdown links; code fences balanced; 8 ADRs present.
-PASS: manifest parsed; 153 load entries exist; unified architecture included in all 8 task packs.
+PASS: manifest structure/paths/duplicates; 153 document-path entries (151 task entries + 2 global entries); 8 task packs.
+PASS: 32 checkpoint Markdown documents; 67 relative links; code fences balanced; 8 expected ADRs.
 ```
 
-Changed documentation/control paths (23):
+Changed paths (25: 24 documentation/control files and one validator):
 
 ```text
 AGENTS.md
@@ -285,12 +294,46 @@ docs/features/FEATURE_TRACKER.md
 docs/product/PRODUCT_VISION.md
 docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
 docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
+docs/validation/UNIFIED_UNIVERSE_ARCHITECTURE_EVIDENCE.md
+scripts/validation/validate_architecture_docs.py
 ```
 
-`git diff --check` and staged whitespace checks passed with no output. The
-correction and cumulative PR scope contain documentation/control files only;
-no backend, frontend, vendor, scripts, data, package or Docker changes.
-Unrelated `.vscode/settings.json` remains modified and uncommitted, with unchanged
-SHA-256 `6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
-No local application, Docker or browser validation was run in this correction;
-no runtime capability or production qualification is claimed.
+Scope proof excludes only the preserved unrelated editor file and permits only
+`AGENTS.md`, documentation Markdown/YAML, and this exact validation helper.
+Whitespace checks passed with no output. The editor file remains modified and
+uncommitted, unchanged at SHA-256
+`6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+No application, provider, vendor, runtime asset, package dependency or Docker
+behavior changed. No application/Docker/browser validation or runtime claim.
+
+### Bounded negative proof
+
+The following creates a temporary manifest only; tracked docs remain unchanged:
+
+```bash
+python3 - <<'PY_NEGATIVE'
+from pathlib import Path
+import subprocess, tempfile, yaml
+manifest = yaml.safe_load(Path('docs/context/CONTEXT_MANIFEST.yaml').read_text())
+manifest['tasks']['review']['load'].append(manifest['tasks']['review']['load'][0])
+with tempfile.TemporaryDirectory(prefix='architecture-docs-negative-') as directory:
+    path = Path(directory) / 'duplicate.yaml'
+    path.write_text(yaml.safe_dump(manifest))
+    result = subprocess.run(['python3', 'scripts/validation/validate_architecture_docs.py',
+                             '--manifest', str(path)], capture_output=True, text=True)
+    print(result.stderr.strip())
+    print('Negative proof exit:', result.returncode)
+    assert result.returncode == 1
+PY_NEGATIVE
+```
+
+Observed: `FAIL: review: duplicate document entry`; `Negative proof exit: 1`.
+The staged tree was exported with `git write-tree` and `git archive` into a
+clean temporary directory: the default validator passed with the same output.
+Appending a broken relative link only to that exported copy of ENGINE_SPEC
+returned exit 1: `FAIL: docs/architecture/ENGINE_SPEC.md: broken relative link
+missing-architecture-negative.md`. No tracked document was changed for either
+negative proof.
+A clean exported committed tree is also checked with this repository command;
+no temporary validator or owner settings are needed. The final review/check
+state is reported separately at handoff and does not qualify Phase C.
