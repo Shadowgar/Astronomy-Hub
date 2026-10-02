@@ -30,6 +30,20 @@ if [[ "${START_PAGE_ONLY}" != "1" ]]; then
     echo "ORAS_EARTH_ARTIFACT_DIR must name an existing absolute remote artifact path" >&2
     exit 1
   fi
+  # Compare POSIX paths lexically; these are remote paths, never local realpaths.
+  # Reject containment before the first SSH or rsync operation.
+  python3 -S - "${REMOTE_DIR}" "${ORAS_EARTH_ARTIFACT_DIR}" <<'PY_PATH_GUARD'
+import posixpath
+import sys
+
+remote, artifact = sys.argv[1:]
+if not posixpath.isabs(remote):
+    raise SystemExit('REMOTE_DIR must be an absolute remote path')
+remote = posixpath.normpath('/' + remote.lstrip('/'))
+artifact = posixpath.normpath('/' + artifact.lstrip('/'))
+if posixpath.commonpath((remote, artifact)) == remote:
+    raise SystemExit('Provision ORAS_EARTH_ARTIFACT_DIR outside REMOTE_DIR; rsync --delete would remove an artifact inside the deployment destination')
+PY_PATH_GUARD
 fi
 
 REMOTE_TARGET="${REMOTE_USER}@${REMOTE_HOST}"
