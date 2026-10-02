@@ -1,0 +1,1033 @@
+{
+  "schema": 1,
+  "sky": {
+    "upstream": "https://github.com/Stellarium/stellarium-web-engine",
+    "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+    "historical_import_sha": null,
+    "overlay": {
+      "apps/web-frontend/.env.production": "6ee1c63be8cf086326342ffe32f9bf306020b3b47c8fd0c8e5e602085f28e580",
+      "apps/web-frontend/.gitignore": "101704b19964bf267612dabbeedf0124e342f8c62e5f0e266b65f48aa65b62e2",
+      "apps/web-frontend/package.json": "7e389d1accbefc8c863c6696212305c38a8445f5e65d44246c1b88c1323c20a1",
+      "apps/web-frontend/public/index.html": "f7f67dc5ce0d238c30c23abf75f4c884cdea5b61968df7d782ad3c8a2c347c2b",
+      "apps/web-frontend/src/App.vue": "237396460679a81f0feb97ed108a99a3a56d5a7df4a70c00055c4b927ab3da6d",
+      "apps/web-frontend/src/assets/sw_helpers.js": "d67a9ec3486c2ad719b902ae8c55f519bb6b0986bed98fb36471dcbffe4e3cc9",
+      "apps/web-frontend/src/components/gui-loader.vue": "4eeeaaa5656f53c2eeb30f649fe1ad4a1dbf4534e98543e61f0588fd358cef37",
+      "apps/web-frontend/src/components/location-mgr.vue": "d2a89121ce4f096363566d536f04501200a8c58eeaecb8ae5135e7cab90b4477",
+      "apps/web-frontend/src/components/selected-object-info.vue": "f31b12b5cc6f748ae9e46423e6f55e9c4470a5e34ff95907b5ca0c55b9c62f6d",
+      "apps/web-frontend/src/components/skysource-search.vue": "868d3173839361045a06676463b39d6f1a73d82b2c319c539f7b08e3dfa0c1d0",
+      "apps/web-frontend/src/components/target-search.vue": "938f24114e5e6974365b9e4940d20a257ef650b931b00ce6a5d8013f10aae9bd",
+      "apps/web-frontend/src/components/toolbar.vue": "2fe8e3752ef92326ab382058b57138db18080cf6f1df5bb004959b6c06dd1669",
+      "apps/web-frontend/src/locales/de.json": "98226a680d1ed573406d21976f9cacaf3a3a36849de0ce721b0aa712ee4a3349",
+      "apps/web-frontend/src/locales/en.json": "2bc4e49d6e970262a2083d945c8ce032706c6961f7278b9343413fb36b1f5ad4",
+      "apps/web-frontend/src/locales/fr.json": "1a67faeb4a9be48f596b171b4cce88c2ded3866d011509466ae8259830ce85c5",
+      "apps/web-frontend/src/main.js": "641ed196cd90e024d738e4eca34e2cc5dfbd786e9413376159ff7f13a2e7401d",
+      "apps/web-frontend/src/store/index.js": "366103c1d255bd531398d71febebcdb20cfcd1ace6e9f570daea77d216ab13d4",
+      "apps/web-frontend/vue.config.js": "d9c9775a541e6ae314bd764dc518fc83b325b4f2eef659799a23cd65049e122a",
+      "apps/web-frontend/yarn.lock": "1a7b444b18334a34e9818536afac9654eba09199901fec607ef7c50273132115",
+      "src/modules/stars.c": "6c80e56d50123dc40256b6d55f26567db555ddb0949b57a74c4e9d876dba7042",
+      "apps/web-frontend/src/assets/oras_catalog_packs.js": "a74300151602a124ef401bb337809cda414aa8c5b4830a9d94213d72d41ca8e9",
+      "apps/web-frontend/src/assets/oras_data_config.js": "3c38a1b1de34fd67a02c163387353c754ea3b71c7b617c580c0a0a65fa0afb94",
+      "apps/web-frontend/src/assets/oras_dense_stars.js": "2bd604075670952204c9ec8cb9d0806b592d12119cf1ee326afe26c455393de2",
+      "apps/web-frontend/src/components/oras-catalog-status-dialog.vue": "db39539669597daa7a18b82575385a90a6eab91ad7d2c598349b6258bdc1e76b",
+      "apps/web-frontend/src/components/oras-dense-stars-status-dialog.vue": "1047fdfeff476e6b288b6208575aece66f04a4475aede651114603b79a20ef8e",
+      "apps/web-frontend/package-lock.json": "9fa58d0d1cf23d45b66080f2a42c486a0ccc26f0debcb0a786f8320a0e43bf23"
+    },
+    "baseline_artifacts": [
+      {
+        "path": "css/app.9cd008e2.css",
+        "sha256": "f195f882debee654c708c4436eada8fcdcd715f1dd21a3a5c34e08610f774f67",
+        "bytes": 3058
+      },
+      {
+        "path": "css/chunk-vendors.11c203ce.css",
+        "sha256": "c190ae569a8bbacd73b194d3e1b14d7ac0412ad1187d1907a5dddcbff5239c4b",
+        "bytes": 654200
+      },
+      {
+        "path": "favicon.ico",
+        "sha256": "acdf5baef765f0dec63123f2ba7ba8e769176e4585d20683c9fda79930d80b8e",
+        "bytes": 2166
+      },
+      {
+        "path": "fonts/Roboto-Black.313a6563.woff",
+        "sha256": "968f400b30a7ecfd42c3c42396ef8f961bbea8d5b553823e1d461c8ea871156e",
+        "bytes": 86508
+      },
+      {
+        "path": "fonts/Roboto-Black.59eb3601.woff2",
+        "sha256": "41e55c257815e19c8e2384b6d1d5180590599a56f23f3eab417c5fc7aa553511",
+        "bytes": 64960
+      },
+      {
+        "path": "fonts/Roboto-BlackItalic.cc2fadc3.woff",
+        "sha256": "181c2d282d0022a73f27b858c3a33f7f0f643c733f106de9c7429ffcf6253b7a",
+        "bytes": 94048
+      },
+      {
+        "path": "fonts/Roboto-BlackItalic.f75569f8.woff2",
+        "sha256": "0aea9779e22ba00a30321dc6274376ddf02b97b35bc2b94c98fdfa6cdfcfcacc",
+        "bytes": 72088
+      },
+      {
+        "path": "fonts/Roboto-Bold.50d75e48.woff",
+        "sha256": "b1767a0c3e5dfb3a5009efee4445ff15d6362e9285461e17bded186f1e9456f0",
+        "bytes": 86184
+      },
+      {
+        "path": "fonts/Roboto-Bold.b52fac2b.woff2",
+        "sha256": "8e44376b735dcc9027acbcc8a0df64c3f886a23529eff27b022f344d719e90f2",
+        "bytes": 64740
+      },
+      {
+        "path": "fonts/Roboto-Bold.ttf",
+        "sha256": "7d0b991ee3e0be7af01ad7ea8cd2beea6c00a25e679a0226b6737f079aafff86",
+        "bytes": 170760
+      },
+      {
+        "path": "fonts/Roboto-BoldItalic.4fe0f73c.woff",
+        "sha256": "bc9285e19eca8d21b97742361b5fd8f7ef01cec47cc96029e0cba44f9b20a495",
+        "bytes": 91968
+      },
+      {
+        "path": "fonts/Roboto-BoldItalic.94008e69.woff2",
+        "sha256": "c9d5a0e6287ab6c0d3e7c80ebdeb26427680849215882e3db0061efcf64c2575",
+        "bytes": 70360
+      },
+      {
+        "path": "fonts/Roboto-Light.c73eb1ce.woff",
+        "sha256": "18827349c7febd4b8d01aa907c67ea9b8011242078326b24703978454fdf351a",
+        "bytes": 85692
+      },
+      {
+        "path": "fonts/Roboto-Light.d26871e8.woff2",
+        "sha256": "1d8f5280afb7f4fa0db5cdfcb751e180788b0f0da1488309c4243ebff11a9591",
+        "bytes": 64320
+      },
+      {
+        "path": "fonts/Roboto-LightItalic.13efe6cb.woff",
+        "sha256": "909df596b261a65deaae0f14f7149d2fb8f1e4d438d5e91c4f87f106a9f402c5",
+        "bytes": 92864
+      },
+      {
+        "path": "fonts/Roboto-LightItalic.e8eaae90.woff2",
+        "sha256": "9934fa0f5b4d5d3e5d75d97b072bf83e2b1e62387c512892cc5daa0217f793a0",
+        "bytes": 70760
+      },
+      {
+        "path": "fonts/Roboto-Medium.1d659482.woff",
+        "sha256": "4112fbc996a10ba2f5be2077f92be5eb143e24061a24f7c99825066ecc5b8a51",
+        "bytes": 86444
+      },
+      {
+        "path": "fonts/Roboto-Medium.90d16760.woff2",
+        "sha256": "96025fe9db6578d8bc7f4b8be739750b1490e07221c2b1f16acde2ea7669cedf",
+        "bytes": 65484
+      },
+      {
+        "path": "fonts/Roboto-MediumItalic.13ec0eb5.woff2",
+        "sha256": "160a7cf46e44a941b5c09deb7986e96eacd0b70ef583f6e13e11caad086bec0a",
+        "bytes": 71284
+      },
+      {
+        "path": "fonts/Roboto-MediumItalic.83e114c3.woff",
+        "sha256": "9a73a4b65c6483ab7e67cefed1cc57cef32a81fcec8b833b3c60c14b5cd6f9dd",
+        "bytes": 93228
+      },
+      {
+        "path": "fonts/Roboto-Regular.35b07eb2.woff",
+        "sha256": "9ae9d6545d7d7d823f8a94010db77c1a0ff71e371e8bb158df1cb98395162507",
+        "bytes": 85876
+      },
+      {
+        "path": "fonts/Roboto-Regular.73f0a88b.woff2",
+        "sha256": "47107401d0adb375ab9aa167f9d62489a849d510e740a307b5a4db60e5db3562",
+        "bytes": 64632
+      },
+      {
+        "path": "fonts/Roboto-Regular.ttf",
+        "sha256": "79e851404657dac2106b3d22ad256d47824a9a5765458edb72c9102a45816d95",
+        "bytes": 171676
+      },
+      {
+        "path": "fonts/Roboto-RegularItalic.4357beb8.woff2",
+        "sha256": "884e654cef00224110fc62cdf8f1561ff08dcaa1f359e5c5f49dab62abfe79e8",
+        "bytes": 70280
+      },
+      {
+        "path": "fonts/Roboto-RegularItalic.f5902d5e.woff",
+        "sha256": "e1b2181ca3a817d49d830fce920478488170e6921fce6126d71e2eb2e7031805",
+        "bytes": 91728
+      },
+      {
+        "path": "fonts/Roboto-Thin.ad538a69.woff2",
+        "sha256": "61b96427944966fbdac416e7ef6d343606758ea2b3fb2cad0f725f82f32ed18f",
+        "bytes": 63048
+      },
+      {
+        "path": "fonts/Roboto-Thin.d3b47375.woff",
+        "sha256": "59918a4300c02b67fe3cc4c20a545ba09da3a8303c3995000732e7118a71945a",
+        "bytes": 84224
+      },
+      {
+        "path": "fonts/Roboto-ThinItalic.5b4a33e1.woff2",
+        "sha256": "c5ace2628b6daf1cf6c80abc6170f276423624a028443eb42db1032d8960c8bc",
+        "bytes": 68328
+      },
+      {
+        "path": "fonts/Roboto-ThinItalic.8a96edbb.woff",
+        "sha256": "ae88cc5714577e7fd00821628ce3f188d4bc3160333edeba5d2683d28b466e90",
+        "bytes": 90784
+      },
+      {
+        "path": "fonts/materialdesignicons-webfont.541e65fb.eot",
+        "sha256": "ae12237ab3d7179d270ee8c63bf833f4e2681acccb9fb4718153518da12ee02d",
+        "bytes": 663148
+      },
+      {
+        "path": "fonts/materialdesignicons-webfont.c61b9c12.woff2",
+        "sha256": "950f6fe06869da2cad3bdd64bc88bc9ed6746335ceaf0c0f6d4e7f5b85f01731",
+        "bytes": 224348
+      },
+      {
+        "path": "fonts/materialdesignicons-webfont.fc03f7f1.ttf",
+        "sha256": "47565fd205a7350006563292ffdf1f3d5d2b02a9072c31a11a1802ca31f5e46f",
+        "bytes": 662928
+      },
+      {
+        "path": "fonts/materialdesignicons-webfont.ff13d121.woff",
+        "sha256": "44d065ca99c58a6e80f55a158f7944aea70891558652391d0e096bbf97582597",
+        "bytes": 319308
+      },
+      {
+        "path": "images/svg/target_types/artificial_satellite.svg",
+        "sha256": "31854a0d0141294a634205054d2d7e3e9b91ede839b5aa4b30dd2582f6f6cdaf",
+        "bytes": 973
+      },
+      {
+        "path": "images/svg/target_types/bright_emission_nebula.svg",
+        "sha256": "e239ba625e0a9680cfa0b9753a19c3d4fd85c6f79916820f2cf71a3d8fd88d8d",
+        "bytes": 335
+      },
+      {
+        "path": "images/svg/target_types/comet.svg",
+        "sha256": "52334787e1ad721fd44fe4704aa14b4755e95cd002de8ef973569a80941805fc",
+        "bytes": 740
+      },
+      {
+        "path": "images/svg/target_types/conjunction.svg",
+        "sha256": "3d8354d7eb4fffb816bd6da91eaec2a7a3abd7e49f03b56639a3532748cae4ea",
+        "bytes": 623
+      },
+      {
+        "path": "images/svg/target_types/constellation.svg",
+        "sha256": "9cea497b1bafe699d079f9b22782f0cc8996ae1d5c2f4e0aa25adf131221f2f5",
+        "bytes": 1373
+      },
+      {
+        "path": "images/svg/target_types/deep_sky.svg",
+        "sha256": "a425ab66d53ae3ddb4d4fc18f01c7dc60e12a7047ef724c17f4071a9b996c116",
+        "bytes": 1060
+      },
+      {
+        "path": "images/svg/target_types/double_star.svg",
+        "sha256": "ddb72eddbb29e9892c02b320c0d307d4899d9d2813f341fd8eff66b0e27ab63e",
+        "bytes": 510
+      },
+      {
+        "path": "images/svg/target_types/galaxy.svg",
+        "sha256": "85c6d0665d06c2a5792587680860cd8062301a380590db9a67b1861142fd938a",
+        "bytes": 1943
+      },
+      {
+        "path": "images/svg/target_types/globular_cluster.svg",
+        "sha256": "c0f3e074119d54b485c7fd7f2617f32454b9fb8da2648405ed9254e4f290ce69",
+        "bytes": 8387
+      },
+      {
+        "path": "images/svg/target_types/globular_star_cluster.svg",
+        "sha256": "e1efed03bc77702ff2efa99a516aa3a710d43c2414ba9fff3b0c0f5042b4ad4c",
+        "bytes": 470
+      },
+      {
+        "path": "images/svg/target_types/group_of_galaxies.svg",
+        "sha256": "27d2452b96cb7118d04a9d6b65399c0cf1e506559026f27962514123f43858ad",
+        "bytes": 6986
+      },
+      {
+        "path": "images/svg/target_types/group_of_stars.svg",
+        "sha256": "ab63dc44c605b7c819288b3fcf06a16ce2da492d3838010e90a5b92e35d235f3",
+        "bytes": 984
+      },
+      {
+        "path": "images/svg/target_types/interacting_galaxy.svg",
+        "sha256": "d6b95a3d9a5609db4f71f2ea403af72e5c1fc8e8e2fdac36584de12f58a4944d",
+        "bytes": 1885
+      },
+      {
+        "path": "images/svg/target_types/interstellar_matter.svg",
+        "sha256": "833198ca859ec542cd1f7b626834e5f4650cadd682a3896140c266e401ac23ea",
+        "bytes": 1517
+      },
+      {
+        "path": "images/svg/target_types/minor_planet.svg",
+        "sha256": "0dfdaecd8998951f99ce8c292db26951274b9e37ff4233a2126d7c6da5985392",
+        "bytes": 13792
+      },
+      {
+        "path": "images/svg/target_types/moon.svg",
+        "sha256": "8b5e80af0c238e414104995314ea759bf9ba26b0c8ad6b500987735a959f044b",
+        "bytes": 2042
+      },
+      {
+        "path": "images/svg/target_types/moon_eclipse.svg",
+        "sha256": "835912918b8235511d125aae7cdd64aef792a2a0148c0336175daec652ec1764",
+        "bytes": 381
+      },
+      {
+        "path": "images/svg/target_types/moon_first_quarter.svg",
+        "sha256": "10121990c376df1a20b3cd6d8051f80bea5426d9697c7883e77f6cca7d5d65d1",
+        "bytes": 467
+      },
+      {
+        "path": "images/svg/target_types/moon_full.svg",
+        "sha256": "1f4b5dddcda2fb189b36c47c0f919d21388eae5916aba81921166bac81d59928",
+        "bytes": 312
+      },
+      {
+        "path": "images/svg/target_types/moon_last_quarter.svg",
+        "sha256": "dbfbc05e8f3a713dbac8215895666846ca15ebf1cd072bb0d878fa8ce8be65c1",
+        "bytes": 445
+      },
+      {
+        "path": "images/svg/target_types/moon_new.svg",
+        "sha256": "d7403673d8a634e3c8100c650ce2d97793a44bda2c8f2b6842191828a85c0aa3",
+        "bytes": 312
+      },
+      {
+        "path": "images/svg/target_types/multiple_objects.svg",
+        "sha256": "2bb5c3c8c65b463b32989b41782f41a3f656287c80ce48caaab525a29588f3ae",
+        "bytes": 1740
+      },
+      {
+        "path": "images/svg/target_types/nebula_cluster.svg",
+        "sha256": "b8c2e6d69dfbe9e1b74316cf7a0596bb4ae6df06a1c4e3804d1e4fbe7438f698",
+        "bytes": 1281
+      },
+      {
+        "path": "images/svg/target_types/nebula_default.svg",
+        "sha256": "1a82a4437da4a49541f4abb76875f96ebf6e5195c046c5b5677093b5499bf4bc",
+        "bytes": 310
+      },
+      {
+        "path": "images/svg/target_types/open_galactic_cluster.svg",
+        "sha256": "91ebac293a2ae9f73fe7bad0642962b806cbae5c9ed48958bc946242aae9b78e",
+        "bytes": 1875
+      },
+      {
+        "path": "images/svg/target_types/open_star_cluster.svg",
+        "sha256": "765d63cf989b7cf47ba23cd14bd1e6509022ab9ecf941bf695d41f1d19d115ec",
+        "bytes": 1557
+      },
+      {
+        "path": "images/svg/target_types/pair_of_galaxies.svg",
+        "sha256": "d8eaafe4851184eb9ab30f1e64eacd5b04f661b2c8e91bf09e4ac7b23b165bd0",
+        "bytes": 3610
+      },
+      {
+        "path": "images/svg/target_types/part_of_galaxy.svg",
+        "sha256": "b8662016b72fba9d6627df6462486a579df3ef4fdfd5b6059a2f9faee25d656a",
+        "bytes": 6950
+      },
+      {
+        "path": "images/svg/target_types/planet.svg",
+        "sha256": "d6fc0d5f8c11ad03574b8c67b808f724ac3221244f8e0582b34dab4fd375a010",
+        "bytes": 509
+      },
+      {
+        "path": "images/svg/target_types/planetary_nebula.svg",
+        "sha256": "abc130c0b0505281c03d5b0a8d7b4faf639936afc93cd198cd84e4129856ffbe",
+        "bytes": 803
+      },
+      {
+        "path": "images/svg/target_types/quasar.svg",
+        "sha256": "16b83cd926c5f6fb257b33d231554c7733953a79d01aa1a1834d83726c82dba5",
+        "bytes": 1375
+      },
+      {
+        "path": "images/svg/target_types/region_defined_in_the_sky.svg",
+        "sha256": "d268c5f93d5a6e51b6ec73c37d5f2442f17228d4ba341f42ec106b2ec1823d6f",
+        "bytes": 1682
+      },
+      {
+        "path": "images/svg/target_types/shooting_star.svg",
+        "sha256": "d3b41987bee02eec3a4031ac73fbe629b82412cc0dca593a4fbc0584aef7b267",
+        "bytes": 710
+      },
+      {
+        "path": "images/svg/target_types/star.svg",
+        "sha256": "f6db7c2f0470e8e39a1c000570f020925fe6436aedbc0c55d1ca81315ce9a9b2",
+        "bytes": 237
+      },
+      {
+        "path": "images/svg/target_types/sun.svg",
+        "sha256": "81cd36dc4cfd69f5c083c7445edf7615bc3b3dd7ab249f8c6203453317e0e85e",
+        "bytes": 1131
+      },
+      {
+        "path": "images/svg/target_types/sun_eclipse.svg",
+        "sha256": "9c32a48af9a5d322bb625e091cbd6e526e2032c660cc62d6290cefdbe90d455e",
+        "bytes": 1273
+      },
+      {
+        "path": "images/svg/target_types/sun_inf_conjunction.svg",
+        "sha256": "824e87d32f36fd0ab1b77feba4c6557fe9bfc834ca4707cfaaa9f933f2865294",
+        "bytes": 611
+      },
+      {
+        "path": "images/svg/target_types/sun_opposition.svg",
+        "sha256": "28d088607bc2c9399de01d1da0cebb8ecba02c4478b7cd934eb8b4facc340c25",
+        "bytes": 611
+      },
+      {
+        "path": "images/svg/target_types/sun_sup_conjunction.svg",
+        "sha256": "61593144e60847267e84ed5ab463e0516b0b602f2afc178c7e8e162ab36343f3",
+        "bytes": 581
+      },
+      {
+        "path": "images/svg/target_types/transit.svg",
+        "sha256": "23b620c39b911651fd9bcd8a19bc2ef02b99c01179271c01c466c6f02d4e0671",
+        "bytes": 371
+      },
+      {
+        "path": "images/svg/target_types/unknown.svg",
+        "sha256": "d5a27d4b519aa62e5b65b1602c5aacfc91da9f5e7c5bf284622ea9a5595b8880",
+        "bytes": 1016
+      },
+      {
+        "path": "images/svg/target_types/variable_star.svg",
+        "sha256": "5f8415dca9a8d373f5c5b0eb6a9c5a832b9fa24bd2ae2394644df0884456afc2",
+        "bytes": 446
+      },
+      {
+        "path": "images/svg/target_types/vertical_alignment.svg",
+        "sha256": "8c2891400411cb65f47852812cb0619111521a09182a73660d0a3d4497e6fece",
+        "bytes": 508
+      },
+      {
+        "path": "img/add_circle_outline.24a5986c.svg",
+        "sha256": "9a0dbc03953a30d6b38abd1fe6ab4dd42aafe6903fe343c0def1aca431a33907",
+        "bytes": 377
+      },
+      {
+        "path": "img/btn-atmosphere.26bed3a1.svg",
+        "sha256": "f69d965fa9384763e0c47c56909ae91ee84df12a2788e6c7b6e93388dde7e5b5",
+        "bytes": 840
+      },
+      {
+        "path": "img/btn-azimuthal-grid.bd02effc.svg",
+        "sha256": "c5fe52a13ba22d35106b1aab71cc74628d5d8b2a2c4f2dc28f33d2e843df8a22",
+        "bytes": 1477
+      },
+      {
+        "path": "img/btn-cst-art.e7785b5a.svg",
+        "sha256": "16c5e195ab0ab016cbe68fcd69bb60b3d35d31a48c88a06ae0ab8049d29bb836",
+        "bytes": 745
+      },
+      {
+        "path": "img/btn-cst-lines.1844e97d.svg",
+        "sha256": "9cea497b1bafe699d079f9b22782f0cc8996ae1d5c2f4e0aa25adf131221f2f5",
+        "bytes": 1373
+      },
+      {
+        "path": "img/btn-equatorial-grid.37de933f.svg",
+        "sha256": "85bbec3123c60d715a6151a15243aa976a2c3da1e25923b9f8d1414acc84fe2f",
+        "bytes": 1018
+      },
+      {
+        "path": "img/btn-landscape.8fc552f5.svg",
+        "sha256": "72c34118640021bf899c94512cf9e6b6963c4620c0f73f9bccc209745f7ca436",
+        "bytes": 786
+      },
+      {
+        "path": "img/btn-nebulae.923eae18.svg",
+        "sha256": "a425ab66d53ae3ddb4d4fc18f01c7dc60e12a7047ef724c17f4071a9b996c116",
+        "bytes": 1060
+      },
+      {
+        "path": "img/btn-night-mode.bc3006ed.svg",
+        "sha256": "335795046bd8352da621b33b74141ccd030f14fdb89411527628fea47d831e5e",
+        "bytes": 493
+      },
+      {
+        "path": "img/fullscreen.ddcd813e.svg",
+        "sha256": "8aee00a13ed154ed550ca92a1adb1ae880a60db0980a1fef68f0e68e1ab4d5f5",
+        "bytes": 301
+      },
+      {
+        "path": "img/fullscreen_exit.c223388f.svg",
+        "sha256": "8a3c02f37ea31e7d08dd158059c4c67ff03ed90b041a433504c31ff413ab7fd8",
+        "bytes": 299
+      },
+      {
+        "path": "img/header.f792b4d9.png",
+        "sha256": "cdc71e64ef47d7021f721991b84c49f60b9e9feebfd9a735812707b0e60b7fa5",
+        "bytes": 11069
+      },
+      {
+        "path": "img/point_to.4133dbcc.svg",
+        "sha256": "01558f6e339a7d6c3e2172569f69692dd933b786d72697904f8cee02ade1bad8",
+        "bytes": 888
+      },
+      {
+        "path": "img/remove_circle_outline.558922b2.svg",
+        "sha256": "1bf95d5fb5943b918e88d96ac0ede5ee5d5e64e1d8b6057e58782410ac25208d",
+        "bytes": 358
+      },
+      {
+        "path": "index.html",
+        "sha256": "ee9a6b719213e8ff5785b9c9e3bf564795fde87ca049de900200ae7592fa4f55",
+        "bytes": 1893
+      },
+      {
+        "path": "js/app.4523120d.js",
+        "sha256": "a0ee57da6e95a41140029fa2da9ca50b352a578929b5181a0b99e84a0e54c57e",
+        "bytes": 505663
+      },
+      {
+        "path": "js/chunk-2d2253ec.1b0c9439.js",
+        "sha256": "460796e24b13821b2d7515baa7b2d01b43cf129a811855d5c8bcf0f56e041d55",
+        "bytes": 249
+      },
+      {
+        "path": "js/chunk-vendors.c8723c79.js",
+        "sha256": "481085bab33613431dffc5f11935577823c0f2b081278ac729eff5a3912e0260",
+        "bytes": 2975037
+      },
+      {
+        "path": "js/stellarium-web-engine.f0d016d1.wasm",
+        "sha256": "54651299e35a47c342ba3364be6b77f1ee8b40926d925e7736d05e566c0dfa09",
+        "bytes": 1200810
+      },
+      {
+        "path": "oras-runtime-build.json",
+        "sha256": "28d9fc8187eb3b10eebe170499f87e2daa192211e17df372a9e39ac3a778a6c2",
+        "bytes": 500
+      }
+    ],
+    "reconstruction": {
+      "status": "qualified",
+      "native_wasm_identical": true,
+      "emscripten": "1.39.17",
+      "emsdk_image": "emscripten/emsdk@sha256:1e264934c11ffde8511441eaed6bdc44eaa30ec027e46d38be7ae67106aefdab",
+      "build_image_id": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+      "node_image": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+      "bridge_overlay": "bridge.v1",
+      "regression": "34 API/search/browser checks and 86 native conformance tests"
+    },
+    "overlay_version": "oras-sky-baseline.v1",
+    "build_recipe": "scripts/runtime/build_current_sky.sh",
+    "artifact_sha256": "7a0e41e9aba244309ac210710efdcf1ee823dfd889afbdb8fc25024839037400",
+    "artifact_files": [
+      {
+        "path": "css/app.9cd008e2.css",
+        "sha256": "f195f882debee654c708c4436eada8fcdcd715f1dd21a3a5c34e08610f774f67",
+        "bytes": 3058
+      },
+      {
+        "path": "css/chunk-vendors.11c203ce.css",
+        "sha256": "c190ae569a8bbacd73b194d3e1b14d7ac0412ad1187d1907a5dddcbff5239c4b",
+        "bytes": 654200
+      },
+      {
+        "path": "favicon.ico",
+        "sha256": "acdf5baef765f0dec63123f2ba7ba8e769176e4585d20683c9fda79930d80b8e",
+        "bytes": 2166
+      },
+      {
+        "path": "fonts/Roboto-Black.313a6563.woff",
+        "sha256": "968f400b30a7ecfd42c3c42396ef8f961bbea8d5b553823e1d461c8ea871156e",
+        "bytes": 86508
+      },
+      {
+        "path": "fonts/Roboto-Black.59eb3601.woff2",
+        "sha256": "41e55c257815e19c8e2384b6d1d5180590599a56f23f3eab417c5fc7aa553511",
+        "bytes": 64960
+      },
+      {
+        "path": "fonts/Roboto-BlackItalic.cc2fadc3.woff",
+        "sha256": "181c2d282d0022a73f27b858c3a33f7f0f643c733f106de9c7429ffcf6253b7a",
+        "bytes": 94048
+      },
+      {
+        "path": "fonts/Roboto-BlackItalic.f75569f8.woff2",
+        "sha256": "0aea9779e22ba00a30321dc6274376ddf02b97b35bc2b94c98fdfa6cdfcfcacc",
+        "bytes": 72088
+      },
+      {
+        "path": "fonts/Roboto-Bold.50d75e48.woff",
+        "sha256": "b1767a0c3e5dfb3a5009efee4445ff15d6362e9285461e17bded186f1e9456f0",
+        "bytes": 86184
+      },
+      {
+        "path": "fonts/Roboto-Bold.b52fac2b.woff2",
+        "sha256": "8e44376b735dcc9027acbcc8a0df64c3f886a23529eff27b022f344d719e90f2",
+        "bytes": 64740
+      },
+      {
+        "path": "fonts/Roboto-Bold.ttf",
+        "sha256": "7d0b991ee3e0be7af01ad7ea8cd2beea6c00a25e679a0226b6737f079aafff86",
+        "bytes": 170760
+      },
+      {
+        "path": "fonts/Roboto-BoldItalic.4fe0f73c.woff",
+        "sha256": "bc9285e19eca8d21b97742361b5fd8f7ef01cec47cc96029e0cba44f9b20a495",
+        "bytes": 91968
+      },
+      {
+        "path": "fonts/Roboto-BoldItalic.94008e69.woff2",
+        "sha256": "c9d5a0e6287ab6c0d3e7c80ebdeb26427680849215882e3db0061efcf64c2575",
+        "bytes": 70360
+      },
+      {
+        "path": "fonts/Roboto-Light.c73eb1ce.woff",
+        "sha256": "18827349c7febd4b8d01aa907c67ea9b8011242078326b24703978454fdf351a",
+        "bytes": 85692
+      },
+      {
+        "path": "fonts/Roboto-Light.d26871e8.woff2",
+        "sha256": "1d8f5280afb7f4fa0db5cdfcb751e180788b0f0da1488309c4243ebff11a9591",
+        "bytes": 64320
+      },
+      {
+        "path": "fonts/Roboto-LightItalic.13efe6cb.woff",
+        "sha256": "909df596b261a65deaae0f14f7149d2fb8f1e4d438d5e91c4f87f106a9f402c5",
+        "bytes": 92864
+      },
+      {
+        "path": "fonts/Roboto-LightItalic.e8eaae90.woff2",
+        "sha256": "9934fa0f5b4d5d3e5d75d97b072bf83e2b1e62387c512892cc5daa0217f793a0",
+        "bytes": 70760
+      },
+      {
+        "path": "fonts/Roboto-Medium.1d659482.woff",
+        "sha256": "4112fbc996a10ba2f5be2077f92be5eb143e24061a24f7c99825066ecc5b8a51",
+        "bytes": 86444
+      },
+      {
+        "path": "fonts/Roboto-Medium.90d16760.woff2",
+        "sha256": "96025fe9db6578d8bc7f4b8be739750b1490e07221c2b1f16acde2ea7669cedf",
+        "bytes": 65484
+      },
+      {
+        "path": "fonts/Roboto-MediumItalic.13ec0eb5.woff2",
+        "sha256": "160a7cf46e44a941b5c09deb7986e96eacd0b70ef583f6e13e11caad086bec0a",
+        "bytes": 71284
+      },
+      {
+        "path": "fonts/Roboto-MediumItalic.83e114c3.woff",
+        "sha256": "9a73a4b65c6483ab7e67cefed1cc57cef32a81fcec8b833b3c60c14b5cd6f9dd",
+        "bytes": 93228
+      },
+      {
+        "path": "fonts/Roboto-Regular.35b07eb2.woff",
+        "sha256": "9ae9d6545d7d7d823f8a94010db77c1a0ff71e371e8bb158df1cb98395162507",
+        "bytes": 85876
+      },
+      {
+        "path": "fonts/Roboto-Regular.73f0a88b.woff2",
+        "sha256": "47107401d0adb375ab9aa167f9d62489a849d510e740a307b5a4db60e5db3562",
+        "bytes": 64632
+      },
+      {
+        "path": "fonts/Roboto-Regular.ttf",
+        "sha256": "79e851404657dac2106b3d22ad256d47824a9a5765458edb72c9102a45816d95",
+        "bytes": 171676
+      },
+      {
+        "path": "fonts/Roboto-RegularItalic.4357beb8.woff2",
+        "sha256": "884e654cef00224110fc62cdf8f1561ff08dcaa1f359e5c5f49dab62abfe79e8",
+        "bytes": 70280
+      },
+      {
+        "path": "fonts/Roboto-RegularItalic.f5902d5e.woff",
+        "sha256": "e1b2181ca3a817d49d830fce920478488170e6921fce6126d71e2eb2e7031805",
+        "bytes": 91728
+      },
+      {
+        "path": "fonts/Roboto-Thin.ad538a69.woff2",
+        "sha256": "61b96427944966fbdac416e7ef6d343606758ea2b3fb2cad0f725f82f32ed18f",
+        "bytes": 63048
+      },
+      {
+        "path": "fonts/Roboto-Thin.d3b47375.woff",
+        "sha256": "59918a4300c02b67fe3cc4c20a545ba09da3a8303c3995000732e7118a71945a",
+        "bytes": 84224
+      },
+      {
+        "path": "fonts/Roboto-ThinItalic.5b4a33e1.woff2",
+        "sha256": "c5ace2628b6daf1cf6c80abc6170f276423624a028443eb42db1032d8960c8bc",
+        "bytes": 68328
+      },
+      {
+        "path": "fonts/Roboto-ThinItalic.8a96edbb.woff",
+        "sha256": "ae88cc5714577e7fd00821628ce3f188d4bc3160333edeba5d2683d28b466e90",
+        "bytes": 90784
+      },
+      {
+        "path": "fonts/materialdesignicons-webfont.541e65fb.eot",
+        "sha256": "ae12237ab3d7179d270ee8c63bf833f4e2681acccb9fb4718153518da12ee02d",
+        "bytes": 663148
+      },
+      {
+        "path": "fonts/materialdesignicons-webfont.c61b9c12.woff2",
+        "sha256": "950f6fe06869da2cad3bdd64bc88bc9ed6746335ceaf0c0f6d4e7f5b85f01731",
+        "bytes": 224348
+      },
+      {
+        "path": "fonts/materialdesignicons-webfont.fc03f7f1.ttf",
+        "sha256": "47565fd205a7350006563292ffdf1f3d5d2b02a9072c31a11a1802ca31f5e46f",
+        "bytes": 662928
+      },
+      {
+        "path": "fonts/materialdesignicons-webfont.ff13d121.woff",
+        "sha256": "44d065ca99c58a6e80f55a158f7944aea70891558652391d0e096bbf97582597",
+        "bytes": 319308
+      },
+      {
+        "path": "images/svg/target_types/artificial_satellite.svg",
+        "sha256": "31854a0d0141294a634205054d2d7e3e9b91ede839b5aa4b30dd2582f6f6cdaf",
+        "bytes": 973
+      },
+      {
+        "path": "images/svg/target_types/bright_emission_nebula.svg",
+        "sha256": "e239ba625e0a9680cfa0b9753a19c3d4fd85c6f79916820f2cf71a3d8fd88d8d",
+        "bytes": 335
+      },
+      {
+        "path": "images/svg/target_types/comet.svg",
+        "sha256": "52334787e1ad721fd44fe4704aa14b4755e95cd002de8ef973569a80941805fc",
+        "bytes": 740
+      },
+      {
+        "path": "images/svg/target_types/conjunction.svg",
+        "sha256": "3d8354d7eb4fffb816bd6da91eaec2a7a3abd7e49f03b56639a3532748cae4ea",
+        "bytes": 623
+      },
+      {
+        "path": "images/svg/target_types/constellation.svg",
+        "sha256": "9cea497b1bafe699d079f9b22782f0cc8996ae1d5c2f4e0aa25adf131221f2f5",
+        "bytes": 1373
+      },
+      {
+        "path": "images/svg/target_types/deep_sky.svg",
+        "sha256": "a425ab66d53ae3ddb4d4fc18f01c7dc60e12a7047ef724c17f4071a9b996c116",
+        "bytes": 1060
+      },
+      {
+        "path": "images/svg/target_types/double_star.svg",
+        "sha256": "ddb72eddbb29e9892c02b320c0d307d4899d9d2813f341fd8eff66b0e27ab63e",
+        "bytes": 510
+      },
+      {
+        "path": "images/svg/target_types/galaxy.svg",
+        "sha256": "85c6d0665d06c2a5792587680860cd8062301a380590db9a67b1861142fd938a",
+        "bytes": 1943
+      },
+      {
+        "path": "images/svg/target_types/globular_cluster.svg",
+        "sha256": "c0f3e074119d54b485c7fd7f2617f32454b9fb8da2648405ed9254e4f290ce69",
+        "bytes": 8387
+      },
+      {
+        "path": "images/svg/target_types/globular_star_cluster.svg",
+        "sha256": "e1efed03bc77702ff2efa99a516aa3a710d43c2414ba9fff3b0c0f5042b4ad4c",
+        "bytes": 470
+      },
+      {
+        "path": "images/svg/target_types/group_of_galaxies.svg",
+        "sha256": "27d2452b96cb7118d04a9d6b65399c0cf1e506559026f27962514123f43858ad",
+        "bytes": 6986
+      },
+      {
+        "path": "images/svg/target_types/group_of_stars.svg",
+        "sha256": "ab63dc44c605b7c819288b3fcf06a16ce2da492d3838010e90a5b92e35d235f3",
+        "bytes": 984
+      },
+      {
+        "path": "images/svg/target_types/interacting_galaxy.svg",
+        "sha256": "d6b95a3d9a5609db4f71f2ea403af72e5c1fc8e8e2fdac36584de12f58a4944d",
+        "bytes": 1885
+      },
+      {
+        "path": "images/svg/target_types/interstellar_matter.svg",
+        "sha256": "833198ca859ec542cd1f7b626834e5f4650cadd682a3896140c266e401ac23ea",
+        "bytes": 1517
+      },
+      {
+        "path": "images/svg/target_types/minor_planet.svg",
+        "sha256": "0dfdaecd8998951f99ce8c292db26951274b9e37ff4233a2126d7c6da5985392",
+        "bytes": 13792
+      },
+      {
+        "path": "images/svg/target_types/moon.svg",
+        "sha256": "8b5e80af0c238e414104995314ea759bf9ba26b0c8ad6b500987735a959f044b",
+        "bytes": 2042
+      },
+      {
+        "path": "images/svg/target_types/moon_eclipse.svg",
+        "sha256": "835912918b8235511d125aae7cdd64aef792a2a0148c0336175daec652ec1764",
+        "bytes": 381
+      },
+      {
+        "path": "images/svg/target_types/moon_first_quarter.svg",
+        "sha256": "10121990c376df1a20b3cd6d8051f80bea5426d9697c7883e77f6cca7d5d65d1",
+        "bytes": 467
+      },
+      {
+        "path": "images/svg/target_types/moon_full.svg",
+        "sha256": "1f4b5dddcda2fb189b36c47c0f919d21388eae5916aba81921166bac81d59928",
+        "bytes": 312
+      },
+      {
+        "path": "images/svg/target_types/moon_last_quarter.svg",
+        "sha256": "dbfbc05e8f3a713dbac8215895666846ca15ebf1cd072bb0d878fa8ce8be65c1",
+        "bytes": 445
+      },
+      {
+        "path": "images/svg/target_types/moon_new.svg",
+        "sha256": "d7403673d8a634e3c8100c650ce2d97793a44bda2c8f2b6842191828a85c0aa3",
+        "bytes": 312
+      },
+      {
+        "path": "images/svg/target_types/multiple_objects.svg",
+        "sha256": "2bb5c3c8c65b463b32989b41782f41a3f656287c80ce48caaab525a29588f3ae",
+        "bytes": 1740
+      },
+      {
+        "path": "images/svg/target_types/nebula_cluster.svg",
+        "sha256": "b8c2e6d69dfbe9e1b74316cf7a0596bb4ae6df06a1c4e3804d1e4fbe7438f698",
+        "bytes": 1281
+      },
+      {
+        "path": "images/svg/target_types/nebula_default.svg",
+        "sha256": "1a82a4437da4a49541f4abb76875f96ebf6e5195c046c5b5677093b5499bf4bc",
+        "bytes": 310
+      },
+      {
+        "path": "images/svg/target_types/open_galactic_cluster.svg",
+        "sha256": "91ebac293a2ae9f73fe7bad0642962b806cbae5c9ed48958bc946242aae9b78e",
+        "bytes": 1875
+      },
+      {
+        "path": "images/svg/target_types/open_star_cluster.svg",
+        "sha256": "765d63cf989b7cf47ba23cd14bd1e6509022ab9ecf941bf695d41f1d19d115ec",
+        "bytes": 1557
+      },
+      {
+        "path": "images/svg/target_types/pair_of_galaxies.svg",
+        "sha256": "d8eaafe4851184eb9ab30f1e64eacd5b04f661b2c8e91bf09e4ac7b23b165bd0",
+        "bytes": 3610
+      },
+      {
+        "path": "images/svg/target_types/part_of_galaxy.svg",
+        "sha256": "b8662016b72fba9d6627df6462486a579df3ef4fdfd5b6059a2f9faee25d656a",
+        "bytes": 6950
+      },
+      {
+        "path": "images/svg/target_types/planet.svg",
+        "sha256": "d6fc0d5f8c11ad03574b8c67b808f724ac3221244f8e0582b34dab4fd375a010",
+        "bytes": 509
+      },
+      {
+        "path": "images/svg/target_types/planetary_nebula.svg",
+        "sha256": "abc130c0b0505281c03d5b0a8d7b4faf639936afc93cd198cd84e4129856ffbe",
+        "bytes": 803
+      },
+      {
+        "path": "images/svg/target_types/quasar.svg",
+        "sha256": "16b83cd926c5f6fb257b33d231554c7733953a79d01aa1a1834d83726c82dba5",
+        "bytes": 1375
+      },
+      {
+        "path": "images/svg/target_types/region_defined_in_the_sky.svg",
+        "sha256": "d268c5f93d5a6e51b6ec73c37d5f2442f17228d4ba341f42ec106b2ec1823d6f",
+        "bytes": 1682
+      },
+      {
+        "path": "images/svg/target_types/shooting_star.svg",
+        "sha256": "d3b41987bee02eec3a4031ac73fbe629b82412cc0dca593a4fbc0584aef7b267",
+        "bytes": 710
+      },
+      {
+        "path": "images/svg/target_types/star.svg",
+        "sha256": "f6db7c2f0470e8e39a1c000570f020925fe6436aedbc0c55d1ca81315ce9a9b2",
+        "bytes": 237
+      },
+      {
+        "path": "images/svg/target_types/sun.svg",
+        "sha256": "81cd36dc4cfd69f5c083c7445edf7615bc3b3dd7ab249f8c6203453317e0e85e",
+        "bytes": 1131
+      },
+      {
+        "path": "images/svg/target_types/sun_eclipse.svg",
+        "sha256": "9c32a48af9a5d322bb625e091cbd6e526e2032c660cc62d6290cefdbe90d455e",
+        "bytes": 1273
+      },
+      {
+        "path": "images/svg/target_types/sun_inf_conjunction.svg",
+        "sha256": "824e87d32f36fd0ab1b77feba4c6557fe9bfc834ca4707cfaaa9f933f2865294",
+        "bytes": 611
+      },
+      {
+        "path": "images/svg/target_types/sun_opposition.svg",
+        "sha256": "28d088607bc2c9399de01d1da0cebb8ecba02c4478b7cd934eb8b4facc340c25",
+        "bytes": 611
+      },
+      {
+        "path": "images/svg/target_types/sun_sup_conjunction.svg",
+        "sha256": "61593144e60847267e84ed5ab463e0516b0b602f2afc178c7e8e162ab36343f3",
+        "bytes": 581
+      },
+      {
+        "path": "images/svg/target_types/transit.svg",
+        "sha256": "23b620c39b911651fd9bcd8a19bc2ef02b99c01179271c01c466c6f02d4e0671",
+        "bytes": 371
+      },
+      {
+        "path": "images/svg/target_types/unknown.svg",
+        "sha256": "d5a27d4b519aa62e5b65b1602c5aacfc91da9f5e7c5bf284622ea9a5595b8880",
+        "bytes": 1016
+      },
+      {
+        "path": "images/svg/target_types/variable_star.svg",
+        "sha256": "5f8415dca9a8d373f5c5b0eb6a9c5a832b9fa24bd2ae2394644df0884456afc2",
+        "bytes": 446
+      },
+      {
+        "path": "images/svg/target_types/vertical_alignment.svg",
+        "sha256": "8c2891400411cb65f47852812cb0619111521a09182a73660d0a3d4497e6fece",
+        "bytes": 508
+      },
+      {
+        "path": "img/add_circle_outline.24a5986c.svg",
+        "sha256": "9a0dbc03953a30d6b38abd1fe6ab4dd42aafe6903fe343c0def1aca431a33907",
+        "bytes": 377
+      },
+      {
+        "path": "img/btn-atmosphere.26bed3a1.svg",
+        "sha256": "f69d965fa9384763e0c47c56909ae91ee84df12a2788e6c7b6e93388dde7e5b5",
+        "bytes": 840
+      },
+      {
+        "path": "img/btn-azimuthal-grid.bd02effc.svg",
+        "sha256": "c5fe52a13ba22d35106b1aab71cc74628d5d8b2a2c4f2dc28f33d2e843df8a22",
+        "bytes": 1477
+      },
+      {
+        "path": "img/btn-cst-art.e7785b5a.svg",
+        "sha256": "16c5e195ab0ab016cbe68fcd69bb60b3d35d31a48c88a06ae0ab8049d29bb836",
+        "bytes": 745
+      },
+      {
+        "path": "img/btn-cst-lines.1844e97d.svg",
+        "sha256": "9cea497b1bafe699d079f9b22782f0cc8996ae1d5c2f4e0aa25adf131221f2f5",
+        "bytes": 1373
+      },
+      {
+        "path": "img/btn-equatorial-grid.37de933f.svg",
+        "sha256": "85bbec3123c60d715a6151a15243aa976a2c3da1e25923b9f8d1414acc84fe2f",
+        "bytes": 1018
+      },
+      {
+        "path": "img/btn-landscape.8fc552f5.svg",
+        "sha256": "72c34118640021bf899c94512cf9e6b6963c4620c0f73f9bccc209745f7ca436",
+        "bytes": 786
+      },
+      {
+        "path": "img/btn-nebulae.923eae18.svg",
+        "sha256": "a425ab66d53ae3ddb4d4fc18f01c7dc60e12a7047ef724c17f4071a9b996c116",
+        "bytes": 1060
+      },
+      {
+        "path": "img/btn-night-mode.bc3006ed.svg",
+        "sha256": "335795046bd8352da621b33b74141ccd030f14fdb89411527628fea47d831e5e",
+        "bytes": 493
+      },
+      {
+        "path": "img/fullscreen.ddcd813e.svg",
+        "sha256": "8aee00a13ed154ed550ca92a1adb1ae880a60db0980a1fef68f0e68e1ab4d5f5",
+        "bytes": 301
+      },
+      {
+        "path": "img/fullscreen_exit.c223388f.svg",
+        "sha256": "8a3c02f37ea31e7d08dd158059c4c67ff03ed90b041a433504c31ff413ab7fd8",
+        "bytes": 299
+      },
+      {
+        "path": "img/header.f792b4d9.png",
+        "sha256": "cdc71e64ef47d7021f721991b84c49f60b9e9feebfd9a735812707b0e60b7fa5",
+        "bytes": 11069
+      },
+      {
+        "path": "img/point_to.4133dbcc.svg",
+        "sha256": "01558f6e339a7d6c3e2172569f69692dd933b786d72697904f8cee02ade1bad8",
+        "bytes": 888
+      },
+      {
+        "path": "img/remove_circle_outline.558922b2.svg",
+        "sha256": "1bf95d5fb5943b918e88d96ac0ede5ee5d5e64e1d8b6057e58782410ac25208d",
+        "bytes": 358
+      },
+      {
+        "path": "index.html",
+        "sha256": "b28ac2211eccb142d6a60cf27c69d7ed21faddee306bb429415fb17320e0b618",
+        "bytes": 1960
+      },
+      {
+        "path": "js/app.4523120d.js",
+        "sha256": "a0ee57da6e95a41140029fa2da9ca50b352a578929b5181a0b99e84a0e54c57e",
+        "bytes": 505663
+      },
+      {
+        "path": "js/app.661f6dd4.js",
+        "sha256": "1725ee9f32a2581dbe9172b0450c5bd93f1ca854af95ff8f150934ef5737e383",
+        "bytes": 508687
+      },
+      {
+        "path": "js/chunk-2d2253ec.1b0c9439.js",
+        "sha256": "460796e24b13821b2d7515baa7b2d01b43cf129a811855d5c8bcf0f56e041d55",
+        "bytes": 249
+      },
+      {
+        "path": "js/chunk-vendors.c8723c79.js",
+        "sha256": "481085bab33613431dffc5f11935577823c0f2b081278ac729eff5a3912e0260",
+        "bytes": 2975037
+      },
+      {
+        "path": "js/stellarium-web-engine.f0d016d1.wasm",
+        "sha256": "54651299e35a47c342ba3364be6b77f1ee8b40926d925e7736d05e566c0dfa09",
+        "bytes": 1200810
+      },
+      {
+        "path": "oras-runtime-build.json",
+        "sha256": "28d9fc8187eb3b10eebe170499f87e2daa192211e17df372a9e39ac3a778a6c2",
+        "bytes": 500
+      }
+    ],
+    "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3"
+  },
+  "earth": {
+    "upstream": "https://github.com/bilawalsidhu/gods-eye-view",
+    "sha": "e7707d9a0f34d9fbffc300023c319f95caa5be30",
+    "ownership": "Astronomy Hub-owned Cesium runtime; selective exported modules only"
+  },
+  "bridge": {
+    "major": 1,
+    "minor": 0
+  },
+  "hub": {
+    "version": "phase-c.v1",
+    "base_commit": "51a66347dd5997673a6b7c523d66e980f3a8701d",
+    "qualification": "working-tree implementation; PR records final commit"
+  }
+}
