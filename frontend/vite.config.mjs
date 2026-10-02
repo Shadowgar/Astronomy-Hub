@@ -15,7 +15,10 @@ const proxyTarget =
   process.env.API_URL ||
   'http://127.0.0.1:8000'
 
+const earthTarget=process.env.ORAS_EARTH_PROXY_TARGET || 'http://127.0.0.1:8877'
+const earthProxy={'/earth-runtime/':{target:earthTarget,changeOrigin:true}}
 const apiProxy = {
+  ...earthProxy,
   '/api': {
     target: proxyTarget,
     changeOrigin: true,
@@ -159,18 +162,34 @@ export function serveOrasRuntimeRequest(req, res, next) {
   res.end(fs.readFileSync(runtimeIndexHtml, 'utf8'))
 }
 
+function serveBridge(req,res,next){
+ const routes={'/runtime-bridge/sky/entry.mjs':'../runtimes/sky-adapter/entry.mjs','/packages/runtime-protocol/endpoint.mjs':'../packages/runtime-protocol/endpoint.mjs','/packages/runtime-protocol/index.mjs':'../packages/runtime-protocol/index.mjs'}
+ const relative=routes[(req.url||'').split('?')[0]]
+ if(!relative)return next()
+ res.setHeader('Content-Type','text/javascript');res.end(fs.readFileSync(path.resolve(__dirname,relative)))
+}
 const orasRuntimeSpaPlugin = {
   name: 'oras-runtime-spa',
+  generateBundle(){
+    // Copy only the locked Sky shell. Bulk skydata is always a runtime mount.
+    const lock=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../integrations/renderers.lock.json')))
+    for(const entry of lock.sky.artifact_files)this.emitFile({type:'asset',fileName:'oras-sky-engine/'+entry.path,source:fs.readFileSync(path.join(runtimePublicDir,entry.path))})
+    this.emitFile({type:'asset',fileName:'runtime-versions.json',source:fs.readFileSync(path.resolve(__dirname,'public/runtime-versions.json'))})
+    for(const [fileName,source] of Object.entries({'runtime-bridge/sky/entry.mjs':'../runtimes/sky-adapter/entry.mjs','packages/runtime-protocol/endpoint.mjs':'../packages/runtime-protocol/endpoint.mjs','packages/runtime-protocol/index.mjs':'../packages/runtime-protocol/index.mjs'})) this.emitFile({type:'asset',fileName,source:fs.readFileSync(path.resolve(__dirname,source))})
+  },
   configureServer(server) {
+    server.middlewares.use(serveBridge)
     server.middlewares.use(serveOrasRuntimeRequest)
   },
   configurePreviewServer(server) {
+    server.middlewares.use(serveBridge)
     server.middlewares.use(serveOrasRuntimeRequest)
   },
 }
 
 export default defineConfig({
   plugins: [react(), orasRuntimeSpaPlugin],
+  build: {copyPublicDir:false},
   test: {
     environment: 'node',
     globals: true,

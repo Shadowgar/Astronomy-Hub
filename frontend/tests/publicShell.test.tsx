@@ -18,7 +18,7 @@ import AppRouter from '../src/routes/AppRouter'
 
 function render(path:string) { return renderToStaticMarkup(<MemoryRouter initialEntries={[path]}><AppRouter/></MemoryRouter>) }
 describe('Public application shell', () => {
-  for(const [path,label] of [['/','Home'],['/observe','Observe'],['/tonight','Tonight'],['/sky-engine','Sky']]) {
+  for(const [path,label] of [['/','Home'],['/observe','Observe'],['/tonight','Tonight'],['/sky-engine','Sky'],['/earth','Earth']]) {
     it(`shares accessible navigation and active ${label} state`, () => {
       const html=render(path)
       expect(html).toContain('aria-label="Primary navigation"')

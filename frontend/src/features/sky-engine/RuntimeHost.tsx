@@ -1,117 +1,73 @@
-import React, { useEffect, useState } from 'react'
-
-import { getRuntimeFrameUrl, probeRuntime } from './stellarium/stellariumRuntimeBridge'
-import { discoverRuntime, type RuntimeDiscovery, type RuntimeKind } from './stellarium/stellariumRuntimeDiscovery'
-
-const RECHECK_RUNTIME_MESSAGE = 'oras-sky-engine:recheck-runtime'
-const OPEN_STANDALONE_RUNTIME_MESSAGE = 'oras-sky-engine:open-standalone-runtime'
-
-type RuntimeStatus = 'checking' | 'ready' | 'missing'
-
-type RuntimeState = {
-  discovery: RuntimeDiscovery
-  status: RuntimeStatus
-  runtimeKind: RuntimeKind | null
-  frameUrl: string
-}
-
-function createDiscovery() {
-  const hostname = typeof window === 'undefined' ? '127.0.0.1' : window.location.hostname
-  const browserOrigin = typeof window === 'undefined' ? 'http://127.0.0.1:4173' : window.location.origin
-  return discoverRuntime(hostname, browserOrigin)
-}
-
-function isRuntimeMessage(message: unknown): message is string {
-  return message === RECHECK_RUNTIME_MESSAGE || message === OPEN_STANDALONE_RUNTIME_MESSAGE
-}
-
-export default function RuntimeHost() {
-  const [runtimeState, setRuntimeState] = useState<RuntimeState>({
-    discovery: createDiscovery(),
-    status: 'checking',
-    runtimeKind: null,
-    frameUrl: createDiscovery().sameOriginRuntimeUrl,
-  })
-
-  useEffect(() => {
-    let cancelled = false
-    const discovery = createDiscovery()
-
-    setRuntimeState({ discovery, status: 'checking', runtimeKind: null, frameUrl: discovery.sameOriginRuntimeUrl })
-
-    probeRuntime(discovery).then((probeResult) => {
-      if (cancelled) {
-        return
-      }
-      setRuntimeState({
-        discovery,
-        status: probeResult.isAvailable ? 'ready' : 'missing',
-        runtimeKind: probeResult.runtimeKind,
-        frameUrl: probeResult.runtimeUrl,
-      })
-    })
-
-    return () => {
-      cancelled = true
+import React,{useEffect,useRef,useState} from 'react'
+import {useLocation} from 'react-router-dom'
+import {connectRuntime,type RuntimeClient} from '../../../../packages/runtime-protocol/client.mjs'
+import type {RuntimeMode} from '../../../../packages/runtime-protocol/index.mjs'
+import {useRuntimeProductState} from '../runtime/productState'
+type Status='checking'|'loading'|'ready'|'error'
+// The queue owns DOM lifetimes, never a renderer. Removal precedes the next mount.
+let disposal:Promise<void>=Promise.resolve()
+export default function RuntimeHost({mode='sky'}:{mode?:RuntimeMode}){
+ const container=useRef<HTMLDivElement>(null),location=useLocation()
+ const [retry,setRetry]=useState(0),[status,setStatus]=useState<Status>('checking'),[version,setVersion]=useState(''),[effective,setEffective]=useState(''),[error,setError]=useState('')
+ const mountKey=JSON.stringify([mode,retry,location.search])
+ const [statusKey,setStatusKey]=useState('')
+ const visibleStatus=statusKey===mountKey?status:'checking'
+ const url=(mode==='sky'?'/oras-sky-engine/':'/earth-runtime/')+location.search
+ useEffect(()=>{
+  let cancelled=false,frame:HTMLIFrameElement|null=null,client:RuntimeClient|null=null
+  const abort=new AbortController()
+  useRuntimeProductState.getState().ingestSearch(location.search)
+  const generation=useRuntimeProductState.getState().activate(mode)
+  const bytes=crypto.getRandomValues(new Uint8Array(16)),nonce=Array.from(bytes,x=>x.toString(16).padStart(2,'0')).join('')
+  setStatusKey(mountKey);setStatus('checking');setVersion('');setEffective('');setError('')
+  async function mount(){
+   await disposal;if(cancelled)return
+   try{
+    const probe=await fetch(mode==='earth'?'/earth-runtime/release.json':'/oras-sky-engine/favicon.ico',{signal:AbortSignal.any([abort.signal,AbortSignal.timeout(4000)]),cache:'no-store'})
+    if(!probe.ok)throw new Error('The runtime could not be reached.')
+    if(mode==='earth'){
+     const artifact=await probe.json(),expectedResponse=await fetch('/runtime-versions.json',{signal:abort.signal,cache:'no-store'}),expected=await expectedResponse.json()
+     if(artifact.owner!=='Astronomy Hub'||artifact.upstream_sha!==expected.earth.sha||artifact.artifact_sha256!==expected.earth.artifact_sha256)throw new Error('Earth artifact does not match the qualified runtime.')
     }
-  }, [])
-
-  const retryDiscovery = () => {
-    const discovery = createDiscovery()
-    setRuntimeState({ discovery, status: 'checking', runtimeKind: null, frameUrl: discovery.sameOriginRuntimeUrl })
-    void probeRuntime(discovery).then((probeResult) => {
-      setRuntimeState({
-        discovery,
-        status: probeResult.isAvailable ? 'ready' : 'missing',
-        runtimeKind: probeResult.runtimeKind,
-        frameUrl: probeResult.runtimeUrl,
-      })
-    })
+    if(cancelled)return
+    setStatus('loading');frame=document.createElement('iframe');frame.title=mode==='sky'?'ORAS Sky-Engine Runtime':"ORAS Cesium Earth Runtime";frame.allowFullscreen=true
+    const params=new URLSearchParams(location.search);params.set('orasEmbedded','1')
+    if(mode==='sky'&&!params.has('catalog')){
+     const selection=useRuntimeProductState.getState().selection
+     if(selection)for(const field of ['catalog','source_id','model','ra','dec'] as const){const value=selection[field];if(value!==undefined)params.set(field,String(value))}
+    }
+    frame.src=(mode==='sky'?'/oras-sky-engine/':'/earth-runtime/')+'?'+params
+    container.current?.append(frame)
+    const connected=await connectRuntime(frame,{runtime:mode,nonce,generation},{signal:abort.signal})
+    if(cancelled){connected.close();return}client=connected;setVersion(client.version)
+    const state=useRuntimeProductState.getState()
+    state.negotiate(mode,client.capabilities)
+    const requested=state.requestedTime
+    // Exact Sky links already carry engine-owned observer/time/selection intent.
+    if(client.capabilities.includes('timeIntent')){
+     const result=await client.request('setTimeIntent',{utc:requested});if(cancelled)return
+     state.report(mode,{requestedTime:requested,...result});setEffective(result.ok?`${result.temporalMode}: ${result.effectiveTime}`:result.error||'Time unavailable')
+    }
+    if(client.capabilities.includes('observerIntent') && (mode==='earth' || !(new URLSearchParams(location.search).has('lat') && new URLSearchParams(location.search).has('lng')))){await client.request('setObserverIntent',state.observer);if(cancelled)return}
+    setStatus('ready')
+   }catch(cause){if(cancelled)return;client?.close();frame?.remove();setError(cause instanceof Error?cause.message:'Runtime initialization failed');setStatus('error')}
   }
-
-  const openStandaloneRuntime = () => {
-    const discovery = createDiscovery()
-    const runtimeKind = runtimeState.status === 'ready' && runtimeState.runtimeKind ? runtimeState.runtimeKind : 'same-origin'
-    window.open(getRuntimeFrameUrl(discovery, runtimeKind), '_blank', 'noopener,noreferrer')
+  void mount()
+  return ()=>{
+   cancelled=true;abort.abort()
+   const previous=client,previousFrame=frame
+   // Bound graceful destroy. A document removal releases failed/nonresponsive engines.
+   disposal=disposal.then(async()=>{try{if(previous?.capabilities.includes('destroy'))await previous.request('destroy',{},1000)}catch{/* removal is the final teardown */}finally{previous?.close();previousFrame?.remove()}})
   }
-
-  useEffect(() => {
-    const handleRuntimeMessage = (event: MessageEvent) => {
-      const discovery = createDiscovery()
-      const sameOriginRuntimeOrigin = new URL(discovery.sameOriginRuntimeUrl).origin
-      const legacyRuntimeOrigin = new URL(discovery.legacyRuntimeUrl).origin
-
-      if ((event.origin !== sameOriginRuntimeOrigin && event.origin !== legacyRuntimeOrigin) || !isRuntimeMessage(event.data)) {
-        return
-      }
-
-      if (event.data === RECHECK_RUNTIME_MESSAGE) {
-        retryDiscovery()
-        return
-      }
-
-      openStandaloneRuntime()
-    }
-
-    window.addEventListener('message', handleRuntimeMessage)
-
-    return () => {
-      window.removeEventListener('message', handleRuntimeMessage)
-    }
-  }, [])
-
-  const frameUrl = runtimeState.frameUrl
-
-  return <div className="oras-runtime-host">
-    <h1 className="oras-sky-title">Interactive sky</h1>
-    {runtimeState.status === 'ready' ? <iframe src={frameUrl} title="ORAS Sky-Engine Runtime" allowFullScreen/> :
-      <section className="oras-runtime-message" aria-label="Sky availability">
-        <h2>{runtimeState.status === 'checking' ? 'Opening the interactive sky…' : 'The interactive sky is unavailable'}</h2>
-        <p className="oras-caption" role="status">{runtimeState.status === 'checking' ? 'Checking the ORAS planetarium.' : 'The planetarium could not be reached. Please try again shortly.'}</p>
-        <div className="oras-actions">
-          <button className="oras-button oras-button--quiet" type="button" onClick={retryDiscovery} disabled={runtimeState.status === 'checking'}>Retry Sky</button>
-          <a className="oras-text-link" href={frameUrl} target="_blank" rel="noreferrer">Open Sky in a new tab ↗</a>
-        </div>
-      </section>}
-  </div>
+ },[mode,retry,location.search])
+ const name=mode==='sky'?'Sky':'Earth'
+ return <div className="oras-runtime-host" data-runtime-mode={mode} data-runtime-status={visibleStatus}>
+  <h1 className="oras-sky-title">{mode==='sky'?'Interactive sky':"Earth"}</h1>
+  <div className="oras-runtime-slot" ref={container}/>
+  {visibleStatus!=='ready'&&<section className="oras-runtime-message oras-runtime-overlay" aria-label={`${name} availability`}>
+   <h2>{visibleStatus==='error'?`${name} is unavailable`:`Opening ${name}…`}</h2><p role="status">{visibleStatus==='error'?error:visibleStatus==='checking'?'Checking the runtime.':'Starting the renderer.'}</p>
+   <div className="oras-actions"><button className="oras-button" onClick={()=>setRetry(x=>x+1)} disabled={visibleStatus!=='error'}>Retry {name}</button><a className="oras-text-link" href={url} target="_blank" rel="noreferrer">Open {name} in a new tab ↗</a></div>
+  </section>}
+  {visibleStatus==='ready'&&<details className="oras-runtime-diagnostics"><summary>Runtime details</summary><p>{version}</p><p>Protocol 1.0 · {effective}</p><a href="/runtime-versions.json" target="_blank" rel="noreferrer">Artifact and source provenance</a>{mode==='earth'&&<p>Earth receives requested time. Live providers report their own temporal limits.</p>}</details>}
+ </div>
 }
