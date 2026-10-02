@@ -39,15 +39,31 @@ A feature represents a user-visible capability, not a system component.
 
 ---
 
+## Current Foundation and Approved Future Scope
+
+CURRENT: PR #52 shared shell/Home, Observe, Tonight, contained SWE and existing
+satellite identity/TLE/freshness/local propagation support.
+PLANNED: full-viewport workspace with contextual controls, complete applicable
+God's Eye Earth, body-aware Cesium planetary surfaces, universal state, controlled
+renderer handoffs, and external additive Earth astronomy layers.
+OPEN: upstream consumption topology, exact state/extension API, transition
+choreography and solar-system-scale renderer. Legacy domain code does not prove
+the planned runtimes are integrated.
+
+[Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)
+is the detailed approved reference; `PROJECT_STATE.md` controls order. The lists
+below enumerate capability scope, not implementation status. The current task
+is documentation only; `oras_horizon.v1` belongs to later astronomy extensions.
+
 ## FEATURE LIST (AUTHORITATIVE)
 
 ---
 
-### 1. Command Center / Hub Surface
+### 1. Product Shell / Hub Surface
 
 * Above Me decision surface
-* contextual panels
-* feed-driven interaction
+* global navigation and future universal state
+* renderer-centered workspace with contextual drawers; Observe/Tonight stay independent routes
 
 ---
 
@@ -68,7 +84,7 @@ A feature represents a user-visible capability, not a system component.
 
 ---
 
-### 4. Above Me Orchestration (PRIMARY ACTIVE FEATURE)
+### 4. Above Me Orchestration
 
 * multi-engine aggregation
 * visibility filtering
@@ -86,11 +102,13 @@ A feature represents a user-visible capability, not a system component.
 
 ---
 
-### 6. Earth Engine
+### 6. Earth Exploration (PLANNED)
 
-* globe visualization
-* geospatial context
-* environmental layers
+* complete applicable God's Eye Earth feature set; retain non-astronomy capabilities
+* external additive astronomy layers, including eclipse, fireball, aurora, smoke,
+  light pollution, observatories and ORAS context
+* provider/asset terms and qualification separate from source-code licensing
+* pinned upgradeable upstream with compatibility boundary; integration not started
 
 ---
 
@@ -109,11 +127,11 @@ A feature represents a user-visible capability, not a system component.
 
 ---
 
-### 9. Solar System Context
+### 9. Planetary and Solar-System Exploration (PLANNED)
 
-* planets
-* orbital relationships
-* spatial navigation
+* body-aware Cesium planetary surface direction with qualified data; Mars first
+* cross-body navigation and controlled explicit/scale-driven handoffs
+* solar-system-scale renderer remains OPEN, not a new renderer decision
 
 ---
 

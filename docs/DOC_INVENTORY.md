@@ -97,7 +97,7 @@ Cannot control execution.
 | `docs/DOCUMENT_INDEX.md`        | CORE_CONTROL         |
 | `docs/FEATURE_DOC_REBASE.md`    | SUPPORT              |
 | `docs/full_audit.md`            | SUPPORT              |
-| `docs/MASTER_PLAN.md`           | SUPPORT (alias only) |
+| `docs/MASTER_PLAN.md`           | SUPPORT (product reference) |
 | `docs/PHASE_STRUCTURE.md`       | LEGACY               |
 | `docs/PROJECT_STATE.md`         | SUPPORT (alias only) |
 | `docs/README.md`                | PRODUCT_DEFINITION   |
@@ -151,6 +151,8 @@ Stack authority is defined in `docs/architecture/STACK_OVERVIEW.md` and surfaced
 | File                  | Classification   |
 | --------------------- | ---------------- |
 | `docs/architecture/*` | ENGINE_AUTHORITY |
+| `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` | ENGINE_AUTHORITY (approved direction; current/planned/open explicit) |
+| `docs/architecture/decisions/*` | ENGINE_AUTHORITY (accepted decisions; not implementation evidence) |
 | `docs/contracts/*`    | ENGINE_AUTHORITY |
 
 These define:
@@ -289,7 +291,11 @@ Hub decision layer + contained ORAS Stellarium runtime at /oras-sky-engine/
 
 ### Rule 8 — Sky Engine Runtime Is Engine-Owned
 
-The Hub may mount Sky Engine, but it must not own Sky Engine's internal render loop, module composition, or runtime state.
+The Hub may mount Sky Engine and owns product context. It must not own the
+engine's internal render loop, module composition, or renderer-local state. Future
+universal application state and camera/selection intent are Hub-owned under
+`docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md`; adapters realize intent.
+God's Eye/Cesium integration is planned, not current.
 
 ---
 

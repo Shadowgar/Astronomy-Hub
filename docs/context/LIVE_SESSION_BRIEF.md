@@ -5,70 +5,81 @@
 Load with `CORE_CONTEXT.md`, then the task pack in `CONTEXT_MANIFEST.yaml`.
 Validation authority and proven runtime behavior govern completion claims.
 
-The user-authorized task is the shared public shell and decision homepage on
-`hub-public-shell-homepage-1`, based on main
-`1e341746b05609b3237388514691fe3c5edecaf3` after PR #51 merged. PRs #48–#51
-provide the existing identity, Observe, observability, and Tonight foundations.
-The public Hub homepage is now authorized and is no longer a deferred lane.
+Active task: docs-only **Unified Universe Architecture** checkpoint on
+`unified-universe-architecture-1`, from current main
+`7c54596f59b2d43afda561cbad1b0d587d7407f6` after PR #52 merged.
+Single agent only. Preserve unrelated `.vscode/settings.json`. Open the PR
+**Define unified Astronomy Hub universe architecture**, perform one normal
+single-agent review cycle, and do not merge. No feature implementation.
 
-## Public product
+Detailed approved direction:
+[UNIFIED_UNIVERSE_ARCHITECTURE](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)
+and its eight ADRs. No Stellarium Runtime or High-Definition Data override is
+active for this checkpoint.
 
-- Home `/`: ORAS decision surface with Tonight, Observe Now, current weather
-  facts, and entry to the interactive sky.
-- Observe `/observe`: current or explicitly selected location/time sky inventory,
-  categories, source-backed detail, and canonical object links.
-- Tonight `/tonight`: ORAS-specific full-night planning through `tonight.v1`;
-  existing evening date, noon rollover, DST, geometry, and forecast semantics.
-- Sky `/sky-engine`: embedded host with shared Hub navigation around the renderer.
+## Current implementation foundation
 
-All four routes share ORAS identity, text navigation, focus/skip behavior,
-content tokens and a responsive shell. Home has no engine/configuration wall,
-quality score, heavyweight sky preview, or invented astronomy. Tonight loads
-independently. Observe Now and current conditions share the existing Observe
-React Query request; conditions use qualified `observability.v1` weather facts,
-not legacy observing-score/seeing/transparency judgments. A weather-provider
-failure leaves astronomy available; an Above Me HTTP failure affects both of
-its summaries while Tonight and Sky remain usable.
+- Home `/`: ORAS decision homepage, Tonight summary, Observe Now/current weather,
+  and interactive Sky entry.
+- Observe `/observe`: observer/time sky inventory, source-backed details and links.
+- Tonight `/tonight`: ORAS full-night planning through unchanged `tonight.v1`.
+- Sky host `/sky-engine`: shared ORAS navigation around contained SWE.
+- Standalone renderer `/oras-sky-engine/`: current ORAS Stellarium Web runtime.
+- Satellite source paths: normalized TLE identity/release lifecycle,
+  freshness/provenance and local propagation; legacy passes are not production-grade.
 
-## Engine authority
+PRs #48–#52 remain valid foundations. The shell is implemented and merged;
+recorded qualification is PARTIAL for the blanket console-clean gate because
+standalone/embedded Sky retain dense-star tile 404s. Previous 155 frontend and
+16 Docker browser checks are historical evidence in `PROJECT_STATE.md`; they
+are not rerun by this documentation task. Existing contracts and routes remain.
 
-The active contained sky renderer remains `/oras-sky-engine/`: ORAS-hosted
-Stellarium Web / Stellarium Web Engine. `/sky-engine` is its Hub host route,
-not a replacement renderer or a BabylonJS surface.
+## Approved future architecture
 
-Runtime source/integration paths remain:
+The product is one continuously navigable astronomy, Earth, and planetary
+workspace. The renderer is the design center: full viewport, contextual floating
+controls, progressive disclosure, hide/edge-return/pin/immersive chrome. Approved
+visual concepts/mockups must precede future UX coding. PR #52 is the shared-shell
+foundation, not that final visual product.
 
-- `vendor/stellarium-web-engine/apps/web-frontend`
-- `vendor/stellarium-web-engine/src`
-- `frontend/public/oras-sky-engine`
-- `/api/sky/object`, `/api/above-me`, `/api/tonight`
+The Hub owns product shell/navigation and future small universal state: mode,
+time, observer, selected entity/body, camera intent, applicable layers and history.
+Renderers own internal scene, camera execution, selection realization and math.
+SWE remains the upgradeable Sky renderer. God's Eye is the planned complete
+applicable Earth runtime, including non-astronomy features subject to provider
+terms; astronomy additions are external additive layers. Body-aware Cesium is
+the planned planetary surface direction. Neither integration has started.
 
-The Hub owns decisions/navigation and approved URL input. Stellarium owns
-rendering, scene lifecycle, selection, camera, survey imagery and visual math.
-Preserve `catalog + source_id + model`, string IDs, validated RA/Dec fallback,
-observer/time/site handoffs, and both core system models. Standalone runtime,
-star catalogs, mounted bulk data and backend astronomy are outside this UI pass.
+Controlled handoffs support explicit body exploration and later scale-driven
+navigation, preserving identity/time/context without promising perfect camera
+transforms. Observe and Tonight remain independent direct/mobile/shareable and
+fallback routes; future workspace drawers add their capabilities. Home/Sky may
+converge conceptually later; no route is removed here.
 
-## Execution and qualification
+SWE and God's Eye upstream source is immutable by default. Use pinned/qualified
+revisions, adapters and external extensions; unavoidable patches need explicit
+architectural exception under the architecture document. No feature stripping,
+from-scratch replacement Earth renderer, or SWE edits for UI convenience.
 
-See `PROJECT_STATE.md` and `FEATURE_TRACKER.md` for this pass's runtime evidence.
-Completion requires focused/full frontend tests, typecheck/build, Docker and
-real desktop/mobile browser acceptance. Open the requested PR; do not merge.
-Frontend tests (155), typecheck/build and Docker browser tests (16) passed.
-The console-clean gate remains partial: unchanged standalone and embedded Sky
-have missing mounted dense-star tile 404s, a Category B follow-up outside UI scope.
-One normal Codex review is sufficient. Category A correctness/security/
-accessibility/regression findings block; Category B polish, abstraction,
-micro-optimization and unrelated legacy cleanup are documented follow-ups.
+## Open choices
 
-## Next milestone and deferred lanes
+Upstream consumption mechanism (submodule/subtree/vendor/separate runtime/package
+exports), isolation versus direct imports, exact state/extension API, renderer
+handoff animation, solar-system-scale renderer and provider qualification remain
+undecided. Approval of a direction is not implementation or qualification.
 
-Next planned scientific differentiator: `oras_horizon.v1`, a calibrated/measured
-ORAS azimuth horizon and eventual panorama alignment. It is not implemented or
-started in this task and needs its own authorization and scientific contract.
+## Revised sequence and stopping boundary
 
-WordPress, equipment, telescope control, AI/Member Hub, event workflows, new
-catalogs, satellite overhaul, DESI promotion and landscape/toolbar redesign
-remain outside this task. DSS remains the safe fallback; experimental survey
-providers retain their existing restrictions. No fake coordinates, visibility,
-weather, catalog identity, survey coverage or production object registrations.
+A architecture docs → B God's Eye + SWE compatibility/upgradeability study →
+C unified Sky/Earth skeleton → D ISS handoff → E Mars proof → F astronomy extensions.
+
+The next task after this PR is **God's Eye + SWE compatibility/upgradeability
+study**. Do not start it here. `oras_horizon.v1` remains approved and important
+in Phase F, spanning Observe/Tonight/Sky/Earth site/panorama; it is no longer next
+and requires measured/calibrated data. No fabricated horizon.
+
+This task edits only documentation/control files. Validate scope, whitespace,
+local links/context discoverability and Category A review blockers. Do not run
+expensive app suites or claim new Docker/browser evidence. No runtime, API,
+package, vendor, data, assets, submodule, Earth/Mars, horizon, satellite/flight,
+WordPress, equipment, AI, telescope control or DESI implementation occurs here.

@@ -35,7 +35,8 @@ Follow this order when determining truth:
 5. `docs/execution/PROJECT_STATE.md`
 6. `docs/execution/MASTER_PLAN.md`
 7. relevant phase / execution documents
-8. architecture / engine / object / contract / ingestion documents
+8. architecture / engine / object / contract / ingestion documents, including
+   `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` for approved renderer direction
 9. `docs/ASTRONOMY_HUB_MASTER_PLAN.md` — vision only
 
 ### Rule
@@ -106,7 +107,9 @@ As of the current execution state, the active public ORAS sky runtime is:
 
 This surface is the ORAS-hosted Stellarium Web / Stellarium Web Engine runtime.
 
-Do not assume `/sky-engine` or BabylonJS is the active implementation target unless `LIVE_SESSION_BRIEF.md`, `PROJECT_STATE.md`, and the active task explicitly restore that direction.
+`/sky-engine` is the current Hub host route, not the rendering runtime. Do not
+restore a BabylonJS sky implementation unless the live brief, project state, and
+active task explicitly authorize it.
 
 Docs-only authority cleanup must update control documents without runtime, package, backend, or frontend edits.
 
@@ -134,7 +137,9 @@ Preserve both system models:
 
 Do not introduce structures that violate these models.
 
-The Hub is a decision layer.
+The Hub owns the product shell and astronomy decision layer. The approved future
+universal state belongs to the Hub; renderer-internal state and math belong to
+each engine. See `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md`.
 
 The engine owns scene behavior.
 
@@ -146,7 +151,10 @@ The API/data layer must not fake visibility, coordinates, or catalog identity.
 
 ## 7. Locked Stack
 
-Implementation must follow `docs/STACK_OVERVIEW.md`, subject to the ORAS Sky Engine runtime exception below.
+Implementation must follow `docs/architecture/STACK_OVERVIEW.md` (the root
+stack file is an alias), subject to the approved engine boundaries below.
+God's Eye Earth and body-aware Cesium planetary rendering are approved future
+directions, not implemented runtimes or authorization to add dependencies.
 
 ### Backend stack
 
@@ -199,7 +207,7 @@ It is NOT:
 - a shared rendering system
 - a generic visualization layer
 - a cross-engine utility
-- a Hub-managed rendering surface
+- a Hub-owned rendering implementation
 
 It IS:
 
@@ -213,6 +221,8 @@ It IS:
 - link to `/oras-sky-engine/`
 - pass observer, time, location, and configuration through defined URL/API contracts
 - mount or embed the runtime only through approved interfaces
+- own application chrome and future product intent through qualified adapters;
+  Stellarium still executes selection/camera behavior and owns scene state
 
 ### The Hub may NOT
 
@@ -938,3 +948,23 @@ Every coding-agent report must include:
 If any required validation was not run, say so directly.
 
 Do not claim completion when validation was skipped.
+
+
+## 25. Unified Universe Architecture Guardrails
+
+Consult `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` before renderer or
+engine work. Distinguish current implementation, approved plans, and open choices.
+
+- The next task after the architecture PR is God's Eye + SWE compatibility/
+  upgradeability study. Do not start `oras_horizon.v1` from an older roadmap.
+- Preserve complete applicable God's Eye Earth capabilities, including those
+  unrelated to astronomy, subject to provider/data/asset terms. Do not implement
+  a replacement Earth renderer from scratch or strip upstream features.
+- Hub astronomy additions belong in external adapters/extensions. Treat God's Eye
+  and SWE upstream source as immutable by default; UI convenience is no exception.
+  Unavoidable changes require an explicit architectural exception, extension-point
+  investigation, preferred generic upstream hook, or tiny documented patch queue.
+- Do not claim God's Eye, unified Earth, universal state, planetary surfaces, or
+  cross-engine handoffs exist before implementation and qualification.
+- The Git/build mechanism, exact extension API, and solar-system-scale renderer
+  remain open. No new implementation begins in this docs-only checkpoint.

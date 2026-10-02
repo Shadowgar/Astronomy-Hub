@@ -1,202 +1,61 @@
-# `README.md`
-
----
-
 # Astronomy Hub
 
----
+Astronomy Hub is a unified, continuously navigable astronomy, Earth, and
+planetary exploration workspace. Its astronomy intelligence answers what is
+above an observer and what deserves attention, within a broader exploration
+product.
 
-## What This Is
+## Current foundation
 
-Astronomy Hub is a:
+Merged PR #52 provides one public ORAS shell: Home `/`, Observe `/observe`,
+Tonight `/tonight`, and Sky host `/sky-engine`. The contained Stellarium Web
+runtime at `/oras-sky-engine/` owns sky rendering and remains available standalone.
+Existing satellite identity, TLE release/freshness/provenance and local propagation
+work remains valid. Qualified satellite passes are still future work.
 
-```text id="v9k3xp"
-location-aware observatory command center
-```
+Historical qualification and known gaps are in
+[PROJECT_STATE](execution/PROJECT_STATE.md) and
+[FEATURE_TRACKER](features/FEATURE_TRACKER.md). This documentation checkpoint
+claims no fresh runtime qualification.
 
-It answers one core question:
+## Approved direction and open choices
 
-```text id="m4p8yz"
-What can I see right now, and what should I observe?
-```
+[Unified Universe Architecture](architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)
+is the detailed architecture reference, with eight concise ADRs. The planned
+flagship is a full-viewport, sky-centered workspace with contextual controls.
+Observe and Tonight stay independent routes and later gain workspace drawers.
+Home/Sky may converge conceptually; no routes change in this checkpoint.
 
----
+The future Hub owns small universal product state and cross-engine intent. SWE
+owns Sky rendering; complete applicable God's Eye View owns the planned Earth
+runtime; body-aware Cesium is the planned planetary surface direction.
+Astronomy Earth additions are external additive layers. Upstream source is
+immutable by default and remains pinned, qualified and upgradeable. Source-code
+licensing never automatically licenses third-party data, visual assets or providers.
 
-## What This Is NOT
+God's Eye integration, planetary surfaces, universal state and renderer handoffs
+are not implemented. Git/build topology, exact bridge/extension API, handoff
+animation and the solar-system-scale renderer remain open.
 
-This is NOT:
+## Context and execution
 
-* a generic dashboard
-* a data dump
-* a static astronomy viewer
-* a collection of unrelated panels
+Start with [CORE_CONTEXT](context/CORE_CONTEXT.md) and
+[LIVE_SESSION_BRIEF](context/LIVE_SESSION_BRIEF.md), then load the matching pack
+from [CONTEXT_MANIFEST](context/CONTEXT_MANIFEST.yaml).
+[DOCUMENT_INDEX](DOCUMENT_INDEX.md) defines document authority;
+[SYSTEM_VALIDATION_SPEC](validation/SYSTEM_VALIDATION_SPEC.md) defines proof.
+Do not load the full docs tree or use archive phase instructions as current work.
 
----
+Preserve both models:
 
-## Core System Model
-
-```text id="q2h7vn"
-Hub → Engine → Scene → Object → Detail → Exploration
-```
-
----
-
-## Core Rendering Rule
-
-```text id="r8x4mb"
-The center viewport is always the Active Engine Scene.
-```
-
----
-
-## System Structure
-
----
-
-### Hub (Decision Layer)
-
-The hub:
-
-* selects what matters
-* aggregates context
-* routes user interaction
-
-The hub does NOT:
-
-* render scenes
-* own objects
-* override engines
-
----
-
-### Engines (Reality Layer)
-
-Engines:
-
-* own domain logic
-* own objects
-* render scenes
-* control interaction
-* may own isolated Babylon.js runtimes when primary
-
-Examples:
-
-* Sky Engine
-* Earth Engine
-* Solar System Engine
-* Satellite Engine
-* Conditions Engine
-
----
-
-### Viewport (Primary Surface)
-
-The viewport:
-
-* renders the active engine
-* supports interaction
-* reflects current context
-
----
-
-## Current Product Anchor
-
-```text id="c5t9kw"
-Hub shell remains active on '/'; '/sky-engine' is a clean placeholder pending a new mount from '/study'
-```
-
-Current build order:
-
-1. Mount a working runtime from `/study`
-2. Restore `/sky-engine` through the new placeholder boundary
-3. Reconnect feed → engine interaction after the new runtime is real
-4. Resume object exploration flow on top of the new runtime
-5. Additional engines
-
----
-
-## Execution Model
-
-Astronomy Hub uses:
-
-```text id="p7z4nv"
-feature-first + runtime-proof execution
-```
-
----
-
-### Every change must:
-
-* map to a feature
-* produce runtime behavior
-* include proof
-* update tracker/state
-
----
-
-## Validation Rule
-
-```text id="y3n8zt"
-If it cannot be proven in runtime, it is not complete.
-```
-
----
-
-## Architecture Laws
-
-```text id="u6r2kj"
-Scope → Engine → Filter → Scene → Object → Detail
-```
-
-```text id="k4d9xp"
+```text
+Scope → Engine → Filter → Scene → Object → Detail → Assets
 Ingestion → Normalization → Storage → Cache → API → Client Rendering
 ```
 
----
-
-## Document System
-
-Docs are structured by authority:
-
-* CORE CONTROL → execution truth
-* PRODUCT DEFINITION → system behavior
-* ENGINE AUTHORITY → architecture
-* EXECUTION MODEL → workflow
-* SUPPORT → guidance
-* LEGACY → historical only
-
----
-
-### Start Here
-
-If working on the system:
-
-1. `docs/DOCUMENT_INDEX.md`
-2. `docs/context/CORE_CONTEXT.md`
-3. `docs/context/LIVE_SESSION_BRIEF.md`
-4. `docs/execution/PROJECT_STATE.md`
-
----
-
-## Operator Workflow
-
-```text id="w1k7rc"
-load context
-→ confirm authority
-→ inspect runtime truth
-→ implement smallest slice
-→ verify with proof
-→ update tracker/state
-```
-
----
-
-## Final Principle
-
-```text id="d9m2qv"
-The hub decides what matters.
-The engine shows reality.
-The user explores without limits.
-```
-
----
+The active task is docs-only architecture. The next task after its PR is
+**God's Eye + SWE compatibility/upgradeability study**. The approved sequence is
+architecture → study → runtime skeleton → ISS slice → Mars proof → astronomy
+extensions, including the still-important `oras_horizon.v1`. Horizon is not next.
+Each implementation task requires separate bounded authorization and appropriate
+Docker/browser/source proof. No runtime implementation or merge in this checkpoint.

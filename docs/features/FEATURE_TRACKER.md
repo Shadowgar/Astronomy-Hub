@@ -67,22 +67,25 @@ FEATURE_ACCEPTANCE.md
 
 ---
 
-## CURRENT ACTIVE FEATURE SLICE
+## Current Documentation Checkpoint
 
-```text id="c93ptl"
-Feature: Shared public shell and ORAS decision homepage
-Status: PARTIAL
-```
+The active task is docs-only Unified Universe Architecture on
+`unified-universe-architecture-1`, based on merged PR #52. No runtime feature
+status is upgraded by this task. Execution order belongs to
+[PROJECT_STATE](../execution/PROJECT_STATE.md), with detailed approved direction in
+[Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
 
-Reason:
+Current foundation: SWE, Observe, Tonight, shared shell/Home, normalized satellite
+identity, TLE releases, freshness/provenance and local propagation source paths.
+The shared shell's historical 155 frontend and 16 Docker browser checks are
+retained evidence, not rerun here; its console-clean gate remains PARTIAL.
 
-* public shell/Home implementation exists
-* 155 frontend tests, typecheck/build and 16 Docker browser tests passed
-* standalone and embedded Sky retain existing missing dense-star tile 404s
-* exact evidence and the Category B boundary are in PROJECT_STATE.md
-* the older inventory below also covers unfinished legacy engine workflows
-
----
+God's Eye integration and unified Earth Mode have not started. Body-aware
+planetary surfaces, universal multi-renderer state, external astronomy registry,
+and cross-engine handoffs have no implementation/qualification evidence. Legacy
+Earth and Solar System rows below do not prove these approved runtimes exist.
+Qualified satellite passes remain missing; legacy passes are not production-grade.
+The older inventory remains scoped to unfinished legacy workflows.
 
 ## RUNTIME TRUTH INVENTORY
 
@@ -199,7 +202,7 @@ checks and final performance revalidation have passed. Runtime status: REAL
 for the bounded behavior and limits documented in the evidence. PR #51 merged on 2026-10-01; current CI/review state is authoritative on GitHub. This entry does not change the broader legacy Hub status inventory.
 
 
-## Shared public shell and decision homepage (2026-10-01)
+## Shared public shell and decision homepage (PR #52 merged 2026-10-02)
 
 The public application model is Home `/`, Observe `/observe`, Tonight `/tonight`
 and Sky `/sky-engine`. One ORAS shell owns navigation/landmarks/focus and shared
@@ -216,4 +219,5 @@ follow-up; see PROJECT_STATE.md for exact evidence. Standalone
 This bounded entry supersedes the legacy Command Center/Hub Surface row for
 public presentation; it does not claim completion of unfinished engines.
 
-Next planned milestone is `oras_horizon.v1`, not started in this UI task.
+`oras_horizon.v1` is not implemented. Its placement and the next task are governed
+by current execution authority and the unified architecture, not this older UI milestone.

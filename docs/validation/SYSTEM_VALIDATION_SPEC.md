@@ -85,7 +85,7 @@ This is the ORAS-hosted Stellarium Web / Stellarium Web Engine runtime.
 
 Validation must not assume:
 
-- `/sky-engine`
+- `/sky-engine` as a replacement renderer; it is the current Hub host route
 - BabylonJS as the active Sky Engine
 - Hub-owned sky rendering
 
@@ -176,7 +176,22 @@ WordPress/ORAS surface
 
 It must not duplicate sky calculations or hardcode production objects.
 
-## 11. Feature Classification Law
+## 11. Documentation Checkpoints and Future Architecture
+
+Docs-only architecture checkpoints prove document/control scope, whitespace,
+links/context discoverability, and review findings; they do not require app
+builds or runtime/browser tests when no runtime behavior changes or is claimed.
+An approved plan is not an implemented feature. `CURRENTLY IMPLEMENTED`,
+`APPROVED / PLANNED`, and `OPEN / UNDECIDED` describe architecture lifecycle,
+not substitutes for the runtime status vocabulary below.
+
+[Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)
+defines the approved future renderer boundaries. Hub-owned product intent and
+renderer-owned scene/math must remain distinct. Later runtime handoffs require
+Docker/browser proof of identity, time, observer and centering; approval alone
+is no qualification evidence.
+
+## 12. Feature Classification Law
 
 Only these states are allowed:
 
@@ -185,7 +200,7 @@ Only these states are allowed:
 - FAKE
 - BLOCKED
 
-## 12. Execution Block Rule
+## 13. Execution Block Rule
 
 If validation fails:
 

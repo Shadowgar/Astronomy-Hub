@@ -20,51 +20,28 @@ All others are reference.
 
 ## 3. Product Model
 
-Astronomy Hub is a location-aware astronomy intelligence system.
-
-Core question:
-
-```text
-What can I see right now, and what should I observe?
-```
-
-System model:
+Astronomy Hub is a unified astronomy, Earth, and planetary exploration workspace.
+The Hub owns product context and astronomy decisions; specialized renderers own
+domain scenes and math. Detailed approved direction and ADRs are in
+[Unified Universe Architecture](architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
 
 ```text
 Scope -> Engine -> Filter -> Scene -> Object -> Detail -> Assets
-```
-
-Data model:
-
-```text
 Ingestion -> Normalization -> Storage -> Cache -> API -> Client Rendering
 ```
 
 ## 4. Current Runtime Anchor
 
-The active public ORAS sky runtime is:
+The current shared shell contains Home `/`, Observe `/observe`, Tonight `/tonight`,
+and Sky host `/sky-engine` (merged PR #52). `/oras-sky-engine/` is the contained
+ORAS-hosted Stellarium Web runtime, also reachable standalone. The host route is
+not a replacement renderer or a placeholder.
 
-```text
-/oras-sky-engine/
-```
-
-`/oras-sky-engine/` is the ORAS-hosted Stellarium Web / Stellarium Web Engine
-runtime.
-
-Stale assumptions that must not control execution:
-
-- active route is `/sky-engine`
-- active Sky Engine is BabylonJS
-- Hub owns Sky Engine rendering
-- Sky Engine is a shared visualization layer
-
-Current rules:
-
-- Sky Engine remains isolated
-- Hub remains the decision layer
-- backend/API provides source-backed object identity and curated discovery
-- no fake data
-- Docker/runtime validation remains authoritative
+God's Eye Earth, body-aware Cesium Planet Mode, universal state, and cross-engine
+handoffs are approved plans, not integrated runtimes. SWE owns its internal
+scene/render/camera/selection lifecycle. The future Hub owns product intent and
+visible application chrome through qualified adapters. No BabylonJS sky replacement.
+No fake data. Docker/browser proof remains required for runtime claims.
 
 ## 5. Authority Tiers
 
@@ -86,7 +63,9 @@ These define product and architecture reference:
 
 - `docs/README.md`
 - `docs/ASTRONOMY_HUB_DIAGRAM.md`
-- `docs/architecture/*`
+- `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` — detailed approved direction
+- `docs/architecture/decisions/*` — concise accepted decisions, not implementation proof
+- remaining `docs/architecture/*`
 - `docs/contracts/*`
 
 ### Tier 3 - Execution Model
@@ -154,36 +133,22 @@ Context -> Target files -> Markdown validation -> Git diff proof
 
 ## 8. Current Product Anchor
 
-The current product anchor is:
+PR #52 provides the shared-shell foundation, Observe and Tonight remain decision
+pages, and SWE remains the active sky runtime. Runtime status and retained
+qualification gaps are recorded in `PROJECT_STATE.md` and `FEATURE_TRACKER.md`.
+The renderer-centered flagship workspace is planned.
 
-```text
-Hub decision layer + contained ORAS Sky Engine runtime at /oras-sky-engine/
-```
+## 9. Current Sequence and Deferred Work
 
-The Hub:
+The active task is the docs-only architecture checkpoint. The next bounded task
+after its PR is **God's Eye + SWE compatibility/upgradeability study**. Runtime
+skeleton, ISS handoff, Mars proof, then astronomy extensions follow that study.
+`oras_horizon.v1` remains approved but is deferred to the astronomy-extension
+phase; it is not next. Consult the unified architecture for the complete A–F order.
 
-- ranks and curates source-backed objects
-- consumes `/api/above-me`
-- links objects into `/oras-sky-engine/`
-
-The ORAS Sky Engine:
-
-- owns Stellarium runtime behavior
-- owns scene/rendering/camera/selection behavior
-- consumes validated observer/time/location/config/object inputs
-
-## 9. Deferred Work
-
-Do not start without explicit approval:
-
-- WordPress shortcode/page
-- Hub homepage UI
-- DESI promotion
-- TheSkyLive scraping
-- credits-update work
-
-High-definition data and imagery remain a future active lane, but still require
-bounded tasks, source/license review, no fake data, and runtime validation.
+Do not start WordPress, DESI promotion, scraping, credits work, or any runtime
+implementation from this documentation approval. Data/imagery upgrades retain
+source/license and runtime qualification gates.
 
 ## 10. Conflict Resolution
 
@@ -200,7 +165,7 @@ Do not:
 
 - follow legacy phase instructions as current authority
 - treat Hub as the Sky Engine renderer
-- treat `/sky-engine` as active
+- treat `/sky-engine` as a replacement renderer rather than the current Hub host
 - treat BabylonJS as the active ORAS Sky Engine
 - bypass contracts
 - fake data

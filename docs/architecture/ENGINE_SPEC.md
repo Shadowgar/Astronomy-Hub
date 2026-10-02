@@ -14,6 +14,25 @@ This document is **authoritative for engine behavior**.
 
 ---
 
+## Lifecycle and Product-State Boundary
+
+This document describes generic engine responsibilities, not a deployed runtime
+inventory. Current SWE and public routes are distinct from planned God's Eye
+Earth and Cesium Planet Mode. Solar-system-scale rendering remains undecided.
+Consult [Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md) before
+renderer work.
+
+The future Hub owns universal product state and camera/selection intent. Engines
+own internal scene state, coordinate/math behavior and intent realization. A
+shared selected entity can have qualified Sky and Earth representations without
+creating competing product identities. Current URL inputs are not the future
+universal state boundary.
+
+Upstream SWE/God's Eye source is immutable by default, pinned and qualified;
+external adapters/extensions preserve independent upgrades. No source edits for
+UI convenience or removal of God's Eye non-astronomy capabilities. Exact topology
+and extension contracts await the compatibility study.
+
 ## CORE DEFINITION
 
 An engine is a **domain-specific system** responsible for:
@@ -167,7 +186,9 @@ Sub-engines:
 
 ## ACTIVE ENGINE VIEWPORT
 
-The frontend provides a single viewport.
+The current Sky host provides a contained viewport; Home/Observe/Tonight do not
+require one. The planned flagship workspace foregrounds one domain scene; exact
+renderer lifetime/handoff policy remains open.
 
 This viewport always reflects:
 
@@ -179,7 +200,7 @@ Switching engines:
 
 * replaces the scene
 * updates the rendering context
-* preserves user interaction state where possible
+* preserves Hub product identity/time/context through qualified adapters; the exact transition is open
 
 ---
 
