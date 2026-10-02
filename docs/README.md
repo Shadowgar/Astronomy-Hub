@@ -34,8 +34,10 @@ immutable by default and remains pinned, qualified and upgradeable. Source-code
 licensing never automatically licenses third-party data, visual assets or providers.
 
 God's Eye integration, planetary surfaces, universal state and renderer handoffs
-are not implemented. Git/build topology, exact bridge/extension API, handoff
-animation and the solar-system-scale renderer remain open.
+are not implemented. The [Phase B study](studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md)
+selects external pinned sources, independent full-app builds, same-origin frames,
+a versioned capability bridge and active-only renderer lifetime. Exact APIs,
+browser/provider qualification and solar-system-scale rendering remain open.
 
 ## Context and execution
 
@@ -53,8 +55,8 @@ Scope → Engine → Filter → Scene → Object → Detail → Assets
 Ingestion → Normalization → Storage → Cache → API → Client Rendering
 ```
 
-The active task is docs-only architecture. The next task after its PR is
-**God's Eye + SWE compatibility/upgradeability study**. The approved sequence is
+The active task is the docs-only Phase B compatibility study. Its next recommended
+task is the bounded Phase C skeleton in study section 29. The approved sequence is
 architecture → study → runtime skeleton → ISS slice → Mars proof → astronomy
 extensions, including the still-important `oras_horizon.v1`. Horizon is not next.
 Each implementation task requires separate bounded authorization and appropriate

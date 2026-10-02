@@ -69,10 +69,16 @@ FEATURE_ACCEPTANCE.md
 
 ## Current Documentation Checkpoint
 
-The active task is docs-only Unified Universe Architecture on
-`unified-universe-architecture-1`, based on merged PR #52. No runtime feature
-status is upgraded by this task. Execution order belongs to
-[PROJECT_STATE](../execution/PROJECT_STATE.md), with detailed approved direction in
+The active checkpoint is the docs-only Phase B God's Eye + SWE Compatibility /
+Upgradeability Study on `unified-runtime-compatibility-study-1`, following merged
+Phase A PR #53. The [study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md) is
+complete in PR #54 but remains unmerged pending owner approval. No runtime
+capability or feature status is upgraded by the study.
+
+Phase C unified runtime skeleton is the next implementation phase after PR #54
+is merged and a bounded implementation task is authorized; it is PLANNED, not
+CURRENT. Execution order belongs to [PROJECT_STATE](../execution/PROJECT_STATE.md),
+with detailed approved direction in
 [Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
 
 Current foundation: SWE, Observe, Tonight, shared shell/Home, normalized satellite
@@ -80,7 +86,8 @@ identity, TLE releases, freshness/provenance and local propagation source paths.
 The shared shell's historical 155 frontend and 16 Docker browser checks are
 retained evidence, not rerun here; its console-clean gate remains PARTIAL.
 
-God's Eye integration and unified Earth Mode have not started. Body-aware
+God's Eye integration has NOT started. The approved Earth runtime has NOT been
+implemented; the approved planetary runtime has NOT been implemented. Body-aware
 planetary surfaces, universal multi-renderer state, external astronomy registry,
 and cross-engine handoffs have no implementation/qualification evidence. Legacy
 Earth and Solar System rows below do not prove these approved runtimes exist.

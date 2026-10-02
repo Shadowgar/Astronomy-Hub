@@ -5,81 +5,62 @@
 Load with `CORE_CONTEXT.md`, then the task pack in `CONTEXT_MANIFEST.yaml`.
 Validation authority and proven runtime behavior govern completion claims.
 
-Active task: docs-only **Unified Universe Architecture** checkpoint on
-`unified-universe-architecture-1`, from current main
-`7c54596f59b2d43afda561cbad1b0d587d7407f6` after PR #52 merged.
-Single agent only. Preserve unrelated `.vscode/settings.json`. Open the PR
-**Define unified Astronomy Hub universe architecture**, perform one normal
-single-agent review cycle, and do not merge. No feature implementation.
+Active task: Phase B **God's Eye + SWE compatibility/upgradeability study** on
+`unified-runtime-compatibility-study-1`, baseline main
+`0ba481f5b16f8f8637ca73628cbc2b3abaad1710` (PR #53 merged).
+Single agent. Preserve unrelated `.vscode/settings.json`. Documentation/control
+changes only; temporary isolated source/fixture experiments outside repo allowed.
+Open **Study God's Eye and SWE unified runtime compatibility**, inspect one normal
+review cycle, do not merge, then stop. No Phase C implementation authorized here.
 
-Detailed approved direction:
-[UNIFIED_UNIVERSE_ARCHITECTURE](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)
-and its eight ADRs. No Stellarium Runtime or High-Definition Data override is
-active for this checkpoint.
+Loaded planning pack plus the eight explicitly requested architecture ADRs.
+No Stellarium Runtime or High-Definition Data override is active.
+
+## Study decisions and evidence boundary
+
+[Compatibility study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md) and
+[evidence](../validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md) record:
+
+- Prefer externally pinned God's Eye source, independent full-app build and an
+  external runtime wrapper; no reduced flight/satellite-only Earth product.
+- Prefer same-origin disposable frames, versioned capability bridge, small Hub
+  intent state and one active heavy renderer after switching.
+- Use pre-seal external layers; full standalone extensions need a small generic
+  catalog/provider composition hook. No God’s Eye source changes made here.
+- Earth live layers do not all obey Cesium time. Phase C must report live-only
+  temporal limits; satellite simulation-clock qualification precedes Phase D.
+- SWE source is not pristine/reproducible from tracked vendor files alone:
+  12 tracked vendor files, 13 ignored differing upstream inputs. Recover inputs
+  and qualify a recorded reconstruction before rebuilding Sky.
+- Source inspection and three dependency-free Node probe groups support study
+  conclusions. No new application build, Docker/browser or production proof.
+
+These recommendations resolve previously open topology/consumption/lifetime
+choices. Exact protocol, base-path/browser behavior, provider/data permissions,
+SWE reconstruction and solar-system-scale renderer remain open. No claim that
+Earth, Planet, universal state or runtime bridge is already implemented.
 
 ## Current implementation foundation
 
-- Home `/`: ORAS decision homepage, Tonight summary, Observe Now/current weather,
-  and interactive Sky entry.
-- Observe `/observe`: observer/time sky inventory, source-backed details and links.
-- Tonight `/tonight`: ORAS full-night planning through unchanged `tonight.v1`.
-- Sky host `/sky-engine`: shared ORAS navigation around contained SWE.
-- Standalone renderer `/oras-sky-engine/`: current ORAS Stellarium Web runtime.
-- Satellite source paths: normalized TLE identity/release lifecycle,
-  freshness/provenance and local propagation; legacy passes are not production-grade.
+Home `/`, Observe `/observe`, Tonight `/tonight`, Sky host `/sky-engine` and
+standalone `/oras-sky-engine/` remain. PRs #48–#53 preserve existing contracts,
+canonical identities and current satellite release/freshness/propagation work.
+Legacy passes are not certified. Historical shared-shell blanket console-clean
+qualification is PARTIAL because of dense-star tile 404s; old frontend/Docker
+counts are historical only and not rerun here.
 
-PRs #48–#52 remain valid foundations. The shell is implemented and merged;
-recorded qualification is PARTIAL for the blanket console-clean gate because
-standalone/embedded Sky retain dense-star tile 404s. Previous 155 frontend and
-16 Docker browser checks are historical evidence in `PROJECT_STATE.md`; they
-are not rerun by this documentation task. Existing contracts and routes remain.
+Source study identified the nearby-flight altitude-derived “elevation” heuristic;
+it must not be reused as scientific Earth→Sky geometry. Report only in this task.
 
-## Approved future architecture
+## Next task and stopping boundary
 
-The product is one continuously navigable astronomy, Earth, and planetary
-workspace. The renderer is the design center: full viewport, contextual floating
-controls, progressive disclosure, hide/edge-return/pin/immersive chrome. Approved
-visual concepts/mockups must precede future UX coding. PR #52 is the shared-shell
-foundation, not that final visual product.
+Recommended next: study section 29's bounded **Phase C unified Sky/Earth skeleton**,
+starting with SWE source/artifact provenance and Earth build/base/provider gates.
+Keep existing shell, complete applicable Earth features, basic handshake/version/
+state and serial renderer lifecycle. No astronomy extensions, ISS handoff, Mars,
+horizon, flight/satellite provider changes or final workspace redesign in C.
 
-The Hub owns product shell/navigation and future small universal state: mode,
-time, observer, selected entity/body, camera intent, applicable layers and history.
-Renderers own internal scene, camera execution, selection realization and math.
-SWE remains the upgradeable Sky renderer. God's Eye is the planned complete
-applicable Earth runtime, including non-astronomy features subject to provider
-terms; astronomy additions are external additive layers. Body-aware Cesium is
-the planned planetary surface direction. Neither integration has started.
-
-Controlled handoffs support explicit body exploration and later scale-driven
-navigation, preserving identity/time/context without promising perfect camera
-transforms. Observe and Tonight remain independent direct/mobile/shareable and
-fallback routes; future workspace drawers add their capabilities. Home/Sky may
-converge conceptually later; no route is removed here.
-
-SWE and God's Eye upstream source is immutable by default. Use pinned/qualified
-revisions, adapters and external extensions; unavoidable patches need explicit
-architectural exception under the architecture document. No feature stripping,
-from-scratch replacement Earth renderer, or SWE edits for UI convenience.
-
-## Open choices
-
-Upstream consumption mechanism (submodule/subtree/vendor/separate runtime/package
-exports), isolation versus direct imports, exact state/extension API, renderer
-handoff animation, solar-system-scale renderer and provider qualification remain
-undecided. Approval of a direction is not implementation or qualification.
-
-## Revised sequence and stopping boundary
-
-A architecture docs → B God's Eye + SWE compatibility/upgradeability study →
-C unified Sky/Earth skeleton → D ISS handoff → E Mars proof → F astronomy extensions.
-
-The next task after this PR is **God's Eye + SWE compatibility/upgradeability
-study**. Do not start it here. `oras_horizon.v1` remains approved and important
-in Phase F, spanning Observe/Tonight/Sky/Earth site/panorama; it is no longer next
-and requires measured/calibrated data. No fabricated horizon.
-
-This task edits only documentation/control files. Validate scope, whitespace,
-local links/context discoverability and Category A review blockers. Do not run
-expensive app suites or claim new Docker/browser evidence. No runtime, API,
-package, vendor, data, assets, submodule, Earth/Mars, horizon, satellite/flight,
-WordPress, equipment, AI, telescope control or DESI implementation occurs here.
+A architecture (merged) → B study (this PR) → C skeleton → D ISS → E Mars →
+F astronomy extensions. `oras_horizon.v1` remains approved in F with measured/
+calibrated data. No WordPress, DESI, scraping, telescope/equipment/AI expansion.
+This task stops after the study PR and one normal review; do not merge it.

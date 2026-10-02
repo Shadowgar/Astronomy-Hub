@@ -11,6 +11,28 @@ This is the detailed architecture reference for renderer and engine work.
 [validation spec](../validation/SYSTEM_VALIDATION_SPEC.md) controls proof.
 Approval of this direction does not authorize implementation of later phases.
 
+## Phase B decision update — 2026-10-02
+
+Phase A is merged in PR #53. The [compatibility study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md)
+resolves the preferred consumption/topology/lifecycle direction: separately pinned
+external upstream checkout, independently built complete God's Eye runtime,
+same-origin disposable frames, versioned capability bridge, small Hub product
+state and only the active heavy renderer mounted. Extensions remain external,
+with a proposed generic standalone catalog hook; no integration is implemented.
+This dated update supersedes corresponding OPEN/next-task wording in the original
+Phase A tables and ADR consequences below, without changing their product scope.
+Exact protocol, browser/base-path qualification, SWE source reconstruction,
+provider permissions, satellite simulation clock and solar-system scale remain
+open. Next recommended task is the bounded Phase C plan in study section 29;
+this study does not authorize its execution.
+
+[Stack authority](STACK_OVERVIEW.md#31-core-runtime) keeps FastAPI as the sole
+canonical Hub backend and science/data authority. The planned Earth provider
+sidecar may preserve qualified God's Eye Node provider/proxy behavior behind
+Earth; it cannot define competing Hub contracts or arbitrary Node functionality.
+It is not implemented or production-qualified; same-origin is not a security
+boundary and provider/security/hosting gates still apply.
+
 ## 1. Product principle
 
 Astronomy Hub is a unified, continuously navigable astronomy, Earth, and
@@ -311,9 +333,9 @@ no horizon profile is fabricated.
 
 | Phase | Approved order and acceptance concept | Implementation state |
 | --- | --- | --- |
-| A | Unified Universe Architecture documentation checkpoint | This docs-only task; review/open PR, do not merge |
-| B | God's Eye + SWE compatibility/upgradeability study | Next bounded task; not started |
-| C | Unified runtime skeleton: Sky and Earth under the same ORAS shell, complete applicable upstream Earth capability, upstream source unmodified, basic shared state boundary | Planned; depends on B |
+| A | Unified Universe Architecture documentation checkpoint | Complete; merged PR #53 |
+| B | God's Eye + SWE compatibility/upgradeability study | Active documentation checkpoint; study complete in PR #54, unmerged pending owner approval |
+| C | Unified runtime skeleton: Sky and Earth under the same ORAS shell, complete applicable upstream Earth capability, upstream source unmodified, basic shared state boundary | Planned next after PR #54 merges and bounded implementation is authorized; not started |
 | D | ISS vertical slice: Sky select ISS → Show on Earth → same ISS/orbit context; Earth select ISS → View from ORAS → same relevant time/context, ISS centered | Planned; depends on qualified identity/time/propagation and C |
 | E | Planetary proof: Sky search/select Mars → Explore Mars → Cesium Mars globe | Planned; qualify one body first |
 | F | Astronomy extensions | Planned later |

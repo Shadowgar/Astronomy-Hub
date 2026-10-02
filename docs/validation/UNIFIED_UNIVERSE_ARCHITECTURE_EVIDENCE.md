@@ -93,7 +93,7 @@ MERGED, merged at 2026-10-02T04:13:53Z.
 sha256sum .vscode/settings.json
 git diff --check
 git diff --name-only -- backend frontend/src frontend/public vendor scripts data 'docker-compose*' ':(glob)**/package*.json' ':(glob)**/*lock*'
-python3 /tmp/astronomy-unified-architecture/validate_docs.py
+python3 scripts/validation/validate_architecture_docs.py
 ```
 
 The editor file SHA-256 remains
@@ -101,13 +101,18 @@ The editor file SHA-256 remains
 pre-existing owner change and is excluded from staging/commits. `git diff --check`
 passes (exit 0); runtime/application diff prints no paths.
 
-The one-off helper lives only in `/tmp`, not in this PR. It checks a docs/control
-allowlist against current main plus untracked files, the editor checksum, all
+The historical one-off helper used for the results below checked a docs/control
+allowlist against then-current main plus untracked files, the editor checksum, all
 relative Markdown links in touched docs, balanced fenced blocks, eight ADRs,
 referenced current source paths, YAML parsing, existence of manifest load entries,
 and architecture inclusion in all eight packs. It uses local Python/PyYAML, not
 an application build. Its final counts are recorded below after running it with
 this evidence file present:
+
+The command above now uses the committed Phase B documentation validator. It
+uses only the Python standard library and validates a stable checkpoint document
+set; the historical Phase A results below are retained unchanged. Git scope and
+owner editor preservation are checked separately in the Phase B evidence.
 
 ```text
 PASS: 31 documentation/control files; runtime/application changes 0; editor settings checksum preserved.

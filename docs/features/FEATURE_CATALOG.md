@@ -46,8 +46,11 @@ satellite identity/TLE/freshness/local propagation support.
 PLANNED: full-viewport workspace with contextual controls, complete applicable
 God's Eye Earth, body-aware Cesium planetary surfaces, universal state, controlled
 renderer handoffs, and external additive Earth astronomy layers.
-OPEN: upstream consumption topology, exact state/extension API, transition
-choreography and solar-system-scale renderer. Legacy domain code does not prove
+DECIDED / PLANNED BY PHASE B: external pinned upstream source, independent full-app
+build/external wrapper, same-origin disposable frames, versioned Hub bridge and
+one active heavy renderer after settled switches.
+OPEN: exact state/extension API, transition choreography, runtime/provider
+qualification and solar-system-scale renderer. Legacy domain code does not prove
 the planned runtimes are integrated.
 
 [Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)

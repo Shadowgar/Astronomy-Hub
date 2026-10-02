@@ -52,11 +52,37 @@ Scope → Engine → Filter → Scene → Object → Detail
 
 Rules:
 
-* FastAPI is the Hub backend runtime
-* Hub backend endpoints must exist inside FastAPI routers
-* The Hub backend remains FastAPI. Whether upstream God's Eye provider/build
-  runtime is isolated or adapted remains OPEN for the compatibility study; no
-  second Hub backend or runtime addition is authorized by this checkpoint.
+* FastAPI remains the only canonical Astronomy Hub backend. It owns canonical
+  Hub APIs, astronomy/science contracts, normalized Hub data authority and
+  ORAS-specific backend behavior. Hub endpoints remain inside FastAPI routers.
+* The bounded Earth runtime provider sidecar below is the sole approved
+  renderer-specific provider exception; it cannot become a competing Hub backend.
+
+#### Planned Earth runtime provider sidecar
+
+The Phase B study approves a bounded sidecar behind the Earth runtime boundary,
+independently versioned with Earth. It may be Node-based only where required to
+preserve qualified God's Eye upstream JavaScript/Node provider/proxy behavior
+with minimal divergence. This is renderer-specific upstream compatibility/service
+infrastructure, not a second canonical Astronomy Hub backend or authorization
+for arbitrary new Node services or backend functionality.
+
+The sidecar may acquire, cache and proxy provider data using God's Eye-compatible
+behavior. It exposes only bounded Earth runtime interfaces and/or a normalized
+adapter into FastAPI; it must not define competing Hub science/data contracts.
+The intended aircraft path is God's Eye provider stack → Earth provider sidecar →
+normalized aircraft observations → FastAPI/Hub science consumers where needed.
+Avoid duplicate upstream polling in Earth and FastAPI.
+
+This is PLANNED Phase C/later infrastructure, neither implemented nor
+production-qualified. Provider licensing/access, server-side credentials, public
+tokens, quotas, rate limits, origin/access controls, abuse/spend exposure and
+production hosting/hardening remain qualification gates. Same-origin placement
+is not a security boundary. Implementation requires a separately authorized,
+bounded task; this docs-only correction adds no service or runtime dependency.
+
+Sections 3.2–3.12 govern the canonical FastAPI backend; the sidecar's internal
+upstream implementation does not replace those Hub contracts or stack rules.
 
 ---
 
@@ -259,9 +285,11 @@ The ORAS Sky Engine at `/oras-sky-engine/` owns:
   first proof Mars; not implemented.
 * Solar-system scale: renderer OPEN; study SWE sufficiency versus a dedicated scene.
 
-Git/build topology (submodule/subtree/vendor/separate runtime/package exports),
-exact bridge and extension API remain OPEN. No new dependencies or vendor changes
-occur in this checkpoint. Upstream SWE/God's Eye source is immutable by default;
+Phase B selected external SHA-pinned God's Eye source, an independent full-app
+build/external ORAS wrapper and same-origin disposable frames with a versioned
+Hub bridge and active-only heavy-renderer lifetime. These are PLANNED directions;
+exact bridge schema, adapter/extension APIs and runtime qualification remain OPEN.
+No new dependencies or vendor changes occur in this checkpoint. Upstream SWE/God's Eye source is immutable by default;
 qualified revision upgrades repair adapters rather than repeat widespread patches.
 Provider/data/asset terms remain separate from source-code licensing.
 
