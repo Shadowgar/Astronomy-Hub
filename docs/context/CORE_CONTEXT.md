@@ -138,8 +138,8 @@ The Hub may:
 
 The Hub must not:
 
-- render full engine scenes
-- own engine-internal render loops
+- reach into SWE scene or render-loop internals
+- turn the Hub shell into a shared universal renderer
 - modify Sky Engine scene internals
 - present raw uncurated provider lists as curated Above Me decisions
 - fake object visibility, coordinates, or catalog identity
@@ -262,10 +262,11 @@ Credits-update work is not part of this lane unless explicitly requested.
 
 ## Approved Upstream Boundaries
 
-God's Eye is the planned complete applicable Earth foundation; astronomy additions
-are external additive extensions. Body-aware Cesium is the planned planetary
-surface direction. The solar-system-scale renderer remains open. Neither Earth
-nor planetary integration has started.
+Astronomy Hub owns the Cesium Earth runtime. God's Eye supplies selectively
+adapted public modules from an immutable external pin; its complete application
+and Viewer startup are prohibited. Useful capabilities remain in the parity ledger.
+Future astronomy additions are external additive extensions. Body-aware Cesium is the planned planetary
+surface direction. The solar-system-scale renderer remains open. Earth foundation implementation is active; planetary integration has not started.
 
 SWE and God's Eye must remain pinned, qualified, upgradeable, and low-divergence.
 Upstream source is immutable by default; unavoidable changes require explicit

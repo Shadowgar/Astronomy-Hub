@@ -11,7 +11,25 @@ This is the detailed architecture reference for renderer and engine work.
 [validation spec](../validation/SYSTEM_VALIDATION_SPEC.md) controls proof.
 Approval of this direction does not authorize implementation of later phases.
 
-## Phase B decision update — 2026-10-02
+## Current owner direction — Phase C pivot, 2026-10-02
+
+This explicitly supersedes the historical full-application recommendation below.
+Astronomy Hub owns the independent Cesium Earth runtime at `/earth-runtime/`:
+Viewer creation, camera, layer registry, selection, attribution, UI, provider
+status, time model and lifecycle. God's Eye is an immutable external code dependency
+pinned to `e7707d9a0f34d9fbffc300023c319f95caa5be30`; selectively adapt public exports.
+Never launch its full application or let it create our Viewer. Retain its useful
+capabilities in a source-anchored parity ledger rather than bundling everything.
+The Hub shell mounts serial Sky/Earth frames with a validated capability bridge.
+SWE retains its isolated renderer and science authority; FastAPI remains canonical.
+Per-feature browser-safe sources or bounded, justified provider compatibility are
+allowed; no inherited blanket Node backend or provider aliases.
+[Phase C qualification](../validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md) records
+source/fixture/Docker/live-provider boundaries. Historical Phase B remains historical.
+The active task implements this
+bounded foundation, not ISS handoffs, planets or astronomy-specific extensions.
+
+## Historical Phase B decision update — 2026-10-02
 
 Phase A is merged in PR #53. The [compatibility study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md)
 resolves the preferred consumption/topology/lifecycle direction: separately pinned
