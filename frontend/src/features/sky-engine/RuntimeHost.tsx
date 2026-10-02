@@ -3,6 +3,7 @@ import {useLocation} from 'react-router-dom'
 import {connectRuntime,type RuntimeClient} from '../../../../packages/runtime-protocol/client.mjs'
 import type {RuntimeMode} from '../../../../packages/runtime-protocol/index.mjs'
 import {useRuntimeProductState} from '../runtime/productState'
+import {probeRuntime} from '../runtime/runtimeProbeService'
 type Status='checking'|'loading'|'ready'|'error'
 // The queue owns DOM lifetimes, never a renderer. Removal precedes the next mount.
 let disposal:Promise<void>=Promise.resolve()
@@ -23,12 +24,7 @@ export default function RuntimeHost({mode='sky'}:{mode?:RuntimeMode}){
   async function mount(){
    await disposal;if(cancelled)return
    try{
-    const probe=await fetch(mode==='earth'?'/earth-runtime/release.json':'/oras-sky-engine/favicon.ico',{signal:AbortSignal.any([abort.signal,AbortSignal.timeout(4000)]),cache:'no-store'})
-    if(!probe.ok)throw new Error('The runtime could not be reached.')
-    if(mode==='earth'){
-     const artifact=await probe.json(),expectedResponse=await fetch('/runtime-versions.json',{signal:abort.signal,cache:'no-store'}),expected=await expectedResponse.json()
-     if(artifact.owner!=='Astronomy Hub'||artifact.upstream_sha!==expected.earth.sha||artifact.artifact_sha256!==expected.earth.artifact_sha256)throw new Error('Earth artifact does not match the qualified runtime.')
-    }
+    await probeRuntime(mode,{signal:abort.signal})
     if(cancelled)return
     setStatus('loading');frame=document.createElement('iframe');frame.title=mode==='sky'?'ORAS Sky-Engine Runtime':"ORAS Cesium Earth Runtime";frame.allowFullscreen=true
     const params=new URLSearchParams(location.search);params.set('orasEmbedded','1')

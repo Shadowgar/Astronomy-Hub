@@ -4,6 +4,9 @@ Scope: owner-approved architecture pivot, single agent, local Docker qualificati
 new branch `phase-c-cesium-earth-runtime-1`; not a public production deployment.
 No merge or next-phase work is authorized. Final source/artifact/review results
 are recorded below. The historical Phase B study remains historical.
+The **Final P1 correction acceptance** section defines the current deployable
+artifact and commands. Earlier qualification commands are historical run records,
+not deployment instructions; their artifact paths are superseded.
 
 ## Authority/context and salvage
 
@@ -209,10 +212,12 @@ build: **4 passed (42.7s)**, core/adapters and loops on both viewports. Attribut
 geometry and screenshots were checked after the footer/diagnostic overlap repair.
 Logs: `browser-accepted.log`, `production-browser-final.log`, `focused-node.log`.
 
-Accepted artifact SHA256:
-`a3d29f0d37648a268aaa342070e35e6265f2cd3d00babb9b52c4bb8797f1f7f1`.
-Two independent outputs (`earth-accepted-release`, `earth-accepted-reproduction`)
-matched: 511 artifact files plus release.json. Input/file/hash verification passed.
+Final accepted artifact SHA256:
+`f91734134870362d0d1c342d426b3a3b124e5042f956f2a57fcaa89994c71245`.
+Final-source independent outputs (`p1-final-build-1`, `p1-final-build-2`)
+matched: 511 artifact files plus byte-identical release.json. Input/file/hash
+verification passed for both builds and the immutable mount. See the final P1
+correction acceptance below for commands and current production-class proof.
 Immutable mount: `/var/tmp/oras-renderers/owned-earth-` followed by that SHA.
 
 Machine-specific final-core fixture timings: desktop shell 231.8 ms, Viewer 232.8
@@ -223,7 +228,7 @@ activation 11 ms. Activation excludes user interaction delay. These local browse
 measurements are not product performance guarantees or live-feed latency promises.
 Screenshots `output/playwright/owned-earth-{desktop,mobile}.png` were inspected.
 
-Final acceptance commands (the earlier commands above record earlier iterations):
+Historical initial acceptance commands (superseded by final P1 acceptance below):
 
 ```bash
 GODS_EYE_SOURCE=/var/tmp/oras-cesium/gods-eye ORAS_EARTH_OUT=/var/tmp/oras-cesium/earth-accepted-release scripts/runtime/build_owned_earth.sh
@@ -277,7 +282,7 @@ separate post-push snapshot reported to the owner; no bot re-review loop.
 Documentation validation: **160 path entries / 8 packs; 33 Markdown checkpoints /
 65 links / 8 ADRs passed**. `git diff --check` passed. Owner editor hash matched.
 
-## One normal PR review and focused corrections
+## Historical normal PR review and initial focused corrections
 
 [PR #55](https://github.com/Shadowgar/Astronomy-Hub/pull/55) opened at
 `ad2e9ffded6988ce5bb19f4b927a5855a9023605`; initial CI passed Playwright, four
@@ -326,7 +331,98 @@ python3 scripts/validation/validate_architecture_docs.py
 git diff --check
 ```
 
-## Exact changed files relative to verified main
+## Final P1 correction acceptance
+
+This section supersedes the earlier artifact/deployment paths. Rebuilt from
+final Earth/protocol inputs at PR HEAD `1438fae54dc200dc73a2ce7e177d196d30a99813`;
+the frontend service extraction does not change those inputs. Two independent
+clean output directories, each using a fresh `npm ci`, produced the same SHA:
+
+`f91734134870362d0d1c342d426b3a3b124e5042f956f2a57fcaa89994c71245`.
+
+Build #1 `p1-final-build-1` and build #2 `p1-final-build-2`: **511 files each**,
+byte-identical `release.json`, 111 dependency licenses. The pinned external
+checkout remained clean at `e7707d9a0f34d9fbffc300023c319f95caa5be30` before and
+after both builds. The recorder verified every artifact byte/file, aggregate
+hash and source input for both outputs and the immutable mounted copy. Metadata
+was regenerated, not hand-edited: `runtime-versions.json` and
+`renderers.lock.json` already recorded this reproducible SHA and remained
+byte-identical. Their Earth upstream `sha` is the pin above; their
+`artifact_sha256` is the accepted SHA above.
+
+Current immutable deployment mount:
+`/var/tmp/oras-renderers/owned-earth-f91734134870362d0d1c342d426b3a3b124e5042f956f2a57fcaa89994c71245`.
+This path is outside the deployment rsync destination; no remote deployment was
+performed. The earlier a3d29f artifact is historical and is not accepted for
+current deployment.
+
+Extracted `frontend/src/features/runtime/runtimeProbeService.ts`: a small typed
+static-runtime service beside product state, separate from the backend-only
+`/api/v1` client. It owns Sky reachability, Earth release/manifest requests,
+identity validation and normalized errors. Both identity requests use `no-store`;
+no in-memory result cache is introduced. A four-second whole-probe deadline bounds
+release/body/manifest work; caller abort reasons propagate and the timer clears
+on every exit. RuntimeHost calls the service with its mount AbortSignal and retains
+its cancellation guards, retries, mount-key status isolation and serial disposal
+queue. RuntimeHost has **zero direct fetch calls**. No renderer/provider/Sky
+source changed.
+
+Focused proof:
+
+- Red: service test failed because the service module was absent, before extraction.
+- Green: **16 service tests + 3 existing product-state tests passed**. Reachable Sky,
+  HTTP/network failures, matching Earth identity, each owner/upstream/artifact
+  mismatch, incomplete identity, failed manifest, pre/in-flight abort, bounded
+  manifest timeout and fresh retry validation are covered.
+- Typecheck: **passed**, `tsc --noEmit`, exit 0.
+- Production Compose rebuilt only frontend/static Earth using `COMPOSE_BAKE=false`;
+  existing local backend/database/Redis remained running. Both rebuilt services
+  were healthy. This is local production-configuration proof, not public deployment.
+- **3 focused browser tests passed (12.9s)** at `http://127.0.0.1:4180`:
+  host/standalone identity + ready/non-destroyed Viewer; probe cancellation on
+  unmount/fresh identity on return; direct reload/history/retry/mismatch rejection.
+  `/runtime-versions.json` and `/earth-runtime/release.json` returned HTTP 200.
+  The served owner was `Astronomy Hub`, upstream matched metadata's `earth.sha`,
+  artifact matched metadata's `earth.artifact_sha256`; `/earth` reached `ready`
+  with one iframe, `/earth-runtime/` rendered its live Viewer. Mismatched release
+  was rejected before creating an iframe.
+- Architecture-document validation and `git diff --check`: **passed**.
+- Owner settings SHA remained
+  `6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+
+Exact commands for current final acceptance (repository root unless noted):
+
+```bash
+ORAS_EARTH_OUT=/var/tmp/oras-cesium/p1-final-build-1 scripts/runtime/build_owned_earth.sh
+ORAS_EARTH_OUT=/var/tmp/oras-cesium/p1-final-build-2 scripts/runtime/build_owned_earth.sh
+cmp /var/tmp/oras-cesium/p1-final-build-1/release.json /var/tmp/oras-cesium/p1-final-build-2/release.json
+python3 scripts/runtime/record_runtime_versions.py /var/tmp/oras-cesium/p1-final-build-1
+python3 scripts/runtime/record_runtime_versions.py /var/tmp/oras-cesium/p1-final-build-2
+python3 scripts/runtime/record_runtime_versions.py /var/tmp/oras-renderers/owned-earth-f91734134870362d0d1c342d426b3a3b124e5042f956f2a57fcaa89994c71245
+cmp /var/tmp/oras-cesium/p1-final-build-1/release.json /var/tmp/oras-renderers/owned-earth-f91734134870362d0d1c342d426b3a3b124e5042f956f2a57fcaa89994c71245/release.json
+git -C /var/tmp/oras-cesium/gods-eye rev-parse HEAD
+git -C /var/tmp/oras-cesium/gods-eye status --porcelain
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-renderers/owned-earth-f91734134870362d0d1c342d426b3a3b124e5042f956f2a57fcaa89994c71245 POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4180 COMPOSE_BAKE=false docker compose -p oras-cesium-prod-review -f docker-compose.prod.yml up -d --no-deps --build earth-runtime frontend
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-renderers/owned-earth-f91734134870362d0d1c342d426b3a3b124e5042f956f2a57fcaa89994c71245 POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4180 docker compose -p oras-cesium-prod-review -f docker-compose.prod.yml ps
+cd frontend
+npx vitest run tests/runtimeProbeService.test.ts tests/runtimeProductState.test.ts
+npm run typecheck
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4180 npx playwright test tests/e2e/runtimeProbeHost.spec.ts tests/e2e/ownedEarth.spec.ts --grep 'final Earth artifact identity|RuntimeHost cancels|direct reload history retry and artifact rejection desktop' --workers=1 --output=/var/tmp/oras-cesium/p1-production-browser
+cd ..
+python3 -S scripts/validation/validate_architecture_docs.py
+git diff --check
+sha256sum .vscode/settings.json
+```
+
+Build logs: `/var/tmp/oras-cesium/p1-final-build-{1,2}.log`; production build/browser
+logs: `p1-production-compose.log`, `p1-production-browser.log` in the same directory.
+CI/review-thread resolution is a post-push snapshot reported separately. No broad
+review requested, no merge, UX/design, visual/provider/feature work, broad science
+rerun or full visual campaign. Existing dense-star tile 404s and Cesium bundle-size
+warning remain inherited Category B gaps. No remaining Category A blocker in the
+two corrected findings; this proof does not establish public provider availability.
+
+## Exact changed files relative to verified main (initial qualification snapshot)
 
 Owner editor settings excluded and unchanged by this task.
 
