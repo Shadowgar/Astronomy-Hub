@@ -18,7 +18,13 @@ follow the higher authority.
 
 ## Product Model
 
-Astronomy Hub is a real-time, multi-engine astronomy intelligence system.
+Astronomy Hub is a unified astronomy, Earth, and planetary exploration workspace
+with astronomy intelligence. The detailed approved direction is
+[Unified Universe Architecture](architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
+Current foundation: PR #52 shell, Observe, Tonight and SWE. God's Eye Earth,
+Cesium Planet Mode, universal state and handoffs are planned; Git/build topology,
+exact bridge/API and solar-system-scale renderer remain open. The observing
+capability reference below does not select renderers or define the next task.
 
 Primary question:
 
@@ -55,7 +61,8 @@ The active public sky runtime is:
 `/oras-sky-engine/` is the ORAS-hosted Stellarium Web / Stellarium Web Engine
 runtime.
 
-The old `/sky-engine` BabylonJS target is not the active runtime direction.
+`/sky-engine` is the current Hub host for this contained runtime. The old
+BabylonJS sky target is not the active runtime direction.
 
 The ORAS Sky Engine is isolated and owns:
 

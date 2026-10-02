@@ -37,7 +37,7 @@ LIVE_SESSION_BRIEF.md
 Astronomy Hub is a:
 
 ```text
-real-time, multi-engine astronomy intelligence system
+unified, continuously navigable astronomy, Earth, and planetary exploration workspace
 ```
 
 Core interaction model:
@@ -56,6 +56,22 @@ What is above me right now, and what should I observe?
 
 ---
 
+## Current Foundation and Approved Direction
+
+CURRENT: shared shell from merged PR #52, Home/Observe/Tonight/Sky host, contained
+SWE, and existing satellite identity/TLE/freshness/local propagation work.
+PLANNED: renderer-centered workspace, God's Eye Earth, Cesium planetary surfaces,
+universal state, cross-engine handoffs and external astronomy layers.
+OPEN: upstream Git/build topology, bridge/extension API, handoff animation and
+solar-system-scale renderer.
+
+The detailed [Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)
+defines the approved A–F roadmap: architecture docs, compatibility study, runtime
+skeleton, ISS handoff, Mars proof, astronomy extensions including `oras_horizon.v1`.
+The next bounded task is God's Eye + SWE compatibility/upgradeability study.
+Only execution authority activates each step. Domain lists below describe product
+scope, not completed features or new rendering technology choices.
+
 ## FEATURE DOMAINS (REFERENCE ONLY)
 
 These define full system scope.
@@ -63,12 +79,12 @@ They do NOT define build order.
 
 ---
 
-### 1. Command Center (Hub)
+### 1. Product Shell and Astronomy Decision Layer (Hub)
 
 * Above Me decision surface
 * curated outputs
-* context panels
-* feed-driven interaction
+* contextual drawers and progressive disclosure in the planned renderer-centered workspace
+* global navigation and future universal product state
 
 ---
 
@@ -125,11 +141,13 @@ They do NOT define build order.
 
 ---
 
-### 8. Solar System Context
+### 8. Earth, Planet and Solar-System Context
 
-* planets
-* orbital relationships
-* spatial understanding
+* complete applicable upstream God's Eye Earth capabilities; provider terms qualified separately
+* body-aware Cesium planetary surfaces with qualified body data, first proof Mars
+* solar-system scale navigation; renderer undecided pending compatibility study
+* explicit and scale-driven renderer handoffs preserving product context
+* external additive Earth astronomy layers, with upgradeable immutable-default upstream source
 
 ---
 
@@ -216,6 +234,6 @@ This document does NOT:
 ## FINAL PRINCIPLE
 
 ```text
-The Master Plan defines what exists.
+The Master Plan defines intended product scope, not what is already implemented.
 Execution decides what is built.
 ```

@@ -7,6 +7,15 @@
 
 ---
 
+## Scope Clarification
+
+The generic examples below do not define the future universal-state/renderer
+bridge API or certify every legacy domain. Consult
+[Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md) for approved
+product-intent and renderer boundaries. Curated Hub outputs remain source-backed;
+complete applicable upstream Earth layers are not reduced to that curated feed.
+Existing public science and identity contracts are unchanged.
+
 ## PURPOSE
 
 Defines how data moves between system layers in Astronomy Hub.

@@ -12,6 +12,17 @@ Defines all engines in Astronomy Hub and their responsibilities.
 
 This is a **reference inventory**, not an execution plan.
 
+CURRENT: SWE at `/oras-sky-engine/`, its shared-shell host `/sky-engine`, and
+existing backend/catalog/TLE support.
+PLANNED: complete applicable God's Eye Earth runtime, body-aware Cesium Planet
+Mode, universal product state and controlled renderer handoffs.
+OPEN: solar-system-scale renderer, Git/build topology and exact adapter/extension API.
+
+[Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md) is the detailed
+approved reference. Domain lists below describe capability scope, not completion.
+Legacy Earth code is not God's Eye integration. All other renderer/domain examples
+require separate qualification; no integrated Earth/Planet runtime is claimed.
+
 ---
 
 # PRIMARY ENGINES
@@ -60,28 +71,23 @@ This is the **default engine of the system** and the foundation of the "Above Me
 
 ---
 
-## 🌍 EARTH ENGINE
+## Earth Mode (PLANNED)
 
-### Purpose
+Approved foundation: complete applicable God's Eye View Earth runtime using
+Cesium, independently upgradeable. Preserve civil/military aircraft, satellites,
+ships, CCTV, traffic, fires, earthquakes, launches, weather/environment, imagery,
+terrain/photorealistic Earth, infrastructure and other applicable upstream layers.
+Non-astronomy capabilities must not be stripped. Provider/data/visual-asset terms
+may require configuration, attribution, alternate data or explicit unavailability.
 
-Earth-centered geospatial environment for:
+Astronomy additions use an external adapter/extension registry, not scattered
+upstream source edits. Existing partial Earth code does not establish integration.
 
-* global events
-* atmosphere
-* near-Earth space
-* environmental conditions affecting observation
+## Planet Mode (PLANNED)
 
-### Visualization
-
-* 2D map
-* 3D globe
-
-### Responsibilities
-
-* Earth-based rendering context
-* layer coordination
-* event visualization
-* environmental awareness
+Body-aware Cesium surfaces with qualified body-specific imagery/terrain/context;
+Mars is the first proof, Moon and other supported bodies may follow. Earth-only
+layers do not apply to other worlds. Gas giants may need atmospheric/globe views.
 
 ---
 
@@ -103,15 +109,16 @@ Orbital tracking within Earth context
 
 ### Outputs
 
-* visible passes
-* orbital paths
-* brightness
+* normalized identity/TLE releases, freshness/provenance and local propagation (current source paths)
+* Earth tracking/orbit display through the future adapter (planned)
+* qualified passes (future); legacy passes are not production-grade
+* unknown brightness must remain unavailable, never invented
 
 ### Behavior
 
-* rendered as a layer within Earth Engine
-* supports trajectory visualization
-* integrates with sky context when needed
+* approved ORAS satellite data authority feeds Sky and future Earth visualization
+* God's Eye orbit/tracking behavior may be reused after qualification
+* identity/time/provider/frame reconciliation remains open
 
 ---
 
@@ -134,8 +141,10 @@ Atmospheric aircraft tracking
 
 ### Behavior
 
-* rendered as a layer within Earth Engine
-* supports identification of objects seen in the sky
+* current Hub nearby-flight awareness is immature
+* study and likely adapt God's Eye providers/layers, fallback, freshness and tracking
+* future real-position-to-ORAS azimuth/elevation/range projection needs qualification
+* local ORAS ADS-B receiver is an optional future differentiator
 
 ---
 
@@ -210,7 +219,7 @@ Solar activity monitoring
 
 ---
 
-## 🪐 SOLAR SYSTEM ENGINE
+## Solar-System-Scale Navigation (PLANNED; renderer OPEN)
 
 ### Purpose
 
@@ -232,8 +241,9 @@ Solar activity monitoring
 
 ### Visualization
 
-* 3D system model
-* zoomable planetary views
+* future cross-body/scale navigation with controlled renderer handoffs
+* compatibility study must assess SWE capability versus a justified dedicated scene
+* no solar-system-scale renderer selected here; Planet surfaces are a separate Cesium direction
 
 ---
 
@@ -321,10 +331,11 @@ Conditions Engine (Primary + Sub)
 | ------------------ | -------------------------------- |
 | Star               | Sky Engine                       |
 | Planet (sky view)  | Sky Engine                       |
-| Planet (deep view) | Solar System Engine              |
+| Planet (surface exploration) | PLANNED Planet Mode / body-aware Cesium |
+| Cross-body navigation | PLANNED solar-system scale; renderer OPEN |
 | Deep Sky Object    | Sky Engine (current sky view)    |
 | Satellite          | Sky Engine (current sky view)    |
-| Flight             | Earth Engine → Flight Layer      |
+| Flight             | PLANNED God's Eye Earth layer / qualified future Sky projection |
 | Conditions         | Conditions Engine OR Earth Layer |
 | Solar Event        | Solar Engine                     |
 
@@ -335,8 +346,9 @@ Conditions Engine (Primary + Sub)
 Primary engines own rendering context:
 
 * Sky Engine → contained Stellarium Web Engine rendering
-* Earth Engine → globe rendering
-* Solar System Engine → planetary rendering
+* PLANNED Earth Mode → complete applicable God's Eye Earth/Cesium runtime
+* PLANNED Planet Mode → body-aware Cesium with qualified body data
+* OPEN solar-system-scale renderer → evaluate SWE capability before deciding
 * Solar Engine → solar visualization
 
 Sub-engines:

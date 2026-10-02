@@ -32,7 +32,11 @@ Do not scan the full `docs/` directory by default.
 
 ## System Identity
 
-Astronomy Hub is a real-time, multi-engine astronomy intelligence system.
+Astronomy Hub is a unified, continuously navigable astronomy, Earth, and planetary
+exploration workspace with astronomy intelligence. The approved architecture is
+[Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
+Its current foundation is the shared public shell, Observe, Tonight, and SWE;
+Earth/planet integration and universal multi-renderer state are planned.
 
 Primary user question:
 
@@ -82,7 +86,7 @@ runtime.
 
 It is not:
 
-- `/sky-engine`
+- the `/sky-engine` Hub host route (which embeds this runtime)
 - a BabylonJS sky scene
 - a React-owned rendering component
 - a shared Hub renderer
@@ -98,15 +102,21 @@ Current supporting API surfaces include:
 - `/api/sky/object`
 - `/api/above-me`
 
-Older references to `/sky-engine`, BabylonJS sky rendering, or generic
-Hub-owned sky rendering are stale unless an explicit future authority document
-replaces this runtime direction.
+Claims that `/sky-engine` is a placeholder or a replacement sky renderer are
+stale: it is the implemented Hub host for `/oras-sky-engine/`. BabylonJS sky
+rendering and generic Hub-owned sky rendering are not the current direction.
 
 ## Hub Rule
 
-The Hub is the Above Me decision layer.
+The Hub owns the product shell, navigation, and Above Me decision layer.
 
-The Hub:
+The approved future Hub-owned universal state is small: mode, time, observer,
+selected entity/body, camera intent, applicable layers, and history/context.
+Exact schema and bridge topology remain open. Engines realize these intents
+through qualified adapters and own their internal camera, selection and scene
+behavior. Shared product intent is not permission to modify renderer internals.
+
+Its Above Me decision capability:
 
 - receives candidate objects
 - filters by visibility and constraints
@@ -128,10 +138,12 @@ The Hub must not:
 - render full engine scenes
 - own engine-internal render loops
 - modify Sky Engine scene internals
-- display raw uncurated engine lists as the product
+- present raw uncurated provider lists as curated Above Me decisions
 - fake object visibility, coordinates, or catalog identity
 
-Hub output must be small, curated, decision-ready, source-backed, and routeable.
+Above Me discovery output must be small, curated, decision-ready, source-backed,
+and routeable. This bounds the observing decision feed, not the complete applicable
+Earth feature set or the unified product's exploration capabilities.
 
 ## ORAS Sky Engine Isolation Rule
 
@@ -141,8 +153,8 @@ It owns its own:
 
 - rendering pipeline
 - scene lifecycle
-- object selection
-- camera behavior
+- renderer-local selection realization
+- camera execution and behavior
 - survey imagery behavior
 - visual math
 - runtime data loading
@@ -153,7 +165,7 @@ The Hub and backend may provide input only through defined interfaces:
 - time
 - location
 - configuration
-- stable object identity
+- stable object identity and product selection/camera intent through qualified interfaces
 - validated fallback coordinates
 
 The Hub and backend must not override Stellarium runtime math or lifecycle.
@@ -219,8 +231,8 @@ WordPress page or shortcode
 -> opens /oras-sky-engine/ centered on that object
 ```
 
-Do not start shortcode or Hub homepage implementation unless explicitly
-requested.
+The public Hub homepage was implemented in merged PR #52. WordPress integration
+and further homepage/workspace implementation still require bounded approval.
 
 ## High-Definition Data and Imagery Lane
 
@@ -244,6 +256,18 @@ Forbidden direction:
 - faking completeness
 
 Credits-update work is not part of this lane unless explicitly requested.
+
+## Approved Upstream Boundaries
+
+God's Eye is the planned complete applicable Earth foundation; astronomy additions
+are external additive extensions. Body-aware Cesium is the planned planetary
+surface direction. The solar-system-scale renderer remains open. Neither Earth
+nor planetary integration has started.
+
+SWE and God's Eye must remain pinned, qualified, upgradeable, and low-divergence.
+Upstream source is immutable by default; unavoidable changes require explicit
+architectural exception under the unified architecture. Code licensing never
+implicitly licenses third-party data, visual assets, or runtime providers.
 
 ## Final Rule
 

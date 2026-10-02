@@ -8,6 +8,13 @@
 
 ---
 
+## Scope Clarification
+
+The generic model below is reference architecture, not a deployed viewport or
+Earth/planet inventory. [Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md)
+distinguishes current public decision pages/SWE from planned workspace renderers
+and Hub-owned product intent. Renderer-internal scene state remains engine-owned.
+
 ## PURPOSE
 
 This document defines the **system architecture** of Astronomy Hub.

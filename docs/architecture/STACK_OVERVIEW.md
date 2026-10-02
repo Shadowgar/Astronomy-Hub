@@ -17,7 +17,10 @@ This document is authoritative.
 * No conflicting rendering systems may be introduced
 * All implementation must conform to this stack
 
-If implementation conflicts with this document, the implementation is invalid.
+Report conflicts against proven current implementation; do not force runtime
+code to match stale text. [Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md)
+defines approved future renderer direction, not installed integrations or permission
+to add packages in this docs-only checkpoint.
 
 ---
 
@@ -49,9 +52,11 @@ Scope → Engine → Filter → Scene → Object → Detail
 
 Rules:
 
-* FastAPI is the only backend runtime
-* All endpoints must exist inside FastAPI routers
-* No secondary runtime allowed
+* FastAPI is the Hub backend runtime
+* Hub backend endpoints must exist inside FastAPI routers
+* The Hub backend remains FastAPI. Whether upstream God's Eye provider/build
+  runtime is isolated or adapted remains OPEN for the compatibility study; no
+  second Hub backend or runtime addition is authorized by this checkpoint.
 
 ---
 
@@ -124,8 +129,9 @@ Rules:
 
 Rules:
 
-* All endpoints versioned
-* No unversioned routes
+* Legacy API routes use `/api/v1`. Current public astronomy surfaces include
+  `/api/sky/object`, `/api/above-me`, and `/api/tonight`, with their existing contracts.
+* This architecture checkpoint does not rename/version or change backend APIs.
 
 ---
 
@@ -245,11 +251,19 @@ The ORAS Sky Engine at `/oras-sky-engine/` owns:
 
 ---
 
-### Other Engine Renderers
+### Approved Future Renderer Directions
 
-Future Earth, solar-system, or other explicitly approved engines may use a
-suitable engine-specific renderer. That choice does not replace or control the
-contained ORAS Sky Engine runtime.
+* Earth: complete applicable God's Eye View runtime with its Cesium foundation,
+  external Hub adapter and additive astronomy extensions. Integration not started.
+* Planet: body-aware Cesium surface runtime with qualified body-specific data,
+  first proof Mars; not implemented.
+* Solar-system scale: renderer OPEN; study SWE sufficiency versus a dedicated scene.
+
+Git/build topology (submodule/subtree/vendor/separate runtime/package exports),
+exact bridge and extension API remain OPEN. No new dependencies or vendor changes
+occur in this checkpoint. Upstream SWE/God's Eye source is immutable by default;
+qualified revision upgrades repair adapters rather than repeat widespread patches.
+Provider/data/asset terms remain separate from source-code licensing.
 
 ---
 
@@ -257,7 +271,7 @@ contained ORAS Sky Engine runtime.
 
 * each primary engine owns its renderer and runtime lifecycle
 * `/oras-sky-engine/` remains isolated from Hub rendering abstractions
-* renderer choices for future engines require explicit approval
+* approved future directions above still require compatibility qualification and a bounded implementation task
 * The Hub must not become a shared universal 3D rendering core
 
 ---
@@ -280,6 +294,13 @@ Sky navigation. Home is a compact astronomy decision surface; Observe and
 Tonight expose qualified facts and planning workflows. The Sky host mounts the
 contained runtime. Legacy command-center components remain reusable code, not
 the public homepage presentation.
+
+The approved future flagship is a renderer-centered full viewport with contextual
+floating controls, hide/edge-return/pin/immersive chrome, and progressive disclosure.
+Hub-owned universal product state/chrome does not transfer rendering ownership.
+Home/Sky may converge conceptually; Observe/Tonight remain routes and also gain
+workspace drawers. Approved visual mockups precede future UX coding. None of this
+workspace redesign has been implemented.
 
 ---
 
@@ -343,7 +364,7 @@ Raw → Normalize → Database → Cache → API
 ### Core Rule
 
 ```text id="v3m9rt"
-The system computes only the active scene.
+Focus renderer work on the active domain scene; background data services remain independent.
 ```
 
 ---
@@ -361,7 +382,7 @@ The system computes only the active scene.
 
 ---
 
-1. No duplicate rendering systems
+1. No competing/duplicated renderer ownership; controlled specialized renderer handoffs are approved
 2. No competing architectures
 3. No undocumented technologies
 4. No bypassing API contracts
@@ -374,7 +395,7 @@ The system computes only the active scene.
 
 Implementation is invalid if:
 
-* multiple rendering engines compete
+* multiple renderers compete for the same scene or product-state authority
 * API contracts are inconsistent
 * backend is bypassed
 * rendering is duplicated

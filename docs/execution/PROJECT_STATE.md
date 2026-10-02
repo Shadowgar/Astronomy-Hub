@@ -18,48 +18,49 @@ This is the only document that defines:
 * what is allowed
 * what is constrained
 
-If any document conflicts with execution:
-
-```text
-PROJECT_STATE.md wins
-```
-
----
+Authority follows `docs/validation/SYSTEM_VALIDATION_SPEC.md`, then core context
+and live session brief, then the document index and this execution record.
+Proven runtime conflicts must be reported, not silently overwritten.
 
 ## CURRENT MODE
 
 ```text
-Mode: HUB_PUBLIC_SHELL_HOMEPAGE
-Approach: integrate existing public contracts through one ORAS product shell
+Mode: UNIFIED_UNIVERSE_ARCHITECTURE_DOCS
+Approach: docs-only approved product/renderer boundary checkpoint
 ```
-
----
 
 ## CURRENT OBJECTIVE
 
-The user-authorized shared public shell and homepage pass follows merged PR #51
-at main `1e341746b05609b3237388514691fe3c5edecaf3`.
+Document the approved unified astronomy, Earth, and planetary exploration
+workspace before feature implementation resumes. Detailed authority is
+[Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
 
-Public navigation is Home `/`, Observe `/observe`, Tonight `/tonight`, and Sky
-`/sky-engine`. Home is a decision surface, not an engine-control dashboard.
-Observe and Tonight keep their qualified contracts. The Sky host wraps the
-contained Stellarium renderer; standalone `/oras-sky-engine/` is unchanged.
-WordPress remains deferred.
+Baseline: merged PR #52, main `7c54596f59b2d43afda561cbad1b0d587d7407f6`.
+Home `/`, Observe `/observe`, Tonight `/tonight`, and Sky host `/sky-engine`
+share the ORAS shell. `/oras-sky-engine/` is the contained SWE renderer.
+These foundations remain implemented; the historical shared-shell blanket
+console-clean gate remains PARTIAL. No new runtime evidence is claimed here.
 
-## ACTIVE FEATURE
+## ACTIVE TASK
 
 ```text
-Feature: Shared public shell and ORAS decision homepage
-Branch: hub-public-shell-homepage-1
-Status: PARTIAL
+Task: Unified Universe Architecture documentation
+Branch: unified-universe-architecture-1
+Scope: documentation/control files only; no runtime feature implementation
 ```
+
+Earth/God's Eye integration, Planet/Cesium surfaces, universal state, external
+astronomy registry, and cross-engine handoffs are APPROVED / PLANNED, not
+implemented. Git/build consumption mechanism, bridge topology, exact schema/API,
+handoff animation and solar-system-scale renderer are OPEN / UNDECIDED.
+Architecture lifecycle labels do not grant REAL feature status.
 
 ## CURRENT PRIORITY
 
-Complete frontend qualification and a review-ready unmerged PR. Independent
-Home module degradation, shared query caches, scientific behavior, exact links,
-accessibility, desktop/mobile navigation, and engine isolation are required.
-No backend algorithms or astronomy data releases change in this pass.
+Reconcile authority and roadmap, validate the docs-only diff/links/context, open
+the requested PR, and perform one single-agent review cycle. Do not merge.
+No frontend/backend suites, Docker builds, or browser qualification are required
+for this docs-only checkpoint; it claims no changed runtime behavior.
 
 ## KNOWN ISSUES
 
@@ -75,12 +76,13 @@ No backend algorithms or astronomy data releases change in this pass.
 Must preserve:
 
 ```text
-Scope → Engine → Filter → Scene → Object → Detail
+Scope → Engine → Filter → Scene → Object → Detail → Assets
 ```
 
 And:
 
-* hub = decision layer
+* Hub = product context/shell and astronomy decision layer; future universal
+  state owns product intent, engines own internal scene/camera/selection behavior
 * engines = domain authority
 * when a viewport is mounted, viewport = active engine scene
 * hub mounts engines but does not own engine runtimes
@@ -136,12 +138,17 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-After this public UI PR is owner-merged, the next planned scientific milestone
-is `oras_horizon.v1`: a calibrated/measured azimuth horizon for ORAS and eventual
-panorama alignment. Do not start it here; it needs separate authorization.
+After this architecture PR: **God's Eye + SWE compatibility/upgradeability study**.
+Do not start that study, integration, or horizon work inside this checkpoint.
 
-Existing catalog/media/deeper survey gaps remain tracked separately. This UI
-pass does not authorize WordPress, new catalogs, equipment or telescope control.
+Approved order: A architecture docs → B compatibility study → C unified runtime
+skeleton → D ISS cross-engine slice → E Mars planetary proof → F astronomy
+extensions. The unified architecture defines the scope and open questions.
+
+`oras_horizon.v1` remains approved and important within Phase F, integrating
+Observe, Tonight, Sky, Earth/ORAS site context and panorama alignment. It is no
+longer the immediate next implementation task and still needs measured inputs.
+WordPress and unrelated data/feature work remain separately gated.
 
 ## FINAL RULE
 
@@ -149,6 +156,11 @@ pass does not authorize WordPress, new catalogs, equipment or telescope control.
 If the system is not usable from the user's perspective,
 the feature is not complete.
 ```
+
+## Historical implementation evidence retained from PRs #51–#52
+
+The following qualification was recorded before this docs-only checkpoint; it
+was not rerun here. PR #52 is now merged. GitHub owns current check/review truth.
 
 ## Merged Tonight baseline
 
@@ -201,6 +213,6 @@ index SHA-256 remains `ee9a6b719213e8ff5785b9c9e3bf564795fde87ca049de900200ae759
 No NightAstro code, CSS, assets, branding or scoring was copied. No new font,
 icon library, heavyweight framework, sky renderer or bulk data was introduced.
 
-UI behavior is qualified for review; global console cleanliness remains the
-explicit legacy gap above. GitHub owns final PR/CI/review state. Do not merge or
-start `oras_horizon.v1` in this task.
+PR #52 merged with the documented global console-cleanliness gap retained.
+This evidence remains historical, not a new runtime qualification. The active
+architecture task must not merge its PR or start `oras_horizon.v1`.
