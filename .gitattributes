@@ -1,0 +1,2 @@
+# Preserve generator-owned bytes in the qualified Stellarium web shell.
+frontend/public/oras-sky-engine/js/*.js -whitespace

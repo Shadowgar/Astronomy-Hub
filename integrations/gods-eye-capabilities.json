@@ -1,0 +1,1878 @@
+{
+  "schema": 1,
+  "upstream_sha": "e7707d9a0f34d9fbffc300023c319f95caa5be30",
+  "catalog_sha256": "545e7d1e31e0a00cbbb78a7c333d8343c8be51514930f39cf36c08061d3c9dee",
+  "catalog_layer_count": 29,
+  "public_export_count": 148,
+  "capabilities": [
+    {
+      "id": "ais-live-vessels",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "alpr-cameras",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "bhote-koshi-2026",
+      "anchor": "src/data/layerState.js",
+      "status": "LICENSE/DATA BLOCKED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "bhote-koshi-locator",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "bikeshare",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "cctv",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "directions",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "earthquakes",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "fire-perimeters",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "flights",
+      "anchor": "src/data/layerState.js",
+      "status": "ADAPTED NOW",
+      "scope": "Bounded civil aircraft near observer"
+    },
+    {
+      "id": "local-adsb",
+      "anchor": "src/app/constructCatalog.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "local-dams",
+      "anchor": "src/data/layerState.js",
+      "status": "LICENSE/DATA BLOCKED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "local-datacenters",
+      "anchor": "src/data/layerState.js",
+      "status": "LICENSE/DATA BLOCKED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "local-firms",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "military",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "military-awareness",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "military-installations",
+      "anchor": "src/data/layerState.js",
+      "status": "LICENSE/DATA BLOCKED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "radio",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "recent-imagery",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "rocket-launches",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "satellites",
+      "anchor": "src/data/layerState.js",
+      "status": "ADAPTED NOW",
+      "scope": "Stations only; Earth wall-clock SGP4, separate from ORAS authority"
+    },
+    {
+      "id": "telegeography-submarine-cables",
+      "anchor": "src/data/layerState.js",
+      "status": "LICENSE/DATA BLOCKED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "traffic",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "transit",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "weather-cyclones",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "weather-lightning",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "weather-radar",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "weather-satellite",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "wind",
+      "anchor": "src/data/layerState.js",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; not included in this PR"
+    },
+    {
+      "id": "weather-current",
+      "anchor": "./sources/regional",
+      "status": "ADAPTED NOW",
+      "scope": "Current modeled point conditions only"
+    },
+    {
+      "id": "terrain/maps/3D",
+      "anchor": "./maps/controller",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; UI adapters require qualification"
+    },
+    {
+      "id": "infrastructure",
+      "anchor": "./infrastructure",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; UI adapters require qualification"
+    },
+    {
+      "id": "drawing",
+      "anchor": "./application/tools",
+      "status": "UPSTREAM HOOK REQUIRED",
+      "scope": "Retained roadmap; UI adapters require qualification"
+    },
+    {
+      "id": "annotations",
+      "anchor": "./annotations",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; UI adapters require qualification"
+    },
+    {
+      "id": "scenes/director",
+      "anchor": "./director",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; UI adapters require qualification"
+    },
+    {
+      "id": "search",
+      "anchor": "./search",
+      "status": "PLANNED",
+      "scope": "Retained roadmap; UI adapters require qualification"
+    },
+    {
+      "id": "tracking/cockpit",
+      "anchor": "./ui/cockpit",
+      "status": "UPSTREAM HOOK REQUIRED",
+      "scope": "Retained roadmap; UI adapters require qualification"
+    },
+    {
+      "id": "display-effects",
+      "anchor": "./ui/effects",
+      "status": "UPSTREAM HOOK REQUIRED",
+      "scope": "Retained roadmap; UI adapters require qualification"
+    }
+  ],
+  "exports": [
+    {
+      "surface": "./infrastructure",
+      "targets": [
+        "./src/data/infrastructure.js"
+      ],
+      "target_sha256": {
+        "./src/data/infrastructure.js": "2215137dab70bd3a5ee99ab38572339a43cc29ee6d3b2fe9cf59a32be7d41280"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./infrastructure/geojson",
+      "targets": [
+        "./src/data/localGeojsonCore.js"
+      ],
+      "target_sha256": {
+        "./src/data/localGeojsonCore.js": "d05d84914b9b861fddb5113713f9dd8ffde653115fd2999efae3e94fab47c278"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./infrastructure/lod",
+      "targets": [
+        "./src/data/localGeojsonLod.js"
+      ],
+      "target_sha256": {
+        "./src/data/localGeojsonLod.js": "cdc4f1734711816d161bee4cb000947fcc4d30ca0e819cd202e7a0e1289573fc"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application",
+      "targets": [
+        "./src/app/application.js"
+      ],
+      "target_sha256": {
+        "./src/app/application.js": "69300438ffefd2ed7c243c77ff7e9f25f60bd3bc2ffe1a051aeb4926450da9bd"
+      },
+      "status": "NOT APPLICABLE TO ASTRONOMY HUB",
+      "scope": "Full application composition excluded; individual feature roadmap retained"
+    },
+    {
+      "surface": "./application/viewer",
+      "targets": [
+        "./src/app/viewer.js"
+      ],
+      "target_sha256": {
+        "./src/app/viewer.js": "29c41d95ef114edb913e29c3d00e6c2f7051ad57d62d75d6cc6664ae9ba97df4"
+      },
+      "status": "NOT APPLICABLE TO ASTRONOMY HUB",
+      "scope": "Full application composition excluded; individual feature roadmap retained"
+    },
+    {
+      "surface": "./build/vite",
+      "targets": [
+        "./build/vite.js"
+      ],
+      "target_sha256": {
+        "./build/vite.js": "89cafe3f1536fe188c906933995b09be9feae5afa3bab075a0521623206be670"
+      },
+      "status": "NOT APPLICABLE TO ASTRONOMY HUB",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/live",
+      "targets": [
+        "./server/providers/live.js"
+      ],
+      "target_sha256": {
+        "./server/providers/live.js": "1d1bae130fd2c2d42f9f58ff9b7491a059abdb2640d92d564b528cea66458d77"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/adsb-lol",
+      "targets": [
+        "./src/data/adsbLolFallback.js"
+      ],
+      "target_sha256": {
+        "./src/data/adsbLolFallback.js": "b6da7b67deaf16b5d71e268b057219083f4fd94db66a3d5a720ebd74b3007b68"
+      },
+      "status": "ADAPTED NOW",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/places",
+      "targets": [
+        "./server/providers/places.js"
+      ],
+      "target_sha256": {
+        "./server/providers/places.js": "44942186cf93131f29292144ce44616ec321c4b74a5bf60345a0a541406d57df"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/places",
+      "targets": [
+        "./src/data/placeProviderPayloads.js"
+      ],
+      "target_sha256": {
+        "./src/data/placeProviderPayloads.js": "13df9e89c18bf7c5fd0e4f5a19eade1546580d7d9db7081807ef57ffb0aceb73"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/space",
+      "targets": [
+        "./server/providers/space.js"
+      ],
+      "target_sha256": {
+        "./server/providers/space.js": "b6fdef681519b068de8cf08ee23b5f80febe36ec0418f157d27df2b85e428338"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/space",
+      "targets": [
+        "./src/data/spaceProviderRequests.js"
+      ],
+      "target_sha256": {
+        "./src/data/spaceProviderRequests.js": "3da856a7fd3e518c362d3e4fa86cfccc4cf78aa8d4192126dc77ed8630a3e987"
+      },
+      "status": "ADAPTED NOW",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/terrain",
+      "targets": [
+        "./server/providers/terrain.js"
+      ],
+      "target_sha256": {
+        "./server/providers/terrain.js": "fb032237026b28cdac278a9028b2f1584c6b42b0163a0858dc9fc58b88db9f53"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/terrain",
+      "targets": [
+        "./src/data/terrainHeightsProxy.js"
+      ],
+      "target_sha256": {
+        "./src/data/terrainHeightsProxy.js": "ee24d71cda0109788aad0d006c886a9e3f3cabf054c701eb5a091dfba0985682"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/traffic",
+      "targets": [
+        "./server/providers/traffic.js"
+      ],
+      "target_sha256": {
+        "./server/providers/traffic.js": "1180bf0b8b8bd880a5d4fa034337ead84078fc68945e7fc782cb8af8c050db91"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/traffic",
+      "targets": [
+        "./src/data/tomtomTiles.js"
+      ],
+      "target_sha256": {
+        "./src/data/tomtomTiles.js": "0944fae86a12ae89213616f70c5cd784f886f07d39d1ec6d102c44eb779f3d9f"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/firms",
+      "targets": [
+        "./server/providers/firms.js"
+      ],
+      "target_sha256": {
+        "./server/providers/firms.js": "63a270d8c05ed000c65aaf5f1af410075e5c382c724d88a35d02d0c46a81b7b5"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/gbfs",
+      "targets": [
+        "./server/providers/gbfs.js"
+      ],
+      "target_sha256": {
+        "./server/providers/gbfs.js": "31338dc97438b5de23a777fc2b7a780282a2a7eb7c8a6478ac56045d865f4906"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/gbfs",
+      "targets": [
+        "./src/data/gbfsSource.js"
+      ],
+      "target_sha256": {
+        "./src/data/gbfsSource.js": "209a432517eddbaf50a69f0e2172b220c6cae2543a0c4eef6b7c885823622d46"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/cctv",
+      "targets": [
+        "./server/providers/cctv.js"
+      ],
+      "target_sha256": {
+        "./server/providers/cctv.js": "c30e17bac6eb1e733618382029760fe40cfc2764047ad064091f0f8a625f9e9f"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/radio",
+      "targets": [
+        "./server/providers/radio.js"
+      ],
+      "target_sha256": {
+        "./server/providers/radio.js": "1f9c45d117cd09781bd3c321c393f51c3068fad8f4cc5b6949c6269b344a9cca"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/overpass",
+      "targets": [
+        "./server/providers/overpass.js"
+      ],
+      "target_sha256": {
+        "./server/providers/overpass.js": "674e10209bb932b108541f78eeaa692988426b77f8606f6a6d2569bed77a980f"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/military-installations",
+      "targets": [
+        "./server/providers/military-installations.js"
+      ],
+      "target_sha256": {
+        "./server/providers/military-installations.js": "8fcd193368e51e8e9c5d104e3122f29a72995be7280a0d0f0d55cbd9afb0e35b"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/regional",
+      "targets": [
+        "./server/providers/regional.js"
+      ],
+      "target_sha256": {
+        "./server/providers/regional.js": "fbff01767befb80bc7feb395c7b5b36da5929bacf6d603ebf0ed6e3c8ee08159"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/openai",
+      "targets": [
+        "./server/providers/openai.js"
+      ],
+      "target_sha256": {
+        "./server/providers/openai.js": "1e96b3e13ed9f7426dc7ecdae1c25eeda63d798d76a82bea5acbb44133a8a4d6"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/standalone/key-setup",
+      "targets": [
+        "./server/standalone/key-setup.js"
+      ],
+      "target_sha256": {
+        "./server/standalone/key-setup.js": "7bf27bd465fdf3765134dfa003cf056778540dc679b6a59a267da05c6b9ba207"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./search",
+      "targets": [
+        "./src/search/index.js"
+      ],
+      "target_sha256": {
+        "./src/search/index.js": "a66a14e0ba245389a53efd9a9605f810647a7e99b0404160cbb5ed3a056a65e6"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/panels",
+      "targets": [
+        "./src/ui/panelDisclosure.js"
+      ],
+      "target_sha256": {
+        "./src/ui/panelDisclosure.js": "b3a7ddfe0796ca12da026da172f3a0749cce83b62994bf77fd608716d64e9880"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/surfaces",
+      "targets": [
+        "./src/ui/surfaceKeyboard.js"
+      ],
+      "target_sha256": {
+        "./src/ui/surfaceKeyboard.js": "50e4d6d188c8dbc578726178cd6a3dc44141a5462e81227ac1d47b0b04616d53"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/layout",
+      "targets": [
+        "./src/ui/panelRails.js"
+      ],
+      "target_sha256": {
+        "./src/ui/panelRails.js": "d932ae1f1c2131bf0edf9edeab13c783bf5a2fdfebce14bdc2dd102ae6c9ef9b"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/input",
+      "targets": [
+        "./src/ui/visualInput.js"
+      ],
+      "target_sha256": {
+        "./src/ui/visualInput.js": "8a8ca1c3449d52583b50ef9959675bb3fab39e831bddd85023df6244786445e2"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/display",
+      "targets": [
+        "./src/ui/displayControls.js"
+      ],
+      "target_sha256": {
+        "./src/ui/displayControls.js": "943f33f311e253fb431968bd58475fa8f845ace7b1e2916ff17a7dc483956b1b"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/effects",
+      "targets": [
+        "./src/ui/effects.js"
+      ],
+      "target_sha256": {
+        "./src/ui/effects.js": "4d86dc58b975ef8e931e26bc46432515a44f83afc388fc863ebc58d7cc678b4a"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/effects/bloom",
+      "targets": [
+        "./src/bloom.js"
+      ],
+      "target_sha256": {
+        "./src/bloom.js": "7d67152d956e2658c1de9262c337d086eb46031bb79c6d211acce5b8bfc2de1b"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/maps",
+      "targets": [
+        "./src/ui/mapSource.js"
+      ],
+      "target_sha256": {
+        "./src/ui/mapSource.js": "c8459ba670b6239706ce0a3cdc3ddfa40ae3833996c19a079880cb998383e904"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/layers",
+      "targets": [
+        "./src/ui/layers.js"
+      ],
+      "target_sha256": {
+        "./src/ui/layers.js": "af86e1b7cdfa84fa97d71a53bec50d3421c4906bb3151e26e80afed232f2f6ac"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/layers/feedback",
+      "targets": [
+        "./src/loadingFeedback.js"
+      ],
+      "target_sha256": {
+        "./src/loadingFeedback.js": "8952b9ad946077f850a761bd2b74922ad93c44dbcdb365eac8832743208c595d"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/location",
+      "targets": [
+        "./src/ui/location.js"
+      ],
+      "target_sha256": {
+        "./src/ui/location.js": "9bda0b787e63efe6427d41a20f034aeba95a622485366e8f22e2fdbb01d0e64d"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/radio",
+      "targets": [
+        "./src/ui/radio.js"
+      ],
+      "target_sha256": {
+        "./src/ui/radio.js": "5d8cb1b0cbfba25a6cb1c3eb61238a144a7f39eb3a491bb4f9c7bda6a0632c83"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/cctv",
+      "targets": [
+        "./src/ui/cctv.js"
+      ],
+      "target_sha256": {
+        "./src/ui/cctv.js": "a736a86a7bb67c4f361d8c9af0edebc2274c2baba6af5baa4a455f08f4ab359c"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/context",
+      "targets": [
+        "./src/ui/context.js"
+      ],
+      "target_sha256": {
+        "./src/ui/context.js": "7952ce8e1bfe54597ad4272ab9b0deb3281aa7739ab8e71e58dc6f68bd05f9be"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/context/policy",
+      "targets": [
+        "./src/contextModePolicy.js"
+      ],
+      "target_sha256": {
+        "./src/contextModePolicy.js": "1e5e49ee3b08e8528a69e4964f77252c8e09e53d27192b715ca73d45cff83257"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/cockpit",
+      "targets": [
+        "./src/ui/cockpit.js"
+      ],
+      "target_sha256": {
+        "./src/ui/cockpit.js": "ac66bfaa182d0999a17b5d4086ffef5d28975470b85addcc3152555306d6fc0a"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/cockpit/math",
+      "targets": [
+        "./src/cockpitMath.js"
+      ],
+      "target_sha256": {
+        "./src/cockpitMath.js": "2e4b5fc0a1364f0ef5a09b24af9958049841362eafbdc7023ee79693f2817714"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/cockpit/layout",
+      "targets": [
+        "./src/cockpitUtilityLayout.js"
+      ],
+      "target_sha256": {
+        "./src/cockpitUtilityLayout.js": "b613c876bb606a292d32beed4faaf2092d748d73bc828faf4ca77f2fd319a3a4"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/cockpit/vision",
+      "targets": [
+        "./src/cockpitVisionPolicy.js"
+      ],
+      "target_sha256": {
+        "./src/cockpitVisionPolicy.js": "a2af921957e4b12c2e3d84b6a140f38014d8f5efaef2d900582239109221141e"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/scenes",
+      "targets": [
+        "./src/ui/scenes.js"
+      ],
+      "target_sha256": {
+        "./src/ui/scenes.js": "e130125445b57bd91c02ba799f65475142fdd7a7db13fc8161bfd47d77ca8d50"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/shell",
+      "targets": [
+        "./src/ui/applicationShell.js"
+      ],
+      "target_sha256": {
+        "./src/ui/applicationShell.js": "76f7ecb00b91903dfe8bc3f4320700f13ed0b92dfa323a558076d2a72cff4cad"
+      },
+      "status": "NOT APPLICABLE TO ASTRONOMY HUB",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/styles",
+      "targets": [
+        "./src/ui/styles.js"
+      ],
+      "target_sha256": {
+        "./src/ui/styles.js": "b47c33f47f91f186082490182af9cebaacffbf9189874f873d07c62bf8f7e95b"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./director",
+      "targets": [
+        "./src/director/playback.js"
+      ],
+      "target_sha256": {
+        "./src/director/playback.js": "a946bb225df7cb52916ed657f5d0934ff8dd2bf54252d87f43f9b7306d8aaf30"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./scenes",
+      "targets": [
+        "./src/scenes/director.js"
+      ],
+      "target_sha256": {
+        "./src/scenes/director.js": "fccd26fee27961bbe988eb54223f37f2b7593fb0a574490f9cc4ac39a9806883"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/live",
+      "targets": [
+        "./src/sources/live/index.js"
+      ],
+      "target_sha256": {
+        "./src/sources/live/index.js": "9e51f80f311227f91e9dc2d6bed097144c70c4e6f1b2251799c35e34cdfd390b"
+      },
+      "status": "ADAPTED NOW",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/flights",
+      "targets": [
+        "./src/layers/flights/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/flights/index.js": "43c2b2f5f859387492a27e9f0fca899eb92f731936cdbe728799bbb25e31af1e"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/military",
+      "targets": [
+        "./src/layers/military/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/military/index.js": "70a88bb0cbe29151f4e73caa1ffb624d017d2a2246eb3fbb9624eecb6f242eec"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./aircraft",
+      "targets": [
+        "./src/layers/aircraft/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/aircraft/index.js": "7a080a62b596ac1daed3e5d02ae9bb6eefd8d0188c6d48b245952a6f416814b0"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/vessels",
+      "targets": [
+        "./src/layers/vessels/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/vessels/index.js": "def9bc1491e71cb98eef14e05e1420cfcfacb691d26155ae0b2812eaab5f7dea"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/earthquakes",
+      "targets": [
+        "./src/layers/earthquakes/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/earthquakes/index.js": "50327f82832e457311e098ef813c1274020a40632e2cacba10c699cddd2954c8"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/recent-imagery",
+      "targets": [
+        "./src/layers/recentImagery/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/recentImagery/index.js": "64b939384a04c19a320580936d8b4316c0a97a743629b398b7102d78597f6a59"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/perimeters",
+      "targets": [
+        "./src/layers/perimeters/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/perimeters/index.js": "ebb05499582710632ebb138bfba299e3d91dae65494bcef97998d3b3a84df12f"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/firms-csv",
+      "targets": [
+        "./src/data/firmsCsv.js"
+      ],
+      "target_sha256": {
+        "./src/data/firmsCsv.js": "d3a6b6394362ac1b1ffbc336551b398e5a32dd27576e4cb991818b1a65d2e6e3"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/firms",
+      "targets": [
+        "./src/layers/firms/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/firms/index.js": "05635bd4af99f8b9b6bc485c26f0520e4bd821231e5f2f5ffa38761ca3e8ad6b"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/satellites",
+      "targets": [
+        "./src/layers/satellites/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/satellites/index.js": "e14ebdaaa50d6ec52dc1e154ef52b0b709cf455fd725636fcb4c2121e6051ef3"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/launches",
+      "targets": [
+        "./src/layers/launches/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/launches/index.js": "c45f13983bbeda12d1b584a057ec851df2691686367ed8739b93f4c8b08b6454"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/installations",
+      "targets": [
+        "./src/layers/installations/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/installations/index.js": "d296ad188e3a781f057c3d6b01feac4c40619e92dbbb1c8be7325720f3f9d6c5"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/awareness",
+      "targets": [
+        "./src/layers/awareness/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/awareness/index.js": "d670e1b307e14d69910a0358baf6b32b0c392aa1ae4ef4c743b1366889bb6423"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/traffic",
+      "targets": [
+        "./src/layers/traffic/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/traffic/index.js": "73b7ff6a4332a7103e5a37efafc390f0ff2c7a872d1a92c24244629cb4c9ed2c"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/bikeshare",
+      "targets": [
+        "./src/layers/bikeshare/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/bikeshare/index.js": "de59970befe9eff87dcb3a0312d12bba07e7591c4a0db7411806e197fe028b1c"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/directions",
+      "targets": [
+        "./src/layers/directions/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/directions/index.js": "5b9f701872582740d985805d55cd1b24efd354a5af44b3e220949b6522d43975"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/cctv",
+      "targets": [
+        "./src/layers/cctv/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/cctv/index.js": "7e1abba859d7248bb50feededb1e6905361fdbe3996ffee5c5660a871c53c01e"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/alpr",
+      "targets": [
+        "./src/layers/alpr/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/alpr/index.js": "f62eae916407b5cb85af257203039f9880dd091ca57af231f69b5855eb979440"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/radio",
+      "targets": [
+        "./src/layers/radio/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/radio/index.js": "cb01fe08481206181210f4ad3304ad8d2dbb65b10a4c39dc286f88d7ce57aeba"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/submarine-cables",
+      "targets": [
+        "./src/layers/submarineCables/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/submarineCables/index.js": "b5bf6ed4cd741ae62fd3e4d6e9c567387ed84f0806120693e3cad860eeb1bae5"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/bundled-cables",
+      "targets": [
+        "./src/layers/submarineCables/bundledSource.js"
+      ],
+      "target_sha256": {
+        "./src/layers/submarineCables/bundledSource.js": "da5f316f2fc00f504c70fda823eba29a0e4326c3406e1b1b7ed2900c45abb859"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./geography/natural-earth",
+      "targets": [
+        "./src/data/naturalEarthRegions.js"
+      ],
+      "target_sha256": {
+        "./src/data/naturalEarthRegions.js": "c169addeed3768383d80a13d186f44a3bd1fcdf7bff34612e1a21c7444bb1762"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./geography/neighborhoods",
+      "targets": [
+        "./src/data/neighborhoodPolygons.js"
+      ],
+      "target_sha256": {
+        "./src/data/neighborhoodPolygons.js": "a50519a247ddb68557bfea3e794bd0101fe398f5cc1c509bfcb58ec3c9aecfe5"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./maps/controller",
+      "targets": [
+        "./src/maps/controller.js"
+      ],
+      "target_sha256": {
+        "./src/maps/controller.js": "9cbaf640b130da877c5fbc7343d2f8e5d2e4dd5148a37117721335e7c4fa572f"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./maps/catalog",
+      "targets": [
+        "./src/maps/catalog.js"
+      ],
+      "target_sha256": {
+        "./src/maps/catalog.js": "23af20bcb64a73c4d303a0f957a96cd4a517564b89595fdc22a3d85c7a0086be"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./maps/imagery",
+      "targets": [
+        "./src/maps/imagery.js"
+      ],
+      "target_sha256": {
+        "./src/maps/imagery.js": "67847d7affef78236cd8ba26df78888ab998fe21c5a06ba67c0d206fddbeacde"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./maps/terrain",
+      "targets": [
+        "./src/maps/terrain.js"
+      ],
+      "target_sha256": {
+        "./src/maps/terrain.js": "ae101a44f1767253be6e3f855a792573879ce447146ad480fea627373b073705"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./maps/3d",
+      "targets": [
+        "./src/maps/google3d.js"
+      ],
+      "target_sha256": {
+        "./src/maps/google3d.js": "ea7bccd0dbe1bf69968060acddcb4a4bbf7d9ccfd2490481f54c6e15da6a3244"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./maps/defaults",
+      "targets": [
+        "./src/maps/defaultSources.js"
+      ],
+      "target_sha256": {
+        "./src/maps/defaultSources.js": "66ebac478bcbaa888d2d580b30fb1d7a1026c3e5d1f912e98da15462cbd80cda"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./voice/controller",
+      "targets": [
+        "./src/voice/realtimeController.js"
+      ],
+      "target_sha256": {
+        "./src/voice/realtimeController.js": "a9028d1419d15453ab331ac0d5c3f425be0f03dfcf8f08ba11226c7d63568cc4"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./voice/control",
+      "targets": [
+        "./src/voice/control.js"
+      ],
+      "target_sha256": {
+        "./src/voice/control.js": "32c49e1e0d38778d3a71ed4b3a95e0690413898f57c920b0da506d88d0e11241"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./voice/realtime-backend",
+      "targets": [
+        "./src/voice/realtimeBackend.js"
+      ],
+      "target_sha256": {
+        "./src/voice/realtimeBackend.js": "a85a68c570531c89d4023dbda639f6e1fe3addb0d39a8955fe7ab803fdccef3e"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./voice/commands",
+      "targets": [
+        "./src/voice/commands.js"
+      ],
+      "target_sha256": {
+        "./src/voice/commands.js": "5412b2b11072518a9f9b4ce4fcc086b724b5f713cc105c4077d481512080c73c"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./voice/cost",
+      "targets": [
+        "./src/voice/voiceCost.js"
+      ],
+      "target_sha256": {
+        "./src/voice/voiceCost.js": "8fa7a3318a45a24d861acb2a699fedb8423889ffb2e7178a3f8b137b4783039f"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application/scene",
+      "targets": [
+        "./src/app/scene.js"
+      ],
+      "target_sha256": {
+        "./src/app/scene.js": "92f5095a9de66e3ddeea0794ff00ca92aa4ec831c686b85a3a7fa345a45ea66f"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application/controls",
+      "targets": [
+        "./src/app/controls.js"
+      ],
+      "target_sha256": {
+        "./src/app/controls.js": "078aebd7983cff3d5c6973d74d36deb486140e54ab130ce15b4bffb3d68a7d09"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application/data",
+      "targets": [
+        "./src/app/data.js"
+      ],
+      "target_sha256": {
+        "./src/app/data.js": "e6a247531a9cc1cd6f66b81f83a2cb9a0cbb58ee731ffc54163ef30e68a630da"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application/tools",
+      "targets": [
+        "./src/app/tools.js"
+      ],
+      "target_sha256": {
+        "./src/app/tools.js": "d264a0fe2398c82f44be54b425de6f2327e32a15526630aae590a370104b15c3"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application/chrome",
+      "targets": [
+        "./src/app/startupChrome.js"
+      ],
+      "target_sha256": {
+        "./src/app/startupChrome.js": "cb40b7707ada4de97e2745624206cfbc78f76820b514fd329077f0331756a03d"
+      },
+      "status": "NOT APPLICABLE TO ASTRONOMY HUB",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application/sources",
+      "targets": [
+        "./src/app/sources.js"
+      ],
+      "target_sha256": {
+        "./src/app/sources.js": "5003b534a969973e4ab9e124798793720ed5d3a5a6abbd998ba927f0686e5bc6"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application/services",
+      "targets": [
+        "./src/services/application.js"
+      ],
+      "target_sha256": {
+        "./src/services/application.js": "5526c0aec5f2934f28449b161a559dcf94152847a1b1572ea135355fbceec685"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application/requests",
+      "targets": [
+        "./src/services/requests.js"
+      ],
+      "target_sha256": {
+        "./src/services/requests.js": "c3b630a7bf6fee10c9d9e7589209a56ff8f55aed6858a3557bb341b8783ce8b4"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application/errors",
+      "targets": [
+        "./src/app/errors.js"
+      ],
+      "target_sha256": {
+        "./src/app/errors.js": "661b15de03e9a65953c8681ad0a3a6f5b7670c755de6e565da7af1979bdc9ece"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/composition",
+      "targets": [
+        "./src/ui/composition.js"
+      ],
+      "target_sha256": {
+        "./src/ui/composition.js": "6ca6f538596af2f85932377cc2537e8ea641ef592b1b952e0599fb1fba7809f0"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/hud",
+      "targets": [
+        "./src/hud.js"
+      ],
+      "target_sha256": {
+        "./src/hud.js": "b557081add6058b0e4bfffda3a72bbd1790a25d1382d76c24b7f55ac36d879c8"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./standalone/settings",
+      "targets": [
+        "./src/keySetup.js"
+      ],
+      "target_sha256": {
+        "./src/keySetup.js": "34fc45d568364503812ad9343f5958ab5e2faebe6e48935908fc74eb78343f05"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./voice/actions",
+      "targets": [
+        "./src/voice/gevActions.js"
+      ],
+      "target_sha256": {
+        "./src/voice/gevActions.js": "071d4c116517d64d2d8c340f7811d73dcec1439b62558800f7ab5458a2d4c3c4"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./annotations",
+      "targets": [
+        "./src/annotations/index.js"
+      ],
+      "target_sha256": {
+        "./src/annotations/index.js": "bac279712a268763ac7704f8cd021c0ef767737f7a7a343a5d69f8a7514a568e"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./context",
+      "targets": [
+        "./src/data/contextStore.js"
+      ],
+      "target_sha256": {
+        "./src/data/contextStore.js": "89aa6153f63ac556b51b659edc7d4b85cc7b2eaaad6015b86cc398172e7e7a6a"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./build/html",
+      "targets": [
+        "./build/application-html.js"
+      ],
+      "target_sha256": {
+        "./build/application-html.js": "73c2c0e5808044be11f2fe4ab50c787d33e1a5a0e24426394246aafbfcb99cb5"
+      },
+      "status": "NOT APPLICABLE TO ASTRONOMY HUB",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application/catalog",
+      "targets": [
+        "./src/app/catalog.js"
+      ],
+      "target_sha256": {
+        "./src/app/catalog.js": "87044b7e36a30ca7776184cd0d60712b3b85b3318c9e026ec561e93e11484c36"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./standalone/catalog",
+      "targets": [
+        "./src/standalone/catalog.js"
+      ],
+      "target_sha256": {
+        "./src/standalone/catalog.js": "7938e711d56fcb8c5390ab6fba7c2e5d5a5cff8b96faca0f5971dfa778b34766"
+      },
+      "status": "NOT APPLICABLE TO ASTRONOMY HUB",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application/layers",
+      "targets": [
+        "./src/app/constructCatalog.js"
+      ],
+      "target_sha256": {
+        "./src/app/constructCatalog.js": "d8ff750c5635e1982d198df1ffa134edf6132d7914536bec02cd552d7eabf7a2"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./application/operations",
+      "targets": [
+        "./src/app/operations.js"
+      ],
+      "target_sha256": {
+        "./src/app/operations.js": "abcd1702ace066ecf0d9987da0ae1a085eb65ef001b62cd3111946ade91f0fc6"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./data/lifecycle",
+      "targets": [
+        "./src/data/lifecycle.js"
+      ],
+      "target_sha256": {
+        "./src/data/lifecycle.js": "a5d06cef52480b4aea4d0b051e7f2ac8b54e451fce7ba8063fc4a798d1a3d987"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/navigation",
+      "targets": [
+        "./src/ui/navigationController.js"
+      ],
+      "target_sha256": {
+        "./src/ui/navigationController.js": "cfde97cd03b2368c28cabeaca0b9fdb605f2afd1c7a90beb5cdaeee61a751d74"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/share-restoration",
+      "targets": [
+        "./src/ui/shareRestoration.js"
+      ],
+      "target_sha256": {
+        "./src/ui/shareRestoration.js": "4d78265d12984ddd4f37fcfcfd0fd5335d120cdbbe1b73af2e1d037dffcb4aeb"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/visual-settings",
+      "targets": [
+        "./src/ui/visualSettings.js"
+      ],
+      "target_sha256": {
+        "./src/ui/visualSettings.js": "2f0393811c7e66718142a5f67b7dc3461b9ad5fe16f6863adfe61fbe34e4008b"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./ui/panel-chrome",
+      "targets": [
+        "./src/ui/panelChrome.js"
+      ],
+      "target_sha256": {
+        "./src/ui/panelChrome.js": "21dce060d9ac8f79924e6c7ea798ad54160b7d929f176946442cebbbbea2d92f"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/flights/records",
+      "targets": [
+        "./src/layers/flights/records.js"
+      ],
+      "target_sha256": {
+        "./src/layers/flights/records.js": "162f6474ee8080e8746035c529384996587a24e797a878b62755fc05f4e55244"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/flights/ingestion",
+      "targets": [
+        "./src/layers/flights/ingestion.js"
+      ],
+      "target_sha256": {
+        "./src/layers/flights/ingestion.js": "3ecba550a0df7f22f0987536bf7d768d61c171867b95c4414dcd5a4f6ec1c48f"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/military/records",
+      "targets": [
+        "./src/layers/military/records.js"
+      ],
+      "target_sha256": {
+        "./src/layers/military/records.js": "af4798a98d441f4963744c147973bd44086c3b3ad15cacc308dcea5b0d3751c5"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/military/ingestion",
+      "targets": [
+        "./src/layers/military/ingestion.js"
+      ],
+      "target_sha256": {
+        "./src/layers/military/ingestion.js": "bfd68dc8c876dc510baa0030d36bbbf6fa5ce87a8a39a0b183de03bb08e4d00e"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/vessels/records",
+      "targets": [
+        "./src/layers/vessels/records.js"
+      ],
+      "target_sha256": {
+        "./src/layers/vessels/records.js": "15ffd756378e36d5903ac40c009031ba57f0d5bc6e5c97818fa2580d371f0302"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/vessels/ingestion",
+      "targets": [
+        "./src/layers/vessels/ingestion.js"
+      ],
+      "target_sha256": {
+        "./src/layers/vessels/ingestion.js": "03fb0f4cd1ab2360f6719caa0c8e85e37b7ecf4e072d2369bc0cf2e1c92369b5"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/radio-browser",
+      "targets": [
+        "./src/sources/radioBrowser.js"
+      ],
+      "target_sha256": {
+        "./src/sources/radioBrowser.js": "2bb9989e9c87c3158e4eec7f22943da1c71c722c6801ac445f16261f3e4e4993"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/cctv-types",
+      "targets": [
+        "./src/sources/cctvTypes.js"
+      ],
+      "target_sha256": {
+        "./src/sources/cctvTypes.js": "dcc3a9248c664e15c589a981a76fe7f049a1397e03665a2fb495b9c3d3c73719"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/regional",
+      "targets": [
+        "./src/data/regionalModel.js"
+      ],
+      "target_sha256": {
+        "./src/data/regionalModel.js": "f37d0ad19b4f08f68c2ea7497f4f16b14c8a7221374d79a3824e6fa719ec7f11"
+      },
+      "status": "ADAPTED NOW",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./voice/action-schemas",
+      "targets": [
+        "./src/voice/actionSchemas.js"
+      ],
+      "target_sha256": {
+        "./src/voice/actionSchemas.js": "5a95918243c3614e2a5a99bc20531a2ff990203d9b3b1b430ad2422dee4164df"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./voice/session",
+      "targets": [
+        "./src/voice/session.js"
+      ],
+      "target_sha256": {
+        "./src/voice/session.js": "c592146a308fbc08c8e0e3f104a41c4fc796e7da5dd5e93b37b36dc75e179e0c"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./voice/session-controls",
+      "targets": [
+        "./src/voice/sessionCommands.js"
+      ],
+      "target_sha256": {
+        "./src/voice/sessionCommands.js": "56f0ff81a6c55af7831cccdc8a43f4f42fc1e492877e4be5bd6146fd51df8026"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./voice/realtime-session",
+      "targets": [
+        "./src/voice/realtimeSession.js"
+      ],
+      "target_sha256": {
+        "./src/voice/realtimeSession.js": "d5df2c064ff5e7c0f56f35f560881782f96cf5d9259284a54b89d87f8e1bd5af"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/alpr/source",
+      "targets": [
+        "./src/layers/alpr/source.js"
+      ],
+      "target_sha256": {
+        "./src/layers/alpr/source.js": "c481aab3d5663e9571b318de03a32c71c351f88fe7008232c0e6c3632c539231"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/bikeshare/source",
+      "targets": [
+        "./src/layers/bikeshare/source.js"
+      ],
+      "target_sha256": {
+        "./src/layers/bikeshare/source.js": "1a71c9ef3d70b7b41f111e6140d8d1262d5ff22c2948907891c58bd6a7af6171"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/cctv/source",
+      "targets": [
+        "./src/layers/cctv/source.js"
+      ],
+      "target_sha256": {
+        "./src/layers/cctv/source.js": "6c284f6043b1747340425b809c950df79de09290f1e9cbfd7d38cfe61fed105d"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/earthquakes/source",
+      "targets": [
+        "./src/layers/earthquakes/source.js"
+      ],
+      "target_sha256": {
+        "./src/layers/earthquakes/source.js": "fd04c42b6d7386bc262054b78611b87bf7c3a3e3c7a7fe815a22e4642080f2d3"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/perimeters/source",
+      "targets": [
+        "./src/layers/perimeters/source.js"
+      ],
+      "target_sha256": {
+        "./src/layers/perimeters/source.js": "a8784299dee5de58a0e0cf6182be1aac90be1e8abddb7abff5a3975fce375463"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/firms/source",
+      "targets": [
+        "./src/layers/firms/source.js"
+      ],
+      "target_sha256": {
+        "./src/layers/firms/source.js": "5754af5fba35a0c395883fda32961fad2dfb06473708a39c9cb4ac96366f3ce3"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/installations/source",
+      "targets": [
+        "./src/layers/installations/source.js"
+      ],
+      "target_sha256": {
+        "./src/layers/installations/source.js": "f5e1a4c92f508d0020aa67c041964a14e1cf94bb2c79eaa2b8990da09b736d26"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/launches/source",
+      "targets": [
+        "./src/layers/launches/source.js"
+      ],
+      "target_sha256": {
+        "./src/layers/launches/source.js": "a6f405799081dee94ba52f52a667324b0b34fc6d893907598b36e94b038afe3b"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/radio/source",
+      "targets": [
+        "./src/layers/radio/source.js"
+      ],
+      "target_sha256": {
+        "./src/layers/radio/source.js": "b25ba1ba91d4e820e5d318095e6f546c0a9bec6550593d6a8c5ecabff449617a"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/satellites/source",
+      "targets": [
+        "./src/layers/satellites/source.js"
+      ],
+      "target_sha256": {
+        "./src/layers/satellites/source.js": "0d086a778f0223727187de819dd5088845e43ed6c1b9ed374b282924e4ee30ee"
+      },
+      "status": "ADAPTED NOW",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/traffic/source",
+      "targets": [
+        "./src/layers/traffic/source.js"
+      ],
+      "target_sha256": {
+        "./src/layers/traffic/source.js": "58b026fdb4afc4efa8171fbe7119b6ec4a1b94a00a55685d9a0bf94694003cbb"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/reference",
+      "targets": [
+        "./src/sources/reference.js"
+      ],
+      "target_sha256": {
+        "./src/sources/reference.js": "8f5f639697553a6ca2fb821f629dcc877e4c9f03d78854d4c95b85ef62ac3c89"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/submarine-cables/source",
+      "targets": [
+        "./src/layers/submarineCables/bundledSource.js"
+      ],
+      "target_sha256": {
+        "./src/layers/submarineCables/bundledSource.js": "da5f316f2fc00f504c70fda823eba29a0e4326c3406e1b1b7ed2900c45abb859"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/http-body",
+      "targets": [
+        "./src/sources/httpBody.js"
+      ],
+      "target_sha256": {
+        "./src/sources/httpBody.js": "218ecab589b781b3542cfc589ca7a9b9a8b8b1055621ffe163df27ef68fc58b8"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/overpass",
+      "targets": [
+        "./src/sources/overpass.js"
+      ],
+      "target_sha256": {
+        "./src/sources/overpass.js": "36098d3582a2858ee9479f19d1a9ee073173a16aade1a3c0b05376cf7d5d1b0e"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./search/nominatim",
+      "targets": [
+        "./src/search/nominatim.js"
+      ],
+      "target_sha256": {
+        "./src/search/nominatim.js": "dc6ebaa9a61e7a2597997cc15e7eaf0df7e4ef60c1f2884fc65500e9e127f119"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/nominatim",
+      "targets": [
+        "./src/sources/nominatim.js"
+      ],
+      "target_sha256": {
+        "./src/sources/nominatim.js": "bc88f4a4a13f9e8526168a105eeacadcb98193bdcd0ce998d94ca07109b84197"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./server/providers/transit",
+      "targets": [
+        "./server/providers/transit.js"
+      ],
+      "target_sha256": {
+        "./server/providers/transit.js": "0eeb4fbfaf45b2844b93da619d068dab011c30ea61d16223c08c9e20b8c3a169"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/transit",
+      "targets": [
+        "./src/data/transitProxy.js"
+      ],
+      "target_sha256": {
+        "./src/data/transitProxy.js": "e63f57feea021bb0dfa4f0c2d8c4f93801cab12ca1ad4d0283b5538220fd0245"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/transit",
+      "targets": [
+        "./src/layers/transit/index.js"
+      ],
+      "target_sha256": {
+        "./src/layers/transit/index.js": "93b292d1d658ed58b671e9067087cbd741d45ce32a48c30804ea639cb47f1187"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/transit/standalone",
+      "targets": [
+        "./src/data/transit.js"
+      ],
+      "target_sha256": {
+        "./src/data/transit.js": "4588dbc678dcdf772c2619e03561976097e2ee4026e2faf6036c6f80a2f6802e"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./layers/transit/source",
+      "targets": [
+        "./src/layers/transit/source.js"
+      ],
+      "target_sha256": {
+        "./src/layers/transit/source.js": "7b8f270bb92afd6255d2011632fa5e04f4a7b3f1fb9ea24a1d86bec824a4231e"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/transit-service",
+      "targets": [
+        "./src/sources/transitService.js"
+      ],
+      "target_sha256": {
+        "./src/sources/transitService.js": "3afaef62ea0f4a6fc5e54a6c8eeb0854849bedcde6e705e6ed70e5d1c77d8589"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    },
+    {
+      "surface": "./sources/map-features",
+      "targets": [
+        "./src/sources/overpassFeatures.js"
+      ],
+      "target_sha256": {
+        "./src/sources/overpassFeatures.js": "424aeb4f2519e8fff57dab2a8f68172ceddd709f07714c261b5ada039952b0bf"
+      },
+      "status": "PLANNED",
+      "scope": "Only exported modules imported; remaining exports require separate qualification"
+    }
+  ],
+  "too_coupled": [
+    "Whole FlightsLayer controller requires terrain/cache/tracking services: ADAPTER WORK REQUIRED; use exported normalization only",
+    "Satellite renderer controller requires upstream tracking/UI services: ADAPTER WORK REQUIRED; reuse exported source only",
+    "Upstream weather rendering lacks clean layer export: UPSTREAM HOOK REQUIRED; use exported regional normalization"
+  ],
+  "provider_decisions": {
+    "aircraft": "B: bounded FastAPI adsb.lol transport, typed subset, 30s coalesced cache, browser normalization",
+    "satellites": "A: CORS-safe CelesTrak stations via exported source/URL helpers; satellite.js wall-clock visualization",
+    "weather": "A: CORS-safe Open-Meteo point conditions via exported normalization; non-commercial free endpoint"
+  },
+  "data_policy": "No bundled upstream datasets/models/events, dynamic local_data imports rejected by build; live data attribution and terms retained. No blanket Node sidecar."
+}

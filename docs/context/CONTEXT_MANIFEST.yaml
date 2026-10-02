@@ -16,6 +16,7 @@ tasks:
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
     - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
+    - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md
@@ -48,6 +49,7 @@ tasks:
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
     - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
+    - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md
@@ -72,6 +74,7 @@ tasks:
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
     - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
+    - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md
@@ -94,6 +97,7 @@ tasks:
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
     - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
+    - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md
@@ -129,6 +133,7 @@ tasks:
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
     - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
+    - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md
@@ -170,6 +175,7 @@ tasks:
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
     - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
+    - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md

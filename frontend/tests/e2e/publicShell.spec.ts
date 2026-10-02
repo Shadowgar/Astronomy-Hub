@@ -1,16 +1,16 @@
 import { test, expect } from '@playwright/test'
 
 for (const [label,width,height] of [['desktop',1440,900],['mobile',390,844]] as const) {
- test(`public shell ${label}: four real surfaces, history, refresh and viewport`,async({page})=>{
+ test(`public shell ${label}: five real surfaces, history, refresh and viewport`,async({page})=>{
   test.setTimeout(180_000)
   await page.setViewportSize({width,height})
   const errors:string[]=[]
   page.on('pageerror',error=>errors.push(error.message))
-  for(const [path,active] of [['/','Home'],['/observe','Observe'],['/tonight?date=2026-10-01','Tonight'],['/sky-engine','Sky']]){
+  for(const [path,active] of [['/','Home'],['/observe','Observe'],['/tonight?date=2026-10-01','Tonight'],['/sky-engine','Sky'],['/earth','Earth']]){
    await page.goto(path)
    const nav=page.getByRole('navigation',{name:'Primary navigation'})
    await expect(nav.getByRole('link',{name:active,exact:true})).toHaveAttribute('aria-current','page')
-   await expect(nav.getByRole('link')).toHaveCount(4)
+   await expect(nav.getByRole('link')).toHaveCount(5)
    await expect(page.locator('main')).toHaveCount(1)
    await expect(page.locator('h1')).toHaveCount(1)
    if(active==='Home'){
@@ -28,7 +28,7 @@ for (const [label,width,height] of [['desktop',1440,900],['mobile',390,844]] as 
    } else if(active==='Tonight'){
     await expect(page.getByRole('heading',{name:'Top opportunities tonight'})).toBeVisible({timeout:60_000})
     await expect(page.getByRole('region',{name:'Hourly forecast'})).toBeVisible()
-   } else {
+   } else if(active==='Sky') {
     await expect(page.locator('iframe')).toBeVisible({timeout:20_000})
     await expect(page.frameLocator('iframe').locator('canvas')).toBeVisible({timeout:60_000})
     const runtime=page.frames().find(frame=>frame.url().includes('/oras-sky-engine/'))
@@ -37,6 +37,7 @@ for (const [label,width,height] of [['desktop',1440,900],['mobile',390,844]] as 
     expect(box!.height).toBeGreaterThan(height*.65)
     expect(box!.y+box!.height).toBeLessThanOrEqual(height+1)
    }
+   if(active==='Earth'){await expect(page.locator('[data-runtime-status=ready]')).toBeVisible({timeout:90_000});await expect(page.frameLocator('iframe').locator('canvas').first()).toBeVisible()}
    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true)
    await page.screenshot({path:`../output/playwright/public-shell-${active.toLowerCase()}-${label}.png`,fullPage:active!=='Sky'})
    await page.screenshot({path:`../output/playwright/public-shell-viewport-${active.toLowerCase()}-${label}.png`})
@@ -45,7 +46,7 @@ for (const [label,width,height] of [['desktop',1440,900],['mobile',390,844]] as 
   }
   await page.getByRole('navigation',{name:'Primary navigation'}).getByRole('link',{name:'Home',exact:true}).click()
   await expect(page).toHaveURL(/\/$/)
-  await page.goBack();await expect(page).toHaveURL(/\/sky-engine$/)
+  await page.goBack();await expect(page).toHaveURL(/\/earth$/)
   await page.goForward();await expect(page).toHaveURL(/\/$/)
   expect(errors).toEqual([])
  })

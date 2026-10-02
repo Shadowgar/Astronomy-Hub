@@ -23,8 +23,8 @@ services:
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: frontend/Dockerfile
     volumes:
       - ./frontend/public/oras-sky-engine/skydata:/app/public/oras-sky-engine/skydata:ro
       - ${ORAS_SATELLITE_TLE_HOST_DIR:-./frontend/public/oras-sky-engine/skydata}/tle_satellite.jsonl.gz:/app/public/oras-sky-engine/skydata/tle_satellite.jsonl.gz:ro
@@ -36,13 +36,34 @@ services:
       NODE_ENV: ${NODE_ENV:-development}
       FRONTEND_PORT: ${FRONTEND_PORT:-4173}
       VITE_DEV_PROXY_TARGET: http://backend:${BACKEND_PORT:-8000}
+      ORAS_EARTH_PROXY_TARGET: http://earth-runtime:8877
     ports:
       - "${FRONTEND_PORT:-4173}:${FRONTEND_PORT:-4173}"
     depends_on:
       - backend
+      - earth-runtime
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "node -e \"const http=require('http');http.get('http://127.0.0.1:'+(process.env.FRONTEND_PORT||4173),res=>process.exit(res.statusCode<500?0:1)).on('error',()=>process.exit(1))\""]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+
+  earth-runtime:
+    build:
+      context: .
+      dockerfile: runtimes/earth-runtime/Dockerfile
+    volumes:
+      - type: bind
+        source: ${ORAS_EARTH_ARTIFACT_DIR:-./data/runtime-artifacts/earth}
+        target: /runtime
+        read_only: true
+        bind:
+          create_host_path: false
+    expose:
+      - "8877"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://127.0.0.1:8877/earth-runtime/health | grep -q 'ORAS Earth runtime ready'"]
       interval: 20s
       timeout: 5s
       retries: 5

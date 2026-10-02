@@ -98,7 +98,7 @@
 @media (max-width: 740px) {
   .oras-header-inner { flex-direction: column; align-items: stretch; gap: 12px; padding-block: 16px 8px; }
   .oras-brand { align-self: flex-start; }
-  .oras-nav { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); }
+  .oras-nav { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); }
   .oras-nav a { justify-content: center; padding-inline: 8px; }
   .home-hero { padding-block: 36px 28px; }
   .home-title-break { display: none; }
@@ -113,3 +113,6 @@
   .oras-footer { flex-direction: column; }
 }
 @media (prefers-reduced-motion: reduce) { .oras-app * { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+
+.oras-runtime-host{position:relative}.oras-runtime-slot{height:100%;width:100%}.oras-runtime-slot iframe{width:100%;height:100%;border:0}.oras-runtime-overlay{position:absolute;inset:0;background:var(--oras-bg);z-index:2}.oras-runtime-diagnostics{position:absolute;top:12px;right:12px;z-index:3;max-width:80%;background:#09141ff2;padding:4px 8px;font-size:11px}.oras-runtime-diagnostics p{overflow-wrap:anywhere}
+@media(max-width:600px){.oras-nav{gap:12px}.oras-nav a{font-size:13px}.oras-header-inner{padding-inline:12px}}

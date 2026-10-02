@@ -24,38 +24,30 @@ Proven runtime conflicts must be reported, not silently overwritten.
 
 ## CURRENT MODE
 
-```text
-Mode: UNIFIED_RUNTIME_COMPATIBILITY_STUDY
-Approach: Phase B source-backed research; documentation/control changes only
-```
+Phase C Hub-owned Cesium Earth foundation. SINGLE AGENT ONLY.
 
-## CURRENT OBJECTIVE
+## CURRENT OBJECTIVE / ACTIVE TASK
 
-Complete the [God's Eye / SWE compatibility study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md)
-after merged PR #53, baseline `0ba481f5b16f8f8637ca73628cbc2b3abaad1710`.
-Existing Home/Observe/Tonight/Sky and standalone SWE remain implemented; historical
-console-clean status remains PARTIAL. No runtime integration occurs in this task.
+Branch `phase-c-cesium-earth-runtime-1`, verified merged Phase B baseline
+`51a66347dd5997673a6b7c523d66e980f3a8701d`. Preserve C0 Sky provenance/native
+science and integrate an independently built ORAS-owned Earth Viewer, three lazy
+God's Eye feature-library adapters, bridge and serial frame lifecycle.
+The complete God’s Eye application direction is explicitly superseded.
 
-## ACTIVE TASK
-
-```text
-Task: God's Eye + SWE compatibility/upgradeability study
-Branch: unified-runtime-compatibility-study-1
-Scope: docs/control only; isolated external source/fixture experiments permitted
-```
-
-Study resolves preferred external pinned source/full-app build, same-origin frames,
-versioned capability bridge and active-only heavy renderer lifetime. Implementation
-is PLANNED. Exact protocol, base-path/browser qualification, provider permissions,
-SWE ignored-source reconstruction and solar-system scale remain OPEN.
+Original experiment is local-only reference branch
+`phase-c-full-gods-eye-experiment-backup` at `dd15ae1b`; never push it.
+No clean whole old commit was cherry-picked: C0 was salvaged without Earth
+metadata, generic bridge/host/Sky integration were salvaged by path, full-app
+wrapper/provider service/aliases were left on backup. No old work was deleted.
 
 ## CURRENT PRIORITY
 
-Validate documentation scope/links, open the study PR, inspect one normal review
-cycle and stop without merging. Source evidence and three isolated Node probe
-groups do not constitute Docker/browser qualification. The next recommended task
-is Phase C skeleton in study section 29, starting with source/artifact gates;
-no Phase C execution is authorized by this study. Preserve editor settings.
+Local owned Earth/Sky Docker desktop/mobile acceptance passed; live providers
+remain separately qualified (aircraft unavailable). See the
+[qualification evidence](../validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md). Open the new PR,
+inspect one normal review cycle, repair Category A and focused retest, then stop.
+No merge, ISS handoff, satellite authority reconciliation, Mars, measured horizon
+or astronomy-extension phase. Preserve unrelated editor settings.
 
 ## KNOWN ISSUES
 
@@ -80,7 +72,8 @@ And:
   state owns product intent, engines own internal scene/camera/selection behavior
 * engines = domain authority
 * when a viewport is mounted, viewport = active engine scene
-* hub mounts engines but does not own engine runtimes
+* Hub shell mounts engines; the separate ORAS Earth runtime owns its Viewer,
+  SWE retains its own contained scene/runtime
 * backend owns meaning
 * contracts must be deterministic
 * `/api/above-me` is the public object-discovery contract

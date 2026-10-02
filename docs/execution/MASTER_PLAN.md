@@ -58,23 +58,18 @@ What is above me right now, and what should I observe?
 
 ## Current Foundation and Approved Direction
 
-CURRENT: shared shell from merged PR #52, Home/Observe/Tonight/Sky host, contained
-SWE, and existing satellite identity/TLE/freshness/local propagation work.
-PLANNED: renderer-centered workspace, God's Eye Earth, Cesium planetary surfaces,
-universal state, cross-engine handoffs and external astronomy layers.
-Phase B resolves preferred external pinned source/full-app builds, same-origin
-frames, versioned capability bridge and active-only renderer lifetime; see the
-[compatibility study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md).
-OPEN: exact API, browser/base-path/provider qualification, SWE reconstruction,
-satellite simulation clock, transition polish and solar-system-scale renderer.
+CURRENT foundation: shared shell, Home/Observe/Tonight/Sky and contained SWE;
+existing satellite identity/TLE/freshness/local propagation remain intact.
+ACTIVE Phase C: Hub-owned independent Cesium Earth with selective externally
+pinned God's Eye feature modules, small Hub intent and serial bridge/lifecycle.
+The prior complete-app topology is superseded by explicit owner instruction.
+Retain useful Earth capabilities through the pinned capability ledger.
 
-The detailed [Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)
-defines the approved A–F roadmap: architecture docs, compatibility study, runtime
-skeleton, ISS handoff, Mars proof, astronomy extensions including `oras_horizon.v1`.
-The next recommended task is the bounded Phase C skeleton in study section 29;
-Phase B remains documentation/research only.
-Only execution authority activates each step. Domain lists below describe product
-scope, not completed features or new rendering technology choices.
+Sequence: C0 reproducible SWE; C1 ORAS Cesium core; C2 selective adapters;
+C3 core parity; C4 unified bridge/lifecycle; C5 broader feature expansion;
+D ISS handoff; E Mars; F astronomy extensions; G immersive UX; H solar-system scale.
+This task implements the bounded foundation and stops after its PR/review report.
+Later phases remain planned and require explicit authorization.
 
 ## FEATURE DOMAINS (REFERENCE ONLY)
 

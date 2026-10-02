@@ -279,19 +279,21 @@ The ORAS Sky Engine at `/oras-sky-engine/` owns:
 
 ### Approved Future Renderer Directions
 
-* Earth: complete applicable God's Eye View runtime with its Cesium foundation,
-  external Hub adapter and additive astronomy extensions. Integration not started.
-* Planet: body-aware Cesium surface runtime with qualified body-specific data,
-  first proof Mars; not implemented.
-* Solar-system scale: renderer OPEN; study SWE sufficiency versus a dedicated scene.
+* Earth: Astronomy Hub-owned independent Cesium runtime at `/earth-runtime/`.
+  Hub owns Viewer/camera/layers/selection/attribution/UI/lifecycle. God's Eye is an
+  immutable external pin used through selected public feature exports; its full
+  application and Viewer startup are prohibited by the Phase C owner pivot.
+* Planet: body-aware Cesium surface direction, first proof Mars; not implemented.
+* Solar-system scale: renderer OPEN; no implementation in Phase C.
 
-Phase B selected external SHA-pinned God's Eye source, an independent full-app
-build/external ORAS wrapper and same-origin disposable frames with a versioned
-Hub bridge and active-only heavy-renderer lifetime. These are PLANNED directions;
-exact bridge schema, adapter/extension APIs and runtime qualification remain OPEN.
-No new dependencies or vendor changes occur in this checkpoint. Upstream SWE/God's Eye source is immutable by default;
-qualified revision upgrades repair adapters rather than repeat widespread patches.
-Provider/data/asset terms remain separate from source-code licensing.
+Sky and Earth are independent builds in serial same-origin disposable frames,
+with a validated versioned capability bridge. SWE remains contained. FastAPI is
+canonical; current aircraft transport is a bounded FastAPI source adapter, and
+satellite/weather use qualified browser-safe direct sources. No Node provider
+sidecar is implemented by this pivot. Code/data/provider/asset terms remain
+separate. Complete upstream capability scope is retained in the parity ledger,
+not by running the upstream application. Historical Phase B full-app topology
+is superseded; its research remains historical evidence.
 
 ---
 
