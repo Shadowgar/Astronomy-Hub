@@ -955,8 +955,10 @@ Do not claim completion when validation was skipped.
 Consult `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` before renderer or
 engine work. Distinguish current implementation, approved plans, and open choices.
 
-- The next task after the architecture PR is God's Eye + SWE compatibility/
-  upgradeability study. Do not start `oras_horizon.v1` from an older roadmap.
+- Phase B recommendations are recorded in
+  `docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md`. The next recommended task
+  is its bounded Phase C Sky/Earth skeleton; no implementation is authorized
+  inside the study. Do not start `oras_horizon.v1` from an older roadmap.
 - Preserve complete applicable God's Eye Earth capabilities, including those
   unrelated to astronomy, subject to provider/data/asset terms. Do not implement
   a replacement Earth renderer from scratch or strip upstream features.
@@ -966,5 +968,8 @@ engine work. Distinguish current implementation, approved plans, and open choice
   investigation, preferred generic upstream hook, or tiny documented patch queue.
 - Do not claim God's Eye, unified Earth, universal state, planetary surfaces, or
   cross-engine handoffs exist before implementation and qualification.
-- The Git/build mechanism, exact extension API, and solar-system-scale renderer
-  remain open. No new implementation begins in this docs-only checkpoint.
+- Phase B selects external pinned source, independent full-app builds,
+  same-origin disposable runtime frames, a versioned capability bridge and
+  active-only heavy renderer lifetime. These are planned, not implemented.
+  Exact extension/protocol API, source/base-path/browser/provider qualification
+  and solar-system-scale renderer remain open.

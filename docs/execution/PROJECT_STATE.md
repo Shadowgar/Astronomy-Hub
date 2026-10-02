@@ -133,8 +133,9 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-After this architecture PR: **God's Eye + SWE compatibility/upgradeability study**.
-Do not start that study, integration, or horizon work inside this checkpoint.
+After this Phase B study PR: the bounded **Phase C Sky/Earth skeleton**,
+starting with source/artifact gates in study section 29. Do not implement C
+or horizon work inside this study checkpoint.
 
 Approved order: A architecture docs → B compatibility study → C unified runtime
 skeleton → D ISS cross-engine slice → E Mars planetary proof → F astronomy
@@ -210,4 +211,4 @@ icon library, heavyweight framework, sky renderer or bulk data was introduced.
 
 PR #52 merged with the documented global console-cleanliness gap retained.
 This evidence remains historical, not a new runtime qualification. The active
-architecture task must not merge its PR or start `oras_horizon.v1`.
+Phase B study must not merge its PR or implement Phase C or `oras_horizon.v1`.

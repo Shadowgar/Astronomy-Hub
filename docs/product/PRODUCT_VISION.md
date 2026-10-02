@@ -56,16 +56,16 @@ remain independent of source-code licensing. Scientific values and identities
 must be source-backed, with missing data explicit.
 
 God's Eye/Earth, planetary surfaces, universal state, external layer registry and
-handoffs are planned, not implemented. Consumption mechanism, bridge/extension
-API, final handoff animation, solar-system-scale renderer and provider qualification
-outcomes remain open. No generic dashboard or runtime design is invented by this
-checkpoint.
+handoffs are planned, not implemented. The [Phase B study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md)
+selects external pinned sources, independent full-app builds, same-origin frames,
+a versioned capability bridge and active-only renderer lifetime. Exact APIs,
+final animation, solar-system-scale renderer and provider qualification remain open.
 
 ## Roadmap relationship
 
 The detailed architecture defines A architecture docs → B compatibility study →
 C unified skeleton → D ISS slice → E Mars proof → F astronomy extensions.
-The next task after this PR is **God's Eye + SWE compatibility/upgradeability
-study**, not horizon implementation. `oras_horizon.v1` remains approved and important
+Phase B is the active study; its next recommended task is the bounded Phase C
+skeleton, not horizon implementation. `oras_horizon.v1` remains approved and important
 for later Observe, Tonight, Sky, Earth/ORAS site context and panorama alignment,
 with measured/calibrated inputs. Scope activation belongs to execution authority.

@@ -51,7 +51,9 @@ core. Applicable extensions integrate through qualified domain boundaries;
 Earth-only layers do not migrate to other bodies. Renderer internals own scenes,
 math, camera execution and selection realization. The Hub owns mode, time,
 observer, selected entity/body, camera intent, applicable layers and history.
-Exact state/bridge/extension APIs and Git/build topology remain open.
+The [Phase B study](studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md) selects externally
+pinned sources, independent full-app builds, same-origin frames and a versioned
+capability bridge; exact APIs and runtime qualification remain open.
 
 God's Eye preserves complete applicable upstream Earth capability, including
 non-astronomy layers, subject to provider terms. Hub astronomy layers are external
@@ -73,8 +75,9 @@ ORAS local sky → Earth → Earth–Moon → solar system → body → planetar
 ```
 
 Controlled renderer handoffs preserve visual and contextual continuity; perfect
-continuous-camera transforms are not promised. Solar-system-scale renderer,
-transition animation and renderer lifetime policy remain open. Observe/Tonight
+continuous-camera transforms are not promised. Solar-system-scale renderer
+and transition animation remain open. Active-only heavy renderer lifetime is
+the Phase B recommendation. Observe/Tonight
 stay independent routes and later gain contextual workspace drawers. Home/Sky
 may converge conceptually; no current route changes.
 
@@ -87,7 +90,7 @@ Ingestion → Normalization → Storage → Cache → API → Client Rendering
 A docs → B compatibility study → C runtime skeleton → D ISS → E Mars → F extensions
 ```
 
-The next task after this PR is **God's Eye + SWE compatibility/upgradeability
-study**. `oras_horizon.v1` remains approved in later astronomy extensions, not next.
+Phase B is the active study. Next recommended task is its bounded Phase C
+Sky/Earth skeleton (study section 29). `oras_horizon.v1` remains approved in later astronomy extensions, not next.
 No integration, renderer, transition, horizon, satellite/flight or UI implementation
 is authorized inside this documentation checkpoint.

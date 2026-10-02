@@ -12,7 +12,10 @@ Loaded `docs/context/CORE_CONTEXT.md`, `LIVE_SESSION_BRIEF.md`,
 validation spec, unified architecture, architecture overview, engine spec/catalog,
 object model, data contracts, project state, master plan, feature execution model,
 feature catalog/acceptance/tracker), and the eight explicitly requested ADRs.
-No broad docs scan. Source/history/upstream inspection was explicitly authorized.
+The normal review additionally required the manifest-listed `docs/README.md`,
+`docs/product/PRODUCT_VISION.md` and `docs/ASTRONOMY_HUB_DIAGRAM.md`, plus the
+root AGENTS guardrail, to reconcile stale execution wording. No broad docs scan.
+Source/history/upstream inspection was explicitly authorized.
 Phase A's still-active session wording conflicted with merged PR #53 and the new
 Phase B instruction; current execution notes are narrowly reconciled here.
 
@@ -146,6 +149,36 @@ WebGL/WASM memory or real whole-app cleanup proof. Exports existing does not pro
 all exports bundle successfully. Extension serialization/share-token integration
 was not tested. Scratch files remain outside Hub and are not committed.
 
+## Probe reproduction command
+
+After the pinned clone/checkout commands above, this documented command regenerates
+the disposable fixture outside the repository. No executable experiment file is
+committed. The exact source is retained here solely as the evidence command input.
+
+```bash
+mkdir -p /tmp/runtime-compatibility-study
+cat > /tmp/runtime-compatibility-study/probe.mjs <<'PROBE'
+import assert from 'node:assert/strict';
+import {createApplication} from '/tmp/gods-eye-study/src/app/application.js';
+import {createLayerCatalog} from '/tmp/gods-eye-study/src/app/catalog.js';
+import {LayerLifecycle} from '/tmp/gods-eye-study/src/data/lifecycle.js';
+import {expandApplicationHtml} from '/tmp/gods-eye-study/build/application-html.js';
+import {readFile} from 'node:fs/promises';
+let calls=[];
+const factories=Object.fromEntries(['Scene','Controls','Data','Tools'].map(name=>['create'+name,({defer})=>{calls.push('start:'+name);defer(()=>calls.push('stop:'+name));return {fixture:true}}]));
+const app=createApplication(factories);await app.start();assert.equal(app.getState().status,'ready');
+const d=app.destroy();assert.equal(app.destroy(),d);await d;assert.deepEqual(calls,['start:Scene','start:Controls','start:Data','start:Tools','stop:Tools','stop:Controls','stop:Data','stop:Scene']);await assert.rejects(app.start(),/destroyed/);
+console.log('PASS application: startup order, reverse teardown, idempotent destroy, no restart');
+let cleaned=0;const layer={id:'study-fixture',name:'Study fixture',source:'TEST ONLY',async init(){},async update(){},async enable(){},async disable(){},async destroy(){cleaned++}};
+const catalog=createLayerCatalog([layer],[{id:layer.id,disposition:'local-only'}]);const manager=new LayerLifecycle({});for(const l of catalog.layers)manager.register(l);manager.finalizeRegistrations(catalog.metadata);assert.throws(()=>manager.register({id:'late'}),/finalized/);assert.throws(()=>manager.registerForQa({id:'late'}),/not authorized/);assert.equal(await manager.setEnabled(layer.id,true),true);assert.equal(manager.getAll()[0].name,'Study fixture');await manager.destroyAll();assert.equal(cleaned,1);assert.equal(manager.layers.size,0);
+console.log('PASS extension: pre-seal registration, panel discovery record, activation, cleanup; late/QA rejection');
+const p=JSON.parse(await readFile('/tmp/gods-eye-study/package.json','utf8'));let exports=0;for(const v of Object.values(p.exports)){await readFile('/tmp/gods-eye-study/'+(typeof v==='string'?v:v.node));exports++};const html=expandApplicationHtml(await readFile('/tmp/gods-eye-study/index.html','utf8'));assert(!html.includes('gev:template'));assert(html.includes('cesiumContainer'));assert(html.includes('/src/main.js'));
+console.log(`PASS exports/templates: ${exports} export targets exist; templates expanded; root entry still requires base adaptation`);
+PROBE
+node /tmp/runtime-compatibility-study/probe.mjs
+sha256sum /tmp/runtime-compatibility-study/probe.mjs
+```
+
 ## Documentation validation and review
 
 Use the existing lightweight checkpoint helper from the prior architecture task:
@@ -165,10 +198,29 @@ relative Markdown links, balanced fences, manifest YAML/paths and all eight ADRs
 The final report records observed counts and PR checks. The editor file is an
 explicit unrelated exception in the working-tree diff and is excluded from staging.
 No committed changes under backend/frontend/vendor/scripts/data/manifests/Docker.
-No broad Hub app tests, Docker stack, browser tests or visual improvement claimed.
+No local broad Hub app tests, Docker stack or browser tests were run, and no visual
+improvement is claimed. Repository CI ran automatically when the PR was opened;
+its checks do not qualify the proposed runtime integration.
 
 One normal review cycle: author review against supplied Category A/B criteria,
 then inspect normal PR review/check surfaces; no delegation or repeated manual
 bot requests. Findings and check state are reported with the PR, not preclaimed
 here. Study decisions are source-backed recommendations; Phase C runtime proof,
 SWE reproducibility recovery and public provider qualification remain gates.
+
+## Normal review correction pass
+
+PR #54 reviewed initial commit `0d595d1b`. Codex raised two P1 authority conflicts:
+PROJECT_STATE next-action/footer and AGENTS' unresolved Git/build guardrail.
+Copilot flagged the same next-action conflict, three stale summary documents and
+the temporary-only probe recipe. One documentation correction pass reconciled
+those directives and retained a deterministic regeneration command above.
+The command was extracted from this document and executed with `bash -e`:
+all three probe groups passed again, with the identical recorded SHA-256.
+No new upstream experiment or runtime change was introduced.
+
+After correction: 13 documentation/control files, 41 relative Markdown links,
+145 manifest entries, eight ADRs; scope/whitespace/link checks pass and editor
+checksum is unchanged. Normal automatic repository checks on the initial commit
+passed; final-head check state is reported separately at handoff. No second manual
+review request is made. Review fixes do not authorize Phase C execution.
