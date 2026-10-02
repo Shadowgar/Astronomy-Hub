@@ -54,7 +54,12 @@ services:
       context: .
       dockerfile: runtimes/earth-runtime/Dockerfile
     volumes:
-      - ${ORAS_EARTH_ARTIFACT_DIR:?Run scripts/runtime/build_owned_earth.sh and set ORAS_EARTH_ARTIFACT_DIR}:/runtime:ro
+      - type: bind
+        source: ${ORAS_EARTH_ARTIFACT_DIR:-./data/runtime-artifacts/earth}
+        target: /runtime
+        read_only: true
+        bind:
+          create_host_path: false
     expose:
       - "8877"
     healthcheck:

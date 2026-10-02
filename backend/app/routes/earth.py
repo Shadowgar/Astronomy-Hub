@@ -32,9 +32,35 @@ class AircraftFeed(BaseModel):
     now: float
     ac: list[AircraftRecord] = Field(max_items=2000)
 
-# One coalesced request per coarse point, bounded cache, success/failure TTL.
+# Coalesce only the same point; unrelated points have independent bounded requests.
 _cache: OrderedDict = OrderedDict()
 _lock = asyncio.Lock()
+_inflight: dict[tuple[float, float], asyncio.Task] = {}
+
+async def fetch_aircraft(point: tuple[float, float]) -> AircraftFeed:
+    async with httpx.AsyncClient(timeout=8, follow_redirects=False) as client:
+        async with client.stream('GET', f'https://api.adsb.lol/v2/point/{point[0]}/{point[1]}/100') as response:
+            response.raise_for_status()
+            body = bytearray()
+            async for chunk in response.aiter_bytes():
+                body.extend(chunk)
+                if len(body) > 2_000_000:
+                    raise ValueError('response exceeds cap')
+            return AircraftFeed.parse_raw(body)
+
+async def read_and_cache(point: tuple[float, float]) -> AircraftFeed:
+    payload = None
+    try:
+        payload = await asyncio.wait_for(fetch_aircraft(point), timeout=8)
+        return payload
+    except (httpx.HTTPError, ValueError, TimeoutError):
+        raise ValueError('source unavailable') from None
+    finally:
+        async with _lock:
+            _cache[point] = (time.monotonic() + (30 if payload is not None else 60), payload)
+            while len(_cache) > 64:
+                _cache.popitem(last=False)
+            _inflight.pop(point, None)
 
 async def read_aircraft(lat: float, lon: float) -> AircraftFeed:
     point = (round(lat, 1), round(lon, 1))
@@ -44,25 +70,15 @@ async def read_aircraft(lat: float, lon: float) -> AircraftFeed:
             if cached[1] is None:
                 raise ValueError('source unavailable')
             return cached[1]
-        try:
-            async with httpx.AsyncClient(timeout=8, follow_redirects=False) as client:
-                async with client.stream('GET', f'https://api.adsb.lol/v2/point/{point[0]}/{point[1]}/100') as response:
-                    response.raise_for_status()
-                    body = bytearray()
-                    async for chunk in response.aiter_bytes():
-                        body.extend(chunk)
-                        if len(body) > 2_000_000:
-                            raise ValueError('response exceeds cap')
-                    payload = AircraftFeed.parse_raw(body)
-        except (httpx.HTTPError, ValueError):
-            _cache[point] = (time.monotonic() + 60, None)
-            while len(_cache) > 64:
-                _cache.popitem(last=False)
-            raise ValueError('source unavailable') from None
-        _cache[point] = (time.monotonic() + 30, payload)
-        while len(_cache) > 64:
-            _cache.popitem(last=False)
-        return payload
+        task = _inflight.get(point)
+        if task is None:
+            if len(_inflight) >= 64:
+                raise ValueError('source unavailable')
+            task = asyncio.create_task(read_and_cache(point))
+            # Retrieve errors even if all HTTP callers disconnect from the shared task.
+            task.add_done_callback(lambda done: None if done.cancelled() else done.exception())
+            _inflight[point] = task
+    return await asyncio.shield(task)
 
 @router.get('/earth/aircraft', response_model=AircraftFeed)
 async def aircraft(response: Response, lat: float = Query(ge=-90, le=90), lon: float = Query(ge=-180, le=180)):

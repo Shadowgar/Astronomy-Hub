@@ -26,6 +26,17 @@ The host rejects Earth provenance that differs from the lock. Public route
 `/earth`, standalone `/earth-runtime/`; static service exposes only runtime files,
 with no upstream provider aliases. FastAPI aircraft endpoint remains `/api/earth/aircraft`.
 
+Both development and production Compose define the static Earth service. Production
+uses the repository-root frontend build, with shared lock/protocol/adapter inputs.
+Without the artifact variable, backend-only and standalone Sky commands still parse.
+Starting Earth requires an existing mounted directory (`create_host_path: false`),
+so missing artifacts fail rather than becoming empty generated directories.
+For a separately authorized remote deployment, provision the verified immutable
+artifact externally first and pass its absolute remote path as
+`ORAS_EARTH_ARTIFACT_DIR` to `scripts/deploy-remote-prod.sh`; the script checks
+presence before deployment mutations and preserves the path in `.env.prod`.
+No remote deployment was executed during this qualification.
+
 Sky reconstruction uses `build_current_sky.sh` against a recorded comparison
 anchor plus 26 hash-checked overlay inputs. Historical import SHA is unknown.
 It preserves ORAS native science patches. The Emscripten builder identity must

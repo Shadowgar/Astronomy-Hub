@@ -24,9 +24,12 @@ injection/reconciliation, historical satellite clock, Mars or astronomy extensio
 phase. Do not begin the next phase after the report.
 
 Local Docker acceptance now passes: 86 native conformance, 34 exact-link checks,
-15 focused Node tests, 3 aircraft backend tests, 10 desktop/touch-mobile owned-Earth
+15 focused Node tests, 4 aircraft backend tests, 10 desktop/touch-mobile owned-Earth
 browser checks and 4 production-Nginx browser checks. The Earth artifact reproduced
 identically. Live satellites/weather loaded; aircraft remained HTTP 403 unavailable.
 See [bounded qualification](../validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md).
-Current stop gate: open the accepted new PR, inspect one normal checks/review cycle,
-then report without merging or starting another phase.
+PR #55 is open, unmerged. The normal automatic review completed; production
+Compose/artifact configuration and per-point aircraft coalescing were corrected,
+then four focused browser checks passed against the isolated production Compose
+stack. Current stop gate: push the single correction batch, inspect its CI/thread
+state, report and stop without another full review or another phase.

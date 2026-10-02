@@ -352,8 +352,8 @@ no horizon profile is fabricated.
 | Phase | Approved order and acceptance concept | Implementation state |
 | --- | --- | --- |
 | A | Unified Universe Architecture documentation checkpoint | Complete; merged PR #53 |
-| B | God's Eye + SWE compatibility/upgradeability study | Active documentation checkpoint; study complete in PR #54, unmerged pending owner approval |
-| C | Unified runtime skeleton: Sky and Earth under the same ORAS shell, complete applicable upstream Earth capability, upstream source unmodified, basic shared state boundary | Planned next after PR #54 merges and bounded implementation is authorized; not started |
+| B | God's Eye + SWE compatibility/upgradeability study | Complete; merged PR #54; historical full-app recommendation superseded |
+| C | Hub-owned Cesium Earth core, selective pinned feature adapters and serial Sky/Earth bridge; broader capabilities retained in roadmap | Active bounded implementation; local Docker qualification passed; PR #55 open, unmerged |
 | D | ISS vertical slice: Sky select ISS → Show on Earth → same ISS/orbit context; Earth select ISS → View from ORAS → same relevant time/context, ISS centered | Planned; depends on qualified identity/time/propagation and C |
 | E | Planetary proof: Sky search/select Mars → Explore Mars → Cesium Mars globe | Planned; qualify one body first |
 | F | Astronomy extensions | Planned later |

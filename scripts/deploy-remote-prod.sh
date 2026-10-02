@@ -8,6 +8,7 @@ REMOTE_USER="${REMOTE_USER:-}"
 REMOTE_PORT="${REMOTE_PORT:-22}"
 REMOTE_DIR="${REMOTE_DIR:-/home/rocco/astronomy-hub}"
 PUBLIC_HTTP_PORT="${PUBLIC_HTTP_PORT:-4173}"
+ORAS_EARTH_ARTIFACT_DIR="${ORAS_EARTH_ARTIFACT_DIR:-}"
 REMOTE_USE_SUDO="${REMOTE_USE_SUDO:-0}"
 MIRROR_AUTOSTART="${MIRROR_AUTOSTART:-0}"
 MIRROR_PROFILE="${MIRROR_PROFILE:-live_stream}"
@@ -20,6 +21,15 @@ FORCE_TEMP_PAGE_PORT="${FORCE_TEMP_PAGE_PORT:-1}"
 if [[ -z "${REMOTE_USER}" ]]; then
   echo "REMOTE_USER is required. Example: REMOTE_USER=ubuntu $0" >&2
   exit 1
+fi
+
+# Provision the qualified immutable artifact on the remote host separately.
+# Never rsync it into the repository or bake it into application images.
+if [[ "${START_PAGE_ONLY}" != "1" ]]; then
+  if [[ ! "${ORAS_EARTH_ARTIFACT_DIR}" =~ ^/[A-Za-z0-9._/-]+$ ]]; then
+    echo "ORAS_EARTH_ARTIFACT_DIR must name an existing absolute remote artifact path" >&2
+    exit 1
+  fi
 fi
 
 REMOTE_TARGET="${REMOTE_USER}@${REMOTE_HOST}"
@@ -330,6 +340,13 @@ RSYNC_EXCLUDES=(
   --exclude ".run/"
 )
 
+if [[ "${START_PAGE_ONLY}" != "1" ]]; then
+  ssh -p "${REMOTE_PORT}" "${REMOTE_TARGET}" "test -s '${ORAS_EARTH_ARTIFACT_DIR}/release.json' && test -s '${ORAS_EARTH_ARTIFACT_DIR}/health'" || {
+    echo "Provision the qualified Earth artifact at ORAS_EARTH_ARTIFACT_DIR before deployment" >&2
+    exit 1
+  }
+fi
+
 echo "Ensuring remote directory exists at ${REMOTE_TARGET}:${REMOTE_DIR} ..."
 if [[ "${REMOTE_USE_SUDO}" == "1" ]]; then
   ssh -tt -p "${REMOTE_PORT}" "${REMOTE_TARGET}" "${REMOTE_SETUP_PREFIX} mkdir -p '${REMOTE_DIR}' && ${REMOTE_SETUP_PREFIX} chown -R '${REMOTE_USER}:${REMOTE_USER}' '${REMOTE_DIR}'"
@@ -365,6 +382,7 @@ stop_temp_progress_page
 ssh -tt -p "${REMOTE_PORT}" "${REMOTE_TARGET}" "cd '${REMOTE_DIR}' && cat > .env.prod <<'EOF'
 POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 PUBLIC_HTTP_PORT=${PUBLIC_HTTP_PORT}
+ORAS_EARTH_ARTIFACT_DIR=${ORAS_EARTH_ARTIFACT_DIR}
 CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
 EOF
 if [ -n '${CLOUDFLARE_TUNNEL_TOKEN}' ]; then

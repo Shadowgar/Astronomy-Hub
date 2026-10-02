@@ -192,7 +192,7 @@ python3 scripts/validation/validate_architecture_docs.py
 git diff --check
 ```
 
-Focused Node: **15 passed, zero skipped/failed**. Backend aircraft: **3 passed**
+Focused Node: **15 passed, zero skipped/failed**. Backend aircraft: **4 passed**
 locally and in Docker. Full frontend: **158 passed/19 files**; subsequent focused
 intent/shell regressions **10 passed/2 files**, including invalid UTC/empty values.
 Typecheck and frontend build: PASS. Native science: **86 passed**, exact links:
@@ -277,16 +277,67 @@ separate post-push snapshot reported to the owner; no bot re-review loop.
 Documentation validation: **160 path entries / 8 packs; 33 Markdown checkpoints /
 65 links / 8 ADRs passed**. `git diff --check` passed. Owner editor hash matched.
 
+## One normal PR review and focused corrections
+
+[PR #55](https://github.com/Shadowgar/Astronomy-Hub/pull/55) opened at
+`ad2e9ffded6988ce5bb19f4b927a5855a9023605`; initial CI passed Playwright, four
+CodeQL analyses/aggregate and GitGuardian. CodeRabbit explicitly skipped review.
+The automatic Codex and Copilot reviews completed in the same normal cycle.
+No fresh full review was requested after corrections.
+
+Verified Category A integration findings: production Compose retained the old
+frontend-only build context; its Nginx upstream lacked an Earth service; required
+artifact interpolation broke unrelated backend/Sky Compose targets. Corrected
+production root-context build, Earth service/dependency, immutable read-only mount
+and a safe parseable fallback whose missing source is never auto-created. Remote
+deploy wiring now accepts/checks an explicitly provisioned absolute artifact path;
+the script was syntax-checked, never executed against a remote host.
+
+Also corrected the concrete per-location timeout risk: aircraft I/O no longer
+holds the global cache lock. Same-point requests share one shielded bounded task;
+unrelated points proceed independently, max 64 in flight, eight-second whole-call
+deadline, bounded 30/60-second success/failure cache. A concurrency/coalescing test
+failed with the old global lock, then passed with the correction. The existing
+architecture roadmap table now agrees with the active pivot/merged PR #54.
+
+Focused retest: **4 backend tests locally and in the new Docker image**;
+production Compose independently built/started all five services under isolated
+project `oras-cesium-prod-review`, local port 4180. Frontend/static Earth healthy;
+`/earth`, `/earth-runtime/`, `/earth-runtime/release.json` returned HTTP 200.
+**4 desktop/touch-mobile browser checks passed (43.3s)** against this exact stack,
+including core/adapters and both exact five-switch teardown loops. Base Compose
+without ORAS_EARTH_ARTIFACT_DIR parsed successfully. Build context, Earth dependency
+and existing-only read-only artifact bind were checked in normalized configuration.
+Earth source/artifact and Sky science bytes did not change during these corrections.
+Logs: `production-compose-review.log`, `backend-review-docker.log`,
+`browser-production-compose-review.log`. Final CI/thread state is reported separately
+as the post-correction snapshot; no merge or new phase was performed.
+
+```bash
+env -u ORAS_EARTH_ARTIFACT_DIR docker compose config --quiet
+bash -n scripts/deploy-remote-prod.sh
+.venv/bin/pytest -q backend/tests/test_earth_aircraft.py
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-renderers/owned-earth-a3d29f0d37648a268aaa342070e35e6265f2cd3d00babb9b52c4bb8797f1f7f1 POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4180 COMPOSE_BAKE=false docker compose -p oras-cesium-prod-review -f docker-compose.prod.yml up -d --build
+docker exec oras-cesium-prod-review-backend-1 python3 -m pytest -q backend/tests/test_earth_aircraft.py
+cd frontend
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4180 npx playwright test tests/e2e/ownedEarth.spec.ts --grep 'serial five-switch|core and selective adapters fixture' --workers=1 --output=/var/tmp/oras-cesium/playwright-production-compose-review
+cd ..
+python3 scripts/validation/validate_architecture_docs.py
+git diff --check
+```
+
 ## Exact changed files relative to verified main
 
 Owner editor settings excluded and unchanged by this task.
 
 ```text
 .dockerignore
+.env.example
 .gitattributes
 backend/app/main.py
 backend/app/routes/earth.py
 backend/tests/test_earth_aircraft.py
+docker-compose.prod.yml
 docker-compose.yml
 docs/architecture/STACK_OVERVIEW.md
 docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -369,6 +420,7 @@ runtimes/earth-runtime/style.css
 runtimes/earth-runtime/vite.config.mjs
 runtimes/sky-adapter/entry.mjs
 runtimes/sky-adapter/plugin.js
+scripts/deploy-remote-prod.sh
 scripts/runtime/apply_sky_overlay.py
 scripts/runtime/build_current_sky.sh
 scripts/runtime/build_owned_earth.sh
