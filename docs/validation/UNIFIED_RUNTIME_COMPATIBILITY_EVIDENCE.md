@@ -204,7 +204,9 @@ its checks do not qualify the proposed runtime integration.
 
 One normal review cycle: author review against supplied Category A/B criteria,
 then inspect normal PR review/check surfaces; no delegation or repeated manual
-bot requests. Findings and check state are reported with the PR, not preclaimed
+bot requests during the initial cycle. The final targeted correction explicitly
+requests `@codex review` once under owner instruction. Findings and check state
+are reported with the PR, not preclaimed
 here. Study decisions are source-backed recommendations; Phase C runtime proof,
 SWE reproducibility recovery and public provider qualification remain gates.
 
@@ -219,8 +221,76 @@ The command was extracted from this document and executed with `bash -e`:
 all three probe groups passed again, with the identical recorded SHA-256.
 No new upstream experiment or runtime change was introduced.
 
-After correction: 13 documentation/control files, 41 relative Markdown links,
-145 manifest entries, eight ADRs; scope/whitespace/link checks pass and editor
-checksum is unchanged. Normal automatic repository checks on the initial commit
-passed; final-head check state is reported separately at handoff. No second manual
-review request is made. Review fixes do not authorize Phase C execution.
+The initial review correction counts were superseded by the final authority
+correction below. Repository checks are reported separately at handoff; they do
+not qualify runtime integration. Review fixes do not authorize Phase C execution.
+
+
+## Final authority correction validation
+
+The final correction reconciles live topology/lifecycle summaries with the
+completed Phase B study. It does not change architecture decisions or implemented
+runtime status. Original Phase A passages explicitly superseded by the dated
+Phase B update in the unified architecture remain historical reference.
+
+These results were regenerated from the final correction tree against PR base
+`origin/main` (`0ba481f5b16f8f8637ca73628cbc2b3abaad1710`), rather than copied from an earlier review.
+The evidence file itself is already among the changed paths; recording this
+section adds no path or relative Markdown link. The same helper is rerun after
+this record and after commit to confirm the committed tree matches these counts.
+
+Commands:
+
+```bash
+git rev-parse origin/main
+git diff --name-only origin/main -- . ':!.vscode/settings.json'
+python3 /tmp/astronomy-unified-architecture/validate_docs.py
+git diff --check
+git diff --cached --check
+git status --short
+sha256sum .vscode/settings.json
+```
+
+Observed validation output:
+
+```text
+PASS: 23 documentation/control files; runtime/application changes 0; editor settings checksum preserved.
+PASS: 58 relative Markdown links; code fences balanced; 8 ADRs present.
+PASS: manifest parsed; 153 load entries exist; unified architecture included in all 8 task packs.
+```
+
+Changed documentation/control paths (23):
+
+```text
+AGENTS.md
+docs/ASTRONOMY_HUB_DIAGRAM.md
+docs/DOCUMENT_INDEX.md
+docs/MASTER_PLAN.md
+docs/README.md
+docs/architecture/ARCHITECTURE_OVERVIEW.md
+docs/architecture/ENGINE_CATALOG.md
+docs/architecture/ENGINE_SPEC.md
+docs/architecture/STACK_OVERVIEW.md
+docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
+docs/architecture/decisions/0003-gods-eye-earth-runtime.md
+docs/architecture/decisions/0006-controlled-renderer-handoffs.md
+docs/architecture/decisions/0007-immutable-upstream-source.md
+docs/context/CONTEXT_MANIFEST.yaml
+docs/context/CORE_CONTEXT.md
+docs/context/LIVE_SESSION_BRIEF.md
+docs/execution/MASTER_PLAN.md
+docs/execution/PROJECT_STATE.md
+docs/features/FEATURE_CATALOG.md
+docs/features/FEATURE_TRACKER.md
+docs/product/PRODUCT_VISION.md
+docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
+docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
+```
+
+`git diff --check` and staged whitespace checks passed with no output. The
+correction and cumulative PR scope contain documentation/control files only;
+no backend, frontend, vendor, scripts, data, package or Docker changes.
+Unrelated `.vscode/settings.json` remains modified and uncommitted, with unchanged
+SHA-256 `6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+No local application, Docker or browser validation was run in this correction;
+no runtime capability or production qualification is claimed.

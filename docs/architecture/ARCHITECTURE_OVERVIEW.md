@@ -28,8 +28,15 @@ SWE at `/oras-sky-engine/` is the current renderer; `/sky-engine` is its Hub hos
 [Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md) is the detailed
 approved reference: Hub-owned universal product state, complete applicable God's
 Eye Earth, body-aware Cesium Planet Mode, controlled handoffs and additive astronomy
-extensions. Those integrations are PLANNED, not implemented. Git/build topology,
-exact state/extension API and solar-system-scale renderer remain OPEN.
+extensions. Those integrations are PLANNED, not implemented. Phase B selected
+externally SHA-pinned God's Eye source, an independent full-application build and
+external ORAS wrapper, with upstream immutable by default. Sky retains SWE;
+Earth is planned as an independently built runtime. Same-origin isolated/disposable
+frames connect to Hub-owned state through small shared/versioned bridge/protocol
+packages. One heavy renderer remains active after a settled switch; inactive
+runtimes are torn down. Exact APIs, solar-system-scale renderer and production
+qualification remain OPEN. See the
+[completed Phase B study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md).
 
 ## CORE MODEL (AUTHORITATIVE)
 
@@ -114,7 +121,8 @@ Viewport = Active Engine Scene
 Rules:
 
 * the viewport always reflects the active engine
-* future renderer handoffs preserve product context while the engine changes; exact animation/lifetime policy remains open
+* planned controlled renderer handoffs preserve product context; the active-only
+  heavy-renderer lifecycle is selected, while exact animation/prewarm timing is open
 * the Hub does not render scenes directly
 * the mounted viewport is the Sky interaction surface
 
@@ -132,8 +140,9 @@ For a primary engine:
 
 The active ORAS Sky Engine is the contained Stellarium Web / Stellarium Web
 Engine runtime at `/oras-sky-engine/`. God's Eye Earth and Cesium Planet Mode
-are approved future directions; implementation requires the compatibility study
-and a bounded task. Future upstream integrations must use pinned/qualified
+are approved future directions; implementation must follow the completed Phase B
+study and a separately authorized bounded task. Future upstream integrations use
+pinned/qualified
 revisions and immutable-default source, with Hub additions outside upstream code.
 
 ---
@@ -163,7 +172,10 @@ Objects:
 
 * focus rendering/computation on the active scene; backend ingestion/caches and
   independent Observe/Tonight requests need not stop when that scene changes
-* future multi-renderer lifetime/performance policy remains open pending study
+* planned settled switches retain one active heavy renderer and dispose/unmount
+  the inactive runtime; mobile uses serial teardown/start. Brief desktop overlap
+  is only a later qualified visual-handoff option, not the Phase C default.
+  Actual memory/performance measurements and exact prewarming remain open
 * only the active filter drives computation
 * only visible objects are rendered
 * detail is loaded on demand

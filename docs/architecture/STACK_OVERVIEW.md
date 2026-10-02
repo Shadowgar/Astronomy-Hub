@@ -285,9 +285,11 @@ The ORAS Sky Engine at `/oras-sky-engine/` owns:
   first proof Mars; not implemented.
 * Solar-system scale: renderer OPEN; study SWE sufficiency versus a dedicated scene.
 
-Git/build topology (submodule/subtree/vendor/separate runtime/package exports),
-exact bridge and extension API remain OPEN. No new dependencies or vendor changes
-occur in this checkpoint. Upstream SWE/God's Eye source is immutable by default;
+Phase B selected external SHA-pinned God's Eye source, an independent full-app
+build/external ORAS wrapper and same-origin disposable frames with a versioned
+Hub bridge and active-only heavy-renderer lifetime. These are PLANNED directions;
+exact bridge schema, adapter/extension APIs and runtime qualification remain OPEN.
+No new dependencies or vendor changes occur in this checkpoint. Upstream SWE/God's Eye source is immutable by default;
 qualified revision upgrades repair adapters rather than repeat widespread patches.
 Provider/data/asset terms remain separate from source-code licensing.
 

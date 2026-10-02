@@ -12,6 +12,6 @@ Support explicit body exploration and later scale-driven navigation through cont
 
 ## Consequences
 
-Aim for visual/contextual continuity, not mathematically perfect camera transforms or one renderer at all scales. ISS is the first planned cross-engine slice; animation, lifetimes and bridge topology remain open.
+Aim for visual/contextual continuity, not mathematically perfect camera transforms or one renderer at all scales. ISS is the first planned cross-engine slice. Phase B selected same-origin disposable frames, a versioned capability bridge and one active heavy renderer after settled switches, disposing the inactive runtime. Mobile defaults to serial teardown/start; brief desktop overlap is only a later qualified handoff option. Exact animation/prewarming, APIs and runtime qualification remain open; this lifecycle is planned, not implemented.
 
 Detailed authority and current/planned/open distinctions: [Unified Universe Architecture](../UNIFIED_UNIVERSE_ARCHITECTURE.md). Execution requires its own bounded task.

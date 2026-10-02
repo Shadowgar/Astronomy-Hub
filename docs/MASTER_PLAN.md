@@ -22,8 +22,10 @@ Astronomy Hub is a unified astronomy, Earth, and planetary exploration workspace
 with astronomy intelligence. The detailed approved direction is
 [Unified Universe Architecture](architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
 Current foundation: PR #52 shell, Observe, Tonight and SWE. God's Eye Earth,
-Cesium Planet Mode, universal state and handoffs are planned; Git/build topology,
-exact bridge/API and solar-system-scale renderer remain open. The observing
+Cesium Planet Mode, universal state and handoffs are planned. Phase B selected
+external pinned source/independent builds, same-origin disposable frames, a
+versioned Hub bridge and active-only heavy-renderer lifetime. Exact bridge/API,
+runtime qualification and solar-system-scale renderer remain open. The observing
 capability reference below does not select renderers or define the next task.
 
 Primary question:

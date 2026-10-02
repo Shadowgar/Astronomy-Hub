@@ -12,6 +12,6 @@ Use the complete applicable God's Eye Earth runtime, independently pinned and up
 
 ## Consequences
 
-Provider restrictions may require configuration, alternate data, attribution, or an explicitly unavailable layer. Live/simulated/estimated provenance must remain honest. Consumption mechanism is open pending Phase B, not locked to a submodule.
+Provider restrictions may require configuration, alternate data, attribution, or an explicitly unavailable layer. Live/simulated/estimated provenance must remain honest. Phase B selected externally SHA-pinned source, an independent full-application build and external ORAS wrapper, with upstream immutable by default. This is planned consumption, not an implemented integration; exact adapter/extension APIs and production qualification remain open.
 
 Detailed authority and current/planned/open distinctions: [Unified Universe Architecture](../UNIFIED_UNIVERSE_ARCHITECTURE.md). Execution requires its own bounded task.

@@ -30,8 +30,17 @@ universal state boundary.
 
 Upstream SWE/God's Eye source is immutable by default, pinned and qualified;
 external adapters/extensions preserve independent upgrades. No source edits for
-UI convenience or removal of God's Eye non-astronomy capabilities. Exact topology
-and extension contracts await the compatibility study.
+UI convenience or removal of God's Eye non-astronomy capabilities. The completed
+[Phase B study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md) selected externally
+SHA-pinned God's Eye source, independent full-application build and external ORAS
+wrapper, alongside existing SWE. The planned topology is same-origin isolated/
+disposable runtime frames, connected to Hub-owned state by small shared/versioned
+bridge/protocol packages. Use a validated postMessage handshake, then MessageChannel,
+with protocol versioning, capability negotiation and mount-generation/stale-message
+protection. Exact production message schema, adapter and external extension APIs
+still require definition and implementation qualification. Whether the proposed
+small generic standalone composition hook is needed before full astronomy
+extensions remains a qualification question. No Earth integration is implemented.
 
 ## CORE DEFINITION
 
@@ -187,8 +196,14 @@ Sub-engines:
 ## ACTIVE ENGINE VIEWPORT
 
 The current Sky host provides a contained viewport; Home/Observe/Tonight do not
-require one. The planned flagship workspace foregrounds one domain scene; exact
-renderer lifetime/handoff policy remains open.
+require one. The planned flagship workspace foregrounds one domain scene. Phase B
+selected one active heavy renderer after a settled switch; dispose/unmount the
+inactive runtime rather than retain WebGL/WASM/Cesium resources. Mobile defaults
+to serial teardown/start unless later qualification proves a safe alternative.
+Capable desktop devices may use brief controlled overlap only for a later
+qualified visual handoff; it is not the Phase C default. Exact visual animation,
+prewarm timing and actual memory/performance measurements remain open. This is
+PLANNED direction, not implemented lifecycle or browser/runtime qualification.
 
 This viewport always reflects:
 
@@ -200,7 +215,8 @@ Switching engines:
 
 * replaces the scene
 * updates the rendering context
-* preserves Hub product identity/time/context through qualified adapters; the exact transition is open
+* preserves Hub product identity/time/context through qualified adapters; controlled
+  renderer handoff is selected, while exact visual transition implementation is open
 
 ---
 

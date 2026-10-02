@@ -12,11 +12,18 @@ Defines all engines in Astronomy Hub and their responsibilities.
 
 This is a **reference inventory**, not an execution plan.
 
-CURRENT: SWE at `/oras-sky-engine/`, its shared-shell host `/sky-engine`, and
-existing backend/catalog/TLE support.
-PLANNED: complete applicable God's Eye Earth runtime, body-aware Cesium Planet
-Mode, universal product state and controlled renderer handoffs.
-OPEN: solar-system-scale renderer, Git/build topology and exact adapter/extension API.
+CURRENT: SWE at `/oras-sky-engine/`, its shared-shell host `/sky-engine`, Hub
+shell/Observe/Tonight and existing backend/catalog/satellite foundations.
+PLANNED / DECIDED BY PHASE B: externally SHA-pinned God's Eye upstream checkout,
+independent full-application build and external ORAS wrapper; immutable-default
+upstream source. Same-origin isolated/disposable runtime frames, a small versioned
+Hub bridge/state boundary and one active heavy renderer after settled switches
+are selected. Earth is independently built; Sky retains SWE. Body-aware Cesium
+Planet Mode remains planned. Earth/Planet runtimes are not implemented.
+OPEN: solar-system-scale renderer, exact extension/adapter APIs, provider/security/
+public-host qualification and exact visual transition/prewarming behavior.
+[Phase B study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md) supplies the selected
+direction; implementation and browser/performance qualification remain outstanding.
 
 [Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md) is the detailed
 approved reference. Domain lists below describe capability scope, not completion.
