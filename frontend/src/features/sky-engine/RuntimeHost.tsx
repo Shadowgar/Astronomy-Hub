@@ -15,101 +15,6 @@ type RuntimeState = {
   frameUrl: string
 }
 
-const shellStyle: React.CSSProperties = {
-  minHeight: '100vh',
-  height: '100vh',
-  position: 'relative',
-  overflow: 'hidden',
-  background: 'radial-gradient(circle at top, #17304f 0%, #09111c 52%, #04070d 100%)',
-  color: '#f3f7fb',
-}
-
-const actionRowStyle: React.CSSProperties = {
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: '8px',
-}
-
-const buttonStyle: React.CSSProperties = {
-  border: '1px solid rgba(142, 184, 234, 0.4)',
-  borderRadius: '999px',
-  background: 'rgba(4, 7, 13, 0.72)',
-  backdropFilter: 'blur(18px)',
-  color: '#f3f7fb',
-  padding: '8px 14px',
-  fontSize: '0.88rem',
-  cursor: 'pointer',
-}
-
-const linkStyle: React.CSSProperties = {
-  ...buttonStyle,
-  display: 'inline-flex',
-  alignItems: 'center',
-  textDecoration: 'none',
-}
-
-const frameWrapStyle: React.CSSProperties = {
-  width: '100%',
-  height: '100%',
-  padding: '0',
-}
-
-const frameStyle: React.CSSProperties = {
-  width: '100%',
-  height: '100%',
-  border: 0,
-  display: 'block',
-  background: '#000',
-}
-
-const panelWrapStyle: React.CSSProperties = {
-  display: 'grid',
-  placeItems: 'center',
-  minHeight: '100vh',
-  padding: '48px 24px',
-}
-
-const panelStyle: React.CSSProperties = {
-  width: 'min(900px, 100%)',
-  padding: '32px',
-  borderRadius: '24px',
-  border: '1px solid rgba(243, 247, 251, 0.12)',
-  background: 'rgba(8, 14, 24, 0.82)',
-  boxShadow: '0 24px 80px rgba(0, 0, 0, 0.35)',
-}
-
-const sectionTitleStyle: React.CSSProperties = {
-  margin: '0 0 12px',
-  fontSize: '1rem',
-  textTransform: 'uppercase',
-  letterSpacing: '0.16em',
-  color: '#8eb8ea',
-}
-
-const copyStyle: React.CSSProperties = {
-  margin: '0 0 16px',
-  lineHeight: 1.7,
-  color: 'rgba(243, 247, 251, 0.86)',
-}
-
-const codeStyle: React.CSSProperties = {
-  margin: '0 0 14px',
-  padding: '14px 16px',
-  borderRadius: '16px',
-  background: '#050b13',
-  border: '1px solid rgba(243, 247, 251, 0.08)',
-  overflowX: 'auto',
-  fontSize: '0.92rem',
-  lineHeight: 1.6,
-}
-
-const detailListStyle: React.CSSProperties = {
-  margin: '0',
-  paddingLeft: '1.2rem',
-  lineHeight: 1.8,
-  color: 'rgba(243, 247, 251, 0.86)',
-}
-
 function createDiscovery() {
   const hostname = typeof window === 'undefined' ? '127.0.0.1' : window.location.hostname
   const browserOrigin = typeof window === 'undefined' ? 'http://127.0.0.1:4173' : window.location.origin
@@ -197,52 +102,16 @@ export default function RuntimeHost() {
 
   const frameUrl = runtimeState.frameUrl
 
-  if (runtimeState.status === 'ready') {
-    return (
-      <main style={shellStyle}>
-        <section style={frameWrapStyle} aria-label="ORAS Sky-Engine runtime viewport">
-          <iframe src={frameUrl} title="ORAS Sky-Engine Runtime" style={frameStyle} />
-        </section>
-      </main>
-    )
-  }
-
-  return (
-    <main style={shellStyle}>
-      <section style={panelWrapStyle}>
-        <div style={panelStyle}>
-          <h1 style={{ margin: '0 0 12px', fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1.05 }}>ORAS Sky-Engine unavailable</h1>
-          <p style={copyStyle}>
-            {runtimeState.status === 'checking'
-              ? 'Checking the vendored ORAS Sky-Engine runtime.'
-              : 'The vendored runtime is not responding. Start it with the command below, then retry.'}
-          </p>
-
-          <h2 style={sectionTitleStyle}>Next Launch Command</h2>
-          <pre style={codeStyle}>{runtimeState.discovery.launchCommand}</pre>
-
-          <h2 style={sectionTitleStyle}>If First Launch Fails</h2>
-          <pre style={codeStyle}>{runtimeState.discovery.installCommand}</pre>
-          <pre style={codeStyle}>{runtimeState.discovery.buildCommand}</pre>
-
-          <div style={{ ...actionRowStyle, marginBottom: '20px' }}>
-            <button style={buttonStyle} type="button" onClick={retryDiscovery}>
-              {runtimeState.status === 'checking' ? 'Checking Runtime...' : 'Recheck Runtime'}
-            </button>
-            <a href={frameUrl} target="_blank" rel="noreferrer" style={linkStyle}>
-              Open Standalone Runtime
-            </a>
-          </div>
-
-          <h2 style={sectionTitleStyle}>Moved Runtime Paths</h2>
-          <ul style={detailListStyle}>
-            <li>Source root: {runtimeState.discovery.sourceRoot}</li>
-            <li>Working directory: {runtimeState.discovery.workingDirectory}</li>
-            <li>Build output: {runtimeState.discovery.buildDirectory}</li>
-            <li>Sky data: {runtimeState.discovery.skyDataDirectory}</li>
-          </ul>
+  return <div className="oras-runtime-host">
+    <h1 className="oras-sky-title">Interactive sky</h1>
+    {runtimeState.status === 'ready' ? <iframe src={frameUrl} title="ORAS Sky-Engine Runtime" allowFullScreen/> :
+      <section className="oras-runtime-message" aria-label="Sky availability">
+        <h2>{runtimeState.status === 'checking' ? 'Opening the interactive sky…' : 'The interactive sky is unavailable'}</h2>
+        <p className="oras-caption" role="status">{runtimeState.status === 'checking' ? 'Checking the ORAS planetarium.' : 'The planetarium could not be reached. Please try again shortly.'}</p>
+        <div className="oras-actions">
+          <button className="oras-button oras-button--quiet" type="button" onClick={retryDiscovery} disabled={runtimeState.status === 'checking'}>Retry Sky</button>
+          <a className="oras-text-link" href={frameUrl} target="_blank" rel="noreferrer">Open Sky in a new tab ↗</a>
         </div>
-      </section>
-    </main>
-  )
+      </section>}
+  </div>
 }

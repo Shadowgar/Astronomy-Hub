@@ -89,7 +89,9 @@ Rules:
 
 ## VIEWPORT MODEL (CRITICAL)
 
-The frontend contains a **single central viewport**.
+The public shell contains Home, Observe, Tonight and Sky decision/navigation
+surfaces. Only Sky mounts the **single contained engine viewport**. Home is not
+a renderer or a mandatory command-center viewport.
 
 ```text
 Viewport = Active Engine Scene
@@ -100,7 +102,7 @@ Rules:
 * the viewport always reflects the active engine
 * switching engines replaces the scene
 * the Hub does not render scenes directly
-* the viewport is the primary interaction surface
+* the mounted viewport is the Sky interaction surface
 
 ---
 

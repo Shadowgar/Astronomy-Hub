@@ -23,7 +23,7 @@ It defines:
 ## CORE LAW
 
 ```text
-The center viewport is always the Active Engine Scene.
+Any mounted viewport is owned by its active engine. Decision pages need no renderer.
 ```
 
 ---
@@ -36,33 +36,20 @@ Hub → Engine → Scene → Object → Detail → Exploration
 
 ---
 
-## MAIN SCREEN STRUCTURE
+## PUBLIC SCREEN STRUCTURE
 
 ```text
-┌──────────────────────────────────────────────────────────────┐
-│                     COMMAND + CONTROL BAR                    │
-│ Scope | Engine | Time | Location | Mode                      │
-├──────────────────────────────────────────────────────────────┤
-
-┌───────────────┬──────────────────────────────┬───────────────┐
-│ LEFT CONTEXT  │ ACTIVE ENGINE VIEWPORT       │ RIGHT CONTEXT │
-│ (signals)     │                              │ (decision)    │
-│               │  Babylon.js Scene            │               │
-│ Conditions    │  Active Engine Only          │ Summary       │
-│ Status        │  Interactive                 │ Briefing      │
-│ Tools         │                              │ Active Object │
-└───────────────┴──────────────────────────────┴───────────────┘
-
-┌──────────────────────────────────────────────────────────────┐
-│ FEED LAYER                                                   │
-│ Above Me | Events | News | Engine Entry                      │
-└──────────────────────────────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────────────┐
-│ DETAIL + EXPLORATION                                         │
-│ Object Detail | Related Paths                                │
-└──────────────────────────────────────────────────────────────┘
+ORAS Astronomy Hub — shared accessible navigation
+├── Home /: hero → Tonight summary → Observe Now / current conditions → Sky entry
+├── Observe /observe: observer/time → categories → targets → selected detail
+├── Tonight /tonight: evening date → darkness/Moon/forecast → opportunities
+└── Sky /sky-engine: shared navigation → contained Stellarium viewport
 ```
+
+Home, Observe and Tonight are decision surfaces; they do not mount a renderer.
+Opening Sky mounts one contained runtime. `/oras-sky-engine/` remains the
+standalone engine surface. The older command/control-panel diagram is not the
+public Home layout.
 
 ---
 
@@ -72,9 +59,9 @@ Hub → Engine → Scene → Object → Detail → Exploration
 Viewport = Active Engine Scene
 ```
 
-The viewport:
+When Sky is opened, the viewport:
 
-* is the primary interaction surface
+* is the Sky interaction surface
 * is not decorative
 * is not a preview
 * is not controlled by the hub
@@ -208,7 +195,7 @@ Data Layer (APIs + Catalogs + Ingestion)
 ## RENDERING STACK
 
 ```text
-Babylon.js → Engine Scene → Viewport
+Contained Stellarium Web Engine → Sky Host Viewport
 ```
 
 ---

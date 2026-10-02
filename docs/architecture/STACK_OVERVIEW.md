@@ -275,18 +275,18 @@ shared renderer.
 
 ### Layout Model
 
-The frontend follows a **command center layout**:
-
-* central engine viewport
-* surrounding context panels
-* feed-driven interaction
+The public frontend uses a shared ORAS shell with Home, Observe, Tonight and
+Sky navigation. Home is a compact astronomy decision surface; Observe and
+Tonight expose qualified facts and planning workflows. The Sky host mounts the
+contained runtime. Legacy command-center components remain reusable code, not
+the public homepage presentation.
 
 ---
 
 ### Viewport Rule
 
 ```text id="n8y4kc"
-Center Viewport = Active Engine Scene
+Mounted Sky Viewport = Contained Stellarium Runtime
 ```
 
 ---

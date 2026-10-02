@@ -70,14 +70,17 @@ FEATURE_ACCEPTANCE.md
 ## CURRENT ACTIVE FEATURE SLICE
 
 ```text id="c93ptl"
-Feature: Above Me Orchestration
+Feature: Shared public shell and ORAS decision homepage
 Status: PARTIAL
 ```
 
 Reason:
 
-* aggregation exists
-* but curation, routing, viewport behavior, and detail correctness are not proven
+* public shell/Home implementation exists
+* 155 frontend tests, typecheck/build and 16 Docker browser tests passed
+* standalone and embedded Sky retain existing missing dense-star tile 404s
+* exact evidence and the Category B boundary are in PROJECT_STATE.md
+* the older inventory below also covers unfinished legacy engine workflows
 
 ---
 
@@ -85,7 +88,7 @@ Reason:
 
 | Feature                         | UI Visible | Backend Path | Real Data | Engine Ownership Correct | Viewport Correct | Fake Behavior Present | Status  |
 | ------------------------------- | ---------- | ------------ | --------- | ------------------------ | ---------------- | --------------------- | ------- |
-| Command Center / Hub Surface    | yes        | yes          | n/a       | partial                  | no               | yes                   | PARTIAL |
+| Command Center / Hub Surface    | yes        | yes          | yes       | yes                      | n/a              | no                    | PARTIAL |
 | Scope / Engine / Filter Control | yes        | yes          | mixed     | partial                  | no               | yes                   | PARTIAL |
 | Scene Rendering                 | yes        | yes          | mixed     | partial                  | no               | yes                   | PARTIAL |
 | Above Me Orchestration          | yes        | yes          | mixed     | partial                  | no               | yes                   | PARTIAL |
@@ -193,5 +196,24 @@ Current parity anchor (as of 2026-04-12):
 hourly forecast, and exact peak-time Sky handoffs. Qualification evidence and
 known limits are in `docs/validation/TONIGHT_MVP_EVIDENCE.md`. Runtime/browser
 checks and final performance revalidation have passed. Runtime status: REAL
-for the bounded behavior and limits documented in the evidence. PR #51 remains
-unmerged; current CI/review state is authoritative on the PR. This entry does not change the broader legacy Hub status inventory.
+for the bounded behavior and limits documented in the evidence. PR #51 merged on 2026-10-01; current CI/review state is authoritative on GitHub. This entry does not change the broader legacy Hub status inventory.
+
+
+## Shared public shell and decision homepage (2026-10-01)
+
+The public application model is Home `/`, Observe `/observe`, Tonight `/tonight`
+and Sky `/sky-engine`. One ORAS shell owns navigation/landmarks/focus and shared
+visual tokens. Home independently consumes Tonight and Observe; current
+conditions use qualified current weather facts from Observe's shared cache.
+No quality score or fabricated astronomy is exposed. Foundation components
+remain in the repository without being rendered as the public homepage.
+
+Status: PARTIAL. UI behavior is qualified (155 frontend tests and 16 Docker
+browser tests). Blanket console-clean acceptance remains partial because unchanged standalone and
+embedded Sky emit missing dense-star tile 404s. This is a Category B unrelated
+follow-up; see PROJECT_STATE.md for exact evidence. Standalone
+`/oras-sky-engine/`, scientific contracts and backend algorithms are unchanged.
+This bounded entry supersedes the legacy Command Center/Hub Surface row for
+public presentation; it does not claim completion of unfinished engines.
+
+Next planned milestone is `oras_horizon.v1`, not started in this UI task.
