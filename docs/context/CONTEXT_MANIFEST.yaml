@@ -10,6 +10,7 @@ tasks:
     load:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/DOCUMENT_INDEX.md
     - docs/DOC_INVENTORY.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
@@ -69,6 +70,7 @@ tasks:
     load:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/ASTRONOMY_HUB_DIAGRAM.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -93,6 +95,7 @@ tasks:
     load:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
@@ -129,6 +132,7 @@ tasks:
     load:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
@@ -170,6 +174,7 @@ tasks:
     load:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/DOCUMENT_INDEX.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
