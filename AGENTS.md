@@ -168,6 +168,13 @@ directions, not implemented runtimes or authorization to add dependencies.
 - pytest
 - Docker Compose
 
+The canonical Hub backend remains FastAPI. The only approved provider exception
+is the PLANNED Earth runtime sidecar defined in
+`docs/architecture/STACK_OVERVIEW.md` section 3.1: Node may preserve qualified
+God's Eye upstream provider/proxy behavior behind Earth, without competing Hub
+science/data contracts or arbitrary Node services. It is not implemented or
+production-qualified; same-origin placement is not a security boundary.
+
 ### Main frontend / Hub stack
 
 - React

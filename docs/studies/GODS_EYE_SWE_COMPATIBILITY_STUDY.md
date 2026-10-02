@@ -515,10 +515,20 @@ Provider/propagator authority qualification belongs before Phase D, not this stu
 ## 18. Flight integration recommendation
 
 **Yes: largely replace the current nearby acquisition implementation later with a
-qualified, server-hosted God's Eye flight provider stack and a normalized shared
-adapter.** Keep Hub curation/science separate; do not run duplicate upstream polling
-in both FastAPI and Earth. A Node provider service can own acquisition; FastAPI
-consumes normalized observations for Above Me/flight projection.
+qualified God's Eye flight provider stack hosted in the bounded Earth runtime
+provider sidecar, with a normalized shared adapter.** The intended path is God's
+Eye provider stack → Earth provider sidecar → normalized aircraft observations →
+FastAPI/Hub science consumers where needed (Above Me/flight projection). Avoid
+duplicate provider polling in Earth and FastAPI.
+
+Under [stack authority](../architecture/STACK_OVERVIEW.md#31-core-runtime), Node
+may preserve qualified upstream provider/proxy behavior behind Earth; FastAPI
+remains the sole canonical Hub backend and science/data authority. The sidecar
+cannot define competing Hub contracts or authorize arbitrary Node functionality.
+It is PLANNED Phase C/later infrastructure, not implemented or production-qualified.
+Same-origin placement is not a security boundary; provider licensing, credentials,
+public tokens, quota/rate limits, origin/access controls, abuse/spend exposure and
+production hosting/hardening still require qualification.
 
 SOURCE: `GE/server/providers/aircraft/opensky.js` includes OAuth client credentials,
 coalesced token renewal, adaptive successful-response cache, 429 cooldown and
@@ -813,8 +823,10 @@ workspace/chrome design. No redesign is necessary for the initial host skeleton.
    list, upstream runtime edits, submodule or in-repo vendor tree.
 3. **C2 — delivery/provider profile.** Serve `/earth-runtime/`, workers, models and
    required static assets; generate exact legacy alias inventory and collision
-   gate. Build the production provider host from pinned provider exports, preserving
-   upstream semantics with deployment guards. Protected local/admin-only settings;
+   gate. Qualify the planned bounded Earth provider sidecar under stack section 3.1,
+   using pinned provider exports and preserving upstream semantics with deployment
+   guards. It remains runtime support; canonical Hub APIs/contracts stay in FastAPI.
+   Protected local/admin-only settings;
    deny public credential writes and unsafe spend access. Qualify allowed keyless
    providers; unavailable keyed/restricted features keep their controls and clear
    status. No public deployment before provider/data inclusion gates pass.
