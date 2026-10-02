@@ -193,11 +193,12 @@ git diff --cached --name-only
 git log --oneline -5
 ```
 
-The helper checks changed-file documentation/control scope, preserved editor hash,
-relative Markdown links, balanced fences, manifest YAML/paths and all eight ADRs.
-The final report records observed counts and PR checks. The editor file is an
-explicit unrelated exception in the working-tree diff and is excluded from staging.
-No committed changes under backend/frontend/vendor/scripts/data/manifests/Docker.
+The helper checks relative Markdown links, balanced fences, the repository manifest
+subset/paths/duplicates and all eight ADRs. Changed-file documentation/control scope
+and the preserved editor hash are proven separately by the Git and `sha256sum`
+commands shown above; the helper does not inspect Git history or editor state.
+The editor file is an explicit unrelated exception in the working-tree diff and is
+excluded from staging. No committed product/runtime changes are claimed.
 No local broad Hub app tests, Docker stack or browser tests were run, and no visual
 improvement is claimed. Repository CI ran automatically when the PR was opened;
 its checks do not qualify the proposed runtime integration.
