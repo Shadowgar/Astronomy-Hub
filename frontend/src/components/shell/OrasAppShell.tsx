@@ -19,11 +19,9 @@ export default function OrasAppShell() {
       <div className="oras-header-inner">
         <Link className="oras-brand" to="/" aria-label="ORAS Astronomy Hub home"><span>ORAS</span><span>Astronomy Hub</span></Link>
         <nav className="oras-nav" aria-label="Primary navigation">
-          <NavLink to="/" end>Home</NavLink>
+          <NavLink to="/" end>Workspace</NavLink>
           <NavLink to={observePath}>Observe</NavLink>
           <NavLink to={tonightPath}>Tonight</NavLink>
-          <NavLink to="/sky-engine">Sky</NavLink>
-          <NavLink to="/earth">Earth</NavLink>
         </nav>
       </div>
     </header>

@@ -28,3 +28,11 @@ test('runtime command failures return controlled results',async()=>{
  child.emit({data:{...session,type:'hello',protocol:{major:1,minor:0}},source:child.parent,origin:child.location.origin,ports:[]});const channel=new MessageChannel();child.emit({data:{...session,type:'connect'},source:child.parent,origin:child.location.origin,ports:[channel.port2]});
  const response=new Promise(resolve=>{channel.port1.onmessage=({data})=>resolve(data.payload);channel.port1.start()});channel.port1.postMessage({...session,id:1,type:'command',command:'setTimeIntent',payload:{utc:'2020-01-01T00:00:00Z'}});assert.deepEqual(await response,{ok:false,error:'Runtime command failed'});channel.port1.close();endpoint.close();
 });
+test('late same-session hello preserves the negotiated channel',async()=>{
+ const host=fakeWindow(),child=fakeWindow();child.parent={postMessage(data){host.emit({data,source:frame.contentWindow,origin:host.location.origin})}};
+ const frame={contentWindow:{postMessage(data,_origin,ports=[]){child.emit({data,source:child.parent,origin:host.location.origin,ports})}},addEventListener(){},removeEventListener(){}};
+ const endpoint=createRuntimeEndpoint({runtime:'earth',version:'pin',capabilities:[],windowImpl:child,execute(){}});endpoint.ready();
+ const client=await connectRuntime(frame,session,{windowImpl:host,timeoutMs:500});
+ frame.contentWindow.postMessage({...session,type:'hello',protocol:{major:1,minor:1}},host.location.origin);
+ try{assert.equal((await client.request('getVersion',{},100)).version,'pin')}finally{client.close();endpoint.close()}
+});

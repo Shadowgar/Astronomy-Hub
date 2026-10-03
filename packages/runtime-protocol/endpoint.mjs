@@ -1,3 +1,4 @@
+import {COMMAND_CAPABILITY} from './workspace.mjs';
 import {PROTOCOL,validHello,validateMessage,envelope} from './index.mjs';
 /** Own only this document's bridge; renderer lifecycle remains with the adapter. */
 export function createRuntimeEndpoint({runtime,version,capabilities,execute,windowImpl=window}) {
@@ -7,7 +8,7 @@ export function createRuntimeEndpoint({runtime,version,capabilities,execute,wind
  function receive(event) {
   if(!active || windowImpl.parent===windowImpl || event.origin!==windowImpl.location.origin || event.source!==windowImpl.parent) return;
   const data=event.data;
-  if(validHello(data) && data.runtime===runtime) {close();session={runtime,nonce:data.nonce,generation:data.generation};publish();return;}
+  if(validHello(data) && data.runtime===runtime) {if(session?.nonce===data.nonce&&session?.generation===data.generation){if(!port)publish();return;}close();session={runtime,nonce:data.nonce,generation:data.generation};publish();return;}
   if(data?.type!=='connect' || !session || Object.keys(data).sort().join(',')!=='generation,nonce,runtime,type' || data.nonce!==session.nonce || data.generation!==session.generation || data.runtime!==runtime || event.ports.length!==1 || port) return;
   port=event.ports[0];const channel=port;const current=session;
   port.onmessage=async ({data:message})=>{
@@ -17,7 +18,7 @@ export function createRuntimeEndpoint({runtime,version,capabilities,execute,wind
     if(message.command==='getVersion') payload={ok:true,version};
     else if(message.command==='getCapabilities') payload={ok:true,capabilities};
     else {
-     const cap={destroy:'destroy',setTimeIntent:'timeIntent',setObserverIntent:'observerIntent'}[message.command];
+     const cap={destroy:'destroy',setTimeIntent:'timeIntent',setObserverIntent:'observerIntent'}[message.command] || COMMAND_CAPABILITY[message.command];
      payload=capabilities.includes(cap)?await execute(message.command,message.payload):{ok:false,error:'Unsupported capability'};
     }
    } catch {payload={ok:false,error:'Runtime command failed'};}
@@ -26,5 +27,6 @@ export function createRuntimeEndpoint({runtime,version,capabilities,execute,wind
   port.start();
  }
  windowImpl.addEventListener('message',receive);
- return {ready(){ready=true;publish();},close(){active=false;close();windowImpl.removeEventListener('message',receive);}};
+ let eventId=0;
+ return {emit(command,payload){if(port&&session&&active){const message=envelope(session,'event',++eventId,command,payload);if(validateMessage(message,session))port.postMessage(message);}},ready(){ready=true;publish();},close(){active=false;close();windowImpl.removeEventListener('message',receive);}};
 }

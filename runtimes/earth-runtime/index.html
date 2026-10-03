@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ORAS Earth</title></head><body>
-<main id="earth" aria-label="Interactive Earth"><div id="viewer"></div>
+<script>if(new URLSearchParams(location.search).get('orasEmbedded')==='1')document.documentElement.classList.add('embedded')</script><main id="earth" aria-label="Interactive Earth"><div id="viewer"></div>
 <section class="controls" aria-label="Earth controls"><strong>Earth at ORAS</strong><button id="home">Return to ORAS</button><details open><summary>Layers</summary><div id="layers"></div></details><p class="terrain">Natural Earth imagery · Ellipsoid terrain</p><p id="time"></p></section>
 <section id="selection" class="selection" aria-label="Selected object" hidden><h2 id="selected-name"></h2><p id="selected-detail"></p><button id="focus">Focus</button><button id="track">Track</button><button id="stop">Stop tracking</button></section>
 <section id="loading" role="status">Starting Earth…</section><section id="failure" role="alert" hidden>Earth could not start. <button id="retry">Retry Earth</button></section>

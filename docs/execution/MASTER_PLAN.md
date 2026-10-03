@@ -58,9 +58,10 @@ What is above me right now, and what should I observe?
 
 ## Current Foundation and Approved Direction
 
-CURRENT foundation: shared shell, Home/Observe/Tonight/Sky and contained SWE;
+CURRENT foundation: unified Sky-first workspace, Sky/Earth modes, reusable
+Tonight/Observe contexts, focused routes and contained SWE;
 existing satellite identity/TLE/freshness/local propagation remain intact.
-ACTIVE Phase C: Hub-owned independent Cesium Earth with selective externally
+IMPLEMENTED Phase C: Hub-owned independent Cesium Earth with selective externally
 pinned God's Eye feature modules, small Hub intent and serial bridge/lifecycle.
 The prior complete-app topology is superseded by explicit owner instruction.
 Retain useful Earth capabilities through the pinned capability ledger.
@@ -68,7 +69,8 @@ Retain useful Earth capabilities through the pinned capability ledger.
 Sequence: C0 reproducible SWE; C1 ORAS Cesium core; C2 selective adapters;
 C3 core parity; C4 unified bridge/lifecycle; C5 broader feature expansion;
 D ISS handoff; E Mars; F astronomy extensions; G immersive UX; H solar-system scale.
-This task implements the bounded foundation and stops after its PR/review report.
+ORA-7 implements the locked unified workspace and Earth visual foundation.
+It stops after qualification and one PR review cycle; owner approval remains required.
 Later phases remain planned and require explicit authorization.
 
 ## FEATURE DOMAINS (REFERENCE ONLY)
@@ -82,7 +84,7 @@ They do NOT define build order.
 
 * Above Me decision surface
 * curated outputs
-* contextual drawers and progressive disclosure in the planned renderer-centered workspace
+* contextual drawers and progressive disclosure in the implemented renderer-centered workspace
 * global navigation and future universal product state
 
 ---

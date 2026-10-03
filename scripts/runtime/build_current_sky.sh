@@ -12,6 +12,7 @@ git -C "$work_root/upstream" checkout --detach "$anchor"
 python3 "$repo_root/scripts/runtime/apply_sky_overlay.py" "$work_root/upstream"
 docker run --rm -v "$work_root/upstream:/app" astronomy-hub-stellarium-jsbuild /bin/bash -lc 'source /emsdk/emsdk_env.sh && make js-es6'
 app="$work_root/upstream/apps/web-frontend"
+python3 "$repo_root/scripts/runtime/integrate_sky_bridge.py" "$app"
 mkdir -p "$app/src/assets/js"
 cp "$work_root/upstream/build/stellarium-web-engine.js" "$work_root/upstream/build/stellarium-web-engine.wasm" "$app/src/assets/js/"
 docker run --rm -v "$app:/work" -w /work -e ORAS_RUNTIME_PUBLIC_PATH=/oras-sky-engine/ -e ORAS_RUNTIME_COPY_SKYDATA=0 -e NODE_OPTIONS='--openssl-legacy-provider --max-old-space-size=4096' node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0 bash -lc 'npm ci --no-audit --loglevel=error && npm run build'
