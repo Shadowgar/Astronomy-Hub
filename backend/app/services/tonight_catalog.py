@@ -57,7 +57,15 @@ def fixed_targets():
                         "dec": float(obj["declination"]),
                     }
                 elif key == "messier":
-                    record = find_openngc_record_by_messier_id(obj["catalog"])
+                    try:
+                        record = find_openngc_record_by_messier_id(obj["catalog"])
+                    except Exception:
+                        # Canonical enrichment is optional; the local row is usable.
+                        logger.warning(
+                            "Tonight OpenNGC enrichment unavailable for %s", obj["catalog"],
+                            exc_info=True,
+                        )
+                        record = None
                     row = {
                         "catalog": "Messier (local)",
                         "source_id": str(obj["catalog"]),
