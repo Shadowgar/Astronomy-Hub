@@ -762,3 +762,73 @@ M	tests/runtime/channel.test.mjs
 A	tests/runtime/sky-artifact.test.mjs
 A	tests/runtime/workspace-protocol.test.mjs
 ```
+
+## Focused final P2 correction — Live time and Earth observer synchronization
+
+Scope: the three unresolved review findings at `de7344dd62cebe3b0c2772da85a385bb9b6806b3`.
+Single agent; one correction commit on `phase-c7-unified-workspace-implementation-1`.
+No design, provider, Earth-feature, upstream-source or native Sky science changes.
+
+Live scene labels use a current-clock UI interval of one second, cleaned up when
+Live ends or the surface unmounts. Live offsets evaluate `Date.now()` at click;
+fixed labels retain effective time and fixed offsets retain requested time. Now
+continues to use the current clock. Label updates do not change renderer lifetime.
+Time presentation reuses Observe's ORAS-local/custom-UTC formatter. Workspace
+observer detection uses canonical ORAS configuration, including elevation. Both
+input display and submission explicitly convert through the selected timezone;
+neither browser-local parsing nor longitude inference is used.
+
+Only aircraft/weather opt into generic `PollingLayer.update(context)`. Refresh
+invalidates the old generation, aborts its request, cancels its next poll, removes
+old observer entities, then awaits the new ready/unavailable result. Refreshes run
+concurrently across enabled layers with a ten-second source abort deadline and
+resume the usual completion-scheduled cadence. Registry update includes loading
+instances and awaits lazy initialization when needed. Disabled layers stay off;
+satellite acquisition is not restarted; the ORAS site remains canonical.
+`EarthRuntime.setObserver` already awaits registry update, so bridge success now
+means that the required refresh completed. The unchanged Hub adapter records
+observer acknowledgement only after that result.
+
+Fresh commands and results:
+
+```text
+TZ=Asia/Tokyo npx vitest run tests/workspaceTime.test.tsx tests/workspaceRuntimeAdapter.test.ts tests/workspace.test.tsx tests/workspaceNavigation.test.ts tests/workspaceUiState.test.ts tests/runtimeProductState.test.ts
+# frontend cwd: 6 files, 22 tests PASS; 6 Time tests and 1 runtime-adapter test.
+node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs
+# 39 tests PASS, including 7 observer-refresh tests and 6 existing lifecycle tests.
+npm run typecheck
+# frontend cwd: tsc --noEmit, exit 0.
+git diff --check
+# exit 0, no output.
+ORAS_EARTH_OUT=/var/tmp/oras-workspace/earth-build-time-observer bash scripts/runtime/build_owned_earth.sh
+# exit 0; 512 artifact files, 111 dependency licenses, Cesium 1.138.0.
+python3 scripts/runtime/record_runtime_versions.py /var/tmp/oras-workspace/earth-build-time-observer
+# VERIFIED ARTIFACT b151195225727109ae78283063e362175e3ff81165564a8bd1e7f0d4c49fc309
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-workspace/earth-build-time-observer POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4181 COMPOSE_BAKE=false docker compose -p oras-workspace-qualification -f docker-compose.prod.yml up -d --no-deps --build frontend earth-runtime
+# exit 0; frontend and Earth healthy; existing backend/Postgres/Redis remain up.
+POSTGRES_PASSWORD=local-qualification docker compose -p oras-workspace-qualification -f docker-compose.prod.yml ps
+# frontend/Earth healthy, qualification HTTP port 4181.
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceTimeObserver.spec.ts --workers=1 --output=/var/tmp/oras-workspace/time-observer-browser
+# frontend cwd: 1 browser test PASS, 8.4 seconds overall.
+sha256sum .vscode/settings.json
+# 6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0; preserved unstaged.
+```
+
+The browser uses declared aircraft/weather fixtures, not live provider admission:
+A `(42,-80,0)` → in-place query B `(35,-120,0)` retains the same iframe. Both B
+requests are held; provider rows report loading, old observer targets are absent,
+and no observer result has been sent. After release, aircraft is ready, weather
+returns HTTP 503 and reports unavailable, then the bridge acknowledges B. The
+canonical ORAS site is unchanged. Browser timezone is `Asia/Tokyo`; requested and
+effective scene time both display `Oct 3, 2:00 AM UTC`. Screenshot:
+`output/playwright/unified-workspace/time-observer.png`. Logs/artifacts are under
+`/var/tmp/oras-workspace/time-observer-*`.
+
+Regressions were observed red before corrections: frozen Live label and offsets,
+custom time formatting, missing refresh method, and premature acknowledgement
+during lazy loading. Final focused runs are green. Node emits its existing
+experimental MockTimers warning; Vite emits its large-chunk advisory; neither
+is a test failure. No broad visual campaign, full God's Eye suite, or native Sky
+science suite was rerun. Those untouched capabilities retain their prior limits.
+CI and thread resolution for the resulting single commit are recorded on PR #58.
+Owner approval remains required; this pass does not merge or start another phase.

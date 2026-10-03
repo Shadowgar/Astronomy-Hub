@@ -4,7 +4,7 @@ import {weatherPayloadValid,readCapped} from './data.mjs';
 import {entityRenderer} from './entities.mjs';
 export function createWeatherAdapter(context){
  const renderer=entityRenderer(context,'weather','#94e6c8');
- const layer=new PollingLayer({id:'weather',interval:300000,read:async signal=>{
+ const layer=new PollingLayer({observerDependent:true,id:'weather',interval:300000,read:async signal=>{
   const site=context.observer(),url=new URL('https://api.open-meteo.com/v1/forecast');
   url.search=new URLSearchParams({latitude:String(site.lat),longitude:String(site.lon),current:'temperature_2m,weather_code,cloud_cover,wind_speed_10m',timezone:'UTC'});
   const payload=JSON.parse(await readCapped(await fetch(url,{signal}),100000));if(!weatherPayloadValid(payload))throw Error('Weather observation unavailable');const weather=normalizeRegionalWeather(payload);

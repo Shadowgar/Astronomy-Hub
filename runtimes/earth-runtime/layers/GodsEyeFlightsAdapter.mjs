@@ -5,7 +5,7 @@ import {admitAircraft,readCapped} from './data.mjs';
 import {entityRenderer} from './entities.mjs';
 export function createFlightsAdapter(context){
  const renderer=entityRenderer(context,'aircraft','#ffe185');
- const layer=new PollingLayer({id:'aircraft',interval:30000,read:async signal=>{
+ const layer=new PollingLayer({observerDependent:true,id:'aircraft',interval:30000,read:async signal=>{
   const observer=context.observer(),response=await fetch(`/api/earth/aircraft?lat=${observer.lat}&lon=${observer.lon}`,{signal,cache:'no-store'});
   const payload=JSON.parse(await readCapped(response));if(!Number.isFinite(payload.now))throw Error('Feed epoch unavailable');
   payload.ac=payload.ac.filter(row=>Number.isFinite(row.seen_pos)||Number.isFinite(row.seen));const snapshot=normalizeAdsbLolPointResponse(payload);const records=admitAircraft(snapshot).map(normalizeOpenSkyAircraft).filter(Boolean);
