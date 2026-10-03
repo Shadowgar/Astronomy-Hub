@@ -22,7 +22,7 @@ const prepareScriptPath = path.resolve(
 )
 const runtimeVueConfigPath = path.resolve(
   process.cwd(),
-  '../vendor/stellarium-web-engine/apps/web-frontend/vue.config.js'
+  '../integrations/sky-overlay/apps/web-frontend/vue.config.js'
 )
 const satelliteFeedPath = path.resolve(
   process.cwd(),

@@ -3,7 +3,10 @@ import {test,expect} from '@playwright/test'
 test.use({channel:'chromium',timezoneId:'America/Los_Angeles',launchOptions:{ignoreDefaultArgs:['--disable-back-forward-cache']}})
 const pin=()=>sessionStorage.setItem('oras.workspace.ui.v1',JSON.stringify({version:1,pin:true,context:'tonight',layers:['oras-site']}))
 const ready=async(page:any)=>expect(page.locator('[data-runtime-status=ready]')).toBeVisible({timeout:90000})
-const nativeUtc=async(page:any)=>page.frames().find((frame:any)=>frame.url().includes('/oras-sky-engine/'))!.evaluate(()=>new Date(Math.round(((window as any).orasSkyAdapter.observer.utc-40587)*86400000)).toISOString())
+const nativeUtc=async(page:any)=>page.locator('iframe').evaluate((node:HTMLIFrameElement)=>{
+ const adapter=(node.contentWindow as any)?.orasSkyAdapter
+ return adapter?new Date(Math.round((adapter.observer.utc-40587)*86400000)).toISOString():null
+})
 
 test('actual cached Sky restoration keeps the same document and working time bridge',async({page})=>{
  test.setTimeout(120000);await page.addInitScript(pin)
@@ -13,7 +16,7 @@ test('actual cached Sky restoration keeps the same document and working time bri
  })
  await page.goto('/sky-engine?date=2026-10-03T02%3A00%3A00.000Z');await ready(page)
  const identity=await page.evaluate(()=>(window as any).reviewCache.identity)
- await page.goto('/observe');await page.goBack();await ready(page)
+ await page.goto('/observe');await page.goBack({waitUntil:'commit'});await ready(page);await expect.poll(()=>page.evaluate(()=>(window as any).reviewCache.restored)).toBe(1)
  expect(await page.evaluate(()=>(window as any).reviewCache.identity)).toBe(identity)
  expect(await page.evaluate(()=>(window as any).reviewCache.restored)).toBe(1)
  await page.getByRole('button',{name:'Change time',exact:true}).click()
