@@ -41,10 +41,11 @@ No upstream pin change or complete God's Eye application ownership is authorized
 
 ## CURRENT PRIORITY
 
-C5 implementation and production-like local qualification pass: 52 runtime/
+C5 implementation and production-like local qualification pass: 54 runtime/
 protocol, 42 frontend, 35 Docker backend tests, five fixture browser checks and
-one actual-provider browser check. PR [#59](https://github.com/Shadowgar/Astronomy-Hub/pull/59)
-is open. One normal review is requested; Category A receives focused retests.
+one actual-provider browser check plus two focused polygon-pick retests. PR [#59](https://github.com/Shadowgar/Astronomy-Hub/pull/59)
+is open. The one normal review is complete; both unique Category A findings are repaired
+with focused regressions and artifact rebuild.
 ORA-8 is handed back **In Review**, pending owner approval; do not mark Done or
 merge. See
 [Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).

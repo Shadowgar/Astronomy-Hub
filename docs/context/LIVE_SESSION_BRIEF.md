@@ -27,12 +27,13 @@ CONUS reflectivity, not a global surface or rainfall forecast.
 
 Qualification and final handoff are recorded in
 [Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
-Implementation and local qualification pass: 52 runtime/protocol, 42 frontend,
+Implementation and local qualification pass: 54 runtime/protocol, 42 frontend,
 35 Docker backend tests; five fixture and one live Docker browser checks. The
 three layers are ADAPTED NOW; launches are LICENSE/DATA BLOCKED by access 403.
 PR [#59](https://github.com/Shadowgar/Astronomy-Hub/pull/59) is open on this branch.
-The handoff status is **In Review**, not Done, with one normal review requested
-and any Category A findings repaired through focused retests. Owner
+The handoff status is **In Review**, not Done. The one requested normal review
+is complete; both unique Category A findings were repaired with focused
+regressions, two desktop/mobile polygon-pick retests and artifact rebuild. Owner
 approval closes it. Do not merge or start Phase D. No ISS, Mars/Moon, measured
 horizon or other excluded layers. Preserve `.vscode/settings.json` unchanged and
 unstaged. Historical Phase B/C and workspace evidence are preserved.

@@ -188,13 +188,14 @@ git diff --check
 sha256sum .vscode/settings.json
 ```
 
-Unit results: **52/52 runtime/protocol**, **42/42 frontend (8 files)**,
+Unit results: **54/54 runtime/protocol**, **42/42 frontend (8 files)**,
 **35/35 backend** both local and Docker. Backend Docker emitted six existing
 Starlette/httpx deprecation warnings. Typecheck and production frontend build
 passed; artifact build and byte/source-input verification passed. Artifact:
-`f200619b13884fadc3fc5dc0e9732f267924b30e2ddfdc52a248d3f264d493fa`,
+`7e80e89341fbf7cf0b94ecd9d1685ea8db5bdd08d8e33723153b5bd0e57355a5`,
 Cesium 1.138, 512 files, 111 dependency-license records. Artifact hash is recorded
-in both the renderer lock and Hub runtime versions. `completeApplication:false`,
+in both the renderer lock and Hub runtime versions. Seven public upstream export
+surfaces are declared, including the two new helper surfaces. `completeApplication:false`,
 `viewerOwner:Astronomy Hub`, `bundledThirdPartyDatasets:[]` in module-policy.
 
 Docker backend, frontend, Earth, PostgreSQL and Redis are up; frontend and Earth
@@ -237,11 +238,13 @@ The final results below are tied to the verified artifact.
 
 ## Final Docker browser results and measurements
 
-- Declared fixtures: **5/5 passed** against the final artifact. Both desktop and
+- Declared fixtures: **5/5 passed** against pre-review artifact `f200619b13884fadc3fc5dc0e9732f267924b30e2ddfdc52a248d3f264d493fa`. Both desktop and
   mobile exercise all three admitted layers and outage/retry; the fifth check
   validates an exact Tonight object link and Sky → Earth → Sky with one iframe
   and disconnected old renderer frames.
-- Actual providers: **1/1 passed**, no interceptions/fixtures, **zero page errors**.
+- Actual providers: **1/1 passed** against that pre-review artifact, no
+  interceptions/fixtures, **zero page errors**. The provider DTO/rendering code
+  is unchanged by the review correction.
   HTTP 200 for all three DTOs; selection and Focus succeed for real quake/fire
   identities and the radar coverage marker. USGS source generation
   `2026-10-03T19:50:42.000Z`; WFIGS maximum boundary update
@@ -255,7 +258,10 @@ The final results below are tied to the verified artifact.
 | fire-perimeters | 74 | 443 | 3286 | 152.3 | 36.1 |
 | weather-radar | 1 | 2 | 3811 | 5.6 | 19.0 |
 
-These are local measurements under concurrent software-rendered qualification.
+These measurements and broad screenshots use the pre-review artifact above;
+provider adapter/rendering code is unchanged. The final artifact adds the focused
+picker correction and accurate export declaration described below. These are
+local measurements under concurrent software-rendered qualification.
 Toggle-to-ready includes bridge/UI update and test scheduling. Browser acquisition
 uses warm backend caches after the live endpoint check; these are not cold-provider
 latency numbers. Render setup ends after entities/imagery are admitted, rather than
@@ -330,6 +336,9 @@ results; local screenshot links require this qualification workspace.
 - `tests/earth/event-contract.test.mjs`
 - `tests/earth/event-layers.test.mjs`
 - `tests/earth/event-selection.test.mjs`
+- `tests/earth/export-boundary.test.mjs`
+- `tests/earth/selection.test.mjs`
+- `scripts/runtime/record_owned_earth.py`
 - `tests/earth/page-lifecycle.test.mjs`
 - `tests/runtime/workspace-protocol.test.mjs`
 
@@ -359,3 +368,44 @@ implementation/evidence push; its outcome is reported in the handoff/Linear.
 Category A findings must receive focused fixes/retests. Category B follow-ups
 must not cause recursive review requests. ORA-8 moves to **In Review**, not Done;
 owner approval is the remaining closure gate. No merge is authorized.
+
+
+### Completed review and Category A correction
+
+The repository automatically ran Copilot on implementation head `318edac5`; the
+single explicit normal `@codex review` request reviewed `5181b290`. Copilot found
+picker reachability and missing artifact export metadata; Codex independently
+reported the same picker issue. These are **two unique Category A findings** in
+three threads, not Category B styling. No further review was requested.
+
+The original proxy unit test called `set(polygon)` and missed the installed click
+handler. A new regression invokes the real LEFT_CLICK handler and fails before
+adding `scene.pick(...).id.orasSelectableEntity` ahead of proximity selection.
+A generator regression runs the real release script against a declared disposable
+artifact fixture and compares all direct God’s Eye imports to `public_exports`.
+It fails before adding `layers/earthquakes` and `layers/perimeters` to the generator.
+The inherited empty-pick fixture gained an empty `scene.pick` mock; its behavior
+and preservation assertion remain unchanged.
+
+Focused final correction commands:
+
+```sh
+node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs
+ORAS_EARTH_OUT=/var/tmp/oras-c5/earth-build bash scripts/runtime/build_owned_earth.sh
+python3 scripts/runtime/record_runtime_versions.py /var/tmp/oras-c5/earth-build
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-c5/earth-build POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4181 COMPOSE_BAKE=false docker compose -p oras-workspace-qualification -f docker-compose.prod.yml up -d --no-deps --build frontend earth-runtime
+# cwd frontend: real Cesium polygon-body interaction, declared source fixture
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/earthExpansion.spec.ts --grep 'fire polygon body' --workers=1 --output=/var/tmp/oras-c5/browser-polygon-reviewed
+```
+
+Final regression **54/54** pass; artifact/container rebuild pass; **2/2** focused
+Docker desktop/mobile browser tests pass. They click a polygon body away from the
+anchor marker, then verify the stable incident selection and Focus control.
+[Desktop proof](../../output/playwright/earth-expansion/desktop-polygon-body-selected.png)
+and [mobile proof](../../output/playwright/earth-expansion/mobile-polygon-body-selected.png).
+Both no-cache HTTP metadata surfaces return 200, identical final artifact SHA,
+and all seven public exports. Existing backend/frontend/provider/Sky results
+remain applicable because those implementation paths did not change. Final SHA
+is recorded in the PR and ORA-8 comment after this correction commit. Threads
+receive the correction proof and are resolved; final CI is checked on that SHA.
+Owner approval remains required. No merge or next phase.
