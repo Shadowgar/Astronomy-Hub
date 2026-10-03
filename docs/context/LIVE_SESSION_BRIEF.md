@@ -1,10 +1,14 @@
 # LIVE SESSION BRIEF
 
-ORA-7 implements the owner-approved locked unified workspace on branch
-`phase-c7-unified-workspace-implementation-1`, SINGLE AGENT ONLY. Its unchanged
-locked design ancestor is `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`; the merged
-PR #55 main baseline is `b2f9dce9bb559a1d23dc806a1b8d1927c502f084`.
-No runtime override mode is active. Load the `frontend_change` context pack.
+ORA-7's owner-approved locked unified workspace was merged in PR #58 on
+2026-10-03 at `f55b9b2721cb692b4cda106e415c8fef59454c80`, including the final
+Live-time/custom-timezone/Earth-observer correction `a45fa637dce0b420f63d49abe30f4d76633bd410`.
+Current work is the owner-authorized bounded review-history follow-up, SINGLE
+AGENT ONLY, based on that merged main tree. The unchanged locked design ancestor
+is `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`; merged PR #55 is historical.
+No runtime override mode is active. Load the `frontend_change`, `backend_change`
+or `docs_change` context pack for the affected concern, and the review/validation
+pack when checking it.
 The explicit owner implementation request supersedes the previous ORA-6 brief's
 wait-for-approval restriction. Repository design documents remain authoritative;
 the secondary Figma file remains partial under the existing owner waiver.
@@ -33,8 +37,21 @@ from requested astronomy scene time; no historical provider simulation is claime
 
 Current qualification and limitations are recorded in
 [workspace implementation evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
-Historical Phase B/C evidence is preserved. Deliver the PR and one normal review
-cycle, repair Category A with focused retests, set ORA-7 **In Review**, then stop.
-Owner approval closes ORA-7. Do not merge or start another phase. Preserve unrelated
+Historical Phase B/C and PR #58 qualification evidence is preserved. Owner merge
+approval closes the ORA-7 implementation checkpoint. Deliver bounded follow-up
+repairs with their own focused proof and qualification limits; do not assign
+historical passing counts to changed sources. Do not merge follow-ups or start
+another phase. Preserve unrelated
 `.vscode/settings.json` unchanged and unstaged. No ISS handoff, Mars/Moon surfaces,
 measured horizon or broad God's Eye feature-parity expansion is authorized.
+
+Owner follow-up, 2026-10-03: proceed with the review-history report's validated
+recommendations, including the three previously deferred Tonight findings.
+Live-time/custom-timezone/Earth-observer corrections are already merged in
+`a45fa637` and must be preserved. Remaining repairs cover Sky cached-page lifecycle,
+catalog fallback, manifest validation and documentation. This does not authorize
+implementing the older unresolved-thread inventory
+without triage, changing the locked design, merging, or beginning another phase.
+Qualify changed runtime artifacts and focused browser paths
+before claiming these new repairs are runtime-complete; retain earlier evidence
+as historical rather than assigning its test counts to new source changes.
