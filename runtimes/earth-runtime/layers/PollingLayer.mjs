@@ -14,7 +14,7 @@ export class PollingLayer {
       this.context.providerStatus.set(this.id,{status:'ready',temporalMode:'LIVE_ONLY',observedAt:data.observedAt??null,count:data.records?.length??1});
     }catch{
       if(!this.active||this.closed||generation!==this.generation)return;
-      this.clear();this.context.providerStatus.set(this.id,{status:'unavailable',temporalMode:'LIVE_ONLY',message:'Source unavailable. Retry the layer; Earth remains interactive.'});
+      this.clear(true);this.context.providerStatus.set(this.id,{status:'unavailable',temporalMode:'LIVE_ONLY',message:'Source unavailable. Retry the layer; Earth remains interactive.'});
     }finally{if(this.controller===controller)this.controller=null;}
     if(this.active&&!this.closed&&generation===this.generation)this.timer=setTimeout(()=>{this.timer=null;void this.poll(generation)},this.interval);
   }

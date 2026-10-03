@@ -23,9 +23,9 @@ test('RuntimeHost cancels an in-flight probe on unmount and checks fresh identit
  await page.route('**/earth-runtime/release.json',route=>{captured(route)})
  await page.goto('/earth');const stale=await pending
  await expect(page.locator('[data-runtime-status=checking]')).toBeVisible()
- await page.getByRole('navigation',{name:'Primary navigation'}).getByRole('link',{name:'Home',exact:true}).click()
+ await page.getByRole('tab',{name:'Sky',exact:true}).click()
  await stale.fulfill({json:{owner:'stale',upstream_sha:'stale',artifact_sha256:'stale'}}).catch(()=>{/* request was aborted */})
- await expect(page.getByRole('heading',{name:'The sky over the ORAS observatory'})).toBeVisible();await expect(page.locator('iframe')).toHaveCount(0);await expect(page.locator('[data-runtime-status=error]')).toHaveCount(0)
+ await expect(page.locator('[data-runtime-mode=sky][data-runtime-status=ready]')).toBeVisible({timeout:90000});await expect(page.locator('iframe')).toHaveCount(1);await expect(page.locator('[data-runtime-status=error]')).toHaveCount(0)
  await page.unroute('**/earth-runtime/release.json');await page.goto('/earth')
  await expect(page.locator('[data-runtime-status=ready]')).toBeVisible({timeout:60000});await expect(page.locator('iframe')).toHaveCount(1)
 })

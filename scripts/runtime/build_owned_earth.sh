@@ -10,6 +10,13 @@ if [[ ! -d "$source_dir/.git" ]]; then mkdir -p "$(dirname "$source_dir")"; git 
 mkdir -p "$out_dir"
 docker run --rm -v "$source_dir:/source" -w /source -e PUPPETEER_SKIP_DOWNLOAD=true node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8 npm ci --no-audit --loglevel=error
 docker run --rm -v "$source_dir:/source:ro" -v "$repo_root:/hub:ro" -v "$out_dir:/output" -e GODS_EYE_SOURCE=/source -e ORAS_EARTH_OUT=/output node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8 node /source/node_modules/vite/bin/vite.js build --configLoader native --config /hub/runtimes/earth-runtime/vite.config.mjs
+display_config="${ORAS_EARTH_DISPLAY_CONFIG:-$repo_root/runtimes/earth-runtime/display-config.json}"
+# Only deliberately attested, publishable browser credentials can enter a deployed artifact.
+node --input-type=module - "$display_config" "$repo_root" <<'NODE'
+import fs from 'node:fs';import {pathToFileURL} from 'node:url';
+const [config,repo]=process.argv.slice(2);const {admitDisplayConfig}=await import(pathToFileURL(repo+'/runtimes/earth-runtime/core/displayConfig.mjs'));const text=fs.readFileSync(config,'utf8');if(text.length>4096)throw Error('Display config too large');const value=JSON.parse(text);if(value.qualified!==false&&!admitDisplayConfig(value))throw Error('Unqualified display configuration');
+NODE
+cp "$display_config" "$out_dir/display-config.json"
 mkdir -p "$out_dir/cesium"
 for item in Assets ThirdParty Workers Widgets; do cp -a "$source_dir/node_modules/cesium/Build/Cesium/$item" "$out_dir/cesium/"; done
 cp "$source_dir/LICENSE" "$out_dir/LICENSE-gods-eye.txt"

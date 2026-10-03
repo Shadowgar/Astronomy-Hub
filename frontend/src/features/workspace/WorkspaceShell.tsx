@@ -1,0 +1,84 @@
+import React,{useState,useEffect,useRef,useCallback} from 'react'
+import {useLocation,useNavigate} from 'react-router-dom'
+import type {RuntimeMode,LayerDTO} from '../../../../packages/runtime-protocol/index.mjs'
+import RuntimeHost,{type RuntimeStatus} from '../sky-engine/RuntimeHost'
+import {useRuntimeProductState} from '../runtime/productState'
+import {readPreferences,savePreferences,type ContextTab,type Surface} from './workspaceUiState'
+import {useImmersive} from './ImmersiveController'
+import {useWorkspaceRuntime} from './workspaceRuntimeAdapter'
+import ProductHeader from './ProductHeader'
+import LayerPanel,{LayerRail} from './LayerPanel'
+import ContextSurface from './ContextSurface'
+import TonightSurface from './TonightSurface'
+import ObserveSurface from './ObserveSurface'
+import SelectionDrawer,{SelectionDetails,SelectionActions} from './SelectionDrawer'
+import TimeSurface,{TimeEditor} from './TimeSurface'
+import BottomSheet from './BottomSheet'
+import DiagnosticsSurface from './DiagnosticsSurface'
+import {Icon,IconButton} from './primitives'
+import './workspace.css'
+function useMobile(){const [mobile,setMobile]=useState(()=>typeof window!=='undefined'&&window.innerWidth<768);useEffect(()=>{const media=matchMedia('(max-width:767px)'),update=()=>setMobile(media.matches);media.addEventListener('change',update);update();return ()=>media.removeEventListener('change',update)},[]);return mobile}
+export default function WorkspaceShell({mode='sky'}:{mode?:RuntimeMode}){
+ const location=useLocation(),navigate=useNavigate(),mobile=useMobile(),root=useRef<HTMLDivElement>(null),trigger=useRef<HTMLElement|null>(null),triggerKey=useRef<string|null>(null)
+ const [prefs,setPrefs]=useState(()=>{try{return readPreferences(typeof window!=='undefined'?window.sessionStorage:undefined)}catch{return readPreferences()}}),[tab,setTab]=useState<ContextTab>(prefs.context),[surface,setSurface]=useState<Surface>(null),[contextVisible,setContextVisible]=useState(true),[expanded,setExpanded]=useState(false),[snap,setSnap]=useState(360),[menu,setMenu]=useState(false),[busy,setBusy]=useState<string|null>(null),[status,setStatus]=useState<RuntimeStatus>('checking')
+ const chrome=useImmersive({pin:prefs.pin,panel:surface!==null||expanded||menu,mobile,blocked:status!=='ready'}),runtime=useWorkspaceRuntime(mode,location.search,chrome.interact,key=>{if(key==='Escape')escape();else{chrome.reveal();requestAnimationFrame(()=>root.current?.querySelector<HTMLAnchorElement>('.ws-brand')?.focus())}})
+ useEffect(()=>{if(runtime.client)void runtime.request('setPresentation',{embedded:true,creditsAtTop:mobile&&surface!==null})},[runtime.client,mobile,surface])
+ const selection=runtime.snapshot.selection,selectionId=selection?.id;const previousSelection=useRef<string|null>(null),restored=useRef<unknown>(null)
+ useEffect(()=>{savePreferences(prefs)},[prefs])
+ useEffect(()=>{setSurface(null);setExpanded(false);setMenu(false);setContextVisible(mode==='sky');setStatus('checking');previousSelection.current=null;restored.current=null},[mode])
+ useEffect(()=>{const old=document.title;document.title=`${mode==='sky'?'Sky':'Earth'} · Astronomy Hub`;return ()=>{document.title=old}},[mode])
+ useEffect(()=>{if(selectionId&&selectionId!==previousSelection.current){setTab('selection');setContextVisible(true);setExpanded(false);if(mobile){setSurface('context');setSnap(360)}chrome.reveal()}else if(!selectionId&&previousSelection.current){setTab(prefs.context);setExpanded(false);if(mobile)setSurface(null)}previousSelection.current=selectionId||null},[selectionId,mobile,prefs.context])
+ // Restore only whitelisted preferences and canonical selection through qualified capabilities.
+ useEffect(()=>{const client=runtime.client;if(!client||restored.current===client)return;restored.current=client;let cancelled=false;void(async()=>{
+  if(mode==='earth'&&client.capabilities.includes('layers'))for(const id of ['oras-site','satellites','aircraft','weather']){if(cancelled)return;await runtime.request('setLayerEnabled',{id,enabled:prefs.layers.includes(id)},18000)}
+  const entity=useRuntimeProductState.getState().selection
+  if(mode==='sky'&&entity&&client.capabilities.includes('selection'))await runtime.request('selectEntity',entity,25000)
+ })();return ()=>{cancelled=true}},[runtime.client,mode])
+ const close=useCallback(()=>{setSurface(null);setMenu(false);setContextVisible(false);setExpanded(false);requestAnimationFrame(()=>{if(trigger.current?.isConnected)trigger.current.focus();else if(triggerKey.current)root.current?.querySelector<HTMLElement>(`[data-ws-trigger="${triggerKey.current}"]`)?.focus()})},[])
+ function escape(){if(menu)setMenu(false);else if(mobile&&surface&&snap>96)setSnap(snap===640?360:96);else if(expanded)setExpanded(false);else if(surface||contextVisible&&tab==='selection')close();else chrome.reveal()}
+ const open=(next:Surface)=>{trigger.current=document.activeElement instanceof HTMLElement?document.activeElement:null;triggerKey.current=trigger.current?.dataset.wsTrigger||null;chrome.reveal();setMenu(false);setSurface(next);setExpanded(false);setSnap(360);if(next==='context')setContextVisible(true)}
+ const onContext=(next:'tonight'|'observe')=>{setTab(next);setPrefs(p=>({...p,context:next}));open('context')}
+ const onMode=(next:RuntimeMode)=>{if(next===mode)return;const p=new URLSearchParams(location.search);if(next==='earth')for(const key of ['catalog','source_id','model','ra','dec','fov'])p.delete(key);navigate((next==='sky'?'/sky-engine':'/earth')+(p.size?'?'+p:''))}
+ const select=async(url:string,focus=false)=>{
+  const p=new URL(url,window.location.origin).searchParams;const identity={catalog:p.get('catalog')||'',source_id:p.get('source_id')||'',model:p.get('model')||'',...(p.has('ra')?{ra:Number(p.get('ra'))}:{}),...(p.has('dec')?{dec:Number(p.get('dec'))}:{})}
+  // Observe and Tonight may be opened over Earth; their target actions intentionally enter Sky.
+  if(mode==='earth'){useRuntimeProductState.setState({selection:identity});navigate('/sky-engine?'+p);return}
+  if(focus&&p.has('date')){const q=new URLSearchParams(location.search);q.set('date',p.get('date')!);const ack=await runtime.request('setTimeIntent',{utc:p.get('date'),live:false});if(!ack?.ok)return;navigate(location.pathname+'?'+q,{replace:true})}
+  const result=await runtime.request('selectEntity',identity,25000);if(!result?.ok)return
+  useRuntimeProductState.setState({selection:identity})
+  const q=new URLSearchParams(location.search);for(const field of ['catalog','source_id','model','ra','dec'])if(p.has(field))q.set(field,p.get(field)!);navigate(location.pathname+'?'+q,{replace:true})
+  if(focus)await runtime.request('focusSelection',{},12000)
+ }
+ const applyTime=async(utc:string,live=false)=>{const ack=await runtime.request('setTimeIntent',{utc,live});if(!ack?.ok)return;const p=new URLSearchParams(location.search);if(live)p.delete('date');else p.set('date',utc);navigate(location.pathname+(p.size?'?'+p:''),{replace:true})}
+ const clear=async()=>{const result=await runtime.request('clearSelection');if(result?.ok){useRuntimeProductState.setState({selection:null});setTab(prefs.context);setExpanded(false);const p=new URLSearchParams(location.search);for(const key of ['catalog','source_id','model','ra','dec'])p.delete(key);navigate(location.pathname+(p.size?'?'+p:''),{replace:true})}}
+ const toggle=async(layer:LayerDTO)=>{setBusy(layer.id);const result=await runtime.request('setLayerEnabled',{id:layer.id,enabled:!layer.enabled},18000);if(result?.ok)setPrefs(p=>({...p,layers:layer.enabled?p.layers.filter(id=>id!==layer.id):[...new Set([...p.layers,layer.id])]}));setBusy(null)}
+ const retryLayer=async(id:string)=>{setBusy(id);await runtime.request('retryLayer',{id},18000);setBusy(null)}
+ const actions={tracking:runtime.snapshot.tracking,onFocus:()=>void runtime.request('focusSelection',{},12000),onTrack:()=>void runtime.request('setTracking',{enabled:!runtime.snapshot.tracking}),onClear:()=>void clear()}
+ const product=useRuntimeProductState.getState();const observeContext={latitude:product.observer.lat,longitude:product.observer.lon,elevationMeters:product.observer.elevationM,isOras:product.observer.lat===41.321903&&product.observer.lon===-79.585394,...(!runtime.time.live?{at:runtime.time.effective||runtime.time.requested}:{})}
+ const context=<ContextSurface tab={tab==='selection'&&!selection?'tonight':tab} selection={!!selection} onTab={value=>{setTab(value);if(value!=='selection')setPrefs(p=>({...p,context:value}))}} onClose={close}>{tab==='selection'&&selection?<><SelectionDetails selection={selection}/>{mobile?<SelectionActions selection={selection} {...actions}/>:null}{selection.kind==='site'?<div className="ws-actions"><button onClick={()=>onContext('tonight')}>Tonight</button><button onClick={()=>onContext('observe')}>Observe</button></div>:null}</>:tab==='observe'?<ObserveSurface context={observeContext} onSelect={url=>void select(url)} onFocus={url=>void select(url,true)}/>:<TonightSurface expanded={surface==='context'} onSelect={url=>void select(url)} onFocus={url=>void select(url,true)}/>}</ContextSurface>
+ const layers=<LayerPanel layers={runtime.snapshot.layers} busy={busy} onToggle={layer=>void toggle(layer)} onRetry={id=>void retryLayer(id)} onClose={close} onSources={()=>open('diagnostics')}/>
+ const timeEditor=<TimeEditor mode={mode} time={runtime.time} onApply={utc=>applyTime(utc)} onNow={()=>applyTime(new Date().toISOString(),true)} onClose={close}/>
+ const diagnostics=<DiagnosticsSurface version={runtime.client?.version||'Checking'} status={status} snapshot={runtime.snapshot} onClose={close} onRetryImagery={()=>void runtime.request('retryImagery',{},18000)}/>
+ const navigation=<section aria-label="Earth navigation"><div className="ws-panel-heading"><h2>Navigation</h2><IconButton icon="x" label="Close navigation" onClick={close}/></div><p>Drag to explore. Scroll to zoom.</p><div className="ws-actions"><button onClick={()=>void runtime.request('globalView')}>Global view</button><button onClick={()=>void runtime.request('returnToOras',{},12000)}>Return to ORAS</button></div></section>
+ const sheet=surface==='layers'?layers:surface==='time'?timeEditor:surface==='diagnostics'?diagnostics:context
+ return <div ref={root} className={`ws-shell${chrome.hidden?' ws-shell--hidden':''}${chrome.immersive?' ws-shell--immersive':''}${mobile&&surface?' ws-shell--sheet-open':''}`} data-workspace-mode={mode} data-chrome-state={chrome.state} onFocusCapture={event=>{if(!event.target.closest('.ws-stage'))chrome.setFocused(true)}} onBlurCapture={event=>{if(!event.relatedTarget||!root.current?.contains(event.relatedTarget as Node)||(event.relatedTarget as Element).closest('.ws-stage'))chrome.setFocused(false)}} onPointerMove={event=>{if(event.pointerType!=='touch')chrome.activity()}} onKeyDownCapture={event=>{if(event.key==='Tab'&&chrome.hidden)chrome.reveal();if(event.key==='Escape'){event.preventDefault();escape()}}}>
+  <a className="ws-skip" href="#workspace-main">Skip to workspace</a>
+  <ProductHeader mode={mode} busy={status!=='ready'} pin={prefs.pin} onMode={onMode} onContext={onContext} onPin={()=>setPrefs(p=>({...p,pin:!p.pin}))} onImmersive={()=>{close();chrome.enter()}} onMenu={()=>{trigger.current=document.activeElement as HTMLElement;setMenu(x=>!x)}}/>
+  <main id="workspace-main" tabIndex={-1} className="ws-stage" aria-label={`${mode==='sky'?'Sky':'Earth'} workspace`}><h1 className="ws-sr-only">{mode==='sky'?'Sky':'Earth'} workspace</h1><RuntimeHost mode={mode} onClient={runtime.acceptClient} onStatus={setStatus}/></main>
+  {menu?<div className="ws-menu ws-panel" role="region" aria-label="Workspace menu"><button onClick={()=>onContext('tonight')}>Tonight</button><button onClick={()=>onContext('observe')}>Observe</button><button aria-pressed={prefs.pin} onClick={()=>setPrefs(p=>({...p,pin:!p.pin}))}>{prefs.pin?'Controls pinned':'Pin controls'}</button><button onClick={()=>{close();chrome.enter()}}>Immersive</button>{mode==='sky'&&runtime.client?.capabilities.includes('nativeTools')?<button onClick={()=>{setMenu(false);void runtime.request('openNativeTools')}}>Sky view settings</button>:null}<button onClick={()=>open('diagnostics')}>Diagnostics</button><a href={mode==='sky'?'/oras-sky-engine/':'/earth-runtime/'} target="_blank" rel="noreferrer">Open standalone {mode==='sky'?'Sky':'Earth'}</a></div>:null}
+  {chrome.hidden?<button className="ws-reveal" onClick={chrome.reveal}><Icon name="maximize"/>Show controls<span>{mode==='sky'?'Sky':'Earth'}</span></button>:null}
+  <div className="ws-edges" aria-hidden="true">{['top','right','bottom','left'].map(edge=><span key={edge} className={`ws-edge ws-edge--${edge}`} onPointerEnter={event=>{if(event.pointerType==='mouse')chrome.edgeReveal()}} onPointerLeave={chrome.cancelEdge}/>)}</div>
+  {!mobile&&mode==='earth'&&runtime.client?.capabilities.includes('layers')?<LayerRail onLayers={()=>surface==='layers'?close():open('layers')} onHome={()=>void runtime.request('returnToOras',{},12000)} onNavigation={()=>open('navigation')}/>:null}
+  {!mobile&&surface==='layers'?<div className="ws-layers ws-panel ws-chrome">{layers}</div>:null}
+  {!mobile&&contextVisible&&!expanded&&surface!=='diagnostics'&&surface!=='time'&&(surface!=='layers'||window.innerWidth>=1200)?<aside className="ws-context ws-panel ws-chrome">{context}</aside>:null}
+  {!mobile&&selection?<SelectionDrawer selection={selection} expanded={expanded} onExpand={()=>{setExpanded(x=>!x);setSurface(null)}} {...actions}/>:null}
+  {!mobile&&surface==='navigation'?<div className="ws-layers ws-panel ws-chrome">{navigation}</div>:null}
+  {!mobile&&surface==='time'?<div className="ws-time-editor ws-panel ws-chrome">{timeEditor}</div>:null}
+  {!mobile&&surface==='diagnostics'?<aside className="ws-diagnostics ws-panel ws-chrome">{diagnostics}</aside>:null}
+  {mobile&&!surface?<div className="ws-mobile-launchers ws-chrome">{mode==='earth'&&runtime.client?.capabilities.includes('layers')?<button data-ws-trigger="layers" onClick={()=>open('layers')}><Icon name="layers"/>Layers</button>:<span/>}<button data-ws-trigger="context" onClick={()=>{if(selection)setTab('selection');open('context')}}>{selection?'Selected object':'Tonight'}<Icon name="chevron-up"/></button></div>:null}
+  {mobile&&surface?<BottomSheet title={surface==='context'&&selection?selection.name:undefined} name={surface==='layers'?'Earth layers':surface==='context'?'Workspace context':surface==='time'?'Time details':'Diagnostics'} snap={snap} layers={surface==='layers'} onSnap={setSnap} onClose={close}>{sheet}<button className="ws-link" onClick={()=>open('time')}>Time</button>{mode==='earth'&&surface==='layers'?<button className="ws-link" onClick={()=>void runtime.request('returnToOras',{},12000)}>Return to ORAS</button>:null}</BottomSheet>:null}
+  {(!mobile||!surface)?<TimeSurface mode={mode} time={runtime.time} onOpen={()=>open('time')}/>:null}
+  {runtime.notice?<div className="ws-notice ws-panel" role="status"><span>{runtime.notice}</span><IconButton icon="x" label="Dismiss message" onClick={()=>runtime.setNotice('')}/></div>:null}
+  <div className="ws-selection-announcement ws-sr-only" role="status">{selection?`${selection.name}, ${selection.kind}, selected`:''}</div>
+ </div>
+}

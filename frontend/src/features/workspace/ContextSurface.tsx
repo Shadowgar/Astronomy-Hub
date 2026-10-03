@@ -1,0 +1,4 @@
+import React from 'react'
+import type {ContextTab} from './workspaceUiState'
+import {tabKeys,CloseButton} from './primitives'
+export default function ContextSurface({tab,selection,onTab,onClose,children}:{tab:ContextTab;selection:boolean;onTab:(tab:ContextTab)=>void;onClose:()=>void;children:React.ReactNode}){return <section aria-label="Workspace context"><div className="ws-tabs" role="tablist" aria-label="Context" onKeyDown={tabKeys}>{(['tonight','observe',...(selection?['selection']:[])] as ContextTab[]).map(value=><button key={value} role="tab" aria-selected={tab===value} tabIndex={tab===value?0:-1} onClick={()=>onTab(value)}>{value[0].toUpperCase()+value.slice(1)}</button>)}<CloseButton onClick={onClose}/></div><div role="tabpanel" aria-label={`${tab} context`}>{children}</div></section>}

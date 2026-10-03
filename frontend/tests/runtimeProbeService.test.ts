@@ -9,9 +9,9 @@ function earthResponses(release:unknown=artifact,manifest:unknown=versions){
 afterEach(()=>{vi.unstubAllGlobals();vi.useRealTimers()})
 describe('runtime identity probes',()=>{
  it('accepts reachable Sky with a fresh abortable request',async()=>{
-  const request=vi.fn().mockResolvedValue(new Response('',{status:200}));vi.stubGlobal('fetch',request)
+  const request=vi.fn().mockResolvedValueOnce(Response.json({runtime:'oras-sky-engine',comparison_anchor:'sky-pin',adapter_sha256:'adapter'})).mockResolvedValueOnce(Response.json({sky:{comparison_anchor:'sky-pin',workspace_adapter_sha256:'adapter'}}));vi.stubGlobal('fetch',request)
   await expect(probeRuntime('sky')).resolves.toBeUndefined()
-  expect(request).toHaveBeenCalledWith('/oras-sky-engine/favicon.ico',expect.objectContaining({cache:'no-store',signal:expect.any(AbortSignal)}))
+  expect(request).toHaveBeenCalledWith('/oras-sky-engine/oras-runtime-build.json',expect.objectContaining({cache:'no-store',signal:expect.any(AbortSignal)}))
  })
  it.each(['http','network'])('normalizes unreachable %s failures',async kind=>{
   vi.stubGlobal('fetch',kind==='http'?vi.fn().mockResolvedValue(new Response('',{status:503})):vi.fn().mockRejectedValue(new TypeError('network internals')))

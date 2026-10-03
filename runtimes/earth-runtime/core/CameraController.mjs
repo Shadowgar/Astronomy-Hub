@@ -1,9 +1,16 @@
-import {Cartesian3,Math as CesiumMath} from 'cesium';
+import {Cartesian3,HeadingPitchRange,BoundingSphere,Math as CesiumMath,ScreenSpaceEventType,CameraEventType} from 'cesium';
 export class CameraController {
-  constructor(viewer){this.viewer=viewer;}
-  home(site){this.stopTracking();this.viewer.camera.setView({destination:Cartesian3.fromDegrees(site.lon,site.lat,2_000_000),orientation:{heading:0,pitch:CesiumMath.toRadians(-90),roll:0}});this.viewer.scene.requestRender();}
-  track(entity){this.viewer.trackedEntity=entity;this.viewer.scene.requestRender();}
-  stopTracking(){this.viewer.trackedEntity=undefined;}
-  focus(entity){this.stopTracking();void this.viewer.flyTo(entity,{duration:.5});}
-  destroy(){this.viewer.camera.cancelFlight();this.stopTracking();}
+ constructor(viewer){this.viewer=viewer;this.reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;this.userMoved=false;this.flightGeneration=0;
+ const canvas=viewer.canvas,controller=viewer.scene.screenSpaceCameraController;controller.zoomEventTypes=controller.zoomEventTypes.filter(type=>type!==CameraEventType.WHEEL);
+ this.wheel=event=>{event.preventDefault();this.interrupt();const factor=Math.pow(1.18,Math.max(-1.35,Math.min(1.35,event.deltaY/(event.deltaMode===1?3:100))));const height=viewer.camera.positionCartographic.height;viewer.camera.moveForward(height*(1-factor));viewer.scene.requestRender();};canvas.addEventListener('wheel',this.wheel,{passive:false});
+ this.key=event=>{if(!['+','=','-','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key))return;event.preventDefault();this.interrupt();const camera=viewer.camera;if(['+','=','-'].includes(event.key))camera.moveForward(camera.positionCartographic.height*(event.key==='-'?-.18:.15));else if(event.key==='ArrowLeft')camera.rotateRight(.015);else if(event.key==='ArrowRight')camera.rotateLeft(.015);else if(event.key==='ArrowUp')camera.rotateDown(.015);else camera.rotateUp(.015);viewer.scene.requestRender();};canvas.addEventListener('keydown',this.key);
+ viewer.screenSpaceEventHandler.setInputAction(({position})=>{const hit=viewer.scene.pick(position);if(hit?.id?.orasMetadata){viewer.selectedEntity=hit.id;return;}const point=viewer.camera.pickEllipsoid(position,viewer.scene.globe.ellipsoid);if(!point)return;this.interrupt();viewer.camera.moveForward(Math.min(viewer.camera.positionCartographic.height*.15,viewer.camera.positionCartographic.height-100));viewer.scene.requestRender();},ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+ }
+ home(site){this.stopTracking();this.viewer.camera.setView({destination:Cartesian3.fromDegrees(site.lon,site.lat,(this.viewer.canvas.clientWidth<768?16_000_000:22_000_000)-6378137),orientation:{heading:0,pitch:-Math.PI/2,roll:0}});this.viewer.scene.requestRender();}
+ interrupt(){this.userMoved=true;++this.flightGeneration;this.viewer.camera.cancelFlight();this.stopTracking();}
+ async returnToSite(site,terrain){this.stopTracking();const range=terrain?8000:40000;return this.viewer.camera.flyToBoundingSphere(new BoundingSphere(Cartesian3.fromDegrees(site.lon,site.lat,site.elevationM),100),{duration:this.reduced?0:.9,offset:new HeadingPitchRange(0,CesiumMath.toRadians(terrain?-45:-60),range)});}
+ track(entity){if(!entity||entity.orasMetadata?.layerId!=='satellites')return;this.viewer.trackedEntity=entity;this.viewer.scene.requestRender();}
+ stopTracking(){this.viewer.trackedEntity=undefined;}
+ async focus(entity){this.stopTracking();const kind=entity.orasMetadata?.layerId;const range=kind==='satellites'?750000:kind==='aircraft'?12000:40000;const generation=++this.flightGeneration;const ok=await this.viewer.flyTo(entity,{duration:this.reduced?0:.9,offset:new HeadingPitchRange(0,CesiumMath.toRadians(kind==='satellites'?-30:kind==='aircraft'?-35:-60),range)});return ok&&generation===this.flightGeneration;}
+ destroy(){this.interrupt();this.viewer.canvas.removeEventListener('wheel',this.wheel);this.viewer.canvas.removeEventListener('keydown',this.key);}
 }
