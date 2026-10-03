@@ -3,6 +3,7 @@ import {useLocation,useNavigate} from 'react-router-dom'
 import {connectRuntime,type RuntimeClient} from '../../../../packages/runtime-protocol/client.mjs'
 import type {RuntimeMode} from '../../../../packages/runtime-protocol/index.mjs'
 import {useRuntimeProductState,parseSceneDate} from '../runtime/productState'
+import {workspaceModePath} from '../workspace/workspaceNavigation'
 import {probeRuntime,RuntimeProbeError} from '../runtime/runtimeProbeService'
 export type RuntimeStatus='checking'|'loading'|'ready'|'error'
 let disposal:Promise<void>=Promise.resolve()
@@ -45,5 +46,5 @@ export default function RuntimeHost({mode='sky',onClient,onStatus}:{mode?:Runtim
   }
  },[mode,retry])
  const name=mode==='sky'?'Sky':'Earth'
- return <div className="ws-runtime" data-runtime-mode={mode} data-runtime-status={visibleStatus}><div className="ws-runtime-slot" ref={container}/>{visibleStatus!=='ready'?<section className="ws-runtime-state ws-panel" aria-label={`${name} availability`}><h2>{visibleStatus==='error'?mismatch?'This view needs an update':`${name} is unavailable`:visibleStatus==='checking'?`Checking ${name}`:`Opening ${name}`}</h2><p role="status">{visibleStatus==='error'?mismatch?'Reload to try the latest version.':`We couldn't open this view. Try again, or continue exploring ${mode==='sky'?'Earth':'Sky'}.`:'Preparing your view…'}</p>{visibleStatus==='error'?<div className="ws-actions"><button className="ws-primary" onClick={()=>mismatch?window.location.reload():setRetry(x=>x+1)}>{mismatch?'Reload':`Retry ${name}`}</button><button onClick={()=>navigate(mode==='sky'?'/earth':'/sky-engine')}>Open {mode==='sky'?'Earth':'Sky'}</button></div>:<div className="ws-loading-line"/>}</section>:null}</div>
+ return <div className="ws-runtime" data-runtime-mode={mode} data-runtime-status={visibleStatus}><div className="ws-runtime-slot" ref={container}/>{visibleStatus!=='ready'?<section className="ws-runtime-state ws-panel" aria-label={`${name} availability`}><h2>{visibleStatus==='error'?mismatch?'This view needs an update':`${name} is unavailable`:visibleStatus==='checking'?`Checking ${name}`:`Opening ${name}`}</h2><p role="status">{visibleStatus==='error'?mismatch?'Reload to try the latest version.':`We couldn't open this view. Try again, or continue exploring ${mode==='sky'?'Earth':'Sky'}.`:'Preparing your view…'}</p>{visibleStatus==='error'?<div className="ws-actions"><button className="ws-primary" onClick={()=>mismatch?window.location.reload():setRetry(x=>x+1)}>{mismatch?'Reload':`Retry ${name}`}</button><button onClick={()=>navigate(workspaceModePath(mode==='sky'?'earth':'sky',latest.current.location.search))}>Open {mode==='sky'?'Earth':'Sky'}</button></div>:<div className="ws-loading-line"/>}</section>:null}</div>
 }

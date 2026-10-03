@@ -152,7 +152,7 @@ Logs are `/var/tmp/oras-workspace/`. Screenshots/measurements are
 |---|---|
 | `npm --prefix frontend run test -- --run` | `frontend-release.log`: 22 files, 179/179 pass |
 | `npm --prefix frontend run typecheck` | `typecheck-release.log`: exit 0 |
-| `npm --prefix frontend run build` | `frontend-build-release.log`: exit 0; Hub JS 307.28kB / 93.36kB gzip before review; final Docker build 308.67kB / 94.05kB gzip |
+| `npm --prefix frontend run build` | `frontend-build-release.log`: exit 0; Hub JS 307.28kB / 93.36kB gzip before review; final Docker build 310.19kB / 94.45kB gzip |
 | `node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs` | `runtime-release.log`: 29/29 pass |
 | `python3 scripts/runtime/integrate_sky_bridge.py /var/tmp/oras-workspace/sky-app` | exit 0; applies only owned adapter/overlay |
 | Pinned Node 20 Sky frontend build, below | `sky-build-release.log`: exit 0 |
@@ -203,7 +203,7 @@ npx playwright test tests/e2e/earthBfcache.spec.ts --workers=1 \
 ```
 
 Artifact identity: Earth
-`b8e82a8857ed5c9928150a565f81ebd959d60db9f80154ae58e57585b8526e25`; Sky
+`5c219902efb8c3a42f600726c6a8c2f399ca4ecdcb6019161d8ee424ef6f2fe8`; Sky
 `bbf8e9136fa510e86a64095f5e5ec51846456989b589de21937d2f929450e1a5`.
 Native Sky WASM SHA256 remains
 `54651299e35a47c342ba3364be6b77f1ee8b40926d925e7736d05e566c0dfa09`.
@@ -241,17 +241,14 @@ qualification now pins controls independently of the separately passing auto-hid
 test. Satellite focus/tracking uses explicit test fixtures, not invented production
 objects. Focused corrected runs pass; the accessibility bundle is rerun separately.
 
-Representative local headless Chromium measurements (not guarantees): workspace
-shell interactive 97ms; Sky host ready 1715ms on the qualified Earth/Sky artifacts
-(before the final host-only review repairs). Earth switches
-2289/2093ms, Sky switches 1425/1462ms; Earth Viewer ready 161/140ms and
-first public Blue Marble imagery 6025/5507ms in those final switches. Earlier
-standalone Earth Viewer ready
-182ms desktop / 393ms mobile; first imagery 12,810ms / 8,072ms in the respective
-fixture runs. Measured Earth switches: 3151/3902ms; Sky switches: 3437/2472ms.
-Final public provider outcomes are saved in `performance.json`; both resolved Blue Marble.
+Representative local headless Chromium measurements on the final qualified build
+(not guarantees): workspace shell interactive 89ms; Sky host ready 1722ms. Earth
+switches 2215/1925ms; Sky switches 1473/1413ms. Earth Viewer ready 155/128ms;
+first public Blue Marble imagery 5714/6104ms. Earlier standalone desktop/mobile
+measurements were 182/393ms Viewer and 12,810/8,072ms first imagery.
+Final public outcomes are saved in `performance.json`; both resolved Blue Marble.
 Terrain has no ready measurement because configured terrain is absent (ellipsoid).
-Concurrent browser captures, local caching and external latency affect these numbers.
+Local caching, device/headless differences and external latency affect these values.
 
 ## Review, remaining gaps and stopping boundary
 
@@ -580,11 +577,93 @@ Final branch SHA, current CI results and review-thread resolution belong to the
 PR/Linear handoff. The design is unchanged, `.vscode/settings.json` is unchanged
 and unstaged, and owner approval remains the required next action.
 
+
+## Final recovery, query intent and Earth selection qualification
+
+Repository review-on-push added six Category A findings across `1e48a52a` and
+`fd420398`; no additional explicit review request was sent. Recovery and normal
+mode switching now share validated date/observer routing. Standalone Sky preserves
+canonical scene intent through its qualified native selection link or bounded
+product intent, including large string IDs. Escape from More restores its stable
+trigger on desktop/mobile.
+
+Search-only navigation now reapplies validated observer and changed canonical
+selection/clear commands through the existing qualified adapter without remounting.
+Acknowledged intent signatures prevent replay of already applied internal UI
+commands; successful query selection/clear is tested in the actual native frame.
+Empty Earth clicks preserve the existing selected object; user input still
+interrupts camera tracking as specified, and explicit Deselect/layer clearing still
+clear selection. Custom-observer Earth source timestamps reuse the existing
+validated Observe formatter with UTC; ORAS uses its known New York zone.
+
+`recovery-review-red.log`: four recovery/menu cases fail before repair.
+`recovery-review-green.log`: 14/15 pass; the remaining assertion compared equivalent
+UTC spellings. It now compares instants and numeric observer precision.
+`intent-review-red.log` proves query synchronization and UTC-label failures;
+the empty-click case was blocked by the edge-reveal hit area and is not represented
+as a browser bug reproduction. `selection-policy-red.log` separately executes the
+old committed selection handler and proves implicit deselection; current source
+passes. The empty browser click was moved to unobstructed scene coordinates.
+
+`intent-review-green.log`: 30/31 pass, including the real native standalone tab,
+query synchronization, menu focus, artifact identity, prior time/observer/immersive
+regressions, accessibility and actual bfcache. The one failure was the same blocked
+edge-strip click. `intent-recovery-final.log`: all seven corrected intent/recovery
+cases pass, including preserved Earth selection and deliberate Deselect.
+Total bounded browser qualification is 51 unique cases across the documented runs;
+no full 51-case bundle is claimed. `lifecycle-final.log`: 3/3 fresh cases pass on the
+final artifact: desktop/mobile five-stage serial teardown loops and tablet
+selection/mode/history/reload controls. Removed frames, destroyed Viewer, one active
+iframe and stale-message rejection are asserted. All 23 reported threads are
+addressed; current remote CI/thread state belongs to PR/Linear.
+
+Final full frontend suite: 23 files / 185 tests pass; runtime/Earth 32/32 pass;
+typecheck passes. Earth rebuild/strict record: 512 runtime files, 111 licenses,
+artifact `5c219902efb8c3a42f600726c6a8c2f399ca4ecdcb6019161d8ee424ef6f2fe8`.
+Final Docker production frontend is 310.19kB JS / 94.45kB gzip. Native Sky scientific
+and application bytes remain unchanged by these final repairs. D05/D08/M15 were
+refreshed and visually inspected; no captured page errors or overflow. Fresh
+performance values above were measured after browser regression completion.
+
+Additional paths: `frontend/src/features/workspace/workspaceNavigation.ts`,
+`frontend/tests/workspaceNavigation.test.ts`,
+`frontend/tests/e2e/workspaceRecoveryReview.spec.ts`,
+`frontend/tests/e2e/workspaceIntentReview.spec.ts`, `tests/earth/selection.test.mjs`.
+Exact final commands (supporting unit/type checks are also in the prior bundle):
+
+```sh
+npm --prefix frontend run test -- --run
+node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs
+npm --prefix frontend run typecheck
+ORAS_EARTH_OUT=/var/tmp/oras-workspace/earth-build-final bash scripts/runtime/build_owned_earth.sh
+python3 scripts/runtime/record_runtime_versions.py /var/tmp/oras-workspace/earth-build-final
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-workspace/earth-build-final POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4181 COMPOSE_BAKE=false docker compose -p oras-workspace-qualification -f docker-compose.prod.yml up -d --no-deps --build frontend earth-runtime
+ORAS_SELECTION_SOURCE=/var/tmp/oras-workspace/selection-before-review.mjs node --test tests/earth/selection.test.mjs
+# From frontend:
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceRecoveryReview.spec.ts --workers=1 --output=/var/tmp/oras-workspace/recovery-review-red
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceRecoveryReview.spec.ts tests/e2e/workspaceReview.spec.ts tests/e2e/workspaceSupplementalReview.spec.ts --workers=1 --output=/var/tmp/oras-workspace/recovery-review-green
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceIntentReview.spec.ts --workers=1 --output=/var/tmp/oras-workspace/intent-review-red
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceRecoveryReview.spec.ts tests/e2e/workspaceIntentReview.spec.ts tests/e2e/workspaceReview.spec.ts tests/e2e/workspaceFinalReview.spec.ts tests/e2e/workspaceSupplementalReview.spec.ts tests/e2e/workspaceAccessibility.spec.ts tests/e2e/runtimeProbeHost.spec.ts tests/e2e/earthBfcache.spec.ts --workers=1 --output=/var/tmp/oras-workspace/intent-review-green
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceIntentReview.spec.ts tests/e2e/workspaceRecoveryReview.spec.ts --workers=1 --output=/var/tmp/oras-workspace/intent-recovery-final
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/ownedEarth.spec.ts tests/e2e/unifiedWorkspace.spec.ts --grep 'serial five-switch|serial history tablet' --workers=1 --output=/var/tmp/oras-workspace/lifecycle-final
+# From repository root:
+VISUAL_PASS=pass-2-release VISUAL_IDS=D05,D08,M15 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 node scripts/validation/capture_unified_workspace.cjs
+PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 node scripts/validation/measure_unified_workspace.cjs
+```
+
+Logs: `frontend-final.log`, `runtime-final.log`, `typecheck-final.log`,
+`earth-build-final.log`, `intent-review-docker.log`, `recovery-review-red.log`,
+`recovery-review-green.log`, `intent-review-red.log`, `selection-policy-red.log`,
+`intent-review-green.log`, `intent-recovery-final.log`, `lifecycle-final.log`,
+`intent-review-visual.log`, `performance-final.log`. Screenshots and measurements
+remain local ignored evidence. Owner approval is the next action. No merge, later
+phase, production deployment or Category B expansion occurs.
+
 ## Final exact implementation diff inventory
 
-Relative to the unchanged locked design commit (A added, M modified, D deleted,
-R renamed); excludes the unrelated owner settings. The PR separately includes
-that unchanged design commit relative to main.
+Relative to unchanged locked design `2a4a665b` (A added, M modified, D deleted,
+R renamed); excludes owner settings. The PR separately includes the unchanged
+design commit relative to main.
 
 ```text
 M	docs/context/CONTEXT_MANIFEST.yaml
@@ -624,6 +703,7 @@ A	frontend/src/features/workspace/fonts.css
 A	frontend/src/features/workspace/icons.json
 A	frontend/src/features/workspace/primitives.tsx
 A	frontend/src/features/workspace/workspace.css
+A	frontend/src/features/workspace/workspaceNavigation.ts
 A	frontend/src/features/workspace/workspaceRuntimeAdapter.ts
 A	frontend/src/features/workspace/workspaceUiState.ts
 M	frontend/src/routes/AppRouter.tsx
@@ -633,12 +713,15 @@ M	frontend/tests/e2e/runtimeProbeHost.spec.ts
 A	frontend/tests/e2e/unifiedWorkspace.spec.ts
 A	frontend/tests/e2e/workspaceAccessibility.spec.ts
 A	frontend/tests/e2e/workspaceFinalReview.spec.ts
+A	frontend/tests/e2e/workspaceIntentReview.spec.ts
+A	frontend/tests/e2e/workspaceRecoveryReview.spec.ts
 A	frontend/tests/e2e/workspaceReview.spec.ts
 A	frontend/tests/e2e/workspaceSupplementalReview.spec.ts
 M	frontend/tests/publicShell.test.tsx
 M	frontend/tests/runtimeProbeService.test.ts
 M	frontend/tests/runtimeProductState.test.ts
 A	frontend/tests/workspace.test.tsx
+A	frontend/tests/workspaceNavigation.test.ts
 A	frontend/tests/workspaceUiState.test.ts
 M	frontend/vite.config.mjs
 M	integrations/renderers.lock.json
@@ -674,6 +757,7 @@ A	scripts/validation/capture_unified_workspace.cjs
 A	scripts/validation/measure_unified_workspace.cjs
 A	tests/earth/display-config.test.mjs
 M	tests/earth/page-lifecycle.test.mjs
+A	tests/earth/selection.test.mjs
 M	tests/runtime/channel.test.mjs
 A	tests/runtime/sky-artifact.test.mjs
 A	tests/runtime/workspace-protocol.test.mjs
