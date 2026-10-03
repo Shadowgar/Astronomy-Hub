@@ -234,8 +234,11 @@ WordPress page or shortcode
 -> opens /oras-sky-engine/ centered on that object
 ```
 
-The public Hub homepage was implemented in merged PR #52. WordPress integration
-and further homepage/workspace implementation still require bounded approval.
+The public homepage from merged PR #52 has been superseded at `/` by the
+owner-authorized ORA-7 unified Sky workspace. `/sky-engine` and `/earth` are modes;
+Tonight/Observe are contextual tools with focused routes preserved. The locked
+workspace design is implemented and awaits owner review under its bounded PR.
+WordPress integration and subsequent phases still require explicit approval.
 
 ## High-Definition Data and Imagery Lane
 
@@ -266,7 +269,7 @@ Astronomy Hub owns the Cesium Earth runtime. God's Eye supplies selectively
 adapted public modules from an immutable external pin; its complete application
 and Viewer startup are prohibited. Useful capabilities remain in the parity ledger.
 Future astronomy additions are external additive extensions. Body-aware Cesium is the planned planetary
-surface direction. The solar-system-scale renderer remains open. Earth foundation implementation is active; planetary integration has not started.
+surface direction. The solar-system-scale renderer remains open. Earth foundation and unified workspace are implemented; planetary integration has not started.
 
 SWE and God's Eye must remain pinned, qualified, upgradeable, and low-divergence.
 Upstream source is immutable by default; unavoidable changes require explicit

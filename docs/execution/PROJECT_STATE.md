@@ -24,30 +24,32 @@ Proven runtime conflicts must be reported, not silently overwritten.
 
 ## CURRENT MODE
 
-Phase C Hub-owned Cesium Earth foundation. SINGLE AGENT ONLY.
+ORA-7 locked unified workspace implementation and qualification. SINGLE AGENT ONLY.
+No runtime override mode is active.
 
 ## CURRENT OBJECTIVE / ACTIVE TASK
 
-Branch `phase-c-cesium-earth-runtime-1`, verified merged Phase B baseline
-`51a66347dd5997673a6b7c523d66e980f3a8701d`. Preserve C0 Sky provenance/native
-science and integrate an independently built ORAS-owned Earth Viewer, three lazy
-God's Eye feature-library adapters, bridge and serial frame lifecycle.
-The complete God’s Eye application direction is explicitly superseded.
+Branch `phase-c7-unified-workspace-implementation-1` contains unchanged locked
+owner-approved design commit `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`, based on
+merged PR #55 at `b2f9dce9bb559a1d23dc806a1b8d1927c502f084`.
+Root Sky workspace, Sky/Earth modes, reusable Tonight/Observe context, bounded
+selection/time surfaces, responsive mobile sheets and immersive UI are implemented.
+The Earth visual foundation uses NASA GIBS static imagery with local Natural Earth
+fallback; configured terrain/3D requires separately qualified deployment assets.
 
-Original experiment is local-only reference branch
-`phase-c-full-gods-eye-experiment-backup` at `dd15ae1b`; never push it.
-No clean whole old commit was cherry-picked: C0 was salvaged without Earth
-metadata, generic bridge/host/Sky integration were salvaged by path, full-app
-wrapper/provider service/aliases were left on backup. No old work was deleted.
+The Hub owns the independent Earth Viewer. SWE remains contained; immutable God's
+Eye supplies selective feature modules. Native Sky science/vendor bytes and the
+serial authenticated renderer lifecycle remain protected. The full-app experiment
+on `phase-c-full-gods-eye-experiment-backup` at `dd15ae1b` remains local-only.
 
 ## CURRENT PRIORITY
 
-Local owned Earth/Sky Docker desktop/mobile acceptance passed; live providers
-remain separately qualified (aircraft unavailable). See the
-[qualification evidence](../validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md). Open the new PR,
-inspect one normal review cycle, repair Category A and focused retest, then stop.
-No merge, ISS handoff, satellite authority reconciliation, Mars, measured horizon
-or astronomy-extension phase. Preserve unrelated editor settings.
+Complete fresh Docker/browser/visual qualification and one normal PR review cycle;
+repair Category A with focused retests, push the bounded branch and leave ORA-7
+In Review for owner approval. See
+[workspace implementation evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
+No merge or next phase. No ISS handoff, Mars/Moon surfaces, measured horizon or
+broad feature parity. Preserve unrelated editor settings unchanged and unstaged.
 
 ## KNOWN ISSUES
 
