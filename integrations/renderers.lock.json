@@ -527,7 +527,7 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_current_sky.sh",
-    "artifact_sha256": "f0d141bb573c1a7bdc73d4ae88921728ad7559ceab4145bfd7e53acb4bb329e7",
+    "artifact_sha256": "bbf8e9136fa510e86a64095f5e5ec51846456989b589de21937d2f929450e1a5",
     "artifact_files": [
       {
         "path": "css/app.9cd008e2.css",
@@ -1006,12 +1006,13 @@
       },
       {
         "path": "oras-runtime-build.json",
-        "bytes": 420,
-        "sha256": "3f0dbb057692b663f5c2fdd2e54ab6d5e885c7a4dc70ee5ae6c8a189442ac426"
+        "bytes": 509,
+        "sha256": "1a297bd32c3297a804926a6ce91ca912a660d83a72507d716994264b5b9c1526"
       }
     ],
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "334eeba9fd393eb27fca8c5aaa31504af79cec94dbc2b0da134a8ae99232c752"
+    "workspace_adapter_sha256": "334eeba9fd393eb27fca8c5aaa31504af79cec94dbc2b0da134a8ae99232c752",
+    "artifact_hash_scope": "Application files excluding identity marker"
   },
   "earth": {
     "upstream": "https://github.com/bilawalsidhu/gods-eye-view",

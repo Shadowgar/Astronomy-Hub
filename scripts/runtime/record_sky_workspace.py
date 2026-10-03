@@ -19,12 +19,16 @@ for row in lock['sky']['artifact_files']:
  if p.is_file():p.unlink()
 for relative,p in files:
  dest=target/relative;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(p,dest)
+# Hash the complete application payload, excluding its self-identifying marker.
+payload_rows=[{'path':relative.as_posix(),'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for relative,p in files]
+marker['artifact_sha256']=hashlib.sha256(json.dumps(payload_rows,separators=(',',':')).encode()).hexdigest()
 (target/'oras-runtime-build.json').write_text(json.dumps(marker,indent=2)+'\n')
 paths=[target/relative for relative,_ in files]+[target/'oras-runtime-build.json']
 rows=[{'path':p.relative_to(target).as_posix(),'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(paths)]
 lock['sky']['workspace_adapter_sha256']=marker['adapter_sha256']
 lock['sky']['artifact_files']=rows
-lock['sky']['artifact_sha256']=hashlib.sha256(json.dumps(rows,separators=(',',':')).encode()).hexdigest()
+lock['sky']['artifact_sha256']=marker['artifact_sha256']
+lock['sky']['artifact_hash_scope']='Application files excluding identity marker'
 lock['sky']['overlay']['apps/web-frontend/src/components/gui.vue']=hashlib.sha256((repo/'integrations/sky-overlay/apps/web-frontend/src/components/gui.vue').read_bytes()).hexdigest()
 lock['sky']['reconstruction']['bridge_overlay']='workspace.1'
 lock['sky']['overlay_version']='oras-sky-workspace.1';lock['bridge']={'major':1,'minor':1}

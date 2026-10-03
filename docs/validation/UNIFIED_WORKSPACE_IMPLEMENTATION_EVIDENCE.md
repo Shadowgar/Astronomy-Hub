@@ -93,7 +93,10 @@ compression with `Content-Encoding: gzip`; production Nginx did not. A bounded
 exact-path Nginx header repair restores the qualified decoder path without changing
 catalog bytes. Sky marker probing replaces favicon fetches, which Chromium fails
 under Playwright request routing even when JSON requests work. Marker admission
-checks the locked runtime comparison anchor and adapter digest; Earth checksum
+checks the qualified application payload digest, runtime comparison anchor and
+adapter digest. The payload digest excludes its self-identifying marker; the
+lock additionally records that marker hash. A file-integrity regression binds all
+96 files, marker and public manifest. Earth checksum
 admission remains unchanged. Neither fix relaxes runtime identity admission.
 
 ## Earth visual foundation and providers
@@ -149,7 +152,7 @@ Logs are `/var/tmp/oras-workspace/`. Screenshots/measurements are
 |---|---|
 | `npm --prefix frontend run test -- --run` | `frontend-release.log`: 22 files, 179/179 pass |
 | `npm --prefix frontend run typecheck` | `typecheck-release.log`: exit 0 |
-| `npm --prefix frontend run build` | `frontend-build-release.log`: exit 0; Hub JS 307.28kB / 93.36kB gzip |
+| `npm --prefix frontend run build` | `frontend-build-release.log`: exit 0; Hub JS 307.28kB / 93.36kB gzip before review; final Docker build 307.53kB / 93.74kB gzip |
 | `node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs` | `runtime-release.log`: 29/29 pass |
 | `python3 scripts/runtime/integrate_sky_bridge.py /var/tmp/oras-workspace/sky-app` | exit 0; applies only owned adapter/overlay |
 | Pinned Node 20 Sky frontend build, below | `sky-build-release.log`: exit 0 |
@@ -201,7 +204,7 @@ npx playwright test tests/e2e/earthBfcache.spec.ts --workers=1 \
 
 Artifact identity: Earth
 `cf42ef074f6e25579e6664291d90884b812f8454a2399a777b730ea18a74274a`; Sky
-`f0d141bb573c1a7bdc73d4ae88921728ad7559ceab4145bfd7e53acb4bb329e7`.
+`bbf8e9136fa510e86a64095f5e5ec51846456989b589de21937d2f929450e1a5`.
 Native Sky WASM SHA256 remains
 `54651299e35a47c342ba3364be6b77f1ee8b40926d925e7736d05e566c0dfa09`.
 Application/artifact files exclude bulk skydata. Baseline external data remains mounted.
@@ -353,3 +356,54 @@ docs/execution/MASTER_PLAN.md
 docs/execution/PROJECT_STATE.md
 docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md
 ```
+
+## One normal review cycle and Category A repairs
+
+PR #58: https://github.com/Shadowgar/Astronomy-Hub/pull/58. Normal Codex review was
+requested once and completed on `e58163645ef014824d5778d3c7b3b47da276d417`.
+Initial test/CodeQL/GitGuardian checks passed. Five findings were classified
+Category A against task correctness/accessibility requirements (including two P2s):
+
+1. Tonight peak Focus rebuilt its final URL from stale pre-navigation search.
+   Final canonical identity and acknowledged peak UTC now share one navigation.
+   API microsecond UTC is normalized to bridge millisecond precision; the
+   adapter reads fresh Zustand intent after search ingestion rather than its stale
+   previous snapshot. Native-engine UTC assertions also cover ±1h. Source
+   timestamps are not invented. Both initial Live and fixed-time cases are tested.
+2. The focused Observe link lost custom observer coordinates/elevation.
+   Reuse the existing Observe path helper with complete observer/time context.
+3. Sky marker admission did not compare qualified application artifact digest.
+   Marker/public metadata now share the complete payload digest; mismatches fail
+   before iframe creation. File-integrity checks prove all locked application bytes.
+4. Custom-observer timestamps asserted ORAS EDT/EST. Reuse the existing validated
+   Observe formatter: ORAS local time, otherwise explicitly UTC.
+5. Diagnostics launched from a disappearing menu button lost close focus.
+   Preserve the stable Workspace menu trigger; desktop/mobile closure is tested.
+
+Focused evidence: `review-probe-red.log` proves two mismatched/missing digest
+failures before repair; `review-probe-green.log` passes 18/18. Custom-observer
+browser red proof is `review-browser-red.log`. The first focused browser pass
+proved observer/timezone/menu-focus/digest repairs (6/8), and exposed the API
+microsecond admission issue. Final nine-case review/accessibility acceptance is
+`review-browser-final.log`: 9/9 pass. Combined with the earlier bounded
+acceptance, 32 unique Docker browser cases are qualified. `review-focused-units.log`: 40/40; artifact integrity
+`review-artifact-green.log`: 1/1. Typecheck and Docker production frontend rebuild
+pass after repair. The Earth artifact, SWE app/native bytes and visual geometry
+remain unchanged by review repair; the identity marker/metadata are refreshed.
+No second normal review request or recursive Category B review is initiated.
+
+Additional changed files: `frontend/tests/e2e/workspaceReview.spec.ts` and
+`tests/runtime/sky-artifact.test.mjs`. Exact focused commands:
+
+```sh
+npm --prefix frontend run test -- --run tests/runtimeProbeService.test.ts
+npm --prefix frontend run test -- --run tests/workspace.test.tsx tests/workspaceUiState.test.ts tests/runtimeProbeService.test.ts tests/observeView.test.tsx tests/observeModel.test.ts
+node --test tests/runtime/sky-artifact.test.mjs
+npm --prefix frontend run typecheck
+# From frontend, against the same authoritative Docker port:
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceReview.spec.ts tests/e2e/workspaceAccessibility.spec.ts --workers=1 --output=/var/tmp/oras-workspace/review-browser-final
+```
+
+Fresh CI/current head and thread resolution are recorded in the final PR/Linear
+handoff. The unchanged locked design remains an ancestor. Owner review remains
+required; ORA-7 remains In Review and this PR must not be merged by this task.

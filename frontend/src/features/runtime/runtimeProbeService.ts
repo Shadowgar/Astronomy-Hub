@@ -32,7 +32,7 @@ export async function probeRuntime(mode:RuntimeMode,{signal}:{signal?:AbortSigna
    const manifest=await fetch('/runtime-versions.json',{signal:requestSignal,cache:'no-store'});
    if(!manifest.ok)throw new RuntimeProbeError('unreachable','The runtime could not be reached.');
    const expected=record(record(await manifest.json()).sky);
-   if(artifact.runtime!=='oras-sky-engine'||!nonempty(expected.comparison_anchor)||!nonempty(expected.workspace_adapter_sha256)||artifact.comparison_anchor!==expected.comparison_anchor||artifact.adapter_sha256!==expected.workspace_adapter_sha256)throw new RuntimeProbeError('artifact-mismatch','Sky artifact does not match the qualified runtime.');
+   if(artifact.runtime!=='oras-sky-engine'||!nonempty(expected.artifact_sha256)||artifact.artifact_sha256!==expected.artifact_sha256||!nonempty(expected.comparison_anchor)||!nonempty(expected.workspace_adapter_sha256)||artifact.comparison_anchor!==expected.comparison_anchor||artifact.adapter_sha256!==expected.workspace_adapter_sha256)throw new RuntimeProbeError('artifact-mismatch','Sky artifact does not match the qualified runtime.');
   }
   requestSignal.throwIfAborted()
  }catch(cause){
