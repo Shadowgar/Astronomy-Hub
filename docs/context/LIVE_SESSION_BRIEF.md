@@ -1,40 +1,39 @@
 # LIVE SESSION BRIEF
 
-ORA-7 implements the owner-approved locked unified workspace on branch
-`phase-c7-unified-workspace-implementation-1`, SINGLE AGENT ONLY. Its unchanged
-locked design ancestor is `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`; the merged
-PR #55 main baseline is `b2f9dce9bb559a1d23dc806a1b8d1927c502f084`.
-No runtime override mode is active. Load the `frontend_change` context pack.
-The explicit owner implementation request supersedes the previous ORA-6 brief's
-wait-for-approval restriction. Repository design documents remain authoritative;
-the secondary Figma file remains partial under the existing owner waiver.
+ORA-8 / Phase C5 Earth live-layer expansion is the only active implementation slice,
+on `phase-c5-earth-live-layers-1`, SINGLE AGENT ONLY. No runtime override is active.
+Load the existing frontend_change and backend_change packs. The explicit owner
+request authorizes this bounded phase after merged ORA-7 / PR #58, whose main
+baseline is `f55b9b2721cb692b4cda106e415c8fef59454c80` and final head was
+`a45fa637dce0b420f63d49abe30f4d76633bd410`.
 
-Implemented behavior: `/` and `/sky-engine` open Sky in one continuous workspace;
-`/earth` opens Earth in the same shell. Sky/Earth are modes, Tonight/Observe are
-reusable contextual tools. Focused `/observe`, `/tonight` and standalone
-`/oras-sky-engine/`, `/earth-runtime/` remain. Floating surfaces, mobile sheets,
-selection/time controls, session pin and immersive behavior follow the locked
-[design contract](../design/UNIFIED_WORKSPACE_DESIGN_SPEC.md).
+The unified workspace is merged: `/` opens Sky, `/sky-engine` and `/earth` are
+modes; Tonight/Observe are contextual surfaces with focused routes retained.
+The locked design and merged lifecycle/ownership architecture are preserved.
+Hub owns the independent Cesium Earth Viewer, camera, layers, selection, product
+UI, attribution and lifecycle. SWE owns its contained Sky rendering/science.
+God's Eye remains an immutable external feature dependency at
+`e7707d9a0f34d9fbffc300023c319f95caa5be30`; no complete application or upstream
+Viewer is admitted. Only one heavy renderer lives at a time through the existing
+authenticated/versioned bridge. Native Sky source/data science is unchanged.
 
-Astronomy Hub owns the independent Cesium Earth Viewer/camera/lifecycle/layers,
-selection, attribution, product UI and scene-time intent. God's Eye remains an
-immutable external feature dependency at
-`e7707d9a0f34d9fbffc300023c319f95caa5be30`; its complete application and Viewer are
-absent. SWE retains its own rendering, selection/camera and scientific math.
-The authenticated versioned bridge and serial one-heavy-renderer lifetime remain.
-Native Sky WASM/vendor chunks are unchanged; embedded duplicate chrome is hidden
-through an owned generic overlay, with native view settings and standalone UI retained.
+C5 qualifies USGS earthquakes, NIFC/WFIGS fire perimeters and NOAA/NWS nowCOAST
+CONUS radar. Launch Library production access returned HTTP 403 and is blocked
+in this environment; no launch data or trajectory is fabricated. FastAPI owns
+bounded acquisition, normalization and independent provider caches. The owned
+Earth runtime renders strict DTOs; provider source time is distinct from scene
+time. Fire boundaries are a generalized, incomplete recent subset. Radar is
+CONUS reflectivity, not a global surface or rainfall forecast.
 
-Earth uses qualified NASA GIBS Blue Marble static imagery over local Natural Earth
-fallback, with ellipsoid terrain. Configured terrain/3D admission exists, but no
-account provider or photorealistic/terrain result is claimed without credentials
-and separate qualification. Live aircraft/satellite/weather clocks remain distinct
-from requested astronomy scene time; no historical provider simulation is claimed.
-
-Current qualification and limitations are recorded in
-[workspace implementation evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
-Historical Phase B/C evidence is preserved. Deliver the PR and one normal review
-cycle, repair Category A with focused retests, set ORA-7 **In Review**, then stop.
-Owner approval closes ORA-7. Do not merge or start another phase. Preserve unrelated
-`.vscode/settings.json` unchanged and unstaged. No ISS handoff, Mars/Moon surfaces,
-measured horizon or broad God's Eye feature-parity expansion is authorized.
+Qualification and final handoff are recorded in
+[Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
+Implementation and local qualification pass: 54 runtime/protocol, 42 frontend,
+35 Docker backend tests; five fixture and one live Docker browser checks. The
+three layers are ADAPTED NOW; launches are LICENSE/DATA BLOCKED by access 403.
+PR [#59](https://github.com/Shadowgar/Astronomy-Hub/pull/59) is open on this branch.
+The handoff status is **In Review**, not Done. The one requested normal review
+is complete; both unique Category A findings were repaired with focused
+regressions, two desktop/mobile polygon-pick retests and artifact rebuild. Owner
+approval closes it. Do not merge or start Phase D. No ISS, Mars/Moon, measured
+horizon or other excluded layers. Preserve `.vscode/settings.json` unchanged and
+unstaged. Historical Phase B/C and workspace evidence are preserved.
