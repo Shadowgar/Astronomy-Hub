@@ -203,7 +203,7 @@ npx playwright test tests/e2e/earthBfcache.spec.ts --workers=1 \
 ```
 
 Artifact identity: Earth
-`cf42ef074f6e25579e6664291d90884b812f8454a2399a777b730ea18a74274a`; Sky
+`b8e82a8857ed5c9928150a565f81ebd959d60db9f80154ae58e57585b8526e25`; Sky
 `bbf8e9136fa510e86a64095f5e5ec51846456989b589de21937d2f929450e1a5`.
 Native Sky WASM SHA256 remains
 `54651299e35a47c342ba3364be6b77f1ee8b40926d925e7736d05e566c0dfa09`.
@@ -242,10 +242,13 @@ test. Satellite focus/tracking uses explicit test fixtures, not invented product
 objects. Focused corrected runs pass; the accessibility bundle is rerun separately.
 
 Representative local headless Chromium measurements (not guarantees): workspace
-shell interactive 132ms; Sky host ready 2736ms. Standalone Earth Viewer ready
+shell interactive 97ms; Sky host ready 1715ms on the final artifacts. Earth switches
+2289/2093ms, Sky switches 1425/1462ms; Earth Viewer ready 161/140ms and
+first public Blue Marble imagery 6025/5507ms in those final switches. Earlier
+standalone Earth Viewer ready
 182ms desktop / 393ms mobile; first imagery 12,810ms / 8,072ms in the respective
 fixture runs. Measured Earth switches: 3151/3902ms; Sky switches: 3437/2472ms.
-Public provider outcomes are saved in `performance.json`; one public fetch degraded while another resolved Blue Marble.
+Final public provider outcomes are saved in `performance.json`; both resolved Blue Marble.
 Terrain has no ready measurement because configured terrain is absent (ellipsoid).
 Concurrent browser captures, local caching and external latency affect these numbers.
 
@@ -407,3 +410,69 @@ PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwr
 Fresh CI/current head and thread resolution are recorded in the final PR/Linear
 handoff. The unchanged locked design remains an ancestor. Owner review remains
 required; ORA-7 remains In Review and this PR must not be merged by this task.
+
+
+## Supplemental findings within the same review cycle
+
+The automatic Copilot review of the same original head contributed seven threads;
+it did not initiate a second normal review cycle. Two duplicate the repaired
+custom-observer and stale-time-intent findings above. Five additional Category A
+issues are repaired with focused qualification:
+
+1. Disabled display configuration now admits only `schema` and `qualified`;
+   build output serializes the validated JSON object instead of copying unvalidated
+   text. Unknown fields and hidden duplicate-key credential text cannot be published.
+2. The date input synchronizes with acknowledged ±1h/Now changes, preventing Apply
+   from reverting the newly applied time.
+3. Tonight uses the existing observing-night conversion for acknowledged controlled
+   scene UTC; its focused link retains that night. Live mode keeps the provider's
+   current-night contract. No new astronomy calculation is introduced.
+4. Explicit Immersive suppresses normal close-focus restoration and releases active
+   chrome focus. Desktop/mobile More-menu entry now stays hidden; ordinary dismissal
+   still restores focus.
+5. Custom wheel, keyboard and double-click zoom share cartographic limits, preserving
+   orientation and enforcing the terrain-aware minimum and 30Mm maximum. A scalar
+   camera-height diagnostic supports qualification without exporting renderer objects.
+
+`frontend/tests/e2e/workspaceSupplementalReview.spec.ts` adds five real Docker
+browser regressions. `supplemental-browser.log`: 12/13 passed, including all five
+new regressions, artifact admission and four earlier review regressions. The one
+failure was an obsolete test response predicate: it consumed the initial live-night
+API response before the selected-night response arrived. The predicate now binds to
+the existing observing-night contract. `selected-night-peak-final.log`: both Live
+and fixed-time native UTC/identity assertions pass (2/2). Together with earlier
+bounded runs, 37 unique Docker browser cases are qualified. This is not a claim
+that a new full 37-case bundle ran. Supplemental unit checks pass 40/40, configuration
+plus full Sky file integrity pass 3/3, and typecheck passes. All 12 threads in the
+single review cycle are addressed; final resolution/check state is in PR/Linear.
+
+Final Earth was rebuilt and strict identity recorded from
+`/var/tmp/oras-workspace/earth-build-supplemental`: 512 runtime files and 111 license
+declarations. The artifact hash above is current. Docker rebuilt frontend/Earth
+and health passed. Final visual refresh of D01/D02/D05/D09/D10 preserves the full
+21-state pass-2 evidence and contact sheet; refreshed captures have no page errors
+or overflow. SWE application/native bytes and locked design remain unchanged by
+these supplemental fixes. Exact supplemental commands:
+
+```sh
+npm --prefix frontend run test -- --run tests/workspace.test.tsx tests/workspaceUiState.test.ts tests/runtimeProbeService.test.ts tests/observeView.test.tsx tests/observeModel.test.ts
+node --test tests/earth/display-config.test.mjs tests/runtime/sky-artifact.test.mjs
+npm --prefix frontend run typecheck
+ORAS_EARTH_OUT=/var/tmp/oras-workspace/earth-build-supplemental bash scripts/runtime/build_owned_earth.sh
+python3 scripts/runtime/record_runtime_versions.py /var/tmp/oras-workspace/earth-build-supplemental
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-workspace/earth-build-supplemental POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4181 COMPOSE_BAKE=false docker compose -p oras-workspace-qualification -f docker-compose.prod.yml up -d --no-deps --build frontend earth-runtime
+# From frontend:
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceSupplementalReview.spec.ts tests/e2e/workspaceReview.spec.ts tests/e2e/runtimeProbeHost.spec.ts --workers=1 --output=/var/tmp/oras-workspace/supplemental-browser
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceReview.spec.ts --grep 'Tonight peak' --workers=1 --output=/var/tmp/oras-workspace/selected-night-peak-final
+# From repository root:
+VISUAL_PASS=pass-2-release VISUAL_IDS=D01,D02,D05,D09,D10 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 node scripts/validation/capture_unified_workspace.cjs
+PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 node scripts/validation/measure_unified_workspace.cjs
+```
+
+Logs: `supplemental-units.log`, `supplemental-artifact.log`,
+`supplemental-typecheck.log`, `earth-build-supplemental.log`,
+`supplemental-docker.log`, `supplemental-browser.log`,
+`selected-night-peak-final.log`, `supplemental-visual.log`, `performance-final.log`.
+No additional normal review was requested. No known Category A blocker remains;
+provider credentials/live availability, inherited star tile noise, physical AT and
+Figma remain explicitly bounded gaps. Owner approval is the next task.

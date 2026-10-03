@@ -6,3 +6,8 @@ export function admitDisplayConfig(value){
  for(const key of ['imageryAsset','terrainAsset','buildingsAsset','photorealisticAsset'])if(value[key]!==undefined&&(!Number.isSafeInteger(value[key])||value[key]<=0))return null;
  return value;
 }
+
+export function isPublicDisplayConfig(value){
+ if(value?.schema===1&&value.qualified===false)return Object.keys(value).every(key=>['schema','qualified'].includes(key));
+ return admitDisplayConfig(value)!==null;
+}
