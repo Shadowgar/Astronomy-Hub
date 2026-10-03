@@ -152,7 +152,7 @@ Logs are `/var/tmp/oras-workspace/`. Screenshots/measurements are
 |---|---|
 | `npm --prefix frontend run test -- --run` | `frontend-release.log`: 22 files, 179/179 pass |
 | `npm --prefix frontend run typecheck` | `typecheck-release.log`: exit 0 |
-| `npm --prefix frontend run build` | `frontend-build-release.log`: exit 0; Hub JS 307.28kB / 93.36kB gzip before review; final Docker build 308.43kB / 93.95kB gzip |
+| `npm --prefix frontend run build` | `frontend-build-release.log`: exit 0; Hub JS 307.28kB / 93.36kB gzip before review; final Docker build 308.67kB / 94.05kB gzip |
 | `node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs` | `runtime-release.log`: 29/29 pass |
 | `python3 scripts/runtime/integrate_sky_bridge.py /var/tmp/oras-workspace/sky-app` | exit 0; applies only owned adapter/overlay |
 | Pinned Node 20 Sky frontend build, below | `sky-build-release.log`: exit 0 |
@@ -242,7 +242,8 @@ test. Satellite focus/tracking uses explicit test fixtures, not invented product
 objects. Focused corrected runs pass; the accessibility bundle is rerun separately.
 
 Representative local headless Chromium measurements (not guarantees): workspace
-shell interactive 97ms; Sky host ready 1715ms on the final artifacts. Earth switches
+shell interactive 97ms; Sky host ready 1715ms on the qualified Earth/Sky artifacts
+(before the final host-only review repairs). Earth switches
 2289/2093ms, Sky switches 1425/1462ms; Earth Viewer ready 161/140ms and
 first public Blue Marble imagery 6025/5507ms in those final switches. Earlier
 standalone Earth Viewer ready
@@ -529,3 +530,151 @@ Logs: `final-review-red.log`, `final-review-green.log`, `final-review-units.log`
 `final-review-typecheck.log`, `final-review-docker.log`, `final-review-visual.log`.
 The owner settings remain unchanged/unstaged. The PR remains open and unmerged;
 ORA-7 remains In Review, NOT Done. Owner approval is required.
+
+
+## Final observer/context repairs and verification bundle
+
+Automatic review-on-push on `c9c1eac6` reported two additional Category A issues.
+Coordinate-only supported Sky links now preserve explicit latitude/longitude and
+normalize omitted/empty elevation to SWE's documented source default of zero,
+matching upstream `App.vue:300`. This is the existing URL contract, not a fabricated
+altitude measurement. Invalid coordinates/elevation remain rejected.
+
+Auxiliary closure preserves desktop context and returns a mobile auxiliary sheet
+to its prior context, restoring the stable Time trigger. Explicit context dismissal
+and Escape still close the selected context. `observer-context-red.log`: 3/3 new
+cases fail before repair. `observer-context-green.log`: 17/17 combined review
+regressions pass. A focused Escape edge regression initially fails and then passes
+in `context-final-green.log`: 10/10 final browser/accessibility cases. Overall
+bounded Docker qualification now covers 44 unique cases across the recorded runs;
+no new 44-case full bundle is claimed. All 17 reported threads are addressed; one
+explicit normal review request only, with repository auto-review on pushes disclosed.
+
+The final full verification bundle passes: frontend 22 files / 183 tests; runtime
+and Earth 31/31; typecheck; final production Docker frontend build (308.67kB JS,
+94.05kB gzip). A broad runtime rerun first passed 28/31: three lifecycle fixture
+cases lacked the camera property now read by the scalar diagnostic. The fake Viewer
+contract was updated; the complete rerun is 31/31. No Earth/SWE source/artifact or
+scientific byte change was needed for that fixture correction. Additional changed
+path: `tests/earth/page-lifecycle.test.mjs`.
+
+Exact final commands:
+
+```sh
+npm --prefix frontend run test -- --run
+node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs
+npm --prefix frontend run typecheck
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-workspace/earth-build-supplemental POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4181 COMPOSE_BAKE=false docker compose -p oras-workspace-qualification -f docker-compose.prod.yml up -d --no-deps --build frontend
+# From frontend:
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceFinalReview.spec.ts --grep 'without elevation|auxiliary' --workers=1 --output=/var/tmp/oras-workspace/observer-context-red
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceFinalReview.spec.ts tests/e2e/workspaceReview.spec.ts tests/e2e/workspaceSupplementalReview.spec.ts --workers=1 --output=/var/tmp/oras-workspace/observer-context-green
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceFinalReview.spec.ts --grep 'Escape still' --workers=1 --output=/var/tmp/oras-workspace/context-escape-red
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceFinalReview.spec.ts tests/e2e/workspaceAccessibility.spec.ts --workers=1 --output=/var/tmp/oras-workspace/context-final-green
+```
+
+Logs: `frontend-final.log`, `runtime-final.log`, `typecheck-final.log`,
+`observer-context-units.log` (31/31 focused), `observer-context-typecheck.log`,
+`observer-context-docker.log`, `observer-context-red.log`,
+`observer-context-green.log`, `context-escape-red.log`, `context-final-green.log`.
+Final branch SHA, current CI results and review-thread resolution belong to the
+PR/Linear handoff. The design is unchanged, `.vscode/settings.json` is unchanged
+and unstaged, and owner approval remains the required next action.
+
+## Final exact implementation diff inventory
+
+Relative to the unchanged locked design commit (A added, M modified, D deleted,
+R renamed); excludes the unrelated owner settings. The PR separately includes
+that unchanged design commit relative to main.
+
+```text
+M	docs/context/CONTEXT_MANIFEST.yaml
+M	docs/context/CORE_CONTEXT.md
+M	docs/context/LIVE_SESSION_BRIEF.md
+M	docs/execution/MASTER_PLAN.md
+M	docs/execution/PROJECT_STATE.md
+A	docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md
+M	frontend/nginx.conf
+M	frontend/public/oras-sky-engine/index.html
+D	frontend/public/oras-sky-engine/js/app.4523120d.js
+R086	frontend/public/oras-sky-engine/js/app.661f6dd4.js	frontend/public/oras-sky-engine/js/app.5253a4df.js
+M	frontend/public/oras-sky-engine/oras-runtime-build.json
+M	frontend/public/runtime-versions.json
+M	frontend/src/components/shell/OrasAppShell.tsx
+M	frontend/src/features/runtime/productState.ts
+M	frontend/src/features/runtime/runtimeProbeService.ts
+M	frontend/src/features/sky-engine/RuntimeHost.tsx
+A	frontend/src/features/workspace/BottomSheet.tsx
+A	frontend/src/features/workspace/ContextSurface.tsx
+A	frontend/src/features/workspace/DiagnosticsSurface.tsx
+A	frontend/src/features/workspace/ImmersiveController.ts
+A	frontend/src/features/workspace/LayerPanel.tsx
+A	frontend/src/features/workspace/ModeSwitcher.tsx
+A	frontend/src/features/workspace/ObserveSurface.tsx
+A	frontend/src/features/workspace/ProductHeader.tsx
+A	frontend/src/features/workspace/SelectionDrawer.tsx
+A	frontend/src/features/workspace/TargetRow.tsx
+A	frontend/src/features/workspace/TimeSurface.tsx
+A	frontend/src/features/workspace/TonightSurface.tsx
+A	frontend/src/features/workspace/WorkspaceShell.tsx
+A	frontend/src/features/workspace/assets/LICENSES.txt
+A	frontend/src/features/workspace/assets/plex-0.ttf
+A	frontend/src/features/workspace/assets/plex-1.ttf
+A	frontend/src/features/workspace/assets/plex-2.ttf
+A	frontend/src/features/workspace/fonts.css
+A	frontend/src/features/workspace/icons.json
+A	frontend/src/features/workspace/primitives.tsx
+A	frontend/src/features/workspace/workspace.css
+A	frontend/src/features/workspace/workspaceRuntimeAdapter.ts
+A	frontend/src/features/workspace/workspaceUiState.ts
+M	frontend/src/routes/AppRouter.tsx
+M	frontend/tests/e2e/ownedEarth.spec.ts
+M	frontend/tests/e2e/publicShell.spec.ts
+M	frontend/tests/e2e/runtimeProbeHost.spec.ts
+A	frontend/tests/e2e/unifiedWorkspace.spec.ts
+A	frontend/tests/e2e/workspaceAccessibility.spec.ts
+A	frontend/tests/e2e/workspaceFinalReview.spec.ts
+A	frontend/tests/e2e/workspaceReview.spec.ts
+A	frontend/tests/e2e/workspaceSupplementalReview.spec.ts
+M	frontend/tests/publicShell.test.tsx
+M	frontend/tests/runtimeProbeService.test.ts
+M	frontend/tests/runtimeProductState.test.ts
+A	frontend/tests/workspace.test.tsx
+A	frontend/tests/workspaceUiState.test.ts
+M	frontend/vite.config.mjs
+M	integrations/renderers.lock.json
+A	integrations/sky-overlay/apps/web-frontend/src/components/gui.vue
+M	packages/runtime-protocol/client.d.mts
+M	packages/runtime-protocol/client.mjs
+M	packages/runtime-protocol/endpoint.mjs
+M	packages/runtime-protocol/index.d.mts
+M	packages/runtime-protocol/index.mjs
+A	packages/runtime-protocol/workspace.mjs
+M	runtimes/earth-runtime/core/CameraController.mjs
+M	runtimes/earth-runtime/core/EarthRuntime.mjs
+M	runtimes/earth-runtime/core/RuntimeBridge.mjs
+M	runtimes/earth-runtime/core/SelectionStore.mjs
+M	runtimes/earth-runtime/core/ViewerController.mjs
+A	runtimes/earth-runtime/core/VisualFoundation.mjs
+A	runtimes/earth-runtime/core/displayConfig.mjs
+A	runtimes/earth-runtime/display-config.json
+M	runtimes/earth-runtime/entry.mjs
+M	runtimes/earth-runtime/index.html
+M	runtimes/earth-runtime/layers/GodsEyeFlightsAdapter.mjs
+M	runtimes/earth-runtime/layers/GodsEyeSatellitesAdapter.mjs
+M	runtimes/earth-runtime/layers/GodsEyeWeatherAdapter.mjs
+M	runtimes/earth-runtime/layers/PollingLayer.mjs
+M	runtimes/earth-runtime/layers/entities.mjs
+M	runtimes/earth-runtime/style.css
+M	runtimes/sky-adapter/entry.mjs
+M	runtimes/sky-adapter/plugin.js
+M	scripts/runtime/build_current_sky.sh
+M	scripts/runtime/build_owned_earth.sh
+A	scripts/runtime/record_sky_workspace.py
+A	scripts/validation/capture_unified_workspace.cjs
+A	scripts/validation/measure_unified_workspace.cjs
+A	tests/earth/display-config.test.mjs
+M	tests/earth/page-lifecycle.test.mjs
+M	tests/runtime/channel.test.mjs
+A	tests/runtime/sky-artifact.test.mjs
+A	tests/runtime/workspace-protocol.test.mjs
+```
