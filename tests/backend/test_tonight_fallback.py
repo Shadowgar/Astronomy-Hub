@@ -58,4 +58,34 @@ class TonightFallbackTests(unittest.TestCase):
         self.assertEqual(len(targets),1);self.assertEqual(targets[0]['source_id'],'M-fixture')
         self.assertNotIn('ngc_identity',targets[0]);self.assertEqual(sources['openngc']['status'],'included')
 
+    def test_later_openngc_acquisition_recovers_failed_enrichment_identity(self):
+        def unavailable(key):raise RuntimeError('Declared transient enrichment failure')
+        self.catalog.find_openngc_record_by_messier_id=unavailable
+        self.catalog.build_openngc_above_me_seed_records=lambda **kw:[{**NGC,'messier_id':'M-fixture'}]
+        with self.assertLogs('tonight-fallback-fixture',level='WARNING'):
+            targets,sources=self.catalog.fixed_targets()
+        self.assertEqual([(r['catalog'],r['source_id'],r['ra'],r['dec']) for r in targets],
+                         [('Messier (local)','M-fixture',15,2)])
+        self.assertNotIn('ngc_identity',targets[0])
+        self.assertEqual(sources['messier'],{'status':'included','candidate_count':1})
+        self.assertEqual(sources['openngc'],{'status':'included','candidate_count':1})
+
+    def test_mixed_enrichment_deduplicates_only_source_backed_counterparts(self):
+        self.catalog.LOCAL_MESSIER_SEARCH_OBJECTS=[MESSIER,{**MESSIER,'catalog':'M-second'}]
+        second={**NGC,'source_id':'NGC-second','messier_id':'M-second'}
+        unrelated={**NGC,'source_id':'NGC-unrelated','messier_id':'M-unrelated'}
+        def lookup(key):
+            if key=='M-fixture':raise RuntimeError('Declared transient enrichment failure')
+            return second
+        self.catalog.find_openngc_record_by_messier_id=lookup
+        self.catalog.build_openngc_above_me_seed_records=lambda **kw:[
+            {**NGC,'messier_id':' m-fixture '},second,unrelated]
+        with self.assertLogs('tonight-fallback-fixture',level='WARNING'):
+            targets,sources=self.catalog.fixed_targets()
+        self.assertEqual([r['source_id'] for r in targets],['M-fixture','M-second','NGC-unrelated'])
+        self.assertEqual([(r['ra'],r['dec']) for r in targets],[(15,2)]*3)
+        self.assertTrue(all('ngc_identity' not in r for r in targets))
+        self.assertEqual(sources['messier'],{'status':'included','candidate_count':2})
+        self.assertEqual(sources['openngc'],{'status':'included','candidate_count':3})
+
 if __name__=='__main__':unittest.main()
