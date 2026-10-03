@@ -21,9 +21,9 @@ const endpoint=createRuntimeEndpoint({runtime:'sky',version:'stellarium:comparis
 function ready(){endpoint.ready();const canvas=document.querySelector('#stel-canvas');let timer;if(!canvas)return;
  const interaction=()=>{clearTimeout(timer);endpoint.emit('interaction',{active:true,focused:false});timer=setTimeout(()=>endpoint.emit('interaction',{active:false,focused:false}),350)};
  canvas.addEventListener('pointerdown',interaction,{passive:true});canvas.addEventListener('wheel',interaction,{passive:true});
- window.addEventListener('pagehide',()=>clearTimeout(timer),{once:true});
+ window.addEventListener('pagehide',()=>clearTimeout(timer));
 }
 window.addEventListener('oras-sky-ready',ready,{once:true});if(window.orasSkyAdapter)ready();
 document.addEventListener('keydown',event=>{if(!document.documentElement.classList.contains('oras-workspace-embedded')||window.orasSkyAdapter?.panelOpen()||!['Escape','Tab'].includes(event.key))return;if(event.key==='Tab')event.preventDefault();endpoint.emit('interaction',{active:false,focused:false,key:event.key});});
 document.addEventListener('focusin',event=>{if(document.documentElement.classList.contains('oras-workspace-embedded'))endpoint.emit('interaction',{active:false,focused:window.orasSkyAdapter?.panelOpen()===true});});
-window.addEventListener('pagehide',()=>endpoint.close(),{once:true});
+window.addEventListener('pagehide',event=>{if(!event.persisted)endpoint.close();});
