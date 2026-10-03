@@ -2,7 +2,7 @@ import React,{useEffect,useRef,useState} from 'react'
 import {useLocation,useNavigate} from 'react-router-dom'
 import {connectRuntime,type RuntimeClient} from '../../../../packages/runtime-protocol/client.mjs'
 import type {RuntimeMode} from '../../../../packages/runtime-protocol/index.mjs'
-import {useRuntimeProductState} from '../runtime/productState'
+import {useRuntimeProductState,parseSceneDate} from '../runtime/productState'
 import {probeRuntime,RuntimeProbeError} from '../runtime/runtimeProbeService'
 export type RuntimeStatus='checking'|'loading'|'ready'|'error'
 let disposal:Promise<void>=Promise.resolve()
@@ -13,7 +13,8 @@ export default function RuntimeHost({mode='sky',onClient,onStatus}:{mode?:Runtim
   let cancelled=false,frame:HTMLIFrameElement|null=null,client:RuntimeClient|null=null
   const abort=new AbortController(),search=latest.current.location.search
   const product=useRuntimeProductState.getState();product.ingestSearch(search)
-  const params=new URLSearchParams(search),live=!params.has('date')
+  const params=new URLSearchParams(search),live=parseSceneDate(params.get('date'))===null
+  if(live)params.delete('date')
   if(live)useRuntimeProductState.setState({requestedTime:new Date().toISOString()})
   const generation=product.activate(mode),bytes=crypto.getRandomValues(new Uint8Array(16)),nonce=Array.from(bytes,x=>x.toString(16).padStart(2,'0')).join('')
   function update(value:RuntimeStatus){if(cancelled)return;setStatus(value);latest.current.onStatus?.(value)}

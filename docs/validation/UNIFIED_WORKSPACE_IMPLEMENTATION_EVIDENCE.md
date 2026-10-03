@@ -152,7 +152,7 @@ Logs are `/var/tmp/oras-workspace/`. Screenshots/measurements are
 |---|---|
 | `npm --prefix frontend run test -- --run` | `frontend-release.log`: 22 files, 179/179 pass |
 | `npm --prefix frontend run typecheck` | `typecheck-release.log`: exit 0 |
-| `npm --prefix frontend run build` | `frontend-build-release.log`: exit 0; Hub JS 307.28kB / 93.36kB gzip before review; final Docker build 307.53kB / 93.74kB gzip |
+| `npm --prefix frontend run build` | `frontend-build-release.log`: exit 0; Hub JS 307.28kB / 93.36kB gzip before review; final Docker build 308.43kB / 93.95kB gzip |
 | `node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs` | `runtime-release.log`: 29/29 pass |
 | `python3 scripts/runtime/integrate_sky_bridge.py /var/tmp/oras-workspace/sky-app` | exit 0; applies only owned adapter/overlay |
 | Pinned Node 20 Sky frontend build, below | `sky-build-release.log`: exit 0 |
@@ -476,3 +476,56 @@ Logs: `supplemental-units.log`, `supplemental-artifact.log`,
 No additional normal review was requested. No known Category A blocker remains;
 provider credentials/live availability, inherited star tile noise, physical AT and
 Figma remain explicitly bounded gaps. Owner approval is the next task.
+
+
+## Automatic review-on-push: final Category A regressions
+
+Exactly one explicit normal review request was sent. Repository automation also
+reviewed pushed repair commits without another request; this is disclosed rather
+than represented as a single automated review execution. Its three additional
+threads on `6846b5b3` include the already repaired Immersive duplicate and two new
+Category A findings:
+
+- Earth contextual Focus now carries an in-memory canonical pending intent into
+  Sky. It is consumed once after successful qualified selection, matching catalog,
+  source ID and model, and is never persisted. Workspace client admission is bound
+  to mode so the incoming Sky shell cannot consume that intent on the outgoing
+  Earth client. Native `pointAndLock` remains renderer-owned.
+- Product ingestion, host admission and workspace time use one strict existing
+  date predicate. Malformed/rollover dates open Live at current UTC, rather than
+  replaying saved controlled time; invalid date parameters do not enter the frame.
+
+`final-review-red.log`: all three new browser cases fail before repair, including
+zero native Focus calls and non-Live invalid dates. The intermediate repair exposed
+an outgoing-client admission race (8/9 passed); mode-bound admission repairs it.
+`final-review-green.log`: 9/9 pass, including all three new cases and the six earlier
+review regressions. The cross-mode proof wraps and invokes the real native
+`pointAndLock`: exactly one call; it does not simulate a renderer. Both arbitrary
+invalid and February 30 date cases open current Live after a saved 2020 scene.
+`final-review-units.log`: 30/30 pass; typecheck and final Docker production build
+pass. Total bounded qualification is now 40 unique Docker browser cases. All 15
+review threads are addressed; current remote checks/resolution are recorded in
+PR/Linear. No recursive Category B work or new review request is performed.
+
+Additional changed paths: `frontend/src/features/runtime/productState.ts`,
+`frontend/tests/runtimeProductState.test.ts`,
+`frontend/tests/e2e/workspaceFinalReview.spec.ts`; the host, workspace shell and
+adapter paths were already in the inventory above. Sky/Earth artifacts and native
+scientific bytes are unchanged by this final host-side repair. D01/D02 were refreshed
+and visually inspected again on the final Docker build. Exact commands:
+
+```sh
+npm --prefix frontend run test -- --run tests/runtimeProductState.test.ts tests/workspace.test.tsx tests/workspaceUiState.test.ts tests/runtimeProbeService.test.ts
+npm --prefix frontend run typecheck
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-workspace/earth-build-supplemental POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4181 COMPOSE_BAKE=false docker compose -p oras-workspace-qualification -f docker-compose.prod.yml up -d --no-deps --build frontend
+# From frontend (same command for red/green; output directory changes):
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceFinalReview.spec.ts tests/e2e/workspaceReview.spec.ts --workers=1 --output=/var/tmp/oras-workspace/final-review-green
+# Initial red ran only tests/e2e/workspaceFinalReview.spec.ts.
+# From repository root:
+VISUAL_PASS=pass-2-release VISUAL_IDS=D01,D02 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 node scripts/validation/capture_unified_workspace.cjs
+```
+
+Logs: `final-review-red.log`, `final-review-green.log`, `final-review-units.log`,
+`final-review-typecheck.log`, `final-review-docker.log`, `final-review-visual.log`.
+The owner settings remain unchanged/unstaged. The PR remains open and unmerged;
+ORA-7 remains In Review, NOT Done. Owner approval is required.
