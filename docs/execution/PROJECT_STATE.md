@@ -24,32 +24,32 @@ Proven runtime conflicts must be reported, not silently overwritten.
 
 ## CURRENT MODE
 
-ORA-7 locked unified workspace implementation and qualification. SINGLE AGENT ONLY.
-No runtime override mode is active.
+ORA-8 / Phase C5 Earth live-layer expansion. SINGLE AGENT ONLY. Default mode.
 
 ## CURRENT OBJECTIVE / ACTIVE TASK
 
-Branch `phase-c7-unified-workspace-implementation-1` contains unchanged locked
-owner-approved design commit `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`, based on
-merged PR #55 at `b2f9dce9bb559a1d23dc806a1b8d1927c502f084`.
-Root Sky workspace, Sky/Earth modes, reusable Tonight/Observe context, bounded
-selection/time surfaces, responsive mobile sheets and immersive UI are implemented.
-The Earth visual foundation uses NASA GIBS static imagery with local Natural Earth
-fallback; configured terrain/3D requires separately qualified deployment assets.
+Unified workspace ORA-7 / PR #58 is merged on main at
+`f55b9b2721cb692b4cda106e415c8fef59454c80`, final PR head
+`a45fa637dce0b420f63d49abe30f4d76633bd410`. Its locked design and contained SWE /
+owned Cesium Earth architecture remain the baseline.
 
-The Hub owns the independent Earth Viewer. SWE remains contained; immutable God's
-Eye supplies selective feature modules. Native Sky science/vendor bytes and the
-serial authenticated renderer lifecycle remain protected. The full-app experiment
-on `phase-c-full-gods-eye-experiment-backup` at `dd15ae1b` remains local-only.
+The only active slice is `phase-c5-earth-live-layers-1`: bounded provider
+qualification and implementation of source-backed Earth event/environment layers.
+USGS earthquakes, NIFC/WFIGS public fire perimeters and NOAA CONUS radar are the
+implemented and locally qualified layers; Launch Library's production HTTP 403 blocks launches here.
+No upstream pin change or complete God's Eye application ownership is authorized.
 
 ## CURRENT PRIORITY
 
-Complete fresh Docker/browser/visual qualification and one normal PR review cycle;
-repair Category A with focused retests, push the bounded branch and leave ORA-7
-In Review for owner approval. See
-[workspace implementation evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
-No merge or next phase. No ISS handoff, Mars/Moon surfaces, measured horizon or
-broad feature parity. Preserve unrelated editor settings unchanged and unstaged.
+C5 implementation and production-like local qualification pass: 52 runtime/
+protocol, 42 frontend, 35 Docker backend tests, five fixture browser checks and
+one actual-provider browser check. PR [#59](https://github.com/Shadowgar/Astronomy-Hub/pull/59)
+is open. One normal review is requested; Category A receives focused retests.
+ORA-8 is handed back **In Review**, pending owner approval; do not mark Done or
+merge. See
+[Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
+ISS, Mars/Moon, measured horizon and Phase D are not started. Preserve unrelated
+editor settings unchanged and unstaged. Historical evidence remains unchanged.
 
 ## KNOWN ISSUES
 
