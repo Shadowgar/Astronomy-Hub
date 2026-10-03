@@ -9,6 +9,6 @@ export function validateMessage(value:unknown,session:Session):boolean
 export function envelope(session:Session,type:string,id:number,command:string,payload:unknown): Record<string,unknown>
 export function validHello(value:unknown):boolean
 export function validSession(value:unknown):boolean
-export type SelectionDTO={id:string;name:string;kind:'dso'|'star'|'planet'|'moon'|'satellite'|'aircraft'|'site'|'weather'|'object';catalog?:string;source_id?:string;model?:string;ra?:number;dec?:number;detail?:string;facts?:{label:string;value:string}[];available:boolean;focusable:boolean;trackable:boolean;link?:string}
-export type LayerDTO={id:string;title:string;enabled:boolean;status:'off'|'loading'|'live'|'ready'|'stale'|'unavailable';source?:string;sourceTime?:string|null;count?:number}
+export type SelectionDTO={id:string;name:string;kind:'dso'|'star'|'planet'|'moon'|'satellite'|'aircraft'|'site'|'weather'|'earthquake'|'fire'|'object';catalog?:string;source_id?:string;model?:string;ra?:number;dec?:number;detail?:string;facts?:{label:string;value:string}[];available:boolean;focusable:boolean;trackable:boolean;link?:string}
+export type LayerDTO={id:string;title:string;enabled:boolean;status:'off'|'loading'|'live'|'ready'|'stale'|'unavailable';source?:string;sourceTime?:string|null;count?:number;category?:'Events'|'Environment'|'Site context'|'Live Earth'|'Space activity';temporalMode?:'LIVE_ONLY'|'CURRENT_SNAPSHOT'|'EVENT_FEED'|'SCHEDULED_EVENT'}
 export type WorkspaceSnapshot={selection:SelectionDTO|null;layers:LayerDTO[];tracking:boolean;quality?:{imagery?:string;terrain?:string;buildings?:string;photorealistic?:string}}

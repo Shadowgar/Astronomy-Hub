@@ -79,20 +79,22 @@ def normalize_quakes(payload, now=None):
     now=now or datetime.now(timezone.utc);rows=collection(payload)
     metadata=payload.get('metadata');generated=epoch(metadata.get('generated')) if isinstance(metadata,dict) else None
     if not generated or abs(now.timestamp()-datetime.fromisoformat(generated.replace('Z','+00:00')).timestamp())>900:raise ValueError('Stale feed')
-    records=[];ids=set()
+    records=[];ids=set();valid_rows=0
     for row in rows:
         try:
             p=row['properties'];g=row['geometry'];coords=g['coordinates'];identifier=row['id']
             if not isinstance(p,dict) or not isinstance(g,dict) or not isinstance(coords,list):continue
             if g['type']!='Point' or not isinstance(identifier,str) or not identifier or len(identifier)>160 or identifier in ids:continue
-            if len(coords)<2 or not all(number(x) for x in coords[:2]) or not number(p.get('mag')):continue
+            if len(coords)<2 or not all(number(x) for x in coords[:2]) or abs(coords[0])>180 or abs(coords[1])>90 or not number(p.get('mag')) or not 0<=p['mag']<=10:continue
+            if not epoch(p.get('time')):continue
+            valid_rows+=1
             if p['mag']<2.5:continue
             occurred=epoch(p.get('time'))
             if not occurred or not -300<=now.timestamp()-p['time']/1000<=86400:continue
             record=EventRecord(id=identifier,name=text(p.get('place')) or identifier,lat=coords[1],lon=coords[0],magnitude=p['mag'],depthKm=coords[2] if len(coords)>2 and number(coords[2]) else None,occurredAt=occurred,updatedAt=epoch(p.get('updated')))
             records.append(record);ids.add(identifier)
         except (KeyError,TypeError,ValueError,IndexError,AttributeError):continue
-    if rows and not records and any(not isinstance(r,dict) or not isinstance(r.get('properties'),dict) or not number(r['properties'].get('mag')) or not isinstance(r.get('id'),str) or not r.get('id') or not isinstance(r.get('geometry'),dict) for r in rows):raise ValueError('Malformed events')
+    if rows and not valid_rows:raise ValueError('Malformed events')
     records.sort(key=lambda r:(r.magnitude,r.occurredAt),reverse=True)
     return EventFeed(kind='earthquakes',temporalMode='EVENT_FEED',source='U.S. Geological Survey',observedAt=generated,fetchedAt=iso(now),records=records[:500],limited=len(records)>500)
 

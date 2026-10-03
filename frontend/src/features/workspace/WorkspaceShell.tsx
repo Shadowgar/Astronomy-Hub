@@ -33,7 +33,7 @@ export default function WorkspaceShell({mode='sky'}:{mode?:RuntimeMode}){
  useEffect(()=>{if(selectionId&&selectionId!==previousSelection.current){setTab('selection');setContextVisible(true);setExpanded(false);if(mobile){setSurface('context');setSnap(360)}chrome.reveal()}else if(!selectionId&&previousSelection.current){setTab(prefs.context);setExpanded(false);if(mobile)setSurface(null)}previousSelection.current=selectionId||null},[selectionId,mobile,prefs.context])
  // Restore only whitelisted preferences and canonical selection through qualified capabilities.
  useEffect(()=>{const client=runtime.client;if(!client||restored.current===client)return;restored.current=client;let cancelled=false;void(async()=>{
-  if(mode==='earth'&&client.capabilities.includes('layers'))for(const id of ['oras-site','satellites','aircraft','weather']){if(cancelled)return;await runtime.request('setLayerEnabled',{id,enabled:prefs.layers.includes(id)},18000)}
+  if(mode==='earth'&&client.capabilities.includes('layers'))for(const id of ['oras-site','satellites','aircraft','weather','earthquakes','fire-perimeters','weather-radar']){if(cancelled)return;await runtime.request('setLayerEnabled',{id,enabled:prefs.layers.includes(id)},18000)}
   const {selection:entity,pendingFocus}=useRuntimeProductState.getState()
   if(mode==='sky'&&entity&&client.capabilities.includes('selection')){
    useRuntimeProductState.setState({pendingFocus:null})

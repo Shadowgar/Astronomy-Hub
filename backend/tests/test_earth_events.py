@@ -2,7 +2,7 @@
 import asyncio
 from datetime import datetime, timezone
 import pytest
-from app.services import earth_events as events
+from backend.app.services import earth_events as events
 NOW = datetime(2026, 10, 3, 19, 0, tzinfo=timezone.utc)
 MS = int(NOW.timestamp()*1000)
 def quake(identifier='us1'):
@@ -67,7 +67,7 @@ def test_independent_coalescing_failure_cache_and_retry(monkeypatch):
 def test_routes_fail_closed_without_upstream_details(monkeypatch,path):
     from fastapi import FastAPI
     from fastapi.testclient import TestClient
-    from app.routes import earth
+    from backend.app.routes import earth
     app=FastAPI();app.include_router(earth.router,prefix='/api')
     async def unavailable(kind):raise ValueError('private upstream 403/429/5xx')
     monkeypatch.setattr(earth,'read_feed',unavailable)
@@ -77,7 +77,7 @@ def test_routes_fail_closed_without_upstream_details(monkeypatch,path):
 def test_image_refuses_timestamp_mismatch_and_unbounded_time(monkeypatch):
     from fastapi import FastAPI
     from fastapi.testclient import TestClient
-    from app.routes import earth
+    from backend.app.routes import earth
     app=FastAPI();app.include_router(earth.router,prefix='/api');client=TestClient(app)
     async def read(kind):return type('Manifest',(),{'latest':'2026-10-03T19:00:00.000Z'})(),b'fixture png'
     monkeypatch.setattr(earth,'read_feed',read)
@@ -89,3 +89,29 @@ def test_image_refuses_timestamp_mismatch_and_unbounded_time(monkeypatch):
 @pytest.mark.parametrize('payload',[feed([{'properties':[],'geometry':{},'id':'x'}]),feed([None]),{'type':'FeatureCollection','metadata':None,'features':[]}])
 def test_malformed_nested_provider_data_is_controlled(payload):
     with pytest.raises(ValueError):events.normalize_quakes(payload,NOW)
+
+@pytest.mark.parametrize('geometry',[{'type':'Point','coordinates':[500,42]}, {'type':'Point','coordinates':['bad',42]}, {'type':'Polygon','coordinates':[]}, {'type':'Point','coordinates':[]}])
+def test_all_malformed_coordinates_are_unavailable(geometry):
+    row=quake();row['geometry']=geometry
+    with pytest.raises(ValueError):events.normalize_quakes(feed([row]),NOW)
+
+@pytest.mark.parametrize('status',[403,429,500])
+def test_http_failures_are_controlled_and_failure_cached(monkeypatch,status):
+    import httpx
+    async def scenario():
+        events.reset_cache();calls=[]
+        async def fail(key):
+            calls.append(key);response=httpx.Response(status,request=httpx.Request('GET',events.USGS));response.raise_for_status()
+        monkeypatch.setattr(events,'acquire',fail)
+        for _ in range(2):
+            with pytest.raises(ValueError,match='Source unavailable'):await events.read_feed('earthquakes')
+        assert len(calls)==1
+    asyncio.run(scenario())
+
+def test_timeout_is_controlled(monkeypatch):
+    async def scenario():
+        events.reset_cache()
+        async def fail(key):raise TimeoutError()
+        monkeypatch.setattr(events,'acquire',fail)
+        with pytest.raises(ValueError,match='Source unavailable'):await events.read_feed('weather-radar')
+    asyncio.run(scenario())
