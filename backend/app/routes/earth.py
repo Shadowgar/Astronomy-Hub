@@ -87,3 +87,31 @@ async def aircraft(response: Response, lat: float = Query(ge=-90, le=90), lon: f
         return await read_aircraft(lat, lon)
     except ValueError:
         raise HTTPException(status_code=503, detail='Aircraft source unavailable') from None
+
+# Normalized event/surface contracts, separate from astronomy discovery.
+from ..services.earth_events import EventFeed, RadarFeed, read_feed
+
+@router.get('/earth/earthquakes',response_model=EventFeed)
+async def earthquakes(response:Response):
+    response.headers['Content-License']='https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits'
+    try:return (await read_feed('earthquakes'))[0]
+    except ValueError:raise HTTPException(503,'Earthquake source unavailable') from None
+
+@router.get('/earth/fire-perimeters',response_model=EventFeed)
+async def fire_perimeters(response:Response):
+    response.headers['Content-License']='https://data-nifc.opendata.arcgis.com/datasets/nifc::wfigs-current-interagency-fire-perimeters/about'
+    try:return (await read_feed('fire-perimeters'))[0]
+    except ValueError:raise HTTPException(503,'Fire perimeter source unavailable') from None
+
+@router.get('/earth/weather-radar',response_model=RadarFeed)
+async def radar():
+    try:return (await read_feed('weather-radar'))[0]
+    except ValueError:raise HTTPException(503,'Radar source unavailable') from None
+
+@router.get('/earth/radar-image')
+async def radar_image(time:str=Query(max_length=40)):
+    try:
+        manifest,image=await read_feed('weather-radar')
+        if time!=manifest.latest:raise ValueError('Snapshot changed')
+        return Response(image,media_type='image/png',headers={'Cache-Control':'public, max-age=240','Content-License':'https://www.weather.gov/disclaimer'})
+    except ValueError:raise HTTPException(503,'Radar image unavailable') from None
