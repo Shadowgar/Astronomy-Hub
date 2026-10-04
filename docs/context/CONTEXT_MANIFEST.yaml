@@ -111,6 +111,7 @@ tasks:
     - docs/architecture/ENGINE_CATALOG.md
     - docs/architecture/OBJECT_MODEL.md
     - docs/architecture/DATA_CONTRACTS.md
+    - docs/architecture/TONIGHT_CONTRACT.md
     - docs/execution/PROJECT_STATE.md
     - docs/features/FEATURE_EXECUTION_MODEL.md
     - docs/features/FEATURE_ACCEPTANCE.md
@@ -150,6 +151,7 @@ tasks:
     - docs/architecture/STACK_OVERVIEW.md
     - docs/architecture/OBJECT_MODEL.md
     - docs/architecture/DATA_CONTRACTS.md
+    - docs/architecture/TONIGHT_CONTRACT.md
     - docs/execution/PROJECT_STATE.md
     - docs/features/FEATURE_EXECUTION_MODEL.md
     - docs/features/FEATURE_ACCEPTANCE.md
@@ -193,6 +195,7 @@ tasks:
     - docs/architecture/ENGINE_CATALOG.md
     - docs/architecture/OBJECT_MODEL.md
     - docs/architecture/DATA_CONTRACTS.md
+    - docs/architecture/STACK_OVERVIEW.md
     - docs/execution/PROJECT_STATE.md
     - docs/execution/MASTER_PLAN.md
     - docs/features/FEATURE_EXECUTION_MODEL.md

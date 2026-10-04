@@ -67,7 +67,35 @@ FEATURE_ACCEPTANCE.md
 
 ---
 
-## Current Documentation Checkpoint
+## Current Execution Checkpoint
+
+ORA-7 unified workspace implementation was owner-approved and merged in PR #58
+on 2026-10-03 at `f55b9b2721cb692b4cda106e415c8fef59454c80`. Its final
+`a45fa637` correction covers Live time, custom-observer timezones and Earth source
+refresh. It follows merged compatibility study PR #54 and owned Earth PR #55.
+The Hub mounts native SWE and its independently owned Cesium Earth runtime using
+the authenticated bridge and serial renderer lifetime. This does not establish
+full God's Eye feature parity or production-qualified planetary surfaces.
+
+PR #60's Sky cached-page lifecycle repair is merged at `1e7fd3ef`, including
+interaction reset, timer cleanup and preserved endpoint availability. PR #61's
+Tonight local Messier fallback, partial enrichment recovery, canonical OpenNGC
+deduplication and source-status correction is merged at `f3601bb8`.
+PR #62 context/validation enforcement is merged at `fc41ac19`.
+The active task integrates existing PR #59 / ORA-8 / C5 with that current main.
+USGS earthquakes, NIFC/WFIGS fire perimeters and NOAA/NWS nowCOAST CONUS radar
+are the locally qualified expansion; Launch Library remains blocked by access 403.
+ORA-8 remains In Review. High-definition close-zoom Earth mapping is the NEXT
+major phase after #59, subject to separate authorization. No HD mapping, ISS
+handoff or Mars/Moon work has started. Historical passing counts do not
+qualify changed sources. Current execution and owner approval belong to
+[PROJECT_STATE](../execution/PROJECT_STATE.md) and the live session brief.
+
+## Historical Documentation Checkpoint — Phase B
+
+The following records the pre-merge PR #54 study checkpoint. Its execution state
+and unimplemented-Earth statements are historical, superseded by the current
+checkpoint above; they are not instructions to restart Phase B or Phase C.
 
 The active checkpoint is the docs-only Phase B God's Eye + SWE Compatibility /
 Upgradeability Study on `unified-runtime-compatibility-study-1`, following merged

@@ -24,24 +24,36 @@ Proven runtime conflicts must be reported, not silently overwritten.
 
 ## CURRENT MODE
 
-ORA-8 / Phase C5 Earth live-layer expansion. SINGLE AGENT ONLY. Default mode.
+Owner-authorized integration of existing PR #59 / ORA-8 / Phase C5 Earth live
+layers after merged ORA-7 and PRs #60/#61/#62. SINGLE AGENT ONLY.
+No runtime override mode is active.
 
 ## CURRENT OBJECTIVE / ACTIVE TASK
 
-Unified workspace ORA-7 / PR #58 is merged on main at
-`f55b9b2721cb692b4cda106e415c8fef59454c80`, final PR head
-`a45fa637dce0b420f63d49abe30f4d76633bd410`. Its locked design and contained SWE /
-owned Cesium Earth architecture remain the baseline.
+ORA-7 was owner-approved and merged in PR #58 at
+`f55b9b2721cb692b4cda106e415c8fef59454c80`, including correction `a45fa637`.
+Its locked design ancestor remains `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.
+PR #60's Sky cached-page lifecycle correction merged at
+`1e7fd3efab22d66fc7918890767ec9204aba5a95`; PR #61's Tonight fallback correction
+merged at `f3601bb82b0c52343d2c38f93ecfce747ef611c7`. PR #62 mandatory context
+and validator enforcement merged at `fc41ac19d7e2021c9d4b56b5a13322981f3c6992`,
+the current main baseline integrated into `phase-c5-earth-live-layers-1`.
+Sky lifecycle, Tonight fallback and validation enforcement are preserved baselines.
+PR #59 is the active Earth live-layer PR; no new provider or feature is authorized.
+Root Sky workspace, Sky/Earth modes, reusable Tonight/Observe context, bounded
+selection/time surfaces, responsive mobile sheets and immersive UI are implemented.
+The Earth visual foundation uses NASA GIBS static imagery with local Natural Earth
+fallback; configured terrain/3D requires separately qualified deployment assets.
 
 The only active slice is `phase-c5-earth-live-layers-1`: bounded provider
-qualification and implementation of source-backed Earth event/environment layers.
+integration and regression qualification of implemented source-backed Earth layers.
 USGS earthquakes, NIFC/WFIGS public fire perimeters and NOAA CONUS radar are the
 implemented and locally qualified layers; Launch Library's production HTTP 403 blocks launches here.
 No upstream pin change or complete God's Eye application ownership is authorized.
 
 ## CURRENT PRIORITY
 
-C5 implementation and production-like local qualification pass: 54 runtime/
+Historical C5 implementation and production-like local qualification: 54 runtime/
 protocol, 42 frontend, 35 Docker backend tests, five fixture browser checks and
 one actual-provider browser check plus two focused polygon-pick retests. PR [#59](https://github.com/Shadowgar/Astronomy-Hub/pull/59)
 is open. The one normal review is complete; both unique Category A findings are repaired
@@ -49,8 +61,10 @@ with focused regressions and artifact rebuild.
 ORA-8 is handed back **In Review**, pending owner approval; do not mark Done or
 merge. See
 [Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
-ISS, Mars/Moon, measured horizon and Phase D are not started. Preserve unrelated
+ISS, Mars/Moon, measured horizon and high-definition mapping are not started. Preserve unrelated
 editor settings unchanged and unstaged. Historical evidence remains unchanged.
+Preserve merged #60/#61 behavior and #62 context/validator enforcement; rerun
+focused tests and production-like Docker/browser smoke on the integrated branch.
 
 ## KNOWN ISSUES
 
@@ -58,6 +72,22 @@ editor settings unchanged and unstaged. Historical evidence remains unchanged.
 * DSO media and higher-definition imagery remain incomplete
 * Pan-STARRS does not provide safe full-sky default coverage
 * WordPress consumption of `/api/above-me` has not started
+
+## REVIEW-HISTORY DISPOSITION
+
+The obsolete embedded navigation-drawer messages are superseded by host-owned
+workspace controls. `runtimes/sky-adapter/plugin.js` hides the embedded toolbar
+and drawer, while the Sky overlay retains standalone fallbacks. Restore neither
+obsolete host handlers nor hidden embedded controls merely to close an old thread.
+
+The merged `a45fa637` corrections already address Live time, custom-observer
+timezones and Earth source refresh. Merged PR #60 preserves the Sky endpoint and
+resets inactive interaction/timers on cached departure, retaining genuine cleanup.
+Merged PR #61 preserves local Messier rows through partial enrichment failures,
+recovers canonical OpenNGC deduplication and retains accurate source status.
+Any separately authorized future source changes require their own
+qualification; an unresolved older thread is an inventory item, not proof of a
+current defect or authorization for a broad implementation pass.
 
 ---
 
@@ -129,18 +159,18 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-After this Phase B study PR: the bounded **Phase C Sky/Earth skeleton**,
-starting with source/artifact gates in study section 29. Do not implement C
-or horizon work inside this study checkpoint.
+Complete the bounded PR #59 integration with current main, rerun focused Earth,
+Sky lifecycle, Tonight fallback and context/validator checks, then return fresh CI,
+mergeability and review-thread status for owner review. No PR merge or deployment.
 
-Approved order: A architecture docs → B compatibility study → C unified runtime
-skeleton → D ISS cross-engine slice → E Mars planetary proof → F astronomy
-extensions. The unified architecture defines the scope and open questions.
+High-definition close-zoom Earth mapping is the NEXT major phase after #59,
+subject to separate owner authorization. No HD mapping, ISS or Mars/Moon work
+has started. Historical ORA-7 and C5 evidence remains historical and unchanged.
 
-`oras_horizon.v1` remains approved and important within Phase F, integrating
-Observe, Tonight, Sky, Earth/ORAS site context and panorama alignment. It is no
-longer the immediate next implementation task and still needs measured inputs.
-WordPress and unrelated data/feature work remain separately gated.
+The Phase B study and owned Earth foundation are already merged historical
+checkpoints. ISS handoff, planetary surfaces, measured `oras_horizon.v1`, broad
+God's Eye parity and WordPress work remain separately gated. The approved future
+direction and historical sequence remain in the unified architecture.
 
 ## FINAL RULE
 

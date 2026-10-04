@@ -91,7 +91,7 @@ never changes ranking and failures preserve astronomy.
 
 ## Cache and degradation
 
-Redis astronomy key v2 hashes contract/policy, complete shared site, evening
+Redis astronomy key v3 hashes contract/policy, complete shared site, evening
 date, actual loaded candidate coordinates, source inventory, and ephemeris
 release/checksum. TTL is one hour; only fully successful astronomy is cached.
 Forecast uses a separate v1 site/UTC-interval key and ten-minute TTL. No

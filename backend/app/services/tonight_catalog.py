@@ -26,6 +26,8 @@ OPENNGC_LIMIT = 700
 def fixed_targets():
     targets = []
     sources = {}
+    failed_messier_ids = set()
+    messier_ngc = set()
     for key, loader in [
         ("bright_stars", lambda: BRIGHT_STAR_SCENE_OBJECTS),
         (
@@ -57,7 +59,16 @@ def fixed_targets():
                         "dec": float(obj["declination"]),
                     }
                 elif key == "messier":
-                    record = find_openngc_record_by_messier_id(obj["catalog"])
+                    try:
+                        record = find_openngc_record_by_messier_id(obj["catalog"])
+                    except Exception:
+                        # Canonical enrichment is optional; the local row is usable.
+                        logger.warning(
+                            "Tonight OpenNGC enrichment unavailable for %s", obj["catalog"],
+                            exc_info=True,
+                        )
+                        record = None
+                        failed_messier_ids.add(str(obj["catalog"]).strip().upper().replace(" ", ""))
                     row = {
                         "catalog": "Messier (local)",
                         "source_id": str(obj["catalog"]),
@@ -84,6 +95,11 @@ def fixed_targets():
                         "ra": float(obj["ra"]),
                         "dec": float(obj["dec"]),
                     }
+                    # Seed records retain the source-backed Messier alias. Recover
+                    # canonical dedupe after a transient per-Messier lookup failure.
+                    messier_id = str(obj.get("messier_id") or "").strip().upper().replace(" ", "")
+                    if messier_id in failed_messier_ids:
+                        messier_ngc.add(row["source_id"])
                 targets.append(row)
                 count += 1
             sources[key] = {"status": "included", "candidate_count": count}
@@ -91,7 +107,7 @@ def fixed_targets():
             logger.exception("Tonight catalog unavailable: %s", key)
             sources[key] = {"status": "unavailable", "candidate_count": 0}
     # Same physical Messier/OpenNGC DSO must not consume two opportunities.
-    messier_ngc = {r.pop("ngc_identity") for r in targets if "ngc_identity" in r}
+    messier_ngc.update(r.pop("ngc_identity") for r in targets if "ngc_identity" in r)
     targets = [
         r
         for r in targets

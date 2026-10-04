@@ -237,7 +237,7 @@ WordPress page or shortcode
 The public homepage from merged PR #52 has been superseded at `/` by the
 owner-authorized ORA-7 unified Sky workspace. `/sky-engine` and `/earth` are modes;
 Tonight/Observe are contextual tools with focused routes preserved. The locked
-workspace design is implemented and awaits owner review under its bounded PR.
+workspace design is implemented and owner-approved through merged PR #58.
 WordPress integration and subsequent phases still require explicit approval.
 
 ## High-Definition Data and Imagery Lane
