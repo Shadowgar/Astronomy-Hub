@@ -13,7 +13,7 @@ async function sources(page:Page){await page.getByRole('button',{name:'Layers',e
 for(const mobile of [false,true])test(`HD live imagery, local detail and renderer lifetime ${mobile?'mobile':'desktop'}`,async({page})=>{
  test.skip(process.env.ORAS_LIVE_EARTH!=='1','live provider opt-in required');test.setTimeout(180000);await setup(page,mobile);
  const errors:string[]=[],tiles:any[]=[];let bytes=0;page.on('pageerror',e=>errors.push(e.message));
- page.on('response',async response=>{if(response.url().includes('nationalmap.gov')&&response.url().includes('/tile/')){const size=Number(response.headers()['content-length']||0);bytes+=size;tiles.push({url:response.url(),status:response.status(),bytes:size});}});
+ page.on('response',async response=>{const url=new URL(response.url());if(url.origin==='https://basemap.nationalmap.gov'&&url.pathname.startsWith('/arcgis/rest/services/USGSImageryOnly/MapServer/tile/')){const size=Number(response.headers()['content-length']||0);bytes+=size;tiles.push({url:response.url(),status:response.status(),bytes:size});}});
  const start=Date.now();await page.goto('/earth?date=2026-10-04T17%3A00%3A00Z');await ready(page);const shellMs=Date.now()-start;
  const earth=page.frames().find(f=>f.url().includes('/earth-runtime/'))!;
  await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().imagery.usgs?.state),{timeout:35000}).toBe('standby');expect(tiles).toHaveLength(0);
@@ -91,4 +91,20 @@ test('configured global fallback remains available at the same local camera scal
  await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().imagery.gibs?.state),{timeout:35000}).toBe('ready');
  await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().imagery.gibs.active),{timeout:25000}).toBe(0);await page.waitForTimeout(1500);
  const diag=await earth.evaluate(()=>(window as any).orasEarthDiagnostics());expect(diag.imagery.usgs).toBeUndefined();expect(diag.cameraHeightM).toBeLessThan(2000);await page.screenshot({path:`${proof}/desktop-global-source-local-zoom.png`});
+})
+
+test('close zoom outside CONUS keeps global source status and restores HD on return',async({page})=>{
+ test.skip(process.env.ORAS_LIVE_EARTH!=='1','live provider opt-in required');test.setTimeout(120000);await setup(page,false);
+ const usgs:string[]=[];page.on('request',request=>{if(new URL(request.url()).origin==='https://basemap.nationalmap.gov')usgs.push(request.url())});
+ const stamp=new Date().toISOString();await page.route('**/api/earth/earthquakes',route=>route.fulfill({json:{schemaVersion:1,kind:'earthquakes',temporalMode:'EVENT_FEED',source:'U.S. Geological Survey',observedAt:stamp,fetchedAt:stamp,limited:false,records:[{id:'coverage-fixture',name:'Declared Paris coverage fixture',lat:48.85,lon:2.35,occurredAt:stamp,updatedAt:stamp,magnitude:5.2,depthKm:10,acres:null,containedPct:null,polygons:null}]}}));
+ await page.goto('/earth');await ready(page);const earth=page.frames().find(f=>f.url().includes('/earth-runtime/'))!;
+ // A declared event fixture supplies a camera target; all imagery remains live.
+ await page.getByRole('button',{name:'Layers',exact:true}).click();await page.getByRole('switch',{name:'Earthquakes · M2.5+ · past day',exact:true}).click();await expect(page.locator('.ws-layer[data-layer-id=earthquakes]')).toContainText('Recent event feed');await page.getByRole('region',{name:'Earth layers'}).getByRole('button',{name:'Close panel',exact:true}).click();
+ let target:any;await expect.poll(async()=>{target=await earth.evaluate(()=>(window as any).orasEarthVisibleTargets().find((row:any)=>row.kind==='earthquakes'));return !!target}).toBe(true);await earth.locator('canvas').first().click({position:{x:target.x,y:target.y}});await page.getByRole('button',{name:'Focus',exact:true}).click();
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().cameraHeightM)).toBeLessThan(100000);
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().imagery.gibs?.state),{timeout:35000}).toBe('ready');
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().imagery.usgs?.state)).toBe('standby');
+ expect(usgs).toHaveLength(0);const outside=await earth.evaluate(()=>(window as any).orasEarthDiagnostics());expect(outside.quality.imagery).toContain('Blue Marble');expect(outside.quality.imagery).not.toContain('USGS aerial loading');
+ await page.screenshot({path:`${proof}/outside-conus.png`});await home(page,false);
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().imagery.usgs?.state),{timeout:35000}).toBe('ready');expect(usgs.length).toBeGreaterThan(0);
 })

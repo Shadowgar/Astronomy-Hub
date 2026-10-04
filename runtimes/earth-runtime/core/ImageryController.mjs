@@ -60,7 +60,9 @@ export class ImageryController {
   if(id==='usgs'){
    const update=()=>{
     if(!active())return;
-    const alpha=Math.max(0,Math.min(1,(2000000-this.viewer.camera.positionCartographic.height)/1000000));
+    const view=this.viewer.camera.computeViewRectangle(this.viewer.scene.globe.ellipsoid);
+    entry.inCoverage=!!(view&&Rectangle.intersection(view,provider.rectangle));
+    const alpha=entry.inCoverage?Math.max(0,Math.min(1,(2000000-this.viewer.camera.positionCartographic.height)/1000000)):0;
     entry.layer.alpha=alpha;entry.layer.show=alpha>0;
     if(entry.state==='loading'&&alpha===0)entry.state='standby';
     else if(entry.state==='standby'&&alpha>0)entry.state='loading';
@@ -75,7 +77,7 @@ export class ImageryController {
   const state=id=>this.entries.get(id)?.state;
   let fallback=state('gibs')==='ready'?'Blue Marble · NASA static 500m':state('gibs')==='loading'?'Blue Marble loading':state('local')==='ready'?'Standard imagery · Natural Earth':state('local')==='loading'?'Standard imagery loading':'Imagery unavailable';
   if(state('ion')==='ready')fallback='Configured imagery · coverage/resolution depend on asset';
-  else if(state('usgs')==='standby'||(this.entries.get('usgs')?.layer?.show===false))fallback+=' · USGS aerial at regional zoom';
+  else if(state('usgs')==='standby'||(this.entries.get('usgs')?.layer?.show===false))fallback+=this.entries.get('usgs').inCoverage?' · USGS aerial at regional zoom':' · USGS aerial outside view';
   else if(state('usgs')==='ready')fallback='USGS aerial · CONUS only · 2017–2021 mosaic; global fallback elsewhere';
   else if(state('usgs')==='loading')fallback='USGS aerial loading · CONUS only; global fallback elsewhere';
   else if(state('usgs')==='failed')fallback='USGS unavailable · '+fallback;
