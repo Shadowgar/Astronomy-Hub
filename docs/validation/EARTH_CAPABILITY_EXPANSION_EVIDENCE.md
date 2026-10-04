@@ -1,5 +1,9 @@
 # ORA-8 / C5 Earth capability expansion
 
+Current disposition: **C5 COMPLETE**. The owner development/release policy
+checkpoint at the end supersedes the historical production-release gate. Earlier
+sections retain their original evidence and execution context.
+
 Baseline main: `f55b9b2721cb692b4cda106e415c8fef59454c80` (merged PR #58).
 Branch: `phase-c5-earth-live-layers-1`. Single agent. Default mode.
 God's Eye immutable external pin: `e7707d9a0f34d9fbffc300023c319f95caa5be30`.
@@ -907,3 +911,42 @@ Post-merge state changes are limited to `docs/context/LIVE_SESSION_BRIEF.md`,
 `docs/features/FEATURE_TRACKER.md`, and this evidence file. Owner settings retain
 SHA-256 `6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`,
 unchanged and unstaged.
+
+## Owner development and release policy checkpoint, 2026-10-04
+
+Owner decision on base main `9da1633fc6c63d5799b617b2e7cf9aa1de1f8341`:
+**PR #59 / Phase C5 is COMPLETE** after review, merge and the post-merge proof
+recorded above: 42 local backend, 37 Docker backend, 62 runtime/Earth, 196 frontend
+across 26 files, 14 Docker browser cases, typecheck, six manifest negative tests
+and architecture validation (175 entries, 8 packs, 35 documents). All three live
+disposable providers were ready, with zero page errors. These are recorded
+post-merge results, not new executions by this documentation-only correction.
+The qualified artifact remains `f4f5e84c82cceb5f6fb0b363f39163c3ce70e0e3068663fb5b70f48f35641d0b`
+and God's Eye remains pinned at `e7707d9a0f34d9fbffc300023c319f95caa5be30`.
+
+Development remains in the owner's laptop WSL; feature qualification uses local
+and disposable Docker environments. External deployment is intentionally deferred
+until the owner declares **Release Candidate** and is not a feature-completion
+gate or Category A blocker. At that gate, reassess deployment architecture, host,
+persistent storage, public hostname, Cloudflare and `oras.org` integration as a
+separate task. Local proof does not claim a public deployment.
+
+Historical infrastructure diagnostics are preserved: `100.88.0.20` was stale;
+normal read-only SSH reached `openclaw` at `100.66.50.41`. Its stopped historical
+Astronomy Hub containers referenced `/home/rocco/external-drive/Astronomy-Hub`;
+the NTFS volume UUID `724E8A2E4E89EAE5` was unavailable and the path returned
+`No such device`. PostgreSQL and Redis volumes remained untouched. No production
+deployment, disk repair or service restart occurred. The local diagnostic record
+is `/var/tmp/oras-pr59-release/connectivity-recovery.md`. This host/storage is
+historical information only, not a current target, blocker or next action.
+
+The next authorized active development phase is high-definition / close-zoom
+Earth mapping: source/architecture/license investigation followed by one bounded,
+honestly qualified package and an owner-reviewed feature PR. Preserve C5 and
+renderer/provenance boundaries. No remote SSH/deployment/storage repair,
+Cloudflare, `oras.org`, ISS, Moon/Mars or Phase D work is authorized. Historical
+release and no-HD instructions above are superseded by this owner decision.
+
+This correction changes only the live brief, project state, execution master
+plan, feature tracker and this evidence file. Owner `.vscode/settings.json`
+remains unchanged and unstaged. No runtime source or artifact is changed.

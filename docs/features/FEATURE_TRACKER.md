@@ -87,13 +87,15 @@ PR #59 / ORA-8 / C5 was owner-approved and merged at
 approved head `e0e69e47` and reviewed main `fc41ac19` as parents.
 USGS earthquakes, NIFC/WFIGS fire perimeters and NOAA/NWS nowCOAST CONUS radar
 are the locally qualified expansion; Launch Library remains blocked by access 403.
-ORA-8 implementation is owner-approved; public production release remains PARTIAL
-pending confirmed deployment access and production qualification. The default
-SSH target timed out; no production deployment occurred in this release attempt.
-See the current release section of the Earth expansion evidence.
-High-definition close-zoom Earth mapping is the NEXT
-major phase after #59, subject to separate authorization. No HD mapping, ISS
-handoff or Mars/Moon work has started. Historical passing counts do not
+ORA-8 / C5 is COMPLETE: owner approval, merge and post-merge local/disposable
+qualification passed. External deployment is intentionally deferred until the
+owner declares Release Candidate. Historical `openclaw` SSH/storage diagnostics
+are retained in Earth expansion evidence; storage is not a current blocker.
+HD / close-zoom Earth mapping is the active authorized phase in laptop WSL,
+qualified with local/disposable Docker. Deliver one bounded package for owner
+review before merge. No remote deployment, Cloudflare or `oras.org` work is
+included. ISS handoff and Mars/Moon remain out of scope.
+Historical passing counts do not
 qualify changed sources. Current execution and owner approval belong to
 [PROJECT_STATE](../execution/PROJECT_STATE.md) and the live session brief.
 

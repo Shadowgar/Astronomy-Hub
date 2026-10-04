@@ -6,22 +6,34 @@ Live-time/custom-timezone/Earth-observer correction `a45fa637dce0b420f63d49abe30
 PR #59 / ORA-8 / Phase C5 was owner-approved and merged on 2026-10-04 at
 `d8ca945a0b1a1c44622dae573d9787dde71f8a76`, with parents reviewed main
 `fc41ac19d7e2021c9d4b56b5a13322981f3c6992` and reviewed head
-`e0e69e4747e9123b75072f9636e566865948d584`. Current work is the authorized
-post-merge qualification and production release, SINGLE AGENT ONLY.
-Production has not been deployed: the script's default SSH target timed out;
-the current SSH target, deployment directory and public URL await confirmation.
-Do not treat disposable Docker proof as public production qualification.
+`e0e69e4747e9123b75072f9636e566865948d584`. **Phase C5 is COMPLETE**:
+owner review, merge and post-merge local/disposable qualification passed.
+Current work is owner-authorized high-definition / close-zoom Earth mapping in
+laptop WSL, SINGLE AGENT ONLY. The first bounded package requires fresh Docker,
+browser, provider/license and C5 regression proof, then owner review before merge.
 The unchanged locked design ancestor is `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.
-No runtime override mode is active. Load the current `frontend_change`,
-`backend_change`, `review` and `validation` packs. Repository design documents
-remain authoritative; secondary Figma remains partial under the owner waiver.
+No runtime override mode is active. Load `docs_change`, `planning`,
+`frontend_change`, `backend_change`, `review` and `validation` packs as applicable.
+Repository design documents remain authoritative; secondary Figma remains partial
+under the owner waiver.
 
-The explicit owner authorization supersedes the historical no-merge/no-deploy
-gates below only for this C5 release. The manifest has no deployment pack; the
-requested production procedure and current runtime README were consulted.
-No HD mapping, ISS, Mars/Moon or Phase D work is authorized. Release status remains
-PARTIAL until actual public production is deployed and qualified. See the latest
-[release checkpoint](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md#owner-approved-merge-and-release-checkpoint-2026-10-04).
+## Owner release policy, 2026-10-04
+
+Development and qualification use laptop WSL and local/disposable Docker until
+the owner explicitly declares a **Release Candidate**. External production
+availability is not a feature-completion gate or Category A blocker. Deployment,
+target host, persistent storage, public hostname, Cloudflare and `oras.org`
+integration will be reassessed separately at Release Candidate. No public
+production qualification is claimed by local proof.
+
+`openclaw` and its unavailable external volume are historical infrastructure,
+not the current target, blocker or next action. Do not SSH, deploy or repair that
+host during this task. Preserve the recorded diagnostics as history. The active
+HD package preserves one owned Cesium renderer, contained SWE, C5 layers and the
+pinned God's Eye dependency. ISS, Moon/Mars, measured horizon and Phase D remain
+out of scope. Preserve `.vscode/settings.json` unchanged and unstaged.
+This owner decision supersedes the historical release/no-HD gates below; see the
+[policy checkpoint](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md#owner-development-and-release-policy-checkpoint-2026-10-04).
 
 ## Preserved implementation and review history
 

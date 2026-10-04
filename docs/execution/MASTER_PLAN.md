@@ -75,12 +75,15 @@ also merged baselines. PR #62 context/validation enforcement is merged at
 `fc41ac19`. PR #59 merged after owner approval at `d8ca945a` on 2026-10-04:
 USGS earthquakes,
 NIFC/WFIGS fire perimeters and NOAA/NWS nowCOAST CONUS radar. Launch Library
-remains blocked by production HTTP 403. C5 production release is authorized but
-pending confirmed deployment access and public qualification; no production
-deployment is claimed. High-definition close-zoom Earth mapping
-is the NEXT major phase after #59, before the later ISS/Mars reference phases and
-subject to separate owner authorization. No HD mapping, ISS or Mars/Moon work
-has started.
+remains blocked by production HTTP 403. Phase C5 is COMPLETE after owner approval,
+merge and passing post-merge qualification. High-definition close-zoom Earth
+mapping is the active owner-authorized next phase, before ISS/Mars reference
+phases. Implement one bounded package in laptop WSL with local/disposable Docker
+qualification and owner review before merge. External deployment is intentionally
+deferred until an owner-declared Release Candidate; historical `openclaw` storage
+is not a feature blocker or next action. Reassess host/storage/hostname,
+Cloudflare and `oras.org` integration separately at that release gate. No public
+deployment is claimed. ISS and Mars/Moon work have not started.
 Later phases remain planned and require explicit authorization.
 
 ## FEATURE DOMAINS (REFERENCE ONLY)

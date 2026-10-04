@@ -24,12 +24,13 @@ Proven runtime conflicts must be reported, not silently overwritten.
 
 ## CURRENT MODE
 
-Owner-authorized PR #59 / C5 production release after merge at
-`d8ca945a0b1a1c44622dae573d9787dde71f8a76` on 2026-10-04. Its parents are
-reviewed main `fc41ac19` and approved head `e0e69e47`; ORA-7 and PRs #60/#61/#62
-are preserved. SINGLE AGENT ONLY. Public production remains undeployed/unqualified
-in this release attempt pending a reachable, confirmed deployment target.
-No runtime override mode is active.
+Laptop WSL development and local/disposable Docker qualification, SINGLE AGENT
+ONLY. Phase C5 / PR #59 is COMPLETE after owner approval, merge at
+`d8ca945a0b1a1c44622dae573d9787dde71f8a76` and passing post-merge qualification.
+The active authorized phase is HD / close-zoom Earth mapping. External deployment
+is intentionally deferred until the owner declares Release Candidate; unavailable
+historical `openclaw` storage is not a current blocker. No runtime override mode
+is active.
 
 ## CURRENT OBJECTIVE / ACTIVE TASK
 
@@ -42,15 +43,15 @@ merged at `f3601bb82b0c52343d2c38f93ecfce747ef611c7`. PR #62 mandatory context
 and validator enforcement merged at `fc41ac19d7e2021c9d4b56b5a13322981f3c6992`,
 the reviewed main baseline integrated into `phase-c5-earth-live-layers-1`.
 Sky lifecycle, Tonight fallback and validation enforcement are preserved baselines.
-PR #59 is merged; the active task is its bounded production release. No new
-provider or feature is authorized.
+PR #59 is complete; the active task is provider/architecture investigation and
+the first bounded HD Earth mapping package, with owner review before merge.
 Root Sky workspace, Sky/Earth modes, reusable Tonight/Observe context, bounded
 selection/time surfaces, responsive mobile sheets and immersive UI are implemented.
 The Earth visual foundation uses NASA GIBS static imagery with local Natural Earth
 fallback; configured terrain/3D requires separately qualified deployment assets.
 
-The only active slice is the release of merged C5: post-merge qualification and
-production deployment of the implemented source-backed Earth layers.
+The only active slice is HD Earth mapping in WSL/disposable Docker; preserve the
+implemented source-backed C5 layers and qualify changed sources afresh.
 USGS earthquakes, NIFC/WFIGS public fire perimeters and NOAA CONUS radar are the
 implemented and locally qualified layers; Launch Library's production HTTP 403 blocks launches here.
 No upstream pin change or complete God's Eye application ownership is authorized.
@@ -62,12 +63,11 @@ approval and exact head/main verification, seven successful check runs plus
 successful CodeRabbit status, and zero unresolved threads. Its description now
 records the final approved qualification. The merged file tree equals the
 approved `e0e69e47` tree; post-merge qualification is recorded separately.
-ORA-8 implementation is owner-approved; the production release remains PARTIAL
-until public deployment/qualification succeeds. The default SSH target
-`100.88.0.20:22` timed out; current target/directory/public URL are unconfirmed. See
-[Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
-ISS, Mars/Moon, measured horizon and high-definition mapping are not started. Preserve unrelated
-editor settings unchanged and unstaged. Historical evidence remains unchanged.
+ORA-8 / C5 is complete. Production deployment is not a feature-phase completion
+requirement; no public deployment is claimed. Historical SSH/storage diagnostics
+remain in [Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
+HD mapping is now authorized. ISS, Mars/Moon and measured horizon remain out of
+scope. Preserve unrelated editor settings unchanged and unstaged.
 Fresh post-merge proof passes: 42 local backend, 37 Docker backend, 62 runtime/Earth,
 196 frontend and 14 Docker browser tests, plus typecheck and manifest/context checks.
 Merged #60/#61 behavior and #62 context/validator enforcement remain preserved.
@@ -165,14 +165,15 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-Post-merge Docker/browser qualification is complete. Confirm the reachable
-production SSH target, deployment directory and public URL, then perform the already
-authorized C5 release with preserved production configuration/data and actual
-public validation. Do not mark deployment complete from localhost proof.
+Investigate current imagery limits and qualified provider options, then implement,
+test and open a reviewable PR for the first bounded HD Earth mapping package.
+All implementation and qualification stay in laptop WSL/local disposable Docker.
+Do not merge without owner review. Do not SSH to historical infrastructure, repair
+storage, deploy production, configure Cloudflare or integrate `oras.org`.
 
-High-definition close-zoom Earth mapping is the NEXT major phase after #59,
-subject to separate owner authorization. No HD mapping, ISS or Mars/Moon work
-has started. Historical ORA-7 and C5 evidence remains historical and unchanged.
+At an owner-declared Release Candidate, reassess deployment architecture, target,
+persistent storage, hostname and site integration separately. Their absence does
+not block feature completion. Historical ORA-7/C5 evidence is preserved.
 
 The Phase B study and owned Earth foundation are already merged historical
 checkpoints. ISS handoff, planetary surfaces, measured `oras_horizon.v1`, broad
