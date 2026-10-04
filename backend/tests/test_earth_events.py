@@ -79,11 +79,15 @@ def test_image_refuses_timestamp_mismatch_and_unbounded_time(monkeypatch):
     from fastapi.testclient import TestClient
     from backend.app.routes import earth
     app=FastAPI();app.include_router(earth.router,prefix='/api');client=TestClient(app)
-    async def read(kind):return type('Manifest',(),{'latest':'2026-10-03T19:00:00.000Z'})(),b'fixture png'
+    events.reset_cache()
+    stamp='2026-10-03T19:00:00.000Z'
+    async def read(kind):return events.RadarFeed(latest=stamp,times=[stamp],bounds=events.BOUNDS,fetchedAt=stamp),b'fixture png'
     monkeypatch.setattr(earth,'read_feed',read)
     assert client.get('/api/earth/radar-image?time=wrong').status_code==503
     assert client.get('/api/earth/radar-image?time='+'x'*41).status_code==422
-    result=client.get('/api/earth/radar-image?time=2026-10-03T19:00:00.000Z')
+    assert client.get('/api/earth/radar-image?time='+stamp).status_code==503
+    assert client.get('/api/earth/weather-radar').status_code==200
+    result=client.get('/api/earth/radar-image?time='+stamp)
     assert result.status_code==200 and result.headers['content-type']=='image/png'
 
 @pytest.mark.parametrize('payload',[feed([{'properties':[],'geometry':{},'id':'x'}]),feed([None]),{'type':'FeatureCollection','metadata':None,'features':[]}])
@@ -115,3 +119,78 @@ def test_timeout_is_controlled(monkeypatch):
         monkeypatch.setattr(events,'acquire',fail)
         with pytest.raises(ValueError,match='Source unavailable'):await events.read_feed('weather-radar')
     asyncio.run(scenario())
+
+
+def test_advertised_radar_snapshot_survives_current_cache_boundary(monkeypatch):
+    """Real routes + current-feed cache, with only provider bytes/clock replaced."""
+    import httpx
+    from types import SimpleNamespace
+    from fastapi import FastAPI
+    from backend.app.routes import earth
+
+    async def scenario():
+        events.reset_cache()
+        clock = [0.0]
+        monkeypatch.setattr(events, 'time', SimpleNamespace(monotonic=lambda: clock[0]))
+        calls = []
+        async def acquire(kind):
+            assert kind == 'weather-radar'
+            stamp = f'2026-10-03T19:{len(calls):02d}:00.000Z'
+            calls.append(stamp)
+            return events.RadarFeed(latest=stamp,times=[stamp],bounds=events.BOUNDS,fetchedAt=stamp), b'declared PNG '+stamp.encode()
+        monkeypatch.setattr(events, 'acquire', acquire)
+        app = FastAPI();app.include_router(earth.router,prefix='/api')
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app),base_url='http://test') as client:
+            async def manifest():
+                response = await client.get('/api/earth/weather-radar')
+                assert response.status_code == 200
+                return response.json()['latest']
+            async def image(stamp):
+                return await client.get('/api/earth/radar-image',params={'time':stamp})
+            a = await manifest()
+            clock[0] = events.CADENCE['weather-radar'] - 1
+            assert await manifest() == a  # A advertised immediately before expiry.
+            clock[0] += 2
+            b = await manifest()  # Actual current cache refresh to B.
+            assert a != b and len(calls) == 2
+            for stamp in (a,b):
+                response = await image(stamp)
+                assert response.status_code == 200
+                assert response.content == b'declared PNG '+stamp.encode()
+            assert (await image('unknown')).status_code == 503
+            assert len(calls) == 2  # Image reads never acquire or substitute current B.
+            clock[0] += 121
+            assert (await image(a)).status_code == 503
+            assert (await image(b)).status_code == 503
+            # Repeated real cache expirations cannot grow the retained set.
+            for _ in range(8):
+                clock[0] += events.CADENCE['weather-radar']
+                stamp = await manifest()
+                assert (await image(stamp)).status_code == 200
+                assert len(events._radar_snapshots) <= 2
+            events.reset_cache()
+    asyncio.run(scenario())
+
+
+def test_radar_retention_protects_existing_leases_and_does_not_slide_on_image_reads(monkeypatch):
+    from types import SimpleNamespace
+    events.reset_cache();clock=[0.0]
+    monkeypatch.setattr(events,'time',SimpleNamespace(monotonic=lambda:clock[0]))
+    def snapshot(stamp,body):
+        return events.RadarFeed(latest=stamp,times=[stamp],bounds=events.BOUNDS,fetchedAt=stamp),body
+    a,b,c = ('2026-10-03T19:00:00.000Z','2026-10-03T19:04:00.000Z','2026-10-03T19:08:00.000Z')
+    events.retain_radar_snapshot(snapshot(a,b'A'))
+    events.retain_radar_snapshot(snapshot(b,b'B'))
+    with pytest.raises(ValueError):events.retain_radar_snapshot(snapshot(c,b'C'))
+    assert events.read_radar_image(a)==b'A' and events.read_radar_image(b)==b'B'
+    # Reacquisition at an identical provider timestamp cannot mutate its bytes.
+    clock[0]=10;events.retain_radar_snapshot(snapshot(a,b'different bytes'))
+    assert events.read_radar_image(a)==b'A'
+    clock[0]=119;assert events.read_radar_image(b)==b'B'
+    clock[0]=120
+    with pytest.raises(ValueError):events.read_radar_image(b)
+    events.retain_radar_snapshot(snapshot(c,b'C'))
+    assert events.read_radar_image(a)==b'A' and events.read_radar_image(c)==b'C'
+    clock[0]=130
+    with pytest.raises(ValueError):events.read_radar_image(a)
+    events.reset_cache()

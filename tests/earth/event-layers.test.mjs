@@ -25,6 +25,7 @@ for(const selected of [false,true])test(`same-ID earthquake revisions refresh ma
    assert.equal(marker.point.color.value,depthKm===null?'#a8bbce':'depth:'+depthKm);
    assert.equal(marker.point.color.alpha,.8);assert.equal(marker.label.text,name);
    assert.equal(marker.name,name);assert.equal(marker.point.pixelSize,selected?16:5+magnitude);
+   assert.equal(marker.position.value.lon,-81);assert.equal(marker.position.value.lat,43);
    assert.equal(marker.orasMetadata.basePointSize,5+magnitude);
    assert.equal(marker.orasMetadata.facts.find(f=>f.label==='Magnitude').value,magnitude.toFixed(1));
    assert.equal(s.context.selection.value,selected?marker:null);

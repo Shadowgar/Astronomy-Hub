@@ -24,8 +24,9 @@ Proven runtime conflicts must be reported, not silently overwritten.
 
 ## CURRENT MODE
 
-Owner-authorized integration of existing PR #59 / ORA-8 / Phase C5 Earth live
-layers after merged ORA-7 and PRs #60/#61/#62. SINGLE AGENT ONLY.
+Owner-authorized focused correction of the two PR #59 radar/cache and workspace
+layer-restoration P2 races on reviewed head `2bb9ba87`. Integrated main remains
+`fc41ac19`; ORA-7 and PRs #60/#61/#62 are preserved. SINGLE AGENT ONLY.
 No runtime override mode is active.
 
 ## CURRENT OBJECTIVE / ACTIVE TASK
@@ -159,9 +160,10 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-Complete the bounded PR #59 integration with current main, rerun focused Earth,
-Sky lifecycle, Tonight fallback and context/validator checks, then return fresh CI,
-mergeability and review-thread status for owner review. No PR merge or deployment.
+Correct the two current PR #59 P2 races with red/green proof, rerun the applicable
+Earth/frontend/Docker/browser qualification, reply to and resolve those two threads,
+and return fresh CI, mergeability and thread status for owner re-review. No merge
+or production deployment.
 
 High-definition close-zoom Earth mapping is the NEXT major phase after #59,
 subject to separate owner authorization. No HD mapping, ISS or Mars/Moon work
@@ -252,3 +254,17 @@ Fresh qualification and the existing-PR handoff are recorded in
 [Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
 This does not authorize another broad review, a new provider, mapping/ISS/Mars/Moon,
 merge or production deployment. PR #59 remains In Review for owner approval.
+
+Owner-review correction on reviewed head `2bb9ba8`: radar manifests now lease
+exact timestamp-keyed PNG bytes for a bounded 120-second grace (two slots), and
+WorkspaceShell serializes layer restoration/user commands per runtime client,
+preserving newer user choices and cancelling departed-client work. Both mandatory
+regressions failed before correction and pass afterward. Fresh proof: 42 local
+backend, 37 Docker Earth/aircraft, 62 runtime/Earth, 196 frontend tests, 14 Docker
+browser cases including desktop/mobile races, live providers and actual bfcache;
+typecheck, six manifest negative tests and architecture validation pass.
+No Earth-owned input changed: existing artifact `f4f5e84c82cceb5f6fb0b363f39163c3ce70e0e3068663fb5b70f48f35641d0b`
+is reverified against source, all files, recorded/served metadata and seven exports.
+The two named Category A blockers are closed by implementation/qualification;
+remote SHA, CI and thread closure are recorded in the final PR handoff. Next task
+is owner re-review of #59. Category B limits and all excluded work remain unchanged.

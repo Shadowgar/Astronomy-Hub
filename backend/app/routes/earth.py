@@ -89,7 +89,7 @@ async def aircraft(response: Response, lat: float = Query(ge=-90, le=90), lon: f
         raise HTTPException(status_code=503, detail='Aircraft source unavailable') from None
 
 # Normalized event/surface contracts, separate from astronomy discovery.
-from ..services.earth_events import EventFeed, RadarFeed, read_feed
+from ..services.earth_events import EventFeed, RadarFeed, read_feed, retain_radar_snapshot, read_radar_image
 
 @router.get('/earth/earthquakes',response_model=EventFeed)
 async def earthquakes(response:Response):
@@ -105,13 +105,12 @@ async def fire_perimeters(response:Response):
 
 @router.get('/earth/weather-radar',response_model=RadarFeed)
 async def radar():
-    try:return (await read_feed('weather-radar'))[0]
+    try:return retain_radar_snapshot(await read_feed('weather-radar'))
     except ValueError:raise HTTPException(503,'Radar source unavailable') from None
 
 @router.get('/earth/radar-image')
 async def radar_image(time:str=Query(max_length=40)):
     try:
-        manifest,image=await read_feed('weather-radar')
-        if time!=manifest.latest:raise ValueError('Snapshot changed')
-        return Response(image,media_type='image/png',headers={'Cache-Control':'public, max-age=240','Content-License':'https://www.weather.gov/disclaimer'})
+        image=read_radar_image(time)
+        return Response(image,media_type='image/png',headers={'Cache-Control':'no-store','Content-License':'https://www.weather.gov/disclaimer'})
     except ValueError:raise HTTPException(503,'Radar image unavailable') from None

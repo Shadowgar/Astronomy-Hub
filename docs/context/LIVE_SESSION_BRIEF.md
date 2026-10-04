@@ -3,8 +3,9 @@
 ORA-7's owner-approved locked unified workspace was merged in PR #58 on
 2026-10-03 at `f55b9b2721cb692b4cda106e415c8fef59454c80`, including the final
 Live-time/custom-timezone/Earth-observer correction `a45fa637dce0b420f63d49abe30f4d76633bd410`.
-Current work is the bounded integration of existing PR #59 / ORA-8 / Phase C5
-Earth live layers on `phase-c5-earth-live-layers-1` with current main
+Current work is the focused owner-review correction of PR #59 / ORA-8 / Phase C5
+radar snapshot retention and layer-restoration races on `phase-c5-earth-live-layers-1`.
+Reviewed head is `2bb9ba87165c0c16557c1165afea3fb7bf595a37`; integrated main is
 `fc41ac19d7e2021c9d4b56b5a13322981f3c6992`, SINGLE AGENT ONLY.
 The unchanged locked design ancestor is `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.
 No runtime override mode is active. Load the current `frontend_change`,
@@ -88,3 +89,17 @@ Fresh qualification and the existing-PR handoff are recorded in
 [Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
 This does not authorize another broad review, a new provider, mapping/ISS/Mars/Moon,
 merge or production deployment. PR #59 remains In Review for owner approval.
+
+Owner-review correction on reviewed head `2bb9ba8`: radar manifests now lease
+exact timestamp-keyed PNG bytes for a bounded 120-second grace (two slots), and
+WorkspaceShell serializes layer restoration/user commands per runtime client,
+preserving newer user choices and cancelling departed-client work. Both mandatory
+regressions failed before correction and pass afterward. Fresh proof: 42 local
+backend, 37 Docker Earth/aircraft, 62 runtime/Earth, 196 frontend tests, 14 Docker
+browser cases including desktop/mobile races, live providers and actual bfcache;
+typecheck, six manifest negative tests and architecture validation pass.
+No Earth-owned input changed: existing artifact `f4f5e84c82cceb5f6fb0b363f39163c3ce70e0e3068663fb5b70f48f35641d0b`
+is reverified against source, all files, recorded/served metadata and seven exports.
+The two named Category A blockers are closed by implementation/qualification;
+remote SHA, CI and thread closure are recorded in the final PR handoff. Next task
+is owner re-review of #59. Category B limits and all excluded work remain unchanged.

@@ -565,3 +565,191 @@ The owner settings SHA remains
 `6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`, unstaged.
 The existing PR owns the final correction commit SHA, CI and review-thread status;
 these are verified remotely after the push and reported in the handoff.
+
+
+## Owner-review radar/restoration corrections, 2026-10-04
+
+Scope: the two unresolved Category A P2 threads on reviewed head
+`2bb9ba87165c0c16557c1165afea3fb7bf595a37`, branch
+`phase-c5-earth-live-layers-1`, target main `fc41ac19d7e2021c9d4b56b5a13322981f3c6992`.
+Both threads were read directly from GitHub before editing:
+[radar snapshot boundary](https://github.com/Shadowgar/Astronomy-Hub/pull/59#discussion_r4175853594)
+and [layer restoration](https://github.com/Shadowgar/Astronomy-Hub/pull/59#discussion_r4175853597).
+Default mode, single agent. Mandatory core/live context and the current
+backend_change/frontend_change/review/validation pack union listed earlier remain
+applicable; no extra project documents loaded. The explicit owner request activates
+this correction pass; nested legacy FE/Babylon/API-prefix assumptions remain
+superseded by current root architecture and the established Earth transport.
+
+### Radar snapshot contract
+
+Previously the image route reread the current provider cache. An A manifest
+advertised immediately before the 240-second cache expiration could be followed
+by a B acquisition, making the just-advertised A image fail with 503.
+The service now retains exact acquired PNG bytes under each advertised timestamp
+for 120 seconds after the latest successful advertisement. Image reads neither
+refresh the provider nor extend retention. Expired and unknown timestamps fail
+closed with the existing controlled 503; the route's 40-character limit remains.
+There are at most two retained snapshots (each acquired under the existing 4MB
+body cap), separate from the existing bounded current-provider cache. Unexpired
+bytes are immutable even if a provider reacquisition returns the same timestamp.
+If both slots are occupied, an additional advertisement fails rather than evicting
+an existing promise. Normal 240-second acquisition cadence plus 120-second grace
+requires no more than two slots. Images use `Cache-Control: no-store` so a browser
+cache cannot bypass server expiry. Retention remains worker-local under the
+qualified single-worker deployment; multi-worker routing is not qualified.
+
+Provider acquisition, coalescing, failure caches, fixed URLs, redirects disabled,
+source freshness/PNG validation, request deadlines and response/body caps remain
+unchanged. Current manifests still require successful provider acquisition and
+freshness admission; retained older snapshots are only addressable by their exact
+previously advertised timestamps during their bounded grace period.
+
+The new backend regression exercises actual FastAPI routes and the current cache:
+A acquired at monotonic 0, advertised again at 239; B becomes current at 241;
+both exact A/B bodies remain fetchable; unknown and expired timestamps return 503;
+repeated cache advances remain bounded. It fails on the reviewed source with A
+returning 503 (1 failed), then passes after correction. A second contract test
+proves capacity never evicts an active lease, identical timestamps cannot mutate
+retained bytes, and repeated image reads do not slide expiry. The existing
+mismatch/oversize test is retained and strengthened: an otherwise valid timestamp
+must be advertised first. Its success setup now requests a manifest, as required
+by the corrected contract. No malformed/failure/timeout tests were removed.
+
+### Layer intent and command ordering
+
+The old WorkspaceShell loop captured initial preferences and awaited each restore.
+Interactive toggles could finish during an earlier delayed restore, then be undone
+when the stale loop reached that layer. The correction creates a per-client layer
+session with one promise chain for restore/toggle/retry commands. A user action
+synchronously marks its layer as touched before enqueueing; subsequent restore
+iterations skip it. A command already sent finishes before the queued user action.
+Pending IDs prevent duplicate clicks while leaving other controls responsive.
+Preferences still update only on successful runtime acknowledgement. The effect
+is keyed to client/mode, not preference state, so persistence does not replay it.
+Cleanup cancels remaining work; each queued request carries the expected client,
+and the adapter refuses dispatch to a replacement client or an old-client result.
+Sky selection restoration and the persisted whitelist/schema are unchanged.
+
+New browser regressions run the actual mounted WorkspaceShell on desktop/mobile:
+hold the aircraft restore, toggle later earthquakes, release aircraft, then await
+the final restore acknowledgement. Both fail on the reviewed Docker frontend
+because earthquakes ends disabled. The initial disconnected-stack attempts were
+environment failures and are excluded from red proof. Starting the existing Earth
+service restored the old frontend; no frontend source had yet been changed.
+The assertions require final runtime/persisted agreement, exactly seven layer
+commands, only one quake command (`true`), and at most one in-flight layer command.
+A third browser case queues both a later-layer enable and an in-flight-layer
+disable, leaves Earth, and verifies neither unacknowledged choice leaks into the
+new client. Adapter unit cases cover replacement before dispatch and during ack.
+
+### Qualification and identity
+
+Fresh local backend bundle: 42/42 (33 Earth event, 4 aircraft, 5 Tonight fallback).
+Docker Earth/aircraft: 37/37. Runtime/Earth/protocol: 62/62, including six #60
+lifecycle cases, fire-polygon picking, release export inventory and same-ID quake
+revision checks (also explicitly asserting revised longitude/latitude).
+Full frontend: 26 files / 196 tests pass, including the focused layer panel and
+adapter tests. Typecheck and six manifest negative tests pass. Architecture
+validation passes: 175 entries, 8 packs, 35 documents, 88 relative links, 8 ADRs.
+Frontend/backend production containers rebuilt successfully with Bake disabled
+for the established local workflow. No production deployment occurred.
+
+No owned Earth runtime/protocol/build input changes; no Earth rebuild is needed.
+Strict artifact verification checks all 512 files and source inputs against the
+existing release; regenerated metadata is byte-identical to reviewed head.
+Actual artifact, recorded lock/public versions, and no-cache served metadata agree:
+`f4f5e84c82cceb5f6fb0b363f39163c3ce70e0e3068663fb5b70f48f35641d0b`.
+All seven declared public exports match. God's Eye is clean at unchanged pin
+`e7707d9a0f34d9fbffc300023c319f95caa5be30`; capability ledger is unchanged.
+The previous earthquake/polygon corrections and #60/#61/#62 implementation remain
+preserved. Historical results above are retained as historical evidence.
+
+Exact commands, root cwd unless noted:
+
+```sh
+git fetch origin
+git rev-parse HEAD origin/main origin/phase-c5-earth-live-layers-1
+sha256sum .vscode/settings.json
+PYTHONPATH=.:backend .venv/bin/pytest backend/tests/test_earth_events.py -q -k advertised_radar
+PYTHONPATH=.:backend .venv/bin/pytest backend/tests/test_earth_events.py -q
+PYTHONPATH=.:backend .venv/bin/pytest backend/tests/test_earth_events.py backend/tests/test_earth_aircraft.py tests/backend/test_tonight_fallback.py -q
+node --test tests/earth/*.test.mjs tests/runtime/*.test.mjs
+npm --prefix frontend test -- --run
+npm --prefix frontend run typecheck
+python3 -m unittest -v tests.validation.test_architecture_manifest
+python3 -S scripts/validation/validate_architecture_docs.py
+git diff --check
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-pr59-integration/earth-build POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4181 COMPOSE_BAKE=false docker compose -p oras-workspace-qualification -f docker-compose.prod.yml up -d --no-build
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-pr59-integration/earth-build POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4181 COMPOSE_BAKE=false docker compose -p oras-workspace-qualification -f docker-compose.prod.yml up -d --no-deps --build frontend backend
+POSTGRES_PASSWORD=local-qualification docker compose -p oras-workspace-qualification -f docker-compose.prod.yml exec -T backend env PYTHONPATH=.:backend python3 -m pytest backend/tests/test_earth_events.py backend/tests/test_earth_aircraft.py -q
+python3 scripts/runtime/record_runtime_versions.py /var/tmp/oras-pr59-integration/earth-build
+git diff --exit-code 2bb9ba8 -- runtimes/earth-runtime packages/runtime-protocol integrations/renderers.lock.json frontend/public/runtime-versions.json
+git -C /var/tmp/oras-cesium/gods-eye rev-parse HEAD
+git -C /var/tmp/oras-cesium/gods-eye status --short
+curl --fail -s -H 'Cache-Control: no-cache' http://127.0.0.1:4181/earth-runtime/release.json -o /var/tmp/oras-pr59-owner-review/served-release.json
+curl --fail -s -H 'Cache-Control: no-cache' http://127.0.0.1:4181/runtime-versions.json -o /var/tmp/oras-pr59-owner-review/served-versions.json
+# frontend cwd, before correction:
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/workspaceLayerRestore.spec.ts --workers=1 --output=/var/tmp/oras-pr59-owner-review/restore-red
+# frontend cwd, after correction:
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 ORAS_LIVE_EARTH=1 npx playwright test tests/e2e/workspaceLayerRestore.spec.ts tests/e2e/earthExpansion.spec.ts tests/e2e/earthExpansionLive.spec.ts tests/e2e/skyBfcache.spec.ts --workers=1 --output=/var/tmp/oras-pr59-owner-review/browser
+```
+
+Logs/artifacts: `/var/tmp/oras-pr59-owner-review/` (`radar-red.log`,
+`radar-green.log`, `restore-red.log`, `backend.log`, `docker-backend.log`,
+`runtime.log`, `frontend.log`, `docker-build.log`, `browser.log`).
+
+Docker browser qualification: **14/14 pass in 6.2 minutes**, including both new
+desktop/mobile restoration races, queued-choice cancellation on mode departure,
+desktop/mobile layer and provider-failure controls, polygon-body selection away
+from the anchor, same-ID earthquake revision, Sky/Earth/Sky exact-link lifetime,
+live providers, and two native Sky bfcache cases. Both restoration screenshots
+were inspected under `output/playwright/earth-expansion/restore-intent-*.png`.
+They show earthquakes enabled after delayed restoration on desktop and mobile.
+Bfcache confirms `sameDocument: true`, `pageshowPersisted: true`, departure
+`persisted: true`, recovered controls and native UTC `2026-10-03T03:00:00.000Z`.
+
+Fresh actual-provider measurements (disposable Docker, software-rendered browser):
+
+| Provider | Accepted records | Source timestamp | Activation |
+|---|---:|---|---:|
+| USGS earthquakes | 48 | 2026-10-04T13:30:52Z | 2549ms |
+| NIFC/WFIGS fire subset | 74 | 2026-10-04T00:31:58Z | 2315ms |
+| NOAA CONUS radar | 1 | 2026-10-04T13:24:01Z | 3707ms |
+
+All three report ready; the live browser recorded no page errors. Source times
+are provider truth, not retrieval-time substitutions. Full measurements remain
+in `output/playwright/earth-expansion/live-measurements.json`.
+
+Exact correction files:
+
+```text
+backend/app/routes/earth.py
+backend/app/services/earth_events.py
+backend/tests/test_earth_events.py
+frontend/src/features/workspace/LayerPanel.tsx
+frontend/src/features/workspace/WorkspaceShell.tsx
+frontend/src/features/workspace/workspaceRuntimeAdapter.ts
+frontend/tests/e2e/workspaceLayerRestore.spec.ts
+frontend/tests/workspaceRuntimeAdapter.test.ts
+tests/earth/event-layers.test.mjs
+docs/context/LIVE_SESSION_BRIEF.md
+docs/execution/PROJECT_STATE.md
+docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md
+```
+
+Both named Category A blockers are corrected and qualified; no remaining Category
+A blocker is known within this owner-review scope. Category B limitations above
+remain, including launch access, incomplete generalized fire coverage, CONUS/low
+detail radar, single-worker caches and unqualified multi-worker snapshot routing,
+local-browser measurement limits, inherited Sky provider noise and separately
+gated mapping. No new capability, dependency pin change, next-phase work, merge
+or production deployment is included. Owner settings remain unchanged/unstaged
+at SHA-256 `6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+
+Pre-push review state: PR #59 OPEN, non-draft, exactly the two named unresolved
+threads. The focused commit containing this section is the final correction head;
+its full SHA, post-push CI/mergeability and final unresolved-thread count are
+recorded in the two linked review-thread replies and owner handoff after remote
+verification. This avoids embedding a commit's own not-yet-created hash in it.
+Required handoff is owner re-review, with the PR kept open and unmerged.

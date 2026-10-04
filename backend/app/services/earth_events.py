@@ -163,7 +163,34 @@ async def acquire(kind):
     return manifest,png
 
 _cache={};_inflight={}
-def reset_cache():_cache.clear()
+# An advertised timestamp is a lease on these exact bytes, independent of the
+# current provider cache. Two slots cover the 240s cadence plus a 120s grace.
+RADAR_SNAPSHOT_GRACE = 120
+RADAR_SNAPSHOT_LIMIT = 2
+_radar_snapshots: dict[str, tuple[float, bytes]] = {}
+
+def prune_radar_snapshots(now):
+    for stamp, (expires, _) in list(_radar_snapshots.items()):
+        if now >= expires:del _radar_snapshots[stamp]
+
+def retain_radar_snapshot(payload):
+    manifest, image = payload
+    now = time.monotonic();prune_radar_snapshots(now)
+    retained = _radar_snapshots.get(manifest.latest)
+    if retained is None and len(_radar_snapshots) >= RADAR_SNAPSHOT_LIMIT:
+        # Fail the new advertisement rather than evict an unexpired promise.
+        raise ValueError('Radar snapshot capacity')
+    _radar_snapshots[manifest.latest] = (now + RADAR_SNAPSHOT_GRACE, retained[1] if retained else image)
+    return manifest
+
+def read_radar_image(stamp):
+    prune_radar_snapshots(time.monotonic())
+    retained = _radar_snapshots.get(stamp)
+    if retained is None:raise ValueError('Radar snapshot unavailable')
+    return retained[1]
+
+def reset_cache():
+    _cache.clear();_radar_snapshots.clear()
 async def refresh(kind):
     payload=None
     try:
