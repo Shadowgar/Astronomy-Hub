@@ -69,8 +69,10 @@ Retain useful Earth capabilities through the pinned capability ledger.
 Sequence: C0 reproducible SWE; C1 ORAS Cesium core; C2 selective adapters;
 C3 core parity; C4 unified bridge/lifecycle; C5 broader feature expansion;
 D ISS handoff; E Mars; F astronomy extensions; G immersive UX; H solar-system scale.
-ORA-7 implements the locked unified workspace and Earth visual foundation.
-It stops after qualification and one PR review cycle; owner approval remains required.
+ORA-7 implemented the locked unified workspace and Earth visual foundation;
+owner approval closed that checkpoint through merged PR #58. PRs #60/#61 are
+also merged baselines. PR #62 is context/validation cleanup; PR #59 remains open
+and separate. No ISS, Mars/Moon or high-definition Earth mapping has started.
 Later phases remain planned and require explicit authorization.
 
 ## FEATURE DOMAINS (REFERENCE ONLY)

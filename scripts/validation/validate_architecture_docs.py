@@ -23,6 +23,15 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 ARCHITECTURE = 'docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md'
+REQUIRED_RULES = frozenset((
+    'do_not_load_unlisted_documents', 'must_declare_loaded_documents',
+    'must_match_task_context', 'architecture_must_precede_feature_execution',
+    'core_context_and_live_session_brief_are_mandatory',
+))
+REQUIRED_FAILURES = frozenset((
+    'loading_docs_outside_manifest', 'missing_core_context', 'missing_session_brief',
+    'undeclared_context', 'executing_without_architecture_context',
+))
 ADR_NAMES = (
     '0001-universal-application-state.md', '0002-swe-sky-renderer.md',
     '0003-gods-eye-earth-runtime.md', '0004-additive-earth-extensions.md',
@@ -163,6 +172,14 @@ def validate(manifest_path):
     for rule in manifest['rules']:
         require(isinstance(rule, dict) and len(rule) == 1 and all(isinstance(v, bool) for v in rule.values()), 'manifest: invalid rule')
     require(all(isinstance(v, str) for v in manifest['failure_conditions']), 'manifest: invalid failure condition')
+    rule_names = [name for rule in manifest['rules'] for name in rule]
+    require(len(rule_names) == len(REQUIRED_RULES) and set(rule_names) == REQUIRED_RULES,
+            'manifest: missing/extra mandatory rule identifiers')
+    require(all(value is True for rule in manifest['rules'] for value in rule.values()),
+            'manifest: mandatory rules must remain true')
+    failures = manifest['failure_conditions']
+    require(len(failures) == len(REQUIRED_FAILURES) and set(failures) == REQUIRED_FAILURES,
+            'manifest: failure identifiers must match the exact required set without duplicates')
     require(set(tasks) == {'docs_change', 'backend_change', 'frontend_change', 'validation',
                            'debug', 'review', 'reconciliation', 'planning'}, 'manifest: unexpected task packs')
     for task in ('docs_change', 'planning', 'frontend_change', 'backend_change', 'review', 'validation'):
@@ -170,8 +187,12 @@ def validate(manifest_path):
             'docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md',
             'docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md')),
             f'{task}: missing Phase B study/evidence')
-    require('docs/architecture/STACK_OVERVIEW.md' in tasks['review']['load'],
-            'review: missing stack authority')
+    for task in ('review', 'planning'):
+        require('docs/architecture/STACK_OVERVIEW.md' in tasks[task]['load'],
+                f'{task}: missing stack authority')
+    for task in ('review', 'validation'):
+        require('docs/architecture/TONIGHT_CONTRACT.md' in tasks[task]['load'],
+                f'{task}: missing Tonight contract')
     docs = sorted(set(p for p in tasks['docs_change']['load'] if p.endswith('.md')) |
                   {'docs/validation/UNIFIED_UNIVERSE_ARCHITECTURE_EVIDENCE.md'})
     links = sum(markdown_links(name) for name in docs)

@@ -24,14 +24,22 @@ Proven runtime conflicts must be reported, not silently overwritten.
 
 ## CURRENT MODE
 
-ORA-7 locked unified workspace implementation and qualification. SINGLE AGENT ONLY.
+Owner-authorized PR #62 context/validation cleanup after merged ORA-7 and
+PRs #60/#61. SINGLE AGENT ONLY.
 No runtime override mode is active.
 
 ## CURRENT OBJECTIVE / ACTIVE TASK
 
-Branch `phase-c7-unified-workspace-implementation-1` contains unchanged locked
-owner-approved design commit `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`, based on
-merged PR #55 at `b2f9dce9bb559a1d23dc806a1b8d1927c502f084`.
+ORA-7 was owner-approved and merged in PR #58 at
+`f55b9b2721cb692b4cda106e415c8fef59454c80`, including correction `a45fa637`.
+Its locked design ancestor remains `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.
+PR #60's Sky cached-page lifecycle correction merged at
+`1e7fd3efab22d66fc7918890767ec9204aba5a95`; PR #61's Tonight fallback correction
+merged at `f3601bb82b0c52343d2c38f93ecfce747ef611c7`, the current main baseline.
+The active task integrates that main into `review-context-validation-20261003`
+and preserves PR #62's mandatory context/validator enforcement while reconciling
+execution documentation. Sky lifecycle and Tonight fallback are merged baselines.
+PR #59 remains open and separate; its Earth live-layer work is outside this branch.
 Root Sky workspace, Sky/Earth modes, reusable Tonight/Observe context, bounded
 selection/time surfaces, responsive mobile sheets and immersive UI are implemented.
 The Earth visual foundation uses NASA GIBS static imagery with local Natural Earth
@@ -44,12 +52,14 @@ on `phase-c-full-gods-eye-experiment-backup` at `dd15ae1b` remains local-only.
 
 ## CURRENT PRIORITY
 
-Complete fresh Docker/browser/visual qualification and one normal PR review cycle;
-repair Category A with focused retests, push the bounded branch and leave ORA-7
-In Review for owner approval. See
+Validate and deliver the existing non-draft PR #62 without weakening its context
+rules or changing merged runtime/backend behavior. Run the architecture validator,
+negative manifest tests and focused Sky/Tonight integration sanity checks.
+The retained ORA-7 runtime evidence is historical; see
 [workspace implementation evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
-No merge or next phase. No ISS handoff, Mars/Moon surfaces, measured horizon or
-broad feature parity. Preserve unrelated editor settings unchanged and unstaged.
+Do not merge PRs, deploy or start another phase. No ISS handoff, Mars/Moon surfaces,
+high-definition Earth mapping, measured horizon or broad feature parity has started
+under this task. Preserve unrelated editor settings unchanged and unstaged.
 
 ## KNOWN ISSUES
 
@@ -57,6 +67,22 @@ broad feature parity. Preserve unrelated editor settings unchanged and unstaged.
 * DSO media and higher-definition imagery remain incomplete
 * Pan-STARRS does not provide safe full-sky default coverage
 * WordPress consumption of `/api/above-me` has not started
+
+## REVIEW-HISTORY DISPOSITION
+
+The obsolete embedded navigation-drawer messages are superseded by host-owned
+workspace controls. `runtimes/sky-adapter/plugin.js` hides the embedded toolbar
+and drawer, while the Sky overlay retains standalone fallbacks. Restore neither
+obsolete host handlers nor hidden embedded controls merely to close an old thread.
+
+The merged `a45fa637` corrections already address Live time, custom-observer
+timezones and Earth source refresh. Merged PR #60 preserves the Sky endpoint and
+resets inactive interaction/timers on cached departure, retaining genuine cleanup.
+Merged PR #61 preserves local Messier rows through partial enrichment failures,
+recovers canonical OpenNGC deduplication and retains accurate source status.
+Any separately authorized future source changes require their own
+qualification; an unresolved older thread is an inventory item, not proof of a
+current defect or authorization for a broad implementation pass.
 
 ---
 
@@ -128,18 +154,20 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-After this Phase B study PR: the bounded **Phase C Sky/Earth skeleton**,
-starting with source/artifact gates in study section 29. Do not implement C
-or horizon work inside this study checkpoint.
+Complete the bounded PR #62 integration with current main, verify mandatory
+context/validator enforcement and merged #60/#61 behavior, then return its
+updated CI, mergeability and review-thread status for owner review.
 
-Approved order: A architecture docs → B compatibility study → C unified runtime
-skeleton → D ISS cross-engine slice → E Mars planetary proof → F astronomy
-extensions. The unified architecture defines the scope and open questions.
+ORA-7 implementation was owner-approved and merged in PR #58 at `f55b9b2721`.
+Its final `a45fa637` Live-time/custom-timezone/Earth-observer corrections remain
+merged baselines. The active work is context/validation cleanup after merged
+PRs #60 and #61; PR #59 remains open and separate. Do not merge PRs, deploy,
+start high-definition Earth mapping or begin another feature/phase.
 
-`oras_horizon.v1` remains approved and important within Phase F, integrating
-Observe, Tonight, Sky, Earth/ORAS site context and panorama alignment. It is no
-longer the immediate next implementation task and still needs measured inputs.
-WordPress and unrelated data/feature work remain separately gated.
+The Phase B study and owned Earth foundation are already merged historical
+checkpoints. ISS handoff, planetary surfaces, measured `oras_horizon.v1`, broad
+God's Eye parity and WordPress work remain separately gated. The approved future
+direction and historical sequence remain in the unified architecture.
 
 ## FINAL RULE
 

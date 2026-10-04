@@ -67,7 +67,31 @@ FEATURE_ACCEPTANCE.md
 
 ---
 
-## Current Documentation Checkpoint
+## Current Execution Checkpoint
+
+ORA-7 unified workspace implementation was owner-approved and merged in PR #58
+on 2026-10-03 at `f55b9b2721cb692b4cda106e415c8fef59454c80`. Its final
+`a45fa637` correction covers Live time, custom-observer timezones and Earth source
+refresh. It follows merged compatibility study PR #54 and owned Earth PR #55.
+The Hub mounts native SWE and its independently owned Cesium Earth runtime using
+the authenticated bridge and serial renderer lifetime. This does not establish
+full God's Eye feature parity or production-qualified planetary surfaces.
+
+PR #60's Sky cached-page lifecycle repair is merged at `1e7fd3ef`, including
+interaction reset, timer cleanup and preserved endpoint availability. PR #61's
+Tonight local Messier fallback, partial enrichment recovery, canonical OpenNGC
+deduplication and source-status correction is merged at `f3601bb8`.
+The active task is PR #62 context/validation cleanup integrated with that main.
+PR #59 remains open and separate. No ISS handoff, Mars/Moon surfaces or
+high-definition Earth mapping has started. Historical passing counts do not
+qualify changed sources. Current execution and owner approval belong to
+[PROJECT_STATE](../execution/PROJECT_STATE.md) and the live session brief.
+
+## Historical Documentation Checkpoint — Phase B
+
+The following records the pre-merge PR #54 study checkpoint. Its execution state
+and unimplemented-Earth statements are historical, superseded by the current
+checkpoint above; they are not instructions to restart Phase B or Phase C.
 
 The active checkpoint is the docs-only Phase B God's Eye + SWE Compatibility /
 Upgradeability Study on `unified-runtime-compatibility-study-1`, following merged
