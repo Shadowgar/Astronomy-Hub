@@ -3,14 +3,27 @@
 ORA-7's owner-approved locked unified workspace was merged in PR #58 on
 2026-10-03 at `f55b9b2721cb692b4cda106e415c8fef59454c80`, including the final
 Live-time/custom-timezone/Earth-observer correction `a45fa637dce0b420f63d49abe30f4d76633bd410`.
-Current work is the focused owner-review correction of PR #59 / ORA-8 / Phase C5
-radar snapshot retention and layer-restoration races on `phase-c5-earth-live-layers-1`.
-Reviewed head is `2bb9ba87165c0c16557c1165afea3fb7bf595a37`; integrated main is
-`fc41ac19d7e2021c9d4b56b5a13322981f3c6992`, SINGLE AGENT ONLY.
+PR #59 / ORA-8 / Phase C5 was owner-approved and merged on 2026-10-04 at
+`d8ca945a0b1a1c44622dae573d9787dde71f8a76`, with parents reviewed main
+`fc41ac19d7e2021c9d4b56b5a13322981f3c6992` and reviewed head
+`e0e69e4747e9123b75072f9636e566865948d584`. Current work is the authorized
+post-merge qualification and production release, SINGLE AGENT ONLY.
+Production has not been deployed: the script's default SSH target timed out;
+the current SSH target, deployment directory and public URL await confirmation.
+Do not treat disposable Docker proof as public production qualification.
 The unchanged locked design ancestor is `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.
 No runtime override mode is active. Load the current `frontend_change`,
 `backend_change`, `review` and `validation` packs. Repository design documents
 remain authoritative; secondary Figma remains partial under the owner waiver.
+
+The explicit owner authorization supersedes the historical no-merge/no-deploy
+gates below only for this C5 release. The manifest has no deployment pack; the
+requested production procedure and current runtime README were consulted.
+No HD mapping, ISS, Mars/Moon or Phase D work is authorized. Release status remains
+PARTIAL until actual public production is deployed and qualified. See the latest
+[release checkpoint](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md#owner-approved-merge-and-release-checkpoint-2026-10-04).
+
+## Preserved implementation and review history
 
 The unified workspace is merged: `/` opens Sky, `/sky-engine` and `/earth` are
 modes; Tonight/Observe are contextual surfaces with focused routes retained.

@@ -82,10 +82,16 @@ interaction reset, timer cleanup and preserved endpoint availability. PR #61's
 Tonight local Messier fallback, partial enrichment recovery, canonical OpenNGC
 deduplication and source-status correction is merged at `f3601bb8`.
 PR #62 context/validation enforcement is merged at `fc41ac19`.
-The active task integrates existing PR #59 / ORA-8 / C5 with that current main.
+PR #59 / ORA-8 / C5 was owner-approved and merged at
+`d8ca945a0b1a1c44622dae573d9787dde71f8a76` on 2026-10-04, preserving the exact
+approved head `e0e69e47` and reviewed main `fc41ac19` as parents.
 USGS earthquakes, NIFC/WFIGS fire perimeters and NOAA/NWS nowCOAST CONUS radar
 are the locally qualified expansion; Launch Library remains blocked by access 403.
-ORA-8 remains In Review. High-definition close-zoom Earth mapping is the NEXT
+ORA-8 implementation is owner-approved; public production release remains PARTIAL
+pending confirmed deployment access and production qualification. The default
+SSH target timed out; no production deployment occurred in this release attempt.
+See the current release section of the Earth expansion evidence.
+High-definition close-zoom Earth mapping is the NEXT
 major phase after #59, subject to separate authorization. No HD mapping, ISS
 handoff or Mars/Moon work has started. Historical passing counts do not
 qualify changed sources. Current execution and owner approval belong to

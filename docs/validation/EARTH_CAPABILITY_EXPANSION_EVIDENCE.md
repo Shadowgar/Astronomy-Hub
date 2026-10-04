@@ -753,3 +753,157 @@ its full SHA, post-push CI/mergeability and final unresolved-thread count are
 recorded in the two linked review-thread replies and owner handoff after remote
 verification. This avoids embedding a commit's own not-yet-created hash in it.
 Required handoff is owner re-review, with the PR kept open and unmerged.
+
+## Owner-approved merge and release checkpoint, 2026-10-04
+
+The owner completed review of `e0e69e4747e9123b75072f9636e566865948d584`
+against main `fc41ac19d7e2021c9d4b56b5a13322981f3c6992`, explicitly authorized
+merge and the bounded C5 production release, and retained all next-phase exclusions.
+That authorization supersedes the historical no-merge/no-deploy gates above.
+
+Default mode, single agent. Mandatory core/live context was refreshed, and the
+unchanged union of current review/validation/backend_change/frontend_change packs
+listed above was retained and checked against the approved head. The manifest
+defines no deployment/release pack. The explicitly requested production procedure
+`docs/restart/ORAS_PROD_RELEASE_WORKFLOW_2026-06-02.md` and current
+`runtimes/README.md` were additionally consulted, along with the actual deployment
+script and production Compose source. No broad document-content scan occurred.
+
+### Merge proof
+
+Immediately before merge, a fresh fetch and GitHub API gate confirmed:
+
+- OPEN, non-draft, MERGEABLE/CLEAN, exact approved PR head and reviewed main.
+- All six review threads resolved, zero unresolved, no pagination or new finding.
+- Seven successful check runs plus successful CodeRabbit status (review skipped;
+  no new automatic review was requested).
+- PR description updated and read back byte-for-byte to the final approved
+  qualification, artifact identity, corrected races, owner approval and Category B
+  limits. The old qualification counts and no-merge instruction were replaced.
+- Fresh pre-merge checks: 42 backend, 62 runtime/Earth and 196 frontend tests pass.
+
+Normal GitHub merge commit, without administrative/protection bypass:
+
+```sh
+gh pr merge 59 --merge --match-head-commit e0e69e4747e9123b75072f9636e566865948d584
+git fetch origin
+gh pr view 59 --json state,mergedAt,mergeCommit,headRefOid,url
+git show -s --format='%H%n%P%n%s' origin/main
+git diff --stat e0e69e4747e9123b75072f9636e566865948d584 origin/main
+git switch main
+git merge --ff-only origin/main
+```
+
+PR #59 reports MERGED at `2026-10-04T15:30:52Z`.
+Merge/resulting main: `d8ca945a0b1a1c44622dae573d9787dde71f8a76`.
+First parent/previous main: `fc41ac19d7e2021c9d4b56b5a13322981f3c6992`.
+Second parent/PR head: `e0e69e4747e9123b75072f9636e566865948d584`.
+Remote main was verified at the merge result; its file tree is byte-identical to
+the approved head. Main's post-merge Playwright and Push-on-main workflows passed.
+Pre-merge API proof and exact PR description are saved under
+`/var/tmp/oras-pr59-release/{premerge-gate.json,pr-description.md}`.
+
+### Fresh post-merge qualification
+
+On merged main: 42 local backend tests (33 Earth, 4 aircraft, 5 Tonight),
+37 Docker Earth/aircraft tests, 62 runtime/Earth/protocol tests, 196 frontend
+tests across 26 files, TypeScript and six manifest negative tests pass.
+Architecture validator passes: 175 entries, 8 packs, 35 Markdown documents,
+88 relative links, 8 ADRs. No Earth runtime/protocol/build input changed across
+the merge; **Earth rebuild not required**.
+
+The existing artifact was copied without rebuilding to the immutable path
+`/var/tmp/oras-renderers/owned-earth-f4f5e84c82cceb5f6fb0b363f39163c3ce70e0e3068663fb5b70f48f35641d0b`.
+Strict source-input/file verification passes for all 512 files. Actual artifact,
+recorded lock, public versions, and both served disposable metadata endpoints agree
+on SHA `f4f5e84c82cceb5f6fb0b363f39163c3ce70e0e3068663fb5b70f48f35641d0b`,
+all seven public exports, and unchanged clean God's Eye pin
+`e7707d9a0f34d9fbffc300023c319f95caa5be30`.
+
+Production Compose rebuilt/recreated frontend, backend and Earth static service
+in disposable project `oras-workspace-qualification` on port 4181. Postgres and
+Redis were deliberately left running; no data reset or migration occurred.
+Frontend and Earth health checks pass; backend is running and its test suite passes.
+Fresh Docker browser qualification: **14/14 pass in 6.2 minutes** (exit 0), covering
+desktop/mobile controls, source-unavailable/retry, exact-link Sky/Earth transitions,
+desktop/mobile polygon-body selection, same-ID event revision, live providers,
+both restoration races, queued-choice cancellation and two actual bfcache cases.
+Live-provider selection and Focus pass; page errors are empty. This is disposable
+qualification, not public deployment.
+
+| Fresh live provider | Accepted records | Provider timestamp | Activation |
+|---|---:|---|---:|
+| USGS earthquakes | 45 | 2026-10-04T15:36:53Z | 2182ms |
+| NIFC/WFIGS fire subset | 74 | 2026-10-04T00:31:58Z | 1779ms |
+| NOAA CONUS radar | 1 | 2026-10-04T15:32:13Z | 3583ms |
+
+All three are ready. These refreshed counts supersede earlier observations for
+this post-merge check without erasing the owner-reviewed historical results.
+The public-contract check on disposable port 4181 returned the advertised radar
+timestamp image as a 96,885-byte PNG, HTTP 200, `Cache-Control: no-store`; an
+unknown timestamp returned 503. Expiry/boundary behavior remains covered by the
+fresh deterministic route/cache regressions. No 240-second production wait occurred.
+The documented Sky release routes also pass: runtime root 200, obsolete
+`skydata/dso/properties` 404, base DSO properties 200/order 1, extended properties
+200/order 3. Results are `postmerge-route-smoke.json` in the proof directory.
+
+Exact post-merge qualification commands (repository root unless noted):
+
+```sh
+PYTHONPATH=.:backend .venv/bin/pytest backend/tests/test_earth_events.py backend/tests/test_earth_aircraft.py tests/backend/test_tonight_fallback.py -q
+node --test tests/earth/*.test.mjs tests/runtime/*.test.mjs
+npm --prefix frontend test -- --run
+npm --prefix frontend run typecheck
+python3 -m unittest -v tests.validation.test_architecture_manifest
+python3 -S scripts/validation/validate_architecture_docs.py
+python3 scripts/runtime/record_runtime_versions.py /var/tmp/oras-renderers/owned-earth-f4f5e84c82cceb5f6fb0b363f39163c3ce70e0e3068663fb5b70f48f35641d0b
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-renderers/owned-earth-f4f5e84c82cceb5f6fb0b363f39163c3ce70e0e3068663fb5b70f48f35641d0b POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4181 COMPOSE_BAKE=false docker compose -p oras-workspace-qualification -f docker-compose.prod.yml up -d --no-deps --build frontend backend earth-runtime
+POSTGRES_PASSWORD=local-qualification docker compose -p oras-workspace-qualification -f docker-compose.prod.yml exec -T backend env PYTHONPATH=.:backend python3 -m pytest backend/tests/test_earth_events.py backend/tests/test_earth_aircraft.py -q
+POSTGRES_PASSWORD=local-qualification docker compose -p oras-workspace-qualification -f docker-compose.prod.yml ps
+# frontend cwd:
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 ORAS_LIVE_EARTH=1 npx playwright test tests/e2e/workspaceLayerRestore.spec.ts tests/e2e/earthExpansion.spec.ts tests/e2e/earthExpansionLive.spec.ts tests/e2e/skyBfcache.spec.ts --workers=1 --output=/var/tmp/oras-pr59-release/browser
+```
+
+Logs are `/var/tmp/oras-pr59-release/postmerge-*.log`; served metadata copies are
+`served-release.json` and `served-versions.json` in that directory.
+Browser screenshots and live measurements are preserved in its `browser-evidence/`
+directory. Final documentation validation passes with 175 entries, 8 packs,
+35 documents, **89 relative links**, and 8 ADRs; manifest negative tests pass 6/6
+and `git diff --check` passes. Exact final checks:
+
+```sh
+python3 -m unittest -v tests.validation.test_architecture_manifest
+python3 -S scripts/validation/validate_architecture_docs.py
+git diff --check
+sha256sum .vscode/settings.json
+```
+
+### Production gate and remaining work
+
+Production deployment has **not** occurred in this release attempt. Read-only SSH
+to the deployment script's default target with a ten-second connection timeout
+returned `ssh: connect to host 100.88.0.20 port 22: Connection timed out` (exit 255).
+The owner was asked for the current SSH target, deployment directory and public URL.
+None is inferred from localhost or disposable stacks. No production environment
+file, artifact, container, persistent data or unrelated service was changed.
+
+The deployment script's rsync/configuration/progress-page defaults must be checked
+against the actual target before execution: preserve remote configuration, data,
+external mounts and unrelated services. Production baseline/rollback preparation,
+deployment, public browser checks, served-production identity, actual production
+providers, advertised radar-image contract and production polygon/toggle smoke
+remain required. No rollback was required or performed because production was
+untouched. C5 production release remains PARTIAL pending these gates; the merge
+and disposable qualification must not be represented as production success.
+
+No new Category A regression has been identified in completed checks. Existing
+Category B limits remain: blocked launch access, incomplete/generalized fires,
+CONUS radar/detail limits, worker-local cache/retention and unqualified multi-worker
+routing, local-browser measurement limits and inherited Sky provider noise.
+HD mapping, ISS, Mars/Moon and Phase D have not started and remain separately gated.
+
+Post-merge state changes are limited to `docs/context/LIVE_SESSION_BRIEF.md`,
+`docs/execution/PROJECT_STATE.md`, `docs/execution/MASTER_PLAN.md`,
+`docs/features/FEATURE_TRACKER.md`, and this evidence file. Owner settings retain
+SHA-256 `6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`,
+unchanged and unstaged.

@@ -24,9 +24,11 @@ Proven runtime conflicts must be reported, not silently overwritten.
 
 ## CURRENT MODE
 
-Owner-authorized focused correction of the two PR #59 radar/cache and workspace
-layer-restoration P2 races on reviewed head `2bb9ba87`. Integrated main remains
-`fc41ac19`; ORA-7 and PRs #60/#61/#62 are preserved. SINGLE AGENT ONLY.
+Owner-authorized PR #59 / C5 production release after merge at
+`d8ca945a0b1a1c44622dae573d9787dde71f8a76` on 2026-10-04. Its parents are
+reviewed main `fc41ac19` and approved head `e0e69e47`; ORA-7 and PRs #60/#61/#62
+are preserved. SINGLE AGENT ONLY. Public production remains undeployed/unqualified
+in this release attempt pending a reachable, confirmed deployment target.
 No runtime override mode is active.
 
 ## CURRENT OBJECTIVE / ACTIVE TASK
@@ -38,34 +40,37 @@ PR #60's Sky cached-page lifecycle correction merged at
 `1e7fd3efab22d66fc7918890767ec9204aba5a95`; PR #61's Tonight fallback correction
 merged at `f3601bb82b0c52343d2c38f93ecfce747ef611c7`. PR #62 mandatory context
 and validator enforcement merged at `fc41ac19d7e2021c9d4b56b5a13322981f3c6992`,
-the current main baseline integrated into `phase-c5-earth-live-layers-1`.
+the reviewed main baseline integrated into `phase-c5-earth-live-layers-1`.
 Sky lifecycle, Tonight fallback and validation enforcement are preserved baselines.
-PR #59 is the active Earth live-layer PR; no new provider or feature is authorized.
+PR #59 is merged; the active task is its bounded production release. No new
+provider or feature is authorized.
 Root Sky workspace, Sky/Earth modes, reusable Tonight/Observe context, bounded
 selection/time surfaces, responsive mobile sheets and immersive UI are implemented.
 The Earth visual foundation uses NASA GIBS static imagery with local Natural Earth
 fallback; configured terrain/3D requires separately qualified deployment assets.
 
-The only active slice is `phase-c5-earth-live-layers-1`: bounded provider
-integration and regression qualification of implemented source-backed Earth layers.
+The only active slice is the release of merged C5: post-merge qualification and
+production deployment of the implemented source-backed Earth layers.
 USGS earthquakes, NIFC/WFIGS public fire perimeters and NOAA CONUS radar are the
 implemented and locally qualified layers; Launch Library's production HTTP 403 blocks launches here.
 No upstream pin change or complete God's Eye application ownership is authorized.
 
 ## CURRENT PRIORITY
 
-Historical C5 implementation and production-like local qualification: 54 runtime/
-protocol, 42 frontend, 35 Docker backend tests, five fixture browser checks and
-one actual-provider browser check plus two focused polygon-pick retests. PR [#59](https://github.com/Shadowgar/Astronomy-Hub/pull/59)
-is open. The one normal review is complete; both unique Category A findings are repaired
-with focused regressions and artifact rebuild.
-ORA-8 is handed back **In Review**, pending owner approval; do not mark Done or
-merge. See
+PR [#59](https://github.com/Shadowgar/Astronomy-Hub/pull/59) is MERGED after owner
+approval and exact head/main verification, seven successful check runs plus
+successful CodeRabbit status, and zero unresolved threads. Its description now
+records the final approved qualification. The merged file tree equals the
+approved `e0e69e47` tree; post-merge qualification is recorded separately.
+ORA-8 implementation is owner-approved; the production release remains PARTIAL
+until public deployment/qualification succeeds. The default SSH target
+`100.88.0.20:22` timed out; current target/directory/public URL are unconfirmed. See
 [Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
 ISS, Mars/Moon, measured horizon and high-definition mapping are not started. Preserve unrelated
 editor settings unchanged and unstaged. Historical evidence remains unchanged.
-Preserve merged #60/#61 behavior and #62 context/validator enforcement; rerun
-focused tests and production-like Docker/browser smoke on the integrated branch.
+Fresh post-merge proof passes: 42 local backend, 37 Docker backend, 62 runtime/Earth,
+196 frontend and 14 Docker browser tests, plus typecheck and manifest/context checks.
+Merged #60/#61 behavior and #62 context/validator enforcement remain preserved.
 
 ## KNOWN ISSUES
 
@@ -160,10 +165,10 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-Correct the two current PR #59 P2 races with red/green proof, rerun the applicable
-Earth/frontend/Docker/browser qualification, reply to and resolve those two threads,
-and return fresh CI, mergeability and thread status for owner re-review. No merge
-or production deployment.
+Post-merge Docker/browser qualification is complete. Confirm the reachable
+production SSH target, deployment directory and public URL, then perform the already
+authorized C5 release with preserved production configuration/data and actual
+public validation. Do not mark deployment complete from localhost proof.
 
 High-definition close-zoom Earth mapping is the NEXT major phase after #59,
 subject to separate owner authorization. No HD mapping, ISS or Mars/Moon work

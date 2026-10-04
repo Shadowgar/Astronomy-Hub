@@ -72,9 +72,12 @@ D ISS handoff; E Mars; F astronomy extensions; G immersive UX; H solar-system sc
 ORA-7 implemented the locked unified workspace and Earth visual foundation;
 owner approval closed that checkpoint through merged PR #58. PRs #60/#61 are
 also merged baselines. PR #62 context/validation enforcement is merged at
-`fc41ac19`. PR #59 is the active C5 Earth live-layer integration: USGS earthquakes,
+`fc41ac19`. PR #59 merged after owner approval at `d8ca945a` on 2026-10-04:
+USGS earthquakes,
 NIFC/WFIGS fire perimeters and NOAA/NWS nowCOAST CONUS radar. Launch Library
-remains blocked by production HTTP 403. High-definition close-zoom Earth mapping
+remains blocked by production HTTP 403. C5 production release is authorized but
+pending confirmed deployment access and public qualification; no production
+deployment is claimed. High-definition close-zoom Earth mapping
 is the NEXT major phase after #59, before the later ISS/Mars reference phases and
 subject to separate owner authorization. No HD mapping, ISS or Mars/Moon work
 has started.
