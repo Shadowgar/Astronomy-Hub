@@ -68,9 +68,9 @@ approved `e0e69e47` tree; post-merge qualification is recorded separately.
 ORA-8 / C5 is complete. Production deployment is not a feature-phase completion
 requirement; no public deployment is claimed. Historical SSH/storage diagnostics
 remain in [Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
-The first HD package passes 74 Node, 198 frontend, 42 local backend and 37 Docker
-backend tests. All 24 browser cases have passing evidence across the full run and
-focused test-harness corrections; this is not a single 24/24 run. Details and
+The first HD package passes 75 Node, 198 frontend, 42 local backend and 37 Docker
+backend tests. The final rebuilt artifact passes all 25 browser cases in one
+13.8-minute run, including outside-CONUS source status and full C5 coverage. Details and
 current artifact identity are in [HD mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md).
 ISS, Mars/Moon and measured horizon remain out of
 scope. Preserve unrelated editor settings unchanged and unstaged.
@@ -171,7 +171,7 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-Owner review of the first bounded HD Earth mapping PR is next. Its implementation
+Owner review of [PR #63](https://github.com/Shadowgar/Astronomy-Hub/pull/63) is next. Its implementation
 and local qualification are complete; it is not merged or publicly deployed.
 All implementation and qualification stay in laptop WSL/local disposable Docker.
 Do not merge without owner review. Do not SSH to historical infrastructure, repair
