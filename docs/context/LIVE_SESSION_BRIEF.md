@@ -3,8 +3,9 @@
 ORA-7's owner-approved locked unified workspace was merged in PR #58 on
 2026-10-03 at `f55b9b2721cb692b4cda106e415c8fef59454c80`, including the final
 Live-time/custom-timezone/Earth-observer correction `a45fa637dce0b420f63d49abe30f4d76633bd410`.
-Current work is the owner-authorized bounded review-history follow-up, SINGLE
-AGENT ONLY, based on that merged main tree. The unchanged locked design ancestor
+Current work is the owner-authorized PR #62 context/validation cleanup on
+`review-context-validation-20261003`, SINGLE AGENT ONLY, integrated with main
+`f3601bb82b0c52343d2c38f93ecfce747ef611c7`. The unchanged locked design ancestor
 is `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`; merged PR #55 is historical.
 No runtime override mode is active. Load the `frontend_change`, `backend_change`
 or `docs_change` context pack for the affected concern, and the review/validation
@@ -45,13 +46,19 @@ another phase. Preserve unrelated
 `.vscode/settings.json` unchanged and unstaged. No ISS handoff, Mars/Moon surfaces,
 measured horizon or broad God's Eye feature-parity expansion is authorized.
 
-Owner follow-up, 2026-10-03: proceed with the review-history report's validated
-recommendations, including the three previously deferred Tonight findings.
-Live-time/custom-timezone/Earth-observer corrections are already merged in
-`a45fa637` and must be preserved. Remaining repairs cover Sky cached-page lifecycle,
-catalog fallback, manifest validation and documentation. This does not authorize
-implementing the older unresolved-thread inventory
-without triage, changing the locked design, merging, or beginning another phase.
-Qualify changed runtime artifacts and focused browser paths
-before claiming these new repairs are runtime-complete; retain earlier evidence
-as historical rather than assigning its test counts to new source changes.
+Merged follow-ups, 2026-10-03: PR #60 merged at
+`1e7fd3efab22d66fc7918890767ec9204aba5a95`, preserving the Sky endpoint through
+cached navigation, explicitly resetting interaction and cleaning timers on every
+pagehide, with genuine-departure cleanup retained. PR #61 merged at
+`f3601bb82b0c52343d2c38f93ecfce747ef611c7`, preserving local Messier fallback,
+partial OpenNGC enrichment recovery, canonical deduplication and source status.
+Live-time/custom-timezone/Earth-observer corrections remain merged in `a45fa637`.
+These repairs are preserved baselines, not pending implementation tasks.
+
+PR #62 preserves mandatory context/validator enforcement and reconciles current
+execution truth. PR #59 remains open and separate; its Earth live-layer work is
+not part of this branch. No ISS handoff, Mars/Moon surfaces or high-definition
+Earth mapping has started. No new feature work, PR merge or deployment is authorized.
+Retain historical qualification as historical; do not assign its passing counts
+to changed sources or treat an older thread inventory as current implementation
+authority.

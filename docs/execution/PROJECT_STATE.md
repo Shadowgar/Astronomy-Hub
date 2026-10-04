@@ -24,7 +24,8 @@ Proven runtime conflicts must be reported, not silently overwritten.
 
 ## CURRENT MODE
 
-Owner-authorized bounded review-history follow-up to merged ORA-7. SINGLE AGENT ONLY.
+Owner-authorized PR #62 context/validation cleanup after merged ORA-7 and
+PRs #60/#61. SINGLE AGENT ONLY.
 No runtime override mode is active.
 
 ## CURRENT OBJECTIVE / ACTIVE TASK
@@ -32,8 +33,13 @@ No runtime override mode is active.
 ORA-7 was owner-approved and merged in PR #58 at
 `f55b9b2721cb692b4cda106e415c8fef59454c80`, including correction `a45fa637`.
 Its locked design ancestor remains `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.
-The active task repairs remaining validated review-history findings in Sky cached
-page lifecycle, Tonight fallback, manifest validation and execution documentation.
+PR #60's Sky cached-page lifecycle correction merged at
+`1e7fd3efab22d66fc7918890767ec9204aba5a95`; PR #61's Tonight fallback correction
+merged at `f3601bb82b0c52343d2c38f93ecfce747ef611c7`, the current main baseline.
+The active task integrates that main into `review-context-validation-20261003`
+and preserves PR #62's mandatory context/validator enforcement while reconciling
+execution documentation. Sky lifecycle and Tonight fallback are merged baselines.
+PR #59 remains open and separate; its Earth live-layer work is outside this branch.
 Root Sky workspace, Sky/Earth modes, reusable Tonight/Observe context, bounded
 selection/time surfaces, responsive mobile sheets and immersive UI are implemented.
 The Earth visual foundation uses NASA GIBS static imagery with local Natural Earth
@@ -46,13 +52,14 @@ on `phase-c-full-gods-eye-experiment-backup` at `dd15ae1b` remains local-only.
 
 ## CURRENT PRIORITY
 
-Deliver the remaining repairs in separate bounded draft PRs with focused source
-tests and explicit qualification limits. Rebuild affected immutable runtime
-artifacts and complete Docker/browser qualification before marking the runtime
-follow-up complete. The retained ORA-7 evidence is historical; see
+Validate and deliver the existing non-draft PR #62 without weakening its context
+rules or changing merged runtime/backend behavior. Run the architecture validator,
+negative manifest tests and focused Sky/Tonight integration sanity checks.
+The retained ORA-7 runtime evidence is historical; see
 [workspace implementation evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
-Do not merge follow-ups or start another phase. No ISS handoff, Mars/Moon surfaces, measured horizon or
-broad feature parity. Preserve unrelated editor settings unchanged and unstaged.
+Do not merge PRs, deploy or start another phase. No ISS handoff, Mars/Moon surfaces,
+high-definition Earth mapping, measured horizon or broad feature parity has started
+under this task. Preserve unrelated editor settings unchanged and unstaged.
 
 ## KNOWN ISSUES
 
@@ -69,7 +76,11 @@ and drawer, while the Sky overlay retains standalone fallbacks. Restore neither
 obsolete host handlers nor hidden embedded controls merely to close an old thread.
 
 The merged `a45fa637` corrections already address Live time, custom-observer
-timezones and Earth source refresh. Remaining source changes require their own
+timezones and Earth source refresh. Merged PR #60 preserves the Sky endpoint and
+resets inactive interaction/timers on cached departure, retaining genuine cleanup.
+Merged PR #61 preserves local Messier rows through partial enrichment failures,
+recovers canonical OpenNGC deduplication and retains accurate source status.
+Any separately authorized future source changes require their own
 qualification; an unresolved older thread is an inventory item, not proof of a
 current defect or authorization for a broad implementation pass.
 
@@ -143,17 +154,15 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-Complete the owner-authorized review-history repairs for ORA-7, including the
-previously deferred Tonight fallback and documentation findings. Verify the
-changed sources, rebuild and requalify affected immutable runtime artifacts, and
-run focused Docker/browser checks before treating these repairs as qualified.
+Complete the bounded PR #62 integration with current main, verify mandatory
+context/validator enforcement and merged #60/#61 behavior, then return its
+updated CI, mergeability and review-thread status for owner review.
 
 ORA-7 implementation was owner-approved and merged in PR #58 at `f55b9b2721`.
-Its final `a45fa637` Live-time/custom-timezone/Earth-observer corrections are
-already implemented and qualified in the retained PR evidence. Preserve them;
-the active work is the remaining bounded review-history follow-up.
-Return these changes and their own evidence for owner review. Do not merge
-follow-ups or begin another phase.
+Its final `a45fa637` Live-time/custom-timezone/Earth-observer corrections remain
+merged baselines. The active work is context/validation cleanup after merged
+PRs #60 and #61; PR #59 remains open and separate. Do not merge PRs, deploy,
+start high-definition Earth mapping or begin another feature/phase.
 
 The Phase B study and owned Earth foundation are already merged historical
 checkpoints. ISS handoff, planetary surfaces, measured `oras_horizon.v1`, broad

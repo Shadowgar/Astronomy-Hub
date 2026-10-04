@@ -77,10 +77,14 @@ The Hub mounts native SWE and its independently owned Cesium Earth runtime using
 the authenticated bridge and serial renderer lifetime. This does not establish
 full God's Eye feature parity or production-qualified planetary surfaces.
 
-The active task is the owner-authorized bounded review-history follow-up, including Tonight
-failure-path and context-document corrections. New source repairs still require
-their own artifact and Docker/browser qualification; historical passing counts
-do not qualify changed sources. Current execution and owner approval belong to
+PR #60's Sky cached-page lifecycle repair is merged at `1e7fd3ef`, including
+interaction reset, timer cleanup and preserved endpoint availability. PR #61's
+Tonight local Messier fallback, partial enrichment recovery, canonical OpenNGC
+deduplication and source-status correction is merged at `f3601bb8`.
+The active task is PR #62 context/validation cleanup integrated with that main.
+PR #59 remains open and separate. No ISS handoff, Mars/Moon surfaces or
+high-definition Earth mapping has started. Historical passing counts do not
+qualify changed sources. Current execution and owner approval belong to
 [PROJECT_STATE](../execution/PROJECT_STATE.md) and the live session brief.
 
 ## Historical Documentation Checkpoint — Phase B
