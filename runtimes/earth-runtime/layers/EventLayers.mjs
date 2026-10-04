@@ -35,7 +35,11 @@ export function createEventAdapter(context,id){
   const present=new Set();for(const record of data.records){present.add(record.id);let entity=entities.get(record.id);const anchor=id==='fire-perimeters'?perimeterAnchorDegrees(record.polygons):record;
    const lon=anchor.lon,lat=anchor.lat;const position=Cartesian3.fromDegrees(lon,lat,0),size=id==='earthquakes'?Math.min(14,5+record.magnitude):7;
    if(!entity){entity=context.viewer.entities.add({id:id+':'+record.id,name:record.name,position:new ConstantPositionProperty(position),point:{pixelSize:size,distanceDisplayCondition:new DistanceDisplayCondition(0,id==='earthquakes'&&record.magnitude<4.5?15000000:60000000),color:id==='earthquakes'?(record.depthKm===null?Color.fromCssColorString('#a8bbce'):depthColor(record.depthKm)).withAlpha(.8):Color.fromCssColorString(id==='fire-perimeters'?'#ecb575':'#9be4f2'),outlineColor:Color.fromCssColorString('#03070b'),outlineWidth:1},label:{text:record.name,font:'11px sans-serif',fillColor:Color.WHITE,outlineColor:Color.fromCssColorString('#03070b'),outlineWidth:3,style:2,pixelOffset:new Cartesian2(0,-16),show:false}});entities.set(record.id,entity);}
-   else {entity.position.setValue(position);entity.name=record.name;}
+   else {
+    entity.position.setValue(position);entity.name=record.name;entity.label.text=record.name;
+    entity.point.distanceDisplayCondition=new DistanceDisplayCondition(0,id==='earthquakes'&&record.magnitude<4.5?15000000:60000000);
+    entity.point.color=id==='earthquakes'?(record.depthKm===null?Color.fromCssColorString('#a8bbce'):depthColor(record.depthKm)).withAlpha(.8):Color.fromCssColorString(id==='fire-perimeters'?'#ecb575':'#9be4f2');
+   }
    entity.show=true;entity.point.pixelSize=context.selection.value===entity?16:size;
    const facts=id==='weather-radar'?[{label:'Source',value:sources[id][0]},{label:'Observation',value:data.latest},{label:'Coverage',value:'Contiguous United States; gaps are not evidence of no precipitation.'},{label:'Product',value:'Radar base reflectivity (dBZ); not rainfall forecast.'}]:eventFacts(record,id);
    entity.orasMetadata={basePointSize:size,layerId:id,name:record.name,kind:id==='earthquakes'?'earthquake':id==='fire-perimeters'?'fire':'weather',detail:id==='earthquakes'?'Source-reported event; no impact or damage inference.':id==='fire-perimeters'?'Generalized public boundary; recent subset, incomplete coverage. Not a threat assessment.':'CONUS radar surface; marker denotes coverage centre, not a weather event.',facts,focusRangeM:id==='weather-radar'?5000000:50000};

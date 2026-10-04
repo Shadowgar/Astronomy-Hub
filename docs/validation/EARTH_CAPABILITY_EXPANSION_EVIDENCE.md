@@ -409,3 +409,159 @@ remain applicable because those implementation paths did not change. Final SHA
 is recorded in the PR and ORA-8 comment after this correction commit. Threads
 receive the correction proof and are resolved; final CI is checked on that SHA.
 Owner approval remains required. No merge or next phase.
+
+
+## Current-main integration and revised-event correction, 2026-10-03
+
+Branch `phase-c5-earth-live-layers-1` already contained and remotely published
+merge `69c4f1f57553788b183dc9dd7afa314274f410be` when this qualification began.
+Its parents are accepted PR head `ff488339792870cb036d1417e1923e22e46d1e10` and
+main `fc41ac19d7e2021c9d4b56b5a13322981f3c6992`. No duplicate merge was made.
+A disposable `git merge-tree --write-tree` replay confirms content conflicts only
+in `docs/context/LIVE_SESSION_BRIEF.md` and `docs/execution/PROJECT_STATE.md`;
+the manifest auto-merges. The merge also reconciles MASTER_PLAN and FEATURE_TRACKER
+without rewriting historical evidence. It preserves merged #60/#61 behavior,
+#62 enforcement, current #59 Earth layers and the separately gated next mapping phase.
+The loaded context is the union of current `backend_change`, `frontend_change`,
+`review` and `validation` packs, with mandatory core/live documents first.
+No extra project documents or broad docs scan. Root instructions supersede stale
+nested FE8.5/Babylon assumptions. Single agent; no delegation.
+
+The integration itself changes no owned Earth artifact inputs: comparing
+`ff488339` to `69c4f1f5` across `runtimes/earth-runtime`, `packages/runtime-protocol`,
+Earth build/record scripts and both identity metadata surfaces yields no diff.
+Fresh remote review inspection, however, found one additional Category A P2:
+[revised event markers](https://github.com/Shadowgar/Astronomy-Hub/pull/59#discussion_r4175759594).
+The reused entity path updated position/name/detail facts but retained its original
+magnitude visibility range, depth color and label text. Selected and unselected
+same-ID regressions both fail before repair (5 pass, 2 fail), retaining a 15,000km
+limit after magnitude increases above M4.5. The focused correction refreshes those
+record-derived properties; selection identity, highlight and updated base size
+remain intact. The same tests also cover downward threshold revisions and unknown
+depth. Focused green result: 7/7.
+
+This correction changes an owned runtime input, so the pinned build process was
+rerun. Generated release: 512 files, 111 dependency licenses, Cesium 1.138.0,
+artifact `f4f5e84c82cceb5f6fb0b363f39163c3ce70e0e3068663fb5b70f48f35641d0b`.
+`record_runtime_versions.py` verifies actual file and source-input hashes and
+regenerates renderers.lock/public runtime versions; hashes were not hand-edited.
+Docker HTTP release/public metadata agree with the generated artifact. God's Eye
+remains clean at `e7707d9a0f34d9fbffc300023c319f95caa5be30`. The capability ledger
+is byte-identical to accepted `ff488339`: earthquakes/fire-perimeters/weather-radar
+remain ADAPTED NOW; launches remain LICENSE/DATA BLOCKED after HTTP 403.
+
+Fresh focused checks: runtime/Earth 62/62, local Earth backend 31/31, focused
+frontend 2/2, Sky lifecycle 6/6, Tonight fallback 5/5, manifest negative tests 6/6.
+Typecheck passes. Architecture validator passes: 175 document-path entries
+(173 task + 2 global), 8 packs, 35 checkpoint documents, 88 relative links,
+8 ADRs. Docker backend Earth/aircraft bundle: 35/35. All successful commands exit 0.
+Existing MockTimers, dependency-deprecation and Vite chunk-size warnings remain.
+The prior qualification stack lacked a running Earth service and its frontend
+was restarting; rebuilding the disposable backend/frontend/Earth services restores
+a healthy stack on port 4181. No production host or deployment is involved.
+
+Exact qualification commands (repository root unless the frontend cwd is stated):
+
+```sh
+git fetch origin
+git checkout phase-c5-earth-live-layers-1
+git status
+git log --oneline --decorate -12
+git merge-base --is-ancestor origin/main HEAD
+git merge-tree --write-tree ff488339792870cb036d1417e1923e22e46d1e10 fc41ac19d7e2021c9d4b56b5a13322981f3c6992
+# Replay exit 1 means the two original content conflicts; checkout is unchanged.
+git diff ff488339 69c4f1f5 -- runtimes/earth-runtime packages/runtime-protocol integrations/renderers.lock.json frontend/public/runtime-versions.json scripts/runtime/build_owned_earth.sh scripts/runtime/record_owned_earth.py
+node --test tests/earth/event-layers.test.mjs
+node --test tests/earth/*.test.mjs tests/runtime/*.test.mjs
+node --test tests/runtime/sky-page-lifecycle.test.mjs
+PYTHONPATH=.:backend .venv/bin/pytest backend/tests/test_earth_events.py -q
+PYTHONPATH=.:backend .venv/bin/pytest tests/backend/test_tonight_fallback.py -q
+npm --prefix frontend test -- --run earthLayerPanel.test.tsx
+npm --prefix frontend run typecheck
+python3 -S scripts/validation/validate_architecture_docs.py
+python3 -m unittest -v tests.validation.test_architecture_manifest
+git diff --check
+ORAS_EARTH_OUT=/var/tmp/oras-pr59-integration/earth-build bash scripts/runtime/build_owned_earth.sh
+python3 scripts/runtime/record_runtime_versions.py /var/tmp/oras-pr59-integration/earth-build
+ORAS_EARTH_ARTIFACT_DIR=/var/tmp/oras-pr59-integration/earth-build POSTGRES_PASSWORD=local-qualification PUBLIC_HTTP_PORT=4181 COMPOSE_BAKE=false docker compose -p oras-workspace-qualification -f docker-compose.prod.yml up -d --build backend frontend earth-runtime
+POSTGRES_PASSWORD=local-qualification docker compose -p oras-workspace-qualification -f docker-compose.prod.yml ps
+POSTGRES_PASSWORD=local-qualification docker compose -p oras-workspace-qualification -f docker-compose.prod.yml exec -T backend env PYTHONPATH=.:backend python3 -m pytest backend/tests/test_earth_events.py backend/tests/test_earth_aircraft.py -q
+curl --fail -s http://127.0.0.1:4181/earth-runtime/release.json -o /var/tmp/pr59-served-release.json
+curl --fail -s http://127.0.0.1:4181/runtime-versions.json -o /var/tmp/pr59-served-versions.json
+# frontend cwd:
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 ORAS_LIVE_EARTH=1 npx playwright test tests/e2e/earthExpansion.spec.ts tests/e2e/earthExpansionLive.spec.ts tests/e2e/skyBfcache.spec.ts --workers=1 --output=/var/tmp/oras-pr59-integration/browser
+```
+
+The broader Earth fixture/live acceptance is rerun because the new P2 correction
+changes rendering. The new browser case uses declared source revisions and the actual 60-second
+earthquake polling cadence. Its initial attempted timer acceleration did not cause
+a refresh within the 15-second assertion window; that test shortcut was removed.
+It checks updated selected facts and preserved iframe/selection identity.
+Existing polygon-body cases remain unchanged. Fresh browser outcomes and remote
+handoff state are recorded below after qualification.
+
+
+Fresh Docker/browser result: all **11 unique cases pass across two runs**.
+The broader first run passes 10/11 (including all seven original Earth fixture
+cases, live providers and both actual Sky bfcache cases); only the new accelerated
+revision fixture fails. The corrected real-cadence revision rerun passes 1/1.
+There is no claim of a final single 11-case rerun. Actual revised-event polling
+updates the selected name, magnitude and depth without replacing its iframe.
+Desktop/mobile polygon-body selection, enabled event/radar surfaces, controlled
+provider failures/retry, mobile Layers/44px controls and serial Sky/Earth lifetime
+all pass. The mobile polygon and revised-event screenshots were visually inspected.
+
+Live browser proof: 38 USGS earthquakes, 74 WFIGS records, one NOAA CONUS radar
+surface; all providers ready, no page errors. Native Sky bfcache restores the same
+document, resets exploration/recovers controls, then applies +1h through the bridge
+(native UTC `2026-10-03T03:00:00.000Z`). This is local production-like Docker proof,
+not production deployment or a blanket qualification of untouched Sky science/data.
+Logs: `/var/tmp/pr59-node-final.log`, `/var/tmp/pr59-earth-build.log`,
+`/var/tmp/pr59-docker-build.log`, `/var/tmp/pr59-browser.log`,
+`/var/tmp/pr59-browser-revision.log`; browser artifacts under
+`/var/tmp/oras-pr59-integration/`; screenshots under `output/playwright/earth-expansion/`.
+
+Additional exact browser command, frontend cwd:
+
+```sh
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4181 npx playwright test tests/e2e/earthExpansion.spec.ts --grep 'same-ID earthquake' --workers=1 --output=/var/tmp/oras-pr59-integration/browser-revision
+```
+
+Exact integrated change inventory relative to supplied accepted PR head
+`ff488339` (includes merged main maintenance/validation changes, reconciliation
+and this focused correction; excludes unchanged owner settings):
+
+```text
+backend/app/services/tonight_catalog.py
+docs/architecture/TONIGHT_CONTRACT.md
+docs/context/CONTEXT_MANIFEST.yaml
+docs/context/CORE_CONTEXT.md
+docs/context/LIVE_SESSION_BRIEF.md
+docs/execution/MASTER_PLAN.md
+docs/execution/PROJECT_STATE.md
+docs/features/FEATURE_TRACKER.md
+docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md
+frontend/public/runtime-versions.json
+frontend/tests/e2e/earthExpansion.spec.ts
+frontend/tests/e2e/skyBfcache.spec.ts
+frontend/tests/orasRuntimeDataSources.test.js
+integrations/renderers.lock.json
+runtimes/earth-runtime/layers/EventLayers.mjs
+runtimes/sky-adapter/entry.mjs
+scripts/validation/validate_architecture_docs.py
+tests/backend/test_tonight_fallback.py
+tests/earth/event-layers.test.mjs
+tests/runtime/sky-page-lifecycle.test.mjs
+tests/validation/test_architecture_manifest.py
+```
+
+No new provider or capability is admitted. The three current layers and launch
+access limitation retain their existing ledger disposition. Known Category B
+limits remain: generalized incomplete fire subset, CONUS radar, worker-local
+provider cache scaling, separately gated high-definition mapping and inherited
+Sky data/provider noise. No HD mapping, ISS, Mars/Moon or other next-phase work.
+No new PR, requested repeat broad review, PR merge or production deployment.
+The owner settings SHA remains
+`6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`, unstaged.
+The existing PR owns the final correction commit SHA, CI and review-thread status;
+these are verified remotely after the push and reported in the handoff.

@@ -74,3 +74,17 @@ qualification and merged maintenance checks without new feature implementation.
 High-definition close-zoom Earth mapping is the NEXT major phase after #59,
 subject to separate owner authorization. It has not started. No ISS or Mars/Moon
 work has started. No PR merge or deployment is authorized.
+
+
+Current-main integration is committed in `69c4f1f5` (parents accepted Earth head
+`ff488339` and main `fc41ac19`). Fresh automatic review identified one additional
+Category A P2: same-ID earthquake revisions retained stale depth color, magnitude
+visibility range and label text. The focused correction refreshes those properties
+while retaining entity/selection identity; selected/unselected regressions reproduce
+the old failure and pass after correction. This is a third unique Category A
+finding, separate from the two historical review repairs above. Its owned runtime
+input change requires a pinned Earth rebuild and regenerated identity metadata.
+Fresh qualification and the existing-PR handoff are recorded in
+[Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
+This does not authorize another broad review, a new provider, mapping/ISS/Mars/Moon,
+merge or production deployment. PR #59 remains In Review for owner approval.
