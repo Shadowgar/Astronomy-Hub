@@ -71,8 +71,13 @@ C3 core parity; C4 unified bridge/lifecycle; C5 broader feature expansion;
 D ISS handoff; E Mars; F astronomy extensions; G immersive UX; H solar-system scale.
 ORA-7 implemented the locked unified workspace and Earth visual foundation;
 owner approval closed that checkpoint through merged PR #58. PRs #60/#61 are
-also merged baselines. PR #62 is context/validation cleanup; PR #59 remains open
-and separate. No ISS, Mars/Moon or high-definition Earth mapping has started.
+also merged baselines. PR #62 context/validation enforcement is merged at
+`fc41ac19`. PR #59 is the active C5 Earth live-layer integration: USGS earthquakes,
+NIFC/WFIGS fire perimeters and NOAA/NWS nowCOAST CONUS radar. Launch Library
+remains blocked by production HTTP 403. High-definition close-zoom Earth mapping
+is the NEXT major phase after #59, before the later ISS/Mars reference phases and
+subject to separate owner authorization. No HD mapping, ISS or Mars/Moon work
+has started.
 Later phases remain planned and require explicit authorization.
 
 ## FEATURE DOMAINS (REFERENCE ONLY)

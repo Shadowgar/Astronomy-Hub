@@ -24,8 +24,9 @@ Proven runtime conflicts must be reported, not silently overwritten.
 
 ## CURRENT MODE
 
-Owner-authorized PR #62 context/validation cleanup after merged ORA-7 and
-PRs #60/#61. SINGLE AGENT ONLY.
+Owner-authorized focused correction of the two PR #59 radar/cache and workspace
+layer-restoration P2 races on reviewed head `2bb9ba87`. Integrated main remains
+`fc41ac19`; ORA-7 and PRs #60/#61/#62 are preserved. SINGLE AGENT ONLY.
 No runtime override mode is active.
 
 ## CURRENT OBJECTIVE / ACTIVE TASK
@@ -35,31 +36,36 @@ ORA-7 was owner-approved and merged in PR #58 at
 Its locked design ancestor remains `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.
 PR #60's Sky cached-page lifecycle correction merged at
 `1e7fd3efab22d66fc7918890767ec9204aba5a95`; PR #61's Tonight fallback correction
-merged at `f3601bb82b0c52343d2c38f93ecfce747ef611c7`, the current main baseline.
-The active task integrates that main into `review-context-validation-20261003`
-and preserves PR #62's mandatory context/validator enforcement while reconciling
-execution documentation. Sky lifecycle and Tonight fallback are merged baselines.
-PR #59 remains open and separate; its Earth live-layer work is outside this branch.
+merged at `f3601bb82b0c52343d2c38f93ecfce747ef611c7`. PR #62 mandatory context
+and validator enforcement merged at `fc41ac19d7e2021c9d4b56b5a13322981f3c6992`,
+the current main baseline integrated into `phase-c5-earth-live-layers-1`.
+Sky lifecycle, Tonight fallback and validation enforcement are preserved baselines.
+PR #59 is the active Earth live-layer PR; no new provider or feature is authorized.
 Root Sky workspace, Sky/Earth modes, reusable Tonight/Observe context, bounded
 selection/time surfaces, responsive mobile sheets and immersive UI are implemented.
 The Earth visual foundation uses NASA GIBS static imagery with local Natural Earth
 fallback; configured terrain/3D requires separately qualified deployment assets.
 
-The Hub owns the independent Earth Viewer. SWE remains contained; immutable God's
-Eye supplies selective feature modules. Native Sky science/vendor bytes and the
-serial authenticated renderer lifecycle remain protected. The full-app experiment
-on `phase-c-full-gods-eye-experiment-backup` at `dd15ae1b` remains local-only.
+The only active slice is `phase-c5-earth-live-layers-1`: bounded provider
+integration and regression qualification of implemented source-backed Earth layers.
+USGS earthquakes, NIFC/WFIGS public fire perimeters and NOAA CONUS radar are the
+implemented and locally qualified layers; Launch Library's production HTTP 403 blocks launches here.
+No upstream pin change or complete God's Eye application ownership is authorized.
 
 ## CURRENT PRIORITY
 
-Validate and deliver the existing non-draft PR #62 without weakening its context
-rules or changing merged runtime/backend behavior. Run the architecture validator,
-negative manifest tests and focused Sky/Tonight integration sanity checks.
-The retained ORA-7 runtime evidence is historical; see
-[workspace implementation evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
-Do not merge PRs, deploy or start another phase. No ISS handoff, Mars/Moon surfaces,
-high-definition Earth mapping, measured horizon or broad feature parity has started
-under this task. Preserve unrelated editor settings unchanged and unstaged.
+Historical C5 implementation and production-like local qualification: 54 runtime/
+protocol, 42 frontend, 35 Docker backend tests, five fixture browser checks and
+one actual-provider browser check plus two focused polygon-pick retests. PR [#59](https://github.com/Shadowgar/Astronomy-Hub/pull/59)
+is open. The one normal review is complete; both unique Category A findings are repaired
+with focused regressions and artifact rebuild.
+ORA-8 is handed back **In Review**, pending owner approval; do not mark Done or
+merge. See
+[Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
+ISS, Mars/Moon, measured horizon and high-definition mapping are not started. Preserve unrelated
+editor settings unchanged and unstaged. Historical evidence remains unchanged.
+Preserve merged #60/#61 behavior and #62 context/validator enforcement; rerun
+focused tests and production-like Docker/browser smoke on the integrated branch.
 
 ## KNOWN ISSUES
 
@@ -154,15 +160,14 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-Complete the bounded PR #62 integration with current main, verify mandatory
-context/validator enforcement and merged #60/#61 behavior, then return its
-updated CI, mergeability and review-thread status for owner review.
+Correct the two current PR #59 P2 races with red/green proof, rerun the applicable
+Earth/frontend/Docker/browser qualification, reply to and resolve those two threads,
+and return fresh CI, mergeability and thread status for owner re-review. No merge
+or production deployment.
 
-ORA-7 implementation was owner-approved and merged in PR #58 at `f55b9b2721`.
-Its final `a45fa637` Live-time/custom-timezone/Earth-observer corrections remain
-merged baselines. The active work is context/validation cleanup after merged
-PRs #60 and #61; PR #59 remains open and separate. Do not merge PRs, deploy,
-start high-definition Earth mapping or begin another feature/phase.
+High-definition close-zoom Earth mapping is the NEXT major phase after #59,
+subject to separate owner authorization. No HD mapping, ISS or Mars/Moon work
+has started. Historical ORA-7 and C5 evidence remains historical and unchanged.
 
 The Phase B study and owned Earth foundation are already merged historical
 checkpoints. ISS handoff, planetary surfaces, measured `oras_horizon.v1`, broad
@@ -235,3 +240,31 @@ icon library, heavyweight framework, sky renderer or bulk data was introduced.
 PR #52 merged with the documented global console-cleanliness gap retained.
 This evidence remains historical, not a new runtime qualification. The active
 Phase B study must not merge its PR or implement Phase C or `oras_horizon.v1`.
+
+
+Current-main integration is committed in `69c4f1f5` (parents accepted Earth head
+`ff488339` and main `fc41ac19`). Fresh automatic review identified one additional
+Category A P2: same-ID earthquake revisions retained stale depth color, magnitude
+visibility range and label text. The focused correction refreshes those properties
+while retaining entity/selection identity; selected/unselected regressions reproduce
+the old failure and pass after correction. This is a third unique Category A
+finding, separate from the two historical review repairs above. Its owned runtime
+input change requires a pinned Earth rebuild and regenerated identity metadata.
+Fresh qualification and the existing-PR handoff are recorded in
+[Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
+This does not authorize another broad review, a new provider, mapping/ISS/Mars/Moon,
+merge or production deployment. PR #59 remains In Review for owner approval.
+
+Owner-review correction on reviewed head `2bb9ba8`: radar manifests now lease
+exact timestamp-keyed PNG bytes for a bounded 120-second grace (two slots), and
+WorkspaceShell serializes layer restoration/user commands per runtime client,
+preserving newer user choices and cancelling departed-client work. Both mandatory
+regressions failed before correction and pass afterward. Fresh proof: 42 local
+backend, 37 Docker Earth/aircraft, 62 runtime/Earth, 196 frontend tests, 14 Docker
+browser cases including desktop/mobile races, live providers and actual bfcache;
+typecheck, six manifest negative tests and architecture validation pass.
+No Earth-owned input changed: existing artifact `f4f5e84c82cceb5f6fb0b363f39163c3ce70e0e3068663fb5b70f48f35641d0b`
+is reverified against source, all files, recorded/served metadata and seven exports.
+The two named Category A blockers are closed by implementation/qualification;
+remote SHA, CI and thread closure are recorded in the final PR handoff. Next task
+is owner re-review of #59. Category B limits and all excluded work remain unchanged.

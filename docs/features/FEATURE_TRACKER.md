@@ -81,9 +81,13 @@ PR #60's Sky cached-page lifecycle repair is merged at `1e7fd3ef`, including
 interaction reset, timer cleanup and preserved endpoint availability. PR #61's
 Tonight local Messier fallback, partial enrichment recovery, canonical OpenNGC
 deduplication and source-status correction is merged at `f3601bb8`.
-The active task is PR #62 context/validation cleanup integrated with that main.
-PR #59 remains open and separate. No ISS handoff, Mars/Moon surfaces or
-high-definition Earth mapping has started. Historical passing counts do not
+PR #62 context/validation enforcement is merged at `fc41ac19`.
+The active task integrates existing PR #59 / ORA-8 / C5 with that current main.
+USGS earthquakes, NIFC/WFIGS fire perimeters and NOAA/NWS nowCOAST CONUS radar
+are the locally qualified expansion; Launch Library remains blocked by access 403.
+ORA-8 remains In Review. High-definition close-zoom Earth mapping is the NEXT
+major phase after #59, subject to separate authorization. No HD mapping, ISS
+handoff or Mars/Moon work has started. Historical passing counts do not
 qualify changed sources. Current execution and owner approval belong to
 [PROJECT_STATE](../execution/PROJECT_STATE.md) and the live session brief.
 

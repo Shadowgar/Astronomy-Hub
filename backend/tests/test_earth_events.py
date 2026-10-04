@@ -1,0 +1,196 @@
+"""Declared fixtures; these tests do not qualify live providers."""
+import asyncio
+from datetime import datetime, timezone
+import pytest
+from backend.app.services import earth_events as events
+NOW = datetime(2026, 10, 3, 19, 0, tzinfo=timezone.utc)
+MS = int(NOW.timestamp()*1000)
+def quake(identifier='us1'):
+    return {'id':identifier,'geometry':{'type':'Point','coordinates':[-80,42,10]},'properties':{'mag':3.5,'place':'Fixture event','time':MS-10000,'updated':MS}}
+def feed(rows): return {'type':'FeatureCollection','metadata':{'generated':MS},'features':rows}
+def fire(identifier='fire1'):
+    return {'id':identifier,'geometry':{'type':'Polygon','coordinates':[[[-80,42],[-79.9,42],[-79.9,42.1],[-80,42]]]},'properties':{'attr_UniqueFireIdentifier':identifier,'poly_IncidentName':'Fixture perimeter','poly_DateCurrent':MS,'poly_GISAcres':10,'attr_PercentContained':20}}
+def test_quake_fields_ids_time_and_empty():
+    result=events.normalize_quakes(feed([quake()]),NOW)
+    assert result.records[0].id=='us1' and result.records[0].depthKm==10
+    assert result.temporalMode=='EVENT_FEED' and result.observedAt.endswith('Z')
+    assert events.normalize_quakes(feed([]),NOW).records==[]
+@pytest.mark.parametrize('payload',[{}, {'features':[]},feed([{'id':'broken'}]),feed([dict(quake(),id='')])])
+def test_quake_malformed(payload):
+    with pytest.raises(ValueError):events.normalize_quakes(payload,NOW)
+def test_quake_cap_filter_and_no_fabricated_identity():
+    rows=[quake(str(i)) for i in range(600)];result=events.normalize_quakes(feed(rows),NOW)
+    assert len(result.records)==500 and result.limited
+    missing=quake();missing.pop('id')
+    with pytest.raises(ValueError):events.normalize_quakes(feed([missing]),NOW)
+def test_fire_polygons_facts_time_empty_and_cap():
+    result=events.normalize_fires(feed([fire()]),NOW)
+    assert len(result.records[0].polygons)==1 and result.records[0].acres==10
+    assert result.temporalMode=='CURRENT_SNAPSHOT' and result.limited
+    assert events.normalize_fires(feed([]),NOW).records==[]
+    assert len(events.normalize_fires(feed([fire(str(i)) for i in range(101)]),NOW).records)==100
+@pytest.mark.parametrize('mutator',[lambda row:row.update(geometry={'type':'Point','coordinates':[-80,42]}),lambda row:row['geometry'].update(coordinates=[[[float('nan'),42],[-80,42],[-79,42],[-80,42]]]),lambda row:row['geometry'].update(coordinates=[[[-80,42],[-79,42],[-79,43],[-80,43]]])])
+def test_fire_malformed_geometry(mutator):
+    row=fire();mutator(row)
+    with pytest.raises(ValueError):events.normalize_fires(feed([row]),NOW)
+def test_radar_explicit_source_time_not_scene_time():
+    xml=b'<WMS_Capabilities xmlns="http://www.opengis.net/wms"><Capability><Layer><Layer><Name>conus_base_reflectivity_mosaic</Name><Dimension name="time" default="2026-10-03T18:56:00Z">2026-10-03T18:56:00Z</Dimension></Layer></Layer></Capability></WMS_Capabilities>'
+    result=events.normalize_radar(xml,NOW)
+    assert result.latest=='2026-10-03T18:56:00.000Z' and result.product=='radar'
+@pytest.mark.parametrize('xml',[b'',b'<x/>',b'<!DOCTYPE x [<!ENTITY a "x">]><x/>'])
+def test_radar_malformed(xml):
+    with pytest.raises(ValueError):events.normalize_radar(xml,NOW)
+def test_stale_generation_rejected():
+    with pytest.raises(ValueError):events.normalize_quakes(feed([quake()]),datetime(2026,10,4,tzinfo=timezone.utc))
+def test_independent_coalescing_failure_cache_and_retry(monkeypatch):
+    async def scenario():
+        events.reset_cache();calls=[];gate=asyncio.Event()
+        async def acquire(key):
+            calls.append(key)
+            if key=='earthquakes':await gate.wait()
+            return events.normalize_quakes(feed([]),NOW),None
+        monkeypatch.setattr(events,'acquire',acquire)
+        a=asyncio.create_task(events.read_feed('earthquakes'));b=asyncio.create_task(events.read_feed('earthquakes'))
+        await asyncio.sleep(0);await asyncio.sleep(0)
+        await events.read_feed('fire-perimeters');assert calls.count('earthquakes')==1
+        gate.set();await asyncio.gather(a,b);assert calls.count('fire-perimeters')==1
+        await events.read_feed('earthquakes');assert len(calls)==2
+        events.reset_cache()
+        async def fail(key):raise ValueError('upstream 429')
+        monkeypatch.setattr(events,'acquire',fail)
+        with pytest.raises(ValueError):await events.read_feed('earthquakes')
+        with pytest.raises(ValueError):await events.read_feed('earthquakes')
+        events.reset_cache();monkeypatch.setattr(events,'acquire',acquire)
+        assert await events.read_feed('earthquakes')
+    asyncio.run(scenario())
+@pytest.mark.parametrize('path',['earthquakes','fire-perimeters','weather-radar'])
+def test_routes_fail_closed_without_upstream_details(monkeypatch,path):
+    from fastapi import FastAPI
+    from fastapi.testclient import TestClient
+    from backend.app.routes import earth
+    app=FastAPI();app.include_router(earth.router,prefix='/api')
+    async def unavailable(kind):raise ValueError('private upstream 403/429/5xx')
+    monkeypatch.setattr(earth,'read_feed',unavailable)
+    result=TestClient(app).get('/api/earth/'+path)
+    assert result.status_code==503 and 'private' not in result.text
+
+def test_image_refuses_timestamp_mismatch_and_unbounded_time(monkeypatch):
+    from fastapi import FastAPI
+    from fastapi.testclient import TestClient
+    from backend.app.routes import earth
+    app=FastAPI();app.include_router(earth.router,prefix='/api');client=TestClient(app)
+    events.reset_cache()
+    stamp='2026-10-03T19:00:00.000Z'
+    async def read(kind):return events.RadarFeed(latest=stamp,times=[stamp],bounds=events.BOUNDS,fetchedAt=stamp),b'fixture png'
+    monkeypatch.setattr(earth,'read_feed',read)
+    assert client.get('/api/earth/radar-image?time=wrong').status_code==503
+    assert client.get('/api/earth/radar-image?time='+'x'*41).status_code==422
+    assert client.get('/api/earth/radar-image?time='+stamp).status_code==503
+    assert client.get('/api/earth/weather-radar').status_code==200
+    result=client.get('/api/earth/radar-image?time='+stamp)
+    assert result.status_code==200 and result.headers['content-type']=='image/png'
+
+@pytest.mark.parametrize('payload',[feed([{'properties':[],'geometry':{},'id':'x'}]),feed([None]),{'type':'FeatureCollection','metadata':None,'features':[]}])
+def test_malformed_nested_provider_data_is_controlled(payload):
+    with pytest.raises(ValueError):events.normalize_quakes(payload,NOW)
+
+@pytest.mark.parametrize('geometry',[{'type':'Point','coordinates':[500,42]}, {'type':'Point','coordinates':['bad',42]}, {'type':'Polygon','coordinates':[]}, {'type':'Point','coordinates':[]}])
+def test_all_malformed_coordinates_are_unavailable(geometry):
+    row=quake();row['geometry']=geometry
+    with pytest.raises(ValueError):events.normalize_quakes(feed([row]),NOW)
+
+@pytest.mark.parametrize('status',[403,429,500])
+def test_http_failures_are_controlled_and_failure_cached(monkeypatch,status):
+    import httpx
+    async def scenario():
+        events.reset_cache();calls=[]
+        async def fail(key):
+            calls.append(key);response=httpx.Response(status,request=httpx.Request('GET',events.USGS));response.raise_for_status()
+        monkeypatch.setattr(events,'acquire',fail)
+        for _ in range(2):
+            with pytest.raises(ValueError,match='Source unavailable'):await events.read_feed('earthquakes')
+        assert len(calls)==1
+    asyncio.run(scenario())
+
+def test_timeout_is_controlled(monkeypatch):
+    async def scenario():
+        events.reset_cache()
+        async def fail(key):raise TimeoutError()
+        monkeypatch.setattr(events,'acquire',fail)
+        with pytest.raises(ValueError,match='Source unavailable'):await events.read_feed('weather-radar')
+    asyncio.run(scenario())
+
+
+def test_advertised_radar_snapshot_survives_current_cache_boundary(monkeypatch):
+    """Real routes + current-feed cache, with only provider bytes/clock replaced."""
+    import httpx
+    from types import SimpleNamespace
+    from fastapi import FastAPI
+    from backend.app.routes import earth
+
+    async def scenario():
+        events.reset_cache()
+        clock = [0.0]
+        monkeypatch.setattr(events, 'time', SimpleNamespace(monotonic=lambda: clock[0]))
+        calls = []
+        async def acquire(kind):
+            assert kind == 'weather-radar'
+            stamp = f'2026-10-03T19:{len(calls):02d}:00.000Z'
+            calls.append(stamp)
+            return events.RadarFeed(latest=stamp,times=[stamp],bounds=events.BOUNDS,fetchedAt=stamp), b'declared PNG '+stamp.encode()
+        monkeypatch.setattr(events, 'acquire', acquire)
+        app = FastAPI();app.include_router(earth.router,prefix='/api')
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app),base_url='http://test') as client:
+            async def manifest():
+                response = await client.get('/api/earth/weather-radar')
+                assert response.status_code == 200
+                return response.json()['latest']
+            async def image(stamp):
+                return await client.get('/api/earth/radar-image',params={'time':stamp})
+            a = await manifest()
+            clock[0] = events.CADENCE['weather-radar'] - 1
+            assert await manifest() == a  # A advertised immediately before expiry.
+            clock[0] += 2
+            b = await manifest()  # Actual current cache refresh to B.
+            assert a != b and len(calls) == 2
+            for stamp in (a,b):
+                response = await image(stamp)
+                assert response.status_code == 200
+                assert response.content == b'declared PNG '+stamp.encode()
+            assert (await image('unknown')).status_code == 503
+            assert len(calls) == 2  # Image reads never acquire or substitute current B.
+            clock[0] += 121
+            assert (await image(a)).status_code == 503
+            assert (await image(b)).status_code == 503
+            # Repeated real cache expirations cannot grow the retained set.
+            for _ in range(8):
+                clock[0] += events.CADENCE['weather-radar']
+                stamp = await manifest()
+                assert (await image(stamp)).status_code == 200
+                assert len(events._radar_snapshots) <= 2
+            events.reset_cache()
+    asyncio.run(scenario())
+
+
+def test_radar_retention_protects_existing_leases_and_does_not_slide_on_image_reads(monkeypatch):
+    from types import SimpleNamespace
+    events.reset_cache();clock=[0.0]
+    monkeypatch.setattr(events,'time',SimpleNamespace(monotonic=lambda:clock[0]))
+    def snapshot(stamp,body):
+        return events.RadarFeed(latest=stamp,times=[stamp],bounds=events.BOUNDS,fetchedAt=stamp),body
+    a,b,c = ('2026-10-03T19:00:00.000Z','2026-10-03T19:04:00.000Z','2026-10-03T19:08:00.000Z')
+    events.retain_radar_snapshot(snapshot(a,b'A'))
+    events.retain_radar_snapshot(snapshot(b,b'B'))
+    with pytest.raises(ValueError):events.retain_radar_snapshot(snapshot(c,b'C'))
+    assert events.read_radar_image(a)==b'A' and events.read_radar_image(b)==b'B'
+    # Reacquisition at an identical provider timestamp cannot mutate its bytes.
+    clock[0]=10;events.retain_radar_snapshot(snapshot(a,b'different bytes'))
+    assert events.read_radar_image(a)==b'A'
+    clock[0]=119;assert events.read_radar_image(b)==b'B'
+    clock[0]=120
+    with pytest.raises(ValueError):events.read_radar_image(b)
+    events.retain_radar_snapshot(snapshot(c,b'C'))
+    assert events.read_radar_image(a)==b'A' and events.read_radar_image(c)==b'C'
+    clock[0]=130
+    with pytest.raises(ValueError):events.read_radar_image(a)
+    events.reset_cache()

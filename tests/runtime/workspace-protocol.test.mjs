@@ -21,3 +21,10 @@ test('workspace snapshots are bounded DTOs and stale channel events cannot mutat
  assert.equal(validateMessage(envelope(s,'event',1,'interaction',{active:true,focused:false}),s),true);
  assert.equal(validateMessage(envelope(s,'event',1,'interaction',{active:'yes',focused:false}),s),false);
 });
+test('admits exactly the three qualified new layers with bounded event semantics and preserves old DTOs',()=>{
+ for(const id of ['earthquakes','fire-perimeters','weather-radar'])assert.equal(validateMessage(command('setLayerEnabled',{id,enabled:true}),s),true);
+ assert.equal(validateMessage(command('setLayerEnabled',{id:'rocket-launches',enabled:true}),s),false);
+ const layer={id:'earthquakes',title:'Earthquakes',enabled:true,status:'ready',category:'Events',temporalMode:'EVENT_FEED',source:'USGS',sourceTime:new Date().toISOString(),count:12};
+ const result=envelope(s,'result',1,'getWorkspaceState',{ok:true,state:{selection:null,layers:[layer],tracking:false}});
+ assert.equal(validateMessage(result,s),true);assert.equal(validateMessage({...result,payload:{ok:true,state:{selection:null,layers:[{...layer,temporalMode:'HISTORICAL_SIMULATION'}],tracking:false}}},s),false);
+});

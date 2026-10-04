@@ -50,14 +50,14 @@
     {
       "id": "earthquakes",
       "anchor": "src/data/layerState.js",
-      "status": "PLANNED",
-      "scope": "Retained roadmap; not included in this PR"
+      "status": "ADAPTED NOW",
+      "scope": "C5: USGS M2.5+ past-day feed, FastAPI normalized DTOs, owned magnitude/depth markers, source facts and Focus; pinned depthColor helper only."
     },
     {
       "id": "fire-perimeters",
       "anchor": "src/data/layerState.js",
-      "status": "PLANNED",
-      "scope": "Retained roadmap; not included in this PR"
+      "status": "ADAPTED NOW",
+      "scope": "C5: NIFC/WFIGS generalized recent bounded polygon subset, holes retained, source facts and Focus; pinned perimeterAnchorDegrees helper only."
     },
     {
       "id": "flights",
@@ -122,8 +122,8 @@
     {
       "id": "rocket-launches",
       "anchor": "src/data/layerState.js",
-      "status": "PLANNED",
-      "scope": "Retained roadmap; not included in this PR"
+      "status": "LICENSE/DATA BLOCKED",
+      "scope": "C5 access blocked: production Launch Library 2.3.0 returned HTTP 403 in qualification environment. No renderer, credentials or development-data substitution."
     },
     {
       "id": "satellites",
@@ -164,8 +164,8 @@
     {
       "id": "weather-radar",
       "anchor": "src/data/layerState.js",
-      "status": "PLANNED",
-      "scope": "Retained roadmap; not included in this PR"
+      "status": "ADAPTED NOW",
+      "scope": "C5: NOAA/NWS nowCOAST timestamped CONUS base-reflectivity PNG surface; bounded FastAPI WMS adaptation of pinned provider logic, owned imagery lifecycle."
     },
     {
       "id": "weather-satellite",
@@ -859,8 +859,8 @@
       "target_sha256": {
         "./src/layers/earthquakes/index.js": "50327f82832e457311e098ef813c1274020a40632e2cacba10c699cddd2954c8"
       },
-      "status": "PLANNED",
-      "scope": "Only exported modules imported; remaining exports require separate qualification"
+      "status": "ADAPTED NOW",
+      "scope": "Only depthColor presentation helper; upstream layer/controller not instantiated. Remaining exports need separate qualification."
     },
     {
       "surface": "./layers/recent-imagery",
@@ -881,8 +881,8 @@
       "target_sha256": {
         "./src/layers/perimeters/index.js": "ebb05499582710632ebb138bfba299e3d91dae65494bcef97998d3b3a84df12f"
       },
-      "status": "PLANNED",
-      "scope": "Only exported modules imported; remaining exports require separate qualification"
+      "status": "ADAPTED NOW",
+      "scope": "Only perimeterAnchorDegrees geometry helper; upstream layer/controller not instantiated. Remaining exports need separate qualification."
     },
     {
       "surface": "./sources/firms-csv",
@@ -1867,12 +1867,16 @@
   "too_coupled": [
     "Whole FlightsLayer controller requires terrain/cache/tracking services: ADAPTER WORK REQUIRED; use exported normalization only",
     "Satellite renderer controller requires upstream tracking/UI services: ADAPTER WORK REQUIRED; reuse exported source only",
-    "Upstream weather rendering lacks clean layer export: UPSTREAM HOOK REQUIRED; use exported regional normalization"
+    "Upstream weather rendering lacks clean layer export: UPSTREAM HOOK REQUIRED; use exported regional normalization; C5 radar adapts provider WMS logic behind FastAPI/owned imagery rather than admitting this upstream renderer."
   ],
   "provider_decisions": {
     "aircraft": "B: bounded FastAPI adsb.lol transport, typed subset, 30s coalesced cache, browser normalization",
     "satellites": "A: CORS-safe CelesTrak stations via exported source/URL helpers; satellite.js wall-clock visualization",
-    "weather": "A: CORS-safe Open-Meteo point conditions via exported normalization; non-commercial free endpoint"
+    "weather": "A: CORS-safe Open-Meteo point conditions via exported normalization; non-commercial free endpoint",
+    "earthquakes": "Bounded FastAPI USGS all-day GeoJSON, M2.5+, 24h, 500-event cap, 60s cache/poll; public-domain source credit.",
+    "fire-perimeters": "Bounded FastAPI WFIGS current interagency perimeter query; 100-feature/25000-vertex caps, generalized incomplete subset, 300s cache/poll; NIFC/WFIGS credit and appropriate-use disclaimer.",
+    "weather-radar": "Bounded FastAPI NOAA nowCOAST WMS metadata and exact-timestamp 2048x1024 CONUS PNG; 240s cache/poll, 30min source-age admission, public-domain credit.",
+    "rocket-launches": "Production Launch Library 2.3.0 HTTP 403; public access qualification blocked, no implementation."
   },
   "data_policy": "No bundled upstream datasets/models/events, dynamic local_data imports rejected by build; live data attribution and terms retained. No blanket Node sidecar."
 }

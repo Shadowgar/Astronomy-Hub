@@ -9,7 +9,7 @@ function page(){
  const window=new EventTarget(),nodes=new Map();let viewers=0,bridges=0,live=0,peak=0;
  const document={querySelector(selector){if(!nodes.has(selector))nodes.set(selector,{hidden:false,dataset:{},replaceChildren(){},addEventListener(){}});return nodes.get(selector);}};
  class EarthRuntime {
-  constructor(){viewers++;peak=Math.max(peak,++live);this.destroyed=false;this.lifecycle={closed:false};this.ready=false;this.site={};this.registry={snapshot:()=>[]};this.timings={};this.viewer={isDestroyed:()=>this.destroyed,camera:{positionCartographic:{height:1000}}};}
+  constructor(){viewers++;peak=Math.max(peak,++live);this.destroyed=false;this.lifecycle={closed:false};this.ready=false;this.site={};this.registry={snapshot:()=>[]};this.timings={};this.providerStatus={values:new Map()};this.viewer={entities:{values:[]},isDestroyed:()=>this.destroyed,camera:{positionCartographic:{height:1000}}};}
   async initialize(){await Promise.resolve();this.ready=true;}
   async destroy(){if(this.lifecycle.closed)return;this.lifecycle.closed=true;this.ready=false;for(let i=0;i<6;i++)await Promise.resolve();this.destroyed=true;live--;}
  }
