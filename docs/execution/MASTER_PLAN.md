@@ -76,12 +76,15 @@ also merged baselines. PR #62 context/validation enforcement is merged at
 USGS earthquakes,
 NIFC/WFIGS fire perimeters and NOAA/NWS nowCOAST CONUS radar. Launch Library
 remains blocked by production HTTP 403. Phase C5 is COMPLETE after owner approval,
-merge and passing post-merge qualification. High-definition close-zoom Earth
-mapping is the active owner-authorized phase, before ISS/Mars reference phases.
-The first package on `earth-hd-mapping-1` adds USGS CONUS aerial imagery and has
-passed laptop WSL/disposable Docker qualification. See
-[HD mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md); owner review
-of the feature PR is next, before merge. External deployment is intentionally
+merge and passing post-merge qualification. PR #63's bounded high-definition
+close-zoom Earth package is COMPLETE after owner approval and normal merge
+`126da1537c734de817d9f9c59468d995807da37c` on 2026-10-05. Fresh unchanged-tree
+Docker smoke passed four cases. USGS aerial imagery is CONUS-focused and
+historical; global fallback is lower resolution and terrain remains ellipsoid-only.
+See [HD mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md) for the
+preserved feature campaign. The active task is integration/repository hygiene:
+separate tooling and stacked Sky repair PRs await owner review in that order.
+Neither follow-up merge nor a new feature phase is authorized. External deployment is intentionally
 deferred until an owner-declared Release Candidate; historical `openclaw` storage
 is not a feature blocker or next action. Reassess host/storage/hostname,
 Cloudflare and `oras.org` integration separately at that release gate. No public

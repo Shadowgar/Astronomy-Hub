@@ -381,3 +381,80 @@ docs/DOCUMENT_INDEX.md
 docs/DOC_INVENTORY.md
 docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md
 ```
+
+## Fresh integration qualification, 2026-10-05
+
+Owner-authorized integration/repository hygiene only; no feature implementation
+or production work. PR #63 merged normally at
+`126da1537c734de817d9f9c59468d995807da37c`, parents initial main
+`70daeb8087a5439dc27d1a5da3d64d8ec436f495` and approved head
+`a9f3e207235d42399d37d8c51b18103f6edcbb87`. Its tree exactly equals the
+approved head. Unchanged-tree Docker smoke passed four cases: live USGS local
+imagery, outside-CONUS fallback, C5 declared event/surface fixtures and canonical
+Sky → Earth → Sky. Earth remains `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`.
+
+Original `1cb71b848a1ed46390945fe0fa636676b8b8f744` was cherry-picked without
+conflicts onto new main as `8d2b37423cfa33d5184071c5f94efd8e5737a445` on
+`dev-wsl-performance-integration-20261005`. Before execution-doc reconciliation,
+`git diff --exit-code 1cb71b84 HEAD` passed: the full repair tree is identical.
+Original branches and worktrees remain preserved; neither Sky commit is included.
+This tooling PR requires owner review and is not authorized for merge.
+
+Default Mode context loaded CORE_CONTEXT and LIVE_SESSION_BRIEF first, then the
+manifest and selected reconciliation/validation/planning documents:
+SYSTEM_VALIDATION_SPEC, UNIFIED_UNIVERSE_ARCHITECTURE, DOCUMENT_INDEX,
+PROJECT_STATE, MASTER_PLAN, LOCAL_DEVELOPMENT_REPAIR_EVIDENCE,
+EARTH_HD_MAPPING_EVIDENCE and the relevant existing Sky sections of
+UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE. No broad docs scan or extra project
+documents. Historical frontend FE8.5/Babylon instructions conflict with current
+root/live authority; current contained SWE ownership governs this integration.
+
+Fresh commands from the integration tooling worktree (frontend cwd for browser):
+
+```sh
+npm run dev:local:build
+npm run dev:local
+python3 -m unittest discover -s tests -p 'test_local_*.py'
+npm --prefix frontend test -- --run
+node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs
+npm --prefix frontend run typecheck
+npm --prefix frontend run build
+python3 -m unittest -v tests.validation.test_architecture_manifest
+python3 -S scripts/validation/validate_architecture_docs.py
+PLAYWRIGHT_SKIP_WEBSERVER=1 npx playwright test tests/e2e/ownedEarth.spec.ts --grep 'serial five-switch loop and teardown desktop' --workers=1 --output=/var/tmp/oras-integration-20261005/tooling-browser
+node /var/tmp/oras-integration-20261005/watcher.cjs /home/rocco/Astronomy-Hub/.worktrees/dev-wsl-performance-integration-20261005
+docker compose -p astronomy-hub -f docker-compose.yml -f docker-compose.dev.yml exec -T backend env PYTHONPATH=.:backend python3 -m pytest backend/tests/test_earth_events.py backend/tests/test_earth_aircraft.py -q
+python3 scripts/cleanup-qualification.py --apply
+git diff --check
+```
+
+Logs and exact command/exit ledger: `/var/tmp/oras-integration-20261005/`.
+Local launcher build passed in 56s; repeat normal startup passed in 2s and verified
+served release/lock/Hub metadata. Five intended normal services run; all restart
+counts are zero. Unit results: 14 tooling, 198 frontend, 75 runtime/Earth and six
+manifest tests passed; 37 Docker backend tests passed (six existing deprecation
+warnings); TypeScript and Vite build passed. Browser five-switch loop
+passed (one case, 49.9s), asserting one active frame, real Earth teardown and Sky
+return. The fresh native watcher probe asserted websocket connection, actual
+AppRouter HMR update and changed served source, then restored the file exactly.
+Docker environment is `CHOKIDAR_USEPOLLING=0`; Compose config was checked with
+both 0 and 1, retaining optional fallback.
+
+Current warmed-container memory snapshot: frontend 439.1MiB, backend 357.9MiB,
+Earth 13.18MiB, Redis 12.21MiB, PostgreSQL 44.03MiB. This is a current snapshot,
+not a reproduced before/after comparison; the original measurements above remain
+historical. Existing completed qualification workloads were disabled/stopped with
+the allowlisted helper; normal stack exclusion and WordPress exclusion pass their
+unit tests. No containers, networks, volumes or datastores were deleted.
+PostgreSQL/Redis IDs and mounts match their pre-test baseline. Root owner settings
+retain SHA-256 `6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`,
+modified only by their owner and never staged. Existing ignored data was mounted
+read-only; historical linked screenshots were copied into the clean worktree
+without overwriting fresh captures, allowing document-link verification.
+
+Limits: this worktree uses already-installed owner data; Gaia worktree discovery
+and missing-metadata correctness belong to the stacked Sky package. Bare post-#63
+main does not contain dev:local; its unchanged-tree smoke used Compose and the
+immutable qualified Earth artifact. Cold search/index memory, catalog coverage,
+physical-device performance, global HD, terrain/3D and provider expansion remain
+separately gated. No production, SSH, Cloudflare or oras.org action occurred.
