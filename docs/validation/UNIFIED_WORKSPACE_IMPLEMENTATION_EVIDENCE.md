@@ -832,3 +832,141 @@ is a test failure. No broad visual campaign, full God's Eye suite, or native Sky
 science suite was rerun. Those untouched capabilities retain their prior limits.
 CI and thread resolution for the resulting single commit are recorded on PR #58.
 Owner approval remains required; this pass does not merge or start another phase.
+
+
+## Owner-directed Sky UX correction, 2026-10-04
+
+The owner explicitly superseded the earlier blanket embedded-control suppression.
+This local correction belongs to `sky-engine-ux-regressions-1`, based on preserved
+WSL tooling commit `1cb71b84`; PR #63 remains separate, open and unchanged. No new
+feature, provider/science change, production work, SSH, Cloudflare or oras.org
+integration occurred. The earlier evidence above remains historical.
+
+Standard browser wheel events reached the actual canvas in both ORAS surfaces,
+but qualified canvas wiring handled legacy `mousewheel` / `DOMMouseScroll` only.
+The bridge's passive standard `wheel` interaction listener changed Chromium's
+chosen event family, so SWE never received native zoom input. Overlays were not
+intercepting it. The reference without that standard listener received legacy
+input and zoomed. Before correction, identical real inward input left ORAS FOV
+at `2.094395102393` radians; reference changed to `1.899678097409`.
+
+The contained adapter's `native-wheel.mjs` now forwards standard nonpassive wheel
+input and canvas-relative cursor coordinates to SWE `_core_on_zoom`. It retains
+native notch scaling where exposed, normalizes pixel/line/page deltas otherwise,
+bounds the input factor, and prevents scrolling/legacy duplicate handling.
+Native projection, cursor anchoring, scene math and FOV bounds remain SWE-owned;
+no native WASM or vendor chunk changed. Persisted pagehide retains input.
+
+Embedded `TargetSearch` and `BottomBar` are exposed through the existing plugin
+extension hook. Search still calls qualified ORAS `querySkySources`; no obsolete
+NoctuaSky request was observed. Canonical native search selection is admitted to
+Hub product state so mode recreation preserves it. Restored renderer controls:
+constellation lines/labels, constellation art, atmosphere, landscape, azimuthal
+grid, equatorial grid, deep-sky visibility and night mode. Existing optional
+J2000-grid configuration remains unchanged. Native buttons are semantic,
+keyboard-operable, labelled, and 44 × 44 px. Embedded fullscreen remains hidden
+because Hub owns immersive presentation. Native navigation/header/drawer,
+location/time editors and selected-object panel remain hidden because Hub owns
+those product surfaces. Source/survey credits remain accessible.
+
+Desktop gives the toolbar its own bottom row below Hub time and selection.
+Mobile scrolls that row internally without document overflow; credits occupy a
+separate row. Open mobile sheets move native controls/credits above the sheet.
+Tab/Escape from native controls are retained; native focus keeps Hub chrome active.
+
+`SkyWorkspaceLink` translates source-backed exact link queries into `/sky-engine`
+with `focus=1`, retaining catalog/source_id/model, RA/Dec, observer and time.
+Names remain cosmetic, large IDs remain strings, and native focus runs after
+observer/time/selection acknowledgement. Backend microsecond timestamps are
+normalized to supported millisecond precision instead of silently entering Live.
+Normal Observe cards/details, Tonight cards and retained Home opportunity/Observe
+components use it. Explicit standalone links and native exact links are retained.
+
+### Fresh qualification
+
+Logs: `/var/tmp/oras-sky-ux-regressions/`. All commands below exited zero.
+Local tests support the Docker/browser qualification; no production claim is made.
+
+| Command (repository cwd unless stated) | Result |
+| --- | --- |
+| `node --test tests/runtime/*.test.mjs` | 28 passed; protocol, Sky artifacts, native input and control keyboard handling |
+| Focused frontend command below | 100 passed across 15 files |
+| `npm run typecheck` (frontend cwd) | TypeScript passed |
+| `npm run build` (frontend cwd) | Vite build passed; existing chunk advisory |
+| Browser command below (frontend cwd, built preview in the same Docker frontend) | 19 passed in 1.3m |
+| `PLAYWRIGHT_SKIP_WEBSERVER=1 npx playwright test tests/e2e/skyUxRegressions.spec.ts --workers=1` (frontend cwd, restored normal Docker dev server) | 9 passed; cold search and a final warm run recorded separately |
+| `python3 -S scripts/validation/validate_architecture_docs.py` | 185 manifest entries, 8 packs, 37 Markdown checkpoints and 99 relative links passed |
+| `npm run dev:local:build`, then `npm run dev:local` (correction worktree cwd) | Existing five-service local launcher restored; no temporary override required |
+| `git diff --check` | Passed |
+
+```bash
+# frontend cwd
+npm test -- tests/workspaceNavigation.test.ts tests/workspaceRuntimeAdapter.test.ts tests/workspaceUiState.test.ts tests/workspace.test.tsx tests/workspaceTime.test.tsx tests/runtimeHost* tests/runtimeProbe* tests/observe*.test.* tests/tonight*.test.* tests/homePage.test.tsx tests/skyEngineImportBoundary.test.js
+PLAYWRIGHT_SKIP_WEBSERVER=1 npx playwright test tests/e2e/skyUxRegressions.spec.ts tests/e2e/skyBfcache.spec.ts tests/e2e/earthBfcache.spec.ts tests/e2e/workspaceFinalReview.spec.ts --workers=1
+```
+
+Real canvas inward/outward FOV in both surfaces:
+`2.094395102393 → 1.899678097409 → 2.094395102393` radians. Large outward
+input clamps at native stereographic maximum `3.22885911619` (185°), then ordinary
+inward/outward input continues working. Both document scroll positions stayed
+zero; tested flows recorded no JS page errors. Wheel also works after qualified
+search, native Focus, Observe context interaction and Sky → Earth → Sky.
+Focus independently compares native converted target angles with observer yaw/pitch
+(tolerance 0.02 radians); all tested residuals were below 1e-12 radians.
+Observe selected canonical Deneb at custom `(42,-80,365.76 m)` and controlled
+`2026-10-03T02:00:00.000Z`. Tonight/Home selected canonical Uranus at the source
+peak `2026-10-03T08:44:25.961Z` and canonical ORAS observer. Only one runtime iframe
+exists after each transition. The retained Home component is exercised with real
+Docker Tonight data via a test-only server-rendered page; `/` itself is the workspace.
+
+Actual Sky Back restored the same document with `pageshow.persisted=true`, retained
+a working time bridge and recovered unpinned controls. Actual Earth bfcache retained
+one Viewer/bridge; its stale four-layer test count was updated to the current seven
+registered C5 layer controls. No Earth runtime source changed. Vite's HMR WebSocket
+prevents Chromium bfcache admission; genuine cached-page evidence therefore uses
+built preview, while the nine Sky UX cases are rerun on the normal dev server.
+
+Sky frontend-only rebuild uses recovered qualified frontend inputs, current
+controlled overlays and the pinned builder below. No bulk skydata is copied.
+Promotion asserts unchanged native/vendor bytes before replacing application assets.
+
+```bash
+python3 /var/tmp/oras-sky-ux-regressions/build-app.py
+python3 scripts/runtime/integrate_sky_bridge.py /var/tmp/oras-sky-ux-regressions/sky-app
+docker run --rm -v /var/tmp/oras-sky-ux-regressions/sky-app:/work -w /work -e ORAS_RUNTIME_PUBLIC_PATH=/oras-sky-engine/ -e ORAS_RUNTIME_COPY_SKYDATA=0 -e NODE_OPTIONS=--openssl-legacy-provider node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0 sh -c 'npm ci --loglevel=error && npm run build'
+python3 scripts/runtime/record_sky_workspace.py /var/tmp/oras-sky-ux-regressions/sky-app/dist
+python3 scripts/runtime/record_runtime_versions.py /home/rocco/Astronomy-Hub/data/runtime-artifacts/earth
+```
+
+Sky artifact before:
+`bbf8e9136fa510e86a64095f5e5ec51846456989b589de21937d2f929450e1a5`.
+Sky artifact after (96 manifested application files):
+`0db3fab9cac11f98eed3a9543b597a0d2763e0b6ce00e71afa97672ff3fd0d04`.
+Lock, served runtime metadata and marker match; overlay and wheel-input hashes
+bind controlled source. Earth remains exactly
+`ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`.
+
+Fresh screenshots are under `output/playwright/sky-ux/`: `toolbar-1440.png`,
+`toolbar-390.png`, `mobile-time-sheet.png`, `search-selected.png`,
+`observe-open-in-sky.png`, `tonight-open-in-sky.png`, `home-open-in-sky.png`,
+and `standalone-exact-link.png`. Older linked Earth screenshots were copied from
+the original checkout only to satisfy isolated-worktree document containment;
+they are historical evidence, not a fresh Earth feature campaign.
+
+Category A: all five owner behaviors resolved by the local implementation and
+focused runtime/browser evidence. Owner manual review and integration remain.
+Category B: existing catalog-pack API search loaded its cached index in 21.4–23.1s
+on cold start, raising backend memory from about 67 MiB to 2.02 GiB; this source
+and indexing behavior is unchanged. A first local test used a 20s assertion and
+failed before the successful API response; the final test allows 65s and proves
+the cold result. Idle five-container memory was about 261 MiB before search;
+post-test restart returns the normal stack to idle. No extra renderer/service or
+watcher was added. Backend indexing optimization remains a separate owner-scoped
+follow-up. Inherited missing catalog/tile/loader noise remains; blanket console
+cleanliness, all-object coverage and a broad Earth/C5/provider rerun are not claimed.
+Night mode remains renderer-local, matching native behavior. Exact-link timestamp
+precision is milliseconds. The original tooling checkout remains at `1cb71b84`,
+with the same unstaged settings hash; the repair worktree shares ignored local
+configuration/data and dependency links. Run its normal launcher from that worktree
+until separately reviewed integration. PR #63/tooling ancestors must be integrated
+separately before targeting main; no push/PR/merge occurs in this correction.

@@ -31,7 +31,8 @@
       "apps/web-frontend/src/components/oras-catalog-status-dialog.vue": "db39539669597daa7a18b82575385a90a6eab91ad7d2c598349b6258bdc1e76b",
       "apps/web-frontend/src/components/oras-dense-stars-status-dialog.vue": "1047fdfeff476e6b288b6208575aece66f04a4475aede651114603b79a20ef8e",
       "apps/web-frontend/package-lock.json": "9fa58d0d1cf23d45b66080f2a42c486a0ccc26f0debcb0a786f8320a0e43bf23",
-      "apps/web-frontend/src/components/gui.vue": "2d2a89fea7054a06819b8758297bdbadc34517be96f1319fc2e1485b3117a734"
+      "apps/web-frontend/src/components/gui.vue": "2d2a89fea7054a06819b8758297bdbadc34517be96f1319fc2e1485b3117a734",
+      "apps/web-frontend/src/components/bottom-button.vue": "c5f19da0ff72d4ce3d6479ae48da54133602f121484a0afb7de603c306f4a4a0"
     },
     "baseline_artifacts": [
       {
@@ -527,12 +528,12 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_current_sky.sh",
-    "artifact_sha256": "bbf8e9136fa510e86a64095f5e5ec51846456989b589de21937d2f929450e1a5",
+    "artifact_sha256": "0db3fab9cac11f98eed3a9543b597a0d2763e0b6ce00e71afa97672ff3fd0d04",
     "artifact_files": [
       {
-        "path": "css/app.9cd008e2.css",
-        "bytes": 3058,
-        "sha256": "f195f882debee654c708c4436eada8fcdcd715f1dd21a3a5c34e08610f774f67"
+        "path": "css/app.2f1be4ee.css",
+        "bytes": 3242,
+        "sha256": "4251ea2401c5a09eb9021d1e4248a5c27446c5e77d2e04e6270a3af12890ac28"
       },
       {
         "path": "css/chunk-vendors.11c203ce.css",
@@ -982,12 +983,12 @@
       {
         "path": "index.html",
         "bytes": 1960,
-        "sha256": "1b675902dd2f475144832cc834d9dc6d5692d1156e5ec6e9d3e4a2231f7c815e"
+        "sha256": "b5cf7ae40151c1965b4b7a6c03a383505408f796326735962ed79e808cb9833f"
       },
       {
-        "path": "js/app.5253a4df.js",
-        "bytes": 564775,
-        "sha256": "4db73ba52f36371d096b6fda0bf48b280dfbb396f57db2512717ddff1515266e"
+        "path": "js/app.bc16ed55.js",
+        "bytes": 568057,
+        "sha256": "6708e837ea998f0b9c677e6ee1ae27d5f8979788ed50e351ec0a75446824bd9a"
       },
       {
         "path": "js/chunk-2d2253ec.1b0c9439.js",
@@ -1006,13 +1007,14 @@
       },
       {
         "path": "oras-runtime-build.json",
-        "bytes": 509,
-        "sha256": "1a297bd32c3297a804926a6ce91ca912a660d83a72507d716994264b5b9c1526"
+        "bytes": 601,
+        "sha256": "fff92f724dc4693522a14d01d663c4f2967a0cdbbeaec7c94542395ae1bf514a"
       }
     ],
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "334eeba9fd393eb27fca8c5aaa31504af79cec94dbc2b0da134a8ae99232c752",
-    "artifact_hash_scope": "Application files excluding identity marker"
+    "workspace_adapter_sha256": "49272f98f40d4b259924d6582ee0b4a898ca52e8a71be7c9c2344e01727b31aa",
+    "artifact_hash_scope": "Application files excluding identity marker",
+    "wheel_input_sha256": "29353cca2b47c44b8467c8e2e808a3af8b3cf8bc8a17a9aa211061f75f40bbe9"
   },
   "earth": {
     "upstream": "https://github.com/bilawalsidhu/gods-eye-view",

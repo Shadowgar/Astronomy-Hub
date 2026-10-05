@@ -33,6 +33,31 @@ No runtime override mode is active. Reconciliation, planning and validation pack
 apply; use frontend/review packs only as needed for the existing Sky package.
 Repository design authority and the partial secondary Figma owner waiver remain.
 
+## Preserved local Sky checkpoints
+
+These dated checkpoints preserve original local proof and stop-points. Their
+next-action/approval statements are historical and superseded by the active
+2026-10-05 integration authorization above.
+
+## Owner-directed Sky UX correction, 2026-10-04
+
+The owner refined embedded Sky presentation: native object search and useful
+scene/view toggles must remain available alongside Hub-owned workspace chrome.
+The bounded correction is locally qualified on `sky-engine-ux-regressions-1`,
+based on preserved tooling commit `1cb71b84`. Both Sky surfaces now forward
+standard wheel input to SWE's native zoom; embedded native search/view controls
+are restored; normal Home/Observe/Tonight Sky links enter `/sky-engine` with
+canonical identity, observer, controlled time and native focus. Standalone exact
+links remain available. Qualification and limits are recorded in the
+[Sky UX correction evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md#owner-directed-sky-ux-correction-2026-10-04).
+
+Next action is owner local review of this separate correction and its preserved
+tooling/PR #63 integration dependencies. PR #63 remains open and unchanged;
+no push, merge, new feature or remote work is authorized by this checkpoint.
+Use `npm run dev:local` from the correction worktree while reviewing it; the
+original tooling checkout and its unstaged `.vscode/settings.json` are preserved.
+The previous next-action statements below are historical context.
+
 ## Owner release policy, 2026-10-04
 
 Development and qualification use laptop WSL and local/disposable Docker until

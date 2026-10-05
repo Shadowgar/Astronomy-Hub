@@ -44,7 +44,7 @@ export default function WorkspaceShell({mode='sky'}:{mode?:RuntimeMode}){
   if(mode==='sky'&&entity&&client.capabilities.includes('selection')){
    useRuntimeProductState.setState({pendingFocus:null})
    const selected=await runtime.request('selectEntity',entity,25000)
-   if(!cancelled&&selected?.ok&&pendingFocus&&['catalog','source_id','model'].every(key=>pendingFocus[key as keyof typeof pendingFocus]===entity[key as keyof typeof entity]))await runtime.request('focusSelection',{},12000)
+   if(!cancelled&&selected?.ok&&(pendingFocus||new URLSearchParams(location.search).get('focus')==='1')&&['catalog','source_id','model'].every(key=>(!pendingFocus||pendingFocus[key as keyof typeof pendingFocus]===entity[key as keyof typeof entity])))await runtime.request('focusSelection',{},12000)
   }
  })();return ()=>{cancelled=true;if(session)session.cancelled=true;if(layerSession.current===session)layerSession.current=null}},[runtime.client,mode])
  const close=useCallback((restoreFocus=true)=>{const returnToContext=mobile&&surface!=='context'&&contextReturn.current;contextReturn.current=false;setSurface(returnToContext?'context':null);setMenu(false);if(surface==='context'||surface===null)setContextVisible(false);setExpanded(false);if(restoreFocus)requestAnimationFrame(()=>{if(trigger.current?.isConnected)trigger.current.focus();else if(triggerKey.current)root.current?.querySelector<HTMLElement>(`[data-ws-trigger="${triggerKey.current}"]`)?.focus()})},[mobile,surface])
@@ -56,7 +56,7 @@ export default function WorkspaceShell({mode='sky'}:{mode?:RuntimeMode}){
   const p=new URL(url,window.location.origin).searchParams;const identity={catalog:p.get('catalog')||'',source_id:p.get('source_id')||'',model:p.get('model')||'',...(p.has('ra')?{ra:Number(p.get('ra'))}:{}),...(p.has('dec')?{dec:Number(p.get('dec'))}:{})}
   // Observe and Tonight may be opened over Earth; their target actions intentionally enter Sky.
   if(mode==='earth'){if(p.has('date')){const date=new Date(p.get('date')!);if(!Number.isFinite(date.getTime()))return;p.set('date',date.toISOString())}useRuntimeProductState.setState({selection:identity,pendingFocus:focus?identity:null});navigate('/sky-engine?'+p);return}
-  const q=new URLSearchParams(location.search)
+  const q=new URLSearchParams(location.search);q.delete('focus')
   if(focus&&p.has('date')){const peak=new Date(p.get('date')!);if(!Number.isFinite(peak.getTime()))return;const utc=peak.toISOString();const ack=await runtime.request('setTimeIntent',{utc,live:false},12000);if(!ack?.ok)return;q.set('date',utc)}
   const result=await runtime.request('selectEntity',identity,25000);if(!result?.ok)return
   useRuntimeProductState.setState({selection:identity})

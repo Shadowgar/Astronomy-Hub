@@ -23,6 +23,7 @@ function render(data=payload){return renderToStaticMarkup(<MemoryRouter><Tonight
 describe('Tonight product',()=>{
  it('renders night timeline, factual cards and categories with exact Sky link',()=>{
   const html=render()
+  expect(html).toContain('href="/sky-engine?');expect(html).not.toContain('href="/oras-sky-engine/');
   for(const text of ['Civil dusk','Nautical dusk','Astronomical darkness','Astronomical dawn','Andromeda Galaxy','68','11:20 PM','Top opportunities','Deep Sky','source_id=M31','date=2026','Open in Sky']) expect(html).toContain(text)
   expect(html).not.toContain('<h2>Stars</h2>')
   expect(html).not.toContain('Satellites')

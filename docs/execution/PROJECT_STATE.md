@@ -77,9 +77,12 @@ Candidate; historical openclaw storage is not a feature blocker or next action.
 ## REVIEW-HISTORY DISPOSITION
 
 The obsolete embedded navigation-drawer messages are superseded by host-owned
-workspace controls. `runtimes/sky-adapter/plugin.js` hides the embedded toolbar
-and drawer, while the Sky overlay retains standalone fallbacks. Restore neither
-obsolete host handlers nor hidden embedded controls merely to close an old thread.
+workspace controls. `runtimes/sky-adapter/plugin.js` hides duplicate embedded
+navigation, location/time and selection chrome; standalone fallbacks remain.
+The owner's 2026-10-04 refinement selectively restores qualified native object
+search and scene/view toggles in embedded Sky. This is an explicit product
+requirement, not restoration of obsolete host handlers or a second app shell.
+See the [bounded Sky UX correction evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md#owner-directed-sky-ux-correction-2026-10-04).
 
 The merged `a45fa637` corrections already address Live time, custom-observer
 timezones and Earth source refresh. Merged PR #60 preserves the Sky endpoint and

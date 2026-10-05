@@ -1,5 +1,16 @@
 import {parseSceneDate,type CanonicalEntity} from '../runtime/productState'
 import type {RuntimeMode,ObserverIntent} from '../../../../packages/runtime-protocol/index.mjs'
+// Translate a qualified runtime link without rebuilding identity or scene intent.
+export function skyWorkspacePath(exactLink:string){
+ const url=new URL(exactLink,'http://local.invalid')
+ if(url.origin!=='http://local.invalid'||!url.pathname.startsWith('/oras-sky-engine/skysource/'))return null
+ if(['catalog','source_id','model'].some(key=>!url.searchParams.get(key)))return null
+ // Backend peak timestamps carry microseconds; the Hub/native Date boundary is milliseconds.
+ const date=url.searchParams.get('date')
+ if(date){const utc=parseSceneDate(date.replace(/(\.\d{3})\d+(Z)$/,'$1$2'));if(!utc)return null;url.searchParams.set('date',utc)}
+ url.searchParams.set('focus','1')
+ return '/sky-engine?'+url.searchParams
+}
 export function workspaceModePath(mode:RuntimeMode,search:string){
  const params=new URLSearchParams(search),date=parseSceneDate(params.get('date'))
  if(date)params.set('date',date);else params.delete('date')

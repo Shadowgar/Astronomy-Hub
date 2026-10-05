@@ -9,4 +9,7 @@ test('Sky marker and public admission digest bind every qualified application fi
  for(const row of lock.sky.artifact_files){assert.ok(!row.path.startsWith('skydata/'));const bytes=read('frontend/public/oras-sky-engine/'+row.path);assert.equal(bytes.length,row.bytes,row.path);assert.equal(digest(bytes),row.sha256,row.path)}
  const payload=lock.sky.artifact_files.filter(row=>row.path!=='oras-runtime-build.json');
  assert.equal(digest(JSON.stringify(payload)),lock.sky.artifact_sha256);assert.equal(marker.artifact_sha256,lock.sky.artifact_sha256);assert.equal(versions.sky.artifact_sha256,marker.artifact_sha256);
+ assert.equal(marker.adapter_sha256,digest(read('runtimes/sky-adapter/plugin.js')));
+ assert.equal(marker.wheel_input_sha256,digest(read('runtimes/sky-adapter/native-wheel.mjs')));
+ assert.equal(lock.sky.wheel_input_sha256,marker.wheel_input_sha256);
 });

@@ -1,3 +1,4 @@
+import SkyWorkspaceLink from '../workspace/SkyWorkspaceLink'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ORAS_SITE } from '../../config/orasSite'
@@ -32,7 +33,7 @@ export function TonightSummary({payload}: {payload: TonightPayload}) {
       <h3>{target.name}</h3>
       <p><strong>{target.opportunity.peak_altitude_deg.toFixed(0)}° at peak</strong></p>
       <p className="oras-caption">{timeLabel(target.opportunity.peak_time)}</p>
-      <a href={target.sky_engine_url}>Open in Sky <span aria-hidden="true">↗</span></a>
+      <SkyWorkspaceLink href={target.sky_engine_url}>Open in Sky <span aria-hidden="true">↗</span></SkyWorkspaceLink>
     </article>)}</div> : <p className="oras-status">{night.status==='ephemeris_unavailable' ? 'Night astronomy unavailable.' : 'No supported opportunities during astronomical darkness.'}</p>}
   </>
 }
@@ -45,7 +46,7 @@ export function ObserveSummary({payload}: {payload: ObservePayload}) {
       return <article className="home-observe-row" key={identityKey(object)}>
         <div><span className="oras-eyebrow">{object.object_type_label || object.type.replace(/_/g,' ')}</span><h3>{object.name}</h3></div>
         <div className="home-position"><strong>{object.alt.toFixed(0)}° up</strong><span>{compass(object.az)}</span></div>
-        {url ? <a href={url} aria-label={`Open ${object.name} in Sky`}>Sky <span aria-hidden="true">↗</span></a> : <span className="oras-caption">Sky link unavailable</span>}
+        {url ? <SkyWorkspaceLink href={url} aria-label={`Open ${object.name} in Sky`}>Sky <span aria-hidden="true">↗</span></SkyWorkspaceLink> : <span className="oras-caption">Sky link unavailable</span>}
       </article>
     })}</div> : <p className="oras-status">No supported objects are above the geometric horizon right now.</p>}
   </>
