@@ -153,6 +153,7 @@ tasks:
     - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md
     - docs/validation/EARTH_HD_MAPPING_EVIDENCE.md
+    - docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md
