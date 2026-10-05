@@ -20,7 +20,7 @@ import TimeSurface,{TimeEditor} from './TimeSurface'
 import BottomSheet from './BottomSheet'
 import DiagnosticsSurface from './DiagnosticsSurface'
 import {Icon,IconButton} from './primitives'
-import {workspaceModePath,skyStandalonePath} from './workspaceNavigation'
+import {workspaceModePath,skyStandalonePath,nativeSelectionSearch} from './workspaceNavigation'
 import './workspace.css'
 type LayerSession={client:RuntimeClient;cancelled:boolean;tail:Promise<RuntimeResult|null>;touched:Set<string>;pending:Set<string>}
 function useMobile(){const [mobile,setMobile]=useState(()=>typeof window!=='undefined'&&window.innerWidth<768);useEffect(()=>{const media=matchMedia('(max-width:767px)'),update=()=>setMobile(media.matches);media.addEventListener('change',update);update();return ()=>media.removeEventListener('change',update)},[]);return mobile}
@@ -30,6 +30,9 @@ export default function WorkspaceShell({mode='sky'}:{mode?:RuntimeMode}){
  const chrome=useImmersive({pin:prefs.pin,panel:surface!==null||expanded||menu,mobile,blocked:status!=='ready'}),runtime=useWorkspaceRuntime(mode,location.search,chrome.interact,key=>{if(key==='Escape')escape();else{chrome.reveal();requestAnimationFrame(()=>root.current?.querySelector<HTMLAnchorElement>('.ws-brand')?.focus())}},()=>{
   const params=new URLSearchParams(location.search);for(const key of ['catalog','source_id','model','ra','dec','focus'])params.delete(key)
   if(params.toString()!==location.search.slice(1))navigate(location.pathname+(params.size?'?'+params:''),{replace:true})
+ },entity=>{
+  const search=nativeSelectionSearch(location.search,entity)
+  if(search!==null)navigate(location.pathname+search,{replace:true})
  })
  useEffect(()=>{if(runtime.client)void runtime.request('setPresentation',{embedded:true,creditsAtTop:mobile&&surface!==null})},[runtime.client,mobile,surface])
  const selection=runtime.snapshot.selection,selectionId=selection?.id;const previousSelection=useRef<string|null>(null),restored=useRef<unknown>(null),layerSession=useRef<LayerSession|null>(null)

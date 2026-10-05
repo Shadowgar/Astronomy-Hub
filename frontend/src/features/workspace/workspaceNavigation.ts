@@ -1,5 +1,14 @@
 import {parseSceneDate,type CanonicalEntity} from '../runtime/productState'
 import type {RuntimeMode,ObserverIntent} from '../../../../packages/runtime-protocol/index.mjs'
+// A native selection reports identity, not a new camera/focus intent. Keep the
+// scene query intact and replace all identity fields together only on a change.
+export function nativeSelectionSearch(search:string,entity:CanonicalEntity){
+ const params=new URLSearchParams(search)
+ if(['catalog','source_id','model'].every(key=>params.get(key)===entity[key as keyof CanonicalEntity]))return null
+ for(const key of ['catalog','source_id','model','ra','dec','focus'])params.delete(key)
+ for(const key of ['catalog','source_id','model','ra','dec'] as const){const value=entity[key];if(value!==undefined)params.set(key,String(value))}
+ return '?'+params
+}
 // Translate a qualified runtime link without rebuilding identity or scene intent.
 export function skyWorkspacePath(exactLink:string){
  const url=new URL(exactLink,'http://local.invalid')
