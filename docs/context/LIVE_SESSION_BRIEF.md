@@ -9,8 +9,14 @@ PR #59 / ORA-8 / Phase C5 was owner-approved and merged on 2026-10-04 at
 `e0e69e4747e9123b75072f9636e566865948d584`. **Phase C5 is COMPLETE**:
 owner review, merge and post-merge local/disposable qualification passed.
 Current work is owner-authorized high-definition / close-zoom Earth mapping in
-laptop WSL, SINGLE AGENT ONLY. The first bounded package requires fresh Docker,
-browser, provider/license and C5 regression proof, then owner review before merge.
+laptop WSL, SINGLE AGENT ONLY. The first bounded package is implemented and
+locally qualified on `earth-hd-mapping-1`: keyless USGS CONUS aerial imagery,
+bounded tile requests and explicit fallback/retry, preserving one owned Viewer.
+Fresh Docker, desktop/mobile browser, provider/license and C5 regression evidence
+is recorded in [HD mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md).
+The rebuilt artifact passes 75 Node and all 25 Docker/browser cases, including
+the reviewed outside-CONUS source-status correction. Next action is owner review
+of [PR #63](https://github.com/Shadowgar/Astronomy-Hub/pull/63); do not merge without that review.
 The unchanged locked design ancestor is `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.
 No runtime override mode is active. Load `docs_change`, `planning`,
 `frontend_change`, `backend_change`, `review` and `validation` packs as applicable.

@@ -176,3 +176,8 @@ Do not:
 
 Future agents must treat `/oras-sky-engine/` as the active ORAS-hosted
 Stellarium Web runtime unless a later authority document explicitly changes it.
+
+## HD Earth mapping checkpoint
+
+[HD mapping investigation, plan and proof](validation/EARTH_HD_MAPPING_EVIDENCE.md)
+records the bounded WSL/disposable package; live/project state governs execution.

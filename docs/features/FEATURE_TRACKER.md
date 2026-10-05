@@ -92,8 +92,12 @@ qualification passed. External deployment is intentionally deferred until the
 owner declares Release Candidate. Historical `openclaw` SSH/storage diagnostics
 are retained in Earth expansion evidence; storage is not a current blocker.
 HD / close-zoom Earth mapping is the active authorized phase in laptop WSL,
-qualified with local/disposable Docker. Deliver one bounded package for owner
-review before merge. No remote deployment, Cloudflare or `oras.org` work is
+qualified with local/disposable Docker. The first package on `earth-hd-mapping-1`
+is implemented and locally qualified: keyless USGS CONUS imagery, bounded requests,
+truthful source display and explicit fallback/retry. Its
+[evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md) records the fresh C5 proof
+and regional/performance limits. Owner review of the PR is next; no merge yet.
+No remote deployment, Cloudflare or `oras.org` work is
 included. ISS handoff and Mars/Moon remain out of scope.
 Historical passing counts do not
 qualify changed sources. Current execution and owner approval belong to

@@ -77,9 +77,11 @@ USGS earthquakes,
 NIFC/WFIGS fire perimeters and NOAA/NWS nowCOAST CONUS radar. Launch Library
 remains blocked by production HTTP 403. Phase C5 is COMPLETE after owner approval,
 merge and passing post-merge qualification. High-definition close-zoom Earth
-mapping is the active owner-authorized next phase, before ISS/Mars reference
-phases. Implement one bounded package in laptop WSL with local/disposable Docker
-qualification and owner review before merge. External deployment is intentionally
+mapping is the active owner-authorized phase, before ISS/Mars reference phases.
+The first package on `earth-hd-mapping-1` adds USGS CONUS aerial imagery and has
+passed laptop WSL/disposable Docker qualification. See
+[HD mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md); owner review
+of the feature PR is next, before merge. External deployment is intentionally
 deferred until an owner-declared Release Candidate; historical `openclaw` storage
 is not a feature blocker or next action. Reassess host/storage/hostname,
 Cloudflare and `oras.org` integration separately at that release gate. No public

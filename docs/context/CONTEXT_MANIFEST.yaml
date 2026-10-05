@@ -19,6 +19,7 @@ tasks:
     - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
     - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md
+    - docs/validation/EARTH_HD_MAPPING_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md
@@ -53,6 +54,7 @@ tasks:
     - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
     - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md
+    - docs/validation/EARTH_HD_MAPPING_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md
@@ -80,6 +82,7 @@ tasks:
     - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
     - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md
+    - docs/validation/EARTH_HD_MAPPING_EVIDENCE.md
     - docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
@@ -106,6 +109,7 @@ tasks:
     - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
     - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md
+    - docs/validation/EARTH_HD_MAPPING_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md
@@ -145,6 +149,7 @@ tasks:
     - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
     - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md
+    - docs/validation/EARTH_HD_MAPPING_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md
@@ -190,6 +195,7 @@ tasks:
     - docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md
     - docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md
     - docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md
+    - docs/validation/EARTH_HD_MAPPING_EVIDENCE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/ENGINE_CATALOG.md

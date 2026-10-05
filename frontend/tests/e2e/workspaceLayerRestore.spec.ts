@@ -60,9 +60,14 @@ test('mode departure cancels queued choices and a new Earth client restores only
   await page.goto('/earth');await expect(page.locator('[data-runtime-status=ready]')).toBeVisible({timeout:90000});await expect.poll(()=>started).toBe(true)
   const old=await page.locator('iframe').elementHandle()
   await page.getByRole('button',{name:'Layers',exact:true}).click()
-  const quake=page.getByRole('switch',{name:'Earthquakes · M2.5+ · past day',exact:true});await quake.click();await expect(quake).toBeDisabled()
-  // Also supersede the already-dispatched aircraft restore; both user jobs queue.
-  const aircraft=page.getByRole('switch',{name:'Aircraft near ORAS',exact:true});await expect(aircraft).toHaveAttribute('aria-checked','true');await aircraft.click();await expect(aircraft).toBeDisabled();await expect(quake).toBeDisabled()
+  const quake=page.getByRole('switch',{name:'Earthquakes · M2.5+ · past day',exact:true})
+  const aircraft=page.getByRole('switch',{name:'Aircraft near ORAS',exact:true});await expect(aircraft).toHaveAttribute('aria-checked','true')
+  // Exercise the installed UI handlers in one browser task. Separate pointer
+  // actionability waits can exhaust the deliberate 12-second aircraft hold on
+  // software WebGL, testing completed jobs instead of queued cancellation.
+  await page.evaluate(()=>{(document.querySelector('#layer-earthquakes') as HTMLButtonElement).click();(document.querySelector('#layer-aircraft') as HTMLButtonElement).click()})
+  await expect(aircraft).toBeDisabled();await expect(quake).toBeDisabled()
+  expect(await page.evaluate(()=>(window as any).layerCommands.filter((c:any)=>c.payload.id==='earthquakes'))).toEqual([])
   expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('oras.workspace.ui.v1')!).layers)).toEqual(['oras-site','aircraft'])
   await page.getByRole('tab',{name:'Sky',exact:true}).click();hold=false;release()
   await expect(page.locator('[data-runtime-mode=sky][data-runtime-status=ready]')).toBeVisible({timeout:90000});expect(await old!.evaluate(node=>node.isConnected)).toBe(false)

@@ -11,3 +11,10 @@ test('disabled deployment configuration cannot publish credentials or unknown fi
  assert.equal(isPublicDisplayConfig({schema:1,qualified:false}),true);
  for(const value of [{schema:1,qualified:false,publicToken:'fixture'},{schema:1,qualified:false,serverSecret:'fixture'},{schema:2,qualified:false},null])assert.equal(isPublicDisplayConfig(value),false);
 });
+
+test('public imagery selection is a closed credential-free enum with legacy fallback',()=>{
+ assert.equal(isPublicDisplayConfig({schema:1,qualified:false,publicImagery:'usgs-conus'}),true);
+ assert.equal(isPublicDisplayConfig({schema:1,qualified:false,publicImagery:'blue-marble'}),true);
+ for(const publicImagery of ['https://unapproved.example',null,{},'bing'])assert.equal(isPublicDisplayConfig({schema:1,qualified:false,publicImagery}),false);
+ assert.equal(isPublicDisplayConfig({schema:1,qualified:false,publicImagery:'usgs-conus',publicToken:'not-admitted'}),false);
+});

@@ -43,12 +43,14 @@ merged at `f3601bb82b0c52343d2c38f93ecfce747ef611c7`. PR #62 mandatory context
 and validator enforcement merged at `fc41ac19d7e2021c9d4b56b5a13322981f3c6992`,
 the reviewed main baseline integrated into `phase-c5-earth-live-layers-1`.
 Sky lifecycle, Tonight fallback and validation enforcement are preserved baselines.
-PR #59 is complete; the active task is provider/architecture investigation and
-the first bounded HD Earth mapping package, with owner review before merge.
+PR #59 is complete. The first bounded HD Earth mapping package is implemented
+and locally qualified on `earth-hd-mapping-1`, awaiting owner review before merge.
 Root Sky workspace, Sky/Earth modes, reusable Tonight/Observe context, bounded
 selection/time surfaces, responsive mobile sheets and immersive UI are implemented.
-The Earth visual foundation uses NASA GIBS static imagery with local Natural Earth
-fallback; configured terrain/3D requires separately qualified deployment assets.
+This branch adds keyless USGS CONUS aerial imagery at regional/local zoom above
+NASA GIBS static imagery and local Natural Earth fallback. Configured terrain/3D
+still requires separately qualified assets. The main branch remains the C5
+baseline until the owner reviews and approves this feature PR.
 
 The only active slice is HD Earth mapping in WSL/disposable Docker; preserve the
 implemented source-backed C5 layers and qualify changed sources afresh.
@@ -66,7 +68,11 @@ approved `e0e69e47` tree; post-merge qualification is recorded separately.
 ORA-8 / C5 is complete. Production deployment is not a feature-phase completion
 requirement; no public deployment is claimed. Historical SSH/storage diagnostics
 remain in [Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
-HD mapping is now authorized. ISS, Mars/Moon and measured horizon remain out of
+The first HD package passes 75 Node, 198 frontend, 42 local backend and 37 Docker
+backend tests. The final rebuilt artifact passes all 25 browser cases in one
+13.8-minute run, including outside-CONUS source status and full C5 coverage. Details and
+current artifact identity are in [HD mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md).
+ISS, Mars/Moon and measured horizon remain out of
 scope. Preserve unrelated editor settings unchanged and unstaged.
 Fresh post-merge proof passes: 42 local backend, 37 Docker backend, 62 runtime/Earth,
 196 frontend and 14 Docker browser tests, plus typecheck and manifest/context checks.
@@ -165,8 +171,8 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-Investigate current imagery limits and qualified provider options, then implement,
-test and open a reviewable PR for the first bounded HD Earth mapping package.
+Owner review of [PR #63](https://github.com/Shadowgar/Astronomy-Hub/pull/63) is next. Its implementation
+and local qualification are complete; it is not merged or publicly deployed.
 All implementation and qualification stay in laptop WSL/local disposable Docker.
 Do not merge without owner review. Do not SSH to historical infrastructure, repair
 storage, deploy production, configure Cloudflare or integrate `oras.org`.
