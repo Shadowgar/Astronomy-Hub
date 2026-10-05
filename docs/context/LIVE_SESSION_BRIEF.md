@@ -27,13 +27,22 @@ unmerged. The Sky review branch `sky-engine-ux-integration-20261005` is stacked
 on `dev-wsl-performance-integration-20261005` because its installed-data launcher
 extends tooling. The preserved sequence `5328afba` → `7b2d4927` was replayed as
 `f8cf03fd` → `cb7bfaf1`. Only live-brief history conflicted; all non-document
-files match the original final Sky tree exactly. A clean pinned Docker rebuild
+files matched the original final Sky tree at integration head `4c82b9f7`. A clean pinned Docker rebuild
 reproduced Sky artifact
 `e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e`, with native
 WASM/vendor files and Earth identity unchanged. Current qualification is recorded
 in [workspace evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
 Both follow-up PRs require separate owner review and must remain unmerged.
 No new feature phase is authorized. Review tooling first, then Sky.
+
+The current owner-authorized follow-up fixes only PR #65's native-deselection P2.
+The Hub acknowledgement/persistence boundary now clears a later native null
+selection while preserving initial restore intent and newer client-bound work;
+its canonical route identity is removed as well. Sky-owned inputs and both
+renderer artifacts remain unchanged. Fresh red/green and Docker/browser proof
+is appended to the [workspace evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
+PR #64 remains open, so #65 stays stacked; neither PR may be merged by this task.
+No C5.7 or other feature phase is authorized.
 
 ORA-7 / PR #58 and C5 / PR #59 remain merged, owner-approved baselines.
 The unchanged locked design ancestor is `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.

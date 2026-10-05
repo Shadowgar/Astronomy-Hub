@@ -27,7 +27,10 @@ function useMobile(){const [mobile,setMobile]=useState(()=>typeof window!=='unde
 export default function WorkspaceShell({mode='sky'}:{mode?:RuntimeMode}){
  const location=useLocation(),navigate=useNavigate(),mobile=useMobile(),root=useRef<HTMLDivElement>(null),trigger=useRef<HTMLElement|null>(null),triggerKey=useRef<string|null>(null),contextReturn=useRef(false)
  const [prefs,setPrefs]=useState(()=>{try{return readPreferences(typeof window!=='undefined'?window.sessionStorage:undefined)}catch{return readPreferences()}}),[tab,setTab]=useState<ContextTab>(prefs.context),[surface,setSurface]=useState<Surface>(null),[contextVisible,setContextVisible]=useState(true),[expanded,setExpanded]=useState(false),[snap,setSnap]=useState(360),[menu,setMenu]=useState(false),[busy,setBusy]=useState<ReadonlySet<string>>(()=>new Set()),[status,setStatus]=useState<RuntimeStatus>('checking')
- const chrome=useImmersive({pin:prefs.pin,panel:surface!==null||expanded||menu,mobile,blocked:status!=='ready'}),runtime=useWorkspaceRuntime(mode,location.search,chrome.interact,key=>{if(key==='Escape')escape();else{chrome.reveal();requestAnimationFrame(()=>root.current?.querySelector<HTMLAnchorElement>('.ws-brand')?.focus())}})
+ const chrome=useImmersive({pin:prefs.pin,panel:surface!==null||expanded||menu,mobile,blocked:status!=='ready'}),runtime=useWorkspaceRuntime(mode,location.search,chrome.interact,key=>{if(key==='Escape')escape();else{chrome.reveal();requestAnimationFrame(()=>root.current?.querySelector<HTMLAnchorElement>('.ws-brand')?.focus())}},()=>{
+  const params=new URLSearchParams(location.search);for(const key of ['catalog','source_id','model','ra','dec','focus'])params.delete(key)
+  if(params.toString()!==location.search.slice(1))navigate(location.pathname+(params.size?'?'+params:''),{replace:true})
+ })
  useEffect(()=>{if(runtime.client)void runtime.request('setPresentation',{embedded:true,creditsAtTop:mobile&&surface!==null})},[runtime.client,mobile,surface])
  const selection=runtime.snapshot.selection,selectionId=selection?.id;const previousSelection=useRef<string|null>(null),restored=useRef<unknown>(null),layerSession=useRef<LayerSession|null>(null)
  useEffect(()=>{savePreferences(prefs)},[prefs])

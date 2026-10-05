@@ -1395,3 +1395,109 @@ evidence to the same pack. Reviewers can inspect the linked proof within the
 context-loading rules. Final revalidation after these document-only additions
 passed 187 entries, eight packs, 37 checkpoints, 100 links, eight ADRs and six
 manifest-negative checks. Runtime inputs and qualified artifacts are unchanged.
+
+
+## PR #65 native-deselection P2 correction, 2026-10-05
+
+Owner scope: fix only the reviewed stale canonical selection in
+`frontend/src/features/workspace/workspaceRuntimeAdapter.ts`, preserving initial
+restoration and the serialized/client-bound user-action behavior. Initial PR #65
+head was `4c82b9f72f957b5509e38d0d395f7838cd9b9907`; PR #64 remained open at
+`2f569582ae19518c202e47f87fa77dbc2ef50d60`, so the existing
+`sky-engine-ux-integration-20261005` branch stays stacked on
+`dev-wsl-performance-integration-20261005`. No history rewrite or dependency
+merge was performed.
+
+### Reproduction and boundary correction
+
+Before any implementation change, ten focused real-hook/product-store tests
+ran against the initial code: six passed and four failed with M31 still selected
+after an authoritative null snapshot, including fresh module/session hydration.
+A real Docker/Chrome search selected M31; an actual canvas click made native SWE
+selection and the workspace drawer null while session intent still contained
+catalog/source/model/RA/Dec. That browser regression failed at the empty persisted
+identity assertion. These are runtime reproductions, not source-only reasoning.
+
+The poller previously synchronized only non-null native selection. The correction
+records selection-command revision and pending count in a per-client record.
+Only a successful current-client null snapshot that began after an acknowledged
+selection, with no pending/newer selection command and the same current canonical
+intent, can clear acknowledgement, Hub selection and pending focus. The existing
+store subscription removes persisted identity. A callback at the workspace routing
+boundary removes catalog/source/model/RA/Dec/focus from the current route while
+preserving time and observer intent. It sends no new selection command to SWE.
+
+Initial null, delayed pre-restoration null, an in-flight replacement, newer
+unacknowledged intent and a departed client cannot erase restoration intent.
+Revision checks also prevent a stale non-null poll from overwriting selection
+while a newer selection command is pending. Native scene/selection ownership,
+protocol schema, search, Focus, the wheel adapter and layer restoration queue
+are unchanged.
+
+### Fresh qualification
+
+| Exact command or command group | Result |
+| --- | --- |
+| `npm --prefix frontend test -- tests/workspaceSelectionSync.test.ts` before fix | Four failed / six passed; stale M31 state reproduced |
+| Focused selection plus existing adapter tests | 13 passed |
+| `npm --prefix frontend test` | 214 passed, 28 files |
+| `node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs` | 79 passed |
+| `npm --prefix frontend run typecheck` and `npm --prefix frontend run build` | Passed |
+| New native-deselection browser cases, ordinary Docker development | Two passed |
+| Existing development browser command below | 16 passed, including all three restore/user-action serialization cases |
+| `npm run validate:oras-deep-links` | 25 native exact links, seven API checks, two searches passed |
+| Built Docker preview command below | 12 passed; genuine Sky/Earth bfcache and one-renderer lifetime |
+| Source/built/served artifact verification | 29 source overlays, 95 Sky payload files and digest, all 96 served installation file hashes, marker/lock/versions/Earth release passed |
+
+```bash
+# frontend cwd; ordinary Docker development
+PLAYWRIGHT_SKIP_WEBSERVER=1 npx playwright test tests/e2e/skyNativeDeselection.spec.ts --workers=1 --output=/var/tmp/oras-pr65-deselection-20261005/native-green
+PLAYWRIGHT_SKIP_WEBSERVER=1 npx playwright test tests/e2e/skyFollowup.spec.ts tests/e2e/skyUxRegressions.spec.ts tests/e2e/workspaceLayerRestore.spec.ts --workers=1 --output=/var/tmp/oras-pr65-deselection-20261005/browser-development
+# frontend cwd; generated Hub build in the same Docker frontend with read-only data
+PLAYWRIGHT_SKIP_WEBSERVER=1 npx playwright test tests/e2e/skyNativeDeselection.spec.ts tests/e2e/skyBfcache.spec.ts tests/e2e/earthBfcache.spec.ts tests/e2e/workspaceFinalReview.spec.ts --workers=1 --output=/var/tmp/oras-pr65-deselection-20261005/browser-preview
+```
+
+Both native-search and canonical-link cases prove real empty-canvas deselection,
+drawer removal, empty persisted/session identity, clean current and standalone
+recovery URLs, Sky → Earth → Sky and reload without resurrection, then successful
+M42 selection. Page-error assertions are empty. Existing cases freshly re-prove
+unified/standalone inward/outward native FOV changes, qualified search/Focus,
+eight ORAS native controls/state and desktop/mobile geometry, Home/Observe/Tonight
+Open-in-Sky routing and standalone exact links. Layer restoration remains
+serialized, newer user choices win, and departed-client work stays cancelled.
+
+This changes only the Hub/frontend workspace integration. Sky artifact inputs,
+source overlays, native WASM/vendor files, wheel input, data provisioning and
+Earth inputs are byte-identical to initial `4c82b9f7`. The fresh Hub build and all
+served Sky files verify artifact
+`e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e`.
+Earth remains `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`.
+No Sky-owned rebuild, artifact promotion or digest exception is needed.
+
+Raw command arguments, exits, red/green logs, diagnostic scripts and the final
+head/check/thread handoff are in `/var/tmp/oras-pr65-deselection-20261005/`.
+New screenshots are `output/playwright/sky-ux/native-deselection-{native-search,canonical-link}.png`.
+The initial unit command used the wrong checkout; its test file was moved into
+the intended worktree before the real red run. The first browser invocation caught
+a test syntax error, corrected before execution. The first zero-duration mouse
+click was not sampled by the frame-driven native input loop; the actual pointer
+click now holds for 150ms, and native click-count/selection observations prove it
+executed. An initial delayed-response unit fixture advanced fake timers without
+waiting for poll dispatch; awaiting dispatch corrected the fixture. Logs retain
+these setup/test failures separately from the confirmed stale-selection regression.
+
+Category B remains unchanged: cold search/index cost, legacy star/coverage limits,
+wide-view magnitude/deep photometry limits, CONUS-only historical HD imagery and
+lower-resolution global fallback, ellipsoid-only terrain, Launch Library's known
+production 403, physical-device performance and broad provider campaigns.
+Full backend/provider/HD/terrain/star-density campaigns were not rerun. No C5.7,
+new body/provider feature, optimization, production/SSH/Cloudflare/oras.org or
+remote infrastructure work occurred. Owner settings, installed data, original
+worktrees, volumes and PostgreSQL/Redis identities are preserved. Final committed
+head wheel proof, normal-mode restoration and GitHub thread/check state are in
+the final handoff; neither PR is merged by this task.
+
+Final document gate passed six manifest-negative checks and architecture
+validation: 187 entries, eight packs, 37 checkpoints, 101 links and eight ADRs;
+`git diff --check` passed. The named P2 is addressed by the bounded correction
+and fresh native runtime proof; final owner review remains required.
