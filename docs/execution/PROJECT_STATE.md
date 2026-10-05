@@ -27,7 +27,9 @@ Proven runtime conflicts must be reported, not silently overwritten.
 Laptop WSL development and local/disposable Docker qualification, SINGLE AGENT
 ONLY. Phase C5 / PR #59 is COMPLETE after owner approval, merge at
 `d8ca945a0b1a1c44622dae573d9787dde71f8a76` and passing post-merge qualification.
-The active authorized phase is HD / close-zoom Earth mapping. External deployment
+The owner reprioritized local development-environment repair before another
+feature package. HD / close-zoom Earth mapping remains implemented, awaiting
+owner review. External deployment
 is intentionally deferred until the owner declares Release Candidate; unavailable
 historical `openclaw` storage is not a current blocker. No runtime override mode
 is active.
@@ -52,8 +54,10 @@ NASA GIBS static imagery and local Natural Earth fallback. Configured terrain/3D
 still requires separately qualified assets. The main branch remains the C5
 baseline until the owner reviews and approves this feature PR.
 
-The only active slice is HD Earth mapping in WSL/disposable Docker; preserve the
-implemented source-backed C5 layers and qualify changed sources afresh.
+The active slice is the owner-authorized local WSL/Docker environment repair;
+preserve HD/C5 renderer behavior and the exact qualified artifact.
+See [local workflow and measured repair](../validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md).
+The focused tooling branch does not change PR #63 or authorize a merge.
 USGS earthquakes, NIFC/WFIGS public fire perimeters and NOAA CONUS radar are the
 implemented and locally qualified layers; Launch Library's production HTTP 403 blocks launches here.
 No upstream pin change or complete God's Eye application ownership is authorized.

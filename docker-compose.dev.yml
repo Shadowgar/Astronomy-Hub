@@ -1,0 +1,12 @@
+# Local source edits use HMR; qualified renderer artifacts remain read-only.
+services:
+  frontend:
+    environment:
+      CHOKIDAR_USEPOLLING: ${CHOKIDAR_USEPOLLING:-0}
+    volumes:
+      - ./frontend/src:/app/src:ro
+      - ./frontend/index.html:/app/index.html:ro
+      - ./frontend/vite.config.mjs:/app/vite.config.mjs:ro
+      - ./frontend/public/runtime-versions.json:/app/public/runtime-versions.json:ro
+      - ./packages/runtime-protocol:/packages/runtime-protocol:ro
+      - ./runtimes/sky-adapter:/runtimes/sky-adapter:ro

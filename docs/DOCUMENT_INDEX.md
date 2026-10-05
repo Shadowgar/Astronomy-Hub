@@ -181,3 +181,9 @@ Stellarium Web runtime unless a later authority document explicitly changes it.
 
 [HD mapping investigation, plan and proof](validation/EARTH_HD_MAPPING_EVIDENCE.md)
 records the bounded WSL/disposable package; live/project state governs execution.
+
+## Local laptop development workflow
+
+[Local development workflow and measured repair](validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md)
+records stable artifact provisioning, bounded qualification cleanup, native
+watching, restart/browser proof and resource measurements; it is support evidence.

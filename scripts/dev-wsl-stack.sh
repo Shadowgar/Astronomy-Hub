@@ -13,9 +13,9 @@ FRONTEND_PORT="4173"
 FRONTEND_RUNTIME_PATH="/oras-sky-engine/"
 
 BACKEND_CMD=("$ROOT_DIR/.venv/bin/python" -m uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 8000)
-# The VS Code remote extension host can consume almost the entire inotify budget
-# in this workspace; polling keeps the local frontend usable in that state.
-FRONTEND_CMD=(env CHOKIDAR_USEPOLLING=1 npm run dev -- --host 0.0.0.0)
+# Native events passed local WSL watcher/HMR proof. Opt into polling only when
+# needed: CHOKIDAR_USEPOLLING=1 npm run dev:wsl (or npm run dev:local).
+FRONTEND_CMD=(env CHOKIDAR_USEPOLLING="${CHOKIDAR_USEPOLLING:-0}" npm run dev -- --host 0.0.0.0)
 
 mkdir -p "$LOG_DIR"
 

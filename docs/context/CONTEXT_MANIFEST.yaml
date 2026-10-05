@@ -26,6 +26,7 @@ tasks:
     - docs/architecture/OBJECT_MODEL.md
     - docs/architecture/DATA_CONTRACTS.md
     - docs/architecture/INGESTION_STRATEGY.md
+    - docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md
     - docs/execution/PROJECT_STATE.md
     - docs/execution/MASTER_PLAN.md
     - docs/README.md
@@ -116,6 +117,7 @@ tasks:
     - docs/architecture/OBJECT_MODEL.md
     - docs/architecture/DATA_CONTRACTS.md
     - docs/architecture/TONIGHT_CONTRACT.md
+    - docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md
     - docs/execution/PROJECT_STATE.md
     - docs/features/FEATURE_EXECUTION_MODEL.md
     - docs/features/FEATURE_ACCEPTANCE.md
@@ -131,6 +133,7 @@ tasks:
     - docs/architecture/ENGINE_SPEC.md
     - docs/architecture/OBJECT_MODEL.md
     - docs/architecture/DATA_CONTRACTS.md
+    - docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md
     - docs/execution/PROJECT_STATE.md
     - docs/features/FEATURE_EXECUTION_MODEL.md
     - docs/features/FEATURE_CATALOG.md
@@ -202,6 +205,7 @@ tasks:
     - docs/architecture/OBJECT_MODEL.md
     - docs/architecture/DATA_CONTRACTS.md
     - docs/architecture/STACK_OVERVIEW.md
+    - docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md
     - docs/execution/PROJECT_STATE.md
     - docs/execution/MASTER_PLAN.md
     - docs/features/FEATURE_EXECUTION_MODEL.md

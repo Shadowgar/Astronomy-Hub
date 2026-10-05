@@ -8,15 +8,22 @@ PR #59 / ORA-8 / Phase C5 was owner-approved and merged on 2026-10-04 at
 `fc41ac19d7e2021c9d4b56b5a13322981f3c6992` and reviewed head
 `e0e69e4747e9123b75072f9636e566865948d584`. **Phase C5 is COMPLETE**:
 owner review, merge and post-merge local/disposable qualification passed.
-Current work is owner-authorized high-definition / close-zoom Earth mapping in
-laptop WSL, SINGLE AGENT ONLY. The first bounded package is implemented and
+The owner reprioritized local WSL development repair on 2026-10-04, SINGLE
+AGENT ONLY. The focused `dev-wsl-performance-repair-1` branch restores the exact
+qualified Earth artifact at the stable local path, stops completed qualification
+workloads, and bounds file watching. Use `npm run dev:local`; local measurements,
+workflow and remaining limits are in [local development repair evidence](../validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md).
+No next feature or remote work is authorized by this repair.
+The previously authorized high-definition / close-zoom Earth package remains
+implemented and awaiting owner review. The first bounded package is implemented and
 locally qualified on `earth-hd-mapping-1`: keyless USGS CONUS aerial imagery,
 bounded tile requests and explicit fallback/retry, preserving one owned Viewer.
 Fresh Docker, desktop/mobile browser, provider/license and C5 regression evidence
 is recorded in [HD mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md).
 The rebuilt artifact passes 75 Node and all 25 Docker/browser cases, including
-the reviewed outside-CONUS source-status correction. Next action is owner review
-of [PR #63](https://github.com/Shadowgar/Astronomy-Hub/pull/63); do not merge without that review.
+the reviewed outside-CONUS source-status correction. Next action is owner
+validation of the repaired local loop and review of the isolated tooling correction,
+followed by owner review of [PR #63](https://github.com/Shadowgar/Astronomy-Hub/pull/63); do not merge without that review.
 The unchanged locked design ancestor is `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.
 No runtime override mode is active. Load `docs_change`, `planning`,
 `frontend_change`, `backend_change`, `review` and `validation` packs as applicable.
