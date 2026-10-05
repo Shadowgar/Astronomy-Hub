@@ -17,8 +17,8 @@
 
 .ws-shell .ws-primary:hover{background:#B9EEF7;color:var(--ws-ink)}
 
-/* Native Sky view controls occupy their own bottom row in the contained frame. */
-.ws-shell[data-workspace-mode=sky] .ws-time{bottom:76px}
-.ws-shell[data-workspace-mode=sky] .ws-time-editor,.ws-shell[data-workspace-mode=sky] .ws-drawer{bottom:136px}
-.ws-shell[data-workspace-mode=sky] .ws-notice{bottom:212px}
-@media(max-width:767px){.ws-shell[data-workspace-mode=sky] .ws-time{bottom:max(108px,calc(var(--ws-safe-bottom) + 58px))}.ws-shell[data-workspace-mode=sky] .ws-mobile-launchers{bottom:max(168px,calc(var(--ws-safe-bottom) + 118px))}}
+/* Reserve clearance for the 54px ORAS Sky dock (60px with mobile scrollbar). */
+.ws-shell[data-workspace-mode=sky] .ws-time{bottom:88px}
+.ws-shell[data-workspace-mode=sky] .ws-time-editor,.ws-shell[data-workspace-mode=sky] .ws-drawer{bottom:148px}
+.ws-shell[data-workspace-mode=sky] .ws-notice{bottom:224px}
+@media(max-width:767px){.ws-shell[data-workspace-mode=sky] .ws-time{bottom:max(120px,calc(var(--ws-safe-bottom) + 70px))}.ws-shell[data-workspace-mode=sky] .ws-mobile-launchers{bottom:max(180px,calc(var(--ws-safe-bottom) + 130px))}}

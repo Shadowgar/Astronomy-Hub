@@ -24,9 +24,9 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_current_sky.sh",
-    "artifact_sha256": "0db3fab9cac11f98eed3a9543b597a0d2763e0b6ce00e71afa97672ff3fd0d04",
+    "artifact_sha256": "e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e",
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "49272f98f40d4b259924d6582ee0b4a898ca52e8a71be7c9c2344e01727b31aa",
+    "workspace_adapter_sha256": "9e272417c57f1732e0077940cc4e7449d8c4c2391300cbe2698883f66835460e",
     "artifact_hash_scope": "Application files excluding identity marker",
     "wheel_input_sha256": "29353cca2b47c44b8467c8e2e808a3af8b3cf8bc8a17a9aa211061f75f40bbe9"
   },

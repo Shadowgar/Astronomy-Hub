@@ -279,8 +279,8 @@ module.exports = __webpack_require__.p + "img/btn-cst-art.e7785b5a.svg";
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("b85c");
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("1da1");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("b85c");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("1da1");
 /* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("96cf");
 /* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("99af");
@@ -654,7 +654,7 @@ var swh = {
   },
   // Return a SweObj matching a passed sky source JSON object if it's already instanciated in SWE
   resolveCanonicalStar: function () {
-    var _resolveCanonicalStar = Object(_work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(source) {
+    var _resolveCanonicalStar = Object(_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(source) {
       var stel, science, hint, snapshot, lookup, status, deadline, maxLookupAttempts, lookupAttempts, ptr, obj;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -827,7 +827,7 @@ var swh = {
 
     var localMatches = this.queryLocalSkySources(query, limit);
 
-    var _iterator = Object(_work_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(localMatches),
+    var _iterator = Object(_app_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(localMatches),
         _step;
 
     try {
@@ -1063,7 +1063,7 @@ var swh = {
     for (var _i = 0, _groups = groups; _i < _groups.length; _i++) {
       var group = _groups[_i];
 
-      var _iterator2 = Object(_work_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(group || []),
+      var _iterator2 = Object(_app_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(group || []),
           _step2;
 
       try {
@@ -2323,9 +2323,9 @@ module.exports = __webpack_require__.p + "img/point_to.4133dbcc.svg";
 /* unused harmony export createOrasDenseStarsManager */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return registerOrasStarCatalogChain; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return orasDenseStars; });
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("3835");
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("53ca");
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("1da1");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("3835");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("53ca");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("1da1");
 /* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("96cf");
 /* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var core_js_modules_es_string_trim_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("498a");
@@ -2464,7 +2464,7 @@ function createOrasDenseStarsManager() {
   }
 
   function _load() {
-    _load = Object(_work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    _load = Object(_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -2497,7 +2497,7 @@ function createOrasDenseStarsManager() {
   }
 
   function _loadRelease() {
-    _loadRelease = Object(_work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+    _loadRelease = Object(_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
       var response, manifest, profiles, activeProfile, profile;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
@@ -2646,7 +2646,7 @@ function registerOrasStarCatalogChain(_x) {
 }
 
 function _registerOrasStarCatalogChain() {
-  _registerOrasStarCatalogChain = Object(_work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(core) {
+  _registerOrasStarCatalogChain = Object(_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(core) {
     var options,
         manager,
         fallbackRoots,
@@ -2718,10 +2718,10 @@ function validateManifest(manifest) {
   if (manifest.catalog_mode !== 'canonical_replacement') throw new Error('dense star release must replace the bright catalog chain');
   if (!manifest.native_continuation || manifest.native_continuation.key !== 'gaia') throw new Error('dense star release must declare the native Gaia continuation');
   if (manifest.default_profile !== DEFAULT_PROFILE) throw new Error('dense star default profile must be visual-default');
-  if (!manifest.profiles || Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(manifest.profiles) !== 'object') throw new Error('dense star profiles are required');
+  if (!manifest.profiles || Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(manifest.profiles) !== 'object') throw new Error('dense star profiles are required');
 
   for (var _i = 0, _Object$entries = Object.entries(manifest.profiles); _i < _Object$entries.length; _i++) {
-    var _Object$entries$_i = Object(_work_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(_Object$entries[_i], 2),
+    var _Object$entries$_i = Object(_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(_Object$entries[_i], 2),
         profileId = _Object$entries$_i[0],
         profile = _Object$entries$_i[1];
 
@@ -2946,7 +2946,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 installComponents_default()(component, {VAppBarNavIcon: VAppBarNavIcon["a" /* default */],VBtn: VBtn["a" /* default */],VIcon: VIcon["a" /* default */],VSpacer: VSpacer["a" /* default */],VToolbar: VToolbar["a" /* default */]})
 
-// EXTERNAL MODULE: ./src/components/bottom-bar.vue + 14 modules
+// EXTERNAL MODULE: ./src/components/bottom-bar.vue + 15 modules
 var bottom_bar = __webpack_require__("d23d");
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"419b4f50-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/selected-object-info.vue?vue&type=template&id=35e96997&
@@ -6304,10 +6304,10 @@ module.exports = __webpack_require__.p + "img/fullscreen.ddcd813e.svg";
 /* unused harmony export ORAS_CATALOG_PACKS_ROOT */
 /* unused harmony export createOrasCatalogPackManager */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return orasCatalogPacks; });
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("53ca");
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("2909");
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("b85c");
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("1da1");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("53ca");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("2909");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("b85c");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("1da1");
 /* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("96cf");
 /* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("5319");
@@ -6510,7 +6510,7 @@ function createOrasCatalogPackManager() {
   }
 
   function _load() {
-    _load = Object(_work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    _load = Object(_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -6543,7 +6543,7 @@ function createOrasCatalogPackManager() {
   }
 
   function _loadRelease() {
-    _loadRelease = Object(_work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+    _loadRelease = Object(_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
       var manifestResponse, manifest, packStatuses, _iterator2, _step2, pack, status, loadedCount;
 
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -6624,7 +6624,7 @@ function createOrasCatalogPackManager() {
                 break;
               }
 
-              _iterator2 = Object(_work_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(manifest.packs);
+              _iterator2 = Object(_app_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(manifest.packs);
               _context2.prev = 31;
 
               _iterator2.s();
@@ -6713,7 +6713,7 @@ function createOrasCatalogPackManager() {
   }
 
   function _loadPack() {
-    _loadPack = Object(_work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(pack) {
+    _loadPack = Object(_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(pack) {
       var status, packRecords, _records, _searchCandidates, _iterator3, _step3, chunk, chunkPath, chunkResponse, text, byteSize, digest, chunkRecords, existingIdentities, packIdentities;
 
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -6725,7 +6725,7 @@ function createOrasCatalogPackManager() {
               });
               packRecords = [];
               _context3.prev = 2;
-              _iterator3 = Object(_work_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(pack.chunks || []);
+              _iterator3 = Object(_app_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(pack.chunks || []);
               _context3.prev = 4;
 
               _iterator3.s();
@@ -6844,7 +6844,7 @@ function createOrasCatalogPackManager() {
             case 45:
               (_records = records).push.apply(_records, packRecords);
 
-              (_searchCandidates = searchCandidates).push.apply(_searchCandidates, Object(_work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(packRecords.map(function (record) {
+              (_searchCandidates = searchCandidates).push.apply(_searchCandidates, Object(_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(packRecords.map(function (record) {
                 return {
                   record: record,
                   aliases: recordAliases(record).map(normalizeSearchText)
@@ -6912,7 +6912,7 @@ function createOrasCatalogPackManager() {
   function overlayRecords() {
     var results = [];
 
-    var _iterator = Object(_work_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(snapshot.packs.filter(function (pack) {
+    var _iterator = Object(_app_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(snapshot.packs.filter(function (pack) {
       return pack.status === 'loaded';
     })),
         _step;
@@ -6924,7 +6924,7 @@ function createOrasCatalogPackManager() {
           return record.pack_id === pack.packId;
         });
         var limit = manifestPack.length ? Number(manifestPack[0].pack_overlay_limit) || 0 : 0;
-        results.push.apply(results, Object(_work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(manifestPack.filter(function (record) {
+        results.push.apply(results, Object(_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(manifestPack.filter(function (record) {
           return record.render_hint !== 'hidden';
         }).sort(function (a, b) {
           return magnitude(a) - magnitude(b) || a.display_name.localeCompare(b.display_name);
@@ -6970,7 +6970,7 @@ function validateManifest(manifest) {
 }
 
 function validateRecord(record, pack) {
-  if (!record || Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(record) !== 'object') throw new Error('catalog record must be an object');
+  if (!record || Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(record) !== 'object') throw new Error('catalog record must be an object');
 
   for (var _i = 0, _arr = ['catalog', 'source_id', 'model', 'display_name', 'category']; _i < _arr.length; _i++) {
     var field = _arr[_i];
@@ -7026,7 +7026,7 @@ function validateChunkPath(value) {
 }
 
 function recordAliases(record) {
-  return uniqueStrings([record.display_name, record.source_id, record.catalog + ' ' + record.source_id].concat(Object(_work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(record.names || []), Object(_work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(record.aliases || []), Object(_work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(record.common_names || []), Object(_work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(record.catalog_ids || [])));
+  return uniqueStrings([record.display_name, record.source_id, record.catalog + ' ' + record.source_id].concat(Object(_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(record.names || []), Object(_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(record.aliases || []), Object(_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(record.common_names || []), Object(_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(record.catalog_ids || [])));
 }
 
 function identityKey(record) {
@@ -7057,7 +7057,7 @@ function digestText(_x2) {
 }
 
 function _digestText() {
-  _digestText = Object(_work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(text) {
+  _digestText = Object(_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(text) {
     var digest;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
@@ -7156,10 +7156,10 @@ module.exports = JSON.parse("{\"View Settings\":\"Einstellungen anzeigen\",\"Pla
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return withOrasRouteIdentityFallback; });
 /* unused harmony export buildOrasNativeCandidates */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return findOrasNativeCandidate; });
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("b85c");
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("53ca");
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("2909");
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("1da1");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("b85c");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("53ca");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("2909");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("1da1");
 /* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("96cf");
 /* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("5319");
@@ -7389,7 +7389,7 @@ function probeOrasSurveyProvider(_x, _x2) {
 }
 
 function _probeOrasSurveyProvider() {
-  _probeOrasSurveyProvider = Object(_work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(provider, fetchImpl) {
+  _probeOrasSurveyProvider = Object(_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(provider, fetchImpl) {
     var response;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -7461,7 +7461,7 @@ function resolveOrasAutoDssSurveyUrl(_x3, _x4, _x5) {
 }
 
 function _resolveOrasAutoDssSurveyUrl() {
-  _resolveOrasAutoDssSurveyUrl = Object(_work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(provider, fetchImpl, localSurveyRoot) {
+  _resolveOrasAutoDssSurveyUrl = Object(_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(provider, fetchImpl, localSurveyRoot) {
     var preferredProviderKeys, _iterator2, _step2, _loop, _ret;
 
     return regeneratorRuntime.wrap(function _callee2$(_context3) {
@@ -7469,7 +7469,7 @@ function _resolveOrasAutoDssSurveyUrl() {
         switch (_context3.prev = _context3.next) {
           case 0:
             preferredProviderKeys = Array.isArray(provider.preferredProviderKeys) ? provider.preferredProviderKeys : [];
-            _iterator2 = Object(_work_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(preferredProviderKeys);
+            _iterator2 = Object(_app_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(preferredProviderKeys);
             _context3.prev = 2;
             _loop = /*#__PURE__*/regeneratorRuntime.mark(function _loop() {
               var preferredProviderKey, preferredProvider, surveyUrl;
@@ -7534,7 +7534,7 @@ function _resolveOrasAutoDssSurveyUrl() {
             return _context3.abrupt("continue", 12);
 
           case 10:
-            if (!(Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_ret) === "object")) {
+            if (!(Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_ret) === "object")) {
               _context3.next = 12;
               break;
             }
@@ -7580,7 +7580,7 @@ function resolveOrasBundledDssSurveyUrl(_x6, _x7) {
 }
 
 function _resolveOrasBundledDssSurveyUrl() {
-  _resolveOrasBundledDssSurveyUrl = Object(_work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(fetchImpl, localSurveyRoot) {
+  _resolveOrasBundledDssSurveyUrl = Object(_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(fetchImpl, localSurveyRoot) {
     var response;
     return regeneratorRuntime.wrap(function _callee3$(_context4) {
       while (1) {
@@ -7633,7 +7633,7 @@ function resolveOrasDssSurveyUrl() {
 }
 
 function _resolveOrasDssSurveyUrl() {
-  _resolveOrasDssSurveyUrl = Object(_work_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+  _resolveOrasDssSurveyUrl = Object(_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
     var requestedKeyOrOptions,
         maybeOptions,
         options,
@@ -7649,7 +7649,7 @@ function _resolveOrasDssSurveyUrl() {
           case 0:
             requestedKeyOrOptions = _args5.length > 0 && _args5[0] !== undefined ? _args5[0] : undefined;
             maybeOptions = _args5.length > 1 && _args5[1] !== undefined ? _args5[1] : {};
-            options = requestedKeyOrOptions && Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(requestedKeyOrOptions) === 'object' ? requestedKeyOrOptions : maybeOptions;
+            options = requestedKeyOrOptions && Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(requestedKeyOrOptions) === 'object' ? requestedKeyOrOptions : maybeOptions;
             requestedKey = typeof requestedKeyOrOptions === 'string' ? requestedKeyOrOptions : undefined;
             provider = getOrasDssSurveyProvider(requestedKey);
             fetchImpl = options.fetchImpl || (typeof fetch === 'function' ? fetch : undefined);
@@ -7713,7 +7713,7 @@ function preferDisplayNameFirst(names, displayName) {
   var orderedNames = [displayName];
 
   if (Array.isArray(names)) {
-    orderedNames.push.apply(orderedNames, Object(_work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(names));
+    orderedNames.push.apply(orderedNames, Object(_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(names));
   }
 
   return orderedNames.filter(function (name, index, array) {
@@ -7749,7 +7749,7 @@ function numberOrNull(value) {
 
 function buildOrasModelData(result, model, sourceId) {
   var normalizedModel = String(model || '').toLowerCase();
-  var resultModelData = result.model_data && Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(result.model_data) === 'object' ? result.model_data : undefined;
+  var resultModelData = result.model_data && Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(result.model_data) === 'object' ? result.model_data : undefined;
   var modelData = {
     source_id: sourceId == null ? null : sourceId,
     phot_g_mean_mag: result.phot_g_mean_mag == null ? null : result.phot_g_mean_mag,
@@ -7816,7 +7816,7 @@ function buildOrasModelData(result, model, sourceId) {
 
     var _vmag = numberOrNull(result.phot_g_mean_mag == null ? result.magnitude : result.phot_g_mean_mag);
 
-    var angularSize = result.angular_size && Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(result.angular_size) === 'object' ? result.angular_size : {};
+    var angularSize = result.angular_size && Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(result.angular_size) === 'object' ? result.angular_size : {};
     var dimx = numberOrNull(angularSize.major_arcmin);
     var dimy = numberOrNull(angularSize.minor_arcmin);
     var angle = numberOrNull(angularSize.position_angle_deg);
@@ -7846,7 +7846,7 @@ function toOrasSkySource(result) {
   var isLocalMessierResult = String(result.catalog || '').toLowerCase().includes('messier');
   var skySourceModel = isLocalMessierResult ? 'dso' : 'star';
   var model = result.model || skySourceModel;
-  var enrichedNames = [].concat(Object(_work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(Array.isArray(result.names) ? result.names : []), Object(_work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(Array.isArray(result.aliases) ? result.aliases : []), Object(_work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(Array.isArray(result.common_names) ? result.common_names : []), Object(_work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(Array.isArray(result.catalog_ids) ? result.catalog_ids : []));
+  var enrichedNames = [].concat(Object(_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(Array.isArray(result.names) ? result.names : []), Object(_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(Array.isArray(result.aliases) ? result.aliases : []), Object(_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(Array.isArray(result.common_names) ? result.common_names : []), Object(_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(Array.isArray(result.catalog_ids) ? result.catalog_ids : []));
   var names = enrichedNames.length ? preferDisplayNameFirst(enrichedNames, displayName) : buildOrasNames(result, displayName, sourceId, isGaiaResult);
   var types = normalizeOrasSkySourceTypes(result.types, model);
   var skySource = {
@@ -7943,7 +7943,7 @@ function buildOrasNativeCandidates(source) {
     if (science.tycho2_id) add('TYC ' + science.tycho2_id);
   }
 
-  for (var _i = 0, _arr = [].concat(Object(_work_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(source.names || []), [source.display_name, id]); _i < _arr.length; _i++) {
+  for (var _i = 0, _arr = [].concat(Object(_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(source.names || []), [source.display_name, id]); _i < _arr.length; _i++) {
     var name = _arr[_i];
     if (!name) continue;
     add(name);
@@ -7958,7 +7958,7 @@ function buildOrasNativeCandidates(source) {
   return candidates.slice(0, source.model === 'star' ? 12 : 32);
 }
 function findOrasNativeCandidate(stel, source) {
-  var _iterator = Object(_work_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(buildOrasNativeCandidates(source)),
+  var _iterator = Object(_app_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(buildOrasNativeCandidates(source)),
       _step;
 
   try {
@@ -8096,8 +8096,8 @@ module.exports = __webpack_require__.p + "img/btn-azimuthal-grid.bd02effc.svg";
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(__filename, process, __dirname) {/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("b85c");
-/* harmony import */ var _work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("53ca");
+/* WEBPACK VAR INJECTION */(function(__filename, process, __dirname) {/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("b85c");
+/* harmony import */ var _app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("53ca");
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("d3b7");
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var core_js_modules_es_regexp_flags_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("5377");
@@ -8703,7 +8703,7 @@ var StelWebEngine = function () {
         for (var _i2 = 0; _i2 < g_ret.length; _i2++) {
           var _ret = _loop2(_i2);
 
-          if (Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_ret) === "object") return _ret.v;
+          if (Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(_ret) === "object") return _ret.v;
         }
       };
 
@@ -8980,7 +8980,7 @@ var StelWebEngine = function () {
         var objPath = elems.join(".");
         var obj = Module.core[objPath] || Module.getModule("core." + objPath);
         var value = obj[attr];
-        if (value && Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(value) === "object" && value.swe_) value = value.v;
+        if (value && Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(value) === "object" && value.swe_) value = value.v;
         return value;
       };
 
@@ -8998,7 +8998,7 @@ var StelWebEngine = function () {
         Module.change(function (obj, attr) {
           var path = obj.path + "." + attr;
           var value = obj[attr];
-          if (value && Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(value) === "object" && value.swe_) value = value.v;
+          if (value && Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(value) === "object" && value.swe_) value = value.v;
           path = path.substr(5);
           callback(path, value);
         });
@@ -9020,7 +9020,7 @@ var StelWebEngine = function () {
 
       obj._features = data.features;
 
-      var _iterator = Object(_work_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(data.features),
+      var _iterator = Object(_app_node_modules_babel_runtime_helpers_esm_createForOfIteratorHelper__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(data.features),
           _step;
 
       try {
@@ -9079,7 +9079,7 @@ var StelWebEngine = function () {
     }
 
     function queryRenderedFeatureIds(obj, point) {
-      if (Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(point) === "object") {
+      if (Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(point) === "object") {
         point = [point.x, point.y];
       }
 
@@ -9414,9 +9414,9 @@ var StelWebEngine = function () {
     var ENVIRONMENT_IS_WORKER = false;
     var ENVIRONMENT_IS_NODE = false;
     var ENVIRONMENT_IS_SHELL = false;
-    ENVIRONMENT_IS_WEB = (typeof window === "undefined" ? "undefined" : Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(window)) === "object";
+    ENVIRONMENT_IS_WEB = (typeof window === "undefined" ? "undefined" : Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(window)) === "object";
     ENVIRONMENT_IS_WORKER = typeof importScripts === "function";
-    ENVIRONMENT_IS_NODE = (typeof process === "undefined" ? "undefined" : Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(process)) === "object" && Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(process.versions) === "object" && typeof process.versions.node === "string";
+    ENVIRONMENT_IS_NODE = (typeof process === "undefined" ? "undefined" : Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(process)) === "object" && Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(process.versions) === "object" && typeof process.versions.node === "string";
     ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONMENT_IS_WORKER;
     var scriptDirectory = "";
 
@@ -9491,7 +9491,7 @@ var StelWebEngine = function () {
         }
 
         data = read(f, "binary");
-        assert(Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(data) === "object");
+        assert(Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(data) === "object");
         return data;
       };
 
@@ -9773,7 +9773,7 @@ var StelWebEngine = function () {
     var noExitRuntime;
     if (Module["noExitRuntime"]) noExitRuntime = Module["noExitRuntime"];
 
-    if ((typeof WebAssembly === "undefined" ? "undefined" : Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(WebAssembly)) !== "object") {
+    if ((typeof WebAssembly === "undefined" ? "undefined" : Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(WebAssembly)) !== "object") {
       err("no native wasm support detected");
     }
 
@@ -10564,7 +10564,7 @@ var StelWebEngine = function () {
 
         Browser.mainLoop.runIter(browserIterationFunc);
         if (thisMainLoopId < Browser.mainLoop.currentlyRunningMainloop) return;
-        if ((typeof SDL === "undefined" ? "undefined" : Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(SDL)) === "object" && SDL.audio && SDL.audio.queueNewAudioData) SDL.audio.queueNewAudioData();
+        if ((typeof SDL === "undefined" ? "undefined" : Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(SDL)) === "object" && SDL.audio && SDL.audio.queueNewAudioData) SDL.audio.queueNewAudioData();
         Browser.mainLoop.scheduler();
       };
 
@@ -10640,7 +10640,7 @@ var StelWebEngine = function () {
             if (e instanceof ExitStatus) {
               return;
             } else {
-              if (e && Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(e) === "object" && e.stack) err("exception thrown: " + [e, e.stack]);
+              if (e && Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(e) === "object" && e.stack) err("exception thrown: " + [e, e.stack]);
               throw e;
             }
           }
@@ -11692,7 +11692,7 @@ var StelWebEngine = function () {
       },
       deleteContext: function deleteContext(contextHandle) {
         if (GL.currentContext === GL.contexts[contextHandle]) GL.currentContext = null;
-        if ((typeof JSEvents === "undefined" ? "undefined" : Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(JSEvents)) === "object") JSEvents.removeAllHandlersOnTarget(GL.contexts[contextHandle].GLctx.canvas);
+        if ((typeof JSEvents === "undefined" ? "undefined" : Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(JSEvents)) === "object") JSEvents.removeAllHandlersOnTarget(GL.contexts[contextHandle].GLctx.canvas);
         if (GL.contexts[contextHandle] && GL.contexts[contextHandle].GLctx.canvas) GL.contexts[contextHandle].GLctx.canvas.GLctxObject = undefined;
         GL.contexts[contextHandle] = null;
       },
@@ -12042,7 +12042,7 @@ var StelWebEngine = function () {
       if (ret === undefined) {
         var result = GLctx.getParameter(name_);
 
-        switch (Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(result)) {
+        switch (Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(result)) {
           case "number":
             ret = result;
             break;
@@ -12120,7 +12120,7 @@ var StelWebEngine = function () {
 
           default:
             GL.recordError(1280);
-            err("GL_INVALID_ENUM in glGet" + type + "v: Native code calling glGet" + type + "v(" + name_ + ") and it returns " + result + " of type " + Object(_work_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(result) + "!");
+            err("GL_INVALID_ENUM in glGet" + type + "v: Native code calling glGet" + type + "v(" + name_ + ") and it returns " + result + " of type " + Object(_app_node_modules_babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(result) + "!");
             return;
         }
       }
@@ -13247,13 +13247,50 @@ var staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/components/bottom-bar.vue?vue&type=template&id=0430beac&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"419b4f50-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/bottom-button.vue?vue&type=template&id=315d84f8&
-var bottom_buttonvue_type_template_id_315d84f8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"bottom-button",class:{on: _vm.toggled}},[_c('button',{attrs:{"type":"button","aria-label":_vm.label,"aria-pressed":!!_vm.toggled,"title":_vm.label},on:{"click":_vm.clicked}},[_c('img',{attrs:{"src":_vm.img,"alt":_vm.img_alt}})]),_c('div',{staticClass:"hint"},[_vm._v(_vm._s(_vm.label))])])}
-var bottom_buttonvue_type_template_id_315d84f8_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"419b4f50-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/bottom-button.vue?vue&type=template&id=3046b426&
+var bottom_buttonvue_type_template_id_3046b426_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.embedded || _vm.img_alt !== 'Fullscreen Button')?_c('div',{staticClass:"bottom-button",class:{on: _vm.toggled, 'oras-control': _vm.embedded},attrs:{"data-control":_vm.embedded && _vm.icon ? _vm.icon.id : null}},[_c('button',{attrs:{"type":"button","aria-label":_vm.label,"aria-pressed":_vm.toggled ? 'true' : 'false',"title":_vm.label},on:{"click":_vm.clicked}},[(_vm.embedded && _vm.icon)?_c('svg',{staticClass:"oras-control-icon",attrs:{"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","stroke-width":"1.6","stroke-linecap":"round","stroke-linejoin":"round","aria-hidden":"true","focusable":"false"}},_vm._l((_vm.icon.paths),function(d,index){return _c('path',{key:index,attrs:{"d":d}})}),0):_c('img',{attrs:{"src":_vm.img,"alt":_vm.img_alt}})]),_c('div',{staticClass:"hint"},[_vm._v(_vm._s(_vm.label))])]):_vm._e()}
+var bottom_buttonvue_type_template_id_3046b426_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/bottom-button.vue?vue&type=template&id=315d84f8&
+// CONCATENATED MODULE: ./src/components/bottom-button.vue?vue&type=template&id=3046b426&
 
+// CONCATENATED MODULE: ./src/assets/oras_control_icons.js
+// ORAS artwork only. Keys identify existing native BottomBar controls;
+// selection, actions, visibility, and pressed state remain owned by SWE.
+/* harmony default export */ var oras_control_icons = ({
+  'Constellations Button': {
+    id: 'constellations',
+    paths: ['M5 17l4-10 7 4 3-6M9 7l7 4-2 8', 'M5 15.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M16 9.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M19 3.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3']
+  },
+  'Constellations Art Button': {
+    id: 'art',
+    paths: ['M4 4h16v16H4zM4 17l5-5 4 4 3-3 4 4', 'M15 6v5M12.5 8.5h5']
+  },
+  'Atmosphere Button': {
+    id: 'atmosphere',
+    paths: ['M3 17h18M4 13c4-3 12-3 16 0M6 9c3-2 9-2 12 0M10 5h4']
+  },
+  'Landscape Button': {
+    id: 'landscape',
+    paths: ['M3 19l6-12 5 8 3-5 4 9H3zM7 11l2 2 2-2M17 4v3M15.5 5.5h3']
+  },
+  'Azimuthal Button': {
+    id: 'azimuthal',
+    paths: ['M21 12a9 9 0 1 0-18 0 9 9 0 0 0 18 0M3 12h18M12 3c-5 4-5 14 0 18 5-4 5-14 0-18M5 7h14M5 17h14']
+  },
+  'Equatorial Grid Button': {
+    id: 'equatorial',
+    paths: ['M21 12a9 9 0 1 0-18 0 9 9 0 0 0 18 0M4 17L20 7M8 4l8 16M5 6c0 7 5 14 13 12M6 3l2 3M16 18l2 3']
+  },
+  'Deep Sky Objects Button': {
+    id: 'dso',
+    paths: ['M21 9c1.5 3-1.5 7-7 9s-10 1-11-2 2-7 7-9 9.5-1 11 2zM17 10c1 1.5-1 4-4 5s-5 .5-6-1 1-4 4-5 5-.5 6 1zM11 12h2']
+  },
+  'Night Mode Button': {
+    id: 'night',
+    paths: ['M17 17A8 8 0 0 1 7 5a8 8 0 1 0 10 12zM17 3v6M14 6h6']
+  }
+});
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/bottom-button.vue?vue&type=script&lang=js&
 //
 //
@@ -13302,9 +13339,38 @@ var bottom_buttonvue_type_template_id_315d84f8_staticRenderFns = []
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ var bottom_buttonvue_type_script_lang_js_ = ({
   name: 'bottom-button',
   props: ['label', 'img', 'toggled', 'img_alt'],
+  computed: {
+    embedded: function embedded() {
+      return !!this.$store.state.orasEmbeddedPresentation;
+    },
+    icon: function icon() {
+      return oras_control_icons[this.img_alt];
+    }
+  },
   methods: {
     clicked: function clicked() {
       var b = !this.toggled;
@@ -13331,8 +13397,8 @@ var componentNormalizer = __webpack_require__("2877");
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_bottom_buttonvue_type_script_lang_js_,
-  bottom_buttonvue_type_template_id_315d84f8_render,
-  bottom_buttonvue_type_template_id_315d84f8_staticRenderFns,
+  bottom_buttonvue_type_template_id_3046b426_render,
+  bottom_buttonvue_type_template_id_3046b426_staticRenderFns,
   false,
   null,
   null,
@@ -13990,7 +14056,7 @@ var sw_helpers = __webpack_require__("13a5");
 // EXTERNAL MODULE: ./src/components/target-search.vue + 9 modules
 var target_search = __webpack_require__("3770");
 
-// EXTERNAL MODULE: ./src/components/bottom-bar.vue + 14 modules
+// EXTERNAL MODULE: ./src/components/bottom-bar.vue + 15 modules
 var bottom_bar = __webpack_require__("d23d");
 
 // CONCATENATED MODULE: ./src/plugins/orasRuntime/native-wheel.mjs
@@ -14062,6 +14128,7 @@ function installNativeWheel(canvas, engine) {
       return this.embedded ? h('div', {
         class: 'oras-workspace-bottom',
         attrs: {
+          role: 'toolbar',
           'aria-label': 'Sky view controls'
         }
       }, [h(bottom_bar["a" /* default */])]) : null;
@@ -14121,7 +14188,7 @@ function installNativeWheel(canvas, engine) {
     };
 
     var style = document.createElement('style');
-    style.textContent = '.oras-workspace-embedded #toolbar-image,.oras-workspace-embedded #time-controls,.oras-workspace-embedded #location-button,.oras-workspace-embedded #selected-object-info,.oras-workspace-embedded .bottom-toolbar{display:none!important}.oras-workspace-embedded #stel{width:100%!important}.oras-workspace-embedded .v-main{padding:0!important}.oras-workspace-source{position:absolute;bottom:4px;left:16px;z-index:4;min-height:44px;background:transparent;color:#B9C7D7;border:0;font:10px/14px sans-serif;pointer-events:auto;cursor:pointer}.oras-credits-top .oras-workspace-source{top:68px;bottom:auto}.oras-workspace-source:focus-visible{outline:2px solid #9BE4F2}.oras-workspace-search{position:absolute;top:16px;left:16px;width:min(280px,calc(100% - 32px));z-index:5;pointer-events:auto;background:#111B27;border-radius:6px;padding:0 12px 8px}.oras-workspace-search .v-list{max-height: min(360px,40vh);overflow:auto;width:100%}.oras-workspace-bottom{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);height:44px;overflow-x:auto;overflow-y:hidden;pointer-events:auto;background:#111B27;border-radius:6px;z-index:4}.oras-workspace-bottom>div{position:relative!important;display:flex!important;width:max-content}.oras-workspace-bottom .bottom-button:has(img[alt="Fullscreen Button"]){display:none}.oras-workspace-bottom .bottom-button{flex:0 0 44px}.oras-workspace-bottom .bottom-button .hint{display:none}@media(max-width:767px){.oras-workspace-search{top:68px}.oras-workspace-bottom{bottom:52px}.oras-credits-top .oras-workspace-bottom{top:128px;bottom:auto}.oras-credits-top .oras-workspace-source{top:180px;bottom:auto}}';
+    style.textContent = '.oras-workspace-embedded #toolbar-image,.oras-workspace-embedded #time-controls,.oras-workspace-embedded #location-button,.oras-workspace-embedded #selected-object-info,.oras-workspace-embedded .bottom-toolbar{display:none!important}.oras-workspace-embedded #stel{width:100%!important}.oras-workspace-embedded .v-main{padding:0!important}.oras-workspace-source{position:absolute;bottom:4px;left:16px;z-index:4;min-height:44px;background:transparent;color:#B9C7D7;border:0;font:10px/14px sans-serif;pointer-events:auto;cursor:pointer}.oras-credits-top .oras-workspace-source{top:68px;bottom:auto}.oras-workspace-source:focus-visible{outline:2px solid #9BE4F2}.oras-workspace-search{position:absolute;top:16px;left:16px;width:min(280px,calc(100% - 32px));z-index:5;pointer-events:auto;background:#111B27;border-radius:6px;padding:0 12px 8px}.oras-workspace-search .v-list{max-height: min(360px,40vh);overflow:auto;width:100%}.oras-workspace-bottom{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);height:54px;padding:4px;overflow-x:auto;overflow-y:hidden;pointer-events:auto;background:#111B27;border:1px solid #72859C;border-radius:8px;z-index:4;scrollbar-width:thin;scrollbar-color:#72859C #111B27}.oras-workspace-bottom>div{position:relative!important;display:flex!important;width:max-content;gap:4px}.oras-workspace-bottom .bottom-button[data-control="art"],.oras-workspace-bottom .bottom-button[data-control="landscape"],.oras-workspace-bottom .bottom-button[data-control="equatorial"]{margin-right:4px}.oras-workspace-bottom .bottom-button{flex:0 0 44px}.oras-workspace-bottom .bottom-button .hint{display:none}@media(max-width:767px){.oras-workspace-search{top:68px}.oras-workspace-bottom{bottom:52px;height:60px}.oras-credits-top .oras-workspace-bottom{top:128px;bottom:auto}.oras-credits-top .oras-workspace-source{top:196px;bottom:auto}}';
     document.head.appendChild(style);
     var removeWheel = installNativeWheel(document.querySelector('#stel-canvas'), app.$stel);
     window.addEventListener('pagehide', function (event) {

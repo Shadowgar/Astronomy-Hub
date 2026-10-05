@@ -23,6 +23,25 @@ describe('oras runtime SPA fallback', () => {
     expect(isOrasRuntimeSpaPath('/oras-sky-engine/skydata/packs/extended/stars/Norder99/Dir0/Npix0.eph')).toBe(false)
   })
 
+  it('returns a real 404 for missing extensionless survey metadata', () => {
+    const url = '/oras-sky-engine/skydata/surveys/__missing_gaia__/v1/properties?probe=1'
+    expect(isOrasRuntimeSpaPath(url)).toBe(false)
+    expect(isMissingOrasRuntimeDataAsset(url)).toBe(true)
+    expect(getOrasRuntimeRemoteFallbackPath(url)).toBeUndefined()
+    const req = { url }
+    const res = { statusCode: 200, setHeader: vi.fn(), end: vi.fn() }
+    const next = vi.fn()
+    serveOrasRuntimeRequest(req, res, next)
+    expect(res.statusCode).toBe(404)
+    expect(res.end).toHaveBeenCalledWith('ORAS runtime data asset not found')
+    expect(next).not.toHaveBeenCalled()
+    expect(res.setHeader).not.toHaveBeenCalledWith('Content-Type', 'text/html; charset=utf-8')
+  })
+
+  it('does not substitute remote CDN metadata for an unavailable installed survey', () => {
+    expect(getOrasRuntimeRemoteFallbackPath('/oras-sky-engine/skydata/surveys/gaia/v1/__missing_properties__')).toBeUndefined()
+  })
+
   it('does not treat existing extensionless runtime data assets as SPA routes', () => {
     const req = {
       url: '/oras-sky-engine/skydata/packs/base/stars/properties',

@@ -39,6 +39,31 @@ These dated checkpoints preserve original local proof and stop-points. Their
 next-action/approval statements are historical and superseded by the active
 2026-10-05 integration authorization above.
 
+## Owner-directed Sky star loading and ORAS controls, 2026-10-04
+
+The owner's new bounded follow-up is locally qualified on
+`sky-engine-star-loading-oras-controls-1`, based on preserved Sky UX commit
+`5328afba`, in the same `sky-engine-ux-regressions-1` worktree. It fixes the
+worktree's missing installed Gaia mount and HTML metadata fallback, and adds the
+owner-approved custom SVG presentation for eight native view controls. Native
+star math, magnitude profiles, selection, wheel input and control action/state
+ownership remain SWE-owned. Both ORAS surfaces match a data-qualified reference
+in the tested fields; existing sparse profile and catalog-depth limits remain.
+
+Fresh Docker/browser proof, artifacts, changed files and limits are recorded in
+[Sky follow-up evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md#owner-directed-sky-star-loading-and-oras-controls-2026-10-04).
+Use `npm run dev:local` from that worktree; it selects the installed owner skydata
+without copying bulk data or requiring a temporary Compose override. Sky artifact:
+`e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e`.
+Earth's qualified artifact and runtime implementation are unchanged.
+
+Next action is owner local review, then separately approved integration of the
+preserved tooling/Sky commits and PR #63 dependency. No push, PR, merge, production,
+SSH, Cloudflare, oras.org or Earth/ISS/Moon/Mars feature work occurred. No next
+feature/integration work is authorized by this checkpoint. The earlier Sky UX
+stop-point below is historical; this explicit owner follow-up superseded it only
+for the star-loading and custom-control package. Default Mode remains active.
+
 ## Owner-directed Sky UX correction, 2026-10-04
 
 The owner refined embedded Sky presentation: native object search and useful

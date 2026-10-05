@@ -970,3 +970,280 @@ with the same unstaged settings hash; the repair worktree shares ignored local
 configuration/data and dependency links. Run its normal launcher from that worktree
 until separately reviewed integration. PR #63/tooling ancestors must be integrated
 separately before targeting main; no push/PR/merge occurs in this correction.
+
+## Owner-directed Sky star loading and ORAS controls, 2026-10-04
+
+This new bounded owner package follows the locally repaired Sky UX commit
+`5328afbaa0b26c19a9581c4ec4051109b7119518`. Branch:
+`sky-engine-star-loading-oras-controls-1`, in the existing worktree
+`/home/rocco/Astronomy-Hub/.worktrees/sky-engine-ux-regressions-1`.
+Default Mode applies; no runtime override mode or new renderer phase is active.
+The owner approved the compact SVG design preview before implementation.
+Single agent; no push, PR, merge, production deployment, SSH, Cloudflare or
+oras.org work. Earth/ISS/Moon/Mars feature work was not started. Existing
+cross-mode, lifecycle and exact-link regression checks remain in scope.
+
+### Context and inspected source
+
+Loaded the exact union of `frontend_change`, `validation`, and `debug` packs,
+with CORE_CONTEXT and LIVE_SESSION_BRIEF first. No additional project documents
+or full docs scan. The loaded documents were:
+
+- `docs/context/CORE_CONTEXT.md`
+- `docs/context/LIVE_SESSION_BRIEF.md`
+- `docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md`
+- `docs/validation/SYSTEM_VALIDATION_SPEC.md`
+- `docs/ASTRONOMY_HUB_DIAGRAM.md`
+- `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md`
+- `docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md`
+- `docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md`
+- `docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md`
+- `docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md`
+- `docs/validation/EARTH_HD_MAPPING_EVIDENCE.md`
+- `docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md`
+- `docs/architecture/ARCHITECTURE_OVERVIEW.md`
+- `docs/architecture/ENGINE_SPEC.md`
+- `docs/architecture/ENGINE_CATALOG.md`
+- `docs/architecture/OBJECT_MODEL.md`
+- `docs/architecture/DATA_CONTRACTS.md`
+- `docs/architecture/TONIGHT_CONTRACT.md`
+- `docs/architecture/STACK_OVERVIEW.md`
+- `docs/execution/PROJECT_STATE.md`
+- `docs/execution/MASTER_PLAN.md`
+- `docs/features/FEATURE_EXECUTION_MODEL.md`
+- `docs/features/FEATURE_CATALOG.md`
+- `docs/features/FEATURE_ACCEPTANCE.md`
+- `docs/features/FEATURE_TRACKER.md`
+- `docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md`
+- `docs/runtime/FAILURE_PATTERNS.md`
+
+Source inspection covered the qualified native `bottom-bar.vue`, controlled
+`bottom-button.vue`, `App.vue`, `oras_dense_stars.js`, `oras_data_config.js`,
+`src/modules/stars.c`, the contained Sky plugin/input bridge, Vite static/history
+middleware, Compose mounts, the local launcher, the star tile builder/validator,
+and artifact promotion/identity scripts. No native star math or vendor source
+was changed. The earlier brief's stop point is superseded only by the owner's
+explicit authorization for these two Sky follow-ups.
+
+### Classification, root cause and fix
+
+**Real local star-loading regression, plus unchanged data limitations.** The
+repair worktree has only sparse tracked skydata. Its relative Compose mount
+omitted the installed, ignored Gaia survey in the owner checkout: 57,294 files,
+3,575,576,465 bytes. The original survey metadata identifies an existing
+Gaia-derived native EPH survey, release date 2019-02-11. No new dataset was
+acquired, generated, mirrored, copied into Git, or baked into an image.
+
+The qualified star chain registers the canonical profile followed by native Gaia
+continuation. Its missing extensionless `surveys/gaia/v1/properties` request
+returned **HTTP 200, text/html, the 1,960-byte application index**. Gaia never
+requested faint EPH tiles. This masked a data mount failure; it was not a
+unified iframe rendering defect, changed magnitude threshold, or frame throttle.
+The old standalone and unified masked canvas images were identical.
+
+`skydata_path.py` selects already-installed owner-checkout skydata using Git's
+main worktree path, or a supplied `ORAS_SKYDATA_HOST_DIR`. Startup requires Gaia
+metadata and a base-order tile; this is a prerequisite smoke check, not complete
+coverage qualification. The normal launcher exports the selected absolute path
+for both read-only frontend/backend mounts and preserves an explicit TLE override.
+Missing Gaia aborts before artifact/runtime work. Separate assignment and export
+are necessary: Bash `export VAR=$(failing_command)` otherwise masks the failure.
+No datastore volume/container renewal or data mutation occurs.
+
+Vite classifies all `/oras-sky-engine/skydata/` requests as data, including
+extensionless metadata. Missing metadata now returns a real **404**, never the
+SPA index, and does not add a CDN metadata fallback. Existing extensionful proxy
+behavior is unchanged. Existing metadata remains `text/plain`.
+
+Matched diagnostics use the same 1280×720 native canvas, frozen input time
+2026-07-15T03:00:00Z, observer (41.44,-79.69,0), the existing Cygnus QA direction,
+Bortle 3, exposure 2 and unchanged native star scales. Other visual layers and
+DOM chrome are suppressed only in disposable diagnostic pages. Counts below
+are **bright image components**, not catalog star counts:
+
+| Native FOV | Before, both ORAS surfaces | Data-qualified reference | Final standalone | Final unified |
+| --- | ---: | ---: | ---: | ---: |
+| 70° | 229 | 239 | 239 | 239 |
+| 20° | 33 | 768 | 768 | 768 |
+| 5° | 5 | 1,727 | 1,727 | 1,727 |
+
+Final standalone and unified masked PNGs are byte-identical at each FOV and
+match their repaired-mount captures. Native Gaia EPH responses: 169 successful
+tiles at 70°/20°, 179 at 5°; no Gaia HTTP failures in these captures. Native
+progress bars settle to an empty array, and page-error arrays are empty.
+Software-rendered Chrome reported 60 FPS at 70°, 45–46 at 20°, 33–36 at 5°;
+these are diagnostic observations, not a hardware performance benchmark.
+
+The reference container as started also had invalid data routing: metadata
+requests returned HTML and no EPH tiles. It cannot be cited as a healthy stock
+baseline. The explicitly **data-qualified reference** comparison uses read-only
+Playwright routing to the same installed local skydata and mounted release packs;
+no reference/source data or application source was changed for that comparison.
+The reference container was stopped afterward.
+
+All existing dense-star profiles pass the release validator. Visual default
+remains 1,668 canonical stars, magnitude 4.8, 590 populated order-3 tiles.
+The 37 observed default-profile 404s are absent cells, not lost manifested files:
+all 590 expected files match the release, and none of those 37 cells occurs in
+its manifest. The existing builder writes only populated cells. Native Gaia
+continues after the canonical maximum magnitude, using unchanged engine logic.
+Binocular remains 65,143 stars/magnitude 8.5. Deep catalog remains 84,129 canonical
+stars, requested limit 13 but actual maximum 10.00014. No default threshold,
+star scale, sky culture, catalog identity, coordinate or scientific math changed.
+
+Wide-view sparsity is also real existing presentation behavior. A fresh unzoomed
+390×844 mobile view had native FOV 120°, pitch 30°, yaw 0°, 144 canonical tile
+requests, zero Gaia tile requests, an empty loader and 60 FPS. Native `stars.c`
+skips a survey when its starting magnitude exceeds the current rendered magnitude
+limit. An optional capture's expectation of more than 30 Gaia requests at that
+wide view timed out; that expectation was invalid, not a failed restored-data
+check. Its final screenshot waits for the actual wide-view data instead. The
+70°/20°/5° comparison above proves continuation as native zoom admits faint stars;
+this package does not force a denser all-sky display or change that engine policy.
+
+### ORAS controls and ownership
+
+Eight native controls remain exposed: constellation lines/labels, constellation
+art, atmosphere, landscape, azimuthal grid, equatorial-of-date grid, deep-sky
+visibility and night mode. Source/survey credits and existing native view settings
+remain accessible. Fullscreen stays hidden in embedded Sky because Hub owns
+immersive presentation. Native header/navigation/drawer, location/time editors,
+selected-object panel and observing tabs stay hidden because Hub owns those
+surfaces. The optional J2000 grid stays disabled by its existing configuration;
+no duplicate grid control was introduced. Standalone native presentation remains
+available, including its original images and exact links.
+
+`oras_control_icons.js` supplies eight original SVG line drawings keyed by the
+existing stable native `img_alt` control identifier. The controlled existing
+BottomButton renders decorative inline SVG only while embedded. Original
+BottomBar toggle handlers, store/core state and emitted actions are retained;
+there is no React astronomy logic, new control/state system, protocol command,
+renderer replacement or duplicated truth.
+
+The dock uses Hub panel/text/accent colors, paired spacing, active fill/border
+and a separate active indicator, hover treatment, 2px focus ring and 44×44 targets.
+Pressed state is explicitly the string `true`/`false`, correcting Vue 2's removal
+of a boolean false ARIA attribute. Desktop dock height is 54px; mobile reserves
+60px for internal horizontal scrolling. Sky's Hub time/editor/selection/launcher
+clearance moves upward 12px. Mobile open sheets move the native dock and credits
+to separate upper rows. Keyboard Space/Enter toggles each native action, native
+renderer changes update the same pressed state, and no document overflow occurs.
+
+### Changed files and artifact identity
+
+- `docker-compose.yml`
+- `scripts/dev-local-stack.sh`
+- `scripts/runtime/skydata_path.py`
+- `frontend/vite.config.mjs`
+- `frontend/src/features/workspace/workspace.css`
+- `runtimes/sky-adapter/plugin.js`
+- `integrations/sky-overlay/apps/web-frontend/src/components/bottom-button.vue`
+- `integrations/sky-overlay/apps/web-frontend/src/assets/oras_control_icons.js`
+- `frontend/tests/orasRuntimeSpaFallback.test.js`
+- `frontend/tests/e2e/skyFollowup.spec.ts`
+- `tests/test_local_skydata.py`
+- `integrations/renderers.lock.json`
+- `frontend/public/runtime-versions.json`
+- `frontend/public/oras-sky-engine/index.html`
+- `frontend/public/oras-sky-engine/oras-runtime-build.json`
+- Generated `css/app.2f1be4ee.css` replaced by `css/app.e3189512.css` and
+  `js/app.bc16ed55.js` replaced by `js/app.5b3707af.js` under that runtime path.
+- This evidence document and `docs/context/LIVE_SESSION_BRIEF.md`.
+
+**Artifact rebuild required and performed:** frontend-only SWE app build, from
+the previous qualified reconstruction plus all 28 verified frontend overlays.
+Native C/WASM, vendor JS/CSS and wheel input are unchanged. Promotion checks the
+frozen native/vendor bytes before replacing application assets. The final locked
+Sky artifact is `e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e`
+(96 manifested application files). Lock, served marker and runtime metadata match.
+Earth remains exactly `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`.
+No bulk skydata is included in either renderer build or frontend image.
+
+```bash
+python3 scripts/runtime/integrate_sky_bridge.py /var/tmp/oras-sky-followup/sky-app
+docker run --rm -v /var/tmp/oras-sky-followup/sky-app:/app -w /app -e ORAS_RUNTIME_PUBLIC_PATH=/oras-sky-engine/ -e ORAS_RUNTIME_COPY_SKYDATA=0 -e NODE_OPTIONS=--openssl-legacy-provider node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0 sh -c 'npm ci && npm run build'
+# Rebuilds after lint/layout corrections used the same image/inputs and npm run build.
+python3 scripts/runtime/record_sky_workspace.py /var/tmp/oras-sky-followup/sky-app/dist
+python3 scripts/runtime/record_runtime_versions.py /home/rocco/Astronomy-Hub/data/runtime-artifacts/earth
+COMPOSE_BAKE=false docker compose --project-name astronomy-hub -f docker-compose.yml -f docker-compose.dev.yml build frontend
+npm --prefix frontend run build
+npm run dev:local
+```
+
+### Fresh qualification and evidence
+
+| Exact command (repository cwd unless noted) | Result |
+| --- | --- |
+| `python3 -m unittest discover -s tests -p 'test_local_*.py'` | 20 passed; six real disposable-worktree/launcher cases plus preserved provisioning/cleanup checks |
+| `npm test` (frontend cwd) | 204 passed, 27 files |
+| `npm run typecheck` (frontend cwd) | Passed |
+| `npm --prefix frontend run build` | Passed |
+| `node --test tests/runtime/*.test.mjs` | 28 passed |
+| `python3 scripts/skydata/validate_oras_dense_star_tiles.py data/runtime-packs/dense-star-tiles` | All three profiles passed |
+| `python3 -S scripts/validation/validate_architecture_docs.py` | 185 manifest entries, 8 packs, 37 Markdown checkpoints and 100 relative links passed |
+| `git diff --check` | Passed |
+| Browser preview command below | 23 passed in 2.6m |
+| Browser normal-dev command below | 13 passed in 1.7m |
+| `npm run validate:oras-deep-links` | 25 native exact-link cases, 7 API checks and 2 search checks passed |
+| `SKIP_REFERENCE=1 STAR_PASS=after node /var/tmp/oras-sky-followup/star-compare.cjs` | Six final star captures passed; counts/table above, loaders settled, no page errors |
+| `QUALIFY_REFERENCE=1 STAR_SURFACE=reference STAR_PASS=qualified-reference node /var/tmp/oras-sky-followup/star-compare.cjs` | Three read-only data-qualified reference captures |
+
+```bash
+# frontend cwd; built preview in the existing Docker frontend, skydata mounted externally
+PLAYWRIGHT_SKIP_WEBSERVER=1 npx playwright test tests/e2e/skyFollowup.spec.ts tests/e2e/skyUxRegressions.spec.ts tests/e2e/skyBfcache.spec.ts tests/e2e/earthBfcache.spec.ts tests/e2e/workspaceFinalReview.spec.ts --workers=1
+# restored ordinary Docker development server, no temporary override
+PLAYWRIGHT_SKIP_WEBSERVER=1 npx playwright test tests/e2e/skyFollowup.spec.ts tests/e2e/skyUxRegressions.spec.ts --workers=1
+```
+
+These runs prove native wheel input in both surfaces; search and canonical Hub
+selection agreement; Home/Observe/Tonight unified routing; standalone exact links;
+Sky→Earth→Sky with one frame; actual cached-document restoration with
+`pageshow.persisted=true`; and tested page-error arrays empty. The broader existing
+exact-link matrix includes unchanged star, DSO, planet and satellite cases; it
+is regression evidence, not new body/ISS feature work. Vite HMR still prevents
+bfcache admission, so true cached-page proof uses built preview. Its temporary
+readonly dist/data mounts are removed by the final normal launcher.
+
+Initial red tests caught missing metadata being classified as a route, absent
+ORAS control semantics, omitted false ARIA state and 2px/4px dock/time overlaps.
+Those were corrected before the final green runs. The first icon build failed
+existing ESLint formatting rules; the corrected build passes with two inherited
+Webpack asset/entrypoint size advisories. No warning threshold was relaxed.
+
+Logs, diagnostic script/design preview and release report:
+`/var/tmp/oras-sky-followup/`. Screenshots and raw JSON:
+`output/playwright/sky-followup/`, especially `controls-1440.png`,
+`controls-390.png`, `controls-focus-1440.png`, `controls-focus-390.png`,
+`controls-mobile-time-sheet.png`, `controls-mobile-end.png`,
+`before-star-comparison.json`, `qualified-reference-star-comparison.json`,
+`after-star-comparison.json`, and `after-{standalone,unified}-{70,20,5}.png`.
+Desktop/mobile images were visually inspected. Previous UX-flow screenshots are
+freshly refreshed under `output/playwright/sky-ux/`.
+
+Category A: no remaining technical blocker for this bounded local Sky package.
+Owner final visual review and integration approval remain next steps.
+Category B: intentionally sparse bright-star profile/empty cells and native
+wide-view magnitude limits; legacy installed
+Gaia survey and unqualified full-sky/all-order coverage; limited canonical deep
+catalog photometry; existing cold search/index cost not optimized or re-profiled;
+renderer-local night mode; unchanged unrelated provider/data warning noise.
+Full backend pytest, the broad dense-profile visual campaign and Earth/C5/provider
+campaign were not rerun; no result for those untouched scopes is claimed.
+
+The original tooling branch/commit `dev-wsl-performance-repair-1` / `1cb71b84`
+and its unstaged `.vscode/settings.json` remain unchanged, hash
+`6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+Postgres/Redis identities and persistent data are preserved. The normal five-service
+launcher remains the owner workflow from this worktree. The next action is owner
+local visual review of star density, zoom and controls, followed by separately
+approved integration of the preserved tooling/Sky commits and PR #63 dependency.
+Do not start that integration or another feature from this checkpoint.
+
+After qualification, `docker restart astronomy-hub-backend-1 astronomy-hub-frontend-1`
+released populated application caches without replacing the containers, followed
+by `npm run dev:local` (ready in 1s). Final read-only checks verified installed Gaia
+metadata, all 29 source overlay hashes, served Sky/marker/lock identity and unchanged
+Earth metadata. Exactly five project services run; reference is exited and the
+frontend command is ordinary `npm run dev`. A final memory snapshot was backend
+69.89 MiB, frontend 192.2 MiB, Earth 16.14 MiB, Postgres 37.59 MiB and Redis 13.04 MiB.
+This is post-test cache cleanup, not an indexing or renderer performance change.

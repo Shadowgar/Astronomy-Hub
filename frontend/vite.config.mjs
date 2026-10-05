@@ -56,7 +56,8 @@ export function isOrasRuntimeSpaPath(requestPath) {
     return false
   }
 
-  if (isOrasRuntimeProxyPath(requestPath)) {
+  // HiPS metadata such as `properties` is extensionless, but is never a route.
+  if (isOrasRuntimeProxyPath(requestPath) || requestPath.startsWith('/oras-sky-engine/skydata/')) {
     return false
   }
 
@@ -81,10 +82,6 @@ export function isMissingOrasRuntimeDataAsset(requestPath) {
 
   const cleanPath = requestPath.split('?')[0]
   const relativeRuntimePath = cleanPath.replace(/^\/oras-sky-engine\/?/, '')
-  if (!path.extname(relativeRuntimePath)) {
-    return false
-  }
-
   const staticCandidatePath = path.join(runtimePublicDir, relativeRuntimePath)
   return !fs.existsSync(staticCandidatePath)
 }
@@ -96,6 +93,8 @@ export function getOrasRuntimeRemoteFallbackPath(requestPath) {
 
   const cleanPath = requestPath.split('?')[0]
   const relativeSkydataPath = cleanPath.replace(/^\/oras-sky-engine\/skydata\/?/, '')
+  // An unavailable installed survey must fail visibly, not load CDN metadata.
+  if (!path.extname(relativeSkydataPath)) return undefined
   const query = requestPath.includes('?') ? requestPath.slice(requestPath.indexOf('?')) : ''
   const remoteMappings = [
     ['packs/minimal/stars/', 'swe-data-packs/minimal/2020-09-01/minimal_2020-09-01_186e7ee2/stars/'],
