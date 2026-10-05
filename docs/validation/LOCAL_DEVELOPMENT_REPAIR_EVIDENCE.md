@@ -253,14 +253,15 @@ python3 /var/tmp/oras-local-dev-repair/watch-compare.py
 python3 /var/tmp/oras-local-dev-repair/watch-compare-narrow.py
 ```
 
-Focused proof: 14/14 Python tooling tests, 21/21 frontend tests (2 files), typecheck,
+Original repair qualification (2026-10-04): 14/14 Python tooling tests,
+21/21 frontend tests (2 files), typecheck,
 build, shell syntax, Compose config, strict artifact and served metadata checks,
 real browser smoke and HMR pass. Architecture verification passes: 185 manifest path entries, 8 task packs,
 37 checkpoint documents, 97 relative links, 8 ADRs. Manifest negative checks
 pass 6 tests / 14 subtests. No backend science/full feature suite required
 or run for this environment correction.
 
-## Requested 36-point handoff
+## Original 36-point handoff, 2026-10-04 (superseded by integration)
 
 1. Initial Git: `earth-hd-mapping-1` at `a9f3e207235d42399d37d8c51b18103f6edcbb87`; only unstaged owner `.vscode/settings.json`.
 2. Earth failure: missing required stable bind source while dependent normal services were stopped.
@@ -458,3 +459,18 @@ main does not contain dev:local; its unchanged-tree smoke used Compose and the
 immutable qualified Earth artifact. Cold search/index memory, catalog coverage,
 physical-device performance, global HD, terrain/3D and provider expansion remain
 separately gated. No production, SSH, Cloudflare or oras.org action occurred.
+
+### Integration review documentation correction
+
+Automated review identified the lower PROJECT_STATE NEXT ACTION still describing
+PR #63 as unmerged. That current execution section now names tooling PR #64
+first, then the stacked Sky PR, preserving both owner-review gates. Original
+2026-10-04 focused test counts are explicitly dated; no historical results changed.
+Source-scope suggestions about future nested dev directories and non-4173 ports
+remain for owner review: no such source directory exists and current frontend
+qualification is locked to 4173. The replayed tooling behavior is preserved.
+
+The original handoff's pending-commit wording predates its final commit:
+`1cb71b848a1ed46390945fe0fa636676b8b8f744` is now recoverable from the preserved
+original branch. Its integration replay is `8d2b37423cfa33d5184071c5f94efd8e5737a445`.
+These current identity annotations supersede the original pending-SHA placeholder.

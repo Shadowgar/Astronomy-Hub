@@ -163,10 +163,12 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-Owner review of [PR #63](https://github.com/Shadowgar/Astronomy-Hub/pull/63) is next. Its implementation
-and local qualification are complete; it is not merged or publicly deployed.
-All implementation and qualification stay in laptop WSL/local disposable Docker.
-Do not merge without owner review. Do not SSH to historical infrastructure, repair
+Owner review of [tooling PR #64](https://github.com/Shadowgar/Astronomy-Hub/pull/64)
+is next, followed by the stacked Sky UX/correctness PR. PR #63 is already merged
+at `126da1537c734de817d9f9c59468d995807da37c`; its bounded CONUS package is
+complete and no public deployment is claimed. The two follow-up PRs must remain
+unmerged during integration. All qualification stays in laptop WSL/local
+Docker. Do not merge either follow-up without separate owner review. Do not SSH to historical infrastructure, repair
 storage, deploy production, configure Cloudflare or integrate `oras.org`.
 
 At an owner-declared Release Candidate, reassess deployment architecture, target,
