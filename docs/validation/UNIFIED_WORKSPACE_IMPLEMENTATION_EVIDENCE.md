@@ -1247,3 +1247,144 @@ Earth metadata. Exactly five project services run; reference is exited and the
 frontend command is ordinary `npm run dev`. A final memory snapshot was backend
 69.89 MiB, frontend 192.2 MiB, Earth 16.14 MiB, Postgres 37.59 MiB and Redis 13.04 MiB.
 This is post-test cache cleanup, not an indexing or renderer performance change.
+
+## Fresh integration qualification, 2026-10-05
+
+This section supersedes the earlier local-only integration stop gate for this
+owner-authorized repository-hygiene task; it does not alter historical evidence.
+PR #63 was verified at approved head `a9f3e207235d42399d37d8c51b18103f6edcbb87`
+and normally merged as `126da1537c734de817d9f9c59468d995807da37c`. Its parents
+are `70daeb8087a5439dc27d1a5da3d64d8ec436f495` and the approved head; main's
+resulting tree is identical to that head. Four fresh unchanged-main Docker/browser
+smokes passed: live USGS imagery near ORAS, outside-CONUS global fallback, C5
+fixture layers and a canonical Sky → Earth → Sky round trip. Bare main does not
+have `dev:local` yet; unchanged-main Compose smoke preceded launcher qualification
+on reconstructed tooling. No feature implementation was added to PR #63.
+
+Tooling [PR #64](https://github.com/Shadowgar/Astronomy-Hub/pull/64), branch
+`dev-wsl-performance-integration-20261005`, remains unmerged. Sky branch
+`sky-engine-ux-integration-20261005` is stacked on it: the installed-Gaia launcher
+extends tooling's `dev-local-stack.sh`, so the tooling dependency is real.
+Original Sky commits, authorship and messages remain preserved:
+
+| Original | Replayed |
+| --- | --- |
+| `5328afbaa0b26c19a9581c4ec4051109b7119518` | `f8cf03fd1c6e3a19f863a71fd622c965d6f86e01` |
+| `7b2d4927de148bd3edc6cecdc25149acf946a871` | `cb7bfaf127ab4ea69af99d226eb8bcae41653202` |
+
+Only dated live-brief history conflicted. Current merged-HD/integration authority
+was retained above explicitly historical Sky checkpoints. Tooling's subsequent
+document-only review corrections were merged as `17d47aa9fe7161b0f095ed950413f212e11bb9e4`;
+all non-document files still match original final Sky `7b2d4927` exactly.
+The Sky review diff relative to the updated tooling head contains only the
+preserved Sky package and current Sky execution/evidence reconciliation.
+
+A fresh source reconstruction applied all 29 hash-verified contained overlays
+and the existing bridge integration. The pinned Node 20 Docker build with
+`ORAS_RUNTIME_COPY_SKYDATA=0` reproduced all 95 manifest payload files, the full
+96-file tracked runtime installation and artifact
+`e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e`.
+Lock, release/export metadata, runtime marker and served identity agree. Native
+WASM, native engine chunk, vendor JS and vendor CSS match merged main byte-for-byte.
+Earth remains `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`.
+No artifact promotion or identity exception was needed. No bulk skydata was
+copied into Git or images; ignored owner-installed data is mounted read-only.
+
+All results below are fresh against the reconstructed branch:
+
+| Exact command or qualified command group | Result |
+| --- | --- |
+| `python3 -m unittest discover -s tests -p 'test_local_*.py'` | 20 passed |
+| `npm --prefix frontend test -- --run` | 204 passed, 27 files |
+| `node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs` | 79 passed, including 28 Sky/runtime checks |
+| `npm --prefix frontend run typecheck` and `npm --prefix frontend run build` | Passed |
+| `python3 scripts/skydata/validate_oras_dense_star_tiles.py data/runtime-packs/dense-star-tiles` | Three profiles passed |
+| `python3 -m unittest -v tests.validation.test_architecture_manifest` | Six negative/manifest checks passed |
+| `python3 -S scripts/validation/validate_architecture_docs.py` | Passed; final count recorded below |
+| Pinned artifact build and `python3 /var/tmp/oras-integration-20261005/verify-sky.py` | Reproduced expected digest; file/source/served identities passed |
+| `npm run dev:local:build` | Passed in 71s; new worktree had no installed Gaia and automatically discovered owner-root data |
+| Normal-development browser command below | 13 passed in 2.6m |
+| Built-preview browser command below | 23 passed in 3.5m |
+| `npm run validate:oras-deep-links` | 25 native exact links, seven API checks, two search checks passed |
+| `SKIP_REFERENCE=1 STAR_PASS=integration node /var/tmp/oras-integration-20261005/star-compare.cjs` | Six captures passed; paired surfaces byte-identical |
+| `node /var/tmp/oras-integration-20261005/sky-cache-errors.cjs` | Actual same-document cached Sky restoration, persisted pageshow, one frame, working +1h bridge, zero page errors |
+
+```bash
+# frontend cwd; existing local Docker backend/renderers
+PLAYWRIGHT_SKIP_WEBSERVER=1 npx playwright test tests/e2e/skyFollowup.spec.ts tests/e2e/skyUxRegressions.spec.ts --workers=1 --output=/var/tmp/oras-integration-20261005/sky-browser-dev
+# same frontend Docker service, temporary built-preview override and read-only data
+PLAYWRIGHT_SKIP_WEBSERVER=1 npx playwright test tests/e2e/skyFollowup.spec.ts tests/e2e/skyUxRegressions.spec.ts tests/e2e/skyBfcache.spec.ts tests/e2e/earthBfcache.spec.ts tests/e2e/workspaceFinalReview.spec.ts --workers=1 --output=/var/tmp/oras-integration-20261005/sky-browser-preview-qualified
+```
+
+Real browser input changed native FOV inward and outward in both Sky surfaces.
+M31 native search selected the canonical object and agreed with Hub state; Focus
+worked. Home's retained component, Observe and Tonight opened unified `/sky-engine`
+with identity/RA/Dec/time/observer preserved; explicit standalone exact links
+remained available. All eight ORAS controls, native state/handlers, keyboard
+activation, active ARIA state, desktop/mobile sizing and dock/time-sheet layout
+passed. Duplicate embedded chrome/fullscreen stayed hidden, and J2000's existing
+disabled configuration was retained. Sky/Earth switching kept one active renderer.
+Actual Sky and Earth bfcache restores retained document identity and usable
+controls; page-error assertions were empty. Desktop/mobile controls and main HD
+screenshots were visually inspected. This is local Docker/Chromium proof, not
+physical-device qualification.
+
+Gaia metadata returned HTTP 200 as text; installed faint tiles loaded. Missing
+metadata returned HTTP 404 and never HTML success. Fresh masked captures under the
+same frozen scene reproduced bright-component counts exactly:
+
+| Native FOV | Standalone | Unified | Paired PNG identity |
+| --- | ---: | ---: | --- |
+| 70° | 239 | 239 | Byte-identical |
+| 20° | 768 | 768 | Byte-identical |
+| 5° | 1,727 | 1,727 | Byte-identical |
+
+All six loaders settled with zero page errors. Fresh JSON and screenshots are
+`output/playwright/sky-followup/integration-star-comparison.json` and
+`integration-{standalone,unified}-{70,20,5}.png`. Full command arguments, exits,
+logs and temporary diagnostic scripts are under `/var/tmp/oras-integration-20261005/`.
+
+The first disposable preview startup failed because the read-only generated dist
+lacked its empty external skydata mountpoint. An incorrectly launched browser run
+then failed all 23 cases with connection refused. These failures are retained in
+`sky-preview-startup.log` and `sky-browser-preview.log`; they were setup failures,
+not application regressions. Creating only the ignored dist mountpoint corrected
+startup. The complete fresh 23-case rerun passed; no application source or artifact
+bytes changed. Normal `npm run dev:local` removes that temporary override.
+
+Category A: no technical integration/runtime regression found. Both follow-up
+PRs require separate owner review and remain unmerged. Tooling's two minor review
+limits (future `src/dev` watch paths and alternate frontend ports) remain explicit;
+the current qualified watcher and locked port 4173 pass.
+Category B: cold-search cost (historical 21–23s, not re-profiled), populated backend
+index memory (fresh 2.045 GiB snapshot), legacy Gaia/full-sky/order coverage,
+37 expected sparse bright-profile empty-cell 404s, native wide-view magnitude and
+deep-catalog photometry limits. Earth HD remains historical CONUS-focused USGS
+imagery, with lower-resolution global fallback and ellipsoid-only terrain;
+global HD, 3D/terrain, live imagery, Launch Library's known production HTTP 403,
+physical-device performance and broad provider campaigns remain separately gated.
+No cold-index optimization, new provider/body feature, full backend suite or broad
+Earth/C5/dense-profile/provider campaign was performed in this integration task.
+No production, SSH, Cloudflare, oras.org or remote infrastructure action occurred.
+
+Original branches/worktrees and preservation refs remain intact. Owner-controlled
+`.vscode/settings.json` remains unchanged and unstaged at hash
+`6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+Postgres/Redis identities and mounts are preserved; no volumes were deleted.
+Current execution docs mark bounded HD complete and tooling/Sky integration pending
+owner review. Review tooling first, then Sky; no new feature phase is authorized.
+
+Final post-test application-cache cleanup used
+`docker restart astronomy-hub-backend-1 astronomy-hub-frontend-1`, then
+`npm run dev:local` passed in 1s. This releases populated application caches;
+it is not an index optimization or a new performance comparison. Final checks
+verified five ordinary services, zero restarts, frontend `npm run dev`, backend
+health, served Earth release/Sky marker/versions and datastore identity/mounts.
+All 81 original Docker volumes remain; temporary/reference/qualification workloads
+are stopped, not deleted. The external final-audit helper initially assumed a
+bare frontend command array and the wrong Earth marker URL; correcting those
+helper expectations to the actual shell command and `/earth-runtime/release.json`
+produced a clean pass. No repository/runtime correction was required.
+Final document validation passed 185 entries, eight packs, 37 Markdown checkpoints,
+100 relative links and eight ADRs; six negative/manifest checks and `git diff --check`
+passed. The non-document tree still matches original `7b2d4927` exactly.

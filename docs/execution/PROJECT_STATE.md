@@ -39,8 +39,15 @@ Tooling original `1cb71b84` is replayed as `8d2b3742` directly on new main,
 without source conflicts or semantic changes. Its integration branch is
 `dev-wsl-performance-integration-20261005`. The original branch/commit and both
 Sky originals (`5328afba`, `7b2d4927`) remain reachable and untouched.
-Sky's installed-data launcher extends tooling, so its PR will be stacked on the
-tooling branch; its review diff must contain only Sky changes.
+Tooling [PR #64](https://github.com/Shadowgar/Astronomy-Hub/pull/64) is open.
+Sky's installed-data launcher extends tooling, so review branch
+`sky-engine-ux-integration-20261005` is stacked on the tooling branch; its review
+diff contains only Sky changes. Originals `5328afba` → `7b2d4927` were replayed
+as `f8cf03fd` → `cb7bfaf1`. Only dated live-brief documentation needed conflict
+reconciliation; all non-document files match the original final Sky tree.
+The clean pinned rebuild reproduced `e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e`;
+native WASM/vendor and Earth identity remain unchanged. See
+[workspace qualification evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
 See [local repair evidence](../validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md).
 
 PR #58's unified workspace and PR #59's complete C5 package remain preserved,

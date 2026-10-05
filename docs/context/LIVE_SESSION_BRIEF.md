@@ -22,9 +22,17 @@ from `1cb71b848a1ed46390945fe0fa636676b8b8f744` to
 identical repair tree. Review branch: `dev-wsl-performance-integration-20261005`.
 Use `npm run dev:local`; exact provisioning/workflow proof is in
 [local development repair evidence](../validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md).
-The preserved Sky sequence `5328afba` → `7b2d4927` will be reconciled above this
-tooling branch because its installed-data launcher extends the tooling repair.
-The two follow-up PRs require separate owner review and must remain unmerged.
+Tooling [PR #64](https://github.com/Shadowgar/Astronomy-Hub/pull/64) is open and
+unmerged. The Sky review branch `sky-engine-ux-integration-20261005` is stacked
+on `dev-wsl-performance-integration-20261005` because its installed-data launcher
+extends tooling. The preserved sequence `5328afba` → `7b2d4927` was replayed as
+`f8cf03fd` → `cb7bfaf1`. Only live-brief history conflicted; all non-document
+files match the original final Sky tree exactly. A clean pinned Docker rebuild
+reproduced Sky artifact
+`e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e`, with native
+WASM/vendor files and Earth identity unchanged. Current qualification is recorded
+in [workspace evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
+Both follow-up PRs require separate owner review and must remain unmerged.
 No new feature phase is authorized. Review tooling first, then Sky.
 
 ORA-7 / PR #58 and C5 / PR #59 remain merged, owner-approved baselines.
