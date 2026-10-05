@@ -529,7 +529,7 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_current_sky.sh",
-    "artifact_sha256": "e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e",
+    "artifact_sha256": "b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d",
     "artifact_files": [
       {
         "path": "css/app.e3189512.css",
@@ -984,12 +984,12 @@
       {
         "path": "index.html",
         "bytes": 1960,
-        "sha256": "c6f9d4251c3c757ba3290e0c5c881fce93b0b9caff92be5b9248194003eba0df"
+        "sha256": "3c92467d07536e55c2a74e17c2b6b28b8f212ca0ef0c7a8522dc39ab6859a579"
       },
       {
-        "path": "js/app.5b3707af.js",
-        "bytes": 570555,
-        "sha256": "3bfb9a504a234301ee7c4126afabc51485aeb094ba788ade3c52287d0da6d24f"
+        "path": "js/app.d996d430.js",
+        "bytes": 571750,
+        "sha256": "c65a9d796d5bd537513d7638c7a830feaa2f1a59d453188506c45d39aa2b0c0b"
       },
       {
         "path": "js/chunk-2d2253ec.1b0c9439.js",
@@ -1008,14 +1008,18 @@
       },
       {
         "path": "oras-runtime-build.json",
-        "bytes": 601,
-        "sha256": "7dca667da2d6bf458eb0545c26b15b11a7cb627bf6c3508990cc1fafb0fc6d4a"
+        "bytes": 810,
+        "sha256": "80006bbf5af2a9e214ed86186fa1f89e76bb9bd873253c8f74fd1c140a06f6a8"
       }
     ],
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "9e272417c57f1732e0077940cc4e7449d8c4c2391300cbe2698883f66835460e",
+    "workspace_adapter_sha256": "ccecdf404b1ecd9a850a2b853949409642731bbad79cd25b990d0e1e76356ed7",
     "artifact_hash_scope": "Application files excluding identity marker",
-    "wheel_input_sha256": "29353cca2b47c44b8467c8e2e808a3af8b3cf8bc8a17a9aa211061f75f40bbe9"
+    "wheel_input_sha256": "29353cca2b47c44b8467c8e2e808a3af8b3cf8bc8a17a9aa211061f75f40bbe9",
+    "bridge_input_sha256": {
+      "entry.mjs": "42b563d3c77e84b70e0ef3825e6b6289ec2252e9e699ddb3057e82c90574aeca",
+      "native-panels.mjs": "52a012e28bb62f8c362fa97b8a89c9afff01bbeb953b711c354e81d40a28997f"
+    }
   },
   "earth": {
     "upstream": "https://github.com/bilawalsidhu/gods-eye-view",

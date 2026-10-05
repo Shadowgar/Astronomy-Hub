@@ -9,7 +9,7 @@ function page(withCanvas=false){
  document.querySelector=()=>withCanvas?canvas:null;
  const createRuntimeEndpoint=()=>({ready(){ready++},close(){closed++},emit(type,payload){if(type==='interaction')interactions.push(JSON.parse(JSON.stringify(payload)))}});
  window.orasSkyAdapter={};
- runInNewContext(source,{window,document,createRuntimeEndpoint,setTimeout(callback){const id=++nextTimer;timers.set(id,callback);return id},clearTimeout(id){timers.delete(id)}});
+ runInNewContext(source,{window,document,installSkyPanelReports:()=>()=>{},createRuntimeEndpoint,setTimeout(callback){const id=++nextTimer;timers.set(id,callback);return id},clearTimeout(id){timers.delete(id)}});
  return {counts:()=>({closed,ready}),pendingTimers:()=>timers.size,interactions,flushTimers(){for(const [id,callback] of timers){timers.delete(id);callback()}},interact(){canvas.dispatchEvent(new Event('pointerdown'))},dispatch(type,persisted){const event=new Event(type);Object.defineProperty(event,'persisted',{value:persisted});window.dispatchEvent(event);}};
 }
 test('cached Sky navigation preserves the endpoint and leaves genuine departure cleanup installed',()=>{

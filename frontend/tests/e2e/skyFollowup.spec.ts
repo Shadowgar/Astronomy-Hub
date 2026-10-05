@@ -46,7 +46,7 @@ for(const width of [1440,390])test(`ORAS graphics retain all native controls and
  if(width===390){
   await page.getByRole('button',{name:'Change time',exact:true}).click();await expect(dock).toBeVisible()
   const dockBox=await dock.boundingBox(),creditBox=await frame.locator('.oras-workspace-source').boundingBox()
-  expect(creditBox!.y).toBeGreaterThanOrEqual(dockBox!.y+dockBox!.height)
+  expect(creditBox!.x).toBeGreaterThanOrEqual(dockBox!.x+dockBox!.width);expect(creditBox!.y+creditBox!.height).toBeLessThanOrEqual((await page.locator('.ws-sheet').boundingBox())!.y)
   await page.screenshot({path:`${out}/controls-mobile-time-sheet.png`});await page.getByRole('button',{name:'Close sheet',exact:true}).click()
  }
  const bounds=await dock.boundingBox(),time=await page.locator('.ws-time').boundingBox();expect(bounds!.y).toBeGreaterThanOrEqual(time!.y+time!.height)

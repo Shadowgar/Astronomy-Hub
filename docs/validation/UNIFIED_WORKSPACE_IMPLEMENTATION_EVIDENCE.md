@@ -1501,3 +1501,97 @@ Final document gate passed six manifest-negative checks and architecture
 validation: 187 entries, eight packs, 37 checkpoints, 101 links and eight ADRs;
 `git diff --check` passed. The named P2 is addressed by the bounded correction
 and fresh native runtime proof; final owner review remains required.
+
+## PR #65 three-objective readiness correction, 2026-10-05
+
+The owner authorized only the stale Observe unified-route test, immersive Escape
+recovery and expanded mobile Sky toolbar/credits P2. Initial head was
+`f4fa788782c55dad19043343ed4cdb59c1fb9e9e`; PR #65 remains stacked on open tooling
+PR #64. No merge, deployment, production or next-phase work is included.
+
+The unchanged-head browser run reproduced both failures. Observe already opened
+`/sky-engine`, while its test expected standalone `/oras-sky-engine/skysource/`
+and top-document Vue. The corrected test follows the actual card's source-backed
+API identity and checks represented RA/Dec, observer/time/focus, exactly one titled
+runtime iframe, native SWE selection and yaw/pitch centering within 0.02 radians.
+Back restores the exact Observe context and leaves no runtime frame. Standalone
+coverage remains in the existing regression matrix.
+
+Immersive was a product focus/key-routing defect: the entry button blurred itself,
+leaving BODY active, outside the shell's React Escape path. Captured classes,
+chrome state, key target/path, header visibility and completed transitions proved
+that Escape never reached that handler and stage top remained 0. Entry now focuses
+the existing focusable stage. The Sky bridge forwards native-toolbar Escape,
+retains native search/Tab behavior and observes native panels in capture phase
+before Vue closes them. First Escape closes an open native panel without leaving
+immersive; the next canvas Escape restores the 56px header. Both immersive cases
+passed three consecutive runs (six passes), with additional Hub/canvas/native-
+toolbar diagnostic evidence and empty page-error arrays.
+
+At 390x844, the red expanded sheet started at page y=204, while toolbar y=184–244
+and credits y=252–296 overlapped it. With an open sheet, the owned adapter now puts
+the horizontally scrollable eight-control toolbar at x=16, y=124, 278x60 and the
+credits control at x=306, y=124, 68x44. Both end above the sheet and remain separate
+from the mode switcher. Native search is suppressed while a mobile sheet is open
+and restored on close. Normal no-sheet and desktop positions remain qualified.
+All eight controls pass real touch toggling and keyboard restoration; every control
+is at least 44x44. Context/time/diagnostics at 96/360/640 snaps have no sheet
+intersection or document horizontal overflow. Exposed canvas input changes native
+yaw while the expanded sheet stays open.
+
+Layout proof found a second attribution obstruction: the native credits dialog's
+Close button sat behind the expanded Hub sheet. Sky-only presentation reports now
+pause Hub overlays while native settings/credits dialogs are open, then restore
+the existing surface and snap. Reports are checked against current origin, frame,
+nonce, generation and increasing sequence and removed on departure. Native Vue
+retains dialog behavior. Sky sheets remain nonmodal so exposed native controls
+and canvas receive input; Earth modal/inert behavior and shared protocol source
+remain unchanged. Native dialog buttons have 44px targets. Touch/keyboard credits
+activation, visible native Close and same-snap recovery are qualified.
+
+The plugin is a Sky artifact input. The pinned Node 20 image reconstructed the
+frontend from comparison anchor `023e3b26babf7ffddf45f39293230b14cfe96993` plus the
+29 unchanged source overlays and qualified native inputs. Two builds reproduced
+all 95 payload rows byte-for-byte. Promotion and runtime metadata were recorded
+through repository tools, including the vendor-CSS freeze guard and explicit raw
+Sky bridge input hashes. Old Sky:
+`e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e`.
+New Sky:
+`b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`.
+All 96 installation files and served hashes agree with marker/lock/versions.
+WASM, native chunk, vendor JS/CSS and wheel input are unchanged. Earth remains
+`ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`,
+including every source input in its frozen release and shared protocol files.
+Large installed skydata stays outside the build and mounted read-only.
+
+Fresh supporting validation: frontend 229/229 (28 files), runtime/Earth 82/82,
+typecheck/build, document authority checks (187 paths, eight packs, 37 checkpoints,
+101 links, eight ADRs) and six manifest-negative tests passed. Broader browser
+bundle passed 34/34: Tonight 3/3 (six exact targets), owned Earth 10/10, Sky UX
+9/9, controls/Gaia 4/4, native deselection 2/2, native A→B 1/1, layer restoration
+3/3 and mobile/desktop presentation 2/2. Deterministic queued departure passed
+three further consecutive runs. Genuine Docker-preview bfcache passed all three
+Sky/Earth cases, proving persisted same-document restoration and working time
+bridge. Exact-link validator passed 25 native links, seven API checks and two
+searches.
+
+Entire frontend Playwright completed all 99 cases in 22.0 minutes: **91 passed,
+zero failures, eight unchanged optional live/HD skips, zero flaky**. Full-run
+publicShell 5/5, unifiedWorkspace 6/6 and every nonoptional case passed. JSON
+report and per-file/skip summaries are retained; fixture and cached-document proof
+is distinguished from optional provider/HD qualification.
+
+Evidence and exact command arguments/exits are in
+`/var/tmp/oras-pr65-final-qualification-20261005/`. Red/green immersive diagnostics,
+mobile geometry and screenshots are retained there; final screenshots also live
+in `output/playwright/sky-sheet-presentation/` and
+`output/playwright/observe-unified-exact.png`. Preview is a temporary qualification
+mode; ordinary Docker development is restored before handoff.
+
+Category B limits remain: historical cold search/index cost, legacy Gaia/coverage
+and native photometry limits, CONUS HD versus global fallback, ellipsoid terrain,
+known Launch Library 403, physical-device performance and broad provider campaigns.
+Optional live/HD skips do not establish provider or production qualification. No
+God's Eye audit, C5.7, provider/body/terrain/starfield feature, SSH, Cloudflare or
+oras.org action occurred. Owner settings stay unchanged/unstaged; installed data,
+PostgreSQL/Redis identities and all initial Docker volumes are preserved.

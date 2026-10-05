@@ -22,3 +22,6 @@
 .ws-shell[data-workspace-mode=sky] .ws-time-editor,.ws-shell[data-workspace-mode=sky] .ws-drawer{bottom:148px}
 .ws-shell[data-workspace-mode=sky] .ws-notice{bottom:224px}
 @media(max-width:767px){.ws-shell[data-workspace-mode=sky] .ws-time{bottom:max(120px,calc(var(--ws-safe-bottom) + 70px))}.ws-shell[data-workspace-mode=sky] .ws-mobile-launchers{bottom:max(180px,calc(var(--ws-safe-bottom) + 130px))}}
+
+/* Native Sky dialogs temporarily own focus; preserve the Hub surface and snap. */
+.ws-shell--native-panel .ws-chrome,.ws-shell--native-panel .ws-sheet,.ws-shell--native-panel .ws-menu,.ws-shell--native-panel .ws-reveal{visibility:hidden;pointer-events:none}
