@@ -1,27 +1,37 @@
 # LIVE SESSION BRIEF
 
-ORA-7's owner-approved locked unified workspace was merged in PR #58 on
-2026-10-03 at `f55b9b2721cb692b4cda106e415c8fef59454c80`, including the final
-Live-time/custom-timezone/Earth-observer correction `a45fa637dce0b420f63d49abe30f4d76633bd410`.
-PR #59 / ORA-8 / Phase C5 was owner-approved and merged on 2026-10-04 at
-`d8ca945a0b1a1c44622dae573d9787dde71f8a76`, with parents reviewed main
-`fc41ac19d7e2021c9d4b56b5a13322981f3c6992` and reviewed head
-`e0e69e4747e9123b75072f9636e566865948d584`. **Phase C5 is COMPLETE**:
-owner review, merge and post-merge local/disposable qualification passed.
-Current work is owner-authorized high-definition / close-zoom Earth mapping in
-laptop WSL, SINGLE AGENT ONLY. The first bounded package is implemented and
-locally qualified on `earth-hd-mapping-1`: keyless USGS CONUS aerial imagery,
-bounded tile requests and explicit fallback/retry, preserving one owned Viewer.
-Fresh Docker, desktop/mobile browser, provider/license and C5 regression evidence
-is recorded in [HD mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md).
-The rebuilt artifact passes 75 Node and all 25 Docker/browser cases, including
-the reviewed outside-CONUS source-status correction. Next action is owner review
-of [PR #63](https://github.com/Shadowgar/Astronomy-Hub/pull/63); do not merge without that review.
+## Owner-authorized integration checkpoint, 2026-10-05
+
+PR #63 was owner-approved and merged normally at
+`126da1537c734de817d9f9c59468d995807da37c`, with parents initial main
+`70daeb8087a5439dc27d1a5da3d64d8ec436f495` and exact approved head
+`a9f3e207235d42399d37d8c51b18103f6edcbb87`. The merged tree equals that
+approved head. **HD / close-zoom Earth is COMPLETE for its bounded CONUS scope.**
+Earth artifact remains
+`ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`.
+Fresh post-merge Docker smoke passed four browser cases: live aerial detail near
+ORAS, global fallback outside CONUS, C5 fixture controls and Sky → Earth → Sky.
+Imagery is historical; global fallback is lower resolution; terrain remains
+ellipsoid-only. Global aerial coverage, terrain/3D, live imagery and physical
+performance qualification are not claimed.
+
+The active task is integration/repository hygiene, SINGLE AGENT ONLY, laptop
+WSL and local/disposable Docker. The tooling repair was replayed without conflicts
+from `1cb71b848a1ed46390945fe0fa636676b8b8f744` to
+`8d2b37423cfa33d5184071c5f94efd8e5737a445`, based directly on new main, with an
+identical repair tree. Review branch: `dev-wsl-performance-integration-20261005`.
+Use `npm run dev:local`; exact provisioning/workflow proof is in
+[local development repair evidence](../validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md).
+The preserved Sky sequence `5328afba` → `7b2d4927` will be reconciled above this
+tooling branch because its installed-data launcher extends the tooling repair.
+The two follow-up PRs require separate owner review and must remain unmerged.
+No new feature phase is authorized. Review tooling first, then Sky.
+
+ORA-7 / PR #58 and C5 / PR #59 remain merged, owner-approved baselines.
 The unchanged locked design ancestor is `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.
-No runtime override mode is active. Load `docs_change`, `planning`,
-`frontend_change`, `backend_change`, `review` and `validation` packs as applicable.
-Repository design documents remain authoritative; secondary Figma remains partial
-under the owner waiver.
+No runtime override mode is active. Reconciliation, planning and validation packs
+apply; use frontend/review packs only as needed for the existing Sky package.
+Repository design authority and the partial secondary Figma owner waiver remain.
 
 ## Owner release policy, 2026-10-04
 

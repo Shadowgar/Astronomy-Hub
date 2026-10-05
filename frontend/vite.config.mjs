@@ -203,6 +203,8 @@ export default defineConfig({
       // The promoted Stellarium runtime can contain hundreds of thousands of
       // static tiles. Polling those files stalls local asset delivery.
       ignored: [
+        // Preserved screenshots/interrupted builds are evidence, not source.
+        '**/dev/**',
         '**/public/oras-sky-engine/skydata/**',
         '**/public/oras-sky-engine/js/**',
         '**/public/oras-sky-engine/css/**',

@@ -60,7 +60,14 @@
     "deploy:remote:prod": "bash scripts/deploy-remote-prod.sh",
     "snyk:test": "snyk test --all-projects --exclude=.venv --command=python3",
     "push:github": "bash scripts/push-to-github.sh",
-    "fix:git-cred": "bash scripts/fix-git-credential-wsl-once.sh"
+    "fix:git-cred": "bash scripts/fix-git-credential-wsl-once.sh",
+    "dev:local": "bash scripts/dev-local-stack.sh up",
+    "dev:local:build": "bash scripts/dev-local-stack.sh --build",
+    "dev:local:status": "bash scripts/dev-local-stack.sh status",
+    "dev:local:logs": "bash scripts/dev-local-stack.sh logs",
+    "dev:earth:install": "python3 scripts/runtime/earth_artifact.py install",
+    "dev:earth:verify": "python3 scripts/runtime/earth_artifact.py verify",
+    "dev:cleanup:qualification": "python3 scripts/cleanup-qualification.py"
   },
   "repository": {
     "type": "git",

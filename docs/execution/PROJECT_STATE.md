@@ -24,59 +24,48 @@ Proven runtime conflicts must be reported, not silently overwritten.
 
 ## CURRENT MODE
 
-Laptop WSL development and local/disposable Docker qualification, SINGLE AGENT
-ONLY. Phase C5 / PR #59 is COMPLETE after owner approval, merge at
-`d8ca945a0b1a1c44622dae573d9787dde71f8a76` and passing post-merge qualification.
-The active authorized phase is HD / close-zoom Earth mapping. External deployment
-is intentionally deferred until the owner declares Release Candidate; unavailable
-historical `openclaw` storage is not a current blocker. No runtime override mode
-is active.
+Owner-authorized integration/repository hygiene, SINGLE AGENT ONLY. Laptop WSL
+and local/disposable Docker; no runtime override mode or new feature phase.
+PR #63 / bounded HD Earth is COMPLETE after owner approval and normal merge
+`126da1537c734de817d9f9c59468d995807da37c` on 2026-10-05. The exact approved
+head is `a9f3e207235d42399d37d8c51b18103f6edcbb87`; initial main was
+`70daeb8087a5439dc27d1a5da3d64d8ec436f495`. The merged tree is identical.
 
 ## CURRENT OBJECTIVE / ACTIVE TASK
 
-ORA-7 was owner-approved and merged in PR #58 at
-`f55b9b2721cb692b4cda106e415c8fef59454c80`, including correction `a45fa637`.
-Its locked design ancestor remains `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.
-PR #60's Sky cached-page lifecycle correction merged at
-`1e7fd3efab22d66fc7918890767ec9204aba5a95`; PR #61's Tonight fallback correction
-merged at `f3601bb82b0c52343d2c38f93ecfce747ef611c7`. PR #62 mandatory context
-and validator enforcement merged at `fc41ac19d7e2021c9d4b56b5a13322981f3c6992`,
-the reviewed main baseline integrated into `phase-c5-earth-live-layers-1`.
-Sky lifecycle, Tonight fallback and validation enforcement are preserved baselines.
-PR #59 is complete. The first bounded HD Earth mapping package is implemented
-and locally qualified on `earth-hd-mapping-1`, awaiting owner review before merge.
-Root Sky workspace, Sky/Earth modes, reusable Tonight/Observe context, bounded
-selection/time surfaces, responsive mobile sheets and immersive UI are implemented.
-This branch adds keyless USGS CONUS aerial imagery at regional/local zoom above
-NASA GIBS static imagery and local Natural Earth fallback. Configured terrain/3D
-still requires separately qualified assets. The main branch remains the C5
-baseline until the owner reviews and approves this feature PR.
+Integrate the preserved local-development repair and the Sky wheel/search/routing,
+Gaia-loading and ORAS-controls chain as two separately reviewable, unmerged PRs.
+Tooling original `1cb71b84` is replayed as `8d2b3742` directly on new main,
+without source conflicts or semantic changes. Its integration branch is
+`dev-wsl-performance-integration-20261005`. The original branch/commit and both
+Sky originals (`5328afba`, `7b2d4927`) remain reachable and untouched.
+Sky's installed-data launcher extends tooling, so its PR will be stacked on the
+tooling branch; its review diff must contain only Sky changes.
+See [local repair evidence](../validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md).
 
-The only active slice is HD Earth mapping in WSL/disposable Docker; preserve the
-implemented source-backed C5 layers and qualify changed sources afresh.
-USGS earthquakes, NIFC/WFIGS public fire perimeters and NOAA CONUS radar are the
-implemented and locally qualified layers; Launch Library's production HTTP 403 blocks launches here.
-No upstream pin change or complete God's Eye application ownership is authorized.
+PR #58's unified workspace and PR #59's complete C5 package remain preserved,
+as do merged Sky lifecycle #60, Tonight fallback #61 and context enforcement #62.
+Earth retains one owned Cesium Viewer and immutable pinned God's Eye feature
+modules; Sky retains contained SWE with one active heavy renderer.
 
 ## CURRENT PRIORITY
 
-PR [#59](https://github.com/Shadowgar/Astronomy-Hub/pull/59) is MERGED after owner
-approval and exact head/main verification, seven successful check runs plus
-successful CodeRabbit status, and zero unresolved threads. Its description now
-records the final approved qualification. The merged file tree equals the
-approved `e0e69e47` tree; post-merge qualification is recorded separately.
-ORA-8 / C5 is complete. Production deployment is not a feature-phase completion
-requirement; no public deployment is claimed. Historical SSH/storage diagnostics
-remain in [Earth expansion evidence](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md).
-The first HD package passes 75 Node, 198 frontend, 42 local backend and 37 Docker
-backend tests. The final rebuilt artifact passes all 25 browser cases in one
-13.8-minute run, including outside-CONUS source status and full C5 coverage. Details and
-current artifact identity are in [HD mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md).
-ISS, Mars/Moon and measured horizon remain out of
-scope. Preserve unrelated editor settings unchanged and unstaged.
-Fresh post-merge proof passes: 42 local backend, 37 Docker backend, 62 runtime/Earth,
-196 frontend and 14 Docker browser tests, plus typecheck and manifest/context checks.
-Merged #60/#61 behavior and #62 context/validator enforcement remain preserved.
+Fresh unchanged-main Docker smoke passed four cases: live ORAS USGS detail,
+outside-CONUS global fallback, C5 event/surface fixture controls and a canonical
+Sky → Earth → Sky transition. Earth identity remains
+`ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`.
+Historical feature campaign evidence remains in
+[HD mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md); it is not
+assigned to reconstructed follow-up branches.
+
+Review the tooling PR first and the stacked Sky PR second; neither is authorized
+for merge by this integration task. Preserve owner editor settings unchanged and
+unstaged, and retain Docker volumes/datastores. HD imagery is CONUS-focused and
+historical; lower-resolution global fallback and ellipsoid-only terrain remain.
+Global HD, terrain/3D and physical-device qualification are separately gated.
+ISS, Mars/Moon, measured horizon and provider expansion have not started.
+Production/SSH/Cloudflare/oras.org work is deferred to an owner-declared Release
+Candidate; historical openclaw storage is not a feature blocker or next action.
 
 ## KNOWN ISSUES
 
@@ -171,10 +160,12 @@ A feature is NOT complete unless:
 
 ## NEXT ACTION
 
-Owner review of [PR #63](https://github.com/Shadowgar/Astronomy-Hub/pull/63) is next. Its implementation
-and local qualification are complete; it is not merged or publicly deployed.
-All implementation and qualification stay in laptop WSL/local disposable Docker.
-Do not merge without owner review. Do not SSH to historical infrastructure, repair
+Owner review of [tooling PR #64](https://github.com/Shadowgar/Astronomy-Hub/pull/64)
+is next, followed by the stacked Sky UX/correctness PR. PR #63 is already merged
+at `126da1537c734de817d9f9c59468d995807da37c`; its bounded CONUS package is
+complete and no public deployment is claimed. The two follow-up PRs must remain
+unmerged during integration. All qualification stays in laptop WSL/local
+Docker. Do not merge either follow-up without separate owner review. Do not SSH to historical infrastructure, repair
 storage, deploy production, configure Cloudflare or integrate `oras.org`.
 
 At an owner-declared Release Candidate, reassess deployment architecture, target,

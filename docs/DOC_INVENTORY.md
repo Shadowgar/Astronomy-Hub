@@ -172,6 +172,7 @@ These define:
 | `docs/validation/VALIDATION_CHECKLIST.md`   | SUPPORT        |
 | `docs/validation/STYLING_AUDIT.md`          | SUPPORT        |
 | `docs/validation/EARTH_HD_MAPPING_EVIDENCE.md` | SUPPORT — provider investigation and local qualification |
+| `docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md` | SUPPORT — laptop workflow and measured local repair |
 
 ---
 
