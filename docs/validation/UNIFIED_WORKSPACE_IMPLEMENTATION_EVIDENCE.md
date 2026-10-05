@@ -1388,3 +1388,10 @@ produced a clean pass. No repository/runtime correction was required.
 Final document validation passed 185 entries, eight packs, 37 Markdown checkpoints,
 100 relative links and eight ADRs; six negative/manifest checks and `git diff --check`
 passed. The non-document tree still matches original `7b2d4927` exactly.
+
+Fresh review-context reconciliation: tooling commit `2f569582` adds its local
+repair evidence to `review.load`; this stacked Sky branch adds this workspace
+evidence to the same pack. Reviewers can inspect the linked proof within the
+context-loading rules. Final revalidation after these document-only additions
+passed 187 entries, eight packs, 37 checkpoints, 100 links, eight ADRs and six
+manifest-negative checks. Runtime inputs and qualified artifacts are unchanged.
