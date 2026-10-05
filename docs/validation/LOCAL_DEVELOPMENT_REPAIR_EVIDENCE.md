@@ -261,7 +261,7 @@ real browser smoke and HMR pass. Architecture verification passes: 185 manifest 
 pass 6 tests / 14 subtests. No backend science/full feature suite required
 or run for this environment correction.
 
-## Requested 36-point handoff
+## Original 36-point handoff, 2026-10-04 (superseded by integration)
 
 1. Initial Git: `earth-hd-mapping-1` at `a9f3e207235d42399d37d8c51b18103f6edcbb87`; only unstaged owner `.vscode/settings.json`.
 2. Earth failure: missing required stable bind source while dependent normal services were stopped.
@@ -469,3 +469,8 @@ first, then the stacked Sky PR, preserving both owner-review gates. Original
 Source-scope suggestions about future nested dev directories and non-4173 ports
 remain for owner review: no such source directory exists and current frontend
 qualification is locked to 4173. The replayed tooling behavior is preserved.
+
+The original handoff's pending-commit wording predates its final commit:
+`1cb71b848a1ed46390945fe0fa636676b8b8f744` is now recoverable from the preserved
+original branch. Its integration replay is `8d2b37423cfa33d5184071c5f94efd8e5737a445`.
+These current identity annotations supersede the original pending-SHA placeholder.
