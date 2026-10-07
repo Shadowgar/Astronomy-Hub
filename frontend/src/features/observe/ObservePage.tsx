@@ -1,3 +1,4 @@
+import SkyWorkspaceLink from '../workspace/SkyWorkspaceLink'
 import { useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
@@ -172,7 +173,7 @@ export function ObserveView({
                         {object.reason ? <p className="observe-card-reason">{object.reason}</p> : null}
                         <div className="observe-card-actions">
                           <button type="button" onClick={() => onSelect(key)} aria-label={`Details for ${object.name}`}>View details</button>
-                          {skyUrl ? <a href={skyUrl}>Open in Sky <span aria-hidden="true">↗</span></a> : null}
+                          {skyUrl ? <SkyWorkspaceLink href={skyUrl}>Open in Sky <span aria-hidden="true">↗</span></SkyWorkspaceLink> : null}
                         </div>
                       </article>
                     )
@@ -232,7 +233,7 @@ export function ObserveView({
                       {payload.observabilityContext.weather.status === 'not_evaluated_for_selected_time' ? <p>Current weather is not applied to this selected observing time.</p> : null}
                     </section>
                   ) : null}
-                  {selectedUrl ? <a className="observe-detail-cta" href={selectedUrl}>Open {selected.name} in Sky <span aria-hidden="true">↗</span></a> : null}
+                  {selectedUrl ? <SkyWorkspaceLink className="observe-detail-cta" href={selectedUrl}>Open {selected.name} in Sky <span aria-hidden="true">↗</span></SkyWorkspaceLink> : null}
                   <p className="observe-detail-note">Catalog magnitudes may use different photometric bands. Altitude is a geometric horizon measure.</p>
                 </aside>
               ) : null}

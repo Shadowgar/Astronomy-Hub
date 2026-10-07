@@ -8,7 +8,7 @@ vi.mock('../src/features/tonight/queries',()=>({useTonightQuery:()=>state.night}
 vi.mock('../src/features/observe/queries',()=>({useObserveSkyQuery:()=>state.observe}))
 import HomePage, {TonightSummary,ObserveSummary,ConditionsSummary} from '../src/features/home/HomePage'
 
-const target=(id:string)=>({catalog:'Messier (local)',source_id:id,model:'dso',name:id,type:'galaxy',category:'deep-sky' as const,ra:10,dec:41,opportunity:{peak_time:'2026-10-02T03:00:00Z',peak_altitude_deg:60,peak_azimuth_deg:180,dark_duration_minutes:500,planning_altitude_duration_minutes:300},ranking:{policy_version:'tonight-opportunity.v1',rank_reason:'Factual fixture'},sky_engine_url:`/oras-sky-engine/skysource/${id}?catalog=Messier%20(local)&source_id=${id}&model=dso&ra=10&dec=41&date=2026-10-02T03%3A00%3A00Z`})
+const target=(id:string)=>({catalog:'Messier (local)',source_id:id,model:'dso',name:id,type:'galaxy',category:'deep-sky' as const,ra:10,dec:41,opportunity:{peak_time:'2026-10-02T03:00:00Z',peak_altitude_deg:60,peak_azimuth_deg:180,dark_duration_minutes:500,planning_altitude_duration_minutes:300},ranking:{policy_version:'tonight-opportunity.v1',rank_reason:'Factual fixture'},sky_engine_url:`/oras-sky-engine/skysource/${id}?catalog=Messier%20(local)&source_id=${id}&model=dso&ra=10&dec=41&date=2026-10-02T03%3A00%3A00.000Z`})
 const night:TonightPayload={status:'ok',data:{night:{night_date:'2026-10-01',timezone:'America/New_York',status:'available',interval_start:'2026-10-01T16:00:00Z',interval_end:'2026-10-02T16:00:00Z',dark_duration_minutes:500,astronomical_darkness:[{start:'2026-10-02T00:00:00Z',end:'2026-10-02T08:20:00Z'}],twilight:{},moon:{time:'2026-10-02T04:00:00Z',altitude_deg:25,illumination_fraction:0}},targets:[target('M31'),target('M42'),target('M13'),target('M51')],top_opportunities:[target('M42'),target('M31'),target('M13'),target('M51')],forecast:{status:'partial',provider:'open_meteo_hourly',hours:[{time:'2026-10-02T02:00:00Z',cloud_cover_pct:0},{time:'2026-10-02T03:00:00Z',cloud_cover_pct:35}]}},meta:{contract_version:'tonight.v1',observer:{label:'ORAS Observatory'},limitations:[]}}
 const observe:ObservePayload={objects:[{catalog:'Messier (local)',source_id:'M31',model:'dso',name:'Andromeda Galaxy',type:'galaxy',is_visible:true,alt:48,az:315,sky_engine_url:target('M31').sky_engine_url}],time:'2026-10-02T03:00:00Z',observer:{lat:41.321903,lng:-79.585394,elev:432.816}}
 const weather:ObservabilityContext['weather']={status:'current_fresh',source:'open_meteo_current',last_updated:'2026-10-02T03:00:00Z',cloud_cover_pct:0,temperature_c:0,humidity_pct:50,wind_mph:0,dew_point_c:-4}
@@ -19,7 +19,7 @@ describe('Home source-backed summaries',()=>{
   const html=render(<TonightSummary payload={night}/>)
   expect(html).toContain('8h 20m');expect(html).toContain('0% illuminated');expect(html).toContain('0–35% clouds');expect(html).toContain('Partial forecast')
   expect(html.indexOf('<h3>M42')).toBeLessThan(html.indexOf('<h3>M31'));expect(html).not.toContain('<h3>M51')
-  expect(html).toContain('date=2026-10-02T03%3A00%3A00Z')
+  expect(html).toContain('date=2026-10-02T03%3A00%3A00.000Z')
  })
  it.each(['unavailable','stale'])('withholds %s forecast clouds without losing targets',status=>{
   const html=render(<TonightSummary payload={{...night,data:{...night.data,forecast:{...night.data.forecast,status}}}}/>)
@@ -73,4 +73,9 @@ describe('Home source-backed summaries',()=>{
   const html=render(<HomePage/>)
   expect(html).toContain('ORAS observatory');expect(html).toContain('Open Sky');expect(html).not.toContain('Andromeda Galaxy')
  })
+})
+
+it('Home opportunities open the canonical unified workspace',()=>{
+ const html=renderToStaticMarkup(<MemoryRouter><TonightSummary payload={night}/><ObserveSummary payload={observe}/></MemoryRouter>);
+ expect(html).toContain('href="/sky-engine?');expect(html).not.toContain('href="/oras-sky-engine/');expect(html).toContain('source_id=M31');expect(html).toContain('date=2026');
 })

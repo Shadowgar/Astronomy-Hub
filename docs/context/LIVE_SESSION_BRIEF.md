@@ -22,16 +22,83 @@ from `1cb71b848a1ed46390945fe0fa636676b8b8f744` to
 identical repair tree. Review branch: `dev-wsl-performance-integration-20261005`.
 Use `npm run dev:local`; exact provisioning/workflow proof is in
 [local development repair evidence](../validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md).
-The preserved Sky sequence `5328afba` → `7b2d4927` will be reconciled above this
-tooling branch because its installed-data launcher extends the tooling repair.
-The two follow-up PRs require separate owner review and must remain unmerged.
+Tooling [PR #64](https://github.com/Shadowgar/Astronomy-Hub/pull/64) is open and
+unmerged. The Sky review branch `sky-engine-ux-integration-20261005` is stacked
+on `dev-wsl-performance-integration-20261005` because its installed-data launcher
+extends tooling. The preserved sequence `5328afba` → `7b2d4927` was replayed as
+`f8cf03fd` → `cb7bfaf1`. Only live-brief history conflicted; all non-document
+files matched the original final Sky tree at integration head `4c82b9f7`. A clean pinned Docker rebuild
+reproduced Sky artifact
+`e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e`, with native
+WASM/vendor files and Earth identity unchanged. Current qualification is recorded
+in [workspace evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
+Both follow-up PRs require separate owner review and must remain unmerged.
 No new feature phase is authorized. Review tooling first, then Sky.
+
+The current owner-authorized follow-up fixes only PR #65's native-deselection P2.
+The Hub acknowledgement/persistence boundary now clears a later native null
+selection while preserving initial restore intent and newer client-bound work;
+its canonical route identity is removed as well. Sky-owned inputs and both
+renderer artifacts remain unchanged. Fresh red/green and Docker/browser proof
+is appended to the [workspace evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
+PR #64 remains open, so #65 stays stacked; neither PR may be merged by this task.
+No C5.7 or other feature phase is authorized.
 
 ORA-7 / PR #58 and C5 / PR #59 remain merged, owner-approved baselines.
 The unchanged locked design ancestor is `2a4a665bc2db8399dd0728f918f5aae695ac0cd5`.
 No runtime override mode is active. Reconciliation, planning and validation packs
 apply; use frontend/review packs only as needed for the existing Sky package.
 Repository design authority and the partial secondary Figma owner waiver remain.
+
+## Preserved local Sky checkpoints
+
+These dated checkpoints preserve original local proof and stop-points. Their
+next-action/approval statements are historical and superseded by the active
+2026-10-05 integration authorization above.
+
+## Owner-directed Sky star loading and ORAS controls, 2026-10-04
+
+The owner's new bounded follow-up is locally qualified on
+`sky-engine-star-loading-oras-controls-1`, based on preserved Sky UX commit
+`5328afba`, in the same `sky-engine-ux-regressions-1` worktree. It fixes the
+worktree's missing installed Gaia mount and HTML metadata fallback, and adds the
+owner-approved custom SVG presentation for eight native view controls. Native
+star math, magnitude profiles, selection, wheel input and control action/state
+ownership remain SWE-owned. Both ORAS surfaces match a data-qualified reference
+in the tested fields; existing sparse profile and catalog-depth limits remain.
+
+Fresh Docker/browser proof, artifacts, changed files and limits are recorded in
+[Sky follow-up evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md#owner-directed-sky-star-loading-and-oras-controls-2026-10-04).
+Use `npm run dev:local` from that worktree; it selects the installed owner skydata
+without copying bulk data or requiring a temporary Compose override. Sky artifact:
+`e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e`.
+Earth's qualified artifact and runtime implementation are unchanged.
+
+Next action is owner local review, then separately approved integration of the
+preserved tooling/Sky commits and PR #63 dependency. No push, PR, merge, production,
+SSH, Cloudflare, oras.org or Earth/ISS/Moon/Mars feature work occurred. No next
+feature/integration work is authorized by this checkpoint. The earlier Sky UX
+stop-point below is historical; this explicit owner follow-up superseded it only
+for the star-loading and custom-control package. Default Mode remains active.
+
+## Owner-directed Sky UX correction, 2026-10-04
+
+The owner refined embedded Sky presentation: native object search and useful
+scene/view toggles must remain available alongside Hub-owned workspace chrome.
+The bounded correction is locally qualified on `sky-engine-ux-regressions-1`,
+based on preserved tooling commit `1cb71b84`. Both Sky surfaces now forward
+standard wheel input to SWE's native zoom; embedded native search/view controls
+are restored; normal Home/Observe/Tonight Sky links enter `/sky-engine` with
+canonical identity, observer, controlled time and native focus. Standalone exact
+links remain available. Qualification and limits are recorded in the
+[Sky UX correction evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md#owner-directed-sky-ux-correction-2026-10-04).
+
+Next action is owner local review of this separate correction and its preserved
+tooling/PR #63 integration dependencies. PR #63 remains open and unchanged;
+no push, merge, new feature or remote work is authorized by this checkpoint.
+Use `npm run dev:local` from the correction worktree while reviewing it; the
+original tooling checkout and its unstaged `.vscode/settings.json` are preserved.
+The previous next-action statements below are historical context.
 
 ## Owner release policy, 2026-10-04
 

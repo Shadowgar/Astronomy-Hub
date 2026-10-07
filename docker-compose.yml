@@ -13,7 +13,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./frontend/public/oras-sky-engine/skydata:/runtime/oras-sky-engine/skydata:ro
+      - ${ORAS_SKYDATA_HOST_DIR:-./frontend/public/oras-sky-engine/skydata}:/runtime/oras-sky-engine/skydata:ro
       - ${ORAS_SATELLITE_TLE_HOST_DIR:-./frontend/public/oras-sky-engine/skydata}:/runtime/oras-satellite-tle:ro
       - ${ORAS_CATALOG_PACKS_HOST_DIR:-./data/runtime-packs/catalog-packs}:/runtime/oras-catalog-packs:ro
       - ${ORAS_PLANETARY_EPHEMERIS_HOST_DIR:-./data/runtime-packs/planetary-ephemeris/release}:/runtime/oras-planetary-ephemeris:ro
@@ -26,7 +26,7 @@ services:
       context: .
       dockerfile: frontend/Dockerfile
     volumes:
-      - ./frontend/public/oras-sky-engine/skydata:/app/public/oras-sky-engine/skydata:ro
+      - ${ORAS_SKYDATA_HOST_DIR:-./frontend/public/oras-sky-engine/skydata}:/app/public/oras-sky-engine/skydata:ro
       - ${ORAS_SATELLITE_TLE_HOST_DIR:-./frontend/public/oras-sky-engine/skydata}/tle_satellite.jsonl.gz:/app/public/oras-sky-engine/skydata/tle_satellite.jsonl.gz:ro
       - ${ORAS_CATALOG_PACKS_HOST_DIR:-./data/runtime-packs/catalog-packs}:/app/public/oras-sky-engine/skydata/catalog-packs:ro
       - ${ORAS_DENSE_STAR_TILES_HOST_DIR:-./data/runtime-packs/dense-star-tiles}:/app/public/oras-sky-engine/skydata/dense-star-tiles:ro

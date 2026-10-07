@@ -1,7 +1,14 @@
 // Qualified SWE extension hook. All scientific/scene work remains inside this frame.
 import swh from '@/assets/sw_helpers.js'
+import TargetSearch from '@/components/target-search.vue'
+import BottomBar from '@/components/bottom-bar.vue'
+import {installNativeWheel} from './native-wheel.mjs'
 export default {
- guiComponents:[{name:'oras-workspace-source',computed:{embedded(){return this.$store.state.orasEmbeddedPresentation}},render(h){return this.embedded?h('button',{class:'oras-workspace-source',attrs:{'aria-label':'Sky sources and survey credits'},on:{click:()=>this.$store.commit('setValue',{varName:'showDataCreditsDialog',newValue:true})}},['ORAS Sky Engine · Stellarium · survey credits']):null}}],
+ guiComponents:[
+  {name:'oras-workspace-search',computed:{embedded(){return this.$store.state.orasEmbeddedPresentation}},render(h){return this.embedded?h('div',{class:'oras-workspace-search'},[h(TargetSearch)]):null}},
+  {name:'oras-workspace-bottom',computed:{embedded(){return this.$store.state.orasEmbeddedPresentation}},render(h){return this.embedded?h('div',{class:'oras-workspace-bottom',attrs:{role:'toolbar','aria-label':'Sky view controls'}},[h(BottomBar)]):null}},
+  {name:'oras-workspace-source',computed:{embedded(){return this.$store.state.orasEmbeddedPresentation}},render(h){return this.embedded?h('button',{class:'oras-workspace-source',attrs:{'aria-label':'Sky sources and survey credits'},on:{click:()=>this.$store.commit('setValue',{varName:'showDataCreditsDialog',newValue:true})}},[h('span',{class:'oras-credits-full'},['ORAS Sky Engine · Stellarium · survey credits']),h('span',{class:'oras-credits-compact'},['Stellarium · credits'])]):null}}
+ ],
  onEngineReady(app) {
   let disposed=false,selectionGeneration=0
   const set=(key,value)=>app.$store.commit('setValue',{varName:key,newValue:value})
@@ -13,14 +20,18 @@ export default {
    if(embedded){set('showSidePanel',false);set('showNavigationDrawer',false)}
   }
   const style=document.createElement('style')
-  style.textContent='.oras-workspace-embedded #toolbar-image,.oras-workspace-embedded #time-controls,.oras-workspace-embedded #location-button,.oras-workspace-embedded #selected-object-info,.oras-workspace-embedded .bottom-toolbar{display:none!important}.oras-workspace-embedded #stel{width:100%!important}.oras-workspace-embedded .v-main{padding:0!important}.oras-workspace-source{position:absolute;bottom:4px;left:16px;z-index:4;min-height:44px;background:transparent;color:#B9C7D7;border:0;font:10px/14px sans-serif;pointer-events:auto;cursor:pointer}.oras-credits-top .oras-workspace-source{top:68px;bottom:auto}.oras-workspace-source:focus-visible{outline:2px solid #9BE4F2}'
+  style.textContent='.oras-workspace-embedded #toolbar-image,.oras-workspace-embedded #time-controls,.oras-workspace-embedded #location-button,.oras-workspace-embedded #selected-object-info,.oras-workspace-embedded .bottom-toolbar{display:none!important}.oras-workspace-embedded #stel{width:100%!important}.oras-workspace-embedded .v-main{padding:0!important}.oras-workspace-source{position:absolute;bottom:4px;left:16px;z-index:4;min-height:44px;background:transparent;color:#B9C7D7;border:0;font:10px/14px sans-serif;pointer-events:auto;cursor:pointer}.oras-credits-top .oras-workspace-source{top:68px;bottom:auto}.oras-credits-compact{display:none}.oras-workspace-source:focus-visible{outline:2px solid #9BE4F2}.oras-workspace-search{position:absolute;top:16px;left:16px;width:min(280px,calc(100% - 32px));z-index:5;pointer-events:auto;background:#111B27;border-radius:6px;padding:0 12px 8px}.oras-workspace-search .v-list{max-height: min(360px,40vh);overflow:auto;width:100%}.oras-workspace-bottom{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);height:54px;padding:4px;overflow-x:auto;overflow-y:hidden;pointer-events:auto;background:#111B27;border:1px solid #72859C;border-radius:8px;z-index:4;scrollbar-width:thin;scrollbar-color:#72859C #111B27}.oras-workspace-bottom>div{position:relative!important;display:flex!important;width:max-content;gap:4px}.oras-workspace-bottom .bottom-button[data-control="art"],.oras-workspace-bottom .bottom-button[data-control="landscape"],.oras-workspace-bottom .bottom-button[data-control="equatorial"]{margin-right:4px}.oras-workspace-bottom .bottom-button{flex:0 0 44px}.oras-workspace-bottom .bottom-button .hint{display:none}@media(max-width:767px){.oras-workspace-search{top:68px}.oras-workspace-bottom{bottom:52px;height:60px}.oras-credits-top .oras-workspace-search{display:none}.oras-credits-top .oras-workspace-bottom{top:68px;bottom:auto;left:16px;transform:none;max-width:calc(100% - 112px)}.oras-credits-top .oras-workspace-source{top:68px;bottom:auto;left:auto;right:16px;width:68px;background:#111B27;border-radius:6px}.oras-credits-top .oras-credits-full{display:none}.oras-credits-top .oras-credits-compact{display:inline}}'
+  style.textContent+='.oras-native-panel-open .oras-workspace-bottom,.oras-native-panel-open .oras-workspace-search,.oras-native-panel-open .oras-workspace-source{visibility:hidden;pointer-events:none}.oras-workspace-embedded .v-dialog .v-btn{min-height:44px;min-width:44px}'
   document.head.appendChild(style)
+  const stopPanelWatch=app.$watch(()=>!!(app.$store.state.showViewSettingsDialog||app.$store.state.showDataCreditsDialog),open=>{document.documentElement.classList.toggle('oras-native-panel-open',open);window.dispatchEvent(new CustomEvent('oras-sky-panel',{detail:open}))})
+  const removeWheel=installNativeWheel(document.querySelector('#stel-canvas'),app.$stel)
+  window.addEventListener('pagehide',event=>{if(!event.persisted)removeWheel()},{once:false})
   presentation(new URLSearchParams(location.search).get('orasEmbedded')==='1')
   window.orasSkyAdapter={
    observer:app.$stel.core.observer,
    tools(){set('showViewSettingsDialog',true);return {ok:true}},
    panelOpen(){return !!(app.$store.state.showViewSettingsDialog||app.$store.state.showDataCreditsDialog)},
-   stop(){disposed=true;++selectionGeneration;app.$stel.core.time_speed=0},
+   stop(){stopPanelWatch();disposed=true;++selectionGeneration;app.$stel.core.time_speed=0},
    setLive(live){app.$stel.core.time_speed=live?1:0},presentation,
    async select(entity){
     const generation=++selectionGeneration

@@ -16,3 +16,12 @@
 @media(max-width:767px){.ws-sheet-heading{justify-content:flex-end}.ws-sheet-handle{position:absolute;left:calc(50% - 22px);top:0;flex:none;width:44px;padding:0!important}.ws-sheet--collapsed .ws-sheet-handle{left:8px;width:calc(100% - 104px);justify-content:flex-start}.ws-time{bottom:max(64px,calc(var(--ws-safe-bottom) + 30px))}.ws-mobile-launchers{bottom:max(124px,calc(var(--ws-safe-bottom) + 90px))}}
 
 .ws-shell .ws-primary:hover{background:#B9EEF7;color:var(--ws-ink)}
+
+/* Reserve clearance for the 54px ORAS Sky dock (60px with mobile scrollbar). */
+.ws-shell[data-workspace-mode=sky] .ws-time{bottom:88px}
+.ws-shell[data-workspace-mode=sky] .ws-time-editor,.ws-shell[data-workspace-mode=sky] .ws-drawer{bottom:148px}
+.ws-shell[data-workspace-mode=sky] .ws-notice{bottom:224px}
+@media(max-width:767px){.ws-shell[data-workspace-mode=sky] .ws-time{bottom:max(120px,calc(var(--ws-safe-bottom) + 70px))}.ws-shell[data-workspace-mode=sky] .ws-mobile-launchers{bottom:max(180px,calc(var(--ws-safe-bottom) + 130px))}}
+
+/* Native Sky dialogs temporarily own focus; preserve the Hub surface and snap. */
+.ws-shell--native-panel .ws-chrome,.ws-shell--native-panel .ws-sheet,.ws-shell--native-panel .ws-menu,.ws-shell--native-panel .ws-reveal{visibility:hidden;pointer-events:none}

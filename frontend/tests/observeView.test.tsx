@@ -50,6 +50,8 @@ describe('Observe page states', () => {
     expect(html).toContain('Current Sky Position')
     expect(html).toContain('Messier (local)')
     expect(html).toContain('source_id=M31')
+    expect(html).toContain('href="/sky-engine?')
+    expect(html).not.toContain('href="/oras-sky-engine/')
     expect(html).not.toContain('Unknown')
     expect(html).not.toContain('placeholder')
   })
@@ -130,6 +132,8 @@ describe('Observe page states', () => {
     expect(html).toContain('73.4°')
     expect(html).toContain('Not modeled')
     expect(html).toContain('source_id=M31')
+    expect(html).toContain('href="/sky-engine?')
+    expect(html).not.toContain('href="/oras-sky-engine/')
     expect(html).not.toContain('Excellent')
   })
 

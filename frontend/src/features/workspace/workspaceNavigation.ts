@@ -1,5 +1,25 @@
 import {parseSceneDate,type CanonicalEntity} from '../runtime/productState'
 import type {RuntimeMode,ObserverIntent} from '../../../../packages/runtime-protocol/index.mjs'
+// A native selection reports identity, not a new camera/focus intent. Keep the
+// scene query intact and replace all identity fields together only on a change.
+export function nativeSelectionSearch(search:string,entity:CanonicalEntity){
+ const params=new URLSearchParams(search)
+ if(['catalog','source_id','model'].every(key=>params.get(key)===entity[key as keyof CanonicalEntity]))return null
+ for(const key of ['catalog','source_id','model','ra','dec','focus'])params.delete(key)
+ for(const key of ['catalog','source_id','model','ra','dec'] as const){const value=entity[key];if(value!==undefined)params.set(key,String(value))}
+ return '?'+params
+}
+// Translate a qualified runtime link without rebuilding identity or scene intent.
+export function skyWorkspacePath(exactLink:string){
+ const url=new URL(exactLink,'http://local.invalid')
+ if(url.origin!=='http://local.invalid'||!url.pathname.startsWith('/oras-sky-engine/skysource/'))return null
+ if(['catalog','source_id','model'].some(key=>!url.searchParams.get(key)))return null
+ // Backend peak timestamps carry microseconds; the Hub/native Date boundary is milliseconds.
+ const date=url.searchParams.get('date')
+ if(date){const utc=parseSceneDate(date.replace(/(\.\d{3})\d+(Z)$/,'$1$2'));if(!utc)return null;url.searchParams.set('date',utc)}
+ url.searchParams.set('focus','1')
+ return '/sky-engine?'+url.searchParams
+}
 export function workspaceModePath(mode:RuntimeMode,search:string){
  const params=new URLSearchParams(search),date=parseSceneDate(params.get('date'))
  if(date)params.set('date',date);else params.delete('date')

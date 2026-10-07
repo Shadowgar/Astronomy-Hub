@@ -1,4 +1,5 @@
 import {test,expect} from '@playwright/test'
+import {LAYER_IDS} from '../../../packages/runtime-protocol/workspace.mjs'
 const checksum=(s:string)=>{const padded=s.padEnd(68,' ');return padded+[...padded].reduce((sum,c)=>sum+(/\d/.test(c)?Number(c):c==='-'?1:0),0)%10}
 const days=(date:Date)=>Math.floor((date.getTime()-Date.UTC(date.getUTCFullYear(),0,0))/86400000)
 const epoch=`${String(new Date().getUTCFullYear()).slice(-2)}${String(days(new Date())).padStart(3,'0')}.50000000`
@@ -13,7 +14,14 @@ for(const [label,width,height] of [['desktop',1440,900],['mobile',390,844]] as c
  test(`owned Earth core and selective adapters fixture ${label}`,async({page})=>{
   test.setTimeout(120000);await page.setViewportSize({width,height});await providers(page);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/earth-runtime/');
   await expect(page.locator('#earth')).toHaveAttribute('data-status','ready');const earth=page.mainFrame();
-  const diagnostics=await earth.evaluate(()=> (window as any).orasEarthDiagnostics());expect(diagnostics.owner).toBe('Astronomy Hub');expect(diagnostics.site).toEqual({lat:41.321903,lon:-79.585394,elevationM:432.816});expect(diagnostics.layers).toHaveLength(4);
+  const diagnostics=await earth.evaluate(()=> (window as any).orasEarthDiagnostics());expect(diagnostics.owner).toBe('Astronomy Hub');expect(diagnostics.site).toEqual({lat:41.321903,lon:-79.585394,elevationM:432.816});
+  // C5 extends the owned registry; exact IDs catch omissions, extras and duplicates.
+  expect(diagnostics.layers.map((layer:any)=>layer.id).sort()).toEqual([...LAYER_IDS].sort());
+  expect(Object.fromEntries(diagnostics.layers.map((layer:any)=>[layer.id,layer.capabilities]))).toEqual({
+   'oras-site':['selection','focus'],aircraft:['selection','live-only'],satellites:['selection','tracking','live-only'],weather:['selection','live-only'],
+   earthquakes:['selection','focus'],'fire-perimeters':['selection','focus'],'weather-radar':['selection','focus'],
+  });
+  console.log('EARTH_LAYER_CONTRACT',label,JSON.stringify(diagnostics.layers));
   await expect(earth.locator('#attributions')).toContainText('Natural Earth');const creditsBox=await earth.locator('#credits').boundingBox(),attributionBox=await earth.locator('#attributions').boundingBox();expect(creditsBox!.y+creditsBox!.height).toBeLessThanOrEqual(attributionBox!.y+1);await expect(earth.locator('#attributions')).toContainText('God’s Eye MIT');await expect(earth.locator('#app-header,#data-panel,#control-panel-toggle')).toHaveCount(0);
   await earth.getByRole('button',{name:'Return to ORAS',exact:true}).click();await page.waitForTimeout(1100);const canvas=earth.locator('canvas').first(),box=await canvas.boundingBox();if(label==='mobile')await page.touchscreen.tap(box!.x+box!.width/2,box!.y+box!.height/2);else await canvas.click({position:{x:box!.width/2,y:box!.height/2}});await expect(earth.locator('#selected-name')).toContainText('Oil Region');
   await earth.getByRole('button',{name:'Track',exact:true}).click();expect((await earth.evaluate(()=> (window as any).orasEarthDiagnostics())).tracking).toBe(null);await earth.getByRole('button',{name:'Stop tracking'}).click();await earth.getByRole('button',{name:'Focus',exact:true}).click();await earth.getByRole('button',{name:'Return to ORAS'}).click();

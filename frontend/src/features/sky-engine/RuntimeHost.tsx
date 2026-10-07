@@ -5,10 +5,11 @@ import type {RuntimeMode} from '../../../../packages/runtime-protocol/index.mjs'
 import {useRuntimeProductState,parseSceneDate} from '../runtime/productState'
 import {workspaceModePath} from '../workspace/workspaceNavigation'
 import {probeRuntime,RuntimeProbeError} from '../runtime/runtimeProbeService'
+import {validSkyPanelReport} from '../../../../runtimes/sky-adapter/native-panels.mjs'
 export type RuntimeStatus='checking'|'loading'|'ready'|'error'
 let disposal:Promise<void>=Promise.resolve()
-export default function RuntimeHost({mode='sky',onClient,onStatus}:{mode?:RuntimeMode;onClient?:(client:RuntimeClient|null)=>void;onStatus?:(status:RuntimeStatus)=>void}){
- const container=useRef<HTMLDivElement>(null),location=useLocation(),navigate=useNavigate(),latest=useRef({location,onClient,onStatus});latest.current={location,onClient,onStatus}
+export default function RuntimeHost({mode='sky',onClient,onStatus,onNativePanel}:{mode?:RuntimeMode;onClient?:(client:RuntimeClient|null)=>void;onStatus?:(status:RuntimeStatus)=>void;onNativePanel?:(open:boolean)=>void}){
+ const container=useRef<HTMLDivElement>(null),location=useLocation(),navigate=useNavigate(),latest=useRef({location,onClient,onStatus,onNativePanel});latest.current={location,onClient,onStatus,onNativePanel}
  const [retry,setRetry]=useState(0),[status,setStatus]=useState<RuntimeStatus>('checking'),[mismatch,setMismatch]=useState(false);const [statusKey,setStatusKey]=useState('');const mountKey=`${mode}:${retry}`;const visibleStatus=statusKey===mountKey?status:'checking'
  useEffect(()=>{
   let cancelled=false,frame:HTMLIFrameElement|null=null,client:RuntimeClient|null=null
@@ -18,6 +19,9 @@ export default function RuntimeHost({mode='sky',onClient,onStatus}:{mode?:Runtim
   if(live)params.delete('date')
   if(live)useRuntimeProductState.setState({requestedTime:new Date().toISOString()})
   const generation=product.activate(mode),bytes=crypto.getRandomValues(new Uint8Array(16)),nonce=Array.from(bytes,x=>x.toString(16).padStart(2,'0')).join('')
+  let panelSequence=0
+  const nativePanel=(event:MessageEvent)=>{if(!cancelled&&mode==='sky'&&client&&frame&&validSkyPanelReport(event,{source:frame.contentWindow,origin:window.location.origin,nonce,generation})&&event.data.id>panelSequence){panelSequence=event.data.id;latest.current.onNativePanel?.(event.data.open)}}
+  window.addEventListener('message',nativePanel);latest.current.onNativePanel?.(false)
   function update(value:RuntimeStatus){if(cancelled)return;setStatus(value);latest.current.onStatus?.(value)}
   setStatusKey(mountKey);update('checking');setMismatch(false)
   async function mount(){
@@ -41,6 +45,7 @@ export default function RuntimeHost({mode='sky',onClient,onStatus}:{mode?:Runtim
   void mount()
   return ()=>{
    cancelled=true;abort.abort();latest.current.onClient?.(null)
+   window.removeEventListener('message',nativePanel);latest.current.onNativePanel?.(false)
    const previous=client,previousFrame=frame
    disposal=disposal.then(async()=>{try{if(previous?.capabilities.includes('destroy'))await previous.request('destroy',{},1000)}catch{/* bounded removal releases a failed document */}finally{previous?.close();previousFrame?.remove()}})
   }

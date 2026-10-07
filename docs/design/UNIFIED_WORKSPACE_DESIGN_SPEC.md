@@ -411,8 +411,15 @@ hover tooltips never required to use a control. Focus2px with2px offset remains 
 Mode and context tabs use roving arrows + Home/End and Enter/Space activation. Rail uses
 Tab order, no invented navigation key interception. Dialogs trap focus only when modal;
 nonmodal desktop panels allow normal Tab back to scene. Escape returns to invoking control.
-Mobile expanded sheets are modal to other chrome but leave an explicit Collapse action;
-background scene input disabled while fully expanded, enabled above mid/collapsed sheet.
+Mobile expanded Earth sheets are modal to other chrome but leave an explicit Collapse action;
+background Earth scene input is disabled while fully expanded, enabled above mid/collapsed sheet.
+The 2026-10-05 owner correction makes Sky sheets nonmodal at every snap: the exposed
+Sky canvas, native controls and attribution remain interactive. While a Sky sheet is
+open, its native search is suppressed and its toolbar and credits share the visible
+row below the mode switcher; search returns when the sheet closes. Native Sky
+dialogs temporarily suspend Hub overlays and restore the same sheet snap on close.
+Their Sky-only presentation reports are bound to origin, active frame, nonce,
+generation and increasing sequence; shared frozen Earth protocol inputs stay unchanged.
 
 Landmarks: header/banner, main “Sky workspace”/“Earth workspace”, named Layers/Context/
 Selected object regions, time group. Frame has meaningful title. Announce new selection

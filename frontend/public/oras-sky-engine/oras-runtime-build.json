@@ -5,6 +5,11 @@
   "native_wasm_identical": true,
   "native_vendor_chunks_identical": true,
   "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
-  "adapter_sha256": "334eeba9fd393eb27fca8c5aaa31504af79cec94dbc2b0da134a8ae99232c752",
-  "artifact_sha256": "bbf8e9136fa510e86a64095f5e5ec51846456989b589de21937d2f929450e1a5"
+  "adapter_sha256": "ccecdf404b1ecd9a850a2b853949409642731bbad79cd25b990d0e1e76356ed7",
+  "bridge_input_sha256": {
+    "entry.mjs": "42b563d3c77e84b70e0ef3825e6b6289ec2252e9e699ddb3057e82c90574aeca",
+    "native-panels.mjs": "52a012e28bb62f8c362fa97b8a89c9afff01bbeb953b711c354e81d40a28997f"
+  },
+  "wheel_input_sha256": "29353cca2b47c44b8467c8e2e808a3af8b3cf8bc8a17a9aa211061f75f40bbe9",
+  "artifact_sha256": "b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d"
 }

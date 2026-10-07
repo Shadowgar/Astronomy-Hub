@@ -13,6 +13,11 @@ case "${1:-up}" in
   up|--build) ;;
   *) echo "Usage: $0 [up|--build|status|logs]" >&2; exit 2 ;;
 esac
+# Ignored bulk data belongs to the owner checkout, not the sparse Git worktree.
+ORAS_SKYDATA_HOST_DIR="$(python3 scripts/runtime/skydata_path.py)"
+export ORAS_SKYDATA_HOST_DIR
+export ORAS_SATELLITE_TLE_HOST_DIR="${ORAS_SATELLITE_TLE_HOST_DIR:-$ORAS_SKYDATA_HOST_DIR}"
+echo "Installed Sky data: $ORAS_SKYDATA_HOST_DIR"
 python3 scripts/runtime/earth_artifact.py install
 python3 scripts/runtime/earth_artifact.py verify
 # Preserve existing anonymous DB/data volumes and their container identity.

@@ -1,3 +1,4 @@
+import SkyWorkspaceLink from '../workspace/SkyWorkspaceLink'
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ORAS_SITE } from '../../config/orasSite'
@@ -25,7 +26,7 @@ function TargetCard({target,hours}: {target: Target; hours: ForecastHour[]}) {
   </dl>
   {forecast?.cloud_cover_pct != null ? <p className="tonight-cloud">Clouds near peak: {forecast.cloud_cover_pct}% <span>forecast</span></p> : null}
   <p className="tonight-reason">{target.ranking.rank_reason}</p>
-  <div className="observe-card-actions"><a href={target.sky_engine_url}>Open in Sky <span aria-hidden="true">↗</span></a></div>
+  <div className="observe-card-actions"><SkyWorkspaceLink href={target.sky_engine_url}>Open in Sky <span aria-hidden="true">↗</span></SkyWorkspaceLink></div>
  </article>
 }
 

@@ -56,7 +56,8 @@ export function isOrasRuntimeSpaPath(requestPath) {
     return false
   }
 
-  if (isOrasRuntimeProxyPath(requestPath)) {
+  // HiPS metadata such as `properties` is extensionless, but is never a route.
+  if (isOrasRuntimeProxyPath(requestPath) || requestPath.startsWith('/oras-sky-engine/skydata/')) {
     return false
   }
 
@@ -81,10 +82,6 @@ export function isMissingOrasRuntimeDataAsset(requestPath) {
 
   const cleanPath = requestPath.split('?')[0]
   const relativeRuntimePath = cleanPath.replace(/^\/oras-sky-engine\/?/, '')
-  if (!path.extname(relativeRuntimePath)) {
-    return false
-  }
-
   const staticCandidatePath = path.join(runtimePublicDir, relativeRuntimePath)
   return !fs.existsSync(staticCandidatePath)
 }
@@ -96,6 +93,8 @@ export function getOrasRuntimeRemoteFallbackPath(requestPath) {
 
   const cleanPath = requestPath.split('?')[0]
   const relativeSkydataPath = cleanPath.replace(/^\/oras-sky-engine\/skydata\/?/, '')
+  // An unavailable installed survey must fail visibly, not load CDN metadata.
+  if (!path.extname(relativeSkydataPath)) return undefined
   const query = requestPath.includes('?') ? requestPath.slice(requestPath.indexOf('?')) : ''
   const remoteMappings = [
     ['packs/minimal/stars/', 'swe-data-packs/minimal/2020-09-01/minimal_2020-09-01_186e7ee2/stars/'],
@@ -163,7 +162,7 @@ export function serveOrasRuntimeRequest(req, res, next) {
 }
 
 function serveBridge(req,res,next){
- const routes={'/runtime-bridge/sky/entry.mjs':'../runtimes/sky-adapter/entry.mjs','/packages/runtime-protocol/endpoint.mjs':'../packages/runtime-protocol/endpoint.mjs','/packages/runtime-protocol/index.mjs':'../packages/runtime-protocol/index.mjs','/packages/runtime-protocol/workspace.mjs':'../packages/runtime-protocol/workspace.mjs'}
+ const routes={'/runtime-bridge/sky/entry.mjs':'../runtimes/sky-adapter/entry.mjs','/runtime-bridge/sky/native-panels.mjs':'../runtimes/sky-adapter/native-panels.mjs','/packages/runtime-protocol/endpoint.mjs':'../packages/runtime-protocol/endpoint.mjs','/packages/runtime-protocol/index.mjs':'../packages/runtime-protocol/index.mjs','/packages/runtime-protocol/workspace.mjs':'../packages/runtime-protocol/workspace.mjs'}
  const relative=routes[(req.url||'').split('?')[0]]
  if(!relative)return next()
  res.setHeader('Content-Type','text/javascript');res.end(fs.readFileSync(path.resolve(__dirname,relative)))
@@ -175,7 +174,7 @@ const orasRuntimeSpaPlugin = {
     const lock=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../integrations/renderers.lock.json')))
     for(const entry of lock.sky.artifact_files)this.emitFile({type:'asset',fileName:'oras-sky-engine/'+entry.path,source:fs.readFileSync(path.join(runtimePublicDir,entry.path))})
     this.emitFile({type:'asset',fileName:'runtime-versions.json',source:fs.readFileSync(path.resolve(__dirname,'public/runtime-versions.json'))})
-    for(const [fileName,source] of Object.entries({'runtime-bridge/sky/entry.mjs':'../runtimes/sky-adapter/entry.mjs','packages/runtime-protocol/endpoint.mjs':'../packages/runtime-protocol/endpoint.mjs','packages/runtime-protocol/index.mjs':'../packages/runtime-protocol/index.mjs','packages/runtime-protocol/workspace.mjs':'../packages/runtime-protocol/workspace.mjs'})) this.emitFile({type:'asset',fileName,source:fs.readFileSync(path.resolve(__dirname,source))})
+    for(const [fileName,source] of Object.entries({'runtime-bridge/sky/entry.mjs':'../runtimes/sky-adapter/entry.mjs','runtime-bridge/sky/native-panels.mjs':'../runtimes/sky-adapter/native-panels.mjs','packages/runtime-protocol/endpoint.mjs':'../packages/runtime-protocol/endpoint.mjs','packages/runtime-protocol/index.mjs':'../packages/runtime-protocol/index.mjs','packages/runtime-protocol/workspace.mjs':'../packages/runtime-protocol/workspace.mjs'})) this.emitFile({type:'asset',fileName,source:fs.readFileSync(path.resolve(__dirname,source))})
   },
   configureServer(server) {
     server.middlewares.use(serveBridge)
