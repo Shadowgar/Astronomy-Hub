@@ -35,12 +35,13 @@ async def claim(point):
         result = await asyncio.to_thread(client().eval, CLAIM, 2, key, PREFIX + 'dispatch')
         if result[0] == 'wait':
             # Same region, another worker: await its result without acquiring again.
-            for _ in range(80):
+            # read_and_cache owns the eight-second whole-call deadline, including
+            # Redis I/O. Do not give its coalesced waiter a shorter deadline.
+            while True:
                 value = await asyncio.to_thread(client().get, key)
                 if value is not None:
                     return json.loads(value)
                 await asyncio.sleep(.05)
-            raise AircraftBudgetError('Shared acquisition pending')
         if result[0] == 'limited':
             raise AircraftBudgetError('Shared regional acquisition budget exhausted')
         return json.loads(result[1]) if result[0] == 'cached' else None

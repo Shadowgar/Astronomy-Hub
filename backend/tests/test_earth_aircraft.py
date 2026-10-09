@@ -74,6 +74,54 @@ def test_independent_worker_paths_share_one_acquisition_and_cache(monkeypatch):
         assert a.now==b.now
     asyncio.run(exercise())
 
+def test_cross_worker_waiter_accepts_result_after_four_seconds(monkeypatch):
+    require_cache()
+    import asyncio
+    async def exercise():
+        calls = []
+        async def fetch(point):
+            calls.append(point)
+            await asyncio.sleep(5)
+            return earth.AircraftFeed(now=1800000000, ac=[])
+        monkeypatch.setattr(earth, 'fetch_aircraft', fetch)
+        first, second = await asyncio.gather(
+            earth.read_and_cache((20., 20.)),
+            earth.read_and_cache((20., 20.)),
+            return_exceptions=True,
+        )
+        assert isinstance(first, earth.AircraftFeed), repr(first)
+        assert isinstance(second, earth.AircraftFeed), repr(second)
+        assert len(calls) == 1
+        assert sorted([first.cached, second.cached]) == [False, True]
+        assert first.now == second.now
+    asyncio.run(exercise())
+
+def test_cross_worker_waiter_keeps_eight_second_whole_call_deadline(monkeypatch):
+    require_cache()
+    import asyncio
+    async def exercise():
+        calls = []
+        cancelled = asyncio.Event()
+        async def fetch(point):
+            calls.append(point)
+            try:
+                await asyncio.Event().wait()
+            finally:
+                cancelled.set()
+        monkeypatch.setattr(earth, 'fetch_aircraft', fetch)
+        started = asyncio.get_running_loop().time()
+        results = await asyncio.gather(
+            earth.read_and_cache((20., 20.)),
+            earth.read_and_cache((20., 20.)),
+            return_exceptions=True,
+        )
+        assert asyncio.get_running_loop().time() - started < 9
+        assert len(calls) == 1
+        assert cancelled.is_set()
+        assert all(type(result) is ValueError and str(result) == 'source unavailable'
+                   for result in results)
+    asyncio.run(exercise())
+
 def test_shared_cache_outage_fails_closed_without_provider_dispatch(monkeypatch):
     import asyncio
     calls=[]
