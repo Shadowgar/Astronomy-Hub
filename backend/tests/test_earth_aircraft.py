@@ -153,6 +153,39 @@ def test_provider_retry_after_applies_to_every_region(monkeypatch):
         assert earth.shared_aircraft.client().ttl(earth.shared_aircraft.PREFIX+'dispatch')>=119
     asyncio.run(exercise())
 
+@pytest.mark.parametrize('provider_limited', [False, True])
+def test_busy_http_retry_after_reports_remaining_shared_lease(monkeypatch, provider_limited):
+    require_cache()
+    import httpx
+    calls = []
+
+    async def fetch(point):
+        calls.append(point)
+        if provider_limited:
+            request = httpx.Request('GET', 'https://declared.invalid/')
+            response = httpx.Response(429, headers={'Retry-After': '120'}, request=request)
+            raise httpx.HTTPStatusError('Declared rate limit', request=request, response=response)
+        return earth.AircraftFeed(now=1800000000, ac=[])
+
+    monkeypatch.setattr(earth, 'fetch_aircraft', fetch)
+    first = client.get('/api/earth/aircraft?lat=0&lon=0')
+    assert first.status_code == (503 if provider_limited else 200)
+    lease_key = earth.shared_aircraft.PREFIX + 'dispatch'
+    assert lease_key.startswith('oras:test:c57a:')
+    cache = earth.shared_aircraft.client()
+    # Real Redis lease, no sleep or live acquisition; only the unique test namespace.
+    remaining = 120 if provider_limited else 30
+    busy = client.get('/api/earth/aircraft?lat=1&lon=1')
+    assert busy.status_code == 429
+    assert remaining - 1 <= int(busy.headers['Retry-After']) <= remaining
+    for remaining in (7, 1):
+        assert cache.expire(lease_key, remaining)
+        busy = client.get('/api/earth/aircraft?lat=1&lon=1')
+        assert busy.status_code == 429
+        assert max(1, remaining - 1) <= int(busy.headers['Retry-After']) <= remaining
+    assert len(calls) == 1
+    assert (1.0, 1.0) not in earth._cache
+
 @pytest.mark.parametrize('payload',[{'now':1800000000,'ac':[{'hex':'abc123','lat':91}]},{'now':float('inf'),'ac':[]},{'now':1800000000,'ac':[{'hex':'abc123'}]*2001}])
 def test_schema_rejects_nonfinite_positions_epoch_and_source_row_overflow(payload):
     from pydantic import ValidationError

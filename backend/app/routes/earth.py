@@ -106,8 +106,8 @@ async def aircraft(response: Response, lat: float = Query(ge=-90, le=90), lon: f
     response.headers['Content-License'] = 'https://opendatacommons.org/licenses/odbl/1-0/'
     try:
         return await read_aircraft(lat, lon)
-    except shared_aircraft.AircraftBudgetError:
-        raise HTTPException(status_code=429, detail='Regional aircraft acquisition budget busy', headers={'Retry-After':'30'}) from None
+    except shared_aircraft.AircraftBudgetError as error:
+        raise HTTPException(status_code=429, detail='Regional aircraft acquisition budget busy', headers={'Retry-After':str(error.retry_after)}) from None
     except ValueError:
         raise HTTPException(status_code=503, detail='Aircraft source unavailable') from None
 

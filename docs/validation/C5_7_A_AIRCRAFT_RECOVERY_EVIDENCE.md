@@ -1255,3 +1255,57 @@ Limits stay 100 NM  / 2,000 rows  / 2 MB  / shared dispatch >= 30 s  / whole acq
 desktop 1,000  / mobile 100  / follow 1  / models 0. No merge, replacement PR, worldwide/
 OpenSky acquisition, production/SSH/Cloudflare/oras.org/accounts/purchases,
 new model/media, C5.7-B/C/D/E/C6 activation or broader audit.
+
+## Final automatic-review shared retry-header correction — 2026-10-09
+
+Automatic Codex review completed on `35f6f052c14bcfba5719bd156d8bcb31c6bf3e63`
+at 21:28:51Z and found a valid transport P2:
+[return the actual shared retry delay](https://github.com/Shadowgar/Astronomy-Hub/pull/67#discussion_r4234694825).
+The Redis global dispatch lease correctly retained a provider's 120-second retry
+window, but another region's HTTP 429 advertised a fixed 30 seconds. It also
+advertised 30 seconds when only seven or one seconds remained in the normal lease.
+
+Permanent parametrized red:
+`test_busy_http_retry_after_reports_remaining_shared_lease[False]` and `[True]`.
+Both failed in Docker before the correction: **2 failed / 13 deselected**, exit 1,
+with actual header 30 against remaining seven seconds or the provider's 120-second
+lease. Provider traffic is mocked; actual Redis uses a unique guarded
+`oras:test:c57a:<uuid>:` namespace. No live provider dispatch or production mutation.
+
+Minimal correction: the existing atomic CLAIM Lua operation returns the remaining
+Redis PTTL, rounded up to positive whole seconds, for a limited region. The existing
+AircraftBudgetError carries that value unchanged through coalescing/read-and-cache
+to the HTTP `Retry-After` header. No second Redis lookup/race, new acquisition,
+changed lease duration, provider fallback or disclosure of private transport errors.
+Cached and same-region wait behavior, failed-cache closure and whole-call deadline
+remain unchanged. This is Hub transport policy; no additional upstream feature or
+whole app/Viewer is imported. Hub client cadence remains unchanged.
+
+Fresh Docker results after this backend-only correction:
+
+- Focused HTTP/Redis regressions: **2 passed / 13 deselected**, zero skipped, exit 0.
+- Complete aircraft/cache/event bundle on disposable backend: **48 passed**, zero
+  failed/skipped, six existing dependency deprecation warnings, 13.97 seconds.
+- Same complete bundle on rebuilt normal backend: **48 passed**, zero failed/skipped,
+  six existing dependency deprecation warnings, 14.00 seconds.
+- All 512 installed Earth and 96 Sky HTTP payloads reverified on normal localhost:4173.
+
+The qualified Earth source, lock/runtime metadata and artifact remain exactly
+4429c803d33bdf2718809ab2275af211e248f415c2769b328a1f7ac6db4399f3; Sky and its pin
+are unchanged. The complete 22 + 43 browser campaigns and 103 runtime/229 frontend
+results above apply to those unchanged sources/artifacts and were completed before
+this HTTP-header-only patch; they were not rerun and are not presented as new
+post-header-patch campaigns. No Earth/Sky rebuild or repeated profiling is needed.
+Normal backend alone was rebuilt/recreated with COMPOSE_BAKE=false and exact original
+astronomy mount Sources; datastores were not recreated. The orphan warning was not
+acted on. The previously qualified renderer artifacts and rollbacks remain intact.
+
+Raw red/green/full logs, the backend restoration command and final preservation,
+source/served checks, docs validators and actual final-head GitHub snapshot are
+retained in the same private c57a-cohort-priority-20261009 archive. This final patch
+changes only backend route/cache/test plus these four authorized control/evidence
+documents. Resolve this thread only after passing proof. PR #67 remains OPEN and
+unmerged; current-head checks/threads are recorded in the full 28-field handoff.
+Human visual and physical-device acceptance remain PENDING. Authorized regional
+availability/capacity/access proof remains BLOCKED/UNKNOWN; no new live probe,
+worldwide/OpenSky acquisition or later-package work. All fixed limits remain intact.

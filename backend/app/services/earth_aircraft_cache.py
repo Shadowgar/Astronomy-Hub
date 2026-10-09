@@ -16,13 +16,17 @@ local cached = redis.call('GET', KEYS[1])
 if cached then return {'cached', cached} end
 local active = redis.call('GET', KEYS[2])
 if active == KEYS[1] then return {'wait', ''} end
-if active then return {'limited', ''} end
+if active then
+    return {'limited', math.max(1, math.ceil(redis.call('PTTL', KEYS[2]) / 1000))}
+end
 redis.call('SET', KEYS[2], KEYS[1], 'EX', 30)
 return {'acquire', ''}
 """
 
 class AircraftBudgetError(ValueError):
-    pass
+    def __init__(self, retry_after):
+        super().__init__('Shared regional acquisition budget exhausted')
+        self.retry_after = retry_after
 
 def client():
     import redis
@@ -43,7 +47,7 @@ async def claim(point):
                     return json.loads(value)
                 await asyncio.sleep(.05)
         if result[0] == 'limited':
-            raise AircraftBudgetError('Shared regional acquisition budget exhausted')
+            raise AircraftBudgetError(int(result[1]))
         return json.loads(result[1]) if result[0] == 'cached' else None
     except AircraftBudgetError:
         raise

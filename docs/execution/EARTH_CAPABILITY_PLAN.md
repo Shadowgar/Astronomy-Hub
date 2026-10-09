@@ -14,6 +14,10 @@ No merge, production, purchases, new external models/media or worldwide acquisit
 2026-10-09 final review: both original aircraft P2s reproduced and corrected;
 post-push current-contact priority P2 also reproduced and corrected for replacement
 and mobile resize, preserving selected/followed grace inside unchanged caps.
+Final automatic review also reproduced the shared retry-header P2: the endpoint
+now reports the atomic remaining Redis dispatch lease rather than a fixed 30 s.
+Both new HTTP/Redis reds pass; all 48 backend tests pass on disposable and rebuilt
+normal Docker runtimes. No renderer source/artifact or acquisition-limit change.
 PR #67 remains OPEN/unmerged. Fresh final-artifact complete campaigns: 22 aircraft
 and 43 existing Earth/Sky cases passed, including genuine compiled-preview bfcache;
 103 Earth/runtime tests passed. Earth 4429c803 independently reproduced/installed/
