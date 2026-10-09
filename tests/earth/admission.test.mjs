@@ -6,6 +6,10 @@ test('unknown altitude, invalid coords/identity and stale source epoch are not d
  for(const [index,value] of [[13,null],[6,91],[0,'invalid']]){const r=[...row];r[index]=value;assert.equal(admitAircraft({time:now/1000,states:[r]}).length,0)}
  assert.throws(()=>admitAircraft({time:(now-200000)/1000,states:[row]}));
 });
+test('future position timestamps cannot manufacture fresh observations',()=>{
+ const now=1800000000000,row=['abc123','CALL',null,now/1000+20,now/1000,-79,41,1000,false,null,null,null,null,3000];
+ assert.equal(admitAircraft({time:now/1000,states:[row]},now).length,0);
+});
 test('upstream Number(null) coercion cannot manufacture weather temperature or epoch',()=>{
  assert.equal(weatherPayloadValid({current:{temperature_2m:null,time:'2026-10-02T12:00'}}),false);
  assert.equal(weatherPayloadValid({current:{temperature_2m:12,time:'bad'}}),false);

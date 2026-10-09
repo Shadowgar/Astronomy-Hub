@@ -2,7 +2,8 @@
 export function validPoint(latitude,longitude){return Number.isFinite(latitude)&&Math.abs(latitude)<=90&&Number.isFinite(longitude)&&Math.abs(longitude)<=180;}
 export function admitAircraft(snapshot,now=Date.now()){
   if(!Number.isFinite(snapshot.time)||Math.abs(now-snapshot.time*1000)>120000)throw Error('Aircraft timestamp unavailable or stale');
-  return snapshot.states.filter(row=>/^[0-9a-f]{6}$/i.test(row[0])&&validPoint(row[6],row[5])&&Number.isFinite(row[13])&&row[13]>=-500&&row[13]<=100000&&Number.isFinite(row[3])&&now-row[3]*1000<120000);
+  if(snapshot.time*1000>now)throw Error('Aircraft timestamp is in the future');
+  return snapshot.states.filter(row=>/^[0-9a-f]{6}$/i.test(row[0])&&validPoint(row[6],row[5])&&Number.isFinite(row[13])&&row[13]>=-500&&row[13]<=100000&&Number.isFinite(row[3])&&now-row[3]*1000>=0&&now-row[3]*1000<120000);
 }
 export function weatherPayloadValid(payload){const c=payload?.current;return !!c&&typeof c.temperature_2m==='number'&&Number.isFinite(c.temperature_2m)&&typeof c.time==='string'&&Number.isFinite(Date.parse(/Z$/.test(c.time)?c.time:c.time+'Z'))&&new Date(/Z$/.test(c.time)?c.time:c.time+'Z').toISOString().slice(0,16)===c.time.slice(0,16);}
 export function validTleLine(line,prefix){if(line.length!==69||!line.startsWith(prefix+' ')||!/\d/.test(line[68]))return false;let sum=0;for(const c of line.slice(0,68))sum+=/\d/.test(c)?Number(c):c==='-'?1:0;return sum%10===Number(line[68]);}

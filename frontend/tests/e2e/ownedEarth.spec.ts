@@ -12,7 +12,7 @@ async function providers(page:any){
 for(const [label,width,height] of [['desktop',1440,900],['mobile',390,844]] as const){test.describe(label,()=>{
  test.use({viewport:{width,height},isMobile:label==='mobile',hasTouch:label==='mobile'});
  test(`owned Earth core and selective adapters fixture ${label}`,async({page})=>{
-  test.setTimeout(120000);await page.setViewportSize({width,height});await providers(page);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/earth-runtime/');
+  test.setTimeout(180000);await page.setViewportSize({width,height});await providers(page);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/earth-runtime/');
   await expect(page.locator('#earth')).toHaveAttribute('data-status','ready');const earth=page.mainFrame();
   const diagnostics=await earth.evaluate(()=> (window as any).orasEarthDiagnostics());expect(diagnostics.owner).toBe('Astronomy Hub');expect(diagnostics.site).toEqual({lat:41.321903,lon:-79.585394,elevationM:432.816});
   // C5 extends the owned registry; exact IDs catch omissions, extras and duplicates.
@@ -25,19 +25,21 @@ for(const [label,width,height] of [['desktop',1440,900],['mobile',390,844]] as c
   await expect(earth.locator('#attributions')).toContainText('Natural Earth');const creditsBox=await earth.locator('#credits').boundingBox(),attributionBox=await earth.locator('#attributions').boundingBox();expect(creditsBox!.y+creditsBox!.height).toBeLessThanOrEqual(attributionBox!.y+1);await expect(earth.locator('#attributions')).toContainText('God’s Eye MIT');await expect(earth.locator('#app-header,#data-panel,#control-panel-toggle')).toHaveCount(0);
   await earth.getByRole('button',{name:'Return to ORAS',exact:true}).click();await page.waitForTimeout(1100);const canvas=earth.locator('canvas').first(),box=await canvas.boundingBox();if(label==='mobile')await page.touchscreen.tap(box!.x+box!.width/2,box!.y+box!.height/2);else await canvas.click({position:{x:box!.width/2,y:box!.height/2}});await expect(earth.locator('#selected-name')).toContainText('Oil Region');
   await earth.getByRole('button',{name:'Track',exact:true}).click();expect((await earth.evaluate(()=> (window as any).orasEarthDiagnostics())).tracking).toBe(null);await earth.getByRole('button',{name:'Stop tracking'}).click();await earth.getByRole('button',{name:'Focus',exact:true}).click();await earth.getByRole('button',{name:'Return to ORAS'}).click();
-  for(const [id,title] of [['aircraft','Aircraft near ORAS'],['satellites','Satellites · stations'],['weather','Weather at ORAS']]){
-   await earth.getByRole('checkbox',{name:title,exact:true}).check();const row=earth.locator(`[data-layer-id=${id}]`);await expect(row.locator('[data-provider-status=ready]')).toBeVisible({timeout:20000});await expect(row).toContainText('LIVE_ONLY');await expect(earth.locator('#attributions')).toContainText(id==='aircraft'?'ODbL':id==='weather'?'Open-Meteo':'CelesTrak');
+  for(const [id,title] of [['aircraft','Aircraft · regional view'],['satellites','Satellites · stations'],['weather','Weather at ORAS']]){
+   await earth.getByRole('checkbox',{name:title,exact:true}).check();const row=earth.locator(`[data-layer-id=${id}]`);await expect(row.locator('[data-provider-status=ready]')).toBeVisible({timeout:20000});await expect(row).toContainText(id==='aircraft'?'CURRENT_SNAPSHOT':'LIVE_ONLY');await expect(earth.locator('#attributions')).toContainText(id==='aircraft'?'ODbL':id==='weather'?'Open-Meteo':'CelesTrak');
    await earth.getByRole('checkbox',{name:title,exact:true}).uncheck();await expect(row).toHaveAttribute('data-layer-status','disabled');
   }
-  // Each provider failure is distinct from runtime readiness and retryable.
-  await page.unroute('**/api/earth/aircraft?*');await page.route('**/api/earth/aircraft?*',r=>r.fulfill({status:503,json:{detail:'fixture unavailable'}}));await earth.getByRole('checkbox',{name:'Aircraft near ORAS'}).check();await expect(earth.locator('[data-layer-id=aircraft] [data-provider-status=unavailable]')).toBeVisible();await expect(page.locator('#earth')).toHaveAttribute('data-status','ready');await page.unroute('**/api/earth/aircraft?*');await providers(page);await earth.getByRole('button',{name:'Retry Aircraft near ORAS'}).click();await expect(earth.locator('[data-layer-id=aircraft] [data-provider-status=ready]')).toBeVisible();
+  // Expire the intentional 30-second successful regional cache before injecting outage.
+  await page.waitForTimeout(31000);
+  // Provider backoff remains in force during manual Retry.
+  await page.unroute('**/api/earth/aircraft?*');await page.route('**/api/earth/aircraft?*',r=>r.fulfill({status:503,json:{detail:'fixture unavailable'}}));await earth.getByRole('checkbox',{name:'Aircraft · regional view'}).check();await expect(earth.locator('[data-layer-id=aircraft] [data-provider-status=unavailable]')).toBeVisible();await expect(page.locator('#earth')).toHaveAttribute('data-status','ready');await page.unroute('**/api/earth/aircraft?*');await providers(page);await earth.getByRole('button',{name:'Retry Aircraft · regional view'}).click();await expect(earth.locator('[data-layer-id=aircraft] [data-provider-status=ready]')).toBeVisible({timeout:45000});
   await page.screenshot({path:`../output/playwright/owned-earth-${label}.png`});console.log(`EARTH_TIMINGS ${label}`,JSON.stringify((await earth.evaluate(()=> (window as any).orasEarthDiagnostics())).timings));expect(errors).toEqual([]);
  })
  test(`all adapters unavailable without blocking Viewer ${label}`,async({page})=>{
   test.setTimeout(90000);await page.setViewportSize({width,height});
   for(const url of ['**/api/earth/aircraft?*','https://celestrak.org/**','https://api.open-meteo.com/**'])await page.route(url,r=>r.fulfill({status:503,body:'Qualification unavailable'}));
   await page.goto('/earth-runtime/');await expect(page.locator('#earth')).toHaveAttribute('data-status','ready');const earth=page.mainFrame();
-  for(const [id,title] of [['aircraft','Aircraft near ORAS'],['satellites','Satellites · stations'],['weather','Weather at ORAS']]){
+  for(const [id,title] of [['aircraft','Aircraft · regional view'],['satellites','Satellites · stations'],['weather','Weather at ORAS']]){
    await earth.getByRole('checkbox',{name:title,exact:true}).check();await expect(earth.locator(`[data-layer-id=${id}] [data-provider-status=unavailable]`)).toBeVisible({timeout:20000});await earth.getByRole('checkbox',{name:title,exact:true}).uncheck();
   }
   await expect(page.locator('#earth')).toHaveAttribute('data-status','ready');
