@@ -156,6 +156,12 @@ direction, not implemented. D ISS → E planetary surfaces → F astronomy exten
 → G immersive UX → H solar-system scale remain planned with separate approval.
 `oras_horizon.v1` stays in F. No WordPress, DESI or production integration is active.
 
+The original `GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md` records the
+pre-preservation snapshot: its “eight staged files / no new audit commit” wording
+is historical. Those unchanged outputs now belong to audit commit
+`09495238c2b5aebe358c66f9a09801382758f4f8`; current branch/PR/check status is in
+PROJECT_STATE and the C5.6.75 evidence, not that frozen audit handoff.
+
 Planning and evidence discovery: [Earth capability plan](execution/EARTH_CAPABILITY_PLAN.md),
 [C5.7 proposed packages and Owner Decision Register](execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md),
 [C6 provider-first proposal](execution/C6_GLOBAL_MAPPING_SPEC.md),

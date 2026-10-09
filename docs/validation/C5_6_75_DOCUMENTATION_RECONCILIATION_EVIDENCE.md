@@ -83,7 +83,7 @@ checks; linked target existence/source inspection is bounded, not a full docs sc
 
 
 The five newly authored documents listed below were inspected as outputs; no
-historical phase folder was scanned. Skills used: Superpowers using-superpowers,
+historical phase folder was scanned. Skills used: Superpowers receiving-code-review, using-superpowers,
 using-git-worktrees (existing isolated worktree), verification-before-completion.
 No subagent or memory update.
 
@@ -206,7 +206,7 @@ Scratch forensic scripts are bounded evidence helpers, not committed runtime cod
 | --- | --- |
 | `python3 -S scripts/validation/validate_architecture_docs.py` | PASS:271 document-path entries,8 packs,49 checkpoint Markdown documents,1373 relative links,9 exact ADRs; fences balanced. |
 | `python3 -S scripts/validation/validate_reconciliation_docs.py` | PASS:index/inventory and all8 pack discovery; proposed A–E/six decisions/C6 gates;67×10 plan fields,51 source entrypoint references,401 relative links,58 fragments. |
-| `python3 -S -m unittest discover -s tests/validation -p 'test_*.py' -v` | PASS:13 tests (existing6 + new7), including missing authority/discovery/approval/decision/source and duplicate/count-drift rejection; no runtime tests. |
+| `python3 -S -m unittest discover -s tests/validation -p 'test_*.py' -v` | PASS:16 tests (existing6 + reconciliation10), including missing authority/discovery/approval/decision/source and duplicate/count-drift rejection; no runtime tests. |
 | `python3 /tmp/oras-gods-eye-audit-20261008/validate_audit.py` | PASS:67 unique areas,67×13 original matrix,23 adapted relationships,148/157 exports,73 provider records,2010 stage records; exact source hashes/line excerpts/classifications/counts/DRAFT guard;7 original audit Markdown files,838 links. |
 | `python3 /tmp/oras-gods-eye-audit-20261008/check_preservation.py` | PASS:main/pin clean, owner HEAD/settings preserved;81 volume identities; Postgres/Redis IDs/mounts;5 running services/zero restarts; frontend/Earth healthy;0 reference containers; protected code unchanged. |
 | `python3 /tmp/oras-gods-eye-audit-20261008/verify-artifacts.py` | PASS:29 unchanged overlays,95 Sky payload/96 installed files,source/input/installed/served/lock/versions hashes;4 frozen native/vendor files and wheel;Earth source/protocol/qualified payload and served release identity unchanged. |
@@ -218,6 +218,27 @@ Read-only Docker/localhost verification needed elevated sandbox access; no sourc
 volume or service mutation. Repository checks are exact commands above; whitespace
 and final bundle output are captured before commit. CI/review details belong to the
 final PR handoff at its exact head, not inferred from local test counts.
+
+## PR66 review corrections — documentation scope only
+
+PR66 opened against main at initial reconciliation head `7219a45e5488326950d05f789fa0420962ecec14`.
+Codex review completed without findings; CodeRabbit posted eight threads. Three
+validated authority-check defects reproduced red: relative Master Plan links in
+Tier1 passed, each individual decision could be APPROVED under a global UNRESOLVED
+heading, and a plan provider field could erase audited restrictions without failure.
+Focused negatives now reject canonical/relative/absolute/angle/encoded/alias product
+links, changed individual decision statuses, audited provider gate changes and
+removed exact provider constraints. Final bundle:16 tests pass. Per-record45 provider
+gates and six decision statuses are explicit; NO AUDIT FLAG is not service approval.
+
+Four current-text findings correct date/count/unit/HTTP-status spacing and report the
+linked audit's actual `3 PASS` Playwright measure. The audit-handoff thread concerns
+its pre-preservation staged/no-commit stop-point; current DOCUMENT_INDEX now explicitly
+labels that snapshot historical and names the preservation commit. The original eight
+audit files remain hash-identical as requested; no historical conclusions/logs altered.
+Docstrings document the touched validation helpers. No runtime correction/rebuild or
+scope expansion. GitHub head/check/thread state is verified separately after pushing
+the review correction, never inferred from these local tests or old review results.
 
 ## Frozen identities and preserved audit hashes
 

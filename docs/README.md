@@ -18,7 +18,7 @@ See [PROJECT_STATE](execution/PROJECT_STATE.md),
 [Feature Tracker](features/FEATURE_TRACKER.md) and
 [Unified Universe Architecture](architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
 
-Completion does not mean full God's Eye parity: aircraft source failed503 in the
+Completion does not mean full God's Eye parity: aircraft source returned HTTP 503 in the
 dated audit and altitude gates hide home-view glyphs; satellites intentionally use
 stations only; Weather qualified one modeled point, not a weather map; CONUS radar
 is a separate timestamped snapshot. HD imagery is regional, terrain/3D are dormant,

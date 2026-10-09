@@ -31,16 +31,26 @@ REQUIRED_FIELDS = (
 
 
 def require(condition, message):
+    """Reject a broken documentation invariant with a useful error."""
     if not condition:
         raise ValueError(message)
 
 
 def validate_discovery(index, inventory):
+    """Check discovery and keep canonical or relative product links out of Tier 1."""
     for name in DISCOVERY:
         require(name.removeprefix('docs/') in index, 'index: missing '+name)
         require(name in inventory, 'inventory: missing '+name)
     tier1 = index.split('### Tier 1', 1)[1].split('### Tier 2', 1)[0]
-    require('docs/execution/MASTER_PLAN.md' not in tier1, 'index: product reference in execution tier')
+    targets = re.findall(r'\[[^\]\n]*\]\(\s*(<[^>\n]+>|[^\s)]+)|`([^`]+)`', tier1)
+    for link, literal in targets:
+        parsed = urlsplit((link or literal).strip('<>'))
+        if parsed.scheme or parsed.netloc:
+            continue
+        name = unquote(parsed.path).lstrip('/')
+        target = (ROOT/name if name.startswith('docs/') else ROOT/'docs'/name).resolve()
+        require(target not in {ROOT/'docs/execution/MASTER_PLAN.md', ROOT/'docs/MASTER_PLAN.md'},
+                'index: product reference in execution tier')
     row = next((line for line in inventory.splitlines() if '`docs/execution/MASTER_PLAN.md`' in line), '')
     require('PRODUCT_DEFINITION' in row and 'CORE_CONTROL' not in row,
             'inventory: Master Plan must remain product reference')
@@ -48,6 +58,7 @@ def validate_discovery(index, inventory):
 
 
 def validate_proposals(c57, c6):
+    """Require unapproved packages and an unresolved status on each owner decision."""
     require('PROPOSED — AWAITING OWNER APPROVAL. NOT AUTHORIZED FOR IMPLEMENTATION.' in c57,
             'C5.7: missing owner-approval stop gate')
     require('NO PROVIDER-SPECIFIC IMPLEMENTATION AUTHORIZED.' in c6, 'C6: missing provider approval gate')
@@ -60,11 +71,15 @@ def validate_proposals(c57, c6):
             'C5.7: decisions must remain explicitly unresolved')
     require(re.findall(r'^\| (OD[1-6]) ', register, re.M) == ['OD'+str(i) for i in range(1, 7)],
             'C5.7: expected six unique owner decisions')
+    rows = [line.split('|') for line in register.splitlines() if re.match(r'^\| OD[1-6] ', line)]
+    require(all(len(row) == 7 and row[2].strip() == 'UNRESOLVED' for row in rows),
+            'C5.7: each decision status must remain UNRESOLVED')
     require(re.findall(r'^\| (C6-[0-5]) ', c6, re.M) == ['C6-'+str(i) for i in range(6)],
             'C6: expected provider-first ordered stages')
 
 
 def validate_plan(plan, inventory, read_source):
+    """Compare capability identities, provider constraints and source references to the audit."""
     caps = inventory['capabilities']
     expected = {cap['id'] for cap in caps}
     ids = re.findall(r'^## ([a-z0-9-]+) —', plan, re.M)
@@ -84,7 +99,13 @@ def validate_plan(plan, inventory, read_source):
             require('**'+field+':**' in record, f'plan {cap["id"]}: missing {field}')
         require(cap['classification']+' / ' in record,
                 f'plan {cap["id"]}: altered audit relationship')
-        entry = record.split('**Current Hub / entrypoints:**', 1)[1].split('\n**Pinned upstream:', 1)[0]
+        provider = record.split('**Provider/credential/license/distribution:**', 1)[1].split('\n**Remediation', 1)[0]
+        flag = 'GATED' if cap['provider_blocked'] else 'NO AUDIT FLAG'
+        require(provider.strip().startswith('Audit provider/data gate: '+flag+'.'),
+                f'plan {cap["id"]}: provider gate differs from audited flag')
+        require(cap['legal'] in provider,
+                f'plan {cap["id"]}: audited provider constraints missing or altered')
+        entry = record.split('**Current Hub / entrypoints:**' , 1)[1].split('\n**Pinned upstream:', 1)[0]
         if cap['hub']:
             source = '\n'.join(read_source(name) for name in cap['hub'])
             for name in cap['hub']:
@@ -112,6 +133,7 @@ def heading_anchors(text):
 
 
 def validate_fragments(name):
+    """Check authored local heading fragments against their target documents."""
     count = 0
     for target in re.findall(r'\[[^\]\n]*\]\(([^\s)]+)\)', (ROOT/name).read_text()):
         parsed = urlsplit(target)
@@ -126,6 +148,7 @@ def validate_fragments(name):
 
 
 def main():
+    """Run the read-only reconciliation checks and return a CLI exit status."""
     try:
         read = lambda name: (ROOT/name).read_text()
         validate_discovery(read('docs/DOCUMENT_INDEX.md'), read('docs/DOC_INVENTORY.md'))

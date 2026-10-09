@@ -190,14 +190,14 @@ Stop with scoped technical proof and owner acceptance pending; do not begin C6.
 Every row is **UNRESOLVED**. Proposed default is not owner approval. Record owner,
 date, accepted scope/budgets/terms and evidence before unlocking dependent work.
 
-| ID / decision | Proposed default | Alternatives / trade-offs | Cost/license and approval block |
-| --- | --- | --- | --- |
-| OD1 civil aircraft | Preserve current near-observer scope; fix usable display/status and evaluate bounded motion/follow | Regional view-anchored fallback or licensed global source; more coverage raises quotas/costs/data and rendering budgets | OpenSky intended-use/account agreement; ADSB.lol ODbL/service stewardship; exact fallback and paid calls blocked until choice. |
-| OD2 satellite populations | Evaluate six core groups; dense disabled; retain strict guards | Stations-only corrected experience or selected core subset; optional budgeted/clustering dense later | Exact admitted/render/label/LOD/propagation/device budgets unresolved; provider shared-cache policy; expansion blocked. |
-| OD3 Weather products | Point conditions plus existing CONUS snapshot radar, clear separate controls/facts | Regional clouds/wind/lightning/cyclones/history in later Earth phases | Open-Meteo free hosted endpoint noncommercial restriction separate from data license; visual product/service/hook/coverage terms; added products blocked. |
-| OD4 skybox | Standard Cesium stars as visual background | Keep disabled with explicit product rationale; science/time-aware background in F | Texture/dependency notice and performance budget; configuration change blocked until approval; no scientific catalog claim. |
-| OD5 C6 providers/accounts/budget | Ordered keyless/entitled-provider qualification, no purchase or new key | Approved Google/ion/commercial mix versus licensed/keyless global imagery/terrain; coverage/detail/device cost varies | Accounts, maximum spend, quota/cache/distribution/credits/security and service scale unresolved; provider-specific C6 code blocked. |
-| OD6 media/assets | No new upstream bundled models/media/restricted packs; glyphs/approved standard assets | Per-asset licensed models/imagery/CCTV where useful | Source MIT excludes data/media rights; NC/SA, privacy and attribution/distribution; downloads/bundles blocked until manifest/approval. |
+| ID / decision | Status | Proposed default | Alternatives / trade-offs | Cost/license and approval block |
+| --- | --- | --- | --- | --- |
+| OD1 civil aircraft | UNRESOLVED | Preserve current near-observer scope; fix usable display/status and evaluate bounded motion/follow | Regional view-anchored fallback or licensed global source; more coverage raises quotas/costs/data and rendering budgets | OpenSky intended-use/account agreement; ADSB.lol ODbL/service stewardship; exact fallback and paid calls blocked until choice. |
+| OD2 satellite populations | UNRESOLVED | Evaluate six core groups; dense disabled; retain strict guards | Stations-only corrected experience or selected core subset; optional budgeted/clustering dense later | Exact admitted/render/label/LOD/propagation/device budgets unresolved; provider shared-cache policy; expansion blocked. |
+| OD3 Weather products | UNRESOLVED | Point conditions plus existing CONUS snapshot radar, clear separate controls/facts | Regional clouds/wind/lightning/cyclones/history in later Earth phases | Open-Meteo free hosted endpoint noncommercial restriction separate from data license; visual product/service/hook/coverage terms; added products blocked. |
+| OD4 skybox | UNRESOLVED | Standard Cesium stars as visual background | Keep disabled with explicit product rationale; science/time-aware background in F | Texture/dependency notice and performance budget; configuration change blocked until approval; no scientific catalog claim. |
+| OD5 C6 providers/accounts/budget | UNRESOLVED | Ordered keyless/entitled-provider qualification, no purchase or new key | Approved Google/ion/commercial mix versus licensed/keyless global imagery/terrain; coverage/detail/device cost varies | Accounts, maximum spend, quota/cache/distribution/credits/security and service scale unresolved; provider-specific C6 code blocked. |
+| OD6 media/assets | UNRESOLVED | No new upstream bundled models/media/restricted packs; glyphs/approved standard assets | Per-asset licensed models/imagery/CCTV where useful | Source MIT excludes data/media rights; NC/SA, privacy and attribution/distribution; downloads/bundles blocked until manifest/approval. |
 
 ## Exit / approval handoff
 

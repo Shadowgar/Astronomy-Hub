@@ -1,6 +1,6 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
-Reconciled2026-10-08. Validation→CORE→LIVE→manifest/index→this record govern
+Reconciled 2026-10-08. Validation→CORE→LIVE→manifest/index→this record govern
 work; MASTER_PLAN is non-execution product reference. Evidence conflicts are
 reported, not repaired by forcing runtime into stale docs. **SINGLE AGENT ONLY.**
 
@@ -16,10 +16,10 @@ artifact input changes, rebuild, provider purchase/account/production deployment
 
 ## Verified merged baseline and environment
 
-PR63 merged`126da1537c734de817d9f9c59468d995807da37c` (Oct5),
-PR64 merged`521ffb27b16a31dfc9964260f98f89331b9e42d0` (Oct5),
-PR65 merged`bb28aec7833d154c2f0b3b7fa7470d69a93c84b4` (Oct7), approved head`d73588f13fbfa6366fcc6784dae8d5f336599ce5`.
-GitHub merge identities checked Oct8; main remains `bb28aec7833d154c2f0b3b7fa7470d69a93c84b4`. Completed bounded
+PR 63 merged: `126da1537c734de817d9f9c59468d995807da37c` (Oct 5),
+PR 64 merged: `521ffb27b16a31dfc9964260f98f89331b9e42d0` (Oct 5),
+PR 65 merged: `bb28aec7833d154c2f0b3b7fa7470d69a93c84b4` (Oct 7), approved head: `d73588f13fbfa6366fcc6784dae8d5f336599ce5`.
+GitHub merge identities checked Oct 8; main remains `bb28aec7833d154c2f0b3b7fa7470d69a93c84b4`. Completed bounded
 checkpoint history below is evidence-backed, not global feature readiness.
 Local laptop WSL/Docker only. `npm run dev:local` is ordinary startup. Preserve
 owner `.vscode/settings.json` unchanged/unstaged, data/installations/evidence,
@@ -29,12 +29,12 @@ owner-declared Release Candidate with separate approval; no current feature bloc
 
 Sky artifact `b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`; Earth `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`; external God's Eye `e7707d9a0f34d9fbffc300023c319f95caa5be30` unchanged.
 [Audit handoff](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md) records source/installed/served hash verification
-and post-merge3browser smoke. Historical full campaigns are not rerun here.
+and the post-merge bounded Playwright smoke (`3 PASS`). Historical full campaigns are not rerun here.
 
 ## Current capability truth and known gaps
 
 [Audit](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md) and [Feature Tracker](../features/FEATURE_TRACKER.md)
-separate code/UI/fixture/live/render/scope/acceptance. Aircraft503 is provider
+separate code/UI/fixture/live/render/scope/acceptance. Aircraft HTTP 503 is provider
 observation; observer coverage and altitude display gate are separate. Stations
 population/cap/15s refresh is intentional, not a proven missing-object bug. Point
 Weather works for one modeled location; radar is separate CONUS snapshot. Earth
@@ -61,7 +61,7 @@ a package does not establish all feature parity, global coverage or production r
 | C5 — live-layer expansion | Completed bounded package, PR59 merged | [Expansion proof](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md); quakes/perimeters/latest CONUS radar; launch access historically blocked. |
 | C5.5 — CONUS HD Earth | Completed bounded package, PR63 merged | [HD proof](../validation/EARTH_HD_MAPPING_EVIDENCE.md); historical CONUS imagery/coarse global fallback/ellipsoid terrain. |
 | C5.6 — development and Sky stabilization | Completed bounded package, PR64/65 merged | [Local repair](../validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md), workspace proof, [post-merge audit smoke](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md); wheel/search/Gaia/control scope, scientific/catalog limits retained. |
-| C5.6.5 — capability/implementation audit | Completed evidence, preserved in `09495238` | [Canonical audit](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md); dated Oct7/8 snapshot, provider/live uncertainties retained. |
+| C5.6.5 — capability/implementation audit | Completed evidence, preserved in `09495238` | [Canonical audit](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md); dated Oct 7/8 snapshot, provider/live uncertainties retained. |
 | C5.6.75 — reconciliation | Current documentation checkpoint; prepared for owner review | [Reconciliation evidence](../validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md); no future implementation authorized. |
 | C5.7 — core recovery | PROPOSED; not started | [C5.7 spec](C5_7_EARTH_CORE_RECOVERY_SPEC.md); owner approval/decisions, one package active at a time; artifacts requalified when inputs change. |
 | C6 — global HD/terrain/3D | Approved product direction; not implemented | [C6 plan](C6_GLOBAL_MAPPING_SPEC.md); provider/account/cost/coverage qualification before provider-specific code. |

@@ -45,6 +45,10 @@ claims; generator/runtime-ledger repair needs separately authorized work. No scr
 or renderer input was changed here. This is a documentary uncertainty boundary,
 not evidence that the C5 runtime regressed.
 
+Per-record GATED preserves the audit's provider/data flag; it is not a permanent
+prohibition. NO AUDIT FLAG means this audit did not assign that flag, not approval
+or a grant of data/service/asset rights. Original per-source constraints remain.
+
 ## Planning and proof rules
 
 Preserve current scope unless owner approves expansion. Prefer exact reuse/wrap,
@@ -74,7 +78,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** API key; beta-service and stream rights need owner/provider approval. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. API key; beta-service and stream rights need owner/provider approval. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -87,7 +91,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Community tile-host terms and ODbL/database obligations must be resolved; public mapping is not permission for surveillance data. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Community tile-host terms and ODbL/database obligations must be resolved; public mapping is not permission for surveillance data. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -100,7 +104,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** DO NOT USE / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** CC BY-NC 4.0; obtain separate permission before any relevant future use. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. CC BY-NC 4.0; obtain separate permission before any relevant future use. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** REJECT; Specific noncommercial narrative pack is unrelated to foundational Earth integration. Proposed target: REJECTED.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -113,7 +117,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** DO NOT USE / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Mixed-source event terms; not covered solely by MIT. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Mixed-source event terms; not covered solely by MIT. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** REJECT; Event-specific locator, not a general Earth foundation. Proposed target: REJECTED.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -126,7 +130,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Per-feed service and redistribution terms, rather than one GBFS-wide grant. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Per-feed service and redistribution terms, rather than one GBFS-wide grant. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -139,7 +143,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Each feed, HLS/media and Street View route has separate rights; precomputed ground-height provenance unresolved. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Each feed, HLS/media and Street View route has separate rights; precomputed ground-height provenance unresolved. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -152,7 +156,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Public-instance fair use; identifying client, attribution/fix-map link, quotas or self-hosting. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Public-instance fair use; identifying client, attribution/fix-map link, quotas or self-hosting. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -165,7 +169,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / MEDIUM.
 **Runtime status / evidence:** Code exists; No reported current defect; this audit did not freshly activate this live feed. **Missing/different from upstream:** Upstream full layer, richer event cards and magnitude-dependent rendering; Hub M2.5+, 500 records, 15-minute feed admission, bounded owned entities. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** KEEP CURRENT; C5 explicitly qualified a bounded typed FastAPI feed and Hub-owned event factories; depthColor is reused. Proposed target: C5.7-E regression only; preserve current bounded implementation.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -178,7 +182,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / MEDIUM.
 **Runtime status / evidence:** Code exists; No reported current defect; no fresh live activation in this audit. **Missing/different from upstream:** InciWeb enrichment, containment palette/cards, upstream broader subset. Hub retains holes, max 100 recent generalized polygons, 25,000 total vertices and focus anchors. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** KEEP CURRENT; C5 performance, strict polygon contract and bounded public-context scope are documented; perimeterAnchorDegrees is reused. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -191,7 +195,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION QUESTIONABLE / CRITICAL.
 **Runtime status / evidence:** Code exists; Hub 503 and zero aircraft at 15.62-million-m home height; upstream accepted 12,975 worldwide contacts. Altitude gate independently explains invisible contacts if a feed succeeds. **Missing/different from upstream:** OpenSky and fallback chain, view anchor/250-NM fallback, history/motion interpolation, enrichment, heading/classification, aircraft tracking, global contact display. Aircraft glyph hidden above 2,000,000 m and its point never shown. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Confirmed code display gate; separate503provider observation; observer coverage intentional; motion/fallback usability incomplete.
-**Provider/credential/license/distribution:** OpenSky research/education versus public/commercial service approval; ADSB.lol ODbL and quota stewardship. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. OpenSky research/education versus public/commercial service approval; ADSB.lol ODbL and quota stewardship. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; Phase C2 explicitly bounded one 100-NM observer feed, typed transport and geometric-height truth. Those remain valid safety constraints; Viewer ownership does not justify discarding all fleet display/motion/fallback behavior. Proposed target: C5.7.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#c57-a--aircraft-operational-recovery); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD1.
@@ -204,7 +208,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Requires local hardware and explicit device permission; no hardware was connected. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Requires local hardware and explicit device permission; no hardware was connected. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD1.
@@ -217,7 +221,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** ODbL attribution and derived-database obligations; current build excludes all bundled local_data. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. ODbL attribution and derived-database obligations; current build excludes all bundled local_data. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -230,7 +234,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** ODbL is compatible with commercial use subject to obligations; not categorically prohibited, but current build excludes bundled data. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. ODbL is compatible with commercial use subject to obligations; not categorically prohibited, but current build excludes bundled data. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -243,7 +247,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Free MAP_KEY and transaction quota; no credentials supplied. Public data terms do not imply unlimited API service. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Free MAP_KEY and transaction quota; no credentials supplied. Public data terms do not imply unlimited API service. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -256,7 +260,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** ODbL plus enrichment/model rights; coverage is reception/classification, not exhaustive military activity. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. ODbL plus enrichment/model rights; coverage is reception/classification, not exhaustive military activity. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD1.
@@ -269,7 +273,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Inherits dependent rights; source observations must not become fabricated threat assessment. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Inherits dependent rights; source observations must not become fabricated threat assessment. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -282,7 +286,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** ODbL named pack and optional proprietary Places terms; mapped site does not establish activity or completeness. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. ODbL named pack and optional proprietary Places terms; mapped site does not establish activity or completeness. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -295,7 +299,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** PDDL covers directory only. Audio remains broadcaster-owned; one direct stream discloses listener IP and must not be mirrored. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. PDDL covers directory only. Audio remains broadcaster-owned; one direct stream discloses listener IP and must not be mirrored. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -308,7 +312,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** NASA/sensor-product provenance and service fairness; these recent tiles do not establish globally uniform HD. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. NASA/sensor-product provenance and service fairness; these recent tiles do not establish globally uniform HD. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN C6; Retained future capability; no feature-specific integration decision has been approved. Proposed target: C6.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C6_GLOBAL_MAPPING_SPEC.md); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD5/OD6.
@@ -321,7 +325,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Prior C5 LL2 403 is historical. This audit did not re-query LL2; access/quota/terms and replay provenance need qualification. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Prior C5 LL2 403 is historical. This audit did not re-query LL2; access/quota/terms and replay provenance need qualification. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** PROVIDER RESEARCH REQUIRED; Retained future capability; no feature-specific integration decision has been approved. Proposed target: BLOCKED.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD2.
@@ -334,7 +338,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION QUESTIONABLE / CRITICAL.
 **Runtime status / evidence:** Code exists; Owner historical ~5 is compatible with the reduced stations-only catalog; fresh Hub and reference both unavailable/zero, so fresh global population is unknown. **Missing/different from upstream:** Five core groups plus dense opt-in, category styles, NORAD multi-group dedupe, persistent satrec, 1-second propagation and per-frame tracked updates, orbit rings and partial/stale catalog state. Hard cap 100; 15-second position updates. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Intentional stations-only/cap/15s scope, not proven missing objects; unavailable live population; larger-group/LOD/tracking qualification required.
-**Provider/credential/license/distribution:** Current browser-direct CelesTrak transport is not proven CORS-safe; upstream explicitly uses a proxy. Cached source time, usage cadence and redistribution need qualification. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Current browser-direct CelesTrak transport is not proven CORS-safe; upstream explicitly uses a proxy. Cached source time, usage cadence and redistribution need qualification. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; Stations-only was explicit temporary C2 scope. No evidence proves a permanent performance requirement or architecture prohibition on broader populations. Strict checksum, finite position and seven-day epoch admission remain justified. Proposed target: C5.7.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#c57-b--satellite-population-and-tracking-correctness); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD2.
@@ -347,7 +351,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** CC BY-NC-SA 3.0 bundled snapshot; owner must resolve noncommercial fit or obtain a separate license/source. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. CC BY-NC-SA 3.0 bundled snapshot; owner must resolve noncommercial fit or obtain a separate license/source. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** OWNER DECISION REQUIRED; Retained future capability; no feature-specific integration decision has been approved. Proposed target: BLOCKED.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -360,7 +364,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** TomTom key/billing/quota/cache rules; never present simulated dots as observed vehicles. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. TomTom key/billing/quota/cache rules; never present simulated dots as observed vehicles. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -373,7 +377,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Per-agency license/service terms; data ages and retention limits remain distinct from generic GTFS format. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Per-agency license/service terms; data ages and retention limits remain distinct from generic GTFS format. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -386,7 +390,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** NWS disclaimer, advisory date and basin coverage; forecasts are not current measured footprints. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. NWS disclaimer, advisory date and basin coverage; forecasts are not current measured footprints. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD3.
@@ -399,7 +403,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** NOAA Level-5 distribution permitted with description/attribution; raw Vaisala detection rights are different. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. NOAA Level-5 distribution permitted with description/attribution; raw Vaisala detection rights are different. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD3.
@@ -412,7 +416,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / HIGH.
 **Runtime status / evidence:** Code exists; Hub point Weather is a separate toggle; reference radar HTTP responses succeeded but screenshot/status reported unavailable frames. No new Hub radar visual qualification here. **Missing/different from upstream:** Observed history/playback, tiled close detail, crossfade/shared weather clock, coverage controls and full upstream legend. Hub 2048x1024 latest-only CONUS image and coverage-centre marker. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** KEEP CURRENT; C5 explicitly chose a bounded current snapshot, source-time lease and strict fixed endpoint instead of an arbitrary time/tile proxy. Current scope is valid but does not equal upstream weather parity. Proposed target: C5.7.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#c57-c--weather-usability); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD3.
@@ -425,7 +429,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Observed timestamp and product-specific regional/global coverage; imagery interpretation must stay explicit. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Observed timestamp and product-specific regional/global coverage; imagery interpretation must stay explicit. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD2.
@@ -438,7 +442,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** ECMWF CC BY 4.0 plus disclaimer, NOAA courtesy credit; server decoder/provider quotas and grid timing must qualify. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. ECMWF CC BY 4.0 plus disclaimer, NOAA courtesy credit; server decoder/provider quotas and grid timing must qualify. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD3.
@@ -451,7 +455,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION QUESTIONABLE / CRITICAL.
 **Runtime status / evidence:** Code exists; Fresh Open-Meteo 200, one live point at ORAS; owner reported little visible effect. The current implementation invokes no globe weather field; the report itself is not a field-level usability test. **Missing/different from upstream:** Upstream cockpit weather fields/effects and independent visible weather products. Hub requests four current variables, renders a 16px point, displays temperature/cloud/valid time but omits requested wind from facts. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Point conditions live success; generic-control usability/scope gap, not proof broken acquisition or global map.
-**Provider/credential/license/distribution:** Free hosted API noncommercial service only; CC BY 4.0 data is separate from service permission. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Free hosted API noncommercial service only; CC BY 4.0 data is separate from service permission. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** FIX CURRENT IMPLEMENTATION; C2 deliberately admitted modeled current conditions only. Honest point data is valid; generic Weather discoverability and absent field meaning do not fulfill visual-weather expectations. Proposed target: C5.7.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#c57-c--weather-usability); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD3.
@@ -464,7 +468,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Service/license and modeled-vs-observed truth; scene effects are presentational. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Service/license and modeled-vs-observed truth; scene effects are presentational. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN F ASTRONOMY EXTENSIONS; Hub has point cloudCoverPct under weather-current; no separate cloud field or astronomy seeing model. Validate science before observing-quality claims. Proposed target: F Astronomy extensions.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD3.
@@ -477,7 +481,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Model value and radar product rights/time semantics; no fabricated precipitation. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Model value and radar product rights/time semantics; no fabricated precipitation. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Do not invent an upstream precipitation renderer or interpret reflectivity as rainfall accumulation. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD3.
@@ -490,7 +494,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Same forecast-product/time/attribution gates as wind. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Same forecast-product/time/attribution gates as wind. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD3.
@@ -503,7 +507,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Hub current snapshot temporal contracts intentionally omit weather-history playback; do not bind live feeds to the Hub astronomy clock. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD3.
@@ -516,7 +520,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION QUESTIONABLE / CRITICAL.
 **Runtime status / evidence:** Code exists; Owner black void matches explicit source setting; reference skybox is enabled. **Missing/different from upstream:** Hub explicitly sets viewer.scene.skyBox.show=false, revealing #03070B background. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Confirmed explicit disabled standard skybox; visual presentation difference, not missing scientific catalog.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN C5.7; No documented technical/provider/product reason found for disabling the standard skybox. Viewer ownership remains valid. Proposed target: C5.7.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#c57-d--earth-space-background); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD4/OD6.
@@ -529,7 +533,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / LOW.
 **Runtime status / evidence:** Code exists; No reported separate Sun/Moon defect; astronomical accuracy not newly qualified. **Missing/different from upstream:** No bespoke astronomical background/time contract. Standard Sun/Moon are not explicitly disabled by Hub. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN F ASTRONOMY EXTENSIONS; Keep Cesium math engine-owned; Hub has LIVE_ONLY feed contracts and separate astronomy engine. Proposed target: F Astronomy extensions.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -542,7 +546,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / MEDIUM.
 **Runtime status / evidence:** Code exists; Black void is skybox setting, not evidence all atmosphere disabled. **Missing/different from upstream:** Upstream intensity shifts and Apple model shader workaround; Hub enables ground/Sun lighting, fog density 0.0002 and default sky atmosphere, uses request-render and resolution cap. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN C6; Owned request-render/performance style is documented; physical Apple/Metal compatibility remains unqualified, relevant before future model/3D use. Proposed target: C6.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C6_GLOBAL_MAPPING_SPEC.md); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD5/OD6.
@@ -555,7 +559,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / LOW.
 **Runtime status / evidence:** Code exists; No effects controls implemented; source hooks useful after rights/render qualification. **Missing/different from upstream:** Upstream effects and tuning UI not implemented; current Hub has simple normal Earth presentation. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN C6; Bounded C2/C6 scope, accessible product shell and truthful science do not require fictional intelligence presentation. Proposed target: C6.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C6_GLOBAL_MAPPING_SPEC.md); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD5/OD6.
@@ -568,7 +572,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / HIGH.
 **Runtime status / evidence:** Code exists; Hub Earth currently has no qualified real-terrain deployment. **Missing/different from upstream:** Active real terrain and ReEarth route. Default Hub EllipsoidTerrainProvider; qualified Ion branch exists but no configured provider proves active terrain. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Bounded current/dormant/ellipsoid scope; global terrain/3D qualification absent, not implied by optional code.
-**Provider/credential/license/distribution:** Ion entitlement or ReEarth CC BY mesh/datum terms, available coverage and service budgets. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Ion entitlement or ReEarth CC BY mesh/datum terms, available coverage and service budgets. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN C6; C6 remains gated; dormant artifact-attested provider options are not production/active qualification. Proposed target: C6.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C6_GLOBAL_MAPPING_SPEC.md); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD5/OD6.
@@ -581,7 +585,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / HIGH.
 **Runtime status / evidence:** Code exists; Potential grounded-aircraft/camera limitations, not directly proven as a current defect. **Missing/different from upstream:** Terrain batch service/groundFloor, mesh floor resolution and provenance; Hub camera uses globe.getHeight or 0 fallback without a terrain-height service. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Bounded current/dormant/ellipsoid scope; global terrain/3D qualification absent, not implied by optional code.
-**Provider/credential/license/distribution:** Service/datum attribution and no false ellipsoidal-ground claim. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Service/datum attribution and no false ellipsoidal-ground claim. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; C6 grounding depends on real terrain/provider qualification. Do not copy a geoid fallback as terrain evidence. Proposed target: C6.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C6_GLOBAL_MAPPING_SPEC.md); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD5/OD6.
@@ -594,7 +598,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / MEDIUM.
 **Runtime status / evidence:** Code exists; Reference keyless Esri has local detail; Hub public imagery is regional HD, not uniform global HD. **Missing/different from upstream:** Provider stack tray/global HD. Hub qualified CONUS USGS with GIBS/NaturalEarth coarse globe fallback and bounded requests. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Bounded current/dormant/ellipsoid scope; global terrain/3D qualification absent, not implied by optional code.
-**Provider/credential/license/distribution:** Hosted-provider entitlement/fair use; keyless successful tile is not an unlimited license. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Hosted-provider entitlement/fair use; keyless successful tile is not an unlimited license. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN C6; HD qualification deliberately chose public source/coverage bounds. Global imagery account/licensing and scale remain owner decision. Proposed target: C6.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C6_GLOBAL_MAPPING_SPEC.md); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD5/OD6.
@@ -607,7 +611,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / HIGH.
 **Runtime status / evidence:** Code exists; Reference unavailable without credentials; Hub no active photoreal tiles. **Missing/different from upstream:** No attested configured photoreal provider; dormant ion asset path is not live visual qualification. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Bounded current/dormant/ellipsoid scope; global terrain/3D qualification absent, not implied by optional code.
-**Provider/credential/license/distribution:** Google billing/ToS/cache/display attribution; ion entitlement does not erase Google data terms. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Google billing/ToS/cache/display attribution; ion entitlement does not erase Google data terms. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; C6 provider/billing/security/coverage gate; keep Hub Viewer and wrap map/tileset helpers instead of full application. Proposed target: C6.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C6_GLOBAL_MAPPING_SPEC.md); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD5/OD6.
@@ -620,7 +624,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / LOW.
 **Runtime status / evidence:** Code exists; Optional code is dormant, not implemented active capability. **Missing/different from upstream:** No active configured buildings asset; upstream dedicated helper absent. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Bounded current/dormant/ellipsoid scope; global terrain/3D qualification absent, not implied by optional code.
-**Provider/credential/license/distribution:** Specific building dataset license/attribution and tile endpoint/asset approval. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Specific building dataset license/attribution and tile endpoint/asset approval. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN C6; C6 may justify standard Cesium/approved ion buildings directly; full upstream app supplies no magic missing building hook. Proposed target: C6.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C6_GLOBAL_MAPPING_SPEC.md); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD5/OD6.
@@ -633,7 +637,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Google terms/billing; Nominatim one-request-per-second app-wide and no public autocomplete; ODbL/Photon fair use. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Google terms/billing; Nominatim one-request-per-second app-wide and no public autocomplete; ODbL/Photon fair use. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; Retained future capability; no feature-specific integration decision has been approved. Proposed target: C6.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C6_GLOBAL_MAPPING_SPEC.md); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD5/OD6.
@@ -646,7 +650,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Mixed geodata licenses, source truth, bounding and asset manifests; no upstream bundled dataset import by default. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Mixed geodata licenses, source truth, bounding and asset manifests; no upstream bundled dataset import by default. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -659,7 +663,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** PORT UPSTREAM MINIMALLY; Package exposes full app tools composition but not a dedicated pinned draw-tool subpath; investigate generic bounded export rather than copy whole app. Proposed target: G Immersive UX.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -672,7 +676,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** OWNER DECISION REQUIRED; Absence is explicit. Do not count directions distance as a fully implemented measuring instrument. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -685,7 +689,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; Hub astronomy canonical identities remain Hub-owned; optional Earth contact search can wrap pure search/layer APIs. Proposed target: C6.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C6_GLOBAL_MAPPING_SPEC.md); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD5/OD6.
@@ -698,7 +702,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Each authored pack retains source rights; exclude historical restricted bundles and fabricated telemetry. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Each authored pack retains source rights; exclude historical restricted bundles and fabricated telemetry. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; Retained future capability; no feature-specific integration decision has been approved. Proposed target: G Immersive UX.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -711,7 +715,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Dependent data/model rights and presentational cockpit semantics; no physical-flight instrumentation certification. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Dependent data/model rights and presentational cockpit semantics; no physical-flight instrumentation certification. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; Current Hub CameraController tracks satellites only; do not import upstream product chrome or duplicate Hub universal state. Proposed target: G Immersive UX.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -724,7 +728,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Imagery screenshots and data-pack redistribution retain each provider/asset terms. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Imagery screenshots and data-pack redistribution retain each provider/asset terms. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; Use bounded codecs/documents where they match Hub contracts; portable cross-engine selection must stay Hub-owned. Proposed target: G Immersive UX.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -737,7 +741,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / MEDIUM.
 **Runtime status / evidence:** Code exists; Post-merge real Sky canvas wheel passed; that does not qualify arbitrary Earth pinch/terrain routes. **Missing/different from upstream:** Upstream route flight/cockpit ownership and Ctrl-wheel relay; Hub own wheel, keyboard interruption, focus, stopTracking and bounds. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** KEEP CURRENT; Hub bridge/canonical selection/one-renderer state require owned control. No current Earth wheel failure established; Sky wheel regression was separately fixed. Proposed target: C5.7-E regression only; preserve current bounded implementation.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -750,7 +754,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / LOW.
 **Runtime status / evidence:** Code exists; No current defect proven; source unavailable preserves explicitly last-known selected facts. **Missing/different from upstream:** Upstream application context store deliberately not used as universal state. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** KEEP CURRENT; Hub canonical string identities, bounded DTO bridge and owned product state are architectural requirements. Proposed target: C5.7-E regression only; preserve current bounded implementation.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -763,7 +767,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / LOW.
 **Runtime status / evidence:** Code exists; Fresh Sky→Earth→Sky smoke passed with one active renderer and no relevant page exceptions. **Missing/different from upstream:** Entire app composition/chrome/source singletons are excluded. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** KEEP CURRENT; Current authority explicitly requires Hub-owned Viewer, source containment and active-only iframe lifetime. This is justified, not an excuse to rewrite bounded feature modules. Proposed target: C5.7-E regression only; preserve current bounded implementation.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -776,7 +780,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Google News personal/noncommercial terms; linked publisher copyright; approve/disallow or replace source explicitly. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Google News personal/noncommercial terms; linked publisher copyright; approve/disallow or replace source explicitly. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** OWNER DECISION REQUIRED; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -789,7 +793,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** DO NOT USE / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Owner-authorized provider/cost/model/session policy required; no paid credentials or calls used. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Owner-authorized provider/cost/model/session policy required; no paid credentials or calls used. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** OWNER DECISION REQUIRED; Do not create a competing Hub AI product or initiate paid provider work under this audit. Proposed target: BLOCKED.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -802,7 +806,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Public-domain packs may be useful but current artifact forbids bundled upstream local_data; use owned ingestion/manifest, not arbitrary bundle bypass. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Public-domain packs may be useful but current artifact forbids bundled upstream local_data; use owned ingestion/manifest, not arbitrary bundle bypass. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** ADD IN LATER EARTH PHASE; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -815,7 +819,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Per-asset license/provenance must be manifested; MIT source does not license model payloads. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Per-asset license/provenance must be manifested; MIT source does not license model payloads. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** PROVIDER RESEARCH REQUIRED; Retained future capability; no feature-specific integration decision has been approved. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD6 plus a future bounded scope/provider decision.
@@ -828,7 +832,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Token, SDK/imagery terms, credits, privacy and full upstream-update qualification required; no provider calls made. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: GATED. Token, SDK/imagery terms, credits, privacy and full upstream-update qualification required; no provider calls made. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** PROVIDER RESEARCH REQUIRED; Retained future capability; no feature-specific integration decision has been approved. Proposed target: C6.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C6_GLOBAL_MAPPING_SPEC.md); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD5/OD6.
@@ -841,7 +845,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** OWNER DECISION REQUIRED; Hub owns immersive product shell; this audit did not physically qualify AR or authorize an AR dependency. Proposed target: G Immersive UX.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -854,7 +858,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** OWNER DECISION REQUIRED; Potential bounded API patterns; do not substitute these tools for canonical FastAPI astronomy contracts or start a competing Hub AI service. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -867,7 +871,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** UNKNOWN / N/A — no adapted implementation.
 **Runtime status / evidence:** Omitted/not implemented in Hub; upstream availability or explicit absence is not runtime qualification. No corresponding Hub control. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Deferred/absent/unknown; not a regression or automatic feature authorization.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; Useful adapter candidate; Hub universal state/selection remains authoritative, validate codec rounding/clamping and version semantics before reuse. Proposed target: G Immersive UX.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -880,7 +884,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** REUSE EXACTLY / LOW.
 **Runtime status / evidence:** Code exists; Reuse alone does not guarantee provider or display parity. **Missing/different from upstream:** No helper rewrite. Parent transport/filter/display losses remain in flights. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** KEEP CURRENT; Direct imports verified in source and qualified module-policy. Proposed target: C5.7.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#c57-a--aircraft-operational-recovery); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD1.
@@ -893,7 +897,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** REUSE EXACTLY / LOW.
 **Runtime status / evidence:** Code exists; No helper defect found. **Missing/different from upstream:** No helper loss; parent event layer differs. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** KEEP CURRENT; Public exported helper retained. Proposed target: C5.7.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -906,7 +910,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** REUSE EXACTLY / LOW.
 **Runtime status / evidence:** Code exists; No helper defect found. **Missing/different from upstream:** No helper loss; focus anchor is not claimed incident location. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** KEEP CURRENT; Public helper preserves geometry behavior. Proposed target: Later Earth capability phase.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#common-work-package-contract); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
@@ -919,7 +923,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** WRAP / HIGH.
 **Runtime status / evidence:** Code exists; Fresh satellites unavailable in both environments. **Missing/different from upstream:** Transport ignores group requested by source. No upstream cache/header/stale transport; parent populations also reduced. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; Fetch seam is appropriate; stations narrowing is temporary C2 scope, browser CORS assumption is not proven. Proposed target: C5.7.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#c57-b--satellite-population-and-tracking-correctness); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** OD2.
@@ -932,7 +936,7 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current relationship / risk:** REUSE EXACTLY / LOW.
 **Runtime status / evidence:** Code exists; Fresh modeled point rendered successfully. **Missing/different from upstream:** No helper rewrite; request subset and facts differ. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
 **Bug versus scope versus unverified:** Existing bounded implementation/helper; no additional live defect proven. Scope/qualification differences retained.
-**Provider/credential/license/distribution:** Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
+**Provider/credential/license/distribution:** Audit provider/data gate: NO AUDIT FLAG. Provider ledger applies; availability is separate from rights. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** KEEP CURRENT; Source normalized UTC, unknown values retained as unavailable. Proposed target: C5.7.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#c57-c--weather-usability); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.

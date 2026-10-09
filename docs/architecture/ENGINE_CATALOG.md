@@ -78,9 +78,9 @@ stronger science/security guards remain justified. Preserve applicable aircraft,
 satellites, ships, CCTV, traffic, environment, imagery/terrain and infrastructure
 in the [Earth capability plan](../execution/EARTH_CAPABILITY_PLAN.md), subject to
 scope/source/hook/provider/data/asset rights and owner approval. Omission today is
-not blanket rejection; current29-layer pin does not imply29 qualified Hub layers.
+not blanket rejection; current 29-layer pin does not imply 29 qualified Hub layers.
 
-Current aircraft is observer-bounded; Earth satellites are stations-only/cap100/
+Current aircraft is observer-bounded; Earth satellites are stations-only/cap 100/
 15s; Weather is modeled observer-point data, with separate CONUS radar snapshot.
 HD is bounded CONUS; terrain/3D and most upstream products are unqualified.
 Broader astronomy additions stay external adapters/extensions and separately gated.
@@ -112,7 +112,7 @@ Orbital tracking within Earth context
 ### Outputs
 
 * normalized identity/TLE releases, freshness/provenance and local propagation (current source paths)
-* Earth stations-only15s propagation/selection exists; broader tracking/populations unqualified
+* Earth stations-only 15-second propagation/selection exists; broader tracking/populations unqualified
 * qualified passes (future); legacy passes are not production-grade
 * unknown brightness must remain unavailable, never invented
 
@@ -143,7 +143,7 @@ Atmospheric aircraft tracking
 
 ### Behavior
 
-* current Earth observer100NM path exists, audit503 unavailable; home-altitude display gates separately proven
+* current Earth observer 100 NM path exists, audit HTTP 503 unavailable; home-altitude display gates separately proven
 * study and likely adapt God's Eye providers/layers, fallback, freshness and tracking
 * future real-position-to-ORAS azimuth/elevation/range projection needs qualification
 * local ORAS ADS-B receiver is an optional future differentiator
