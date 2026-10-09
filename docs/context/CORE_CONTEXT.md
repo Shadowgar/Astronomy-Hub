@@ -35,8 +35,9 @@ Do not scan the full `docs/` directory by default.
 Astronomy Hub is a unified, continuously navigable astronomy, Earth, and planetary
 exploration workspace with astronomy intelligence. The approved architecture is
 [Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
-Its current foundation is the shared public shell, Observe, Tonight, and SWE;
-Earth/planet integration and universal multi-renderer state are planned.
+Its current foundation is the unified Sky/Earth workspace, Observe, Tonight,
+contained SWE and independent owned Cesium Earth with small qualified bridge/state.
+Broad Earth parity, body surfaces and ISS/solar-scale handoffs remain planned.
 
 Primary user question:
 
@@ -108,45 +109,21 @@ rendering and generic Hub-owned sky rendering are not the current direction.
 
 ## Hub Rule
 
-The Hub owns the product shell, navigation, and Above Me decision layer.
+The Hub owns shell/navigation/astronomy decisions and implemented small Sky/Earth
+integration intent/state. Engines own scene/math/native realization. General body/
+ISS/scale handoffs are planned, not proved by the current bridge. See
+[architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md) and
+[workspace evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
+Prefer qualified exact reuse/wrapping of pinned God's Eye feature modules within
+owned Viewer/lifecycle/selection and justified data/security boundaries, per
+[ADR0009](../architecture/decisions/0009-owned-earth-feature-reuse.md). Do not
+import its complete app/main/Viewer singleton or prescribe broad adapter rewrites.
 
-The approved future Hub-owned universal state is small: mode, time, observer,
-selected entity/body, camera intent, applicable layers, and history/context.
-The [Phase B study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md) recommends
-a versioned capability bridge between independently built, same-origin runtime
-frames with only the active heavy renderer mounted. Exact schema and runtime
-qualification remain open. Engines realize these intents
-through qualified adapters and own their internal camera, selection and scene
-behavior. Shared product intent is not permission to modify renderer internals.
-
-Its Above Me decision capability:
-
-- receives candidate objects
-- filters by visibility and constraints
-- ranks relevance
-- outputs a curated set
-- links users to the correct engine/detail view
-
-The Hub may:
-
-- request candidate objects
-- rank and filter visible objects
-- display curated summaries
-- pass observer/time/location/config through defined contracts
-- link to `/oras-sky-engine/`
-- mount an isolated engine viewport through approved interfaces
-
-The Hub must not:
-
-- reach into SWE scene or render-loop internals
-- turn the Hub shell into a shared universal renderer
-- modify Sky Engine scene internals
-- present raw uncurated provider lists as curated Above Me decisions
-- fake object visibility, coordinates, or catalog identity
-
-Above Me discovery output must be small, curated, decision-ready, source-backed,
-and routeable. This bounds the observing decision feed, not the complete applicable
-Earth feature set or the unified product's exploration capabilities.
+Above Me receives source-backed candidates, filters validated visibility and
+constraints, ranks/truncates decision-ready output and routes canonical identities.
+This curated feed is not the complete Earth exploration population. Do not reach
+into SWE scene/math, invent data or move Sky rendering into React/Babylon. Small
+intent/camera/selection crosses qualified adapters; no universal scene renderer.
 
 ## ORAS Sky Engine Isolation Rule
 
@@ -267,7 +244,9 @@ Credits-update work is not part of this lane unless explicitly requested.
 
 Astronomy Hub owns the Cesium Earth runtime. God's Eye supplies selectively
 adapted public modules from an immutable external pin; its complete application
-and Viewer startup are prohibited. Useful capabilities remain in the parity ledger.
+and Viewer startup are prohibited. Prefer qualified feature reuse/wrapping; the
+[Earth capability plan](../execution/EARTH_CAPABILITY_PLAN.md) retains future scope.
+The historical runtime-ledger generator is not current planning authority.
 Future astronomy additions are external additive extensions. Body-aware Cesium is the planned planetary
 surface direction. The solar-system-scale renderer remains open. Earth foundation and unified workspace are implemented; planetary integration has not started.
 

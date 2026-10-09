@@ -56,40 +56,25 @@ What is above me right now, and what should I observe?
 
 ---
 
-## Current Foundation and Approved Direction
+## Current Foundation and Approved Direction — non-execution summary
 
-CURRENT foundation: unified Sky-first workspace, Sky/Earth modes, reusable
-Tonight/Observe contexts, focused routes and contained SWE;
-existing satellite identity/TLE/freshness/local propagation remain intact.
-IMPLEMENTED Phase C: Hub-owned independent Cesium Earth with selective externally
-pinned God's Eye feature modules, small Hub intent and serial bridge/lifecycle.
-The prior complete-app topology is superseded by explicit owner instruction.
-Retain useful Earth capabilities through the pinned capability ledger.
+C0–C5.6 completed bounded foundations: owned Earth/selective pinned modules,
+serial Sky/Earth bridge, unified workspace, quakes/perimeters/latest CONUS radar,
+bounded CONUS HD, local development and Sky wheel/search/Gaia/controls stabilization.
+PR63/64/65 are merged. Full Earth feature parity/global weather/real terrain/
+planetary/ISS/production readiness are not complete; [audit](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md)
+and [Feature Tracker](../features/FEATURE_TRACKER.md) retain actual limits.
+This product reference does not define order or authorize implementation.
 
-Sequence: C0 reproducible SWE; C1 ORAS Cesium core; C2 selective adapters;
-C3 core parity; C4 unified bridge/lifecycle; C5 broader feature expansion;
-D ISS handoff; E Mars; F astronomy extensions; G immersive UX; H solar-system scale.
-ORA-7 implemented the locked unified workspace and Earth visual foundation;
-owner approval closed that checkpoint through merged PR #58. PRs #60/#61 are
-also merged baselines. PR #62 context/validation enforcement is merged at
-`fc41ac19`. PR #59 merged after owner approval at `d8ca945a` on 2026-10-04:
-USGS earthquakes,
-NIFC/WFIGS fire perimeters and NOAA/NWS nowCOAST CONUS radar. Launch Library
-remains blocked by production HTTP 403. Phase C5 is COMPLETE after owner approval,
-merge and passing post-merge qualification. PR #63's bounded high-definition
-close-zoom Earth package is COMPLETE after owner approval and normal merge
-`126da1537c734de817d9f9c59468d995807da37c` on 2026-10-05. Fresh unchanged-tree
-Docker smoke passed four cases. USGS aerial imagery is CONUS-focused and
-historical; global fallback is lower resolution and terrain remains ellipsoid-only.
-See [HD mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md) for the
-preserved feature campaign. The active task is integration/repository hygiene:
-separate tooling and stacked Sky repair PRs await owner review in that order.
-Neither follow-up merge nor a new feature phase is authorized. External deployment is intentionally
-deferred until an owner-declared Release Candidate; historical `openclaw` storage
-is not a feature blocker or next action. Reassess host/storage/hostname,
-Cloudflare and `oras.org` integration separately at that release gate. No public
-deployment is claimed. ISS and Mars/Moon work have not started.
-Later phases remain planned and require explicit authorization.
+Execution sequence and gates: [PROJECT_STATE](PROJECT_STATE.md) and
+[LIVE_SESSION_BRIEF](../context/LIVE_SESSION_BRIEF.md). Earth planning:
+[Earth plan](EARTH_CAPABILITY_PLAN.md), [proposed C5.7](C5_7_EARTH_CORE_RECOVERY_SPEC.md),
+[C6 direction](C6_GLOBAL_MAPPING_SPEC.md). C5.6.75 is current documentation review;
+C5.7 needs approval, C6 provider-specific work unapproved, D/E/F/G/H planned.
+Keep complete applicable future Earth scope through preferential feature reuse/
+wrapping in owned Viewer, not complete upstream app ownership. Development remains
+local WSL/Docker; production requires owner-declared Release Candidate and separate
+deployment approval.
 
 ## FEATURE DOMAINS (REFERENCE ONLY)
 

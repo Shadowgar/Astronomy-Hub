@@ -1,63 +1,58 @@
 # Astronomy Hub
 
-Astronomy Hub is a unified, continuously navigable astronomy, Earth, and
-planetary exploration workspace. Its astronomy intelligence answers what is
-above an observer and what deserves attention, within a broader exploration
-product.
+Astronomy Hub combines astronomy decisions and independent Sky/Earth exploration.
+The Hub owns product intent, shell and integration state; SWE owns Sky math,
+rendering, native camera and selection. The independently built Earth runtime owns
+its Cesium Viewer and bounded adapters. Prefer qualified reuse/wrapping of pinned
+God's Eye feature implementations, with documented justification for Hub-specific
+science/security/provider paths. Never import the upstream application or Viewer.
 
-## Current foundation
+## Current foundation and boundaries
 
-Merged PR #52 provides one public ORAS shell: Home `/`, Observe `/observe`,
-Tonight `/tonight`, and Sky host `/sky-engine`. The contained Stellarium Web
-runtime at `/oras-sky-engine/` owns sky rendering and remains available standalone.
-Existing satellite identity, TLE release/freshness/provenance and local propagation
-work remains valid. Qualified satellite passes are still future work.
+C0–C5.6 are completed bounded checkpoints; PRs #63–#65 are merged. Sky remains at
+`/oras-sky-engine/`, standalone and mounted in the `/sky-engine` workspace alongside
+`/earth-runtime/`. `/` opens the Sky workspace; `/earth` opens Earth.
+Observe and Tonight remain focused routes. The versioned bridge,
+small product state and serial active-renderer lifecycle are implemented locally.
+See [PROJECT_STATE](execution/PROJECT_STATE.md),
+[Feature Tracker](features/FEATURE_TRACKER.md) and
+[Unified Universe Architecture](architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
 
-Historical qualification and known gaps are in
-[PROJECT_STATE](execution/PROJECT_STATE.md) and
-[FEATURE_TRACKER](features/FEATURE_TRACKER.md). This documentation checkpoint
-claims no fresh runtime qualification.
+Completion does not mean full God's Eye parity: aircraft source failed503 in the
+dated audit and altitude gates hide home-view glyphs; satellites intentionally use
+stations only; Weather qualified one modeled point, not a weather map; CONUS radar
+is a separate timestamped snapshot. HD imagery is regional, terrain/3D are dormant,
+and Earth disables the standard skybox. Local WSL/Docker qualification is not
+production readiness. No owner Release Candidate or deployment is declared.
 
-## Approved direction and open choices
+## Planning and review checkpoint
 
-[Unified Universe Architecture](architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)
-is the detailed architecture reference, with eight concise ADRs. The planned
-flagship is a full-viewport, sky-centered workspace with contextual controls.
-Observe and Tonight stay independent routes and later gain workspace drawers.
-Home/Sky may converge conceptually; no routes change in this checkpoint.
+C5.6.5 audit evidence is preserved. C5.6.75 documentation reconciliation is current;
+owner review is next. [Earth capability plan](execution/EARTH_CAPABILITY_PLAN.md),
+[C5.7 proposed packages and Owner Decision Register](execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md),
+[C6 provider-first proposal](execution/C6_GLOBAL_MAPPING_SPEC.md),
+[ADR0009 reuse decision](architecture/decisions/0009-owned-earth-feature-reuse.md),
+[audit matrix](audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md),
+[divergence evidence](audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md) and
+[reconciliation validation](validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md).
 
-The future Hub owns small universal product state and cross-engine intent. SWE
-owns Sky rendering; complete applicable God's Eye View owns the planned Earth
-runtime; body-aware Cesium is the planned planetary surface direction.
-Astronomy Earth additions are external additive layers. Upstream source is
-immutable by default and remains pinned, qualified and upgradeable. Source-code
-licensing never automatically licenses third-party data, visual assets or providers.
+C5.7 is proposed and unapproved, one package at a time. C6 direction is approved,
+provider-specific work is unapproved. D ISS, E body-aware Mars/surfaces, F astronomy
+extensions (including `oras_horizon.v1`), G immersive UX and H solar-system scale
+remain planned. No feature work begins from these documents.
 
-God's Eye integration, planetary surfaces, universal state and renderer handoffs
-are not implemented. The [Phase B study](studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md)
-selects external pinned sources, independent full-app builds, same-origin frames,
-a versioned capability bridge and active-only renderer lifetime. Exact APIs,
-browser/provider qualification and solar-system-scale rendering remain open.
+## Context and authority
 
-## Context and execution
-
-Start with [CORE_CONTEXT](context/CORE_CONTEXT.md) and
-[LIVE_SESSION_BRIEF](context/LIVE_SESSION_BRIEF.md), then load the matching pack
-from [CONTEXT_MANIFEST](context/CONTEXT_MANIFEST.yaml).
-[DOCUMENT_INDEX](DOCUMENT_INDEX.md) defines document authority;
-[SYSTEM_VALIDATION_SPEC](validation/SYSTEM_VALIDATION_SPEC.md) defines proof.
-Do not load the full docs tree or use archive phase instructions as current work.
-
-Preserve both models:
+Load [CORE_CONTEXT](context/CORE_CONTEXT.md) and
+[LIVE_SESSION_BRIEF](context/LIVE_SESSION_BRIEF.md), then the matching
+[CONTEXT_MANIFEST](context/CONTEXT_MANIFEST.yaml) pack. Declare all loaded documents;
+do not scan the full docs tree. [DOCUMENT_INDEX](DOCUMENT_INDEX.md) separates
+execution control, architecture, evidence and product reference.
+`execution/MASTER_PLAN.md` is product reference only. Runtime completion follows
+[SYSTEM_VALIDATION_SPEC](validation/SYSTEM_VALIDATION_SPEC.md) and Docker/browser
+proof; this documentation checkpoint claims no fresh feature qualification.
 
 ```text
 Scope → Engine → Filter → Scene → Object → Detail → Assets
 Ingestion → Normalization → Storage → Cache → API → Client Rendering
 ```
-
-The active task is the docs-only Phase B compatibility study. Its next recommended
-task is the bounded Phase C skeleton in study section 29. The approved sequence is
-architecture → study → runtime skeleton → ISS slice → Mars proof → astronomy
-extensions, including the still-important `oras_horizon.v1`. Horizon is not next.
-Each implementation task requires separate bounded authorization and appropriate
-Docker/browser/source proof. No runtime implementation or merge in this checkpoint.

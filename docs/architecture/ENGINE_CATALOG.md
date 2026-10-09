@@ -12,23 +12,15 @@ Defines all engines in Astronomy Hub and their responsibilities.
 
 This is a **reference inventory**, not an execution plan.
 
-CURRENT: SWE at `/oras-sky-engine/`, its shared-shell host `/sky-engine`, Hub
-shell/Observe/Tonight and existing backend/catalog/satellite foundations.
-PLANNED / DECIDED BY PHASE B: externally SHA-pinned God's Eye upstream checkout,
-independent full-application build and external ORAS wrapper; immutable-default
-upstream source. Same-origin isolated/disposable runtime frames, a small versioned
-Hub bridge/state boundary and one active heavy renderer after settled switches
-are selected. Earth is independently built; Sky retains SWE. Body-aware Cesium
-Planet Mode remains planned. Earth/Planet runtimes are not implemented.
-OPEN: solar-system-scale renderer, exact extension/adapter APIs, provider/security/
-public-host qualification and exact visual transition/prewarming behavior.
-[Phase B study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md) supplies the selected
-direction; implementation and browser/performance qualification remain outstanding.
+CURRENT: contained SWE Sky and owned Cesium Earth, bounded workspace/bridge/
+serial lifecycle and source-backed layers, qualified locally under C0–C5.6.
+[Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md) defines current
+ownership; [ADR0009](decisions/0009-owned-earth-feature-reuse.md) supersedes full-app
+Earth topology. Prefer qualified pinned feature reuse/wrapping, never upstream app
+or Viewer singleton. PLANNED: broader Earth parity, global mapping/terrain/3D,
+planetary surfaces and astronomy extensions. OPEN: solar-system-scale renderer,
+provider/public-host/physical-device gates. Domain lists describe scope, not proof.
 
-[Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md) is the detailed
-approved reference. Domain lists below describe capability scope, not completion.
-Legacy Earth code is not God's Eye integration. All other renderer/domain examples
-require separate qualification; no integrated Earth/Planet runtime is claimed.
 
 ---
 
@@ -78,17 +70,20 @@ This is the **default engine of the system** and the foundation of the "Above Me
 
 ---
 
-## Earth Mode (PLANNED)
+## Earth Mode (CURRENT bounded foundation; broader capabilities gated)
 
-Approved foundation: complete applicable God's Eye View Earth runtime using
-Cesium, independently upgradeable. Preserve civil/military aircraft, satellites,
-ships, CCTV, traffic, fires, earthquakes, launches, weather/environment, imagery,
-terrain/photorealistic Earth, infrastructure and other applicable upstream layers.
-Non-astronomy capabilities must not be stripped. Provider/data/visual-asset terms
-may require configuration, attribution, alternate data or explicit unavailability.
+Hub owns the independently built Cesium Viewer, camera/layers/selection/credits/
+lifecycle and justified FastAPI paths. Selected God's Eye exports are reused;
+stronger science/security guards remain justified. Preserve applicable aircraft,
+satellites, ships, CCTV, traffic, environment, imagery/terrain and infrastructure
+in the [Earth capability plan](../execution/EARTH_CAPABILITY_PLAN.md), subject to
+scope/source/hook/provider/data/asset rights and owner approval. Omission today is
+not blanket rejection; current29-layer pin does not imply29 qualified Hub layers.
 
-Astronomy additions use an external adapter/extension registry, not scattered
-upstream source edits. Existing partial Earth code does not establish integration.
+Current aircraft is observer-bounded; Earth satellites are stations-only/cap100/
+15s; Weather is modeled observer-point data, with separate CONUS radar snapshot.
+HD is bounded CONUS; terrain/3D and most upstream products are unqualified.
+Broader astronomy additions stay external adapters/extensions and separately gated.
 
 ## Planet Mode (PLANNED)
 
@@ -117,13 +112,13 @@ Orbital tracking within Earth context
 ### Outputs
 
 * normalized identity/TLE releases, freshness/provenance and local propagation (current source paths)
-* Earth tracking/orbit display through the future adapter (planned)
+* Earth stations-only15s propagation/selection exists; broader tracking/populations unqualified
 * qualified passes (future); legacy passes are not production-grade
 * unknown brightness must remain unavailable, never invented
 
 ### Behavior
 
-* approved ORAS satellite data authority feeds Sky and future Earth visualization
+* Sky satellite authority and Earth stations-source paths are distinct current paths; do not claim a unified population
 * God's Eye orbit/tracking behavior may be reused after qualification
 * identity/time/provider/frame reconciliation remains open
 
@@ -148,7 +143,7 @@ Atmospheric aircraft tracking
 
 ### Behavior
 
-* current Hub nearby-flight awareness is immature
+* current Earth observer100NM path exists, audit503 unavailable; home-altitude display gates separately proven
 * study and likely adapt God's Eye providers/layers, fallback, freshness and tracking
 * future real-position-to-ORAS azimuth/elevation/range projection needs qualification
 * local ORAS ADS-B receiver is an optional future differentiator
@@ -169,7 +164,7 @@ Local observational conditions within Earth context
 
 ### Behavior
 
-* rendered as an Earth overlay
+* current modeled observer point; separate CONUS radar snapshot, not a full weather map
 * tied to geographic location
 * informs observational viability
 
@@ -342,7 +337,7 @@ Conditions Engine (Primary + Sub)
 | Cross-body navigation | PLANNED solar-system scale; renderer OPEN |
 | Deep Sky Object    | Sky Engine (current sky view)    |
 | Satellite          | Sky Engine (current sky view)    |
-| Flight             | PLANNED God's Eye Earth layer / qualified future Sky projection |
+| Flight             | Current bounded owned Earth adapter; broader scope/future Sky projection unqualified |
 | Conditions         | Conditions Engine OR Earth Layer |
 | Solar Event        | Solar Engine                     |
 
@@ -353,7 +348,7 @@ Conditions Engine (Primary + Sub)
 Primary engines own rendering context:
 
 * Sky Engine → contained Stellarium Web Engine rendering
-* PLANNED Earth Mode → complete applicable God's Eye Earth/Cesium runtime
+* CURRENT Earth Mode → owned Cesium runtime with bounded pinned feature reuse; broader parity gated
 * PLANNED Planet Mode → body-aware Cesium with qualified body data
 * OPEN solar-system-scale renderer → evaluate SWE capability before deciding
 * Solar Engine → solar visualization
@@ -375,9 +370,9 @@ Sub-engines:
 
 ## DEFAULT SYSTEM ENTRY
 
-The public entry is Home, the ORAS decision surface. Sky remains the primary
-observational engine; its runtime is mounted when the user opens Sky, not
-preloaded on Home.
+The public entry `/` opens the Sky-first workspace; `/sky-engine` is an alias
+workspace route and `/earth` selects Earth. Observe/Tonight remain focused routes.
+Only the selected heavy runtime is mounted; this is not the older PR52 decision homepage.
 
 ---
 

@@ -121,8 +121,11 @@ Cannot control execution.
 
 | File                                  | Classification |
 | ------------------------------------- | -------------- |
-| `docs/execution/MASTER_PLAN.md`       | CORE_CONTROL   |
-| `docs/execution/PROJECT_STATE.md`     | CORE_CONTROL   |
+| `docs/execution/MASTER_PLAN.md`       | PRODUCT_DEFINITION — non-executing product reference |
+| `docs/execution/PROJECT_STATE.md`     | CORE_CONTROL — current roadmap and activation |
+| `docs/execution/EARTH_CAPABILITY_PLAN.md` | EXECUTION_MODEL — authoritative Earth planning reference; no activation |
+| `docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md` | EXECUTION_MODEL — PROPOSED; owner approval required |
+| `docs/execution/C6_GLOBAL_MAPPING_SPEC.md` | EXECUTION_MODEL — approved direction; proposed stages, no implementation authority |
 | `docs/execution/SESSION_STATE.md`     | CORE_CONTROL   |
 | `docs/execution/STATE_TRANSITIONS.md` | CORE_CONTROL   |
 | `docs/execution/env_setup.md`         | CORE_CONTROL   |
@@ -152,7 +155,8 @@ Stack authority is defined in `docs/architecture/STACK_OVERVIEW.md` and surfaced
 | --------------------- | ---------------- |
 | `docs/architecture/*` | ENGINE_AUTHORITY |
 | `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` | ENGINE_AUTHORITY (approved direction; current/planned/open explicit) |
-| `docs/architecture/decisions/*` | ENGINE_AUTHORITY (accepted decisions; not implementation evidence) |
+| `docs/architecture/decisions/*` | ENGINE_AUTHORITY (dated accepted decisions; supersession explicit, not implementation proof) |
+| `docs/architecture/decisions/0009-owned-earth-feature-reuse.md` | ENGINE_AUTHORITY — current owned Earth/reuse decision; supersedes full-app topology |
 | `docs/contracts/*`    | ENGINE_AUTHORITY |
 
 These define:
@@ -170,6 +174,8 @@ These define:
 | ------------------------------------------- | -------------- |
 | `docs/validation/SYSTEM_VALIDATION_SPEC.md` | CORE_CONTROL   |
 | `docs/validation/VALIDATION_CHECKLIST.md`   | SUPPORT        |
+| `docs/validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md` | SUPPORT — documentation checks and preservation, no feature proof |
+| `docs/audits/*2026-10-05*` | SUPPORT — eight immutable dated audit outputs; draft input is not execution authority |
 | `docs/validation/STYLING_AUDIT.md`          | SUPPORT        |
 | `docs/validation/EARTH_HD_MAPPING_EVIDENCE.md` | SUPPORT — provider investigation and local qualification |
 | `docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md` | SUPPORT — laptop workflow and measured local repair |
@@ -257,9 +263,11 @@ docs/architecture/*
 
 ---
 
-### Rule 4 — Hub Does Not Render
+### Rule 4 — Preserve Renderer Ownership
 
-Any document suggesting hub renders scenes is invalid.
+Hub shell/product state does not become a shared rendering core or own SWE math.
+The independent Earth runtime owns its Cesium Viewer and scene; Hub owns that
+runtime implementation and adapters. Selective God's Eye reuse preserves this boundary.
 
 ---
 
@@ -294,10 +302,11 @@ Hub decision layer + contained ORAS Stellarium runtime at /oras-sky-engine/
 ### Rule 8 — Sky Engine Runtime Is Engine-Owned
 
 The Hub may mount Sky Engine and owns product context. It must not own the
-engine's internal render loop, module composition, or renderer-local state. Future
-universal application state and camera/selection intent are Hub-owned under
+SWE engine's internal render loop, module composition, or renderer-local state.
+Current small product state and camera/selection intent are Hub-owned under
 `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md`; adapters realize intent.
-God's Eye/Cesium integration is planned, not current.
+Owned Cesium Earth and selective pinned God's Eye feature reuse are current; full
+capability parity, body-aware surfaces and broad astronomy extensions are not.
 
 ---
 

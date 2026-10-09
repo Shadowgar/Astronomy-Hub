@@ -9,12 +9,14 @@
 
 ## Scope Clarification
 
-The generic examples below do not define the future universal-state/renderer
-bridge API or certify every legacy domain. Consult
-[Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md) for approved
-product-intent and renderer boundaries. Curated Hub outputs remain source-backed;
-complete applicable upstream Earth layers are not reduced to that curated feed.
-Existing public science and identity contracts are unchanged.
+Generic examples below are illustrative shapes, not deployed universal-state/
+bridge APIs or proof that every legacy domain is qualified. Current bounded bridge
+source is `packages/runtime-protocol/index.mjs`; science/catalog DTO source and
+qualified contracts govern actual fields. Unknown science/seeing/visibility must
+remain unavailable, never filled from illustrative numeric values. Consult
+[Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md) for implemented
+product/renderer boundaries. Earth layer scope is distinct from curated Above Me.
+Existing public science and canonical string identity contracts are unchanged.
 
 ## PURPOSE
 

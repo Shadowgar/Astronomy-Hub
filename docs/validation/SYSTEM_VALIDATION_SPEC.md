@@ -44,7 +44,7 @@ Resolve conflicts in this order:
 4. `docs/context/CONTEXT_MANIFEST.yaml`
 5. `docs/DOCUMENT_INDEX.md`
 6. `docs/execution/PROJECT_STATE.md`
-7. `docs/execution/MASTER_PLAN.md`
+7. `docs/execution/MASTER_PLAN.md` — product reference only; cannot activate work
 8. relevant feature, architecture, contract, object, and ingestion documents
 9. legacy documents
 
@@ -186,7 +186,7 @@ An approved plan is not an implemented feature. `CURRENTLY IMPLEMENTED`,
 not substitutes for the runtime status vocabulary below.
 
 [Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)
-defines the approved future renderer boundaries. Hub-owned product intent and
+defines implemented bounded and approved future renderer boundaries. Hub-owned product intent and
 renderer-owned scene/math must remain distinct. Later runtime handoffs require
 Docker/browser proof of identity, time, observer and centering; approval alone
 is no qualification evidence.

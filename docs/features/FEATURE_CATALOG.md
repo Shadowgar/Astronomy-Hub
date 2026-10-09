@@ -41,22 +41,16 @@ A feature represents a user-visible capability, not a system component.
 
 ## Current Foundation and Approved Future Scope
 
-CURRENT: PR #52 shared shell/Home, Observe, Tonight, contained SWE and existing
-satellite identity/TLE/freshness/local propagation support.
-PLANNED: full-viewport workspace with contextual controls, complete applicable
-God's Eye Earth, body-aware Cesium planetary surfaces, universal state, controlled
-renderer handoffs, and external additive Earth astronomy layers.
-DECIDED / PLANNED BY PHASE B: external pinned upstream source, independent full-app
-build/external wrapper, same-origin disposable frames, versioned Hub bridge and
-one active heavy renderer after settled switches.
-OPEN: exact state/extension API, transition choreography, runtime/provider
-qualification and solar-system-scale renderer. Legacy domain code does not prove
-the planned runtimes are integrated.
-
+CURRENT: C0–C5.6 bounded independent SWE/owned Cesium Earth, workspace, small
+product state, versioned bridge/serial lifetime and qualified layers/CONUS imagery.
 [Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)
-is the detailed approved reference; `PROJECT_STATE.md` controls order. The lists
-below enumerate capability scope, not implementation status. The current task
-is documentation only; `oras_horizon.v1` belongs to later astronomy extensions.
+records ownership and selective qualified God's Eye reuse, never the upstream app.
+Broader capability parity, C6 mapping/terrain/3D, body surfaces, astronomy extensions
+and immersive/solar-system-scale expansions remain planned or open.
+[PROJECT_STATE](../execution/PROJECT_STATE.md) controls order and approval;
+[FEATURE_TRACKER](FEATURE_TRACKER.md) separates code/UI/fixture/live/render/coverage/
+acceptance proof. Lists below describe product scope, not completion. C5.7 packages
+are proposed, not active; `oras_horizon.v1` remains later astronomy extensions.
 
 ## FEATURE LIST (AUTHORITATIVE)
 
@@ -105,13 +99,13 @@ is documentation only; `oras_horizon.v1` belongs to later astronomy extensions.
 
 ---
 
-### 6. Earth Exploration (PLANNED)
+### 6. Earth Exploration (CURRENT bounded foundation; expansion planned)
 
 * complete applicable God's Eye Earth feature set; retain non-astronomy capabilities
 * external additive astronomy layers, including eclipse, fireball, aurora, smoke,
   light pollution, observatories and ORAS context
 * provider/asset terms and qualification separate from source-code licensing
-* pinned upgradeable upstream with compatibility boundary; integration not started
+* current owned Viewer + pinned selective feature reuse; normal planning reference is `execution/EARTH_CAPABILITY_PLAN.md`
 
 ---
 

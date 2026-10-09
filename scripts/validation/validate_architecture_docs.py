@@ -37,6 +37,7 @@ ADR_NAMES = (
     '0003-gods-eye-earth-runtime.md', '0004-additive-earth-extensions.md',
     '0005-cesium-planetary-direction.md', '0006-controlled-renderer-handoffs.md',
     '0007-immutable-upstream-source.md', '0008-provider-licensing-boundaries.md',
+    '0009-owned-earth-feature-reuse.md',
 )
 
 
@@ -197,7 +198,7 @@ def validate(manifest_path):
                   {'docs/validation/UNIFIED_UNIVERSE_ARCHITECTURE_EVIDENCE.md'})
     links = sum(markdown_links(name) for name in docs)
     adr_dir = ROOT / 'docs/architecture/decisions'
-    require({p.name for p in adr_dir.glob('*.md')} == set(ADR_NAMES), 'checkpoint: expected exactly the eight named ADRs')
+    require({p.name for p in adr_dir.glob('*.md')} == set(ADR_NAMES), 'checkpoint: expected exact named ADR set')
     print(f'PASS: manifest structure/paths/duplicates; {total} document-path entries ({total-len(always)} task entries + {len(always)} global entries); {len(tasks)} task packs.')
     print(f'PASS: {len(docs)} checkpoint Markdown documents; {links} relative links; code fences balanced; {len(ADR_NAMES)} expected ADRs.')
 

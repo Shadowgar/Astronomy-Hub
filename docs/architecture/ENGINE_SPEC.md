@@ -16,31 +16,24 @@ This document is **authoritative for engine behavior**.
 
 ## Lifecycle and Product-State Boundary
 
-This document describes generic engine responsibilities, not a deployed runtime
-inventory. Current SWE and public routes are distinct from planned God's Eye
-Earth and Cesium Planet Mode. Solar-system-scale rendering remains undecided.
-Consult [Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md) before
-renderer work.
+Generic engine responsibilities below are reference, not proof that every domain
+exists. Current Sky is SWE; current Earth is the Hub-owned independent Cesium
+runtime. Small Hub product state, bounded bridge and serial active-only lifetime
+are qualified within C0–C5.6; body-aware planetary surfaces and solar-system-scale
+renderer are unimplemented/open. See [Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md).
 
-The future Hub owns universal product state and camera/selection intent. Engines
-own internal scene state, coordinate/math behavior and intent realization. A
-shared selected entity can have qualified Sky and Earth representations without
-creating competing product identities. Current URL inputs are not the future
-universal state boundary.
+SWE owns its scene/math/native selection/camera. Hub-owned Earth owns its Viewer,
+scene and bounded layer registry. Product intent and canonical string identities
+cross the validated versioned handshake/MessageChannel with stale-generation guards;
+renderer-internal state does not. The deployed bridge is defined by current source
+`packages/runtime-protocol/index.mjs`, not illustrative legacy DTOs.
 
-Upstream SWE/God's Eye source is immutable by default, pinned and qualified;
-external adapters/extensions preserve independent upgrades. No source edits for
-UI convenience or removal of God's Eye non-astronomy capabilities. The completed
-[Phase B study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md) selected externally
-SHA-pinned God's Eye source, independent full-application build and external ORAS
-wrapper, alongside existing SWE. The planned topology is same-origin isolated/
-disposable runtime frames, connected to Hub-owned state by small shared/versioned
-bridge/protocol packages. Use a validated postMessage handshake, then MessageChannel,
-with protocol versioning, capability negotiation and mount-generation/stale-message
-protection. Exact production message schema, adapter and external extension APIs
-still require definition and implementation qualification. Whether the proposed
-small generic standalone composition hook is needed before full astronomy
-extensions remains a qualification question. No Earth integration is implemented.
+Pinned upstream source remains immutable by default and independently qualified.
+[ADR0009](decisions/0009-owned-earth-feature-reuse.md) supersedes Phase B full-app
+Earth topology: prefer qualified feature reuse/wrapping; no application/main startup
+or upstream Viewer singleton. Unexported seams require bounded hook/port reasoning,
+not a speculative broad rewrite. Provider/security/public-host/device gates and
+broad astronomy extension APIs remain open, with no current implementation approval.
 
 ## CORE DEFINITION
 
@@ -179,7 +172,7 @@ The host may provide:
 * location / time / route context
 * selection and routing interfaces
 
-The host must NOT:
+The product shell must NOT absorb SWE or engine-internal rendering:
 
 * own the engine render loop
 * compose engine-internal rendering modules
@@ -195,30 +188,17 @@ Sub-engines:
 
 ## ACTIVE ENGINE VIEWPORT
 
-The current Sky host provides a contained viewport; Home/Observe/Tonight do not
-require one. The planned flagship workspace foregrounds one domain scene. Phase B
-selected one active heavy renderer after a settled switch; dispose/unmount the
-inactive runtime rather than retain WebGL/WASM/Cesium resources. Mobile defaults
-to serial teardown/start unless later qualification proves a safe alternative.
-Capable desktop devices may use brief controlled overlap only for a later
-qualified visual handoff; it is not the Phase C default. Exact visual animation,
-prewarm timing and actual memory/performance measurements remain open. This is
-PLANNED direction, not implemented lifecycle or browser/runtime qualification.
-
-This viewport always reflects:
+The `/sky-engine` workspace mounts Sky or Earth, serially disposing the inactive
+heavy runtime. `/` is Sky-first; `/earth` opens Earth. Observe/Tonight remain
+focused decision routes without a renderer requirement. Qualified current
+handoffs preserve bounded Hub identity/time/observer/context through adapters.
+Exactly one heavy renderer remains active after settled switches. Brief overlap,
+prewarming and richer animation are deferred pending device/resource qualification.
+Historical Phase B lifetime recommendations are not a claim of production proof.
 
 ```text
-The currently active primary engine.
+Viewport = currently active primary engine scene
 ```
-
-Switching engines:
-
-* replaces the scene
-* updates the rendering context
-* preserves Hub product identity/time/context through qualified adapters; controlled
-  renderer handoff is selected, while exact visual transition implementation is open
-
----
 
 ## CANDIDATE DISCOVERY OUTPUT TO HUB
 
