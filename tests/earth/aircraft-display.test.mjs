@@ -92,4 +92,20 @@ if(!fs.existsSync(source+'/node_modules/cesium/Source/Cesium.js')){
    assert.equal(c.viewer.entities.values.length,100);if(followed)assert.equal(c.viewer.trackedEntity,kept);
   }
  });
+ test('unavailable missing selection still advances complete-snapshot grace after recovery',()=>{
+  const c=setup(390);replace(c,[row()]);const e=select(c);
+  now+=30000;replace(c,[]);c.display.clear(true);
+  assert.equal(e.show,false);assert.equal(e.orasMetadata.available,false);assert.equal(c.viewer.trackedEntity,null);
+  now+=30000;replace(c,[]);assert.equal(c.display.counts().retainedMissing,1);assert.equal(c.selection.value,e);
+  now+=30000;replace(c,[]);assert.equal(c.viewer.entities.getById(e.id),undefined);assert.equal(c.selection.value,null);assert.equal(c.display.counts().retainedMissing,0);
+  replace(c,Array.from({length:100},(_,i)=>row((0xdef000+i).toString(16))));
+  assert.equal(c.display.counts().renderable,100);assert.equal(c.display.counts().capped,0);
+ });
+ test('unavailable missing selection expires at actual fix age even without a successful poll',()=>{
+  const c=setup();replace(c,[row()]);const e=select(c);
+  now+=30000;replace(c,[],{complete:false});c.display.clear(true);
+  now=epoch+119999;c.display.clear(true);c.display.animate();assert.equal(c.selection.value,e);assert.equal(e.show,false);
+  now=epoch+120000;c.display.animate();assert.equal(c.viewer.entities.getById(e.id),undefined);assert.equal(c.selection.value,null);assert.equal(c.display.counts().retainedMissing,0);assert.equal(c.viewer.trackedEntity,null);
+  replace(c,[row()]);assert.notEqual(c.viewer.entities.getById(e.id),e);assert.equal(c.selection.value,null);assert.equal(c.viewer.trackedEntity,null);
+ });
 }

@@ -11,25 +11,27 @@ statements below for A only. OD2–OD6 and C5.7-B/C/D/E/C6 remain unapproved.
 No merge, production, purchases, new external models/media or worldwide acquisition.
 [Qualification and limits](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md).
 
-2026-10-09 final review: both original aircraft P2s reproduced and corrected;
-post-push current-contact priority P2 also reproduced and corrected for replacement
-and mobile resize, preserving selected/followed grace inside unchanged caps.
-Final automatic review also reproduced the shared retry-header P2: the endpoint
-now reports the atomic remaining Redis dispatch lease rather than a fixed 30 s.
-Both new HTTP/Redis reds pass; all 48 backend tests pass on disposable and rebuilt
-normal Docker runtimes. No renderer source/artifact or acquisition-limit change.
-PR #67 remains OPEN/unmerged. Fresh final-artifact complete campaigns: 22 aircraft
-and 43 existing Earth/Sky cases passed, including genuine compiled-preview bfcache;
-103 Earth/runtime tests passed. Earth 4429c803 independently reproduced/installed/
-served; Sky unchanged. Thirteen final-artifact profile cohorts confirm the CPU/event
-reduction; software-renderer tails, glyph overlap, physical-device and human quality
-acceptance remain limitations. Normal localhost:4173 restored; exact 81 volumes,
-original datastore identities/data mounts and owner settings/environment preserved.
+2026-10-09 final review: the original two aircraft P2s, current-contact priority
+and shared retry-header P2s were reproduced and corrected. The latest automatic
+review found unavailable missing selections bypassing grace/age bookkeeping;
+two actual pinned reds (12 pass / 2 fail) now pass with upstream absence reuse,
+resumed complete-snapshot grace and 120-second actual-fix expiry during failures.
+Ordinary non-missing unavailable selection recovery remains preserved.
+PR #67 remains OPEN/unmerged. New Earth da140864 independently reproduces all
+513 files / 37 inputs; all Earth/Sky served payloads verified at preview/normal.
+Fresh 105 Earth/runtime and 229 frontend tests pass; all 48 backend tests pass
+on disposable and normal Docker. All thirteen controlled final-artifact cohorts measured; software
+cadence/tails and dense glyph overlap remain limitations. Complete fresh 23-aircraft
+and 43-existing-feature browser campaigns PASS, zero failed/skipped/retries and
+exact unique IDs matching fresh listing. Earlier 4429 results are historical. Sky unchanged;
+owner data/settings,
+original datastore identities/mounts and exact 81-volume set preserved. Starting
+bf176, intermediate f43/4429 and owner ca124 rollback payloads remain durable.
 **TECHNICALLY QUALIFIED FOR OWNER REVIEW — HUMAN QUALITY REVIEW PENDING; LIVE
 OPERATIONAL READINESS BLOCKED**. Live availability/capacity/count UNKNOWN; historical
 regional probe HTTP 503 only, no new live probe. Next: owner physical-device checklist
-on 4429 and authorized regional provider/access/capacity review. No automatic merge,
-worldwide acquisition or C5.7-B/C/D/E/C6 activation.
+on da140 and authorized regional provider/access/capacity review. No automatic merge, worldwide/OpenSky acquisition or
+C5.7-B/C/D/E/C6 activation.
 
 ## Active C5.6.75 documentation checkpoint — 2026-10-08
 

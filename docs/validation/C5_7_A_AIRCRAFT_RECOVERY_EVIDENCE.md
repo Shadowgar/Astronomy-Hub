@@ -1309,3 +1309,85 @@ unmerged; current-head checks/threads are recorded in the full 28-field handoff.
 Human visual and physical-device acceptance remain PENDING. Authorized regional
 availability/capacity/access proof remains BLOCKED/UNKNOWN; no new live probe,
 worldwide/OpenSky acquisition or later-package work. All fixed limits remain intact.
+
+## Current missing-unavailable correction — 2026-10-09
+
+**TECHNICALLY QUALIFIED FOR OWNER REVIEW — HUMAN QUALITY REVIEW PENDING; LIVE OPERATIONAL READINESS BLOCKED**, subject to the actual final-head GitHub snapshot. This checkpoint supersedes the earlier
+4429 checkpoint for current readiness. Automatic review of
+`300f8a788a8662122904ef369f56e38a709f9fa0` found a valid
+[missing-unavailable expiry P2](https://github.com/Shadowgar/Astronomy-Hub/pull/67#discussion_r4234756061).
+A selected/followed contact omitted in a successful snapshot entered missing grace;
+a subsequent outage made it unavailable. Both resumed omission bookkeeping and
+animation expiry skipped unavailable entities, leaving the hidden selection/missing
+count/cohort reservation indefinitely after recovery.
+
+Actual pinned Cesium/FlightRecords direct red: **14 tests / 12 pass / 2 fail**, exit1:
+“unavailable missing selection still advances complete-snapshot grace after recovery”
+and “unavailable missing selection expires at actual fix age even without a successful
+poll”. Initial sandbox child-runner opaque top-level failure (cause UNKNOWN) and unsupported Node22 isolation
+option are retained separately and excluded from product-red claims. No test code is
+changed to hide the failures.
+
+Minimal display correction: continue FlightRecords.absence for missing identities
+on successful snapshots even when unavailable; during continued failures, unavailable
+missing identities still receive the existing 120-second actual-fix-age expiry.
+Removal uses the existing erase path for entity/history/missing/orientation/upstream
+records/selection/follow cleanup. Ordinary non-missing unavailable selections retain
+their previously qualified recovery behavior. No new TTL/grace/cap/cadence or upstream
+source patch. No new feature import, whole app/Viewer or model/media acquisition.
+The new actual-browser case covers omission -> outage -> logical age expiry -> fresh
+same-ID return, without restoring selection/follow. Official human fields remain
+PENDING; no physical-device or live-source qualification is inferred.
+
+Current artifact: `da1408642156fd3483d510e33c45425d994490c3bb81543de4318fff7a4d7113`.
+Two independent pinned builds match all **513 files / 37 source inputs**; generated
+lock/runtime metadata, installed payloads and all **512 Earth + 96 unchanged Sky**
+HTTP bytes verified on preview4183 and normal4173. No hash hand-edit or Sky rebuild.
+Before installation, every 4429 payload was verified then its directory atomically
+preserved at data/runtime-artifacts/earth-rollback-4429-20261009. Normal Earth alone
+was recreated to remount the new installed directory; backend/frontend/datastores
+were not recreated for this source correction. Only the same three disposable
+qualification services started; owner auxiliary/orphan services untouched.
+
+Fresh focused **22** and full Earth/runtime **105** tests pass with zero skipped;
+frontend **229 / 28 files**, TypeScript/build pass. Backend aircraft/cache/events:
+**48 passed**, zero skipped, six existing dependency deprecation warnings on both
+disposable (13.98s) and normal (13.95s) Docker runtimes. Thirteen controlled profiles
+completed; raw samples, four-checkpoint CSV and current table accompany the handoff.
+Complete new-artifact **23 aircraft + 43 existing-feature** campaigns PASS, zero
+failed/skipped/retries. Six aircraft / eight existing-feature sequential single-worker
+shards match the exact unique IDs from fresh --list collection. Earlier artifacts
+remain historical. Final source/served/preservation and docs/GitHub snapshots
+accompany the 28-field owner handoff.
+
+All provider/resource limits and live blockers remain unchanged. No new aircraft live
+probe, production/SSH/Cloudflare/oras.org, account/purchase, worldwide/OpenSky,
+new external models/media, replacement PR, merge or C5.7-B/C/D/E/C6 activation.
+
+### Final controlled measurement and preservation checkpoint
+
+Final desktop 1,000: 19,000 position assignments / 19 collection events, 6.62 ms/update versus original 114.33. Settled mobile 100 rAF 41.23 / actual scene 5.25 FPS, p95 87.8 ms; desktop 1,000 rAF 9.25 / scene 4.75 FPS, p95 280.3 ms. Software cadence/tails and dense glyph overlap remain; clean default-imagery acceptance samples are reported separately. Clean short default-imagery samples: desktop 4.46/4.84, mobile 9.40/60.44 enabled/disabled rAF FPS. Dense desktop/mobile screenshots visibly contain overlapping glyphs; human acceptance remains PENDING.
+
+| Viewport | Aircraft | Original moving rAF FPS | Final disabled rAF FPS | Final moving rAF FPS | Final scene FPS | p50 / p95 ms | CPU ms/update | Position assignments / events | Render requests | Reported heap MB |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Mobile | 0 | 60.16 | 60.01 | 60.07 | 0.00 | 16.7 / 16.9 | 0.06 | 0 / 0 | 0 | 31.2 |
+| Mobile | 1 | 8.16 | 60.20 | 41.18 | 4.99 | 16.7 / 82.8 | 0.18 | 20 / 20 | 20 | 31.2 |
+| Mobile | 10 | 6.83 | 60.10 | 41.84 | 5.23 | 16.7 / 87.1 | 0.27 | 210 / 21 | 21 | 31.2 |
+| Mobile | 25 | 4.74 | 60.13 | 41.71 | 5.24 | 16.7 / 85.2 | 0.53 | 525 / 21 | 21 | 31.2 |
+| Mobile | 50 | 7.21 | 60.15 | 39.72 | 5.25 | 16.7 / 91.0 | 0.55 | 1050 / 21 | 21 | 31.2 |
+| Mobile | 100 | 7.47 | 60.23 | 41.23 | 5.25 | 16.7 / 87.8 | 0.80 | 2100 / 21 | 21 | 31.2 |
+| Desktop | 0 | 60.01 | 60.03 | 60.06 | 0.00 | 16.7 / 16.9 | 0.04 | 0 / 0 | 0 | 31.2 |
+| Desktop | 1 | 4.19 | 60.23 | 16.65 | 5.22 | 18.1 / 179.1 | 0.13 | 21 / 21 | 21 | 29.4 |
+| Desktop | 10 | 4.99 | 60.13 | 16.51 | 5.34 | 18.0 / 177.3 | 0.28 | 210 / 21 | 21 | 31.2 |
+| Desktop | 25 | 3.72 | 60.16 | 19.17 | 5.23 | 16.8 / 178.4 | 0.50 | 525 / 21 | 21 | 31.2 |
+| Desktop | 50 | 2.88 | 60.23 | 17.23 | 5.25 | 17.4 / 185.7 | 0.57 | 1050 / 21 | 21 | 31.2 |
+| Desktop | 100 | 3.92 | 60.17 | 16.91 | 5.22 | 18.0 / 180.7 | 0.85 | 2100 / 21 | 21 | 31.2 |
+| Desktop | 1000 | 2.57 | 60.09 | 9.25 | 4.75 | 17.7 / 280.3 | 6.62 | 19000 / 19 | 19 | 33.1 |
+
+Four-checkpoint CSV retains **156 rows**; current da140 samples cover every declared cohort and disabled/held/moving state. Original bf176/f43/4429 diagnoses and failed attempts remain historical, including the earlier unchanged GIBS repeat; none is counted as a fresh da140 case. Exact GPU pass, full FPS gain attribution, formal React profiling and heap-leak proof remain UNKNOWN/unqualified. Physical hardware and official human visual acceptance remain PENDING.
+
+Fresh historical Earth captures are archived before restoring only the 16 registered originals from verified backups. Owner root originals and evidence registries remain unchanged. All 512 Earth / 96 Sky HTTP payloads are verified again on preview and normal runtime; current installed source-input verifier passes. Original 81-volume set, PostgreSQL/Redis identities/full mounts/running state, astronomy mount Sources, owner head/settings/environment, clean e770 pin, native Sky/vendor/WASM/shared protocol and durable bf176/f43/4429 plus owner ca124 rollback payloads are preserved. Normal five services running; only the three owned qualification services stopped. No reset/reseed/migration/prune or removal of existing auxiliary/orphan services.
+
+Exact final commit/checks/review-thread state, all 28 requested fields, files/commands, failed attempts and desktop/mobile/expiry captures are in the private c57a-unavailable-missing-20261009/FINAL_HANDOFF.md and accompanying hash manifest. Resolve the new thread only after passing proof. Existing original/priority/retry-header replies remain historical and resolved; no manual recursive review requests. Human acceptance is not recorded by automation.
+
+Category A: authorized regional live access/availability/capacity proof remains BLOCKED/UNKNOWN; historical single 503 probe only, no new live aircraft probe, OpenSky agreement missing. Category B: software cadence/tails and glyph overlap, coarse heap/no exact GPU timer, geometric-only admission, global-zoom regional coverage, physical-device/human acceptance pending. Next owner: inspect exact final PR head/source/evidence/screens, exercise da140 on physical hardware with declared fixtures or independently authorized regional source, fill the existing pending checklist, and qualify access/availability/capacity before operational acceptance. Limits remain 100 NM / 2,000 rows / 2 MB / shared dispatch >=30 s / whole acquisition 8 s / desktop1,000 / mobile100 / follow1 / models0. PR67 OPEN/unmerged; no replacement PR, worldwide/OpenSky activation, production/SSH/Cloudflare/oras.org/accounts/purchases/new model/media or C5.7-B/C/D/E/C6.

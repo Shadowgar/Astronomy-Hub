@@ -19,7 +19,7 @@ export function aircraftDisplay(context){
   replace(observations,observedAt,{complete=true,rejectedIds=[]}={}){
    admitted=observations.length;const present=new Set(observations.map(row=>row.id)),limit=budget(),now=Date.now();
    for(const id of rejectedIds)if(!present.has(id))erase(id);
-   for(const id of [...entities.keys()])if(!present.has(id)&&entities.get(id).orasMetadata?.available!==false){
+   for(const id of [...entities.keys()])if(!present.has(id)&&(missing.has(id)||entities.get(id).orasMetadata?.available!==false)){
     const meta=records.data.get(id),last=histories.get(id)?.at(-1);
     const outcome=records.absence(id,{complete,likelyLanded:meta?.wasAirborne===true&&meta?.onGround===true});
     if(!last||now-last.time>=120000||outcome==='remove'){erase(id);continue}
@@ -61,7 +61,9 @@ export function aircraftDisplay(context){
     for(const id of [...entities.keys()])if(!chosen.has(id))erase(id);cohort=[...entities.keys()].filter(id=>!missing.has(id)).length;changed=true;
    }
    for(const [id,entity] of entities){
-    if(entity.orasMetadata?.available===false)continue;
+    if(entity.orasMetadata?.available===false){
+     const last=histories.get(id)?.at(-1);if(missing.has(id)&&(!last||Date.now()-last.time>=120000)){erase(id);changed=true}continue;
+    }
     const p=position(id),old=entity.position.getValue(time);
     if(!p){if(missing.has(id)){erase(id);changed=true;continue}if(entity.show){entity.show=false;entity.orasMetadata={...entity.orasMetadata,available:false,detail:'Position expired; no current source position displayed.'};if(selection.value===entity){context.camera.stopTracking();selection.set(entity)}changed=true}continue}
     const moved=!Cartesian3.equals(p,old);if(moved){entity.position.setValue(p);changed=true}

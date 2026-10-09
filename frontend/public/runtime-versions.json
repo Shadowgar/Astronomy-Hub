@@ -40,7 +40,7 @@
     "ownership": "Astronomy Hub-owned Cesium runtime; selective exported modules only",
     "runtime_version": "oras-earth.v1",
     "cesium": "1.138.0",
-    "artifact_sha256": "4429c803d33bdf2718809ab2275af211e248f415c2769b328a1f7ac6db4399f3",
+    "artifact_sha256": "da1408642156fd3483d510e33c45425d994490c3bb81543de4318fff7a4d7113",
     "public_exports": [
       "sources/adsb-lol",
       "sources/live",
@@ -54,6 +54,6 @@
       "aircraft"
     ],
     "toolchain_image": "node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8",
-    "source_input_sha256": "71a7e87d1351a2e980458a34631e8ac059f9550ca99195a71b5a43ef1cf61ffc"
+    "source_input_sha256": "4558ca849e50a8cde797274a530ab81a020696790b31e7c0b77970fcade32d61"
   }
 }
