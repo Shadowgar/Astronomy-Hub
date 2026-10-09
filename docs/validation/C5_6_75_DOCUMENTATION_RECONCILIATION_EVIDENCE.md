@@ -135,6 +135,8 @@ Documentation validation support only:
 - `scripts/validation/validate_architecture_docs.py`
 - `scripts/validation/validate_reconciliation_docs.py`
 - `tests/validation/test_reconciliation_docs.py`
+- `scripts/validation/private_evidence_links.json`
+- `tests/validation/test_private_evidence_links.py`
 
 
 No file retired/deleted. ADR0009 supersedes ADR0003/Phase B complete-application
@@ -204,9 +206,9 @@ Scratch forensic scripts are bounded evidence helpers, not committed runtime cod
 
 | Command | Observed result |
 | --- | --- |
-| `python3 -S scripts/validation/validate_architecture_docs.py` | PASS:271 document-path entries,8 packs,49 checkpoint Markdown documents,1373 relative links,9 exact ADRs; fences balanced. |
+| `python3 -S scripts/validation/validate_architecture_docs.py` | PASS:271 document-path entries,8 packs,49 checkpoint Markdown documents,1374 relative references:1358 required repository links +16 explicitly registered private historical artifacts;9 exact ADRs; fences balanced. |
 | `python3 -S scripts/validation/validate_reconciliation_docs.py` | PASS:index/inventory and all8 pack discovery; proposed A–E/six decisions/C6 gates;67×10 plan fields,51 source entrypoint references,401 relative links,58 fragments. |
-| `python3 -S -m unittest discover -s tests/validation -p 'test_*.py' -v` | PASS:16 tests (existing6 + reconciliation10), including missing authority/discovery/approval/decision/source and duplicate/count-drift rejection; no runtime tests. |
+| `python3 -S -m unittest discover -s tests/validation -p 'test_*.py' -v` | PASS:20 tests (existing6 + reconciliation10 + private-evidence4), including clean export without ignored artifacts, authority/discovery/approval/decision/source/count gates and private-link/hash rejection; no runtime tests. |
 | `python3 /tmp/oras-gods-eye-audit-20261008/validate_audit.py` | PASS:67 unique areas,67×13 original matrix,23 adapted relationships,148/157 exports,73 provider records,2010 stage records; exact source hashes/line excerpts/classifications/counts/DRAFT guard;7 original audit Markdown files,838 links. |
 | `python3 /tmp/oras-gods-eye-audit-20261008/check_preservation.py` | PASS:main/pin clean, owner HEAD/settings preserved;81 volume identities; Postgres/Redis IDs/mounts;5 running services/zero restarts; frontend/Earth healthy;0 reference containers; protected code unchanged. |
 | `python3 /tmp/oras-gods-eye-audit-20261008/verify-artifacts.py` | PASS:29 unchanged overlays,95 Sky payload/96 installed files,source/input/installed/served/lock/versions hashes;4 frozen native/vendor files and wheel;Earth source/protocol/qualified payload and served release identity unchanged. |
@@ -239,6 +241,51 @@ audit files remain hash-identical as requested; no historical conclusions/logs a
 Docstrings document the touched validation helpers. No runtime correction/rebuild or
 scope expansion. GitHub head/check/thread state is verified separately after pushing
 the review correction, never inferred from these local tests or old review results.
+
+## Final-head clean-checkout correction — Codex P1
+
+Codex review at `bfc3a01635d26fc50ab21c0778852c1fbaf827cb` identified that the earlier
+local architecture/test pass depended on ignored historical Earth screenshots.
+Reproduced from a clean exported commit with no Git metadata or ignored files:
+
+```sh
+mkdir -p /tmp/oras-c5-6-75-20261008/clean-red
+git archive HEAD | tar -x -C /tmp/oras-c5-6-75-20261008/clean-red
+python3 -S /tmp/oras-c5-6-75-20261008/clean-red/scripts/validation/validate_architecture_docs.py
+python3 -S -m unittest discover -s /tmp/oras-c5-6-75-20261008/clean-red/tests/validation -p 'test_*.py' -v
+```
+
+At that reviewed head: architecture validator FAIL on missing
+`output/playwright/earth-expansion/desktop-layers.png`;16-test bundle FAILED(1).
+The earlier local results were real for this evidence-populated worktree, but did
+not prove reproducibility in a clean checkout. The mandatory gap is corrected.
+
+Validation authority now names the exact sixteen-reference supporting registry
+`scripts/validation/private_evidence_links.json`: source document/path/class/SHA256,
+PRIVATE_HISTORICAL_LOCAL_ONLY. Absence in a clean checkout is expected and reported,
+not presented as a working public hyperlink, new visual proof or committed media.
+When retained locally, exact hashes are required. Unregistered/misspelled evidence,
+missing code/docs, changed local bytes, duplicate/out-of-scope registry records and
+wrong historical class/hash remain failures. Original qualification/audit logs stay
+unchanged. No licensed imagery, live measurements or additional runtime assets are
+published; this support registry grants no distribution rights.
+
+A second clean export under `/tmp/oras-c5-6-75-20261008/clean-candidate` received only
+scoped pending documentation/validation inputs, never ignored evidence or Git metadata.
+The exact commands below passed there; the absence of the Earth evidence directory
+was separately asserted:
+
+```sh
+python3 -S /tmp/oras-c5-6-75-20261008/clean-candidate/scripts/validation/validate_architecture_docs.py
+python3 -S /tmp/oras-c5-6-75-20261008/clean-candidate/scripts/validation/validate_reconciliation_docs.py
+python3 -S -m unittest discover -s /tmp/oras-c5-6-75-20261008/clean-candidate/tests/validation -p 'test_*.py' -v
+```
+
+PASS:271 entries/8 packs/49 Markdown documents/9 ADRs;1374 references explicitly
+split into1358 required repository links and16 private historical references.
+PASS:67×10 plan fields,51 source references,401 links/58 fragments and all approval
+gates. PASS:20 tests. Same clean-checkout commands are rerun against the committed
+correction export before final PR handoff. No broad runtime campaign is needed.
 
 ## Frozen identities and preserved audit hashes
 

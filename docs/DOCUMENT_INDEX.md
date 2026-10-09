@@ -88,6 +88,7 @@ These define how work is performed:
 These are guidance only:
 
 - `docs/audits/*` — dated evidence, no implementation authority
+- `scripts/validation/private_evidence_links.json` — exact private historical reference/hash registry, no runtime proof or publication rights
 - `docs/validation/*_EVIDENCE.md` — bounded historical proof, not current activation
 
 - `docs/product/*`

@@ -168,6 +168,13 @@ These define:
 
 ---
 
+## Validation support registry
+
+`scripts/validation/private_evidence_links.json` is SUPPORT metadata for sixteen
+private historical C5 artifact links, not a document controller, committed media
+or fresh runtime proof. Validation authority defines the exact bounded exception;
+all other relative repository/source links remain mandatory.
+
 ## VALIDATION SYSTEM
 
 | File                                        | Classification |
