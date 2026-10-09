@@ -1,5 +1,16 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
+## Active C5.7-A owner authorization — 2026-10-08
+
+OD1 — APPROVED FOR B-FIRST REGIONAL RECOVERY. WORLDWIDE OPTION C CONDITIONAL / NOT AUTHORIZED FOR ACQUISITION.
+
+PR #66 merged at `8270e782f73d4df58b16e762cdb4f0031a37ada3`. Single agent,
+branch `c5-7-a-aircraft-regional-recovery-1`; only the bounded aircraft package
+is authorized. This checkpoint supersedes the older docs-only/no-C5.7 execution
+statements below for A only. OD2–OD6 and C5.7-B/C/D/E/C6 remain unapproved.
+No merge, production, purchases, new external models/media or worldwide acquisition.
+[Qualification and limits](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md).
+
 Reconciled 2026-10-08. Validation→CORE→LIVE→manifest/index→this record govern
 work; MASTER_PLAN is non-execution product reference. Evidence conflicts are
 reported, not repaired by forcing runtime into stale docs. **SINGLE AGENT ONLY.**

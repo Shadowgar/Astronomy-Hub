@@ -45,11 +45,11 @@ class ReconciliationTests(unittest.TestCase):
             with self.subTest(target=target), self.assertRaisesRegex(ValueError, 'product reference in execution tier'):
                 v.validate_discovery(changed, self.inventory)
 
-    def test_each_decision_must_remain_unresolved(self):
-        """Each decision must remain unresolved."""
+    def test_only_specific_b_first_od1_approval_is_accepted(self):
+        """Broad approval cannot activate OD1 worldwide acquisition or OD2-OD6."""
         import re
         for number in range(1, 7):
-            changed = re.sub(r'(\| OD'+str(number)+r'[^|]+\|)(?: UNRESOLVED \|)?', r'\1 APPROVED |', self.c57)
+            changed = re.sub(r'(\| OD'+str(number)+r'[^|]+\|)[^|]+\|', r'\1 APPROVED |', self.c57)
             with self.subTest(decision=number), self.assertRaisesRegex(ValueError, 'decision status'):
                 v.validate_proposals(changed, self.c6)
 

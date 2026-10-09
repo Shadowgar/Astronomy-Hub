@@ -1,5 +1,16 @@
 # Earth capability plan — planning reference
 
+## Active C5.7-A owner authorization — 2026-10-08
+
+OD1 — APPROVED FOR B-FIRST REGIONAL RECOVERY. WORLDWIDE OPTION C CONDITIONAL / NOT AUTHORIZED FOR ACQUISITION.
+
+PR #66 merged at `8270e782f73d4df58b16e762cdb4f0031a37ada3`. Single agent,
+branch `c5-7-a-aircraft-regional-recovery-1`; only the bounded aircraft package
+is authorized. This checkpoint supersedes the older docs-only/no-C5.7 execution
+statements below for A only. OD2–OD6 and C5.7-B/C/D/E/C6 remain unapproved.
+No merge, production, purchases, new external models/media or worldwide acquisition.
+[Qualification and limits](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md).
+
 Date: 2026-10-08. **Canonical planning reference; NOT blanket execution authorization.**
 PROJECT_STATE and LIVE_SESSION_BRIEF control active work. Approved architecture
 is [ADR0009](../architecture/decisions/0009-owned-earth-feature-reuse.md).
@@ -193,12 +204,12 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current Hub / entrypoints:** `createFlightsAdapter / admitAircraft / entityRenderer / fetch_aircraft`; [`backend/app/routes/earth.py`](../../backend/app/routes/earth.py); [`runtimes/earth-runtime/layers/GodsEyeFlightsAdapter.mjs`](../../runtimes/earth-runtime/layers/GodsEyeFlightsAdapter.mjs); [`runtimes/earth-runtime/layers/data.mjs`](../../runtimes/earth-runtime/layers/data.mjs); [`runtimes/earth-runtime/layers/entities.mjs`](../../runtimes/earth-runtime/layers/entities.mjs); [`runtimes/earth-runtime/layers/PollingLayer.mjs`](../../runtimes/earth-runtime/layers/PollingLayer.mjs); [`runtimes/earth-runtime/core/LayerRegistry.mjs`](../../runtimes/earth-runtime/core/LayerRegistry.mjs); [`runtimes/earth-runtime/core/SelectionStore.mjs`](../../runtimes/earth-runtime/core/SelectionStore.mjs); [`runtimes/earth-runtime/core/CameraController.mjs`](../../runtimes/earth-runtime/core/CameraController.mjs)
 **Pinned upstream:** OpenSky worldwide snapshot with observer/view-anchored ADSB.lol fallback; enrichment and track backfill; geometric/barometric/ground policy, delayed motion, LOD/model budgets and follow camera. [Exact modules/functions/stages](../audits/GODS_EYE_IMPLEMENTATION_TRACES_2026-10-05.md).
 **Current relationship / risk:** HUB IMPLEMENTATION QUESTIONABLE / CRITICAL.
-**Runtime status / evidence:** Code exists; Hub 503 and zero aircraft at 15.62-million-m home height; upstream accepted 12,975 worldwide contacts. Altitude gate independently explains invisible contacts if a feed succeeds. **Missing/different from upstream:** OpenSky and fallback chain, view anchor/250-NM fallback, history/motion interpolation, enrichment, heading/classification, aircraft tracking, global contact display. Aircraft glyph hidden above 2,000,000 m and its point never shown. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
-**Bug versus scope versus unverified:** Confirmed code display gate; separate503provider observation; observer coverage intentional; motion/fallback usability incomplete.
+**Runtime status / evidence:** C5.7-A implements bounded settled-camera100NM coverage, qualified upstream records/ingestion, bracketed delayed motion and glyph/point LOD. [Current fixture qualification and live blocker](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md). The following remains the historical audit baseline: Code exists; Hub 503 and zero aircraft at 15.62-million-m home height; upstream accepted 12,975 worldwide contacts. Altitude gate independently explains invisible contacts if a feed succeeds. **Missing/different from upstream:** OpenSky and fallback chain, view anchor/250-NM fallback, history/motion interpolation, enrichment, heading/classification, aircraft tracking, global contact display. Aircraft glyph hidden above 2,000,000 m and its point never shown. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
+**Bug versus scope versus unverified:** Recovery removes the active high-altitude gate and observer lock; source success remains blocked. Historical audit finding: Confirmed code display gate; separate503provider observation; observer coverage intentional; motion/fallback usability incomplete.
 **Provider/credential/license/distribution:** Audit provider/data gate: GATED. OpenSky research/education versus public/commercial service approval; ADSB.lol ODbL and quota stewardship. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; Phase C2 explicitly bounded one 100-NM observer feed, typed transport and geometric-height truth. Those remain valid safety constraints; Viewer ownership does not justify discarding all fleet display/motion/fallback behavior. Proposed target: C5.7.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#c57-a--aircraft-operational-recovery); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
-**Unresolved owner decision:** OD1.
+**Unresolved owner decision:** OD1 B-first regional package approved by owner 2026-10-08; worldwide Option C acquisition, agreement/accounts/costs/budgets remain unapproved. OD2–OD6 remain unresolved.
 
 ## local-adsb — Local ADS-B / RTL-SDR receiver
 
