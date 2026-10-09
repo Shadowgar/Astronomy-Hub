@@ -53,6 +53,14 @@ class ReconciliationTests(unittest.TestCase):
             with self.subTest(decision=number), self.assertRaisesRegex(ValueError, 'decision status'):
                 v.validate_proposals(changed, self.c6)
 
+    def test_od1_limits_cannot_be_changed_or_masked_outside_authorization(self):
+        """All acquisition limits belong to the owner authorization, including rows."""
+        for limit in ('100 NM', '2 MB', '2,000 rows', '30 seconds', '8 seconds'):
+            changed = self.c57.replace(limit, 'changed limit', 1)
+            changed += '\nUnrelated text: 100 NM; 2 MB / 2,000 rows; 30 seconds shared provider dispatch; 8 seconds whole acquisition.\n'
+            with self.subTest(limit=limit), self.assertRaisesRegex(ValueError, 'resource boundary missing'):
+                v.validate_proposals(changed, self.c6)
+
     def test_plan_provider_gate_and_constraints_cannot_be_promoted(self):
         """Plan provider gate and constraints cannot be promoted."""
         cap = next(c for c in self.audit['capabilities'] if c['provider_blocked'])

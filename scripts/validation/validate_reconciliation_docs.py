@@ -75,7 +75,8 @@ def validate_proposals(c57, c6):
     od1 = 'APPROVED FOR B-FIRST REGIONAL RECOVERY. WORLDWIDE OPTION C CONDITIONAL / NOT AUTHORIZED FOR ACQUISITION.'
     require(all(len(row) == 7 and row[2].strip() == ('UNRESOLVED' if i else od1) for i,row in enumerate(rows)),
             'C5.7: decision status must be bounded OD1 approval and OD2-OD6 UNRESOLVED')
-    require('100 NM' in register and '2 MB' in register and '30 seconds' in register and '8 seconds' in register,
+    authorization = register.split('| ID / decision', 1)[0]
+    require(all(limit in authorization for limit in ('100 NM', '2 MB / 2,000 rows', '30 seconds shared provider dispatch', '8 seconds whole acquisition')),
             'C5.7: OD1 approved resource boundary missing')
     require(re.findall(r'^\| (C6-[0-5]) ', c6, re.M) == ['C6-'+str(i) for i in range(6)],
             'C6: expected provider-first ordered stages')
