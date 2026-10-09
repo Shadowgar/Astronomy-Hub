@@ -70,4 +70,26 @@ if(!fs.existsSync(source+'/node_modules/cesium/Source/Cesium.js')){
   for(const entity of c.viewer.entities.values)assert(Cartesian3.equalsEpsilon(entity.position.getValue(c.viewer.clock.currentTime),expected,1e-10));
  });
 
+ test('current higher-sorting contacts fill the cap before unselected missing contacts',()=>{
+  for(const followed of [false,true]){
+   const c=setup(390),old=Array.from({length:100},(_,i)=>row(i.toString(16).padStart(6,'0')));
+   replace(c,old);const kept=c.viewer.entities.values[0];if(followed){c.selection.value=kept;c.viewer.trackedEntity=kept}
+   now+=30000;replace(c,Array.from({length:100},(_,i)=>row((0xabc000+i).toString(16))));
+   const current=c.viewer.entities.values.filter(e=>String(e.id).startsWith('aircraft:abc'));
+   assert.equal(current.length,followed?99:100,'missing placeholders starve current observations');
+   assert.equal(c.display.counts().retainedMissing,followed?1:0);assert.equal(c.display.counts().capped,followed?1:0);
+   assert.equal(c.viewer.entities.values.length,100);if(followed)assert.equal(c.viewer.trackedEntity,kept);
+  }
+ });
+ test('resizing prioritizes current contacts while reserving a qualifying missing follow within the cap',()=>{
+  for(const followed of [false,true]){
+   const c=setup(),old=Array.from({length:100},(_,i)=>row(i.toString(16).padStart(6,'0')));
+   replace(c,old);const kept=c.viewer.entities.values[0];if(followed){c.selection.value=kept;c.viewer.trackedEntity=kept}
+   now+=30000;replace(c,Array.from({length:100},(_,i)=>row((0xabc000+i).toString(16))));assert.equal(c.viewer.entities.values.length,200);
+   c.viewer.canvas.clientWidth=390;c.display.animate();
+   assert.equal(c.viewer.entities.values.filter(e=>String(e.id).startsWith('aircraft:abc')).length,followed?99:100);
+   assert.equal(c.display.counts().retainedMissing,followed?1:0);assert.equal(c.display.counts().capped,followed?1:0);
+   assert.equal(c.viewer.entities.values.length,100);if(followed)assert.equal(c.viewer.trackedEntity,kept);
+  }
+ });
 }

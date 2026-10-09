@@ -29,7 +29,7 @@ export function aircraftDisplay(context){
    // A deterministic cohort preserves identity and applies the stricter detailed
    // device budget at all heights. Overview never expands source acquisition.
    const retained=[selection.value,viewer.trackedEntity].filter(entity=>entity?.orasMetadata?.layerId==='aircraft').map(entity=>String(entity.id).slice(9));
-   const candidates=[...observations,...[...missing].filter(id=>!present.has(id)).map(id=>({id}))],chosen=aircraftCohort(candidates,limit,retained),chosenIds=new Set(chosen.map(row=>row.id));
+   const candidates=[...observations,...[...missing].filter(id=>!present.has(id)).map(id=>({id}))],chosen=aircraftCohort(candidates,limit,retained,present),chosenIds=new Set(chosen.map(row=>row.id));
    for(const id of [...entities.keys()])if(!chosenIds.has(id))erase(id);
    for(const observation of chosen){
     if(!present.has(observation.id))continue;missing.delete(observation.id);
@@ -56,8 +56,9 @@ export function aircraftDisplay(context){
    let changed=false;const time=viewer.clock.currentTime,detail=detailed(),cameraMoved=!Cartesian3.equals(lastRight,viewer.camera.rightWC)||!Cartesian3.equals(lastUp,viewer.camera.upWC);
    lastRight=Cartesian3.clone(viewer.camera.rightWC,lastRight);lastUp=Cartesian3.clone(viewer.camera.upWC,lastUp);
    if(entities.size>budget()){
-    const ordered=[...entities.keys()].sort((a,b)=>(entities.get(a)===selection.value?-1:entities.get(b)===selection.value?1:a.localeCompare(b)));
-    for(const id of ordered.slice(budget()))erase(id);cohort=[...entities.keys()].filter(id=>!missing.has(id)).length;changed=true;
+    const retained=[selection.value,viewer.trackedEntity].filter(entity=>entity?.orasMetadata?.layerId==='aircraft').map(entity=>String(entity.id).slice(9)),current=[...entities.keys()].filter(id=>!missing.has(id));
+    const chosen=new Set(aircraftCohort([...entities.keys()].map(id=>({id})),budget(),retained,current).map(row=>row.id));
+    for(const id of [...entities.keys()])if(!chosen.has(id))erase(id);cohort=[...entities.keys()].filter(id=>!missing.has(id)).length;changed=true;
    }
    for(const [id,entity] of entities){
     if(entity.orasMetadata?.available===false)continue;

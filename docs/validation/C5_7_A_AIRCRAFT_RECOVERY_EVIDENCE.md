@@ -1030,3 +1030,228 @@ exact-head handoff. Original P2 replies include actual red roots, small fixes,
 pinned reuse and fresh final validation; resolution follows passing proof. No
 recursive review campaign, merge, production/SSH/Cloudflare/oras.org, provider
 account/purchase, new model/media, worldwide acquisition or C5.7-B/C/D/E/C6 work.
+
+## Post-push current-contact priority correction — 2026-10-09
+
+This checkpoint supersedes the f43/72aa final-artifact readiness checkpoint above.
+Its earlier measurements, failed attempts, captures and original two-P2 red/green
+proof remain historical evidence. No previous result is counted as fresh proof
+for the changed artifact below. PR #67 remains OPEN/unmerged on the same branch.
+
+Automatic review of delivery head `72aa2bc96996c313d06bb7b9579f958e6e3e05f5`
+found one additional valid P2: current contacts could be excluded by lower-sorting
+unselected missing placeholders. Review thread `PRRT_kwDORt_rys6q7Bbb`, comment
+`4233899663`. At mobile cap 100, 100 old missing IDs could displace all 100 fresh
+higher-sorting IDs; the same problem occurred during desktop-to-mobile resize.
+
+### Reproduction and minimal correction
+
+The actual pinned Cesium/FlightRecords display tests reproduced both paths before
+the correction: **12 display tests, 10 passed / 2 failed**, exit 1. The failures are
+`current higher-sorting contacts fill the cap before unselected missing contacts`
+and `resizing prioritizes current contacts while reserving a qualifying missing
+follow within the cap`. Each tests both no-follow and qualifying retained follow.
+The raw red log uses declared fixture contacts and actual pinned record/display code.
+
+`aircraftCohort` now orders qualifying selected/followed identities first, current
+accepted observations next, and other grace contacts last, with deterministic ID
+ordering inside each group. Replacement and resize use the same function. Missing
+contacts remain eligible only under the previously qualified upstream grace and
+Hub expiry; budget removal still clears their record/history. Without a retained
+follow, all 100 slots contain current observations. With one qualifying missing
+follow, that same entity occupies one slot and 99 current contacts occupy the rest.
+No cap, grace, freshness, source-time, acquisition, camera or motion-cadence change.
+The shared ordering runs at snapshot replacement or necessary resize trimming,
+not on every ordinary animation tick.
+
+Focused green: **20 passed / zero failed / zero skipped**. Full final-source bundle:
+**103 passed / zero failed / zero skipped**. The new browser case acquires a second
+declared 2,000-row snapshot with higher-sorting identities on the actual scheduled
+provider poll; all visible aircraft are from the current cohort, retainedMissing 0,
+admitted 2,000 / renderable 100 / capped 1,900. The previous unknown-geometric-altitude
+fixture and guard remain intact; an accidental local fixture edit was restored
+before qualification and never committed or treated as evidence.
+
+God's Eye source remains pinned/clean at
+`e7707d9a0f34d9fbffc300023c319f95caa5be30`. No upstream feature edits, whole-app
+import, alternate Viewer, new models/media, provider fallback, or renderer rewrite.
+The original FlightRecords/normalizer/feed/orientation reuse and justified Hub
+differences documented above are unchanged.
+
+### Fresh final-artifact profiling
+
+The same sequential 13-cohort controlled harness completed on the final artifact:
+six mobile sizes (0/1/10/25/50/100) and seven desktop sizes (plus 1,000). Same camera,
+declared fixtures, settled existing fallback imagery, warmup and four-second sample
+per state. Full rAF distributions, real postRender cadence, callback/assignment/
+collection/projection/status/render-request/draw/heap counters and V8 captures are
+retained. The combined **117-row CSV** distinguishes original bf176, corrected f43
+and current 4429 source/artifact checkpoints, with disabled/held/moving states.
+The f43 diagnostic controls and repeats above remain historical diagnosis;
+final-artifact measurements are a separate complete run. It does not repeat
+those eight controls. Profiling seams are confined to routed disposable responses;
+pristine acceptance and HTTP byte verification use the unmodified artifact.
+
+| Viewport | Contacts | Original moving rAF FPS | Final disabled rAF FPS | Final moving rAF FPS | Final moving p50/p95 ms | Callback ms/update | Assignments/events | Ratio |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Mobile | 0 | 60.16 | 60.00 | 60.06 | 16.7/16.9 | 0.10 | 0/0 | 1.001 |
+| Mobile | 1 | 8.16 | 60.03 | 36.16 | 16.7/107.7 | 0.23 | 20/20 | 0.602 |
+| Mobile | 10 | 6.83 | 60.20 | 37.49 | 16.7/101.9 | 0.36 | 200/20 | 0.623 |
+| Mobile | 25 | 4.74 | 60.01 | 25.15 | 16.8/151.4 | 0.64 | 550/22 | 0.419 |
+| Mobile | 50 | 7.21 | 60.10 | 29.97 | 16.8/132.8 | 0.60 | 1050/21 | 0.499 |
+| Mobile | 100 | 7.47 | 60.11 | 26.92 | 16.8/155.2 | 0.98 | 2100/21 | 0.448 |
+| Desktop | 0 | 60.01 | 60.18 | 60.14 | 16.7/16.9 | 0.11 | 0/0 | 0.999 |
+| Desktop | 1 | 4.19 | 60.05 | 11.13 | 18.2/199.7 | 0.20 | 21/21 | 0.185 |
+| Desktop | 10 | 4.99 | 60.04 | 9.52 | 19.5/253.5 | 0.31 | 190/19 | 0.159 |
+| Desktop | 25 | 3.72 | 60.23 | 8.91 | 171.7/278.6 | 0.51 | 450/18 | 0.148 |
+| Desktop | 50 | 2.88 | 60.12 | 8.80 | 16.0/269.7 | 0.64 | 900/18 | 0.146 |
+| Desktop | 100 | 3.92 | 60.24 | 8.64 | 19.1/306.1 | 1.03 | 1800/18 | 0.143 |
+| Desktop | 1000 | 2.57 | 60.09 | 7.14 | 198.4/375.8 | 7.81 | 15000/15 | 0.119 |
+
+At desktop 1,000 the final sample has 15 animation updates, 15,000 position
+assignments and **15 collection events**; callback total 117.1 ms (**7.81 ms/update**),
+assignment 60.8 ms, projection 9.1 ms, four status writes / 0.3 ms, 15 explicit render
+requests and 16 actual scene frames. Original callback average 114.33 ms/update.
+This confirms the existing measured batching/caching/publication improvements;
+the new cohort-order correction is not claimed to cause an FPS improvement.
+
+Actual final scene-render cadence is **5.23 FPS mobile 100 / 3.81 FPS desktop 1,000**;
+rAF counts UI frame callbacks and is not interchangeable with Cesium postRender.
+
+Final moving mobile 100 is 26.92 rAF FPS (p95 interval 155.2 ms) and desktop 1,000 is 7.14
+(p95 interval 375.8 ms), versus disabled 60.11 / 60.09. All held/disabled cohorts are
+near 60 with zero scene renders. The software/native render-path cost found in the
+earlier zero-aircraft forced-render control remains the bounded diagnosis; exact
+GPU pass, full gain attribution, heap leak freedom and physical hardware performance
+are UNKNOWN. SwiftShader is the observed renderer. Parent DOM/message counters
+remain zero during controlled samples; this is bounded negative evidence, not a
+formal React Profiler or hardware qualification. Glyph crowding remains visible.
+
+The interrupted unsharded pristine attempt retains its short default-imagery samples:
+desktop enabled **3.57** versus disabled **3.85** rAF FPS; mobile enabled **8.79**
+versus disabled **60.44**. These two-second samples have different warmup, imagery
+and scene state from the settled controlled profiler and are not interchangeable
+with its FPS ratios. They continue to show a severe software-renderer mobile loss.
+Pristine desktop/mobile captures were inspected: glyphs are actually visible, with
+heavy overlap in the declared dense fixture. Visibility does not establish human
+legibility, responsiveness or acceptance; no new decluttering feature is added.
+
+The first fourth-shard mobile sample (a passed case inside that failed shard)
+was 5.28 enabled / 60.05 disabled rAF FPS. It remains separate failed-shard
+measurement evidence; the final complete campaign sample is recorded below.
+
+The clean final campaign's own two-second default-imagery samples are
+**3.40 enabled / 3.43 disabled desktop** and
+**8.08 enabled / 60.05 disabled mobile**. They are separate
+from interrupted/failed attempts and the settled profiler. Severe software cadence
+remains unresolved despite the CPU reduction; no hardware/visual acceptance or
+FPS guarantee is claimed.
+
+### Fresh artifact and complete regression proof
+
+Final Earth artifact:
+`4429c803d33bdf2718809ab2275af211e248f415c2769b328a1f7ac6db4399f3`.
+Two independent pinned builds reproduce all **513 files including release.json**;
+all **37 source inputs** match current source. Generated lock and runtime-version
+metadata use the repository recorder; no hand-edited hashes. Installed artifact
+and all **512 served Earth payloads** verify on Docker compiled preview 4183 and
+normal localhost:4173. Sky remains
+`b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`, all 96 served
+payloads verified, no Sky rebuild/native/vendor/WASM/protocol change.
+
+Fresh complete pristine Docker browser campaigns, run in sequential case-level
+shards with one worker: **22 aircraft + 43 existing
+Earth/Sky cases, zero failed / zero skipped**. Fresh --list collection exactly matches the unique passed case IDs across all
+six aircraft and eight existing-feature shards, with zero retries. No interrupted
+attempt results are included and no prior-artifact test results are reused. Coverage includes new current-cohort turnover, unknown
+altitude, real canvas pixels/caps, stable selection/Focus/follow, missing disclosure
+and same-ID return, five-minute outage recovery, source failure/coverage/cache/late
+cancellation, native Sky wheel/search/selection/deselection/URL, genuine compiled
+preview bfcache, satellites/Weather/radar/fire/quakes/HD/global fallback and lifetime.
+Final Docker backend tests: **46 passed**, both disposable and restored normal
+runtime, zero skipped and six existing deprecation warnings. Frontend: **229 tests
+in 28 files**, TypeScript/build PASS. Documentation units/architecture/reconciliation
+validators pass after the final checkpoint update; exact output is archived.
+
+The initial unsharded aircraft runner terminated with SIGTERM/exit 143 after 13
+passed cases and no assertion failure; termination cause UNKNOWN. That incomplete
+attempt and its default-imagery captures/short cadence samples remain separate.
+The first proposed shard used default file-level granularity, grouping all 22 tests;
+it was intentionally stopped with exit 130 before qualifying the setup. The final
+shard commands add --fully-parallel solely to distribute individual cases, retaining
+--workers=1 and sequential shard invocation. A subsequent first-shard run produced four passed browser results but wrapper
+exit 2: adding exit logging to the helper while its shell was reading the file
+caused an EOF parse error after Playwright completed. That avoidable harness
+error was retained, the helper syntax-checked and frozen, and the shard repeated
+with a clean exit. None of these attempts contributes to final campaign counts. No assertion, budget, provider behavior or product source was relaxed.
+
+The first fourth-shard attempt was **3 passed / 1 failed**, exit 1: its existing
+camera-cache case expected longitude -79.6 from the deliberately aborted initial
+request; the accepted returned region was -79.5. The documented/source-authoritative
+policy retains a covering centre within 50 NM, and an aborted request has no accepted
+cache entry. This was an invalid exact-centre test assumption, not an aircraft
+cohort/runtime failure. The corrected test executes the actual distanceM/radius
+policy, checks the qualified inner coverage, asserts the returned centre equals
+its actual accepted request, and requires exact centre/source-time preservation
+and unchanged request count on cached re-enable. No runtime, provider, cap, expiry
+or timeout change. The entire shard is repeated; failed-shard results/captures are
+retained separately and excluded from the completed six-shard count.
+
+One existing-feature fifth-shard attempt returned **4 passed / 1 failed**, exit 1:
+configured global GIBS acquisition reached state failed instead of ready. Outage,
+fallback and genuine Earth bfcache cases passed. ImageryController source is byte
+identical to original 482f27; transport/provider failure cause UNKNOWN, not inferred
+as a remote outage or aircraft/Cesium regression. The complete unchanged shard was
+repeated once and passed all five cases with the same live-provider opt-in,
+assertions and source. The initial failure cause remains UNKNOWN. Raw failed
+report/capture remains separate; it is not counted in the final accepted campaign.
+No mapping/runtime/test change or weakened validator is made for this attempt.
+
+Exact final commands and outputs are in the private checkpoint's
+`QUALIFICATION_COMMANDS.md`, logs and manifest; the earlier command ledger remains
+historical. This delivery adds only policy/display ordering, two display tests, one
+browser turnover case, generated Earth metadata and the four approved documents.
+The original final review's full changed-file list above still applies cumulatively.
+
+### Final preservation and owner readiness
+
+The previous installed f43 artifact was verified payload-by-payload and atomically
+preserved at `data/runtime-artifacts/earth-rollback-f43-20261009`; original bf176
+rollback and owner ca124 artifacts remain verified and untouched. All 16 registered
+historical Earth-expansion captures were hash-checked against owner originals,
+backed up before the campaign, restored after preserving fresh output separately,
+and reverified. Historical evidence registries and owner originals are unchanged.
+
+Normal localhost:4173 serves the final artifact with five services running, Earth/
+frontend healthy; only the same three disposable qualification services stopped.
+`COMPOSE_BAKE=false npm run dev:local:build` restored the stack without datastore
+recreation; the warning about existing orphan services was not acted on. Sanitized
+final checks confirm exactly the original 81-volume set, unchanged PostgreSQL/Redis
+IDs/full mounts/running state, original astronomy-data mount Sources, owner branch/
+head/environment/settings fingerprint, clean source pin and every retained rollback
+payload. No reset/reseed/migration/prune or owner worktree/history mutation.
+
+The exact original/final commit heads, final-head checks and review-thread state,
+all 28 requested handoff fields, command ledger and desktop/mobile screenshots are
+recorded in the new private `c57a-cohort-priority-20261009/FINAL_HANDOFF.md` and final
+GitHub snapshots. The new P2 thread is replied/resolved only after passing proof;
+the original two remain resolved with their original red/green replies. No manual
+recursive review requests. Automated success does not record human approval.
+
+**TECHNICALLY QUALIFIED FOR OWNER REVIEW — HUMAN QUALITY REVIEW PENDING; LIVE
+OPERATIONAL READINESS BLOCKED**, subject to the accompanying actual final-head
+checks/thread snapshot. Category A: authorized regional live availability/capacity/
+access proof remains blocked; live count UNKNOWN, historical one-probe 503 only,
+no new live probe, OpenSky agreement still required. Category B: software cadence/
+tails, dense glyph overlap, coarse heap/no GPU-pass timers, strict geometric-only
+admission, regional coverage at global zoom, physical-device/human acceptance
+pending. All owner checklist result fields above remain PENDING.
+
+Exact next owner action: inspect PR67 and the current 28-field handoff, exercise
+artifact 4429 on physical hardware with declared fixtures or an independently
+authorized regional source, fill the existing visual/device checklist and qualify
+regional provider access/availability/capacity before operational acceptance.
+Limits stay 100 NM  / 2,000 rows  / 2 MB  / shared dispatch >= 30 s  / whole acquisition 8 s /
+desktop 1,000  / mobile 100  / follow 1  / models 0. No merge, replacement PR, worldwide/
+OpenSky acquisition, production/SSH/Cloudflare/oras.org/accounts/purchases,
+new model/media, C5.7-B/C/D/E/C6 activation or broader audit.

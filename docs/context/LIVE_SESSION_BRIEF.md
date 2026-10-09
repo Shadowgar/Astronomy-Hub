@@ -11,19 +11,21 @@ statements below for A only. OD2–OD6 and C5.7-B/C/D/E/C6 remain unapproved.
 No merge, production, purchases, new external models/media or worldwide acquisition.
 [Qualification and limits](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md).
 
-2026-10-09 final review: both outstanding aircraft P2s reproduced and corrected;
-PR #67 remains OPEN/unmerged. Fresh complete aircraft campaign 21 passed; existing
-Earth/Sky regressions 43 passed, including genuine compiled-preview bfcache.
-Earth f43a4b90 independently reproduced/installed/served; Sky unchanged. Measured
-CPU/event/publication work reduced, while software-renderer cadence, glyph overlap,
-physical-device and human quality acceptance remain limitations. Normal localhost:4173
-restored; exact 81 volumes, original datastore identities/data mounts and owner
-settings/environment preserved. **TECHNICALLY QUALIFIED FOR OWNER REVIEW — HUMAN
-QUALITY REVIEW PENDING; LIVE OPERATIONAL READINESS BLOCKED**. Live availability/
-capacity/count UNKNOWN; the historical regional probe returned HTTP 503 and no
-new live probe ran. Next action: owner physical-device checklist and authorized
-regional provider/access/capacity review. No automatic merge, worldwide acquisition
-or C5.7-B/C/D/E/C6 activation.
+2026-10-09 final review: both original aircraft P2s reproduced and corrected;
+post-push current-contact priority P2 also reproduced and corrected for replacement
+and mobile resize, preserving selected/followed grace inside unchanged caps.
+PR #67 remains OPEN/unmerged. Fresh final-artifact complete campaigns: 22 aircraft
+and 43 existing Earth/Sky cases passed, including genuine compiled-preview bfcache;
+103 Earth/runtime tests passed. Earth 4429c803 independently reproduced/installed/
+served; Sky unchanged. Thirteen final-artifact profile cohorts confirm the CPU/event
+reduction; software-renderer tails, glyph overlap, physical-device and human quality
+acceptance remain limitations. Normal localhost:4173 restored; exact 81 volumes,
+original datastore identities/data mounts and owner settings/environment preserved.
+**TECHNICALLY QUALIFIED FOR OWNER REVIEW — HUMAN QUALITY REVIEW PENDING; LIVE
+OPERATIONAL READINESS BLOCKED**. Live availability/capacity/count UNKNOWN; historical
+regional probe HTTP 503 only, no new live probe. Next: owner physical-device checklist
+on 4429 and authorized regional provider/access/capacity review. No automatic merge,
+worldwide acquisition or C5.7-B/C/D/E/C6 activation.
 
 ## Active C5.6.75 documentation checkpoint — 2026-10-08
 

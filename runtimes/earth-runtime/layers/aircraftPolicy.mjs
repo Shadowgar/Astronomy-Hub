@@ -39,8 +39,8 @@ export function cachedAnchor(cache,point,now=Date.now()){
 export function viewRegion(current,viewed,cache,now=Date.now()){
  return !viewed||distanceM(current,viewed)<AIRCRAFT_RADIUS_M/2?current:cachedAnchor(cache,viewed,now);
 }
-/** Reserve only still-admitted selected/followed contacts inside the same cap. */
-export function aircraftCohort(observations,limit,retainedIds=[]){
- const retained=new Set(retainedIds);
- return [...observations].sort((a,b)=>Number(retained.has(b.id))-Number(retained.has(a.id))||a.id.localeCompare(b.id)).slice(0,limit);
+/** Reserve qualifying selected/followed IDs, then current contacts before missing ones. */
+export function aircraftCohort(observations,limit,retainedIds=[],currentIds=observations.map(row=>row.id)){
+ const retained=new Set(retainedIds),current=new Set(currentIds);
+ return [...observations].sort((a,b)=>Number(retained.has(b.id))-Number(retained.has(a.id))||Number(current.has(b.id))-Number(current.has(a.id))||a.id.localeCompare(b.id)).slice(0,limit);
 }
