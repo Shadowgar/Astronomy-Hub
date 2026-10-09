@@ -3,7 +3,7 @@
 Owner authorized 2026-10-08, single agent. Starting main
 `8270e782f73d4df58b16e762cdb4f0031a37ada3`; branch
 `c5-7-a-aircraft-regional-recovery-1`. Qualification is in progress; this record
-will be finalized with exact final artifact and results before PR delivery.
+will be finalized with exact final artifact and results before final handoff.
 
 OD1 — APPROVED FOR B-FIRST REGIONAL RECOVERY. WORLDWIDE OPTION C CONDITIONAL / NOT AUTHORIZED FOR ACQUISITION.
 
@@ -111,9 +111,9 @@ require provider ready/count0 for final qualification.
 
 ## Final artifact and preservation
 
-Two independent clean pinned builds, `cache-a` and `cache-b`, matched every
+Two independent clean pinned builds, `p2-a` and `p2-b`, matched every
 payload plus release metadata: 513 identical files, 512 payload files.
-Final Earth artifact: `230e778f4ab3d6038bdb01615ca21d15ed0c494fa4219cb591cd668ad388b529`.
+Final Earth artifact: `bf1763b8aebe0ac7ce64df2e23772d29570d0c4e9631c525893a781400903f71`.
 Cesium remains 1.138.0. Approved attestation tooling generated the lock/version
 metadata; no hashes were hand-edited. Docker HTTP verification checked all512
 Earth payload files and96 unchanged Sky installation files at port4183.
@@ -150,15 +150,15 @@ against Docker port4183 with `PLAYWRIGHT_SKIP_WEBSERVER=1` and
 | Command | Result |
 | --- | --- |
 | `docker compose -p oras-c57a-qualification -f /tmp/oras-c57-a-qualification-20261008/compose.yml exec -T c57-backend python -m pytest backend/tests/test_earth_aircraft.py backend/tests/test_earth_events.py -q` | 44passed,0skipped; six existing library deprecation warnings. Actual Redis coalescing/budget tested, unique test namespace only. |
-| `node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs` | 87passed,0failed/skip. Export-boundary subprocess needs unsandboxed local IPC; supporting sandbox attempt failed that test only, complete rerun passed. |
+| `node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs` | 89passed,0failed/skip. Export-boundary subprocess needs unsandboxed local IPC; supporting sandbox attempt failed that test only, complete rerun passed. |
 | `npm test -- --run` in frontend | 229passed across28files. |
 | `npm run typecheck` and `npm run build` in frontend | TypeScript and Vite passed. |
-| `python3 -m unittest tests.validation.test_reconciliation_docs` | 10passed; exact bounded OD1 state allowed, generic OD1/global approval and OD2–OD6 promotion rejected. |
+| `python3 -m unittest tests.validation.test_reconciliation_docs` | 11passed; exact bounded OD1 state allowed, generic OD1/global approval and OD2–OD6 promotion rejected. |
 | `python3 scripts/validation/validate_architecture_docs.py` | PASS:279doc entries,277task+2global,50checkpoint docs,1379relative links,9ADRs. |
 | `python3 scripts/validation/validate_reconciliation_docs.py` | PASS:67capabilities,51entrypoint references,404links,58fragments; bounded OD1 only. |
-| `ORAS_EARTH_OUT=/tmp/oras-c57-a-qualification-20261008/cache-a bash scripts/runtime/build_owned_earth.sh` and independently `cache-b` | Both clean builds passed; all513file hashes identical. |
-| `python3 scripts/runtime/record_runtime_versions.py /tmp/oras-c57-a-qualification-20261008/cache-a` | VERIFIED final artifact; unchanged Sky lock. |
-| `python3 scripts/runtime/earth_artifact.py verify --source /tmp/oras-c57-a-qualification-20261008/cache-a` | VERIFIED source inputs/dependencies/payload. |
+| `ORAS_EARTH_OUT=/tmp/oras-c57-a-qualification-20261008/p2-a bash scripts/runtime/build_owned_earth.sh` and independently `p2-b` | Both clean builds passed; all513file hashes identical. |
+| `python3 scripts/runtime/record_runtime_versions.py /tmp/oras-c57-a-qualification-20261008/p2-a` | VERIFIED final artifact; unchanged Sky lock. |
+| `python3 scripts/runtime/earth_artifact.py verify --source /tmp/oras-c57-a-qualification-20261008/p2-a` | VERIFIED source inputs/dependencies/payload. |
 | `python3 /tmp/oras-c57-a-qualification-20261008/verify-served.py` | PASS all512Earth/96Sky HTTP bytes. |
 | `python3 /tmp/oras-c57-a-qualification-20261008/preserve.py` | PASS datastore/settings/81volumes/pin/nativeSky/rollback preservation. |
 
@@ -240,3 +240,89 @@ coverage center41.3,-79.6 and cachedtrue, with unchanged source time/17.45s age.
 Both final cache-a/cache-b builds match513files; all512Earth and96Sky served
 bytes verify. The full16-test campaign is running; existing regression campaign
 and final normal-development restoration remain pending at this review checkpoint.
+
+## Exact changed files
+
+- `backend/app/routes/earth.py`
+- `backend/app/services/earth_aircraft_cache.py`
+- `backend/tests/test_earth_aircraft.py`
+- `docs/context/CONTEXT_MANIFEST.yaml`
+- `docs/context/LIVE_SESSION_BRIEF.md`
+- `docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md`
+- `docs/execution/EARTH_CAPABILITY_PLAN.md`
+- `docs/execution/PROJECT_STATE.md`
+- `docs/validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md`
+- `frontend/public/runtime-versions.json`
+- `frontend/src/features/workspace/LayerPanel.tsx`
+- `frontend/tests/e2e/aircraftRecovery.spec.ts`
+- `frontend/tests/e2e/ownedEarth.spec.ts`
+- `frontend/tests/e2e/workspaceLayerRestore.spec.ts`
+- `integrations/renderers.lock.json`
+- `runtimes/earth-runtime/core/CameraController.mjs`
+- `runtimes/earth-runtime/core/EarthRuntime.mjs`
+- `runtimes/earth-runtime/core/RuntimeBridge.mjs`
+- `runtimes/earth-runtime/entry.mjs`
+- `runtimes/earth-runtime/layers/GodsEyeFlightsAdapter.mjs`
+- `runtimes/earth-runtime/layers/PollingLayer.mjs`
+- `runtimes/earth-runtime/layers/aircraftDisplay.mjs`
+- `runtimes/earth-runtime/layers/aircraftPolicy.mjs`
+- `runtimes/earth-runtime/layers/data.mjs`
+- `runtimes/earth-runtime/layers/entities.mjs`
+- `scripts/runtime/record_owned_earth.py`
+- `scripts/validation/validate_reconciliation_docs.py`
+- `tests/earth/admission.test.mjs`
+- `tests/earth/aircraft-policy.test.mjs`
+- `tests/validation/test_reconciliation_docs.py`
+
+## GitHub delivery checkpoint
+
+PR [#67](https://github.com/Shadowgar/Astronomy-Hub/pull/67), OPEN/unmerged.
+Logical commits: `95ea0c4f` backend, `8c8bf917` runtime/UI/tests,
+`8f166827` artifact metadata, `286be990` OD1/docs guards/evidence.
+Normal `@codex review` and `@coderabbitai review` requested. CodeRabbit initially
+skipped automatic review under its OSS repository policy, so review was requested
+explicitly; autopilot was not enabled. Copilot reported quota exhaustion and
+supplied no code review. Exact head/reviews/threads/checks will be refreshed at
+final handoff. No inference of approval from an empty review-thread list.
+
+## Bounded actual review corrections
+
+Codex reported two P2s on reviewed head286be990: initial enable after settled
+camera exploration still used the observer; an alphabetical capped cohort could
+remove a still-valid selected/followed contact when lower IDs arrived. Both were
+verified, not accepted solely from review wording. Camera-enable browser red
+confirmed observer coverage at the distinct explored view. The first cohort test
+incorrectly assumed diagnostics selection contains an ID; corrected to read the
+actual source-backed Identity fact. Its independent red showed selectedabc000
+removed and trackingnull after100lower IDs arrived, despite abc000 remaining in
+2,000valid/admitted rows. These are real scoped failures.
+
+Correction: evaluate settled view against the existing50NM hysteresis before
+first enable, then choose its applicable fresh cached or rounded regional anchor.
+Observer default remains supported near home. Cap selection reserves only still-
+admitted selected/followed identities, then fills deterministic alphabetical slots;
+missing/invalid contacts are not synthesized.89runtime units and11document units
+pass. The document validator now checks the OD1 authorization block itself for
+all acquisition limits, including2,000rows, and rejects changes masked elsewhere.
+
+CodeRabbit's generic ApiError/Retry-After suggestion does not affect the actual
+bounded aircraft fetch consumer. Its30second source backoff matches the route's
+fixed budget429 Retry-After30; upstream longer backoff is enforced by Redis.
+This was explained with actual call-path evidence in the original thread. No
+unrelated generic API-client changes or recursive audit/autopilot were started.
+Its final-record comment is addressed by completing all requested campaigns and
+restoration before final handoff; qualification is explicitly incomplete here.
+
+The superseded230e full16-test campaign was stopped for these corrections after
+12passed,1interrupted (follow),3not run; this is not a green full campaign. The
+finalbf176 artifact receives a fresh complete18-test campaign and existing
+regressions, plus a new independent clean build pair and served-byte proof.
+
+P2 browser green:2passed in1.6minutes on bf176. Enable requested41.0,-72.7
+instead of observer41.3,-79.6; the final suite additionally waits for the new
+request before asserting ready. Selected/followedabc000 remained selected and
+tracked after100lower-sorting IDs arrived, with2,000admitted/100renderable/
+1,900capped. New P2 source commit `c71097e2`; authorization-limit guard commit
+`fbf86fad`. Both independent final builds match513files, and all512Earth/96Sky
+HTTP-served files verify. Fresh full18-test campaign is running; no completion
+or merge approval is inferred from focused results.
