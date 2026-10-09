@@ -33,7 +33,7 @@ Follow this order when determining truth:
 3. `docs/context/LIVE_SESSION_BRIEF.md`
 4. `docs/DOCUMENT_INDEX.md`
 5. `docs/execution/PROJECT_STATE.md`
-6. `docs/execution/MASTER_PLAN.md`
+6. `docs/execution/MASTER_PLAN.md` — product reference only; cannot activate work
 7. relevant phase / execution documents
 8. architecture / engine / object / contract / ingestion documents, including
    `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` for approved renderer direction
@@ -153,8 +153,10 @@ The API/data layer must not fake visibility, coordinates, or catalog identity.
 
 Implementation must follow `docs/architecture/STACK_OVERVIEW.md` (the root
 stack file is an alias), subject to the approved engine boundaries below.
-God's Eye Earth and body-aware Cesium planetary rendering are approved future
-directions, not implemented runtimes or authorization to add dependencies.
+Hub-owned Cesium Earth and selective pinned God's Eye feature modules are
+implemented bounded foundations. Broader Earth parity/global mapping and body-aware
+planetary rendering remain proposed/planned; no dependency addition is authorized
+without an approved bounded task.
 
 ### Backend stack
 
@@ -959,24 +961,24 @@ Do not claim completion when validation was skipped.
 
 ## 25. Unified Universe Architecture Guardrails
 
-Consult `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` before renderer or
-engine work. Distinguish current implementation, approved plans, and open choices.
+Consult `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` and ADR0009 before
+renderer/engine work. C0–C5.6 bounded packages and C5.6.5 audit evidence are
+complete; C5.6.75 documentation review is current. C5.7 is proposed/unapproved,
+C6 direction approved but provider implementation unapproved; D/E/F/G/H planned.
+Use context-manifest Earth plan/C5.7/C6/owner decisions, not historical Phase B
+full-app/skeleton next-action text or older horizon roadmap.
 
-- Phase B recommendations are recorded in
-  `docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md`. The next recommended task
-  is its bounded Phase C Sky/Earth skeleton; no implementation is authorized
-  inside the study. Do not start `oras_horizon.v1` from an older roadmap.
-- Preserve complete applicable God's Eye Earth capabilities, including those
-  unrelated to astronomy, subject to provider/data/asset terms. Do not implement
-  a replacement Earth renderer from scratch or strip upstream features.
-- Hub astronomy additions belong in external adapters/extensions. Treat God's Eye
-  and SWE upstream source as immutable by default; UI convenience is no exception.
-  Unavoidable changes require an explicit architectural exception, extension-point
-  investigation, preferred generic upstream hook, or tiny documented patch queue.
-- Do not claim God's Eye, unified Earth, universal state, planetary surfaces, or
-  cross-engine handoffs exist before implementation and qualification.
-- Phase B selects external pinned source, independent full-app builds,
-  same-origin disposable runtime frames, a versioned capability bridge and
-  active-only heavy renderer lifetime. These are planned, not implemented.
-  Exact extension/protocol API, source/base-path/browser/provider qualification
-  and solar-system-scale renderer remain open.
+- Hub owns product intent/state, independent Earth Viewer/bridge/lifecycle and
+  justified provider/security boundaries. Prefer qualified exact reuse/wrapping
+  at God's Eye function/module boundaries; no full app/main/Viewer singleton or
+  broad adapter rewrite without evidence. SWE owns Sky scene/math/native behavior.
+- Preserve complete applicable future Earth capability scope, including
+  non-astronomy, under provider/data/asset/hook/phase gates. Source MIT is not data rights.
+- Upstream source immutable by default; investigate stable seam/generic hook before
+  tiny documented exception/patch queue. UI convenience is no exception.
+- Do not claim global aircraft/weather/satellite parity, real terrain/3D, planetary
+  surfaces/ISS/scale handoffs or production readiness from bounded package completion.
+- Keep active-only serial renderer lifetime, validated bridge, canonical string
+  identities and source truth. Future schema/extension/provider/body/scale work
+  requires separate bounded owner approval and runtime proof. Proposed defaults
+  are not owner approval; only one implementation package active at a time.

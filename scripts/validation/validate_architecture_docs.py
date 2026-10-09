@@ -15,6 +15,8 @@ scratch tooling, site-packages or running application is required. --manifest
 accepts a temporary manifest for bounded negative qualification.
 """
 import argparse
+import hashlib
+import json
 from pathlib import Path
 import re
 import sys
@@ -37,6 +39,7 @@ ADR_NAMES = (
     '0003-gods-eye-earth-runtime.md', '0004-additive-earth-extensions.md',
     '0005-cesium-planetary-direction.md', '0006-controlled-renderer-handoffs.md',
     '0007-immutable-upstream-source.md', '0008-provider-licensing-boundaries.md',
+    '0009-owned-earth-feature-reuse.md',
 )
 
 
@@ -120,8 +123,45 @@ def paths(value, label):
     return value
 
 
-def markdown_links(name):
+def private_evidence_registry():
+    """Load the reviewed, bounded historical artifact references without Git access."""
+    data = json.loads((ROOT / 'scripts/validation/private_evidence_links.json').read_text())
+    require(data.get('schema') == 1 and data.get('checkpoint') == 'C5.6.75',
+            'private evidence: invalid registry schema/checkpoint')
+    records = data.get('records')
+    require(isinstance(records, list) and len(records) == 16,
+            'private evidence: expected sixteen historical references')
+    seen = set()
+    for record in records:
+        require(isinstance(record, dict) and set(record) == {'document', 'path', 'sha256', 'evidence_class'}
+                and all(isinstance(value, str) for value in record.values()),
+                'private evidence: malformed record')
+        require(record['document'] == 'docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md'
+                and record['path'].startswith('output/playwright/earth-expansion/')
+                and (ROOT/record['path']).resolve().is_relative_to(ROOT)
+                and record['evidence_class'] == 'PRIVATE_HISTORICAL_LOCAL_ONLY'
+                and re.fullmatch(r'[0-9a-f]{64}', record['sha256']) is not None,
+                'private evidence: invalid source/path/class/hash')
+        key = (record['document'], record['path'])
+        require(key not in seen, 'private evidence: duplicate reference')
+        seen.add(key)
+    return records
+
+
+def private_evidence_reference(document, target, records):
+    """Recognize one registered local historical artifact, checking bytes if present."""
+    for record in records:
+        if document == record['document'] and target == (ROOT/record['path']).resolve():
+            if target.exists():
+                require(target.is_file() and hashlib.sha256(target.read_bytes()).hexdigest() == record['sha256'],
+                        document+': private historical evidence hash mismatch '+record['path'])
+            return True
+    return False
+
+
+def markdown_links(name, *, stats=None):
     text = (ROOT / name).read_text()
+    private_records = private_evidence_registry()
     # Ignore examples inside code fences; validate links rendered as Markdown.
     visible = []
     fence = None
@@ -147,7 +187,11 @@ def markdown_links(name):
             continue
         path = unquote(parsed.path)
         resolved = (ROOT / path.lstrip('/') if path.startswith('/') else (ROOT / name).parent / path).resolve()
-        require(resolved.is_relative_to(ROOT) and resolved.exists(), f'{name}: broken relative link {target}')
+        require(resolved.is_relative_to(ROOT), f'{name}: link escapes repository {target}')
+        private = private_evidence_reference(name, resolved, private_records)
+        require(private or resolved.exists(), f'{name}: broken relative link {target}')
+        if stats is not None and private:
+            stats['private'] = stats.get('private', 0) + 1
         count += 1
     return count
 
@@ -195,11 +239,14 @@ def validate(manifest_path):
                 f'{task}: missing Tonight contract')
     docs = sorted(set(p for p in tasks['docs_change']['load'] if p.endswith('.md')) |
                   {'docs/validation/UNIFIED_UNIVERSE_ARCHITECTURE_EVIDENCE.md'})
-    links = sum(markdown_links(name) for name in docs)
+    link_stats = {'private': 0}
+    links = sum(markdown_links(name, stats=link_stats) for name in docs)
+    private = link_stats['private']
     adr_dir = ROOT / 'docs/architecture/decisions'
-    require({p.name for p in adr_dir.glob('*.md')} == set(ADR_NAMES), 'checkpoint: expected exactly the eight named ADRs')
+    require({p.name for p in adr_dir.glob('*.md')} == set(ADR_NAMES), 'checkpoint: expected exact named ADR set')
     print(f'PASS: manifest structure/paths/duplicates; {total} document-path entries ({total-len(always)} task entries + {len(always)} global entries); {len(tasks)} task packs.')
-    print(f'PASS: {len(docs)} checkpoint Markdown documents; {links} relative links; code fences balanced; {len(ADR_NAMES)} expected ADRs.')
+    print(f'PASS: {len(docs)} checkpoint Markdown documents; {links} relative references ({links-private} required repository links + {private} registered private historical artifacts); code fences balanced; {len(ADR_NAMES)} expected ADRs.')
+    print('NOTE: private artifact absence is expected in clean checkouts; present bytes are hash-checked. No fresh runtime proof is inferred.')
 
 
 def main():
@@ -208,7 +255,7 @@ def main():
     args = parser.parse_args()
     try:
         validate(args.manifest)
-    except (ValueError, OSError) as exc:
+    except (ValueError, OSError, TypeError, KeyError) as exc:
         print(f'FAIL: {exc}', file=sys.stderr)
         return 1
     return 0

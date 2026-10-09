@@ -1,17 +1,3 @@
-# `FEATURE_EXECUTION_MODEL.md`
-
-Your current file says “archived / not authoritative.” That is correct, but incomplete. 
-
-Right now there is **no explicit execution model**, which is why Codex drifted and lied about completion.
-
-We fix that here.
-
----
-
-## Replace the entire file with this:
-
----
-
 # FEATURE EXECUTION MODEL (ACTIVE)
 
 ---
@@ -44,6 +30,15 @@ Features are built as small, verifiable slices tied to real runtime behavior.
 ```
 
 ---
+
+## Current checkpoint/package gates
+
+[PROJECT_STATE](../execution/PROJECT_STATE.md) and LIVE_SESSION_BRIEF activate
+only owner-authorized bounded tasks. C0–H checkpoint names describe ordered
+packages; they do not reactivate legacy `docs/phases/*`. Proposed
+[C5.7](../execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md) permits no coding until owner
+approval and relevant decisions, then one package at a time. MASTER_PLAN is product
+reference only. Audit evidence and suggested defaults are not implementation authority.
 
 ## EXECUTION UNIT
 

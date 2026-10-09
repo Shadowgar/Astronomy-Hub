@@ -1,5 +1,47 @@
 # LIVE SESSION BRIEF
 
+## Active C5.6.75 documentation checkpoint — 2026-10-08
+
+Owner authorized documentation/architecture/roadmap reconciliation only, SINGLE
+AGENT. Audit commit `09495238c2b5aebe358c66f9a09801382758f4f8` preserved on recovery ref; active docs branch
+`c5-6-75-architecture-roadmap-reconciliation-1`. Main `bb28aec7833d154c2f0b3b7fa7470d69a93c84b4`; PR63/64/65 are
+merged, not open/stacked pending merges. Current next action is **owner review of
+C5.6.75 documentation PR**, no merge or next-feature coding. C0–C5.6 completed as
+bounded packages; audit completed evidence; C5.7 proposed, C6 approved direction,
+D/E/F/G/H planned. No implied global parity/production acceptance.
+
+[PROJECT_STATE](../execution/PROJECT_STATE.md) owns sequence/active permissions;
+[Earth plan](../execution/EARTH_CAPABILITY_PLAN.md) owns capability planning;
+[C5.7 proposal / owner decisions](../execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md),
+[C6 plan](../execution/C6_GLOBAL_MAPPING_SPEC.md),
+[ADR0009](../architecture/decisions/0009-owned-earth-feature-reuse.md),
+[canonical audit](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md) and
+[reconciliation proof](../validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md)
+are context-discoverable. Master Plan stays product reference, not execution control.
+
+Prefer qualified unchanged/wrapped God's Eye feature code within owned Viewer/
+state/lifecycle/provider boundaries; no full upstream app/Viewer singleton or
+broad adapter rewrite. Keep SWE native scene/math/camera/selection separate.
+Audit four critical gaps are aircraft usable display/source scope, satellite
+population/refresh experience, point Weather meaning/usability and disabled Cesium
+skybox. Outages/unknown live counts/rights are not evidence of every renderer defect.
+CONUS historical HD/coarse global and ellipsoid terrain remain. Scientific/catalog
+depth and physical-device limits remain separate from qualified wheel/search/Gaia
+loading/control behavior. No new runtime proof is manufactured by docs updates.
+
+Frozen Sky `b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`, Earth `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`, God's Eye pin `e7707d9a0f34d9fbffc300023c319f95caa5be30`.
+No rebuild/update/dependencies/migrations. Laptop WSL/local Docker only; ordinary
+startup `npm run dev:local`. Preserve owner settings unstaged, data/volumes/
+datastore IDs/installations and audit bytes. No production/SSH/Cloudflare/oras.org,
+accounts/purchases, C5.7/C6/ISS/Mars/Moon coding. Release Candidate deployment gate
+remains separate. Proposed defaults are not owner approval; only one approved
+bounded package at a time.
+
+## Historical session records — superseded execution stop-points
+
+The text below preserves earlier dated evidence/history. Its open-PR, old
+artifact, active-task and next-action wording does not override this active brief.
+
 ## Owner-authorized integration checkpoint, 2026-10-05
 
 PR #63 was owner-approved and merged normally at

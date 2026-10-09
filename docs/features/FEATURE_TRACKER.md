@@ -1,22 +1,3 @@
-# `FEATURE_TRACKER.md`
-
-Your current tracker is actually very good structurally, but:
-
-Problems:
-
-* it does not enforce **viewport correctness**
-* it does not explicitly track **engine ownership correctness**
-* it allows vague “mixed” states without forcing clarity
-* it doesn’t tie tightly enough to execution model
-
-We tighten it so it becomes **brutally honest and actionable**. 
-
----
-
-## Replace the entire file with this:
-
----
-
 # FEATURE TRACKER
 
 ---
@@ -67,41 +48,48 @@ FEATURE_ACCEPTANCE.md
 
 ---
 
-## Current Execution Checkpoint
+## Current Execution Checkpoint — 2026-10-08
 
-ORA-7 unified workspace implementation was owner-approved and merged in PR #58
-on 2026-10-03 at `f55b9b2721cb692b4cda106e415c8fef59454c80`. Its final
-`a45fa637` correction covers Live time, custom-observer timezones and Earth source
-refresh. It follows merged compatibility study PR #54 and owned Earth PR #55.
-The Hub mounts native SWE and its independently owned Cesium Earth runtime using
-the authenticated bridge and serial renderer lifetime. This does not establish
-full God's Eye feature parity or production-qualified planetary surfaces.
+C0–C5.6 bounded implementation packages are complete; PRs #63/#64/#65 merged.
+Current work is C5.6.75 documentation reconciliation, after completed C5.6.5 audit.
+[PROJECT_STATE](../execution/PROJECT_STATE.md) controls activation. No C5.7/C6 code
+is active. Qualification is local WSL/Docker, not production or full feature parity.
+The matrix below separates seven proof gates. Historical means proof at the linked
+checkpoint, not freshly rerun here. NOT PROVEN preserves uncertainty; no failed
+provider is recast as renderer failure. REAL applies only to explicitly bounded
+behavior supported by acceptance proof, never the entire capability family.
 
-PR #60's Sky cached-page lifecycle repair is merged at `1e7fd3ef`, including
-interaction reset, timer cleanup and preserved endpoint availability. PR #61's
-Tonight local Messier fallback, partial enrichment recovery, canonical OpenNGC
-deduplication and source-status correction is merged at `f3601bb8`.
-PR #62 context/validation enforcement is merged at `fc41ac19`.
-PR #59 / ORA-8 / C5 was owner-approved and merged at
-`d8ca945a0b1a1c44622dae573d9787dde71f8a76` on 2026-10-04, preserving the exact
-approved head `e0e69e47` and reviewed main `fc41ac19` as parents.
-USGS earthquakes, NIFC/WFIGS fire perimeters and NOAA/NWS nowCOAST CONUS radar
-are the locally qualified expansion; Launch Library remains blocked by access 403.
-ORA-8 / C5 is COMPLETE: owner approval, merge and post-merge local/disposable
-qualification passed. External deployment is intentionally deferred until the
-owner declares Release Candidate. Historical `openclaw` SSH/storage diagnostics
-are retained in Earth expansion evidence; storage is not a current blocker.
-HD / close-zoom Earth mapping is the active authorized phase in laptop WSL,
-qualified with local/disposable Docker. The first package on `earth-hd-mapping-1`
-is implemented and locally qualified: keyless USGS CONUS imagery, bounded requests,
-truthful source display and explicit fallback/retry. Its
-[evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md) records the fresh C5 proof
-and regional/performance limits. Owner review of the PR is next; no merge yet.
-No remote deployment, Cloudflare or `oras.org` work is
-included. ISS handoff and Mars/Moon remain out of scope.
-Historical passing counts do not
-qualify changed sources. Current execution and owner approval belong to
-[PROJECT_STATE](../execution/PROJECT_STATE.md) and the live session brief.
+Evidence: [audit matrix](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md),
+[divergence](../audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md),
+[audit validation handoff](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md),
+[C5 expansion](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md),
+[C5.5 HD](../validation/EARTH_HD_MAPPING_EVIDENCE.md),
+[C5.6 Sky/development](../validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md).
+
+| Bounded capability / status | Code | UI control | Fixture/unit proof | Live source proof | Usable content rendering | Coverage truth | Acceptance / remaining gap |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Independent Earth Viewer / bridge / workspace — REAL bounded foundation | Exists | Sky/Earth mode, layers, selection | Historical qualified | Provider-independent foundation | Historical Docker/browser | Independent owned Earth, SWE Sky | C1–C4 foundation qualified; full parity not implied |
+| Civil aircraft — PARTIAL | FastAPI observer100NM transport + Entity adapter | Exists | Historical bounded admission/error proof | Audit503, zero admitted | Live NOT PROVEN; source/code altitude gating independently established | Near observer only, not global; home15.62Mm hides billboard, point disabled | Provider access and actual admitted visibility/follow need separate proof |
+| Earth satellites — PARTIAL | stations-only, cap100,15s propagation | Exists | Historical strict TLE/finite guards | Audit source unavailable; six reference groups502 | No fresh successful population comparison | Intentional stations only; owner approximately five is not fresh census | Small population not a proven loading bug; group expansion/follow/performance unqualified |
+| Modeled observer-point Weather — PARTIAL usability | Point fetch/normalize/entity | Exists | Historical point/error tests | Audit200, one point | One ready point proved; field-level usability NOT PROVEN | Local modeled conditions, not global map or seeing | Owner says control appears ineffective; requested wind facts absent; broad visual weather not qualified |
+| Latest CONUS radar snapshot — REAL bounded C5 | Exact timestamp/image lease + raster adapter | Separate radar layer | Historical mismatch/age/lease/error tests | Historical C5 source qualification | Historical raster/browser proof | CONUS-only, ≤30min source age, snapshot not forecast/live continuous weather | Historical C5 acceptance; source outage later does not fabricate freshness |
+| Clouds / mapped wind / lightning / cyclones / weather history — BLOCKED future | Upstream code available; no qualified Hub layer | No qualified mapped controls | No Hub acceptance | NOT PROVEN for Hub | NOT PROVEN | No advertised global coverage | Scope/provider/hooks/rights require owner authorization |
+| USGS earthquakes / NIFC fire perimeters — REAL bounded C5 | Validated event adapters | Exists | Historical DTO/time/geometry/error tests | Historical C5 qualified | Historical Docker/browser | Source-backed selected event products, not all environmental layers | Bounded C5 proof; source/display limitations retained |
+| Launches — BLOCKED | Source/adapter exists | Controlled unavailable | Historical failure handling | Launch Library403 | Live launch content NOT PROVEN | Unavailable, no fake launch | Provider access gate unresolved |
+| Earth standard skybox — PARTIAL visual presentation | Explicit `skyBox.show=false` | No enabled star background | Configuration established, no enabled acceptance | Static assets not provider | Standard star background disabled | No scientific star-catalog claim | Restore/qualify proposal requires asset/performance/OD4 approval |
+| CONUS HD imagery — REAL bounded C5.5 | Keyless USGS regional provider/fallback | Qualified source/camera UI | Historical bounded request/error proof | Historical C5.5 | Historical close-zoom browser proof | Regional HD + coarse global fallback; no global aerial-resolution claim | C5.5 accepted; provider rights/device/detail remain bounded |
+| Global HD / terrain / buildings / photorealistic3D — BLOCKED C6 | Dormant ion/map branches, not active services | No qualified global/terrain/3D product | No global acceptance | NOT PROVEN | Ellipsoid baseline, not qualified terrain | Global high detail and heights unavailable | Provider/account/budget/coverage/rights gates precede C6 work |
+| Sky wheel/search/deep-link controls — REAL bounded C5.6 | Native SWE inputs + Hub contracts | Both Sky surfaces | Historical regression/native-science proof | Audit smoke only; source coverage separate | Historical exact-head Docker/browser controls proof | Qualified existing catalogs, string IDs preserved | PR65 qualified bounded controls; cold search and coverage limits remain |
+| Sky/Gaia catalog depth — PARTIAL coverage | Indexed mounted source catalog support | Existing search/runtime | Historical canonical/materialization tests | Existing supplied datasets only | Existing tiles/selection qualified within scope | Not full Gaia DR3/full-depth completeness | Missing coverage/tiles and cold-search cost retained; no fake stars |
+| Physical devices / production — BLOCKED qualification | Local development exists | Local UI | CI/local evidence only | No production qualification here | No physical-device campaign here | WSL/disposable browser ≠ physical fleet/global service | Owner Release Candidate, provider and device gates unresolved |
+
+## Known Category B limits
+
+Cold-search cost, incomplete Gaia/catalog coverage, source/data/asset restrictions,
+Launch Library403, regional imagery/global detail, dormant terrain/3D and unqualified
+physical-device performance remain limits. They do not invalidate completed bounded
+packages or authorize implementation. Detailed per-capability evidence and owner
+decisions live in [Earth plan](../execution/EARTH_CAPABILITY_PLAN.md).
 
 ## Historical Documentation Checkpoint — Phase B
 
@@ -134,7 +122,13 @@ Earth and Solar System rows below do not prove these approved runtimes exist.
 Qualified satellite passes remain missing; legacy passes are not production-grade.
 The older inventory remains scoped to unfinished legacy workflows.
 
-## RUNTIME TRUTH INVENTORY
+## Historical legacy runtime truth inventory
+
+This pre-owned-Earth inventory is retained for legacy workflows only. Its Earth,
+flight, satellite and viewport flags are not current claims about the qualified
+owned runtime; the current proof matrix above supersedes them for those surfaces.
+
+### Legacy rows
 
 | Feature                         | UI Visible | Backend Path | Real Data | Engine Ownership Correct | Viewport Correct | Fake Behavior Present | Status  |
 | ------------------------------- | ---------- | ------------ | --------- | ------------------------ | ---------------- | --------------------- | ------- |
@@ -234,7 +228,7 @@ For strict Sky Engine parity progress against Stellarium source behavior, use:
 
 - `/home/rocco/Astronomy-Hub/parity_list.md`
 
-Current parity anchor (as of 2026-04-12):
+Historical parity anchor (as of 2026-04-12), not a current catalog census:
 
 - Stars moved from Hipparcos-only ceiling (~8,870) to multi-survey sequencing (~61.7k visible ceiling with current datasets).
 - Synthetic deep background star fallback is disabled; real catalog surveys now drive deep star density.
@@ -249,7 +243,7 @@ checks and final performance revalidation have passed. Runtime status: REAL
 for the bounded behavior and limits documented in the evidence. PR #51 merged on 2026-10-01; current CI/review state is authoritative on GitHub. This entry does not change the broader legacy Hub status inventory.
 
 
-## Shared public shell and decision homepage (PR #52 merged 2026-10-02)
+## Historical shared public shell qualification (PR #52 merged 2026-10-02)
 
 The public application model is Home `/`, Observe `/observe`, Tonight `/tonight`
 and Sky `/sky-engine`. One ORAS shell owns navigation/landmarks/focus and shared

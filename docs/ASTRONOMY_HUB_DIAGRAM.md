@@ -1,96 +1,58 @@
-# Astronomy Hub — Architecture Diagram
+# Astronomy Hub architecture diagram — current and planned
 
-Detailed authority: [Unified Universe Architecture](architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
-This document separates current implementation from approved future architecture.
-It is not a mockup or proof that planned runtimes exist.
+[Architecture](architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md),
+[ADR0009](architecture/decisions/0009-owned-earth-feature-reuse.md),
+[current evidence](audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md) and
+[execution gates](execution/PROJECT_STATE.md). Documentation only; diagrams do
+not prove every source currently succeeds. Current small state is not all future
+cross-body navigation. No full upstream app is embedded.
 
-## Current implementation — PR #52 foundation
-
-```mermaid
-flowchart TD
-    Shell["CURRENT: ORAS shared product shell"]
-    Shell --> Home["Home /"]
-    Shell --> Observe["Observe /observe"]
-    Shell --> Tonight["Tonight /tonight"]
-    Shell --> Host["Sky host /sky-engine"]
-    Host --> SWE["CURRENT: contained SWE /oras-sky-engine/"]
-    API["CURRENT: source-backed APIs and catalog/TLE data"] --> Home
-    API --> Observe
-    API --> Tonight
-    API --> SWE
-```
-
-Home, Observe and Tonight are decision pages without a renderer. Sky mounts SWE;
-SWE is also reachable standalone. The Hub owns shell/navigation and defined input;
-SWE owns rendering, internal selection/camera behavior, lifecycle and visual math.
-Existing scientific/identity contracts and satellite source paths remain valid.
-Historical console-clean qualification is PARTIAL; see
-[project state](execution/PROJECT_STATE.md). No fresh runtime proof in this task.
-
-## Approved future architecture — not implemented
+## Implemented boundaries
 
 ```mermaid
 flowchart TD
-    Hub["Astronomy Hub: shell, astronomy intelligence, ORAS capabilities"]
-    Hub --> State["PLANNED: small universal product state"]
-    State --> SkyAdapter["PLANNED: Sky adapter / qualified boundary"]
-    State --> EarthAdapter["PLANNED: Earth adapter / qualified boundary"]
-    State --> BodyAdapter["PLANNED: Body adapter / qualified boundary"]
-    SkyAdapter --> Sky["Sky Mode: SWE rendering exists; workspace integration PLANNED"]
-    EarthAdapter --> Earth["PLANNED Earth Mode: complete applicable God's Eye + Cesium"]
-    BodyAdapter --> Planet["PLANNED Planet Mode: body-aware Cesium; Mars proof first"]
-    Hub --> Extensions["PLANNED: external additive Hub astronomy layers"]
-    Extensions --> EarthAdapter
-    Extensions --> SkyAdapter
-    Extensions --> BodyAdapter
-    State -.-> Scale["PLANNED solar-system navigation; renderer OPEN"]
+    Shell["Hub product shell: unified Sky/Earth; Tonight/Observe"] --> State["Small canonical intent/state + versioned bridge"]
+    State --> Lifetime["Serial active-only renderer lifetime"]
+    Lifetime --> Sky["Sky: contained SWE /oras-sky-engine/"]
+    Sky --> SkyOwn["SWE owns native scene/math/camera/selection"]
+    Lifetime --> Earth["Earth: Hub-owned Cesium Viewer /earth-runtime/"]
+    Earth --> Layers["Bounded owned layer adapters / selection / credits"]
+    Layers --> Reuse["Reused/wrapped pinned God's Eye FEATURE CODE"]
+    Reuse --> Boundary["Validated FastAPI/provider boundaries where applicable"]
+    Boundary --> Sources["External data sources: rights, scope, time, quota"]
+    Reuse --> Direct["Selected browser transport: independently qualified gates"]
+    Direct --> Sources
+    Sources --> Normalize["Validate/normalize source identity, age, coverage and counts"]
+    Normalize --> Layers
+    Sources -.-> Fail["Provider failure / partial / stale → explicit unavailable"]
+    Fail --> Layers
+    API["FastAPI astronomy/data decision authority"] --> Shell
 ```
 
-The adapters translate product intent; they do not become a common rendering
-core. Applicable extensions integrate through qualified domain boundaries;
-Earth-only layers do not migrate to other bodies. Renderer internals own scenes,
-math, camera execution and selection realization. The Hub owns mode, time,
-observer, selected entity/body, camera intent, applicable layers and history.
-The [Phase B study](studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md) selects externally
-pinned sources, independent full-app builds, same-origin frames and a versioned
-capability bridge; exact APIs and runtime qualification remain open.
+Owned Viewer does not justify unnecessary feature recreation. Provider status,
+source time and actual rendered counts are separate; no fabricated visibility or
+success timestamp on failure. Current aircraft is observer-bounded, satellites
+stations-only, Weather one modeled point plus separate CONUS radar. C5.5 imagery
+is historical CONUS HD/coarse global; terrain ellipsoid, skybox disabled. These
+limits do not erase the implemented shell/bridge/Viewer foundation.
 
-God's Eye preserves complete applicable upstream Earth capability, including
-non-astronomy layers, subject to provider terms. Hub astronomy layers are external
-additions. Both SWE and God's Eye source is immutable by default, with pinned,
-qualified revisions and explicit exceptions for unavoidable tiny patches.
-Data/provider/visual-asset terms are separate from code licensing.
+## Proposed expansions — no current runtime claim
 
-## Planned navigation
-
-```text
-ISS in Sky → Show on Earth → same ISS and relevant time/orbit context
-ISS on Earth → View from ORAS → same identity/time, ORAS observer, ISS centered
-
-Mars in Sky → Explore Mars → body-aware Cesium Mars globe → approach surface
-Mars surface → Leave Mars → planetary context → View Mars from ORAS → SWE
-
-Later scale aspiration:
-ORAS local sky → Earth → Earth–Moon → solar system → body → planetary surface
+```mermaid
+flowchart LR
+    Review["C5.6.75 owner review"] --> Approval["Explicit approval + unresolved decisions"]
+    Approval --> Recovery["PROPOSED C5.7 A aircraft → B satellites → C weather → D stars → E integrated QA"]
+    Recovery --> C6["C6 DIRECTION: qualify providers → global imagery → terrain/heights → 3D → display/QA"]
+    C6 -.-> D["D planned: ISS identity/time/frame handoff"]
+    D -.-> E["E planned: Mars/body-specific surfaces"]
+    E -.-> F["F planned: source-backed astronomy extensions"]
+    F -.-> G["G planned: immersive/scene/share UX"]
+    G -.-> H["H planned: solar-system scale; renderer OPEN"]
 ```
 
-Controlled renderer handoffs preserve visual and contextual continuity; perfect
-continuous-camera transforms are not promised. Solar-system-scale renderer
-and transition animation remain open. Active-only heavy renderer lifetime is
-the Phase B recommendation. Observe/Tonight
-stay independent routes and later gain contextual workspace drawers. Home/Sky
-may converge conceptually; no current route changes.
-
-## Structural and execution models
-
-```text
-Scope → Engine → Filter → Scene → Object → Detail → Assets
-Ingestion → Normalization → Storage → Cache → API → Client Rendering
-
-A docs → B compatibility study → C runtime skeleton → D ISS → E Mars → F extensions
-```
-
-Phase B is the active study. Next recommended task is its bounded Phase C
-Sky/Earth skeleton (study section 29). `oras_horizon.v1` remains approved in later astronomy extensions, not next.
-No integration, renderer, transition, horizon, satellite/flight or UI implementation
-is authorized inside this documentation checkpoint.
+No uniform global aerial detail, freely reusable Google Earth, scientifically
+time-aware starbox, second Stellarium behind Earth or physical AR proof implied.
+Earth-only data cannot become Mars data. Approved direction/proposed default is
+not execution authorization. MASTER_PLAN is product reference; PROJECT_STATE
+controls sequence. Structural models remain Scope→Engine→Filter→Scene→Object→Detail→Assets
+and Ingestion→Normalization→Storage→Cache→API→Client Rendering.

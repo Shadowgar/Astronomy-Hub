@@ -1,198 +1,92 @@
-# `PROJECT_STATE.md`
-
-
----
-
 # PROJECT STATE — EXECUTION AUTHORITY
 
----
+Reconciled 2026-10-08. Validation→CORE→LIVE→manifest/index→this record govern
+work; MASTER_PLAN is non-execution product reference. Evidence conflicts are
+reported, not repaired by forcing runtime into stale docs. **SINGLE AGENT ONLY.**
 
-## PURPOSE
+## Current mode and authorized scope
 
-Defines the **current, factual execution state** of Astronomy Hub.
+C5.6.75 documentation/architecture/roadmap reconciliation prepared for owner
+review in one docs-only PR. Original audit preserved separately at `09495238c2b5aebe358c66f9a09801382758f4f8`;
+branch `c5-6-75-architecture-roadmap-reconciliation-1` descends from it and keeps
+audit recovery ref. Allowed: document/context/index/ADR/validation reconciliation,
+commits/push/PR/review corrections within docs scope. No PR merge by this task.
+No C5.7/C6/ISS/Mars/Moon/other feature coding, pin/dependency/runtime/protocol/
+artifact input changes, rebuild, provider purchase/account/production deployment.
 
-This is the only document that defines:
+## Verified merged baseline and environment
 
-* what is being worked on
-* what is active
-* what is allowed
-* what is constrained
+PR 63 merged: `126da1537c734de817d9f9c59468d995807da37c` (Oct 5),
+PR 64 merged: `521ffb27b16a31dfc9964260f98f89331b9e42d0` (Oct 5),
+PR 65 merged: `bb28aec7833d154c2f0b3b7fa7470d69a93c84b4` (Oct 7), approved head: `d73588f13fbfa6366fcc6784dae8d5f336599ce5`.
+GitHub merge identities checked Oct 8; main remains `bb28aec7833d154c2f0b3b7fa7470d69a93c84b4`. Completed bounded
+checkpoint history below is evidence-backed, not global feature readiness.
+Local laptop WSL/Docker only. `npm run dev:local` is ordinary startup. Preserve
+owner `.vscode/settings.json` unchanged/unstaged, data/installations/evidence,
+Docker volumes/Postgres/Redis identities. No reset/clean/prune/migrations.
+Production/SSH/Cloudflare/oras.org/storage/deployment decisions are deferred until
+owner-declared Release Candidate with separate approval; no current feature blocker.
 
-Authority follows `docs/validation/SYSTEM_VALIDATION_SPEC.md`, then core context
-and live session brief, then the document index and this execution record.
-Proven runtime conflicts must be reported, not silently overwritten.
+Sky artifact `b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`; Earth `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`; external God's Eye `e7707d9a0f34d9fbffc300023c319f95caa5be30` unchanged.
+[Audit handoff](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md) records source/installed/served hash verification
+and the post-merge bounded Playwright smoke (`3 PASS`). Historical full campaigns are not rerun here.
 
-## CURRENT MODE
+## Current capability truth and known gaps
 
-Owner-authorized integration/repository hygiene, SINGLE AGENT ONLY. Laptop WSL
-and local/disposable Docker; no runtime override mode or new feature phase.
-PR #63 / bounded HD Earth is COMPLETE after owner approval and normal merge
-`126da1537c734de817d9f9c59468d995807da37c` on 2026-10-05. The exact approved
-head is `a9f3e207235d42399d37d8c51b18103f6edcbb87`; initial main was
-`70daeb8087a5439dc27d1a5da3d64d8ec436f495`. The merged tree is identical.
+[Audit](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md) and [Feature Tracker](../features/FEATURE_TRACKER.md)
+separate code/UI/fixture/live/render/scope/acceptance. Aircraft HTTP 503 is provider
+observation; observer coverage and altitude display gate are separate. Stations
+population/cap/15s refresh is intentional, not a proven missing-object bug. Point
+Weather works for one modeled location; radar is separate CONUS snapshot. Earth
+skybox explicitly disabled; standard visual stars proposed, not scientific catalog.
+CONUS historical HD/coarse global fallback/ellipsoid terrain/dormant ion branches
+remain. No full God's Eye parity/global weather/real terrain/production claim.
+Gaia DR3-scale/zoom-aware depth, deep photometry/coverage, DSO media, full-sky HD
+survey/passes/physical-device performance remain limited; DESI/WordPress deferred.
 
-## CURRENT OBJECTIVE / ACTIVE TASK
+## Checkpoint sequence and approval gates
 
-Integrate the preserved local-development repair and the Sky wheel/search/routing,
-Gaia-loading and ORAS-controls chain as two separately reviewable, unmerged PRs.
-Tooling original `1cb71b84` is replayed as `8d2b3742` directly on new main,
-without source conflicts or semantic changes. Its integration branch is
-`dev-wsl-performance-integration-20261005`. The original branch/commit and both
-Sky originals (`5328afba`, `7b2d4927`) remain reachable and untouched.
-Tooling [PR #64](https://github.com/Shadowgar/Astronomy-Hub/pull/64) is open.
-Sky's installed-data launcher extends tooling, so review branch
-`sky-engine-ux-integration-20261005` is stacked on the tooling branch; its review
-diff contains only Sky changes. Originals `5328afba` → `7b2d4927` were replayed
-as `f8cf03fd` → `cb7bfaf1`. Only dated live-brief documentation needed conflict
-reconciliation; all non-document files match the original final Sky tree.
-The clean pinned rebuild reproduced `e4978c294aa36268ce4476662b1f1130e687b499bd748edf2ca0e5c254c32a0e`;
-native WASM/vendor and Earth identity remain unchanged. See
-[workspace qualification evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
-See [local repair evidence](../validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md).
+This table records owner-requested sequence, not blanket implementation permission.
+[Validation law](../validation/SYSTEM_VALIDATION_SPEC.md) governs feature truth.
+Only PROJECT_STATE and LIVE_SESSION_BRIEF activate a bounded task. Completion of
+a package does not establish all feature parity, global coverage or production readiness.
 
-PR #58's unified workspace and PR #59's complete C5 package remain preserved,
-as do merged Sky lifecycle #60, Tonight fallback #61 and context enforcement #62.
-Earth retains one owned Cesium Viewer and immutable pinned God's Eye feature
-modules; Sky retains contained SWE with one active heavy renderer.
+| Checkpoint | Bounded status and dependencies | Evidence / limits / approval gate |
+| --- | --- | --- |
+| C0 — reproducible SWE | Completed bounded foundation | [Phase C evidence](../validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md); native science/math remain SWE-owned. |
+| C1 — Hub-owned Cesium Earth | Completed bounded foundation | Same evidence; independent Viewer, not the full God's Eye app. |
+| C2 — selective God's Eye adapters | Completed bounded foundation | Same evidence; observer aircraft, stations satellites, point weather; broad parity not complete. |
+| C3 — Earth core parity foundation | Completed bounded foundation | Same evidence; core controls/facts/lifecycle, not every upstream layer. |
+| C4 — unified bridge/lifecycle | Completed bounded foundation | [Workspace proof](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md); serial Sky/Earth lifetime and small product intent, not all future bodies/handoffs. |
+| C5 — live-layer expansion | Completed bounded package, PR59 merged | [Expansion proof](../validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md); quakes/perimeters/latest CONUS radar; launch access historically blocked. |
+| C5.5 — CONUS HD Earth | Completed bounded package, PR63 merged | [HD proof](../validation/EARTH_HD_MAPPING_EVIDENCE.md); historical CONUS imagery/coarse global fallback/ellipsoid terrain. |
+| C5.6 — development and Sky stabilization | Completed bounded package, PR64/65 merged | [Local repair](../validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md), workspace proof, [post-merge audit smoke](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md); wheel/search/Gaia/control scope, scientific/catalog limits retained. |
+| C5.6.5 — capability/implementation audit | Completed evidence, preserved in `09495238` | [Canonical audit](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md); dated Oct 7/8 snapshot, provider/live uncertainties retained. |
+| C5.6.75 — reconciliation | Current documentation checkpoint; prepared for owner review | [Reconciliation evidence](../validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md); no future implementation authorized. |
+| C5.7 — core recovery | PROPOSED; not started | [C5.7 spec](C5_7_EARTH_CORE_RECOVERY_SPEC.md); owner approval/decisions, one package active at a time; artifacts requalified when inputs change. |
+| C6 — global HD/terrain/3D | Approved product direction; not implemented | [C6 plan](C6_GLOBAL_MAPPING_SPEC.md); provider/account/cost/coverage qualification before provider-specific code. |
+| D — ISS handoff | Planned | Identity/time/frame/observer/focus science qualification; separate bounded owner authorization. |
+| E — Mars/body surfaces | Planned | Body/radii/datum/imagery/terrain rights proof, Mars first; Earth data cannot be relabeled. |
+| F — astronomy extensions | Planned | Source-backed science/UTC/visibility/coverage; horizon remains unimplemented; no fake observing metrics. |
+| G — immersive UX | Planned | Approved UX/device/scene/share contracts; media rights and physical qualification. |
+| H — solar-system scale | Planned; renderer OPEN | Dedicated scale/frame/camera/renderer study; no Earth's renderer sufficiency assumed. |
 
-## CURRENT PRIORITY
+## Planning references and next action
 
-Fresh unchanged-main Docker smoke passed four cases: live ORAS USGS detail,
-outside-CONUS global fallback, C5 event/surface fixture controls and a canonical
-Sky → Earth → Sky transition. Earth identity remains
-`ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`.
-Historical feature campaign evidence remains in
-[HD mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md); it is not
-assigned to reconstructed follow-up branches.
+[Earth capability plan](EARTH_CAPABILITY_PLAN.md) is the normal planning reference;
+[C5.7 proposed spec](C5_7_EARTH_CORE_RECOVERY_SPEC.md) holds A→B→C→D→E and the
+unresolved Owner Decision Register; [C6 plan](C6_GLOBAL_MAPPING_SPEC.md) holds
+ordered provider/imagery/terrain/3D/presentation/qualification stages. They do not
+activate implementation. Only one explicitly approved package may be active.
 
-Review the tooling PR first and the stacked Sky PR second; neither is authorized
-for merge by this integration task. Preserve owner editor settings unchanged and
-unstaged, and retain Docker volumes/datastores. HD imagery is CONUS-focused and
-historical; lower-resolution global fallback and ellipsoid-only terrain remain.
-Global HD, terrain/3D and physical-device qualification are separately gated.
-ISS, Mars/Moon, measured horizon and provider expansion have not started.
-Production/SSH/Cloudflare/oras.org work is deferred to an owner-declared Release
-Candidate; historical openclaw storage is not a feature blocker or next action.
+**NEXT ACTION: owner review of C5.6.75 and its documentation PR.** Resolve scope/
+provider/budget/asset decisions and separately authorize C5.7 before coding. Do not
+merge this PR or implement any next phase automatically. Preserve both required
+system models and contained SWE rendering/math/canonical string identities.
 
-## KNOWN ISSUES
+## Historical qualification excerpts (not current control)
 
-* Gaia DR3-scale ingestion and zoom-aware star delivery are not complete
-* DSO media and higher-definition imagery remain incomplete
-* Pan-STARRS does not provide safe full-sky default coverage
-* WordPress consumption of `/api/above-me` has not started
-
-## REVIEW-HISTORY DISPOSITION
-
-The obsolete embedded navigation-drawer messages are superseded by host-owned
-workspace controls. `runtimes/sky-adapter/plugin.js` hides duplicate embedded
-navigation, location/time and selection chrome; standalone fallbacks remain.
-The owner's 2026-10-04 refinement selectively restores qualified native object
-search and scene/view toggles in embedded Sky. This is an explicit product
-requirement, not restoration of obsolete host handlers or a second app shell.
-See the [bounded Sky UX correction evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md#owner-directed-sky-ux-correction-2026-10-04).
-
-The merged `a45fa637` corrections already address Live time, custom-observer
-timezones and Earth source refresh. Merged PR #60 preserves the Sky endpoint and
-resets inactive interaction/timers on cached departure, retaining genuine cleanup.
-Merged PR #61 preserves local Messier rows through partial enrichment failures,
-recovers canonical OpenNGC deduplication and retains accurate source status.
-Any separately authorized future source changes require their own
-qualification; an unresolved older thread is an inventory item, not proof of a
-current defect or authorization for a broad implementation pass.
-
----
-
-## HARD CONSTRAINTS
-
-Must preserve:
-
-```text
-Scope → Engine → Filter → Scene → Object → Detail → Assets
-```
-
-And:
-
-* Hub = product context/shell and astronomy decision layer; future universal
-  state owns product intent, engines own internal scene/camera/selection behavior
-* engines = domain authority
-* when a viewport is mounted, viewport = active engine scene
-* Hub shell mounts engines; the separate ORAS Earth runtime owns its Viewer,
-  SWE retains its own contained scene/runtime
-* backend owns meaning
-* contracts must be deterministic
-* `/api/above-me` is the public object-discovery contract
-* `/api/v1/scene/above-me` is legacy scene support, not the future public product API
-
----
-
-## FORBIDDEN ACTIONS
-
-Do NOT:
-
-* fabricate data
-* mix hub and engine responsibilities
-* expand into new engines
-* introduce unauthorized architecture
-* bypass contracts
-* create placeholder UI
-* simulate correctness without validation
-* implement or refactor Hub home-route (`/`) panels/viewport without explicit approval
-* fabricate catalog, coordinate, visibility, magnitude, or survey data
-* commit raw Gaia bulk or giant browser catalog dumps
-* bake bulk skydata into Docker images
-* add the full upstream vendor tree when only maintained runtime sources are needed
-
----
-
-## EXECUTION RULE
-
-Only one bounded feature slice may be active.
-
-Work must follow:
-
-```text
-verify → fix minimally → verify again
-```
-
----
-
-## COMPLETION REQUIREMENT
-
-A feature is NOT complete unless:
-
-* behavior works in runtime
-* output is correct
-* user can make a decision from it
-* interaction behaves correctly
-* system is stable
-
----
-
-## NEXT ACTION
-
-Owner review of [tooling PR #64](https://github.com/Shadowgar/Astronomy-Hub/pull/64)
-is next, followed by the stacked Sky UX/correctness PR. PR #63 is already merged
-at `126da1537c734de817d9f9c59468d995807da37c`; its bounded CONUS package is
-complete and no public deployment is claimed. The two follow-up PRs must remain
-unmerged during integration. All qualification stays in laptop WSL/local
-Docker. Do not merge either follow-up without separate owner review. Do not SSH to historical infrastructure, repair
-storage, deploy production, configure Cloudflare or integrate `oras.org`.
-
-At an owner-declared Release Candidate, reassess deployment architecture, target,
-persistent storage, hostname and site integration separately. Their absence does
-not block feature completion. Historical ORA-7/C5 evidence is preserved.
-
-The Phase B study and owned Earth foundation are already merged historical
-checkpoints. ISS handoff, planetary surfaces, measured `oras_horizon.v1`, broad
-God's Eye parity and WordPress work remain separately gated. The approved future
-direction and historical sequence remain in the unified architecture.
-
-## FINAL RULE
-
-```text
-If the system is not usable from the user's perspective,
-the feature is not complete.
-```
+All excerpts below are dated historical stop-points and artifact identities; current control above supersedes their open-PR/next-task language. Formal evidence files are preserved unchanged.
 
 ## Historical implementation evidence retained from PRs #51–#52
 

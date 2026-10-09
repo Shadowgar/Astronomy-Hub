@@ -23,20 +23,15 @@ This document is **authoritative for system structure**, but does NOT define exe
 
 ## Current Foundation and Approved Future Direction
 
-Merged PR #52 provides Home/Observe/Tonight/Sky under the shared ORAS shell.
-SWE at `/oras-sky-engine/` is the current renderer; `/sky-engine` is its Hub host.
-[Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md) is the detailed
-approved reference: Hub-owned universal product state, complete applicable God's
-Eye Earth, body-aware Cesium Planet Mode, controlled handoffs and additive astronomy
-extensions. Those integrations are PLANNED, not implemented. Phase B selected
-externally SHA-pinned God's Eye source, an independent full-application build and
-external ORAS wrapper, with upstream immutable by default. Sky retains SWE;
-Earth is planned as an independently built runtime. Same-origin isolated/disposable
-frames connect to Hub-owned state through small shared/versioned bridge/protocol
-packages. One heavy renderer remains active after a settled switch; inactive
-runtimes are torn down. Exact APIs, solar-system-scale renderer and production
-qualification remain OPEN. See the
-[completed Phase B study](../studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md).
+C0–C5.6 completed bounded local checkpoints implement the renderer-centered
+workspace, small Hub product state and serial versioned Sky/Earth bridge. SWE
+owns Sky scene/math; the independent Earth runtime owns its Cesium Viewer.
+Prefer qualified reuse/wrapping of pinned God's Eye functions/modules, preserving
+stronger Hub science/security guards. No upstream full app or Viewer singleton.
+[ADR0009](decisions/0009-owned-earth-feature-reuse.md) supersedes dated full-app
+recommendations. [Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md)
+and [PROJECT_STATE](../execution/PROJECT_STATE.md) distinguish this current
+foundation from proposed C5.7, unimplemented C6 and later body/astronomy work.
 
 ## CORE MODEL (AUTHORITATIVE)
 
@@ -52,8 +47,8 @@ Scope → Engine → Filter → Scene → Object → Detail → Assets
 
 ### 1. HUB (PRODUCT AND DECISION LAYER)
 
-The Hub owns product shell/navigation and astronomy decisions. Its future small
-universal state owns mode, time, observer, selected entity/body, camera intent,
+The Hub owns product shell/navigation and astronomy decisions. Its implemented small
+product state owns mode, time, observer, selected entity, camera intent,
 applicable layers and history/context. Renderers realize this intent through
 qualified adapters and own internal scene/camera/selection behavior.
 
@@ -67,7 +62,7 @@ Responsibilities:
 
 The Hub:
 
-* does NOT render scenes
+* product shell does not render scenes; independent Earth runtime owns its Viewer
 * does NOT own object behavior
 * does NOT simulate reality
 
@@ -87,7 +82,7 @@ Each engine:
 Renderer roles:
 
 * CURRENT Sky: SWE
-* PLANNED Earth: complete applicable God's Eye Earth runtime plus external Hub astronomy layers
+* CURRENT Earth: independently owned Cesium Viewer, bounded adapters and pinned feature reuse; broader capabilities gated
 * PLANNED Planet: body-aware Cesium surface direction with qualified data, Mars first
 * OPEN solar-system scale: study SWE sufficiency before selecting another scene
 
@@ -110,23 +105,12 @@ Rules:
 
 ## VIEWPORT MODEL (CRITICAL)
 
-The public shell contains Home, Observe, Tonight and Sky decision/navigation
-surfaces. Only Sky mounts the **single contained engine viewport**. Home is not
-a renderer or a mandatory command-center viewport.
-
-```text
-Viewport = Active Engine Scene
-```
-
-Rules:
-
-* the viewport always reflects the active engine
-* planned controlled renderer handoffs preserve product context; the active-only
-  heavy-renderer lifecycle is selected, while exact animation/prewarm timing is open
-* the Hub does not render scenes directly
-* the mounted viewport is the Sky interaction surface
-
----
+`/` and `/sky-engine` open the Sky workspace; `/earth` opens Earth.
+Observe and Tonight remain decision routes. The workspace mounts one independent
+Sky or Earth scene at a time through the qualified serial
+bridge/lifetime. `/oras-sky-engine/` stays standalone SWE. Product intent persists;
+renderer-specific state/math stays with the active engine. No shared render core.
+Exact later visual handoff/prewarming needs separate device qualification.
 
 ## PRIMARY ENGINE RUNTIME BOUNDARY
 
@@ -135,15 +119,13 @@ For a primary engine:
 * the engine owns its renderer-specific runtime
 * the engine owns its render loop and internal module graph
 * the host owns mount surface, application chrome, product context, and routing
-* future adapters translate selection/time/observer/camera/layer intent without owning render math
+* current adapters translate bounded selection/time/observer/camera/layer intent without absorbing SWE math
 * the host must not absorb engine-internal rendering behavior
 
-The active ORAS Sky Engine is the contained Stellarium Web / Stellarium Web
-Engine runtime at `/oras-sky-engine/`. God's Eye Earth and Cesium Planet Mode
-are approved future directions; implementation must follow the completed Phase B
-study and a separately authorized bounded task. Future upstream integrations use
-pinned/qualified
-revisions and immutable-default source, with Hub additions outside upstream code.
+The active ORAS Sky Engine is contained SWE at `/oras-sky-engine/`; owned Cesium
+Earth exists at `/earth-runtime/`. Planetary surfaces remain planned. Qualified
+pinned upstream code stays immutable by default; external adapters own additions.
+Full-app Earth topology is superseded by ADR0009, not an implementation mandate.
 
 ---
 

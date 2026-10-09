@@ -44,7 +44,7 @@ Resolve conflicts in this order:
 4. `docs/context/CONTEXT_MANIFEST.yaml`
 5. `docs/DOCUMENT_INDEX.md`
 6. `docs/execution/PROJECT_STATE.md`
-7. `docs/execution/MASTER_PLAN.md`
+7. `docs/execution/MASTER_PLAN.md` — product reference only; cannot activate work
 8. relevant feature, architecture, contract, object, and ingestion documents
 9. legacy documents
 
@@ -181,12 +181,21 @@ It must not duplicate sky calculations or hardcode production objects.
 Docs-only architecture checkpoints prove document/control scope, whitespace,
 links/context discoverability, and review findings; they do not require app
 builds or runtime/browser tests when no runtime behavior changes or is claimed.
+Historical private screenshot/measurement links may be unavailable in a clean
+checkout. Only the explicitly registered sixteen C5 Earth expansion references in
+[the private evidence link registry](../../scripts/validation/private_evidence_links.json)
+are exempt from local existence checks. The registry preserves source document,
+exact path, historical-only class and SHA256; if local bytes exist, their hash must
+match. Missing/incorrect repository code/docs and unregistered evidence links remain
+validation failures. This records evidence location/provenance, never fresh runtime
+qualification, publication rights or a grant to distribute provider imagery.
+
 An approved plan is not an implemented feature. `CURRENTLY IMPLEMENTED`,
 `APPROVED / PLANNED`, and `OPEN / UNDECIDED` describe architecture lifecycle,
 not substitutes for the runtime status vocabulary below.
 
 [Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md)
-defines the approved future renderer boundaries. Hub-owned product intent and
+defines implemented bounded and approved future renderer boundaries. Hub-owned product intent and
 renderer-owned scene/math must remain distinct. Later runtime handoffs require
 Docker/browser proof of identity, time, observer and centering; approval alone
 is no qualification evidence.

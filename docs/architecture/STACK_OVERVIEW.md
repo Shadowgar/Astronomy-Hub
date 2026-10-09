@@ -19,7 +19,7 @@ This document is authoritative.
 
 Report conflicts against proven current implementation; do not force runtime
 code to match stale text. [Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md)
-defines approved future renderer direction, not installed integrations or permission
+distinguishes implemented bounded renderers from planned expansions, not permission
 to add packages in this docs-only checkpoint.
 
 ---
@@ -277,7 +277,7 @@ The ORAS Sky Engine at `/oras-sky-engine/` owns:
 
 ---
 
-### Approved Future Renderer Directions
+### Current and Planned Renderer Boundaries
 
 * Earth: Astronomy Hub-owned independent Cesium runtime at `/earth-runtime/`.
   Hub owns Viewer/camera/layers/selection/attribution/UI/lifecycle. God's Eye is an
@@ -289,9 +289,11 @@ The ORAS Sky Engine at `/oras-sky-engine/` owns:
 Sky and Earth are independent builds in serial same-origin disposable frames,
 with a validated versioned capability bridge. SWE remains contained. FastAPI is
 canonical; current aircraft transport is a bounded FastAPI source adapter, and
-satellite/weather use qualified browser-safe direct sources. No Node provider
+satellite/weather currently use direct browser sources; historical transport proof
+does not guarantee live availability, CORS/service quotas or legal public use. No Node provider
 sidecar is implemented by this pivot. Code/data/provider/asset terms remain
-separate. Complete upstream capability scope is retained in the parity ledger,
+separate. Complete upstream capability scope is retained in
+[Earth capability plan](../execution/EARTH_CAPABILITY_PLAN.md),
 not by running the upstream application. Historical Phase B full-app topology
 is superseded; its research remains historical evidence.
 
@@ -319,25 +321,24 @@ shared renderer.
 
 ### Layout Model
 
-The public frontend uses a shared ORAS shell with Home, Observe, Tonight and
-Sky navigation. Home is a compact astronomy decision surface; Observe and
-Tonight expose qualified facts and planning workflows. The Sky host mounts the
-contained runtime. Legacy command-center components remain reusable code, not
-the public homepage presentation.
+The public frontend uses the unified Sky-first workspace at `/` and `/sky-engine`,
+Earth at `/earth`, and focused Observe/Tonight routes with qualified facts and
+planning workflows. Only the selected independent renderer is mounted. Legacy
+command-center components are reusable code, not the public presentation.
 
-The approved future flagship is a renderer-centered full viewport with contextual
-floating controls, hide/edge-return/pin/immersive chrome, and progressive disclosure.
-Hub-owned universal product state/chrome does not transfer rendering ownership.
-Home/Sky may converge conceptually; Observe/Tonight remain routes and also gain
-workspace drawers. Approved visual mockups precede future UX coding. None of this
-workspace redesign has been implemented.
+The renderer-centered workspace with contextual controls, progressive disclosure,
+pin/immersive chrome and Observe/Tonight drawers is implemented in bounded C4.
+Small Hub product state does not transfer SWE rendering ownership. Future G richer
+immersive UX and visual handoffs require separate approval/device qualification.
+[Workspace evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md)
+records historical proof; current scope is governed by PROJECT_STATE.
 
 ---
 
 ### Viewport Rule
 
 ```text id="n8y4kc"
-Mounted Sky Viewport = Contained Stellarium Runtime
+Mounted Viewport = independent SWE Sky or owned Cesium Earth runtime
 ```
 
 ---

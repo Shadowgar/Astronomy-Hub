@@ -32,16 +32,16 @@ Ingestion -> Normalization -> Storage -> Cache -> API -> Client Rendering
 
 ## 4. Current Runtime Anchor
 
-The current shared shell contains Home `/`, Observe `/observe`, Tonight `/tonight`,
-and Sky host `/sky-engine` (merged PR #52). `/oras-sky-engine/` is the contained
-ORAS-hosted Stellarium Web runtime, also reachable standalone. The host route is
-not a replacement renderer or a placeholder.
-
-God's Eye Earth, body-aware Cesium Planet Mode, universal state, and cross-engine
-handoffs are approved plans, not integrated runtimes. SWE owns its internal
-scene/render/camera/selection lifecycle. The future Hub owns product intent and
-visible application chrome through qualified adapters. No BabylonJS sky replacement.
-No fake data. Docker/browser proof remains required for runtime claims.
+C0–C5.6 are completed bounded local WSL/Docker checkpoints; PRs #63, #64 and
+#65 are merged. The sky-first workspace is `/` and `/sky-engine`, with
+Earth workspace `/earth` and focused Observe `/observe` and Tonight `/tonight`. The host mounts independent SWE Sky and
+Hub-owned Cesium Earth `/earth-runtime/` through the versioned bridge with serial
+renderer lifetime. `/oras-sky-engine/` remains standalone SWE; SWE owns sky math,
+selection and camera. Hub owns the Earth Viewer and selectively reuses/wraps
+pinned God's Eye feature code, never the complete app or upstream Viewer singleton.
+Evidence/status: [PROJECT_STATE](execution/PROJECT_STATE.md) and
+[FEATURE_TRACKER](features/FEATURE_TRACKER.md). Bounded merges do not prove complete
+capability parity or production readiness; owner Release Candidate is still required.
 
 ## 5. Authority Tiers
 
@@ -55,11 +55,13 @@ These define execution truth:
 - `docs/context/CONTEXT_MANIFEST.yaml`
 - `docs/DOCUMENT_INDEX.md`
 - `docs/execution/PROJECT_STATE.md`
-- `docs/execution/MASTER_PLAN.md`
+
 
 ### Tier 2 - Product Definition
 
 These define product and architecture reference:
+
+- `docs/execution/MASTER_PLAN.md` — product reference only; cannot activate work
 
 - `docs/README.md`
 - `docs/ASTRONOMY_HUB_DIAGRAM.md`
@@ -72,6 +74,10 @@ These define product and architecture reference:
 
 These define how work is performed:
 
+- `docs/execution/EARTH_CAPABILITY_PLAN.md` — normal Earth planning reference; activation remains in PROJECT_STATE
+- `docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md` — proposed, unapproved packages and owner decisions
+- `docs/execution/C6_GLOBAL_MAPPING_SPEC.md` — approved direction, unapproved provider-specific stages
+
 - `docs/features/FEATURE_EXECUTION_MODEL.md`
 - `docs/features/FEATURE_ACCEPTANCE.md`
 - `docs/features/FEATURE_TRACKER.md`
@@ -80,6 +86,10 @@ These define how work is performed:
 ### Tier 4 - Support
 
 These are guidance only:
+
+- `docs/audits/*` — dated evidence, no implementation authority
+- `scripts/validation/private_evidence_links.json` — exact private historical reference/hash registry, no runtime proof or publication rights
+- `docs/validation/*_EVIDENCE.md` — bounded historical proof, not current activation
 
 - `docs/product/*`
 - `docs/runtime/*`
@@ -133,23 +143,33 @@ Context -> Target files -> Markdown validation -> Git diff proof
 
 ## 8. Current Product Anchor
 
-PR #52 provides the shared-shell foundation, Observe and Tonight remain decision
-pages, and SWE remains the active sky runtime. Runtime status and retained
-qualification gaps are recorded in `PROJECT_STATE.md` and `FEATURE_TRACKER.md`.
-The renderer-centered flagship workspace is planned.
+The renderer-centered workspace, product intent and Sky/Earth bridge are implemented
+within the qualified C0–C5.6 scope. Body-aware surfaces and broad astronomy
+extensions remain planned. Product vision cannot override execution gates.
 
 ## 9. Current Sequence and Deferred Work
 
-The active task is the docs-only [Phase B compatibility study](studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md),
-with [source/fixture evidence](validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md).
-It resolves preferred runtime topology/consumption/lifetime. The next recommended
-task is its bounded Phase C skeleton; ISS, Mars and astronomy extensions follow.
-`oras_horizon.v1` remains approved but is deferred to the astronomy-extension
-phase; it is not next. Consult the unified architecture for the complete A–F order.
+[PROJECT_STATE](execution/PROJECT_STATE.md) is the authoritative checkpoint sequence;
+LIVE_SESSION_BRIEF identifies the current task. C5.6.5 audit evidence is complete;
+C5.6.75 documentation reconciliation is current. Next is owner review, then only
+explicitly approved C5.7-A → B → C → D → E, one package at a time. C6 is approved
+direction, not implemented. D ISS → E planetary surfaces → F astronomy extensions
+→ G immersive UX → H solar-system scale remain planned with separate approval.
+`oras_horizon.v1` stays in F. No WordPress, DESI or production integration is active.
 
-Do not start WordPress, DESI promotion, scraping, credits work, or any runtime
-implementation from this documentation approval. Data/imagery upgrades retain
-source/license and runtime qualification gates.
+The original `GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md` records the
+pre-preservation snapshot: its “eight staged files / no new audit commit” wording
+is historical. Those unchanged outputs now belong to audit commit
+`09495238c2b5aebe358c66f9a09801382758f4f8`; current branch/PR/check status is in
+PROJECT_STATE and the C5.6.75 evidence, not that frozen audit handoff.
+
+Planning and evidence discovery: [Earth capability plan](execution/EARTH_CAPABILITY_PLAN.md),
+[C5.7 proposed packages and Owner Decision Register](execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md),
+[C6 provider-first proposal](execution/C6_GLOBAL_MAPPING_SPEC.md),
+[ADR0009 reuse decision](architecture/decisions/0009-owned-earth-feature-reuse.md),
+[audit matrix](audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md),
+[divergence evidence](audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md) and
+[reconciliation validation](validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md).
 
 ## 10. Conflict Resolution
 

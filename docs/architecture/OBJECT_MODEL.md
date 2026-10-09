@@ -10,10 +10,11 @@
 
 ## Scope Clarification
 
-The generic model below is reference architecture, not a deployed viewport or
-Earth/planet inventory. [Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md)
-distinguishes current public decision pages/SWE from planned workspace renderers
-and Hub-owned product intent. Renderer-internal scene state remains engine-owned.
+Generic object examples below are reference, not a deployed domain inventory.
+Current bounded Hub product state/bridge and independent SWE/owned Cesium Earth
+are described in [Unified Universe Architecture](UNIFIED_UNIVERSE_ARCHITECTURE.md).
+Renderer scene/math remains engine-owned; current string catalog/source/model
+identity contracts remain authoritative. Body/astronomy extensions stay planned.
 
 ## PURPOSE
 

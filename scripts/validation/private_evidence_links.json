@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "checkpoint": "C5.6.75",
+  "purpose": "Explicit historical local evidence references; not committed media, fresh runtime proof or release authorization. Verify hash if retained locally; absence in a clean checkout is expected.",
+  "records": [
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/desktop-layers.png",
+      "sha256": "59e61f778e935a24503571fb0c419e130460edf5ec6aa79a7c0b68bb4bc4c45d",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/desktop-earthquakes-enabled.png",
+      "sha256": "5cec880c2b41b7e34baf8d3cec2aaa9dd58860feea1ff5b2fc000d40e0e99e71",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/desktop-earthquakes-selected.png",
+      "sha256": "6170a3d83fc0aeb21e7a39bb75f39d086ce2e0330d26609616c0d2e378081cd4",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/live-earthquakes-selected.png",
+      "sha256": "cc36679374402c965f7d2896af078ba80357594e9929fd1dee3f5677d0b93ca6",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/live-fire-perimeters-enabled.png",
+      "sha256": "5952c5199b77d761a23b672e6e5640d0b93e13aeecb53cd7f4233dd828e03138",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/live-fire-perimeters-selected.png",
+      "sha256": "cffaa13ebc3088c4c20782f8c90772b98d7cf26a9f2295f5b51e79ebba612554",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/live-weather-radar-enabled.png",
+      "sha256": "15e9822df0a7908e49dd148a28d2005686cbbe842566c4a2834f6c31e0889122",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/live-weather-radar-selected.png",
+      "sha256": "c2dd1176673a7ff91c8d98b73a462024926619cb5af301ef0f3ccb95f68d298f",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/desktop-unavailable.png",
+      "sha256": "1bbe2b318b67a068748c69654ffebb37c96438ddea7e8acbe175f1044827a814",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/mobile-layers.png",
+      "sha256": "d07d2a18f28b6254f9714fbedf002273f0f7e095012c8066902648b84f353103",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/mobile-new-layer-categories.png",
+      "sha256": "90bcc0e258ba80fd0ec32d8915c7b874ea40c60e545077f7b5d0dc404ea1ad40",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/mobile-earthquakes-selected.png",
+      "sha256": "3e0fb89ae2f2112d39eacfbeb2b2866c237d8cb3d461e93b49376eb24a3585a8",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/mobile-unavailable.png",
+      "sha256": "0d556ec26e35af45d78bfc3249058ad3d196baa38b01f0efeb3c803a23882d0f",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/live-measurements.json",
+      "sha256": "b16cafa93c0734526f1b5d2ec0915b3813db15f8e728eaeaaefac980b89e45f4",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/desktop-polygon-body-selected.png",
+      "sha256": "b469657682e7c25a68626e6986a90f44c3bc4facff5027dc2423a1e3241d5371",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    },
+    {
+      "document": "docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md",
+      "path": "output/playwright/earth-expansion/mobile-polygon-body-selected.png",
+      "sha256": "b5cfb057afa90a61ab88d6d4bf92d9c745c50239fdb30d8bd04ebafd6d114978",
+      "evidence_class": "PRIVATE_HISTORICAL_LOCAL_ONLY"
+    }
+  ]
+}

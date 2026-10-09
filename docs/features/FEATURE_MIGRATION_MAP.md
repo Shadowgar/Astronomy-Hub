@@ -32,6 +32,12 @@ This document:
 
 ---
 
+## Current roadmap distinction
+
+C0–H checkpoint labels in [PROJECT_STATE](../execution/PROJECT_STATE.md) name
+current bounded feature packages and approval gates. This mapping concerns legacy
+`docs/phases/*`, not that approved roadmap. A proposed package is not activated work.
+
 ## CORE RULE
 
 ```text id="x5z3rm"
@@ -117,7 +123,7 @@ Do NOT:
 
 * execute phase documents directly
 * treat phase docs as authoritative
-* recreate phase-based workflows
+* reactivate legacy phase-based workflows outside current bounded package authority
 * merge multiple features into one execution step
 * bypass feature slicing
 
@@ -137,8 +143,8 @@ Execution is invalid if:
 ## FINAL RULE
 
 ```text id="j3z9xe"
-Phases are history.  
-Features are execution.
+Legacy phase documents are history.
+Owner-approved bounded feature packages are execution.
 ```
 
 ---
