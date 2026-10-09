@@ -12,7 +12,7 @@ async function fixture(page:Page,mode='valid'){
   if(state.mode==='timeout'){await new Promise(r=>setTimeout(r,14000));await route.abort().catch(()=>{});return}
   if(state.mode==='malformed'){await route.fulfill({body:'{not JSON',contentType:'application/json'});return}
   const now=Date.now()/1000-(state.mode==='stale'?180:0)
-  const ac=state.mode==='empty'?[]:state.mode==='dense'?Array.from({length:2000},(_,i)=>({hex:(state.replaceCohort&&i>=1900?i-1900:0xabc000+i).toString(16).padStart(6,'0'),flight:'DECLARED '+i,lat:lat+(i%40-20)*.035,lon:lon+(Math.floor(i/40)-25)*.028,alt_geom:30000,seen:0,seen_pos:0,gs:200,track:90})):[{hex:'abc123',flight:'DECLARED FIXTURE',lat:lat+.4,lon:lon+.7+(state.updates-1)*.005,alt_geom:30000,seen:0,seen_pos:0,gs:200,track:90}]
+  const ac=state.mode==='empty'?[]:state.mode==='dense'?Array.from({length:2000},(_,i)=>({hex:(state.replaceCohort&&i>=1900?i-1900:0xabc000+i).toString(16).padStart(6,'0'),flight:'DECLARED '+i,lat:lat+(i%40-20)*.035,lon:lon+(Math.floor(i/40)-25)*.028,alt_geom:30000,seen:0,seen_pos:0,gs:200,track:90})):[{hex:'abc123',flight:'DECLARED FIXTURE',lat:lat+.4,lon:lon+.7+(state.updates-1)*.005,alt_geom:state.mode==='unknown-altitude'?null:30000,alt_baro:state.mode==='unknown-altitude'?30000:undefined,seen:0,seen_pos:0,gs:200,track:90}]
   await route.fulfill({headers:{'X-Aircraft-Cache':'miss'},json:{now,ac}}).catch(()=>{})
  })
  await page.goto('/earth');await expect(page.locator('[data-runtime-mode=earth][data-runtime-status=ready]')).toBeVisible({timeout:90000})
@@ -65,6 +65,17 @@ for(const mode of ['503','429','timeout','malformed','stale','empty'])test(`cont
  const diag=await earth.evaluate(()=>(window as any).orasEarthDiagnostics())
  expect(diag.ready).toBe(true);expect(diag.viewerDestroyed).toBe(false);expect(diag.providers.aircraft.count||0).toBe(0)
  console.log(JSON.stringify({mode,provider:diag.providers.aircraft}));await page.screenshot({path:`${directory}/${mode}.png`})
+})
+test('unknown geometric altitude stays filtered through the actual pinned normalizer',async({page})=>{
+ test.setTimeout(120000);const {earth}=await fixture(page,'unknown-altitude')
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft?.status)).toBe('ready')
+ const diag=await earth.evaluate(()=>(window as any).orasEarthDiagnostics()),provider=diag.providers.aircraft
+ expect(diag.ready).toBe(true);expect(diag.viewerDestroyed).toBe(false);expect(provider.count).toBe(0)
+ expect(provider.counts).toMatchObject({fetched:1,parsed:1,valid:0,admitted:0,filtered:1,renderable:0,visible:0})
+ expect(await earth.evaluate(()=>(window as any).orasEarthVisibleTargets().filter((row:any)=>row.kind==='aircraft'))).toEqual([])
+ await expect(page.locator('.ws-layer[data-layer-id=aircraft]')).toContainText('positions filtered')
+ console.log('UNKNOWN_GEOMETRIC_ALTITUDE',JSON.stringify(provider))
+ await page.screenshot({path:`${directory}/unknown-altitude.png`})
 })
 for(const mobile of [false,true])test(`bounded dense regional glyph cohort and measured frame cadence ${mobile?'mobile':'desktop'}`,async({page})=>{
  test.setTimeout(180000);await page.setViewportSize(mobile?{width:390,height:844}:{width:1440,height:900})
