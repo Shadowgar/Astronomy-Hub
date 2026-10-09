@@ -42,3 +42,14 @@ test('capped cohorts reserve still-admitted selected and followed identities wit
  assert.deepEqual(aircraftCohort(rows,3,['missing']).map(r=>r.id),['000001','000002','000003']);
  assert.deepEqual(rows.map(r=>r.id),['000001','000002','000003','abc001','abc002']);
 });
+
+test('recovery after a five-minute outage holds the new observation instead of interpolating the gap',()=>{
+ const a={time:1000,position:'old'},b={time:301000,position:'recovered'};
+ assert.deepEqual(bracket([a,b],301000),{a:b,b,t:0,estimated:false});
+});
+test('interpolation has a bounded 90-second gap and duplicate epochs never divide by zero',()=>{
+ const a={time:1000},b={time:91000},c={time:91001};
+ assert.equal(bracket([a,b],106000).estimated,true);
+ assert.deepEqual(bracket([a,c],106000),{a:c,b:c,t:0,estimated:false});
+ const duplicate={...a};assert.deepEqual(bracket([a,duplicate],31000),{a:duplicate,b:duplicate,t:0,estimated:false});
+});

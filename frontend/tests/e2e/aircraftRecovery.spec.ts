@@ -2,7 +2,7 @@ import {test,expect,type Page,type Frame} from '@playwright/test'
 
 const directory=process.env.AIRCRAFT_EVIDENCE_DIR||'../output/playwright/aircraft-recovery'
 async function fixture(page:Page,mode='valid'){
- const state={mode,requests:[] as {lat:number;lon:number;time:number}[],updates:0,replaceCohort:false,release:null as null|(()=>void)}
+ const state={mode,requests:[] as {lat:number;lon:number;time:number}[],updates:0,clockOffset:0,replaceCohort:false,release:null as null|(()=>void)}
  await page.addInitScript(()=>sessionStorage.setItem('oras.workspace.ui.v1',JSON.stringify({version:1,pin:true,context:'tonight',layers:['oras-site']})))
  await page.route('**/api/earth/aircraft?*',async route=>{
   const url=new URL(route.request().url()),lat=Number(url.searchParams.get('lat')),lon=Number(url.searchParams.get('lon'))
@@ -11,7 +11,7 @@ async function fixture(page:Page,mode='valid'){
   if(state.mode==='503'||state.mode==='429'){await route.fulfill({status:Number(state.mode),json:{detail:'Declared provider outage'}});return}
   if(state.mode==='timeout'){await new Promise(r=>setTimeout(r,14000));await route.abort().catch(()=>{});return}
   if(state.mode==='malformed'){await route.fulfill({body:'{not JSON',contentType:'application/json'});return}
-  const now=Date.now()/1000-(state.mode==='stale'?180:0)
+  const now=(Date.now()+state.clockOffset)/1000-(state.mode==='stale'?180:0)
   const ac=state.mode==='empty'?[]:state.mode==='dense'?Array.from({length:2000},(_,i)=>({hex:(state.replaceCohort&&i>=1900?i-1900:0xabc000+i).toString(16).padStart(6,'0'),flight:'DECLARED '+i,lat:lat+(i%40-20)*.035,lon:lon+(Math.floor(i/40)-25)*.028,alt_geom:30000,seen:0,seen_pos:0,gs:200,track:90})):[{hex:'abc123',flight:'DECLARED FIXTURE',lat:lat+.4,lon:lon+.7+(state.updates-1)*.005,alt_geom:state.mode==='unknown-altitude'?null:30000,alt_baro:state.mode==='unknown-altitude'?30000:undefined,seen:0,seen_pos:0,gs:200,track:90}]
   await route.fulfill({headers:{'X-Aircraft-Cache':'miss'},json:{now,ac}}).catch(()=>{})
  })
@@ -207,4 +207,36 @@ test('a valid selected followed aircraft survives new lower-sorting IDs above th
  console.log(JSON.stringify({selected,cohortRefresh:diag.providers.aircraft,tracking:diag.tracking,selection:diag.selection?.facts?.find((f:any)=>f.label==='Identity')?.value}))
  expect(diag.selection?.facts?.find((f:any)=>f.label==='Identity')?.value).toBe(selected.slice(9));expect(diag.tracking).toBe(selected)
  expect(diag.providers.aircraft.counts.renderable).toBe(100);expect(diag.providers.aircraft.counts.capped).toBe(1900)
+})
+
+
+test('one successful snapshot omission preserves selected follow, held disclosure and same-ID return',async({page})=>{
+ test.setTimeout(180000);const {earth,state}=await fixture(page);await closePanel(page);await altitude(earth,500000)
+ let target:any;await expect.poll(async()=>{target=await earth.evaluate(()=>(window as any).orasEarthVisibleTargets().find((r:any)=>r.kind==='aircraft'));return !!target}).toBe(true)
+ await earth.locator('canvas').first().click({position:{x:target.x,y:target.y}})
+ await page.getByRole('button',{name:'Track',exact:true}).click();await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().tracking)).toBe('aircraft:abc123')
+ const before=state.updates,fix=await earth.evaluate(()=>(window as any).orasEarthDiagnostics().selection.facts.find((f:any)=>f.label==='Position observed').value)
+ state.mode='empty';await expect.poll(()=>state.updates,{timeout:45000}).toBeGreaterThan(before)
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft.counts.retainedMissing)).toBe(1)
+ let diag=await earth.evaluate(()=>(window as any).orasEarthDiagnostics());expect(diag.tracking).toBe('aircraft:abc123');expect(diag.providers.aircraft.count).toBe(0);expect(diag.providers.aircraft.counts.capped).toBe(0);expect(diag.providers.aircraft.counts.renderable).toBe(1)
+ expect(diag.selection.facts.find((f:any)=>f.label==='Position observed').value).toBe(fix);await expect(page.getByRole('tabpanel',{name:'selection context'})).toContainText('Missing contact')
+ await page.screenshot({path:`${directory}/omission-held.png`});console.log('OMISSION_HELD',JSON.stringify(diag.providers.aircraft))
+ const omitted=state.updates;state.mode='valid';await expect.poll(()=>state.updates,{timeout:45000}).toBeGreaterThan(omitted)
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft.counts.retainedMissing)).toBe(0)
+ diag=await earth.evaluate(()=>(window as any).orasEarthDiagnostics());expect(diag.tracking).toBe('aircraft:abc123');expect(diag.selection.facts.find((f:any)=>f.label==='Identity').value).toBe('abc123')
+ console.log('OMISSION_RETURN',JSON.stringify(diag.providers.aircraft));await page.screenshot({path:`${directory}/omission-return.png`})
+})
+
+
+test('five-minute outage hides selected position and recovers same identity without resuming follow',async({page})=>{
+ test.setTimeout(180000);const {earth,state}=await fixture(page);await closePanel(page);await altitude(earth,500000)
+ let target:any;await expect.poll(async()=>{target=await earth.evaluate(()=>(window as any).orasEarthVisibleTargets().find((r:any)=>r.kind==='aircraft'));return !!target}).toBe(true)
+ await earth.locator('canvas').first().click({position:{x:target.x,y:target.y}});await page.getByRole('button',{name:'Track',exact:true}).click()
+ state.mode='503';await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft.status),{timeout:45000}).toBe('unavailable')
+ let diag=await earth.evaluate(()=>(window as any).orasEarthDiagnostics());expect(diag.tracking).toBe(null);expect(diag.selection.available).toBe(false);expect(diag.providers.aircraft.counts.renderable).toBe(0)
+ state.clockOffset=300000;await earth.evaluate(()=>{const real=Date.now;Date.now=()=>real()+300000});state.mode='valid'
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft.status),{timeout:45000}).toBe('ready')
+ diag=await earth.evaluate(()=>(window as any).orasEarthDiagnostics());expect(diag.tracking).toBe(null);expect(diag.selection.facts.find((f:any)=>f.label==='Identity').value).toBe('abc123');expect(diag.selection.available).not.toBe(false);expect(diag.providers.aircraft.counts.renderable).toBe(1)
+ expect(Date.parse(diag.selection.facts.find((f:any)=>f.label==='Position observed').value)).toBeGreaterThan(Date.now()+270000)
+ console.log('FIVE_MINUTE_RECOVERY',JSON.stringify(diag.providers.aircraft));await page.screenshot({path:`${directory}/five-minute-recovery.png`})
 })

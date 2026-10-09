@@ -1,6 +1,8 @@
 /** B-first acquisition and admission policy; no provider or renderer side effects. */
 import {admitAircraft,validPoint} from './data.mjs';
 export const AIRCRAFT_RADIUS_M=100*1852;
+// At most two missed 30-second dispatches; never bridge a prolonged outage.
+export const AIRCRAFT_INTERPOLATION_MAX_GAP_MS=90000;
 export function regionPoint(point){return {lat:Math.round(point.lat*10)/10,lon:Math.round(point.lon*10)/10};}
 export function regionKey(point){return `${point.lat.toFixed(1)},${point.lon.toFixed(1)}`;}
 export function distanceM(a,b){
@@ -18,7 +20,7 @@ export function regionalAircraft(snapshot,point,now=Date.now()){
 /** Minimal port of flights/motion.js bracketing loop: delay, clamp, never coast. */
 export function bracket(history,nowMs){
  const target=nowMs-30000;
- for(let i=history.length-1;i>0;i--){const a=history[i-1],b=history[i];if(a.time<=target&&target<=b.time)return {a,b,t:(target-a.time)/(b.time-a.time),estimated:true};}
+ for(let i=history.length-1;i>0;i--){const a=history[i-1],b=history[i];if(a.time<=target&&target<=b.time){const gap=b.time-a.time;return gap>0&&gap<=AIRCRAFT_INTERPOLATION_MAX_GAP_MS?{a,b,t:(target-a.time)/gap,estimated:true}:{a:b,b,t:0,estimated:false};}}
  const sample=history.find(x=>x.time>=target)??history.at(-1);return sample?{a:sample,b:sample,t:0,estimated:false}:null;
 }
 export function validRawPositionAge(row){return validPoint(row?.lat,row?.lon)&&Number.isFinite(row?.seen_pos)&&row.seen_pos>=0&&row.seen_pos<120;}
