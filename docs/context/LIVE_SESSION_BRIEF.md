@@ -11,6 +11,19 @@ statements below for A only. OD2–OD6 and C5.7-B/C/D/E/C6 remain unapproved.
 No merge, production, purchases, new external models/media or worldwide acquisition.
 [Qualification and limits](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md).
 
+2026-10-09 final backend deadline correction: automatic review of 720458b6
+reproduced outer acquisition cancellation skipping shared failure retention.
+The owned fetch now records unavailability before re-raising cancellation;
+coalesced waiters do not publish failures. Actual Redis red1 fail / green1 pass;
+fresh complete backend48 PASS on disposable and restored normal Docker runtime.
+The eight-second acquisition wait_for and existing <9s wall-time tolerance remain
+unchanged. Original astronomy mounts restored and preservation PASS; the earlier
+wrong-mount test attempt is excluded from normal-runtime qualification.
+Earth5a3bc/Sky source and bytes are unchanged, so completed24+43 browser proof
+below remains applicable; no renderer rebuild/browser rerun for this backend-only
+correction. Technically qualified for owner review subject to actual final-head
+checks/threads; human/device/live qualification remains pending. PR67 unmerged.
+
 2026-10-09 final client-backoff correction preserves original motion/omission,
 current-contact priority, shared retry-header and missing-unavailable fixes.
 An actual pinned red reproduced premature acquisition during a 120-second lease;

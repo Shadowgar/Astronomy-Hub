@@ -120,6 +120,15 @@ def test_cross_worker_waiter_keeps_eight_second_whole_call_deadline(monkeypatch)
         assert cancelled.is_set()
         assert all(type(result) is ValueError and str(result) == 'source unavailable'
                    for result in results)
+        import json
+        cache = earth.shared_aircraft.client()
+        stored = cache.get(earth.shared_aircraft.PREFIX + '20.0:20.0')
+        assert stored is not None, 'outer acquisition timeout must retain shared unavailability'
+        assert json.loads(stored) == {'unavailable': True}
+        assert cache.ttl(earth.shared_aircraft.PREFIX + 'dispatch') >= 59
+        with pytest.raises(earth.shared_aircraft.AircraftBudgetError) as limited:
+            await earth.shared_aircraft.claim((21., 21.))
+        assert limited.value.retry_after >= 59
     asyncio.run(exercise())
 
 def test_shared_cache_outage_fails_closed_without_provider_dispatch(monkeypatch):

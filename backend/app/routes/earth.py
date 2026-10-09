@@ -62,6 +62,11 @@ async def read_and_cache(point: tuple[float, float]) -> AircraftFeed:
                 return AircraftFeed.parse_obj(cached).copy(update={'cached': True})
             try:
                 acquired = await fetch_aircraft(point)
+            except asyncio.CancelledError:
+                # The outer deadline cancels only this worker's owned fetch.
+                # Publish its failure before coalesced workers can acquire again.
+                await shared_aircraft.retain(point, None)
+                raise
             except (httpx.HTTPError, ValueError, TimeoutError) as error:
                 await shared_aircraft.retain(point, None, shared_aircraft.retry_seconds(error))
                 raise

@@ -1473,3 +1473,46 @@ availability/access qualification before operational acceptance. Unchanged limit
 8 seconds / desktop1,000 / mobile100 / follow1 / models0. PR67 remains OPEN/unmerged;
 no worldwide/OpenSky, production/SSH/Cloudflare/oras.org/accounts/purchases/new
 model/media or C5.7-B/C/D/E/C6 activation.
+
+## Final outer acquisition timeout retention correction
+
+Automatic review of 720458b6, comment4235417143, identified the outer
+wait_for(8) cancelling the owned fetch with CancelledError before its inner timeout,
+bypassing ordinary HTTPError/ValueError/TimeoutError shared failure retention.
+The enhanced existing actual-Redis owner/waiter deadline regression genuinely
+failed: 1 failed / 14 deselected (8.70s), stored unavailable entry was None.
+After the five-line owned-fetch cancellation handler, the same regression passes:
+1 passed / 14 deselected (8.67s). It asserts one cancelled dispatch, both workers
+unavailable, shared {'unavailable': True}, >=59s remaining failure dispatch lease
+and a different-region claim still limited by that lease. Waiter cancellation does
+not publish a failure. Existing eight-second acquisition wait_for and <9s wall-time
+scheduler/transport tolerance are unchanged; no claim of an exact 8.000s HTTP
+wall-time bound. Fixtures only, UUID Redis namespace, no live aircraft request.
+
+Fresh final-backend Docker qualification: 48 passed / six existing dependency
+warnings on disposable (14.04s) and correctly restored normal runtime (14.05s).
+Normal backend image rebuilt from owned worktree. Initial recreation omitted the
+original catalog/ephemeris overrides; preservation correctly failed. The 48-pass
+wrong-mount attempt is retained as excluded proof, then original mounted astronomy
+paths restored explicitly, preservation passed, and all48 normal tests rerun.
+No owner data/datastore/volume deletion, reset, migration or prune. Original81
+volume names, datastore IDs/full mounts/running, owner settings/environment/head,
+astronomy mount sources, clean source pin and rollback payloads verified unchanged.
+Normal five services remain running; owned qualification backend stopped again.
+
+Earth source/frontend/artifact5a3bc and unchanged Sky are untouched by this final
+backend correction. Their completed108 runtime/229 frontend/24 aircraft +43 existing
+browser checkpoint is applicable to the same renderer artifact, not a rerun after
+this backend-only change. Fresh normal HTTP verification passes all512 Earth and96
+Sky payload bytes. No new artifact/hash edit or unnecessary renderer/browser campaign.
+Documentation11 units and both validators rerun before delivery; actual final-head
+checks/thread snapshot accompanies the 28-field private handoff. Evidence, commands,
+red/green, excluded mount attempt and final GitHub snapshots are retained under
+c57a-outer-deadline-20261009; complete renderer profiles/screens/commands remain in
+c57a-client-backoff-20261009. Final handoff is provided in both private archives.
+
+Technical fixture qualification is ready for owner review subject to accompanying
+actual GitHub snapshot. Human visual-quality and physical-device acceptance PENDING;
+live authorized availability/access/capacity/count UNKNOWN/BLOCKED, historical one503
+probe only. No new live aircraft probe or OpenSky acquisition; all approved limits
+unchanged. PR67 OPEN/unmerged; stop after handoff, no later package activation.
