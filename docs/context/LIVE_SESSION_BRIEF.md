@@ -11,27 +11,30 @@ statements below for A only. OD2–OD6 and C5.7-B/C/D/E/C6 remain unapproved.
 No merge, production, purchases, new external models/media or worldwide acquisition.
 [Qualification and limits](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md).
 
-2026-10-09 final review: the original two aircraft P2s, current-contact priority
-and shared retry-header P2s were reproduced and corrected. The latest automatic
-review found unavailable missing selections bypassing grace/age bookkeeping;
-two actual pinned reds (12 pass / 2 fail) now pass with upstream absence reuse,
-resumed complete-snapshot grace and 120-second actual-fix expiry during failures.
-Ordinary non-missing unavailable selection recovery remains preserved.
-PR #67 remains OPEN/unmerged. New Earth da140864 independently reproduces all
-513 files / 37 inputs; all Earth/Sky served payloads verified at preview/normal.
-Fresh 105 Earth/runtime and 229 frontend tests pass; all 48 backend tests pass
-on disposable and normal Docker. All thirteen controlled final-artifact cohorts measured; software
-cadence/tails and dense glyph overlap remain limitations. Complete fresh 23-aircraft
-and 43-existing-feature browser campaigns PASS, zero failed/skipped/retries and
-exact unique IDs matching fresh listing. Earlier 4429 results are historical. Sky unchanged;
-owner data/settings,
-original datastore identities/mounts and exact 81-volume set preserved. Starting
-bf176, intermediate f43/4429 and owner ca124 rollback payloads remain durable.
-**TECHNICALLY QUALIFIED FOR OWNER REVIEW — HUMAN QUALITY REVIEW PENDING; LIVE
-OPERATIONAL READINESS BLOCKED**. Live availability/capacity/count UNKNOWN; historical
-regional probe HTTP 503 only, no new live probe. Next: owner physical-device checklist
-on da140 and authorized regional provider/access/capacity review. No automatic merge, worldwide/OpenSky acquisition or
-C5.7-B/C/D/E/C6 activation.
+2026-10-09 final client-backoff correction preserves original motion/omission,
+current-contact priority, shared retry-header and missing-unavailable fixes.
+An actual pinned red reproduced premature acquisition during a 120-second lease;
+the adapter now passes valid route Retry-After to unchanged God's Eye ingestion
+and schedules from its existing retry deadline. The approved 30-second minimum
+remains for shorter residual leases; recovery restores ordinary cadence and
+disable cancels the scheduled poll. Generic PollingLayer/upstream unchanged.
+New Earth 5a3bc34c independently reproduces 513 files / 37 inputs; installed and
+all 512 Earth / 96 unchanged Sky HTTP payloads pass preview/normal verification.
+Fresh 25 focused / 108 runtime, 229 frontend, and 48 backend tests on each Docker
+environment pass. Complete fresh 24-aircraft + 43-existing-feature browsers pass,
+zero failures/skips/retries and exact current listing-ID coverage. Fresh cap
+profiles retain CPU/event reductions; four complete earlier 13-cohort campaigns
+remain historical. Software frame tails and dense glyph overlap remain limitations.
+Exact 81 volumes, datastore identities/mounts, owner state, pin and durable
+bf176/f43/4429/da140 plus owner ca124 rollback payloads preserved. Normal five
+services running; only three owned qualification services stopped. PR67 OPEN.
+**TECHNICALLY QUALIFIED FOR OWNER REVIEW — HUMAN QUALITY REVIEW PENDING;
+LIVE OPERATIONAL READINESS BLOCKED**, subject to actual final-head GitHub snapshot.
+Live regional availability/capacity/count UNKNOWN; historical503 only, no new
+live aircraft probe, OpenSky agreement required. Next: owner exact-head/source/
+evidence review, physical-device checklist on 5a3bc and authorized regional
+access/availability/capacity qualification. No merge, worldwide/OpenSky activation
+or C5.7-B/C/D/E/C6.
 
 ## Active C5.6.75 documentation checkpoint — 2026-10-08
 

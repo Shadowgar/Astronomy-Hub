@@ -1391,3 +1391,85 @@ Fresh historical Earth captures are archived before restoring only the 16 regist
 Exact final commit/checks/review-thread state, all 28 requested fields, files/commands, failed attempts and desktop/mobile/expiry captures are in the private c57a-unavailable-missing-20261009/FINAL_HANDOFF.md and accompanying hash manifest. Resolve the new thread only after passing proof. Existing original/priority/retry-header replies remain historical and resolved; no manual recursive review requests. Human acceptance is not recorded by automation.
 
 Category A: authorized regional live access/availability/capacity proof remains BLOCKED/UNKNOWN; historical single 503 probe only, no new live aircraft probe, OpenSky agreement missing. Category B: software cadence/tails and glyph overlap, coarse heap/no exact GPU timer, geometric-only admission, global-zoom regional coverage, physical-device/human acceptance pending. Next owner: inspect exact final PR head/source/evidence/screens, exercise da140 on physical hardware with declared fixtures or independently authorized regional source, fill the existing pending checklist, and qualify access/availability/capacity before operational acceptance. Limits remain 100 NM / 2,000 rows / 2 MB / shared dispatch >=30 s / whole acquisition 8 s / desktop1,000 / mobile100 / follow1 / models0. PR67 OPEN/unmerged; no replacement PR, worldwide/OpenSky activation, production/SSH/Cloudflare/oras.org/accounts/purchases/new model/media or C5.7-B/C/D/E/C6.
+
+## Final client Retry-After correction — 2026-10-09
+
+Automatic review of fe8ca979 found the route's Retry-After unused by the adapter.
+Actual pinned Cesium/createFlightFeed/createIngestion integration red: 3 tests,
+2 pass / 1 fail (premature acquisition during the 120-second lease); residual one
+second and invalid-header fallback already preserve ordinary 30-second cadence.
+The minimal adapter correction passes valid bounded numeric route delta seconds
+to unchanged upstream ingestion, then schedules PollingLayer from its existing
+feed._retryAt deadline, never below the approved 30 seconds. Long timers are
+chunked within signed 32-bit browser timer limits; upstream deadline continues
+to block acquisition. Success restores 30 seconds. Generic PollingLayer and
+upstream source stay unchanged. Green: all 3 tests, including recovery/disable.
+
+No faster provider/client polling, new TTL, grace, cap, global source or probe.
+The previous da140 checkpoint, measurements and 23+43 browsers remain historical.
+At the in-progress entry, the new source required independent artifact and
+complete fresh runtime qualification. The passed proof below supersedes that
+state; actual final-head thread resolution is reported in the owner handoff. Human/device acceptance stays
+PENDING; authorized regional live access/availability/capacity/count UNKNOWN.
+
+### Final client-backoff artifact qualification
+
+The in-progress statement above is superseded by this checkpoint. Final artifact
+5a3bc34ca345fe83f8c93dc11ad9675e224cac2ec45fb4ddda01d9598a9950d5 independently
+reproduces all 513 files / 37 current inputs. Installed and all 512 Earth / 96
+unchanged Sky served payloads pass compiled-preview4183 and normal4173 checks.
+Fresh tests: 25 focused, 108 runtime (zero skipped), 229 frontend / 28 files,
+TypeScript/build, 48 backend on each Docker environment (six existing dependency
+warnings), 24 aircraft + 43 existing-feature browser cases, zero failures/skips/
+retries, six/eight sequential one-worker shards and exact fresh unique listing
+IDs. Genuine bfcache, native Sky and all requested existing layers/imagery covered.
+The new 120-second browser case sees no premature request, timed recovery and
+a healthy Viewer. A separate bounded UI follow-up confirms the Hub Regional
+snapshot/renderable1 state and captures it after the existing1Hz workspace poll;
+the original immediate capture still showed the preceding unavailable state and
+is retained with that label. This follow-up changes no source/test/artifact. Residual1/invalid-header integration cases keep >=30-second
+active refresh as required by this document; server Retry-After is a minimum,
+not permission to accelerate the approved client cadence. Generic PollingLayer
+and upstream source remain unchanged; existing ingestion owns _retryAt.
+
+Fresh final-artifact cap profiles: desktop 1,000 assigns 21,000 positions / 21 collection events at 6.74 ms/update, compared with historical original 114.33 ms/update. Mobile 100 moving rAF 42.24 / actual scene 5.25 FPS, p95 81.2 ms; desktop 1,000 moving rAF 10.24 / scene 5.37 FPS, p95 220.9 ms. Previous four complete 13-cohort campaigns remain historical (156 rows); these two fresh cap profiles add six rows (162 total). Final backoff change is not credited with an FPS improvement; software tails, dense overlap, exact GPU pass/full gain attribution, heap-leak proof and physical hardware remain unqualified. Clean short pristine default-imagery acceptance samples are separate: desktop enabled/disabled 4.23/4.31 rAF FPS; mobile 9.14/60.41. Dense canvas captures contain overlapping glyphs; human visual and physical-device acceptance remain PENDING.
+
+| Viewport | Contacts | Disabled rAF FPS | Moving rAF FPS | Actual scene FPS | p50 / p95 ms | CPU ms/update | Assignments / events | Render requests | Heap MB |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Mobile | 100 | 60.21 | 42.24 | 5.25 | 16.7 / 81.2 | 0.84 | 2100 / 21 | 21 | 31.2 |
+| Desktop | 1000 | 60.07 | 10.24 | 5.37 | 19.9 / 220.9 | 6.74 | 21000 / 21 | 21 | 31.2 |
+
+Four earlier complete 13-cohort campaigns are historical; the 162-row CSV
+contains their 156 rows plus six final-artifact two-cap/three-state rows. No old
+sample/test is claimed fresh for this modified artifact. Original failed reds,
+helper/locator/interruption/cache/GIBS attempts remain preserved in their separate
+archives, including the genuine new client-backoff red (3 tests, 2 pass / 1 fail).
+MockTimers emits a test-only experimental warning. Existing build chunk warnings
+and six dependency warnings remain disclosed. Physical device, formal React
+profiling, exact GPU timer/gain attribution and heap-leak proof remain unqualified.
+
+Fresh historical Earth captures are archived before restoring only the 16
+registered original files; root originals unchanged. Original 81-volume set,
+PostgreSQL/Redis IDs/full mounts/running state, astronomy mount sources, owner
+settings/environment/head/branch, clean e770 pin and Sky/native/vendor/WASM/
+shared protocol preserved. Verified owner ca124 and durable bf176/f43/4429/da140
+rollback payloads retained. Normal five services running; only three owned
+qualification services stopped; no reset/reseed/migration/prune/orphan cleanup.
+
+Actual final GitHub head/checks/review threads, complete 28-field owner handoff,
+files/commands/screens/profile/failed attempts and SHA manifest accompany private
+c57a-client-backoff-20261009/FINAL_HANDOFF.md. Client finding4235170212 is resolved
+only with completed passing evidence; other demonstrated findings remain resolved.
+TECHNICALLY QUALIFIED FOR OWNER REVIEW, subject to actual GitHub snapshot; no
+human quality or physical-device acceptance recorded. Category A: authorized live
+regional access/availability/capacity/count BLOCKED/UNKNOWN, historical single503
+probe only, no new live aircraft probe, OpenSky agreement required. Category B:
+software cadence/tails, dense glyph overlap, coarse heap/GPU limits, geometric-only
+admission and regional/global-zoom coverage, human/device acceptance pending.
+Next owner: exact-head review, existing pending physical-device checklist with
+declared fixtures or separately authorized regional source, and provider capacity/
+availability/access qualification before operational acceptance. Unchanged limits:
+100 NM / 2,000 rows / 2 MB / shared upstream dispatch >=30 seconds / whole acquisition
+8 seconds / desktop1,000 / mobile100 / follow1 / models0. PR67 remains OPEN/unmerged;
+no worldwide/OpenSky, production/SSH/Cloudflare/oras.org/accounts/purchases/new
+model/media or C5.7-B/C/D/E/C6 activation.

@@ -1,14 +1,14 @@
 import {test,expect,type Page,type Frame} from '@playwright/test'
 
 const directory=process.env.AIRCRAFT_EVIDENCE_DIR||'../output/playwright/aircraft-recovery'
-async function fixture(page:Page,mode='valid'){
+async function fixture(page:Page,mode='valid',retryAfter?:string){
  const state={mode,requests:[] as {lat:number;lon:number;time:number}[],updates:0,clockOffset:0,replaceCohort:false,higherCohort:false,release:null as null|(()=>void)}
  await page.addInitScript(()=>sessionStorage.setItem('oras.workspace.ui.v1',JSON.stringify({version:1,pin:true,context:'tonight',layers:['oras-site']})))
  await page.route('**/api/earth/aircraft?*',async route=>{
   const url=new URL(route.request().url()),lat=Number(url.searchParams.get('lat')),lon=Number(url.searchParams.get('lon'))
   state.requests.push({lat,lon,time:Date.now()});state.updates++
   if(state.mode==='delayed'&&state.updates===1)await new Promise<void>(resolve=>{state.release=resolve})
-  if(state.mode==='503'||state.mode==='429'){await route.fulfill({status:Number(state.mode),json:{detail:'Declared provider outage'}});return}
+  if(state.mode==='503'||state.mode==='429'){await route.fulfill({status:Number(state.mode),headers:retryAfter?{'Retry-After':retryAfter}:{},json:{detail:'Declared provider outage'}});return}
   if(state.mode==='timeout'){await new Promise(r=>setTimeout(r,14000));await route.abort().catch(()=>{});return}
   if(state.mode==='malformed'){await route.fulfill({body:'{not JSON',contentType:'application/json'});return}
   const now=(Date.now()+state.clockOffset)/1000-(state.mode==='stale'?180:0)
@@ -281,4 +281,15 @@ test('a missing selected contact expires through an outage and returns without r
  const diag=await earth.evaluate(()=>(window as any).orasEarthDiagnostics())
  expect(diag.providers.aircraft.counts).toMatchObject({retainedMissing:0,renderable:1,capped:0});expect(diag.selection).toBe(null);expect(diag.tracking).toBe(null)
  console.log('MISSING_OUTAGE_EXPIRY',JSON.stringify(diag.providers.aircraft));await page.screenshot({path:`${directory}/missing-expired-return.png`})
+})
+
+test('a 120-second route backoff prevents premature aircraft acquisition and then recovers',async({page})=>{
+ test.setTimeout(210000);const {earth,state}=await fixture(page,'429','120')
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft?.status)).toBe('unavailable')
+ expect(state.requests).toHaveLength(1);state.mode='valid';await page.waitForTimeout(35000)
+ expect(state.requests).toHaveLength(1)
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft?.status),{timeout:100000}).toBe('ready')
+ expect(state.requests).toHaveLength(2);expect(state.requests[1].time-state.requests[0].time).toBeGreaterThanOrEqual(120000)
+ const diag=await earth.evaluate(()=>(window as any).orasEarthDiagnostics());expect(diag.ready).toBe(true);expect(diag.viewerDestroyed).toBe(false);expect(diag.providers.aircraft.count).toBe(1)
+ console.log('CLIENT_RETRY_AFTER',JSON.stringify({requests:state.requests,provider:diag.providers.aircraft}));await page.screenshot({path:`${directory}/retry-after-recovery.png`})
 })

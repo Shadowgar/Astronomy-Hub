@@ -7,7 +7,7 @@ import {readCapped} from './data.mjs';
 import {regionPoint,regionKey,regionalAircraft,validRawPositionAge,distanceM,AIRCRAFT_RADIUS_M,viewRegion} from './aircraftPolicy.mjs';
 import {aircraftDisplay} from './aircraftDisplay.mjs';
 
-function sourceError(code){return Object.assign(Error(code),{name:'LiveSourceError',code,retryAfterMs:30000})}
+function sourceError(code,retryAfterMs=30000){return Object.assign(Error(code),{name:'LiveSourceError',code,retryAfterMs})}
 export function createFlightsAdapter(context){
  const display=aircraftDisplay(context),cache=new Map();let region=regionPoint(context.observer()),chosen=false,last=null,prepared=null,debounce=null,displayTimer=null,lastStatusAt=-Infinity;
  const coverage=()=>({provider:'adsb.lol',center:{...region},radiusNM:100,scope:'regional'});
@@ -17,7 +17,7 @@ export function createFlightsAdapter(context){
   if(cached&&Date.now()-cached.received<30000){payload=cached.payload;isCached=true}
   else{
    const response=await fetch(`/api/earth/aircraft?lat=${query.lat}&lon=${query.lon}`,{signal,cache:'no-store'});
-   if(!response.ok)throw sourceError('HTTP '+response.status);
+   if(!response.ok){const seconds=Number(response.headers.get('Retry-After'));throw sourceError('HTTP '+response.status,Number.isSafeInteger(seconds)&&seconds>0&&seconds<=2147483647?Math.max(30000,seconds*1000):30000)}
    try{payload=JSON.parse(await readCapped(response))}catch{throw sourceError('Malformed or oversized feed')}
    signal.throwIfAborted();
    if(!Number.isFinite(payload?.now)||!Array.isArray(payload?.ac)||payload.ac.length>2000)throw sourceError('Malformed feed');
@@ -38,7 +38,11 @@ export function createFlightsAdapter(context){
   const mode=counts.retainedMissing?`held ${counts.retainedMissing} missing`:last?.records.length>0&&last?.complete===false?'partial snapshot':last?.cached?'cached':last?.counts.fetched===0?'empty snapshot':last?.records.length===0?'positions filtered':counts.renderable===0?'positions expired':counts.visible===0?'outside view':'snapshot';return {coverage:coverage(),counts,ageMs,cached:last?.cached===true,summary:summary(counts,mode),observedAt:last?.observedAt??null,count:last?.records.length??0};
  };
  const layer=new PollingLayer({id:'aircraft',interval:30000,temporalMode:'CURRENT_SNAPSHOT',read:async signal=>{
-  prepared=null;await ingestion.methods.update(context.viewer,{signal});signal.throwIfAborted();if(!prepared)throw sourceError(feed._lastError||'Source unavailable');return prepared;
+  prepared=null;await ingestion.methods.update(context.viewer,{signal});signal.throwIfAborted();
+  // Upstream owns the retry deadline. Preserve the approved minimum cadence and
+  // chunk unusually long leases within the browser's signed 32-bit timer limit.
+  layer.interval=prepared?30000:Math.min(2147483647,Math.max(30000,(feed._retryAt||0)-Date.now()));
+  if(!prepared)throw sourceError(feed._lastError||'Source unavailable',layer.interval);return prepared;
  },render:data=>{display.replace(data.records,data.observedAt,data);last=data},clear:unavailable=>display.clear(unavailable),describe,loading:()=>({observedAt:last?.observedAt??null,coverage:coverage(),summary:summary({},'loading')}),failure:error=>{const reason=typeof error.code==='string'?error.code:error.name==='AbortError'||error.name==='TimeoutError'?'Source deadline exceeded':'Source unavailable';return {...describe(),reason,summary:summary({},reason),count:0}}});
  function anchor(){const viewer=context.viewer,p=viewer.camera.pickEllipsoid(new Cartesian2(viewer.canvas.clientWidth/2,viewer.canvas.clientHeight/2),viewer.scene.globe.ellipsoid);if(!p)return null;const c=viewer.scene.globe.ellipsoid.cartesianToCartographic(p);return regionPoint({lat:CesiumMath.toDegrees(c.latitude),lon:CesiumMath.toDegrees(c.longitude)})}
  function cancel(){++layer.generation;clearTimeout(layer.timer);layer.timer=null;layer.controller?.abort();layer.controller=null;for(const controller of feed._activeUpdateControllers)controller.abort();clearTimeout(debounce);debounce=null}
