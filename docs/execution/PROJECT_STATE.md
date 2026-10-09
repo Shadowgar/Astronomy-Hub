@@ -11,6 +11,15 @@ statements below for A only. OD2–OD6 and C5.7-B/C/D/E/C6 remain unapproved.
 No merge, production, purchases, new external models/media or worldwide acquisition.
 [Qualification and limits](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md).
 
+2026-10-09 outcome: bounded fixture qualification completed; PR #67 remains
+OPEN/unmerged. Full aircraft campaign 18 passed plus a focused null-altitude guard;
+existing Earth/Sky regressions 43 passed, including genuine compiled-preview
+bfcache. Normal local development is restored with owner data/settings/volumes
+preserved. **TECHNICALLY QUALIFIED — HUMAN QUALITY REVIEW PENDING; LIVE
+OPERATIONAL READINESS BLOCKED** by provider HTTP 503/unknown live count.
+Next action: owner regional provider/access/capacity and real-device quality
+review; no automatic merge, worldwide acquisition or C5.7-B activation.
+
 Reconciled 2026-10-08. Validation→CORE→LIVE→manifest/index→this record govern
 work; MASTER_PLAN is non-execution product reference. Evidence conflicts are
 reported, not repaired by forcing runtime into stale docs. **SINGLE AGENT ONLY.**

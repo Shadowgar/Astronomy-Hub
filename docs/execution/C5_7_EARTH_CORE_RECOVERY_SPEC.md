@@ -217,4 +217,7 @@ versus fixture results, source/count/coverage/error/cleanup evidence, reviews an
 known gaps. Completed bounded packages do not equal full God's Eye parity, global
 weather, validated astronomical passes or production readiness. Owner approval
 of this specification activates nothing by itself unless it explicitly authorizes
-the named package and decisions. Current next action is C5.6.75 owner review.
+the named package and decisions. Current next action is owner review of the bounded C5.7-A PR, regional
+provider/access/capacity qualification and real-device quality limitations.
+Fixture proof and local restoration do not authorize merge, worldwide acquisition
+or C5.7-B.
