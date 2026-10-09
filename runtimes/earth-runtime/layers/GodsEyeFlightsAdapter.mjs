@@ -4,7 +4,7 @@ import {normalizeOpenSkyAircraft} from 'gods-eye-view/sources/live';
 import {createFlightFeed,createIngestion} from 'gods-eye-view/layers/flights/ingestion';
 import {PollingLayer} from './PollingLayer.mjs';
 import {readCapped} from './data.mjs';
-import {regionPoint,regionKey,regionalAircraft,validRawPositionAge,distanceM,AIRCRAFT_RADIUS_M,cachedAnchor} from './aircraftPolicy.mjs';
+import {regionPoint,regionKey,regionalAircraft,validRawPositionAge,distanceM,AIRCRAFT_RADIUS_M,viewRegion} from './aircraftPolicy.mjs';
 import {aircraftDisplay} from './aircraftDisplay.mjs';
 
 function sourceError(code){return Object.assign(Error(code),{name:'LiveSourceError',code,retryAfterMs:30000})}
@@ -42,7 +42,7 @@ export function createFlightsAdapter(context){
  function anchor(){const viewer=context.viewer,p=viewer.camera.pickEllipsoid(new Cartesian2(viewer.canvas.clientWidth/2,viewer.canvas.clientHeight/2),viewer.scene.globe.ellipsoid);if(!p)return null;const c=viewer.scene.globe.ellipsoid.cartesianToCartographic(p);return regionPoint({lat:CesiumMath.toDegrees(c.latitude),lon:CesiumMath.toDegrees(c.longitude)})}
  function cancel(){++layer.generation;clearTimeout(layer.timer);layer.timer=null;layer.controller?.abort();layer.controller=null;for(const controller of feed._activeUpdateControllers)controller.abort();clearTimeout(debounce);debounce=null}
  function cameraChanged(){
-  if(!layer.active||layer.closed||context.viewer.trackedEntity?.orasMetadata?.layerId==='aircraft'||context.camera.focusTarget===context.selection.value&&context.selection.value?.orasMetadata?.layerId==='aircraft')return;const viewed=anchor();if(!viewed)return;const next=cachedAnchor(cache,viewed);
+  if(!layer.active||layer.closed||context.viewer.trackedEntity?.orasMetadata?.layerId==='aircraft'||context.camera.focusTarget===context.selection.value&&context.selection.value?.orasMetadata?.layerId==='aircraft')return;const next=viewRegion(region,anchor(),cache);
   if(regionKey(next)===regionKey(region)||distanceM(next,region)<AIRCRAFT_RADIUS_M/2)return;
   chosen=true;cancel();display.clear();region=next;
   context.providerStatus.set('aircraft',{status:'loading',temporalMode:'CURRENT_SNAPSHOT',coverage:coverage(),summary:summary({},'loading'),observedAt:last?.observedAt??null});
@@ -50,6 +50,7 @@ export function createFlightsAdapter(context){
  }
  const enable=layer.enable.bind(layer);layer.enable=async()=>{
   if(layer.closed||layer.active)return;
+  const next=viewRegion(region,anchor(),cache);if(regionKey(next)!==regionKey(region)){region=next;chosen=true;}
   context.viewer.camera.changed.addEventListener(cameraChanged);context.viewer.camera.moveEnd.addEventListener(cameraChanged);
   displayTimer=setInterval(()=>{if(!layer.active||layer.closed)return;display.animate();const status=context.providerStatus.get('aircraft');if(status?.status==='ready')context.providerStatus.set('aircraft',{...status,...describe()})},200);
   await enable();

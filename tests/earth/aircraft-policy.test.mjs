@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {regionalAircraft,bracket,regionPoint,validRawPositionAge,cachedAnchor} from '../../runtimes/earth-runtime/layers/aircraftPolicy.mjs';
+import {regionalAircraft,bracket,regionPoint,validRawPositionAge,cachedAnchor,viewRegion,aircraftCohort} from '../../runtimes/earth-runtime/layers/aircraftPolicy.mjs';
 test('regional admission reconciles duplicate, stale, missing height, invalid and out-of-region rows',()=>{
  const now=1800000000000,row=['abc123','CALL',null,now/1000,now/1000,-79,41,1000,false,null,null,null,null,3000];
  const variant=(id,index,value)=>{const r=[...row];r[0]=id;r[index]=value;return r};
@@ -28,4 +28,17 @@ test('fresh cached region covers nearby return anchors without changing the disc
  assert.deepEqual(cachedAnchor(cache,nearby,now+30000),nearby);
  assert.deepEqual(cachedAnchor(cache,{lat:0,lon:0},now),{lat:0,lon:0});
  assert.deepEqual(original,{lat:41.3,lon:-79.6});
+});
+
+test('initial enable follows an already settled distant view and keeps observer default for nearby home',()=>{
+ const current={lat:41.3,lon:-79.6},near={lat:41.4,lon:-79.6},far={lat:41,lon:-73},cache=new Map();
+ assert.deepEqual(viewRegion(current,null,cache),current);
+ assert.deepEqual(viewRegion(current,near,cache),current);
+ assert.deepEqual(viewRegion(current,far,cache),far);
+});
+test('capped cohorts reserve still-admitted selected and followed identities without synthesizing missing contacts',()=>{
+ const rows=['000001','000002','000003','abc001','abc002'].map(id=>({id}));
+ assert.deepEqual(aircraftCohort(rows,3,['abc001','abc002']).map(r=>r.id),['abc001','abc002','000001']);
+ assert.deepEqual(aircraftCohort(rows,3,['missing']).map(r=>r.id),['000001','000002','000003']);
+ assert.deepEqual(rows.map(r=>r.id),['000001','000002','000003','abc001','abc002']);
 });

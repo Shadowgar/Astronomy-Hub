@@ -1,7 +1,7 @@
 import {Cartesian3,Cartesian2,Color,ConstantPositionProperty,EllipsoidalOccluder} from 'cesium';
 import {FlightRecords} from 'gods-eye-view/layers/flights/records';
 import {lerpAngleDeg,screenProjectedRotation} from 'gods-eye-view/aircraft';
-import {bracket} from './aircraftPolicy.mjs';
+import {bracket,aircraftCohort} from './aircraftPolicy.mjs';
 
 // Existing qualified Hub glyph; no model/media acquisition. Upstream MIT notices
 // travel with the artifact. Lower-level records and orientation execute unchanged.
@@ -19,7 +19,8 @@ export function aircraftDisplay(context){
    admitted=observations.length;const present=new Set(),limit=budget();
    // A deterministic cohort preserves identity and applies the stricter detailed
    // device budget at all heights. Overview never expands source acquisition.
-   for(const observation of observations.sort((a,b)=>a.id.localeCompare(b.id)).slice(0,limit)){
+   const retained=[selection.value,viewer.trackedEntity].filter(entity=>entity?.orasMetadata?.layerId==='aircraft').map(entity=>String(entity.id).slice(9));
+   for(const observation of aircraftCohort(observations,limit,retained)){
     const {icao24:id,meta,fixEpochMs}=records.receive(observation,{viewerLatDeg:null,viewerLonDeg:null,trackedId:null,floorWarmPoints:[]});
     present.add(id);const history=histories.get(id)||[],last=history.at(-1);
     if(!last||fixEpochMs>last.time){history.push({time:fixEpochMs,position:Cartesian3.fromDegrees(meta.rawLon,meta.rawLat,observation.ellipsoidAltitudeM),track:observation.courseDeg});if(history.length>5)history.shift()}

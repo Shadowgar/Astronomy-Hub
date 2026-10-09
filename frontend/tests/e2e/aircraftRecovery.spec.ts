@@ -2,7 +2,7 @@ import {test,expect,type Page,type Frame} from '@playwright/test'
 
 const directory=process.env.AIRCRAFT_EVIDENCE_DIR||'../output/playwright/aircraft-recovery'
 async function fixture(page:Page,mode='valid'){
- const state={mode,requests:[] as {lat:number;lon:number;time:number}[],updates:0,release:null as null|(()=>void)}
+ const state={mode,requests:[] as {lat:number;lon:number;time:number}[],updates:0,replaceCohort:false,release:null as null|(()=>void)}
  await page.addInitScript(()=>sessionStorage.setItem('oras.workspace.ui.v1',JSON.stringify({version:1,pin:true,context:'tonight',layers:['oras-site']})))
  await page.route('**/api/earth/aircraft?*',async route=>{
   const url=new URL(route.request().url()),lat=Number(url.searchParams.get('lat')),lon=Number(url.searchParams.get('lon'))
@@ -12,7 +12,7 @@ async function fixture(page:Page,mode='valid'){
   if(state.mode==='timeout'){await new Promise(r=>setTimeout(r,14000));await route.abort().catch(()=>{});return}
   if(state.mode==='malformed'){await route.fulfill({body:'{not JSON',contentType:'application/json'});return}
   const now=Date.now()/1000-(state.mode==='stale'?180:0)
-  const ac=state.mode==='empty'?[]:state.mode==='dense'?Array.from({length:2000},(_,i)=>({hex:(0xabc000+i).toString(16),flight:'DECLARED '+i,lat:lat+(i%40-20)*.035,lon:lon+(Math.floor(i/40)-25)*.028,alt_geom:30000,seen:0,seen_pos:0,gs:200,track:90})):[{hex:'abc123',flight:'DECLARED FIXTURE',lat:lat+.4,lon:lon+.7+(state.updates-1)*.005,alt_geom:30000,seen:0,seen_pos:0,gs:200,track:90}]
+  const ac=state.mode==='empty'?[]:state.mode==='dense'?Array.from({length:2000},(_,i)=>({hex:(state.replaceCohort&&i>=1900?i-1900:0xabc000+i).toString(16).padStart(6,'0'),flight:'DECLARED '+i,lat:lat+(i%40-20)*.035,lon:lon+(Math.floor(i/40)-25)*.028,alt_geom:30000,seen:0,seen_pos:0,gs:200,track:90})):[{hex:'abc123',flight:'DECLARED FIXTURE',lat:lat+.4,lon:lon+.7+(state.updates-1)*.005,alt_geom:30000,seen:0,seen_pos:0,gs:200,track:90}]
   await route.fulfill({headers:{'X-Aircraft-Cache':'miss'},json:{now,ac}}).catch(()=>{})
  })
  await page.goto('/earth');await expect(page.locator('[data-runtime-mode=earth][data-runtime-status=ready]')).toBeVisible({timeout:90000})
@@ -167,4 +167,33 @@ test('returning the actual camera to a fresh covered region reuses its acquisiti
  console.log(JSON.stringify({cameraCacheReturn:provider,requests:state.requests,before}))
  expect(provider.coverage.center).toEqual({lat:original.lat,lon:original.lon})
  expect(provider.cached).toBe(true);expect(state.requests.length).toBe(before)
+})
+
+test('enabling aircraft after camera exploration starts in the settled viewed region',async({page})=>{
+ test.setTimeout(120000);const {earth,state}=await fixture(page);await closePanel(page)
+ await page.getByRole('button',{name:'Layers',exact:true}).click();await page.getByRole('switch',{name:/Aircraft/}).click();await closePanel(page)
+ for(let i=0;i<8;i++)await earth.locator('canvas').first().press('ArrowLeft')
+ await page.waitForTimeout(3000);const before=state.requests.length
+ await page.getByRole('button',{name:'Layers',exact:true}).click();await page.getByRole('switch',{name:/Aircraft/}).click()
+ await expect.poll(()=>state.requests.length).toBeGreaterThan(before)
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft.status)).toBe('ready')
+ const provider=await earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft)
+ console.log(JSON.stringify({enableAfterExploration:provider,requests:state.requests,before}))
+ expect(Math.abs(provider.coverage.center.lon-state.requests[0].lon)).toBeGreaterThan(3)
+ expect(state.requests.length).toBeGreaterThan(before)
+})
+test('a valid selected followed aircraft survives new lower-sorting IDs above the mobile cap',async({page})=>{
+ test.setTimeout(180000);await page.setViewportSize({width:390,height:844})
+ const {earth,state}=await fixture(page,'dense');await closePanel(page,true);await altitude(earth,500000)
+ let target:any;await expect.poll(async()=>{target=await earth.evaluate(()=>(window as any).orasEarthVisibleTargets().find((r:any)=>r.kind==='aircraft'));return !!target}).toBe(true)
+ await earth.locator('canvas').first().click({position:{x:target.x,y:target.y}})
+ const selected=await earth.evaluate(()=>{const facts=(window as any).orasEarthDiagnostics().selection?.facts;const id=facts?.find((f:any)=>f.label==='Identity')?.value;return id?'aircraft:'+id:null});expect(selected).toMatch(/^aircraft:abc/)
+ await page.getByRole('button',{name:'Track',exact:true}).click();await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().tracking)).toBe(selected)
+ const before=state.updates;state.replaceCohort=true
+ await expect.poll(()=>state.updates,{timeout:45000}).toBeGreaterThan(before)
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft.status)).toBe('ready')
+ const diag=await earth.evaluate(()=>(window as any).orasEarthDiagnostics())
+ console.log(JSON.stringify({selected,cohortRefresh:diag.providers.aircraft,tracking:diag.tracking,selection:diag.selection?.facts?.find((f:any)=>f.label==='Identity')?.value}))
+ expect(diag.selection?.facts?.find((f:any)=>f.label==='Identity')?.value).toBe(selected.slice(9));expect(diag.tracking).toBe(selected)
+ expect(diag.providers.aircraft.counts.renderable).toBe(100);expect(diag.providers.aircraft.counts.capped).toBe(1900)
 })
