@@ -11,11 +11,28 @@ statements below for A only. OD2–OD6 and C5.7-B/C/D/E/C6 remain unapproved.
 No merge, production, purchases, new external models/media or worldwide acquisition.
 [Qualification and limits](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md).
 
-2026-10-09 latest final review: automatic review of4ab560b4 raised regional
-source-metadata carryover and Retry discarding retained unavailable selection.
-Both paths are under focused reproduction/correction and fresh artifact qualification;
-technical readiness IN PROGRESS. Prior5a3bc proof is historical after renderer changes.
-All limits/provider/human/device gates unchanged; PR67 OPEN/unmerged, single agent.
+2026-10-09 final regional metadata / explicit Retry qualification: actual pinned
+reds reproduce both review findings (3 tests:1 pass/2 fail), then3/3 pass.
+Changing coverage clears accepted prior snapshot metadata before loading/failure.
+The aircraft-only retry hook preserves unavailable selected identity and upstream
+retryAt without restarting follow; actual disable/departure clears it. Hub and
+standalone retry delegate through the owned registry; other layers keep existing
+disable/enable fallback. Generic PollingLayer/protocol/upstream remain unchanged.
+Fresh111 runtime/229 frontend,TypeScript/build,48 backend per Docker environment,
+complete26 aircraft+43 existing compiled-preview browser cases PASS,zero skip/
+fail/retry. Two independent513-file/37-input builds and installed/served512Earth/
+96unchangedSky verification PASS. Earthf2ad1cce04f6765d68cec33d8223652bf2b3fd74909aa342f93410c0eeb5ce6c;
+Skyb9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d unchanged.
+Fresh mobile100/desktop1000 cap profiles; earlier156 full-cohort plus6 previous5a
+cap rows historical,6fresh rows (168 total). Renderer hot path unchanged by latest
+metadata/retry fix; no new FPS gain credited. Software tails/dense overlap and
+human/device acceptance pending; authorized live availability/access/capacity/count
+BLOCKED/UNKNOWN. Source review363423f completed without new findings; actual final-
+head checks/threads accompany28-field private handoff. Original81-volume set,
+datastore IDs/mounts/owner files/source pin/historical captures and durable5a plus
+prior rollback payloads preserved. PR67 OPEN/unmerged; no new live aircraft probe,
+worldwide/OpenSky/production/model/media/provider account/purchase or later phase.
+[Current evidence and owner checklist](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md).
 
 2026-10-09 final backend deadline correction: automatic review of 720458b6
 reproduced outer acquisition cancellation skipping shared failure retention.
@@ -230,3 +247,5 @@ is reverified against source, all files, recorded/served metadata and seven expo
 The two named Category A blockers are closed by implementation/qualification;
 remote SHA, CI and thread closure are recorded in the final PR handoff. Next task
 is owner re-review of #59. Category B limits and all excluded work remain unchanged.
+
+Final normal-stack attestation guard caught the preserved owner development metadata (ca124) beside the current f2ad1 Earth payload. Switching only the command to preview then exposed that the image intentionally had no compiled dist: metadata returned404 and the supplemental smoke failed waiting for the Hub. Both setup attempts and the sandbox-denied guard attempt are retained/excluded. The private normal-preview.yml now selects compiled preview and mounts the already-qualified owned frontend/dist read-only. Owner files/configuration and original astronomy mounts remain unchanged. Final normal4173 attestation plus all512Earth/96Sky payload hashes PASS; a clean fixture-only503 supplemental smoke passes1/1 with zero skips/retries. This extra case is separate from the fresh26aircraft+43existing campaign. Normalfive services are running;81volumes and datastore/owner/mount preservation reverified. The compiled preview override lives in the private evidence archive; normal dev startup would again select owner metadata unless the owner explicitly chooses the qualified preview override.

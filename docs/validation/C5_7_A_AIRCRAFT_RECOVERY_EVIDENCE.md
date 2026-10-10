@@ -1505,7 +1505,7 @@ backend correction. Their completed108 runtime/229 frontend/24 aircraft +43 exis
 browser checkpoint is applicable to the same renderer artifact, not a rerun after
 this backend-only change. Fresh normal HTTP verification passes all512 Earth and96
 Sky payload bytes. No new artifact/hash edit or unnecessary renderer/browser campaign.
-Documentation11 units and both validators rerun before delivery; actual final-head
+Documentation21 units and both validators rerun before delivery; actual final-head
 checks/thread snapshot accompanies the 28-field private handoff. Evidence, commands,
 red/green, excluded mount attempt and final GitHub snapshots are retained under
 c57a-outer-deadline-20261009; complete renderer profiles/screens/commands remain in
@@ -1517,11 +1517,87 @@ live authorized availability/access/capacity/count UNKNOWN/BLOCKED, historical o
 probe only. No new live aircraft probe or OpenSky acquisition; all approved limits
 unchanged. PR67 OPEN/unmerged; stop after handoff, no later package activation.
 
-## Latest region metadata / explicit Retry review — in progress
+## Final regional metadata and explicit Retry qualification
 
-Automatic review of4ab560b4 raised comments4235491013 (old source metadata with a
-new coverage center) and4235491019 (explicit Retry uses real disable, erasing the
-retained unavailable selection). Focused actual pinned integration reproduction
-and bounded correction underway; new artifact/runtime qualification required.
-Prior5a3bc browser/profile proof is historical after the renderer source changes.
-No limits/upstream/provider/live authorization change; readiness IN PROGRESS.
+Automatic review of4ab560b4 comments4235491013/4235491019 was evaluated as actual
+correctness. Actual pinned adapter/Cesium/registry/ingestion reproduction genuinely
+fails3 tests:1 pass/2 fail, before runtime edits. New regionloading/failure retained
+old observedAt/cache; actual disable/enable Retry lost the unavailable selected
+entity. Initial harness lacked scene projection, caused a retry TypeError and is
+preserved/excluded; corrected harness requires initialready/entity before genuine
+red. Same3 tests pass after bounded correction, zero skips.
+
+Accepted last snapshot is cleared on real coverage change (camera, initial enable
+and observer update), so no prior source epoch/cache describes the newcenter.
+Aircraft-only retry cancels obsolete work, retains unavailable selection and
+re-polls through unchanged upstream ingestion/retryAt. Identity remains hidden
+until a genuine fix, follow stays stopped, real disable/departure erases it.
+Hubbridge and standalone Retry delegate through ownedLayerRegistry.retry; other
+layers retain disable/enable fallback and closed registry is inert. No whole
+upstream Viewer/app, genericPollingLayer or command-schema/protocol change.
+
+Fresh source/artifact checkpoint:111 Earth/runtime tests (including28 aircraft
+integration/policy/display cases),229 frontend/28files,TypeScript/build PASS.
+48 backend per disposable(14.12s)/normal(14.02s) Docker environment PASS with six
+existing dependency deprecations, UUID Redis fixtures and no live aircraft call.
+Two independent pinned e770 builds identical513 files/37 sourceinputs. Generated
+Earthf2ad1cce04f6765d68cec33d8223652bf2b3fd74909aa342f93410c0eeb5ce6c attested,
+installed and512 served Earth/96 unchangedSky bytes verified on preview4183 and
+normal4173. Verified5a rollback durably preserved alongsidebf176/f43/4429/da140;
+ownerrootca124 untouched. Skyhashb9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d
+unchanged; no Sky/native/vendor/WASM/upstream rebuild/change.
+
+Fresh complete compiled-preview campaign:26 aircraft and43 existing requested
+Earth/Sky cases, exact unique IDs from current--list,14 frozen sequential case-level
+shards with one browser worker, all exit0,zero failed/skipped/retried. Newmetadata
+case proves engine andHub publish newcenter with observedAtnull/cachefalse/ageMsnull
+through loading/outage and no oldHub time element. VisibleRetry case proves the
+same unavailable identity persists, backoff respected, genuine same-ID recovery
+without follow restart, actualdisable clears it. Recovered capture renderable1/
+visible0 outsideview: it proves identity/UI state, not a visible returned glyph.
+Other altitude/dense cases qualify actualcanvasvisibility. Current120-second
+backoff request interval120271ms; ordinary cadence/source/follow/selection/omission/
+expiry/caps/cancellation/region/cache and genuineEarth/Sky bfcache plus all requested
+existing layers/imagery/nativeSky regressions pass. No earlier5a browser test is
+counted fresh for modifiedf2ad1 artifact.
+
+Fresh final-artifact cap profiles: desktop 1,000 assigns 20,000 positions / 20 collection events at 7.20 ms/update, compared with historical original 114.33 ms/update. Mobile 100 moving rAF 37.91 / actual scene 4.99 FPS, p95 97.2 ms; desktop 1,000 moving rAF 9.66 / scene 5.07 FPS, p95 224.0 ms. Four complete 13-cohort campaigns plus previous5a cap profiles remain historical (162 rows); these two fresh cap profiles add six rows (168 total). Metadata/retry correction is not credited with an FPS improvement; software tails, dense overlap, exact GPU pass/full gain attribution, heap-leak proof and physical hardware remain unqualified. Clean short pristine default-imagery acceptance samples are separate: desktop enabled/disabled 3.80/4.86 rAF FPS; mobile 9.45/60.41. Dense canvas captures contain overlapping glyphs; human visual and physical-device acceptance remain PENDING.
+
+| Viewport | Contacts | Disabled rAF FPS | Moving rAF FPS | Actual scene FPS | p50 / p95 ms | CPU ms/update | Assignments / events | Render requests | Heap MB |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Mobile | 100 | 60.02 | 37.91 | 4.99 | 16.7 / 97.2 | 0.87 | 2000 / 20 | 20 | 31.2 |
+| Desktop | 1000 | 60.24 | 9.66 | 5.07 | 170.5 / 224.0 | 7.20 | 20000 / 20 | 20 | 31.2 |
+
+Four complete13-cohort campaigns156 rows plus previous5a two-cap6 rows historical;
+new two-cap/three-state6 rows produce168 total. Latest metadata/explicitRetry
+correction does not change entity/display hotpath and receives no FPS-gain claim.
+ANGLE SwiftShader/software viewport only; physical hardware, formalReact/GPU pass
+profiling and heap-leak proof unqualified. Dense screenshots inspected; human
+visual/device fields remain blank/PENDING. Previous original/client/deadline reds,
+helper/harness/cache/GIBS/interruption/archive-routing and wrong-mount attempts
+are preserved with honest exclusions; no discarded failure or manufactured proof.
+
+Original exact81 volumes, PostgreSQL/Redis IDs/fullmounts/running, astronomy data
+sources, rootenvironment/settings/branch/head, clean e770pin, Sky/native/vendor/
+WASM/protocol/audits and rollback/capture payloads verified preserved. Fresh prior
+registered captures archived then only16 historical original files hash-restored.
+Normalfive services running; onlythree owned qualification services stopped.
+No reset/reseed/migration/prune/orphan cleanup/owner checkout reset. Earlier backend
+recreation mount mistake caught/restored/requalified and remains separately recorded.
+
+Source correction363423fa693c830697b218f2ea3029bfa279fc9e reviewed automatically,
+completed2026-10-10T00:08:25.809918Z with no new findings. Final actualhead/checks/
+threads, exact21 cumulative changed files, commands/logs/profiles/screens/exclusions,
+SHA manifest and28-field handoff accompany privatec57a-region-retry-20261009 archive.
+Region/Retry threads resolved only after completed passing proof. TECHNICALLY
+QUALIFIED FOR OWNER REVIEW subject to accompanying actualfinalhead snapshot.
+Human quality/physicaldevice PENDING; live regional authorizedaccess/availability/
+capacity/count BLOCKED/UNKNOWN, historical single503probe only, no newliveprobe,
+OpenSkyagreement required. All100NM/2000rows/2MB/shared>=30s/acquisition8s/desktop1000/
+mobile100/follow1/models0 bounds unchanged. Ownernext: exacthead/source/screens
+review and pendingphysical checklist with fixtures or independently authorized
+regional source; qualify provider access/availability/capacity before operational
+acceptance. PR67 OPEN/unmerged. Stop after handoff; no worldwide/OpenSky/production/
+SSH/Cloudflare/oras.org/account/purchase/newmedia/model or C5.7-B/C/D/E/C6 activation.
+
+Final normal-stack attestation guard caught the preserved owner development metadata (ca124) beside the current f2ad1 Earth payload. Switching only the command to preview then exposed that the image intentionally had no compiled dist: metadata returned404 and the supplemental smoke failed waiting for the Hub. Both setup attempts and the sandbox-denied guard attempt are retained/excluded. The private normal-preview.yml now selects compiled preview and mounts the already-qualified owned frontend/dist read-only. Owner files/configuration and original astronomy mounts remain unchanged. Final normal4173 attestation plus all512Earth/96Sky payload hashes PASS; a clean fixture-only503 supplemental smoke passes1/1 with zero skips/retries. This extra case is separate from the fresh26aircraft+43existing campaign. Normalfive services are running;81volumes and datastore/owner/mount preservation reverified. The compiled preview override lives in the private evidence archive; normal dev startup would again select owner metadata unless the owner explicitly chooses the qualified preview override.
