@@ -1516,3 +1516,12 @@ actual GitHub snapshot. Human visual-quality and physical-device acceptance PEND
 live authorized availability/access/capacity/count UNKNOWN/BLOCKED, historical one503
 probe only. No new live aircraft probe or OpenSky acquisition; all approved limits
 unchanged. PR67 OPEN/unmerged; stop after handoff, no later package activation.
+
+## Latest region metadata / explicit Retry review — in progress
+
+Automatic review of4ab560b4 raised comments4235491013 (old source metadata with a
+new coverage center) and4235491019 (explicit Retry uses real disable, erasing the
+retained unavailable selection). Focused actual pinned integration reproduction
+and bounded correction underway; new artifact/runtime qualification required.
+Prior5a3bc browser/profile proof is historical after the renderer source changes.
+No limits/upstream/provider/live authorization change; readiness IN PROGRESS.

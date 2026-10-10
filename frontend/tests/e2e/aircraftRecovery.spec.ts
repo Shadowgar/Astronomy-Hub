@@ -2,18 +2,18 @@ import {test,expect,type Page,type Frame} from '@playwright/test'
 
 const directory=process.env.AIRCRAFT_EVIDENCE_DIR||'../output/playwright/aircraft-recovery'
 async function fixture(page:Page,mode='valid',retryAfter?:string){
- const state={mode,requests:[] as {lat:number;lon:number;time:number}[],updates:0,clockOffset:0,replaceCohort:false,higherCohort:false,release:null as null|(()=>void)}
+ const state={mode,requests:[] as {lat:number;lon:number;time:number}[],updates:0,clockOffset:0,replaceCohort:false,higherCohort:false,holdNext:false,release:null as null|(()=>void)}
  await page.addInitScript(()=>sessionStorage.setItem('oras.workspace.ui.v1',JSON.stringify({version:1,pin:true,context:'tonight',layers:['oras-site']})))
  await page.route('**/api/earth/aircraft?*',async route=>{
   const url=new URL(route.request().url()),lat=Number(url.searchParams.get('lat')),lon=Number(url.searchParams.get('lon'))
   state.requests.push({lat,lon,time:Date.now()});state.updates++
-  if(state.mode==='delayed'&&state.updates===1)await new Promise<void>(resolve=>{state.release=resolve})
+  if(state.holdNext||(state.mode==='delayed'&&state.updates===1))await new Promise<void>(resolve=>{state.release=resolve})
   if(state.mode==='503'||state.mode==='429'){await route.fulfill({status:Number(state.mode),headers:retryAfter?{'Retry-After':retryAfter}:{},json:{detail:'Declared provider outage'}});return}
   if(state.mode==='timeout'){await new Promise(r=>setTimeout(r,14000));await route.abort().catch(()=>{});return}
   if(state.mode==='malformed'){await route.fulfill({body:'{not JSON',contentType:'application/json'});return}
   const now=(Date.now()+state.clockOffset)/1000-(state.mode==='stale'?180:0)
   const ac=state.mode==='empty'?[]:state.mode==='dense'?Array.from({length:2000},(_,i)=>({hex:(state.higherCohort?0xdef000+i:state.replaceCohort&&i>=1900?i-1900:0xabc000+i).toString(16).padStart(6,'0'),flight:'DECLARED '+i,lat:lat+(i%40-20)*.035,lon:lon+(Math.floor(i/40)-25)*.028,alt_geom:30000,seen:0,seen_pos:0,gs:200,track:90})):[{hex:'abc123',flight:'DECLARED FIXTURE',lat:lat+.4,lon:lon+.7+(state.updates-1)*.005,alt_geom:state.mode==='unknown-altitude'?null:30000,alt_baro:state.mode==='unknown-altitude'?30000:undefined,seen:0,seen_pos:0,gs:200,track:90}]
-  await route.fulfill({headers:{'X-Aircraft-Cache':'miss'},json:{now,ac}}).catch(()=>{})
+  await route.fulfill({headers:{'X-Aircraft-Cache':'miss'},json:{now,ac,cached:state.mode==='cached'}}).catch(()=>{})
  })
  await page.goto('/earth');await expect(page.locator('[data-runtime-mode=earth][data-runtime-status=ready]')).toBeVisible({timeout:90000})
  await page.getByRole('button',{name:'Layers',exact:true}).click()
@@ -292,4 +292,42 @@ test('a 120-second route backoff prevents premature aircraft acquisition and the
  expect(state.requests).toHaveLength(2);expect(state.requests[1].time-state.requests[0].time).toBeGreaterThanOrEqual(120000)
  const diag=await earth.evaluate(()=>(window as any).orasEarthDiagnostics());expect(diag.ready).toBe(true);expect(diag.viewerDestroyed).toBe(false);expect(diag.providers.aircraft.count).toBe(1)
  console.log('CLIENT_RETRY_AFTER',JSON.stringify({requests:state.requests,provider:diag.providers.aircraft}));await page.screenshot({path:`${directory}/retry-after-recovery.png`})
+})
+
+
+test('new region loading and outage clear old source metadata in the engine and Hub',async({page})=>{
+ test.setTimeout(120000);const {earth,state}=await fixture(page,'cached')
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft?.cached)).toBe(true)
+ const old=await earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft);expect(old.observedAt).toBeTruthy()
+ await closePanel(page);state.mode='503';state.holdNext=true
+ for(let i=0;i<8;i++)await earth.locator('canvas').first().press('ArrowLeft')
+ await expect.poll(()=>state.requests.length,{timeout:15000}).toBeGreaterThan(1)
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft?.status)).toBe('loading')
+ const loading=await earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft)
+ expect(loading.observedAt).toBe(null);expect(Math.abs(loading.coverage.center.lon-old.coverage.center.lon)).toBeGreaterThan(1)
+ await page.getByRole('button',{name:'Layers',exact:true}).click();const row=page.locator('.ws-layer[data-layer-id=aircraft]')
+ await expect(row.locator('time')).toHaveCount(0);state.holdNext=false;state.release?.()
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft?.status)).toBe('unavailable')
+ const failed=await earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft)
+ expect(failed).toMatchObject({observedAt:null,cached:false,ageMs:null,count:0});expect(failed.counts.renderable).toBe(0)
+ await expect(row).toContainText('Unavailable');await expect(row.locator('time')).toHaveCount(0)
+ console.log('NEW_REGION_METADATA',JSON.stringify({old,loading,failed}));await page.screenshot({path:`${directory}/new-region-unavailable.png`})
+})
+
+test('visible Retry preserves unavailable aircraft selection, honors backoff and recovers without restarting follow',async({page})=>{
+ test.setTimeout(180000);const {earth,state}=await fixture(page);await closePanel(page);await altitude(earth,500000)
+ let target:any;await expect.poll(async()=>{target=await earth.evaluate(()=>(window as any).orasEarthVisibleTargets().find((r:any)=>r.kind==='aircraft'));return !!target}).toBe(true)
+ await earth.locator('canvas').first().click({position:{x:target.x,y:target.y}});await page.getByRole('button',{name:'Track',exact:true}).click()
+ state.mode='503';await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft.status),{timeout:45000}).toBe('unavailable')
+ const failed=await earth.evaluate(()=>(window as any).orasEarthDiagnostics());expect(failed.selection.available).toBe(false);expect(failed.tracking).toBe(null)
+ const requests=state.requests.length;state.mode='valid';await page.getByRole('button',{name:'Layers',exact:true}).click()
+ const row=page.locator('.ws-layer[data-layer-id=aircraft]');await row.getByRole('button',{name:'Retry aircraft',exact:true}).click();await page.waitForTimeout(1500)
+ const held=await earth.evaluate(()=>(window as any).orasEarthDiagnostics());expect(held.selection.facts.find((f:any)=>f.label==='Identity').value).toBe('abc123');expect(held.selection.available).toBe(false);expect(held.tracking).toBe(null);expect(state.requests).toHaveLength(requests)
+ await page.screenshot({path:`${directory}/explicit-retry-held.png`})
+ await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().providers.aircraft.status),{timeout:45000}).toBe('ready')
+ const recovered=await earth.evaluate(()=>(window as any).orasEarthDiagnostics());expect(recovered.selection.facts.find((f:any)=>f.label==='Identity').value).toBe('abc123');expect(recovered.selection.available).not.toBe(false);expect(recovered.tracking).toBe(null);expect(recovered.providers.aircraft.counts.renderable).toBe(1)
+ expect(state.requests.at(-1)!.time-state.requests.at(-2)!.time).toBeGreaterThanOrEqual(30000)
+ await expect(row).toContainText('Regional snapshot');console.log('EXPLICIT_RETRY_RECOVERY',JSON.stringify({requests:state.requests,held:held.selection,recovered:recovered.selection}));await page.screenshot({path:`${directory}/explicit-retry-return.png`})
+ await row.getByRole('switch',{name:/Aircraft/}).click();await expect.poll(()=>earth.evaluate(()=>(window as any).orasEarthDiagnostics().selection)).toBe(null)
+ expect(await earth.evaluate(()=>(window as any).orasEarthVisibleTargets().filter((r:any)=>r.kind==='aircraft'))).toEqual([])
 })

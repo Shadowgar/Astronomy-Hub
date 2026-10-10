@@ -49,19 +49,22 @@ export function createFlightsAdapter(context){
  function cameraChanged(){
   if(!layer.active||layer.closed||context.viewer.trackedEntity?.orasMetadata?.layerId==='aircraft'||context.camera.focusTarget===context.selection.value&&context.selection.value?.orasMetadata?.layerId==='aircraft')return;const next=viewRegion(region,anchor(),cache);
   if(regionKey(next)===regionKey(region)||distanceM(next,region)<AIRCRAFT_RADIUS_M/2)return;
-  chosen=true;cancel();display.clear();region=next;
+  chosen=true;cancel();display.clear();last=null;region=next;
   context.providerStatus.set('aircraft',{status:'loading',temporalMode:'CURRENT_SNAPSHOT',coverage:coverage(),summary:summary({},'loading'),observedAt:last?.observedAt??null});
   debounce=setTimeout(()=>{debounce=null;void layer.poll(layer.generation)},1000);
  }
  const enable=layer.enable.bind(layer);layer.enable=async()=>{
   if(layer.closed||layer.active)return;
-  const next=viewRegion(region,anchor(),cache);if(regionKey(next)!==regionKey(region)){region=next;chosen=true;}
+  const next=viewRegion(region,anchor(),cache);if(regionKey(next)!==regionKey(region)){last=null;region=next;chosen=true;}
   context.viewer.camera.changed.addEventListener(cameraChanged);context.viewer.camera.moveEnd.addEventListener(cameraChanged);
   displayTimer=setInterval(()=>{if(!layer.active||layer.closed)return;display.animate();const now=Date.now(),status=context.providerStatus.get('aircraft');if(status?.status==='ready'&&now-lastStatusAt>=1000){lastStatusAt=now;context.providerStatus.set('aircraft',{...status,...describe()})}},200);
   await enable();
  };
+ // Retry preserves unavailable selection and the upstream retry deadline; real
+ // disable/departure still discard all aircraft state.
+ layer.retry=async()=>{if(!layer.active||layer.closed)return;cancel();display.clear(true);await layer.poll(layer.generation)};
  const disable=layer.disable.bind(layer);layer.disable=()=>{cancel();clearInterval(displayTimer);displayTimer=null;context.viewer.camera.changed.removeEventListener(cameraChanged);context.viewer.camera.moveEnd.removeEventListener(cameraChanged);disable()};
- layer.update=async()=>{if(!layer.active||layer.closed||chosen)return;const next=regionPoint(context.observer());if(regionKey(next)===regionKey(region))return;cancel();display.clear();region=next;await layer.poll(layer.generation)};
+ layer.update=async()=>{if(!layer.active||layer.closed||chosen)return;const next=regionPoint(context.observer());if(regionKey(next)===regionKey(region))return;cancel();display.clear();last=null;region=next;await layer.poll(layer.generation)};
  const initialize=layer.initialize.bind(layer);layer.initialize=ctx=>{initialize(ctx);ctx.attribution.set('aircraft','adsb.lol · ODbL 1.0 · regional source data','https://www.adsb.lol/docs/open-data/api/')};
  const destroy=layer.destroy.bind(layer);layer.destroy=()=>{destroy();cache.clear();context.attribution.remove('aircraft')};return layer;
 }
