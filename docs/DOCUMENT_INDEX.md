@@ -171,6 +171,17 @@ Planning and evidence discovery: [Earth capability plan](execution/EARTH_CAPABIL
 [divergence evidence](audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md) and
 [reconciliation validation](validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md).
 
+Owner-review adoption discovery (SUPPORT proposals; does not change the sequence
+above): [master adoption matrix](audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md),
+[external code/data gaps](audits/EXTERNAL_COMPONENTS_AND_DATA_GAPS_2026-10-10.md),
+[visual decision packet](audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md),
+[proposed visual-first order](audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md),
+[reuse register](audits/gods-eye-adoption-register-2026-10-10.json),
+[source/asset coverage](audits/gods-eye-adoption-coverage-2026-10-10.json) and
+[audit validation handoff](audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md).
+The 2026-10-05 audit bytes and implementation classifications remain historical
+evidence; the new register adds adoption recommendations, not readiness claims.
+
 ## 10. Conflict Resolution
 
 If documents conflict:
