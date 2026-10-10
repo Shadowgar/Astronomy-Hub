@@ -4,6 +4,12 @@
 
 Keep the Hub-owned Cesium Viewer and existing Hub code. Reuse the pinned map-source, imagery, terrain and photorealistic factories inside that Viewer, preserve qualified aircraft recovery, and make realistic Earth the proposed next priority. Existing upstream code supplies most map orchestration; data quality and deployment rights are the leading external dependencies. This document recommends work; it does not activate a phase, supersede an ADR, authorize providers, or qualify a new runtime.
 
+## Mandatory zero-cost operational gate
+
+**Maximum authorized new provider spending: $0.** No paid subscriptions, usage charges, automatic upgrades or billing-enabled trials. Prefer open-source code and authorized public/free data; free accounts require permitted organizational/audience use and respected quotas. Preserve an independently functioning free fallback. Unauthenticated endpoint success proves no unlimited public rights. Paid tiers are **NOT ADMISSIBLE UNDER CURRENT OWNER BUDGET**, retained as research only.
+
+Cesium ion Community remains **CONDITIONAL ZERO-COST CANDIDATE — NOT YET AUTHORIZED FOR CLUB OPERATION**. See the [canonical budget/eligibility record](EXTERNAL_COMPONENTS_AND_DATA_GAPS_2026-10-10.md#mandatory-owner-provider-budget). This operational gate applies to all 99 recommendations without changing technical reuse classifications or source/register bytes. The proposed order remains stars/appearance → free global imagery → real terrain → eligible 3D → owner visual acceptance → aircraft/satellites/weather/intelligence, pending formal execution-authority integration. Keep the owned Viewer and existing God’s Eye factories/controller. No implementation is authorized here.
+
 ## Authority and fresh state
 
 Default Mode. Loaded CORE_CONTEXT and LIVE_SESSION_BRIEF, then the union of `docs_change`, `planning`, `review`, `validation`: 52 project documents plus the context manifest. Their exact paths/hashes are in the [handoff](MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md). No full-docs scan or extra governing project document was loaded. Source, user-named historical JSON and official external documentation were inspected for this authorized audit.
@@ -599,6 +605,6 @@ Proof: Future approved-head Docker/browser qualification: source call evidence, 
 
 ## Owner decisions and remaining gaps
 
-Approve or amend the [six new proposal decisions](EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md#owner-decisions) alongside the existing unresolved C5.7 register: visual-first phase reorder; selected tier and public-use rights; recurring budget/hard usage caps; real terrain/datum and 3D coverage scope; generic exports/tiny ports; physical visual acceptance targets. None is resolved by this audit.
+Approve or amend the [six new proposal decisions](EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md#owner-decisions) alongside the existing unresolved C5.7 register: visual-first phase reorder; selected tier and public-use rights; mandatory $0 spending/hard usage caps; real terrain/datum and 3D coverage scope; generic exports/tiny ports; physical visual acceptance targets. The owner has settled spending at $0; phase order, provider activation, rights, usage and acceptance remain gated.
 
 Documented source can restore decorative stars and orchestrate progressive mapping. Available Earth data, live entitlement, coverage/resolution/dates, terrain accuracy, 3D/mobile GPU performance and owner acceptance remain unqualified here. No new screenshots represent this audit’s output. See [visual acceptance](EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md#visual-acceptance-proposal) and [validation handoff](MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md). Stop for owner review; the next development task must be selected from this blueprint.

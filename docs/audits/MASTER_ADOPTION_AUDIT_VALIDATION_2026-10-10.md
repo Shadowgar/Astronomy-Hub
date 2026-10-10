@@ -8,7 +8,7 @@ Default Mode; no Stellarium Runtime or High-Definition Data override. CORE_CONTE
 
 The brief’s older review/main checkpoint conflicts with fresh GitHub state; the blueprint states that drift and keeps execution authority unchanged. The user authorizes only this audit, documentation commit/push and one unmerged PR. No sub-agents were used.
 
-| Loaded document | SHA-256 at verified base |
+| Loaded document | SHA-256 of raw committed bytes at `8270e782f73d4df58b16e762cdb4f0031a37ada3` |
 |---|---|
 | `docs/context/CORE_CONTEXT.md` | `0b6cf751bd23fdd71c108077dc9346fe97f9d4e31dfdafe59213c700b8f5b30e` |
 | `docs/context/LIVE_SESSION_BRIEF.md` | `c4f6c351c3b3cc57f758927c07f8a82538276c2a1f3f8bca392f56c9fc7b0a91` |
@@ -22,12 +22,12 @@ The brief’s older review/main checkpoint conflicts with fresh GitHub state; th
 | `docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md` | `d02ffd0bd6070483ce750833e9f0701f4795a9bcd400c077f9e4afd11899f6a8` |
 | `docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md` | `1d5b205e45bf53d2517b1ea223a9d971d4c4934e5a56a8a48780e5424935e810` |
 | `docs/validation/EARTH_HD_MAPPING_EVIDENCE.md` | `f78edcd73f54b1f073ab364325a39a334e7a05c0a389fd343fc6d974249c6980` |
-| `docs/architecture/ARCHITECTURE_OVERVIEW.md` | `22f3b645e738533665ba36cad5dfd413307b0f19a369d1ca7bfe1288176b0232` |
-| `docs/architecture/ENGINE_SPEC.md` | `863a81529d03450d9a703191fe405ffe6b3e0739d4263037c3cac1e65e8ef3ed` |
-| `docs/architecture/ENGINE_CATALOG.md` | `8e16c22a1b0eabea837d013612b04028b8756a474828af21d8107e4bcc5aebce` |
-| `docs/architecture/OBJECT_MODEL.md` | `d4026ae78805cf32b526dd9fae8316fd19bcefb3578ce9ba2c6a7689f8966c20` |
-| `docs/architecture/DATA_CONTRACTS.md` | `db270931601123c1979833cb5fd31bed838eb22b2457d869ff6036c4aacaddef` |
-| `docs/architecture/INGESTION_STRATEGY.md` | `45aa5eed1d04f101339df0e2323227370bbf313b6840041e8c8e1511dce6b266` |
+| `docs/architecture/ARCHITECTURE_OVERVIEW.md` | `0b3739c702a32f105bc04df620206ddd99b726ca97aa243bcd4fcfdf3d1f2a22` |
+| `docs/architecture/ENGINE_SPEC.md` | `17cbc8da31a3012c0b58cc93921a5d5c8dac846d501d90869cfcfd76472b9a49` |
+| `docs/architecture/ENGINE_CATALOG.md` | `e1e30367a5397554018f90502e3b1f9fc88535aedb86ad2d817fd46ff94a5c11` |
+| `docs/architecture/OBJECT_MODEL.md` | `4f3554df30166abb154750fe7ce061de8769fb3454d9e002a7a07ea9a08c5082` |
+| `docs/architecture/DATA_CONTRACTS.md` | `5449411a2f9d1ea92b4b50e58fef9f933f7db6a9a35997f90e17baa5fd0dff63` |
+| `docs/architecture/INGESTION_STRATEGY.md` | `b6724bba3b117ee4afe3710053a6b878811799ef1b10c6ac86d32837d9aa85d6` |
 | `docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md` | `51c5f7cca44ce1d415d2e5487d92653a413aefea15d8785453588da303a998b0` |
 | `docs/execution/PROJECT_STATE.md` | `b8019bc7e034fcd66be5b943cfd0b73a3786c79aac5fc9e7935bfc63e7db0084` |
 | `docs/execution/MASTER_PLAN.md` | `a76566425306941e91a800788ab94fba13025dff522a2d448b4b1baaea7e610b` |
@@ -62,6 +62,68 @@ The brief’s older review/main checkpoint conflicts with fresh GitHub state; th
 | `docs/features/FEATURE_ACCEPTANCE.md` | `6eeba2cb74397157d15a5abff9a92119830a37b3fdedabd74c1c3bb309f63b10` |
 | `docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md` | `767635132b5f68c3e7279773644801867a8c48ec42d538e4b2e9b56f65e66235` |
 | `docs/architecture/TONIGHT_CONTRACT.md` | `63b10129bcd52d5e0571b1381bb52587278d303a294c4b22ba48377fff6fe9b0` |
+
+## PR #68 final review and zero-cost policy follow-up
+
+Owner-authorized continuation on `gods-eye-master-adoption-gap-audit-1`, existing PR #68, starting at exact verified head `21748a7d3240baab52dd731a3f969cfc417d8268`. No new branch/PR or merge. Default Mode; single agent. This follow-up loaded CORE/LIVE first, then manifest and the same four packs: **57 unique project documents** (the 52 paths in the historical table plus the five current Markdown audit outputs linked below), with the manifest additional and no extra governing document. Current context was read from the PR worktree; the table deliberately retains historical-base identities. Execution-control drift remains reported; controls/specs/ADRs are unchanged.
+
+Exactly five existing Markdown files change in this follow-up: blueprint, external matrix, visual decision packet, roadmap proposal and this handoff. Both adoption/coverage JSON registers and all historical audits remain byte-identical. Maximum new provider spending is **$0**; paid research remains labeled inadmissible. Community remains conditional, with published units and separate organizational/audience/content/quota/monetary gates in the [external record](EXTERNAL_COMPONENTS_AND_DATA_GAPS_2026-10-10.md#cesium-ion-community-qualification). The [Cesium inquiry](EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md#unsent-cesium-inquiry) is draft only and unsent. No account, token, billing, provider API/tile call or service activation occurred; only official documentation was browsed. No runtime build/start/install/deployment, C5.7-D or C6 integration occurred.
+
+Initial GitHub review: OPEN/unmerged at the expected head, eight successful checks, one unresolved source-hash P2 thread. Copilot could not review due to quota; CodeRabbit reported success while skipping review for repository eligibility. Neither is an approval. Reply/resolve the specific P2 only after committed-byte verification; final SHA/review/check results are reported in the owner handoff and GitHub, rather than inserting a self-referential commit hash here.
+
+## PR #68 source-hash P2 correction
+
+Reproduced against exact historical commit `8270e782f73d4df58b16e762cdb4f0031a37ada3`, independent of working-tree line endings. At PR head `21748a7d3240baab52dd731a3f969cfc417d8268`, **46 of 52** table hashes matched raw committed bytes; **6 failed**: ARCHITECTURE_OVERVIEW, ENGINE_SPEC, ENGINE_CATALOG, OBJECT_MODEL, DATA_CONTRACTS and INGESTION_STRATEGY. All six matched only after CRLF/CR-to-LF normalization. Five have mixed CRLF/LF; INGESTION_STRATEGY has CRLF only. The evidence-generation text read normalized newlines and mislabeled those digests as committed-byte hashes.
+
+The table now records actual committed-byte SHA-256; **52/52 PASS**. Example ARCHITECTURE_OVERVIEW: recorded normalized `22f3b645e738533665ba36cad5dfd413307b0f19a369d1ca7bfe1288176b0232`; corrected raw `0b3739c702a32f105bc04df620206ddd99b726ca97aa243bcd4fcfdf3d1f2a22`. No source document line endings or historical audit bytes were altered. These are historical-base hashes, not current PR versions of discovery documents.
+
+Reproduce RED from the original PR head and GREEN from this corrected table, from a clean checkout with both commits available. Normalization below diagnoses the original defect only; GREEN hashes binary committed output without normalization:
+
+```bash
+python3 - <<'PY'
+import hashlib, re, subprocess
+from pathlib import Path
+base = '8270e782f73d4df58b16e762cdb4f0031a37ada3'
+doc = Path('docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md')
+pattern = r'^\| `(docs/[^`]+)` \| `([0-9a-f]{64})` \|$'
+original = subprocess.check_output(['git', 'show', f'21748a7d3240baab52dd731a3f969cfc417d8268:{doc}']).decode()
+old_rows = re.findall(pattern, original, re.M)
+assert len(old_rows) == 52
+failed = []
+for path, recorded in old_rows:
+    raw = subprocess.check_output(['git', 'show', f'{base}:{path}'])
+    if hashlib.sha256(raw).hexdigest() != recorded:
+        normalized = raw.decode().replace('\r\n', '\n').replace('\r', '\n').encode()
+        assert hashlib.sha256(normalized).hexdigest() == recorded, path
+        failed.append(path)
+assert len(failed) == 6, failed
+print('RED reproduced: 6/52 original hashes were LF-normalized rather than committed bytes')
+rows = re.findall(pattern, doc.read_text(), re.M)
+assert len(rows) == 52, len(rows)
+for path, expected in rows:
+    raw = subprocess.check_output(['git', 'show', f'{base}:{path}'])
+    assert hashlib.sha256(raw).hexdigest() == expected, path
+print('PASS: 52/52 historical committed-byte SHA-256 hashes; no normalization')
+PY
+```
+
+Follow-up verification commands (from the PR worktree unless an absolute helper path is shown):
+
+```text
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+python3 /tmp/pr68-zero-cost-review-20261010/check_context_hashes.py
+python3 /tmp/pr68-zero-cost-review-20261010/check_followup.py
+python3 /tmp/gods-eye-master-audit-20261010/validate_master_audit.py
+python3 /tmp/pr68-zero-cost-review-20261010/preserve_docker.py
+git diff --check
+git diff --cached --check
+git diff --name-only 21748a7d3240baab52dd731a3f969cfc417d8268
+git status --short
+git log --oneline -5
+```
+
+The embedded command above is the reusable committed-byte RED/GREEN proof; `/tmp` helpers remain private evidence tooling. Follow-up PASS: 52/52 raw historical hashes; five-doc-only correction; $0/Community/inquiry gates; both JSON registers and 19 owner/config/historical/register files byte-preserved. Documentation validators PASS: 291 manifest entries, 8 packs, 54 checkpoint Markdown documents, 1,428 relative references (1,412 repository + 16 registered private), balanced fences, 9 ADRs; unchanged C5.7/C6 gates, 67 historical records, 51 source entrypoints, 408 reconciliation links/58 fragments. Separate five-document reference check PASS: 47 relative references/34 heading fragments. Reuse checker confirms all 99 decisions/nine counts, 148 pinned/159 snapshot exports, 22 adopted seams, 1,045 source/support and 42 asset hashes, immutable pin and original audits. Read-only artifact verification passes 512 Earth and 96 Sky files in both owner and PR #67 workspaces. Docker preservation passes 62 container identities/states/mounts/RW/ports and 81 volumes, including datastore identities. No runtime/browser/provider acceptance test ran: this is docs-only and makes no new visual-readiness claim. PR #67 remains OPEN/unmerged at `ebdad3124fe470e3a09e369d3a56e998f29740fb`, eight successful checks when freshly inspected; unchanged by this task.
 
 ## Files changed
 
