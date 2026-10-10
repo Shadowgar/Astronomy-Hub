@@ -11,7 +11,23 @@ statements below for A only. OD2–OD6 and C5.7-B/C/D/E/C6 remain unapproved.
 No merge, production, purchases, new external models/media or worldwide acquisition.
 [Qualification and limits](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md).
 
-2026-10-09 final regional metadata / explicit Retry qualification: actual pinned
+2026-10-09 cached unavailable expiry correction: final review of19a2b580
+found Redis unavailable markers renewing a60-second local negative cache beyond
+a70-second provider lease. Genuine real-Redis fixture reds:2failed/15deselected;
+green2passed/15deselected. Redis unavailable hits (including coalesced waits) now
+skip local negative-cache installation, preserving the authoritative Redis expiry.
+Owned fetch failures still receive the existing60-second local retention; shared
+lease/bounds and HTTP503 contract unchanged. Fresh Docker backend50passed in
+both environments (14.24s disposable/14.18s normal;6existing dependency warnings).
+Earth source/artifact/frontend unchanged: existing currentf2ad1 111runtime/
+229frontend and26aircraft+43existing renderer cases remain applicable, not rerun
+or claimed fresh for a modified renderer. Current-source artifact verification
+and512Earth/96Sky served hash guard rechecked PASS. Original mounts/81volumes/
+owner state preserved. Final-head checks/17threads and automatic review state
+belong to the accompanying final handoff. Human/device/live-provider gates remain
+PENDING/BLOCKED; PR67 OPEN/unmerged; no later phase or newlive aircraft probe.
+
+2026-10-09 previous regional metadata / explicit Retry qualification: actual pinned
 reds reproduce both review findings (3 tests:1 pass/2 fail), then3/3 pass.
 Changing coverage clears accepted prior snapshot metadata before loading/failure.
 The aircraft-only retry hook preserves unavailable selected identity and upstream

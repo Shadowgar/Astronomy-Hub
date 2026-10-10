@@ -162,6 +162,65 @@ def test_provider_retry_after_applies_to_every_region(monkeypatch):
         assert earth.shared_aircraft.client().ttl(earth.shared_aircraft.PREFIX+'dispatch')>=119
     asyncio.run(exercise())
 
+def test_cached_unavailable_does_not_extend_provider_recovery(monkeypatch):
+    require_cache()
+    import httpx
+    import time
+    from types import SimpleNamespace
+    offset = [0]
+    monkeypatch.setattr(earth, 'time', SimpleNamespace(monotonic=lambda: time.monotonic() + offset[0]))
+    calls = []
+
+    async def fetch(point):
+        calls.append(point)
+        if len(calls) == 1:
+            request = httpx.Request('GET', 'https://declared.invalid/')
+            response = httpx.Response(429, headers={'Retry-After': '70'}, request=request)
+            raise httpx.HTTPStatusError('Declared rate limit', request=request, response=response)
+        return earth.AircraftFeed(now=1800000000, ac=[])
+
+    monkeypatch.setattr(earth, 'fetch_aircraft', fetch)
+    cache = earth.shared_aircraft.client()
+    key = earth.shared_aircraft.PREFIX + '0.0:0.0'
+    lease = earth.shared_aircraft.PREFIX + 'dispatch'
+    assert key.startswith('oras:test:c57a:') and lease.startswith('oras:test:c57a:')
+    assert client.get('/api/earth/aircraft?lat=0&lon=0').status_code == 503
+    assert 69 <= cache.ttl(key) <= 70
+    # Advance the local clock and the unique Redis test leases without sleeping.
+    offset[0] = 61
+    assert cache.expire(key, 9) and cache.expire(lease, 9)
+    assert client.get('/api/earth/aircraft?lat=0&lon=0').status_code == 503
+    assert len(calls) == 1
+    assert 8 <= cache.ttl(key) <= 9
+    offset[0] = 71
+    cache.delete(key, lease)  # Only this test's leases have logically expired.
+    recovered = client.get('/api/earth/aircraft?lat=0&lon=0')
+    assert recovered.status_code == 200, 'Redis marker must not renew the local negative cache'
+    assert len(calls) == 2
+    assert recovered.json()['cached'] is False
+
+def test_coalesced_unavailable_marker_does_not_install_local_failure(monkeypatch):
+    require_cache()
+    import asyncio
+
+    async def exercise():
+        point = (20., 20.)
+        assert await earth.shared_aircraft.claim(point) is None
+        dispatched = []
+        async def fetch(_):
+            dispatched.append(True)
+            raise AssertionError('The waiter must not dispatch')
+        monkeypatch.setattr(earth, 'fetch_aircraft', fetch)
+        waiter = asyncio.create_task(earth.read_and_cache(point))
+        await asyncio.sleep(.1)
+        assert not waiter.done()
+        await earth.shared_aircraft.retain(point, None, 70)
+        with pytest.raises(ValueError, match='source unavailable'):
+            await waiter
+        assert not dispatched
+        assert point not in earth._cache, 'A shared unavailable result must retain its Redis expiry'
+    asyncio.run(exercise())
+
 @pytest.mark.parametrize('provider_limited', [False, True])
 def test_busy_http_retry_after_reports_remaining_shared_lease(monkeypatch, provider_limited):
     require_cache()

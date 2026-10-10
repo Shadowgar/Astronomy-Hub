@@ -52,12 +52,15 @@ async def fetch_aircraft(point: tuple[float, float]) -> AircraftFeed:
 
 async def read_and_cache(point: tuple[float, float]) -> AircraftFeed:
     payload = None
-    limited = False
+    cache_locally = True
     try:
         async def acquire():
+            nonlocal cache_locally
             cached = await shared_aircraft.claim(point)
             if cached is not None:
                 if cached.get('unavailable'):
+                    # Redis owns this marker's expiry; do not renew it locally.
+                    cache_locally = False
                     raise ValueError('source unavailable')
                 return AircraftFeed.parse_obj(cached).copy(update={'cached': True})
             try:
@@ -76,13 +79,13 @@ async def read_and_cache(point: tuple[float, float]) -> AircraftFeed:
         payload = await asyncio.wait_for(acquire(), timeout=8)
         return payload
     except shared_aircraft.AircraftBudgetError:
-        limited = True
+        cache_locally = False
         raise
     except (httpx.HTTPError, ValueError, TimeoutError):
         raise ValueError('source unavailable') from None
     finally:
         async with _lock:
-            if not limited:
+            if cache_locally:
                 _cache[point] = (time.monotonic() + (30 if payload is not None else 60), payload)
             while len(_cache) > 64:
                 _cache.popitem(last=False)

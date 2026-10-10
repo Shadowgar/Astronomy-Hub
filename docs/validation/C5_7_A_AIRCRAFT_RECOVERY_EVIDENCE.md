@@ -1601,3 +1601,54 @@ acceptance. PR67 OPEN/unmerged. Stop after handoff; no worldwide/OpenSky/product
 SSH/Cloudflare/oras.org/account/purchase/newmedia/model or C5.7-B/C/D/E/C6 activation.
 
 Final normal-stack attestation guard caught the preserved owner development metadata (ca124) beside the current f2ad1 Earth payload. Switching only the command to preview then exposed that the image intentionally had no compiled dist: metadata returned404 and the supplemental smoke failed waiting for the Hub. Both setup attempts and the sandbox-denied guard attempt are retained/excluded. The private normal-preview.yml now selects compiled preview and mounts the already-qualified owned frontend/dist read-only. Owner files/configuration and original astronomy mounts remain unchanged. Final normal4173 attestation plus all512Earth/96Sky payload hashes PASS; a clean fixture-only503 supplemental smoke passes1/1 with zero skips/retries. This extra case is separate from the fresh26aircraft+43existing campaign. Normalfive services are running;81volumes and datastore/owner/mount preservation reverified. The compiled preview override lives in the private evidence archive; normal dev startup would again select owner metadata unless the owner explicitly chooses the qualified preview override.
+
+## Final cached-unavailable expiry correction
+
+2026-10-09 cached unavailable expiry correction: final review of19a2b580
+found Redis unavailable markers renewing a60-second local negative cache beyond
+a70-second provider lease. Genuine real-Redis fixture reds:2failed/15deselected;
+green2passed/15deselected. Redis unavailable hits (including coalesced waits) now
+skip local negative-cache installation, preserving the authoritative Redis expiry.
+Owned fetch failures still receive the existing60-second local retention; shared
+lease/bounds and HTTP503 contract unchanged. Fresh Docker backend50passed in
+both environments (14.24s disposable/14.18s normal;6existing dependency warnings).
+Earth source/artifact/frontend unchanged: existing currentf2ad1 111runtime/
+229frontend and26aircraft+43existing renderer cases remain applicable, not rerun
+or claimed fresh for a modified renderer. Current-source artifact verification
+and512Earth/96Sky served hash guard rechecked PASS. Original mounts/81volumes/
+owner state preserved. Final-head checks/17threads and automatic review state
+belong to the accompanying final handoff. Human/device/live-provider gates remain
+PENDING/BLOCKED; PR67 OPEN/unmerged; no later phase or newlive aircraft probe.
+
+Review4235735916/threadPRRT_kwDORt_rys6q_YBv is an actual timing defect. At t0 a
+fixture429 Retry-After70 installs a60s local negative cache and70s Redis marker.
+At logicalt61 the local entry expires and Redis still has9s; the old branch
+classified this as a newly owned source failure and renewed local retention to
+t121. At logicalt71, after only the unique test marker/lease expire, the old code
+still returns503 instead of dispatching the fixture and returning200. The first
+permanent regression reproduces that HTTP behavior (real Redis, controlled local
+clock and owned test-key expiry, no70s sleep/live provider). The second holds a
+cross-worker waiter, publishes a shared unavailable marker, and proves it must
+not install a new local failure. Both fail before runtime edits (2failed,
+15deselected,0.82s) and pass after the small route correction (2passed,
+15deselected,0.77s). Only cache ownership handling changed; no TTL/protocol/provider
+fallback/client-polling/renderer/upstream edit. All isolated Redis keys use
+oras:test:c57a:<unique-id>; no database reset or real aircraft cache mutation.
+
+Final full backend:50passed/6existing warnings in each Docker environment.
+Both include all earlier cross-worker/cache/budgets/schema/header/deadline and
+existing event tests. Normal backend rebuilt and recreated with exact original
+astronomy paths; frontend qualified preview and mounted Earth remain unchanged.
+No additional Earth/Sky rebuild is warranted: current-source installed artifact
+verification and served512/96 hash checks pass at the samef2ad1/b9 identities.
+The prior69renderer cases and111/229 source-artifact proof remain the complete
+current renderer campaign; this backend-only correction does not recast old
+backend48 as fresh50. Documentation validators rerun before commit/delivery.
+
+The prior19a2 handoff is superseded: its final review introduced this new17th
+thread. Failed final-head gate attempts are retained and excluded; thread closure
+requires the above proof. Current exacthead/checks/reviews, commands and28fields
+are recorded in the privatec57a-negative-expiry-20261009 final archive, with prior
+profiles/screens/artifact campaigns referenced intact. Technical owner review
+remains subject to the actual current-head snapshot; official human/physical
+fields stay PENDING and authorized live availability/access/capacity UNKNOWN.
