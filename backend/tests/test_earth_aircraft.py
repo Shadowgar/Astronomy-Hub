@@ -1,6 +1,22 @@
 from fastapi.testclient import TestClient
 from backend.app.main import app
 from backend.app.routes import earth
+import pytest
+import uuid
+
+@pytest.fixture(autouse=True)
+def isolated_aircraft_cache(monkeypatch):
+    import asyncio
+    monkeypatch.setattr(earth, '_cache', earth.OrderedDict())
+    monkeypatch.setattr(earth, '_inflight', {})
+    monkeypatch.setattr(earth, '_lock', asyncio.Lock())
+    monkeypatch.setattr(earth.shared_aircraft, 'PREFIX', 'oras:test:c57a:'+uuid.uuid4().hex+':')
+
+def require_cache():
+    try:
+        earth.shared_aircraft.client().ping()
+    except Exception:
+        pytest.skip('Shared Redis behavior is qualified in Docker with the existing Redis')
 
 client = TestClient(app)
 
@@ -26,8 +42,227 @@ def test_negative_position_age_is_rejected_before_upstream_clamping():
     with pytest.raises(ValidationError):
         earth.AircraftFeed.parse_obj({'now': 1780000000000, 'ac': [{'hex': 'abc123', 'lat': 41.0, 'lon': -79.0, 'seen_pos': -1}]})
 
+def test_different_clients_cannot_multiply_provider_acquisition(monkeypatch):
+    require_cache()
+    import asyncio
+    async def exercise():
+        calls = []
+        async def fetch(point):
+            calls.append(point)
+            return earth.AircraftFeed(now=1800000000, ac=[])
+        monkeypatch.setattr(earth, 'fetch_aircraft', fetch)
+        monkeypatch.setattr(earth, '_lock', asyncio.Lock())
+        monkeypatch.setattr(earth, '_cache', earth.OrderedDict())
+        monkeypatch.setattr(earth, '_inflight', {})
+        await asyncio.gather(*(earth.read_aircraft(lat, 0) for lat in (0, 1, 2)), return_exceptions=True)
+        assert len(calls) == 1
+    asyncio.run(exercise())
+
+def test_independent_worker_paths_share_one_acquisition_and_cache(monkeypatch):
+    require_cache()
+    import asyncio
+    async def exercise():
+        calls=[]
+        async def fetch(point):
+            calls.append(point)
+            await asyncio.sleep(.1)
+            return earth.AircraftFeed(now=1800000000,ac=[])
+        monkeypatch.setattr(earth,'fetch_aircraft',fetch)
+        a,b=await asyncio.gather(earth.read_and_cache((20.,20.)),earth.read_and_cache((20.,20.)))
+        assert len(calls)==1
+        assert sorted([a.cached,b.cached])==[False,True]
+        assert a.now==b.now
+    asyncio.run(exercise())
+
+def test_cross_worker_waiter_accepts_result_after_four_seconds(monkeypatch):
+    require_cache()
+    import asyncio
+    async def exercise():
+        calls = []
+        async def fetch(point):
+            calls.append(point)
+            await asyncio.sleep(5)
+            return earth.AircraftFeed(now=1800000000, ac=[])
+        monkeypatch.setattr(earth, 'fetch_aircraft', fetch)
+        first, second = await asyncio.gather(
+            earth.read_and_cache((20., 20.)),
+            earth.read_and_cache((20., 20.)),
+            return_exceptions=True,
+        )
+        assert isinstance(first, earth.AircraftFeed), repr(first)
+        assert isinstance(second, earth.AircraftFeed), repr(second)
+        assert len(calls) == 1
+        assert sorted([first.cached, second.cached]) == [False, True]
+        assert first.now == second.now
+    asyncio.run(exercise())
+
+def test_cross_worker_waiter_keeps_eight_second_whole_call_deadline(monkeypatch):
+    require_cache()
+    import asyncio
+    async def exercise():
+        calls = []
+        cancelled = asyncio.Event()
+        async def fetch(point):
+            calls.append(point)
+            try:
+                await asyncio.Event().wait()
+            finally:
+                cancelled.set()
+        monkeypatch.setattr(earth, 'fetch_aircraft', fetch)
+        started = asyncio.get_running_loop().time()
+        results = await asyncio.gather(
+            earth.read_and_cache((20., 20.)),
+            earth.read_and_cache((20., 20.)),
+            return_exceptions=True,
+        )
+        assert asyncio.get_running_loop().time() - started < 9
+        assert len(calls) == 1
+        assert cancelled.is_set()
+        assert all(type(result) is ValueError and str(result) == 'source unavailable'
+                   for result in results)
+        import json
+        cache = earth.shared_aircraft.client()
+        stored = cache.get(earth.shared_aircraft.PREFIX + '20.0:20.0')
+        assert stored is not None, 'outer acquisition timeout must retain shared unavailability'
+        assert json.loads(stored) == {'unavailable': True}
+        assert cache.ttl(earth.shared_aircraft.PREFIX + 'dispatch') >= 59
+        with pytest.raises(earth.shared_aircraft.AircraftBudgetError) as limited:
+            await earth.shared_aircraft.claim((21., 21.))
+        assert limited.value.retry_after >= 59
+    asyncio.run(exercise())
+
+def test_shared_cache_outage_fails_closed_without_provider_dispatch(monkeypatch):
+    import asyncio
+    calls=[]
+    async def unavailable(_):
+        raise ValueError('Cache unavailable')
+    async def fetch(point):
+        calls.append(point)
+        return earth.AircraftFeed(now=1800000000,ac=[])
+    monkeypatch.setattr(earth.shared_aircraft,'claim',unavailable)
+    monkeypatch.setattr(earth,'fetch_aircraft',fetch)
+    with pytest.raises(ValueError):
+        asyncio.run(earth.read_aircraft(0,0))
+    assert calls==[]
+
+def test_provider_retry_after_applies_to_every_region(monkeypatch):
+    require_cache()
+    import asyncio,httpx
+    async def exercise():
+        calls=[]
+        async def fetch(point):
+            calls.append(point)
+            request=httpx.Request('GET','https://declared.invalid/')
+            response=httpx.Response(429,headers={'Retry-After':'120'},request=request)
+            raise httpx.HTTPStatusError('Declared rate limit',request=request,response=response)
+        monkeypatch.setattr(earth,'fetch_aircraft',fetch)
+        with pytest.raises(ValueError):await earth.read_aircraft(0,0)
+        with pytest.raises(earth.shared_aircraft.AircraftBudgetError):await earth.read_aircraft(1,1)
+        assert len(calls)==1
+        assert earth.shared_aircraft.client().ttl(earth.shared_aircraft.PREFIX+'dispatch')>=119
+    asyncio.run(exercise())
+
+def test_cached_unavailable_does_not_extend_provider_recovery(monkeypatch):
+    require_cache()
+    import httpx
+    import time
+    from types import SimpleNamespace
+    offset = [0]
+    monkeypatch.setattr(earth, 'time', SimpleNamespace(monotonic=lambda: time.monotonic() + offset[0]))
+    calls = []
+
+    async def fetch(point):
+        calls.append(point)
+        if len(calls) == 1:
+            request = httpx.Request('GET', 'https://declared.invalid/')
+            response = httpx.Response(429, headers={'Retry-After': '70'}, request=request)
+            raise httpx.HTTPStatusError('Declared rate limit', request=request, response=response)
+        return earth.AircraftFeed(now=1800000000, ac=[])
+
+    monkeypatch.setattr(earth, 'fetch_aircraft', fetch)
+    cache = earth.shared_aircraft.client()
+    key = earth.shared_aircraft.PREFIX + '0.0:0.0'
+    lease = earth.shared_aircraft.PREFIX + 'dispatch'
+    assert key.startswith('oras:test:c57a:') and lease.startswith('oras:test:c57a:')
+    assert client.get('/api/earth/aircraft?lat=0&lon=0').status_code == 503
+    assert 69 <= cache.ttl(key) <= 70
+    # Advance the local clock and the unique Redis test leases without sleeping.
+    offset[0] = 61
+    assert cache.expire(key, 9) and cache.expire(lease, 9)
+    assert client.get('/api/earth/aircraft?lat=0&lon=0').status_code == 503
+    assert len(calls) == 1
+    assert 8 <= cache.ttl(key) <= 9
+    offset[0] = 71
+    cache.delete(key, lease)  # Only this test's leases have logically expired.
+    recovered = client.get('/api/earth/aircraft?lat=0&lon=0')
+    assert recovered.status_code == 200, 'Redis marker must not renew the local negative cache'
+    assert len(calls) == 2
+    assert recovered.json()['cached'] is False
+
+def test_coalesced_unavailable_marker_does_not_install_local_failure(monkeypatch):
+    require_cache()
+    import asyncio
+
+    async def exercise():
+        point = (20., 20.)
+        assert await earth.shared_aircraft.claim(point) is None
+        dispatched = []
+        async def fetch(_):
+            dispatched.append(True)
+            raise AssertionError('The waiter must not dispatch')
+        monkeypatch.setattr(earth, 'fetch_aircraft', fetch)
+        waiter = asyncio.create_task(earth.read_and_cache(point))
+        await asyncio.sleep(.1)
+        assert not waiter.done()
+        await earth.shared_aircraft.retain(point, None, 70)
+        with pytest.raises(ValueError, match='source unavailable'):
+            await waiter
+        assert not dispatched
+        assert point not in earth._cache, 'A shared unavailable result must retain its Redis expiry'
+    asyncio.run(exercise())
+
+@pytest.mark.parametrize('provider_limited', [False, True])
+def test_busy_http_retry_after_reports_remaining_shared_lease(monkeypatch, provider_limited):
+    require_cache()
+    import httpx
+    calls = []
+
+    async def fetch(point):
+        calls.append(point)
+        if provider_limited:
+            request = httpx.Request('GET', 'https://declared.invalid/')
+            response = httpx.Response(429, headers={'Retry-After': '120'}, request=request)
+            raise httpx.HTTPStatusError('Declared rate limit', request=request, response=response)
+        return earth.AircraftFeed(now=1800000000, ac=[])
+
+    monkeypatch.setattr(earth, 'fetch_aircraft', fetch)
+    first = client.get('/api/earth/aircraft?lat=0&lon=0')
+    assert first.status_code == (503 if provider_limited else 200)
+    lease_key = earth.shared_aircraft.PREFIX + 'dispatch'
+    assert lease_key.startswith('oras:test:c57a:')
+    cache = earth.shared_aircraft.client()
+    # Real Redis lease, no sleep or live acquisition; only the unique test namespace.
+    remaining = 120 if provider_limited else 30
+    busy = client.get('/api/earth/aircraft?lat=1&lon=1')
+    assert busy.status_code == 429
+    assert remaining - 1 <= int(busy.headers['Retry-After']) <= remaining
+    for remaining in (7, 1):
+        assert cache.expire(lease_key, remaining)
+        busy = client.get('/api/earth/aircraft?lat=1&lon=1')
+        assert busy.status_code == 429
+        assert max(1, remaining - 1) <= int(busy.headers['Retry-After']) <= remaining
+    assert len(calls) == 1
+    assert (1.0, 1.0) not in earth._cache
+
+@pytest.mark.parametrize('payload',[{'now':1800000000,'ac':[{'hex':'abc123','lat':91}]},{'now':float('inf'),'ac':[]},{'now':1800000000,'ac':[{'hex':'abc123'}]*2001}])
+def test_schema_rejects_nonfinite_positions_epoch_and_source_row_overflow(payload):
+    from pydantic import ValidationError
+    with pytest.raises(ValidationError):
+        earth.AircraftFeed.parse_obj(payload)
+
 
 def test_concurrent_points_do_not_block_and_same_point_is_coalesced(monkeypatch):
+    require_cache()
     import asyncio
     import json
 
@@ -45,7 +280,7 @@ def test_concurrent_points_do_not_block_and_same_point_is_coalesced(monkeypatch)
                 pass
             async def aiter_bytes(self):
                 requests.append(self.url)
-                if len(requests) == 2:
+                if len(requests) == 1:
                     entered.set()
                 await release.wait()
                 yield json.dumps({'now': 1780000000000, 'ac': []}).encode()
@@ -70,11 +305,15 @@ def test_concurrent_points_do_not_block_and_same_point_is_coalesced(monkeypatch)
         try:
             await asyncio.wait_for(entered.wait(), timeout=0.5)
             release.set()
-            results = await asyncio.gather(*tasks)
-            assert len(requests) == 2
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+            assert len(requests) == 1
             assert results[0] is results[2]
-            assert await earth.read_aircraft(41, -79) is results[0]
-            assert len(requests) == 2
+            # Redis dispatch order across worker threads is intentionally unordered.
+            winner = 41 if isinstance(results[0],earth.AircraftFeed) else 42
+            loser = results[1] if winner==41 else results[0]
+            assert isinstance(loser, earth.shared_aircraft.AircraftBudgetError)
+            assert (await earth.read_aircraft(winner, -79)).cached
+            assert len(requests) == 1
             assert not earth._inflight
         finally:
             release.set()

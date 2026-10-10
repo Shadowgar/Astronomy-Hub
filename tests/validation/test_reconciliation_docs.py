@@ -45,12 +45,20 @@ class ReconciliationTests(unittest.TestCase):
             with self.subTest(target=target), self.assertRaisesRegex(ValueError, 'product reference in execution tier'):
                 v.validate_discovery(changed, self.inventory)
 
-    def test_each_decision_must_remain_unresolved(self):
-        """Each decision must remain unresolved."""
+    def test_only_specific_b_first_od1_approval_is_accepted(self):
+        """Broad approval cannot activate OD1 worldwide acquisition or OD2-OD6."""
         import re
         for number in range(1, 7):
-            changed = re.sub(r'(\| OD'+str(number)+r'[^|]+\|)(?: UNRESOLVED \|)?', r'\1 APPROVED |', self.c57)
+            changed = re.sub(r'(\| OD'+str(number)+r'[^|]+\|)[^|]+\|', r'\1 APPROVED |', self.c57)
             with self.subTest(decision=number), self.assertRaisesRegex(ValueError, 'decision status'):
+                v.validate_proposals(changed, self.c6)
+
+    def test_od1_limits_cannot_be_changed_or_masked_outside_authorization(self):
+        """All acquisition limits belong to the owner authorization, including rows."""
+        for limit in ('100 NM', '2 MB', '2,000 rows', '30 seconds', '8 seconds'):
+            changed = self.c57.replace(limit, 'changed limit', 1)
+            changed += '\nUnrelated text: 100 NM; 2 MB / 2,000 rows; 30 seconds shared provider dispatch; 8 seconds whole acquisition.\n'
+            with self.subTest(limit=limit), self.assertRaisesRegex(ValueError, 'resource boundary missing'):
                 v.validate_proposals(changed, self.c6)
 
     def test_plan_provider_gate_and_constraints_cannot_be_promoted(self):

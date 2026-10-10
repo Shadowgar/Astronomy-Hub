@@ -26,6 +26,11 @@ export class LayerRegistry {
       if(!this.closed&&entry.generation===generation){entry.status='ready';this.notify();}
     }catch{if(!this.closed&&entry.generation===generation){entry.instance?.destroy();entry.instance=null;entry.initialized=false;entry.status='unavailable';this.notify();}}
   }
+  async retry(id){
+    const entry=this.entries.get(id);if(!entry||this.closed)return;
+    if(entry.instance?.retry&&['ready','loading'].includes(entry.status)){await entry.instance.retry();return;}
+    await this.disable(id);await this.enable(id);
+  }
   async disable(id){const entry=this.entries.get(id);if(!entry)return;++entry.generation;entry.instance?.disable();entry.status='disabled';this.notify();}
   async update(context){await Promise.all([...this.entries.values()].filter(entry=>['ready','loading'].includes(entry.status)).map(entry=>entry.initialized?entry.instance?.update?.(context):entry.pending));}
   async destroy(){if(this.closed)return;this.closed=true;for(const entry of this.entries.values()){++entry.generation;entry.instance?.destroy();entry.instance=null;entry.initialized=false;entry.status='destroyed';}this.notify();}

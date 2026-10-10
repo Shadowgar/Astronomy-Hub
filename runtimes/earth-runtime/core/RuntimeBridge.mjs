@@ -7,13 +7,13 @@ export function RuntimeBridge(runtime){
   if(command==='setPresentation'){document.documentElement.classList.toggle('embedded',value.embedded);document.documentElement.classList.toggle('credits-top',value.creditsAtTop===true);return {ok:true};}
   if(command==='getWorkspaceState')return {ok:true,state:runtime.snapshot()};
   if(command==='setLayerEnabled'){await runtime.registry[value.enabled?'enable':'disable'](value.id);return {ok:true,state:runtime.snapshot()};}
-  if(command==='retryLayer'){await runtime.registry.disable(value.id);await runtime.registry.enable(value.id);return {ok:true,state:runtime.snapshot()};}
+  if(command==='retryLayer'){await runtime.registry.retry(value.id);return {ok:true,state:runtime.snapshot()};}
   if(command==='retryImagery'){await runtime.visual.retryImagery();return {ok:true,state:runtime.snapshot()};}
   if(command==='clearSelection'){runtime.camera.stopTracking();runtime.viewer.selectedEntity=undefined;runtime.selection.set(null);return {ok:true,state:runtime.snapshot()};}
   if(command==='globalView'){runtime.camera.home(runtime.site);return {ok:true};}
   if(command==='returnToOras'){await runtime.camera.returnToSite(runtime.site,runtime.visual.terrainReady);return {ok:true};}
   if(command==='focusSelection'){if(!runtime.selection.value||runtime.selectionMetadata?.available===false)return {ok:false,error:'No available selection'};return {ok:await runtime.camera.focus(runtime.selection.value)};}
-  if(command==='setTracking'){if(!value.enabled){runtime.camera.stopTracking();return {ok:true};}if(runtime.selectionMetadata?.available===false||runtime.selectionMetadata?.layerId!=='satellites')return {ok:false,error:'Only satellites support tracking'};runtime.camera.track(runtime.selection.value);return {ok:true};}
+  if(command==='setTracking'){if(!value.enabled){runtime.camera.stopTracking();return {ok:true};}if(runtime.selectionMetadata?.available===false||!['satellites','aircraft'].includes(runtime.selectionMetadata?.layerId))return {ok:false,error:'Only satellites and aircraft support tracking'};runtime.camera.track(runtime.selection.value);return {ok:true};}
   return {ok:false,error:'Unsupported command'};
  }});
  const node=runtime.viewer.canvas;let timer;

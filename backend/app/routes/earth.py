@@ -8,6 +8,7 @@ from fastapi import APIRouter, HTTPException, Query, Response
 from pydantic import BaseModel, Field
 
 router = APIRouter()
+from ..services import earth_aircraft_cache as shared_aircraft
 
 class AircraftRecord(BaseModel):
     class Config:
@@ -31,8 +32,9 @@ class AircraftFeed(BaseModel):
         allow_inf_nan = False
     now: float
     ac: list[AircraftRecord] = Field(max_items=2000)
+    cached: bool = False
 
-# Coalesce only the same point; unrelated points have independent bounded requests.
+# Local coalescing supplements the cross-worker Redis dispatch budget.
 _cache: OrderedDict = OrderedDict()
 _lock = asyncio.Lock()
 _inflight: dict[tuple[float, float], asyncio.Task] = {}
@@ -50,14 +52,41 @@ async def fetch_aircraft(point: tuple[float, float]) -> AircraftFeed:
 
 async def read_and_cache(point: tuple[float, float]) -> AircraftFeed:
     payload = None
+    cache_locally = True
     try:
-        payload = await asyncio.wait_for(fetch_aircraft(point), timeout=8)
+        async def acquire():
+            nonlocal cache_locally
+            cached = await shared_aircraft.claim(point)
+            if cached is not None:
+                if cached.get('unavailable'):
+                    # Redis owns this marker's expiry; do not renew it locally.
+                    cache_locally = False
+                    raise ValueError('source unavailable')
+                return AircraftFeed.parse_obj(cached).copy(update={'cached': True})
+            try:
+                acquired = await fetch_aircraft(point)
+            except asyncio.CancelledError:
+                # The outer deadline cancels only this worker's owned fetch.
+                # Publish its failure before coalesced workers can acquire again.
+                await shared_aircraft.retain(point, None)
+                raise
+            except (httpx.HTTPError, ValueError, TimeoutError) as error:
+                await shared_aircraft.retain(point, None, shared_aircraft.retry_seconds(error))
+                raise
+            acquired.cached = False
+            await shared_aircraft.retain(point, acquired)
+            return acquired
+        payload = await asyncio.wait_for(acquire(), timeout=8)
         return payload
+    except shared_aircraft.AircraftBudgetError:
+        cache_locally = False
+        raise
     except (httpx.HTTPError, ValueError, TimeoutError):
         raise ValueError('source unavailable') from None
     finally:
         async with _lock:
-            _cache[point] = (time.monotonic() + (30 if payload is not None else 60), payload)
+            if cache_locally:
+                _cache[point] = (time.monotonic() + (30 if payload is not None else 60), payload)
             while len(_cache) > 64:
                 _cache.popitem(last=False)
             _inflight.pop(point, None)
@@ -69,7 +98,7 @@ async def read_aircraft(lat: float, lon: float) -> AircraftFeed:
         if cached and time.monotonic() < cached[0]:
             if cached[1] is None:
                 raise ValueError('source unavailable')
-            return cached[1]
+            return cached[1].copy(update={'cached': True})
         task = _inflight.get(point)
         if task is None:
             if len(_inflight) >= 64:
@@ -85,6 +114,8 @@ async def aircraft(response: Response, lat: float = Query(ge=-90, le=90), lon: f
     response.headers['Content-License'] = 'https://opendatacommons.org/licenses/odbl/1-0/'
     try:
         return await read_aircraft(lat, lon)
+    except shared_aircraft.AircraftBudgetError as error:
+        raise HTTPException(status_code=429, detail='Regional aircraft acquisition budget busy', headers={'Retry-After':str(error.retry_after)}) from None
     except ValueError:
         raise HTTPException(status_code=503, detail='Aircraft source unavailable') from None
 

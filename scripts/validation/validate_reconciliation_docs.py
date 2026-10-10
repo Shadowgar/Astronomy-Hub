@@ -72,8 +72,12 @@ def validate_proposals(c57, c6):
     require(re.findall(r'^\| (OD[1-6]) ', register, re.M) == ['OD'+str(i) for i in range(1, 7)],
             'C5.7: expected six unique owner decisions')
     rows = [line.split('|') for line in register.splitlines() if re.match(r'^\| OD[1-6] ', line)]
-    require(all(len(row) == 7 and row[2].strip() == 'UNRESOLVED' for row in rows),
-            'C5.7: each decision status must remain UNRESOLVED')
+    od1 = 'APPROVED FOR B-FIRST REGIONAL RECOVERY. WORLDWIDE OPTION C CONDITIONAL / NOT AUTHORIZED FOR ACQUISITION.'
+    require(all(len(row) == 7 and row[2].strip() == ('UNRESOLVED' if i else od1) for i,row in enumerate(rows)),
+            'C5.7: decision status must be bounded OD1 approval and OD2-OD6 UNRESOLVED')
+    authorization = register.split('| ID / decision', 1)[0]
+    require(all(limit in authorization for limit in ('100 NM', '2 MB / 2,000 rows', '30 seconds shared provider dispatch', '8 seconds whole acquisition')),
+            'C5.7: OD1 approved resource boundary missing')
     require(re.findall(r'^\| (C6-[0-5]) ', c6, re.M) == ['C6-'+str(i) for i in range(6)],
             'C6: expected provider-first ordered stages')
 
@@ -168,7 +172,7 @@ def main():
         names = set(DISCOVERY) | {'docs/DOCUMENT_INDEX.md', 'docs/README.md', 'docs/ASTRONOMY_HUB_DIAGRAM.md'}
         links = sum(architecture.markdown_links(name) for name in names)
         fragments = sum(validate_fragments(name) for name in names)
-        print(f'PASS: index/inventory authority and discovery; eight context packs; C5.7 A-E and six unresolved decisions; C6-0 through C6-5 gates.')
+        print(f'PASS: index/inventory authority and discovery; eight context packs; C5.7 A-E, bounded OD1 approval and OD2-OD6 unresolved; C6-0 through C6-5 gates.')
         print(f'PASS: 67 capability records, ten required fields each; audit relationship/gate counts; {symbols} source entrypoint references; {links} relative links and {fragments} heading fragments.')
     except (ValueError, OSError, KeyError, IndexError, AttributeError) as exc:
         print('FAIL: '+str(exc), file=sys.stderr)

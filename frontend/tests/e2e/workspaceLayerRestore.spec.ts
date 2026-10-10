@@ -90,7 +90,7 @@ test('mode departure cancels queued choices and a new Earth client restores only
  await expect.poll(()=>page.evaluate(()=>(window as any).departureTrace.barrier?.result?.payload.ok)).toBe(true)
  const old=await page.locator('iframe').elementHandle()
  await page.getByRole('button',{name:'Layers',exact:true}).click()
- const aircraft=page.getByRole('switch',{name:'Aircraft near ORAS',exact:true});await expect(aircraft).toHaveAttribute('aria-checked','true')
+ const aircraft=page.getByRole('switch',{name:'Aircraft · regional view',exact:true});await expect(aircraft).toHaveAttribute('aria-checked','true')
  const before=await page.evaluate(()=>{const t=(window as any).departureTrace;return {held:t.barrier,acknowledged:t.results.includes(t.barrier.key)}})
  expect(before.held.deadlinePaused).toBe(true);expect(before.held.released).toBe(false);expect(before.acknowledged).toBe(false)
  // Queue choices through installed UI handlers. The held acknowledgement and
@@ -111,7 +111,7 @@ test('mode departure cancels queued choices and a new Earth client restores only
  await page.evaluate(()=>(window as any).departureTrace.release())
  expect(await page.evaluate(()=>(window as any).departureTrace.commands.filter((c:any)=>c.payload.id==='earthquakes'))).toEqual([])
  await page.getByRole('tab',{name:'Earth',exact:true}).click();await expect(page.locator('[data-runtime-mode=earth][data-runtime-status=ready]')).toBeVisible({timeout:90000})
- await page.getByRole('button',{name:'Layers',exact:true}).click();await expect(page.getByRole('switch',{name:'Aircraft near ORAS',exact:true})).toHaveAttribute('aria-checked','true')
+ await page.getByRole('button',{name:'Layers',exact:true}).click();await expect(page.getByRole('switch',{name:'Aircraft · regional view',exact:true})).toHaveAttribute('aria-checked','true')
  await expect.poll(()=>page.evaluate(()=>{const t=(window as any).departureTrace,c=t.commands.find((c:any)=>c.payload.id==='weather-radar');return !!c&&t.results.includes(c.key)})).toBe(true)
  const trace=await page.evaluate(()=>(window as any).departureTrace)
  expect(trace.commands.filter((c:any)=>c.payload.id==='earthquakes').map((c:any)=>c.payload.enabled)).toEqual([false])

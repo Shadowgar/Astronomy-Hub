@@ -1,5 +1,93 @@
 # Earth capability plan — planning reference
 
+## Active C5.7-A owner authorization — 2026-10-08
+
+OD1 — APPROVED FOR B-FIRST REGIONAL RECOVERY. WORLDWIDE OPTION C CONDITIONAL / NOT AUTHORIZED FOR ACQUISITION.
+
+PR #66 merged at `8270e782f73d4df58b16e762cdb4f0031a37ada3`. Single agent,
+branch `c5-7-a-aircraft-regional-recovery-1`; only the bounded aircraft package
+is authorized. This checkpoint supersedes the older docs-only/no-C5.7 execution
+statements below for A only. OD2–OD6 and C5.7-B/C/D/E/C6 remain unapproved.
+No merge, production, purchases, new external models/media or worldwide acquisition.
+[Qualification and limits](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md).
+
+2026-10-09 cached unavailable expiry correction: final review of19a2b580
+found Redis unavailable markers renewing a60-second local negative cache beyond
+a70-second provider lease. Genuine real-Redis fixture reds:2failed/15deselected;
+green2passed/15deselected. Redis unavailable hits (including coalesced waits) now
+skip local negative-cache installation, preserving the authoritative Redis expiry.
+Owned fetch failures still receive the existing60-second local retention; shared
+lease/bounds and HTTP503 contract unchanged. Fresh Docker backend50passed in
+both environments (14.24s disposable/14.18s normal;6existing dependency warnings).
+Earth source/artifact/frontend unchanged: existing currentf2ad1 111runtime/
+229frontend and26aircraft+43existing renderer cases remain applicable, not rerun
+or claimed fresh for a modified renderer. Current-source artifact verification
+and512Earth/96Sky served hash guard rechecked PASS. Original mounts/81volumes/
+owner state preserved. Final-head checks/17threads and automatic review state
+belong to the accompanying final handoff. Human/device/live-provider gates remain
+PENDING/BLOCKED; PR67 OPEN/unmerged; no later phase or newlive aircraft probe.
+
+2026-10-09 previous regional metadata / explicit Retry qualification: actual pinned
+reds reproduce both review findings (3 tests:1 pass/2 fail), then3/3 pass.
+Changing coverage clears accepted prior snapshot metadata before loading/failure.
+The aircraft-only retry hook preserves unavailable selected identity and upstream
+retryAt without restarting follow; actual disable/departure clears it. Hub and
+standalone retry delegate through the owned registry; other layers keep existing
+disable/enable fallback. Generic PollingLayer/protocol/upstream remain unchanged.
+Fresh111 runtime/229 frontend,TypeScript/build,48 backend per Docker environment,
+complete26 aircraft+43 existing compiled-preview browser cases PASS,zero skip/
+fail/retry. Two independent513-file/37-input builds and installed/served512Earth/
+96unchangedSky verification PASS. Earthf2ad1cce04f6765d68cec33d8223652bf2b3fd74909aa342f93410c0eeb5ce6c;
+Skyb9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d unchanged.
+Fresh mobile100/desktop1000 cap profiles; earlier156 full-cohort plus6 previous5a
+cap rows historical,6fresh rows (168 total). Renderer hot path unchanged by latest
+metadata/retry fix; no new FPS gain credited. Software tails/dense overlap and
+human/device acceptance pending; authorized live availability/access/capacity/count
+BLOCKED/UNKNOWN. Source review363423f completed without new findings; actual final-
+head checks/threads accompany28-field private handoff. Original81-volume set,
+datastore IDs/mounts/owner files/source pin/historical captures and durable5a plus
+prior rollback payloads preserved. PR67 OPEN/unmerged; no new live aircraft probe,
+worldwide/OpenSky/production/model/media/provider account/purchase or later phase.
+[Current evidence and owner checklist](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md).
+
+2026-10-09 final backend deadline correction: automatic review of 720458b6
+reproduced outer acquisition cancellation skipping shared failure retention.
+The owned fetch now records unavailability before re-raising cancellation;
+coalesced waiters do not publish failures. Actual Redis red1 fail / green1 pass;
+fresh complete backend48 PASS on disposable and restored normal Docker runtime.
+The eight-second acquisition wait_for and existing <9s wall-time tolerance remain
+unchanged. Original astronomy mounts restored and preservation PASS; the earlier
+wrong-mount test attempt is excluded from normal-runtime qualification.
+Earth5a3bc/Sky source and bytes are unchanged, so completed24+43 browser proof
+below remains applicable; no renderer rebuild/browser rerun for this backend-only
+correction. Technically qualified for owner review subject to actual final-head
+checks/threads; human/device/live qualification remains pending. PR67 unmerged.
+
+2026-10-09 final client-backoff correction preserves original motion/omission,
+current-contact priority, shared retry-header and missing-unavailable fixes.
+An actual pinned red reproduced premature acquisition during a 120-second lease;
+the adapter now passes valid route Retry-After to unchanged God's Eye ingestion
+and schedules from its existing retry deadline. The approved 30-second minimum
+remains for shorter residual leases; recovery restores ordinary cadence and
+disable cancels the scheduled poll. Generic PollingLayer/upstream unchanged.
+New Earth 5a3bc34c independently reproduces 513 files / 37 inputs; installed and
+all 512 Earth / 96 unchanged Sky HTTP payloads pass preview/normal verification.
+Fresh 25 focused / 108 runtime, 229 frontend, and 48 backend tests on each Docker
+environment pass. Complete fresh 24-aircraft + 43-existing-feature browsers pass,
+zero failures/skips/retries and exact current listing-ID coverage. Fresh cap
+profiles retain CPU/event reductions; four complete earlier 13-cohort campaigns
+remain historical. Software frame tails and dense glyph overlap remain limitations.
+Exact 81 volumes, datastore identities/mounts, owner state, pin and durable
+bf176/f43/4429/da140 plus owner ca124 rollback payloads preserved. Normal five
+services running; only three owned qualification services stopped. PR67 OPEN.
+**TECHNICALLY QUALIFIED FOR OWNER REVIEW — HUMAN QUALITY REVIEW PENDING;
+LIVE OPERATIONAL READINESS BLOCKED**, subject to actual final-head GitHub snapshot.
+Live regional availability/capacity/count UNKNOWN; historical503 only, no new
+live aircraft probe, OpenSky agreement required. Next: owner exact-head/source/
+evidence review, physical-device checklist on 5a3bc and authorized regional
+access/availability/capacity qualification. No merge, worldwide/OpenSky activation
+or C5.7-B/C/D/E/C6.
+
 Date: 2026-10-08. **Canonical planning reference; NOT blanket execution authorization.**
 PROJECT_STATE and LIVE_SESSION_BRIEF control active work. Approved architecture
 is [ADR0009](../architecture/decisions/0009-owned-earth-feature-reuse.md).
@@ -193,12 +281,12 @@ must record explicit owner choice; proposed defaults are not approval.
 **Current Hub / entrypoints:** `createFlightsAdapter / admitAircraft / entityRenderer / fetch_aircraft`; [`backend/app/routes/earth.py`](../../backend/app/routes/earth.py); [`runtimes/earth-runtime/layers/GodsEyeFlightsAdapter.mjs`](../../runtimes/earth-runtime/layers/GodsEyeFlightsAdapter.mjs); [`runtimes/earth-runtime/layers/data.mjs`](../../runtimes/earth-runtime/layers/data.mjs); [`runtimes/earth-runtime/layers/entities.mjs`](../../runtimes/earth-runtime/layers/entities.mjs); [`runtimes/earth-runtime/layers/PollingLayer.mjs`](../../runtimes/earth-runtime/layers/PollingLayer.mjs); [`runtimes/earth-runtime/core/LayerRegistry.mjs`](../../runtimes/earth-runtime/core/LayerRegistry.mjs); [`runtimes/earth-runtime/core/SelectionStore.mjs`](../../runtimes/earth-runtime/core/SelectionStore.mjs); [`runtimes/earth-runtime/core/CameraController.mjs`](../../runtimes/earth-runtime/core/CameraController.mjs)
 **Pinned upstream:** OpenSky worldwide snapshot with observer/view-anchored ADSB.lol fallback; enrichment and track backfill; geometric/barometric/ground policy, delayed motion, LOD/model budgets and follow camera. [Exact modules/functions/stages](../audits/GODS_EYE_IMPLEMENTATION_TRACES_2026-10-05.md).
 **Current relationship / risk:** HUB IMPLEMENTATION QUESTIONABLE / CRITICAL.
-**Runtime status / evidence:** Code exists; Hub 503 and zero aircraft at 15.62-million-m home height; upstream accepted 12,975 worldwide contacts. Altitude gate independently explains invisible contacts if a feed succeeds. **Missing/different from upstream:** OpenSky and fallback chain, view anchor/250-NM fallback, history/motion interpolation, enrichment, heading/classification, aircraft tracking, global contact display. Aircraft glyph hidden above 2,000,000 m and its point never shown. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
-**Bug versus scope versus unverified:** Confirmed code display gate; separate503provider observation; observer coverage intentional; motion/fallback usability incomplete.
+**Runtime status / evidence:** C5.7-A implements bounded settled-camera100NM coverage, qualified upstream records/ingestion, bracketed delayed motion and glyph/point LOD. [Current fixture qualification and live blocker](../validation/C5_7_A_AIRCRAFT_RECOVERY_EVIDENCE.md). The following remains the historical audit baseline: Code exists; Hub 503 and zero aircraft at 15.62-million-m home height; upstream accepted 12,975 worldwide contacts. Altitude gate independently explains invisible contacts if a feed succeeds. **Missing/different from upstream:** OpenSky and fallback chain, view anchor/250-NM fallback, history/motion interpolation, enrichment, heading/classification, aircraft tracking, global contact display. Aircraft glyph hidden above 2,000,000 m and its point never shown. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).
+**Bug versus scope versus unverified:** Recovery removes the active high-altitude gate and observer lock; source success remains blocked. Historical audit finding: Confirmed code display gate; separate503provider observation; observer coverage intentional; motion/fallback usability incomplete.
 **Provider/credential/license/distribution:** Audit provider/data gate: GATED. OpenSky research/education versus public/commercial service approval; ADSB.lol ODbL and quota stewardship. [Per-source constraints](../audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md); source code MIT is separate.
 **Remediation pattern / phase:** WRAP UPSTREAM; Phase C2 explicitly bounded one 100-NM observer feed, typed transport and geometric-height truth. Those remain valid safety constraints; Viewer ownership does not justify discarding all fleet display/motion/fallback behavior. Proposed target: C5.7.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#c57-a--aircraft-operational-recovery); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
-**Unresolved owner decision:** OD1.
+**Unresolved owner decision:** OD1 B-first regional package approved by owner 2026-10-08; worldwide Option C acquisition, agreement/accounts/costs/budgets remain unapproved. OD2–OD6 remain unresolved.
 
 ## local-adsb — Local ADS-B / RTL-SDR receiver
 
@@ -940,3 +1028,5 @@ must record explicit owner choice; proposed defaults are not approval.
 **Remediation pattern / phase:** KEEP CURRENT; Source normalized UTC, unknown values retained as unavailable. Proposed target: C5.7.
 **Acceptance required:** [Applicable package/common source/error/cleanup/artifact gates](C5_7_EARTH_CORE_RECOVERY_SPEC.md#c57-c--weather-usability); known fixture counts plus actual useful rendering/source success/coverage when applicable. For deferred/absent capability, create its own owner-approved bounded spec first; shared gates do not authorize it.
 **Unresolved owner decision:** Future phase/package approval; current justified behavior retained.
+
+Final normal-stack attestation guard caught the preserved owner development metadata (ca124) beside the current f2ad1 Earth payload. Switching only the command to preview then exposed that the image intentionally had no compiled dist: metadata returned404 and the supplemental smoke failed waiting for the Hub. Both setup attempts and the sandbox-denied guard attempt are retained/excluded. The private normal-preview.yml now selects compiled preview and mounts the already-qualified owned frontend/dist read-only. Owner files/configuration and original astronomy mounts remain unchanged. Final normal4173 attestation plus all512Earth/96Sky payload hashes PASS; a clean fixture-only503 supplemental smoke passes1/1 with zero skips/retries. This extra case is separate from the fresh26aircraft+43existing campaign. Normalfive services are running;81volumes and datastore/owner/mount preservation reverified. The compiled preview override lives in the private evidence archive; normal dev startup would again select owner metadata unless the owner explicitly chooses the qualified preview override.
