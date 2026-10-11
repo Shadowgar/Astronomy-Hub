@@ -6,18 +6,19 @@ Only one bounded implementation package may be active at a time.
 Package headings A–E remain a catalog, not the approved execution order.
 
 Owner approved the visual-first order on 2026-10-10: **C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather**.
-PR #69 is merged; its Earth-from-space appearance is owner-accepted. Current
-active work is **C6-0 research, provider qualification, adoption planning and
-documentation only**, separately authorized 2026-10-11. C6-1 imagery integration,
-C6-2 terrain, C6-3 detail and later implementation remain NOT AUTHORIZED; each
-package needs separate owner approval. Unfinished C5.7 physical-device, provider,
-science and integrated qualification gates remain open.
+PR #70 is merged at `3e8276b705143b03af2c71658e8bc513d39b8e94`. The owner
+separately authorized **C6-1A imagery-only implementation and local qualification**
+on 2026-10-11. C6-2 terrain, C6-3 detail and later implementation remain
+NOT AUTHORIZED; each package needs separate owner approval. Unfinished C5.7
+physical-device, provider, science and integrated qualification gates remain open.
 
-Provider spending is mandatory **$0**. No accounts, tokens, billing or subscriptions.
-Cesium ion Community is conditional until written club/public-use eligibility and
-zero-charge protection are established; it is not an approved provider. Reuse
-qualified God's Eye/Cesium functionality rather than rebuilding it. No new assets,
-dependencies, pin updates, full upstream Viewer factory or scientific star catalog.
+Provider spending is mandatory **$0**. No account/token creation, billing or
+subscriptions. The owner assumes nonprofit PEMA/PASDA and ion Community use
+permitted **for local development only**; verified public-release rights remain
+outstanding. Ion requires explicit opt-in, a qualifying existing publishable token,
+account-side zero-charge protection and bounded usage; absent these, fixtures only.
+Reuse pinned God's Eye/Cesium exports; no new dependency, pin update, full upstream
+Viewer factory or scientific star catalog.
 PR #67 is closed/unmerged; preserve its branch/head/evidence for deferred work.
 No production/SSH/Cloudflare deployment.
 
@@ -229,6 +230,7 @@ known gaps. Completed bounded packages do not equal full God's Eye parity, globa
 weather, validated astronomical passes or production readiness. Owner approval
 of this specification activates nothing by itself unless it explicitly authorizes
 the named package and decisions. PR #69 is now merged with owner acceptance of appearance from space. Current
-next action is separately authorized C6-0 qualification/planning/docs, then STOP
-for owner C6-1A approval; C6-1 implementation remains unauthorized.
+next action is the separately authorized C6-1A imagery package after PR #70
+merge, then STOP for owner actual-mapping visual/merge review. Later packages
+remain unauthorized.
 C5.7-E integrated completion and physical-device qualification are not claimed.

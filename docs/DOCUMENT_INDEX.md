@@ -154,13 +154,14 @@ LIVE_SESSION_BRIEF identifies the current task. C5.6.5 audit evidence is complet
 C5.6.75 is a historical documentation checkpoint superseded by merged PR #68.
 The owner-approved order is C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 →
 preserved PR #67 → separately authorized satellites and Weather. PR #69 is merged
-and its appearance from space is owner-accepted. Only C6-0 research/provider
-qualification/adoption planning/docs are active under separate 2026-10-11 approval.
-Close-up imagery belongs to C6; C6-1 code and later implementation remain unapproved.
+and its appearance from space is owner-accepted. PR #70 is merged; C6-1A
+imagery-only implementation/local qualification is separately owner-authorized.
+Its merge, terrain/3D and later implementation remain separately gated.
 Closed/unmerged PR #67 work is retained in the project tracker; unfinished C5.7
 gates remain open. The roadmap activates no later package.
-Provider spending is $0; Cesium ion Community remains conditional on written
-club/public-use eligibility and zero-charge protection.
+Provider spending is $0. Owner assumes PEMA/ion nonprofit eligibility for local
+development only; public-release permission remains unverified. Ion dispatch still
+requires explicit opt-in, existing token and account-side zero-charge protection.
 D ISS → E planetary surfaces → F astronomy extensions
 → G immersive UX → H solar-system scale remain planned with separate approval.
 `oras_horizon.v1` stays in F. No WordPress, DESI or production integration is active.

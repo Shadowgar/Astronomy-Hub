@@ -26,3 +26,22 @@ test('timeout reports provider failure even when cancellation suppresses Cesium 
  let failures=0;const provider={requestImage:()=>new Promise(()=>{})},guard=boundImageryRequests(provider,{timeoutMs:10,onError:()=>failures++});
  await assert.rejects(provider.requestImage(0,0,0,{cancel(){this.state=4}}),/timed out/);assert.equal(failures,1);guard.stop();
 });
+
+test('cached provider guard pauses reversibly without dispatch or late callbacks',async()=>{
+ let calls=0;const provider={requestImage:()=>{calls++;return Promise.resolve('tile')}};
+ const guard=boundImageryRequests(provider);guard.pause();assert.equal(provider.requestImage(),undefined);assert.equal(calls,0);guard.resume();await provider.requestImage();assert.equal(calls,1);guard.stop();guard.resume();assert.equal(provider.requestImage(),undefined);
+});
+test('shared budget limits all hosts/providers and refunds scheduler-undefined requests',async()=>{
+ const {createImageryBudget}=await import('../../runtimes/earth-runtime/core/imageryRequests.mjs');
+ let now=0;const budget=createImageryBudget({clock:()=>now,globalLimit:2,hostLimit:1});
+ const tasks=[],make=host=>{const p={requestImage:()=>{const d=deferred();tasks.push(d);return d.promise}};return {p,g:boundImageryRequests(p,{budget,host})}};
+ const a=make('a'),b=make('a'),c=make('b');const one=a.p.requestImage();assert.equal(b.p.requestImage(),undefined);const two=c.p.requestImage();assert.equal(budget.stats.active,2);tasks[0].resolve('x');tasks[1].resolve('x');await Promise.all([one,two]);assert.equal(budget.stats.active,0);a.g.stop();b.g.stop();c.g.stop();
+ const blocked={requestImage:()=>undefined};const guard=boundImageryRequests(blocked,{budget,host:'c'});for(let i=0;i<20;i++)assert.equal(blocked.requestImage(),undefined);assert.equal(budget.stats.requested,2);guard.stop();
+});
+
+test('429 stops the whole host until explicit cooldown retry; unauthorized hosts never retry',async()=>{
+ const {createImageryBudget}=await import('../../runtimes/earth-runtime/core/imageryRequests.mjs');let now=0;const b=createImageryBudget({clock:()=>now});b.block('eox',{statusCode:429,retryAfter:600});assert.equal(b.take('eox'),null);now=300000;assert.equal(b.retryHost('eox'),false);now=600000;assert.equal(b.eligible('eox'),false);assert.equal(b.retryHost('eox'),true);b.block('ion',{statusCode:403});now=1e9;assert.equal(b.retryHost('ion'),false);
+});
+test('a provider session cap counts accepted SDK requests, with no dispatch beyond cap',async()=>{
+ let used=0,dispatched=0,limits=0;const p={requestImage:()=>{dispatched++;return Promise.resolve('image')}};const g=boundImageryRequests(p,{canDispatch:()=>used<2,onDispatch:()=>used++,onLimit:()=>limits++});await p.requestImage();await p.requestImage();assert.equal(p.requestImage(),undefined);assert.equal(used,2);assert.equal(dispatched,2);assert.equal(limits,1);g.stop();
+});

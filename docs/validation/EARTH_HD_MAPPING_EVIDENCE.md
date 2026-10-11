@@ -407,3 +407,337 @@ report does not claim independent owner approval. Category B limits follow.
 Next HD action after this package: owner review of this PR, then a separately
 bounded decision on a project-approved global imagery account/provider. Do not
 start that package or merge this branch without owner review.
+
+
+## C6-1A local imagery qualification — 2026-10-11
+
+This is the owner-authorized imagery-only implementation on branch
+`c6-1a-global-imagery-adoption-1`, based on verified merged main
+`3e8276b705143b03af2c71658e8bc513d39b8e94`. PR #70 passed eight checks and
+zero unresolved threads at exact head `5f7748cbccc8473c371d710b466b0c1395f6ae01`
+before the explicitly authorized merge. Its duplicate-local-layer P2 and prior
+retry/ledger corrections are preserved. Earlier sections of this file describe
+historical C5 artifacts; they do not describe this candidate or activate terrain.
+
+Local implementation/technical qualification is separate from owner visual
+acceptance, merge approval, physical-device qualification and public release.
+Single author review; no independent reviewer is claimed. Mandatory new provider
+spending is $0. No subscriptions, account/token creation, deployment, SWE rebuild,
+terrain/3D activation, dataset/volume migration or new dependency occurred.
+
+### Actually executed source and ownership
+
+Pin `e7707d9a0f34d9fbffc300023c319f95caa5be30` is clean and unchanged;
+Earth Cesium remains 1.138.0. Actual public imports execute `maps/controller`
+(MapSourceController), `maps/defaults` (filtered createDefaultMapSources),
+`maps/catalog` and `maps/imagery` (fixture-qualified createIonImagery). The public
+controller executes registry/credits transitively. Default OSM imagery factory
+is reused with empty credential inputs and without its terrain/setup entries.
+NASA/EOX/NAIP/PEMA use native Cesium factories. No full upstream app/Viewer import.
+Terrain modules included transitively in defaults are not activated.
+
+Registry: `nasa`, `eox-2016`, `usgs-naip`, `pema`, `osm`; optionally admitted `ion`.
+`defaultId=unknownId=nasa`, `recoveryId=null`. `local` is a Hub wrapper state,
+never a managed factory. Exactly one permanent bundled Natural Earth layer sits
+at index0, at most one managed remote at index1, optional owned labels at index2,
+and independent event overlays above imagery with their relative order retained.
+Public setStack/subscribe/destroy own switching and lifecycle. No removeAll,
+private upstream-controller mutation or replacement switching engine.
+
+Fallback is PEMA → eligible NAIP → EOX2016 → NASA → existing local base;
+OSM/ion → NASA. Geography can skip ineligible sources. Terminal local/total failure
+exceptionally disposes the map controller, guards/listeners/labels and its layer,
+while preserving Viewer/base/camera/events/bridge. Healthy caches survive ordinary
+switches and eligible rejected-factory or tile-error retries. Only an explicit
+retry of a successfully cached construction fallback requires remote-controller
+recreation; remote caches are lost and bounded refetch follows. No second local
+provider. Failed sources stay latched across camera movement until explicit
+eligible Retry. 401/403 are not retried; 429 waits max(5min,Retry-After).
+
+Auto uses altitude hysteresis and whole-view coverage; manual choice survives
+Earth/Sky recreation for the browser-tab session until Auto. Metadata identifies
+selected versus actual source, status, acquisition/product, native GSD, limits and
+credits. Camera/scene UTC is separate from imagery acquisition time.
+
+| Source | Actual admission/product |
+| --- | --- |
+| Natural Earth | One bundled global safety base; cartography, public domain |
+| NASA | Existing GIBS static Blue Marble, nominal500m, maxL8; no current-photo claim |
+| EOX | Exact 2016 cloudless mosaic, nominal10m, maxL14, ±85.051°; EOX/CC BY4.0 |
+| NAIP | Native WMS1.3/3857, minL3/maxL18; verified whole-view CONUS footprint required; prior ORAS 2022-06-23/0.6m, unknown dates/GSD elsewhere |
+| PEMA/PASDA | MapServer tiles, minL13/maxL20, verified ORAS interior only; prior ORAS tile2022/0.1524003m, exact flight day unknown; PEMA/PASDA/NV5 credits |
+| OSM | Actual upstream raster factory with facade maxL18; manual streets, not aerial imagery; OSM contributors |
+| Optional ion | Actual upstream factory, maxL18; explicit selected/configured asset; SDK asset/provider credits retained; fixtures only here |
+
+PEMA bounds `[-79.6009,41.3051,-79.5654,41.3319]` are verified inside official
+raster43001460PAN/OBJECTID6697. The one ordinary geometry integration request and
+small normalized fixture are documented in the active C6 specification; no
+statewide eligibility or new provider research is inferred. NAIP alpha no-data at
+close levels triggers fallback; partially empty close tiles are marked partial.
+Transparent low-level overview tiles may legitimately expose the safety base.
+Other CONUS close views may request ≤1 bounded footprint query/minute, ≤32/runtime,
+20s/1MiB; unverified/failed footprint requests retain global imagery.
+
+Shared tile bounds: six active/runtime, four/host (EOX+labels share it), two NAIP,
+PEMA or ion; two starts/sec, burst6; 12s tile and20s factory timeout. When ion is
+active the global limit tightens to4 because tile hosts are opaque. Cached guards
+pause reversibly, cancel pending tiles, suppress late callbacks and release slots.
+The Cesium layer reload callback is retained only on capped OSM/ion facades, with
+SDK attachment/removal compatibility proved after a reproduced failing case.
+No bulk prefetch/download/mirror/offline pack/service-worker/proxy cache.
+
+Ion is not active: no qualifying live token/account/protection was supplied or
+created. Admission requires explicit opt-in, an existing attested publishable
+browser token, imageryAsset, independently attested account-side zero-charge
+protection, and cap1–120 accepted tile requests. Usage persists across renderer
+recreation in tab storage; storage failure disables dispatch. Factory/SDK behavior
+and cap accounting are deterministic fixture evidence only. Token presence,
+client limits and the owner local-development eligibility assumption do not prove
+account billing protection, aggregate quota compliance or public-use permission.
+
+### Local preview and actual visual proof
+
+Working preview: `http://127.0.0.1:4198/earth?date=2026-10-11T17%3A00%3A00Z`.
+Standalone: `http://127.0.0.1:4198/earth-runtime/?orasProof=1`.
+Gallery: `http://127.0.0.1:4198/gallery/`.
+Only task-owned container `oras-c61a-owner-preview` publishes loopback4198;
+configuration `/tmp/c6-1a-global-imagery-20261011/nginx-preview.conf` mounts own
+frontend/artifact/gallery read-only and uses existing read-only service surfaces.
+The `.mjs` MIME setting is confined to this preview container. To resume this
+existing preview, `docker start oras-c61a-owner-preview`; to stop it, stop only
+that named container. No owner volumes or production configuration changes.
+
+Screenshots/JSON: `output/playwright/c6-1a` in the isolated worktree. Scene UTC
+2026-10-11T17:00:00Z, matched1440×900/DPR1, numeric camera vectors/pose, renderer,
+source/product/date/GSD/attribution, actual fallback, request ledger and page errors
+are captured. Each `candidate-<scene>.json` and `baseline-<scene>.json` records its
+artifact/input manifest. `captures.json` and `index.html` provide the comparison.
+Candidate uses an explicit loopback-only camera/state proof seam, absent unless
+`orasProof=1`; no Viewer object is exposed through the product bridge.
+
+Baseline is preserved C5.7-D artifact822b1bae, served at4191. Its original compiled
+bundle is hashed and only camera/time commands are appended in the disposable
+capture browser; imagery/Viewer/render behavior and disk artifact are unchanged.
+This instrumentation is disclosed in each baseline metadata file. Intermediate
+captures and failures are retained in `initial`, `pre-session`, `pre-sdk-reload`
+and the scratch logs; they are not promoted to final-artifact proof.
+
+Required views: full Earth/NASA, North America/EOX2016, ORASwide1500m andclose350m/
+PEMA Auto, NYC1500m/EOX fallback, Paris1500m/EOX, ocean1500m/EOX without regional HD.
+Separate same-camera ORAS NAIP and PEMA comparisons record actual source/fallback;
+NAIP timed out and the final comparison displays EOX; PEMA settled successfully.
+Earlier NAIP attempts remained loading. None is relabeled as a successful aerial
+capture. EOX provides global mapping but enlarges dated10m pixels at urban close
+zoom; this is not universal sub-meter imagery. PEMA shows clear local roads,
+building, pads and trees at ORAS. Owner acceptance of the actual images is OPEN.
+
+### Reproducible artifact and preservation
+
+Final Earth artifact: `a7be44c773d245f69ce38cd291275d43a7e8b5b06f065fe857e2e9cf4edc9eef`.
+Source-input manifest: `63bb97c9d08e4acf888d38dd107ac75fbc089d802e0d457cb3856078b2461978`.
+Two independent pinned Node24.14.0 Docker builds produce identical release/file
+manifests:512 served files,11,820,351 bytes,111 dependency licenses. Installed
+artifact is verified against source inputs and lock/runtime metadata; every
+served byte is checked over local HTTP. Vite's existing >500kB Cesium chunk
+warning remains; no build failure or dependency upgrade is hidden.
+
+Merged-main C5.7-D822b1bae and rollbackca124164 remain preserved, along with all
+intermediate task artifacts. Sky artifact remains
+`b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d` without rebuild.
+No changes to ViewerController, CameraController, EarthRuntime, RuntimeBridge,
+VisualFoundation, protocol, SWE source/artifact, backend/science/catalog data,
+provider probe ledger, context routing, dependency manifests or default config.
+Preservation comparison proves68 original container IDs/configuration/state and81
+volume identities/mountpoints unchanged; only the named task preview container
+was added. Docker's presentation-order differences are normalized, not described
+as mutations. Owner checkout remains dirty only at `.vscode/settings.json`, hash
+`6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+PR #67 stays CLOSED/unmerged at `ebdad3124fe470e3a09e369d3a56e998f29740fb`.
+
+### Commands and results
+
+Commands run from the isolated repository unless a frontend cwd is shown. Raw
+logs, red/green attempts, manifests and preservation proof are in
+`/tmp/c6-1a-global-imagery-20261011`; copied handoff evidence is in gallery
+`qualification/`. Document/manifest/link checks PASS:55 checkpoint Markdown files,1441 relative
+references,8 packs,67 capability records,51 source entrypoints,413 audit links and
+60 heading fragments; whitespace PASS. File hashes and committed source binding make capture lineage
+reviewable without repeating provider probes.
+
+```bash
+# Existing pinned upstream must be available; never substitute another pin.
+docker run --rm --network none --read-only --tmpfs /tmp \
+  -v "$PWD:/hub:ro" -v /var/tmp/oras-cesium/gods-eye:/var/tmp/oras-cesium/gods-eye:ro \
+  -w /hub node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8 \
+  sh -c 'node --test --test-isolation=none $(find tests/earth -maxdepth 1 -name "*.test.mjs" ! -name export-boundary.test.mjs | sort)'
+node tests/earth/export-boundary.test.mjs
+# Existing backend image, readonly source, network none, PYTHONDONTWRITEBYTECODE=1:
+python -m pytest tests/validation/test_architecture_manifest.py tests/validation/test_reconciliation_docs.py tests/test_local_earth_artifact.py -q -p no:cacheprovider
+npm --prefix frontend run type-check
+npm --prefix frontend run test -- tests/workspace.test.tsx tests/workspaceRuntimeAdapter.test.ts tests/skyEngineImportBoundary.test.js
+# frontend cwd, installed preview; separate targeted runs retained:
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4198 npx playwright test tests/e2e/earthGlobalImagery.spec.ts --workers=1 --output=/tmp/c6-1a-global-imagery-20261011/browser-sdk-results
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4198 npx playwright test tests/e2e/earthGlobalImagery.spec.ts --grep 'actual upstream OSM' --workers=1 --output=/tmp/c6-1a-global-imagery-20261011/browser-osm-qualified-results
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4198 npx playwright test tests/e2e/earthAppearance.spec.ts --workers=1 --output=/tmp/c6-1a-global-imagery-20261011/browser-appearance-qualified-results
+# Independent builds (n=1,2):
+GODS_EYE_SOURCE=/var/tmp/oras-cesium/gods-eye ORAS_EARTH_OUT=/tmp/c6-1a-global-imagery-20261011/earth-qualified-1 bash scripts/runtime/build_owned_earth.sh
+GODS_EYE_SOURCE=/var/tmp/oras-cesium/gods-eye ORAS_EARTH_OUT=/tmp/c6-1a-global-imagery-20261011/earth-qualified-2 bash scripts/runtime/build_owned_earth.sh
+python3 scripts/runtime/record_runtime_versions.py /tmp/c6-1a-global-imagery-20261011/earth-qualified-1
+python3 scripts/runtime/earth_artifact.py install --source /tmp/c6-1a-global-imagery-20261011/earth-qualified-1
+python3 scripts/runtime/earth_artifact.py verify
+npm --prefix frontend run build
+C6_CAPTURE_VARIANTS=candidate node scripts/validation/earth-mapping/capture.mjs
+python3 /tmp/c6-1a-global-imagery-20261011/served-proof.py
+python3 /tmp/c6-1a-global-imagery-20261011/preservation.py
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+git diff --check
+```
+
+Results: DockerEarth61PASS/0FAIL/0SKIP; host export1PASS; backend/doc/artifact26PASS
+plus36subtests; focused frontend9PASS/3files; typecheck/buildPASS. Final-artifact
+source/browser regression3PASS plus corrected SDK/labels1PASS (4total). The first
+OSM browser failure reproduced the SDK facade reload incompatibility; a subsequent
+layer-order assertion at a full-Earth view correctly encountered EOX geographic
+fallback. Corrected test uses an admitted regional view; both failed attempts are
+retained. Final appearance/navigation gate: 4PASS/0FAIL (desktop/mobile stars/missing-face fallback and five serial Sky/Earth cycles each); eight final-artifact browser cases total.
+
+Focused red/green additionally covers cancellation of an old paused SDK provider,
+latched Auto failure after cooldown, rejected factory retry versus cached
+successful construction fallback, listener/resource cleanup, shared budgets,
+401/403/429, one local layer, footprints, durable session usage and ion factory
+fixtures. Historical `earthHdMapping.spec.ts` is retained behind explicit
+`ORAS_LEGACY_HD_ARTIFACT=1` for its preserved artifact contract; it was not run or
+counted as current qualification. Current mapping tests replace its old provider
+assumptions. No full browser campaign, physical phone/GPU, live ion, public
+capacity/load, production or provider-permission qualification is claimed.
+Initial host Python lacked pytest; read-only existing backend-image execution
+passed. An omitted upstream Docker mount, host child-process sandbox restriction
+and host Node22 unsupported isolation flag were corrected in the authoritative
+commands; failed attempts remain in scratch and are not counted as passes.
+
+### Changed files and context declaration
+
+Only these bounded source/UI/tests/artifact metadata/authority/evidence files
+changed; no fixture masquerades as live visual proof:
+
+- `AGENTS.md`
+- `docs/DOCUMENT_INDEX.md`
+- `docs/MASTER_PLAN.md`
+- `docs/README.md`
+- `docs/context/LIVE_SESSION_BRIEF.md`
+- `docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md`
+- `docs/execution/C6_GLOBAL_MAPPING_SPEC.md`
+- `docs/execution/EARTH_CAPABILITY_PLAN.md`
+- `docs/execution/MASTER_PLAN.md`
+- `docs/execution/PROJECT_STATE.md`
+- `docs/features/FEATURE_TRACKER.md`
+- `docs/validation/EARTH_HD_MAPPING_EVIDENCE.md`
+- `frontend/public/runtime-versions.json`
+- `frontend/src/features/workspace/DiagnosticsSurface.tsx`
+- `frontend/tests/e2e/earthGlobalImagery.spec.ts`
+- `frontend/tests/e2e/earthHdMapping.spec.ts`
+- `integrations/renderers.lock.json`
+- `runtimes/earth-runtime/core/AdmittedMapSources.mjs`
+- `runtimes/earth-runtime/core/ImageryController.mjs`
+- `runtimes/earth-runtime/core/ImagerySelectionPolicy.mjs`
+- `runtimes/earth-runtime/core/LocalVisualProof.mjs`
+- `runtimes/earth-runtime/core/displayConfig.mjs`
+- `runtimes/earth-runtime/core/imageryRequests.mjs`
+- `runtimes/earth-runtime/core/imagerySession.mjs`
+- `runtimes/earth-runtime/entry.mjs`
+- `runtimes/earth-runtime/index.html`
+- `runtimes/earth-runtime/style.css`
+- `scripts/runtime/record_owned_earth.py`
+- `scripts/validation/earth-mapping/capture.mjs`
+- `tests/earth/admitted-map-sources.test.mjs`
+- `tests/earth/display-config.test.mjs`
+- `tests/earth/imagery-controller.test.mjs`
+- `tests/earth/imagery-policy.test.mjs`
+- `tests/earth/imagery-requests.test.mjs`
+- `tests/earth/imagery-session.test.mjs`
+- `tests/earth/page-lifecycle.test.mjs`
+- `tests/fixtures/earth/pema-oras-footprint.json`
+
+Context loaded in Default Mode: always CORE/LIVE, then manifest union
+`docs_change` + `frontend_change` + `validation` (58 documents). Governing
+`AGENTS.md`, `docs/context/CONTEXT_MANIFEST.yaml` and the explicitly required JSON
+probe ledger were also read. No full docs scan or extra document outside this
+context set was used. Exact initially loaded hashes are retained in
+`qualification/context.json`. The loaded document list follows:
+
+- `docs/context/CORE_CONTEXT.md`
+- `docs/context/LIVE_SESSION_BRIEF.md`
+- `docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md`
+- `docs/DOCUMENT_INDEX.md`
+- `docs/DOC_INVENTORY.md`
+- `docs/validation/SYSTEM_VALIDATION_SPEC.md`
+- `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md`
+- `docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md`
+- `docs/validation/UNIFIED_RUNTIME_COMPATIBILITY_EVIDENCE.md`
+- `docs/validation/CESIUM_EARTH_PHASE_C_EVIDENCE.md`
+- `docs/validation/EARTH_CAPABILITY_EXPANSION_EVIDENCE.md`
+- `docs/validation/EARTH_HD_MAPPING_EVIDENCE.md`
+- `docs/architecture/ARCHITECTURE_OVERVIEW.md`
+- `docs/architecture/ENGINE_SPEC.md`
+- `docs/architecture/ENGINE_CATALOG.md`
+- `docs/architecture/OBJECT_MODEL.md`
+- `docs/architecture/DATA_CONTRACTS.md`
+- `docs/architecture/INGESTION_STRATEGY.md`
+- `docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md`
+- `docs/execution/PROJECT_STATE.md`
+- `docs/execution/MASTER_PLAN.md`
+- `docs/README.md`
+- `docs/MASTER_PLAN.md`
+- `docs/product/PRODUCT_VISION.md`
+- `docs/architecture/STACK_OVERVIEW.md`
+- `docs/ASTRONOMY_HUB_DIAGRAM.md`
+- `docs/features/FEATURE_CATALOG.md`
+- `docs/features/FEATURE_TRACKER.md`
+- `docs/architecture/decisions/0001-universal-application-state.md`
+- `docs/architecture/decisions/0002-swe-sky-renderer.md`
+- `docs/architecture/decisions/0003-gods-eye-earth-runtime.md`
+- `docs/architecture/decisions/0004-additive-earth-extensions.md`
+- `docs/architecture/decisions/0005-cesium-planetary-direction.md`
+- `docs/architecture/decisions/0006-controlled-renderer-handoffs.md`
+- `docs/architecture/decisions/0007-immutable-upstream-source.md`
+- `docs/architecture/decisions/0008-provider-licensing-boundaries.md`
+- `docs/execution/EARTH_CAPABILITY_PLAN.md`
+- `docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md`
+- `docs/execution/C6_GLOBAL_MAPPING_SPEC.md`
+- `docs/architecture/decisions/0009-owned-earth-feature-reuse.md`
+- `docs/audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md`
+- `docs/audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md`
+- `docs/audits/EARTH_CAPABILITY_RECONCILIATION_INPUT_2026-10-05.md`
+- `docs/audits/GODS_EYE_IMPLEMENTATION_TRACES_2026-10-05.md`
+- `docs/audits/GODS_EYE_PUBLIC_EXPORT_AUDIT_2026-10-05.md`
+- `docs/audits/GODS_EYE_PROVIDER_FORENSICS_2026-10-05.md`
+- `docs/audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md`
+- `docs/validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md`
+- `docs/audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md`
+- `docs/audits/EXTERNAL_COMPONENTS_AND_DATA_GAPS_2026-10-10.md`
+- `docs/audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md`
+- `docs/audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md`
+- `docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md`
+- `docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md`
+- `docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md`
+- `docs/architecture/TONIGHT_CONTRACT.md`
+- `docs/features/FEATURE_EXECUTION_MODEL.md`
+- `docs/features/FEATURE_ACCEPTANCE.md`
+
+### Owner handoff and stop gate
+
+Review the working Hub preview and comparison gallery; decide whether global
+NASA/datedEOX views, PEMA ORAS detail, manual/Auto transitions and conservative
+unverified-region fallback are acceptable. Review NAIP's actual timeout/partial
+behavior and the deliberate source/request caps. PEMA release rights and live ion
+account/protection remain unverified; owner local-development assumption is not
+public-release proof. Software Chromium/ANGLE SwiftShader desktop/mobile viewport
+proof is not physical-device or hardware-GPU qualification. Weather/fire/radar
+ordering and Earth/Sky state contracts remain preserved; inherited provider
+unavailability is recorded without claiming those services were repaired.
+
+Open one C6-1A implementation PR after final checks. DO NOT MERGE. Stop for owner
+actual-mapping visual review and separate merge approval. C6-2 terrain and C6-3
+3D require separate packages/authorization; do not begin them or further provider
+research from this handoff.

@@ -7,28 +7,31 @@ reported, not repaired by forcing runtime into stale docs. **SINGLE AGENT ONLY.*
 ## Current mode and authorized scope
 
 Owner approved the visual-first order on 2026-10-10: **C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather**.
-PR #69 is merged; its Earth-from-space appearance is owner-accepted. Current
-active work is **C6-0 research, provider qualification, adoption planning and
-documentation only**, separately authorized 2026-10-11. C6-1 imagery integration,
-C6-2 terrain, C6-3 detail and later implementation remain NOT AUTHORIZED; each
-package needs separate owner approval. Unfinished C5.7 physical-device, provider,
-science and integrated qualification gates remain open.
+PR #70 is merged at `3e8276b705143b03af2c71658e8bc513d39b8e94`. The owner
+separately authorized **C6-1A imagery-only implementation and local qualification**
+on 2026-10-11. C6-2 terrain, C6-3 detail and later implementation remain
+NOT AUTHORIZED; each package needs separate owner approval. Unfinished C5.7
+physical-device, provider, science and integrated qualification gates remain open.
 
-Provider spending is mandatory **$0**. No accounts, tokens, billing or subscriptions.
-Cesium ion Community is conditional until written club/public-use eligibility and
-zero-charge protection are established; it is not an approved provider. Reuse
-qualified God's Eye/Cesium functionality rather than rebuilding it. No new assets,
-dependencies, pin updates, full upstream Viewer factory or scientific star catalog.
+Provider spending is mandatory **$0**. No account/token creation, billing or
+subscriptions. The owner assumes nonprofit PEMA/PASDA and ion Community use
+permitted **for local development only**; verified public-release rights remain
+outstanding. Ion requires explicit opt-in, a qualifying existing publishable token,
+account-side zero-charge protection and bounded usage; absent these, fixtures only.
+Reuse pinned God's Eye/Cesium exports; no new dependency, pin update, full upstream
+Viewer factory or scientific star catalog.
 PR #67 is closed/unmerged; preserve its branch/head/evidence for deferred work.
 No production/SSH/Cloudflare deployment.
 
-Isolated branch `c6-0-free-global-mapping-qualification-1` starts at verified main
-`0a231b24d208dc250214c737277a50dcc73d4e70` (PR #69 merged at approved head
-`7e7019db373f8c03baf7b693e7a06ca1a891a5db`). Commit/push/open one documentation PR;
-DO NOT MERGE. Current [C6-0 qualification and C6-1 proposal](C6_GLOBAL_MAPPING_SPEC.md)
-uses PR #68's reuse register and prior ORAS comparison. No comparison repeat,
-renderer/artifact rebuild, new dependency or runtime change. STOP for owner
-approval of source selection and the named C6-1A implementation package.
+Isolated branch `c6-1a-global-imagery-adoption-1` starts at verified PR #70 merge
+`3e8276b705143b03af2c71658e8bc513d39b8e94`. Implement the bounded
+[C6-1A package](C6_GLOBAL_MAPPING_SPEC.md#active-c6-1a-imagery-package--2026-10-11)
+through the PR #68 adoption exports, preserving the qualified Hub Viewer and Sky.
+Commit/push/open one implementation PR; DO NOT MERGE. Matching browser proof and
+bounded Earth artifact qualification precede handoff; stop for owner visual review.
+Candidate Earth `a7be44c773d245f69ce38cd291275d43a7e8b5b06f065fe857e2e9cf4edc9eef` (inputs `63bb97c9d08e4acf888d38dd107ac75fbc089d802e0d457cb3856078b2461978`),
+with two identical Docker builds and exact installed/served bytes.
+[Current mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-local-imagery-qualification--2026-10-11) records results and remaining gates.
 
 ## Verified merged baseline and environment
 
@@ -36,7 +39,7 @@ PR 63 merged: `126da1537c734de817d9f9c59468d995807da37c` (Oct 5),
 PR 64 merged: `521ffb27b16a31dfc9964260f98f89331b9e42d0` (Oct 5),
 PR 65 merged: `bb28aec7833d154c2f0b3b7fa7470d69a93c84b4` (Oct 7), approved head: `d73588f13fbfa6366fcc6784dae8d5f336599ce5`.
 PR #68 merged at `eea3e295ed5d234edae9053b3119f61e15e8371b`; PR #69 merged;
-verified main `0a231b24d208dc250214c737277a50dcc73d4e70`. PR #67 is closed/unmerged,
+PR #70 merged at verified main `3e8276b705143b03af2c71658e8bc513d39b8e94`. PR #67 is closed/unmerged,
 with work/evidence preserved. Completed bounded
 checkpoint history below is evidence-backed, not global feature readiness.
 Local laptop WSL/Docker only. `npm run dev:local` is ordinary startup. Preserve
@@ -46,7 +49,7 @@ Production/SSH/Cloudflare/oras.org/storage/deployment decisions are deferred unt
 owner-declared Release Candidate with separate approval; no current feature blocker.
 
 Current Sky artifact `b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`;
-current Earth `822b1baeb933636cc5570077e905b57a029ea003902173b48142e0bbaf8fa552`;
+merged-main Earth baseline `822b1baeb933636cc5570077e905b57a029ea003902173b48142e0bbaf8fa552`;
 Earth rollback `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`;
 external God's Eye `e7707d9a0f34d9fbffc300023c319f95caa5be30` unchanged.
 [Audit handoff](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md) records source/installed/served hash verification
@@ -88,7 +91,7 @@ a package does not establish all feature parity, global coverage or production r
 | C5.6.5 — capability/implementation audit | Completed evidence, preserved in `09495238` | [Canonical audit](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md); dated Oct 7/8 snapshot, provider/live uncertainties retained. |
 | C5.6.75 — reconciliation | Historical documentation checkpoint, superseded by merged PR #68 | [Reconciliation evidence](../validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md); historical evidence retained. |
 | C5.7 — core recovery | D merged, bounded space appearance accepted; closed A/PR #67 preserved; B/C/E gates remain outstanding | [C5.7 spec](C5_7_EARTH_CORE_RECOVERY_SPEC.md); visual-first order, one package active at a time; artifacts requalified when inputs change. |
-| C6 — global HD/terrain/3D | C6-0 docs qualification active; C6-1+ not implemented/authorized | [C6 plan](C6_GLOBAL_MAPPING_SPEC.md); provider/account/cost/coverage qualification before provider-specific code. |
+| C6 — global HD/terrain/3D | C6-0 merged; C6-1A imagery implemented locally; final evidence/owner visual acceptance gate; C6-2+ unapproved | [C6 plan](C6_GLOBAL_MAPPING_SPEC.md); provider/account/cost/coverage qualification before provider-specific code. |
 | D — ISS handoff | Planned | Identity/time/frame/observer/focus science qualification; separate bounded owner authorization. |
 | E — Mars/body surfaces | Planned | Body/radii/datum/imagery/terrain rights proof, Mars first; Earth data cannot be relabeled. |
 | F — astronomy extensions | Planned | Source-backed science/UTC/visibility/coverage; horizon remains unimplemented; no fake observing metrics. |
@@ -98,23 +101,24 @@ a package does not establish all feature parity, global coverage or production r
 ## Planning references and next action
 
 Owner approved the visual-first order on 2026-10-10: **C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather**.
-PR #69 is merged; its Earth-from-space appearance is owner-accepted. Current
-active work is **C6-0 research, provider qualification, adoption planning and
-documentation only**, separately authorized 2026-10-11. C6-1 imagery integration,
-C6-2 terrain, C6-3 detail and later implementation remain NOT AUTHORIZED; each
-package needs separate owner approval. Unfinished C5.7 physical-device, provider,
-science and integrated qualification gates remain open.
+PR #70 is merged at `3e8276b705143b03af2c71658e8bc513d39b8e94`. The owner
+separately authorized **C6-1A imagery-only implementation and local qualification**
+on 2026-10-11. C6-2 terrain, C6-3 detail and later implementation remain
+NOT AUTHORIZED; each package needs separate owner approval. Unfinished C5.7
+physical-device, provider, science and integrated qualification gates remain open.
 
-Provider spending is mandatory **$0**. No accounts, tokens, billing or subscriptions.
-Cesium ion Community is conditional until written club/public-use eligibility and
-zero-charge protection are established; it is not an approved provider. Reuse
-qualified God's Eye/Cesium functionality rather than rebuilding it. No new assets,
-dependencies, pin updates, full upstream Viewer factory or scientific star catalog.
+Provider spending is mandatory **$0**. No account/token creation, billing or
+subscriptions. The owner assumes nonprofit PEMA/PASDA and ion Community use
+permitted **for local development only**; verified public-release rights remain
+outstanding. Ion requires explicit opt-in, a qualifying existing publishable token,
+account-side zero-charge protection and bounded usage; absent these, fixtures only.
+Reuse pinned God's Eye/Cesium exports; no new dependency, pin update, full upstream
+Viewer factory or scientific star catalog.
 PR #67 is closed/unmerged; preserve its branch/head/evidence for deferred work.
 No production/SSH/Cloudflare deployment.
 
-**NEXT ACTION: C6-0 documentation PR/owner provider and C6-1A proposal review.
-No merge or C6-1 implementation without separate approval.**
+**NEXT ACTION: C6-1A implementation PR and owner actual-mapping visual review.
+No C6-1A merge or C6-2 implementation without separate approval.**
 Local scope proof: [appearance evidence](../validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md).
 Merged Earth `822b1baeb933636cc5570077e905b57a029ea003902173b48142e0bbaf8fa552`;
 rollback identities above remain preserved. Physical/C5.7-E and other unfinished

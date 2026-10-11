@@ -1,6 +1,41 @@
 # LIVE SESSION BRIEF
 
-## Active C6-0 free global mapping qualification — 2026-10-11
+## Active C6-1A global imagery implementation — 2026-10-11
+
+Default Mode; SINGLE AGENT ONLY. PR #70 passed its exact-head merge gate and
+merged at `3e8276b705143b03af2c71658e8bc513d39b8e94`, the verified implementation
+base. Isolated branch `c6-1a-global-imagery-adoption-1`. The owner authorizes the
+[imagery-only C6-1A package](../execution/C6_GLOBAL_MAPPING_SPEC.md#active-c6-1a-imagery-package--2026-10-11),
+focused visual proof, bounded regression, deterministic Earth build/install/served
+identity, commit/push and one implementation PR. **DO NOT MERGE C6-1A.**
+The local implementation candidate is Earth `a7be44c773d245f69ce38cd291275d43a7e8b5b06f065fe857e2e9cf4edc9eef`,
+inputs `63bb97c9d08e4acf888d38dd107ac75fbc089d802e0d457cb3856078b2461978`; qualified baseline/rollback are preserved.
+[Mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-local-imagery-qualification--2026-10-11) contains exact commands, source seams, captures and limits.
+
+Provider spending is mandatory **$0**. No account/token creation, billing or
+subscriptions. The owner assumes nonprofit PEMA/PASDA and ion Community use
+permitted **for local development only**; verified public-release rights remain
+outstanding. Ion requires explicit opt-in, a qualifying existing publishable token,
+account-side zero-charge protection and bounded usage; absent these, fixtures only.
+Reuse pinned God's Eye/Cesium exports; no new dependency, pin update, full upstream
+Viewer factory or scientific star catalog.
+
+One permanent Natural Earth safety base; actual pinned public map controller,
+filtered defaults/catalog, native NASA/EOX 2016/NAIP/verified-ORAS PEMA, optional
+manual OSM/labels and fixture-qualified ion path. Manual selections and ion usage persist in browser-tab session storage;
+Auto uses coverage/hysteresis. Shared request budgets, truthful actual-source/date/
+GSD/credits, owned teardown and event ordering are mandatory. No provider-research
+repeat, SWE rebuild, terrain/3D, deployment or new account. Preserve science, owner
+settings, all prior artifacts/rollback/data/container/volume identities and closed
+unmerged PR #67. Roadmap order and unfinished acceptance gates are unchanged.
+
+**STOP for owner review of the actual mapping experience and separate merge
+approval. No C6-2 or C6-3 work follows automatically.** The dated C6-0 record below
+is preserved history; its earlier unapproved-development gate is superseded only
+by this named owner authorization. Release permission and physical acceptance are
+not established by local development or software browser emulation.
+
+## Historical C6-0 free global mapping qualification — 2026-10-11
 
 Default Mode; SINGLE AGENT ONLY. Owner authorizes **C6-0 research, provider
 qualification, adoption planning and documentation only**. Verified main
@@ -37,10 +72,10 @@ God's Eye `e7707d9a0f34d9fbffc300023c319f95caa5be30` unchanged.
 **STOP for owner source/plan/PR approval before C6-1 implementation.** Real
 screenshots must be owner-approved before any later implementation merge.
 
-## Historical PR #69 finalization record — superseded by current C6-0 authorization
+## Historical PR #69 finalization record — superseded by current C6-1A authorization
 
 The unchanged dated records below retain prior active/open-PR/stop-point language;
-they are historical and do not override the current C6-0 scope above.
+they are historical and do not override the current C6-1A scope above.
 
 ## Active C5.7-D / PR #69 documentation finalization — 2026-10-11
 

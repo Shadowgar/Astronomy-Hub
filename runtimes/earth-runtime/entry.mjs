@@ -3,6 +3,7 @@ import './style.css';
 import {EllipsoidalOccluder} from 'cesium';
 import {EarthRuntime} from './core/EarthRuntime.mjs';
 import {RuntimeBridge} from './core/RuntimeBridge.mjs';
+import {installLocalVisualProof} from './core/LocalVisualProof.mjs';
 let runtime,bridge,starting,stopping,leaving=false;
 function stop(){bridge?.close();return stopping??=(runtime?.destroy()??Promise.resolve());}
 function start(){
@@ -20,6 +21,7 @@ async function initialize(){
  try{runtime=new EarthRuntime();await runtime.initialize();
   if(leaving||runtime.lifecycle.closed){await stop();return;}
   bridge=RuntimeBridge(runtime);bridge.ready();
+  installLocalVisualProof(runtime);
   // Serializable lifecycle evidence; no renderer objects exposed to the Hub.
   window.orasEarthVisibleTargets=()=>{if(runtime.viewer.isDestroyed())return [];const viewer=runtime.viewer,occluder=new EllipsoidalOccluder(viewer.scene.globe.ellipsoid,viewer.camera.positionWC);return viewer.entities.values.filter(entity=>entity.orasMetadata&&entity.show).flatMap(entity=>{const point=entity.position?.getValue(viewer.clock.currentTime);if(!point||!occluder.isPointVisible(point))return [];const screen=viewer.scene.cartesianToCanvasCoordinates(point);return screen?[{id:entity.id,name:entity.name,kind:entity.orasMetadata.layerId,x:screen.x,y:screen.y}]:[]})};
   window.orasEarthDiagnostics=()=>({owner:'Astronomy Hub',ready:runtime.ready,disposed:runtime.lifecycle.closed,viewerDestroyed:runtime.viewer.isDestroyed(),site:{...runtime.site},layers:runtime.registry.snapshot(),providers:Object.fromEntries(runtime.providerStatus.values),entityCount:runtime.viewer.isDestroyed()?0:runtime.viewer.entities.values.length,timings:{...runtime.timings},cameraHeightM:runtime.viewer.isDestroyed()?null:runtime.viewer.camera.positionCartographic.height,tracking:runtime.viewer.isDestroyed()?null:runtime.viewer.trackedEntity?.id??null,selection:runtime.selectionMetadata,quality:runtime.visual?.quality,imagery:runtime.visual?.imagery.diagnostics()});

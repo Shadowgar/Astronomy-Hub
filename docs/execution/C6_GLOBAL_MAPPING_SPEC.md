@@ -1,5 +1,116 @@
 # C6 — Google-Earth-Class Global Mapping
 
+## Active C6-1A imagery package — 2026-10-11
+
+PR #70 merged at `3e8276b705143b03af2c71658e8bc513d39b8e94` after exact-head
+`5f7748cbccc8473c371d710b466b0c1395f6ae01` passed all eight checks and all three
+review threads were resolved. The owner separately authorizes imagery-only local
+implementation/qualification, commit/push and one implementation PR. **Do not
+merge that PR. Stop for owner actual-mapping visual review.** No C6-2 terrain,
+C6-3 geometry, deployment, account/token creation or charges are authorized.
+
+The owner explicitly assumes nonprofit PEMA/PASDA and ion Community eligibility
+for **local development**. Missing written eligibility does not block this named
+implementation. This establishes neither public-release permission nor financial
+authority. Mandatory new provider spending is **$0**. Ion remains opt-in only:
+existing publishable attested token, selected asset, separately attested reliable
+account-side zero-charge protection and explicit session tile cap (1–120) are all
+required. A token alone never enables it; default config is keyless. No live ion
+qualification is claimed without that account arrangement. Browser tile limits
+cannot guarantee global capacity, aggregate quota compliance or zero charges.
+
+### Implemented ownership and source seams
+
+Reuse the PR #68 adoption blueprint's immutable pin and actual public exports:
+`maps/controller`, `maps/defaults`, `maps/catalog`, `maps/imagery`. The filtered
+OSM descriptor/factory comes from `createDefaultMapSources` with empty credentials;
+terrain/setup/tileset entries are stripped. NASA/EOX/NAIP/PEMA use native Cesium
+WMS/UrlTemplate factories. Optional ion invokes the actual pinned
+`createIonImagery` only through the admitted opt-in path. Registry and credit
+modules execute transitively inside the public map controller. The unexported UI
+module is not imported; Hub DOM controls adapt public setStack/subscribe/getState.
+Upstream source/pin is unchanged; no complete application or second Viewer.
+The capped OSM/ion SDK facade accepts Cesium 1.138 layer-owned reload callback
+installation/removal on the facade itself. It does not write provider internals
+or upstream controller fields; real SDK/browser regression proves this lifecycle.
+
+Exactly one Hub-owned Natural Earth provider/layer is allocated per Viewer.
+Managed registry IDs: `nasa`, `eox-2016`, `usgs-naip`, `pema`, `osm`, plus optional
+admitted `ion`. `local` is exclusively the Hub terminal state, never a managed
+factory. `defaultId=unknownId=nasa`, `recoveryId=null`. At most one managed remote
+layer is raised above the safety base; optional labels are independently owned
+above imagery and below independent event layers. No removeAll/private-field
+writes. Natural Earth remains unchanged through local/failure/recovery.
+
+Fallback: PEMA → NAIP → EOX 2016 → NASA → existing local safety base; OSM/ion →
+NASA. Coverage admission can skip NAIP/EOX when ineligible. Local or total remote
+failure invalidates wrapper callbacks, removes owned guards/listeners/labels and
+calls public controller.destroy once. Later eligible recovery creates only a new
+map controller. Normal switching and successful cached-provider tile retries keep
+healthy caches. Rejected factory promises are evicted by upstream; normal eligible
+retries keep the controller. A **successfully cached construction fallback** needs
+an explicit exceptional controller recreation after cooldown to retry the original
+factory, since the pin has no public single-entry eviction. This loses remote
+caches and causes bounded refetch, never another local provider. Cancellation
+errors emitted by a paused old SDK provider cannot tear down a replacement.
+
+### Admission, imagery truth and bounds
+
+Auto starts from the approved 1.5/2 Mm NASA/EOX and 150/250 km NAIP hysteresis;
+PEMA close-view entry/exit is 20/30 km but requires the entire view inside its
+verified ORAS interior rectangle. Manual mode persists in browser-tab session storage through Earth/Sky recreation
+until Auto; coverage can
+substitute fallback without replacing the user's choice. Ion/OSM are never Auto
+dependencies. Manual PEMA outside its admitted coverage follows NAIP/global.
+
+PEMA coverage is bounded to an interior rectangle of raster `43001460PAN`,
+OBJECTID6697: −79.6009/41.3051/−79.5654/41.3319. One ordinary selected-service
+geometry request on 2026-10-11 qualified all four corners; the small response is
+retained in `tests/fixtures/earth/pema-oras-footprint.json`. This is integration
+coverage evidence, not another provider research/audit or statewide permission.
+The response SHA256 was `a5520292bbbefffdce23b1d3f3da247051fe596901d1dd50d28f67fcd5113148`;
+URL: `https://maps.pasda.psu.edu/ArcGIS/rest/services/PEMAImagery2021_2023cache/MapServer/2/query?f=json&where=OBJECTID%3D6697&outFields=OBJECTID%2CName%2CLowPS&returnGeometry=true&outSR=4326`.
+At ORAS, PEMA tile year2022/native0.1524003m and prior NAIP matched-image
+2022-06-23/native0.6m are carried forward; no new flight-day inference. Elsewhere
+NAIP dates/GSD remain unknown. EOX is explicitly the 2016/nominal10m mosaic;
+NASA is a static nominal500m composite, not current photography.
+
+NAIP Auto requires a footprint containing the whole view; its prior ORAS polygon
+is seeded from existing evidence. Other settled CONUS close views may make one
+bounded point query/minute (20s,1MiB), at most32 active-runtime records; failures keep
+global imagery. No regional request outside geographic admission. NAIP WMS uses
+1.3.0/EPSG:3857/transparent PNG; low-level transparent overview tiles are expected
+and retain the safety base. Fully transparent close tiles (L12+) trigger no-data
+fallback; partially transparent close tiles are marked partial. No claim of global
+or uniformly aerial HD. PEMA missing/error tiles fall back. Native min/max levels:
+NASA0/8, EOX0/14, NAIP3/18, PEMA13/20, public OSM facade cap18, optional ion facade
+cap18, optional EOX labels cap12/defaultOFF. These caps do not manufacture GSD.
+
+Shared remote bounds remain ≤6/runtime, ≤4/host including EOX+labels, ≤2 NAIP
+(and PEMA/ion), ≤2 starts/sec with burst6,12s tile timeout,20s factory timeout.
+When ion is active the global bound tightens to4 because its tile hosts are opaque.
+401/403 stop the host for the active-runtime session; no unauthorized retry.429 stops the whole
+host until explicit retry after max(5min,Retry-After); other failures have≥60s
+source cooldown plus a latched circuit breaker: elapsed time/camera movement
+never retries a failed source; the explicit Retry action reopens the eligible
+selected source. Even a cached fallback provider cannot dispatch while latched.
+Guards pause reversibly on switching and stop at owned teardown. Ion accepted-tile
+usage also survives renderer recreation in the same tab; unavailable/failed session
+storage disables ion. This ledger is not an account quota or billing guarantee.
+No prefetch, mirror, offline pack, service worker or new proxy cache. Allowlist cache
+maximum is five remote providers, or six with explicitly admitted ion, plus one
+optional label provider; one remote layer is active. Provider-specific HTTP caches
+remain authoritative. First usable ≤5s and frame targets remain qualification
+criteria, not asserted outcomes; report actual network/software-renderer limits.
+
+The original C6-0 qualification/proposal below is preserved **historical evidence**.
+Its no-implementation/no-PEMA/no-ion development statements describe the earlier
+scope and are superseded only by this named owner authorization. The probe ledger,
+source recommendation, prior retry correction and unfinished acceptance gates
+remain evidence; no research repeat or new audit follows from this package.
+
+## Historical C6-0 authorization and proposal
+
 **C6-0 QUALIFICATION AUTHORIZED — NO PROVIDER-SPECIFIC IMPLEMENTATION AUTHORIZED.**
 Date: 2026-10-10. C5.7-D appearance comes first; C6-0 through C6-5 precede
 resumed C5.7-A/PR #67 review and separately approved satellite/Weather packages.

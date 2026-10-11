@@ -40,14 +40,15 @@ PR #68; PR #69 is merged at `0a231b24d208dc250214c737277a50dcc73d4e70`.
 
 The approved order is C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 →
 preserved PR #67 → separately authorized satellites and Weather. The owner accepted
-C5.7-D's appearance from space; only C6-0 research/qualification/planning/docs are
-currently authorized. C6-1 implementation and later packages remain unapproved.
+C5.7-D's appearance from space. PR #70 is merged; C6-1A imagery-only local
+implementation/qualification is now separately authorized. Its merge and all
+later packages remain unapproved. PEMA/ion eligibility is assumed for local
+development only; $0 spending and ion account-side protection remain mandatory.
 Close-up imagery deficiencies belong to C6. The roadmap activates no later package;
-outstanding C5.7 gates remain open. C6 direction is approved, provider-specific
-work is unapproved. Spending remains $0; Cesium ion Community is conditional on
-written club/public-use eligibility and zero-charge protection. The next proposed
-C6-0 task is [free global mapping qualification](execution/C6_GLOBAL_MAPPING_SPEC.md#next-proposed-c6-0-task),
-followed by separately authorized integration through existing God's Eye code.
+outstanding C5.7 gates remain open. Only the named C6-1A provider scope is active;
+public-release eligibility and owner acceptance remain open. The next proposed
+task is [C6-1A imagery integration](execution/C6_GLOBAL_MAPPING_SPEC.md#active-c6-1a-imagery-package--2026-10-11)
+through the existing pinned God's Eye exports. Stop for owner visual review.
 D ISS, E body-aware Mars/surfaces, F astronomy
 extensions (including `oras_horizon.v1`), G immersive UX and H solar-system scale
 remain planned. No feature work begins from these documents.
@@ -61,7 +62,7 @@ do not scan the full docs tree. [DOCUMENT_INDEX](DOCUMENT_INDEX.md) separates
 execution control, architecture, evidence and product reference.
 `execution/MASTER_PLAN.md` is product reference only. Runtime completion follows
 [SYSTEM_VALIDATION_SPEC](validation/SYSTEM_VALIDATION_SPEC.md) and Docker/browser
-proof; this documentation checkpoint claims no fresh feature qualification.
+proof; documentation references alone establish no fresh feature qualification.
 
 ```text
 Scope → Engine → Filter → Scene → Object → Detail → Assets
