@@ -75,7 +75,7 @@ future freshness option, not an aerial-detail substitute.
 
 | ID / classification | Coverage, date and effective detail | Exact access / use evidence and remaining limits |
 | --- | --- | --- |
-| `local` — **ELIGIBLE — VERIFIED $0** | Existing bundled Natural Earth II, global cartographic raster; not photography, no property acquisition date or aerial GSD | Existing `/earth-runtime/cesium/Assets/Textures/NaturalEarthII` TMS. Public-domain data; no external service/account/quota. Preserve SDK/data notices. [Terms](https://www.naturalearthdata.com/about/terms-of-use/). |
+| `local` — **ELIGIBLE — VERIFIED $0**, Hub terminal state outside the managed registry | Existing bundled Natural Earth II, global cartographic raster; not photography, no property acquisition date or aerial GSD | Exactly one permanent provider/layer at `/earth-runtime/cesium/Assets/Textures/NaturalEarthII`, owned independently by the Hub. No second local factory in MapSourceController. Public-domain data; no external service/account/quota. Preserve SDK/data notices. [Terms](https://www.naturalearthdata.com/about/terms-of-use/). |
 | `nasa` — **ELIGIBLE — VERIFIED $0** | Existing global static Blue Marble shaded-relief/bathymetry, nominal 500 m; composite, not a current observation | Existing GIBS WMS `https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi`, layer `BlueMarble_ShadedRelief_Bathymetry`. Anonymous educational web use; acknowledge NASA, no endorsement or third-party-rights inference. [NASA policy](https://www.nasa.gov/nasa-brand-center/images-and-media/), [GIBS integration](https://nasa-gibs.github.io/gibs-api-docs/map-library-usage/). No ordinary numeric per-session quota/SLA established; no bulk acquisition. |
 | `eox-2016` — **ELIGIBLE — VERIFIED $0** | Sentinel-2 natural-colour cloudless mosaic, nominal 10 m source detail; metadata identifies **2016 product**, not the property's exact capture date. Web Mercator is limited to ±85.051129°; advertised global bounding box does not prove uniform photographic coverage or detail | Anonymous HTTPS WMTS/XYZ: `https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/{z}/{y}/{x}.jpg`. Cap proposed L14 (256px); retain NASA/local at poles/no data. Product-specific capabilities identify **CC BY 4.0**; provider explicitly invites application embedding with linked credits. [Capabilities](https://tiles.maps.eox.at/wmts/1.0.0/WMTSCapabilities.xml), [free access](https://cloudless.eox.at/pricing), [service permission](https://maps.eox.at/), [10 m product](https://cloudless.eox.at/documentation/introduction). One actual ORAS JPEG succeeded; no global visual campaign performed. |
 | `usgs-naip` — **ELIGIBLE — VERIFIED $0** | CONUS NAIP acquisition footprints, not worldwide or every ocean/urban pixel. Prior ORAS point and matching imagery prove 0.6 m, raster `m_4107944_nw_17_060_20220623`, acquisition **2022-06-23**; source dates/resolution vary elsewhere | `https://imagery.nationalmap.gov/arcgis/services/USGSNAIPImagery/ImageServer/WMSServer`, layer `USGSNAIPImagery:NaturalColor`; WMS 1.3.0 / EPSG:3857 / transparent PNG, 256px proposed L18 cap. Native Cesium WMS avoids an ImageServer REST adapter. The National Map permits public-domain/free map-service use and requests agency acknowledgement. [USGS terms](https://www.usgs.gov/faqs/what-are-terms-uselicensing-map-services-and-data-national-map). WMS path and exact image equality were already proved in the ORAS comparison. No numeric public-service SLA or sustained-load entitlement established. |
@@ -133,9 +133,9 @@ audit. Public source URLs are recorded in the PR #68 reuse register.
 | Pinned module / seam | Exact adoption / wrapper requirement |
 | --- | --- |
 | `src/maps/controller.js` / `gods-eye-view/maps/controller` | Instantiate `MapSourceController` with the **existing Hub Viewer**, filtered registry, initialStack, onChange/onError/requestRender and injected createImageryLayer; explicitly call setStack during initialization. Reuse generations, provider cache, fallback and destroy; never duplicate switching or import the app. `_cached()` evicts rejected promises; successful providers and successful construction-fallback resolutions remain cached. Keep the controller and healthy caches for ordinary retries; follow the distinct retry cases below. |
-| `src/maps/defaultSources.js` / `gods-eye-view/maps/defaults` | Obtain upstream descriptors/OSM factory composition with empty credentials, then copy only owner-selected raster entries. Remove terrain/tileset/setup routes and override defaultId/unknownId/recoveryId to admitted NASA/local. No calls to world/keyless terrain, Google, Esri or ion. Do not mutate upstream source or returned shared descriptors. |
-| `src/maps/catalog.js` / `gods-eye-view/maps/catalog` | Reuse immutable descriptor shape and the filtered OSM descriptor; append Hub-owned NASA/EOX/NAIP/local facts. Unselected descriptors are absent, not merely hidden while callable. |
-| `src/maps/imagery.js` / `gods-eye-view/maps/imagery` | Exact `createOsmImagery`, wrapped for level/request bounds; no Esri/ion invocation. NASA/NAIP/local reuse existing Hub native Cesium factories; EOX adds standard UrlTemplate factory configuration, no custom renderer. |
+| `src/maps/defaultSources.js` / `gods-eye-view/maps/defaults` | Obtain upstream descriptors/OSM factory composition with empty credentials, then copy only owner-selected remote raster entries. Remove terrain/tileset/setup routes; set defaultId/unknownId to `nasa` and recoveryId to `null` as specified below. `local` is a Hub state, never a managed factory or fallback ID. No calls to world/keyless terrain, Google, Esri or ion. Do not mutate upstream source or returned shared descriptors. |
+| `src/maps/catalog.js` / `gods-eye-view/maps/catalog` | Reuse immutable descriptor shape and the filtered OSM descriptor; append Hub-owned NASA/EOX/NAIP remote facts. Keep local safety-base facts separately in the wrapper. Unselected descriptors are absent, not merely hidden while callable. |
+| `src/maps/imagery.js` / `gods-eye-view/maps/imagery` | Exact `createOsmImagery`, wrapped for level/request bounds; no Esri/ion invocation. NASA/NAIP reuse existing Hub native Cesium factories; EOX adds standard UrlTemplate factory configuration. Allocate the existing Natural Earth safety provider/layer once outside this registry; no custom renderer or managed local factory. |
 | `src/maps/registry.js` | Internal dependency used transitively by the public controller; reuse duplicate/unknown/cycle rejection. Add wrapper checks for tileFailureFallback IDs/cycles as well as constructionFallback; the pinned index validates only the latter. |
 | `src/maps/credits.js` | Internal dependency used transitively; preserves source-following credits. Test pinned Cesium1.138 `scene.frameState.creditDisplay` compatibility and retain Hub AttributionManager as accessible, visible fallback if that private seam fails. Escape/static-allowlist credit markup; no fetched HTML. |
 | `src/ui/mapSourceControls.js` | Selection/subscription/generation and listener cleanup are reusable design, but this file has **no dedicated public export** at the immutable pin; do not bypass Vite's public-export guard. First package uses existing Hub DOM controls as a thin adapter to public controller getStacks/subscribe/setStack. Dedicated exact UI-module adoption needs a later approved generic export/patch seam; no pin update or full-app DOM import here. |
@@ -151,7 +151,7 @@ specification's exact source set/budgets and separate implementation authorizati
 | --- | --- |
 | `runtimes/earth-runtime/core/ImageryController.mjs` | Thin wrapper around public upstream controller; keep one bundled local safety layer, selected managed imagery, source facts, optional raster labels and diagnostics. Remove owned listeners/guards/layers on disposal; never removeAll or affect independent overlays. |
 | Proposed `runtimes/earth-runtime/core/AdmittedMapSources.mjs` | Filter upstream defaults/catalog, register qualified existing/new native factories, source facts and acyclic fallback; public max-level facade where factory has no bound. No account lookup, credential activation or remote registry discovery. |
-| Proposed `runtimes/earth-runtime/core/ImagerySelectionPolicy.mjs` | Small deterministic camera/coverage/hysteresis policy; chooses controller IDs, not another provider-switching engine. Manual source wins until explicit Auto. |
+| Proposed `runtimes/earth-runtime/core/ImagerySelectionPolicy.mjs` | Small deterministic camera/coverage/hysteresis policy; chooses admitted remote controller IDs or the Hub-owned local terminal state, not another provider-switching engine. Manual source wins until explicit Auto. |
 | `runtimes/earth-runtime/core/imageryRequests.mjs` | Preserve scheduler undefined-return/cancellation semantics; add reversible pause/resume and cancel-pending for cached source switches, permanent stop only at teardown, and shared admitted tile budget. Cached providers must be reusable without recreating Viewer. |
 | `runtimes/earth-runtime/core/VisualFoundation.mjs` | Wire wrapper into existing initialization/retry/quality; keep terrain and3D dormant for this package. Do not turn imagery selection into an ion/configuration approval path. |
 | `runtimes/earth-runtime/core/EarthRuntime.mjs`, `entry.mjs`, `index.html`, `style.css` | Mount an accessible source/Auto selector and optional label control, present source/product-year/GSD and status, expose diagnostics and dispose controls. Preserve camera/selection/bridge/scientific time. Source choice is session-local; no new Hub state contract. |
@@ -173,6 +173,65 @@ tile requests. The Hub wrapper controls per-provider requestImage admission,
 reversible pause/cancel on deactivation, and disposal; on late completion only the
 current generation may activate status/layers. Constructor/provider caches are
 limited by the fixed registry; no arbitrary source URLs/IDs can expand them.
+
+#### Single safety base and terminal local lifecycle
+
+Allocate **exactly one Natural Earth provider and layer per Viewer lifetime**,
+owned by the Hub independently of MapSourceController. Keep it visible beneath
+the managed remote imagery; controller creation, fallback, retry and recreation
+must never allocate or destroy it. The managed registry has exactly the remote
+IDs **`nasa`, `eox-2016`, `usgs-naip`, `osm`**. `local` remains available in the Hub
+selector/status model, but is not a registry descriptor, imagery factory,
+constructionFallback, tileFailureFallback, defaultId, unknownId or recoveryId.
+Set **defaultId = unknownId = `nasa`; recoveryId = `null`**. At this pin,
+`setStack()` checks `getStack(recoveryId)` before recovery, so null disables a
+second construction-recovery attempt; it does not create a local layer.
+
+The controller owns remote switching: both construction and tile-failure graphs
+use **usgs-naip → eox-2016 → nasa**, with manual OSM failure directed to NASA.
+NASA has no downstream controller fallback. Do not pass `local` to `setStack()`:
+an unknown ID would select unknownId/NASA, not detach imagery. The wrapper owns
+only the terminal transition **NASA unavailable → local**, using its existing
+factory/request diagnostics and public onChange/subscription results to identify
+the effective source and exhausted eligible fallbacks. A construction fallback
+that successfully activates EOX/NASA is not total failure; nor is a stale error
+from an older generation. Observe terminal NASA tile failure through the owned
+request guard/error listener; do not attach another remote switching engine or
+interpret the controller's returned ready status alone as construction success.
+Existing cooldown/host-stop gates prevent automatic re-entry to exhausted sources.
+
+There is **no public detach API** at the immutable pin. The valid terminal path
+uses [public destroy(), lines395–428](https://github.com/bilawalsidhu/gods-eye-view/blob/e7707d9a0f34d9fbffc300023c319f95caa5be30/src/maps/controller.js#L395-L428):
+invalidate the wrapper activation generation, unsubscribe its controller callbacks,
+stop/cancel owned remote request guards and remove owned layerAdded/error listeners,
+then call destroy() once and release that controller reference. It removes only
+its managed imagery layer through the controller's owned lifecycle, clears its
+subscriptions/credits/caches, aborts construction and disposes cached/late providers.
+Remove/dispose the separately owned label layer/guard through its own lifecycle
+and suspend labels in local mode. Never mutate private fields, call private
+`_removeImageryLayer()`, removeAll(), or manually detach a layer behind a live
+controller's cached reference. The permanent safety layer and existing event
+overlays remain in place; the Hub Viewer, camera, Sky bridge and state survive.
+
+Explicit user-selected **Local** uses this same terminal transition, pins manual
+local mode until a remote/Auto choice, and performs no new remote requests.
+Publish actual source `local`/Natural Earth with the failure reason or manual-mode
+status; remove only owned remote/label credits and retain safety-base/SDK and
+independent overlay attribution. Do not report the requested remote as displayed.
+Natural Earth reads/textures use the existing base only, with zero duplicate local
+requests. Other event-layer requests retain their independent contracts.
+
+Recovery from local requires an explicit eligible remote/Auto choice after the
+existing cooldown; recreate **only the map controller and its owned guards and
+listeners**, reuse the same remote registry, and call setStack(selectedRemoteId)
+once. Gate callbacks by the new wrapper generation, subscribe once and install
+only the selected managed layer above the same safety base. Restore optional
+labels only when user-enabled and eligible. Failed recovery returns to terminal
+local without recursion or automatic retries. This exceptional detach/recovery
+cost is loss of controller-owned remote caches/textures and later bounded refetch;
+it is not a Viewer/renderer rebuild or a second local provider. Normal
+remote-to-remote switching and ordinary eligible retries keep the existing
+controller and healthy caches, as specified below.
 
 #### Retry cases at the immutable pin
 
@@ -199,7 +258,10 @@ Record whether the action resumes tile loading, retries a rejected factory, or
 requests a fresh factory after a cached construction fallback. Never label a
 cached fallback re-selection as restored original imagery.
 
-The pin has **no public per-source cache invalidation method**. Only an explicit,
+The following retry cases apply while the remote controller remains live; recovery
+after terminal local disposal uses the distinct lifecycle above. The pin has
+**no public per-source cache invalidation method**. Among live-controller retries,
+only an explicit,
 eligible request for a **fresh original factory attempt after a cached successful
 construction fallback** may use exceptional map-controller/wrapper recreation,
 after cooldown, keeping the Hub Viewer, independent local safety layer, camera,
@@ -250,10 +312,16 @@ on that host** for the session, honour Retry-After and require explicit eligible
 retry after at least 5 min; never retry an unauthorized provider. Other failures
 get at least 60 s source cooldown. No polling/mirror/background warmup.
 
-The first registry contains only local/nasa/eox-2016/usgs-naip/osm. Keep the
+The first managed registry contains only nasa/eox-2016/usgs-naip/osm;
+local is exclusively the Hub terminal state using the one permanent safety base. Keep the
 existing cached USGS source in rollback; adding it later cannot silently increase
-the allowlist budget. Propose ≤5 lazily created source providers plus one permanent local provider and
-one optional label provider, bounded by the allowlist; no provider is constructed
+the allowlist budget. Allocate at most four lazily created remote source providers,
+exactly one permanent local provider/layer and at most one optional label provider/layer.
+Only one managed remote layer may be active; in local mode there are zero managed
+remote/label layers or their active tile requests. No duplicate local textures or
+overlapping old/new controller resources may inflate the existing texture budget;
+dispose the old owned generation before remote recreation. Bounded by the allowlist,
+no provider is constructed
 just to preview a picker. Warm-repeat/metadata cache ≤32 exact-view records in
 memory and one session; origin HTTP image caching remains authoritative. Target
 first usable imagery ≤5 s on representative broadband (fallback visible immediately)
@@ -286,6 +354,28 @@ Earth/Sky navigation and at least five serial renderer destruction/recreation
 cycles. Event/Weather/fire/quake overlays and scientific selection/time contracts
 must survive switching. Measure no late dispatched provider request after teardown,
 no revived layer/listener/timer, no growing provider/texture counts beyond caps.
+Additional **future C6-1A regression requirements**, not tests implemented here:
+
+1. Instrument Natural Earth construction/layer allocation: exactly one of each
+   per Viewer lifetime across initialization, all failures, Local selection and
+   repeated remote recovery; no managed registry entry can allocate another.
+2. Verify every selected remote layer sits above that exact safety-base identity
+   and below separately owned labels/event overlays.
+3. Exhaust eligible remote factories or terminal NASA tiles: destroy the owned
+   controller once and expose only the safety base in the base-imagery stack,
+   with no surviving failed remote/label layer or request loop.
+4. Confirm no duplicate local provider, tile fetch or texture allocation during
+   fallback/recovery; zero new managed imagery/label requests in Local mode.
+5. Recover after cooldown: one fresh remote activation above the unchanged base,
+   one set of subscriptions/error/layer listeners, and no old-generation callback.
+   Normal remote switching/rejected-factory retries still preserve healthy caches.
+6. Preserve Weather/radar/fire/quakes and other independent event layers, their
+   identities/order and credits, across local disposal and remote recovery.
+7. Verify requested versus actual source, failure/manual-local status and credits
+   reflect displayed imagery, including effective construction/tile fallbacks.
+8. At renderer teardown destroy the permanent base once through its Hub owner,
+   dispose all managed/label resources and prove no stale listener/request/texture.
+
 Run focused tests/visual proof first, correct failures, then established bounded
 Earth regression/artifact checks; preserve rollback and no production deployment.
 Desktop/mobile browser emulation does not establish physical-device acceptance.
