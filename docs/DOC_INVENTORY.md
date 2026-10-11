@@ -183,6 +183,13 @@ all other relative repository/source links remain mandatory.
 | `docs/validation/VALIDATION_CHECKLIST.md`   | SUPPORT        |
 | `docs/validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md` | SUPPORT — documentation checks and preservation, no feature proof |
 | `docs/audits/*2026-10-05*` | SUPPORT — eight immutable dated audit outputs; draft input is not execution authority |
+| `docs/audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md` | SUPPORT — owner-review adoption matrix; no implementation authority |
+| `docs/audits/EXTERNAL_COMPONENTS_AND_DATA_GAPS_2026-10-10.md` | SUPPORT — official-source code/data/provider alternatives and unresolved gates |
+| `docs/audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md` | SUPPORT — visual tiers, reuse paths and future owner/device acceptance |
+| `docs/audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md` | SUPPORT — proposed ordering only; approved execution controls unchanged |
+| `docs/audits/gods-eye-adoption-register-2026-10-10.json` | SUPPORT — v2 derivation of immutable historical inventory; recommendations separate from implementation |
+| `docs/audits/gods-eye-adoption-coverage-2026-10-10.json` | SUPPORT — source/asset discovery hashes; no asset admission or execution proof |
+| `docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md` | SUPPORT — exact context, checks and preservation handoff; no fresh visual proof |
 | `docs/validation/STYLING_AUDIT.md`          | SUPPORT        |
 | `docs/validation/EARTH_HD_MAPPING_EVIDENCE.md` | SUPPORT — provider investigation and local qualification |
 | `docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md` | SUPPORT — laptop workflow and measured local repair |
