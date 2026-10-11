@@ -45,7 +45,10 @@ Docker volumes/Postgres/Redis identities. No reset/clean/prune/migrations.
 Production/SSH/Cloudflare/oras.org/storage/deployment decisions are deferred until
 owner-declared Release Candidate with separate approval; no current feature blocker.
 
-Sky artifact `b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`; Earth `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`; external God's Eye `e7707d9a0f34d9fbffc300023c319f95caa5be30` unchanged.
+Current Sky artifact `b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`;
+current Earth `822b1baeb933636cc5570077e905b57a029ea003902173b48142e0bbaf8fa552`;
+Earth rollback `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`;
+external God's Eye `e7707d9a0f34d9fbffc300023c319f95caa5be30` unchanged.
 [Audit handoff](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md) records source/installed/served hash verification
 and the post-merge bounded Playwright smoke (`3 PASS`). Historical full campaigns are not rerun here.
 
