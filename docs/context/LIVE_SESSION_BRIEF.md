@@ -1,6 +1,6 @@
 # LIVE SESSION BRIEF
 
-## Active C5.7-D appearance checkpoint — 2026-10-10
+## Active C5.7-D / PR #69 documentation finalization — 2026-10-11
 
 Owner approved the visual-first order on 2026-10-10: **C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather**.
 Only **C5.7-D** is active: standard bundled Cesium stars, atmosphere and appearance
@@ -18,16 +18,25 @@ PR #67 stays open and unmerged; no production/SSH/Cloudflare deployment.
 
 Default Mode, SINGLE AGENT ONLY. Verified merged-main base
 `eea3e295ed5d234edae9053b3119f61e15e8371b` (PR #68 merged); isolated branch
-`c5-7-d-earth-appearance-1`. Commit/push/open a bounded PR; DO NOT MERGE.
+`c5-7-d-earth-appearance-1`, existing PR #69. The owner accepted the appearance
+from space; close-up imagery deficiencies belong to C6. Correct the P1 governing
+document conflict and literal plus signs, run bounded document/reference/authority
+and whitespace checks, then commit/push only those corrections. DO NOT MERGE.
+No new audits, imagery investigations, mapping experiments or unrelated features.
 Local bounded proof is recorded in [appearance evidence](../validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md).
-Stop for owner visual review before mapping, terrain or additional features.
+STOP for final owner merge approval before C6 or additional features.
+Next proposed task: [C6-0 free global mapping qualification](../execution/C6_GLOBAL_MAPPING_SPEC.md#next-proposed-c6-0-task),
+then separately authorized integration through existing God's Eye code using the
+merged PR #68 adoption blueprint and carried-forward ORAS findings; no repeat comparison.
 [PROJECT_STATE](../execution/PROJECT_STATE.md), [Earth plan](../execution/EARTH_CAPABILITY_PLAN.md),
 [C5.7 specification](../execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md) and
 [C6 plan](../execution/C6_GLOBAL_MAPPING_SPEC.md) govern the approved sequence.
 
 Preserve SWE/science, existing imagery/Weather/quakes/fire, navigation/protocol,
 owner settings, Docker volumes/datastores/mounts and all historical audit bytes.
-Only the new isolated Earth artifact and its identity metadata may be rebuilt.
+This correction changes no renderer inputs or artifact identity metadata. No
+rebuild or broad browser rerun is required under validation section 11 and the
+C5.7 artifact rules; historical runtime proof remains historical.
 Rollback Earth `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`,
 Sky `b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`,
 God's Eye `e7707d9a0f34d9fbffc300023c319f95caa5be30` remain preserved.

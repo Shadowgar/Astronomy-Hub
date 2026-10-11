@@ -2,10 +2,10 @@
 
 **APPROVED PRODUCT DIRECTION — PROPOSED STAGES; NO PROVIDER-SPECIFIC IMPLEMENTATION AUTHORIZED.**
 Date: 2026-10-10. C5.7-D appearance comes first; C6-0 through C6-5 precede
-+resumed C5.7-A/PR #67 review and separately approved satellite/Weather packages.
-+Only C5.7-D implementation is authorized. Provider spending is fixed at $0.
-+Cesium ion Community remains conditional until written club/public-use eligibility
-+and zero-charge protection are established. Paid providers are inadmissible.
+resumed C5.7-A/PR #67 review and separately approved satellite/Weather packages.
+Only C5.7-D implementation is authorized. Provider spending is fixed at $0.
+Cesium ion Community remains conditional until written club/public-use eligibility
+and zero-charge protection are established. Paid providers are inadmissible.
 This title describes intended user experience, not entitlement to Google Earth
 imagery or uniform aerial-scale resolution around the planet.
 
@@ -16,6 +16,35 @@ Read [Earth plan](EARTH_CAPABILITY_PLAN.md), [audit](../audits/GODS_EYE_CAPABILI
 Current bounded CONUS HD/coarse global fallback is qualified historical C5.5;
 terrain remains ellipsoid. Optional ion terrain/buildings/photo branches are
 dormant, not proof of active global terrain/3D.
+
+## Next proposed C6-0 task
+
+After PR #69 receives separate owner merge approval, propose a bounded **free
+global mapping qualification** task through existing God's Eye code. Follow the
+merged PR #68 [adoption blueprint](../audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md):
+qualify existing `MapSourceController` / `createDefaultMapSources` and standard
+Cesium imagery construction seams while preserving the Hub-owned Viewer, existing
+imagery, overlays, navigation, lifecycle and rollback identities. Reuse the prior
+ORAS comparison rather than repeating it. Record exact global service coverage,
+source dates/resolution, allowed public-club use, attribution, access/CORS,
+quotas/cache/distribution limits, $0 protection and current-imagery fallback before
+an owner-approved source selection. C6-1 integration needs separate authorization;
+no mapping provider is implemented or activated by PR #69 or this roadmap.
+
+Carried-forward ORAS findings (prior comparison, not fresh qualification here):
+
+| Source | Finding / remaining gate |
+| --- | --- |
+| PEMA/PASDA | Best confirmed regional detail; permission for intended public-club use remains outstanding. |
+| USGS NAIP | Broader free aerial imagery; eligible coverage/access and integration still need qualification for the selected global mapping package. |
+| 2024 Pennsylvania NAIP | Newer owner-identified candidate; access/integration unqualified; not tested in the prior comparison. |
+| NASA imagery | Global overview fallback; does not establish high-resolution aerial detail everywhere. |
+| Recent satellite imagery | Separate freshness option; not a replacement for high-resolution aerial imagery. |
+
+Provider spending remains mandatory **$0**. No accounts, tokens, subscriptions or
+billing are authorized. Cesium ion Community is conditional on written
+club/public-use eligibility and zero-charge protection. Regional sources do not
+establish global coverage. Terrain, 3D and later packages remain separately gated.
 
 ## Scope and ordered proposed stages
 

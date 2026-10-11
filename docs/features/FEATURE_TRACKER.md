@@ -48,11 +48,13 @@ FEATURE_ACCEPTANCE.md
 
 ---
 
-## Current Execution Checkpoint — 2026-10-10
+## Current Execution Checkpoint — 2026-10-11
 
 C0–C5.6 bounded implementation packages are complete; PRs #63/#64/#65 merged.
-Current work is owner-approved C5.7-D appearance following merged PR #68.
-[PROJECT_STATE](../execution/PROJECT_STATE.md) controls activation. Only C5.7-D is active, pending visual qualification and owner acceptance; C6 code
+Current work is C5.7-D / PR #69 documentation finalization following merged PR #68.
+[PROJECT_STATE](../execution/PROJECT_STATE.md) controls activation. Only C5.7-D is
+active; appearance from space is owner-accepted and PR #69 awaits final owner merge
+approval; C6 code
 is not authorized. Qualification is local WSL/Docker, not production or full feature parity.
 The matrix below separates seven proof gates. Historical means proof at the linked
 checkpoint, not freshly rerun here. NOT PROVEN preserves uncertainty; no failed
@@ -76,7 +78,7 @@ Evidence: [audit matrix](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIA
 | Clouds / mapped wind / lightning / cyclones / weather history — BLOCKED future | Upstream code available; no qualified Hub layer | No qualified mapped controls | No Hub acceptance | NOT PROVEN for Hub | NOT PROVEN | No advertised global coverage | Scope/provider/hooks/rights require owner authorization |
 | USGS earthquakes / NIFC fire perimeters — REAL bounded C5 | Validated event adapters | Exists | Historical DTO/time/geometry/error tests | Historical C5 qualified | Historical Docker/browser | Source-backed selected event products, not all environmental layers | Bounded C5 proof; source/display limitations retained |
 | Launches — BLOCKED | Source/adapter exists | Controlled unavailable | Historical failure handling | Launch Library403 | Live launch content NOT PROVEN | Unavailable, no fake launch | Provider access gate unresolved |
-| Earth standard skybox — PARTIAL owner/physical acceptance | Hub Viewer / Cesium standard skybox and SkyAtmosphere | Six existing faces loaded; missing-face fallback preserves Earth | Four matched views plus desktop/mobile and five teardown cycles; [C5.7-D proof](../validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md) | Bundled textures; no new provider | Stars and atmosphere locally visible | Visual background, not scientific stars or photoreal imagery/terrain | Owner visual acceptance and physical/Apple budgets remain open |
+| Earth standard skybox — PARTIAL physical acceptance | Hub Viewer / Cesium standard skybox and SkyAtmosphere | Six existing faces loaded; missing-face fallback preserves Earth | Four matched views plus desktop/mobile and five teardown cycles; [C5.7-D proof](../validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md) | Bundled textures; no new provider | Stars and atmosphere locally visible | Visual background, not scientific stars or photoreal imagery/terrain | Owner accepted appearance from space; physical/Apple budgets remain open |
 | CONUS HD imagery — REAL bounded C5.5 | Keyless USGS regional provider/fallback | Qualified source/camera UI | Historical bounded request/error proof | Historical C5.5 | Historical close-zoom browser proof | Regional HD + coarse global fallback; no global aerial-resolution claim | C5.5 accepted; provider rights/device/detail remain bounded |
 | Global HD / terrain / buildings / photorealistic3D — BLOCKED C6 | Dormant ion/map branches, not active services | No qualified global/terrain/3D product | No global acceptance | NOT PROVEN | Ellipsoid baseline, not qualified terrain | Global high detail and heights unavailable | Provider/account/budget/coverage/rights gates precede C6 work |
 | Sky wheel/search/deep-link controls — REAL bounded C5.6 | Native SWE inputs + Hub contracts | Both Sky surfaces | Historical regression/native-science proof | Audit smoke only; source coverage separate | Historical exact-head Docker/browser controls proof | Qualified existing catalogs, string IDs preserved | PR65 qualified bounded controls; cold search and coverage limits remain |

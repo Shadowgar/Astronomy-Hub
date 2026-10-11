@@ -1,6 +1,6 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
-Reconciled 2026-10-10. Validation→CORE→LIVE→manifest/index→this record govern
+Reconciled 2026-10-11. Validation→CORE→LIVE→manifest/index→this record govern
 work; MASTER_PLAN is non-execution product reference. Evidence conflicts are
 reported, not repaired by forcing runtime into stale docs. **SINGLE AGENT ONLY.**
 
@@ -20,8 +20,13 @@ qualified God's Eye/Cesium functionality rather than rebuilding it. No new asset
 dependencies, pin updates, full upstream Viewer factory or scientific star catalog.
 PR #67 stays open and unmerged; no production/SSH/Cloudflare deployment.
 
-Clean merged-main isolated branch `c5-7-d-earth-appearance-1`; commit/push/PR
-are authorized. Stop for owner visual review; no merge or next-feature coding.
+The isolated branch `c5-7-d-earth-appearance-1` / PR #69 is in documentation
+finalization. The owner accepted the planet appearance from space; close-up imagery
+deficiencies belong to C6. Only necessary documentation corrections and bounded
+checks are authorized now; no renderer/artifact changes or rebuild. Commit/push to
+PR #69, then STOP for final owner merge approval; no merge or C6 work.
+The next proposed step is [C6-0 free global mapping qualification](C6_GLOBAL_MAPPING_SPEC.md#next-proposed-c6-0-task)
+through existing God's Eye code, followed by separately authorized C6-1 integration.
 
 ## Verified merged baseline and environment
 
@@ -47,8 +52,10 @@ separate code/UI/fixture/live/render/scope/acceptance. Aircraft HTTP 503 is prov
 observation; observer coverage and altitude display gate are separate. Stations
 population/cap/15s refresh is intentional, not a proven missing-object bug. Point
 Weather works for one modeled location; radar is separate CONUS snapshot. Earth
-standard stars/atmosphere are the active C5.7-D task, awaiting visual qualification
-and owner acceptance; no scientific catalog claim.
+standard stars/atmosphere have local C5.7-D proof in the
+[appearance evidence](../validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md) and owner
+acceptance from space; PR #69 awaits final owner merge approval. Physical-device
+and other unfinished qualification gates remain open; no scientific catalog claim.
 CONUS historical HD/coarse global fallback/ellipsoid terrain/dormant ion branches
 remain. No full God's Eye parity/global weather/real terrain/production claim.
 Gaia DR3-scale/zoom-aware depth, deep photometry/coverage, DSO media, full-sky HD
