@@ -153,11 +153,12 @@ extensions remain planned. Product vision cannot override execution gates.
 LIVE_SESSION_BRIEF identifies the current task. C5.6.5 audit evidence is complete;
 C5.6.75 is a historical documentation checkpoint superseded by merged PR #68.
 The owner-approved order is C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 →
-preserved PR #67 → separately authorized satellites and Weather. Only C5.7-D
-implementation is authorized. Its appearance from space is owner-accepted; PR #69
-is in documentation finalization, awaiting final owner merge approval. Close-up
-imagery deficiencies belong to C6. C6 is approved direction, not implemented;
-the roadmap activates no later package and unfinished C5.7 gates remain open.
+preserved PR #67 → separately authorized satellites and Weather. PR #69 is merged
+and its appearance from space is owner-accepted. Only C6-0 research/provider
+qualification/adoption planning/docs are active under separate 2026-10-11 approval.
+Close-up imagery belongs to C6; C6-1 code and later implementation remain unapproved.
+Closed/unmerged PR #67 work is retained in the project tracker; unfinished C5.7
+gates remain open. The roadmap activates no later package.
 Provider spending is $0; Cesium ion Community remains conditional on written
 club/public-use eligibility and zero-charge protection.
 D ISS → E planetary surfaces → F astronomy extensions

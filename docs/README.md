@@ -29,7 +29,7 @@ production readiness. No owner Release Candidate or deployment is declared.
 ## Planning and review checkpoint
 
 C5.6.5 audit evidence is preserved. C5.6.75 is historical and superseded by merged
-PR #68. PR #69 is in documentation finalization, awaiting final owner merge approval.
+PR #68; PR #69 is merged at `0a231b24d208dc250214c737277a50dcc73d4e70`.
 [Earth capability plan](execution/EARTH_CAPABILITY_PLAN.md),
 [C5.7 proposed packages and Owner Decision Register](execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md),
 [C6 provider-first proposal](execution/C6_GLOBAL_MAPPING_SPEC.md),
@@ -39,8 +39,9 @@ PR #68. PR #69 is in documentation finalization, awaiting final owner merge appr
 [reconciliation validation](validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md).
 
 The approved order is C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 →
-preserved PR #67 → separately authorized satellites and Weather. Only C5.7-D is
-authorized for implementation; the owner accepted its appearance from space.
+preserved PR #67 → separately authorized satellites and Weather. The owner accepted
+C5.7-D's appearance from space; only C6-0 research/qualification/planning/docs are
+currently authorized. C6-1 implementation and later packages remain unapproved.
 Close-up imagery deficiencies belong to C6. The roadmap activates no later package;
 outstanding C5.7 gates remain open. C6 direction is approved, provider-specific
 work is unapproved. Spending remains $0; Cesium ion Community is conditional on

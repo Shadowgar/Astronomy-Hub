@@ -1,5 +1,47 @@
 # LIVE SESSION BRIEF
 
+## Active C6-0 free global mapping qualification — 2026-10-11
+
+Default Mode; SINGLE AGENT ONLY. Owner authorizes **C6-0 research, provider
+qualification, adoption planning and documentation only**. Verified main
+`0a231b24d208dc250214c737277a50dcc73d4e70` includes merged PR #69, accepted head
+`7e7019db373f8c03baf7b693e7a06ca1a891a5db`. Space appearance is owner-accepted;
+close-up imagery is C6. Isolated branch `c6-0-free-global-mapping-qualification-1`.
+Commit/push/open one documentation PR; DO NOT MERGE or begin C6-1.
+
+Order: C6-0 → C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved aircraft work →
+separately authorized satellites and Weather. No later package activates itself.
+The app is intended to be donated to a nonprofit educational astronomy club with
+fewer than 100 members. Mandatory provider spending **$0**; no billing-enabled
+account/trial, registration/token, subscription, paid API, provider contact or
+purchase. ion Community remains conditional on written club/public-use eligibility
+and zero-charge protection. Terrain/3D/deployment are excluded.
+
+Read the PR #68 adoption blueprint, external-gap/decision/roadmap and reuse register,
+then [C6 plan](../execution/C6_GLOBAL_MAPPING_SPEC.md). Reuse the completed ORAS
+comparison; investigate only material unanswered questions. Direct provider probes
+capped 12 total, 8 MiB/response, 20 s timeout, no retries; eight executed. Document
+eligibility separately from runtime/physical/owner acceptance, exact wrapper/file
+plan, limits, fallback, metadata truth and matching-scale visual gates.
+
+Closed PRs #67/#40/#41/#57/#56 are preserved in the
+[existing tracker](../features/FEATURE_TRACKER.md#deferred-closed-pr-preservation--2026-10-11);
+no cherry-pick, reopening or branch deletion. Preserve SWE/science, all imagery and
+overlays, camera/state/lifecycle contracts, owner settings, Docker/datastores/data
+and renderer/rollback identities. No runtime build or broad browser test campaign.
+Current Earth `822b1baeb933636cc5570077e905b57a029ea003902173b48142e0bbaf8fa552`,
+Sky `b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`,
+Earth rollback `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`,
+God's Eye `e7707d9a0f34d9fbffc300023c319f95caa5be30` unchanged.
+
+**STOP for owner source/plan/PR approval before C6-1 implementation.** Real
+screenshots must be owner-approved before any later implementation merge.
+
+## Historical PR #69 finalization record — superseded by current C6-0 authorization
+
+The unchanged dated records below retain prior active/open-PR/stop-point language;
+they are historical and do not override the current C6-0 scope above.
+
 ## Active C5.7-D / PR #69 documentation finalization — 2026-10-11
 
 Owner approved the visual-first order on 2026-10-10: **C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather**.

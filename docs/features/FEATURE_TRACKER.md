@@ -51,10 +51,9 @@ FEATURE_ACCEPTANCE.md
 ## Current Execution Checkpoint — 2026-10-11
 
 C0–C5.6 bounded implementation packages are complete; PRs #63/#64/#65 merged.
-Current work is C5.7-D / PR #69 documentation finalization following merged PR #68.
-[PROJECT_STATE](../execution/PROJECT_STATE.md) controls activation. Only C5.7-D is
-active; appearance from space is owner-accepted and PR #69 awaits final owner merge
-approval; C6 code
+PR #69 is merged; appearance from space is owner-accepted. Current work is
+C6-0 provider qualification/adoption planning/docs; [PROJECT_STATE](../execution/PROJECT_STATE.md)
+controls activation. C6-1 implementation and later feature code
 is not authorized. Qualification is local WSL/Docker, not production or full feature parity.
 The matrix below separates seven proof gates. Historical means proof at the linked
 checkpoint, not freshly rerun here. NOT PROVEN preserves uncertainty; no failed
@@ -264,3 +263,17 @@ public presentation; it does not claim completion of unfinished engines.
 
 `oras_horizon.v1` is not implemented. Its placement and the next task are governed
 by current execution authority and the unified architecture, not this older UI milestone.
+
+## Deferred closed-PR preservation — 2026-10-11
+
+GitHub cleanup closed these PRs without merging; this is disposition bookkeeping,
+not new qualification or permission to integrate. Preserve branches, exact heads,
+implementation and linked historical evidence. No cherry-pick/reopen/delete now.
+
+| Closed PR / exact retained head | Deferred disposition / unresolved gate |
+| --- | --- |
+| [#67 aircraft](https://github.com/Shadowgar/Astronomy-Hub/pull/67), `ebdad3124fe470e3a09e369d3a56e998f29740fb` | Preserve acquisition, caching, tracking, motion, source reuse and qualification evidence. Resume after visual mapping acceptance under a separate package; live-provider/visual/physical gates remain unfinished. |
+| [#40 satellite identities](https://github.com/Shadowgar/Astronomy-Hub/pull/40), `879e2940badfe532fd6ba8c079d20c44f7d52639` | Preserve string identity-validation intent and zero-padded NORAD defect reproduction; evaluate against current satellite contracts in its separately authorized package. |
+| [#41 protobufjs](https://github.com/Shadowgar/Astronomy-Hub/pull/41), `09fef6c979d2e0ccd8089d898145bc5dc0999cb3` | Reassess dependency/security fix against current main later; no stale wholesale replay. |
+| [#57 js-yaml](https://github.com/Shadowgar/Astronomy-Hub/pull/57), `ef1fbd7d7e0a873cc5ee28f7f773ca2feeb65b73` | Reassess dependency/security fix against current main later, preserving isolated Sky/runtime boundaries. |
+| [#56 grouped framework upgrades](https://github.com/Shadowgar/Astronomy-Hub/pull/56), `ec0157daaeb6903f678bb1c03fc94f7def088710` | Do not apply the incompatible grouped upgrades wholesale. Reconsider individual compatible fixes only in a separately approved dependency package. |

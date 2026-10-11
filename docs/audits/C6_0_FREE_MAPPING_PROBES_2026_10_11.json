@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "evidence_class": "BOUNDED_C6_0_SERVICE_PROBES_NOT_RUNTIME_QUALIFICATION",
+  "base": "0a231b24d208dc250214c737277a50dcc73d4e70",
+  "limit": {
+    "total_requests": 12,
+    "timeout_seconds": 20,
+    "response_bytes": 8388608,
+    "automatic_retries": 0,
+    "redirects": 0
+  },
+  "records": [
+    {
+      "id": 1,
+      "source": "eox",
+      "name": "eox-wmts.xml",
+      "url": "https://tiles.maps.eox.at/wmts/1.0.0/WMTSCapabilities.xml",
+      "method": "GET",
+      "utc": "2026-10-11T06:01:40Z",
+      "origin": "http://localhost:4190",
+      "status": 200,
+      "headers": {
+        "access-control-allow-origin": "http://localhost:4190",
+        "content-type": "application/xml"
+      },
+      "bytes": 67911,
+      "sha256": "446d5e3f75034ee526199c19a81b2d437aa9c19ead02747c5c6fd7e020886bb6",
+      "seconds": 1.549
+    },
+    {
+      "id": 2,
+      "source": "pasda",
+      "name": "pa-naip2024-metadata.html",
+      "url": "https://www.pasda.psu.edu/uci/FullMetadataDisplay.aspx?file=NAIP2024.xml",
+      "method": "GET",
+      "utc": "2026-10-11T06:01:42Z",
+      "origin": "http://localhost:4190",
+      "status": 200,
+      "headers": {
+        "Cache-Control": "private",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "bytes": 47601,
+      "sha256": "aef59e33edf69a5f87c899f51cbb7f51a5bce12bd97b4b7a49d47e9043aa7950",
+      "seconds": 0.24
+    },
+    {
+      "id": 3,
+      "source": "pasda",
+      "name": "pasda-services.json",
+      "url": "https://imagery.pasda.psu.edu/arcgis/rest/services/pasda?f=pjson",
+      "method": "GET",
+      "utc": "2026-10-11T06:01:42Z",
+      "origin": "http://localhost:4190",
+      "status": 200,
+      "headers": {
+        "Cache-Control": "must-revalidate,max-age=0,public",
+        "Content-Type": "text/plain; charset=UTF-8",
+        "Access-Control-Allow-Origin": "http://localhost:4190"
+      },
+      "bytes": 12873,
+      "sha256": "5cb2345fea6ae816a43489e87832bfef81f77b4cdffb56463d04d2400057d89f",
+      "seconds": 0.231
+    },
+    {
+      "id": 4,
+      "source": "eox",
+      "name": "eox-2016-oras-z14.jpg",
+      "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/14/6123/4569.jpg",
+      "method": "GET",
+      "utc": "2026-10-11T06:05:00Z",
+      "origin": "http://localhost:4190",
+      "status": 200,
+      "headers": {
+        "access-control-allow-origin": "http://localhost:4190",
+        "cache-control": "max-age=604800",
+        "expires": "Sun, 18 Oct 2026 06:05:01 GMT",
+        "content-type": "image/jpeg"
+      },
+      "bytes": 3734,
+      "sha256": "ea07d0ee9338ce8166c7ff5d16d72bf357d2dbbd19eab97d5b952bbd02b4720e",
+      "seconds": 0.667
+    },
+    {
+      "id": 5,
+      "source": "eox",
+      "name": "eox-2024-oras-z14.jpg",
+      "url": "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2024_3857/default/GoogleMapsCompatible/14/6123/4569.jpg",
+      "method": "GET",
+      "utc": "2026-10-11T06:05:01Z",
+      "origin": "http://localhost:4190",
+      "status": 200,
+      "headers": {
+        "access-control-allow-origin": "http://localhost:4190",
+        "cache-control": "max-age=604800",
+        "expires": "Sun, 18 Oct 2026 06:05:02 GMT",
+        "content-type": "image/jpeg"
+      },
+      "bytes": 5211,
+      "sha256": "5b5254391eee5cf8f8e632e87153e4c2305f3509120c3ecc7a579a6c30616361",
+      "seconds": 0.493
+    },
+    {
+      "id": 6,
+      "source": "usgs",
+      "name": "naip-oras-2024-query.json",
+      "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/query?f=pjson&geometry=-79.585394%2C41.321903&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&where=State%3D%27PA%27+AND+Year%3D2024&outFields=Name%2CYear%2Cacquisition_date%2Cresolution_value%2Cresolution_units&returnGeometry=false",
+      "method": "GET",
+      "utc": "2026-10-11T06:05:02Z",
+      "origin": "http://localhost:4190",
+      "status": 200,
+      "headers": {
+        "Content-Type": "text/plain;charset=UTF-8",
+        "Cache-Control": "max-age=0,must-revalidate",
+        "Access-Control-Allow-Origin": "*",
+        "ETag": "W/\"5abc744b\""
+      },
+      "bytes": 805,
+      "sha256": "a0de1a0084f5a10a9fc71ff5a659d7ee2dd0739186e6b353202c1d236bb2becc",
+      "seconds": 10.598
+    },
+    {
+      "id": 7,
+      "source": "eox",
+      "name": "eox-labels-oras-z14.png",
+      "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/14/6123/4569.png",
+      "method": "GET",
+      "utc": "2026-10-11T06:05:54Z",
+      "origin": "http://localhost:4190",
+      "status": 200,
+      "headers": {
+        "access-control-allow-origin": "http://localhost:4190",
+        "cache-control": "max-age=604800",
+        "expires": "Sun, 18 Oct 2026 06:05:55 GMT",
+        "content-type": "image/png"
+      },
+      "bytes": 116,
+      "sha256": "87b260416aa0f50736d3ca51bcb6aae3eff373bf471d5662883b8b6797e73e85",
+      "seconds": 0.422
+    },
+    {
+      "id": 8,
+      "source": "eox",
+      "name": "eox-labels-nyc-z12.png",
+      "url": "https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/GoogleMapsCompatible/12/1540/1205.png",
+      "method": "GET",
+      "utc": "2026-10-11T06:06:49Z",
+      "origin": "http://localhost:4190",
+      "status": 200,
+      "headers": {
+        "access-control-allow-origin": "http://localhost:4190",
+        "cache-control": "max-age=604800",
+        "expires": "Sun, 18 Oct 2026 06:06:49 GMT",
+        "content-type": "image/png"
+      },
+      "bytes": 8702,
+      "sha256": "b960cfa44c25e56fe60096d99590dd552682f6d394b780ce243f614605b89fef",
+      "seconds": 0.413
+    }
+  ],
+  "results": {
+    "pa_2024_at_oras_selected_usgs_catalog_rows": 0,
+    "oras_label_png": "fully transparent indexed PNG",
+    "nyc_label_png": "nonuniform RGBA PNG",
+    "new_provider_activation": false
+  }
+}
