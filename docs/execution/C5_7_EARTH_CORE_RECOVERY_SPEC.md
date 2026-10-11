@@ -1,23 +1,25 @@
 # C5.7 Earth core recovery — bounded execution specification
 
-**ONLY C5.7-D AUTHORIZED. OTHER PACKAGES NOT AUTHORIZED FOR IMPLEMENTATION.**
+**Historical C5.7 authorization boundary: ONLY C5.7-D AUTHORIZED. OTHER PACKAGES NOT AUTHORIZED FOR IMPLEMENTATION.**
 Date: 2026-10-10. PROJECT_STATE/LIVE_SESSION_BRIEF govern activation.
 Only one bounded implementation package may be active at a time.
 Package headings A–E remain a catalog, not the approved execution order.
 
 Owner approved the visual-first order on 2026-10-10: **C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather**.
-Only **C5.7-D** is active: standard bundled Cesium stars, atmosphere and appearance
-within the Hub-owned Viewer. Matching local-browser visual proof precedes heavy
-qualification. C6 imagery/terrain/3D implementation is NOT AUTHORIZED; each later
-package requires separate approval. Outstanding C5.7 acceptance, physical-device,
-provider, science and integrated qualification gates remain open.
+PR #69 is merged; its Earth-from-space appearance is owner-accepted. Current
+active work is **C6-0 research, provider qualification, adoption planning and
+documentation only**, separately authorized 2026-10-11. C6-1 imagery integration,
+C6-2 terrain, C6-3 detail and later implementation remain NOT AUTHORIZED; each
+package needs separate owner approval. Unfinished C5.7 physical-device, provider,
+science and integrated qualification gates remain open.
 
 Provider spending is mandatory **$0**. No accounts, tokens, billing or subscriptions.
 Cesium ion Community is conditional until written club/public-use eligibility and
 zero-charge protection are established; it is not an approved provider. Reuse
 qualified God's Eye/Cesium functionality rather than rebuilding it. No new assets,
 dependencies, pin updates, full upstream Viewer factory or scientific star catalog.
-PR #67 stays open and unmerged; no production/SSH/Cloudflare deployment.
+PR #67 is closed/unmerged; preserve its branch/head/evidence for deferred work.
+No production/SSH/Cloudflare deployment.
 
 ## Authority, evidence and common entry gate
 
@@ -216,7 +218,7 @@ date, accepted scope/budgets/terms and evidence before unlocking dependent work.
 | OD2 satellite populations | UNRESOLVED | Evaluate six core groups; dense disabled; retain strict guards | Stations-only corrected experience or selected core subset; optional budgeted/clustering dense later | Exact admitted/render/label/LOD/propagation/device budgets unresolved; provider shared-cache policy; expansion blocked. |
 | OD3 Weather products | UNRESOLVED | Point conditions plus existing CONUS snapshot radar, clear separate controls/facts | Regional clouds/wind/lightning/cyclones/history in later Earth phases | Open-Meteo free hosted endpoint noncommercial restriction separate from data license; visual product/service/hook/coverage terms; added products blocked. |
 | OD4 skybox | APPROVED BOUNDED C5.7-D | Standard Cesium stars as visual background | Keep disabled with explicit product rationale; science/time-aware background in F | Existing texture/dependency notices preserved; standard skybox/atmosphere trial approved. Owner accepted appearance from space; physical-device performance and other unfinished gates remain outstanding; no scientific catalog claim. |
-| OD5 C6 providers/accounts/budget | UNRESOLVED | Ordered keyless/entitled-provider qualification, no purchase or new key | Approved Google/ion/commercial mix versus licensed/keyless global imagery/terrain; coverage/detail/device cost varies | Maximum spend fixed at $0; accounts, quota/cache/distribution/credits/security and service scale unresolved; ion Community requires written club/public-use eligibility and zero-charge protection; provider-specific C6 code blocked. |
+| OD5 C6 providers/accounts/budget | UNRESOLVED | Ordered keyless/entitled-provider qualification, no purchase or new key | Qualified licensed/keyless global imagery/terrain; ion only after written eligibility and zero-charge protection; paid options inadmissible | Maximum spend fixed at $0; accounts, quota/cache/distribution/credits/security and service scale unresolved; ion Community requires written club/public-use eligibility and zero-charge protection; provider-specific C6 code blocked. |
 | OD6 media/assets | UNRESOLVED | No new upstream bundled models/media/restricted packs; glyphs/approved standard assets | Per-asset licensed models/imagery/CCTV where useful | Source MIT excludes data/media rights; NC/SA, privacy and attribution/distribution; downloads/bundles blocked until manifest/approval. |
 
 ## Exit / approval handoff
@@ -226,7 +228,7 @@ versus fixture results, source/count/coverage/error/cleanup evidence, reviews an
 known gaps. Completed bounded packages do not equal full God's Eye parity, global
 weather, validated astronomical passes or production readiness. Owner approval
 of this specification activates nothing by itself unless it explicitly authorizes
-the named package and decisions. Current next action is PR #69 documentation finalization after owner acceptance
-of appearance from space, then STOP for final owner merge approval. Close-up
-imagery deficiencies belong to C6, which remains unauthorized for implementation.
+the named package and decisions. PR #69 is now merged with owner acceptance of appearance from space. Current
+next action is separately authorized C6-0 qualification/planning/docs, then STOP
+for owner C6-1A approval; C6-1 implementation remains unauthorized.
 C5.7-E integrated completion and physical-device qualification are not claimed.

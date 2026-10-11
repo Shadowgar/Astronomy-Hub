@@ -608,3 +608,21 @@ Proof: Future approved-head Docker/browser qualification: source call evidence, 
 Approve or amend the [six new proposal decisions](EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md#owner-decisions) alongside the existing unresolved C5.7 register: visual-first phase reorder; selected tier and public-use rights; mandatory $0 spending/hard usage caps; real terrain/datum and 3D coverage scope; generic exports/tiny ports; physical visual acceptance targets. The owner has settled spending at $0; phase order, provider activation, rights, usage and acceptance remain gated.
 
 Documented source can restore decorative stars and orchestrate progressive mapping. Available Earth data, live entitlement, coverage/resolution/dates, terrain accuracy, 3D/mobile GPU performance and owner acceptance remain unqualified here. No new screenshots represent this audit’s output. See [visual acceptance](EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md#visual-acceptance-proposal) and [validation handoff](MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md). Stop for owner review; the next development task must be selected from this blueprint.
+
+## C6-0 qualification addendum — 2026-10-11
+
+The original dated audit/reuse/provider records above remain historical and
+unchanged. Current main is `0a231b24d208dc250214c737277a50dcc73d4e70` after PR #69;
+C6-0 research/planning/docs only is authorized. The
+[existing C6 specification](../execution/C6_GLOBAL_MAPPING_SPEC.md) now records
+the qualified NASA/local/EOX2016/USGSNAIP hierarchy, optional raster labels/OSM,
+conditional PEMA/PA2024/newer EOX/ion sources, eight bounded probes and exact
+C6-1 wrapper/file/performance/visual proposal. Runtime integration and owner
+selection remain unapproved. No new audit/classification/source-register rewrite.
+
+Reuse public MapSourceController plus selected default/catalog/imagery factories;
+keep internal registry/credits transitive. Do not inherit default Esri/terrain or
+bypass the private mapSourceControls export gate. The wrapper must preserve layer
+ordering, source credits, reusable cached-provider request guards, circuit breakers
+and serial renderer teardown. Source/data rights and $0 service use remain separate
+from MIT reuse. No complete Viewer/app import, pin update or provider activation.

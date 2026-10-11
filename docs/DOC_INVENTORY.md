@@ -181,7 +181,7 @@ all other relative repository/source links remain mandatory.
 | ------------------------------------------- | -------------- |
 | `docs/validation/SYSTEM_VALIDATION_SPEC.md` | CORE_CONTROL   |
 | `docs/validation/VALIDATION_CHECKLIST.md`   | SUPPORT        |
-| `docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md` | SUPPORT — local appearance/artifact/lifecycle proof; owner and physical acceptance pending |
+| `docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md` | SUPPORT — historical local appearance/artifact/lifecycle proof; space appearance owner-accepted, physical gates pending |
 | `docs/validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md` | SUPPORT — documentation checks and preservation, no feature proof |
 | `docs/audits/*2026-10-05*` | SUPPORT — eight immutable dated audit outputs; draft input is not execution authority |
 | `docs/audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md` | SUPPORT — owner-review adoption matrix; no implementation authority |
@@ -191,6 +191,7 @@ all other relative repository/source links remain mandatory.
 | `docs/audits/gods-eye-adoption-register-2026-10-10.json` | SUPPORT — v2 derivation of immutable historical inventory; recommendations separate from implementation |
 | `docs/audits/gods-eye-adoption-coverage-2026-10-10.json` | SUPPORT — source/asset discovery hashes; no asset admission or execution proof |
 | `docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md` | SUPPORT — exact context, checks and preservation handoff; no fresh visual proof |
+| `docs/audits/C6_0_FREE_MAPPING_PROBES_2026_10_11.json` | SUPPORT — eight bounded anonymous service requests and hashes; no runtime qualification or execution authority |
 | `docs/validation/STYLING_AUDIT.md`          | SUPPORT        |
 | `docs/validation/EARTH_HD_MAPPING_EVIDENCE.md` | SUPPORT — provider investigation and local qualification |
 | `docs/validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md` | SUPPORT — laptop workflow and measured local repair |

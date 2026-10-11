@@ -58,11 +58,11 @@ What is above me right now, and what should I observe?
 
 ## Current Foundation and Approved Direction — non-execution summary
 
-PR #69 is in documentation finalization after owner acceptance of appearance from
-space; STOP for final owner merge approval. Close-up imagery deficiencies belong
-to C6. The next proposed step is free global mapping qualification and separately
-authorized integration through existing God's Eye code; see the C6 plan. This
-reference activates no later package and does not close unfinished C5.7 gates.
+PR #69 is merged with owner-accepted appearance from space. C6-0 research/provider
+qualification/adoption planning/docs are separately authorized; C6-1 code is not.
+Close-up imagery belongs to C6. See the existing C6 plan for the proposed free
+source hierarchy and exact reuse wrapper. This reference activates no later
+package and does not close unfinished C5.7 gates.
 
 C0–C5.6 completed bounded foundations: owned Earth/selective pinned modules,
 serial Sky/Earth bridge, unified workspace, quakes/perimeters/latest CONUS radar,
@@ -76,7 +76,7 @@ Execution sequence and gates: [PROJECT_STATE](PROJECT_STATE.md) and
 [LIVE_SESSION_BRIEF](../context/LIVE_SESSION_BRIEF.md). Earth planning:
 [Earth plan](EARTH_CAPABILITY_PLAN.md), [proposed C5.7](C5_7_EARTH_CORE_RECOVERY_SPEC.md),
 [C6 direction](C6_GLOBAL_MAPPING_SPEC.md). Owner approved the visual-first order: C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather.
-Only C5.7-D is active; C6 provider-specific work remains unapproved. Mandatory
+Only C6-0 research/planning/docs are active; C6-1 code remains unapproved. Mandatory
 $0 spend; ion Community is conditional on written eligibility/zero-charge protection.
 D/E/F/G/H remain planned; open C5.7 gates and PR #67 review are retained.
 Keep complete applicable future Earth scope through preferential feature reuse/

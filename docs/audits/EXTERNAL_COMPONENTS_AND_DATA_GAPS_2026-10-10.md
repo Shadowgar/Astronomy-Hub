@@ -116,3 +116,21 @@ These are source-backed options, not endorsements of current service performance
 6. **Protomaps/OpenFreeMap/vector rendering:** open data/control advantages; lower immediate integration fit for Cesium labels. Prefer established raster options before commissioning rendering work.
 
 Owner spending is fixed at $0. Later decisions concern audience accessibility, permitted free products, independent free fallback, aggregate usage caps, acceptable coverage and geographic quality floor. The [visual decision packet](EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md) compares all three tiers without treating a free allocation as public entitlement. Unresolved rights, AeroAPI pricing, Mapillary terms, exact Esri/MapTiler selected-account quotas and Gaia official retrieval remain explicit research gates. No missing value is invented.
+
+## C6-0 qualification addendum — 2026-10-11
+
+The original dated audit/reuse/provider records above remain historical and
+unchanged. Current main is `0a231b24d208dc250214c737277a50dcc73d4e70` after PR #69;
+C6-0 research/planning/docs only is authorized. The
+[existing C6 specification](../execution/C6_GLOBAL_MAPPING_SPEC.md) now records
+the qualified NASA/local/EOX2016/USGSNAIP hierarchy, optional raster labels/OSM,
+conditional PEMA/PA2024/newer EOX/ion sources, eight bounded probes and exact
+C6-1 wrapper/file/performance/visual proposal. Runtime integration and owner
+selection remain unapproved. No new audit/classification/source-register rewrite.
+
+Reuse public MapSourceController plus selected default/catalog/imagery factories;
+keep internal registry/credits transitive. Do not inherit default Esri/terrain or
+bypass the private mapSourceControls export gate. The wrapper must preserve layer
+ordering, source credits, reusable cached-provider request guards, circuit breakers
+and serial renderer teardown. Source/data rights and $0 service use remain separate
+from MIT reuse. No complete Viewer/app import, pin update or provider activation.
