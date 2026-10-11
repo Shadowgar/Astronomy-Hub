@@ -132,7 +132,7 @@ audit. Public source URLs are recorded in the PR #68 reuse register.
 
 | Pinned module / seam | Exact adoption / wrapper requirement |
 | --- | --- |
-| `src/maps/controller.js` / `gods-eye-view/maps/controller` | Instantiate `MapSourceController` with the **existing Hub Viewer**, filtered registry, initialStack, onChange/onError/requestRender and injected createImageryLayer; explicitly call setStack during initialization. Reuse generations, provider cache, fallback and destroy; never duplicate switching or import the app. Controller caches rejected factory promises: after construction failure do not offer an ineffective same-instance retry; a later allowed retry must dispose/recreate only the map controller and wrappers, preserving Viewer/overlays. |
+| `src/maps/controller.js` / `gods-eye-view/maps/controller` | Instantiate `MapSourceController` with the **existing Hub Viewer**, filtered registry, initialStack, onChange/onError/requestRender and injected createImageryLayer; explicitly call setStack during initialization. Reuse generations, provider cache, fallback and destroy; never duplicate switching or import the app. `_cached()` evicts rejected promises; successful providers and successful construction-fallback resolutions remain cached. Keep the controller and healthy caches for ordinary retries; follow the distinct retry cases below. |
 | `src/maps/defaultSources.js` / `gods-eye-view/maps/defaults` | Obtain upstream descriptors/OSM factory composition with empty credentials, then copy only owner-selected raster entries. Remove terrain/tileset/setup routes and override defaultId/unknownId/recoveryId to admitted NASA/local. No calls to world/keyless terrain, Google, Esri or ion. Do not mutate upstream source or returned shared descriptors. |
 | `src/maps/catalog.js` / `gods-eye-view/maps/catalog` | Reuse immutable descriptor shape and the filtered OSM descriptor; append Hub-owned NASA/EOX/NAIP/local facts. Unselected descriptors are absent, not merely hidden while callable. |
 | `src/maps/imagery.js` / `gods-eye-view/maps/imagery` | Exact `createOsmImagery`, wrapped for level/request bounds; no Esri/ion invocation. NASA/NAIP/local reuse existing Hub native Cesium factories; EOX adds standard UrlTemplate factory configuration, no custom renderer. |
@@ -173,6 +173,44 @@ tile requests. The Hub wrapper controls per-provider requestImage admission,
 reversible pause/cancel on deactivation, and disposal; on late completion only the
 current generation may activate status/layers. Constructor/provider caches are
 limited by the fixed registry; no arbitrary source URLs/IDs can expand them.
+
+#### Retry cases at the immutable pin
+
+Source evidence at `e7707d9a0f34d9fbffc300023c319f95caa5be30`:
+[controller.js lines300–335](https://github.com/bilawalsidhu/gods-eye-view/blob/e7707d9a0f34d9fbffc300023c319f95caa5be30/src/maps/controller.js#L300-L335)
+delete a rejected cached promise, but `_getImageryProvider()` can catch a factory
+failure and resolve a construction fallback under the **original** source ID.
+[setStack lines163–221](https://github.com/bilawalsidhu/gods-eye-view/blob/e7707d9a0f34d9fbffc300023c319f95caa5be30/src/maps/controller.js#L163-L221)
+reports the effective source and can recover separately after an activation rejection.
+[Tile-error handling lines338–378](https://github.com/bilawalsidhu/gods-eye-view/blob/e7707d9a0f34d9fbffc300023c319f95caa5be30/src/maps/controller.js#L338-L378)
+switches stacks without evicting the original resolved provider.
+
+| Outcome | Smallest future C6-1A retry policy and required test |
+| --- | --- |
+| Factory/cache promise rejects, including an unsuccessful construction fallback | `_cached()` removes that entry. After the existing eligibility/cooldown gate, one explicit `setStack(originalId)` on the **same controller** attempts construction again; healthy caches and subscriptions remain. Test first rejection then success, factory call count2 and unchanged controller/healthy provider. Registry recovery succeeding in `setStack()` does not convert the original rejected entry into a cached construction fallback. |
+| Original factory resolves successfully | Repeated `setStack(originalId)` reuses the provider, not a fresh factory attempt. Test one construction across repeated selections and preserved subscriptions. |
+| Construction fallback resolves successfully | The original ID caches the resolution with the fallback's `effectiveStackId`; repeated `setStack(originalId)` reuses it and **does not retry the original factory**. Keep the effective fallback and truthful status by default. Test original/fallback construction counts1, repeated selection still showing the effective fallback and correct credit. |
+| Tile-error fallback transition | `_watchProvider()` chooses `tileFailureFallback` for the **effective** provider and calls `setStack(fallbackId)`; this leaves the original successful cache entry intact. After an eligible explicit retry, resume its reversible request guard and call `setStack(originalId)` on the same controller. This retries tile loading through the cached provider, not factory construction; test cache identity, new-generation listener, no duplicate listeners and no retry before cooldown. If the original ID already resolves to a cached construction fallback, the preceding row still applies. |
+
+The controlled retry gate remains unchanged: no automatic retries, no unauthorized
+provider retry, existing host-wide401/403/429 stop/Retry-After and at least5min
+eligible explicit retry; other source failures retain at least60s cooldown.
+Record whether the action resumes tile loading, retries a rejected factory, or
+requests a fresh factory after a cached construction fallback. Never label a
+cached fallback re-selection as restored original imagery.
+
+The pin has **no public per-source cache invalidation method**. Only an explicit,
+eligible request for a **fresh original factory attempt after a cached successful
+construction fallback** may use exceptional map-controller/wrapper recreation,
+after cooldown, keeping the Hub Viewer, independent local safety layer, camera,
+overlays and state intact. Dispose owned listeners/guards/providers, reattach
+subscriptions once and activate the requested source once; acknowledge that this
+exception discards controller-owned healthy caches. Test that ordinary rejected
+factory and tile retries never enter it, while this exceptional path actually
+calls the original factory again and leaves no old-controller callback/request.
+Do not mutate private cache maps or invent an invalidation API. A future qualified
+public invalidation seam could avoid this exception, but needs separate approval;
+no source-pin change or runtime implementation is authorized here.
 
 ### Close-view selection, metadata and failure policy
 
@@ -279,6 +317,14 @@ scope grants no permission by itself. **STOP for owner approval; do not start C6
 
 The [eight-request ledger](../audits/C6_0_FREE_MAPPING_PROBES_2026_10_11.json)
 records exact URLs, UTC, status, response bytes/hash, timing and CORS/cache headers.
+The manifest parser supports only Markdown/YAML load entries. The `docs_change`,
+`planning`, `review` and `validation` pack comments therefore designate this
+listed specification as the required supporting-evidence entry point and name
+the exact JSON path. After mandatory context/architecture, agents using those
+packs **must read the linked ledger directly** as supporting evidence required
+by this specification, not as another execution authority. No duplicate evidence
+document or validator expansion is needed. Read its recorded values unchanged;
+do not regenerate the ledger or repeat probes.
 Cap was 12 total direct requests, 8 MiB each, 20 s timeout, no redirects/retries;
 all 8 returned HTTP 200, with zero denials/timeouts. Requests: EOX capabilities,
 PASDA 2024 metadata, one PASDA directory, two EOX product tiles, one exact-point

@@ -48,6 +48,8 @@ tasks:
     - docs/execution/EARTH_CAPABILITY_PLAN.md
     - docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md
     - docs/execution/C6_GLOBAL_MAPPING_SPEC.md
+    # Required evidence through the listed C6 specification (JSON is not a load-list type):
+    # docs/audits/C6_0_FREE_MAPPING_PROBES_2026_10_11.json
     - docs/architecture/decisions/0009-owned-earth-feature-reuse.md
     - docs/audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md
     - docs/audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md
@@ -161,6 +163,8 @@ tasks:
     - docs/execution/EARTH_CAPABILITY_PLAN.md
     - docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md
     - docs/execution/C6_GLOBAL_MAPPING_SPEC.md
+    # Required evidence through the listed C6 specification (JSON is not a load-list type):
+    # docs/audits/C6_0_FREE_MAPPING_PROBES_2026_10_11.json
     - docs/architecture/decisions/0009-owned-earth-feature-reuse.md
     - docs/audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md
     - docs/audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md
@@ -232,6 +236,8 @@ tasks:
     - docs/execution/EARTH_CAPABILITY_PLAN.md
     - docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md
     - docs/execution/C6_GLOBAL_MAPPING_SPEC.md
+    # Required evidence through the listed C6 specification (JSON is not a load-list type):
+    # docs/audits/C6_0_FREE_MAPPING_PROBES_2026_10_11.json
     - docs/architecture/decisions/0009-owned-earth-feature-reuse.md
     - docs/audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md
     - docs/audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md
@@ -316,6 +322,8 @@ tasks:
     - docs/execution/EARTH_CAPABILITY_PLAN.md
     - docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md
     - docs/execution/C6_GLOBAL_MAPPING_SPEC.md
+    # Required evidence through the listed C6 specification (JSON is not a load-list type):
+    # docs/audits/C6_0_FREE_MAPPING_PROBES_2026_10_11.json
     - docs/architecture/decisions/0009-owned-earth-feature-reuse.md
     - docs/audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md
     - docs/audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md
