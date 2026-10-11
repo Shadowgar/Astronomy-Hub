@@ -157,6 +157,9 @@ preserved PR #67 → separately authorized satellites and Weather. PR #69 is mer
 and its appearance from space is owner-accepted. PR #70 is merged; C6-1A
 imagery-only implementation/local qualification is separately owner-authorized.
 Its merge, terrain/3D and later implementation remain separately gated.
+PR #71 owner correction requires automatic best-available imagery and bounded
+stationary coverage/recovery, with read-only source status and credits; no consumer
+provider selection or source Retry.
 Closed/unmerged PR #67 work is retained in the project tracker; unfinished C5.7
 gates remain open. The roadmap activates no later package.
 Provider spending is $0. Owner assumes PEMA/ion nonprofit eligibility for local

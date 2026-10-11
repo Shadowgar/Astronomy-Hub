@@ -741,3 +741,190 @@ Open one C6-1A implementation PR after final checks. DO NOT MERGE. Stop for owne
 actual-mapping visual review and separate merge approval. C6-2 terrain and C6-3
 3D require separate packages/authorization; do not begin them or further provider
 research from this handoff.
+
+
+## C6-1A automatic imagery correction — 2026-10-11
+
+Owner explicitly replaced PR #71 manual UX at reviewed head
+`72a687ef926c226e3cd546521c1ae4b38e288d39`. Same branch
+`c6-1a-global-imagery-adoption-1`, verified merged base
+`3e8276b705143b03af2c71658e8bc513d39b8e94`. Single agent; Default Mode.
+The prior manual-UX qualification above is preserved history, superseded for
+current UX/recovery by this section and the [active C6 specification](../execution/C6_GLOBAL_MAPPING_SPEC.md#active-c6-1a-imagery-package--2026-10-11).
+DO NOT MERGE; stop for owner visual review. Terrain, 3D, deployments, new
+provider/account/token/billing work remain excluded; mandatory spending $0.
+
+### Loaded context and ownership
+
+CORE/LIVE first, manifest next; union `docs_change`, `frontend_change`,
+`validation`, `review`: 58 unique listed documents, no extra governing documents
+or broad docs scan. Exact paths and pre-edit hashes are in ignored local
+`output/playwright/c6-1a/auto/qualification/context.json`. Architecture, validation
+and ADR0009 boundaries retain one Hub Viewer and actual pinned public God's Eye
+`MapSourceController`, filtered defaults/catalog/imagery factories and transitive
+registry/credits. Source remains clean at
+`e7707d9a0f34d9fbffc300023c319f95caa5be30`; Cesium1.138.0. No second engine,
+Viewer, custom switching algorithm, upstream edits or dependency change.
+
+Ordinary standalone/embedded Earth and Hub diagnostics have no source/Auto/
+resolution selector, source Retry, labels checkbox or persistent source preference.
+The read-only footer disclosure retains actual source/product/date/GSD/status and
+mandatory credits. Legacy session mode is discarded while ion counting remains
+durable. Loopback `orasProof=1` commands are deterministic developer interfaces;
+known-entity selection uses existing admitted entities, never production fixtures.
+
+Automatic ID selection preserves verified whole-view coverage and altitude
+hysteresis: NASA overview, EOX2016 regional/global detail, covered U.S. NAIP, and
+finer PEMA within the exact verified ORAS extent. The source/date/detail limits
+in the specification remain truthful. One permanent Natural Earth base and at
+most one managed remote layer; independent event overlays keep ordering.
+
+### Regression evidence and recovery
+
+Saved RED: initial stationary camera made zero metadata requests; stale camera
+metadata was cached; expired source cooldown never recovered. Saved GREEN proves
+stationary initialization, valid/missing/timeout footprints, partial-view refusal,
+source failure, late camera/selection/teardown results, and shared concurrency.
+JSON-point geometry fixes a current service behavior; genuine partial footprints
+can qualify later narrower views without another request, but never activate NAIP
+for an unverified whole view. One query/minute,20s,1MiB,32-record runtime cap remain.
+
+Automatic recovery observes source60s cooldown/backoff to15min, host429
+max(5min,Retry-After), drained active requests and budget guards.401/403 remain
+closed. Successful cached-provider tile retries retain the controller/listeners;
+rejected factories retain healthy caches. Only a successfully cached construction
+fallback needs public destroy/recreation to evict the original successful fallback
+entry; that costs remote caches/refetch, never the safety base. Loaded imagery
+remains attached while a factory resolves. No private field mutation/removeAll.
+Extra RED/GREEN tests prove no idle/unauthorized render wake and that the latest
+native activation loads even while an obsolete factory remains pending.
+
+### Final artifact and preserved identities
+
+Earth `bdfa4089e0ab3d77fa3f987e1a02c3f2b7fd7896f8f4804e439a762f1600c042`;
+inputs `6c50f84ca59360e7ada685ad0ebf5255469eb98ea6fad5550ae33ca10a06bfa6`.
+Two independent Docker builds are byte-identical including release.json:
+512 payload files + release;111 license records;11,820,090 payload bytes.
+Installed input/hash verification and all512 HTTP-served hashes pass. Build logs
+retain the established Vite>500kB chunk warning; no physical performance inference.
+Previous manual/smoke candidates were retained in named ignored artifact directories.
+C5.7-D baseline `822b1baeb933636cc5570077e905b57a029ea003902173b48142e0bbaf8fa552`
+and rollback `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`
+remain served at4191/4194. Sky
+`b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`
+is unchanged and not rebuilt. Preservation verifies original68 container identities,
+mounts/state/ports and81 volumes/datastores; only the existing task-owned preview
+was restarted. Owner checkout remains dirty only at unchanged settings SHA
+`6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+PR #67 remains closed/unmerged at
+`ebdad3124fe470e3a09e369d3a56e998f29740fb`; no branch/evidence mutation.
+
+### Commands and local evidence
+
+Scratch `/tmp/c6-1a-auto-20261011`; reviewed local evidence copied under ignored
+`output/playwright/c6-1a/auto/qualification`. Exact logs include failed setup/test
+attempts; no failed result is counted as a pass. Node tests execute the real
+pinned controller in a declared VM/native-provider fixture. Mobile satellite/TLE
+proof uses explicitly declared test fixtures. Live photography captures are separate.
+
+```bash
+# Worktree root; two independent pinned Docker builds
+GODS_EYE_SOURCE=/var/tmp/oras-cesium/gods-eye ORAS_EARTH_OUT=/tmp/c6-1a-auto-20261011/earth-qualified-1 bash scripts/runtime/build_owned_earth.sh
+GODS_EYE_SOURCE=/var/tmp/oras-cesium/gods-eye ORAS_EARTH_OUT=/tmp/c6-1a-auto-20261011/earth-qualified-2 bash scripts/runtime/build_owned_earth.sh
+python3 scripts/runtime/record_runtime_versions.py /tmp/c6-1a-auto-20261011/earth-qualified-1
+python3 scripts/runtime/earth_artifact.py install --source /tmp/c6-1a-auto-20261011/earth-qualified-1
+python3 scripts/runtime/earth_artifact.py verify
+npm --prefix frontend run build
+docker restart oras-c61a-owner-preview
+python3 /tmp/c6-1a-auto-20261011/served-proof.py
+python3 /tmp/c6-1a-global-imagery-20261011/preservation.py
+docker run --rm --network none --read-only --tmpfs /tmp -v /home/rocco/Astronomy-Hub/.worktrees/c6-1a-global-imagery-adoption-1:/hub:ro -v /var/tmp/oras-cesium/gods-eye:/var/tmp/oras-cesium/gods-eye:ro -w /hub node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8 sh -c 'node --test --test-isolation=none $(find tests/earth -maxdepth 1 -name "*.test.mjs" ! -name export-boundary.test.mjs | sort)'
+node --test tests/earth/export-boundary.test.mjs
+npm --prefix frontend run type-check
+npm --prefix frontend run test -- tests/workspace.test.tsx tests/workspaceRuntimeAdapter.test.ts tests/skyEngineImportBoundary.test.js
+docker run --rm --network none --read-only --tmpfs /tmp -e PYTHONDONTWRITEBYTECODE=1 -v /home/rocco/Astronomy-Hub/.worktrees/c6-1a-global-imagery-adoption-1:/app:ro -w /app astronomy-hub-backend:latest python -m pytest tests/validation/test_architecture_manifest.py tests/validation/test_reconciliation_docs.py tests/test_local_earth_artifact.py -q -p no:cacheprovider
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+git diff --check
+# frontend working directory, installed Docker preview
+PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4198 npx playwright test tests/e2e/earthGlobalImagery.spec.ts tests/e2e/earthAppearance.spec.ts --workers=1 --output=/tmp/c6-1a-auto-20261011/browser-qualified
+# Worktree root; matching unchanged baseline and automatic candidate cameras
+C6_CAPTURE_SCENES=new-york-close C6_CAPTURE_VARIANTS=baseline node scripts/validation/earth-mapping/capture.mjs
+C6_CAPTURE_VARIANTS=candidate node scripts/validation/earth-mapping/capture.mjs
+```
+
+The four bounded anonymous NAIP diagnostic requests (no retries;20s/1MiB each)
+are retained in `qualification/diagnosis.json`: comma-point query returned unrelated
+Florida geometry (not admitted); explicit JSON point returned the correct NYC
+footprint (8.65s); existing matched ORAS WMS tile returned64730 bytes in10.29s;
+a whole-view-envelope query returned504 (not adopted). Source service timing can
+approach/exceed the unchanged12s tile guard. No fake NAIP capture or widened limit.
+Public release eligibility remains unverified for PEMA; ion was never activated.
+Client counting/attestation is not verified account-side zero-charge protection.
+
+Local owner preview: `http://127.0.0.1:4198/earth?date=2026-10-11T17%3A00%3A00Z`;
+standalone `http://127.0.0.1:4198/earth-runtime/`;
+matched gallery `http://127.0.0.1:4198/gallery/auto/`.
+Scene UTC2026-10-11T17:00:00Z,1440×900/DPR1; exact numeric camera/renderer/source/
+input/request/credit/state JSON accompany PNGs. Baseline camera instrumentation
+is read-only and retains the original served bundle hash. Preserved earlier
+baseline captures are explicitly historical, matched to the same camera/time;
+new close-NYC baseline is fresh. Chromium ANGLE SwiftShader is software proof,
+not physical-device acceptance. Owner visual/merge acceptance remains pending;
+C6-2/C6-3 never start from this handoff.
+
+
+Final bounded software qualification: **PASS** —71 Docker Earth tests plus1 host
+export-boundary test;9 focused frontend tests; TypeScript;26 Docker document/
+artifact tests plus36 subtests;11 installed-preview browser cases including five
+serial Sky/Earth cycles each at desktop/mobile, missing starbox face/recovery,
+native source ownership/caching/labels diagnostics, stationary NAIP fixture and
+standalone/embedded narrow details/Focus/Track/Stop/credits. These counts describe
+fixtures/software proof, not physical-device or live-provider acceptance. Final
+manifest/reference/whitespace results and live capture outcomes are appended below.
+
+
+Final live proof verifies **eight matched pairs** (16 PNG/JSON captures), all
+candidate inputs bound to the final artifact; exact camera/UTC/viewport matches,
+zero page errors, one safety allocation, at most one managed remote, no labels,
+no ion requests, global peak≤6 and NAIP/PEMA peak≤2. Actual sources: NASA from
+space; EOX over North America; PEMA at ORAS1500m/350m; EOX at NYC1500m (partial
+NAIP footprint), Paris and remote ocean; NAIP at NYC350m after automatic JSON-point
+qualification. No source control was used. Current close-NYC footprint is
+`m_4007424_ne_18_060_20190917`; its filename is coverage evidence, not verified
+acquisition date/GSD for every WMS pixel.
+
+PEMA shows property roofs/paths/trees automatically and settles at both scales.
+NAIP shows buildings/streets automatically, with26 loaded/0 failed tiles and2
+active requests at the final screenshot. **NAIP remained loading after the bounded
+120s wait (137.4s capture including qualification/software screenshot work); it is
+not a fully settled or≤5s performance pass.** The first-round NAIP loading view
+and EOX failure/NASA fallback remain in `output/playwright/c6-1a/auto-first-qualified`;
+one bounded same-camera recapture confirmed settled EOX over North America.
+No tile/factory timeout or request/concurrency limit was increased. Only the
+screenshot wait ceiling for close NYC was120s. Paris/ocean retain coarse10m
+EOX detail; no claim of global aerial HD, terrain or 3D improvement. Owner visual
+and performance acceptance remain open despite green deterministic tests.
+
+Final document checks PASS:296 manifest entries/8 packs;55 Markdown checkpoint
+documents;1442 relative references with16 registered historical exemptions;9 ADRs;
+67 capability records/51 source entrypoints/413 reconciliation links/60 fragments;
+whitespace clean. `qualification/capture-proof.json` records exact live status,
+request statistics, products/date uncertainty, credits and remaining gates.
+
+Changed files for this correction (earlier PR implementation remains separate
+history): AGENTS.md; docs/DOCUMENT_INDEX.md; docs/README.md;
+docs/context/LIVE_SESSION_BRIEF.md; docs/execution/C6_GLOBAL_MAPPING_SPEC.md;
+docs/execution/PROJECT_STATE.md; this existing evidence file;
+frontend/public/runtime-versions.json; integrations/renderers.lock.json;
+frontend/src/features/workspace/{DiagnosticsSurface,WorkspaceShell}.tsx;
+frontend/tests/e2e/earthGlobalImagery.spec.ts;
+runtimes/earth-runtime/core/{ImageryController,LocalVisualProof,imagerySession}.mjs;
+runtimes/earth-runtime/{index.html,style.css};
+scripts/validation/earth-mapping/capture.mjs;
+tests/earth/{imagery-controller,imagery-session}.test.mjs.
+
+Next action is owner review of the automatic mapping experience/limitations and
+explicit merge approval for the delivered exact head. No later C6 package is
+activated. Both Codex P2 responses address the stationary-camera path and removed
+mobile panel; final GitHub head/check/thread state is delivered with the PR handoff.

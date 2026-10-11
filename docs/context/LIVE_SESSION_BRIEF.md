@@ -8,9 +8,9 @@ base. Isolated branch `c6-1a-global-imagery-adoption-1`. The owner authorizes th
 [imagery-only C6-1A package](../execution/C6_GLOBAL_MAPPING_SPEC.md#active-c6-1a-imagery-package--2026-10-11),
 focused visual proof, bounded regression, deterministic Earth build/install/served
 identity, commit/push and one implementation PR. **DO NOT MERGE C6-1A.**
-The local implementation candidate is Earth `a7be44c773d245f69ce38cd291275d43a7e8b5b06f065fe857e2e9cf4edc9eef`,
-inputs `63bb97c9d08e4acf888d38dd107ac75fbc089d802e0d457cb3856078b2461978`; qualified baseline/rollback are preserved.
-[Mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-local-imagery-qualification--2026-10-11) contains exact commands, source seams, captures and limits.
+The automatic implementation candidate is Earth `bdfa4089e0ab3d77fa3f987e1a02c3f2b7fd7896f8f4804e439a762f1600c042`,
+inputs `6c50f84ca59360e7ada685ad0ebf5255469eb98ea6fad5550ae33ca10a06bfa6`; qualified baseline/rollback are preserved.
+[Mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-automatic-imagery-correction--2026-10-11) contains exact commands, source seams, captures and limits.
 
 Provider spending is mandatory **$0**. No account/token creation, billing or
 subscriptions. The owner assumes nonprofit PEMA/PASDA and ion Community use
@@ -21,9 +21,12 @@ Reuse pinned God's Eye/Cesium exports; no new dependency, pin update, full upstr
 Viewer factory or scientific star catalog.
 
 One permanent Natural Earth safety base; actual pinned public map controller,
-filtered defaults/catalog, native NASA/EOX 2016/NAIP/verified-ORAS PEMA, optional
-manual OSM/labels and fixture-qualified ion path. Manual selections and ion usage persist in browser-tab session storage;
-Auto uses coverage/hysteresis. Shared request budgets, truthful actual-source/date/
+filtered defaults/catalog, native NASA/EOX 2016/NAIP/verified-ORAS PEMA, developer-only OSM/labels and fixture-qualified ion path. Owner-directed PR #71
+correction makes imagery automatic only: no provider/Auto selector, manual
+preference, source Retry or labels control. Stationary coverage qualification and
+source recovery are automatic within the existing bounds; read-only status and
+credits remain available. Ion usage alone persists in browser-tab session storage;
+selection uses verified coverage, genuine detail, health and hysteresis. Shared request budgets, truthful actual-source/date/
 GSD/credits, owned teardown and event ordering are mandatory. No provider-research
 repeat, SWE rebuild, terrain/3D, deployment or new account. Preserve science, owner
 settings, all prior artifacts/rollback/data/container/volume identities and closed

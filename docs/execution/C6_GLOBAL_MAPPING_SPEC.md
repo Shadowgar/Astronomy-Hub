@@ -28,7 +28,7 @@ terrain/setup/tileset entries are stripped. NASA/EOX/NAIP/PEMA use native Cesium
 WMS/UrlTemplate factories. Optional ion invokes the actual pinned
 `createIonImagery` only through the admitted opt-in path. Registry and credit
 modules execute transitively inside the public map controller. The unexported UI
-module is not imported; Hub DOM controls adapt public setStack/subscribe/getState.
+module is not imported; the automatic Hub policy adapts public setStack/subscribe/getState.
 Upstream source/pin is unchanged; no complete application or second Viewer.
 The capped OSM/ion SDK facade accepts Cesium 1.138 layer-owned reload callback
 installation/removal on the facade itself. It does not write provider internals
@@ -49,19 +49,35 @@ calls public controller.destroy once. Later eligible recovery creates only a new
 map controller. Normal switching and successful cached-provider tile retries keep
 healthy caches. Rejected factory promises are evicted by upstream; normal eligible
 retries keep the controller. A **successfully cached construction fallback** needs
-an explicit exceptional controller recreation after cooldown to retry the original
+an exceptional controller recreation after cooldown to retry the original
 factory, since the pin has no public single-entry eviction. This loses remote
 caches and causes bounded refetch, never another local provider. Cancellation
 errors emitted by a paused old SDK provider cannot tear down a replacement.
 
 ### Admission, imagery truth and bounds
 
-Auto starts from the approved 1.5/2 Mm NASA/EOX and 150/250 km NAIP hysteresis;
-PEMA close-view entry/exit is 20/30 km but requires the entire view inside its
-verified ORAS interior rectangle. Manual mode persists in browser-tab session storage through Earth/Sky recreation
-until Auto; coverage can
-substitute fallback without replacing the user's choice. Ion/OSM are never Auto
-dependencies. Manual PEMA outside its admitted coverage follows NAIP/global.
+The owner explicitly corrected PR #71 UX: imagery is **automatic only**. Ordinary
+Earth and Hub interfaces expose no provider/Auto/resolution selector, source Retry
+button, manual labels checkbox or persistent source preference. Read-only actual
+source/quality/date/error details and mandatory attribution remain accessible in a
+small footer status disclosure; object/layer/navigation controls remain intact.
+Legacy manual session values are discarded; accepted ion request accounting stays
+durable. Loopback `orasProof=1` commands allow deterministic source/label tests,
+never ordinary product controls or persistent preferences.
+
+Selection considers verified whole-view coverage, genuine native/effective detail,
+health, camera extent/altitude, known acquisition dates when detail is comparable,
+and admitted service/attribution restrictions. It selects existing controller IDs;
+it never implements another switching engine or discovers arbitrary providers.
+NASA is the full-Earth overview (1.5/2 Mm hysteresis), EOX 2016 is the regional/
+unsupported close-view mosaic, verified covered close U.S. views prefer NAIP
+(150/250 km), and the verified ORAS interior prefers finer PEMA (20/30 km).
+PEMA's 0.1524 m native detail beats the qualified ORAS NAIP 0.6 m even though the
+exact PEMA flight day is unknown. Unknown capture dates never imply recency;
+WMS mosaicking is service-owned and a footprint name does not establish the date
+of every rendered pixel. OSM/labels remain developer diagnostics, not automatic
+photographic quality upgrades. Ion remains dormant without verified account-side
+zero-charge protection; client attestation/counting is not that safeguard.
 
 PEMA coverage is bounded to an interior rectangle of raster `43001460PAN`,
 OBJECTID6697: −79.6009/41.3051/−79.5654/41.3319. One ordinary selected-service
@@ -76,9 +92,17 @@ NAIP dates/GSD remain unknown. EOX is explicitly the 2016/nominal10m mosaic;
 NASA is a static nominal500m composite, not current photography.
 
 NAIP Auto requires a footprint containing the whole view; its prior ORAS polygon
-is seeded from existing evidence. Other settled CONUS close views may make one
-bounded point query/minute (20s,1MiB), at most32 active-runtime records; failures keep
-global imagery. No regional request outside geographic admission. NAIP WMS uses
+is seeded from existing evidence. Initialization and already-settled CONUS close views start one
+bounded explicit JSON-point query/minute (20s,1MiB), at most32 active-runtime records,
+sharing the existing host/global concurrency and start budget. A single in-flight
+request checks lifecycle/controller epoch, camera coordinates/extent and source-
+selection generation before caching a genuine center-containing footprint. Every
+corner must be inside cached coverage before activating NAIP; a partial footprint
+can qualify a later closer view without another request.
+Absent, timed-out, over-budget, partial or stale coverage retains truthful global
+imagery. Current footprint raster names are disclosed as coverage evidence only.
+Camera movement does not wait for metadata; bounded eligible stationary rechecks
+need no further moveEnd event. Failures keep global imagery. No regional request outside geographic admission. NAIP WMS uses
 1.3.0/EPSG:3857/transparent PNG; low-level transparent overview tiles are expected
 and retain the safety base. Fully transparent close tiles (L12+) trigger no-data
 fallback; partially transparent close tiles are marked partial. No claim of global
@@ -89,11 +113,20 @@ cap18, optional EOX labels cap12/defaultOFF. These caps do not manufacture GSD.
 Shared remote bounds remain ≤6/runtime, ≤4/host including EOX+labels, ≤2 NAIP
 (and PEMA/ion), ≤2 starts/sec with burst6,12s tile timeout,20s factory timeout.
 When ion is active the global bound tightens to4 because its tile hosts are opaque.
-401/403 stop the host for the active-runtime session; no unauthorized retry.429 stops the whole
-host until explicit retry after max(5min,Retry-After); other failures have≥60s
-source cooldown plus a latched circuit breaker: elapsed time/camera movement
-never retries a failed source; the explicit Retry action reopens the eligible
-selected source. Even a cached fallback provider cannot dispatch while latched.
+401/403 stop the host for the active-runtime session; no unauthorized retry.429 stops
+the whole host until max(5min,Retry-After). Other source failures start at60s,
+with repeated unsuccessful attempts backing off to15min. Eligible camera/timer
+updates automatically reopen expired failures only when the host permits it and
+active requests are drained; no consumer Retry action. Healthy sources are not
+re-requested. Successful provider tile retry retains native controller/provider
+caches and rebinds one generation listener. Rejected factories reuse the public
+controller; only successfully cached construction fallback recovery exceptionally
+destroys/recreates it because the pin has no public single-entry eviction. This
+loses remote caches and boundedly refetches, preserving the original safety base.
+Loaded managed imagery stays attached while a replacement factory resolves;
+normal switching avoids rebuilding an identical provider/layer. Total failure
+uses public owned destroy, never duplicate Natural Earth or unrelated removal.
+Even cached fallback providers cannot dispatch while blocked.
 Guards pause reversibly on switching and stop at owned teardown. Ion accepted-tile
 usage also survives renderer recreation in the same tab; unavailable/failed session
 storage disables ion. This ledger is not an account quota or billing guarantee.
@@ -104,7 +137,7 @@ remain authoritative. First usable ≤5s and frame targets remain qualification
 criteria, not asserted outcomes; report actual network/software-renderer limits.
 
 The original C6-0 qualification/proposal below is preserved **historical evidence**.
-Its no-implementation/no-PEMA/no-ion development statements describe the earlier
+Its manual-source/explicit-retry proposals and no-implementation/no-PEMA/no-ion development statements describe the earlier
 scope and are superseded only by this named owner authorization. The probe ledger,
 source recommendation, prior retry correction and unfinished acceptance gates
 remain evidence; no research repeat or new audit follows from this package.

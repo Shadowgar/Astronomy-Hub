@@ -45,7 +45,10 @@ implementation/qualification is now separately authorized. Its merge and all
 later packages remain unapproved. PEMA/ion eligibility is assumed for local
 development only; $0 spending and ion account-side protection remain mandatory.
 Close-up imagery deficiencies belong to C6. The roadmap activates no later package;
-outstanding C5.7 gates remain open. Only the named C6-1A provider scope is active;
+outstanding C5.7 gates remain open.
+PR #71 owner correction requires automatic best-available imagery and bounded
+stationary coverage/recovery, with read-only source status and credits; no consumer
+provider selection or source Retry. Only the named C6-1A provider scope is active;
 public-release eligibility and owner acceptance remain open. The next proposed
 task is [C6-1A imagery integration](execution/C6_GLOBAL_MAPPING_SPEC.md#active-c6-1a-imagery-package--2026-10-11)
 through the existing pinned God's Eye exports. Stop for owner visual review.

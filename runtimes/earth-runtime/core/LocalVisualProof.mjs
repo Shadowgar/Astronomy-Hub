@@ -8,6 +8,10 @@ export function installLocalVisualProof(runtime){
   runtime.viewer.camera.cancelFlight();runtime.viewer.camera.setView({destination:Cartesian3.fromDegrees(lon,lat,height),orientation:{heading,pitch,roll}});
   if(utc)runtime.setTime(utc);await runtime.visual.configPromise;await runtime.visual.imagery.updateView();runtime.viewer.scene.requestRender();
  };
+ // Deterministic provider tests are loopback-only and never persist a preference.
+ window.orasEarthProofSelect=id=>{const entity=runtime.viewer.entities.getById(id);if(!entity?.orasMetadata)throw Error('Unknown proof entity');runtime.viewer.selectedEntity=entity;runtime.viewer.scene.requestRender();};
+ window.orasEarthProofSource=async id=>{await runtime.visual.configPromise;await runtime.visual.imagery.select(id);};
+ window.orasEarthProofLabels=async enabled=>runtime.visual.imagery.setLabels(enabled);
  window.orasEarthProofState=()=>{const v=runtime.viewer,c=v.camera,p=c.positionCartographic,gl=v.canvas.getContext('webgl2')??v.canvas.getContext('webgl');const ext=gl?.getExtension('WEBGL_debug_renderer_info');return {camera:{longitude:p.longitude,latitude:p.latitude,height:p.height,heading:c.heading,pitch:c.pitch,roll:c.roll,position:[c.positionWC.x,c.positionWC.y,c.positionWC.z]},utc:JulianDate.toDate(v.clock.currentTime).toISOString(),viewport:{width:v.canvas.clientWidth,height:v.canvas.clientHeight,dpr:devicePixelRatio},renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):'unavailable',globeTilesLoaded:v.scene.globe.tilesLoaded,imageryOrder:Array.from({length:v.imageryLayers.length},(_,i)=>{const layer=v.imageryLayers.get(i);return layer===runtime.visual.imagery.base?'local':layer===runtime.visual.imagery.managed?runtime.visual.imagery.actual:layer===runtime.visual.imagery.labels?.layer?'labels':'independent-overlay';})};};
- runtime.lifecycle.add(()=>{delete window.orasEarthProofView;delete window.orasEarthProofState;});
+ runtime.lifecycle.add(()=>{delete window.orasEarthProofView;delete window.orasEarthProofState;delete window.orasEarthProofSource;delete window.orasEarthProofLabels;delete window.orasEarthProofSelect;});
 }

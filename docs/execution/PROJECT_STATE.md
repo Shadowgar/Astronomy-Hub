@@ -27,11 +27,15 @@ Isolated branch `c6-1a-global-imagery-adoption-1` starts at verified PR #70 merg
 `3e8276b705143b03af2c71658e8bc513d39b8e94`. Implement the bounded
 [C6-1A package](C6_GLOBAL_MAPPING_SPEC.md#active-c6-1a-imagery-package--2026-10-11)
 through the PR #68 adoption exports, preserving the qualified Hub Viewer and Sky.
+The owner PR #71 correction requires automatic best-available imagery, stationary
+coverage qualification and bounded automatic recovery. No consumer provider/Auto/
+resolution selector, labels control, source Retry or manual preference remains;
+actual source/quality/credits stay read-only and accessible.
 Commit/push/open one implementation PR; DO NOT MERGE. Matching browser proof and
 bounded Earth artifact qualification precede handoff; stop for owner visual review.
-Candidate Earth `a7be44c773d245f69ce38cd291275d43a7e8b5b06f065fe857e2e9cf4edc9eef` (inputs `63bb97c9d08e4acf888d38dd107ac75fbc089d802e0d457cb3856078b2461978`),
+Automatic candidate Earth `bdfa4089e0ab3d77fa3f987e1a02c3f2b7fd7896f8f4804e439a762f1600c042` (inputs `6c50f84ca59360e7ada685ad0ebf5255469eb98ea6fad5550ae33ca10a06bfa6`),
 with two identical Docker builds and exact installed/served bytes.
-[Current mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-local-imagery-qualification--2026-10-11) records results and remaining gates.
+[Current mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-automatic-imagery-correction--2026-10-11) records results and remaining gates.
 
 ## Verified merged baseline and environment
 

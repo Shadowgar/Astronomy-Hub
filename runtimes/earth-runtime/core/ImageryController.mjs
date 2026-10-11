@@ -7,8 +7,8 @@ import {openImagerySession} from './imagerySession.mjs';
 
 export class ImageryController {
  constructor(runtime,quality){
-  this.runtime=runtime;this.viewer=runtime.viewer;this.quality=quality;this.epoch=0;this.session=openImagerySession();this.mode=this.session.mode;this.actual='local';this.status='loading';this.reason='';
-  this.records=new Map();this.cooldowns=new Map();this.failedSources=new Set();this.cachedFallbacks=new Set();this.failedConstructions=new Set();this.budget=createImageryBudget();this.controllersCreated=0;this.localAllocations=0;
+  this.runtime=runtime;this.viewer=runtime.viewer;this.quality=quality;this.epoch=0;this.session=openImagerySession();this.mode='auto';this.selectionGeneration=0;this.actual='local';this.status='loading';this.reason='';
+  this.records=new Map();this.cooldowns=new Map();this.failureCounts=new Map();this.failedSources=new Set();this.cachedFallbacks=new Set();this.failedConstructions=new Set();this.budget=createImageryBudget();this.controllersCreated=0;this.localAllocations=0;
   this.footprints=[{ring:ORAS_NAIP_RING,verifiedOras:true}];this.metadataLast=-Infinity;this.metadataCount=0;this.labelsWanted=false;
   runtime.lifecycle.add(()=>this.clear());
  }
@@ -24,17 +24,17 @@ export class ImageryController {
    this.base=this.viewer.imageryLayers.addImageryProvider(local,0);this.localAllocations++;
    this.localGuard=boundImageryRequests(local,{onLoad:()=>this.runtime.timings.firstImageryTileMs??=performance.now()});
    this.offCamera=this.viewer.camera.moveEnd.addEventListener(()=>{clearTimeout(this.cameraTimer);this.cameraTimer=setTimeout(()=>void this.updateView(),250)});
-   this.wakeTimer=setInterval(()=>{if(this.runtime.lifecycle.closed)return;const previous=this.status,unsettled=this.viewer.scene.globe.tilesLoaded===false;if(this.map){this.status=unsettled?(performance.now()-(this.budget.stats.lastThrottledAt??-Infinity)<1000?'throttled':'loading'):(this.activeRecord?.loaded?(this.activeRecord.partial?'partial':'ready'):'loading');}if(this.map&&(previous!==this.status||unsettled||this.budget.stats.active))this.refresh();},500);
-   this.mountControls();
+   this.wakeTimer=setInterval(()=>{if(this.runtime.lifecycle.closed)return;const previous=this.status,unsettled=this.viewer.scene.globe.tilesLoaded===false;if(this.map){this.status=unsettled?(performance.now()-(this.budget.stats.lastThrottledAt??-Infinity)<1000?'throttled':'loading'):(this.activeRecord?.loaded?(this.activeRecord.partial?'partial':'ready'):'loading');}if(this.map&&(previous!==this.status||unsettled||this.budget.stats.active))this.refresh();if(this.mode==='auto'&&!this.updating&&!this.switching&&this.needsUpdate())void this.updateView();},500);
+   this.mountStatus();
   }
-  await this.select(this.mode,true);
+  await this.updateView();
  }
  view(){
   const camera=this.viewer.camera,p=camera.positionCartographic,r=camera.computeViewRectangle(this.viewer.scene.globe.ellipsoid);
   const rect=r?[r.west,r.south,r.east,r.north].map(CesiumMath.toDegrees):null,point=[CesiumMath.toDegrees(p.longitude),CesiumMath.toDegrees(p.latitude)];
   const corners=rect?[[rect[0],rect[1]],[rect[0],rect[3]],[rect[2],rect[1]],[rect[2],rect[3]]]:[];
   const footprint=this.footprints.find(f=>inRing(point,f.ring)&&corners.length===4&&corners.every(c=>inRing(c,f.ring)));
-  return {height:p.height,rect,point,naipCovered:!!footprint,verifiedOras:!!footprint?.verifiedOras};
+  return {height:p.height,rect,point,naipCovered:!!footprint,verifiedOras:!!footprint?.verifiedOras,footprint};
  }
  eligible(id){return !this.failedSources.has(id)&&performance.now()>=(this.cooldowns.get(id)??0)&&this.budget.eligible(SOURCE_FACTS[id]?.host??'');}
  desired(view){
@@ -51,12 +51,12 @@ export class ImageryController {
   if(this.runtime.lifecycle.closed||!this.base)return;
   if(!['auto','local',...Object.keys(SOURCE_FACTS).filter(id=>id!=='local')].includes(mode))return;
   if(mode==='ion'&&!this.registry?.sources.some(source=>source.descriptor.id==='ion')&&!this.config?.ionImageryOptIn){this.reason='Ion not configured or authorized';this.refresh();return;}
-  this.mode=mode;this.session.setMode(mode);this.reason='';const view=this.view(),id=this.desired(view);
+  if(this.mode!==mode){this.selectionGeneration++;this.metadataAbort?.abort();}this.mode=mode;this.reason='';const view=this.view(),id=this.desired(view);
   if(id==='local'){this.terminal(mode==='local'?'Local selected':'Remote imagery unavailable');return;}
   if(!this.map)this.createController();
   if(!this.map.isStackAvailable(id)){this.reason='Source not admitted';this.refresh();return;}
   if(!force&&id===this.map.getActiveId()&&this.managed){this.refresh();return;}
-  this.requestedId=id;await this.map.setStack(id);if(!this.runtime.lifecycle.closed)this.refresh();
+  this.requestedId=id;this.switches=(this.switches??0)+1;this.switching=true;try{await this.map.setStack(id);}finally{this.switching=--this.switches>0;}if(!this.runtime.lifecycle.closed)this.refresh();
  }
  createController(){
   const epoch=++this.epoch;this.controllersCreated++;
@@ -64,7 +64,7 @@ export class ImageryController {
   this.registry=createAdmittedMapSources(config,(id,factory,request)=>this.provider(id,factory,request,epoch));
   this.map=new MapSourceController(this.viewer,{registry:this.registry,initialStack:'nasa',requestRender:()=>this.viewer.scene.requestRender(),
    createImageryLayer:provider=>{this.pauseAll();const record=this.records.get(provider);if(record){if(this.eligible(record.id))record.guard.resume();this.activeRecord=record;this.budget.globalLimit=record.id==='ion'?4:6;}this.managed=new ImageryLayer(provider);return this.managed;},
-   onChange:state=>{if(epoch!==this.epoch)return;if(state.status==='switching'){this.pauseAll();this.status='loading';}this.refresh();},
+   onChange:state=>{if(epoch!==this.epoch)return;if(state.status==='switching')this.status='loading';this.refresh();},
    onError:()=>{if(epoch===this.epoch)this.reason='Selected source unavailable; fallback retained';},
   });
   this.unsubscribe=this.map.subscribe(state=>{
@@ -84,13 +84,13 @@ export class ImageryController {
   const task=Promise.resolve().then(factory);task.then(provider=>{if(expired||epoch!==this.epoch){if(typeof provider.destroy==='function'&&!provider.isDestroyed?.())provider.destroy();}},()=>{});
   let provider;
   try{provider=await Promise.race([task,new Promise((_,reject)=>{timer=setTimeout(()=>{expired=true;reject(Error('Imagery construction timed out'))},20000)})]);signal.throwIfAborted();}
-  catch(error){if(epoch===this.epoch&&!this.runtime.lifecycle.closed){this.budget.block(SOURCE_FACTS[id].host,error);this.cooldowns.set(id,performance.now()+60000);this.failedConstructions.add(id);this.failedSources.add(id);}throw error;}
+  catch(error){if(epoch===this.epoch&&!this.runtime.lifecycle.closed){this.budget.block(SOURCE_FACTS[id].host,error);this.markFailed(id);this.failedConstructions.add(id);}throw error;}
   finally{clearTimeout(timer);}
   if(epoch!==this.epoch)throw Error('Stale imagery construction');
   const record={id,provider,loaded:false,epoch};
   const owned=()=>epoch===this.epoch&&this.activeRecord===record&&!this.runtime.lifecycle.closed;
-  const live=()=>owned()&&!record.guard.paused;
-  const fail=error=>{if(!live())return;this.failedSources.add(id);this.cooldowns.set(id,performance.now()+60000);this.reason='Imagery tiles unavailable';this.stopBlockedHost(SOURCE_FACTS[id].host);
+  const live=()=>owned()&&this.map?.getState().status!=='switching'&&!record.guard.paused;
+  const fail=error=>{if(!live())return;this.markFailed(id);this.reason='Imagery tiles unavailable';this.stopBlockedHost(SOURCE_FACTS[id].host);
    if(id==='nasa'){queueMicrotask(()=>{if(owned())this.terminal('NASA unavailable; local safety base');});}
    else{provider.errorEvent.raiseEvent(error);}
   };
@@ -98,8 +98,8 @@ export class ImageryController {
    canDispatch:()=>id!=='ion'||this.session.canUseIon(this.config.ionSessionTileLimit),
    onDispatch:()=>{if(id==='ion')this.session.recordIonRequest();},onLimit:()=>fail(Error('Ion tab-session limit reached or ledger unavailable')),
    isEmpty:id==='usgs-naip'?(image,args)=>this.emptyImage(image,record,args[2]):()=>false,
-   onLoad:()=>{if(!live())return;record.loaded=true;this.status=record.partial?'partial':'ready';this.runtime.timings.firstImageryTileMs??=performance.now();if(['usgs-naip','pema'].includes(id))this.runtime.timings.firstHdTileMs??=performance.now();this.refresh();},onError:fail});
-  record.guard.pause();record.off=provider.errorEvent.addEventListener(error=>{if(error)error.retry=false;if(!live())return;this.budget.block(SOURCE_FACTS[id].host,error);this.stopBlockedHost(SOURCE_FACTS[id].host);this.failedSources.add(id);this.cooldowns.set(id,performance.now()+60000);if(id==='nasa')queueMicrotask(()=>{if(owned())this.terminal('NASA unavailable; local safety base');});this.refresh();});
+   onLoad:()=>{if(!live())return;record.loaded=true;this.failureCounts.delete(id);this.status=record.partial?'partial':'ready';this.runtime.timings.firstImageryTileMs??=performance.now();if(['usgs-naip','pema'].includes(id))this.runtime.timings.firstHdTileMs??=performance.now();this.refresh();},onError:fail});
+  record.guard.pause();record.off=provider.errorEvent.addEventListener(error=>{if(error)error.retry=false;if(!live())return;this.budget.block(SOURCE_FACTS[id].host,error);this.stopBlockedHost(SOURCE_FACTS[id].host);this.markFailed(id);if(id==='nasa')queueMicrotask(()=>{if(owned())this.terminal('NASA unavailable; local safety base');});this.refresh();});
   this.records.set(provider,record);return provider;
  }
  emptyImage(image,record,level){
@@ -120,28 +120,61 @@ export class ImageryController {
   this.map?.destroy();this.map=null;this.managed=null;this.activeRecord=null;this.records.clear();this.cachedFallbacks.clear();this.failedConstructions.clear();this.removeLabels();this.runtime.attribution.remove('imagery');
  }
  terminal(reason){this.disposeController();this.actual='local';this.status=this.mode==='local'?'ready':'unavailable';this.reason=reason;this.refresh();}
- async retrySelected(){
-  const target=this.mode==='auto'?chooseImagery(this.view(),this.actual):this.mode;
-  if(target==='local')return;
-  this.budget.retryHost(SOURCE_FACTS[target]?.host??'');
-  if(performance.now()<(this.cooldowns.get(target)??0)||!this.budget.eligible(SOURCE_FACTS[target]?.host??'')){this.reason='Retry waits for source/host cooldown';this.refresh();return;}
-  // A successful construction fallback remains cached under its original ID.
-  // Only this explicit exceptional retry drops it; ordinary switches keep caches.
-  this.failedSources.delete(target);if(this.cachedFallbacks.has(target))this.disposeController();
-  await this.select(this.mode,true);
+ markFailed(id){
+  // Duplicate SDK/guard notifications represent one failure, not two attempts.
+  if(this.failedSources.has(id))return;
+  const count=(this.failureCounts.get(id)??0)+1;this.failureCounts.set(id,count);
+  this.failedSources.add(id);this.cooldowns.set(id,performance.now()+Math.min(900000,60000*2**Math.min(count-1,4)));
  }
+ canQueryFootprint(view=this.view()){
+  return view.height<150000&&!view.naipCovered&&containsView(CONUS,view.rect)&&this.mode==='auto'&&this.metadataCount<32&&!this.metadataPending&&performance.now()-this.metadataLast>=60000&&this.eligible('usgs-naip');
+ }
+ needsUpdate(){
+  if(this.canQueryFootprint())return true;
+  return !this.budget.stats.active&&[...this.failedSources].some(id=>{
+   const host=SOURCE_FACTS[id]?.host??'',blocked=this.budget.blocked.get(host);
+   return performance.now()>=(this.cooldowns.get(id)??0)&&(!blocked||(blocked.status===429&&performance.now()>=blocked.until));
+  });
+ }
+ recoverEligible(){
+  for(const id of this.failedSources){const host=SOURCE_FACTS[id]?.host??'';
+   if(performance.now()<(this.cooldowns.get(id)??0)||!this.budget.retryHost(host)||!this.budget.eligible(host)||this.budget.stats.active)continue;
+   this.failedSources.delete(id);
+  }
+ }
+ async retrySelected(){return this.updateView();}
+ cameraKey(view=this.view()){return JSON.stringify([view.point,view.rect,view.height]);}
  async updateView(){
-  if(this.runtime.lifecycle.closed)return;await this.select(this.mode);
-  const view=this.view();if(view.height<150000&&!view.naipCovered&&containsView(CONUS,view.rect)&&['auto','usgs-naip','pema'].includes(this.mode)&&this.metadataCount<32&&performance.now()-this.metadataLast>=60000&&this.budget.eligible(SOURCE_FACTS['usgs-naip'].host))await this.queryFootprint(view);
+  if(this.runtime.lifecycle.closed||!this.base||this.updating)return;
+  this.updating=true;
+  if(this.metadataPending&&this.metadataKey!==this.cameraKey())this.metadataAbort?.abort();
+  try{
+   this.recoverEligible();
+   const wanted=this.desired(this.view());
+   // Public API has no single-entry eviction. Only retrying a successful cached
+   // construction fallback requires losing remote caches; ordinary retries keep them.
+   if(this.cachedFallbacks.has(wanted)&&this.eligible(wanted))this.disposeController();
+   await this.select(this.mode);
+  }finally{this.updating=false;}
+  const view=this.view();if(this.canQueryFootprint(view))await this.queryFootprint(view);
  }
  async queryFootprint(view){
-  this.metadataLast=performance.now();this.metadataCount++;this.metadataAbort?.abort();this.metadataAbort=new AbortController();const epoch=this.epoch;
-  const params=new URLSearchParams({f:'json',geometry:view.point.join(','),geometryType:'esriGeometryPoint',inSR:'4326',outSR:'4326',spatialRel:'esriSpatialRelIntersects',where:'Category=1',outFields:'Name',returnGeometry:'true',resultRecordCount:'1'});
-  try{const response=await fetch('https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/query?'+params,{signal:AbortSignal.any([this.metadataAbort.signal,this.runtime.lifecycle.controller.signal,AbortSignal.timeout(20000)])});if(!response.ok){this.budget.block(SOURCE_FACTS['usgs-naip'].host,{statusCode:response.status});return;}
+  const lease=this.budget.take(SOURCE_FACTS['usgs-naip'].host,2);if(!lease)return;
+  lease.commit();this.metadataPending=true;this.metadataLast=performance.now();this.metadataCount++;
+  this.metadataAbort?.abort();this.metadataAbort=new AbortController();const epoch=this.epoch,key=this.cameraKey(view),generation=this.selectionGeneration;this.metadataKey=key;
+  const params=new URLSearchParams({f:'json',geometry:JSON.stringify({x:view.point[0],y:view.point[1],spatialReference:{wkid:4326}}),geometryType:'esriGeometryPoint',inSR:'4326',outSR:'4326',spatialRel:'esriSpatialRelIntersects',where:'Category=1',outFields:'Name',returnGeometry:'true',resultRecordCount:'1'});
+  try{const response=await fetch('https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/query?'+params,{signal:AbortSignal.any([this.metadataAbort.signal,this.runtime.lifecycle.controller.signal,AbortSignal.timeout(20000)])});if(!response.ok){this.budget.block(SOURCE_FACTS['usgs-naip'].host,{statusCode:response.status,retryAfter:response.headers.get('retry-after')});return;}
    const reader=response.body.getReader(),chunks=[];let bytes=0;while(true){const item=await reader.read();if(item.done)break;bytes+=item.value.length;if(bytes>1048576){await reader.cancel();return;}chunks.push(item.value);}const buffer=new Uint8Array(bytes);let offset=0;for(const chunk of chunks){buffer.set(chunk,offset);offset+=chunk.length;}const value=JSON.parse(new TextDecoder().decode(buffer));if(value.spatialReference?.wkid!==4326||value.features?.length!==1||value.features[0].geometry?.rings?.length!==1)return;const ring=value.features[0].geometry.rings[0];
    if(!Array.isArray(ring)||ring.length<4||ring.length>128||ring.some(p=>!Array.isArray(p)||p.length!==2||!Number.isFinite(p[0])||!Number.isFinite(p[1])||!contains(CONUS,p)))return;
-   if(this.runtime.lifecycle.closed||epoch!==this.epoch)return;this.footprints.push({ring,verifiedOras:false});if(this.footprints.length>32)this.footprints.splice(1,1);await this.select(this.mode);
-  }catch{/* Unverified coverage retains global imagery; no metadata retry loop. */}
+   if(this.runtime.lifecycle.closed||epoch!==this.epoch||generation!==this.selectionGeneration||key!==this.cameraKey()||this.metadataAbort.signal.aborted)return;
+   // Cache a genuine center footprint even when it covers only part of this
+   // view. view()/desired() still require every corner before using NAIP; a
+   // subsequent closer camera can qualify from this cache without a new query.
+   if(!inRing(view.point,ring))return;
+   this.footprints.push({ring,verifiedOras:false,rasterName:typeof value.features[0].attributes?.Name==='string'?value.features[0].attributes.Name:null});if(this.footprints.length>32)this.footprints.splice(1,1);
+   lease.release();await this.select(this.mode);
+  }catch{/* Unverified coverage retains global imagery; at most one request/minute. */}
+  finally{lease.release();this.metadataPending=false;}
  }
  async setLabels(enabled){if(enabled)this.budget.retryHost('tiles.maps.eox.at');this.labelsWanted=!!enabled&&this.budget.eligible('tiles.maps.eox.at');await this.syncLabels();this.refresh();}
  async syncLabels(){
@@ -152,24 +185,18 @@ export class ImageryController {
   this.runtime.attribution.set('map-labels','EOX::Maps · EOX/MapServer · © OpenStreetMap contributors','https://maps.eox.at/');this.order();
  }
  removeLabels(){if(!this.labels)return;this.labels.off();this.labels.guard.stop();this.viewer.imageryLayers.remove(this.labels.layer,true);this.labels=null;this.runtime.attribution.remove('map-labels');}
- mountControls(){
-  if(typeof document==='undefined')return;
-  this.selectNode=document.querySelector('#imagery-source');this.statusNode=document.querySelector('#imagery-status');this.labelsNode=document.querySelector('#imagery-labels');
-  const change=()=>void this.select(this.selectNode.value),labels=()=>void this.setLabels(this.labelsNode.checked),retry=()=>void this.retrySelected();
-  this.selectNode.addEventListener('change',change);this.labelsNode.addEventListener('change',labels);const button=document.querySelector('#imagery-retry');button.addEventListener('click',retry);
-  this.removeControls=()=>{this.selectNode.removeEventListener('change',change);this.labelsNode.removeEventListener('change',labels);button.removeEventListener('click',retry);};
- }
+ mountStatus(){if(typeof document!=='undefined'){this.statusNode=document.querySelector('#imagery-status');this.summaryNode=document.querySelector('#imagery-summary');}}
  refresh(){
   if(this.runtime.lifecycle.closed)return;
   const facts=SOURCE_FACTS[this.actual]??SOURCE_FACTS.local,view=this.view();
   const localProof=this.actual==='usgs-naip'&&view.verifiedOras;
-  this.metadata={...facts,...(localProof?{date:'2022-06-23',gsd:0.6,product:'NAIP · ORAS matched-image acquisition 2022-06-23'}:{}),selected:this.mode,actual:this.actual,status:this.status,reason:this.reason};
+  this.metadata={...facts,...(localProof?{date:'2022-06-23',gsd:0.6,product:'NAIP · ORAS matched-image acquisition 2022-06-23'}:{}),coverageRasterName:this.actual==='usgs-naip'?view.footprint?.rasterName??null:null,selected:this.mode,actual:this.actual,status:this.status,reason:this.reason};
   if(this.actual!=='local')this.runtime.attribution.set('imagery',facts.credit,facts.url);
   this.quality.imagery=`${facts.label} · ${this.status}${this.reason?' · fallback':''}`;
-  if(this.selectNode){this.selectNode.value=this.mode;this.selectNode.querySelector('[value="ion"]').disabled=!this.session.canUseIon(this.config?.ionSessionTileLimit)||!this.registry?.sources.some(source=>source.descriptor.id==='ion');this.labelsNode.checked=this.labelsWanted;
-   this.statusNode.textContent=`Selected: ${this.mode==='auto'?'Auto':SOURCE_FACTS[this.mode]?.label}. Showing: ${facts.label} · ${this.status}. ${this.metadata.product}. ${this.metadata.date?'Acquired '+this.metadata.date+'. ':'Exact capture date unavailable. '}${this.metadata.gsd?'Native '+this.metadata.gsd.toFixed(this.metadata.gsd<1?4:0)+' m. ':''}${facts.coverage}${this.actual==='pema'&&!containsView(PEMA_COVERAGE,view.rect)?' · partial view outside verified extent':''}${this.reason?' · '+this.reason:''}`;}
+  if(this.summaryNode)this.summaryNode.textContent=`${facts.label} · ${this.status}`;
+  if(this.statusNode)this.statusNode.textContent=`Showing ${facts.label}. ${this.metadata.product}. ${this.metadata.date?'Acquired '+this.metadata.date+'. ':'Exact capture date unavailable. '}${this.metadata.gsd?'Native '+this.metadata.gsd.toFixed(this.metadata.gsd<1?4:0)+' m. ':''}${facts.coverage}${this.reason?' · '+this.reason:''}`;
   this.viewer.scene.requestRender();
  }
- diagnostics(){return {selected:this.mode,actual:this.actual,status:this.status,metadata:this.metadata,localAllocations:this.localAllocations,controllersCreated:this.controllersCreated,managedLayers:this.managed&&this.viewer.imageryLayers.indexOf(this.managed)>=0?1:0,labelsLayers:this.labels?1:0,budget:{...this.budget.stats},ionSessionRequests:this.session.ionUsed,ionSessionLedgerAvailable:this.session.available,metadataRequests:this.metadataCount,view:this.runtime.lifecycle.closed?null:this.view(),sources:Object.fromEntries([...this.records.values()].map(record=>[record.id,{...record.guard.stats,paused:record.guard.paused,partial:!!record.partial}]))};}
- clear(){clearTimeout(this.cameraTimer);clearInterval(this.wakeTimer);this.metadataAbort?.abort();this.offCamera?.();this.removeControls?.();this.disposeController();this.localGuard?.stop();if(this.base)this.viewer.imageryLayers.remove(this.base,true);this.base=null;}
+ diagnostics(){return {selected:this.mode,actual:this.actual,status:this.status,metadata:this.metadata,localAllocations:this.localAllocations,controllersCreated:this.controllersCreated,managedLayers:this.managed&&this.viewer.imageryLayers.indexOf(this.managed)>=0?1:0,labelsLayers:this.labels?1:0,budget:{...this.budget.stats},ionSessionRequests:this.session.ionUsed,ionSessionLedgerAvailable:this.session.available,metadataRequests:this.metadataCount,metadataPending:!!this.metadataPending,view:this.runtime.lifecycle.closed?null:this.view(),sources:Object.fromEntries([...this.records.values()].map(record=>[record.id,{...record.guard.stats,paused:record.guard.paused,partial:!!record.partial}]))};}
+ clear(){clearTimeout(this.cameraTimer);clearInterval(this.wakeTimer);this.metadataAbort?.abort();this.offCamera?.();this.disposeController();this.localGuard?.stop();if(this.base)this.viewer.imageryLayers.remove(this.base,true);this.base=null;}
 }
