@@ -33,7 +33,7 @@ resolution selector, labels control, source Retry or manual preference remains;
 actual source/quality/credits stay read-only and accessible.
 Commit/push/open one implementation PR; DO NOT MERGE. Matching browser proof and
 bounded Earth artifact qualification precede handoff; stop for owner visual review.
-Automatic candidate Earth `bdfa4089e0ab3d77fa3f987e1a02c3f2b7fd7896f8f4804e439a762f1600c042` (inputs `6c50f84ca59360e7ada685ad0ebf5255469eb98ea6fad5550ae33ca10a06bfa6`),
+Automatic candidate Earth `387434055696d93867f80a49b6ea380284493cc9ebe38ee9edb31896cffd3e0c` (inputs `66070ac1ef3483c3f35bf0edfd67be2e688f71cd4b9a7acb63e4f7eb13c3cc22`),
 with two identical Docker builds and exact installed/served bytes.
 [Current mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-automatic-imagery-correction--2026-10-11) records results and remaining gates.
 

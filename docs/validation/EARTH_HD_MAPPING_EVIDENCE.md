@@ -928,3 +928,67 @@ Next action is owner review of the automatic mapping experience/limitations and
 explicit merge approval for the delivered exact head. No later C6 package is
 activated. Both Codex P2 responses address the stationary-camera path and removed
 mobile panel; final GitHub head/check/thread state is delivered with the PR handoff.
+
+
+### Follow-up P2: footprint metadata429 recovery
+
+A third Codex P2 arrived after the first automatic correction was pushed at
+`27b0d2af9e8bba8372656f376435fb8e0e78d95b`. That delivery and its artifact/capture
+results above remain historical evidence, preserved in ignored
+`output/playwright/c6-1a/auto-pre-429`. The current candidate below supersedes its
+artifact identity without changing source policy, budgets or manual-control removal.
+
+RED reproduced a stationary NAIP footprint response429 with Retry-After600:
+after600s the request count remained1 and EOX stayed active. The narrow correction
+registers metadata429 with existing failed-source recovery. GREEN proves no query
+at300s, one automatic new query after600s, valid-footprint NAIP activation without
+a camera move, and one safety allocation. Healthy controller/provider caches and
+existing host/metadata guards remain intact;401/403 still fail closed.
+
+Current Earth `387434055696d93867f80a49b6ea380284493cc9ebe38ee9edb31896cffd3e0c`;
+inputs `66070ac1ef3483c3f35bf0edfd67be2e688f71cd4b9a7acb63e4f7eb13c3cc22`.
+Two independent pinned Docker builds (`earth-429-1`, `earth-429-2`) are identical:
+512 payload files,11,820,135 payload bytes;111 license records. Build warning
+remains the established Vite>500kB chunk notice. Preceding artifact is retained as
+`data/runtime-artifacts/earth-c61a-pre-429-bdfa4089e0ab3d77`. Source pin, safety
+base, Sky, merged C5.7-D and rollback identities are unchanged.
+
+Follow-up changed files only: ImageryController.mjs, imagery-controller.test.mjs,
+runtime-versions.json, renderers.lock.json, LIVE_SESSION_BRIEF.md, PROJECT_STATE.md
+and this evidence file. Existing script/commands above are reused with429-named
+output paths, plus saved `red-metadata-429.log`/`green-metadata-429.log`.
+
+Refreshed deterministic qualification PASS:72 Docker Earth tests plus1 host
+export test (18 controller regressions);9 frontend tests;TypeScript;26 Docker
+document/artifact tests plus36 subtests. Both manifest/reference validators and
+whitespace pass with the unchanged counts above. Installed verification and all512
+served file hashes match the new artifact. Original68 containers/81 volumes, owner
+settings hash, immutable upstream source, scientific data and rollback artifacts
+pass the existing preservation check. No new provider research or diagnosis.
+
+Refreshed installed-browser qualification PASS:11 cases,5.1min, including five
+serial Sky/Earth cycles each at desktop/mobile, native provider ownership/cache/
+teardown/stationary coverage and narrow standalone/embedded details/Focus/Track/
+Stop/credits. Software Chromium/SwiftShader only; no physical-device claim.
+
+Fresh current-artifact live captures verify eight matched camera/UTC/viewport
+pairs, zero page errors, one safety allocation, at most one managed remote, no
+ion requests and unchanged concurrency caps. NASA overview, EOX North America/
+wider NYC/Paris/ocean and PEMA both ORAS scales settled. Close NYC qualified the
+correct footprint and loaded23 NAIP tiles, but one tile failure plus one cancellation
+triggered automatic EOX fallback; NAIP peak2,global peak5. Capture was still not
+fully settled at the bounded120s window (131.3s including software screenshot work).
+Exact upstream failure cause is not established by these counters. This is genuine
+fallback evidence, NOT a fresh fully successful NAIP visual/performance pass.
+Earlier same-camera NAIP buildings/streets proof at head27b0d2 remains explicitly
+preserved in `auto-pre-429`; it is not relabeled as the new artifact. No provider
+limit was widened or extra provider research/capture retries performed.
+
+Current screenshot/JSON/gallery paths remain `output/playwright/c6-1a/auto`;
+`qualification/capture-proof.json` distinguishes source readiness from settled
+globe tiles and records actual fallback, date/detail uncertainty and request
+counters. The recorded source binding verifies all39 captured runtime inputs
+against the delivered commit, retaining the original parent-at-capture record.
+All three P2 corrections are subject to fresh GitHub reply/thread/check verification
+at handoff. Owner visual/performance acceptance remains open; do not merge or
+start terrain/3D.
