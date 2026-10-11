@@ -63,6 +63,7 @@ tasks:
     - docs/audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md
     - docs/audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md
     - docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md
+    - docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md
 
   backend_change:
     load:
@@ -131,6 +132,7 @@ tasks:
     - docs/architecture/decisions/0009-owned-earth-feature-reuse.md
     - docs/audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md
     - docs/audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md
+    - docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md
 
   validation:
     load:
@@ -174,6 +176,7 @@ tasks:
     - docs/audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md
     - docs/audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md
     - docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md
+    - docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md
 
   debug:
     load:
@@ -244,6 +247,7 @@ tasks:
     - docs/audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md
     - docs/audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md
     - docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md
+    - docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md
 
   reconciliation:
     load:
@@ -330,6 +334,8 @@ tasks:
     - docs/audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md
     - docs/audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md
     - docs/audits/MASTER_ADOPTION_AUDIT_VALIDATION_2026-10-10.md
+
+    - docs/validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md
 
 rules:
 - do_not_load_unlisted_documents: true

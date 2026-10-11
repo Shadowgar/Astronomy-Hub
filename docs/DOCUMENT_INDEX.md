@@ -171,6 +171,11 @@ Planning and evidence discovery: [Earth capability plan](execution/EARTH_CAPABIL
 [divergence evidence](audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md) and
 [reconciliation validation](validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md).
 
+C5.7-D local implementation/visual qualification and preserved gaps:
+[Earth appearance evidence](validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md).
+The owner-approved visual-first order is recorded in PROJECT_STATE/LIVE and the
+execution specifications; the original proposal/audit documents remain historical.
+
 Owner-review adoption discovery (SUPPORT proposals; does not change the sequence
 above): [master adoption matrix](audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md),
 [external code/data gaps](audits/EXTERNAL_COMPONENTS_AND_DATA_GAPS_2026-10-10.md),

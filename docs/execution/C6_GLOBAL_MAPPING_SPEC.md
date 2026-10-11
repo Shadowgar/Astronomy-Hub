@@ -1,7 +1,11 @@
 # C6 — Google-Earth-Class Global Mapping
 
 **APPROVED PRODUCT DIRECTION — PROPOSED STAGES; NO PROVIDER-SPECIFIC IMPLEMENTATION AUTHORIZED.**
-Date: 2026-10-08. C5.6.75 is documentation only; C5.7 approval/recovery comes first.
+Date: 2026-10-10. C5.7-D appearance comes first; C6-0 through C6-5 precede
++resumed C5.7-A/PR #67 review and separately approved satellite/Weather packages.
++Only C5.7-D implementation is authorized. Provider spending is fixed at $0.
++Cesium ion Community remains conditional until written club/public-use eligibility
++and zero-charge protection are established. Paid providers are inadmissible.
 This title describes intended user experience, not entitlement to Google Earth
 imagery or uniform aerial-scale resolution around the planet.
 
@@ -43,7 +47,7 @@ service fan-out; no feed/tile bulk mirror or distribution without permission.
 ## Proposed acceptance and exclusions
 
 Before C6 code, owner freezes provider/geographic/detail expectations, test target
-set, numerical accuracy tolerances, maximum spend, request/memory/GPU/frame budgets
+set, numerical accuracy tolerances, mandatory $0 spend, request/memory/GPU/frame budgets
 and desktop/mobile/device list. Passing HTTP alone is not useful visual proof.
 Source/service qualification precedes acquisition; no keys/accounts/purchases now.
 Every visual mode requires source dates/coverage/credit/fallback and owned teardown.

@@ -45,11 +45,11 @@ class ReconciliationTests(unittest.TestCase):
             with self.subTest(target=target), self.assertRaisesRegex(ValueError, 'product reference in execution tier'):
                 v.validate_discovery(changed, self.inventory)
 
-    def test_each_decision_must_remain_unresolved(self):
-        """Each decision must remain unresolved."""
+    def test_decisions_cannot_expand_bounded_approval(self):
+        """Only the named D scope is approved; generic approval cannot unlock others."""
         import re
         for number in range(1, 7):
-            changed = re.sub(r'(\| OD'+str(number)+r'[^|]+\|)(?: UNRESOLVED \|)?', r'\1 APPROVED |', self.c57)
+            changed = re.sub(r'(\| OD'+str(number)+r'[^|]+\|)[^|]+\|', r'\1 APPROVED |', self.c57)
             with self.subTest(decision=number), self.assertRaisesRegex(ValueError, 'decision status'):
                 v.validate_proposals(changed, self.c6)
 
@@ -66,6 +66,13 @@ class ReconciliationTests(unittest.TestCase):
             with self.subTest(flag=flag), self.assertRaisesRegex(ValueError, 'provider gate differs'):
                 v.validate_plan(changed, self.audit, self.read)
 
+    def test_zero_cost_and_ion_conditions_cannot_disappear(self):
+        """Roadmap approval never grants provider spending or ion entitlement."""
+        for gate in ('Provider spending is fixed at $0.',
+                     'written club/public-use eligibility', 'zero-charge protection'):
+            with self.subTest(gate=gate), self.assertRaisesRegex(ValueError, 'zero-cost'):
+                v.validate_proposals(self.c57, self.c6.replace(gate, ''))
+
     def test_missing_discovery_rejected(self):
         """Missing discovery rejected."""
         for name in v.DISCOVERY:
@@ -75,7 +82,7 @@ class ReconciliationTests(unittest.TestCase):
     def test_approval_and_provider_gates_cannot_disappear(self):
         """Approval and provider gates cannot disappear."""
         with self.assertRaisesRegex(ValueError, 'owner-approval stop gate'):
-            v.validate_proposals(self.c57.replace('NOT AUTHORIZED FOR IMPLEMENTATION.', ''), self.c6)
+            v.validate_proposals(self.c57.replace('ONLY C5.7-D AUTHORIZED.', ''), self.c6)
         with self.assertRaisesRegex(ValueError, 'provider approval gate'):
             v.validate_proposals(self.c57, self.c6.replace('NO PROVIDER-SPECIFIC IMPLEMENTATION AUTHORIZED.', ''))
         with self.assertRaisesRegex(ValueError, 'six unique owner decisions'):

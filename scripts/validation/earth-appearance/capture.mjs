@@ -1,0 +1,37 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+const variant=process.argv[2]||'baseline';
+const root=fileURLToPath(new URL('../../../',import.meta.url));
+const out=root+'output/playwright/c57d';fs.mkdirSync(out,{recursive:true});
+const browser=await chromium.launch({headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const page=await browser.newPage({viewport:{width:1440,height:900}});
+const errors=[],requests=[],failures=[];
+page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>requests.push(r.url()));page.on('response',r=>{if(r.status()>=400)failures.push({url:r.url(),status:r.status()})});
+await page.goto('http://127.0.0.1:4192/?baseline='+(variant==='baseline'?'1':'0'));
+await page.waitForFunction(()=>window.ready===true);
+if(variant==='star-only')await page.evaluate(()=>{proof.viewer.scene.skyAtmosphere.atmosphereLightIntensity=50;proof.viewer.scene.skyAtmosphere.saturationShift=0;proof.viewer.scene.skyAtmosphere.brightnessShift=0});
+const scenes=[{name:'day',lon:-79.585394,lat:41.321903,height:15621863,utc:'2026-10-10T17:00:00Z'},{name:'terminator',lon:-79.585394,lat:41.321903,height:15621863,utc:'2026-10-10T23:00:00Z'},{name:'night',lon:-79.585394,lat:41.321903,height:15621863,utc:'2026-10-10T05:00:00Z'},{name:'horizon',lon:-79.585394,lat:41.321903,height:500000,pitch:-15,utc:'2026-10-10T17:00:00Z'}];
+const evidence=[];
+for(const scene of scenes){await page.evaluate(s=>proof.setView(s),scene);await page.waitForTimeout(3500);await page.evaluate(()=>proof.viewer.scene.requestRender());await page.waitForTimeout(250);const state=await page.evaluate(()=>proof.state());const screenshot=`${out}/${variant}-${scene.name}.png`;await page.screenshot({path:screenshot});evidence.push({scene,state,screenshot});}
+const renderer=await page.evaluate(()=>proof.state().renderer);
+await page.evaluate(()=>proof.controller.destroy());const destroyed=await page.evaluate(()=>proof.viewer.isDestroyed());
+const lifecycle=[];
+for(let i=0;i<5;i++)lifecycle.push(await page.evaluate(async()=>{
+ const controller=window.createProofController(),viewer=controller.viewer;
+ await controller.skyboxReady;viewer.render();
+ const cube=viewer.scene.skyBox._cubeMap,atmosphere=viewer.scene.skyAtmosphere;
+ controller.destroy();controller.destroy();
+ return {viewerDestroyed:viewer.isDestroyed(),cubeDestroyed:cube?.isDestroyed()??null,atmosphereDestroyed:atmosphere.isDestroyed(),canvases:document.querySelectorAll('#viewer canvas').length};
+}));
+const inputPath='runtimes/earth-runtime/core/ViewerController.mjs';
+const inputBytes=variant==='baseline'?execFileSync('git',['show','eea3e295:'+inputPath],{cwd:root}):fs.readFileSync(root+inputPath);
+const inputs=createHash('sha256').update(inputBytes).digest('hex')+'  '+inputPath;
+fs.writeFileSync(`${out}/${variant}.json`,JSON.stringify({variant,sourceBase:'eea3e295ed5d234edae9053b3119f61e15e8371b',head:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),ownedInput:inputs,browser:'Chromium / ANGLE SwiftShader (software)',evidence,requests,errors,failures,destroyed,lifecycle},null,2));
+await browser.close();
+if(errors.length||failures.length||!destroyed)throw Error('Focused smoke failed '+JSON.stringify({errors,failures,destroyed}));
+if(!renderer.skyBoxShow||!renderer.skyBoxLoaded)throw Error('RED: standard skybox is not visible/loaded');
+if(lifecycle.some(row=>!row.viewerDestroyed||!row.cubeDestroyed||!row.atmosphereDestroyed||row.canvases))throw Error('Viewer/cubemap/atmosphere teardown failed');
+console.log(`PASS ${variant}: four matched scenes, cube map loaded, zero page/asset errors, five Viewer/cubemap/atmosphere destruction cycles`);

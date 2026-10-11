@@ -69,8 +69,10 @@ This product reference does not define order or authorize implementation.
 Execution sequence and gates: [PROJECT_STATE](PROJECT_STATE.md) and
 [LIVE_SESSION_BRIEF](../context/LIVE_SESSION_BRIEF.md). Earth planning:
 [Earth plan](EARTH_CAPABILITY_PLAN.md), [proposed C5.7](C5_7_EARTH_CORE_RECOVERY_SPEC.md),
-[C6 direction](C6_GLOBAL_MAPPING_SPEC.md). C5.6.75 is current documentation review;
-C5.7 needs approval, C6 provider-specific work unapproved, D/E/F/G/H planned.
+[C6 direction](C6_GLOBAL_MAPPING_SPEC.md). Owner approved the visual-first order: C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather.
++Only C5.7-D is active; C6 provider-specific work remains unapproved. Mandatory
++$0 spend; ion Community is conditional on written eligibility/zero-charge protection.
++D/E/F/G/H remain planned; open C5.7 gates and PR #67 review are retained.
 Keep complete applicable future Earth scope through preferential feature reuse/
 wrapping in owned Viewer, not complete upstream app ownership. Development remains
 local WSL/Docker; production requires owner-declared Release Candidate and separate
