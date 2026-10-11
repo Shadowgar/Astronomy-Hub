@@ -58,8 +58,8 @@ def validate_discovery(index, inventory):
 
 
 def validate_proposals(c57, c6):
-    """Require unapproved packages and an unresolved status on each owner decision."""
-    require('PROPOSED — AWAITING OWNER APPROVAL. NOT AUTHORIZED FOR IMPLEMENTATION.' in c57,
+    """Preserve the owner's D-only approval and all other stop gates."""
+    require('ONLY C5.7-D AUTHORIZED. OTHER PACKAGES NOT AUTHORIZED FOR IMPLEMENTATION.' in c57,
             'C5.7: missing owner-approval stop gate')
     require('NO PROVIDER-SPECIFIC IMPLEMENTATION AUTHORIZED.' in c6, 'C6: missing provider approval gate')
     headings = re.findall(r'^## C5\.7-([A-E]) —', c57, re.M)
@@ -72,8 +72,12 @@ def validate_proposals(c57, c6):
     require(re.findall(r'^\| (OD[1-6]) ', register, re.M) == ['OD'+str(i) for i in range(1, 7)],
             'C5.7: expected six unique owner decisions')
     rows = [line.split('|') for line in register.splitlines() if re.match(r'^\| OD[1-6] ', line)]
-    require(all(len(row) == 7 and row[2].strip() == 'UNRESOLVED' for row in rows),
-            'C5.7: each decision status must remain UNRESOLVED')
+    require(all(len(row) == 7 and row[2].strip() ==
+                ('APPROVED BOUNDED C5.7-D' if row[1].strip().startswith('OD4 ') else 'UNRESOLVED')
+                for row in rows), 'C5.7: decision status exceeds bounded D approval')
+    require('Provider spending is fixed at $0.' in c6 and
+            'written club/public-use eligibility' in c6 and 'zero-charge protection' in c6,
+            'C6: missing zero-cost or conditional ion eligibility gate')
     require(re.findall(r'^\| (C6-[0-5]) ', c6, re.M) == ['C6-'+str(i) for i in range(6)],
             'C6: expected provider-first ordered stages')
 
@@ -168,7 +172,7 @@ def main():
         names = set(DISCOVERY) | {'docs/DOCUMENT_INDEX.md', 'docs/README.md', 'docs/ASTRONOMY_HUB_DIAGRAM.md'}
         links = sum(architecture.markdown_links(name) for name in names)
         fragments = sum(validate_fragments(name) for name in names)
-        print(f'PASS: index/inventory authority and discovery; eight context packs; C5.7 A-E and six unresolved decisions; C6-0 through C6-5 gates.')
+        print('PASS: index/inventory authority and discovery; eight context packs; D-only approval, five unresolved decisions; zero-cost C6-0 through C6-5 gates.')
         print(f'PASS: 67 capability records, ten required fields each; audit relationship/gate counts; {symbols} source entrypoint references; {links} relative links and {fragments} heading fragments.')
     except (ValueError, OSError, KeyError, IndexError, AttributeError) as exc:
         print('FAIL: '+str(exc), file=sys.stderr)

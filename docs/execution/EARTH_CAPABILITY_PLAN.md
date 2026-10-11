@@ -10,6 +10,22 @@ Original [audit matrix](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIAT
 evidence. Original DRAFT input remains historical; this plan is the normal future
 Earth planning reference. It links source detail rather than duplicating the matrix.
 
+## Approved visual-first order
+
+Owner approved the visual-first order on 2026-10-10: **C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather**.
+Only **C5.7-D** is active: standard bundled Cesium stars, atmosphere and appearance
+within the Hub-owned Viewer. Matching local-browser visual proof precedes heavy
+qualification. C6 imagery/terrain/3D implementation is NOT AUTHORIZED; each later
+package requires separate approval. Outstanding C5.7 acceptance, physical-device,
+provider, science and integrated qualification gates remain open.
+
+Provider spending is mandatory **$0**. No accounts, tokens, billing or subscriptions.
+Cesium ion Community is conditional until written club/public-use eligibility and
+zero-charge protection are established; it is not an approved provider. Reuse
+qualified God's Eye/Cesium functionality rather than rebuilding it. No new assets,
+dependencies, pin updates, full upstream Viewer factory or scientific star catalog.
+PR #67 stays open and unmerged; no production/SSH/Cloudflare deployment.
+
 ## Evidence and denominator rules
 
 Runtime baseline `bb28aec7833d154c2f0b3b7fa7470d69a93c84b4`. Audit evidence commit `09495238c2b5aebe358c66f9a09801382758f4f8`.
@@ -59,7 +75,8 @@ rendering/advertised coverage/accepted behavior. No global aircraft authorizatio
 small stations catalog called a loading defect, point weather called a weather
 map, dormant ion called active terrain, or standard starbox called astronomy data.
 
-C5.7 **PROPOSED** A→B→C→D→E, approval/decisions first. C6 approved direction,
+C5.7-D alone is approved under the visual-first order above; A/PR #67 is preserved,
+B/C/E qualification and owner decisions remain outstanding. C6 approved direction,
 provider-specific stages unapproved. Other phases retain complete applicable
 scope subject to provider/hook/asset and bounded owner task gates. Each future
 capability needs failing reproduction, source contract, fixture+Docker/browser

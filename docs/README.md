@@ -22,13 +22,15 @@ Completion does not mean full God's Eye parity: aircraft source returned HTTP 50
 dated audit and altitude gates hide home-view glyphs; satellites intentionally use
 stations only; Weather qualified one modeled point, not a weather map; CONUS radar
 is a separate timestamped snapshot. HD imagery is regional, terrain/3D are dormant,
-and Earth disables the standard skybox. Local WSL/Docker qualification is not
+and the dated audit predates C5.7-D’s restored standard Cesium skybox. Local
+WSL/Docker qualification is not
 production readiness. No owner Release Candidate or deployment is declared.
 
 ## Planning and review checkpoint
 
-C5.6.5 audit evidence is preserved. C5.6.75 documentation reconciliation is current;
-owner review is next. [Earth capability plan](execution/EARTH_CAPABILITY_PLAN.md),
+C5.6.5 audit evidence is preserved. C5.6.75 is historical and superseded by merged
+PR #68. PR #69 is in documentation finalization, awaiting final owner merge approval.
+[Earth capability plan](execution/EARTH_CAPABILITY_PLAN.md),
 [C5.7 proposed packages and Owner Decision Register](execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md),
 [C6 provider-first proposal](execution/C6_GLOBAL_MAPPING_SPEC.md),
 [ADR0009 reuse decision](architecture/decisions/0009-owned-earth-feature-reuse.md),
@@ -36,8 +38,16 @@ owner review is next. [Earth capability plan](execution/EARTH_CAPABILITY_PLAN.md
 [divergence evidence](audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md) and
 [reconciliation validation](validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md).
 
-C5.7 is proposed and unapproved, one package at a time. C6 direction is approved,
-provider-specific work is unapproved. D ISS, E body-aware Mars/surfaces, F astronomy
+The approved order is C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 →
+preserved PR #67 → separately authorized satellites and Weather. Only C5.7-D is
+authorized for implementation; the owner accepted its appearance from space.
+Close-up imagery deficiencies belong to C6. The roadmap activates no later package;
+outstanding C5.7 gates remain open. C6 direction is approved, provider-specific
+work is unapproved. Spending remains $0; Cesium ion Community is conditional on
+written club/public-use eligibility and zero-charge protection. The next proposed
+C6-0 task is [free global mapping qualification](execution/C6_GLOBAL_MAPPING_SPEC.md#next-proposed-c6-0-task),
+followed by separately authorized integration through existing God's Eye code.
+D ISS, E body-aware Mars/surfaces, F astronomy
 extensions (including `oras_horizon.v1`), G immersive UX and H solar-system scale
 remain planned. No feature work begins from these documents.
 

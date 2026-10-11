@@ -151,9 +151,16 @@ extensions remain planned. Product vision cannot override execution gates.
 
 [PROJECT_STATE](execution/PROJECT_STATE.md) is the authoritative checkpoint sequence;
 LIVE_SESSION_BRIEF identifies the current task. C5.6.5 audit evidence is complete;
-C5.6.75 documentation reconciliation is current. Next is owner review, then only
-explicitly approved C5.7-A → B → C → D → E, one package at a time. C6 is approved
-direction, not implemented. D ISS → E planetary surfaces → F astronomy extensions
+C5.6.75 is a historical documentation checkpoint superseded by merged PR #68.
+The owner-approved order is C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 →
+preserved PR #67 → separately authorized satellites and Weather. Only C5.7-D
+implementation is authorized. Its appearance from space is owner-accepted; PR #69
+is in documentation finalization, awaiting final owner merge approval. Close-up
+imagery deficiencies belong to C6. C6 is approved direction, not implemented;
+the roadmap activates no later package and unfinished C5.7 gates remain open.
+Provider spending is $0; Cesium ion Community remains conditional on written
+club/public-use eligibility and zero-charge protection.
+D ISS → E planetary surfaces → F astronomy extensions
 → G immersive UX → H solar-system scale remain planned with separate approval.
 `oras_horizon.v1` stays in F. No WordPress, DESI or production integration is active.
 
@@ -171,8 +178,13 @@ Planning and evidence discovery: [Earth capability plan](execution/EARTH_CAPABIL
 [divergence evidence](audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md) and
 [reconciliation validation](validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md).
 
-Owner-review adoption discovery (SUPPORT proposals; does not change the sequence
-above): [master adoption matrix](audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md),
+C5.7-D local implementation/visual qualification and preserved gaps:
+[Earth appearance evidence](validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md).
+The owner-approved visual-first order is recorded in PROJECT_STATE/LIVE and the
+execution specifications; the original proposal/audit documents remain historical.
+
+Owner-review adoption discovery (merged PR #68 SUPPORT proposals; execution
+authorities above record the subsequently approved sequence): [master adoption matrix](audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md),
 [external code/data gaps](audits/EXTERNAL_COMPONENTS_AND_DATA_GAPS_2026-10-10.md),
 [visual decision packet](audits/EARTH_VISUAL_FOUNDATION_DECISION_PACKET_2026-10-10.md),
 [proposed visual-first order](audits/GODS_EYE_ROADMAP_REPRIORITIZATION_PROPOSAL_2026-10-10.md),

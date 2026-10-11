@@ -10,11 +10,35 @@ by:
 
 - `docs/context/LIVE_SESSION_BRIEF.md`
 - `docs/execution/PROJECT_STATE.md`
-- `docs/execution/MASTER_PLAN.md`
 - the active task prompt
 
 If this file conflicts with those execution authorities, report the conflict and
 follow the higher authority.
+
+## Approved roadmap reference
+
+PR #69 is in documentation finalization after owner acceptance of appearance from
+space; STOP for final owner merge approval. Close-up imagery deficiencies belong
+to C6. The next proposed step is free global mapping qualification and separately
+authorized integration through existing God's Eye code; see the C6 plan. This
+reference activates no later package and does not close unfinished C5.7 gates.
+
+Owner approved the visual-first order on 2026-10-10: **C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather**.
+Only **C5.7-D** is active: standard bundled Cesium stars, atmosphere and appearance
+within the Hub-owned Viewer. Matching local-browser visual proof precedes heavy
+qualification. C6 imagery/terrain/3D implementation is NOT AUTHORIZED; each later
+package requires separate approval. Outstanding C5.7 acceptance, physical-device,
+provider, science and integrated qualification gates remain open.
+
+Provider spending is mandatory **$0**. No accounts, tokens, billing or subscriptions.
+Cesium ion Community is conditional until written club/public-use eligibility and
+zero-charge protection are established; it is not an approved provider. Reuse
+qualified God's Eye/Cesium functionality rather than rebuilding it. No new assets,
+dependencies, pin updates, full upstream Viewer factory or scientific star catalog.
+PR #67 stays open and unmerged; no production/SSH/Cloudflare deployment.
+
+[PROJECT_STATE](execution/PROJECT_STATE.md) controls activation; this remains a
+product reference, not execution authority.
 
 ## Product Model
 

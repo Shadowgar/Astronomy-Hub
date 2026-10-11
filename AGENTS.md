@@ -963,8 +963,15 @@ Do not claim completion when validation was skipped.
 
 Consult `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` and ADR0009 before
 renderer/engine work. C0–C5.6 bounded packages and C5.6.5 audit evidence are
-complete; C5.6.75 documentation review is current. C5.7 is proposed/unapproved,
-C6 direction approved but provider implementation unapproved; D/E/F/G/H planned.
+complete; C5.6.75 is a historical documentation checkpoint superseded by merged
+PR #68. The owner-approved order is C5.7-D → C6-0/C6-1 → C6-2 → C6-3 →
+C6-4/C6-5 → preserved PR #67 → separately authorized satellites and Weather.
+Only C5.7-D is authorized for implementation; its space appearance is owner-accepted
+and PR #69 is in documentation finalization, awaiting final owner merge approval.
+Close-up imagery deficiencies belong to C6. The roadmap does not activate later
+packages; outstanding C5.7 qualification gates remain open. Provider spending must
+remain $0; Cesium ion Community is conditional on written club/public-use eligibility
+and zero-charge protection. C6 provider implementation is unapproved; D/E/F/G/H planned.
 Use context-manifest Earth plan/C5.7/C6/owner decisions, not historical Phase B
 full-app/skeleton next-action text or older horizon roadmap.
 

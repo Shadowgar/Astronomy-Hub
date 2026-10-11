@@ -1,41 +1,46 @@
 # LIVE SESSION BRIEF
 
-## Active C5.6.75 documentation checkpoint — 2026-10-08
+## Active C5.7-D / PR #69 documentation finalization — 2026-10-11
 
-Owner authorized documentation/architecture/roadmap reconciliation only, SINGLE
-AGENT. Audit commit `09495238c2b5aebe358c66f9a09801382758f4f8` preserved on recovery ref; active docs branch
-`c5-6-75-architecture-roadmap-reconciliation-1`. Main `bb28aec7833d154c2f0b3b7fa7470d69a93c84b4`; PR63/64/65 are
-merged, not open/stacked pending merges. Current next action is **owner review of
-C5.6.75 documentation PR**, no merge or next-feature coding. C0–C5.6 completed as
-bounded packages; audit completed evidence; C5.7 proposed, C6 approved direction,
-D/E/F/G/H planned. No implied global parity/production acceptance.
+Owner approved the visual-first order on 2026-10-10: **C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather**.
+Only **C5.7-D** is active: standard bundled Cesium stars, atmosphere and appearance
+within the Hub-owned Viewer. Matching local-browser visual proof precedes heavy
+qualification. C6 imagery/terrain/3D implementation is NOT AUTHORIZED; each later
+package requires separate approval. Outstanding C5.7 acceptance, physical-device,
+provider, science and integrated qualification gates remain open.
 
-[PROJECT_STATE](../execution/PROJECT_STATE.md) owns sequence/active permissions;
-[Earth plan](../execution/EARTH_CAPABILITY_PLAN.md) owns capability planning;
-[C5.7 proposal / owner decisions](../execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md),
-[C6 plan](../execution/C6_GLOBAL_MAPPING_SPEC.md),
-[ADR0009](../architecture/decisions/0009-owned-earth-feature-reuse.md),
-[canonical audit](../audits/GODS_EYE_CAPABILITY_IMPLEMENTATION_RECONCILIATION_2026-10-05.md) and
-[reconciliation proof](../validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md)
-are context-discoverable. Master Plan stays product reference, not execution control.
+Provider spending is mandatory **$0**. No accounts, tokens, billing or subscriptions.
+Cesium ion Community is conditional until written club/public-use eligibility and
+zero-charge protection are established; it is not an approved provider. Reuse
+qualified God's Eye/Cesium functionality rather than rebuilding it. No new assets,
+dependencies, pin updates, full upstream Viewer factory or scientific star catalog.
+PR #67 stays open and unmerged; no production/SSH/Cloudflare deployment.
 
-Prefer qualified unchanged/wrapped God's Eye feature code within owned Viewer/
-state/lifecycle/provider boundaries; no full upstream app/Viewer singleton or
-broad adapter rewrite. Keep SWE native scene/math/camera/selection separate.
-Audit four critical gaps are aircraft usable display/source scope, satellite
-population/refresh experience, point Weather meaning/usability and disabled Cesium
-skybox. Outages/unknown live counts/rights are not evidence of every renderer defect.
-CONUS historical HD/coarse global and ellipsoid terrain remain. Scientific/catalog
-depth and physical-device limits remain separate from qualified wheel/search/Gaia
-loading/control behavior. No new runtime proof is manufactured by docs updates.
+Default Mode, SINGLE AGENT ONLY. Verified merged-main base
+`eea3e295ed5d234edae9053b3119f61e15e8371b` (PR #68 merged); isolated branch
+`c5-7-d-earth-appearance-1`, existing PR #69. The owner accepted the appearance
+from space; close-up imagery deficiencies belong to C6. Correct the P1 governing
+document conflict and literal plus signs, run bounded document/reference/authority
+and whitespace checks, then commit/push only those corrections. DO NOT MERGE.
+No new audits, imagery investigations, mapping experiments or unrelated features.
+Local bounded proof is recorded in [appearance evidence](../validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md).
+STOP for final owner merge approval before C6 or additional features.
+Next proposed task: [C6-0 free global mapping qualification](../execution/C6_GLOBAL_MAPPING_SPEC.md#next-proposed-c6-0-task),
+then separately authorized integration through existing God's Eye code using the
+merged PR #68 adoption blueprint and carried-forward ORAS findings; no repeat comparison.
+[PROJECT_STATE](../execution/PROJECT_STATE.md), [Earth plan](../execution/EARTH_CAPABILITY_PLAN.md),
+[C5.7 specification](../execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md) and
+[C6 plan](../execution/C6_GLOBAL_MAPPING_SPEC.md) govern the approved sequence.
 
-Frozen Sky `b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`, Earth `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`, God's Eye pin `e7707d9a0f34d9fbffc300023c319f95caa5be30`.
-No rebuild/update/dependencies/migrations. Laptop WSL/local Docker only; ordinary
-startup `npm run dev:local`. Preserve owner settings unstaged, data/volumes/
-datastore IDs/installations and audit bytes. No production/SSH/Cloudflare/oras.org,
-accounts/purchases, C5.7/C6/ISS/Mars/Moon coding. Release Candidate deployment gate
-remains separate. Proposed defaults are not owner approval; only one approved
-bounded package at a time.
+Preserve SWE/science, existing imagery/Weather/quakes/fire, navigation/protocol,
+owner settings, Docker volumes/datastores/mounts and all historical audit bytes.
+This correction changes no renderer inputs or artifact identity metadata. No
+rebuild or broad browser rerun is required under validation section 11 and the
+C5.7 artifact rules; historical runtime proof remains historical.
+Rollback Earth `ca124164577c6ee927a03d6ded6688a6a843f64394f8b83ace6f9ebc5c4f803d`,
+Sky `b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d`,
+God's Eye `e7707d9a0f34d9fbffc300023c319f95caa5be30` remain preserved.
+Software-rendered desktop/mobile browser proof is not physical-device acceptance.
 
 ## Historical session records — superseded execution stop-points
 
