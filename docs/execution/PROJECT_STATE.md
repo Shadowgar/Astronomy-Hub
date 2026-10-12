@@ -33,7 +33,12 @@ resolution selector, labels control, source Retry or manual preference remains;
 actual source/quality/credits stay read-only and accessible.
 Commit/push/open one implementation PR; DO NOT MERGE. Matching browser proof and
 bounded Earth artifact qualification precede handoff; stop for owner visual review.
-Automatic candidate Earth `387434055696d93867f80a49b6ea380284493cc9ebe38ee9edb31896cffd3e0c` (inputs `66070ac1ef3483c3f35bf0edfd67be2e688f71cd4b9a7acb63e4f7eb13c3cc22`),
+Owner correction2026-10-12 prioritizes measured progressive loading speed in this
+same unmerged PR, plus dateline/tilted-ground coverage fixes. Active concurrency
+remains fixed; source limits/readiness and acceptance are governed by the active
+C6 specification. No terrain/buildings/deployment or implicit merge approval.
+
+Automatic candidate Earth `599dd5c6da6fbcdd22d3b2794639f1db31d9ca54a04c47cbfab31b9d9a66aaa3` (inputs `e95ee664c56a8915413d4c388bd9a63e95cdcf1d592b34c245995ba8526476bb`),
 with two identical Docker builds and exact installed/served bytes.
 [Current mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-automatic-imagery-correction--2026-10-11) records results and remaining gates.
 

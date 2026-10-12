@@ -111,7 +111,13 @@ NASA0/8, EOX0/14, NAIP3/18, PEMA13/20, public OSM facade cap18, optional ion fac
 cap18, optional EOX labels cap12/defaultOFF. These caps do not manufacture GSD.
 
 Shared remote bounds remain ≤6/runtime, ≤4/host including EOX+labels, ≤2 NAIP
-(and PEMA/ion), ≤2 starts/sec with burst6,12s tile timeout,20s factory timeout.
+(and PEMA/ion), ≤4 starts/sec with burst6;12s ordinary tile and20s NAIP tile timeout,20s factory timeout.
+The2026-10-12 measured correction supersedes the former2-starts/sec/12s NAIP
+settings only; active concurrency is unchanged. Fast PEMA/EOX queueing dominated
+their observed refinement while USGS responses approached/exceeded12s. Three
+native qualifying aerial failure notifications retain useful partial imagery
+through isolated faults; hard401/403/429 close immediately. Duplicate guard/SDK
+reports of the same error object are suppressed without private-field mutation.
 When ion is active the global bound tightens to4 because its tile hosts are opaque.
 401/403 stop the host for the active-runtime session; no unauthorized retry.429 stops
 the whole host until max(5min,Retry-After). Other source failures start at60s,
@@ -124,6 +130,17 @@ controller; only successfully cached construction fallback recovery exceptionall
 destroys/recreates it because the pin has no public single-entry eviction. This
 loses remote caches and boundedly refetches, preserving the original safety base.
 Loaded managed imagery stays attached while a replacement factory resolves;
+for qualified NAIP, that factory includes at most two visible-center native WMS readiness
+samples (L14 ancestor and L18 detail), sharing existing budgets and capped at20s including queue
+wait. A failed sample follows native construction fallback, retaining the existing
+global layer when its cached provider resolves identically. At most two decoded256px
+samples are reused once for their matching native tiles, or explicitly released at
+owned disposal; no independent layer, offscreen warmup, mirror or bulk download.
+The cached-successful-fallback retry exception still costs public controller/
+remote-cache recreation after cooldown; backoff bounds repeated attempts.
+Readiness duration/deadline, cancellations and native requests are recorded
+separately, not hidden or called a live high-resolution success.
+
 normal switching avoids rebuilding an identical provider/layer. Total failure
 uses public owned destroy, never duplicate Natural Earth or unrelated removal.
 Even cached fallback providers cannot dispatch while blocked.
@@ -133,7 +150,14 @@ storage disables ion. This ledger is not an account quota or billing guarantee.
 No prefetch, mirror, offline pack, service worker or new proxy cache. Allowlist cache
 maximum is five remote providers, or six with explicitly admitted ion, plus one
 optional label provider; one remote layer is active. Provider-specific HTTP caches
-remain authoritative. First usable ≤5s and frame targets remain qualification
+remain authoritative. Status distinguishes loading, partial refinement, slow detail, actual fallback
+and ready viewport; one completed tile cannot repeatedly announce ready while
+refinement remains. After15s a slow-detail note preserves a usable-interface
+message instead of an indefinite scene spinner. Camera pose identifies stale
+metadata, so mesh refinement alone cannot invalidate a stationary request;
+viewport-center globe/ellipsoid intersections determine query location. Wrapped
+longitudes are split for coverage; no-ground/polar views retain global safety.
+First usable ≤5s and frame targets remain qualification
 criteria, not asserted outcomes; report actual network/software-renderer limits.
 
 The original C6-0 qualification/proposal below is preserved **historical evidence**.

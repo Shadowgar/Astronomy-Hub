@@ -1,8 +1,9 @@
-import {TileMapServiceImageryProvider,ImageryLayer,Math as CesiumMath} from 'cesium';
+import {TileMapServiceImageryProvider,ImageryLayer,Cartesian2,Cartographic,Request,RequestType,Math as CesiumMath} from 'cesium';
 import {MapSourceController} from 'gods-eye-view/maps/controller';
 import {createAdmittedMapSources,createLabels,SOURCE_FACTS} from './AdmittedMapSources.mjs';
 import {chooseImagery,contains,containsView,inRing,CONUS,PEMA_COVERAGE,ORAS_NAIP_RING} from './ImagerySelectionPolicy.mjs';
 import {boundImageryRequests,createImageryBudget} from './imageryRequests.mjs';
+import {prepareVisibleTile} from './visibleImagery.mjs';
 import {openImagerySession} from './imagerySession.mjs';
 
 export class ImageryController {
@@ -24,16 +25,22 @@ export class ImageryController {
    this.base=this.viewer.imageryLayers.addImageryProvider(local,0);this.localAllocations++;
    this.localGuard=boundImageryRequests(local,{onLoad:()=>this.runtime.timings.firstImageryTileMs??=performance.now()});
    this.offCamera=this.viewer.camera.moveEnd.addEventListener(()=>{clearTimeout(this.cameraTimer);this.cameraTimer=setTimeout(()=>void this.updateView(),250)});
-   this.wakeTimer=setInterval(()=>{if(this.runtime.lifecycle.closed)return;const previous=this.status,unsettled=this.viewer.scene.globe.tilesLoaded===false;if(this.map){this.status=unsettled?(performance.now()-(this.budget.stats.lastThrottledAt??-Infinity)<1000?'throttled':'loading'):(this.activeRecord?.loaded?(this.activeRecord.partial?'partial':'ready'):'loading');}if(this.map&&(previous!==this.status||unsettled||this.budget.stats.active))this.refresh();if(this.mode==='auto'&&!this.updating&&!this.switching&&this.needsUpdate())void this.updateView();},500);
+   this.wakeTimer=setInterval(()=>{if(this.runtime.lifecycle.closed)return;const previous=this.status,unsettled=this.viewer.scene.globe.tilesLoaded===false;if(this.map){this.status=this.loadingStatus();}if(this.map&&(previous!==this.status||unsettled||this.budget.stats.active))this.refresh();if(this.mode==='auto'&&!this.updating&&!this.switching&&this.needsUpdate())void this.updateView();},500);
    this.mountStatus();
   }
   await this.updateView();
  }
  view(){
   const camera=this.viewer.camera,p=camera.positionCartographic,r=camera.computeViewRectangle(this.viewer.scene.globe.ellipsoid);
-  const rect=r?[r.west,r.south,r.east,r.north].map(CesiumMath.toDegrees):null,point=[CesiumMath.toDegrees(p.longitude),CesiumMath.toDegrees(p.latitude)];
+  const rect=r?[r.west,r.south,r.east,r.north].map(CesiumMath.toDegrees):null;
+  // The camera subpoint is not the displayed ground center when tilted. Prefer
+  // the rendered globe intersection, with the public ellipsoid pick for startup.
+  const scene=this.viewer.scene,pixel=new Cartesian2(this.viewer.canvas.clientWidth/2,this.viewer.canvas.clientHeight/2),ray=camera.getPickRay(pixel);
+  const target=ray?scene.globe.pick(ray,scene)??camera.pickEllipsoid(pixel,scene.globe.ellipsoid):null;
+  const ground=target?scene.globe.ellipsoid.cartesianToCartographic(target):null;
+  const point=ground?[CesiumMath.toDegrees(ground.longitude),CesiumMath.toDegrees(ground.latitude)]:null;
   const corners=rect?[[rect[0],rect[1]],[rect[0],rect[3]],[rect[2],rect[1]],[rect[2],rect[3]]]:[];
-  const footprint=this.footprints.find(f=>inRing(point,f.ring)&&corners.length===4&&corners.every(c=>inRing(c,f.ring)));
+  const footprint=point&&this.footprints.find(f=>inRing(point,f.ring)&&corners.length===4&&corners.every(c=>inRing(c,f.ring)));
   return {height:p.height,rect,point,naipCovered:!!footprint,verifiedOras:!!footprint?.verifiedOras,footprint};
  }
  eligible(id){return !this.failedSources.has(id)&&performance.now()>=(this.cooldowns.get(id)??0)&&this.budget.eligible(SOURCE_FACTS[id]?.host??'');}
@@ -51,7 +58,7 @@ export class ImageryController {
   if(this.runtime.lifecycle.closed||!this.base)return;
   if(!['auto','local',...Object.keys(SOURCE_FACTS).filter(id=>id!=='local')].includes(mode))return;
   if(mode==='ion'&&!this.registry?.sources.some(source=>source.descriptor.id==='ion')&&!this.config?.ionImageryOptIn){this.reason='Ion not configured or authorized';this.refresh();return;}
-  if(this.mode!==mode){this.selectionGeneration++;this.metadataAbort?.abort();}this.mode=mode;this.reason='';const view=this.view(),id=this.desired(view);
+  if(this.mode!==mode){this.selectionGeneration++;this.metadataAbort?.abort();}this.mode=mode;const view=this.view(),key=this.cameraKey(view);if(key!==this.viewKey){this.viewKey=key;this.refinementStarted=performance.now();}this.reason='';const id=this.desired(view);
   if(id==='local'){this.terminal(mode==='local'?'Local selected':'Remote imagery unavailable');return;}
   if(!this.map)this.createController();
   if(!this.map.isStackAvailable(id)){this.reason='Source not admitted';this.refresh();return;}
@@ -63,7 +70,7 @@ export class ImageryController {
   const config=this.session.canUseIon(this.config?.ionSessionTileLimit)?this.config:{...this.config,ionImageryOptIn:false};
   this.registry=createAdmittedMapSources(config,(id,factory,request)=>this.provider(id,factory,request,epoch));
   this.map=new MapSourceController(this.viewer,{registry:this.registry,initialStack:'nasa',requestRender:()=>this.viewer.scene.requestRender(),
-   createImageryLayer:provider=>{this.pauseAll();const record=this.records.get(provider);if(record){if(this.eligible(record.id))record.guard.resume();this.activeRecord=record;this.budget.globalLimit=record.id==='ion'?4:6;}this.managed=new ImageryLayer(provider);return this.managed;},
+   createImageryLayer:provider=>{this.pauseAll();const record=this.records.get(provider);if(record){if(this.eligible(record.id))record.guard.resume();this.replacedRecord=this.activeRecord;this.activeRecord=record;this.budget.globalLimit=record.id==='ion'?4:6;}this.managed=new ImageryLayer(provider);return this.managed;},
    onChange:state=>{if(epoch!==this.epoch)return;if(state.status==='switching')this.status='loading';this.refresh();},
    onError:()=>{if(epoch===this.epoch)this.reason='Selected source unavailable; fallback retained';},
   });
@@ -73,8 +80,9 @@ export class ImageryController {
    // managed layer actually attached to the collection is the ownership proof.
    if(!this.managed||this.viewer.imageryLayers.indexOf(this.managed)<0){this.terminal('Remote construction failed');return;}
    if(state.switchOrigin==='automatic'&&state.activeId!==this.requestedId){for(const id of this.failedConstructions)this.cachedFallbacks.add(id);}
+   if(state.switchOrigin==='automatic'&&this.replacedRecord?.tileFailures&&this.replacedRecord.id!==state.activeId)this.markFailed(this.replacedRecord.id);this.replacedRecord=null;
    this.actual=state.activeId;this.activeRecord=this.records.get(this.managed.imageryProvider);if(this.eligible(this.actual))this.activeRecord?.guard.resume();else{this.status='unavailable';queueMicrotask(()=>{if(epoch===this.epoch&&!this.runtime.lifecycle.closed)void this.select(this.mode,true)});return;}
-   this.budget.globalLimit=this.actual==='ion'?4:6;this.status=this.activeRecord?.loaded?'ready':'loading';if(state.lastError)this.reason='Selected source unavailable; showing fallback';
+   this.budget.globalLimit=this.actual==='ion'?4:6;this.status=this.loadingStatus();if(state.lastError)this.reason='Selected source unavailable; showing fallback';
    this.order();void this.syncLabels();this.refresh();
   });
  }
@@ -87,20 +95,35 @@ export class ImageryController {
   catch(error){if(epoch===this.epoch&&!this.runtime.lifecycle.closed){this.budget.block(SOURCE_FACTS[id].host,error);this.markFailed(id);this.failedConstructions.add(id);}throw error;}
   finally{clearTimeout(timer);}
   if(epoch!==this.epoch)throw Error('Stale imagery construction');
-  const record={id,provider,loaded:false,epoch};
+  const record={id,provider,loaded:false,epoch,reportedErrors:new WeakSet()};
   const owned=()=>epoch===this.epoch&&this.activeRecord===record&&!this.runtime.lifecycle.closed;
   const live=()=>owned()&&this.map?.getState().status!=='switching'&&!record.guard.paused;
-  const fail=error=>{if(!live())return;this.markFailed(id);this.reason='Imagery tiles unavailable';this.stopBlockedHost(SOURCE_FACTS[id].host);
-   if(id==='nasa'){queueMicrotask(()=>{if(owned())this.terminal('NASA unavailable; local safety base');});}
-   else{provider.errorEvent.raiseEvent(error);}
+  const hardFailure=error=>{this.budget.block(SOURCE_FACTS[id].host,error?.error??error);return !this.budget.eligible(SOURCE_FACTS[id].host);};
+  const fail=error=>{if(epoch!==this.epoch||this.runtime.lifecycle.closed)return;
+   const wasLive=live(),hard=hardFailure(error);if(hard){this.markFailed(id);this.stopBlockedHost(SOURCE_FACTS[id].host);}if(!wasLive)return;
+   if(hard||id==='nasa'){this.markFailed(id);this.reason='Imagery tiles unavailable';this.stopBlockedHost(SOURCE_FACTS[id].host);queueMicrotask(()=>{if(owned()){if(id==='nasa')this.terminal('NASA unavailable; local safety base');else void this.select(this.mode,true);}});}
+   else{record.partial=true;this.refresh();if(error.imageryGuardFailure)setTimeout(()=>{if(live()&&!record.reportedErrors.has(error))provider.errorEvent.raiseEvent(error);},0);}
   };
-  record.guard=boundImageryRequests(provider,{budget:this.budget,host:SOURCE_FACTS[id].host,limit:['usgs-naip','pema','ion'].includes(id)?2:4,
+  record.guard=boundImageryRequests(provider,{budget:this.budget,host:SOURCE_FACTS[id].host,timeoutMs:SOURCE_FACTS[id].tileTimeoutMs??12000,limit:['usgs-naip','pema','ion'].includes(id)?2:4,
    canDispatch:()=>id!=='ion'||this.session.canUseIon(this.config.ionSessionTileLimit),
    onDispatch:()=>{if(id==='ion')this.session.recordIonRequest();},onLimit:()=>fail(Error('Ion tab-session limit reached or ledger unavailable')),
    isEmpty:id==='usgs-naip'?(image,args)=>this.emptyImage(image,record,args[2]):()=>false,
-   onLoad:()=>{if(!live())return;record.loaded=true;this.failureCounts.delete(id);this.status=record.partial?'partial':'ready';this.runtime.timings.firstImageryTileMs??=performance.now();if(['usgs-naip','pema'].includes(id))this.runtime.timings.firstHdTileMs??=performance.now();this.refresh();},onError:fail});
-  record.guard.pause();record.off=provider.errorEvent.addEventListener(error=>{if(error)error.retry=false;if(!live())return;this.budget.block(SOURCE_FACTS[id].host,error);this.stopBlockedHost(SOURCE_FACTS[id].host);this.markFailed(id);if(id==='nasa')queueMicrotask(()=>{if(owned())this.terminal('NASA unavailable; local safety base');});this.refresh();});
-  this.records.set(provider,record);return provider;
+   onLoad:()=>{if(!live())return;record.loaded=true;this.failureCounts.delete(id);this.status=this.loadingStatus();this.runtime.timings.firstImageryTileMs??=performance.now();if(['usgs-naip','pema'].includes(id))this.runtime.timings.firstHdTileMs??=performance.now();this.refresh();},onError:fail});
+  record.guard.pause();record.off=provider.errorEvent.addEventListener(error=>{
+   if(error)error.retry=false;if(!live())return;const cause=error?.error??error;if(cause&&typeof cause==='object')record.reportedErrors.add(cause);record.tileFailures=(record.tileFailures??0)+1;
+   if(hardFailure(error)||id==='nasa'){this.markFailed(id);this.stopBlockedHost(SOURCE_FACTS[id].host);queueMicrotask(()=>{if(owned()){if(id==='nasa')this.terminal('NASA unavailable; local safety base');else void this.select(this.mode,true);}});}
+   else record.partial=true;
+   this.refresh();
+  });
+  this.records.set(provider,record);
+  const view=this.view();
+  if(id==='usgs-naip'&&view.point&&view.naipCovered){
+   const level=Math.min(provider.maximumLevel??18,18),position=Cartographic.fromDegrees(...view.point),tile=provider.tilingScheme.positionToTileXY(position,level),ancestor=provider.tilingScheme.positionToTileXY(position,Math.min(level,14));
+   if(tile){record.preparing=true;const preparedAt=performance.now();try{
+    record.prepared=await prepareVisibleTile(provider,{tiles:[{...ancestor,level:Math.min(level,14)},{...tile,level}],requestFactory:()=>new Request({throttle:false,throttleByServer:true,type:RequestType.IMAGERY}),guard:record.guard,signal:AbortSignal.any([signal,this.runtime.lifecycle.controller.signal]),onUse:sample=>{if(live()){record.loaded=true;record.preparedUsed=true;(record.preparedLevels??=[]).push(sample.level);if(sample.level>=17)this.runtime.timings.firstHdTileMs??=performance.now();this.refresh();}}});
+   }catch(error){record.preparationError=error.readinessTimedOut?'timed-out':'unavailable';record.guard.pause();if(epoch===this.epoch&&!this.runtime.lifecycle.closed){this.markFailed(id);this.failedConstructions.add(id);}throw error;}finally{record.preparationMs=performance.now()-preparedAt;record.preparing=false;}}
+  }
+  return provider;
  }
  emptyImage(image,record,level){
   if(typeof document==='undefined'||!image?.width||!image?.height)return false;
@@ -116,7 +139,7 @@ export class ImageryController {
   this.viewer.scene.requestRender();
  }
  disposeController(){
-  this.epoch++;this.unsubscribe?.();this.unsubscribe=null;this.pauseAll();for(const record of this.records.values()){record.off();record.guard.stop();}
+  this.epoch++;this.unsubscribe?.();this.unsubscribe=null;this.pauseAll();for(const record of this.records.values()){record.off();record.guard.stop();record.prepared?.dispose();}
   this.map?.destroy();this.map=null;this.managed=null;this.activeRecord=null;this.records.clear();this.cachedFallbacks.clear();this.failedConstructions.clear();this.removeLabels();this.runtime.attribution.remove('imagery');
  }
  terminal(reason){this.disposeController();this.actual='local';this.status=this.mode==='local'?'ready':'unavailable';this.reason=reason;this.refresh();}
@@ -127,7 +150,7 @@ export class ImageryController {
   this.failedSources.add(id);this.cooldowns.set(id,performance.now()+Math.min(900000,60000*2**Math.min(count-1,4)));
  }
  canQueryFootprint(view=this.view()){
-  return view.height<150000&&!view.naipCovered&&containsView(CONUS,view.rect)&&this.mode==='auto'&&this.metadataCount<32&&!this.metadataPending&&performance.now()-this.metadataLast>=60000&&this.eligible('usgs-naip');
+  return !!view.point&&view.height<150000&&!view.naipCovered&&containsView(CONUS,view.rect)&&this.mode==='auto'&&this.metadataCount<32&&!this.metadataPending&&performance.now()-this.metadataLast>=60000&&this.eligible('usgs-naip');
  }
  needsUpdate(){
   if(this.canQueryFootprint())return true;
@@ -143,7 +166,7 @@ export class ImageryController {
   }
  }
  async retrySelected(){return this.updateView();}
- cameraKey(view=this.view()){return JSON.stringify([view.point,view.rect,view.height]);}
+ cameraKey(view=this.view()){const c=this.viewer.camera,p=c.positionCartographic;return JSON.stringify([p.longitude,p.latitude,p.height,c.heading,c.pitch,c.roll,view.rect]);}
  async updateView(){
   if(this.runtime.lifecycle.closed||!this.base||this.updating)return;
   this.updating=true;
@@ -185,18 +208,25 @@ export class ImageryController {
   this.runtime.attribution.set('map-labels','EOX::Maps · EOX/MapServer · © OpenStreetMap contributors','https://maps.eox.at/');this.order();
  }
  removeLabels(){if(!this.labels)return;this.labels.off();this.labels.guard.stop();this.viewer.imageryLayers.remove(this.labels.layer,true);this.labels=null;this.runtime.attribution.remove('map-labels');}
+ loadingStatus(){
+  const unsettled=this.viewer.scene.globe.tilesLoaded===false;
+  return this.activeRecord?.loaded?(unsettled||this.activeRecord.partial?'partial':'ready'):(unsettled&&performance.now()-(this.refinementStarted??performance.now())>=15000?'slow':'loading');
+ }
  mountStatus(){if(typeof document!=='undefined'){this.statusNode=document.querySelector('#imagery-status');this.summaryNode=document.querySelector('#imagery-summary');}}
  refresh(){
   if(this.runtime.lifecycle.closed)return;
   const facts=SOURCE_FACTS[this.actual]??SOURCE_FACTS.local,view=this.view();
+  if(this.map)this.status=this.loadingStatus();
+  const slow=this.viewer.scene.globe.tilesLoaded===false&&performance.now()-(this.refinementStarted??performance.now())>=15000;
+  this.loadingNote=slow?'Detail is refining slowly; currently available imagery remains usable.':'';
   const localProof=this.actual==='usgs-naip'&&view.verifiedOras;
-  this.metadata={...facts,...(localProof?{date:'2022-06-23',gsd:0.6,product:'NAIP · ORAS matched-image acquisition 2022-06-23'}:{}),coverageRasterName:this.actual==='usgs-naip'?view.footprint?.rasterName??null:null,selected:this.mode,actual:this.actual,status:this.status,reason:this.reason};
+  this.metadata={...facts,...(localProof?{date:'2022-06-23',gsd:0.6,product:'NAIP · ORAS matched-image acquisition 2022-06-23'}:{}),coverageRasterName:this.actual==='usgs-naip'?view.footprint?.rasterName??null:null,selected:this.mode,actual:this.actual,status:this.status,reason:this.reason,loadingNote:this.loadingNote};
   if(this.actual!=='local')this.runtime.attribution.set('imagery',facts.credit,facts.url);
   this.quality.imagery=`${facts.label} · ${this.status}${this.reason?' · fallback':''}`;
   if(this.summaryNode)this.summaryNode.textContent=`${facts.label} · ${this.status}`;
-  if(this.statusNode)this.statusNode.textContent=`Showing ${facts.label}. ${this.metadata.product}. ${this.metadata.date?'Acquired '+this.metadata.date+'. ':'Exact capture date unavailable. '}${this.metadata.gsd?'Native '+this.metadata.gsd.toFixed(this.metadata.gsd<1?4:0)+' m. ':''}${facts.coverage}${this.reason?' · '+this.reason:''}`;
+  if(this.statusNode)this.statusNode.textContent=`Showing ${facts.label}. ${this.metadata.product}. ${this.metadata.date?'Acquired '+this.metadata.date+'. ':'Exact capture date unavailable. '}${this.metadata.gsd?'Native '+this.metadata.gsd.toFixed(this.metadata.gsd<1?4:0)+' m. ':''}${facts.coverage}${this.loadingNote?' · '+this.loadingNote:''}${this.reason?' · '+this.reason:''}`;
   this.viewer.scene.requestRender();
  }
- diagnostics(){return {selected:this.mode,actual:this.actual,status:this.status,metadata:this.metadata,localAllocations:this.localAllocations,controllersCreated:this.controllersCreated,managedLayers:this.managed&&this.viewer.imageryLayers.indexOf(this.managed)>=0?1:0,labelsLayers:this.labels?1:0,budget:{...this.budget.stats},ionSessionRequests:this.session.ionUsed,ionSessionLedgerAvailable:this.session.available,metadataRequests:this.metadataCount,metadataPending:!!this.metadataPending,view:this.runtime.lifecycle.closed?null:this.view(),sources:Object.fromEntries([...this.records.values()].map(record=>[record.id,{...record.guard.stats,paused:record.guard.paused,partial:!!record.partial}]))};}
+ diagnostics(){return {selected:this.mode,actual:this.actual,status:this.status,metadata:this.metadata,localAllocations:this.localAllocations,controllersCreated:this.controllersCreated,managedLayers:this.managed&&this.viewer.imageryLayers.indexOf(this.managed)>=0?1:0,labelsLayers:this.labels?1:0,budget:{...this.budget.stats},ionSessionRequests:this.session.ionUsed,ionSessionLedgerAvailable:this.session.available,metadataRequests:this.metadataCount,metadataPending:!!this.metadataPending,view:this.runtime.lifecycle.closed?null:this.view(),sources:Object.fromEntries([...this.records.values()].map(record=>[record.id,{...record.guard.stats,paused:record.guard.paused,partial:!!record.partial,preparing:!!record.preparing,preparedUsed:!!record.preparedUsed,preparedLevels:record.preparedLevels??[],preparationMs:record.preparationMs??null,preparationError:record.preparationError??null}]))};}
  clear(){clearTimeout(this.cameraTimer);clearInterval(this.wakeTimer);this.metadataAbort?.abort();this.offCamera?.();this.disposeController();this.localGuard?.stop();if(this.base)this.viewer.imageryLayers.remove(this.base,true);this.base=null;}
 }

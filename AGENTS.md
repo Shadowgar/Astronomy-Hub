@@ -971,6 +971,9 @@ active task is owner-authorized C6-1A imagery-only local implementation and
 qualification after PR #70 merge; its merge and later packages remain unauthorized. Close-up imagery
 belongs to C6. PR #71 now requires automatic best-available imagery and bounded
 coverage/recovery; no consumer source selection, labels toggle or source Retry.
+Owner direction2026-10-12 prioritizes measured loading speed and usable progressive
+imagery within this same PR. Preserve active-request caps; a documented start-rate/
+timeout correction and bounded visible-center readiness sample are authorized.
 Closed/unmerged PR #67 work/evidence is preserved, not discarded.
 The roadmap does not activate later packages; unfinished C5.7 gates remain open.
 Provider spending must

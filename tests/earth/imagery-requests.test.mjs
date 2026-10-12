@@ -45,3 +45,13 @@ test('429 stops the whole host until explicit cooldown retry; unauthorized hosts
 test('a provider session cap counts accepted SDK requests, with no dispatch beyond cap',async()=>{
  let used=0,dispatched=0,limits=0;const p={requestImage:()=>{dispatched++;return Promise.resolve('image')}};const g=boundImageryRequests(p,{canDispatch:()=>used<2,onDispatch:()=>used++,onLimit:()=>limits++});await p.requestImage();await p.requestImage();assert.equal(p.requestImage(),undefined);assert.equal(used,2);assert.equal(dispatched,2);assert.equal(limits,1);g.stop();
 });
+
+test('responsive providers refine at the bounded start rate without raising active concurrency',async()=>{
+ const {createImageryBudget}=await import('../../runtimes/earth-runtime/core/imageryRequests.mjs');let now=0;const budget=createImageryBudget({clock:()=>now}),provider={requestImage:()=>Promise.resolve('tile')},guard=boundImageryRequests(provider,{budget,host:'pema',limit:2});
+ for(let i=0;i<6;i++)await provider.requestImage();now=1000;const results=[];for(let i=0;i<4;i++)results.push(provider.requestImage());assert.ok(results[0]&&results[1]);await Promise.all(results.filter(Boolean));
+ const third=results[2]??provider.requestImage(),fourth=results[3]??provider.requestImage();assert.ok(third&&fourth);await Promise.all([third,fourth]);assert.equal(provider.requestImage(),undefined);assert.equal(guard.stats.peak,2);assert.equal(budget.stats.requested,10);guard.stop();
+});
+
+test('late decoded imagery after cancellation releases its owned bitmap',async()=>{
+ const task=deferred();let closed=0;const p={requestImage:()=>task.promise},guard=boundImageryRequests(p);const pending=p.requestImage();guard.stop();await assert.rejects(pending,/disposed/);task.resolve({close(){closed++}});await Promise.resolve();assert.equal(closed,1);
+});

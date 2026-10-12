@@ -8,9 +8,20 @@ base. Isolated branch `c6-1a-global-imagery-adoption-1`. The owner authorizes th
 [imagery-only C6-1A package](../execution/C6_GLOBAL_MAPPING_SPEC.md#active-c6-1a-imagery-package--2026-10-11),
 focused visual proof, bounded regression, deterministic Earth build/install/served
 identity, commit/push and one implementation PR. **DO NOT MERGE C6-1A.**
-The automatic implementation candidate is Earth `387434055696d93867f80a49b6ea380284493cc9ebe38ee9edb31896cffd3e0c`,
-inputs `66070ac1ef3483c3f35bf0edfd67be2e688f71cd4b9a7acb63e4f7eb13c3cc22`; qualified baseline/rollback are preserved.
+The automatic implementation candidate is Earth `599dd5c6da6fbcdd22d3b2794639f1db31d9ca54a04c47cbfab31b9d9a66aaa3`,
+inputs `e95ee664c56a8915413d4c388bd9a63e95cdcf1d592b34c245995ba8526476bb`; qualified baseline/rollback are preserved.
 [Mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-automatic-imagery-correction--2026-10-11) contains exact commands, source seams, captures and limits.
+
+Owner correction2026-10-12 makes **loading speed and usable progressive imagery**
+the priority within existing PR #71, last reviewed head
+`f978491df2baf6dcad6c54b9006086e87c2c9af4`. Measure cold/native-cache-warm before/
+after; correct dateline and tilted-ground targeting; preserve existing Viewer,
+controller pin, one safety/one remote and all scientific/data/rollback boundaries.
+Concurrency caps remain unchanged. The measured correction uses4 starts/sec,
+20s NAIP tile/readiness deadlines, native repeated-failure handling and two bounded visible-center native
+ancestor/detail readiness samples while global imagery stays attached. The sample
+is not background discovery/prefetch, a new source or a second switching engine.
+Software results never close physical, public-release or owner acceptance gates.
 
 Provider spending is mandatory **$0**. No account/token creation, billing or
 subscriptions. The owner assumes nonprofit PEMA/PASDA and ion Community use

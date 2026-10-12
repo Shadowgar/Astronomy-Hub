@@ -992,3 +992,254 @@ against the delivered commit, retaining the original parent-at-capture record.
 All three P2 corrections are subject to fresh GitHub reply/thread/check verification
 at handoff. Owner visual/performance acceptance remains open; do not merge or
 start terrain/3D.
+
+
+## C6-1A performance and automatic coverage correction — 2026-10-12
+
+Owner request continues existing PR #71/branch `c6-1a-global-imagery-adoption-1`,
+verified starting head `f978491df2baf6dcad6c54b9006086e87c2c9af4`, merged base
+`3e8276b705143b03af2c71658e8bc513d39b8e94`. Single agent, Default Mode; no new
+PR/phase/provider audit. Performance/usability precede further Earth work. No
+merge, terrain/buildings, SWE rebuild, billing/accounts/tokens or deployment.
+Mandatory spend $0; ion inactive; PEMA public-release permission still outstanding.
+
+CORE/LIVE first, then manifest union `docs_change`, `frontend_change`, `validation`,
+`review`:58 named documents and hashes in ignored performance qualification
+`context.json`; no extra governing documents or broad docs scan. Existing evidence
+was inspected first. The preserved diagnostic ledger already showed8.65–10.29s
+USGS responses near12s timeout; the new comparison measures the same admitted
+sources, not a new provider selection/research effort.
+
+### Proven bottlenecks and bounded corrections
+
+- PEMA decoded tiles took approximately0.05–0.4s, while token waiting exceeded4s.
+  The close view requested67 tiles;2 starts/sec alone imposes approximately30s
+  beyond the initial burst. Native construction was below1ms in this sample.
+  Shared rate becomes4 starts/sec, burst6 unchanged; active caps remain6/runtime,
+  4/host,2 NAIP/PEMA. No concurrency increase or extra offscreen downloading.
+- NYC coverage took10.57s in a matched baseline; one detail tile took8.84s while
+  another timed out at12.25s. A single failure discarded aerial detail and cancelled
+  another useful request. NAIP tile deadline becomes20s; other tiles stay12s.
+  Native aerial fallback uses3 qualifying error notifications; isolated transient
+  faults retain partial detail.401/403/429 still close immediately and preserve
+  Retry-After/backoff. Guard/SDK duplicate reports of the same error object are
+  suppressed, so one physical failure cannot count twice.
+- Replacing global imagery before slow aerial pixels arrived exposed only the
+  cartographic base. The existing imagery factory now retains the current global
+  layer while at most2 visible-center native WMS samples prepare: L14 ancestor and
+  L18 detail. Same budget,≤2 active,20s combined deadline including admission wait.
+  Native Cesium owns ancestor/refinement/texture mapping; no custom renderer or
+  second switching engine/layer. Two256px decoded images are reused once for exact
+  native requests, or released at disposal (≤0.5MiB RGBA before decoder overhead).
+  This is bounded visible readiness, not background discovery, bulk prefetch,
+  persisted imagery, arbitrary providers or a new service. Failed readiness uses
+  the pin's existing construction fallback and retains an identical cached global
+  layer. Successful cached construction-fallback recovery still exceptionally
+  recreates the public controller and loses remote caches after bounded cooldown;
+  the safety base and source backoff remain. This pin limitation is not hidden.
+- One completed tile previously toggled ready/loading while the viewport refined.
+  Status now distinguishes partial/slow/ready, with an explicit slow-detail note
+  after15s. Interface readiness remains independent of remote tile settlement.
+- Wrapped rectangles split at±180 before coverage checks; Fiji/Aleutians keep EOX.
+  Center-pixel globe intersection, with public ellipsoid startup fallback, supplies
+  coverage location instead of eye subpoint. No-ground/polar views keep global
+  safety. Camera pose/extent identifies stale results; mesh refinement alone does
+  not invalidate stationary metadata. Observer/camera ownership is unchanged.
+- Real hard host errors during a pending replacement remain registered for
+  cooldown recovery. Owned late decoded bitmaps close after cancellation.
+
+The500ms health/status wake and native priority/refinement settings are retained:
+measured CPU submission cost and responsive input do not justify a replacement
+render loop or scheduler. Identical-source selection preserves the pin's loaded
+layer/provider caches. Source dates/GSD/credits, request ceilings, one permanent
+Natural Earth base,≤1 managed remote and independent event order remain.
+
+### Evidence, methodology and acceptance budgets
+
+Root `output/playwright/c6-1a/performance`; scratch `/tmp/c6-1a-performance-20261012`.
+Before is the preserved installed/served starting artifact
+`387434055696d93867f80a49b6ea380284493cc9ebe38ee9edb31896cffd3e0c`; after is
+`599dd5c6da6fbcdd22d3b2794639f1db31d9ca54a04c47cbfab31b9d9a66aaa3`, inputs
+`e95ee664c56a8915413d4c388bd9a63e95cdcf1d592b34c245995ba8526476bb`.
+Failed/intermediate sources, logs and captures are retained separately, including
+center-only readiness whose green surround failed useful-presentation expectations.
+
+Seven scenes,1440×900/DPR1, matching numeric camera and UTC2026-10-11T17:00:00Z.
+Cold=fresh browser context/native caches; warm=same-runtime5% zoom-out and return,
+retaining native provider/tile caches. Identical bundle instrumentation disables
+HTTP cache in both; this is NOT an undisclosed prewarmed-cache benchmark. Host
+network is unshaped and external server latency varies. Serial live measurements
+avoid parallel software-renderer contention.30s sampling windows are unchanged
+before/after; raw pending counts, later command/screenshot wall time and missed
+settlement stay visible. Warm settlement has a disclosed1.5s observation floor;
+0ms warm first-use means cached imagery, not an HTTP response. Screenshot work is
+separately represented in wall time; tile milestones derive from monotonic telemetry.
+
+The committed `scripts/validation/earth-mapping/performance.mjs` instruments only
+loopback proof captures: bounded events/tiles/frames/input/long-task arrays; Chrome
+request timing/bytes; metadata and construction phases; native tile queue and
+completion; source transitions; first remote and effective-detail tile milestones;
+settlement; keyboard response. No Viewer is exposed to the product. Query wrapper
+duration includes subsequent activation/readiness; pure query network duration
+comes from request timing and is distinguished in the comparison. First-detail
+tile is a technical proxy; actual recognizable detail is verified from PNGs,
+never inferred solely from advertised GSD. CPU pre/post-render span is submission
+cost, not physical-device GPU FPS. Existing shell/Viewer/first-image timings are
+reported as their named milestones, not renamed as complete-photo settlement.
+
+Initial review budgets under the existing C6 framework: usable local scene≤2s;
+first useful remote improvement≤5s when provider responds; responsive controls
+throughout; fast-source viewport settle≤30s; bounded20s visible readiness with
+truthful global fallback; no indefinite whole-interface spinner. Existing median
+CPU frame targets33ms desktop/50ms mobile emulation are software screening only;
+physical acceptance is separate. USGS5s aerial objective is not claimed when
+metadata/WMS exceed it. Public-release rights and owner speed/visual acceptance
+remain OPEN regardless of green software checks.
+
+Final measured table, exact commands/results, artifact/served proof and GitHub
+receipt are recorded below and in the ignored qualification handoff.
+
+Qualification retained the first installed-browser failure (10 passed/4 failed):
+active403 promise rejection paused the guard before checking active state, skipping
+local fallback; and the restarted temporary preview lacked its bulk Sky-data
+route. RED/ GREEN now preserves pre-pause activity and tests the real guarded
+promise path, separate from SDK-event fixtures. Host Node22 rejected the Node24
+isolation flag; Docker Node24 supplies the authoritative50-focused-case result.
+No failed attempt is counted as a pass. The task-owned preview now reads original
+Sky data through one new task-owned static container with read-only binds, no
+SWE build or owner service restart. Other69 original container identities/mounts/
+ports and81 volumes remain verified; mount-array order is normalized for comparison.
+
+### Final matched results and remaining limits
+
+| View | Cold settlement before | Cold settlement after | First remote after | Actual after |
+| --- | ---: | ---: | ---: | --- |
+| full-earth | 2.10s | 2.01s | 0.75s | nasa |
+| north-america | 28.66s | 15.76s | 1.05s | eox-2016 |
+| oras-wide | 16.96s | 9.24s | 0.37s | pema |
+| oras-close | not settled | 22.49s | 0.36s | pema |
+| new-york-close | not settled | 20.17s | 0.73s | eox-2016 |
+| paris | 16.66s | 9.27s | 0.82s | eox-2016 |
+| remote-ocean | 16.88s | 9.35s | 0.40s | eox-2016 |
+
+Before and after windows are30s, not120s. Unsettled before values are retained
+unknown/censored bounds, not invented timings. Final NYC coverage did not qualify
+within20s; EOX remained usable and final source/viewport settled at20.17s. This is
+a real controlled global fallback, not successful final NAIP aerial qualification.
+Earlier9b54 candidate live proof is preserved separately: metadata and visible
+readiness took approximately18s+11.25s; bothL14/L18 samples were consumed, providing
+a genuine coarse aerial surround and sharp central detail while pending tiles
+refined. It remained partial at30s. No imagery/date/fully settled result is
+fabricated or relabeled as the final599d artifact. USGS5s aerial, complete-city
+settlement and physical-device acceptance remain OPEN. PEMA property imagery
+remains visibly sharp and settles; EOX2016 remains coarse close-view imagery.
+
+All14 final cold/warm pairs have matching numeric camera/UTC/viewport, no page
+errors, responsive keyboard change, one local allocation,≤1 managed remote/no
+labels/no ion, and unchanged active caps. Cold shell interactive and CPU/input
+telemetry are in `comparison.json`; render submission spans are software evidence.
+Warm healthy-source first-use is cached and settlement is at the disclosed1.5s
+observation floor. NYC service variability changes the admitted source, so its
+before/after timing is not a causal claim of faster aerial delivery.
+
+Current artifact599dd5c6da6fbcdd22d3b2794639f1db31d9ca54a04c47cbfab31b9d9a66aaa3,
+inputs e95ee664c56a8915413d4c388bd9a63e95cdcf1d592b34c245995ba8526476bb.
+Two independent pinned builds are identical;512 payload files+release;40 source
+inputs;111 license records;11,824,943 payload bytes. Installed and all512 served
+hashes verify. Standard Vite>500kB warning is retained. Prior starting/failed/
+intermediate artifacts remain named and preserved. No SWE rebuild.
+
+Fresh Docker Earth suite:91 passed,0 failed,0 skipped; pinned Node24.14.0.
+Host export test:1 passed; frontend9 passed and TypeScript clean; Docker
+document/artifact suite26 passed+36 subtests. Final browser/check/thread receipts
+are appended at delivery; the failed14-case attempt remains separately retained.
+
+Exact qualification commands (worktree root unless noted):
+
+```bash
+GODS_EYE_SOURCE=/var/tmp/oras-cesium/gods-eye ORAS_EARTH_OUT=/tmp/c6-1a-performance-20261012/earth-hardened-1 bash scripts/runtime/build_owned_earth.sh
+GODS_EYE_SOURCE=/var/tmp/oras-cesium/gods-eye ORAS_EARTH_OUT=/tmp/c6-1a-performance-20261012/earth-hardened-2 bash scripts/runtime/build_owned_earth.sh
+python3 scripts/runtime/record_runtime_versions.py /tmp/c6-1a-performance-20261012/earth-hardened-1
+python3 scripts/runtime/earth_artifact.py install --source /tmp/c6-1a-performance-20261012/earth-hardened-1
+python3 scripts/runtime/earth_artifact.py verify
+npm --prefix frontend run build
+docker restart oras-c61a-owner-preview
+PERF_VARIANT=after-hardened PERF_WAIT_MS=30000 node scripts/validation/earth-mapping/performance.mjs
+python3 /tmp/c6-1a-performance-20261012/compare.py
+python3 /tmp/c6-1a-performance-20261012/served-proof.py
+python3 /tmp/c6-1a-performance-20261012/preservation.py
+docker run --rm --network none --read-only --tmpfs /tmp -v /home/rocco/Astronomy-Hub/.worktrees/c6-1a-global-imagery-adoption-1:/hub:ro -v /var/tmp/oras-cesium/gods-eye:/var/tmp/oras-cesium/gods-eye:ro -w /hub node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8 sh -c 'node --test --test-isolation=none $(find tests/earth -maxdepth 1 -name "*.test.mjs" ! -name export-boundary.test.mjs | sort)'
+node --test tests/earth/export-boundary.test.mjs
+npm --prefix frontend run type-check
+npm --prefix frontend run test -- tests/workspace.test.tsx tests/workspaceRuntimeAdapter.test.ts tests/skyEngineImportBoundary.test.js
+docker run --rm --network none --read-only --tmpfs /tmp -e PYTHONDONTWRITEBYTECODE=1 -v /home/rocco/Astronomy-Hub/.worktrees/c6-1a-global-imagery-adoption-1:/app:ro -w /app astronomy-hub-backend:latest python -m pytest tests/validation/test_architecture_manifest.py tests/validation/test_reconciliation_docs.py tests/test_local_earth_artifact.py -q -p no:cacheprovider
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+git diff --check
+# frontend working directory, corrected installed Docker preview:
+EARTH_PROOF_OUTPUT=../output/playwright/c6-1a/performance/qualification/browser-screenshots PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4198 npx playwright test tests/e2e/earthGlobalImagery.spec.ts tests/e2e/earthAppearance.spec.ts --workers=1 --output=/tmp/c6-1a-performance-20261012/browser-hardened
+```
+
+Provider spending$0;no account/token/billing or production/SSH/Cloudflare action.
+Original69 container IDs/mounts/ports and81 volumes verify, with only task-owned
+preview restarted and one new read-only Sky-data static helper. Owner settings
+SHA6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0 unchanged.
+Immutable pin, backend/science/protocol/dependencies/Viewer/camera/bridge/config/
+probe ledger/context manifest, C5.7-D/rollback and closed aircraft work are preserved.
+All user-facing source selection remains automatic. No subsequent C6 authorization.
+
+Final cold shell-interactive range248–365ms; median CPU render-submission
+span2.5–3.2ms. All keyboard probes change camera height, but software input-to-rAF
+latency includes an observed492ms maximum; this outlier is retained, not called
+physical responsiveness/FPS acceptance. Network response, budget wait, native
+completion/processing and CPU spans are separately exposed; GPU completion is not
+precisely isolated. Request/render telemetry and long-task records remain raw.
+
+Read-only Sky data alone restored native rendering but the temporary preview also
+needed `application/javascript` for existing `/runtime-bridge` and `/packages`
+`.mjs` assets. The restored Sky handshake now reports ready. Earlier navigation
+failures (12 other cases passed) remain in logs; the final14-case set is rerun on
+the corrected preview, not silently counted as green. Missing optional dense-star
+assets/API503 availability are recorded environment limits, not Earth regressions
+or authorization to alter Sky/data. These preview fixes are temporary local config
+and read-only serving; all source/input identities and SWE remain unchanged.
+
+Final installed-browser qualification PASS:14 cases in2.9min, including desktop/
+mobile five serial Sky/Earth cycles, missing-face starbox/recovery, native source
+ownership/cache/terminal fallback, five genuine destruction/recreation cycles,
+stationary NAIP, narrow object details/Focus/Track/Stop/credits, real wrapped Fiji/
+Aleutian rectangles, tilted/no-ground targeting, and controls while aerial readiness
+is held. Fixtures and software proof remain distinct from live photos/physical
+acceptance. Final document validators pass296 paths/8 packs;55 Markdown/1442 refs/
+9 ADRs;67 capability records/51 source references/413 links/60 fragments; whitespace
+clean. No new audits or provider promotion.
+
+Changed files for this correction:
+
+- `AGENTS.md`
+- `docs/context/LIVE_SESSION_BRIEF.md`
+- `docs/execution/C6_GLOBAL_MAPPING_SPEC.md`
+- `docs/execution/PROJECT_STATE.md`
+- `docs/validation/EARTH_HD_MAPPING_EVIDENCE.md`
+- `frontend/public/runtime-versions.json`
+- `frontend/tests/e2e/earthAppearance.spec.ts`
+- `frontend/tests/e2e/earthGlobalImagery.spec.ts`
+- `integrations/renderers.lock.json`
+- `runtimes/earth-runtime/core/AdmittedMapSources.mjs`
+- `runtimes/earth-runtime/core/ImageryController.mjs`
+- `runtimes/earth-runtime/core/ImagerySelectionPolicy.mjs`
+- `runtimes/earth-runtime/core/imageryRequests.mjs`
+- `tests/earth/imagery-controller.test.mjs`
+- `tests/earth/imagery-policy.test.mjs`
+- `tests/earth/imagery-requests.test.mjs`
+- `runtimes/earth-runtime/core/visibleImagery.mjs`
+- `scripts/validation/earth-mapping/performance.mjs`
+- `tests/earth/visible-imagery.test.mjs`
+
+Local owner preview: `http://127.0.0.1:4198/earth?date=2026-10-11T17%3A00%3A00Z`.
+Matched before/after gallery: `http://127.0.0.1:4198/gallery/performance/`; raw PNG/
+JSON/table/telemetry and qualification logs under ignored
+`output/playwright/c6-1a/performance`. Exact delivered head, source-input binding,
+GitHub checks/review-thread receipt and preservation state appear in its handoff.
+**STOP for owner visual/loading-speed and exact-head merge review. DO NOT MERGE.**
+No C6-2/C6-3 or later package follows.

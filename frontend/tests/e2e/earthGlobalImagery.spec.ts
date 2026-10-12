@@ -1,4 +1,7 @@
 import {test,expect} from '@playwright/test'
+import {mkdirSync} from 'node:fs'
+const imageryProofOut=process.env.EARTH_PROOF_OUTPUT??'../output/playwright/c6-1a/auto'
+mkdirSync(imageryProofOut,{recursive:true})
 for(const mobile of [false,true])test(`C6-1A source ownership, terminal fallback and camera preservation ${mobile?'mobile':'desktop'}`,async({page})=>{
  test.setTimeout(90000)
  await page.setViewportSize(mobile?{width:390,height:844}:{width:1440,height:900})
@@ -94,14 +97,14 @@ for(const embedded of [false,true])test(`narrow ${embedded?'embedded':'standalon
  await frame!.evaluate(()=>(window as any).orasEarthProofSelect('satellites:25544'))
  if(embedded){
   await expect(page.getByRole('heading',{name:'DECLARED MOBILE SATELLITE FIXTURE',exact:true})).toBeVisible()
-  await page.screenshot({path:'../output/playwright/c6-1a/auto/mobile-embedded-details.png'})
+  await page.screenshot({path:`${imageryProofOut}/mobile-embedded-details.png`})
   await page.getByRole('button',{name:'Focus',exact:true}).click()
   await page.getByRole('button',{name:'Track',exact:true}).click()
   await expect.poll(()=>frame!.evaluate(()=>(window as any).orasEarthDiagnostics().tracking)).toBe('satellites:25544')
   await page.getByRole('button',{name:'Stop tracking',exact:true}).click()
   await expect.poll(()=>frame!.evaluate(()=>(window as any).orasEarthDiagnostics().tracking)).toBe(null)
   await expect(page.getByRole('button',{name:'Track',exact:true})).toBeVisible()
-  await page.screenshot({path:'../output/playwright/c6-1a/auto/mobile-embedded-selection.png'})
+  await page.screenshot({path:`${imageryProofOut}/mobile-embedded-selection.png`})
   await page.getByRole('button',{name:'Close sheet',exact:true}).click()
   await expect(page.getByRole('tab',{name:'Sky',exact:true})).toBeVisible()
  }else{
@@ -111,9 +114,54 @@ for(const embedded of [false,true])test(`narrow ${embedded?'embedded':'standalon
   await frame!.locator('#stop').click();await expect.poll(()=>frame!.evaluate(()=>(window as any).orasEarthDiagnostics().tracking)).toBe(null)
   const overlaps=await frame!.evaluate(()=>{const a=document.querySelector('#selection')!.getBoundingClientRect(),b=document.querySelector('footer')!.getBoundingClientRect();return a.bottom>b.top})
   expect(overlaps).toBe(false)
-  await page.screenshot({path:'../output/playwright/c6-1a/auto/mobile-standalone-selection.png'})
+  await page.screenshot({path:`${imageryProofOut}/mobile-standalone-selection.png`})
  }
  await frame!.locator('.imagery-status summary').click();await expect(frame!.locator('#imagery-status')).toBeVisible();await expect(frame!.locator('#attributions')).toBeVisible()
  await expect(frame!.locator('#imagery-source,#imagery-labels,#imagery-retry')).toHaveCount(0)
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true)
+})
+
+test('automatic imagery handles wrapped dateline and visible ground centers without another Viewer',async({page})=>{
+ test.setTimeout(90000)
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message))
+ const image=Buffer.from(await page.evaluate(()=>{const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d')!;x.fillStyle='#607044';x.fillRect(0,0,256,256);return c.toDataURL().split(',')[1]}),'base64')
+ await page.route('https://**/*',route=>route.fulfill({status:200,contentType:'image/png',body:image}))
+ await page.route('**/api/earth/**',route=>route.fulfill({status:503,body:'Declared unavailable fixture'}))
+ await page.goto('/earth-runtime/?orasProof=1');await expect(page.locator('#earth')).toHaveAttribute('data-status','ready')
+ for(const lat of [-17,52]){
+  await page.evaluate(lat=>(window as any).orasEarthProofView({lon:179.9,lat,height:100000}),lat)
+  const d=await page.evaluate(()=>(window as any).orasEarthDiagnostics().imagery)
+  expect(d.view.rect[0]).toBeGreaterThan(d.view.rect[2]);expect(d.actual).toBe('eox-2016');expect(d.localAllocations).toBe(1);expect(d.managedLayers).toBe(1)
+ }
+ await page.evaluate(()=>(window as any).orasEarthProofView({lon:-79.585394,lat:41.321903,height:350}))
+ await expect.poll(()=>page.evaluate(()=>(window as any).orasEarthDiagnostics().imagery.actual)).toBe('pema')
+ await page.evaluate(()=>(window as any).orasEarthProofView({lon:-79.6013,lat:41.321,height:350,heading:Math.PI/2,pitch:-Math.PI/4}))
+ const tilted=await page.evaluate(()=>(window as any).orasEarthDiagnostics().imagery)
+ expect(tilted.view.point[0]).toBeGreaterThan(-79.6009);expect(tilted.actual).toBe('pema');expect(tilted.localAllocations).toBe(1)
+ await page.evaluate(()=>(window as any).orasEarthProofView({lon:-79.585394,lat:41.321903,height:350,pitch:Math.PI/8}))
+ const sky=await page.evaluate(()=>(window as any).orasEarthDiagnostics().imagery)
+ expect(sky.view.point).toBe(null);expect(sky.actual).toBe('nasa');expect(sky.metadataRequests).toBe(0);expect(errors).toEqual([])
+})
+
+for(const mobile of [false,true])test(`a bounded visible aerial readiness sample keeps global imagery and controls usable ${mobile?'mobile':'desktop'}`,async({page})=>{
+ test.setTimeout(90000)
+ await page.setViewportSize(mobile?{width:390,height:844}:{width:1440,height:900})
+ const image=Buffer.from(await page.evaluate(()=>{const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d')!;x.fillStyle='#607044';x.fillRect(0,0,256,256);return c.toDataURL().split(',')[1]}),'base64')
+ let release:any,held=0
+ await page.route('https://**/*',route=>route.fulfill({contentType:'image/png',body:image}))
+ await page.route('**/USGSNAIPImagery/ImageServer/query?*',route=>route.fulfill({json:{spatialReference:{wkid:4326},features:[{geometry:{rings:[[[-75,40],[-73,40],[-73,42],[-75,42],[-75,40]]]}}]}}))
+ await page.route('**/arcgis/services/USGSNAIPImagery/ImageServer/WMSServer?*',async route=>{held++;if(held===1)await new Promise(resolve=>{release=resolve});await route.fulfill({contentType:'image/png',body:image})})
+ await page.route('**/api/earth/**',route=>route.fulfill({status:503,body:'Declared unavailable fixture'}))
+ await page.goto('/earth-runtime/?orasProof=1');await expect(page.locator('#earth')).toHaveAttribute('data-status','ready')
+ await page.evaluate(()=>(window as any).orasEarthProofView({lon:-100,lat:40,height:1e6}))
+ await expect.poll(()=>page.evaluate(()=>(window as any).orasEarthDiagnostics().imagery.sources['eox-2016']?.loaded??0)).toBeGreaterThan(0)
+ const moving=page.evaluate(()=>(window as any).orasEarthProofView({lon:-74.006,lat:40.7128,height:350}))
+ await expect.poll(()=>held).toBe(2)
+ const pending=await page.evaluate(()=>(window as any).orasEarthDiagnostics().imagery)
+ expect(pending.actual).toBe('eox-2016');expect(pending.sources['usgs-naip'].preparing).toBe(true);expect(pending.managedLayers).toBe(1);expect(pending.localAllocations).toBe(1)
+ const before=await page.evaluate(()=>(window as any).orasEarthDiagnostics().cameraHeightM);await page.locator('#viewer canvas').focus();await page.keyboard.press('+')
+ await expect.poll(()=>page.evaluate(()=>(window as any).orasEarthDiagnostics().cameraHeightM)).toBeLessThan(before)
+ release();await moving
+ await expect.poll(()=>page.evaluate(()=>(window as any).orasEarthDiagnostics().imagery.actual)).toBe('usgs-naip')
+ const done=await page.evaluate(()=>(window as any).orasEarthDiagnostics().imagery);expect(done.managedLayers).toBe(1);expect(done.localAllocations).toBe(1);expect(done.sources['usgs-naip'].peak).toBeLessThanOrEqual(2);expect(done.budget.peak).toBeLessThanOrEqual(6)
 })
