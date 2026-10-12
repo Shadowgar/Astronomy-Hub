@@ -58,8 +58,11 @@ What is above me right now, and what should I observe?
 
 ## Current Foundation and Approved Direction — non-execution summary
 
-PR #69 is merged with owner-accepted appearance from space. C6-0 research/provider
-qualification/adoption planning/docs are separately authorized; C6-1 code is not.
+PR #70 is merged; C6-1A imagery-only implementation/local qualification is separately
+authorized. No C6-1A merge, terrain, 3D or later package is authorized. Owner assumes
+PEMA/ion nonprofit use for local development; public-release permission remains
+unverified, ion dispatch still needs explicit opt-in and zero-charge protection.
+Mandatory new provider spending remains $0. See the active C6 specification.
 Close-up imagery belongs to C6. See the existing C6 plan for the proposed free
 source hierarchy and exact reuse wrapper. This reference activates no later
 package and does not close unfinished C5.7 gates.
@@ -76,8 +79,11 @@ Execution sequence and gates: [PROJECT_STATE](PROJECT_STATE.md) and
 [LIVE_SESSION_BRIEF](../context/LIVE_SESSION_BRIEF.md). Earth planning:
 [Earth plan](EARTH_CAPABILITY_PLAN.md), [proposed C5.7](C5_7_EARTH_CORE_RECOVERY_SPEC.md),
 [C6 direction](C6_GLOBAL_MAPPING_SPEC.md). Owner approved the visual-first order: C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather.
-Only C6-0 research/planning/docs are active; C6-1 code remains unapproved. Mandatory
-$0 spend; ion Community is conditional on written eligibility/zero-charge protection.
+PR #70 is merged; C6-1A imagery-only implementation/local qualification is separately
+authorized. No C6-1A merge, terrain, 3D or later package is authorized. Owner assumes
+PEMA/ion nonprofit use for local development; public-release permission remains
+unverified, ion dispatch still needs explicit opt-in and zero-charge protection.
+Mandatory new provider spending remains $0. See the active C6 specification.
 D/E/F/G/H remain planned; open C5.7 gates and PR #67 review are retained.
 Keep complete applicable future Earth scope through preferential feature reuse/
 wrapping in owned Viewer, not complete upstream app ownership. Development remains

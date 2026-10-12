@@ -17,25 +17,29 @@ follow the higher authority.
 
 ## Approved roadmap reference
 
-PR #69 is merged with owner-accepted appearance from space. C6-0 research/provider
-qualification/adoption planning/docs are separately authorized; C6-1 code is not.
+PR #70 is merged; C6-1A imagery-only implementation/local qualification is separately
+authorized. No C6-1A merge, terrain, 3D or later package is authorized. Owner assumes
+PEMA/ion nonprofit use for local development; public-release permission remains
+unverified, ion dispatch still needs explicit opt-in and zero-charge protection.
+Mandatory new provider spending remains $0. See the active C6 specification.
 Close-up imagery belongs to C6. See the existing C6 plan for the proposed free
 source hierarchy and exact reuse wrapper. This reference activates no later
 package and does not close unfinished C5.7 gates.
 
 Owner approved the visual-first order on 2026-10-10: **C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather**.
-PR #69 is merged; its Earth-from-space appearance is owner-accepted. Current
-active work is **C6-0 research, provider qualification, adoption planning and
-documentation only**, separately authorized 2026-10-11. C6-1 imagery integration,
-C6-2 terrain, C6-3 detail and later implementation remain NOT AUTHORIZED; each
-package needs separate owner approval. Unfinished C5.7 physical-device, provider,
-science and integrated qualification gates remain open.
+PR #70 is merged at `3e8276b705143b03af2c71658e8bc513d39b8e94`. The owner
+separately authorized **C6-1A imagery-only implementation and local qualification**
+on 2026-10-11. C6-2 terrain, C6-3 detail and later implementation remain
+NOT AUTHORIZED; each package needs separate owner approval. Unfinished C5.7
+physical-device, provider, science and integrated qualification gates remain open.
 
-Provider spending is mandatory **$0**. No accounts, tokens, billing or subscriptions.
-Cesium ion Community is conditional until written club/public-use eligibility and
-zero-charge protection are established; it is not an approved provider. Reuse
-qualified God's Eye/Cesium functionality rather than rebuilding it. No new assets,
-dependencies, pin updates, full upstream Viewer factory or scientific star catalog.
+Provider spending is mandatory **$0**. No account/token creation, billing or
+subscriptions. The owner assumes nonprofit PEMA/PASDA and ion Community use
+permitted **for local development only**; verified public-release rights remain
+outstanding. Ion requires explicit opt-in, a qualifying existing publishable token,
+account-side zero-charge protection and bounded usage; absent these, fixtures only.
+Reuse pinned God's Eye/Cesium exports; no new dependency, pin update, full upstream
+Viewer factory or scientific star catalog.
 PR #67 is closed/unmerged; preserve its branch/head/evidence for deferred work.
 No production/SSH/Cloudflare deployment.
 

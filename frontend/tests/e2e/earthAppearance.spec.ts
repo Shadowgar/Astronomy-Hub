@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test'
 import {mkdirSync} from 'node:fs'
 
-const out='../output/playwright/c57d'
+const out=process.env.EARTH_PROOF_OUTPUT??'../output/playwright/c57d'
 mkdirSync(out,{recursive:true})
 for(const mobile of [false,true])test(`bundled stars, missing-face fallback and Earth recovery ${mobile?'mobile':'desktop'}`,async({page})=>{
  test.setTimeout(120000)

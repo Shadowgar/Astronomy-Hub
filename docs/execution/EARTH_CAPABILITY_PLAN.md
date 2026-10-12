@@ -13,18 +13,19 @@ Earth planning reference. It links source detail rather than duplicating the mat
 ## Approved visual-first order
 
 Owner approved the visual-first order on 2026-10-10: **C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 → preserved C5.7-A/PR #67 review → separately approved satellites and Weather**.
-PR #69 is merged; its Earth-from-space appearance is owner-accepted. Current
-active work is **C6-0 research, provider qualification, adoption planning and
-documentation only**, separately authorized 2026-10-11. C6-1 imagery integration,
-C6-2 terrain, C6-3 detail and later implementation remain NOT AUTHORIZED; each
-package needs separate owner approval. Unfinished C5.7 physical-device, provider,
-science and integrated qualification gates remain open.
+PR #70 is merged at `3e8276b705143b03af2c71658e8bc513d39b8e94`. The owner
+separately authorized **C6-1A imagery-only implementation and local qualification**
+on 2026-10-11. C6-2 terrain, C6-3 detail and later implementation remain
+NOT AUTHORIZED; each package needs separate owner approval. Unfinished C5.7
+physical-device, provider, science and integrated qualification gates remain open.
 
-Provider spending is mandatory **$0**. No accounts, tokens, billing or subscriptions.
-Cesium ion Community is conditional until written club/public-use eligibility and
-zero-charge protection are established; it is not an approved provider. Reuse
-qualified God's Eye/Cesium functionality rather than rebuilding it. No new assets,
-dependencies, pin updates, full upstream Viewer factory or scientific star catalog.
+Provider spending is mandatory **$0**. No account/token creation, billing or
+subscriptions. The owner assumes nonprofit PEMA/PASDA and ion Community use
+permitted **for local development only**; verified public-release rights remain
+outstanding. Ion requires explicit opt-in, a qualifying existing publishable token,
+account-side zero-charge protection and bounded usage; absent these, fixtures only.
+Reuse pinned God's Eye/Cesium exports; no new dependency, pin update, full upstream
+Viewer factory or scientific star catalog.
 PR #67 is closed/unmerged; preserve its branch/head/evidence for deferred work.
 No production/SSH/Cloudflare deployment.
 
@@ -612,7 +613,7 @@ must record explicit owner choice; proposed defaults are not approval.
 ## basemaps — Global imagery / base-map switching
 
 **Owner-facing purpose:** Global imagery / base-map switching.
-**Current Hub / entrypoints:** `ImageryController / boundImageryRequests / VisualFoundation`; [`runtimes/earth-runtime/core/ImageryController.mjs`](../../runtimes/earth-runtime/core/ImageryController.mjs); [`runtimes/earth-runtime/core/imageryRequests.mjs`](../../runtimes/earth-runtime/core/imageryRequests.mjs); [`runtimes/earth-runtime/core/VisualFoundation.mjs`](../../runtimes/earth-runtime/core/VisualFoundation.mjs)
+**Current Hub / entrypoints:** `ImageryController / observeImageryRequests / VisualFoundation`; [`runtimes/earth-runtime/core/ImageryController.mjs`](../../runtimes/earth-runtime/core/ImageryController.mjs); [`runtimes/earth-runtime/core/imageryRequests.mjs`](../../runtimes/earth-runtime/core/imageryRequests.mjs); [`runtimes/earth-runtime/core/VisualFoundation.mjs`](../../runtimes/earth-runtime/core/VisualFoundation.mjs)
 **Pinned upstream:** Five selectable stacks: Google3D, Bing Aerial, Bing Labels, Esri World Imagery and OSM. MapSourceController switches asynchronously with generations/cache/credits and keyless fallback. [Exact modules/functions/stages](../audits/GODS_EYE_IMPLEMENTATION_TRACES_2026-10-05.md).
 **Current relationship / risk:** HUB IMPLEMENTATION JUSTIFIED / MEDIUM.
 **Runtime status / evidence:** Code exists; Reference keyless Esri has local detail; Hub public imagery is regional HD, not uniform global HD. **Missing/different from upstream:** Provider stack tray/global HD. Hub qualified CONUS USGS with GIBS/NaturalEarth coarse globe fallback and bounded requests. [Dated observations and qualification](../audits/GODS_EYE_AUDIT_VALIDATION_HANDOFF_2026-10-05.md).

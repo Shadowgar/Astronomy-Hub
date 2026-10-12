@@ -1,5 +1,8 @@
 import {test,expect,type Page} from '@playwright/test'
 import {mkdirSync,writeFileSync} from 'node:fs'
+// Retained C5.5/C5.7-D artifact-specific qualification for the preserved rollback.
+// Current C6-1A coverage is earthGlobalImagery.spec.ts plus earthAppearance.spec.ts.
+test.skip(process.env.ORAS_LEGACY_HD_ARTIFACT!=='1','Requires the preserved legacy HD artifact and explicit rollback qualification opt-in')
 test.use({screenshot:'only-on-failure',channel:'chromium',launchOptions:{ignoreDefaultArgs:['--disable-back-forward-cache']}})
 const proof='../output/playwright/earth-hd-mapping'
 const ready=(page:Page)=>expect(page.locator('[data-runtime-mode=earth][data-runtime-status=ready]')).toBeVisible({timeout:90000})

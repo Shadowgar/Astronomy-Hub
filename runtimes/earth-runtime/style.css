@@ -6,3 +6,4 @@
 .credits-top #credits,.credits-top #attributions{bottom:auto;top:68px}.credits-top #attributions{top:88px}
 
 .credits-top.embedded footer{bottom:auto;top:68px;left:0;max-width:100%;background:#070c12b3}
+.imagery-status{font-size:11px;max-width:100%}.imagery-status summary{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.imagery-status p{margin:4px 0;max-height:52px;overflow:auto;line-height:1.3}footer{max-height:80px;overflow:auto}

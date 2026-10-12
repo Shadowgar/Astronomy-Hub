@@ -52,8 +52,8 @@ FEATURE_ACCEPTANCE.md
 
 C0–C5.6 bounded implementation packages are complete; PRs #63/#64/#65 merged.
 PR #69 is merged; appearance from space is owner-accepted. Current work is
-C6-0 provider qualification/adoption planning/docs; [PROJECT_STATE](../execution/PROJECT_STATE.md)
-controls activation. C6-1 implementation and later feature code
+C6-1A imagery-only implementation/local qualification after PR #70 merge;
+[PROJECT_STATE](../execution/PROJECT_STATE.md) controls activation. C6-1A merge and later feature code
 is not authorized. Qualification is local WSL/Docker, not production or full feature parity.
 The matrix below separates seven proof gates. Historical means proof at the linked
 checkpoint, not freshly rerun here. NOT PROVEN preserves uncertainty; no failed

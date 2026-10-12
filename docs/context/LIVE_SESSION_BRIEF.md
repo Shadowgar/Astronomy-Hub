@@ -1,6 +1,75 @@
 # LIVE SESSION BRIEF
 
-## Active C6-0 free global mapping qualification — 2026-10-11
+## Active C6-1A global imagery implementation — 2026-10-11
+
+Default Mode; SINGLE AGENT ONLY. PR #70 passed its exact-head merge gate and
+merged at `3e8276b705143b03af2c71658e8bc513d39b8e94`, the verified implementation
+base. Isolated branch `c6-1a-global-imagery-adoption-1`. The owner authorizes the
+[imagery-only C6-1A package](../execution/C6_GLOBAL_MAPPING_SPEC.md#active-c6-1a-imagery-package--2026-10-11),
+focused visual proof, bounded regression, deterministic Earth build/install/served
+identity, commit/push and one implementation PR. **DO NOT MERGE C6-1A.**
+The automatic implementation candidate is Earth `7a8e04f6a6333ab30e892c4b70dba60e0f6ad6fd5810a72409a668b25ac09a23`,
+inputs `715b72e2929824730af2d02e5a8053e88003fe3d97a5f183e2da6097d87e0643`; qualified baseline/rollback are preserved.
+[Mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-automatic-imagery-correction--2026-10-11) contains exact commands, source seams, captures and limits.
+
+Latest owner directive2026-10-12 authorizes native God's Eye/Cesium dispatch and
+persistent eligible imagery response caching in existing PR #71, starting from
+`ab2bae5e6fccc8c90c2d6470dfad728919e84ce5`. It supersedes all Hub-imposed tile
+rate/concurrency limits, switching pauses and blocking readiness preflight in the
+historical paragraphs below. Resolve pending-camera P1 through public native
+switch generations; add confirmed owned Imagery Cache clear/status in existing
+diagnostics. Compare identical sources/camera/browser/cache conditions, including
+real profile restart, and independently rebuild/attest. No merge, terrain/buildings,
+source pin/dependency/account/production/data change. Physical speed acceptance
+remains owner-gated. See [native/cache plan](../execution/C6_GLOBAL_MAPPING_SPEC.md#owner-native-dispatch-and-persistent-cache-correction--2026-10-12).
+
+Owner correction2026-10-12 makes **loading speed and usable progressive imagery**
+the priority within existing PR #71, last reviewed head
+`f978491df2baf6dcad6c54b9006086e87c2c9af4`. Measure cold/native-cache-warm before/
+after; correct dateline and tilted-ground targeting; preserve existing Viewer,
+controller pin, one safety/one remote and all scientific/data/rollback boundaries.
+Concurrency caps remain unchanged. The measured correction uses4 starts/sec,
+20s NAIP tile/readiness deadlines, native repeated-failure handling and two bounded visible-center native
+ancestor/detail readiness samples while global imagery stays attached. The sample
+is not background discovery/prefetch, a new source or a second switching engine.
+Software results never close physical, public-release or owner acceptance gates.
+
+Owner final correction2026-10-12 closes owned decoded imagery rejected as empty
+or by detection exceptions, preserving accepted imagery and late cancellation.
+Existing read-only diagnostics expose native tile state, monotonic time and actual
+fallback reason for the owner hardware speed gate. Usable globe, recognizable
+ORAS detail and viewport settlement are separate observations; decoded-tile timing
+is only a proxy. The previous performance gallery/candidate is preserved. See
+[mapping resource proof](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-final-decoded-image-resource-correction--2026-10-12).
+**STOP for owner speed/visual review. No merge or next package is authorized.**
+
+Provider spending is mandatory **$0**. No account/token creation, billing or
+subscriptions. The owner assumes nonprofit PEMA/PASDA and ion Community use
+permitted **for local development only**; verified public-release rights remain
+outstanding. Ion requires explicit opt-in, a qualifying existing publishable token,
+account-side zero-charge protection and bounded usage; absent these, fixtures only.
+Reuse pinned God's Eye/Cesium exports; no new dependency, pin update, full upstream
+Viewer factory or scientific star catalog.
+
+One permanent Natural Earth safety base; actual pinned public map controller,
+filtered defaults/catalog, native NASA/EOX 2016/NAIP/verified-ORAS PEMA, developer-only OSM/labels and fixture-qualified ion path. Owner-directed PR #71
+correction makes imagery automatic only: no provider/Auto selector, manual
+preference, source Retry or labels control. Stationary coverage qualification and
+source recovery are automatic within the existing bounds; read-only status and
+credits remain available. Ion usage alone persists in browser-tab session storage;
+selection uses verified coverage, genuine detail, health and hysteresis. Shared request budgets, truthful actual-source/date/
+GSD/credits, owned teardown and event ordering are mandatory. No provider-research
+repeat, SWE rebuild, terrain/3D, deployment or new account. Preserve science, owner
+settings, all prior artifacts/rollback/data/container/volume identities and closed
+unmerged PR #67. Roadmap order and unfinished acceptance gates are unchanged.
+
+**STOP for owner review of the actual mapping experience and separate merge
+approval. No C6-2 or C6-3 work follows automatically.** The dated C6-0 record below
+is preserved history; its earlier unapproved-development gate is superseded only
+by this named owner authorization. Release permission and physical acceptance are
+not established by local development or software browser emulation.
+
+## Historical C6-0 free global mapping qualification — 2026-10-11
 
 Default Mode; SINGLE AGENT ONLY. Owner authorizes **C6-0 research, provider
 qualification, adoption planning and documentation only**. Verified main
@@ -37,10 +106,10 @@ God's Eye `e7707d9a0f34d9fbffc300023c319f95caa5be30` unchanged.
 **STOP for owner source/plan/PR approval before C6-1 implementation.** Real
 screenshots must be owner-approved before any later implementation merge.
 
-## Historical PR #69 finalization record — superseded by current C6-0 authorization
+## Historical PR #69 finalization record — superseded by current C6-1A authorization
 
 The unchanged dated records below retain prior active/open-PR/stop-point language;
-they are historical and do not override the current C6-0 scope above.
+they are historical and do not override the current C6-1A scope above.
 
 ## Active C5.7-D / PR #69 documentation finalization — 2026-10-11
 
