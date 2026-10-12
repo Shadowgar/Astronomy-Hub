@@ -38,7 +38,13 @@ same unmerged PR, plus dateline/tilted-ground coverage fixes. Active concurrency
 remains fixed; source limits/readiness and acceptance are governed by the active
 C6 specification. No terrain/buildings/deployment or implicit merge approval.
 
-Automatic candidate Earth `955cf90bce228d53ffeb1279cec693e1a906eb58625630048b43b1d5ac16caba` (inputs `3fa63eba07c50e5f2eb32f4b95a5f8acf3f78a991752b110047f5bea6f773443`),
+Latest owner PR #71 correction removes Hub tile rate/concurrency and readiness
+preflight, adds persistent eligible response caching/cache diagnostics, and resolves
+pending-camera P1 through native map generations. This supersedes earlier throttled
+implementation text; preserved artifact below is the starting candidate, not proof
+of this correction. No merge or later phase; see active C6 specification.
+
+Automatic candidate Earth `968d211328c14dac2b69fb0d302d8f70607de8d7a060ae8bcd5841631f99e4f0` (inputs `51bb13a95be56f7bfa9fc80f1a7fd90f5a0d7cd42434e44fc2d3a6bdc670b300`),
 with two identical Docker builds and exact installed/served bytes.
 [Current mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-automatic-imagery-correction--2026-10-11) records results and remaining gates.
 

@@ -1,15 +1,14 @@
-import {TileMapServiceImageryProvider,ImageryLayer,Cartesian2,Cartographic,Request,RequestType,Math as CesiumMath} from 'cesium';
+import {TileMapServiceImageryProvider,ImageryLayer,Cartesian2,Math as CesiumMath} from 'cesium';
 import {MapSourceController} from 'gods-eye-view/maps/controller';
 import {createAdmittedMapSources,createLabels,SOURCE_FACTS} from './AdmittedMapSources.mjs';
 import {chooseImagery,contains,containsView,inRing,CONUS,PEMA_COVERAGE,ORAS_NAIP_RING} from './ImagerySelectionPolicy.mjs';
-import {boundImageryRequests,createImageryBudget} from './imageryRequests.mjs';
-import {prepareVisibleTile} from './visibleImagery.mjs';
+import {observeImageryRequests,createImageryAvailability} from './imageryRequests.mjs';
 import {openImagerySession} from './imagerySession.mjs';
 
 export class ImageryController {
  constructor(runtime,quality){
   this.runtime=runtime;this.viewer=runtime.viewer;this.quality=quality;this.epoch=0;this.session=openImagerySession();this.mode='auto';this.selectionGeneration=0;this.actual='local';this.status='loading';this.reason='';
-  this.records=new Map();this.cooldowns=new Map();this.failureCounts=new Map();this.failedSources=new Set();this.cachedFallbacks=new Set();this.failedConstructions=new Set();this.budget=createImageryBudget();this.controllersCreated=0;this.localAllocations=0;
+  this.records=new Map();this.cooldowns=new Map();this.failureCounts=new Map();this.failedSources=new Set();this.cachedFallbacks=new Set();this.failedConstructions=new Set();this.budget=createImageryAvailability();this.controllersCreated=0;this.localAllocations=0;
   this.footprints=[{ring:ORAS_NAIP_RING,verifiedOras:true}];this.metadataLast=-Infinity;this.metadataCount=0;this.labelsWanted=false;
   runtime.lifecycle.add(()=>this.clear());
  }
@@ -23,7 +22,7 @@ export class ImageryController {
    const local=await TileMapServiceImageryProvider.fromUrl('/earth-runtime/cesium/Assets/Textures/NaturalEarthII');
    if(this.runtime.lifecycle.closed)return;
    this.base=this.viewer.imageryLayers.addImageryProvider(local,0);this.localAllocations++;
-   this.localGuard=boundImageryRequests(local,{onLoad:()=>this.runtime.timings.firstImageryTileMs??=performance.now()});
+   this.localGuard=observeImageryRequests(local,{onLoad:()=>this.runtime.timings.firstImageryTileMs??=performance.now()});
    this.offCamera=this.viewer.camera.moveEnd.addEventListener(()=>{clearTimeout(this.cameraTimer);this.cameraTimer=setTimeout(()=>void this.updateView(),250)});
    this.wakeTimer=setInterval(()=>{if(this.runtime.lifecycle.closed)return;const previous=this.status,unsettled=this.viewer.scene.globe.tilesLoaded===false;if(this.map){this.status=this.loadingStatus();}if(this.map&&(previous!==this.status||unsettled||this.budget.stats.active))this.refresh();if(this.mode==='auto'&&!this.updating&&!this.switching&&this.needsUpdate())void this.updateView();},500);
    this.mountStatus();
@@ -62,7 +61,7 @@ export class ImageryController {
   if(id==='local'){this.terminal(mode==='local'?'Local selected':'Remote imagery unavailable');return;}
   if(!this.map)this.createController();
   if(!this.map.isStackAvailable(id)){this.reason='Source not admitted';this.refresh();return;}
-  if(!force&&id===this.map.getActiveId()&&this.managed){this.refresh();return;}
+  if(!force&&((id===this.map.getActiveId()&&this.managed&&!this.switching)||(id===this.requestedId&&this.switching))){this.refresh();return;}
   this.requestedId=id;this.switches=(this.switches??0)+1;this.switching=true;try{await this.map.setStack(id);}finally{this.switching=--this.switches>0;}if(!this.runtime.lifecycle.closed)this.refresh();
  }
  createController(){
@@ -70,7 +69,7 @@ export class ImageryController {
   const config=this.session.canUseIon(this.config?.ionSessionTileLimit)?this.config:{...this.config,ionImageryOptIn:false};
   this.registry=createAdmittedMapSources(config,(id,factory,request)=>this.provider(id,factory,request,epoch));
   this.map=new MapSourceController(this.viewer,{registry:this.registry,initialStack:'nasa',requestRender:()=>this.viewer.scene.requestRender(),
-   createImageryLayer:provider=>{this.pauseAll();const record=this.records.get(provider);if(record){if(this.eligible(record.id))record.guard.resume();this.replacedRecord=this.activeRecord;this.activeRecord=record;this.budget.globalLimit=record.id==='ion'?4:6;}this.managed=new ImageryLayer(provider);return this.managed;},
+   createImageryLayer:provider=>{const record=this.records.get(provider);if(record){this.replacedRecord=this.activeRecord;this.activeRecord=record;}this.managed=new ImageryLayer(provider);return this.managed;},
    onChange:state=>{if(epoch!==this.epoch)return;if(state.status==='switching')this.status='loading';this.refresh();},
    onError:()=>{if(epoch===this.epoch)this.reason='Selected source unavailable; fallback retained';},
   });
@@ -82,19 +81,15 @@ export class ImageryController {
    if(state.switchOrigin==='automatic'&&state.activeId!==this.requestedId){for(const id of this.failedConstructions)this.cachedFallbacks.add(id);}
    if(state.switchOrigin==='automatic'&&this.replacedRecord?.tileFailures&&this.replacedRecord.id!==state.activeId)this.markFailed(this.replacedRecord.id);this.replacedRecord=null;
    this.actual=state.activeId;this.activeRecord=this.records.get(this.managed.imageryProvider);if(this.eligible(this.actual))this.activeRecord?.guard.resume();else{this.status='unavailable';queueMicrotask(()=>{if(epoch===this.epoch&&!this.runtime.lifecycle.closed)void this.select(this.mode,true)});return;}
-   this.budget.globalLimit=this.actual==='ion'?4:6;this.status=this.loadingStatus();if(state.lastError)this.reason='Selected source unavailable; showing fallback';
+   this.status=this.loadingStatus();if(state.lastError)this.reason='Selected source unavailable; showing fallback';
    this.order();void this.syncLabels();this.refresh();
   });
  }
  async provider(id,factory,{signal},epoch){
   if(!this.eligible(id))throw Error('Source cooling down');
-  let timer,expired=false;
-  const task=Promise.resolve().then(factory);task.then(provider=>{if(expired||epoch!==this.epoch){if(typeof provider.destroy==='function'&&!provider.isDestroyed?.())provider.destroy();}},()=>{});
   let provider;
-  try{provider=await Promise.race([task,new Promise((_,reject)=>{timer=setTimeout(()=>{expired=true;reject(Error('Imagery construction timed out'))},20000)})]);signal.throwIfAborted();}
-  catch(error){if(epoch===this.epoch&&!this.runtime.lifecycle.closed){this.budget.block(SOURCE_FACTS[id].host,error);this.markFailed(id);this.failedConstructions.add(id);}throw error;}
-  finally{clearTimeout(timer);}
-  if(epoch!==this.epoch)throw Error('Stale imagery construction');
+  try{provider=await factory();signal.throwIfAborted();if(epoch!==this.epoch)throw Error('Stale imagery construction');}
+  catch(error){if(provider&&typeof provider.destroy==='function'&&!provider.isDestroyed?.())provider.destroy();if(epoch===this.epoch&&!this.runtime.lifecycle.closed){this.budget.block(SOURCE_FACTS[id].host,error);this.markFailed(id);this.failedConstructions.add(id);}throw error;}
   const record={id,provider,loaded:false,epoch,reportedErrors:new WeakSet()};
   const owned=()=>epoch===this.epoch&&this.activeRecord===record&&!this.runtime.lifecycle.closed;
   const live=()=>owned()&&this.map?.getState().status!=='switching'&&!record.guard.paused;
@@ -104,25 +99,18 @@ export class ImageryController {
    if(hard||id==='nasa'){this.markFailed(id);this.reason='Imagery tiles unavailable';this.stopBlockedHost(SOURCE_FACTS[id].host);queueMicrotask(()=>{if(owned()){if(id==='nasa')this.terminal('NASA unavailable; local safety base');else void this.select(this.mode,true);}});}
    else{record.partial=true;this.refresh();if(error.imageryGuardFailure)setTimeout(()=>{if(live()&&!record.reportedErrors.has(error))provider.errorEvent.raiseEvent(error);},0);}
   };
-  record.guard=boundImageryRequests(provider,{budget:this.budget,host:SOURCE_FACTS[id].host,timeoutMs:SOURCE_FACTS[id].tileTimeoutMs??12000,limit:['usgs-naip','pema','ion'].includes(id)?2:4,
+  record.guard=observeImageryRequests(provider,{budget:this.budget,host:SOURCE_FACTS[id].host,
    canDispatch:()=>id!=='ion'||this.session.canUseIon(this.config.ionSessionTileLimit),
    onDispatch:()=>{if(id==='ion')this.session.recordIonRequest();},onLimit:()=>fail(Error('Ion tab-session limit reached or ledger unavailable')),
    isEmpty:id==='usgs-naip'?(image,args)=>this.emptyImage(image,record,args[2]):()=>false,
-   onLoad:()=>{if(!live())return;record.loaded=true;this.failureCounts.delete(id);this.status=this.loadingStatus();this.runtime.timings.firstImageryTileMs??=performance.now();if(['usgs-naip','pema'].includes(id))this.runtime.timings.firstHdTileMs??=performance.now();this.refresh();},onError:fail});
-  record.guard.pause();record.off=provider.errorEvent.addEventListener(error=>{
+   onLoad:(_image,args)=>{if(!live())return;record.loaded=true;this.failureCounts.delete(id);this.status=this.loadingStatus();this.runtime.timings.firstImageryTileMs??=performance.now();if((id==='usgs-naip'&&args[2]>=17)||(id==='pema'&&args[2]>=18))this.runtime.timings.firstHdTileMs??=performance.now();},onError:fail});
+  record.off=provider.errorEvent.addEventListener(error=>{
    if(error)error.retry=false;if(!live())return;const cause=error?.error??error;if(cause&&typeof cause==='object')record.reportedErrors.add(cause);record.tileFailures=(record.tileFailures??0)+1;
    if(hardFailure(error)||id==='nasa'){this.markFailed(id);this.stopBlockedHost(SOURCE_FACTS[id].host);queueMicrotask(()=>{if(owned()){if(id==='nasa')this.terminal('NASA unavailable; local safety base');else void this.select(this.mode,true);}});}
    else record.partial=true;
    this.refresh();
   });
   this.records.set(provider,record);
-  const view=this.view();
-  if(id==='usgs-naip'&&view.point&&view.naipCovered){
-   const level=Math.min(provider.maximumLevel??18,18),position=Cartographic.fromDegrees(...view.point),tile=provider.tilingScheme.positionToTileXY(position,level),ancestor=provider.tilingScheme.positionToTileXY(position,Math.min(level,14));
-   if(tile){record.preparing=true;const preparedAt=performance.now();try{
-    record.prepared=await prepareVisibleTile(provider,{tiles:[{...ancestor,level:Math.min(level,14)},{...tile,level}],requestFactory:()=>new Request({throttle:false,throttleByServer:true,type:RequestType.IMAGERY}),guard:record.guard,signal:AbortSignal.any([signal,this.runtime.lifecycle.controller.signal]),onUse:sample=>{if(live()){record.loaded=true;record.preparedUsed=true;(record.preparedLevels??=[]).push(sample.level);if(sample.level>=17)this.runtime.timings.firstHdTileMs??=performance.now();this.refresh();}}});
-   }catch(error){record.preparationError=error.readinessTimedOut?'timed-out':'unavailable';record.guard.pause();if(epoch===this.epoch&&!this.runtime.lifecycle.closed){this.markFailed(id);this.failedConstructions.add(id);}throw error;}finally{record.preparationMs=performance.now()-preparedAt;record.preparing=false;}}
-  }
   return provider;
  }
  emptyImage(image,record,level){
@@ -130,7 +118,6 @@ export class ImageryController {
   try{const canvas=document.createElement('canvas');canvas.width=canvas.height=16;const context=canvas.getContext('2d',{willReadFrequently:true});context.drawImage(image,0,0,16,16);const pixels=context.getImageData(0,0,16,16).data;let visible=0;for(let i=3;i<pixels.length;i+=4)if(pixels[i])visible++;if(level>=12&&visible&&visible<256)record.partial=true;return level>=12&&!visible;}catch{record.partial=true;return false;}
  }
  stopBlockedHost(host){if(this.budget.eligible(host))return;for(const record of this.records.values())if(SOURCE_FACTS[record.id].host===host)record.guard.pause();if(host==='tiles.maps.eox.at'){this.labelsWanted=false;this.removeLabels();}}
- pauseAll(){for(const record of this.records.values())record.guard.pause();this.labels?.guard.pause();}
  order(){
   // Upstream inserts at index zero. Raise only the exact owned handle once,
   // leaving all independent event imagery identities and relative order intact.
@@ -139,7 +126,7 @@ export class ImageryController {
   this.viewer.scene.requestRender();
  }
  disposeController(){
-  this.epoch++;this.unsubscribe?.();this.unsubscribe=null;this.pauseAll();for(const record of this.records.values()){record.off();record.guard.stop();record.prepared?.dispose();}
+  this.epoch++;this.unsubscribe?.();this.unsubscribe=null;for(const record of this.records.values()){record.off();record.guard.stop();}
   this.map?.destroy();this.map=null;this.managed=null;this.activeRecord=null;this.records.clear();this.cachedFallbacks.clear();this.failedConstructions.clear();this.removeLabels();this.runtime.attribution.remove('imagery');
  }
  terminal(reason){this.disposeController();this.actual='local';this.status=this.mode==='local'?'ready':'unavailable';this.reason=reason;this.refresh();}
@@ -150,40 +137,40 @@ export class ImageryController {
   this.failedSources.add(id);this.cooldowns.set(id,performance.now()+Math.min(900000,60000*2**Math.min(count-1,4)));
  }
  canQueryFootprint(view=this.view()){
-  return !!view.point&&view.height<150000&&!view.naipCovered&&containsView(CONUS,view.rect)&&this.mode==='auto'&&this.metadataCount<32&&!this.metadataPending&&performance.now()-this.metadataLast>=60000&&this.eligible('usgs-naip');
+  return !(this.eligible('pema')&&chooseImagery(view,this.actual)==='pema')&&!!view.point&&view.height<150000&&!view.naipCovered&&containsView(CONUS,view.rect)&&this.mode==='auto'&&this.metadataCount<32&&!this.metadataPending&&performance.now()-this.metadataLast>=60000&&this.eligible('usgs-naip');
  }
  needsUpdate(){
   if(this.canQueryFootprint())return true;
-  return !this.budget.stats.active&&[...this.failedSources].some(id=>{
+  return [...this.failedSources].some(id=>{
    const host=SOURCE_FACTS[id]?.host??'',blocked=this.budget.blocked.get(host);
    return performance.now()>=(this.cooldowns.get(id)??0)&&(!blocked||(blocked.status===429&&performance.now()>=blocked.until));
   });
  }
  recoverEligible(){
   for(const id of this.failedSources){const host=SOURCE_FACTS[id]?.host??'';
-   if(performance.now()<(this.cooldowns.get(id)??0)||!this.budget.retryHost(host)||!this.budget.eligible(host)||this.budget.stats.active)continue;
+   if(performance.now()<(this.cooldowns.get(id)??0)||!this.budget.retryHost(host)||!this.budget.eligible(host))continue;
    this.failedSources.delete(id);
   }
  }
  async retrySelected(){return this.updateView();}
  cameraKey(view=this.view()){const c=this.viewer.camera,p=c.positionCartographic;return JSON.stringify([p.longitude,p.latitude,p.height,c.heading,c.pitch,c.roll,view.rect]);}
  async updateView(){
-  if(this.runtime.lifecycle.closed||!this.base||this.updating)return;
-  this.updating=true;
+  if(this.runtime.lifecycle.closed||!this.base)return;
+  const generation=this.updateGeneration=(this.updateGeneration??0)+1;
   if(this.metadataPending&&this.metadataKey!==this.cameraKey())this.metadataAbort?.abort();
-  try{
+  {
    this.recoverEligible();
    const wanted=this.desired(this.view());
    // Public API has no single-entry eviction. Only retrying a successful cached
    // construction fallback requires losing remote caches; ordinary retries keep them.
    if(this.cachedFallbacks.has(wanted)&&this.eligible(wanted))this.disposeController();
    await this.select(this.mode);
-  }finally{this.updating=false;}
+  }
+  if(generation!==this.updateGeneration||this.runtime.lifecycle.closed)return;
   const view=this.view();if(this.canQueryFootprint(view))await this.queryFootprint(view);
  }
  async queryFootprint(view){
-  const lease=this.budget.take(SOURCE_FACTS['usgs-naip'].host,2);if(!lease)return;
-  lease.commit();this.metadataPending=true;this.metadataLast=performance.now();this.metadataCount++;
+  this.metadataPending=true;this.metadataLast=performance.now();this.metadataCount++;
   this.metadataAbort?.abort();this.metadataAbort=new AbortController();const epoch=this.epoch,key=this.cameraKey(view),generation=this.selectionGeneration;this.metadataKey=key;
   const params=new URLSearchParams({f:'json',geometry:JSON.stringify({x:view.point[0],y:view.point[1],spatialReference:{wkid:4326}}),geometryType:'esriGeometryPoint',inSR:'4326',outSR:'4326',spatialRel:'esriSpatialRelIntersects',where:'Category=1',outFields:'Name',returnGeometry:'true',resultRecordCount:'1'});
   try{const response=await fetch('https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/query?'+params,{signal:AbortSignal.any([this.metadataAbort.signal,this.runtime.lifecycle.controller.signal,AbortSignal.timeout(20000)])});if(!response.ok){this.budget.block(SOURCE_FACTS['usgs-naip'].host,{statusCode:response.status,retryAfter:response.headers.get('retry-after')});if(response.status===429)this.markFailed('usgs-naip');return;}
@@ -195,15 +182,15 @@ export class ImageryController {
    // subsequent closer camera can qualify from this cache without a new query.
    if(!inRing(view.point,ring))return;
    this.footprints.push({ring,verifiedOras:false,rasterName:typeof value.features[0].attributes?.Name==='string'?value.features[0].attributes.Name:null});if(this.footprints.length>32)this.footprints.splice(1,1);
-   lease.release();await this.select(this.mode);
+   await this.select(this.mode);
   }catch{/* Unverified coverage retains global imagery; at most one request/minute. */}
-  finally{lease.release();this.metadataPending=false;}
+  finally{this.metadataPending=false;}
  }
  async setLabels(enabled){if(enabled)this.budget.retryHost('tiles.maps.eox.at');this.labelsWanted=!!enabled&&this.budget.eligible('tiles.maps.eox.at');await this.syncLabels();this.refresh();}
  async syncLabels(){
   if(!this.labelsWanted||!this.map||this.actual==='local'||!this.budget.eligible('tiles.maps.eox.at')){this.removeLabels();return;}
   if(this.labels){this.labels.guard.resume();this.order();return;}
-  const provider=createLabels(),record={provider};record.guard=boundImageryRequests(provider,{budget:this.budget,host:'tiles.maps.eox.at',onError:()=>{this.labelsWanted=false;this.removeLabels();this.refresh();},onLoad:()=>this.viewer.scene.requestRender()});
+  const provider=createLabels(),record={provider};record.guard=observeImageryRequests(provider,{budget:this.budget,host:'tiles.maps.eox.at',onError:()=>{this.labelsWanted=false;this.removeLabels();this.refresh();},onLoad:()=>this.viewer.scene.requestRender()});
   record.off=provider.errorEvent.addEventListener(error=>{if(error)error.retry=false;this.labelsWanted=false;this.removeLabels();this.refresh();});record.layer=this.viewer.imageryLayers.addImageryProvider(provider,2);this.labels=record;
   this.runtime.attribution.set('map-labels','EOX::Maps · EOX/MapServer · © OpenStreetMap contributors','https://maps.eox.at/');this.order();
  }
@@ -227,6 +214,6 @@ export class ImageryController {
   if(this.statusNode)this.statusNode.textContent=`Showing ${facts.label}. ${this.metadata.product}. ${this.metadata.date?'Acquired '+this.metadata.date+'. ':'Exact capture date unavailable. '}${this.metadata.gsd?'Native '+this.metadata.gsd.toFixed(this.metadata.gsd<1?4:0)+' m. ':''}${facts.coverage}${this.loadingNote?' · '+this.loadingNote:''}${this.reason?' · '+this.reason:''}`;
   this.viewer.scene.requestRender();
  }
- diagnostics(){return {selected:this.mode,actual:this.actual,status:this.status,fallbackReason:this.reason??null,metadata:this.metadata,localAllocations:this.localAllocations,controllersCreated:this.controllersCreated,managedLayers:this.managed&&this.viewer.imageryLayers.indexOf(this.managed)>=0?1:0,labelsLayers:this.labels?1:0,budget:{...this.budget.stats},ionSessionRequests:this.session.ionUsed,ionSessionLedgerAvailable:this.session.available,metadataRequests:this.metadataCount,metadataPending:!!this.metadataPending,view:this.runtime.lifecycle.closed?null:this.view(),sources:Object.fromEntries([...this.records.values()].map(record=>[record.id,{...record.guard.stats,paused:record.guard.paused,partial:!!record.partial,preparing:!!record.preparing,preparedUsed:!!record.preparedUsed,preparedLevels:record.preparedLevels??[],preparationMs:record.preparationMs??null,preparationError:record.preparationError??null}]))};}
+ diagnostics(){return {selected:this.mode,actual:this.actual,status:this.status,fallbackReason:this.reason??null,metadata:this.metadata,localAllocations:this.localAllocations,controllersCreated:this.controllersCreated,managedLayers:this.managed&&this.viewer.imageryLayers.indexOf(this.managed)>=0?1:0,labelsLayers:this.labels?1:0,budget:{...this.budget.stats},ionSessionRequests:this.session.ionUsed,ionSessionLedgerAvailable:this.session.available,metadataRequests:this.metadataCount,metadataPending:!!this.metadataPending,view:this.runtime.lifecycle.closed?null:this.view(),sources:Object.fromEntries([...this.records.values()].map(record=>[record.id,{...record.guard.stats,paused:record.guard.paused,partial:!!record.partial,preparing:false}]))};}
  clear(){clearTimeout(this.cameraTimer);clearInterval(this.wakeTimer);this.metadataAbort?.abort();this.offCamera?.();this.disposeController();this.localGuard?.stop();if(this.base)this.viewer.imageryLayers.remove(this.base,true);this.base=null;}
 }

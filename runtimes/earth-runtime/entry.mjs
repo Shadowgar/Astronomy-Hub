@@ -1,3 +1,4 @@
+import {startImageryCache} from '../../packages/imagery-cache/client.mjs';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
 import './style.css';
 import {EllipsoidalOccluder} from 'cesium';
@@ -12,6 +13,7 @@ function start(){
  starting=initialize().finally(()=>{starting=null});
  return starting;
 }
+void startImageryCache();
 async function initialize(){
  await stop();stopping=undefined;
  if(leaving)return;

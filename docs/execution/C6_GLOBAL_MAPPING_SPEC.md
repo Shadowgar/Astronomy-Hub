@@ -19,6 +19,49 @@ required. A token alone never enables it; default config is keyless. No live ion
 qualification is claimed without that account arrangement. Browser tile limits
 cannot guarantee global capacity, aggregate quota compliance or zero charges.
 
+### Owner native-dispatch and persistent-cache correction — 2026-10-12
+
+The owner explicitly supersedes the former four-starts/sec token bucket, global/
+host/aerial concurrency limits, switching pauses and blocking two-tile readiness.
+Audience is approximately1–2 users. Preserve native Cesium request scheduling,
+browser HTTP caching/cancellation, pinned map generation/factory caches, existing
+Viewer, one safety/one remote, automatic hierarchy and truthful errors/credits.
+No replacement scheduler, full upstream Viewer, terrain, building or provider audit.
+The request-observation seam may retain only demonstrably required no-data bitmap
+cleanup, source status/error telemetry, owned teardown and provider-enforced hard
+access/Retry-After gates. Optional ion's separate financial session authorization
+remains mandatory; it is not a throughput rule and ion stays inactive by default.
+
+Implement in this existing PR: (1) reproduce the pending-camera P1 and native
+unrestricted dispatch; (2) delete artificial budgets and visible-tile preflight,
+permit concurrent public setStack generations so latest camera wins, and retain
+healthy providers; (3) register an asynchronous Earth-scope service worker that
+stores only eligible public response bytes and exact provider/edition/resource
+keys, honoring cache headers/freshness/CORS/access restrictions; (4) add Imagery
+Cache status/storage/count/persistence and confirmed owned-cache clear to existing
+sources/diagnostics, without provider controls; (5) measure reference/before/after,
+cold/warm/restarted profiles and ordinary loading input at ORAS/NYC/Paris/global;
+(6) run focused RED/GREEN and bounded qualification, independently rebuild/attest,
+push and resolve P1; STOP for owner review without merging.
+
+Native globe tile-load progress keeps Cesium continuous while refinement is pending
+and restores request-render idling when settled; owned listener teardown is required.
+This public SDK event replaces no renderer or request scheduler.
+
+Native HTTP caching remains enabled in every measured variant. Application cache
+reads precede eligible network requests; writes/eviction run off the render path.
+No credentials/private/opaque/unqualified responses, country prefetch or LocalStorage
+bytes. Preserve origin revalidation and refuse application hits whose freshness
+cannot be established; ordinary browser HTTP caching remains available. The cache
+budget is the smaller of512MiB,10% origin quota and half available origin capacity
+plus existing owned bytes;64MiB when estimates are unavailable. Evict oldest owned
+entries on pressure, recover from corrupt/missing/storage-denied entries and never
+clear unrelated browser data. HTTP cache cannot be selectively cleared by this app.
+
+The loading speed/physical owner acceptance and all public-release permission/
+zero-charge gates remain open. The older detailed limits/readiness specification
+below is preserved implementation history, superseded for this named correction.
+
 ### Implemented ownership and source seams
 
 Reuse the PR #68 adoption blueprint's immutable pin and actual public exports:

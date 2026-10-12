@@ -8,9 +8,20 @@ base. Isolated branch `c6-1a-global-imagery-adoption-1`. The owner authorizes th
 [imagery-only C6-1A package](../execution/C6_GLOBAL_MAPPING_SPEC.md#active-c6-1a-imagery-package--2026-10-11),
 focused visual proof, bounded regression, deterministic Earth build/install/served
 identity, commit/push and one implementation PR. **DO NOT MERGE C6-1A.**
-The automatic implementation candidate is Earth `955cf90bce228d53ffeb1279cec693e1a906eb58625630048b43b1d5ac16caba`,
-inputs `3fa63eba07c50e5f2eb32f4b95a5f8acf3f78a991752b110047f5bea6f773443`; qualified baseline/rollback are preserved.
+The automatic implementation candidate is Earth `968d211328c14dac2b69fb0d302d8f70607de8d7a060ae8bcd5841631f99e4f0`,
+inputs `51bb13a95be56f7bfa9fc80f1a7fd90f5a0d7cd42434e44fc2d3a6bdc670b300`; qualified baseline/rollback are preserved.
 [Mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-automatic-imagery-correction--2026-10-11) contains exact commands, source seams, captures and limits.
+
+Latest owner directive2026-10-12 authorizes native God's Eye/Cesium dispatch and
+persistent eligible imagery response caching in existing PR #71, starting from
+`ab2bae5e6fccc8c90c2d6470dfad728919e84ce5`. It supersedes all Hub-imposed tile
+rate/concurrency limits, switching pauses and blocking readiness preflight in the
+historical paragraphs below. Resolve pending-camera P1 through public native
+switch generations; add confirmed owned Imagery Cache clear/status in existing
+diagnostics. Compare identical sources/camera/browser/cache conditions, including
+real profile restart, and independently rebuild/attest. No merge, terrain/buildings,
+source pin/dependency/account/production/data change. Physical speed acceptance
+remains owner-gated. See [native/cache plan](../execution/C6_GLOBAL_MAPPING_SPEC.md#owner-native-dispatch-and-persistent-cache-correction--2026-10-12).
 
 Owner correction2026-10-12 makes **loading speed and usable progressive imagery**
 the priority within existing PR #71, last reviewed head

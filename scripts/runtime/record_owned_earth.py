@@ -9,6 +9,7 @@ repo = Path(__file__).resolve().parents[2]
 def files(root, predicate=lambda p: True):
     return [{"path": p.relative_to(root).as_posix(), "bytes": p.stat().st_size, "sha256": hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(root.rglob('*')) if p.is_file() and predicate(p)]
 inputs = files(repo / 'runtimes/earth-runtime') + [{**r, 'path': 'packages/runtime-protocol/' + r['path']} for r in files(repo / 'packages/runtime-protocol')]
+inputs += [{**r, 'path': 'packages/imagery-cache/' + r['path']} for r in files(repo / 'packages/imagery-cache')]
 artifacts = files(output, lambda p: p.name != 'release.json')
 digest = hashlib.sha256(json.dumps(artifacts, separators=(',', ':')).encode()).hexdigest()
 packages = json.loads((source / 'package-lock.json').read_text())['packages']

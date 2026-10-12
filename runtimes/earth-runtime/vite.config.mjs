@@ -15,6 +15,6 @@ export default {
   {find:/^satellite.js$/,replacement:path.join(source,'node_modules/satellite.js/lib/index.js')},
  ]},
  define:{CESIUM_BASE_URL:JSON.stringify('/earth-runtime/cesium/')},
- plugins:[{name:'oras-selective-export-policy',moduleParsed(info){if(forbidden.test(info.id))throw Error('Forbidden full-app or unqualified asset import '+info.id)},generateBundle(){const upstream=[...this.getModuleIds()].filter(id=>id.startsWith(source+'/src/')).map(id=>id.slice(source.length+1)).sort();this.emitFile({type:'asset',fileName:'module-policy.json',source:JSON.stringify({upstreamModules:upstream,completeApplication:false,viewerOwner:'Astronomy Hub',bundledThirdPartyDatasets:[]},null,2)});}}],
+ plugins:[{name:'oras-selective-export-policy',buildStart(){this.emitFile({type:'chunk',id:path.join(here,'core/imageryCacheWorker.mjs'),fileName:'imagery-cache-sw.js'});},moduleParsed(info){if(forbidden.test(info.id))throw Error('Forbidden full-app or unqualified asset import '+info.id)},generateBundle(){const upstream=[...this.getModuleIds()].filter(id=>id.startsWith(source+'/src/')).map(id=>id.slice(source.length+1)).sort();this.emitFile({type:'asset',fileName:'module-policy.json',source:JSON.stringify({upstreamModules:upstream,completeApplication:false,viewerOwner:'Astronomy Hub',bundledThirdPartyDatasets:[]},null,2)});}}],
  build:{outDir:process.env.ORAS_EARTH_OUT,emptyOutDir:true,sourcemap:false,assetsInlineLimit:0},
 };

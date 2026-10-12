@@ -14,7 +14,7 @@ function page(){
   async destroy(){if(this.lifecycle.closed)return;this.lifecycle.closed=true;this.ready=false;for(let i=0;i<6;i++)await Promise.resolve();this.destroyed=true;live--;}
  }
  function RuntimeBridge(){bridges++;let closed=false;return {ready(){},close(){if(!closed){closed=true;bridges--;}}};}
- runInNewContext(source,{window,document,EarthRuntime,RuntimeBridge,installLocalVisualProof:()=>{},performance:{now:()=>1234}});
+ runInNewContext(source,{window,document,EarthRuntime,RuntimeBridge,installLocalVisualProof:()=>{},startImageryCache:()=>Promise.resolve(null),performance:{now:()=>1234}});
  return {window,counts:()=>({viewers,bridges}),peak:()=>peak,dispatch(type,persisted){const event=new Event(type);Object.defineProperty(event,'persisted',{value:persisted});window.dispatchEvent(event);}};
 }
 test('persisted pagehide preserves Viewer and bridge; repeated pageshow does not duplicate startup',async()=>{

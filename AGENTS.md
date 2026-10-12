@@ -972,8 +972,10 @@ qualification after PR #70 merge; its merge and later packages remain unauthoriz
 belongs to C6. PR #71 now requires automatic best-available imagery and bounded
 coverage/recovery; no consumer source selection, labels toggle or source Retry.
 Owner direction2026-10-12 prioritizes measured loading speed and usable progressive
-imagery within this same PR. Preserve active-request caps; a documented start-rate/
-timeout correction and bounded visible-center readiness sample are authorized.
+imagery within this same PR. The latest owner directive supersedes those historical caps/preflight: remove Hub
+imagery rate/concurrency bottlenecks, retain native Cesium/God’s Eye dispatch and
+provider restrictions, implement eligible persistent response caching and owner
+cache diagnostics in PR #71. No replacement scheduler or later package is authorized.
 Closed/unmerged PR #67 work/evidence is preserved, not discarded.
 The roadmap does not activate later packages; unfinished C5.7 gates remain open.
 Provider spending must

@@ -2,7 +2,10 @@ import {Viewer,EllipsoidTerrainProvider,Color,ScreenSpaceEventType,Resource} fro
 export class ViewerController {
   constructor(container,credits){
     this.viewer=new Viewer(container,{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:false,sceneModePicker:false,navigationHelpButton:false,fullscreenButton:false,infoBox:false,selectionIndicator:false,baseLayer:false,terrainProvider:new EllipsoidTerrainProvider(),creditContainer:credits,requestRenderMode:true,maximumRenderTimeChange:Infinity,shouldAnimate:false});
-    const viewer=this.viewer;viewer.scene.globe.baseColor=Color.fromCssColorString('#182535');
+    const viewer=this.viewer;
+    // Native quadtree refinement needs frames while tiles remain outstanding.
+    // Cesium owns the loop/priority; return to request-render mode when settled.
+    this.offTileProgress=viewer.scene.globe.tileLoadProgressEvent.addEventListener(count=>{viewer.scene.requestRenderMode=count===0;viewer.scene.requestRender();});viewer.scene.globe.baseColor=Color.fromCssColorString('#182535');
     viewer.scene.globe.showGroundAtmosphere=true;viewer.scene.globe.enableLighting=true;viewer.scene.globe.dynamicAtmosphereLighting=true;viewer.scene.globe.dynamicAtmosphereLightingFromSun=true;viewer.scene.backgroundColor=Color.fromCssColorString('#03070B');
     // Standard Cesium stars use existing bundled textures, not a scientific catalog.
     // Load through Cesium's public Resource API before enabling: a missing face
@@ -28,5 +31,5 @@ export class ViewerController {
     const controller=viewer.scene.screenSpaceCameraController;
     controller.minimumZoomDistance=100;controller.maximumZoomDistance=30_000_000;controller.inertiaZoom=.35;controller.inertiaSpin=.25;controller.inertiaTranslate=.25;
   }
-  destroy(){if(!this.viewer.isDestroyed()){for(const {resource} of this.skyboxResources)resource.request.cancel();this.viewer.trackedEntity=undefined;this.viewer.destroy();}}
+  destroy(){this.offTileProgress?.();if(!this.viewer.isDestroyed()){for(const {resource} of this.skyboxResources)resource.request.cancel();this.viewer.trackedEntity=undefined;this.viewer.destroy();}}
 }

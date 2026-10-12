@@ -1372,3 +1372,183 @@ resolved the harness interaction, with no product change. The exact normal-page
 source/camera/status/request snapshots and software-renderer label are retained
 in `resource/actual-owner-preview.json`. Screenshot work contributes to wall time;
 this smoke is not a repeated provider comparison or physical benchmark.
+
+## C6-1A native imagery dispatch and persistent cache — 2026-10-12
+
+Owner explicitly changes the performance architecture on existing PR #71 from
+verified head `ab2bae5e6fccc8c90c2d6470dfad728919e84ce5`. Default Mode, single
+agent; CORE/LIVE then manifest frontend_change/validation/review44 documents,
+listed/hashes in ignored native-cache `context.json`. Only AGENTS/manifest are
+additional operating inputs. Current C6/AGENTS/LIVE/PROJECT_STATE reconcile this
+explicit override; older limits/readiness evidence remains dated history. No new
+provider research, upstream pin/dependency/account/data change, terrain/3D,
+production/SSH/Cloudflare work, new PR or merge. Mandatory spending remains $0.
+
+### Removed bottlenecks and retained requirements
+
+Deleted the artificial four-starts/sec bucket/burst, six-global/four-host/two-aerial
+admission, per-tile/factory deadlines, switching pauses, global-active-request
+recovery wait and blocking L14/L18 visible-tile samples. Deleted `visibleImagery.mjs`
+and its holding cache/tests. No replacement dispatcher, preflight or prefetch.
+The small request observation seam has no queue/admission/deadline; it preserves
+SDK undefined/cancellation, decoded no-data disposal, actual-source telemetry and
+owned teardown. Only provider401/403/429/Retry-After restrictions and the separately
+required inactive-by-default ion financial authorization remain. Native Cesium
+owns request priority/concurrency/network/obsolete cancellation/refinement.
+
+The pinned map controller's public generations now run for newer camera choices
+while an older factory is pending. Old update completions cannot run stale metadata
+follow-ups. Repeated requests for the same pending/healthy source do not recreate
+providers/layers. Native healthy caches remain; the previously documented public
+API limitation for successfully cached construction fallbacks is still an exceptional
+cooldown retry, not ordinary switching. No private controller writes/removeAll.
+One independent Natural Earth base and at most one remote stay ordered beneath
+weather/radar/fire. Healthy verified PEMA needs no lower-quality NAIP metadata
+preflight. Remaining geometry admission is background source-truth work, not a tile
+rate/concurrency restriction; unqualified U.S. views retain global imagery until
+coverage is genuinely established. Its request/minute/response-size limits remain.
+
+Source inspection: actual pinned `src/maps/controller.js` setStack/_cached/
+_getImageryProvider/_activateGlobeStack/_watchProvider/destroy; `src/app/viewer.js`
+and installed Cesium1.138 ImageryLayer/Request/RequestErrorEvent. God's Eye starts
+native continuous rendering; Hub's idle configuration could settle later despite
+rapid decoded responses. The public globe tileLoadProgressEvent now keeps the
+native Cesium loop active while tiles are outstanding and returns to request-render
+idling when settled. One owned listener is disposed; no custom render/scheduler loop.
+The unexported upstream render governor was inspected, not copied/imported/patched.
+
+### Persistent bytes and owner controls
+
+An asynchronously registered module worker controls only `/earth-runtime/`.
+It stores actual eligible public response bytes in `oras-earth-imagery.v1` with
+provider/edition/exact URL (including XYZ or full WMS parameters) keys. Positive
+freshness is computed from origin Date/Age/Expires/Cache-Control, never renewed by
+an application hit. Unknown freshness or unsupported Vary, no-cache/private/
+no-store, opaque, credential/token/account and unrelated/SWE/API responses stay
+out. Native HTTP caching remains enabled. PEMA's CORS-visible freshness is
+insufficient for an independent app lifetime, so its ordinary HTTP cache does the
+persistent reuse; NASA no-store is respected. EOX Expires permits managed reuse.
+No LocalStorage bytes, country/planet acquisition or offscreen discovery.
+
+Background writes use a smaller-of512MiB/10% quota/half-free-plus-owned limit
+(64MiB without estimates), oldest-entry eviction, browser quota fallback and20,000
+entry/8MiB resource bounds. Stored bytes have size/SHA256 integrity and image
+signature checks; background native image validation immediately closes its own
+bitmap, avoiding persistence of invalid downloads. Reads miss/refetch on corruption,
+staleness or denied/evicted storage. Clear invalidates pending writes and deletes
+only this owned cache. Status scans actual entries; browser HTTP cache is separate.
+Maintenance never gates provider creation or native network responses.
+
+Existing Hub Sources & display quality now has Imagery Cache status, managed-byte
+estimate, entry count, persistence status, refresh and confirmed Clear Imagery Cache.
+It explicitly cannot selectively clear browser HTTP cache; preferences, saved work,
+credentials, astronomy data and other cache namespaces are retained. No provider
+selection control, permission/account signup or automatic persistence prompt.
+
+### Measurements and their limits
+
+Ignored root `output/playwright/c6-1a/native-cache`; scratch
+`/tmp/c6-1a-native-cache-20261012`. Reference uses the actual pinned public map
+controller and same admitted native factories/Hub-owned Viewer; it is not the full
+God's Eye application. Match1440×900/DPR1, numeric cameras, UTC2026-10-11T17:00:00Z,
+Chromium ANGLE SwiftShader, unshaped host network and enabled normal HTTP caching.
+Cold=new profile; warm=same-browser reload; restart=genuine process-close/reopen of
+that disk profile. Controlled source admission is explicit/equal; it excludes
+metadata timing so tile-path comparison uses the same requested source. Real
+source fallbacks are recorded and invalidate a same-source success comparison.
+Ordinary automatic admission, input, switching and lifecycle are independently
+qualified by installed browser cases. No hidden warming/HTTP-cache disabling.
+
+| Scene | Cold before/reference/after settlement | Warm before/reference/after | Restart before/reference/after |
+| --- | --- | --- | --- |
+| ORAS PEMA |25.96 /9.21 /9.80s |26.25 /7.70 /8.22s |27.12 /7.64 /8.22s |
+| Paris EOX2016 |11.91 /12.17 /11.67s |11.94 /8.27 /9.29s |10.86 /8.39 /9.40s |
+| Whole Earth NASA |9.76 /10.24 /10.26s |10.08 /11.09 /10.49s |9.72 /9.85 /10.26s |
+| NYC NAIP |No requested-source settlement in30s |No requested-source settlement in30s |No requested-source settlement in30s |
+
+NYC reference fell back to EOX in all conditions. Final Hub cold fell back to EOX;
+warm/restart reached partial NAIP detail (first L17+ decoded proxies12.41/13.64s)
+but did not fully settle. These are NOT five-second NAIP/full-HD passes. Native
+source factory events were typically fractions of a millisecond while USGS tile
+responses took seconds/tens of seconds; raw request timing/failures are preserved.
+EOX remains a dated10m mosaic, not high-definition aerial imagery. Individual
+network-path JPEG decoder failures are retained, with no unsupported causal blame.
+
+After ORAS: first decoded detail proxies0.754/0.442/0.394s; cold encoded upstream
+body1,554,308 bytes, warm/restart22,135 each,92 HTTP-cached response reuses. Managed
+PEMA entries0 is truthful, not a claimed miss in its native HTTP persistence.
+Paris after:36 managed entries/36 managed hits on warm/restart,580,464 cold upstream
+body bytes versus54,102 on warm/restart (bundled no-store safety resources remain).
+NASA no-store keeps about360,840 body bytes per visit. Source response bytes actually
+reuse across browser restart; cache fixture proof retains the exact original binary
+and one eligible network request across initial/reload/restarted processes.
+
+`comparison.json/md` retains all36 cases, source, request counts, HTTP/managed hit
+separation, storage, factory events, retained-provider/controller counts, frame/input
+records and screenshot paths. Worker-upstream sizes are explicitly collected;
+page-only CDP bytes omit worker transfers and are NOT reported as zero downloads.
+Before/reference totals use a different header accounting path; no misleading
+cross-path byte-saving ratio. Factory records and provider/controller snapshots
+are scoped observations; separate `lifecycle-metrics.json` records exact public
+native switch generations and healthy reuse during ordinary ORAS zoom/revisit.
+
+First decoded/detail tile times are technical proxies. First-visible/recognizable
+confirmation comes from actual captures, not GSD or promise completion. Screenshot
+commands begin at recorded times and complete before the following recorded input;
+those boundaries bracket visual confirmation rather than fabricate sub-second
+human acceptance. ORAS captures show recognizable roofs/paths/trees and truthfully
+partial borders before full settlement. Input-to-next-rAF and CPU submission are
+not physical GPU FPS. Screenshot/readback and normal input are included equally;
+software geometry/rendering affect settlement. Human hardware/Google-Earth-feel
+acceptance remains OPEN. These isolated runs do not prove universal provider SLA.
+
+### Qualification and reproducible identities
+
+RED: native dispatch20 calls admitted only4; pending NYC then Paris attached stale
+NAIP; verified PEMA made an unnecessary NAIP fallback query; native tile-progress
+lifecycle lacked its listener; unsupported Vary and mislabeled-body cache cases
+failed. The cache-first implementation test also strengthened clear proof to require
+an existing entry and exposed unsupported-estimate handling. Failed setups and
+intermediate measurements/builds remain separately labeled, including the initial
+reference idle mode, double-restart protocol, wrong runner cwd and13/14 browser
+run whose extra PEMA metadata query was reproduced and corrected.
+
+Final103 Docker Earth/cache/request/lifecycle tests,1 export-boundary,9 frontend,
+type-check,16 installed desktop/mobile/cache browser cases and26 Docker document/
+artifact checks plus36 subtests pass. Cache browser proof demonstrates original
+response bytes, reload and real process restart without redownload, corruption
+miss/refetch, confirmation cancellation, confirmed owned clear, unrelated CacheStorage
+and LocalStorage saved-work preservation. Native browser cases prove latest camera,
+no sample preflight, healthy upstream cache reuse, source failure/order and serial
+Earth/Sky renderer destruction/recreation. No physical-device qualification.
+
+Two independent qualified builds match Earth
+`968d211328c14dac2b69fb0d302d8f70607de8d7a060ae8bcd5841631f99e4f0`, inputs
+`51bb13a95be56f7bfa9fc80f1a7fd90f5a0d7cd42434e44fc2d3a6bdc670b300`:
+44 source inputs,513 served payload files/11,829,390 bytes,111 notices, Cesium1.138.
+Build chunk-size notices are recorded. All deployed files/release bytes match;
+committed-input binding is retained in the final handoff. Prior955cf90b… candidate
+is preserved under `earth-c61a-native-cache-before-955cf90bce228d53`, with b27f4e…
+and ba63ef… intermediates preserved separately; old performance/resource galleries,
+C5.7-D and rollback identities remain. Sky staysb9c0c22e…; no SWE rebuild.
+
+70 original Docker identities/states/images/mounts/ports/networks and81 original
+volumes match. Only the task-owned preview is restarted/reloaded, with local proof
+aliases. Root settings remain SHA256
+`6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+God's Eye remains clean at `e7707d9a0f34d9fbffc300023c319f95caa5be30`.
+Closed/unmerged PR #67 remains `ebdad3124fe470e3a09e369d3a56e998f29740fb`.
+
+Exact files/commands/logs and final GitHub receipt are in the ignored handoff.
+Core commands include the established pinned Node24 Docker `node --test
+--test-isolation=none` Earth suite, host export-boundary check, frontend type-check/
+9 focused tests, Docker26-test document/artifact bundle, both document validators,
+three installed e2e files with workers1, independent `build_owned_earth.sh` runs,
+record_runtime_versions/install/verify, full513-file served attestation,
+source-input binding and preservation check. No skipped required qualification.
+
+Preview `http://127.0.0.1:4198/earth`; gallery/comparison/cache proof/instructions
+`http://127.0.0.1:4198/gallery/native-cache/`. P1 reply/resolution follows committed
+qualification; PR stays unmerged. PEMA/public ion rights and zero-charge protections
+remain gated. **STOP for owner hardware-speed/visual review and explicit merge
+approval; no C6-2/C6-3 or next provider package starts here.**
