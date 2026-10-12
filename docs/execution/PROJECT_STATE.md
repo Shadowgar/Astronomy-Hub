@@ -38,7 +38,7 @@ same unmerged PR, plus dateline/tilted-ground coverage fixes. Active concurrency
 remains fixed; source limits/readiness and acceptance are governed by the active
 C6 specification. No terrain/buildings/deployment or implicit merge approval.
 
-Automatic candidate Earth `599dd5c6da6fbcdd22d3b2794639f1db31d9ca54a04c47cbfab31b9d9a66aaa3` (inputs `e95ee664c56a8915413d4c388bd9a63e95cdcf1d592b34c245995ba8526476bb`),
+Automatic candidate Earth `955cf90bce228d53ffeb1279cec693e1a906eb58625630048b43b1d5ac16caba` (inputs `3fa63eba07c50e5f2eb32f4b95a5f8acf3f78a991752b110047f5bea6f773443`),
 with two identical Docker builds and exact installed/served bytes.
 [Current mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-automatic-imagery-correction--2026-10-11) records results and remaining gates.
 

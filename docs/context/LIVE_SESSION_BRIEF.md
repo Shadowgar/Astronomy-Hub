@@ -8,8 +8,8 @@ base. Isolated branch `c6-1a-global-imagery-adoption-1`. The owner authorizes th
 [imagery-only C6-1A package](../execution/C6_GLOBAL_MAPPING_SPEC.md#active-c6-1a-imagery-package--2026-10-11),
 focused visual proof, bounded regression, deterministic Earth build/install/served
 identity, commit/push and one implementation PR. **DO NOT MERGE C6-1A.**
-The automatic implementation candidate is Earth `599dd5c6da6fbcdd22d3b2794639f1db31d9ca54a04c47cbfab31b9d9a66aaa3`,
-inputs `e95ee664c56a8915413d4c388bd9a63e95cdcf1d592b34c245995ba8526476bb`; qualified baseline/rollback are preserved.
+The automatic implementation candidate is Earth `955cf90bce228d53ffeb1279cec693e1a906eb58625630048b43b1d5ac16caba`,
+inputs `3fa63eba07c50e5f2eb32f4b95a5f8acf3f78a991752b110047f5bea6f773443`; qualified baseline/rollback are preserved.
 [Mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-automatic-imagery-correction--2026-10-11) contains exact commands, source seams, captures and limits.
 
 Owner correction2026-10-12 makes **loading speed and usable progressive imagery**
@@ -22,6 +22,15 @@ Concurrency caps remain unchanged. The measured correction uses4 starts/sec,
 ancestor/detail readiness samples while global imagery stays attached. The sample
 is not background discovery/prefetch, a new source or a second switching engine.
 Software results never close physical, public-release or owner acceptance gates.
+
+Owner final correction2026-10-12 closes owned decoded imagery rejected as empty
+or by detection exceptions, preserving accepted imagery and late cancellation.
+Existing read-only diagnostics expose native tile state, monotonic time and actual
+fallback reason for the owner hardware speed gate. Usable globe, recognizable
+ORAS detail and viewport settlement are separate observations; decoded-tile timing
+is only a proxy. The previous performance gallery/candidate is preserved. See
+[mapping resource proof](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-final-decoded-image-resource-correction--2026-10-12).
+**STOP for owner speed/visual review. No merge or next package is authorized.**
 
 Provider spending is mandatory **$0**. No account/token creation, billing or
 subscriptions. The owner assumes nonprofit PEMA/PASDA and ion Community use

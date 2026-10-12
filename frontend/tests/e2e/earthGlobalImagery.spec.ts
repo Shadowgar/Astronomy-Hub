@@ -16,6 +16,7 @@ for(const mobile of [false,true])test(`C6-1A source ownership, terminal fallback
  expect(diag.imagery.localAllocations).toBe(1);expect(diag.imagery.managedLayers).toBe(0);expect(diag.imagery.labelsLayers).toBe(0);expect(diag.imagery.budget.active).toBe(0);expect(diag.imagery.ionSessionRequests).toBe(0);expect(diag.cameraHeightM).toBe(before)
  await expect(page.locator('#imagery-source,#imagery-labels,#imagery-retry,.imagery-controls')).toHaveCount(0)
  expect(diag.imagery.selected).toBe('auto')
+ expect(diag.monotonicMs).toBeGreaterThan(0);expect(typeof diag.globeTilesLoaded).toBe('boolean');expect(diag.imagery.fallbackReason).toBeTruthy()
  await expect(page.locator('#viewer canvas')).toHaveAttribute('data-skybox','ready')
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true)
  expect(errors).toEqual([])

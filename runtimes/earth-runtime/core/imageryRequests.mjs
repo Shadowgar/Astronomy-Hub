@@ -1,3 +1,5 @@
+// Only rejected/late decoded images remain owned here; accepted images belong to Cesium.
+const disposeImage=value=>{try{value?.close?.();}catch{/* Disposal cannot replace the request outcome. */}};
 // Shared admission preserves Cesium's undefined-return scheduler contract.
 export function createImageryBudget({clock=()=>performance.now(),globalLimit=6,hostLimit=4,rate=4,burst=6}={}){
  const hosts=new Map(),blocked=new Map();let tokens=burst,last=clock();
@@ -23,12 +25,15 @@ export function boundImageryRequests(provider,{limit=4,timeoutMs=12000,budget,ho
   return new Promise((resolve,reject)=>{
    let finished=false;
    const finish=(kind,value)=>{
-    if(finished){if(kind==='loaded')value?.close?.();return;}finished=true;clearTimeout(timer);pending.delete(cancel);lease?.release();stats.active--;stats[kind]++;
+    if(finished){if(kind==='loaded')disposeImage(value);return;}finished=true;clearTimeout(timer);pending.delete(cancel);lease?.release();stats.active--;stats[kind]++;
     if(kind==='loaded'){onLoad(value,args);resolve(value);}else{reject(value);if(kind==='failed'&&!stopped&&!paused){budget?.block(host,value);onError(value);}}
    };
    const cancel=(kind,message)=>{args[3]?.cancel?.();finish(kind,Object.assign(new Error(message),{imageryGuardFailure:kind==='failed'}));};
    const timer=setTimeout(()=>{stats.timedOut++;cancel('failed','Imagery tile timed out');},timeoutMs);pending.add(cancel);
-   Promise.resolve(image).then(value=>{try{if(isEmpty(value,args))finish('failed',Object.assign(new Error('No imagery data'),{imageryGuardFailure:true}));else finish('loaded',value);}catch(error){finish('failed',error);}},error=>finish(error===undefined?'cancelled':'failed',error??new Error('Imagery request cancelled')));
+   Promise.resolve(image).then(value=>{
+    let empty;try{empty=isEmpty(value,args);}catch(error){disposeImage(value);finish('failed',error);return;}
+    try{if(empty){disposeImage(value);finish('failed',Object.assign(new Error('No imagery data'),{imageryGuardFailure:true}));}else finish('loaded',value);}catch(error){finish('failed',error);}
+   },error=>finish(error===undefined?'cancelled':'failed',error??new Error('Imagery request cancelled')));
   });
  };
  const cancelAll=message=>{for(const cancel of [...pending])cancel('cancelled',message);};

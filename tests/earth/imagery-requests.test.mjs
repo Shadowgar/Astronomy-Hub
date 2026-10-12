@@ -55,3 +55,27 @@ test('responsive providers refine at the bounded start rate without raising acti
 test('late decoded imagery after cancellation releases its owned bitmap',async()=>{
  const task=deferred();let closed=0;const p={requestImage:()=>task.promise},guard=boundImageryRequests(p);const pending=p.requestImage();guard.stop();await assert.rejects(pending,/disposed/);task.resolve({close(){closed++}});await Promise.resolve();assert.equal(closed,1);
 });
+
+for(const detection of ['empty','throws'])test(`rejected decoded bitmap closes once when empty detection ${detection}`,async()=>{
+ let closed=0,loaded=0;const errors=[],bitmap={close(){closed++}},failure=new Error('Detection failed');
+ const {createImageryBudget}=await import('../../runtimes/earth-runtime/core/imageryRequests.mjs');const budget=createImageryBudget();
+ const p={requestImage:()=>Promise.resolve(bitmap)},guard=boundImageryRequests(p,{budget,host:'naip',onLoad:()=>loaded++,onError:error=>errors.push(error),isEmpty:()=>{if(detection==='throws')throw failure;return true;}});
+ await assert.rejects(p.requestImage(),error=>detection==='throws'?error===failure:error.message==='No imagery data'&&error.imageryGuardFailure===true);
+ assert.equal(closed,1);assert.equal(loaded,0);assert.equal(errors.length,1);assert.equal(guard.stats.failed,1);assert.equal(guard.stats.loaded,0);assert.equal(guard.stats.active,0);assert.equal(budget.stats.active,0);assert.equal(budget.stats.requested,1);guard.stop();assert.equal(closed,1);
+});
+test('accepted decoded bitmap stays open for Cesium',async()=>{
+ let closed=0;const bitmap={close(){closed++}},loaded=[];const p={requestImage:()=>Promise.resolve(bitmap)},guard=boundImageryRequests(p,{isEmpty:()=>false,onLoad:value=>loaded.push(value)});
+ assert.equal(await p.requestImage(),bitmap);assert.deepEqual(loaded,[bitmap]);guard.stop();assert.equal(closed,0);
+});
+for(const detection of ['empty','throws'])test(`late cancelled bitmap closes once when empty detection ${detection}`,async()=>{
+ const task=deferred();let closed=0,errors=0,loaded=0;const p={requestImage:()=>task.promise},guard=boundImageryRequests(p,{onError:()=>errors++,onLoad:()=>loaded++,isEmpty:()=>{if(detection==='throws')throw new Error('Detection failed');return true;}});
+ const pending=p.requestImage();guard.pause();await assert.rejects(pending,/paused/);task.resolve({close(){closed++}});await Promise.resolve();guard.stop();
+ assert.equal(closed,1);assert.equal(errors,0);assert.equal(loaded,0);assert.equal(guard.stats.cancelled,1);assert.equal(guard.stats.failed,0);assert.equal(guard.stats.active,0);
+});
+test('canvas and HTML images without disposal stay supported on accept and reject',async()=>{
+ const image={width:256,height:256};for(const empty of [true,false]){const p={requestImage:()=>Promise.resolve(image)},guard=boundImageryRequests(p,{isEmpty:()=>empty});if(empty)await assert.rejects(p.requestImage(),/No imagery data/);else assert.equal(await p.requestImage(),image);assert.equal(guard.stats.active,0);guard.stop();}
+});
+test('a throwing bitmap close preserves the original failure and releases its slot',async()=>{
+ let closed=0;const failure=new Error('Detection failed'),errors=[];const p={requestImage:()=>Promise.resolve({close(){closed++;throw new Error('Close failed');}})},guard=boundImageryRequests(p,{isEmpty:()=>{throw failure;},onError:error=>errors.push(error)});
+ await assert.rejects(p.requestImage(),error=>error===failure);assert.equal(closed,1);assert.deepEqual(errors,[failure]);assert.equal(guard.stats.failed,1);assert.equal(guard.stats.active,0);guard.stop();
+});

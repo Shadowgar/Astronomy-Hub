@@ -1243,3 +1243,132 @@ JSON/table/telemetry and qualification logs under ignored
 GitHub checks/review-thread receipt and preservation state appear in its handoff.
 **STOP for owner visual/loading-speed and exact-head merge review. DO NOT MERGE.**
 No C6-2/C6-3 or later package follows.
+
+## C6-1A final decoded-image resource correction — 2026-10-12
+
+Owner-authorized bounded follow-up on PR #71, verified starting head
+`7b43d59cd80c9099938a23152d0b97ce13ed7f04`, same branch/base and single-agent
+Default Mode. One outstanding Codex P2 identified a decoded bitmap discarded by
+`isEmpty()` without disposal. No provider research, new audit, mapping selection
+change, terrain/buildings, account/charge, deployment or merge.
+
+`imageryRequests.mjs` now closes owned rejected images before failing, including
+empty-detection exceptions. Optional safe disposal also preserves late-cancelled
+image cleanup; a throwing `close()` cannot replace the original failure. Accepted
+images transfer to Cesium and remain open. Images/canvas without `close()` work.
+The shared4 starts/sec, caps, slots/refunds, promises, cancellation, native errors,
+timeouts and request totals are retained. The focused real-promise regressions
+prove once-only disposal, open accepted images and unchanged failure accounting.
+
+The existing read-only diagnostic adds `monotonicMs`, `globeTilesLoaded` and
+`imagery.fallbackReason`; no consumer selection controls or runtime polling were
+added. Owner instructions at `/gallery/resource/` use the actual `/earth` iframe:
+observe usable globe and recognizable ORAS detail separately; confirm native tiles,
+zero active requests, completed metadata/readiness and stable source/view for at
+least1s plus visual inspection before recording viewport settlement. Partial/slow
+is not complete. Input-to-next-rAF is only browser scheduling evidence, not physical
+GPU presentation latency. First image/HD tile timings remain explicitly named
+technical proxies. A settled EOX fallback is never relabeled NAIP. The optional
+console reader observes existing state/input, changes no camera/provider/request
+behavior and removes its timer/listeners on stop. Hardware acceptance remains open.
+
+Qualification root `output/playwright/c6-1a/resource`; scratch
+`/tmp/c6-1a-resource-20261012`. CORE/LIVE then manifest `frontend_change`,
+`validation`, `review`:44 named documents and hashes in `context.json`; additional
+operating inputs only AGENTS/manifest, no extra governing documents/full-doc scan.
+The existing C6/source/permission/retry/probe-ledger decisions remain unchanged.
+
+RED:18 request tests,13 passed/5 failed (expected close count1, observed0).
+GREEN:52 focused request/controller/readiness tests; final98 Docker Earth tests,
+1 export-boundary test,9 frontend tests, type-check,26 Docker document/artifact
+checks plus36 subtests, and14 installed Chromium desktop/mobile browser cases pass.
+These prove native fallback, source switching, one safety layer, owned teardown,
+stationary selection, controls and serial Earth/Sky recreation. Software/mobile
+emulation is not physical-device qualification. The initial host Node run could
+not create sandboxed child processes (`spawnSync python3 EPERM` on export); the
+established Docker runner and escalated export test supply final proof. The first
+expanded Earth run had3 lifecycle-fixture failures because its browser stub lacked
+`performance`/`scene.globe`; the stub now supplies those dependencies and asserts
+clock/tile state before/after destruction. All failed attempts remain in scratch.
+
+Two independent established builds produce Earth
+`955cf90bce228d53ffeb1279cec693e1a906eb58625630048b43b1d5ac16caba`, inputs
+`3fa63eba07c50e5f2eb32f4b95a5f8acf3f78a991752b110047f5bea6f773443`:
+40 inputs,512 served payload files/11,825,176 bytes,111 dependency notices,
+Cesium1.138.0. Full release manifests and every served payload match. Previous
+Earth `599dd5c6da6fbcdd22d3b2794639f1db31d9ca54a04c47cbfab31b9d9a66aaa3`
+is retained at `data/runtime-artifacts/earth-c61a-resource-before-599dd5c6da6fbcdd`;
+prior performance gallery/captures, C5.7-D and all older rollback identities remain.
+Build warnings about chunk size are retained; no dependency/pin change.
+
+Changed files: `runtimes/earth-runtime/core/imageryRequests.mjs`,
+`runtimes/earth-runtime/core/ImageryController.mjs`, `runtimes/earth-runtime/entry.mjs`,
+`tests/earth/imagery-requests.test.mjs`, `tests/earth/page-lifecycle.test.mjs`,
+`frontend/tests/e2e/earthGlobalImagery.spec.ts`, `frontend/public/runtime-versions.json`,
+`integrations/renderers.lock.json`, `docs/context/LIVE_SESSION_BRIEF.md`,
+`docs/execution/PROJECT_STATE.md` and this existing evidence document. Ignored proof
+files include owner instructions, browser captures/logs, context/source binding,
+served/preservation receipts and exact commands; they are not deployed products.
+
+Exact qualification commands (from the existing worktree unless stated):
+
+```bash
+# Established image; focused RED before correction and GREEN after correction.
+image=node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8
+wt=/home/rocco/Astronomy-Hub/.worktrees/c6-1a-global-imagery-adoption-1
+proof=/tmp/c6-1a-resource-20261012
+node --test tests/earth/imagery-requests.test.mjs
+# Same request-only Docker command was used for RED; GREEN adds the other files.
+docker run --rm --network none --read-only --tmpfs /tmp -v "$wt:/hub:ro" -v /var/tmp/oras-cesium/gods-eye:/var/tmp/oras-cesium/gods-eye:ro -w /hub "$image" node --test --test-isolation=none tests/earth/imagery-requests.test.mjs tests/earth/imagery-controller.test.mjs tests/earth/visible-imagery.test.mjs
+docker run --rm --network none --read-only --tmpfs /tmp -v "$wt:/hub:ro" -v /var/tmp/oras-cesium/gods-eye:/var/tmp/oras-cesium/gods-eye:ro -w /hub "$image" sh -c 'node --test --test-isolation=none $(find tests/earth -maxdepth 1 -name "*.test.mjs" ! -name export-boundary.test.mjs | sort)'
+node --test tests/earth/export-boundary.test.mjs
+npm --prefix frontend run type-check
+npm --prefix frontend run test -- tests/workspace.test.tsx tests/workspaceRuntimeAdapter.test.ts tests/skyEngineImportBoundary.test.js
+GODS_EYE_SOURCE=/var/tmp/oras-cesium/gods-eye ORAS_EARTH_OUT="$proof/earth-1" bash scripts/runtime/build_owned_earth.sh
+GODS_EYE_SOURCE=/var/tmp/oras-cesium/gods-eye ORAS_EARTH_OUT="$proof/earth-2" bash scripts/runtime/build_owned_earth.sh
+python3 scripts/runtime/record_runtime_versions.py "$proof/earth-1"
+mv data/runtime-artifacts/earth data/runtime-artifacts/earth-c61a-resource-before-599dd5c6da6fbcdd
+python3 scripts/runtime/earth_artifact.py install --source "$proof/earth-1"
+python3 scripts/runtime/earth_artifact.py verify
+npm --prefix frontend run build
+docker restart oras-c61a-owner-preview
+python3 "$proof/served-proof.py"
+docker run --rm --network none --read-only --tmpfs /tmp -e PYTHONDONTWRITEBYTECODE=1 -v "$wt:/app:ro" -w /app astronomy-hub-backend:latest python -m pytest tests/validation/test_architecture_manifest.py tests/validation/test_reconciliation_docs.py tests/test_local_earth_artifact.py -q -p no:cacheprovider
+# Working directory: frontend
+EARTH_PROOF_OUTPUT=../output/playwright/c6-1a/resource/browser-screenshots PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:4198 npx playwright test tests/e2e/earthGlobalImagery.spec.ts tests/e2e/earthAppearance.spec.ts --workers=1 --output=/tmp/c6-1a-resource-20261012/browser
+# Worktree again: actual owner preview, ordinary inputs, no provider fixtures.
+node "$proof/owner-preview-smoke.mjs"
+python3 "$proof/preservation.py"
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+git diff --check
+```
+
+Preservation receipt verifies70 original container identities/states/images/mounts/
+port bindings/network memberships and81 original volume descriptors; only the
+task-owned preview was restarted. Settings SHA256
+`6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0` is unchanged.
+God's Eye remains clean at `e7707d9a0f34d9fbffc300023c319f95caa5be30`.
+Viewer/camera/bridge, SWE, scientific data/contracts, packages, provider hierarchy,
+request policy and permission gates are unchanged. PR #67 remains CLOSED/unmerged
+at `ebdad3124fe470e3a09e369d3a56e998f29740fb`. Existing local API503/optional
+Sky-data gaps are carried forward, without data changes or production claims.
+
+Preview: `http://127.0.0.1:4198/earth?date=2026-10-11T17%3A00%3A00Z`;
+owner speed instructions `http://127.0.0.1:4198/gallery/resource/`;
+preserved comparison `http://127.0.0.1:4198/gallery/performance/`.
+**STOP for owner hardware-speed/visual review and merge approval.** Public-release
+permissions and physical qualification remain open. No C6-2/C6-3 starts here.
+
+Actual ordinary Hub preview smoke also succeeded: existing Return to ORAS, keyboard
+zoom from15,621,863m to352.625m and pointer pan; automatically selected PEMA,
+`ready`, native globe tiles loaded, two consecutive stable samples, no page errors.
+`resource/actual-owner-close.png` shows recognizable roofs/paths/trees near ground
+−79.585394/41.323540; first-HD timing remains a proxy, not a measured human visual
+milestone. The unrecentered sample at41.212478 is separately retained as partial
+USGS NAIP with no settlement claim. Two failed smoke locators waited on auto-hidden
+controls; the rendered accessibility snapshot and existing16px left-edge reveal
+resolved the harness interaction, with no product change. The exact normal-page
+source/camera/status/request snapshots and software-renderer label are retained
+in `resource/actual-owner-preview.json`. Screenshot work contributes to wall time;
+this smoke is not a repeated provider comparison or physical benchmark.
