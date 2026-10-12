@@ -8,8 +8,8 @@ base. Isolated branch `c6-1a-global-imagery-adoption-1`. The owner authorizes th
 [imagery-only C6-1A package](../execution/C6_GLOBAL_MAPPING_SPEC.md#active-c6-1a-imagery-package--2026-10-11),
 focused visual proof, bounded regression, deterministic Earth build/install/served
 identity, commit/push and one implementation PR. **DO NOT MERGE C6-1A.**
-The automatic implementation candidate is Earth `968d211328c14dac2b69fb0d302d8f70607de8d7a060ae8bcd5841631f99e4f0`,
-inputs `51bb13a95be56f7bfa9fc80f1a7fd90f5a0d7cd42434e44fc2d3a6bdc670b300`; qualified baseline/rollback are preserved.
+The automatic implementation candidate is Earth `7a8e04f6a6333ab30e892c4b70dba60e0f6ad6fd5810a72409a668b25ac09a23`,
+inputs `715b72e2929824730af2d02e5a8053e88003fe3d97a5f183e2da6097d87e0643`; qualified baseline/rollback are preserved.
 [Mapping evidence](../validation/EARTH_HD_MAPPING_EVIDENCE.md#c6-1a-automatic-imagery-correction--2026-10-11) contains exact commands, source seams, captures and limits.
 
 Latest owner directive2026-10-12 authorizes native God's Eye/Cesium dispatch and

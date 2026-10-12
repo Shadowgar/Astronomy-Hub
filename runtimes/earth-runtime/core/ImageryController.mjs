@@ -140,6 +140,8 @@ export class ImageryController {
   return !(this.eligible('pema')&&chooseImagery(view,this.actual)==='pema')&&!!view.point&&view.height<150000&&!view.naipCovered&&containsView(CONUS,view.rect)&&this.mode==='auto'&&this.metadataCount<32&&!this.metadataPending&&performance.now()-this.metadataLast>=60000&&this.eligible('usgs-naip');
  }
  needsUpdate(){
+  const wanted=this.desired(this.view());
+  if(this.cachedFallbacks.has(wanted)&&this.eligible(wanted))return true;
   if(this.canQueryFootprint())return true;
   return [...this.failedSources].some(id=>{
    const host=SOURCE_FACTS[id]?.host??'',blocked=this.budget.blocked.get(host);

@@ -33,3 +33,7 @@ test('opaque and no-store imagery are not persisted; budget cannot consume other
 });
 
 test('an HTML error falsely labeled as imagery is not persisted',async()=>{const s=storage(),store=new ImageryCacheStore({storage:s,clock:()=>now});const resource=cacheResource(new Request(eox),origin);await store.put(resource,new Response('<html>upstream error</html>',{headers:{'Content-Type':'image/jpeg','Cache-Control':'public,max-age=3600',Date:'Mon, 12 Oct 2026 10:00:00 GMT'}}));assert.equal(s.entries.size,0);});
+
+test('index maintenance purges expired tiles even when their URL is never requested again',async()=>{
+ let time=now;const s=storage(),store=new ImageryCacheStore({storage:s,clock:()=>time}),resource=cacheResource(new Request(eox),origin);await store.put(resource,response());assert.equal((await store.status()).entries,1);time=now+3600001;const result=await store.status();assert.equal(result.entries,0);assert.equal(result.bytes,0);assert.equal(s.entries.size,0);
+});

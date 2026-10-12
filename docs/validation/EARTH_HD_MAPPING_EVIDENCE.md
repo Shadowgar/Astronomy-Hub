@@ -1552,3 +1552,37 @@ Preview `http://127.0.0.1:4198/earth`; gallery/comparison/cache proof/instructio
 qualification; PR stays unmerged. PEMA/public ion rights and zero-charge protections
 remain gated. **STOP for owner hardware-speed/visual review and explicit merge
 approval; no C6-2/C6-3 or next provider package starts here.**
+
+### Native/cache review follow-up — 2026-10-12
+
+Two subsequent Codex P2s were reproduced before correction: a stale successful
+construction fallback survived in the pinned controller cache and needed another
+camera movement to recover; cache index reconstruction counted expired tiles
+whose URLs were never requested again. The focused RED run had2 failures/0 passes.
+
+The existing health wake now recognizes an eligible desired source with a cached
+fallback and invokes the already controlled public retry after cooldown. Normal
+switches and ordinary rejected factories retain healthy controller/provider caches.
+No private upstream mutation, new polling loop or tile admission limit is added.
+Index maintenance evicts expired/invalid entries only from owned CacheStorage,
+checks clear generations before mutation and excludes those bytes from quota/status.
+It does not delay foreground network dispatch or clear native HTTP cache.
+
+The renewed Docker Earth suite passes105 tests; all16 installed desktop/mobile,
+cache and Earth/Sky browser cases pass. The36 matched performance observations
+above remain evidence of artifact968d2113… at head9704054c…; they are not relabeled
+as measurements of this follow-up. Review changes affect exceptional recovery and
+cache maintenance, not the benchmark tile path or selected sources.
+
+Two independent review builds have identical releases. Current installed and
+byte-attested Earth artifact is
+`7a8e04f6a6333ab30e892c4b70dba60e0f6ad6fd5810a72409a668b25ac09a23`,
+input digest `715b72e2929824730af2d02e5a8053e88003fe3d97a5f183e2da6097d87e0643`,
+44 source inputs,513 payload files/11,829,661 bytes and111 notices. The measured
+968d2113… artifact is retained under
+`earth-c61a-native-cache-before-review-968d211328c14dac`.
+Focused RED/GREEN and build/browser logs are preserved as `red-review.log`,
+`earth-tests-review.log`, `build-review-1.log`, `build-review-2.log`,
+`browser-review.log` and the review served/input binding receipts in the local
+native-cache handoff. Original70 containers/81 volumes and owner settings still
+match the pre-task snapshot. No SWE, source pin, science or rollback change.
