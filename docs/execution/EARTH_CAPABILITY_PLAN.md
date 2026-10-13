@@ -2,7 +2,7 @@
 
 ## R0 supersession of execution order — 2026-10-13
 
-Only R0 documentation/governance is active in LIVE/PROJECT_STATE. The C5/C6
+R0 is merged; only R1-A design references are active in LIVE/PROJECT_STATE. The C5/C6
 qualification, source reuse plans, request budgets, source hierarchy and evidence
 below are preserved dated inputs; their former active/next-action statements are
 superseded for task activation. PR #70 is merged; PR #71 is an existing unmerged

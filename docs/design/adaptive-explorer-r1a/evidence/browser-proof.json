@@ -1,0 +1,57 @@
+{
+  "revision": "R1-A/01",
+  "acceptance": "PENDING OWNER VISUAL ACCEPTANCE",
+  "evidenceClass": "Local Chromium headless design reference; no renderer or physical-device qualification",
+  "browser": "145.0.7632.6",
+  "capturedAt": "2026-10-13T06:33:06.945Z",
+  "viewports": {
+    "desktop": [
+      1440,
+      900
+    ],
+    "mobile": [
+      390,
+      844
+    ],
+    "additional": [
+      [
+        320,
+        740
+      ],
+      [
+        390,
+        667
+      ]
+    ]
+  },
+  "checks": [
+    "sky desktop: isolated tools, visible controls, no overflow",
+    "solar desktop: isolated tools, visible controls, no overflow",
+    "earth desktop: isolated tools, visible controls, no overflow",
+    "moon desktop: isolated tools, visible controls, no overflow",
+    "sky mobile: isolated tools, visible controls, no overflow",
+    "solar mobile: isolated tools, visible controls, no overflow",
+    "earth mobile: isolated tools, visible controls, no overflow",
+    "moon mobile: isolated tools, visible controls, no overflow",
+    "Earth search: place, address, coordinate, ambiguity, invalid, empty and failure states",
+    "Keyboard: slash search, modal focus confinement, Escape restores trigger",
+    "Context panels: one owner, toggle state, nested sources and dismissal focus",
+    "Explore: cancel, change context, browser Back, body approach and unsupported surface",
+    "Reduced motion and transparency: explicit preferences and OS motion preference",
+    "320px and short mobile: default layouts and bottom sheets stay within viewport",
+    "Gallery, token reference and mobile review open without missing local assets",
+    "No script errors or external network/provider requests"
+  ],
+  "failures": [],
+  "errors": [],
+  "externalRequests": [],
+  "sourceSha256": {
+    "explorer.html": "2ea02a58ef78b2b7858e1f79fc71b17d19ff506c46a521e72ab10158810f2d30",
+    "reference.css": "9a44d2c46ba77049c6c9edc78a7d002dc4ab2bfba9617fce4caa141b9d10285f",
+    "reference.js": "39a2027475c1be5dc278ac5eab244da73cecea6a4ac020a584f31581ae6b0557",
+    "index.html": "b3d123844ae3ac65fdd33a1b074603ec9402e1d47a265d3ed3bf222159ca71e0",
+    "gallery.css": "8111c0241a642420258ebd3776f2446f86040c9437b491dafe963cd28fc529db",
+    "system.html": "2cc535b8106c874e94d59e9bcd9dd2b1bf5ae863bafc78e8d1376f4817259961",
+    "review.html": "8760395095f1c293d9adf48b1cc3b5dd5f8e4e9a3cf2659d96cc545619eb67cd"
+  }
+}

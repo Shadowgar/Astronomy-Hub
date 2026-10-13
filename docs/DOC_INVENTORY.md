@@ -1,5 +1,15 @@
 # `DOC_INVENTORY.md`
 
+## R1-A design reference inventory — SUPPORT, 2026-10-13
+
+- `docs/design/adaptive-explorer-r1a/README.md`: design scope, preview, evidence and open decisions; routed through five applicable context packs.
+- `docs/design/adaptive-explorer-r1a/{index,explorer,review,system}.html`: editable review gallery, shared four-mode layouts, mobile frame and component/token reference.
+- `docs/design/adaptive-explorer-r1a/{reference,gallery}.css` and `reference.js`: isolated reference styling and sample interactions; never application/runtime inputs.
+- `docs/design/adaptive-explorer-r1a/verify.mjs` and `evidence/*`: focused browser capture/check runner, PNG screenshots and source-hash/browser ledger.
+
+All R1-A/01 screens are **PENDING OWNER VISUAL ACCEPTANCE**. Canonical product/design
+and execution authority remain in the existing documents; these are proposals/proof.
+
 ---
 
 # DOCUMENT INVENTORY (SYSTEM CLASSIFICATION — AUTHORITATIVE)

@@ -1,11 +1,20 @@
 # `MASTER_PLAN.md`
 
+## R1 split and current boundary — 2026-10-13
+
+R0 is owner-approved and merged in PR #72 at `17f94289a8568f33c7287983ef46a5c5cc5427d4`.
+R1-A creates the actual editable visual proposal and browser evidence for owner
+review. **PENDING OWNER VISUAL ACCEPTANCE**; no application implementation.
+R1-B would implement only explicitly accepted reference revisions under a separate
+owner instruction. Reference delivery or PR merge does not activate R1-B/R2–R5.
+The existing R0–R5 matrix below remains the sole proposed milestone plan.
+
 ## Adaptive Explorer proposed checkpoints R0-R5
 
 This is the existing non-executing product reference, not a second master plan.
 [PRODUCT_VISION](../product/PRODUCT_VISION.md) defines AE-01–AE-11. The following
-boundaries are **proposed for owner review**; only R0 documentation is currently
-authorized in LIVE/PROJECT_STATE. R0's merge, any former C6 order, and acceptance
+boundaries are **proposed for owner review**; R0 is merged and only R1-A design
+references are currently authorized in LIVE/PROJECT_STATE. R0's merge, any former C6 order, and acceptance
 of one checkpoint never authorize the next. Each implementation package needs
 separate named scope, dependencies, measurable budgets and explicit owner authority.
 

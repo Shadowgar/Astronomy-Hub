@@ -3,7 +3,7 @@
 ## R0 activation boundary — 2026-10-13
 
 The package proposals, D-only authorization wording and owner decision register
-below are preserved historical inputs. R0 documentation is the sole current task;
+below are preserved historical inputs. R0 is merged; R1-A design is the current task;
 LIVE/PROJECT_STATE supersede earlier active/next-action statements. No unfinished
 C5.7 gate is closed, no PR67 work is discarded, and no later package is activated.
 PR71 remains unmerged with imagery/search/visual acceptance unfinished. See the

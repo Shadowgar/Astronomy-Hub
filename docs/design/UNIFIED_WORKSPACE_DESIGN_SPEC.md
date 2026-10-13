@@ -1,5 +1,24 @@
 # Unified workspace design contract
 
+## R1-A/01 editable visual proposal — 2026-10-13
+
+**PENDING OWNER VISUAL ACCEPTANCE.** The owner authorized actual design-reference
+creation after R0's merge, not application implementation. Required design-task
+context: [R1-A reference README](adaptive-explorer-r1a/README.md), with exact source,
+preview command, screenshot ledger and browser qualification. Open the
+[visual gallery](adaptive-explorer-r1a/index.html) and [shared design system](adaptive-explorer-r1a/system.html).
+
+One component system combines Immersive Explorer's structure, Minimal Explorer's
+restraint, Focused Explorer's organization and Journey View's navigation. Four
+neutral desktop/mobile layouts are illustrated; the Moon represents body-specific
+surfaces. No scene images, renderer, provider calls or scientific values are faked.
+Local sample interactions demonstrate design states only.
+
+The historical ORA-6 reference remains unchanged. R1-A/01 is an owner-review proposal,
+not a coder substitute for owner acceptance. Screens, layout, materials and motion
+remain open. Record accepted files/revision/states and explicit owner decision here
+before separately authorizing R1-B implementation. No R1-A merge is authorized.
+
 ## Adaptive Explorer design contract — R0, 2026-10-13
 
 Current design intent is [Adaptive Explorer](../product/PRODUCT_VISION.md): one
