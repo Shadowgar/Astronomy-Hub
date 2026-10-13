@@ -22,7 +22,8 @@ python3 -m http.server 4200 --bind 127.0.0.1 --directory docs/design/adaptive-ex
 
 Open **http://127.0.0.1:4200/** (also http://localhost:4200/ on the owner's local
 forwarding setup). The delivery session leaves this static preview running;
-start the command only if it is stopped. Ctrl+C stops a foreground instance.
+start the command only if it is stopped. The proof runner rejects a stale or
+different preview before capturing any evidence. Ctrl+C stops a foreground instance.
 No Docker, bundler, npm install, application server, account or external request.
 The gallery can also be opened directly from disk in a browser.
 
@@ -123,7 +124,7 @@ Additional proof: [Sky controls](evidence/sky-tools.png),
 
 The initial focused run passed 15 groups and exposed native dialog Tab focus
 leaving the dialog before wrapping. Reproduction logged INPUT → buttons → BODY.
-Explicit forward/reverse wrapping corrected it; final run passes 17 groups,
+Explicit forward/reverse wrapping corrected it; final run passes 19 groups,
 including both Tab directions and Escape focus restoration. CodeQL then identified
 query-to-HTML mode flow; inherited object keys reproduced a preview failure. Fixed
 literal mode selection now rejects invalid/prototype names and markup on initial
@@ -145,6 +146,14 @@ git diff --check
 Override `PLAYWRIGHT_MODULE` for another existing installation and
 `DESIGN_PREVIEW_URL` for a different local port. The browser runner regenerates PNGs
 and the ledger; review changed bytes before committing a new reference revision.
+A served-source preflight compares all seven visual source files with an immutable
+local byte snapshot. Every HTML/CSS/JS response actually loaded by the browser is
+also checked (browser HTTP cache disabled), and local files are rechecked before
+the success ledger is written. The ledger records both served and local hashes.
+A temporary stale-checkout fixture passed the old runner's 17 groups; the corrected
+runner rejects its altered reference.js before screenshot/ledger writes. The
+negative fixture uses only a temporary loopback server, not application runtime.
+
 This is design-only browser proof, **not** real renderer, physical device, screen-reader
 or whole-application qualification. No renderer build or Docker campaign was run.
 Visual inspection is supporting evidence; only the owner can accept the design.

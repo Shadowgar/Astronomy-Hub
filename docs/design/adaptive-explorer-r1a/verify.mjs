@@ -8,14 +8,43 @@ import path from 'node:path';
 const {chromium} = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const root=path.dirname(fileURLToPath(import.meta.url));
 const evidence=path.join(root,'evidence'); await mkdir(evidence,{recursive:true});
-const base=process.env.DESIGN_PREVIEW_URL || 'http://127.0.0.1:4200';
+const base=(process.env.DESIGN_PREVIEW_URL || 'http://127.0.0.1:4200').replace(/\/$/,'');
+const sourceNames=['explorer.html','reference.css','reference.js','index.html','gallery.css','system.html','review.html'];
+const sourceBytes=new Map(await Promise.all(sourceNames.map(async name=>[name,await readFile(path.join(root,name))])));
+const sourceHashes=Object.fromEntries([...sourceBytes].map(([name,bytes])=>[name,createHash('sha256').update(bytes).digest('hex')]));
 const browser=await chromium.launch({headless:true});
 const context=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:1});
+// Disable the browser HTTP cache so every loaded source response is inspectable.
+await context.route('**/*',route=>route.continue());
 const page=await context.newPage();
 const failures=[],checks=[],errors=[],requests=new Set();
 page.on('pageerror',e=>errors.push(e.message));
 page.on('request',r=>requests.add(r.url()));
+const sourceResponses=[],sourceErrors=[],servedSources=new Set();
+page.on('response',response=>{
+ const url=response.url();
+ if(!url.startsWith(base+'/'))return;
+ const relative=decodeURIComponent(new URL(url).pathname.slice(new URL(base+'/').pathname.length));
+ if(!sourceBytes.has(relative))return;
+ sourceResponses.push((async()=>{
+  try {
+   assert.equal(response.status(),200,`served status: ${relative}`);
+   const digest=createHash('sha256').update(await response.body()).digest('hex');
+   assert.equal(digest,sourceHashes[relative],`served source mismatch: ${relative}`);
+   servedSources.add(relative);
+  } catch(error) { sourceErrors.push(error.message); }
+ })());
+});
 const check=async(name,fn)=>{try{await fn();checks.push(name);console.log('PASS:',name);}catch(e){failures.push({name,error:e.message});console.error('FAIL:',name,e.message);}};
+await check('Preview preflight: all seven served visual sources match the local snapshot',async()=>{
+ for(const name of sourceNames){
+  const response=await context.request.get(`${base}/${name}`);
+  assert.equal(response.status(),200,`preview status: ${name}`);
+  assert.equal(createHash('sha256').update(await response.body()).digest('hex'),sourceHashes[name],`preview source mismatch: ${name}`);
+ }
+});
+// A mismatched preview must not overwrite any screenshot or success ledger.
+if(failures.length){await browser.close();process.exit(1);}
 const open=async(query)=>{await page.goto(`${base}/explorer.html?${query}`);await page.evaluate(()=>document.fonts.ready);};
 const shot=async(name)=>page.screenshot({path:path.join(evidence,`${name}.png`),fullPage:true});
 const tools={sky:['Constellations','Observing tools','Display'],solar:['Orbits','Simulation time','Display'],earth:['Layers','Weather','Aircraft','Satellites'],moon:['Landmarks','Scientific layers','Terrain & navigation','About the Moon']};
@@ -106,9 +135,15 @@ await check('URL modes: invalid and inherited keys cannot enter HTML on load or 
  }
 });
 await check('No script errors or external network/provider requests',async()=>{assert.deepEqual(errors,[]);assert.deepEqual([...requests].filter(u=>!u.startsWith(base+'/')),[]);});
-const hashes={};
-for(const file of ['explorer.html','reference.css','reference.js','index.html','gallery.css','system.html','review.html'])hashes[file]=createHash('sha256').update(await readFile(path.join(root,file))).digest('hex');
-const report={revision:'R1-A/01',acceptance:'PENDING OWNER VISUAL ACCEPTANCE',evidenceClass:'Local Chromium headless design reference; no renderer or physical-device qualification',browser:browser.version(),capturedAt:new Date().toISOString(),viewports:{desktop:[1440,900],mobile:[390,844],additional:[[320,740],[390,667]]},checks,failures,errors,externalRequests:[...requests].filter(u=>!u.startsWith(base+'/')),sourceSha256:hashes};
+await Promise.all(sourceResponses);
+await check('Proof binding: every loaded source matched and local files stayed unchanged',async()=>{
+ assert.deepEqual(sourceErrors,[]);
+ assert.deepEqual([...servedSources].sort(),[...sourceNames].sort());
+ for(const name of sourceNames)assert.equal(createHash('sha256').update(await readFile(path.join(root,name))).digest('hex'),sourceHashes[name],`local source changed: ${name}`);
+});
+if(failures.length){await browser.close();console.error(`${checks.length} passed; ${failures.length} failed; success ledger not written`);process.exit(1);}
+const hashes=sourceHashes;
+const report={revision:'R1-A/01',acceptance:'PENDING OWNER VISUAL ACCEPTANCE',evidenceClass:'Local Chromium headless design reference; no renderer or physical-device qualification',browser:browser.version(),capturedAt:new Date().toISOString(),viewports:{desktop:[1440,900],mobile:[390,844],additional:[[320,740],[390,667]]},checks,failures,errors,externalRequests:[...requests].filter(u=>!u.startsWith(base+'/')),sourceSha256:hashes,servedSourceSha256:hashes,previewUrl:base,proofBinding:'Preflight and every browser-loaded visual source matched the local snapshot; local sources rechecked before ledger write'};
 await writeFile(path.join(evidence,'browser-proof.json'),JSON.stringify(report,null,2)+'\n');
 await browser.close();
 console.log(`${checks.length} passed; ${failures.length} failed`);
