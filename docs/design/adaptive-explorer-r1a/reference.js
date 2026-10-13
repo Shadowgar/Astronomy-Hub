@@ -217,7 +217,10 @@ window.addEventListener('popstate',event=>{
  } else {
   const allowed=[...configs[mode].tools.map(([id])=>id),'source','context',...(mode==='sky'?['location','time']:[])];
   const id=allowed.find(value=>value===saved?.panel);
-  if(id)showPanel(id,document.querySelector('[data-explore]'));
+  if(id){
+   const trigger=document.querySelector(`[data-panel="${id}"]`);
+   if(trigger)showPanel(id,trigger);
+  }
  }
  announce(`${configs[mode].name} layout and contextual panel restored.`);
 });

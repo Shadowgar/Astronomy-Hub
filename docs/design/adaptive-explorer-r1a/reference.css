@@ -80,6 +80,7 @@ kbd { font: 11px inherit; border: 1px solid var(--line); padding: 2px 5px; borde
 .panel p { color: var(--muted); font-size: 12px; line-height: 1.7; }
 .rule { height: 1px; background: var(--line); margin: 17px 0; }
 .control-row { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 0; text-align: left; }
+.explorer[data-mode="sky"] summary.control-row { min-height: 44px; min-width: 44px; }
 .control-row .row-copy { flex: 1; }
 .control-row strong { display: block; font-size: 13px; font-weight: 500; }
 .control-row small { color: var(--muted); font-size: 11px; display: block; }

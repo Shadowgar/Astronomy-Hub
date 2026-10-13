@@ -124,6 +124,37 @@ await check('Explore: cancel, change context, browser Back, body approach and un
  await page.getByRole('button',{name:'Moon',exact:true}).click();await page.getByRole('button',{name:'Approach',exact:true}).click();await page.getByRole('button',{name:'Open Moon'}).click();assert.equal(await page.locator('.explorer').getAttribute('data-mode'),'moon');
  await page.goBack();assert.equal(await page.locator('.explorer').getAttribute('data-mode'),'solar');assert.equal(await page.locator('.panel').count(),1,'selected context must return');assert.equal(await page.locator('#panel-title').innerText(),'Moon');await page.getByRole('button',{name:'Mars',exact:true}).click();await page.getByRole('button',{name:'Approach',exact:true}).click();assert.match(await page.locator('dialog').innerText(),/Mars surface is unavailable/);await page.getByRole('button',{name:'Try again',exact:true}).click();assert.match(await page.locator('dialog').innerText(),/No network request was sent/);
 });
+await check('Back restores Sky Display launcher, expanded state and dismissal focus',async()=>{
+ await open('mode=sky');
+ await page.getByRole('button',{name:'Display',exact:true}).click();
+ await page.getByRole('button',{name:'Explore',exact:true}).click();
+ await page.locator('[data-destination="earth"]').click();
+ await page.getByRole('button',{name:'Open Earth',exact:true}).click();
+ await page.goBack();
+ assert.equal(await page.locator('#panel-title').innerText(),'Display');
+ const display=page.getByRole('button',{name:'Display',exact:true});
+ assert.equal(await display.getAttribute('aria-expanded'),'true');
+ assert.notEqual(await page.getByRole('button',{name:'Explore',exact:true}).getAttribute('aria-expanded'),'true');
+ await page.getByRole('button',{name:'Dismiss panel',exact:true}).click();
+ assert.equal(await display.getAttribute('aria-expanded'),'false');
+ assert(await display.evaluate(e=>e===document.activeElement));
+});
+await check('Mobile Advanced observing is a 44px native keyboard disclosure',async()=>{
+ for(const width of [320,390]){
+  await page.setViewportSize({width,height:844});await open('mode=sky&state=eye');
+  const summary=page.locator('summary').filter({hasText:'Advanced observing'});
+  await summary.scrollIntoViewIfNeeded();const box=await summary.boundingBox();
+  assert(box.height>=44 && box.width>=44);
+  await summary.focus();await page.keyboard.press('Enter');
+  assert(await page.locator('details').evaluate(e=>e.open));
+  await page.keyboard.press('Tab');
+  assert(await page.locator('[data-sky-control="Equatorial J2000 Grid"]').evaluate(e=>e===document.activeElement));
+  await page.keyboard.press('Shift+Tab');await page.keyboard.press('Space');
+  assert.equal(await page.locator('details').evaluate(e=>e.open),false);
+  assert(await summary.evaluate(e=>e===document.activeElement));
+ }
+ await page.setViewportSize({width:1440,height:900});
+});
 await check('Explore cancellation preserves the original connected keyboard trigger',async()=>{
  await open('mode=sky');
  for(const action of ['Stay here','Cancel transition']) {

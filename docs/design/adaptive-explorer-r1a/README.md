@@ -9,7 +9,8 @@ individual layouts, component geometry and visual references are not yet accepte
 [PR #73](https://github.com/Shadowgar/Astronomy-Hub/pull/73), branch
 `r1-a-adaptive-explorer-design-1`. Owner likes the current visual direction;
 this update preserves the layout, shared glass, navigation and other-mode designs.
-Changes follow reviewed head `53e3e7c0453c1dbd7f5852d44a020559a5370cb4`.
+The latest two corrections follow reviewed head
+`90f21c093c1dc7eed0408b7310ecc6e01255de1e`.
 
 | Existing Sky group | Controls | Reference behavior |
 | --- | --- | --- |
@@ -30,6 +31,13 @@ immediate-launcher fixes remain. Separate `panelTrigger` and `modalTrigger` now
 preserve Weather's outer launcher after its nested unavailable dialog closes.
 The browser assertion also dismisses Weather and checks exact rail-button focus.
 New Sky assertions check all controls, toggle/action semantics and isolation.
+Browser Back now resolves a saved panel to its actual matching `[data-panel]`
+launcher, restoring that control's expanded state and dismissal focus. Sky Display
+→ Earth → Back → dismiss Display has a focused regression. Advanced observing
+remains a native keyboard-accessible `<summary>`; its Sky-scoped rule provides a
+44px minimum height and width. The rest of the stylesheet and surrounding markup
+are unchanged. Pending browser checks cover 320px/390px touch bounds, Enter/Space
+activation, Tab access to J2000, and focus return.
 
 **No browser run was attempted in this update:** the existing sandbox/approval
 block remains. Prior launch error: `browserType.launch: Target page, context or
@@ -44,11 +52,14 @@ recorded source hashes and 20 PNG bytes were checked against that Git revision.
 Only attribution metadata was added; no capture timestamp, test result, source
 hash or screenshot was regenerated. They do not prove subsequent changes.
 
-Four Node-only contract checks cover the nine controls plus J2000, mode isolation,
-20 identical non-Sky shell/panel strings, five unchanged shared files, and synthetic
-focus lifetime (old failure and corrected target). These are not browser proof.
+Six Node-only contract checks cover the nine controls plus J2000, mode isolation,
+20 identical non-Sky shell/panel strings, four unchanged shared files, the single
+scoped CSS addition, and synthetic focus lifetime/history restoration. The two
+new checks reproduced the missing Display expanded state and disclosure minimum
+before correction (4 passed / 2 failed); afterward all 6 pass. These are not
+browser proof. Red/green logs are preserved in ignored output/playwright/r1a/.
 Syntax, documentation/manifest/reference and whitespace checks are required as well.
-The revised browser suite expects 22 groups in a permitted Chromium environment;
+The revised browser suite expects 24 groups in a permitted Chromium environment;
 it buffers screenshots until all checks pass and checks matching served sources.
 Update gallery/README provenance after a successful new capture; never present the
 historical record as current qualification. Keep browser-dependent threads open.
