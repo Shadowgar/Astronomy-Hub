@@ -1,5 +1,27 @@
 # `FEATURE_ACCEPTANCE.md`
 
+## Adaptive Explorer product acceptance — R0, 2026-10-13
+
+Apply the existing gates below to [AE-01–AE-11](../product/PRODUCT_VISION.md#minimum-user-visible-acceptance-requirements)
+and any subsequently authorized package in the [R0–R5 proposal](../execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
+A module/backend/fixture/technical test does not prove a usable visible feature.
+A passing unit suite cannot qualify an owner-rejected experience.
+
+For future UI work, record the owner-approved reference file/URL, revision and
+covered states before implementation; show matched actual-browser captures and
+interaction proof at agreed desktop/mobile sizes. Historical ORA-6 geometry/Figma
+waivers and a coder-generated substitute do not supply that approval. Exact
+Adaptive Explorer screen acceptance remains pending. Any missing visual reference,
+measurable package budget or dependent source/science gate stays explicitly open.
+
+Prove mode-only controls are absent elsewhere, keyboard/Explore alternatives,
+focus restoration, reduced motion, actual camera/selection agreement and honest
+source/detail/fallback state. Handoff tests must exercise both directions,
+interruption, return/history and repeated renderer disposal/recreation. Record
+actual physical-device acceptance separately from emulated/software browser proof.
+Owner visual acceptance and explicit merge approval are distinct gates; neither
+starts the next checkpoint. No R0 browser/runtime qualification is claimed.
+
 ---
 
 # FEATURE ACCEPTANCE (AUTHORITATIVE)

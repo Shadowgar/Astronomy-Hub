@@ -202,7 +202,9 @@ all other relative repository/source links remain mandatory.
 
 | File             | Classification |
 | ---------------- | -------------- |
-| `docs/product/*` | SUPPORT        |
+| `docs/product/PRODUCT_VISION.md` | PRODUCT_DEFINITION — canonical Adaptive Explorer intent; no execution authority |
+| `docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md` | PRODUCT_DEFINITION — current direction and pending owner screen/reference acceptance; ORA-6 baseline retained historically |
+| other `docs/product/*` | SUPPORT |
 
 These guide design but do not override execution or architecture.
 

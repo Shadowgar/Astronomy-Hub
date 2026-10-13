@@ -1,5 +1,31 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+## R0 canonical inventory and conflict classification — 2026-10-13
+
+The existing authority tiers/order below remain. Adaptive Explorer replaces
+contradictory product/next-action statements, not scientific truth or renderer
+ownership. Only LIVE/PROJECT_STATE authorize R0 documentation; no later package.
+
+| Canonical document(s) | R0 classification and reconciliation |
+| --- | --- |
+| AGENTS; SYSTEM_VALIDATION_SPEC; CORE_CONTEXT | CURRENT control/safety rules; add Adaptive Explorer boundary, owner-reference proof and R0-only scope |
+| LIVE_SESSION_BRIEF; execution/PROJECT_STATE | CURRENT execution authority; replace stale C6-0 activation with R0; retain earlier checkpoints explicitly HISTORICAL |
+| DOCUMENT_INDEX; DOC_INVENTORY; README; CONTEXT_MANIFEST | CURRENT discovery/routing; canonical product/design roles and context-reduction proposal stay within existing hierarchy |
+| product/PRODUCT_VISION | CURRENT canonical approved intent/AE-01–AE-11; old full-God's-Eye-app/Phase-B/not-yet-Earth statements are SUPERSEDED and retained historically |
+| design/UNIFIED_WORKSPACE_DESIGN_SPEC | CURRENT direction and pending screen/reference gate; old two-mode geometry/opaque surfaces/ORA-6 waiver are HISTORICAL reusable material, not current visual approval |
+| execution/MASTER_PLAN | CURRENT non-executing product reference and sole proposed R0–R5 matrix; earlier C6/D–H ordering is HISTORICAL |
+| root MASTER_PLAN and ASTRONOMY_HUB_MASTER_PLAN | SUPPORT / vision only, not additional active plans; root's stale next-action assumptions explicitly superseded |
+| architecture/UNIFIED_UNIVERSE_ARCHITECTURE and ADRs | CURRENT ownership/science/reuse contracts retained; add contextual product/handoff interpretation; complete-app ownership in old Phase B is historical |
+| architecture OBJECT_MODEL, DATA_CONTRACTS, ENGINE_SPEC, STACK_OVERVIEW and ingestion contracts | CURRENT applicable scientific/data/stack constraints; no conflicting implementation change needed |
+| features/FEATURE_TRACKER and FEATURE_ACCEPTANCE | CURRENT scoped truth/proof; new requirement matrix remains PARTIAL/BLOCKED; historical REAL never means whole-product acceptance |
+| execution EARTH_CAPABILITY_PLAN, C5_7_EARTH_CORE_RECOVERY_SPEC, C6_GLOBAL_MAPPING_SPEC | PRESERVED planning/evidence/unresolved gates; C6 automatic next actions SUPERSEDED; useful capabilities not discarded |
+| dated audits, studies and validation evidence | HISTORICAL source/qualification evidence, retained unchanged; neither new approval nor current runtime claim |
+| PR71 and closed PR67 | PRESERVED implementation work; PR71 OPEN/unmerged with imagery/search/visual acceptance unfinished, PR67 CLOSED/unmerged |
+
+No new audit hierarchy or duplicate master plan is created. Canonical intent and
+checkpoint tables link to each other; current feature status stays in the tracker.
+Document-only acceptance does not authorize a renderer transition or new source.
+
 ## 1. Purpose
 
 This document defines:
@@ -59,7 +85,10 @@ These define execution truth:
 
 ### Tier 2 - Product Definition
 
-These define product and architecture reference:
+These define product and architecture reference under the existing hierarchy:
+
+- `docs/product/PRODUCT_VISION.md` — canonical owner-approved Adaptive Explorer intent; no execution activation
+- `docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md` — shared contextual design system and owner-reference gate; exact screens pending
 
 - `docs/execution/MASTER_PLAN.md` — product reference only; cannot activate work
 
@@ -76,7 +105,7 @@ These define how work is performed:
 
 - `docs/execution/EARTH_CAPABILITY_PLAN.md` — normal Earth planning reference; activation remains in PROJECT_STATE
 - `docs/execution/C5_7_EARTH_CORE_RECOVERY_SPEC.md` — proposed, unapproved packages and owner decisions
-- `docs/execution/C6_GLOBAL_MAPPING_SPEC.md` — approved direction, unapproved provider-specific stages
+- `docs/execution/C6_GLOBAL_MAPPING_SPEC.md` — historical qualification/reuse inputs; no automatic C6 activation under R0
 
 - `docs/features/FEATURE_EXECUTION_MODEL.md`
 - `docs/features/FEATURE_ACCEPTANCE.md`
@@ -91,7 +120,7 @@ These are guidance only:
 - `scripts/validation/private_evidence_links.json` — exact private historical reference/hash registry, no runtime proof or publication rights
 - `docs/validation/*_EVIDENCE.md` — bounded historical proof, not current activation
 
-- `docs/product/*`
+- other `docs/product/*` (PRODUCT_VISION is Tier 2)
 - `docs/runtime/*`
 - `docs/corrective/*`
 - `docs/enforcement/*`
@@ -152,6 +181,15 @@ extensions remain planned. Product vision cannot override execution gates.
 [PROJECT_STATE](execution/PROJECT_STATE.md) is the authoritative checkpoint sequence;
 LIVE_SESSION_BRIEF identifies the current task. C5.6.5 audit evidence is complete;
 C5.6.75 is a historical documentation checkpoint superseded by merged PR #68.
+R0 documentation is the only active package. Proposed R0–R5 checkpoints live in
+[the existing master plan](execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
+PR #71 is open/unmerged; imagery/search/visual acceptance stays unfinished. All
+future packages and merges require explicit owner authority. Source reuse,
+scientific truth, $0 spending, conditional ion eligibility and preservation gates
+continue. C5.7-D space acceptance remains bounded historical acceptance.
+
+### Historical pre-R0 sequence — no current activation
+
 The owner-approved order is C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 →
 preserved PR #67 → separately authorized satellites and Weather. PR #69 is merged
 and its appearance from space is owner-accepted. Only C6-0 research/provider
@@ -181,8 +219,8 @@ Planning and evidence discovery: [Earth capability plan](execution/EARTH_CAPABIL
 
 C5.7-D local implementation/visual qualification and preserved gaps:
 [Earth appearance evidence](validation/C5_7_D_EARTH_APPEARANCE_EVIDENCE.md).
-The owner-approved visual-first order is recorded in PROJECT_STATE/LIVE and the
-execution specifications; the original proposal/audit documents remain historical.
+The former visual-first order is retained historically in PROJECT_STATE/LIVE and
+execution specifications; Adaptive Explorer R0 controls current activation.
 
 Owner-review adoption discovery (merged PR #68 SUPPORT proposals; execution
 authorities above record the subsequently approved sequence): [master adoption matrix](audits/GODS_EYE_MASTER_ADOPTION_BLUEPRINT_2026-10-10.md),
@@ -231,3 +269,53 @@ records the bounded WSL/disposable package; live/project state governs execution
 [Local development workflow and measured repair](validation/LOCAL_DEVELOPMENT_REPAIR_EVIDENCE.md)
 records stable artifact provisioning, bounded qualification cleanup, native
 watching, restart/browser proof and resource measurements; it is support evidence.
+
+## R0 context overhead: measured counts and staged reduction proposal
+
+Counts are distinct document paths in each manifest load list, including CORE/LIVE;
+AGENTS/manifest are operating inputs outside these counts. R0 adds canonical product
+intent where absent and the acceptance contract to docs_change. No historical
+source evidence is removed from mandatory routing in this documentation-only PR.
+
+| Pack | Before R0 | After this PR (actual) | Proposed base plus role documents, before affected-subsystem evidence |
+| --- | ---: | ---: | ---: |
+| docs_change | 54 | 55 | 15 |
+| backend_change | 29 | 30 | 15 |
+| frontend_change | 32 | 33 | 15 |
+| validation | 39 | 40 | 17 |
+| debug | 21 | 22 | 13 |
+| review | 41 | 42 | 15 |
+| reconciliation | 33 | 34 | 15 |
+| planning | 45 | 46 | 16 |
+
+**Recommendation only; actual reductions are not implemented.** Existing validators
+require the Phase B study/evidence in six packs, all Earth planning/audit documents
+in every pack, and specific stack/Tonight contracts. Removing those entries now
+would weaken or fail the current gate. A separately bounded context-governance
+change should update manifest source-loading semantics, validators and negative
+tests together, preserving safety and exact evidence access. No new hierarchy is
+proposed: CORE/LIVE, current authorities and feature-specific evidence stay in order.
+
+Proposed common 12: CORE, LIVE, SYSTEM_VALIDATION_SPEC, DOCUMENT_INDEX, PROJECT_STATE,
+PRODUCT_VISION, UNIFIED_UNIVERSE_ARCHITECTURE, STACK_OVERVIEW, FEATURE_ACCEPTANCE,
+FEATURE_EXECUTION_MODEL, FEATURE_TRACKER and DATA_CONTRACTS. Role additions are:
+
+- docs_change: DOC_INVENTORY, workspace design, execution MASTER_PLAN.
+- backend_change: OBJECT_MODEL, INGESTION_STRATEGY, TONIGHT_CONTRACT.
+- frontend_change: workspace design, OBJECT_MODEL, workspace implementation evidence.
+- validation: TONIGHT_CONTRACT, workspace implementation evidence, Earth HD mapping evidence, Cesium Phase C evidence, ADR0009.
+- debug: FAILURE_PATTERNS.
+- review: TONIGHT_CONTRACT, workspace design, ADR0009.
+- reconciliation: DOC_INVENTORY, execution MASTER_PLAN, EARTH_CAPABILITY_PLAN.
+- planning: workspace design, execution MASTER_PLAN, FEATURE_CATALOG, ADR0009.
+
+The proposed counts are floors, **not an evidence ceiling**. A mandatory affected-
+subsystem selection must then add its engine/object/science/ingestion contracts,
+ADRs, relevant phase/source reuse specifications and exact qualification evidence
+before code/review/validation starts. Earth work still loads C5.7/C6, the adoption
+blueprint and pinned-source traces when applicable; the exact JSON probe ledger
+remains loaded through the C6 supported evidence-reference mechanism. Source reuse,
+private-evidence hash exceptions and missing-evidence failures must remain enforced.
+Validate routing with negative tests for omitted science/engine/rights/acceptance
+and proof documents. Until that change is authorized and qualified, load current
+full packs; do not infer approval to skip evidence from this proposal.

@@ -1,5 +1,25 @@
 # Astronomy Hub — Repository Operating Rules
 
+## Active product and execution guard — R0, 2026-10-13
+
+Owner-approved product intent is **Astronomy Hub — Adaptive Explorer**, defined in
+[PRODUCT_VISION](docs/product/PRODUCT_VISION.md) and the existing
+[workspace design contract](docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md).
+One shared component/design system has contextual Sky, Solar System, Earth and
+other planetary-surface configurations. Keep tools confined to their mode and the
+rendered universe primary. Controlled renderer handoffs may provide visual continuity;
+no continuous cross-body camera or new transitions are claimed implemented.
+Style direction is approved; final screens/layouts and visual references are not.
+Future UI implementation requires the owner's accepted reference revision, never
+a coder-generated substitute or automatic reuse of the old ORA-6 waiver.
+
+R0 permits documentation/governance and one unmerged documentation PR only.
+R1–R5 in the existing MASTER_PLAN are proposals, not execution authority. Historical
+C5/C6/D–H orders cannot activate further development. PR #71 remains unmerged with
+imagery/search/visual acceptance unfinished; preserve closed/unmerged PR #67.
+No source, renderer/artifact/dependency/data/Docker/production changes in this task.
+Existing science, source reuse, isolation, zero-cost and preservation rules continue.
+
 ## 1. Purpose
 
 Astronomy Hub is a document-driven, authority-controlled system.
@@ -964,18 +984,13 @@ Do not claim completion when validation was skipped.
 Consult `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` and ADR0009 before
 renderer/engine work. C0–C5.6 bounded packages and C5.6.5 audit evidence are
 complete; C5.6.75 is a historical documentation checkpoint superseded by merged
-PR #68. The owner-approved order is C5.7-D → C6-0/C6-1 → C6-2 → C6-3 →
-C6-4/C6-5 → preserved PR #67 → separately authorized satellites and Weather.
-PR #69 is merged; its space appearance is owner-accepted. The separately approved
-active task is C6-0 research/provider qualification/adoption planning/docs only;
-C6-1 implementation and later packages remain unauthorized. Close-up imagery
-belongs to C6. Closed/unmerged PR #67 work/evidence is preserved, not discarded.
-The roadmap does not activate later packages; unfinished C5.7 gates remain open.
-Provider spending must
-remain $0; Cesium ion Community is conditional on written club/public-use eligibility
-and zero-charge protection. C6 provider implementation is unapproved; D/E/F/G/H planned.
-Use context-manifest Earth plan/C5.7/C6/owner decisions, not historical Phase B
-full-app/skeleton next-action text or older horizon roadmap.
+PR #68. The former C5.7-D/C6 sequence is historical under R0; no later
+package is activated by those documents. Current authorization is R0 documentation
+only. PR #71 is unmerged and unaccepted as a complete mapping/search/visual product;
+closed/unmerged PR #67 and all unfinished C5.7 gates are preserved. Provider spending
+remains $0; ion eligibility and zero-charge protection remain conditional.
+Use current LIVE/PROJECT_STATE and the Adaptive Explorer requirements/checkpoints;
+retain Earth plan/C5.7/C6/owner decisions as source/evidence and unresolved constraints.
 
 - Hub owns product intent/state, independent Earth Viewer/bridge/lifecycle and
   justified provider/security boundaries. Prefer qualified exact reuse/wrapping

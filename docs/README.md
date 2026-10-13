@@ -38,6 +38,19 @@ PR #68; PR #69 is merged at `0a231b24d208dc250214c737277a50dcc73d4e70`.
 [divergence evidence](audits/GODS_EYE_IMPLEMENTATION_DIVERGENCE_2026-10-05.md) and
 [reconciliation validation](validation/C5_6_75_DOCUMENTATION_RECONCILIATION_EVIDENCE.md).
 
+Current approved product intent is **Astronomy Hub — Adaptive Explorer**: one
+universe-first interface/shared design system with contextual Sky, Solar System,
+Earth and planetary-surface controls. See [canonical product requirements](product/PRODUCT_VISION.md),
+[design approval boundary](design/UNIFIED_WORKSPACE_DESIGN_SPEC.md) and the existing
+[proposed R0–R5 checkpoints](execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
+Style is approved; exact screens/layouts and future UI references remain pending.
+Only R0 documentation/governance is active. PR #71 remains unmerged with imagery,
+search and visual acceptance unfinished; closed/unmerged PR #67 stays preserved.
+Old C6 orders cannot authorize new work. $0 spending, provider eligibility,
+scientific/source reuse, renderer and data-preservation gates remain mandatory.
+
+### Historical pre-R0 roadmap — superseded for activation
+
 The approved order is C5.7-D → C6-0/C6-1 → C6-2 → C6-3 → C6-4/C6-5 →
 preserved PR #67 → separately authorized satellites and Weather. The owner accepted
 C5.7-D's appearance from space; only C6-0 research/qualification/planning/docs are

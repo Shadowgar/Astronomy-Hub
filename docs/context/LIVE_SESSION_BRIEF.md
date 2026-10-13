@@ -1,5 +1,41 @@
 # LIVE SESSION BRIEF
 
+## Active R0 — Adaptive Explorer authority reset, 2026-10-13
+
+The owner approves **Astronomy Hub — Adaptive Explorer** product direction.
+This task authorizes documentation/governance only: inspect, reconcile, validate,
+commit/push one isolated documentation branch and open one PR. **No merge.**
+Only R0 is active; R1–R5 are proposed checkpoints, each requiring a separately
+bounded owner instruction. Passing or merging R0 does not activate UI, mapping,
+terrain, buildings, provider work or any former C5/C6/D–H next action.
+
+Canonical intent is [PRODUCT_VISION](../product/PRODUCT_VISION.md); the existing
+[workspace design contract](../design/UNIFIED_WORKSPACE_DESIGN_SPEC.md) records
+approved style and pending screen acceptance. Proposed checkpoint boundaries are
+in the existing [MASTER_PLAN](../execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
+The hierarchy in SYSTEM_VALIDATION_SPEC and DOCUMENT_INDEX is unchanged.
+No application source, artifacts, dependencies, source pins, astronomy data,
+Docker state, owner settings or production systems may change in R0.
+
+Verified merged-main base: `3e8276b705143b03af2c71658e8bc513d39b8e94` (PR #70).
+PR #71 is **OPEN / UNMERGED**, head
+`35dcc94c1ecc1bdd87118d6dddb8b76fb81bbe9e`; preserve its branch, source, artifacts,
+cache/performance proof and owner preview. Its imagery, address/place/coordinate
+search, visual and owner hardware-speed acceptance remain unfinished. Technical
+qualification is not Adaptive Explorer acceptance. Do not merge or discard it.
+PR #67 is **CLOSED / UNMERGED**, head
+`ebdad3124fe470e3a09e369d3a56e998f29740fb`; preserve all useful historical work.
+C5.7-D's accepted space appearance remains a bounded baseline, not approval of
+new screens. All incomplete scientific/provider/device/lifecycle gates carry forward.
+
+Single agent; mandatory new provider spending **$0**. Development assumptions about
+PEMA/ion are not established public rights or billing protection. Cesium ion
+Community stays conditional on written eligibility and zero-charge protection;
+no accounts, tokens or paid services are authorized. Default Mode, no runtime override.
+STOP after documentation PR handoff for owner review and separate next-task authority.
+
+## Historical execution briefs — superseded for task activation
+
 ## Active C6-0 free global mapping qualification — 2026-10-11
 
 Default Mode; SINGLE AGENT ONLY. Owner authorizes **C6-0 research, provider

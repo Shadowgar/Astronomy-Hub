@@ -1,5 +1,23 @@
 # CORE CONTEXT - SYSTEM AUTHORITY
 
+## Adaptive Explorer product authority — 2026-10-13
+
+Astronomy Hub — Adaptive Explorer is one universe-first interface and shared
+component/design system, contextually configured for Sky, Solar System, Earth and
+other planetary surfaces. Restrained iOS-like translucent glass, professional
+typography, accessible/responsive controls, reduced motion and progressive disclosure
+are approved intent; exact screens/layouts remain owner-pending. Mode-only tools
+must not leak into other modes. One small universal Explore alternative may make
+journeys accessible without permanent cross-mode clutter.
+
+[PRODUCT_VISION](../product/PRODUCT_VISION.md) is canonical product intent under
+this existing hierarchy; [workspace design](../design/UNIFIED_WORKSPACE_DESIGN_SPEC.md)
+contains the design approval boundary. Continuity may use controlled renderer
+handoffs; cross-body travel is planned, not established by the existing Sky/Earth
+bridge. Old ORA-6/ORA-7 acceptance describes its historical baseline only. Current
+activation is always LIVE/PROJECT_STATE: R0 docs only, PR #71 unmerged with imagery,
+search and visual acceptance open. Old C6 roadmaps cannot activate implementation.
+
 ## Purpose
 
 This document defines the permanent system rules of Astronomy Hub.
@@ -213,8 +231,8 @@ WordPress page or shortcode
 
 The public homepage from merged PR #52 has been superseded at `/` by the
 owner-authorized ORA-7 unified Sky workspace. `/sky-engine` and `/earth` are modes;
-Tonight/Observe are contextual tools with focused routes preserved. The locked
-workspace design is implemented and owner-approved through merged PR #58.
+Tonight/Observe are contextual tools with focused routes preserved. The historical
+ORA-7 workspace was implemented and owner-approved through merged PR #58; its geometry is not the new Adaptive Explorer screen acceptance.
 WordPress integration and subsequent phases still require explicit approval.
 
 ## High-Definition Data and Imagery Lane
