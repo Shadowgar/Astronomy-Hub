@@ -1,4 +1,7 @@
 # CONTEXT MANIFEST — ASTRONOMY HUB (AUTHORITATIVE)
+# R0: full listed packs remain required. The staged reduction proposal lives in
+# DOCUMENT_INDEX.md; do not silently apply its proposed smaller counts.
+# Existing probe-ledger references and safety/validation rules remain intact.
 
 global:
   always:
@@ -36,6 +39,7 @@ tasks:
     - docs/ASTRONOMY_HUB_DIAGRAM.md
     - docs/features/FEATURE_CATALOG.md
     - docs/features/FEATURE_TRACKER.md
+    - docs/features/FEATURE_ACCEPTANCE.md
     - docs/architecture/decisions/0001-universal-application-state.md
     - docs/architecture/decisions/0002-swe-sky-renderer.md
     - docs/architecture/decisions/0003-gods-eye-earth-runtime.md
@@ -69,8 +73,10 @@ tasks:
 
   backend_change:
     load:
+    # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/product/PRODUCT_VISION.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
@@ -102,8 +108,10 @@ tasks:
 
   frontend_change:
     load:
+    # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/ASTRONOMY_HUB_DIAGRAM.md
@@ -138,8 +146,10 @@ tasks:
 
   validation:
     load:
+    # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -184,8 +194,10 @@ tasks:
 
   debug:
     load:
+    # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/product/PRODUCT_VISION.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/architecture/ARCHITECTURE_OVERVIEW.md
@@ -209,8 +221,10 @@ tasks:
 
   review:
     load:
+    # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -257,8 +271,10 @@ tasks:
 
   reconciliation:
     load:
+    # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/product/PRODUCT_VISION.md
     - docs/DOCUMENT_INDEX.md
     - docs/DOC_INVENTORY.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
@@ -294,8 +310,10 @@ tasks:
 
   planning:
     load:
+    # R0 product intent; this pack grants no implementation authority.
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
+    - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
     - docs/DOCUMENT_INDEX.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md

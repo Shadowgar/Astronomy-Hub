@@ -1,5 +1,41 @@
 # Unified workspace design contract
 
+## Adaptive Explorer design contract — R0, 2026-10-13
+
+Current design intent is [Adaptive Explorer](../product/PRODUCT_VISION.md): one
+universe-first interface and shared tokens/components, contextually configured for
+Sky, Solar System, Earth and other planetary surfaces. Restrained iOS-like glass,
+professional typography, accessible/responsive interactions, reduced motion and
+progressive disclosure are approved. Exact screens, geometry and visual references
+are **PENDING OWNER ACCEPTANCE**. The old two-mode header/rails/opaque-surface geometry
+below is historical ORA-6/ORA-7 evidence and reusable material, not a new layout lock.
+
+Shared components must express mode capabilities, not duplicate unrelated mode
+interfaces. Sky exposes minimal Stellarium observing tools; Earth exposes place/
+address/coordinate search and maps/data tools; Solar System exposes journey/orbits/
+body selection; surfaces expose body-specific science. Never render one mode's tools
+in another. A small accessible universal Explore alternative may remain; its exact
+placement awaits design acceptance. The scene stays primary on desktop and mobile.
+
+The desired outward Sky → Earth/Solar System → selected body → detailed view and
+return can use controlled renderer handoffs. Illustrate continuity, state restoration,
+loading/error/cancellation and reduced-motion variants in references; do not imply
+these paths already work or one physically continuous camera exists.
+
+Before a UI package starts, the owner must accept reference revisions for its
+applicable desktop/mobile, focus/selection, collapsed/expanded, loading/degraded,
+bright/dark scene and reduced-motion states. Record provenance and acceptance in
+this contract, then compare actual browser captures against those exact references.
+A coder-generated substitute, the historical Figma waiver, or a green unit suite
+cannot supply owner visual acceptance. Owner rejection keeps the package open.
+No new reference screens are created or accepted by R0.
+
+Open: exact layout and glass/readability tokens, typography, component variants,
+Explore affordance, navigation thresholds/choreography, mobile composition and
+performance/transition tolerances. See AE-01–AE-11 and proposed R1 design gate.
+
+## Historical ORA-6 / ORA-7 design contract — retained baseline
+
 Design version: ORA-6 / 2026-10-02. Branch: `phase-c7-unified-workspace-earth-visual-1`.
 Implementation baseline: merged PR #55, `b2f9dce9bb559a1d23dc806a1b8d1927c502f084`.
 Status: **design decisions locked for owner review; production implementation not started**.

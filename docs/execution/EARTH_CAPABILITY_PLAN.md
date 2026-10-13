@@ -1,5 +1,19 @@
 # Earth capability plan — planning reference
 
+## R0 supersession of execution order — 2026-10-13
+
+Only R0 documentation/governance is active in LIVE/PROJECT_STATE. The C5/C6
+qualification, source reuse plans, request budgets, source hierarchy and evidence
+below are preserved dated inputs; their former active/next-action statements are
+superseded for task activation. PR #70 is merged; PR #71 is an existing unmerged
+candidate with imagery/search/visual acceptance unfinished. Do not restart C6-0,
+merge/discard PR #71 or infer permission for C6-1/terrain/3D/other implementation.
+Current product requirements are [Adaptive Explorer](../product/PRODUCT_VISION.md),
+with proposed [R0–R5 checkpoints](MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
+All unfinished provider/science/device/owner gates and closed PR #67 work survive.
+Historical provider limits remain attached to their dated packages; this docs-only
+reset neither reimposes superseded PR71 runtime scheduling nor changes its code.
+
 Date: 2026-10-08. **Canonical planning reference; NOT blanket execution authorization.**
 PROJECT_STATE and LIVE_SESSION_BRIEF control active work. Approved architecture
 is [ADR0009](../architecture/decisions/0009-owned-earth-feature-reuse.md).

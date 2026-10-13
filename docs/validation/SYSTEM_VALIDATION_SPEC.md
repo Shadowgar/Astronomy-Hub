@@ -1,5 +1,30 @@
 # SYSTEM VALIDATION SPEC - AUTHORITATIVE
 
+## R0 / Adaptive Explorer qualification rule — 2026-10-13
+
+The owner-approved [Adaptive Explorer requirements](../product/PRODUCT_VISION.md)
+and proposed [R0–R5 checkpoints](../execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5)
+use this existing validation hierarchy. Product direction is not implementation,
+final-screen acceptance, source qualification or permission for a later package.
+Only R0 docs/governance is active; its scope needs document/authority/reference/
+manifest/whitespace checks and preservation proof, not renderer builds or Docker
+state changes. No application runtime or fresh browser success is claimed by R0.
+
+Future UI acceptance must cite owner-approved reference revisions and compare
+actual rendered screens/interactions against them. A coder-generated substitute,
+historical waiver, unit suite, backend or fixture alone cannot pass visual/product
+acceptance. Required proof covers mode isolation, desktop/mobile, keyboard and
+accessible Explore, reduced motion, source truth, handoff state and lifecycle.
+Record zero fatal startup errors and the package's agreed measurable budgets;
+missing references/budgets are open gates, never implicitly passed. Device-specific
+speed requires named physical-device evidence, distinct from software rendering.
+
+PR #71 stays unmerged with imagery/search/visual acceptance unfinished. R0 does
+not downgrade its recorded technical proof or promote it to product completion.
+Classify preserved historical REAL slices separately from new Adaptive Explorer
+requirements. An accepted checkpoint or merge never automatically authorizes the
+next package or production deployment.
+
 ## 1. Validation Principle
 
 A claim is valid only when it is:

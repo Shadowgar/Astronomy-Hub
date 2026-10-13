@@ -1,5 +1,14 @@
 # C5.7 Earth core recovery — bounded execution specification
 
+## R0 activation boundary — 2026-10-13
+
+The package proposals, D-only authorization wording and owner decision register
+below are preserved historical inputs. R0 documentation is the sole current task;
+LIVE/PROJECT_STATE supersede earlier active/next-action statements. No unfinished
+C5.7 gate is closed, no PR67 work is discarded, and no later package is activated.
+PR71 remains unmerged with imagery/search/visual acceptance unfinished. See the
+existing [R0–R5 proposal](MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
+
 **Historical C5.7 authorization boundary: ONLY C5.7-D AUTHORIZED. OTHER PACKAGES NOT AUTHORIZED FOR IMPLEMENTATION.**
 Date: 2026-10-10. PROJECT_STATE/LIVE_SESSION_BRIEF govern activation.
 Only one bounded implementation package may be active at a time.

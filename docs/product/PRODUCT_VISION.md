@@ -1,5 +1,77 @@
 # Astronomy Hub Product Vision
 
+## Approved Adaptive Explorer intent — 2026-10-13
+
+**Astronomy Hub — Adaptive Explorer** is the owner-approved product direction.
+This existing file is canonical product intent under DOCUMENT_INDEX, not an
+additional execution hierarchy or implementation authorization. R0–R5 checkpoint
+proposals live only in [the existing master plan](../execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5);
+LIVE/PROJECT_STATE alone establish the active bounded package.
+
+The rendered universe is the primary experience. One professionally styled
+interface uses one component/design system with restrained iOS-like translucent
+glass. Sky, Solar System, Earth and other planetary surfaces are contextual
+configurations, not four unrelated applications or four permanent control bars.
+
+| Configuration | Relevant experience and controls | Context boundary |
+| --- | --- | --- |
+| Sky | Minimal observing controls, native Stellarium object search/selection, observer/time and useful sky-view toggles | Earth map/provider/place tools and planetary travel controls stay out of observing chrome |
+| Solar System | Journey, orbit/time context, celestial-body discovery and selection | Earth addresses and terrestrial layers stay out; distinguish astronomical time from live feeds |
+| Earth | Address/place/coordinate search, maps, automatic imagery, Earth-specific data tools and source status | Sky observing toggles and other-body science controls stay out |
+| Other planetary surfaces | Immersive body-specific scientific exploration, body context, entry/exit and available layers | Use qualified body/radii/frame/datum/data; never relabel Earth imagery or invent a solid gas-giant surface |
+
+One small universal **Explore** mechanism may offer an accessible alternative to
+gestures. It must remain discoverable to keyboard/touch/assistive technology while
+avoiding permanent cross-mode clutter. Exact placement and trigger design are open.
+
+The intended journey supports scrolling/zooming outward from Sky toward Earth
+and Solar System context, selecting a body, approaching it and entering its
+qualified detailed view, then returning. Visual continuity may be accomplished
+with controlled renderer handoffs rather than a single physically continuous
+camera. The current bridge does not prove these journeys exist. SWE remains
+contained; the Hub retains its Earth Viewer and qualified pinned God's Eye reuse.
+
+### Minimum user-visible acceptance requirements
+
+All requirements need real-browser proof and the scoped owner gate. Technical
+modules, backend responses, fixtures and historical REAL rows cannot alone close
+these requirements. [FEATURE_TRACKER](../features/FEATURE_TRACKER.md) owns current
+status; these are requirements, not implementation claims.
+
+| ID | Minimum accepted behavior | Required observable proof |
+| --- | --- | --- |
+| AE-01 Sky observing | Native Stellarium sky/search/selection, observer/time, relevant view controls and meaningful source-backed object details work in minimal Sky chrome | Known qualified objects resolve with catalog/source_id/model and real coordinates; visible selection AND camera behavior; no Earth-only controls |
+| AE-02 Sky ↔ Earth | Outward journey and accessible Explore alternative reach Earth and return without losing applicable observer, time, selection and history | Both directions via gesture and keyboard/touch alternative; cancel/back/repeat; real adapter acknowledgements, zero stale selection or orphan renderer; live-feed time remains explicitly separate |
+| AE-03 Solar navigation | Discover/select bodies, see correct orbit/time context, approach a selected body and return to overview | At least two source-backed bodies, actual selected-body/camera agreement and history; qualified ephemeris/frames, no decorative orbit presented as science |
+| AE-04 Detailed planetary entry/exit | Enter one explicitly qualified non-Earth body and exit to the correct body/context | Real body/radii/datum/source attribution and supported detail; unavailable detail is explicit and leaves navigation usable; no Earth texture substitution |
+| AE-05 Earth search | Address, place and coordinate input navigate Earth to the selected result with unambiguous location context | One address, one named place and valid latitude/longitude; ambiguous results, invalid/out-of-range coordinates, no results and provider failure; actual camera destination plus keyboard selection; existing astronomy search alone does not qualify |
+| AE-06 Genuine imagery detail | Where eligible source coverage supplies high resolution, recognizable scene detail actually appears; elsewhere show honest coarse/partial/unavailable status | Matched close views and source/date/resolution/coverage evidence; recognizable landmarks, not a GSD label alone; owner assesses visible quality |
+| AE-07 Automatic imagery | Select the best qualified eligible source for the current view without requiring manual provider choice | Coverage edges, rapid camera changes, remote failure/recovery and actual displayed source/credits; one safety base, at most one managed remote, preserved event overlay order |
+| AE-08 Persistent eligible cache | Reuse eligible original response bytes across reload/browser restart where supported, with truthful status and confirmed owned-cache clear | Cold/reload/restart network evidence; permission/headers, quota/eviction/corruption/denial; only owned imagery removed; explain browser HTTP cache clearing limitation |
+| AE-09 Contextual tools/details | Only applicable mode tools appear; selected object/body has meaningful contextual information and a usable next/return action | Mode matrix with forbidden controls absent, clear selection/dismiss distinctions, accurate source/time/coverage and preserved canonical identity |
+| AE-10 Input/accessibility | Desktop/mobile, pointer/touch, keyboard and assistive navigation can complete core journeys with readable credits and controls | Declared browser/viewport/device matrix; visible focus, focus restoration, semantic names/status, no keyboard trap, touch targets, responsive short screens, reduced-motion alternative; software emulation does not qualify physical devices |
+| AE-11 Shared visual system | Coherent tokens, shared contextual components, professional typography, restrained glass and progressive disclosure keep the scene primary | Compare actual UI against owner-approved reference revision at matched sizes/states; readability over bright/dark imagery, no duplicate cross-mode chrome; tests cannot override rejected visual quality |
+
+### Approval boundary and open design decisions
+
+The owner approved direction and style, **not final pixel-level screens**. Exact
+screen layouts, tokens/type scale/glass opacity, mode affordances, Explore placement,
+gesture thresholds, transition choreography, reduced-motion equivalents, responsive
+compositions and first detailed body/reference scenes await owner review. Existing
+ORA-6 HTML/Figma work is historical reusable material; its waiver is not approval
+for a new coder-generated reference. Record the accepted reference URL/file,
+revision, covered states and owner decision before future UI implementation.
+
+Solar-scale renderer, coordinate/ephemeris interfaces, handoff continuity/tolerances,
+qualified body/source scope and measurable performance budgets also remain open.
+No package can pass with unspecified criteria it depends on; agree those criteria
+before implementing that package. No invented universal high-resolution coverage,
+planetary availability or hardware speed claim. Mandatory new provider spend is $0.
+PR #71 stays unmerged with imagery/search/visual acceptance unfinished; historical
+scientific, licensing, renderer, data-preservation and source-reuse constraints remain.
+
+## Historical pre-R0 product vision — superseded intent and implementation assumptions
+
 This is product guidance, not execution authority. The detailed approved
 architecture is [Unified Universe Architecture](../architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md).
 Core context, live session brief and project state govern active work; validation

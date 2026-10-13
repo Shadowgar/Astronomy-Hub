@@ -1,5 +1,29 @@
 # Unified Universe Architecture
 
+## R0 product reconciliation — 2026-10-13
+
+[Adaptive Explorer](../product/PRODUCT_VISION.md) is current approved product intent:
+one component/design system adapts to Sky, Solar System, Earth and other planetary
+surfaces, with mode-specific controls and a small accessible Explore alternative.
+The detailed visual contract is [workspace design](../design/UNIFIED_WORKSPACE_DESIGN_SPEC.md);
+style is approved, final screens are pending. Proposed R0–R5 gates in the existing
+master plan replace historical D–H/C6 next-action ordering, not renderer ownership.
+
+A continuous-feeling outward journey may cross controlled renderer handoffs.
+The implemented small Sky/Earth bridge does not establish Solar System/body travel
+or one physically continuous camera. Preserve Hub-owned intent/Earth Viewer,
+contained SWE scene/math/native controls, serial renderer lifetime and exact
+catalog + source_id + model contracts. Investigate and qualify established source
+reuse before inventing replacements; the full original God's Eye comparison app
+is independent operational evidence, never authorization to import it into Hub.
+
+PR #71 is an unmerged imagery/cache candidate with unfinished imagery/search/visual
+and owner-speed acceptance. Earlier mapping/state tables below describe merged
+bounded foundations; they neither erase the candidate nor qualify the new product.
+Solar renderer, body/frame/datum/ephemeris interfaces and transition tolerances
+remain open design/qualification choices. All scientific/data/source/license/
+zero-cost/rollback constraints survive R0. No renderer or dependency change here.
+
 Current architecture reconciled 2026-10-08 under owner-authorized C5.6.75.
 Historical Phase A/B dates and decisions remain in ADRs/study; they do not control
 current implementation. [Validation](../validation/SYSTEM_VALIDATION_SPEC.md)

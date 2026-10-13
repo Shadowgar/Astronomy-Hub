@@ -1,5 +1,19 @@
 # C6 — Google-Earth-Class Global Mapping
 
+## R0 supersession of execution order — 2026-10-13
+
+Only R0 documentation/governance is active in LIVE/PROJECT_STATE. The C5/C6
+qualification, source reuse plans, request budgets, source hierarchy and evidence
+below are preserved dated inputs; their former active/next-action statements are
+superseded for task activation. PR #70 is merged; PR #71 is an existing unmerged
+candidate with imagery/search/visual acceptance unfinished. Do not restart C6-0,
+merge/discard PR #71 or infer permission for C6-1/terrain/3D/other implementation.
+Current product requirements are [Adaptive Explorer](../product/PRODUCT_VISION.md),
+with proposed [R0–R5 checkpoints](MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
+All unfinished provider/science/device/owner gates and closed PR #67 work survive.
+Historical provider limits remain attached to their dated packages; this docs-only
+reset neither reimposes superseded PR71 runtime scheduling nor changes its code.
+
 **C6-0 QUALIFICATION AUTHORIZED — NO PROVIDER-SPECIFIC IMPLEMENTATION AUTHORIZED.**
 Date: 2026-10-10. C5.7-D appearance comes first; C6-0 through C6-5 precede
 resumed C5.7-A/PR #67 review and separately approved satellite/Weather packages.

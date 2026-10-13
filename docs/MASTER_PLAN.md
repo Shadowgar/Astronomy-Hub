@@ -1,5 +1,16 @@
 # MASTER PLAN - PRODUCT REFERENCE
 
+## R0 canonical routing — 2026-10-13
+
+This older root reference is historical. Current product intent is
+[PRODUCT_VISION](product/PRODUCT_VISION.md); proposed R0–R5 checkpoints are maintained
+only in [execution/MASTER_PLAN](execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
+LIVE/PROJECT_STATE authorize only R0 documentation. The former C6 next-action text
+and Phase B implementation assumptions below are superseded. PR #71 remains
+unmerged; do not restart its research, merge/discard it or activate any later phase.
+
+## Historical root product reference — superseded roadmap and implementation assumptions
+
 ## Purpose
 
 This document defines the product direction that current and future execution

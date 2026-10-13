@@ -1,5 +1,33 @@
 # FEATURE TRACKER
 
+## Adaptive Explorer acceptance status — R0, 2026-10-13
+
+This current product matrix precedes the dated bounded feature inventory below.
+REAL remains valid only for the precise historically proved slice; it is not
+whole-product acceptance. A backend, fixture, installed artifact or green unit
+suite alone cannot promote these rows. AE IDs refer to
+[canonical requirements](../product/PRODUCT_VISION.md#minimum-user-visible-acceptance-requirements).
+
+| Requirement | Current implementation/evidence boundary | Product status and open gate |
+| --- | --- | --- |
+| AE-01 Sky observation | Contained SWE and qualified existing observing/search/selection controls; historical workspace/Sky browser proof | PARTIAL — new minimal Sky layout, mode isolation and owner reference acceptance unfinished |
+| AE-02 Sky ↔ Earth journey | Explicit two-mode bridge/return exists in bounded proof | PARTIAL — outward gesture journey, new Explore alternative and contextual continuity are not proved |
+| AE-03 Solar System | Source-backed astronomy/ephemeris contracts and older feature modules are reusable inputs | BLOCKED — no qualified Adaptive Explorer solar navigation; renderer/package/reference decisions pending |
+| AE-04 Planetary entry/exit | Body-aware Cesium direction and source contracts are plans | BLOCKED — no qualified detailed-body journey; body/data/renderer package and owner acceptance pending |
+| AE-05 Earth search | Existing astronomy search is not terrestrial search proof; candidate PR71 does not establish accepted address/place/coordinate UX | PARTIAL — all three input types, negatives, visible destination and owner search acceptance unfinished |
+| AE-06 Imagery detail | Bounded C5.5 regional imagery and accepted C5.7-D space appearance; PR71 adds candidate coverage/detail work | PARTIAL — PR71 imagery/close-up quality and physical speed acceptance unfinished; no global aerial-resolution claim |
+| AE-07 Automatic imagery | PR71 candidate source switching/fallback with technical proof | PARTIAL — unmerged, scope/provider limitations and owner mapping acceptance remain |
+| AE-08 Persistent cache | PR71 candidate eligible byte cache and reload/restart/clear proof | PARTIAL — unmerged candidate; no R0 retest or product/device acceptance inferred |
+| AE-09 Contextual tools/details | Existing shell/selection/credits are reusable | PARTIAL — four-mode tool isolation and complete contextual navigation unqualified |
+| AE-10 Mobile/accessibility | Historical desktop/mobile software browser checks and existing keyboard controls | PARTIAL — full journey/assistive/reduced-motion and named physical-device matrix open |
+| AE-11 Shared visual system | ORA-6/ORA-7 design/components and historical owner acceptance | PARTIAL — Adaptive Explorer references, exact layouts and rendered owner acceptance pending |
+
+R0 is a documentation checkpoint in review, not a runtime feature marked REAL.
+PR #71 remains OPEN/unmerged at `35dcc94c1ecc1bdd87118d6dddb8b76fb81bbe9e`;
+closed/unmerged PR #67 remains preserved at `ebdad3124fe470e3a09e369d3a56e998f29740fb`.
+Historical C5.7 scientific/provider/device gates, global coverage limits and C6
+terrain/3D exclusions remain open. Only LIVE/PROJECT_STATE can activate work.
+
 ---
 
 ## PURPOSE
