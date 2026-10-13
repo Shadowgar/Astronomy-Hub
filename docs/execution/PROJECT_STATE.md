@@ -1,6 +1,29 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
-## Active R1-A — visual design references, 2026-10-13
+## Active R1-B — real Adaptive Explorer Sky, 2026-10-13
+
+The owner accepts PR #73 at `b151d45787cf0e450aa0b187acd3eee142fa1fef` as the visual
+implementation target, including the revised Sky observing controls, and separately
+authorizes bounded R1-B application implementation. PR #73 remains unmerged.
+Branch `r1-b-adaptive-sky-implementation-1` starts at that exact head; its PR
+must explicitly depend on PR #73. No merge or deployment is authorized.
+
+Implement the real minimal glass Sky interface using the existing Hub frontend,
+contained Stellarium runtime, native search/selection and observing controls,
+location/time bridge and serial renderer lifecycle. Preserve Explore. A continuous
+outward Sky-to-Earth transition requires a qualified scale/camera handoff contract;
+do not represent the existing route switch as that journey. No new engine,
+scientific calculations, mapping/providers, aircraft, Weather, satellites or R2–R5.
+Provider spending remains $0. Preserve owner settings/data/volumes, Earth and all
+rollback identities; rebuild and attest only the changed Sky UI artifact.
+
+Qualification must show the real application in desktop/mobile browsers, engine
+control effects, screenshots bound to tested source, lifecycle and performance
+observations. Software rendering is not physical-device qualification. Historical
+R1-A browser gaps remain historical, not retroactively passed. STOP for owner
+acceptance of the working application. Single agent.
+
+## Historical R1-A — visual design references, 2026-10-13
 
 Owner approved R0 and explicitly authorized its exact-head merge, followed by
 **R1-A DESIGN ONLY**. PR #72 merged at `17f94289a8568f33c7287983ef46a5c5cc5427d4` from

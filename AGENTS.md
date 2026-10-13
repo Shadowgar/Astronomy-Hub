@@ -1,27 +1,27 @@
 # Astronomy Hub — Repository Operating Rules
 
-## Active product and execution guard — R1-A, 2026-10-13
+## Active R1-B — real Adaptive Explorer Sky, 2026-10-13
 
-Owner-approved product intent is **Astronomy Hub — Adaptive Explorer**, defined in
-[PRODUCT_VISION](docs/product/PRODUCT_VISION.md) and the existing
-[workspace design contract](docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md).
-One shared component/design system has contextual Sky, Solar System, Earth and
-other planetary-surface configurations. Keep tools confined to their mode and the
-rendered universe primary. Controlled renderer handoffs may provide visual continuity;
-no continuous cross-body camera or new transitions are claimed implemented.
-Style direction is approved; final screens/layouts and visual references are not.
-Future UI implementation requires the owner's accepted reference revision, never
-a coder-generated substitute or automatic reuse of the old ORA-6 waiver.
+The owner accepts PR #73 at `b151d45787cf0e450aa0b187acd3eee142fa1fef` as the visual
+implementation target, including the revised Sky observing controls, and separately
+authorizes bounded R1-B application implementation. PR #73 remains unmerged.
+Branch `r1-b-adaptive-sky-implementation-1` starts at that exact head; its PR
+must explicitly depend on PR #73. No merge or deployment is authorized.
 
-R0 merged in PR #72 at `17f94289a8568f33c7287983ef46a5c5cc5427d4`.
-Current owner authorization is R1-A design references only: isolated editable
-HTML/CSS under docs/design, local browser proof, and one unmerged design PR.
-All screens are PENDING OWNER VISUAL ACCEPTANCE. R1-B and R2–R5 remain unauthorized.
-Historical C5/C6/D–H orders cannot activate further development. PR #71 remains unmerged with
-imagery/search/visual acceptance unfinished; preserve closed/unmerged PR #67.
-No application source, renderer/artifact/dependency/data/Docker/production changes.
-Design-reference HTML/CSS/JS is permitted only outside the application runtime.
-Existing science, source reuse, isolation, zero-cost and preservation rules continue.
+Implement the real minimal glass Sky interface using the existing Hub frontend,
+contained Stellarium runtime, native search/selection and observing controls,
+location/time bridge and serial renderer lifecycle. Preserve Explore. A continuous
+outward Sky-to-Earth transition requires a qualified scale/camera handoff contract;
+do not represent the existing route switch as that journey. No new engine,
+scientific calculations, mapping/providers, aircraft, Weather, satellites or R2–R5.
+Provider spending remains $0. Preserve owner settings/data/volumes, Earth and all
+rollback identities; rebuild and attest only the changed Sky UI artifact.
+
+Qualification must show the real application in desktop/mobile browsers, engine
+control effects, screenshots bound to tested source, lifecycle and performance
+observations. Software rendering is not physical-device qualification. Historical
+R1-A browser gaps remain historical, not retroactively passed. STOP for owner
+acceptance of the working application. Single agent.
 
 ## 1. Purpose
 
@@ -988,8 +988,7 @@ Consult `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` and ADR0009 before
 renderer/engine work. C0–C5.6 bounded packages and C5.6.5 audit evidence are
 complete; C5.6.75 is a historical documentation checkpoint superseded by merged
 PR #68. The former C5.7-D/C6 sequence is historical under R0; no later
-package is activated by those documents. Current authorization is R1-A design
-references and bounded design-browser validation only. PR #71 is unmerged and unaccepted as a complete mapping/search/visual product;
+package is activated by those documents. Current authorization is bounded R1-B real Sky implementation from the owner-approved PR #73 head; see LIVE/PROJECT_STATE. PR #71 is unmerged and unaccepted as a complete mapping/search/visual product;
 closed/unmerged PR #67 and all unfinished C5.7 gates are preserved. Provider spending
 remains $0; ion eligibility and zero-charge protection remain conditional.
 Use current LIVE/PROJECT_STATE and the Adaptive Explorer requirements/checkpoints;

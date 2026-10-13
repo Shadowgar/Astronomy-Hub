@@ -529,7 +529,7 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_current_sky.sh",
-    "artifact_sha256": "b9c0c22e39384dfdf5e86def40eb580f0b1ec0b6b78052d5a8fb7701aadd164d",
+    "artifact_sha256": "06f92b7e2851ec975c055980068fdcea2cf158c2d4bc9e58115452529baeb456",
     "artifact_files": [
       {
         "path": "css/app.e3189512.css",
@@ -984,12 +984,12 @@
       {
         "path": "index.html",
         "bytes": 1960,
-        "sha256": "3c92467d07536e55c2a74e17c2b6b28b8f212ca0ef0c7a8522dc39ab6859a579"
+        "sha256": "bfbf98cc6cbb594a87fd1baf8c56c315d479bf906366f60cb7d178deb9820258"
       },
       {
-        "path": "js/app.d996d430.js",
-        "bytes": 571750,
-        "sha256": "c65a9d796d5bd537513d7638c7a830feaa2f1a59d453188506c45d39aa2b0c0b"
+        "path": "js/app.66f52a74.js",
+        "bytes": 582939,
+        "sha256": "582ea16946034aa8201b77d9a1058d75fa84d4492c17326b5f4abdd65b23c9bc"
       },
       {
         "path": "js/chunk-2d2253ec.1b0c9439.js",
@@ -1009,15 +1009,15 @@
       {
         "path": "oras-runtime-build.json",
         "bytes": 810,
-        "sha256": "80006bbf5af2a9e214ed86186fa1f89e76bb9bd873253c8f74fd1c140a06f6a8"
+        "sha256": "7b0e6aea028c5d645a652ffa91a6768680bd49c9d0071f2a5adfdb5f5457938c"
       }
     ],
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "ccecdf404b1ecd9a850a2b853949409642731bbad79cd25b990d0e1e76356ed7",
+    "workspace_adapter_sha256": "c14af302d960e07c5eb040f36e0975eb5bd4d9d5bdd2c192741fea1e613e82e5",
     "artifact_hash_scope": "Application files excluding identity marker",
     "wheel_input_sha256": "29353cca2b47c44b8467c8e2e808a3af8b3cf8bc8a17a9aa211061f75f40bbe9",
     "bridge_input_sha256": {
-      "entry.mjs": "42b563d3c77e84b70e0ef3825e6b6289ec2252e9e699ddb3057e82c90574aeca",
+      "entry.mjs": "e5a01877709c52b58ead0221de99cf02a7f22b30b263298f35fda8ae0fb28008",
       "native-panels.mjs": "52a012e28bb62f8c362fa97b8a89c9afff01bbeb953b711c354e81d40a28997f"
     }
   },

@@ -43,10 +43,12 @@ universe-first interface/shared design system with contextual Sky, Solar System,
 Earth and planetary-surface controls. See [canonical product requirements](product/PRODUCT_VISION.md),
 [design approval boundary](design/UNIFIED_WORKSPACE_DESIGN_SPEC.md) and the existing
 [proposed R0–R5 checkpoints](execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
-Style is approved; exact screens/layouts and future UI references remain pending.
-R0 is merged; only R1-A visual design is active. See the [editable gallery](design/adaptive-explorer-r1a/index.html)
-and [preview/evidence instructions](design/adaptive-explorer-r1a/README.md); all screens
-are PENDING OWNER VISUAL ACCEPTANCE. PR #71 remains unmerged with imagery,
+The owner accepts PR #73 `b151d45787cf0e450aa0b187acd3eee142fa1fef` as the visual target
+and separately authorizes bounded R1-B real Sky implementation. The design PR stays
+unmerged; the implementation branch depends on it. See
+[application evidence](validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md) and
+[the reference](design/adaptive-explorer-r1a/README.md). Working-application owner
+acceptance remains open. PR #71 remains unmerged with imagery,
 search and visual acceptance unfinished; closed/unmerged PR #67 stays preserved.
 Old C6 orders cannot authorize new work. $0 spending, provider eligibility,
 scientific/source reuse, renderer and data-preservation gates remain mandatory.

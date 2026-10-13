@@ -1,6 +1,16 @@
 # Unified workspace design contract
 
-## R1-A/01 editable visual proposal — 2026-10-13
+## Accepted implementation target — R1-B, 2026-10-13
+
+The owner accepts the Adaptive Explorer visual direction and revised Sky controls
+at PR #73 `b151d45787cf0e450aa0b187acd3eee142fa1fef` and explicitly authorizes
+real application Sky implementation on a separate dependent branch. Preserve the
+reference files. Earlier pending-design statements below are historical; actual
+application fidelity, interactions and owner acceptance still require proof.
+PR #73 remains unmerged. No later milestone, merge or deployment is authorized.
+
+
+## Historical R1-A/01 editable visual proposal — 2026-10-13
 
 **PENDING OWNER VISUAL ACCEPTANCE.** The owner authorized actual design-reference
 creation after R0's merge, not application implementation. Required design-task
@@ -39,7 +49,7 @@ owner review and browser qualification; current status is BLOCKED_ENVIRONMENT.
 The gallery/ledger explicitly attribute prior captures to source
 `60e92336f7d715fc83d174f07ac350573d0e1953`, not the newer reference.
 
-## Adaptive Explorer design contract — R0, 2026-10-13
+## Historical Adaptive Explorer design contract — R0, 2026-10-13
 
 Current design intent is [Adaptive Explorer](../product/PRODUCT_VISION.md): one
 universe-first interface and shared tokens/components, contextually configured for

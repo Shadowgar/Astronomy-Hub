@@ -1,6 +1,14 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
-## Current R1-A design discovery — 2026-10-13
+## Current R1-B execution
+
+PR #73 `b151d45787cf0e450aa0b187acd3eee142fa1fef` is the accepted visual target.
+LIVE/PROJECT_STATE authorize bounded real Sky implementation on a dependent branch;
+no merge/deployment or later package. Evidence is recorded in
+[workspace implementation evidence](validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
+
+
+## Historical R1-A design discovery — 2026-10-13
 
 R0 PR #72 is merged. The owner separately authorizes R1-A DESIGN ONLY. The
 [editable visual gallery](design/adaptive-explorer-r1a/index.html),
@@ -196,7 +204,7 @@ extensions remain planned. Product vision cannot override execution gates.
 [PROJECT_STATE](execution/PROJECT_STATE.md) is the authoritative checkpoint sequence;
 LIVE_SESSION_BRIEF identifies the current task. C5.6.5 audit evidence is complete;
 C5.6.75 is a historical documentation checkpoint superseded by merged PR #68.
-R0 is merged; only R1-A visual design references are active. Proposed R0–R5 checkpoints live in
+R0 is merged; bounded R1-B Sky implementation is active. Proposed R0–R5 checkpoints live in
 [the existing master plan](execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
 PR #71 is open/unmerged; imagery/search/visual acceptance stays unfinished. All
 future packages and merges require explicit owner authority. Source reuse,

@@ -6,7 +6,7 @@ Astronomy Hub — Adaptive Explorer is one universe-first interface and shared
 component/design system, contextually configured for Sky, Solar System, Earth and
 other planetary surfaces. Restrained iOS-like translucent glass, professional
 typography, accessible/responsive controls, reduced motion and progressive disclosure
-are approved intent; exact screens/layouts remain owner-pending. Mode-only tools
+are approved intent; PR #73 at `b151d45787cf0e450aa0b187acd3eee142fa1fef` is the owner-approved visual target. Mode-only tools
 must not leak into other modes. One small universal Explore alternative may make
 journeys accessible without permanent cross-mode clutter.
 
@@ -15,7 +15,7 @@ this existing hierarchy; [workspace design](../design/UNIFIED_WORKSPACE_DESIGN_S
 contains the design approval boundary. Continuity may use controlled renderer
 handoffs; cross-body travel is planned, not established by the existing Sky/Earth
 bridge. Old ORA-6/ORA-7 acceptance describes its historical baseline only. Current
-activation is always LIVE/PROJECT_STATE: R0 merged; R1-A design only, PR #71 unmerged with imagery,
+activation is always LIVE/PROJECT_STATE: R0 merged; bounded R1-B real Sky implementation authorized, PR #71 unmerged with imagery,
 search and visual acceptance open. Old C6 roadmaps cannot activate implementation.
 
 ## Purpose
