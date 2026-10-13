@@ -69,6 +69,30 @@ for(const [size,viewport] of Object.entries({desktop:{width:1440,height:900},mob
  }
 }
 await page.setViewportSize({width:1440,height:900});
+await check('Sky native controls: nine originals, advanced J2000, toggle/action semantics and mode isolation',async()=>{
+ const groups={constellation:['Constellations','Constellation Art'],eye:['Atmosphere','Landscape','Azimuthal Grid','Equatorial Grid','Deep Sky Objects','Equatorial J2000 Grid'],settings:['Night Mode']};
+ for(const [panel,names] of Object.entries(groups)) {
+  await open(`mode=sky&state=${panel}`);
+  assert.deepEqual(await page.locator('[data-sky-control]').evaluateAll(els=>els.map(e=>e.dataset.skyControl)),names);
+  if(panel==='eye')await page.getByText('Advanced observing',{exact:true}).click();
+  for(const name of names){
+   const control=page.locator(`[data-sky-control="${name}"]`);
+   assert(await control.isVisible());const before=await control.getAttribute('aria-pressed');
+   await control.click();assert.equal(await control.getAttribute('aria-pressed'),String(before!=='true'));
+  }
+  if(panel==='settings'){
+   const action=page.getByRole('button',{name:/^Fullscreen/});
+   assert.equal(await action.getAttribute('aria-pressed'),null);
+   await action.click();assert.match(await page.locator('.toast').innerText(),/no fullscreen request/);
+  }
+ }
+ for(const mode of ['earth','solar','moon']){
+  for(const state of ['',...({earth:['layers','weather','aircraft','satellite'],solar:['orbit','time','settings'],moon:['landmark','layers','terrain','info']}[mode])]){
+   await open(`mode=${mode}&state=${state}`);
+   assert.equal(await page.locator('[data-sky-control],[data-sky-action]').count(),0);
+  }
+ }
+});
 await check('Earth search: place, address, coordinate, ambiguity, invalid, empty and failure states',async()=>{
  await open('mode=earth'); await page.getByRole('button',{name:'Search address, place or coordinates'}).click();
  const q=page.locator('#query');
@@ -125,6 +149,9 @@ await check('Earth unavailable dialog restores its immediate launcher inside the
   assert(await original.evaluate(e=>e.isConnected && e===document.activeElement),'focus returns to the exact unavailable-state launcher');
  }
  await original.dispose();
+ await page.getByRole('button',{name:'Dismiss panel',exact:true}).click();
+ assert.equal(await page.locator('.panel').count(),0);
+ assert(await page.getByRole('button',{name:'Weather',exact:true}).evaluate(e=>e===document.activeElement),'closing the outer panel returns focus to its Weather launcher');
 });
 await check('Reduced motion and transparency: explicit preferences and OS motion preference',async()=>{
  await open('mode=sky&state=settings');await page.locator('[data-solid]').click();await page.locator('[data-motion]').click();

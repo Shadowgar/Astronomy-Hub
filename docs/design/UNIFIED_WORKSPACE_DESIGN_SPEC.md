@@ -19,6 +19,26 @@ not a coder substitute for owner acceptance. Screens, layout, materials and moti
 remain open. Record accepted files/revision/states and explicit owner decision here
 before separately authorizing R1-B implementation. No R1-A merge is authorized.
 
+### Bounded Sky-controls completion — owner direction, 2026-10-13
+
+The owner likes the current visual direction; preserve the layout, shared glass,
+navigation and other-mode designs. Sky's existing Constellations, Observing tools
+and Display groups must expose all nine native controls: Constellations,
+Constellation Art, Atmosphere, Landscape, Azimuthal Grid, Equatorial Grid,
+Deep Sky Objects, Night Mode and Fullscreen. Equatorial J2000 Grid remains an
+advanced observing option. Toggle states are local reference samples; Fullscreen
+is an action preview. No Stellarium connection or scientific behavior is implemented.
+
+Future separately authorized R1-B must preserve the original native Stellarium
+functionality through its supported integration: constellation lines and names
+together, artwork, atmosphere, landscape, azimuthal grid, equatorial grid of date,
+separate J2000 grid, DSOs, native night mode and fullscreen enter/exit behavior.
+Do not recreate sky math, grids, visibility or native rendering in Hub code.
+These controls are Sky-only. Updated controls and nested focus behavior require
+owner review and browser qualification; current status is BLOCKED_ENVIRONMENT.
+The gallery/ledger explicitly attribute prior captures to source
+`60e92336f7d715fc83d174f07ac350573d0e1953`, not the newer reference.
+
 ## Adaptive Explorer design contract — R0, 2026-10-13
 
 Current design intent is [Adaptive Explorer](../product/PRODUCT_VISION.md): one

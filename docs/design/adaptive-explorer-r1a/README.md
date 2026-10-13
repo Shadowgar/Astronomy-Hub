@@ -4,50 +4,55 @@
 proposal, not the application or permission to implement it. Direction is approved;
 individual layouts, component geometry and visual references are not yet accepted.
 
-## Interaction corrections — BLOCKED_ENVIRONMENT
+## Sky controls and review corrections — BLOCKED_ENVIRONMENT
 
 [PR #73](https://github.com/Shadowgar/Astronomy-Hub/pull/73), branch
-`r1-a-adaptive-explorer-design-1`: three corrections follow reviewed head
-`60e92336f7d715fc83d174f07ac350573d0e1953`. They are implemented in this design
-reference but **not browser-qualified**:
+`r1-a-adaptive-explorer-design-1`. Owner likes the current visual direction;
+this update preserves the layout, shared glass, navigation and other-mode designs.
+Changes follow reviewed head `53e3e7c0453c1dbd7f5852d44a020559a5370cb4`.
 
-- Browser Back retains the selected context card (Solar System → Moon → Back).
-  History stores the selection/panel and restores validated mode-compatible state.
-  A regression assertion checks the restored Moon card.
-- Cancelling an Explore handoff retains the connected launcher outside the dialog
-  as its focus-return target. Assertions check Stay here and Cancel transition.
-- Earth contextual-layer unavailable dialogs receive their actual clicked button
-  through `unavailable(title, trigger)` to `openDialog()`. Assertions open Weather's
-  unavailable dialog by keyboard, dismiss via Keep exploring, close button and
-  Escape, and require the exact original button to remain connected and focused
-  while the originating panel stays open. The Mars unavailable path also passes
-  its immediate launcher explicitly.
+| Existing Sky group | Controls | Reference behavior |
+| --- | --- | --- |
+| Constellations | Constellations; Constellation Art | Local toggles; lines and names together |
+| Observing tools | Atmosphere; Landscape; Azimuthal Grid; Equatorial Grid; Deep Sky Objects | Local toggles; equatorial grid of date |
+| Advanced observing within Observing tools | Equatorial J2000 Grid | Separate local toggle |
+| Display | Night Mode; Fullscreen | Night Mode toggle; Fullscreen action preview |
 
-Correction files: `reference.js` and `verify.mjs`; this README records qualification.
-All three review threads remain unresolved until browser verification. The local
-preview serves these corrections; the gallery and browser ledger remain preserved
-historical proof for the earlier pushed source, **not proof for these corrections**.
-No owner visual acceptance or merge readiness is claimed.
+All nine originals plus advanced J2000 are represented; no permanent toolbar,
+new shell or scientific behavior. Fullscreen acknowledges the action without
+requesting browser fullscreen. No renderer is connected. Native Stellarium controls
+were inspected in the existing owner's vendored `src/components/bottom-bar.vue`
+and `src/store/index.js`. The canonical workspace design contract explicitly
+requires preserving native functionality in separately authorized R1-B.
 
-Earlier automatic approval infrastructure reported **Selected model is at capacity**.
-The latest restricted qualification attempt exited 1 before any tests executed:
-`browserType.launch: Target page, context or browser has been closed`, with
-`shutdown: Operation not permitted (1)` in `sandbox_host_linux.cc:41`.
-The exact local log is `output/playwright/r1a/interaction-final.log` (ignored output).
-A subsequent approval request was rejected as an additional escalated retry
-contrary to the owner's stop-retry instruction. That action did not execute;
-no further browser retry or workaround followed. This is an environment/approval
-block, not a failing interaction assertion. Browser qualification remains
-**BLOCKED_ENVIRONMENT**.
+Prior Back selection restoration, Explore cancellation focus and unavailable-dialog
+immediate-launcher fixes remain. Separate `panelTrigger` and `modalTrigger` now
+preserve Weather's outer launcher after its nested unavailable dialog closes.
+The browser assertion also dismisses Weather and checks exact rail-button focus.
+New Sky assertions check all controls, toggle/action semantics and isolation.
 
-JavaScript syntax, documentation/manifest/reference and whitespace checks pass.
-Resume the Browser evidence command below in normal VS Code/WSL with the existing
-Playwright installation and preview running. The revised suite expects 21 groups.
-Screenshots are buffered in memory and published with the success ledger only
-after all checks pass; failed runs preserve the prior evidence. The existing
-served-source preflight and per-response/final byte checks remain required.
-Inspect the new evidence and all three corrected interactions, then resolve their
-threads only after verification and recheck GitHub checks. Do not merge or begin R1-B.
+**No browser run was attempted in this update:** the existing sandbox/approval
+block remains. Prior launch error: `browserType.launch: Target page, context or
+browser has been closed`; `sandbox_host_linux.cc:41`,
+`shutdown: Operation not permitted (1)`. The previous approval rejection and
+launch logs remain under ignored `output/playwright/r1a/`. No retries or bypasses.
+Actual browser qualification and owner acceptance remain outstanding.
+
+The preserved 19-group ledger and all 20 PNGs are attributed explicitly to
+`60e92336f7d715fc83d174f07ac350573d0e1953` in the ledger and gallery. All seven
+recorded source hashes and 20 PNG bytes were checked against that Git revision.
+Only attribution metadata was added; no capture timestamp, test result, source
+hash or screenshot was regenerated. They do not prove subsequent changes.
+
+Four Node-only contract checks cover the nine controls plus J2000, mode isolation,
+20 identical non-Sky shell/panel strings, five unchanged shared files, and synthetic
+focus lifetime (old failure and corrected target). These are not browser proof.
+Syntax, documentation/manifest/reference and whitespace checks are required as well.
+The revised browser suite expects 22 groups in a permitted Chromium environment;
+it buffers screenshots until all checks pass and checks matching served sources.
+Update gallery/README provenance after a successful new capture; never present the
+historical record as current qualification. Keep browser-dependent threads open.
+Do not merge or start R1-B.
 
 ## Open the actual designs
 
@@ -90,8 +95,9 @@ Canonical intent/design/architecture/acceptance/master-plan authority remains in
 [acceptance](../../features/FEATURE_ACCEPTANCE.md) and
 [MASTER_PLAN](../../execution/MASTER_PLAN.md). This README is SUPPORT evidence.
 
-Revision **R1-A/01** means the delivered reference files plus their exact
-[source hashes](evidence/browser-proof.json), not a blanket acceptance of later edits.
+Revision **R1-A/01** names this design proposal series. Exact current source is
+the PR commit; the [historical source hashes](evidence/browser-proof.json) qualify
+only the explicitly named prior commit, never later edits.
 Any accepted revision must name files/states and the owner's explicit decision in
 the canonical workspace design contract. No R1-A merge is authorized by this task.
 No R1-B or later implementation until that acceptance AND separate authorization.
@@ -146,7 +152,8 @@ Original inline SVG icons share a 24px grid and 1.55px stroke.
 
 ## Browser evidence
 
-[Exact browser results, dimensions and source hashes](evidence/browser-proof.json).
+[Historical browser results, dimensions and source hashes](evidence/browser-proof.json)
+for `60e92336f7d715fc83d174f07ac350573d0e1953` only.
 20 PNGs are original local Chromium captures. Desktop 1440×900; mobile 390×844;
 additional layout checks at 320×740 and 390×667. The component sheet is 1440px wide
 with a full-page capture. Browser version and timestamp are in the ledger.
@@ -169,7 +176,7 @@ Additional proof: [Sky controls](evidence/sky-tools.png),
 
 The initial focused run passed 15 groups and exposed native dialog Tab focus
 leaving the dialog before wrapping. Reproduction logged INPUT → buttons → BODY.
-Explicit forward/reverse wrapping corrected it; the last pushed revision passed 19 groups,
+Explicit forward/reverse wrapping corrected it; the historical `60e92336` source passed 19 groups,
 including both Tab directions and Escape focus restoration. CodeQL then identified
 query-to-HTML mode flow; inherited object keys reproduced a preview failure. Fixed
 literal mode selection now rejects invalid/prototype names and markup on initial
@@ -178,6 +185,22 @@ external/provider requests. The named mode-tool arrays match exactly, and defaul
 controls pass center-point occlusion checks. Search failure/validation, nested
 panel dismissal, handoff cancel/return, unavailable approach, responsive sheet bounds,
 reduced preferences and gallery assets are checked.
+
+Run Node-only contract checks without Chromium (export the fixed reviewed baseline
+first; no dependency installation):
+
+```bash
+python3 - <<'PYBASE'
+import json, subprocess
+from pathlib import Path
+base = '53e3e7c0453c1dbd7f5852d44a020559a5370cb4'
+root = 'docs/design/adaptive-explorer-r1a/'
+names = ['reference.js', 'reference.css', 'gallery.css', 'explorer.html', 'review.html', 'system.html']
+output = Path('/tmp/r1a-static-baseline.json')
+output.write_text(json.dumps({n: subprocess.check_output(['git', 'show', base + ':' + root + n], text=True) for n in names}))
+PYBASE
+node docs/design/adaptive-explorer-r1a/verify-static.mjs /tmp/r1a-static-baseline.json
+```
 
 Reproduce using **already installed** Playwright; no dependency installation:
 
@@ -206,7 +229,7 @@ Visual inspection is supporting evidence; only the owner can accept the design.
 ## Changed-file inventory and preservation
 
 Reference sources: `index.html`, `explorer.html`, `review.html`, `system.html`,
-`reference.css`, `gallery.css`, `reference.js`; this README; `verify.mjs`;
+`reference.css`, `gallery.css`, `reference.js`; this README; `verify.mjs` and `verify-static.mjs`;
 `evidence/browser-proof.json` and the 20 linked PNGs, all inside this directory.
 
 Necessary supporting authority updates:

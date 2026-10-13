@@ -42,13 +42,15 @@ let mode = readMode(params.get('mode'));
 const surface = params.get('surface') === 'bright' ? 'bright' : params.get('surface') === 'dark' ? 'dark' : 'neutral';
 let noMotion = params.get('motion') === 'reduced' || matchMedia('(prefers-reduced-motion: reduce)').matches;
 let solid = params.get('transparency') === 'reduced';
-let lastTrigger = null, pendingDestination = null, viewState = null;
+let panelTrigger = null, modalTrigger = null, pendingDestination = null, viewState = null;
 const modal = document.querySelector('#modal');
 const app = document.querySelector('#app');
 const announce = text => { document.querySelector('#announcement').textContent = text; };
 const btn = (name,label,extra='') => `<button class="icon-button" aria-label="${label}" title="${label}" ${extra}>${icon(name)}</button>`;
 const heading = (title,kicker='') => `<div class="panel-heading"><div><div class="eyebrow">${esc(kicker)}</div><h2 id="panel-title">${esc(title)}</h2></div>${btn('close','Dismiss panel','data-close-panel')}</div>`;
 const row = (title,detail,ico='layers',state=false) => `<button class="control-row" data-toggle aria-pressed="${state}">${icon(ico)}<span class="row-copy"><strong>${title}</strong><small>${detail}</small></span><span class="switch" aria-hidden="true"></span></button>`;
+// These controls change sample UI state only; Stellarium remains disconnected.
+const skyToggle = (title,detail,ico,state=false) => row(title,detail,ico,state).replace('data-toggle',`data-toggle data-sky-control="${esc(title)}"`);
 function render() {
   const c = configs[mode];
   document.title = `${c.name} · Adaptive Explorer · R1-A/01`;
@@ -74,11 +76,11 @@ function closePanel(restore=true) {
   document.querySelector('.panel')?.remove();
   document.querySelector('.explorer').classList.remove('panel-open');
   document.querySelectorAll('[aria-expanded="true"]').forEach(e=>e.setAttribute('aria-expanded','false'));
-  if (restore && lastTrigger?.isConnected) lastTrigger.focus();
+  if (restore && panelTrigger?.isConnected) panelTrigger.focus();
 }
 function panel(content, trigger) {
   closePanel(false);
-  if (trigger?.isConnected) lastTrigger=trigger;
+  if (trigger?.isConnected) panelTrigger=trigger;
   trigger?.setAttribute('aria-expanded','true');
   const aside=document.createElement('aside'); aside.className='panel glass'; aside.setAttribute('aria-labelledby','panel-title');
   aside.innerHTML=content;
@@ -88,9 +90,9 @@ function panel(content, trigger) {
 }
 function showPanel(id,trigger) {
   let content='';
-  if(id==='constellation') content=heading('Constellations','Sky · observing')+row('Lines','Trace familiar patterns','constellation',true)+row('Names','Identify constellations','sky')+row('Artwork','Illustrated figures','eye')+'<div class="rule"></div><p>Proposed controls use Stellarium’s own observing capabilities.</p>';
-  else if(id==='eye') content=heading('Observing tools','Sky')+row('Horizon & ground','Keep the local horizon visible','terrain',true)+row('Atmosphere','Show atmospheric light','sky',true)+row('Equatorial grid','Celestial coordinate reference','orbit')+'<div class="rule"></div><p>Scene-dependent values are unavailable in this UI-only reference.</p>';
-  else if(id==='settings') content=heading('Display','Shared preferences')+`<button class="control-row" data-solid aria-pressed="${solid}">${icon('layers')}<span class="row-copy"><strong>Reduce transparency</strong><small>Opaque panels for greater clarity</small></span><span class="switch"></span></button><button class="control-row" data-motion aria-pressed="${noMotion}">${icon('eye')}<span class="row-copy"><strong>Reduce motion</strong><small>Direct changes; no travel animation</small></span><span class="switch"></span></button><div class="rule"></div><p>Keyboard: Tab to move, Enter to activate, / to search, Escape to dismiss. Explore is always available without gestures.</p>`;
+  if(mode==='sky' && id==='constellation') content=heading('Constellations','Sky · observing')+skyToggle('Constellations','Lines and names','constellation',true)+skyToggle('Constellation Art','Illustrated figures','eye')+'<div class="rule"></div><p>Design-state toggles only. Stellarium is not connected.</p>';
+  else if(mode==='sky' && id==='eye') content=heading('Observing tools','Sky')+skyToggle('Atmosphere','Atmospheric light','sky',true)+skyToggle('Landscape','Local horizon and ground','terrain',true)+skyToggle('Azimuthal Grid','Altitude and azimuth reference','orbit')+skyToggle('Equatorial Grid','Equatorial grid of date','orbit')+skyToggle('Deep Sky Objects','Nebulae, clusters and galaxies','sky',true)+'<details><summary class="control-row">Advanced observing</summary>'+skyToggle('Equatorial J2000 Grid','Fixed J2000 equatorial reference','orbit')+'</details><div class="rule"></div><p>Design-state toggles only. Stellarium is not connected; no coordinates or visibility are calculated.</p>';
+  else if(id==='settings') content=heading('Display','Shared preferences')+(mode==='sky'?skyToggle('Night Mode','Night-view preference · sample only','moon')+'<button class="control-row" data-sky-action="fullscreen" data-notice="Fullscreen action preview; no fullscreen request is made.">'+icon('target')+'<span class="row-copy"><strong>Fullscreen</strong><small>Enter or exit fullscreen · action preview</small></span>'+icon('chevron')+'</button><div class="rule"></div>':'')+`<button class="control-row" data-solid aria-pressed="${solid}">${icon('layers')}<span class="row-copy"><strong>Reduce transparency</strong><small>Opaque panels for greater clarity</small></span><span class="switch"></span></button><button class="control-row" data-motion aria-pressed="${noMotion}">${icon('eye')}<span class="row-copy"><strong>Reduce motion</strong><small>Direct changes; no travel animation</small></span><span class="switch"></span></button><div class="rule"></div><p>Keyboard: Tab to move, Enter to activate, / to search, Escape to dismiss. Explore is always available without gestures.</p>`;
   else if(id==='time') content=heading(mode==='sky'?'Observing time':'Simulation time',mode==='sky'?'Sky':'Solar System')+'<p>Time belongs to this view. Live Earth feeds retain their own timestamps.</p><dl><div><dt>Date · sample</dt><dd>13 October 2026</dd></div><div><dt>Time · sample</dt><dd>02:10 UTC</dd></div></dl><div class="actions"><button class="action" data-notice="Date/time editor state is a design sample.">Choose time</button><button class="action primary" data-notice="Return-to-now action preview; no ephemeris or clock is running.">Return to now</button></div>';
   else if(id==='location') content=heading('Observing location','Sky')+'<p>ORAS · Pennsylvania</p><div class="rule"></div><p>Your observing location controls the local sky. This reference does not request device location or calculate visibility.</p><div class="actions"><button class="action primary" data-notice="Observing-location search would open here; this is a UI sample.">Change location</button></div>';
   else if(id==='layers' && mode==='earth') content=heading('Your Earth view','Earth · layers')+'<span class="tag">Automatic imagery</span><p style="margin-top:12px">The best eligible imagery for your view, with a safe overview when detailed coverage is unavailable.</p><div class="rule"></div>'+row('Place labels','Names without visual clutter','location',true)+row('Weather','Conditions and radar','weather')+row('Aircraft','Regional coverage varies','aircraft')+row('Satellites','Orbiting objects and source time','satellite')+'<div class="rule"></div><button class="control-row" data-panel="source">'+icon('info')+'<span class="row-copy"><strong>Imagery & sources</strong><small>Credits, coverage and detail status</small></span>'+icon('chevron')+'</button>';
@@ -117,10 +119,10 @@ function openDialog(html,trigger) {
  const invoker=trigger || document.activeElement;
  // A destination button will be removed when the dialog changes state.
  // Keep the connected launcher outside the dialog as the return-focus target.
- if(invoker?.isConnected && invoker!==document.body && !modal.contains(invoker))lastTrigger=invoker;
+ if(invoker?.isConnected && invoker!==document.body && !modal.contains(invoker))modalTrigger=invoker;
  modal.innerHTML=html;modal.showModal();
 }
-function closeDialog() { modal.close(); if(lastTrigger?.isConnected)lastTrigger.focus(); }
+function closeDialog() { modal.close(); if(modalTrigger?.isConnected)modalTrigger.focus(); }
 function explore(trigger) {
  openDialog(`<div class="dialog-shell"><div class="panel-heading"><div><div class="eyebrow">One universe · four contexts</div><h2 id="dialog-title">Explore</h2></div>${btn('close','Close Explore','data-close-modal')}</div><p>Move outward through the scene, or choose a destination here.</p><div style="margin-top:18px">${Object.entries(configs).map(([id,c])=>`<button class="destination" data-destination="${id}" ${id===mode?'aria-current="true"':''}>${icon(c.icon)}<span class="row-copy"><strong>${c.name}</strong><small>${id===mode?'Current view':c.caption}</small></span>${icon('chevron')}</button>`).join('')}</div><div class="rule"></div><p class="small">Context changes are a design demonstration. Renderers are not connected.</p></div>`,trigger);
 }
