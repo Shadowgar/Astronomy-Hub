@@ -13,8 +13,8 @@ function harness(source){
  const document={body,activeElement:body,querySelector(selector){
   if(selector==='#app')return app;
   if(selector==='#modal')return modal;
-  if(selector==='[data-panel="settings"]')return rail;
-  if(selector==='[data-explore]')return explore;
+  if(selector==='[data-panel="settings"]' || selector==='[data-panel="orbit"]')return rail;
+  if(selector==='[data-explore]' || selector==='[data-search]')return explore;
   if(selector==='.panel')return aside;
   if(selector==='.explorer')return {classList:{add(){},remove(){}},append(el){aside=el;}};
   return {};
@@ -22,7 +22,7 @@ function harness(source){
  const target=()=>({isConnected:true,attributes:{},setAttribute(k,v){this.attributes[k]=v;},getAttribute(k){return this.attributes[k];},focus(){document.activeElement=this;}});
  const rail=target(),inner=target(),explore=target();
  const modal={open:false,contains(){return false;},showModal(){this.open=true;},close(){this.open=false;}};
- const context=vm.createContext({document,URLSearchParams,location:{search:'',href:'http://localhost/explorer.html'},history:{replaceState(){}},matchMedia:()=>({matches:false}),rail,inner});
+ const context=vm.createContext({document,URLSearchParams,location:{search:'',href:'http://localhost/explorer.html'},history:{state:null,replacements:0,replaceState(state){this.state=JSON.parse(JSON.stringify(state));this.replacements++;}},matchMedia:()=>({matches:false}),rail,inner});
  vm.runInContext(source.slice(0,source.indexOf("document.addEventListener('click'")),context);
  return {context,document,app,rail,inner,explore};
 }
@@ -86,4 +86,44 @@ test('Native Advanced observing disclosure has a scoped 44px minimum; other CSS 
  const html=markup(current,'sky','eye');
  assert.match(html,/<details><summary class="control-row">Advanced observing<\/summary>/);
  assert(!html.includes('tabindex="-1"'));
+});
+
+test('Moon selection survives Orbits, navigation and Back independently of the panel',()=>{
+ const h=harness(current);let restore;
+ h.context.window={addEventListener(name,handler){if(name==='popstate')restore=handler;}};
+ vm.runInContext(current.slice(current.indexOf("window.addEventListener('popstate'"),current.indexOf('\nrender();\nconst initial')),h.context);
+ vm.runInContext("mode='solar';selected('Moon','body',rail);showPanel('orbit',rail);",h.context);
+ const saved=JSON.parse(JSON.stringify(h.context.history.state));
+ assert.equal(saved.r1aView.selection?.name,'Moon');
+ assert.equal(saved.r1aView.panel,'orbit');
+ vm.runInContext("mode='moon';viewState=null;render();",h.context);
+ h.context.location.search='?mode=solar';restore({state:saved});
+ assert.equal(h.context.history.state.r1aView.selection.name,'Moon');
+ assert.equal(h.context.history.state.r1aView.selection.kind,'body');
+ assert.equal(h.context.history.state.r1aView.panel,'orbit');
+ assert.match(h.document.querySelector('.panel').innerHTML,/Orbit context/);
+ vm.runInContext('closePanel();',h.context);
+ assert.equal(h.context.history.state.r1aView.selection.name,'Moon');
+ assert.equal(h.context.history.state.r1aView.panel,null);
+ const dismissed=JSON.parse(JSON.stringify(h.context.history.state));
+ restore({state:dismissed});
+ assert.equal(h.document.querySelector('.panel'),null,'a dismissed card must stay closed on Back');
+ assert.equal(h.context.history.state.r1aView.selection.name,'Moon');
+ vm.runInContext("selected('Moon','body',rail);",h.context);
+ const card=JSON.parse(JSON.stringify(h.context.history.state));
+ restore({state:card});
+ assert.match(h.document.querySelector('.panel').innerHTML,/>Moon<\/h2>/,'direct selected-card restoration still works');
+});
+test('Escape with no panel leaves focus/history unchanged and dismissal clears ownership',()=>{
+ const h=harness(current);let keydown;
+ h.document.addEventListener=(name,handler)=>{if(name==='keydown')keydown=handler;};
+ vm.runInContext(current.slice(current.indexOf("document.addEventListener('keydown'"),current.indexOf("modal.addEventListener('keydown'")),h.context);
+ vm.runInContext("showPanel('weather',rail);closePanel();",h.context);
+ h.explore.focus();
+ const state=JSON.stringify(h.context.history.state), writes=h.context.history.replacements;
+ keydown({key:'Escape',target:{tagName:'BUTTON'}});
+ assert.equal(h.document.activeElement,h.explore);
+ assert.equal(JSON.stringify(h.context.history.state),state);
+ assert.equal(h.context.history.replacements,writes);
+ assert.equal(vm.runInContext('panelTrigger',h.context),null);
 });

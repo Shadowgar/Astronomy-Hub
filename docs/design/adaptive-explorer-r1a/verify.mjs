@@ -124,6 +124,33 @@ await check('Explore: cancel, change context, browser Back, body approach and un
  await page.getByRole('button',{name:'Moon',exact:true}).click();await page.getByRole('button',{name:'Approach',exact:true}).click();await page.getByRole('button',{name:'Open Moon'}).click();assert.equal(await page.locator('.explorer').getAttribute('data-mode'),'moon');
  await page.goBack();assert.equal(await page.locator('.explorer').getAttribute('data-mode'),'solar');assert.equal(await page.locator('.panel').count(),1,'selected context must return');assert.equal(await page.locator('#panel-title').innerText(),'Moon');await page.getByRole('button',{name:'Mars',exact:true}).click();await page.getByRole('button',{name:'Approach',exact:true}).click();assert.match(await page.locator('dialog').innerText(),/Mars surface is unavailable/);await page.getByRole('button',{name:'Try again',exact:true}).click();assert.match(await page.locator('dialog').innerText(),/No network request was sent/);
 });
+await check('Solar Moon selection survives Orbits and a round trip through Explore',async()=>{
+ await open('mode=solar');
+ await page.getByRole('button',{name:'Moon',exact:true}).click();
+ await page.getByRole('button',{name:'Orbits',exact:true}).click();
+ assert.deepEqual(await page.evaluate(()=>history.state.r1aView.selection),{name:'Moon',kind:'body'});
+ await page.getByRole('button',{name:'Explore',exact:true}).click();
+ await page.locator('[data-destination="moon"]').click();
+ await page.getByRole('button',{name:'Open Moon',exact:true}).click();
+ await page.goBack();
+ assert.equal(await page.locator('#panel-title').innerText(),'Orbit context');
+ assert.deepEqual(await page.evaluate(()=>history.state.r1aView.selection),{name:'Moon',kind:'body'});
+ assert.equal(await page.evaluate(()=>history.state.r1aView.panel),'orbit');
+ await page.getByRole('button',{name:'Dismiss panel',exact:true}).click();
+ assert.deepEqual(await page.evaluate(()=>history.state.r1aView.selection),{name:'Moon',kind:'body'});
+});
+await check('Escape with nothing open cannot steal Search focus or rewrite history',async()=>{
+ await open('mode=earth');
+ await page.getByRole('button',{name:'Weather',exact:true}).click();
+ await page.getByRole('button',{name:'Dismiss panel',exact:true}).click();
+ const search=page.locator('[data-search]');await search.focus();
+ const before=await page.evaluate(()=>JSON.stringify(history.state));
+ await page.keyboard.press('Escape');await page.keyboard.press('Escape');
+ assert(await search.evaluate(e=>e===document.activeElement));
+ assert.equal(await page.evaluate(()=>JSON.stringify(history.state)),before);
+ assert.equal(await page.locator('.panel').count(),0);
+ assert.equal(await page.locator('#modal').evaluate(e=>e.open),false);
+});
 await check('Back restores Sky Display launcher, expanded state and dismissal focus',async()=>{
  await open('mode=sky');
  await page.getByRole('button',{name:'Display',exact:true}).click();

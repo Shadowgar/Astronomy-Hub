@@ -10,7 +10,7 @@ individual layouts, component geometry and visual references are not yet accepte
 `r1-a-adaptive-explorer-design-1`. Owner likes the current visual direction;
 this update preserves the layout, shared glass, navigation and other-mode designs.
 The latest two corrections follow reviewed head
-`90f21c093c1dc7eed0408b7310ecc6e01255de1e`.
+`7eeda9e90c6c3332e5edec9f340a3ffc20ee739c`.
 
 | Existing Sky group | Controls | Reference behavior |
 | --- | --- | --- |
@@ -38,6 +38,12 @@ remains a native keyboard-accessible `<summary>`; its Sky-scoped rule provides a
 44px minimum height and width. The rest of the stylesheet and surrounding markup
 are unchanged. Pending browser checks cover 320px/390px touch bounds, Enter/Space
 activation, Tab access to J2000, and focus return.
+Selection now persists independently of the open tool panel: selecting Moon,
+opening Orbits, leaving through Explore and using Back restores Orbits while
+retaining Moon context. Dismissing a panel preserves selection without reopening
+its card on a subsequent Back. Direct selected-card restoration remains supported.
+Escape does nothing when no dialog or panel is open; panel dismissal clears stale
+focus ownership. Existing native dialog Escape handling remains unchanged.
 
 **No browser run was attempted in this update:** the existing sandbox/approval
 block remains. Prior launch error: `browserType.launch: Target page, context or
@@ -52,14 +58,14 @@ recorded source hashes and 20 PNG bytes were checked against that Git revision.
 Only attribution metadata was added; no capture timestamp, test result, source
 hash or screenshot was regenerated. They do not prove subsequent changes.
 
-Six Node-only contract checks cover the nine controls plus J2000, mode isolation,
-20 identical non-Sky shell/panel strings, four unchanged shared files, the single
-scoped CSS addition, and synthetic focus lifetime/history restoration. The two
-new checks reproduced the missing Display expanded state and disclosure minimum
-before correction (4 passed / 2 failed); afterward all 6 pass. These are not
-browser proof. Red/green logs are preserved in ignored output/playwright/r1a/.
+Eight Node-only contract checks cover existing Sky controls, mode/layout/CSS
+preservation, prior focus corrections and the two new state regressions. Before
+these fixes, 6 passed / 2 failed: tool opening erased Moon selection and unhandled
+Escape stole focus. After correction all 8 pass, including selected-card retention
+and cleared panel ownership. These are not browser proof. Exact red/green logs are
+in ignored output/playwright/r1a/context-escape-{red,green}.log.
 Syntax, documentation/manifest/reference and whitespace checks are required as well.
-The revised browser suite expects 24 groups in a permitted Chromium environment;
+The revised browser suite expects 26 groups in a permitted Chromium environment;
 it buffers screenshots until all checks pass and checks matching served sources.
 Update gallery/README provenance after a successful new capture; never present the
 historical record as current qualification. Keep browser-dependent threads open.

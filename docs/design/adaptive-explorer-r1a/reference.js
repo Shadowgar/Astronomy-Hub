@@ -72,11 +72,16 @@ function render() {
 }
 function rememberView() { history.replaceState({r1aView:viewState},'',location.href); }
 function closePanel(restore=true) {
-  if(restore){viewState=null;rememberView();}
-  document.querySelector('.panel')?.remove();
+  const openPanel=document.querySelector('.panel');
+  if(!openPanel)return;
+  if(restore){viewState={...viewState,panel:null};rememberView();}
+  openPanel.remove();
   document.querySelector('.explorer').classList.remove('panel-open');
   document.querySelectorAll('[aria-expanded="true"]').forEach(e=>e.setAttribute('aria-expanded','false'));
-  if (restore && panelTrigger?.isConnected) panelTrigger.focus();
+  if(restore){
+   const trigger=panelTrigger;panelTrigger=null;
+   if(trigger?.isConnected)trigger.focus();
+  }
 }
 function panel(content, trigger) {
   closePanel(false);
@@ -106,14 +111,14 @@ function showPanel(id,trigger) {
   else if(id==='source') content=heading('Sources & detail',configs[mode].name)+`<span class="tag">UI reference · no imagery loaded</span><div class="rule"></div><p>${mode==='earth'?'Automatic selection chooses eligible detail where coverage allows. Source, acquisition date and resolution must describe the visible imagery.':'Attribution and source-specific coverage will describe the actual displayed content.'}</p><dl><div><dt>Visible source</dt><dd>None · neutral canvas</dd></div><div><dt>Detail / date</dt><dd>Not available</dd></div></dl>${mode==='earth'?'<p>Persistent imagery cache: not connected. Storage status and clear controls appear only when implemented and qualified.</p>':''}`;
   else content=heading(mode==='moon'?'About the Moon':configs[mode].name,'Exploration context')+`<p>${mode==='moon'?'Earth’s natural satellite. Surface exploration is a proposed experience; data coverage, coordinates and terrain remain qualification gates.':'Explore this context using the canvas and the compact Explore alternative.'}</p><div class="actions"><button class="action primary" data-explore>Explore elsewhere</button></div>`;
   panel(content,trigger);
-  viewState={panel:id};rememberView();
+  viewState={...viewState,panel:id};rememberView();
 }
 function selected(name,kind,trigger) {
   const celestial=kind==='body';
   const title=celestial?'Celestial body':kind==='landmark'?'Lunar landmark':kind==='sky'?'Celestial selection':'Earth · search selection';
   const copy=celestial?`${name} · selection preview. Physical and orbital values will come from qualified sources.`:kind==='landmark'?`${name} · named lunar feature. Exact coordinates, imagery and terrain details are unavailable in this design reference.`:kind==='sky'?`${name} · Stellarium object selection preview. Visibility, coordinates and camera focus are not calculated here.`:`${name} · sample result. A real geocoder and camera destination must be qualified separately.`;
   panel(heading(name,title)+`<p>${esc(copy)}</p><div class="rule"></div><dl><div><dt>Source state</dt><dd>Design sample</dd></div><div><dt>${celestial?'Orbit / distance':'Position / detail'}</dt><dd>Not connected</dd></div></dl><div class="actions"><button class="action" data-notice="Focus affordance preview; no camera is connected.">Focus</button><button class="action primary" ${celestial?`data-approach="${esc(name)}"`:'data-notice="Selection detail preview; no live data is connected."'}>${celestial?'Approach':'Details'}</button></div><div class="hint">Dismiss closes the card without changing the view.</div>`,trigger);
-  viewState={selection:{name,kind}};rememberView();
+  viewState={selection:{name,kind},panel:'selection'};rememberView();
 }
 function openDialog(html,trigger) {
  const invoker=trigger || document.activeElement;
@@ -193,7 +198,7 @@ document.addEventListener('click', e=>{
 });
 document.addEventListener('keydown',e=>{
  if(e.key==='/' && !modal.open && !['INPUT','TEXTAREA'].includes(e.target.tagName)){e.preventDefault();search(document.querySelector('[data-search]'));}
- if(e.key==='Escape' && !modal.open)closePanel();
+ if(e.key==='Escape' && !modal.open && document.querySelector('.panel'))closePanel();
 });
 modal.addEventListener('keydown',e=>{
  if(e.key!=='Tab')return;
@@ -211,9 +216,12 @@ window.addEventListener('popstate',event=>{
  const saved=event.state?.r1aView;
  const selection=saved?.selection;
  const kind={sky:'sky',solar:'body',earth:'place',moon:'landmark'}[mode];
- if(selection?.kind===kind && typeof selection.name==='string' && selection.name.length<=128){
-  const trigger=[...document.querySelectorAll('[data-body]')].find(el=>el.dataset.body===selection.name) || document.querySelector('[data-search]');
-  selected(selection.name,kind,trigger);
+ const restoredSelection=selection?.kind===kind && typeof selection.name==='string' && selection.name.length<=128 ? {name:selection.name,kind} : null;
+ // The selection is navigation context; the panel is independently dismissible.
+ viewState={selection:restoredSelection,panel:null};
+ if(restoredSelection && (saved.panel==='selection' || saved.panel===undefined)){
+  const trigger=[...document.querySelectorAll('[data-body]')].find(el=>el.dataset.body===restoredSelection.name) || document.querySelector('[data-search]');
+  selected(restoredSelection.name,kind,trigger);
  } else {
   const allowed=[...configs[mode].tools.map(([id])=>id),'source','context',...(mode==='sky'?['location','time']:[])];
   const id=allowed.find(value=>value===saved?.panel);
@@ -222,6 +230,7 @@ window.addEventListener('popstate',event=>{
    if(trigger)showPanel(id,trigger);
   }
  }
+ rememberView();
  announce(`${configs[mode].name} layout and contextual panel restored.`);
 });
 render();
