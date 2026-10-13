@@ -46,7 +46,9 @@ await check('Preview preflight: all seven served visual sources match the local 
 // A mismatched preview must not overwrite any screenshot or success ledger.
 if(failures.length){await browser.close();process.exit(1);}
 const open=async(query)=>{await page.goto(`${base}/explorer.html?${query}`);await page.evaluate(()=>document.fonts.ready);};
-const shot=async(name)=>page.screenshot({path:path.join(evidence,`${name}.png`),fullPage:true});
+// Keep existing evidence untouched unless every check succeeds.
+const screenshots=new Map();
+const shot=async(name)=>screenshots.set(name,await page.screenshot({fullPage:true}));
 const tools={sky:['Constellations','Observing tools','Display'],solar:['Orbits','Simulation time','Display'],earth:['Layers','Weather','Aircraft','Satellites'],moon:['Landmarks','Scientific layers','Terrain & navigation','About the Moon']};
 const modes=Object.keys(tools);
 for(const [size,viewport] of Object.entries({desktop:{width:1440,height:900},mobile:{width:390,height:844}})){
@@ -96,7 +98,33 @@ await check('Explore: cancel, change context, browser Back, body approach and un
  await open('mode=sky');await page.getByRole('button',{name:'Explore',exact:true}).click();await page.locator('[data-destination="earth"]').click();await page.getByRole('button',{name:'Stay here'}).click();assert.equal(await page.locator('.explorer').getAttribute('data-mode'),'sky');
  await page.getByRole('button',{name:'Explore',exact:true}).click();await page.locator('[data-destination="solar"]').click();await page.getByRole('button',{name:'Open Solar System'}).click();assert.equal(await page.locator('.explorer').getAttribute('data-mode'),'solar');
  await page.getByRole('button',{name:'Moon',exact:true}).click();await page.getByRole('button',{name:'Approach',exact:true}).click();await page.getByRole('button',{name:'Open Moon'}).click();assert.equal(await page.locator('.explorer').getAttribute('data-mode'),'moon');
- await page.goBack();assert.equal(await page.locator('.explorer').getAttribute('data-mode'),'solar');await page.getByRole('button',{name:'Mars',exact:true}).click();await page.getByRole('button',{name:'Approach',exact:true}).click();assert.match(await page.locator('dialog').innerText(),/Mars surface is unavailable/);await page.getByRole('button',{name:'Try again',exact:true}).click();assert.match(await page.locator('dialog').innerText(),/No network request was sent/);
+ await page.goBack();assert.equal(await page.locator('.explorer').getAttribute('data-mode'),'solar');assert.equal(await page.locator('.panel').count(),1,'selected context must return');assert.equal(await page.locator('#panel-title').innerText(),'Moon');await page.getByRole('button',{name:'Mars',exact:true}).click();await page.getByRole('button',{name:'Approach',exact:true}).click();assert.match(await page.locator('dialog').innerText(),/Mars surface is unavailable/);await page.getByRole('button',{name:'Try again',exact:true}).click();assert.match(await page.locator('dialog').innerText(),/No network request was sent/);
+});
+await check('Explore cancellation preserves the original connected keyboard trigger',async()=>{
+ await open('mode=sky');
+ for(const action of ['Stay here','Cancel transition']) {
+  const trigger=page.getByRole('button',{name:'Explore',exact:true});
+  await trigger.click();await page.locator('[data-destination="earth"]').click();
+  await page.getByRole('button',{name:action,exact:true}).click();
+  assert(await trigger.evaluate(e=>e===document.activeElement),'focus must return to Explore');
+ }
+});
+await check('Earth unavailable dialog restores its immediate launcher inside the open panel',async()=>{
+ await open('mode=earth');
+ await page.getByRole('button',{name:'Weather',exact:true}).click();
+ const launcher=page.getByRole('button',{name:'View unavailable state',exact:true});
+ const original=await launcher.elementHandle();
+ for(const dismissal of ['Keep exploring','Close unavailable message','Escape']) {
+  await launcher.focus();await page.keyboard.press('Enter');
+  assert.equal(await page.locator('#modal').evaluate(e=>e.open),true);
+  assert.equal(await page.locator('#dialog-title').innerText(),'Weather is unavailable');
+  if(dismissal==='Escape')await page.keyboard.press('Escape');
+  else await page.getByRole('button',{name:dismissal,exact:true}).click();
+  assert.equal(await page.locator('#modal').evaluate(e=>e.open),false);
+  assert.equal(await page.locator('.panel').count(),1,'originating panel remains open');
+  assert(await original.evaluate(e=>e.isConnected && e===document.activeElement),'focus returns to the exact unavailable-state launcher');
+ }
+ await original.dispose();
 });
 await check('Reduced motion and transparency: explicit preferences and OS motion preference',async()=>{
  await open('mode=sky&state=settings');await page.locator('[data-solid]').click();await page.locator('[data-motion]').click();
@@ -144,7 +172,8 @@ await check('Proof binding: every loaded source matched and local files stayed u
 if(failures.length){await browser.close();console.error(`${checks.length} passed; ${failures.length} failed; success ledger not written`);process.exit(1);}
 const hashes=sourceHashes;
 const report={revision:'R1-A/01',acceptance:'PENDING OWNER VISUAL ACCEPTANCE',evidenceClass:'Local Chromium headless design reference; no renderer or physical-device qualification',browser:browser.version(),capturedAt:new Date().toISOString(),viewports:{desktop:[1440,900],mobile:[390,844],additional:[[320,740],[390,667]]},checks,failures,errors,externalRequests:[...requests].filter(u=>!u.startsWith(base+'/')),sourceSha256:hashes,servedSourceSha256:hashes,previewUrl:base,proofBinding:'Preflight and every browser-loaded visual source matched the local snapshot; local sources rechecked before ledger write'};
-await writeFile(path.join(evidence,'browser-proof.json'),JSON.stringify(report,null,2)+'\n');
 await browser.close();
+for(const [name,bytes] of screenshots)await writeFile(path.join(evidence,`${name}.png`),bytes);
+await writeFile(path.join(evidence,'browser-proof.json'),JSON.stringify(report,null,2)+'\n');
 console.log(`${checks.length} passed; ${failures.length} failed`);
 if(failures.length)process.exitCode=1;

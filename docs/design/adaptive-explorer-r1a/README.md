@@ -4,6 +4,51 @@
 proposal, not the application or permission to implement it. Direction is approved;
 individual layouts, component geometry and visual references are not yet accepted.
 
+## Interaction corrections — BLOCKED_ENVIRONMENT
+
+[PR #73](https://github.com/Shadowgar/Astronomy-Hub/pull/73), branch
+`r1-a-adaptive-explorer-design-1`: three corrections follow reviewed head
+`60e92336f7d715fc83d174f07ac350573d0e1953`. They are implemented in this design
+reference but **not browser-qualified**:
+
+- Browser Back retains the selected context card (Solar System → Moon → Back).
+  History stores the selection/panel and restores validated mode-compatible state.
+  A regression assertion checks the restored Moon card.
+- Cancelling an Explore handoff retains the connected launcher outside the dialog
+  as its focus-return target. Assertions check Stay here and Cancel transition.
+- Earth contextual-layer unavailable dialogs receive their actual clicked button
+  through `unavailable(title, trigger)` to `openDialog()`. Assertions open Weather's
+  unavailable dialog by keyboard, dismiss via Keep exploring, close button and
+  Escape, and require the exact original button to remain connected and focused
+  while the originating panel stays open. The Mars unavailable path also passes
+  its immediate launcher explicitly.
+
+Correction files: `reference.js` and `verify.mjs`; this README records qualification.
+All three review threads remain unresolved until browser verification. The local
+preview serves these corrections; the gallery and browser ledger remain preserved
+historical proof for the earlier pushed source, **not proof for these corrections**.
+No owner visual acceptance or merge readiness is claimed.
+
+Earlier automatic approval infrastructure reported **Selected model is at capacity**.
+The latest restricted qualification attempt exited 1 before any tests executed:
+`browserType.launch: Target page, context or browser has been closed`, with
+`shutdown: Operation not permitted (1)` in `sandbox_host_linux.cc:41`.
+The exact local log is `output/playwright/r1a/interaction-final.log` (ignored output).
+A subsequent approval request was rejected as an additional escalated retry
+contrary to the owner's stop-retry instruction. That action did not execute;
+no further browser retry or workaround followed. This is an environment/approval
+block, not a failing interaction assertion. Browser qualification remains
+**BLOCKED_ENVIRONMENT**.
+
+JavaScript syntax, documentation/manifest/reference and whitespace checks pass.
+Resume the Browser evidence command below in normal VS Code/WSL with the existing
+Playwright installation and preview running. The revised suite expects 21 groups.
+Screenshots are buffered in memory and published with the success ledger only
+after all checks pass; failed runs preserve the prior evidence. The existing
+served-source preflight and per-response/final byte checks remain required.
+Inspect the new evidence and all three corrected interactions, then resolve their
+threads only after verification and recheck GitHub checks. Do not merge or begin R1-B.
+
 ## Open the actual designs
 
 [Visual gallery](index.html) · [Shared components and tokens](system.html) ·
@@ -124,7 +169,7 @@ Additional proof: [Sky controls](evidence/sky-tools.png),
 
 The initial focused run passed 15 groups and exposed native dialog Tab focus
 leaving the dialog before wrapping. Reproduction logged INPUT → buttons → BODY.
-Explicit forward/reverse wrapping corrected it; final run passes 19 groups,
+Explicit forward/reverse wrapping corrected it; the last pushed revision passed 19 groups,
 including both Tab directions and Escape focus restoration. CodeQL then identified
 query-to-HTML mode flow; inherited object keys reproduced a preview failure. Fixed
 literal mode selection now rejects invalid/prototype names and markup on initial

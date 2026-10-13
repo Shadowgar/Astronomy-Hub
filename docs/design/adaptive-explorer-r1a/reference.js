@@ -42,12 +42,12 @@ let mode = readMode(params.get('mode'));
 const surface = params.get('surface') === 'bright' ? 'bright' : params.get('surface') === 'dark' ? 'dark' : 'neutral';
 let noMotion = params.get('motion') === 'reduced' || matchMedia('(prefers-reduced-motion: reduce)').matches;
 let solid = params.get('transparency') === 'reduced';
-let lastTrigger = null, pendingDestination = null;
+let lastTrigger = null, pendingDestination = null, viewState = null;
 const modal = document.querySelector('#modal');
 const app = document.querySelector('#app');
 const announce = text => { document.querySelector('#announcement').textContent = text; };
 const btn = (name,label,extra='') => `<button class="icon-button" aria-label="${label}" title="${label}" ${extra}>${icon(name)}</button>`;
-const heading = (title,kicker='') => `<div class="panel-heading"><div><div class="eyebrow">${kicker}</div><h2 id="panel-title">${title}</h2></div>${btn('close','Dismiss panel','data-close-panel')}</div>`;
+const heading = (title,kicker='') => `<div class="panel-heading"><div><div class="eyebrow">${esc(kicker)}</div><h2 id="panel-title">${esc(title)}</h2></div>${btn('close','Dismiss panel','data-close-panel')}</div>`;
 const row = (title,detail,ico='layers',state=false) => `<button class="control-row" data-toggle aria-pressed="${state}">${icon(ico)}<span class="row-copy"><strong>${title}</strong><small>${detail}</small></span><span class="switch" aria-hidden="true"></span></button>`;
 function render() {
   const c = configs[mode];
@@ -68,7 +68,9 @@ function render() {
     <footer class="footer"><button class="source-link" data-panel="source">${icon('info')}${c.credit}</button><span class="design-note">Design sample · no live data</span></footer>
   </section>`;
 }
+function rememberView() { history.replaceState({r1aView:viewState},'',location.href); }
 function closePanel(restore=true) {
+  if(restore){viewState=null;rememberView();}
   document.querySelector('.panel')?.remove();
   document.querySelector('.explorer').classList.remove('panel-open');
   document.querySelectorAll('[aria-expanded="true"]').forEach(e=>e.setAttribute('aria-expanded','false'));
@@ -102,14 +104,22 @@ function showPanel(id,trigger) {
   else if(id==='source') content=heading('Sources & detail',configs[mode].name)+`<span class="tag">UI reference · no imagery loaded</span><div class="rule"></div><p>${mode==='earth'?'Automatic selection chooses eligible detail where coverage allows. Source, acquisition date and resolution must describe the visible imagery.':'Attribution and source-specific coverage will describe the actual displayed content.'}</p><dl><div><dt>Visible source</dt><dd>None · neutral canvas</dd></div><div><dt>Detail / date</dt><dd>Not available</dd></div></dl>${mode==='earth'?'<p>Persistent imagery cache: not connected. Storage status and clear controls appear only when implemented and qualified.</p>':''}`;
   else content=heading(mode==='moon'?'About the Moon':configs[mode].name,'Exploration context')+`<p>${mode==='moon'?'Earth’s natural satellite. Surface exploration is a proposed experience; data coverage, coordinates and terrain remain qualification gates.':'Explore this context using the canvas and the compact Explore alternative.'}</p><div class="actions"><button class="action primary" data-explore>Explore elsewhere</button></div>`;
   panel(content,trigger);
+  viewState={panel:id};rememberView();
 }
 function selected(name,kind,trigger) {
   const celestial=kind==='body';
   const title=celestial?'Celestial body':kind==='landmark'?'Lunar landmark':kind==='sky'?'Celestial selection':'Earth · search selection';
   const copy=celestial?`${name} · selection preview. Physical and orbital values will come from qualified sources.`:kind==='landmark'?`${name} · named lunar feature. Exact coordinates, imagery and terrain details are unavailable in this design reference.`:kind==='sky'?`${name} · Stellarium object selection preview. Visibility, coordinates and camera focus are not calculated here.`:`${name} · sample result. A real geocoder and camera destination must be qualified separately.`;
-  panel(heading(name,title)+`<p>${esc(copy)}</p><div class="rule"></div><dl><div><dt>Source state</dt><dd>Design sample</dd></div><div><dt>${celestial?'Orbit / distance':'Position / detail'}</dt><dd>Not connected</dd></div></dl><div class="actions"><button class="action" data-notice="Focus affordance preview; no camera is connected.">Focus</button><button class="action primary" ${celestial?`data-approach="${name}"`:'data-notice="Selection detail preview; no live data is connected."'}>${celestial?'Approach':'Details'}</button></div><div class="hint">Dismiss closes the card without changing the view.</div>`,trigger);
+  panel(heading(name,title)+`<p>${esc(copy)}</p><div class="rule"></div><dl><div><dt>Source state</dt><dd>Design sample</dd></div><div><dt>${celestial?'Orbit / distance':'Position / detail'}</dt><dd>Not connected</dd></div></dl><div class="actions"><button class="action" data-notice="Focus affordance preview; no camera is connected.">Focus</button><button class="action primary" ${celestial?`data-approach="${esc(name)}"`:'data-notice="Selection detail preview; no live data is connected."'}>${celestial?'Approach':'Details'}</button></div><div class="hint">Dismiss closes the card without changing the view.</div>`,trigger);
+  viewState={selection:{name,kind}};rememberView();
 }
-function openDialog(html,trigger) { if(trigger)lastTrigger=trigger; modal.innerHTML=html; modal.showModal(); }
+function openDialog(html,trigger) {
+ const invoker=trigger || document.activeElement;
+ // A destination button will be removed when the dialog changes state.
+ // Keep the connected launcher outside the dialog as the return-focus target.
+ if(invoker?.isConnected && invoker!==document.body && !modal.contains(invoker))lastTrigger=invoker;
+ modal.innerHTML=html;modal.showModal();
+}
 function closeDialog() { modal.close(); if(lastTrigger?.isConnected)lastTrigger.focus(); }
 function explore(trigger) {
  openDialog(`<div class="dialog-shell"><div class="panel-heading"><div><div class="eyebrow">One universe · four contexts</div><h2 id="dialog-title">Explore</h2></div>${btn('close','Close Explore','data-close-modal')}</div><p>Move outward through the scene, or choose a destination here.</p><div style="margin-top:18px">${Object.entries(configs).map(([id,c])=>`<button class="destination" data-destination="${id}" ${id===mode?'aria-current="true"':''}>${icon(c.icon)}<span class="row-copy"><strong>${c.name}</strong><small>${id===mode?'Current view':c.caption}</small></span>${icon('chevron')}</button>`).join('')}</div><div class="rule"></div><p class="small">Context changes are a design demonstration. Renderers are not connected.</p></div>`,trigger);
@@ -149,9 +159,9 @@ function results() {
  }
  document.querySelector('#results').innerHTML=`<div class="eyebrow">${value?'Matching samples':'Try a sample'}</div>`+(choices.length?choices.map(([name,detail])=>`<button class="destination" data-result="${esc(name)}">${icon(mode==='earth'?'location':configs[mode].icon)}<span class="row-copy"><strong>${esc(name)}</strong><small>${detail}</small></span>${icon('chevron')}</button>`).join(''):'<p class="search-feedback">No matching sample. Try another name or, on Earth, latitude and longitude.</p>');
 }
-function unavailable(title='This view') {
+function unavailable(title='This view',trigger) {
  if(modal.open)modal.close();
- openDialog(`<div class="dialog-shell"><div class="panel-heading"><div><div class="eyebrow">Unavailable state · sample</div><h2 id="dialog-title">${esc(title)} is unavailable</h2></div>${btn('close','Close unavailable message','data-close-modal')}</div><p>Keep exploring your current view. You can try again when the source is available.</p><div class="actions"><button class="action" data-close-modal>Keep exploring</button><button class="action primary" data-retry>Try again</button></div><div class="hint">Failure-state demonstration · no provider request</div></div>`);
+ openDialog(`<div class="dialog-shell"><div class="panel-heading"><div><div class="eyebrow">Unavailable state · sample</div><h2 id="dialog-title">${esc(title)} is unavailable</h2></div>${btn('close','Close unavailable message','data-close-modal')}</div><p>Keep exploring your current view. You can try again when the source is available.</p><div class="actions"><button class="action" data-close-modal>Keep exploring</button><button class="action primary" data-retry>Try again</button></div><div class="hint">Failure-state demonstration · no provider request</div></div>`,trigger);
 }
 function toast(text) { document.querySelector('.toast')?.remove(); const el=document.createElement('div'); el.className='toast glass'; el.setAttribute('role','status'); el.textContent=text; document.querySelector('.explorer').append(el); setTimeout(()=>el.remove(),3800); }
 document.addEventListener('click', e=>{
@@ -164,18 +174,18 @@ document.addEventListener('click', e=>{
  else if(b.dataset.destination) handoff(b.dataset.destination,b);
  else if(b.hasAttribute('data-outward')) handoff(mode==='sky'?'earth':mode==='moon'?'solar':mode==='earth'?'solar':'sky',b);
  else if(b.hasAttribute('data-continue')) {
-  modal.close(); mode=readMode(pendingDestination); params.set('mode',mode); params.delete('state');
-  history.pushState({},'',`${location.pathname}?${params}`);render();document.querySelector('[data-explore]').focus();announce(`${configs[mode].name} design layout opened. No renderer is connected.`);
+  modal.close(); rememberView(); mode=readMode(pendingDestination); viewState=null; params.set('mode',mode); params.delete('state');
+  history.pushState({r1aView:null},'',`${location.pathname}?${params}`);render();document.querySelector('[data-explore]').focus();announce(`${configs[mode].name} design layout opened. No renderer is connected.`);
  }
  else if(b.dataset.body) selected(b.dataset.body,'body',b);
  else if(b.dataset.landmark) selected(b.dataset.landmark,'landmark',b);
- else if(b.dataset.approach) { if(b.dataset.approach==='Moon') handoff('moon',b); else if(b.dataset.approach==='Earth') handoff('earth',b); else unavailable('Mars surface'); }
+ else if(b.dataset.approach) { if(b.dataset.approach==='Moon') handoff('moon',b); else if(b.dataset.approach==='Earth') handoff('earth',b); else unavailable('Mars surface',b); }
  else if(b.dataset.result) { const name=b.dataset.result; modal.close(); selected(name,mode==='solar'?'body':mode==='moon'?'landmark':mode==='sky'?'sky':'place',document.querySelector('[data-search]')); }
  else if(b.hasAttribute('data-toggle')) { b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true'); announce('Design-state toggle changed; no live layer is connected.'); }
  else if(b.hasAttribute('data-solid')) { solid=!solid; document.body.classList.toggle('solid',solid); document.querySelector('.explorer').classList.toggle('solid',solid); b.setAttribute('aria-pressed',solid); }
  else if(b.hasAttribute('data-motion')) { noMotion=!noMotion;document.body.classList.toggle('no-motion',noMotion);b.setAttribute('aria-pressed',noMotion); }
  else if(b.hasAttribute('data-play')) { const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);b.innerHTML=icon(on?'pause':'play'); b.setAttribute('aria-label',on?'Pause time demonstration':'Play time demonstration');toast('Time-control design state only; no clock is running.'); }
- else if(b.dataset.unavailable) unavailable(b.dataset.unavailable);
+ else if(b.dataset.unavailable) unavailable(b.dataset.unavailable,b);
  else if(b.hasAttribute('data-retry')) { const hint=modal.querySelector('.hint'); hint.setAttribute('role','status'); hint.textContent='Still unavailable in this design sample. No network request was sent.'; }
  else if(b.dataset.notice) toast(b.dataset.notice);
 });
@@ -192,7 +202,23 @@ modal.addEventListener('keydown',e=>{
  else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first.focus();}
 });
 modal.addEventListener('cancel',e=>{e.preventDefault();closeDialog();});
-window.addEventListener('popstate',()=>{if(modal.open)modal.close(); const m=new URLSearchParams(location.search).get('mode');mode=readMode(m); render();announce(`${configs[mode].name} layout restored.`);});
+window.addEventListener('popstate',event=>{
+ if(modal.open)modal.close();
+ const restoredParams=new URLSearchParams(location.search);
+ mode=readMode(restoredParams.get('mode'));viewState=null;render();
+ const saved=event.state?.r1aView;
+ const selection=saved?.selection;
+ const kind={sky:'sky',solar:'body',earth:'place',moon:'landmark'}[mode];
+ if(selection?.kind===kind && typeof selection.name==='string' && selection.name.length<=128){
+  const trigger=[...document.querySelectorAll('[data-body]')].find(el=>el.dataset.body===selection.name) || document.querySelector('[data-search]');
+  selected(selection.name,kind,trigger);
+ } else {
+  const allowed=[...configs[mode].tools.map(([id])=>id),'source','context',...(mode==='sky'?['location','time']:[])];
+  const id=allowed.find(value=>value===saved?.panel);
+  if(id)showPanel(id,document.querySelector('[data-explore]'));
+ }
+ announce(`${configs[mode].name} layout and contextual panel restored.`);
+});
 render();
 const initial=params.get('state');
 if(initial==='selected') selected(mode==='solar'?'Mars':mode==='moon'?'Tycho':mode==='sky'?'Vega':'Pittsburgh',mode==='solar'?'body':mode==='moon'?'landmark':mode==='sky'?'sky':'place',document.querySelector('[data-search]'));
