@@ -123,8 +123,11 @@ Additional proof: [Sky controls](evidence/sky-tools.png),
 
 The initial focused run passed 15 groups and exposed native dialog Tab focus
 leaving the dialog before wrapping. Reproduction logged INPUT → buttons → BODY.
-Explicit forward/reverse wrapping corrected it; final run passes 16 groups,
-including both Tab directions and Escape focus restoration. No script errors or
+Explicit forward/reverse wrapping corrected it; final run passes 17 groups,
+including both Tab directions and Escape focus restoration. CodeQL then identified
+query-to-HTML mode flow; inherited object keys reproduced a preview failure. Fixed
+literal mode selection now rejects invalid/prototype names and markup on initial
+load and history restoration, without passing query text into generated HTML. No script errors or
 external/provider requests. The named mode-tool arrays match exactly, and default
 controls pass center-point occlusion checks. Search failure/validation, nested
 panel dismissal, handoff cancel/return, unavailable approach, responsive sheet bounds,

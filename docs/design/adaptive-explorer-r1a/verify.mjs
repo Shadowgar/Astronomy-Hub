@@ -95,6 +95,16 @@ await check('Gallery, token reference and mobile review open without missing loc
   if(file==='system.html') await shot('shared-system');
  }
 });
+await check('URL modes: invalid and inherited keys cannot enter HTML on load or history restoration',async()=>{
+ for(const value of ['constructor','__proto__','toString','<img src=x onerror=alert(1)>']) {
+  await open(`mode=${encodeURIComponent(value)}`);
+  assert.equal(await page.evaluate(()=>document.querySelector('.explorer')?.dataset.mode),'sky');
+  await open('mode=earth');
+  await page.evaluate(v=>{history.pushState({},'',`?mode=${encodeURIComponent(v)}`);dispatchEvent(new PopStateEvent('popstate'));},value);
+  assert.equal(await page.locator('.explorer').getAttribute('data-mode'),'sky');
+  assert.equal(await page.locator('img').count(),0);
+ }
+});
 await check('No script errors or external network/provider requests',async()=>{assert.deepEqual(errors,[]);assert.deepEqual([...requests].filter(u=>!u.startsWith(base+'/')),[]);});
 const hashes={};
 for(const file of ['explorer.html','reference.css','reference.js','index.html','gallery.css','system.html','review.html'])hashes[file]=createHash('sha256').update(await readFile(path.join(root,file))).digest('hex');

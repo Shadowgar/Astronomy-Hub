@@ -34,8 +34,12 @@ const configs = {
   moon: {name:'Moon', caption:'Explore the lunar surface', search:'Search lunar landmarks', icon:'moon', context:'Body reference', value:'Moon · Surface overview', credit:'Lunar imagery · coverage & credits', tools:[['landmark','Landmarks'],['layers','Scientific layers'],['terrain','Terrain & navigation'],['info','About the Moon']]}
 };
 const params = new URLSearchParams(location.search);
-let mode = configs[params.get('mode')] ? params.get('mode') : 'sky';
-let surface = ['neutral','bright','dark'].includes(params.get('surface')) ? params.get('surface') : 'neutral';
+// Return fixed literals, never a user-controlled string or inherited object key.
+function readMode(value) {
+ switch(value) { case 'solar': return 'solar'; case 'earth': return 'earth'; case 'moon': return 'moon'; default: return 'sky'; }
+}
+let mode = readMode(params.get('mode'));
+const surface = params.get('surface') === 'bright' ? 'bright' : params.get('surface') === 'dark' ? 'dark' : 'neutral';
 let noMotion = params.get('motion') === 'reduced' || matchMedia('(prefers-reduced-motion: reduce)').matches;
 let solid = params.get('transparency') === 'reduced';
 let lastTrigger = null, pendingDestination = null;
@@ -160,7 +164,7 @@ document.addEventListener('click', e=>{
  else if(b.dataset.destination) handoff(b.dataset.destination,b);
  else if(b.hasAttribute('data-outward')) handoff(mode==='sky'?'earth':mode==='moon'?'solar':mode==='earth'?'solar':'sky',b);
  else if(b.hasAttribute('data-continue')) {
-  modal.close(); mode=pendingDestination; params.set('mode',mode); params.delete('state');
+  modal.close(); mode=readMode(pendingDestination); params.set('mode',mode); params.delete('state');
   history.pushState({},'',`${location.pathname}?${params}`);render();document.querySelector('[data-explore]').focus();announce(`${configs[mode].name} design layout opened. No renderer is connected.`);
  }
  else if(b.dataset.body) selected(b.dataset.body,'body',b);
@@ -188,7 +192,7 @@ modal.addEventListener('keydown',e=>{
  else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first.focus();}
 });
 modal.addEventListener('cancel',e=>{e.preventDefault();closeDialog();});
-window.addEventListener('popstate',()=>{if(modal.open)modal.close(); const m=new URLSearchParams(location.search).get('mode');mode=configs[m]?m:'sky'; render();announce(`${configs[mode].name} layout restored.`);});
+window.addEventListener('popstate',()=>{if(modal.open)modal.close(); const m=new URLSearchParams(location.search).get('mode');mode=readMode(m); render();announce(`${configs[mode].name} layout restored.`);});
 render();
 const initial=params.get('state');
 if(initial==='selected') selected(mode==='solar'?'Mars':mode==='moon'?'Tycho':mode==='sky'?'Vega':'Pittsburgh',mode==='solar'?'body':mode==='moon'?'landmark':mode==='sky'?'sky':'place',document.querySelector('[data-search]'));

@@ -3,7 +3,7 @@
   "acceptance": "PENDING OWNER VISUAL ACCEPTANCE",
   "evidenceClass": "Local Chromium headless design reference; no renderer or physical-device qualification",
   "browser": "145.0.7632.6",
-  "capturedAt": "2026-10-13T06:33:06.945Z",
+  "capturedAt": "2026-10-13T06:39:27.695Z",
   "viewports": {
     "desktop": [
       1440,
@@ -40,6 +40,7 @@
     "Reduced motion and transparency: explicit preferences and OS motion preference",
     "320px and short mobile: default layouts and bottom sheets stay within viewport",
     "Gallery, token reference and mobile review open without missing local assets",
+    "URL modes: invalid and inherited keys cannot enter HTML on load or history restoration",
     "No script errors or external network/provider requests"
   ],
   "failures": [],
@@ -48,7 +49,7 @@
   "sourceSha256": {
     "explorer.html": "2ea02a58ef78b2b7858e1f79fc71b17d19ff506c46a521e72ab10158810f2d30",
     "reference.css": "9a44d2c46ba77049c6c9edc78a7d002dc4ab2bfba9617fce4caa141b9d10285f",
-    "reference.js": "39a2027475c1be5dc278ac5eab244da73cecea6a4ac020a584f31581ae6b0557",
+    "reference.js": "15c2bfe98a4af4a3d3143a525e2b85e1a79d375dc37907c9d6bc914224925a3a",
     "index.html": "b3d123844ae3ac65fdd33a1b074603ec9402e1d47a265d3ed3bf222159ca71e0",
     "gallery.css": "8111c0241a642420258ebd3776f2446f86040c9437b491dafe963cd28fc529db",
     "system.html": "2cc535b8106c874e94d59e9bcd9dd2b1bf5ae863bafc78e8d1376f4817259961",
