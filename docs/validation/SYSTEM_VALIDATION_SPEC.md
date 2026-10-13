@@ -6,9 +6,11 @@ The owner-approved [Adaptive Explorer requirements](../product/PRODUCT_VISION.md
 and proposed [R0–R5 checkpoints](../execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5)
 use this existing validation hierarchy. Product direction is not implementation,
 final-screen acceptance, source qualification or permission for a later package.
-Only R0 docs/governance is active; its scope needs document/authority/reference/
-manifest/whitespace checks and preservation proof, not renderer builds or Docker
-state changes. No application runtime or fresh browser success is claimed by R0.
+R0 is merged. The separately authorized R1-A design-only task requires actual
+local-browser rendering, desktop/mobile captures, contextual interaction/keyboard
+checks and document/reference/manifest/whitespace/preservation checks. Isolated
+design HTML/CSS/JS is allowed; application source, builds and Docker changes are not.
+Design-browser proof does not qualify application runtime, devices or owner taste.
 
 Future UI acceptance must cite owner-approved reference revisions and compare
 actual rendered screens/interactions against them. A coder-generated substitute,

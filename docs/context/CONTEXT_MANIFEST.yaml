@@ -14,6 +14,7 @@ tasks:
     - docs/context/CORE_CONTEXT.md
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
+    - docs/design/adaptive-explorer-r1a/README.md
     - docs/DOCUMENT_INDEX.md
     - docs/DOC_INVENTORY.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
@@ -113,6 +114,7 @@ tasks:
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
+    - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/ASTRONOMY_HUB_DIAGRAM.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
@@ -151,6 +153,7 @@ tasks:
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
+    - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
@@ -226,6 +229,7 @@ tasks:
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
+    - docs/design/adaptive-explorer-r1a/README.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md
     - docs/studies/GODS_EYE_SWE_COMPATIBILITY_STUDY.md
@@ -315,6 +319,7 @@ tasks:
     - docs/context/LIVE_SESSION_BRIEF.md
     - docs/product/PRODUCT_VISION.md
     - docs/design/UNIFIED_WORKSPACE_DESIGN_SPEC.md
+    - docs/design/adaptive-explorer-r1a/README.md
     - docs/DOCUMENT_INDEX.md
     - docs/validation/SYSTEM_VALIDATION_SPEC.md
     - docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md

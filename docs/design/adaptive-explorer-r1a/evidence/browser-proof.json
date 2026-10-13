@@ -1,0 +1,74 @@
+{
+  "revision": "R1-A/01",
+  "acceptance": "PENDING OWNER VISUAL ACCEPTANCE",
+  "evidenceClass": "Local Chromium headless design reference; no renderer or physical-device qualification",
+  "browser": "145.0.7632.6",
+  "capturedAt": "2026-10-13T06:45:03.149Z",
+  "viewports": {
+    "desktop": [
+      1440,
+      900
+    ],
+    "mobile": [
+      390,
+      844
+    ],
+    "additional": [
+      [
+        320,
+        740
+      ],
+      [
+        390,
+        667
+      ]
+    ]
+  },
+  "checks": [
+    "Preview preflight: all seven served visual sources match the local snapshot",
+    "sky desktop: isolated tools, visible controls, no overflow",
+    "solar desktop: isolated tools, visible controls, no overflow",
+    "earth desktop: isolated tools, visible controls, no overflow",
+    "moon desktop: isolated tools, visible controls, no overflow",
+    "sky mobile: isolated tools, visible controls, no overflow",
+    "solar mobile: isolated tools, visible controls, no overflow",
+    "earth mobile: isolated tools, visible controls, no overflow",
+    "moon mobile: isolated tools, visible controls, no overflow",
+    "Earth search: place, address, coordinate, ambiguity, invalid, empty and failure states",
+    "Keyboard: slash search, modal focus confinement, Escape restores trigger",
+    "Context panels: one owner, toggle state, nested sources and dismissal focus",
+    "Explore: cancel, change context, browser Back, body approach and unsupported surface",
+    "Reduced motion and transparency: explicit preferences and OS motion preference",
+    "320px and short mobile: default layouts and bottom sheets stay within viewport",
+    "Gallery, token reference and mobile review open without missing local assets",
+    "URL modes: invalid and inherited keys cannot enter HTML on load or history restoration",
+    "No script errors or external network/provider requests",
+    "Proof binding: every loaded source matched and local files stayed unchanged"
+  ],
+  "failures": [],
+  "errors": [],
+  "externalRequests": [],
+  "sourceSha256": {
+    "explorer.html": "2ea02a58ef78b2b7858e1f79fc71b17d19ff506c46a521e72ab10158810f2d30",
+    "reference.css": "9a44d2c46ba77049c6c9edc78a7d002dc4ab2bfba9617fce4caa141b9d10285f",
+    "reference.js": "15c2bfe98a4af4a3d3143a525e2b85e1a79d375dc37907c9d6bc914224925a3a",
+    "index.html": "b3d123844ae3ac65fdd33a1b074603ec9402e1d47a265d3ed3bf222159ca71e0",
+    "gallery.css": "8111c0241a642420258ebd3776f2446f86040c9437b491dafe963cd28fc529db",
+    "system.html": "2cc535b8106c874e94d59e9bcd9dd2b1bf5ae863bafc78e8d1376f4817259961",
+    "review.html": "8760395095f1c293d9adf48b1cc3b5dd5f8e4e9a3cf2659d96cc545619eb67cd"
+  },
+  "servedSourceSha256": {
+    "explorer.html": "2ea02a58ef78b2b7858e1f79fc71b17d19ff506c46a521e72ab10158810f2d30",
+    "reference.css": "9a44d2c46ba77049c6c9edc78a7d002dc4ab2bfba9617fce4caa141b9d10285f",
+    "reference.js": "15c2bfe98a4af4a3d3143a525e2b85e1a79d375dc37907c9d6bc914224925a3a",
+    "index.html": "b3d123844ae3ac65fdd33a1b074603ec9402e1d47a265d3ed3bf222159ca71e0",
+    "gallery.css": "8111c0241a642420258ebd3776f2446f86040c9437b491dafe963cd28fc529db",
+    "system.html": "2cc535b8106c874e94d59e9bcd9dd2b1bf5ae863bafc78e8d1376f4817259961",
+    "review.html": "8760395095f1c293d9adf48b1cc3b5dd5f8e4e9a3cf2659d96cc545619eb67cd"
+  },
+  "previewUrl": "http://127.0.0.1:4200",
+  "proofBinding": "Preflight and every browser-loaded visual source matched the local snapshot; local sources rechecked before ledger write",
+  "sourceRevision": "60e92336f7d715fc83d174f07ac350573d0e1953",
+  "qualificationScope": "Historical captures and 19 checks for this exact prior source revision only. Not browser qualification for later R1-A interaction or Sky-control changes.",
+  "provenanceAnnotation": "Revision attribution added after capture by comparing all seven recorded source hashes and all 20 PNGs with the named Git revision; no browser rerun or new capture."
+}

@@ -22,7 +22,10 @@ suite alone cannot promote these rows. AE IDs refer to
 | AE-10 Mobile/accessibility | Historical desktop/mobile software browser checks and existing keyboard controls | PARTIAL — full journey/assistive/reduced-motion and named physical-device matrix open |
 | AE-11 Shared visual system | ORA-6/ORA-7 design/components and historical owner acceptance | PARTIAL — Adaptive Explorer references, exact layouts and rendered owner acceptance pending |
 
-R0 is a documentation checkpoint in review, not a runtime feature marked REAL.
+R0 was owner-approved and merged in PR #72. R1-A/01 visual references are
+[available for owner review](../design/adaptive-explorer-r1a/README.md), all
+PENDING OWNER VISUAL ACCEPTANCE. Neither checkpoint is a runtime feature marked REAL.
+R1-B and later implementation remain unauthorized; AE statuses below do not advance.
 PR #71 remains OPEN/unmerged at `35dcc94c1ecc1bdd87118d6dddb8b76fb81bbe9e`;
 closed/unmerged PR #67 remains preserved at `ebdad3124fe470e3a09e369d3a56e998f29740fb`.
 Historical C5.7 scientific/provider/device gates, global coverage limits and C6

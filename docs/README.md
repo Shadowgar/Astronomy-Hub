@@ -44,7 +44,9 @@ Earth and planetary-surface controls. See [canonical product requirements](produ
 [design approval boundary](design/UNIFIED_WORKSPACE_DESIGN_SPEC.md) and the existing
 [proposed R0–R5 checkpoints](execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
 Style is approved; exact screens/layouts and future UI references remain pending.
-Only R0 documentation/governance is active. PR #71 remains unmerged with imagery,
+R0 is merged; only R1-A visual design is active. See the [editable gallery](design/adaptive-explorer-r1a/index.html)
+and [preview/evidence instructions](design/adaptive-explorer-r1a/README.md); all screens
+are PENDING OWNER VISUAL ACCEPTANCE. PR #71 remains unmerged with imagery,
 search and visual acceptance unfinished; closed/unmerged PR #67 stays preserved.
 Old C6 orders cannot authorize new work. $0 spending, provider eligibility,
 scientific/source reuse, renderer and data-preservation gates remain mandatory.

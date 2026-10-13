@@ -1,6 +1,6 @@
 # Astronomy Hub — Repository Operating Rules
 
-## Active product and execution guard — R0, 2026-10-13
+## Active product and execution guard — R1-A, 2026-10-13
 
 Owner-approved product intent is **Astronomy Hub — Adaptive Explorer**, defined in
 [PRODUCT_VISION](docs/product/PRODUCT_VISION.md) and the existing
@@ -13,11 +13,14 @@ Style direction is approved; final screens/layouts and visual references are not
 Future UI implementation requires the owner's accepted reference revision, never
 a coder-generated substitute or automatic reuse of the old ORA-6 waiver.
 
-R0 permits documentation/governance and one unmerged documentation PR only.
-R1–R5 in the existing MASTER_PLAN are proposals, not execution authority. Historical
-C5/C6/D–H orders cannot activate further development. PR #71 remains unmerged with
+R0 merged in PR #72 at `17f94289a8568f33c7287983ef46a5c5cc5427d4`.
+Current owner authorization is R1-A design references only: isolated editable
+HTML/CSS under docs/design, local browser proof, and one unmerged design PR.
+All screens are PENDING OWNER VISUAL ACCEPTANCE. R1-B and R2–R5 remain unauthorized.
+Historical C5/C6/D–H orders cannot activate further development. PR #71 remains unmerged with
 imagery/search/visual acceptance unfinished; preserve closed/unmerged PR #67.
-No source, renderer/artifact/dependency/data/Docker/production changes in this task.
+No application source, renderer/artifact/dependency/data/Docker/production changes.
+Design-reference HTML/CSS/JS is permitted only outside the application runtime.
 Existing science, source reuse, isolation, zero-cost and preservation rules continue.
 
 ## 1. Purpose
@@ -985,8 +988,8 @@ Consult `docs/architecture/UNIFIED_UNIVERSE_ARCHITECTURE.md` and ADR0009 before
 renderer/engine work. C0–C5.6 bounded packages and C5.6.5 audit evidence are
 complete; C5.6.75 is a historical documentation checkpoint superseded by merged
 PR #68. The former C5.7-D/C6 sequence is historical under R0; no later
-package is activated by those documents. Current authorization is R0 documentation
-only. PR #71 is unmerged and unaccepted as a complete mapping/search/visual product;
+package is activated by those documents. Current authorization is R1-A design
+references and bounded design-browser validation only. PR #71 is unmerged and unaccepted as a complete mapping/search/visual product;
 closed/unmerged PR #67 and all unfinished C5.7 gates are preserved. Provider spending
 remains $0; ion eligibility and zero-charge protection remain conditional.
 Use current LIVE/PROJECT_STATE and the Adaptive Explorer requirements/checkpoints;

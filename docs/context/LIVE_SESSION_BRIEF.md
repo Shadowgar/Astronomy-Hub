@@ -1,5 +1,31 @@
 # LIVE SESSION BRIEF
 
+## Active R1-A — visual design references, 2026-10-13
+
+Owner approved R0 and explicitly authorized its exact-head merge, followed by
+**R1-A DESIGN ONLY**. PR #72 merged at `17f94289a8568f33c7287983ef46a5c5cc5427d4` from
+reviewed head `d047d16ec7dfd27145716dd5130b46bfaaa6b7e0`; merged main has the
+same tree. GitHub checks were green, no unresolved review threads; skipped/quota-
+limited AI reviews were not treated as substantive review.
+
+Current task: one isolated R1-A branch/PR containing editable HTML/CSS references,
+shared components/tokens, four desktop and four mobile layouts, contextual/search/
+selection/handoff/loading/unavailable/accessibility states and real local-browser
+screenshots. [Design reference](../design/adaptive-explorer-r1a/README.md) is
+**PENDING OWNER VISUAL ACCEPTANCE**, revision R1-A/01. Exact screens remain unapproved.
+
+No application source, renderer/bridge, provider/imagery integration, dependencies,
+Docker/data/owner settings or production changes. No provider spending. Single agent.
+PR #71 remains OPEN/unmerged at `35dcc94c1ecc1bdd87118d6dddb8b76fb81bbe9e`;
+PR #67 remains CLOSED/unmerged at `ebdad3124fe470e3a09e369d3a56e998f29740fb`.
+Historical evidence and unfinished science/provider/device/product gates remain.
+
+R1-A does not activate R1-B or R2–R5. Commit/push/open the design PR; **DO NOT MERGE**.
+STOP for owner visual review. Implementation requires explicit acceptance of the
+applicable reference revision AND separate implementation authorization.
+
+## Historical R0 authorization and evidence — superseded for task activation
+
 ## Active R0 — Adaptive Explorer authority reset, 2026-10-13
 
 The owner approves **Astronomy Hub — Adaptive Explorer** product direction.

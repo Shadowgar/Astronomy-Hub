@@ -1,10 +1,25 @@
 # DOCUMENT INDEX - AUTHORITATIVE CONTROL MAP
 
+## Current R1-A design discovery — 2026-10-13
+
+R0 PR #72 is merged. The owner separately authorizes R1-A DESIGN ONLY. The
+[editable visual gallery](design/adaptive-explorer-r1a/index.html),
+[reference/evidence contract](design/adaptive-explorer-r1a/README.md) and
+[shared components/tokens](design/adaptive-explorer-r1a/system.html) are SUPPORT
+proposals, all **PENDING OWNER VISUAL ACCEPTANCE**. They cannot activate app work.
+The existing workspace design contract remains canonical; no new authority tier.
+
+R1-A adds its README to docs_change/frontend_change/planning/review/validation:
+55→56, 33→34, 46→47, 42→43, 40→41 documents respectively. Other packs unchanged.
+The R0 before/after counts below are dated R0 evidence; its reduction proposal is
+still unimplemented. The README routes exact local HTML/CSS/JS and screenshot proof.
+
 ## R0 canonical inventory and conflict classification — 2026-10-13
 
 The existing authority tiers/order below remain. Adaptive Explorer replaces
 contradictory product/next-action statements, not scientific truth or renderer
-ownership. Only LIVE/PROJECT_STATE authorize R0 documentation; no later package.
+ownership. LIVE/PROJECT_STATE now record merged R0 and authorize R1-A design only;
+no application implementation or later package.
 
 | Canonical document(s) | R0 classification and reconciliation |
 | --- | --- |
@@ -181,7 +196,7 @@ extensions remain planned. Product vision cannot override execution gates.
 [PROJECT_STATE](execution/PROJECT_STATE.md) is the authoritative checkpoint sequence;
 LIVE_SESSION_BRIEF identifies the current task. C5.6.5 audit evidence is complete;
 C5.6.75 is a historical documentation checkpoint superseded by merged PR #68.
-R0 documentation is the only active package. Proposed R0–R5 checkpoints live in
+R0 is merged; only R1-A visual design references are active. Proposed R0–R5 checkpoints live in
 [the existing master plan](execution/MASTER_PLAN.md#adaptive-explorer-proposed-checkpoints-r0-r5).
 PR #71 is open/unmerged; imagery/search/visual acceptance stays unfinished. All
 future packages and merges require explicit owner authority. Source reuse,
