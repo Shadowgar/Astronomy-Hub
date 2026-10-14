@@ -1,5 +1,134 @@
 # ORA-7 unified workspace implementation evidence
 
+
+## PR #74 Sky corrections — 2026-10-14
+
+Exactly three owner-authorized corrections continue branch
+`r1-b-adaptive-sky-implementation-1` from `4c1d58bb5cad2b6df56ee1586be55ed6db904bc7`.
+PR #73 remains the unmerged design dependency; no merge/deployment/later milestone.
+**Qualified source: `625376a0e24d26175e402077c27614bda67369d5`.**
+The older R1-B evidence below qualifies only its recorded source. New desktop and
+mobile ledgers bind these corrections to their exact source hashes and served
+application bytes: [desktop proof](r1b-sky-corrections/desktop-proof.json),
+[mobile proof](r1b-sky-corrections/mobile-proof.json). Access the exact JSON ledgers
+through this manifest-loaded document; no manifest routing change is needed.
+
+Native SWE remains the only Night Mode toggle owner. The original BottomBar method
+sets the native state and canvas overlay. A minimal `oras-sky-night.v1` report in
+the existing Sky presentation module reflects a boolean through the qualified
+parent hello, with origin/frame/nonce/generation, exact-field and monotonic-ID
+validation. Hub chrome uses Sky-only red tokens; native panels/search/credits use
+red UI rules. Neither the iframe nor the canvas receives another CSS filter.
+The native canvas overlay remains unchanged. Menus, dialogs, selected-object
+information, inputs, tooltips, focus and text selection use the red appearance.
+Disabling the native setting restores the approved normal styling.
+
+The reported native preference is stored under `oras.sky.night-mode.v1` in local
+storage, with an in-memory fallback if storage is blocked. The host reads it for
+its initial Sky style and the Sky-only `orasNightMode` bootstrap parameter; the
+new SWE instance restores it through the original native method before reporting
+ready. Native state is replayed at the qualified hello/engine-ready boundary.
+Earth receives neither the bootstrap setting nor the Sky red class. There is no
+second Hub toggle, iframe DOM scraping or shared Earth-protocol change.
+
+Coordinate drafts remain strings, including intermediate minus/decimal text.
+Submission alone parses decimal/scientific numeric syntax, checks finite values
+and the existing observer bounds, then sends numeric intent. Missing/invalid/
+out-of-range values display an error and send no intent. ORAS reset is preserved.
+Fullscreen mounts register the existing listener and immediately invoke the native
+callback with current browser state; remounted Sky shows Exit fullscreen whenever
+the whole Hub remains fullscreen. Disposal retains the existing listener cleanup.
+
+| Actual application state | Desktop 1440×900 | Mobile viewport 390×844 |
+| --- | --- | --- |
+| Night OFF | [Desktop OFF](r1b-sky-corrections/night-off-1440.png) | [Mobile OFF](r1b-sky-corrections/night-off-390.png) |
+| Night ON, same initial view | [Desktop ON](r1b-sky-corrections/night-on-1440.png) | [Mobile ON](r1b-sky-corrections/night-on-390.png) |
+| Native observing panel | [Desktop tools](r1b-sky-corrections/night-observing-1440.png) | [Mobile tools](r1b-sky-corrections/night-observing-390.png) |
+| Explore dialog | [Desktop dialog](r1b-sky-corrections/night-explore-1440.png) | [Mobile dialog](r1b-sky-corrections/night-explore-390.png) |
+| Native selection / Hub information | [Desktop selection](r1b-sky-corrections/night-selection-1440.png) | [Mobile selection](r1b-sky-corrections/night-selection-390.png) |
+| Signed input / red text selection | [Desktop location](r1b-sky-corrections/night-location-1440.png) | [Mobile location](r1b-sky-corrections/night-location-390.png) |
+
+Browser PASS on both viewports: native Night ON/OFF; external header/Explore,
+native search/tools, credits, menus, dialogs, selection, location and time styling;
+red text selection; no additional canvas filter; Night ON through two Earth/Sky
+round trips per viewport and reload; explicit OFF survives reload; Earth retains
+normal colors. Fullscreen persists through those four round trips, agrees with
+native state and labels on each remount, and exits correctly. One fullscreen
+listener exists in Sky and zero remain on Earth. Exactly one renderer iframe;
+canonical Vega identity is restored; keyboard/Escape focus and advanced 44px
+observing target are preserved. Zero JavaScript page errors.
+
+Sequential typing of `-33.875`, `-80.125` and `12.5` preserves the exact draft and
+sets those actual native observer values. Partial `-`, empty longitude, malformed
+`NaN`, and out-of-range latitude/longitude/elevation produce zero observer writes.
+The original ORAS reset, search, observing time and selection contracts survive.
+The existing bounded all-ten-controls desktop/mobile regression passed **2/2**,
+with zero JavaScript page errors: [control regression proof](r1b-sky-corrections/observing-regression-proof.json).
+Its screenshot filenames refer to the preserved local
+`output/r1b-corrections/observing-regression/` directory; the new Night Mode
+screenshots above are committed separately. No old screenshot is used as proof for these source changes.
+
+Commands actually used (from the existing worktree):
+
+```bash
+npm --prefix frontend run typecheck
+npm --prefix frontend run test
+node tests/runtime/adaptive-sky-controls.test.mjs
+node tests/runtime/sky-night-mode.test.mjs
+node tests/runtime/sky-native-controls.test.mjs
+node tests/runtime/sky-native-panels.test.mjs
+node tests/runtime/sky-wheel.test.mjs
+node tests/runtime/workspace-protocol.test.mjs
+node tests/runtime/sky-artifact.test.mjs
+node --check runtimes/sky-adapter/plugin.js
+node --check runtimes/sky-adapter/entry.mjs
+node --check runtimes/sky-adapter/native-panels.mjs
+node --check scripts/validation/verify_sky_corrections.mjs
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+git diff --check
+PLAYWRIGHT_MODULE=/home/rocco/Astronomy-Hub/node_modules/playwright/index.mjs R1B_WIDTHS=1440 R1B_EVIDENCE_DIR=output/r1b-corrections/final-desktop node scripts/validation/verify_sky_corrections.mjs
+PLAYWRIGHT_MODULE=/home/rocco/Astronomy-Hub/node_modules/playwright/index.mjs R1B_WIDTHS=390 R1B_EVIDENCE_DIR=output/r1b-corrections/final-mobile node scripts/validation/verify_sky_corrections.mjs
+PLAYWRIGHT_MODULE=/home/rocco/Astronomy-Hub/node_modules/playwright/index.mjs R1B_EVIDENCE_DIR=output/r1b-corrections/observing-regression node scripts/validation/verify_adaptive_sky.mjs
+```
+
+Static/type/whitespace checks PASS; frontend **234/234** (30 files); native/runtime
+**23/23** (9 control/lifetime, 3 Night reports, 3 keyboard, 2 panels, 2 wheel,
+3 shared protocol, 1 artifact). Document/manifest/reference checks PASS, including
+all new evidence paths. Night/typing/fullscreen browser correction runs **2/2 PASS**.
+Screenshots are software-rendered Chromium viewport evidence, not physical-device
+or owner acceptance. No new performance claim is made.
+
+Sky UI build/reattest used the same isolated staged app, pinned Node20 Docker
+image and read-only cached dependencies as the initial R1-B process below, with
+`--network none`, `ORAS_RUNTIME_COPY_SKYDATA=0`; the pinned legacy ESLint formatter
+was run on the isolated plugin copy before building. The final module build was
+checked for warning-only compilation failures, then `record_sky_workspace.py`,
+Sky-only public version synchronization and `npm --prefix frontend run build` ran.
+A second build reproduced all 95 application files byte-for-byte.
+New Sky artifact: `c95664c19df717c2f7087b0e22ffab28210fb1cee42a91969005697f79b2f7d5`.
+Rollback source/artifact: `4c1d58bb5cad2b6df56ee1586be55ed6db904bc7` /
+`06f92b7e2851ec975c055980068fdcea2cf158c2d4bc9e58115452529baeb456`.
+Native WASM/vendor chunks, comparison anchor, shared protocol, complete Earth lock,
+Earth assets, God's Eye pin, astronomy data, dependencies and owner settings remain
+unchanged. Existing preview containers were resumed; original mounts/volumes were
+not changed. Owner settings SHA256 remains
+`6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+
+All three failures were reproduced against the old actual application first:
+minus sign lost, Hub identity `rgb(244,245,247)` in Night Mode, and remount action
+mislabeled Fullscreen. Red logs and the interrupted combined run (exit 143) remain
+under local `output/r1b-corrections/`. The interruption was not claimed as PASS;
+completed final independent runs supersede it. Chromium used normal permitted
+host execution; no approval or sandbox workaround was used.
+
+Working owner preview remains `http://127.0.0.1:4201/sky-engine`. Open Display to
+use the native Night Mode toggle. The 30.4-second cold catalog search and sparse
+existing tiles/media remain tracked; no optimization, provider, imagery, renderer,
+scroll/FOV handoff, later milestone, deployment or merge is included. PR #73/#74/
+#71 remain unmerged. STOP for owner review.
+
+
 ## R1-B real Sky application — 2026-10-13
 
 Owner-approved visual source: PR #73 `b151d45787cf0e450aa0b187acd3eee142fa1fef`.

@@ -1,5 +1,17 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
+## PR #74 continuation — 2026-10-14
+
+Owner authorizes exactly three Sky corrections: reflect/persist native Night Mode
+through the qualified Sky boundary, preserve signed-coordinate text until valid
+submission, and seed current fullscreen state on Sky remount. Corrected source
+`625376a0e24d26175e402077c27614bda67369d5` is browser-qualified on desktop/mobile;
+[application evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md)
+contains new source-bound proof and Night ON/OFF screenshots. Existing PR #74 and
+branch continue; PR #73 remains the unmerged dependency. No scroll/FOV milestone,
+cold-search optimization, unrelated work, merge or deployment. STOP for owner review.
+
+
 ## Active R1-B — real Adaptive Explorer Sky, 2026-10-13
 
 The owner accepts PR #73 at `b151d45787cf0e450aa0b187acd3eee142fa1fef` as the visual
