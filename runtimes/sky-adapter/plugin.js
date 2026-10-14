@@ -11,11 +11,21 @@ export default {
       extends: BottomBar,
       watch: { panel (value) { window.dispatchEvent(new CustomEvent('oras-sky-panel', { detail: !!value })) } },
       data () { return { panel: null, panelLauncher: null, fullscreenError: '' } },
-      mounted () { this.fullscreenDocument = window.parent === window ? document : window.parent.document; this.fullscreenChanged = () => this.onFullscreenChange(!!this.fullscreenDocument.fullscreenElement); this.fullscreenDocument.addEventListener('fullscreenchange', this.fullscreenChanged); this.fullscreenChanged(); window.addEventListener('oras-sky-dispose', this.releaseFullscreen); window.addEventListener('pagehide', this.releaseFullscreen) },
+      mounted () {
+        this.fullscreenDocument = window.parent === window ? document : window.parent.document
+        this.fullscreenChanged = () => this.onFullscreenChange(!!this.fullscreenDocument.fullscreenElement)
+        // Cached pages retain their one listener; resume also seeds changes made while frozen.
+        this.fullscreenPagehide = event => { if (!event.persisted) this.releaseFullscreen() }
+        this.fullscreenDocument.addEventListener('fullscreenchange', this.fullscreenChanged)
+        this.fullscreenChanged()
+        window.addEventListener('pageshow', this.fullscreenChanged)
+        window.addEventListener('oras-sky-dispose', this.releaseFullscreen)
+        window.addEventListener('pagehide', this.fullscreenPagehide)
+      },
       beforeDestroy () { this.releaseFullscreen() },
       computed: { embedded () { return this.$store.state.orasEmbeddedPresentation } },
       methods: {
-        releaseFullscreen () { this.fullscreenDocument.removeEventListener('fullscreenchange', this.fullscreenChanged); window.removeEventListener('oras-sky-dispose', this.releaseFullscreen); window.removeEventListener('pagehide', this.releaseFullscreen) },
+        releaseFullscreen () { this.fullscreenDocument.removeEventListener('fullscreenchange', this.fullscreenChanged); window.removeEventListener('pageshow', this.fullscreenChanged); window.removeEventListener('oras-sky-dispose', this.releaseFullscreen); window.removeEventListener('pagehide', this.fullscreenPagehide) },
         async toggleFullscreen () {
           this.fullscreenError = ''
           if (window.parent === window) { this.setFullscreen(!this.$store.state.fullscreen); return }

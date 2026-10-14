@@ -14157,12 +14157,18 @@ function installNativeWheel(canvas, engine) {
 
       this.fullscreenChanged = function () {
         return _this.onFullscreenChange(!!_this.fullscreenDocument.fullscreenElement);
+      }; // Cached pages retain their one listener; resume also seeds changes made while frozen.
+
+
+      this.fullscreenPagehide = function (event) {
+        if (!event.persisted) _this.releaseFullscreen();
       };
 
       this.fullscreenDocument.addEventListener('fullscreenchange', this.fullscreenChanged);
       this.fullscreenChanged();
+      window.addEventListener('pageshow', this.fullscreenChanged);
       window.addEventListener('oras-sky-dispose', this.releaseFullscreen);
-      window.addEventListener('pagehide', this.releaseFullscreen);
+      window.addEventListener('pagehide', this.fullscreenPagehide);
     },
     beforeDestroy: function beforeDestroy() {
       this.releaseFullscreen();
@@ -14175,8 +14181,9 @@ function installNativeWheel(canvas, engine) {
     methods: {
       releaseFullscreen: function releaseFullscreen() {
         this.fullscreenDocument.removeEventListener('fullscreenchange', this.fullscreenChanged);
+        window.removeEventListener('pageshow', this.fullscreenChanged);
         window.removeEventListener('oras-sky-dispose', this.releaseFullscreen);
-        window.removeEventListener('pagehide', this.releaseFullscreen);
+        window.removeEventListener('pagehide', this.fullscreenPagehide);
       },
       toggleFullscreen: function toggleFullscreen() {
         var _this2 = this;

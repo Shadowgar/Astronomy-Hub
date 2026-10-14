@@ -529,7 +529,7 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_current_sky.sh",
-    "artifact_sha256": "c95664c19df717c2f7087b0e22ffab28210fb1cee42a91969005697f79b2f7d5",
+    "artifact_sha256": "3b630bc63f8d8cf89b607886f7964f76522b0bdced450abf2663300c0e27c813",
     "artifact_files": [
       {
         "path": "css/app.e3189512.css",
@@ -984,12 +984,12 @@
       {
         "path": "index.html",
         "bytes": 1960,
-        "sha256": "e1af3239f14812304128ce3c0f749f7346aef02e5eafd24785ff577e07ad4592"
+        "sha256": "3336c2abdad68f46230ce76defa62934ee79d6ad626c965964570b4e58a714ac"
       },
       {
-        "path": "js/app.e10cab69.js",
-        "bytes": 584857,
-        "sha256": "3320317663208150297e0c911c277db968596f24d7687c1da74e6984171e808b"
+        "path": "js/app.89d66cdc.js",
+        "bytes": 585205,
+        "sha256": "69e9f7bd89d37d13749b20ff19ad01b994a04ac08b603305b9b5301277322e41"
       },
       {
         "path": "js/chunk-2d2253ec.1b0c9439.js",
@@ -1009,11 +1009,11 @@
       {
         "path": "oras-runtime-build.json",
         "bytes": 810,
-        "sha256": "abcb68b91111cedda48d80640f382a0860d4f176f1e167e700e10e6a52489b7a"
+        "sha256": "8150a44ac576895b34f16747e124e019eab029c547c3912c781564595b5beb1e"
       }
     ],
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "c263f49f1275988d5c3a75d90ca9caf5f5371546f1a3d61b3551ad08e27d9dfd",
+    "workspace_adapter_sha256": "c22f20434593f3605fb1cb21459f5e23b867d0f1584ade66f2a8a57574e39734",
     "artifact_hash_scope": "Application files excluding identity marker",
     "wheel_input_sha256": "29353cca2b47c44b8467c8e2e808a3af8b3cf8bc8a17a9aa211061f75f40bbe9",
     "bridge_input_sha256": {
