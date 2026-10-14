@@ -36,7 +36,7 @@ export function useViewNavigation(mode:RuntimeMode,status:RuntimeStatus,client:R
   if(name==='navigationIntent'&&'target' in payload){if(payload.phase==='request')void enter(payload.target);else if(!pending.current)setBoundary(payload.phase==='idle'?null:payload)}
   if(name==='interaction'&&'key' in payload&&payload.key==='Escape')cancel()
  })},[client,enter,cancel])
- useEffect(()=>{const active=pending.current;if(!active)return;if(!active.departed){if(location.key!==active.sourceKey)cancel();return}if(location.state?.n1Transfer!==active.id){pending.current=null;setHandoff(null);setBoundary(null)}else if(mode===active.target&&status==='ready'){pending.current=null;setHandoff(null);setBoundary(null)}},[location.key,location.state,mode,status,cancel])
+ useEffect(()=>{const active=pending.current;if(!active)return;if(!active.departed){if(location.key!==active.sourceKey)cancel();return}if(location.state?.n1Transfer!==active.id){pending.current=null;setHandoff(null);setBoundary(null)}else if(mode===active.target&&status==='ready'&&client){pending.current=null;setHandoff(null);setBoundary(null)}},[location.key,location.state,mode,status,client,cancel])
  useEffect(()=>{setBoundary(null)},[mode])
  useEffect(()=>()=>{pending.current=null;if(timer.current)clearTimeout(timer.current)},[])
  return {enter,cancel,handoff,boundary}
