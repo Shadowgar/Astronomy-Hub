@@ -1,0 +1,298 @@
+TAP version 13
+# Subtest: constellation toggle updates native lines AND names; art stays independent
+ok 1 - constellation toggle updates native lines AND names; art stays independent
+  ---
+  duration_ms: 2.185989
+  type: 'test'
+  ...
+# Subtest: observing controls address original SWE paths including distinct of-date and J2000 grids
+ok 2 - observing controls address original SWE paths including distinct of-date and J2000 grids
+  ---
+  duration_ms: 0.526444
+  type: 'test'
+  ...
+# Subtest: Night Mode reuses BottomBar and Fullscreen is an action
+ok 3 - Night Mode reuses BottomBar and Fullscreen is an action
+  ---
+  duration_ms: 1.401109
+  type: 'test'
+  ...
+# Subtest: dismissal restores the connected immediate tool launcher and clears stale ownership
+ok 4 - dismissal restores the connected immediate tool launcher and clears stale ownership
+  ---
+  duration_ms: 0.269075
+  type: 'test'
+  ...
+# Subtest: standalone native interface remains untouched
+ok 5 - standalone native interface remains untouched
+  ---
+  duration_ms: 0.171349
+  type: 'test'
+  ...
+# Subtest: embedded fullscreen targets the whole Hub and retains native state synchronization
+ok 6 - embedded fullscreen targets the whole Hub and retains native state synchronization
+  ---
+  duration_ms: 0.386066
+  type: 'test'
+  ...
+# Subtest: Vue receives explicit true/false ARIA strings, never false attributes that it removes
+ok 7 - Vue receives explicit true/false ARIA strings, never false attributes that it removes
+  ---
+  duration_ms: 0.42535
+  type: 'test'
+  ...
+# Subtest: renderer disposal removes its listener from the parent document
+ok 8 - renderer disposal removes its listener from the parent document
+  ---
+  duration_ms: 0.424184
+  type: 'test'
+  ...
+# Subtest: mount immediately synchronizes an already-fullscreen Hub, then observes later exits
+ok 9 - mount immediately synchronizes an already-fullscreen Hub, then observes later exits
+  ---
+  duration_ms: 0.666564
+  type: 'test'
+  ...
+# Subtest: cached pageshow reseeds actual fullscreen and label, then continues observing native changes
+ok 10 - cached pageshow reseeds actual fullscreen and label, then continues observing native changes
+  ---
+  duration_ms: 2.312028
+  type: 'test'
+  ...
+# Subtest: repeated cached navigation retains exactly one fullscreen listener; genuine departure cleans all ownership
+ok 11 - repeated cached navigation retains exactly one fullscreen listener; genuine departure cleans all ownership
+  ---
+  duration_ms: 0.491306
+  type: 'test'
+  ...
+# Subtest: explicit renderer disposal removes cached resume listeners and remains safe before Vue destruction
+ok 12 - explicit renderer disposal removes cached resume listeners and remains safe before Vue destruction
+  ---
+  duration_ms: 0.231163
+  type: 'test'
+  ...
+# Subtest: bootstrap abort removes listeners and never creates a channel
+ok 13 - bootstrap abort removes listeners and never creates a channel
+  ---
+  duration_ms: 3.805375
+  type: 'test'
+  ...
+# Subtest: negotiated channel hydrates, ignores stale responses, and rejects pending requests on teardown
+ok 14 - negotiated channel hydrates, ignores stale responses, and rejects pending requests on teardown
+  ---
+  duration_ms: 33.243644
+  type: 'test'
+  ...
+# Subtest: old generation responses cannot settle a new channel request
+ok 15 - old generation responses cannot settle a new channel request
+  ---
+  duration_ms: 1.411802
+  type: 'test'
+  ...
+# Subtest: runtime command failures return controlled results
+ok 16 - runtime command failures return controlled results
+  ---
+  duration_ms: 1.310278
+  type: 'test'
+  ...
+# Subtest: late same-session hello preserves the negotiated channel
+ok 17 - late same-session hello preserves the negotiated channel
+  ---
+  duration_ms: 0.806425
+  type: 'test'
+  ...
+# Subtest: artifact equal is rejected before SSH
+ok 18 - artifact equal is rejected before SSH
+  ---
+  duration_ms: 27.70958
+  type: 'test'
+  ...
+# Subtest: artifact child is rejected before SSH
+ok 19 - artifact child is rejected before SSH
+  ---
+  duration_ms: 17.352602
+  type: 'test'
+  ...
+# Subtest: artifact trailing slashes is rejected before SSH
+ok 20 - artifact trailing slashes is rejected before SSH
+  ---
+  duration_ms: 15.208448
+  type: 'test'
+  ...
+# Subtest: artifact dot and dot-dot is rejected before SSH
+ok 21 - artifact dot and dot-dot is rejected before SSH
+  ---
+  duration_ms: 12.343158
+  type: 'test'
+  ...
+# Subtest: artifact normalized destination is rejected before SSH
+ok 22 - artifact normalized destination is rejected before SSH
+  ---
+  duration_ms: 13.18734
+  type: 'test'
+  ...
+# Subtest: sibling /home/rocco/astronomy-hub-artifacts/earth passes containment guard
+ok 23 - sibling /home/rocco/astronomy-hub-artifacts/earth passes containment guard
+  ---
+  duration_ms: 15.260525
+  type: 'test'
+  ...
+# Subtest: sibling /home/rocco/astronomy-hub-artifacts/./data/../earth/ passes containment guard
+ok 24 - sibling /home/rocco/astronomy-hub-artifacts/./data/../earth/ passes containment guard
+  ---
+  duration_ms: 14.259006
+  type: 'test'
+  ...
+# Subtest: validates authenticated bootstrap; rejects each session boundary independently
+ok 25 - validates authenticated bootstrap; rejects each session boundary independently
+  ---
+  duration_ms: 3.278629
+  type: 'test'
+  ...
+# Subtest: rejects malformed channel commands and stale generation
+ok 26 - rejects malformed channel commands and stale generation
+  ---
+  duration_ms: 1.886607
+  type: 'test'
+  ...
+# Subtest: Sky marker and public admission digest bind every qualified application file
+ok 27 - Sky marker and public admission digest bind every qualified application file
+  ---
+  duration_ms: 25.123476
+  type: 'test'
+  ...
+# Subtest: native search retains normal Tab and Escape handling
+ok 28 - native search retains normal Tab and Escape handling
+  ---
+  duration_ms: 3.847628
+  type: 'test'
+  ...
+# Subtest: native toolbar retains Tab but forwards Escape recovery; native panels keep Escape
+ok 29 - native toolbar retains Tab but forwards Escape recovery; native panels keep Escape
+  ---
+  duration_ms: 2.81154
+  type: 'test'
+  ...
+# Subtest: focusing native controls keeps Hub chrome available and leaving restores exploration
+ok 30 - focusing native controls keeps Hub chrome available and leaving restores exploration
+  ---
+  duration_ms: 1.290851
+  type: 'test'
+  ...
+# Subtest: Sky panel reports accept only current origin, frame, session and boolean visibility
+ok 31 - Sky panel reports accept only current origin, frame, session and boolean visibility
+  ---
+  duration_ms: 1.603028
+  type: 'test'
+  ...
+# Subtest: panel reports require a qualified parent hello, survive persisted pagehide and stop on disposal
+ok 32 - panel reports require a qualified parent hello, survive persisted pagehide and stop on disposal
+  ---
+  duration_ms: 1.746964
+  type: 'test'
+  ...
+# Subtest: night reports validate exact origin/frame/session/type/boolean payload before the Hub reflects them
+ok 33 - night reports validate exact origin/frame/session/type/boolean payload before the Hub reflects them
+  ---
+  duration_ms: 1.761324
+  type: 'test'
+  ...
+# Subtest: engine-ready replay and native changes publish actual SWE state, not event or host toggle state
+ok 34 - engine-ready replay and native changes publish actual SWE state, not event or host toggle state
+  ---
+  duration_ms: 2.841533
+  type: 'test'
+  ...
+# Subtest: hello replays already-restored native state; persisted pages survive, disposal releases all listeners
+ok 35 - hello replays already-restored native state; persisted pages survive, disposal releases all listeners
+  ---
+  duration_ms: 0.582806
+  type: 'test'
+  ...
+# Subtest: cached Sky navigation preserves the endpoint and leaves genuine departure cleanup installed
+ok 36 - cached Sky navigation preserves the endpoint and leaves genuine departure cleanup installed
+  ---
+  duration_ms: 4.079977
+  type: 'test'
+  ...
+# Subtest: genuine Sky departure closes the endpoint
+ok 37 - genuine Sky departure closes the endpoint
+  ---
+  duration_ms: 2.047089
+  type: 'test'
+  ...
+# Subtest: interaction timers are cleared on every cached departure
+ok 38 - interaction timers are cleared on every cached departure
+  ---
+  duration_ms: 2.679927
+  type: 'test'
+  ...
+# Subtest: cached departure resets active interaction and restored page can interact normally
+ok 39 - cached departure resets active interaction and restored page can interact normally
+  ---
+  duration_ms: 1.709785
+  type: 'test'
+  ...
+# Subtest: every cached cycle resets interaction without accumulating timers or endpoints
+ok 40 - every cached cycle resets interaction without accumulating timers or endpoints
+  ---
+  duration_ms: 1.068574
+  type: 'test'
+  ...
+# Subtest: departure before canvas readiness still explicitly resets interaction and closes once
+ok 41 - departure before canvas readiness still explicitly resets interaction and closes once
+  ---
+  duration_ms: 0.861149
+  type: 'test'
+  ...
+# Subtest: entry installs the real Night reporter, preserves it across cached cycles, and removes it on genuine departure
+ok 42 - entry installs the real Night reporter, preserves it across cached cycles, and removes it on genuine departure
+  ---
+  duration_ms: 1.763633
+  type: 'test'
+  ...
+# Subtest: explicit destroy invokes Night reporter cleanup and native adapter stop without leaving stale reports
+ok 43 - explicit destroy invokes Night reporter cleanup and native adapter stop without leaving stale reports
+  ---
+  duration_ms: 1.434431
+  type: 'test'
+  ...
+# Subtest: standard wheel reaches native SWE zoom with cursor coordinates and cancels page scrolling
+ok 44 - standard wheel reaches native SWE zoom with cursor coordinates and cancels page scrolling
+  ---
+  duration_ms: 2.238139
+  type: 'test'
+  ...
+# Subtest: line/page wheel modes are bounded and zero or invalid delta does not zoom
+ok 45 - line/page wheel modes are bounded and zero or invalid delta does not zoom
+  ---
+  duration_ms: 0.518915
+  type: 'test'
+  ...
+# Subtest: admits only qualified workspace commands with bounded canonical string identity
+ok 46 - admits only qualified workspace commands with bounded canonical string identity
+  ---
+  duration_ms: 1.944643
+  type: 'test'
+  ...
+# Subtest: workspace snapshots are bounded DTOs and stale channel events cannot mutate state
+ok 47 - workspace snapshots are bounded DTOs and stale channel events cannot mutate state
+  ---
+  duration_ms: 0.615187
+  type: 'test'
+  ...
+# Subtest: admits exactly the three qualified new layers with bounded event semantics and preserves old DTOs
+ok 48 - admits exactly the three qualified new layers with bounded event semantics and preserves old DTOs
+  ---
+  duration_ms: 1.080867
+  type: 'test'
+  ...
+1..48
+# tests 48
+# suites 0
+# pass 48
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 184.167158

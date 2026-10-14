@@ -1,6 +1,86 @@
 # ORA-7 unified workspace implementation evidence
 
 
+## PR #74 final lifecycle corrections — 2026-10-14
+
+Owner authorizes only the two P2 corrections from reviewed head
+`a01dfcf7993b6c0aac6cd7d1fa60b05cba30c0d3`. Corrected source is
+`2811a511faa7daca42f1fce7a59a39bbeefed0eb`, on the same implementation branch.
+The three prior owner-approved corrections, native science, styling and Night
+persistence remain unchanged. No new milestone, merge or deployment.
+
+The fullscreen component retains its single document listener during persisted
+`pagehide`, and `pageshow` replays the actual document state through the original
+native store callback. Genuine departure, adapter disposal and Vue destruction
+remove the fullscreen, resume, departure and disposal listeners. Repeated cached
+cycles do not register additional listeners. The lifecycle VM now injects the
+**real** `installSkyNightReports`, while retaining all six existing lifecycle
+cases. Two additional integration cases prove native Night reports survive cached
+cycles and release every reporter-owned listener on genuine departure or explicit
+adapter destruction; late ready/change/hello events cannot emit stale reports.
+
+Fresh red/green evidence: the complete baseline suite had **37 PASS / 6 FAIL**,
+all six failures being the missing Night reporter binding. The added fullscreen
+regressions reproduced stale resume state and a missing listener (**10 PASS /
+2 FAIL**). After correction, focused tests are **20 PASS / 0 FAIL**. The mandatory
+complete suite is **48 PASS / 0 FAIL / 0 SKIP**, all 11 runtime test files:
+[exact TAP output](r1b-sky-corrections/runtime-suite-2026-10-14.tap).
+This supersedes the prior *selected* 23 runtime checks as suite coverage; the old
+counts below remain historical evidence for their recorded revision.
+
+Browser result: **NOT_SUPPORTED** for actual cached return in this preview.
+[Full Chromium proof](r1b-sky-corrections/cached-fullscreen-proof.json) binds source
+hashes, served Hub JS, served Sky bundle and artifact marker to the committed
+source above. Chromium launched and the initial real Fullscreen action/state/label
+assertions ran, but Back loaded a fresh document (`pageshow.persisted` remained
+false). CDP reported `MainResourceHasCacheControlNoStore`,
+`JsNetworkRequestReceivedCacheControlNoStoreResource`, and
+`BrowsingInstanceNotSwapped`. The first headless-shell attempt also reported
+`BackForwardCacheDisabledForDelegate`; both attempts and errors are preserved in
+local `output/r1b-cached-fullscreen/`. There is **no successful cached-browser
+qualification or new qualifying screenshot**. Mobile cached-return qualification
+was not reached. No synthetic browser events are presented as actual cache proof;
+repeated persisted lifecycle behavior and exact labels are proven by focused tests.
+Resume actual desktop/mobile cache qualification on a cache-eligible local server;
+preview cache headers and application runtime policies were not changed here.
+
+Commands actually run from the existing worktree:
+
+```bash
+node --test tests/runtime/*.test.mjs
+node --test tests/runtime/adaptive-sky-controls.test.mjs tests/runtime/sky-page-lifecycle.test.mjs
+node --check runtimes/sky-adapter/plugin.js
+node --check tests/runtime/sky-page-lifecycle.test.mjs
+node --check tests/runtime/adaptive-sky-controls.test.mjs
+node --check scripts/validation/verify_sky_cached_fullscreen.mjs
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+git diff --check
+python3 scripts/runtime/integrate_sky_bridge.py output/r1b/sky-build/upstream/apps/web-frontend
+python3 scripts/runtime/record_sky_workspace.py output/r1b/sky-build/upstream/apps/web-frontend/dist
+npm --prefix frontend run build
+PLAYWRIGHT_MODULE=/home/rocco/Astronomy-Hub/node_modules/playwright/index.mjs R1B_EVIDENCE_DIR=output/r1b-cached-fullscreen/full-chromium node scripts/validation/verify_sky_cached_fullscreen.mjs
+```
+
+Syntax, manifest/document/reference and whitespace checks PASS. Frontend build
+PASS. The established offline pinned Node 20 container built the Sky UI twice;
+all **95 payload files** match across builds, with **96 attested files** including
+its marker. Both logs contain no `Syntax Error`, `Module Error`, `ERROR`, or
+`Module build failed` markers. Inherited bundle-size/Browserslist notices remain.
+Reattested Sky artifact:
+`3b630bc63f8d8cf89b607886f7964f76522b0bdced450abf2663300c0e27c813`.
+Native WASM/vendor chunks, SWE comparison anchor and Earth lock identity match the
+reviewed base. The `c95664c19df717c2f7087b0e22ffab28210fb1cee42a91969005697f79b2f7d5`
+Sky artifact remains a preserved Git rollback at `a01dfcf7993b6c0aac6cd7d1fa60b05cba30c0d3`.
+Root owner settings retain SHA-256
+`6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+No data, dependency, source pin, native science, Earth payload, Docker volume,
+container configuration or production state changed.
+
+Owner application preview remains <http://127.0.0.1:4201/sky-engine>. PR #74 stays
+unmerged, dependent on unmerged PR #73. STOP for owner review; actual cached-page
+browser qualification remains outstanding. No cold-search or scroll/FOV work.
+
 ## PR #74 Sky corrections — 2026-10-14
 
 Exactly three owner-authorized corrections continue branch
