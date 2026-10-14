@@ -11,6 +11,7 @@ function page(){
  class EarthRuntime {
   constructor(){viewers++;peak=Math.max(peak,++live);this.destroyed=false;this.lifecycle={closed:false};this.ready=false;this.site={};this.registry={snapshot:()=>[]};this.timings={};this.providerStatus={values:new Map()};this.viewer={entities:{values:[]},isDestroyed:()=>this.destroyed,camera:{positionCartographic:{height:1000}}};}
   async initialize(){await Promise.resolve();this.ready=true;}
+  navigation(){return null;}
   async destroy(){if(this.lifecycle.closed)return;this.lifecycle.closed=true;this.ready=false;for(let i=0;i<6;i++)await Promise.resolve();this.destroyed=true;live--;}
  }
  function RuntimeBridge(){bridges++;let closed=false;return {ready(){},close(){if(!closed){closed=true;bridges--;}}};}

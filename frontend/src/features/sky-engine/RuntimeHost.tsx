@@ -7,6 +7,7 @@ import {workspaceModePath} from '../workspace/workspaceNavigation'
 import {probeRuntime,RuntimeProbeError} from '../runtime/runtimeProbeService'
 import {validSkyPanelReport,validSkyNightReport} from '../../../../runtimes/sky-adapter/native-panels.mjs'
 import {readSkyNightMode} from '../workspace/skyNightMode'
+import {validNavigationState} from '../../../../packages/runtime-protocol/navigation.mjs'
 export type RuntimeStatus='checking'|'loading'|'ready'|'error'
 let disposal:Promise<void>=Promise.resolve()
 export default function RuntimeHost({mode='sky',onClient,onStatus,onNativePanel,onNightMode}:{mode?:RuntimeMode;onClient?:(client:RuntimeClient|null)=>void;onStatus?:(status:RuntimeStatus)=>void;onNativePanel?:(open:boolean)=>void;onNightMode?:(enabled:boolean)=>void}){
@@ -42,6 +43,8 @@ export default function RuntimeHost({mode='sky',onClient,onStatus,onNativePanel,
     if(cancelled)return
     if(client.capabilities.includes('timeIntent')){const result=await client.request('setTimeIntent',{utc:state.requestedTime,live},12000);if(cancelled)return;state.report(mode,{requestedTime:state.requestedTime,...result})}
     if(client.capabilities.includes('observerIntent')){await client.request('setObserverIntent',state.observer,12000);if(cancelled)return}
+    const saved=latest.current.location.state?.n1View
+    if(validNavigationState(saved)&&saved.mode===mode&&client.capabilities.includes('viewNavigation')){const result=await client.request('setNavigationView',{mode,camera:saved.camera,...(mode==='earth'&&latest.current.location.state?.n1Center?{center:{lat:saved.observer.lat,lon:saved.observer.lon}}:{})},4000);if(cancelled)return;if(!result.ok)throw new Error('View restore failed')}
     update('ready');latest.current.onClient?.(client)
    }catch(cause){if(cancelled)return;client?.close();frame?.remove();setMismatch(cause instanceof RuntimeProbeError&&cause.code==='artifact-mismatch');update('error')}
   }

@@ -1,7 +1,11 @@
 import {createRuntimeEndpoint} from '../../../packages/runtime-protocol/endpoint.mjs';
 export function RuntimeBridge(runtime){
- const endpoint=createRuntimeEndpoint({runtime:'earth',version:'oras-earth.v1+workspace.1',capabilities:['destroy','timeIntent','observerIntent','presentation','interactionEvents','selection','workspaceState','layers','navigation','providers'],execute:async(command,value)=>{
-  if(command==='setTimeIntent')return runtime.setTime(value.utc);
+ const endpoint=createRuntimeEndpoint({runtime:'earth',version:'oras-earth.v1+navigation.1',capabilities:['destroy','timeIntent','observerIntent','presentation','interactionEvents','selection','workspaceState','layers','navigation','providers','viewNavigation'],execute:async(command,value)=>{
+  if(command==='getNavigationState'){const navigation=runtime.navigation();return navigation?{ok:true,navigation}:{ok:false,error:'Center Earth in the view before entering Sky.'};}
+  if(command==='setNavigationView'){runtime.camera.restoreView(value.camera,value.center);return {ok:true};}
+  if(command==='resetNavigation'){runtime.camera.resetNavigation();return {ok:true};}
+  if(command==='navigateLocation')return {ok:await runtime.camera.navigateLocation(value)};
+  if(command==='setTimeIntent'){runtime.liveTime=value.live===true;return runtime.setTime(value.utc);}
   if(command==='setObserverIntent')return runtime.setObserver(value);
   if(command==='destroy'){await runtime.destroy();setTimeout(()=>endpoint.close(),0);return {ok:true};}
   if(command==='setPresentation'){document.documentElement.classList.toggle('embedded',value.embedded);document.documentElement.classList.toggle('credits-top',value.creditsAtTop===true);return {ok:true};}
@@ -17,7 +21,8 @@ export function RuntimeBridge(runtime){
   return {ok:false,error:'Unsupported command'};
  }});
  const node=runtime.viewer.canvas;let timer;
- const interaction=()=>{clearTimeout(timer);runtime.camera.interrupt();endpoint.emit('interaction',{active:true,focused:false});timer=setTimeout(()=>endpoint.emit('interaction',{active:false,focused:false}),350);};
+ runtime.camera.onNavigation=value=>endpoint.emit('navigationIntent',value);runtime.lifecycle.add(()=>{runtime.camera.onNavigation=null;});
+ const interaction=event=>{clearTimeout(timer);runtime.camera.interrupt(event.type!=='wheel');endpoint.emit('interaction',{active:true,focused:false});timer=setTimeout(()=>endpoint.emit('interaction',{active:false,focused:false}),350);};
  const focus=()=>endpoint.emit('interaction',{active:false,focused:document.activeElement===node});
  for(const type of ['pointerdown','wheel']){node.addEventListener(type,interaction,{passive:true});runtime.lifecycle.add(()=>node.removeEventListener(type,interaction));}
  for(const type of ['focus','blur']){node.addEventListener(type,focus);runtime.lifecycle.add(()=>node.removeEventListener(type,focus));}

@@ -89,15 +89,32 @@ export default {
     if (new URLSearchParams(location.search).get('orasNightMode') === '1' && !app.$store.state.nightmode) BottomBar.methods.setNightMode.call(app, true)
     const stopNightWatch = app.$watch(() => !!app.$store.state.nightmode, enabled => { document.documentElement.classList.toggle('oras-sky-night', enabled); window.dispatchEvent(new CustomEvent('oras-sky-night-mode', { detail: enabled })) }, { immediate: true })
     const stopPanelWatch = app.$watch(() => !!(app.$store.state.showViewSettingsDialog || app.$store.state.showDataCreditsDialog), open => { document.documentElement.classList.toggle('oras-native-panel-open', open); window.dispatchEvent(new CustomEvent('oras-sky-panel', { detail: open || !!document.querySelector('.as-native-panel') })) })
-    const removeWheel = installNativeWheel(document.querySelector('#stel-canvas'), app.$stel)
-    window.addEventListener('pagehide', event => { if (!event.persisted)removeWheel() }, { once: false })
+    // Native zero horizon needs no panorama or invented geographic terrain.
+    app.$stel.core.landscapes.addDataSource({ url: '', key: 'zero' })
+    const neutral = () => { app.$stel.core.landscapes.current_id = 'zero' }
+    neutral()
+    const stopLandscapeWatch = app.$watch(() => app.$store.state.stel.landscapes.current_id, id => { if (id && id !== 'zero')neutral() })
+    const removeWheel = installNativeWheel(document.querySelector('#stel-canvas'), app.$stel, {
+      enabled: () => !disposed && app.$store.state.orasEmbeddedPresentation,
+      onBoundary: value => window.dispatchEvent(new CustomEvent('oras-navigation-intent', { detail: { target: 'earth', ...value } }))
+    })
+    const wheelPagehide = event => { removeWheel.reset(); if (!event.persisted)removeWheel() }
+    window.addEventListener('pagehide', wheelPagehide)
     presentation(new URLSearchParams(location.search).get('orasEmbedded') === '1')
     window.orasSkyAdapter = {
       observer: app.$stel.core.observer,
       nightMode () { return !!app.$store.state.nightmode },
       tools () { set('showViewSettingsDialog', true); return { ok: true } },
       panelOpen () { return !!(app.$store.state.showViewSettingsDialog || app.$store.state.showDataCreditsDialog) },
-      stop () { window.dispatchEvent(new Event('oras-sky-dispose')); stopPanelWatch(); stopNightWatch(); disposed = true; ++selectionGeneration; app.$stel.core.time_speed = 0 },
+      stop () { window.dispatchEvent(new Event('oras-sky-dispose')); stopPanelWatch(); stopNightWatch(); stopLandscapeWatch(); removeWheel(); window.removeEventListener('pagehide', wheelPagehide); disposed = true; ++selectionGeneration; app.$stel.core.time_speed = 0 },
+      resetNavigation () { removeWheel.reset(); return { ok: true } },
+      navigation () {
+        const core = app.$stel.core; const o = core.observer; const observer = { lat: o.latitude * 180 / Math.PI, lon: o.longitude * 180 / Math.PI, elevationM: o.elevation }
+        const source = new URLSearchParams(location.search).get('elevationSource')
+        const elevationSource = source === 'unavailable-zero' ? source : Math.abs(observer.lat - 41.321903) < 1e-6 && Math.abs(observer.lon + 79.585394) < 1e-6 && observer.elevationM === 432.816 ? 'oras-site' : 'provided'
+        return { mode: 'sky', observer, elevationSource, utc: new Date(Math.round((o.utc - 40587) * 86400000)).toISOString(), live: core.time_speed !== 0, camera: { projection: core.projection, fovRad: core.fov, yawRad: o.yaw, pitchRad: o.pitch, rollRad: o.roll, landscapeVisible: core.landscapes.visible } }
+      },
+      restoreView (camera) { const core = app.$stel.core; core.projection = camera.projection; core.fov = camera.fovRad; core.observer.yaw = camera.yawRad; core.observer.pitch = camera.pitchRad; core.observer.roll = camera.rollRad; core.landscapes.visible = camera.landscapeVisible; neutral(); removeWheel.reset(); return { ok: true } },
       setLive (live) { app.$stel.core.time_speed = live ? 1 : 0 },
       presentation,
       async select (entity) {

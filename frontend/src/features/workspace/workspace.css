@@ -25,3 +25,15 @@
 
 /* Native Sky dialogs temporarily own focus; preserve the Hub surface and snap. */
 .ws-shell--native-panel .ws-chrome,.ws-shell--native-panel .ws-sheet,.ws-shell--native-panel .ws-menu,.ws-shell--native-panel .ws-reveal{visibility:hidden;pointer-events:none}
+
+/* N1 uses a serial fade through a loading state, never a projection morph. */
+.ws-stage{transition:opacity .2s ease}
+.ws-shell--handoff .ws-stage{opacity:.12;pointer-events:none}
+.ws-handoff{position:absolute;z-index:30;top:50%;left:50%;transform:translate(-50%,-50%);width:min(360px,calc(100% - 32px));padding:24px;display:grid;gap:16px;text-align:center}
+.ws-handoff span,.ws-navigation-hint span{font-size:12px;color:var(--ws-secondary)}
+.ws-navigation-hint{position:absolute;z-index:12;bottom:190px;left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);padding:12px 16px;font-size:13px;pointer-events:none}
+.ws-navigation-hint span{display:block;margin-top:4px}
+.ws-earth-explore{display:flex;align-items:center;gap:8px;min-height:44px}
+.ws-shell[data-workspace-mode=earth] .as-dialog{color:var(--ws-text);width:460px;max-width:calc(100vw - 28px);max-height:calc(100dvh - 32px);padding:26px;border-radius:var(--ws-radius)}
+@media(max-width:767px){.ws-navigation-hint{bottom:220px}}
+@media(prefers-reduced-motion:reduce){.ws-stage{transition:none}}

@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test,{mock} from 'node:test';
 import assert from 'node:assert/strict';
 import {installNativeWheel} from '../../runtimes/sky-adapter/native-wheel.mjs';
 function harness(){
@@ -10,6 +10,28 @@ function harness(){
 test('standard wheel reaches native SWE zoom with cursor coordinates and cancels page scrolling',()=>{
  const h=harness();assert.equal(h.wheel(-120).defaultPrevented,true);assert.equal(h.calls.length,1);
  assert.deepEqual(h.calls[0],[1.05**2,200,300]);h.wheel(120);assert.ok(h.calls[1][0]<1);
+});
+test('qualified FOV clamp reports boundary but needs a second deliberate burst; removal releases input',()=>{
+ let now=0;const notices=[],canvas=new EventTarget();canvas.getBoundingClientRect=()=>({left:0,top:0,height:800});
+ const engine={core:{fov:180*Math.PI/180,projection:2},_core_on_zoom(k){this.core.fov=Math.min(185*Math.PI/180,this.core.fov/k)}};
+ const remove=installNativeWheel(canvas,engine,{enabled:()=>true,now:()=>now,onBoundary:v=>notices.push(v)});
+ const wheel=(deltaY,time)=>{now=time;const e=new Event('wheel',{cancelable:true});Object.assign(e,{deltaY,deltaMode:0,clientX:200,clientY:200});canvas.dispatchEvent(e)};
+ for(let t=0;t<1000;t+=20)wheel(120,t);
+ assert.equal(notices.some(n=>n.phase==='request'),false);assert.ok(notices.some(n=>n.phase==='boundary'));
+ wheel(120,1400);wheel(120,1520);wheel(120,1640);assert.equal(notices.at(-1).phase,'request');
+ remove();const count=notices.length;wheel(120,2000);assert.equal(notices.length,count);
+});
+test('rendering stalls cannot turn continuously timestamped wheel input into a second gesture',()=>{
+ let processing=1000;mock.method(performance,'now',()=>processing);
+ try{
+  const canvas=new EventTarget();canvas.getBoundingClientRect=()=>({left:0,top:0,height:800});const notices=[];
+  const engine={core:{fov:185*Math.PI/180,projection:2},_core_on_zoom(){}};
+  const remove=installNativeWheel(canvas,engine,{enabled:()=>true,onBoundary:value=>notices.push(value)});
+  for(const [index,delay] of [0,400,100,150,500,100,150].entries()){
+   processing+=delay;const e=new Event('wheel',{cancelable:true});Object.defineProperty(e,'timeStamp',{value:1000+index*60});Object.assign(e,{deltaY:120,deltaMode:0,clientX:200,clientY:200});canvas.dispatchEvent(e);
+  }
+  assert.equal(notices.some(value=>value.phase==='request'),false);remove();
+ }finally{mock.restoreAll();}
 });
 test('line/page wheel modes are bounded and zero or invalid delta does not zoom',()=>{
  const h=harness();h.wheel(-3,1);assert.equal(h.calls[0][0],1.05**2);

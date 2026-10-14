@@ -1,5 +1,29 @@
 # LIVE SESSION BRIEF
 
+## Active N1 — Sky ↔ Earth navigation, 2026-10-14
+
+The owner explicitly authorizes functional bidirectional navigation on one isolated
+`n1-sky-earth-navigation-1` branch, based on PR #74 at
+`a57532796502a1db9ae1a7e4e4dc83e113db558f`, preserving its unmerged PR #73 dependency.
+This supersedes the earlier no-scroll/FOV activation limit below. Reuse contained
+Stellarium, the owned Cesium Viewer, product state and a bounded versioned bridge;
+no universal renderer, provider, dependency, astronomy-data or volume replacement.
+
+Qualify deliberate wheel/trackpad continuation at the native Sky outward clamp
+and near an actual Earth surface target, with hysteresis, interruption, Back,
+observer/time/camera preservation and accessible Explore. Camera altitude is not
+observer elevation. The owner chose neutral native horizons at all unqualified
+locations: the installed Guéreins panorama is not verified ORAS imagery. Preserve
+its assets and the native Landscape toggle. Native Night Mode stays Sky-only.
+
+Implementation/qualification is in progress; the isolated local application preview
+is <http://127.0.0.1:4202/sky-engine>. Preserve the PR #74 preview at port 4201,
+owner settings, installed astronomy data, renderer rollback artifacts and all
+existing PRs. No merge or deployment. STOP for owner acceptance after functioning
+navigation and desktop/mobile browser proof. N2 Three.js Solar System View is a
+separate future authorization; do not begin it here.
+
+
 ## PR #74 continuation — 2026-10-14
 
 Owner authorizes exactly three Sky corrections: reflect/persist native Night Mode

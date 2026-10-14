@@ -13999,11 +13999,11 @@ module.exports = __webpack_require__.p + "img/btn-landscape.8fc552f5.svg";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js + 1 modules
-var objectSpread2 = __webpack_require__("5530");
-
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__("3835");
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js + 1 modules
+var objectSpread2 = __webpack_require__("5530");
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
 var toConsumableArray = __webpack_require__("2909");
@@ -14071,12 +14071,137 @@ var target_search = __webpack_require__("3770");
 // EXTERNAL MODULE: ./src/components/bottom-bar.vue + 15 modules
 var bottom_bar = __webpack_require__("d23d");
 
+// CONCATENATED MODULE: ./src/plugins/orasRuntime/continued-input.mjs
+
+
+// Shared input safeguard only; each renderer qualifies its own boundary.
+function ContinuedInput() {
+  this.reset = function () {
+    var blockUntil = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+    this.phase = 'idle';
+    this.last = null;
+    this.start = 0;
+    this.total = 0;
+    this.count = 0;
+    this.blockUntil = blockUntil;
+  };
+
+  this.input = function (_ref) {
+    var atBoundary = _ref.atBoundary,
+        _ref$withinBoundary = _ref.withinBoundary,
+        withinBoundary = _ref$withinBoundary === void 0 ? atBoundary : _ref$withinBoundary,
+        continuing = _ref.continuing,
+        pixels = _ref.pixels,
+        now = _ref.now;
+    if (!Number.isFinite(pixels) || !Number.isFinite(now) || pixels <= 0 || now < this.blockUntil || this.phase === 'request') return {
+      phase: 'idle',
+      progress: 0
+    };
+
+    if (!continuing || !withinBoundary) {
+      this.reset();
+      return {
+        phase: 'idle',
+        progress: 0
+      };
+    }
+
+    if (!atBoundary) {
+      this.phase = 'boundary';
+      this.last = now;
+      this.total = 0;
+      this.count = 0;
+      return {
+        phase: 'boundary',
+        progress: 0
+      };
+    }
+
+    var gap = this.last === null ? null : now - this.last;
+    this.last = now;
+
+    if (this.phase === 'idle') {
+      this.phase = 'boundary';
+      return {
+        phase: 'boundary',
+        progress: 0
+      };
+    } // A sustained zoom burst and its inertia may reach the clamp, but cannot arm.
+
+
+    if (gap >= 280) {
+      this.phase = 'progress';
+      this.start = now;
+      this.total = 0;
+      this.count = 0;
+    }
+
+    if (this.phase === 'boundary') return {
+      phase: 'boundary',
+      progress: 0
+    };
+    this.total += Math.min(120, pixels);
+    this.count++;
+    var progress = Math.min(1, this.total / 360, (now - this.start) / 200, this.count / 3);
+    if (progress >= 1) this.phase = 'request';
+    return {
+      phase: this.phase,
+      progress: progress
+    };
+  };
+
+  this.reset();
+}
+// CONCATENATED MODULE: ./src/plugins/orasRuntime/navigation.mjs
+var SKY_OUTWARD_FOV = {
+  1: 120,
+  2: 185,
+  3: 175,
+  4: 360,
+  5: 360
+}; // pinned SWE max_ui_fov, degrees
 // CONCATENATED MODULE: ./src/plugins/orasRuntime/native-wheel.mjs
 
 
 // Browser input compatibility belongs in the contained SWE frame.
+
+
 function installNativeWheel(canvas, engine) {
+  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
+      _ref$enabled = _ref.enabled,
+      enabled = _ref$enabled === void 0 ? function () {
+    return false;
+  } : _ref$enabled,
+      _ref$onBoundary = _ref.onBoundary,
+      onBoundary = _ref$onBoundary === void 0 ? function () {} : _ref$onBoundary,
+      _ref$now = _ref.now,
+      now = _ref$now === void 0 ? function (event) {
+    return event ? event.timeStamp : performance.now();
+  } : _ref$now;
+
+  var gate = new ContinuedInput();
+  var lastPhase = 'idle',
+      latched = false;
+
+  var report = function report(value) {
+    if (value.phase !== lastPhase || value.phase === 'progress') {
+      lastPhase = value.phase;
+      onBoundary(value);
+    }
+  };
+
+  var reset = function reset() {
+    gate.reset(now() + 1000);
+    latched = false;
+    report({
+      phase: 'idle',
+      progress: 0
+    });
+  };
+
   var onWheel = function onWheel(event) {
+    var _engine$core, _engine$core2;
+
     if (!Number.isFinite(event.deltaY) || event.deltaY === 0) return;
     var rect = canvas.getBoundingClientRect(); // Preserve SWE's legacy notch factor where exposed; normalize standard-only devices.
 
@@ -14084,14 +14209,46 @@ function installNativeWheel(canvas, engine) {
     event.preventDefault();
 
     engine._core_on_zoom(Math.pow(1.05, 2 * Math.max(-10, Math.min(10, delta))), event.clientX - rect.left, event.clientY - rect.top);
+
+    if (!enabled() || event.ctrlKey) return;
+    var max = SKY_OUTWARD_FOV[(_engine$core = engine.core) === null || _engine$core === void 0 ? void 0 : _engine$core.projection] * Math.PI / 180,
+        fov = (_engine$core2 = engine.core) === null || _engine$core2 === void 0 ? void 0 : _engine$core2.fov;
+
+    if (!Number.isFinite(max) || !Number.isFinite(fov)) {
+      latched = false;
+      gate.reset();
+      report({
+        phase: 'idle',
+        progress: 0
+      });
+      return;
+    }
+
+    if (fov >= max - 1e-7) latched = true;else if (fov < max - 5 * Math.PI / 180) latched = false;
+    report(gate.input({
+      atBoundary: fov >= max - 1e-7,
+      withinBoundary: latched,
+      continuing: delta < 0,
+      pixels: Math.abs(delta) * 120,
+      now: now(event)
+    }));
   };
 
   canvas.addEventListener('wheel', onWheel, {
     passive: false
   });
-  return function () {
-    return canvas.removeEventListener('wheel', onWheel);
+  canvas.addEventListener('pointerdown', reset, {
+    passive: true
+  });
+
+  var remove = function remove() {
+    canvas.removeEventListener('wheel', onWheel);
+    canvas.removeEventListener('pointerdown', reset);
+    gate.reset();
   };
+
+  remove.reset = reset;
+  return remove;
 }
 // CONCATENATED MODULE: ./src/plugins/orasRuntime/index.js
 
@@ -14501,13 +14658,42 @@ function installNativeWheel(canvas, engine) {
       window.dispatchEvent(new CustomEvent('oras-sky-panel', {
         detail: open || !!document.querySelector('.as-native-panel')
       }));
+    }); // Native zero horizon needs no panorama or invented geographic terrain.
+
+    app.$stel.core.landscapes.addDataSource({
+      url: '',
+      key: 'zero'
     });
-    var removeWheel = installNativeWheel(document.querySelector('#stel-canvas'), app.$stel);
-    window.addEventListener('pagehide', function (event) {
+
+    var neutral = function neutral() {
+      app.$stel.core.landscapes.current_id = 'zero';
+    };
+
+    neutral();
+    var stopLandscapeWatch = app.$watch(function () {
+      return app.$store.state.stel.landscapes.current_id;
+    }, function (id) {
+      if (id && id !== 'zero') neutral();
+    });
+    var removeWheel = installNativeWheel(document.querySelector('#stel-canvas'), app.$stel, {
+      enabled: function enabled() {
+        return !disposed && app.$store.state.orasEmbeddedPresentation;
+      },
+      onBoundary: function onBoundary(value) {
+        return window.dispatchEvent(new CustomEvent('oras-navigation-intent', {
+          detail: Object(objectSpread2["a" /* default */])({
+            target: 'earth'
+          }, value)
+        }));
+      }
+    });
+
+    var wheelPagehide = function wheelPagehide(event) {
+      removeWheel.reset();
       if (!event.persisted) removeWheel();
-    }, {
-      once: false
-    });
+    };
+
+    window.addEventListener('pagehide', wheelPagehide);
     presentation(new URLSearchParams(location.search).get('orasEmbedded') === '1');
     window.orasSkyAdapter = {
       observer: app.$stel.core.observer,
@@ -14527,9 +14713,58 @@ function installNativeWheel(canvas, engine) {
         window.dispatchEvent(new Event('oras-sky-dispose'));
         stopPanelWatch();
         stopNightWatch();
+        stopLandscapeWatch();
+        removeWheel();
+        window.removeEventListener('pagehide', wheelPagehide);
         disposed = true;
         ++selectionGeneration;
         app.$stel.core.time_speed = 0;
+      },
+      resetNavigation: function resetNavigation() {
+        removeWheel.reset();
+        return {
+          ok: true
+        };
+      },
+      navigation: function navigation() {
+        var core = app.$stel.core;
+        var o = core.observer;
+        var observer = {
+          lat: o.latitude * 180 / Math.PI,
+          lon: o.longitude * 180 / Math.PI,
+          elevationM: o.elevation
+        };
+        var source = new URLSearchParams(location.search).get('elevationSource');
+        var elevationSource = source === 'unavailable-zero' ? source : Math.abs(observer.lat - 41.321903) < 1e-6 && Math.abs(observer.lon + 79.585394) < 1e-6 && observer.elevationM === 432.816 ? 'oras-site' : 'provided';
+        return {
+          mode: 'sky',
+          observer: observer,
+          elevationSource: elevationSource,
+          utc: new Date(Math.round((o.utc - 40587) * 86400000)).toISOString(),
+          live: core.time_speed !== 0,
+          camera: {
+            projection: core.projection,
+            fovRad: core.fov,
+            yawRad: o.yaw,
+            pitchRad: o.pitch,
+            rollRad: o.roll,
+            landscapeVisible: core.landscapes.visible
+          }
+        };
+      },
+      restoreView: function restoreView(camera) {
+        var core = app.$stel.core;
+        core.projection = camera.projection;
+        core.fov = camera.fovRad;
+        core.observer.yaw = camera.yawRad;
+        core.observer.pitch = camera.pitchRad;
+        core.observer.roll = camera.rollRad;
+        core.landscapes.visible = camera.landscapeVisible;
+        neutral();
+        removeWheel.reset();
+        return {
+          ok: true
+        };
       },
       setLive: function setLive(live) {
         app.$stel.core.time_speed = live ? 1 : 0;

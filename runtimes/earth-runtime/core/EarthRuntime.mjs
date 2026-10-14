@@ -47,5 +47,6 @@ export class EarthRuntime {
   }
   setTime(utc){if(this.lifecycle.closed)throw Error('Disposed');this.viewer.clock.currentTime=JulianDate.fromIso8601(utc);this.viewer.clock.shouldAnimate=false;document.querySelector('#time').textContent='Requested time: '+utc+' · live layers use source time';this.viewer.scene.requestRender();return {ok:true,temporalMode:'CONTROLLED',effectiveTime:JulianDate.toDate(this.viewer.clock.currentTime).toISOString()};}
   async setObserver(value){if(this.lifecycle.closed)throw Error('Disposed');this.observer={...value};await this.registry.update(this.context);return {ok:true,effectiveObserver:{...this.observer}};}
+  navigation(){const view=this.camera.navigation(this.site);return view?{mode:'earth',...view,utc:JulianDate.toDate(this.viewer.clock.currentTime).toISOString(),live:this.liveTime===true}:null;}
   async destroy(){await this.lifecycle.destroy();this.ready=false;document.querySelector('#earth').dataset.status='destroyed';}
 }
