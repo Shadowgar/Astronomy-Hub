@@ -8,11 +8,11 @@ await page.addInitScript(()=>{window.__input=[];document.addEventListener('wheel
 const frame=()=>page.frames().find(f=>f.url().includes('/oras-sky-engine/'));
 const nav=()=>frame().evaluate(()=>window.orasSkyAdapter.navigation());
 const ready=async mode=>{await page.locator(`[data-runtime-mode=${mode}][data-runtime-status=ready]`).waitFor({timeout:90000});await page.locator('.ws-handoff').waitFor({state:'hidden',timeout:90000});};
-const wheel=async(deltas,interval)=>{const b=await frame().locator('canvas').first().boundingBox(),epoch=Date.now()/1000;await Promise.all(deltas.map((deltaY,i)=>new Promise(r=>setTimeout(r,i*interval)).then(()=>cdp.send('Input.dispatchMouseEvent',{type:'mouseWheel',x:b.x+b.width/2,y:b.y+b.height/2,deltaX:0,deltaY,timestamp:epoch+i*interval/1000}))));await page.waitForTimeout(150);};
+const wheel=async(deltas,interval)=>{const b=await frame().locator('canvas').first().boundingBox();await page.mouse.move(b.x+b.width/2,b.y+b.height/2);const epoch=Date.now()/1000;await Promise.all(deltas.map((deltaY,i)=>new Promise(r=>setTimeout(r,i*interval)).then(()=>cdp.send('Input.dispatchMouseEvent',{type:'mouseWheel',x:b.x+b.width/2,y:b.y+b.height/2,deltaX:0,deltaY,timestamp:epoch+i*interval/1000}))));await page.waitForTimeout(500);};
 try{
- await page.goto(base+'/sky-engine');await ready('sky');await page.waitForTimeout(1100);
+ await page.goto(base+'/sky-engine');await ready('sky');await frame().evaluate(()=>{window.__input=[];document.addEventListener('wheel',e=>window.__input.push({deltaY:e.deltaY,wheelDelta:e.wheelDelta,stamp:e.timeStamp}),{capture:true});});await page.waitForTimeout(1100);
  await wheel(Array(5).fill(120),20);assert.ok(Math.abs((await nav()).camera.fovRad-185*Math.PI/180)<1e-8);assert.ok(page.url().includes('/sky-engine'));proof.checks.push('ordinary arrival and short overshoot stay Sky');
- await wheel(Array.from({length:160},(_,i)=>120*.96**i),20);assert.ok(page.url().includes('/sky-engine'));proof.checks.push('decaying trackpad inertia at clamp stays Sky');
+ await wheel(Array.from({length:160},(_,i)=>120*.96**i),20);assert.ok(page.url().includes('/sky-engine'));proof.checks.push('decaying trackpad inertia at clamp stays Sky');proof.inertiaInputs=await frame().evaluate(()=>window.__input);assert.ok(proof.inertiaInputs.length>5,'real wheel delivery required');
  await wheel([-120,-120],100);assert.ok((await nav()).camera.fovRad<180*Math.PI/180);proof.checks.push('reverse scroll cancels and leaves five-degree hysteresis');
  // Continuous varied trackpad input, with no special pause after arrival.
  await wheel(Array.from({length:220},(_,i)=>[16,14,12,13,8,16,19,14][i%8]),20);await ready('earth');proof.checks.push('varied small-delta trackpad continuation enters Earth');

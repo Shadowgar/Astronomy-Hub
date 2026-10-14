@@ -32,3 +32,10 @@ test('abandoned progress expires, without requiring a second pause to restart',(
  const gate=new ContinuedInput();input(gate,0);input(gate,500);input(gate,700);
  assert.notEqual(input(gate,6000).phase,'request');assert.ok([6600,7200,7800,8400].map(t=>input(gate,t).phase).includes('request'));
 });
+test('coalesced decaying trackpad packets after arrival cannot satisfy continued intent',()=>{
+ const gate=new ContinuedInput();const packets=[[0,120],[40,240],[60,120],[80,120],[1057,120],[1097,225.79199],[1117,106.16832],[1157,199.76631],[1197,184.10463],[1237,169.67084],[1277,156.36864],[1317,144.10934]];
+ for(const [now,pixels] of packets)assert.notEqual(input(gate,now,pixels).phase,'request');
+});
+test('variable small trackpad input still accumulates continuation',()=>{
+ const gate=new ContinuedInput(),phases=[];for(let i=0;i<220;i++)phases.push(input(gate,i*20,[16,14,12,13,8,16,19,14][i%8]).phase);assert.ok(phases.includes('request'));
+});

@@ -14085,6 +14085,9 @@ function ContinuedInput() {
     this.count = 0;
     this.previous = 0;
     this.decaying = 0;
+    this.decayStart = null;
+    this.rate = null;
+    this.creditStart = null;
     this.blockUntil = blockUntil;
   };
 
@@ -14138,14 +14141,26 @@ function ContinuedInput() {
       this.total = 0;
       this.count = 0;
       this.decaying = 0;
+      this.rate = null;
     } // A decaying trackpad tail is not deliberate continuation. Separate notches
     // and renewed/stable input can continue immediately, without a required pause.
 
 
-    this.decaying = gap < 160 && pixels < this.previous * .98 ? this.decaying + 1 : 0;
+    var rate = pixels / Math.max(16, gap);
+    var fading = this.rate !== null && rate < this.rate * .98 && (gap < 160 || pixels < this.previous * .98);
+
+    if (fading) {
+      if (!this.decaying) this.decayStart = now;
+      this.decaying++;
+    } else {
+      this.decaying = 0;
+      this.decayStart = null;
+    }
+
+    this.rate = rate;
     this.previous = pixels;
 
-    if (this.decaying >= 3) {
+    if (this.decaying >= 2 && now - this.decayStart >= 150) {
       this.total = 0;
       this.count = 0;
       this.phase = 'boundary';
@@ -14161,10 +14176,11 @@ function ContinuedInput() {
       phase: 'boundary',
       progress: 0
     };
+    if (!this.count) this.creditStart = now;
     this.total += Math.min(120, pixels);
     this.count++;
     this.phase = 'progress';
-    var progress = Math.min(1, this.total / 480, (now - this.start) / 650, this.count / 4);
+    var progress = Math.min(1, this.total / 480, (now - this.start) / 650, this.count / 4, (now - this.creditStart) / 350);
     if (progress >= 1) this.phase = 'request';
     return {
       phase: this.phase,
