@@ -14251,7 +14251,9 @@ function installNativeWheel(canvas, engine) {
       atBoundary: fov >= max - 1e-7,
       withinBoundary: latched,
       continuing: delta < 0,
-      pixels: Math.abs(delta) * 120,
+      // Legacy wheelDelta may quantize every small/decaying event to one notch.
+      // Intent uses the device's standard pixel travel; native zoom above stays native.
+      pixels: Math.abs(event.deltaY) * (event.deltaMode === 1 ? 40 : event.deltaMode === 2 ? rect.height : 1),
       now: now(event)
     }));
   };

@@ -38,3 +38,9 @@ test('line/page wheel modes are bounded and zero or invalid delta does not zoom'
  h.wheel(-1,2);assert.ok(h.calls[1][0]>1);h.wheel(-1e9);assert.ok(h.calls[2][0]<=1.05**20);
  h.wheel(0);h.wheel(NaN);assert.equal(h.calls.length,3);h.remove();h.wheel(-120);assert.equal(h.calls.length,3);
 });
+test('legacy wheelDelta quantization cannot turn a decaying standard trackpad tail into deliberate input',()=>{
+ let clock=0;const canvas=new EventTarget();canvas.getBoundingClientRect=()=>({left:0,top:0,height:800});const notices=[];
+ const remove=installNativeWheel(canvas,{core:{projection:2,fov:185*Math.PI/180},_core_on_zoom(){}},{enabled:()=>true,now:()=>clock,onBoundary:v=>notices.push(v)});
+ for(let i=0;i<160;i++){clock=i*20;const e=new Event('wheel',{cancelable:true});Object.assign(e,{deltaY:120*.96**i,wheelDelta:-120,deltaMode:0,clientX:200,clientY:200});canvas.dispatchEvent(e)}
+ assert.equal(notices.some(n=>n.phase==='request'),false);remove();
+});
