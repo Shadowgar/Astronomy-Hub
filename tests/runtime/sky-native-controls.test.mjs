@@ -3,7 +3,7 @@ const source=readFileSync(new URL('../../runtimes/sky-adapter/entry.mjs',import.
 function page(){
  const window=new EventTarget(),document=new EventTarget(),events=[];
  window.orasSkyAdapter={panelOpen:()=>false};document.querySelector=()=>null;document.documentElement={classList:{contains:()=>true}};
- runInNewContext(source,{window,document,installSkyPanelReports:()=>()=>{},createRuntimeEndpoint:()=>({ready(){},emit:(_name,data)=>events.push(JSON.parse(JSON.stringify(data)))}),clearTimeout(){}});
+ runInNewContext(source,{window,document,installSkyPanelReports:()=>()=>{},installSkyNightReports:()=>()=>{},createRuntimeEndpoint:()=>({ready(){},emit:(_name,data)=>events.push(JSON.parse(JSON.stringify(data)))}),clearTimeout(){}});
  const dispatch=(type,fields)=>{const event=new Event(type,{cancelable:true});for(const [key,value] of Object.entries(fields))Object.defineProperty(event,key,{value});document.dispatchEvent(event);return event};
  return {events,dispatch,window};
 }

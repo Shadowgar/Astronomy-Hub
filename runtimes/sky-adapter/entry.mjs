@@ -1,8 +1,8 @@
 import {createRuntimeEndpoint} from '../../packages/runtime-protocol/endpoint.mjs';
-import {installSkyPanelReports} from './native-panels.mjs';
+import {installSkyPanelReports,installSkyNightReports} from './native-panels.mjs';
 const endpoint=createRuntimeEndpoint({runtime:'sky',version:'stellarium:comparison-023e3b2/oras-sky-baseline.v1+workspace.1',capabilities:['nativeTools','destroy','timeIntent','observerIntent','presentation','interactionEvents','selection','workspaceState'],execute:async(command,payload)=>{
  const adapter=window.orasSkyAdapter;if(!adapter)throw new Error('Engine unavailable');
- if(command==='destroy'){stopPanelReports();adapter.stop();return {ok:true};}
+ if(command==='destroy'){stopPanelReports();stopNightReports();adapter.stop();return {ok:true};}
  if(command==='openNativeTools')return adapter.tools();
  if(command==='getWorkspaceState')return {ok:true,state:adapter.snapshot()};
  if(command==='setPresentation'){adapter.presentation(payload.embedded,payload.creditsAtTop);return {ok:true};}
@@ -19,7 +19,7 @@ const endpoint=createRuntimeEndpoint({runtime:'sky',version:'stellarium:comparis
  }
  return {ok:false,error:'Unsupported capability'};
 }});
-const stopPanelReports=installSkyPanelReports();
+const stopPanelReports=installSkyPanelReports(),stopNightReports=installSkyNightReports();
 let timer=null;
 function ready(){endpoint.ready();const canvas=document.querySelector('#stel-canvas');if(!canvas)return;
  const interaction=()=>{clearTimeout(timer);endpoint.emit('interaction',{active:true,focused:false});timer=setTimeout(()=>{timer=null;endpoint.emit('interaction',{active:false,focused:false})},350)};

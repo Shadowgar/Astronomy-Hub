@@ -13,3 +13,9 @@
 @media(prefers-reduced-transparency:reduce){.as-sky{--ws-surface:#16191e}.as-sky .ws-panel{backdrop-filter:none}}
 
 .as-sky button.ws-panel{background:var(--ws-surface)}
+/* Reflect native SWE Night Mode in Hub chrome. The renderer is never filtered. */
+.ws-shell.as-sky.as-sky-night{--ws-bg:#090202;--ws-stage:#030000;--ws-surface:rgba(25,6,5,.96);--ws-elevated:#280b09;--ws-hover:#41140f;--ws-border:#71332e;--ws-divider:#56211b;--ws-text:#d76b66;--ws-secondary:#bf615a;--ws-muted:#af5752;--ws-accent:#de766b;--ws-selected:#c86861;--ws-live:#c86861;--ws-warning:#d37862;--ws-error:#de766b;--ws-ink:#200604;--ws-shadow:0 10px 32px #0008}
+.as-sky-night .ws-panel{box-shadow:var(--ws-shadow)}.as-sky-night .ws-night-line{background:linear-gradient(90deg,#57201b,#a84c44 16%,#7c3029 85%,#57201b)}
+.as-sky-night .as-dialog::backdrop{background:#0a0000d9}.as-sky-night input{color-scheme:dark;caret-color:var(--ws-text)}.as-sky-night input:focus-visible,.as-sky-night button:focus-visible,.as-sky-night a:focus-visible,.as-sky-night summary:focus-visible{outline-color:var(--ws-accent)}
+.as-sky-night .ws-primary:hover{background:#c9655b;color:var(--ws-ink)}
+.as-sky-night *::selection{background:#602b22;color:#e6a19a}

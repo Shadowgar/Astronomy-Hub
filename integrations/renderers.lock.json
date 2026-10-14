@@ -529,7 +529,7 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_current_sky.sh",
-    "artifact_sha256": "06f92b7e2851ec975c055980068fdcea2cf158c2d4bc9e58115452529baeb456",
+    "artifact_sha256": "c95664c19df717c2f7087b0e22ffab28210fb1cee42a91969005697f79b2f7d5",
     "artifact_files": [
       {
         "path": "css/app.e3189512.css",
@@ -984,12 +984,12 @@
       {
         "path": "index.html",
         "bytes": 1960,
-        "sha256": "bfbf98cc6cbb594a87fd1baf8c56c315d479bf906366f60cb7d178deb9820258"
+        "sha256": "e1af3239f14812304128ce3c0f749f7346aef02e5eafd24785ff577e07ad4592"
       },
       {
-        "path": "js/app.66f52a74.js",
-        "bytes": 582939,
-        "sha256": "582ea16946034aa8201b77d9a1058d75fa84d4492c17326b5f4abdd65b23c9bc"
+        "path": "js/app.e10cab69.js",
+        "bytes": 584857,
+        "sha256": "3320317663208150297e0c911c277db968596f24d7687c1da74e6984171e808b"
       },
       {
         "path": "js/chunk-2d2253ec.1b0c9439.js",
@@ -1009,16 +1009,16 @@
       {
         "path": "oras-runtime-build.json",
         "bytes": 810,
-        "sha256": "7b0e6aea028c5d645a652ffa91a6768680bd49c9d0071f2a5adfdb5f5457938c"
+        "sha256": "abcb68b91111cedda48d80640f382a0860d4f176f1e167e700e10e6a52489b7a"
       }
     ],
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "c14af302d960e07c5eb040f36e0975eb5bd4d9d5bdd2c192741fea1e613e82e5",
+    "workspace_adapter_sha256": "c263f49f1275988d5c3a75d90ca9caf5f5371546f1a3d61b3551ad08e27d9dfd",
     "artifact_hash_scope": "Application files excluding identity marker",
     "wheel_input_sha256": "29353cca2b47c44b8467c8e2e808a3af8b3cf8bc8a17a9aa211061f75f40bbe9",
     "bridge_input_sha256": {
-      "entry.mjs": "e5a01877709c52b58ead0221de99cf02a7f22b30b263298f35fda8ae0fb28008",
-      "native-panels.mjs": "52a012e28bb62f8c362fa97b8a89c9afff01bbeb953b711c354e81d40a28997f"
+      "entry.mjs": "0f715ec3cfd8ec8becafefdb01d4a5bab365dd0d927c58c495e877569b05e18d",
+      "native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749"
     }
   },
   "earth": {
