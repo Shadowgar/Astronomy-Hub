@@ -1,33 +1,34 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-// A missing module is the initial red state; the protocol tests fail assertions.
 import {ContinuedInput} from '../../packages/runtime-protocol/continued-input.mjs';
-test('ordinary zoom and uninterrupted arrival/momentum never request a renderer handoff',()=>{
- const gate=new ContinuedInput();for(let t=0;t<3000;t+=20)assert.notEqual(gate.input({atBoundary:t>300,continuing:true,pixels:120,now:t}).phase,'request');
+const input=(gate,now,pixels=120,extra={})=>gate.input({atBoundary:true,continuing:true,pixels,now,...extra});
+test('continuous outward input works without pausing at the boundary',()=>{
+ const gate=new ContinuedInput();for(let t=0;t<400;t+=100)input(gate,t,120,{atBoundary:false});
+ const phases=[];for(let t=400;t<=1600;t+=100)phases.push(input(gate,t).phase);
+ assert.equal(phases[0],'boundary');assert.ok(phases.includes('request'));
 });
-test('new deliberate gesture at the boundary requires distance, event count and duration',()=>{
- const gate=new ContinuedInput();assert.equal(gate.input({atBoundary:true,continuing:true,pixels:120,now:0}).phase,'boundary');
- assert.equal(gate.input({atBoundary:true,continuing:true,pixels:120,now:400}).phase,'progress');
- assert.equal(gate.input({atBoundary:true,continuing:true,pixels:120,now:520}).phase,'progress');
- assert.equal(gate.input({atBoundary:true,continuing:true,pixels:120,now:640}).phase,'request');
- assert.equal(gate.input({atBoundary:true,continuing:true,pixels:120,now:800}).phase,'idle');
+test('slow notches and irregular cadence retain deliberate progress',()=>{
+ for(const times of [[0,600,1200,1800,2400,3000],[0,170,610,790,1410,2010,2290,2830]]){
+  const gate=new ContinuedInput();assert.ok(times.map(t=>input(gate,t).phase).includes('request'));
+ }
 });
-test('trackpad small deltas work; reverse input, pan and cancellation discard accumulated intent',()=>{
- const gate=new ContinuedInput();gate.input({atBoundary:true,continuing:true,pixels:24,now:0});
- for(let i=0;i<14;i++)assert.notEqual(gate.input({atBoundary:true,continuing:true,pixels:24,now:400+i*20}).phase,'request');
- assert.equal(gate.input({atBoundary:true,continuing:true,pixels:24,now:680}).phase,'request');
- gate.reset(1000);assert.notEqual(gate.input({atBoundary:true,continuing:true,pixels:120,now:1100}).phase,'request');
- gate.reset();gate.input({atBoundary:true,continuing:true,pixels:120,now:0});gate.input({atBoundary:true,continuing:true,pixels:120,now:400});
- assert.equal(gate.input({atBoundary:true,continuing:false,pixels:120,now:500}).phase,'idle');
- assert.equal(gate.input({atBoundary:true,continuing:true,pixels:120,now:600}).phase,'boundary');
+test('small trackpad input can continue directly from ordinary zoom',()=>{
+ const gate=new ContinuedInput();const phases=[];
+ for(let t=0;t<2400;t+=20)phases.push(input(gate,t,8).phase);
+ assert.ok(phases.includes('request'));
 });
-test('hysteresis retains boundary awareness in its band but never counts or requests before the strict clamp',()=>{
- const gate=new ContinuedInput();gate.input({atBoundary:true,continuing:true,pixels:120,now:0});
- assert.equal(gate.input({atBoundary:false,withinBoundary:true,continuing:true,pixels:120,now:400}).phase,'boundary');
- assert.equal(gate.input({atBoundary:false,withinBoundary:false,continuing:true,pixels:120,now:600}).phase,'idle');
+test('arrival, short overshoot, a single huge event and decaying inertia do not transition',()=>{
+ let gate=new ContinuedInput();for(let t=0;t<=300;t+=20)assert.notEqual(input(gate,t).phase,'request');
+ gate=new ContinuedInput();assert.notEqual(input(gate,0,9999).phase,'request');assert.notEqual(input(gate,900,9999).phase,'request');
+ gate=new ContinuedInput();for(let i=0;i<160;i++)assert.notEqual(input(gate,i*20,120*.96**i).phase,'request');
 });
-test('a long pause at a still-qualified boundary starts deliberate input without a second artificial pause',()=>{
- const gate=new ContinuedInput();gate.input({atBoundary:true,continuing:true,pixels:120,now:0});
- assert.equal(gate.input({atBoundary:true,continuing:true,pixels:120,now:6000}).phase,'progress');
- gate.input({atBoundary:true,continuing:true,pixels:120,now:6120});
- assert.equal(gate.input({atBoundary:true,continuing:true,pixels:120,now:6240}).phase,'request');
+test('reversal, pan, cooldown and departure from hysteresis discard intent',()=>{
+ const gate=new ContinuedInput();input(gate,0);input(gate,500);input(gate,700);
+ assert.equal(input(gate,800,120,{continuing:false}).phase,'idle');assert.equal(input(gate,900).phase,'boundary');
+ assert.equal(input(gate,1400,120,{atBoundary:false,withinBoundary:true}).phase,'boundary');
+ assert.equal(input(gate,1500,120,{atBoundary:false,withinBoundary:false}).phase,'idle');
+ gate.reset(3000);assert.equal(input(gate,2900).phase,'idle');assert.equal(input(gate,3100).phase,'boundary');
+});
+test('abandoned progress expires, without requiring a second pause to restart',()=>{
+ const gate=new ContinuedInput();input(gate,0);input(gate,500);input(gate,700);
+ assert.notEqual(input(gate,6000).phase,'request');assert.ok([6600,7200,7800,8400].map(t=>input(gate,t).phase).includes('request'));
 });

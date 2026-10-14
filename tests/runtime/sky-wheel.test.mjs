@@ -11,14 +11,14 @@ test('standard wheel reaches native SWE zoom with cursor coordinates and cancels
  const h=harness();assert.equal(h.wheel(-120).defaultPrevented,true);assert.equal(h.calls.length,1);
  assert.deepEqual(h.calls[0],[1.05**2,200,300]);h.wheel(120);assert.ok(h.calls[1][0]<1);
 });
-test('qualified FOV clamp reports boundary but needs a second deliberate burst; removal releases input',()=>{
+test('qualified FOV clamp ignores arrival then accepts sustained continuation; removal releases input',()=>{
  let now=0;const notices=[],canvas=new EventTarget();canvas.getBoundingClientRect=()=>({left:0,top:0,height:800});
  const engine={core:{fov:180*Math.PI/180,projection:2},_core_on_zoom(k){this.core.fov=Math.min(185*Math.PI/180,this.core.fov/k)}};
  const remove=installNativeWheel(canvas,engine,{enabled:()=>true,now:()=>now,onBoundary:v=>notices.push(v)});
  const wheel=(deltaY,time)=>{now=time;const e=new Event('wheel',{cancelable:true});Object.assign(e,{deltaY,deltaMode:0,clientX:200,clientY:200});canvas.dispatchEvent(e)};
- for(let t=0;t<1000;t+=20)wheel(120,t);
+ for(let t=0;t<300;t+=20)wheel(120,t);
  assert.equal(notices.some(n=>n.phase==='request'),false);assert.ok(notices.some(n=>n.phase==='boundary'));
- wheel(120,1400);wheel(120,1520);wheel(120,1640);assert.equal(notices.at(-1).phase,'request');
+ for(let t=400;t<=1000;t+=100)wheel(120,t);assert.ok(notices.some(n=>n.phase==='request'));
  remove();const count=notices.length;wheel(120,2000);assert.equal(notices.length,count);
 });
 test('rendering stalls cannot turn continuously timestamped wheel input into a second gesture',()=>{

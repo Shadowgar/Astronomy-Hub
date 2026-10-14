@@ -5,15 +5,15 @@
   "native_wasm_identical": true,
   "native_vendor_chunks_identical": true,
   "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
-  "adapter_sha256": "ea89906143f96ee2a5ec360fbfc7cabe7d92ba9ca68652061552c6416473bd06",
+  "adapter_sha256": "b7fd67de80f2853470edffd340427b1dcd7ee1ffa722b18087d0a9800e241e11",
   "bridge_input_sha256": {
     "entry.mjs": "2ce2be29b21048ed6223989603f7a5be458414ab754247176eb0b7861eb99272",
     "native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749"
   },
   "wheel_input_sha256": "ff22a62ba583b6439e730bfd428645779a5ae740d62ebd7bf375f825c7a9b8eb",
   "navigation_input_sha256": {
-    "continued-input.mjs": "8389d770db0918fe5c6bc241a4a2b04ded6640feaa7d381d7698c4bdc79ed16f",
+    "continued-input.mjs": "7308432cfd711c0ae4cc9439febbafe8d41473698949a13fd7a93ce2f78c029d",
     "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768"
   },
-  "artifact_sha256": "3077fe46d2b5df4d45482ebd1eb3073a3f9e8548b6ce1aba3060d2df1bd028c1"
+  "artifact_sha256": "a0fc7e6570a836c6a5e91750ad4cae27081174217ad54620516c852a9dbc72f1"
 }

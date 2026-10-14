@@ -1,3 +1,14 @@
+## PR #75 repair — N1 NOT ACCEPTED, 2026-10-14
+
+The owner rejected N1 at `8fe05ca1a8505dc20449635fa47b615e4bd23a0c` after
+actual ChatGPT-browser scrolling failed to leave Sky and Earth approach required
+excessive input. The historical 40 automated checks below do not establish product
+acceptance. The active task repairs continued wheel intent, altitude-aware Earth
+zoom and standalone native landscape selection on the same PR/branch. Preserve
+#75 → #74 → #73, $0 providers, existing science/data/settings and renderer ownership.
+No merge, deploy or N2. Fresh representative Chromium desktop/touch qualification
+and owner testing are required; the exact owner browser cannot be automated here.
+
 ## N1 — bidirectional Sky ↔ Earth navigation, 2026-10-14
 
 **REAL within the bounded local Docker/browser scope; owner acceptance is pending.**

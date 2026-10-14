@@ -4,7 +4,11 @@ import {surfaceObserver} from './navigationObserver.mjs';
 export class CameraController {
  constructor(viewer){this.viewer=viewer;this.reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;this.userMoved=false;this.flightGeneration=0;this.gate=new ContinuedInput();this.boundary=false;this.lastPhase='idle';this.onNavigation=null;
  const canvas=viewer.canvas,controller=viewer.scene.screenSpaceCameraController;controller.zoomEventTypes=controller.zoomEventTypes.filter(type=>type!==CameraEventType.WHEEL);
- this.wheel=event=>{if(!Number.isFinite(event.deltaY)||event.deltaY===0)return;event.preventDefault();this.interrupt(false);const factor=Math.pow(1.18,Math.max(-1.35,Math.min(1.35,event.deltaY/(event.deltaMode===1?3:100))));this.zoom(factor);viewer.scene.requestRender();
+ this.wheel=event=>{if(!Number.isFinite(event.deltaY)||event.deltaY===0)return;event.preventDefault();this.interrupt(false);const pixels=event.deltaY*(event.deltaMode===1?40:event.deltaMode===2?canvas.clientHeight:1);
+  // Strong orbital traversal tapers continuously to precise surface control.
+  // Bound a coalesced/large wheel event; retain the native view ray and clamps.
+  const height=Math.max(0,viewer.camera.positionCartographic.height),gain=.18+.92*(-Math.expm1(-height/20000));
+  const factor=Math.exp(gain*Math.max(-1.25,Math.min(1.25,pixels/120)));this.zoom(factor);viewer.scene.requestRender();
   const target=this.surfaceTarget();if(!target||event.ctrlKey){this.resetNavigation();return;}
   if(target.rangeM<=1500)this.boundary=true;else if(target.rangeM>2500)this.boundary=false;
   const value=this.gate.input({atBoundary:target.rangeM<=1500,withinBoundary:this.boundary,continuing:event.deltaY<0,pixels:Math.abs(event.deltaY)*(event.deltaMode===1?40:event.deltaMode===2?canvas.clientHeight:1),now:event.timeStamp});
