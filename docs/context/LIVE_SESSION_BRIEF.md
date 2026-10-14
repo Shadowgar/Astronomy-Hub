@@ -16,7 +16,11 @@ observer elevation. The owner chose neutral native horizons at all unqualified
 locations: the installed Guéreins panorama is not verified ORAS imagery. Preserve
 its assets and the native Landscape toggle. Native Night Mode stays Sky-only.
 
-Implementation/qualification is in progress; the isolated local application preview
+Implementation is locally Docker/browser-qualified: 20 desktop + 20 touch/mobile
+checks pass with no JavaScript page errors and one renderer at a time. Exact
+source/artifact, timing, failure and preservation proof is in
+[application evidence](../validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md).
+Owner acceptance remains open. The isolated local application preview
 is <http://127.0.0.1:4202/sky-engine>. Preserve the PR #74 preview at port 4201,
 owner settings, installed astronomy data, renderer rollback artifacts and all
 existing PRs. No merge or deployment. STOP for owner acceptance after functioning
