@@ -3,11 +3,15 @@ docs/context/CORE_CONTEXT.md
 docs/context/LIVE_SESSION_BRIEF.md
 docs/execution/PROJECT_STATE.md
 docs/validation/UNIFIED_WORKSPACE_IMPLEMENTATION_EVIDENCE.md
+docs/validation/n1-navigation/cancel-green.log
 docs/validation/n1-navigation/cancel-loading-1440.png
 docs/validation/n1-navigation/cancel-loading-390.png
+docs/validation/n1-navigation/cancel-state-audit.log
 docs/validation/n1-navigation/caption-proof.json
 docs/validation/n1-navigation/combined-attempt.json
+docs/validation/n1-navigation/delivery-files.txt
 docs/validation/n1-navigation/desktop-proof.json
+docs/validation/n1-navigation/frontend.log
 docs/validation/n1-navigation/implementation-files.txt
 docs/validation/n1-navigation/loaded-documents.txt
 docs/validation/n1-navigation/mobile-explore-390.png
@@ -31,8 +35,10 @@ docs/validation/n1-navigation/oras-sky-390.png
 docs/validation/n1-navigation/preservation.json
 docs/validation/n1-navigation/runtime.tap
 docs/validation/n1-navigation/selection-roundtrip.png
+docs/validation/n1-navigation/selection-smoke.log
 docs/validation/n1-navigation/sky-caption-1440.png
 docs/validation/n1-navigation/sky-caption-390.png
+docs/validation/n1-navigation/typecheck.log
 frontend/public/oras-sky-engine/index.html
 frontend/public/oras-sky-engine/js/app.2e8d614d.js
 frontend/public/oras-sky-engine/oras-runtime-build.json
