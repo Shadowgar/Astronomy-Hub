@@ -32,9 +32,9 @@ not ok 5 - legacy wheelDelta quantization cannot turn a decaying standard trackp
   failureType: 'testCodeFailure'
   error: |-
     Expected values to be strictly equal:
-    
+
     true !== false
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: false

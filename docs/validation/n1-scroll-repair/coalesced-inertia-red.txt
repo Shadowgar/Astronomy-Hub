@@ -44,7 +44,7 @@ not ok 7 - coalesced decaying trackpad packets after arrival cannot satisfy cont
   failureType: 'testCodeFailure'
   error: |-
     Expected "actual" to be strictly unequal to:
-    
+
     'request'
   code: 'ERR_ASSERTION'
   name: 'AssertionError'

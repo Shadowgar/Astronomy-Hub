@@ -8,9 +8,9 @@ not ok 1 - continuous outward input works without pausing at the boundary
   failureType: 'testCodeFailure'
   error: |-
     The expression evaluated to a falsy value:
-    
+
       assert.ok(phases.includes('request'))
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: true
@@ -32,9 +32,9 @@ not ok 2 - slow notches and irregular cadence retain deliberate progress
   failureType: 'testCodeFailure'
   error: |-
     The expression evaluated to a falsy value:
-    
+
       assert.ok(times.map(t=>input(gate,t).phase).includes('request'))
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: true
@@ -58,9 +58,9 @@ not ok 3 - small trackpad input can continue directly from ordinary zoom
   failureType: 'testCodeFailure'
   error: |-
     The expression evaluated to a falsy value:
-    
+
       assert.ok(phases.includes('request'))
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: true
@@ -96,9 +96,9 @@ not ok 6 - abandoned progress expires, without requiring a second pause to resta
   failureType: 'testCodeFailure'
   error: |-
     The expression evaluated to a falsy value:
-    
+
       assert.ok([6600,7200,7800,8400].map(t=>input(gate,t).phase).includes('request'))
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: true

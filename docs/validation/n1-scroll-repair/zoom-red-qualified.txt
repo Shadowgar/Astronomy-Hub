@@ -29,10 +29,10 @@ not ok 2 - small deltas near the surface give precise control; huge input cannot
   error: |-
     Expected values to be strictly equal:
     + actual - expected
-    
+
     + 761427.2135668551
     - 30000000
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: 30000000

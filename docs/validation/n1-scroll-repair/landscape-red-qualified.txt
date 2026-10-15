@@ -8,9 +8,9 @@ not ok 1 - standalone keeps native landscape selection and visibility toggles
   failureType: 'testCodeFailure'
   error: |-
     Expected values to be strictly equal:
-    
+
     'zero' !== 'guereins'
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: 'guereins'
@@ -32,9 +32,9 @@ not ok 2 - embedded exploration alone uses neutral horizon; returning to native 
   failureType: 'testCodeFailure'
   error: |-
     Expected values to be strictly equal:
-    
+
     'zero' !== 'guereins'
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: 'guereins'

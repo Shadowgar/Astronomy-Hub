@@ -96,11 +96,11 @@ Module Error (from ./node_modules/thread-loader/dist/cjs.js):
  @ ./src/main.js
  @ multi ./src/main.js
 
- warning  
+ warning
 
 asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
 This can impact web performance.
-Assets: 
+Assets:
   fonts/materialdesignicons-webfont.ff13d121.woff (312 KiB)
   fonts/materialdesignicons-webfont.541e65fb.eot (648 KiB)
   fonts/materialdesignicons-webfont.fc03f7f1.ttf (647 KiB)
@@ -109,7 +109,7 @@ Assets:
   css/chunk-vendors.11c203ce.css (639 KiB)
   js/chunk-vendors.c8723c79.js (2.84 MiB)
 
- warning  
+ warning
 
 entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
 Entrypoints:

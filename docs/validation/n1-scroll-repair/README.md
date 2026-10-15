@@ -194,3 +194,6 @@ with its known scroll defects. Source rollback must restore matching Sky/Earth
 artifacts, lock and admission metadata together; do not mix artifacts. Original
 and failed evidence remains available. No rollback, merge or deployment has been
 performed. The recommended next task is owner testing of the corrected experience.
+
+Captured terminal copies normalize trailing whitespace; raw originals remain under
+`output/n1/`. JSON/input samples and screenshots are preserved unchanged.
