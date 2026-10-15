@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: orbital to surface approach takes at most sixteen ordinary notches, with bounded monotonic steps
+not ok 1 - orbital to surface approach takes at most sixteen ordinary notches, with bounded monotonic steps
+  ---
+  duration_ms: 4.122586
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/zoom-usability.test.mjs:12:1'
+  failureType: 'testCodeFailure'
+  error: 'required 47 notches'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/zoom-usability.test.mjs:15:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: small deltas near the surface give precise control; huge input cannot cross altitude bounds
+not ok 2 - small deltas near the surface give precise control; huge input cannot cross altitude bounds
+  ---
+  duration_ms: 1.483049
+  type: 'test'
+  location: '/home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/zoom-usability.test.mjs:17:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 761427.2135668551
+    - 30000000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 30000000
+  actual: 761427.2135668551
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/tests/earth/zoom-usability.test.mjs:20:43)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 0
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 49.727313

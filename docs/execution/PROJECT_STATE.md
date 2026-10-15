@@ -12,6 +12,16 @@ No merge, deploy or N2. Fresh representative Chromium desktop/touch qualificatio
 and owner testing are required; the exact owner browser cannot be automated here.
 
 
+Repair application source is `746e5f8a8131a4bb4ebdadaa89784dfeb59923f5`.
+Natural continuation, coalesced momentum and standalone landscape browser proof,
+plus before/after zoom measurements, are retained in
+[scroll repair evidence](../validation/n1-scroll-repair/README.md).
+An interrupted full run and failed mobile attempts are historical only. Final
+qualification passes 22 desktop and 22 touch/mobile journey groups with no page
+errors and one renderer at a time; 118 runtime and 239 frontend tests pass. Owner acceptance remains open. The preview is port 4202;
+port 4201 remains the PR #74 fallback. No N2, merge or deployment.
+
+
 ## Active N1 — Sky ↔ Earth navigation, 2026-10-14
 
 The owner explicitly authorizes functional bidirectional navigation on one isolated

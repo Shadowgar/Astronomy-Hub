@@ -1,0 +1,78 @@
+{
+  "head": "ea4e9fec24ab88473daf463f90afba1de7b23b50",
+  "status": "FAIL",
+  "checks": [
+    "ordinary arrival and short overshoot stay Sky"
+  ],
+  "pageErrors": [],
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(page.url().includes('/sky-engine'))\n\n    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_scroll_safeguards.mjs:15:68",
+  "inputs": {
+    "removed": [
+      [
+        {
+          "deltaY": 120,
+          "wheelDelta": -120,
+          "stamp": 2948.699999999255
+        },
+        {
+          "deltaY": 240,
+          "wheelDelta": -240,
+          "stamp": 2988.699999999255
+        },
+        {
+          "deltaY": 120,
+          "wheelDelta": -120,
+          "stamp": 3008.699999999255
+        },
+        {
+          "deltaY": 120,
+          "wheelDelta": -120,
+          "stamp": 3028.699999999255
+        },
+        {
+          "deltaY": 120,
+          "wheelDelta": -120,
+          "stamp": 4005.699999999255
+        },
+        {
+          "deltaY": 225.7919921875,
+          "wheelDelta": -240,
+          "stamp": 4045.699999999255
+        },
+        {
+          "deltaY": 106.16831970214844,
+          "wheelDelta": -120,
+          "stamp": 4065.800000000745
+        },
+        {
+          "deltaY": 199.7663116455078,
+          "wheelDelta": -240,
+          "stamp": 4105.699999999255
+        },
+        {
+          "deltaY": 184.10462951660156,
+          "wheelDelta": -240,
+          "stamp": 4145.699999999255
+        },
+        {
+          "deltaY": 169.67083740234375,
+          "wheelDelta": -240,
+          "stamp": 4185.699999999255
+        },
+        {
+          "deltaY": 156.36863708496094,
+          "wheelDelta": -240,
+          "stamp": 4225.699999999255
+        },
+        {
+          "deltaY": 144.10934448242188,
+          "wheelDelta": -240,
+          "stamp": 4265.699999999255
+        }
+      ]
+    ],
+    "frames": [
+      []
+    ]
+  }
+}

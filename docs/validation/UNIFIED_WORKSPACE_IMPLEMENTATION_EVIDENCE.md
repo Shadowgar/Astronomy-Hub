@@ -9,6 +9,13 @@ zoom and standalone native landscape selection on the same PR/branch. Preserve
 No merge, deploy or N2. Fresh representative Chromium desktop/touch qualification
 and owner testing are required; the exact owner browser cannot be automated here.
 
+[PR #75 scroll repair evidence](n1-scroll-repair/README.md) supersedes the old
+wheel qualification below. It retains rejected-head reproductions, corrected
+real Chromium input and zoom measurements, source/artifact identities, failed
+attempts, standalone landscape proof and final qualification status. N1 is still
+pending owner acceptance; old automated checks are not owner acceptance.
+
+
 ## N1 — bidirectional Sky ↔ Earth navigation, 2026-10-14
 
 **REAL within the bounded local Docker/browser scope; owner acceptance is pending.**

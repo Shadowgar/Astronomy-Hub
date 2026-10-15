@@ -1,6 +1,21 @@
 # Astronomy Hub — Repository Operating Rules
 
-## Active R1-B — real Adaptive Explorer Sky, 2026-10-13
+## Active N1 repair — PR #75, 2026-10-15
+
+The owner explicitly authorized functional Sky ↔ Earth navigation from PR #74
+`a57532796502a1db9ae1a7e4e4dc83e113db558f`, then rejected N1 at
+`8fe05ca1a8505dc20449635fa47b615e4bd23a0c` and authorized correcting PR #75.
+Repair natural wheel/trackpad continuation, responsive altitude-aware Earth zoom
+and standalone native landscape selection on `n1-sky-earth-navigation-1`.
+The unmerged dependency chain remains #75 → #74 → #73. This owner authorization
+supersedes the historical R1-B Sky-only rebuild restriction below for bounded N1.
+Reuse the existing contained SWE, owned Cesium Viewer and versioned bridge.
+Preserve science/data, settings, native binaries, existing providers and $0 spend.
+Qualify actual desktop/mobile browser journeys, report input/timing/failures and
+stop for owner testing. No merge, deployment, N2 or unrelated implementation.
+Single agent. CORE/LIVE and the validation evidence record current repair status.
+
+## Historical R1-B — real Adaptive Explorer Sky, 2026-10-13
 
 The owner accepts PR #73 at `b151d45787cf0e450aa0b187acd3eee142fa1fef` as the visual
 implementation target, including the revised Sky observing controls, and separately
