@@ -1,0 +1,54 @@
+# Workdir: /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1
+# Read-only initial state
+pwd
+git status --short
+git branch --show-current
+git rev-parse HEAD
+git worktree list
+gh pr view 75 --json number,state,headRefName,headRefOid,baseRefName,url
+docker ps --format '{{.Names}} {{.Ports}}'
+docker inspect oras-n1-owner-preview --format '{{json .Mounts}}'
+# Failing motion regression against original source; see red.txt.
+node --test tests/earth/smooth-camera.test.mjs
+# Follow-up failures and corrected final bundle; outputs retained separately.
+node --test tests/earth/smooth-camera.test.mjs tests/earth/page-lifecycle.test.mjs
+node --test tests/earth/smooth-camera.test.mjs tests/earth/zoom-usability.test.mjs
+node --test tests/runtime/*.test.mjs tests/earth/*.test.mjs
+npm --prefix frontend test
+npm --prefix frontend run typecheck
+# Real browser baseline (one failed Explore attempt retained, then successful run).
+N1_EVIDENCE_DIR=output/n1/smooth-camera/before node scripts/validation/measure_earth_motion.mjs
+# Prior candidate measurements and interrupted journey (not final qualification).
+N1_EVIDENCE_DIR=output/n1/smooth-camera/after N1_MOTION_QUALIFY=1 node scripts/validation/measure_earth_motion.mjs
+N1_EVIDENCE_DIR=output/n1/smooth-camera/journeys N1_RECORD_VIDEO=1 node scripts/validation/verify_n1_navigation.mjs
+# Exact pre-repair backups, before the first build.
+cp -a output/n1/earth output/n1/earth-before-smooth-camera
+cp -a frontend/dist output/n1/hub-before-smooth-camera
+# Same network-disabled pinned command used for initial, boundary/bfcache and reviewed builds.
+docker run --rm --network none --user 1001:1001 -v /var/tmp/oras-cesium/gods-eye:/source:ro -v /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1:/hub:ro -v /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/earth:/output -e GODS_EYE_SOURCE=/source -e ORAS_EARTH_OUT=/output node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8 node /source/node_modules/vite/bin/vite.js build --configLoader native --config /hub/runtimes/earth-runtime/vite.config.mjs
+cp -a output/n1/earth-before-smooth-camera/cesium output/n1/earth/
+cp output/n1/earth-before-smooth-camera/LICENSE-gods-eye.txt output/n1/earth/LICENSE-gods-eye.txt
+cp output/n1/earth-before-smooth-camera/health output/n1/earth/health
+cp runtimes/earth-runtime/display-config.json output/n1/earth/display-config.json
+python3 scripts/runtime/copy_dependency_licenses.py /var/tmp/oras-cesium/gods-eye output/n1/earth
+python3 scripts/runtime/record_owned_earth.py /var/tmp/oras-cesium/gods-eye output/n1/earth
+python3 scripts/runtime/record_runtime_versions.py output/n1/earth
+python3 scripts/runtime/earth_artifact.py verify --source output/n1/earth
+npm --prefix frontend run build
+# Final reviewed artifact; edge driver failures retained before corrected assertions.
+N1_EVIDENCE_DIR=output/n1/smooth-camera/edges N1_MOTION_EDGES=1 node scripts/validation/measure_earth_motion.mjs
+N1_EVIDENCE_DIR=output/n1/smooth-camera/final N1_MOTION_QUALIFY=1 node scripts/validation/measure_earth_motion.mjs
+N1_EVIDENCE_DIR=output/n1/smooth-camera/journeys N1_RECORD_VIDEO=1 node scripts/validation/verify_n1_navigation.mjs
+N1_EVIDENCE_DIR=output/n1/smooth-camera/selection node scripts/validation/verify_earth_motion_selection.mjs
+# Final source/authority, artifact, serving, preservation and git checks.
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/verify_n1_motion_served.py
+git -C /var/tmp/oras-cesium/gods-eye status --short
+git -C /var/tmp/oras-cesium/gods-eye rev-parse HEAD
+git status --short
+git diff --check
+git diff --cached --check
+git log --oneline -5
+# Restricted-sandbox diagnostics (expected failure, preserved in attempt notes):
+node --test --test-reporter=spec tests/earth/export-boundary.test.mjs
+node tests/earth/export-boundary.test.mjs

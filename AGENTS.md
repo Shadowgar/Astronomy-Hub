@@ -5,8 +5,10 @@
 The owner explicitly authorized functional Sky ↔ Earth navigation from PR #74
 `a57532796502a1db9ae1a7e4e4dc83e113db558f`, then rejected N1 at
 `8fe05ca1a8505dc20449635fa47b615e4bd23a0c` and authorized correcting PR #75.
-Repair natural wheel/trackpad continuation, responsive altitude-aware Earth zoom
-and standalone native landscape selection on `n1-sky-earth-navigation-1`.
+Repair actual Earth camera motion with frame-rate-independent continuous animation,
+accumulated wheel/trackpad intent, geographic stability and safe interruption on
+`n1-sky-earth-navigation-1`. Previous sensitivity/notch targets are superseded.
+Preserve native Sky, Landscape, Night Mode, handoff safeguards and owner settings.
 The unmerged dependency chain remains #75 → #74 → #73. This owner authorization
 supersedes the historical R1-B Sky-only rebuild restriction below for bounded N1.
 Reuse the existing contained SWE, owned Cesium Viewer and versioned bridge.

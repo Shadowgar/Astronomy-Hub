@@ -9,7 +9,7 @@ function page(){
  const window=new EventTarget(),nodes=new Map();let viewers=0,bridges=0,live=0,peak=0;
  const document={querySelector(selector){if(!nodes.has(selector))nodes.set(selector,{hidden:false,dataset:{},replaceChildren(){},addEventListener(){}});return nodes.get(selector);}};
  class EarthRuntime {
-  constructor(){viewers++;peak=Math.max(peak,++live);this.destroyed=false;this.lifecycle={closed:false};this.ready=false;this.site={};this.registry={snapshot:()=>[]};this.timings={};this.providerStatus={values:new Map()};this.viewer={entities:{values:[]},isDestroyed:()=>this.destroyed,camera:{positionCartographic:{height:1000}}};}
+  constructor(){viewers++;peak=Math.max(peak,++live);this.destroyed=false;this.lifecycle={closed:false};this.ready=false;this.site={};this.camera={active:true,interrupt(){this.active=false},motionState(){return {active:this.active}}};this.registry={snapshot:()=>[]};this.timings={};this.providerStatus={values:new Map()};this.viewer={entities:{values:[]},isDestroyed:()=>this.destroyed,camera:{positionCartographic:{height:1000}}};}
   async initialize(){await Promise.resolve();this.ready=true;}
   navigation(){return null;}
   async destroy(){if(this.lifecycle.closed)return;this.lifecycle.closed=true;this.ready=false;for(let i=0;i<6;i++)await Promise.resolve();this.destroyed=true;live--;}
@@ -31,4 +31,10 @@ test('persisted restoration of a disposed runtime coalesces repeated startup int
 test('genuine departure during startup creates no late Viewer/bridge and an absent runtime can restore',async()=>{
  const p=page();p.dispatch('pagehide',false);await tick();assert.deepEqual(p.counts(),{viewers:0,bridges:0});
  p.dispatch('pageshow',true);p.dispatch('pageshow',true);await tick();assert.equal(p.window.orasEarthDiagnostics().ready,true);assert.deepEqual(p.counts(),{viewers:1,bridges:1});
+});
+
+test('bfcache departure cancels motion while preserving the Viewer for restoration',async()=>{
+ const p=page();await tick();assert.equal(p.window.orasEarthDiagnostics().cameraMotion.active,true);
+ p.dispatch('pagehide',true);p.dispatch('pageshow',true);await tick();
+ assert.equal(p.window.orasEarthDiagnostics().cameraMotion.active,false);assert.deepEqual(p.counts(),{viewers:1,bridges:1});
 });

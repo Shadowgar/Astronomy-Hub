@@ -1,4 +1,25 @@
-## PR #75 — near-surface zoom correction, 2026-10-15
+## PR #75 — smooth camera repair, 2026-10-15
+
+Fresh proof: 132 runtime/Earth and 239 frontend tests, five motion scenarios,
+three real edge cases and 22 desktop + 22 touch/mobile journey groups pass.
+Zero page errors; one connected renderer. Physical/owner acceptance stays open.
+
+The owner rejected instantaneous Earth wheel movement. The active bounded repair
+replaces event-time camera jumps with elapsed-time, continuously animated,
+interruptible Earth zoom on the existing N1 branch/PR. The former 12–18-notch
+calibration target is superseded; qualify intermediate camera positions, velocity,
+frame timing, target stability and lifecycle through Docker/browser evidence.
+Preserve native Sky controls, deliberate boundary safeguards, observer/time,
+Night Mode/Landscape, history, accessible Explore and single-renderer ownership.
+PR #75 → #74 → #73 stays unmerged. Provider spending remains $0; no new provider,
+dependency, astronomy-data work, production deployment or N2. Technical proof is
+not owner acceptance. Stop for the owner's visual/interactive evaluation at
+<http://127.0.0.1:4202/sky-engine> after publishing the qualified repair.
+
+[Motion repair evidence](n1-smooth-camera/README.md) records exact
+source/artifact identities, commands, results, preservation and remaining limits.
+
+## Historical PR #75 near-surface correction — superseded, 2026-10-15
 
 N1 remains unaccepted. The owner rejected the previous fast near-surface profile.
 [New calibration evidence](n1-zoom-curve/README.md) supersedes prior Earth zoom
