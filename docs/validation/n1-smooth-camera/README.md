@@ -1,5 +1,11 @@
 # PR #75 — continuous Earth camera motion
 
+**Owner update, 2026-10-15:** scrolling at `301f9eb3` is ACCEPTED ("I approve
+the scrolling now"). The historical qualification record below is preserved.
+The dark horizon is approved for implementation but blocked by the native-artifact
+boundary; visual verification remains pending and the full N1 package is not
+finalized. See [current investigation](../n1-horizon-investigation/README.md).
+
 N1 remains **unaccepted, pending owner visual and interactive testing**.
 Branch: `n1-sky-earth-navigation-1`. Existing PR #75 remains based on unmerged
 #74, itself based on unmerged #73. No merge, production deployment or N2.

@@ -1,6 +1,22 @@
 # Astronomy Hub — Repository Operating Rules
 
-## Active N1 repair — PR #75, 2026-10-15
+## Active N1 horizon investigation — PR #75, 2026-10-15
+
+The owner accepts scrolling at `301f9eb3ddfd21a22ad04378bf09ee45c59e8adc`
+and explicitly says "I approve the scrolling now." Preserve that camera behavior.
+Dark charcoal neutral ground is approved for implementation; its implementation
+is BLOCKED at the protected native artifact boundary. The pinned `zero` landscape
+hardcodes the fill/border on an anonymous circle; the exposed landscape color is
+unused by rendering. Real browser probing confirms no effect. Do not patch native
+binaries/source, imitate the horizon in CSS, or bypass the public API. Stop and
+report the specific native-hook requirement under the owner's directive.
+Dark horizon owner visual verification remains pending; entire N1 is not finalized.
+PR #75 remains OPEN/UNMERGED, depending on #74 → #73. No merge, deploy, R2, N2,
+R3, providers/dependencies or spending. Single agent. Focused review regression,
+acceptance records and blocker evidence may be completed without a runtime change.
+See `docs/validation/n1-horizon-investigation/README.md`.
+
+## Historical N1 smooth-camera repair — PR #75, 2026-10-15
 
 The owner explicitly authorized functional Sky ↔ Earth navigation from PR #74
 `a57532796502a1db9ae1a7e4e4dc83e113db558f`, then rejected N1 at

@@ -1,6 +1,33 @@
 # LIVE SESSION BRIEF
 
-## PR #75 — smooth camera repair, 2026-10-15
+## PR #75 — owner scrolling acceptance; horizon blocked, 2026-10-15
+
+The owner accepts scrolling at `301f9eb3ddfd21a22ad04378bf09ee45c59e8adc`:
+"I approve the scrolling now." Do not recalibrate accepted camera/navigation
+behavior without a demonstrated regression. Historical pending-scrolling statements
+below describe their own earlier checkpoints only.
+
+Dark charcoal/nearly black neutral ground is approved for implementation.
+Implementation is **BLOCKED at the protected native-artifact boundary**: native
+`zero` hardcodes its anonymous circle's green fill/border; its exposed landscape
+color does not affect rendering, and public tree/list/child APIs do not expose the
+circle. Source plus real Chromium proof invokes the owner's explicit STOP gate.
+No native patch, rendering workaround or dark visual correction has been made.
+Dark horizon owner visual verification remains **PENDING**; the entire N1 package
+is **NOT YET FINALIZED**. The accepted application remains served at
+<http://127.0.0.1:4202/sky-engine> with unchanged green ground and camera behavior.
+
+PR #75 is OPEN/UNMERGED, with the #75 → #74 → #73 dependency chain preserved.
+No merge, deployment, R2, N2, R3, new provider/dependency or spending is authorized.
+The stale-identity P2 is evaluated against the composed URL builder, with focused
+regressions rather than redundant production changes. Exact current evidence and
+review disposition: [horizon investigation](../validation/n1-horizon-investigation/README.md).
+Recommended next task: separately authorize the smallest native styling hook and
+controlled native rebuild, retaining the existing horizon geometry and standalone
+defaults, then qualify the requested dark-ground browser matrix and owner review.
+
+
+## Historical PR #75 smooth camera repair — owner acceptance superseded above, 2026-10-15
 
 Fresh proof: 132 runtime/Earth and 239 frontend tests, five motion scenarios,
 three real edge cases and 22 desktop + 22 touch/mobile journey groups pass.
