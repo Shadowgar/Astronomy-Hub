@@ -1,5 +1,16 @@
 # LIVE SESSION BRIEF
 
+## PR #75 — near-surface zoom calibration, 2026-10-15
+
+N1 remains unaccepted. The owner tested `18e1ffd985e5bb86428e6343c6d5a488f379bbe1`
+and found the corrected Earth approach too fast. The active bounded correction is
+only the Earth wheel-gain curve: taper substantially before 40 km, finer below
+10 km / 2 km, targeting 12–18 ordinary notches from 40 km to the existing entry
+band. Preserve orbital/reverse responsiveness, target/orientation, safeguards and
+all other N1 behavior. Update the same PR/preview and stop for owner testing;
+no merge, deployment, provider spending or N2.
+
+
 ## PR #75 repair — N1 NOT ACCEPTED, 2026-10-14
 
 The owner rejected N1 at `8fe05ca1a8505dc20449635fa47b615e4bd23a0c` after
