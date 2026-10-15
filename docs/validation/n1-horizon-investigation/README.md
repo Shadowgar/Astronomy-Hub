@@ -1,5 +1,10 @@
 # PR #75 — neutral horizon investigation and owner acceptance record
 
+**Subsequent owner authorization, 2026-10-15:** the owner lifts this historical
+stop gate for the sole native zero-horizon styling correction and controlled
+rebuild. [Current implementation/qualification](../n1-native-horizon/README.md).
+The original investigation and failed public-property proof below are preserved.
+
 The owner accepts scrolling at `301f9eb3ddfd21a22ad04378bf09ee45c59e8adc`:
 "I approve the scrolling now." Accepted navigation remains unchanged.
 Dark charcoal ground is approved for implementation, but **BLOCKED at the

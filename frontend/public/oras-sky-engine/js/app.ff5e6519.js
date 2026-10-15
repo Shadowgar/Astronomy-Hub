@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/" + ({}[chunkId]||chunkId) + "." + {"chunk-2d2253ec":"1b0c9439"}[chunkId] + ".js"
+/******/ 		return __webpack_require__.p + "js/" + ({}[chunkId]||chunkId) + "." + {"chunk-2d2253ec":"81e41965"}[chunkId] + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -9850,7 +9850,7 @@ var StelWebEngine = function () {
 
     var wasmMemory;
     var wasmTable = new WebAssembly.Table({
-      "initial": 448,
+      "initial": 449,
       "element": "anyfunc"
     });
     var ABORT = false;
@@ -10157,8 +10157,8 @@ var StelWebEngine = function () {
       Module["HEAPF64"] = HEAPF64 = new Float64Array(buf);
     }
 
-    var DYNAMIC_BASE = 5807184,
-        DYNAMICTOP_PTR = 564144;
+    var DYNAMIC_BASE = 5807216,
+        DYNAMICTOP_PTR = 564176;
     var INITIAL_INITIAL_MEMORY = Module["INITIAL_MEMORY"] || 16777216;
 
     if (Module["wasmMemory"]) {
@@ -14020,6 +14020,9 @@ var es_object_keys = __webpack_require__("b64b");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
 
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.fill.js
+var es_array_fill = __webpack_require__("cb29");
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.url.js
 var web_url = __webpack_require__("2b3d");
 
@@ -14291,6 +14294,7 @@ function installNativeWheel(canvas, engine) {
   return remove;
 }
 // CONCATENATED MODULE: ./src/plugins/orasRuntime/index.js
+
 
 
 
@@ -14651,6 +14655,7 @@ function installNativeWheel(canvas, engine) {
     var selectionGeneration = 0;
     var nativeLandscape = null;
     var hasZero = false;
+    var nativeZeroStyle = null;
 
     var set = function set(key, value) {
       return app.$store.commit('setValue', {
@@ -14671,6 +14676,13 @@ function installNativeWheel(canvas, engine) {
       }
 
       app.$stel.core.landscapes.current_id = 'zero';
+      var horizon = app.$stel.core.landscapes.current;
+      if (!nativeZeroStyle) nativeZeroStyle = {
+        fill: horizon.horizon_color,
+        border: horizon.horizon_border_color
+      };
+      horizon.horizon_color = [0.035, 0.04, 0.05, 1];
+      horizon.horizon_border_color = [0.10, 0.12, 0.14, 1];
     };
 
     var presentation = function presentation(embedded) {
@@ -14679,7 +14691,15 @@ function installNativeWheel(canvas, engine) {
       document.documentElement.classList.toggle('oras-workspace-embedded', embedded);
       document.documentElement.classList.toggle('oras-credits-top', creditsAtTop);
       set('orasEmbeddedPresentation', embedded);
-      if (embedded) neutral();else if (nativeLandscape && app.$stel.core.landscapes.current_id === 'zero') app.$stel.core.landscapes.current_id = nativeLandscape;
+      if (embedded) neutral();else {
+        if (nativeZeroStyle) {
+          var horizon = app.$stel.core.landscapes.zero;
+          horizon.horizon_color = nativeZeroStyle.fill;
+          horizon.horizon_border_color = nativeZeroStyle.border;
+        }
+
+        if (nativeLandscape && app.$stel.core.landscapes.current_id === 'zero') app.$stel.core.landscapes.current_id = nativeLandscape;
+      }
 
       for (var _i = 0, _arr = ['showMainToolBar', 'showLocationButton', 'showTimeButtons', 'showObservingPanelTabsButtons', 'showSelectedInfoButtons']; _i < _arr.length; _i++) {
         var key = _arr[_i];

@@ -1,2 +1,4 @@
 # Preserve generator-owned bytes in the qualified Stellarium web shell.
 frontend/public/oras-sky-engine/js/*.js -whitespace
+# Unified diff context markers include a space for an unchanged empty line.
+integrations/sky-patches/0001-configurable-zero-horizon.patch whitespace=-blank-at-eol

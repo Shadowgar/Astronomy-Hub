@@ -1,5 +1,9 @@
 # PR #75 — continuous Earth camera motion
 
+**Native horizon follow-up:** a separate owner exception authorizes the minimal
+native styling hook/rebuild. [Current horizon evidence](../n1-native-horizon/README.md)
+records that correction; accepted scrolling remains unchanged.
+
 **Owner update, 2026-10-15:** scrolling at `301f9eb3` is ACCEPTED ("I approve
 the scrolling now"). The historical qualification record below is preserved.
 The dark horizon is approved for implementation but blocked by the native-artifact

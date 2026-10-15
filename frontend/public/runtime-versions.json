@@ -14,19 +14,20 @@
     "historical_import_sha": null,
     "reconstruction": {
       "status": "qualified",
-      "native_wasm_identical": true,
+      "native_wasm_identical": false,
       "emscripten": "1.39.17",
       "emsdk_image": "emscripten/emsdk@sha256:1e264934c11ffde8511441eaed6bdc44eaa30ec027e46d38be7ae67106aefdab",
       "build_image_id": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
       "node_image": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
       "bridge_overlay": "workspace.1",
-      "regression": "34 API/search/browser checks and 86 native conformance tests"
+      "baseline_native_wasm_identical": true,
+      "baseline_regression": "34 API/search/browser checks and 86 native conformance tests"
     },
     "overlay_version": "oras-sky-workspace.1",
-    "build_recipe": "scripts/runtime/build_current_sky.sh",
-    "artifact_sha256": "3b80bb352c8d1680d9217ce9b8e7fc5dbb8ed0b71b59c2f0f66d1143d103b50f",
+    "build_recipe": "scripts/runtime/build_sky_horizon.sh",
+    "artifact_sha256": "98263fecda9ed4a3b2daad74d72b142d36bb2aab97232084485e3ca14b366d45",
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "b7fd67de80f2853470edffd340427b1dcd7ee1ffa722b18087d0a9800e241e11",
+    "workspace_adapter_sha256": "e58fcb0dfb12838434284830b4b50ebff8bb524375fd68e8443d37112cafa50c",
     "artifact_hash_scope": "Application files excluding identity marker",
     "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
     "bridge_input_sha256": {
@@ -36,6 +37,19 @@
     "navigation_input_sha256": {
       "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
       "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768"
+    },
+    "native_horizon": {
+      "purpose": "embedded-zero-horizon-colors",
+      "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+      "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+      "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+      "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+      "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+      "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+      "native_output_sha256": {
+        "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+        "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+      }
     }
   },
   "earth": {

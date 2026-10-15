@@ -1,6 +1,23 @@
 # Astronomy Hub — Repository Operating Rules
 
-## Active N1 horizon investigation — PR #75, 2026-10-15
+## Active N1 native horizon correction — PR #75, 2026-10-15
+
+The owner explicitly authorizes the minimum native C styling hook and controlled
+native/frontend rebuild for embedded zero-horizon fill/border only. This supersedes
+the native-artifact stop gate in the historical investigation below. Preserve the
+upstream pin via a reproducible downstream patch, existing geometry/occlusion,
+scientific/rendering math, standalone defaults and landscape ownership. Use the
+existing toolchain; no providers/dependencies/data changes or spending.
+Scrolling at `301f9eb3` is OWNER ACCEPTED and must remain unchanged. Qualify actual
+Docker/browser pixels, controls, day/night, observer locations, desktop/mobile,
+standalone and navigation. Dark appearance remains pending owner visual review;
+entire N1 is not finalized. Existing branch/PR #75 → #74 → #73 remain unmerged.
+Native dark horizon is technically qualified; appearance remains PENDING OWNER
+VISUAL ACCEPTANCE, and full N1 is not finalized. Evidence:
+`docs/validation/n1-native-horizon/README.md`. Single agent. No production
+deployment, R2, N2, R3 or unrelated implementation.
+
+## Historical N1 horizon investigation — PR #75, 2026-10-15
 
 The owner accepts scrolling at `301f9eb3ddfd21a22ad04378bf09ee45c59e8adc`
 and explicitly says "I approve the scrolling now." Preserve that camera behavior.

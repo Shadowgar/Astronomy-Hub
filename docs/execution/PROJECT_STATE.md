@@ -1,6 +1,31 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
-## PR #75 — owner scrolling acceptance; horizon blocked, 2026-10-15
+## PR #75 — authorized native horizon correction, 2026-10-15
+
+The owner explicitly lifts the protected native-artifact restriction only for the
+minimum configurable zero-horizon fill/border hook and controlled rebuild. The
+prior stop gate below is historical. The pinned upstream revision, native horizon
+geometry/occlusion, scientific math, standalone defaults, settings/data and accepted
+scrolling at `301f9eb3` are preserved. No general renderer modification is authorized.
+
+Native charcoal implementation is **TECHNICALLY QUALIFIED**: 134 runtime/Earth
+and 241 frontend tests, reproducible offline builds, desktop/mobile native visual
+matrices and 22 + 22 actual navigation journey groups pass. Dark-horizon
+appearance remains **PENDING OWNER VISUAL ACCEPTANCE**; the entire N1 package is
+**NOT YET FINALIZED**. PR #75 remains OPEN/UNMERGED with #74 → #73. Preview:
+<http://127.0.0.1:4202/sky-engine>. Provider spending remains $0; no merge,
+production deployment, R2, N2, R3, new provider/dependency or unrelated work.
+
+[Native-horizon evidence](../validation/n1-native-horizon/README.md) records the
+source patch, controlled reproducible builds, native pixel/control qualification,
+scrolling regressions, artifact identities, preservation and remaining limits.
+STOP for owner visual review after qualification; this does not accept the full N1.
+Two new P2 comments on prior head f9a56194 (Earth snapshot side effects and
+elevation provenance) remain open for a separate bounded assessment. No full PR
+readiness claim; accepted navigation source is unchanged in this correction.
+
+
+## Historical PR #75 horizon investigation — stop gate lifted above, 2026-10-15
 
 The owner accepts scrolling at `301f9eb3ddfd21a22ad04378bf09ee45c59e8adc`:
 "I approve the scrolling now." Do not recalibrate accepted camera/navigation

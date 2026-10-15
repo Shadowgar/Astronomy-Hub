@@ -2,10 +2,23 @@
   "runtime": "oras-sky-engine",
   "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
   "overlay_version": "oras-sky-workspace.1",
-  "native_wasm_identical": true,
-  "native_vendor_chunks_identical": true,
+  "native_wasm_identical": false,
+  "native_vendor_chunks_identical": false,
   "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
-  "adapter_sha256": "b7fd67de80f2853470edffd340427b1dcd7ee1ffa722b18087d0a9800e241e11",
+  "adapter_sha256": "e58fcb0dfb12838434284830b4b50ebff8bb524375fd68e8443d37112cafa50c",
+  "native_horizon": {
+    "purpose": "embedded-zero-horizon-colors",
+    "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
+    "native_builder": "sha256:166dc2367d196573b54d6cdd91690366c1cb86714ab91990b0286a9a104812d6",
+    "patch_path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+    "patch_sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35",
+    "landscape_source_sha256": "fe67ef1bbf919fbc77523a96f6d276bae63cfb4013b468b9777b9d434ba43fa9",
+    "source_input_sha256": "5158a4a499e74d9096c8f323bf96a41f7bc0a61864f9e26c64f8180e372956d6",
+    "native_output_sha256": {
+      "stellarium-web-engine.js": "0310d4b3cb55a4b26713071269cb6032a169fbdf9435f8c7cf4a4a02716a9eb7",
+      "stellarium-web-engine.wasm": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
+    }
+  },
   "bridge_input_sha256": {
     "entry.mjs": "2ce2be29b21048ed6223989603f7a5be458414ab754247176eb0b7861eb99272",
     "native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749"
@@ -15,5 +28,5 @@
     "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
     "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768"
   },
-  "artifact_sha256": "3b80bb352c8d1680d9217ce9b8e7fc5dbb8ed0b71b59c2f0f66d1143d103b50f"
+  "artifact_sha256": "98263fecda9ed4a3b2daad74d72b142d36bb2aab97232084485e3ca14b366d45"
 }

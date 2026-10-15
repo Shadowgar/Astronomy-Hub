@@ -1,0 +1,45 @@
+[
+  {
+    "suite": "visual",
+    "width": 1440,
+    "pageErrors": [],
+    "resourceFailures": 104,
+    "consoleSummary": {
+      "Failed to load resource: the server responded with a status of 404 (Not Found)": 104
+    },
+    "maxConnectedRenderers": null
+  },
+  {
+    "suite": "visual",
+    "width": 390,
+    "pageErrors": [],
+    "resourceFailures": 210,
+    "consoleSummary": {
+      "Failed to load resource: the server responded with a status of 404 (Not Found)": 210
+    },
+    "maxConnectedRenderers": null
+  },
+  {
+    "suite": "journeys",
+    "width": 1440,
+    "pageErrors": [],
+    "resourceFailures": 644,
+    "consoleSummary": {
+      "Failed to load resource: the server responded with a status of 404 (Not Found)": 526,
+      "native HiPS iterator warning": 689,
+      "Failed to load resource: net::ERR_CONNECTION_TIMED_OUT": 2
+    },
+    "maxConnectedRenderers": 1
+  },
+  {
+    "suite": "journeys",
+    "width": 390,
+    "pageErrors": [],
+    "resourceFailures": 777,
+    "consoleSummary": {
+      "Failed to load resource: the server responded with a status of 404 (Not Found)": 726,
+      "native HiPS iterator warning": 5951
+    },
+    "maxConnectedRenderers": 1
+  }
+]
