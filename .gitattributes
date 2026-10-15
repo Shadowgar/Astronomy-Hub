@@ -2,3 +2,8 @@
 frontend/public/oras-sky-engine/js/*.js -whitespace
 # Unified diff context markers include a space for an unchanged empty line.
 integrations/sky-patches/0001-configurable-zero-horizon.patch whitespace=-blank-at-eol
+
+# Preserve raw captured diagnostics in the Pennsylvania qualification evidence.
+docs/validation/n1-pennsylvania/*.txt -whitespace
+docs/validation/n1-pennsylvania/attempts/*.txt -whitespace
+docs/validation/n1-pennsylvania/review/*.txt -whitespace

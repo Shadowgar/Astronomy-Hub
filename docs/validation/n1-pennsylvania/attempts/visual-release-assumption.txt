@@ -1,0 +1,17 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to:
+
+'pennsylvania-woodland-v1'
+    at file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_pennsylvania.mjs:41:166 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'pennsylvania-woodland-v1',
+  expected: 'pennsylvania-woodland-v1',
+  operator: 'notStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.0

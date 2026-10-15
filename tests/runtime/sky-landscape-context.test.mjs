@@ -13,18 +13,14 @@ test('standalone keeps native landscape selection and visibility toggles',()=>{
  const p=page(false);assert.equal(p.core.landscapes.current_id,'guereins');assert.equal(p.added.length,0);
  p.select('native-choice');assert.equal(p.core.landscapes.current_id,'native-choice');p.core.landscapes.visible=false;p.core.landscapes.visible=true;assert.equal(p.core.landscapes.visible,true);
 });
-test('embedded exploration alone uses neutral horizon; returning to native presentation releases policy',()=>{
- const p=page(true);assert.equal(p.core.landscapes.current_id,'zero');p.select('guereins');assert.equal(p.core.landscapes.current_id,'zero');
+test('embedded landscape selects the illustrative panorama and releases native choices',()=>{
+ const p=page(true);assert.equal(p.core.landscapes.current_id,'pennsylvania-woodland-v1');p.select('guereins');assert.equal(p.core.landscapes.current_id,'pennsylvania-woodland-v1');
+ assert.deepEqual(JSON.parse(JSON.stringify(p.added)),[{url:'/oras-sky-engine/landscapes/pennsylvania-woodland-v1',key:'pennsylvania-woodland-v1'}]);
  p.core.landscapes.visible=false;p.adapter.presentation(false);assert.equal(p.core.landscapes.current_id,'guereins');assert.equal(p.core.landscapes.visible,false);
- p.select('native-choice');assert.equal(p.core.landscapes.current_id,'native-choice');p.adapter.presentation(true);assert.equal(p.core.landscapes.current_id,'zero');assert.equal(p.added.length,1);
+ p.select('native-choice');p.adapter.presentation(true);assert.equal(p.core.landscapes.current_id,'pennsylvania-woodland-v1');assert.equal(p.added.length,1);
+ p.adapter.presentation(false);assert.equal(p.core.landscapes.current_id,'native-choice');
 });
-
-test('embedded neutral style configures native fill/border and restores zero defaults on release',()=>{
- const p=page(true,'zero');assert.deepEqual(Array.from(p.core.landscapes.current.horizon_color),[.035,.04,.05,1]);assert.deepEqual(Array.from(p.core.landscapes.current.horizon_border_color),[.10,.12,.14,1]);
- p.adapter.presentation(false);assert.equal(p.core.landscapes.current_id,'zero');assert.deepEqual(Array.from(p.core.landscapes.current.horizon_color),[.1,.15,.1,1]);assert.deepEqual(Array.from(p.core.landscapes.current.horizon_border_color),[.2,.4,.1,1]);
- p.adapter.presentation(true);assert.deepEqual(Array.from(p.core.landscapes.current.horizon_color),[.035,.04,.05,1]);
-});
-test('release restores zero colors even when a native landscape change precedes its watcher',()=>{
- const p=page(true);p.core.landscapes.current_id='native-choice';p.adapter.presentation(false);p.core.landscapes.current_id='zero';
- assert.deepEqual(Array.from(p.core.landscapes.current.horizon_color),[.1,.15,.1,1]);assert.deepEqual(Array.from(p.core.landscapes.current.horizon_border_color),[.2,.4,.1,1]);
+test('panorama never recolors or reactivates the original zero circle',()=>{
+ const p=page(true,'zero');assert.equal(p.core.landscapes.current_id,'pennsylvania-woodland-v1');assert.deepEqual(p.core.landscapes.zero.horizon_color,[.1,.15,.1,1]);
+ p.adapter.presentation(false);assert.equal(p.core.landscapes.current_id,'zero');assert.deepEqual(p.core.landscapes.zero.horizon_border_color,[.2,.4,.1,1]);
 });

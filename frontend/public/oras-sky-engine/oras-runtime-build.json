@@ -2,10 +2,10 @@
   "runtime": "oras-sky-engine",
   "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
   "overlay_version": "oras-sky-workspace.1",
-  "native_wasm_identical": false,
-  "native_vendor_chunks_identical": false,
+  "native_wasm_identical": true,
+  "native_vendor_chunks_identical": true,
   "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
-  "adapter_sha256": "e58fcb0dfb12838434284830b4b50ebff8bb524375fd68e8443d37112cafa50c",
+  "adapter_sha256": "7364c898018d02c8e694aef24c86594a93eadda8d1b30650ca74c393f650dcfa",
   "native_horizon": {
     "purpose": "embedded-zero-horizon-colors",
     "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
@@ -28,5 +28,5 @@
     "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
     "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768"
   },
-  "artifact_sha256": "98263fecda9ed4a3b2daad74d72b142d36bb2aab97232084485e3ca14b366d45"
+  "artifact_sha256": "ee789ec45b306b82aea465c4274ae0a1dcb5968ca3842d81acf1b1ab6b82068a"
 }

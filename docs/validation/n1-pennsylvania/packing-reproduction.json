@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "comparedFiles": 16,
+  "sha256": {
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/manifest.json": "88c9cd7ba095d28e7e74b83a46e9346f0c49824802afa771c4b0fe57c081f410",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Allsky.png": "c2557ac36a18353ba34d00296b633f5963464f53bd5691304ad2d5cd13833481",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix0.png": "891855417af59df59db8c15a4eee9123243d07346488fb4f6c3eee90edd40245",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix1.png": "4c2ccdbc044ba7aef913d764da6208c820216d27b6dd053d7b9a75f093e34a56",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix10.png": "fd9e5eb16eacf2a53525bdd319ec8077594125a93a0e491990694f30196e6836",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix11.png": "1d9fd1c2d453aee9c9ef555c5876e6d2f6a3465dd02ef4eb2f6e5cd39d230dff",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix2.png": "afd10d857b8c4b0d9aea3ae7b106031a3a282b502eab07bfb7ab71bc2fb535d3",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix3.png": "4cb3f4a8d7ecda3999f41f59e15d7bd3324f4a909bb900b7380cd7c9b6d9ffef",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix4.png": "7aa8ffb1931493bdc2f66f6eaa0ff147bc7eb9ebac6f823e527d8e596c48c862",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix5.png": "15cc56ddd920d312430f2d9eeb41151aa6f5b7048d8e3a7a508ca63129c661cf",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix6.png": "93cdd447ab8ee2b479e6e594cc0e224eeb72a48f054e83c6e594fb75a9b4f7af",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix7.png": "9abada8ffd8a5801a277e9b3874f31d7365f864ad4224156235c1d5a923eef33",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix8.png": "e900db746c6891525df3fd7491acfc331abe6d1a221e8d0ea61273d11745bc35",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix9.png": "45bf0e0450c15d55ec0f71f9c4a72714435d9debe157f91c0dfad870454843d4",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/description.en.utf8": "81d6b4c874940db0c084b0b7e709f1c4e14448f0bed25dcff16b9588edfb66ff",
+    "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/properties": "be4fb583ae164f4f22b21778c394e486058f55b8d6e3638743a7d355b930350c"
+  },
+  "description": "Independent second packaging produced identical manifest and all native HiPS files; original PNG unchanged."
+}

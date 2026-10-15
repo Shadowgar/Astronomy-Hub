@@ -1,6 +1,24 @@
 # Astronomy Hub — Repository Operating Rules
 
-## Active N1 native horizon correction — PR #75, 2026-10-15
+## Active N1 Pennsylvania landscape correction — PR #75, 2026-10-15
+
+The owner rejects the plain black circle and authorizes an original rural
+northwestern Pennsylvania panorama through the contained Sky adapter and existing
+native landscape mechanisms. This supersedes the previous charcoal appearance
+gate below. No further native renderer modification or rebuild is authorized.
+Keep accepted scrolling at `301f9eb3` unchanged. Preserve science, observer/time,
+Landscape/Atmosphere/Night Mode, original standalone landscapes, lifecycle,
+settings, mounted data and all rollback artifacts. Label the artwork illustrative,
+not surveyed ORAS terrain; artistic ridge heights are never scientific measurements.
+
+Single agent on existing `n1-sky-earth-navigation-1` / PR #75 → #74 → #73.
+Qualify actual desktop/mobile browser rendering, 360-degree seam, day/night and
+Sky/Earth round trips. Investigate open P2s separately without unrelated fixes.
+Commit/push the qualified visual correction and STOP for owner visual acceptance.
+No merge, deployment, R2/N2/R3, paid assets, new provider or dependency.
+Evidence: `docs/validation/n1-pennsylvania/README.md`. Entire N1 remains unfinalized.
+
+## Historical N1 native horizon correction — superseded, PR #75, 2026-10-15
 
 The owner explicitly authorizes the minimum native C styling hook and controlled
 native/frontend rebuild for embedded zero-horizon fill/border only. This supersedes

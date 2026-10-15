@@ -530,7 +530,7 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_sky_horizon.sh",
-    "artifact_sha256": "98263fecda9ed4a3b2daad74d72b142d36bb2aab97232084485e3ca14b366d45",
+    "artifact_sha256": "ee789ec45b306b82aea465c4274ae0a1dcb5968ca3842d81acf1b1ab6b82068a",
     "artifact_files": [
       {
         "path": "css/app.e3189512.css",
@@ -985,12 +985,12 @@
       {
         "path": "index.html",
         "bytes": 1960,
-        "sha256": "45a9cff73679b2235dfab05cdede6e2a3fe5a0db01dacefadf98ee74300a72b8"
+        "sha256": "9c527c75e939388f0190e1f7489550e616020e8fcbc3c7af6ae916b5e6319c1a"
       },
       {
-        "path": "js/app.ff5e6519.js",
-        "bytes": 594799,
-        "sha256": "cffb06add04b67dc667b4e83ff211aa59a833086c074c807638ebb77a6951254"
+        "path": "js/app.97bb7851.js",
+        "bytes": 594296,
+        "sha256": "b32d00bec495af057ea8369a5d05fe423c802eabe647d325e943c45fbc37ace3"
       },
       {
         "path": "js/chunk-2d2253ec.81e41965.js",
@@ -1008,13 +1008,88 @@
         "sha256": "d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942"
       },
       {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Allsky.png",
+        "bytes": 284565,
+        "sha256": "c2557ac36a18353ba34d00296b633f5963464f53bd5691304ad2d5cd13833481"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix0.png",
+        "bytes": 20555,
+        "sha256": "891855417af59df59db8c15a4eee9123243d07346488fb4f6c3eee90edd40245"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix1.png",
+        "bytes": 7308,
+        "sha256": "4c2ccdbc044ba7aef913d764da6208c820216d27b6dd053d7b9a75f093e34a56"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix10.png",
+        "bytes": 553591,
+        "sha256": "fd9e5eb16eacf2a53525bdd319ec8077594125a93a0e491990694f30196e6836"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix11.png",
+        "bytes": 577286,
+        "sha256": "1d9fd1c2d453aee9c9ef555c5876e6d2f6a3465dd02ef4eb2f6e5cd39d230dff"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix2.png",
+        "bytes": 7419,
+        "sha256": "afd10d857b8c4b0d9aea3ae7b106031a3a282b502eab07bfb7ab71bc2fb535d3"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix3.png",
+        "bytes": 12461,
+        "sha256": "4cb3f4a8d7ecda3999f41f59e15d7bd3324f4a909bb900b7380cd7c9b6d9ffef"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix4.png",
+        "bytes": 392640,
+        "sha256": "7aa8ffb1931493bdc2f66f6eaa0ff147bc7eb9ebac6f823e527d8e596c48c862"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix5.png",
+        "bytes": 328225,
+        "sha256": "15cc56ddd920d312430f2d9eeb41151aa6f5b7048d8e3a7a508ca63129c661cf"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix6.png",
+        "bytes": 231251,
+        "sha256": "93cdd447ab8ee2b479e6e594cc0e224eeb72a48f054e83c6e594fb75a9b4f7af"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix7.png",
+        "bytes": 261540,
+        "sha256": "9abada8ffd8a5801a277e9b3874f31d7365f864ad4224156235c1d5a923eef33"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix8.png",
+        "bytes": 578107,
+        "sha256": "e900db746c6891525df3fd7491acfc331abe6d1a221e8d0ea61273d11745bc35"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix9.png",
+        "bytes": 576406,
+        "sha256": "45bf0e0450c15d55ec0f71f9c4a72714435d9debe157f91c0dfad870454843d4"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/description.en.utf8",
+        "bytes": 371,
+        "sha256": "81d6b4c874940db0c084b0b7e709f1c4e14448f0bed25dcff16b9588edfb66ff"
+      },
+      {
+        "path": "landscapes/pennsylvania-woodland-v1/properties",
+        "bytes": 240,
+        "sha256": "be4fb583ae164f4f22b21778c394e486058f55b8d6e3638743a7d355b930350c"
+      },
+      {
         "path": "oras-runtime-build.json",
-        "bytes": 1878,
-        "sha256": "349ceda972e283071e6981babbb249b9509e450e71b10312c826ea3c35951957"
+        "bytes": 1876,
+        "sha256": "91ce796af961c54025987110aa1c8abf52a5277b3366999029f1d13fa37ee7b9"
       }
     ],
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "e58fcb0dfb12838434284830b4b50ebff8bb524375fd68e8443d37112cafa50c",
+    "workspace_adapter_sha256": "7364c898018d02c8e694aef24c86594a93eadda8d1b30650ca74c393f650dcfa",
     "artifact_hash_scope": "Application files excluding identity marker",
     "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
     "bridge_input_sha256": {

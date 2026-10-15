@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Add the frame adapter after qualification, without changing vendor source."""
 from pathlib import Path
-import sys
+import hashlib,json,shutil,sys
 repo=Path(__file__).resolve().parents[2]; app=Path(sys.argv[1])
 plugin=app/'src/plugins/orasRuntime';plugin.mkdir(parents=True,exist_ok=True)
 (plugin/'index.js').write_bytes((repo/'runtimes/sky-adapter/plugin.js').read_bytes())
@@ -15,3 +15,13 @@ html=app/'public/index.html';text=html.read_text()
 marker='<script type="module" src="/runtime-bridge/sky/entry.mjs"></script>'
 if marker not in text:text=text.replace('</head>',marker+'\n</head>')
 html.write_text(text)
+
+# Small original scene artwork is application content, separate from mounted skydata.
+landscape=repo/'runtimes/sky-adapter/assets/pennsylvania-woodland-v1'
+manifest=json.loads((landscape/'manifest.json').read_text())
+assert hashlib.sha256((landscape/'panorama.png').read_bytes()).hexdigest()==manifest['source']['sha256']
+for row in manifest['files']:
+ source=landscape/'hips'/row['path']
+ assert hashlib.sha256(source.read_bytes()).hexdigest()==row['sha256']
+ dest=app/'public/landscapes/pennsylvania-woodland-v1'/row['path']
+ dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,dest)

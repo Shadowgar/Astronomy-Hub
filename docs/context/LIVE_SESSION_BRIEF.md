@@ -1,6 +1,29 @@
 # LIVE SESSION BRIEF
 
-## PR #75 — authorized native horizon correction, 2026-10-15
+## PR #75 — Pennsylvania landscape correction, 2026-10-15
+
+The owner rejects the plain black circle as the final visual design and authorizes
+an original rural northwestern Pennsylvania woodland panorama. This supersedes
+the charcoal acceptance gate below. Scrolling at `301f9eb3` remains OWNER ACCEPTED;
+camera/navigation controllers are unchanged. Use the contained Sky adapter and
+existing native observed-frame HiPS landscape mechanism. No new native renderer
+modification, provider, dependency or scientific horizon model is authorized.
+
+The scenery is **ILLUSTRATIVE, NOT SURVEYED ORAS TERRAIN**. Artistic ridge heights
+must never become scientific horizon measurements. Preserve native Landscape,
+Atmosphere and Night Mode, observer/time/scientific calculations, standalone
+landscapes and renderer lifecycle. Technical qualification passes 133 runtime/Earth and 241 frontend tests,
+desktop/mobile native visual matrices and 22 + 22 navigation journey groups.
+Visual acceptance and final N1 acceptance remain **PENDING**. Three outstanding P2 findings are
+investigated separately and remain open; do not expand this visual correction into
+unrelated navigation/provenance changes. Evidence:
+[landscape correction](../validation/n1-pennsylvania/README.md).
+
+Continue only on `n1-sky-earth-navigation-1`, existing PR #75 → #74 → #73.
+Commit/push the qualified correction, then STOP for owner visual acceptance at
+<http://127.0.0.1:4202/sky-engine>. No merge, deployment, R2/N2/R3 or paid assets.
+
+## Historical PR #75 — native horizon correction, superseded above, 2026-10-15
 
 The owner explicitly lifts the protected native-artifact restriction only for the
 minimum configurable zero-horizon fill/border hook and controlled rebuild. The

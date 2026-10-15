@@ -14020,9 +14020,6 @@ var es_object_keys = __webpack_require__("b64b");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.fill.js
-var es_array_fill = __webpack_require__("cb29");
-
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.url.js
 var web_url = __webpack_require__("2b3d");
 
@@ -14294,7 +14291,6 @@ function installNativeWheel(canvas, engine) {
   return remove;
 }
 // CONCATENATED MODULE: ./src/plugins/orasRuntime/index.js
-
 
 
 
@@ -14645,17 +14641,16 @@ function installNativeWheel(canvas, engine) {
         }
       }, [h('span', {
         class: 'oras-credits-full'
-      }, ['ORAS Sky Engine · Stellarium · survey credits']), h('span', {
+      }, ['Illustrative Pennsylvania · not surveyed · Stellarium credits']), h('span', {
         class: 'oras-credits-compact'
-      }, ['Stellarium · credits'])]) : null;
+      }, ['Illustrative Pennsylvania · not surveyed · credits'])]) : null;
     }
   }],
   onEngineReady: function onEngineReady(app) {
     var disposed = false;
     var selectionGeneration = 0;
     var nativeLandscape = null;
-    var hasZero = false;
-    var nativeZeroStyle = null;
+    var hasLandscape = false;
 
     var set = function set(key, value) {
       return app.$store.commit('setValue', {
@@ -14664,25 +14659,20 @@ function installNativeWheel(canvas, engine) {
       });
     };
 
+    var landscapeId = 'pennsylvania-woodland-v1';
+
     var neutral = function neutral() {
       if (!app.$store.state.orasEmbeddedPresentation) return;
 
-      if (!hasZero) {
+      if (!hasLandscape) {
         app.$stel.core.landscapes.addDataSource({
-          url: '',
-          key: 'zero'
+          url: '/oras-sky-engine/landscapes/' + landscapeId,
+          key: landscapeId
         });
-        hasZero = true;
+        hasLandscape = true;
       }
 
-      app.$stel.core.landscapes.current_id = 'zero';
-      var horizon = app.$stel.core.landscapes.current;
-      if (!nativeZeroStyle) nativeZeroStyle = {
-        fill: horizon.horizon_color,
-        border: horizon.horizon_border_color
-      };
-      horizon.horizon_color = [0.035, 0.04, 0.05, 1];
-      horizon.horizon_border_color = [0.10, 0.12, 0.14, 1];
+      app.$stel.core.landscapes.current_id = landscapeId;
     };
 
     var presentation = function presentation(embedded) {
@@ -14691,15 +14681,7 @@ function installNativeWheel(canvas, engine) {
       document.documentElement.classList.toggle('oras-workspace-embedded', embedded);
       document.documentElement.classList.toggle('oras-credits-top', creditsAtTop);
       set('orasEmbeddedPresentation', embedded);
-      if (embedded) neutral();else {
-        if (nativeZeroStyle) {
-          var horizon = app.$stel.core.landscapes.zero;
-          horizon.horizon_color = nativeZeroStyle.fill;
-          horizon.horizon_border_color = nativeZeroStyle.border;
-        }
-
-        if (nativeLandscape && app.$stel.core.landscapes.current_id === 'zero') app.$stel.core.landscapes.current_id = nativeLandscape;
-      }
+      if (embedded) neutral();else if (nativeLandscape && app.$stel.core.landscapes.current_id === landscapeId) app.$stel.core.landscapes.current_id = nativeLandscape;
 
       for (var _i = 0, _arr = ['showMainToolBar', 'showLocationButton', 'showTimeButtons', 'showObservingPanelTabsButtons', 'showSelectedInfoButtons']; _i < _arr.length; _i++) {
         var key = _arr[_i];
@@ -14736,12 +14718,12 @@ function installNativeWheel(canvas, engine) {
       window.dispatchEvent(new CustomEvent('oras-sky-panel', {
         detail: open || !!document.querySelector('.as-native-panel')
       }));
-    }); // Embedded exploration has no qualified panorama. Standalone keeps native choices.
+    }); // Embedded scenery is illustrative, never a measured local horizon. Standalone keeps native choices.
 
     var stopLandscapeWatch = app.$watch(function () {
       return app.$store.state.stel.landscapes.current_id;
     }, function (id) {
-      if (app.$store.state.orasEmbeddedPresentation && id && id !== 'zero') {
+      if (app.$store.state.orasEmbeddedPresentation && id && id !== landscapeId) {
         if (!nativeLandscape) nativeLandscape = id;
         neutral();
       }

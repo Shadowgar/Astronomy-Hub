@@ -68,19 +68,16 @@ export default {
         ])
       }
     },
-    { name: 'oras-workspace-source', computed: { embedded () { return this.$store.state.orasEmbeddedPresentation } }, render (h) { return this.embedded ? h('button', { class: 'oras-workspace-source', attrs: { 'aria-label': 'Sky sources and survey credits' }, on: { click: () => this.$store.commit('setValue', { varName: 'showDataCreditsDialog', newValue: true }) } }, [h('span', { class: 'oras-credits-full' }, ['ORAS Sky Engine · Stellarium · survey credits']), h('span', { class: 'oras-credits-compact' }, ['Stellarium · credits'])]) : null } }
+    { name: 'oras-workspace-source', computed: { embedded () { return this.$store.state.orasEmbeddedPresentation } }, render (h) { return this.embedded ? h('button', { class: 'oras-workspace-source', attrs: { 'aria-label': 'Sky sources and survey credits' }, on: { click: () => this.$store.commit('setValue', { varName: 'showDataCreditsDialog', newValue: true }) } }, [h('span', { class: 'oras-credits-full' }, ['Illustrative Pennsylvania · not surveyed · Stellarium credits']), h('span', { class: 'oras-credits-compact' }, ['Illustrative Pennsylvania · not surveyed · credits'])]) : null } }
   ],
   onEngineReady (app) {
-    let disposed = false; let selectionGeneration = 0; let nativeLandscape = null; let hasZero = false; let nativeZeroStyle = null
+    let disposed = false; let selectionGeneration = 0; let nativeLandscape = null; let hasLandscape = false
     const set = (key, value) => app.$store.commit('setValue', { varName: key, newValue: value })
+    const landscapeId = 'pennsylvania-woodland-v1'
     const neutral = () => {
       if (!app.$store.state.orasEmbeddedPresentation)return
-      if (!hasZero) { app.$stel.core.landscapes.addDataSource({ url: '', key: 'zero' }); hasZero = true }
-      app.$stel.core.landscapes.current_id = 'zero'
-      const horizon = app.$stel.core.landscapes.current
-      if (!nativeZeroStyle)nativeZeroStyle = { fill: horizon.horizon_color, border: horizon.horizon_border_color }
-      horizon.horizon_color = [0.035, 0.04, 0.05, 1]
-      horizon.horizon_border_color = [0.10, 0.12, 0.14, 1]
+      if (!hasLandscape) { app.$stel.core.landscapes.addDataSource({ url: '/oras-sky-engine/landscapes/' + landscapeId, key: landscapeId }); hasLandscape = true }
+      app.$stel.core.landscapes.current_id = landscapeId
     }
     const presentation = (embedded, creditsAtTop = false) => {
       if (embedded && !app.$store.state.orasEmbeddedPresentation)nativeLandscape = app.$stel.core.landscapes.current_id
@@ -88,13 +85,7 @@ export default {
       document.documentElement.classList.toggle('oras-credits-top', creditsAtTop)
       set('orasEmbeddedPresentation', embedded)
       if (embedded)neutral()
-      else {
-        if (nativeZeroStyle) {
-          const horizon = app.$stel.core.landscapes.zero
-          horizon.horizon_color = nativeZeroStyle.fill; horizon.horizon_border_color = nativeZeroStyle.border
-        }
-        if (nativeLandscape && app.$stel.core.landscapes.current_id === 'zero')app.$stel.core.landscapes.current_id = nativeLandscape
-      }
+      else if (nativeLandscape && app.$stel.core.landscapes.current_id === landscapeId)app.$stel.core.landscapes.current_id = nativeLandscape
       for (const key of ['showMainToolBar', 'showLocationButton', 'showTimeButtons', 'showObservingPanelTabsButtons', 'showSelectedInfoButtons'])set(key, !embedded)
       if (embedded) { set('showSidePanel', false); set('showNavigationDrawer', false) }
     }
@@ -107,9 +98,9 @@ export default {
     if (new URLSearchParams(location.search).get('orasNightMode') === '1' && !app.$store.state.nightmode) BottomBar.methods.setNightMode.call(app, true)
     const stopNightWatch = app.$watch(() => !!app.$store.state.nightmode, enabled => { document.documentElement.classList.toggle('oras-sky-night', enabled); window.dispatchEvent(new CustomEvent('oras-sky-night-mode', { detail: enabled })) }, { immediate: true })
     const stopPanelWatch = app.$watch(() => !!(app.$store.state.showViewSettingsDialog || app.$store.state.showDataCreditsDialog), open => { document.documentElement.classList.toggle('oras-native-panel-open', open); window.dispatchEvent(new CustomEvent('oras-sky-panel', { detail: open || !!document.querySelector('.as-native-panel') })) })
-    // Embedded exploration has no qualified panorama. Standalone keeps native choices.
+    // Embedded scenery is illustrative, never a measured local horizon. Standalone keeps native choices.
     const stopLandscapeWatch = app.$watch(() => app.$store.state.stel.landscapes.current_id, id => {
-      if (app.$store.state.orasEmbeddedPresentation && id && id !== 'zero') { if (!nativeLandscape)nativeLandscape = id; neutral() }
+      if (app.$store.state.orasEmbeddedPresentation && id && id !== landscapeId) { if (!nativeLandscape)nativeLandscape = id; neutral() }
     })
     const removeWheel = installNativeWheel(document.querySelector('#stel-canvas'), app.$stel, {
       enabled: () => !disposed && app.$store.state.orasEmbeddedPresentation,
