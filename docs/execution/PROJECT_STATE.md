@@ -11,6 +11,16 @@ all other N1 behavior. Update the same PR/preview and stop for owner testing;
 no merge, deployment, provider spending or N2.
 
 
+Corrected application source is `fa29b01ce589afa689bf02ce1b196e3ab3cb33f7`.
+Actual Chromium now measures 17 ordinary notches from 40 km to the 1.5 km entry
+band (previously seven), while orbital-to-regional traversal takes seven
+(previously six). Trackpad, rapid input, reverse zoom and deliberate Central Park
+Sky entry/return pass. Fresh 120 runtime/Earth and 239 frontend tests pass.
+[Full calibration evidence](../validation/n1-zoom-curve/README.md) records
+per-notch altitudes, timings, limits and unchanged-source scope. Exact owner
+ChatGPT-browser/physical-device experience remains unqualified; stop for testing.
+
+
 ## PR #75 repair — N1 NOT ACCEPTED, 2026-10-14
 
 The owner rejected N1 at `8fe05ca1a8505dc20449635fa47b615e4bd23a0c` after

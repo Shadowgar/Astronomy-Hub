@@ -1,3 +1,14 @@
+## PR #75 — near-surface zoom correction, 2026-10-15
+
+N1 remains unaccepted. The owner rejected the previous fast near-surface profile.
+[New calibration evidence](n1-zoom-curve/README.md) supersedes prior Earth zoom
+measurements: 17 ordinary notches from 40 km to the 1.5 km entry band, versus
+seven before. Application source `fa29b01ce589afa689bf02ce1b196e3ab3cb33f7` changes
+only the Earth gain curve in production source. Ordinary, small-delta, rapid,
+reverse and deliberate Central Park Sky-entry browser checks pass. Other N1
+behavior is unchanged; earlier broad desktop/mobile proof remains historical.
+Stop for owner testing, with no merge, deployment or N2.
+
 ## PR #75 repair — N1 NOT ACCEPTED, 2026-10-14
 
 The owner rejected N1 at `8fe05ca1a8505dc20449635fa47b615e4bd23a0c` after
