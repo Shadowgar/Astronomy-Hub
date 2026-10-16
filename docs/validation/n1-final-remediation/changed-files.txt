@@ -15,6 +15,7 @@ docs/validation/n1-final-remediation/evidence/artifact-identities.json
 docs/validation/n1-final-remediation/evidence/attestation-final-tests.txt
 docs/validation/n1-final-remediation/evidence/attestation-qualified-alternate.json
 docs/validation/n1-final-remediation/evidence/attestation-qualified-default.json
+docs/validation/n1-final-remediation/evidence/committed-browser-implementation.json
 docs/validation/n1-final-remediation/evidence/day-yaw-0-1440.png
 docs/validation/n1-final-remediation/evidence/earth-final-build.txt
 docs/validation/n1-final-remediation/evidence/earth-reproduction.txt
@@ -48,6 +49,8 @@ docs/validation/n1-final-remediation/evidence/preservation.json
 docs/validation/n1-final-remediation/evidence/preview-nginx-qualified.conf.txt
 docs/validation/n1-final-remediation/evidence/qualification-summary.json
 docs/validation/n1-final-remediation/evidence/reconciliation-doc-check.txt
+docs/validation/n1-final-remediation/evidence/review-audit-implementation.json
+docs/validation/n1-final-remediation/evidence/review-thread-resolutions.json
 docs/validation/n1-final-remediation/evidence/runtime-final-tests.txt
 docs/validation/n1-final-remediation/evidence/satellite-instant-focus-browser-red.json
 docs/validation/n1-final-remediation/evidence/satellite-instant-focus-green.txt
@@ -59,6 +62,7 @@ docs/validation/n1-final-remediation/evidence/satellite-selection-red.txt
 docs/validation/n1-final-remediation/evidence/satellites-final.json
 docs/validation/n1-final-remediation/evidence/selected-close-1440.png
 docs/validation/n1-final-remediation/evidence/selected-close-390.png
+docs/validation/n1-final-remediation/evidence/served-implementation.json
 docs/validation/n1-final-remediation/evidence/sky-final-alternate-build.txt
 docs/validation/n1-final-remediation/evidence/sky-final-default-build.txt
 docs/validation/n1-final-remediation/evidence/snapshot-complete-green.txt

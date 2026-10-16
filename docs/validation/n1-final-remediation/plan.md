@@ -49,7 +49,7 @@ requested prior Pennsylvania/native-horizon evidence only. Full ledger accompani
 - [x] Task 5: complete runtime/Earth/frontend tests, typecheck, reproducible offline
   UI/Earth builds, all artifact/source/admission checks. Real desktop/mobile visual,
   elevation/history/snapshot/cancellation and full accepted navigation journeys.
-- [ ] Task 6: scoped authority updates and consolidated evidence; single-agent review,
+- [x] Task 6: scoped authority updates and consolidated evidence; single-agent review,
   commit/push existing PR, reply to and resolve each P2 only after verified GREEN,
   recheck current-head reviews. Stop pending final owner testing, no merges.
 

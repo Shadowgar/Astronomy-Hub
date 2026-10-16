@@ -69,3 +69,11 @@ python3 scripts/validation/validate_architecture_docs.py
 python3 scripts/validation/validate_reconciliation_docs.py
 N1_SERVED_EVIDENCE=output/n1/remediation/served-identity.json python3 scripts/validation/verify_n1_motion_served.py
 Commit/push and original-thread response/resolution outcomes are recorded with the delivery SHA in the final handoff/review evidence. No merge/deployment command.
+
+Verified implementation delivery:
+git commit -m "fix(n1): qualify snapshots, elevation, source builds and native satellites"
+git push origin n1-sky-earth-navigation-1
+python3 /tmp/n1-evidence-identity.py
+N1_SERVED_EVIDENCE=output/n1/remediation/served-identity.json python3 scripts/validation/verify_n1_motion_served.py
+python3 /tmp/n1-publish-reviews.py
+The publication helper requires exact remote/local head, committed-input and served-identity PASS, then posts structured JSON replies to the three original comment IDs and resolves only their matching threads. Actual URLs and SHA are retained in review-thread-resolutions.json.

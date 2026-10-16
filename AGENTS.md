@@ -21,7 +21,8 @@ All four corrections are technically qualified: 150 runtime/Earth tests, 248
 frontend tests, typechecking, three source-selection tests, reproducible builds,
 44 actual Chromium navigation groups, ten elevation cases per width, and native
 satellite/landscape/cancellation matrices pass. The three P2 fixes are **QUALIFIED**;
-original threads are answered/resolved only after pushed-source verification.
+original threads are answered and resolved after verified pushed implementation
+`b7b5da90b34f33124084cf73e36ee7c2644575f0`.
 Satellite presentation is **PENDING OWNER VISUAL ACCEPTANCE**; entire N1 is
 **PENDING FINAL OWNER ACCEPTANCE**. Live Earth satellite-provider qualification
 remains unavailable; historical source-backed tracking is identified separately.

@@ -180,8 +180,37 @@ Selected actual captures: [native overlay before](evidence/standalone-overlay-of
 [accepted landscape night](evidence/night-yaw-0-390.png).
 All other scenes and raw browser records remain under the preview evidence URL.
 
-Original-thread publication/resolution follows only after commit, push and exact
-committed-source/served-byte verification; its final receipt is recorded below.
+## Delivery and original review resolutions
+
+Implementation commit: [`b7b5da90b34f33124084cf73e36ee7c2644575f0`](https://github.com/Shadowgar/Astronomy-Hub/commit/b7b5da90b34f33124084cf73e36ee7c2644575f0),
+pushed to the existing branch/PR #75. [Committed browser-input certificate](evidence/committed-browser-implementation.json)
+and [Docker-served identity](evidence/served-implementation.json) both PASS, with no
+working-tree runtime changes. A later report-only delivery commit does not rebuild
+or change these qualified runtime inputs; its exact HEAD is recorded in the final
+handoff and preview `evidence/remediation/served-identity.json`.
+
+All three original P2s were answered and resolved **after** that verification.
+[Resolution receipts](evidence/review-thread-resolutions.json):
+
+| Finding | Verified original-thread response |
+| --- | --- |
+| Observational snapshots | [resolved response](https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4291451670) |
+| Elevation provenance | [resolved response](https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4291451875) |
+| Explicit attestation source | [resolved response](https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4291452011) |
+
+[Implementation-head review audit](evidence/review-audit-implementation.json):
+Codex code review **COMPLETED WITH NO FINDINGS** on `b7b5da90`; all enumerated
+threads are resolved. CodeRabbit reports SUCCESS but its issue comment explicitly
+says review was skipped for this non-default stacked base; GitGuardian reports
+NEUTRAL. Our three COMMENTED thread replies are not independent approval. No
+separate security review or full-provider qualification is claimed. Final
+report-only delivery-head reviews/checks are rechecked before the owner handoff.
+
+Owner acceptance applies to scrolling `301f9eb3` and scenery `53ac7478` only.
+Implementation-source commits in verification metadata, including the legacy
+`acceptedNavigationSourceCommit` field, identify source history and do not grant
+owner acceptance to this remediation. Satellite appearance and entire N1 remain
+pending owner acceptance; all three PRs remain open and unmerged.
 
 ## Source and generated artifact identities
 
