@@ -6,8 +6,8 @@ The owner [authorized review-only commit/push](https://github.com/Shadowgar/Astr
 with the exact status **PARTIALLY QUALIFIED — DO NOT MERGE**. The subsequent owner
 chat instruction “merge and move on” authorizes PR75 merge despite the known gaps.
 This later instruction supersedes the merge restriction for PR75 only. No other
-PR merge, deployment or R2/R3 is authorized. Existing implementation is preserved;
-only delivery/governance/validation documentation changes in this continuation.
+PR merge, deployment or R2/R3 is authorized. The three original UX corrections are preserved. One genuine review finding is
+corrected and separately qualified as detailed below.
 
 ## Unchanged qualification limits
 
@@ -65,3 +65,30 @@ actual delivered/reviewed SHA and merge result without a self-referential doc co
 Their absence means delivery verification is pending. They must say PARTIALLY
 QUALIFIED even after merge. Exact files: [files-changed.txt](files-changed.txt).
 Owner preview: <http://127.0.0.1:4202/sky-engine>. Stop after delivery/review/PR75 merge.
+
+## Exact-head review correction
+
+Codex review of97eacd2d found one genuine P2: Enter Sky here remained enabled while
+a coordinate flight was pending, allowing an intermediate-center handoff. The
+[review finding](https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4297945509)
+is corrected solely by `disabled={busy||pending}` on that button. Flight/camera math,
+input gain, source pins, data and the three UX implementations remain unchanged.
+Focused tests reproduce two failures then pass both success/failure completion paths;
+fresh frontend suite268/268 in38 files and typecheck PASS. Two fresh129-file Hub
+builds match. Focused desktop/mobile native-flight browser qualification holds only
+the genuine completion acknowledgement, verifies disabled handoff/no snapshot while
+pending, then releases it and verifies the correct observer/time on normal Sky entry.
+No full stalled navigation suite is rerun. Original failed5/22 and7/22 records remain
+FAIL with their original hashes. Seven earlier PASS families retain unchanged scoped
+source hashes; the new pending-flight behavior is separately qualified. The Hub bundle
+is rebuilt; native Sky/Earth artifacts remain unchanged.
+
+An initial focused browser helper inspected `result.ok` instead of `result.payload.ok`;
+that unsuccessful harness attempt is preserved, not called an application regression.
+The genuine browser RED uses the97eacd2d served Hub bundle even though the working
+component had already been patched; its recorded bundle hash binds the pre-fix bytes.
+[Focused qualification](evidence/review-fix-qualification.json),
+[actual browser GREEN](evidence/coordinate-flight-green.json),
+[actual browser RED](evidence/coordinate-flight-red.json),
+[retained envelope-assertion attempt](evidence/coordinate-flight-envelope-attempt.json),
+[independent Hub builds](evidence/review-fix-builds.json).

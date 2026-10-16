@@ -22,6 +22,14 @@ time, FOV and product navigation remain pending the owner's respective acceptanc
 Preserve data/settings/source pins/rollback identities. N1 NOT FINALIZED. Stop after
 PR75 delivery/merge and its exact-head review results. No merge of PR74/73 is authorized.
 
+Codex review of97eacd2d identified one genuine P2 coordinate-flight/handoff race.
+The sole correction disables Enter Sky here while busy/pending. Focused2-case RED/
+GREEN,268 frontend tests/typecheck, independent129-file Hub builds and actual
+desktop/mobile pending-flight/correct-location Sky handoffs PASS. Full stalled
+navigation suites are NOT rerun; prior5/22 and7/22 remain FAIL. A follow-up exact-head
+review is required before the already-authorized PR75 merge. Native science,
+accepted wheel/controller/panorama/satellite policy and the three UX fixes are unchanged.
+
 Earlier N1 execution sections below are historical where they conflict with this override.
 
 ## Active N1 final UX corrections — owner directive 2026-10-16

@@ -9,8 +9,11 @@ for name in names:
   expected_steps=5 if name=='journeys-desktop' else 7;assert len(d['runs'])==1 and len(d['runs'][0]['steps'])==expected_steps,name
   attempt=next(x for x in json.loads((r/'bounded-delivery-20261016/attempts.json').read_text())if x['suite']==name);assert attempt['exitCode']==1 and attempt['proofStatus']=='FAIL';assert attempt['proofSha256']==sha(p.read_bytes()),name
  for f,h in d['sourceHashes'].items():
-  assert sha(Path(f).read_bytes())==h,(name,f,'working source')
-  if committed:assert sha(subprocess.check_output(['git','show',head+':'+f]))==h,(name,f,'committed source')
+  actual_expected=h
+  if f=='frontend/src/features/workspace/EarthExplore.tsx' and sha(Path(f).read_bytes())!=h:
+   assert name in ['journeys-desktop','journeys-mobile'],'Unexpected changed PASS-proof source';old=subprocess.check_output(['git','show','97eacd2d:'+f]);assert sha(old)==h;assert old.replace(b'<button className="ws-primary" onClick=',b'<button className="ws-primary" disabled={busy||pending} onClick=')==Path(f).read_bytes();actual_expected=sha(Path(f).read_bytes())
+  assert sha(Path(f).read_bytes())==actual_expected,(name,f,'working source')
+  if committed:assert sha(subprocess.check_output(['git','show',head+':'+f]))==actual_expected,(name,f,'committed source')
  rows.append({'name':name,'sha256':sha(p.read_bytes()),'runs':len(d['runs']),'steps':sum(len(x.get('steps',x.get('checks',[]))) for x in d['runs']),'scenes':sum(len(x.get('scenes',[])) for x in d['runs']),'pageErrors':sum(len(x.get('pageErrors',[])) for x in d['runs']),'resourceFailures':sum(len(x['resourceFailures']) for x in d['runs']) if all('resourceFailures' in x for x in d['runs']) else None})
 ux=json.loads((r/'browser/proof.json').read_text());summary=[]
 for run in ux['runs']:
@@ -47,4 +50,11 @@ for original,copy in [('/var/tmp/oras-phase-c/sky-reconstruction/upstream/LICENS
 frozen=json.loads((delivery/'candidate-before.json').read_text())
 for name,h in frozen.items():assert (sha(Path(name).read_bytes()) if Path(name).is_file() else None)==h,('implementation changed',name)
 assert 'review only' in json.loads((delivery/'owner-review-authorization.json').read_text())['body'].lower()
-result={'status':'PARTIALLY QUALIFIED - OWNER-AUTHORIZED PR75 MERGE','identityChecks':'PASS','fullNavigationQualified':False,'historicalEvidenceNotRerun':True,'originalLicenseByteIdentity':legal,'head':head,'committedSources':committed,'records':rows,'uxMeasurements':summary,'protectedFilesUnchanged':len(protected),'mountsUnchanged':len(mounts),'servedExtensionsAndNotices':served,'skyArtifact':json.loads(Path('integrations/renderers.lock.json').read_text())['sky']['artifact_sha256']};(delivery/('committed-identities.json' if committed else 'working-identities.json')).write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
+fix=json.loads((delivery/'review-fix-qualification.json').read_text());assert fix['status']=='PASS';focused=json.loads((delivery/'flight-browser-qualified/proof.json').read_text());assert focused['status']=='PASS' and len(focused['runs'])==2 and all(x['status']=='PASS' and not x['pageErrors']for x in focused['runs'])
+for f,h in focused['sourceHashes'].items():
+ assert sha(Path(f).read_bytes())==h,('focused source',f)
+ if committed:
+  target='docs/validation/n1-final-ux/coordinate-flight-browser.mjs.txt' if f.endswith('flight-browser.mjs') else f
+  assert sha(subprocess.check_output(['git','show',head+':'+target]))==h,('focused committed source',target)
+
+result={'status':'PARTIALLY QUALIFIED - OWNER-AUTHORIZED PR75 MERGE','identityChecks':'PASS','fullNavigationQualified':False,'focusedReviewCorrection':fix,'failedNavigationSourceDelta':'Only EarthExplore busy/pending disabled attribute differs from historical failed navigation sources; original records unchanged and not promoted to PASS.','historicalEvidenceNotRerun':True,'originalLicenseByteIdentity':legal,'head':head,'committedSources':committed,'records':rows,'uxMeasurements':summary,'protectedFilesUnchanged':len(protected),'mountsUnchanged':len(mounts),'servedExtensionsAndNotices':served,'skyArtifact':json.loads(Path('integrations/renderers.lock.json').read_text())['sky']['artifact_sha256']};(delivery/('committed-identities.json' if committed else 'working-identities.json')).write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
