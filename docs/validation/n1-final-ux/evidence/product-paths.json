@@ -1,0 +1,1368 @@
+{
+  "browserChannel": "bundled Chromium",
+  "headless": true,
+  "status": "PASS",
+  "sourceHashes": {
+    "scripts/validation/verify_n1_final_ux_product_paths.mjs": "51f387b2f845cf026e38d1aba39f2e256199bc1e8cbcf68a0b15965fceeebe73",
+    "frontend/src/features/workspace/WorkspaceShell.tsx": "62ea088e09eebd296a9d948145c0ad1495642f2cad0ef149c26e61ef283cc6c5",
+    "frontend/src/features/workspace/SelectionDrawer.tsx": "2efc7a4dca1580961e84053eba8b96cc6e4e41b3c7e2f8005f0ab6a1360256fb",
+    "frontend/src/features/workspace/workspaceNavigation.ts": "076914f2f42d814789fa3938092ab6929e94358c40952e1ea6c455fdbc5a2a6f",
+    "frontend/src/features/workspace/TonightSurface.tsx": "9f5dbbe9602ca7f1429872a4eb76d10c05c574f8d49a4e9cc5c9ef97f6d0cf4c",
+    "frontend/src/features/workspace/ObserveSurface.tsx": "2a53a16ee85ca10536da55f9f61742993c92e5c35ae3eb730b9881e2d61e4494",
+    "runtimes/sky-adapter/plugin.js": "507a01a60d1647d3390bef7e174f8fe2ef55f3eda02addfd1ee4f66a67838a56",
+    "frontend/public/runtime-versions.json": "dfa169e679ef5755a2e00aeb055c7278df072033a04193240a89766abe1aed30"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "steps": [
+        {
+          "name": "native search → Hub selection",
+          "url": "http://127.0.0.1:4202/sky-engine?date=2026-06-04T02%3A58%3A00Z&catalog=Bright+Star+Catalog+%28local%29&source_id=star-vega&model=star&ra=279.23473511&dec=38.7836918",
+          "file": "1440-search.png"
+        },
+        {
+          "name": "Tonight source-backed target select and Focus",
+          "target": "Moon",
+          "url": "http://127.0.0.1:4202/sky-engine?date=2026-06-04T02%3A58%3A00Z&catalog=Solar+System+%28JPL%29&source_id=moon&model=moon&ra=299.7775987048&dec=-24.4912755144",
+          "fullPageLink": "/tonight?date=2026-06-03",
+          "nativeFocus": {
+            "selection": {
+              "id": "Solar System (JPL):moon:moon",
+              "name": "Moon",
+              "kind": "moon",
+              "catalog": "Solar System (JPL)",
+              "source_id": "moon",
+              "model": "moon",
+              "ra": 297.37493859151806,
+              "dec": -24.915574081667334,
+              "facts": [
+                {
+                  "label": "Catalog",
+                  "value": "Solar System (JPL)"
+                },
+                {
+                  "label": "Source ID",
+                  "value": "moon"
+                }
+              ],
+              "available": true,
+              "focusable": true,
+              "trackable": false,
+              "link": "/oras-sky-engine/skysource/Moon?catalog=Solar+System+%28JPL%29&source_id=moon&model=moon&date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=297.37493859151806&dec=-24.915574081667334"
+            },
+            "utc": 61195.12361111111,
+            "lock": {
+              "model_data": {
+                "horizons_id": 301
+              },
+              "can_orbit": true,
+              "model": "jpl_sso",
+              "types": [
+                "Moo",
+                "SSO",
+                "?"
+              ],
+              "names": [
+                "NAME Moon"
+              ]
+            },
+            "fov": 2.094395102393
+          },
+          "file": "1440-tonight.png"
+        },
+        {
+          "name": "Observe source-backed target select and Focus",
+          "target": "Arcturus",
+          "url": "http://127.0.0.1:4202/sky-engine?date=2026-06-04T02%3A58%3A00Z&catalog=Bright+Star+Catalog+%28local%29&source_id=star-arcturus&model=star&ra=213.915&dec=19.1824",
+          "fullPageLink": "/observe?at=2026-06-04T02%3A58%3A00.000Z",
+          "nativeFocus": {
+            "selection": {
+              "id": "Bright Star Catalog (local):star-arcturus:star",
+              "name": "Arcturus",
+              "kind": "star",
+              "catalog": "Bright Star Catalog (local)",
+              "source_id": "star-arcturus",
+              "model": "star",
+              "ra": 213.9153001,
+              "dec": 19.1824103,
+              "facts": [
+                {
+                  "label": "Catalog",
+                  "value": "Bright Star Catalog (local)"
+                },
+                {
+                  "label": "Source ID",
+                  "value": "star-arcturus"
+                },
+                {
+                  "label": "Magnitude",
+                  "value": "-0.05"
+                }
+              ],
+              "available": true,
+              "focusable": true,
+              "trackable": false,
+              "link": "/oras-sky-engine/skysource/Arcturus?catalog=Bright+Star+Catalog+%28local%29&source_id=star-arcturus&model=star&date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=213.9153001&dec=19.1824103"
+            },
+            "utc": 61195.12361111111,
+            "lock": {
+              "model_data": {
+                "Vmag": -0.050000000745,
+                "epoch": 2000,
+                "pm_ra": -1093.450045170732,
+                "pm_de": -1999.39995422296,
+                "plx": 88.849998474121,
+                "BVMag": 1.238999962807
+              },
+              "model": "star",
+              "types": [
+                "*",
+                "?"
+              ],
+              "names": [
+                "NAME Arcturus",
+                "HIP 69673",
+                "Arcturus",
+                "hip-69673",
+                "* alf Boo",
+                "* 16 Boo"
+              ]
+            },
+            "fov": 2.094395102393
+          },
+          "file": "1440-observe.png"
+        }
+      ],
+      "pageErrors": [],
+      "resourceFailures": [
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix68.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix70.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix74.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix76.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix197.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix349.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix428.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix431.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix444.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix471.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix479.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix505.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/object-media/summaries/index.json",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix146.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix485.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix506.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix465.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix467.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix460.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix466.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix486.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix494.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix458.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix489.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix482.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix490.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix139.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix130.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix697.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix702.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix407.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix413.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix160.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix401.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix698.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/object-media/summaries/index.json",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix282.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix299.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix303.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix305.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix308.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix313.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix314.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix318.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix686.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix256.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix257.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix259.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix267.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix280.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix260.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix288.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix291.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix512.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix298.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix514.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix522.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix546.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix555.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix576.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix516.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix596.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix643.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix682.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix704.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix707.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix708.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix709.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix719.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix721.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix722.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix737.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix738.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix740.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix747.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix748.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix754.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix756.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix757.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix760.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix762.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/object-media/summaries/index.json",
+          "status": 404
+        }
+      ],
+      "initialRendering": {
+        "context": true,
+        "width": 1440,
+        "height": 900,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "steps": [
+        {
+          "name": "native search → Hub selection",
+          "url": "http://127.0.0.1:4202/sky-engine?date=2026-06-04T02%3A58%3A00Z",
+          "file": "390-search.png"
+        },
+        {
+          "name": "Tonight source-backed target select and Focus",
+          "target": "Moon",
+          "url": "http://127.0.0.1:4202/sky-engine?date=2026-06-04T02%3A58%3A00Z&catalog=Solar+System+%28JPL%29&source_id=moon&model=moon&ra=299.7775987048&dec=-24.4912755144",
+          "fullPageLink": "/tonight?date=2026-06-03",
+          "nativeFocus": {
+            "selection": {
+              "id": "Solar System (JPL):moon:moon",
+              "name": "Moon",
+              "kind": "moon",
+              "catalog": "Solar System (JPL)",
+              "source_id": "moon",
+              "model": "moon",
+              "ra": 297.37493859151806,
+              "dec": -24.915574081667334,
+              "facts": [
+                {
+                  "label": "Catalog",
+                  "value": "Solar System (JPL)"
+                },
+                {
+                  "label": "Source ID",
+                  "value": "moon"
+                }
+              ],
+              "available": true,
+              "focusable": true,
+              "trackable": false,
+              "link": "/oras-sky-engine/skysource/Moon?catalog=Solar+System+%28JPL%29&source_id=moon&model=moon&date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=297.37493859151806&dec=-24.915574081667334"
+            },
+            "utc": 61195.12361111111,
+            "lock": {
+              "model_data": {
+                "horizons_id": 301
+              },
+              "can_orbit": true,
+              "model": "jpl_sso",
+              "types": [
+                "Moo",
+                "SSO",
+                "?"
+              ],
+              "names": [
+                "NAME Moon"
+              ]
+            },
+            "fov": 2.094395102393
+          },
+          "file": "390-tonight.png"
+        },
+        {
+          "name": "Observe source-backed target select and Focus",
+          "target": "Arcturus",
+          "url": "http://127.0.0.1:4202/sky-engine?date=2026-06-04T02%3A58%3A00Z&catalog=Bright+Star+Catalog+%28local%29&source_id=star-arcturus&model=star&ra=213.915&dec=19.1824",
+          "fullPageLink": "/observe?at=2026-06-04T02%3A58%3A00.000Z",
+          "nativeFocus": {
+            "selection": {
+              "id": "Bright Star Catalog (local):star-arcturus:star",
+              "name": "Arcturus",
+              "kind": "star",
+              "catalog": "Bright Star Catalog (local)",
+              "source_id": "star-arcturus",
+              "model": "star",
+              "ra": 213.9153001,
+              "dec": 19.1824103,
+              "facts": [
+                {
+                  "label": "Catalog",
+                  "value": "Bright Star Catalog (local)"
+                },
+                {
+                  "label": "Source ID",
+                  "value": "star-arcturus"
+                },
+                {
+                  "label": "Magnitude",
+                  "value": "-0.05"
+                }
+              ],
+              "available": true,
+              "focusable": true,
+              "trackable": false,
+              "link": "/oras-sky-engine/skysource/Arcturus?catalog=Bright+Star+Catalog+%28local%29&source_id=star-arcturus&model=star&date=2026-06-04T02%3A58%3A00.000Z&lat=41.3219030000159&lng=-79.58539400000345&elev=432.816&ra=213.9153001&dec=19.1824103"
+            },
+            "utc": 61195.12361111111,
+            "lock": {
+              "model_data": {
+                "Vmag": -0.050000000745,
+                "epoch": 2000,
+                "pm_ra": -1093.450045170732,
+                "pm_de": -1999.39995422296,
+                "plx": 88.849998474121,
+                "BVMag": 1.238999962807
+              },
+              "model": "star",
+              "types": [
+                "*",
+                "?"
+              ],
+              "names": [
+                "NAME Arcturus",
+                "HIP 69673",
+                "Arcturus",
+                "hip-69673",
+                "* alf Boo",
+                "* 16 Boo"
+              ]
+            },
+            "fov": 2.094395102393
+          },
+          "file": "390-observe.png"
+        }
+      ],
+      "pageErrors": [],
+      "resourceFailures": [
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix29.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix37.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix39.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix52.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix55.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix58.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix61.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix62.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix75.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix85.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix91.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix92.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix93.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix94.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix100.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix102.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix105.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix107.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix109.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix110.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix114.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix119.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix120.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix123.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix125.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix130.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix139.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix147.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix146.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix149.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix156.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix158.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix159.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix160.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix163.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix166.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix176.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix177.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix182.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix184.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix187.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix197.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix212.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix216.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix223.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix234.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix235.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix236.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix241.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix248.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix319.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix401.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix407.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix409.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix413.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix415.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix436.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix446.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix444.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix447.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix482.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix489.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix490.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix494.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix505.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix506.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix702.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/object-media/summaries/index.json",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix399.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix397.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix479.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix471.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix486.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix485.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix431.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix467.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix465.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix466.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix396.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix68.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix460.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix70.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix458.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/object-media/summaries/index.json",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix568.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix697.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix575.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix256.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix257.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix259.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix260.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix261.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix267.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix280.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix282.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix288.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix291.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix298.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix299.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix303.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix512.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix314.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix514.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix516.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix522.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix524.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix525.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix526.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix527.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix531.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix536.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix542.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix546.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix550.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix551.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix553.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix555.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix556.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix559.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix565.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix576.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix586.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix643.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix704.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix707.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix708.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix709.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix721.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix719.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix722.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix737.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix738.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix740.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix747.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix748.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix757.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix754.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix756.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix760.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/dense-star-tiles/profiles/visual-default/Norder3/Dir0/Npix762.eph",
+          "status": 404
+        },
+        {
+          "url": "http://127.0.0.1:4202/oras-sky-engine/skydata/object-media/summaries/index.json",
+          "status": 404
+        }
+      ],
+      "initialRendering": {
+        "context": true,
+        "width": 390,
+        "height": 900,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      }
+    }
+  ],
+  "limitations": [
+    "Actual existing API/model/native renderer; historical observing fixture. No catalog-completeness, physical-device or general network qualification."
+  ]
+}

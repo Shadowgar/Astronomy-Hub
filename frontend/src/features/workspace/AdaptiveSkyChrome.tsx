@@ -1,5 +1,6 @@
 import React,{useEffect,useRef,useState} from 'react'
 import {Icon,IconButton} from './primitives'
+import {SkyFovIndicator} from './SkyFovIndicator'
 import {ORAS_SITE} from '../../config/orasSite'
 import type {ObserverIntent} from '../../../../packages/runtime-protocol/index.mjs'
 
@@ -16,7 +17,7 @@ export function parseObserverDraft(draft:ObserverDraft):ObserverIntent|null{
  return result
 }
 
-export default function AdaptiveSkyChrome({onEarth,onContext,onMenu,observer,onObserver,busy,elevationFallback=false}:{onEarth:()=>void;onContext:(tab:'tonight'|'observe')=>void;onMenu:()=>void;observer:ObserverIntent;onObserver:(value:ObserverIntent)=>Promise<boolean>;busy:boolean;elevationFallback?:boolean}){
+export default function AdaptiveSkyChrome({onEarth,onContext,onMenu,observer,onObserver,busy,elevationFallback=false,fovRad=null}:{onEarth:()=>void;onContext:(tab:'tonight'|'observe')=>void;onMenu:()=>void;observer:ObserverIntent;onObserver:(value:ObserverIntent)=>Promise<boolean>;busy:boolean;elevationFallback?:boolean;fovRad?:number|null}){
  const dialog=useRef<HTMLDialogElement>(null),launcher=useRef<HTMLElement|null>(null)
  const [surface,setSurface]=useState<'explore'|'location'>('explore'),[draft,setDraft]=useState(()=>observerDraft(observer)),[pending,setPending]=useState(false),[error,setError]=useState('')
  const isOras=Math.abs(observer.lat-ORAS_SITE.latitude)<1e-5&&Math.abs(observer.lon-ORAS_SITE.longitude)<1e-5
@@ -26,7 +27,7 @@ export default function AdaptiveSkyChrome({onEarth,onContext,onMenu,observer,onO
  const submit=async(event:React.FormEvent)=>{event.preventDefault();const parsed=parseObserverDraft(draft);if(!parsed){setError('Enter a valid latitude (−90 to 90), longitude (−180 to 180) and elevation (−1000 to 100000 m).');return}setError('');setPending(true);try{if(await onObserver(parsed))close();else setError('The observing location could not be applied. Please try again.')}finally{setPending(false)}}
  return <>
   <header className="as-header">
-   <a href="/" className="as-identity ws-panel" aria-label="Astronomy Hub · Sky View"><Icon name="eye"/><span><small>ASTRONOMY HUB</small><strong>Sky View</strong></span></a>
+   <div className="as-identity-row"><a href="/" className="as-identity ws-panel" aria-label="Astronomy Hub · Sky View"><Icon name="eye"/><span><small>ASTRONOMY HUB</small><strong>Sky View</strong></span></a><SkyFovIndicator fovRad={fovRad}/></div>
    <button className="as-explore ws-panel" aria-label="Explore" onClick={event=>open('explore',event)}><Icon name="navigation"/>Explore</button>
   </header>
   <button className="as-location ws-panel" aria-label="Observing location" disabled={busy} onClick={event=>open('location',event)}><Icon name="map-pin"/><span><small>OBSERVING LOCATION</small><span>{isOras?'ORAS · Pennsylvania':`${observer.lat.toFixed(3)}°, ${observer.lon.toFixed(3)}°`}</span>{elevationFallback?<small>Elevation unavailable · 0 m fallback</small>:null}</span></button>

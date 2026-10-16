@@ -19,3 +19,6 @@
 .as-sky-night .as-dialog::backdrop{background:#0a0000d9}.as-sky-night input{color-scheme:dark;caret-color:var(--ws-text)}.as-sky-night input:focus-visible,.as-sky-night button:focus-visible,.as-sky-night a:focus-visible,.as-sky-night summary:focus-visible{outline-color:var(--ws-accent)}
 .as-sky-night .ws-primary:hover{background:#c9655b;color:var(--ws-ink)}
 .as-sky-night *::selection{background:#602b22;color:#e6a19a}
+
+.as-identity-row{display:flex;align-items:center;gap:8px}.as-fov{display:block;align-self:center;padding:8px 10px;border-radius:11px;font-size:11px;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ws-secondary)}.as-fov:focus-visible{outline:2px solid var(--ws-accent);outline-offset:3px}
+@media(max-width:360px){.as-fov{position:absolute;top:52px;right:0;padding:3px 7px;font-size:10px}}

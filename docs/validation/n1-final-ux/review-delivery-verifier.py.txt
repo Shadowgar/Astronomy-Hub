@@ -1,0 +1,50 @@
+import json,hashlib,subprocess,os,urllib.request
+from pathlib import Path
+r=Path('output/n1/final-ux');delivery=r/'review-only';delivery.mkdir(exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest();head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();committed=os.environ.get('N1_COMMITTED')=='1'
+names=['browser','satellite-recheck/browser','satellite-recheck/symbol-pixels','native-satellites','pennsylvania','journeys-desktop','journeys-mobile','observer-history','product-paths'];rows=[]
+for name in names:
+ p=r/name/'proof.json';d=json.loads(p.read_text());expected='FAIL' if name in ['journeys-desktop','journeys-mobile'] else 'PASS';assert d['status']==expected,(name,d.get('error'))
+ if expected=='PASS':assert all(x['status']=='PASS' and not x.get('pageErrors') for x in d['runs']),name
+ else:
+  expected_steps=5 if name=='journeys-desktop' else 7;assert len(d['runs'])==1 and len(d['runs'][0]['steps'])==expected_steps,name
+  attempt=next(x for x in json.loads((r/'bounded-delivery-20261016/attempts.json').read_text())if x['suite']==name);assert attempt['exitCode']==1 and attempt['proofStatus']=='FAIL';assert attempt['proofSha256']==sha(p.read_bytes()),name
+ for f,h in d['sourceHashes'].items():
+  assert sha(Path(f).read_bytes())==h,(name,f,'working source')
+  if committed:assert sha(subprocess.check_output(['git','show',head+':'+f]))==h,(name,f,'committed source')
+ rows.append({'name':name,'sha256':sha(p.read_bytes()),'runs':len(d['runs']),'steps':sum(len(x.get('steps',x.get('checks',[]))) for x in d['runs']),'scenes':sum(len(x.get('scenes',[])) for x in d['runs']),'pageErrors':sum(len(x.get('pageErrors',[])) for x in d['runs']),'resourceFailures':sum(len(x['resourceFailures']) for x in d['runs']) if all('resourceFailures' in x for x in d['runs']) else None})
+ux=json.loads((r/'browser/proof.json').read_text());summary=[]
+for run in ux['runs']:
+ scenes={x['name']:x for x in run['scenes']};assert len(run['checks'])>=7
+ for check in run['checks']:
+  if 'timeCommands' in check:assert check['timeCommands']==0
+ for scene in run['scenes']:
+  assert abs(scene['fov']['nativeDegrees']-float(scene['fov']['text'].replace('FOV ','').replace('°','')))<=scene['fov']['roundingTolerance']
+ for name in ['fixed-night','repeated-night','night-mode-on','fixed-day','live','paused-native-night-live-url']:
+  a,b=scenes[name+'-before'],scenes[name+'-after'];assert a['native']['timeSpeed']==b['native']['timeSpeed'];assert a['native']['observer']==b['native']['observer'];assert all(abs(a['native']['camera'][k]-b['native']['camera'][k])<1e-8 for k in a['native']['camera']);assert a['native']['atmosphere']==b['native']['atmosphere'];assert a['native']['night']==b['native']['night'];assert abs(a['illumination']['meanRgb']-b['illumination']['meanRgb'])<3
+  if name!='live':assert a['native']['utcMjd']==b['native']['utcMjd']
+ summary.append({'width':run['width'],'selections':[(x['name'],x['input']) for x in run['checks'] if 'input' in x],'fov':{x['name']:x['fov'] for x in run['scenes'] if x['name'].startswith('fov-')},'pausedNightBefore':scenes['paused-native-night-live-url-before']['native']['utc'],'pausedNightAfter':scenes['paused-native-night-live-url-after']['native']['utc']})
+icons=json.loads((r/'satellite-recheck/symbol-pixels/proof.json').read_text());assert icons['journeySha256']==sha((r/'satellite-recheck/browser/proof.json').read_bytes())
+for run in icons['runs']:
+ for s in run['scenes']:assert s['sha256']==sha((r/'satellite-recheck/browser'/s['file']).read_bytes())
+protected=json.loads((r/'preservation-before.json').read_text())['protectedFiles']
+for f,h in protected.items():assert sha(Path(f).read_bytes())==h,('protected',f)
+mounts=json.loads(subprocess.check_output(['docker','inspect','oras-n1-owner-preview','--format','{{json .Mounts}}'],text=True));old=json.loads((r/'mounts-before.json').read_text());assert sorted(mounts,key=lambda x:x['Destination'])==sorted(old,key=lambda x:x['Destination']);(r/'mounts-after.json').write_text(json.dumps(mounts,indent=2)+'\n')
+served=[]
+lock=json.loads(Path('integrations/renderers.lock.json').read_text())
+for item in lock['sky']['artifact_files']:
+ if item['path'].endswith('.wasm'):
+  url='/oras-sky-engine/'+item['path']
+  with urllib.request.urlopen('http://127.0.0.1:4202'+url) as response:
+   data=response.read();assert response.status==200;assert sha(data)==item['sha256'];assert data==Path('frontend/public/oras-sky-engine',item['path']).read_bytes()
+  served.append({'url':url,'sha256':sha(data)})
+for url,file in [('/runtime-bridge/sky/entry.mjs','runtimes/sky-adapter/entry.mjs'),('/runtime-bridge/sky/native-panels.mjs','runtimes/sky-adapter/native-panels.mjs')]+[('/licenses/'+name,'frontend/public/licenses/'+name) for name in ['stellarium-web-engine-AGPL-3.0.txt','cesium-license.txt','sky-data-credits.html','README.txt']]:
+ with urllib.request.urlopen('http://127.0.0.1:4202'+url) as response:
+  assert response.status==200;data=response.read();assert data==Path(file).read_bytes(),url
+ served.append({'url':url,'source':file,'sha256':sha(data)})
+legal=[]
+for original,copy in [('/var/tmp/oras-phase-c/sky-reconstruction/upstream/LICENSE-AGPL-3.0.txt','frontend/public/licenses/stellarium-web-engine-AGPL-3.0.txt'),('frontend/node_modules/cesium/LICENSE.md','frontend/public/licenses/cesium-license.txt')]:
+ assert Path(original).read_bytes()==Path(copy).read_bytes();legal.append({'original':original,'copy':copy,'sha256':sha(Path(copy).read_bytes())})
+frozen=json.loads((delivery/'candidate-before.json').read_text())
+for name,h in frozen.items():assert (sha(Path(name).read_bytes()) if Path(name).is_file() else None)==h,('implementation changed',name)
+assert 'review only' in json.loads((delivery/'owner-review-authorization.json').read_text())['body'].lower()
+result={'status':'PARTIALLY QUALIFIED - OWNER-AUTHORIZED PR75 MERGE','identityChecks':'PASS','fullNavigationQualified':False,'historicalEvidenceNotRerun':True,'originalLicenseByteIdentity':legal,'head':head,'committedSources':committed,'records':rows,'uxMeasurements':summary,'protectedFilesUnchanged':len(protected),'mountsUnchanged':len(mounts),'servedExtensionsAndNotices':served,'skyArtifact':json.loads(Path('integrations/renderers.lock.json').read_text())['sky']['artifact_sha256']};(delivery/('committed-identities.json' if committed else 'working-identities.json')).write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

@@ -1,0 +1,131 @@
+from pathlib import Path
+import json
+root=Path('docs/validation/n1-final-ux');url='https://github.com/Shadowgar/Astronomy-Hub/pull/75#issuecomment-6221730719'
+block='''## Active N1 delivery authorization — owner override 2026-10-16
+
+**PARTIALLY QUALIFIED. PR #75 MERGE EXPLICITLY OWNER-AUTHORIZED.**
+
+The owner first authorized commit/push for review only in
+[the PR conversation](https://github.com/Shadowgar/Astronomy-Hub/pull/75#issuecomment-6221730719),
+with status PARTIALLY QUALIFIED — DO NOT MERGE. The owner's subsequent chat instruction,
+“merge and move on”, explicitly supersedes that merge restriction for **PR #75 only**.
+Commit/push the preserved candidate, finish exact-head Codex review and address genuine
+in-scope findings, then merge PR75 into its existing `r1-b-adaptive-sky-implementation-1`
+base. PR74 and PR73 remain OPEN; their base chain remains intact. Do not deploy,
+begin R2/R3, change accepted features or retry the stalled full navigation suites.
+
+This is an explicit delivery/merge exception, not a navigation PASS or N1 acceptance.
+Desktop5/22 and mobile7/22 groups completed before240-second outer caps. No functional
+assertion mismatch reproduced; underlying cause UNKNOWN. Seven source-matching earlier
+browser families remain historical PASS evidence, never fresh44-group qualification.
+Scrolling and Pennsylvania scenery remain OWNER ACCEPTED. Satellite symbols, selection/
+time, FOV and product navigation remain pending the owner's respective acceptance/retest.
+Preserve data/settings/source pins/rollback identities. N1 NOT FINALIZED. Stop after
+PR75 delivery/merge and its exact-head review results. No merge of PR74/73 is authorized.
+
+Earlier N1 execution sections below are historical where they conflict with this override.
+
+'''
+for name in ['AGENTS.md','docs/context/LIVE_SESSION_BRIEF.md','docs/execution/PROJECT_STATE.md']:
+ p=Path(name);s=p.read_text();first=s.index('\n\n')+2;s=s[:first]+block+s[first:];s=s.replace('This is the active N1 directive. Earlier N1 sections below retain historical evidence.','This earlier N1 directive is historical for delivery gates; the active owner override is above.',1);p.write_text(s)
+p=root/'README.md';s=p.read_text();s=s.replace('PARTIAL — REQUIRED NAVIGATION QUALIFICATION UNRESOLVED.', 'PARTIALLY QUALIFIED — OWNER-AUTHORIZED MERGE OF PR #75.',1)
+a=s.index('## Qualification and delivery');b=s.index('\nPreview:',a)
+s=s[:a]+'''## Qualification and delivery
+
+**PARTIALLY QUALIFIED.** The owner explicitly authorized review-only commit/push in
+[PR75](https://github.com/Shadowgar/Astronomy-Hub/pull/75#issuecomment-6221730719),
+then authorized merging PR75 with the subsequent chat instruction “merge and move on”.
+That latest authorization supersedes the earlier DO NOT MERGE restriction for PR75
+only; it does not convert incomplete navigation into a pass or authorize merging
+PR74/73, deployment or R2/R3. The existing implementation is preserved.
+
+Desktop5/22 and mobile7/22 groups completed before240-second outer caps. Underlying
+cause remains UNKNOWN; no functional assertion mismatch was reproduced. No stalled
+suite is rerun for this delivery. Seven previously passing browser families are reused
+only after source-hash verification. [Bounded handoff](QUALIFICATION_HANDOFF.md) preserves
+all original outcomes. [Delivery authorization and checks](DELIVERY_AUTHORIZATION.md)
+records the owner exception and post-commit identity/review procedure.
+
+A separate post-commit receipt will bind the delivered SHA, remote head, committed
+source and served preview bytes, Codex review, and eventual PR75 merge result. It
+must retain PARTIALLY QUALIFIED status. It is not the old all-nine-families PASS
+certificate or full-qualification receipt; those guards are not weakened.
+''' +s[b:]
+s=s.replace('| Commit / push / new-head review |NOT PERFORMED; qualification gate remains open|','| Commit / push / new-head review |Authorized by explicit owner exception; final status in the separate delivery receipt|')
+s=s.replace('No new-head\nreview exists because there is no new commit.', 'The preserved baseline audit is historical; exact delivered-head review is required in the delivery receipt.')
+s=s.replace('Next required task: owner review of the bounded qualification handoff. Retry cycle\nis stopped; no exception, readiness commit or push is authorized by a failed result.\nNo merge/deploy/R2/R3.', 'Current task: deliver the preserved candidate and exact-head review under the owner\nexception, then merge PR75 into its existing base and stop. No full qualification\nor acceptance claim; no merge of74/73, deployment or R2/R3.')
+p.write_text(s)
+p=root/'QUALIFICATION_HANDOFF.md';s=p.read_text();s=s.replace('**PARTIAL. Mandatory desktop/mobile navigation remains unqualified. Stop for owner review.**','**Historical bounded qualification: PARTIAL. Navigation results remain unchanged.**\n\nThe subsequent [delivery authorization](DELIVERY_AUTHORIZATION.md) records explicit\nowner permission to commit/push this candidate and the latest chat authorization to\nmerge PR75 only. Delivery prohibitions below describe the earlier stop state; they\nare superseded only to that stated extent. These failed test outcomes are preserved.',1);p.write_text(s)
+text='''# N1 delivery authorization and verification
+
+**PARTIALLY QUALIFIED — OWNER-AUTHORIZED MERGE OF PR #75. N1 NOT FINALIZED.**
+
+The owner [authorized review-only commit/push](https://github.com/Shadowgar/Astronomy-Hub/pull/75#issuecomment-6221730719)
+with the exact status **PARTIALLY QUALIFIED — DO NOT MERGE**. The subsequent owner
+chat instruction “merge and move on” authorizes PR75 merge despite the known gaps.
+This later instruction supersedes the merge restriction for PR75 only. No other
+PR merge, deployment or R2/R3 is authorized. Existing implementation is preserved;
+only delivery/governance/validation documentation changes in this continuation.
+
+## Unchanged qualification limits
+
+- Desktop:5/22 groups completed; screenshot capture stalled after Earth readiness.
+- Mobile:7/22 groups completed; iframe-count query stalled on second outward handoff.
+- Both reached240-second outer caps. No functional assertion mismatch reproduced.
+  Underlying cause UNKNOWN. No claim of all44 navigation groups passing.
+- Seven earlier source-matched browser families,84 UX scenes,160 runtime/Earth and266
+  frontend tests, typecheck and independent builds are retained historical evidence.
+  They are not relabeled as fresh qualification. The stalled suites are not rerun.
+- Later navigation/reversal/repeat/cancellation/history/lifecycle paths, physical
+  devices and owner visual acceptance remain unqualified. Source preservation and
+  simpler roundtrips do not remove that residual risk.
+
+Scrolling and Pennsylvania scenery: OWNER ACCEPTED. Satellite zoom: PENDING FINAL
+OWNER ACCEPTANCE. Selection/time: PENDING OWNER RETEST. FOV and branding/navigation:
+PENDING OWNER ACCEPTANCE. Scientific data/math, source pins, settings and rollback
+identities remain protected. Satellite Explorer remains documentation only.
+
+## Delivery checks
+
+Default Mode context is recorded in [context-review-delivery.json](context-review-delivery.json).
+The current implementation hashes must match the pre-delivery candidate snapshot.
+All nine source-bound proof records are retained: seven PASS, two FAIL with5/7
+completed groups. The complete-qualification scripts remain unchanged; the separate
+[partial-delivery verifier](review-delivery-verifier.py.txt) records the owner exception
+and verifies current/committed source hashes, original proof/PNG identities,73
+protected paths, seven preview mounts, original licenses, native outputs, exact
+Docker-served entries and notices. Independent110-file Sky /129-file Hub build
+inventories are rechecked without rebuilding unchanged implementation.
+
+Commands (no full navigation rerun):
+
+```sh
+python3 output/n1/final-ux/reproduce-build.py
+python3 output/n1/final-ux/review-only/verify-delivery.py
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+git diff --check
+# after committing and pushing:
+N1_COMMITTED=1 python3 output/n1/final-ux/review-only/verify-delivery.py
+N1_SERVED_EVIDENCE=output/n1/final-ux/review-only/served-committed.json python3 scripts/validation/verify_n1_motion_served.py
+python3 output/n1/final-ux/review-audit.py
+```
+
+Before merge, local/remote/PR head must agree on the reviewed SHA; full PR comments,
+reviews, threads and checks must be inspected. Only genuine in-scope findings justify
+implementation changes, with focused qualification and a new exact-head review.
+PR75 is merged into its existing base; PR74/73 stay OPEN. Existing worktrees and
+branches are retained; no owner checkout reset or deletion.
+
+The post-commit [delivery receipt](http://127.0.0.1:4202/evidence/final-ux/review-only/delivery.json)
+and [report](http://127.0.0.1:4202/evidence/final-ux/review-only/delivery.md) bind the
+actual delivered/reviewed SHA and merge result without a self-referential doc commit.
+Their absence means delivery verification is pending. They must say PARTIALLY
+QUALIFIED even after merge. Exact files: [files-changed.txt](files-changed.txt).
+Owner preview: <http://127.0.0.1:4202/sky-engine>. Stop after delivery/review/PR75 merge.
+'''
+(root/'DELIVERY_AUTHORIZATION.md').write_text(text)
+p=root/'plan.md';s=p.read_text();s+='\nLatest owner override: commit/push existing candidate despite incomplete navigation,\nthen exact-head review and owner-authorized merge of PR75 only. Earlier no-push and\nDO NOT MERGE gates are superseded to that extent. Qualification remains partial;\nno full navigation rerun, merge of74/73, deployment or R2/R3.\n';p.write_text(s)
+shutil=None
+(root/'context-review-delivery.json').write_text(Path('output/n1/final-ux/review-only/context.json').read_text())
+print('Owner review-only and subsequent PR75 merge exceptions recorded; implementation untouched.')

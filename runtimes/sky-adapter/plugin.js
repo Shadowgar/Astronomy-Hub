@@ -89,6 +89,7 @@ export default {
       if (embedded && !app.$store.state.orasEmbeddedPresentation)nativeLandscape = app.$stel.core.landscapes.current_id
       document.documentElement.classList.toggle('oras-workspace-embedded', embedded)
       document.documentElement.classList.toggle('oras-credits-top', creditsAtTop)
+      window.dispatchEvent(new Event('oras-sky-fov'))
       set('orasEmbeddedPresentation', embedded)
       if (embedded)neutral()
       updateSatellites()
@@ -109,6 +110,7 @@ export default {
     const stopLandscapeWatch = app.$watch(() => app.$store.state.stel.landscapes.current_id, id => {
       if (app.$store.state.orasEmbeddedPresentation && id && id !== landscapeId) { if (!nativeLandscape)nativeLandscape = id; neutral() }
     })
+    const stopFovWatch = app.$watch(() => app.$store.state.stel.fov, () => window.dispatchEvent(new Event('oras-sky-fov')))
     const stopSatelliteWatch = app.$watch(() => [!!app.$store.state.orasEmbeddedPresentation, app.$store.state.stel.fov, JSON.stringify(app.$store.state.stel.selection), app.$store.state.stel.satellites?.hints_mag_offset].join('|'), updateSatellites, { immediate: true })
     const removeWheel = installNativeWheel(document.querySelector('#stel-canvas'), app.$stel, {
       enabled: () => !disposed && app.$store.state.orasEmbeddedPresentation,
@@ -119,10 +121,12 @@ export default {
     presentation(new URLSearchParams(location.search).get('orasEmbedded') === '1')
     window.orasSkyAdapter = {
       observer: app.$stel.core.observer,
+      fov () { return app.$stel.core.fov },
+      zoom (inward) { const box = document.querySelector('#stel-canvas')?.getBoundingClientRect(); if (box)app.$stel._core_on_zoom(1.05 ** (inward ? 2 : -2), box.width / 2, box.height / 2) },
       nightMode () { return !!app.$store.state.nightmode },
       tools () { set('showViewSettingsDialog', true); return { ok: true } },
       panelOpen () { return !!(app.$store.state.showViewSettingsDialog || app.$store.state.showDataCreditsDialog) },
-      stop () { window.dispatchEvent(new Event('oras-sky-dispose')); stopPanelWatch(); stopNightWatch(); stopLandscapeWatch(); stopSatelliteWatch(); satellitePolicy.release(); removeWheel(); window.removeEventListener('pagehide', wheelPagehide); disposed = true; ++selectionGeneration; app.$stel.core.time_speed = 0 },
+      stop () { window.dispatchEvent(new Event('oras-sky-dispose')); stopPanelWatch(); stopNightWatch(); stopLandscapeWatch(); stopSatelliteWatch(); stopFovWatch(); satellitePolicy.release(); removeWheel(); window.removeEventListener('pagehide', wheelPagehide); disposed = true; ++selectionGeneration; app.$stel.core.time_speed = 0 },
       resetNavigation () { removeWheel.reset(); return { ok: true } },
       navigation () {
         const core = app.$stel.core; const o = core.observer; const observer = { lat: o.latitude * 180 / Math.PI, lon: o.longitude * 180 / Math.PI, elevationM: o.elevation }

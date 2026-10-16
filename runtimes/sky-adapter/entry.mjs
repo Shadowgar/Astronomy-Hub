@@ -1,8 +1,8 @@
 import {createRuntimeEndpoint} from '../../packages/runtime-protocol/endpoint.mjs';
-import {installSkyPanelReports,installSkyNightReports} from './native-panels.mjs';
+import {installSkyPanelReports,installSkyNightReports,installSkyFovReports} from './native-panels.mjs';
 const endpoint=createRuntimeEndpoint({runtime:'sky',version:'stellarium:comparison-023e3b2/oras-sky-baseline.v1+navigation.1',capabilities:['nativeTools','destroy','timeIntent','observerIntent','presentation','interactionEvents','selection','workspaceState','viewNavigation'],execute:async(command,payload)=>{
  const adapter=window.orasSkyAdapter;if(!adapter)throw new Error('Engine unavailable');
- if(command==='destroy'){stopPanelReports();stopNightReports();cleanup();adapter.stop();return {ok:true};}
+ if(command==='destroy'){stopPanelReports();stopNightReports();stopFovReports();cleanup();adapter.stop();return {ok:true};}
  if(command==='getNavigationState')return {ok:true,navigation:adapter.navigation()};
  if(command==='setNavigationView')return adapter.restoreView(payload.camera);
  if(command==='resetNavigation')return adapter.resetNavigation();
@@ -19,7 +19,7 @@ const endpoint=createRuntimeEndpoint({runtime:'sky',version:'stellarium:comparis
  if(command==='setObserverIntent')return adapter.setObserver(payload);
  return {ok:false,error:'Unsupported capability'};
 }});
-const stopPanelReports=installSkyPanelReports(),stopNightReports=installSkyNightReports();
+const stopPanelReports=installSkyPanelReports(),stopNightReports=installSkyNightReports(),stopFovReports=installSkyFovReports();
 let timer=null,canvas=null;
 const navigation=event=>endpoint.emit('navigationIntent',event.detail);
 window.addEventListener('oras-navigation-intent',navigation);
@@ -30,7 +30,7 @@ function ready(){endpoint.ready();canvas=document.querySelector('#stel-canvas');
 }
 window.addEventListener('oras-sky-ready',ready,{once:true});if(window.orasSkyAdapter)ready();
 const nativeControl=target=>!!target?.closest?.('.oras-workspace-search,.oras-workspace-bottom');
-const key=event=>{if(!document.documentElement.classList.contains('oras-workspace-embedded')||window.orasSkyAdapter?.panelOpen()||(event.key==='Tab'&&nativeControl(event.target))||(event.key==='Escape'&&event.target?.closest?.('.oras-workspace-search,.as-native-panel,.as-native-rail'))||!['Escape','Tab'].includes(event.key))return;if(event.key==='Tab')event.preventDefault();endpoint.emit('interaction',{active:false,focused:false,key:event.key});};document.addEventListener('keydown',key,true);
+const key=event=>{if(['PageUp','PageDown'].includes(event.key)){if(event.ctrlKey||event.metaKey||event.altKey||event.shiftKey)return;if(document.documentElement.classList.contains('oras-workspace-embedded')&&!window.orasSkyAdapter?.panelOpen()&&!nativeControl(event.target)&&!event.target?.closest?.('input,textarea,select,[contenteditable=true]')){event.preventDefault();window.orasSkyAdapter?.zoom(event.key==='PageUp')}return}if(!document.documentElement.classList.contains('oras-workspace-embedded')||window.orasSkyAdapter?.panelOpen()||(event.key==='Tab'&&nativeControl(event.target))||(event.key==='Escape'&&event.target?.closest?.('.oras-workspace-search,.as-native-panel,.as-native-rail'))||!['Escape','Tab'].includes(event.key))return;if(event.key==='Tab')event.preventDefault();endpoint.emit('interaction',{active:false,focused:false,key:event.key});};document.addEventListener('keydown',key,true);
 const focusin=event=>{if(document.documentElement.classList.contains('oras-workspace-embedded'))endpoint.emit('interaction',{active:false,focused:window.orasSkyAdapter?.panelOpen()===true||nativeControl(event.target)});};document.addEventListener('focusin',focusin);
 const focusout=event=>{if(document.documentElement.classList.contains('oras-workspace-embedded'))endpoint.emit('interaction',{active:false,focused:window.orasSkyAdapter?.panelOpen()===true||nativeControl(event.relatedTarget)});};document.addEventListener('focusout',focusout);
 window.addEventListener('pagehide',event=>{clearTimeout(timer);timer=null;endpoint.emit('interaction',{active:false,focused:false});if(!event.persisted){cleanup();endpoint.close();}});

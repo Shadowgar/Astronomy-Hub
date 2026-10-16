@@ -1,0 +1,27 @@
+1440 initial ORAS Sky and served source identity 35392ms
+1440 native Landscape toggle and Sky Night Mode ON 21340ms
+1440 Explore dismissal and focus return 3282ms
+1440 arrival and short outward overshoot stay in Sky 17324ms
+1440 reverse input leaves boundary hysteresis 1456ms
+1440 ORAS Sky → Earth by deliberate wheel 10639ms
+1440 Earth → ORAS Sky through accessible Explore 13158ms
+1440 native desktop drag explores Earth 25943ms
+1440 Earth geographic exploration to Central Park coordinates 5171ms
+1440 ordinary inward zoom reaches boundary without a mode change 24831ms
+1440 Earth → New York Sky by deliberate inward wheel 10021ms
+1440 New York Sky → Earth by trackpad-sized outward input 18267ms
+1440 Browser Back restores New York sky observer/time/camera 6519ms
+1440 repeat 1: outward
+1440 repeat 1: location
+1440 repeat 1: near surface
+1440 repeat 1: reverse input
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error: real wheel CDP acknowledgement timed out after 30000ms
+    at Timeout.<anonymous> (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_navigation.mjs:10:122)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7)
+
+Node.js v22.22.0

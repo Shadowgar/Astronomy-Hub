@@ -176,6 +176,25 @@ They do NOT define build order.
 * visible passes
 * orbital behavior
 
+Proposed Satellite Explorer requirements — owner request 2026-10-16, documentation
+only. This records future intent and activates no milestone or implementation:
+
+* Highlights for important satellites and potentially observable satellites, with
+  actual observing relevance and honest visibility uncertainty.
+* The full supported tracked catalog; search by name/NORAD ID and source-backed
+  categories, including ISS/other noteworthy passes rather than a Starlink-only UI.
+* Orbital element epoch/freshness, sunlight/eclipse state, validated pass predictions,
+  selected-object details, and optional orbital paths.
+* Explicit refresh and catalog-completeness limitations. The configured feed lineage
+  is CelesTrak Active GP/TLE, not exclusively Starlink. The unchanged mounted snapshot
+  inspected for planning contains 14281 records/unique NORAD IDs; 12029 records have
+  no object-type metadata. These counts do not establish today's supported/active
+  catalog completeness or brightness. Mounted data is stale; legacy five-digit TLE
+  limitations and current-provider/orbit qualification remain separate unresolved work.
+
+No satellite backend/provider/UI package, imagery expansion or Solar System work is
+authorized by this planning note. N1 qualification and owner acceptance remain gates.
+
 ---
 
 ### 7. Flight Awareness

@@ -1,0 +1,14 @@
+1440 initial ORAS Sky and served source identity 3877ms
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 20000ms exceeded.
+Call log:
+[2m  - waiting for locator('[data-sky-control=landscape]')[22m
+
+    at /home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/output/n1/final-ux/baseline-navigation.mjs:65:161 {
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.0

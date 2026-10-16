@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+npm --prefix frontend test > output/n1/final-ux/frontend-tests.txt 2>&1
+npm --prefix frontend run typecheck > output/n1/final-ux/typecheck-green.txt 2>&1
+npm --prefix frontend run build > output/n1/final-ux/hub-build.txt 2>&1
+npm --prefix frontend run build -- --outDir ../output/n1/final-ux/hub-alternate --emptyOutDir > output/n1/final-ux/hub-alternate-build.txt 2>&1
+python3 output/n1/final-ux/reproduce-build.py

@@ -14798,6 +14798,7 @@ var siteObserver = {
       if (embedded && !app.$store.state.orasEmbeddedPresentation) nativeLandscape = app.$stel.core.landscapes.current_id;
       document.documentElement.classList.toggle('oras-workspace-embedded', embedded);
       document.documentElement.classList.toggle('oras-credits-top', creditsAtTop);
+      window.dispatchEvent(new Event('oras-sky-fov'));
       set('orasEmbeddedPresentation', embedded);
       if (embedded) neutral();
       updateSatellites();
@@ -14848,6 +14849,11 @@ var siteObserver = {
         neutral();
       }
     });
+    var stopFovWatch = app.$watch(function () {
+      return app.$store.state.stel.fov;
+    }, function () {
+      return window.dispatchEvent(new Event('oras-sky-fov'));
+    });
     var stopSatelliteWatch = app.$watch(function () {
       var _app$$store$state$ste;
 
@@ -14877,6 +14883,15 @@ var siteObserver = {
     presentation(new URLSearchParams(location.search).get('orasEmbedded') === '1');
     window.orasSkyAdapter = {
       observer: app.$stel.core.observer,
+      fov: function fov() {
+        return app.$stel.core.fov;
+      },
+      zoom: function zoom(inward) {
+        var _document$querySelect;
+
+        var box = (_document$querySelect = document.querySelector('#stel-canvas')) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.getBoundingClientRect();
+        if (box) app.$stel._core_on_zoom(Math.pow(1.05, inward ? 2 : -2), box.width / 2, box.height / 2);
+      },
       nightMode: function nightMode() {
         return !!app.$store.state.nightmode;
       },
@@ -14895,6 +14910,7 @@ var siteObserver = {
         stopNightWatch();
         stopLandscapeWatch();
         stopSatelliteWatch();
+        stopFovWatch();
         satellitePolicy.release();
         removeWheel();
         window.removeEventListener('pagehide', wheelPagehide);

@@ -38,3 +38,5 @@
 .ws-shell[data-workspace-mode=earth] .as-dialog{color:var(--ws-text);width:460px;max-width:calc(100vw - 28px);max-height:calc(100dvh - 32px);padding:26px;border-radius:var(--ws-radius)}
 @media(max-width:767px){.ws-navigation-hint{bottom:220px}}
 @media(prefers-reduced-motion:reduce){.ws-stage{transition:none}}
+
+.ws-about{color:var(--ws-text);background:var(--ws-surface);width:600px;max-width:calc(100vw - 28px);max-height:calc(100dvh - 32px);padding:24px;border-radius:20px;overflow:auto}.ws-about::backdrop{background:#05070ab3;backdrop-filter:blur(3px)}.ws-about p,.ws-about li{font-size:13px;line-height:1.6;color:var(--ws-secondary)}.ws-about h3{font-size:15px;margin:22px 0 8px}.ws-about ul{padding-left:20px}.ws-about a{color:var(--ws-accent);text-decoration:underline;text-underline-offset:3px}.ws-about a:focus-visible{outline:2px solid var(--ws-accent);outline-offset:3px}.ws-about .ws-panel-heading{align-items:flex-start}.ws-about .ws-panel-heading button{min-width:44px;min-height:44px}

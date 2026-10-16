@@ -5,7 +5,7 @@
   "native_wasm_identical": false,
   "native_vendor_chunks_identical": false,
   "builder": "node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
-  "adapter_sha256": "80f5b2545ad4a243da09c16b7fe6d070836c45c78e344ae1d7988abd9ed6274f",
+  "adapter_sha256": "507a01a60d1647d3390bef7e174f8fe2ef55f3eda02addfd1ee4f66a67838a56",
   "native_horizon": {
     "purpose": "embedded-zero-horizon-colors",
     "comparison_anchor": "023e3b26babf7ffddf45f39293230b14cfe96993",
@@ -20,8 +20,8 @@
     }
   },
   "bridge_input_sha256": {
-    "entry.mjs": "cb27d0292c3be9c2c69cb5033b1a2e4eeaeffd7ca7012d7cfc433e4ec6df8ab4",
-    "native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749",
+    "entry.mjs": "ad33c16ae662789be72ea087f14e19c1ffe2511099a463a5d9de76c607622085",
+    "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
     "satellite-presentation.mjs": "8c5fef997f9da029c1729a1c85f6d289ddc447130a1700da48bfc149fa347cf2"
   },
   "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
@@ -30,5 +30,5 @@
     "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
     "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
   },
-  "artifact_sha256": "4f0cd37f0b555917ed46b906db84083c34c6f664ee47c38a694c81cc0f8f2448"
+  "artifact_sha256": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19"
 }

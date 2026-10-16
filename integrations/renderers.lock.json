@@ -530,7 +530,7 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_sky_horizon.sh",
-    "artifact_sha256": "4f0cd37f0b555917ed46b906db84083c34c6f664ee47c38a694c81cc0f8f2448",
+    "artifact_sha256": "b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19",
     "artifact_files": [
       {
         "path": "css/app.e3189512.css",
@@ -985,12 +985,12 @@
       {
         "path": "index.html",
         "bytes": 1960,
-        "sha256": "d806023f9787e4551976ad2a35d43666fd34b5ff4c7a1ad6e3a7ce3f95df18bb"
+        "sha256": "e08896a8b7712d8f4b4b8dd0f26d6adfd1e9f3ffa6837d4b7370c7d2f4d62590"
       },
       {
-        "path": "js/app.db9f2a50.js",
-        "bytes": 601453,
-        "sha256": "cef2f20d948dad6f1c9151fb6e54ee5ab37792c75f02e2d4caccbfebc21b4da9"
+        "path": "js/app.1a6796d9.js",
+        "bytes": 602156,
+        "sha256": "2fcd745ae7486c829f00e8205fa2477ea6d67c713f3396a747a836f684dca99f"
       },
       {
         "path": "js/chunk-2d2253ec.81e41965.js",
@@ -1085,16 +1085,16 @@
       {
         "path": "oras-runtime-build.json",
         "bytes": 2078,
-        "sha256": "3bf50c4e84bc041016653bcf02d32fdeadffc6fd62888224c297f62f22e3793a"
+        "sha256": "e82006877d6abe61e2874c475712a723b78bfc0842701feb6a5cbb77e9efc5e7"
       }
     ],
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "80f5b2545ad4a243da09c16b7fe6d070836c45c78e344ae1d7988abd9ed6274f",
+    "workspace_adapter_sha256": "507a01a60d1647d3390bef7e174f8fe2ef55f3eda02addfd1ee4f66a67838a56",
     "artifact_hash_scope": "Application files excluding identity marker",
     "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
     "bridge_input_sha256": {
-      "entry.mjs": "cb27d0292c3be9c2c69cb5033b1a2e4eeaeffd7ca7012d7cfc433e4ec6df8ab4",
-      "native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749",
+      "entry.mjs": "ad33c16ae662789be72ea087f14e19c1ffe2511099a463a5d9de76c607622085",
+      "native-panels.mjs": "d84be395e13c83fb0a11c4c73c5a29377681e5298da1c0e139a5b5a6eb14409c",
       "satellite-presentation.mjs": "8c5fef997f9da029c1729a1c85f6d289ddc447130a1700da48bfc149fa347cf2"
     },
     "navigation_input_sha256": {

@@ -1,0 +1,167 @@
+from pathlib import Path
+import json,hashlib,shutil,subprocess
+r=Path('output/n1/final-ux');a=r/'bounded-delivery-20261016';dest=Path('docs/validation/n1-final-ux');sha=lambda b:hashlib.sha256(b).hexdigest()
+p=a/'qualification-handoff.json';q=json.loads(p.read_text());q['classification']['harness']='Earlier ambiguous-dialog selector was already fixed. Installed Playwright1.58.2 page.screenshot inherits the20s page default; locator.count forwards no timeout, and the driver has no independent per-call bound on either invocation. These source properties are confirmed; the precise internal cause of noncompletion is not established.'
+q['classification']['desktop']='Noncompleting page.screenshot in shot(oras-earth), verify_n1_navigation.mjs:33 called from:74. Earth readiness, observer/time and camera-height assertions precede capture. Target crashed is reported around the240s owned outer-budget intervention, not proof of an independent pre-stop crash.'
+q['classification']['mobile']='Noncompleting locator.count in ready(earth), verify_n1_navigation.mjs:32 called from outward:59 and the second outward stage:77. Seven groups passed including first Sky/Earth roundtrip. Target-closed error is reported around the240s owned intervention; no iframe-count mismatch was returned.'
+p.write_text(json.dumps(q,indent=2)+'\n')
+files=['node_modules/playwright-core/lib/client/page.js','node_modules/playwright-core/lib/client/locator.js','node_modules/playwright-core/lib/client/frame.js','node_modules/playwright-core/lib/client/timeoutSettings.js','node_modules/playwright-core/lib/server/dispatchers/dispatcher.js'];inspection={'packageVersion':json.loads(Path('node_modules/playwright-core/package.json').read_text())['version'],'fileSha256':{f:sha(Path(f).read_bytes())for f in files},'confirmed':['page.screenshot uses this._timeoutSettings.timeout(options); the driver sets page default20000ms.','Frame._queryCount forwards selector and options without injecting a timeout; locator.count is called without options.','The dispatcher uses validParams.timeout; absent timeout provides no deadline.'],'notEstablished':'No runtime stack inside Playwright/Chromium establishes why screenshot failed to return its inherited timeout or why count remained pending. No root-cause inference about resource pressure.'};(a/'harness-source-inspection.json').write_text(json.dumps(inspection,indent=2)+'\n')
+reuse=json.loads((a/'reuse-verification.json').read_text());reuse['fullNavigation']='Exactly one fresh attempt each: desktopFAIL5 completed groups; mobileFAIL7 completed groups. Retry cycle stopped.';(a/'reuse-verification.json').write_text(json.dumps(reuse,indent=2)+'\n')
+progress=json.loads((r/'progress-record.json').read_text())
+for row in progress['proofs']:
+ f=r/row['family']/'proof.json';d=json.loads(f.read_text());row.update(status=d['status'],runs=len(d['runs']),error=d.get('error'))
+progress.update(status='PARTIAL - owner-bounded qualification finished; two mandatory suites FAIL',note='Exactly one additional desktop/mobile attempt;240-second outer caps, no increased stage timeouts, no production edits, no unrelated workload/service changes. Stop retry cycle for owner review. No new commit/push/qualification exception.');(r/'progress-record.json').write_text(json.dumps(progress,indent=2)+'\n')
+report='''# N1 bounded qualification handoff — 2026-10-16
+
+**PARTIAL. Mandatory desktop/mobile navigation remains unqualified. Stop for owner review.**
+
+Default Mode: mandatory context and frontend/docs/validation/review/debug pack union;
+[65-entry context ledger](qualification-context-refresh.json). Previously loaded
+unchanged documents were hash-checked; the active execution documents were refreshed.
+No broad docs scan. Existing branch `n1-sky-earth-navigation-1`, local/remote PR75
+baseline `f3629f9a8e4b4ac7a158a1448912d75ca36574db`. No new commit or push.
+PR75 → PR74 → PR73 remains OPEN and UNMERGED. No deployment or R2/R3.
+
+## Exactly one new attempt per suite
+
+| Suite | Result | Completed groups | Exact noncompleting operation |
+| --- | --- | --- | --- |
+| Desktop1440 |FAIL, exit1;240s outer-budget stop|5 of22|`page.screenshot` at `shot('oras-earth')`, driver:33, called from:74. Earth readiness, observer/time and height assertions ran before capture.|
+| Mobile390 |FAIL, exit1;240s outer-budget stop|7 of22|`locator('iframe').count()` inside `ready('earth')`, driver:32; `outward`:59, second outward stage:77. First real wheel Sky→Earth→Sky roundtrip completed.|
+
+[Exact commands, timestamps and exits](evidence/bounded-attempts.json),
+[desktop log](evidence/bounded-desktop-run.txt), [mobile log](evidence/bounded-mobile-run.txt),
+[owned-stop receipt](evidence/bounded-outer-budget-stops.json),
+[classification receipt](evidence/bounded-qualification-handoff.json).
+
+Existing20s locator/page default,90s readiness,30s native/CDP limits and failure
+capture/close limits were not increased. The pre-existing12-minute process ceiling
+was reduced externally to240s per attempt. Only each owned test's timeout supervisor
+was signalled. The sequential runner exited0 because it finished recording both
+outcomes; **both actual suite processes exited1**, and neither is a PASS.
+
+Desktop reported `Target crashed` and mobile `Target page, context or browser has
+been closed` around the controlled outer-budget intervention. Those teardown-time
+errors do not prove an independent crash occurred before intervention. No functional
+assertion mismatch was returned. Browser/automation operations did not complete;
+the underlying Chromium/renderer/driver/environment cause is **UNKNOWN**.
+
+[Installed harness source inspection](evidence/bounded-harness-source-inspection.json)
+confirms Playwright1.58.2 screenshot inherits the20s page default; it is not accurate
+to call that screenshot timeout-free. The count query forwards no timeout, and the
+driver has no independent per-call client deadline around either invocation. These
+are deadline properties, not proof of which internal operation caused the stall.
+The earlier strict-dialog selector failure was already fixed before this attempt.
+Historical baseline failures and low-memory observations do not establish causation.
+No application regression was reproduced well enough to justify a speculative fix.
+No additional production code, timeout increase, skipped assertion or qualification
+exception was introduced. The retry cycle is stopped as directed.
+
+## Functionality successfully qualified and reused
+
+All seven original passing browser proof families retain exact source hashes.
+[Fresh reuse verification](evidence/bounded-reuse-verification.json) rechecks their
+original records; **these are historical browser PASS results, not fresh runs**.
+
+- Selection/time:84 native-rendered scenes, six selection cases per viewport,
+  zero extra time commands per selection; stable fixed UTC/speed/observer/camera,
+  atmosphere/Night Mode and sky illumination. Live time advances normally. The
+  reproduced paused historical night/live-URL case stays at `2026-06-04T02:58:00Z`,
+  speed0. Focus/clear/repeat and basic history/reload/handoff pass in that matrix.
+- FOV: actual native FOV agrees with the visible readout within recorded rounding
+  tolerance after wheel, trackpad, keyboard, Focus, programmatic zoom and restoration;
+  native one arcsecond displays `FOV 0.00028°`. Desktop/mobile and reduced-motion
+  observations are recorded; no threshold or magnitude policy changed.
+- Product identity: both mode menus omit standalone escapes; About & Licenses,
+  keyboard/Escape/focus restoration, original legal bytes, scientific/provider
+  acknowledgments and source links pass. Native search, Tonight/Observe selection
+  and Focus, and copied exact links stay in Astronomy Hub. Internal endpoints remain.
+- Other retained families: seven satellite real-input journeys, independent icon
+  pixel checks,30 native satellite scenes,44 woodland scenes, four observer/history
+  variants and both product-path viewports. No page errors in those passing families;
+  recorded missing-data/network events remain limitations.
+
+Prior supporting runs:160 runtime/Earth assertions;266 frontend tests in37 files;
+TypeScript PASS;3+3 source/promotion Python tests. Those source suites and builds
+were not rerun during this continuation because production source stayed unchanged;
+original outputs are retained, and fresh identity/reuse checks do not relabel them.
+
+## Artifacts, data, settings and rollback
+
+Fresh comparison confirms110 independently built Sky UI files and129 Hub files
+remain byte-identical. [Build identity log](evidence/bounded-build-identity-run.txt),
+[full identities](evidence/reproduction.json),
+[Docker-served bytes](evidence/bounded-served-working.json),
+[additional native/legal/rollback checks](evidence/bounded-additional-identities.json).
+All73 protected paths and seven read-only preview mounts are unchanged.113 tracked
+rollback files match `git show f3629f9a`. Accepted controller, Pennsylvania artwork,
+satellite presentation, mounted TLE, owner settings, native JS/WASM and source pins
+are preserved. No Docker pruning or unrelated workload/service changes.
+
+Sky artifact: `b57c40ddceca090224ac58f4758fde9d2193a649c571e58cb0a618b289649c19`.
+Earth artifact: `834fa48f8bc7cb0489c6c14be42a49c5fb6f9c224a6be9968e3c724ae152494c`.
+Native WASM: `d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942`.
+Mounted TLE: `431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436`.
+Owner settings: `6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0`.
+
+## Delivery boundary and remaining risk
+
+[Exact candidate file list](files-changed.txt); [consolidated report](README.md).
+No new SHA or committed-served certificate exists. Preview
+<http://127.0.0.1:4202/sky-engine> serves the working correction. The current baseline
+PR75 review is completed with no unresolved findings; this is not a review of the
+uncommitted candidate. CodeRabbit skips the stacked base; GitGuardian is NEUTRAL.
+No separate security qualification is claimed. The dependency chain is unchanged.
+
+Later geographic exploration, repeated near-surface/reversal transitions,
+cancellation and complete history/lifecycle paths remain unqualified in these
+full suites. Source preservation and simpler successful roundtrips do not waive
+that residual regression risk. Physical-device/owner visual acceptance, current
+orbit freshness/completeness and definitive legal certification are not claimed.
+
+**Stop for owner review of the unresolved mandatory gate.** No qualification
+exception is proposed or assumed. No merge of73/74/75, production deployment or
+R2/R3. N1 remains NOT FINALIZED.
+'''
+(dest/'QUALIFICATION_HANDOFF.md').write_text(report)
+p=dest/'README.md';s=p.read_text();start=s.index('## Qualification and delivery');end=s.index('\nPreview:',start);s=s[:start]+'''## Qualification and delivery
+
+**PARTIAL: both mandatory navigation suites remain FAIL after exactly one additional
+bounded attempt each. The retry cycle is stopped for owner review.** No new commit
+or push. Local/remote head remains `f3629f9a8e4b4ac7a158a1448912d75ca36574db`.
+
+The [bounded qualification handoff](QUALIFICATION_HANDOFF.md) gives exact operations,
+commands/exits, intervention timing, source/artifact reuse and residual risk.
+Desktop stalled during Earth screenshot capture after readiness assertions; mobile
+stalled in the iframe-count query during its second outward handoff after seven
+successful groups. The precise underlying cause is unknown. No functional assertion
+mismatch was reproduced and no speculative application fix was introduced.
+
+Seven earlier browser PASS families remain valid by fresh source-hash verification;
+they are reused historical evidence. Both new suite processes exited1. No new-head
+review, final committed/served certificate or guarded delivery receipt exists.
+The owner has not waived any mandatory qualification gate. Preview serves the
+uncommitted candidate; the available public branch/source links do not yet publish
+this working correction.
+''' +s[end:]
+s=s.replace('Next task: owner tests the three corrections and unchanged satellite symbols at\nthe preview. Stop there.', 'Next task: owner reviews the unresolved qualification gate and the three corrections\nat the preview. Full delivery and owner acceptance remain pending. Stop there.')
+s=s.replace('Next required task: rerun both full native navigation suites to PASS, then run the\ncombined qualifier, commit/push to existing PR75, verify committed served bytes and\nexact-head reviews, and stop for owner acceptance. No merge/deploy/R2/R3.', 'Next required task: owner review of the bounded qualification handoff. Retry cycle\nis stopped; no exception, readiness commit or push is authorized by a failed result.\nNo merge/deploy/R2/R3.')
+s+='\nThe current navigation evidence superseding earlier failed attempts is documented in\n[QUALIFICATION_HANDOFF.md](QUALIFICATION_HANDOFF.md). Earlier measured PASS evidence\nand failed logs retain their original provenance.\n';p.write_text(s)
+for name in ['docs/context/LIVE_SESSION_BRIEF.md','docs/execution/PROJECT_STATE.md']:
+ p=Path(name);s=p.read_text();begin=s.index('Current working status (2026-10-16):');end=s.index('\n\n## Active N1 satellite zoom reveal repair',begin)
+ rel='../validation/n1-final-ux/QUALIFICATION_HANDOFF.md'
+ s=s[:begin]+f'''Current qualification status (2026-10-16): exactly one additional desktop/mobile
+attempt each has finished. Both mandatory suites remain FAIL after240-second outer
+caps; existing stage timeouts were not increased. Desktop stopped at Earth screenshot
+capture after readiness checks; mobile stopped at iframe-count query on its second
+outward handoff after seven successful groups. Underlying cause UNKNOWN; no functional
+assertion mismatch established. No speculative production fix or qualification
+exception. Retry cycle STOPPED for owner review. Seven earlier browser PASS families
+remain source-bound and explicitly historical;73 protected paths, seven preview
+mounts and113 tracked rollback files verified unchanged. Source/unit/build outputs
+are preserved; the Docker preview serves uncommitted working bytes. No new commit/
+push or exact-new-head review. Local/remote baseline remains
+`f3629f9a8e4b4ac7a158a1448912d75ca36574db`. PR75→74→73 stays OPEN/UNMERGED.
+[Bounded handoff]({rel}). N1 NOT FINALIZED; no merge/deploy/R2/R3.
+''' +s[end:];p.write_text(s)
+print('Partial bounded qualification report and execution state reconciled.')

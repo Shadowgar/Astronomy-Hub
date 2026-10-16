@@ -1,5 +1,72 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
+## Active N1 delivery authorization — owner override 2026-10-16
+
+**PARTIALLY QUALIFIED. PR #75 MERGE EXPLICITLY OWNER-AUTHORIZED.**
+
+The owner first authorized commit/push for review only in
+[the PR conversation](https://github.com/Shadowgar/Astronomy-Hub/pull/75#issuecomment-6221730719),
+with status PARTIALLY QUALIFIED — DO NOT MERGE. The owner's subsequent chat instruction,
+“merge and move on”, explicitly supersedes that merge restriction for **PR #75 only**.
+Commit/push the preserved candidate, finish exact-head Codex review and address genuine
+in-scope findings, then merge PR75 into its existing `r1-b-adaptive-sky-implementation-1`
+base. PR74 and PR73 remain OPEN; their base chain remains intact. Do not deploy,
+begin R2/R3, change accepted features or retry the stalled full navigation suites.
+
+This is an explicit delivery/merge exception, not a navigation PASS or N1 acceptance.
+Desktop5/22 and mobile7/22 groups completed before240-second outer caps. No functional
+assertion mismatch reproduced; underlying cause UNKNOWN. Seven source-matching earlier
+browser families remain historical PASS evidence, never fresh44-group qualification.
+Scrolling and Pennsylvania scenery remain OWNER ACCEPTED. Satellite symbols, selection/
+time, FOV and product navigation remain pending the owner's respective acceptance/retest.
+Preserve data/settings/source pins/rollback identities. N1 NOT FINALIZED. Stop after
+PR75 delivery/merge and its exact-head review results. No merge of PR74/73 is authorized.
+
+Earlier N1 execution sections below are historical where they conflict with this override.
+
+## Active N1 final UX corrections — owner directive 2026-10-16
+
+This earlier N1 directive is historical for delivery gates; the active owner override is above.
+
+Default Mode, single agent, existing `n1-sky-earth-navigation-1` / PR #75 → #74 → #73,
+baseline `f3629f9a8e4b4ac7a158a1448912d75ca36574db`. The owner authorizes three
+bounded corrections: satellite selection preserves native time/lighting/location,
+a visible native-backed FOV readout, and Astronomy Hub product navigation with
+accessible About & Licenses. Existing standalone runtime endpoints remain internal
+integration/testing surfaces; ordinary menus and copied object links stay in Hub.
+Preserve source pins, native C/WASM, scientific math/data, renderer lifetime and
+all five resolved P2 corrections. No provider/dependency/spending or new native changes.
+
+Scrolling at `301f9eb3`, Pennsylvania scenery at `53ac7478`, and Adaptive Explorer
+visual direction remain OWNER ACCEPTED. Satellite symbols at `f3629f9a` remain
+PENDING FINAL OWNER ACCEPTANCE with their hint policy unchanged. Selection/time:
+PENDING OWNER RETEST. FOV: PENDING OWNER VISUAL ACCEPTANCE. Product identity and
+navigation: PENDING OWNER ACCEPTANCE. Entire N1: NOT YET FINALIZED. PR #75 OPEN,
+UNMERGED. Satellite Explorer proposals are recorded only in the existing master plan;
+no feature/milestone is activated. No merge/deploy/R2/R3 or Earth imagery expansion.
+
+Qualify actual Docker/Chromium desktop/mobile time/illumination, real-input FOV,
+menu/license/focus and accepted navigation/rendering regressions, exact committed/
+served identities and all latest-head reviews. Preserve failed evidence/settings/
+volumes/rollback identities; commit/push the qualified correction to existing PR75,
+then STOP for owner testing at <http://127.0.0.1:4202/sky-engine>.
+Scoped evidence: [N1 final UX corrections](../validation/n1-final-ux/README.md).
+
+Current qualification status (2026-10-16): exactly one additional desktop/mobile
+attempt each has finished. Both mandatory suites remain FAIL after240-second outer
+caps; existing stage timeouts were not increased. Desktop stopped at Earth screenshot
+capture after readiness checks; mobile stopped at iframe-count query on its second
+outward handoff after seven successful groups. Underlying cause UNKNOWN; no functional
+assertion mismatch established. No speculative production fix or qualification
+exception. Retry cycle STOPPED for owner review. Seven earlier browser PASS families
+remain source-bound and explicitly historical;73 protected paths, seven preview
+mounts and113 tracked rollback files verified unchanged. Source/unit/build outputs
+are preserved; the Docker preview serves uncommitted working bytes. No new commit/
+push or exact-new-head review. Local/remote baseline remains
+`f3629f9a8e4b4ac7a158a1448912d75ca36574db`. PR75→74→73 stays OPEN/UNMERGED.
+[Bounded handoff](../validation/n1-final-ux/QUALIFICATION_HANDOFF.md). N1 NOT FINALIZED; no merge/deploy/R2/R3.
+
+
 ## Active N1 satellite zoom reveal repair — owner directive 2026-10-16
 
 Default Mode, single agent, existing `n1-sky-earth-navigation-1` / PR #75 → #74 → #73.
