@@ -530,7 +530,7 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_sky_horizon.sh",
-    "artifact_sha256": "ee789ec45b306b82aea465c4274ae0a1dcb5968ca3842d81acf1b1ab6b82068a",
+    "artifact_sha256": "d293874321c60bd3bd154c5a1696037d72d9a1f35c2415c6141d62fab6224d57",
     "artifact_files": [
       {
         "path": "css/app.e3189512.css",
@@ -985,12 +985,12 @@
       {
         "path": "index.html",
         "bytes": 1960,
-        "sha256": "9c527c75e939388f0190e1f7489550e616020e8fcbc3c7af6ae916b5e6319c1a"
+        "sha256": "a5f5cb77edab6d596bf80392e129f22fed66a63e7b661ab988017dc875f1524c"
       },
       {
-        "path": "js/app.97bb7851.js",
-        "bytes": 594296,
-        "sha256": "b32d00bec495af057ea8369a5d05fe423c802eabe647d325e943c45fbc37ace3"
+        "path": "js/app.8c0b384f.js",
+        "bytes": 600854,
+        "sha256": "2786b9d8a4a3f93f5e26986223cf759668822031dd5236dcf1954453cf0883a7"
       },
       {
         "path": "js/chunk-2d2253ec.81e41965.js",
@@ -1084,21 +1084,23 @@
       },
       {
         "path": "oras-runtime-build.json",
-        "bytes": 1876,
-        "sha256": "91ce796af961c54025987110aa1c8abf52a5277b3366999029f1d13fa37ee7b9"
+        "bytes": 2076,
+        "sha256": "6159151524f26fccc4ab0d0cc2e087836392c8e0e00866a67723456b79b5de87"
       }
     ],
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
-    "workspace_adapter_sha256": "7364c898018d02c8e694aef24c86594a93eadda8d1b30650ca74c393f650dcfa",
+    "workspace_adapter_sha256": "80f5b2545ad4a243da09c16b7fe6d070836c45c78e344ae1d7988abd9ed6274f",
     "artifact_hash_scope": "Application files excluding identity marker",
     "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
     "bridge_input_sha256": {
-      "entry.mjs": "2ce2be29b21048ed6223989603f7a5be458414ab754247176eb0b7861eb99272",
-      "native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749"
+      "entry.mjs": "cb27d0292c3be9c2c69cb5033b1a2e4eeaeffd7ca7012d7cfc433e4ec6df8ab4",
+      "native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749",
+      "satellite-presentation.mjs": "8e015954f5fcc014de08bee2d342d977e51fd0c0f2a0566886538f6aed0bcb1f"
     },
     "navigation_input_sha256": {
       "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",
-      "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768"
+      "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
+      "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
     },
     "native_horizon": {
       "purpose": "embedded-zero-horizon-colors",
@@ -1120,7 +1122,7 @@
     "ownership": "Astronomy Hub-owned Cesium runtime; selective exported modules only",
     "runtime_version": "oras-earth.v1",
     "cesium": "1.138.0",
-    "artifact_sha256": "2f2c8530cd8499ef3c646b244d37c9a5ae8574047cabcdc751976e4908234794",
+    "artifact_sha256": "834fa48f8bc7cb0489c6c14be42a49c5fb6f9c224a6be9968e3c724ae152494c",
     "public_exports": [
       "sources/adsb-lol",
       "sources/live",
@@ -1131,7 +1133,7 @@
       "layers/perimeters"
     ],
     "toolchain_image": "node:24.14.0-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8",
-    "source_input_sha256": "4ea2b1a7740e6c7f28bc0b000b9b0c40ebce328270f07b09ecf32dc6588b9e79"
+    "source_input_sha256": "a28b113d5457dbb3042840e9baa96abf786ca3c353a0c1bde8441e49e3a65096"
   },
   "bridge": {
     "major": 1,

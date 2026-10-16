@@ -1,11 +1,13 @@
 """Attest the one authorized downstream native patch and its isolated build."""
 from pathlib import Path
-import hashlib,io,json,subprocess,sys,tarfile,tempfile
+import argparse,hashlib,io,json,subprocess,sys,tarfile,tempfile
+from sky_source import selected_source
 repo=Path(__file__).resolve().parents[2]
-tree=Path(sys.argv[1]).resolve()
-source=Path('/var/tmp/oras-phase-c/sky-reconstruction/upstream')
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('tree',type=Path);parser.add_argument('--source-repo',type=Path);args=parser.parse_args()
+tree=args.tree.resolve()
 lock=json.loads((repo/'integrations/renderers.lock.json').read_text())
 anchor=lock['sky']['comparison_anchor']
+source=selected_source(anchor,args.source_repo)
 sha=lambda data:hashlib.sha256(data).hexdigest()
 patch=repo/'integrations/sky-patches/0001-configurable-zero-horizon.patch'
 archive=subprocess.check_output(['git','-C',str(source),'archive',anchor])
@@ -42,13 +44,13 @@ with tempfile.TemporaryDirectory() as temporary:
   if p.is_file():
    name=p.relative_to(scratch).as_posix();assert (tree/name).read_bytes()==p.read_bytes(),'Unexpected frontend input: '+name
    rows.append({'path':name,'sha256':sha(p.read_bytes())})
- expected_units={p.relative_to(scratch/'apps/web-frontend/src').as_posix() for p in (scratch/'apps/web-frontend/src').rglob('*') if p.is_file()}
- actual_units={p.relative_to(tree/'apps/web-frontend/src').as_posix() for p in (tree/'apps/web-frontend/src').rglob('*') if p.is_file()}
+ expected_units={p.relative_to(scratch/'apps/web-frontend').as_posix() for part in ['src','public'] for p in (scratch/'apps/web-frontend'/part).rglob('*') if p.is_file()}
+ actual_units={p.relative_to(tree/'apps/web-frontend').as_posix() for part in ['src','public'] for p in (tree/'apps/web-frontend'/part).rglob('*') if p.is_file()}
  assert actual_units==expected_units,'Unexpected frontend source file'
 rows.sort(key=lambda row:row['path'])
 dist=tree/'apps/web-frontend/dist'
 wasms=list((dist/'js').glob('*.wasm'));assert len(wasms)==1 and sha(wasms[0].read_bytes())==native['stellarium-web-engine.wasm']
 app=tree/'apps/web-frontend/src/plugins/orasRuntime/index.js';assert app.read_bytes()==(repo/'runtimes/sky-adapter/plugin.js').read_bytes()
 artifacts=[{'path':p.relative_to(dist).as_posix(),'sha256':sha(p.read_bytes())} for p in sorted(dist.rglob('*')) if p.is_file()]
-record={'schema':1,'purpose':'embedded-zero-horizon-colors','comparison_anchor':anchor,'native_builder':lock['sky']['reconstruction']['build_image_id'],'patch_path':patch.relative_to(repo).as_posix(),'patch_sha256':sha(patch.read_bytes()),'landscape_source_sha256':sha(expected['src/modules/landscape.c']),'source_inputs':rows,'source_input_sha256':sha(json.dumps(rows,separators=(',',':')).encode()),'native_output_sha256':native,'adapter_sha256':sha(app.read_bytes()),'frontend_artifacts':artifacts}
+record={'schema':1,'source_repository':str(source),'source_revision':anchor,'purpose':'embedded-zero-horizon-colors','comparison_anchor':anchor,'native_builder':lock['sky']['reconstruction']['build_image_id'],'patch_path':patch.relative_to(repo).as_posix(),'patch_sha256':sha(patch.read_bytes()),'landscape_source_sha256':sha(expected['src/modules/landscape.c']),'source_inputs':rows,'source_input_sha256':sha(json.dumps(rows,separators=(',',':')).encode()),'native_output_sha256':native,'adapter_sha256':sha(app.read_bytes()),'frontend_artifacts':artifacts}
 out=tree.parent/'native-horizon-attestation.json';out.write_text(json.dumps(record,indent=2)+'\n');print('ATTESTED',out,'native inputs',len(rows),'frontend files',len(artifacts))

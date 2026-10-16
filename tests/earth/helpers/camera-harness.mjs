@@ -1,5 +1,7 @@
 import {readFileSync} from 'node:fs';
 import {runInNewContext} from 'node:vm';
+import {surfaceObserver} from '../../../runtimes/earth-runtime/core/navigationObserver.mjs';
+import {RuntimeLifecycle} from '../../../runtimes/earth-runtime/core/RuntimeLifecycle.mjs';
 import {ContinuedInput} from '../../../packages/runtime-protocol/continued-input.mjs';
 const source=readFileSync(process.env.N1_CAMERA_SOURCE||new URL('../../../runtimes/earth-runtime/core/CameraController.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace('export class','class')+'; CameraController';
 // Spherical globe fixture: production ray/altitude math, no WebGL or scheduler mock.
@@ -23,12 +25,12 @@ export function harness(height=40000,{angle=0,hit=true,bridge=false,embedded=tru
  const preUpdate=new Signal(),actions=new Map(),intents=[];let renders=0;
  const controller={zoomEventTypes:['wheel','pinch','right'],minimumZoomDistance:100,maximumZoomDistance:30000000,inertiaSpin:.25,inertiaTranslate:.25,inertiaZoom:.35,enableInputs:true};
  const viewer={canvas,camera:native,scene:{preUpdate,requestRender(){renders++},screenSpaceCameraController:controller,globe:{getHeight:()=>0,pick:()=>hit?target:undefined,ellipsoid},pick:()=>null},screenSpaceEventHandler:{setInputAction(fn,type){actions.set(type,fn)},removeInputAction(type){actions.delete(type)}},flyTo:async()=>true,isDestroyed:()=>false};
- const globals={ContinuedInput,matchMedia:()=>({matches:false}),Cartesian3:V,Cartesian2:class{constructor(x,y){Object.assign(this,{x,y})}},Cartographic:class{constructor(longitude,latitude,height){Object.assign(this,{longitude,latitude,height})}},Matrix4:{IDENTITY:{}},HeadingPitchRange:class{constructor(heading,pitch,range){Object.assign(this,{heading,pitch,range})}},BoundingSphere:class{},EllipsoidTerrainProvider:class{},CesiumMath:{toDegrees:r=>r*180/Math.PI,toRadians:d=>d*Math.PI/180},CameraEventType:{WHEEL:'wheel'},ScreenSpaceEventType:{LEFT_DOUBLE_CLICK:'double'},performance:{now:()=>now}};
+ const globals={surfaceObserver,ContinuedInput,matchMedia:()=>({matches:false}),Cartesian3:V,Cartesian2:class{constructor(x,y){Object.assign(this,{x,y})}},Cartographic:class{constructor(longitude,latitude,height){Object.assign(this,{longitude,latitude,height})}},Matrix4:{IDENTITY:{}},HeadingPitchRange:class{constructor(heading,pitch,range){Object.assign(this,{heading,pitch,range})}},BoundingSphere:class{},EllipsoidTerrainProvider:class{},CesiumMath:{toDegrees:r=>r*180/Math.PI,toRadians:d=>d*Math.PI/180},CameraEventType:{WHEEL:'wheel'},ScreenSpaceEventType:{LEFT_DOUBLE_CLICK:'double'},performance:{now:()=>now}};
  const Camera=runInNewContext(source,globals),camera=new Camera(viewer);if(embedded)camera.navigationEnabled=true;camera.onNavigation=v=>intents.push(v);
- let endpoint;
- if(bridge){const text=readFileSync(new URL('../../../runtimes/earth-runtime/core/RuntimeBridge.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace('export function','function')+'; RuntimeBridge';const Bridge=runInNewContext(text,{createRuntimeEndpoint:config=>(endpoint={...config,emit(){},close(){}}),setTimeout:()=>1,clearTimeout(){},document:{addEventListener(){},removeEventListener(){}}});Bridge({viewer,camera,lifecycle:{add(){}},navigation:()=>camera.navigation({lat:0,lon:0,elevationM:0})});}
+ let endpoint;const lifecycle=new RuntimeLifecycle();lifecycle.add(()=>camera.destroy());
+ if(bridge){const text=readFileSync(process.env.N1_BRIDGE_SOURCE||new URL('../../../runtimes/earth-runtime/core/RuntimeBridge.mjs',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace('export function','function')+'; RuntimeBridge';const Bridge=runInNewContext(text,{createRuntimeEndpoint:config=>(endpoint={...config,emit(){},close(){}}),setTimeout:()=>1,clearTimeout(){},document:{addEventListener(){},removeEventListener(){}}});Bridge({viewer,camera,lifecycle,destroy:()=>lifecycle.destroy(),navigation:()=>camera.navigation({lat:0,lon:0,elevationM:0})});}
  const wheel=(delta,time=now,extra={})=>{now=time;const e=new Event('wheel',{cancelable:true});Object.assign(e,{deltaY:delta,deltaMode:0,...extra});Object.defineProperty(e,'timeStamp',{value:time});canvas.dispatchEvent(e)};
  const step=ms=>{now+=ms;preUpdate.raise();return native.positionCartographic.height};
  const settle=()=>{for(let i=0;i<150;i++)step(16)};
- return {camera,native,viewer,canvas,controller,positions,intents,wheel,step,settle,preUpdate,endpoint,get renders(){return renders}};
+ return {camera,native,viewer,canvas,controller,positions,intents,wheel,step,settle,preUpdate,endpoint,lifecycle,get renders(){return renders}};
 }

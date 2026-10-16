@@ -1,6 +1,37 @@
 # PROJECT STATE — EXECUTION AUTHORITY
 
-## PR #75 — Pennsylvania landscape correction, 2026-10-15
+## PR #75 — final remediation, owner directive 2026-10-15
+
+Default Mode, single agent, existing `n1-sky-earth-navigation-1` / PR #75 → #74 →
+#73. The owner accepts smooth scrolling at `301f9eb3ddfd21a22ad04378bf09ee45c59e8adc`,
+the original illustrative Pennsylvania panorama at
+`53ac74785f5bd0531d5556b5d1c4b622b3f2b0b7`, and the Adaptive Explorer visual direction.
+These accepted designs supersede historical pending-acceptance statements below.
+
+The owner authorizes four bounded corrections: observational Earth navigation
+snapshots and cancellation, validated observer-elevation provenance, consistent
+pinned native build/attestation source selection, and restrained native satellite
+hints based on field of view and selection. Use contained adapters and supported
+native APIs. Preserve photometry, propagation, model behavior, science, observer/time,
+accepted camera animation, landscape assets/controls, standalone defaults, data,
+settings, rollback artifacts, and single-renderer ownership. No new native C/WASM
+modification is authorized; existing pinned native outputs must remain identical.
+
+All four corrections are technically qualified: 150 runtime/Earth tests, 248
+frontend tests, typechecking, three source-selection tests, reproducible builds,
+44 actual Chromium navigation groups, ten elevation cases per width, and native
+satellite/landscape/cancellation matrices pass. The three P2 fixes are **QUALIFIED**;
+original threads are answered/resolved only after pushed-source verification.
+Satellite presentation is **PENDING OWNER VISUAL ACCEPTANCE**; entire N1 is
+**PENDING FINAL OWNER ACCEPTANCE**. Live Earth satellite-provider qualification
+remains unavailable; historical source-backed tracking is identified separately.
+PR #75 is **OPEN AND UNMERGED**. Preview: <http://127.0.0.1:4202/sky-engine>.
+Scoped evidence: [PR #75 — final remediation](../validation/n1-final-remediation/README.md). Commit/push only qualified work,
+then STOP for final owner testing. No merge, deployment, R2/R3, provider/catalog/
+dependency changes, paid assets or new provider spending. Artistic scenery remains
+illustrative and must never be treated as surveyed ORAS terrain.
+
+## Historical PR #75 — Pennsylvania landscape correction, superseded, 2026-10-15
 
 The owner rejects the plain black circle as the final visual design and authorizes
 an original rural northwestern Pennsylvania woodland panorama. This supersedes

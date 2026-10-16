@@ -1,7 +1,7 @@
 import {useState,useRef,useEffect,useCallback} from 'react'
 import {useLocation,useNavigate} from 'react-router-dom'
 import type {RuntimeClient} from '../../../../packages/runtime-protocol/client.mjs'
-import type {RuntimeMode,RuntimeResult,NavigationIntent,ElevationSource} from '../../../../packages/runtime-protocol/index.mjs'
+import type {RuntimeMode,RuntimeResult,NavigationIntent} from '../../../../packages/runtime-protocol/index.mjs'
 import {validNavigationState} from '../../../../packages/runtime-protocol/navigation.mjs'
 import {useRuntimeProductState} from '../runtime/productState'
 import {handoffPath,handoffView} from './viewNavigation'
@@ -19,8 +19,7 @@ export function useViewNavigation(mode:RuntimeMode,status:RuntimeStatus,client:R
   if(pending.current!==active)return
   if(latest.current.client!==from.client){pending.current=null;setHandoff(null);return}
   if(!result?.ok||!validNavigationState(result.navigation)){pending.current=null;setHandoff(null);notice(result?.error||'The view could not be saved. Please try again.');void request('resetNavigation');return}
-  const declaredElevation=new URLSearchParams(from.location.search).get('elevationSource')
-  const source={...result.navigation,...(from.mode==='sky'&&['provided','unavailable-zero','oras-site'].includes(declaredElevation||'')?{elevationSource:declaredElevation as ElevationSource}:{})},product=useRuntimeProductState.getState(),views={...product.views,[source.mode]:source}
+  const source=result.navigation,product=useRuntimeProductState.getState(),views={...product.views,[source.mode]:source}
   Object.assign(active,{lat:source.observer.lat,lon:source.observer.lon,elevationSource:source.elevationSource});setHandoff({...active})
   // Fade the outgoing view before the serial host destroys it. Reduced motion is immediate.
   timer.current=setTimeout(()=>{

@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {runInNewContext} from 'node:vm';
 const source=readFileSync(new URL('../../runtimes/sky-adapter/plugin.js',import.meta.url),'utf8').replace(/^import .*\n/gm,'').replace('export default','globalThis.plugin=');
-const scope={BottomBar:{},swh:{},installNativeWheel(){}};runInNewContext(source,scope);
+const scope={site:JSON.parse(readFileSync(new URL('../../frontend/src/config/orasSite.json',import.meta.url))),BottomBar:{},swh:{},installNativeWheel(){}};runInNewContext(source,scope);
 const component=scope.plugin.guiComponents.find(c=>c.name==='oras-workspace-bottom');
 function view(panel,fullscreen=false){
  const core={constellations:{lines_visible:false,labels_visible:false,images_visible:false},atmosphere:{visible:false},landscapes:{visible:false},lines:{azimuthal:{visible:false},equatorial_jnow:{visible:false},equatorial:{visible:false}},dsos:{visible:false}};

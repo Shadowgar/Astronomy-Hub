@@ -1,9 +1,9 @@
 import {createRuntimeEndpoint} from '../../../packages/runtime-protocol/endpoint.mjs';
 export function RuntimeBridge(runtime){
  const endpoint=createRuntimeEndpoint({runtime:'earth',version:'oras-earth.v1+navigation.1',capabilities:['destroy','timeIntent','observerIntent','presentation','interactionEvents','selection','workspaceState','layers','navigation','providers','viewNavigation'],execute:async(command,value)=>{
-  if(command==='getNavigationState'){runtime.camera.interrupt();const navigation=runtime.navigation();return navigation?{ok:true,navigation}:{ok:false,error:'Center Earth in the view before entering Sky.'};}
+  if(command==='getNavigationState'){const navigation=runtime.navigation();return navigation?{ok:true,navigation}:{ok:false,error:'Center Earth in the view before entering Sky.'};}
   if(command==='setNavigationView'){runtime.camera.restoreView(value.camera,value.center);return {ok:true};}
-  if(command==='resetNavigation'){runtime.camera.resetNavigation();return {ok:true};}
+  if(command==='resetNavigation'){runtime.camera.resetNavigation({preserveMotion:true});return {ok:true};}
   if(command==='navigateLocation')return {ok:await runtime.camera.navigateLocation(value)};
   if(command==='setTimeIntent'){runtime.liveTime=value.live===true;return runtime.setTime(value.utc);}
   if(command==='setObserverIntent')return runtime.setObserver(value);

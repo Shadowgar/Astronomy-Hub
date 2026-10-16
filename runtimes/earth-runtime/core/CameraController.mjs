@@ -93,7 +93,7 @@ export class CameraController {
  }
  home(site){this.interrupt();this.viewer.camera.setView({destination:Cartesian3.fromDegrees(site.lon,site.lat,(this.viewer.canvas.clientWidth<768?16_000_000:22_000_000)-6378137),orientation:{heading:0,pitch:-Math.PI/2,roll:0}});this.viewer.scene.requestRender();}
  interrupt(reset=true){this.cancelZoom();this.userMoved=true;++this.flightGeneration;this.viewer.camera.cancelFlight();this.stopTracking();if(reset)this.resetNavigation();}
- resetNavigation(){this.cancelZoom();this.gate.reset(performance.now()+1000);this.boundary=false;this.lastPhase='idle';this.onNavigation?.({target:'sky',phase:'idle',progress:0});}
+ resetNavigation({preserveMotion=false}={}){if(!preserveMotion)this.cancelZoom();this.gate.reset(performance.now()+1000);this.boundary=false;this.lastPhase='idle';this.onNavigation?.({target:'sky',phase:'idle',progress:0});}
  surfacePoint(){
   const {camera,scene,canvas}=this.viewer,point=new Cartesian2(canvas.clientWidth/2,canvas.clientHeight/2),ray=camera.getPickRay(point);
   const hit=this.viewer.terrainProvider instanceof EllipsoidTerrainProvider?camera.pickEllipsoid(point,scene.globe.ellipsoid):ray&&scene.globe.pick(ray,scene)||camera.pickEllipsoid(point,scene.globe.ellipsoid);return hit||null;
@@ -103,10 +103,10 @@ export class CameraController {
   const target=scene.globe.ellipsoid.cartesianToCartographic(hit);if(!target)return null;
   return {lat:CesiumMath.toDegrees(target.latitude),lon:CesiumMath.toDegrees(target.longitude),rangeM:Cartesian3.distance(camera.positionWC,hit)};
  }
- navigation(site){
+ navigation(site,known){
   const target=this.surfaceTarget();if(!target)return null;
   const camera=this.viewer.camera,p=camera.positionCartographic;
-  return {...surfaceObserver(target.lat,target.lon,site),camera:{latitudeRad:p.latitude,longitudeRad:p.longitude,heightM:p.height,headingRad:camera.heading,pitchRad:camera.pitch,rollRad:camera.roll}};
+  return {...surfaceObserver(target.lat,target.lon,site,known),camera:{latitudeRad:p.latitude,longitudeRad:p.longitude,heightM:p.height,headingRad:camera.heading,pitchRad:camera.pitch,rollRad:camera.roll}};
  }
  restoreView(view,center){this.interrupt();const camera=this.viewer.camera;if(center){camera.lookAt(Cartesian3.fromDegrees(center.lon,center.lat,0),new HeadingPitchRange(view.headingRad,-Math.PI/2,view.heightM));camera.lookAtTransform(Matrix4.IDENTITY);}else camera.setView({destination:this.viewer.scene.globe.ellipsoid.cartographicToCartesian(new Cartographic(view.longitudeRad,view.latitudeRad,view.heightM)),orientation:{heading:view.headingRad,pitch:view.pitchRad,roll:view.rollRad}});this.viewer.scene.requestRender();}
  navigateLocation({lat,lon}){this.interrupt();return new Promise(resolve=>{const generation=this.flightGeneration;this.viewer.camera.flyToBoundingSphere(new BoundingSphere(Cartesian3.fromDegrees(lon,lat,0),0),{offset:new HeadingPitchRange(0,-Math.PI/2,40000),duration:this.reduced?0:.9,complete:()=>resolve(generation===this.flightGeneration),cancel:()=>resolve(false)});});}

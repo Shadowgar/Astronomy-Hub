@@ -16,10 +16,7 @@ const endpoint=createRuntimeEndpoint({runtime:'sky',version:'stellarium:comparis
   adapter.observer.utc=Date.parse(payload.utc)/86400000+40587;adapter.setLive?.(payload.live===true);
   return {ok:true,temporalMode:'CONTROLLED',effectiveTime:new Date(Math.round((adapter.observer.utc-40587)*86400000)).toISOString()};
  }
- if(command==='setObserverIntent'){
-  adapter.observer.latitude=payload.lat*Math.PI/180;adapter.observer.longitude=payload.lon*Math.PI/180;adapter.observer.elevation=payload.elevationM;
-  return {ok:true,effectiveObserver:{lat:adapter.observer.latitude*180/Math.PI,lon:adapter.observer.longitude*180/Math.PI,elevationM:adapter.observer.elevation}};
- }
+ if(command==='setObserverIntent')return adapter.setObserver(payload);
  return {ok:false,error:'Unsupported capability'};
 }});
 const stopPanelReports=installSkyPanelReports(),stopNightReports=installSkyNightReports();

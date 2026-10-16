@@ -3,6 +3,10 @@ import swh from '@/assets/sw_helpers.js'
 import TargetSearch from '@/components/target-search.vue'
 import BottomBar from '@/components/bottom-bar.vue'
 import { installNativeWheel } from './native-wheel.mjs'
+import { observerElevationSource, sameObserverLocation } from './observer-elevation.mjs'
+import site from './oras-site.json'
+import { satellitePresentation } from './satellite-presentation.mjs'
+const siteObserver = { lat: site.latitude, lon: site.longitude, elevationM: site.elevationMeters }
 export default {
   guiComponents: [
     { name: 'oras-workspace-search', computed: { embedded () { return this.$store.state.orasEmbeddedPresentation } }, render (h) { return this.embedded ? h('div', { class: 'oras-workspace-search' }, [h(TargetSearch)]) : null } },
@@ -71,9 +75,11 @@ export default {
     { name: 'oras-workspace-source', computed: { embedded () { return this.$store.state.orasEmbeddedPresentation } }, render (h) { return this.embedded ? h('button', { class: 'oras-workspace-source', attrs: { 'aria-label': 'Sky sources and survey credits' }, on: { click: () => this.$store.commit('setValue', { varName: 'showDataCreditsDialog', newValue: true }) } }, [h('span', { class: 'oras-credits-full' }, ['Illustrative Pennsylvania · not surveyed · Stellarium credits']), h('span', { class: 'oras-credits-compact' }, ['Illustrative Pennsylvania · not surveyed · credits'])]) : null } }
   ],
   onEngineReady (app) {
-    let disposed = false; let selectionGeneration = 0; let nativeLandscape = null; let hasLandscape = false
+    let disposed = false; let selectionGeneration = 0; let nativeLandscape = null; let hasLandscape = false; let observerContext = null
     const set = (key, value) => app.$store.commit('setValue', { varName: key, newValue: value })
     const landscapeId = 'pennsylvania-woodland-v1'
+    const satellitePolicy = satellitePresentation(app.$stel.core)
+    const updateSatellites = () => satellitePolicy.update(!!app.$store.state.orasEmbeddedPresentation, app.$stel.core.fov, app.$stel.core.selection?.jsonData?.model === 'tle_satellite')
     const neutral = () => {
       if (!app.$store.state.orasEmbeddedPresentation)return
       if (!hasLandscape) { app.$stel.core.landscapes.addDataSource({ url: '/oras-sky-engine/landscapes/' + landscapeId, key: landscapeId }); hasLandscape = true }
@@ -85,7 +91,8 @@ export default {
       document.documentElement.classList.toggle('oras-credits-top', creditsAtTop)
       set('orasEmbeddedPresentation', embedded)
       if (embedded)neutral()
-      else if (nativeLandscape && app.$stel.core.landscapes.current_id === landscapeId)app.$stel.core.landscapes.current_id = nativeLandscape
+      updateSatellites()
+      if (!embedded && nativeLandscape && app.$stel.core.landscapes.current_id === landscapeId)app.$stel.core.landscapes.current_id = nativeLandscape
       for (const key of ['showMainToolBar', 'showLocationButton', 'showTimeButtons', 'showObservingPanelTabsButtons', 'showSelectedInfoButtons'])set(key, !embedded)
       if (embedded) { set('showSidePanel', false); set('showNavigationDrawer', false) }
     }
@@ -102,6 +109,7 @@ export default {
     const stopLandscapeWatch = app.$watch(() => app.$store.state.stel.landscapes.current_id, id => {
       if (app.$store.state.orasEmbeddedPresentation && id && id !== landscapeId) { if (!nativeLandscape)nativeLandscape = id; neutral() }
     })
+    const stopSatelliteWatch = app.$watch(() => [!!app.$store.state.orasEmbeddedPresentation, app.$store.state.stel.fov, JSON.stringify(app.$store.state.stel.selection), app.$store.state.stel.satellites?.hints_mag_offset].join('|'), updateSatellites, { immediate: true })
     const removeWheel = installNativeWheel(document.querySelector('#stel-canvas'), app.$stel, {
       enabled: () => !disposed && app.$store.state.orasEmbeddedPresentation,
       onBoundary: value => window.dispatchEvent(new CustomEvent('oras-navigation-intent', { detail: { target: 'earth', ...value } }))
@@ -114,15 +122,24 @@ export default {
       nightMode () { return !!app.$store.state.nightmode },
       tools () { set('showViewSettingsDialog', true); return { ok: true } },
       panelOpen () { return !!(app.$store.state.showViewSettingsDialog || app.$store.state.showDataCreditsDialog) },
-      stop () { window.dispatchEvent(new Event('oras-sky-dispose')); stopPanelWatch(); stopNightWatch(); stopLandscapeWatch(); removeWheel(); window.removeEventListener('pagehide', wheelPagehide); disposed = true; ++selectionGeneration; app.$stel.core.time_speed = 0 },
+      stop () { window.dispatchEvent(new Event('oras-sky-dispose')); stopPanelWatch(); stopNightWatch(); stopLandscapeWatch(); stopSatelliteWatch(); satellitePolicy.release(); removeWheel(); window.removeEventListener('pagehide', wheelPagehide); disposed = true; ++selectionGeneration; app.$stel.core.time_speed = 0 },
       resetNavigation () { removeWheel.reset(); return { ok: true } },
       navigation () {
         const core = app.$stel.core; const o = core.observer; const observer = { lat: o.latitude * 180 / Math.PI, lon: o.longitude * 180 / Math.PI, elevationM: o.elevation }
-        const source = new URLSearchParams(location.search).get('elevationSource')
-        const elevationSource = source === 'unavailable-zero' ? source : Math.abs(observer.lat - 41.321903) < 1e-6 && Math.abs(observer.lon + 79.585394) < 1e-6 && observer.elevationM === 432.816 ? 'oras-site' : 'provided'
+        const params = new URLSearchParams(location.search)
+        const bound = observerContext ? sameObserverLocation(observer, observerContext.observer) && Math.abs(observer.elevationM - observerContext.observer.elevationM) < 1e-6 : !!(params.get('lat')?.trim() && params.get('lng')?.trim()) && sameObserverLocation(observer, { lat: Number(params.get('lat')), lon: Number(params.get('lng')) })
+        const claimed = observerContext ? (bound ? observerContext.source : null) : (bound ? params.get('elevationSource') : null)
+        const elev = params.get('elev')
+        const elevationSource = observerElevationSource(observer, claimed, siteObserver, !observerContext && bound && (elev === null || elev.trim() === ''))
         return { mode: 'sky', observer, elevationSource, utc: new Date(Math.round((o.utc - 40587) * 86400000)).toISOString(), live: core.time_speed !== 0, camera: { projection: core.projection, fovRad: core.fov, yawRad: o.yaw, pitchRad: o.pitch, rollRad: o.roll, landscapeVisible: core.landscapes.visible } }
       },
       restoreView (camera) { const core = app.$stel.core; core.projection = camera.projection; core.fov = camera.fovRad; core.observer.yaw = camera.yawRad; core.observer.pitch = camera.pitchRad; core.observer.roll = camera.rollRad; core.landscapes.visible = camera.landscapeVisible; neutral(); removeWheel.reset(); return { ok: true } },
+      setObserver (value) {
+        const o = app.$stel.core.observer; o.latitude = value.lat * Math.PI / 180; o.longitude = value.lon * Math.PI / 180; o.elevation = value.elevationM
+        const observer = { lat: value.lat, lon: value.lon, elevationM: value.elevationM }
+        observerContext = { observer, source: observerElevationSource(observer, value.elevationSource, siteObserver) }
+        return { ok: true, effectiveObserver: observer }
+      },
       setLive (live) { app.$stel.core.time_speed = live ? 1 : 0 },
       presentation,
       async select (entity) {
@@ -140,12 +157,22 @@ export default {
         return { ok: true }
       },
       clear () { ++selectionGeneration; app.$stel.core.selection = 0; swh.exactSkySourceSelection = undefined; app.$store.commit('setSelectedObject', 0); return { ok: true } },
-      focus () { const obj = app.$stel.core.selection; if (!obj) return { ok: false, error: 'No available selection' }; app.$stel.pointAndLock(obj, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1); return { ok: true } },
+      focus () {
+        const obj = app.$stel.core.selection; if (!obj) return { ok: false, error: 'No available selection' }
+        let duration = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1
+        // Pinned core_lookat(0) clears its target lock. A sub-frame native
+        // transition preserves native pointing/ownership without visible motion.
+        if (duration === 0 && app.$store.state.orasEmbeddedPresentation && obj.jsonData.model === 'tle_satellite')duration = 1e-6
+        app.$stel.pointAndLock(obj, duration); return { ok: true }
+      },
       snapshot () {
-        const ss = app.$store.state.selectedObject
+        let ss = app.$store.state.selectedObject
+        const native = app.$stel.core.selection; const raw = native && native.jsonData
+        const norad = raw && raw.model_data && String(raw.model_data.norad_number)
+        if (raw && raw.model === 'tle_satellite' && /^[1-9]\d{0,8}$/.test(norad))ss = Object.assign({}, raw, { catalog: 'Satellite TLE (local)', source_id: norad, display_name: raw.short_name || (raw.names && raw.names[0] && raw.names[0].replace(/^NAME /, '')) || norad, description: 'Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.' })
         let selection = null
         if (ss && ss.catalog && ss.source_id != null && ss.model) {
-          const facts = []; for (const [label, value] of [['Catalog', ss.catalog], ['Source ID', ss.source_id], ['Type', ss.object_type], ['Magnitude', ss.magnitude], ['Spectral type', ss.model_data && ss.model_data.spect_t]]) if (value != null)facts.push({ label, value: String(value).slice(0, 256) })
+          const facts = []; for (const [label, value] of [['Catalog', ss.catalog], ['Source ID', ss.source_id], ['NORAD', ss.model === 'tle_satellite' && ss.model_data ? ss.model_data.norad_number : null], ['Type', ss.object_type], ['Magnitude', ss.magnitude], ['Spectral type', ss.model_data && ss.model_data.spect_t]]) if (value != null)facts.push({ label, value: String(value).slice(0, 256) })
           const query = new URLSearchParams({ catalog: ss.catalog, source_id: String(ss.source_id), model: ss.model, date: new Date(Math.round((app.$stel.core.observer.utc - 40587) * 86400000)).toISOString(), lat: String(app.$stel.core.observer.latitude * 180 / Math.PI), lng: String(app.$stel.core.observer.longitude * 180 / Math.PI), elev: String(app.$stel.core.observer.elevation) })
           const coords = {}; for (const key of ['ra', 'dec']) if (Number.isFinite(ss[key])) { coords[key] = ss[key]; query.set(key, String(ss[key])) }
           selection = { id: [ss.catalog, ss.source_id, ss.model].join(':').slice(0, 256), name: String(ss.display_name || (ss.names && ss.names[0]) || ss.source_id).slice(0, 256), ...(typeof ss.description === 'string' ? { detail: ss.description.slice(0, 1500) } : {}), kind: ss.model === 'tle_satellite' ? 'satellite' : ['dso', 'star', 'planet', 'moon'].includes(ss.model) ? ss.model : 'object', catalog: ss.catalog, source_id: String(ss.source_id), model: ss.model, ...coords, facts, available: true, focusable: true, trackable: false, link: '/oras-sky-engine/skysource/' + encodeURIComponent(ss.display_name || ss.source_id) + '?' + query }

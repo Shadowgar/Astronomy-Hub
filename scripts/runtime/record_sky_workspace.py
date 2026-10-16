@@ -12,7 +12,9 @@ if args.native_horizon_attestation:
  attestation=Path(args.native_horizon_attestation).resolve()
  assert dist==attestation.parent/'upstream/apps/web-frontend/dist','Isolated native build required'
  original=attestation.read_bytes()
- subprocess.run([sys.executable,str(repo/'scripts/runtime/attest_sky_horizon.py'),str(attestation.parent/'upstream')],check=True)
+ source_record=json.loads(original)
+ source_args=['--source-repo',source_record['source_repository']] if 'source_repository' in source_record else []
+ subprocess.run([sys.executable,str(repo/'scripts/runtime/attest_sky_horizon.py'),str(attestation.parent/'upstream'),*source_args],check=True)
  assert attestation.read_bytes()==original,'Native attestation no longer matches build inputs'
  native=json.loads(original)
  assert native['purpose']=='embedded-zero-horizon-colors' and native['comparison_anchor']==lock['sky']['comparison_anchor']
@@ -29,9 +31,9 @@ if native:
  marker['native_wasm_identical']=False
  marker['native_vendor_chunks_identical']=False
  marker['native_horizon']={key:native[key] for key in ['purpose','comparison_anchor','native_builder','patch_path','patch_sha256','landscape_source_sha256','source_input_sha256','native_output_sha256']}
-marker['bridge_input_sha256']={name:hashlib.sha256((repo/'runtimes/sky-adapter'/name).read_bytes()).hexdigest() for name in ['entry.mjs','native-panels.mjs']}
+marker['bridge_input_sha256']={name:hashlib.sha256((repo/'runtimes/sky-adapter'/name).read_bytes()).hexdigest() for name in ['entry.mjs','native-panels.mjs','satellite-presentation.mjs']}
 marker['wheel_input_sha256']=hashlib.sha256((repo/'runtimes/sky-adapter/native-wheel.mjs').read_bytes()).hexdigest()
-marker['navigation_input_sha256']={name:hashlib.sha256((repo/'packages/runtime-protocol'/name).read_bytes()).hexdigest() for name in ['continued-input.mjs','navigation.mjs']}
+marker['navigation_input_sha256']={name:hashlib.sha256((repo/'packages/runtime-protocol'/name).read_bytes()).hexdigest() for name in ['continued-input.mjs','navigation.mjs','observer-elevation.mjs']}
 files=[]
 for p in sorted(dist.rglob('*')):
  if not p.is_file() or p.name=='oras-runtime-build.json':continue

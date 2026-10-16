@@ -1,8 +1,12 @@
-// ORAS is the only qualified observer height in the admitted ellipsoid runtime.
-// Cached globe/mesh heights and camera altitude do not establish observer datum.
-export function surfaceObserver(lat,lon,site){
- // Native space-view picking has sub-metre numeric error. A ~1 m site radius
- // preserves qualified site height without snapping or fabricating coordinates.
- const verified=Math.abs(lat-site.lat)<1e-5&&Math.abs(lon-site.lon)<1e-5;
- return {observer:{lat,lon,elevationM:verified?site.elevationM:0},elevationSource:verified?'oras-site':'unavailable-zero'};
+import {sameObserverLocation,observerElevationSource} from '../../../packages/runtime-protocol/observer-elevation.mjs';
+// Only a qualified site or the same explicitly provided observer carries height.
+// Moving to a new surface target never derives elevation from camera altitude.
+export function surfaceObserver(lat,lon,site,known){
+ const target={lat,lon};
+ if(known&&sameObserverLocation(target,known.observer)){
+  const observer={...target,elevationM:known.observer.elevationM};
+  return {observer,elevationSource:observerElevationSource(observer,known.elevationSource,site)};
+ }
+ if(sameObserverLocation(target,site))return {observer:{...target,elevationM:site.elevationM},elevationSource:'oras-site'};
+ return {observer:{...target,elevationM:0},elevationSource:'unavailable-zero'};
 }

@@ -1,0 +1,11 @@
+from pathlib import Path
+import hashlib,json,subprocess
+root=Path.cwd();names=['elevation-desktop','elevation-mobile','snapshots-final','satellites-final','journeys-desktop','journeys-mobile','landscape'];reports=[]
+sha=lambda b:hashlib.sha256(b).hexdigest()
+for name in names:
+ p=root/'output/n1/remediation'/name/'proof.json';proof=json.loads(p.read_text());assert proof['status']=='PASS',name
+ for path,digest in proof['sourceHashes'].items():
+  assert sha((root/path).read_bytes())==digest,(name,path,'working tree')
+  assert sha(subprocess.check_output(['git','show','HEAD:'+path]))==digest,(name,path,'commit')
+ reports.append({'evidence':name,'status':proof['status'],'sourceInputs':len(proof['sourceHashes']),'widths':[r['width']for r in proof['runs']]})
+result={'status':'PASS','deliveryHead':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'reports':reports};(root/'output/n1/remediation/committed-browser-identity.json').write_text(json.dumps(result,indent=2)+'\n');print('COMMITTED BROWSER INPUT IDENTITY PASS',len(reports),'reports')

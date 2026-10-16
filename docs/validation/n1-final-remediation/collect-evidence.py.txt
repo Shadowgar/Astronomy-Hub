@@ -1,0 +1,21 @@
+from pathlib import Path
+import hashlib,json,shutil
+root=Path.cwd();r=root/'output/n1/remediation';target=root/'docs/validation/n1-final-remediation/evidence';names=['elevation-desktop','elevation-mobile','snapshots-final','satellites-final','journeys-desktop','journeys-mobile','landscape'];proofs={}
+sha=lambda b:hashlib.sha256(b).hexdigest()
+for name in names:
+ p=json.loads((r/name/'proof.json').read_text());assert p['status']=='PASS',name
+ for path,digest in p['sourceHashes'].items():assert sha((root/path).read_bytes())==digest,(name,path)
+ for row in p['runs']:assert row['status']=='PASS',name;assert row.get('pageErrors',[])==[],name
+ proofs[name]=p
+summary={'status':'PASS','proofs':[]}
+for name,p in proofs.items():
+ (target/(name+'.json')).write_text(json.dumps(p,indent=2)+'\n')
+ rows=[]
+ for row in p['runs']:
+  rows.append({'width':row['width'],'status':row['status'],'journeyGroups':len(row.get('steps',[])),'elevationCases':len(row.get('cases',[])),'scenes':len(row.get('scenes',[])),'cancellations':len(row.get('cancellations',[])),'pageErrors':len(row.get('pageErrors',[])),'resourceFailures':len(row['resourceFailures']) if 'resourceFailures'in row else None,'landscapeFailures':len(row['landscapeFailures'])if 'landscapeFailures'in row else None,'peakRenderers':row.get('peakRenderers',row.get('lifecycle',{}).get('peak'))})
+ summary['proofs'].append({'name':name,'sourceInputs':len(p['sourceHashes']),'runs':rows})
+ if name.startswith('snapshots'):summary.setdefault('liveProviderAttempts',[]).append(p['liveProviderAttempt'])
+for name in ['native-reproduction-qualified.json','negative-source-qualified.json','artifact-identities.json','attestation-qualified-default.json','attestation-qualified-alternate.json','preservation.json','runtime-final-tests.txt','frontend-final-tests.txt','typecheck-final.txt','attestation-final-tests.txt','sky-final-default-build.txt','sky-final-alternate-build.txt','hub-final-build.txt','earth-final-build.txt','earth-reproduction.txt','hub-reproduction.txt','hub-reproduction.json']:(target/name).write_bytes((r/name).read_bytes())
+images=[('satellites-final','standalone-overlay-offset-2-1440.png'),('satellites-final','wide-point-1440.png'),('satellites-final','selected-close-1440.png'),('satellites-final','wide-point-390.png'),('satellites-final','selected-close-390.png'),('snapshots-final','historical-fixture-cancelled-3-1440.png'),('snapshots-final','historical-fixture-cancelled-3-390.png'),('landscape','day-yaw-0-1440.png'),('landscape','night-yaw-0-390.png')]
+for folder,file in images:shutil.copyfile(r/folder/file,target/file)
+(target/'qualification-summary.json').write_text(json.dumps(summary,indent=2)+'\n');(r/'qualification-summary.json').write_text(json.dumps(summary,indent=2)+'\n');print(json.dumps(summary,indent=2))

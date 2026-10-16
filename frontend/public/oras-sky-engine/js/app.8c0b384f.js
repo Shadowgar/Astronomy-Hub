@@ -8067,6 +8067,13 @@ webpackContext.id = "7d49";
 
 /***/ }),
 
+/***/ "a3a6":
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"label\":\"ORAS Observatory\",\"latitude\":41.321903,\"longitude\":-79.585394,\"elevationMeters\":432.816,\"elevationFeet\":1420,\"timezone\":\"America/New_York\"}");
+
+/***/ }),
+
 /***/ "aca8":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14038,17 +14045,23 @@ var es_string_search = __webpack_require__("841c");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
 var es_regexp_exec = __webpack_require__("ac1f");
 
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.join.js
+var es_array_join = __webpack_require__("a15b");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.trim.js
+var es_string_trim = __webpack_require__("498a");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
+var es_number_constructor = __webpack_require__("a9e3");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.replace.js
+var es_string_replace = __webpack_require__("5319");
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
 var es_array_slice = __webpack_require__("fb6a");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.is-finite.js
 var es_number_is_finite = __webpack_require__("f00c");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
-var es_number_constructor = __webpack_require__("a9e3");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.join.js
-var es_array_join = __webpack_require__("a15b");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
 var es_symbol = __webpack_require__("a4d3");
@@ -14290,7 +14303,82 @@ function installNativeWheel(canvas, engine) {
   remove.reset = reset;
   return remove;
 }
+// CONCATENATED MODULE: ./src/plugins/orasRuntime/observer-elevation.mjs
+// Provenance describes the actual geographic observer, never the viewing camera.
+function sameObserverLocation(a, b) {
+  return !!a && !!b && Math.abs(a.lat - b.lat) < 1e-5 && Math.abs(a.lon - b.lon) < 1e-5;
+}
+function observerElevationSource(observer, claimed, site) {
+  var missingElevation = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  if (sameObserverLocation(observer, site) && Math.abs(observer.elevationM - site.elevationM) < 1e-6) return 'oras-site';
+  if (observer.elevationM === 0 && (claimed === 'unavailable-zero' || missingElevation)) return 'unavailable-zero';
+  return 'provided';
+}
+// EXTERNAL MODULE: ./src/plugins/orasRuntime/oras-site.json
+var oras_site = __webpack_require__("a3a6");
+
+// CONCATENATED MODULE: ./src/plugins/orasRuntime/satellite-presentation.mjs
+
+
+// Public native presentation controls only. Photometry, SGP4 and models stay native.
+function satellitePresentation(core) {
+  var sats = core.satellites;
+  var originalVisible = null,
+      originalOffset = null,
+      close = false;
+
+  var set = function set(key, value) {
+    if (sats[key] !== value) sats[key] = value;
+  };
+
+  function restoreOffset() {
+    if (originalOffset !== null) {
+      set('hints_mag_offset', originalOffset);
+      originalOffset = null;
+    }
+  }
+
+  function release() {
+    if (!sats || originalVisible === null) return;
+    restoreOffset();
+    set('hints_visible', originalVisible);
+    originalVisible = null;
+    close = false;
+  }
+
+  function update(embedded, fovRad, selectedSatellite) {
+    if (!sats) return;
+
+    if (!embedded) {
+      release();
+      return;
+    }
+
+    if (originalVisible === null) originalVisible = sats.hints_visible; // Native property JSON rounds radians; tolerate its sub-nanodegree error.
+
+    var degrees = fovRad * 180 / Math.PI;
+    close = Number.isFinite(degrees) && (close ? degrees < 7 - 1e-8 : degrees <= 5 + 1e-8);
+
+    if (!close && selectedSatellite) {
+      // Native rendering exempts the selected object from the magnitude hint gate.
+      // Suppress other hints without changing any satellite's computed brightness.
+      if (originalOffset === null || sats.hints_mag_offset !== -30) originalOffset = sats.hints_mag_offset;
+      set('hints_mag_offset', -30);
+      set('hints_visible', originalVisible);
+    } else {
+      restoreOffset();
+      set('hints_visible', originalVisible && close);
+    }
+  }
+
+  return {
+    update: update,
+    release: release
+  };
+}
 // CONCATENATED MODULE: ./src/plugins/orasRuntime/index.js
+
+
 
 
 
@@ -14317,6 +14405,14 @@ function installNativeWheel(canvas, engine) {
 
 
 
+
+
+
+var siteObserver = {
+  lat: oras_site.latitude,
+  lon: oras_site.longitude,
+  elevationM: oras_site.elevationMeters
+};
 /* harmony default export */ var orasRuntime = __webpack_exports__["default"] = ({
   guiComponents: [{
     name: 'oras-workspace-search',
@@ -14651,6 +14747,7 @@ function installNativeWheel(canvas, engine) {
     var selectionGeneration = 0;
     var nativeLandscape = null;
     var hasLandscape = false;
+    var observerContext = null;
 
     var set = function set(key, value) {
       return app.$store.commit('setValue', {
@@ -14660,6 +14757,13 @@ function installNativeWheel(canvas, engine) {
     };
 
     var landscapeId = 'pennsylvania-woodland-v1';
+    var satellitePolicy = satellitePresentation(app.$stel.core);
+
+    var updateSatellites = function updateSatellites() {
+      var _app$$stel$core$selec, _app$$stel$core$selec2;
+
+      return satellitePolicy.update(!!app.$store.state.orasEmbeddedPresentation, app.$stel.core.fov, ((_app$$stel$core$selec = app.$stel.core.selection) === null || _app$$stel$core$selec === void 0 ? void 0 : (_app$$stel$core$selec2 = _app$$stel$core$selec.jsonData) === null || _app$$stel$core$selec2 === void 0 ? void 0 : _app$$stel$core$selec2.model) === 'tle_satellite');
+    };
 
     var neutral = function neutral() {
       if (!app.$store.state.orasEmbeddedPresentation) return;
@@ -14681,7 +14785,9 @@ function installNativeWheel(canvas, engine) {
       document.documentElement.classList.toggle('oras-workspace-embedded', embedded);
       document.documentElement.classList.toggle('oras-credits-top', creditsAtTop);
       set('orasEmbeddedPresentation', embedded);
-      if (embedded) neutral();else if (nativeLandscape && app.$stel.core.landscapes.current_id === landscapeId) app.$stel.core.landscapes.current_id = nativeLandscape;
+      if (embedded) neutral();
+      updateSatellites();
+      if (!embedded && nativeLandscape && app.$stel.core.landscapes.current_id === landscapeId) app.$stel.core.landscapes.current_id = nativeLandscape;
 
       for (var _i = 0, _arr = ['showMainToolBar', 'showLocationButton', 'showTimeButtons', 'showObservingPanelTabsButtons', 'showSelectedInfoButtons']; _i < _arr.length; _i++) {
         var key = _arr[_i];
@@ -14728,6 +14834,13 @@ function installNativeWheel(canvas, engine) {
         neutral();
       }
     });
+    var stopSatelliteWatch = app.$watch(function () {
+      var _app$$store$state$ste;
+
+      return [!!app.$store.state.orasEmbeddedPresentation, app.$store.state.stel.fov, JSON.stringify(app.$store.state.stel.selection), (_app$$store$state$ste = app.$store.state.stel.satellites) === null || _app$$store$state$ste === void 0 ? void 0 : _app$$store$state$ste.hints_mag_offset].join('|');
+    }, updateSatellites, {
+      immediate: true
+    });
     var removeWheel = installNativeWheel(document.querySelector('#stel-canvas'), app.$stel, {
       enabled: function enabled() {
         return !disposed && app.$store.state.orasEmbeddedPresentation;
@@ -14767,6 +14880,8 @@ function installNativeWheel(canvas, engine) {
         stopPanelWatch();
         stopNightWatch();
         stopLandscapeWatch();
+        stopSatelliteWatch();
+        satellitePolicy.release();
         removeWheel();
         window.removeEventListener('pagehide', wheelPagehide);
         disposed = true;
@@ -14780,6 +14895,8 @@ function installNativeWheel(canvas, engine) {
         };
       },
       navigation: function navigation() {
+        var _params$get, _params$get2;
+
         var core = app.$stel.core;
         var o = core.observer;
         var observer = {
@@ -14787,8 +14904,14 @@ function installNativeWheel(canvas, engine) {
           lon: o.longitude * 180 / Math.PI,
           elevationM: o.elevation
         };
-        var source = new URLSearchParams(location.search).get('elevationSource');
-        var elevationSource = source === 'unavailable-zero' ? source : Math.abs(observer.lat - 41.321903) < 1e-6 && Math.abs(observer.lon + 79.585394) < 1e-6 && observer.elevationM === 432.816 ? 'oras-site' : 'provided';
+        var params = new URLSearchParams(location.search);
+        var bound = observerContext ? sameObserverLocation(observer, observerContext.observer) && Math.abs(observer.elevationM - observerContext.observer.elevationM) < 1e-6 : !!((_params$get = params.get('lat')) !== null && _params$get !== void 0 && _params$get.trim() && (_params$get2 = params.get('lng')) !== null && _params$get2 !== void 0 && _params$get2.trim()) && sameObserverLocation(observer, {
+          lat: Number(params.get('lat')),
+          lon: Number(params.get('lng'))
+        });
+        var claimed = observerContext ? bound ? observerContext.source : null : bound ? params.get('elevationSource') : null;
+        var elev = params.get('elev');
+        var elevationSource = observerElevationSource(observer, claimed, siteObserver, !observerContext && bound && (elev === null || elev.trim() === ''));
         return {
           mode: 'sky',
           observer: observer,
@@ -14817,6 +14940,25 @@ function installNativeWheel(canvas, engine) {
         removeWheel.reset();
         return {
           ok: true
+        };
+      },
+      setObserver: function setObserver(value) {
+        var o = app.$stel.core.observer;
+        o.latitude = value.lat * Math.PI / 180;
+        o.longitude = value.lon * Math.PI / 180;
+        o.elevation = value.elevationM;
+        var observer = {
+          lat: value.lat,
+          lon: value.lon,
+          elevationM: value.elevationM
+        };
+        observerContext = {
+          observer: observer,
+          source: observerElevationSource(observer, value.elevationSource, siteObserver)
+        };
+        return {
+          ok: true,
+          effectiveObserver: observer
         };
       },
       setLive: function setLive(live) {
@@ -14954,19 +15096,32 @@ function installNativeWheel(canvas, engine) {
           ok: false,
           error: 'No available selection'
         };
-        app.$stel.pointAndLock(obj, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1);
+        var duration = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1; // Pinned core_lookat(0) clears its target lock. A sub-frame native
+        // transition preserves native pointing/ownership without visible motion.
+
+        if (duration === 0 && app.$store.state.orasEmbeddedPresentation && obj.jsonData.model === 'tle_satellite') duration = 1e-6;
+        app.$stel.pointAndLock(obj, duration);
         return {
           ok: true
         };
       },
       snapshot: function snapshot() {
         var ss = app.$store.state.selectedObject;
+        var native = app.$stel.core.selection;
+        var raw = native && native.jsonData;
+        var norad = raw && raw.model_data && String(raw.model_data.norad_number);
+        if (raw && raw.model === 'tle_satellite' && /^[1-9]\d{0,8}$/.test(norad)) ss = Object.assign({}, raw, {
+          catalog: 'Satellite TLE (local)',
+          source_id: norad,
+          display_name: raw.short_name || raw.names && raw.names[0] && raw.names[0].replace(/^NAME /, '') || norad,
+          description: 'Native satellite from local TLE elements. Positions are modeled; current TLE freshness is not guaranteed.'
+        });
         var selection = null;
 
         if (ss && ss.catalog && ss.source_id != null && ss.model) {
           var facts = [];
 
-          for (var _i2 = 0, _arr2 = [['Catalog', ss.catalog], ['Source ID', ss.source_id], ['Type', ss.object_type], ['Magnitude', ss.magnitude], ['Spectral type', ss.model_data && ss.model_data.spect_t]]; _i2 < _arr2.length; _i2++) {
+          for (var _i2 = 0, _arr2 = [['Catalog', ss.catalog], ['Source ID', ss.source_id], ['NORAD', ss.model === 'tle_satellite' && ss.model_data ? ss.model_data.norad_number : null], ['Type', ss.object_type], ['Magnitude', ss.magnitude], ['Spectral type', ss.model_data && ss.model_data.spect_t]]; _i2 < _arr2.length; _i2++) {
             var _arr2$_i = Object(slicedToArray["a" /* default */])(_arr2[_i2], 2),
                 label = _arr2$_i[0],
                 value = _arr2$_i[1];

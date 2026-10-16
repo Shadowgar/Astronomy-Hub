@@ -26,7 +26,7 @@ export function validateMessage(v, session) {
   if(v.command==='setNavigationView'&&v.payload?.mode!==session.runtime)return false;
   if(COMMAND_CAPABILITY[v.command])return validWorkspaceCommand(v.command,v.payload);
   if(v.command==='setTimeIntent') return keys(v.payload,['utc','live']) && utc(v.payload.utc) && (v.payload.live===undefined||typeof v.payload.live==='boolean');
-  if(v.command==='setObserverIntent') return observer(v.payload);
+  if(v.command==='setObserverIntent'){const p=v.payload;return keys(p,['lat','lon','elevationM','elevationSource'])&&observer({lat:p.lat,lon:p.lon,elevationM:p.elevationM})&&(p.elevationSource===undefined||['provided','oras-site','unavailable-zero'].includes(p.elevationSource)&&(p.elevationSource!=='unavailable-zero'||p.elevationM===0));}
   return keys(v.payload,[]) && Object.keys(v.payload).length===0;
  }
  if(v.type!=='result' || !keys(v.payload,['ok','error','version','capabilities','temporalMode','effectiveTime','effectiveObserver','state','navigation'])) return false;

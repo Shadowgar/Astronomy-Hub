@@ -1,0 +1,283 @@
+{
+  "status": "PASS",
+  "acceptedBaseline": "53ac74785f5bd0531d5556b5d1c4b622b3f2b0b7",
+  "unchangedAssetsOverlayPatch": [
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/README.md",
+      "sha256": "bd42864b88e302ca0c289ddb10bdf00bcb37e0dee3a7b063fc64e5302ad72682"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Allsky.png",
+      "sha256": "c2557ac36a18353ba34d00296b633f5963464f53bd5691304ad2d5cd13833481"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix0.png",
+      "sha256": "891855417af59df59db8c15a4eee9123243d07346488fb4f6c3eee90edd40245"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix1.png",
+      "sha256": "4c2ccdbc044ba7aef913d764da6208c820216d27b6dd053d7b9a75f093e34a56"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix10.png",
+      "sha256": "fd9e5eb16eacf2a53525bdd319ec8077594125a93a0e491990694f30196e6836"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix11.png",
+      "sha256": "1d9fd1c2d453aee9c9ef555c5876e6d2f6a3465dd02ef4eb2f6e5cd39d230dff"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix2.png",
+      "sha256": "afd10d857b8c4b0d9aea3ae7b106031a3a282b502eab07bfb7ab71bc2fb535d3"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix3.png",
+      "sha256": "4cb3f4a8d7ecda3999f41f59e15d7bd3324f4a909bb900b7380cd7c9b6d9ffef"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix4.png",
+      "sha256": "7aa8ffb1931493bdc2f66f6eaa0ff147bc7eb9ebac6f823e527d8e596c48c862"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix5.png",
+      "sha256": "15cc56ddd920d312430f2d9eeb41151aa6f5b7048d8e3a7a508ca63129c661cf"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix6.png",
+      "sha256": "93cdd447ab8ee2b479e6e594cc0e224eeb72a48f054e83c6e594fb75a9b4f7af"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix7.png",
+      "sha256": "9abada8ffd8a5801a277e9b3874f31d7365f864ad4224156235c1d5a923eef33"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix8.png",
+      "sha256": "e900db746c6891525df3fd7491acfc331abe6d1a221e8d0ea61273d11745bc35"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/Norder0/Dir0/Npix9.png",
+      "sha256": "45bf0e0450c15d55ec0f71f9c4a72714435d9debe157f91c0dfad870454843d4"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/description.en.utf8",
+      "sha256": "81d6b4c874940db0c084b0b7e709f1c4e14448f0bed25dcff16b9588edfb66ff"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/hips/properties",
+      "sha256": "be4fb583ae164f4f22b21778c394e486058f55b8d6e3638743a7d355b930350c"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/manifest.json",
+      "sha256": "88c9cd7ba095d28e7e74b83a46e9346f0c49824802afa771c4b0fe57c081f410"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/panorama.png",
+      "sha256": "3c9582921ad8e774b321cc41b7d65ed7efdaaaa377e2214269fa6205c5f7c6d4"
+    },
+    {
+      "path": "runtimes/sky-adapter/assets/pennsylvania-woodland-v1/provenance.json",
+      "sha256": "8e1ebaa27ac87d499a40336085a862ca801a6bdf02262323505f733c7119337d"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Allsky.png",
+      "sha256": "c2557ac36a18353ba34d00296b633f5963464f53bd5691304ad2d5cd13833481"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix0.png",
+      "sha256": "891855417af59df59db8c15a4eee9123243d07346488fb4f6c3eee90edd40245"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix1.png",
+      "sha256": "4c2ccdbc044ba7aef913d764da6208c820216d27b6dd053d7b9a75f093e34a56"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix10.png",
+      "sha256": "fd9e5eb16eacf2a53525bdd319ec8077594125a93a0e491990694f30196e6836"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix11.png",
+      "sha256": "1d9fd1c2d453aee9c9ef555c5876e6d2f6a3465dd02ef4eb2f6e5cd39d230dff"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix2.png",
+      "sha256": "afd10d857b8c4b0d9aea3ae7b106031a3a282b502eab07bfb7ab71bc2fb535d3"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix3.png",
+      "sha256": "4cb3f4a8d7ecda3999f41f59e15d7bd3324f4a909bb900b7380cd7c9b6d9ffef"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix4.png",
+      "sha256": "7aa8ffb1931493bdc2f66f6eaa0ff147bc7eb9ebac6f823e527d8e596c48c862"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix5.png",
+      "sha256": "15cc56ddd920d312430f2d9eeb41151aa6f5b7048d8e3a7a508ca63129c661cf"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix6.png",
+      "sha256": "93cdd447ab8ee2b479e6e594cc0e224eeb72a48f054e83c6e594fb75a9b4f7af"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix7.png",
+      "sha256": "9abada8ffd8a5801a277e9b3874f31d7365f864ad4224156235c1d5a923eef33"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix8.png",
+      "sha256": "e900db746c6891525df3fd7491acfc331abe6d1a221e8d0ea61273d11745bc35"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/Norder0/Dir0/Npix9.png",
+      "sha256": "45bf0e0450c15d55ec0f71f9c4a72714435d9debe157f91c0dfad870454843d4"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/description.en.utf8",
+      "sha256": "81d6b4c874940db0c084b0b7e709f1c4e14448f0bed25dcff16b9588edfb66ff"
+    },
+    {
+      "path": "frontend/public/oras-sky-engine/landscapes/pennsylvania-woodland-v1/properties",
+      "sha256": "be4fb583ae164f4f22b21778c394e486058f55b8d6e3638743a7d355b930350c"
+    },
+    {
+      "path": "integrations/sky-patches/0001-configurable-zero-horizon.patch",
+      "sha256": "92711949ebf6cbc8db0853586c85a8b7f4197a622e24c4dd0c47da517d47fd35"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/.env.production",
+      "sha256": "6ee1c63be8cf086326342ffe32f9bf306020b3b47c8fd0c8e5e602085f28e580"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/.gitignore",
+      "sha256": "101704b19964bf267612dabbeedf0124e342f8c62e5f0e266b65f48aa65b62e2"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/package-lock.json",
+      "sha256": "9fa58d0d1cf23d45b66080f2a42c486a0ccc26f0debcb0a786f8320a0e43bf23"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/package.json",
+      "sha256": "7e389d1accbefc8c863c6696212305c38a8445f5e65d44246c1b88c1323c20a1"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/public/index.html",
+      "sha256": "f7f67dc5ce0d238c30c23abf75f4c884cdea5b61968df7d782ad3c8a2c347c2b"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/App.vue",
+      "sha256": "237396460679a81f0feb97ed108a99a3a56d5a7df4a70c00055c4b927ab3da6d"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/assets/oras_catalog_packs.js",
+      "sha256": "a74300151602a124ef401bb337809cda414aa8c5b4830a9d94213d72d41ca8e9"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/assets/oras_control_icons.js",
+      "sha256": "6e2e143b834a1757f31c42505d7c6db2232fabe1c2c41d034b98750c4f5b0d92"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/assets/oras_data_config.js",
+      "sha256": "3c38a1b1de34fd67a02c163387353c754ea3b71c7b617c580c0a0a65fa0afb94"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/assets/oras_dense_stars.js",
+      "sha256": "2bd604075670952204c9ec8cb9d0806b592d12119cf1ee326afe26c455393de2"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/assets/sw_helpers.js",
+      "sha256": "d67a9ec3486c2ad719b902ae8c55f519bb6b0986bed98fb36471dcbffe4e3cc9"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/components/bottom-button.vue",
+      "sha256": "a71aadd7b87507cb565a1a2e50a4570b08d09ad9a0896f8a98d76e24cc4615f2"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/components/gui-loader.vue",
+      "sha256": "4eeeaaa5656f53c2eeb30f649fe1ad4a1dbf4534e98543e61f0588fd358cef37"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/components/gui.vue",
+      "sha256": "2d2a89fea7054a06819b8758297bdbadc34517be96f1319fc2e1485b3117a734"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/components/location-mgr.vue",
+      "sha256": "d2a89121ce4f096363566d536f04501200a8c58eeaecb8ae5135e7cab90b4477"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/components/oras-catalog-status-dialog.vue",
+      "sha256": "db39539669597daa7a18b82575385a90a6eab91ad7d2c598349b6258bdc1e76b"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/components/oras-dense-stars-status-dialog.vue",
+      "sha256": "1047fdfeff476e6b288b6208575aece66f04a4475aede651114603b79a20ef8e"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/components/selected-object-info.vue",
+      "sha256": "f31b12b5cc6f748ae9e46423e6f55e9c4470a5e34ff95907b5ca0c55b9c62f6d"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/components/skysource-search.vue",
+      "sha256": "868d3173839361045a06676463b39d6f1a73d82b2c319c539f7b08e3dfa0c1d0"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/components/target-search.vue",
+      "sha256": "938f24114e5e6974365b9e4940d20a257ef650b931b00ce6a5d8013f10aae9bd"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/components/toolbar.vue",
+      "sha256": "2fe8e3752ef92326ab382058b57138db18080cf6f1df5bb004959b6c06dd1669"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/locales/de.json",
+      "sha256": "98226a680d1ed573406d21976f9cacaf3a3a36849de0ce721b0aa712ee4a3349"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/locales/en.json",
+      "sha256": "2bc4e49d6e970262a2083d945c8ce032706c6961f7278b9343413fb36b1f5ad4"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/locales/fr.json",
+      "sha256": "1a67faeb4a9be48f596b171b4cce88c2ded3866d011509466ae8259830ce85c5"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/main.js",
+      "sha256": "641ed196cd90e024d738e4eca34e2cc5dfbd786e9413376159ff7f13a2e7401d"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/src/store/index.js",
+      "sha256": "366103c1d255bd531398d71febebcdb20cfcd1ace6e9f570daea77d216ab13d4"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/vue.config.js",
+      "sha256": "d9c9775a541e6ae314bd764dc518fc83b325b4f2eef659799a23cd65049e122a"
+    },
+    {
+      "path": "integrations/sky-overlay/apps/web-frontend/yarn.lock",
+      "sha256": "1a7b444b18334a34e9818536afac9654eba09199901fec607ef7c50273132115"
+    },
+    {
+      "path": "integrations/sky-overlay/src/modules/stars.c",
+      "sha256": "6c80e56d50123dc40256b6d55f26567db555ddb0949b57a74c4e9d876dba7042"
+    }
+  ],
+  "ownerSettingsSha256": "6fd3157fba44f86fa00268bd53d0429cc2c17a697a2c196890e80934bc54bce0",
+  "mountedTleSha256": "431592eb5ec6db56d79c26792853f3fafe36ddf76c98834d9ddb36ddc0846436",
+  "rollbackSkyFiles": 111,
+  "rollbackEarthFiles": 512,
+  "acceptedCameraMathUnchanged": true,
+  "rollbackDirectoriesPresent": [
+    "earth-before-smooth-camera",
+    "earth-before-zoom-curve",
+    "files-before-code-commit.txt",
+    "hook-before-audit.ts",
+    "hub-before-native-horizon",
+    "hub-before-smooth-camera",
+    "scroll-before",
+    "scroll-before-run.txt",
+    "scroll-before-source",
+    "scroll-before-source-run.txt",
+    "scroll-review-threads-before.json",
+    "sky-before-native-horizon",
+    "zoom-curve-before",
+    "zoom-curve-before-run.txt"
+  ]
+}

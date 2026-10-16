@@ -1,0 +1,178 @@
+{
+  "status": "PASS",
+  "proofs": [
+    {
+      "name": "elevation-desktop",
+      "sourceInputs": 12,
+      "runs": [
+        {
+          "width": 1440,
+          "status": "PASS",
+          "journeyGroups": 0,
+          "elevationCases": 10,
+          "scenes": 0,
+          "cancellations": 0,
+          "pageErrors": 0,
+          "resourceFailures": null,
+          "landscapeFailures": null,
+          "peakRenderers": null
+        }
+      ]
+    },
+    {
+      "name": "elevation-mobile",
+      "sourceInputs": 12,
+      "runs": [
+        {
+          "width": 390,
+          "status": "PASS",
+          "journeyGroups": 0,
+          "elevationCases": 10,
+          "scenes": 0,
+          "cancellations": 0,
+          "pageErrors": 0,
+          "resourceFailures": null,
+          "landscapeFailures": null,
+          "peakRenderers": null
+        }
+      ]
+    },
+    {
+      "name": "snapshots-final",
+      "sourceInputs": 7,
+      "runs": [
+        {
+          "width": 1440,
+          "status": "PASS",
+          "journeyGroups": 0,
+          "elevationCases": 0,
+          "scenes": 0,
+          "cancellations": 4,
+          "pageErrors": 0,
+          "resourceFailures": null,
+          "landscapeFailures": null,
+          "peakRenderers": 1
+        },
+        {
+          "width": 390,
+          "status": "PASS",
+          "journeyGroups": 0,
+          "elevationCases": 0,
+          "scenes": 0,
+          "cancellations": 4,
+          "pageErrors": 0,
+          "resourceFailures": null,
+          "landscapeFailures": null,
+          "peakRenderers": 1
+        }
+      ]
+    },
+    {
+      "name": "satellites-final",
+      "sourceInputs": 6,
+      "runs": [
+        {
+          "width": 390,
+          "status": "PASS",
+          "journeyGroups": 0,
+          "elevationCases": 0,
+          "scenes": 15,
+          "cancellations": 0,
+          "pageErrors": 0,
+          "resourceFailures": null,
+          "landscapeFailures": null,
+          "peakRenderers": null
+        },
+        {
+          "width": 1440,
+          "status": "PASS",
+          "journeyGroups": 0,
+          "elevationCases": 0,
+          "scenes": 15,
+          "cancellations": 0,
+          "pageErrors": 0,
+          "resourceFailures": null,
+          "landscapeFailures": null,
+          "peakRenderers": null
+        }
+      ]
+    },
+    {
+      "name": "journeys-desktop",
+      "sourceInputs": 30,
+      "runs": [
+        {
+          "width": 1440,
+          "status": "PASS",
+          "journeyGroups": 22,
+          "elevationCases": 0,
+          "scenes": 0,
+          "cancellations": 0,
+          "pageErrors": 0,
+          "resourceFailures": 563,
+          "landscapeFailures": null,
+          "peakRenderers": 1
+        }
+      ]
+    },
+    {
+      "name": "journeys-mobile",
+      "sourceInputs": 30,
+      "runs": [
+        {
+          "width": 390,
+          "status": "PASS",
+          "journeyGroups": 22,
+          "elevationCases": 0,
+          "scenes": 0,
+          "cancellations": 0,
+          "pageErrors": 0,
+          "resourceFailures": 744,
+          "landscapeFailures": null,
+          "peakRenderers": 1
+        }
+      ]
+    },
+    {
+      "name": "landscape",
+      "sourceInputs": 5,
+      "runs": [
+        {
+          "width": 1440,
+          "status": "PASS",
+          "journeyGroups": 0,
+          "elevationCases": 0,
+          "scenes": 22,
+          "cancellations": 0,
+          "pageErrors": 0,
+          "resourceFailures": null,
+          "landscapeFailures": 0,
+          "peakRenderers": null
+        },
+        {
+          "width": 390,
+          "status": "PASS",
+          "journeyGroups": 0,
+          "elevationCases": 0,
+          "scenes": 22,
+          "cancellations": 0,
+          "pageErrors": 0,
+          "resourceFailures": null,
+          "landscapeFailures": 0,
+          "peakRenderers": null
+        }
+      ]
+    }
+  ],
+  "liveProviderAttempts": [
+    {
+      "provider": {
+        "status": "unavailable",
+        "temporalMode": "LIVE_ONLY",
+        "message": "Source unavailable. Retry the layer; Earth remains interactive."
+      },
+      "visibleCount": 0,
+      "qualified": false
+    }
+  ]
+}

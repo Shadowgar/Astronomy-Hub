@@ -25,3 +25,8 @@ test('Earth navigation has a surface observer separate from camera height and pe
  assert.equal(validateMessage(envelope(session,'command',1,'navigateLocation',{lat:91,lon:0}),session),false);
  assert.equal(validateMessage(envelope(session,'command',1,'setNavigationView',{mode:'earth',camera:{...camera,heightM:-1}}),session),false);
 });
+test('optional observer provenance accepts honest zero/provided intents and rejects malformed wire claims',()=>{
+ const command=payload=>validateMessage(envelope(session,'command',1,'setObserverIntent',payload),session);
+ const observer={lat:40.7829,lon:-73.9654,elevationM:123};assert.equal(command({...observer,elevationSource:'provided'}),true);assert.equal(command({...observer,elevationM:0,elevationSource:'provided'}),true);assert.equal(command({...observer,elevationM:0,elevationSource:'unavailable-zero'}),true);
+ assert.equal(command({...observer,elevationSource:'unavailable-zero'}),false);assert.equal(command({...observer,elevationSource:'unknown'}),false);assert.equal(command({...observer,elevationSource:'provided',unexpected:true}),false);
+});
