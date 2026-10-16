@@ -112,3 +112,14 @@ record, and simultaneous heavy browser suites do not establish causation. The
 unchanged complete driver subsequently passes in isolation on desktop and mobile;
 no assertion or deadline is relaxed. This failed attempt is not counted as qualified disposal proof or as
 physical performance evidence.
+
+`promotion-fixture-initial-attempt.txt` retains an initial test-fixture mismatch:
+the real script adds the existing workspace bridge tag, which was missing from the
+new minimal fixture. After adding that existing tag to the fixture, the genuine
+promotion RED is two failures/one pass. GREEN is three passes. The actual marker
+RED is rerun with the subprocess-capable runner after the sandbox spawn failure.
+`before-promotion-flags/` preserves pre-correction metadata/delivery records.
+Only two marker booleans and the admission row change. Original browser proofs
+remain unchanged; a strict equivalence certificate against immutable 90f2a5bd
+checks every payload and only permits that metadata delta. Fresh metadata browser
+checks are separate from the original full rendering/journey qualification.

@@ -26,7 +26,12 @@ for row in lock['sky']['artifact_files']:
  if (row['path'].startswith('js/') and not Path(row['path']).name.startswith('app.')) or row['path'].startswith('css/chunk-vendors.'):
   if not native:assert (dist/row['path']).is_file() and hashlib.sha256((dist/row['path']).read_bytes()).hexdigest()==row['sha256'],'Qualified native/vendor chunk changed'
 marker={'runtime':'oras-sky-engine','comparison_anchor':lock['sky']['comparison_anchor'],'overlay_version':'oras-sky-workspace.1','native_wasm_identical':True,'native_vendor_chunks_identical':True,'builder':'node:20-bookworm-slim@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0','adapter_sha256':hashlib.sha256((repo/'runtimes/sky-adapter/plugin.js').read_bytes()).hexdigest()}
-if not native and 'native_horizon' in lock['sky']:marker['native_horizon']=lock['sky']['native_horizon']
+if not native and 'native_horizon' in lock['sky']:
+ marker['native_horizon']=lock['sky']['native_horizon']
+ marker['native_wasm_identical']=lock['sky']['reconstruction']['native_wasm_identical']
+ # Horizon promotion marks its bundled native glue changed. Older locks only
+ # recorded WASM status; retain that known vendor change unless explicit.
+ marker['native_vendor_chunks_identical']=lock['sky']['reconstruction'].get('native_vendor_chunks_identical',False)
 if native:
  marker['native_wasm_identical']=False
  marker['native_vendor_chunks_identical']=False

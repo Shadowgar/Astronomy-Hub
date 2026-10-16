@@ -1,11 +1,11 @@
 {
   "status": "PASS",
   "files": 125,
-  "directory": "output/n1/remediation/hub-final-reproduction",
+  "directory": "output/n1/remediation/hub-metadata-reproduction",
   "artifacts": {
     "runtime-versions.json": "a03c695521ded3d57955c62c4fc1d2fdef5f7a9d48efb60e0900f0d25bbbc621",
     "index.html": "41eafdba8dfd82ead12759dfba7af7750c527054525b6baebc92c5ead46fa44c",
-    "oras-sky-engine/oras-runtime-build.json": "6159151524f26fccc4ab0d0cc2e087836392c8e0e00866a67723456b79b5de87",
+    "oras-sky-engine/oras-runtime-build.json": "f28ed27564caf8919d756994e1f8a0eaf511730008f4fbd49e5e95a223a6e196",
     "oras-sky-engine/index.html": "a5f5cb77edab6d596bf80392e129f22fed66a63e7b661ab988017dc875f1524c",
     "oras-sky-engine/favicon.ico": "acdf5baef765f0dec63123f2ba7ba8e769176e4585d20683c9fda79930d80b8e",
     "assets/plex-2-DzahmYX0.ttf": "5311c66fd6d04ae45671236f7eae667b671c06c1dc7e88d52c206e5fadd0fb21",

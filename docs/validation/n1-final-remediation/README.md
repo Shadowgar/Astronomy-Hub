@@ -101,6 +101,27 @@ files and identical native JS/WASM. Failed input attempts preserve the prior
 attestation unchanged; no new successful attestation is issued. No native exception
 was used for UI promotion, whose existing WASM/vendor byte guards passed.
 
+**Promotion identity follow-up.** [Review of `90f2a5bd`](evidence/review-audit-promotion-finding.json)
+found a separate metadata inconsistency within correction 3. UI-only promotion
+preserved `native_horizon` but reinitialized both native identity flags to true,
+contradicting the lock's recorded changed WASM. `record_sky_workspace.py` now carries
+WASM identity from reconstruction and preserves explicit vendor identity; older
+horizon locks retain their known vendor change. Original upstream-only promotion
+remains true/true. No native build or renderer modification is introduced.
+
+Two actual promotion subprocess regressions fail before the fix; all three pass
+with the correction. A committed-artifact test also reproduces the false marker.
+Qualified UI staging and the existing independently built alternate-source output
+produce identical corrected metadata. The metadata-only change is exactly two
+booleans and their marker admission row; the Sky payload digest, native binaries,
+all rendering assets, Hub JavaScript and public runtime versions remain identical.
+[Strict equivalence certificate](evidence/metadata-equivalence.json) checks these
+facts against immutable browser-qualified `90f2a5bd`, including all 125 Hub files.
+Original eight browser proof records retain their original hashes; they are not
+rewritten or relabelled fresh. The final certificate explicitly permits only this
+verified metadata delta. A ninth proof records fresh actual native Sky/Earth
+admission and same-renderer history at both widths with the corrected metadata.
+
 **Native satellite presentation.** The owner's reported large startup glyphs are
 explained by native `src/modules/satellites.c`: fixed 24 px hints use magnitude gates,
 with no FOV condition. The pinned standalone source starts with hint offset 0; the
@@ -161,7 +182,7 @@ identity must match those hashes. Historical results are never relabelled curren
 | Complete runtime/Earth Node tests | 150 passed; 0 failed/skipped |
 | Complete frontend Vitest tests | 252 passed in 33 files |
 | TypeScript | `tsc --noEmit` passed |
-| Source-selection Python tests | 3 passed |
+| Source-selection / promotion Python tests | 3 + 3 passed |
 | Final Sky default/alternate source builds | 564 input rows, 110 identical payload files; native bytes unchanged |
 | Independent final Earth reproduction | 512 identical release files |
 | Independent Hub reproduction | 125 identical files |
@@ -169,8 +190,9 @@ identity must match those hashes. Historical results are never relabelled curren
 | Elevation Chromium desktop/mobile | 10 cases each, Sky/Earth/return, Back/Forward/reload, plus live time PASS |
 | Architecture/reconciliation docs | Both validators PASS |
 
-[Final qualification summary](evidence/qualification-summary.json) binds all eight
-browser proof records to the final sources/admission metadata. There are zero
+[Final qualification summary](evidence/qualification-summary.json) binds all nine
+browser proof records to the final sources, with the exact metadata-only delta
+explicitly certified rather than rewriting original proof hashes. There are zero
 page errors across the qualification records.
 
 | Actual Docker-served Chromium check | Result |
@@ -221,9 +243,10 @@ Implementation commit: [`b7b5da90b34f33124084cf73e36ee7c2644575f0`](https://gith
 pushed to the existing branch/PR #75. [Committed browser-input certificate](evidence/committed-browser-implementation.json)
 and [Docker-served identity](evidence/served-implementation.json) both PASS, with no
 working-tree runtime changes at that delivery. Report-only head `ea802138` retains
-those runtime inputs. The subsequent same-route follow-up changes Hub observer
+those runtime inputs. The same-route follow-up changes Hub observer
 synchronization and rebuilds Hub JavaScript; native Sky/Earth bundles are unchanged.
-Its exact final commit, pushed PR identity, all eight committed-input certificates,
+The final metadata follow-up preserves those application bytes. Its exact final
+commit, pushed PR identity, all nine committed-input/equivalence certificates,
 served-byte verification and additional P2 resolution receipt are recorded together
 in the preview `evidence/remediation/final-delivery.json` and final owner handoff.
 These receipts are produced after committing/pushing, not inferred from this draft.
@@ -243,8 +266,9 @@ threads are resolved. CodeRabbit reports SUCCESS but its issue comment explicitl
 says review was skipped for this non-default stacked base; GitGuardian reports
 NEUTRAL. Our three COMMENTED thread replies are not independent approval. No
 separate security review or full-provider qualification is claimed. That subsequent report-only head `ea802138` did receive the additional same-route
-P2 described above; the earlier no-findings result does not apply to it. The
-follow-up is qualified in this report, with response/resolution and exact final-head
+P2 described above; the earlier no-findings result does not apply to it. `90f2a5bd` resolved that
+provenance finding, then received the distinct promotion-identity finding above. Both
+follow-ups are qualified in this report, with response/resolution and exact final-head
 review receipts recorded after committed-input and served-byte verification at
 `http://127.0.0.1:4202/evidence/remediation/final-delivery.json`. Final-head reviews
 and all threads are rechecked before handoff; a pending or unresolved review is

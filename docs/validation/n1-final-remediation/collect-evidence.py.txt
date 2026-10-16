@@ -1,13 +1,18 @@
 from pathlib import Path
 import hashlib,json,shutil
-root=Path.cwd();r=root/'output/n1/remediation';target=root/'docs/validation/n1-final-remediation/evidence';names=['observer-history','elevation-desktop','elevation-mobile','snapshots-final','satellites-final','journeys-desktop','journeys-mobile','landscape'];proofs={}
+root=Path.cwd();r=root/'output/n1/remediation';target=root/'docs/validation/n1-final-remediation/evidence';names=['observer-history','elevation-desktop','elevation-mobile','snapshots-final','satellites-final','journeys-desktop','journeys-mobile','landscape','metadata-browser'];proofs={}
 sha=lambda b:hashlib.sha256(b).hexdigest()
+import sys,subprocess
+sys.path.insert(0,str(root/'scripts/validation'))
+from verify_n1_metadata_equivalence import verify,BASE
+metadata=verify()
 for name in names:
  p=json.loads((r/name/'proof.json').read_text());assert p['status']=='PASS',name
- for path,digest in p['sourceHashes'].items():assert sha((root/path).read_bytes())==digest,(name,path)
+ for path,digest in p['sourceHashes'].items():
+  if sha((root/path).read_bytes())!=digest:assert path=='integrations/renderers.lock.json'and digest==sha(subprocess.check_output(['git','show',BASE+':'+path])),(name,path)
  for row in p['runs']:assert row['status']=='PASS',name;assert row.get('pageErrors',[])==[],name
  proofs[name]=p
-summary={'status':'PASS','proofs':[]}
+summary={'status':'PASS','metadataEquivalence':metadata,'proofs':[]}
 for name,p in proofs.items():
  (target/(name+'.json')).write_text(json.dumps(p,indent=2)+'\n')
  rows=[]
@@ -15,7 +20,7 @@ for name,p in proofs.items():
   rows.append({'width':row['width'],'status':row['status'],'journeyGroups':len(row.get('steps',[])),'elevationCases':len(row.get('cases',[])),'scenes':len(row.get('scenes',[])),'cancellations':len(row.get('cancellations',[])),'pageErrors':len(row.get('pageErrors',[])),'resourceFailures':len(row['resourceFailures']) if 'resourceFailures'in row else None,'landscapeFailures':len(row['landscapeFailures'])if 'landscapeFailures'in row else None,'peakRenderers':row.get('peakRenderers',row.get('lifecycle',{}).get('peak'))})
  summary['proofs'].append({'name':name,'sourceInputs':len(p['sourceHashes']),'runs':rows})
  if name.startswith('snapshots'):summary.setdefault('liveProviderAttempts',[]).append(p['liveProviderAttempt'])
-for name in ['native-reproduction-qualified.json','negative-source-qualified.json','artifact-identities.json','attestation-qualified-default.json','attestation-qualified-alternate.json','preservation.json','runtime-final-tests.txt','frontend-final-tests.txt','typecheck-final.txt','attestation-final-tests.txt','sky-final-default-build.txt','sky-final-alternate-build.txt','hub-final-build.txt','earth-final-build.txt','earth-reproduction.txt','hub-reproduction.txt','hub-reproduction.json']:(target/name).write_bytes((r/name).read_bytes())
+for name in ['metadata-equivalence.json','promotion-flags-red.txt','promotion-flags-green.txt','promotion-marker-red.txt','native-reproduction-qualified.json','negative-source-qualified.json','artifact-identities.json','attestation-qualified-default.json','attestation-qualified-alternate.json','preservation.json','runtime-final-tests.txt','frontend-final-tests.txt','typecheck-final.txt','attestation-final-tests.txt','sky-final-default-build.txt','sky-final-alternate-build.txt','hub-final-build.txt','earth-final-build.txt','earth-reproduction.txt','hub-reproduction.txt','hub-reproduction.json']:(target/name).write_bytes((r/name).read_bytes())
 images=[('satellites-final','standalone-overlay-offset-2-1440.png'),('satellites-final','wide-point-1440.png'),('satellites-final','selected-close-1440.png'),('satellites-final','wide-point-390.png'),('satellites-final','selected-close-390.png'),('snapshots-final','historical-fixture-cancelled-3-1440.png'),('snapshots-final','historical-fixture-cancelled-3-390.png'),('landscape','day-yaw-0-1440.png'),('landscape','night-yaw-0-390.png')]
 for folder,file in images:shutil.copyfile(r/folder/file,target/file)
 (target/'qualification-summary.json').write_text(json.dumps(summary,indent=2)+'\n');(r/'qualification-summary.json').write_text(json.dumps(summary,indent=2)+'\n');print(json.dumps(summary,indent=2))

@@ -98,3 +98,16 @@ python3 /tmp/n1-publish-same-route.py
 python3 /tmp/n1-audit-current.py
 python3 /tmp/n1-record-final.py
 Post-push helper guards require exact local/remote head and PASS served/committed-input identity. Final JSON/Markdown delivery receipt is generated only after same-route resolution and current-head Codex completion with no findings. The failed disposal attempt is retained; final navigation repeats use the unchanged driver in isolation.
+
+Promotion-identity delivery-head P2 follow-up:
+python3 tests/runtime/test_sky_promotion.py
+node --test tests/runtime/sky-artifact.test.mjs
+python3 scripts/runtime/record_sky_workspace.py output/n1/remediation/metadata-promotion-dist
+python3 scripts/runtime/record_sky_workspace.py output/n1/remediation/native-alternate/upstream/apps/web-frontend/dist
+npm --prefix frontend run build
+npm --prefix frontend run build -- --outDir ../output/n1/remediation/hub-metadata-reproduction --emptyOutDir
+python3 scripts/validation/verify_n1_metadata_equivalence.py
+N1_EVIDENCE_DIR=output/n1/remediation/metadata-browser node scripts/validation/verify_n1_observer_history.mjs
+Complete Node150/frontend252/source-selection3/promotion3/typecheck repeated; metadata-equivalence checks unchanged native/rendering/Hub payloads,125 files and original8 proof records. New ninth proof qualifies corrected metadata admission/history. No native rebuild or regenerated landscape/catalog.
+python3 /tmp/n1-publish-metadata.py
+Exact post-push identity guards and original-comment reply/resolution are retained in publish-metadata.py.txt; original proofs are never rewritten.

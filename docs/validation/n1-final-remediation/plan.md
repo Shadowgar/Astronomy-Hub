@@ -68,3 +68,15 @@ identity, reply/resolve thread PRRT_kwDORt_rys6tFj9X and inspect final-head revi
 The exact SHA/resolution/review receipt is published at
 `http://127.0.0.1:4202/evidence/remediation/final-delivery.json`; owner handoff requires
 that guarded receipt to PASS, then stop for owner testing.
+
+## Promotion identity review follow-up
+
+- [x] Reproduce false native identity on actual committed marker and real UI
+  promotion subprocess (two RED cases); preserve upstream-only promotion.
+- [x] Carry existing native-change flags, regenerate only marker/admission row;
+  real alternate build promotion and independent Hub125 reproduction identical.
+- [x] Full Node150/frontend252/source3/promotion3/typecheck pass. Strict metadata
+  equivalence against 90f2a5bd retains original browser hashes and rendering bytes.
+- Final gate: fresh metadata browser admission/history proof, nine-record committed
+  input/equivalence certificate, exact served bytes, reply/resolve thread
+  PRRT_kwDORt_rys6tGPIB and inspect the next exact-head review before owner handoff.

@@ -39,6 +39,8 @@ docs/validation/n1-final-remediation/evidence/hub-reproduction.txt
 docs/validation/n1-final-remediation/evidence/journeys-desktop.json
 docs/validation/n1-final-remediation/evidence/journeys-mobile.json
 docs/validation/n1-final-remediation/evidence/landscape.json
+docs/validation/n1-final-remediation/evidence/metadata-browser.json
+docs/validation/n1-final-remediation/evidence/metadata-equivalence.json
 docs/validation/n1-final-remediation/evidence/mount-preservation.json
 docs/validation/n1-final-remediation/evidence/native-alternate-build.txt
 docs/validation/n1-final-remediation/evidence/native-default-build.txt
@@ -49,9 +51,13 @@ docs/validation/n1-final-remediation/evidence/observer-history.json
 docs/validation/n1-final-remediation/evidence/p2-elevation-reproduction.json
 docs/validation/n1-final-remediation/evidence/preservation.json
 docs/validation/n1-final-remediation/evidence/preview-nginx-qualified.conf.txt
+docs/validation/n1-final-remediation/evidence/promotion-flags-green.txt
+docs/validation/n1-final-remediation/evidence/promotion-flags-red.txt
+docs/validation/n1-final-remediation/evidence/promotion-marker-red.txt
 docs/validation/n1-final-remediation/evidence/qualification-summary.json
 docs/validation/n1-final-remediation/evidence/reconciliation-doc-check.txt
 docs/validation/n1-final-remediation/evidence/review-audit-implementation.json
+docs/validation/n1-final-remediation/evidence/review-audit-promotion-finding.json
 docs/validation/n1-final-remediation/evidence/review-audit-same-route-finding.json
 docs/validation/n1-final-remediation/evidence/review-thread-resolutions.json
 docs/validation/n1-final-remediation/evidence/runtime-final-tests.txt
@@ -87,6 +93,7 @@ docs/validation/n1-final-remediation/loaded-documents.json
 docs/validation/n1-final-remediation/loaded-documents.txt
 docs/validation/n1-final-remediation/plan.md
 docs/validation/n1-final-remediation/preservation.py.txt
+docs/validation/n1-final-remediation/publish-metadata.py.txt
 docs/validation/n1-final-remediation/publish-same-route.py.txt
 docs/validation/n1-final-remediation/record-final-delivery.py.txt
 docs/validation/n1-final-remediation/verify-delivery.py.txt
@@ -119,6 +126,7 @@ scripts/runtime/integrate_sky_bridge.py
 scripts/runtime/record_sky_workspace.py
 scripts/runtime/sky_source.py
 scripts/validation/verify_n1_elevation.mjs
+scripts/validation/verify_n1_metadata_equivalence.py
 scripts/validation/verify_n1_navigation.mjs
 scripts/validation/verify_n1_observer_history.mjs
 scripts/validation/verify_n1_satellites.mjs
@@ -132,5 +140,7 @@ tests/runtime/fixtures/native-satellite-selection.json
 tests/runtime/navigation.test.mjs
 tests/runtime/observer-elevation.test.mjs
 tests/runtime/satellite-presentation.test.mjs
+tests/runtime/sky-artifact.test.mjs
 tests/runtime/sky-landscape-context.test.mjs
+tests/runtime/test_sky_promotion.py
 tests/runtime/test_sky_source.py

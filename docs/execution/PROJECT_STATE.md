@@ -28,8 +28,13 @@ same-route observer updates bypassed provenance validation. The same-route path 
 seven focused GREEN tests and four actual same-renderer Sky/Earth desktop/mobile
 history variants. Fresh complete 44-journey/20-elevation matrices, frontend252,
 runtime150, Python3, typechecking and independent Hub reproduction pass. No
-native/asset/controller math changes are involved. Original P2 threads remain
-resolved; post-push resolution/review status for the added P2 and exact final SHA
+native/asset/controller math changes are involved. Original P2 threads and the same-route follow-up are resolved. Review of
+`90f2a5bd` then found UI-only promotion incorrectly resetting native identity flags.
+This bounded metadata correction passes three promotion regressions and preserves
+all rendering/native/Hub payload bytes; strict equivalence retains the original
+browser hashes and fresh desktop/mobile admission/history qualifies corrected
+metadata. Python qualification is source-selection3 plus promotion3. Post-push
+resolution/review status for both added P2s and exact final SHA
 are recorded with guarded served/committed-input receipts at
 `http://127.0.0.1:4202/evidence/remediation/final-delivery.json`. Owner handoff requires
 that receipt to show the new thread resolved and final-head review completed.

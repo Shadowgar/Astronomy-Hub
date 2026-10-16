@@ -1084,8 +1084,8 @@
       },
       {
         "path": "oras-runtime-build.json",
-        "bytes": 2076,
-        "sha256": "6159151524f26fccc4ab0d0cc2e087836392c8e0e00866a67723456b79b5de87"
+        "bytes": 2078,
+        "sha256": "f28ed27564caf8919d756994e1f8a0eaf511730008f4fbd49e5e95a223a6e196"
       }
     ],
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",

@@ -132,4 +132,4 @@ dist/assets/index-CVR0pfrH.css                                                  
 dist/oras-sky-engine/css/chunk-vendors.11c203ce.css                                 654.20 kB │ gzip:  91.95 kB
 dist/assets/index-C5XU8tgl.js                                                       333.79 kB │ gzip: 101.16 kB
 
-✓ built in 296ms
+✓ built in 301ms

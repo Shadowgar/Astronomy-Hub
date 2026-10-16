@@ -7,6 +7,7 @@ const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
 test('Sky marker and public admission digest bind every qualified application file',()=>{
  const lock=JSON.parse(read('integrations/renderers.lock.json')),marker=JSON.parse(read('frontend/public/oras-sky-engine/oras-runtime-build.json')),versions=JSON.parse(read('frontend/public/runtime-versions.json'));
  for(const row of lock.sky.artifact_files){assert.ok(!row.path.startsWith('skydata/'));const bytes=read('frontend/public/oras-sky-engine/'+row.path);assert.equal(bytes.length,row.bytes,row.path);assert.equal(digest(bytes),row.sha256,row.path)}
+ if(lock.sky.native_horizon){assert.equal(marker.native_wasm_identical,lock.sky.reconstruction.native_wasm_identical);assert.equal(marker.native_vendor_chunks_identical,lock.sky.reconstruction.native_vendor_chunks_identical??false)}
  const payload=lock.sky.artifact_files.filter(row=>row.path!=='oras-runtime-build.json');
  assert.equal(digest(JSON.stringify(payload)),lock.sky.artifact_sha256);assert.equal(marker.artifact_sha256,lock.sky.artifact_sha256);assert.equal(versions.sky.artifact_sha256,marker.artifact_sha256);
  assert.equal(marker.adapter_sha256,digest(read('runtimes/sky-adapter/plugin.js')));
