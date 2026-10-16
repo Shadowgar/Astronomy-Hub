@@ -3,7 +3,7 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {chromium} from '../../node_modules/playwright/index.mjs';
 const out=process.env.N1_EVIDENCE_DIR||'output/n1/remediation/elevation',base='http://127.0.0.1:4202',utc='2026-06-05T02:10:00.000Z';await mkdir(out,{recursive:true});
-const inputs=['scripts/validation/verify_n1_elevation.mjs','packages/runtime-protocol/observer-elevation.mjs','packages/runtime-protocol/index.mjs','runtimes/sky-adapter/plugin.js','runtimes/sky-adapter/entry.mjs','runtimes/earth-runtime/core/navigationObserver.mjs','runtimes/earth-runtime/core/EarthRuntime.mjs','frontend/src/features/workspace/useViewNavigation.ts','frontend/src/features/workspace/observerProvenance.ts','frontend/src/features/sky-engine/RuntimeHost.tsx','integrations/renderers.lock.json','frontend/public/runtime-versions.json'];
+const inputs=['scripts/validation/verify_n1_elevation.mjs','packages/runtime-protocol/observer-elevation.mjs','packages/runtime-protocol/index.mjs','runtimes/sky-adapter/plugin.js','runtimes/sky-adapter/entry.mjs','runtimes/earth-runtime/core/navigationObserver.mjs','runtimes/earth-runtime/core/EarthRuntime.mjs','frontend/src/features/workspace/workspaceRuntimeAdapter.ts','frontend/src/features/workspace/useViewNavigation.ts','frontend/src/features/workspace/observerProvenance.ts','frontend/src/features/sky-engine/RuntimeHost.tsx','integrations/renderers.lock.json','frontend/public/runtime-versions.json'];
 const hash=b=>createHash('sha256').update(b).digest('hex'),sourceHashes={};for(const name of inputs)sourceHashes[name]=hash(await readFile(name));
 const site=JSON.parse(await readFile('frontend/src/config/orasSite.json'));
 const ny={lat:40.7829,lon:-73.9654};

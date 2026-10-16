@@ -59,6 +59,30 @@ frontend/protocol, native-adapter and same-target regressions now pass. The
 edge regressions and subsequent GREEN. `elevation-site-precedence-red.txt` retains the discovered provided-height
 precedence failure and its corrected GREEN result.
 
+**Same-route review follow-up.** [Review of delivery head `ea802138`](evidence/review-audit-same-route-finding.json) found that
+post-mount query/history synchronization still sent the numeric observer directly.
+This bypassed the validated provenance used at initial mount, and its numeric-only
+acknowledgment key skipped source-only changes at identical coordinates/height.
+`workspaceRuntimeAdapter.ts` now normalizes every query observer with the same
+shared rule and compares a validated source-aware key. The initial acknowledgment
+uses the latest query through a ref; existing request acknowledgments retain their
+actual validated payload source. No new global state or renderer lifecycle is added.
+
+[Same-route native RED](evidence/same-route-browser-red.json) records native Sky changing to the correct coordinates
+and 0 m while falsely reporting `provided` instead of `unavailable-zero`, with the
+same iframe. [Three hook regressions fail before the fix](evidence/same-route-hook-red.txt); [all seven focused tests](evidence/same-route-hook-green.txt)
+pass afterward. The new [same-renderer browser matrix](evidence/observer-history.json)
+checks desktop/mobile Sky and Earth: changed coordinates, provided-zero ↔ fallback-zero,
+actual Back/Forward, fixed time and round trips. Iframe identity and native
+`performance.timeOrigin` remain unchanged during query/history synchronization.
+[Mobile Sky](evidence/same-route-sky-390.png) and [desktop Earth](evidence/same-route-earth-1440.png) captures record the resulting views; the mobile Sky badge identifies the zero-height fallback.
+Controlled History API entries exercise the actual router; renderer results,
+observer calculations and positions are not fabricated. Fresh complete navigation
+and elevation matrices qualify the updated Hub build. Native satellite, landscape
+and tracked-cancellation records retain their existing qualification against the
+unchanged engine/adapter/artifact inputs; they are not relabelled fresh Hub runs.
+
+
 **Consistent source attestation.** The builder selected `ORAS_SKY_SOURCE_REPO` while
 the attester archived a fixed path. Shared `sky_source.py` now selects/validates the
 same checkout root and immutable HEAD before output creation. The build passes its
@@ -135,7 +159,7 @@ identity must match those hashes. Historical results are never relabelled curren
 | Check | Result |
 | --- | --- |
 | Complete runtime/Earth Node tests | 150 passed; 0 failed/skipped |
-| Complete frontend Vitest tests | 248 passed in 33 files |
+| Complete frontend Vitest tests | 252 passed in 33 files |
 | TypeScript | `tsc --noEmit` passed |
 | Source-selection Python tests | 3 passed |
 | Final Sky default/alternate source builds | 564 input rows, 110 identical payload files; native bytes unchanged |
@@ -145,13 +169,14 @@ identity must match those hashes. Historical results are never relabelled curren
 | Elevation Chromium desktop/mobile | 10 cases each, Sky/Earth/return, Back/Forward/reload, plus live time PASS |
 | Architecture/reconciliation docs | Both validators PASS |
 
-[Final qualification summary](evidence/qualification-summary.json) binds all seven
+[Final qualification summary](evidence/qualification-summary.json) binds all eight
 browser proof records to the final sources/admission metadata. There are zero
 page errors across the qualification records.
 
 | Actual Docker-served Chromium check | Result |
 | --- | --- |
 | Complete navigation journeys | 22 desktop + 22 mobile groups PASS; peak one renderer per workspace |
+| Same-renderer observer/history | Four mode/width variants PASS; seven updates each, native acknowledgments, stable iframe/time origin, round trips |
 | Elevation provenance | 10 cases per width PASS; nine canonical cases include Back/Forward, all include return/reload; restored bare-URL/unbound-claim case and live-time journeys PASS |
 | Native satellite presentation | 15 scenes per width PASS; source-default/overlay comparison, points/motion, 20°/5°/6°/7°/120°, native selection, NORAD details, Focus/native locking, remount/reload |
 | Tracked snapshots/cancellation | Four cycles per width PASS; real historical ISS provider/SGP4/Cesium, one held handoff response each, complete drainage, committed viewer destruction, peak one |
@@ -161,13 +186,23 @@ The navigation driver’s historical non-ORAS zero-fallback disclaimer describes
 unknown-height New York scenario; supplied heights and restored zero are qualified
 separately by the elevation matrix. It does not claim all non-ORAS heights are zero.
 
-[Desktop navigation](evidence/journeys-desktop.json) retains **563** resource
-failures/cancellations; [mobile](evidence/journeys-mobile.json) retains **744**.
+[Desktop navigation](evidence/journeys-desktop.json) retains **631** resource
+failures/cancellations; [mobile](evidence/journeys-mobile.json) retains **818**.
 These include astronomy data, existing map/provider resources and deliberate
 navigation interruption. Related classes appear in historical evidence, but that
 is not a fresh baseline or proof of each failure’s cause. No generic network-failure
 count is inferred for drivers that did not collect one (summary fields are null).
 No new landscape URL fails. This correction does not qualify those data/providers.
+
+An additional [failed navigation attempt](evidence/same-route-desktop-disposal-attempt.json)
+observed one Earth removal with `disposed:false` and no recorded destroy result at
+the Host's existing one-second deadline. Its cause is unproven. It is retained
+separately and excluded from qualification; the complete unchanged navigation
+driver then passed on desktop and mobile in isolation with the same disposal
+assertions and deadlines.
+Passing final runs establish those tested journeys, not a bound on disposal under
+arbitrary software-rendering load.
+
 
 Selected actual captures: [native overlay before](evidence/standalone-overlay-offset-2-1440.png),
 [desktop wide point](evidence/wide-point-1440.png),
@@ -185,9 +220,13 @@ All other scenes and raw browser records remain under the preview evidence URL.
 Implementation commit: [`b7b5da90b34f33124084cf73e36ee7c2644575f0`](https://github.com/Shadowgar/Astronomy-Hub/commit/b7b5da90b34f33124084cf73e36ee7c2644575f0),
 pushed to the existing branch/PR #75. [Committed browser-input certificate](evidence/committed-browser-implementation.json)
 and [Docker-served identity](evidence/served-implementation.json) both PASS, with no
-working-tree runtime changes. A later report-only delivery commit does not rebuild
-or change these qualified runtime inputs; its exact HEAD is recorded in the final
-handoff and preview `evidence/remediation/served-identity.json`.
+working-tree runtime changes at that delivery. Report-only head `ea802138` retains
+those runtime inputs. The subsequent same-route follow-up changes Hub observer
+synchronization and rebuilds Hub JavaScript; native Sky/Earth bundles are unchanged.
+Its exact final commit, pushed PR identity, all eight committed-input certificates,
+served-byte verification and additional P2 resolution receipt are recorded together
+in the preview `evidence/remediation/final-delivery.json` and final owner handoff.
+These receipts are produced after committing/pushing, not inferred from this draft.
 
 All three original P2s were answered and resolved **after** that verification.
 [Resolution receipts](evidence/review-thread-resolutions.json):
@@ -203,8 +242,13 @@ Codex code review **COMPLETED WITH NO FINDINGS** on `b7b5da90`; all enumerated
 threads are resolved. CodeRabbit reports SUCCESS but its issue comment explicitly
 says review was skipped for this non-default stacked base; GitGuardian reports
 NEUTRAL. Our three COMMENTED thread replies are not independent approval. No
-separate security review or full-provider qualification is claimed. Final
-report-only delivery-head reviews/checks are rechecked before the owner handoff.
+separate security review or full-provider qualification is claimed. That subsequent report-only head `ea802138` did receive the additional same-route
+P2 described above; the earlier no-findings result does not apply to it. The
+follow-up is qualified in this report, with response/resolution and exact final-head
+review receipts recorded after committed-input and served-byte verification at
+`http://127.0.0.1:4202/evidence/remediation/final-delivery.json`. Final-head reviews
+and all threads are rechecked before handoff; a pending or unresolved review is
+never treated as readiness.
 
 Owner acceptance applies to scrolling `301f9eb3` and scenery `53ac7478` only.
 Implementation-source commits in verification metadata, including the legacy
@@ -224,6 +268,7 @@ build attestations above describe this correction's actual UI/native input closu
 
 | Identity | SHA-256 |
 | --- | --- |
+| Final Hub JavaScript `index-C5XU8tgl.js` | `afdd44d4c4fd3f6a34782eb1d9c79b7eeeb9742fc8fe9add8eaf3341be94f4bc` |
 | Final Sky application | `d293874321c60bd3bd154c5a1696037d72d9a1f35c2415c6141d62fab6224d57` |
 | Final Earth application | `834fa48f8bc7cb0489c6c14be42a49c5fb6f9c224a6be9968e3c724ae152494c` |
 | Native WASM, unchanged | `d62afde16d3695adc1f33401a51fa715cfa7618e8a5a1b82f5cbbd40f1fad942` |

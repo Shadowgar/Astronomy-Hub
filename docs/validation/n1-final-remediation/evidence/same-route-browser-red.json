@@ -1,0 +1,136 @@
+{
+  "status": "FAIL",
+  "sourceHashes": {
+    "scripts/validation/verify_n1_observer_history.mjs": "f9ac04afad5026953846afaba24b1367b00fe57bad717fd60796fb9dffde7003",
+    "frontend/src/features/workspace/workspaceRuntimeAdapter.ts": "5b2462c40d3593201bacc278f57870d9558c1cd189c467bac77648f2c5118821",
+    "frontend/src/features/workspace/observerProvenance.ts": "3d5d925bc1099245335c761fa8fd1c1da406efae9e8ed9657807b614f0e07fcd",
+    "frontend/src/features/sky-engine/RuntimeHost.tsx": "06516fc247180405f5a2d7dc77bef899a764b5d602bf4dcd5069bc6bad7a7739",
+    "packages/runtime-protocol/observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3",
+    "runtimes/sky-adapter/plugin.js": "80f5b2545ad4a243da09c16b7fe6d070836c45c78e344ae1d7988abd9ed6274f",
+    "runtimes/earth-runtime/core/EarthRuntime.mjs": "93c127f6ad955dcb7246a6d33e87eea764b5a35cc5f586067714eca09ce70b55",
+    "integrations/renderers.lock.json": "4a0da651561b0e1bc0107c10262d6f1a4169dda2f7c7a20254b62a5255d22c71",
+    "frontend/public/runtime-versions.json": "a03c695521ded3d57955c62c4fc1d2fdef5f7a9d48efb60e0900f0d25bbbc621"
+  },
+  "runs": [
+    {
+      "width": 1440,
+      "mode": "sky",
+      "status": "RUNNING",
+      "pageErrors": [],
+      "states": [
+        {
+          "name": "new-coordinate-missing-height",
+          "url": "http://127.0.0.1:4202/sky-engine?lat=36.1699&lng=-115.1398&date=2026-06-05T02%3A10%3A00.000Z",
+          "navigation": {
+            "mode": "sky",
+            "observer": {
+              "lat": 36.16989999999444,
+              "lon": -115.13980000001335,
+              "elevationM": 0
+            },
+            "elevationSource": "provided",
+            "utc": "2026-06-05T02:10:00.000Z",
+            "live": false,
+            "camera": {
+              "projection": 2,
+              "fovRad": 2.094395102393,
+              "yawRad": 0,
+              "pitchRad": 0.523598775598,
+              "rollRad": 0,
+              "landscapeVisible": true
+            }
+          },
+          "wire": [
+            {
+              "runtime": "sky",
+              "nonce": "d18b70a73ea856d66b82e314b1c921e5",
+              "generation": 1,
+              "type": "result",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 40.7829,
+                  "lon": -73.9654,
+                  "elevationM": 123
+                }
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "d18b70a73ea856d66b82e314b1c921e5",
+              "generation": 1,
+              "type": "result",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "ok": true,
+                "effectiveObserver": {
+                  "lat": 36.1699,
+                  "lon": -115.1398,
+                  "elevationM": 0
+                }
+              }
+            }
+          ],
+          "commands": [
+            {
+              "runtime": "sky",
+              "nonce": "d18b70a73ea856d66b82e314b1c921e5",
+              "generation": 1,
+              "type": "command",
+              "id": 3,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 40.7829,
+                "lon": -73.9654,
+                "elevationM": 123,
+                "elevationSource": "provided"
+              }
+            },
+            {
+              "runtime": "sky",
+              "nonce": "d18b70a73ea856d66b82e314b1c921e5",
+              "generation": 1,
+              "type": "command",
+              "id": 8,
+              "command": "setObserverIntent",
+              "payload": {
+                "lat": 36.1699,
+                "lon": -115.1398,
+                "elevationM": 0
+              }
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "mode": "sky",
+        "observer": {
+          "lat": 40.782900000023176,
+          "lon": -73.96540000002213,
+          "elevationM": 123
+        },
+        "elevationSource": "provided",
+        "utc": "2026-06-05T02:10:00.000Z",
+        "live": false,
+        "camera": {
+          "projection": 2,
+          "fovRad": 2.094395102393,
+          "yawRad": 0,
+          "pitchRad": 0.523598775598,
+          "rollRad": 0,
+          "landscapeVisible": true
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Same-document query entries are created through browser History and delivered to the real router; subsequent Back/Forward uses browser navigation. No runtime result, observer calculation or position is fabricated.",
+    "Software Chromium/emulated mobile, not physical-device acceptance."
+  ],
+  "started": "2026-10-16T06:30:10.601Z",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'provided'\n- 'unavailable-zero'\n\n    at check (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_observer_history.mjs:17:665)\n    at async push (file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_observer_history.mjs:18:354)\n    at async file:///home/rocco/Astronomy-Hub/.worktrees/n1-sky-earth-navigation-1/scripts/validation/verify_n1_observer_history.mjs:19:2",
+  "finished": "2026-10-16T06:30:14.160Z"
+}

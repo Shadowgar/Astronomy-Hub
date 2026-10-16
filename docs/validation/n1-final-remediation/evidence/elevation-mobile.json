@@ -1,13 +1,14 @@
 {
   "status": "PASS",
   "sourceHashes": {
-    "scripts/validation/verify_n1_elevation.mjs": "f1b09754f0bc66c9711b3aee9668840cd7ba09369acb806e5302777deb989aec",
+    "scripts/validation/verify_n1_elevation.mjs": "be855cea529beb6ee19d2c1510a87409d9a4b5b4b23f0cc2ad40243ab5fd9f83",
     "packages/runtime-protocol/observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3",
     "packages/runtime-protocol/index.mjs": "68942038408a0854940d5154b094ba18246ddb05fe561b1eb90cc3f8ac991b84",
     "runtimes/sky-adapter/plugin.js": "80f5b2545ad4a243da09c16b7fe6d070836c45c78e344ae1d7988abd9ed6274f",
     "runtimes/sky-adapter/entry.mjs": "cb27d0292c3be9c2c69cb5033b1a2e4eeaeffd7ca7012d7cfc433e4ec6df8ab4",
     "runtimes/earth-runtime/core/navigationObserver.mjs": "361e1e3d50e67cb89b7561d628b4325c95bffd7858aa478f5aec56d6cafb25f1",
     "runtimes/earth-runtime/core/EarthRuntime.mjs": "93c127f6ad955dcb7246a6d33e87eea764b5a35cc5f586067714eca09ce70b55",
+    "frontend/src/features/workspace/workspaceRuntimeAdapter.ts": "53fa5194388c27152eef103c8e8ce2c267d1f2d8f90ec8068bf505f72aba6d12",
     "frontend/src/features/workspace/useViewNavigation.ts": "e0ae507e078eff46e425a1a188a4a25db2084fc4ab4dc8eb774331feadf8f3ba",
     "frontend/src/features/workspace/observerProvenance.ts": "3d5d925bc1099245335c761fa8fd1c1da406efae9e8ed9657807b614f0e07fcd",
     "frontend/src/features/sky-engine/RuntimeHost.tsx": "06516fc247180405f5a2d7dc77bef899a764b5d602bf4dcd5069bc6bad7a7739",
@@ -1190,7 +1191,7 @@
             "elevationM": 123
           },
           "elevationSource": "provided",
-          "utc": "2026-10-16T05:57:43.994Z",
+          "utc": "2026-10-16T06:52:01.072Z",
           "live": true,
           "camera": {
             "projection": 2,
@@ -1217,7 +1218,7 @@
             "pitchRad": -1.5687963914167748,
             "rollRad": 0
           },
-          "utc": "2026-10-16T05:57:46.150Z",
+          "utc": "2026-10-16T06:52:03.176Z",
           "live": true
         },
         {
@@ -1228,7 +1229,7 @@
             "elevationM": 123
           },
           "elevationSource": "provided",
-          "utc": "2026-10-16T05:57:54.821Z",
+          "utc": "2026-10-16T06:52:12.422Z",
           "live": true,
           "camera": {
             "projection": 2,
@@ -1245,6 +1246,6 @@
   "limitations": [
     "Real Chromium with emulated mobile; no physical-device qualification."
   ],
-  "started": "2026-10-16T05:53:01.764Z",
-  "finished": "2026-10-16T05:57:54.894Z"
+  "started": "2026-10-16T06:48:23.290Z",
+  "finished": "2026-10-16T06:52:12.557Z"
 }

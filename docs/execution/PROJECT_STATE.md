@@ -17,12 +17,23 @@ accepted camera animation, landscape assets/controls, standalone defaults, data,
 settings, rollback artifacts, and single-renderer ownership. No new native C/WASM
 modification is authorized; existing pinned native outputs must remain identical.
 
-All four corrections are technically qualified: 150 runtime/Earth tests, 248
+All four corrections are technically qualified: 150 runtime/Earth tests, 252
 frontend tests, typechecking, three source-selection tests, reproducible builds,
 44 actual Chromium navigation groups, ten elevation cases per width, and native
 satellite/landscape/cancellation matrices pass. The three P2 fixes are **QUALIFIED**;
 original threads are answered and resolved after verified pushed implementation
 `b7b5da90b34f33124084cf73e36ee7c2644575f0`.
+Final-head review at `ea802138` found an additional P2 in correction 2: post-mount
+same-route observer updates bypassed provenance validation. The same-route path is now technically qualified with three hook RED cases,
+seven focused GREEN tests and four actual same-renderer Sky/Earth desktop/mobile
+history variants. Fresh complete 44-journey/20-elevation matrices, frontend252,
+runtime150, Python3, typechecking and independent Hub reproduction pass. No
+native/asset/controller math changes are involved. Original P2 threads remain
+resolved; post-push resolution/review status for the added P2 and exact final SHA
+are recorded with guarded served/committed-input receipts at
+`http://127.0.0.1:4202/evidence/remediation/final-delivery.json`. Owner handoff requires
+that receipt to show the new thread resolved and final-head review completed.
+
 Satellite presentation is **PENDING OWNER VISUAL ACCEPTANCE**; entire N1 is
 **PENDING FINAL OWNER ACCEPTANCE**. Live Earth satellite-provider qualification
 remains unavailable; historical source-backed tracking is identified separately.

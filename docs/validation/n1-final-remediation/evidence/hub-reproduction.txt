@@ -130,6 +130,6 @@ computing gzip size...
 ../output/n1/remediation/hub-final-reproduction/oras-sky-engine/css/app.e3189512.css                                             3.93 kB │ gzip:   1.43 kB
 ../output/n1/remediation/hub-final-reproduction/assets/index-CVR0pfrH.css                                                       99.71 kB │ gzip:  17.82 kB
 ../output/n1/remediation/hub-final-reproduction/oras-sky-engine/css/chunk-vendors.11c203ce.css                                 654.20 kB │ gzip:  91.95 kB
-../output/n1/remediation/hub-final-reproduction/assets/index-CBJazdLh.js                                                       333.70 kB │ gzip: 101.13 kB
+../output/n1/remediation/hub-final-reproduction/assets/index-C5XU8tgl.js                                                       333.79 kB │ gzip: 101.16 kB
 
-✓ built in 504ms
+✓ built in 266ms

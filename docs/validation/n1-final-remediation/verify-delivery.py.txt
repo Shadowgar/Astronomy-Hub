@@ -1,6 +1,6 @@
 from pathlib import Path
 import hashlib,json,subprocess
-root=Path.cwd();names=['elevation-desktop','elevation-mobile','snapshots-final','satellites-final','journeys-desktop','journeys-mobile','landscape'];reports=[]
+root=Path.cwd();names=['observer-history','elevation-desktop','elevation-mobile','snapshots-final','satellites-final','journeys-desktop','journeys-mobile','landscape'];reports=[]
 sha=lambda b:hashlib.sha256(b).hexdigest()
 for name in names:
  p=root/'output/n1/remediation'/name/'proof.json';proof=json.loads(p.read_text());assert proof['status']=='PASS',name

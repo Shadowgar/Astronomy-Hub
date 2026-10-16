@@ -77,3 +77,24 @@ python3 /tmp/n1-evidence-identity.py
 N1_SERVED_EVIDENCE=output/n1/remediation/served-identity.json python3 scripts/validation/verify_n1_motion_served.py
 python3 /tmp/n1-publish-reviews.py
 The publication helper requires exact remote/local head, committed-input and served-identity PASS, then posts structured JSON replies to the three original comment IDs and resolves only their matching threads. Actual URLs and SHA are retained in review-thread-resolutions.json.
+
+Same-route final-head P2 follow-up:
+npm --prefix frontend test -- tests/workspaceRuntimeAdapter.test.ts
+N1_WIDTHS=1440 N1_MODES=sky N1_EVIDENCE_DIR=output/n1/remediation/same-route-red node scripts/validation/verify_n1_observer_history.mjs
+N1_EVIDENCE_DIR=output/n1/remediation/observer-history node scripts/validation/verify_n1_observer_history.mjs
+RED uses the previously served ea802138 Hub; GREEN uses rebuilt source. Full frontend252/runtime150/Python3/typecheck, independent Hub build125 and complete navigation/elevation matrices rerun for this frontend-only correction. Unchanged native proofs retain their original scope.
+
+Qualified same-route delivery:
+python3 /tmp/n1-finalize-qualified.py
+python3 /tmp/n1-preserve.py
+git diff --check
+python3 scripts/validation/validate_architecture_docs.py
+python3 scripts/validation/validate_reconciliation_docs.py
+git commit -m "fix(n1): preserve provenance during same-route observer updates"
+git push origin n1-sky-earth-navigation-1
+python3 /tmp/n1-evidence-identity.py
+N1_SERVED_EVIDENCE=output/n1/remediation/served-identity.json python3 scripts/validation/verify_n1_motion_served.py
+python3 /tmp/n1-publish-same-route.py
+python3 /tmp/n1-audit-current.py
+python3 /tmp/n1-record-final.py
+Post-push helper guards require exact local/remote head and PASS served/committed-input identity. Final JSON/Markdown delivery receipt is generated only after same-route resolution and current-head Codex completion with no findings. The failed disposal attempt is retained; final navigation repeats use the unchanged driver in isolation.

@@ -56,3 +56,15 @@ requested prior Pennsylvania/native-horizon evidence only. Full ledger accompani
 Ruling: execute inline under the owner's explicit implementation authorization and
 single-agent rule; no redundant plan approval or delegated reviewer. Skills guide
 red/green and verification, while owner scope and repository context control work.
+
+## Additional delivery-head review finding
+
+- [x] Reproduce same-route provenance bypass in native Sky and three hook tests.
+- [x] Normalize post-mount observers and compare validated source-aware keys.
+- [x] Qualify four same-renderer Sky/Earth desktop/mobile history variants.
+- [x] Finish fresh full navigation/elevation matrices and source-bound evidence.
+Post-commit delivery gate: push the qualified follow-up; verify committed/served
+identity, reply/resolve thread PRRT_kwDORt_rys6tFj9X and inspect final-head reviews.
+The exact SHA/resolution/review receipt is published at
+`http://127.0.0.1:4202/evidence/remediation/final-delivery.json`; owner handoff requires
+that guarded receipt to PASS, then stop for owner testing.

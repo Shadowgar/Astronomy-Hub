@@ -94,3 +94,21 @@ Pinned native 3D painter hooks are weak no-ops and inspected satellites have no
 observation/calculation, asset and satellite model code remains unchanged.
 Software Chromium and emulated touch do not prove physical-device performance.
 Owner visual acceptance and final N1 acceptance remain separate gates.
+
+The review on report-only head ea802138 found an additional same-route provenance
+P2. Its real native Sky RED is retained under `same-route-red/`; three hook RED
+failures and subsequent seven-test GREEN are retained separately. Final frontend
+count is 252. Prior navigation/elevation proofs are archived under
+`before-same-route-p2/`, not overwritten as current. The four-mode/width history
+matrix and fresh full navigation/elevation proofs cover the updated Hub. Native
+satellite/landscape/cancellation inputs and bundles are unchanged, and their
+existing qualified proof dates and recorded source inputs remain explicit.
+
+`same-route-desktop-disposal-attempt/` retains a failed complete navigation run:
+all twenty preceding groups pass, then one Earth removal reports `disposed:false`
+and no recorded destroy result. The Host has an existing one-second destroy
+request deadline with frame-removal fallback. Its cause is not established by the
+record, and simultaneous heavy browser suites do not establish causation. The
+unchanged complete driver subsequently passes in isolation on desktop and mobile;
+no assertion or deadline is relaxed. This failed attempt is not counted as qualified disposal proof or as
+physical performance evidence.

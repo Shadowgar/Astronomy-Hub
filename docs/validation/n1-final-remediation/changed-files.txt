@@ -4,6 +4,7 @@ docs/context/LIVE_SESSION_BRIEF.md
 docs/execution/PROJECT_STATE.md
 docs/validation/n1-final-remediation/README.md
 docs/validation/n1-final-remediation/attempts-and-limits.md
+docs/validation/n1-final-remediation/audit-current-review.py.txt
 docs/validation/n1-final-remediation/build-earth-reproduction.sh.txt
 docs/validation/n1-final-remediation/build-sky-ui.sh.txt
 docs/validation/n1-final-remediation/changed-files.txt
@@ -44,14 +45,22 @@ docs/validation/n1-final-remediation/evidence/native-default-build.txt
 docs/validation/n1-final-remediation/evidence/native-reproduction-qualified.json
 docs/validation/n1-final-remediation/evidence/negative-source-qualified.json
 docs/validation/n1-final-remediation/evidence/night-yaw-0-390.png
+docs/validation/n1-final-remediation/evidence/observer-history.json
 docs/validation/n1-final-remediation/evidence/p2-elevation-reproduction.json
 docs/validation/n1-final-remediation/evidence/preservation.json
 docs/validation/n1-final-remediation/evidence/preview-nginx-qualified.conf.txt
 docs/validation/n1-final-remediation/evidence/qualification-summary.json
 docs/validation/n1-final-remediation/evidence/reconciliation-doc-check.txt
 docs/validation/n1-final-remediation/evidence/review-audit-implementation.json
+docs/validation/n1-final-remediation/evidence/review-audit-same-route-finding.json
 docs/validation/n1-final-remediation/evidence/review-thread-resolutions.json
 docs/validation/n1-final-remediation/evidence/runtime-final-tests.txt
+docs/validation/n1-final-remediation/evidence/same-route-browser-red.json
+docs/validation/n1-final-remediation/evidence/same-route-desktop-disposal-attempt.json
+docs/validation/n1-final-remediation/evidence/same-route-earth-1440.png
+docs/validation/n1-final-remediation/evidence/same-route-hook-green.txt
+docs/validation/n1-final-remediation/evidence/same-route-hook-red.txt
+docs/validation/n1-final-remediation/evidence/same-route-sky-390.png
 docs/validation/n1-final-remediation/evidence/satellite-instant-focus-browser-red.json
 docs/validation/n1-final-remediation/evidence/satellite-instant-focus-green.txt
 docs/validation/n1-final-remediation/evidence/satellite-instant-focus-red.txt
@@ -78,6 +87,8 @@ docs/validation/n1-final-remediation/loaded-documents.json
 docs/validation/n1-final-remediation/loaded-documents.txt
 docs/validation/n1-final-remediation/plan.md
 docs/validation/n1-final-remediation/preservation.py.txt
+docs/validation/n1-final-remediation/publish-same-route.py.txt
+docs/validation/n1-final-remediation/record-final-delivery.py.txt
 docs/validation/n1-final-remediation/verify-delivery.py.txt
 frontend/public/oras-sky-engine/index.html
 frontend/public/oras-sky-engine/js/app.8c0b384f.js
@@ -88,7 +99,9 @@ frontend/src/features/sky-engine/RuntimeHost.tsx
 frontend/src/features/workspace/WorkspaceShell.tsx
 frontend/src/features/workspace/observerProvenance.ts
 frontend/src/features/workspace/useViewNavigation.ts
+frontend/src/features/workspace/workspaceRuntimeAdapter.ts
 frontend/tests/observerProvenance.test.ts
+frontend/tests/workspaceRuntimeAdapter.test.ts
 integrations/renderers.lock.json
 packages/runtime-protocol/index.mjs
 packages/runtime-protocol/observer-elevation.d.mts
@@ -107,6 +120,7 @@ scripts/runtime/record_sky_workspace.py
 scripts/runtime/sky_source.py
 scripts/validation/verify_n1_elevation.mjs
 scripts/validation/verify_n1_navigation.mjs
+scripts/validation/verify_n1_observer_history.mjs
 scripts/validation/verify_n1_satellites.mjs
 scripts/validation/verify_n1_snapshots.mjs
 tests/earth/helpers/camera-harness.mjs

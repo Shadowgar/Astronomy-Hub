@@ -1,19 +1,22 @@
 import {useEffect,useState,useRef,useCallback} from 'react'
 import type {RuntimeClient} from '../../../../packages/runtime-protocol/client.mjs'
-import type {RuntimeMode,WorkspaceSnapshot} from '../../../../packages/runtime-protocol/index.mjs'
+import type {RuntimeMode,WorkspaceSnapshot,ObserverIntent,ElevationSource} from '../../../../packages/runtime-protocol/index.mjs'
 import {useRuntimeProductState,parseSceneDate,type CanonicalEntity} from '../runtime/productState'
 import type {TimeState} from './TimeSurface'
+import {observerWithProvenance,siteObserver} from './observerProvenance'
+import {observerElevationSource} from '../../../../packages/runtime-protocol/observer-elevation.mjs'
 const selectionKey=(value:CanonicalEntity|null)=>value?JSON.stringify([value.catalog,value.source_id,value.model,value.ra??null,value.dec??null]):null
-const observerKey=(value:{lat:number;lon:number;elevationM:number})=>JSON.stringify([value.lat,value.lon,value.elevationM])
+const observerKey=(value:ObserverIntent&{elevationSource?:ElevationSource})=>JSON.stringify([value.lat,value.lon,value.elevationM,observerElevationSource(value,value.elevationSource,siteObserver)])
 export const EMPTY_SNAPSHOT:WorkspaceSnapshot={selection:null,layers:[],tracking:false}
 export function useWorkspaceRuntime(mode:RuntimeMode,search:string,onInteraction:(active:boolean,focused:boolean)=>void,onKey:(key:string)=>void,onNativeDeselection?:()=>void,onNativeSelection?:(entity:CanonicalEntity)=>void){
  const [session,setSession]=useState<{mode:RuntimeMode;client:RuntimeClient}|null>(null),[snapshot,setSnapshot]=useState(EMPTY_SNAPSHOT),[notice,setNotice]=useState('');const current=useRef<RuntimeClient|null>(null),interact=useRef(onInteraction);interact.current=onInteraction;const keyboard=useRef(onKey);keyboard.current=onKey
  const acknowledged=useRef({observer:'',selection:null as string|null}),lastQuery=useRef({client:null as RuntimeClient|null,selection:null as string|null})
  const selectionWork=useRef({revision:0,pending:0}),nativeDeselection=useRef(onNativeDeselection);nativeDeselection.current=onNativeDeselection
  const nativeSelection=useRef(onNativeSelection);nativeSelection.current=onNativeSelection
+ const latestSearch=useRef(search);latestSearch.current=search
  const client=session?.mode===mode?session.client:null
  const params=new URLSearchParams(search),[time,setTime]=useState<TimeState>({requested:parseSceneDate(params.get('date'))||new Date().toISOString(),effective:null,live:parseSceneDate(params.get('date'))===null,pending:false,error:false})
- const acceptClient=useCallback((value:RuntimeClient|null)=>{current.current=value;acknowledged.current={observer:observerKey(useRuntimeProductState.getState().observer),selection:null};selectionWork.current={revision:0,pending:0};lastQuery.current={client:null,selection:null};setSession(value?{mode,client:value}:null);setSnapshot(EMPTY_SNAPSHOT)},[mode])
+ const acceptClient=useCallback((value:RuntimeClient|null)=>{current.current=value;acknowledged.current={observer:observerKey(observerWithProvenance(useRuntimeProductState.getState().observer,latestSearch.current)),selection:null};selectionWork.current={revision:0,pending:0};lastQuery.current={client:null,selection:null};setSession(value?{mode,client:value}:null);setSnapshot(EMPTY_SNAPSHOT)},[mode])
  const request=useCallback(async(command:string,payload:unknown={},deadline=4000,expectedClient?:RuntimeClient)=>{
   const active=current.current;if(!active||expectedClient&&expectedClient!==active)return null
   const work=selectionWork.current,changesSelection=command==='selectEntity'||command==='clearSelection'
@@ -49,8 +52,9 @@ export function useWorkspaceRuntime(mode:RuntimeMode,search:string,onInteraction
   void(async()=>{
    const result=await request('setTimeIntent',{utc,live},12000);if(cancelled)return
    setTime(t=>({...t,pending:false,error:!result?.ok,effective:result?.ok?result.effectiveTime||null:t.effective}));if(!result?.ok)return;product.report(mode,result)
-   if(acknowledged.current.observer!==observerKey(product.observer)){
-    const observer=await request('setObserverIntent',product.observer,12000);if(cancelled||!observer?.ok)return
+   const observerIntent=observerWithProvenance(product.observer,search)
+   if(acknowledged.current.observer!==observerKey(observerIntent)){
+    const observer=await request('setObserverIntent',observerIntent,12000);if(cancelled||!observer?.ok)return
    }
    if(mode==='sky'&&changed){
     if(queryEntity&&acknowledged.current.selection!==key){const selected=await request('selectEntity',queryEntity,25000);if(!cancelled&&selected?.ok&&p.get('focus')==='1')await request('focusSelection',{},12000)}
