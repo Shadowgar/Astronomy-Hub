@@ -92,3 +92,32 @@ component had already been patched; its recorded bundle hash binds the pre-fix b
 [actual browser RED](evidence/coordinate-flight-red.json),
 [retained envelope-assertion attempt](evidence/coordinate-flight-envelope-attempt.json),
 [independent Hub builds](evidence/review-fix-builds.json).
+
+## Session provenance review correction
+
+The [second exact-head review](https://github.com/Shadowgar/Astronomy-Hub/pull/75#discussion_r4298109809)
+identified a separate P2: saved observer intent discarded elevation provenance,
+so a later observer-free URL could label an unavailable0m fallback as provided.
+The correction retains a validated optional source in product observer intent,
+serializes it, and uses that validated source only when no bound URL observer
+supersedes it. Explicit new URL observer/elevation intent still wins; invalid source
+claims are revalidated. No coordinates, heights or native astronomical math change.
+Legacy records that already lost their source cannot have that history invented.
+
+Two genuine unit failures became14 focused passing assertions including existing
+URL/source tests; full frontend270/270 in39 files and typecheck PASS. Two fresh
+129-file Hub outputs match. Actual desktop/mobile native Sky checks verify missing
+height and explicitly provided zero separately across observer-free URL restoration,
+with exact observer/time preserved. The first full unit run needed two existing
+observer-object assertions updated to include the newly retained metadata; that
+unsuccessful run is retained. Full stalled navigation suites are NOT rerun.
+
+[Qualification](evidence/review-session-qualification.json),
+[actual native browser proof](evidence/session-browser.json),
+[independent Hub builds](evidence/session-builds.json). Seven earlier browser families
+retain their original historical records; changed productState/observerProvenance
+inputs are explicitly admitted as this separately qualified source delta, not falsely
+called byte-identical.72 of73 originally protected paths remain unchanged; the sole
+changed helper is observerProvenance.ts for this verified P2. Original baseline
+hashes and all native outputs/data/settings/source pins/rollback copies are preserved.
+The prior coordinate-flight fix remains separately qualified and unchanged.

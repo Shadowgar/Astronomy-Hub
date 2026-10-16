@@ -104,6 +104,8 @@ docs/validation/n1-final-ux/evidence/fov-report-red.txt
 docs/validation/n1-final-ux/evidence/fov-silent-green.txt
 docs/validation/n1-final-ux/evidence/fov-silent-red.txt
 docs/validation/n1-final-ux/evidence/frontend-review-fix.txt
+docs/validation/n1-final-ux/evidence/frontend-session-fix.txt
+docs/validation/n1-final-ux/evidence/frontend-session-fixed.txt
 docs/validation/n1-final-ux/evidence/frontend-tests.txt
 docs/validation/n1-final-ux/evidence/git-working-log.txt
 docs/validation/n1-final-ux/evidence/git-working-status.txt
@@ -111,6 +113,8 @@ docs/validation/n1-final-ux/evidence/hub-alternate-build.txt
 docs/validation/n1-final-ux/evidence/hub-build.txt
 docs/validation/n1-final-ux/evidence/hub-first-build.txt
 docs/validation/n1-final-ux/evidence/hub-second-build.txt
+docs/validation/n1-final-ux/evidence/hub-session-first.txt
+docs/validation/n1-final-ux/evidence/hub-session-second.txt
 docs/validation/n1-final-ux/evidence/journeys-desktop-chrome-headless-attempt.txt
 docs/validation/n1-final-ux/evidence/journeys-desktop-dialog-selector-attempt.txt
 docs/validation/n1-final-ux/evidence/journeys-desktop-headed-attempt.txt
@@ -170,6 +174,8 @@ docs/validation/n1-final-ux/evidence/review-delivery-working-identities.json
 docs/validation/n1-final-ux/evidence/review-first-head-summary.json
 docs/validation/n1-final-ux/evidence/review-fix-builds.json
 docs/validation/n1-final-ux/evidence/review-fix-qualification.json
+docs/validation/n1-final-ux/evidence/review-second-head.json
+docs/validation/n1-final-ux/evidence/review-session-qualification.json
 docs/validation/n1-final-ux/evidence/review-start.json
 docs/validation/n1-final-ux/evidence/review-working-summary.txt
 docs/validation/n1-final-ux/evidence/runtime-tests-fixture-attempt.txt
@@ -182,6 +188,11 @@ docs/validation/n1-final-ux/evidence/satellite-run.txt
 docs/validation/n1-final-ux/evidence/selection-reproduction.json
 docs/validation/n1-final-ux/evidence/served-working-run.txt
 docs/validation/n1-final-ux/evidence/served-working.json
+docs/validation/n1-final-ux/evidence/session-browser.json
+docs/validation/n1-final-ux/evidence/session-browser.txt
+docs/validation/n1-final-ux/evidence/session-builds.json
+docs/validation/n1-final-ux/evidence/session-green.txt
+docs/validation/n1-final-ux/evidence/session-red.txt
 docs/validation/n1-final-ux/evidence/share-link-red.txt
 docs/validation/n1-final-ux/evidence/sky-alternate-build.txt
 docs/validation/n1-final-ux/evidence/sky-default-build.txt
@@ -194,6 +205,7 @@ docs/validation/n1-final-ux/evidence/time-unit-red.txt
 docs/validation/n1-final-ux/evidence/time-unit-unchanged-attempt.txt
 docs/validation/n1-final-ux/evidence/typecheck-green.txt
 docs/validation/n1-final-ux/evidence/typecheck-review-fix.txt
+docs/validation/n1-final-ux/evidence/typecheck-session-fix.txt
 docs/validation/n1-final-ux/evidence/typecheck.txt
 docs/validation/n1-final-ux/evidence/woodland-day-mobile.png
 docs/validation/n1-final-ux/evidence/woodland-night-desktop.png
@@ -210,6 +222,7 @@ docs/validation/n1-final-ux/reproduce-build.py.txt
 docs/validation/n1-final-ux/review-audit.py.txt
 docs/validation/n1-final-ux/review-delivery-docs.py.txt
 docs/validation/n1-final-ux/review-delivery-verifier.py.txt
+docs/validation/n1-final-ux/session-browser.mjs.txt
 frontend/public/licenses/README.txt
 frontend/public/licenses/cesium-license.txt
 frontend/public/licenses/sky-data-credits.html
@@ -218,6 +231,7 @@ frontend/public/oras-sky-engine/index.html
 frontend/public/oras-sky-engine/js/app.1a6796d9.js
 frontend/public/oras-sky-engine/oras-runtime-build.json
 frontend/public/runtime-versions.json
+frontend/src/features/runtime/productState.ts
 frontend/src/features/sky-engine/RuntimeHost.tsx
 frontend/src/features/workspace/AboutLicenses.tsx
 frontend/src/features/workspace/AdaptiveSkyChrome.tsx
@@ -227,13 +241,17 @@ frontend/src/features/workspace/SelectionDrawer.tsx
 frontend/src/features/workspace/SkyFovIndicator.tsx
 frontend/src/features/workspace/WorkspaceShell.tsx
 frontend/src/features/workspace/adaptiveSky.css
+frontend/src/features/workspace/observerProvenance.ts
 frontend/src/features/workspace/workspace.css
 frontend/src/features/workspace/workspaceRuntimeAdapter.ts
 frontend/tests/aboutLicenses.test.tsx
 frontend/tests/earthExploreFlight.test.tsx
 frontend/tests/licenseAssets.test.js
+frontend/tests/observerSessionProvenance.test.ts
+frontend/tests/runtimeProductState.test.ts
 frontend/tests/selectionPublicLink.test.tsx
 frontend/tests/skyFov.test.tsx
+frontend/tests/viewNavigation.test.ts
 frontend/tests/workspaceRuntimeAdapter.test.ts
 frontend/vite.config.mjs
 integrations/renderers.lock.json

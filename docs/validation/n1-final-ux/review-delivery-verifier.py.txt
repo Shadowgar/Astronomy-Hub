@@ -1,6 +1,7 @@
 import json,hashlib,subprocess,os,urllib.request
 from pathlib import Path
 r=Path('output/n1/final-ux');delivery=r/'review-only';delivery.mkdir(exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest();head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();committed=os.environ.get('N1_COMMITTED')=='1'
+session_fix=json.loads((delivery/'review-session-qualification.json').read_text());assert session_fix['status']=='PASS'
 names=['browser','satellite-recheck/browser','satellite-recheck/symbol-pixels','native-satellites','pennsylvania','journeys-desktop','journeys-mobile','observer-history','product-paths'];rows=[]
 for name in names:
  p=r/name/'proof.json';d=json.loads(p.read_text());expected='FAIL' if name in ['journeys-desktop','journeys-mobile'] else 'PASS';assert d['status']==expected,(name,d.get('error'))
@@ -12,6 +13,8 @@ for name in names:
   actual_expected=h
   if f=='frontend/src/features/workspace/EarthExplore.tsx' and sha(Path(f).read_bytes())!=h:
    assert name in ['journeys-desktop','journeys-mobile'],'Unexpected changed PASS-proof source';old=subprocess.check_output(['git','show','97eacd2d:'+f]);assert sha(old)==h;assert old.replace(b'<button className="ws-primary" onClick=',b'<button className="ws-primary" disabled={busy||pending} onClick=')==Path(f).read_bytes();actual_expected=sha(Path(f).read_bytes())
+  if f in session_fix['sourceBefore'] and sha(Path(f).read_bytes())!=h:
+   assert session_fix['sourceBefore'][f]==h and sha(Path(f).read_bytes())==session_fix['sourceAfter'][f];actual_expected=session_fix['sourceAfter'][f]
   assert sha(Path(f).read_bytes())==actual_expected,(name,f,'working source')
   if committed:assert sha(subprocess.check_output(['git','show',head+':'+f]))==actual_expected,(name,f,'committed source')
  rows.append({'name':name,'sha256':sha(p.read_bytes()),'runs':len(d['runs']),'steps':sum(len(x.get('steps',x.get('checks',[]))) for x in d['runs']),'scenes':sum(len(x.get('scenes',[])) for x in d['runs']),'pageErrors':sum(len(x.get('pageErrors',[])) for x in d['runs']),'resourceFailures':sum(len(x['resourceFailures']) for x in d['runs']) if all('resourceFailures' in x for x in d['runs']) else None})
@@ -30,7 +33,9 @@ icons=json.loads((r/'satellite-recheck/symbol-pixels/proof.json').read_text());a
 for run in icons['runs']:
  for s in run['scenes']:assert s['sha256']==sha((r/'satellite-recheck/browser'/s['file']).read_bytes())
 protected=json.loads((r/'preservation-before.json').read_text())['protectedFiles']
-for f,h in protected.items():assert sha(Path(f).read_bytes())==h,('protected',f)
+for f,h in protected.items():
+ if f=='frontend/src/features/workspace/observerProvenance.ts':assert h==session_fix['sourceBefore'][f] and sha(Path(f).read_bytes())==session_fix['sourceAfter'][f],('qualified provenance correction',f)
+ else:assert sha(Path(f).read_bytes())==h,('protected',f)
 mounts=json.loads(subprocess.check_output(['docker','inspect','oras-n1-owner-preview','--format','{{json .Mounts}}'],text=True));old=json.loads((r/'mounts-before.json').read_text());assert sorted(mounts,key=lambda x:x['Destination'])==sorted(old,key=lambda x:x['Destination']);(r/'mounts-after.json').write_text(json.dumps(mounts,indent=2)+'\n')
 served=[]
 lock=json.loads(Path('integrations/renderers.lock.json').read_text())
@@ -57,4 +62,10 @@ for f,h in focused['sourceHashes'].items():
   target='docs/validation/n1-final-ux/coordinate-flight-browser.mjs.txt' if f.endswith('flight-browser.mjs') else f
   assert sha(subprocess.check_output(['git','show',head+':'+target]))==h,('focused committed source',target)
 
-result={'status':'PARTIALLY QUALIFIED - OWNER-AUTHORIZED PR75 MERGE','identityChecks':'PASS','fullNavigationQualified':False,'focusedReviewCorrection':fix,'failedNavigationSourceDelta':'Only EarthExplore busy/pending disabled attribute differs from historical failed navigation sources; original records unchanged and not promoted to PASS.','historicalEvidenceNotRerun':True,'originalLicenseByteIdentity':legal,'head':head,'committedSources':committed,'records':rows,'uxMeasurements':summary,'protectedFilesUnchanged':len(protected),'mountsUnchanged':len(mounts),'servedExtensionsAndNotices':served,'skyArtifact':json.loads(Path('integrations/renderers.lock.json').read_text())['sky']['artifact_sha256']};(delivery/('committed-identities.json' if committed else 'working-identities.json')).write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
+session_proof=json.loads((delivery/'session-browser/proof.json').read_text());assert session_proof['status']=='PASS' and len(session_proof['runs'])==2 and all(x['status']=='PASS' and not x['pageErrors']for x in session_proof['runs'])
+for f,h in session_proof['sourceHashes'].items():
+ assert sha(Path(f).read_bytes())==h
+ if committed:
+  target='docs/validation/n1-final-ux/session-browser.mjs.txt' if f.endswith('/session-browser.mjs')else f
+  assert sha(subprocess.check_output(['git','show',head+':'+target]))==h
+result={'status':'PARTIALLY QUALIFIED - OWNER-AUTHORIZED PR75 MERGE','identityChecks':'PASS','fullNavigationQualified':False,'focusedReviewCorrection':fix,'historicalSourceDeltas':'EarthExplore pending guard plus validated productState/observerProvenance session-source correction; original records unchanged, changed behavior independently qualified; full navigation remains FAIL.','historicalEvidenceNotRerun':True,'originalLicenseByteIdentity':legal,'head':head,'committedSources':committed,'records':rows,'uxMeasurements':summary,'protectedFilesUnchanged':len(protected)-1,'protectedSourceReviewCorrection':'observerProvenance.ts - validated saved-source fallback only','sessionReviewCorrection':session_fix,'mountsUnchanged':len(mounts),'servedExtensionsAndNotices':served,'skyArtifact':json.loads(Path('integrations/renderers.lock.json').read_text())['sky']['artifact_sha256']};(delivery/('committed-identities.json' if committed else 'working-identities.json')).write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

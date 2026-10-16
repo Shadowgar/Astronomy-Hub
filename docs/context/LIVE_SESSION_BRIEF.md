@@ -30,6 +30,15 @@ navigation suites are NOT rerun; prior5/22 and7/22 remain FAIL. A follow-up exac
 review is required before the already-authorized PR75 merge. Native science,
 accepted wheel/controller/panorama/satellite policy and the three UX fixes are unchanged.
 
+Follow-up review of42741d52 found saved elevation provenance was discarded on session
+restoration. A validated optional source now persists with observer intent and is
+used only when no URL observer supersedes it. Focused RED/GREEN,270 frontend tests,
+typecheck,two identical129-file Hub builds and actual desktop/mobile missing/provided
+zero restoration PASS.72/73 protected paths remain byte-identical; the one reviewed
+helper correction is explicitly recorded, while data/settings/native/source pins and
+rollback copies remain unchanged. Earlier browser evidence is historical with the
+reviewed source deltas qualified separately. Full navigation5/22 and7/22 remains FAIL.
+
 Earlier N1 execution sections below are historical where they conflict with this override.
 
 ## Active N1 final UX corrections — owner directive 2026-10-16

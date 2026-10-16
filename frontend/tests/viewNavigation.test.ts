@@ -30,6 +30,6 @@ it.each([null,{catalog:'Gaia DR3',source_id:'5853498713190525696',model:'star',r
   useRuntimeProductState.getState().ingestSearch(url.search)
   const reloaded=useRuntimeProductState.getState()
   expect(reloaded.selection).toBeNull();expect(reloaded.pendingFocus).toBeNull()
-  expect(reloaded.observer).toEqual(sky.observer);expect(reloaded.requestedTime).toBe(sky.utc)
+  expect(reloaded.observer).toEqual({...sky.observer,elevationSource:sky.elevationSource});expect(reloaded.requestedTime).toBe(sky.utc)
  }finally{useRuntimeProductState.setState(previous)}
 })
