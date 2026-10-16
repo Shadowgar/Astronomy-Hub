@@ -1,0 +1,112 @@
+{
+  "states": [
+    {
+      "id": "26045",
+      "vmag": 14.851977420392,
+      "fov": 4.793883850419292,
+      "selected": null,
+      "point": {
+        "white": 5,
+        "difference": 0
+      },
+      "symbols": [
+        {
+          "offset": 2,
+          "green": 0,
+          "white": 5
+        },
+        {
+          "offset": 3,
+          "green": 0,
+          "white": 5
+        },
+        {
+          "offset": 4,
+          "green": 0,
+          "white": 5
+        }
+      ]
+    },
+    {
+      "id": "14136",
+      "vmag": 12.770532136241,
+      "fov": 4.793883850419292,
+      "selected": null,
+      "point": {
+        "white": 6,
+        "difference": 60
+      },
+      "symbols": [
+        {
+          "offset": 2,
+          "green": 0,
+          "white": 6
+        },
+        {
+          "offset": 3,
+          "green": 0,
+          "white": 6
+        },
+        {
+          "offset": 4,
+          "green": 104,
+          "white": 88
+        }
+      ]
+    },
+    {
+      "id": "31104",
+      "vmag": 11.995377861034,
+      "fov": 4.793883850419292,
+      "selected": null,
+      "point": {
+        "white": 45,
+        "difference": 600
+      },
+      "symbols": [
+        {
+          "offset": 2,
+          "green": 0,
+          "white": 45
+        },
+        {
+          "offset": 3,
+          "green": 106,
+          "white": 131
+        },
+        {
+          "offset": 4,
+          "green": 285,
+          "white": 176
+        }
+      ]
+    },
+    {
+      "id": "40986",
+      "vmag": 10.434196102586,
+      "fov": 4.793883850419292,
+      "selected": null,
+      "point": {
+        "white": 120,
+        "difference": 19729
+      },
+      "symbols": [
+        {
+          "offset": 2,
+          "green": 100,
+          "white": 120
+        },
+        {
+          "offset": 3,
+          "green": 257,
+          "white": 149
+        },
+        {
+          "offset": 4,
+          "green": 257,
+          "white": 149
+        }
+      ]
+    }
+  ]
+}

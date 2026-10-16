@@ -1,5 +1,9 @@
 # N1 final remediation — PR #75
 
+> Owner update2026-10-16: satellite zoom reveal is rejected. Prior direct-FOV
+> checks below are historical supporting evidence and do not qualify actual wheel
+> reveal. Active repair: [N1 satellite zoom reveal](../n1-satellite-zoom-reveal/README.md).
+
 Default Mode, single agent, branch `n1-sky-earth-navigation-1`, existing
 [PR #75](https://github.com/Shadowgar/Astronomy-Hub/pull/75) → #74 → #73.
 [Context ledger](loaded-documents.txt) lists the manifest's frontend/docs/validation/review

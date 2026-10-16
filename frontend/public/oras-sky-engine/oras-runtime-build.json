@@ -22,7 +22,7 @@
   "bridge_input_sha256": {
     "entry.mjs": "cb27d0292c3be9c2c69cb5033b1a2e4eeaeffd7ca7012d7cfc433e4ec6df8ab4",
     "native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749",
-    "satellite-presentation.mjs": "8e015954f5fcc014de08bee2d342d977e51fd0c0f2a0566886538f6aed0bcb1f"
+    "satellite-presentation.mjs": "8c5fef997f9da029c1729a1c85f6d289ddc447130a1700da48bfc149fa347cf2"
   },
   "wheel_input_sha256": "c6abb5dd80bb9dbdb24967edc425f2d379aff3ae00e655c20e1cfc2ecf3036fb",
   "navigation_input_sha256": {
@@ -30,5 +30,5 @@
     "navigation.mjs": "f0989fb05290cb6826c9223822dea80676300bb307ddbd77805745e890969768",
     "observer-elevation.mjs": "995aff7f3606561143b12dc033674435f025a677efd980aea1d8a2f4c4c235e3"
   },
-  "artifact_sha256": "d293874321c60bd3bd154c5a1696037d72d9a1f35c2415c6141d62fab6224d57"
+  "artifact_sha256": "4f0cd37f0b555917ed46b906db84083c34c6f664ee47c38a694c81cc0f8f2448"
 }

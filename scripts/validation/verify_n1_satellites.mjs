@@ -1,3 +1,4 @@
+// Direct-FOV supporting coverage; real wheel acceptance is verify_n1_satellite_zoom.mjs.
 // Real native objects, photometry and SGP4; no fabricated positions or marker layers.
 import assert from 'node:assert/strict';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
@@ -31,7 +32,7 @@ try{
   await centerTarget();await setFov(120);await discovery();const wide=await shot('wide-point');assert.equal(wide.state.hints,false);assert.equal(wide.state.satellitesVisible,true);assert.equal(wide.state.landscape,'pennsylvania-woodland-v1');assert.deepEqual(wide.state.source.model_data.tle,fixture.model_data.tle);assert.ok(Math.abs(wide.state.vmag-pinned.state.vmag)<1e-8);assert.ok(wide.pixels.centerWhite>0,'native photometric point remains at the tracked object');assert.ok(wide.pixels.green<overlay.pixels.green,'wide native hint clutter is removed');
   await frame().evaluate(()=>{const c=window.__ORAS_STEL.core;c.lock=0;c.time_speed=1});const motionBefore=await state();await page.waitForTimeout(3000);const moving=await shot('wide-point-moving');assert.ok(Math.hypot(...moving.state.radec.slice(0,3).map((v,i)=>v-motionBefore.radec[i]))>1e-10);run.movement={before:motionBefore,after:moving.state,nativeClockRate:1};
   await centerTarget();
-  for(const [fov,hints] of [[20,false],[5,true],[6,true],[7,false],[120,false]]){await setFov(fov);const row=await shot(`fov-${fov}`);assert.equal(row.state.hints,hints);assert.equal(row.state.offset,2)}
+  for(const [fov,hints] of [[20,false],[5,true],[6,true],[7,false],[120,false]]){await setFov(fov);const row=await shot(`fov-${fov}`);assert.equal(row.state.hints,hints);assert.equal(row.state.offset,hints?4:2)}
   // Native mouse-down is sampled on render frames. Deliver a real held pointer,
   // or native touch events, so software-renderer cadence cannot drop the press.
   await frame().evaluate(()=>window.__ORAS_STEL.core.lock=0);const box=await frame().locator('#stel-canvas').boundingBox(),point={x:box.x+box.width/2,y:box.y+box.height/2};
@@ -40,7 +41,7 @@ try{
   await page.waitForTimeout(1200);const selected=await shot('selected-wide');assert.equal(selected.state.hints,true);assert.equal(selected.state.offset,-30);assert.equal(selected.state.snapshot.selection.source_id,norad);assert.equal(selected.state.snapshot.selection.catalog,'Satellite TLE (local)');assert.ok(selected.state.snapshot.selection.facts.some(f=>f.label==='NORAD'&&f.value===norad));
   if(mobile&&!await page.getByRole('button',{name:'Focus',exact:true}).first().isVisible())await page.getByRole('button',{name:'Selected object',exact:true}).click();const focus=page.getByRole('button',{name:'Focus',exact:true}).first();if(mobile)await focus.tap();else await focus.click();await frame().waitForFunction(norad=>String(window.__ORAS_STEL.core.lock?.jsonData?.model_data?.norad_number)===norad,norad,{timeout:12000});assert.equal(String((await state()).locked),norad);run.focusMessages=await frame().evaluate(()=>window.__n1FocusMessages);
   if(mobile)await page.getByRole('button',{name:'Close sheet',exact:true}).click();
-  await setFov(1);const close=await shot('selected-close');assert.equal(close.state.hints,true);assert.equal(close.state.offset,2);
+  await setFov(1);const close=await shot('selected-close');assert.equal(close.state.hints,true);assert.equal(close.state.offset,4);
   await frame().evaluate(()=>window.__ORAS_STEL.core.time_speed=1);const lockBefore=await state();await page.waitForTimeout(2000);const tracked=await shot('focus-native-tracking');assert.equal(String(tracked.state.locked),norad);assert.notEqual(tracked.state.view.utc,lockBefore.view.utc);assert.ok(Math.abs(tracked.state.view.camera.yawRad-lockBefore.view.camera.yawRad)+Math.abs(tracked.state.view.camera.pitchRad-lockBefore.view.camera.pitchRad)>1e-8);
   run.modelAvailability=await frame().evaluate(()=>['25544','20580'].map(id=>{const obj=window.__ORAS_STEL.getObj('NORAD '+id);if(!obj)return {id,present:false};try{return{id,present:true,canOrbit:obj.jsonData.can_orbit===true}}finally{obj.destroy()}}));
   await frame().evaluate(()=>{window.orasSkyAdapter.clear();const c=window.__ORAS_STEL.core;c.lock=0;c.time_speed=0});await centerTarget();await setFov(120);assert.equal((await state()).hints,false);

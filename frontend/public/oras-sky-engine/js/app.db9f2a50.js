@@ -14325,16 +14325,26 @@ function satellitePresentation(core) {
   var sats = core.satellites;
   var originalVisible = null,
       originalOffset = null,
+      appliedOffset = null,
       close = false;
 
   var set = function set(key, value) {
     if (sats[key] !== value) sats[key] = value;
   };
 
+  function applyOffset(value) {
+    var minimum = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    if (originalOffset === null || sats.hints_mag_offset !== appliedOffset) originalOffset = sats.hints_mag_offset;
+    appliedOffset = minimum ? Math.max(originalOffset, value) : value;
+    set('hints_mag_offset', appliedOffset);
+  }
+
   function restoreOffset() {
     if (originalOffset !== null) {
-      set('hints_mag_offset', originalOffset);
+      var value = originalOffset;
       originalOffset = null;
+      appliedOffset = null;
+      set('hints_mag_offset', value);
     }
   }
 
@@ -14359,11 +14369,15 @@ function satellitePresentation(core) {
     var degrees = fovRad * 180 / Math.PI;
     close = Number.isFinite(degrees) && (close ? degrees < 7 - 1e-8 : degrees <= 5 + 1e-8);
 
-    if (!close && selectedSatellite) {
+    if (close && originalVisible) {
+      // The native point and hint magnitude gates differ. Offset 4 reveals the
+      // measured close-view point-only cases without changing their photometry.
+      applyOffset(4, true);
+      set('hints_visible', originalVisible);
+    } else if (!close && selectedSatellite) {
       // Native rendering exempts the selected object from the magnitude hint gate.
       // Suppress other hints without changing any satellite's computed brightness.
-      if (originalOffset === null || sats.hints_mag_offset !== -30) originalOffset = sats.hints_mag_offset;
-      set('hints_mag_offset', -30);
+      applyOffset(-30);
       set('hints_visible', originalVisible);
     } else {
       restoreOffset();

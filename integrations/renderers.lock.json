@@ -530,7 +530,7 @@
     },
     "overlay_version": "oras-sky-workspace.1",
     "build_recipe": "scripts/runtime/build_sky_horizon.sh",
-    "artifact_sha256": "d293874321c60bd3bd154c5a1696037d72d9a1f35c2415c6141d62fab6224d57",
+    "artifact_sha256": "4f0cd37f0b555917ed46b906db84083c34c6f664ee47c38a694c81cc0f8f2448",
     "artifact_files": [
       {
         "path": "css/app.e3189512.css",
@@ -985,12 +985,12 @@
       {
         "path": "index.html",
         "bytes": 1960,
-        "sha256": "a5f5cb77edab6d596bf80392e129f22fed66a63e7b661ab988017dc875f1524c"
+        "sha256": "d806023f9787e4551976ad2a35d43666fd34b5ff4c7a1ad6e3a7ce3f95df18bb"
       },
       {
-        "path": "js/app.8c0b384f.js",
-        "bytes": 600854,
-        "sha256": "2786b9d8a4a3f93f5e26986223cf759668822031dd5236dcf1954453cf0883a7"
+        "path": "js/app.db9f2a50.js",
+        "bytes": 601453,
+        "sha256": "cef2f20d948dad6f1c9151fb6e54ee5ab37792c75f02e2d4caccbfebc21b4da9"
       },
       {
         "path": "js/chunk-2d2253ec.81e41965.js",
@@ -1085,7 +1085,7 @@
       {
         "path": "oras-runtime-build.json",
         "bytes": 2078,
-        "sha256": "f28ed27564caf8919d756994e1f8a0eaf511730008f4fbd49e5e95a223a6e196"
+        "sha256": "3bf50c4e84bc041016653bcf02d32fdeadffc6fd62888224c297f62f22e3793a"
       }
     ],
     "rollback_frontend_image": "sha256:bfa5e2a6edcc71975d5e084b6a5388658515a891fc46f1f10c09e2c9e30e55d3",
@@ -1095,7 +1095,7 @@
     "bridge_input_sha256": {
       "entry.mjs": "cb27d0292c3be9c2c69cb5033b1a2e4eeaeffd7ca7012d7cfc433e4ec6df8ab4",
       "native-panels.mjs": "42e5c3940284366c85a3f157a3367e817ac3b8ffc31f1f2d89dadccea9e5c749",
-      "satellite-presentation.mjs": "8e015954f5fcc014de08bee2d342d977e51fd0c0f2a0566886538f6aed0bcb1f"
+      "satellite-presentation.mjs": "8c5fef997f9da029c1729a1c85f6d289ddc447130a1700da48bfc149fa347cf2"
     },
     "navigation_input_sha256": {
       "continued-input.mjs": "4a5e30059d838095bb9b1412f4d84c0fc6364716dfaf4e0e97050bd472a9264e",

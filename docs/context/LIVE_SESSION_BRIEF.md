@@ -1,5 +1,36 @@
 # LIVE SESSION BRIEF
 
+## Active N1 satellite zoom reveal repair — owner directive 2026-10-16
+
+Default Mode, single agent, existing `n1-sky-earth-navigation-1` / PR #75 → #74 → #73.
+The owner rejects the satellite presentation at `9cb158e35a1623be81263155c10839e14626c312`:
+wide-field points work, but real mouse-wheel zoom fails to reveal symbols without
+clicking. Prior direct-FOV Chromium checks do not qualify this reported journey.
+Scrolling at `301f9eb3` and Pennsylvania scenery at `53ac7478` remain OWNER ACCEPTED;
+Adaptive Explorer direction is preserved. Prior five P2 findings remain resolved,
+subject to no regressions. Satellite zoom reveal is PENDING OWNER RETEST; entire N1
+is NOT YET FINALIZED. PR #75 stays OPEN AND UNMERGED.
+
+Investigate native/reactive FOV, hint controls, native magnitude gate and actual
+pixels under real wheel/trackpad/touch input before a minimal contained adapter
+fix. Preserve native propagation/photometry/coordinates, original TLE/catalog bytes,
+observer/time, selection/NORAD/Focus/tracking, accepted input gain/camera animation,
+landscape assets, lifecycle, settings/volumes and existing rollbacks. No new native
+C/WASM change, dependency/provider/spending, merge, deployment or R2/R3. Qualify
+real Docker/browser input with RED/GREEN evidence and committed/served identities,
+then STOP for owner testing at <http://127.0.0.1:4202/sky-engine>.
+
+Repair qualification: native close-view hint floor 4, with unchanged accepted
+5°/7° transition and wheel/camera behavior. Focused RED/GREEN, 153 runtime/Earth
+and 252 frontend tests, six source/promotion regressions, typechecking, independent
+builds, seven real-input pixel journeys, central-icon checks, 30 native satellite
+scenes, 44 navigation groups and four observer-history variants pass. Data/HiPS
+request failures and historical/software limitations remain explicitly recorded in
+[the scoped report](../validation/n1-satellite-zoom-reveal/README.md). Final committed/served/review identity is guarded by
+the report's post-commit receipt. Satellite remains PENDING OWNER RETEST; no merge.
+
+
+
 ## PR #75 — final remediation, owner directive 2026-10-15
 
 Default Mode, single agent, existing `n1-sky-earth-navigation-1` / PR #75 → #74 →
